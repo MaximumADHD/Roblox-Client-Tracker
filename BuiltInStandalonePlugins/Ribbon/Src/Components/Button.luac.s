@@ -154,29 +154,36 @@ PROTO_1:
       189 GETTABLEKS                       R16 R17 K19 ["createElement"]
       191 LOADK                            R17 K47 ["TextLabel"]
       192 NEWTABLE                         R18 2 0
-      194 GETTABLEKS                       R19 R0 K13 ["Text"]
-      196 SETTABLEKS                       R19 R18 K13 ["Text"]
-      198 GETUPVAL                         R20 3
-      199 GETTABLEKS                       R19 R20 K28 ["Tag"]
-      201 GETUPVAL                         R20 5
-      202 LOADK                            R21 K48 ["Role-Surface X-Fit"]
-      203 GETTABLEKS                       R23 R0 K2 ["Size"]
-      205 JUMPIFNOTEQKS                    R23 K3 ["Small"] ; [+3]
-      207 LOADK                            R22 K3 ["Small"]
-      208 JUMP                             ; [+7]
-      209 GETTABLEKS                       R23 R0 K2 ["Size"]
-      211 JUMPIFNOTEQKS                    R23 K4 ["Large"] ; [+3]
-      213 LOADK                            R22 K4 ["Large"]
-      214 JUMP                             ; [+1]
-      215 LOADNIL                          R22
-      216 CALL                             R20 2 1
-      217 SETTABLE                         R20 R18 R19
-      218 CALL                             R16 2 1
-      219 SETTABLEKS                       R16 R15 K40 ["ButtonText"]
-      221 CALL                             R12 3 1
-      222 SETTABLEKS                       R12 R11 K34 ["StateLayer"]
-      224 CALL                             R8 3 -1
-      225 RETURN                           R8 -1
+      194 GETUPVAL                         R20 7
+      195 CALL                             R20 0 1
+      196 JUMPIFNOT                        R20 ; [+6]
+      197 GETTABLEKS                       R20 R0 K48 ["ShortTitle"]
+      199 JUMPIFNOT                        R20 ; [+3]
+      200 GETTABLEKS                       R19 R0 K48 ["ShortTitle"]
+      202 JUMP                             ; [+2]
+      203 GETTABLEKS                       R19 R0 K13 ["Text"]
+      205 SETTABLEKS                       R19 R18 K13 ["Text"]
+      207 GETUPVAL                         R20 3
+      208 GETTABLEKS                       R19 R20 K28 ["Tag"]
+      210 GETUPVAL                         R20 5
+      211 LOADK                            R21 K49 ["Role-Surface X-Fit"]
+      212 GETTABLEKS                       R23 R0 K2 ["Size"]
+      214 JUMPIFNOTEQKS                    R23 K3 ["Small"] ; [+3]
+      216 LOADK                            R22 K3 ["Small"]
+      217 JUMP                             ; [+7]
+      218 GETTABLEKS                       R23 R0 K2 ["Size"]
+      220 JUMPIFNOTEQKS                    R23 K4 ["Large"] ; [+3]
+      222 LOADK                            R22 K4 ["Large"]
+      223 JUMP                             ; [+1]
+      224 LOADNIL                          R22
+      225 CALL                             R20 2 1
+      226 SETTABLE                         R20 R18 R19
+      227 CALL                             R16 2 1
+      228 SETTABLEKS                       R16 R15 K40 ["ButtonText"]
+      230 CALL                             R12 3 1
+      231 SETTABLEKS                       R12 R11 K34 ["StateLayer"]
+      233 CALL                             R8 3 -1
+      234 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -224,12 +231,18 @@ MAIN:
        74 CALL                             R10 1 1
        75 GETTABLEKS                       R12 R10 K16 ["Hooks"]
        77 GETTABLEKS                       R11 R12 K20 ["useWidgetRef"]
-       79 DUPCLOSURE                       R12 K21 [PROTO_1]
-       80 CAPTURE                          VAL R11
-       81 CAPTURE                          VAL R2
-       82 CAPTURE                          VAL R9
-       83 CAPTURE                          VAL R1
-       84 CAPTURE                          VAL R8
-       85 CAPTURE                          VAL R7
-       86 CAPTURE                          VAL R3
-       87 RETURN                           R12 1
+       79 GETIMPORT                        R12 K5 [require]
+       81 GETTABLEKS                       R15 R0 K8 ["Src"]
+       83 GETTABLEKS                       R14 R15 K21 ["SharedFlags"]
+       85 GETTABLEKS                       R13 R14 K22 ["getFeatureStudioActionShortNames"]
+       87 CALL                             R12 1 1
+       88 DUPCLOSURE                       R13 K23 [PROTO_1]
+       89 CAPTURE                          VAL R11
+       90 CAPTURE                          VAL R2
+       91 CAPTURE                          VAL R9
+       92 CAPTURE                          VAL R1
+       93 CAPTURE                          VAL R8
+       94 CAPTURE                          VAL R7
+       95 CAPTURE                          VAL R3
+       96 CAPTURE                          VAL R12
+       97 RETURN                           R13 1

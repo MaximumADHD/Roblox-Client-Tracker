@@ -1,10 +1,15 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K2 [{"displayName", "testMatch"}]
-        2 LOADK                            R1 K3 ["Reimport:src"]
-        3 SETTABLEKS                       R1 R0 K0 ["displayName"]
-        5 NEWTABLE                         R1 0 1
-        7 LOADK                            R2 K4 ["**/*.test"]
-        8 SETLIST                          R1 R2 1 [1]
-       10 SETTABLEKS                       R1 R0 K1 ["testMatch"]
-       12 RETURN                           R0 1
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["ReimportPlugin"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Tests"]
+       11 GETTABLEKS                       R2 R3 K7 ["TestMatch"]
+       13 CALL                             R1 1 1
+       14 DUPTABLE                         R2 K10 [{"displayName", "testMatch"}]
+       15 LOADK                            R3 K11 ["Reimport:src"]
+       16 SETTABLEKS                       R3 R2 K8 ["displayName"]
+       18 SETTABLEKS                       R1 R2 K9 ["testMatch"]
+       20 RETURN                           R2 1

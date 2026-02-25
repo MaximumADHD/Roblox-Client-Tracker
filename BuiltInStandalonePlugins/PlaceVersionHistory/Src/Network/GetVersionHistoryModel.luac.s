@@ -19,7 +19,7 @@ MAIN:
        28 GETTABLEKS                       R4 R1 K14 ["optional"]
        30 GETTABLEKS                       R5 R1 K16 ["array"]
        32 GETTABLEKS                       R6 R1 K8 ["interface"]
-       34 DUPTABLE                         R7 K26 [{"version", "title", "description", "contributors", "createdBy", "saveType", "isPublished", "hasNotes", "createdTime"}]
+       34 DUPTABLE                         R7 K27 [{"version", "title", "description", "contributors", "createdBy", "saveType", "publishStatus", "isPublished", "hasNotes", "createdTime"}]
        35 GETTABLEKS                       R8 R1 K15 ["string"]
        37 SETTABLEKS                       R8 R7 K17 ["version"]
        39 GETTABLEKS                       R8 R1 K14 ["optional"]
@@ -32,33 +32,41 @@ MAIN:
        51 SETTABLEKS                       R8 R7 K19 ["description"]
        53 GETTABLEKS                       R8 R1 K14 ["optional"]
        55 GETTABLEKS                       R9 R1 K16 ["array"]
-       57 GETTABLEKS                       R10 R1 K27 ["number"]
+       57 GETTABLEKS                       R10 R1 K28 ["number"]
        59 CALL                             R9 1 1
        60 CALL                             R8 1 1
        61 SETTABLEKS                       R8 R7 K20 ["contributors"]
        63 GETTABLEKS                       R8 R1 K14 ["optional"]
-       65 GETTABLEKS                       R9 R1 K28 ["integer"]
+       65 GETTABLEKS                       R9 R1 K29 ["integer"]
        67 CALL                             R8 1 1
        68 SETTABLEKS                       R8 R7 K21 ["createdBy"]
-       70 GETTABLEKS                       R8 R1 K29 ["intersection"]
-       72 GETTABLEKS                       R9 R1 K28 ["integer"]
-       74 GETTABLEKS                       R10 R1 K30 ["numberConstrained"]
+       70 GETTABLEKS                       R8 R1 K30 ["intersection"]
+       72 GETTABLEKS                       R9 R1 K29 ["integer"]
+       74 GETTABLEKS                       R10 R1 K31 ["numberConstrained"]
        76 LOADN                            R11 0
        77 LOADN                            R12 2
        78 CALL                             R10 2 -1
        79 CALL                             R8 -1 1
        80 SETTABLEKS                       R8 R7 K22 ["saveType"]
-       82 GETTABLEKS                       R8 R1 K13 ["boolean"]
-       84 SETTABLEKS                       R8 R7 K23 ["isPublished"]
-       86 GETTABLEKS                       R8 R1 K13 ["boolean"]
-       88 SETTABLEKS                       R8 R7 K24 ["hasNotes"]
-       90 GETTABLEKS                       R8 R1 K15 ["string"]
-       92 SETTABLEKS                       R8 R7 K25 ["createdTime"]
-       94 CALL                             R6 1 1
-       95 CALL                             R5 1 1
-       96 CALL                             R4 1 1
-       97 SETTABLEKS                       R4 R3 K11 ["placeVersions"]
-       99 CALL                             R2 1 1
-      100 DUPTABLE                         R3 K32 [{"validate"}]
-      101 SETTABLEKS                       R2 R3 K31 ["validate"]
-      103 RETURN                           R3 1
+       82 GETTABLEKS                       R8 R1 K30 ["intersection"]
+       84 GETTABLEKS                       R9 R1 K29 ["integer"]
+       86 GETTABLEKS                       R10 R1 K31 ["numberConstrained"]
+       88 LOADN                            R11 0
+       89 LOADN                            R12 2
+       90 CALL                             R10 2 -1
+       91 CALL                             R8 -1 1
+       92 SETTABLEKS                       R8 R7 K23 ["publishStatus"]
+       94 GETTABLEKS                       R8 R1 K13 ["boolean"]
+       96 SETTABLEKS                       R8 R7 K24 ["isPublished"]
+       98 GETTABLEKS                       R8 R1 K13 ["boolean"]
+      100 SETTABLEKS                       R8 R7 K25 ["hasNotes"]
+      102 GETTABLEKS                       R8 R1 K15 ["string"]
+      104 SETTABLEKS                       R8 R7 K26 ["createdTime"]
+      106 CALL                             R6 1 1
+      107 CALL                             R5 1 1
+      108 CALL                             R4 1 1
+      109 SETTABLEKS                       R4 R3 K11 ["placeVersions"]
+      111 CALL                             R2 1 1
+      112 DUPTABLE                         R3 K33 [{"validate"}]
+      113 SETTABLEKS                       R2 R3 K32 ["validate"]
+      115 RETURN                           R3 1

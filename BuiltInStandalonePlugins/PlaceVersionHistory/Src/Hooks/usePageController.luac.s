@@ -137,7 +137,7 @@ PROTO_4:
        54 GETTABLEKS                       R6 R7 K9 ["current"]
        56 JUMPIFNOT                        R6 ; [+1]
        57 RETURN                           R0 0
-       58 DUPTABLE                         R6 K20 [{"placeId", "startDate", "endDate", "saveType", "published", "hasNotes", "contributor", "search", "pageSize", "cursor"}]
+       58 DUPTABLE                         R6 K20 [{"placeId", "startDate", "endDate", "saveType", "isPublished", "hasNotes", "contributor", "search", "pageSize", "cursor"}]
        59 GETUPVAL                         R8 8
        60 GETTABLEKS                       R7 R8 K10 ["placeId"]
        62 SETTABLEKS                       R7 R6 K10 ["placeId"]
@@ -149,8 +149,8 @@ PROTO_4:
        71 GETTABLEKS                       R7 R8 K13 ["saveType"]
        73 SETTABLEKS                       R7 R6 K13 ["saveType"]
        75 GETUPVAL                         R8 8
-       76 GETTABLEKS                       R7 R8 K14 ["published"]
-       78 SETTABLEKS                       R7 R6 K14 ["published"]
+       76 GETTABLEKS                       R7 R8 K14 ["isPublished"]
+       78 SETTABLEKS                       R7 R6 K14 ["isPublished"]
        80 GETUPVAL                         R8 8
        81 GETTABLEKS                       R7 R8 K15 ["hasNotes"]
        83 SETTABLEKS                       R7 R6 K15 ["hasNotes"]
@@ -206,7 +206,7 @@ PROTO_5:
        15 LOADNIL                          R1
        16 CALL                             R0 1 0
        17 GETUPVAL                         R1 4
-       18 GETTABLEKS                       R0 R1 K1 ["setPublished"]
+       18 GETTABLEKS                       R0 R1 K1 ["setIsPublished"]
        20 LOADNIL                          R1
        21 CALL                             R0 1 0
        22 GETUPVAL                         R1 4
@@ -292,7 +292,7 @@ PROTO_6:
        92 MOVE                             R34 R10
        93 MOVE                             R35 R2
        94 GETTABLEKS                       R36 R1 K4 ["saveType"]
-       96 GETTABLEKS                       R37 R1 K5 ["published"]
+       96 GETTABLEKS                       R37 R1 K5 ["isPublished"]
        98 GETTABLEKS                       R38 R1 K6 ["hasNotes"]
       100 GETTABLEKS                       R39 R1 K7 ["placeId"]
       102 GETTABLEKS                       R40 R1 K8 ["universeId"]
@@ -325,7 +325,7 @@ PROTO_6:
       133 MOVE                             R32 R20
       134 SETLIST                          R29 R30 3 [1]
       136 CALL                             R27 2 0
-      137 DUPTABLE                         R27 K31 [{"page", "pageNumber", "maxPageNumber", "setPageNumber", "pageSize", "setPageSize", "isDone", "isFailure", "isFiltered", "isEmpty", "clearFilters", "search", "setSearch", "startDate", "setStartDate", "endDate", "setEndDate", "saveType", "setSaveType", "published", "setPublished", "hasNotes", "setHasNotes", "contributor", "setContributor"}]
+      137 DUPTABLE                         R27 K31 [{"page", "pageNumber", "maxPageNumber", "setPageNumber", "pageSize", "setPageSize", "isDone", "isFailure", "isFiltered", "isEmpty", "clearFilters", "search", "setSearch", "startDate", "setStartDate", "endDate", "setEndDate", "saveType", "setSaveType", "isPublished", "setIsPublished", "hasNotes", "setHasNotes", "contributor", "setContributor"}]
       138 SETTABLEKS                       R16 R27 K9 ["page"]
       140 SETTABLEKS                       R14 R27 K10 ["pageNumber"]
       142 SETTABLEKS                       R18 R27 K11 ["maxPageNumber"]
@@ -346,7 +346,7 @@ PROTO_6:
       167 GETTABLEKS                       R29 R1 K4 ["saveType"]
       169 JUMPIFNOTEQKNIL                  R29 ; [+12]
       171 LOADB                            R28 1
-      172 GETTABLEKS                       R29 R1 K5 ["published"]
+      172 GETTABLEKS                       R29 R1 K5 ["isPublished"]
       174 JUMPIFNOTEQKNIL                  R29 ; [+7]
       176 GETTABLEKS                       R29 R1 K6 ["hasNotes"]
       178 JUMPIFNOTEQKNIL                  R29 ; [+2]
@@ -379,10 +379,10 @@ PROTO_6:
       219 SETTABLEKS                       R28 R27 K4 ["saveType"]
       221 GETTABLEKS                       R28 R1 K26 ["setSaveType"]
       223 SETTABLEKS                       R28 R27 K26 ["setSaveType"]
-      225 GETTABLEKS                       R28 R1 K5 ["published"]
-      227 SETTABLEKS                       R28 R27 K5 ["published"]
-      229 GETTABLEKS                       R28 R1 K27 ["setPublished"]
-      231 SETTABLEKS                       R28 R27 K27 ["setPublished"]
+      225 GETTABLEKS                       R28 R1 K5 ["isPublished"]
+      227 SETTABLEKS                       R28 R27 K5 ["isPublished"]
+      229 GETTABLEKS                       R28 R1 K27 ["setIsPublished"]
+      231 SETTABLEKS                       R28 R27 K27 ["setIsPublished"]
       233 GETTABLEKS                       R28 R1 K6 ["hasNotes"]
       235 SETTABLEKS                       R28 R27 K6 ["hasNotes"]
       237 GETTABLEKS                       R28 R1 K28 ["setHasNotes"]

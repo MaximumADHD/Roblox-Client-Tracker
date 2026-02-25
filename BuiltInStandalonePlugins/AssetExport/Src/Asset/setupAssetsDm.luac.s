@@ -136,6 +136,34 @@ PROTO_14:
        11 RETURN                           R0 0
 
 PROTO_15:
+        0 GETIMPORT                        R1 K1 [pcall]
+        2 GETUPVAL                         R2 0
+        3 MOVE                             R3 R0
+        4 CALL                             R1 2 1
+        5 JUMPIFNOT                        R1 ; [+6]
+        6 GETUPVAL                         R2 1
+        7 LOADK                            R4 K2 ["OnCreateAttachmentsSucceeded"]
+        8 NAMECALL                         R2 R2 K3 ["Invoke"]
+       10 CALL                             R2 2 0
+       11 RETURN                           R0 0
+       12 GETIMPORT                        R2 K5 [warn]
+       14 LOADK                            R3 K6 ["Failed to create attachments"]
+       15 CALL                             R2 1 0
+       16 RETURN                           R0 0
+
+PROTO_16:
+        0 GETIMPORT                        R1 K1 [pcall]
+        2 GETUPVAL                         R2 0
+        3 MOVE                             R3 R0
+        4 CALL                             R1 2 1
+        5 JUMPIFNOT                        R1 ; [+5]
+        6 GETUPVAL                         R2 1
+        7 LOADK                            R4 K2 ["OnDestroyAttachmentsSucceeded"]
+        8 NAMECALL                         R2 R2 K3 ["Invoke"]
+       10 CALL                             R2 2 0
+       11 RETURN                           R0 0
+
+PROTO_17:
         0 LOADK                            R3 K0 ["Actions"]
         1 NAMECALL                         R1 R0 K1 ["GetPluginComponent"]
         3 CALL                             R1 2 1
@@ -302,7 +330,30 @@ PROTO_15:
       208 FASTCALL                         TABLE_INSERT ; [+2]
       209 GETIMPORT                        R3 K6 [table.insert]
       211 CALL                             R3 -1 0
-      212 RETURN                           R2 1
+      212 GETUPVAL                         R3 6
+      213 CALL                             R3 0 1
+      214 JUMPIFNOT                        R3 ; [+24]
+      215 MOVE                             R4 R2
+      216 LOADK                            R7 K23 ["OnCreateAttachmentParts"]
+      217 NEWCLOSURE                       R8 P15
+      218 CAPTURE                          UPVAL U7
+      219 CAPTURE                          VAL R0
+      220 NAMECALL                         R5 R0 K15 ["OnInvoke"]
+      222 CALL                             R5 3 -1
+      223 FASTCALL                         TABLE_INSERT ; [+2]
+      224 GETIMPORT                        R3 K6 [table.insert]
+      226 CALL                             R3 -1 0
+      227 MOVE                             R4 R2
+      228 LOADK                            R7 K24 ["OnDestroyAttachmentParts"]
+      229 NEWCLOSURE                       R8 P16
+      230 CAPTURE                          UPVAL U8
+      231 CAPTURE                          VAL R0
+      232 NAMECALL                         R5 R0 K15 ["OnInvoke"]
+      234 CALL                             R5 3 -1
+      235 FASTCALL                         TABLE_INSERT ; [+2]
+      236 GETIMPORT                        R3 K6 [table.insert]
+      238 CALL                             R3 -1 0
+      239 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -327,36 +378,54 @@ MAIN:
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
        36 GETTABLEKS                       R7 R0 K6 ["Src"]
-       38 GETTABLEKS                       R6 R7 K11 ["Flags"]
-       40 GETTABLEKS                       R5 R6 K12 ["getFFlagCreateCagesOnAssetDm"]
+       38 GETTABLEKS                       R6 R7 K7 ["Util"]
+       40 GETTABLEKS                       R5 R6 K11 ["createAttachments"]
        42 CALL                             R4 1 1
-       43 DUPTABLE                         R5 K18 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-       44 LOADK                            R6 K19 ["Standalone"]
-       45 SETTABLEKS                       R6 R5 K13 ["DataModel"]
-       47 LOADK                            R6 K20 ["Unknown"]
-       48 SETTABLEKS                       R6 R5 K14 ["PluginType"]
-       50 LOADK                            R6 K21 ["Export"]
-       51 SETTABLEKS                       R6 R5 K15 ["PluginId"]
-       53 LOADK                            R6 K22 ["Actions"]
-       54 SETTABLEKS                       R6 R5 K16 ["Category"]
-       56 LOADK                            R6 K23 ["ExportAsGltf"]
-       57 SETTABLEKS                       R6 R5 K17 ["ItemId"]
-       59 DUPTABLE                         R6 K18 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-       60 LOADK                            R7 K19 ["Standalone"]
-       61 SETTABLEKS                       R7 R6 K13 ["DataModel"]
-       63 LOADK                            R7 K20 ["Unknown"]
-       64 SETTABLEKS                       R7 R6 K14 ["PluginType"]
-       66 LOADK                            R7 K21 ["Export"]
-       67 SETTABLEKS                       R7 R6 K15 ["PluginId"]
-       69 LOADK                            R7 K22 ["Actions"]
-       70 SETTABLEKS                       R7 R6 K16 ["Category"]
-       72 LOADK                            R7 K24 ["ExportPlaceAsGltf"]
-       73 SETTABLEKS                       R7 R6 K17 ["ItemId"]
-       75 DUPCLOSURE                       R7 K25 [PROTO_15]
-       76 CAPTURE                          VAL R5
-       77 CAPTURE                          VAL R6
-       78 CAPTURE                          VAL R1
-       79 CAPTURE                          VAL R4
-       80 CAPTURE                          VAL R2
-       81 CAPTURE                          VAL R3
-       82 RETURN                           R7 1
+       43 GETIMPORT                        R5 K5 [require]
+       45 GETTABLEKS                       R8 R0 K6 ["Src"]
+       47 GETTABLEKS                       R7 R8 K7 ["Util"]
+       49 GETTABLEKS                       R6 R7 K12 ["destroyAttachments"]
+       51 CALL                             R5 1 1
+       52 GETIMPORT                        R6 K5 [require]
+       54 GETTABLEKS                       R9 R0 K6 ["Src"]
+       56 GETTABLEKS                       R8 R9 K13 ["Flags"]
+       58 GETTABLEKS                       R7 R8 K14 ["getFFlagCreateCagesOnAssetDm"]
+       60 CALL                             R6 1 1
+       61 GETIMPORT                        R7 K5 [require]
+       63 GETTABLEKS                       R10 R0 K6 ["Src"]
+       65 GETTABLEKS                       R9 R10 K13 ["Flags"]
+       67 GETTABLEKS                       R8 R9 K15 ["getFFlagCreateAttachmentsOnAssetDm"]
+       69 CALL                             R7 1 1
+       70 DUPTABLE                         R8 K21 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+       71 LOADK                            R9 K22 ["Standalone"]
+       72 SETTABLEKS                       R9 R8 K16 ["DataModel"]
+       74 LOADK                            R9 K23 ["Unknown"]
+       75 SETTABLEKS                       R9 R8 K17 ["PluginType"]
+       77 LOADK                            R9 K24 ["Export"]
+       78 SETTABLEKS                       R9 R8 K18 ["PluginId"]
+       80 LOADK                            R9 K25 ["Actions"]
+       81 SETTABLEKS                       R9 R8 K19 ["Category"]
+       83 LOADK                            R9 K26 ["ExportAsGltf"]
+       84 SETTABLEKS                       R9 R8 K20 ["ItemId"]
+       86 DUPTABLE                         R9 K21 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+       87 LOADK                            R10 K22 ["Standalone"]
+       88 SETTABLEKS                       R10 R9 K16 ["DataModel"]
+       90 LOADK                            R10 K23 ["Unknown"]
+       91 SETTABLEKS                       R10 R9 K17 ["PluginType"]
+       93 LOADK                            R10 K24 ["Export"]
+       94 SETTABLEKS                       R10 R9 K18 ["PluginId"]
+       96 LOADK                            R10 K25 ["Actions"]
+       97 SETTABLEKS                       R10 R9 K19 ["Category"]
+       99 LOADK                            R10 K27 ["ExportPlaceAsGltf"]
+      100 SETTABLEKS                       R10 R9 K20 ["ItemId"]
+      102 DUPCLOSURE                       R10 K28 [PROTO_17]
+      103 CAPTURE                          VAL R8
+      104 CAPTURE                          VAL R9
+      105 CAPTURE                          VAL R1
+      106 CAPTURE                          VAL R6
+      107 CAPTURE                          VAL R2
+      108 CAPTURE                          VAL R3
+      109 CAPTURE                          VAL R7
+      110 CAPTURE                          VAL R4
+      111 CAPTURE                          VAL R5
+      112 RETURN                           R10 1

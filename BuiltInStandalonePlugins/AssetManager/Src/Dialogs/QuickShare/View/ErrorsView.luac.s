@@ -7,7 +7,7 @@ PROTO_0:
         6 SETTABLEKS                       R5 R4 K1 ["tag"]
         8 LOADK                            R6 K5 ["[%*] %*:%*"]
         9 GETUPVAL                         R9 2
-       10 GETTABLEKS                       R8 R9 K6 ["name"]
+       10 GETTABLEKS                       R8 R9 K6 ["Name"]
        12 GETTABLEKS                       R9 R0 K7 ["assetId"]
        14 GETTABLEKS                       R10 R0 K8 ["code"]
        16 NAMECALL                         R6 R6 K9 ["format"]

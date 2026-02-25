@@ -42,38 +42,38 @@ PROTO_1:
        48 NEWCLOSURE                       R7 P0
        49 CAPTURE                          VAL R1
        50 SETTABLEKS                       R7 R6 K10 ["OnClose"]
-       52 NEWTABLE                         R7 0 1
-       54 GETUPVAL                         R9 3
-       55 GETTABLEKS                       R8 R9 K2 ["createElement"]
-       57 JUMPIFNOT                        R3 ; [+2]
-       58 GETUPVAL                         R9 5
-       59 JUMP                             ; [+1]
-       60 GETUPVAL                         R9 6
-       61 DUPTABLE                         R10 K20 [{"theme"}]
-       62 GETUPVAL                         R11 7
-       63 CALL                             R11 0 1
-       64 SETTABLEKS                       R11 R10 K19 ["theme"]
-       66 DUPTABLE                         R11 K23 [{"DialogView", "StyleLink"}]
-       67 GETUPVAL                         R13 3
-       68 GETTABLEKS                       R12 R13 K2 ["createElement"]
-       70 GETUPVAL                         R13 8
-       71 NEWTABLE                         R14 0 0
-       73 CALL                             R12 2 1
-       74 SETTABLEKS                       R12 R11 K21 ["DialogView"]
-       76 JUMPIF                           R3 ; [+9]
-       77 GETUPVAL                         R13 3
-       78 GETTABLEKS                       R12 R13 K2 ["createElement"]
-       80 LOADK                            R13 K22 ["StyleLink"]
-       81 DUPTABLE                         R14 K25 [{"StyleSheet"}]
-       82 SETTABLEKS                       R2 R14 K24 ["StyleSheet"]
-       84 CALL                             R12 2 1
-       85 JUMP                             ; [+1]
-       86 LOADNIL                          R12
-       87 SETTABLEKS                       R12 R11 K22 ["StyleLink"]
-       89 CALL                             R8 3 -1
-       90 SETLIST                          R7 R8 -1 [1]
-       92 CALL                             R4 3 -1
-       93 RETURN                           R4 -1
+       52 DUPTABLE                         R7 K20 [{"MainProvider"}]
+       53 GETUPVAL                         R9 3
+       54 GETTABLEKS                       R8 R9 K2 ["createElement"]
+       56 JUMPIFNOT                        R3 ; [+2]
+       57 GETUPVAL                         R9 5
+       58 JUMP                             ; [+1]
+       59 GETUPVAL                         R9 6
+       60 DUPTABLE                         R10 K22 [{"theme"}]
+       61 GETUPVAL                         R11 7
+       62 CALL                             R11 0 1
+       63 SETTABLEKS                       R11 R10 K21 ["theme"]
+       65 DUPTABLE                         R11 K25 [{"DialogView", "StyleLink"}]
+       66 GETUPVAL                         R13 3
+       67 GETTABLEKS                       R12 R13 K2 ["createElement"]
+       69 GETUPVAL                         R13 8
+       70 NEWTABLE                         R14 0 0
+       72 CALL                             R12 2 1
+       73 SETTABLEKS                       R12 R11 K23 ["DialogView"]
+       75 JUMPIF                           R3 ; [+9]
+       76 GETUPVAL                         R13 3
+       77 GETTABLEKS                       R12 R13 K2 ["createElement"]
+       79 LOADK                            R13 K24 ["StyleLink"]
+       80 DUPTABLE                         R14 K27 [{"StyleSheet"}]
+       81 SETTABLEKS                       R2 R14 K26 ["StyleSheet"]
+       83 CALL                             R12 2 1
+       84 JUMP                             ; [+1]
+       85 LOADNIL                          R12
+       86 SETTABLEKS                       R12 R11 K24 ["StyleLink"]
+       88 CALL                             R8 3 1
+       89 SETTABLEKS                       R8 R7 K19 ["MainProvider"]
+       91 CALL                             R4 3 -1
+       92 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

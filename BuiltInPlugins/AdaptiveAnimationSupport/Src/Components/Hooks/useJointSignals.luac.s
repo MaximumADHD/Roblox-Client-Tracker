@@ -6,27 +6,34 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 1
-        3 JUMPIFNOT                        R1 ; [+17]
+        3 JUMPIFNOT                        R1 ; [+25]
         4 LOADK                            R5 K0 ["Motor6D"]
         5 NAMECALL                         R3 R1 K1 ["IsA"]
         7 CALL                             R3 2 1
-        8 JUMPIF                           R3 ; [+10]
+        8 JUMPIF                           R3 ; [+18]
         9 LOADK                            R5 K2 ["Bone"]
        10 NAMECALL                         R3 R1 K1 ["IsA"]
        12 CALL                             R3 2 1
-       13 JUMPIF                           R3 ; [+5]
+       13 JUMPIF                           R3 ; [+13]
        14 LOADK                            R5 K3 ["Attachment"]
        15 NAMECALL                         R3 R1 K1 ["IsA"]
        17 CALL                             R3 2 1
-       18 JUMPIFNOT                        R3 ; [+2]
-       19 MOVE                             R2 R1
-       20 RETURN                           R2 1
-       21 LOADNIL                          R2
-       22 RETURN                           R2 1
+       18 JUMPIF                           R3 ; [+8]
+       19 GETUPVAL                         R3 1
+       20 CALL                             R3 0 1
+       21 JUMPIFNOT                        R3 ; [+7]
+       22 LOADK                            R5 K4 ["AnimationConstraint"]
+       23 NAMECALL                         R3 R1 K1 ["IsA"]
+       25 CALL                             R3 2 1
+       26 JUMPIFNOT                        R3 ; [+2]
+       27 MOVE                             R2 R1
+       28 RETURN                           R2 1
+       29 LOADNIL                          R2
+       30 RETURN                           R2 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+17]
+        1 JUMPIFNOT                        R0 ; [+18]
         2 GETUPVAL                         R3 1
         3 GETTABLEKS                       R2 R3 K0 ["TypedInstanceSignals"]
         5 GETTABLEKS                       R1 R2 K1 ["properties"]
@@ -38,10 +45,11 @@ PROTO_2:
        13 GETTABLEKS                       R1 R2 K3 ["createComputed"]
        15 NEWCLOSURE                       R2 P0
        16 CAPTURE                          VAL R0
-       17 CALL                             R1 1 -1
-       18 RETURN                           R1 -1
-       19 GETUPVAL                         R0 4
-       20 RETURN                           R0 1
+       17 CAPTURE                          UPVAL U4
+       18 CALL                             R1 1 -1
+       19 RETURN                           R1 -1
+       20 GETUPVAL                         R0 5
+       21 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -72,49 +80,50 @@ PROTO_4:
        11 CAPTURE                          VAL R0
        12 CAPTURE                          UPVAL U2
        13 CAPTURE                          UPVAL U3
-       14 NEWTABLE                         R5 0 2
-       16 MOVE                             R6 R0
-       17 MOVE                             R7 R2
-       18 SETLIST                          R5 R6 2 [1]
-       20 CALL                             R3 2 1
-       21 GETUPVAL                         R5 0
-       22 GETTABLEKS                       R4 R5 K1 ["useMemo"]
-       24 NEWCLOSURE                       R5 P1
-       25 CAPTURE                          VAL R2
-       26 CAPTURE                          UPVAL U1
-       27 CAPTURE                          VAL R0
-       28 CAPTURE                          UPVAL U3
-       29 NEWTABLE                         R6 0 2
-       31 MOVE                             R7 R0
-       32 MOVE                             R8 R2
-       33 SETLIST                          R6 R7 2 [1]
-       35 CALL                             R4 2 1
-       36 GETUPVAL                         R6 4
-       37 GETTABLEKS                       R5 R6 K2 ["useSignalState"]
-       39 MOVE                             R6 R3
-       40 CALL                             R5 1 1
-       41 GETUPVAL                         R7 4
-       42 GETTABLEKS                       R6 R7 K2 ["useSignalState"]
-       44 MOVE                             R7 R4
-       45 CALL                             R6 1 1
-       46 DUPTABLE                         R7 K6 [{"mappedInstance", "adjustmentValue", "isMapped"}]
-       47 JUMPIFNOT                        R2 ; [+2]
-       48 MOVE                             R8 R5
-       49 JUMP                             ; [+1]
-       50 LOADNIL                          R8
-       51 SETTABLEKS                       R8 R7 K3 ["mappedInstance"]
-       53 JUMPIFNOT                        R2 ; [+2]
-       54 MOVE                             R8 R6
-       55 JUMP                             ; [+1]
-       56 LOADNIL                          R8
-       57 SETTABLEKS                       R8 R7 K4 ["adjustmentValue"]
-       59 LOADB                            R8 0
-       60 JUMPIFEQKNIL                     R2 ; [+5]
-       62 JUMPIFNOTEQKNIL                  R5 ; [+2]
-       64 LOADB                            R8 0 +1
-       65 LOADB                            R8 1
-       66 SETTABLEKS                       R8 R7 K5 ["isMapped"]
-       68 RETURN                           R7 1
+       14 CAPTURE                          UPVAL U4
+       15 NEWTABLE                         R5 0 2
+       17 MOVE                             R6 R0
+       18 MOVE                             R7 R2
+       19 SETLIST                          R5 R6 2 [1]
+       21 CALL                             R3 2 1
+       22 GETUPVAL                         R5 0
+       23 GETTABLEKS                       R4 R5 K1 ["useMemo"]
+       25 NEWCLOSURE                       R5 P1
+       26 CAPTURE                          VAL R2
+       27 CAPTURE                          UPVAL U1
+       28 CAPTURE                          VAL R0
+       29 CAPTURE                          UPVAL U4
+       30 NEWTABLE                         R6 0 2
+       32 MOVE                             R7 R0
+       33 MOVE                             R8 R2
+       34 SETLIST                          R6 R7 2 [1]
+       36 CALL                             R4 2 1
+       37 GETUPVAL                         R6 5
+       38 GETTABLEKS                       R5 R6 K2 ["useSignalState"]
+       40 MOVE                             R6 R3
+       41 CALL                             R5 1 1
+       42 GETUPVAL                         R7 5
+       43 GETTABLEKS                       R6 R7 K2 ["useSignalState"]
+       45 MOVE                             R7 R4
+       46 CALL                             R6 1 1
+       47 DUPTABLE                         R7 K6 [{"mappedInstance", "adjustmentValue", "isMapped"}]
+       48 JUMPIFNOT                        R2 ; [+2]
+       49 MOVE                             R8 R5
+       50 JUMP                             ; [+1]
+       51 LOADNIL                          R8
+       52 SETTABLEKS                       R8 R7 K3 ["mappedInstance"]
+       54 JUMPIFNOT                        R2 ; [+2]
+       55 MOVE                             R8 R6
+       56 JUMP                             ; [+1]
+       57 LOADNIL                          R8
+       58 SETTABLEKS                       R8 R7 K4 ["adjustmentValue"]
+       60 LOADB                            R8 0
+       61 JUMPIFEQKNIL                     R2 ; [+5]
+       63 JUMPIFNOTEQKNIL                  R5 ; [+2]
+       65 LOADB                            R8 0 +1
+       66 LOADB                            R8 1
+       67 SETTABLEKS                       R8 R7 K5 ["isMapped"]
+       69 RETURN                           R7 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -142,11 +151,17 @@ MAIN:
        37 GETTABLEKS                       R7 R0 K11 ["Src"]
        39 GETTABLEKS                       R6 R7 K12 ["Types"]
        41 CALL                             R5 1 1
-       42 DUPCLOSURE                       R6 K13 [PROTO_0]
-       43 DUPCLOSURE                       R7 K14 [PROTO_4]
-       44 CAPTURE                          VAL R1
-       45 CAPTURE                          VAL R2
-       46 CAPTURE                          VAL R3
-       47 CAPTURE                          VAL R6
-       48 CAPTURE                          VAL R4
-       49 RETURN                           R7 1
+       42 GETIMPORT                        R6 K5 [require]
+       44 GETTABLEKS                       R9 R0 K11 ["Src"]
+       46 GETTABLEKS                       R8 R9 K13 ["Flags"]
+       48 GETTABLEKS                       R7 R8 K14 ["getFFlagAdaptiveAnimationConstraints"]
+       50 CALL                             R6 1 1
+       51 DUPCLOSURE                       R7 K15 [PROTO_0]
+       52 DUPCLOSURE                       R8 K16 [PROTO_4]
+       53 CAPTURE                          VAL R1
+       54 CAPTURE                          VAL R2
+       55 CAPTURE                          VAL R3
+       56 CAPTURE                          VAL R6
+       57 CAPTURE                          VAL R7
+       58 CAPTURE                          VAL R4
+       59 RETURN                           R8 1

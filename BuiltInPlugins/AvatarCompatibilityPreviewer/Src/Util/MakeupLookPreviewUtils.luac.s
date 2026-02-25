@@ -42,29 +42,6 @@ PROTO_0:
        60 RETURN                           R1 1
 
 PROTO_1:
-        0 LOADK                            R4 K0 ["Head"]
-        1 NAMECALL                         R2 R0 K1 ["FindFirstChild"]
-        3 CALL                             R2 2 1
-        4 GETTABLEKS                       R3 R2 K2 ["Position"]
-        6 DUPTABLE                         R4 K6 [{"focus", "cframe", "fov"}]
-        7 GETIMPORT                        R5 K9 [CFrame.new]
-        9 MOVE                             R6 R3
-       10 CALL                             R5 1 1
-       11 SETTABLEKS                       R5 R4 K3 ["focus"]
-       13 GETIMPORT                        R6 K9 [CFrame.new]
-       15 GETTABLEKS                       R9 R1 K7 ["CFrame"]
-       17 GETTABLEKS                       R8 R9 K2 ["Position"]
-       19 ADD                              R7 R3 R8
-       20 CALL                             R6 1 1
-       21 GETTABLEKS                       R8 R1 K7 ["CFrame"]
-       23 GETTABLEKS                       R7 R8 K10 ["Rotation"]
-       25 MUL                              R5 R6 R7
-       26 SETTABLEKS                       R5 R4 K4 ["cframe"]
-       28 GETTABLEKS                       R5 R1 K11 ["FieldOfView"]
-       30 SETTABLEKS                       R5 R4 K5 ["fov"]
-       32 RETURN                           R4 1
-
-PROTO_2:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R3 1
         2 GETTABLEKS                       R2 R3 K0 ["MAKEUP_CAMERAS_ASSET_PATH"]
@@ -72,9 +49,9 @@ PROTO_2:
         6 CALL                             R0 2 -1
         7 RETURN                           R0 -1
 
-PROTO_3:
+PROTO_2:
         0 GETIMPORT                        R0 K1 [pcall]
-        2 DUPCLOSURE                       R1 K2 [PROTO_2]
+        2 DUPCLOSURE                       R1 K2 [PROTO_1]
         3 CAPTURE                          UPVAL U0
         4 CAPTURE                          UPVAL U1
         5 CALL                             R0 1 2
@@ -105,7 +82,7 @@ PROTO_3:
        37 LOADNIL                          R2
        38 RETURN                           R2 1
 
-PROTO_4:
+PROTO_3:
         0 NAMECALL                         R1 R0 K0 ["GetChildren"]
         2 CALL                             R1 1 3
         3 FORGPREP                         R1
@@ -120,7 +97,7 @@ PROTO_4:
        16 FORGLOOP                         R1 2 ; [-13]
        18 RETURN                           R0 0
 
-PROTO_5:
+PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETIMPORT                        R3 K3 [Enum.HumanoidRigType.R15]
@@ -128,7 +105,7 @@ PROTO_5:
         6 CALL                             R0 3 -1
         7 RETURN                           R0 -1
 
-PROTO_6:
+PROTO_5:
         0 GETIMPORT                        R1 K1 [pcall]
         2 NEWCLOSURE                       R2 P0
         3 CAPTURE                          UPVAL U0
@@ -164,7 +141,7 @@ PROTO_6:
        38 CALL                             R4 1 0
        39 RETURN                           R2 2
 
-PROTO_7:
+PROTO_6:
         0 NEWTABLE                         R1 0 0
         2 NEWTABLE                         R2 0 0
         4 LOADN                            R3 0
@@ -218,7 +195,7 @@ PROTO_7:
        78 FORGLOOP                         R4 2 ; [-70]
        80 RETURN                           R1 2
 
-PROTO_8:
+PROTO_7:
         0 GETIMPORT                        R3 K2 [Instance.new]
         2 LOADK                            R4 K3 ["WorldModel"]
         3 CALL                             R3 1 1
@@ -248,7 +225,7 @@ PROTO_8:
        42 CALL                             R5 1 0
        43 RETURN                           R3 1
 
-PROTO_9:
+PROTO_8:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["processMakeupItems"]
         3 MOVE                             R3 R0
@@ -345,29 +322,27 @@ MAIN:
        52 CALL                             R6 1 1
        53 DUPCLOSURE                       R7 K18 [PROTO_0]
        54 CAPTURE                          VAL R3
-       55 NEWTABLE                         R8 8 0
-       57 DUPCLOSURE                       R9 K19 [PROTO_1]
-       58 SETTABLEKS                       R9 R8 K20 ["getMakeupPreviewCameraModifications"]
-       60 DUPCLOSURE                       R9 K21 [PROTO_3]
-       61 CAPTURE                          VAL R0
-       62 CAPTURE                          VAL R3
-       63 SETTABLEKS                       R9 R8 K22 ["createFaceCamera"]
-       65 DUPCLOSURE                       R9 K23 [PROTO_4]
-       66 DUPCLOSURE                       R10 K24 [PROTO_6]
-       67 CAPTURE                          VAL R1
-       68 CAPTURE                          VAL R9
-       69 DUPCLOSURE                       R11 K25 [PROTO_7]
-       70 CAPTURE                          VAL R3
-       71 CAPTURE                          VAL R5
-       72 SETTABLEKS                       R11 R8 K26 ["processMakeupItems"]
-       74 DUPCLOSURE                       R11 K27 [PROTO_8]
-       75 CAPTURE                          VAL R3
-       76 SETTABLEKS                       R11 R8 K28 ["setupHeadInWorldModel"]
-       78 DUPCLOSURE                       R11 K29 [PROTO_9]
-       79 CAPTURE                          VAL R8
-       80 CAPTURE                          VAL R6
-       81 CAPTURE                          VAL R7
-       82 CAPTURE                          VAL R3
-       83 CAPTURE                          VAL R10
-       84 SETTABLEKS                       R11 R8 K30 ["createMakeupCharacterModel"]
-       86 RETURN                           R8 1
+       55 NEWTABLE                         R8 4 0
+       57 DUPCLOSURE                       R9 K19 [PROTO_2]
+       58 CAPTURE                          VAL R0
+       59 CAPTURE                          VAL R3
+       60 SETTABLEKS                       R9 R8 K20 ["createFaceCamera"]
+       62 DUPCLOSURE                       R9 K21 [PROTO_3]
+       63 DUPCLOSURE                       R10 K22 [PROTO_5]
+       64 CAPTURE                          VAL R1
+       65 CAPTURE                          VAL R9
+       66 DUPCLOSURE                       R11 K23 [PROTO_6]
+       67 CAPTURE                          VAL R3
+       68 CAPTURE                          VAL R5
+       69 SETTABLEKS                       R11 R8 K24 ["processMakeupItems"]
+       71 DUPCLOSURE                       R11 K25 [PROTO_7]
+       72 CAPTURE                          VAL R3
+       73 SETTABLEKS                       R11 R8 K26 ["setupHeadInWorldModel"]
+       75 DUPCLOSURE                       R11 K27 [PROTO_8]
+       76 CAPTURE                          VAL R8
+       77 CAPTURE                          VAL R6
+       78 CAPTURE                          VAL R7
+       79 CAPTURE                          VAL R3
+       80 CAPTURE                          VAL R10
+       81 SETTABLEKS                       R11 R8 K28 ["createMakeupCharacterModel"]
+       83 RETURN                           R8 1

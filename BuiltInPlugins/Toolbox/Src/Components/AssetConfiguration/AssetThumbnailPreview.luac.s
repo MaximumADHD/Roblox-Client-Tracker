@@ -269,97 +269,98 @@ PROTO_9:
        74 RETURN                           R3 1
 
 PROTO_10:
-        0 GETUPVAL                         R6 0
-        1 CALL                             R6 0 1
-        2 JUMPIFNOT                        R6 ; [+3]
+        0 GETUPVAL                         R7 0
+        1 CALL                             R7 0 1
+        2 JUMPIFNOT                        R7 ; [+3]
         3 JUMPIFNOT                        R1 ; [+2]
         4 JUMPIFNOT                        R0 ; [+1]
         5 JUMPIF                           R3 ; [+1]
         6 RETURN                           R0 0
-        7 NAMECALL                         R6 R0 K0 ["ClearAllChildren"]
-        9 CALL                             R6 1 0
-       10 GETUPVAL                         R6 1
-       11 MOVE                             R7 R0
-       12 MOVE                             R8 R5
-       13 CALL                             R6 2 1
-       14 JUMPIF                           R6 ; [+5]
-       15 GETIMPORT                        R7 K2 [warn]
-       17 LOADK                            R8 K3 ["Failed to set up camera for makeup preview"]
-       18 CALL                             R7 1 0
+        7 NAMECALL                         R7 R0 K0 ["ClearAllChildren"]
+        9 CALL                             R7 1 0
+       10 GETUPVAL                         R7 1
+       11 MOVE                             R8 R0
+       12 MOVE                             R9 R5
+       13 CALL                             R7 2 1
+       14 JUMPIF                           R7 ; [+5]
+       15 GETIMPORT                        R8 K2 [warn]
+       17 LOADK                            R9 K3 ["Failed to set up camera for makeup preview"]
+       18 CALL                             R8 1 0
        19 RETURN                           R0 0
-       20 GETIMPORT                        R7 K6 [Instance.new]
-       22 LOADK                            R8 K7 ["WorldModel"]
-       23 CALL                             R7 1 1
-       24 LOADK                            R8 K8 ["Thumbnail"]
-       25 SETTABLEKS                       R8 R7 K9 ["Name"]
-       27 SETTABLEKS                       R0 R7 K10 ["Parent"]
-       29 GETUPVAL                         R8 2
-       30 MOVE                             R9 R1
-       31 CALL                             R8 1 2
-       32 JUMPIFNOT                        R8 ; [+1]
-       33 JUMPIF                           R9 ; [+5]
-       34 GETIMPORT                        R10 K2 [warn]
-       36 LOADK                            R11 K11 ["Failed to find head on character"]
-       37 CALL                             R10 1 0
+       20 GETIMPORT                        R8 K6 [Instance.new]
+       22 LOADK                            R9 K7 ["WorldModel"]
+       23 CALL                             R8 1 1
+       24 LOADK                            R9 K8 ["Thumbnail"]
+       25 SETTABLEKS                       R9 R8 K9 ["Name"]
+       27 SETTABLEKS                       R0 R8 K10 ["Parent"]
+       29 GETUPVAL                         R9 2
+       30 MOVE                             R10 R1
+       31 CALL                             R9 1 2
+       32 JUMPIFNOT                        R9 ; [+1]
+       33 JUMPIF                           R10 ; [+5]
+       34 GETIMPORT                        R11 K2 [warn]
+       36 LOADK                            R12 K11 ["Failed to find head on character"]
+       37 CALL                             R11 1 0
        38 RETURN                           R0 0
-       39 LOADK                            R10 K12 ["RenderRig"]
-       40 SETTABLEKS                       R10 R8 K9 ["Name"]
-       42 SETTABLEKS                       R7 R8 K10 ["Parent"]
-       44 GETTABLEKS                       R10 R9 K13 ["CFrame"]
-       46 NAMECALL                         R11 R8 K14 ["GetPivot"]
-       48 CALL                             R11 1 1
-       49 MOVE                             R14 R10
-       50 NAMECALL                         R12 R11 K15 ["ToObjectSpace"]
-       52 CALL                             R12 2 1
-       53 NAMECALL                         R15 R12 K16 ["Inverse"]
-       55 CALL                             R15 1 -1
-       56 NAMECALL                         R13 R8 K17 ["PivotTo"]
-       58 CALL                             R13 -1 0
-       59 GETTABLEKS                       R13 R9 K13 ["CFrame"]
-       61 SETTABLEKS                       R13 R6 K18 ["Focus"]
-       63 MOVE                             R13 R4
-       64 JUMPIF                           R13 ; [+7]
-       65 GETUPVAL                         R14 3
-       66 GETTABLEKS                       R13 R14 K19 ["getMakeupSkinColorFromInstances"]
-       68 MOVE                             R14 R3
-       69 CALL                             R13 1 1
-       70 JUMPIF                           R13 ; [+1]
-       71 GETUPVAL                         R13 4
-       72 JUMPIFNOT                        R13 ; [+2]
-       73 SETTABLEKS                       R13 R9 K20 ["Color"]
-       75 JUMPIFNOT                        R3 ; [+41]
-       76 LENGTH                           R14 R3
-       77 LOADN                            R15 0
-       78 JUMPIFNOTLT                      R15 R14 ; [+38]
-       80 LOADK                            R16 K21 ["Humanoid"]
-       81 NAMECALL                         R14 R8 K22 ["FindFirstChildOfClass"]
-       83 CALL                             R14 2 1
-       84 GETIMPORT                        R15 K24 [pairs]
-       86 MOVE                             R16 R3
-       87 CALL                             R15 1 3
-       88 FORGPREP_NEXT                    R15
-       89 LOADK                            R22 K25 ["LuaSourceContainer"]
-       90 NAMECALL                         R20 R19 K26 ["IsA"]
-       92 CALL                             R20 2 1
-       93 JUMPIF                           R20 ; [+21]
-       94 NAMECALL                         R20 R19 K27 ["Clone"]
-       96 CALL                             R20 1 1
-       97 LOADK                            R23 K28 ["Decal"]
-       98 NAMECALL                         R21 R20 K26 ["IsA"]
-      100 CALL                             R21 2 1
-      101 JUMPIFNOT                        R21 ; [+3]
-      102 SETTABLEKS                       R9 R20 K10 ["Parent"]
-      104 JUMP                             ; [+10]
-      105 LOADK                            R23 K29 ["Accessory"]
-      106 NAMECALL                         R21 R20 K26 ["IsA"]
-      108 CALL                             R21 2 1
-      109 JUMPIFNOT                        R21 ; [+5]
-      110 JUMPIFNOT                        R14 ; [+4]
-      111 MOVE                             R23 R20
-      112 NAMECALL                         R21 R14 K30 ["AddAccessory"]
-      114 CALL                             R21 2 0
-      115 FORGLOOP                         R15 2 ; [-27]
-      117 RETURN                           R9 1
+       39 LOADK                            R11 K12 ["RenderRig"]
+       40 SETTABLEKS                       R11 R9 K9 ["Name"]
+       42 SETTABLEKS                       R8 R9 K10 ["Parent"]
+       44 GETTABLEKS                       R11 R10 K13 ["CFrame"]
+       46 NAMECALL                         R12 R9 K14 ["GetPivot"]
+       48 CALL                             R12 1 1
+       49 MOVE                             R15 R11
+       50 NAMECALL                         R13 R12 K15 ["ToObjectSpace"]
+       52 CALL                             R13 2 1
+       53 NAMECALL                         R16 R13 K16 ["Inverse"]
+       55 CALL                             R16 1 -1
+       56 NAMECALL                         R14 R9 K17 ["PivotTo"]
+       58 CALL                             R14 -1 0
+       59 GETTABLEKS                       R14 R10 K13 ["CFrame"]
+       61 SETTABLEKS                       R14 R7 K18 ["Focus"]
+       63 MOVE                             R14 R4
+       64 JUMPIF                           R14 ; [+8]
+       65 JUMPIFNOT                        R6 ; [+6]
+       66 GETUPVAL                         R15 3
+       67 GETTABLEKS                       R14 R15 K19 ["getThumbnailSkinColor"]
+       69 MOVE                             R15 R6
+       70 CALL                             R14 1 1
+       71 JUMPIF                           R14 ; [+1]
+       72 GETUPVAL                         R14 4
+       73 JUMPIFNOT                        R14 ; [+2]
+       74 SETTABLEKS                       R14 R10 K20 ["Color"]
+       76 JUMPIFNOT                        R3 ; [+41]
+       77 LENGTH                           R15 R3
+       78 LOADN                            R16 0
+       79 JUMPIFNOTLT                      R16 R15 ; [+38]
+       81 LOADK                            R17 K21 ["Humanoid"]
+       82 NAMECALL                         R15 R9 K22 ["FindFirstChildOfClass"]
+       84 CALL                             R15 2 1
+       85 GETIMPORT                        R16 K24 [pairs]
+       87 MOVE                             R17 R3
+       88 CALL                             R16 1 3
+       89 FORGPREP_NEXT                    R16
+       90 LOADK                            R23 K25 ["LuaSourceContainer"]
+       91 NAMECALL                         R21 R20 K26 ["IsA"]
+       93 CALL                             R21 2 1
+       94 JUMPIF                           R21 ; [+21]
+       95 NAMECALL                         R21 R20 K27 ["Clone"]
+       97 CALL                             R21 1 1
+       98 LOADK                            R24 K28 ["Decal"]
+       99 NAMECALL                         R22 R21 K26 ["IsA"]
+      101 CALL                             R22 2 1
+      102 JUMPIFNOT                        R22 ; [+3]
+      103 SETTABLEKS                       R10 R21 K10 ["Parent"]
+      105 JUMP                             ; [+10]
+      106 LOADK                            R24 K29 ["Accessory"]
+      107 NAMECALL                         R22 R21 K26 ["IsA"]
+      109 CALL                             R22 2 1
+      110 JUMPIFNOT                        R22 ; [+5]
+      111 JUMPIFNOT                        R15 ; [+4]
+      112 MOVE                             R24 R21
+      113 NAMECALL                         R22 R15 K30 ["AddAccessory"]
+      115 CALL                             R22 2 0
+      116 FORGLOOP                         R16 2 ; [-27]
+      118 RETURN                           R10 1
 
 PROTO_11:
         0 GETUPVAL                         R3 0
@@ -429,27 +430,37 @@ PROTO_13:
        62 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R1 1
-        2 GETUPVAL                         R3 2
-        3 CALL                             R3 0 -1
-        4 FASTCALL                         TONUMBER ; [+2]
-        5 GETIMPORT                        R2 K1 [tonumber]
-        7 CALL                             R2 -1 1
-        8 GETUPVAL                         R3 3
-        9 GETUPVAL                         R6 4
-       10 GETTABLEKS                       R5 R6 K2 ["props"]
-       12 GETTABLEKS                       R4 R5 K3 ["instances"]
-       14 GETUPVAL                         R7 4
-       15 GETTABLEKS                       R6 R7 K2 ["props"]
-       17 GETTABLEKS                       R5 R6 K4 ["selectedColor"]
-       19 GETUPVAL                         R8 4
-       20 GETTABLEKS                       R7 R8 K2 ["props"]
-       22 GETTABLEKS                       R6 R7 K5 ["AssetType"]
-       24 CALL                             R0 6 1
-       25 GETUPVAL                         R1 4
-       26 SETTABLEKS                       R0 R1 K6 ["makeupHeadRef"]
-       28 RETURN                           R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        3 GETTABLEKS                       R0 R1 K1 ["Plugin"]
+        5 JUMPIFNOT                        R0 ; [+8]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R1 R2 K0 ["props"]
+        9 GETTABLEKS                       R0 R1 K1 ["Plugin"]
+       11 NAMECALL                         R0 R0 K2 ["get"]
+       13 CALL                             R0 1 1
+       14 GETUPVAL                         R1 1
+       15 GETUPVAL                         R2 2
+       16 GETUPVAL                         R4 3
+       17 CALL                             R4 0 -1
+       18 FASTCALL                         TONUMBER ; [+2]
+       19 GETIMPORT                        R3 K4 [tonumber]
+       21 CALL                             R3 -1 1
+       22 GETUPVAL                         R4 4
+       23 GETUPVAL                         R7 0
+       24 GETTABLEKS                       R6 R7 K0 ["props"]
+       26 GETTABLEKS                       R5 R6 K5 ["instances"]
+       28 GETUPVAL                         R8 0
+       29 GETTABLEKS                       R7 R8 K0 ["props"]
+       31 GETTABLEKS                       R6 R7 K6 ["selectedColor"]
+       33 GETUPVAL                         R9 0
+       34 GETTABLEKS                       R8 R9 K0 ["props"]
+       36 GETTABLEKS                       R7 R8 K7 ["AssetType"]
+       38 MOVE                             R8 R0
+       39 CALL                             R1 7 1
+       40 GETUPVAL                         R2 0
+       41 SETTABLEKS                       R1 R2 K8 ["makeupHeadRef"]
+       43 RETURN                           R0 0
 
 PROTO_15:
         0 GETUPVAL                         R0 0
@@ -520,11 +531,11 @@ PROTO_16:
        54 JUMPIFNOT                        R1 ; [+10]
        55 GETIMPORT                        R3 K17 [task.spawn]
        57 NEWCLOSURE                       R4 P0
-       58 CAPTURE                          UPVAL U3
-       59 CAPTURE                          VAL R2
-       60 CAPTURE                          UPVAL U4
-       61 CAPTURE                          UPVAL U5
-       62 CAPTURE                          VAL R0
+       58 CAPTURE                          VAL R0
+       59 CAPTURE                          UPVAL U3
+       60 CAPTURE                          VAL R2
+       61 CAPTURE                          UPVAL U4
+       62 CAPTURE                          UPVAL U5
        63 CALL                             R3 1 0
        64 RETURN                           R0 0
        65 GETTABLEKS                       R4 R0 K2 ["props"]
@@ -983,165 +994,170 @@ MAIN:
       138 CALL                             R27 1 1
       139 MOVE                             R29 R26
       140 CALL                             R29 0 1
-      141 JUMPIFNOT                        R29 ; [+7]
-      142 GETIMPORT                        R28 K40 [Color3.fromRGB]
-      144 LOADN                            R29 130
-      145 LOADN                            R30 130
-      146 LOADN                            R31 130
-      147 CALL                             R28 3 1
-      148 JUMP                             ; [+1]
-      149 LOADNIL                          R28
-      150 GETIMPORT                        R29 K5 [require]
-      152 GETTABLEKS                       R30 R5 K41 ["AssetThumbnailPreviewUtil"]
-      154 CALL                             R29 1 1
-      155 GETIMPORT                        R30 K5 [require]
-      157 GETTABLEKS                       R33 R0 K9 ["Src"]
-      159 GETTABLEKS                       R32 R33 K29 ["Components"]
-      161 GETTABLEKS                       R31 R32 K42 ["ImageWithDefault"]
-      163 CALL                             R30 1 1
-      164 MOVE                             R32 R25
-      165 CALL                             R32 0 1
-      166 JUMPIFNOT                        R32 ; [+2]
-      167 LOADN                            R31 96
-      168 JUMP                             ; [+1]
-      169 LOADNIL                          R31
-      170 MOVE                             R33 R26
-      171 CALL                             R33 0 1
-      172 JUMPIFNOT                        R33 ; [+2]
-      173 LOADK                            R32 K43 ["PreloadedDefaultDynamicMakeupHead"]
-      174 JUMP                             ; [+1]
-      175 LOADNIL                          R32
-      176 MOVE                             R34 R26
-      177 CALL                             R34 0 1
-      178 JUMPIFNOT                        R34 ; [+2]
-      179 LOADB                            R33 0
-      180 JUMP                             ; [+1]
-      181 LOADNIL                          R33
-      182 DUPCLOSURE                       R34 K44 [PROTO_1]
-      183 CAPTURE                          VAL R26
-      184 CAPTURE                          VAL R12
-      185 NEWCLOSURE                       R35 P1
-      186 CAPTURE                          VAL R26
-      187 CAPTURE                          VAL R27
-      188 CAPTURE                          VAL R13
-      189 CAPTURE                          VAL R32
-      190 CAPTURE                          REF R33
-      191 CAPTURE                          VAL R34
-      192 DUPCLOSURE                       R36 K45 [PROTO_4]
-      193 DUPCLOSURE                       R37 K46 [PROTO_5]
-      194 DUPCLOSURE                       R38 K47 [PROTO_6]
-      195 MOVE                             R40 R26
-      196 CALL                             R40 0 1
-      197 JUMPIFNOT                        R40 ; [+2]
-      198 LOADK                            R39 K48 ["rbxasset://models/Thumbnails/MakeupCameras.rbxm"]
-      199 JUMP                             ; [+1]
-      200 LOADNIL                          R39
-      201 MOVE                             R41 R26
-      202 CALL                             R41 0 1
-      203 JUMPIFNOT                        R41 ; [+2]
-      204 LOADK                            R40 K49 ["rbxasset://models/Thumbnails/MakeupLighting.rbxm"]
-      205 JUMP                             ; [+1]
-      206 LOADNIL                          R40
-      207 MOVE                             R42 R26
-      208 CALL                             R42 0 1
-      209 JUMPIFNOT                        R42 ; [+23]
-      210 NEWTABLE                         R41 8 0
-      212 GETIMPORT                        R42 K53 [Enum.AssetType.EyebrowAccessory]
-      214 LOADK                            R43 K54 ["Eyebrow"]
-      215 SETTABLE                         R43 R41 R42
-      216 GETIMPORT                        R42 K56 [Enum.AssetType.EyelashAccessory]
-      218 LOADK                            R43 K57 ["Eyelash"]
-      219 SETTABLE                         R43 R41 R42
-      220 GETIMPORT                        R42 K59 [Enum.AssetType.EyeMakeup]
-      222 LOADK                            R43 K60 ["Eyes"]
-      223 SETTABLE                         R43 R41 R42
-      224 GETIMPORT                        R42 K62 [Enum.AssetType.FaceMakeup]
-      226 LOADK                            R43 K63 ["Face"]
-      227 SETTABLE                         R43 R41 R42
-      228 GETIMPORT                        R42 K65 [Enum.AssetType.LipMakeup]
-      230 LOADK                            R43 K66 ["Lips"]
-      231 SETTABLE                         R43 R41 R42
-      232 JUMP                             ; [+1]
-      233 LOADNIL                          R41
-      234 MOVE                             R43 R26
-      235 CALL                             R43 0 1
-      236 JUMPIFNOT                        R43 ; [+2]
-      237 LOADK                            R42 K63 ["Face"]
-      238 JUMP                             ; [+1]
-      239 LOADNIL                          R42
-      240 DUPCLOSURE                       R43 K67 [PROTO_9]
-      241 CAPTURE                          VAL R26
-      242 CAPTURE                          VAL R42
-      243 CAPTURE                          VAL R41
-      244 CAPTURE                          VAL R11
-      245 CAPTURE                          VAL R39
-      246 CAPTURE                          VAL R40
-      247 DUPCLOSURE                       R44 K68 [PROTO_10]
-      248 CAPTURE                          VAL R26
-      249 CAPTURE                          VAL R43
-      250 CAPTURE                          VAL R34
-      251 CAPTURE                          VAL R8
-      252 CAPTURE                          VAL R28
-      253 GETTABLEKS                       R45 R2 K69 ["PureComponent"]
-      255 LOADK                            R47 K70 ["AssetThumbnailPreview"]
-      256 NAMECALL                         R45 R45 K71 ["extend"]
-      258 CALL                             R45 2 1
-      259 DUPCLOSURE                       R46 K72 [PROTO_11]
-      260 CAPTURE                          VAL R2
-      261 SETTABLEKS                       R46 R45 K73 ["init"]
-      263 DUPCLOSURE                       R46 K74 [PROTO_12]
-      264 CAPTURE                          VAL R26
-      265 CAPTURE                          VAL R35
-      266 SETTABLEKS                       R46 R45 K75 ["didMount"]
-      268 DUPCLOSURE                       R46 K76 [PROTO_13]
-      269 CAPTURE                          VAL R26
-      270 CAPTURE                          VAL R28
-      271 SETTABLEKS                       R46 R45 K77 ["didUpdate"]
-      273 DUPCLOSURE                       R46 K78 [PROTO_16]
-      274 CAPTURE                          VAL R24
-      275 CAPTURE                          VAL R26
-      276 CAPTURE                          VAL R9
-      277 CAPTURE                          VAL R44
-      278 CAPTURE                          VAL R27
-      279 CAPTURE                          VAL R38
-      280 CAPTURE                          VAL R36
-      281 CAPTURE                          VAL R8
-      282 CAPTURE                          VAL R29
-      283 CAPTURE                          VAL R37
-      284 SETTABLEKS                       R46 R45 K79 ["setView"]
-      286 DUPCLOSURE                       R46 K80 [PROTO_17]
-      287 SETTABLEKS                       R46 R45 K81 ["getName"]
-      289 DUPCLOSURE                       R46 K82 [PROTO_18]
-      290 CAPTURE                          VAL R23
-      291 SETTABLEKS                       R46 R45 K83 ["shouldShowInstances"]
-      293 DUPCLOSURE                       R46 K84 [PROTO_19]
-      294 CAPTURE                          VAL R24
-      295 CAPTURE                          VAL R25
-      296 CAPTURE                          VAL R31
-      297 CAPTURE                          VAL R2
-      298 CAPTURE                          VAL R30
-      299 CAPTURE                          VAL R22
-      300 CAPTURE                          VAL R19
-      301 CAPTURE                          VAL R18
-      302 CAPTURE                          VAL R7
-      303 CAPTURE                          VAL R20
-      304 CAPTURE                          VAL R6
-      305 SETTABLEKS                       R46 R45 K85 ["render"]
-      307 DUPCLOSURE                       R46 K86 [PROTO_20]
-      308 MOVE                             R47 R15
-      309 DUPTABLE                         R48 K88 [{"Localization", "Stylizer"}]
-      310 GETTABLEKS                       R49 R14 K87 ["Localization"]
-      312 SETTABLEKS                       R49 R48 K87 ["Localization"]
-      314 GETTABLEKS                       R49 R14 K24 ["Stylizer"]
-      316 SETTABLEKS                       R49 R48 K24 ["Stylizer"]
-      318 CALL                             R47 1 1
-      319 MOVE                             R48 R45
-      320 CALL                             R47 1 1
-      321 MOVE                             R45 R47
-      322 GETTABLEKS                       R47 R3 K89 ["connect"]
-      324 MOVE                             R48 R46
+      141 JUMPIFNOT                        R29 ; [+5]
+      142 GETIMPORT                        R28 K40 [Color3.fromHex]
+      144 LOADK                            R29 K41 ["#A3A2A5"]
+      145 CALL                             R28 1 1
+      146 JUMP                             ; [+1]
+      147 LOADNIL                          R28
+      148 GETIMPORT                        R29 K5 [require]
+      150 GETTABLEKS                       R30 R5 K42 ["AssetThumbnailPreviewUtil"]
+      152 CALL                             R29 1 1
+      153 GETIMPORT                        R30 K5 [require]
+      155 GETTABLEKS                       R33 R0 K9 ["Src"]
+      157 GETTABLEKS                       R32 R33 K29 ["Components"]
+      159 GETTABLEKS                       R31 R32 K43 ["ImageWithDefault"]
+      161 CALL                             R30 1 1
+      162 MOVE                             R32 R25
+      163 CALL                             R32 0 1
+      164 JUMPIFNOT                        R32 ; [+2]
+      165 LOADN                            R31 96
+      166 JUMP                             ; [+1]
+      167 LOADNIL                          R31
+      168 MOVE                             R33 R26
+      169 CALL                             R33 0 1
+      170 JUMPIFNOT                        R33 ; [+2]
+      171 LOADK                            R32 K44 ["PreloadedDefaultDynamicMakeupHead"]
+      172 JUMP                             ; [+1]
+      173 LOADNIL                          R32
+      174 MOVE                             R34 R26
+      175 CALL                             R34 0 1
+      176 JUMPIFNOT                        R34 ; [+2]
+      177 LOADB                            R33 0
+      178 JUMP                             ; [+1]
+      179 LOADNIL                          R33
+      180 DUPCLOSURE                       R34 K45 [PROTO_1]
+      181 CAPTURE                          VAL R26
+      182 CAPTURE                          VAL R12
+      183 NEWCLOSURE                       R35 P1
+      184 CAPTURE                          VAL R26
+      185 CAPTURE                          VAL R27
+      186 CAPTURE                          VAL R13
+      187 CAPTURE                          VAL R32
+      188 CAPTURE                          REF R33
+      189 CAPTURE                          VAL R34
+      190 DUPCLOSURE                       R36 K46 [PROTO_4]
+      191 DUPCLOSURE                       R37 K47 [PROTO_5]
+      192 DUPCLOSURE                       R38 K48 [PROTO_6]
+      193 MOVE                             R40 R26
+      194 CALL                             R40 0 1
+      195 JUMPIFNOT                        R40 ; [+2]
+      196 LOADK                            R39 K49 ["rbxasset://models/Thumbnails/MakeupCameras.rbxm"]
+      197 JUMP                             ; [+1]
+      198 LOADNIL                          R39
+      199 MOVE                             R41 R26
+      200 CALL                             R41 0 1
+      201 JUMPIFNOT                        R41 ; [+2]
+      202 LOADK                            R40 K50 ["rbxasset://models/Thumbnails/MakeupLighting.rbxm"]
+      203 JUMP                             ; [+1]
+      204 LOADNIL                          R40
+      205 MOVE                             R42 R26
+      206 CALL                             R42 0 1
+      207 JUMPIFNOT                        R42 ; [+23]
+      208 NEWTABLE                         R41 8 0
+      210 GETIMPORT                        R42 K54 [Enum.AssetType.EyebrowAccessory]
+      212 LOADK                            R43 K55 ["Eyebrow"]
+      213 SETTABLE                         R43 R41 R42
+      214 GETIMPORT                        R42 K57 [Enum.AssetType.EyelashAccessory]
+      216 LOADK                            R43 K58 ["Eyelash"]
+      217 SETTABLE                         R43 R41 R42
+      218 GETIMPORT                        R42 K60 [Enum.AssetType.EyeMakeup]
+      220 LOADK                            R43 K61 ["Eyes"]
+      221 SETTABLE                         R43 R41 R42
+      222 GETIMPORT                        R42 K63 [Enum.AssetType.FaceMakeup]
+      224 LOADK                            R43 K64 ["Face"]
+      225 SETTABLE                         R43 R41 R42
+      226 GETIMPORT                        R42 K66 [Enum.AssetType.LipMakeup]
+      228 LOADK                            R43 K67 ["Lips"]
+      229 SETTABLE                         R43 R41 R42
+      230 JUMP                             ; [+1]
+      231 LOADNIL                          R41
+      232 MOVE                             R43 R26
+      233 CALL                             R43 0 1
+      234 JUMPIFNOT                        R43 ; [+2]
+      235 LOADK                            R42 K64 ["Face"]
+      236 JUMP                             ; [+1]
+      237 LOADNIL                          R42
+      238 DUPCLOSURE                       R43 K68 [PROTO_9]
+      239 CAPTURE                          VAL R26
+      240 CAPTURE                          VAL R42
+      241 CAPTURE                          VAL R41
+      242 CAPTURE                          VAL R11
+      243 CAPTURE                          VAL R39
+      244 CAPTURE                          VAL R40
+      245 DUPCLOSURE                       R44 K69 [PROTO_10]
+      246 CAPTURE                          VAL R26
+      247 CAPTURE                          VAL R43
+      248 CAPTURE                          VAL R34
+      249 CAPTURE                          VAL R8
+      250 CAPTURE                          VAL R28
+      251 GETTABLEKS                       R45 R2 K70 ["PureComponent"]
+      253 LOADK                            R47 K71 ["AssetThumbnailPreview"]
+      254 NAMECALL                         R45 R45 K72 ["extend"]
+      256 CALL                             R45 2 1
+      257 DUPCLOSURE                       R46 K73 [PROTO_11]
+      258 CAPTURE                          VAL R2
+      259 SETTABLEKS                       R46 R45 K74 ["init"]
+      261 DUPCLOSURE                       R46 K75 [PROTO_12]
+      262 CAPTURE                          VAL R26
+      263 CAPTURE                          VAL R35
+      264 SETTABLEKS                       R46 R45 K76 ["didMount"]
+      266 DUPCLOSURE                       R46 K77 [PROTO_13]
+      267 CAPTURE                          VAL R26
+      268 CAPTURE                          VAL R28
+      269 SETTABLEKS                       R46 R45 K78 ["didUpdate"]
+      271 DUPCLOSURE                       R46 K79 [PROTO_16]
+      272 CAPTURE                          VAL R24
+      273 CAPTURE                          VAL R26
+      274 CAPTURE                          VAL R9
+      275 CAPTURE                          VAL R44
+      276 CAPTURE                          VAL R27
+      277 CAPTURE                          VAL R38
+      278 CAPTURE                          VAL R36
+      279 CAPTURE                          VAL R8
+      280 CAPTURE                          VAL R29
+      281 CAPTURE                          VAL R37
+      282 SETTABLEKS                       R46 R45 K80 ["setView"]
+      284 DUPCLOSURE                       R46 K81 [PROTO_17]
+      285 SETTABLEKS                       R46 R45 K82 ["getName"]
+      287 DUPCLOSURE                       R46 K83 [PROTO_18]
+      288 CAPTURE                          VAL R23
+      289 SETTABLEKS                       R46 R45 K84 ["shouldShowInstances"]
+      291 DUPCLOSURE                       R46 K85 [PROTO_19]
+      292 CAPTURE                          VAL R24
+      293 CAPTURE                          VAL R25
+      294 CAPTURE                          VAL R31
+      295 CAPTURE                          VAL R2
+      296 CAPTURE                          VAL R30
+      297 CAPTURE                          VAL R22
+      298 CAPTURE                          VAL R19
+      299 CAPTURE                          VAL R18
+      300 CAPTURE                          VAL R7
+      301 CAPTURE                          VAL R20
+      302 CAPTURE                          VAL R6
+      303 SETTABLEKS                       R46 R45 K86 ["render"]
+      305 DUPCLOSURE                       R46 K87 [PROTO_20]
+      306 MOVE                             R47 R15
+      307 DUPTABLE                         R48 K90 [{"Localization", "Stylizer", "Plugin"}]
+      308 GETTABLEKS                       R49 R14 K88 ["Localization"]
+      310 SETTABLEKS                       R49 R48 K88 ["Localization"]
+      312 GETTABLEKS                       R49 R14 K24 ["Stylizer"]
+      314 SETTABLEKS                       R49 R48 K24 ["Stylizer"]
+      316 MOVE                             R50 R26
+      317 CALL                             R50 0 1
+      318 JUMPIFNOT                        R50 ; [+3]
+      319 GETTABLEKS                       R49 R14 K89 ["Plugin"]
+      321 JUMP                             ; [+1]
+      322 LOADNIL                          R49
+      323 SETTABLEKS                       R49 R48 K89 ["Plugin"]
       325 CALL                             R47 1 1
       326 MOVE                             R48 R45
-      327 CALL                             R47 1 -1
-      328 CLOSEUPVALS                      R33
-      329 RETURN                           R47 -1
+      327 CALL                             R47 1 1
+      328 MOVE                             R45 R47
+      329 GETTABLEKS                       R47 R3 K91 ["connect"]
+      331 MOVE                             R48 R46
+      332 CALL                             R47 1 1
+      333 MOVE                             R48 R45
+      334 CALL                             R47 1 -1
+      335 CLOSEUPVALS                      R33
+      336 RETURN                           R47 -1

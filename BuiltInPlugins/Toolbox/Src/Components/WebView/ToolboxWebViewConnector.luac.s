@@ -222,117 +222,115 @@ PROTO_10:
        29 RETURN                           R0 0
 
 PROTO_11:
-        0 DUPTABLE                         R1 K4 [{"Asset", "Creator", "Context", "FiatProduct"}]
-        1 DUPTABLE                         R2 K10 [{"AssetSubTypes", "HasScripts", "Id", "Name", "TypeId"}]
+        0 DUPTABLE                         R1 K3 [{"Asset", "Creator", "Context"}]
+        1 DUPTABLE                         R2 K10 [{"AssetSubTypes", "Capabilities", "HasScripts", "Id", "Name", "TypeId"}]
         2 GETTABLEKS                       R3 R0 K11 ["assetSubTypes"]
-        4 SETTABLEKS                       R3 R2 K5 ["AssetSubTypes"]
-        6 GETTABLEKS                       R3 R0 K12 ["hasScripts"]
-        8 SETTABLEKS                       R3 R2 K6 ["HasScripts"]
-       10 GETTABLEKS                       R3 R0 K13 ["assetId"]
-       12 SETTABLEKS                       R3 R2 K7 ["Id"]
-       14 GETTABLEKS                       R3 R0 K14 ["assetName"]
-       16 SETTABLEKS                       R3 R2 K8 ["Name"]
-       18 GETTABLEKS                       R3 R0 K15 ["assetTypeId"]
-       20 SETTABLEKS                       R3 R2 K9 ["TypeId"]
-       22 SETTABLEKS                       R2 R1 K0 ["Asset"]
-       24 DUPTABLE                         R2 K17 [{"IsVerifiedCreator"}]
-       25 GETTABLEKS                       R3 R0 K18 ["isVerifiedCreator"]
-       27 SETTABLEKS                       R3 R2 K16 ["IsVerifiedCreator"]
-       29 SETTABLEKS                       R2 R1 K1 ["Creator"]
-       31 DUPTABLE                         R2 K27 [{"currentCategory", "sort", "searchKeyword", "searchResultSource", "searchId", "page", "pagePosition", "position"}]
-       32 GETTABLEKS                       R3 R0 K19 ["currentCategory"]
-       34 SETTABLEKS                       R3 R2 K19 ["currentCategory"]
-       36 GETTABLEKS                       R3 R0 K20 ["sort"]
-       38 SETTABLEKS                       R3 R2 K20 ["sort"]
-       40 GETTABLEKS                       R3 R0 K21 ["searchKeyword"]
-       42 SETTABLEKS                       R3 R2 K21 ["searchKeyword"]
-       44 GETTABLEKS                       R3 R0 K22 ["searchResultSource"]
-       46 SETTABLEKS                       R3 R2 K22 ["searchResultSource"]
-       48 GETTABLEKS                       R3 R0 K23 ["searchId"]
-       50 SETTABLEKS                       R3 R2 K23 ["searchId"]
-       52 GETTABLEKS                       R3 R0 K24 ["page"]
-       54 SETTABLEKS                       R3 R2 K24 ["page"]
-       56 GETTABLEKS                       R3 R0 K25 ["pagePosition"]
-       58 SETTABLEKS                       R3 R2 K25 ["pagePosition"]
-       60 GETTABLEKS                       R3 R0 K26 ["position"]
-       62 SETTABLEKS                       R3 R2 K26 ["position"]
-       64 SETTABLEKS                       R2 R1 K2 ["Context"]
-       66 GETUPVAL                         R3 0
-       67 CALL                             R3 0 1
-       68 JUMPIFNOT                        R3 ; [+5]
-       69 DUPTABLE                         R2 K29 [{"Published"}]
-       70 LOADB                            R3 1
-       71 SETTABLEKS                       R3 R2 K28 ["Published"]
-       73 JUMP                             ; [+1]
-       74 LOADNIL                          R2
-       75 SETTABLEKS                       R2 R1 K3 ["FiatProduct"]
-       77 GETTABLEKS                       R2 R0 K30 ["assetWasDragged"]
-       79 GETTABLEKS                       R3 R0 K31 ["insertionMethod"]
-       81 LOADNIL                          R4
-       82 GETTABLEKS                       R5 R0 K32 ["swimlaneName"]
-       84 LOADB                            R6 0
-       85 LOADNIL                          R7
-       86 GETTABLEKS                       R8 R0 K15 ["assetTypeId"]
-       88 GETIMPORT                        R10 K36 [Enum.AssetType.Plugin]
-       90 GETTABLEKS                       R9 R10 K37 ["Value"]
-       92 JUMPIFNOTEQ                      R8 R9 ; [+30]
-       94 GETUPVAL                         R11 1
-       95 GETTABLEKS                       R10 R11 K38 ["props"]
-       97 GETTABLEKS                       R9 R10 K39 ["Network"]
-       99 GETTABLEKS                       R8 R9 K40 ["networkInterface"]
-      101 GETTABLEKS                       R10 R0 K13 ["assetId"]
-      103 NAMECALL                         R8 R8 K41 ["getPluginInfo"]
-      105 CALL                             R8 2 1
-      106 NEWCLOSURE                       R10 P0
-      107 CAPTURE                          REF R4
-      108 CAPTURE                          REF R6
-      109 CAPTURE                          REF R7
-      110 CAPTURE                          UPVAL U1
-      111 CAPTURE                          VAL R1
-      112 CAPTURE                          VAL R2
-      113 CAPTURE                          VAL R3
-      114 CAPTURE                          VAL R5
-      115 CAPTURE                          UPVAL U2
-      116 NAMECALL                         R8 R8 K42 ["andThen"]
-      118 CALL                             R8 2 1
-      119 NAMECALL                         R8 R8 K43 ["await"]
-      121 CALL                             R8 1 0
-      122 JUMP                             ; [+39]
-      123 GETUPVAL                         R10 1
-      124 GETTABLEKS                       R9 R10 K38 ["props"]
-      126 GETTABLEKS                       R8 R9 K44 ["TryInsert"]
-      128 MOVE                             R9 R1
-      129 MOVE                             R10 R2
-      130 MOVE                             R11 R3
-      131 MOVE                             R12 R5
-      132 MOVE                             R13 R4
-      133 CALL                             R8 5 2
-      134 MOVE                             R6 R8
-      135 MOVE                             R7 R9
-      136 JUMPIFEQKB                       R6 FALSE ; [+5]
-      138 JUMPIFEQKNIL                     R6 ; [+3]
-      140 LOADB                            R6 1
-      141 JUMP                             ; [+1]
-      142 LOADB                            R6 0
-      143 GETUPVAL                         R10 1
-      144 GETTABLEKS                       R9 R10 K38 ["props"]
-      146 GETTABLEKS                       R8 R9 K35 ["Plugin"]
-      148 JUMPIFNOT                        R8 ; [+5]
-      149 LOADK                            R11 K45 ["ToolboxManager"]
-      150 NAMECALL                         R9 R8 K46 ["GetPluginComponent"]
-      152 CALL                             R9 2 1
-      153 JUMP                             ; [+1]
-      154 LOADNIL                          R9
-      155 JUMPIFNOT                        R6 ; [+6]
-      156 JUMPIF                           R2 ; [+5]
-      157 JUMPIFNOT                        R9 ; [+4]
-      158 GETUPVAL                         R10 3
-      159 NAMECALL                         R10 R10 K47 ["clearBrowserFocus"]
-      161 CALL                             R10 1 0
-      162 DUPTABLE                         R8 K49 [{"hasInserted"}]
-      163 SETTABLEKS                       R6 R8 K48 ["hasInserted"]
-      165 CLOSEUPVALS                      R4
-      166 RETURN                           R8 1
+        4 SETTABLEKS                       R3 R2 K4 ["AssetSubTypes"]
+        6 GETUPVAL                         R4 0
+        7 CALL                             R4 0 1
+        8 JUMPIFNOT                        R4 ; [+3]
+        9 GETTABLEKS                       R3 R0 K12 ["capabilities"]
+       11 JUMP                             ; [+1]
+       12 LOADNIL                          R3
+       13 SETTABLEKS                       R3 R2 K5 ["Capabilities"]
+       15 GETTABLEKS                       R3 R0 K13 ["hasScripts"]
+       17 SETTABLEKS                       R3 R2 K6 ["HasScripts"]
+       19 GETTABLEKS                       R3 R0 K14 ["assetId"]
+       21 SETTABLEKS                       R3 R2 K7 ["Id"]
+       23 GETTABLEKS                       R3 R0 K15 ["assetName"]
+       25 SETTABLEKS                       R3 R2 K8 ["Name"]
+       27 GETTABLEKS                       R3 R0 K16 ["assetTypeId"]
+       29 SETTABLEKS                       R3 R2 K9 ["TypeId"]
+       31 SETTABLEKS                       R2 R1 K0 ["Asset"]
+       33 DUPTABLE                         R2 K18 [{"IsVerifiedCreator"}]
+       34 GETTABLEKS                       R3 R0 K19 ["isVerifiedCreator"]
+       36 SETTABLEKS                       R3 R2 K17 ["IsVerifiedCreator"]
+       38 SETTABLEKS                       R2 R1 K1 ["Creator"]
+       40 DUPTABLE                         R2 K28 [{"currentCategory", "sort", "searchKeyword", "searchResultSource", "searchId", "page", "pagePosition", "position"}]
+       41 GETTABLEKS                       R3 R0 K20 ["currentCategory"]
+       43 SETTABLEKS                       R3 R2 K20 ["currentCategory"]
+       45 GETTABLEKS                       R3 R0 K21 ["sort"]
+       47 SETTABLEKS                       R3 R2 K21 ["sort"]
+       49 GETTABLEKS                       R3 R0 K22 ["searchKeyword"]
+       51 SETTABLEKS                       R3 R2 K22 ["searchKeyword"]
+       53 GETTABLEKS                       R3 R0 K23 ["searchResultSource"]
+       55 SETTABLEKS                       R3 R2 K23 ["searchResultSource"]
+       57 GETTABLEKS                       R3 R0 K24 ["searchId"]
+       59 SETTABLEKS                       R3 R2 K24 ["searchId"]
+       61 GETTABLEKS                       R3 R0 K25 ["page"]
+       63 SETTABLEKS                       R3 R2 K25 ["page"]
+       65 GETTABLEKS                       R3 R0 K26 ["pagePosition"]
+       67 SETTABLEKS                       R3 R2 K26 ["pagePosition"]
+       69 GETTABLEKS                       R3 R0 K27 ["position"]
+       71 SETTABLEKS                       R3 R2 K27 ["position"]
+       73 SETTABLEKS                       R2 R1 K2 ["Context"]
+       75 GETTABLEKS                       R2 R0 K29 ["assetWasDragged"]
+       77 GETTABLEKS                       R3 R0 K30 ["insertionMethod"]
+       79 LOADNIL                          R4
+       80 GETTABLEKS                       R5 R0 K31 ["swimlaneName"]
+       82 LOADB                            R6 0
+       83 LOADNIL                          R7
+       84 GETTABLEKS                       R8 R0 K16 ["assetTypeId"]
+       86 GETIMPORT                        R10 K35 [Enum.AssetType.Plugin]
+       88 GETTABLEKS                       R9 R10 K36 ["Value"]
+       90 JUMPIFNOTEQ                      R8 R9 ; [+30]
+       92 GETUPVAL                         R11 1
+       93 GETTABLEKS                       R10 R11 K37 ["props"]
+       95 GETTABLEKS                       R9 R10 K38 ["Network"]
+       97 GETTABLEKS                       R8 R9 K39 ["networkInterface"]
+       99 GETTABLEKS                       R10 R0 K14 ["assetId"]
+      101 NAMECALL                         R8 R8 K40 ["getPluginInfo"]
+      103 CALL                             R8 2 1
+      104 NEWCLOSURE                       R10 P0
+      105 CAPTURE                          REF R4
+      106 CAPTURE                          REF R6
+      107 CAPTURE                          REF R7
+      108 CAPTURE                          UPVAL U1
+      109 CAPTURE                          VAL R1
+      110 CAPTURE                          VAL R2
+      111 CAPTURE                          VAL R3
+      112 CAPTURE                          VAL R5
+      113 CAPTURE                          UPVAL U2
+      114 NAMECALL                         R8 R8 K41 ["andThen"]
+      116 CALL                             R8 2 1
+      117 NAMECALL                         R8 R8 K42 ["await"]
+      119 CALL                             R8 1 0
+      120 JUMP                             ; [+39]
+      121 GETUPVAL                         R10 1
+      122 GETTABLEKS                       R9 R10 K37 ["props"]
+      124 GETTABLEKS                       R8 R9 K43 ["TryInsert"]
+      126 MOVE                             R9 R1
+      127 MOVE                             R10 R2
+      128 MOVE                             R11 R3
+      129 MOVE                             R12 R5
+      130 MOVE                             R13 R4
+      131 CALL                             R8 5 2
+      132 MOVE                             R6 R8
+      133 MOVE                             R7 R9
+      134 JUMPIFEQKB                       R6 FALSE ; [+5]
+      136 JUMPIFEQKNIL                     R6 ; [+3]
+      138 LOADB                            R6 1
+      139 JUMP                             ; [+1]
+      140 LOADB                            R6 0
+      141 GETUPVAL                         R10 1
+      142 GETTABLEKS                       R9 R10 K37 ["props"]
+      144 GETTABLEKS                       R8 R9 K34 ["Plugin"]
+      146 JUMPIFNOT                        R8 ; [+5]
+      147 LOADK                            R11 K44 ["ToolboxManager"]
+      148 NAMECALL                         R9 R8 K45 ["GetPluginComponent"]
+      150 CALL                             R9 2 1
+      151 JUMP                             ; [+1]
+      152 LOADNIL                          R9
+      153 JUMPIFNOT                        R6 ; [+6]
+      154 JUMPIF                           R2 ; [+5]
+      155 JUMPIFNOT                        R9 ; [+4]
+      156 GETUPVAL                         R10 3
+      157 NAMECALL                         R10 R10 K46 ["clearBrowserFocus"]
+      159 CALL                             R10 1 0
+      160 DUPTABLE                         R8 K48 [{"hasInserted"}]
+      161 SETTABLEKS                       R6 R8 K47 ["hasInserted"]
+      163 CLOSEUPVALS                      R4
+      164 RETURN                           R8 1
 
 PROTO_12:
         0 GETUPVAL                         R1 0

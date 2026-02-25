@@ -59,31 +59,18 @@ MAIN:
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R5 R0 K6 ["Src"]
-       18 GETTABLEKS                       R4 R5 K8 ["Flags"]
-       20 GETTABLEKS                       R3 R4 K9 ["getFFlagAmrImproveNetworkingTesting"]
+       18 GETTABLEKS                       R4 R5 K8 ["Util"]
+       20 GETTABLEKS                       R3 R4 K9 ["Services"]
        22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K6 ["Src"]
-       27 GETTABLEKS                       R5 R6 K10 ["Util"]
-       29 GETTABLEKS                       R4 R5 K11 ["Services"]
-       31 CALL                             R3 1 1
-       32 MOVE                             R5 R2
-       33 CALL                             R5 0 1
-       34 JUMPIFNOT                        R5 ; [+5]
-       35 GETTABLEKS                       R4 R3 K12 ["GetService"]
-       37 LOADK                            R5 K13 ["StudioService"]
-       38 CALL                             R4 1 1
-       39 JUMP                             ; [+6]
-       40 GETIMPORT                        R4 K15 [game]
-       42 LOADK                            R6 K13 ["StudioService"]
-       43 NAMECALL                         R4 R4 K12 ["GetService"]
-       45 CALL                             R4 2 1
-       46 GETTABLEKS                       R5 R3 K12 ["GetService"]
-       48 LOADK                            R6 K16 ["Players"]
-       49 CALL                             R5 1 1
-       50 DUPCLOSURE                       R6 K17 [PROTO_0]
-       51 DUPCLOSURE                       R7 K18 [PROTO_2]
-       52 CAPTURE                          VAL R4
-       53 CAPTURE                          VAL R5
-       54 CAPTURE                          VAL R6
-       55 RETURN                           R7 1
+       23 GETTABLEKS                       R3 R2 K10 ["GetService"]
+       25 LOADK                            R4 K11 ["StudioService"]
+       26 CALL                             R3 1 1
+       27 GETTABLEKS                       R4 R2 K10 ["GetService"]
+       29 LOADK                            R5 K12 ["Players"]
+       30 CALL                             R4 1 1
+       31 DUPCLOSURE                       R5 K13 [PROTO_0]
+       32 DUPCLOSURE                       R6 K14 [PROTO_2]
+       33 CAPTURE                          VAL R3
+       34 CAPTURE                          VAL R4
+       35 CAPTURE                          VAL R5
+       36 RETURN                           R6 1

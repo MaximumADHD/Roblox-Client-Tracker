@@ -571,66 +571,68 @@ MAIN:
       104 CALL                             R13 1 1
       105 CALL                             R13 0 1
       106 NEWTABLE                         R14 16 0
-      108 DUPTABLE                         R15 K34 [{"Blank", "Child", "Descendant", "GuiState", "Name", "PseudoInstance", "Tag"}]
-      109 LOADK                            R16 K35 [""]
+      108 DUPTABLE                         R15 K35 [{"Blank", "Child", "Descendant", "GuiState", "Name", "PseudoInstance", "Tag", "Query"}]
+      109 LOADK                            R16 K36 [""]
       110 SETTABLEKS                       R16 R15 K27 ["Blank"]
-      112 LOADK                            R16 K36 [">"]
+      112 LOADK                            R16 K37 [">"]
       113 SETTABLEKS                       R16 R15 K28 ["Child"]
-      115 LOADK                            R16 K37 [">>"]
+      115 LOADK                            R16 K38 [">>"]
       116 SETTABLEKS                       R16 R15 K29 ["Descendant"]
-      118 LOADK                            R16 K38 [":"]
+      118 LOADK                            R16 K39 [":"]
       119 SETTABLEKS                       R16 R15 K30 ["GuiState"]
-      121 LOADK                            R16 K39 ["#"]
+      121 LOADK                            R16 K40 ["#"]
       122 SETTABLEKS                       R16 R15 K31 ["Name"]
-      124 LOADK                            R16 K40 ["::"]
+      124 LOADK                            R16 K41 ["::"]
       125 SETTABLEKS                       R16 R15 K32 ["PseudoInstance"]
-      127 LOADK                            R16 K41 ["."]
+      127 LOADK                            R16 K42 ["."]
       128 SETTABLEKS                       R16 R15 K33 ["Tag"]
-      130 SETTABLEKS                       R15 R14 K42 ["SelectorSyntax"]
-      132 DUPCLOSURE                       R15 K43 [PROTO_1]
-      133 CAPTURE                          VAL R10
-      134 CAPTURE                          VAL R6
-      135 CAPTURE                          VAL R14
-      136 SETTABLEKS                       R15 R14 K44 ["isElement"]
-      138 DUPCLOSURE                       R15 K45 [PROTO_2]
-      139 CAPTURE                          VAL R14
-      140 SETTABLEKS                       R15 R14 K46 ["findFirstClassSelector"]
-      142 DUPCLOSURE                       R15 K47 [PROTO_4]
-      143 SETTABLEKS                       R15 R14 K48 ["getSelectorChain"]
-      145 DUPCLOSURE                       R15 K49 [PROTO_6]
-      146 CAPTURE                          VAL R8
-      147 CAPTURE                          VAL R0
-      148 SETTABLEKS                       R15 R14 K50 ["instancesHaveVariant"]
-      150 DUPCLOSURE                       R15 K51 [PROTO_7]
-      151 CAPTURE                          VAL R14
-      152 SETTABLEKS                       R15 R14 K52 ["ruleHasTags"]
-      154 DUPCLOSURE                       R15 K53 [PROTO_8]
-      155 CAPTURE                          VAL R14
-      156 SETTABLEKS                       R15 R14 K54 ["canApplyVariant"]
-      158 DUPCLOSURE                       R15 K55 [PROTO_9]
-      159 CAPTURE                          VAL R14
-      160 SETTABLEKS                       R15 R14 K56 ["applyVariant"]
-      162 DUPCLOSURE                       R15 K57 [PROTO_10]
-      163 CAPTURE                          VAL R14
-      164 SETTABLEKS                       R15 R14 K58 ["removeVariant"]
-      166 DUPCLOSURE                       R15 K59 [PROTO_11]
-      167 CAPTURE                          VAL R12
-      168 SETTABLEKS                       R15 R14 K60 ["getStyleLinkRoot"]
-      170 DUPCLOSURE                       R15 K61 [PROTO_12]
-      171 SETTABLEKS                       R15 R14 K62 ["findFirstStyleLinkInHierarchy"]
-      173 DUPCLOSURE                       R15 K63 [PROTO_13]
-      174 CAPTURE                          VAL R11
-      175 CAPTURE                          VAL R14
-      176 CAPTURE                          VAL R13
-      177 CAPTURE                          VAL R5
-      178 SETTABLEKS                       R15 R14 K64 ["addStyleLinkToRoot"]
-      180 DUPCLOSURE                       R15 K65 [PROTO_15]
-      181 CAPTURE                          VAL R1
-      182 CAPTURE                          VAL R7
-      183 CAPTURE                          VAL R11
-      184 CAPTURE                          VAL R14
-      185 SETTABLEKS                       R15 R14 K66 ["addStyleLinkToSelection"]
-      187 DUPCLOSURE                       R15 K67 [PROTO_16]
-      188 CAPTURE                          VAL R14
-      189 SETTABLEKS                       R15 R14 K68 ["DEPRECATED_isNestedPseudoInstance"]
-      191 RETURN                           R14 1
+      130 LOADK                            R16 K43 ["@"]
+      131 SETTABLEKS                       R16 R15 K34 ["Query"]
+      133 SETTABLEKS                       R15 R14 K44 ["SelectorSyntax"]
+      135 DUPCLOSURE                       R15 K45 [PROTO_1]
+      136 CAPTURE                          VAL R10
+      137 CAPTURE                          VAL R6
+      138 CAPTURE                          VAL R14
+      139 SETTABLEKS                       R15 R14 K46 ["isElement"]
+      141 DUPCLOSURE                       R15 K47 [PROTO_2]
+      142 CAPTURE                          VAL R14
+      143 SETTABLEKS                       R15 R14 K48 ["findFirstClassSelector"]
+      145 DUPCLOSURE                       R15 K49 [PROTO_4]
+      146 SETTABLEKS                       R15 R14 K50 ["getSelectorChain"]
+      148 DUPCLOSURE                       R15 K51 [PROTO_6]
+      149 CAPTURE                          VAL R8
+      150 CAPTURE                          VAL R0
+      151 SETTABLEKS                       R15 R14 K52 ["instancesHaveVariant"]
+      153 DUPCLOSURE                       R15 K53 [PROTO_7]
+      154 CAPTURE                          VAL R14
+      155 SETTABLEKS                       R15 R14 K54 ["ruleHasTags"]
+      157 DUPCLOSURE                       R15 K55 [PROTO_8]
+      158 CAPTURE                          VAL R14
+      159 SETTABLEKS                       R15 R14 K56 ["canApplyVariant"]
+      161 DUPCLOSURE                       R15 K57 [PROTO_9]
+      162 CAPTURE                          VAL R14
+      163 SETTABLEKS                       R15 R14 K58 ["applyVariant"]
+      165 DUPCLOSURE                       R15 K59 [PROTO_10]
+      166 CAPTURE                          VAL R14
+      167 SETTABLEKS                       R15 R14 K60 ["removeVariant"]
+      169 DUPCLOSURE                       R15 K61 [PROTO_11]
+      170 CAPTURE                          VAL R12
+      171 SETTABLEKS                       R15 R14 K62 ["getStyleLinkRoot"]
+      173 DUPCLOSURE                       R15 K63 [PROTO_12]
+      174 SETTABLEKS                       R15 R14 K64 ["findFirstStyleLinkInHierarchy"]
+      176 DUPCLOSURE                       R15 K65 [PROTO_13]
+      177 CAPTURE                          VAL R11
+      178 CAPTURE                          VAL R14
+      179 CAPTURE                          VAL R13
+      180 CAPTURE                          VAL R5
+      181 SETTABLEKS                       R15 R14 K66 ["addStyleLinkToRoot"]
+      183 DUPCLOSURE                       R15 K67 [PROTO_15]
+      184 CAPTURE                          VAL R1
+      185 CAPTURE                          VAL R7
+      186 CAPTURE                          VAL R11
+      187 CAPTURE                          VAL R14
+      188 SETTABLEKS                       R15 R14 K68 ["addStyleLinkToSelection"]
+      190 DUPCLOSURE                       R15 K69 [PROTO_16]
+      191 CAPTURE                          VAL R14
+      192 SETTABLEKS                       R15 R14 K70 ["DEPRECATED_isNestedPseudoInstance"]
+      194 RETURN                           R14 1

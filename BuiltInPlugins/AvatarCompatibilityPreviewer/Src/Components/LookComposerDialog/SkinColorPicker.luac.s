@@ -53,7 +53,7 @@ PROTO_1:
        60 GETUPVAL                         R10 5
        61 DUPTABLE                         R11 K23 [{"Text", "tag", "LayoutOrder"}]
        62 LOADK                            R14 K24 ["LookComposerDialog"]
-       63 LOADK                            R15 K25 ["ThumbnailSkinColor"]
+       63 LOADK                            R15 K25 ["ThumbnailSkinTone"]
        64 NAMECALL                         R12 R1 K26 ["getText"]
        66 CALL                             R12 3 1
        67 SETTABLEKS                       R12 R11 K22 ["Text"]

@@ -67,13 +67,9 @@ MAIN:
        18 GETTABLEKS                       R3 R4 K8 ["ReactUtils"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["useEventConnection"]
-       23 GETIMPORT                        R4 K5 [require]
-       25 GETTABLEKS                       R6 R0 K10 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Types"]
-       29 CALL                             R4 1 1
-       30 DUPCLOSURE                       R5 K12 [PROTO_2]
-       31 CAPTURE                          VAL R1
-       32 CAPTURE                          VAL R3
-       33 SETGLOBAL                        R5 K13 ["useActionConnection"]
-       35 GETGLOBAL                        R5 K13 ["useActionConnection"]
-       37 RETURN                           R5 1
+       23 DUPCLOSURE                       R4 K10 [PROTO_2]
+       24 CAPTURE                          VAL R1
+       25 CAPTURE                          VAL R3
+       26 SETGLOBAL                        R4 K11 ["useActionConnection"]
+       28 GETGLOBAL                        R4 K11 ["useActionConnection"]
+       30 RETURN                           R4 1

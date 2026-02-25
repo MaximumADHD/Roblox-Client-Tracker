@@ -5,25 +5,30 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnSaveToRoblox"]
+        1 GETTABLEKS                       R0 R1 K0 ["OnPromptSaveInstanceToRobloxAsync"]
         3 RETURN                           R0 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnImportFromRoblox"]
+        1 GETTABLEKS                       R0 R1 K0 ["OnSaveToRoblox"]
         3 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnOpenManagePackagePlugin"]
+        1 GETTABLEKS                       R0 R1 K0 ["OnImportFromRoblox"]
         3 RETURN                           R0 1
 
 PROTO_4:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnPublishAsPlugin"]
+        1 GETTABLEKS                       R0 R1 K0 ["OnOpenManagePackagePlugin"]
         3 RETURN                           R0 1
 
 PROTO_5:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["OnPublishAsPlugin"]
+        3 RETURN                           R0 1
+
+PROTO_6:
         0 PREPVARARGS                      0
         1 GETUPVAL                         R0 0
         2 GETVARARGS                       R2 -1
@@ -31,7 +36,7 @@ PROTO_5:
         5 CALL                             R0 -1 0
         6 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 GETIMPORT                        R0 K2 [Instance.new]
         2 LOADK                            R1 K3 ["BindableEvent"]
         3 CALL                             R0 1 1
@@ -44,7 +49,7 @@ PROTO_6:
        11 GETTABLEKS                       R1 R0 K6 ["Event"]
        13 RETURN                           R1 1
 
-PROTO_7:
+PROTO_8:
         0 PREPVARARGS                      0
         1 GETUPVAL                         R0 0
         2 GETVARARGS                       R2 -1
@@ -52,7 +57,7 @@ PROTO_7:
         5 CALL                             R0 -1 0
         6 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 GETIMPORT                        R0 K2 [Instance.new]
         2 LOADK                            R1 K3 ["BindableEvent"]
         3 CALL                             R0 1 1
@@ -66,7 +71,7 @@ PROTO_8:
        13 GETTABLEKS                       R1 R0 K6 ["Event"]
        15 RETURN                           R1 1
 
-PROTO_9:
+PROTO_10:
         0 PREPVARARGS                      0
         1 GETUPVAL                         R0 0
         2 GETVARARGS                       R2 -1
@@ -74,7 +79,7 @@ PROTO_9:
         5 CALL                             R0 -1 0
         6 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETIMPORT                        R0 K2 [Instance.new]
         2 LOADK                            R1 K3 ["BindableEvent"]
         3 CALL                             R0 1 1
@@ -88,7 +93,7 @@ PROTO_10:
        13 GETTABLEKS                       R1 R0 K6 ["Event"]
        15 RETURN                           R1 1
 
-PROTO_11:
+PROTO_12:
         0 PREPVARARGS                      0
         1 GETUPVAL                         R0 0
         2 GETVARARGS                       R2 -1
@@ -96,7 +101,7 @@ PROTO_11:
         5 CALL                             R0 -1 0
         6 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
         0 GETIMPORT                        R1 K2 [Instance.new]
         2 LOADK                            R2 K3 ["BindableEvent"]
         3 CALL                             R1 1 1
@@ -110,19 +115,19 @@ PROTO_12:
        13 GETTABLEKS                       R2 R1 K6 ["Event"]
        15 RETURN                           R2 1
 
-PROTO_13:
+PROTO_14:
         0 LOADK                            R0 K0 ["luaToolboxToolbar"]
         1 RETURN                           R0 1
 
-PROTO_14:
+PROTO_15:
         0 LOADK                            R0 K0 ["luaToolboxButton"]
         1 RETURN                           R0 1
 
-PROTO_15:
+PROTO_16:
         0 LOADK                            R0 K0 ["Insert items from the toolbox"]
         1 RETURN                           R0 1
 
-PROTO_16:
+PROTO_17:
         0 MOVE                             R3 R0
         1 MOVE                             R4 R1
         2 MOVE                             R5 R2
@@ -131,7 +136,7 @@ PROTO_16:
         5 CALL                             R3 4 -1
         6 RETURN                           R3 -1
 
-PROTO_17:
+PROTO_18:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["GetStartupAssetId"]
         3 CALL                             R0 1 1
@@ -144,7 +149,7 @@ PROTO_17:
        11 LOADB                            R1 0
        12 RETURN                           R1 1
 
-PROTO_18:
+PROTO_19:
         0 LOADK                            R4 K0 ["Model"]
         1 NAMECALL                         R2 R0 K1 ["IsA"]
         3 CALL                             R2 2 1
@@ -239,127 +244,140 @@ MAIN:
       118 GETTABLEKS                       R15 R16 K30 ["SharedFlags"]
       120 GETTABLEKS                       R14 R15 K31 ["getFFlagToolboxCapabilities"]
       122 CALL                             R13 1 1
-      123 NEWTABLE                         R14 8 0
-      125 JUMPIFNOT                        R12 ; [+3]
-      126 DUPCLOSURE                       R15 K32 [PROTO_0]
-      127 CAPTURE                          VAL R10
-      128 JUMP                             ; [+1]
-      129 LOADNIL                          R15
-      130 SETTABLEKS                       R15 R14 K33 ["StudioAssetService.OnSaveToRoblox"]
-      132 DUPCLOSURE                       R15 K34 [PROTO_1]
-      133 CAPTURE                          VAL R9
-      134 SETTABLEKS                       R15 R14 K35 ["StudioService.OnSaveToRoblox"]
-      136 DUPCLOSURE                       R15 K36 [PROTO_2]
-      137 CAPTURE                          VAL R9
-      138 SETTABLEKS                       R15 R14 K37 ["StudioService.OnImportFromRoblox"]
-      140 DUPCLOSURE                       R15 K38 [PROTO_3]
-      141 CAPTURE                          VAL R9
-      142 SETTABLEKS                       R15 R14 K39 ["StudioService.OnOpenManagePackagePlugin"]
-      144 DUPCLOSURE                       R15 K40 [PROTO_4]
-      145 CAPTURE                          VAL R9
-      146 SETTABLEKS                       R15 R14 K41 ["StudioService.OnPublishAsPlugin"]
-      148 DUPCLOSURE                       R15 K42 [PROTO_6]
-      149 CAPTURE                          VAL R11
-      150 SETTABLEKS                       R15 R14 K43 ["MemStorageService.OpenAssetConfiguration"]
-      152 LOADK                            R16 K44 ["MemStorageService."]
-      153 GETTABLEKS                       R17 R6 K45 ["SHOW_TOOLBOX_PLUGINS_EVENT"]
-      155 CONCAT                           R15 R16 R17
-      156 DUPCLOSURE                       R16 K46 [PROTO_8]
-      157 CAPTURE                          VAL R11
-      158 CAPTURE                          VAL R6
-      159 SETTABLE                         R16 R14 R15
-      160 LOADK                            R16 K44 ["MemStorageService."]
-      161 GETTABLEKS                       R17 R6 K47 ["SHOW_TOOLBOX_OPEN_MODELS_AND_SEARCH_EVENT"]
-      163 CONCAT                           R15 R16 R17
-      164 DUPCLOSURE                       R16 K48 [PROTO_10]
-      165 CAPTURE                          VAL R11
-      166 CAPTURE                          VAL R6
-      167 SETTABLE                         R16 R14 R15
-      168 LOADK                            R16 K44 ["MemStorageService."]
-      169 GETTABLEKS                       R17 R4 K49 ["OPEN_MARKETPLACE_VIEW_FOR_ASSET_TYPE"]
-      171 CONCAT                           R15 R16 R17
-      172 DUPCLOSURE                       R16 K50 [PROTO_12]
-      173 CAPTURE                          VAL R11
-      174 CAPTURE                          VAL R4
-      175 SETTABLE                         R16 R14 R15
-      176 DUPTABLE                         R15 K62 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "extraTriggers", "shouldImmediatelyOpen"}]
-      177 GETIMPORT                        R16 K63 [plugin]
-      179 SETTABLEKS                       R16 R15 K51 ["plugin"]
-      181 LOADK                            R16 K9 ["Toolbox"]
-      182 SETTABLEKS                       R16 R15 K52 ["pluginName"]
-      184 GETTABLEKS                       R18 R0 K64 ["Resources"]
-      186 GETTABLEKS                       R17 R18 K65 ["Localization"]
-      188 GETTABLEKS                       R16 R17 K66 ["LocalizedStrings"]
-      190 SETTABLEKS                       R16 R15 K53 ["translationResourceTable"]
-      192 GETTABLEKS                       R18 R0 K64 ["Resources"]
-      194 GETTABLEKS                       R17 R18 K65 ["Localization"]
-      196 GETTABLEKS                       R16 R17 K67 ["SourceStrings"]
-      198 SETTABLEKS                       R16 R15 K54 ["fallbackResourceTable"]
-      200 LOADNIL                          R16
-      201 SETTABLEKS                       R16 R15 K55 ["overrideLocaleId"]
-      203 LOADNIL                          R16
-      204 SETTABLEKS                       R16 R15 K56 ["localizationNamespace"]
-      206 DUPCLOSURE                       R16 K68 [PROTO_13]
-      207 SETTABLEKS                       R16 R15 K57 ["getToolbarName"]
-      209 DUPTABLE                         R16 K74 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
-      210 DUPCLOSURE                       R17 K75 [PROTO_14]
-      211 SETTABLEKS                       R17 R16 K69 ["getName"]
-      213 DUPCLOSURE                       R17 K76 [PROTO_15]
-      214 SETTABLEKS                       R17 R16 K70 ["getDescription"]
-      216 GETTABLEKS                       R17 R5 K77 ["TOOLBOX_ICON"]
-      218 SETTABLEKS                       R17 R16 K71 ["icon"]
-      220 LOADNIL                          R17
-      221 SETTABLEKS                       R17 R16 K72 ["text"]
-      223 LOADB                            R17 1
-      224 SETTABLEKS                       R17 R16 K73 ["clickableWhenViewportHidden"]
-      226 SETTABLEKS                       R16 R15 K58 ["buttonInfo"]
-      228 DUPTABLE                         R16 K83 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "name", "zIndexBehavior"}]
-      229 LOADK                            R17 K9 ["Toolbox"]
-      230 SETTABLEKS                       R17 R16 K78 ["id"]
-      232 GETIMPORT                        R17 K86 [DockWidgetPluginGuiInfo.new]
-      234 GETIMPORT                        R18 K90 [Enum.InitialDockState.Left]
-      236 LOADB                            R19 1
-      237 LOADB                            R20 0
-      238 LOADN                            R21 0
-      239 LOADN                            R22 0
-      240 GETTABLEKS                       R23 R4 K91 ["TOOLBOX_MIN_WIDTH"]
-      242 GETTABLEKS                       R24 R4 K92 ["TOOLBOX_MIN_HEIGHT"]
-      244 CALL                             R17 7 1
-      245 SETTABLEKS                       R17 R16 K79 ["dockWidgetPluginGuiInfo"]
-      247 DUPCLOSURE                       R17 K93 [PROTO_16]
-      248 SETTABLEKS                       R17 R16 K80 ["getDockTitle"]
-      250 LOADK                            R17 K9 ["Toolbox"]
-      251 SETTABLEKS                       R17 R16 K81 ["name"]
-      253 GETIMPORT                        R17 K96 [Enum.ZIndexBehavior.Sibling]
-      255 SETTABLEKS                       R17 R16 K82 ["zIndexBehavior"]
-      257 SETTABLEKS                       R16 R15 K59 ["dockWidgetInfo"]
-      259 SETTABLEKS                       R14 R15 K60 ["extraTriggers"]
-      261 DUPCLOSURE                       R16 K97 [PROTO_17]
-      262 CAPTURE                          VAL R9
-      263 SETTABLEKS                       R16 R15 K61 ["shouldImmediatelyOpen"]
-      265 MOVE                             R16 R13
-      266 CALL                             R16 0 1
-      267 JUMPIFNOT                        R16 ; [+6]
-      268 MOVE                             R16 R7
-      269 GETIMPORT                        R17 K23 [game]
-      271 DUPCLOSURE                       R18 K98 [PROTO_18]
-      272 CAPTURE                          VAL R8
-      273 CALL                             R16 2 0
-      274 GETTABLEKS                       R16 R3 K99 ["build"]
-      276 MOVE                             R17 R15
-      277 CALL                             R16 1 1
-      278 GETTABLEKS                       R17 R16 K100 ["pluginLoader"]
-      280 NAMECALL                         R17 R17 K101 ["waitForUserInteraction"]
-      282 CALL                             R17 1 1
-      283 JUMPIF                           R17 ; [+1]
-      284 RETURN                           R0 0
-      285 GETIMPORT                        R18 K1 [require]
-      287 GETIMPORT                        R21 K3 [script]
-      289 GETTABLEKS                       R20 R21 K4 ["Parent"]
-      291 GETTABLEKS                       R19 R20 K102 ["main"]
-      293 CALL                             R18 1 1
-      294 MOVE                             R19 R18
-      295 GETIMPORT                        R20 K63 [plugin]
-      297 MOVE                             R21 R16
-      298 CALL                             R19 2 0
-      299 RETURN                           R0 0
+      123 GETIMPORT                        R14 K1 [require]
+      125 GETTABLEKS                       R17 R0 K10 ["Src"]
+      127 GETTABLEKS                       R16 R17 K32 ["Flags"]
+      129 GETTABLEKS                       R15 R16 K33 ["getFFlagSaveInstanceToRobloxAsyncEnabled"]
+      131 CALL                             R14 1 1
+      132 NEWTABLE                         R15 16 0
+      134 JUMPIFNOT                        R12 ; [+3]
+      135 DUPCLOSURE                       R16 K34 [PROTO_0]
+      136 CAPTURE                          VAL R10
+      137 JUMP                             ; [+1]
+      138 LOADNIL                          R16
+      139 SETTABLEKS                       R16 R15 K35 ["StudioAssetService.OnSaveToRoblox"]
+      141 MOVE                             R17 R14
+      142 CALL                             R17 0 1
+      143 JUMPIFNOT                        R17 ; [+3]
+      144 DUPCLOSURE                       R16 K36 [PROTO_1]
+      145 CAPTURE                          VAL R10
+      146 JUMP                             ; [+1]
+      147 LOADNIL                          R16
+      148 SETTABLEKS                       R16 R15 K37 ["StudioAssetService.OnPromptSaveInstanceToRobloxAsync"]
+      150 DUPCLOSURE                       R16 K38 [PROTO_2]
+      151 CAPTURE                          VAL R9
+      152 SETTABLEKS                       R16 R15 K39 ["StudioService.OnSaveToRoblox"]
+      154 DUPCLOSURE                       R16 K40 [PROTO_3]
+      155 CAPTURE                          VAL R9
+      156 SETTABLEKS                       R16 R15 K41 ["StudioService.OnImportFromRoblox"]
+      158 DUPCLOSURE                       R16 K42 [PROTO_4]
+      159 CAPTURE                          VAL R9
+      160 SETTABLEKS                       R16 R15 K43 ["StudioService.OnOpenManagePackagePlugin"]
+      162 DUPCLOSURE                       R16 K44 [PROTO_5]
+      163 CAPTURE                          VAL R9
+      164 SETTABLEKS                       R16 R15 K45 ["StudioService.OnPublishAsPlugin"]
+      166 DUPCLOSURE                       R16 K46 [PROTO_7]
+      167 CAPTURE                          VAL R11
+      168 SETTABLEKS                       R16 R15 K47 ["MemStorageService.OpenAssetConfiguration"]
+      170 LOADK                            R17 K48 ["MemStorageService."]
+      171 GETTABLEKS                       R18 R6 K49 ["SHOW_TOOLBOX_PLUGINS_EVENT"]
+      173 CONCAT                           R16 R17 R18
+      174 DUPCLOSURE                       R17 K50 [PROTO_9]
+      175 CAPTURE                          VAL R11
+      176 CAPTURE                          VAL R6
+      177 SETTABLE                         R17 R15 R16
+      178 LOADK                            R17 K48 ["MemStorageService."]
+      179 GETTABLEKS                       R18 R6 K51 ["SHOW_TOOLBOX_OPEN_MODELS_AND_SEARCH_EVENT"]
+      181 CONCAT                           R16 R17 R18
+      182 DUPCLOSURE                       R17 K52 [PROTO_11]
+      183 CAPTURE                          VAL R11
+      184 CAPTURE                          VAL R6
+      185 SETTABLE                         R17 R15 R16
+      186 LOADK                            R17 K48 ["MemStorageService."]
+      187 GETTABLEKS                       R18 R4 K53 ["OPEN_MARKETPLACE_VIEW_FOR_ASSET_TYPE"]
+      189 CONCAT                           R16 R17 R18
+      190 DUPCLOSURE                       R17 K54 [PROTO_13]
+      191 CAPTURE                          VAL R11
+      192 CAPTURE                          VAL R4
+      193 SETTABLE                         R17 R15 R16
+      194 DUPTABLE                         R16 K66 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "extraTriggers", "shouldImmediatelyOpen"}]
+      195 GETIMPORT                        R17 K67 [plugin]
+      197 SETTABLEKS                       R17 R16 K55 ["plugin"]
+      199 LOADK                            R17 K9 ["Toolbox"]
+      200 SETTABLEKS                       R17 R16 K56 ["pluginName"]
+      202 GETTABLEKS                       R19 R0 K68 ["Resources"]
+      204 GETTABLEKS                       R18 R19 K69 ["Localization"]
+      206 GETTABLEKS                       R17 R18 K70 ["LocalizedStrings"]
+      208 SETTABLEKS                       R17 R16 K57 ["translationResourceTable"]
+      210 GETTABLEKS                       R19 R0 K68 ["Resources"]
+      212 GETTABLEKS                       R18 R19 K69 ["Localization"]
+      214 GETTABLEKS                       R17 R18 K71 ["SourceStrings"]
+      216 SETTABLEKS                       R17 R16 K58 ["fallbackResourceTable"]
+      218 LOADNIL                          R17
+      219 SETTABLEKS                       R17 R16 K59 ["overrideLocaleId"]
+      221 LOADNIL                          R17
+      222 SETTABLEKS                       R17 R16 K60 ["localizationNamespace"]
+      224 DUPCLOSURE                       R17 K72 [PROTO_14]
+      225 SETTABLEKS                       R17 R16 K61 ["getToolbarName"]
+      227 DUPTABLE                         R17 K78 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
+      228 DUPCLOSURE                       R18 K79 [PROTO_15]
+      229 SETTABLEKS                       R18 R17 K73 ["getName"]
+      231 DUPCLOSURE                       R18 K80 [PROTO_16]
+      232 SETTABLEKS                       R18 R17 K74 ["getDescription"]
+      234 GETTABLEKS                       R18 R5 K81 ["TOOLBOX_ICON"]
+      236 SETTABLEKS                       R18 R17 K75 ["icon"]
+      238 LOADNIL                          R18
+      239 SETTABLEKS                       R18 R17 K76 ["text"]
+      241 LOADB                            R18 1
+      242 SETTABLEKS                       R18 R17 K77 ["clickableWhenViewportHidden"]
+      244 SETTABLEKS                       R17 R16 K62 ["buttonInfo"]
+      246 DUPTABLE                         R17 K87 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "name", "zIndexBehavior"}]
+      247 LOADK                            R18 K9 ["Toolbox"]
+      248 SETTABLEKS                       R18 R17 K82 ["id"]
+      250 GETIMPORT                        R18 K90 [DockWidgetPluginGuiInfo.new]
+      252 GETIMPORT                        R19 K94 [Enum.InitialDockState.Left]
+      254 LOADB                            R20 1
+      255 LOADB                            R21 0
+      256 LOADN                            R22 0
+      257 LOADN                            R23 0
+      258 GETTABLEKS                       R24 R4 K95 ["TOOLBOX_MIN_WIDTH"]
+      260 GETTABLEKS                       R25 R4 K96 ["TOOLBOX_MIN_HEIGHT"]
+      262 CALL                             R18 7 1
+      263 SETTABLEKS                       R18 R17 K83 ["dockWidgetPluginGuiInfo"]
+      265 DUPCLOSURE                       R18 K97 [PROTO_17]
+      266 SETTABLEKS                       R18 R17 K84 ["getDockTitle"]
+      268 LOADK                            R18 K9 ["Toolbox"]
+      269 SETTABLEKS                       R18 R17 K85 ["name"]
+      271 GETIMPORT                        R18 K100 [Enum.ZIndexBehavior.Sibling]
+      273 SETTABLEKS                       R18 R17 K86 ["zIndexBehavior"]
+      275 SETTABLEKS                       R17 R16 K63 ["dockWidgetInfo"]
+      277 SETTABLEKS                       R15 R16 K64 ["extraTriggers"]
+      279 DUPCLOSURE                       R17 K101 [PROTO_18]
+      280 CAPTURE                          VAL R9
+      281 SETTABLEKS                       R17 R16 K65 ["shouldImmediatelyOpen"]
+      283 MOVE                             R17 R13
+      284 CALL                             R17 0 1
+      285 JUMPIFNOT                        R17 ; [+6]
+      286 MOVE                             R17 R7
+      287 GETIMPORT                        R18 K23 [game]
+      289 DUPCLOSURE                       R19 K102 [PROTO_19]
+      290 CAPTURE                          VAL R8
+      291 CALL                             R17 2 0
+      292 GETTABLEKS                       R17 R3 K103 ["build"]
+      294 MOVE                             R18 R16
+      295 CALL                             R17 1 1
+      296 GETTABLEKS                       R18 R17 K104 ["pluginLoader"]
+      298 NAMECALL                         R18 R18 K105 ["waitForUserInteraction"]
+      300 CALL                             R18 1 1
+      301 JUMPIF                           R18 ; [+1]
+      302 RETURN                           R0 0
+      303 GETIMPORT                        R19 K1 [require]
+      305 GETIMPORT                        R22 K3 [script]
+      307 GETTABLEKS                       R21 R22 K4 ["Parent"]
+      309 GETTABLEKS                       R20 R21 K106 ["main"]
+      311 CALL                             R19 1 1
+      312 MOVE                             R20 R19
+      313 GETIMPORT                        R21 K67 [plugin]
+      315 MOVE                             R22 R17
+      316 CALL                             R20 2 0
+      317 RETURN                           R0 0

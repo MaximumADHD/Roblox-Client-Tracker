@@ -3,40 +3,47 @@ PROTO_0:
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["GetJoint"]
         4 CALL                             R0 2 1
-        5 JUMPIFNOT                        R0 ; [+17]
+        5 JUMPIFNOT                        R0 ; [+25]
         6 LOADK                            R4 K1 ["Motor6D"]
         7 NAMECALL                         R2 R0 K2 ["IsA"]
         9 CALL                             R2 2 1
-       10 JUMPIF                           R2 ; [+10]
+       10 JUMPIF                           R2 ; [+18]
        11 LOADK                            R4 K3 ["Bone"]
        12 NAMECALL                         R2 R0 K2 ["IsA"]
        14 CALL                             R2 2 1
-       15 JUMPIF                           R2 ; [+5]
+       15 JUMPIF                           R2 ; [+13]
        16 LOADK                            R4 K4 ["Attachment"]
        17 NAMECALL                         R2 R0 K2 ["IsA"]
        19 CALL                             R2 2 1
-       20 JUMPIFNOT                        R2 ; [+2]
-       21 MOVE                             R1 R0
-       22 JUMP                             ; [+1]
-       23 LOADNIL                          R1
-       24 GETUPVAL                         R2 2
-       25 GETUPVAL                         R3 1
-       26 SETTABLE                         R1 R2 R3
-       27 NEWTABLE                         R2 0 0
-       29 GETUPVAL                         R3 3
-       30 LOADNIL                          R4
-       31 LOADNIL                          R5
-       32 FORGPREP                         R3
-       33 GETUPVAL                         R9 2
-       34 GETTABLE                         R8 R9 R7
-       35 JUMPIFNOT                        R8 ; [+2]
-       36 LOADB                            R9 1
-       37 SETTABLE                         R9 R2 R8
-       38 FORGLOOP                         R3 2 ; [-6]
-       40 GETUPVAL                         R3 4
-       41 MOVE                             R4 R2
-       42 CALL                             R3 1 0
-       43 RETURN                           R0 0
+       20 JUMPIF                           R2 ; [+8]
+       21 LOADK                            R4 K5 ["AnimationConstraint"]
+       22 NAMECALL                         R2 R0 K2 ["IsA"]
+       24 CALL                             R2 2 1
+       25 JUMPIFNOT                        R2 ; [+5]
+       26 GETUPVAL                         R2 2
+       27 CALL                             R2 0 1
+       28 JUMPIFNOT                        R2 ; [+2]
+       29 MOVE                             R1 R0
+       30 JUMP                             ; [+1]
+       31 LOADNIL                          R1
+       32 GETUPVAL                         R2 3
+       33 GETUPVAL                         R3 1
+       34 SETTABLE                         R1 R2 R3
+       35 NEWTABLE                         R2 0 0
+       37 GETUPVAL                         R3 4
+       38 LOADNIL                          R4
+       39 LOADNIL                          R5
+       40 FORGPREP                         R3
+       41 GETUPVAL                         R9 3
+       42 GETTABLE                         R8 R9 R7
+       43 JUMPIFNOT                        R8 ; [+2]
+       44 LOADB                            R9 1
+       45 SETTABLE                         R9 R2 R8
+       46 FORGLOOP                         R3 2 ; [-6]
+       48 GETUPVAL                         R3 5
+       49 MOVE                             R4 R2
+       50 CALL                             R3 1 0
+       51 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -68,88 +75,103 @@ PROTO_2:
        20 MOVE                             R9 R6
        21 NAMECALL                         R7 R7 K0 ["GetJoint"]
        23 CALL                             R7 2 1
-       24 JUMPIFNOT                        R7 ; [+17]
+       24 JUMPIFNOT                        R7 ; [+25]
        25 LOADK                            R11 K1 ["Motor6D"]
        26 NAMECALL                         R9 R7 K2 ["IsA"]
        28 CALL                             R9 2 1
-       29 JUMPIF                           R9 ; [+10]
+       29 JUMPIF                           R9 ; [+18]
        30 LOADK                            R11 K3 ["Bone"]
        31 NAMECALL                         R9 R7 K2 ["IsA"]
        33 CALL                             R9 2 1
-       34 JUMPIF                           R9 ; [+5]
+       34 JUMPIF                           R9 ; [+13]
        35 LOADK                            R11 K4 ["Attachment"]
        36 NAMECALL                         R9 R7 K2 ["IsA"]
        38 CALL                             R9 2 1
-       39 JUMPIFNOT                        R9 ; [+2]
-       40 MOVE                             R8 R7
-       41 JUMP                             ; [+1]
-       42 LOADNIL                          R8
-       43 SETTABLE                         R8 R1 R6
-       44 GETUPVAL                         R9 0
-       45 GETTABLEKS                       R11 R6 K5 ["Name"]
-       47 NAMECALL                         R9 R9 K6 ["GetPropertyChangedSignal"]
-       49 CALL                             R9 2 1
-       50 NEWCLOSURE                       R11 P0
-       51 CAPTURE                          UPVAL U0
-       52 CAPTURE                          VAL R6
-       53 CAPTURE                          VAL R1
-       54 CAPTURE                          UPVAL U3
-       55 CAPTURE                          UPVAL U1
-       56 NAMECALL                         R9 R9 K7 ["Connect"]
-       58 CALL                             R9 2 1
-       59 FASTCALL2                        TABLE_INSERT R0 R9 ; [+5]
-       61 MOVE                             R11 R0
-       62 MOVE                             R12 R9
-       63 GETIMPORT                        R10 K10 [table.insert]
-       65 CALL                             R10 2 0
-       66 FORGLOOP                         R2 2 ; [-48]
-       68 NEWTABLE                         R2 0 0
-       70 GETUPVAL                         R3 3
-       71 LOADNIL                          R4
-       72 LOADNIL                          R5
-       73 FORGPREP                         R3
-       74 GETUPVAL                         R8 0
-       75 MOVE                             R10 R7
-       76 NAMECALL                         R8 R8 K0 ["GetJoint"]
-       78 CALL                             R8 2 1
-       79 JUMPIFNOT                        R8 ; [+17]
-       80 LOADK                            R12 K1 ["Motor6D"]
-       81 NAMECALL                         R10 R8 K2 ["IsA"]
-       83 CALL                             R10 2 1
-       84 JUMPIF                           R10 ; [+10]
-       85 LOADK                            R12 K3 ["Bone"]
-       86 NAMECALL                         R10 R8 K2 ["IsA"]
-       88 CALL                             R10 2 1
-       89 JUMPIF                           R10 ; [+5]
-       90 LOADK                            R12 K4 ["Attachment"]
-       91 NAMECALL                         R10 R8 K2 ["IsA"]
-       93 CALL                             R10 2 1
-       94 JUMPIFNOT                        R10 ; [+2]
-       95 MOVE                             R9 R8
-       96 JUMP                             ; [+1]
-       97 LOADNIL                          R9
-       98 JUMPIFNOT                        R9 ; [+1]
-       99 SETTABLE                         R7 R2 R9
-      100 FORGLOOP                         R3 2 ; [-27]
-      102 GETUPVAL                         R3 2
-      103 MOVE                             R4 R2
-      104 CALL                             R3 1 0
-      105 NEWTABLE                         R3 0 0
-      107 GETUPVAL                         R4 3
-      108 LOADNIL                          R5
-      109 LOADNIL                          R6
-      110 FORGPREP                         R4
-      111 GETTABLE                         R9 R1 R8
-      112 JUMPIFNOT                        R9 ; [+2]
-      113 LOADB                            R10 1
-      114 SETTABLE                         R10 R3 R9
-      115 FORGLOOP                         R4 2 ; [-5]
-      117 GETUPVAL                         R4 1
-      118 MOVE                             R5 R3
-      119 CALL                             R4 1 0
-      120 NEWCLOSURE                       R4 P1
-      121 CAPTURE                          VAL R0
-      122 RETURN                           R4 1
+       39 JUMPIF                           R9 ; [+8]
+       40 LOADK                            R11 K5 ["AnimationConstraint"]
+       41 NAMECALL                         R9 R7 K2 ["IsA"]
+       43 CALL                             R9 2 1
+       44 JUMPIFNOT                        R9 ; [+5]
+       45 GETUPVAL                         R9 4
+       46 CALL                             R9 0 1
+       47 JUMPIFNOT                        R9 ; [+2]
+       48 MOVE                             R8 R7
+       49 JUMP                             ; [+1]
+       50 LOADNIL                          R8
+       51 SETTABLE                         R8 R1 R6
+       52 GETUPVAL                         R9 0
+       53 GETTABLEKS                       R11 R6 K6 ["Name"]
+       55 NAMECALL                         R9 R9 K7 ["GetPropertyChangedSignal"]
+       57 CALL                             R9 2 1
+       58 NEWCLOSURE                       R11 P0
+       59 CAPTURE                          UPVAL U0
+       60 CAPTURE                          VAL R6
+       61 CAPTURE                          UPVAL U4
+       62 CAPTURE                          VAL R1
+       63 CAPTURE                          UPVAL U3
+       64 CAPTURE                          UPVAL U1
+       65 NAMECALL                         R9 R9 K8 ["Connect"]
+       67 CALL                             R9 2 1
+       68 FASTCALL2                        TABLE_INSERT R0 R9 ; [+5]
+       70 MOVE                             R11 R0
+       71 MOVE                             R12 R9
+       72 GETIMPORT                        R10 K11 [table.insert]
+       74 CALL                             R10 2 0
+       75 FORGLOOP                         R2 2 ; [-57]
+       77 NEWTABLE                         R2 0 0
+       79 GETUPVAL                         R3 3
+       80 LOADNIL                          R4
+       81 LOADNIL                          R5
+       82 FORGPREP                         R3
+       83 GETUPVAL                         R8 0
+       84 MOVE                             R10 R7
+       85 NAMECALL                         R8 R8 K0 ["GetJoint"]
+       87 CALL                             R8 2 1
+       88 JUMPIFNOT                        R8 ; [+25]
+       89 LOADK                            R12 K1 ["Motor6D"]
+       90 NAMECALL                         R10 R8 K2 ["IsA"]
+       92 CALL                             R10 2 1
+       93 JUMPIF                           R10 ; [+18]
+       94 LOADK                            R12 K3 ["Bone"]
+       95 NAMECALL                         R10 R8 K2 ["IsA"]
+       97 CALL                             R10 2 1
+       98 JUMPIF                           R10 ; [+13]
+       99 LOADK                            R12 K4 ["Attachment"]
+      100 NAMECALL                         R10 R8 K2 ["IsA"]
+      102 CALL                             R10 2 1
+      103 JUMPIF                           R10 ; [+8]
+      104 LOADK                            R12 K5 ["AnimationConstraint"]
+      105 NAMECALL                         R10 R8 K2 ["IsA"]
+      107 CALL                             R10 2 1
+      108 JUMPIFNOT                        R10 ; [+5]
+      109 GETUPVAL                         R10 4
+      110 CALL                             R10 0 1
+      111 JUMPIFNOT                        R10 ; [+2]
+      112 MOVE                             R9 R8
+      113 JUMP                             ; [+1]
+      114 LOADNIL                          R9
+      115 JUMPIFNOT                        R9 ; [+1]
+      116 SETTABLE                         R7 R2 R9
+      117 FORGLOOP                         R3 2 ; [-35]
+      119 GETUPVAL                         R3 2
+      120 MOVE                             R4 R2
+      121 CALL                             R3 1 0
+      122 NEWTABLE                         R3 0 0
+      124 GETUPVAL                         R4 3
+      125 LOADNIL                          R5
+      126 LOADNIL                          R6
+      127 FORGPREP                         R4
+      128 GETTABLE                         R9 R1 R8
+      129 JUMPIFNOT                        R9 ; [+2]
+      130 LOADB                            R10 1
+      131 SETTABLE                         R10 R3 R9
+      132 FORGLOOP                         R4 2 ; [-5]
+      134 GETUPVAL                         R4 1
+      135 MOVE                             R5 R3
+      136 CALL                             R4 1 0
+      137 NEWCLOSURE                       R4 P1
+      138 CAPTURE                          VAL R0
+      139 RETURN                           R4 1
 
 PROTO_3:
         0 GETUPVAL                         R2 0
@@ -169,14 +191,15 @@ PROTO_3:
        20 CAPTURE                          VAL R3
        21 CAPTURE                          VAL R5
        22 CAPTURE                          VAL R1
-       23 NEWTABLE                         R8 0 1
-       25 MOVE                             R9 R0
-       26 SETLIST                          R8 R9 1 [1]
-       28 CALL                             R6 2 0
-       29 DUPTABLE                         R6 K5 [{"mapped", "labelMap"}]
-       30 SETTABLEKS                       R2 R6 K3 ["mapped"]
-       32 SETTABLEKS                       R4 R6 K4 ["labelMap"]
-       34 RETURN                           R6 1
+       23 CAPTURE                          UPVAL U2
+       24 NEWTABLE                         R8 0 1
+       26 MOVE                             R9 R0
+       27 SETLIST                          R8 R9 1 [1]
+       29 CALL                             R6 2 0
+       30 DUPTABLE                         R6 K5 [{"mapped", "labelMap"}]
+       31 SETTABLEKS                       R2 R6 K3 ["mapped"]
+       33 SETTABLEKS                       R4 R6 K4 ["labelMap"]
+       35 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -196,7 +219,13 @@ MAIN:
        23 GETTABLEKS                       R5 R0 K9 ["Src"]
        25 GETTABLEKS                       R4 R5 K10 ["Types"]
        27 CALL                             R3 1 1
-       28 DUPCLOSURE                       R4 K11 [PROTO_3]
-       29 CAPTURE                          VAL R2
-       30 CAPTURE                          VAL R1
-       31 RETURN                           R4 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R7 R0 K9 ["Src"]
+       32 GETTABLEKS                       R6 R7 K11 ["Flags"]
+       34 GETTABLEKS                       R5 R6 K12 ["getFFlagAdaptiveAnimationConstraints"]
+       36 CALL                             R4 1 1
+       37 DUPCLOSURE                       R5 K13 [PROTO_3]
+       38 CAPTURE                          VAL R2
+       39 CAPTURE                          VAL R1
+       40 CAPTURE                          VAL R4
+       41 RETURN                           R5 1

@@ -73,7 +73,7 @@ PROTO_3:
        45 GETUPVAL                         R5 0
        46 GETTABLEKS                       R4 R5 K9 ["ContextStack"]
        48 DUPTABLE                         R5 K11 [{"providers"}]
-       49 NEWTABLE                         R6 0 5
+       49 NEWTABLE                         R6 0 4
        51 GETUPVAL                         R8 3
        52 GETTABLEKS                       R7 R8 K8 ["createElement"]
        54 GETUPVAL                         R10 4
@@ -118,17 +118,11 @@ PROTO_3:
       114 JUMP                             ; [+2]
       115 NEWTABLE                         R13 0 0
       117 SETTABLEKS                       R13 R12 K26 ["animationClipsList"]
-      119 CALL                             R10 2 1
-      120 GETUPVAL                         R12 3
-      121 GETTABLEKS                       R11 R12 K8 ["createElement"]
-      123 GETUPVAL                         R14 4
-      124 GETTABLEKS                       R13 R14 K32 ["AnimationPreviewContext"]
-      126 GETTABLEKS                       R12 R13 K13 ["EditableDataModelProvider"]
-      128 CALL                             R11 1 -1
-      129 SETLIST                          R6 R7 -1 [1]
-      131 SETTABLEKS                       R6 R5 K10 ["providers"]
-      133 CALL                             R3 2 -1
-      134 RETURN                           R3 -1
+      119 CALL                             R10 2 -1
+      120 SETLIST                          R6 R7 -1 [1]
+      122 SETTABLEKS                       R6 R5 K10 ["providers"]
+      124 CALL                             R3 2 -1
+      125 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

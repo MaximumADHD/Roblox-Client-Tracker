@@ -619,7 +619,7 @@ PROTO_15:
 
 PROTO_16:
         0 NEWTABLE                         R8 0 0
-        2 JUMPIFNOT                        R1 ; [+35]
+        2 JUMPIFNOT                        R1 ; [+39]
         3 GETUPVAL                         R9 0
         4 MOVE                             R10 R2
         5 MOVE                             R11 R3
@@ -636,35 +636,37 @@ PROTO_16:
        16 CALL                             R9 1 0
        17 GETUPVAL                         R9 3
        18 CALL                             R9 0 1
-       19 JUMPIFNOT                        R9 ; [+7]
-       20 JUMPIFNOT                        R7 ; [+6]
-       21 GETUPVAL                         R10 4
-       22 GETTABLEKS                       R9 R10 K0 ["SetCapabilitiesAndSandboxForModel"]
-       24 MOVE                             R10 R4
-       25 MOVE                             R11 R0
-       26 CALL                             R9 2 0
-       27 GETUPVAL                         R9 5
-       28 LOADK                            R11 K1 ["AssetInserted"]
-       29 DUPTABLE                         R12 K4 [{"assetId", "assetInstance"}]
-       30 SETTABLEKS                       R0 R12 K2 ["assetId"]
-       32 SETTABLEKS                       R4 R12 K3 ["assetInstance"]
-       34 NAMECALL                         R9 R9 K5 ["fire"]
-       36 CALL                             R9 3 0
-       37 JUMP                             ; [+12]
-       38 GETUPVAL                         R10 6
-       39 GETTABLEKS                       R9 R10 K6 ["shouldDebugWarnings"]
-       41 CALL                             R9 0 1
-       42 JUMPIFNOT                        R9 ; [+4]
-       43 GETIMPORT                        R9 K8 [print]
-       45 LOADK                            R10 K9 ["destroying temp model insert"]
-       46 CALL                             R9 1 0
-       47 NAMECALL                         R9 R3 K10 ["Destroy"]
-       49 CALL                             R9 1 0
-       50 GETUPVAL                         R9 7
-       51 MOVE                             R11 R8
-       52 NAMECALL                         R9 R9 K11 ["Set"]
-       54 CALL                             R9 2 0
-       55 RETURN                           R8 1
+       19 JUMPIFNOT                        R9 ; [+11]
+       20 JUMPIFNOT                        R7 ; [+10]
+       21 GETTABLEKS                       R9 R7 K0 ["shouldSandbox"]
+       23 JUMPIFNOTEQKB                    R9 TRUE ; [+7]
+       25 GETUPVAL                         R10 4
+       26 GETTABLEKS                       R9 R10 K1 ["SetCapabilitiesAndSandboxForModel"]
+       28 MOVE                             R10 R4
+       29 MOVE                             R11 R0
+       30 CALL                             R9 2 0
+       31 GETUPVAL                         R9 5
+       32 LOADK                            R11 K2 ["AssetInserted"]
+       33 DUPTABLE                         R12 K5 [{"assetId", "assetInstance"}]
+       34 SETTABLEKS                       R0 R12 K3 ["assetId"]
+       36 SETTABLEKS                       R4 R12 K4 ["assetInstance"]
+       38 NAMECALL                         R9 R9 K6 ["fire"]
+       40 CALL                             R9 3 0
+       41 JUMP                             ; [+12]
+       42 GETUPVAL                         R10 6
+       43 GETTABLEKS                       R9 R10 K7 ["shouldDebugWarnings"]
+       45 CALL                             R9 0 1
+       46 JUMPIFNOT                        R9 ; [+4]
+       47 GETIMPORT                        R9 K9 [print]
+       49 LOADK                            R10 K10 ["destroying temp model insert"]
+       50 CALL                             R9 1 0
+       51 NAMECALL                         R9 R3 K11 ["Destroy"]
+       53 CALL                             R9 1 0
+       54 GETUPVAL                         R9 7
+       55 MOVE                             R11 R8
+       56 NAMECALL                         R9 R9 K12 ["Set"]
+       58 CALL                             R9 2 0
+       59 RETURN                           R8 1
 
 PROTO_17:
         0 GETUPVAL                         R1 0
@@ -754,7 +756,7 @@ PROTO_18:
        26 CALL                             R10 0 1
        27 JUMPIFNOT                        R10 ; [+4]
        28 GETUPVAL                         R10 9
-       29 GETTABLEKS                       R9 R10 K7 ["shouldSandboxAsset"]
+       29 GETTABLEKS                       R9 R10 K7 ["capabilities"]
        31 JUMP                             ; [+1]
        32 LOADNIL                          R9
        33 CALL                             R1 8 1
@@ -2391,7 +2393,7 @@ PROTO_55:
 
 PROTO_56:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+109]
+        1 JUMPIFNOT                        R0 ; [+118]
         2 GETUPVAL                         R0 1
         3 JUMPIFNOT                        R0 ; [+26]
         4 GETUPVAL                         R1 0
@@ -2429,50 +2431,55 @@ PROTO_56:
        49 CALL                             R3 1 1
        50 GETUPVAL                         R0 7
        51 CALL                             R0 0 1
-       52 JUMPIFNOT                        R0 ; [+20]
+       52 JUMPIFNOT                        R0 ; [+29]
        53 GETUPVAL                         R1 0
        54 GETTABLEKS                       R0 R1 K12 ["options"]
-       56 JUMPIFNOT                        R0 ; [+16]
+       56 JUMPIFNOT                        R0 ; [+25]
        57 GETUPVAL                         R2 0
        58 GETTABLEKS                       R1 R2 K12 ["options"]
-       60 GETTABLEKS                       R0 R1 K13 ["shouldSandboxAsset"]
-       62 JUMPIFNOT                        R0 ; [+10]
-       63 GETUPVAL                         R1 8
-       64 GETTABLEKS                       R0 R1 K14 ["SetCapabilitiesAndSandboxForModel"]
-       66 GETUPVAL                         R2 0
-       67 GETTABLEKS                       R1 R2 K10 ["instances"]
-       69 GETUPVAL                         R3 0
-       70 GETTABLEKS                       R2 R3 K7 ["assetId"]
-       72 CALL                             R0 2 0
-       73 GETUPVAL                         R1 9
-       74 GETTABLEKS                       R0 R1 K15 ["contains"]
-       76 GETUPVAL                         R2 0
-       77 GETTABLEKS                       R1 R2 K16 ["assetSubTypes"]
-       79 GETUPVAL                         R3 9
-       80 GETTABLEKS                       R2 R3 K17 ["MaterialPack"]
-       82 CALL                             R0 2 1
-       83 JUMPIFNOT                        R0 ; [+11]
-       84 GETUPVAL                         R3 0
-       85 GETTABLEKS                       R0 R3 K10 ["instances"]
-       87 LOADNIL                          R1
-       88 LOADNIL                          R2
-       89 FORGPREP                         R0
-       90 GETUPVAL                         R5 10
-       91 SETTABLEKS                       R5 R4 K18 ["Parent"]
-       93 FORGLOOP                         R0 2 ; [-4]
-       95 GETUPVAL                         R1 0
-       96 GETTABLEKS                       R0 R1 K19 ["onSuccess"]
-       98 JUMPIFNOT                        R0 ; [+10]
-       99 GETUPVAL                         R1 0
-      100 GETTABLEKS                       R0 R1 K19 ["onSuccess"]
-      102 GETUPVAL                         R2 0
-      103 GETTABLEKS                       R1 R2 K7 ["assetId"]
-      105 GETUPVAL                         R3 0
-      106 GETTABLEKS                       R2 R3 K10 ["instances"]
-      108 CALL                             R0 2 0
-      109 LOADNIL                          R0
-      110 SETUPVAL                         R0 0
-      111 RETURN                           R0 0
+       60 GETTABLEKS                       R0 R1 K13 ["capabilities"]
+       62 JUMPIFNOT                        R0 ; [+19]
+       63 GETUPVAL                         R3 0
+       64 GETTABLEKS                       R2 R3 K12 ["options"]
+       66 GETTABLEKS                       R1 R2 K13 ["capabilities"]
+       68 GETTABLEKS                       R0 R1 K14 ["shouldSandbox"]
+       70 JUMPIFNOTEQKB                    R0 TRUE ; [+11]
+       72 GETUPVAL                         R1 8
+       73 GETTABLEKS                       R0 R1 K15 ["SetCapabilitiesAndSandboxForModel"]
+       75 GETUPVAL                         R2 0
+       76 GETTABLEKS                       R1 R2 K10 ["instances"]
+       78 GETUPVAL                         R3 0
+       79 GETTABLEKS                       R2 R3 K7 ["assetId"]
+       81 CALL                             R0 2 0
+       82 GETUPVAL                         R1 9
+       83 GETTABLEKS                       R0 R1 K16 ["contains"]
+       85 GETUPVAL                         R2 0
+       86 GETTABLEKS                       R1 R2 K17 ["assetSubTypes"]
+       88 GETUPVAL                         R3 9
+       89 GETTABLEKS                       R2 R3 K18 ["MaterialPack"]
+       91 CALL                             R0 2 1
+       92 JUMPIFNOT                        R0 ; [+11]
+       93 GETUPVAL                         R3 0
+       94 GETTABLEKS                       R0 R3 K10 ["instances"]
+       96 LOADNIL                          R1
+       97 LOADNIL                          R2
+       98 FORGPREP                         R0
+       99 GETUPVAL                         R5 10
+      100 SETTABLEKS                       R5 R4 K19 ["Parent"]
+      102 FORGLOOP                         R0 2 ; [-4]
+      104 GETUPVAL                         R1 0
+      105 GETTABLEKS                       R0 R1 K20 ["onSuccess"]
+      107 JUMPIFNOT                        R0 ; [+10]
+      108 GETUPVAL                         R1 0
+      109 GETTABLEKS                       R0 R1 K20 ["onSuccess"]
+      111 GETUPVAL                         R2 0
+      112 GETTABLEKS                       R1 R2 K7 ["assetId"]
+      114 GETUPVAL                         R3 0
+      115 GETTABLEKS                       R2 R3 K10 ["instances"]
+      117 CALL                             R0 2 0
+      118 LOADNIL                          R0
+      119 SETUPVAL                         R0 0
+      120 RETURN                           R0 0
 
 PROTO_57:
         0 GETIMPORT                        R0 K1 [spawn]

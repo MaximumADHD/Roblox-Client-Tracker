@@ -38,52 +38,55 @@ PROTO_1:
        21 JUMPIFEQ                         R3 R2 ; [+3]
        23 LOADB                            R3 0
        24 RETURN                           R3 1
-       25 GETTABLEKS                       R2 R0 K4 ["published"]
-       27 JUMPIFEQKNIL                     R2 ; [+9]
-       29 GETTABLEKS                       R2 R0 K4 ["published"]
-       31 GETTABLEKS                       R3 R1 K4 ["published"]
-       33 JUMPIFEQ                         R2 R3 ; [+3]
-       35 LOADB                            R2 0
-       36 RETURN                           R2 1
-       37 GETTABLEKS                       R2 R0 K5 ["saveType"]
-       39 JUMPIFEQKNIL                     R2 ; [+9]
-       41 GETTABLEKS                       R2 R0 K5 ["saveType"]
-       43 GETTABLEKS                       R3 R1 K5 ["saveType"]
-       45 JUMPIFEQ                         R2 R3 ; [+3]
-       47 LOADB                            R2 0
-       48 RETURN                           R2 1
-       49 GETTABLEKS                       R2 R0 K6 ["startDate"]
-       51 JUMPIFEQKNIL                     R2 ; [+13]
-       53 GETTABLEKS                       R3 R1 K7 ["date"]
-       55 GETTABLEKS                       R2 R3 K8 ["UnixTimestamp"]
-       57 GETTABLEKS                       R4 R0 K6 ["startDate"]
-       59 GETTABLEKS                       R3 R4 K8 ["UnixTimestamp"]
-       61 JUMPIFNOTLT                      R2 R3 ; [+3]
-       63 LOADB                            R2 0
-       64 RETURN                           R2 1
-       65 GETTABLEKS                       R2 R0 K9 ["endDate"]
-       67 JUMPIFEQKNIL                     R2 ; [+13]
-       69 GETTABLEKS                       R3 R1 K7 ["date"]
-       71 GETTABLEKS                       R2 R3 K8 ["UnixTimestamp"]
-       73 GETTABLEKS                       R4 R0 K9 ["endDate"]
-       75 GETTABLEKS                       R3 R4 K8 ["UnixTimestamp"]
-       77 JUMPIFNOTLT                      R3 R2 ; [+3]
-       79 LOADB                            R2 0
-       80 RETURN                           R2 1
-       81 GETTABLEKS                       R2 R0 K10 ["contributor"]
-       83 JUMPIFEQKNIL                     R2 ; [+15]
-       85 GETIMPORT                        R3 K13 [table.find]
-       87 GETTABLEKS                       R4 R1 K14 ["contributors"]
-       89 GETTABLEKS                       R5 R0 K10 ["contributor"]
-       91 CALL                             R3 2 1
-       92 JUMPIFNOTEQKNIL                  R3 ; [+2]
-       94 LOADB                            R2 0 +1
-       95 LOADB                            R2 1
-       96 JUMPIF                           R2 ; [+2]
-       97 LOADB                            R3 0
-       98 RETURN                           R3 1
+       25 GETTABLEKS                       R2 R0 K4 ["isPublished"]
+       27 JUMPIFEQKNIL                     R2 ; [+13]
+       29 GETTABLEKS                       R2 R0 K4 ["isPublished"]
+       31 GETTABLEKS                       R4 R1 K5 ["publishStatus"]
+       33 JUMPIFNOTEQKNIL                  R4 ; [+2]
+       35 LOADB                            R3 0 +1
+       36 LOADB                            R3 1
+       37 JUMPIFEQ                         R2 R3 ; [+3]
+       39 LOADB                            R2 0
+       40 RETURN                           R2 1
+       41 GETTABLEKS                       R2 R0 K6 ["saveType"]
+       43 JUMPIFEQKNIL                     R2 ; [+9]
+       45 GETTABLEKS                       R2 R0 K6 ["saveType"]
+       47 GETTABLEKS                       R3 R1 K6 ["saveType"]
+       49 JUMPIFEQ                         R2 R3 ; [+3]
+       51 LOADB                            R2 0
+       52 RETURN                           R2 1
+       53 GETTABLEKS                       R2 R0 K7 ["startDate"]
+       55 JUMPIFEQKNIL                     R2 ; [+13]
+       57 GETTABLEKS                       R3 R1 K8 ["date"]
+       59 GETTABLEKS                       R2 R3 K9 ["UnixTimestamp"]
+       61 GETTABLEKS                       R4 R0 K7 ["startDate"]
+       63 GETTABLEKS                       R3 R4 K9 ["UnixTimestamp"]
+       65 JUMPIFNOTLT                      R2 R3 ; [+3]
+       67 LOADB                            R2 0
+       68 RETURN                           R2 1
+       69 GETTABLEKS                       R2 R0 K10 ["endDate"]
+       71 JUMPIFEQKNIL                     R2 ; [+13]
+       73 GETTABLEKS                       R3 R1 K8 ["date"]
+       75 GETTABLEKS                       R2 R3 K9 ["UnixTimestamp"]
+       77 GETTABLEKS                       R4 R0 K10 ["endDate"]
+       79 GETTABLEKS                       R3 R4 K9 ["UnixTimestamp"]
+       81 JUMPIFNOTLT                      R3 R2 ; [+3]
+       83 LOADB                            R2 0
+       84 RETURN                           R2 1
+       85 GETTABLEKS                       R2 R0 K11 ["contributor"]
+       87 JUMPIFEQKNIL                     R2 ; [+15]
+       89 GETIMPORT                        R3 K14 [table.find]
+       91 GETTABLEKS                       R4 R1 K15 ["contributors"]
+       93 GETTABLEKS                       R5 R0 K11 ["contributor"]
+       95 CALL                             R3 2 1
+       96 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       98 LOADB                            R2 0 +1
        99 LOADB                            R2 1
-      100 RETURN                           R2 1
+      100 JUMPIF                           R2 ; [+2]
+      101 LOADB                            R3 0
+      102 RETURN                           R3 1
+      103 LOADB                            R2 1
+      104 RETURN                           R2 1
 
 PROTO_2:
         0 GETUPVAL                         R3 0
