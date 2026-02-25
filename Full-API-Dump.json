@@ -99422,9 +99422,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
@@ -188925,9 +188922,6 @@
                 },
                 {
                     "Name": "Opaque",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 3
                 }
             ],
