@@ -10609,7 +10609,6 @@
 [Lua] FFlagUGCValidationEnableFolderStructure5
 [Lua] FFlagUGCValidationEyebrowEyelashSupport2
 [C++] FFlagUGCValidationFetchQualityIsDynamicHead3
-[Lua] FFlagUGCValidationFixBannedNamesTypo
 [Lua] FFlagUGCValidationFixConstantsTypoLeg
 [Lua] FFlagUGCValidationHyperlinksInCageQuality
 [C++] FFlagUGCValidationIECTelemetry

@@ -4432,7 +4432,7 @@ Class MaterialService : Instance [NotCreatable] [Service]
 	Event MaterialService.MaterialFillToolEnabledChanged(shouldEnable: boolean) {🛠️Material} {🔒RobloxScript}
 	Event MaterialService.OverrideStatusChanged(material: Enum.Material) {🛠️Material} {🔒RobloxScript}
 Class MaterialVariant : Instance
-	Property MaterialVariant.AlphaMode: Enum.AlphaMode {🛠️Material} [NotBrowsable]
+	Property MaterialVariant.AlphaMode: Enum.AlphaMode {🛠️Material}
 	Property MaterialVariant.BaseMaterial: Enum.Material {🛠️Material} {✏️Plugin}
 	Property MaterialVariant.ColorMap: string {🛠️Material} {Plugin}
 	Property MaterialVariant.ColorMapContent: Content {🛠️Material} {Plugin}
@@ -8606,7 +8606,7 @@ Enum AlphaMode
 	EnumItem AlphaMode.Overlay : 0
 	EnumItem AlphaMode.Transparency : 1
 	EnumItem AlphaMode.TintMask : 2
-	EnumItem AlphaMode.Opaque : 3 [NotBrowsable]
+	EnumItem AlphaMode.Opaque : 3
 Enum AnalyticsCustomFieldKeys
 	EnumItem AnalyticsCustomFieldKeys.CustomField01 : 0
 	EnumItem AnalyticsCustomFieldKeys.CustomField02 : 1
