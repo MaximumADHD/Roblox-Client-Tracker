@@ -42686,7 +42686,6 @@ NtQueryInformationProcess
 NtQuerySystemInformation
 NtQueryVolumeInformationFile
 NtSetInformationFile
-NTStudio.SystemMenu.Title.SaveToRobloxWithNotes
 Nu7Er7LsbQpihVC
 NUCommandError
 NULL_NODE__
@@ -62813,6 +62812,7 @@ Studio.SystemMenu.Title.ResetLayout
 Studio.SystemMenu.Title.SaveAsLocalPlugin
 Studio.SystemMenu.Title.SaveToFileAs
 Studio.SystemMenu.Title.SaveToRobloxAs
+Studio.SystemMenu.Title.SaveToRobloxWithNotes
 Studio.SystemMenu.Title.Screenshot
 Studio.SystemMenu.Title.ShowConstraintDetails
 Studio.SystemMenu.Title.ShowGridMaterial
@@ -76588,7 +76588,7 @@ WillReturn
 WIN32_LEAN_AND_MEAN
 Win32MediaFoundationHardwareVideoEncoder.cpp
 Win32MediaFoundationUtils.cpp
-Win64.710.22976
+Win64.710.22816
 WinAudioDecoder
 WinAudioEncoder
 WinchEnabled
