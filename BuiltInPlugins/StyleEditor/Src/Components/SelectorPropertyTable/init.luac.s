@@ -810,202 +810,148 @@ PROTO_29:
         0 LOADK                            R3 K0 ["StyleRule"]
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 1
-        4 JUMPIFNOT                        R1 ; [+11]
+        4 JUMPIFNOT                        R1 ; [+30]
         5 GETUPVAL                         R1 0
-        6 CALL                             R1 0 0
-        7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K2 ["instanceMap"]
-       10 GETGLOBAL                        R2 K3 ["connectToStyleRule"]
-       12 MOVE                             R3 R0
-       13 GETUPVAL                         R4 0
-       14 CALL                             R2 2 1
-       15 SETTABLE                         R2 R1 R0
-       16 RETURN                           R0 0
+        6 NEWCLOSURE                       R3 P0
+        7 CAPTURE                          UPVAL U1
+        8 CAPTURE                          UPVAL U0
+        9 NAMECALL                         R1 R1 K2 ["setState"]
+       11 CALL                             R1 2 0
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R3 R4 K3 ["connections"]
+       15 GETTABLEKS                       R2 R3 K4 ["instanceMap"]
+       17 GETTABLE                         R1 R2 R0
+       18 GETTABLEKS                       R2 R1 K5 ["StyledPropertiesChangedConnection"]
+       20 NAMECALL                         R2 R2 K6 ["Disconnect"]
+       22 CALL                             R2 1 0
+       23 GETTABLEKS                       R2 R1 K7 ["NonStyledPropertiesChangedConnection"]
+       25 NAMECALL                         R2 R2 K6 ["Disconnect"]
+       27 CALL                             R2 1 0
+       28 GETUPVAL                         R4 0
+       29 GETTABLEKS                       R3 R4 K3 ["connections"]
+       31 GETTABLEKS                       R2 R3 K4 ["instanceMap"]
+       33 LOADNIL                          R3
+       34 SETTABLE                         R3 R2 R0
+       35 RETURN                           R0 0
 
 PROTO_30:
         0 LOADK                            R3 K0 ["StyleRule"]
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 1
-        4 JUMPIFNOT                        R1 ; [+22]
+        4 JUMPIFNOT                        R1 ; [+18]
         5 GETUPVAL                         R1 0
-        6 CALL                             R1 0 0
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K2 ["instanceMap"]
-       10 GETTABLE                         R1 R2 R0
-       11 JUMPIFNOT                        R1 ; [+15]
-       12 GETTABLEKS                       R2 R1 K3 ["StyledPropertiesChangedConnection"]
-       14 NAMECALL                         R2 R2 K4 ["Disconnect"]
-       16 CALL                             R2 1 0
-       17 GETTABLEKS                       R2 R1 K5 ["NonStyledPropertiesChangedConnection"]
-       19 NAMECALL                         R2 R2 K4 ["Disconnect"]
-       21 CALL                             R2 1 0
-       22 GETUPVAL                         R3 1
-       23 GETTABLEKS                       R2 R3 K2 ["instanceMap"]
-       25 LOADNIL                          R3
-       26 SETTABLE                         R3 R2 R0
-       27 RETURN                           R0 0
+        6 NEWCLOSURE                       R3 P0
+        7 CAPTURE                          UPVAL U1
+        8 CAPTURE                          UPVAL U0
+        9 NAMECALL                         R1 R1 K2 ["setState"]
+       11 CALL                             R1 2 0
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R2 R3 K3 ["connections"]
+       15 GETTABLEKS                       R1 R2 K4 ["instanceMap"]
+       17 GETGLOBAL                        R2 K5 ["connectToStyleRule"]
+       19 MOVE                             R3 R0
+       20 GETUPVAL                         R4 2
+       21 CALL                             R2 2 1
+       22 SETTABLE                         R2 R1 R0
+       23 RETURN                           R0 0
 
 PROTO_31:
-        0 DUPTABLE                         R2 K3 [{"instanceMap", "descendantAddedConnection", "descendantRemovingConnection"}]
-        1 NEWTABLE                         R3 0 0
-        3 SETTABLEKS                       R3 R2 K0 ["instanceMap"]
-        5 LOADNIL                          R3
-        6 SETTABLEKS                       R3 R2 K1 ["descendantAddedConnection"]
-        8 LOADNIL                          R3
-        9 SETTABLEKS                       R3 R2 K2 ["descendantRemovingConnection"]
-       11 LOADK                            R5 K4 ["StyleRule"]
-       12 NAMECALL                         R3 R0 K5 ["IsA"]
-       14 CALL                             R3 2 1
-       15 JUMPIFNOT                        R3 ; [+8]
-       16 GETTABLEKS                       R3 R2 K0 ["instanceMap"]
-       18 GETGLOBAL                        R4 K6 ["connectToStyleRule"]
-       20 MOVE                             R5 R0
-       21 MOVE                             R6 R1
-       22 CALL                             R4 2 1
-       23 SETTABLE                         R4 R3 R0
-       24 NAMECALL                         R3 R0 K7 ["GetDescendants"]
-       26 CALL                             R3 1 3
-       27 FORGPREP                         R3
-       28 LOADK                            R10 K4 ["StyleRule"]
-       29 NAMECALL                         R8 R7 K5 ["IsA"]
-       31 CALL                             R8 2 1
-       32 JUMPIFNOT                        R8 ; [+8]
-       33 GETTABLEKS                       R8 R2 K0 ["instanceMap"]
-       35 GETGLOBAL                        R9 K6 ["connectToStyleRule"]
-       37 MOVE                             R10 R7
-       38 MOVE                             R11 R1
-       39 CALL                             R9 2 1
-       40 SETTABLE                         R9 R8 R7
-       41 FORGLOOP                         R3 2 ; [-14]
-       43 GETTABLEKS                       R3 R0 K8 ["DescendantAdded"]
-       45 NEWCLOSURE                       R5 P0
-       46 CAPTURE                          VAL R1
-       47 CAPTURE                          VAL R2
-       48 NAMECALL                         R3 R3 K9 ["Connect"]
-       50 CALL                             R3 2 1
-       51 SETTABLEKS                       R3 R2 K1 ["descendantAddedConnection"]
-       53 GETTABLEKS                       R3 R0 K10 ["DescendantRemoving"]
-       55 NEWCLOSURE                       R5 P1
-       56 CAPTURE                          VAL R1
-       57 CAPTURE                          VAL R2
-       58 NAMECALL                         R3 R3 K9 ["Connect"]
-       60 CALL                             R3 2 1
-       61 SETTABLEKS                       R3 R2 K2 ["descendantRemovingConnection"]
-       63 RETURN                           R2 1
+        0 GETUPVAL                         R1 0
+        1 NEWTABLE                         R2 0 0
+        3 SETTABLEKS                       R2 R1 K0 ["connections"]
+        5 NEWTABLE                         R1 0 0
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R2 R3 K0 ["connections"]
+       10 SETTABLEKS                       R1 R2 K1 ["instanceMap"]
+       12 NEWCLOSURE                       R2 P0
+       13 CAPTURE                          UPVAL U0
+       14 CAPTURE                          UPVAL U1
+       15 GETUPVAL                         R5 0
+       16 GETTABLEKS                       R4 R5 K0 ["connections"]
+       18 GETTABLEKS                       R3 R4 K1 ["instanceMap"]
+       20 GETGLOBAL                        R4 K2 ["connectToStyleRule"]
+       22 MOVE                             R5 R0
+       23 MOVE                             R6 R2
+       24 CALL                             R4 2 1
+       25 SETTABLE                         R4 R3 R0
+       26 NAMECALL                         R3 R0 K3 ["GetDescendants"]
+       28 CALL                             R3 1 3
+       29 FORGPREP                         R3
+       30 LOADK                            R10 K4 ["StyleRule"]
+       31 NAMECALL                         R8 R7 K5 ["IsA"]
+       33 CALL                             R8 2 1
+       34 JUMPIFNOT                        R8 ; [+11]
+       35 GETUPVAL                         R10 0
+       36 GETTABLEKS                       R9 R10 K0 ["connections"]
+       38 GETTABLEKS                       R8 R9 K1 ["instanceMap"]
+       40 GETGLOBAL                        R9 K2 ["connectToStyleRule"]
+       42 MOVE                             R10 R7
+       43 MOVE                             R11 R2
+       44 CALL                             R9 2 1
+       45 SETTABLE                         R9 R8 R7
+       46 FORGLOOP                         R3 2 ; [-17]
+       48 GETUPVAL                         R4 0
+       49 GETTABLEKS                       R3 R4 K0 ["connections"]
+       51 GETTABLEKS                       R4 R0 K6 ["DescendantRemoving"]
+       53 NEWCLOSURE                       R6 P1
+       54 CAPTURE                          UPVAL U0
+       55 CAPTURE                          UPVAL U1
+       56 NAMECALL                         R4 R4 K7 ["Connect"]
+       58 CALL                             R4 2 1
+       59 SETTABLEKS                       R4 R3 K8 ["descendantRemovingConnection"]
+       61 GETUPVAL                         R4 0
+       62 GETTABLEKS                       R3 R4 K0 ["connections"]
+       64 GETTABLEKS                       R4 R0 K9 ["DescendantAdded"]
+       66 NEWCLOSURE                       R6 P2
+       67 CAPTURE                          UPVAL U0
+       68 CAPTURE                          UPVAL U1
+       69 CAPTURE                          VAL R2
+       70 NAMECALL                         R4 R4 K7 ["Connect"]
+       72 CALL                             R4 2 1
+       73 SETTABLEKS                       R4 R3 K10 ["descendantAddedConnection"]
+       75 RETURN                           R0 0
 
 PROTO_32:
-        0 NEWCLOSURE                       R1 P0
-        1 CAPTURE                          UPVAL U0
-        2 CAPTURE                          UPVAL U1
-        3 DUPCLOSURE                       R2 K0 [PROTO_31]
-        4 GETUPVAL                         R3 2
-        5 JUMPIFNOT                        R3 ; [+55]
-        6 GETUPVAL                         R3 0
-        7 NEWTABLE                         R4 0 0
-        9 SETTABLEKS                       R4 R3 K1 ["connections"]
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K1 ["connections"]
-       14 MOVE                             R5 R2
-       15 MOVE                             R6 R0
-       16 MOVE                             R7 R1
-       17 CALL                             R5 2 1
-       18 FASTCALL2                        TABLE_INSERT R4 R5 ; [+3]
-       20 GETIMPORT                        R3 K4 [table.insert]
-       22 CALL                             R3 2 0
-       23 GETUPVAL                         R4 3
-       24 GETTABLEKS                       R3 R4 K5 ["getQueryTypeFromSelector"]
-       26 GETTABLEKS                       R4 R0 K6 ["Selector"]
-       28 CALL                             R3 1 1
-       29 JUMPIFNOT                        R3 ; [+38]
-       30 GETUPVAL                         R6 3
-       31 GETTABLEKS                       R5 R6 K7 ["Type"]
-       33 GETTABLEKS                       R4 R5 K8 ["Pseudo"]
-       35 JUMPIFNOTEQ                      R3 R4 ; [+32]
-       37 GETUPVAL                         R5 3
-       38 GETTABLEKS                       R4 R5 K9 ["getQueryStyleRulesForPseudo"]
-       40 MOVE                             R5 R0
-       41 CALL                             R4 1 1
-       42 MOVE                             R5 R4
-       43 LOADNIL                          R6
-       44 LOADNIL                          R7
-       45 FORGPREP                         R5
-       46 GETUPVAL                         R12 0
-       47 GETTABLEKS                       R11 R12 K1 ["connections"]
-       49 MOVE                             R12 R2
-       50 MOVE                             R13 R9
-       51 MOVE                             R14 R1
-       52 CALL                             R12 2 1
-       53 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
-       55 GETIMPORT                        R10 K4 [table.insert]
-       57 CALL                             R10 2 0
-       58 FORGLOOP                         R5 2 ; [-13]
-       60 RETURN                           R0 0
-       61 GETUPVAL                         R3 0
-       62 MOVE                             R4 R2
-       63 MOVE                             R5 R0
-       64 MOVE                             R6 R1
-       65 CALL                             R4 2 1
-       66 SETTABLEKS                       R4 R3 K1 ["connections"]
-       68 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["connections"]
+        3 JUMPIFNOT                        R0 ; [+48]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R3 R4 K0 ["connections"]
+        7 GETTABLEKS                       R0 R3 K1 ["instanceMap"]
+        9 LOADNIL                          R1
+       10 LOADNIL                          R2
+       11 FORGPREP                         R0
+       12 GETTABLEKS                       R5 R4 K2 ["StyledPropertiesChangedConnection"]
+       14 NAMECALL                         R5 R5 K3 ["Disconnect"]
+       16 CALL                             R5 1 0
+       17 GETTABLEKS                       R5 R4 K4 ["NonStyledPropertiesChangedConnection"]
+       19 NAMECALL                         R5 R5 K3 ["Disconnect"]
+       21 CALL                             R5 1 0
+       22 FORGLOOP                         R0 2 ; [-11]
+       24 GETUPVAL                         R2 0
+       25 GETTABLEKS                       R1 R2 K0 ["connections"]
+       27 GETTABLEKS                       R0 R1 K5 ["descendantRemovingConnection"]
+       29 JUMPIFNOT                        R0 ; [+8]
+       30 GETUPVAL                         R2 0
+       31 GETTABLEKS                       R1 R2 K0 ["connections"]
+       33 GETTABLEKS                       R0 R1 K5 ["descendantRemovingConnection"]
+       35 NAMECALL                         R0 R0 K3 ["Disconnect"]
+       37 CALL                             R0 1 0
+       38 GETUPVAL                         R2 0
+       39 GETTABLEKS                       R1 R2 K0 ["connections"]
+       41 GETTABLEKS                       R0 R1 K6 ["descendantAddedConnection"]
+       43 JUMPIFNOT                        R0 ; [+8]
+       44 GETUPVAL                         R2 0
+       45 GETTABLEKS                       R1 R2 K0 ["connections"]
+       47 GETTABLEKS                       R0 R1 K6 ["descendantAddedConnection"]
+       49 NAMECALL                         R0 R0 K3 ["Disconnect"]
+       51 CALL                             R0 1 0
+       52 GETUPVAL                         R0 0
+       53 LOADNIL                          R1
+       54 SETTABLEKS                       R1 R0 K0 ["connections"]
+       56 RETURN                           R0 0
 
 PROTO_33:
-        0 GETTABLEKS                       R1 R0 K0 ["instanceMap"]
-        2 JUMPIFNOT                        R1 ; [+23]
-        3 GETTABLEKS                       R1 R0 K0 ["instanceMap"]
-        5 LOADNIL                          R2
-        6 LOADNIL                          R3
-        7 FORGPREP                         R1
-        8 GETTABLEKS                       R6 R5 K1 ["StyledPropertiesChangedConnection"]
-       10 JUMPIFNOT                        R6 ; [+5]
-       11 GETTABLEKS                       R6 R5 K1 ["StyledPropertiesChangedConnection"]
-       13 NAMECALL                         R6 R6 K2 ["Disconnect"]
-       15 CALL                             R6 1 0
-       16 GETTABLEKS                       R6 R5 K3 ["NonStyledPropertiesChangedConnection"]
-       18 JUMPIFNOT                        R6 ; [+5]
-       19 GETTABLEKS                       R6 R5 K3 ["NonStyledPropertiesChangedConnection"]
-       21 NAMECALL                         R6 R6 K2 ["Disconnect"]
-       23 CALL                             R6 1 0
-       24 FORGLOOP                         R1 2 ; [-17]
-       26 GETTABLEKS                       R1 R0 K4 ["descendantAddedConnection"]
-       28 JUMPIFNOT                        R1 ; [+5]
-       29 GETTABLEKS                       R1 R0 K4 ["descendantAddedConnection"]
-       31 NAMECALL                         R1 R1 K2 ["Disconnect"]
-       33 CALL                             R1 1 0
-       34 GETTABLEKS                       R1 R0 K5 ["descendantRemovingConnection"]
-       36 JUMPIFNOT                        R1 ; [+5]
-       37 GETTABLEKS                       R1 R0 K5 ["descendantRemovingConnection"]
-       39 NAMECALL                         R1 R1 K2 ["Disconnect"]
-       41 CALL                             R1 1 0
-       42 RETURN                           R0 0
-
-PROTO_34:
-        0 DUPCLOSURE                       R0 K0 [PROTO_33]
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K1 ["connections"]
-        4 JUMPIF                           R1 ; [+1]
-        5 RETURN                           R0 0
-        6 GETUPVAL                         R1 1
-        7 JUMPIFNOT                        R1 ; [+12]
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R1 R4 K1 ["connections"]
-       11 LOADNIL                          R2
-       12 LOADNIL                          R3
-       13 FORGPREP                         R1
-       14 MOVE                             R6 R0
-       15 MOVE                             R7 R5
-       16 CALL                             R6 1 0
-       17 FORGLOOP                         R1 2 ; [-4]
-       19 JUMP                             ; [+5]
-       20 MOVE                             R1 R0
-       21 GETUPVAL                         R3 0
-       22 GETTABLEKS                       R2 R3 K1 ["connections"]
-       24 CALL                             R1 1 0
-       25 GETUPVAL                         R1 0
-       26 LOADNIL                          R2
-       27 SETTABLEKS                       R2 R1 K1 ["connections"]
-       29 RETURN                           R0 0
-
-PROTO_35:
         0 DUPTABLE                         R1 K2 [{"rootInstance", "table"}]
         1 LOADNIL                          R2
         2 SETTABLEKS                       R2 R1 K0 ["rootInstance"]
@@ -1141,16 +1087,13 @@ PROTO_35:
       171 NEWCLOSURE                       R2 P20
       172 CAPTURE                          VAL R0
       173 CAPTURE                          UPVAL U20
-      174 CAPTURE                          UPVAL U21
-      175 CAPTURE                          UPVAL U22
-      176 SETTABLEKS                       R2 R0 K36 ["createStyleRuleConnections"]
-      178 NEWCLOSURE                       R2 P21
-      179 CAPTURE                          VAL R0
-      180 CAPTURE                          UPVAL U21
-      181 SETTABLEKS                       R2 R0 K37 ["removeStyleRuleConnections"]
-      183 RETURN                           R0 0
+      174 SETTABLEKS                       R2 R0 K36 ["createStyleRuleConnections"]
+      176 NEWCLOSURE                       R2 P21
+      177 CAPTURE                          VAL R0
+      178 SETTABLEKS                       R2 R0 K37 ["removeStyleRuleConnections"]
+      180 RETURN                           R0 0
 
-PROTO_36:
+PROTO_34:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["buildItems"]
         3 MOVE                             R4 R0
@@ -1190,14 +1133,14 @@ PROTO_36:
        52 CALL                             R6 2 -1
        53 RETURN                           R6 -1
 
-PROTO_37:
+PROTO_35:
         0 GETTABLEKS                       R1 R0 K0 ["createStyleRuleConnections"]
         2 GETTABLEKS                       R3 R0 K1 ["props"]
         4 GETTABLEKS                       R2 R3 K2 ["RootInstance"]
         6 CALL                             R1 1 0
         7 RETURN                           R0 0
 
-PROTO_38:
+PROTO_36:
         0 GETTABLEKS                       R4 R0 K0 ["props"]
         2 GETTABLEKS                       R3 R4 K1 ["RootInstance"]
         4 GETTABLEKS                       R4 R1 K1 ["RootInstance"]
@@ -1209,12 +1152,12 @@ PROTO_38:
        14 CALL                             R4 1 0
        15 RETURN                           R0 0
 
-PROTO_39:
+PROTO_37:
         0 GETTABLEKS                       R1 R0 K0 ["removeStyleRuleConnections"]
         2 CALL                             R1 0 0
         3 RETURN                           R0 0
 
-PROTO_40:
+PROTO_38:
         0 GETTABLEKS                       R2 R0 K0 ["RootInstance"]
         2 GETTABLEKS                       R3 R1 K1 ["rootInstance"]
         4 JUMPIFEQ                         R2 R3 ; [+10]
@@ -1227,7 +1170,7 @@ PROTO_40:
        14 RETURN                           R3 -1
        15 RETURN                           R1 1
 
-PROTO_41:
+PROTO_39:
         0 GETUPVAL                         R3 0
         1 DUPTABLE                         R4 K7 [{"tableItems", "dispatch", "setState", "newValue", "path", "columnIndex", "lastEdit"}]
         2 GETUPVAL                         R7 1
@@ -1253,7 +1196,7 @@ PROTO_41:
        34 CALL                             R3 1 0
        35 RETURN                           R0 0
 
-PROTO_42:
+PROTO_40:
         0 GETTABLEKS                       R1 R0 K0 ["state"]
         2 GETTABLEKS                       R2 R0 K1 ["props"]
         4 GETUPVAL                         R3 0
@@ -1326,7 +1269,7 @@ PROTO_42:
       112 CALL                             R4 2 -1
       113 RETURN                           R4 -1
 
-PROTO_43:
+PROTO_41:
         0 DUPTABLE                         R1 K2 [{"ClipboardInstance", "ClipboardProperty"}]
         1 GETTABLEKS                       R3 R0 K3 ["Clipboard"]
         3 GETTABLEKS                       R2 R3 K4 ["Instance"]
@@ -1440,140 +1383,127 @@ MAIN:
       179 GETIMPORT                        R29 K8 [require]
       181 GETTABLEKS                       R32 R1 K21 ["Src"]
       183 GETTABLEKS                       R31 R32 K36 ["Util"]
-      185 GETTABLEKS                       R30 R31 K44 ["StyleQueryHelpers"]
+      185 GETTABLEKS                       R30 R31 K44 ["TokenHelpers"]
       187 CALL                             R29 1 1
       188 GETIMPORT                        R30 K8 [require]
       190 GETTABLEKS                       R33 R1 K21 ["Src"]
-      192 GETTABLEKS                       R32 R33 K36 ["Util"]
-      194 GETTABLEKS                       R31 R32 K45 ["TokenHelpers"]
+      192 GETTABLEKS                       R32 R33 K40 ["Resources"]
+      194 GETTABLEKS                       R31 R32 K45 ["PluginStyles"]
       196 CALL                             R30 1 1
       197 GETIMPORT                        R31 K8 [require]
-      199 GETTABLEKS                       R34 R1 K21 ["Src"]
-      201 GETTABLEKS                       R33 R34 K40 ["Resources"]
-      203 GETTABLEKS                       R32 R33 K46 ["PluginStyles"]
-      205 CALL                             R31 1 1
-      206 GETIMPORT                        R32 K8 [require]
-      208 GETTABLEKS                       R34 R1 K21 ["Src"]
-      210 GETTABLEKS                       R33 R34 K47 ["Renderers"]
+      199 GETTABLEKS                       R33 R1 K21 ["Src"]
+      201 GETTABLEKS                       R32 R33 K46 ["Renderers"]
+      203 CALL                             R31 1 1
+      204 GETIMPORT                        R32 K8 [require]
+      206 GETTABLEKS                       R35 R1 K21 ["Src"]
+      208 GETTABLEKS                       R34 R35 K36 ["Util"]
+      210 GETTABLEKS                       R33 R34 K47 ["bind"]
       212 CALL                             R32 1 1
       213 GETIMPORT                        R33 K8 [require]
       215 GETTABLEKS                       R36 R1 K21 ["Src"]
       217 GETTABLEKS                       R35 R36 K36 ["Util"]
-      219 GETTABLEKS                       R34 R35 K48 ["bind"]
+      219 GETTABLEKS                       R34 R35 K48 ["recordChange"]
       221 CALL                             R33 1 1
-      222 GETIMPORT                        R34 K8 [require]
-      224 GETTABLEKS                       R37 R1 K21 ["Src"]
-      226 GETTABLEKS                       R36 R37 K36 ["Util"]
-      228 GETTABLEKS                       R35 R36 K49 ["recordChange"]
-      230 CALL                             R34 1 1
-      231 MOVE                             R35 R0
+      222 MOVE                             R34 R0
+      223 CALL                             R33 1 1
+      224 GETIMPORT                        R34 K8 [require]
+      226 GETTABLEKS                       R37 R1 K21 ["Src"]
+      228 GETTABLEKS                       R36 R37 K36 ["Util"]
+      230 GETTABLEKS                       R35 R36 K49 ["TreeTableHelpers"]
       232 CALL                             R34 1 1
       233 GETIMPORT                        R35 K8 [require]
-      235 GETTABLEKS                       R38 R1 K21 ["Src"]
-      237 GETTABLEKS                       R37 R38 K36 ["Util"]
-      239 GETTABLEKS                       R36 R37 K50 ["TreeTableHelpers"]
-      241 CALL                             R35 1 1
-      242 GETIMPORT                        R36 K8 [require]
-      244 GETTABLEKS                       R40 R1 K21 ["Src"]
-      246 GETTABLEKS                       R39 R40 K51 ["Contexts"]
-      248 GETTABLEKS                       R38 R39 K52 ["Telemetry"]
-      250 GETTABLEKS                       R37 R38 K53 ["TelemetryContext"]
-      252 CALL                             R36 1 1
-      253 GETIMPORT                        R37 K8 [require]
-      255 GETIMPORT                        R39 K5 [script]
-      257 GETTABLEKS                       R38 R39 K54 ["onEdited"]
+      235 GETTABLEKS                       R39 R1 K21 ["Src"]
+      237 GETTABLEKS                       R38 R39 K50 ["Contexts"]
+      239 GETTABLEKS                       R37 R38 K51 ["Telemetry"]
+      241 GETTABLEKS                       R36 R37 K52 ["TelemetryContext"]
+      243 CALL                             R35 1 1
+      244 GETIMPORT                        R36 K8 [require]
+      246 GETIMPORT                        R38 K5 [script]
+      248 GETTABLEKS                       R37 R38 K53 ["onEdited"]
+      250 CALL                             R36 1 1
+      251 GETIMPORT                        R37 K8 [require]
+      253 GETTABLEKS                       R40 R1 K21 ["Src"]
+      255 GETTABLEKS                       R39 R40 K54 ["Flags"]
+      257 GETTABLEKS                       R38 R39 K55 ["getFFlagStyleEditorNumberSequenceUpdate"]
       259 CALL                             R37 1 1
-      260 GETIMPORT                        R38 K8 [require]
-      262 GETTABLEKS                       R41 R1 K21 ["Src"]
-      264 GETTABLEKS                       R40 R41 K55 ["Flags"]
-      266 GETTABLEKS                       R39 R40 K56 ["getFFlagStyleEditorNumberSequenceUpdate"]
-      268 CALL                             R38 1 1
-      269 CALL                             R38 0 1
-      270 GETIMPORT                        R39 K8 [require]
-      272 GETTABLEKS                       R42 R1 K21 ["Src"]
-      274 GETTABLEKS                       R41 R42 K55 ["Flags"]
-      276 GETTABLEKS                       R40 R41 K57 ["getFFlagStyleEditorQueries"]
-      278 CALL                             R39 1 1
-      279 CALL                             R39 0 1
-      280 GETIMPORT                        R40 K8 [require]
-      282 GETIMPORT                        R42 K5 [script]
-      284 GETTABLEKS                       R41 R42 K58 ["Tree"]
-      286 CALL                             R40 1 1
-      287 GETTABLEKS                       R41 R40 K59 ["EditTree"]
-      289 LOADK                            R44 K60 ["RowHeight"]
-      290 NAMECALL                         R42 R31 K61 ["GetAttribute"]
-      292 CALL                             R42 2 1
-      293 GETTABLEKS                       R43 R2 K62 ["PureComponent"]
-      295 LOADK                            R45 K63 ["SelectorPropertyTable"]
-      296 NAMECALL                         R43 R43 K64 ["extend"]
-      298 CALL                             R43 2 1
-      299 DUPCLOSURE                       R44 K65 [PROTO_0]
-      300 SETGLOBAL                        R44 K66 ["connectToStyleRule"]
-      302 NEWCLOSURE                       R44 P1
-      303 CAPTURE                          VAL R5
-      304 CAPTURE                          VAL R40
-      305 CAPTURE                          VAL R38
-      306 CAPTURE                          VAL R41
-      307 CAPTURE                          VAL R6
-      308 CAPTURE                          VAL R27
-      309 CAPTURE                          VAL R26
-      310 CAPTURE                          VAL R33
-      311 CAPTURE                          VAL R25
-      312 CAPTURE                          VAL R28
-      313 CAPTURE                          VAL R30
-      314 CAPTURE                          VAL R24
-      315 CAPTURE                          VAL R21
-      316 CAPTURE                          VAL R35
-      317 CAPTURE                          VAL R7
-      318 CAPTURE                          VAL R22
-      319 CAPTURE                          VAL R20
-      320 CAPTURE                          VAL R17
-      321 CAPTURE                          VAL R34
-      322 CAPTURE                          VAL R18
-      323 CAPTURE                          REF R43
-      324 CAPTURE                          VAL R39
-      325 CAPTURE                          VAL R29
-      326 SETTABLEKS                       R44 R43 K67 ["init"]
-      328 DUPCLOSURE                       R44 K68 [PROTO_36]
-      329 CAPTURE                          VAL R40
-      330 CAPTURE                          VAL R5
-      331 CAPTURE                          VAL R6
-      332 SETTABLEKS                       R44 R43 K69 ["rebuildTableState"]
-      334 DUPCLOSURE                       R44 K70 [PROTO_37]
-      335 SETTABLEKS                       R44 R43 K71 ["didMount"]
-      337 DUPCLOSURE                       R44 K72 [PROTO_38]
-      338 SETTABLEKS                       R44 R43 K73 ["didUpdate"]
-      340 DUPCLOSURE                       R44 K74 [PROTO_39]
-      341 SETTABLEKS                       R44 R43 K75 ["willUnmount"]
-      343 NEWCLOSURE                       R44 P6
-      344 CAPTURE                          REF R43
-      345 SETTABLEKS                       R44 R43 K76 ["getDerivedStateFromProps"]
-      347 DUPCLOSURE                       R44 K77 [PROTO_42]
-      348 CAPTURE                          VAL R6
-      349 CAPTURE                          VAL R40
-      350 CAPTURE                          VAL R37
-      351 CAPTURE                          VAL R38
-      352 CAPTURE                          VAL R32
-      353 CAPTURE                          VAL R42
-      354 CAPTURE                          VAL R2
-      355 CAPTURE                          VAL R10
-      356 SETTABLEKS                       R44 R43 K78 ["render"]
-      358 MOVE                             R44 R12
-      359 DUPTABLE                         R45 K81 [{"Plugin", "Localization", "Telemetry"}]
-      360 GETTABLEKS                       R46 R11 K79 ["Plugin"]
-      362 SETTABLEKS                       R46 R45 K79 ["Plugin"]
-      364 GETTABLEKS                       R46 R11 K80 ["Localization"]
-      366 SETTABLEKS                       R46 R45 K80 ["Localization"]
-      368 SETTABLEKS                       R36 R45 K52 ["Telemetry"]
-      370 CALL                             R44 1 1
-      371 MOVE                             R45 R43
-      372 CALL                             R44 1 1
-      373 MOVE                             R43 R44
-      374 GETTABLEKS                       R44 R3 K82 ["connect"]
-      376 DUPCLOSURE                       R45 K83 [PROTO_43]
-      377 MOVE                             R46 R23
-      378 CALL                             R44 2 1
-      379 MOVE                             R45 R43
-      380 CALL                             R44 1 -1
-      381 CLOSEUPVALS                      R43
-      382 RETURN                           R44 -1
+      260 CALL                             R37 0 1
+      261 GETIMPORT                        R38 K8 [require]
+      263 GETIMPORT                        R40 K5 [script]
+      265 GETTABLEKS                       R39 R40 K56 ["Tree"]
+      267 CALL                             R38 1 1
+      268 GETTABLEKS                       R39 R38 K57 ["EditTree"]
+      270 LOADK                            R42 K58 ["RowHeight"]
+      271 NAMECALL                         R40 R30 K59 ["GetAttribute"]
+      273 CALL                             R40 2 1
+      274 GETTABLEKS                       R41 R2 K60 ["PureComponent"]
+      276 LOADK                            R43 K61 ["SelectorPropertyTable"]
+      277 NAMECALL                         R41 R41 K62 ["extend"]
+      279 CALL                             R41 2 1
+      280 DUPCLOSURE                       R42 K63 [PROTO_0]
+      281 SETGLOBAL                        R42 K64 ["connectToStyleRule"]
+      283 NEWCLOSURE                       R42 P1
+      284 CAPTURE                          VAL R5
+      285 CAPTURE                          VAL R38
+      286 CAPTURE                          VAL R37
+      287 CAPTURE                          VAL R39
+      288 CAPTURE                          VAL R6
+      289 CAPTURE                          VAL R27
+      290 CAPTURE                          VAL R26
+      291 CAPTURE                          VAL R32
+      292 CAPTURE                          VAL R25
+      293 CAPTURE                          VAL R28
+      294 CAPTURE                          VAL R29
+      295 CAPTURE                          VAL R24
+      296 CAPTURE                          VAL R21
+      297 CAPTURE                          VAL R34
+      298 CAPTURE                          VAL R7
+      299 CAPTURE                          VAL R22
+      300 CAPTURE                          VAL R20
+      301 CAPTURE                          VAL R17
+      302 CAPTURE                          VAL R33
+      303 CAPTURE                          VAL R18
+      304 CAPTURE                          REF R41
+      305 SETTABLEKS                       R42 R41 K65 ["init"]
+      307 DUPCLOSURE                       R42 K66 [PROTO_34]
+      308 CAPTURE                          VAL R38
+      309 CAPTURE                          VAL R5
+      310 CAPTURE                          VAL R6
+      311 SETTABLEKS                       R42 R41 K67 ["rebuildTableState"]
+      313 DUPCLOSURE                       R42 K68 [PROTO_35]
+      314 SETTABLEKS                       R42 R41 K69 ["didMount"]
+      316 DUPCLOSURE                       R42 K70 [PROTO_36]
+      317 SETTABLEKS                       R42 R41 K71 ["didUpdate"]
+      319 DUPCLOSURE                       R42 K72 [PROTO_37]
+      320 SETTABLEKS                       R42 R41 K73 ["willUnmount"]
+      322 NEWCLOSURE                       R42 P6
+      323 CAPTURE                          REF R41
+      324 SETTABLEKS                       R42 R41 K74 ["getDerivedStateFromProps"]
+      326 DUPCLOSURE                       R42 K75 [PROTO_40]
+      327 CAPTURE                          VAL R6
+      328 CAPTURE                          VAL R38
+      329 CAPTURE                          VAL R36
+      330 CAPTURE                          VAL R37
+      331 CAPTURE                          VAL R31
+      332 CAPTURE                          VAL R40
+      333 CAPTURE                          VAL R2
+      334 CAPTURE                          VAL R10
+      335 SETTABLEKS                       R42 R41 K76 ["render"]
+      337 MOVE                             R42 R12
+      338 DUPTABLE                         R43 K79 [{"Plugin", "Localization", "Telemetry"}]
+      339 GETTABLEKS                       R44 R11 K77 ["Plugin"]
+      341 SETTABLEKS                       R44 R43 K77 ["Plugin"]
+      343 GETTABLEKS                       R44 R11 K78 ["Localization"]
+      345 SETTABLEKS                       R44 R43 K78 ["Localization"]
+      347 SETTABLEKS                       R35 R43 K51 ["Telemetry"]
+      349 CALL                             R42 1 1
+      350 MOVE                             R43 R41
+      351 CALL                             R42 1 1
+      352 MOVE                             R41 R42
+      353 GETTABLEKS                       R42 R3 K80 ["connect"]
+      355 DUPCLOSURE                       R43 K81 [PROTO_41]
+      356 MOVE                             R44 R23
+      357 CALL                             R42 2 1
+      358 MOVE                             R43 R41
+      359 CALL                             R42 1 -1
+      360 CLOSEUPVALS                      R41
+      361 RETURN                           R42 -1

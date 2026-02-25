@@ -9,7 +9,7 @@ local SCREEN_SIDE_PADDING = 4
 
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local TopBarAppConstants = require(script.Parent.Parent.TopBar.Constants)
-local ChromeEnabled = require(script.Parent.Parent.Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 

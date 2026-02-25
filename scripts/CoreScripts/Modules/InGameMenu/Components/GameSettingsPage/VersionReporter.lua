@@ -17,7 +17,9 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
-local UIBlox = InGameMenuDependencies.UIBlox
+local Foundation = require(CorePackages.Packages.Foundation)
+local Skeleton = Foundation.Skeleton
+
 
 local PlayerPermissions = require(CoreGui.RobloxGui.Modules.PlayerPermissionsModule)
 
@@ -170,9 +172,8 @@ function VersionReporter:render()
 				LayoutOrder = 2,
 				Size = UDim2.new(1, -24, 0, 14),
 			}, {
-				not haveServerVersion and Roact.createElement(UIBlox.App.Loading.ShimmerPanel, {
+				not haveServerVersion and Roact.createElement(Skeleton, {
 					Size = UDim2.new(1, 0, 1, 0),
-					shimmerSpeed = 2,
 				}),
 			}),
 			PlaceVersion = Roact.createElement(ThemedTextLabel, {

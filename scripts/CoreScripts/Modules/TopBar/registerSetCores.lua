@@ -2,8 +2,8 @@
 local StarterGui = game:GetService("StarterGui")
 
 local CorePackages = game:GetService("CorePackages")
-local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
-local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
+local InExperienceTopBar = require(CorePackages.Workspace.Packages.InExperienceTopBar)
+local FFlagTopBarSignalizeSetCores = InExperienceTopBar.Flags.FFlagTopBarSignalizeSetCores
 
 local TopBar = script.Parent
 

@@ -35,5 +35,10 @@ MAIN:
        46 LOADK                            R3 K13 ["https://create.roblox.com/settings/eligibility/public-publish"]
        47 NAMECALL                         R0 R0 K4 ["DefineFastString"]
        49 CALL                             R0 3 0
-       50 LOADNIL                          R0
-       51 RETURN                           R0 1
+       50 GETIMPORT                        R0 K1 [game]
+       52 LOADK                            R2 K14 ["StudioUserLimitCheck"]
+       53 LOADB                            R3 0
+       54 NAMECALL                         R0 R0 K6 ["DefineFastFlag"]
+       56 CALL                             R0 3 0
+       57 LOADNIL                          R0
+       58 RETURN                           R0 1

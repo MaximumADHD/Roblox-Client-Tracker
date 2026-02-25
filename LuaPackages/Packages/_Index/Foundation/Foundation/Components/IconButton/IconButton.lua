@@ -58,7 +58,7 @@ export type IconButtonProps = {
 	-- Size of IconButton. `IconSize` is deprecated - use `InputSize`.
 	-- `Large` and `XLarge` `IconSize`s map to `InputSize.Large` and are not supported.
 	size: (InputSize | IconSize)?,
-	-- Width of the IconButton. `fillBehavior` is preferred and works better with flex layouts. Intended for cross-directional scaled sizing. Same behavior as [[Button]].
+	-- Sets a custom width. Prefer wrapping in a fixed-width container and using `fillBehavior = Fill` instead.
 	width: UDim?,
 	-- Controls how the IconButton fills space in a layout.
 	fillBehavior: FillBehavior?,

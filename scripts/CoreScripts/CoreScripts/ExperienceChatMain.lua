@@ -47,7 +47,7 @@ local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getF
 local getFFlagRenderVoiceBubbleAfterAsyncInit = require(RobloxGui.Modules.Flags.getFFlagRenderVoiceBubbleAfterAsyncInit)
 local GetFFlagShowLikelySpeakingBubbles =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowLikelySpeakingBubbles
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 local IsSpatialRobloxGuiEnabled = require(RobloxGui.Modules.VR.IsSpatialRobloxGuiEnabled)
 local getFFlagExpChatAlwaysRunTCS = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagExpChatAlwaysRunTCS
 

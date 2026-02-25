@@ -129,7 +129,7 @@ local Flags = {
 
 	FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav,
 
-	ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)(),
+	ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled(),
 	FFlagRespawnChromeShortcutTelemetry = require(RobloxGui.Modules.Chrome.Flags.FFlagRespawnChromeShortcutTelemetry),
 
 	FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels"),
@@ -169,6 +169,7 @@ local Flags = {
 	FFlagMenuButtonsCheckVisibilityBeforeMount = SettingsFlags.FFlagMenuButtonsCheckVisibilityBeforeMount or game:DefineFastFlag("MenuButtonsCheckVisibilityBeforeMount", false),
 
 	FFlagFixSpatialUICaptures = game:DefineFastFlag("FixSpatialUICaptures", false),
+	FFlagMenuButtonsSkipAnimation = game:DefineFastFlag("MenuButtonsSkipAnimation", false),
 }
 
 --[[ SERVICES ]]
@@ -923,7 +924,7 @@ local function CreateSettingsHub()
 				if Flags.GetFFlagEnableLeaveGameUpsellEntrypoint() and this.leaveGameUpsellProp ~= VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
 					this:SwitchToPage(this.LeaveGameUpsellPage, false)
 				else
-					this:SwitchToPage(this.LeaveGamePage, false)
+					this:SwitchToPage(this.LeaveGamePage, false, nil, if Flags.FFlagMenuButtonsSkipAnimation then true else nil)
 				end
 
 				TelemetryService:LogCounter(MenuLeaveGameTelemetryConfig, {
@@ -939,7 +940,7 @@ local function CreateSettingsHub()
 
 				this:AddToMenuStack(this.Pages.CurrentPage)
 				this.HubBar.Visible = false
-				this:SwitchToPage(this.ResetCharacterPage, false)
+				this:SwitchToPage(this.ResetCharacterPage, false, nil, if Flags.FFlagMenuButtonsSkipAnimation then true else nil)
 
 				TelemetryService:LogCounter(MenuResetCharacterTelemetryConfig, {
 					customFields = {

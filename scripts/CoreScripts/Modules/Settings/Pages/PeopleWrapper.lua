@@ -22,7 +22,7 @@ local FIntRelocateMobileMenuButtonsVariant = require(Modules.Settings.Flags.FInt
 
 -- Chrome check
 local Chrome = RobloxGui.Modules.Chrome
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 local LocalStore = if ChromeEnabled then require(Chrome.ChromeShared.Service.LocalStore) else nil
 
 -- Modules

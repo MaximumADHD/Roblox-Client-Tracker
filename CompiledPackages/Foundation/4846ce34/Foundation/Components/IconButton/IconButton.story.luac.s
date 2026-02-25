@@ -1,0 +1,242 @@
+PROTO_0:
+        0 GETIMPORT                        R0 K1 [print]
+        2 LOADK                            R2 K2 ["%* %* IconButton (%*) activated"]
+        3 GETUPVAL                         R4 0
+        4 GETUPVAL                         R5 1
+        5 GETUPVAL                         R6 2
+        6 NAMECALL                         R2 R2 K3 ["format"]
+        8 CALL                             R2 4 1
+        9 MOVE                             R1 R2
+       10 CALL                             R0 1 0
+       11 RETURN                           R0 0
+
+PROTO_1:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        3 GETUPVAL                         R2 1
+        4 DUPTABLE                         R3 K7 [{"icon", "variant", "onActivated", "isDisabled", "size", "isCircular"}]
+        5 DUPTABLE                         R4 K9 [{"name", "variant"}]
+        6 GETUPVAL                         R7 2
+        7 GETTABLEKS                       R6 R7 K10 ["controls"]
+        9 GETTABLEKS                       R5 R6 K8 ["name"]
+       11 SETTABLEKS                       R5 R4 K8 ["name"]
+       13 GETUPVAL                         R7 2
+       14 GETTABLEKS                       R6 R7 K10 ["controls"]
+       16 GETTABLEKS                       R5 R6 K2 ["variant"]
+       18 SETTABLEKS                       R5 R4 K2 ["variant"]
+       20 SETTABLEKS                       R4 R3 K1 ["icon"]
+       22 GETUPVAL                         R4 3
+       23 SETTABLEKS                       R4 R3 K2 ["variant"]
+       25 NEWCLOSURE                       R4 P0
+       26 CAPTURE                          UPVAL U4
+       27 CAPTURE                          UPVAL U3
+       28 CAPTURE                          VAL R0
+       29 SETTABLEKS                       R4 R3 K3 ["onActivated"]
+       31 GETUPVAL                         R5 5
+       32 GETTABLEKS                       R4 R5 K4 ["isDisabled"]
+       34 SETTABLEKS                       R4 R3 K4 ["isDisabled"]
+       36 SETTABLEKS                       R0 R3 K5 ["size"]
+       38 GETUPVAL                         R5 5
+       39 GETTABLEKS                       R4 R5 K6 ["isCircular"]
+       41 SETTABLEKS                       R4 R3 K6 ["isCircular"]
+       43 CALL                             R1 2 -1
+       44 RETURN                           R1 -1
+
+PROTO_2:
+        0 GETTABLEKS                       R1 R0 K0 ["controls"]
+        2 GETTABLEKS                       R2 R1 K1 ["colorMode"]
+        4 DUPTABLE                         R3 K2 [{"colorMode"}]
+        5 SETTABLEKS                       R2 R3 K1 ["colorMode"]
+        7 GETUPVAL                         R4 0
+        8 CALL                             R4 0 1
+        9 GETUPVAL                         R6 1
+       10 GETTABLEKS                       R5 R6 K3 ["createElement"]
+       12 GETUPVAL                         R6 2
+       13 DUPTABLE                         R7 K6 [{"tag", "backgroundStyle"}]
+       14 LOADK                            R8 K7 ["row gap-medium auto-xy size-0 align-y-center padding-medium radius-medium"]
+       15 SETTABLEKS                       R8 R7 K4 ["tag"]
+       17 GETUPVAL                         R9 3
+       18 GETUPVAL                         R11 4
+       19 GETTABLEKS                       R10 R11 K8 ["OverMedia"]
+       21 JUMPIFNOTEQ                      R9 R10 ; [+10]
+       23 GETTABLEKS                       R11 R4 K9 ["Color"]
+       25 GETTABLEKS                       R10 R11 K10 ["Extended"]
+       27 GETTABLEKS                       R9 R10 K11 ["White"]
+       29 GETTABLEKS                       R8 R9 K12 ["White_100"]
+       31 JUMP                             ; [+8]
+       32 JUMPIFNOT                        R2 ; [+6]
+       33 GETTABLE                         R10 R4 R2
+       34 GETTABLEKS                       R9 R10 K13 ["Surface"]
+       36 GETTABLEKS                       R8 R9 K14 ["Surface_100"]
+       38 JUMP                             ; [+1]
+       39 LOADNIL                          R8
+       40 SETTABLEKS                       R8 R7 K5 ["backgroundStyle"]
+       42 DUPTABLE                         R8 K17 [{"Gradient", "IconButtons"}]
+       43 GETUPVAL                         R10 3
+       44 GETUPVAL                         R12 4
+       45 GETTABLEKS                       R11 R12 K8 ["OverMedia"]
+       47 JUMPIFNOTEQ                      R10 R11 ; [+45]
+       49 GETUPVAL                         R10 1
+       50 GETTABLEKS                       R9 R10 K3 ["createElement"]
+       52 LOADK                            R10 K18 ["UIGradient"]
+       53 DUPTABLE                         R11 K19 [{"Color"}]
+       54 GETIMPORT                        R12 K22 [ColorSequence.new]
+       56 NEWTABLE                         R13 0 2
+       58 GETIMPORT                        R14 K24 [ColorSequenceKeypoint.new]
+       60 LOADN                            R15 0
+       61 GETTABLEKS                       R20 R4 K9 ["Color"]
+       63 GETTABLEKS                       R19 R20 K10 ["Extended"]
+       65 GETTABLEKS                       R18 R19 K25 ["Green"]
+       67 GETTABLEKS                       R17 R18 K26 ["Green_500"]
+       69 GETTABLEKS                       R16 R17 K27 ["Color3"]
+       71 CALL                             R14 2 1
+       72 GETIMPORT                        R15 K24 [ColorSequenceKeypoint.new]
+       74 LOADN                            R16 1
+       75 GETTABLEKS                       R21 R4 K9 ["Color"]
+       77 GETTABLEKS                       R20 R21 K10 ["Extended"]
+       79 GETTABLEKS                       R19 R20 K28 ["Blue"]
+       81 GETTABLEKS                       R18 R19 K29 ["Blue_500"]
+       83 GETTABLEKS                       R17 R18 K27 ["Color3"]
+       85 CALL                             R15 2 -1
+       86 SETLIST                          R13 R14 -1 [1]
+       88 CALL                             R12 1 1
+       89 SETTABLEKS                       R12 R11 K9 ["Color"]
+       91 CALL                             R9 2 1
+       92 JUMP                             ; [+1]
+       93 LOADNIL                          R9
+       94 SETTABLEKS                       R9 R8 K15 ["Gradient"]
+       96 GETUPVAL                         R10 1
+       97 GETTABLEKS                       R9 R10 K3 ["createElement"]
+       99 GETUPVAL                         R11 5
+      100 GETTABLEKS                       R10 R11 K30 ["Provider"]
+      102 DUPTABLE                         R11 K32 [{"value"}]
+      103 SETTABLEKS                       R3 R11 K31 ["value"]
+      105 GETUPVAL                         R13 6
+      106 GETTABLEKS                       R12 R13 K33 ["map"]
+      108 NEWTABLE                         R13 0 4
+      110 GETUPVAL                         R15 7
+      111 GETTABLEKS                       R14 R15 K34 ["Large"]
+      113 GETUPVAL                         R16 7
+      114 GETTABLEKS                       R15 R16 K35 ["Medium"]
+      116 GETUPVAL                         R17 7
+      117 GETTABLEKS                       R16 R17 K36 ["Small"]
+      119 GETUPVAL                         R18 7
+      120 GETTABLEKS                       R17 R18 K37 ["XSmall"]
+      122 SETLIST                          R13 R14 4 [1]
+      124 NEWCLOSURE                       R14 P0
+      125 CAPTURE                          UPVAL U1
+      126 CAPTURE                          UPVAL U8
+      127 CAPTURE                          VAL R0
+      128 CAPTURE                          UPVAL U3
+      129 CAPTURE                          VAL R2
+      130 CAPTURE                          VAL R1
+      131 CALL                             R12 2 -1
+      132 CALL                             R9 -1 1
+      133 SETTABLEKS                       R9 R8 K16 ["IconButtons"]
+      135 CALL                             R5 3 -1
+      136 RETURN                           R5 -1
+
+PROTO_3:
+        0 DUPTABLE                         R1 K2 [{"name", "story"}]
+        1 SETTABLEKS                       R0 R1 K0 ["name"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          UPVAL U0
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          UPVAL U2
+        7 CAPTURE                          VAL R0
+        8 CAPTURE                          UPVAL U3
+        9 CAPTURE                          UPVAL U4
+       10 CAPTURE                          UPVAL U5
+       11 CAPTURE                          UPVAL U6
+       12 CAPTURE                          UPVAL U7
+       13 SETTABLEKS                       R2 R1 K1 ["story"]
+       15 RETURN                           R1 1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Foundation"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R1 R0 K4 ["Parent"]
+        9 GETIMPORT                        R2 K6 [require]
+       11 GETTABLEKS                       R3 R1 K7 ["BuilderIcons"]
+       13 CALL                             R2 1 1
+       14 GETIMPORT                        R3 K6 [require]
+       16 GETTABLEKS                       R4 R1 K8 ["Dash"]
+       18 CALL                             R3 1 1
+       19 GETIMPORT                        R4 K6 [require]
+       21 GETTABLEKS                       R5 R1 K9 ["React"]
+       23 CALL                             R4 1 1
+       24 GETIMPORT                        R5 K6 [require]
+       26 GETTABLEKS                       R7 R0 K10 ["Enums"]
+       28 GETTABLEKS                       R6 R7 K11 ["ColorMode"]
+       30 CALL                             R5 1 1
+       31 GETIMPORT                        R6 K6 [require]
+       33 GETTABLEKS                       R8 R0 K12 ["Components"]
+       35 GETTABLEKS                       R7 R8 K13 ["IconButton"]
+       37 CALL                             R6 1 1
+       38 GETIMPORT                        R7 K6 [require]
+       40 GETTABLEKS                       R10 R0 K14 ["Providers"]
+       42 GETTABLEKS                       R9 R10 K15 ["Style"]
+       44 GETTABLEKS                       R8 R9 K16 ["PresentationContext"]
+       46 CALL                             R7 1 1
+       47 GETIMPORT                        R8 K6 [require]
+       49 GETTABLEKS                       R10 R0 K12 ["Components"]
+       51 GETTABLEKS                       R9 R10 K17 ["View"]
+       53 CALL                             R8 1 1
+       54 GETIMPORT                        R9 K6 [require]
+       56 GETTABLEKS                       R12 R0 K14 ["Providers"]
+       58 GETTABLEKS                       R11 R12 K15 ["Style"]
+       60 GETTABLEKS                       R10 R11 K18 ["useTokens"]
+       62 CALL                             R9 1 1
+       63 GETIMPORT                        R10 K6 [require]
+       65 GETTABLEKS                       R12 R0 K10 ["Enums"]
+       67 GETTABLEKS                       R11 R12 K19 ["InputSize"]
+       69 CALL                             R10 1 1
+       70 GETIMPORT                        R11 K6 [require]
+       72 GETTABLEKS                       R13 R0 K10 ["Enums"]
+       74 GETTABLEKS                       R12 R13 K20 ["ButtonVariant"]
+       76 CALL                             R11 1 1
+       77 NEWTABLE                         R12 0 5
+       79 GETTABLEKS                       R13 R11 K21 ["Utility"]
+       81 GETTABLEKS                       R14 R11 K22 ["Standard"]
+       83 GETTABLEKS                       R15 R11 K23 ["Emphasis"]
+       85 GETTABLEKS                       R16 R11 K24 ["OverMedia"]
+       87 GETTABLEKS                       R17 R11 K25 ["Alert"]
+       89 SETLIST                          R12 R13 5 [1]
+       91 DUPTABLE                         R13 K29 [{"summary", "stories", "controls"}]
+       92 LOADK                            R14 K13 ["IconButton"]
+       93 SETTABLEKS                       R14 R13 K26 ["summary"]
+       95 GETTABLEKS                       R14 R3 K30 ["map"]
+       97 MOVE                             R15 R12
+       98 DUPCLOSURE                       R16 K31 [PROTO_3]
+       99 CAPTURE                          VAL R9
+      100 CAPTURE                          VAL R4
+      101 CAPTURE                          VAL R8
+      102 CAPTURE                          VAL R11
+      103 CAPTURE                          VAL R7
+      104 CAPTURE                          VAL R3
+      105 CAPTURE                          VAL R10
+      106 CAPTURE                          VAL R6
+      107 CALL                             R14 2 1
+      108 SETTABLEKS                       R14 R13 K27 ["stories"]
+      110 DUPTABLE                         R14 K37 [{"name", "variant", "isDisabled", "isCircular", "colorMode"}]
+      111 GETTABLEKS                       R15 R3 K38 ["values"]
+      113 GETTABLEKS                       R16 R2 K39 ["Icon"]
+      115 CALL                             R15 1 1
+      116 SETTABLEKS                       R15 R14 K32 ["name"]
+      118 GETTABLEKS                       R15 R3 K38 ["values"]
+      120 GETTABLEKS                       R16 R2 K40 ["IconVariant"]
+      122 CALL                             R15 1 1
+      123 SETTABLEKS                       R15 R14 K33 ["variant"]
+      125 LOADB                            R15 0
+      126 SETTABLEKS                       R15 R14 K34 ["isDisabled"]
+      128 LOADB                            R15 0
+      129 SETTABLEKS                       R15 R14 K35 ["isCircular"]
+      131 GETTABLEKS                       R15 R3 K38 ["values"]
+      133 MOVE                             R16 R5
+      134 CALL                             R15 1 1
+      135 SETTABLEKS                       R15 R14 K36 ["colorMode"]
+      137 SETTABLEKS                       R14 R13 K28 ["controls"]
+      139 RETURN                           R13 1

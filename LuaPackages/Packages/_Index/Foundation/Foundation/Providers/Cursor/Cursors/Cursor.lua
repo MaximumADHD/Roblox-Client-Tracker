@@ -1,6 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local Flags = require(Foundation.Utility.Flags)
 local FoundationImages = require(Packages.FoundationImages)
 local React = require(Packages.React)
 
@@ -8,6 +9,8 @@ local Images = FoundationImages.Images
 local CursorComponent = require(script.Parent.Parent.CursorComponent)
 local CursorType = require(Foundation.Enums.CursorType)
 type CursorType = CursorType.CursorType
+local ColorMode = require(Foundation.Enums.ColorMode)
+type ColorMode = ColorMode.ColorMode
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local Components = script.Parent.Parent.Parent.Parent.Components
@@ -132,19 +135,23 @@ local CURSOR_TYPE_DETAILS: { [CursorType]: SlicedImage | FixedSizeImage | Rounde
 type Props = {
 	cursorType: CursorType,
 	isVisible: boolean,
+	colorMode: ColorMode.ColorMode,
 }
 
 local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 	local tokens = useTokens()
+	local colorIndex = if Flags.FoundationSupportPresentationContextInSelectionCursor
+		then props.colorMode
+		else ColorMode.Color -- default, current behavior
 	if props.cursorType == CursorType.NavHighlight then
 		return React.createElement("Frame", {
 			AnchorPoint = Vector2.new(0, 1),
 			Position = UDim2.new(0, 0, 1, -NAV_HIGHLIGHT_HEIGHT),
 			Size = UDim2.new(1, 0, 0, NAV_HIGHLIGHT_HEIGHT),
 			BorderSizePixel = 1,
-			BackgroundColor3 = tokens.Color.Selection.Start.Color3,
+			BackgroundColor3 = tokens[colorIndex].Selection.Start.Color3,
 			BackgroundTransparency = 0,
-			BorderColor3 = tokens.Color.Selection.Start.Color3,
+			BorderColor3 = tokens[colorIndex].Selection.Start.Color3,
 			ref = ref,
 		})
 	elseif props.cursorType == CursorType.Invisible then
@@ -166,8 +173,8 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 				ImageRectSize = Images[cursorDetails.Image].ImageRectSize,
 				Size = size,
 				Position = position,
-				ImageColor3 = tokens.Color.Selection.Start.Color3,
-				ImageTransparency = tokens.Color.Selection.Start.Transparency,
+				ImageColor3 = tokens[colorIndex].Selection.Start.Color3,
+				ImageTransparency = tokens[colorIndex].Selection.Start.Transparency,
 				ref = ref,
 			})
 		elseif cursorDetails.Tag == "SlicedImage" then
@@ -192,8 +199,8 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 				ScaleType = Enum.ScaleType.Slice,
 				Size = size,
 				Position = UDim2.fromOffset(-inset.X, -inset.Y),
-				ImageColor3 = tokens.Color.Selection.Start.Color3,
-				ImageTransparency = tokens.Color.Selection.Start.Transparency,
+				ImageColor3 = tokens[colorIndex].Selection.Start.Color3,
+				ImageTransparency = tokens[colorIndex].Selection.Start.Transparency,
 				ref = ref,
 			}, {
 				Padding = padding,
@@ -205,6 +212,7 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 				cornerRadius = roundedCursorDetails.CornerRadius,
 				offset = roundedCursorDetails.Offset - roundedCursorDetails.BorderWidth,
 				borderWidth = roundedCursorDetails.BorderWidth,
+				colorMode = props.colorMode,
 				ref = ref,
 			})
 		end

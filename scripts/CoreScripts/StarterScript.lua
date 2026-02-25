@@ -145,7 +145,7 @@ local _inExperienceSessionization = require(CorePackages.Workspace.Packages.InEx
 
 local FFlagAvatarChatCoreScriptSupport =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 if ChromeEnabled then
 	local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 	ExperienceChat.GlobalFlags.AvatarChatEnabled = FFlagAvatarChatCoreScriptSupport

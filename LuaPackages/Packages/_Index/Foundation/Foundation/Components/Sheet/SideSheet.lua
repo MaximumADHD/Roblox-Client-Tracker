@@ -36,7 +36,7 @@ local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
 
 type SideSheetProps = {
-	displaySize: Enum.DisplaySize, -- TODO: remove with Flags.FoundationSideSheetNewWidthCalculation
+	displaySize: Enum.DisplaySize,
 } & SheetProps
 
 local SMALL_DISPLAY_WIDTH = 400

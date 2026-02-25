@@ -6,6 +6,11 @@ local React = require(Packages.React)
 local DialogSize = require(Foundation.Enums.DialogSize)
 type DialogSize = DialogSize.DialogSize
 
+local Flags = require(Foundation.Utility.Flags)
+local getResponsiveSize = require(script.Parent.getResponsiveSize)
+local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+
 local DialogContext = require(script.Parent.DialogContext)
 
 export type DialogLayoutProps = {
@@ -19,7 +24,17 @@ export type DialogLayoutProps = {
 }
 
 local function DialogProvider(props: DialogLayoutProps)
-	local responsiveSize, setResponsiveSize = React.useState(props.responsiveSize)
+	local overlay = useOverlay()
+	local tokens = useTokens()
+
+	local responsiveSize, setResponsiveSize = React.useState(function()
+		if Flags.FoundationDialogFixResponsiveSize and overlay then
+			return getResponsiveSize(overlay.AbsoluteSize.X, props.size, tokens)
+		end
+
+		return props.responsiveSize or props.size
+	end)
+
 	local hasHeroMedia, setHasHeroMedia = React.useState(props.hasHeroMedia)
 
 	return React.createElement(DialogContext.Provider, {

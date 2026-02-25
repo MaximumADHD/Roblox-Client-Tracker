@@ -55,10 +55,9 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
-        2 GETUPVAL                         R3 2
-        3 NAMECALL                         R0 R0 K0 ["ComposeDecalAsync"]
-        5 CALL                             R0 3 0
-        6 RETURN                           R0 0
+        2 NAMECALL                         R0 R0 K0 ["ComposeDecalAsync"]
+        4 CALL                             R0 2 -1
+        5 RETURN                           R0 -1
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -170,59 +169,55 @@ PROTO_4:
       150 NAMECALL                         R8 R7 K32 ["Destroy"]
       152 CALL                             R8 1 0
       153 RETURN                           R0 0
-      154 GETIMPORT                        R7 K8 [Instance.new]
-      156 LOADK                            R8 K12 ["Decal"]
-      157 CALL                             R7 1 1
-      158 GETIMPORT                        R8 K34 [pcall]
-      160 NEWCLOSURE                       R9 P3
-      161 CAPTURE                          UPVAL U2
-      162 CAPTURE                          VAL R7
-      163 CAPTURE                          VAL R6
-      164 CALL                             R8 1 2
-      165 JUMPIF                           R8 ; [+5]
-      166 GETIMPORT                        R10 K36 [warn]
-      168 LOADK                            R11 K37 ["ComposeDecalAsync return with error"]
-      169 MOVE                             R12 R9
-      170 CALL                             R10 2 0
-      171 NAMECALL                         R10 R3 K38 ["Clone"]
-      173 CALL                             R10 1 1
-      174 SETTABLEKS                       R7 R10 K10 ["Parent"]
-      176 GETUPVAL                         R11 0
-      177 JUMPIFEQKNIL                     R11 ; [+28]
-      179 GETUPVAL                         R11 0
-      180 LOADK                            R13 K0 ["Head"]
-      181 NAMECALL                         R11 R11 K1 ["FindFirstChild"]
-      183 CALL                             R11 2 1
-      184 JUMPIFNOTEQKNIL                  R11 ; [+2]
-      186 JUMP                             ; [+19]
-      187 GETUPVAL                         R12 0
-      188 GETTABLEKS                       R11 R12 K0 ["Head"]
-      190 GETUPVAL                         R14 1
-      191 GETTABLEKS                       R13 R14 K31 ["MAKEUP_DECAL_NAME"]
-      193 NAMECALL                         R11 R11 K1 ["FindFirstChild"]
-      195 CALL                             R11 2 1
-      196 JUMPIFEQKNIL                     R11 ; [+9]
-      198 LOADK                            R14 K12 ["Decal"]
-      199 NAMECALL                         R12 R11 K5 ["IsA"]
-      201 CALL                             R12 2 1
-      202 JUMPIFNOT                        R12 ; [+3]
-      203 NAMECALL                         R12 R11 K32 ["Destroy"]
-      205 CALL                             R12 1 0
-      206 GETUPVAL                         R11 0
-      207 JUMPIFEQKNIL                     R11 ; [+8]
-      209 GETUPVAL                         R11 0
-      210 LOADK                            R13 K0 ["Head"]
-      211 NAMECALL                         R11 R11 K1 ["FindFirstChild"]
-      213 CALL                             R11 2 1
-      214 JUMPIFNOTEQKNIL                  R11 ; [+2]
-      216 RETURN                           R0 0
-      217 GETUPVAL                         R12 1
-      218 GETTABLEKS                       R11 R12 K31 ["MAKEUP_DECAL_NAME"]
-      220 SETTABLEKS                       R11 R7 K9 ["Name"]
-      222 GETUPVAL                         R12 0
-      223 GETTABLEKS                       R11 R12 K0 ["Head"]
-      225 SETTABLEKS                       R11 R7 K10 ["Parent"]
-      227 RETURN                           R0 0
+      154 GETIMPORT                        R7 K34 [pcall]
+      156 NEWCLOSURE                       R8 P3
+      157 CAPTURE                          UPVAL U2
+      158 CAPTURE                          VAL R6
+      159 CALL                             R7 1 2
+      160 JUMPIF                           R7 ; [+5]
+      161 GETIMPORT                        R9 K36 [warn]
+      163 LOADK                            R10 K37 ["ComposeDecalAsync return with error"]
+      164 MOVE                             R11 R8
+      165 CALL                             R9 2 0
+      166 NAMECALL                         R9 R3 K38 ["Clone"]
+      168 CALL                             R9 1 1
+      169 SETTABLEKS                       R8 R9 K10 ["Parent"]
+      171 GETUPVAL                         R10 0
+      172 JUMPIFEQKNIL                     R10 ; [+28]
+      174 GETUPVAL                         R10 0
+      175 LOADK                            R12 K0 ["Head"]
+      176 NAMECALL                         R10 R10 K1 ["FindFirstChild"]
+      178 CALL                             R10 2 1
+      179 JUMPIFNOTEQKNIL                  R10 ; [+2]
+      181 JUMP                             ; [+19]
+      182 GETUPVAL                         R11 0
+      183 GETTABLEKS                       R10 R11 K0 ["Head"]
+      185 GETUPVAL                         R13 1
+      186 GETTABLEKS                       R12 R13 K31 ["MAKEUP_DECAL_NAME"]
+      188 NAMECALL                         R10 R10 K1 ["FindFirstChild"]
+      190 CALL                             R10 2 1
+      191 JUMPIFEQKNIL                     R10 ; [+9]
+      193 LOADK                            R13 K12 ["Decal"]
+      194 NAMECALL                         R11 R10 K5 ["IsA"]
+      196 CALL                             R11 2 1
+      197 JUMPIFNOT                        R11 ; [+3]
+      198 NAMECALL                         R11 R10 K32 ["Destroy"]
+      200 CALL                             R11 1 0
+      201 GETUPVAL                         R10 0
+      202 JUMPIFEQKNIL                     R10 ; [+8]
+      204 GETUPVAL                         R10 0
+      205 LOADK                            R12 K0 ["Head"]
+      206 NAMECALL                         R10 R10 K1 ["FindFirstChild"]
+      208 CALL                             R10 2 1
+      209 JUMPIFNOTEQKNIL                  R10 ; [+2]
+      211 RETURN                           R0 0
+      212 GETUPVAL                         R11 1
+      213 GETTABLEKS                       R10 R11 K31 ["MAKEUP_DECAL_NAME"]
+      215 SETTABLEKS                       R10 R8 K9 ["Name"]
+      217 GETUPVAL                         R11 0
+      218 GETTABLEKS                       R10 R11 K0 ["Head"]
+      220 SETTABLEKS                       R10 R8 K10 ["Parent"]
+      222 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0

@@ -242,26 +242,15 @@ PROTO_8:
       211 SETTABLEKS                       R0 R4 K65 ["Plugin"]
       213 CALL                             R2 2 0
       214 RETURN                           R0 0
-      215 JUMPIFNOTEQKS                    R1 K71 ["previewdatamodel"] ; [+15]
-      217 GETUPVAL                         R2 4
-      218 GETIMPORT                        R3 K63 [require]
-      220 GETUPVAL                         R6 0
-      221 GETTABLEKS                       R5 R6 K35 ["Src"]
-      223 GETTABLEKS                       R4 R5 K72 ["PreviewDataModelMainPlugin"]
-      225 CALL                             R3 1 1
-      226 DUPTABLE                         R4 K70 [{"Plugin"}]
-      227 SETTABLEKS                       R0 R4 K65 ["Plugin"]
-      229 CALL                             R2 2 0
-      230 RETURN                           R0 0
-      231 GETIMPORT                        R2 K74 [error]
-      233 LOADK                            R4 K75 ["Unknown plugin type: "]
-      234 FASTCALL1                        TOSTRING R1 ; [+3]
-      235 MOVE                             R6 R1
-      236 GETIMPORT                        R5 K77 [tostring]
-      238 CALL                             R5 1 1
-      239 CONCAT                           R3 R4 R5
-      240 CALL                             R2 1 0
-      241 RETURN                           R0 0
+      215 GETIMPORT                        R2 K72 [error]
+      217 LOADK                            R4 K73 ["Unknown plugin type: "]
+      218 FASTCALL1                        TOSTRING R1 ; [+3]
+      219 MOVE                             R6 R1
+      220 GETIMPORT                        R5 K75 [tostring]
+      222 CALL                             R5 1 1
+      223 CONCAT                           R3 R4 R5
+      224 CALL                             R2 1 0
+      225 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

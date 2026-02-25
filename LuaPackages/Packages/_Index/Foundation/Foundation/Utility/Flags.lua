@@ -53,7 +53,6 @@ return {
 
 	-- Foundation@1.62.0
 	FoundationOverlayLuaAppInsetsFix = SafeFlags.createGetFFlag("FoundationOverlayLuaAppInsetsFix2")(),
-	FoundationSheetBottomSheetAutoSize = SafeFlags.createGetFFlag("FoundationSheetBottomSheetAutoSize")(),
 
 	-- Foundation@1.63.2
 	FoundationDialogBodyUpdate = SafeFlags.createGetFFlag("FoundationDialogBodyUpdate1")(),
@@ -62,12 +61,9 @@ return {
 	-- Foundation@1.64.0
 	FoundationOverlayMountReorder = SafeFlags.createGetFFlag("FoundationOverlayMountReorder")(),
 	FoundationPopoverFixArrowPositioning = SafeFlags.createGetFFlag("FoundationPopoverFixArrowPositioning")(),
-	FoundationSheetFixLandscapeFlicker = SafeFlags.createGetFFlag("FoundationSheetFixLandscapeFlicker")(),
-	FoundationSheetNoCenterSheetSmallScreens = SafeFlags.createGetFFlag("FoundationSheetNoCenterSheetSmallScreens2")(),
 	FoundationSheetSideSheetTopBarFix = SafeFlags.createGetFFlag("FoundationSheetSideSheetTopBarFix")(),
 
 	-- Foundation@1.65.0
-	FoundationNumberInputDraggingDeltaFix = SafeFlags.createGetFFlag("FoundationNumberInputDraggingDeltaFix")(),
 	FoundationOverlayDisplayOrder = SafeFlags.createGetFFlag("FoundationOverlayDisplayOrder")(),
 
 	-- Foundation@1.66.0
@@ -82,14 +78,11 @@ return {
 
 	-- Foundation@1.67.1
 	FoundationCheckboxIndeterminate = SafeFlags.createGetFFlag("FoundationCheckboxIndeterminate2")(),
-	FoundationSliderClampValue = SafeFlags.createGetFFlag("FoundationSliderClampValue")(),
-	FoundationSliderFixValueOnDrag = SafeFlags.createGetFFlag("FoundationSliderFixValueOnDrag")(),
 
 	-- Foundation@1.67.2
 	FoundationDialogContentSelectable = SafeFlags.createGetFFlag("FoundationDialogContentSelectable")(),
 	FoundationDontCreateUIDDForNumberInput = SafeFlags.createGetFFlag("FoundationDontCreateUIDDForNumberInput")(),
 	FoundationFixOptionSelectorThickness = SafeFlags.createGetFFlag("FoundationFixOptionSelectorThickness")(),
-	FoundationImageFixAspectRatioMemo = SafeFlags.createGetFFlag("FoundationImageFixAspectRatioMemo")(),
 
 	-- Foundation@1.67.3
 	FoundationAddHeightPropToCenterSheet = SafeFlags.createGetFFlag("FoundationAddHeightPropToCenterSheet2")(),
@@ -116,8 +109,24 @@ return {
 
 	-- Foundation@1.70.0
 	FoundationElevationKeepSiblingZIndex = SafeFlags.createGetFFlag("FoundationElevationKeepSiblingZIndex")(),
-	FoundationFixPopoverShadowSizing = FoundationFixPopoverShadowSizing,
 	FoundationIconButtonWidth = SafeFlags.createGetFFlag("FoundationIconButtonWidth")(),
+
+	-- Foundation@1.71.0
+	FoundationBottomSheetImproveSpring = SafeFlags.createGetFFlag("FoundationBottomSheetImproveSpring")(),
+	FoundationButtonWidthAutoSize = SafeFlags.createGetFFlag("FoundationButtonWidthAutoSize")(),
+	FoundationNumberInputFixControlSizes = SafeFlags.createGetFFlag("FoundationNumberInputFixControlSizes")(),
+	FoundationSideSheetFixNewWidth = SafeFlags.createGetFFlag("FoundationSideSheetFixNewWidth")(),
+	FoundationSupportPresentationContextInSelectionCursor = SafeFlags.createGetFFlag(
+		"FoundationSupportPresentationContextInSelectionCursor"
+	)(),
+
+	-- Foundation@1.72.0
+	FoundationColorPickerPartialHSV = SafeFlags.createGetFFlag("FoundationColorPickerPartialHSV")(),
+
+	-- Foundation@1.72.1
+	FoundationBaseMenuItemImageRadius = SafeFlags.createGetFFlag("FoundationBaseMenuItemImageRadius")(),
+	FoundationDialogFixResponsiveSize = SafeFlags.createGetFFlag("FoundationDialogFixResponsiveSize")(),
+	FoundationFixPopoverShadowSizing = FoundationFixPopoverShadowSizing,
 	FoundationInputFieldTokenBasedWidth = FoundationInputFieldTokenBasedWidth,
 	FoundationNumberInputFixScrubbableBG = FoundationUIStrokeInner and FoundationNumberInputFixScrubbableBG,
 	FoundationPopoverConditionalRender = SafeFlags.createGetFFlag("FoundationPopoverConditionalRender")()
@@ -125,4 +134,5 @@ return {
 	FoundationTextAreaTokenBasedWidth = FoundationInputFieldTokenBasedWidth and FoundationTextAreaTokenBasedWidth,
 	FoundationTextInputTokenBasedWidth = FoundationInputFieldTokenBasedWidth and FoundationTextInputTokenBasedWidth,
 	FoundationUIStrokeInner = FoundationUIStrokeInner,
+	FoundationUseGetInsetArea = SafeFlags.createGetFFlag("FoundationUseGetInsetArea")(),
 }

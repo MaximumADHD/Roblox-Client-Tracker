@@ -5,6 +5,7 @@ local React = require(Packages.React)
 
 local Types = require(Foundation.Components.Types)
 type CommonProps = Types.CommonProps
+type PartialColorHSV = Types.PartialColorHSV
 local Dropdown = require(Foundation.Components.Dropdown)
 local NumberInput = require(Foundation.Components.NumberInput)
 local TextInput = require(Foundation.Components.TextInput)
@@ -17,7 +18,9 @@ type ColorInputMode = ColorInputMode.ColorInputMode
 local InputSize = require(Foundation.Enums.InputSize)
 local NumberInputControlsVariant = require(Foundation.Enums.NumberInputControlsVariant)
 
+local Flags = require(Foundation.Utility.Flags)
 local colorInputUtils = require(Foundation.Components.ColorPicker.colorInputUtils)
+local colorUtils = require(Foundation.Components.ColorPicker.colorUtils)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
@@ -25,13 +28,17 @@ local Tokens = require(Foundation.Providers.Style.Tokens)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 type Tokens = Tokens.Tokens
 
+type RawRGB = { r: number?, g: number?, b: number? }
+type RawHSV = { h: number, s: number?, v: number? }
+
+local EMPTY_CHANNEL_VALUE = -1
 local RGB_MAX_VALUE = 255
 
 type Config<T, V> = colorInputUtils.Config<T, V>
 
 local function createInput<T>(
 	tokens: Tokens,
-	config: Config<T, string | number>,
+	config: Config<T, string | number | nil>,
 	index: number,
 	mode: string,
 	testId: string?
@@ -59,12 +66,37 @@ local function createInput<T>(
 		)
 	end
 
+	local configValue = config.value:getValue()
+
+	-- When value is nil (partial HSV empty channel), show empty NumberInput. It will show EMPTY_CHANNEL_VALUE if clicked on.
+	if Flags.FoundationColorPickerPartialHSV and configValue == nil then
+		return React.createElement(
+			NumberInput,
+			Dash.join({
+				value = EMPTY_CHANNEL_VALUE,
+				onChanged = function(value: number)
+					if value ~= EMPTY_CHANNEL_VALUE then
+						(config.handler :: any)(value, config.component)
+					end
+				end,
+				controlsVariant = NumberInputControlsVariant.Stacked,
+				minimum = config.minimum or 0,
+				maximum = config.maximum or 255,
+				step = config.step or 1,
+				precision = config.precision or 0,
+				formatAsString = function(_value: number)
+					return ""
+				end,
+			}, sharedProps)
+		)
+	end
+
 	return React.createElement(
 		NumberInput,
 		Dash.join({
-			value = config.value:getValue() :: number,
+			value = configValue :: number,
 			onChanged = function(value: number)
-				config.handler(value, config.component)
+				(config.handler :: any)(value, config.component)
 			end,
 			controlsVariant = NumberInputControlsVariant.Stacked,
 			minimum = config.minimum or 0,
@@ -76,7 +108,7 @@ local function createInput<T>(
 end
 
 type ColorInputsProps = {
-	color: React.Binding<Color3>,
+	color: React.Binding<Color3 | PartialColorHSV>,
 	alpha: React.Binding<number>?,
 	onColorChanged: (color: Color3) -> (),
 	onAlphaChanged: ((alpha: number) -> ())?,
@@ -108,7 +140,14 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 	local onAlphaChanged = props.onAlphaChanged
 	local showAlpha = props.onAlphaChanged ~= nil
 
-	local rgbValues = color:map(function(currentColor: Color3)
+	-- When FoundationColorPickerPartialHSV on: partial HSV gives empty RGB; full HSV/Color3 derive RGB. When flag off: color is always Color3.
+	local rgbValues: React.Binding<RawRGB> = color:map(function(value: Color3 | PartialColorHSV): RawRGB
+		if Flags.FoundationColorPickerPartialHSV and colorUtils.isPartialHSV(value) then
+			return { r = nil, g = nil, b = nil }
+		end
+		local currentColor = if Flags.FoundationColorPickerPartialHSV
+			then colorUtils.toColor3(value)
+			else value :: Color3
 		return {
 			r = math.round(currentColor.R * RGB_MAX_VALUE),
 			g = math.round(currentColor.G * RGB_MAX_VALUE),
@@ -116,8 +155,13 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 		}
 	end)
 
-	local hsvValues = color:map(function(currentColor: Color3)
-		local h: number, s: number, v: number = currentColor:ToHSV()
+	-- When FoundationColorPickerPartialHSV on: table = HSV H,S,V (partial or full); Color3 = ToHSV. When flag off: color is always Color3.
+	local hsvValues: React.Binding<RawHSV> = color:map(function(value: Color3 | PartialColorHSV): RawHSV
+		if Flags.FoundationColorPickerPartialHSV and type(value) == "table" then
+			local hsv = value :: PartialColorHSV
+			return { h = hsv.H, s = hsv.S, v = hsv.V }
+		end
+		local h: number, s: number, v: number = (value :: Color3):ToHSV()
 		return {
 			h = math.round(h * 360),
 			s = math.round(s * 100),
@@ -125,8 +169,12 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 		}
 	end)
 
-	local hexValue = rgbValues:map(function(values)
-		return string.format("#%02X%02X%02X", values.r, values.g, values.b)
+	local hexValue = rgbValues:map(function(values: RawRGB): string
+		-- RGB values would only be nil if the color is a partial HSV
+		if values.r ~= nil and values.g ~= nil and values.b ~= nil then
+			return string.format("#%02X%02X%02X", values.r, values.g, values.b)
+		end
+		return ""
 	end)
 
 	local handleRGBChange = React.useCallback(function(value: number, component: string?)
@@ -134,6 +182,11 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 
 		local rgb = table.clone(rgbValues:getValue())
 		rgb[component] = clampedValue
+
+		-- Only update color when all R, G, B are set (no partial RGB).
+		if Flags.FoundationColorPickerPartialHSV and (rgb.r == nil or rgb.g == nil or rgb.b == nil) then
+			return
+		end
 
 		--selene: allow(roblox_internal_custom_color)
 		local newColor = Color3.fromRGB(rgb.r, rgb.g, rgb.b)
@@ -148,11 +201,15 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 
 	local handleHSVChange = React.useCallback(function(value: number, component: string?)
 		local hsv = table.clone(hsvValues:getValue())
+		-- NumberInput blur commits 0; ignore so partial HSV gradient does not change.
+		if Flags.FoundationColorPickerPartialHSV and (hsv[component] == nil and value == 0) then
+			return
+		end
 		local clampedValue = math.clamp(value, 0, if component == "h" then 360 else 100)
 		hsv[component] = clampedValue
 
 		--selene: allow(roblox_internal_custom_color)
-		local newColor = Color3.fromHSV(hsv.h / 360, hsv.s / 100, hsv.v / 100)
+		local newColor = Color3.fromHSV(hsv.h / 360, (hsv.s or 100) / 100, (hsv.v or 100) / 100)
 		onColorChanged(newColor)
 	end, { hsvValues, onColorChanged } :: { unknown })
 

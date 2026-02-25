@@ -7,7 +7,7 @@ local getUIScale = Display.GetDisplayStore(false).getUIScale
 
 local Modules = script.Parent.Parent
 local TenFootInterface = require(Modules.TenFootInterface)
-local ChromeEnabled = require(Modules.Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local ChromeShared = Modules.Chrome.ChromeShared
 local isNewTiltIconEnabled = require(Modules.isNewTiltIconEnabled)
 local FFlagTopBarRefactor = require(script.Parent.Flags.FFlagTopBarRefactor)

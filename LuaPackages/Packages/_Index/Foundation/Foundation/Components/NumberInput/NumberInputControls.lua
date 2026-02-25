@@ -7,6 +7,7 @@ local React = require(Packages.React)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local Components = Foundation.Components
+local Flags = require(Foundation.Utility.Flags)
 local FoundationConstants = require(Foundation.Constants)
 local Icon = require(Components.Icon)
 local Image = require(Components.Image)
@@ -75,7 +76,11 @@ end
 
 local function SplitControls(props: NumberInputControlsProps)
 	local tokens = useTokens()
-	local variantProps = useNumberInputVariants(tokens, props.size)
+	local variantProps = useNumberInputVariants(
+		tokens,
+		props.size,
+		if Flags.FoundationNumberInputFixControlSizes then props.variant else nil
+	)
 
 	local outerBorderThickness = tokens.Stroke.Standard
 	local outerBorderOffset = math.ceil(outerBorderThickness) * 2
@@ -106,6 +111,7 @@ local function SplitControls(props: NumberInputControlsProps)
 		}, {
 			Icon = React.createElement(Icon, {
 				name = BuilderIcons.Icon.PlusSmall,
+				size = if Flags.FoundationNumberInputFixControlSizes then props.size else nil,
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
 				testId = `{props.testId}--increment-icon`,
@@ -132,6 +138,7 @@ local function SplitControls(props: NumberInputControlsProps)
 		}, {
 			Icon = React.createElement(Icon, {
 				name = BuilderIcons.Icon.MinusSmall,
+				size = if Flags.FoundationNumberInputFixControlSizes then props.size else nil,
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
 				testId = `{props.testId}--decrement-icon`,
@@ -142,7 +149,11 @@ end
 
 local function StackedControls(props: NumberInputControlsProps)
 	local tokens = useTokens()
-	local variantProps = useNumberInputVariants(tokens, props.size)
+	local variantProps = useNumberInputVariants(
+		tokens,
+		props.size,
+		if Flags.FoundationNumberInputFixControlSizes then props.variant else nil
+	)
 
 	local incrementImageStyle = React.useMemo(function()
 		return {

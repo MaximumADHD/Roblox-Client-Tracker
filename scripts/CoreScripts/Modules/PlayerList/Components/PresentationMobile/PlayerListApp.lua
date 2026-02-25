@@ -21,7 +21,7 @@ local CoreGui = game:GetService("CoreGui")
 local Modules = CoreGui.RobloxGui.Modules
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local TopBarConstants = require(Modules.TopBar.Constants)
-local ChromeEnabled = require(Modules.Chrome.Enabled)()
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 
 local Foundation = require(CorePackages.Packages.Foundation)
 local useTokens = Foundation.Hooks.useTokens

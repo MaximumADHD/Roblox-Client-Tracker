@@ -7,7 +7,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Packages.Roact)
 local Chrome = RobloxGui.Modules.Chrome
-local ChromeEnabled = require(Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil :: never
 
 local Types = require(root.Components.Types)

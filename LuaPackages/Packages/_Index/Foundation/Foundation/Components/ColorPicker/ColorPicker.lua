@@ -10,6 +10,7 @@ local ColorSliderType = require(Foundation.Enums.ColorSliderType)
 local SVPicker = require(Foundation.Components.ColorPicker.SVPicker)
 local View = require(Foundation.Components.View)
 type ColorInputMode = ColorInputMode.ColorInputMode
+local Flags = require(Foundation.Utility.Flags)
 local colorUtils = require(Foundation.Components.ColorPicker.colorUtils)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -17,9 +18,10 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 
 local Types = require(Foundation.Components.Types)
 type CommonProps = Types.CommonProps
+type PartialColorHSV = Types.PartialColorHSV
 
 export type ColorPickerProps = {
-	initialColor: Color3?,
+	initialColor: Color3? | PartialColorHSV?,
 	initialAlpha: number?,
 	onColorChanged: (newColor: Color3, brickColor: BrickColor?) -> (),
 	onAlphaChanged: ((newAlpha: number) -> ())?,
@@ -39,13 +41,39 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 
 	local props = withDefaults(colorPickerProps, defaultProps)
 	local tokens = useTokens()
+	local fallbackColor = tokens.Color.Extended.Magenta.Magenta_700.Color3
 
-	local color, setColor = React.useBinding(props.initialColor or tokens.Color.Extended.Magenta.Magenta_700.Color3)
-	local currentHue, setCurrentHue = React.useBinding(0)
-	local currentSaturation, setCurrentSaturation = React.useBinding(1)
-	local currentValue, setCurrentValue = React.useBinding(1)
+	local initialColor: Color3 | PartialColorHSV = props.initialColor or fallbackColor
+
+	if not Flags.FoundationColorPickerPartialHSV and typeof(initialColor) ~= "Color3" then
+		initialColor = fallbackColor
+	end
+
+	local color, setColor = React.useBinding(initialColor)
+	local h, s, v
+	if Flags.FoundationColorPickerPartialHSV and type(initialColor) == "table" then
+		local hsv = initialColor :: PartialColorHSV
+		h = hsv.H / 360
+		s = (hsv.S or 100) / 100
+		v = (hsv.V or 100) / 100
+	else
+		h, s, v = (initialColor :: Color3):ToHSV()
+	end
+
+	local currentHue, setCurrentHue = React.useBinding(h)
+	local currentSaturation, setCurrentSaturation = React.useBinding(s)
+	local currentValue, setCurrentValue = React.useBinding(v)
 	local alpha, setAlpha = React.useBinding(props.initialAlpha or 1)
 	local currentMode, setCurrentMode = React.useState(props.initialMode or ColorInputMode.RGB)
+
+	local displayColor: React.Binding<Color3> = color:map(colorUtils.toColor3)
+
+	-- When flag on: hide SVPicker indicator for partial HSV. When flag off: always show.
+	local getHasFullColor: React.Binding<boolean> = if Flags.FoundationColorPickerPartialHSV
+		then color:map(function(value)
+			return not colorUtils.isPartialHSV(value)
+		end)
+		else React.createBinding(true)
 
 	local isUpdatingFromHSV = React.useRef(false)
 
@@ -68,7 +96,7 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 		end
 	end, { props.initialMode })
 
-	local onColorChanged = React.useCallback(function(newColor, brickColor)
+	local onColorChanged = React.useCallback(function(newColor: Color3, brickColor)
 		setColor(newColor)
 		props.onColorChanged(newColor, brickColor)
 	end, { props.onColorChanged })
@@ -81,7 +109,7 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 	end, { props.onAlphaChanged })
 
 	local onBrickColorChanged = React.useCallback(function(newBrickColor: BrickColor)
-		setColor(newBrickColor.Color)
+		setColor(newBrickColor.Color :: Color3 | PartialColorHSV)
 		onColorChanged(newBrickColor.Color, newBrickColor)
 	end, { onColorChanged })
 
@@ -114,7 +142,12 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 	)
 
 	React.useEffect(function()
-		local initialH, initialS, initialV = color:getValue():ToHSV()
+		local initialH, initialS, initialV
+		if Flags.FoundationColorPickerPartialHSV then
+			initialH, initialS, initialV = displayColor:getValue():ToHSV()
+		else
+			initialH, initialS, initialV = (color:getValue() :: Color3):ToHSV()
+		end
 		setCurrentHue(initialH)
 		setCurrentSaturation(initialS)
 		setCurrentValue(initialV)
@@ -140,7 +173,9 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 
 			BrickPicker = if currentMode == ColorInputMode.Brick
 				then React.createElement(BrickColorPicker, {
-					selectedColor = color,
+					selectedColor = if Flags.FoundationColorPickerPartialHSV
+						then displayColor :: React.Binding<Color3>
+						else color :: React.Binding<Color3>,
 					onBrickColorChanged = onBrickColorChanged,
 					LayoutOrder = 2,
 					testId = `{props.testId}--brick-picker`,
@@ -159,6 +194,9 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 						onChanged = function(newS, newV)
 							updateColor(currentHue:getValue(), newS, newV)
 						end,
+						showSelectionKnob = if Flags.FoundationColorPickerPartialHSV
+							then getHasFullColor:getValue()
+							else true,
 						testId = `{props.testId}--sv-picker`,
 					}),
 				})
@@ -180,7 +218,9 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 				then React.createElement(ColorSlider, {
 					sliderType = ColorSliderType.Alpha,
 					value = alpha,
-					baseColor = color,
+					baseColor = if Flags.FoundationColorPickerPartialHSV
+						then displayColor :: React.Binding<Color3>
+						else color :: React.Binding<Color3>,
 					onValueChanged = onAlphaChanged,
 					LayoutOrder = 4,
 					testId = `{props.testId}--alpha-slider`,

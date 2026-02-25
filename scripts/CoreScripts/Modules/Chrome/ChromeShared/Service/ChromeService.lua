@@ -3,6 +3,7 @@ local Root = script:FindFirstAncestor("ChromeShared")
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 local UserInputService = game:GetService("UserInputService")
+local GamepadService = game:GetService("GamepadService")
 local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 local reverse = LuauPolyfill.Array.reverse
 
@@ -31,6 +32,7 @@ local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
 local FFlagChromeDeprecateMRUs = game:DefineFastFlag("ChromeDeprecateMRUs", false)
+local FFlagVirtualCursorTopbarAlwaysVisible = SharedFlags.FFlagVirtualCursorTopbarAlwaysVisible
 
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
 local CHROME_WINDOW_POSITION_KEY = "ChromeWindowPosition"
@@ -370,6 +372,9 @@ function ChromeService:inFocusNav()
 end
 
 function ChromeService:enableFocusNav()
+	if FFlagVirtualCursorTopbarAlwaysVisible and GamepadService.GamepadCursorEnabled then
+		return
+	end
 	if not self._inFocusNav:get() then
 		self._inFocusNav:set(true)
 	end
@@ -380,6 +385,9 @@ function ChromeService:enableFocusNav()
 end
 
 function ChromeService:disableFocusNav()
+	if FFlagVirtualCursorTopbarAlwaysVisible and GamepadService.GamepadCursorEnabled then
+		return
+	end
 	if self._inFocusNav:get() then
 		self._inFocusNav:set(false)
 		self._selectedItem:set(nil)
@@ -545,6 +553,9 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 	if FFlagEnableConsoleExpControls and component.selected then
 		conns[#conns + 1] = self:selectedItem():connect(function(id)
 			if populatedComponent.id == id then
+				if FFlagVirtualCursorTopbarAlwaysVisible and GamepadService.GamepadCursorEnabled then
+					return
+				end
 				component.selected(populatedComponent)
 			end
 		end)

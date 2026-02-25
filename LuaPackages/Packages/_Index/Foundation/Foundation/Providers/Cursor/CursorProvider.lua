@@ -1,6 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local Flags = require(Foundation.Utility.Flags)
 local CoreGui = require(Foundation.Utility.Wrappers).Services.CoreGui
 local GuiService = require(Foundation.Utility.Wrappers).Services.GuiService
 
@@ -16,6 +17,8 @@ local CursorContext = require(script.Parent.CursorContext)
 local CursorType = require(Foundation.Enums.CursorType)
 local KeyUtilities = require(script.Parent.KeyUtilities)
 type CursorType = CursorType.CursorType
+local ColorMode = require(Foundation.Enums.ColorMode)
+type ColorMode = ColorMode.ColorMode
 local Types = require(Foundation.Components.Types)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
@@ -59,15 +62,33 @@ local function CursorProvider(props: Props)
 				and selectionImageObject ~= nil
 				and refCache[key].current == selectionImageObject
 
-			-- Check if the key is a cursor type
-			if CursorType[key] ~= nil then
+			local isCursorTypeKey = false
+			local keyParts: { string }
+			if Flags.FoundationSupportPresentationContextInSelectionCursor then
+				keyParts = string.split(key, " ")
+				isCursorTypeKey = #keyParts == 2
+			else
+				isCursorTypeKey = CursorType[key] ~= nil
+			end
+
+			if isCursorTypeKey then
+				local cursorType, colorMode = key, nil
+				if Flags.FoundationSupportPresentationContextInSelectionCursor then
+					cursorType, colorMode = KeyUtilities.decodeCursorTypeKey(keyParts)
+				end
+
 				cursors[key] = React.createElement(Cursor, {
 					ref = refCache[key],
 					isVisible = isVisible,
-					cursorType = key :: CursorType,
+					cursorType = cursorType :: CursorType,
+					colorMode = if Flags.FoundationSupportPresentationContextInSelectionCursor
+						then colorMode :: ColorMode
+						else nil :: never,
 				})
 			else
-				local cornerRadius, offset, borderWidth = KeyUtilities.decodeKey(key)
+				local cornerRadius, offset, borderWidth, colorMode = KeyUtilities.decodeKey(
+					if Flags.FoundationSupportPresentationContextInSelectionCursor then keyParts else key
+				)
 
 				cursors[key] = React.createElement(CursorComponent, {
 					ref = refCache[key],
@@ -75,6 +96,9 @@ local function CursorProvider(props: Props)
 					cornerRadius = cornerRadius,
 					offset = offset,
 					borderWidth = borderWidth,
+					colorMode = if Flags.FoundationSupportPresentationContextInSelectionCursor
+						then colorMode :: ColorMode
+						else nil :: never,
 				})
 			end
 		end

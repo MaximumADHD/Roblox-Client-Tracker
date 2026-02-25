@@ -173,8 +173,8 @@ local function DialogContainer(dialogContainerProps: DialogProps, ref: React.Ref
 	local props = withDefaults(dialogContainerProps, defaultProps)
 
 	return React.createElement(DialogProvider, {
-		size = props.size :: DialogSize,
-		responsiveSize = props.size :: DialogSize,
+		size = props.size,
+		responsiveSize = props.size,
 		testId = props.testId,
 	}, {
 		Dialog = React.createElement(

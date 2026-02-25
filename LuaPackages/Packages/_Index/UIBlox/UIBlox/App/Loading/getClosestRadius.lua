@@ -9,7 +9,7 @@ local Radius = Foundation.Enums.Radius
 local function getClosestRadius(radii: any, cornerRadius: UDim?)
 	if not cornerRadius or cornerRadius == UDim.new(0, 0) then
 		return Radius.None
-	elseif cornerRadius.Scale == 1 then
+	elseif cornerRadius.Scale >= 0.5 then
 		return Radius.Circle
 	end
 

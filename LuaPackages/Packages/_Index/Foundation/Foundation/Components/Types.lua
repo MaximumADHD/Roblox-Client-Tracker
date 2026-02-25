@@ -91,6 +91,9 @@ export type ColorStyleValue = {
 
 export type ColorStyle = Bindable<ColorStyleValue>
 
+-- Partial HSV for color picker: H required (0–360), S and V optional (0–100). Used when initial color is HSV-only.
+export type PartialColorHSV = { H: number, S: number?, V: number? }
+
 export type ItemId = string | number
 export type OnItemActivated = (id: ItemId) -> ()
 

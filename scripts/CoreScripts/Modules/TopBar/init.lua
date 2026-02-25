@@ -32,7 +32,7 @@ local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
 local SettingsUtil = require(RobloxGui.Modules.Settings.Utility)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 local ChromeService
 local TopBarScrim
 if ChromeEnabled then
@@ -45,7 +45,8 @@ local MenuNavigationPromptTokenMapper = require(script.TokenMappers.MenuNavigati
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
-local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
+local InExperienceTopBar = require(CorePackages.Workspace.Packages.InExperienceTopBar)
+local FFlagTopBarSignalizeSetCores = InExperienceTopBar.Flags.FFlagTopBarSignalizeSetCores
 local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
 local FFlagTopBarDeprecateGameInfoRodux = require(script.Flags.FFlagTopBarDeprecateGameInfoRodux)
 local FFlagTopBarDeprecateGamepadNavigationDialogRodux = require(script.Flags.FFlagTopBarDeprecateGamepadNavigationDialogRodux)

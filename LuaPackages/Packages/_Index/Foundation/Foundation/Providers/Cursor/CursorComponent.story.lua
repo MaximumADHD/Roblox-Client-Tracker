@@ -1,7 +1,9 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
+local ColorMode = require(Foundation.Enums.ColorMode)
 local CursorComponent = require(script.Parent.CursorComponent)
 
 return {
@@ -23,6 +25,7 @@ return {
 					offset = controls.offset,
 					borderWidth = controls.borderWidth,
 					isVisible = true,
+					colorMode = controls.colorMode,
 				}),
 			}),
 		})
@@ -31,5 +34,6 @@ return {
 		cornerRadius = 8,
 		offset = 3,
 		borderWidth = 2,
+		colorMode = Dash.values(ColorMode),
 	},
 }

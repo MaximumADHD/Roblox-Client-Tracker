@@ -317,13 +317,13 @@ PROTO_12:
       148 SETTABLEKS                       R12 R11 K47 ["DEPRECATED_MainComponent"]
       150 GETUPVAL                         R13 6
       151 CALL                             R13 0 1
-      152 JUMPIFNOT                        R13 ; [+184]
+      152 JUMPIFNOT                        R13 ; [+193]
       153 GETUPVAL                         R13 4
       154 GETTABLEKS                       R12 R13 K15 ["createElement"]
       156 GETUPVAL                         R14 8
       157 GETTABLEKS                       R13 R14 K51 ["ContextStack"]
       159 DUPTABLE                         R14 K53 [{"providers"}]
-      160 NEWTABLE                         R15 0 17
+      160 NEWTABLE                         R15 0 18
       162 GETUPVAL                         R17 4
       163 GETTABLEKS                       R16 R17 K15 ["createElement"]
       165 GETUPVAL                         R19 9
@@ -428,40 +428,46 @@ PROTO_12:
       312 SETLIST                          R15 R16 16 [1]
       314 GETUPVAL                         R17 4
       315 GETTABLEKS                       R16 R17 K15 ["createElement"]
-      317 GETUPVAL                         R18 19
-      318 GETTABLEKS                       R17 R18 K73 ["Provider"]
-      320 CALL                             R16 1 -1
-      321 SETLIST                          R15 R16 -1 [17]
-      323 SETTABLEKS                       R15 R14 K52 ["providers"]
-      325 DUPTABLE                         R15 K76 [{"MainComponent"}]
-      326 MOVE                             R16 R4
-      327 JUMPIFNOT                        R16 ; [+5]
-      328 GETUPVAL                         R17 4
-      329 GETTABLEKS                       R16 R17 K15 ["createElement"]
-      331 GETUPVAL                         R17 7
-      332 CALL                             R16 1 1
-      333 SETTABLEKS                       R16 R15 K48 ["MainComponent"]
-      335 CALL                             R12 3 1
-      336 JUMP                             ; [+1]
-      337 LOADNIL                          R12
-      338 SETTABLEKS                       R12 R11 K48 ["MainComponent"]
-      340 GETUPVAL                         R13 6
-      341 CALL                             R13 0 1
-      342 JUMPIF                           R13 ; [+11]
-      343 GETUPVAL                         R13 4
-      344 GETTABLEKS                       R12 R13 K15 ["createElement"]
-      346 LOADK                            R13 K49 ["StyleLink"]
-      347 DUPTABLE                         R14 K78 [{"StyleSheet"}]
-      348 GETTABLEKS                       R15 R0 K9 ["design"]
-      350 SETTABLEKS                       R15 R14 K77 ["StyleSheet"]
-      352 CALL                             R12 2 1
-      353 JUMP                             ; [+1]
-      354 LOADNIL                          R12
-      355 SETTABLEKS                       R12 R11 K49 ["StyleLink"]
-      357 CALL                             R8 3 1
-      358 SETTABLEKS                       R8 R7 K13 ["MainWidget"]
-      360 CALL                             R5 2 -1
-      361 RETURN                           R5 -1
+      317 GETUPVAL                         R19 12
+      318 GETTABLEKS                       R18 R19 K76 ["AnimationPreviewContext"]
+      320 GETTABLEKS                       R17 R18 K64 ["EditableDataModelProvider"]
+      322 CALL                             R16 1 1
+      323 GETUPVAL                         R18 4
+      324 GETTABLEKS                       R17 R18 K15 ["createElement"]
+      326 GETUPVAL                         R19 19
+      327 GETTABLEKS                       R18 R19 K73 ["Provider"]
+      329 CALL                             R17 1 -1
+      330 SETLIST                          R15 R16 -1 [17]
+      332 SETTABLEKS                       R15 R14 K52 ["providers"]
+      334 DUPTABLE                         R15 K77 [{"MainComponent"}]
+      335 MOVE                             R16 R4
+      336 JUMPIFNOT                        R16 ; [+5]
+      337 GETUPVAL                         R17 4
+      338 GETTABLEKS                       R16 R17 K15 ["createElement"]
+      340 GETUPVAL                         R17 7
+      341 CALL                             R16 1 1
+      342 SETTABLEKS                       R16 R15 K48 ["MainComponent"]
+      344 CALL                             R12 3 1
+      345 JUMP                             ; [+1]
+      346 LOADNIL                          R12
+      347 SETTABLEKS                       R12 R11 K48 ["MainComponent"]
+      349 GETUPVAL                         R13 6
+      350 CALL                             R13 0 1
+      351 JUMPIF                           R13 ; [+11]
+      352 GETUPVAL                         R13 4
+      353 GETTABLEKS                       R12 R13 K15 ["createElement"]
+      355 LOADK                            R13 K49 ["StyleLink"]
+      356 DUPTABLE                         R14 K79 [{"StyleSheet"}]
+      357 GETTABLEKS                       R15 R0 K9 ["design"]
+      359 SETTABLEKS                       R15 R14 K78 ["StyleSheet"]
+      361 CALL                             R12 2 1
+      362 JUMP                             ; [+1]
+      363 LOADNIL                          R12
+      364 SETTABLEKS                       R12 R11 K49 ["StyleLink"]
+      366 CALL                             R8 3 1
+      367 SETTABLEKS                       R8 R7 K13 ["MainWidget"]
+      369 CALL                             R5 2 -1
+      370 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

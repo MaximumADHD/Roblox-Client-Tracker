@@ -9,7 +9,7 @@ local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
 
 local dependencyArray = RoactUtils.Hooks.dependencyArray
 
-local ChromeEnabled = require(Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil
 local Constants = require(Chrome.Integrations.Party.Constants)
 local useIsVoiceFocused = CrossExperienceVoice.Hooks.useIsVoiceFocused

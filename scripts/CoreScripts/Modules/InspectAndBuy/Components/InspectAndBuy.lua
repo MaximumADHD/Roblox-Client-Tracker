@@ -27,7 +27,7 @@ local FocusRoot = FocusNavigationUtils.FocusRoot
 local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 
 local Chrome = RobloxGui.Modules.Chrome
-local ChromeEnabled = require(Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil :: never
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)

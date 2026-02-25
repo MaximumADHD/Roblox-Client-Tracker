@@ -3,57 +3,26 @@ PROTO_0:
         1 LOADK                            R2 K0 ["text-caption-small"]
         2 JUMP                             ; [+1]
         3 LOADK                            R2 K1 ["text-caption-medium"]
-        4 DUPTABLE                         R3 K6 [{"tag", "sizeConstraint", "size", "textStyle"}]
-        5 GETUPVAL                         R5 0
-        6 CALL                             R5 0 1
-        7 JUMPIFNOT                        R5 ; [+7]
-        8 LOADK                            R5 K7 ["text-truncate-end %* auto-x"]
-        9 MOVE                             R7 R2
-       10 NAMECALL                         R5 R5 K8 ["format"]
-       12 CALL                             R5 2 1
-       13 MOVE                             R4 R5
-       14 JUMP                             ; [+6]
-       15 LOADK                            R5 K9 ["text-truncate-end %*"]
-       16 MOVE                             R7 R2
-       17 NAMECALL                         R5 R5 K8 ["format"]
-       19 CALL                             R5 2 1
-       20 MOVE                             R4 R5
-       21 SETTABLEKS                       R4 R3 K2 ["tag"]
-       23 GETUPVAL                         R5 0
-       24 CALL                             R5 0 1
-       25 JUMPIFNOT                        R5 ; [+14]
-       26 DUPTABLE                         R4 K12 [{"MaxSize", "MinSize"}]
-       27 JUMPIFNOT                        R0 ; [+2]
-       28 GETUPVAL                         R5 1
-       29 JUMP                             ; [+1]
-       30 GETUPVAL                         R5 2
-       31 SETTABLEKS                       R5 R4 K10 ["MaxSize"]
-       33 JUMPIFNOT                        R0 ; [+2]
-       34 GETUPVAL                         R5 3
-       35 JUMP                             ; [+1]
-       36 GETUPVAL                         R5 4
-       37 SETTABLEKS                       R5 R4 K11 ["MinSize"]
-       39 JUMP                             ; [+1]
-       40 LOADNIL                          R4
-       41 SETTABLEKS                       R4 R3 K3 ["sizeConstraint"]
-       43 GETUPVAL                         R5 0
-       44 CALL                             R5 0 1
-       45 JUMPIFNOT                        R5 ; [+2]
-       46 LOADNIL                          R4
-       47 JUMP                             ; [+4]
-       48 JUMPIFNOT                        R0 ; [+2]
-       49 GETUPVAL                         R4 5
-       50 JUMP                             ; [+1]
-       51 GETUPVAL                         R4 6
-       52 SETTABLEKS                       R4 R3 K4 ["size"]
-       54 DUPTABLE                         R4 K14 [{"Transparency"}]
-       55 JUMPIFNOT                        R1 ; [+2]
-       56 LOADK                            R5 K15 [0.5]
-       57 JUMP                             ; [+1]
-       58 LOADN                            R5 0
-       59 SETTABLEKS                       R5 R4 K13 ["Transparency"]
-       61 SETTABLEKS                       R4 R3 K5 ["textStyle"]
-       63 RETURN                           R3 1
+        4 DUPTABLE                         R3 K5 [{"tag", "size", "textStyle"}]
+        5 LOADK                            R5 K6 ["text-truncate-end %*"]
+        6 MOVE                             R7 R2
+        7 NAMECALL                         R5 R5 K7 ["format"]
+        9 CALL                             R5 2 1
+       10 MOVE                             R4 R5
+       11 SETTABLEKS                       R4 R3 K2 ["tag"]
+       13 JUMPIFNOT                        R0 ; [+2]
+       14 GETUPVAL                         R4 0
+       15 JUMP                             ; [+1]
+       16 GETUPVAL                         R4 1
+       17 SETTABLEKS                       R4 R3 K3 ["size"]
+       19 DUPTABLE                         R4 K9 [{"Transparency"}]
+       20 JUMPIFNOT                        R1 ; [+2]
+       21 LOADK                            R5 K10 [0.5]
+       22 JUMP                             ; [+1]
+       23 LOADN                            R5 0
+       24 SETTABLEKS                       R5 R4 K8 ["Transparency"]
+       26 SETTABLEKS                       R4 R3 K4 ["textStyle"]
+       28 RETURN                           R3 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["isSmall"]
@@ -290,93 +259,57 @@ MAIN:
        31 GETTABLEKS                       R7 R8 K13 ["Contexts"]
        33 GETTABLEKS                       R6 R7 K14 ["Density"]
        35 CALL                             R5 1 1
-       36 GETIMPORT                        R6 K5 [require]
-       38 GETTABLEKS                       R9 R0 K12 ["Src"]
-       40 GETTABLEKS                       R8 R9 K15 ["SharedFlags"]
-       42 GETTABLEKS                       R7 R8 K16 ["getFFlagRibbonTextLengthImprovements"]
-       44 CALL                             R6 1 1
-       45 GETIMPORT                        R7 K19 [Vector2.new]
-       47 LOADN                            R8 24
-       48 LOADN                            R9 24
-       49 CALL                             R7 2 1
-       50 GETIMPORT                        R8 K19 [Vector2.new]
-       52 LOADN                            R9 32
-       53 LOADN                            R10 32
-       54 CALL                             R8 2 1
-       55 GETIMPORT                        R9 K19 [Vector2.new]
-       57 LOADN                            R10 40
-       58 LOADN                            R11 40
-       59 CALL                             R9 2 1
-       60 GETIMPORT                        R10 K22 [UDim2.fromOffset]
-       62 LOADN                            R11 48
-       63 LOADN                            R12 16
-       64 CALL                             R10 2 1
-       65 GETIMPORT                        R11 K22 [UDim2.fromOffset]
-       67 LOADN                            R12 60
-       68 LOADN                            R13 16
-       69 CALL                             R11 2 1
-       70 GETIMPORT                        R12 K19 [Vector2.new]
-       72 LOADN                            R13 48
-       73 LOADN                            R14 16
-       74 CALL                             R12 2 1
-       75 GETIMPORT                        R13 K19 [Vector2.new]
-       77 LOADN                            R14 72
-       78 LOADN                            R15 16
-       79 CALL                             R13 2 1
-       80 GETIMPORT                        R14 K19 [Vector2.new]
-       82 LOADN                            R15 60
-       83 LOADN                            R16 16
-       84 CALL                             R14 2 1
-       85 GETIMPORT                        R15 K19 [Vector2.new]
-       87 LOADN                            R16 100
-       88 LOADN                            R17 16
-       89 CALL                             R15 2 1
-       90 GETIMPORT                        R16 K19 [Vector2.new]
-       92 LOADN                            R17 36
-       93 LOADN                            R18 24
-       94 CALL                             R16 2 1
-       95 GETIMPORT                        R17 K19 [Vector2.new]
-       97 MOVE                             R19 R6
-       98 CALL                             R19 0 1
-       99 JUMPIFNOT                        R19 ; [+2]
-      100 LOADN                            R18 72
-      101 JUMP                             ; [+1]
-      102 LOADN                            R18 48
-      103 LOADN                            R19 48
-      104 CALL                             R17 2 1
-      105 GETIMPORT                        R18 K19 [Vector2.new]
-      107 MOVE                             R20 R6
-      108 CALL                             R20 0 1
-      109 JUMPIFNOT                        R20 ; [+2]
-      110 LOADN                            R19 100
-      111 JUMP                             ; [+1]
-      112 LOADN                            R19 60
-      113 LOADN                            R20 56
-      114 CALL                             R18 2 1
-      115 DUPCLOSURE                       R19 K23 [PROTO_0]
-      116 CAPTURE                          VAL R6
-      117 CAPTURE                          VAL R13
-      118 CAPTURE                          VAL R15
-      119 CAPTURE                          VAL R12
-      120 CAPTURE                          VAL R14
-      121 CAPTURE                          VAL R10
-      122 CAPTURE                          VAL R11
-      123 DUPCLOSURE                       R20 K24 [PROTO_1]
-      124 DUPCLOSURE                       R21 K25 [PROTO_2]
-      125 CAPTURE                          VAL R20
-      126 CAPTURE                          VAL R7
-      127 CAPTURE                          VAL R8
-      128 CAPTURE                          VAL R9
-      129 CAPTURE                          VAL R4
-      130 DUPCLOSURE                       R22 K26 [PROTO_3]
-      131 DUPCLOSURE                       R23 K27 [PROTO_5]
-      132 CAPTURE                          VAL R2
-      133 CAPTURE                          VAL R20
-      134 CAPTURE                          VAL R16
-      135 CAPTURE                          VAL R17
-      136 CAPTURE                          VAL R18
-      137 CAPTURE                          VAL R4
-      138 CAPTURE                          VAL R21
-      139 CAPTURE                          VAL R19
-      140 CAPTURE                          VAL R22
-      141 RETURN                           R23 1
+       36 GETIMPORT                        R6 K17 [Vector2.new]
+       38 LOADN                            R7 24
+       39 LOADN                            R8 24
+       40 CALL                             R6 2 1
+       41 GETIMPORT                        R7 K17 [Vector2.new]
+       43 LOADN                            R8 32
+       44 LOADN                            R9 32
+       45 CALL                             R7 2 1
+       46 GETIMPORT                        R8 K17 [Vector2.new]
+       48 LOADN                            R9 40
+       49 LOADN                            R10 40
+       50 CALL                             R8 2 1
+       51 GETIMPORT                        R9 K20 [UDim2.fromOffset]
+       53 LOADN                            R10 48
+       54 LOADN                            R11 16
+       55 CALL                             R9 2 1
+       56 GETIMPORT                        R10 K20 [UDim2.fromOffset]
+       58 LOADN                            R11 60
+       59 LOADN                            R12 16
+       60 CALL                             R10 2 1
+       61 GETIMPORT                        R11 K17 [Vector2.new]
+       63 LOADN                            R12 36
+       64 LOADN                            R13 24
+       65 CALL                             R11 2 1
+       66 GETIMPORT                        R12 K17 [Vector2.new]
+       68 LOADN                            R13 48
+       69 LOADN                            R14 48
+       70 CALL                             R12 2 1
+       71 GETIMPORT                        R13 K17 [Vector2.new]
+       73 LOADN                            R14 60
+       74 LOADN                            R15 56
+       75 CALL                             R13 2 1
+       76 DUPCLOSURE                       R14 K21 [PROTO_0]
+       77 CAPTURE                          VAL R9
+       78 CAPTURE                          VAL R10
+       79 DUPCLOSURE                       R15 K22 [PROTO_1]
+       80 DUPCLOSURE                       R16 K23 [PROTO_2]
+       81 CAPTURE                          VAL R15
+       82 CAPTURE                          VAL R6
+       83 CAPTURE                          VAL R7
+       84 CAPTURE                          VAL R8
+       85 CAPTURE                          VAL R4
+       86 DUPCLOSURE                       R17 K24 [PROTO_3]
+       87 DUPCLOSURE                       R18 K25 [PROTO_5]
+       88 CAPTURE                          VAL R2
+       89 CAPTURE                          VAL R15
+       90 CAPTURE                          VAL R11
+       91 CAPTURE                          VAL R12
+       92 CAPTURE                          VAL R13
+       93 CAPTURE                          VAL R4
+       94 CAPTURE                          VAL R16
+       95 CAPTURE                          VAL R14
+       96 CAPTURE                          VAL R17
+       97 RETURN                           R18 1

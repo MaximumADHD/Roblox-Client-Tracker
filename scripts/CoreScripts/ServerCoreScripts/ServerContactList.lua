@@ -8,7 +8,6 @@ local TeleportService = game:GetService("TeleportService")
 
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 
-local FFlagEnableContactListCallIdValidation = game:DefineFastFlag("EnableContactListCallIdValidation", false)
 local EngineFeatureEnableIrisRerouteToRCC = game:GetEngineFeature("EnableIrisRerouteToRCC")
 
 local kMaxCallIdLength = 50
@@ -59,16 +58,12 @@ Players.PlayerRemoving:Connect(function(player)
 end)
 
 local function validateCallId(callId: string)
-	if FFlagEnableContactListCallIdValidation then
-		if typeof(callId) ~= "string" or #callId > kMaxCallIdLength then
-			return false
-		end
-
-		local pattern = "^%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x$"
-		return string.match(callId, pattern) ~= nil
-	else
-		return true
+	if typeof(callId) ~= "string" or #callId > kMaxCallIdLength then
+		return false
 	end
+
+	local pattern = "^%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x$"
+	return string.match(callId, pattern) ~= nil
 end
 
 RemoteIrisInviteTeleport.OnServerEvent:Connect(function(player, placeId, instanceId, reservedServerAccessCode, callId)
@@ -83,10 +78,8 @@ RemoteIrisInviteTeleport.OnServerEvent:Connect(function(player, placeId, instanc
 		playerContactListTeleportAttempt[player.UserId] = contactListTeleportAttempt + 1
 	end
 
-	if FFlagEnableContactListCallIdValidation then
-		if not validateCallId(callId) or typeof(placeId) ~= "number" or placeId <= 0 then
-			return
-		end
+	if not validateCallId(callId) or typeof(placeId) ~= "number" or placeId <= 0 then
+		return
 	end
 
 	if typeof(callId) == "string" and #callId <= kMaxCallIdLength then
@@ -166,18 +159,8 @@ local function validateCallParticipants(callParticipants: { [number]: string })
 end
 
 local function validateCall(player: Player, callId: string, callParticipants: { [number]: string })
-	if FFlagEnableContactListCallIdValidation then
-		if not validateCallId(callId) or not validateCallParticipants(callParticipants) then
-			return 400
-		end
-	else
-		if
-			typeof(callId) ~= "string"
-			or #callId > kMaxCallIdLength
-			or not validateCallParticipants(callParticipants)
-		then
-			return 400
-		end
+	if not validateCallId(callId) or not validateCallParticipants(callParticipants) then
+		return 400
 	end
 	local success, _ = pcall(function()
 		local url = Url.APIS_URL .. "call/v1/verify-valid-call"

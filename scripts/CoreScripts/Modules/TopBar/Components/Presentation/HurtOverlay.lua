@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 
+local InExperienceTopBar = require(CorePackages.Workspace.Packages.InExperienceTopBar)
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
@@ -21,6 +22,7 @@ local Constants = require(TopBar.Constants)
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
 local FFlagUseNewHurtOverlayImage = require(TopBar.Flags.FFlagUseNewHurtOverlayImage)
+local FFlagUseNewHurtOverlayAnimation = InExperienceTopBar.Flags.FFlagUseNewHurtOverlayAnimation
 
 local MOTOR_OPTIONS = {
 	frequency = 0.75,
@@ -29,6 +31,9 @@ local MOTOR_OPTIONS = {
 
 local RED_OVERLAY_COLOR = Color3.fromRGB(187, 0, 4)
 local WHITE_OVERLAY_COLOR = Color3.new(1, 1, 1)
+
+local ANIMATION_IN_DURATION = 0.1
+local ANIMATION_OUT_DURATION = 0.5
 
 local HurtOverlay = Roact.PureComponent:extend("HurtOverlay")
 
@@ -43,12 +48,14 @@ function HurtOverlay:init()
 
 	self.animationBinding, self.animationBindingUpdate = Roact.createBinding(0)
 
-	self.positionBinding = self.animationBinding:map(function(animation)
-		return UDim2.new(-10 * animation, 0, -10 * animation, 0)
-	end)
-	self.sizeBinding = self.animationBinding:map(function(animation)
-		return UDim2.new(1 + 19 * animation, 0, 1 + 19 * animation, 0)
-	end)
+	if not FFlagUseNewHurtOverlayAnimation then
+		self.positionBinding = self.animationBinding:map(function(animation)
+			return UDim2.new(-10 * animation, 0, -10 * animation, 0)
+		end)
+		self.sizeBinding = self.animationBinding:map(function(animation)
+			return UDim2.new(1 + 19 * animation, 0, 1 + 19 * animation, 0)
+		end)
+	end
 
 	if FFlagTopBarSignalizeHealthBar then
 		self.isAnimating, self.setIsAnimating = Roact.createBinding(false)
@@ -73,11 +80,17 @@ function HurtOverlay:init()
 				if not (isDead and prevIsDead) then
 					local healthChange = prevHealth - currentHealth
 					if healthChange / maxHealth >= Constants.HealthPercentForOverlay then
-						self.motor:setGoal(Otter.instant(0))
-						self.motor:step(0)
-						self.motor:setGoal(Otter.spring(1, MOTOR_OPTIONS))
-						self.motor:start()
-						self.setIsAnimating(true)
+						if FFlagUseNewHurtOverlayAnimation then 
+							self.setIsAnimating(true)
+							self.motor:setGoal(Otter.ease(0, { duration = ANIMATION_IN_DURATION }))
+							self.motor:start()
+						else
+							self.motor:setGoal(Otter.instant(0))
+							self.motor:step(0)
+							self.motor:setGoal(Otter.spring(1, MOTOR_OPTIONS))
+							self.motor:start()
+							self.setIsAnimating(true)
+						end
 						return true
 					end
 				end
@@ -103,19 +116,35 @@ function HurtOverlay:init()
 		}
 	end
 
-	self.motor = Otter.createSingleMotor(0)
+	self.motor = Otter.createSingleMotor(if FFlagUseNewHurtOverlayAnimation then 1 else 0)
 	self.motor:onStep(function(value)
 		self.animationBindingUpdate(value)
 	end)
-	self.motor:onComplete(function()
-		if FFlagTopBarSignalizeHealthBar then
-			self.setIsAnimating(false)
-		else
-			self:setState({
-				isAnimating = false,
-			})
+	self.motor:onComplete(if FFlagUseNewHurtOverlayAnimation then 
+		function(value)
+			if value == 0 then 
+				self.motor:setGoal(Otter.ease(1, { duration = ANIMATION_OUT_DURATION }))
+				self.motor:start()
+			elseif value == 1 then
+				if FFlagTopBarSignalizeHealthBar then
+					self.setIsAnimating(false)
+				else
+					self:setState({
+						isAnimating = false,
+					})
+				end
+			end
 		end
-	end)
+	else
+		function()
+			if FFlagTopBarSignalizeHealthBar then
+				self.setIsAnimating(false)
+			else
+				self:setState({
+					isAnimating = false,
+				})
+			end
+		end)
 
 	if FFlagTopBarSignalizeHealthBar then
 		local function getHealthEnabled()
@@ -156,8 +185,10 @@ function HurtOverlay:renderOverlay()
 		BackgroundTransparency = 1,
 		Image = hurtOverlayImage,
 		ImageColor3 = hurtOverlayColor,
-		Size = self.sizeBinding,
-		Position = self.positionBinding,
+		ImageTransparency = if FFlagUseNewHurtOverlayAnimation then self.animationBinding else nil,
+		Size = if FFlagUseNewHurtOverlayAnimation then UDim2.fromScale(1, 1) else self.sizeBinding,
+		AnchorPoint = if FFlagUseNewHurtOverlayAnimation then Vector2.new(0.5, 0.5) else nil, 
+		Position = if FFlagUseNewHurtOverlayAnimation then UDim2.fromScale(0.5, 0.5) else self.positionBinding,
 	})
 end
 

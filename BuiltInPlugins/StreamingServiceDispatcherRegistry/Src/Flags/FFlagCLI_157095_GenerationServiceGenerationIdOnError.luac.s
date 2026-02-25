@@ -1,24 +1,24 @@
 PROTO_0:
-  LOADK R0 K0 ["CLI_157095_GenerationServiceGenerationIdOnError"]
-  RETURN R0 1
+        0 LOADK                            R0 K0 ["CLI_157095_GenerationServiceGenerationIdOnError"]
+        1 RETURN                           R0 1
 
 PROTO_1:
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["CLI_157095_GenerationServiceGenerationIdOnError"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 -1
-  RETURN R0 -1
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["CLI_157095_GenerationServiceGenerationIdOnError"]
+        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["CLI_157095_GenerationServiceGenerationIdOnError"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 0
-  DUPTABLE R0 K6 [{"Name", "Get"}]
-  DUPCLOSURE R1 K7 [PROTO_0]
-  SETTABLEKS R1 R0 K4 ["Name"]
-  DUPCLOSURE R1 K8 [PROTO_1]
-  SETTABLEKS R1 R0 K5 ["Get"]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["CLI_157095_GenerationServiceGenerationIdOnError"]
+        4 LOADB                            R3 0
+        5 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
+        7 CALL                             R0 3 0
+        8 DUPTABLE                         R0 K6 [{"Name", "Get"}]
+        9 DUPCLOSURE                       R1 K7 [PROTO_0]
+       10 SETTABLEKS                       R1 R0 K4 ["Name"]
+       12 DUPCLOSURE                       R1 K8 [PROTO_1]
+       13 SETTABLEKS                       R1 R0 K5 ["Get"]
+       15 RETURN                           R0 1

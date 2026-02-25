@@ -77,155 +77,82 @@ PROTO_3:
        52 GETIMPORT                        R7 K9 [tostring]
        54 CALL                             R7 1 1
        55 MOVE                             R6 R7
-       56 GETUPVAL                         R8 4
-       57 CALL                             R8 0 1
-       58 JUMPIFNOT                        R8 ; [+58]
-       59 GETUPVAL                         R8 3
-       60 GETTABLEKS                       R7 R8 K10 ["createElement"]
-       62 GETUPVAL                         R9 5
-       63 GETTABLEKS                       R8 R9 K11 ["View"]
-       65 DUPTABLE                         R9 K13 [{"tag"}]
-       66 LOADK                            R10 K14 ["CheckboxRowContents row align-y-center align-x-left"]
-       67 SETTABLEKS                       R10 R9 K12 ["tag"]
-       69 DUPTABLE                         R10 K17 [{"Icon", "TextLabel"}]
-       70 GETTABLEKS                       R12 R0 K4 ["ScopeInfo"]
-       72 JUMPIFNOT                        R12 ; [+19]
-       73 GETUPVAL                         R12 3
-       74 GETTABLEKS                       R11 R12 K10 ["createElement"]
-       76 GETUPVAL                         R13 5
-       77 GETTABLEKS                       R12 R13 K18 ["Image"]
-       79 DUPTABLE                         R13 K20 [{"LayoutOrder", "Image", "tag"}]
-       80 NAMECALL                         R14 R1 K21 ["getNextOrder"]
-       82 CALL                             R14 1 1
-       83 SETTABLEKS                       R14 R13 K19 ["LayoutOrder"]
-       85 SETTABLEKS                       R3 R13 K18 ["Image"]
-       87 LOADK                            R14 K22 ["radius-circle size-400"]
-       88 SETTABLEKS                       R14 R13 K12 ["tag"]
-       90 CALL                             R11 2 1
-       91 JUMP                             ; [+1]
-       92 LOADNIL                          R11
-       93 SETTABLEKS                       R11 R10 K15 ["Icon"]
-       95 GETUPVAL                         R12 3
-       96 GETTABLEKS                       R11 R12 K10 ["createElement"]
-       98 GETUPVAL                         R13 5
-       99 GETTABLEKS                       R12 R13 K5 ["Text"]
-      101 DUPTABLE                         R13 K23 [{"LayoutOrder", "Text", "tag"}]
-      102 NAMECALL                         R14 R1 K21 ["getNextOrder"]
-      104 CALL                             R14 1 1
-      105 SETTABLEKS                       R14 R13 K19 ["LayoutOrder"]
-      107 SETTABLEKS                       R6 R13 K5 ["Text"]
-      109 LOADK                            R14 K24 ["text-label-small text-align-x-left text-truncate-end size-full-0 auto-y padding-small"]
-      110 SETTABLEKS                       R14 R13 K12 ["tag"]
-      112 CALL                             R11 2 1
-      113 SETTABLEKS                       R11 R10 K16 ["TextLabel"]
-      115 CALL                             R7 3 1
-      116 JUMP                             ; [+69]
-      117 GETUPVAL                         R8 3
-      118 GETTABLEKS                       R7 R8 K10 ["createElement"]
-      120 GETUPVAL                         R8 6
-      121 NEWTABLE                         R9 2 0
-      123 NAMECALL                         R10 R1 K21 ["getNextOrder"]
-      125 CALL                             R10 1 1
-      126 SETTABLEKS                       R10 R9 K19 ["LayoutOrder"]
-      128 GETUPVAL                         R11 3
-      129 GETTABLEKS                       R10 R11 K25 ["Tag"]
-      131 LOADK                            R11 K26 ["CheckboxRowContents X-Row X-Middle X-Left"]
-      132 SETTABLE                         R11 R9 R10
-      133 DUPTABLE                         R10 K17 [{"Icon", "TextLabel"}]
-      134 GETTABLEKS                       R12 R0 K4 ["ScopeInfo"]
-      136 JUMPIFNOT                        R12 ; [+20]
-      137 GETUPVAL                         R12 3
-      138 GETTABLEKS                       R11 R12 K10 ["createElement"]
-      140 GETUPVAL                         R12 7
-      141 NEWTABLE                         R13 4 0
-      143 NAMECALL                         R14 R1 K21 ["getNextOrder"]
-      145 CALL                             R14 1 1
-      146 SETTABLEKS                       R14 R13 K19 ["LayoutOrder"]
-      148 SETTABLEKS                       R3 R13 K18 ["Image"]
-      150 GETUPVAL                         R15 3
-      151 GETTABLEKS                       R14 R15 K25 ["Tag"]
-      153 LOADK                            R15 K27 ["radius-circle Icon16"]
-      154 SETTABLE                         R15 R13 R14
-      155 CALL                             R11 2 1
-      156 JUMP                             ; [+1]
-      157 LOADNIL                          R11
-      158 SETTABLEKS                       R11 R10 K15 ["Icon"]
-      160 GETUPVAL                         R12 3
-      161 GETTABLEKS                       R11 R12 K10 ["createElement"]
-      163 GETUPVAL                         R12 8
-      164 NEWTABLE                         R13 4 0
-      166 NAMECALL                         R14 R1 K21 ["getNextOrder"]
-      168 CALL                             R14 1 1
-      169 SETTABLEKS                       R14 R13 K19 ["LayoutOrder"]
-      171 SETTABLEKS                       R6 R13 K5 ["Text"]
-      173 GETIMPORT                        R14 K31 [Enum.TextTruncate.AtEnd]
-      175 SETTABLEKS                       R14 R13 K29 ["TextTruncate"]
-      177 GETUPVAL                         R15 3
-      178 GETTABLEKS                       R14 R15 K25 ["Tag"]
-      180 LOADK                            R15 K32 ["Left X-FitY X-Pad"]
-      181 SETTABLE                         R15 R13 R14
-      182 CALL                             R11 2 1
-      183 SETTABLEKS                       R11 R10 K16 ["TextLabel"]
-      185 CALL                             R7 3 1
-      186 GETUPVAL                         R9 4
-      187 CALL                             R9 0 1
-      188 JUMPIFNOT                        R9 ; [+42]
-      189 GETUPVAL                         R9 3
-      190 GETTABLEKS                       R8 R9 K10 ["createElement"]
-      192 GETUPVAL                         R10 5
-      193 GETTABLEKS                       R9 R10 K11 ["View"]
-      195 DUPTABLE                         R10 K13 [{"tag"}]
-      196 LOADK                            R11 K33 ["anchor-center-right position-center-right size-0 auto-xy"]
-      197 SETTABLEKS                       R11 R10 K12 ["tag"]
-      199 GETUPVAL                         R12 3
-      200 GETTABLEKS                       R11 R12 K10 ["createElement"]
-      202 GETUPVAL                         R13 5
-      203 GETTABLEKS                       R12 R13 K34 ["Checkbox"]
-      205 DUPTABLE                         R13 K39 [{"isChecked", "onActivated", "size", "label"}]
-      206 GETTABLEKS                       R14 R0 K40 ["Checked"]
-      208 SETTABLEKS                       R14 R13 K35 ["isChecked"]
-      210 GETTABLEKS                       R14 R0 K41 ["OnChecked"]
-      212 SETTABLEKS                       R14 R13 K36 ["onActivated"]
-      214 GETUPVAL                         R17 5
-      215 GETTABLEKS                       R16 R17 K42 ["Enums"]
-      217 GETTABLEKS                       R15 R16 K43 ["InputSize"]
-      219 GETTABLEKS                       R14 R15 K44 ["XSmall"]
-      221 SETTABLEKS                       R14 R13 K37 ["size"]
-      223 LOADK                            R14 K2 [""]
-      224 SETTABLEKS                       R14 R13 K38 ["label"]
-      226 NEWTABLE                         R14 0 0
-      228 CALL                             R11 3 -1
-      229 CALL                             R8 -1 1
-      230 JUMP                             ; [+19]
-      231 GETUPVAL                         R9 3
-      232 GETTABLEKS                       R8 R9 K10 ["createElement"]
-      234 GETUPVAL                         R9 9
-      235 DUPTABLE                         R10 K46 [{"LayoutOrder", "Checked", "OnClick"}]
-      236 NAMECALL                         R11 R1 K21 ["getNextOrder"]
-      238 CALL                             R11 1 1
-      239 SETTABLEKS                       R11 R10 K19 ["LayoutOrder"]
-      241 GETTABLEKS                       R11 R0 K40 ["Checked"]
-      243 SETTABLEKS                       R11 R10 K40 ["Checked"]
-      245 NEWCLOSURE                       R11 P1
-      246 CAPTURE                          VAL R0
-      247 SETTABLEKS                       R11 R10 K45 ["OnClick"]
-      249 CALL                             R8 2 1
-      250 GETUPVAL                         R10 3
-      251 GETTABLEKS                       R9 R10 K10 ["createElement"]
-      253 GETUPVAL                         R11 5
-      254 GETTABLEKS                       R10 R11 K11 ["View"]
-      256 DUPTABLE                         R11 K48 [{"LayoutOrder", "Position", "tag"}]
-      257 GETTABLEKS                       R12 R0 K19 ["LayoutOrder"]
-      259 SETTABLEKS                       R12 R11 K19 ["LayoutOrder"]
-      261 GETTABLEKS                       R12 R0 K47 ["Position"]
-      263 SETTABLEKS                       R12 R11 K47 ["Position"]
-      265 LOADK                            R12 K49 ["CheckboxRow size-full-0 auto-y padding-right-small"]
-      266 SETTABLEKS                       R12 R11 K12 ["tag"]
-      268 DUPTABLE                         R12 K51 [{"Contents", "Checkbox"}]
-      269 SETTABLEKS                       R7 R12 K50 ["Contents"]
-      271 SETTABLEKS                       R8 R12 K34 ["Checkbox"]
-      273 CALL                             R9 3 -1
-      274 RETURN                           R9 -1
+       56 GETUPVAL                         R8 3
+       57 GETTABLEKS                       R7 R8 K10 ["createElement"]
+       59 GETUPVAL                         R9 4
+       60 GETTABLEKS                       R8 R9 K11 ["View"]
+       62 DUPTABLE                         R9 K15 [{"LayoutOrder", "Position", "tag"}]
+       63 GETTABLEKS                       R10 R0 K12 ["LayoutOrder"]
+       65 SETTABLEKS                       R10 R9 K12 ["LayoutOrder"]
+       67 GETTABLEKS                       R10 R0 K13 ["Position"]
+       69 SETTABLEKS                       R10 R9 K13 ["Position"]
+       71 LOADK                            R10 K16 ["CheckboxRow size-full-0 auto-y padding-right-small"]
+       72 SETTABLEKS                       R10 R9 K14 ["tag"]
+       74 DUPTABLE                         R10 K19 [{"Contents", "Checkbox"}]
+       75 GETUPVAL                         R12 3
+       76 GETTABLEKS                       R11 R12 K10 ["createElement"]
+       78 GETUPVAL                         R12 5
+       79 NEWTABLE                         R13 2 0
+       81 NAMECALL                         R14 R1 K20 ["getNextOrder"]
+       83 CALL                             R14 1 1
+       84 SETTABLEKS                       R14 R13 K12 ["LayoutOrder"]
+       86 GETUPVAL                         R15 3
+       87 GETTABLEKS                       R14 R15 K21 ["Tag"]
+       89 LOADK                            R15 K22 ["CheckboxRowContents X-Row X-Middle X-Left"]
+       90 SETTABLE                         R15 R13 R14
+       91 DUPTABLE                         R14 K25 [{"Icon", "TextLabel"}]
+       92 GETTABLEKS                       R16 R0 K4 ["ScopeInfo"]
+       94 JUMPIFNOT                        R16 ; [+20]
+       95 GETUPVAL                         R16 3
+       96 GETTABLEKS                       R15 R16 K10 ["createElement"]
+       98 GETUPVAL                         R16 6
+       99 NEWTABLE                         R17 4 0
+      101 NAMECALL                         R18 R1 K20 ["getNextOrder"]
+      103 CALL                             R18 1 1
+      104 SETTABLEKS                       R18 R17 K12 ["LayoutOrder"]
+      106 SETTABLEKS                       R3 R17 K26 ["Image"]
+      108 GETUPVAL                         R19 3
+      109 GETTABLEKS                       R18 R19 K21 ["Tag"]
+      111 LOADK                            R19 K27 ["radius-circle Icon16"]
+      112 SETTABLE                         R19 R17 R18
+      113 CALL                             R15 2 1
+      114 JUMP                             ; [+1]
+      115 LOADNIL                          R15
+      116 SETTABLEKS                       R15 R14 K23 ["Icon"]
+      118 GETUPVAL                         R16 3
+      119 GETTABLEKS                       R15 R16 K10 ["createElement"]
+      121 GETUPVAL                         R16 7
+      122 NEWTABLE                         R17 4 0
+      124 NAMECALL                         R18 R1 K20 ["getNextOrder"]
+      126 CALL                             R18 1 1
+      127 SETTABLEKS                       R18 R17 K12 ["LayoutOrder"]
+      129 SETTABLEKS                       R6 R17 K5 ["Text"]
+      131 GETIMPORT                        R18 K31 [Enum.TextTruncate.AtEnd]
+      133 SETTABLEKS                       R18 R17 K29 ["TextTruncate"]
+      135 GETUPVAL                         R19 3
+      136 GETTABLEKS                       R18 R19 K21 ["Tag"]
+      138 LOADK                            R19 K32 ["Left X-FitY X-Pad"]
+      139 SETTABLE                         R19 R17 R18
+      140 CALL                             R15 2 1
+      141 SETTABLEKS                       R15 R14 K24 ["TextLabel"]
+      143 CALL                             R11 3 1
+      144 SETTABLEKS                       R11 R10 K17 ["Contents"]
+      146 GETUPVAL                         R12 3
+      147 GETTABLEKS                       R11 R12 K10 ["createElement"]
+      149 GETUPVAL                         R12 8
+      150 DUPTABLE                         R13 K35 [{"LayoutOrder", "Checked", "OnClick"}]
+      151 NAMECALL                         R14 R1 K20 ["getNextOrder"]
+      153 CALL                             R14 1 1
+      154 SETTABLEKS                       R14 R13 K12 ["LayoutOrder"]
+      156 GETTABLEKS                       R14 R0 K33 ["Checked"]
+      158 SETTABLEKS                       R14 R13 K33 ["Checked"]
+      160 NEWCLOSURE                       R14 P1
+      161 CAPTURE                          VAL R0
+      162 SETTABLEKS                       R14 R13 K34 ["OnClick"]
+      164 CALL                             R11 2 1
+      165 SETTABLEKS                       R11 R10 K18 ["Checkbox"]
+      167 CALL                             R7 3 -1
+      168 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -261,20 +188,14 @@ MAIN:
        53 GETTABLEKS                       R14 R0 K16 ["Src"]
        55 GETTABLEKS                       R13 R14 K20 ["Types"]
        57 CALL                             R12 1 1
-       58 GETIMPORT                        R13 K5 [require]
-       60 GETTABLEKS                       R16 R0 K16 ["Src"]
-       62 GETTABLEKS                       R15 R16 K21 ["Flags"]
-       64 GETTABLEKS                       R14 R15 K22 ["getFFlagAmrCheckboxFoundationify"]
-       66 CALL                             R13 1 1
-       67 DUPCLOSURE                       R14 K23 [PROTO_3]
-       68 CAPTURE                          VAL R11
-       69 CAPTURE                          VAL R10
-       70 CAPTURE                          VAL R9
-       71 CAPTURE                          VAL R1
-       72 CAPTURE                          VAL R13
-       73 CAPTURE                          VAL R2
-       74 CAPTURE                          VAL R6
-       75 CAPTURE                          VAL R7
-       76 CAPTURE                          VAL R8
-       77 CAPTURE                          VAL R5
-       78 RETURN                           R14 1
+       58 DUPCLOSURE                       R13 K21 [PROTO_3]
+       59 CAPTURE                          VAL R11
+       60 CAPTURE                          VAL R10
+       61 CAPTURE                          VAL R9
+       62 CAPTURE                          VAL R1
+       63 CAPTURE                          VAL R2
+       64 CAPTURE                          VAL R6
+       65 CAPTURE                          VAL R7
+       66 CAPTURE                          VAL R8
+       67 CAPTURE                          VAL R5
+       68 RETURN                           R13 1

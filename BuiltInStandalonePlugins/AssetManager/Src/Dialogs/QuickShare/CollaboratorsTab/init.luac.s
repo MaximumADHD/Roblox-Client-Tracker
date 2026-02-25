@@ -244,47 +244,44 @@ PROTO_9:
        60 GETUPVAL                         R15 1
        61 GETTABLEKS                       R14 R15 K7 ["createElement"]
        63 GETUPVAL                         R15 5
-       64 DUPTABLE                         R16 K18 [{"LayoutOrder", "Items", "State", "isDisabled", "onActivated"}]
+       64 DUPTABLE                         R16 K17 [{"LayoutOrder", "Items", "State", "onActivated"}]
        65 LOADN                            R17 1
        66 SETTABLEKS                       R17 R16 K14 ["LayoutOrder"]
        68 SETTABLEKS                       R6 R16 K15 ["Items"]
        70 SETTABLEKS                       R2 R16 K1 ["State"]
-       72 GETTABLEKS                       R18 R0 K19 ["CanAdd"]
-       74 NOT                              R17 R18
-       75 SETTABLEKS                       R17 R16 K16 ["isDisabled"]
-       77 SETTABLEKS                       R7 R16 K17 ["onActivated"]
-       79 CALL                             R14 2 1
-       80 SETTABLEKS                       R14 R13 K11 ["CollaboratorDropdown"]
-       82 GETUPVAL                         R15 1
-       83 GETTABLEKS                       R14 R15 K7 ["createElement"]
-       85 GETUPVAL                         R15 6
-       86 DUPTABLE                         R16 K22 [{"LayoutOrder", "PlaceholderText", "PlaceholderSubtext"}]
-       87 LOADN                            R17 2
-       88 SETTABLEKS                       R17 R16 K14 ["LayoutOrder"]
-       90 LOADK                            R19 K23 ["QuickShare"]
-       91 LOADK                            R20 K24 ["CollaboratorsHintTitle"]
-       92 NAMECALL                         R17 R1 K25 ["getText"]
-       94 CALL                             R17 3 1
-       95 SETTABLEKS                       R17 R16 K20 ["PlaceholderText"]
-       97 LOADK                            R19 K23 ["QuickShare"]
-       98 LOADK                            R20 K26 ["CollaboratorsHintDescription"]
-       99 NAMECALL                         R17 R1 K25 ["getText"]
-      101 CALL                             R17 3 1
-      102 SETTABLEKS                       R17 R16 K21 ["PlaceholderSubtext"]
-      104 GETUPVAL                         R18 7
-      105 GETTABLEKS                       R17 R18 K27 ["map"]
-      107 MOVE                             R18 R4
-      108 NEWCLOSURE                       R19 P4
-      109 CAPTURE                          UPVAL U1
-      110 CAPTURE                          UPVAL U8
-      111 CAPTURE                          VAL R8
-      112 CAPTURE                          UPVAL U9
-      113 CAPTURE                          VAL R9
-      114 CALL                             R17 2 -1
-      115 CALL                             R14 -1 1
-      116 SETTABLEKS                       R14 R13 K12 ["SelectionView"]
-      118 CALL                             R10 3 -1
-      119 RETURN                           R10 -1
+       72 SETTABLEKS                       R7 R16 K16 ["onActivated"]
+       74 CALL                             R14 2 1
+       75 SETTABLEKS                       R14 R13 K11 ["CollaboratorDropdown"]
+       77 GETUPVAL                         R15 1
+       78 GETTABLEKS                       R14 R15 K7 ["createElement"]
+       80 GETUPVAL                         R15 6
+       81 DUPTABLE                         R16 K20 [{"LayoutOrder", "PlaceholderText", "PlaceholderSubtext"}]
+       82 LOADN                            R17 2
+       83 SETTABLEKS                       R17 R16 K14 ["LayoutOrder"]
+       85 LOADK                            R19 K21 ["QuickShare"]
+       86 LOADK                            R20 K22 ["CollaboratorsHintTitle"]
+       87 NAMECALL                         R17 R1 K23 ["getText"]
+       89 CALL                             R17 3 1
+       90 SETTABLEKS                       R17 R16 K18 ["PlaceholderText"]
+       92 LOADK                            R19 K21 ["QuickShare"]
+       93 LOADK                            R20 K24 ["CollaboratorsHintDescription"]
+       94 NAMECALL                         R17 R1 K23 ["getText"]
+       96 CALL                             R17 3 1
+       97 SETTABLEKS                       R17 R16 K19 ["PlaceholderSubtext"]
+       99 GETUPVAL                         R18 7
+      100 GETTABLEKS                       R17 R18 K25 ["map"]
+      102 MOVE                             R18 R4
+      103 NEWCLOSURE                       R19 P4
+      104 CAPTURE                          UPVAL U1
+      105 CAPTURE                          UPVAL U8
+      106 CAPTURE                          VAL R8
+      107 CAPTURE                          UPVAL U9
+      108 CAPTURE                          VAL R9
+      109 CALL                             R17 2 -1
+      110 CALL                             R14 -1 1
+      111 SETTABLEKS                       R14 R13 K12 ["SelectionView"]
+      113 CALL                             R10 3 -1
+      114 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

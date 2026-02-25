@@ -1,6 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
+local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 
 local Motion = require(Packages.Motion)
 local useMotion = Motion.useMotion
@@ -68,9 +69,11 @@ local function Path2DSpinner(props: InternalSpinnerProps)
 			Color3 = props.style:map(function(styleValues)
 				return styleValues.Color3
 			end),
-			Transparency = props.style:map(function(styleValues)
-				return styleValues.Transparency
-			end),
+			Transparency = if isPluginSecurity()
+				then props.style:map(function(styleValues)
+					return styleValues.Transparency
+				end)
+				else nil,
 			Thickness = props.Thickness,
 		}),
 		UIScale = React.createElement("UIScale", {

@@ -12,6 +12,7 @@ local FFlagReduceTopBarInsetsWhileHidden = SharedFlags.FFlagReduceTopBarInsetsWh
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
+local FFlagVirtualCursorTopbarAlwaysVisible = SharedFlags.FFlagVirtualCursorTopbarAlwaysVisible
 
 local Signals = require(CorePackages.Packages.Signals)
 local Display = require(CorePackages.Workspace.Packages.Display)
@@ -27,7 +28,7 @@ local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Chrome = RobloxGui.Modules.Chrome
 local ChromeFocusUtils = require(CorePackages.Workspace.Packages.Chrome).FocusUtils
-local ChromeEnabled = require(Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local ChromeService = if ChromeEnabled() and (FFlagEnableConsoleExpControls or isInExperienceUIVREnabled) then require(Chrome.Service) else nil :: never
@@ -252,6 +253,9 @@ function MenuIcon:init()
 	if ChromeEnabled() and FFlagEnableConsoleExpControls then
 	self.onMenuIconSelectionChanged = function(MenuIcon: GuiObject, isMenuIconSelected: boolean, oldSelection: GuiObject, newSelection: GuiObject)
 			if FFlagEnableConsoleExpControls then 
+				if FFlagVirtualCursorTopbarAlwaysVisible and GamepadService.GamepadCursorEnabled then
+					return
+				end
 				if not (FFlagShowUnibarOnVirtualCursor and GamepadService.GamepadCursorEnabled) and newSelection and string.find(newSelection.Name, UnibarConstants.ICON_NAME_PREFIX :: string) then
 					ChromeService:enableFocusNav()
 				end

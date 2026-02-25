@@ -3,8 +3,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local Modules = CoreGui.RobloxGui.Modules
-local ChromeEnabled = require(Modules.Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 
 local CapturesInExperience = require(CorePackages.Workspace.Packages.CapturesInExperience)
 

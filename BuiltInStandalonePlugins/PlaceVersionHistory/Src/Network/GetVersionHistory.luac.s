@@ -21,7 +21,7 @@ PROTO_0:
        26 NEWTABLE                         R4 0 0
        28 SETTABLEKS                       R4 R3 K6 ["page"]
        30 GETTABLEKS                       R4 R0 K9 ["placeVersions"]
-       32 JUMPIFNOT                        R4 ; [+99]
+       32 JUMPIFNOT                        R4 ; [+97]
        33 GETTABLEKS                       R4 R0 K9 ["placeVersions"]
        35 LOADNIL                          R5
        36 LOADNIL                          R6
@@ -41,56 +41,54 @@ PROTO_0:
        55 CALL                             R11 1 -1
        56 RETURN                           R11 -1
        57 GETTABLEKS                       R12 R3 K6 ["page"]
-       59 DUPTABLE                         R13 K24 [{"version", "publishStatus", "date", "contributors", "notes", "saver", "saveType"}]
+       59 DUPTABLE                         R13 K24 [{"version", "published", "date", "contributors", "notes", "saver", "saveType"}]
        60 SETTABLEKS                       R9 R13 K10 ["version"]
-       62 GETUPVAL                         R15 2
-       63 GETTABLEKS                       R16 R8 K18 ["publishStatus"]
-       65 GETTABLE                         R14 R15 R16
-       66 SETTABLEKS                       R14 R13 K18 ["publishStatus"]
-       68 SETTABLEKS                       R10 R13 K19 ["date"]
-       70 GETTABLEKS                       R15 R8 K20 ["contributors"]
-       72 JUMPIFNOT                        R15 ; [+3]
-       73 GETTABLEKS                       R14 R8 K20 ["contributors"]
-       75 JUMP                             ; [+2]
-       76 NEWTABLE                         R14 0 0
-       78 SETTABLEKS                       R14 R13 K20 ["contributors"]
-       80 DUPTABLE                         R14 K27 [{"title", "description"}]
-       81 GETTABLEKS                       R16 R8 K25 ["title"]
-       83 JUMPIFNOT                        R16 ; [+10]
-       84 GETIMPORT                        R16 K30 [utf8.len]
-       86 GETTABLEKS                       R17 R8 K25 ["title"]
-       88 CALL                             R16 1 1
-       89 JUMPIFEQKN                       R16 K31 [0] ; [+4]
-       91 GETTABLEKS                       R15 R8 K25 ["title"]
-       93 JUMP                             ; [+1]
-       94 LOADNIL                          R15
-       95 SETTABLEKS                       R15 R14 K25 ["title"]
-       97 GETTABLEKS                       R16 R8 K26 ["description"]
-       99 JUMPIFNOT                        R16 ; [+10]
-      100 GETIMPORT                        R16 K30 [utf8.len]
-      102 GETTABLEKS                       R17 R8 K26 ["description"]
-      104 CALL                             R16 1 1
-      105 JUMPIFEQKN                       R16 K31 [0] ; [+4]
-      107 GETTABLEKS                       R15 R8 K26 ["description"]
-      109 JUMP                             ; [+1]
-      110 LOADNIL                          R15
-      111 SETTABLEKS                       R15 R14 K26 ["description"]
-      113 SETTABLEKS                       R14 R13 K21 ["notes"]
-      115 GETTABLEKS                       R14 R8 K32 ["createdBy"]
-      117 SETTABLEKS                       R14 R13 K22 ["saver"]
-      119 GETUPVAL                         R15 3
-      120 GETTABLEKS                       R16 R8 K23 ["saveType"]
-      122 GETTABLE                         R14 R15 R16
-      123 SETTABLEKS                       R14 R13 K23 ["saveType"]
-      125 FASTCALL2                        TABLE_INSERT R12 R13 ; [+3]
-      127 GETIMPORT                        R11 K35 [table.insert]
-      129 CALL                             R11 2 0
-      130 FORGLOOP                         R4 2 ; [-93]
-      132 GETUPVAL                         R5 1
-      133 GETTABLEKS                       R4 R5 K36 ["resolve"]
-      135 MOVE                             R5 R3
-      136 CALL                             R4 1 -1
-      137 RETURN                           R4 -1
+       62 GETTABLEKS                       R14 R8 K25 ["isPublished"]
+       64 SETTABLEKS                       R14 R13 K18 ["published"]
+       66 SETTABLEKS                       R10 R13 K19 ["date"]
+       68 GETTABLEKS                       R15 R8 K20 ["contributors"]
+       70 JUMPIFNOT                        R15 ; [+3]
+       71 GETTABLEKS                       R14 R8 K20 ["contributors"]
+       73 JUMP                             ; [+2]
+       74 NEWTABLE                         R14 0 0
+       76 SETTABLEKS                       R14 R13 K20 ["contributors"]
+       78 DUPTABLE                         R14 K28 [{"title", "description"}]
+       79 GETTABLEKS                       R16 R8 K26 ["title"]
+       81 JUMPIFNOT                        R16 ; [+10]
+       82 GETIMPORT                        R16 K31 [utf8.len]
+       84 GETTABLEKS                       R17 R8 K26 ["title"]
+       86 CALL                             R16 1 1
+       87 JUMPIFEQKN                       R16 K32 [0] ; [+4]
+       89 GETTABLEKS                       R15 R8 K26 ["title"]
+       91 JUMP                             ; [+1]
+       92 LOADNIL                          R15
+       93 SETTABLEKS                       R15 R14 K26 ["title"]
+       95 GETTABLEKS                       R16 R8 K27 ["description"]
+       97 JUMPIFNOT                        R16 ; [+10]
+       98 GETIMPORT                        R16 K31 [utf8.len]
+      100 GETTABLEKS                       R17 R8 K27 ["description"]
+      102 CALL                             R16 1 1
+      103 JUMPIFEQKN                       R16 K32 [0] ; [+4]
+      105 GETTABLEKS                       R15 R8 K27 ["description"]
+      107 JUMP                             ; [+1]
+      108 LOADNIL                          R15
+      109 SETTABLEKS                       R15 R14 K27 ["description"]
+      111 SETTABLEKS                       R14 R13 K21 ["notes"]
+      113 GETTABLEKS                       R14 R8 K33 ["createdBy"]
+      115 SETTABLEKS                       R14 R13 K22 ["saver"]
+      117 GETUPVAL                         R15 2
+      118 GETTABLEKS                       R16 R8 K23 ["saveType"]
+      120 GETTABLE                         R14 R15 R16
+      121 SETTABLEKS                       R14 R13 K23 ["saveType"]
+      123 FASTCALL2                        TABLE_INSERT R12 R13 ; [+3]
+      125 GETIMPORT                        R11 K36 [table.insert]
+      127 CALL                             R11 2 0
+      128 FORGLOOP                         R4 2 ; [-91]
+      130 GETUPVAL                         R5 1
+      131 GETTABLEKS                       R4 R5 K37 ["resolve"]
+      133 MOVE                             R5 R3
+      134 CALL                             R4 1 -1
+      135 RETURN                           R4 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -101,10 +99,9 @@ PROTO_1:
         6 CAPTURE                          UPVAL U2
         7 CAPTURE                          UPVAL U3
         8 CAPTURE                          UPVAL U4
-        9 CAPTURE                          UPVAL U5
-       10 NAMECALL                         R0 R0 K2 ["andThen"]
-       12 CALL                             R0 2 -1
-       13 RETURN                           R0 -1
+        9 NAMECALL                         R0 R0 K2 ["andThen"]
+       11 CALL                             R0 2 -1
+       12 RETURN                           R0 -1
 
 PROTO_2:
         0 DUPTABLE                         R1 K3 [{"Method", "Url", "Headers"}]
@@ -122,7 +119,7 @@ PROTO_2:
        17 DUPTABLE                         R5 K19 [{"cursor", "isPublished", "hasNotes", "saveType", "searchTerm", "startTime", "endTime", "contributor", "pageSize"}]
        18 GETTABLEKS                       R6 R0 K10 ["cursor"]
        20 SETTABLEKS                       R6 R5 K10 ["cursor"]
-       22 GETTABLEKS                       R6 R0 K11 ["isPublished"]
+       22 GETTABLEKS                       R6 R0 K20 ["published"]
        24 SETTABLEKS                       R6 R5 K11 ["isPublished"]
        26 GETTABLEKS                       R6 R0 K12 ["hasNotes"]
        28 SETTABLEKS                       R6 R5 K12 ["hasNotes"]
@@ -130,20 +127,20 @@ PROTO_2:
        31 GETTABLEKS                       R8 R0 K13 ["saveType"]
        33 GETTABLE                         R6 R7 R8
        34 SETTABLEKS                       R6 R5 K13 ["saveType"]
-       36 GETTABLEKS                       R6 R0 K20 ["search"]
+       36 GETTABLEKS                       R6 R0 K21 ["search"]
        38 SETTABLEKS                       R6 R5 K14 ["searchTerm"]
-       40 GETTABLEKS                       R7 R0 K21 ["startDate"]
+       40 GETTABLEKS                       R7 R0 K22 ["startDate"]
        42 JUMPIFNOT                        R7 ; [+6]
-       43 GETTABLEKS                       R6 R0 K21 ["startDate"]
-       45 NAMECALL                         R6 R6 K22 ["ToIsoDate"]
+       43 GETTABLEKS                       R6 R0 K22 ["startDate"]
+       45 NAMECALL                         R6 R6 K23 ["ToIsoDate"]
        47 CALL                             R6 1 1
        48 JUMP                             ; [+1]
        49 LOADNIL                          R6
        50 SETTABLEKS                       R6 R5 K15 ["startTime"]
-       52 GETTABLEKS                       R7 R0 K23 ["endDate"]
+       52 GETTABLEKS                       R7 R0 K24 ["endDate"]
        54 JUMPIFNOT                        R7 ; [+6]
-       55 GETTABLEKS                       R6 R0 K23 ["endDate"]
-       57 NAMECALL                         R6 R6 K22 ["ToIsoDate"]
+       55 GETTABLEKS                       R6 R0 K24 ["endDate"]
+       57 NAMECALL                         R6 R6 K23 ["ToIsoDate"]
        59 CALL                             R6 1 1
        60 JUMP                             ; [+1]
        61 LOADNIL                          R6
@@ -155,8 +152,8 @@ PROTO_2:
        72 CALL                             R2 3 1
        73 SETTABLEKS                       R2 R1 K1 ["Url"]
        75 NEWTABLE                         R2 1 0
-       77 LOADK                            R3 K24 ["application/json"]
-       78 SETTABLEKS                       R3 R2 K25 ["Content-Type"]
+       77 LOADK                            R3 K25 ["application/json"]
+       78 SETTABLEKS                       R3 R2 K26 ["Content-Type"]
        80 SETTABLEKS                       R2 R1 K2 ["Headers"]
        82 GETTABLEKS                       R3 R0 K10 ["cursor"]
        84 JUMPIFEQKNIL                     R3 ; [+2]
@@ -164,54 +161,54 @@ PROTO_2:
        87 LOADB                            R2 1
        88 JUMPIFNOT                        R2 ; [+5]
        89 GETUPVAL                         R5 2
-       90 GETTABLEKS                       R4 R5 K27 ["FIntPVHFirstPageDelayMs"]
-       92 DIVK                             R3 R4 K26 [1000]
+       90 GETTABLEKS                       R4 R5 K28 ["FIntPVHFirstPageDelayMs"]
+       92 DIVK                             R3 R4 K27 [1000]
        93 JUMP                             ; [+1]
        94 LOADN                            R3 0
        95 JUMPIFNOT                        R2 ; [+66]
        96 GETUPVAL                         R4 3
        97 GETUPVAL                         R6 4
-       98 DUPTABLE                         R7 K36 [{"targetPlaceId", "pageSize", "filterSaveType", "filterIsPublished", "filterHasNotes", "filterContributor", "filterStartTime", "filterEndTime", "searchTermLength"}]
+       98 DUPTABLE                         R7 K37 [{"targetPlaceId", "pageSize", "filterSaveType", "filterIsPublished", "filterHasNotes", "filterContributor", "filterStartTime", "filterEndTime", "searchTermLength"}]
        99 GETTABLEKS                       R8 R0 K8 ["placeId"]
-      101 SETTABLEKS                       R8 R7 K28 ["targetPlaceId"]
+      101 SETTABLEKS                       R8 R7 K29 ["targetPlaceId"]
       103 GETTABLEKS                       R8 R0 K18 ["pageSize"]
       105 SETTABLEKS                       R8 R7 K18 ["pageSize"]
       107 GETTABLEKS                       R8 R0 K13 ["saveType"]
-      109 SETTABLEKS                       R8 R7 K29 ["filterSaveType"]
-      111 GETTABLEKS                       R8 R0 K11 ["isPublished"]
-      113 SETTABLEKS                       R8 R7 K30 ["filterIsPublished"]
+      109 SETTABLEKS                       R8 R7 K30 ["filterSaveType"]
+      111 GETTABLEKS                       R8 R0 K20 ["published"]
+      113 SETTABLEKS                       R8 R7 K31 ["filterIsPublished"]
       115 GETTABLEKS                       R8 R0 K12 ["hasNotes"]
-      117 SETTABLEKS                       R8 R7 K31 ["filterHasNotes"]
+      117 SETTABLEKS                       R8 R7 K32 ["filterHasNotes"]
       119 GETTABLEKS                       R8 R0 K17 ["contributor"]
-      121 SETTABLEKS                       R8 R7 K32 ["filterContributor"]
-      123 GETTABLEKS                       R9 R0 K21 ["startDate"]
+      121 SETTABLEKS                       R8 R7 K33 ["filterContributor"]
+      123 GETTABLEKS                       R9 R0 K22 ["startDate"]
       125 JUMPIFNOT                        R9 ; [+6]
-      126 GETTABLEKS                       R8 R0 K21 ["startDate"]
-      128 NAMECALL                         R8 R8 K22 ["ToIsoDate"]
+      126 GETTABLEKS                       R8 R0 K22 ["startDate"]
+      128 NAMECALL                         R8 R8 K23 ["ToIsoDate"]
       130 CALL                             R8 1 1
       131 JUMP                             ; [+1]
       132 LOADNIL                          R8
-      133 SETTABLEKS                       R8 R7 K33 ["filterStartTime"]
-      135 GETTABLEKS                       R9 R0 K23 ["endDate"]
+      133 SETTABLEKS                       R8 R7 K34 ["filterStartTime"]
+      135 GETTABLEKS                       R9 R0 K24 ["endDate"]
       137 JUMPIFNOT                        R9 ; [+6]
-      138 GETTABLEKS                       R8 R0 K23 ["endDate"]
-      140 NAMECALL                         R8 R8 K22 ["ToIsoDate"]
+      138 GETTABLEKS                       R8 R0 K24 ["endDate"]
+      140 NAMECALL                         R8 R8 K23 ["ToIsoDate"]
       142 CALL                             R8 1 1
       143 JUMP                             ; [+1]
       144 LOADNIL                          R8
-      145 SETTABLEKS                       R8 R7 K34 ["filterEndTime"]
-      147 GETTABLEKS                       R9 R0 K20 ["search"]
+      145 SETTABLEKS                       R8 R7 K35 ["filterEndTime"]
+      147 GETTABLEKS                       R9 R0 K21 ["search"]
       149 JUMPIFNOT                        R9 ; [+6]
-      150 GETIMPORT                        R8 K39 [utf8.len]
-      152 GETTABLEKS                       R9 R0 K20 ["search"]
+      150 GETIMPORT                        R8 K40 [utf8.len]
+      152 GETTABLEKS                       R9 R0 K21 ["search"]
       154 CALL                             R8 1 1
       155 JUMP                             ; [+1]
       156 LOADNIL                          R8
-      157 SETTABLEKS                       R8 R7 K35 ["searchTermLength"]
-      159 NAMECALL                         R4 R4 K40 ["logRobloxTelemetryEvent"]
+      157 SETTABLEKS                       R8 R7 K36 ["searchTermLength"]
+      159 NAMECALL                         R4 R4 K41 ["logRobloxTelemetryEvent"]
       161 CALL                             R4 3 0
       162 GETUPVAL                         R5 5
-      163 GETTABLEKS                       R4 R5 K41 ["delay"]
+      163 GETTABLEKS                       R4 R5 K42 ["delay"]
       165 MOVE                             R5 R3
       166 CALL                             R4 1 1
       167 NEWCLOSURE                       R6 P0
@@ -219,11 +216,10 @@ PROTO_2:
       169 CAPTURE                          VAL R1
       170 CAPTURE                          UPVAL U7
       171 CAPTURE                          UPVAL U5
-      172 CAPTURE                          UPVAL U8
-      173 CAPTURE                          UPVAL U1
-      174 NAMECALL                         R4 R4 K42 ["andThen"]
-      176 CALL                             R4 2 -1
-      177 RETURN                           R4 -1
+      172 CAPTURE                          UPVAL U1
+      173 NAMECALL                         R4 R4 K43 ["andThen"]
+      175 CALL                             R4 2 -1
+      176 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -285,23 +281,13 @@ MAIN:
        95 SETTABLEN                        R17 R16 1
        96 LOADK                            R17 K26 ["Manual"]
        97 SETTABLEN                        R17 R16 2
-       98 NEWTABLE                         R17 4 0
-      100 LOADN                            R18 1
-      101 SETTABLEKS                       R18 R17 K27 ["Published"]
-      103 LOADN                            R18 2
-      104 SETTABLEKS                       R18 R17 K28 ["PreviouslyPublished"]
-      106 LOADK                            R18 K27 ["Published"]
-      107 SETTABLEN                        R18 R17 1
-      108 LOADK                            R18 K28 ["PreviouslyPublished"]
-      109 SETTABLEN                        R18 R17 2
-      110 DUPCLOSURE                       R18 K29 [PROTO_2]
-      111 CAPTURE                          VAL R8
-      112 CAPTURE                          VAL R16
-      113 CAPTURE                          VAL R1
-      114 CAPTURE                          VAL R12
-      115 CAPTURE                          VAL R14
-      116 CAPTURE                          VAL R3
-      117 CAPTURE                          VAL R10
-      118 CAPTURE                          VAL R11
-      119 CAPTURE                          VAL R17
-      120 RETURN                           R18 1
+       98 DUPCLOSURE                       R17 K27 [PROTO_2]
+       99 CAPTURE                          VAL R8
+      100 CAPTURE                          VAL R16
+      101 CAPTURE                          VAL R1
+      102 CAPTURE                          VAL R12
+      103 CAPTURE                          VAL R14
+      104 CAPTURE                          VAL R3
+      105 CAPTURE                          VAL R10
+      106 CAPTURE                          VAL R11
+      107 RETURN                           R17 1

@@ -978,19 +978,11 @@ PROTO_57:
        13 RETURN                           R1 1
 
 PROTO_58:
-        0 GETUPVAL                         R0 0
-        1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+6]
-        3 GETUPVAL                         R1 1
-        4 GETTABLEKS                       R0 R1 K0 ["clickPath"]
-        6 LOADK                            R1 K1 ["AvatarScreen.Contents.Contents.CatalogContainer.CatalogContainer.Catalog.AddItemButton.SplitButtonContainer.AddButton.IconWrapper.Icon"]
-        7 CALL                             R0 1 0
-        8 RETURN                           R0 0
-        9 GETUPVAL                         R1 1
-       10 GETTABLEKS                       R0 R1 K0 ["clickPath"]
-       12 LOADK                            R1 K2 ["AvatarScreen.Contents.Contents.CatalogContainer.CatalogContainer.Catalog.AddItemButton.Inner.Contents.TextButton"]
-       13 CALL                             R0 1 0
-       14 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["clickPath"]
+        3 LOADK                            R1 K1 ["AvatarScreen.Contents.Contents.CatalogContainer.CatalogContainer.Catalog.AddItemButton.Inner.Contents.TextButton"]
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
 
 PROTO_59:
         0 LOADK                            R4 K0 ["ImageLabel"]
@@ -1947,174 +1939,173 @@ PROTO_97:
       303 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
       305 SETTABLEKS                       R10 R11 K67 ["getDummy"]
       307 NEWCLOSURE                       R10 P38
-      308 CAPTURE                          UPVAL U20
-      309 CAPTURE                          VAL R8
-      310 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
-      312 SETTABLEKS                       R10 R11 K68 ["clickAddItem"]
-      314 NEWCLOSURE                       R10 P39
-      315 CAPTURE                          VAL R8
-      316 CAPTURE                          UPVAL U21
-      317 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
-      319 SETTABLEKS                       R10 R11 K69 ["getSidebarItems"]
-      321 NEWCLOSURE                       R10 P40
-      322 CAPTURE                          VAL R8
-      323 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
-      325 SETTABLEKS                       R10 R11 K70 ["clickSubmitButton"]
-      327 NEWCLOSURE                       R10 P41
-      328 CAPTURE                          VAL R8
-      329 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
-      331 SETTABLEKS                       R10 R11 K71 ["clickCheckBodyMode"]
-      333 NEWCLOSURE                       R10 P42
-      334 CAPTURE                          VAL R8
-      335 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
-      337 SETTABLEKS                       R10 R11 K72 ["clickCheckFaceMode"]
-      339 NEWCLOSURE                       R10 P43
-      340 CAPTURE                          VAL R8
-      341 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
-      343 SETTABLEKS                       R10 R11 K73 ["clickAvatarSettings"]
-      345 NEWCLOSURE                       R10 P44
-      346 CAPTURE                          VAL R8
-      347 CAPTURE                          UPVAL U2
-      348 CAPTURE                          UPVAL U18
-      349 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
-      351 SETTABLEKS                       R10 R11 K74 ["clickHideShowButton"]
-      353 NEWCLOSURE                       R10 P45
-      354 CAPTURE                          VAL R8
-      355 CAPTURE                          UPVAL U21
-      356 CAPTURE                          UPVAL U2
-      357 CAPTURE                          UPVAL U18
-      358 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
-      360 SETTABLEKS                       R10 R11 K75 ["getSkinToneButtons"]
-      362 NEWTABLE                         R10 0 0
-      364 SETTABLEKS                       R10 R8 K76 ["AutoSetupScreen"]
-      366 GETUPVAL                         R11 7
-      367 CALL                             R11 0 1
-      368 JUMPIFNOT                        R11 ; [+2]
-      369 LOADK                            R10 K77 ["Children."]
-      370 JUMP                             ; [+1]
-      371 LOADK                            R10 K78 ["Provider."]
-      372 NEWCLOSURE                       R11 P46
-      373 CAPTURE                          VAL R8
-      374 CAPTURE                          VAL R10
-      375 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
-      377 SETTABLEKS                       R11 R12 K79 ["getAlertDescription"]
-      379 NEWCLOSURE                       R11 P47
-      380 CAPTURE                          VAL R8
-      381 CAPTURE                          VAL R10
-      382 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
-      384 SETTABLEKS                       R11 R12 K80 ["getAlertTitle"]
-      386 NEWCLOSURE                       R11 P48
-      387 CAPTURE                          UPVAL U22
-      388 CAPTURE                          VAL R8
-      389 CAPTURE                          VAL R10
-      390 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
-      392 SETTABLEKS                       R11 R12 K67 ["getDummy"]
-      394 NEWCLOSURE                       R11 P49
-      395 CAPTURE                          UPVAL U22
-      396 CAPTURE                          VAL R8
-      397 CAPTURE                          VAL R10
-      398 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
-      400 SETTABLEKS                       R11 R12 K81 ["startAutoSetup"]
-      402 NEWCLOSURE                       R11 P50
-      403 CAPTURE                          VAL R8
-      404 CAPTURE                          VAL R10
-      405 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
-      407 SETTABLEKS                       R11 R12 K82 ["cancelAutoSetup"]
-      409 NEWCLOSURE                       R11 P51
-      410 CAPTURE                          VAL R8
-      411 CAPTURE                          VAL R10
-      412 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
-      414 SETTABLEKS                       R11 R12 K83 ["controlsActive"]
-      416 NEWCLOSURE                       R11 P52
-      417 CAPTURE                          VAL R8
-      418 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
-      420 SETTABLEKS                       R11 R12 K55 ["isActive"]
-      422 NEWCLOSURE                       R11 P53
-      423 CAPTURE                          VAL R8
-      424 CAPTURE                          VAL R10
-      425 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
-      427 SETTABLEKS                       R11 R12 K84 ["toggleClothingTable"]
-      429 NEWTABLE                         R11 0 0
-      431 SETTABLEKS                       R11 R8 K85 ["SelectScreen"]
-      433 NEWCLOSURE                       R11 P54
-      434 CAPTURE                          VAL R8
-      435 GETTABLEKS                       R12 R8 K85 ["SelectScreen"]
-      437 SETTABLEKS                       R11 R12 K55 ["isActive"]
-      439 NEWCLOSURE                       R11 P55
-      440 CAPTURE                          VAL R8
-      441 GETTABLEKS                       R12 R8 K85 ["SelectScreen"]
-      443 SETTABLEKS                       R11 R12 K86 ["clickAddSelected"]
-      445 GETUPVAL                         R11 23
-      446 MOVE                             R12 R8
-      447 CALL                             R11 1 1
-      448 SETTABLEKS                       R11 R8 K87 ["DisambiguationMenu"]
-      450 NEWTABLE                         R11 0 0
-      452 SETTABLEKS                       R11 R8 K88 ["TestingScreen"]
-      454 NEWCLOSURE                       R11 P56
-      455 CAPTURE                          VAL R8
-      456 CAPTURE                          VAL R10
-      457 GETTABLEKS                       R12 R8 K88 ["TestingScreen"]
-      459 SETTABLEKS                       R11 R12 K55 ["isActive"]
-      461 NEWCLOSURE                       R11 P57
-      462 CAPTURE                          VAL R8
-      463 CAPTURE                          VAL R10
-      464 GETTABLEKS                       R12 R8 K88 ["TestingScreen"]
-      466 SETTABLEKS                       R11 R12 K89 ["clickStop"]
-      468 NEWTABLE                         R11 0 0
-      470 SETTABLEKS                       R11 R8 K90 ["EditingTools"]
-      472 NEWCLOSURE                       R11 P58
-      473 CAPTURE                          VAL R8
-      474 GETTABLEKS                       R12 R8 K90 ["EditingTools"]
-      476 SETTABLEKS                       R11 R12 K91 ["clickBodyPointsToolButton"]
-      478 DUPCLOSURE                       R11 K92 [PROTO_84]
-      479 CAPTURE                          UPVAL U1
-      480 GETTABLEKS                       R12 R8 K90 ["EditingTools"]
-      482 SETTABLEKS                       R11 R12 K93 ["bodyPointsToolIsActive"]
-      484 NEWCLOSURE                       R11 P60
-      485 CAPTURE                          VAL R8
-      486 GETTABLEKS                       R12 R8 K90 ["EditingTools"]
-      488 SETTABLEKS                       R11 R12 K94 ["clickCageEditingToolButton"]
-      490 DUPCLOSURE                       R11 K95 [PROTO_86]
-      491 CAPTURE                          UPVAL U1
-      492 GETTABLEKS                       R12 R8 K90 ["EditingTools"]
-      494 SETTABLEKS                       R11 R12 K96 ["cageEditingToolIsActive"]
-      496 NEWTABLE                         R11 0 0
-      498 SETTABLEKS                       R11 R8 K97 ["CageEditingTool"]
-      500 DUPCLOSURE                       R11 K98 [PROTO_87]
-      501 CAPTURE                          UPVAL U1
-      502 GETTABLEKS                       R12 R8 K97 ["CageEditingTool"]
-      504 SETTABLEKS                       R11 R12 K99 ["getBrushRadiusSliderValue"]
-      506 DUPCLOSURE                       R11 K100 [PROTO_88]
-      507 CAPTURE                          UPVAL U1
-      508 GETTABLEKS                       R12 R8 K97 ["CageEditingTool"]
-      510 SETTABLEKS                       R11 R12 K101 ["getBrushFalloffSliderValue"]
-      512 DUPCLOSURE                       R11 K102 [PROTO_90]
-      513 CAPTURE                          UPVAL U2
-      514 CAPTURE                          UPVAL U24
-      515 CAPTURE                          UPVAL U18
-      516 GETTABLEKS                       R12 R8 K97 ["CageEditingTool"]
-      518 SETTABLEKS                       R11 R12 K103 ["ToggleShiftB"]
-      520 DUPCLOSURE                       R11 K104 [PROTO_92]
-      521 CAPTURE                          UPVAL U2
-      522 CAPTURE                          UPVAL U24
-      523 CAPTURE                          UPVAL U18
-      524 GETTABLEKS                       R12 R8 K97 ["CageEditingTool"]
-      526 SETTABLEKS                       R11 R12 K105 ["ToggleB"]
-      528 NEWCLOSURE                       R11 P66
-      529 CAPTURE                          UPVAL U25
-      530 CAPTURE                          VAL R8
-      531 CAPTURE                          UPVAL U2
-      532 CAPTURE                          UPVAL U26
-      533 CAPTURE                          UPVAL U18
-      534 GETTABLEKS                       R12 R8 K97 ["CageEditingTool"]
-      536 SETTABLEKS                       R11 R12 K106 ["activateShortcutAndMoveMouse"]
-      538 NEWCLOSURE                       R11 P67
-      539 CAPTURE                          VAL R8
-      540 CAPTURE                          UPVAL U2
-      541 CAPTURE                          UPVAL U18
-      542 GETTABLEKS                       R12 R8 K97 ["CageEditingTool"]
-      544 SETTABLEKS                       R11 R12 K107 ["activateShortcutAndMoveMouseWheel"]
-      546 RETURN                           R8 1
+      308 CAPTURE                          VAL R8
+      309 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
+      311 SETTABLEKS                       R10 R11 K68 ["clickAddItem"]
+      313 NEWCLOSURE                       R10 P39
+      314 CAPTURE                          VAL R8
+      315 CAPTURE                          UPVAL U20
+      316 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
+      318 SETTABLEKS                       R10 R11 K69 ["getSidebarItems"]
+      320 NEWCLOSURE                       R10 P40
+      321 CAPTURE                          VAL R8
+      322 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
+      324 SETTABLEKS                       R10 R11 K70 ["clickSubmitButton"]
+      326 NEWCLOSURE                       R10 P41
+      327 CAPTURE                          VAL R8
+      328 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
+      330 SETTABLEKS                       R10 R11 K71 ["clickCheckBodyMode"]
+      332 NEWCLOSURE                       R10 P42
+      333 CAPTURE                          VAL R8
+      334 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
+      336 SETTABLEKS                       R10 R11 K72 ["clickCheckFaceMode"]
+      338 NEWCLOSURE                       R10 P43
+      339 CAPTURE                          VAL R8
+      340 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
+      342 SETTABLEKS                       R10 R11 K73 ["clickAvatarSettings"]
+      344 NEWCLOSURE                       R10 P44
+      345 CAPTURE                          VAL R8
+      346 CAPTURE                          UPVAL U2
+      347 CAPTURE                          UPVAL U18
+      348 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
+      350 SETTABLEKS                       R10 R11 K74 ["clickHideShowButton"]
+      352 NEWCLOSURE                       R10 P45
+      353 CAPTURE                          VAL R8
+      354 CAPTURE                          UPVAL U20
+      355 CAPTURE                          UPVAL U2
+      356 CAPTURE                          UPVAL U18
+      357 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
+      359 SETTABLEKS                       R10 R11 K75 ["getSkinToneButtons"]
+      361 NEWTABLE                         R10 0 0
+      363 SETTABLEKS                       R10 R8 K76 ["AutoSetupScreen"]
+      365 GETUPVAL                         R11 7
+      366 CALL                             R11 0 1
+      367 JUMPIFNOT                        R11 ; [+2]
+      368 LOADK                            R10 K77 ["Children."]
+      369 JUMP                             ; [+1]
+      370 LOADK                            R10 K78 ["Provider."]
+      371 NEWCLOSURE                       R11 P46
+      372 CAPTURE                          VAL R8
+      373 CAPTURE                          VAL R10
+      374 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
+      376 SETTABLEKS                       R11 R12 K79 ["getAlertDescription"]
+      378 NEWCLOSURE                       R11 P47
+      379 CAPTURE                          VAL R8
+      380 CAPTURE                          VAL R10
+      381 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
+      383 SETTABLEKS                       R11 R12 K80 ["getAlertTitle"]
+      385 NEWCLOSURE                       R11 P48
+      386 CAPTURE                          UPVAL U21
+      387 CAPTURE                          VAL R8
+      388 CAPTURE                          VAL R10
+      389 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
+      391 SETTABLEKS                       R11 R12 K67 ["getDummy"]
+      393 NEWCLOSURE                       R11 P49
+      394 CAPTURE                          UPVAL U21
+      395 CAPTURE                          VAL R8
+      396 CAPTURE                          VAL R10
+      397 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
+      399 SETTABLEKS                       R11 R12 K81 ["startAutoSetup"]
+      401 NEWCLOSURE                       R11 P50
+      402 CAPTURE                          VAL R8
+      403 CAPTURE                          VAL R10
+      404 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
+      406 SETTABLEKS                       R11 R12 K82 ["cancelAutoSetup"]
+      408 NEWCLOSURE                       R11 P51
+      409 CAPTURE                          VAL R8
+      410 CAPTURE                          VAL R10
+      411 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
+      413 SETTABLEKS                       R11 R12 K83 ["controlsActive"]
+      415 NEWCLOSURE                       R11 P52
+      416 CAPTURE                          VAL R8
+      417 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
+      419 SETTABLEKS                       R11 R12 K55 ["isActive"]
+      421 NEWCLOSURE                       R11 P53
+      422 CAPTURE                          VAL R8
+      423 CAPTURE                          VAL R10
+      424 GETTABLEKS                       R12 R8 K76 ["AutoSetupScreen"]
+      426 SETTABLEKS                       R11 R12 K84 ["toggleClothingTable"]
+      428 NEWTABLE                         R11 0 0
+      430 SETTABLEKS                       R11 R8 K85 ["SelectScreen"]
+      432 NEWCLOSURE                       R11 P54
+      433 CAPTURE                          VAL R8
+      434 GETTABLEKS                       R12 R8 K85 ["SelectScreen"]
+      436 SETTABLEKS                       R11 R12 K55 ["isActive"]
+      438 NEWCLOSURE                       R11 P55
+      439 CAPTURE                          VAL R8
+      440 GETTABLEKS                       R12 R8 K85 ["SelectScreen"]
+      442 SETTABLEKS                       R11 R12 K86 ["clickAddSelected"]
+      444 GETUPVAL                         R11 22
+      445 MOVE                             R12 R8
+      446 CALL                             R11 1 1
+      447 SETTABLEKS                       R11 R8 K87 ["DisambiguationMenu"]
+      449 NEWTABLE                         R11 0 0
+      451 SETTABLEKS                       R11 R8 K88 ["TestingScreen"]
+      453 NEWCLOSURE                       R11 P56
+      454 CAPTURE                          VAL R8
+      455 CAPTURE                          VAL R10
+      456 GETTABLEKS                       R12 R8 K88 ["TestingScreen"]
+      458 SETTABLEKS                       R11 R12 K55 ["isActive"]
+      460 NEWCLOSURE                       R11 P57
+      461 CAPTURE                          VAL R8
+      462 CAPTURE                          VAL R10
+      463 GETTABLEKS                       R12 R8 K88 ["TestingScreen"]
+      465 SETTABLEKS                       R11 R12 K89 ["clickStop"]
+      467 NEWTABLE                         R11 0 0
+      469 SETTABLEKS                       R11 R8 K90 ["EditingTools"]
+      471 NEWCLOSURE                       R11 P58
+      472 CAPTURE                          VAL R8
+      473 GETTABLEKS                       R12 R8 K90 ["EditingTools"]
+      475 SETTABLEKS                       R11 R12 K91 ["clickBodyPointsToolButton"]
+      477 DUPCLOSURE                       R11 K92 [PROTO_84]
+      478 CAPTURE                          UPVAL U1
+      479 GETTABLEKS                       R12 R8 K90 ["EditingTools"]
+      481 SETTABLEKS                       R11 R12 K93 ["bodyPointsToolIsActive"]
+      483 NEWCLOSURE                       R11 P60
+      484 CAPTURE                          VAL R8
+      485 GETTABLEKS                       R12 R8 K90 ["EditingTools"]
+      487 SETTABLEKS                       R11 R12 K94 ["clickCageEditingToolButton"]
+      489 DUPCLOSURE                       R11 K95 [PROTO_86]
+      490 CAPTURE                          UPVAL U1
+      491 GETTABLEKS                       R12 R8 K90 ["EditingTools"]
+      493 SETTABLEKS                       R11 R12 K96 ["cageEditingToolIsActive"]
+      495 NEWTABLE                         R11 0 0
+      497 SETTABLEKS                       R11 R8 K97 ["CageEditingTool"]
+      499 DUPCLOSURE                       R11 K98 [PROTO_87]
+      500 CAPTURE                          UPVAL U1
+      501 GETTABLEKS                       R12 R8 K97 ["CageEditingTool"]
+      503 SETTABLEKS                       R11 R12 K99 ["getBrushRadiusSliderValue"]
+      505 DUPCLOSURE                       R11 K100 [PROTO_88]
+      506 CAPTURE                          UPVAL U1
+      507 GETTABLEKS                       R12 R8 K97 ["CageEditingTool"]
+      509 SETTABLEKS                       R11 R12 K101 ["getBrushFalloffSliderValue"]
+      511 DUPCLOSURE                       R11 K102 [PROTO_90]
+      512 CAPTURE                          UPVAL U2
+      513 CAPTURE                          UPVAL U23
+      514 CAPTURE                          UPVAL U18
+      515 GETTABLEKS                       R12 R8 K97 ["CageEditingTool"]
+      517 SETTABLEKS                       R11 R12 K103 ["ToggleShiftB"]
+      519 DUPCLOSURE                       R11 K104 [PROTO_92]
+      520 CAPTURE                          UPVAL U2
+      521 CAPTURE                          UPVAL U23
+      522 CAPTURE                          UPVAL U18
+      523 GETTABLEKS                       R12 R8 K97 ["CageEditingTool"]
+      525 SETTABLEKS                       R11 R12 K105 ["ToggleB"]
+      527 NEWCLOSURE                       R11 P66
+      528 CAPTURE                          UPVAL U24
+      529 CAPTURE                          VAL R8
+      530 CAPTURE                          UPVAL U2
+      531 CAPTURE                          UPVAL U25
+      532 CAPTURE                          UPVAL U18
+      533 GETTABLEKS                       R12 R8 K97 ["CageEditingTool"]
+      535 SETTABLEKS                       R11 R12 K106 ["activateShortcutAndMoveMouse"]
+      537 NEWCLOSURE                       R11 P67
+      538 CAPTURE                          VAL R8
+      539 CAPTURE                          UPVAL U2
+      540 CAPTURE                          UPVAL U18
+      541 GETTABLEKS                       R12 R8 K97 ["CageEditingTool"]
+      543 SETTABLEKS                       R11 R12 K107 ["activateShortcutAndMoveMouseWheel"]
+      545 RETURN                           R8 1
 
 PROTO_98:
         0 GETUPVAL                         R0 0
@@ -2399,88 +2390,82 @@ MAIN:
       231 GETIMPORT                        R30 K15 [require]
       233 GETTABLEKS                       R33 R7 K30 ["Src"]
       235 GETTABLEKS                       R32 R33 K42 ["Flags"]
-      237 GETTABLEKS                       R31 R32 K46 ["getFFlagAvatarPreviewerLookComposer"]
+      237 GETTABLEKS                       R31 R32 K46 ["getFFlagVirtualInputManagerMouseMoveDeltaEvent"]
       239 CALL                             R30 1 1
-      240 GETIMPORT                        R31 K15 [require]
-      242 GETTABLEKS                       R34 R7 K30 ["Src"]
-      244 GETTABLEKS                       R33 R34 K42 ["Flags"]
-      246 GETTABLEKS                       R32 R33 K47 ["getFFlagVirtualInputManagerMouseMoveDeltaEvent"]
-      248 CALL                             R31 1 1
-      249 GETTABLEKS                       R33 R9 K48 ["TestHelpers"]
-      251 GETTABLEKS                       R32 R33 K49 ["provideMockContext"]
-      253 NEWTABLE                         R33 16 0
-      255 GETTABLEKS                       R34 R3 K50 ["TestAssets"]
-      257 SETTABLEKS                       R34 R33 K51 ["testAssets"]
-      259 DUPCLOSURE                       R34 K52 [PROTO_1]
-      260 CAPTURE                          VAL R12
-      261 CAPTURE                          VAL R14
-      262 SETTABLEKS                       R34 R33 K53 ["clickSimpleTab"]
-      264 DUPCLOSURE                       R34 K54 [PROTO_2]
-      265 SETTABLEKS                       R34 R33 K55 ["deferYield"]
-      267 DUPCLOSURE                       R34 K56 [PROTO_4]
-      268 CAPTURE                          VAL R12
-      269 CAPTURE                          VAL R33
-      270 SETTABLEKS                       R34 R33 K57 ["startAutoSetupAndWaitUntilClick"]
-      272 DUPCLOSURE                       R34 K58 [PROTO_6]
-      273 CAPTURE                          VAL R33
-      274 CAPTURE                          VAL R15
-      275 CAPTURE                          VAL R6
-      276 SETTABLEKS                       R34 R33 K59 ["cloneLizard"]
-      278 DUPCLOSURE                       R34 K60 [PROTO_8]
-      279 CAPTURE                          VAL R33
-      280 CAPTURE                          VAL R15
-      281 CAPTURE                          VAL R6
-      282 SETTABLEKS                       R34 R33 K61 ["cloneRigidHat"]
-      284 DUPCLOSURE                       R34 K62 [PROTO_12]
-      285 CAPTURE                          VAL R28
-      286 CAPTURE                          VAL R0
-      287 DUPCLOSURE                       R35 K63 [PROTO_97]
-      288 CAPTURE                          VAL R2
-      289 CAPTURE                          VAL R1
-      290 CAPTURE                          VAL R12
-      291 CAPTURE                          VAL R17
-      292 CAPTURE                          VAL R8
-      293 CAPTURE                          VAL R11
-      294 CAPTURE                          VAL R21
-      295 CAPTURE                          VAL R27
-      296 CAPTURE                          VAL R10
-      297 CAPTURE                          VAL R25
-      298 CAPTURE                          VAL R19
-      299 CAPTURE                          VAL R23
-      300 CAPTURE                          VAL R24
-      301 CAPTURE                          VAL R26
-      302 CAPTURE                          VAL R28
-      303 CAPTURE                          VAL R22
-      304 CAPTURE                          VAL R20
-      305 CAPTURE                          VAL R32
-      306 CAPTURE                          VAL R14
+      240 GETTABLEKS                       R32 R9 K47 ["TestHelpers"]
+      242 GETTABLEKS                       R31 R32 K48 ["provideMockContext"]
+      244 NEWTABLE                         R32 16 0
+      246 GETTABLEKS                       R33 R3 K49 ["TestAssets"]
+      248 SETTABLEKS                       R33 R32 K50 ["testAssets"]
+      250 DUPCLOSURE                       R33 K51 [PROTO_1]
+      251 CAPTURE                          VAL R12
+      252 CAPTURE                          VAL R14
+      253 SETTABLEKS                       R33 R32 K52 ["clickSimpleTab"]
+      255 DUPCLOSURE                       R33 K53 [PROTO_2]
+      256 SETTABLEKS                       R33 R32 K54 ["deferYield"]
+      258 DUPCLOSURE                       R33 K55 [PROTO_4]
+      259 CAPTURE                          VAL R12
+      260 CAPTURE                          VAL R32
+      261 SETTABLEKS                       R33 R32 K56 ["startAutoSetupAndWaitUntilClick"]
+      263 DUPCLOSURE                       R33 K57 [PROTO_6]
+      264 CAPTURE                          VAL R32
+      265 CAPTURE                          VAL R15
+      266 CAPTURE                          VAL R6
+      267 SETTABLEKS                       R33 R32 K58 ["cloneLizard"]
+      269 DUPCLOSURE                       R33 K59 [PROTO_8]
+      270 CAPTURE                          VAL R32
+      271 CAPTURE                          VAL R15
+      272 CAPTURE                          VAL R6
+      273 SETTABLEKS                       R33 R32 K60 ["cloneRigidHat"]
+      275 DUPCLOSURE                       R33 K61 [PROTO_12]
+      276 CAPTURE                          VAL R28
+      277 CAPTURE                          VAL R0
+      278 DUPCLOSURE                       R34 K62 [PROTO_97]
+      279 CAPTURE                          VAL R2
+      280 CAPTURE                          VAL R1
+      281 CAPTURE                          VAL R12
+      282 CAPTURE                          VAL R17
+      283 CAPTURE                          VAL R8
+      284 CAPTURE                          VAL R11
+      285 CAPTURE                          VAL R21
+      286 CAPTURE                          VAL R27
+      287 CAPTURE                          VAL R10
+      288 CAPTURE                          VAL R25
+      289 CAPTURE                          VAL R19
+      290 CAPTURE                          VAL R23
+      291 CAPTURE                          VAL R24
+      292 CAPTURE                          VAL R26
+      293 CAPTURE                          VAL R28
+      294 CAPTURE                          VAL R22
+      295 CAPTURE                          VAL R20
+      296 CAPTURE                          VAL R31
+      297 CAPTURE                          VAL R14
+      298 CAPTURE                          VAL R32
+      299 CAPTURE                          VAL R13
+      300 CAPTURE                          VAL R29
+      301 CAPTURE                          VAL R16
+      302 CAPTURE                          VAL R4
+      303 CAPTURE                          VAL R30
+      304 CAPTURE                          VAL R5
+      305 DUPCLOSURE                       R35 K63 [PROTO_99]
+      306 CAPTURE                          VAL R34
       307 CAPTURE                          VAL R33
-      308 CAPTURE                          VAL R30
-      309 CAPTURE                          VAL R13
-      310 CAPTURE                          VAL R29
-      311 CAPTURE                          VAL R16
-      312 CAPTURE                          VAL R4
-      313 CAPTURE                          VAL R31
-      314 CAPTURE                          VAL R5
-      315 DUPCLOSURE                       R36 K64 [PROTO_99]
-      316 CAPTURE                          VAL R35
-      317 CAPTURE                          VAL R34
-      318 SETTABLEKS                       R36 R33 K65 ["withTestPreviewer"]
-      320 DUPCLOSURE                       R36 K66 [PROTO_101]
-      321 CAPTURE                          VAL R33
-      322 SETTABLEKS                       R36 R33 K67 ["withClonedLizard"]
-      324 DUPCLOSURE                       R36 K68 [PROTO_104]
-      325 CAPTURE                          VAL R33
-      326 SETTABLEKS                       R36 R33 K69 ["withPreviewerAndLizard"]
-      328 DUPCLOSURE                       R36 K70 [PROTO_106]
-      329 CAPTURE                          VAL R35
-      330 SETTABLEKS                       R36 R33 K71 ["withTestPreviewerEditingTools"]
-      332 DUPCLOSURE                       R36 K72 [PROTO_109]
-      333 CAPTURE                          VAL R33
-      334 SETTABLEKS                       R36 R33 K73 ["withPreviewerAndLizardEditingTools"]
-      336 DUPCLOSURE                       R36 K74 [PROTO_111]
-      337 CAPTURE                          VAL R33
-      338 CAPTURE                          VAL R6
-      339 CAPTURE                          VAL R15
-      340 SETTABLEKS                       R36 R33 K75 ["cloneAutoSetupTarget"]
-      342 RETURN                           R33 1
+      308 SETTABLEKS                       R35 R32 K64 ["withTestPreviewer"]
+      310 DUPCLOSURE                       R35 K65 [PROTO_101]
+      311 CAPTURE                          VAL R32
+      312 SETTABLEKS                       R35 R32 K66 ["withClonedLizard"]
+      314 DUPCLOSURE                       R35 K67 [PROTO_104]
+      315 CAPTURE                          VAL R32
+      316 SETTABLEKS                       R35 R32 K68 ["withPreviewerAndLizard"]
+      318 DUPCLOSURE                       R35 K69 [PROTO_106]
+      319 CAPTURE                          VAL R34
+      320 SETTABLEKS                       R35 R32 K70 ["withTestPreviewerEditingTools"]
+      322 DUPCLOSURE                       R35 K71 [PROTO_109]
+      323 CAPTURE                          VAL R32
+      324 SETTABLEKS                       R35 R32 K72 ["withPreviewerAndLizardEditingTools"]
+      326 DUPCLOSURE                       R35 K73 [PROTO_111]
+      327 CAPTURE                          VAL R32
+      328 CAPTURE                          VAL R6
+      329 CAPTURE                          VAL R15
+      330 SETTABLEKS                       R35 R32 K74 ["cloneAutoSetupTarget"]
+      332 RETURN                           R32 1

@@ -40,7 +40,7 @@ local useLocalization = require(CorePackages.Workspace.Packages.Localization).Ho
 
 local Foundation = require(CorePackages.Packages.Foundation)
 
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 local ChromeService = if ChromeEnabled then require(RobloxGui.Modules.Chrome.Service) else nil
 local ChromeConstants = if ChromeEnabled then require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants) else nil
 
@@ -54,6 +54,8 @@ local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagChromeShortcutRemoveLeaveOnRespawnPage = SharedFlags.FFlagChromeShortcutRemoveLeaveOnRespawnPage
 local FFlagRespawnActionChromeShortcutTelemetry = require(RobloxGui.Modules.Chrome.Flags.FFlagRespawnActionChromeShortcutTelemetry)
 local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
+local FFlagConfirmationButtonsUseGreyButtons = require(RobloxGui.Modules.Settings.Flags.FFlagConfirmationButtonsUseGreyButtons)
+local FFlagMenuButtonsFixConfirmationScrolling = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsFixConfirmationScrolling)
 local FFlagRenameRespawnConfirmationPage = SharedFlags.FFlagRenameRespawnConfirmationPage
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
@@ -124,7 +126,7 @@ local function ResetCharacterButtonsContainer(props: Props)
 			ResetCharacterButton = React.createElement(Button, {
 				text = localizedText.ResetCharacter,
 				size = InputSize.Large,
-				variant = ButtonVariant.SoftEmphasis,
+				variant = if FFlagConfirmationButtonsUseGreyButtons then ButtonVariant.Standard else ButtonVariant.SoftEmphasis,
 				width = UDim.new(0, if isTenFootInterface then 300 else 200),
 				LayoutOrder = 1,
 				ref = resetCharacterButtonRef,
@@ -302,6 +304,10 @@ local function Initialize()
 			if this.PageRoot then
 				this.PageRoot:unmount()
 			end
+		end
+
+		if FFlagMenuButtonsFixConfirmationScrolling then
+			this.Page.Size = UDim2.new(1,0,0,0)
 		end
 	end
 

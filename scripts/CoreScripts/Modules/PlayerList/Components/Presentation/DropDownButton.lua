@@ -19,9 +19,7 @@ local Colors = require(CorePackages.Workspace.Packages.Style).Colors
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 
 local DropDownButton = Roact.PureComponent:extend("DropDownButton")
 

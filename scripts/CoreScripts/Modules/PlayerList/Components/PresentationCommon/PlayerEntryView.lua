@@ -2,9 +2,7 @@
 
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
-local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local PresentationCommon = script.Parent
 local Components = PresentationCommon.Parent
@@ -22,7 +20,7 @@ local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
 local PlayerIconInfoStorePackage = require(CorePackages.Workspace.Packages.PlayerIconInfoStore)
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 local useStyle = UIBlox.Core.Style.useStyle

@@ -96,7 +96,7 @@ MAIN:
       160 SETTABLEKS                       R8 R7 K18 ["SelectionInfo"]
       162 GETIMPORT                        R8 K5 [require]
       164 GETIMPORT                        R10 K1 [script]
-      166 GETTABLEKS                       R9 R10 K27 ["DEPRECATED_BoneTransformHandlesImplementation"]
+      166 GETTABLEKS                       R9 R10 K23 ["BoneTransformHandlesImplementation"]
       168 CALL                             R8 1 1
       169 SETTABLEKS                       R8 R7 K23 ["BoneTransformHandlesImplementation"]
       171 CALL                             R5 2 -1

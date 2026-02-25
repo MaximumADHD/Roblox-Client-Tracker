@@ -18,62 +18,6 @@ PROTO_0:
        21 RETURN                           R2 1
 
 PROTO_1:
-        0 NEWTABLE                         R3 0 0
-        2 LOADN                            R6 0
-        3 SUBK                             R4 R0 K0 [1]
-        4 LOADN                            R5 1
-        5 FORNPREP                         R4
-        6 DIV                              R9 R6 R0
-        7 MULK                             R8 R9 K2 [3.14159265358979]
-        8 MULK                             R7 R8 K1 [2]
-        9 FASTCALL1                        MATH_COS R7 ; [+3]
-       10 MOVE                             R10 R7
-       11 GETIMPORT                        R9 K5 [math.cos]
-       13 CALL                             R9 1 1
-       14 MUL                              R8 R9 R1
-       15 FASTCALL1                        MATH_SIN R7 ; [+3]
-       16 MOVE                             R11 R7
-       17 GETIMPORT                        R10 K7 [math.sin]
-       19 CALL                             R10 1 1
-       20 MUL                              R9 R10 R1
-       21 JUMPIFNOTEQKS                    R2 K8 ["x"] ; [+16]
-       23 LOADN                            R13 0
-       24 FASTCALL3                        VECTOR R13 R8 R9
-       26 MOVE                             R14 R8
-       27 MOVE                             R15 R9
-       28 GETIMPORT                        R12 K11 [Vector3.new]
-       30 CALL                             R12 3 1
-       31 FASTCALL2                        TABLE_INSERT R3 R12 ; [+4]
-       33 MOVE                             R11 R3
-       34 GETIMPORT                        R10 K14 [table.insert]
-       36 CALL                             R10 2 0
-       37 JUMP                             ; [+31]
-       38 JUMPIFNOTEQKS                    R2 K15 ["y"] ; [+16]
-       40 LOADN                            R14 0
-       41 FASTCALL3                        VECTOR R8 R14 R9
-       43 MOVE                             R13 R8
-       44 MOVE                             R15 R9
-       45 GETIMPORT                        R12 K11 [Vector3.new]
-       47 CALL                             R12 3 1
-       48 FASTCALL2                        TABLE_INSERT R3 R12 ; [+4]
-       50 MOVE                             R11 R3
-       51 GETIMPORT                        R10 K14 [table.insert]
-       53 CALL                             R10 2 0
-       54 JUMP                             ; [+14]
-       55 LOADN                            R15 0
-       56 FASTCALL3                        VECTOR R8 R9 R15
-       58 MOVE                             R13 R8
-       59 MOVE                             R14 R9
-       60 GETIMPORT                        R12 K11 [Vector3.new]
-       62 CALL                             R12 3 1
-       63 FASTCALL2                        TABLE_INSERT R3 R12 ; [+4]
-       65 MOVE                             R11 R3
-       66 GETIMPORT                        R10 K14 [table.insert]
-       68 CALL                             R10 2 0
-       69 FORNLOOP                         R4
-       70 RETURN                           R3 1
-
-PROTO_2:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["getParentGlobalCf"]
         3 CALL                             R0 0 1
@@ -93,7 +37,7 @@ PROTO_2:
        23 SUB                              R3 R4 R5
        24 GETTABLEKS                       R4 R3 K7 ["Magnitude"]
        26 LOADN                            R5 0
-       27 JUMPIFNOTLT                      R5 R4 ; [+66]
+       27 JUMPIFNOTLT                      R5 R4 ; [+41]
        29 GETTABLEKS                       R5 R3 K8 ["Unit"]
        31 GETUPVAL                         R7 0
        32 GETTABLEKS                       R6 R7 K9 ["standardRadius"]
@@ -108,46 +52,25 @@ PROTO_2:
        46 GETTABLEKS                       R8 R0 K6 ["Position"]
        48 MUL                              R9 R5 R6
        49 ADD                              R7 R8 R9
-       50 LOADNIL                          R8
-       51 GETUPVAL                         R9 2
-       52 CALL                             R9 0 1
-       53 JUMPIFNOT                        R9 ; [+20]
-       54 GETTABLEKS                       R11 R5 K14 ["Y"]
-       56 FASTCALL1                        MATH_ABS R11 ; [+2]
-       57 GETIMPORT                        R10 K16 [math.abs]
-       59 CALL                             R10 1 1
-       60 LOADK                            R11 K17 [0.9]
-       61 JUMPIFNOTLT                      R11 R10 ; [+3]
-       63 LOADK                            R9 K18 [{1, 0, 0}]
-       64 JUMP                             ; [+1]
-       65 LOADK                            R9 K19 [{0, 1, 0}]
-       66 GETIMPORT                        R10 K22 [CFrame.lookAt]
-       68 MOVE                             R11 R7
-       69 ADD                              R12 R7 R5
-       70 MOVE                             R13 R9
-       71 CALL                             R10 3 1
-       72 MOVE                             R8 R10
-       73 JUMP                             ; [+6]
-       74 GETIMPORT                        R9 K22 [CFrame.lookAt]
-       76 MOVE                             R10 R7
-       77 ADD                              R11 R7 R5
-       78 CALL                             R9 2 1
-       79 MOVE                             R8 R9
-       80 GETUPVAL                         R10 0
-       81 GETTABLEKS                       R9 R10 K23 ["connectionAdorneePart"]
-       83 JUMPIFNOT                        R9 ; [+10]
-       84 GETUPVAL                         R12 0
-       85 GETTABLEKS                       R11 R12 K23 ["connectionAdorneePart"]
-       87 GETTABLEKS                       R10 R11 K20 ["CFrame"]
-       89 NAMECALL                         R10 R10 K24 ["Inverse"]
-       91 CALL                             R10 1 1
-       92 MUL                              R9 R10 R8
-       93 RETURN                           R9 1
-       94 GETIMPORT                        R5 K26 [CFrame.new]
-       96 CALL                             R5 0 -1
-       97 RETURN                           R5 -1
+       50 GETIMPORT                        R8 K16 [CFrame.lookAt]
+       52 MOVE                             R9 R7
+       53 ADD                              R10 R7 R5
+       54 CALL                             R8 2 1
+       55 GETUPVAL                         R10 0
+       56 GETTABLEKS                       R9 R10 K17 ["connectionAdorneePart"]
+       58 JUMPIFNOT                        R9 ; [+10]
+       59 GETUPVAL                         R12 0
+       60 GETTABLEKS                       R11 R12 K17 ["connectionAdorneePart"]
+       62 GETTABLEKS                       R10 R11 K14 ["CFrame"]
+       64 NAMECALL                         R10 R10 K18 ["Inverse"]
+       66 CALL                             R10 1 1
+       67 MUL                              R9 R10 R8
+       68 RETURN                           R9 1
+       69 GETIMPORT                        R5 K20 [CFrame.new]
+       71 CALL                             R5 0 -1
+       72 RETURN                           R5 -1
 
-PROTO_3:
+PROTO_2:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["getParentGlobalCf"]
         3 CALL                             R0 0 1
@@ -187,7 +110,7 @@ PROTO_3:
        52 LOADK                            R5 K13 [0.01]
        53 RETURN                           R5 1
 
-PROTO_4:
+PROTO_3:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+4]
         2 GETUPVAL                         R0 0
@@ -195,7 +118,7 @@ PROTO_4:
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
-PROTO_5:
+PROTO_4:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["current"]
         3 JUMPIF                           R0 ; [+1]
@@ -278,7 +201,7 @@ PROTO_5:
       105 CAPTURE                          VAL R0
       106 RETURN                           R8 1
 
-PROTO_6:
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["allowHover"]
         3 JUMPIF                           R0 ; [+1]
@@ -295,7 +218,7 @@ PROTO_6:
        18 CALL                             R0 1 0
        19 RETURN                           R0 0
 
-PROTO_7:
+PROTO_6:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["parentInst"]
         3 GETTABLEKS                       R2 R3 K1 ["Name"]
@@ -305,7 +228,7 @@ PROTO_7:
         9 MOVE                             R1 R0
        10 RETURN                           R1 1
 
-PROTO_8:
+PROTO_7:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["allowHover"]
         3 JUMPIF                           R0 ; [+1]
@@ -317,7 +240,7 @@ PROTO_8:
        10 CALL                             R0 1 0
        11 RETURN                           R0 0
 
-PROTO_9:
+PROTO_8:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["onJointClicked"]
         3 JUMPIF                           R0 ; [+1]
@@ -329,7 +252,7 @@ PROTO_9:
        11 CALL                             R0 1 0
        12 RETURN                           R0 0
 
-PROTO_10:
+PROTO_9:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["useRef"]
         3 LOADNIL                          R2
@@ -338,98 +261,97 @@ PROTO_10:
         7 NEWCLOSURE                       R4 P0
         8 CAPTURE                          VAL R0
         9 CAPTURE                          UPVAL U1
-       10 CAPTURE                          UPVAL U2
-       11 NAMECALL                         R2 R2 K2 ["map"]
-       13 CALL                             R2 2 1
-       14 GETTABLEKS                       R3 R0 K1 ["updatePositions"]
-       16 NEWCLOSURE                       R5 P1
-       17 CAPTURE                          VAL R0
-       18 CAPTURE                          UPVAL U1
-       19 NAMECALL                         R3 R3 K2 ["map"]
-       21 CALL                             R3 2 1
-       22 NAMECALL                         R4 R3 K3 ["getValue"]
-       24 CALL                             R4 1 1
-       25 GETUPVAL                         R6 0
-       26 GETTABLEKS                       R5 R6 K4 ["useEffect"]
-       28 NEWCLOSURE                       R6 P2
-       29 CAPTURE                          VAL R1
-       30 CAPTURE                          VAL R0
-       31 CAPTURE                          VAL R4
-       32 NEWTABLE                         R7 0 1
-       34 MOVE                             R8 R4
-       35 SETLIST                          R7 R8 1 [1]
-       37 CALL                             R5 2 0
-       38 GETUPVAL                         R6 0
-       39 GETTABLEKS                       R5 R6 K5 ["createElement"]
-       41 GETUPVAL                         R7 0
-       42 GETTABLEKS                       R6 R7 K6 ["Fragment"]
-       44 LOADNIL                          R7
-       45 DUPTABLE                         R8 K9 [{"Pyramid", "Wireframe"}]
-       46 GETUPVAL                         R10 0
-       47 GETTABLEKS                       R9 R10 K5 ["createElement"]
-       49 LOADK                            R10 K10 ["PyramidHandleAdornment"]
-       50 NEWTABLE                         R11 16 0
-       52 GETTABLEKS                       R12 R0 K11 ["connectionAdorneePart"]
-       54 SETTABLEKS                       R12 R11 K12 ["Adornee"]
-       56 SETTABLEKS                       R2 R11 K13 ["CFrame"]
-       58 LOADK                            R12 K14 [0.25]
-       59 SETTABLEKS                       R12 R11 K15 ["Transparency"]
-       61 GETTABLEKS                       R13 R0 K17 ["standardRadius"]
-       63 MULK                             R12 R13 K16 [1.5]
-       64 SETTABLEKS                       R12 R11 K18 ["Size"]
-       66 SETTABLEKS                       R3 R11 K19 ["Height"]
-       68 GETTABLEKS                       R12 R0 K20 ["color"]
-       70 SETTABLEKS                       R12 R11 K21 ["Color3"]
-       72 LOADB                            R12 1
-       73 SETTABLEKS                       R12 R11 K22 ["AlwaysOnTop"]
-       75 LOADN                            R12 0
-       76 SETTABLEKS                       R12 R11 K23 ["ZIndex"]
-       78 GETUPVAL                         R14 0
-       79 GETTABLEKS                       R13 R14 K24 ["Event"]
-       81 GETTABLEKS                       R12 R13 K25 ["MouseEnter"]
-       83 NEWCLOSURE                       R13 P3
-       84 CAPTURE                          VAL R0
-       85 SETTABLE                         R13 R11 R12
-       86 GETUPVAL                         R14 0
-       87 GETTABLEKS                       R13 R14 K24 ["Event"]
-       89 GETTABLEKS                       R12 R13 K26 ["MouseLeave"]
-       91 NEWCLOSURE                       R13 P4
-       92 CAPTURE                          VAL R0
-       93 SETTABLE                         R13 R11 R12
-       94 GETUPVAL                         R14 0
-       95 GETTABLEKS                       R13 R14 K24 ["Event"]
-       97 GETTABLEKS                       R12 R13 K27 ["MouseButton1Down"]
-       99 NEWCLOSURE                       R13 P5
-      100 CAPTURE                          VAL R0
-      101 SETTABLE                         R13 R11 R12
-      102 CALL                             R9 2 1
-      103 SETTABLEKS                       R9 R8 K7 ["Pyramid"]
-      105 GETTABLEKS                       R10 R0 K28 ["isPlayingAnimation"]
-      107 JUMPIF                           R10 ; [+28]
-      108 GETUPVAL                         R10 0
-      109 GETTABLEKS                       R9 R10 K5 ["createElement"]
-      111 LOADK                            R10 K29 ["WireframeHandleAdornment"]
-      112 DUPTABLE                         R11 K31 [{"Adornee", "AlwaysOnTop", "ZIndex", "Transparency", "Color3", "CFrame", "ref"}]
-      113 GETTABLEKS                       R12 R0 K11 ["connectionAdorneePart"]
-      115 SETTABLEKS                       R12 R11 K12 ["Adornee"]
-      117 LOADB                            R12 1
-      118 SETTABLEKS                       R12 R11 K22 ["AlwaysOnTop"]
-      120 LOADN                            R12 0
-      121 SETTABLEKS                       R12 R11 K23 ["ZIndex"]
-      123 LOADN                            R12 0
-      124 SETTABLEKS                       R12 R11 K15 ["Transparency"]
-      126 GETTABLEKS                       R12 R0 K32 ["edgeColor"]
-      128 SETTABLEKS                       R12 R11 K21 ["Color3"]
-      130 SETTABLEKS                       R2 R11 K13 ["CFrame"]
-      132 SETTABLEKS                       R1 R11 K30 ["ref"]
-      134 CALL                             R9 2 1
-      135 JUMPIF                           R9 ; [+1]
-      136 LOADNIL                          R9
-      137 SETTABLEKS                       R9 R8 K8 ["Wireframe"]
-      139 CALL                             R5 3 -1
-      140 RETURN                           R5 -1
+       10 NAMECALL                         R2 R2 K2 ["map"]
+       12 CALL                             R2 2 1
+       13 GETTABLEKS                       R3 R0 K1 ["updatePositions"]
+       15 NEWCLOSURE                       R5 P1
+       16 CAPTURE                          VAL R0
+       17 CAPTURE                          UPVAL U1
+       18 NAMECALL                         R3 R3 K2 ["map"]
+       20 CALL                             R3 2 1
+       21 NAMECALL                         R4 R3 K3 ["getValue"]
+       23 CALL                             R4 1 1
+       24 GETUPVAL                         R6 0
+       25 GETTABLEKS                       R5 R6 K4 ["useEffect"]
+       27 NEWCLOSURE                       R6 P2
+       28 CAPTURE                          VAL R1
+       29 CAPTURE                          VAL R0
+       30 CAPTURE                          VAL R4
+       31 NEWTABLE                         R7 0 1
+       33 MOVE                             R8 R4
+       34 SETLIST                          R7 R8 1 [1]
+       36 CALL                             R5 2 0
+       37 GETUPVAL                         R6 0
+       38 GETTABLEKS                       R5 R6 K5 ["createElement"]
+       40 GETUPVAL                         R7 0
+       41 GETTABLEKS                       R6 R7 K6 ["Fragment"]
+       43 LOADNIL                          R7
+       44 DUPTABLE                         R8 K9 [{"Pyramid", "Wireframe"}]
+       45 GETUPVAL                         R10 0
+       46 GETTABLEKS                       R9 R10 K5 ["createElement"]
+       48 LOADK                            R10 K10 ["PyramidHandleAdornment"]
+       49 NEWTABLE                         R11 16 0
+       51 GETTABLEKS                       R12 R0 K11 ["connectionAdorneePart"]
+       53 SETTABLEKS                       R12 R11 K12 ["Adornee"]
+       55 SETTABLEKS                       R2 R11 K13 ["CFrame"]
+       57 LOADK                            R12 K14 [0.25]
+       58 SETTABLEKS                       R12 R11 K15 ["Transparency"]
+       60 GETTABLEKS                       R13 R0 K17 ["standardRadius"]
+       62 MULK                             R12 R13 K16 [1.5]
+       63 SETTABLEKS                       R12 R11 K18 ["Size"]
+       65 SETTABLEKS                       R3 R11 K19 ["Height"]
+       67 GETTABLEKS                       R12 R0 K20 ["color"]
+       69 SETTABLEKS                       R12 R11 K21 ["Color3"]
+       71 LOADB                            R12 1
+       72 SETTABLEKS                       R12 R11 K22 ["AlwaysOnTop"]
+       74 LOADN                            R12 0
+       75 SETTABLEKS                       R12 R11 K23 ["ZIndex"]
+       77 GETUPVAL                         R14 0
+       78 GETTABLEKS                       R13 R14 K24 ["Event"]
+       80 GETTABLEKS                       R12 R13 K25 ["MouseEnter"]
+       82 NEWCLOSURE                       R13 P3
+       83 CAPTURE                          VAL R0
+       84 SETTABLE                         R13 R11 R12
+       85 GETUPVAL                         R14 0
+       86 GETTABLEKS                       R13 R14 K24 ["Event"]
+       88 GETTABLEKS                       R12 R13 K26 ["MouseLeave"]
+       90 NEWCLOSURE                       R13 P4
+       91 CAPTURE                          VAL R0
+       92 SETTABLE                         R13 R11 R12
+       93 GETUPVAL                         R14 0
+       94 GETTABLEKS                       R13 R14 K24 ["Event"]
+       96 GETTABLEKS                       R12 R13 K27 ["MouseButton1Down"]
+       98 NEWCLOSURE                       R13 P5
+       99 CAPTURE                          VAL R0
+      100 SETTABLE                         R13 R11 R12
+      101 CALL                             R9 2 1
+      102 SETTABLEKS                       R9 R8 K7 ["Pyramid"]
+      104 GETTABLEKS                       R10 R0 K28 ["isPlayingAnimation"]
+      106 JUMPIF                           R10 ; [+28]
+      107 GETUPVAL                         R10 0
+      108 GETTABLEKS                       R9 R10 K5 ["createElement"]
+      110 LOADK                            R10 K29 ["WireframeHandleAdornment"]
+      111 DUPTABLE                         R11 K31 [{"Adornee", "AlwaysOnTop", "ZIndex", "Transparency", "Color3", "CFrame", "ref"}]
+      112 GETTABLEKS                       R12 R0 K11 ["connectionAdorneePart"]
+      114 SETTABLEKS                       R12 R11 K12 ["Adornee"]
+      116 LOADB                            R12 1
+      117 SETTABLEKS                       R12 R11 K22 ["AlwaysOnTop"]
+      119 LOADN                            R12 0
+      120 SETTABLEKS                       R12 R11 K23 ["ZIndex"]
+      122 LOADN                            R12 0
+      123 SETTABLEKS                       R12 R11 K15 ["Transparency"]
+      125 GETTABLEKS                       R12 R0 K32 ["edgeColor"]
+      127 SETTABLEKS                       R12 R11 K21 ["Color3"]
+      129 SETTABLEKS                       R2 R11 K13 ["CFrame"]
+      131 SETTABLEKS                       R1 R11 K30 ["ref"]
+      133 CALL                             R9 2 1
+      134 JUMPIF                           R9 ; [+1]
+      135 LOADNIL                          R9
+      136 SETTABLEKS                       R9 R8 K8 ["Wireframe"]
+      138 CALL                             R5 3 -1
+      139 RETURN                           R5 -1
 
-PROTO_11:
+PROTO_10:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["getGlobalCoordinateFrame"]
         3 GETUPVAL                         R1 1
@@ -454,7 +376,7 @@ PROTO_11:
        28 MUL                              R0 R0 R1
        29 RETURN                           R0 1
 
-PROTO_12:
+PROTO_11:
         0 GETUPVAL                         R2 0
         1 JUMPIFNOT                        R2 ; [+8]
         2 GETUPVAL                         R3 0
@@ -466,6 +388,76 @@ PROTO_12:
        10 GETIMPORT                        R1 K3 [CFrame.new]
        12 CALL                             R1 0 1
        13 RETURN                           R1 1
+
+PROTO_12:
+        0 NEWTABLE                         R3 0 0
+        2 LOADN                            R6 0
+        3 SUBK                             R4 R0 K0 [1]
+        4 LOADN                            R5 1
+        5 FORNPREP                         R4
+        6 DIV                              R9 R6 R0
+        7 MULK                             R8 R9 K2 [3.14159265358979]
+        8 MULK                             R7 R8 K1 [2]
+        9 JUMPIFNOTEQKS                    R2 K3 ["x"] ; [+25]
+       11 LOADN                            R11 0
+       12 FASTCALL1                        MATH_COS R7 ; [+3]
+       13 MOVE                             R14 R7
+       14 GETIMPORT                        R13 K6 [math.cos]
+       16 CALL                             R13 1 1
+       17 MUL                              R12 R13 R1
+       18 FASTCALL1                        MATH_SIN R7 ; [+3]
+       19 MOVE                             R15 R7
+       20 GETIMPORT                        R14 K8 [math.sin]
+       22 CALL                             R14 1 1
+       23 MUL                              R13 R14 R1
+       24 FASTCALL                         VECTOR ; [+2]
+       25 GETIMPORT                        R10 K11 [Vector3.new]
+       27 CALL                             R10 3 1
+       28 FASTCALL2                        TABLE_INSERT R3 R10 ; [+4]
+       30 MOVE                             R9 R3
+       31 GETIMPORT                        R8 K14 [table.insert]
+       33 CALL                             R8 2 0
+       34 JUMP                             ; [+49]
+       35 JUMPIFNOTEQKS                    R2 K15 ["y"] ; [+25]
+       37 FASTCALL1                        MATH_COS R7 ; [+3]
+       38 MOVE                             R13 R7
+       39 GETIMPORT                        R12 K6 [math.cos]
+       41 CALL                             R12 1 1
+       42 MUL                              R11 R12 R1
+       43 LOADN                            R12 0
+       44 FASTCALL1                        MATH_SIN R7 ; [+3]
+       45 MOVE                             R15 R7
+       46 GETIMPORT                        R14 K8 [math.sin]
+       48 CALL                             R14 1 1
+       49 MUL                              R13 R14 R1
+       50 FASTCALL                         VECTOR ; [+2]
+       51 GETIMPORT                        R10 K11 [Vector3.new]
+       53 CALL                             R10 3 1
+       54 FASTCALL2                        TABLE_INSERT R3 R10 ; [+4]
+       56 MOVE                             R9 R3
+       57 GETIMPORT                        R8 K14 [table.insert]
+       59 CALL                             R8 2 0
+       60 JUMP                             ; [+23]
+       61 FASTCALL1                        MATH_COS R7 ; [+3]
+       62 MOVE                             R13 R7
+       63 GETIMPORT                        R12 K6 [math.cos]
+       65 CALL                             R12 1 1
+       66 MUL                              R11 R12 R1
+       67 FASTCALL1                        MATH_SIN R7 ; [+3]
+       68 MOVE                             R14 R7
+       69 GETIMPORT                        R13 K8 [math.sin]
+       71 CALL                             R13 1 1
+       72 MUL                              R12 R13 R1
+       73 LOADN                            R13 0
+       74 FASTCALL                         VECTOR ; [+2]
+       75 GETIMPORT                        R10 K11 [Vector3.new]
+       77 CALL                             R10 3 1
+       78 FASTCALL2                        TABLE_INSERT R3 R10 ; [+4]
+       80 MOVE                             R9 R3
+       81 GETIMPORT                        R8 K14 [table.insert]
+       83 CALL                             R8 2 0
+       84 FORNLOOP                         R4
+       85 RETURN                           R3 1
 
 PROTO_13:
         0 GETUPVAL                         R0 0
@@ -583,39 +575,33 @@ PROTO_19:
         3 GETTABLEKS                       R1 R2 K0 ["childJoints"]
         5 JUMPIF                           R1 ; [+2]
         6 NEWTABLE                         R1 0 0
-        8 GETUPVAL                         R3 1
-        9 CALL                             R3 0 1
-       10 JUMPIFNOT                        R3 ; [+2]
-       11 GETUPVAL                         R2 2
-       12 JUMP                             ; [+1]
-       13 GETUPVAL                         R2 3
-       14 MOVE                             R3 R1
-       15 LOADNIL                          R4
-       16 LOADNIL                          R5
-       17 FORGPREP                         R3
-       18 GETUPVAL                         R8 4
-       19 MOVE                             R9 R2
-       20 MOVE                             R10 R8
-       21 CALL                             R9 1 1
-       22 JUMPIF                           R9 ; [+3]
-       23 MOVE                             R9 R2
-       24 MOVE                             R10 R7
-       25 CALL                             R9 1 1
-       26 JUMPIFNOT                        R9 ; [+18]
-       27 LOADK                            R11 K1 ["Connection_%*_%*_%*"]
-       28 GETTABLEKS                       R13 R8 K2 ["Name"]
-       30 GETTABLEKS                       R14 R7 K2 ["Name"]
-       32 MOVE                             R15 R6
-       33 NAMECALL                         R11 R11 K3 ["format"]
-       35 CALL                             R11 4 1
-       36 MOVE                             R10 R11
-       37 DUPTABLE                         R11 K7 [{"parentInst", "childInst", "connectionAdorneePart"}]
-       38 SETTABLEKS                       R8 R11 K4 ["parentInst"]
-       40 SETTABLEKS                       R7 R11 K5 ["childInst"]
-       42 SETTABLEKS                       R9 R11 K6 ["connectionAdorneePart"]
-       44 SETTABLE                         R11 R0 R10
-       45 FORGLOOP                         R3 2 ; [-28]
-       47 RETURN                           R0 1
+        8 MOVE                             R2 R1
+        9 LOADNIL                          R3
+       10 LOADNIL                          R4
+       11 FORGPREP                         R2
+       12 GETUPVAL                         R7 1
+       13 GETUPVAL                         R8 2
+       14 MOVE                             R9 R7
+       15 CALL                             R8 1 1
+       16 JUMPIF                           R8 ; [+3]
+       17 GETUPVAL                         R8 2
+       18 MOVE                             R9 R6
+       19 CALL                             R8 1 1
+       20 JUMPIFNOT                        R8 ; [+18]
+       21 LOADK                            R10 K1 ["Connection_%*_%*_%*"]
+       22 GETTABLEKS                       R12 R7 K2 ["Name"]
+       24 GETTABLEKS                       R13 R6 K2 ["Name"]
+       26 MOVE                             R14 R5
+       27 NAMECALL                         R10 R10 K3 ["format"]
+       29 CALL                             R10 4 1
+       30 MOVE                             R9 R10
+       31 DUPTABLE                         R10 K7 [{"parentInst", "childInst", "connectionAdorneePart"}]
+       32 SETTABLEKS                       R7 R10 K4 ["parentInst"]
+       34 SETTABLEKS                       R6 R10 K5 ["childInst"]
+       36 SETTABLEKS                       R8 R10 K6 ["connectionAdorneePart"]
+       38 SETTABLE                         R10 R0 R9
+       39 FORGLOOP                         R2 2 ; [-28]
+       41 RETURN                           R0 1
 
 PROTO_20:
         0 GETUPVAL                         R1 0
@@ -698,364 +684,333 @@ PROTO_21:
        64 CAPTURE                          REF R12
        65 NAMECALL                         R15 R15 K10 ["map"]
        67 CALL                             R15 2 1
-       68 GETUPVAL                         R17 5
-       69 CALL                             R17 0 1
-       70 JUMPIFNOT                        R17 ; [+4]
-       71 GETUPVAL                         R16 6
-       72 MOVE                             R17 R1
-       73 CALL                             R16 1 1
-       74 JUMP                             ; [+3]
-       75 GETUPVAL                         R16 7
-       76 MOVE                             R17 R1
-       77 CALL                             R16 1 1
-       78 NEWCLOSURE                       R19 P1
-       79 CAPTURE                          VAL R16
-       80 NAMECALL                         R17 R15 K10 ["map"]
-       82 CALL                             R17 2 1
-       83 GETUPVAL                         R19 4
-       84 GETTABLEKS                       R18 R19 K11 ["getGlobalCoordinateFrame"]
-       86 MOVE                             R19 R1
-       87 CALL                             R18 1 1
-       88 GETUPVAL                         R19 1
-       89 CALL                             R19 0 1
-       90 JUMPIF                           R19 ; [+17]
-       91 GETTABLEKS                       R19 R0 K12 ["DEPRECATED_applyTposeAdjustment"]
-       93 JUMPIFNOT                        R19 ; [+14]
-       94 GETTABLEKS                       R19 R12 K13 ["adjustmentValue"]
-       96 JUMPIFNOT                        R19 ; [+11]
-       97 GETTABLEKS                       R20 R12 K13 ["adjustmentValue"]
-       99 FASTCALL1                        TYPEOF R20 ; [+2]
-      100 GETIMPORT                        R19 K15 [typeof]
-      102 CALL                             R19 1 1
-      103 JUMPIFNOTEQKS                    R19 K16 ["CFrame"] ; [+4]
-      105 GETTABLEKS                       R19 R12 K13 ["adjustmentValue"]
-      107 MUL                              R18 R18 R19
-      108 GETTABLEKS                       R19 R0 K17 ["standardRadius"]
-      110 ORK                              R20 R19 K18 [0.05]
-      111 GETUPVAL                         R22 5
-      112 CALL                             R22 0 1
-      113 JUMPIFNOT                        R22 ; [+23]
-      114 DUPTABLE                         R21 K22 [{"x", "y", "z"}]
-      115 GETUPVAL                         R22 8
-      116 LOADN                            R23 12
-      117 MOVE                             R24 R20
-      118 LOADK                            R25 K19 ["x"]
-      119 CALL                             R22 3 1
-      120 SETTABLEKS                       R22 R21 K19 ["x"]
-      122 GETUPVAL                         R22 8
-      123 LOADN                            R23 12
-      124 MOVE                             R24 R20
-      125 LOADK                            R25 K20 ["y"]
-      126 CALL                             R22 3 1
-      127 SETTABLEKS                       R22 R21 K20 ["y"]
-      129 GETUPVAL                         R22 8
-      130 LOADN                            R23 12
-      131 MOVE                             R24 R20
-      132 LOADK                            R25 K21 ["z"]
-      133 CALL                             R22 3 1
-      134 SETTABLEKS                       R22 R21 K21 ["z"]
-      136 JUMP                             ; [+22]
-      137 DUPTABLE                         R21 K22 [{"x", "y", "z"}]
-      138 GETUPVAL                         R22 9
-      139 LOADN                            R23 12
-      140 MOVE                             R24 R20
-      141 LOADK                            R25 K19 ["x"]
-      142 CALL                             R22 3 1
-      143 SETTABLEKS                       R22 R21 K19 ["x"]
-      145 GETUPVAL                         R22 9
-      146 LOADN                            R23 12
-      147 MOVE                             R24 R20
-      148 LOADK                            R25 K20 ["y"]
-      149 CALL                             R22 3 1
-      150 SETTABLEKS                       R22 R21 K20 ["y"]
-      152 GETUPVAL                         R22 9
-      153 LOADN                            R23 12
-      154 MOVE                             R24 R20
-      155 LOADK                            R25 K21 ["z"]
-      156 CALL                             R22 3 1
-      157 SETTABLEKS                       R22 R21 K21 ["z"]
-      159 GETUPVAL                         R23 0
-      160 GETTABLEKS                       R22 R23 K23 ["useEffect"]
-      162 NEWCLOSURE                       R23 P2
-      163 CAPTURE                          VAL R7
-      164 CAPTURE                          VAL R9
-      165 CAPTURE                          VAL R2
-      166 CAPTURE                          VAL R4
-      167 CAPTURE                          REF R18
-      168 CAPTURE                          VAL R11
-      169 NEWTABLE                         R24 0 3
-      171 MOVE                             R25 R2
-      172 MOVE                             R26 R4
-      173 MOVE                             R27 R18
-      174 SETLIST                          R24 R25 3 [1]
-      176 CALL                             R22 2 0
-      177 NEWTABLE                         R22 0 0
-      179 GETUPVAL                         R24 0
-      180 GETTABLEKS                       R23 R24 K24 ["createElement"]
-      182 LOADK                            R24 K25 ["SphereHandleAdornment"]
-      183 NEWTABLE                         R25 16 0
-      185 SETTABLEKS                       R19 R25 K26 ["Radius"]
-      187 GETTABLEKS                       R26 R14 K27 ["color"]
-      189 SETTABLEKS                       R26 R25 K28 ["Color3"]
-      191 LOADN                            R26 1
-      192 SETTABLEKS                       R26 R25 K29 ["ZIndex"]
-      194 LOADB                            R26 1
-      195 SETTABLEKS                       R26 R25 K30 ["AlwaysOnTop"]
-      197 SETTABLEKS                       R16 R25 K31 ["Adornee"]
-      199 LOADK                            R26 K32 [0.25]
-      200 SETTABLEKS                       R26 R25 K33 ["Transparency"]
-      202 SETTABLEKS                       R17 R25 K16 ["CFrame"]
-      204 GETUPVAL                         R28 0
-      205 GETTABLEKS                       R27 R28 K34 ["Event"]
-      207 GETTABLEKS                       R26 R27 K35 ["MouseEnter"]
-      209 NEWCLOSURE                       R27 P3
-      210 CAPTURE                          VAL R3
-      211 CAPTURE                          VAL R1
-      212 CAPTURE                          VAL R5
-      213 JUMPIF                           R27 ; [+1]
-      214 LOADNIL                          R27
-      215 SETTABLE                         R27 R25 R26
-      216 GETUPVAL                         R28 0
-      217 GETTABLEKS                       R27 R28 K34 ["Event"]
-      219 GETTABLEKS                       R26 R27 K36 ["MouseLeave"]
-      221 NEWCLOSURE                       R27 P4
-      222 CAPTURE                          VAL R2
-      223 CAPTURE                          VAL R1
-      224 CAPTURE                          VAL R3
-      225 JUMPIF                           R27 ; [+1]
-      226 LOADNIL                          R27
-      227 SETTABLE                         R27 R25 R26
-      228 GETUPVAL                         R28 0
-      229 GETTABLEKS                       R27 R28 K34 ["Event"]
-      231 GETTABLEKS                       R26 R27 K37 ["MouseButton1Down"]
-      233 NEWCLOSURE                       R27 P5
-      234 CAPTURE                          VAL R0
-      235 CAPTURE                          VAL R1
-      236 SETTABLE                         R27 R25 R26
-      237 CALL                             R23 2 1
-      238 FASTCALL2                        TABLE_INSERT R22 R23 ; [+5]
-      240 MOVE                             R25 R22
-      241 MOVE                             R26 R23
-      242 GETIMPORT                        R24 K40 [table.insert]
-      244 CALL                             R24 2 0
-      245 JUMPIFNOT                        R16 ; [+29]
-      246 GETTABLEKS                       R24 R0 K41 ["isPlayingAnimation"]
-      248 JUMPIF                           R24 ; [+26]
-      249 GETUPVAL                         R25 0
-      250 GETTABLEKS                       R24 R25 K24 ["createElement"]
-      252 GETUPVAL                         R25 10
-      253 DUPTABLE                         R26 K45 [{"circlePoints", "color", "Transparency", "adorneePart", "sphereCf"}]
-      254 SETTABLEKS                       R21 R26 K42 ["circlePoints"]
-      256 GETTABLEKS                       R27 R14 K46 ["edgeColor"]
-      258 SETTABLEKS                       R27 R26 K27 ["color"]
-      260 LOADN                            R27 0
-      261 SETTABLEKS                       R27 R26 K33 ["Transparency"]
-      263 SETTABLEKS                       R16 R26 K43 ["adorneePart"]
-      265 SETTABLEKS                       R17 R26 K44 ["sphereCf"]
-      267 CALL                             R24 2 1
-      268 FASTCALL2                        TABLE_INSERT R22 R24 ; [+5]
-      270 MOVE                             R26 R22
-      271 MOVE                             R27 R24
-      272 GETIMPORT                        R25 K40 [table.insert]
-      274 CALL                             R25 2 0
-      275 GETUPVAL                         R25 0
-      276 GETTABLEKS                       R24 R25 K47 ["useMemo"]
-      278 NEWCLOSURE                       R25 P6
-      279 CAPTURE                          VAL R0
-      280 CAPTURE                          UPVAL U5
-      281 CAPTURE                          UPVAL U6
-      282 CAPTURE                          UPVAL U7
-      283 CAPTURE                          VAL R1
-      284 NEWTABLE                         R26 0 1
-      286 GETTABLEKS                       R27 R0 K48 ["childJoints"]
-      288 JUMPIF                           R27 ; [+2]
-      289 NEWTABLE                         R27 0 0
-      291 SETLIST                          R26 R27 1 [1]
-      293 CALL                             R24 2 1
-      294 MOVE                             R25 R24
-      295 LOADNIL                          R26
-      296 LOADNIL                          R27
-      297 FORGPREP                         R25
-      298 GETUPVAL                         R31 0
-      299 GETTABLEKS                       R30 R31 K24 ["createElement"]
-      301 GETUPVAL                         R31 11
-      302 DUPTABLE                         R32 K58 [{"parentInst", "childInst", "connectionAdorneePart", "standardRadius", "updatePositions", "getParentGlobalCf", "allowHover", "color", "edgeColor", "onJointClicked", "setHoveredPyramidParentName", "setHoveredJointName", "hoveredPyramidParentName", "isPlayingAnimation"}]
-      303 GETTABLEKS                       R33 R29 K49 ["parentInst"]
-      305 SETTABLEKS                       R33 R32 K49 ["parentInst"]
-      307 GETTABLEKS                       R33 R29 K50 ["childInst"]
-      309 SETTABLEKS                       R33 R32 K50 ["childInst"]
-      311 GETTABLEKS                       R33 R29 K51 ["connectionAdorneePart"]
-      313 SETTABLEKS                       R33 R32 K51 ["connectionAdorneePart"]
-      315 SETTABLEKS                       R19 R32 K17 ["standardRadius"]
-      317 GETTABLEKS                       R33 R0 K9 ["updatePositions"]
-      319 SETTABLEKS                       R33 R32 K9 ["updatePositions"]
-      321 NEWCLOSURE                       R33 P7
-      322 CAPTURE                          UPVAL U4
-      323 CAPTURE                          VAL R29
-      324 CAPTURE                          UPVAL U1
-      325 CAPTURE                          VAL R0
-      326 CAPTURE                          REF R12
-      327 SETTABLEKS                       R33 R32 K52 ["getParentGlobalCf"]
-      329 LOADB                            R33 1
-      330 SETTABLEKS                       R33 R32 K53 ["allowHover"]
-      332 GETTABLEKS                       R33 R14 K27 ["color"]
-      334 SETTABLEKS                       R33 R32 K27 ["color"]
-      336 GETTABLEKS                       R33 R14 K46 ["edgeColor"]
-      338 SETTABLEKS                       R33 R32 K46 ["edgeColor"]
-      340 GETTABLEKS                       R33 R0 K54 ["onJointClicked"]
-      342 SETTABLEKS                       R33 R32 K54 ["onJointClicked"]
-      344 SETTABLEKS                       R5 R32 K55 ["setHoveredPyramidParentName"]
-      346 SETTABLEKS                       R3 R32 K56 ["setHoveredJointName"]
-      348 SETTABLEKS                       R4 R32 K57 ["hoveredPyramidParentName"]
-      350 GETTABLEKS                       R33 R0 K41 ["isPlayingAnimation"]
-      352 SETTABLEKS                       R33 R32 K41 ["isPlayingAnimation"]
-      354 CALL                             R30 2 1
-      355 FASTCALL2                        TABLE_INSERT R22 R30 ; [+5]
-      357 MOVE                             R32 R22
-      358 MOVE                             R33 R30
-      359 GETIMPORT                        R31 K40 [table.insert]
-      361 CALL                             R31 2 0
-      362 FORGLOOP                         R25 2 ; [-65]
-      364 LOADNIL                          R25
-      365 JUMPIFNOT                        R6 ; [+171]
-      366 JUMPIFNOT                        R8 ; [+170]
-      367 GETUPVAL                         R27 12
-      368 GETTABLEKS                       R26 R27 K59 ["createPortal"]
-      370 GETUPVAL                         R28 0
-      371 GETTABLEKS                       R27 R28 K24 ["createElement"]
-      373 LOADK                            R28 K60 ["ScreenGui"]
-      374 DUPTABLE                         R29 K64 [{"IgnoreGuiInset", "ResetOnSpawn", "ZIndexBehavior"}]
-      375 LOADB                            R30 1
-      376 SETTABLEKS                       R30 R29 K61 ["IgnoreGuiInset"]
-      378 LOADB                            R30 0
-      379 SETTABLEKS                       R30 R29 K62 ["ResetOnSpawn"]
-      381 GETIMPORT                        R30 K67 [Enum.ZIndexBehavior.Sibling]
-      383 SETTABLEKS                       R30 R29 K63 ["ZIndexBehavior"]
-      385 DUPTABLE                         R30 K69 [{"Positioner"}]
-      386 GETUPVAL                         R32 0
-      387 GETTABLEKS                       R31 R32 K24 ["createElement"]
-      389 LOADK                            R32 K70 ["Frame"]
-      390 DUPTABLE                         R33 K74 [{"BackgroundTransparency", "Size", "Position", "ZIndex"}]
-      391 LOADN                            R34 1
-      392 SETTABLEKS                       R34 R33 K71 ["BackgroundTransparency"]
-      394 GETIMPORT                        R34 K76 [UDim2.new]
-      396 LOADN                            R35 0
-      397 LOADN                            R36 0
-      398 LOADN                            R37 0
-      399 LOADN                            R38 0
-      400 CALL                             R34 4 1
-      401 SETTABLEKS                       R34 R33 K72 ["Size"]
-      403 GETIMPORT                        R34 K76 [UDim2.new]
-      405 LOADN                            R35 0
-      406 GETTABLEKS                       R36 R10 K77 ["X"]
-      408 LOADN                            R37 0
-      409 GETTABLEKS                       R38 R10 K78 ["Y"]
-      411 CALL                             R34 4 1
-      412 SETTABLEKS                       R34 R33 K73 ["Position"]
-      414 LOADN                            R34 200
-      415 SETTABLEKS                       R34 R33 K29 ["ZIndex"]
-      417 DUPTABLE                         R34 K80 [{"Tooltip"}]
-      418 GETUPVAL                         R36 0
-      419 GETTABLEKS                       R35 R36 K24 ["createElement"]
-      421 LOADK                            R36 K81 ["TextLabel"]
-      422 DUPTABLE                         R37 K89 [{"BackgroundColor3", "BackgroundTransparency", "TextColor3", "Font", "TextSize", "AutomaticSize", "BorderSizePixel", "Text", "ZIndex"}]
-      423 GETIMPORT                        R38 K90 [Color3.new]
-      425 LOADN                            R39 0
-      426 LOADN                            R40 0
-      427 LOADN                            R41 0
-      428 CALL                             R38 3 1
-      429 SETTABLEKS                       R38 R37 K82 ["BackgroundColor3"]
-      431 LOADK                            R38 K32 [0.25]
-      432 SETTABLEKS                       R38 R37 K71 ["BackgroundTransparency"]
-      434 GETIMPORT                        R38 K90 [Color3.new]
-      436 LOADN                            R39 1
-      437 LOADN                            R40 1
-      438 LOADN                            R41 1
-      439 CALL                             R38 3 1
-      440 SETTABLEKS                       R38 R37 K83 ["TextColor3"]
-      442 GETIMPORT                        R38 K92 [Enum.Font.SourceSans]
-      444 SETTABLEKS                       R38 R37 K84 ["Font"]
-      446 LOADN                            R38 14
-      447 SETTABLEKS                       R38 R37 K85 ["TextSize"]
-      449 GETIMPORT                        R38 K94 [Enum.AutomaticSize.XY]
-      451 SETTABLEKS                       R38 R37 K86 ["AutomaticSize"]
-      453 LOADN                            R38 0
-      454 SETTABLEKS                       R38 R37 K87 ["BorderSizePixel"]
-      456 LOADK                            R39 K95 ["%*: %*"]
-      457 GETTABLEKS                       R41 R1 K96 ["ClassName"]
-      459 GETTABLEKS                       R42 R1 K97 ["Name"]
-      461 NAMECALL                         R39 R39 K98 ["format"]
-      463 CALL                             R39 3 1
-      464 MOVE                             R38 R39
-      465 SETTABLEKS                       R38 R37 K88 ["Text"]
-      467 LOADN                            R38 201
-      468 SETTABLEKS                       R38 R37 K29 ["ZIndex"]
-      470 DUPTABLE                         R38 K101 [{"UICorner", "Padding"}]
-      471 GETUPVAL                         R40 0
-      472 GETTABLEKS                       R39 R40 K24 ["createElement"]
-      474 LOADK                            R40 K99 ["UICorner"]
-      475 DUPTABLE                         R41 K103 [{"CornerRadius"}]
-      476 GETIMPORT                        R42 K105 [UDim.new]
-      478 LOADN                            R43 0
-      479 LOADN                            R44 6
-      480 CALL                             R42 2 1
-      481 SETTABLEKS                       R42 R41 K102 ["CornerRadius"]
-      483 CALL                             R39 2 1
-      484 SETTABLEKS                       R39 R38 K99 ["UICorner"]
-      486 GETUPVAL                         R40 0
-      487 GETTABLEKS                       R39 R40 K24 ["createElement"]
-      489 LOADK                            R40 K106 ["UIPadding"]
-      490 DUPTABLE                         R41 K111 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-      491 GETIMPORT                        R42 K105 [UDim.new]
-      493 LOADN                            R43 0
-      494 LOADN                            R44 8
-      495 CALL                             R42 2 1
-      496 SETTABLEKS                       R42 R41 K107 ["PaddingLeft"]
-      498 GETIMPORT                        R42 K105 [UDim.new]
-      500 LOADN                            R43 0
-      501 LOADN                            R44 8
-      502 CALL                             R42 2 1
-      503 SETTABLEKS                       R42 R41 K108 ["PaddingRight"]
-      505 GETIMPORT                        R42 K105 [UDim.new]
-      507 LOADN                            R43 0
-      508 LOADN                            R44 4
-      509 CALL                             R42 2 1
-      510 SETTABLEKS                       R42 R41 K109 ["PaddingTop"]
-      512 GETIMPORT                        R42 K105 [UDim.new]
-      514 LOADN                            R43 0
-      515 LOADN                            R44 4
-      516 CALL                             R42 2 1
-      517 SETTABLEKS                       R42 R41 K110 ["PaddingBottom"]
-      519 CALL                             R39 2 1
-      520 SETTABLEKS                       R39 R38 K100 ["Padding"]
-      522 CALL                             R35 3 1
-      523 SETTABLEKS                       R35 R34 K79 ["Tooltip"]
-      525 CALL                             R31 3 1
-      526 SETTABLEKS                       R31 R30 K68 ["Positioner"]
-      528 CALL                             R27 3 1
-      529 GETIMPORT                        R28 K113 [game]
-      531 LOADK                            R30 K114 ["CoreGui"]
-      532 NAMECALL                         R28 R28 K115 ["GetService"]
-      534 CALL                             R28 2 -1
-      535 CALL                             R26 -1 1
-      536 MOVE                             R25 R26
-      537 GETUPVAL                         R27 0
-      538 GETTABLEKS                       R26 R27 K24 ["createElement"]
-      540 GETUPVAL                         R28 0
-      541 GETTABLEKS                       R27 R28 K116 ["Fragment"]
-      543 LOADNIL                          R28
-      544 DUPTABLE                         R29 K119 [{"World", "TooltipPortal"}]
-      545 GETUPVAL                         R31 0
-      546 GETTABLEKS                       R30 R31 K24 ["createElement"]
-      548 LOADK                            R31 K120 ["Folder"]
-      549 LOADNIL                          R32
-      550 MOVE                             R33 R22
-      551 CALL                             R30 3 1
-      552 SETTABLEKS                       R30 R29 K117 ["World"]
-      554 SETTABLEKS                       R25 R29 K118 ["TooltipPortal"]
-      556 CALL                             R26 3 -1
-      557 CLOSEUPVALS                      R12
-      558 RETURN                           R26 -1
+       68 GETUPVAL                         R16 5
+       69 MOVE                             R17 R1
+       70 CALL                             R16 1 1
+       71 NEWCLOSURE                       R19 P1
+       72 CAPTURE                          VAL R16
+       73 NAMECALL                         R17 R15 K10 ["map"]
+       75 CALL                             R17 2 1
+       76 GETUPVAL                         R19 4
+       77 GETTABLEKS                       R18 R19 K11 ["getGlobalCoordinateFrame"]
+       79 MOVE                             R19 R1
+       80 CALL                             R18 1 1
+       81 GETUPVAL                         R19 1
+       82 CALL                             R19 0 1
+       83 JUMPIF                           R19 ; [+17]
+       84 GETTABLEKS                       R19 R0 K12 ["DEPRECATED_applyTposeAdjustment"]
+       86 JUMPIFNOT                        R19 ; [+14]
+       87 GETTABLEKS                       R19 R12 K13 ["adjustmentValue"]
+       89 JUMPIFNOT                        R19 ; [+11]
+       90 GETTABLEKS                       R20 R12 K13 ["adjustmentValue"]
+       92 FASTCALL1                        TYPEOF R20 ; [+2]
+       93 GETIMPORT                        R19 K15 [typeof]
+       95 CALL                             R19 1 1
+       96 JUMPIFNOTEQKS                    R19 K16 ["CFrame"] ; [+4]
+       98 GETTABLEKS                       R19 R12 K13 ["adjustmentValue"]
+      100 MUL                              R18 R18 R19
+      101 GETTABLEKS                       R19 R0 K17 ["standardRadius"]
+      103 DUPCLOSURE                       R20 K18 [PROTO_12]
+      104 ORK                              R21 R19 K19 [0.05]
+      105 DUPTABLE                         R22 K23 [{"x", "y", "z"}]
+      106 MOVE                             R23 R20
+      107 LOADN                            R24 12
+      108 MOVE                             R25 R21
+      109 LOADK                            R26 K20 ["x"]
+      110 CALL                             R23 3 1
+      111 SETTABLEKS                       R23 R22 K20 ["x"]
+      113 MOVE                             R23 R20
+      114 LOADN                            R24 12
+      115 MOVE                             R25 R21
+      116 LOADK                            R26 K21 ["y"]
+      117 CALL                             R23 3 1
+      118 SETTABLEKS                       R23 R22 K21 ["y"]
+      120 MOVE                             R23 R20
+      121 LOADN                            R24 12
+      122 MOVE                             R25 R21
+      123 LOADK                            R26 K22 ["z"]
+      124 CALL                             R23 3 1
+      125 SETTABLEKS                       R23 R22 K22 ["z"]
+      127 GETUPVAL                         R24 0
+      128 GETTABLEKS                       R23 R24 K24 ["useEffect"]
+      130 NEWCLOSURE                       R24 P3
+      131 CAPTURE                          VAL R7
+      132 CAPTURE                          VAL R9
+      133 CAPTURE                          VAL R2
+      134 CAPTURE                          VAL R4
+      135 CAPTURE                          REF R18
+      136 CAPTURE                          VAL R11
+      137 NEWTABLE                         R25 0 3
+      139 MOVE                             R26 R2
+      140 MOVE                             R27 R4
+      141 MOVE                             R28 R18
+      142 SETLIST                          R25 R26 3 [1]
+      144 CALL                             R23 2 0
+      145 NEWTABLE                         R23 0 0
+      147 GETUPVAL                         R25 0
+      148 GETTABLEKS                       R24 R25 K25 ["createElement"]
+      150 LOADK                            R25 K26 ["SphereHandleAdornment"]
+      151 NEWTABLE                         R26 16 0
+      153 SETTABLEKS                       R19 R26 K27 ["Radius"]
+      155 GETTABLEKS                       R27 R14 K28 ["color"]
+      157 SETTABLEKS                       R27 R26 K29 ["Color3"]
+      159 LOADN                            R27 1
+      160 SETTABLEKS                       R27 R26 K30 ["ZIndex"]
+      162 LOADB                            R27 1
+      163 SETTABLEKS                       R27 R26 K31 ["AlwaysOnTop"]
+      165 SETTABLEKS                       R16 R26 K32 ["Adornee"]
+      167 LOADK                            R27 K33 [0.25]
+      168 SETTABLEKS                       R27 R26 K34 ["Transparency"]
+      170 SETTABLEKS                       R17 R26 K16 ["CFrame"]
+      172 GETUPVAL                         R29 0
+      173 GETTABLEKS                       R28 R29 K35 ["Event"]
+      175 GETTABLEKS                       R27 R28 K36 ["MouseEnter"]
+      177 NEWCLOSURE                       R28 P4
+      178 CAPTURE                          VAL R3
+      179 CAPTURE                          VAL R1
+      180 CAPTURE                          VAL R5
+      181 JUMPIF                           R28 ; [+1]
+      182 LOADNIL                          R28
+      183 SETTABLE                         R28 R26 R27
+      184 GETUPVAL                         R29 0
+      185 GETTABLEKS                       R28 R29 K35 ["Event"]
+      187 GETTABLEKS                       R27 R28 K37 ["MouseLeave"]
+      189 NEWCLOSURE                       R28 P5
+      190 CAPTURE                          VAL R2
+      191 CAPTURE                          VAL R1
+      192 CAPTURE                          VAL R3
+      193 JUMPIF                           R28 ; [+1]
+      194 LOADNIL                          R28
+      195 SETTABLE                         R28 R26 R27
+      196 GETUPVAL                         R29 0
+      197 GETTABLEKS                       R28 R29 K35 ["Event"]
+      199 GETTABLEKS                       R27 R28 K38 ["MouseButton1Down"]
+      201 NEWCLOSURE                       R28 P6
+      202 CAPTURE                          VAL R0
+      203 CAPTURE                          VAL R1
+      204 SETTABLE                         R28 R26 R27
+      205 CALL                             R24 2 1
+      206 FASTCALL2                        TABLE_INSERT R23 R24 ; [+5]
+      208 MOVE                             R26 R23
+      209 MOVE                             R27 R24
+      210 GETIMPORT                        R25 K41 [table.insert]
+      212 CALL                             R25 2 0
+      213 JUMPIFNOT                        R16 ; [+29]
+      214 GETTABLEKS                       R25 R0 K42 ["isPlayingAnimation"]
+      216 JUMPIF                           R25 ; [+26]
+      217 GETUPVAL                         R26 0
+      218 GETTABLEKS                       R25 R26 K25 ["createElement"]
+      220 GETUPVAL                         R26 6
+      221 DUPTABLE                         R27 K46 [{"circlePoints", "color", "Transparency", "adorneePart", "sphereCf"}]
+      222 SETTABLEKS                       R22 R27 K43 ["circlePoints"]
+      224 GETTABLEKS                       R28 R14 K47 ["edgeColor"]
+      226 SETTABLEKS                       R28 R27 K28 ["color"]
+      228 LOADN                            R28 0
+      229 SETTABLEKS                       R28 R27 K34 ["Transparency"]
+      231 SETTABLEKS                       R16 R27 K44 ["adorneePart"]
+      233 SETTABLEKS                       R17 R27 K45 ["sphereCf"]
+      235 CALL                             R25 2 1
+      236 FASTCALL2                        TABLE_INSERT R23 R25 ; [+5]
+      238 MOVE                             R27 R23
+      239 MOVE                             R28 R25
+      240 GETIMPORT                        R26 K41 [table.insert]
+      242 CALL                             R26 2 0
+      243 GETUPVAL                         R26 0
+      244 GETTABLEKS                       R25 R26 K48 ["useMemo"]
+      246 NEWCLOSURE                       R26 P7
+      247 CAPTURE                          VAL R0
+      248 CAPTURE                          VAL R1
+      249 CAPTURE                          UPVAL U5
+      250 NEWTABLE                         R27 0 1
+      252 GETTABLEKS                       R28 R0 K49 ["childJoints"]
+      254 JUMPIF                           R28 ; [+2]
+      255 NEWTABLE                         R28 0 0
+      257 SETLIST                          R27 R28 1 [1]
+      259 CALL                             R25 2 1
+      260 MOVE                             R26 R25
+      261 LOADNIL                          R27
+      262 LOADNIL                          R28
+      263 FORGPREP                         R26
+      264 GETUPVAL                         R32 0
+      265 GETTABLEKS                       R31 R32 K25 ["createElement"]
+      267 GETUPVAL                         R32 7
+      268 DUPTABLE                         R33 K59 [{"parentInst", "childInst", "connectionAdorneePart", "standardRadius", "updatePositions", "getParentGlobalCf", "allowHover", "color", "edgeColor", "onJointClicked", "setHoveredPyramidParentName", "setHoveredJointName", "hoveredPyramidParentName", "isPlayingAnimation"}]
+      269 GETTABLEKS                       R34 R30 K50 ["parentInst"]
+      271 SETTABLEKS                       R34 R33 K50 ["parentInst"]
+      273 GETTABLEKS                       R34 R30 K51 ["childInst"]
+      275 SETTABLEKS                       R34 R33 K51 ["childInst"]
+      277 GETTABLEKS                       R34 R30 K52 ["connectionAdorneePart"]
+      279 SETTABLEKS                       R34 R33 K52 ["connectionAdorneePart"]
+      281 SETTABLEKS                       R19 R33 K17 ["standardRadius"]
+      283 GETTABLEKS                       R34 R0 K9 ["updatePositions"]
+      285 SETTABLEKS                       R34 R33 K9 ["updatePositions"]
+      287 NEWCLOSURE                       R34 P8
+      288 CAPTURE                          UPVAL U4
+      289 CAPTURE                          VAL R30
+      290 CAPTURE                          UPVAL U1
+      291 CAPTURE                          VAL R0
+      292 CAPTURE                          REF R12
+      293 SETTABLEKS                       R34 R33 K53 ["getParentGlobalCf"]
+      295 LOADB                            R34 1
+      296 SETTABLEKS                       R34 R33 K54 ["allowHover"]
+      298 GETTABLEKS                       R34 R14 K28 ["color"]
+      300 SETTABLEKS                       R34 R33 K28 ["color"]
+      302 GETTABLEKS                       R34 R14 K47 ["edgeColor"]
+      304 SETTABLEKS                       R34 R33 K47 ["edgeColor"]
+      306 GETTABLEKS                       R34 R0 K55 ["onJointClicked"]
+      308 SETTABLEKS                       R34 R33 K55 ["onJointClicked"]
+      310 SETTABLEKS                       R5 R33 K56 ["setHoveredPyramidParentName"]
+      312 SETTABLEKS                       R3 R33 K57 ["setHoveredJointName"]
+      314 SETTABLEKS                       R4 R33 K58 ["hoveredPyramidParentName"]
+      316 GETTABLEKS                       R34 R0 K42 ["isPlayingAnimation"]
+      318 SETTABLEKS                       R34 R33 K42 ["isPlayingAnimation"]
+      320 CALL                             R31 2 1
+      321 FASTCALL2                        TABLE_INSERT R23 R31 ; [+5]
+      323 MOVE                             R33 R23
+      324 MOVE                             R34 R31
+      325 GETIMPORT                        R32 K41 [table.insert]
+      327 CALL                             R32 2 0
+      328 FORGLOOP                         R26 2 ; [-65]
+      330 LOADNIL                          R26
+      331 JUMPIFNOT                        R6 ; [+171]
+      332 JUMPIFNOT                        R8 ; [+170]
+      333 GETUPVAL                         R28 8
+      334 GETTABLEKS                       R27 R28 K60 ["createPortal"]
+      336 GETUPVAL                         R29 0
+      337 GETTABLEKS                       R28 R29 K25 ["createElement"]
+      339 LOADK                            R29 K61 ["ScreenGui"]
+      340 DUPTABLE                         R30 K65 [{"IgnoreGuiInset", "ResetOnSpawn", "ZIndexBehavior"}]
+      341 LOADB                            R31 1
+      342 SETTABLEKS                       R31 R30 K62 ["IgnoreGuiInset"]
+      344 LOADB                            R31 0
+      345 SETTABLEKS                       R31 R30 K63 ["ResetOnSpawn"]
+      347 GETIMPORT                        R31 K68 [Enum.ZIndexBehavior.Sibling]
+      349 SETTABLEKS                       R31 R30 K64 ["ZIndexBehavior"]
+      351 DUPTABLE                         R31 K70 [{"Positioner"}]
+      352 GETUPVAL                         R33 0
+      353 GETTABLEKS                       R32 R33 K25 ["createElement"]
+      355 LOADK                            R33 K71 ["Frame"]
+      356 DUPTABLE                         R34 K75 [{"BackgroundTransparency", "Size", "Position", "ZIndex"}]
+      357 LOADN                            R35 1
+      358 SETTABLEKS                       R35 R34 K72 ["BackgroundTransparency"]
+      360 GETIMPORT                        R35 K77 [UDim2.new]
+      362 LOADN                            R36 0
+      363 LOADN                            R37 0
+      364 LOADN                            R38 0
+      365 LOADN                            R39 0
+      366 CALL                             R35 4 1
+      367 SETTABLEKS                       R35 R34 K73 ["Size"]
+      369 GETIMPORT                        R35 K77 [UDim2.new]
+      371 LOADN                            R36 0
+      372 GETTABLEKS                       R37 R10 K78 ["X"]
+      374 LOADN                            R38 0
+      375 GETTABLEKS                       R39 R10 K79 ["Y"]
+      377 CALL                             R35 4 1
+      378 SETTABLEKS                       R35 R34 K74 ["Position"]
+      380 LOADN                            R35 200
+      381 SETTABLEKS                       R35 R34 K30 ["ZIndex"]
+      383 DUPTABLE                         R35 K81 [{"Tooltip"}]
+      384 GETUPVAL                         R37 0
+      385 GETTABLEKS                       R36 R37 K25 ["createElement"]
+      387 LOADK                            R37 K82 ["TextLabel"]
+      388 DUPTABLE                         R38 K90 [{"BackgroundColor3", "BackgroundTransparency", "TextColor3", "Font", "TextSize", "AutomaticSize", "BorderSizePixel", "Text", "ZIndex"}]
+      389 GETIMPORT                        R39 K91 [Color3.new]
+      391 LOADN                            R40 0
+      392 LOADN                            R41 0
+      393 LOADN                            R42 0
+      394 CALL                             R39 3 1
+      395 SETTABLEKS                       R39 R38 K83 ["BackgroundColor3"]
+      397 LOADK                            R39 K33 [0.25]
+      398 SETTABLEKS                       R39 R38 K72 ["BackgroundTransparency"]
+      400 GETIMPORT                        R39 K91 [Color3.new]
+      402 LOADN                            R40 1
+      403 LOADN                            R41 1
+      404 LOADN                            R42 1
+      405 CALL                             R39 3 1
+      406 SETTABLEKS                       R39 R38 K84 ["TextColor3"]
+      408 GETIMPORT                        R39 K93 [Enum.Font.SourceSans]
+      410 SETTABLEKS                       R39 R38 K85 ["Font"]
+      412 LOADN                            R39 14
+      413 SETTABLEKS                       R39 R38 K86 ["TextSize"]
+      415 GETIMPORT                        R39 K95 [Enum.AutomaticSize.XY]
+      417 SETTABLEKS                       R39 R38 K87 ["AutomaticSize"]
+      419 LOADN                            R39 0
+      420 SETTABLEKS                       R39 R38 K88 ["BorderSizePixel"]
+      422 LOADK                            R40 K96 ["%*: %*"]
+      423 GETTABLEKS                       R42 R1 K97 ["ClassName"]
+      425 GETTABLEKS                       R43 R1 K98 ["Name"]
+      427 NAMECALL                         R40 R40 K99 ["format"]
+      429 CALL                             R40 3 1
+      430 MOVE                             R39 R40
+      431 SETTABLEKS                       R39 R38 K89 ["Text"]
+      433 LOADN                            R39 201
+      434 SETTABLEKS                       R39 R38 K30 ["ZIndex"]
+      436 DUPTABLE                         R39 K102 [{"UICorner", "Padding"}]
+      437 GETUPVAL                         R41 0
+      438 GETTABLEKS                       R40 R41 K25 ["createElement"]
+      440 LOADK                            R41 K100 ["UICorner"]
+      441 DUPTABLE                         R42 K104 [{"CornerRadius"}]
+      442 GETIMPORT                        R43 K106 [UDim.new]
+      444 LOADN                            R44 0
+      445 LOADN                            R45 6
+      446 CALL                             R43 2 1
+      447 SETTABLEKS                       R43 R42 K103 ["CornerRadius"]
+      449 CALL                             R40 2 1
+      450 SETTABLEKS                       R40 R39 K100 ["UICorner"]
+      452 GETUPVAL                         R41 0
+      453 GETTABLEKS                       R40 R41 K25 ["createElement"]
+      455 LOADK                            R41 K107 ["UIPadding"]
+      456 DUPTABLE                         R42 K112 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+      457 GETIMPORT                        R43 K106 [UDim.new]
+      459 LOADN                            R44 0
+      460 LOADN                            R45 8
+      461 CALL                             R43 2 1
+      462 SETTABLEKS                       R43 R42 K108 ["PaddingLeft"]
+      464 GETIMPORT                        R43 K106 [UDim.new]
+      466 LOADN                            R44 0
+      467 LOADN                            R45 8
+      468 CALL                             R43 2 1
+      469 SETTABLEKS                       R43 R42 K109 ["PaddingRight"]
+      471 GETIMPORT                        R43 K106 [UDim.new]
+      473 LOADN                            R44 0
+      474 LOADN                            R45 4
+      475 CALL                             R43 2 1
+      476 SETTABLEKS                       R43 R42 K110 ["PaddingTop"]
+      478 GETIMPORT                        R43 K106 [UDim.new]
+      480 LOADN                            R44 0
+      481 LOADN                            R45 4
+      482 CALL                             R43 2 1
+      483 SETTABLEKS                       R43 R42 K111 ["PaddingBottom"]
+      485 CALL                             R40 2 1
+      486 SETTABLEKS                       R40 R39 K101 ["Padding"]
+      488 CALL                             R36 3 1
+      489 SETTABLEKS                       R36 R35 K80 ["Tooltip"]
+      491 CALL                             R32 3 1
+      492 SETTABLEKS                       R32 R31 K69 ["Positioner"]
+      494 CALL                             R28 3 1
+      495 GETIMPORT                        R29 K114 [game]
+      497 LOADK                            R31 K115 ["CoreGui"]
+      498 NAMECALL                         R29 R29 K116 ["GetService"]
+      500 CALL                             R29 2 -1
+      501 CALL                             R27 -1 1
+      502 MOVE                             R26 R27
+      503 GETUPVAL                         R28 0
+      504 GETTABLEKS                       R27 R28 K25 ["createElement"]
+      506 GETUPVAL                         R29 0
+      507 GETTABLEKS                       R28 R29 K117 ["Fragment"]
+      509 LOADNIL                          R29
+      510 DUPTABLE                         R30 K120 [{"World", "TooltipPortal"}]
+      511 GETUPVAL                         R32 0
+      512 GETTABLEKS                       R31 R32 K25 ["createElement"]
+      514 LOADK                            R32 K121 ["Folder"]
+      515 LOADNIL                          R33
+      516 MOVE                             R34 R23
+      517 CALL                             R31 3 1
+      518 SETTABLEKS                       R31 R30 K118 ["World"]
+      520 SETTABLEKS                       R26 R30 K119 ["TooltipPortal"]
+      522 CALL                             R27 3 -1
+      523 CLOSEUPVALS                      R12
+      524 RETURN                           R27 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1098,45 +1053,22 @@ MAIN:
        65 GETTABLEKS                       R8 R9 K17 ["AxisCircleAdornment"]
        67 CALL                             R7 1 1
        68 GETIMPORT                        R8 K5 [require]
-       70 GETTABLEKS                       R12 R0 K10 ["Src"]
-       72 GETTABLEKS                       R11 R12 K12 ["Components"]
-       74 GETTABLEKS                       R10 R11 K15 ["Adornments"]
-       76 GETTABLEKS                       R9 R10 K18 ["getAdornee"]
-       78 CALL                             R8 1 1
-       79 GETIMPORT                        R9 K5 [require]
-       81 GETTABLEKS                       R13 R0 K10 ["Src"]
-       83 GETTABLEKS                       R12 R13 K12 ["Components"]
-       85 GETTABLEKS                       R11 R12 K15 ["Adornments"]
-       87 GETTABLEKS                       R10 R11 K19 ["buildCircle"]
-       89 CALL                             R9 1 1
-       90 GETIMPORT                        R10 K5 [require]
-       92 GETTABLEKS                       R13 R0 K10 ["Src"]
-       94 GETTABLEKS                       R12 R13 K20 ["Flags"]
-       96 GETTABLEKS                       R11 R12 K21 ["getFFlagAdaptiveAnimatonImprovements"]
-       98 CALL                             R10 1 1
-       99 GETIMPORT                        R11 K5 [require]
-      101 GETTABLEKS                       R14 R0 K10 ["Src"]
-      103 GETTABLEKS                       R13 R14 K20 ["Flags"]
-      105 GETTABLEKS                       R12 R13 K22 ["getFFlagAdaptiveAnimationConstraints"]
-      107 CALL                             R11 1 1
-      108 DUPCLOSURE                       R12 K23 [PROTO_0]
-      109 DUPCLOSURE                       R13 K24 [PROTO_1]
-      110 DUPCLOSURE                       R14 K25 [PROTO_10]
-      111 CAPTURE                          VAL R1
-      112 CAPTURE                          VAL R3
-      113 CAPTURE                          VAL R11
-      114 DUPCLOSURE                       R15 K26 [PROTO_21]
-      115 CAPTURE                          VAL R1
-      116 CAPTURE                          VAL R10
-      117 CAPTURE                          VAL R5
-      118 CAPTURE                          VAL R6
-      119 CAPTURE                          VAL R3
-      120 CAPTURE                          VAL R11
-      121 CAPTURE                          VAL R8
-      122 CAPTURE                          VAL R12
-      123 CAPTURE                          VAL R9
-      124 CAPTURE                          VAL R13
-      125 CAPTURE                          VAL R7
-      126 CAPTURE                          VAL R14
-      127 CAPTURE                          VAL R2
-      128 RETURN                           R15 1
+       70 GETTABLEKS                       R11 R0 K10 ["Src"]
+       72 GETTABLEKS                       R10 R11 K18 ["Flags"]
+       74 GETTABLEKS                       R9 R10 K19 ["getFFlagAdaptiveAnimatonImprovements"]
+       76 CALL                             R8 1 1
+       77 DUPCLOSURE                       R9 K20 [PROTO_0]
+       78 DUPCLOSURE                       R10 K21 [PROTO_9]
+       79 CAPTURE                          VAL R1
+       80 CAPTURE                          VAL R3
+       81 DUPCLOSURE                       R11 K22 [PROTO_21]
+       82 CAPTURE                          VAL R1
+       83 CAPTURE                          VAL R8
+       84 CAPTURE                          VAL R5
+       85 CAPTURE                          VAL R6
+       86 CAPTURE                          VAL R3
+       87 CAPTURE                          VAL R9
+       88 CAPTURE                          VAL R7
+       89 CAPTURE                          VAL R10
+       90 CAPTURE                          VAL R2
+       91 RETURN                           R11 1

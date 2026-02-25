@@ -147,7 +147,7 @@ PROTO_8:
        89 GETUPVAL                         R9 4
        90 GETTABLEKS                       R8 R9 K11 ["ContextStack"]
        92 DUPTABLE                         R9 K15 [{"providers"}]
-       93 NEWTABLE                         R10 0 15
+       93 NEWTABLE                         R10 0 14
        95 GETUPVAL                         R12 0
        96 GETTABLEKS                       R11 R12 K13 ["createElement"]
        98 GETUPVAL                         R15 3
@@ -178,43 +178,43 @@ PROTO_8:
       136 GETUPVAL                         R16 0
       137 GETTABLEKS                       R15 R16 K13 ["createElement"]
       139 GETUPVAL                         R18 5
-      140 GETTABLEKS                       R17 R18 K25 ["CreateGraphContext"]
+      140 GETTABLEKS                       R17 R18 K25 ["GameContext"]
       142 GETTABLEKS                       R16 R17 K23 ["EditableDataModelProvider"]
       144 CALL                             R15 1 1
       145 GETUPVAL                         R17 0
       146 GETTABLEKS                       R16 R17 K13 ["createElement"]
       148 GETUPVAL                         R19 5
-      149 GETTABLEKS                       R18 R19 K26 ["RigListContext"]
+      149 GETTABLEKS                       R18 R19 K26 ["GraphDebugDataContext"]
       151 GETTABLEKS                       R17 R18 K23 ["EditableDataModelProvider"]
       153 CALL                             R16 1 1
       154 GETUPVAL                         R18 0
       155 GETTABLEKS                       R17 R18 K13 ["createElement"]
       157 GETUPVAL                         R20 5
-      158 GETTABLEKS                       R19 R20 K27 ["AnimationParameterContext"]
+      158 GETTABLEKS                       R19 R20 K27 ["PlayStateContext"]
       160 GETTABLEKS                       R18 R19 K23 ["EditableDataModelProvider"]
       162 CALL                             R17 1 1
       163 GETUPVAL                         R19 0
       164 GETTABLEKS                       R18 R19 K13 ["createElement"]
       166 GETUPVAL                         R21 5
-      167 GETTABLEKS                       R20 R21 K28 ["GraphDebugDataContext"]
+      167 GETTABLEKS                       R20 R21 K28 ["CreateGraphContext"]
       169 GETTABLEKS                       R19 R20 K23 ["EditableDataModelProvider"]
       171 CALL                             R18 1 1
       172 GETUPVAL                         R20 0
       173 GETTABLEKS                       R19 R20 K13 ["createElement"]
       175 GETUPVAL                         R22 5
-      176 GETTABLEKS                       R21 R22 K29 ["PlayStateContext"]
+      176 GETTABLEKS                       R21 R22 K29 ["AnimationParameterContext"]
       178 GETTABLEKS                       R20 R21 K23 ["EditableDataModelProvider"]
       180 CALL                             R19 1 1
       181 GETUPVAL                         R21 0
       182 GETTABLEKS                       R20 R21 K13 ["createElement"]
       184 GETUPVAL                         R23 5
-      185 GETTABLEKS                       R22 R23 K30 ["GameContext"]
+      185 GETTABLEKS                       R22 R23 K30 ["ParameterOverrideContext"]
       187 GETTABLEKS                       R21 R22 K23 ["EditableDataModelProvider"]
       189 CALL                             R20 1 1
       190 GETUPVAL                         R22 0
       191 GETTABLEKS                       R21 R22 K13 ["createElement"]
       193 GETUPVAL                         R24 5
-      194 GETTABLEKS                       R23 R24 K31 ["ParameterOverrideContext"]
+      194 GETTABLEKS                       R23 R24 K31 ["AnimationPreviewContext"]
       196 GETTABLEKS                       R22 R23 K23 ["EditableDataModelProvider"]
       198 CALL                             R21 1 1
       199 GETUPVAL                         R23 0
@@ -232,23 +232,17 @@ PROTO_8:
       217 GETUPVAL                         R25 0
       218 GETTABLEKS                       R24 R25 K13 ["createElement"]
       220 GETUPVAL                         R27 5
-      221 GETTABLEKS                       R26 R27 K34 ["CreateScriptContext"]
+      221 GETTABLEKS                       R26 R27 K34 ["MaskEditorContext"]
       223 GETTABLEKS                       R25 R26 K23 ["EditableDataModelProvider"]
-      225 CALL                             R24 1 1
-      226 GETUPVAL                         R26 0
-      227 GETTABLEKS                       R25 R26 K13 ["createElement"]
-      229 GETUPVAL                         R28 5
-      230 GETTABLEKS                       R27 R28 K35 ["MaskEditorContext"]
-      232 GETTABLEKS                       R26 R27 K23 ["EditableDataModelProvider"]
-      234 DUPTABLE                         R27 K37 [{"startPickingInstanceAsync"}]
-      235 SETTABLEKS                       R3 R27 K36 ["startPickingInstanceAsync"]
-      237 CALL                             R25 2 -1
-      238 SETLIST                          R10 R11 -1 [1]
-      240 SETTABLEKS                       R10 R9 K14 ["providers"]
-      242 CALL                             R7 2 1
-      243 SETTABLEKS                       R7 R6 K11 ["ContextStack"]
-      245 CALL                             R4 2 -1
-      246 RETURN                           R4 -1
+      225 DUPTABLE                         R26 K36 [{"startPickingInstanceAsync"}]
+      226 SETTABLEKS                       R3 R26 K35 ["startPickingInstanceAsync"]
+      228 CALL                             R24 2 -1
+      229 SETLIST                          R10 R11 -1 [1]
+      231 SETTABLEKS                       R10 R9 K14 ["providers"]
+      233 CALL                             R7 2 1
+      234 SETTABLEKS                       R7 R6 K11 ["ContextStack"]
+      236 CALL                             R4 2 -1
+      237 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

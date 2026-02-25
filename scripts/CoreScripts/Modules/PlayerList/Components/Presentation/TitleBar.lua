@@ -21,7 +21,7 @@ local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListR
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 
 local TitleBar = Roact.PureComponent:extend("TitleBar")
 

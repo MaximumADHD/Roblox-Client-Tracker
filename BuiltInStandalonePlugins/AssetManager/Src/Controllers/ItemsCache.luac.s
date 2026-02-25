@@ -306,35 +306,7 @@ PROTO_13:
       195 FASTCALL2                        TABLE_INSERT R7 R8 ; [+3]
       197 GETIMPORT                        R6 K12 [table.insert]
       199 CALL                             R6 2 0
-      200 NAMECALL                         R6 R0 K7 ["getTotalItemCount"]
-      202 CALL                             R6 1 1
-      203 GETTABLEKS                       R7 R0 K26 ["_maxItems"]
-      205 JUMPIFNOTLT                      R7 R6 ; [+34]
-      207 GETTABLEKS                       R7 R0 K27 ["_scopeQueue"]
-      209 LENGTH                           R6 R7
-      210 LOADN                            R7 1
-      211 JUMPIFLE                         R6 R7 ; [+6]
-      213 GETTABLEKS                       R7 R0 K27 ["_scopeQueue"]
-      215 GETTABLEN                        R6 R7 1
-      216 JUMPIFNOTEQ                      R6 R2 ; [+12]
-      218 GETUPVAL                         R6 1
-      219 LOADK                            R8 K28 ["ItemsCache: Max items exceeded but cannot evict scope %* because it's the only scope in cache or it's the current scope."]
-      220 GETTABLEKS                       R11 R0 K27 ["_scopeQueue"]
-      222 GETTABLEN                        R10 R11 1
-      223 NAMECALL                         R8 R8 K2 ["format"]
-      225 CALL                             R8 2 1
-      226 MOVE                             R7 R8
-      227 CALL                             R6 1 0
-      228 RETURN                           R0 0
-      229 GETIMPORT                        R6 K30 [table.remove]
-      231 GETTABLEKS                       R7 R0 K27 ["_scopeQueue"]
-      233 LOADN                            R8 1
-      234 CALL                             R6 2 1
-      235 MOVE                             R9 R6
-      236 NAMECALL                         R7 R0 K31 ["_removeScope"]
-      238 CALL                             R7 2 0
-      239 JUMPBACK                         ; [-40]
-      240 RETURN                           R0 0
+      200 RETURN                           R0 0
 
 PROTO_14:
         0 NAMECALL                         R2 R0 K0 ["getTotalItemCount"]
@@ -668,29 +640,28 @@ MAIN:
       117 SETTABLEKS                       R12 R10 K43 ["getItem"]
       119 DUPCLOSURE                       R12 K44 [PROTO_13]
       120 CAPTURE                          VAL R3
-      121 CAPTURE                          VAL R6
-      122 SETTABLEKS                       R12 R10 K45 ["addItem"]
-      124 DUPCLOSURE                       R12 K46 [PROTO_14]
-      125 CAPTURE                          VAL R6
-      126 SETTABLEKS                       R12 R10 K47 ["_swapAndPop"]
-      128 DUPCLOSURE                       R12 K48 [PROTO_15]
-      129 SETTABLEKS                       R12 R10 K49 ["_removeItem"]
-      131 DUPCLOSURE                       R12 K50 [PROTO_16]
-      132 SETTABLEKS                       R12 R10 K51 ["hasScope"]
-      134 DUPCLOSURE                       R12 K52 [PROTO_17]
-      135 SETTABLEKS                       R12 R10 K53 ["getScope"]
-      137 DUPCLOSURE                       R12 K54 [PROTO_18]
-      138 SETTABLEKS                       R12 R10 K55 ["addScope"]
-      140 DUPCLOSURE                       R12 K56 [PROTO_19]
-      141 SETTABLEKS                       R12 R10 K57 ["_removeScope"]
-      143 DUPCLOSURE                       R12 K58 [PROTO_20]
-      144 CAPTURE                          VAL R5
-      145 SETTABLEKS                       R12 R10 K59 ["_passesFilters"]
-      147 DUPCLOSURE                       R12 K60 [PROTO_21]
-      148 CAPTURE                          VAL R3
-      149 CAPTURE                          VAL R4
-      150 SETTABLEKS                       R12 R10 K61 ["_compareItemPaths"]
-      152 DUPCLOSURE                       R12 K62 [PROTO_23]
-      153 CAPTURE                          VAL R3
-      154 SETTABLEKS                       R12 R10 K63 ["getSortedFilteredPaths"]
-      156 RETURN                           R10 1
+      121 SETTABLEKS                       R12 R10 K45 ["addItem"]
+      123 DUPCLOSURE                       R12 K46 [PROTO_14]
+      124 CAPTURE                          VAL R6
+      125 SETTABLEKS                       R12 R10 K47 ["_swapAndPop"]
+      127 DUPCLOSURE                       R12 K48 [PROTO_15]
+      128 SETTABLEKS                       R12 R10 K49 ["_removeItem"]
+      130 DUPCLOSURE                       R12 K50 [PROTO_16]
+      131 SETTABLEKS                       R12 R10 K51 ["hasScope"]
+      133 DUPCLOSURE                       R12 K52 [PROTO_17]
+      134 SETTABLEKS                       R12 R10 K53 ["getScope"]
+      136 DUPCLOSURE                       R12 K54 [PROTO_18]
+      137 SETTABLEKS                       R12 R10 K55 ["addScope"]
+      139 DUPCLOSURE                       R12 K56 [PROTO_19]
+      140 SETTABLEKS                       R12 R10 K57 ["_removeScope"]
+      142 DUPCLOSURE                       R12 K58 [PROTO_20]
+      143 CAPTURE                          VAL R5
+      144 SETTABLEKS                       R12 R10 K59 ["_passesFilters"]
+      146 DUPCLOSURE                       R12 K60 [PROTO_21]
+      147 CAPTURE                          VAL R3
+      148 CAPTURE                          VAL R4
+      149 SETTABLEKS                       R12 R10 K61 ["_compareItemPaths"]
+      151 DUPCLOSURE                       R12 K62 [PROTO_23]
+      152 CAPTURE                          VAL R3
+      153 SETTABLEKS                       R12 R10 K63 ["getSortedFilteredPaths"]
+      155 RETURN                           R10 1

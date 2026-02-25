@@ -3,7 +3,7 @@ local Chrome = script:FindFirstAncestor("Chrome")
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 
-local ChromeEnabled = require(Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 if not ChromeEnabled() then
 	return nil
 end

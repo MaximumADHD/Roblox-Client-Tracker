@@ -53,7 +53,7 @@ local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGa
 local FFlagRepositionDropDownScrim = game:DefineFastFlag("RepositionDropDownScrim", false)
 
 local Chrome = RobloxGui.Modules.Chrome
-local ChromeEnabled = require(Chrome.Enabled)()
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: never
 
 local Signals = require(CorePackages.Packages.Signals)

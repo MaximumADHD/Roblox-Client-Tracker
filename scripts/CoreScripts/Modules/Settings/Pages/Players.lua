@@ -142,7 +142,7 @@ local GetFFlagCleanupMuteSelfButton = require(RobloxGui.Modules.Settings.Flags.G
 local BUTTON_ROW_HORIZONTAL_PADDING = 20
 local BUTTON_ROW_VERTICAL_PADDING = 16
 local FFlagCheckForNilUserIdOnPlayerList = game:DefineFastFlag("CheckForNilUserIdOnPlayerList", false)
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 
 local MuteStatusIcons = VoiceChatServiceManager.MuteStatusIcons
 local PlayerMuteStatusIcons = VoiceChatServiceManager.PlayerMuteStatusIcons

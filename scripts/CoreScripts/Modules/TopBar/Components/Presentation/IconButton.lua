@@ -35,7 +35,7 @@ local TopBar = script.Parent.Parent.Parent
 local FlashingDot = require(script.Parent.FlashingDot)
 local FlashingDotV2 = require(script.Parent.FlashingDotV2)
 local GetFFlagFlashingDotUseAsyncInit = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagFlashingDotUseAsyncInit)
-local ChromeEnabled = require(CoreGui.RobloxGui.Modules.Chrome.Enabled)()
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 local isNewTiltIconEnabled = require(CoreGui.RobloxGui.Modules.isNewTiltIconEnabled)
 local Constants = require(script.Parent.Parent.Parent.Constants)
 

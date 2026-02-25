@@ -1,5 +1,4 @@
 -- Services
-local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local StarterGui = game:GetService("StarterGui")
 
@@ -12,6 +11,7 @@ local Constants = require(TopBar.Constants)
 local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local Foundation = require(CorePackages.Packages.Foundation)
+local InExperienceTopBar = require(CorePackages.Workspace.Packages.InExperienceTopBar)
 local Motion = require(CorePackages.Packages.Motion)
 local React = require(CorePackages.Packages.React)
 local Signals = require(CorePackages.Packages.Signals)
@@ -19,31 +19,26 @@ local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
 -- Flags
 local FFlagUseNewHurtOverlayImage = require(TopBar.Flags.FFlagUseNewHurtOverlayImage)
+local FFlagUseNewHurtOverlayAnimation = InExperienceTopBar.Flags.FFlagUseNewHurtOverlayAnimation
 
 -- Components
 local Image = Foundation.Image
-local View = Foundation.View
-
-local MOTOR_OPTIONS = {
-	frequency = 0.75,
-	dampingRatio = 1,
-}
 
 local RED_OVERLAY_COLOR = Color3.fromRGB(187, 0, 4)
 local WHITE_OVERLAY_COLOR = Color3.new(1, 1, 1)
 
 local ANIMATION_STATES = {
     showOverlay = Motion.createState({
-        size = UDim2.fromScale(1.5, 1.5),
+        size = if FFlagUseNewHurtOverlayAnimation then nil else UDim2.fromScale(1.5, 1.5),
         transparency = 0,
     }, {
-        default = Motion.transition(Motion.TransitionPreset.Default, { duration = 0 }),
+        default = Motion.transition(Motion.TransitionPreset.Default, { duration = if FFlagUseNewHurtOverlayAnimation then 0.1 else 0 }),
     }),
     hideOverlay = Motion.createState({
-        size = UDim2.fromScale(3, 3),
+        size = if FFlagUseNewHurtOverlayAnimation then nil else UDim2.fromScale(3, 3),
         transparency = 1,
     }, {
-        default = Motion.transition(Motion.TransitionPreset.Default, { duration = 0.3 }),
+        default = Motion.transition(Motion.TransitionPreset.Default, { duration = if FFlagUseNewHurtOverlayAnimation then 0.5 else 0.3 }),
     })
 }
 
@@ -51,7 +46,6 @@ type HurtOverlayProps = {}
 
 function HurtOverlay(props: HurtOverlayProps)
     local animationValues, animate = Motion.useMotion(ANIMATION_STATES.hideOverlay)
-    local isAnimating, setIsAnimating = React.useBinding(false)
 
     local mountHurtOverlay, setMountHurtOverlay = React.useState(StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Health))
 
@@ -64,12 +58,12 @@ function HurtOverlay(props: HurtOverlayProps)
             local prevHealth = prevHealthValue.current 
             prevHealthValue.current = healthValue
 
-            if not (healthValue.health and healthValue.maxHealth and prevHealthValue.current.health)
-                or not (healthValue.isDead and prevHealthValue.current.isDead) then 
+            if not (healthValue.health and healthValue.maxHealth and prevHealth.health)
+                or (healthValue.isDead and prevHealth.isDead) then 
                 return
             end
                 
-            local damageTaken = prevHealthValue.current.health - healthValue.health
+            local damageTaken = prevHealth.health - healthValue.health
             if damageTaken / healthValue.maxHealth < Constants.HealthPercentForOverlay then
                 return 
             end
@@ -114,7 +108,7 @@ function HurtOverlay(props: HurtOverlayProps)
             }
         end),
         ScaleType = Enum.ScaleType.Crop,
-		Size = animationValues.size,
+		Size = if FFlagUseNewHurtOverlayAnimation then UDim2.fromScale(1, 1) else animationValues.size,
 	}) else nil
 end
 

@@ -2,8 +2,7 @@ local FFlagTopBarRefactor = game:DefineFastFlag("TopBarRefactor", false)
 
 local CorePackages = game:GetService("CorePackages")
 
-local Chrome = script.Parent.Parent.Parent.Chrome
-local ChromeEnabled = require(Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls

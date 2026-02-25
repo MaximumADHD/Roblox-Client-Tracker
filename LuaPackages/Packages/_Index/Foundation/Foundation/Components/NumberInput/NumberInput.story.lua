@@ -18,8 +18,40 @@ local widthOffset: { [InputSize]: number } = {
 	[InputSize.XSmall] = -50,
 }
 
+type FormatAsStringEntry = {
+	name: string,
+	callback: ((value: number) -> string)?,
+}
+local FORMAT_AS_STRING_CALLBACKS: { FormatAsStringEntry } = {
+	{
+		name = "pixels",
+		callback = function(numValue)
+			return `{numValue}px`
+		end,
+	},
+	{
+		name = "none",
+		callback = nil,
+	},
+	{
+		name = "stringified",
+		callback = function(numValue)
+			return `{numValue}`
+		end,
+	},
+	{
+		name = "currency",
+		callback = function(numValue)
+			return `${numValue}`
+		end,
+	},
+}
+
 local function DefaultStory(props)
 	local controls = props.controls
+	local formatAsString = (Dash.find(FORMAT_AS_STRING_CALLBACKS, function(entry)
+		return entry.name == controls.formatAsString
+	end) :: FormatAsStringEntry).callback
 
 	local value, setValue = React.useState(0)
 
@@ -42,9 +74,7 @@ local function DefaultStory(props)
 					isDisabled = controls.isDisabled,
 					isRequired = controls.isRequired,
 					onChanged = handleChange,
-					formatAsString = function(numValue: number)
-						return `{numValue}px`
-					end,
+					formatAsString = formatAsString,
 					label = controls.label,
 					size = size,
 					width = if Flags.FoundationNumberInputTokenBasedWidth
@@ -77,6 +107,9 @@ return {
 		label = "Label",
 		hint = "Number from -5 to 100",
 		isRequired = { React.None, false, true },
+		formatAsString = Dash.values(Dash.map(FORMAT_AS_STRING_CALLBACKS, function(entry)
+			return entry.name
+		end)),
 		hasError = false,
 		isDisabled = false,
 		maximum = 100,

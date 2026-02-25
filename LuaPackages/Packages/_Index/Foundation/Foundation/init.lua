@@ -259,6 +259,7 @@ export type TextAreaProps = TextArea.TextAreaProps
 
 local TextInput = require(script.Components.TextInput)
 export type TextInputProps = TextInput.TextInputProps
+export type TextInputRef = Types.TextInputRef
 
 local Toggle = require(script.Components.Toggle)
 export type ToggleProps = Toggle.ToggleProps

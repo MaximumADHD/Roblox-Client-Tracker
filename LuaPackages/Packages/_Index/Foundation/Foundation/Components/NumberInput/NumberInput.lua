@@ -95,7 +95,7 @@ local defaultProps = {
 
 local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(numberInputProps, defaultProps) :: {
-		controlsVariant: NumberInputControlsVariant?,
+		controlsVariant: NumberInputControlsVariant,
 		hasError: boolean?,
 		isDisabled: boolean?,
 		size: InputSize,
@@ -123,20 +123,18 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 
 	local tokens = useTokens()
 	local variantProps = useTextInputVariants(tokens, props.size)
-	local NumberInputControlsVariantProps = useNumberInputVariants(tokens, props.size)
+	local NumberInputControlsVariantProps = useNumberInputVariants(
+		tokens,
+		props.size,
+		if Flags.FoundationNumberInputFixControlSizes then props.controlsVariant else nil
+	)
 
 	local focused, setFocused = React.useState(false)
-	-- Remove with Flag.FoundationNumberInputDraggingDeltaFix
-	local lastDragPosition = if Flags.FoundationNumberInputDraggingDeltaFix
-		then nil :: never
-		else React.useRef(nil :: Vector2?)
-	local dragStartTable = if Flags.FoundationNumberInputDraggingDeltaFix
-		then React.useRef(nil :: { position: number, value: number }?)
-		else nil :: never
-	local isDisabledUp, isDisabledDown, upValue, downValue
+	local dragStartTable = React.useRef(nil :: { position: number, value: number }?)
 
 	local hasInvalidInput, setHasInvalidInput = React.useState(false)
 	local hasError = props.hasError or hasInvalidInput
+	local controlsVariant = props.controlsVariant
 
 	local clampValueToRange = React.useCallback(function(value: number)
 		return math.clamp(value, props.minimum, props.maximum)
@@ -146,6 +144,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		return roundFunction(value / props.step) * props.step
 	end, { props.step })
 
+	local isUpDisabled, isDownDisabled, upValue, downValue
 	if not focused then
 		local roundedValue = round(props.value, props.precision)
 		local newUpValue = round(props.value + props.step, props.precision)
@@ -163,14 +162,13 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		upValue = clampValueToRange(newUpValue)
 		downValue = clampValueToRange(newDownValue)
 
-		isDisabledUp = props.value == props.maximum
-		isDisabledDown = props.value == props.minimum
+		isUpDisabled = props.value == props.maximum
+		isDownDisabled = props.value == props.minimum
 	end
 
 	-- Should we have a default value?
 	local roundedValue = if props.value then round(props.value, props.precision) else 0
 	local currentText = if focused then tostring(props.value) else props.formatAsString(roundedValue)
-	local controlsVariant = props.controlsVariant
 
 	local currentTextRef = React.useRef(currentText)
 	currentTextRef.current = tostring(props.value)
@@ -228,28 +226,28 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	end, { focused, props.onChanged } :: { unknown })
 
 	local onIncrement = React.useCallback(function()
-		if props.isDisabled or isDisabledUp then
+		if props.isDisabled or isUpDisabled then
 			return
 		end
 		props.onChanged(upValue)
-	end, { props.isDisabled, isDisabledUp, upValue, props.onChanged } :: { unknown })
+	end, { props.isDisabled, isUpDisabled, upValue, props.onChanged } :: { unknown })
 
 	local onDecrement = React.useCallback(function()
-		if props.isDisabled or isDisabledDown then
+		if props.isDisabled or isDownDisabled then
 			return
 		end
 		props.onChanged(downValue)
-	end, { props.isDisabled, isDisabledDown, downValue, props.onChanged } :: { unknown })
+	end, { props.isDisabled, isDownDisabled, downValue, props.onChanged } :: { unknown })
 
 	local controls = React.createElement(NumberInputControls, {
 		variant = controlsVariant :: NumberInputControlsVariant,
 		size = props.size,
 		increment = {
-			isDisabled = props.isDisabled or isDisabledUp,
+			isDisabled = props.isDisabled or isUpDisabled,
 			onClick = onIncrement,
 		},
 		decrement = {
-			isDisabled = props.isDisabled or isDisabledDown,
+			isDisabled = props.isDisabled or isDownDisabled,
 			onClick = onDecrement,
 		},
 		testId = props.testId,
@@ -269,13 +267,9 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 				return
 			end
 		end
-		if Flags.FoundationNumberInputDraggingDeltaFix then
-			local value = tonumber(currentTextRef.current)
-			if dragStartTable and value then
-				dragStartTable.current = { position = position.X, value = value }
-			end
-		else
-			lastDragPosition.current = position
+		local value = tonumber(currentTextRef.current)
+		if value then
+			dragStartTable.current = { position = position.X, value = value }
 		end
 	end, { props.isScrubbable } :: { unknown })
 
@@ -285,36 +279,15 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 				return
 			end
 		end
-		if Flags.FoundationNumberInputDraggingDeltaFix then
-			if dragStartTable and dragStartTable.current then
-				local newValue = calculateNumberInputValueFromPositions(
-					dragStartTable.current.value,
-					dragStartTable.current.position,
-					position.X,
-					props.step
-				)
-				newValue = math.clamp(round(newValue, props.precision), props.minimum, props.maximum)
-				props.onChanged(newValue)
-			end
-		else
-			if lastDragPosition.current then
-				local delta = (position - lastDragPosition.current).X
-				local normalize = delta / math.abs(delta)
-
-				if normalize ~= normalize then
-					-- Check for normalize being NaN
-					normalize = 0
-				end
-
-				lastDragPosition.current = position
-
-				local current = tonumber(currentTextRef.current) :: number
-				if current then
-					local newValue = round(current + normalize * props.step, props.precision)
-					newValue = math.clamp(newValue, props.minimum, props.maximum)
-					props.onChanged(newValue)
-				end
-			end
+		if dragStartTable.current then
+			local newValue = calculateNumberInputValueFromPositions(
+				dragStartTable.current.value,
+				dragStartTable.current.position,
+				position.X,
+				props.step
+			)
+			newValue = math.clamp(round(newValue, props.precision), props.minimum, props.maximum)
+			props.onChanged(newValue)
 		end
 	end, { props.isScrubbable, props.onChanged } :: { unknown })
 
@@ -324,12 +297,8 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 				return
 			end
 		end
-		if Flags.FoundationNumberInputDraggingDeltaFix then
-			if dragStartTable and dragStartTable.current then
-				dragStartTable.current = nil
-			end
-		else
-			lastDragPosition.current = nil
+		if dragStartTable.current then
+			dragStartTable.current = nil
 		end
 	end, { props.isScrubbable } :: { unknown })
 

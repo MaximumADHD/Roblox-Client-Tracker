@@ -24,7 +24,7 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 
 local PlayerList = Components.Parent
 

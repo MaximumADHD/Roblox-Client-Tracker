@@ -20,6 +20,7 @@ local TraversalHistoryMenu = require(RobloxGui.Modules.Settings.Components.Trave
 
 local FFlagAddTraversalHistoryReactMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagAddTraversalHistoryReactMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
+local FFlagMenuButtonsUseKeyImages = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsUseKeyImages)
 local FFlagTraversalLeaveArrowDown = Traversal.Flags.FFlagTraversalLeaveArrowDown
 
 export type ButtonData = {
@@ -27,6 +28,7 @@ export type ButtonData = {
 	text: string,
 	hint: {
 		keyboard: string,
+		keyboardButtonImage: string?,
 		gamepadButton: Enum.KeyCode,
 		gamepadButtonImage: React.Binding<string>,
 		setGamepadButtonImage: (string) -> (),
@@ -44,7 +46,7 @@ local getDisabledTransparency = function(transparency: number)
 	return transparency + (1 - transparency) * 0.5
 end
 
-local function KeyLabelIcon(key: string, isDisabled: boolean)
+local function KeyLabelIcon(key: string?, isDisabled: boolean)
 	local tokens = useTokens()
 
 	return React.createElement(View, {
@@ -69,6 +71,18 @@ end
 local function Hint(props) : React.React_Node
 	if FIntRelocateMobileMenuButtonsVariant == 2 and Utility:IsSmallTouchScreen() then 
 		return nil
+	elseif FFlagMenuButtonsUseKeyImages and (props.lastInput == Responsive.Input.Pointer or props.lastInput == Responsive.Input.Directional) then
+		return React.createElement(Image, {
+			Image = if props.lastInput == Responsive.Input.Directional then props.gamepadButtonImageHint else props.keyboardButtonImageHint,
+			imageStyle = {
+				Color3 = props.foregroundStyle.Color3,
+				Transparency = if props.isDisabled then 0.5 else props.foregroundStyle.Transparency,
+			},
+			tag = {
+				["size-800"] = not props.isSmall,
+				["size-700"] = props.isSmall,
+			},
+		})
 	elseif props.lastInput == Responsive.Input.Pointer then 
 		return KeyLabelIcon(props.keyboardHint, props.isDisabled)
 	elseif props.lastInput == Responsive.Input.Directional then 
@@ -109,7 +123,8 @@ end
 type Props = {
 	text: string,
 	lastInput: string,
-	keyboardHint: string,
+	keyboardHint: string?,
+	keyboardButtonImageHint: string?,
 	gamepadButtonImageHint: React.Binding<string>,
 	onActivated: () -> (),
 	layoutOrder: number,
@@ -148,8 +163,9 @@ local function MenuButton(props: Props)
 		}, {
 			Hint = React.createElement(Hint, {
 				lastInput = props.lastInput,
-				keyboardHint = props.keyboardHint,
+				keyboardHint = if FFlagMenuButtonsUseKeyImages then nil else props.keyboardHint,
 				gamepadButtonImageHint = props.gamepadButtonImageHint,
+				keyboardButtonImageHint = if FFlagMenuButtonsUseKeyImages then props.keyboardButtonImageHint else nil,
 				isDisabled = props.isDisabled,
 				foregroundStyle = foregroundStyle,
 				isSmall = props.isSmall,
@@ -164,6 +180,18 @@ local function MenuButton(props: Props)
 		}) else nil,
 		Hint = if not FFlagAddTraversalHistoryReactMenuButtons then 
 			(if FIntRelocateMobileMenuButtonsVariant == 2 and Utility:IsSmallTouchScreen() then nil
+			elseif FFlagMenuButtonsUseKeyImages and (props.lastInput == Responsive.Input.Pointer or props.lastInput == Responsive.Input.Directional) then React.createElement(Image, {
+				Image = if props.lastInput == Responsive.Input.Directional then props.gamepadButtonImageHint else props.keyboardButtonImageHint,
+				imageStyle = {
+					Color3 = foregroundStyle.Color3,
+					Transparency = if props.isDisabled then 0.5 else foregroundStyle.Transparency,
+				},
+				tag = {
+					["size-800"] = not props.isSmall,
+					["size-700"] = props.isSmall,
+				},
+			})
+			-- TODO also here, Test in PR with both flags
 			elseif props.lastInput == Responsive.Input.Pointer then KeyLabelIcon(props.keyboardHint, props.isDisabled)
 			elseif props.lastInput == Responsive.Input.Directional then React.createElement(Image, {
 				Image = props.gamepadButtonImageHint,

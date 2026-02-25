@@ -28,7 +28,7 @@ local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeS
 local FFlagClampHealthPercentage = CoreGuiCommon.Flags.FFlagClampHealthPercentage
 
 local Chrome = TopBar.Parent.Chrome
-local ChromeEnabled = require(Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil
 
 local UseUpdatedHealthBar = ChromeEnabled()

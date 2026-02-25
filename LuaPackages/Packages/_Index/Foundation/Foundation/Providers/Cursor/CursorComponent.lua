@@ -1,8 +1,11 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local ColorMode = require(Foundation.Enums.ColorMode)
+local Flags = require(Foundation.Utility.Flags)
 local React = require(Packages.React)
 local useTokens = require(Foundation.Providers.Style.useTokens)
+type ColorMode = ColorMode.ColorMode
 
 --selene: allow(roblox_internal_custom_color)
 
@@ -11,10 +14,14 @@ type Props = {
 	cornerRadius: UDim,
 	offset: number,
 	borderWidth: number,
+	colorMode: ColorMode.ColorMode,
 }
 
 local CursorComponent = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 	local tokens = useTokens()
+	local colorIndex = if Flags.FoundationSupportPresentationContextInSelectionCursor
+		then props.colorMode
+		else ColorMode.Color
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -27,8 +34,8 @@ local CursorComponent = React.forwardRef(function(props: Props, ref: React.Ref<F
 			CornerRadius = props.cornerRadius,
 		}),
 		UIStroke = React.createElement("UIStroke", {
-			Color = tokens.Color.Selection.Start.Color3,
-			Transparency = tokens.Color.Selection.Start.Transparency,
+			Color = tokens[colorIndex].Selection.Start.Color3,
+			Transparency = tokens[colorIndex].Selection.Start.Transparency,
 			Thickness = props.borderWidth,
 		}, {}),
 	})

@@ -27,33 +27,23 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 GETTABLE                         R0 R1 R2
-        3 LOADB                            R1 0
-        4 GETTABLEKS                       R2 R0 K0 ["Action"]
-        6 GETTABLEKS                       R3 R0 K1 ["Subject"]
-        8 GETUPVAL                         R6 2
-        9 GETTABLEKS                       R5 R6 K2 ["PermissionsGrantSubject"]
-       11 GETTABLEKS                       R4 R5 K3 ["Group"]
-       13 JUMPIFNOTEQ                      R3 R4 ; [+7]
-       15 GETUPVAL                         R4 2
-       16 GETTABLEKS                       R3 R4 K4 ["PermissionsGrantAction"]
-       18 GETTABLEKS                       R2 R3 K5 ["Use"]
-       20 JUMP                             ; [+10]
-       21 GETTABLEKS                       R3 R0 K1 ["Subject"]
-       23 GETUPVAL                         R6 2
-       24 GETTABLEKS                       R5 R6 K2 ["PermissionsGrantSubject"]
-       26 GETTABLEKS                       R4 R5 K6 ["Universe"]
-       28 JUMPIFNOTEQ                      R3 R4 ; [+2]
-       30 LOADB                            R1 1
-       31 GETUPVAL                         R3 3
-       32 GETUPVAL                         R5 4
-       33 GETTABLEKS                       R6 R0 K1 ["Subject"]
-       35 GETTABLEKS                       R7 R0 K7 ["Id"]
-       37 MOVE                             R8 R2
-       38 MOVE                             R9 R1
-       39 GETUPVAL                         R10 5
-       40 NAMECALL                         R3 R3 K8 ["grantAssetsPermissions"]
-       42 CALL                             R3 7 0
-       43 RETURN                           R0 0
+        3 GETTABLEKS                       R2 R0 K0 ["subject"]
+        5 GETUPVAL                         R5 2
+        6 GETTABLEKS                       R4 R5 K1 ["PermissionsGrantSubject"]
+        8 GETTABLEKS                       R3 R4 K2 ["Universe"]
+       10 JUMPIFEQ                         R2 R3 ; [+2]
+       12 LOADB                            R1 0 +1
+       13 LOADB                            R1 1
+       14 GETUPVAL                         R2 3
+       15 GETUPVAL                         R4 4
+       16 GETTABLEKS                       R5 R0 K0 ["subject"]
+       18 GETTABLEKS                       R6 R0 K3 ["id"]
+       20 GETTABLEKS                       R7 R0 K4 ["action"]
+       22 MOVE                             R8 R1
+       23 GETUPVAL                         R9 5
+       24 NAMECALL                         R2 R2 K5 ["grantAssetsPermissions"]
+       26 CALL                             R2 7 0
+       27 RETURN                           R0 0
 
 PROTO_2:
         0 NEWTABLE                         R4 0 0

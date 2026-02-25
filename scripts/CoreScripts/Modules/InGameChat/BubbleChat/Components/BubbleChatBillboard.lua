@@ -32,7 +32,7 @@ local Types = require(script.Parent.Parent.Types)
 local Constants = require(script.Parent.Parent.Constants)
 local getSettingsForMessage = require(script.Parent.Parent.Helpers.getSettingsForMessage)
 local selfViewVisibilityUpdatedSignal = require(RobloxGui.Modules.SelfView.selfViewVisibilityUpdatedSignal)
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default

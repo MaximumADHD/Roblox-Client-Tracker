@@ -483,31 +483,18 @@ PROTO_10:
       221 MOVE                             R19 R9
       222 CALL                             R15 4 1
       223 SETTABLEKS                       R15 R14 K18 ["ScrollingFrame"]
-      225 GETUPVAL                         R16 3
-      226 CALL                             R16 0 1
-      227 JUMPIFNOT                        R16 ; [+14]
-      228 GETUPVAL                         R16 1
-      229 GETTABLEKS                       R15 R16 K11 ["createElement"]
-      231 GETUPVAL                         R16 12
-      232 DUPTABLE                         R17 K54 [{"LayoutOrder", "Palette"}]
-      233 NAMECALL                         R18 R4 K29 ["getNextOrder"]
-      235 CALL                             R18 1 1
-      236 SETTABLEKS                       R18 R17 K22 ["LayoutOrder"]
-      238 SETTABLEKS                       R5 R17 K4 ["Palette"]
-      240 CALL                             R15 2 1
-      241 JUMP                             ; [+13]
-      242 GETUPVAL                         R16 1
-      243 GETTABLEKS                       R15 R16 K11 ["createElement"]
-      245 GETUPVAL                         R16 13
-      246 DUPTABLE                         R17 K54 [{"LayoutOrder", "Palette"}]
-      247 NAMECALL                         R18 R4 K29 ["getNextOrder"]
-      249 CALL                             R18 1 1
-      250 SETTABLEKS                       R18 R17 K22 ["LayoutOrder"]
-      252 SETTABLEKS                       R5 R17 K4 ["Palette"]
-      254 CALL                             R15 2 1
-      255 SETTABLEKS                       R15 R14 K19 ["AddItemButton"]
-      257 CALL                             R11 3 -1
-      258 RETURN                           R11 -1
+      225 GETUPVAL                         R16 1
+      226 GETTABLEKS                       R15 R16 K11 ["createElement"]
+      228 GETUPVAL                         R16 12
+      229 DUPTABLE                         R17 K54 [{"LayoutOrder", "Palette"}]
+      230 NAMECALL                         R18 R4 K29 ["getNextOrder"]
+      232 CALL                             R18 1 1
+      233 SETTABLEKS                       R18 R17 K22 ["LayoutOrder"]
+      235 SETTABLEKS                       R5 R17 K4 ["Palette"]
+      237 CALL                             R15 2 1
+      238 SETTABLEKS                       R15 R14 K19 ["AddItemButton"]
+      240 CALL                             R11 3 -1
+      241 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -533,65 +520,60 @@ MAIN:
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K5 [require]
        37 GETIMPORT                        R7 K1 [script]
-       39 GETTABLEKS                       R6 R7 K11 ["AddItemSplitButton"]
+       39 GETTABLEKS                       R6 R7 K11 ["CatalogItemButton"]
        41 CALL                             R5 1 1
        42 GETIMPORT                        R6 K5 [require]
-       44 GETIMPORT                        R8 K1 [script]
-       46 GETTABLEKS                       R7 R8 K12 ["CatalogItemButton"]
-       48 CALL                             R6 1 1
-       49 GETIMPORT                        R7 K5 [require]
-       51 GETTABLEKS                       R10 R0 K13 ["Src"]
-       53 GETTABLEKS                       R9 R10 K14 ["Util"]
-       55 GETTABLEKS                       R8 R9 K15 ["UserCatalogContext"]
-       57 CALL                             R7 1 1
-       58 GETIMPORT                        R8 K5 [require]
-       60 GETTABLEKS                       R11 R0 K13 ["Src"]
-       62 GETTABLEKS                       R10 R11 K16 ["Components"]
-       64 GETTABLEKS                       R9 R10 K17 ["MarketplaceCatalogContext"]
-       66 CALL                             R8 1 1
-       67 GETIMPORT                        R9 K5 [require]
-       69 GETTABLEKS                       R12 R0 K13 ["Src"]
-       71 GETTABLEKS                       R11 R12 K14 ["Util"]
-       73 GETTABLEKS                       R10 R11 K18 ["Constants"]
-       75 CALL                             R9 1 1
-       76 GETIMPORT                        R10 K5 [require]
-       78 GETTABLEKS                       R13 R0 K13 ["Src"]
-       80 GETTABLEKS                       R12 R13 K19 ["Resources"]
-       82 GETTABLEKS                       R11 R12 K20 ["Theme"]
+       44 GETTABLEKS                       R9 R0 K12 ["Src"]
+       46 GETTABLEKS                       R8 R9 K13 ["Util"]
+       48 GETTABLEKS                       R7 R8 K14 ["UserCatalogContext"]
+       50 CALL                             R6 1 1
+       51 GETIMPORT                        R7 K5 [require]
+       53 GETTABLEKS                       R10 R0 K12 ["Src"]
+       55 GETTABLEKS                       R9 R10 K15 ["Components"]
+       57 GETTABLEKS                       R8 R9 K16 ["MarketplaceCatalogContext"]
+       59 CALL                             R7 1 1
+       60 GETIMPORT                        R8 K5 [require]
+       62 GETTABLEKS                       R11 R0 K12 ["Src"]
+       64 GETTABLEKS                       R10 R11 K13 ["Util"]
+       66 GETTABLEKS                       R9 R10 K17 ["Constants"]
+       68 CALL                             R8 1 1
+       69 GETIMPORT                        R9 K5 [require]
+       71 GETTABLEKS                       R12 R0 K12 ["Src"]
+       73 GETTABLEKS                       R11 R12 K18 ["Resources"]
+       75 GETTABLEKS                       R10 R11 K19 ["Theme"]
+       77 CALL                             R9 1 1
+       78 GETIMPORT                        R10 K5 [require]
+       80 GETTABLEKS                       R12 R0 K12 ["Src"]
+       82 GETTABLEKS                       R11 R12 K20 ["Types"]
        84 CALL                             R10 1 1
        85 GETIMPORT                        R11 K5 [require]
-       87 GETTABLEKS                       R13 R0 K13 ["Src"]
-       89 GETTABLEKS                       R12 R13 K21 ["Types"]
-       91 CALL                             R11 1 1
-       92 GETIMPORT                        R12 K5 [require]
-       94 GETTABLEKS                       R15 R0 K13 ["Src"]
-       96 GETTABLEKS                       R14 R15 K22 ["Flags"]
-       98 GETTABLEKS                       R13 R14 K23 ["getFFlagAvatarPreviewerLookComposer"]
-      100 CALL                             R12 1 1
-      101 GETTABLEKS                       R13 R2 K24 ["UI"]
-      103 GETTABLEKS                       R14 R13 K25 ["Pane"]
-      105 GETTABLEKS                       R15 R13 K26 ["ScrollingFrame"]
-      107 GETTABLEKS                       R17 R2 K14 ["Util"]
-      109 GETTABLEKS                       R16 R17 K27 ["LayoutOrderIterator"]
-      111 GETTABLEKS                       R18 R2 K28 ["ContextServices"]
-      113 GETTABLEKS                       R17 R18 K29 ["Stylizer"]
-      115 DUPCLOSURE                       R18 K30 [PROTO_0]
-      116 CAPTURE                          VAL R9
-      117 DUPCLOSURE                       R19 K31 [PROTO_2]
-      118 CAPTURE                          VAL R1
-      119 DUPCLOSURE                       R20 K32 [PROTO_10]
+       87 GETTABLEKS                       R14 R0 K12 ["Src"]
+       89 GETTABLEKS                       R13 R14 K21 ["Flags"]
+       91 GETTABLEKS                       R12 R13 K22 ["getFFlagAvatarPreviewerLookComposer"]
+       93 CALL                             R11 1 1
+       94 GETTABLEKS                       R12 R2 K23 ["UI"]
+       96 GETTABLEKS                       R13 R12 K24 ["Pane"]
+       98 GETTABLEKS                       R14 R12 K25 ["ScrollingFrame"]
+      100 GETTABLEKS                       R16 R2 K13 ["Util"]
+      102 GETTABLEKS                       R15 R16 K26 ["LayoutOrderIterator"]
+      104 GETTABLEKS                       R17 R2 K27 ["ContextServices"]
+      106 GETTABLEKS                       R16 R17 K28 ["Stylizer"]
+      108 DUPCLOSURE                       R17 K29 [PROTO_0]
+      109 CAPTURE                          VAL R8
+      110 DUPCLOSURE                       R18 K30 [PROTO_2]
+      111 CAPTURE                          VAL R1
+      112 DUPCLOSURE                       R19 K31 [PROTO_10]
+      113 CAPTURE                          VAL R16
+      114 CAPTURE                          VAL R3
+      115 CAPTURE                          VAL R6
+      116 CAPTURE                          VAL R11
+      117 CAPTURE                          VAL R7
+      118 CAPTURE                          VAL R15
+      119 CAPTURE                          VAL R1
       120 CAPTURE                          VAL R17
-      121 CAPTURE                          VAL R3
-      122 CAPTURE                          VAL R7
-      123 CAPTURE                          VAL R12
-      124 CAPTURE                          VAL R8
-      125 CAPTURE                          VAL R16
-      126 CAPTURE                          VAL R1
-      127 CAPTURE                          VAL R18
-      128 CAPTURE                          VAL R9
-      129 CAPTURE                          VAL R6
-      130 CAPTURE                          VAL R14
-      131 CAPTURE                          VAL R15
-      132 CAPTURE                          VAL R5
-      133 CAPTURE                          VAL R4
-      134 RETURN                           R20 1
+      121 CAPTURE                          VAL R8
+      122 CAPTURE                          VAL R5
+      123 CAPTURE                          VAL R13
+      124 CAPTURE                          VAL R14
+      125 CAPTURE                          VAL R4
+      126 RETURN                           R19 1

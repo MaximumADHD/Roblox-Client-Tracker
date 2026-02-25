@@ -12,7 +12,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 local Modules = RobloxGui.Modules
 local Signals = require(CorePackages.Packages.Signals)
-local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local InExperienceTopBar = require(CorePackages.Workspace.Packages.InExperienceTopBar)
 local CoreScriptsCommon = require(CorePackages.Workspace.Packages.CoreScriptsCommon)
 local SettingsShowSignal = CoreScriptsCommon.SettingsShowSignal
 
@@ -23,7 +23,7 @@ local isInExperienceUIVREnabled =
 local InExperienceUIVRIXP =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
 
-local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
+local FFlagTopBarSignalizeSetCores = InExperienceTopBar.Flags.FFlagTopBarSignalizeSetCores
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local FFlagEnableHotbarHide = game:DefineFastFlag("EnableHotbarHide", false)
@@ -1874,7 +1874,7 @@ end
 
 if FFlagTopBarSignalizeSetCores then 
 	BackpackScript.disposeEffect = Signals.createEffect(function(scope)
-		local getTopBarStore = CoreGuiCommon.Stores.GetTopBarStore
+		local getTopBarStore = InExperienceTopBar.Stores.GetTopBarStore
 		if getTopBarStore then
 			BackpackScript:TopbarEnabledChanged(getTopBarStore(scope).getTopBarCoreGuiEnabled(scope))
 		end

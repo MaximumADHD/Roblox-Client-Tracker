@@ -16,7 +16,7 @@ local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Chrome = RobloxGui.Modules.Chrome
-local ChromeEnabled = require(Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil
 local ChromeConstants = require(Chrome.ChromeShared.Unibar.Constants)
 

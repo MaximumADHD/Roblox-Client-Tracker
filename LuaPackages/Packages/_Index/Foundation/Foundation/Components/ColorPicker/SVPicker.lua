@@ -8,6 +8,7 @@ local View = require(Foundation.Components.View)
 local colorUtils = require(Foundation.Components.ColorPicker.colorUtils)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local Types = require(Foundation.Components.Types)
 type CommonProps = Types.CommonProps
@@ -17,9 +18,16 @@ export type SVPickerProps = {
 	saturation: React.Binding<number>,
 	value: React.Binding<number>,
 	onChanged: (saturation: number, value: number) -> (),
+	-- When false, the selection knob on the S/V gradient is hidden.
+	showSelectionKnob: boolean?,
 } & CommonProps
 
-local function SVPicker(props: SVPickerProps)
+local defaultProps = {
+	showSelectionKnob = true,
+}
+
+local function SVPicker(svPickerProps: SVPickerProps)
+	local props = withDefaults(svPickerProps, defaultProps)
 	local hue, saturation, value = props.hue, props.saturation, props.value
 	local onChanged = props.onChanged
 	local tokens = useTokens()
@@ -96,29 +104,31 @@ local function SVPicker(props: SVPickerProps)
 					}),
 				}),
 			}),
-			Knob = React.createElement(Knob, {
-				size = InputSize.Large,
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = React.joinBindings({ saturation, value }):map(function(values)
-					local s, v = values[1], values[2]
-					return UDim2.fromScale(s, 1 - v)
-				end),
-				--selene: allow(roblox_internal_custom_color)
-				style = React.joinBindings({ hue, saturation, value }):map(function(values)
-					local h, s, v = values[1], values[2], values[3]
-					return {
-						Color3 = Color3.fromHSV(h, s, v),
-						Transparency = 0,
-					}
-				end),
-				stroke = {
-					Color = tokens.Color.System.Contrast.Color3,
-					Thickness = tokens.Stroke.Thicker,
-					Transparency = tokens.Color.System.Contrast.Transparency,
-				},
-				hasShadow = true,
-				ZIndex = 4,
-			}),
+			Knob = if props.showSelectionKnob
+				then React.createElement(Knob, {
+					size = InputSize.Large,
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = React.joinBindings({ saturation, value }):map(function(values)
+						local s, v = values[1], values[2]
+						return UDim2.fromScale(s, 1 - v)
+					end),
+					--selene: allow(roblox_internal_custom_color)
+					style = React.joinBindings({ hue, saturation, value }):map(function(values)
+						local h, s, v = values[1], values[2], values[3]
+						return {
+							Color3 = Color3.fromHSV(h, s, v),
+							Transparency = 0,
+						}
+					end),
+					stroke = {
+						Color = tokens.Color.System.Contrast.Color3,
+						Thickness = tokens.Stroke.Thicker,
+						Transparency = tokens.Color.System.Contrast.Transparency,
+					},
+					hasShadow = true,
+					ZIndex = 4,
+				})
+				else nil,
 		}
 	)
 end

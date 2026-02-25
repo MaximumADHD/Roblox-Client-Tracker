@@ -15,71 +15,82 @@ PROTO_0:
        18 GETUPVAL                         R3 0
        19 CALL                             R2 1 0
        20 RETURN                           R0 0
-       21 DUPTABLE                         R2 K11 [{"Asset", "Context", "Creator"}]
-       22 DUPTABLE                         R3 K21 [{"Id", "TypeId", "AssetGenres", "Name", "Description", "Created", "Updated", "AssetSubTypes", "Capabilities"}]
+       21 DUPTABLE                         R2 K12 [{"Asset", "Context", "Creator", "FiatProduct"}]
+       22 DUPTABLE                         R3 K21 [{"Id", "TypeId", "AssetGenres", "Name", "Description", "Created", "Updated", "AssetSubTypes"}]
        23 GETTABLEKS                       R5 R1 K22 ["asset"]
        25 GETTABLEKS                       R4 R5 K23 ["id"]
-       27 SETTABLEKS                       R4 R3 K12 ["Id"]
+       27 SETTABLEKS                       R4 R3 K13 ["Id"]
        29 GETTABLEKS                       R5 R1 K22 ["asset"]
        31 GETTABLEKS                       R4 R5 K24 ["typeId"]
-       33 SETTABLEKS                       R4 R3 K13 ["TypeId"]
+       33 SETTABLEKS                       R4 R3 K14 ["TypeId"]
        35 GETTABLEKS                       R5 R1 K22 ["asset"]
        37 GETTABLEKS                       R4 R5 K25 ["assetGenres"]
-       39 SETTABLEKS                       R4 R3 K14 ["AssetGenres"]
+       39 SETTABLEKS                       R4 R3 K15 ["AssetGenres"]
        41 GETTABLEKS                       R5 R1 K22 ["asset"]
        43 GETTABLEKS                       R4 R5 K26 ["name"]
-       45 SETTABLEKS                       R4 R3 K15 ["Name"]
+       45 SETTABLEKS                       R4 R3 K16 ["Name"]
        47 GETTABLEKS                       R5 R1 K22 ["asset"]
        49 GETTABLEKS                       R4 R5 K27 ["description"]
-       51 SETTABLEKS                       R4 R3 K16 ["Description"]
+       51 SETTABLEKS                       R4 R3 K17 ["Description"]
        53 GETTABLEKS                       R5 R1 K22 ["asset"]
        55 GETTABLEKS                       R4 R5 K28 ["createdUtc"]
-       57 SETTABLEKS                       R4 R3 K17 ["Created"]
+       57 SETTABLEKS                       R4 R3 K18 ["Created"]
        59 GETTABLEKS                       R5 R1 K22 ["asset"]
        61 GETTABLEKS                       R4 R5 K29 ["updatedUtc"]
-       63 SETTABLEKS                       R4 R3 K18 ["Updated"]
+       63 SETTABLEKS                       R4 R3 K19 ["Updated"]
        65 GETTABLEKS                       R5 R1 K22 ["asset"]
        67 GETTABLEKS                       R4 R5 K30 ["assetSubTypes"]
-       69 SETTABLEKS                       R4 R3 K19 ["AssetSubTypes"]
-       71 GETUPVAL                         R5 2
-       72 CALL                             R5 0 1
-       73 JUMPIFNOT                        R5 ; [+3]
-       74 GETTABLEKS                       R4 R1 K31 ["capabilities"]
-       76 JUMP                             ; [+1]
-       77 LOADNIL                          R4
-       78 SETTABLEKS                       R4 R3 K20 ["Capabilities"]
-       80 SETTABLEKS                       R3 R2 K8 ["Asset"]
-       82 NEWTABLE                         R3 0 0
-       84 SETTABLEKS                       R3 R2 K9 ["Context"]
-       86 DUPTABLE                         R3 K33 [{"Name", "Id", "Type"}]
-       87 GETTABLEKS                       R5 R1 K34 ["creator"]
-       89 GETTABLEKS                       R4 R5 K26 ["name"]
-       91 SETTABLEKS                       R4 R3 K15 ["Name"]
-       93 GETTABLEKS                       R5 R1 K34 ["creator"]
-       95 GETTABLEKS                       R4 R5 K23 ["id"]
-       97 SETTABLEKS                       R4 R3 K12 ["Id"]
-       99 GETTABLEKS                       R5 R1 K34 ["creator"]
-      101 GETTABLEKS                       R4 R5 K35 ["type"]
-      103 SETTABLEKS                       R4 R3 K32 ["Type"]
-      105 SETTABLEKS                       R3 R2 K10 ["Creator"]
-      107 GETUPVAL                         R3 3
-      108 MOVE                             R4 R2
-      109 CALL                             R3 1 0
-      110 GETUPVAL                         R3 4
-      111 MOVE                             R4 R2
-      112 LOADB                            R5 0
-      113 CALL                             R3 2 0
-      114 GETUPVAL                         R4 1
-      115 GETTABLEKS                       R3 R4 K36 ["onTryAsset"]
-      117 GETUPVAL                         R4 0
-      118 CALL                             R3 1 0
-      119 GETUPVAL                         R3 5
-      120 GETUPVAL                         R5 6
-      121 GETUPVAL                         R6 0
-      122 CALL                             R5 1 -1
-      123 NAMECALL                         R3 R3 K37 ["dispatch"]
-      125 CALL                             R3 -1 0
-      126 RETURN                           R0 0
+       69 SETTABLEKS                       R4 R3 K20 ["AssetSubTypes"]
+       71 SETTABLEKS                       R3 R2 K8 ["Asset"]
+       73 NEWTABLE                         R3 0 0
+       75 SETTABLEKS                       R3 R2 K9 ["Context"]
+       77 DUPTABLE                         R3 K32 [{"Name", "Id", "Type"}]
+       78 GETTABLEKS                       R5 R1 K33 ["creator"]
+       80 GETTABLEKS                       R4 R5 K26 ["name"]
+       82 SETTABLEKS                       R4 R3 K16 ["Name"]
+       84 GETTABLEKS                       R5 R1 K33 ["creator"]
+       86 GETTABLEKS                       R4 R5 K23 ["id"]
+       88 SETTABLEKS                       R4 R3 K13 ["Id"]
+       90 GETTABLEKS                       R5 R1 K33 ["creator"]
+       92 GETTABLEKS                       R4 R5 K34 ["type"]
+       94 SETTABLEKS                       R4 R3 K31 ["Type"]
+       96 SETTABLEKS                       R3 R2 K10 ["Creator"]
+       98 GETUPVAL                         R4 2
+       99 CALL                             R4 0 1
+      100 JUMPIFNOT                        R4 ; [+23]
+      101 GETTABLEKS                       R4 R1 K35 ["fiatProduct"]
+      103 JUMPIFNOT                        R4 ; [+20]
+      104 DUPTABLE                         R3 K39 [{"PurchasePrice", "Purchasable", "Published"}]
+      105 GETTABLEKS                       R5 R1 K35 ["fiatProduct"]
+      107 GETTABLEKS                       R4 R5 K40 ["purchasePrice"]
+      109 SETTABLEKS                       R4 R3 K36 ["PurchasePrice"]
+      111 GETTABLEKS                       R5 R1 K35 ["fiatProduct"]
+      113 GETTABLEKS                       R4 R5 K41 ["purchasable"]
+      115 SETTABLEKS                       R4 R3 K37 ["Purchasable"]
+      117 GETTABLEKS                       R5 R1 K35 ["fiatProduct"]
+      119 GETTABLEKS                       R4 R5 K42 ["published"]
+      121 SETTABLEKS                       R4 R3 K38 ["Published"]
+      123 JUMP                             ; [+1]
+      124 LOADNIL                          R3
+      125 SETTABLEKS                       R3 R2 K11 ["FiatProduct"]
+      127 GETUPVAL                         R3 3
+      128 MOVE                             R4 R2
+      129 CALL                             R3 1 0
+      130 GETUPVAL                         R3 4
+      131 MOVE                             R4 R2
+      132 LOADB                            R5 0
+      133 CALL                             R3 2 0
+      134 GETUPVAL                         R4 1
+      135 GETTABLEKS                       R3 R4 K43 ["onTryAsset"]
+      137 GETUPVAL                         R4 0
+      138 CALL                             R3 1 0
+      139 GETUPVAL                         R3 5
+      140 GETUPVAL                         R5 6
+      141 GETUPVAL                         R6 0
+      142 CALL                             R5 1 -1
+      143 NAMECALL                         R3 R3 K44 ["dispatch"]
+      145 CALL                             R3 -1 0
+      146 RETURN                           R0 0
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [warn]

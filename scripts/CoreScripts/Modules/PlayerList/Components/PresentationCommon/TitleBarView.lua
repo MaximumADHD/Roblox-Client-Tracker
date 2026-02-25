@@ -162,7 +162,7 @@ local function TitleBarView(props: TitleBarViewProps)
 	-- Determine background color if showing background
 	local backgroundColor = Color3.fromRGB(0, 0, 0) -- default fallback
 	if props.showBackground then
-		local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
+		local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 		backgroundColor = if ChromeEnabled()
 			then style.Theme.BackgroundUIContrast.Color
 			else style.Theme.BackgroundContrast.Color

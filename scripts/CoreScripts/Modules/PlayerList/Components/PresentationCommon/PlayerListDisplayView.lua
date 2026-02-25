@@ -1,9 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local LocalPlayer = Players.LocalPlayer
 local Components = script.Parent.Parent
@@ -17,7 +15,7 @@ local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 local usePlayerListFocusNavigation = PlayerListPackage.Hooks.usePlayerListFocusNavigation

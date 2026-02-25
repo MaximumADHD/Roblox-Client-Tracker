@@ -81,13 +81,13 @@ local FFlagUpdatePeopleNamesSettingCopy = require(RobloxGui.Modules.Settings.Fla
 local FFlagBadgeVisibilitySettingEnabled = SharedFlags.FFlagBadgeVisibilitySettingEnabled
 local GetFFlagEnableVoiceUxUpdates = SharedFlags.GetFFlagEnableVoiceUxUpdates
 local GetFFlagEnableVrVoiceConnectDisconnect = SharedFlags.GetFFlagEnableVrVoiceConnectDisconnect
-local FFlagEnableNewBadgeVisibilityCopy = game:DefineFastFlag("EnableNewBadgeVisibilityCopy", false)
 local FFlagEnableVoiceSelectorTranslations = game:DefineFastFlag("EnableVoiceSelectorTranslations_AEGIS2", false)
 local FFlagHideVoiceChatSelectorForFae = game:DefineFastFlag("HideVoiceChatSelectorForFae_AEGIS2", false)
 local FFlagCenterShiftLockOverride = game:DefineFastFlag("CenterShiftLockOverride", true)
 local FFlagVoiceChatSelectorReconnectFocus = game:DefineFastFlag("VoiceChatSelectorReconnectFocus2_AEGIS2", false)
 local FFlagMicroProfilerReadOnlyInformationLabel = game:DefineFastFlag("MicroProfilerReadOnlyInformationLabel", false)
 local FFlagEnableModerateChatRemoteEvent = SharedFlags.FFlagEnableModerateChatRemoteEvent
+local FFlagModerateChatAnalytics = game:DefineFastFlag("ModerateChatAnalytics", false)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -291,6 +291,7 @@ local GetFFlagEnableLocalesForExperienceLanguageSwitcher = require(RobloxGui.Mod
 local CreateExperienceLanguageSwitcher = require(
 	RobloxGui.Modules.Settings.Pages.GameSettingsRowInitializers.ExperienceLanguageSwitcherInitializer
 )
+local FFlagUpdateVisibilitySettingsCopy = game:DefineFastFlag("UpdateVisibilitySettingsCopy", false)
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
 	if
@@ -724,7 +725,11 @@ local function Initialize()
 	end
 
 	local function createPlayerNamesEnabledOptions()
-		local playerNamesEnabledLabel = if FFlagUpdatePeopleNamesSettingCopy then RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.PeopleNames") else RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.PlayerNames")
+		local playerNamesEnabledLabel = if FFlagUpdateVisibilitySettingsCopy
+			then RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.PeoplesNames")
+			elseif FFlagUpdatePeopleNamesSettingCopy
+			then RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.PeopleNames")
+			else RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.PlayerNames")
 		local playerNamesEnabledDescription = if FFlagUpdatePeopleNamesSettingCopy then RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.PeopleNames.Description") else nil
 
 		local function GetPlayerNamesEnabledStartIndex()
@@ -737,8 +742,10 @@ local function Initialize()
 
 		local startIndex = GetPlayerNamesEnabledStartIndex()
 
-		local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On")
-		local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off")
+		local onLabel = if FFlagUpdateVisibilitySettingsCopy then 
+			RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Show") else RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On")
+		local offLabel = if FFlagUpdateVisibilitySettingsCopy then 
+			RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Hide") else RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off")
 
 		this.PlayerNamesEnabledFrame, this.playerNamesEnabledLabel, this.playerNamesEnabledMode = utility:AddNewRow(this, playerNamesEnabledLabel, "Selector", { onLabel, offLabel }, startIndex, nil, playerNamesEnabledDescription)
 
@@ -3090,10 +3097,11 @@ local function Initialize()
 			if PlayerPermissionsModule.IsPlayerInExperienceNameEnabledAsync(LocalPlayer) then
 				isInExperienceNameEnabled = 1
 			end
-			local onLabel = if FFlagEnableNewBadgeVisibilityCopy then RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Show") else RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On")
-			local offLabel = if FFlagEnableNewBadgeVisibilityCopy then RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Hide") else RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off")
-			local badgeDisplayLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.DisplayBadges")
-			local badgeDisplayDescription = if FFlagEnableNewBadgeVisibilityCopy then RobloxTranslator:FormatByKey("Feature.SettingsHub.Description.PeoplesNames") else RobloxTranslator:FormatByKey("Feature.SettingsHub.Description.DisplayBadges")
+			local onLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Show")
+			local offLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Hide")
+			local badgeDisplayLabel = if FFlagUpdateVisibilitySettingsCopy then 
+				RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.MyBadges") else RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.DisplayBadges")
+			local badgeDisplayDescription = RobloxTranslator:FormatByKey("Feature.SettingsHub.Description.PeoplesNames")
 			this.badgeVisibleRow, this.badgeVisibleFrame, this.badgeVisibleSelector =
 				utility:AddNewRow(this, badgeDisplayLabel, "Selector", { offLabel, onLabel }, isInExperienceNameEnabled, nil, badgeDisplayDescription)
 			this.badgeVisibleRow.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["BadgeVisibilityFrame"]
@@ -3139,7 +3147,11 @@ local function Initialize()
 			end
 		end)
 		this.ChatModerationSelector.IndexChanged:connect(function(newIndex)
-			chatModerationStore.setIsSettingEnabled(newIndex == 2)
+			local isEnabled = newIndex == 2
+			chatModerationStore.setIsSettingEnabled(isEnabled)
+			if FFlagModerateChatAnalytics then
+				reportSettingsChangeForAnalytics("moderate_chat", not isEnabled, isEnabled)
+			end
 		end)
 		-- Fetches whether the user has the chat moderation permission. This will trigger updates in the store.
 		chatModerationStore.initialize()

@@ -23,7 +23,7 @@ local ApolloClientModule = require(CorePackages.Packages.ApolloClient)
 local ApolloProvider = ApolloClientModule.ApolloProvider
 local PlayerList = script.Parent
 local Signals = require(CorePackages.Packages.Signals)
-local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local InExperienceTopBar = require(CorePackages.Workspace.Packages.InExperienceTopBar)
 
 local Reducer = require(PlayerList.Reducers.Reducer)
 local GlobalConfig = require(PlayerList.GlobalConfig)
@@ -61,7 +61,7 @@ local PlayerListContainer = PlayerListPackage.Container.PlayerListContainer
 local LeaderboardStoreInstanceManager = PlayerListPackage.LeaderboardStoreInstanceManager
 local PlayerIconInfoStore = PlayerIconInfoStorePackage.PlayerIconInfoStore
 
-local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
+local FFlagTopBarSignalizeSetCores = InExperienceTopBar.Flags.FFlagTopBarSignalizeSetCores
 
 local function isSmallTouchScreen()
 	if _G.__TESTEZ_RUNNING_TEST__ then
@@ -223,7 +223,7 @@ function PlayerListMaster.new()
 
 	if FFlagTopBarSignalizeSetCores then 
 		self.disposeEffect = Signals.createEffect(function(scope)
-			local getTopBarStore = CoreGuiCommon.Stores.GetTopBarStore
+			local getTopBarStore = InExperienceTopBar.Stores.GetTopBarStore
 			if getTopBarStore then
 				self:SetTopBarEnabled(getTopBarStore(scope).getTopBarCoreGuiEnabled(scope))
 			end

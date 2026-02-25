@@ -55,7 +55,7 @@ local TraversalBackButton = require(script.Parent.TraversalBackButton)
 
 local Chrome = script.Parent.Parent.Parent.Chrome
 
-local ChromeEnabled = require(Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local MusicConstants = require(Chrome.Integrations.MusicUtility.Constants)
 
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls

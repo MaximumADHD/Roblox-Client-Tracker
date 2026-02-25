@@ -6,6 +6,7 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
+local FFlagVirtualCursorTopbarAlwaysVisible = SharedFlags.FFlagVirtualCursorTopbarAlwaysVisible
 local FFlagAvatarSwitcherHamburgerExposure = game:DefineFastFlag("AvatarSwitcherHamburgerExposure", false)
 local FStringAvatarSwitcherIXPLayer = game:DefineFastString("AvatarSwitcherIXPLayer", "UIEcosystem.User.Migration")
 
@@ -132,6 +133,9 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			ChromeService:disableFocusNav()
 			GuiService.SelectedCoreObject = nil
 			ChromeService:setShortcutBar(nil)
+			if FFlagVirtualCursorTopbarAlwaysVisible then
+				ChromeService:selectedItem():set(nil)
+			end
 			props.activated()
 		else
 			props.activated()

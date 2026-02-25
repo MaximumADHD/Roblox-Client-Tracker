@@ -14,7 +14,7 @@ local Modules = RobloxGui.Modules
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local SettingsPageFactory = require(Modules.Settings.SettingsPageFactory)
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox']
 

@@ -1,6 +1,7 @@
 --!strict
+local CorePackages = game:GetService("CorePackages")
 local FFlagSelfieViewEnabled: boolean = game:DefineFastFlag("SelfieViewEnabled", false)
-local ChromeEnabled = require(script.Parent.Parent.Parent.Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 
 local GetFFlagSelfieViewEnabled = function(): boolean
 	-- TODO: ChromeEnabled is only for dogfooding and makes

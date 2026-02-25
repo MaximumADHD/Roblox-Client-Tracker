@@ -3,560 +3,530 @@ PROTO_0:
         1 CALL                             R1 0 1
         2 GETUPVAL                         R2 1
         3 CALL                             R2 0 1
-        4 GETUPVAL                         R3 2
-        5 CALL                             R3 0 1
-        6 GETUPVAL                         R4 3
-        7 CALL                             R4 0 1
-        8 JUMPIFNOT                        R2 ; [+6]
-        9 GETTABLEKS                       R6 R0 K0 ["SettingsInstance"]
-       11 JUMPIFNOT                        R6 ; [+3]
-       12 GETTABLEKS                       R5 R0 K0 ["SettingsInstance"]
-       14 JUMP                             ; [+3]
-       15 GETIMPORT                        R5 K2 [settings]
-       17 CALL                             R5 0 1
-       18 GETUPVAL                         R7 4
-       19 GETTABLEKS                       R6 R7 K3 ["Localization"]
-       21 NAMECALL                         R6 R6 K4 ["use"]
-       23 CALL                             R6 1 1
-       24 GETUPVAL                         R8 5
-       25 GETTABLEKS                       R7 R8 K5 ["createElement"]
-       27 GETUPVAL                         R9 5
-       28 GETTABLEKS                       R8 R9 K6 ["Fragment"]
-       30 NEWTABLE                         R9 0 0
-       32 DUPTABLE                         R10 K14 [{"GUI", "Lighting", "Pathfinding", "PhysicsConstraints", "PhysicsLabels", "PhysicsSimulation", "View"}]
-       33 GETUPVAL                         R12 5
-       34 GETTABLEKS                       R11 R12 K5 ["createElement"]
-       36 LOADK                            R12 K15 ["VisualizationModeCategory"]
-       37 DUPTABLE                         R13 K17 [{"Title"}]
-       38 LOADK                            R16 K18 ["VisualizationModeCategories"]
-       39 LOADK                            R17 K7 ["GUI"]
-       40 NAMECALL                         R14 R6 K19 ["getText"]
-       42 CALL                             R14 3 1
-       43 SETTABLEKS                       R14 R13 K16 ["Title"]
-       45 DUPTABLE                         R14 K22 [{"DeviceEmulation", "GUIOverlay"}]
-       46 GETUPVAL                         R16 5
-       47 GETTABLEKS                       R15 R16 K5 ["createElement"]
-       49 GETUPVAL                         R16 6
-       50 DUPTABLE                         R17 K27 [{"Title", "ToolTip", "FeatureId", "ActionId", "Actions"}]
-       51 LOADK                            R20 K28 ["StudioModes"]
-       52 LOADK                            R21 K20 ["DeviceEmulation"]
-       53 NAMECALL                         R18 R6 K19 ["getText"]
-       55 CALL                             R18 3 1
-       56 SETTABLEKS                       R18 R17 K16 ["Title"]
-       58 LOADK                            R20 K28 ["StudioModes"]
-       59 LOADK                            R21 K29 ["DeviceEmulationToolTip"]
-       60 NAMECALL                         R18 R6 K19 ["getText"]
-       62 CALL                             R18 3 1
-       63 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-       65 LOADK                            R18 K20 ["DeviceEmulation"]
-       66 SETTABLEKS                       R18 R17 K24 ["FeatureId"]
-       68 LOADK                            R18 K30 ["Toggle"]
-       69 SETTABLEKS                       R18 R17 K25 ["ActionId"]
-       71 GETTABLEKS                       R18 R0 K26 ["Actions"]
-       73 SETTABLEKS                       R18 R17 K26 ["Actions"]
-       75 CALL                             R15 2 1
-       76 SETTABLEKS                       R15 R14 K20 ["DeviceEmulation"]
-       78 GETUPVAL                         R16 5
-       79 GETTABLEKS                       R15 R16 K5 ["createElement"]
-       81 GETUPVAL                         R16 7
-       82 DUPTABLE                         R17 K33 [{"Title", "ToolTip", "Setting", "Property"}]
-       83 LOADK                            R20 K28 ["StudioModes"]
-       84 LOADK                            R21 K21 ["GUIOverlay"]
-       85 NAMECALL                         R18 R6 K19 ["getText"]
-       87 CALL                             R18 3 1
-       88 SETTABLEKS                       R18 R17 K16 ["Title"]
-       90 LOADK                            R20 K28 ["StudioModes"]
-       91 LOADK                            R21 K34 ["GUIOverlayToolTip"]
-       92 NAMECALL                         R18 R6 K19 ["getText"]
-       94 CALL                             R18 3 1
-       95 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-       97 JUMPIFNOT                        R1 ; [+7]
-       98 GETIMPORT                        R18 K36 [game]
-      100 LOADK                            R20 K37 ["StarterGui"]
-      101 NAMECALL                         R18 R18 K38 ["GetService"]
-      103 CALL                             R18 2 1
-      104 JUMP                             ; [+4]
-      105 GETIMPORT                        R19 K36 [game]
-      107 GETTABLEKS                       R18 R19 K37 ["StarterGui"]
-      109 SETTABLEKS                       R18 R17 K31 ["Setting"]
-      111 LOADK                            R18 K39 ["ShowDevelopmentGui"]
-      112 SETTABLEKS                       R18 R17 K32 ["Property"]
-      114 CALL                             R15 2 1
-      115 SETTABLEKS                       R15 R14 K21 ["GUIOverlay"]
-      117 CALL                             R11 3 1
-      118 SETTABLEKS                       R11 R10 K7 ["GUI"]
-      120 GETUPVAL                         R12 5
-      121 GETTABLEKS                       R11 R12 K5 ["createElement"]
-      123 LOADK                            R12 K15 ["VisualizationModeCategory"]
-      124 DUPTABLE                         R13 K17 [{"Title"}]
-      125 LOADK                            R16 K18 ["VisualizationModeCategories"]
-      126 LOADK                            R17 K8 ["Lighting"]
-      127 NAMECALL                         R14 R6 K19 ["getText"]
-      129 CALL                             R14 3 1
-      130 SETTABLEKS                       R14 R13 K16 ["Title"]
-      132 DUPTABLE                         R14 K41 [{"Lights"}]
-      133 GETUPVAL                         R16 5
-      134 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      136 GETUPVAL                         R16 7
-      137 DUPTABLE                         R17 K33 [{"Title", "ToolTip", "Setting", "Property"}]
-      138 LOADK                            R20 K28 ["StudioModes"]
-      139 LOADK                            R21 K40 ["Lights"]
-      140 NAMECALL                         R18 R6 K19 ["getText"]
-      142 CALL                             R18 3 1
-      143 SETTABLEKS                       R18 R17 K16 ["Title"]
-      145 LOADK                            R20 K28 ["StudioModes"]
-      146 LOADK                            R21 K42 ["LightsToolTip"]
-      147 NAMECALL                         R18 R6 K19 ["getText"]
-      149 CALL                             R18 3 1
-      150 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      152 GETTABLEKS                       R18 R5 K43 ["Studio"]
-      154 SETTABLEKS                       R18 R17 K31 ["Setting"]
-      156 LOADK                            R18 K44 ["Show Light Guides"]
-      157 SETTABLEKS                       R18 R17 K32 ["Property"]
-      159 CALL                             R15 2 1
-      160 SETTABLEKS                       R15 R14 K40 ["Lights"]
-      162 CALL                             R11 3 1
-      163 SETTABLEKS                       R11 R10 K8 ["Lighting"]
-      165 GETUPVAL                         R12 5
-      166 GETTABLEKS                       R11 R12 K5 ["createElement"]
-      168 LOADK                            R12 K15 ["VisualizationModeCategory"]
-      169 DUPTABLE                         R13 K17 [{"Title"}]
-      170 LOADK                            R16 K18 ["VisualizationModeCategories"]
-      171 LOADK                            R17 K9 ["Pathfinding"]
-      172 NAMECALL                         R14 R6 K19 ["getText"]
-      174 CALL                             R14 3 1
-      175 SETTABLEKS                       R14 R13 K16 ["Title"]
-      177 DUPTABLE                         R14 K48 [{"PathfindingMesh", "PathfindingModifiers", "PathfindingLinks"}]
-      178 GETUPVAL                         R16 5
-      179 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      181 GETUPVAL                         R16 7
-      182 DUPTABLE                         R17 K33 [{"Title", "ToolTip", "Setting", "Property"}]
-      183 LOADK                            R20 K28 ["StudioModes"]
-      184 LOADK                            R21 K45 ["PathfindingMesh"]
-      185 NAMECALL                         R18 R6 K19 ["getText"]
-      187 CALL                             R18 3 1
-      188 SETTABLEKS                       R18 R17 K16 ["Title"]
-      190 LOADK                            R20 K28 ["StudioModes"]
-      191 LOADK                            R21 K49 ["PathfindingMeshToolTip"]
-      192 NAMECALL                         R18 R6 K19 ["getText"]
-      194 CALL                             R18 3 1
-      195 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      197 GETTABLEKS                       R18 R5 K43 ["Studio"]
-      199 SETTABLEKS                       R18 R17 K31 ["Setting"]
-      201 LOADK                            R18 K50 ["Show Navigation Mesh"]
-      202 SETTABLEKS                       R18 R17 K32 ["Property"]
-      204 CALL                             R15 2 1
-      205 SETTABLEKS                       R15 R14 K45 ["PathfindingMesh"]
-      207 GETUPVAL                         R16 5
-      208 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      210 GETUPVAL                         R16 7
-      211 DUPTABLE                         R17 K33 [{"Title", "ToolTip", "Setting", "Property"}]
-      212 LOADK                            R20 K28 ["StudioModes"]
-      213 LOADK                            R21 K46 ["PathfindingModifiers"]
-      214 NAMECALL                         R18 R6 K19 ["getText"]
-      216 CALL                             R18 3 1
-      217 SETTABLEKS                       R18 R17 K16 ["Title"]
-      219 LOADK                            R20 K28 ["StudioModes"]
-      220 LOADK                            R21 K51 ["PathfindingModifiersToolTip"]
-      221 NAMECALL                         R18 R6 K19 ["getText"]
-      223 CALL                             R18 3 1
-      224 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      226 GETTABLEKS                       R18 R5 K43 ["Studio"]
-      228 SETTABLEKS                       R18 R17 K31 ["Setting"]
-      230 LOADK                            R18 K52 ["Show Navigation Labels"]
-      231 SETTABLEKS                       R18 R17 K32 ["Property"]
-      233 CALL                             R15 2 1
-      234 SETTABLEKS                       R15 R14 K46 ["PathfindingModifiers"]
-      236 GETUPVAL                         R16 5
-      237 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      239 GETUPVAL                         R16 7
-      240 DUPTABLE                         R17 K33 [{"Title", "ToolTip", "Setting", "Property"}]
-      241 LOADK                            R20 K28 ["StudioModes"]
-      242 LOADK                            R21 K47 ["PathfindingLinks"]
-      243 NAMECALL                         R18 R6 K19 ["getText"]
-      245 CALL                             R18 3 1
-      246 SETTABLEKS                       R18 R17 K16 ["Title"]
-      248 LOADK                            R20 K28 ["StudioModes"]
-      249 LOADK                            R21 K53 ["PathfindingLinksToolTip"]
-      250 NAMECALL                         R18 R6 K19 ["getText"]
-      252 CALL                             R18 3 1
-      253 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      255 GETTABLEKS                       R18 R5 K43 ["Studio"]
-      257 SETTABLEKS                       R18 R17 K31 ["Setting"]
-      259 LOADK                            R18 K54 ["Show Pathfinding Links"]
-      260 SETTABLEKS                       R18 R17 K32 ["Property"]
-      262 CALL                             R15 2 1
-      263 SETTABLEKS                       R15 R14 K47 ["PathfindingLinks"]
-      265 CALL                             R11 3 1
-      266 SETTABLEKS                       R11 R10 K9 ["Pathfinding"]
-      268 GETUPVAL                         R12 5
-      269 GETTABLEKS                       R11 R12 K5 ["createElement"]
-      271 LOADK                            R12 K15 ["VisualizationModeCategory"]
-      272 DUPTABLE                         R13 K17 [{"Title"}]
-      273 LOADK                            R16 K18 ["VisualizationModeCategories"]
-      274 LOADK                            R17 K10 ["PhysicsConstraints"]
-      275 NAMECALL                         R14 R6 K19 ["getText"]
-      277 CALL                             R14 3 1
-      278 SETTABLEKS                       R14 R13 K16 ["Title"]
-      280 DUPTABLE                         R14 K57 [{"Constraints", "Welds"}]
-      281 GETUPVAL                         R16 5
-      282 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      284 GETUPVAL                         R16 6
-      285 DUPTABLE                         R17 K27 [{"Title", "ToolTip", "FeatureId", "ActionId", "Actions"}]
-      286 LOADK                            R20 K28 ["StudioModes"]
-      287 LOADK                            R21 K55 ["Constraints"]
-      288 NAMECALL                         R18 R6 K19 ["getText"]
-      290 CALL                             R18 3 1
-      291 SETTABLEKS                       R18 R17 K16 ["Title"]
-      293 LOADK                            R20 K28 ["StudioModes"]
-      294 LOADK                            R21 K58 ["ConstraintsToolTip"]
-      295 NAMECALL                         R18 R6 K19 ["getText"]
-      297 CALL                             R18 3 1
-      298 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      300 LOADK                            R18 K55 ["Constraints"]
-      301 SETTABLEKS                       R18 R17 K24 ["FeatureId"]
-      303 LOADK                            R18 K59 ["ShowDetails"]
-      304 SETTABLEKS                       R18 R17 K25 ["ActionId"]
-      306 GETTABLEKS                       R18 R0 K26 ["Actions"]
-      308 SETTABLEKS                       R18 R17 K26 ["Actions"]
-      310 CALL                             R15 2 1
-      311 SETTABLEKS                       R15 R14 K55 ["Constraints"]
-      313 GETUPVAL                         R16 5
-      314 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      316 GETUPVAL                         R16 6
-      317 DUPTABLE                         R17 K27 [{"Title", "ToolTip", "FeatureId", "ActionId", "Actions"}]
-      318 LOADK                            R20 K28 ["StudioModes"]
-      319 LOADK                            R21 K56 ["Welds"]
-      320 NAMECALL                         R18 R6 K19 ["getText"]
-      322 CALL                             R18 3 1
-      323 SETTABLEKS                       R18 R17 K16 ["Title"]
-      325 LOADK                            R20 K28 ["StudioModes"]
-      326 LOADK                            R21 K60 ["WeldsToolTip"]
-      327 NAMECALL                         R18 R6 K19 ["getText"]
-      329 CALL                             R18 3 1
-      330 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      332 LOADK                            R18 K55 ["Constraints"]
-      333 SETTABLEKS                       R18 R17 K24 ["FeatureId"]
-      335 LOADK                            R18 K61 ["ShowWelds"]
-      336 SETTABLEKS                       R18 R17 K25 ["ActionId"]
-      338 GETTABLEKS                       R18 R0 K26 ["Actions"]
-      340 SETTABLEKS                       R18 R17 K26 ["Actions"]
-      342 CALL                             R15 2 1
-      343 SETTABLEKS                       R15 R14 K56 ["Welds"]
-      345 CALL                             R11 3 1
-      346 SETTABLEKS                       R11 R10 K10 ["PhysicsConstraints"]
-      348 GETUPVAL                         R12 5
-      349 GETTABLEKS                       R11 R12 K5 ["createElement"]
-      351 LOADK                            R12 K15 ["VisualizationModeCategory"]
-      352 DUPTABLE                         R13 K17 [{"Title"}]
-      353 LOADK                            R16 K18 ["VisualizationModeCategories"]
-      354 LOADK                            R17 K11 ["PhysicsLabels"]
-      355 NAMECALL                         R14 R6 K19 ["getText"]
-      357 CALL                             R14 3 1
-      358 SETTABLEKS                       R14 R13 K16 ["Title"]
-      360 DUPTABLE                         R14 K67 [{"AnchoredParts", "AwakeParts", "Assemblies", "Mechanisms", "NetworkOwner"}]
-      361 GETUPVAL                         R16 5
-      362 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      364 GETUPVAL                         R16 7
-      365 DUPTABLE                         R17 K33 [{"Title", "ToolTip", "Setting", "Property"}]
-      366 LOADK                            R20 K28 ["StudioModes"]
-      367 LOADK                            R21 K62 ["AnchoredParts"]
-      368 NAMECALL                         R18 R6 K19 ["getText"]
-      370 CALL                             R18 3 1
-      371 SETTABLEKS                       R18 R17 K16 ["Title"]
-      373 LOADK                            R20 K28 ["StudioModes"]
-      374 LOADK                            R21 K68 ["AnchoredPartsToolTip"]
-      375 NAMECALL                         R18 R6 K19 ["getText"]
-      377 CALL                             R18 3 1
-      378 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      380 GETTABLEKS                       R18 R5 K69 ["Physics"]
-      382 SETTABLEKS                       R18 R17 K31 ["Setting"]
-      384 LOADK                            R18 K70 ["AreAnchorsShown"]
-      385 SETTABLEKS                       R18 R17 K32 ["Property"]
-      387 CALL                             R15 2 1
-      388 SETTABLEKS                       R15 R14 K62 ["AnchoredParts"]
-      390 GETUPVAL                         R16 5
-      391 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      393 GETUPVAL                         R16 7
-      394 DUPTABLE                         R17 K33 [{"Title", "ToolTip", "Setting", "Property"}]
-      395 LOADK                            R20 K28 ["StudioModes"]
-      396 LOADK                            R21 K63 ["AwakeParts"]
-      397 NAMECALL                         R18 R6 K19 ["getText"]
-      399 CALL                             R18 3 1
-      400 SETTABLEKS                       R18 R17 K16 ["Title"]
-      402 LOADK                            R20 K28 ["StudioModes"]
-      403 LOADK                            R21 K71 ["AwakePartsToolTip"]
-      404 NAMECALL                         R18 R6 K19 ["getText"]
-      406 CALL                             R18 3 1
-      407 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      409 GETTABLEKS                       R18 R5 K69 ["Physics"]
-      411 SETTABLEKS                       R18 R17 K31 ["Setting"]
-      413 LOADK                            R18 K72 ["AreAwakePartsHighlighted"]
-      414 SETTABLEKS                       R18 R17 K32 ["Property"]
-      416 CALL                             R15 2 1
-      417 SETTABLEKS                       R15 R14 K63 ["AwakeParts"]
-      419 GETUPVAL                         R16 5
-      420 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      422 GETUPVAL                         R16 7
-      423 DUPTABLE                         R17 K33 [{"Title", "ToolTip", "Setting", "Property"}]
-      424 LOADK                            R20 K28 ["StudioModes"]
-      425 LOADK                            R21 K73 ["ShowAssemblies"]
-      426 NAMECALL                         R18 R6 K19 ["getText"]
-      428 CALL                             R18 3 1
-      429 SETTABLEKS                       R18 R17 K16 ["Title"]
-      431 LOADK                            R20 K28 ["StudioModes"]
-      432 LOADK                            R21 K74 ["ShowAssembliesToolTip"]
-      433 NAMECALL                         R18 R6 K19 ["getText"]
-      435 CALL                             R18 3 1
-      436 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      438 GETTABLEKS                       R18 R5 K69 ["Physics"]
-      440 SETTABLEKS                       R18 R17 K31 ["Setting"]
-      442 LOADK                            R18 K75 ["AreAssembliesShown"]
-      443 SETTABLEKS                       R18 R17 K32 ["Property"]
-      445 CALL                             R15 2 1
-      446 SETTABLEKS                       R15 R14 K64 ["Assemblies"]
-      448 GETUPVAL                         R16 5
-      449 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      451 GETUPVAL                         R16 7
-      452 DUPTABLE                         R17 K33 [{"Title", "ToolTip", "Setting", "Property"}]
-      453 LOADK                            R20 K28 ["StudioModes"]
-      454 LOADK                            R21 K65 ["Mechanisms"]
-      455 NAMECALL                         R18 R6 K19 ["getText"]
-      457 CALL                             R18 3 1
-      458 SETTABLEKS                       R18 R17 K16 ["Title"]
-      460 LOADK                            R20 K28 ["StudioModes"]
-      461 LOADK                            R21 K76 ["MechanismsToolTip"]
-      462 NAMECALL                         R18 R6 K19 ["getText"]
-      464 CALL                             R18 3 1
-      465 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      467 GETTABLEKS                       R18 R5 K69 ["Physics"]
-      469 SETTABLEKS                       R18 R17 K31 ["Setting"]
-      471 LOADK                            R18 K77 ["AreMechanismsShown"]
-      472 SETTABLEKS                       R18 R17 K32 ["Property"]
-      474 CALL                             R15 2 1
-      475 SETTABLEKS                       R15 R14 K65 ["Mechanisms"]
-      477 GETUPVAL                         R16 5
-      478 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      480 GETUPVAL                         R16 7
-      481 DUPTABLE                         R17 K33 [{"Title", "ToolTip", "Setting", "Property"}]
-      482 LOADK                            R20 K28 ["StudioModes"]
-      483 LOADK                            R21 K66 ["NetworkOwner"]
-      484 NAMECALL                         R18 R6 K19 ["getText"]
-      486 CALL                             R18 3 1
-      487 SETTABLEKS                       R18 R17 K16 ["Title"]
-      489 LOADK                            R20 K28 ["StudioModes"]
-      490 LOADK                            R21 K78 ["NetworkOwnerToolTip"]
-      491 NAMECALL                         R18 R6 K19 ["getText"]
-      493 CALL                             R18 3 1
-      494 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      496 GETTABLEKS                       R18 R5 K69 ["Physics"]
-      498 SETTABLEKS                       R18 R17 K31 ["Setting"]
-      500 LOADK                            R18 K79 ["AreOwnersShown"]
-      501 SETTABLEKS                       R18 R17 K32 ["Property"]
-      503 CALL                             R15 2 1
-      504 SETTABLEKS                       R15 R14 K66 ["NetworkOwner"]
-      506 CALL                             R11 3 1
-      507 SETTABLEKS                       R11 R10 K11 ["PhysicsLabels"]
-      509 GETUPVAL                         R12 5
-      510 GETTABLEKS                       R11 R12 K5 ["createElement"]
-      512 LOADK                            R12 K15 ["VisualizationModeCategory"]
-      513 DUPTABLE                         R13 K17 [{"Title"}]
-      514 LOADK                            R16 K18 ["VisualizationModeCategories"]
-      515 LOADK                            R17 K12 ["PhysicsSimulation"]
-      516 NAMECALL                         R14 R6 K19 ["getText"]
-      518 CALL                             R14 3 1
-      519 SETTABLEKS                       R14 R13 K16 ["Title"]
-      521 DUPTABLE                         R14 K83 [{"CollisionFidelity", "ContactPoints", "WindDirection"}]
-      522 GETUPVAL                         R16 5
-      523 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      525 GETUPVAL                         R16 7
-      526 DUPTABLE                         R17 K33 [{"Title", "ToolTip", "Setting", "Property"}]
-      527 LOADK                            R20 K28 ["StudioModes"]
-      528 LOADK                            R21 K80 ["CollisionFidelity"]
-      529 NAMECALL                         R18 R6 K19 ["getText"]
-      531 CALL                             R18 3 1
-      532 SETTABLEKS                       R18 R17 K16 ["Title"]
-      534 LOADK                            R20 K28 ["StudioModes"]
-      535 LOADK                            R21 K84 ["CollisionFidelityToolTip"]
-      536 NAMECALL                         R18 R6 K19 ["getText"]
-      538 CALL                             R18 3 1
-      539 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      541 GETTABLEKS                       R18 R5 K69 ["Physics"]
-      543 SETTABLEKS                       R18 R17 K31 ["Setting"]
-      545 LOADK                            R18 K85 ["ShowDecompositionGeometry"]
-      546 SETTABLEKS                       R18 R17 K32 ["Property"]
-      548 CALL                             R15 2 1
-      549 SETTABLEKS                       R15 R14 K80 ["CollisionFidelity"]
-      551 GETUPVAL                         R16 5
-      552 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      554 GETUPVAL                         R16 7
-      555 DUPTABLE                         R17 K33 [{"Title", "ToolTip", "Setting", "Property"}]
-      556 LOADK                            R20 K28 ["StudioModes"]
-      557 LOADK                            R21 K81 ["ContactPoints"]
-      558 NAMECALL                         R18 R6 K19 ["getText"]
-      560 CALL                             R18 3 1
-      561 SETTABLEKS                       R18 R17 K16 ["Title"]
-      563 LOADK                            R20 K28 ["StudioModes"]
-      564 LOADK                            R21 K86 ["ContactPointsToolTip"]
-      565 NAMECALL                         R18 R6 K19 ["getText"]
-      567 CALL                             R18 3 1
-      568 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      570 GETTABLEKS                       R18 R5 K69 ["Physics"]
-      572 SETTABLEKS                       R18 R17 K31 ["Setting"]
-      574 LOADK                            R18 K87 ["AreContactPointsShown"]
-      575 SETTABLEKS                       R18 R17 K32 ["Property"]
-      577 CALL                             R15 2 1
-      578 SETTABLEKS                       R15 R14 K81 ["ContactPoints"]
-      580 GETUPVAL                         R16 5
-      581 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      583 GETUPVAL                         R16 6
-      584 DUPTABLE                         R17 K27 [{"Title", "ToolTip", "FeatureId", "ActionId", "Actions"}]
-      585 LOADK                            R20 K28 ["StudioModes"]
-      586 LOADK                            R21 K82 ["WindDirection"]
-      587 NAMECALL                         R18 R6 K19 ["getText"]
-      589 CALL                             R18 3 1
-      590 SETTABLEKS                       R18 R17 K16 ["Title"]
-      592 LOADK                            R20 K28 ["StudioModes"]
-      593 LOADK                            R21 K88 ["WindDirectionToolTip"]
-      594 NAMECALL                         R18 R6 K19 ["getText"]
-      596 CALL                             R18 3 1
-      597 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      599 LOADK                            R18 K89 ["WindControl"]
-      600 SETTABLEKS                       R18 R17 K24 ["FeatureId"]
-      602 LOADK                            R18 K30 ["Toggle"]
-      603 SETTABLEKS                       R18 R17 K25 ["ActionId"]
-      605 GETTABLEKS                       R18 R0 K26 ["Actions"]
-      607 SETTABLEKS                       R18 R17 K26 ["Actions"]
-      609 CALL                             R15 2 1
-      610 SETTABLEKS                       R15 R14 K82 ["WindDirection"]
-      612 CALL                             R11 3 1
-      613 SETTABLEKS                       R11 R10 K12 ["PhysicsSimulation"]
-      615 GETUPVAL                         R12 5
-      616 GETTABLEKS                       R11 R12 K5 ["createElement"]
-      618 LOADK                            R12 K15 ["VisualizationModeCategory"]
-      619 DUPTABLE                         R13 K17 [{"Title"}]
-      620 LOADK                            R16 K18 ["VisualizationModeCategories"]
-      621 LOADK                            R17 K13 ["View"]
-      622 NAMECALL                         R14 R6 K19 ["getText"]
-      624 CALL                             R14 3 1
-      625 SETTABLEKS                       R14 R13 K16 ["Title"]
-      627 DUPTABLE                         R14 K95 [{"ViewSelector", "Grid", "GridMaterial", "Slim", "CollaboratorHighlights"}]
-      628 GETUPVAL                         R16 5
-      629 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      631 GETUPVAL                         R16 6
-      632 DUPTABLE                         R17 K27 [{"Title", "ToolTip", "FeatureId", "ActionId", "Actions"}]
-      633 LOADK                            R20 K28 ["StudioModes"]
-      634 LOADK                            R21 K90 ["ViewSelector"]
-      635 NAMECALL                         R18 R6 K19 ["getText"]
-      637 CALL                             R18 3 1
-      638 SETTABLEKS                       R18 R17 K16 ["Title"]
-      640 LOADK                            R20 K28 ["StudioModes"]
-      641 LOADK                            R21 K96 ["ViewSelectorToolTip"]
-      642 NAMECALL                         R18 R6 K19 ["getText"]
-      644 CALL                             R18 3 1
-      645 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      647 LOADK                            R18 K90 ["ViewSelector"]
-      648 SETTABLEKS                       R18 R17 K24 ["FeatureId"]
-      650 LOADK                            R18 K30 ["Toggle"]
-      651 SETTABLEKS                       R18 R17 K25 ["ActionId"]
-      653 GETTABLEKS                       R18 R0 K26 ["Actions"]
-      655 SETTABLEKS                       R18 R17 K26 ["Actions"]
-      657 CALL                             R15 2 1
-      658 SETTABLEKS                       R15 R14 K90 ["ViewSelector"]
-      660 GETUPVAL                         R16 5
-      661 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      663 GETUPVAL                         R16 6
-      664 DUPTABLE                         R17 K27 [{"Title", "ToolTip", "FeatureId", "ActionId", "Actions"}]
-      665 LOADK                            R20 K28 ["StudioModes"]
-      666 LOADK                            R21 K91 ["Grid"]
-      667 NAMECALL                         R18 R6 K19 ["getText"]
-      669 CALL                             R18 3 1
-      670 SETTABLEKS                       R18 R17 K16 ["Title"]
-      672 LOADK                            R20 K28 ["StudioModes"]
-      673 LOADK                            R21 K97 ["GridToolTip"]
-      674 NAMECALL                         R18 R6 K19 ["getText"]
-      676 CALL                             R18 3 1
-      677 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      679 LOADK                            R18 K98 ["3DGrid"]
-      680 SETTABLEKS                       R18 R17 K24 ["FeatureId"]
-      682 LOADK                            R18 K30 ["Toggle"]
-      683 SETTABLEKS                       R18 R17 K25 ["ActionId"]
-      685 GETTABLEKS                       R18 R0 K26 ["Actions"]
-      687 SETTABLEKS                       R18 R17 K26 ["Actions"]
-      689 CALL                             R15 2 1
-      690 SETTABLEKS                       R15 R14 K91 ["Grid"]
-      692 GETUPVAL                         R16 5
-      693 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      695 GETUPVAL                         R16 6
-      696 DUPTABLE                         R17 K27 [{"Title", "ToolTip", "FeatureId", "ActionId", "Actions"}]
-      697 LOADK                            R20 K28 ["StudioModes"]
-      698 LOADK                            R21 K92 ["GridMaterial"]
-      699 NAMECALL                         R18 R6 K19 ["getText"]
-      701 CALL                             R18 3 1
-      702 SETTABLEKS                       R18 R17 K16 ["Title"]
-      704 LOADK                            R20 K28 ["StudioModes"]
-      705 LOADK                            R21 K99 ["GridMaterialToolTip"]
-      706 NAMECALL                         R18 R6 K19 ["getText"]
-      708 CALL                             R18 3 1
-      709 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      711 LOADK                            R18 K92 ["GridMaterial"]
-      712 SETTABLEKS                       R18 R17 K24 ["FeatureId"]
-      714 LOADK                            R18 K30 ["Toggle"]
-      715 SETTABLEKS                       R18 R17 K25 ["ActionId"]
-      717 GETTABLEKS                       R18 R0 K26 ["Actions"]
-      719 SETTABLEKS                       R18 R17 K26 ["Actions"]
-      721 CALL                             R15 2 1
-      722 SETTABLEKS                       R15 R14 K92 ["GridMaterial"]
-      724 MOVE                             R15 R4
-      725 JUMPIFNOT                        R15 ; [+32]
-      726 MOVE                             R15 R3
-      727 JUMPIFNOT                        R15 ; [+30]
-      728 GETUPVAL                         R16 5
-      729 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      731 GETUPVAL                         R16 6
-      732 DUPTABLE                         R17 K27 [{"Title", "ToolTip", "FeatureId", "ActionId", "Actions"}]
-      733 LOADK                            R20 K28 ["StudioModes"]
-      734 LOADK                            R21 K100 ["SLIM"]
-      735 NAMECALL                         R18 R6 K19 ["getText"]
-      737 CALL                             R18 3 1
-      738 SETTABLEKS                       R18 R17 K16 ["Title"]
-      740 LOADK                            R20 K28 ["StudioModes"]
-      741 LOADK                            R21 K101 ["SLIMToolTip"]
-      742 NAMECALL                         R18 R6 K19 ["getText"]
-      744 CALL                             R18 3 1
-      745 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      747 LOADK                            R18 K100 ["SLIM"]
-      748 SETTABLEKS                       R18 R17 K24 ["FeatureId"]
-      750 LOADK                            R18 K102 ["ToggleDebug"]
-      751 SETTABLEKS                       R18 R17 K25 ["ActionId"]
-      753 GETTABLEKS                       R18 R0 K26 ["Actions"]
-      755 SETTABLEKS                       R18 R17 K26 ["Actions"]
-      757 CALL                             R15 2 1
-      758 SETTABLEKS                       R15 R14 K93 ["Slim"]
-      760 MOVE                             R15 R1
-      761 JUMPIFNOT                        R15 ; [+23]
-      762 GETUPVAL                         R16 5
-      763 GETTABLEKS                       R15 R16 K5 ["createElement"]
-      765 GETUPVAL                         R16 8
-      766 DUPTABLE                         R17 K104 [{"Title", "ToolTip", "UseState"}]
-      767 LOADK                            R20 K28 ["StudioModes"]
-      768 LOADK                            R21 K94 ["CollaboratorHighlights"]
-      769 NAMECALL                         R18 R6 K19 ["getText"]
-      771 CALL                             R18 3 1
-      772 SETTABLEKS                       R18 R17 K16 ["Title"]
-      774 LOADK                            R20 K28 ["StudioModes"]
-      775 LOADK                            R21 K105 ["CollaboratorHighlightsToolTip"]
-      776 NAMECALL                         R18 R6 K19 ["getText"]
-      778 CALL                             R18 3 1
-      779 SETTABLEKS                       R18 R17 K23 ["ToolTip"]
-      781 GETUPVAL                         R18 9
-      782 SETTABLEKS                       R18 R17 K103 ["UseState"]
-      784 CALL                             R15 2 1
-      785 SETTABLEKS                       R15 R14 K94 ["CollaboratorHighlights"]
-      787 CALL                             R11 3 1
-      788 SETTABLEKS                       R11 R10 K13 ["View"]
-      790 CALL                             R7 3 -1
-      791 RETURN                           R7 -1
+        4 JUMPIFNOT                        R2 ; [+6]
+        5 GETTABLEKS                       R4 R0 K0 ["SettingsInstance"]
+        7 JUMPIFNOT                        R4 ; [+3]
+        8 GETTABLEKS                       R3 R0 K0 ["SettingsInstance"]
+       10 JUMP                             ; [+3]
+       11 GETIMPORT                        R3 K2 [settings]
+       13 CALL                             R3 0 1
+       14 GETUPVAL                         R5 2
+       15 GETTABLEKS                       R4 R5 K3 ["Localization"]
+       17 NAMECALL                         R4 R4 K4 ["use"]
+       19 CALL                             R4 1 1
+       20 GETUPVAL                         R6 3
+       21 GETTABLEKS                       R5 R6 K5 ["createElement"]
+       23 GETUPVAL                         R7 3
+       24 GETTABLEKS                       R6 R7 K6 ["Fragment"]
+       26 NEWTABLE                         R7 0 0
+       28 DUPTABLE                         R8 K14 [{"GUI", "Lighting", "Pathfinding", "PhysicsConstraints", "PhysicsLabels", "PhysicsSimulation", "View"}]
+       29 GETUPVAL                         R10 3
+       30 GETTABLEKS                       R9 R10 K5 ["createElement"]
+       32 LOADK                            R10 K15 ["VisualizationModeCategory"]
+       33 DUPTABLE                         R11 K17 [{"Title"}]
+       34 LOADK                            R14 K18 ["VisualizationModeCategories"]
+       35 LOADK                            R15 K7 ["GUI"]
+       36 NAMECALL                         R12 R4 K19 ["getText"]
+       38 CALL                             R12 3 1
+       39 SETTABLEKS                       R12 R11 K16 ["Title"]
+       41 DUPTABLE                         R12 K22 [{"DeviceEmulation", "GUIOverlay"}]
+       42 GETUPVAL                         R14 3
+       43 GETTABLEKS                       R13 R14 K5 ["createElement"]
+       45 GETUPVAL                         R14 4
+       46 DUPTABLE                         R15 K27 [{"Title", "ToolTip", "FeatureId", "ActionId", "Actions"}]
+       47 LOADK                            R18 K28 ["StudioModes"]
+       48 LOADK                            R19 K20 ["DeviceEmulation"]
+       49 NAMECALL                         R16 R4 K19 ["getText"]
+       51 CALL                             R16 3 1
+       52 SETTABLEKS                       R16 R15 K16 ["Title"]
+       54 LOADK                            R18 K28 ["StudioModes"]
+       55 LOADK                            R19 K29 ["DeviceEmulationToolTip"]
+       56 NAMECALL                         R16 R4 K19 ["getText"]
+       58 CALL                             R16 3 1
+       59 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+       61 LOADK                            R16 K20 ["DeviceEmulation"]
+       62 SETTABLEKS                       R16 R15 K24 ["FeatureId"]
+       64 LOADK                            R16 K30 ["Toggle"]
+       65 SETTABLEKS                       R16 R15 K25 ["ActionId"]
+       67 GETTABLEKS                       R16 R0 K26 ["Actions"]
+       69 SETTABLEKS                       R16 R15 K26 ["Actions"]
+       71 CALL                             R13 2 1
+       72 SETTABLEKS                       R13 R12 K20 ["DeviceEmulation"]
+       74 GETUPVAL                         R14 3
+       75 GETTABLEKS                       R13 R14 K5 ["createElement"]
+       77 GETUPVAL                         R14 5
+       78 DUPTABLE                         R15 K33 [{"Title", "ToolTip", "Setting", "Property"}]
+       79 LOADK                            R18 K28 ["StudioModes"]
+       80 LOADK                            R19 K21 ["GUIOverlay"]
+       81 NAMECALL                         R16 R4 K19 ["getText"]
+       83 CALL                             R16 3 1
+       84 SETTABLEKS                       R16 R15 K16 ["Title"]
+       86 LOADK                            R18 K28 ["StudioModes"]
+       87 LOADK                            R19 K34 ["GUIOverlayToolTip"]
+       88 NAMECALL                         R16 R4 K19 ["getText"]
+       90 CALL                             R16 3 1
+       91 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+       93 JUMPIFNOT                        R1 ; [+7]
+       94 GETIMPORT                        R16 K36 [game]
+       96 LOADK                            R18 K37 ["StarterGui"]
+       97 NAMECALL                         R16 R16 K38 ["GetService"]
+       99 CALL                             R16 2 1
+      100 JUMP                             ; [+4]
+      101 GETIMPORT                        R17 K36 [game]
+      103 GETTABLEKS                       R16 R17 K37 ["StarterGui"]
+      105 SETTABLEKS                       R16 R15 K31 ["Setting"]
+      107 LOADK                            R16 K39 ["ShowDevelopmentGui"]
+      108 SETTABLEKS                       R16 R15 K32 ["Property"]
+      110 CALL                             R13 2 1
+      111 SETTABLEKS                       R13 R12 K21 ["GUIOverlay"]
+      113 CALL                             R9 3 1
+      114 SETTABLEKS                       R9 R8 K7 ["GUI"]
+      116 GETUPVAL                         R10 3
+      117 GETTABLEKS                       R9 R10 K5 ["createElement"]
+      119 LOADK                            R10 K15 ["VisualizationModeCategory"]
+      120 DUPTABLE                         R11 K17 [{"Title"}]
+      121 LOADK                            R14 K18 ["VisualizationModeCategories"]
+      122 LOADK                            R15 K8 ["Lighting"]
+      123 NAMECALL                         R12 R4 K19 ["getText"]
+      125 CALL                             R12 3 1
+      126 SETTABLEKS                       R12 R11 K16 ["Title"]
+      128 DUPTABLE                         R12 K41 [{"Lights"}]
+      129 GETUPVAL                         R14 3
+      130 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      132 GETUPVAL                         R14 5
+      133 DUPTABLE                         R15 K33 [{"Title", "ToolTip", "Setting", "Property"}]
+      134 LOADK                            R18 K28 ["StudioModes"]
+      135 LOADK                            R19 K40 ["Lights"]
+      136 NAMECALL                         R16 R4 K19 ["getText"]
+      138 CALL                             R16 3 1
+      139 SETTABLEKS                       R16 R15 K16 ["Title"]
+      141 LOADK                            R18 K28 ["StudioModes"]
+      142 LOADK                            R19 K42 ["LightsToolTip"]
+      143 NAMECALL                         R16 R4 K19 ["getText"]
+      145 CALL                             R16 3 1
+      146 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      148 GETTABLEKS                       R16 R3 K43 ["Studio"]
+      150 SETTABLEKS                       R16 R15 K31 ["Setting"]
+      152 LOADK                            R16 K44 ["Show Light Guides"]
+      153 SETTABLEKS                       R16 R15 K32 ["Property"]
+      155 CALL                             R13 2 1
+      156 SETTABLEKS                       R13 R12 K40 ["Lights"]
+      158 CALL                             R9 3 1
+      159 SETTABLEKS                       R9 R8 K8 ["Lighting"]
+      161 GETUPVAL                         R10 3
+      162 GETTABLEKS                       R9 R10 K5 ["createElement"]
+      164 LOADK                            R10 K15 ["VisualizationModeCategory"]
+      165 DUPTABLE                         R11 K17 [{"Title"}]
+      166 LOADK                            R14 K18 ["VisualizationModeCategories"]
+      167 LOADK                            R15 K9 ["Pathfinding"]
+      168 NAMECALL                         R12 R4 K19 ["getText"]
+      170 CALL                             R12 3 1
+      171 SETTABLEKS                       R12 R11 K16 ["Title"]
+      173 DUPTABLE                         R12 K48 [{"PathfindingMesh", "PathfindingModifiers", "PathfindingLinks"}]
+      174 GETUPVAL                         R14 3
+      175 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      177 GETUPVAL                         R14 5
+      178 DUPTABLE                         R15 K33 [{"Title", "ToolTip", "Setting", "Property"}]
+      179 LOADK                            R18 K28 ["StudioModes"]
+      180 LOADK                            R19 K45 ["PathfindingMesh"]
+      181 NAMECALL                         R16 R4 K19 ["getText"]
+      183 CALL                             R16 3 1
+      184 SETTABLEKS                       R16 R15 K16 ["Title"]
+      186 LOADK                            R18 K28 ["StudioModes"]
+      187 LOADK                            R19 K49 ["PathfindingMeshToolTip"]
+      188 NAMECALL                         R16 R4 K19 ["getText"]
+      190 CALL                             R16 3 1
+      191 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      193 GETTABLEKS                       R16 R3 K43 ["Studio"]
+      195 SETTABLEKS                       R16 R15 K31 ["Setting"]
+      197 LOADK                            R16 K50 ["Show Navigation Mesh"]
+      198 SETTABLEKS                       R16 R15 K32 ["Property"]
+      200 CALL                             R13 2 1
+      201 SETTABLEKS                       R13 R12 K45 ["PathfindingMesh"]
+      203 GETUPVAL                         R14 3
+      204 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      206 GETUPVAL                         R14 5
+      207 DUPTABLE                         R15 K33 [{"Title", "ToolTip", "Setting", "Property"}]
+      208 LOADK                            R18 K28 ["StudioModes"]
+      209 LOADK                            R19 K46 ["PathfindingModifiers"]
+      210 NAMECALL                         R16 R4 K19 ["getText"]
+      212 CALL                             R16 3 1
+      213 SETTABLEKS                       R16 R15 K16 ["Title"]
+      215 LOADK                            R18 K28 ["StudioModes"]
+      216 LOADK                            R19 K51 ["PathfindingModifiersToolTip"]
+      217 NAMECALL                         R16 R4 K19 ["getText"]
+      219 CALL                             R16 3 1
+      220 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      222 GETTABLEKS                       R16 R3 K43 ["Studio"]
+      224 SETTABLEKS                       R16 R15 K31 ["Setting"]
+      226 LOADK                            R16 K52 ["Show Navigation Labels"]
+      227 SETTABLEKS                       R16 R15 K32 ["Property"]
+      229 CALL                             R13 2 1
+      230 SETTABLEKS                       R13 R12 K46 ["PathfindingModifiers"]
+      232 GETUPVAL                         R14 3
+      233 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      235 GETUPVAL                         R14 5
+      236 DUPTABLE                         R15 K33 [{"Title", "ToolTip", "Setting", "Property"}]
+      237 LOADK                            R18 K28 ["StudioModes"]
+      238 LOADK                            R19 K47 ["PathfindingLinks"]
+      239 NAMECALL                         R16 R4 K19 ["getText"]
+      241 CALL                             R16 3 1
+      242 SETTABLEKS                       R16 R15 K16 ["Title"]
+      244 LOADK                            R18 K28 ["StudioModes"]
+      245 LOADK                            R19 K53 ["PathfindingLinksToolTip"]
+      246 NAMECALL                         R16 R4 K19 ["getText"]
+      248 CALL                             R16 3 1
+      249 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      251 GETTABLEKS                       R16 R3 K43 ["Studio"]
+      253 SETTABLEKS                       R16 R15 K31 ["Setting"]
+      255 LOADK                            R16 K54 ["Show Pathfinding Links"]
+      256 SETTABLEKS                       R16 R15 K32 ["Property"]
+      258 CALL                             R13 2 1
+      259 SETTABLEKS                       R13 R12 K47 ["PathfindingLinks"]
+      261 CALL                             R9 3 1
+      262 SETTABLEKS                       R9 R8 K9 ["Pathfinding"]
+      264 GETUPVAL                         R10 3
+      265 GETTABLEKS                       R9 R10 K5 ["createElement"]
+      267 LOADK                            R10 K15 ["VisualizationModeCategory"]
+      268 DUPTABLE                         R11 K17 [{"Title"}]
+      269 LOADK                            R14 K18 ["VisualizationModeCategories"]
+      270 LOADK                            R15 K10 ["PhysicsConstraints"]
+      271 NAMECALL                         R12 R4 K19 ["getText"]
+      273 CALL                             R12 3 1
+      274 SETTABLEKS                       R12 R11 K16 ["Title"]
+      276 DUPTABLE                         R12 K57 [{"Constraints", "Welds"}]
+      277 GETUPVAL                         R14 3
+      278 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      280 GETUPVAL                         R14 4
+      281 DUPTABLE                         R15 K27 [{"Title", "ToolTip", "FeatureId", "ActionId", "Actions"}]
+      282 LOADK                            R18 K28 ["StudioModes"]
+      283 LOADK                            R19 K55 ["Constraints"]
+      284 NAMECALL                         R16 R4 K19 ["getText"]
+      286 CALL                             R16 3 1
+      287 SETTABLEKS                       R16 R15 K16 ["Title"]
+      289 LOADK                            R18 K28 ["StudioModes"]
+      290 LOADK                            R19 K58 ["ConstraintsToolTip"]
+      291 NAMECALL                         R16 R4 K19 ["getText"]
+      293 CALL                             R16 3 1
+      294 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      296 LOADK                            R16 K55 ["Constraints"]
+      297 SETTABLEKS                       R16 R15 K24 ["FeatureId"]
+      299 LOADK                            R16 K59 ["ShowDetails"]
+      300 SETTABLEKS                       R16 R15 K25 ["ActionId"]
+      302 GETTABLEKS                       R16 R0 K26 ["Actions"]
+      304 SETTABLEKS                       R16 R15 K26 ["Actions"]
+      306 CALL                             R13 2 1
+      307 SETTABLEKS                       R13 R12 K55 ["Constraints"]
+      309 GETUPVAL                         R14 3
+      310 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      312 GETUPVAL                         R14 4
+      313 DUPTABLE                         R15 K27 [{"Title", "ToolTip", "FeatureId", "ActionId", "Actions"}]
+      314 LOADK                            R18 K28 ["StudioModes"]
+      315 LOADK                            R19 K56 ["Welds"]
+      316 NAMECALL                         R16 R4 K19 ["getText"]
+      318 CALL                             R16 3 1
+      319 SETTABLEKS                       R16 R15 K16 ["Title"]
+      321 LOADK                            R18 K28 ["StudioModes"]
+      322 LOADK                            R19 K60 ["WeldsToolTip"]
+      323 NAMECALL                         R16 R4 K19 ["getText"]
+      325 CALL                             R16 3 1
+      326 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      328 LOADK                            R16 K55 ["Constraints"]
+      329 SETTABLEKS                       R16 R15 K24 ["FeatureId"]
+      331 LOADK                            R16 K61 ["ShowWelds"]
+      332 SETTABLEKS                       R16 R15 K25 ["ActionId"]
+      334 GETTABLEKS                       R16 R0 K26 ["Actions"]
+      336 SETTABLEKS                       R16 R15 K26 ["Actions"]
+      338 CALL                             R13 2 1
+      339 SETTABLEKS                       R13 R12 K56 ["Welds"]
+      341 CALL                             R9 3 1
+      342 SETTABLEKS                       R9 R8 K10 ["PhysicsConstraints"]
+      344 GETUPVAL                         R10 3
+      345 GETTABLEKS                       R9 R10 K5 ["createElement"]
+      347 LOADK                            R10 K15 ["VisualizationModeCategory"]
+      348 DUPTABLE                         R11 K17 [{"Title"}]
+      349 LOADK                            R14 K18 ["VisualizationModeCategories"]
+      350 LOADK                            R15 K11 ["PhysicsLabels"]
+      351 NAMECALL                         R12 R4 K19 ["getText"]
+      353 CALL                             R12 3 1
+      354 SETTABLEKS                       R12 R11 K16 ["Title"]
+      356 DUPTABLE                         R12 K67 [{"AnchoredParts", "AwakeParts", "Assemblies", "Mechanisms", "NetworkOwner"}]
+      357 GETUPVAL                         R14 3
+      358 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      360 GETUPVAL                         R14 5
+      361 DUPTABLE                         R15 K33 [{"Title", "ToolTip", "Setting", "Property"}]
+      362 LOADK                            R18 K28 ["StudioModes"]
+      363 LOADK                            R19 K62 ["AnchoredParts"]
+      364 NAMECALL                         R16 R4 K19 ["getText"]
+      366 CALL                             R16 3 1
+      367 SETTABLEKS                       R16 R15 K16 ["Title"]
+      369 LOADK                            R18 K28 ["StudioModes"]
+      370 LOADK                            R19 K68 ["AnchoredPartsToolTip"]
+      371 NAMECALL                         R16 R4 K19 ["getText"]
+      373 CALL                             R16 3 1
+      374 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      376 GETTABLEKS                       R16 R3 K69 ["Physics"]
+      378 SETTABLEKS                       R16 R15 K31 ["Setting"]
+      380 LOADK                            R16 K70 ["AreAnchorsShown"]
+      381 SETTABLEKS                       R16 R15 K32 ["Property"]
+      383 CALL                             R13 2 1
+      384 SETTABLEKS                       R13 R12 K62 ["AnchoredParts"]
+      386 GETUPVAL                         R14 3
+      387 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      389 GETUPVAL                         R14 5
+      390 DUPTABLE                         R15 K33 [{"Title", "ToolTip", "Setting", "Property"}]
+      391 LOADK                            R18 K28 ["StudioModes"]
+      392 LOADK                            R19 K63 ["AwakeParts"]
+      393 NAMECALL                         R16 R4 K19 ["getText"]
+      395 CALL                             R16 3 1
+      396 SETTABLEKS                       R16 R15 K16 ["Title"]
+      398 LOADK                            R18 K28 ["StudioModes"]
+      399 LOADK                            R19 K71 ["AwakePartsToolTip"]
+      400 NAMECALL                         R16 R4 K19 ["getText"]
+      402 CALL                             R16 3 1
+      403 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      405 GETTABLEKS                       R16 R3 K69 ["Physics"]
+      407 SETTABLEKS                       R16 R15 K31 ["Setting"]
+      409 LOADK                            R16 K72 ["AreAwakePartsHighlighted"]
+      410 SETTABLEKS                       R16 R15 K32 ["Property"]
+      412 CALL                             R13 2 1
+      413 SETTABLEKS                       R13 R12 K63 ["AwakeParts"]
+      415 GETUPVAL                         R14 3
+      416 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      418 GETUPVAL                         R14 5
+      419 DUPTABLE                         R15 K33 [{"Title", "ToolTip", "Setting", "Property"}]
+      420 LOADK                            R18 K28 ["StudioModes"]
+      421 LOADK                            R19 K73 ["ShowAssemblies"]
+      422 NAMECALL                         R16 R4 K19 ["getText"]
+      424 CALL                             R16 3 1
+      425 SETTABLEKS                       R16 R15 K16 ["Title"]
+      427 LOADK                            R18 K28 ["StudioModes"]
+      428 LOADK                            R19 K74 ["ShowAssembliesToolTip"]
+      429 NAMECALL                         R16 R4 K19 ["getText"]
+      431 CALL                             R16 3 1
+      432 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      434 GETTABLEKS                       R16 R3 K69 ["Physics"]
+      436 SETTABLEKS                       R16 R15 K31 ["Setting"]
+      438 LOADK                            R16 K75 ["AreAssembliesShown"]
+      439 SETTABLEKS                       R16 R15 K32 ["Property"]
+      441 CALL                             R13 2 1
+      442 SETTABLEKS                       R13 R12 K64 ["Assemblies"]
+      444 GETUPVAL                         R14 3
+      445 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      447 GETUPVAL                         R14 5
+      448 DUPTABLE                         R15 K33 [{"Title", "ToolTip", "Setting", "Property"}]
+      449 LOADK                            R18 K28 ["StudioModes"]
+      450 LOADK                            R19 K65 ["Mechanisms"]
+      451 NAMECALL                         R16 R4 K19 ["getText"]
+      453 CALL                             R16 3 1
+      454 SETTABLEKS                       R16 R15 K16 ["Title"]
+      456 LOADK                            R18 K28 ["StudioModes"]
+      457 LOADK                            R19 K76 ["MechanismsToolTip"]
+      458 NAMECALL                         R16 R4 K19 ["getText"]
+      460 CALL                             R16 3 1
+      461 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      463 GETTABLEKS                       R16 R3 K69 ["Physics"]
+      465 SETTABLEKS                       R16 R15 K31 ["Setting"]
+      467 LOADK                            R16 K77 ["AreMechanismsShown"]
+      468 SETTABLEKS                       R16 R15 K32 ["Property"]
+      470 CALL                             R13 2 1
+      471 SETTABLEKS                       R13 R12 K65 ["Mechanisms"]
+      473 GETUPVAL                         R14 3
+      474 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      476 GETUPVAL                         R14 5
+      477 DUPTABLE                         R15 K33 [{"Title", "ToolTip", "Setting", "Property"}]
+      478 LOADK                            R18 K28 ["StudioModes"]
+      479 LOADK                            R19 K66 ["NetworkOwner"]
+      480 NAMECALL                         R16 R4 K19 ["getText"]
+      482 CALL                             R16 3 1
+      483 SETTABLEKS                       R16 R15 K16 ["Title"]
+      485 LOADK                            R18 K28 ["StudioModes"]
+      486 LOADK                            R19 K78 ["NetworkOwnerToolTip"]
+      487 NAMECALL                         R16 R4 K19 ["getText"]
+      489 CALL                             R16 3 1
+      490 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      492 GETTABLEKS                       R16 R3 K69 ["Physics"]
+      494 SETTABLEKS                       R16 R15 K31 ["Setting"]
+      496 LOADK                            R16 K79 ["AreOwnersShown"]
+      497 SETTABLEKS                       R16 R15 K32 ["Property"]
+      499 CALL                             R13 2 1
+      500 SETTABLEKS                       R13 R12 K66 ["NetworkOwner"]
+      502 CALL                             R9 3 1
+      503 SETTABLEKS                       R9 R8 K11 ["PhysicsLabels"]
+      505 GETUPVAL                         R10 3
+      506 GETTABLEKS                       R9 R10 K5 ["createElement"]
+      508 LOADK                            R10 K15 ["VisualizationModeCategory"]
+      509 DUPTABLE                         R11 K17 [{"Title"}]
+      510 LOADK                            R14 K18 ["VisualizationModeCategories"]
+      511 LOADK                            R15 K12 ["PhysicsSimulation"]
+      512 NAMECALL                         R12 R4 K19 ["getText"]
+      514 CALL                             R12 3 1
+      515 SETTABLEKS                       R12 R11 K16 ["Title"]
+      517 DUPTABLE                         R12 K83 [{"CollisionFidelity", "ContactPoints", "WindDirection"}]
+      518 GETUPVAL                         R14 3
+      519 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      521 GETUPVAL                         R14 5
+      522 DUPTABLE                         R15 K33 [{"Title", "ToolTip", "Setting", "Property"}]
+      523 LOADK                            R18 K28 ["StudioModes"]
+      524 LOADK                            R19 K80 ["CollisionFidelity"]
+      525 NAMECALL                         R16 R4 K19 ["getText"]
+      527 CALL                             R16 3 1
+      528 SETTABLEKS                       R16 R15 K16 ["Title"]
+      530 LOADK                            R18 K28 ["StudioModes"]
+      531 LOADK                            R19 K84 ["CollisionFidelityToolTip"]
+      532 NAMECALL                         R16 R4 K19 ["getText"]
+      534 CALL                             R16 3 1
+      535 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      537 GETTABLEKS                       R16 R3 K69 ["Physics"]
+      539 SETTABLEKS                       R16 R15 K31 ["Setting"]
+      541 LOADK                            R16 K85 ["ShowDecompositionGeometry"]
+      542 SETTABLEKS                       R16 R15 K32 ["Property"]
+      544 CALL                             R13 2 1
+      545 SETTABLEKS                       R13 R12 K80 ["CollisionFidelity"]
+      547 GETUPVAL                         R14 3
+      548 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      550 GETUPVAL                         R14 5
+      551 DUPTABLE                         R15 K33 [{"Title", "ToolTip", "Setting", "Property"}]
+      552 LOADK                            R18 K28 ["StudioModes"]
+      553 LOADK                            R19 K81 ["ContactPoints"]
+      554 NAMECALL                         R16 R4 K19 ["getText"]
+      556 CALL                             R16 3 1
+      557 SETTABLEKS                       R16 R15 K16 ["Title"]
+      559 LOADK                            R18 K28 ["StudioModes"]
+      560 LOADK                            R19 K86 ["ContactPointsToolTip"]
+      561 NAMECALL                         R16 R4 K19 ["getText"]
+      563 CALL                             R16 3 1
+      564 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      566 GETTABLEKS                       R16 R3 K69 ["Physics"]
+      568 SETTABLEKS                       R16 R15 K31 ["Setting"]
+      570 LOADK                            R16 K87 ["AreContactPointsShown"]
+      571 SETTABLEKS                       R16 R15 K32 ["Property"]
+      573 CALL                             R13 2 1
+      574 SETTABLEKS                       R13 R12 K81 ["ContactPoints"]
+      576 GETUPVAL                         R14 3
+      577 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      579 GETUPVAL                         R14 4
+      580 DUPTABLE                         R15 K27 [{"Title", "ToolTip", "FeatureId", "ActionId", "Actions"}]
+      581 LOADK                            R18 K28 ["StudioModes"]
+      582 LOADK                            R19 K82 ["WindDirection"]
+      583 NAMECALL                         R16 R4 K19 ["getText"]
+      585 CALL                             R16 3 1
+      586 SETTABLEKS                       R16 R15 K16 ["Title"]
+      588 LOADK                            R18 K28 ["StudioModes"]
+      589 LOADK                            R19 K88 ["WindDirectionToolTip"]
+      590 NAMECALL                         R16 R4 K19 ["getText"]
+      592 CALL                             R16 3 1
+      593 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      595 LOADK                            R16 K89 ["WindControl"]
+      596 SETTABLEKS                       R16 R15 K24 ["FeatureId"]
+      598 LOADK                            R16 K30 ["Toggle"]
+      599 SETTABLEKS                       R16 R15 K25 ["ActionId"]
+      601 GETTABLEKS                       R16 R0 K26 ["Actions"]
+      603 SETTABLEKS                       R16 R15 K26 ["Actions"]
+      605 CALL                             R13 2 1
+      606 SETTABLEKS                       R13 R12 K82 ["WindDirection"]
+      608 CALL                             R9 3 1
+      609 SETTABLEKS                       R9 R8 K12 ["PhysicsSimulation"]
+      611 GETUPVAL                         R10 3
+      612 GETTABLEKS                       R9 R10 K5 ["createElement"]
+      614 LOADK                            R10 K15 ["VisualizationModeCategory"]
+      615 DUPTABLE                         R11 K17 [{"Title"}]
+      616 LOADK                            R14 K18 ["VisualizationModeCategories"]
+      617 LOADK                            R15 K13 ["View"]
+      618 NAMECALL                         R12 R4 K19 ["getText"]
+      620 CALL                             R12 3 1
+      621 SETTABLEKS                       R12 R11 K16 ["Title"]
+      623 DUPTABLE                         R12 K94 [{"ViewSelector", "Grid", "GridMaterial", "CollaboratorHighlights"}]
+      624 GETUPVAL                         R14 3
+      625 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      627 GETUPVAL                         R14 4
+      628 DUPTABLE                         R15 K27 [{"Title", "ToolTip", "FeatureId", "ActionId", "Actions"}]
+      629 LOADK                            R18 K28 ["StudioModes"]
+      630 LOADK                            R19 K90 ["ViewSelector"]
+      631 NAMECALL                         R16 R4 K19 ["getText"]
+      633 CALL                             R16 3 1
+      634 SETTABLEKS                       R16 R15 K16 ["Title"]
+      636 LOADK                            R18 K28 ["StudioModes"]
+      637 LOADK                            R19 K95 ["ViewSelectorToolTip"]
+      638 NAMECALL                         R16 R4 K19 ["getText"]
+      640 CALL                             R16 3 1
+      641 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      643 LOADK                            R16 K90 ["ViewSelector"]
+      644 SETTABLEKS                       R16 R15 K24 ["FeatureId"]
+      646 LOADK                            R16 K30 ["Toggle"]
+      647 SETTABLEKS                       R16 R15 K25 ["ActionId"]
+      649 GETTABLEKS                       R16 R0 K26 ["Actions"]
+      651 SETTABLEKS                       R16 R15 K26 ["Actions"]
+      653 CALL                             R13 2 1
+      654 SETTABLEKS                       R13 R12 K90 ["ViewSelector"]
+      656 GETUPVAL                         R14 3
+      657 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      659 GETUPVAL                         R14 4
+      660 DUPTABLE                         R15 K27 [{"Title", "ToolTip", "FeatureId", "ActionId", "Actions"}]
+      661 LOADK                            R18 K28 ["StudioModes"]
+      662 LOADK                            R19 K91 ["Grid"]
+      663 NAMECALL                         R16 R4 K19 ["getText"]
+      665 CALL                             R16 3 1
+      666 SETTABLEKS                       R16 R15 K16 ["Title"]
+      668 LOADK                            R18 K28 ["StudioModes"]
+      669 LOADK                            R19 K96 ["GridToolTip"]
+      670 NAMECALL                         R16 R4 K19 ["getText"]
+      672 CALL                             R16 3 1
+      673 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      675 LOADK                            R16 K97 ["3DGrid"]
+      676 SETTABLEKS                       R16 R15 K24 ["FeatureId"]
+      678 LOADK                            R16 K30 ["Toggle"]
+      679 SETTABLEKS                       R16 R15 K25 ["ActionId"]
+      681 GETTABLEKS                       R16 R0 K26 ["Actions"]
+      683 SETTABLEKS                       R16 R15 K26 ["Actions"]
+      685 CALL                             R13 2 1
+      686 SETTABLEKS                       R13 R12 K91 ["Grid"]
+      688 GETUPVAL                         R14 3
+      689 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      691 GETUPVAL                         R14 4
+      692 DUPTABLE                         R15 K27 [{"Title", "ToolTip", "FeatureId", "ActionId", "Actions"}]
+      693 LOADK                            R18 K28 ["StudioModes"]
+      694 LOADK                            R19 K92 ["GridMaterial"]
+      695 NAMECALL                         R16 R4 K19 ["getText"]
+      697 CALL                             R16 3 1
+      698 SETTABLEKS                       R16 R15 K16 ["Title"]
+      700 LOADK                            R18 K28 ["StudioModes"]
+      701 LOADK                            R19 K98 ["GridMaterialToolTip"]
+      702 NAMECALL                         R16 R4 K19 ["getText"]
+      704 CALL                             R16 3 1
+      705 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      707 LOADK                            R16 K92 ["GridMaterial"]
+      708 SETTABLEKS                       R16 R15 K24 ["FeatureId"]
+      710 LOADK                            R16 K30 ["Toggle"]
+      711 SETTABLEKS                       R16 R15 K25 ["ActionId"]
+      713 GETTABLEKS                       R16 R0 K26 ["Actions"]
+      715 SETTABLEKS                       R16 R15 K26 ["Actions"]
+      717 CALL                             R13 2 1
+      718 SETTABLEKS                       R13 R12 K92 ["GridMaterial"]
+      720 MOVE                             R13 R1
+      721 JUMPIFNOT                        R13 ; [+23]
+      722 GETUPVAL                         R14 3
+      723 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      725 GETUPVAL                         R14 6
+      726 DUPTABLE                         R15 K100 [{"Title", "ToolTip", "UseState"}]
+      727 LOADK                            R18 K28 ["StudioModes"]
+      728 LOADK                            R19 K93 ["CollaboratorHighlights"]
+      729 NAMECALL                         R16 R4 K19 ["getText"]
+      731 CALL                             R16 3 1
+      732 SETTABLEKS                       R16 R15 K16 ["Title"]
+      734 LOADK                            R18 K28 ["StudioModes"]
+      735 LOADK                            R19 K101 ["CollaboratorHighlightsToolTip"]
+      736 NAMECALL                         R16 R4 K19 ["getText"]
+      738 CALL                             R16 3 1
+      739 SETTABLEKS                       R16 R15 K23 ["ToolTip"]
+      741 GETUPVAL                         R16 7
+      742 SETTABLEKS                       R16 R15 K99 ["UseState"]
+      744 CALL                             R13 2 1
+      745 SETTABLEKS                       R13 R12 K93 ["CollaboratorHighlights"]
+      747 CALL                             R9 3 1
+      748 SETTABLEKS                       R9 R8 K13 ["View"]
+      750 CALL                             R5 3 -1
+      751 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -602,26 +572,14 @@ MAIN:
        70 GETTABLEKS                       R10 R11 K16 ["Flags"]
        72 GETTABLEKS                       R9 R10 K18 ["getFFlagStudioVisualizationModesTestSupport"]
        74 CALL                             R8 1 1
-       75 GETIMPORT                        R9 K5 [require]
-       77 GETTABLEKS                       R12 R0 K9 ["Src"]
-       79 GETTABLEKS                       R11 R12 K16 ["Flags"]
-       81 GETTABLEKS                       R10 R11 K19 ["getFFlagStudioVisualizationModesShowSLIM"]
-       83 CALL                             R9 1 1
-       84 GETIMPORT                        R10 K5 [require]
-       86 GETTABLEKS                       R13 R0 K9 ["Src"]
-       88 GETTABLEKS                       R12 R13 K16 ["Flags"]
-       90 GETTABLEKS                       R11 R12 K20 ["getFFlagStudioVisualizationModesCheckForActions"]
-       92 CALL                             R10 1 1
-       93 GETTABLEKS                       R11 R1 K21 ["ContextServices"]
-       95 DUPCLOSURE                       R12 K22 [PROTO_0]
-       96 CAPTURE                          VAL R7
-       97 CAPTURE                          VAL R8
-       98 CAPTURE                          VAL R9
-       99 CAPTURE                          VAL R10
-      100 CAPTURE                          VAL R11
-      101 CAPTURE                          VAL R2
-      102 CAPTURE                          VAL R4
-      103 CAPTURE                          VAL R3
-      104 CAPTURE                          VAL R6
-      105 CAPTURE                          VAL R5
-      106 RETURN                           R12 1
+       75 GETTABLEKS                       R9 R1 K19 ["ContextServices"]
+       77 DUPCLOSURE                       R10 K20 [PROTO_0]
+       78 CAPTURE                          VAL R7
+       79 CAPTURE                          VAL R8
+       80 CAPTURE                          VAL R9
+       81 CAPTURE                          VAL R2
+       82 CAPTURE                          VAL R4
+       83 CAPTURE                          VAL R3
+       84 CAPTURE                          VAL R6
+       85 CAPTURE                          VAL R5
+       86 RETURN                           R10 1

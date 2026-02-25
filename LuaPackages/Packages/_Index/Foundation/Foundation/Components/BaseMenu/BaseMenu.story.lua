@@ -4,7 +4,10 @@ local BuilderIcons = require(Packages.BuilderIcons)
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
+local Flags = require(Foundation.Utility.Flags)
+local ThumbnailType = require(Foundation.Enums.ThumbnailType)
 local Types = require(Foundation.Components.Types)
+local getRbxThumb = require(Foundation.Utility.getRbxThumb)
 type ItemId = Types.ItemId
 local BaseMenu = require(Foundation.Components.BaseMenu)
 local InputSize = require(Foundation.Enums.InputSize)
@@ -54,6 +57,14 @@ local BASE_ITEMS: { BaseMenuItem } = {
 		isDisabled = true,
 		text = "Item",
 	},
+}
+
+local EXPERIENCE_DATA: { { name: string, universeId: number } } = {
+	{ name = "[💘] RIVALS", universeId = 6035872082 },
+	{ name = "[❤️ Event] Blox Fruits", universeId = 994732206 },
+	{ name = "Bee Swarm Simulator", universeId = 601130232 },
+	{ name = "Murder Mystery 2", universeId = 66654135 },
+	{ name = "[❤️‍🔥] Adopt Me!", universeId = 383310974 },
 }
 
 return {
@@ -267,10 +278,36 @@ return {
 				})
 			end,
 		},
+		{
+			name = "Experience Icons",
+			story = function(props)
+				Flags.FoundationBaseMenuItemImageRadius = props.controls.FoundationBaseMenuItemImageRadius
+				local selectedItem, setSelectedItem = React.useState(EXPERIENCE_DATA[1].name :: ItemId)
+
+				local items = {}
+				for _, experience in EXPERIENCE_DATA do
+					table.insert(items, {
+						id = experience.name,
+						icon = getRbxThumb(ThumbnailType.GameIcon, experience.universeId),
+						isChecked = selectedItem == experience.name,
+						text = experience.name,
+					})
+				end
+
+				return React.createElement(BaseMenu.Root, {
+					size = props.controls.size,
+					onActivated = function(id)
+						setSelectedItem(id)
+					end,
+					items = items,
+				})
+			end,
+		},
 	},
 	controls = {
 		size = Dash.values(InputSize),
 		icon = Dash.values(exampleIcons),
 		hasIcon = true,
+		FoundationBaseMenuItemImageRadius = Flags.FoundationBaseMenuItemImageRadius,
 	},
 }

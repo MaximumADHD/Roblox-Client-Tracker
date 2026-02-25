@@ -1,5 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local NumberInputControlsVariant = require(Foundation.Enums.NumberInputControlsVariant)
+type NumberInputControlsVariant = NumberInputControlsVariant.NumberInputControlsVariant
+
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
@@ -15,21 +18,25 @@ local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 local UNSCALED_SIZE_3000_TOKEN_WIDTH = 120
 
 local function computeProps(props: {
-	width: number,
+	width: number?,
 	buttonWidth: number?,
-	horizontalPadding: number,
-	upButtonTag: string,
-	downButtonTag: string,
-	splitButtonTag: string,
-	splitButtonSize: string,
+	horizontalPadding: number?,
+	upButtonTag: string?,
+	downButtonTag: string?,
+	splitButtonTag: string?,
+	splitButtonSize: number?,
+	iconTag: string?,
 })
-	local horizontalPadding = UDim.new(
-		0,
-		(
-			(if Flags.FoundationNumberInputTokenBasedWidth then props.buttonWidth :: number else props.width)
-			- props.horizontalPadding
-		) / 2
-	)
+	local horizontalPadding = if not Flags.FoundationNumberInputFixControlSizes
+			or (props.width and props.horizontalPadding)
+		then UDim.new(
+			0,
+			(
+				(if Flags.FoundationNumberInputTokenBasedWidth then props.buttonWidth :: number else props.width)
+				- props.horizontalPadding
+			) / 2
+		)
+		else nil
 	return {
 		container = {
 			width = if Flags.FoundationNumberInputTokenBasedWidth then props.width else nil,
@@ -37,10 +44,12 @@ local function computeProps(props: {
 		button = {
 			tag = "size-full fill",
 			width = if Flags.FoundationNumberInputTokenBasedWidth then props.buttonWidth else props.width,
-			padding = {
-				left = horizontalPadding,
-				right = horizontalPadding,
-			},
+			padding = if not Flags.FoundationNumberInputFixControlSizes or horizontalPadding
+				then {
+					left = horizontalPadding,
+					right = horizontalPadding,
+				}
+				else nil,
 		},
 		upButton = {
 			tag = props.upButtonTag,
@@ -52,6 +61,11 @@ local function computeProps(props: {
 			size = props.splitButtonSize,
 			tag = props.splitButtonTag,
 		},
+		icon = if Flags.FoundationNumberInputFixControlSizes
+			then {
+				tag = props.iconTag,
+			}
+			else {},
 	}
 end
 
@@ -67,9 +81,13 @@ local function variantsFactory(tokens: Tokens)
 			tag = "bg-shift-100",
 		},
 		icon = {
-			tag = "content-default size-150-100",
+			tag = {
+				["content-default"] = true,
+				["size-150-100"] = not Flags.FoundationNumberInputFixControlSizes,
+			},
 		},
 	}
+
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = computeProps({
 			width = if Flags.FoundationNumberInputTokenBasedWidth
@@ -116,10 +134,25 @@ local function variantsFactory(tokens: Tokens)
 			splitButtonSize = tokens.Size.Size_1200,
 		}),
 	}
-	return { common = common, sizes = sizes }
+
+	local controlVariants: { [NumberInputControlsVariant]: VariantProps } = if Flags.FoundationNumberInputFixControlSizes
+		then {
+			[NumberInputControlsVariant.Stacked] = computeProps({
+				iconTag = "size-150-100",
+			}),
+		}
+		else nil :: never
+
+	return { common = common, sizes = sizes, controlVariants = controlVariants }
 end
 
-return function(tokens: Tokens, size: InputSize)
+return function(tokens: Tokens, size: InputSize, controlsVariant: NumberInputControlsVariant?)
 	local props = VariantsContext.useVariants("NumberInput", variantsFactory, tokens)
-	return composeStyleVariant(props.common, props.sizes[size])
+	return composeStyleVariant(
+		props.common,
+		props.sizes[size],
+		if Flags.FoundationNumberInputFixControlSizes
+			then props.controlVariants[controlsVariant :: NumberInputControlsVariant]
+			else nil :: never
+	)
 end

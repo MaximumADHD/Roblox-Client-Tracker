@@ -10,7 +10,7 @@ local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local GetFFlagFixSettingshubImportOrder = require(RobloxGui.Modules.Flags.GetFFlagFixSettingshubImportOrder)
 
 local FFlagRemoveLoadingTimeout = require(RobloxGui.Modules.Flags.FFlagRemoveLoadingTimeout)
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 if GetFFlagFixSettingshubImportOrder() and not (FFlagRemoveLoadingTimeout and ChromeEnabled) then
 	-- We need to ensure we don't require SettingsHub before TopBar has finished
 	-- This is due to ordering of SetGlobalGuiInset defined in TopBar

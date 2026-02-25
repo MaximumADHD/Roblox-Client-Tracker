@@ -461,43 +461,40 @@ PROTO_22:
        91 CALL                             R6 2 0
        92 GETUPVAL                         R6 4
        93 CALL                             R6 0 1
-       94 JUMPIFNOT                        R6 ; [+23]
-       95 LENGTH                           R6 R0
-       96 LOADN                            R7 50
-       97 JUMPIFNOTLT                      R6 R7 ; [+20]
-       99 DUPTABLE                         R8 K10 [{"Text", "OnItemClicked"}]
-      100 LOADK                            R11 K4 ["ContextMenu"]
-      101 LOADK                            R12 K17 ["QuickShare"]
-      102 NAMECALL                         R9 R4 K6 ["getText"]
-      104 CALL                             R9 3 1
-      105 SETTABLEKS                       R9 R8 K8 ["Text"]
-      107 NEWCLOSURE                       R9 P3
-      108 CAPTURE                          VAL R1
-      109 CAPTURE                          VAL R0
-      110 SETTABLEKS                       R9 R8 K9 ["OnItemClicked"]
-      112 FASTCALL2                        TABLE_INSERT R5 R8 ; [+4]
-      114 MOVE                             R7 R5
-      115 GETIMPORT                        R6 K15 [table.insert]
-      117 CALL                             R6 2 0
-      118 GETUPVAL                         R6 5
-      119 CALL                             R6 0 1
-      120 JUMPIFNOT                        R6 ; [+20]
-      121 DUPTABLE                         R8 K10 [{"Text", "OnItemClicked"}]
-      122 LOADK                            R11 K4 ["ContextMenu"]
-      123 LOADK                            R12 K18 ["FindInExplorer"]
-      124 NAMECALL                         R9 R4 K6 ["getText"]
-      126 CALL                             R9 3 1
-      127 SETTABLEKS                       R9 R8 K8 ["Text"]
-      129 NEWCLOSURE                       R9 P4
-      130 CAPTURE                          UPVAL U3
-      131 CAPTURE                          VAL R0
-      132 CAPTURE                          VAL R1
-      133 SETTABLEKS                       R9 R8 K9 ["OnItemClicked"]
-      135 FASTCALL2                        TABLE_INSERT R5 R8 ; [+4]
-      137 MOVE                             R7 R5
-      138 GETIMPORT                        R6 K15 [table.insert]
-      140 CALL                             R6 2 0
-      141 RETURN                           R5 1
+       94 JUMPIFNOT                        R6 ; [+19]
+       95 DUPTABLE                         R8 K10 [{"Text", "OnItemClicked"}]
+       96 LOADK                            R11 K4 ["ContextMenu"]
+       97 LOADK                            R12 K17 ["QuickShare"]
+       98 NAMECALL                         R9 R4 K6 ["getText"]
+      100 CALL                             R9 3 1
+      101 SETTABLEKS                       R9 R8 K8 ["Text"]
+      103 NEWCLOSURE                       R9 P3
+      104 CAPTURE                          VAL R1
+      105 CAPTURE                          VAL R0
+      106 SETTABLEKS                       R9 R8 K9 ["OnItemClicked"]
+      108 FASTCALL2                        TABLE_INSERT R5 R8 ; [+4]
+      110 MOVE                             R7 R5
+      111 GETIMPORT                        R6 K15 [table.insert]
+      113 CALL                             R6 2 0
+      114 GETUPVAL                         R6 5
+      115 CALL                             R6 0 1
+      116 JUMPIFNOT                        R6 ; [+20]
+      117 DUPTABLE                         R8 K10 [{"Text", "OnItemClicked"}]
+      118 LOADK                            R11 K4 ["ContextMenu"]
+      119 LOADK                            R12 K18 ["FindInExplorer"]
+      120 NAMECALL                         R9 R4 K6 ["getText"]
+      122 CALL                             R9 3 1
+      123 SETTABLEKS                       R9 R8 K8 ["Text"]
+      125 NEWCLOSURE                       R9 P4
+      126 CAPTURE                          UPVAL U3
+      127 CAPTURE                          VAL R0
+      128 CAPTURE                          VAL R1
+      129 SETTABLEKS                       R9 R8 K9 ["OnItemClicked"]
+      131 FASTCALL2                        TABLE_INSERT R5 R8 ; [+4]
+      133 MOVE                             R7 R5
+      134 GETIMPORT                        R6 K15 [table.insert]
+      136 CALL                             R6 2 0
+      137 RETURN                           R5 1
 
 PROTO_23:
         0 GETUPVAL                         R0 0
@@ -669,49 +666,46 @@ PROTO_28:
        86 CALL                             R7 2 0
        87 GETUPVAL                         R7 4
        88 CALL                             R7 0 1
-       89 JUMPIFNOT                        R7 ; [+26]
-       90 LENGTH                           R7 R0
-       91 LOADN                            R8 50
-       92 JUMPIFNOTLT                      R7 R8 ; [+23]
-       94 DUPTABLE                         R9 K8 [{"Text", "OnItemClicked"}]
-       95 LOADK                            R12 K2 ["ContextMenu"]
-       96 LOADK                            R13 K15 ["QuickShare"]
-       97 NAMECALL                         R10 R4 K4 ["getText"]
-       99 CALL                             R10 3 1
-      100 SETTABLEKS                       R10 R9 K6 ["Text"]
-      102 NEWCLOSURE                       R10 P3
-      103 CAPTURE                          VAL R2
-      104 CAPTURE                          VAL R6
-      105 CAPTURE                          VAL R0
-      106 CAPTURE                          UPVAL U1
-      107 CAPTURE                          VAL R1
-      108 SETTABLEKS                       R10 R9 K7 ["OnItemClicked"]
-      110 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
-      112 MOVE                             R8 R5
-      113 GETIMPORT                        R7 K13 [table.insert]
-      115 CALL                             R7 2 0
-      116 GETUPVAL                         R7 5
-      117 CALL                             R7 0 1
-      118 JUMPIFNOT                        R7 ; [+23]
-      119 DUPTABLE                         R9 K8 [{"Text", "OnItemClicked"}]
-      120 LOADK                            R12 K2 ["ContextMenu"]
-      121 LOADK                            R13 K16 ["FindInExplorer"]
-      122 NAMECALL                         R10 R4 K4 ["getText"]
-      124 CALL                             R10 3 1
-      125 SETTABLEKS                       R10 R9 K6 ["Text"]
-      127 NEWCLOSURE                       R10 P4
-      128 CAPTURE                          VAL R2
-      129 CAPTURE                          VAL R6
-      130 CAPTURE                          VAL R0
-      131 CAPTURE                          UPVAL U1
-      132 CAPTURE                          UPVAL U3
-      133 CAPTURE                          VAL R1
-      134 SETTABLEKS                       R10 R9 K7 ["OnItemClicked"]
-      136 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
-      138 MOVE                             R8 R5
-      139 GETIMPORT                        R7 K13 [table.insert]
-      141 CALL                             R7 2 0
-      142 RETURN                           R5 1
+       89 JUMPIFNOT                        R7 ; [+22]
+       90 DUPTABLE                         R9 K8 [{"Text", "OnItemClicked"}]
+       91 LOADK                            R12 K2 ["ContextMenu"]
+       92 LOADK                            R13 K15 ["QuickShare"]
+       93 NAMECALL                         R10 R4 K4 ["getText"]
+       95 CALL                             R10 3 1
+       96 SETTABLEKS                       R10 R9 K6 ["Text"]
+       98 NEWCLOSURE                       R10 P3
+       99 CAPTURE                          VAL R2
+      100 CAPTURE                          VAL R6
+      101 CAPTURE                          VAL R0
+      102 CAPTURE                          UPVAL U1
+      103 CAPTURE                          VAL R1
+      104 SETTABLEKS                       R10 R9 K7 ["OnItemClicked"]
+      106 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
+      108 MOVE                             R8 R5
+      109 GETIMPORT                        R7 K13 [table.insert]
+      111 CALL                             R7 2 0
+      112 GETUPVAL                         R7 5
+      113 CALL                             R7 0 1
+      114 JUMPIFNOT                        R7 ; [+23]
+      115 DUPTABLE                         R9 K8 [{"Text", "OnItemClicked"}]
+      116 LOADK                            R12 K2 ["ContextMenu"]
+      117 LOADK                            R13 K16 ["FindInExplorer"]
+      118 NAMECALL                         R10 R4 K4 ["getText"]
+      120 CALL                             R10 3 1
+      121 SETTABLEKS                       R10 R9 K6 ["Text"]
+      123 NEWCLOSURE                       R10 P4
+      124 CAPTURE                          VAL R2
+      125 CAPTURE                          VAL R6
+      126 CAPTURE                          VAL R0
+      127 CAPTURE                          UPVAL U1
+      128 CAPTURE                          UPVAL U3
+      129 CAPTURE                          VAL R1
+      130 SETTABLEKS                       R10 R9 K7 ["OnItemClicked"]
+      132 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
+      134 MOVE                             R8 R5
+      135 GETIMPORT                        R7 K13 [table.insert]
+      137 CALL                             R7 2 0
+      138 RETURN                           R5 1
 
 PROTO_29:
         0 GETUPVAL                         R0 0

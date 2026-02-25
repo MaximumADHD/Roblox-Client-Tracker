@@ -17,7 +17,7 @@ local useDesignTokens = require(CorePackages.Workspace.Packages.Style).useDesign
 local Topbar = script.Parent.Parent.Parent.Parent
 local Modules = Topbar.Parent
 local Chrome = Modules.Chrome
-local ChromeEnabled = require(Chrome.Enabled)()
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 local GamepadConnector = if (not FFlagEnableConsoleExpControls or ChromeEnabled) then require(Topbar.Components.GamepadConnector) else nil :: never
 local useObservableValue = require(Chrome.ChromeShared.Hooks.useObservableValue)
 

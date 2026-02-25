@@ -29,7 +29,7 @@ local ReportConfirmationContainer = require(Settings.Components.ReportConfirmati
 local FFlagReportAbuseThankYouPageGamepadEnable = game:DefineFastFlag("ReportAbuseThankYouPageGamepadEnable", false)
 
 local Chrome = RobloxGui.Modules.Chrome
-local ChromeEnabled = require(Chrome.Enabled)()
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: never
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls

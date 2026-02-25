@@ -40,7 +40,7 @@ local PlayerListMaster = require(Modules.PlayerList.PlayerListManager)
 
 local isNewInGameMenuEnabled = require(Modules.isNewInGameMenuEnabled)
 local InGameMenuConstants = require(Modules.InGameMenuConstants)
-local ChromeEnabled = require(Modules.Chrome.Enabled)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize

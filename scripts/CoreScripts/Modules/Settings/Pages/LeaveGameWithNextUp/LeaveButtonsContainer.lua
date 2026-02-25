@@ -31,7 +31,7 @@ local useTokens = Foundation.Hooks.useTokens
 
 local FFlagEnableNextUpImageLatencyTelemetry = require(script.Parent.Flags.FFlagEnableNextUpImageLatencyTelemetry)
 
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 local ChromeService = if ChromeEnabled then require(RobloxGui.Modules.Chrome.Service) else nil
 local ChromeConstants = if ChromeEnabled then require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants) else nil
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)

@@ -17,7 +17,7 @@ local ClearShareInviteLink = ShareLinksRodux.Actions.ClearShareInviteLink
 local OpenPage = require(ShareGame.Actions.OpenPage)
 local ClosePage = require(ShareGame.Actions.ClosePage)
 
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls

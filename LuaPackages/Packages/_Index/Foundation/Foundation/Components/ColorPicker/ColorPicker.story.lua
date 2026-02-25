@@ -2,10 +2,13 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
+local Button = require(Foundation.Components.Button)
+local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local ColorInputMode = require(Foundation.Enums.ColorInputMode)
 local ColorPicker = require(Foundation.Components.ColorPicker)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
+local colorUtils = require(Foundation.Components.ColorPicker.colorUtils)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 type ColorPreviewProps = {
@@ -359,6 +362,53 @@ return {
 						initialMode = ColorInputMode.Brick,
 						onColorChanged = function(newColor: Color3, _brickColor: BrickColor?)
 							setSelectedColor(newColor)
+						end,
+					}),
+				})
+			end,
+		},
+		{
+			name = "Partial HSV (H only)",
+			story = function(_props)
+				local tokens = useTokens()
+				local fallbackColor = tokens.Color.Extended.Magenta.Magenta_700.Color3
+				local selectedColor, setSelectedColor =
+					React.useState({ H = 15 } :: Color3 | { H: number, S: number?, V: number? })
+				local hasFullColor = not colorUtils.isPartialHSV(selectedColor)
+				local colorForSwatch = if colorUtils.isPartialHSV(selectedColor)
+					then fallbackColor
+					else selectedColor :: Color3
+
+				return React.createElement(View, {
+					Size = UDim2.fromOffset(300, 400),
+					tag = "col gap-medium",
+				}, {
+					Description = React.createElement(Text, {
+						Text = "When only hue is set, S and V show as empty. The submit button stays disabled until a full color is selected.",
+						fontStyle = tokens.Typography.CaptionLarge,
+						textStyle = tokens.Color.Content.Default,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextWrapped = true,
+						tag = "auto-y size-full-0",
+					}),
+
+					PreviewContainer = React.createElement(ColorPreview, {
+						color = colorForSwatch,
+						showAlpha = false,
+					}),
+
+					Picker = React.createElement(ColorPicker, {
+						initialColor = selectedColor,
+						initialMode = ColorInputMode.HSV,
+						onColorChanged = setSelectedColor,
+					}),
+
+					SubmitButton = React.createElement(Button, {
+						text = "Submit",
+						variant = ButtonVariant.Emphasis,
+						isDisabled = not hasFullColor,
+						onActivated = function()
+							print("Submit color:", selectedColor)
 						end,
 					}),
 				})

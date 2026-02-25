@@ -4,13 +4,25 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
+local ColorMode = require(Foundation.Enums.ColorMode)
 local CursorContext = require(script.Parent.CursorContext)
+local Flags = require(Foundation.Utility.Flags)
 local KeyUtilities = require(script.Parent.KeyUtilities)
+local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
 local Types = require(Foundation.Components.Types)
 local useTokens = require(Foundation.Providers.Style.useTokens)
+local usePresentationContext = PresentationContext.usePresentationContext
+
+type ColorMode = ColorMode.ColorMode
 
 local function useCursor(cursor: Types.Cursor?): React.Ref<GuiObject>?
 	local tokens = useTokens()
+	local presentationContext = if Flags.FoundationSupportPresentationContextInSelectionCursor
+		then usePresentationContext()
+		else nil :: never
+	local cursorColorMode = if Flags.FoundationSupportPresentationContextInSelectionCursor
+		then if presentationContext.colorMode then presentationContext.colorMode else ColorMode.Color
+		else nil
 
 	local context = React.useContext(CursorContext)
 	local refCache = context.refCache
@@ -18,12 +30,20 @@ local function useCursor(cursor: Types.Cursor?): React.Ref<GuiObject>?
 
 	local key = React.useMemo(function()
 		if typeof(cursor) == "table" then
-			return KeyUtilities.encodeKey(tokens, cursor.radius, cursor.offset, cursor.borderWidth)
+			return KeyUtilities.encodeKey(
+				tokens,
+				cursor.radius,
+				cursor.offset,
+				cursor.borderWidth,
+				cursorColorMode :: ColorMode
+			)
 		elseif cursor == nil then
-			return KeyUtilities.encodeKey(tokens)
+			return KeyUtilities.encodeKey(tokens, nil, nil, nil, cursorColorMode :: ColorMode)
 		end
-		return cursor
-	end, { cursor, tokens } :: { unknown })
+		return if Flags.FoundationSupportPresentationContextInSelectionCursor
+			then KeyUtilities.encodeCursorTypeKey(cursor, cursorColorMode :: ColorMode)
+			else cursor
+	end, { cursor, tokens, cursorColorMode } :: { unknown })
 
 	React.useEffect(function()
 		setMountedCursors(function(mountedExisting)

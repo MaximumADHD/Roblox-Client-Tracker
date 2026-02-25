@@ -188,6 +188,7 @@ local VOICE_STATUS = Constants.VOICE_STATUS
 
 local FFlagFixPartyVoiceGetPermissions = SharedFlags.GetFFlagFixPartyVoiceGetPermissions()
 local FFlagEnablePartyVoiceChangersInLua = SharedFlags.FFlagEnablePartyVoiceChangersInLua
+local FFlagEnableCEVPersistMuteStateForAFM = game:DefineFastFlag("EnableCEVPersistMuteStateForAFM", false)
 
 local undeafenTimerHandle: thread? = nil
 
@@ -379,7 +380,9 @@ local onLocalPlayerActiveChanged = function(result)
 end
 
 local onLocalPlayerMuteChanged = function(isMuted)
-	coreVoiceManagerState.previousMutedState = isMuted
+	if not FFlagEnableCEVPersistMuteStateForAFM then
+		coreVoiceManagerState.previousMutedState = isMuted
+	end
 	local eventName = if isMuted
 		then CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_WAS_MUTED
 		else CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_WAS_UNMUTED
@@ -461,6 +464,9 @@ local toggleMutePlayer = function(params)
 	if FFlagPartyVoiceExecuteVoiceActionsPostAsyncInit then
 		executePostVoiceAsyncInit(function()
 			if isLocalPlayer then
+				if FFlagEnableCEVPersistMuteStateForAFM then
+					coreVoiceManagerState.previousMutedState = not CoreVoiceManager.localMuted
+				end
 				CoreVoiceManager:ToggleMic("Squads")
 			else
 				CoreVoiceManager:ToggleMutePlayer(userId)
@@ -906,7 +912,7 @@ function initializeAFM()
 					end
 				end
 
-				if not CoreVoiceManager.localMuted then
+				if not CoreVoiceManager.localMuted and (not FFlagEnableCEVPersistMuteStateForAFM or coreVoiceManagerState.previousMutedState == CoreVoiceManager.localMuted) then
 					if GetFFlagPartyVoiceMuteScopeFix() then
 						CoreVoiceManager:ToggleMic("AudioFocusManagement - CEV deafenAll")
 					else
@@ -929,7 +935,7 @@ function initializeAFM()
 					if CoreVoiceManager.localMuted == nil then
 						log:info("CEV undeafenAll - Voice not connected yet - calling unmuteMicrophoneOnce")
 						unmuteMicrophoneOnce()
-					elseif CoreVoiceManager.localMuted then
+					elseif CoreVoiceManager.localMuted and (not FFlagEnableCEVPersistMuteStateForAFM or coreVoiceManagerState.previousMutedState ~= CoreVoiceManager.localMuted) then
 						log:info("CEV undeafenAll - Voice connected and muted - unmuting immediately")
 						CoreVoiceManager:ToggleMic("AudioFocusManagement - CEV undeafenAll")
 					end

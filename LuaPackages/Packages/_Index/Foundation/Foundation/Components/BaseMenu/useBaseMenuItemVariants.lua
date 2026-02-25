@@ -1,5 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
@@ -28,7 +29,12 @@ local variantsMap = function(tokens: Tokens)
 		container = {
 			tag = "row align-y-center flex-x-between auto-x",
 		},
-		icon = { tag = "content-emphasis", style = tokens.Color.Content.Emphasis },
+		icon = {
+			tag = if Flags.FoundationBaseMenuItemImageRadius
+				then "radius-small content-emphasis"
+				else "content-emphasis",
+			style = tokens.Color.Content.Emphasis,
+		},
 		text = {
 			tag = "content-emphasis auto-xy fill text-align-x-left text-truncate-split",
 		},

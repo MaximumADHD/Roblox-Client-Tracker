@@ -126,6 +126,7 @@ export type TabItem = Package.TabItem
 export type TextProps = Package.TextProps
 export type TextAreaProps = Package.TextAreaProps
 export type TextInputProps = Package.TextInputProps
+export type TextInputRef = Package.TextInputRef
 export type ToggleProps = Package.ToggleProps
 export type TooltipProps = Package.TooltipProps
 export type ToastProps = Package.ToastProps

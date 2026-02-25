@@ -10,7 +10,7 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["onIsPublishedChanged"]
+        1 GETTABLEKS                       R1 R2 K0 ["onPublishedChanged"]
         3 ORK                              R2 R0 K1 []
         4 CALL                             R1 1 0
         5 RETURN                           R0 0
@@ -39,9 +39,9 @@ PROTO_3:
        17 CAPTURE                          VAL R0
        18 NEWTABLE                         R6 0 0
        20 CALL                             R4 2 1
-       21 GETTABLEKS                       R6 R0 K4 ["isPublished"]
+       21 GETTABLEKS                       R6 R0 K4 ["published"]
        23 JUMPIFNOT                        R6 ; [+3]
-       24 GETTABLEKS                       R5 R0 K4 ["isPublished"]
+       24 GETTABLEKS                       R5 R0 K4 ["published"]
        26 JUMP                             ; [+1]
        27 LOADB                            R5 0
        28 GETUPVAL                         R7 2
@@ -286,15 +286,15 @@ PROTO_4:
        69 GETUPVAL                         R8 2
        70 GETTABLEKS                       R7 R8 K0 ["createElement"]
        72 GETUPVAL                         R8 5
-       73 DUPTABLE                         R9 K31 [{"saveType", "onSaveTypeChanged", "isPublished", "onIsPublishedChanged", "hasNotes", "onHasNotesChanged", "LayoutOrder"}]
+       73 DUPTABLE                         R9 K31 [{"saveType", "onSaveTypeChanged", "published", "onPublishedChanged", "hasNotes", "onHasNotesChanged", "LayoutOrder"}]
        74 GETTABLEKS                       R10 R0 K25 ["saveType"]
        76 SETTABLEKS                       R10 R9 K25 ["saveType"]
        78 GETTABLEKS                       R10 R0 K26 ["onSaveTypeChanged"]
        80 SETTABLEKS                       R10 R9 K26 ["onSaveTypeChanged"]
-       82 GETTABLEKS                       R10 R0 K27 ["isPublished"]
-       84 SETTABLEKS                       R10 R9 K27 ["isPublished"]
-       86 GETTABLEKS                       R10 R0 K28 ["onIsPublishedChanged"]
-       88 SETTABLEKS                       R10 R9 K28 ["onIsPublishedChanged"]
+       82 GETTABLEKS                       R10 R0 K27 ["published"]
+       84 SETTABLEKS                       R10 R9 K27 ["published"]
+       86 GETTABLEKS                       R10 R0 K28 ["onPublishedChanged"]
+       88 SETTABLEKS                       R10 R9 K28 ["onPublishedChanged"]
        90 GETTABLEKS                       R10 R0 K29 ["hasNotes"]
        92 SETTABLEKS                       R10 R9 K29 ["hasNotes"]
        94 GETTABLEKS                       R10 R0 K30 ["onHasNotesChanged"]
