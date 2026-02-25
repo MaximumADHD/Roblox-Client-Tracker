@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <UIParams.h>
 uniform vec4 CB0[61];
-uniform vec4 CB1[9];
+uniform vec4 CB1[10];
 uniform samplerCube PrefilteredEnvTexture;
 uniform sampler2D DiffuseMapTexture;
 
@@ -61,38 +61,51 @@ void main()
         f0 = f1;
     }
     vec4 f13 = VARYING1 * f0;
-    vec2 f14 = abs(vec2((VARYING0.x * CB1[6].x) + CB1[6].y, (VARYING0.y * CB1[6].z) + CB1[6].w)) - CB1[7].xy;
-    float f15 = length(max(f14, vec2(0.0))) + min(max(f14.x, f14.y), 0.0);
-    float f16 = (f13.w * clamp(CB1[7].z - f15, 0.0, 1.0)) * clamp(f15 - CB1[7].w, 0.0, 1.0);
-    vec4 f17 = f13;
-    f17.w = f16;
-    vec4 f18 = f17;
-    f18.w = f16;
-    vec3 f19 = f18.xyz * f18.xyz;
-    vec4 f20 = f18;
-    f20.x = f19.x;
-    vec4 f21 = f20;
-    f21.y = f19.y;
-    vec4 f22 = f21;
-    f22.z = f19.z;
-    float f23 = clamp(exp2((CB0[18].z * length(VARYING2)) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
-    vec3 f24 = textureLod(PrefilteredEnvTexture, vec4(-VARYING2, 0.0).xyz, max(CB0[18].y, f23) * 5.0).xyz;
-    bvec3 f25 = bvec3(!(CB0[18].w == 0.0));
-    vec3 f26 = mix(vec3(f25.x ? CB0[19].xyz.x : f24.x, f25.y ? CB0[19].xyz.y : f24.y, f25.z ? CB0[19].xyz.z : f24.z), f22.xyz, vec3(f23));
-    vec4 f27 = f22;
-    f27.x = f26.x;
-    vec4 f28 = f27;
-    f28.y = f26.y;
-    vec4 f29 = f28;
-    f29.z = f26.z;
-    vec3 f30 = sqrt(clamp(f29.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
-    vec4 f31 = f29;
+    vec2 f14 = vec2((VARYING0.x * CB1[6].x) + CB1[6].y, (VARYING0.y * CB1[6].z) + CB1[6].w);
+    vec4 f15;
+    if (CB1[7].w <= (-9999.0))
+    {
+        vec2 f16 = (abs(f14) - CB1[7].xy) + vec2(CB1[7].z);
+        float f17 = (length(max(f16, vec2(0.0))) + min(max(f16.x, f16.y), 0.0)) - CB1[7].z;
+        vec4 f18 = f13;
+        f18.w = f13.w * smoothstep(0.0, 1.0, (f17 / (-fwidth(f17))) + 0.5);
+        f15 = f18;
+    }
+    else
+    {
+        vec2 f19 = abs(f14) - CB1[7].xy;
+        float f20 = length(max(f19, vec2(0.0))) + min(max(f19.x, f19.y), 0.0);
+        vec4 f21 = f13;
+        f21.w = (f13.w * clamp(CB1[7].z - f20, 0.0, 1.0)) * clamp(f20 - CB1[7].w, 0.0, 1.0);
+        f15 = f21;
+    }
+    vec4 f22 = f15;
+    f22.w = f15.w;
+    vec3 f23 = f22.xyz * f22.xyz;
+    vec4 f24 = f22;
+    f24.x = f23.x;
+    vec4 f25 = f24;
+    f25.y = f23.y;
+    vec4 f26 = f25;
+    f26.z = f23.z;
+    float f27 = clamp(exp2((CB0[18].z * length(VARYING2)) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
+    vec3 f28 = textureLod(PrefilteredEnvTexture, vec4(-VARYING2, 0.0).xyz, max(CB0[18].y, f27) * 5.0).xyz;
+    bvec3 f29 = bvec3(!(CB0[18].w == 0.0));
+    vec3 f30 = mix(vec3(f29.x ? CB0[19].xyz.x : f28.x, f29.y ? CB0[19].xyz.y : f28.y, f29.z ? CB0[19].xyz.z : f28.z), f26.xyz, vec3(f27));
+    vec4 f31 = f26;
     f31.x = f30.x;
     vec4 f32 = f31;
     f32.y = f30.y;
     vec4 f33 = f32;
     f33.z = f30.z;
-    _entryPointOutput = f33;
+    vec3 f34 = sqrt(clamp(f33.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
+    vec4 f35 = f33;
+    f35.x = f34.x;
+    vec4 f36 = f35;
+    f36.y = f34.y;
+    vec4 f37 = f36;
+    f37.z = f34.z;
+    _entryPointOutput = f37;
 }
 
 //$$PrefilteredEnvTexture=s15

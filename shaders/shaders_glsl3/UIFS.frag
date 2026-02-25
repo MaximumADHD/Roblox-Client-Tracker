@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <UIParams.h>
-uniform vec4 CB1[9];
+uniform vec4 CB1[10];
 uniform sampler2D DiffuseMapTexture;
 
 in vec2 VARYING0;

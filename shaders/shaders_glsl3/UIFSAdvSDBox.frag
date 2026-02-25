@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <UIParams.h>
-uniform vec4 CB1[9];
+uniform vec4 CB1[10];
 uniform sampler2D DiffuseMapTexture;
 
 in vec2 VARYING0;
@@ -57,11 +57,25 @@ void main()
         f0 = f1;
     }
     vec4 f13 = VARYING1 * f0;
-    vec2 f14 = abs(vec2((VARYING0.x * CB1[6].x) + CB1[6].y, (VARYING0.y * CB1[6].z) + CB1[6].w)) - CB1[7].xy;
-    float f15 = length(max(f14, vec2(0.0))) + min(max(f14.x, f14.y), 0.0);
-    vec4 f16 = f13;
-    f16.w = (f13.w * clamp(CB1[7].z - f15, 0.0, 1.0)) * clamp(f15 - CB1[7].w, 0.0, 1.0);
-    _entryPointOutput = f16;
+    vec2 f14 = vec2((VARYING0.x * CB1[6].x) + CB1[6].y, (VARYING0.y * CB1[6].z) + CB1[6].w);
+    vec4 f15;
+    if (CB1[7].w <= (-9999.0))
+    {
+        vec2 f16 = (abs(f14) - CB1[7].xy) + vec2(CB1[7].z);
+        float f17 = (length(max(f16, vec2(0.0))) + min(max(f16.x, f16.y), 0.0)) - CB1[7].z;
+        vec4 f18 = f13;
+        f18.w = f13.w * smoothstep(0.0, 1.0, (f17 / (-fwidth(f17))) + 0.5);
+        f15 = f18;
+    }
+    else
+    {
+        vec2 f19 = abs(f14) - CB1[7].xy;
+        float f20 = length(max(f19, vec2(0.0))) + min(max(f19.x, f19.y), 0.0);
+        vec4 f21 = f13;
+        f21.w = (f13.w * clamp(CB1[7].z - f20, 0.0, 1.0)) * clamp(f20 - CB1[7].w, 0.0, 1.0);
+        f15 = f21;
+    }
+    _entryPointOutput = f15;
 }
 
 //$$DiffuseMapTexture=s0
