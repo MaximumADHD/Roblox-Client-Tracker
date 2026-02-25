@@ -1106,8 +1106,6 @@ Studio.App.RBXMainWindow.ZoomTo,,,Zoom to,Zoom to
 Studio.App.RecentGamesPage.RecentGames,,,Recent Games,Recent Games
 Studio.App.Restart.RestartLater,,,Restart Later,Restart Later
 Studio.App.Restart.RestartNow,,,Restart,Restart
-Studio.App.RobloxChatWidget.ChatOptions,,,Chat Options,Chat Options
-Studio.App.RobloxChatWidget.ConnectingToChatElps,,,Connecting to chat...,Connecting to chat...
 Studio.App.RobloxDocManager.NoToggleBetweenDMsWhilePaused,,,You cannot open a script from one data model while debugger is paused on a different data model.,You cannot open a script from one data model while debugger is paused on a different data model.
 Studio.App.RobloxFindWidget.FindInAllScripts,,,Find in All Scripts,Find in All Scripts
 Studio.App.RobloxGameExplorer.LoadingElps,,,Loading...,Loading...
@@ -2455,8 +2453,6 @@ Studio.App.Property.HttpProxyURL,,,Proxy URL,Proxy URL
 Studio.App.RBXMainWindow.OpenAutoSaves,,,Open Auto Saves,Open Auto Saves
 Studio.App.RBXMainWindow.OpenAutoSavesFolder,,,Open Auto Saves Folder,Open Auto Saves Folder
 Studio.App.RenderScheduler.FailedToBindToWorkspace,,,Failed to Bind to Workspace. Please restart Studio in order to resolve the issue.,Failed to Bind to Workspace. Please restart Studio in order to resolve the issue.
-Studio.App.RobloxChatWidget.ContentModerated,,,Content was moderated. Message not sent.,Content was moderated. Message not sent.
-Studio.App.RobloxChatWidget.SendAMessage,,,Send a message,Send a message
 Studio.App.RobloxMainWindow.OpenMeshFile,,,Open Mesh File,Open Mesh File
 Studio.App.RobloxMainWindow.OpenMeshFilesPattern,,,Mesh Files (*.fbx *.obj),Mesh Files (*.fbx *.obj)
 Studio.App.RobloxScriptDoc.CloseOtherScripts,,,Close Other Scripts,Close Other Scripts
@@ -2577,10 +2573,6 @@ Studio.App.RBXMainWindow.DebugAsPlugin,,,Debug as Plugin,Debug as Plugin
 Studio.App.RBXMainWindow.InsertObjectsWidgetMenu,,,Open insert object menu,Open insert object menu
 Studio.App.RBXMainWindow.QuickFindScriptUseCtrlP,,,"This Dialog is deprecated, please use Quick Open (Ctrl+P) instead","This Dialog is deprecated, please use Quick Open (Ctrl+P) instead"
 Studio.App.RBXMainWindow.StartRemoteDebug,,,Start Remote Debug,Start Remote Debug
-Studio.App.RobloxChatWidget.ChattingWith,,,Chatting with %1,Chatting with %1
-Studio.App.RobloxChatWidget.DisabledChatMessage,,,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4
-Studio.App.RobloxChatWidget.FailedSendAMessage,,,Failed to send message: ,Failed to send message: 
-Studio.App.RobloxChatWidget.NotFriendErrorMessage,,,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.
 Studio.App.RobloxDiagnosticsView.HeaderLabelName,,,Name,Name
 Studio.App.RobloxDiagnosticsView.HeaderLabelValue,,,Value,Value
 Studio.App.RobloxMouseConfig.RightClick,,,Right Click,Right Click
@@ -5550,7 +5542,6 @@ Studio.App.Actions.Inspector,,,Inspector,Inspector
 Studio.App.Actions.ExitClient,,,Exit Client,Exit Client
 Studio.App.GenerativeAI.ShowMoreSuggestions,,,Show more,Show more
 Studio.App.GenerativeAI.ShowLessSuggestions,,,Show less,Show less
-Studio.App.RobloxChatWidget.DeprecatingSoon,,,Team Chat is deprecated and will be removed in January 2025.,Team Chat is deprecated and will be removed in January 2025.
 Studio.App.LocalSaveHelper.AutoSaveInProgress,,,Failed to save because auto save is in progress. Please try again later.,Failed to save because auto save is in progress. Please try again later.
 Studio.App.LocalSaveHelper.AnotherSaveInProgress,,,"Another save in progress, please try again later.","Another save in progress, please try again later."
 Studio.App.ScriptSetting.AlwaysSave,,,Always Save,Always Save
@@ -5585,7 +5576,6 @@ Studio.App.ConnectionIndicatorDialog.PlaceSizeTooLargeMessage,,,Place Too Large,
 Studio.App.ConnectionIndicatorDialog.PlaceSizeTooLargeTip,,,Your place has exceeded the stable size limit. Please reduce its size to enable saving again. Attempt place save again after making changes.,Your place has exceeded the stable size limit. Please reduce its size to enable saving again. Attempt place save again after making changes.
 Studio.App.InsertServiceAction.DEPRECATEDShowServicesElps,,,Show Services...,Show Services...
 Studio.App.InsertServiceAction.DEPRECATEDHideService,,,Hide Service in Explorer,Hide Service in Explorer
-Studio.App.RobloxChatWidget.DeprecatingSoon2,,,"Team Chat is deprecated and will be removed on January 30th, 2025. <a href=""%1""><i>Learn more.</i></a>","Team Chat is deprecated and will be removed on January 30th, 2025. <a href=""%1""><i>Learn more.</i></a>"
 Studio.App.Help.StartStudioTour,,,Studio Tour,Studio Tour
 Studio.App.BetaFeatures.AnimationCompositorTitle,,,Animation Compositor,Animation Compositor
 Studio.App.BetaFeatures.AnimationCompositorDescription,,,"Enables the new Lua based Animation APIs and the frameworks surrounding them. With this new feature, you can now define richer composition of clip-based and procedural animations using the new Lua Animation Library, and use the new ""Compositor Debugger"" plugin. Opting into the beta will also upgrade the default Animate script with a refactored version that uses this new system and adds new default procedural behaviors.","Enables the new Lua based Animation APIs and the frameworks surrounding them. With this new feature, you can now define richer composition of clip-based and procedural animations using the new Lua Animation Library, and use the new ""Compositor Debugger"" plugin. Opting into the beta will also upgrade the default Animate script with a refactored version that uses this new system and adds new default procedural behaviors."
@@ -5708,6 +5698,7 @@ Studio.App.RobloxRibbonMainWindow.AnimationConstraint,,,Animation Constraint,Ani
 Studio.App.RobloxRibbonMainWindow.CreateAnimationConstraint,,,Create animation constraint,Create animation constraint
 Studio.App.GenerativeAI.FileDialog.AllFiles,,,All files,All files
 Studio.App.GenerativeAI.FileDialog.AllowedFiles,,,Allowed files,Allowed files
+Studio.App.PackageService.CircularDependency,,,Cannot publish package with circular package link dependencies,Cannot publish package with circular package link dependencies
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -6344,6 +6335,9 @@ Studio.GameSettings.ChatGroup.ApiBody2,,,"By toggling these APIs on, you agree t
 Studio.GameSettings.General.TermsOfUseLink,,,Terms of Use,Terms of Use
 Studio.GameSettings.General.CommunityStandardsLink,,,Community Standards,Community Standards
 Studio.GameSettings.General.StudioApiServicesDescExp,,,Enables Studio access to experience services such as Data Stores,Enables Studio access to experience services such as Data Stores
+Studio.GameSettings.Places.VersionHistoryMovedTitle,,,Version History Has Moved,Version History Has Moved
+Studio.GameSettings.Places.VersionHistoryMovedHeader,,,Version History Has Moved,Version History Has Moved
+Studio.GameSettings.Places.VersionHistoryMovedBody,,,You can now find it under {location},You can now find it under {location}
 Studio.Toolbox.General.ToolboxToolbarName,,,Toolbox,Toolbox
 Studio.Toolbox.General.CategoryModels,,,Models,Models
 Studio.Toolbox.General.CategoryDecals,,,Images,Images
@@ -8059,6 +8053,40 @@ Studio.Toolbox.General.CategoryCreationsGroupEyebrowAccessory,,,Group Eyebrows,G
 Studio.Toolbox.General.CategoryCreationsGroupEyelashAccessory,,,Group Eyelashes,Group Eyelashes
 Studio.Toolbox.General.ThumbnailColor,,,Thumbnail Color,Thumbnail Color
 Studio.Toolbox.General.ThumbnailSkinColor,,,Thumbnail skin color,Thumbnail skin color
+Studio.Toolbox.General.PleaseSelectAColor,,,Select a color,Select a color
+Studio.Toolbox.Subcategory.Model3DPropsAndDecor,,,Props and Decor,Props and Decor
+Studio.Toolbox.Error.InvalidHexCharacters,,,Invalid hex characters,Invalid hex characters
+Studio.Toolbox.Error.HexCharCount,,,Hex must be 3 or 6 characters,Hex must be 3 or 6 characters
+Studio.Toolbox.Error.FailedToParseHex,,,Failed to parse hex,Failed to parse hex
+Studio.Toolbox.Subcategory.Model3D,,,3D Assets,3D Assets
+Studio.Toolbox.Subcategory.ModelVisualEffects,,,Visual Effects,Visual Effects
+Studio.Toolbox.Subcategory.Model2D,,,2D Assets,2D Assets
+Studio.Toolbox.Subcategory.ModelGameplay,,,Gameplay,Gameplay
+Studio.Toolbox.Subcategory.ModelPlugins,,,Plugins,Plugins
+Studio.Toolbox.Subcategory.ModelAudio,,,Audio,Audio
+Studio.Toolbox.Subcategory.Model3DCharacters,,,Characters,Characters
+Studio.Toolbox.Subcategory.Model3DVehicles,,,Vehicles,Vehicles
+Studio.Toolbox.Subcategory.Model3DWeapons,,,Weapons,Weapons
+Studio.Toolbox.Subcategory.Model3DStructures,,,Structures,Structures
+Studio.Toolbox.Subcategory.Model3DNature,,,Nature,Nature
+Studio.Toolbox.Subcategory.Model3DMaps,,,Maps,Maps
+Studio.Toolbox.Subcategory.Model3DBuildingBlocks,,,Parts,Parts
+Studio.Toolbox.Subcategory.Model3DMeshparts,,,Meshparts,Meshparts
+Studio.Toolbox.Subcategory.ModelVisualEffectsMaterials,,,Materials,Materials
+Studio.Toolbox.Subcategory.ModelVisualEffectsMaterialsAndTextures,,,Textured Assets,Textured Assets
+Studio.Toolbox.Subcategory.ModelVisualEffectsParticleEffects,,,Particle Effects,Particle Effects
+Studio.Toolbox.Subcategory.ModelVisualEffectsSkyboxesAndAtmosphere,,,Sky and Atmosphere,Sky and Atmosphere
+Studio.Toolbox.Subcategory.Model2DDecals,,,Decals,Decals
+Studio.Toolbox.Subcategory.Model2DVideos,,,Videos,Videos
+Studio.Toolbox.Subcategory.Model2DFonts,,,Fonts,Fonts
+Studio.Toolbox.Subcategory.ModelGameplayMechanics,,,Mechanics,Mechanics
+Studio.Toolbox.Subcategory.ModelGameplayGameSystems,,,Game Systems,Game Systems
+Studio.Toolbox.Subcategory.ModelGameplayUserInterface,,,User Interface,User Interface
+Studio.Toolbox.Subcategory.ModelGameplayUtilities,,,Utilities,Utilities
+Studio.Toolbox.Subcategory.ModelGameplayAds,,,Ads,Ads
+Studio.Toolbox.Subcategory.ModelGameplayPackages,,,Packages,Packages
+Studio.Toolbox.Error.SkinColorRequired,,,Skin color required,Skin color required
+Studio.Toolbox.General.ThumbnailSkinTone,,,Thumbnail skin tone,Thumbnail skin tone
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9320,6 +9348,12 @@ Studio.AssetManager.QuickShare.CollaboratorsHintTitle,,,Add collaborators,Add co
 Studio.AssetManager.QuickShare.CollaboratorsHintDescription,,,Give your connections and groups access to this asset,Give your connections and groups access to this asset
 Studio.AssetManager.QuickShare.ExperiencesHintTitle,,,Add experiences,Add experiences
 Studio.AssetManager.QuickShare.ExperiencesHintDescription,,,Share with experiences you have access to,Share with experiences you have access to
+Studio.AssetManager.ShortTitle,,,Assets,Assets
+Studio.AssetManager.QuickShare.PermissionErrorTitle,,,Unable to share the following assets,Unable to share the following assets
+Studio.AssetManager.QuickShare.PermissionErrorDescription,,,Some assets can't be shared due to permission restrictions. You can share the rest.,Some assets can't be shared due to permission restrictions. You can share the rest.
+Studio.AssetManager.ContextMenu.CopyToClipboard,,,Copy to Clipboard,Copy to Clipboard
+Studio.AssetManager.QuickShare.PermissionBannerTitle,,,Some assets can't be shared,Some assets can't be shared
+Studio.AssetManager.QuickShare.PermissionBannerButton,,,View assets,View assets
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10762,6 +10796,34 @@ Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheldHD720,,,Generic Handheld
 Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheldHD1080,,,Generic Handheld HD 1080,Generic Handheld HD 1080
 Studio.DeviceEmulator.Tooltip.OnlyEnabledIn3D,,,Device Emulator (Only enabled in 3D viewport),Device Emulator (Only enabled in 3D viewport)
 Studio.DeviceEmulator.EmulatorMainWidget.MultiTouchShortcutButton,,,While playtesting:<br><b>Pinch + rotate: </b>%1 + Drag<br><b>Two-finger pan: </b>%2 + Shift + Drag,While playtesting:<br><b>Pinch + rotate: </b>%1 + Drag<br><b>Two-finger pan: </b>%2 + Shift + Drag
+Studio.DeviceEmulator.EmulatorMainWidget.IPhoneXR,,,iPhone XR,iPhone XR
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone11,,,iPhone 11,iPhone 11
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyA06,,,Samsung Galaxy A06,Samsung Galaxy A06
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone13,,,iPhone 13,iPhone 13
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone13Pro,,,iPhone 13 Pro,iPhone 13 Pro
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone13ProMax,,,iPhone 13 Pro Max,iPhone 13 Pro Max
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone14,,,iPhone 14,iPhone 14
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyA16,,,Samsung Galaxy A16,Samsung Galaxy A16
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone16,,,iPhone 16,iPhone 16
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone16Pro,,,iPhone 16 Pro,iPhone 16 Pro
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone16ProMax,,,iPhone 16 Pro Max,iPhone 16 Pro Max
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone17Pro,,,iPhone 17 Pro,iPhone 17 Pro
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyS22Ultra,,,Samsung Galaxy S22 Ultra,Samsung Galaxy S22 Ultra
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyS25Ultra,,,Samsung Galaxy S25 Ultra,Samsung Galaxy S25 Ultra
+Studio.DeviceEmulator.EmulatorMainWidget.IPad8thGeneration,,,iPad 8th Generation,iPad 8th Generation
+Studio.DeviceEmulator.EmulatorMainWidget.IPad9thGeneration,,,iPad 9th Generation,iPad 9th Generation
+Studio.DeviceEmulator.EmulatorMainWidget.XiaomiRedmiPadSE,,,Xiaomi Redmi Pad SE,Xiaomi Redmi Pad SE
+Studio.DeviceEmulator.EmulatorMainWidget.AmazonFireHD102023,,,Amazon Fire HD 10 (2023),Amazon Fire HD 10 (2023)
+Studio.DeviceEmulator.EmulatorMainWidget.IPad10thGeneration,,,iPad 10th Generation,iPad 10th Generation
+Studio.DeviceEmulator.EmulatorMainWidget.IPadA16,,,iPad A16,iPad A16
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyTabA8,,,Samsung Galaxy Tab A8,Samsung Galaxy Tab A8
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyTabA9,,,Samsung Galaxy Tab A9,Samsung Galaxy Tab A9
+Studio.DeviceEmulator.EmulatorMainWidget.IPadAir15thGeneration,,,iPad Air 15th Generation,iPad Air 15th Generation
+Studio.DeviceEmulator.EmulatorMainWidget.IPadAir5thGeneration,,,iPad Air 5th Generation,iPad Air 5th Generation
+Studio.DeviceEmulator.EmulatorMainWidget.IPadProM411Inch,,,iPad Pro M4 (11in),iPad Pro M4 (11in)
+Studio.DeviceEmulator.EmulatorMainWidget.IPadProM513Inch,,,iPad Pro M5 (13in),iPad Pro M5 (13in)
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyTabA9Plus,,,Samsung Galaxy Tab A9+,Samsung Galaxy Tab A9+
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyTabS11,,,Samsung Galaxy Tab S11,Samsung Galaxy Tab S11
 Studio.R15Migrator.Plugin.Name,,,R6 to R15 Conversion Tool,R6 to R15 Conversion Tool
 Studio.R15Migrator.Plugin.Toolbar,,,R15Migrator,R15Migrator
 Studio.R15Migrator.Plugin.Button,,,Migrate Avatars,Migrate Avatars
@@ -12143,6 +12205,7 @@ Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Warnings,,,{count} warnin
 Studio.AvatarCompatibilityPreviewer.AddItems.AddContentFromLabel,,,Add content from,Add content from
 Studio.AvatarCompatibilityPreviewer.AddItems.SelectedInstancesLabel,,,Selected instance(s),Selected instance(s)
 Studio.AvatarCompatibilityPreviewer.AddItems.AssetIDLabel,,,AssetID,AssetID
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ThumbnailSkinTone,,,Thumbnail skin tone,Thumbnail skin tone
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -12731,6 +12794,8 @@ Studio.Actions.Tooltip.SceneMonitor,,,View triangle and draw call counts for the
 Studio.Actions.Title.VerifyAge,,,Age check needed,Age check needed
 Studio.Actions.Title.ExperienceSettings,,,Experience Settings,Experience Settings
 Studio.Actions.Tooltip.ExperienceSettings,,,Update settings related to current experience,Update settings related to current experience
+Studio.Actions.Title.SLIM,,,SLIM,SLIM
+Studio.Actions.Tooltip.SLIM,,,Toggle the visuals of models that are SLIM,Toggle the visuals of models that are SLIM
 Studio.PathEditor.Plugin.Name,,,PathEditor,PathEditor
 Studio.PathEditor.Plugin.Toolbar,,,PathEditor,PathEditor
 Studio.PathEditor.Plugin.Button,,,Toggle,Toggle
@@ -12995,6 +13060,25 @@ Studio.VisualizationModes.StudioModes.AnchoredPartsToolTip,,,Highlights anchored
 Studio.VisualizationModes.StudioModes.Lights,,,Light guides,Light guides
 Studio.VisualizationModes.StudioModes.LightsToolTip,,,Preview the direction and intensity of lights in the scene,Preview the direction and intensity of lights in the scene
 Studio.VisualizationModes.VisualizationModeCategories.PhysicsLabels,,,Physics labels,Physics labels
+Studio.VisualizationModes.StudioModes.GridToolTip,,,Show the grid on the XZ plane in the world,Show the grid on the XZ plane in the world
+Studio.VisualizationModes.StudioModes.Welds,,,Welds,Welds
+Studio.VisualizationModes.StudioModes.Grid,,,Grid,Grid
+Studio.VisualizationModes.StudioModes.GridMaterial,,,Grid material,Grid material
+Studio.VisualizationModes.StudioModes.GridMaterialToolTip,,,Shows the built-in grid material on all parts in the world that don't have an existing texture.,Shows the built-in grid material on all parts in the world that don't have an existing texture.
+Studio.VisualizationModes.StudioModes.WeldsToolTip,,,"Shows visuals for weld constraints in the world, separate from other physics constraint details","Shows visuals for weld constraints in the world, separate from other physics constraint details"
+Studio.VisualizationModes.PhysicsConstraintsSection.ConstraintScale,,,Scale,Scale
+Studio.VisualizationModes.PhysicsConstraintsSection.ConstraintScaleToolTip,,,Adjust the size of constraint visuals,Adjust the size of constraint visuals
+Studio.VisualizationModes.ViewSection.Wireframe,,,Wireframe,Wireframe
+Studio.VisualizationModes.ViewSection.Shaded,,,Shaded,Shaded
+Studio.VisualizationModes.ViewSection.Outline,,,Outline,Outline
+Studio.VisualizationModes.ViewSection.Box,,,Box,Box
+Studio.VisualizationModes.ViewSection.Combined,,,Combined,Combined
+Studio.VisualizationModes.ViewSection.RenderingMode,,,Rendering mode,Rendering mode
+Studio.VisualizationModes.ViewSection.SelectionStyle,,,Selection,Selection
+Studio.VisualizationModes.ViewSection.SelectionStyleToolTip,,,Change the style of instance selection in the viewport,Change the style of instance selection in the viewport
+Studio.VisualizationModes.ViewSection.RenderingModeToolTip,,,Change the rendering mode of the viewport to highlight triangle usage in the scene.,Change the rendering mode of the viewport to highlight triangle usage in the scene.
+Studio.VisualizationModes.StudioModes.SLIM,,,SLIM,SLIM
+Studio.VisualizationModes.StudioModes.SLIMToolTip,,,Show the visuals of models that are SLIM,Show the visuals of models that are SLIM
 Studio.PlaceSessionConfiguration.ConnectingtoServer,,,Connecting to server...,Connecting to server...
 Studio.PlaceSessionConfiguration.InvalidArgument2,,,Launch Task %1 requires valid %2,Launch Task %1 requires valid %2
 Studio.PlaceSessionConfiguration.CloudTestFetchConfigFailed,,,Cannot fetch team test launch config.,Cannot fetch team test launch config.
@@ -13699,6 +13783,8 @@ Studio.Assistant.Tools.UserKeyboardInput,,,Keyboard Input,Keyboard Input
 Studio.Assistant.Tools.UserMouseInput,,,Mouse Input,Mouse Input
 Studio.Assistant.Tools.StartStopPlay,,,Start/Stop Play,Start/Stop Play
 Studio.Assistant.Tools.GetConsoleOutput,,,Get Console Output,Get Console Output
+Studio.Assistant.GenericLongRunToolContentWidget.Processing,,,Processing...,Processing...
+Studio.Assistant.GenericLongRunToolContentWidget.CodeTruncated,,,Code truncated ({charCount} characters total). Use the copy button to get the full code.,Code truncated ({charCount} characters total). Use the copy button to get the full code.
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -13987,6 +14073,7 @@ Studio.AvatarSettings.BodySettings.AppearanceSectionEyelash,,,Eyelash,Eyelash
 Studio.AvatarSettings.UnsavedChangesDialog.SaveFailed,,,Save failed,Save failed
 Studio.AvatarSettings.UnsavedChangesDialog.SaveFailedDescription,,,"We hit an internal error, check your connection and retry saving your changes.","We hit an internal error, check your connection and retry saving your changes."
 Studio.AvatarSettings.UnsavedChangesDialog.Retry,,,Retry,Retry
+Studio.AvatarSettings.ShortTitle,,,Settings,Settings
 Studio.ExplorerLibrary.HistoryDropdown.TitleText,,,History,History
 Studio.ExplorerLibrary.SearchBar.PlaceholderText,,,Search,Search
 Studio.ExplorerLibrary.SearchBrowser.ResultCountSingular,,,1 match,1 match
@@ -14019,6 +14106,7 @@ Studio.ExplorerLibrary.LiveSync.ScriptSyncing,,,Local changes are being synced w
 Studio.ExplorerLibrary.ChatMigration.AutoMigrateWarning,,,This project now uses TextChatService at runtime. Change ChatVersion to TextChatService in Properties.,This project now uses TextChatService at runtime. Change ChatVersion to TextChatService in Properties.
 Studio.ExplorerLibrary.ChatMigration.DeprecationWarning,,,"The legacy chat system is being deprecated, use TextChatService for compatibility.","The legacy chat system is being deprecated, use TextChatService for compatibility."
 Studio.ExplorerLibrary.NegateSelection.PartIsNegated,,,Part is negated,Part is negated
+Studio.ExplorerLibrary.LiveSync.AncestorErrored,,,Syncing stopped due to error at the root of the tree,Syncing stopped due to error at the root of the tree
 Studio.AudioCompressorEditor.Plugin.AudioCompressorEditor,,,AudioCompressorEditor,AudioCompressorEditor
 Studio.AudioCompressorEditor.Label.Bypass,,,Bypass,Bypass
 Studio.AudioCompressorEditor.Label.EnableMetering,,,Enable Metering,Enable Metering
@@ -14336,6 +14424,8 @@ Studio.BetaFeatures.ACE3DImporterTitle,,,3D Importer in ACE,3D Importer in ACE
 Studio.BetaFeatures.ACE3DImporterDescription,,,Upgrade the ACE's  'Import from file' button to use the modern 3D Importer instead of the legacy importer,Upgrade the ACE's  'Import from file' button to use the modern 3D Importer instead of the legacy importer
 Studio.BetaFeatures.UniversalImporterTitle,,,Universal Importer,Universal Importer
 Studio.BetaFeatures.UniversalImporterDescription,,,"Add support for images, audio and video and replace bulk importer in the revamped Asset Manager.","Add support for images, audio and video and replace bulk importer in the revamped Asset Manager."
+Studio.BetaFeatures.AvatarAbilitiesTitle,,,AvatarAbilities Character Controller Library,AvatarAbilities Character Controller Library
+Studio.BetaFeatures.AvatarAbilitiesDescription,,,"A Luau-native character controller system — an extensible alternative to the Humanoid state machine, built on ControllerManager physics.","A Luau-native character controller system — an extensible alternative to the Humanoid state machine, built on ControllerManager physics."
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -14456,6 +14546,7 @@ Studio.PlaceVersionHistory.Label.UnknownUser,,,Unknown user,Unknown user
 Studio.PlaceVersionHistory.Title.MigrationInProgress,,,Your version history is being migrated,Your version history is being migrated
 Studio.PlaceVersionHistory.Description.MigrationInProgress,,,We have started moving your version history. It will show up here soon.,We have started moving your version history. It will show up here soon.
 Studio.PlaceVersionHistory.Label.ResetPlace,,,Back to current place,Back to current place
+Studio.PlaceVersionHistory.Label.PreviouslyPublished,,,Previously Published,Previously Published
 Studio.PerformanceTools.SceneBudgetThermometer.Plugin.Toolbar,,,Performance Tools,Performance Tools
 Studio.PerformanceTools.SceneBudgetThermometer.Name,,,Scene Budget Thermometer,Scene Budget Thermometer
 Studio.PerformanceTools.SceneBudgetThermometer.Button,,,Scene Budget Thermometer,Scene Budget Thermometer

@@ -5370,6 +5370,195 @@ Studio.AssetImport.GrantExperienceAssetPermissionsErrorMessage,,Failed to grant 
 Studio.AssetImport.ImportFilePickerCaption,,"Open 3D File (FBX, OBJ, GLB, GLTF)","Open 3D File (FBX, OBJ, GLB, GLTF)"
 Studio.AssetImport.ImportMultifilePickerCaption,"This text appears on the top of a file browser window on Windows or Mac, prompting users to choose a file with the specified file types.","Open 3D or Image File (FBX, OBJ, GLB, GLTF, BMP, JPEG, JPG, PNG, TGA)","Open 3D or Image File (FBX, OBJ, GLB, GLTF, BMP, JPEG, JPG, PNG, TGA)"
 Studio.AssetImport.TextureFilePickerCaption,,Open Texture File,Open Texture File
+Studio.AssetManager.AssetGrid.LoadButton,,Load All Pages,Load All Pages
+Studio.AssetManager.AssetGrid.NoResults,,No {assetType} Found,No {assetType} Found
+Studio.AssetManager.AssetItem.FailedModerationTooltip,, This asset has failed moderation review, This asset has failed moderation review
+Studio.AssetManager.AssetItem.PendingModerationTooltip,, This asset is pending moderation review, This asset is pending moderation review
+Studio.AssetManager.AssetPermission.Edit,The 'edit' asset permission allows subjects to edit the assets directly.,Edit,Edit
+Studio.AssetManager.AssetPermission.Use,The 'use' asset permission allows subjects to use the assets in experiences.,Use,Use
+Studio.AssetManager.AssetPreview.Insert,,Insert,Insert
+Studio.AssetManager.AssetProperty.Archived,The state of an asset in a user's inventory,Archived,Archived
+Studio.AssetManager.AssetProperty.AssetId,The ID of an asset,Asset ID,Asset ID
+Studio.AssetManager.AssetProperty.AssetType,The type of an asset like Model Mesh Image or something else,Asset Type,Asset Type
+Studio.AssetManager.AssetProperty.Created,The time an asset was created,Date Created,Date Created
+Studio.AssetManager.AssetProperty.Creator,The user that created an asset,Creator,Creator
+Studio.AssetManager.AssetProperty.DisplayName,The name an asset was published with,Name,Name
+Studio.AssetManager.AssetProperty.IsPackage,If the asset is also a Package,Is Package,Is Package
+Studio.AssetManager.AssetProperty.ModerationStatus,The moderation status of an asset,Moderation Status,Moderation Status
+Studio.AssetManager.AssetProperty.Modified,The time an asset was modified,Date Modified,Date Modified
+Studio.AssetManager.AssetProperty.Owner,The owner of an asset,Owner,Owner
+Studio.AssetManager.AssetProperty.Package,If the asset is also a Package,Package,Package
+Studio.AssetManager.AssetProperty.Source,The method by which the user acquired this asset,Source,Source
+Studio.AssetManager.AssetProperty.VersionNumber,The version of an asset,Version,Version
+Studio.AssetManager.AssetSource.CreatorStore,The text for the filter option to select assets from the Creator Store,Creator Store,Creator Store
+Studio.AssetManager.AssetSource.SharedWithMe,The text for the filter option to select assets shared with the user,Shared With Me,Shared With Me
+Studio.AssetManager.AssetSource.Uploaded,The text for the filter option to select assets uploaded by the user,Uploaded,Uploaded
+Studio.AssetManager.AssetType.Animation,The type of asset that is an Animation,Animation,Animation
+Studio.AssetManager.AssetType.Audio,The type of asset that is an audio,Audio,Audio
+Studio.AssetManager.AssetType.Decal,The type of asset that is a Decal,Decal,Decal
+Studio.AssetManager.AssetType.FontFamily,The type of asset that is a FontFamily script,FontFamily,FontFamily
+Studio.AssetManager.AssetType.Image,The type of asset that is an image,Image,Image
+Studio.AssetManager.AssetType.Mesh,The type of asset that is a mesh,Mesh,Mesh
+Studio.AssetManager.AssetType.MeshPart,The type of asset that is a MeshPart,MeshPart,MeshPart
+Studio.AssetManager.AssetType.Model,The type of asset that is a model,Model,Model
+Studio.AssetManager.AssetType.Package,The type of asset that is a package,Package,Package
+Studio.AssetManager.AssetType.Place,The type of asset that is a place,Place,Place
+Studio.AssetManager.AssetType.Plugin,The type of asset that is a Plugin,Plugin,Plugin
+Studio.AssetManager.AssetType.Video,The type of asset that is a Video script,Video,Video
+Studio.AssetManager.BulkImport.BulkImportRunning,,You can import other files after the current import is finished.,You can import other files after the current import is finished.
+Studio.AssetManager.BulkImport.BulkImportShowLink,,Check current status,Check current status
+Studio.AssetManager.Callout.BadgesDevProductsDescription,,Badges and Developer Products have moved to Monetization Page in Game Settings,Badges and Developer Products have moved to Monetization Page in Game Settings
+Studio.AssetManager.ContextMenu.AddAudio,,Add Audio,Add Audio
+Studio.AssetManager.ContextMenu.AddImages,,Add Images,Add Images
+Studio.AssetManager.ContextMenu.AddMeshes,,Add Meshes,Add Meshes
+Studio.AssetManager.ContextMenu.AddNewPlace,,Add New Place,Add New Place
+Studio.AssetManager.ContextMenu.AddVideo,,Add Video,Add Video
+Studio.AssetManager.ContextMenu.AssetPreview,,Asset Preview,Asset Preview
+Studio.AssetManager.ContextMenu.CopyAssetId,The text for the context menu option to copy the asset ID,Copy Asset ID,Copy Asset ID
+Studio.AssetManager.ContextMenu.CopyAssetIds,The text for the context menu option to copy the asset IDs of multiple selected assets,Copy Asset IDs,Copy Asset IDs
+Studio.AssetManager.ContextMenu.CopyIdToClipboard,,Copy ID to Clipboard,Copy ID to Clipboard
+Studio.AssetManager.ContextMenu.CopyMeshIdToClipboard,,Copy Mesh ID to Clipboard,Copy Mesh ID to Clipboard
+Studio.AssetManager.ContextMenu.CopyTextureIdToClipboard,,Copy Texture ID to Clipboard,Copy Texture ID to Clipboard
+Studio.AssetManager.ContextMenu.EditAsset,,Edit Asset,Edit Asset
+Studio.AssetManager.ContextMenu.FindInExplorer,The text for the context menu option to select all placed instances of an asset in Explorer,Find in Explorer,Find in Explorer
+Studio.AssetManager.ContextMenu.Insert,,Insert,Insert
+Studio.AssetManager.ContextMenu.InsertAsLocalScript,,Insert As Local Script,Insert As Local Script
+Studio.AssetManager.ContextMenu.InsertAsModuleScript,,Insert As Module Script,Insert As Module Script
+Studio.AssetManager.ContextMenu.InsertAsScript,,Insert As Script,Insert As Script
+Studio.AssetManager.ContextMenu.InsertAsset,The text for the context menu option to insert a single asset,Insert Asset,Insert Asset
+Studio.AssetManager.ContextMenu.InsertAtAssetPosition,The text for the context menu option to insert asset(s) at the position they have as part of their data,Insert at Asset Position,Insert at Asset Position
+Studio.AssetManager.ContextMenu.InsertAtCamera,The text for the context menu option to insert asset(s) where the camera is looking,Insert at Camera,Insert at Camera
+Studio.AssetManager.ContextMenu.InsertSelection,The text for the context menu option to insert all selected assets,Insert Selection,Insert Selection
+Studio.AssetManager.ContextMenu.InsertWithLocation,,Insert With Location,Insert With Location
+Studio.AssetManager.ContextMenu.NewPlaceAdded,,New Place Added,New Place Added
+Studio.AssetManager.ContextMenu.OpenFolder,,Open,Open
+Studio.AssetManager.ContextMenu.PackageDetails,,Package Details,Package Details
+Studio.AssetManager.ContextMenu.PluginInstall,The text for the context menu option to install a plugin,Install,Install
+Studio.AssetManager.ContextMenu.PluginReport,The text for the context menu option to report a plugin creator for misconduct,Report,Report
+Studio.AssetManager.ContextMenu.PluginUpdate,The text for the context menu option to update a plugin,Update,Update
+Studio.AssetManager.ContextMenu.PublishLinkedSource,,Publish this LinkedSource,Publish this LinkedSource
+Studio.AssetManager.ContextMenu.QuickShare,The text for the context menu option to open a permissions sharing dialog after selecting a set of assets,Share,Share
+Studio.AssetManager.ContextMenu.RefreshScript,,Refresh Script,Refresh Script
+Studio.AssetManager.ContextMenu.RemoveFromExperience,Text for removing the place or asset from the experience's list of places or assets,Remove From Experience,Remove From Experience
+Studio.AssetManager.ContextMenu.RemoveFromGame,,Remove From Game,Remove From Game
+Studio.AssetManager.ContextMenu.Rename,,Rename,Rename
+Studio.AssetManager.ContextMenu.RenameAlias,,Rename Alias,Rename Alias
+Studio.AssetManager.ContextMenu.RevertToLastPublishedVersion,,Revert To Last Published Version,Revert To Last Published Version
+Studio.AssetManager.ContextMenu.UpdateAll,,Update All,Update All
+Studio.AssetManager.ContextMenu.ViewInBrowser,The text for the context menu option to view the asset in the browser,View in Browser,View in Browser
+Studio.AssetManager.ContextMenu.ViewOnWebsite,,View On Website,View On Website
+Studio.AssetManager.ContextMenu.ViewPlaceHistory,,View History,View History
+Studio.AssetManager.Dialogs.ConfirmPlaceRemoveHeading,Heading for confirmation dialog to make sure user wants to remove a place from their experience,Are you sure you want to remove this place?,Are you sure you want to remove this place?
+Studio.AssetManager.Explorer.GroupsHeader,A header for a list of group inventories where each element contains the assets for that group,Group Inventories,Group Inventories
+Studio.AssetManager.Filters.AssetTypes,The text for the filter option to show only assets of a certain type,Type,Type
+Studio.AssetManager.Filters.Creator,The text for the filter option to show only assets created by certain users or groups,Creator,Creator
+Studio.AssetManager.Filters.OnlyArchived,The text for the filter option to show only assets that have been archived,Only Archived,Only Archived
+Studio.AssetManager.Filters.Owner,The text for the filter option to show only assets owned by certain users or groups,Owner,Owner
+Studio.AssetManager.Filters.PlacesOnlyInUniverseWarning,The text under the asset type filter warning the user that places can only be found inside the published game.,Change Source to your game to search for places.,Change Source to your game to search for places.
+Studio.AssetManager.Filters.ResetFilters,The text for the filter option to reset filters to default,Reset Filters,Reset Filters
+Studio.AssetManager.FiltersByType.CommonTypes,A section label for the common types of assets in the asset type filter dropdown menu.,Common Types,Common Types
+Studio.AssetManager.FiltersByType.OtherTypes,"A section label for the other types of asset search settings, e.g., assets that are packages.",Other Types,Other Types
+Studio.AssetManager.FiltersByType.SearchAllPlaceholder,"Placeholder text for a text field allowing users to search among asset filters (e.g., is archived, mesh, image, etc).",Search all filters...,Search all filters...
+Studio.AssetManager.FiltersByType.SearchPlaceholder,"Placeholder text displayed in the search textfield when the user has not yet entered any search term(s) in the ""Filter by asset type"" dropdown menu.",Search asset types...,Search asset types...
+Studio.AssetManager.FiltersByType.Title,The top title label of the asset type filter dropdown menu.,Filter By Type,Filter By Type
+Studio.AssetManager.Folders.AUDIO,,Audio,Audio
+Studio.AssetManager.Folders.IMAGES,,Images,Images
+Studio.AssetManager.Folders.MESHES,,Meshes,Meshes
+Studio.AssetManager.Folders.MODELS,,Models,Models
+Studio.AssetManager.Folders.PACKAGES,,Packages,Packages
+Studio.AssetManager.Folders.PLACES,,Places,Places
+Studio.AssetManager.Folders.SCRIPTS,,Scripts,Scripts
+Studio.AssetManager.Folders.VIDEO,,Video,Video
+Studio.AssetManager.GroupsHeader,A header for a list of group inventories where each element contains the assets for that group,Group Inventories,Group Inventories
+Studio.AssetManager.HeaderBar.SortTooltip,Tooltip for the button to choose the sort order for assets in a grid,Sort,Sort
+Studio.AssetManager.HeaderBar.ViewTypeSelectGrid,The option to view assets in a grid mode.,Grid,Grid
+Studio.AssetManager.HeaderBar.ViewTypeSelectList,The option to view assets in a list mode.,List,List
+Studio.AssetManager.HeaderBar.ViewTypeSelectTooltip,Tooltip for button that allows user to choose between list and grid view types for the Asset Manager,View Type,View Type
+Studio.AssetManager.Main.Title,,Asset Manager,Asset Manager
+Studio.AssetManager.Main.ToolbarButton,,Asset Manager,Asset Manager
+Studio.AssetManager.Main.Tooltip,,"Add, remove, and modify assets","Add, remove, and modify assets"
+Studio.AssetManager.MainView.AssetPreviewError,, Failed to load asset preview data, Failed to load asset preview data
+Studio.AssetManager.MainView.ButtonText,,Publish,Publish
+Studio.AssetManager.MainView.CancelText,,Cancel,Cancel
+Studio.AssetManager.MainView.ConfirmRemovePlaceText,,Are you sure you would like to remove the selected place(s)?,Are you sure you would like to remove the selected place(s)?
+Studio.AssetManager.MainView.ConfirmText,,Confirm,Confirm
+Studio.AssetManager.MainView.PublishText,,You need to publish the game to start using Asset Manager.,You need to publish the game to start using Asset Manager.
+Studio.AssetManager.MainView.SaveButtonText,,Save,Save
+Studio.AssetManager.MainView.SaveText,,Save to start using Asset Manager.,Save to start using Asset Manager.
+Studio.AssetManager.MainView.SaveToRobloxButtonText,,Save to Roblox,Save to Roblox
+Studio.AssetManager.Meta.PluginName,,AssetManager,AssetManager
+Studio.AssetManager.Meta.ToolbarName,,Asset Manager,Asset Manager
+Studio.AssetManager.NavBar.GamePlaceholderName,,Game,Game
+Studio.AssetManager.NavBar.ID,,ID: {gameId:int},ID: {gameId:int}
+Studio.AssetManager.Navigation.GoBack,Tooltip for button that sends user to view the previous folder,Go Back,Go Back
+Studio.AssetManager.Navigation.GoForward,Tooltip for button that sends user to view the next folder,Go Forward,Go Forward
+Studio.AssetManager.Plugin.Name,Name of the Asset Manager plugin which describes that it allows users to work with and manage their assets,Asset Manager,Asset Manager
+Studio.AssetManager.Plugin.NoAssets,A message that shows when the user group or folder has no assets,No results found,No results found
+Studio.AssetManager.Plugin.PlaceholderGameName,A substitute name for the top-level folder containing the universe's assets,My Project,My Project
+Studio.AssetManager.Plugin.PlaceholderUsername,A substitute name for the top-level folder containing the user's assets,My Inventory,My Inventory
+Studio.AssetManager.PluginErrors.ErrorFetchUsername,Debug output telling user that there was an issue retrieving their user name, Could not fetch user info, Could not fetch user info
+Studio.AssetManager.QuickShare.AddButton,The text used for a button to add the entered experience ID to a list of experiences to share assets with.,Add,Add
+Studio.AssetManager.QuickShare.CancelButton,The text used for a button to cancel and close the quick permission sharing dialog.,Cancel,Cancel
+Studio.AssetManager.QuickShare.CloseButton,The text used for a button to close the quick permission sharing dialog.,Close,Close
+Studio.AssetManager.QuickShare.CollaboratorPlaceholder,Placeholder text for a dropdown where the user can select or enter a user or group name for permission sharing.,Search for a connection or group,Search for a connection or group
+Studio.AssetManager.QuickShare.CollaboratorsHintDescription,Placeholder description text when no collaborators have been added to the list,Give your connections and groups access to this asset,Give your connections and groups access to this asset
+Studio.AssetManager.QuickShare.CollaboratorsHintTitle,Placeholder title text when no collaborators have been added to the list,Add collaborators,Add collaborators
+Studio.AssetManager.QuickShare.CollaboratorsTab,A tab button label for a screen where collaborator users can be added to share assets with.,Collaborators,Collaborators
+Studio.AssetManager.QuickShare.DialogDescription,"The description of the Quick Share asset permission sharing dialog, below the title",Configure who has permission to access your assets,Configure who has permission to access your assets
+Studio.AssetManager.QuickShare.DialogTitle,The window title for a popup dialog to quickly select users to share assets with.,Quick Share,Quick Share
+Studio.AssetManager.QuickShare.DoneButton,The text used for a button to close the quick permission sharing dialog after making selections.,Done,Done
+Studio.AssetManager.QuickShare.ErrorsTitle,The title of a dialog displaying a list of errors after attempting to grant asset permissions.,Permission Errors,Permission Errors
+Studio.AssetManager.QuickShare.ExperienceIdPlaceholder,Placeholder text for an input field where the user can enter an experience ID.,Enter experience IDs,Enter experience IDs
+Studio.AssetManager.QuickShare.ExperiencesHintDescription,Placeholder description text when no experiences have been added to the list,Share with experiences you have access to,Share with experiences you have access to
+Studio.AssetManager.QuickShare.ExperiencesHintTitle,Placeholder title text when no experiences have been added to the list,Add experiences,Add experiences
+Studio.AssetManager.QuickShare.ExperiencesTab,A tab button label for a screen where experience IDs can be added to share assets with those experiences.,Experiences,Experiences
+Studio.AssetManager.QuickShare.RemoveButton,The text used for a dropdown item that removes the user from the list to grant permissions to.,Remove,Remove
+Studio.AssetManager.QuickShare.ShareButton,The text used for a button to close the quick permission sharing dialog after making selections.,Share,Share
+Studio.AssetManager.QuickShare.SharingMultiple,"The title label for a dialog to share assets with users, where count is the number of assets selected by the user, and count is never 1.",Sharing {count} assets,Sharing {count} assets
+Studio.AssetManager.QuickShare.SharingOne,"The title label for a dialog to share assets with users, when the number of selected assets is exactly 1.",Sharing 1 asset,Sharing 1 asset
+Studio.AssetManager.RecentlyImportedView.Title,,Recently Added,Recently Added
+Studio.AssetManager.Scopes.CancelOptions,Button to cancel changes made to the sidebar,Cancel,Cancel
+Studio.AssetManager.Scopes.Customize,Context menu item to customize which groups are visible in the sidebar,Customize Groups,Customize Groups
+Studio.AssetManager.Scopes.ExperiencePlaces,Name of the folder containing all places in the experience,Places In Experience,Places In Experience
+Studio.AssetManager.Scopes.ExperienceShared,Name of the folder containing all assets shared with the experience,Shared With Experience,Shared With Experience
+Studio.AssetManager.Scopes.Hide,Context menu item to hide the right-clicked group from the sidebar,Hide Group,Hide Group
+Studio.AssetManager.Scopes.OptionsDescription,Description of what user can do in the sidebar customization menu,Your selection will also customize which items you want to see in your sidebar and search options.,Your selection will also customize which items you want to see in your sidebar and search options.
+Studio.AssetManager.Scopes.OptionsTitle,Title of the sidebar customization menu,Customize Sidebar,Customize Sidebar
+Studio.AssetManager.Scopes.Refresh,Context menu item to refresh the visible groups in the sidebar,Refresh Groups,Refresh Groups
+Studio.AssetManager.Scopes.SaveOptions,Button to save changes made to the sidebar,Save,Save
+Studio.AssetManager.Scopes.SelectAll,Name of checkbox to enable all checkboxes in the sidebar customization menu,Select All,Select All
+Studio.AssetManager.Search.Placeholder,The filler text for the search box before the user types anything,Search,Search
+Studio.AssetManager.SearchBar.GlobalPlaceholderText,,Filter Assets,Filter Assets
+Studio.AssetManager.SearchBar.PlaceholderText,,Filter,Filter
+Studio.AssetManager.SearchOptions.Cancel,Text for a button to close the search sidebar,Cancel,Cancel
+Studio.AssetManager.SearchOptions.FilterPlaceholder,Placeholder text for an input box to filter a list by text,Filter,Filter
+Studio.AssetManager.SearchOptions.Filters,A heading for the filters section of the search options,Filters,Filters
+Studio.AssetManager.SearchOptions.Inventory,Heading for a dropdown allowing the user to choose which user or group inventory to search for assets.,Inventory,Inventory
+Studio.AssetManager.SearchOptions.Search,Text for a button to invoke the search query,Search,Search
+Studio.AssetManager.SearchOptions.SearchResults,A heading for the search results section,Search Results,Search Results
+Studio.AssetManager.SearchOptions.Source,A heading for the source section (owners/creators) of the search options,Source,Source
+Studio.AssetManager.ShortTitle,The shortened version of `Studio.AssetManager.Main.Title` for display in the Studio Ribbon. Refers to the Assets that the Asset Manager manages,Assets,Assets
+Studio.AssetManager.Sidebar.Library,Header in AssetManager sidebar that contains all the user's accessible asset inventories.,Library,Library
+Studio.AssetManager.Sidebar.Project,A header in the AssetManager sidebar to describe folders tied to the current experience.,Project,Project
+Studio.AssetManager.SortOption.AscendingName,, Name (Ascending), Name (Ascending)
+Studio.AssetManager.SortOption.DescendingName,, Name (Descending), Name (Descending)
+Studio.AssetManager.SortOption.RecentlyAdded,, Recently Added, Recently Added
+Studio.AssetManager.SortOption.RecentlyUsed,, Recently Used, Recently Used
+Studio.AssetManager.Tooltip.BulkImport,The tooltip for the bulk import button to import files into Roblox,Import,Import
+Studio.AssetManager.Tooltip.BulkImportDisabled,The tooltip for the bulk import button when it's disabled due to game not being published,You must publish the experience to use the importer,You must publish the experience to use the importer
+Studio.AssetManager.Tooltip.ClearFilters,The tooltip for the button to clear all filters,Clear Filters,Clear Filters
+Studio.AssetManager.Tooltip.ExperienceCreatorScope,Tooltip describing the Asset Manager folder belonging to the creator of the current experience.,Experience Creator,Experience Creator
+Studio.AssetManager.Tooltip.ExperienceScope,Tooltip describing the content contained within the Experience folder in the Asset Manager,Places & Shared Assets,Places & Shared Assets
+Studio.AssetManager.Tooltip.NoPlacesExperienceNotPublished,Tooltip for a button to search for place assets and is disabled when the experience isn't saved yet,Places are only available after saving to Roblox.,Places are only available after saving to Roblox.
+Studio.AssetManager.Tooltip.NoPlacesWrongScope,Tooltip for button to search for places when the user is not searching within their published experience,Places are only available in {experienceName}.,Places are only available in {experienceName}.
+Studio.AssetManager.Tooltip.Refresh,The tooltip for the button to refresh the asset list,Refresh assets,Refresh assets
+Studio.AssetManager.TopBar.BackButton,,Back,Back
+Studio.AssetManager.TopBar.BulkImportButton,,Bulk import,Bulk import
+Studio.AssetManager.TopBar.ExplorerOverlayButton,,Explorer Overlay,Explorer Overlay
+Studio.AssetManager.TopBar.ForwardButton,,Forward,Forward
+Studio.AssetManager.TopBar.GridViewButton,,Grid View,Grid View
+Studio.AssetManager.TopBar.ListViewButton,,List View,List View
+Studio.AssetManager.TopBar.SortButton,, Sorting Options, Sorting Options
 Studio.AttachmentTool.Plugin.Button,,Create,Create
 Studio.AttachmentTool.Plugin.Description,,Create an Attachment.,Create an Attachment.
 Studio.AttachmentTool.Plugin.Name,,Attachment Tool,Attachment Tool
@@ -5415,6 +5604,217 @@ Studio.Auth.Studio.Login,The text for offering the user to login Studio using em
 Studio.Auth.Try.Again,The text for retrying launching Studio login,Try Again,Try Again
 Studio.Auth.VerifyUserIdMatchLocalCache.LoginError,"Error message that is shown when Studio fails to open due to credential mismatch, specifically when the cookie credential mismatch token credential",An error occurred while logging into Studio. Please close all other Studio instances and try again.,An error occurred while logging into Studio. Please close all other Studio instances and try again.
 Studio.Auth.WebLaunchCredentialMismatch.LoginError,"Error message that is shown when Studio fails to open due to credential mismatch, e.g. user launch Studio from the web but ended up using a different credential to login studio than the original one from the web",Studio failed to open due to mismatched credentials. Please login with the current web account when launching from the web.,Studio failed to open due to mismatched credentials. Please login with the current web account when launching from the web.
+Studio.AvatarSettings.AccessoriesSettings.AccessoryBehaviorsSection,Text for the Accessory Behaviors expandable section,Accessory Behaviors,Accessory Behaviors
+Studio.AvatarSettings.AccessoriesSettings.AccessoryBehaviorsSectionEnableSound,Label for the Enable Sound setting of Accessory Behaviors,Enable Sound,Enable Sound
+Studio.AvatarSettings.AccessoriesSettings.AccessoryBehaviorsSectionEnableVFX,Label for the Enable VFX setting of Accessory Behaviors,Enable VFX,Enable VFX
+Studio.AvatarSettings.AccessoriesSettings.AccessoryBehaviorsSectionSubText,Description of the Accessory Behaviors settings,Configure special behaviors of accessories,Configure special behaviors of accessories
+Studio.AvatarSettings.AccessoriesSettings.AccessoryScaleSection,Text for the Accessory Scale expandable section,Accessory Scale,Accessory Scale
+Studio.AvatarSettings.AccessoriesSettings.AccessoryScaleSectionCustomLimitButtonText,Accessory Scale mode selector text for Custom Limit,Custom Limit,Custom Limit
+Studio.AvatarSettings.AccessoriesSettings.AccessoryScaleSectionCustomLimitSubText,Description for the Accessory Scale mode selector when it's set to Custom Limit,Remove or scale accessories that exceed limit bounds,Remove or scale accessories that exceed limit bounds
+Studio.AvatarSettings.AccessoriesSettings.AccessoryScaleSectionLimitBounds,Label for the Accessory Scale Limit Bounds setting,Limit Bounds,Limit Bounds
+Studio.AvatarSettings.AccessoriesSettings.AccessoryScaleSectionLimitMethod,Label for the Accessory Scale Limit Method setting,Limit Method,Limit Method
+Studio.AvatarSettings.AccessoriesSettings.AccessoryScaleSectionLimitMethodRemove,Text for the Remove item of the Accessory Scale Limit Method setting,Remove,Remove
+Studio.AvatarSettings.AccessoriesSettings.AccessoryScaleSectionLimitMethodScale,Text for the Scale item of the Accessory Scale Limit Method setting,Scale,Scale
+Studio.AvatarSettings.AccessoriesSettings.AccessoryScaleSectionPlayerChoiceButtonText,Accessory Scale mode selector text for Player Choice,Player Choice,Player Choice
+Studio.AvatarSettings.AccessoriesSettings.AccessoryScaleSectionPlayerChoiceSubText,Description for the Accessory Scale mode selector when it's set to Player Choice,Leave accessory scale as-is,Leave accessory scale as-is
+Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSection,Text for the Custom Accessories expandable section,Custom Accessories,Custom Accessories
+Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionCustomAccessoriesBack,Label for the Custom Accessories Back setting,Back,Back
+Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionCustomAccessoriesButtonText,Custom Accessories mode selector text for Custom Accessories,Custom Accessories,Custom Accessories
+Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionCustomAccessoriesFace,Label for the Custom Accessories Face setting,Face,Face
+Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionCustomAccessoriesFront,Label for the Custom Accessories Front setting,Front,Front
+Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionCustomAccessoriesHair,Label for the Custom Accessories Hair setting,Hair,Hair
+Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionCustomAccessoriesHead,Label for the Custom Accessories Head setting,Head,Head
+Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionCustomAccessoriesNeck,Label for the Custom Accessories Neck setting,Neck,Neck
+Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionCustomAccessoriesShoulder,Label for the Custom Accessories Shoulder setting,Shoulder,Shoulder
+Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionCustomAccessoriesSubText,Description for the Custom Accessories mode selector when it's set to Custom Accessories,Add or replace categories of accessories with custom accessories,Add or replace categories of accessories with custom accessories
+Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionCustomAccessoriesWaist,Label for the Custom Accessories Waist setting,Waist,Waist
+Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionPlayerChoiceButtonText,Custom Accessories mode selector text for Player Choice,Player Choice,Player Choice
+Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionPlayerChoiceSubText,Description for the Custom Accessories mode selector when it's set to Player Choice,Leave accessories as-is,Leave accessories as-is
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSection,Text for the Animation Clips expandable section,Animation Clips,Animation Clips
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionCustomClipsButtonText,Animation Clips mode selector text for Custom Clips,Custom Clips,Custom Clips
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionCustomClipsClimb,Label for the Animation Clips Climb setting,Climb,Climb
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionCustomClipsFall,Label for the Animation Clips Fall setting,Fall,Fall
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionCustomClipsIdle,Label for the Animation Clips Idle setting,Idle,Idle
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionCustomClipsIdleAlt1,Label for the Animation Clips Idle Alt 1 setting,Idle Alt 1,Idle Alt 1
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionCustomClipsIdleAlt2,Label for the Animation Clips Idle Alt 2 setting,Idle Alt 2,Idle Alt 2
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionCustomClipsJump,Label for the Animation Clips Jump setting,Jump,Jump
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionCustomClipsPlayerChoiceSubText,Description for the Animation Clips mode selector when it's set to Custom Clips and Animation Packs is set to Player Choice,Replace specific animation clips with custom clips. Players' purchased animation packs will override the custom clips below,Replace specific animation clips with custom clips. Players' purchased animation packs will override the custom clips below
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionCustomClipsRun,Label for the Animation Clips Run setting,Run,Run
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionCustomClipsStandardR15SubText,Description for the Animation Clips mode selector when it's set to Custom Clips and Animation Packs is set to Standard R15,Replace specific animation clips with custom clips.,Replace specific animation clips with custom clips.
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionCustomClipsStandardR6SubText,Description for the Animation Clips mode selector when it's set to Custom Clips and Animation Packs is set to Standard R6,Replace specific animation clips with custom clips.,Replace specific animation clips with custom clips.
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionCustomClipsSwim,Label for the Animation Clips Swim setting,Swim,Swim
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionCustomClipsSwimIdle,Label for the Animation Clips Swim Idle setting,Swim Idle,Swim Idle
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionCustomClipsWalk,Label for the Animation Clips Walk setting,Walk,Walk
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionPlayerChoiceButtonText,Animation Clips mode selector text for Player Choice,Player Choice,Player Choice
+Studio.AvatarSettings.AnimationSettings.AnimationClipsSectionPlayerChoiceSubText,Description for the Animation Clips mode selector when it's set to Player Choice,Leave animation clips as-is,Leave animation clips as-is
+Studio.AvatarSettings.AnimationSettings.AnimationPacksSection,Text for the Animation Packs expandable section,Animation Packs,Animation Packs
+Studio.AvatarSettings.AnimationSettings.AnimationPacksSectionPlayerChoiceButtonText,Animation Packs mode selector text for Player Choice,Player Choice,Player Choice
+Studio.AvatarSettings.AnimationSettings.AnimationPacksSectionPlayerChoiceSubText,Description for the Animation Packs mode selector when it's set to Player Choice,Use standard R15 animations and allow players' purchased animation packs,Use standard R15 animations and allow players' purchased animation packs
+Studio.AvatarSettings.AnimationSettings.AnimationPacksSectionStandardR15ButtonText,Animation Packs mode selector text for Standard R15,Standard R15,Standard R15
+Studio.AvatarSettings.AnimationSettings.AnimationPacksSectionStandardR15SubText,Description for the Animation Packs mode selector when it's set to Standard R15,Use standard R15 animations and disable players' purchased animation packs,Use standard R15 animations and disable players' purchased animation packs
+Studio.AvatarSettings.AnimationSettings.AnimationPacksSectionStandardR6ButtonText,Animation Packs mode selector text for Standard R6,Standard R6,Standard R6
+Studio.AvatarSettings.AnimationSettings.AnimationPacksSectionStandardR6SubText,Description for the Animation Packs mode selector when it's set to Standard R6,Use R6 animations and disable players' purchased animation packs,Use R6 animations and disable players' purchased animation packs
+Studio.AvatarSettings.AvatarTypeSelector.AvatarTypeText,Label for the Avatar Type Dropdown.,Avatar Type,Avatar Type
+Studio.AvatarSettings.AvatarTypeSelector.ConsistentGameplayDescription,Description text for the Consistent Gameplay preset tooltip,"Good for Obby, Action and Adventure genres. Avatars have equal height and physics","Good for Obby, Action and Adventure genres. Avatars have equal height and physics"
+Studio.AvatarSettings.AvatarTypeSelector.ConsistentGameplayTitle,Title text for the Consistent Gameplay preset.,Consistent Gameplay,Consistent Gameplay
+Studio.AvatarSettings.AvatarTypeSelector.EmptyPreset,Placeholder text value for preset when none are defined.,-,-
+Studio.AvatarSettings.AvatarTypeSelector.PlayerChoiceDescription,Description text for the Player Choice preset tooltip.,"Good for Social and Casual genres. Avatars are exactly as intended by players, without modification","Good for Social and Casual genres. Avatars are exactly as intended by players, without modification"
+Studio.AvatarSettings.AvatarTypeSelector.PlayerChoiceTitle,Text for the Player Choice preset dropdown,Player Choice,Player Choice
+Studio.AvatarSettings.AvatarTypeSelector.Preset,Label for the Preset Segmented Buttons.,Preset,Preset
+Studio.AvatarSettings.AvatarTypeSelector.PresetTooltipAccurateCollision,Text for description on preset tooltip,Physically accurate collisions,Physically accurate collisions
+Studio.AvatarSettings.AvatarTypeSelector.PresetTooltipConsistentSizePhysics,Description text to describe a preset's look,Consistent size & physics,Consistent size & physics
+Studio.AvatarSettings.AvatarTypeSelector.PresetTooltipRetainLook,Text for description on preset tooltip,Retain players' intended look,Retain players' intended look
+Studio.AvatarSettings.AvatarTypeSelector.R15AndR6,Label for the R15 & R6 avatar type dropdown option.,R15 & R6,R15 & R6
+Studio.AvatarSettings.AvatarTypeSelector.R15AndR6Description,Description for the R15 & R6 avatar type dropdown option.,Players join as their choice in the Customize Avatar page,Players join as their choice in the Customize Avatar page
+Studio.AvatarSettings.AvatarTypeSelector.R15Only,Label for the R15 Only avatar type dropdown option.,R15 Only,R15 Only
+Studio.AvatarSettings.AvatarTypeSelector.R15OnlyDescription,Description for the R15 Only avatar type dropdown option.,Players join as their R15 avatar,Players join as their R15 avatar
+Studio.AvatarSettings.AvatarTypeSelector.R6Only,Label for the R15 Only avatar type dropdown option.,R6 Only,R6 Only
+Studio.AvatarSettings.AvatarTypeSelector.R6OnlyDescription,Description for the R6 Only avatar type dropdown option.,"Players join as their R6 avatar, or an R6 fallback avatar","Players join as their R6 avatar, or an R6 fallback avatar"
+Studio.AvatarSettings.BodySettings.AppearanceSection,Text for the Appearance expandable section.,Appearance,Appearance
+Studio.AvatarSettings.BodySettings.AppearanceSectionAvatarReference,Text for the Avatar Reference option for the Method setting.,Avatar Reference,Avatar Reference
+Studio.AvatarSettings.BodySettings.AppearanceSectionBody,Label for the Appearance Body setting.,Body,Body
+Studio.AvatarSettings.BodySettings.AppearanceSectionBundleID,Text for the Bundle ID option for the Method setting.,Bundle ID,Bundle ID
+Studio.AvatarSettings.BodySettings.AppearanceSectionCustomBodyButtonText,Appearance Mode Selector text for Custom Body.,Custom Body,Custom Body
+Studio.AvatarSettings.BodySettings.AppearanceSectionCustomBodySubText,Description for the Appearance Mode Selector when it's set to Custom Body.,Replace avatar bodies with a custom body,Replace avatar bodies with a custom body
+Studio.AvatarSettings.BodySettings.AppearanceSectionCustomPartsButtonText,Appearance Mode Selector text for Custom Parts.,Custom Parts,Custom Parts
+Studio.AvatarSettings.BodySettings.AppearanceSectionCustomPartsSubText,Description for the Appearance Mode Selector when it's set to Custom Parts.,Replace specific avatar parts with custom parts,Replace specific avatar parts with custom parts
+Studio.AvatarSettings.BodySettings.AppearanceSectionEyebrow,Label for the Appearance Eyebrow setting,Eyebrow,Eyebrow
+Studio.AvatarSettings.BodySettings.AppearanceSectionEyelash,Label for the Appearance Eyelash setting,Eyelash,Eyelash
+Studio.AvatarSettings.BodySettings.AppearanceSectionFace,Label for the Appearance Face setting,Face,Face
+Studio.AvatarSettings.BodySettings.AppearanceSectionHead,Label for the Appearance Head setting.,Head,Head
+Studio.AvatarSettings.BodySettings.AppearanceSectionKeepMatchingParts,Label for the Keep Matching Parts toggle of Style Transfer setting.,Keep Matching Parts,Keep Matching Parts
+Studio.AvatarSettings.BodySettings.AppearanceSectionKeepPlayerHead,Label for the Keep Player Head toggle of Style Transfer setting.,Keep Player Head,Keep Player Head
+Studio.AvatarSettings.BodySettings.AppearanceSectionLeftArm,Label for the Left Arm Custom Parts setting.,Left Arm,Left Arm
+Studio.AvatarSettings.BodySettings.AppearanceSectionLeftLeg,Label for the Left Leg Custom Parts setting.,Left Leg,Left Leg
+Studio.AvatarSettings.BodySettings.AppearanceSectionMethod,Label for the Method Custom Body setting.,Method,Method
+Studio.AvatarSettings.BodySettings.AppearanceSectionMood,Label for the Appearance Mood setting,Mood,Mood
+Studio.AvatarSettings.BodySettings.AppearanceSectionPlayerChoiceButtonText,Appearance Mode Selector text for Player Choice.,Player Choice,Player Choice
+Studio.AvatarSettings.BodySettings.AppearanceSectionPlayerChoiceSubText,Description for the Appearance Mode Selector when it's set to Player Choice.,Use players' choice of body appearance,Use players' choice of body appearance
+Studio.AvatarSettings.BodySettings.AppearanceSectionRightArm,Label for the Right Arm Custom Parts setting.,Right Arm,Right Arm
+Studio.AvatarSettings.BodySettings.AppearanceSectionRightLeg,Label for the Right Leg Custom Parts setting.,Right Leg,Right Leg
+Studio.AvatarSettings.BodySettings.AppearanceSectionStyleTransfer,Label for the Style Transfer Custom Body setting.,Style Transfer,Style Transfer
+Studio.AvatarSettings.BodySettings.AppearanceSectionTorso,Label for the Torso Custom Parts setting.,Torso,Torso
+Studio.AvatarSettings.BodySettings.BuildBodyType,Label for the Body Build Body Type setting.,Body Type,Body Type
+Studio.AvatarSettings.BodySettings.BuildHead,Label for the Body Build Head setting.,Head,Head
+Studio.AvatarSettings.BodySettings.BuildHeight,Label for the Body Build Height setting.,Height,Height
+Studio.AvatarSettings.BodySettings.BuildProportions,Label for the Body Build Proportions setting.,Proportions,Proportions
+Studio.AvatarSettings.BodySettings.BuildSection,Text for the Build expandable section.,Build,Build
+Studio.AvatarSettings.BodySettings.BuildSectionCustomBuildButtonText,Build Mode Selector text for Custom Build.,Custom Build,Custom Build
+Studio.AvatarSettings.BodySettings.BuildSectionCustomBuildSubText,Description for the Build Mode Selector when it's set to Custom Build.,Configure players' Build settings of Customize Avatar page,Configure players' Build settings of Customize Avatar page
+Studio.AvatarSettings.BodySettings.BuildSectionPlayerChoiceButtonText,Build Mode Selector text for Player Choice.,Player Choice,Player Choice
+Studio.AvatarSettings.BodySettings.BuildSectionPlayerChoiceSubText,Description for the Build Mode Selector when it's set to Player Choice.,Use players' choice of Build settings in the Customize Avatar page,Use players' choice of Build settings in the Customize Avatar page
+Studio.AvatarSettings.BodySettings.BuildWidth,Label for the Body Build Width setting.,Width,Width
+Studio.AvatarSettings.BodySettings.ScaleHeight,Label for the Body Scale Height setting.,Height,Height
+Studio.AvatarSettings.BodySettings.ScaleSection,Text for the Scale expandable section.,Scale,Scale
+Studio.AvatarSettings.BodySettings.ScaleSectionCustomScaleButtonText,Scale Mode Selector text for Custom Scale.,Custom Scale,Custom Scale
+Studio.AvatarSettings.BodySettings.ScaleSectionCustomScaleSubText,Description for the Scale Mode Selector when it's set to Custom Scale.,"Scale avatars uniformly to a custom, absolute height or range","Scale avatars uniformly to a custom, absolute height or range"
+Studio.AvatarSettings.BodySettings.ScaleSectionPlayerChoiceButtonText,Scale Mode Selector text for Player Choice.,Player Choice,Player Choice
+Studio.AvatarSettings.BodySettings.ScaleSectionPlayerChoiceSubText,Description for the Scale Mode Selector when it's set to Player Choice.,Use players' choice of scale,Use players' choice of scale
+Studio.AvatarSettings.BodySettings.ScaleSetMinAndMaxToggle,Label for the checkbox enabling minimum height setting.,Set minimum and maximum,Set minimum and maximum
+Studio.AvatarSettings.CategoryList.Accessories,Text for the Accessories Setting Category.,Accessories,Accessories
+Studio.AvatarSettings.CategoryList.Animation,Text for the Animation Setting Category.,Animation,Animation
+Studio.AvatarSettings.CategoryList.Body,Text for the Body Setting Category.,Body,Body
+Studio.AvatarSettings.CategoryList.Clothing,Text for the Clothing Setting Category.,Clothing,Clothing
+Studio.AvatarSettings.CategoryList.General,Text for the General Settings section.,General,General
+Studio.AvatarSettings.CategoryList.HideSidebar,Text for the button to hide the sidebar.,Hide Sidebar,Hide Sidebar
+Studio.AvatarSettings.CategoryList.Movement,Text for the Movement Setting Category.,Movement,Movement
+Studio.AvatarSettings.ClothingSettings.ClothingScaleSection,Text for the Clothing Scale expandable section.,Clothing Scale,Clothing Scale
+Studio.AvatarSettings.ClothingSettings.ClothingScaleSectionCustomLimitButtonText,Clothing Mode Selector text for Custom Limit,Custom Limit,Custom Limit
+Studio.AvatarSettings.ClothingSettings.ClothingScaleSectionCustomLimitSubText,Description for the Clothing Scale mode selector when it's set to Custom Limit,Remove or scale clothes that exceed limit bounds,Remove or scale clothes that exceed limit bounds
+Studio.AvatarSettings.ClothingSettings.ClothingScaleSectionLimitBounds,Description for the Limit Bounds input in Clothing Settings.,Limit Bounds,Limit Bounds
+Studio.AvatarSettings.ClothingSettings.ClothingScaleSectionLimitMethod,Description for the Limit Method dropdown in Clothing Settings.,Limit Method,Limit Method
+Studio.AvatarSettings.ClothingSettings.ClothingScaleSectionLimitMethodRemove,Text for the Remove option in the Limit Method dropdown.,Remove,Remove
+Studio.AvatarSettings.ClothingSettings.ClothingScaleSectionLimitMethodScale,Text for the Scale option in the Limit Method dropdown.,Scale,Scale
+Studio.AvatarSettings.ClothingSettings.ClothingScaleSectionPlayerChoiceButtonText,Clothing Mode Selector text for Player Choice,Player Choice,Player Choice
+Studio.AvatarSettings.ClothingSettings.ClothingScaleSectionPlayerChoiceSubText,Description for the Clothing Scale mode selector when it's set to Player Choice,Leave clothing scale as-is,Leave clothing scale as-is
+Studio.AvatarSettings.ClothingSettings.CustomClassicClothingSection,Text for the Custom Classic Clothing expandable section.,Custom Classic Clothing,Custom Classic Clothing
+Studio.AvatarSettings.ClothingSettings.CustomClothingSection,Text for the Custom Clothing expandable section.,Custom Clothing,Custom Clothing
+Studio.AvatarSettings.ClothingSettings.CustomClothingSectionBottoms,Label for the Bottoms Custom Clothing Setting.,Bottoms,Bottoms
+Studio.AvatarSettings.ClothingSettings.CustomClothingSectionClassicPants,Label for the Classic Pants Custom Clothing Setting.,Classic Pants,Classic Pants
+Studio.AvatarSettings.ClothingSettings.CustomClothingSectionClassicShirts,Label for the Classic Shirts Custom Clothing Setting.,Classic Shirts,Classic Shirts
+Studio.AvatarSettings.ClothingSettings.CustomClothingSectionClassicTShirts,Label for the Classic T-Shirts Custom Clothing Setting.,Classic T-Shirts,Classic T-Shirts
+Studio.AvatarSettings.ClothingSettings.CustomClothingSectionCustomClothingButtonText,Custom Clothing Mode Selector text for Custom Clothing,Custom Clothing,Custom Clothing
+Studio.AvatarSettings.ClothingSettings.CustomClothingSectionCustomClothingSubText,Description for the Custom Clothing mode selector when it's set to Custom Clothing,Add or replace categories of clothes with custom clothes,Add or replace categories of clothes with custom clothes
+Studio.AvatarSettings.ClothingSettings.CustomClothingSectionLeftShoes,Label for the Left Shoes Custom Clothing Setting.,Left Shoes,Left Shoes
+Studio.AvatarSettings.ClothingSettings.CustomClothingSectionOuterwear,Label for the Outerwear Custom Clothing Setting.,Outerwear,Outerwear
+Studio.AvatarSettings.ClothingSettings.CustomClothingSectionPlayerChoiceButtonText,Custom Clothing Mode Selector text for Player Choice,Player Choice,Player Choice
+Studio.AvatarSettings.ClothingSettings.CustomClothingSectionPlayerChoiceSubText,Description for the Custom Clothing mode selector when it's set to Player Choice,Leave clothing as-is,Leave clothing as-is
+Studio.AvatarSettings.ClothingSettings.CustomClothingSectionRightShoes,Label for the Right Shoes Custom Clothing Setting.,Right Shoes,Right Shoes
+Studio.AvatarSettings.ClothingSettings.CustomClothingSectionTops,Label for the Tops Custom Clothing Setting.,Tops,Tops
+Studio.AvatarSettings.ErrorText.AssetDoesNotExist,Error text for when Asset does not exist,Asset does not exist,Asset does not exist
+Studio.AvatarSettings.ErrorText.AssetTypeNotSupported,Error text for when asset type is not supported,Not a supported asset type,Not a supported asset type
+Studio.AvatarSettings.ErrorText.NotANumber,Error text when a non-number input was entered,Please enter a number,Please enter a number
+Studio.AvatarSettings.General.AssetID,General String for AssetID,AssetID,AssetID
+Studio.AvatarSettings.General.InvalidInput,Warning text that is used when the user inputs an invalid input into a field.,Invalid number or number format,Invalid number or number format
+Studio.AvatarSettings.General.PaddingAroundAvatar,"Description text used for ""Limit Bounds"" setting of Accessories and Clothing. Accessories and Clothing outside these bounds are either scaled or removed based on other settings.",% padding around avatar,% padding around avatar
+Studio.AvatarSettings.General.PercentOfAvatar,% of Avatar suffix displayed next to a number or input,% of Avatar,% of Avatar
+Studio.AvatarSettings.General.R15AndR6SectionWarningText,Warning hover tooltip text for the icon that appears when AvatarType is set to R15 and R6,This feature will apply to R15 avatars only,This feature will apply to R15 avatars only
+Studio.AvatarSettings.General.SelectObject,General String for SelectObject,Select Object,Select Object
+Studio.AvatarSettings.General.meters,Text for unit of meter,meters,meters
+Studio.AvatarSettings.General.metersVelocity,Text for meter velocity,meters/second,meters/second
+Studio.AvatarSettings.General.studs,studs (roblox distance) suffix displayed next to a number,studs,studs
+Studio.AvatarSettings.GeneralSettings.ConsistentGameplayDescription,Description text for the Consistent Gameplay preset in the General Settings tab,Avatars have equal height and physics,Avatars have equal height and physics
+Studio.AvatarSettings.GeneralSettings.ConsistentGameplayGameplayDescription,Description text for the Consistent Gameplay preset's gameplay description in the General Settings tab,"Ideal for Obby, Action and Adventure genres","Ideal for Obby, Action and Adventure genres"
+Studio.AvatarSettings.GeneralSettings.CustomSettingsAlertDescription,Description text alerting developers that they currently have customized settings.,Choosing a preset will override your customizations,Choosing a preset will override your customizations
+Studio.AvatarSettings.GeneralSettings.CustomizedSettingsAlertTitle,Title text alerting developers that they currently have customized settings.,You have customized settings,You have customized settings
+Studio.AvatarSettings.GeneralSettings.PlayerChoiceDescription,Description text for the Player Choice preset in the General Settings tab,"Avatars are exactly as intended by players, without modification","Avatars are exactly as intended by players, without modification"
+Studio.AvatarSettings.GeneralSettings.PlayerChoiceGameplayDescription,Description text for the Player Choice preset's gameplay description in the General Settings tab,Ideal for Casual and Social genres,Ideal for Casual and Social genres
+Studio.AvatarSettings.GeneralSettings.PresetSection,Text for the Preset section oof the General Settings tab.,Preset,Preset
+Studio.AvatarSettings.MovementSettings.CollisionSection,Text for the Collision expandable section,Collision,Collision
+Studio.AvatarSettings.MovementSettings.CollisionSectionDefaultButtonText,Collision Mode Selector text for Default,Default,Default
+Studio.AvatarSettings.MovementSettings.CollisionSectionDefaultSubText,Description for the Collision mode selector when it's set to Default,"Use default collidable parts, uniquely sized per avatar","Use default collidable parts, uniquely sized per avatar"
+Studio.AvatarSettings.MovementSettings.CollisionSectionLegacyButtonText,Collision Mode Selector text for Legacy,Legacy,Legacy
+Studio.AvatarSettings.MovementSettings.CollisionSectionLegacyInnerBoxColliders,Label for the Inner Box Colliders option of the Collision Method setting,Inner Box Colliders,Inner Box Colliders
+Studio.AvatarSettings.MovementSettings.CollisionSectionLegacyInnerBoxCollidersSubText,Description for the Inner Box Colliders option of the Collision Method setting,Collide with 15 parts that are consistently sized based on attachment points,Collide with 15 parts that are consistently sized based on attachment points
+Studio.AvatarSettings.MovementSettings.CollisionSectionLegacyMethod,Label for the Collision Method setting,Method,Method
+Studio.AvatarSettings.MovementSettings.CollisionSectionLegacyR6Colliders,Label for the R6 Colliders option of the Collision Method setting,R6 Colliders,R6 Colliders
+Studio.AvatarSettings.MovementSettings.CollisionSectionLegacyR6CollidersSubText,Description for the R6 Colliders option of the Collision Method setting,Collide with invisible R6 parts that are welded to each player avatar. Works best when height is 5 studs,Collide with invisible R6 parts that are welded to each player avatar. Works best when height is 5 studs
+Studio.AvatarSettings.MovementSettings.CollisionSectionLegacySubText,Description text for Legacy Collision option,Use Inner Box colliders to collide with volumes based on attachment points. Compatibility mode for older experiences,Use Inner Box colliders to collide with volumes based on attachment points. Compatibility mode for older experiences
+Studio.AvatarSettings.MovementSettings.CollisionSectionSingleColliderButtonText,Collision Mode Selector text for Single Collider,Single Collider,Single Collider
+Studio.AvatarSettings.MovementSettings.CollisionSectionSingleColliderHitTouchDetection,Label for the Hit & Touch Detection setting,Hit & Touch Detection,Hit & Touch Detection
+Studio.AvatarSettings.MovementSettings.CollisionSectionSingleColliderHitTouchDetectionUseColliders,Label for the Use colliders option of the Collision Hit & Touch Detection setting,Use colliders,Use colliders
+Studio.AvatarSettings.MovementSettings.CollisionSectionSingleColliderHitTouchDetectionUseCollidersDescription,Description for the Use colliders option of the Collision Hit & Touch Detection setting,Use colliders for hit and touch events,Use colliders for hit and touch events
+Studio.AvatarSettings.MovementSettings.CollisionSectionSingleColliderHitTouchDetectionUseParts,Label for the Use parts option of the Collision Hit & Touch Detection setting,Use parts,Use parts
+Studio.AvatarSettings.MovementSettings.CollisionSectionSingleColliderHitTouchDetectionUsePartsDescription,Description for the Use parts option of the Collision Hit & Touch Detection setting,Use avatar part geometry for hit and touch events,Use avatar part geometry for hit and touch events
+Studio.AvatarSettings.MovementSettings.CollisionSectionSingleColliderPivot,Label for the Collision Pivot setting,Pivot,Pivot
+Studio.AvatarSettings.MovementSettings.CollisionSectionSingleColliderPivotHead,Text for the Head item of the Pivot Collision setting,Head,Head
+Studio.AvatarSettings.MovementSettings.CollisionSectionSingleColliderPivotShoulder,Text for the Shoulder item of the Pivot Collision setting,Shoulder,Shoulder
+Studio.AvatarSettings.MovementSettings.CollisionSectionSingleColliderSize,Label for the Collision Size setting,Size,Size
+Studio.AvatarSettings.MovementSettings.CollisionSectionSingleColliderSubText,Description for the Collision mode selector when it's set to Single Collider,Collide with a single collider box of a consistent size. Works best when avatars are the same custom height,Collide with a single collider box of a consistent size. Works best when avatars are the same custom height
+Studio.AvatarSettings.MovementSettings.JumpSection,Text for the Jump expandable section,Jump,Jump
+Studio.AvatarSettings.MovementSettings.JumpSectionJumpHeightHeight,Label for the Jump Height Setting,Height,Height
+Studio.AvatarSettings.MovementSettings.WalkSection,Text for the Walk expandable section,Walk,Walk
+Studio.AvatarSettings.MovementSettings.WalkSectionSlope,Label for the Walk Slope setting,Slope,Slope
+Studio.AvatarSettings.MovementSettings.WalkSectionSlopeUnit,Unit for the Walk Slope setting,degrees,degrees
+Studio.AvatarSettings.MovementSettings.WalkSectionSpeed,Label for the Walk Speed setting,Speed,Speed
+Studio.AvatarSettings.MovementSettings.WalkSectionSpeedUnit,Unit for the Walk Speed setting,studs/second,studs/second
+Studio.AvatarSettings.NavigationBar.Preview,Text for the Preview Toggle Button.,Preview,Preview
+Studio.AvatarSettings.Plugin.Button,Plugin Button name on the ribbon,Avatar Settings,Avatar Settings
+Studio.AvatarSettings.Plugin.Description,The description (tooltip) displayed on the default button entry point for this plugin.,Update player avatar settings for this experience,Update player avatar settings for this experience
+Studio.AvatarSettings.Plugin.Name,The name of the plugin,Avatar Settings,Avatar Settings
+Studio.AvatarSettings.Plugin.Toolbar,Plugin toolbar description text,Avatar Settings,Avatar Settings
+Studio.AvatarSettings.PreviewToolbar.ResetAvatarsToCamera,Tooltip for a button used to reset preview avatars to line up in front of the camera.,Reset avatars to camera,Reset avatars to camera
+Studio.AvatarSettings.PreviewToolbar.SettingsVisibility,Tooltip for a button that toggles the visibility of the Avatar Settings plugin window during preview.,Toggle Settings Visibility,Toggle Settings Visibility
+Studio.AvatarSettings.PreviewToolbar.TestAsAvatar,Tooltip for a button to test as selected avatar under the preview folder.,Test as selected avatar,Test as selected avatar
+Studio.AvatarSettings.PreviewToolbar.TestAsAvatarDisabled,Text for the tooltip of the Test as Avatar button when it's disabled due to no avatars being selected,Make a selection in the AvatarPreview folder to play as avatar,Make a selection in the AvatarPreview folder to play as avatar
+Studio.AvatarSettings.Publish.RevertChanges,Text for the button that reverts current changes.,Revert Changes,Revert Changes
+Studio.AvatarSettings.Publish.SaveChanges,Text for the button that triggers saving current changes.,Save Changes,Save Changes
+Studio.AvatarSettings.ShortTitle,The shortened title of the Avatar Settings window (See key Studio.AvatarSettings.Plugin.Name) for display/use in the Studio Ribbon.,Settings,Settings
+Studio.AvatarSettings.StudConversions.Paste,Text to paste in the stud conversions context menu.,Paste,Paste
+Studio.AvatarSettings.Unpublished.SaveToAccessAvatarSettings,"Text description to show when a user tries to open Avatar Settings in an unpublished place. Located above a ""Save to Roblox"" button",Save to access Avatar Settings.,Save to access Avatar Settings.
+Studio.AvatarSettings.Unpublished.SaveToRoblox,Text for button that saves the place to roblox.,Save to Roblox,Save to Roblox
+Studio.AvatarSettings.UnsavedChangesDialog.CancelAction,Dialog action for cancelling the saving of unsaved changes,Cancel,Cancel
+Studio.AvatarSettings.UnsavedChangesDialog.Description,Description for the unsaved changes dialog.,These changes will affect all places in your experience.,These changes will affect all places in your experience.
+Studio.AvatarSettings.UnsavedChangesDialog.DiscardAction,Action which discards all current unsaved changes,Discard,Discard
+Studio.AvatarSettings.UnsavedChangesDialog.DiscardButton,Text for the Discard button in the unsaved changes dialog.,Discard,Discard
+Studio.AvatarSettings.UnsavedChangesDialog.Retry,Text for button for retry action on dialog,Retry,Retry
+Studio.AvatarSettings.UnsavedChangesDialog.SaveAction,Action for saving unsaved changes,Save,Save
+Studio.AvatarSettings.UnsavedChangesDialog.SaveAndRestartAction,Action which saves unpublished changes and also restarts game servers,Save and Restart,Save and Restart
+Studio.AvatarSettings.UnsavedChangesDialog.SaveButton,Text for the Save button in the unsaved changes dialog.,Save,Save
+Studio.AvatarSettings.UnsavedChangesDialog.SaveFailed,When the save fails,Save failed,Save failed
+Studio.AvatarSettings.UnsavedChangesDialog.SaveFailedDescription,Description message for when save fails.,"We hit an internal error, check your connection and retry saving your changes.","We hit an internal error, check your connection and retry saving your changes."
+Studio.AvatarSettings.UnsavedChangesDialog.ServerRestartDescription,Description for dialog which saves changes and restarts game servers,These changes will affect all places in your experience. Saving will restart all running places.,These changes will affect all places in your experience. Saving will restart all running places.
+Studio.AvatarSettings.UnsavedChangesDialog.Title,Title for the unsaved changes dialog.,Save your changes to Avatar Settings?,Save your changes to Avatar Settings?
 Studio.BetaFeatures.ACE3DImporterDescription,previously the ace import from file button used to use the old importer. We switched it to use the same importer as the Import 3d button.,Upgrade the ACE's  'Import from file' button to use the modern 3D Importer instead of the legacy importer,Upgrade the ACE's  'Import from file' button to use the modern 3D Importer instead of the legacy importer
 Studio.BetaFeatures.ACE3DImporterTitle,Uses the Import 3D Importer in the ACE,3D Importer in ACE,3D Importer in ACE
 Studio.BetaFeatures.AICODescription,,"AI-Powered code completion in Studio Script Editor. Based on existing script and/or comments, AI code suggestion will be triggered automatically.","AI-Powered code completion in Studio Script Editor. Based on existing script and/or comments, AI code suggestion will be triggered automatically."
@@ -5926,6 +6326,118 @@ Studio.CustomizedDefaults.DefaultPropertiesUpdated,"Toast when a user updates th
 Studio.CustomizedDefaults.ResetDefault,"Class name is class name of the selected instance. So selecting a part will say ""Reset Default Part""",Reset Default %1,Reset Default %1
 Studio.CustomizedDefaults.SaveAsDefault,"Class name is class name of the selected instance. So selecting a part will say ""Save as Default Part""",Save as Default %1,Save as Default %1
 Studio.CustomizedDefaults.SaveAsDefaultBlockedByStyling,"Saving an Instance as the default is not allowed if the Instance is under a styled part of the hierarchy, the save as default action has this text in that case.",Save as Default (Stylesheet Overrides),Save as Default (Stylesheet Overrides)
+Studio.Debugger.BreakpointsWindow.AllColumns,,All Columns,All Columns
+Studio.Debugger.BreakpointsWindow.ConditionColumn,,Condition,Condition
+Studio.Debugger.BreakpointsWindow.ConditionColumnTooltip,,The condition that must be met for a breakpoint to be triggered,The condition that must be met for a breakpoint to be triggered
+Studio.Debugger.BreakpointsWindow.ContinueExecutionColumn,,Continue Execution,Continue Execution
+Studio.Debugger.BreakpointsWindow.ContinueExecutionColumnTooltip,,Determines if execution will be paused when a breakpoint is hit,Determines if execution will be paused when a breakpoint is hit
+Studio.Debugger.BreakpointsWindow.DeleteAll,,Delete All Breakpoints,Delete All Breakpoints
+Studio.Debugger.BreakpointsWindow.DeleteAllPopupNo,,No,No
+Studio.Debugger.BreakpointsWindow.DeleteAllPopupText,,Do you want to delete all breakpoints?,Do you want to delete all breakpoints?
+Studio.Debugger.BreakpointsWindow.DeleteAllPopupYes,,Yes,Yes
+Studio.Debugger.BreakpointsWindow.DeleteBreakpoint,,Delete Breakpoint,Delete Breakpoint
+Studio.Debugger.BreakpointsWindow.DeleteLogpoint,,Delete Logpoint,Delete Logpoint
+Studio.Debugger.BreakpointsWindow.DisableAll,,Disable All Breakpoints,Disable All Breakpoints
+Studio.Debugger.BreakpointsWindow.DisableBreakpoint,,Disable Breakpoint,Disable Breakpoint
+Studio.Debugger.BreakpointsWindow.DisableLogpoint,,Disable Logpoint,Disable Logpoint
+Studio.Debugger.BreakpointsWindow.EditBreakpoint,,Edit Breakpoint,Edit Breakpoint
+Studio.Debugger.BreakpointsWindow.EditLogpoint,,Edit Logpoint,Edit Logpoint
+Studio.Debugger.BreakpointsWindow.EnableAll,,Enable All Breakpoints,Enable All Breakpoints
+Studio.Debugger.BreakpointsWindow.EnableBreakpoint,,Enable Breakpoint,Enable Breakpoint
+Studio.Debugger.BreakpointsWindow.EnableLogpoint,,Enable Logpoint,Enable Logpoint
+Studio.Debugger.BreakpointsWindow.EnabledColumn,,Enabled,Enabled
+Studio.Debugger.BreakpointsWindow.GoToScript,,Go To Script,Go To Script
+Studio.Debugger.BreakpointsWindow.LineColumn,,Line,Line
+Studio.Debugger.BreakpointsWindow.LineColumnTooltip,,The line number a breakpoint is on,The line number a breakpoint is on
+Studio.Debugger.BreakpointsWindow.LogMessageColumn,,Log Message,Log Message
+Studio.Debugger.BreakpointsWindow.LogMessageColumnTooltip,,The message printed to the Output when a breakpoint is triggered,The message printed to the Output when a breakpoint is triggered
+Studio.Debugger.BreakpointsWindow.RemoveOnHitColumn,,Remove on Hit,Remove on Hit
+Studio.Debugger.BreakpointsWindow.RemoveOnHitColumnTooltip,,Removes the breakpoint when it pauses execution,Removes the breakpoint when it pauses execution
+Studio.Debugger.BreakpointsWindow.ScriptColumn,,Script,Script
+Studio.Debugger.BreakpointsWindow.ScriptColumnTooltip,,The script a breakpoint belongs to,The script a breakpoint belongs to
+Studio.Debugger.BreakpointsWindow.SourceLineColumn,,Source Line,Source Line
+Studio.Debugger.BreakpointsWindow.SourceLineColumnTooltip,,The content of the line a breakpoint is on,The content of the line a breakpoint is on
+Studio.Debugger.BreakpointsWindow.WindowName,,Breakpoints,Breakpoints
+Studio.Debugger.Callstack.AllColumns,,All Columns,All Columns
+Studio.Debugger.Callstack.CurrentScriptTitle,,Current Script:,Current Script:
+Studio.Debugger.Callstack.DropdownButtonText,,{NumFields:int} Columns,{NumFields:int} Columns
+Studio.Debugger.Callstack.DropdownFieldText,,{NumFields:int} Columns,{NumFields:int} Columns
+Studio.Debugger.Callstack.FrameColumn,,Frame,Frame
+Studio.Debugger.Callstack.FrameColumnTooltip,,The data associated with a single call to a function,The data associated with a single call to a function
+Studio.Debugger.Callstack.FunctionColumn,,Function,Function
+Studio.Debugger.Callstack.FunctionColumnTooltip,,The name of the function call associated with a frame,The name of the function call associated with a frame
+Studio.Debugger.Callstack.FunctionNameColumn,,Function Name,Function Name
+Studio.Debugger.Callstack.LayerColumn,,Layer,Layer
+Studio.Debugger.Callstack.LayerColumnTooltip,,The language that the script is written in,The language that the script is written in
+Studio.Debugger.Callstack.LineColumn,,Line,Line
+Studio.Debugger.Callstack.LineColumnTooltip,,The line number of the function call associated with a frame,The line number of the function call associated with a frame
+Studio.Debugger.Callstack.LineNumberColumn,,Line No.,Line No.
+Studio.Debugger.Callstack.SelectInputPlaceholderText,,Select Script,Select Script
+Studio.Debugger.Callstack.SourceColumn,,Source,Source
+Studio.Debugger.Callstack.SourceColumnTooltip,,The script where the function call of a frame originated,The script where the function call of a frame originated
+Studio.Debugger.Callstack.WhatColumn,,What,What
+Studio.Debugger.Callstack.WindowName,,Call Stack,Call Stack
+Studio.Debugger.Common.AddExpression,,Add Expression,Add Expression
+Studio.Debugger.Common.CopySelected,,Copy Selected,Copy Selected
+Studio.Debugger.Common.DeleteAllWatches,,Delete All Watch Expressions,Delete All Watch Expressions
+Studio.Debugger.Common.DeleteBreakpoint,,Delete Breakpoint,Delete Breakpoint
+Studio.Debugger.Common.DeleteLogpoint,,Delete Logpoint,Delete Logpoint
+Studio.Debugger.Common.DeleteSelected,,Delete Selected,Delete Selected
+Studio.Debugger.Common.DeleteWatch,,Delete Watch Expression,Delete Watch Expression
+Studio.Debugger.Common.DisableBreakpoint,,Disable Breakpoint,Disable Breakpoint
+Studio.Debugger.Common.DisableLogpoint,,Disable Logpoint,Disable Logpoint
+Studio.Debugger.Common.EditBreakpoint,,Edit Breakpoint,Edit Breakpoint
+Studio.Debugger.Common.EditExpression,,Edit Expression,Edit Expression
+Studio.Debugger.Common.EditLogpoint,,Edit Logpoint,Edit Logpoint
+Studio.Debugger.Common.EnableBreakpoint,,Enable Breakpoint,Enable Breakpoint
+Studio.Debugger.Common.EnableLogpoint,,Enable Logpoint,Enable Logpoint
+Studio.Debugger.Common.GoToScript,,Go To Script,Go To Script
+Studio.Debugger.Common.None,,None,None
+Studio.Debugger.Common.SelectAll,,Select All,Select All
+Studio.Debugger.Common.simulationResumeActionV2,,Resume,Resume
+Studio.Debugger.Common.stepIntoActionV2,,Step Into,Step Into
+Studio.Debugger.Common.stepOutActionV2,,Step Out,Step Out
+Studio.Debugger.Common.stepOverActionV2,,Step Over,Step Over
+Studio.Debugger.EditBreakpoint.DialogName,,Edit Breakpoint,Edit Breakpoint
+Studio.Debugger.EditDebugpoint.Cancel,,Cancel,Cancel
+Studio.Debugger.EditDebugpoint.ConditionLabel,,Condition,Condition
+Studio.Debugger.EditDebugpoint.ConditionPlaceholder,,Enter condition(s),Enter condition(s)
+Studio.Debugger.EditDebugpoint.EnabledLabel,,isEnabled,isEnabled
+Studio.Debugger.EditDebugpoint.LogLabel,,Log Message,Log Message
+Studio.Debugger.EditDebugpoint.LogPlaceholder,,Enter log message(s),Enter log message(s)
+Studio.Debugger.EditDebugpoint.LogTooltip,,Log message will be displayed in Output widget when a Logpoint is hit.,Log message will be displayed in Output widget when a Logpoint is hit.
+Studio.Debugger.EditDebugpoint.OptionsLabel,,Options,Options
+Studio.Debugger.EditDebugpoint.Save,,Save,Save
+Studio.Debugger.EditDebugpoint.TitleLine,,line {LineNumber:int},line {LineNumber:int}
+Studio.Debugger.Plugin.Button,,Toggle,Toggle
+Studio.Debugger.Plugin.Description,,Toggles the Debugger plugin window.,Toggles the Debugger plugin window.
+Studio.Debugger.Plugin.Name,,Debugger,Debugger
+Studio.Debugger.Plugin.Toolbar,,Debugger,Debugger
+Studio.Debugger.RemoteDebugger.ScriptChanged,"During Team Test debugging, it is possible for the source of a script to change. This message informs the user when they open a script whose source has changed.",The contents of this script have changed. You are viewing a newer version of the script.,The contents of this script have changed. You are viewing a newer version of the script.
+Studio.Debugger.Watch.AllColumns,,All Columns,All Columns
+Studio.Debugger.Watch.AllScopes,,All Scopes,All Scopes
+Studio.Debugger.Watch.DataTypeColumn,,Data Type,Data Type
+Studio.Debugger.Watch.DataTypeColumnTooltip,,The data type of a variable,The data type of a variable
+Studio.Debugger.Watch.DropdownButtonText,,{NumScopes:int} Scopes,{NumScopes:int} Scopes
+Studio.Debugger.Watch.DropdownFieldText,,{NumFields:int} Scopes,{NumFields:int} Scopes
+Studio.Debugger.Watch.ExpressionColumn,,Expression,Expression
+Studio.Debugger.Watch.ExpressionColumnTooltip,,The declared name of a expression,The declared name of a expression
+Studio.Debugger.Watch.FilterScopes,,Filter variables by scope,Filter variables by scope
+Studio.Debugger.Watch.Global,,Global,Global
+Studio.Debugger.Watch.GlobalTooltip,,A global variable is accessible from multiple blocks of code following where it's declared if the blocks are within the same script,A global variable is accessible from multiple blocks of code following where it's declared if the blocks are within the same script
+Studio.Debugger.Watch.Local,,Local,Local
+Studio.Debugger.Watch.LocalTooltip,,A local variable is accessible only within the block of code where it's declared,A local variable is accessible only within the block of code where it's declared
+Studio.Debugger.Watch.NameColumn,,Name,Name
+Studio.Debugger.Watch.NameColumnTooltip,,The declared name of a variable,The declared name of a variable
+Studio.Debugger.Watch.ScopeColumn,,Scope,Scope
+Studio.Debugger.Watch.ScopeColumnTooltip,,The scope of a variable: where it can be “seen” and accessed,The scope of a variable: where it can be “seen” and accessed
+Studio.Debugger.Watch.Upvalue,,Upvalue,Upvalue
+Studio.Debugger.Watch.UpvalueTooltip,,An upvalue is a local variable that an inner function or loop uses,An upvalue is a local variable that an inner function or loop uses
+Studio.Debugger.Watch.ValueColumn,,Value,Value
+Studio.Debugger.Watch.ValueColumnTooltip,,The current value of a variable,The current value of a variable
+Studio.Debugger.Watch.VariablesTab,,Variables,Variables
+Studio.Debugger.Watch.WatchesTab,,My Watches,My Watches
+Studio.Debugger.Watch.WindowName,,Watch,Watch
 Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheld,Generic handheld emulation device name,Generic Handheld,Generic Handheld
 Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheldHD1080,Name for the generic handheld emulator device with resolution 720p,Generic Handheld HD 1080,Generic Handheld HD 1080
 Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheldHD720,Name for the generic handheld emulator device with resolution 720p,Generic Handheld HD 720,Generic Handheld HD 720
