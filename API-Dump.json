@@ -11259,39 +11259,6 @@
                     }
                 },
                 {
-                    "MemberType": "Function",
-                    "Name": "ComposeDecal",
-                    "Parameters": [
-                        {
-                            "Name": "decal",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Decal"
-                            }
-                        },
-                        {
-                            "Name": "layers",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Array"
-                            }
-                        },
-                        {
-                            "Name": "onFinishCallback",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Function"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
                     "Capabilities": [
                         "DynamicGeneration"
                     ],
@@ -11422,6 +11389,13 @@
                     "Name": "ComposeDecalAsync",
                     "Parameters": [
                         {
+                            "Name": "decal",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Decal"
+                            }
+                        },
+                        {
                             "Name": "layers",
                             "Type": {
                                 "Category": "Group",
@@ -11430,8 +11404,8 @@
                         }
                     ],
                     "ReturnType": {
-                        "Category": "Class",
-                        "Name": "Decal"
+                        "Category": "Primitive",
+                        "Name": "null"
                     },
                     "Security": "None",
                     "Tags": [
@@ -32794,6 +32768,33 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Chat"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ModerationMode",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
                     "Capabilities": [
                         "Chat"
                     ],
@@ -32953,6 +32954,28 @@
                         "Name": "null"
                     },
                     "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Chat"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "RequestModerationModeEnabled",
+                    "Parameters": [
+                        {
+                            "Name": "enabled",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -33252,184 +33275,6 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "Chat",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-                {
-                    "MemberType": "Function",
-                    "Name": "DisplayContent",
-                    "Parameters": [
-                        {
-                            "Name": "contentType",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "data",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Dictionary"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "GetSettings",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Dictionary"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "ActionActivatedSignal",
-                    "Parameters": [
-                        {
-                            "Name": "action",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "FindVariationsSignal",
-                    "Parameters": [
-                        {
-                            "Name": "action",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "SetMaterialSettingsSignal",
-                    "Parameters": [
-                        {
-                            "Name": "guid",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "studsPerTile",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "double"
-                            }
-                        },
-                        {
-                            "Name": "isOrganic",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "SettingChangedSignal",
-                    "Parameters": [
-                        {
-                            "Name": "setting",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "value",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Variant"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "ShiftToAssetIdSignal",
-                    "Parameters": [
-                        {
-                            "Name": "action",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "change",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "ShiftVariationSignal",
-                    "Parameters": [
-                        {
-                            "Name": "action",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "change",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "ChatbotUIService",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -42336,334 +42181,6 @@
             "Members": [
                 {
                     "MemberType": "Function",
-                    "Name": "AlternativeAssetSelected",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "previousAssetId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        },
-                        {
-                            "Name": "assetId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "AssetInserted",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "assetId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "CodeRunnerActivated",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "code",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "serverAutorun",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "autorunEnabled",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "autoExpandDropdowns",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "CodeRunnerCompleted",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "success",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "errorMessage",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "CodeRunnerUndone",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "DataModelHierarchyLatency",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "latency",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "double"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ErrorTelemetry",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "errorId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "errorType",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "errorMessage",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "InstanceInserted",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "RecordingActionEnded",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "waypointName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ReportJSONEncodeFailure",
-                    "Parameters": [
-                        {
-                            "Name": "instanceName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "className",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SendCommandErrorTelemetry",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "commandName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "errorMessage",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "SendMeshGenActivatedTelemetry",
                     "Parameters": [
                     ],
@@ -51566,6 +51083,29 @@
                     },
                     "Category": "Appearance",
                     "MemberType": "Property",
+                    "Name": "Rotation",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "MemberType": "Property",
                     "Name": "RoughnessMap",
                     "Security": {
                         "Read": "PluginSecurity",
@@ -54076,6 +53616,36 @@
                         "CSG"
                     ],
                     "MemberType": "Function",
+                    "Name": "GenerateFragmentSites",
+                    "Parameters": [
+                        {
+                            "Name": "part",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "BasePart"
+                            }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "options",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "CSG"
+                    ],
+                    "MemberType": "Function",
                     "Name": "TranscodeMesh",
                     "Parameters": [
                         {
@@ -54117,8 +53687,7 @@
                 },
                 {
                     "Capabilities": [
-                        "CSG",
-                        "InternalTest"
+                        "CSG"
                     ],
                     "MemberType": "Function",
                     "Name": "FragmentAsync",
@@ -54131,7 +53700,7 @@
                             }
                         },
                         {
-                            "Name": "fragmentSites",
+                            "Name": "sites",
                             "Type": {
                                 "Category": "Group",
                                 "Name": "Array"
@@ -54143,14 +53712,6 @@
                             "Type": {
                                 "Category": "Group",
                                 "Name": "Dictionary"
-                            }
-                        },
-                        {
-                            "Default": "{}",
-                            "Name": "mainPartSites",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Array"
                             }
                         }
                     ],
@@ -54271,8 +53832,7 @@
                 },
                 {
                     "Capabilities": [
-                        "CSG",
-                        "InternalTest"
+                        "CSG"
                     ],
                     "MemberType": "Function",
                     "Name": "SweepPartAsync",
@@ -78387,7 +77947,7 @@
                             }
                         },
                         {
-                            "Name": "character",
+                            "Name": "joint",
                             "Type": {
                                 "Category": "Class",
                                 "Name": "Instance"
@@ -98113,6 +97673,21 @@
                         "Environment"
                     ],
                     "MemberType": "Function",
+                    "Name": "CreateVoxelBuffer_beta",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "VoxelBuffer"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Environment"
+                    ],
+                    "MemberType": "Function",
                     "Name": "FillBall",
                     "Parameters": [
                         {
@@ -99277,6 +98852,91 @@
                     "Security": "None",
                     "Tags": [
                         "CustomLuaState"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Environment"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "DrawBufferAsync",
+                    "Parameters": [
+                        {
+                            "Name": "cframe",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CFrame"
+                            }
+                        },
+                        {
+                            "Name": "scale",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "resolution",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "source",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "VoxelBuffer"
+                            }
+                        },
+                        {
+                            "Name": "mergeConfig",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Environment"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "ReadBufferAsync",
+                    "Parameters": [
+                        {
+                            "Name": "region",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Region3"
+                            }
+                        },
+                        {
+                            "Name": "resolution",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "VoxelBuffer"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
                 }
@@ -121972,7 +121632,20 @@
             "Name": "RolloutValidation",
             "Superclass": "Instance",
             "Tags": [
-                "NotCreatable"
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "RolloutValidationService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
             ]
         },
         {
@@ -135784,553 +135457,6 @@
         {
             "Members": [
                 {
-                    "MemberType": "Function",
-                    "Name": "GetEphemeralVariable",
-                    "Parameters": [
-                        {
-                            "Name": "key",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Variant"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "GetInstance",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "instanceId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "Instance"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "InvokeCommand",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "commandName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "arg",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Variant"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "RegisterCommandInternal",
-                    "Parameters": [
-                        {
-                            "Name": "commandName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Default": "nil",
-                            "Name": "function",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Function"
-                            }
-                        },
-                        {
-                            "Default": "false",
-                            "Name": "isSequential",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Default": "false",
-                            "Name": "isPublic",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "RegisterContextCollector",
-                    "Parameters": [
-                        {
-                            "Name": "collectorName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Default": "nil",
-                            "Name": "function",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Function"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SetEphemeralVariable",
-                    "Parameters": [
-                        {
-                            "Name": "key",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "value",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Variant"
-                            }
-                        },
-                        {
-                            "Default": "-1",
-                            "Name": "timeToLive",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SetPluginInfoCallback",
-                    "Parameters": [
-                        {
-                            "Default": "nil",
-                            "Name": "function",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Function"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "UnregisterCommand",
-                    "Parameters": [
-                        {
-                            "Name": "commandName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "UnregisterContextCollector",
-                    "Parameters": [
-                        {
-                            "Name": "collectorName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "AttemptSaveAndSendPlaceTelemetry",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "toolSource",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "BindCodeToGuid",
-                    "Parameters": [
-                        {
-                            "Name": "runCodeGuid",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "code",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Tuple"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "Capabilities": [
-                        "Assistant"
-                    ],
-                    "MemberType": "Function",
-                    "Name": "ExecuteCommandAsync",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "commandName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "arg",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Variant"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Variant"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "GetRequiredScripts",
-                    "Parameters": [
-                        {
-                            "Name": "script",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Variant"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "RunSandboxedCode",
-                    "Parameters": [
-                        {
-                            "Name": "runCodeGuid",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Tuple"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SearchForAssets",
-                    "Parameters": [
-                        {
-                            "Name": "body",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Variant"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Variant"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "ConversationCleared",
-                    "Parameters": [
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "RequestEnded",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "RequestError",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "errorType",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "errorMessage",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "RequestStarted",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "queryToProcess",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "SequentialCommandsFinished",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "success",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "Stream",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "commandName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "streamContent",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "StreamingService",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-                {
                     "Category": "Directories",
                     "MemberType": "Property",
                     "Name": "ActionOnAutoResumeSync",
@@ -149302,6 +148428,32 @@
                     },
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "OriginalText",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Chat"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "PrefixText",
                     "Security": {
                         "Read": "None",
@@ -149311,6 +148463,58 @@
                         "CanLoad": false,
                         "CanSave": false
                     },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Chat"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "RewrittenText",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Chat"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "RewrittenTranslation",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -149453,6 +148657,32 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Chat"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "WasRewritten",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 }
             ],
@@ -167730,6 +166960,232 @@
         {
             "Members": [
                 {
+                    "MemberType": "Function",
+                    "Name": "GetSizeInVoxels",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ReadVoxels",
+                    "Parameters": [
+                        {
+                            "Name": "channelIds",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "WriteVoxels",
+                    "Parameters": [
+                        {
+                            "Name": "channels",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ClearAsync",
+                    "Parameters": [
+                        {
+                            "Name": "sizeInVoxels",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3?"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "DrawBufferAsync",
+                    "Parameters": [
+                        {
+                            "Name": "cframe",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CFrame"
+                            }
+                        },
+                        {
+                            "Name": "scale",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "source",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "VoxelBuffer"
+                            }
+                        },
+                        {
+                            "Name": "mergeConfig",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "FromHeightmapAsync",
+                    "Parameters": [
+                        {
+                            "Name": "heightMap",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "buffer"
+                            }
+                        },
+                        {
+                            "Name": "width",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "height",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "heightMapRect",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Rect"
+                            }
+                        },
+                        {
+                            "Name": "offset",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "scale",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "material",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "NormalizeAsync",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "UnclampAsync",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "VoxelBuffer",
+            "Superclass": "Object",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "ConnectionState",
@@ -179603,91 +179059,91 @@
                 },
                 {
                     "Name": "Root",
-                    "Value": 1
-                },
-                {
-                    "Name": "Pelvis",
                     "Value": 2
                 },
                 {
-                    "Name": "Waist",
+                    "Name": "LeftHip",
                     "Value": 3
                 },
                 {
-                    "Name": "Chest",
+                    "Name": "LeftKnee",
                     "Value": 4
                 },
                 {
-                    "Name": "Neck",
+                    "Name": "LeftAnkle",
                     "Value": 5
                 },
                 {
-                    "Name": "HeadBase",
-                    "Value": 6
-                },
-                {
-                    "Name": "LeftClavicle",
+                    "Name": "RightHip",
                     "Value": 7
                 },
                 {
-                    "Name": "LeftShoulder",
+                    "Name": "RightKnee",
                     "Value": 8
                 },
                 {
-                    "Name": "LeftElbow",
+                    "Name": "RightAnkle",
                     "Value": 9
                 },
                 {
-                    "Name": "LeftWrist",
-                    "Value": 10
-                },
-                {
-                    "Name": "RightClavicle",
+                    "Name": "Waist",
                     "Value": 11
                 },
                 {
-                    "Name": "RightShoulder",
+                    "Name": "LeftShoulder",
                     "Value": 12
                 },
                 {
-                    "Name": "RightElbow",
+                    "Name": "LeftElbow",
                     "Value": 13
                 },
                 {
-                    "Name": "RightWrist",
+                    "Name": "LeftWrist",
                     "Value": 14
                 },
                 {
-                    "Name": "LeftHip",
-                    "Value": 15
-                },
-                {
-                    "Name": "LeftKnee",
+                    "Name": "RightShoulder",
                     "Value": 16
                 },
                 {
-                    "Name": "LeftAnkle",
+                    "Name": "RightElbow",
                     "Value": 17
                 },
                 {
-                    "Name": "LeftToes",
+                    "Name": "RightWrist",
                     "Value": 18
                 },
                 {
-                    "Name": "RightHip",
-                    "Value": 19
-                },
-                {
-                    "Name": "RightKnee",
+                    "Name": "Neck",
                     "Value": 20
                 },
                 {
-                    "Name": "RightAnkle",
-                    "Value": 21
+                    "Name": "Pelvis",
+                    "Value": 23
+                },
+                {
+                    "Name": "Chest",
+                    "Value": 24
+                },
+                {
+                    "Name": "HeadBase",
+                    "Value": 25
+                },
+                {
+                    "Name": "LeftClavicle",
+                    "Value": 26
+                },
+                {
+                    "Name": "RightClavicle",
+                    "Value": 27
+                },
+                {
+                    "Name": "LeftToes",
+                    "Value": 28
                 },
                 {
                     "Name": "RightToes",
-                    "Value": 22
+                    "Value": 29
                 }
             ],
             "Name": "RigLabel"
@@ -182346,6 +181802,72 @@
         {
             "Items": [
                 {
+                    "Name": "None",
+                    "Value": 0
+                },
+                {
+                    "Name": "Source",
+                    "Value": 1
+                },
+                {
+                    "Name": "Union",
+                    "Value": 2
+                },
+                {
+                    "Name": "Difference",
+                    "Value": 3
+                },
+                {
+                    "Name": "Intersect",
+                    "Value": 4
+                }
+            ],
+            "Name": "TerrainLiquidMergeOperation"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "None",
+                    "Value": 0
+                },
+                {
+                    "Name": "Paint",
+                    "Value": 1
+                },
+                {
+                    "Name": "Source",
+                    "Value": 2
+                },
+                {
+                    "Name": "Union",
+                    "Value": 3
+                },
+                {
+                    "Name": "Dig",
+                    "Value": 4
+                },
+                {
+                    "Name": "Difference",
+                    "Value": 5
+                },
+                {
+                    "Name": "Intersect",
+                    "Value": 6
+                },
+                {
+                    "Name": "Cut",
+                    "Value": 7
+                },
+                {
+                    "Name": "Place",
+                    "Value": 8
+                }
+            ],
+            "Name": "TerrainSolidMergeOperation"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Unknown",
                     "Value": 1
                 },
@@ -183949,6 +183471,23 @@
                 }
             ],
             "Name": "VoiceControlPath"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Unknown",
+                    "Value": 0
+                },
+                {
+                    "Name": "Migration",
+                    "Value": 1
+                },
+                {
+                    "Name": "CloseRoom",
+                    "Value": 2
+                }
+            ],
+            "Name": "VoiceRccReconnectReason"
         },
         {
             "Items": [

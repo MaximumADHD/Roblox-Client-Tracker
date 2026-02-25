@@ -55025,8 +55025,10 @@
     "documentation": "Service containing geometric operations.",
     "keys": {
       "CalculateConstraintsToPreserve": "@roblox/globaltype/GeometryService.CalculateConstraintsToPreserve",
+      "FragmentAsync": "@roblox/globaltype/GeometryService.FragmentAsync",
       "IntersectAsync": "@roblox/globaltype/GeometryService.IntersectAsync",
       "SubtractAsync": "@roblox/globaltype/GeometryService.SubtractAsync",
+      "SweepPartAsync": "@roblox/globaltype/GeometryService.SweepPartAsync",
       "UnionAsync": "@roblox/globaltype/GeometryService.UnionAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GeometryService",
@@ -55071,6 +55073,47 @@
       "@roblox/globaltype/GeometryService.CalculateConstraintsToPreserve/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GeometryService#CalculateConstraintsToPreserve",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/GeometryService.FragmentAsync/param/0": {
+    "documentation": "Service containing geometric operations."
+  },
+  "@roblox/globaltype/GeometryService.FragmentAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/GeometryService.FragmentAsync/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/GeometryService.FragmentAsync/param/3": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/GeometryService.FragmentAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/GeometryService.FragmentAsync": {
+    "documentation": "This API has not been released.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/GeometryService.FragmentAsync/param/0"
+      },
+      {
+        "name": "part",
+        "documentation": "@roblox/globaltype/GeometryService.FragmentAsync/param/1"
+      },
+      {
+        "name": "sites",
+        "documentation": "@roblox/globaltype/GeometryService.FragmentAsync/param/2"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/GeometryService.FragmentAsync/param/3"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/GeometryService.FragmentAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GeometryService#FragmentAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/GeometryService.IntersectAsync/param/0": {
@@ -55153,6 +55196,47 @@
       "@roblox/globaltype/GeometryService.SubtractAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GeometryService#SubtractAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/GeometryService.SweepPartAsync/param/0": {
+    "documentation": "Service containing geometric operations."
+  },
+  "@roblox/globaltype/GeometryService.SweepPartAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/GeometryService.SweepPartAsync/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/GeometryService.SweepPartAsync/param/3": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/GeometryService.SweepPartAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/GeometryService.SweepPartAsync": {
+    "documentation": "This API has not been released.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/GeometryService.SweepPartAsync/param/0"
+      },
+      {
+        "name": "part",
+        "documentation": "@roblox/globaltype/GeometryService.SweepPartAsync/param/1"
+      },
+      {
+        "name": "cframes",
+        "documentation": "@roblox/globaltype/GeometryService.SweepPartAsync/param/2"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/GeometryService.SweepPartAsync/param/3"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/GeometryService.SweepPartAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GeometryService#SweepPartAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/GeometryService.UnionAsync/param/0": {
@@ -88334,7 +88418,7 @@
     "code_sample": "local part = Instance.new(\"Part\")\npart.Anchored = true\npart.Position = Vector3.new(0, 3, 0)\npart.BrickColor = BrickColor.new(\"Bright red\")\npart.Name = \"MusicBox\"\npart.Parent = workspace\n\n-- create a sound\nlocal sound = Instance.new(\"Sound\", part)\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.EmitterSize = 5 -- decrease the emitter size (for earlier volume drop off)\nsound.Looped = true\nsound.Parent = part\n\nlocal clickDetector = Instance.new(\"ClickDetector\")\nclickDetector.Parent = part\n\n-- toggle the sound playing / not playing\nclickDetector.MouseClick:Connect(function()\n\tif not sound.IsPlaying then\n\t\tpart.BrickColor = BrickColor.new(\"Bright green\")\n\t\tsound:Play()\n\telse\n\t\tpart.BrickColor = BrickColor.new(\"Bright red\")\n\t\tsound:Stop()\n\tend\nend)"
   },
   "@roblox/globaltype/Sound.AudioContent": {
-    "documentation": "",
+    "documentation": "A reference to an audio asset.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#AudioContent",
     "code_sample": ""
   },
@@ -90984,7 +91068,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>.",
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>.",
     "keys": {
       "CustomizedTeleportUI": "@roblox/globaltype/TeleportService.CustomizedTeleportUI",
       "GetArrivingTeleportGui": "@roblox/globaltype/TeleportService.GetArrivingTeleportGui",
@@ -91012,7 +91096,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.GetArrivingTeleportGui/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.GetArrivingTeleportGui/return/0": {
     "documentation": "The <em>customLoadingScreen</em> the <code>LocalPlayer</code> arrived into the place with."
@@ -91032,7 +91116,7 @@
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal customLoadingScreen = TeleportService:GetArrivingTeleportGui()\nif customLoadingScreen then\n\tlocal playerGui = Players.LocalPlayer:WaitForChild(\"PlayerGui\")\n\tReplicatedFirst:RemoveDefaultLoadingScreen()\n\tcustomLoadingScreen.Parent = playerGui\n\ttask.wait(5)\n\tcustomLoadingScreen:Destroy()\nend"
   },
   "@roblox/globaltype/TeleportService.GetLocalPlayerTeleportData/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.GetLocalPlayerTeleportData/return/0": {
     "documentation": "The teleport data the <code>Players.LocalPlayer</code> arrived into the place with."
@@ -91052,7 +91136,7 @@
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\n\nlocal teleportData = TeleportService:GetLocalPlayerTeleportData()\n\nprint(\"Local player arrived with this data:\", teleportData)"
   },
   "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/param/1": {
     "documentation": "The <code>Player.UserId</code> of the <code>Player</code>."
@@ -91079,7 +91163,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.GetTeleportSetting/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.GetTeleportSetting/param/1": {
     "documentation": "The key the value was stored under using <code>TeleportService:SetTeleportSetting()</code>."
@@ -91106,7 +91190,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/param/1": {
     "documentation": "The <code>Player</code> to be presented the prompt."
@@ -91140,7 +91224,7 @@
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(function()\n\tTeleportService:PromptExperienceDetailsAsync(player, 8357232245)\nend)\nif not success then\n\twarn(\"Error prompting experience details: \" .. tostring(result))\nend\n\nif result == Enum.PromptExperienceDetailsResult.PromptClosed then\n\tprint(\"Player closed the experience details prompt\")\nelseif result == Enum.PromptExperienceDetailsResult.TeleportAttempted then\n\tprint(\"Player chose to teleport to the experience\")\nend"
   },
   "@roblox/globaltype/TeleportService.ReserveServerAsync/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.ReserveServerAsync/param/1": {
     "documentation": "The <code>DataModel.PlaceId</code> of the place the reserved server is being created for."
@@ -91167,7 +91251,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.ReserveServer/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.ReserveServer/param/1": {
     "documentation": "The <code>DataModel.PlaceId</code> of the place the reserved server is being created for."
@@ -91194,7 +91278,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.SetTeleportGui/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.SetTeleportGui/param/1": {
     "documentation": "The loading <code>ScreenGui</code> that is to be displayed during teleportation."
@@ -91216,7 +91300,7 @@
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\nlocal Players = game:GetService(\"Players\")\n\nlocal playerGui = Players.LocalPlayer:WaitForChild(\"PlayerGui\")\n\nlocal PLACE_ID = 0 -- replace here\nlocal loadingGui = ReplicatedStorage:FindFirstChild(\"LoadingGui\")\n\n-- parent the loading gui for this place\nloadingGui.Parent = playerGui\n\n-- set the loading gui for the destination place\nTeleportService:SetTeleportGui(loadingGui)\n\nTeleportService:Teleport(PLACE_ID)"
   },
   "@roblox/globaltype/TeleportService.SetTeleportSetting/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.SetTeleportSetting/param/1": {
     "documentation": "The key to store the <em>value</em> under. This key can be used to retrieve the value using <code>TeleportService:GetTeleportSetting()</code>."
@@ -91245,7 +91329,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.Teleport/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.Teleport/param/1": {
     "documentation": "The ID of the place to teleport to."
@@ -91288,7 +91372,7 @@
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\nlocal Players = game:GetService(\"Players\")\n\nlocal playerGui = Players.LocalPlayer:WaitForChild(\"PlayerGui\")\n\nlocal PLACE_ID = 0 -- replace here\nlocal loadingGui = ReplicatedStorage:FindFirstChild(\"LoadingGui\")\n\n-- parent the loading gui for this place\nloadingGui.Parent = playerGui\n\n-- set the loading gui for the destination place\nTeleportService:SetTeleportGui(loadingGui)\n\nTeleportService:Teleport(PLACE_ID)"
   },
   "@roblox/globaltype/TeleportService.TeleportAsync/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.TeleportAsync/param/1": {
     "documentation": "The place ID the player(s) should be teleported to."
@@ -91329,7 +91413,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/1": {
     "documentation": "The ID of the place to teleport to."
@@ -91377,7 +91461,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal TeleportService = game:GetService(\"TeleportService\")\n\nlocal PLACE_ID = 0 -- replace\nlocal playerList = Players:GetPlayers()\n\nlocal success, result = pcall(function()\n\treturn TeleportService:TeleportPartyAsync(PLACE_ID, playerList)\nend)\n\nif success then\n\tlocal jobId = result\n\tprint(\"Players teleported to\", jobId)\nelse\n\twarn(result)\nend"
   },
   "@roblox/globaltype/TeleportService.TeleportToPlaceInstance/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.TeleportToPlaceInstance/param/1": {
     "documentation": "The ID of the place to teleport to."
@@ -91434,7 +91518,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/1": {
     "documentation": "The ID of the place to teleport to."
@@ -91491,7 +91575,7 @@
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal dataStore = DataStoreService:GetGlobalDataStore()\n\n-- Get the saved code\nlocal code = dataStore:GetAsync(\"ReservedServer\")\nif typeof(code) ~= \"string\" then -- None saved, create one\n\tcode = TeleportService:ReserveServerAsync(game.PlaceId)\n\tdataStore:SetAsync(\"ReservedServer\", code)\nend\n\nlocal function joined(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tif message == \"reserved\" then\n\t\t\tTeleportService:TeleportToPrivateServer(game.PlaceId, code, { player })\n\t\tend\n\tend)\nend\n\nPlayers.PlayerAdded:Connect(joined)"
   },
   "@roblox/globaltype/TeleportService.TeleportToSpawnByName/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. For more information on how to teleport players between servers, see <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.TeleportToSpawnByName/param/1": {
     "documentation": "The ID of the place to teleport to."
