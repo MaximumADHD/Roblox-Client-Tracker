@@ -91,7 +91,7 @@ PROTO_1:
        26 SETTABLEKS                       R1 R0 K5 ["Name"]
        28 GETUPVAL                         R0 1
        29 SETUPVAL                         R0 2
-       30 JUMP                             ; [+24]
+       30 JUMP                             ; [+33]
        31 GETIMPORT                        R0 K8 [Instance.new]
        33 LOADK                            R1 K2 ["StyleRule"]
        34 CALL                             R0 1 1
@@ -103,16 +103,24 @@ PROTO_1:
        41 GETUPVAL                         R1 0
        42 SETTABLEKS                       R1 R0 K4 ["Selector"]
        44 GETUPVAL                         R0 2
-       45 GETUPVAL                         R1 3
-       46 GETUPVAL                         R2 1
-       47 GETUPVAL                         R3 0
-       48 CALL                             R1 2 1
-       49 SETTABLEKS                       R1 R0 K9 ["Priority"]
-       51 GETUPVAL                         R0 2
-       52 GETUPVAL                         R1 1
-       53 SETTABLEKS                       R1 R0 K10 ["Parent"]
-       55 GETIMPORT                        R0 K14 [Enum.FinishRecordingOperation.Commit]
-       57 RETURN                           R0 1
+       45 GETUPVAL                         R2 3
+       46 JUMPIFNOT                        R2 ; [+7]
+       47 GETUPVAL                         R2 4
+       48 GETTABLEKS                       R1 R2 K9 ["calculatePriority"]
+       50 GETUPVAL                         R2 1
+       51 GETUPVAL                         R3 0
+       52 CALL                             R1 2 1
+       53 JUMP                             ; [+4]
+       54 GETUPVAL                         R1 5
+       55 GETUPVAL                         R2 1
+       56 GETUPVAL                         R3 0
+       57 CALL                             R1 2 1
+       58 SETTABLEKS                       R1 R0 K10 ["Priority"]
+       60 GETUPVAL                         R0 2
+       61 GETUPVAL                         R1 1
+       62 SETTABLEKS                       R1 R0 K11 ["Parent"]
+       64 GETIMPORT                        R0 K15 [Enum.FinishRecordingOperation.Commit]
+       66 RETURN                           R0 1
 
 PROTO_2:
         0 LOADNIL                          R2
@@ -127,32 +135,36 @@ PROTO_2:
        12 CAPTURE                          UPVAL U1
        13 CAPTURE                          REF R2
        14 CAPTURE                          UPVAL U2
-       15 SETTABLEKS                       R5 R4 K3 ["DoChange"]
-       17 CALL                             R3 1 0
-       18 GETUPVAL                         R3 3
-       19 JUMPIFNOT                        R3 ; [+12]
-       20 JUMPIFNOT                        R2 ; [+11]
-       21 GETUPVAL                         R4 4
-       22 GETTABLEKS                       R3 R4 K7 ["createItemId"]
-       24 MOVE                             R4 R2
-       25 CALL                             R3 1 1
-       26 GETUPVAL                         R6 5
-       27 MOVE                             R7 R3
-       28 CALL                             R6 1 -1
-       29 NAMECALL                         R4 R0 K8 ["dispatch"]
-       31 CALL                             R4 -1 0
-       32 CLOSEUPVALS                      R2
-       33 RETURN                           R2 1
+       15 CAPTURE                          UPVAL U3
+       16 CAPTURE                          UPVAL U4
+       17 SETTABLEKS                       R5 R4 K3 ["DoChange"]
+       19 CALL                             R3 1 0
+       20 GETUPVAL                         R3 5
+       21 JUMPIFNOT                        R3 ; [+12]
+       22 JUMPIFNOT                        R2 ; [+11]
+       23 GETUPVAL                         R4 6
+       24 GETTABLEKS                       R3 R4 K7 ["createItemId"]
+       26 MOVE                             R4 R2
+       27 CALL                             R3 1 1
+       28 GETUPVAL                         R6 7
+       29 MOVE                             R7 R3
+       30 CALL                             R6 1 -1
+       31 NAMECALL                         R4 R0 K8 ["dispatch"]
+       33 CALL                             R4 -1 0
+       34 CLOSEUPVALS                      R2
+       35 RETURN                           R2 1
 
 PROTO_3:
         0 NEWCLOSURE                       R3 P0
         1 CAPTURE                          VAL R1
         2 CAPTURE                          VAL R0
         3 CAPTURE                          UPVAL U0
-        4 CAPTURE                          VAL R2
-        5 CAPTURE                          UPVAL U1
-        6 CAPTURE                          UPVAL U2
-        7 RETURN                           R3 1
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          UPVAL U2
+        6 CAPTURE                          VAL R2
+        7 CAPTURE                          UPVAL U3
+        8 CAPTURE                          UPVAL U4
+        9 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -169,28 +181,41 @@ MAIN:
        20 GETIMPORT                        R2 K4 [require]
        22 GETTABLEKS                       R5 R0 K5 ["Src"]
        24 GETTABLEKS                       R4 R5 K6 ["Util"]
-       26 GETTABLEKS                       R3 R4 K8 ["TreeTableHelpers"]
+       26 GETTABLEKS                       R3 R4 K8 ["StyleRuleHelpers"]
        28 CALL                             R2 1 1
-       29 GETTABLEKS                       R4 R0 K5 ["Src"]
-       31 GETTABLEKS                       R3 R4 K9 ["Actions"]
-       33 GETIMPORT                        R4 K4 [require]
-       35 GETTABLEKS                       R6 R3 K10 ["Window"]
-       37 GETTABLEKS                       R5 R6 K11 ["SelectItem"]
-       39 CALL                             R4 1 1
-       40 GETIMPORT                        R5 K4 [require]
-       42 GETTABLEKS                       R8 R0 K5 ["Src"]
-       44 GETTABLEKS                       R7 R8 K12 ["Reducers"]
-       46 GETTABLEKS                       R6 R7 K13 ["RootReducer"]
+       29 GETIMPORT                        R3 K4 [require]
+       31 GETTABLEKS                       R6 R0 K5 ["Src"]
+       33 GETTABLEKS                       R5 R6 K6 ["Util"]
+       35 GETTABLEKS                       R4 R5 K9 ["TreeTableHelpers"]
+       37 CALL                             R3 1 1
+       38 GETTABLEKS                       R5 R0 K5 ["Src"]
+       40 GETTABLEKS                       R4 R5 K10 ["Actions"]
+       42 GETIMPORT                        R5 K4 [require]
+       44 GETTABLEKS                       R7 R4 K11 ["Window"]
+       46 GETTABLEKS                       R6 R7 K12 ["SelectItem"]
        48 CALL                             R5 1 1
        49 GETIMPORT                        R6 K4 [require]
        51 GETTABLEKS                       R9 R0 K5 ["Src"]
-       53 GETTABLEKS                       R8 R9 K14 ["Thunks"]
-       55 GETTABLEKS                       R7 R8 K15 ["Types"]
+       53 GETTABLEKS                       R8 R9 K13 ["Reducers"]
+       55 GETTABLEKS                       R7 R8 K14 ["RootReducer"]
        57 CALL                             R6 1 1
-       58 DUPCLOSURE                       R7 K16 [PROTO_0]
-       59 CAPTURE                          VAL R1
-       60 DUPCLOSURE                       R8 K17 [PROTO_3]
-       61 CAPTURE                          VAL R7
-       62 CAPTURE                          VAL R2
-       63 CAPTURE                          VAL R4
-       64 RETURN                           R8 1
+       58 GETIMPORT                        R7 K4 [require]
+       60 GETTABLEKS                       R10 R0 K5 ["Src"]
+       62 GETTABLEKS                       R9 R10 K15 ["Thunks"]
+       64 GETTABLEKS                       R8 R9 K16 ["Types"]
+       66 CALL                             R7 1 1
+       67 GETIMPORT                        R8 K4 [require]
+       69 GETTABLEKS                       R11 R0 K5 ["Src"]
+       71 GETTABLEKS                       R10 R11 K17 ["Flags"]
+       73 GETTABLEKS                       R9 R10 K18 ["getFFlagStyleQuery"]
+       75 CALL                             R8 1 1
+       76 CALL                             R8 0 1
+       77 DUPCLOSURE                       R9 K19 [PROTO_0]
+       78 CAPTURE                          VAL R1
+       79 DUPCLOSURE                       R10 K20 [PROTO_3]
+       80 CAPTURE                          VAL R8
+       81 CAPTURE                          VAL R2
+       82 CAPTURE                          VAL R9
+       83 CAPTURE                          VAL R3
+       84 CAPTURE                          VAL R5
+       85 RETURN                           R10 1

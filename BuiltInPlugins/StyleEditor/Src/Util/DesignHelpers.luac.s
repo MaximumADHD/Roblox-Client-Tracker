@@ -619,7 +619,7 @@ MAIN:
        69 GETIMPORT                        R9 K11 [require]
        71 GETTABLEKS                       R12 R4 K14 ["Src"]
        73 GETTABLEKS                       R11 R12 K19 ["Flags"]
-       75 GETTABLEKS                       R10 R11 K20 ["getFFlagStyleEditorQueries"]
+       75 GETTABLEKS                       R10 R11 K20 ["getFFlagStyleQuery"]
        77 CALL                             R9 1 1
        78 CALL                             R9 0 1
        79 GETIMPORT                        R10 K11 [require]

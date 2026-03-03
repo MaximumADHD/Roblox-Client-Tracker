@@ -114,23 +114,18 @@ PROTO_0:
       152 NOT                              R10 R2
       153 CALL                             R8 2 1
       154 SETTABLEKS                       R8 R7 K27 ["Networking"]
-      156 JUMPIFNOT                        R2 ; [+6]
-      157 GETUPVAL                         R9 17
-      158 GETTABLEKS                       R8 R9 K5 ["new"]
-      160 MOVE                             R9 R1
-      161 CALL                             R8 1 1
-      162 JUMP                             ; [+5]
-      163 GETUPVAL                         R9 17
-      164 GETTABLEKS                       R8 R9 K13 ["mock"]
-      166 MOVE                             R9 R1
-      167 CALL                             R8 1 1
-      168 SETTABLEKS                       R8 R7 K32 ["QueueController"]
-      170 GETUPVAL                         R10 18
-      171 FASTCALL2                        SETMETATABLE R7 R10 ; [+4]
-      173 MOVE                             R9 R7
-      174 GETIMPORT                        R8 K34 [setmetatable]
-      176 CALL                             R8 2 1
-      177 RETURN                           R8 1
+      156 GETUPVAL                         R9 17
+      157 GETTABLEKS                       R8 R9 K5 ["new"]
+      159 MOVE                             R9 R1
+      160 MOVE                             R10 R6
+      161 CALL                             R8 2 1
+      162 SETTABLEKS                       R8 R7 K32 ["QueueController"]
+      164 GETUPVAL                         R10 18
+      165 FASTCALL2                        SETMETATABLE R7 R10 ; [+4]
+      167 MOVE                             R9 R7
+      168 GETIMPORT                        R8 K34 [setmetatable]
+      170 CALL                             R8 2 1
+      171 RETURN                           R8 1
 
 PROTO_1:
         0 NEWTABLE                         R1 0 15

@@ -137,7 +137,6 @@ local FFlagCorrectlyPositionMuteButton = game:DefineFastFlag("CorrectlyPositionM
 local FFlagOnlyCaptureFocusIfOnPlayerPage = game:DefineFastFlag("OnlyCaptureFocusIfOnPlayerPage", false)
 local FIntSettingsHubPlayersButtonsResponsiveThreshold =
 	game:DefineFastInt("SettingsHubPlayersButtonsResponsiveThreshold", 200)
-local FFlagNullCheckPlayersNameLabel = game:DefineFastFlag("NullCheckPlayersNameLabel", false)
 local GetFFlagCleanupMuteSelfButton = require(RobloxGui.Modules.Settings.Flags.GetFFlagCleanupMuteSelfButton)
 local BUTTON_ROW_HORIZONTAL_PADDING = 20
 local BUTTON_ROW_VERTICAL_PADDING = 16
@@ -1682,7 +1681,7 @@ local function Initialize()
 						reportFlagChangedWithCombinedName(reportFlag, "AbsolutePosition")
 					end
 				else
-					if FFlagNullCheckPlayersNameLabel and not frame:FindFirstChild("NameLabel") then
+					if not frame:FindFirstChild("NameLabel") then
 						return
 					end
 					frame.NameLabel.Text = "@" .. player.Name

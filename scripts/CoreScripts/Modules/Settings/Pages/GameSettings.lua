@@ -291,6 +291,11 @@ local GetFFlagEnableLocalesForExperienceLanguageSwitcher = require(RobloxGui.Mod
 local CreateExperienceLanguageSwitcher = require(
 	RobloxGui.Modules.Settings.Pages.GameSettingsRowInitializers.ExperienceLanguageSwitcherInitializer
 )
+
+local CreatePlayerChoiceTranslationOptions = require(
+	RobloxGui.Modules.Settings.Pages.GameSettingsRowInitializers.PlayerChoiceTranslationSettingInitializer
+)
+
 local FFlagUpdateVisibilitySettingsCopy = game:DefineFastFlag("UpdateVisibilitySettingsCopy", false)
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
@@ -4113,6 +4118,10 @@ local function Initialize()
 	createGraphicsOptions()
 	if FFlagShowAntiHarassmentSettings and GetFFlagEnablePlayerNamesEnabledSetting() then
 		createPlayerNamesEnabledOptions()
+	end
+
+	if game:GetEngineFeature("InExperiencePlayerChoiceToggle") then
+		CreatePlayerChoiceTranslationOptions(this, SETTINGS_MENU_LAYOUT_ORDER, reportSettingsChangeForAnalytics)
 	end
 
 	if not isInExperienceUIVREnabled then

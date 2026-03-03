@@ -17,28 +17,26 @@ PROTO_3:
         0 LOADK                            R3 K0 ["Font"]
         1 NAMECALL                         R1 R0 K1 ["GetStyled"]
         3 CALL                             R1 2 1
-        4 GETUPVAL                         R2 0
-        5 JUMPIFNOT                        R2 ; [+8]
-        6 GETIMPORT                        R2 K4 [Enum.Font.Unknown]
-        8 JUMPIFNOTEQ                      R1 R2 ; [+5]
-       10 GETIMPORT                        R2 K7 [Vector2.new]
-       12 CALL                             R2 0 -1
-       13 RETURN                           R2 -1
-       14 GETUPVAL                         R2 1
-       15 LOADK                            R6 K8 ["Text"]
-       16 NAMECALL                         R4 R0 K1 ["GetStyled"]
-       18 CALL                             R4 2 1
-       19 LOADK                            R7 K9 ["TextSize"]
-       20 NAMECALL                         R5 R0 K1 ["GetStyled"]
-       22 CALL                             R5 2 1
-       23 MOVE                             R6 R1
-       24 GETIMPORT                        R7 K7 [Vector2.new]
-       26 LOADN                            R8 0
-       27 LOADN                            R9 0
-       28 CALL                             R7 2 -1
-       29 NAMECALL                         R2 R2 K10 ["GetTextSize"]
-       31 CALL                             R2 -1 -1
-       32 RETURN                           R2 -1
+        4 GETIMPORT                        R2 K4 [Enum.Font.Unknown]
+        6 JUMPIFNOTEQ                      R1 R2 ; [+5]
+        8 GETIMPORT                        R2 K7 [Vector2.new]
+       10 CALL                             R2 0 -1
+       11 RETURN                           R2 -1
+       12 GETUPVAL                         R2 0
+       13 LOADK                            R6 K8 ["Text"]
+       14 NAMECALL                         R4 R0 K1 ["GetStyled"]
+       16 CALL                             R4 2 1
+       17 LOADK                            R7 K9 ["TextSize"]
+       18 NAMECALL                         R5 R0 K1 ["GetStyled"]
+       20 CALL                             R5 2 1
+       21 MOVE                             R6 R1
+       22 GETIMPORT                        R7 K7 [Vector2.new]
+       24 LOADN                            R8 0
+       25 LOADN                            R9 0
+       26 CALL                             R7 2 -1
+       27 NAMECALL                         R2 R2 K10 ["GetTextSize"]
+       29 CALL                             R2 -1 -1
+       30 RETURN                           R2 -1
 
 PROTO_4:
         0 GETUPVAL                         R2 0
@@ -228,43 +226,37 @@ MAIN:
         9 GETTABLEKS                       R2 R3 K5 ["CoreGuiManager"]
        11 CALL                             R1 1 1
        12 GETIMPORT                        R2 K7 [game]
-       14 LOADK                            R4 K8 ["UIEditorUnknownFont"]
-       15 LOADB                            R5 0
-       16 NAMECALL                         R2 R2 K9 ["DefineFastFlag"]
-       18 CALL                             R2 3 1
-       19 GETIMPORT                        R3 K7 [game]
-       21 LOADK                            R5 K10 ["TextService"]
-       22 NAMECALL                         R3 R3 K11 ["GetService"]
-       24 CALL                             R3 2 1
-       25 GETIMPORT                        R4 K14 [Vector2.new]
-       27 LOADN                            R5 12
-       28 LOADN                            R6 4
-       29 CALL                             R4 2 1
-       30 DUPCLOSURE                       R5 K15 [PROTO_0]
-       31 SETTABLEKS                       R5 R0 K16 ["getSize"]
-       33 DUPCLOSURE                       R5 K17 [PROTO_1]
-       34 SETTABLEKS                       R5 R0 K18 ["setPosition"]
-       36 DUPCLOSURE                       R5 K19 [PROTO_2]
-       37 SETTABLEKS                       R5 R0 K20 ["setAnchorPoint"]
-       39 DUPCLOSURE                       R5 K21 [PROTO_3]
-       40 CAPTURE                          VAL R2
-       41 CAPTURE                          VAL R3
-       42 DUPCLOSURE                       R6 K22 [PROTO_4]
-       43 CAPTURE                          VAL R1
-       44 CAPTURE                          VAL R5
-       45 CAPTURE                          VAL R4
-       46 SETTABLEKS                       R6 R0 K23 ["setText"]
-       48 DUPCLOSURE                       R6 K24 [PROTO_5]
-       49 SETTABLEKS                       R6 R0 K25 ["setVisible"]
-       51 DUPCLOSURE                       R6 K26 [PROTO_6]
-       52 CAPTURE                          VAL R1
-       53 DUPCLOSURE                       R7 K27 [PROTO_7]
-       54 DUPCLOSURE                       R8 K28 [PROTO_8]
-       55 CAPTURE                          VAL R6
-       56 CAPTURE                          VAL R7
-       57 CAPTURE                          VAL R0
-       58 SETTABLEKS                       R8 R0 K13 ["new"]
-       60 SETTABLEKS                       R0 R0 K29 ["__index"]
-       62 DUPCLOSURE                       R8 K30 [PROTO_9]
-       63 SETTABLEKS                       R8 R0 K31 ["Destroy"]
-       65 RETURN                           R0 1
+       14 LOADK                            R4 K8 ["TextService"]
+       15 NAMECALL                         R2 R2 K9 ["GetService"]
+       17 CALL                             R2 2 1
+       18 GETIMPORT                        R3 K12 [Vector2.new]
+       20 LOADN                            R4 12
+       21 LOADN                            R5 4
+       22 CALL                             R3 2 1
+       23 DUPCLOSURE                       R4 K13 [PROTO_0]
+       24 SETTABLEKS                       R4 R0 K14 ["getSize"]
+       26 DUPCLOSURE                       R4 K15 [PROTO_1]
+       27 SETTABLEKS                       R4 R0 K16 ["setPosition"]
+       29 DUPCLOSURE                       R4 K17 [PROTO_2]
+       30 SETTABLEKS                       R4 R0 K18 ["setAnchorPoint"]
+       32 DUPCLOSURE                       R4 K19 [PROTO_3]
+       33 CAPTURE                          VAL R2
+       34 DUPCLOSURE                       R5 K20 [PROTO_4]
+       35 CAPTURE                          VAL R1
+       36 CAPTURE                          VAL R4
+       37 CAPTURE                          VAL R3
+       38 SETTABLEKS                       R5 R0 K21 ["setText"]
+       40 DUPCLOSURE                       R5 K22 [PROTO_5]
+       41 SETTABLEKS                       R5 R0 K23 ["setVisible"]
+       43 DUPCLOSURE                       R5 K24 [PROTO_6]
+       44 CAPTURE                          VAL R1
+       45 DUPCLOSURE                       R6 K25 [PROTO_7]
+       46 DUPCLOSURE                       R7 K26 [PROTO_8]
+       47 CAPTURE                          VAL R5
+       48 CAPTURE                          VAL R6
+       49 CAPTURE                          VAL R0
+       50 SETTABLEKS                       R7 R0 K11 ["new"]
+       52 SETTABLEKS                       R0 R0 K27 ["__index"]
+       54 DUPCLOSURE                       R7 K28 [PROTO_9]
+       55 SETTABLEKS                       R7 R0 K29 ["Destroy"]
+       57 RETURN                           R0 1

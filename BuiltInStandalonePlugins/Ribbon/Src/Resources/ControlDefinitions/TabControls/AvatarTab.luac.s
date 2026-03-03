@@ -16,7 +16,7 @@ MAIN:
        23 DUPTABLE                         R3 K12 [{"Name", "Controls"}]
        24 LOADK                            R4 K13 ["Avatar"]
        25 SETTABLEKS                       R4 R3 K10 ["Name"]
-       27 NEWTABLE                         R4 0 16
+       27 NEWTABLE                         R4 0 17
        29 DUPTABLE                         R5 K17 [{"Id", "Type", "Action"}]
        30 LOADK                            R6 K18 ["Select"]
        31 SETTABLEKS                       R6 R5 K14 ["Id"]
@@ -396,8 +396,26 @@ MAIN:
       585 SETTABLEKS                       R22 R21 K23 ["Category"]
       587 SETTABLEKS                       R21 R20 K16 ["Action"]
       589 SETLIST                          R4 R5 16 [1]
-      591 SETTABLEKS                       R4 R3 K11 ["Controls"]
-      593 MOVE                             R4 R1
-      594 MOVE                             R5 R3
-      595 CALL                             R4 1 -1
-      596 RETURN                           R4 -1
+      591 DUPTABLE                         R5 K81 [{"Id", "Type", "Action", "FastFlag"}]
+      592 LOADK                            R21 K86 ["AdaptiveAnimationSupport"]
+      593 SETTABLEKS                       R21 R5 K14 ["Id"]
+      595 LOADK                            R21 K19 ["IconButton"]
+      596 SETTABLEKS                       R21 R5 K15 ["Type"]
+      598 DUPTABLE                         R21 K24 [{"PluginId", "DataModel", "ItemId", "Category"}]
+      599 LOADK                            R22 K86 ["AdaptiveAnimationSupport"]
+      600 SETTABLEKS                       R22 R21 K20 ["PluginId"]
+      602 LOADK                            R22 K26 ["Standalone"]
+      603 SETTABLEKS                       R22 R21 K21 ["DataModel"]
+      605 LOADK                            R22 K74 ["Toggle"]
+      606 SETTABLEKS                       R22 R21 K22 ["ItemId"]
+      608 LOADK                            R22 K27 ["Actions"]
+      609 SETTABLEKS                       R22 R21 K23 ["Category"]
+      611 SETTABLEKS                       R21 R5 K16 ["Action"]
+      613 LOADK                            R21 K87 ["EnableAdaptiveAnimationSupport"]
+      614 SETTABLEKS                       R21 R5 K80 ["FastFlag"]
+      616 SETLIST                          R4 R5 1 [17]
+      618 SETTABLEKS                       R4 R3 K11 ["Controls"]
+      620 MOVE                             R4 R1
+      621 MOVE                             R5 R3
+      622 CALL                             R4 1 -1
+      623 RETURN                           R4 -1

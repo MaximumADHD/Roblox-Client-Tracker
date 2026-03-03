@@ -16,16 +16,32 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R4 1
-        2 GETTABLEKS                       R3 R4 K0 ["UiZone"]
-        4 GETTABLEKS                       R2 R3 K1 ["Browser"]
-        6 GETUPVAL                         R3 2
-        7 GETUPVAL                         R4 3
-        8 GETUPVAL                         R6 4
-        9 GETTABLEKS                       R5 R6 K2 ["Key"]
-       11 NAMECALL                         R0 R0 K3 ["handleMouse2Click"]
-       13 CALL                             R0 5 0
-       14 RETURN                           R0 0
+        1 CALL                             R0 0 1
+        2 JUMPIFNOT                        R0 ; [+18]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R0 R1 K0 ["Cell"]
+        6 GETUPVAL                         R1 2
+        7 GETUPVAL                         R5 3
+        8 GETTABLEKS                       R4 R5 K1 ["UiZone"]
+       10 GETTABLEKS                       R3 R4 K2 ["Browser"]
+       12 GETUPVAL                         R4 4
+       13 MOVE                             R5 R0
+       14 GETUPVAL                         R7 1
+       15 GETTABLEKS                       R6 R7 K3 ["Key"]
+       17 NAMECALL                         R1 R1 K4 ["handleMouse2Click"]
+       19 CALL                             R1 5 0
+       20 RETURN                           R0 0
+       21 GETUPVAL                         R0 2
+       22 GETUPVAL                         R4 3
+       23 GETTABLEKS                       R3 R4 K1 ["UiZone"]
+       25 GETTABLEKS                       R2 R3 K2 ["Browser"]
+       27 GETUPVAL                         R3 4
+       28 GETUPVAL                         R4 5
+       29 GETUPVAL                         R6 1
+       30 GETTABLEKS                       R5 R6 K3 ["Key"]
+       32 NAMECALL                         R0 R0 K4 ["handleMouse2Click"]
+       34 CALL                             R0 5 0
+       35 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R3 0
@@ -181,169 +197,170 @@ PROTO_5:
       173 GETTABLEKS                       R16 R0 K24 ["Position"]
       175 SETTABLEKS                       R16 R15 K24 ["Position"]
       177 NEWCLOSURE                       R16 P0
-      178 CAPTURE                          VAL R3
-      179 CAPTURE                          UPVAL U6
-      180 CAPTURE                          VAL R2
-      181 CAPTURE                          REF R9
-      182 CAPTURE                          VAL R0
-      183 SETTABLEKS                       R16 R15 K25 ["OnRightClick"]
-      185 GETUPVAL                         R18 11
-      186 GETTABLEKS                       R17 R18 K26 ["Event"]
-      188 GETTABLEKS                       R16 R17 K27 ["MouseButton1Down"]
-      190 NEWCLOSURE                       R17 P1
-      191 CAPTURE                          VAL R3
-      192 CAPTURE                          UPVAL U6
-      193 CAPTURE                          VAL R0
-      194 SETTABLE                         R17 R15 R16
-      195 GETUPVAL                         R18 11
-      196 GETTABLEKS                       R17 R18 K26 ["Event"]
-      198 GETTABLEKS                       R16 R17 K28 ["MouseButton1Up"]
-      200 NEWCLOSURE                       R17 P2
-      201 CAPTURE                          VAL R3
-      202 CAPTURE                          UPVAL U6
-      203 CAPTURE                          VAL R0
-      204 SETTABLE                         R17 R15 R16
-      205 GETUPVAL                         R17 11
-      206 GETTABLEKS                       R16 R17 K29 ["Tag"]
-      208 LOADK                            R17 K30 ["ItemCell X-Top X-Center X-ColumnS"]
-      209 SETTABLE                         R17 R15 R16
-      210 DUPTABLE                         R16 K33 [{"ThumbnailContainer", "CellData"}]
-      211 GETUPVAL                         R18 11
-      212 GETTABLEKS                       R17 R18 K21 ["createElement"]
-      214 GETUPVAL                         R18 12
-      215 NEWTABLE                         R19 1 0
-      217 GETUPVAL                         R21 11
-      218 GETTABLEKS                       R20 R21 K29 ["Tag"]
-      220 LOADK                            R22 K34 ["CellThumbnailContainer Secondary X-Corner X-PadS %*"]
-      221 MOVE                             R24 R7
-      222 NAMECALL                         R22 R22 K35 ["format"]
-      224 CALL                             R22 2 1
-      225 MOVE                             R21 R22
-      226 SETTABLE                         R21 R19 R20
-      227 DUPTABLE                         R20 K38 [{"Thumbnail", "PackageLinkIcon"}]
-      228 GETUPVAL                         R22 13
-      229 CALL                             R22 0 1
-      230 JUMPIFNOT                        R22 ; [+15]
-      231 GETUPVAL                         R24 6
-      232 GETTABLEKS                       R23 R24 K3 ["AssetType"]
-      234 GETTABLEKS                       R22 R23 K39 ["Folder"]
-      236 JUMPIFNOTEQ                      R10 R22 ; [+9]
-      238 GETUPVAL                         R22 11
-      239 GETTABLEKS                       R21 R22 K21 ["createElement"]
-      241 GETUPVAL                         R22 14
-      242 NEWTABLE                         R23 0 0
-      244 CALL                             R21 2 1
-      245 JUMP                             ; [+10]
-      246 GETUPVAL                         R22 11
-      247 GETTABLEKS                       R21 R22 K21 ["createElement"]
-      249 GETUPVAL                         R22 15
-      250 DUPTABLE                         R23 K40 [{"AssetId", "AssetType"}]
-      251 SETTABLEKS                       R9 R23 K12 ["AssetId"]
-      253 SETTABLEKS                       R10 R23 K3 ["AssetType"]
-      255 CALL                             R21 2 1
-      256 SETTABLEKS                       R21 R20 K36 ["Thumbnail"]
-      258 JUMPIFNOT                        R12 ; [+15]
-      259 GETUPVAL                         R22 11
-      260 GETTABLEKS                       R21 R22 K21 ["createElement"]
-      262 GETUPVAL                         R23 16
-      263 GETTABLEKS                       R22 R23 K41 ["Image"]
-      265 DUPTABLE                         R23 K44 [{"ZIndex", "tag"}]
-      266 LOADN                            R24 2
-      267 SETTABLEKS                       R24 R23 K42 ["ZIndex"]
-      269 LOADK                            R24 K45 ["icon-packageLink anchor-bottom-right am-size-icon bg-over-media-0 radius-small data-testid=package-link-icon"]
-      270 SETTABLEKS                       R24 R23 K43 ["tag"]
-      272 CALL                             R21 2 1
-      273 JUMP                             ; [+1]
-      274 LOADNIL                          R21
-      275 SETTABLEKS                       R21 R20 K37 ["PackageLinkIcon"]
-      277 CALL                             R17 3 1
-      278 SETTABLEKS                       R17 R16 K31 ["ThumbnailContainer"]
-      280 GETUPVAL                         R18 11
-      281 GETTABLEKS                       R17 R18 K21 ["createElement"]
-      283 GETUPVAL                         R18 12
-      284 NEWTABLE                         R19 2 0
-      286 NAMECALL                         R20 R1 K46 ["getNextOrder"]
-      288 CALL                             R20 1 1
-      289 SETTABLEKS                       R20 R19 K23 ["LayoutOrder"]
-      291 GETUPVAL                         R21 11
-      292 GETTABLEKS                       R20 R21 K29 ["Tag"]
-      294 LOADK                            R21 K47 ["am-padding-celldata am-size-full-celldata X-Column X-Left X-Middle"]
-      295 SETTABLE                         R21 R19 R20
-      296 DUPTABLE                         R20 K50 [{"NameTag", "TypeTag"}]
-      297 JUMPIFNOTEQ                      R9 R6 ; [+28]
-      299 GETUPVAL                         R22 11
-      300 GETTABLEKS                       R21 R22 K21 ["createElement"]
-      302 GETUPVAL                         R22 17
-      303 NEWTABLE                         R23 8 0
-      305 NAMECALL                         R24 R1 K46 ["getNextOrder"]
-      307 CALL                             R24 1 1
-      308 SETTABLEKS                       R24 R23 K23 ["LayoutOrder"]
-      310 SETTABLEKS                       R11 R23 K51 ["Text"]
-      312 LOADB                            R24 1
-      313 SETTABLEKS                       R24 R23 K52 ["ShouldFocus"]
-      315 NEWCLOSURE                       R24 P3
-      316 CAPTURE                          VAL R5
-      317 SETTABLEKS                       R24 R23 K53 ["OnFocusLost"]
-      319 GETUPVAL                         R25 11
-      320 GETTABLEKS                       R24 R25 K29 ["Tag"]
-      322 LOADK                            R25 K54 ["Left"]
-      323 SETTABLE                         R25 R23 R24
-      324 CALL                             R21 2 1
-      325 JUMP                             ; [+37]
-      326 GETUPVAL                         R22 11
-      327 GETTABLEKS                       R21 R22 K21 ["createElement"]
-      329 GETUPVAL                         R22 18
-      330 NEWTABLE                         R23 4 0
-      332 NAMECALL                         R24 R1 K46 ["getNextOrder"]
-      334 CALL                             R24 1 1
-      335 SETTABLEKS                       R24 R23 K23 ["LayoutOrder"]
-      337 SETTABLEKS                       R11 R23 K51 ["Text"]
-      339 GETIMPORT                        R24 K58 [Enum.TextTruncate.AtEnd]
-      341 SETTABLEKS                       R24 R23 K56 ["TextTruncate"]
-      343 GETUPVAL                         R25 11
-      344 GETTABLEKS                       R24 R25 K29 ["Tag"]
-      346 LOADK                            R25 K54 ["Left"]
-      347 SETTABLE                         R25 R23 R24
-      348 DUPTABLE                         R24 K60 [{"Tooltip"}]
-      349 JUMPIFNOT                        R8 ; [+9]
-      350 GETUPVAL                         R26 11
-      351 GETTABLEKS                       R25 R26 K21 ["createElement"]
-      353 GETUPVAL                         R26 19
-      354 DUPTABLE                         R27 K61 [{"Text"}]
-      355 SETTABLEKS                       R11 R27 K51 ["Text"]
-      357 CALL                             R25 2 1
-      358 JUMP                             ; [+1]
-      359 LOADNIL                          R25
-      360 SETTABLEKS                       R25 R24 K59 ["Tooltip"]
-      362 CALL                             R21 3 1
-      363 SETTABLEKS                       R21 R20 K48 ["NameTag"]
-      365 GETUPVAL                         R22 11
-      366 GETTABLEKS                       R21 R22 K21 ["createElement"]
-      368 GETUPVAL                         R22 18
-      369 NEWTABLE                         R23 8 0
-      371 GETIMPORT                        R24 K64 [Enum.AutomaticSize.XY]
-      373 SETTABLEKS                       R24 R23 K62 ["AutomaticSize"]
-      375 NAMECALL                         R24 R1 K46 ["getNextOrder"]
-      377 CALL                             R24 1 1
-      378 SETTABLEKS                       R24 R23 K23 ["LayoutOrder"]
-      380 LOADK                            R26 K3 ["AssetType"]
-      381 MOVE                             R27 R10
-      382 NAMECALL                         R24 R2 K65 ["getText"]
-      384 CALL                             R24 3 1
-      385 SETTABLEKS                       R24 R23 K51 ["Text"]
-      387 GETIMPORT                        R24 K58 [Enum.TextTruncate.AtEnd]
-      389 SETTABLEKS                       R24 R23 K56 ["TextTruncate"]
-      391 GETUPVAL                         R25 11
-      392 GETTABLEKS                       R24 R25 K29 ["Tag"]
-      394 LOADK                            R25 K66 ["Body"]
-      395 SETTABLE                         R25 R23 R24
-      396 CALL                             R21 2 1
-      397 SETTABLEKS                       R21 R20 K49 ["TypeTag"]
-      399 CALL                             R17 3 1
-      400 SETTABLEKS                       R17 R16 K32 ["CellData"]
-      402 CALL                             R13 3 -1
-      403 CLOSEUPVALS                      R9
-      404 RETURN                           R13 -1
+      178 CAPTURE                          UPVAL U7
+      179 CAPTURE                          VAL R0
+      180 CAPTURE                          VAL R3
+      181 CAPTURE                          UPVAL U6
+      182 CAPTURE                          VAL R2
+      183 CAPTURE                          REF R9
+      184 SETTABLEKS                       R16 R15 K25 ["OnRightClick"]
+      186 GETUPVAL                         R18 11
+      187 GETTABLEKS                       R17 R18 K26 ["Event"]
+      189 GETTABLEKS                       R16 R17 K27 ["MouseButton1Down"]
+      191 NEWCLOSURE                       R17 P1
+      192 CAPTURE                          VAL R3
+      193 CAPTURE                          UPVAL U6
+      194 CAPTURE                          VAL R0
+      195 SETTABLE                         R17 R15 R16
+      196 GETUPVAL                         R18 11
+      197 GETTABLEKS                       R17 R18 K26 ["Event"]
+      199 GETTABLEKS                       R16 R17 K28 ["MouseButton1Up"]
+      201 NEWCLOSURE                       R17 P2
+      202 CAPTURE                          VAL R3
+      203 CAPTURE                          UPVAL U6
+      204 CAPTURE                          VAL R0
+      205 SETTABLE                         R17 R15 R16
+      206 GETUPVAL                         R17 11
+      207 GETTABLEKS                       R16 R17 K29 ["Tag"]
+      209 LOADK                            R17 K30 ["ItemCell X-Top X-Center X-ColumnS"]
+      210 SETTABLE                         R17 R15 R16
+      211 DUPTABLE                         R16 K33 [{"ThumbnailContainer", "CellData"}]
+      212 GETUPVAL                         R18 11
+      213 GETTABLEKS                       R17 R18 K21 ["createElement"]
+      215 GETUPVAL                         R18 12
+      216 NEWTABLE                         R19 1 0
+      218 GETUPVAL                         R21 11
+      219 GETTABLEKS                       R20 R21 K29 ["Tag"]
+      221 LOADK                            R22 K34 ["CellThumbnailContainer Secondary X-Corner X-PadS %*"]
+      222 MOVE                             R24 R7
+      223 NAMECALL                         R22 R22 K35 ["format"]
+      225 CALL                             R22 2 1
+      226 MOVE                             R21 R22
+      227 SETTABLE                         R21 R19 R20
+      228 DUPTABLE                         R20 K38 [{"Thumbnail", "PackageLinkIcon"}]
+      229 GETUPVAL                         R22 13
+      230 CALL                             R22 0 1
+      231 JUMPIFNOT                        R22 ; [+15]
+      232 GETUPVAL                         R24 6
+      233 GETTABLEKS                       R23 R24 K3 ["AssetType"]
+      235 GETTABLEKS                       R22 R23 K39 ["Folder"]
+      237 JUMPIFNOTEQ                      R10 R22 ; [+9]
+      239 GETUPVAL                         R22 11
+      240 GETTABLEKS                       R21 R22 K21 ["createElement"]
+      242 GETUPVAL                         R22 14
+      243 NEWTABLE                         R23 0 0
+      245 CALL                             R21 2 1
+      246 JUMP                             ; [+10]
+      247 GETUPVAL                         R22 11
+      248 GETTABLEKS                       R21 R22 K21 ["createElement"]
+      250 GETUPVAL                         R22 15
+      251 DUPTABLE                         R23 K40 [{"AssetId", "AssetType"}]
+      252 SETTABLEKS                       R9 R23 K12 ["AssetId"]
+      254 SETTABLEKS                       R10 R23 K3 ["AssetType"]
+      256 CALL                             R21 2 1
+      257 SETTABLEKS                       R21 R20 K36 ["Thumbnail"]
+      259 JUMPIFNOT                        R12 ; [+15]
+      260 GETUPVAL                         R22 11
+      261 GETTABLEKS                       R21 R22 K21 ["createElement"]
+      263 GETUPVAL                         R23 16
+      264 GETTABLEKS                       R22 R23 K41 ["Image"]
+      266 DUPTABLE                         R23 K44 [{"ZIndex", "tag"}]
+      267 LOADN                            R24 2
+      268 SETTABLEKS                       R24 R23 K42 ["ZIndex"]
+      270 LOADK                            R24 K45 ["icon-packageLink anchor-bottom-right am-size-icon bg-over-media-0 radius-small data-testid=package-link-icon"]
+      271 SETTABLEKS                       R24 R23 K43 ["tag"]
+      273 CALL                             R21 2 1
+      274 JUMP                             ; [+1]
+      275 LOADNIL                          R21
+      276 SETTABLEKS                       R21 R20 K37 ["PackageLinkIcon"]
+      278 CALL                             R17 3 1
+      279 SETTABLEKS                       R17 R16 K31 ["ThumbnailContainer"]
+      281 GETUPVAL                         R18 11
+      282 GETTABLEKS                       R17 R18 K21 ["createElement"]
+      284 GETUPVAL                         R18 12
+      285 NEWTABLE                         R19 2 0
+      287 NAMECALL                         R20 R1 K46 ["getNextOrder"]
+      289 CALL                             R20 1 1
+      290 SETTABLEKS                       R20 R19 K23 ["LayoutOrder"]
+      292 GETUPVAL                         R21 11
+      293 GETTABLEKS                       R20 R21 K29 ["Tag"]
+      295 LOADK                            R21 K47 ["am-padding-celldata am-size-full-celldata X-Column X-Left X-Middle"]
+      296 SETTABLE                         R21 R19 R20
+      297 DUPTABLE                         R20 K50 [{"NameTag", "TypeTag"}]
+      298 JUMPIFNOTEQ                      R9 R6 ; [+28]
+      300 GETUPVAL                         R22 11
+      301 GETTABLEKS                       R21 R22 K21 ["createElement"]
+      303 GETUPVAL                         R22 17
+      304 NEWTABLE                         R23 8 0
+      306 NAMECALL                         R24 R1 K46 ["getNextOrder"]
+      308 CALL                             R24 1 1
+      309 SETTABLEKS                       R24 R23 K23 ["LayoutOrder"]
+      311 SETTABLEKS                       R11 R23 K51 ["Text"]
+      313 LOADB                            R24 1
+      314 SETTABLEKS                       R24 R23 K52 ["ShouldFocus"]
+      316 NEWCLOSURE                       R24 P3
+      317 CAPTURE                          VAL R5
+      318 SETTABLEKS                       R24 R23 K53 ["OnFocusLost"]
+      320 GETUPVAL                         R25 11
+      321 GETTABLEKS                       R24 R25 K29 ["Tag"]
+      323 LOADK                            R25 K54 ["Left"]
+      324 SETTABLE                         R25 R23 R24
+      325 CALL                             R21 2 1
+      326 JUMP                             ; [+37]
+      327 GETUPVAL                         R22 11
+      328 GETTABLEKS                       R21 R22 K21 ["createElement"]
+      330 GETUPVAL                         R22 18
+      331 NEWTABLE                         R23 4 0
+      333 NAMECALL                         R24 R1 K46 ["getNextOrder"]
+      335 CALL                             R24 1 1
+      336 SETTABLEKS                       R24 R23 K23 ["LayoutOrder"]
+      338 SETTABLEKS                       R11 R23 K51 ["Text"]
+      340 GETIMPORT                        R24 K58 [Enum.TextTruncate.AtEnd]
+      342 SETTABLEKS                       R24 R23 K56 ["TextTruncate"]
+      344 GETUPVAL                         R25 11
+      345 GETTABLEKS                       R24 R25 K29 ["Tag"]
+      347 LOADK                            R25 K54 ["Left"]
+      348 SETTABLE                         R25 R23 R24
+      349 DUPTABLE                         R24 K60 [{"Tooltip"}]
+      350 JUMPIFNOT                        R8 ; [+9]
+      351 GETUPVAL                         R26 11
+      352 GETTABLEKS                       R25 R26 K21 ["createElement"]
+      354 GETUPVAL                         R26 19
+      355 DUPTABLE                         R27 K61 [{"Text"}]
+      356 SETTABLEKS                       R11 R27 K51 ["Text"]
+      358 CALL                             R25 2 1
+      359 JUMP                             ; [+1]
+      360 LOADNIL                          R25
+      361 SETTABLEKS                       R25 R24 K59 ["Tooltip"]
+      363 CALL                             R21 3 1
+      364 SETTABLEKS                       R21 R20 K48 ["NameTag"]
+      366 GETUPVAL                         R22 11
+      367 GETTABLEKS                       R21 R22 K21 ["createElement"]
+      369 GETUPVAL                         R22 18
+      370 NEWTABLE                         R23 8 0
+      372 GETIMPORT                        R24 K64 [Enum.AutomaticSize.XY]
+      374 SETTABLEKS                       R24 R23 K62 ["AutomaticSize"]
+      376 NAMECALL                         R24 R1 K46 ["getNextOrder"]
+      378 CALL                             R24 1 1
+      379 SETTABLEKS                       R24 R23 K23 ["LayoutOrder"]
+      381 LOADK                            R26 K3 ["AssetType"]
+      382 MOVE                             R27 R10
+      383 NAMECALL                         R24 R2 K65 ["getText"]
+      385 CALL                             R24 3 1
+      386 SETTABLEKS                       R24 R23 K51 ["Text"]
+      388 GETIMPORT                        R24 K58 [Enum.TextTruncate.AtEnd]
+      390 SETTABLEKS                       R24 R23 K56 ["TextTruncate"]
+      392 GETUPVAL                         R25 11
+      393 GETTABLEKS                       R24 R25 K29 ["Tag"]
+      395 LOADK                            R25 K66 ["Body"]
+      396 SETTABLE                         R25 R23 R24
+      397 CALL                             R21 2 1
+      398 SETTABLEKS                       R21 R20 K49 ["TypeTag"]
+      400 CALL                             R17 3 1
+      401 SETTABLEKS                       R17 R16 K32 ["CellData"]
+      403 CALL                             R13 3 -1
+      404 CLOSEUPVALS                      R9
+      405 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0

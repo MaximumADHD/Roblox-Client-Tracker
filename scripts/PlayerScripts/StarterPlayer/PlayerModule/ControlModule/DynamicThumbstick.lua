@@ -37,20 +37,6 @@ local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
 local character = inputContexts:WaitForChild("Character")
 local moveAction = character:WaitForChild("Move")
 
-local FFlagUserDynamicThumbstickMoveOverButtons do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickMoveOverButtons2")
-	end)
-	FFlagUserDynamicThumbstickMoveOverButtons = success and result
-end
-
-local FFlagUserDynamicThumbstickSafeAreaUpdate do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickSafeAreaUpdate")
-	end)
-	FFlagUserDynamicThumbstickSafeAreaUpdate = success and result
-end
-
 local LocalPlayer = Players.LocalPlayer
 if not LocalPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
@@ -116,11 +102,7 @@ function DynamicThumbstick:Enable(enable: boolean?, uiParentFrame): boolean?
 
 		self:BindContextActions()
 	else
-		if FFlagUserDynamicThumbstickMoveOverButtons then
-			self:UnbindContextActions()
-		else
-			ContextActionService:UnbindAction(DYNAMIC_THUMBSTICK_ACTION_NAME)
-		end
+		self:UnbindContextActions()
 
 		-- Disable
 		self:OnInputEnded() -- Cleanup
@@ -358,14 +340,10 @@ function DynamicThumbstick:BindContextActions()
 		if inputState == Enum.UserInputState.Begin then
 			return inputBegan(inputObject)
 		elseif inputState == Enum.UserInputState.Change then
-			if FFlagUserDynamicThumbstickMoveOverButtons then
-				if inputObject == self.moveTouchObject then
-					return Enum.ContextActionResult.Sink
-				else
-					return Enum.ContextActionResult.Pass
-				end
+			if inputObject == self.moveTouchObject then
+				return Enum.ContextActionResult.Sink
 			else
-				return inputChanged(inputObject)
+				return Enum.ContextActionResult.Pass
 			end
 		elseif inputState == Enum.UserInputState.End then
 			return inputEnded(inputObject)
@@ -381,11 +359,9 @@ function DynamicThumbstick:BindContextActions()
 		DYNAMIC_THUMBSTICK_ACTION_PRIORITY,
 		Enum.UserInputType.Touch)
 
-	if FFlagUserDynamicThumbstickMoveOverButtons then
-		self.TouchMovedCon = UserInputService.TouchMoved:Connect(function(inputObject: InputObject, _gameProcessedEvent: boolean)
-			inputChanged(inputObject)
-		end)
-	end
+	self.TouchMovedCon = UserInputService.TouchMoved:Connect(function(inputObject: InputObject, _gameProcessedEvent: boolean)
+		inputChanged(inputObject)
+	end)
 end
 
 function DynamicThumbstick:UnbindContextActions()
@@ -410,7 +386,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 		end
 	end
 
-	local safeInset: number = if FFlagUserDynamicThumbstickSafeAreaUpdate then SAFE_AREA_INSET_MAX else 0
+	local safeInset: number = SAFE_AREA_INSET_MAX
 	local function layoutThumbstickFrame(portraitMode: boolean)
 		if portraitMode then
 			self.thumbstickFrame.Size = UDim2.new(1, safeInset, 0.4, safeInset)

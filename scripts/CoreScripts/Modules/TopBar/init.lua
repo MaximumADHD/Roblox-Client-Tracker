@@ -53,7 +53,7 @@ local FFlagTopBarDeprecateGamepadNavigationDialogRodux = require(script.Flags.FF
 
 local FFlagTopBarDeprecateChatRodux = require(script.Flags.FFlagTopBarDeprecateChatRodux)
 local FFlagTopBarDeprecateDisplayOptionsRodux = require(script.Flags.FFlagTopBarDeprecateDisplayOptionsRodux)
-local FFlagTopBarRefactor = require(script.Flags.FFlagTopBarRefactor)
+local FFlagTopBarRefactor = require(CorePackages.Workspace.Packages.InExperienceTopBar).Flags.FFlagTopBarRefactor
 
 if ChromeEnabled then
 	local function SetGlobalGuiInset()

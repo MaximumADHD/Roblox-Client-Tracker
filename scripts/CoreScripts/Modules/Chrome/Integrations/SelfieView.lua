@@ -20,7 +20,6 @@ local TopBarConstants = require(TopBar.Constants)
 local topBarHeight = TopBarConstants.ApplyDisplayScale(TopBarConstants.TopBarHeight)
 
 local SelfieViewModule = Chrome.Parent.SelfieView
-local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
 local GetFFlagChromeSelfViewIgnoreCoreGui = require(Chrome.Flags.GetFFlagChromeSelfViewIgnoreCoreGui)
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
@@ -160,7 +159,7 @@ if FFlagEnableConsoleExpControls then
 	end
 end
 
-if GetFFlagSelfieViewEnabled() and game:GetEngineFeature("VideoCaptureService") then
+if game:GetEngineFeature("VideoCaptureService") then
 	updateAvailability()
 	VideoCaptureService.Started:Connect(updateAvailability)
 	VideoCaptureService.Stopped:Connect(updateAvailability)

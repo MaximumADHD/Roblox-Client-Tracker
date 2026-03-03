@@ -461,15 +461,32 @@ MAIN:
       691 SETTABLE                         R6 R4 R5
       692 GETIMPORT                        R6 K149 [Enum.AssetType.FaceMakeup]
       694 GETTABLEKS                       R5 R6 K301 ["Name"]
-      696 LOADK                            R6 K90 ["Face"]
+      696 LOADK                            R6 K148 ["FaceMakeup"]
       697 SETTABLE                         R6 R4 R5
       698 GETIMPORT                        R6 K153 [Enum.AssetType.LipMakeup]
       700 GETTABLEKS                       R5 R6 K301 ["Name"]
-      702 LOADK                            R6 K59 ["RBX_AutoSetup_AssetConfiguration"]
+      702 LOADK                            R6 K152 ["LipMakeup"]
       703 SETTABLE                         R6 R4 R5
       704 GETIMPORT                        R6 K157 [Enum.AssetType.EyeMakeup]
       706 GETTABLEKS                       R5 R6 K301 ["Name"]
-      708 LOADK                            R6 K60 ["ATTRIBUTE_ASSET_CLASSIFICATION"]
+      708 LOADK                            R6 K156 ["EyeMakeup"]
       709 SETTABLE                         R6 R4 R5
-      710 SETTABLEKS                       R4 R3 K317 ["MARKETPLACE_ASSET_TYPE_TO_PALETTE_KEY"]
-      712 RETURN                           R3 1
+      710 SETTABLEKS                       R4 R3 K315 ["MARKETPLACE_ASSET_TYPE_TO_PALETTE_KEY"]
+      712 NEWTABLE                         R4 8 0
+      714 GETIMPORT                        R5 K149 [Enum.AssetType.FaceMakeup]
+      716 LOADK                            R6 K60 ["ATTRIBUTE_ASSET_CLASSIFICATION"]
+      717 SETTABLE                         R6 R4 R5
+      718 GETIMPORT                        R5 K153 [Enum.AssetType.LipMakeup]
+      720 LOADK                            R6 K60 ["ATTRIBUTE_ASSET_CLASSIFICATION"]
+      721 SETTABLE                         R6 R4 R5
+      722 GETIMPORT                        R5 K157 [Enum.AssetType.EyeMakeup]
+      724 LOADK                            R6 K60 ["ATTRIBUTE_ASSET_CLASSIFICATION"]
+      725 SETTABLE                         R6 R4 R5
+      726 GETIMPORT                        R5 K81 [Enum.AssetType.EyebrowAccessory]
+      728 LOADK                            R6 K61 ["RBX_AvatarPreviewer_shouldReimport"]
+      729 SETTABLE                         R6 R4 R5
+      730 GETIMPORT                        R5 K85 [Enum.AssetType.EyelashAccessory]
+      732 LOADK                            R6 K61 ["RBX_AvatarPreviewer_shouldReimport"]
+      733 SETTABLE                         R6 R4 R5
+      734 SETTABLEKS                       R4 R3 K318 ["MARKETPLACE_PUBLISH_ASSET_TYPE_TO_MAKEUP_ASSET_TYPE"]
+      736 RETURN                           R3 1

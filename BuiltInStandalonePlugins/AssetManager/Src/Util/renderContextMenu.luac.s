@@ -42,26 +42,6 @@ PROTO_2:
         0 GETUPVAL                         R4 0
         1 GETUPVAL                         R7 1
         2 GETTABLEKS                       R6 R7 K0 ["MenuContext"]
-        4 GETTABLEKS                       R5 R6 K1 ["Scope"]
-        6 GETTABLE                         R3 R4 R5
-        7 MOVE                             R4 R0
-        8 MOVE                             R5 R1
-        9 MOVE                             R6 R2
-       10 CALL                             R3 3 1
-       11 NAMECALL                         R4 R2 K2 ["getIsMock"]
-       13 CALL                             R4 1 1
-       14 JUMPIF                           R4 ; [+6]
-       15 GETUPVAL                         R4 2
-       16 NAMECALL                         R5 R2 K3 ["getPlugin"]
-       18 CALL                             R5 1 1
-       19 MOVE                             R6 R3
-       20 CALL                             R4 2 0
-       21 RETURN                           R0 0
-
-PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETUPVAL                         R7 1
-        2 GETTABLEKS                       R6 R7 K0 ["MenuContext"]
         4 GETTABLEKS                       R5 R6 K1 ["Sidebar"]
         6 GETTABLE                         R3 R4 R5
         7 MOVE                             R4 R0
@@ -115,17 +95,10 @@ MAIN:
        52 CAPTURE                          VAL R3
        53 SETTABLE                         R8 R6 R7
        54 GETTABLEKS                       R8 R4 K14 ["MenuContext"]
-       56 GETTABLEKS                       R7 R8 K19 ["Scope"]
+       56 GETTABLEKS                       R7 R8 K19 ["Sidebar"]
        58 DUPCLOSURE                       R8 K20 [PROTO_2]
        59 CAPTURE                          VAL R5
        60 CAPTURE                          VAL R4
        61 CAPTURE                          VAL R3
        62 SETTABLE                         R8 R6 R7
-       63 GETTABLEKS                       R8 R4 K14 ["MenuContext"]
-       65 GETTABLEKS                       R7 R8 K21 ["Sidebar"]
-       67 DUPCLOSURE                       R8 K22 [PROTO_3]
-       68 CAPTURE                          VAL R5
-       69 CAPTURE                          VAL R4
-       70 CAPTURE                          VAL R3
-       71 SETTABLE                         R8 R6 R7
-       72 RETURN                           R6 1
+       63 RETURN                           R6 1

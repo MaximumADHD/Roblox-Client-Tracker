@@ -1979,7 +1979,7 @@ MAIN:
        15 GETIMPORT                        R2 K8 [require]
        17 GETTABLEKS                       R5 R1 K9 ["Src"]
        19 GETTABLEKS                       R4 R5 K10 ["Flags"]
-       21 GETTABLEKS                       R3 R4 K11 ["getFFlagStyleEditorQueries"]
+       21 GETTABLEKS                       R3 R4 K11 ["getFFlagStyleQuery"]
        23 CALL                             R2 1 1
        24 CALL                             R2 0 1
        25 GETIMPORT                        R3 K8 [require]
@@ -2533,7 +2533,7 @@ MAIN:
       862 LOADK                            R26 K8 [require]
       863 LOADK                            R27 K9 ["Src"]
       864 LOADK                            R28 K10 ["Flags"]
-      865 LOADK                            R29 K11 ["getFFlagStyleEditorQueries"]
+      865 LOADK                            R29 K11 ["getFFlagStyleQuery"]
       866 LOADK                            R30 K12 ["Packages"]
       867 LOADK                            R31 K13 ["Dash"]
       868 LOADK                            R32 K14 ["append"]

@@ -1,24 +1,35 @@
---!nonstrict
+--!strict
 local ContextActionService = game:GetService("ContextActionService")
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local VRService = game:GetService("VRService")
 local GuiService = game:GetService("GuiService")
+
+--[[ Input Actions ]]
+local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
+local character = inputContexts:WaitForChild("Character") :: InputContext
+
+local cameraRotation = character:WaitForChild("CameraRotation") :: InputAction
+local cameraZoom = character:WaitForChild("CameraZoom") :: InputAction
+local cameraGamepadZoom = character:WaitForChild("CameraGamepadZoom") :: InputAction
+local cameraGamepadReset = character:WaitForChild("CameraGamepadReset") :: InputAction
+
+local cameraRotationGamepadBinding = cameraRotation:WaitForChild("GamepadBinding") :: InputBinding
 
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 local FFlagUserPSSinkUnknownTouchEvents = FlagUtil.getUserFlag("UserPSSinkUnknownTouchEvents")
 local FFlagUserPSTextboxResetCameraInput = FlagUtil.getUserFlag("UserPSTextboxResetCameraInput")
+local FFlagUserPlayerScriptsCameraInputUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsCameraInputUsesIAS")
 
 local player = Players.LocalPlayer
 
 local CAMERA_INPUT_PRIORITY = Enum.ContextActionPriority.Medium.Value
 local MB_TAP_LENGTH = 0.3 -- (s) length of time for a short mouse button tap to be registered
 
-local ROTATION_SPEED_KEYS = math.rad(120) -- (rad/s)
-local ROTATION_SPEED_GAMEPAD = Vector2.new(1, 0.77)*math.rad(4) * 60 -- (rad/s)
+local ROTATION_SPEED_KEYS = math.rad(120) -- (rad/s) -- Remove with FFlagUserPlayerScriptsCameraInputUsesIAS
+local ROTATION_SPEED_GAMEPAD = Vector2.new(1, 0.77)*math.rad(4) * 60 -- (rad/s) -- Remove with FFlagUserPlayerScriptsCameraInputUsesIAS
 
 -- these speeds should not be scaled by dt because the input returned is not normalized. 
 -- that is, at lower framerates, the magnitude of the input delta will be larger because the pointer/mouse/touch
@@ -28,7 +39,7 @@ local ROTATION_SPEED_POINTERACTION = Vector2.new(1, 0.77)*math.rad(7) -- (rad/in
 local ROTATION_SPEED_TOUCH = Vector2.new(1, 0.66)*math.rad(1) -- (rad/inputdelta)
 
 local ZOOM_SPEED_MOUSE = 1 -- (scaled studs/wheel click)
-local ZOOM_SPEED_KEYS = 0.1 * 60 -- (studs/s)
+local ZOOM_SPEED_KEYS = 0.1 * 60 -- (studs/s) -- Remove with FFlagUserPlayerScriptsCameraInputUsesIAS
 local ZOOM_SPEED_TOUCH = 0.04 -- (scaled studs/DIP %)
 
 local MIN_TOUCH_SENSITIVITY_FRACTION = 0.25 -- 25% sensitivity at 90°
@@ -54,11 +65,22 @@ local rmbDown, rmbUp do
 	end)
 end
 
+if FFlagUserPlayerScriptsCameraInputUsesIAS then
+	local function updateGamepadCameraSensitivity()
+		cameraRotationGamepadBinding.Scale = UserGameSettings.GamepadCameraSensitivity
+	end
+
+	UserGameSettings:GetPropertyChangedSignal("GamepadCameraSensitivity"):Connect(updateGamepadCameraSensitivity)
+	updateGamepadCameraSensitivity() -- initialize the sensitivity on script load
+end
+
+-- Remove with FFlagUserPlayerScriptsCameraInputUsesIAS
 local thumbstickCurve do
 	local K_CURVATURE = 2 -- amount of upwards curvature (0 is flat)
 	local K_DEADZONE = 0.1 -- deadzone
 
 	function thumbstickCurve(x)
+		assert(not FFlagUserPlayerScriptsCameraInputUsesIAS)
 		-- remove sign, apply linear deadzone
 		local fDeadzone = (math.abs(x) - K_DEADZONE)/(1 - K_DEADZONE)
 		
@@ -141,10 +163,10 @@ do
 	end
 
 	local touchPitchSensitivity = 1
-	local gamepadState = {
+	local gamepadState = {  -- Remove with FFlagUserPlayerScriptsCameraInputUsesIAS
 		Thumbstick2 = Vector2.new(),
 	}
-	local keyboardState = {
+	local keyboardState = { -- Remove with FFlagUserPlayerScriptsCameraInputUsesIAS
 		Left = 0,
 		Right = 0,
 		I = 0,
@@ -170,46 +192,71 @@ do
 	end
 	
 	function CameraInput.getRotationActivated(): boolean
-		return panInputCount > 0 or gamepadState.Thumbstick2.Magnitude > 0
+		if FFlagUserPlayerScriptsCameraInputUsesIAS then
+			return panInputCount > 0 or cameraRotation:GetState().Magnitude > 0
+		else
+			return panInputCount > 0 or gamepadState.Thumbstick2.Magnitude > 0
+		end
 	end
 	
 	function CameraInput.getRotation(dt, disableKeyboardRotation: boolean?): Vector2
 		local inversionVector = Vector2.new(1, UserGameSettings:GetCameraYInvertValue())
 
-		-- keyboard input is non-coalesced, so must account for time delta
-		local kKeyboard = Vector2.new(keyboardState.Right - keyboardState.Left, 0) * dt
-		local kGamepad = gamepadState.Thumbstick2 * UserGameSettings.GamepadCameraSensitivity * dt
+		if FFlagUserPlayerScriptsCameraInputUsesIAS then
+			local kMouse = mouseState.Movement
+			local kPointerAction = mouseState.Pan
+			local kTouch = adjustTouchPitchSensitivity(touchState.Move)
 
-		local kMouse = mouseState.Movement
-		local kPointerAction = mouseState.Pan
-		local kTouch = adjustTouchPitchSensitivity(touchState.Move)
+			local result = kMouse * ROTATION_SPEED_MOUSE + kTouch * ROTATION_SPEED_TOUCH + cameraRotation:GetState() * dt
 
-		if disableKeyboardRotation then
-			kKeyboard = Vector2.new()
+			return result * inversionVector
+		else
+			-- keyboard input is non-coalesced, so must account for time delta
+			local kKeyboard = Vector2.new(keyboardState.Right - keyboardState.Left, 0) * dt
+			local kGamepad = gamepadState.Thumbstick2 * UserGameSettings.GamepadCameraSensitivity * dt
+
+			local kMouse = mouseState.Movement
+			local kPointerAction = mouseState.Pan
+			local kTouch = adjustTouchPitchSensitivity(touchState.Move)
+
+			if disableKeyboardRotation then
+				kKeyboard = Vector2.new()
+			end
+
+			local result =
+				kKeyboard*ROTATION_SPEED_KEYS +
+				kGamepad*ROTATION_SPEED_GAMEPAD +
+				kMouse*ROTATION_SPEED_MOUSE +
+				kPointerAction*ROTATION_SPEED_POINTERACTION +
+				kTouch*ROTATION_SPEED_TOUCH
+
+			return result*inversionVector
 		end
-
-		local result =
-			kKeyboard*ROTATION_SPEED_KEYS +
-			kGamepad*ROTATION_SPEED_GAMEPAD +
-			kMouse*ROTATION_SPEED_MOUSE +
-			kPointerAction*ROTATION_SPEED_POINTERACTION +
-			kTouch*ROTATION_SPEED_TOUCH
-
-		return result*inversionVector
 	end
 	
 	function CameraInput.getZoomDelta(dt: number?): number
-		local kKeyboard = keyboardState.O - keyboardState.I
-		if dt then
-			kKeyboard *= dt
+		if FFlagUserPlayerScriptsCameraInputUsesIAS then
+			local zoomState = cameraZoom:GetState()
+			if dt then
+				zoomState *= dt
+			end
+			local kMouse = -mouseState.Wheel + mouseState.Pinch
+			local kTouch = -touchState.Pinch
+			return zoomState + kMouse * ZOOM_SPEED_MOUSE + kTouch * ZOOM_SPEED_TOUCH
+		else
+			local kKeyboard = keyboardState.O - keyboardState.I
+			if dt then
+				kKeyboard *= dt
+			end
+			local kMouse = -mouseState.Wheel + mouseState.Pinch
+			local kTouch = -touchState.Pinch
+			return kKeyboard*ZOOM_SPEED_KEYS + kMouse*ZOOM_SPEED_MOUSE + kTouch*ZOOM_SPEED_TOUCH
 		end
-		local kMouse = -mouseState.Wheel + mouseState.Pinch
-		local kTouch = -touchState.Pinch
-		return kKeyboard*ZOOM_SPEED_KEYS + kMouse*ZOOM_SPEED_MOUSE + kTouch*ZOOM_SPEED_TOUCH
 	end
 
 	do
 		local function thumbstick(action, state, input)
+			assert(not FFlagUserPlayerScriptsCameraInputUsesIAS)
 			local position = input.Position
 			gamepadState[input.KeyCode.Name] = Vector2.new(thumbstickCurve(position.X), -thumbstickCurve(position.Y))
 			return Enum.ContextActionResult.Pass
@@ -226,16 +273,19 @@ do
 		end
 		
 		local function keypress(action, state, input)
+			assert(not FFlagUserPlayerScriptsCameraInputUsesIAS)
 			keyboardState[input.KeyCode.Name] = state == Enum.UserInputState.Begin and 1 or 0
 		end
 		
 		local function gamepadZoomPress(action, state, input)
+			assert(not FFlagUserPlayerScriptsCameraInputUsesIAS)
 			if state == Enum.UserInputState.Begin then
 				gamepadZoomPressBindable:Fire()
 			end
 		end
 
 		local function gamepadReset(action, state, input)
+			assert(not FFlagUserPlayerScriptsCameraInputUsesIAS)
 			if state == Enum.UserInputState.Begin then
 				gamepadResetBindable:Fire()
 			end
@@ -397,6 +447,16 @@ do
 			end
 		end
 
+		if FFlagUserPlayerScriptsCameraInputUsesIAS then
+			cameraGamepadZoom.Pressed:Connect(function()
+				gamepadZoomPressBindable:Fire()
+			end)
+	
+			cameraGamepadReset.Pressed:Connect(function()
+				gamepadResetBindable:Fire()
+			end)
+		end
+
 		local inputEnabled = false
 
 		function CameraInput.setInputEnabled(_inputEnabled)
@@ -409,56 +469,79 @@ do
 			resetTouchState()
 
 			if inputEnabled then -- enable
-				ContextActionService:BindActionAtPriority(
-					"RbxCameraThumbstick",
-					thumbstick,
-					false,
-					CAMERA_INPUT_PRIORITY,
-					Enum.KeyCode.Thumbstick2
-				)
-
-				ContextActionService:BindActionAtPriority(
-					"RbxCameraKeypress",
-					keypress,
-					false,
-					CAMERA_INPUT_PRIORITY,
-					Enum.KeyCode.Left,
-					Enum.KeyCode.Right,
-					Enum.KeyCode.I,
-					Enum.KeyCode.O
-				)
-
-				if VRService.VREnabled then
-					ContextActionService:BindAction(
-						"RbxCameraGamepadReset",
-						gamepadReset,
+				if FFlagUserPlayerScriptsCameraInputUsesIAS then
+					cameraZoom.Enabled = true
+					cameraRotation.Enabled = true
+				else
+					ContextActionService:BindActionAtPriority(
+						"RbxCameraThumbstick",
+						thumbstick,
 						false,
-						Enum.KeyCode.ButtonL3
+						CAMERA_INPUT_PRIORITY,
+						Enum.KeyCode.Thumbstick2
+					)
+					
+					ContextActionService:BindActionAtPriority(
+						"RbxCameraKeypress",
+						keypress,
+						false,
+						CAMERA_INPUT_PRIORITY,
+						Enum.KeyCode.Left,
+						Enum.KeyCode.Right,
+						Enum.KeyCode.I,
+						Enum.KeyCode.O
 					)
 				end
+
+				if VRService.VREnabled then
+					if FFlagUserPlayerScriptsCameraInputUsesIAS then
+						cameraGamepadReset.Enabled = true
+					else
+						ContextActionService:BindAction(
+							"RbxCameraGamepadReset",
+							gamepadReset,
+							false,
+							Enum.KeyCode.ButtonL3
+						)
+					end
+				end
 				
-				ContextActionService:BindAction(
-					"RbxCameraGamepadZoom",
-					gamepadZoomPress,
-					false,
-					Enum.KeyCode.ButtonR3
-				)
+				if FFlagUserPlayerScriptsCameraInputUsesIAS then
+					cameraGamepadZoom.Enabled = true
+				else
+					ContextActionService:BindAction(
+						"RbxCameraGamepadZoom",
+						gamepadZoomPress, 
+						false,
+						Enum.KeyCode.ButtonR3
+					)
+				end
 				
 				table.insert(connectionList, UserInputService.InputBegan:Connect(inputBegan))
 				table.insert(connectionList, UserInputService.InputChanged:Connect(inputChanged))
 				table.insert(connectionList, UserInputService.InputEnded:Connect(inputEnded))
 				table.insert(connectionList, UserInputService.PointerAction:Connect(pointerAction))
-				table.insert(connectionList, GuiService.MenuOpened:connect(resetTouchState))
+				table.insert(connectionList, GuiService.MenuOpened:Connect(resetTouchState))
 
 			else -- disable
-				ContextActionService:UnbindAction("RbxCameraThumbstick")
-				ContextActionService:UnbindAction("RbxCameraMouseMove")
-				ContextActionService:UnbindAction("RbxCameraMouseWheel")
-				ContextActionService:UnbindAction("RbxCameraKeypress")
+				if FFlagUserPlayerScriptsCameraInputUsesIAS then
+					cameraGamepadZoom.Enabled = false
+					cameraZoom.Enabled = false
+					cameraRotation.Enabled = false
+				else
+					ContextActionService:UnbindAction("RbxCameraThumbstick")
+					ContextActionService:UnbindAction("RbxCameraKeypress")
+					ContextActionService:UnbindAction("RbxCameraGamepadZoom")
+					ContextActionService:UnbindAction("RbxCameraMouseMove")
+					ContextActionService:UnbindAction("RbxCameraMouseWheel")
+				end
 
-				ContextActionService:UnbindAction("RbxCameraGamepadZoom")
 				if VRService.VREnabled then
-					ContextActionService:UnbindAction("RbxCameraGamepadReset")
+					if FFlagUserPlayerScriptsCameraInputUsesIAS then
+						cameraGamepadReset.Enabled = false
+					else
+						ContextActionService:UnbindAction("RbxCameraGamepadReset")
+					end
 				end 
 
 				for _, conn in pairs(connectionList) do

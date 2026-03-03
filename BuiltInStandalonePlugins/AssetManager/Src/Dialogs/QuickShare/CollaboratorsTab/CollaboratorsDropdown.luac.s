@@ -17,21 +17,19 @@ PROTO_1:
        10 SETTABLEKS                       R5 R4 K2 ["onActivated"]
        12 LOADK                            R5 K5 ["size-full-0 auto-y radius-small"]
        13 SETTABLEKS                       R5 R4 K3 ["tag"]
-       15 NEWTABLE                         R5 0 1
-       17 GETUPVAL                         R7 0
-       18 GETTABLEKS                       R6 R7 K1 ["createElement"]
-       20 GETUPVAL                         R7 2
-       21 DUPTABLE                         R8 K9 [{"Id", "Uri", "Text"}]
-       22 GETTABLEKS                       R9 R1 K6 ["Id"]
-       24 SETTABLEKS                       R9 R8 K6 ["Id"]
-       26 GETTABLEKS                       R9 R1 K7 ["Uri"]
-       28 SETTABLEKS                       R9 R8 K7 ["Uri"]
-       30 GETTABLEKS                       R9 R1 K10 ["Name"]
-       32 SETTABLEKS                       R9 R8 K8 ["Text"]
-       34 CALL                             R6 2 -1
-       35 SETLIST                          R5 R6 -1 [1]
-       37 CALL                             R2 3 -1
-       38 RETURN                           R2 -1
+       15 GETUPVAL                         R6 0
+       16 GETTABLEKS                       R5 R6 K1 ["createElement"]
+       18 GETUPVAL                         R6 2
+       19 DUPTABLE                         R7 K9 [{"Id", "Uri", "Text"}]
+       20 GETTABLEKS                       R8 R1 K6 ["Id"]
+       22 SETTABLEKS                       R8 R7 K6 ["Id"]
+       24 GETTABLEKS                       R8 R1 K7 ["Uri"]
+       26 SETTABLEKS                       R8 R7 K7 ["Uri"]
+       28 GETTABLEKS                       R8 R1 K10 ["Name"]
+       30 SETTABLEKS                       R8 R7 K8 ["Text"]
+       32 CALL                             R5 2 -1
+       33 CALL                             R2 -1 -1
+       34 RETURN                           R2 -1
 
 PROTO_2:
         0 LENGTH                           R2 R1
@@ -94,44 +92,45 @@ PROTO_6:
         1 GETTABLEKS                       R0 R1 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 DUPTABLE                         R2 K5 [{"Size", "tag", "layout", "scroll"}]
-        5 GETUPVAL                         R3 2
-        6 SETTABLEKS                       R3 R2 K1 ["Size"]
-        8 LOADK                            R3 K6 ["padding-xsmall radius-medium stroke-default"]
-        9 SETTABLEKS                       R3 R2 K2 ["tag"]
-       11 DUPTABLE                         R3 K8 [{"FillDirection"}]
-       12 GETIMPORT                        R4 K11 [Enum.FillDirection.Vertical]
-       14 SETTABLEKS                       R4 R3 K7 ["FillDirection"]
-       16 SETTABLEKS                       R3 R2 K3 ["layout"]
-       18 DUPTABLE                         R3 K15 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
-       19 GETIMPORT                        R4 K18 [Enum.AutomaticSize.Y]
-       21 SETTABLEKS                       R4 R3 K12 ["AutomaticCanvasSize"]
-       23 GETIMPORT                        R4 K21 [UDim2.fromOffset]
-       25 LOADN                            R5 0
-       26 LOADN                            R6 0
-       27 CALL                             R4 2 1
-       28 SETTABLEKS                       R4 R3 K13 ["CanvasSize"]
-       30 GETIMPORT                        R4 K22 [Enum.ScrollingDirection.Y]
-       32 SETTABLEKS                       R4 R3 K14 ["ScrollingDirection"]
-       34 SETTABLEKS                       R3 R2 K4 ["scroll"]
-       36 NEWTABLE                         R3 0 1
-       38 GETUPVAL                         R5 0
-       39 GETTABLEKS                       R4 R5 K0 ["createElement"]
-       41 GETUPVAL                         R5 3
-       42 DUPTABLE                         R6 K23 [{"tag"}]
-       43 LOADK                            R7 K24 ["col size-full-0 auto-y gap-xxsmall"]
-       44 SETTABLEKS                       R7 R6 K2 ["tag"]
-       46 GETUPVAL                         R8 4
-       47 GETTABLEKS                       R7 R8 K25 ["map"]
-       49 GETUPVAL                         R8 5
-       50 NEWCLOSURE                       R9 P0
-       51 CAPTURE                          UPVAL U0
-       52 CAPTURE                          UPVAL U6
-       53 CAPTURE                          UPVAL U7
-       54 CALL                             R7 2 -1
-       55 CALL                             R4 -1 -1
-       56 SETLIST                          R3 R4 -1 [1]
-       58 CALL                             R0 3 -1
-       59 RETURN                           R0 -1
+        5 GETUPVAL                         R4 2
+        6 GETTABLEKS                       R3 R4 K6 ["AMR_QUICKSHARE_DROPDOWN_SIZE"]
+        8 SETTABLEKS                       R3 R2 K1 ["Size"]
+       10 LOADK                            R3 K7 ["padding-xsmall radius-medium stroke-default"]
+       11 SETTABLEKS                       R3 R2 K2 ["tag"]
+       13 DUPTABLE                         R3 K9 [{"FillDirection"}]
+       14 GETIMPORT                        R4 K12 [Enum.FillDirection.Vertical]
+       16 SETTABLEKS                       R4 R3 K8 ["FillDirection"]
+       18 SETTABLEKS                       R3 R2 K3 ["layout"]
+       20 DUPTABLE                         R3 K16 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
+       21 GETIMPORT                        R4 K19 [Enum.AutomaticSize.Y]
+       23 SETTABLEKS                       R4 R3 K13 ["AutomaticCanvasSize"]
+       25 GETIMPORT                        R4 K22 [UDim2.fromOffset]
+       27 LOADN                            R5 0
+       28 LOADN                            R6 0
+       29 CALL                             R4 2 1
+       30 SETTABLEKS                       R4 R3 K14 ["CanvasSize"]
+       32 GETIMPORT                        R4 K23 [Enum.ScrollingDirection.Y]
+       34 SETTABLEKS                       R4 R3 K15 ["ScrollingDirection"]
+       36 SETTABLEKS                       R3 R2 K4 ["scroll"]
+       38 NEWTABLE                         R3 0 1
+       40 GETUPVAL                         R5 0
+       41 GETTABLEKS                       R4 R5 K0 ["createElement"]
+       43 GETUPVAL                         R5 3
+       44 DUPTABLE                         R6 K24 [{"tag"}]
+       45 LOADK                            R7 K25 ["col size-full-0 auto-y gap-xxsmall"]
+       46 SETTABLEKS                       R7 R6 K2 ["tag"]
+       48 GETUPVAL                         R8 4
+       49 GETTABLEKS                       R7 R8 K26 ["map"]
+       51 GETUPVAL                         R8 5
+       52 NEWCLOSURE                       R9 P0
+       53 CAPTURE                          UPVAL U0
+       54 CAPTURE                          UPVAL U6
+       55 CAPTURE                          UPVAL U7
+       56 CALL                             R7 2 -1
+       57 CALL                             R4 -1 -1
+       58 SETLIST                          R3 R4 -1 [1]
+       60 CALL                             R0 3 -1
+       61 RETURN                           R0 -1
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -335,36 +334,37 @@ MAIN:
        51 GETTABLEKS                       R12 R13 K18 ["Types"]
        53 CALL                             R11 1 1
        54 GETIMPORT                        R12 K5 [require]
-       56 GETTABLEKS                       R16 R0 K17 ["Src"]
-       58 GETTABLEKS                       R15 R16 K19 ["Dialogs"]
-       60 GETTABLEKS                       R14 R15 K20 ["QuickShare"]
-       62 GETTABLEKS                       R13 R14 K21 ["EntryRow"]
-       64 CALL                             R12 1 1
-       65 GETIMPORT                        R13 K5 [require]
-       67 GETTABLEKS                       R16 R0 K17 ["Src"]
-       69 GETTABLEKS                       R15 R16 K22 ["Util"]
-       71 GETTABLEKS                       R14 R15 K23 ["hasMatchingTerm"]
+       56 GETTABLEKS                       R15 R0 K17 ["Src"]
+       58 GETTABLEKS                       R14 R15 K19 ["Resources"]
+       60 GETTABLEKS                       R13 R14 K20 ["StyleConstants"]
+       62 CALL                             R12 1 1
+       63 GETIMPORT                        R13 K5 [require]
+       65 GETTABLEKS                       R17 R0 K17 ["Src"]
+       67 GETTABLEKS                       R16 R17 K21 ["Dialogs"]
+       69 GETTABLEKS                       R15 R16 K22 ["QuickShare"]
+       71 GETTABLEKS                       R14 R15 K23 ["EntryRow"]
        73 CALL                             R13 1 1
-       74 GETIMPORT                        R14 K26 [UDim2.fromOffset]
-       76 LOADN                            R15 96
-       77 LOADN                            R16 150
-       78 CALL                             R14 2 1
-       79 DUPCLOSURE                       R15 K27 [PROTO_1]
-       80 CAPTURE                          VAL R1
-       81 CAPTURE                          VAL R3
-       82 CAPTURE                          VAL R12
-       83 DUPCLOSURE                       R16 K28 [PROTO_2]
-       84 CAPTURE                          VAL R13
-       85 DUPCLOSURE                       R17 K29 [PROTO_10]
-       86 CAPTURE                          VAL R9
-       87 CAPTURE                          VAL R1
-       88 CAPTURE                          VAL R16
-       89 CAPTURE                          VAL R4
-       90 CAPTURE                          VAL R14
-       91 CAPTURE                          VAL R3
-       92 CAPTURE                          VAL R10
-       93 CAPTURE                          VAL R15
-       94 CAPTURE                          VAL R5
-       95 CAPTURE                          VAL R2
-       96 CAPTURE                          VAL R6
-       97 RETURN                           R17 1
+       74 GETIMPORT                        R14 K5 [require]
+       76 GETTABLEKS                       R17 R0 K17 ["Src"]
+       78 GETTABLEKS                       R16 R17 K24 ["Util"]
+       80 GETTABLEKS                       R15 R16 K25 ["hasMatchingTerm"]
+       82 CALL                             R14 1 1
+       83 DUPCLOSURE                       R15 K26 [PROTO_1]
+       84 CAPTURE                          VAL R1
+       85 CAPTURE                          VAL R3
+       86 CAPTURE                          VAL R13
+       87 DUPCLOSURE                       R16 K27 [PROTO_2]
+       88 CAPTURE                          VAL R14
+       89 DUPCLOSURE                       R17 K28 [PROTO_10]
+       90 CAPTURE                          VAL R9
+       91 CAPTURE                          VAL R1
+       92 CAPTURE                          VAL R16
+       93 CAPTURE                          VAL R4
+       94 CAPTURE                          VAL R12
+       95 CAPTURE                          VAL R3
+       96 CAPTURE                          VAL R10
+       97 CAPTURE                          VAL R15
+       98 CAPTURE                          VAL R5
+       99 CAPTURE                          VAL R2
+      100 CAPTURE                          VAL R6
+      101 RETURN                           R17 1

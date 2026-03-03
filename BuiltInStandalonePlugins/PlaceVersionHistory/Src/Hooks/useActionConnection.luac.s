@@ -1,10 +1,15 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R2 R0 K0 ["Enabled"]
-        3 JUMPIFNOT                        R2 ; [+2]
-        4 GETTABLEKS                       R2 R0 K1 ["Checked"]
-        6 CALL                             R1 1 0
-        7 RETURN                           R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["Enabled"]
+        2 JUMPIFNOT                        R1 ; [+2]
+        3 GETTABLEKS                       R1 R0 K1 ["Checked"]
+        5 GETUPVAL                         R2 0
+        6 MOVE                             R3 R1
+        7 CALL                             R2 1 0
+        8 JUMPIFNOT                        R1 ; [+4]
+        9 GETUPVAL                         R2 1
+       10 NAMECALL                         R2 R2 K2 ["RequestRaise"]
+       12 CALL                             R2 1 0
+       13 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -23,34 +28,38 @@ PROTO_1:
        18 SETTABLEKS                       R2 R5 K3 ["Checked"]
        20 NAMECALL                         R3 R3 K5 ["UpdateAsync"]
        22 CALL                             R3 2 0
-       23 RETURN                           R2 1
+       23 GETUPVAL                         R3 2
+       24 SETTABLEKS                       R2 R3 K1 ["Enabled"]
+       26 RETURN                           R0 0
 
 PROTO_2:
-        0 LOADK                            R4 K0 ["Actions"]
-        1 NAMECALL                         R2 R0 K1 ["GetPluginComponent"]
-        3 CALL                             R2 2 1
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K2 ["useState"]
-        7 LOADB                            R4 0
-        8 CALL                             R3 1 2
-        9 GETUPVAL                         R5 1
-       10 MOVE                             R8 R1
-       11 NAMECALL                         R6 R2 K3 ["BindToChangedAsync"]
-       13 CALL                             R6 2 1
-       14 NEWCLOSURE                       R7 P0
-       15 CAPTURE                          VAL R4
-       16 NEWTABLE                         R8 0 0
-       18 CALL                             R5 3 0
-       19 GETUPVAL                         R6 0
-       20 GETTABLEKS                       R5 R6 K4 ["useCallback"]
-       22 NEWCLOSURE                       R6 P1
-       23 CAPTURE                          VAL R2
-       24 CAPTURE                          VAL R1
-       25 NEWTABLE                         R7 0 0
-       27 CALL                             R5 2 1
-       28 MOVE                             R6 R3
-       29 MOVE                             R7 R5
-       30 RETURN                           R6 2
+        0 LOADK                            R5 K0 ["Actions"]
+        1 NAMECALL                         R3 R0 K1 ["GetPluginComponent"]
+        3 CALL                             R3 2 1
+        4 GETUPVAL                         R5 0
+        5 GETTABLEKS                       R4 R5 K2 ["useState"]
+        7 LOADB                            R5 0
+        8 CALL                             R4 1 2
+        9 GETUPVAL                         R6 1
+       10 MOVE                             R9 R2
+       11 NAMECALL                         R7 R3 K3 ["BindToChangedAsync"]
+       13 CALL                             R7 2 1
+       14 NEWCLOSURE                       R8 P0
+       15 CAPTURE                          VAL R5
+       16 CAPTURE                          VAL R1
+       17 NEWTABLE                         R9 0 0
+       19 CALL                             R6 3 0
+       20 GETUPVAL                         R7 0
+       21 GETTABLEKS                       R6 R7 K4 ["useCallback"]
+       23 NEWCLOSURE                       R7 P1
+       24 CAPTURE                          VAL R3
+       25 CAPTURE                          VAL R2
+       26 CAPTURE                          VAL R1
+       27 NEWTABLE                         R8 0 0
+       29 CALL                             R6 2 1
+       30 MOVE                             R7 R4
+       31 MOVE                             R8 R6
+       32 RETURN                           R7 2
 
 MAIN:
         0 PREPVARARGS                      0

@@ -36,6 +36,7 @@ local ValidateTexturePack = require(root.validation.ValidateTexturePack)
 
 local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 local createLayeredClothingSchema = require(root.util.createLayeredClothingSchema)
+local createEyebrowEyelashSchema = require(root.util.createEyebrowEyelashSchema)
 local getAttachment = require(root.util.getAttachment)
 local getMeshSize = require(root.util.getMeshSize)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
@@ -65,6 +66,8 @@ local getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits =
 	require(root.flags.getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits)
 local getFFlagValidateLCsOnlySkinnedToR15 = require(root.flags.getFFlagValidateLCsOnlySkinnedToR15)
 local getFFlagUGCValidateTexturePack = require(root.flags.getFFlagUGCValidateTexturePack)
+local getFFlagUGCValidateEyebrowEyelashThumbnailSchema =
+	require(root.flags.getFFlagUGCValidateEyebrowEyelashThumbnailSchema)
 
 local ValidateMeshPartOnlySkinnedToR15 = require(root.validation.ValidateMeshPartOnlySkinnedToR15)
 
@@ -100,7 +103,13 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 
 	local instance = instances[1]
 
-	local schema = createLayeredClothingSchema(assetInfo.attachmentNames)
+	local isEyebrowOrEyelash = if getFFlagUGCValidateEyebrowEyelashThumbnailSchema()
+		then assetTypeEnum == Enum.AssetType.EyebrowAccessory or assetTypeEnum == Enum.AssetType.EyelashAccessory
+		else false
+
+	local schema = if isEyebrowOrEyelash
+		then createEyebrowEyelashSchema(assetInfo.attachmentNames)
+		else createLayeredClothingSchema(assetInfo.attachmentNames)
 
 	success, reasons = validateInstanceTree(schema, instance, validationContext)
 	if not success then
@@ -293,10 +302,12 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		end
 	end
 
-	success, failedReason = validateThumbnailConfiguration(instance, handle, meshInfo, meshScale, validationContext)
-	if not success then
-		table.insert(reasons, table.concat(failedReason, "\n"))
-		validationResult = false
+	if not isEyebrowOrEyelash then
+		success, failedReason = validateThumbnailConfiguration(instance, handle, meshInfo, meshScale, validationContext)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
 	end
 
 	do

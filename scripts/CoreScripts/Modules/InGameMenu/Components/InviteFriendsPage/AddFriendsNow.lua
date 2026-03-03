@@ -28,8 +28,6 @@ local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local FFlagUIBloxUseFoundationButton =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseFoundationButton()
 
-local FFlagFixMakeFriendsButton = game:DefineFastFlag("FixMakeFriendsButton", false)
-
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 
@@ -140,16 +138,6 @@ function AddFriendsNow:render()
 						})
 					end,
 				}),
-
-				MakeFriendsButton = if FFlagFixMakeFriendsButton
-					then nil
-					else Roact.createElement(Button, {
-						buttonType = ButtonType.Secondary,
-						layoutOrder = 3,
-						size = UDim2.new(1, 0, 0, 48),
-						text = localized.makeFriendsNow,
-						onActivated = props.switchToPlayers,
-					}),
 			})
 		end)
 	end)

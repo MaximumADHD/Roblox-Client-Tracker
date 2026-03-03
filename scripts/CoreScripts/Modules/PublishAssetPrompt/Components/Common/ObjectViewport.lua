@@ -8,11 +8,13 @@ local RunService = game:GetService("RunService")
 local Roact = require(CorePackages.Packages.Roact)
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local Skeleton = Foundation.Skeleton
+
 local withStyle = UIBlox.Style.withStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local t = require(CorePackages.Packages.t)
 local UIBloxImages = UIBlox.App.ImageSet.Images
-local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local CharacterUtility = require(CorePackages.Packages.Thumbnailing).CharacterUtility
 local CameraUtility = require(CorePackages.Packages.Thumbnailing).CameraUtility
@@ -252,12 +254,12 @@ function ObjectViewport:render()
 				}),
 			})
 		else
-			return Roact.createElement(ShimmerPanel, {
+			return Roact.createElement(Skeleton, {
 				Size = UDim2.new(1, Constants.PromptSidePadding * 2, 0, VIEWPORT_HEIGHT),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				LayoutOrder = self.props.LayoutOrder,
-			})
+			}) :: any
 		end
 	end)
 end

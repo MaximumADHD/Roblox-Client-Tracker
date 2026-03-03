@@ -1492,7 +1492,7 @@ MAIN:
       270 GETIMPORT                        R39 K8 [require]
       272 GETTABLEKS                       R42 R1 K21 ["Src"]
       274 GETTABLEKS                       R41 R42 K55 ["Flags"]
-      276 GETTABLEKS                       R40 R41 K57 ["getFFlagStyleEditorQueries"]
+      276 GETTABLEKS                       R40 R41 K57 ["getFFlagStyleQuery"]
       278 CALL                             R39 1 1
       279 CALL                             R39 0 1
       280 GETIMPORT                        R40 K8 [require]

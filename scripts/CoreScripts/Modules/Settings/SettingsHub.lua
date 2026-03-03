@@ -65,7 +65,6 @@ local Signals = require(CorePackages.Packages.Signals)
 local createSignal = Signals.createSignal
 local AppStyleProvider = require(CorePackages.Packages.UIBlox).App.Style.AppStyleProvider
 local DarkTheme = require(CorePackages.Packages.UIBlox).App.Style.Constants.ThemeName.Dark 
-local FFlagInExperienceUseAppStyleProvider = SharedFlags.FFlagInExperienceUseAppStyleProvider
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local HelpPage = require(CorePackages.Workspace.Packages.HelpPage)
@@ -118,7 +117,6 @@ local Flags = {
 	GetFFlagEnableLeaveGameUpsellEntrypoint = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint),
 	GetFStringInExperienceMenuIXPLayer = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPLayer),
 	GetFStringInExperienceMenuIXPVar = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPVar),
-	GetFFlagRemovePermissionsButtons = require(RobloxGui.Modules.Settings.Flags.GetFFlagRemovePermissionsButtons),
 	FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons),
 	FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant),
 	FFlagMenuButtonsMountWithIEM = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsMountWithIEM),
@@ -222,7 +220,6 @@ local connectedServerVersion = nil
 local connectedServerChannel = nil
 
 local SettingsFullScreenTitleBar = require(RobloxGui.Modules.Settings.Components.SettingsFullScreenTitleBar)
-local PermissionsButtons = if Flags.GetFFlagRemovePermissionsButtons() then nil else require(RobloxGui.Modules.Settings.Components.PermissionsButtons)
 local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 local selfViewVisibilityUpdatedSignal = require(RobloxGui.Modules.SelfView.selfViewVisibilityUpdatedSignal)
@@ -849,44 +846,6 @@ local function CreateSettingsHub()
 	end)
 
 	local setVisibilityInternal = nil
-
-	local function createPermissionsButtons(shouldFillScreen)
-		if Flags.GetFFlagRemovePermissionsButtons() then
-			return
-		end
-
-		if FFlagInExperienceUseAppStyleProvider then
-			return React.createElement(AppStyleProvider, {
-				style = {
-					themeName = DarkTheme,
-				} ,
-			}, {
-				PermissionsButtons = Roact.createElement(PermissionsButtons, {
-					isTenFootInterface = isTenFootInterface,
-					isPortrait = utility:IsPortrait(),
-					isSmallTouchScreen = utility:IsSmallTouchScreen(),
-					ZIndex = this.Shield.ZIndex,
-					LayoutOrder = -1,
-					shouldFillScreen = shouldFillScreen,
-					selfViewOpen = this.selfViewOpen,
-					useNewMenuTheme = true,
-					hubRef = if Flags.GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints() then this else nil,
-				})
-			})
-		else
-			return Roact.createElement(PermissionsButtons, {
-				isTenFootInterface = isTenFootInterface,
-				isPortrait = utility:IsPortrait(),
-				isSmallTouchScreen = utility:IsSmallTouchScreen(),
-				ZIndex = this.Shield.ZIndex,
-				LayoutOrder = -1,
-				shouldFillScreen = shouldFillScreen,
-				selfViewOpen = this.selfViewOpen,
-				useNewMenuTheme = true,
-				hubRef = if Flags.GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints() then this else nil,
-			})
-		end
-	end
 
 	local getCanRespawn, setCanRespawn = createSignal(true)
 	local getCustomRespawnCallback, setCustomRespawnCallback = createSignal(nil)
@@ -1537,11 +1496,6 @@ local function CreateSettingsHub()
 					Parent = this.MenuContainer
 				}
 			end
-		end
-
-		if not Flags.GetFFlagRemovePermissionsButtons() and Flags.FFlagAvatarChatCoreScriptSupport then
-			-- Create the settings buttons for audio/camera permissions.
-			this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(true), this.Shield, "PermissionsButtons")
 		end
 
 		local setMicPermissionsCallback = function(response)
@@ -2344,15 +2298,6 @@ local function CreateSettingsHub()
 					this.HubBar.Size = UDim2.new(0, this.SettingsUIDelegate:getHubBarSize(), 0, 60)
 				else
 					this.HubBar.Size = UDim2.new(0, 800, 0, 60)
-				end
-
-				if not Flags.GetFFlagRemovePermissionsButtons() and Flags.FFlagAvatarChatCoreScriptSupport then
-					-- Reconfigure these buttons to take a new parent to be next to
-					-- the close button.
-					if this.permissionsButtonsRoot then
-						Roact.unmount(this.permissionsButtonsRoot)
-					end
-					this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(false), this.Shield, "PermissionsButtons")
 				end
 			end
 		end

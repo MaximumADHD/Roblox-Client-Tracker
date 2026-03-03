@@ -6,6 +6,7 @@ local React = require(CorePackages.Packages.React)
 local ChromeService = require(Chrome.Service)
 local ConnectIcon = require(script.Parent.ConnectIcon)
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
+local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtils)
 local LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
@@ -19,6 +20,8 @@ local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
 local ChromeFocusUtils = require(CorePackages.Workspace.Packages.Chrome).FocusUtils
 
 local FFlagAppChatInExpUseUnibarNotification = game:DefineFastFlag("AppChatInExpUseUnibarNotification", false)
+local FFlagConnectIntegrationCheckForDirectionalInput =
+	game:DefineFastFlag("ConnectIntegrationCheckForDirectionalInput", false)
 
 local FFlagEnableAppChatFocusableFixes =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableAppChatFocusableFixes
@@ -40,9 +43,17 @@ return function(id: string, initialAvailability: number)
 					InExperienceAppChatModal.default:setVisible(false)
 				else
 					ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
-						ChromeFocusUtils.FocusOffChrome(function()
+						if FFlagConnectIntegrationCheckForDirectionalInput then
+							local inputModeStore = Responsive.GetInputModeStore(false)
+							if inputModeStore.getLastInputType(false) == Responsive.Input.Directional then
+								ChromeFocusUtils.FocusOffChrome()
+							end
 							InExperienceAppChatModal.default:setVisible(true)
-						end)
+						else
+							ChromeFocusUtils.FocusOffChrome(function()
+								InExperienceAppChatModal.default:setVisible(true)
+							end)
+						end
 					end)
 				end
 			else

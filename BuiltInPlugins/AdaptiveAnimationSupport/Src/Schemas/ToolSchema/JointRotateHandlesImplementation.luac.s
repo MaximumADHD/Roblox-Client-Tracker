@@ -63,29 +63,55 @@ PROTO_1:
        60 SETTABLEKS                       R3 R0 K5 ["_initialTransform"]
        62 GETIMPORT                        R3 K13 [CFrame.identity]
        64 GETTABLEKS                       R4 R0 K14 ["_hrd"]
-       66 JUMPIFNOT                        R4 ; [+30]
-       67 GETUPVAL                         R7 0
-       68 GETTABLEKS                       R4 R7 K15 ["allRigLabels"]
-       70 LOADNIL                          R5
-       71 LOADNIL                          R6
-       72 FORGPREP                         R4
-       73 GETTABLEKS                       R9 R0 K14 ["_hrd"]
-       75 MOVE                             R11 R8
-       76 NAMECALL                         R9 R9 K16 ["GetJoint"]
-       78 CALL                             R9 2 1
-       79 GETTABLEKS                       R10 R0 K6 ["_initialJoint"]
-       81 JUMPIFNOTEQ                      R9 R10 ; [+13]
-       83 GETTABLEKS                       R9 R0 K14 ["_hrd"]
-       85 GETTABLEKS                       R11 R8 K17 ["Name"]
-       87 NAMECALL                         R9 R9 K18 ["GetTposeAdjustment"]
-       89 CALL                             R9 2 1
-       90 JUMPIF                           R9 ; [+2]
-       91 GETIMPORT                        R9 K13 [CFrame.identity]
-       93 MOVE                             R3 R9
-       94 JUMP                             ; [+2]
-       95 FORGLOOP                         R4 2 ; [-23]
-       97 SETTABLEKS                       R3 R0 K19 ["_initialTPoseAdjustment"]
-       99 RETURN                           R0 0
+       66 JUMPIFNOT                        R4 ; [+63]
+       67 GETUPVAL                         R4 1
+       68 CALL                             R4 0 1
+       69 JUMPIFNOT                        R4 ; [+26]
+       70 GETTABLEKS                       R4 R0 K14 ["_hrd"]
+       72 LOADK                            R6 K15 ["DigitsRigDescription"]
+       73 NAMECALL                         R4 R4 K16 ["IsA"]
+       75 CALL                             R4 2 1
+       76 JUMPIFNOT                        R4 ; [+19]
+       77 GETTABLEKS                       R4 R0 K14 ["_hrd"]
+       79 GETUPVAL                         R6 2
+       80 GETTABLEKS                       R5 R6 K17 ["getRigLabelForJoint"]
+       82 MOVE                             R6 R4
+       83 GETTABLEKS                       R7 R0 K6 ["_initialJoint"]
+       85 CALL                             R5 2 1
+       86 JUMPIFNOT                        R5 ; [+43]
+       87 MOVE                             R8 R5
+       88 NAMECALL                         R6 R4 K18 ["GetTposeAdjustment"]
+       90 CALL                             R6 2 1
+       91 JUMPIF                           R6 ; [+2]
+       92 GETIMPORT                        R6 K13 [CFrame.identity]
+       94 MOVE                             R3 R6
+       95 JUMP                             ; [+34]
+       96 GETTABLEKS                       R4 R0 K14 ["_hrd"]
+       98 LOADK                            R6 K19 ["HumanoidRigDescription"]
+       99 NAMECALL                         R4 R4 K16 ["IsA"]
+      101 CALL                             R4 2 1
+      102 JUMPIFNOT                        R4 ; [+27]
+      103 GETUPVAL                         R7 0
+      104 GETTABLEKS                       R4 R7 K20 ["bodyRigLabels"]
+      106 LOADNIL                          R5
+      107 LOADNIL                          R6
+      108 FORGPREP                         R4
+      109 GETTABLEKS                       R9 R0 K14 ["_hrd"]
+      111 MOVE                             R12 R8
+      112 NAMECALL                         R10 R9 K21 ["GetJoint"]
+      114 CALL                             R10 2 1
+      115 GETTABLEKS                       R11 R0 K6 ["_initialJoint"]
+      117 JUMPIFNOTEQ                      R10 R11 ; [+10]
+      119 MOVE                             R12 R8
+      120 NAMECALL                         R10 R9 K18 ["GetTposeAdjustment"]
+      122 CALL                             R10 2 1
+      123 JUMPIF                           R10 ; [+2]
+      124 GETIMPORT                        R10 K13 [CFrame.identity]
+      126 MOVE                             R3 R10
+      127 JUMP                             ; [+2]
+      128 FORGLOOP                         R4 2 ; [-20]
+      130 SETTABLEKS                       R3 R0 K22 ["_initialTPoseAdjustment"]
+      132 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R2 R0 K0 ["_initialJoint"]
@@ -153,21 +179,33 @@ MAIN:
        18 GETTABLEKS                       R4 R0 K9 ["Packages"]
        20 GETTABLEKS                       R3 R4 K10 ["AdaptiveAnimationTools"]
        22 CALL                             R2 1 1
-       23 NEWTABLE                         R3 8 0
-       25 SETTABLEKS                       R3 R3 K11 ["__index"]
-       27 DUPCLOSURE                       R4 K12 [PROTO_0]
-       28 CAPTURE                          VAL R3
-       29 SETTABLEKS                       R4 R3 K13 ["new"]
-       31 DUPCLOSURE                       R4 K14 [PROTO_1]
-       32 CAPTURE                          VAL R2
-       33 SETTABLEKS                       R4 R3 K15 ["beginDrag"]
-       35 DUPCLOSURE                       R4 K16 [PROTO_2]
-       36 SETTABLEKS                       R4 R3 K17 ["updateDrag"]
-       38 DUPCLOSURE                       R4 K18 [PROTO_3]
-       39 CAPTURE                          VAL R1
-       40 SETTABLEKS                       R4 R3 K19 ["endDrag"]
-       42 DUPCLOSURE                       R4 K20 [PROTO_4]
-       43 SETTABLEKS                       R4 R3 K21 ["getMinMaxSizes"]
-       45 DUPCLOSURE                       R4 K22 [PROTO_5]
-       46 SETTABLEKS                       R4 R3 K23 ["render"]
-       48 RETURN                           R3 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R6 R0 K6 ["Src"]
+       27 GETTABLEKS                       R5 R6 K7 ["Utils"]
+       29 GETTABLEKS                       R4 R5 K11 ["DigitsRigUtils"]
+       31 CALL                             R3 1 1
+       32 GETIMPORT                        R4 K5 [require]
+       34 GETTABLEKS                       R7 R0 K6 ["Src"]
+       36 GETTABLEKS                       R6 R7 K12 ["Flags"]
+       38 GETTABLEKS                       R5 R6 K13 ["getFFlagAdaptiveAnimationHandRig"]
+       40 CALL                             R4 1 1
+       41 NEWTABLE                         R5 8 0
+       43 SETTABLEKS                       R5 R5 K14 ["__index"]
+       45 DUPCLOSURE                       R6 K15 [PROTO_0]
+       46 CAPTURE                          VAL R5
+       47 SETTABLEKS                       R6 R5 K16 ["new"]
+       49 DUPCLOSURE                       R6 K17 [PROTO_1]
+       50 CAPTURE                          VAL R2
+       51 CAPTURE                          VAL R4
+       52 CAPTURE                          VAL R3
+       53 SETTABLEKS                       R6 R5 K18 ["beginDrag"]
+       55 DUPCLOSURE                       R6 K19 [PROTO_2]
+       56 SETTABLEKS                       R6 R5 K20 ["updateDrag"]
+       58 DUPCLOSURE                       R6 K21 [PROTO_3]
+       59 CAPTURE                          VAL R1
+       60 SETTABLEKS                       R6 R5 K22 ["endDrag"]
+       62 DUPCLOSURE                       R6 K23 [PROTO_4]
+       63 SETTABLEKS                       R6 R5 K24 ["getMinMaxSizes"]
+       65 DUPCLOSURE                       R6 K25 [PROTO_5]
+       66 SETTABLEKS                       R6 R5 K26 ["render"]
+       68 RETURN                           R5 1

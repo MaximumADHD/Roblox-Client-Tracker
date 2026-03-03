@@ -37,9 +37,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TrackerMenu = require(RobloxGui.Modules.Tracker.TrackerMenu)
 local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
 
-local FFlagAvatarChatCoreScriptSupport =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
-local GetFFlagSelfieViewEnabled = require(CoreGui.RobloxGui.Modules.SelfieView.Flags.GetFFlagSelfieViewEnabled)
 local GetFFlagAvatarChatServiceEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local getFFlagDoNotPromptCameraPermissionsOnMount =
@@ -133,12 +130,8 @@ local function requestPermissions(
 	shouldNotRequestPerms: boolean?,
 	context: string?
 )
-	local cacheCamera = true
-	local cacheMic = true
-	if FFlagAvatarChatCoreScriptSupport or GetFFlagSelfieViewEnabled() then
-		cacheCamera = Cryo.List.find(permsToCheck, PermissionsProtocol.Permissions.CAMERA_ACCESS) ~= nil
-		cacheMic = Cryo.List.find(permsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS) ~= nil
-	end
+	local cacheCamera = Cryo.List.find(permsToCheck, PermissionsProtocol.Permissions.CAMERA_ACCESS) ~= nil
+	local cacheMic = Cryo.List.find(permsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS) ~= nil
 
 	local permissionsToCheck = removePermissionsBasedOnUserSetting(allowedSettings, permsToCheck, shouldNotRequestPerms)
 	local checkingCamera = Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.CAMERA_ACCESS) ~= nil
@@ -357,10 +350,7 @@ local function getCamMicPermissions(
 		end
 	end
 
-	if
-		(FFlagAvatarChatCoreScriptSupport or GetFFlagSelfieViewEnabled())
-		and (not getRawPermission )
-	then
+	if not getRawPermission then
 		local cachedResults = tryGetCachedResults(permsToCheck)
 		if cachedResults then
 			callback(cachedResults)
@@ -392,50 +382,48 @@ local function getCamMicPermissions(
 		end)
 	end
 
-	if FFlagAvatarChatCoreScriptSupport or GetFFlagSelfieViewEnabled() then
-		if GetFFlagAvatarChatServiceEnabled() then
-			return Promise.new(function(resolve, _)
-				if AvatarChatService.ClientFeaturesInitialized then
-					local combinedAllowedSettings: AllowedSettings = {
-						isVoiceEnabled = AvatarChatService:IsEnabled(
-							AvatarChatService.ClientFeatures,
-							Enum.AvatarChatServiceFeature.UserAudio
-						),
-						isCameraEnabled = AvatarChatService:IsEnabled(
-							AvatarChatService.ClientFeatures,
-							Enum.AvatarChatServiceFeature.UserVideo
-						),
-					}
-					resolve(combinedAllowedSettings)
-				else
-					local clientFeaturesChangedListener
-					clientFeaturesChangedListener = AvatarChatService:GetPropertyChangedSignal("ClientFeatures")
-						:Connect(function()
-							clientFeaturesChangedListener:Disconnect()
-							local combinedAllowedSettings: AllowedSettings = {
-								isVoiceEnabled = AvatarChatService:IsEnabled(
-									AvatarChatService.ClientFeatures,
-									Enum.AvatarChatServiceFeature.UserAudio
-								),
-								isCameraEnabled = AvatarChatService:IsEnabled(
-									AvatarChatService.ClientFeatures,
-									Enum.AvatarChatServiceFeature.UserVideo
-								),
-							}
-							resolve(combinedAllowedSettings)
-						end)
-				end
-			end):andThen(function(allowedSettings)
-				requestPermissions(
-					allowedSettings,
-					callback,
-					invokeNextRequest,
-					permsToCheck,
-					shouldNotRequestPerms,
-					context
-				)
-			end)
-		end
+	if GetFFlagAvatarChatServiceEnabled() then
+		return Promise.new(function(resolve, _)
+			if AvatarChatService.ClientFeaturesInitialized then
+				local combinedAllowedSettings: AllowedSettings = {
+					isVoiceEnabled = AvatarChatService:IsEnabled(
+						AvatarChatService.ClientFeatures,
+						Enum.AvatarChatServiceFeature.UserAudio
+					),
+					isCameraEnabled = AvatarChatService:IsEnabled(
+						AvatarChatService.ClientFeatures,
+						Enum.AvatarChatServiceFeature.UserVideo
+					),
+				}
+				resolve(combinedAllowedSettings)
+			else
+				local clientFeaturesChangedListener
+				clientFeaturesChangedListener = AvatarChatService:GetPropertyChangedSignal("ClientFeatures")
+					:Connect(function()
+						clientFeaturesChangedListener:Disconnect()
+						local combinedAllowedSettings: AllowedSettings = {
+							isVoiceEnabled = AvatarChatService:IsEnabled(
+								AvatarChatService.ClientFeatures,
+								Enum.AvatarChatServiceFeature.UserAudio
+							),
+							isCameraEnabled = AvatarChatService:IsEnabled(
+								AvatarChatService.ClientFeatures,
+								Enum.AvatarChatServiceFeature.UserVideo
+							),
+						}
+						resolve(combinedAllowedSettings)
+					end)
+			end
+		end):andThen(function(allowedSettings)
+			requestPermissions(
+				allowedSettings,
+				callback,
+				invokeNextRequest,
+				permsToCheck,
+				shouldNotRequestPerms,
+				context
+			)
+		end)
 	end
 
 	return Promise.new(function(resolve, _)

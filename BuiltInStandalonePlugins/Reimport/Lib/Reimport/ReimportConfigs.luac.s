@@ -59,9 +59,66 @@ PROTO_0:
        80 CALL                             R6 1 0
        81 LOADNIL                          R6
        82 SETTABLEKS                       R6 R5 K10 ["preset"]
-       84 FORGLOOP                         R1 2 ; [-72]
-       86 LOADNIL                          R1
-       87 RETURN                           R1 1
+       84 GETUPVAL                         R6 2
+       85 CALL                             R6 0 1
+       86 JUMPIFNOT                        R6 ; [+84]
+       87 GETTABLEKS                       R6 R5 K15 ["creatorId"]
+       89 JUMPIFEQKNIL                     R6 ; [+21]
+       91 GETTABLEKS                       R7 R5 K15 ["creatorId"]
+       93 FASTCALL1                        TYPE R7 ; [+2]
+       94 GETIMPORT                        R6 K1 [type]
+       96 CALL                             R6 1 1
+       97 JUMPIFEQKS                       R6 K16 ["number"] ; [+13]
+       99 GETIMPORT                        R6 K7 [warn]
+      101 LOADK                            R8 K17 ["creatorId for reimport config '%*' could not be loaded"]
+      102 MOVE                             R10 R4
+      103 NAMECALL                         R8 R8 K9 ["format"]
+      105 CALL                             R8 2 1
+      106 MOVE                             R7 R8
+      107 CALL                             R6 1 0
+      108 LOADNIL                          R6
+      109 SETTABLEKS                       R6 R5 K15 ["creatorId"]
+      111 GETTABLEKS                       R6 R5 K18 ["creatorType"]
+      113 JUMPIFEQKNIL                     R6 ; [+43]
+      115 GETTABLEKS                       R7 R5 K18 ["creatorType"]
+      117 FASTCALL1                        TYPE R7 ; [+2]
+      118 GETIMPORT                        R6 K1 [type]
+      120 CALL                             R6 1 1
+      121 JUMPIFEQKS                       R6 K5 ["string"] ; [+13]
+      123 GETIMPORT                        R6 K7 [warn]
+      125 LOADK                            R8 K19 ["groupId for reimport config '%*' could not be loaded"]
+      126 MOVE                             R10 R4
+      127 NAMECALL                         R8 R8 K9 ["format"]
+      129 CALL                             R8 2 1
+      130 MOVE                             R7 R8
+      131 CALL                             R6 1 0
+      132 LOADNIL                          R6
+      133 SETTABLEKS                       R6 R5 K18 ["creatorType"]
+      135 GETTABLEKS                       R6 R5 K18 ["creatorType"]
+      137 JUMPIFEQKS                       R6 K20 ["user"] ; [+19]
+      139 GETTABLEKS                       R6 R5 K18 ["creatorType"]
+      141 JUMPIFEQKS                       R6 K21 ["group"] ; [+15]
+      143 GETIMPORT                        R6 K7 [warn]
+      145 LOADK                            R8 K22 ["creatorType for reimport config '%*' is invalid, must be either 'user' or 'group', found: '%*'"]
+      146 MOVE                             R10 R4
+      147 GETTABLEKS                       R11 R5 K18 ["creatorType"]
+      149 NAMECALL                         R8 R8 K9 ["format"]
+      151 CALL                             R8 3 1
+      152 MOVE                             R7 R8
+      153 CALL                             R6 1 0
+      154 LOADNIL                          R6
+      155 SETTABLEKS                       R6 R5 K18 ["creatorType"]
+      157 GETTABLEKS                       R6 R5 K18 ["creatorType"]
+      159 JUMPIFNOTEQKNIL                  R6 ; [+4]
+      161 LOADNIL                          R6
+      162 SETTABLEKS                       R6 R5 K15 ["creatorId"]
+      164 GETTABLEKS                       R6 R5 K15 ["creatorId"]
+      166 JUMPIFNOTEQKNIL                  R6 ; [+4]
+      168 LOADNIL                          R6
+      169 SETTABLEKS                       R6 R5 K18 ["creatorType"]
+      171 FORGLOOP                         R1 2 ; [-159]
+      173 LOADNIL                          R1
+      174 RETURN                           R1 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -317,61 +374,68 @@ MAIN:
        49 GETTABLEKS                       R8 R9 K17 ["Reimport"]
        51 GETTABLEKS                       R7 R8 K18 ["Types"]
        53 CALL                             R6 1 1
-       54 NEWTABLE                         R7 8 0
-       56 GETTABLEKS                       R9 R4 K19 ["REIMPORT"]
-       58 GETTABLEKS                       R8 R9 K20 ["ATTRIBUTE_KEY"]
-       60 SETTABLEKS                       R8 R7 K20 ["ATTRIBUTE_KEY"]
-       62 LOADB                            R8 0
-       63 NEWTABLE                         R9 0 0
-       65 DUPCLOSURE                       R10 K21 [PROTO_0]
-       66 CAPTURE                          VAL R2
-       67 CAPTURE                          VAL R5
-       68 NEWCLOSURE                       R11 P1
-       69 CAPTURE                          VAL R3
-       70 CAPTURE                          VAL R1
-       71 CAPTURE                          VAL R10
-       72 CAPTURE                          REF R8
-       73 CAPTURE                          REF R9
-       74 NEWCLOSURE                       R12 P2
-       75 CAPTURE                          VAL R1
-       76 CAPTURE                          REF R9
-       77 CAPTURE                          VAL R3
-       78 DUPCLOSURE                       R13 K22 [PROTO_3]
-       79 CAPTURE                          VAL R7
-       80 DUPCLOSURE                       R14 K23 [PROTO_4]
-       81 CAPTURE                          VAL R7
-       82 NEWCLOSURE                       R15 P5
-       83 CAPTURE                          REF R8
-       84 CAPTURE                          VAL R11
-       85 CAPTURE                          REF R9
-       86 SETTABLEKS                       R15 R7 K24 ["getConfigFromId"]
-       88 DUPCLOSURE                       R15 K25 [PROTO_6]
-       89 CAPTURE                          VAL R7
-       90 SETTABLEKS                       R15 R7 K26 ["getConfigFromInstance"]
-       92 NEWCLOSURE                       R15 P7
-       93 CAPTURE                          REF R8
-       94 CAPTURE                          VAL R11
-       95 CAPTURE                          VAL R7
-       96 CAPTURE                          REF R9
-       97 CAPTURE                          VAL R1
-       98 CAPTURE                          VAL R3
-       99 SETTABLEKS                       R15 R7 K27 ["updateConfigFromId"]
-      101 DUPCLOSURE                       R15 K28 [PROTO_8]
-      102 CAPTURE                          VAL R7
-      103 SETTABLEKS                       R15 R7 K29 ["updateConfigFromInstance"]
-      105 NEWCLOSURE                       R15 P9
-      106 CAPTURE                          REF R8
-      107 CAPTURE                          VAL R11
+       54 GETIMPORT                        R7 K9 [require]
+       56 GETTABLEKS                       R9 R0 K19 ["Flags"]
+       58 GETTABLEKS                       R8 R9 K20 ["GetFFlagEnableGroupUpload"]
+       60 CALL                             R7 1 1
+       61 NEWTABLE                         R8 16 0
+       63 GETTABLEKS                       R10 R4 K21 ["REIMPORT"]
+       65 GETTABLEKS                       R9 R10 K22 ["ATTRIBUTE_KEY"]
+       67 SETTABLEKS                       R9 R8 K22 ["ATTRIBUTE_KEY"]
+       69 LOADK                            R9 K23 ["CIN:ReimportConfigs"]
+       70 SETTABLEKS                       R9 R8 K24 ["REIMPORT_CONFIGS_SETTINGS_KEY"]
+       72 LOADB                            R9 0
+       73 NEWTABLE                         R10 0 0
+       75 DUPCLOSURE                       R11 K25 [PROTO_0]
+       76 CAPTURE                          VAL R2
+       77 CAPTURE                          VAL R5
+       78 CAPTURE                          VAL R7
+       79 NEWCLOSURE                       R12 P1
+       80 CAPTURE                          VAL R3
+       81 CAPTURE                          VAL R1
+       82 CAPTURE                          VAL R11
+       83 CAPTURE                          REF R9
+       84 CAPTURE                          REF R10
+       85 NEWCLOSURE                       R13 P2
+       86 CAPTURE                          VAL R1
+       87 CAPTURE                          REF R10
+       88 CAPTURE                          VAL R3
+       89 DUPCLOSURE                       R14 K26 [PROTO_3]
+       90 CAPTURE                          VAL R8
+       91 DUPCLOSURE                       R15 K27 [PROTO_4]
+       92 CAPTURE                          VAL R8
+       93 NEWCLOSURE                       R16 P5
+       94 CAPTURE                          REF R9
+       95 CAPTURE                          VAL R12
+       96 CAPTURE                          REF R10
+       97 SETTABLEKS                       R16 R8 K28 ["getConfigFromId"]
+       99 DUPCLOSURE                       R16 K29 [PROTO_6]
+      100 CAPTURE                          VAL R8
+      101 SETTABLEKS                       R16 R8 K30 ["getConfigFromInstance"]
+      103 NEWCLOSURE                       R16 P7
+      104 CAPTURE                          REF R9
+      105 CAPTURE                          VAL R12
+      106 CAPTURE                          VAL R8
+      107 CAPTURE                          REF R10
       108 CAPTURE                          VAL R1
-      109 CAPTURE                          REF R9
-      110 CAPTURE                          VAL R3
-      111 SETTABLEKS                       R15 R7 K30 ["newConfig"]
-      113 NEWCLOSURE                       R15 P10
-      114 CAPTURE                          REF R8
-      115 CAPTURE                          REF R9
-      116 SETTABLEKS                       R15 R7 K31 ["clearCache"]
-      118 DUPCLOSURE                       R15 K32 [PROTO_11]
-      119 CAPTURE                          VAL R7
-      120 SETTABLEKS                       R15 R7 K33 ["getOrCreateReimportConfig"]
-      122 CLOSEUPVALS                      R8
-      123 RETURN                           R7 1
+      109 CAPTURE                          VAL R3
+      110 SETTABLEKS                       R16 R8 K31 ["updateConfigFromId"]
+      112 DUPCLOSURE                       R16 K32 [PROTO_8]
+      113 CAPTURE                          VAL R8
+      114 SETTABLEKS                       R16 R8 K33 ["updateConfigFromInstance"]
+      116 NEWCLOSURE                       R16 P9
+      117 CAPTURE                          REF R9
+      118 CAPTURE                          VAL R12
+      119 CAPTURE                          VAL R1
+      120 CAPTURE                          REF R10
+      121 CAPTURE                          VAL R3
+      122 SETTABLEKS                       R16 R8 K34 ["newConfig"]
+      124 NEWCLOSURE                       R16 P10
+      125 CAPTURE                          REF R9
+      126 CAPTURE                          REF R10
+      127 SETTABLEKS                       R16 R8 K35 ["clearCache"]
+      129 DUPCLOSURE                       R16 K36 [PROTO_11]
+      130 CAPTURE                          VAL R8
+      131 SETTABLEKS                       R16 R8 K37 ["getOrCreateReimportConfig"]
+      133 CLOSEUPVALS                      R9
+      134 RETURN                           R8 1

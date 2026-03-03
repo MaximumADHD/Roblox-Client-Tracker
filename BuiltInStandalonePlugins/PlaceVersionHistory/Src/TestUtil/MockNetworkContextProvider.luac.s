@@ -1,26 +1,28 @@
 PROTO_0:
         0 GETTABLEKS                       R2 R0 K0 ["search"]
-        2 JUMPIFNOT                        R2 ; [+27]
+        2 JUMPIFNOT                        R2 ; [+29]
         3 GETTABLEKS                       R3 R1 K1 ["notes"]
         5 GETTABLEKS                       R2 R3 K2 ["title"]
         7 JUMPIF                           R2 ; [+2]
         8 LOADB                            R2 0
         9 RETURN                           R2 1
-       10 GETIMPORT                        R3 K5 [string.match]
+       10 GETIMPORT                        R3 K5 [string.find]
        12 GETIMPORT                        R4 K7 [string.lower]
        14 GETTABLEKS                       R6 R1 K1 ["notes"]
        16 GETTABLEKS                       R5 R6 K2 ["title"]
        18 CALL                             R4 1 1
        19 GETIMPORT                        R5 K7 [string.lower]
        21 GETTABLEKS                       R6 R0 K0 ["search"]
-       23 CALL                             R5 1 -1
-       24 CALL                             R3 -1 1
-       25 JUMPIFNOTEQKNIL                  R3 ; [+2]
-       27 LOADB                            R2 0 +1
-       28 LOADB                            R2 1
-       29 RETURN                           R2 1
+       23 CALL                             R5 1 1
+       24 LOADN                            R6 1
+       25 LOADB                            R7 1
+       26 CALL                             R3 4 1
+       27 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       29 LOADB                            R2 0 +1
        30 LOADB                            R2 1
        31 RETURN                           R2 1
+       32 LOADB                            R2 1
+       33 RETURN                           R2 1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["hasNotes"]
@@ -187,12 +189,12 @@ PROTO_6:
        36 GETTABLEKS                       R4 R5 K8 ["versionHistory"]
        38 LENGTH                           R3 R4
        39 LOADN                            R4 0
-       40 JUMPIFNOTLT                      R4 R3 ; [+61]
+       40 JUMPIFNOTLT                      R4 R3 ; [+63]
        42 GETTABLEKS                       R5 R2 K2 ["page"]
        44 LENGTH                           R4 R5
        45 GETUPVAL                         R6 1
        46 GETTABLEKS                       R5 R6 K9 ["pageSize"]
-       48 JUMPIFEQ                         R4 R5 ; [+53]
+       48 JUMPIFEQ                         R4 R5 ; [+55]
        50 GETUPVAL                         R6 0
        51 GETTABLEKS                       R5 R6 K8 ["versionHistory"]
        53 GETTABLE                         R4 R5 R3
@@ -201,50 +203,52 @@ PROTO_6:
        56 GETUPVAL                         R6 1
        57 MOVE                             R7 R4
        58 CALL                             R5 2 1
-       59 JUMPIFNOT                        R5 ; [+41]
+       59 JUMPIFNOT                        R5 ; [+43]
        60 GETUPVAL                         R6 1
        61 GETTABLEKS                       R7 R6 K11 ["search"]
-       63 JUMPIFNOT                        R7 ; [+27]
+       63 JUMPIFNOT                        R7 ; [+29]
        64 GETTABLEKS                       R8 R4 K12 ["notes"]
        66 GETTABLEKS                       R7 R8 K13 ["title"]
        68 JUMPIF                           R7 ; [+2]
        69 LOADB                            R5 0
-       70 JUMP                             ; [+21]
-       71 GETIMPORT                        R7 K16 [string.match]
+       70 JUMP                             ; [+23]
+       71 GETIMPORT                        R7 K16 [string.find]
        73 GETIMPORT                        R8 K18 [string.lower]
        75 GETTABLEKS                       R10 R4 K12 ["notes"]
        77 GETTABLEKS                       R9 R10 K13 ["title"]
        79 CALL                             R8 1 1
        80 GETIMPORT                        R9 K18 [string.lower]
        82 GETTABLEKS                       R10 R6 K11 ["search"]
-       84 CALL                             R9 1 -1
-       85 CALL                             R7 -1 1
-       86 JUMPIFNOTEQKNIL                  R7 ; [+2]
-       88 LOADB                            R5 0 +1
-       89 LOADB                            R5 1
-       90 JUMP                             ; [+1]
+       84 CALL                             R9 1 1
+       85 LOADN                            R10 1
+       86 LOADB                            R11 1
+       87 CALL                             R7 4 1
+       88 JUMPIFNOTEQKNIL                  R7 ; [+2]
+       90 LOADB                            R5 0 +1
        91 LOADB                            R5 1
-       92 JUMPIFNOT                        R5 ; [+8]
-       93 GETTABLEKS                       R6 R2 K2 ["page"]
-       95 FASTCALL2                        TABLE_INSERT R6 R4 ; [+4]
-       97 MOVE                             R7 R4
-       98 GETIMPORT                        R5 K21 [table.insert]
-      100 CALL                             R5 2 0
-      101 JUMPBACK                         ; [-63]
-      102 LOADN                            R5 0
-      103 JUMPIFLT                         R5 R3 ; [+2]
-      105 LOADB                            R4 0 +1
-      106 LOADB                            R4 1
-      107 SETTABLEKS                       R4 R2 K4 ["hasMore"]
-      109 FASTCALL1                        TOSTRING R3 ; [+3]
-      110 MOVE                             R5 R3
-      111 GETIMPORT                        R4 K23 [tostring]
-      113 CALL                             R4 1 1
-      114 SETTABLEKS                       R4 R2 K3 ["cursor"]
-      116 MOVE                             R4 R0
-      117 MOVE                             R5 R2
-      118 CALL                             R4 1 -1
-      119 RETURN                           R4 -1
+       92 JUMP                             ; [+1]
+       93 LOADB                            R5 1
+       94 JUMPIFNOT                        R5 ; [+8]
+       95 GETTABLEKS                       R6 R2 K2 ["page"]
+       97 FASTCALL2                        TABLE_INSERT R6 R4 ; [+4]
+       99 MOVE                             R7 R4
+      100 GETIMPORT                        R5 K21 [table.insert]
+      102 CALL                             R5 2 0
+      103 JUMPBACK                         ; [-65]
+      104 LOADN                            R5 0
+      105 JUMPIFLT                         R5 R3 ; [+2]
+      107 LOADB                            R4 0 +1
+      108 LOADB                            R4 1
+      109 SETTABLEKS                       R4 R2 K4 ["hasMore"]
+      111 FASTCALL1                        TOSTRING R3 ; [+3]
+      112 MOVE                             R5 R3
+      113 GETIMPORT                        R4 K23 [tostring]
+      115 CALL                             R4 1 1
+      116 SETTABLEKS                       R4 R2 K3 ["cursor"]
+      118 MOVE                             R4 R0
+      119 MOVE                             R5 R2
+      120 CALL                             R4 1 -1
+      121 RETURN                           R4 -1
 
 PROTO_7:
         0 GETUPVAL                         R2 0

@@ -5,7 +5,7 @@ PROTO_0:
         5 GETTABLEKS                       R3 R0 K4 ["Username"]
         7 SETTABLEKS                       R3 R2 K1 ["Name"]
         9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R4 R5 K5 ["PermissionsGrantSubject"]
+       10 GETTABLEKS                       R4 R5 K5 ["PermissionsSubject"]
        12 GETTABLEKS                       R3 R4 K6 ["User"]
        14 SETTABLEKS                       R3 R2 K2 ["Subject"]
        16 RETURN                           R2 1
@@ -35,7 +35,7 @@ PROTO_2:
        12 SETTABLEKS                       R4 R3 K1 ["Name"]
        14 SETTABLEKS                       R0 R3 K2 ["Uri"]
        16 GETUPVAL                         R6 2
-       17 GETTABLEKS                       R5 R6 K5 ["PermissionsGrantSubject"]
+       17 GETTABLEKS                       R5 R6 K5 ["PermissionsSubject"]
        19 GETTABLEKS                       R4 R5 K6 ["Group"]
        21 SETTABLEKS                       R4 R3 K3 ["Subject"]
        23 SETLIST                          R2 R3 1 [1]

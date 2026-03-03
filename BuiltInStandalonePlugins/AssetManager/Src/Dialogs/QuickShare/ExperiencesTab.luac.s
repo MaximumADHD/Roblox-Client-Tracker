@@ -303,8 +303,8 @@ MAIN:
        47 GETTABLEKS                       R12 R0 K16 ["Src"]
        49 GETTABLEKS                       R11 R12 K17 ["Types"]
        51 CALL                             R10 1 1
-       52 GETTABLEKS                       R11 R10 K18 ["PermissionsGrantSubject"]
-       54 GETTABLEKS                       R12 R10 K19 ["PermissionsGrantAction"]
+       52 GETTABLEKS                       R11 R10 K18 ["PermissionsSubject"]
+       54 GETTABLEKS                       R12 R10 K19 ["PermissionsAction"]
        56 GETIMPORT                        R13 K5 [require]
        58 GETTABLEKS                       R17 R0 K16 ["Src"]
        60 GETTABLEKS                       R16 R17 K20 ["Dialogs"]

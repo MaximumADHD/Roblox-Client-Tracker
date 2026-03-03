@@ -51,6 +51,7 @@ ValidationEnums.ValidationModule = {
 	SingleInstanceSelected = "SingleInstanceSelected",
 	NoExtraTags = "NoExtraTags",
 	HeadIsDynamic = "HeadIsDynamic",
+	NoFACSOverrideData = "NoFACSOverrideData",
 } :: { [string]: string }
 finalizeEnumTable("ValidationModule")
 

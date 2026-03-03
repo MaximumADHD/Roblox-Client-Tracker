@@ -7,20 +7,24 @@ PROTO_0:
         6 GETTABLEKS                       R0 R1 K2 ["useContext"]
         8 CALL                             R0 0 1
         9 GETUPVAL                         R1 2
-       10 JUMPIFNOT                        R1 ; [+15]
-       11 NEWTABLE                         R1 0 5
+       10 JUMPIFNOT                        R1 ; [+19]
+       11 NEWTABLE                         R1 0 7
        13 GETTABLEKS                       R2 R0 K3 ["showVerifyAgeBanner"]
        15 GETTABLEKS                       R3 R0 K4 ["showEstablishTrustBanner"]
        17 GETTABLEKS                       R4 R0 K5 ["shouldShowEstablishTrustDialog"]
-       19 GETTABLEKS                       R5 R0 K6 ["onClose"]
-       21 GETTABLEKS                       R6 R0 K7 ["onTrustBannerClose"]
-       23 SETLIST                          R1 R2 5 [1]
-       25 RETURN                           R1 1
-       26 NEWTABLE                         R1 0 2
-       28 GETTABLEKS                       R2 R0 K3 ["showVerifyAgeBanner"]
-       30 GETTABLEKS                       R3 R0 K6 ["onClose"]
-       32 SETLIST                          R1 R2 2 [1]
-       34 RETURN                           R1 1
+       19 GETTABLEKS                       R5 R0 K6 ["showAgeReverificationBanner"]
+       21 GETTABLEKS                       R6 R0 K7 ["onClose"]
+       23 GETTABLEKS                       R7 R0 K8 ["onTrustBannerClose"]
+       25 GETTABLEKS                       R8 R0 K9 ["onAgeReverificationBannerClose"]
+       27 SETLIST                          R1 R2 7 [1]
+       29 RETURN                           R1 1
+       30 NEWTABLE                         R1 0 4
+       32 GETTABLEKS                       R2 R0 K3 ["showVerifyAgeBanner"]
+       34 GETTABLEKS                       R3 R0 K6 ["showAgeReverificationBanner"]
+       36 GETTABLEKS                       R4 R0 K7 ["onClose"]
+       38 GETTABLEKS                       R5 R0 K9 ["onAgeReverificationBannerClose"]
+       40 SETLIST                          R1 R2 4 [1]
+       42 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

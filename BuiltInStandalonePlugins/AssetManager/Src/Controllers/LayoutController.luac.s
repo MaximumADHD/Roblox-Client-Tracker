@@ -136,19 +136,17 @@ PROTO_2:
         9 LOADNIL                          R1
        10 SETTABLEKS                       R1 R0 K3 ["OnIsCompactChanged"]
        12 LOADNIL                          R1
-       13 SETTABLEKS                       R1 R0 K4 ["OnConfirmRemovePlaceChanged"]
+       13 SETTABLEKS                       R1 R0 K4 ["OnRenamePlaceIdChanged"]
        15 LOADNIL                          R1
-       16 SETTABLEKS                       R1 R0 K5 ["OnRenamePlaceIdChanged"]
-       18 LOADNIL                          R1
-       19 SETTABLEKS                       R1 R0 K6 ["_pluginFrame"]
-       21 NAMECALL                         R1 R0 K7 ["_unbindScroll"]
-       23 CALL                             R1 1 0
-       24 GETUPVAL                         R1 0
-       25 GETTABLEKS                       R2 R0 K8 ["_connections"]
-       27 CALL                             R1 1 0
-       28 LOADNIL                          R1
-       29 SETTABLEKS                       R1 R0 K8 ["_connections"]
-       31 RETURN                           R0 0
+       16 SETTABLEKS                       R1 R0 K5 ["_pluginFrame"]
+       18 NAMECALL                         R1 R0 K6 ["_unbindScroll"]
+       20 CALL                             R1 1 0
+       21 GETUPVAL                         R1 0
+       22 GETTABLEKS                       R2 R0 K7 ["_connections"]
+       24 CALL                             R1 1 0
+       25 LOADNIL                          R1
+       26 SETTABLEKS                       R1 R0 K7 ["_connections"]
+       28 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0

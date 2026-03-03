@@ -8,7 +8,6 @@ local PlayersService = game:GetService("Players")
 local SafetyService = game:GetService("SafetyService")
 local Foundation = require(CorePackages.Packages.Foundation)
 local React = require(CorePackages.Packages.React)
-local Style = require(CorePackages.Workspace.Packages.Style)
 local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 
 local ReportTypeSelector = require(root.Components.ReportTypeSelector)
@@ -45,7 +44,6 @@ local isShowUKOSAIllegalContentReportingLink = DSAReportingPackage.isShowUKOSAIl
 local OSAReportLink = DSAReportingPackage.OSAReportLink
 local isShowGenericIllegalContentReportingLink = DSAReportingPackage.isShowGenericIllegalContentReportingLink
 local GenericReportLink = DSAReportingPackage.GenericReportLink
-local StyleProviderWithDefaultTheme = Style.StyleProviderWithDefaultTheme
 
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusRoot = FocusNavigationUtils.FocusRoot
@@ -60,7 +58,6 @@ local IXPField = game:DefineFastString("SelectInSceneIXPField", "EnableSelectInS
 local IXPFieldWHAM1707 = game:DefineFastString("WHAM1707IXPField", "EnableWHAM1707")
 local FFlagHighlightModePreciseSelectionEnabled = SharedFlags.FFlagHighlightModePreciseSelectionEnabled
 local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
-local FFlagFixDuplicateFoundationStylesheets = game:DefineFastFlag("FixDuplicateFoundationStylesheets", false)
 local FFlagAbuseReportTabClearCapturedScreenshotOnCloseFix =
 	game:DefineFastFlag("AbuseReportTabClearCapturedScreenshotOnCloseFix", false)
 local FIntAbuseReportTabClearCapturedScreenshotOnCloseFixDelay =
@@ -469,30 +466,11 @@ end
 
 local MenuContainer = function(props: Props)
 	local localization = Localization.new(LocalizationService.RobloxLocaleId)
-
-	if FFlagFixDuplicateFoundationStylesheets then
-		return React.createElement(CoreScriptsRootProvider, {}, {
-			LocalizationProvider = React.createElement(LocalizationProvider, {
-				localization = localization,
-			}, {
-				[Constants.AbuseReportMenuRootName] = React.createElement(AbuseReportMenuNew, props),
-			}),
-		})
-	end
-
-	return React.createElement(StyleProviderWithDefaultTheme, {
-		withDarkTheme = true,
-	}, {
-		CoreScriptsRootProvider = React.createElement(CoreScriptsRootProvider, {}, {
-			LocalizationProvider = React.createElement(LocalizationProvider, {
-				localization = localization,
-			}, {
-				FoundationProvider = React.createElement(Foundation.FoundationProvider, {
-					theme = Foundation.Enums.Theme.Dark,
-				}, {
-					[Constants.AbuseReportMenuRootName] = React.createElement(AbuseReportMenuNew, props),
-				}),
-			}),
+	return React.createElement(CoreScriptsRootProvider, {}, {
+		LocalizationProvider = React.createElement(LocalizationProvider, {
+			localization = localization,
+		}, {
+			[Constants.AbuseReportMenuRootName] = React.createElement(AbuseReportMenuNew, props),
 		}),
 	})
 end

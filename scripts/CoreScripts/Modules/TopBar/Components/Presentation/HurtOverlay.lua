@@ -2,7 +2,6 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 
-local InExperienceTopBar = require(CorePackages.Workspace.Packages.InExperienceTopBar)
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
@@ -21,8 +20,8 @@ local Constants = require(TopBar.Constants)
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
-local FFlagUseNewHurtOverlayImage = require(TopBar.Flags.FFlagUseNewHurtOverlayImage)
-local FFlagUseNewHurtOverlayAnimation = InExperienceTopBar.Flags.FFlagUseNewHurtOverlayAnimation
+local FFlagUseNewHurtOverlayImage = CoreGuiCommon.Flags.FFlagUseNewHurtOverlayImage
+local FFlagUseNewHurtOverlayAnimation = CoreGuiCommon.Flags.FFlagUseNewHurtOverlayAnimation
 
 local MOTOR_OPTIONS = {
 	frequency = 0.75,

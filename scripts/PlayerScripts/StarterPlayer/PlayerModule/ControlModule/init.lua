@@ -9,9 +9,6 @@
 	activated as-needed, they are no longer all instantiated up front as they were in
 	the previous generation of PlayerScripts.
 
-	2018 PlayerScripts Update - AllYourBlox
-
-
 	Release notes:
 		7/14/2025 - Use PreferredInput instead of LastInputType for enabling/disabling virtual thumbstick
 		7/24/2025 - Use PreferredInput instead of TouchEnabled for setting movement modes, camera modes, and shift lock
@@ -40,13 +37,6 @@ local ActionController = require(script:WaitForChild("ActionController"))
 local DynamicThumbstick
 if RunService:IsClient() then
 	DynamicThumbstick = require(script:WaitForChild("DynamicThumbstick"))
-end
-
-local FFlagUserDynamicThumbstickSafeAreaUpdate do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickSafeAreaUpdate")
-	end)
-	FFlagUserDynamicThumbstickSafeAreaUpdate = success and result
 end
 
 local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
@@ -717,9 +707,7 @@ function ControlModule:CreateTouchGuiContainer()
 	self.touchGui.ResetOnSpawn = false
 	self.touchGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-	if FFlagUserDynamicThumbstickSafeAreaUpdate then
-		self.touchGui.ClipToDeviceSafeArea = false
-	end
+	self.touchGui.ClipToDeviceSafeArea = false
 
 	self.touchControlFrame = Instance.new("Frame")
 	self.touchControlFrame.Name = "TouchControlFrame"

@@ -619,8 +619,8 @@ MAIN:
        39 GETTABLEKS                       R7 R2 K13 ["createNextOrder"]
        41 GETTABLEKS                       R8 R2 K14 ["createUniqueKey"]
        43 GETIMPORT                        R9 K17 [UDim2.fromOffset]
-       45 LOADN                            R10 31
-       46 LOADN                            R11 31
+       45 LOADN                            R10 32
+       46 LOADN                            R11 32
        47 CALL                             R9 2 1
        48 GETIMPORT                        R10 K17 [UDim2.fromOffset]
        50 LOADN                            R11 1

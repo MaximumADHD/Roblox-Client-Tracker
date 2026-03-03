@@ -167,6 +167,26 @@ PROTO_10:
        23 RETURN                           R0 1
 
 PROTO_11:
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+2]
+        2 GETUPVAL                         R0 0
+        3 CALL                             R0 0 0
+        4 DUPTABLE                         R0 K6 [{"featureName", "access", "recourse", "recourses", "v2Recourses", "shouldPrompt"}]
+        5 LOADK                            R1 K7 ["ShouldShowStudioAgeReverificationRequiredBanner"]
+        6 SETTABLEKS                       R1 R0 K0 ["featureName"]
+        8 LOADK                            R1 K8 ["Granted"]
+        9 SETTABLEKS                       R1 R0 K1 ["access"]
+       11 LOADNIL                          R1
+       12 SETTABLEKS                       R1 R0 K2 ["recourse"]
+       14 LOADNIL                          R1
+       15 SETTABLEKS                       R1 R0 K3 ["recourses"]
+       17 LOADNIL                          R1
+       18 SETTABLEKS                       R1 R0 K4 ["v2Recourses"]
+       20 LOADNIL                          R1
+       21 SETTABLEKS                       R1 R0 K5 ["shouldPrompt"]
+       23 RETURN                           R0 1
+
+PROTO_12:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["new"]
         3 CALL                             R3 0 1
@@ -368,56 +388,59 @@ PROTO_11:
       280 NEWCLOSURE                       R20 P10
       281 CAPTURE                          VAL R2
       282 SETTABLEKS                       R20 R19 K75 ["https://apis.roblox.com/access-management/v1/upsell-feature-access?featureName=ShouldShowStudioBanner&nameSpace=studio/CollaborationSettings"]
-      284 GETUPVAL                         R21 2
-      285 GETTABLEKS                       R20 R21 K76 ["mock"]
-      287 MOVE                             R21 R19
-      288 CALL                             R20 1 0
-      289 GETUPVAL                         R22 2
-      290 GETTABLEKS                       R21 R22 K77 ["StudioService"]
-      292 GETTABLEKS                       R20 R21 K78 ["GetUserId"]
-      294 GETTABLEKS                       R21 R20 K79 ["mockReturnValue"]
-      296 LOADK                            R22 K80 [54321]
-      297 CALL                             R21 1 0
-      298 GETUPVAL                         R23 2
-      299 GETTABLEKS                       R22 R23 K81 ["StartPageManager"]
-      301 GETTABLEKS                       R21 R22 K82 ["getRecentAPIGamesFromRegistry"]
-      303 GETUPVAL                         R24 2
-      304 GETTABLEKS                       R23 R24 K81 ["StartPageManager"]
-      306 GETTABLEKS                       R22 R23 K83 ["getLocalGamesFromRegistry"]
-      308 GETTABLEKS                       R23 R21 K79 ["mockReturnValue"]
-      310 NEWTABLE                         R24 0 0
-      312 CALL                             R23 1 0
-      313 GETTABLEKS                       R23 R22 K79 ["mockReturnValue"]
-      315 NEWTABLE                         R24 0 1
-      317 DUPTABLE                         R25 K90 [{"FilePath", "Name", "Updated", "PrivacyType", "NoLoadableImage", "LastViewed"}]
-      318 LOADK                            R26 K91 ["Documents/TestPlace3.rbxl"]
-      319 SETTABLEKS                       R26 R25 K84 ["FilePath"]
-      321 LOADK                            R26 K92 ["TestPlace3.rbxl"]
-      322 SETTABLEKS                       R26 R25 K85 ["Name"]
-      324 LOADK                            R26 K93 ["UpdatedTime3"]
-      325 SETTABLEKS                       R26 R25 K86 ["Updated"]
-      327 LOADK                            R26 K94 ["Private"]
-      328 SETTABLEKS                       R26 R25 K87 ["PrivacyType"]
-      330 LOADB                            R26 1
-      331 SETTABLEKS                       R26 R25 K88 ["NoLoadableImage"]
-      333 LOADK                            R26 K95 ["ViewedTime3"]
-      334 SETTABLEKS                       R26 R25 K89 ["LastViewed"]
-      336 SETLIST                          R24 R25 1 [1]
-      338 CALL                             R23 1 0
-      339 GETUPVAL                         R25 2
-      340 GETTABLEKS                       R24 R25 K81 ["StartPageManager"]
-      342 GETTABLEKS                       R23 R24 K96 ["getDaysSinceFirstUserLogin"]
-      344 GETUPVAL                         R26 2
-      345 GETTABLEKS                       R25 R26 K81 ["StartPageManager"]
-      347 GETTABLEKS                       R24 R25 K97 ["isTutorialBannerClosed"]
-      349 GETTABLEKS                       R25 R23 K79 ["mockReturnValue"]
-      351 LOADN                            R26 0
-      352 CALL                             R25 1 0
-      353 GETTABLEKS                       R25 R24 K79 ["mockReturnValue"]
-      355 LOADB                            R26 0
+      284 NEWCLOSURE                       R20 P11
+      285 CAPTURE                          VAL R2
+      286 SETTABLEKS                       R20 R19 K76 ["https://apis.roblox.com/access-management/v1/upsell-feature-access?featureName=ShouldShowStudioAgeReverificationRequiredBanner&nameSpace=studio/CollaborationSettings"]
+      288 GETUPVAL                         R21 2
+      289 GETTABLEKS                       R20 R21 K77 ["mock"]
+      291 MOVE                             R21 R19
+      292 CALL                             R20 1 0
+      293 GETUPVAL                         R22 2
+      294 GETTABLEKS                       R21 R22 K78 ["StudioService"]
+      296 GETTABLEKS                       R20 R21 K79 ["GetUserId"]
+      298 GETTABLEKS                       R21 R20 K80 ["mockReturnValue"]
+      300 LOADK                            R22 K81 [54321]
+      301 CALL                             R21 1 0
+      302 GETUPVAL                         R23 2
+      303 GETTABLEKS                       R22 R23 K82 ["StartPageManager"]
+      305 GETTABLEKS                       R21 R22 K83 ["getRecentAPIGamesFromRegistry"]
+      307 GETUPVAL                         R24 2
+      308 GETTABLEKS                       R23 R24 K82 ["StartPageManager"]
+      310 GETTABLEKS                       R22 R23 K84 ["getLocalGamesFromRegistry"]
+      312 GETTABLEKS                       R23 R21 K80 ["mockReturnValue"]
+      314 NEWTABLE                         R24 0 0
+      316 CALL                             R23 1 0
+      317 GETTABLEKS                       R23 R22 K80 ["mockReturnValue"]
+      319 NEWTABLE                         R24 0 1
+      321 DUPTABLE                         R25 K91 [{"FilePath", "Name", "Updated", "PrivacyType", "NoLoadableImage", "LastViewed"}]
+      322 LOADK                            R26 K92 ["Documents/TestPlace3.rbxl"]
+      323 SETTABLEKS                       R26 R25 K85 ["FilePath"]
+      325 LOADK                            R26 K93 ["TestPlace3.rbxl"]
+      326 SETTABLEKS                       R26 R25 K86 ["Name"]
+      328 LOADK                            R26 K94 ["UpdatedTime3"]
+      329 SETTABLEKS                       R26 R25 K87 ["Updated"]
+      331 LOADK                            R26 K95 ["Private"]
+      332 SETTABLEKS                       R26 R25 K88 ["PrivacyType"]
+      334 LOADB                            R26 1
+      335 SETTABLEKS                       R26 R25 K89 ["NoLoadableImage"]
+      337 LOADK                            R26 K96 ["ViewedTime3"]
+      338 SETTABLEKS                       R26 R25 K90 ["LastViewed"]
+      340 SETLIST                          R24 R25 1 [1]
+      342 CALL                             R23 1 0
+      343 GETUPVAL                         R25 2
+      344 GETTABLEKS                       R24 R25 K82 ["StartPageManager"]
+      346 GETTABLEKS                       R23 R24 K97 ["getDaysSinceFirstUserLogin"]
+      348 GETUPVAL                         R26 2
+      349 GETTABLEKS                       R25 R26 K82 ["StartPageManager"]
+      351 GETTABLEKS                       R24 R25 K98 ["isTutorialBannerClosed"]
+      353 GETTABLEKS                       R25 R23 K80 ["mockReturnValue"]
+      355 LOADN                            R26 0
       356 CALL                             R25 1 0
-      357 CLOSEUPVALS                      R6
-      358 RETURN                           R0 0
+      357 GETTABLEKS                       R25 R24 K80 ["mockReturnValue"]
+      359 LOADB                            R26 0
+      360 CALL                             R25 1 0
+      361 CLOSEUPVALS                      R6
+      362 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -441,7 +464,7 @@ MAIN:
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R5 R1 K13 ["RobloxAPI"]
        34 GETTABLEKS                       R4 R5 K14 ["Url"]
-       36 DUPCLOSURE                       R5 K15 [PROTO_11]
+       36 DUPCLOSURE                       R5 K15 [PROTO_12]
        37 CAPTURE                          VAL R4
        38 CAPTURE                          VAL R2
        39 CAPTURE                          VAL R3

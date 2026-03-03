@@ -65,13 +65,16 @@ PROTO_2:
        39 GETUPVAL                         R5 1
        40 GETTABLEKS                       R4 R5 K10 ["createElement"]
        42 GETUPVAL                         R5 2
-       43 DUPTABLE                         R6 K11 [{"Plugin", "localization"}]
+       43 DUPTABLE                         R6 K12 [{"Plugin", "localization", "pluginLoaderContext"}]
        44 SETTABLEKS                       R1 R6 K1 ["Plugin"]
        46 GETTABLEKS                       R7 R0 K6 ["localization"]
        48 SETTABLEKS                       R7 R6 K6 ["localization"]
-       50 CALL                             R4 2 -1
-       51 CALL                             R2 -1 -1
-       52 RETURN                           R2 -1
+       50 GETTABLEKS                       R8 R0 K0 ["props"]
+       52 GETTABLEKS                       R7 R8 K13 ["PluginLoaderContext"]
+       54 SETTABLEKS                       R7 R6 K11 ["pluginLoaderContext"]
+       56 CALL                             R4 2 -1
+       57 CALL                             R2 -1 -1
+       58 RETURN                           R2 -1
 
 PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["props"]
@@ -110,27 +113,28 @@ MAIN:
        44 GETTABLEKS                       R9 R10 K14 ["Resources"]
        46 GETTABLEKS                       R8 R9 K15 ["Localization"]
        48 GETTABLEKS                       R7 R8 K17 ["LocalizedStrings"]
-       50 GETIMPORT                        R8 K5 [require]
-       52 GETTABLEKS                       R11 R0 K13 ["Src"]
-       54 GETTABLEKS                       R10 R11 K18 ["UI"]
-       56 GETTABLEKS                       R9 R10 K19 ["AdaptiveAnimationRoot"]
-       58 CALL                             R8 1 1
-       59 GETTABLEKS                       R9 R1 K20 ["PureComponent"]
-       61 LOADK                            R11 K21 ["MainPlugin"]
-       62 NAMECALL                         R9 R9 K22 ["extend"]
-       64 CALL                             R9 2 1
-       65 DUPCLOSURE                       R10 K23 [PROTO_1]
-       66 CAPTURE                          VAL R4
-       67 CAPTURE                          VAL R6
-       68 CAPTURE                          VAL R7
-       69 CAPTURE                          VAL R3
-       70 CAPTURE                          VAL R5
-       71 SETTABLEKS                       R10 R9 K24 ["init"]
-       73 DUPCLOSURE                       R10 K25 [PROTO_2]
-       74 CAPTURE                          VAL R4
-       75 CAPTURE                          VAL R1
-       76 CAPTURE                          VAL R8
-       77 SETTABLEKS                       R10 R9 K26 ["render"]
-       79 DUPCLOSURE                       R10 K27 [PROTO_3]
-       80 SETTABLEKS                       R10 R9 K28 ["componentWillUnmount"]
-       82 RETURN                           R9 1
+       50 GETIMPORT                        R9 K5 [require]
+       52 GETTABLEKS                       R12 R0 K13 ["Src"]
+       54 GETTABLEKS                       R11 R12 K18 ["UI"]
+       56 GETTABLEKS                       R10 R11 K19 ["AdaptiveAnimationRoot"]
+       58 CALL                             R9 1 1
+       59 GETTABLEKS                       R8 R9 K19 ["AdaptiveAnimationRoot"]
+       61 GETTABLEKS                       R9 R1 K20 ["PureComponent"]
+       63 LOADK                            R11 K21 ["MainPlugin"]
+       64 NAMECALL                         R9 R9 K22 ["extend"]
+       66 CALL                             R9 2 1
+       67 DUPCLOSURE                       R10 K23 [PROTO_1]
+       68 CAPTURE                          VAL R4
+       69 CAPTURE                          VAL R6
+       70 CAPTURE                          VAL R7
+       71 CAPTURE                          VAL R3
+       72 CAPTURE                          VAL R5
+       73 SETTABLEKS                       R10 R9 K24 ["init"]
+       75 DUPCLOSURE                       R10 K25 [PROTO_2]
+       76 CAPTURE                          VAL R4
+       77 CAPTURE                          VAL R1
+       78 CAPTURE                          VAL R8
+       79 SETTABLEKS                       R10 R9 K26 ["render"]
+       81 DUPCLOSURE                       R10 K27 [PROTO_3]
+       82 SETTABLEKS                       R10 R9 K28 ["componentWillUnmount"]
+       84 RETURN                           R9 1

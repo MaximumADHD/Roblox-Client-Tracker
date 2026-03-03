@@ -33,13 +33,6 @@ local ContextActionService = game:GetService("ContextActionService")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 
-local FFlagUserDynamicThumbstickMoveOverButtons do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickMoveOverButtons2")
-	end)
-	FFlagUserDynamicThumbstickMoveOverButtons = success and result
-end
-
 local FFlagUserDynamicThumbstickSafeAreaUpdate do
 	local success, result = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickSafeAreaUpdate")
@@ -112,11 +105,7 @@ function DynamicThumbstick:Enable(enable: boolean?, uiParentFrame): boolean?
 
 		self:BindContextActions()
 	else
-		if FFlagUserDynamicThumbstickMoveOverButtons then
-			self:UnbindContextActions()
-		else
-			ContextActionService:UnbindAction(DYNAMIC_THUMBSTICK_ACTION_NAME)
-		end
+		self:UnbindContextActions()
 
 		-- Disable
 		self:OnInputEnded() -- Cleanup
@@ -355,14 +344,10 @@ function DynamicThumbstick:BindContextActions()
 		if inputState == Enum.UserInputState.Begin then
 			return inputBegan(inputObject)
 		elseif inputState == Enum.UserInputState.Change then
-			if FFlagUserDynamicThumbstickMoveOverButtons then
-				if inputObject == self.moveTouchObject then
-					return Enum.ContextActionResult.Sink
-				else
-					return Enum.ContextActionResult.Pass
-				end
+			if inputObject == self.moveTouchObject then
+				return Enum.ContextActionResult.Sink
 			else
-				return inputChanged(inputObject)
+				return Enum.ContextActionResult.Pass
 			end
 		elseif inputState == Enum.UserInputState.End then
 			return inputEnded(inputObject)
@@ -378,11 +363,9 @@ function DynamicThumbstick:BindContextActions()
 		DYNAMIC_THUMBSTICK_ACTION_PRIORITY,
 		Enum.UserInputType.Touch)
 
-	if FFlagUserDynamicThumbstickMoveOverButtons then
-		self.TouchMovedCon = UserInputService.TouchMoved:Connect(function(inputObject: InputObject, _gameProcessedEvent: boolean)
-			inputChanged(inputObject)
-		end)
-	end
+	self.TouchMovedCon = UserInputService.TouchMoved:Connect(function(inputObject: InputObject, _gameProcessedEvent: boolean)
+		inputChanged(inputObject)
+	end)
 end
 
 function DynamicThumbstick:UnbindContextActions()

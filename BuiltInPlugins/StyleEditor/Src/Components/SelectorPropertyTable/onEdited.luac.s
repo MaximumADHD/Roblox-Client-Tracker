@@ -280,7 +280,7 @@ MAIN:
        56 GETIMPORT                        R8 K4 [require]
        58 GETTABLEKS                       R11 R0 K5 ["Src"]
        60 GETTABLEKS                       R10 R11 K16 ["Flags"]
-       62 GETTABLEKS                       R9 R10 K17 ["getFFlagStyleEditorQueries"]
+       62 GETTABLEKS                       R9 R10 K17 ["getFFlagStyleQuery"]
        64 CALL                             R8 1 1
        65 CALL                             R8 0 1
        66 GETIMPORT                        R9 K4 [require]

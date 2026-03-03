@@ -27,6 +27,7 @@ ErrorSourceStrings.Keys = {
 	DynamicHeadHappyNotShown = "Common.UGCValidation.ErrorLabel.DynamicHeadHappyNotShown",
 	DynamicHeadSadNotShown = "Common.UGCValidation.ErrorLabel.DynamicHeadSadNotShown",
 	AQSInternalError = "Common.UGCValidation.ErrorLabel.AQSInternalError",
+	FaceControlsOverrideFACSNotEmpty = "Common.UGCValidation.ErrorLabel.FaceControlsOverrideFACSNotEmpty",
 }
 
 ErrorSourceStrings.Values = {
@@ -52,6 +53,7 @@ ErrorSourceStrings.Values = {
 	DynamicHeadHappyNotShown = "Cannot detect smile expression for the Dynamic Head. Please adjust cage landmarks for the mouth to match where the mouth on the head and make sure it can show smile expression.",
 	DynamicHeadSadNotShown = "Cannot detect frown expression for the Dynamic Head. Please adjust cage landmarks for the mouth to match where the mouth on the head and make sure it can show frown expression.",
 	AQSInternalError = "Score cannot be generated due to Asset Quality Error. Please check input data correctness and try again, or file a bug report.",
+	FaceControlsOverrideFACSNotEmpty = "The InternalOverrideFACSData property on FaceControls must be empty on upload.",
 }
 
 return ErrorSourceStrings

@@ -46,14 +46,26 @@ SETTINGS_MENU_LAYOUT_ORDER.MouseAdvancedFrame = 50
 SETTINGS_MENU_LAYOUT_ORDER.VoiceConnectDisconnectSelector = 17
 SETTINGS_MENU_LAYOUT_ORDER.VoiceConnectFrame = 18
 SETTINGS_MENU_LAYOUT_ORDER.VoiceDisconnectFrame = 19
--- Experience Language
-SETTINGS_MENU_LAYOUT_ORDER.LanguageSelectorFrame = 20
--- Feedback Mode
-SETTINGS_MENU_LAYOUT_ORDER.FeedbackModeButton = 30
--- Chat Translation
-SETTINGS_MENU_LAYOUT_ORDER.ChatTranslationFrame = 40
-SETTINGS_MENU_LAYOUT_ORDER.ChatLanguageSelectorFrame = 41
-SETTINGS_MENU_LAYOUT_ORDER.ChatTranslationToggleFrame = 42
+if game:GetEngineFeature("InExperiencePlayerChoiceToggle") then
+	-- Experience Language
+	SETTINGS_MENU_LAYOUT_ORDER.PlayerChoiceTranslationFrame = 20
+	SETTINGS_MENU_LAYOUT_ORDER.LanguageSelectorFrame = 21
+	-- Chat Translation
+	SETTINGS_MENU_LAYOUT_ORDER.ChatTranslationFrame = 30
+	SETTINGS_MENU_LAYOUT_ORDER.ChatLanguageSelectorFrame = 31
+	SETTINGS_MENU_LAYOUT_ORDER.ChatTranslationToggleFrame = 32
+	-- Feedback Mode
+	SETTINGS_MENU_LAYOUT_ORDER.FeedbackModeButton = 40
+else
+	-- Experience Language
+	SETTINGS_MENU_LAYOUT_ORDER.LanguageSelectorFrame = 20
+	-- Feedback Mode
+	SETTINGS_MENU_LAYOUT_ORDER.FeedbackModeButton = 30
+	-- Chat Translation
+	SETTINGS_MENU_LAYOUT_ORDER.ChatTranslationFrame = 40
+	SETTINGS_MENU_LAYOUT_ORDER.ChatLanguageSelectorFrame = 41
+	SETTINGS_MENU_LAYOUT_ORDER.ChatTranslationToggleFrame = 42
+end
 -- VR Settings
 if isInExperienceUIVREnabled then
 	SETTINGS_MENU_LAYOUT_ORDER.VRComfortSettingFrame = 54
@@ -117,6 +129,7 @@ if FFlagIEMSettingsGroups then
 		VoiceConnectDisconnectSelector = nextOrder(),
 		VoiceConnectFrame = nextOrder(),
 		VoiceDisconnectFrame = nextOrder(),
+		PlayerChoiceTranslationFrame = if game:GetEngineFeature("InExperiencePlayerChoiceToggle") then nextOrder() else nil,
 		LanguageSelectorFrame = nextOrder(),
 		FeedbackModeButton = nextOrder(),
 		ChatTranslationFrame = nextOrder(),

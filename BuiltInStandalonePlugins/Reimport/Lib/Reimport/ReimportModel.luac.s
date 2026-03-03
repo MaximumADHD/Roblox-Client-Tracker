@@ -390,25 +390,32 @@ PROTO_7:
       112 CALL                             R10 1 1
       113 LOADB                            R11 0
       114 SETTABLEKS                       R11 R10 K21 ["AddModelToInventory"]
-      116 GETTABLEKS                       R11 R8 K22 ["preset"]
-      118 JUMPIFEQKNIL                     R11 ; [+11]
-      120 GETUPVAL                         R11 1
-      121 GETTABLEKS                       R13 R8 K22 ["preset"]
-      123 NAMECALL                         R11 R11 K23 ["GetPreset"]
-      125 CALL                             R11 2 1
-      126 MOVE                             R14 R11
-      127 NAMECALL                         R12 R9 K24 ["ApplyPreset"]
-      129 CALL                             R12 2 0
-      130 NAMECALL                         R11 R9 K25 ["Upload"]
-      132 CALL                             R11 1 0
-      133 ADDK                             R4 R4 K17 [0.1]
-      134 MULK                             R12 R5 K11 [0.6]
-      135 ADD                              R11 R4 R12
-      136 GETTABLEKS                       R12 R1 K12 ["progress"]
-      138 MOVE                             R13 R11
-      139 CALL                             R12 1 0
-      140 CLOSEUPVALS                      R4
-      141 RETURN                           R0 0
+      116 GETUPVAL                         R11 6
+      117 CALL                             R11 0 1
+      118 JUMPIFNOT                        R11 ; [+8]
+      119 GETTABLEKS                       R11 R8 K22 ["creatorId"]
+      121 JUMPIFEQKNIL                     R11 ; [+5]
+      123 GETTABLEKS                       R11 R8 K22 ["creatorId"]
+      125 SETTABLEKS                       R11 R10 K23 ["PreferredUploadId"]
+      127 GETTABLEKS                       R11 R8 K24 ["preset"]
+      129 JUMPIFEQKNIL                     R11 ; [+11]
+      131 GETUPVAL                         R11 1
+      132 GETTABLEKS                       R13 R8 K24 ["preset"]
+      134 NAMECALL                         R11 R11 K25 ["GetPreset"]
+      136 CALL                             R11 2 1
+      137 MOVE                             R14 R11
+      138 NAMECALL                         R12 R9 K26 ["ApplyPreset"]
+      140 CALL                             R12 2 0
+      141 NAMECALL                         R11 R9 K27 ["Upload"]
+      143 CALL                             R11 1 0
+      144 ADDK                             R4 R4 K17 [0.1]
+      145 MULK                             R12 R5 K11 [0.6]
+      146 ADD                              R11 R4 R12
+      147 GETTABLEKS                       R12 R1 K12 ["progress"]
+      149 MOVE                             R13 R11
+      150 CALL                             R12 1 0
+      151 CLOSEUPVALS                      R4
+      152 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -446,22 +453,27 @@ MAIN:
        56 GETTABLEKS                       R7 R8 K15 ["Telemetry"]
        58 CALL                             R6 1 1
        59 GETIMPORT                        R7 K5 [require]
-       61 GETIMPORT                        R10 K1 [script]
-       63 GETTABLEKS                       R9 R10 K16 ["Parent"]
-       65 GETTABLEKS                       R8 R9 K17 ["Types"]
-       67 CALL                             R7 1 1
-       68 DUPCLOSURE                       R8 K18 [PROTO_0]
-       69 NEWTABLE                         R9 2 0
-       71 DUPCLOSURE                       R10 K19 [PROTO_1]
-       72 CAPTURE                          VAL R8
-       73 CAPTURE                          VAL R5
-       74 SETTABLEKS                       R10 R9 K20 ["doReimportApply"]
-       76 DUPCLOSURE                       R10 K21 [PROTO_7]
-       77 CAPTURE                          VAL R4
-       78 CAPTURE                          VAL R2
-       79 CAPTURE                          VAL R3
-       80 CAPTURE                          VAL R9
-       81 CAPTURE                          VAL R6
-       82 CAPTURE                          VAL R1
-       83 SETTABLEKS                       R10 R9 K22 ["reimport"]
-       85 RETURN                           R9 1
+       61 GETTABLEKS                       R9 R0 K16 ["Flags"]
+       63 GETTABLEKS                       R8 R9 K17 ["GetFFlagEnableGroupUpload"]
+       65 CALL                             R7 1 1
+       66 GETIMPORT                        R8 K5 [require]
+       68 GETIMPORT                        R11 K1 [script]
+       70 GETTABLEKS                       R10 R11 K18 ["Parent"]
+       72 GETTABLEKS                       R9 R10 K19 ["Types"]
+       74 CALL                             R8 1 1
+       75 DUPCLOSURE                       R9 K20 [PROTO_0]
+       76 NEWTABLE                         R10 2 0
+       78 DUPCLOSURE                       R11 K21 [PROTO_1]
+       79 CAPTURE                          VAL R9
+       80 CAPTURE                          VAL R5
+       81 SETTABLEKS                       R11 R10 K22 ["doReimportApply"]
+       83 DUPCLOSURE                       R11 K23 [PROTO_7]
+       84 CAPTURE                          VAL R4
+       85 CAPTURE                          VAL R2
+       86 CAPTURE                          VAL R3
+       87 CAPTURE                          VAL R10
+       88 CAPTURE                          VAL R6
+       89 CAPTURE                          VAL R1
+       90 CAPTURE                          VAL R7
+       91 SETTABLEKS                       R11 R10 K24 ["reimport"]
+       93 RETURN                           R10 1

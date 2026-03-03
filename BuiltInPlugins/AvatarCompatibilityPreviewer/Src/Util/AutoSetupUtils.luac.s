@@ -943,65 +943,115 @@ PROTO_17:
        30 RETURN                           R0 0
 
 PROTO_18:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["startsWith"]
-        3 GETTABLEKS                       R2 R0 K1 ["Name"]
-        5 LOADK                            R3 K2 ["RBX_LC_"]
-        6 CALL                             R1 2 1
-        7 JUMPIF                           R1 ; [+7]
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K0 ["startsWith"]
-       11 GETTABLEKS                       R2 R0 K1 ["Name"]
-       13 LOADK                            R3 K3 ["RBX_RIGID_"]
-       14 CALL                             R1 2 1
-       15 RETURN                           R1 1
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+23]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R1 R2 K0 ["getAssetClassificationFromName"]
+        6 GETTABLEKS                       R2 R0 K1 ["Name"]
+        8 CALL                             R1 1 1
+        9 NEWTABLE                         R2 0 3
+       11 LOADK                            R3 K2 ["Layered"]
+       12 LOADK                            R4 K3 ["EyeLayered"]
+       13 LOADK                            R5 K4 ["Rigid"]
+       14 SETLIST                          R2 R3 3 [1]
+       16 GETIMPORT                        R4 K7 [table.find]
+       18 MOVE                             R5 R2
+       19 MOVE                             R6 R1
+       20 CALL                             R4 2 1
+       21 JUMPIFNOTEQKNIL                  R4 ; [+2]
+       23 LOADB                            R3 0 +1
+       24 LOADB                            R3 1
+       25 RETURN                           R3 1
+       26 GETUPVAL                         R2 2
+       27 GETTABLEKS                       R1 R2 K8 ["startsWith"]
+       29 GETTABLEKS                       R2 R0 K1 ["Name"]
+       31 LOADK                            R3 K9 ["RBX_LC_"]
+       32 CALL                             R1 2 1
+       33 JUMPIF                           R1 ; [+7]
+       34 GETUPVAL                         R2 2
+       35 GETTABLEKS                       R1 R2 K8 ["startsWith"]
+       37 GETTABLEKS                       R2 R0 K1 ["Name"]
+       39 LOADK                            R3 K10 ["RBX_RIGID_"]
+       40 CALL                             R1 2 1
+       41 RETURN                           R1 1
 
 PROTO_19:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["startsWith"]
-        3 GETTABLEKS                       R2 R0 K1 ["Name"]
-        5 LOADK                            R3 K2 ["RBX_LC_"]
-        6 CALL                             R1 2 1
-        7 JUMPIFNOT                        R1 ; [+36]
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K3 ["removePrefix"]
-       11 GETTABLEKS                       R2 R0 K1 ["Name"]
-       13 LOADK                            R3 K2 ["RBX_LC_"]
-       14 CALL                             R1 2 1
-       15 SETTABLEKS                       R1 R0 K1 ["Name"]
-       17 GETUPVAL                         R1 1
-       18 CALL                             R1 0 1
-       19 JUMPIFNOT                        R1 ; [+41]
-       20 LOADK                            R3 K4 ["WrapLayer"]
-       21 NAMECALL                         R1 R0 K5 ["FindFirstChildWhichIsA"]
-       23 CALL                             R1 2 1
-       24 JUMPIFEQKNIL                     R1 ; [+36]
-       26 GETUPVAL                         R3 0
-       27 GETTABLEKS                       R2 R3 K0 ["startsWith"]
-       29 GETTABLEKS                       R3 R1 K1 ["Name"]
-       31 LOADK                            R4 K2 ["RBX_LC_"]
-       32 CALL                             R2 2 1
-       33 JUMPIFNOT                        R2 ; [+27]
-       34 GETUPVAL                         R3 0
-       35 GETTABLEKS                       R2 R3 K3 ["removePrefix"]
-       37 GETTABLEKS                       R3 R1 K1 ["Name"]
-       39 LOADK                            R4 K2 ["RBX_LC_"]
-       40 CALL                             R2 2 1
-       41 SETTABLEKS                       R2 R1 K1 ["Name"]
-       43 RETURN                           R0 0
-       44 GETUPVAL                         R2 0
-       45 GETTABLEKS                       R1 R2 K0 ["startsWith"]
-       47 GETTABLEKS                       R2 R0 K1 ["Name"]
-       49 LOADK                            R3 K6 ["RBX_RIGID_"]
-       50 CALL                             R1 2 1
-       51 JUMPIFNOT                        R1 ; [+9]
-       52 GETUPVAL                         R2 0
-       53 GETTABLEKS                       R1 R2 K3 ["removePrefix"]
-       55 GETTABLEKS                       R2 R0 K1 ["Name"]
-       57 LOADK                            R3 K6 ["RBX_RIGID_"]
-       58 CALL                             R1 2 1
-       59 SETTABLEKS                       R1 R0 K1 ["Name"]
-       61 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+40]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R1 R2 K0 ["isPreSetupAutoSetupClothes"]
+        6 MOVE                             R2 R0
+        7 CALL                             R1 1 1
+        8 JUMPIF                           R1 ; [+1]
+        9 RETURN                           R0 0
+       10 GETUPVAL                         R2 2
+       11 GETTABLEKS                       R1 R2 K1 ["getAssetClassificationFromName"]
+       13 GETTABLEKS                       R2 R0 K2 ["Name"]
+       15 CALL                             R1 1 1
+       16 JUMPIFEQKS                       R1 K3 ["Layered"] ; [+3]
+       18 JUMPIFNOTEQKS                    R1 K4 ["EyeLayered"] ; [+15]
+       20 LOADK                            R4 K5 ["WrapLayer"]
+       21 NAMECALL                         R2 R0 K6 ["FindFirstChild"]
+       23 CALL                             R2 2 1
+       24 JUMPIFEQKNIL                     R2 ; [+9]
+       26 GETUPVAL                         R4 2
+       27 GETTABLEKS                       R3 R4 K7 ["getInstanceNameWithoutClassification"]
+       29 GETTABLEKS                       R4 R2 K2 ["Name"]
+       31 CALL                             R3 1 1
+       32 SETTABLEKS                       R3 R2 K2 ["Name"]
+       34 GETUPVAL                         R3 2
+       35 GETTABLEKS                       R2 R3 K7 ["getInstanceNameWithoutClassification"]
+       37 GETTABLEKS                       R3 R0 K2 ["Name"]
+       39 CALL                             R2 1 1
+       40 SETTABLEKS                       R2 R0 K2 ["Name"]
+       42 RETURN                           R0 0
+       43 GETUPVAL                         R2 3
+       44 GETTABLEKS                       R1 R2 K8 ["startsWith"]
+       46 GETTABLEKS                       R2 R0 K2 ["Name"]
+       48 LOADK                            R3 K9 ["RBX_LC_"]
+       49 CALL                             R1 2 1
+       50 JUMPIFNOT                        R1 ; [+36]
+       51 GETUPVAL                         R2 3
+       52 GETTABLEKS                       R1 R2 K10 ["removePrefix"]
+       54 GETTABLEKS                       R2 R0 K2 ["Name"]
+       56 LOADK                            R3 K9 ["RBX_LC_"]
+       57 CALL                             R1 2 1
+       58 SETTABLEKS                       R1 R0 K2 ["Name"]
+       60 GETUPVAL                         R1 4
+       61 CALL                             R1 0 1
+       62 JUMPIFNOT                        R1 ; [+41]
+       63 LOADK                            R3 K5 ["WrapLayer"]
+       64 NAMECALL                         R1 R0 K11 ["FindFirstChildWhichIsA"]
+       66 CALL                             R1 2 1
+       67 JUMPIFEQKNIL                     R1 ; [+36]
+       69 GETUPVAL                         R3 3
+       70 GETTABLEKS                       R2 R3 K8 ["startsWith"]
+       72 GETTABLEKS                       R3 R1 K2 ["Name"]
+       74 LOADK                            R4 K9 ["RBX_LC_"]
+       75 CALL                             R2 2 1
+       76 JUMPIFNOT                        R2 ; [+27]
+       77 GETUPVAL                         R3 3
+       78 GETTABLEKS                       R2 R3 K10 ["removePrefix"]
+       80 GETTABLEKS                       R3 R1 K2 ["Name"]
+       82 LOADK                            R4 K9 ["RBX_LC_"]
+       83 CALL                             R2 2 1
+       84 SETTABLEKS                       R2 R1 K2 ["Name"]
+       86 RETURN                           R0 0
+       87 GETUPVAL                         R2 3
+       88 GETTABLEKS                       R1 R2 K8 ["startsWith"]
+       90 GETTABLEKS                       R2 R0 K2 ["Name"]
+       92 LOADK                            R3 K12 ["RBX_RIGID_"]
+       93 CALL                             R1 2 1
+       94 JUMPIFNOT                        R1 ; [+9]
+       95 GETUPVAL                         R2 3
+       96 GETTABLEKS                       R1 R2 K10 ["removePrefix"]
+       98 GETTABLEKS                       R2 R0 K2 ["Name"]
+      100 LOADK                            R3 K12 ["RBX_RIGID_"]
+      101 CALL                             R1 2 1
+      102 SETTABLEKS                       R1 R0 K2 ["Name"]
+      104 RETURN                           R0 0
 
 PROTO_20:
         0 NAMECALL                         R2 R0 K0 ["GetChildren"]
@@ -1283,56 +1333,87 @@ PROTO_27:
        18 LOADK                            R12 K4 ["MeshPart"]
        19 NAMECALL                         R10 R9 K5 ["IsA"]
        21 CALL                             R10 2 1
-       22 JUMPIFNOT                        R10 ; [+53]
-       23 GETUPVAL                         R11 2
-       24 GETTABLEKS                       R10 R11 K6 ["isPreSetupAutoSetupClothes"]
-       26 MOVE                             R11 R9
-       27 CALL                             R10 1 1
-       28 JUMPIFNOT                        R10 ; [+12]
-       29 GETUPVAL                         R11 2
-       30 GETTABLEKS                       R10 R11 K7 ["removePreSetupAutoSetupClothesPrefix"]
-       32 MOVE                             R11 R9
-       33 CALL                             R10 1 0
-       34 GETUPVAL                         R13 3
-       35 GETTABLEKS                       R12 R13 K8 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
-       37 LOADB                            R13 1
-       38 NAMECALL                         R10 R9 K9 ["SetAttribute"]
-       40 CALL                             R10 3 0
-       41 NAMECALL                         R10 R9 K3 ["GetChildren"]
-       43 CALL                             R10 1 3
-       44 FORGPREP                         R10
-       45 LOADK                            R17 K10 ["WrapLayer"]
-       46 NAMECALL                         R15 R14 K5 ["IsA"]
-       48 CALL                             R15 2 1
-       49 JUMPIFNOT                        R15 ; [+11]
-       50 GETIMPORT                        R15 K14 [Enum.WrapLayerAutoSkin.EnabledPreserve]
-       52 SETTABLEKS                       R15 R14 K15 ["AutoSkin"]
-       54 FASTCALL2                        TABLE_INSERT R4 R14 ; [+5]
-       56 MOVE                             R16 R4
-       57 MOVE                             R17 R14
-       58 GETIMPORT                        R15 K18 [table.insert]
-       60 CALL                             R15 2 0
-       61 FORGLOOP                         R10 2 ; [-17]
-       63 GETUPVAL                         R10 4
-       64 MOVE                             R11 R9
-       65 MOVE                             R12 R1
-       66 MOVE                             R13 R2
-       67 CALL                             R10 3 1
-       68 JUMPIFNOT                        R10 ; [+7]
-       69 FASTCALL2                        TABLE_INSERT R3 R10 ; [+5]
-       71 MOVE                             R12 R3
-       72 MOVE                             R13 R10
-       73 GETIMPORT                        R11 K18 [table.insert]
-       75 CALL                             R11 2 0
-       76 FORGLOOP                         R5 2 ; [-59]
-       78 GETUPVAL                         R6 2
-       79 GETTABLEKS                       R5 R6 K19 ["assignWrapLayerOrder"]
-       81 MOVE                             R6 R4
-       82 CALL                             R5 1 0
-       83 GETUPVAL                         R5 5
-       84 MOVE                             R6 R3
-       85 CALL                             R5 1 0
-       86 RETURN                           R0 0
+       22 JUMPIFNOT                        R10 ; [+93]
+       23 GETUPVAL                         R10 2
+       24 CALL                             R10 0 1
+       25 JUMPIF                           R10 ; [+18]
+       26 GETUPVAL                         R11 3
+       27 GETTABLEKS                       R10 R11 K6 ["isPreSetupAutoSetupClothes"]
+       29 MOVE                             R11 R9
+       30 CALL                             R10 1 1
+       31 JUMPIFNOT                        R10 ; [+12]
+       32 GETUPVAL                         R11 3
+       33 GETTABLEKS                       R10 R11 K7 ["removePreSetupAutoSetupClothesPrefix"]
+       35 MOVE                             R11 R9
+       36 CALL                             R10 1 0
+       37 GETUPVAL                         R13 4
+       38 GETTABLEKS                       R12 R13 K8 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
+       40 LOADB                            R13 1
+       41 NAMECALL                         R10 R9 K9 ["SetAttribute"]
+       43 CALL                             R10 3 0
+       44 NAMECALL                         R10 R9 K3 ["GetChildren"]
+       46 CALL                             R10 1 3
+       47 FORGPREP                         R10
+       48 LOADK                            R17 K10 ["WrapLayer"]
+       49 NAMECALL                         R15 R14 K5 ["IsA"]
+       51 CALL                             R15 2 1
+       52 JUMPIFNOT                        R15 ; [+27]
+       53 GETUPVAL                         R15 2
+       54 CALL                             R15 0 1
+       55 JUMPIFNOT                        R15 ; [+13]
+       56 GETUPVAL                         R16 5
+       57 GETTABLEKS                       R15 R16 K11 ["getAssetClassificationFromName"]
+       59 GETTABLEKS                       R16 R9 K12 ["Name"]
+       61 CALL                             R15 1 1
+       62 JUMPIFNOTEQKS                    R15 K13 ["EyeLayered"] ; [+6]
+       64 GETIMPORT                        R15 K17 [Enum.WrapLayerAutoSkin.EnabledOverride]
+       66 SETTABLEKS                       R15 R14 K18 ["AutoSkin"]
+       68 JUMP                             ; [+4]
+       69 GETIMPORT                        R15 K20 [Enum.WrapLayerAutoSkin.EnabledPreserve]
+       71 SETTABLEKS                       R15 R14 K18 ["AutoSkin"]
+       73 FASTCALL2                        TABLE_INSERT R4 R14 ; [+5]
+       75 MOVE                             R16 R4
+       76 MOVE                             R17 R14
+       77 GETIMPORT                        R15 K23 [table.insert]
+       79 CALL                             R15 2 0
+       80 FORGLOOP                         R10 2 ; [-33]
+       82 GETUPVAL                         R10 2
+       83 CALL                             R10 0 1
+       84 JUMPIFNOT                        R10 ; [+18]
+       85 GETUPVAL                         R11 3
+       86 GETTABLEKS                       R10 R11 K6 ["isPreSetupAutoSetupClothes"]
+       88 MOVE                             R11 R9
+       89 CALL                             R10 1 1
+       90 JUMPIFNOT                        R10 ; [+12]
+       91 GETUPVAL                         R11 3
+       92 GETTABLEKS                       R10 R11 K7 ["removePreSetupAutoSetupClothesPrefix"]
+       94 MOVE                             R11 R9
+       95 CALL                             R10 1 0
+       96 GETUPVAL                         R13 4
+       97 GETTABLEKS                       R12 R13 K8 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
+       99 LOADB                            R13 1
+      100 NAMECALL                         R10 R9 K9 ["SetAttribute"]
+      102 CALL                             R10 3 0
+      103 GETUPVAL                         R10 6
+      104 MOVE                             R11 R9
+      105 MOVE                             R12 R1
+      106 MOVE                             R13 R2
+      107 CALL                             R10 3 1
+      108 JUMPIFNOT                        R10 ; [+7]
+      109 FASTCALL2                        TABLE_INSERT R3 R10 ; [+5]
+      111 MOVE                             R12 R3
+      112 MOVE                             R13 R10
+      113 GETIMPORT                        R11 K23 [table.insert]
+      115 CALL                             R11 2 0
+      116 FORGLOOP                         R5 2 ; [-99]
+      118 GETUPVAL                         R6 3
+      119 GETTABLEKS                       R5 R6 K24 ["assignWrapLayerOrder"]
+      121 MOVE                             R6 R4
+      122 CALL                             R5 1 0
+      123 GETUPVAL                         R5 7
+      124 MOVE                             R6 R3
+      125 CALL                             R5 1 0
+      126 RETURN                           R0 0
 
 PROTO_28:
         0 LOADK                            R3 K0 ["LowerTorso"]
@@ -2295,166 +2376,178 @@ MAIN:
       198 GETIMPORT                        R24 K12 [require]
       200 GETTABLEKS                       R27 R4 K15 ["Src"]
       202 GETTABLEKS                       R26 R27 K33 ["Flags"]
-      204 GETTABLEKS                       R25 R26 K39 ["getFFlagAvatarCompatibilityPreviewerFixUnitTests"]
+      204 GETTABLEKS                       R25 R26 K39 ["getFFlagAvatarPreviewerEyeLayeredSetup"]
       206 CALL                             R24 1 1
       207 GETIMPORT                        R25 K12 [require]
       209 GETTABLEKS                       R28 R4 K15 ["Src"]
       211 GETTABLEKS                       R27 R28 K33 ["Flags"]
-      213 GETTABLEKS                       R26 R27 K40 ["getFFlagFixLayeredClothingAssignment"]
+      213 GETTABLEKS                       R26 R27 K40 ["getFFlagAvatarCompatibilityPreviewerFixUnitTests"]
       215 CALL                             R25 1 1
       216 GETIMPORT                        R26 K12 [require]
       218 GETTABLEKS                       R29 R4 K15 ["Src"]
       220 GETTABLEKS                       R28 R29 K33 ["Flags"]
-      222 GETTABLEKS                       R27 R28 K41 ["getFFlagIncludeBodyColorsInAutoSetup"]
+      222 GETTABLEKS                       R27 R28 K41 ["getFFlagFixLayeredClothingAssignment"]
       224 CALL                             R26 1 1
       225 GETIMPORT                        R27 K12 [require]
       227 GETTABLEKS                       R30 R4 K15 ["Src"]
-      229 GETTABLEKS                       R29 R30 K16 ["Util"]
-      231 GETTABLEKS                       R28 R29 K42 ["getRotationInXZPlane"]
+      229 GETTABLEKS                       R29 R30 K33 ["Flags"]
+      231 GETTABLEKS                       R28 R29 K42 ["getFFlagIncludeBodyColorsInAutoSetup"]
       233 CALL                             R27 1 1
-      234 GETIMPORT                        R28 K1 [game]
-      236 LOADK                            R30 K43 ["AvatarPreviewerAvoidExtraRootPart"]
-      237 LOADB                            R31 0
-      238 NAMECALL                         R28 R28 K44 ["DefineFastFlag"]
-      240 CALL                             R28 3 1
-      241 GETIMPORT                        R29 K12 [require]
-      243 GETTABLEKS                       R33 R4 K15 ["Src"]
-      245 GETTABLEKS                       R32 R33 K19 ["Components"]
-      247 GETTABLEKS                       R31 R32 K45 ["DisambiguationMenuContext"]
-      249 GETTABLEKS                       R30 R31 K46 ["inferLoneMeshPartAssignment"]
-      251 CALL                             R29 1 1
-      252 GETIMPORT                        R30 K12 [require]
-      254 GETTABLEKS                       R33 R4 K15 ["Src"]
-      256 GETTABLEKS                       R32 R33 K16 ["Util"]
-      258 GETTABLEKS                       R31 R32 K47 ["isAvatar"]
+      234 GETIMPORT                        R28 K12 [require]
+      236 GETTABLEKS                       R31 R4 K15 ["Src"]
+      238 GETTABLEKS                       R30 R31 K16 ["Util"]
+      240 GETTABLEKS                       R29 R30 K43 ["getRotationInXZPlane"]
+      242 CALL                             R28 1 1
+      243 GETIMPORT                        R29 K1 [game]
+      245 LOADK                            R31 K44 ["AvatarPreviewerAvoidExtraRootPart"]
+      246 LOADB                            R32 0
+      247 NAMECALL                         R29 R29 K45 ["DefineFastFlag"]
+      249 CALL                             R29 3 1
+      250 GETIMPORT                        R30 K12 [require]
+      252 GETTABLEKS                       R34 R4 K15 ["Src"]
+      254 GETTABLEKS                       R33 R34 K19 ["Components"]
+      256 GETTABLEKS                       R32 R33 K46 ["DisambiguationMenuContext"]
+      258 GETTABLEKS                       R31 R32 K47 ["inferLoneMeshPartAssignment"]
       260 CALL                             R30 1 1
       261 GETIMPORT                        R31 K12 [require]
-      263 GETTABLEKS                       R35 R4 K15 ["Src"]
-      265 GETTABLEKS                       R34 R35 K19 ["Components"]
-      267 GETTABLEKS                       R33 R34 K45 ["DisambiguationMenuContext"]
-      269 GETTABLEKS                       R32 R33 K48 ["assignLoneMeshParts"]
-      271 CALL                             R31 1 1
-      272 NEWTABLE                         R32 32 0
-      274 DUPCLOSURE                       R33 K49 [PROTO_0]
-      275 CAPTURE                          VAL R8
-      276 CAPTURE                          VAL R12
-      277 CAPTURE                          VAL R11
-      278 SETTABLEKS                       R33 R32 K50 ["computeValidScaleAsync"]
-      280 DUPCLOSURE                       R33 K51 [PROTO_1]
-      281 CAPTURE                          VAL R13
-      282 CAPTURE                          VAL R11
-      283 CAPTURE                          VAL R1
-      284 CAPTURE                          VAL R25
-      285 CAPTURE                          VAL R20
-      286 SETTABLEKS                       R33 R32 K52 ["applyScale"]
-      288 DUPCLOSURE                       R33 K53 [PROTO_4]
-      289 CAPTURE                          VAL R14
-      290 CAPTURE                          VAL R24
-      291 SETTABLEKS                       R33 R32 K54 ["applyAnimationsScript"]
-      293 DUPCLOSURE                       R33 K55 [PROTO_5]
-      294 SETTABLEKS                       R33 R32 K56 ["collapseTopLevelFolders"]
-      296 DUPCLOSURE                       R33 K57 [PROTO_6]
-      297 CAPTURE                          VAL R6
-      298 SETTABLEKS                       R33 R32 K58 ["setModelIntendedName"]
-      300 DUPCLOSURE                       R33 K59 [PROTO_7]
-      301 CAPTURE                          VAL R11
-      302 SETTABLEKS                       R33 R32 K60 ["renameModel"]
-      304 DUPCLOSURE                       R33 K61 [PROTO_8]
-      305 SETTABLEKS                       R33 R32 K62 ["setPivotOffset"]
-      307 DUPCLOSURE                       R33 K63 [PROTO_10]
-      308 CAPTURE                          VAL R9
-      309 SETTABLEKS                       R33 R32 K64 ["getTargetBoundingBox"]
-      311 DUPCLOSURE                       R33 K65 [PROTO_15]
-      312 CAPTURE                          VAL R32
-      313 CAPTURE                          VAL R27
-      314 CAPTURE                          VAL R9
-      315 CAPTURE                          VAL R3
-      316 SETTABLEKS                       R33 R32 K66 ["positionInWorkspace"]
-      318 DUPCLOSURE                       R33 K67 [PROTO_16]
-      319 CAPTURE                          VAL R22
-      320 SETTABLEKS                       R33 R32 K68 ["wearAccessories"]
-      322 DUPCLOSURE                       R33 K69 [PROTO_17]
-      323 SETTABLEKS                       R33 R32 K70 ["ensureSurfaceAppearances"]
-      325 DUPCLOSURE                       R33 K71 [PROTO_18]
-      326 CAPTURE                          VAL R15
-      327 SETTABLEKS                       R33 R32 K72 ["isPreSetupAutoSetupClothes"]
-      329 DUPCLOSURE                       R33 K73 [PROTO_19]
-      330 CAPTURE                          VAL R15
-      331 CAPTURE                          VAL R21
-      332 SETTABLEKS                       R33 R32 K74 ["removePreSetupAutoSetupClothesPrefix"]
-      334 DUPCLOSURE                       R33 K75 [PROTO_20]
-      335 CAPTURE                          VAL R32
-      336 CAPTURE                          VAL R13
-      337 SETTABLEKS                       R33 R32 K76 ["applyLayeredClothingProportions"]
-      339 DUPCLOSURE                       R33 K77 [PROTO_21]
-      340 CAPTURE                          VAL R7
-      341 CAPTURE                          VAL R22
-      342 CAPTURE                          VAL R13
-      343 SETTABLEKS                       R33 R32 K78 ["applyProportions"]
-      345 DUPCLOSURE                       R33 K79 [PROTO_23]
-      346 CAPTURE                          VAL R25
-      347 SETTABLEKS                       R33 R32 K80 ["assignWrapLayerOrder"]
-      349 DUPCLOSURE                       R33 K81 [PROTO_25]
-      350 CAPTURE                          VAL R26
-      351 SETTABLEKS                       R33 R32 K82 ["ensureBodyColors"]
-      353 DUPCLOSURE                       R33 K83 [PROTO_26]
-      354 CAPTURE                          VAL R25
-      355 SETTABLEKS                       R33 R32 K84 ["removeExtraAttachmentParts"]
-      357 DUPCLOSURE                       R33 K85 [PROTO_27]
-      358 CAPTURE                          VAL R25
-      359 CAPTURE                          VAL R18
-      360 CAPTURE                          VAL R32
-      361 CAPTURE                          VAL R11
-      362 CAPTURE                          VAL R29
-      363 CAPTURE                          VAL R31
-      364 SETTABLEKS                       R33 R32 K86 ["assignLayeredClothing"]
-      366 DUPCLOSURE                       R33 K87 [PROTO_28]
-      367 SETTABLEKS                       R33 R32 K88 ["computeTranslationUponParent"]
-      369 DUPCLOSURE                       R33 K89 [PROTO_29]
-      370 CAPTURE                          VAL R32
-      371 CAPTURE                          VAL R11
-      372 SETTABLEKS                       R33 R32 K90 ["translateBodyPartsToFinalCFrame"]
-      374 DUPCLOSURE                       R33 K91 [PROTO_30]
-      375 SETTABLEKS                       R33 R32 K92 ["findProportionsFromHumanoid"]
-      377 DUPCLOSURE                       R33 K93 [PROTO_31]
-      378 CAPTURE                          VAL R23
-      379 CAPTURE                          VAL R0
-      380 CAPTURE                          VAL R11
-      381 CAPTURE                          VAL R32
-      382 CAPTURE                          VAL R25
-      383 CAPTURE                          VAL R26
-      384 CAPTURE                          VAL R3
-      385 CAPTURE                          VAL R10
-      386 SETTABLEKS                       R33 R32 K94 ["DEPRECATED_insertBodyAsync"]
-      388 DUPCLOSURE                       R33 K95 [PROTO_32]
-      389 CAPTURE                          VAL R21
-      390 CAPTURE                          VAL R0
-      391 CAPTURE                          VAL R11
-      392 CAPTURE                          VAL R32
-      393 CAPTURE                          VAL R25
-      394 CAPTURE                          VAL R26
-      395 CAPTURE                          VAL R3
-      396 CAPTURE                          VAL R10
-      397 CAPTURE                          VAL R23
-      398 CAPTURE                          VAL R19
-      399 CAPTURE                          VAL R5
-      400 SETTABLEKS                       R33 R32 K96 ["insertBodyAsync"]
-      402 DUPCLOSURE                       R33 K97 [PROTO_33]
-      403 CAPTURE                          VAL R21
-      404 CAPTURE                          VAL R0
-      405 CAPTURE                          VAL R30
-      406 CAPTURE                          VAL R32
+      263 GETTABLEKS                       R34 R4 K15 ["Src"]
+      265 GETTABLEKS                       R33 R34 K16 ["Util"]
+      267 GETTABLEKS                       R32 R33 K48 ["isAvatar"]
+      269 CALL                             R31 1 1
+      270 GETIMPORT                        R32 K12 [require]
+      272 GETTABLEKS                       R36 R4 K15 ["Src"]
+      274 GETTABLEKS                       R35 R36 K19 ["Components"]
+      276 GETTABLEKS                       R34 R35 K46 ["DisambiguationMenuContext"]
+      278 GETTABLEKS                       R33 R34 K49 ["assignLoneMeshParts"]
+      280 CALL                             R32 1 1
+      281 NEWTABLE                         R33 32 0
+      283 DUPCLOSURE                       R34 K50 [PROTO_0]
+      284 CAPTURE                          VAL R8
+      285 CAPTURE                          VAL R12
+      286 CAPTURE                          VAL R11
+      287 SETTABLEKS                       R34 R33 K51 ["computeValidScaleAsync"]
+      289 DUPCLOSURE                       R34 K52 [PROTO_1]
+      290 CAPTURE                          VAL R13
+      291 CAPTURE                          VAL R11
+      292 CAPTURE                          VAL R1
+      293 CAPTURE                          VAL R26
+      294 CAPTURE                          VAL R20
+      295 SETTABLEKS                       R34 R33 K53 ["applyScale"]
+      297 DUPCLOSURE                       R34 K54 [PROTO_4]
+      298 CAPTURE                          VAL R14
+      299 CAPTURE                          VAL R25
+      300 SETTABLEKS                       R34 R33 K55 ["applyAnimationsScript"]
+      302 DUPCLOSURE                       R34 K56 [PROTO_5]
+      303 SETTABLEKS                       R34 R33 K57 ["collapseTopLevelFolders"]
+      305 DUPCLOSURE                       R34 K58 [PROTO_6]
+      306 CAPTURE                          VAL R6
+      307 SETTABLEKS                       R34 R33 K59 ["setModelIntendedName"]
+      309 DUPCLOSURE                       R34 K60 [PROTO_7]
+      310 CAPTURE                          VAL R11
+      311 SETTABLEKS                       R34 R33 K61 ["renameModel"]
+      313 DUPCLOSURE                       R34 K62 [PROTO_8]
+      314 SETTABLEKS                       R34 R33 K63 ["setPivotOffset"]
+      316 DUPCLOSURE                       R34 K64 [PROTO_10]
+      317 CAPTURE                          VAL R9
+      318 SETTABLEKS                       R34 R33 K65 ["getTargetBoundingBox"]
+      320 DUPCLOSURE                       R34 K66 [PROTO_15]
+      321 CAPTURE                          VAL R33
+      322 CAPTURE                          VAL R28
+      323 CAPTURE                          VAL R9
+      324 CAPTURE                          VAL R3
+      325 SETTABLEKS                       R34 R33 K67 ["positionInWorkspace"]
+      327 DUPCLOSURE                       R34 K68 [PROTO_16]
+      328 CAPTURE                          VAL R22
+      329 SETTABLEKS                       R34 R33 K69 ["wearAccessories"]
+      331 DUPCLOSURE                       R34 K70 [PROTO_17]
+      332 SETTABLEKS                       R34 R33 K71 ["ensureSurfaceAppearances"]
+      334 DUPCLOSURE                       R34 K72 [PROTO_18]
+      335 CAPTURE                          VAL R24
+      336 CAPTURE                          VAL R6
+      337 CAPTURE                          VAL R15
+      338 SETTABLEKS                       R34 R33 K73 ["isPreSetupAutoSetupClothes"]
+      340 DUPCLOSURE                       R34 K74 [PROTO_19]
+      341 CAPTURE                          VAL R24
+      342 CAPTURE                          VAL R33
+      343 CAPTURE                          VAL R6
+      344 CAPTURE                          VAL R15
+      345 CAPTURE                          VAL R21
+      346 SETTABLEKS                       R34 R33 K75 ["removePreSetupAutoSetupClothesPrefix"]
+      348 DUPCLOSURE                       R34 K76 [PROTO_20]
+      349 CAPTURE                          VAL R33
+      350 CAPTURE                          VAL R13
+      351 SETTABLEKS                       R34 R33 K77 ["applyLayeredClothingProportions"]
+      353 DUPCLOSURE                       R34 K78 [PROTO_21]
+      354 CAPTURE                          VAL R7
+      355 CAPTURE                          VAL R22
+      356 CAPTURE                          VAL R13
+      357 SETTABLEKS                       R34 R33 K79 ["applyProportions"]
+      359 DUPCLOSURE                       R34 K80 [PROTO_23]
+      360 CAPTURE                          VAL R26
+      361 SETTABLEKS                       R34 R33 K81 ["assignWrapLayerOrder"]
+      363 DUPCLOSURE                       R34 K82 [PROTO_25]
+      364 CAPTURE                          VAL R27
+      365 SETTABLEKS                       R34 R33 K83 ["ensureBodyColors"]
+      367 DUPCLOSURE                       R34 K84 [PROTO_26]
+      368 CAPTURE                          VAL R26
+      369 SETTABLEKS                       R34 R33 K85 ["removeExtraAttachmentParts"]
+      371 DUPCLOSURE                       R34 K86 [PROTO_27]
+      372 CAPTURE                          VAL R26
+      373 CAPTURE                          VAL R18
+      374 CAPTURE                          VAL R24
+      375 CAPTURE                          VAL R33
+      376 CAPTURE                          VAL R11
+      377 CAPTURE                          VAL R6
+      378 CAPTURE                          VAL R30
+      379 CAPTURE                          VAL R32
+      380 SETTABLEKS                       R34 R33 K87 ["assignLayeredClothing"]
+      382 DUPCLOSURE                       R34 K88 [PROTO_28]
+      383 SETTABLEKS                       R34 R33 K89 ["computeTranslationUponParent"]
+      385 DUPCLOSURE                       R34 K90 [PROTO_29]
+      386 CAPTURE                          VAL R33
+      387 CAPTURE                          VAL R11
+      388 SETTABLEKS                       R34 R33 K91 ["translateBodyPartsToFinalCFrame"]
+      390 DUPCLOSURE                       R34 K92 [PROTO_30]
+      391 SETTABLEKS                       R34 R33 K93 ["findProportionsFromHumanoid"]
+      393 DUPCLOSURE                       R34 K94 [PROTO_31]
+      394 CAPTURE                          VAL R23
+      395 CAPTURE                          VAL R0
+      396 CAPTURE                          VAL R11
+      397 CAPTURE                          VAL R33
+      398 CAPTURE                          VAL R26
+      399 CAPTURE                          VAL R27
+      400 CAPTURE                          VAL R3
+      401 CAPTURE                          VAL R10
+      402 SETTABLEKS                       R34 R33 K95 ["DEPRECATED_insertBodyAsync"]
+      404 DUPCLOSURE                       R34 K96 [PROTO_32]
+      405 CAPTURE                          VAL R21
+      406 CAPTURE                          VAL R0
       407 CAPTURE                          VAL R11
-      408 CAPTURE                          VAL R3
-      409 CAPTURE                          VAL R25
-      410 CAPTURE                          VAL R10
-      411 CAPTURE                          VAL R28
-      412 CAPTURE                          VAL R6
-      413 SETTABLEKS                       R33 R32 K98 ["insertClothingAsync"]
-      415 DUPCLOSURE                       R33 K99 [PROTO_34]
-      416 CAPTURE                          VAL R6
-      417 SETTABLEKS                       R33 R32 K100 ["getClothingCategoryCounts"]
-      419 DUPCLOSURE                       R33 K101 [PROTO_37]
-      420 CAPTURE                          VAL R2
-      421 SETTABLEKS                       R33 R32 K102 ["createTemplateBodyFromOutfitId"]
-      423 RETURN                           R32 1
+      408 CAPTURE                          VAL R33
+      409 CAPTURE                          VAL R26
+      410 CAPTURE                          VAL R27
+      411 CAPTURE                          VAL R3
+      412 CAPTURE                          VAL R10
+      413 CAPTURE                          VAL R23
+      414 CAPTURE                          VAL R19
+      415 CAPTURE                          VAL R5
+      416 SETTABLEKS                       R34 R33 K97 ["insertBodyAsync"]
+      418 DUPCLOSURE                       R34 K98 [PROTO_33]
+      419 CAPTURE                          VAL R21
+      420 CAPTURE                          VAL R0
+      421 CAPTURE                          VAL R31
+      422 CAPTURE                          VAL R33
+      423 CAPTURE                          VAL R11
+      424 CAPTURE                          VAL R3
+      425 CAPTURE                          VAL R26
+      426 CAPTURE                          VAL R10
+      427 CAPTURE                          VAL R29
+      428 CAPTURE                          VAL R6
+      429 SETTABLEKS                       R34 R33 K99 ["insertClothingAsync"]
+      431 DUPCLOSURE                       R34 K100 [PROTO_34]
+      432 CAPTURE                          VAL R6
+      433 SETTABLEKS                       R34 R33 K101 ["getClothingCategoryCounts"]
+      435 DUPCLOSURE                       R34 K102 [PROTO_37]
+      436 CAPTURE                          VAL R2
+      437 SETTABLEKS                       R34 R33 K103 ["createTemplateBodyFromOutfitId"]
+      439 RETURN                           R33 1

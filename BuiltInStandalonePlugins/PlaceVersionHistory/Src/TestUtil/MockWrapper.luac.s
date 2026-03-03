@@ -26,7 +26,7 @@ PROTO_0:
        32 GETUPVAL                         R10 5
        33 GETTABLEKS                       R9 R10 K8 ["ContextStack"]
        35 DUPTABLE                         R10 K11 [{"providers"}]
-       36 NEWTABLE                         R11 0 7
+       36 NEWTABLE                         R11 0 8
        38 GETUPVAL                         R13 4
        39 GETTABLEKS                       R12 R13 K7 ["createElement"]
        41 GETUPVAL                         R14 6
@@ -58,16 +58,20 @@ PROTO_0:
        75 GETUPVAL                         R19 4
        76 GETTABLEKS                       R18 R19 K7 ["createElement"]
        78 GETUPVAL                         R19 12
-       79 CALL                             R18 1 -1
-       80 SETLIST                          R11 R12 -1 [1]
-       82 SETTABLEKS                       R11 R10 K10 ["providers"]
-       84 GETTABLEKS                       R11 R0 K15 ["children"]
-       86 CALL                             R8 3 1
-       87 SETTABLEKS                       R8 R7 K8 ["ContextStack"]
-       89 CALL                             R4 3 1
-       90 SETTABLEKS                       R4 R3 K5 ["ScreenGui"]
-       92 CALL                             R1 2 -1
-       93 RETURN                           R1 -1
+       79 CALL                             R18 1 1
+       80 GETUPVAL                         R20 4
+       81 GETTABLEKS                       R19 R20 K7 ["createElement"]
+       83 GETUPVAL                         R20 13
+       84 CALL                             R19 1 -1
+       85 SETLIST                          R11 R12 -1 [1]
+       87 SETTABLEKS                       R11 R10 K10 ["providers"]
+       89 GETTABLEKS                       R11 R0 K15 ["children"]
+       91 CALL                             R8 3 1
+       92 SETTABLEKS                       R8 R7 K8 ["ContextStack"]
+       94 CALL                             R4 3 1
+       95 SETTABLEKS                       R4 R3 K5 ["ScreenGui"]
+       97 CALL                             R1 2 -1
+       98 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -114,28 +118,32 @@ MAIN:
        70 GETIMPORT                        R13 K5 [require]
        72 GETTABLEKS                       R14 R6 K20 ["DialogContextProvider"]
        74 CALL                             R13 1 1
-       75 GETTABLEKS                       R15 R4 K21 ["ContextServices"]
-       77 GETTABLEKS                       R14 R15 K22 ["Plugin"]
-       79 GETTABLEKS                       R17 R4 K11 ["TestHelpers"]
-       81 GETTABLEKS                       R16 R17 K23 ["Instances"]
-       83 GETTABLEKS                       R15 R16 K24 ["MockPlugin"]
-       85 GETIMPORT                        R16 K5 [require]
-       87 GETTABLEKS                       R17 R7 K25 ["MockNetwork"]
-       89 CALL                             R16 1 1
-       90 DUPCLOSURE                       R17 K26 [PROTO_0]
-       91 CAPTURE                          VAL R5
-       92 CAPTURE                          VAL R14
-       93 CAPTURE                          VAL R15
-       94 CAPTURE                          VAL R0
-       95 CAPTURE                          VAL R1
-       96 CAPTURE                          VAL R2
-       97 CAPTURE                          VAL R3
-       98 CAPTURE                          VAL R8
-       99 CAPTURE                          VAL R9
-      100 CAPTURE                          VAL R10
-      101 CAPTURE                          VAL R11
-      102 CAPTURE                          VAL R13
-      103 CAPTURE                          VAL R12
-      104 SETGLOBAL                        R17 K27 ["MockWrapper"]
-      106 GETGLOBAL                        R17 K27 ["MockWrapper"]
-      108 RETURN                           R17 1
+       75 GETIMPORT                        R14 K5 [require]
+       77 GETTABLEKS                       R15 R6 K21 ["PopoverContextProvider"]
+       79 CALL                             R14 1 1
+       80 GETTABLEKS                       R16 R4 K22 ["ContextServices"]
+       82 GETTABLEKS                       R15 R16 K23 ["Plugin"]
+       84 GETTABLEKS                       R18 R4 K11 ["TestHelpers"]
+       86 GETTABLEKS                       R17 R18 K24 ["Instances"]
+       88 GETTABLEKS                       R16 R17 K25 ["MockPlugin"]
+       90 GETIMPORT                        R17 K5 [require]
+       92 GETTABLEKS                       R18 R7 K26 ["MockNetwork"]
+       94 CALL                             R17 1 1
+       95 DUPCLOSURE                       R18 K27 [PROTO_0]
+       96 CAPTURE                          VAL R5
+       97 CAPTURE                          VAL R15
+       98 CAPTURE                          VAL R16
+       99 CAPTURE                          VAL R0
+      100 CAPTURE                          VAL R1
+      101 CAPTURE                          VAL R2
+      102 CAPTURE                          VAL R3
+      103 CAPTURE                          VAL R8
+      104 CAPTURE                          VAL R9
+      105 CAPTURE                          VAL R10
+      106 CAPTURE                          VAL R11
+      107 CAPTURE                          VAL R13
+      108 CAPTURE                          VAL R12
+      109 CAPTURE                          VAL R14
+      110 SETGLOBAL                        R18 K28 ["MockWrapper"]
+      112 GETGLOBAL                        R18 K28 ["MockWrapper"]
+      114 RETURN                           R18 1

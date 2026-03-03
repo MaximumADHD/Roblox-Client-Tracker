@@ -36,7 +36,7 @@ local raycastParams = RaycastParams.new()
 raycastParams.FilterType = Enum.RaycastFilterType.Exclude
 
 --[[ Flags ]]--
-local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI")
+local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI2")
 
 --[[ Utility Functions ]]--
 local function IsFinite(num: number)

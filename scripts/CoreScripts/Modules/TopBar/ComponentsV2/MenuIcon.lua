@@ -74,8 +74,8 @@ local BADGE_INDENT = 1
 local BADGE_OFFSET = 4
 
 type MenuIconProps = {
-	menuIconRef: React.RefObject<GuiObject?>,
-	unibarMenuRef: React.RefObject<GuiObject?>,
+	menuIconRef: React.RefObject<GuiObject?>?,
+	unibarMenuRef: React.RefObject<GuiObject?>?,
 	showBadgeOver12: boolean?,
 	referralRewardTooltipText: string?,
 }
@@ -107,11 +107,17 @@ local function MenuIcon(props: MenuIconProps)
     local clickLatched = React.useRef(false)
     local isHovering = React.useRef(false)
 
-    local leftmostUnibarIcon = ChromeService:menuList():get()[1]
-    local leftmostUnibarIconId = if leftmostUnibarIcon then (UnibarConstants.ICON_NAME_PREFIX::string) .. leftmostUnibarIcon.id else nil
-    local nextSelectionRight = if props.unibarMenuRef.current and leftmostUnibarIconId then 
-        props.unibarMenuRef.current:FindFirstChild(leftmostUnibarIconId, true) 
-        else nil :: never
+    local leftmostUnibarIcon
+    local leftmostUnibarIconId
+    local nextSelectionRight
+
+    if props.unibarMenuRef and props.unibarMenuRef.current then
+        leftmostUnibarIcon = ChromeService:menuList():get()[1]
+        leftmostUnibarIconId = if leftmostUnibarIcon then (UnibarConstants.ICON_NAME_PREFIX::string) .. leftmostUnibarIcon.id else nil
+        nextSelectionRight = if props.unibarMenuRef.current and leftmostUnibarIconId then 
+            props.unibarMenuRef.current:FindFirstChild(leftmostUnibarIconId, true) 
+            else nil :: never
+    end
 
     local showTooltip, setShowTooltip = React.useState(false)
     local triggerPointSize, setTriggerPointSize = React.useState(Vector2.zero)
@@ -145,15 +151,20 @@ local function MenuIcon(props: MenuIconProps)
 			animateMenuIcon(if isOpen then iconSizeStates.menuOpen else iconSizeStates.menuClosed)
 		end)
 
-        local triggerMenuIconConn = ChromeService:onTriggerMenuIcon():connect(function()
-		    GuiService.SelectedCoreObject = props.menuIconRef.current
-		    ChromeFocusUtils.MenuIconSelectedSignal:set(true)
-	    end)
+        local triggerMenuIconConn
+        if props.menuIconRef then
+            triggerMenuIconConn = ChromeService:onTriggerMenuIcon():connect(function()
+                GuiService.SelectedCoreObject = props.menuIconRef.current
+                ChromeFocusUtils.MenuIconSelectedSignal:set(true)
+            end)
+        end
 
         return function()
             preferredTransparencyConn:Disconnect()
             settingsShowConn:Disconnect()
-            triggerMenuIconConn:disconnect()
+            if triggerMenuIconConn then
+                triggerMenuIconConn:disconnect()
+            end
         end
     end, {})
 

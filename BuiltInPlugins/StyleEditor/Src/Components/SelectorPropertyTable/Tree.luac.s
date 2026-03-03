@@ -404,7 +404,7 @@ MAIN:
        32 GETIMPORT                        R4 K4 [require]
        34 GETTABLEKS                       R7 R0 K9 ["Src"]
        36 GETTABLEKS                       R6 R7 K10 ["Flags"]
-       38 GETTABLEKS                       R5 R6 K12 ["getFFlagStyleEditorQueries"]
+       38 GETTABLEKS                       R5 R6 K12 ["getFFlagStyleQuery"]
        40 CALL                             R4 1 1
        41 CALL                             R4 0 1
        42 GETIMPORT                        R5 K4 [require]

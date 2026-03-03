@@ -31,7 +31,7 @@ MAIN:
        14 NEWTABLE                         R2 1 0
        16 GETTABLEKS                       R3 R1 K8 ["isCli"]
        18 CALL                             R3 0 1
-       19 JUMPIFNOT                        R3 ; [+154]
+       19 JUMPIFNOT                        R3 ; [+150]
        20 DUPTABLE                         R3 K10 [{"__index"}]
        21 DUPCLOSURE                       R4 K11 [PROTO_1]
        22 SETTABLEKS                       R4 R3 K9 ["__index"]
@@ -84,48 +84,46 @@ MAIN:
       100 GETIMPORT                        R5 K28 [setmetatable]
       102 CALL                             R5 2 1
       103 SETTABLEKS                       R5 R4 K19 ["InsertService"]
-      105 GETIMPORT                        R6 K5 [require]
-      107 GETTABLEKS                       R9 R0 K29 ["Tests"]
-      109 GETTABLEKS                       R8 R9 K30 ["Services"]
-      111 GETTABLEKS                       R7 R8 K31 ["MockPlayersService"]
-      113 CALL                             R6 1 1
-      114 GETTABLEKS                       R5 R6 K32 ["new"]
-      116 CALL                             R5 0 1
-      117 SETTABLEKS                       R5 R4 K20 ["Players"]
-      119 NEWTABLE                         R6 0 0
-      121 FASTCALL2                        SETMETATABLE R6 R3 ; [+4]
-      123 MOVE                             R7 R3
-      124 GETIMPORT                        R5 K28 [setmetatable]
-      126 CALL                             R5 2 1
-      127 SETTABLEKS                       R5 R4 K21 ["RbxAnalyticsService"]
-      129 NEWTABLE                         R6 0 0
-      131 FASTCALL2                        SETMETATABLE R6 R3 ; [+4]
-      133 MOVE                             R7 R3
-      134 GETIMPORT                        R5 K28 [setmetatable]
-      136 CALL                             R5 2 1
-      137 SETTABLEKS                       R5 R4 K22 ["SoundService"]
-      139 NEWTABLE                         R6 0 0
-      141 FASTCALL2                        SETMETATABLE R6 R3 ; [+4]
-      143 MOVE                             R7 R3
-      144 GETIMPORT                        R5 K28 [setmetatable]
-      146 CALL                             R5 2 1
-      147 SETTABLEKS                       R5 R4 K23 ["StartPageService"]
-      149 NEWTABLE                         R6 0 0
-      151 FASTCALL2                        SETMETATABLE R6 R3 ; [+4]
-      153 MOVE                             R7 R3
-      154 GETIMPORT                        R5 K28 [setmetatable]
-      156 CALL                             R5 2 1
-      157 SETTABLEKS                       R5 R4 K24 ["StudioService"]
-      159 NEWTABLE                         R6 0 0
-      161 FASTCALL2                        SETMETATABLE R6 R3 ; [+4]
-      163 MOVE                             R7 R3
-      164 GETIMPORT                        R5 K28 [setmetatable]
-      166 CALL                             R5 2 1
-      167 SETTABLEKS                       R5 R4 K25 ["UserService"]
-      169 DUPCLOSURE                       R5 K33 [PROTO_2]
-      170 CAPTURE                          VAL R4
-      171 SETTABLEKS                       R5 R2 K34 ["GetService"]
+      105 NEWTABLE                         R6 0 0
+      107 FASTCALL2                        SETMETATABLE R6 R3 ; [+4]
+      109 MOVE                             R7 R3
+      110 GETIMPORT                        R5 K28 [setmetatable]
+      112 CALL                             R5 2 1
+      113 SETTABLEKS                       R5 R4 K20 ["Players"]
+      115 NEWTABLE                         R6 0 0
+      117 FASTCALL2                        SETMETATABLE R6 R3 ; [+4]
+      119 MOVE                             R7 R3
+      120 GETIMPORT                        R5 K28 [setmetatable]
+      122 CALL                             R5 2 1
+      123 SETTABLEKS                       R5 R4 K21 ["RbxAnalyticsService"]
+      125 NEWTABLE                         R6 0 0
+      127 FASTCALL2                        SETMETATABLE R6 R3 ; [+4]
+      129 MOVE                             R7 R3
+      130 GETIMPORT                        R5 K28 [setmetatable]
+      132 CALL                             R5 2 1
+      133 SETTABLEKS                       R5 R4 K22 ["SoundService"]
+      135 NEWTABLE                         R6 0 0
+      137 FASTCALL2                        SETMETATABLE R6 R3 ; [+4]
+      139 MOVE                             R7 R3
+      140 GETIMPORT                        R5 K28 [setmetatable]
+      142 CALL                             R5 2 1
+      143 SETTABLEKS                       R5 R4 K23 ["StartPageService"]
+      145 NEWTABLE                         R6 0 0
+      147 FASTCALL2                        SETMETATABLE R6 R3 ; [+4]
+      149 MOVE                             R7 R3
+      150 GETIMPORT                        R5 K28 [setmetatable]
+      152 CALL                             R5 2 1
+      153 SETTABLEKS                       R5 R4 K24 ["StudioService"]
+      155 NEWTABLE                         R6 0 0
+      157 FASTCALL2                        SETMETATABLE R6 R3 ; [+4]
+      159 MOVE                             R7 R3
+      160 GETIMPORT                        R5 K28 [setmetatable]
+      162 CALL                             R5 2 1
+      163 SETTABLEKS                       R5 R4 K25 ["UserService"]
+      165 DUPCLOSURE                       R5 K29 [PROTO_2]
+      166 CAPTURE                          VAL R4
+      167 SETTABLEKS                       R5 R2 K30 ["GetService"]
+      169 RETURN                           R2 1
+      170 DUPCLOSURE                       R3 K31 [PROTO_3]
+      171 SETTABLEKS                       R3 R2 K30 ["GetService"]
       173 RETURN                           R2 1
-      174 DUPCLOSURE                       R3 K35 [PROTO_3]
-      175 SETTABLEKS                       R3 R2 K34 ["GetService"]
-      177 RETURN                           R2 1

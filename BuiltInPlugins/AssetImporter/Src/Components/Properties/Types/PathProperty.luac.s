@@ -1,18 +1,5 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getThemeName"]
-        3 CALL                             R0 0 1
-        4 JUMPIFEQKS                       R0 K1 ["Dark"] ; [+3]
-        6 JUMPIFNOTEQKS                    R0 K2 ["Default"] ; [+5]
-        8 GETUPVAL                         R2 1
-        9 GETTABLEKS                       R1 R2 K3 ["FILE_PICKER_DARK"]
-       11 RETURN                           R1 1
-       12 GETUPVAL                         R2 1
-       13 GETTABLEKS                       R1 R2 K4 ["FILE_PICKER_LIGHT"]
-       15 RETURN                           R1 1
-
-PROTO_1:
-        0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["FileController"]
         5 GETTABLEKS                       R3 R0 K2 ["Instance"]
@@ -21,13 +8,13 @@ PROTO_1:
        11 CALL                             R1 3 0
        12 RETURN                           R0 0
 
-PROTO_2:
+PROTO_1:
         0 NEWCLOSURE                       R1 P0
         1 CAPTURE                          VAL R0
         2 SETTABLEKS                       R1 R0 K0 ["onTextureFilePickerButtonClicked"]
         4 RETURN                           R0 0
 
-PROTO_3:
+PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Value"]
         4 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
@@ -79,8 +66,8 @@ PROTO_3:
        77 CALL                             R11 2 1
        78 SETTABLEKS                       R11 R10 K19 ["PathField"]
        80 GETTABLEKS                       R12 R1 K33 ["AllowPickFile"]
-       82 JUMPIFNOT                        R12 ; [+57]
-       83 JUMPIFEQKS                       R2 K28 [""] ; [+56]
+       82 JUMPIFNOT                        R12 ; [+50]
+       83 JUMPIFEQKS                       R2 K28 [""] ; [+49]
        85 GETUPVAL                         R12 0
        86 GETTABLEKS                       R11 R12 K6 ["createElement"]
        88 GETUPVAL                         R12 3
@@ -104,26 +91,21 @@ PROTO_3:
       113 MOVE                             R20 R4
       114 CALL                             R18 2 1
       115 SETTABLEKS                       R18 R17 K7 ["Size"]
-      117 GETUPVAL                         R20 5
-      118 GETTABLEKS                       R19 R20 K43 ["getThemeName"]
-      120 CALL                             R19 0 1
-      121 JUMPIFEQKS                       R19 K44 ["Dark"] ; [+3]
-      123 JUMPIFNOTEQKS                    R19 K45 ["Default"] ; [+5]
-      125 GETUPVAL                         R20 6
-      126 GETTABLEKS                       R18 R20 K46 ["FILE_PICKER_DARK"]
-      128 JUMP                             ; [+4]
-      129 GETUPVAL                         R20 6
-      130 GETTABLEKS                       R18 R20 K47 ["FILE_PICKER_LIGHT"]
-      132 JUMP                             ; [0]
-      133 SETTABLEKS                       R18 R17 K41 ["Image"]
-      135 CALL                             R15 2 1
-      136 SETTABLEKS                       R15 R14 K39 ["Icon"]
-      138 CALL                             R11 3 1
-      139 JUMP                             ; [+1]
-      140 LOADNIL                          R11
-      141 SETTABLEKS                       R11 R10 K20 ["TextureFilePickerButton"]
-      143 CALL                             R7 3 -1
-      144 RETURN                           R7 -1
+      117 GETUPVAL                         R19 5
+      118 GETTABLEKS                       R18 R19 K43 ["get"]
+      120 GETUPVAL                         R21 5
+      121 GETTABLEKS                       R20 R21 K44 ["AvailableImages"]
+      123 GETTABLEKS                       R19 R20 K45 ["OpenLarge"]
+      125 CALL                             R18 1 1
+      126 SETTABLEKS                       R18 R17 K41 ["Image"]
+      128 CALL                             R15 2 1
+      129 SETTABLEKS                       R15 R14 K39 ["Icon"]
+      131 CALL                             R11 3 1
+      132 JUMP                             ; [+1]
+      133 LOADNIL                          R11
+      134 SETTABLEKS                       R11 R10 K20 ["TextureFilePickerButton"]
+      136 CALL                             R7 3 -1
+      137 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -148,47 +130,41 @@ MAIN:
        32 GETTABLEKS                       R5 R4 K13 ["withContext"]
        34 GETTABLEKS                       R6 R4 K14 ["Stylizer"]
        36 GETTABLEKS                       R7 R1 K15 ["UI"]
-       38 GETTABLEKS                       R9 R1 K16 ["Style"]
-       40 GETTABLEKS                       R8 R9 K17 ["ThemeSwitcher"]
-       42 GETTABLEKS                       R9 R7 K18 ["Button"]
-       44 GETTABLEKS                       R10 R7 K19 ["Pane"]
-       46 GETTABLEKS                       R11 R7 K20 ["Image"]
-       48 GETIMPORT                        R12 K5 [require]
-       50 GETTABLEKS                       R15 R0 K9 ["Src"]
-       52 GETTABLEKS                       R14 R15 K21 ["Controllers"]
-       54 GETTABLEKS                       R13 R14 K22 ["FileController"]
-       56 CALL                             R12 1 1
-       57 GETIMPORT                        R13 K5 [require]
-       59 GETTABLEKS                       R18 R0 K9 ["Src"]
-       61 GETTABLEKS                       R17 R18 K23 ["Components"]
-       63 GETTABLEKS                       R16 R17 K24 ["Properties"]
-       65 GETTABLEKS                       R15 R16 K25 ["Types"]
-       67 GETTABLEKS                       R14 R15 K26 ["StringProperty"]
-       69 CALL                             R13 1 1
-       70 GETTABLEKS                       R14 R2 K27 ["PureComponent"]
-       72 LOADK                            R16 K28 ["PathProperty"]
-       73 NAMECALL                         R14 R14 K29 ["extend"]
-       75 CALL                             R14 2 1
-       76 DUPCLOSURE                       R15 K30 [PROTO_0]
-       77 CAPTURE                          VAL R8
-       78 CAPTURE                          VAL R3
-       79 DUPCLOSURE                       R16 K31 [PROTO_2]
-       80 SETTABLEKS                       R16 R14 K32 ["init"]
-       82 DUPCLOSURE                       R16 K33 [PROTO_3]
-       83 CAPTURE                          VAL R2
-       84 CAPTURE                          VAL R10
-       85 CAPTURE                          VAL R13
-       86 CAPTURE                          VAL R9
-       87 CAPTURE                          VAL R11
-       88 CAPTURE                          VAL R8
-       89 CAPTURE                          VAL R3
-       90 SETTABLEKS                       R16 R14 K34 ["render"]
-       92 MOVE                             R16 R5
-       93 DUPTABLE                         R17 K35 [{"FileController", "Stylizer"}]
-       94 SETTABLEKS                       R12 R17 K22 ["FileController"]
-       96 SETTABLEKS                       R6 R17 K14 ["Stylizer"]
-       98 CALL                             R16 1 1
-       99 MOVE                             R17 R14
-      100 CALL                             R16 1 1
-      101 MOVE                             R14 R16
-      102 RETURN                           R14 1
+       38 GETTABLEKS                       R8 R7 K16 ["Button"]
+       40 GETTABLEKS                       R9 R7 K17 ["Pane"]
+       42 GETTABLEKS                       R10 R7 K18 ["Image"]
+       44 GETIMPORT                        R11 K5 [require]
+       46 GETTABLEKS                       R14 R0 K9 ["Src"]
+       48 GETTABLEKS                       R13 R14 K19 ["Controllers"]
+       50 GETTABLEKS                       R12 R13 K20 ["FileController"]
+       52 CALL                             R11 1 1
+       53 GETIMPORT                        R12 K5 [require]
+       55 GETTABLEKS                       R17 R0 K9 ["Src"]
+       57 GETTABLEKS                       R16 R17 K21 ["Components"]
+       59 GETTABLEKS                       R15 R16 K22 ["Properties"]
+       61 GETTABLEKS                       R14 R15 K23 ["Types"]
+       63 GETTABLEKS                       R13 R14 K24 ["StringProperty"]
+       65 CALL                             R12 1 1
+       66 GETTABLEKS                       R13 R2 K25 ["PureComponent"]
+       68 LOADK                            R15 K26 ["PathProperty"]
+       69 NAMECALL                         R13 R13 K27 ["extend"]
+       71 CALL                             R13 2 1
+       72 DUPCLOSURE                       R14 K28 [PROTO_1]
+       73 SETTABLEKS                       R14 R13 K29 ["init"]
+       75 DUPCLOSURE                       R14 K30 [PROTO_2]
+       76 CAPTURE                          VAL R2
+       77 CAPTURE                          VAL R9
+       78 CAPTURE                          VAL R12
+       79 CAPTURE                          VAL R8
+       80 CAPTURE                          VAL R10
+       81 CAPTURE                          VAL R3
+       82 SETTABLEKS                       R14 R13 K31 ["render"]
+       84 MOVE                             R14 R5
+       85 DUPTABLE                         R15 K32 [{"FileController", "Stylizer"}]
+       86 SETTABLEKS                       R11 R15 K20 ["FileController"]
+       88 SETTABLEKS                       R6 R15 K14 ["Stylizer"]
+       90 CALL                             R14 1 1
+       91 MOVE                             R15 R13
+       92 CALL                             R14 1 1
+       93 MOVE                             R13 R14
+       94 RETURN                           R13 1

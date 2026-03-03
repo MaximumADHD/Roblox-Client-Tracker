@@ -94,6 +94,15 @@ export type AssetQualityMetrics = {
 	returnVersion: number?,
 }
 
+export type EditableImageWithPBRData = {
+	isPBR: boolean,
+	Texture: EditableImageData?,
+	ColorMap: EditableImageData?,
+	MetalnessMap: EditableImageData?,
+	NormalMap: EditableImageData?,
+	RoughnessMap: EditableImageData?,
+}
+
 export type SharedData = {
 	-- Names should match ValidationEnums.SharedDataMember.
 	-- NOT ALL THIS DATA IS GAURANTEED TO EXIST - If your test requires it, you should specify it in your test configs
@@ -109,7 +118,7 @@ export type SharedData = {
 	renderMeshesData: { [string]: EditableMeshData },
 	innerCagesData: { [string]: EditableCageData },
 	outerCagesData: { [string]: EditableCageData },
-	meshTextures: { [string]: EditableImageData },
+	meshTextures: { [string]: EditableImageWithPBRData },
 }
 
 export type failureStringContext = {

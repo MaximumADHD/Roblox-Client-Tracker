@@ -10,7 +10,7 @@ local TenFootInterface = require(Modules.TenFootInterface)
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local ChromeShared = Modules.Chrome.ChromeShared
 local isNewTiltIconEnabled = require(Modules.isNewTiltIconEnabled)
-local FFlagTopBarRefactor = require(script.Parent.Flags.FFlagTopBarRefactor)
+local FFlagTopBarRefactor = require(CorePackages.Workspace.Packages.InExperienceTopBar).Flags.FFlagTopBarRefactor
 
 local StyleTokens = if ChromeEnabled()
 	then require(ChromeShared.Utility.GetStyleTokens)()

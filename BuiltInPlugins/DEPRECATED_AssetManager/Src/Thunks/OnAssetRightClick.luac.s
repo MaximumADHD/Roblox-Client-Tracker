@@ -9,18 +9,14 @@ PROTO_0:
         9 LOADK                            R5 K3 ["Actions"]
        10 NAMECALL                         R3 R0 K1 ["GetPluginComponent"]
        12 CALL                             R3 2 1
-       13 NEWTABLE                         R7 0 1
-       15 GETUPVAL                         R8 1
-       16 SETLIST                          R7 R8 1 [1]
-       18 NAMECALL                         R5 R3 K4 ["GetAsync"]
-       20 CALL                             R5 2 1
-       21 GETTABLEN                        R4 R5 1
-       22 GETTABLEKS                       R5 R4 K5 ["Checked"]
-       24 JUMPIF                           R5 ; [+4]
-       25 GETUPVAL                         R7 1
-       26 NAMECALL                         R5 R3 K6 ["ActivateAsync"]
-       28 CALL                             R5 2 0
-       29 RETURN                           R0 0
+       13 DUPTABLE                         R6 K6 [{"Uri", "Checked"}]
+       14 GETUPVAL                         R7 1
+       15 SETTABLEKS                       R7 R6 K4 ["Uri"]
+       17 LOADB                            R7 1
+       18 SETTABLEKS                       R7 R6 K5 ["Checked"]
+       20 NAMECALL                         R4 R3 K7 ["UpdateAsync"]
+       22 CALL                             R4 2 0
+       23 RETURN                           R0 0
 
 PROTO_1:
         0 GETIMPORT                        R5 K1 [pairs]

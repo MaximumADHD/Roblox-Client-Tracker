@@ -19,7 +19,7 @@ PROTO_2:
         1 GETTABLEKS                       R0 R1 K0 ["use"]
         3 CALL                             R0 0 1
         4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R2 R0 K1 ["_scopeNotifications"]
+        5 GETTABLEKS                       R2 R0 K1 ["_newItemNotifs"]
         7 CALL                             R1 1 2
         8 GETUPVAL                         R3 2
         9 NEWCLOSURE                       R4 P0

@@ -3,32 +3,27 @@ PROTO_0:
         1 GETUPVAL                         R1 0
         2 NAMECALL                         R1 R1 K0 ["Get"]
         4 CALL                             R1 1 1
-        5 JUMP                             ; [+7]
-        6 GETIMPORT                        R2 K2 [game]
-        8 GETTABLEKS                       R1 R2 K3 ["Workspace"]
-       10 NAMECALL                         R1 R1 K4 ["GetChildren"]
-       12 CALL                             R1 1 1
-       13 MOVE                             R2 R1
-       14 LOADNIL                          R3
-       15 LOADNIL                          R4
-       16 FORGPREP                         R2
-       17 NAMECALL                         R7 R6 K5 ["GetDescendants"]
-       19 CALL                             R7 1 3
-       20 FORGPREP                         R7
-       21 LOADK                            R14 K6 ["Part"]
-       22 NAMECALL                         R12 R11 K7 ["IsA"]
-       24 CALL                             R12 2 1
-       25 JUMPIFNOT                        R12 ; [+10]
-       26 GETTABLEKS                       R12 R11 K8 ["Name"]
-       28 LOADK                            R14 K9 ["_Att"]
-       29 NAMECALL                         R12 R12 K10 ["find"]
-       31 CALL                             R12 2 1
-       32 JUMPIFNOT                        R12 ; [+3]
-       33 NAMECALL                         R12 R11 K11 ["Destroy"]
-       35 CALL                             R12 1 0
-       36 FORGLOOP                         R7 2 ; [-16]
-       38 FORGLOOP                         R2 2 ; [-22]
-       40 RETURN                           R0 0
+        5 JUMP                             ; [+8]
+        6 NEWTABLE                         R1 0 1
+        8 GETIMPORT                        R3 K2 [game]
+       10 GETTABLEKS                       R2 R3 K3 ["Workspace"]
+       12 SETLIST                          R1 R2 1 [1]
+       14 MOVE                             R2 R1
+       15 LOADNIL                          R3
+       16 LOADNIL                          R4
+       17 FORGPREP                         R2
+       18 NAMECALL                         R7 R6 K4 ["GetDescendants"]
+       20 CALL                             R7 1 3
+       21 FORGPREP                         R7
+       22 LOADK                            R14 K5 ["AttachmentFolder"]
+       23 NAMECALL                         R12 R11 K6 ["GetAttribute"]
+       25 CALL                             R12 2 1
+       26 JUMPIFNOT                        R12 ; [+3]
+       27 NAMECALL                         R12 R11 K7 ["Destroy"]
+       29 CALL                             R12 1 0
+       30 FORGLOOP                         R7 2 ; [-9]
+       32 FORGLOOP                         R2 2 ; [-15]
+       34 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

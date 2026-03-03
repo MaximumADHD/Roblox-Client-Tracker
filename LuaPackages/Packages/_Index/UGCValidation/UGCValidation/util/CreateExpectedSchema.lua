@@ -3,6 +3,7 @@ local Types = require(root.util.Types)
 local Constants = require(root.Constants)
 local createIndividualBodyPartSchema = require(root.util.createIndividualBodyPartSchema)
 local createLayeredClothingSchema = require(root.util.createLayeredClothingSchema)
+local createEyebrowEyelashSchema = require(root.util.createEyebrowEyelashSchema)
 local createMeshPartAccessorySchema = require(root.util.createMeshPartAccessorySchema)
 local createMakeupSchema = require(root.util.createMakeupSchema)
 local createDynamicHeadMeshPartSchema = require(root.util.createDynamicHeadMeshPartSchema)
@@ -11,6 +12,8 @@ local createEmoteSchema = require(root.util.createEmoteSchema)
 local getUploadCategory = require(root.util.getUploadCategory)
 
 local getFFlagUGCValidateMakeupAssetTypeNewPipeline = require(root.flags.getFFlagUGCValidateMakeupAssetTypeNewPipeline)
+local getFFlagUGCValidateEyebrowEyelashThumbnailSchema =
+	require(root.flags.getFFlagUGCValidateEyebrowEyelashThumbnailSchema)
 
 local CreateExpectedSchema = {}
 -- NOTE: We are not going to enforce the R15ArtistIntent name here. These schemas are for the root folder/instance, and not for the copy
@@ -78,7 +81,15 @@ local categoryToSchemaGenerator = {
 		return createBodyPartSchema(assetEnum)
 	end,
 	LAYERED_CLOTHING = function(assetEnum: Enum.AssetType, _rootInstance: Instance)
-		return createLayeredClothingSchema(Constants.ASSET_TYPE_INFO[assetEnum].attachmentNames)
+		if getFFlagUGCValidateEyebrowEyelashThumbnailSchema() then
+			if assetEnum == Enum.AssetType.EyebrowAccessory or assetEnum == Enum.AssetType.EyelashAccessory then
+				return createEyebrowEyelashSchema(Constants.ASSET_TYPE_INFO[assetEnum].attachmentNames)
+			else
+				return createLayeredClothingSchema(Constants.ASSET_TYPE_INFO[assetEnum].attachmentNames)
+			end
+		else
+			return createLayeredClothingSchema(Constants.ASSET_TYPE_INFO[assetEnum].attachmentNames)
+		end
 	end,
 	RIGID_ACCESSORY = function(assetEnum: Enum.AssetType, rootInstance: Instance)
 		local assetInfo = Constants.ASSET_TYPE_INFO[assetEnum]

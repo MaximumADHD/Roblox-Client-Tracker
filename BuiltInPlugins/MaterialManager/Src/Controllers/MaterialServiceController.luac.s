@@ -163,24 +163,24 @@ PROTO_6:
         5 RETURN                           R0 0
 
 PROTO_7:
-        0 DUPTABLE                         R3 K12 [{"_materialChangedListeners", "_overrideChangedListeners", "_changeHistoryService", "_rootCategory", "_materialPaths", "_materialWrappers", "_materialStatuses", "_materialServiceWrapper", "_nameToEnum", "_initializing", "_store", "_mock"}]
+        0 DUPTABLE                         R3 K15 [{"_materialChangedListeners", "_overrideChangedListeners", "_changeHistoryService", "_rootCategory", "_materialPaths", "_materialWrappers", "_materialStatuses", "_materialServiceWrapper", "_nameToEnum", "_initializing", "_pendingMaterialListUpdate", "_pendingOverrideUpdates", "_deferredUpdateScheduled", "_store", "_mock"}]
         1 NEWTABLE                         R4 0 0
         3 SETTABLEKS                       R4 R3 K0 ["_materialChangedListeners"]
         5 NEWTABLE                         R4 0 0
         7 SETTABLEKS                       R4 R3 K1 ["_overrideChangedListeners"]
         9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R4 R5 K13 ["new"]
-       12 LOADK                            R5 K14 ["ChangeHistoryService"]
+       10 GETTABLEKS                       R4 R5 K16 ["new"]
+       12 LOADK                            R5 K17 ["ChangeHistoryService"]
        13 MOVE                             R6 R1
        14 CALL                             R4 2 1
        15 SETTABLEKS                       R4 R3 K2 ["_changeHistoryService"]
-       17 DUPTABLE                         R4 K18 [{"Categories", "CategoryNames", "Materials"}]
+       17 DUPTABLE                         R4 K21 [{"Categories", "CategoryNames", "Materials"}]
        18 NEWTABLE                         R5 0 0
-       20 SETTABLEKS                       R5 R4 K15 ["Categories"]
+       20 SETTABLEKS                       R5 R4 K18 ["Categories"]
        22 NEWTABLE                         R5 0 0
-       24 SETTABLEKS                       R5 R4 K16 ["CategoryNames"]
+       24 SETTABLEKS                       R5 R4 K19 ["CategoryNames"]
        26 NEWTABLE                         R5 0 0
-       28 SETTABLEKS                       R5 R4 K17 ["Materials"]
+       28 SETTABLEKS                       R5 R4 K20 ["Materials"]
        30 SETTABLEKS                       R4 R3 K3 ["_rootCategory"]
        32 NEWTABLE                         R4 0 0
        34 SETTABLEKS                       R4 R3 K4 ["_materialPaths"]
@@ -189,8 +189,8 @@ PROTO_7:
        40 NEWTABLE                         R4 0 0
        42 SETTABLEKS                       R4 R3 K6 ["_materialStatuses"]
        44 GETUPVAL                         R5 0
-       45 GETTABLEKS                       R4 R5 K13 ["new"]
-       47 LOADK                            R5 K19 ["MaterialService"]
+       45 GETTABLEKS                       R4 R5 K16 ["new"]
+       47 LOADK                            R5 K22 ["MaterialService"]
        48 MOVE                             R6 R1
        49 CALL                             R4 2 1
        50 SETTABLEKS                       R4 R3 K7 ["_materialServiceWrapper"]
@@ -198,144 +198,162 @@ PROTO_7:
        54 SETTABLEKS                       R4 R3 K8 ["_nameToEnum"]
        56 LOADB                            R4 1
        57 SETTABLEKS                       R4 R3 K9 ["_initializing"]
-       59 SETTABLEKS                       R0 R3 K10 ["_store"]
-       61 SETTABLEKS                       R1 R3 K11 ["_mock"]
-       63 GETUPVAL                         R4 1
-       64 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
-       66 GETIMPORT                        R2 K21 [setmetatable]
-       68 CALL                             R2 2 1
-       69 GETTABLEKS                       R4 R2 K7 ["_materialServiceWrapper"]
-       71 NAMECALL                         R4 R4 K22 ["asInstance"]
-       73 CALL                             R4 1 1
-       74 GETTABLEKS                       R3 R4 K23 ["DescendantAdded"]
-       76 NEWCLOSURE                       R5 P0
-       77 CAPTURE                          UPVAL U2
-       78 CAPTURE                          VAL R2
-       79 CAPTURE                          UPVAL U3
-       80 CAPTURE                          UPVAL U4
-       81 NAMECALL                         R3 R3 K24 ["Connect"]
-       83 CALL                             R3 2 1
-       84 SETTABLEKS                       R3 R2 K25 ["_materialServiceAdded"]
-       86 GETTABLEKS                       R4 R2 K7 ["_materialServiceWrapper"]
-       88 NAMECALL                         R4 R4 K22 ["asInstance"]
-       90 CALL                             R4 1 1
-       91 GETTABLEKS                       R3 R4 K26 ["DescendantRemoving"]
-       93 NEWCLOSURE                       R5 P1
-       94 CAPTURE                          VAL R2
-       95 CAPTURE                          UPVAL U4
-       96 NAMECALL                         R3 R3 K24 ["Connect"]
-       98 CALL                             R3 2 1
-       99 SETTABLEKS                       R3 R2 K27 ["_materialServiceRemoved"]
-      101 GETTABLEKS                       R4 R2 K7 ["_materialServiceWrapper"]
-      103 NAMECALL                         R4 R4 K22 ["asInstance"]
-      105 CALL                             R4 1 1
-      106 GETTABLEKS                       R3 R4 K28 ["Changed"]
-      108 NEWCLOSURE                       R5 P2
-      109 CAPTURE                          VAL R2
-      110 NAMECALL                         R3 R3 K24 ["Connect"]
-      112 CALL                             R3 2 1
-      113 SETTABLEKS                       R3 R2 K29 ["_materialServiceChanged"]
-      115 GETTABLEKS                       R4 R2 K7 ["_materialServiceWrapper"]
-      117 NAMECALL                         R4 R4 K30 ["asService"]
-      119 CALL                             R4 1 1
-      120 GETTABLEKS                       R3 R4 K31 ["OverrideStatusChanged"]
-      122 NEWCLOSURE                       R5 P3
-      123 CAPTURE                          VAL R2
-      124 CAPTURE                          UPVAL U5
-      125 NAMECALL                         R3 R3 K24 ["Connect"]
-      127 CALL                             R3 2 1
-      128 SETTABLEKS                       R3 R2 K32 ["_materialServiceStatus"]
-      130 JUMPIF                           R1 ; [+31]
-      131 GETTABLEKS                       R3 R2 K7 ["_materialServiceWrapper"]
-      133 NAMECALL                         R3 R3 K22 ["asInstance"]
-      135 CALL                             R3 1 1
-      136 LOADK                            R5 K33 ["Use2022Materials"]
-      137 NAMECALL                         R3 R3 K34 ["GetPropertyChangedSignal"]
-      139 CALL                             R3 2 1
-      140 NEWCLOSURE                       R5 P4
-      141 CAPTURE                          VAL R2
-      142 CAPTURE                          UPVAL U6
-      143 NAMECALL                         R3 R3 K24 ["Connect"]
-      145 CALL                             R3 2 1
-      146 SETTABLEKS                       R3 R2 K35 ["_uses2022MaterialsChanged"]
-      148 GETTABLEKS                       R3 R2 K10 ["_store"]
-      150 GETUPVAL                         R5 6
-      151 GETTABLEKS                       R7 R2 K7 ["_materialServiceWrapper"]
-      153 NAMECALL                         R7 R7 K30 ["asService"]
-      155 CALL                             R7 1 1
-      156 GETTABLEKS                       R6 R7 K33 ["Use2022Materials"]
-      158 CALL                             R5 1 -1
-      159 NAMECALL                         R3 R3 K36 ["dispatch"]
-      161 CALL                             R3 -1 0
-      162 GETIMPORT                        R3 K38 [pairs]
-      164 GETUPVAL                         R4 7
-      165 CALL                             R3 1 3
-      166 FORGPREP_NEXT                    R3
-      167 MOVE                             R10 R6
-      168 LOADNIL                          R11
-      169 GETUPVAL                         R12 3
-      170 MOVE                             R13 R6
-      171 CALL                             R12 1 1
-      172 LOADB                            R13 1
-      173 NAMECALL                         R8 R2 K39 ["addMaterial"]
-      175 CALL                             R8 5 0
-      176 JUMPIFNOT                        R7 ; [+18]
-      177 GETTABLEKS                       R8 R2 K1 ["_overrideChangedListeners"]
-      179 GETTABLEKS                       R9 R2 K7 ["_materialServiceWrapper"]
-      181 NAMECALL                         R9 R9 K30 ["asService"]
-      183 CALL                             R9 1 1
-      184 MOVE                             R11 R6
-      185 NAMECALL                         R9 R9 K40 ["GetMaterialOverrideChanged"]
-      187 CALL                             R9 2 1
-      188 NEWCLOSURE                       R11 P5
-      189 CAPTURE                          VAL R2
-      190 CAPTURE                          VAL R6
-      191 NAMECALL                         R9 R9 K24 ["Connect"]
-      193 CALL                             R9 2 1
-      194 SETTABLE                         R9 R8 R6
-      195 FORGLOOP                         R3 2 ; [-29]
-      197 GETIMPORT                        R3 K42 [ipairs]
-      199 GETTABLEKS                       R4 R2 K7 ["_materialServiceWrapper"]
-      201 NAMECALL                         R4 R4 K22 ["asInstance"]
-      203 CALL                             R4 1 1
-      204 NAMECALL                         R4 R4 K43 ["GetDescendants"]
-      206 CALL                             R4 1 -1
-      207 CALL                             R3 -1 3
-      208 FORGPREP_INEXT                   R3
-      209 LOADK                            R10 K44 ["MaterialVariant"]
-      210 NAMECALL                         R8 R7 K45 ["IsA"]
-      212 CALL                             R8 2 1
-      213 JUMPIFNOT                        R8 ; [+11]
-      214 GETTABLEKS                       R10 R7 K46 ["BaseMaterial"]
-      216 MOVE                             R11 R7
-      217 GETUPVAL                         R12 3
-      218 GETTABLEKS                       R13 R7 K46 ["BaseMaterial"]
-      220 CALL                             R12 1 1
-      221 LOADB                            R13 1
-      222 NAMECALL                         R8 R2 K39 ["addMaterial"]
-      224 CALL                             R8 5 0
-      225 FORGLOOP                         R3 2 [inext] ; [-17]
-      227 GETIMPORT                        R3 K42 [ipairs]
-      229 GETUPVAL                         R4 7
-      230 CALL                             R3 1 3
-      231 FORGPREP_INEXT                   R3
-      232 GETUPVAL                         R11 8
-      233 MOVE                             R12 R6
-      234 CALL                             R11 1 1
-      235 MOVE                             R9 R11
-      236 LOADK                            R10 K47 ["Name"]
-      237 CONCAT                           R8 R9 R10
-      238 GETTABLEKS                       R9 R2 K8 ["_nameToEnum"]
-      240 SETTABLE                         R6 R9 R8
-      241 FORGLOOP                         R3 2 [inext] ; [-10]
-      243 GETUPVAL                         R3 9
-      244 CALL                             R3 0 1
-      245 JUMPIFNOT                        R3 ; [+3]
-      246 NAMECALL                         R3 R2 K48 ["updateMaterialList"]
-      248 CALL                             R3 1 0
-      249 LOADB                            R3 0
-      250 SETTABLEKS                       R3 R2 K9 ["_initializing"]
-      252 RETURN                           R2 1
+       59 LOADB                            R4 0
+       60 SETTABLEKS                       R4 R3 K10 ["_pendingMaterialListUpdate"]
+       62 NEWTABLE                         R4 0 0
+       64 SETTABLEKS                       R4 R3 K11 ["_pendingOverrideUpdates"]
+       66 LOADB                            R4 0
+       67 SETTABLEKS                       R4 R3 K12 ["_deferredUpdateScheduled"]
+       69 SETTABLEKS                       R0 R3 K13 ["_store"]
+       71 SETTABLEKS                       R1 R3 K14 ["_mock"]
+       73 GETUPVAL                         R4 1
+       74 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
+       76 GETIMPORT                        R2 K24 [setmetatable]
+       78 CALL                             R2 2 1
+       79 GETTABLEKS                       R4 R2 K7 ["_materialServiceWrapper"]
+       81 NAMECALL                         R4 R4 K25 ["asInstance"]
+       83 CALL                             R4 1 1
+       84 GETTABLEKS                       R3 R4 K26 ["DescendantAdded"]
+       86 NEWCLOSURE                       R5 P0
+       87 CAPTURE                          UPVAL U2
+       88 CAPTURE                          VAL R2
+       89 CAPTURE                          UPVAL U3
+       90 CAPTURE                          UPVAL U4
+       91 NAMECALL                         R3 R3 K27 ["Connect"]
+       93 CALL                             R3 2 1
+       94 SETTABLEKS                       R3 R2 K28 ["_materialServiceAdded"]
+       96 GETTABLEKS                       R4 R2 K7 ["_materialServiceWrapper"]
+       98 NAMECALL                         R4 R4 K25 ["asInstance"]
+      100 CALL                             R4 1 1
+      101 GETTABLEKS                       R3 R4 K29 ["DescendantRemoving"]
+      103 NEWCLOSURE                       R5 P1
+      104 CAPTURE                          VAL R2
+      105 CAPTURE                          UPVAL U4
+      106 NAMECALL                         R3 R3 K27 ["Connect"]
+      108 CALL                             R3 2 1
+      109 SETTABLEKS                       R3 R2 K30 ["_materialServiceRemoved"]
+      111 GETTABLEKS                       R4 R2 K7 ["_materialServiceWrapper"]
+      113 NAMECALL                         R4 R4 K25 ["asInstance"]
+      115 CALL                             R4 1 1
+      116 GETTABLEKS                       R3 R4 K31 ["Changed"]
+      118 NEWCLOSURE                       R5 P2
+      119 CAPTURE                          VAL R2
+      120 NAMECALL                         R3 R3 K27 ["Connect"]
+      122 CALL                             R3 2 1
+      123 SETTABLEKS                       R3 R2 K32 ["_materialServiceChanged"]
+      125 GETTABLEKS                       R4 R2 K7 ["_materialServiceWrapper"]
+      127 NAMECALL                         R4 R4 K33 ["asService"]
+      129 CALL                             R4 1 1
+      130 GETTABLEKS                       R3 R4 K34 ["OverrideStatusChanged"]
+      132 NEWCLOSURE                       R5 P3
+      133 CAPTURE                          VAL R2
+      134 CAPTURE                          UPVAL U5
+      135 NAMECALL                         R3 R3 K27 ["Connect"]
+      137 CALL                             R3 2 1
+      138 SETTABLEKS                       R3 R2 K35 ["_materialServiceStatus"]
+      140 JUMPIF                           R1 ; [+31]
+      141 GETTABLEKS                       R3 R2 K7 ["_materialServiceWrapper"]
+      143 NAMECALL                         R3 R3 K25 ["asInstance"]
+      145 CALL                             R3 1 1
+      146 LOADK                            R5 K36 ["Use2022Materials"]
+      147 NAMECALL                         R3 R3 K37 ["GetPropertyChangedSignal"]
+      149 CALL                             R3 2 1
+      150 NEWCLOSURE                       R5 P4
+      151 CAPTURE                          VAL R2
+      152 CAPTURE                          UPVAL U6
+      153 NAMECALL                         R3 R3 K27 ["Connect"]
+      155 CALL                             R3 2 1
+      156 SETTABLEKS                       R3 R2 K38 ["_uses2022MaterialsChanged"]
+      158 GETTABLEKS                       R3 R2 K13 ["_store"]
+      160 GETUPVAL                         R5 6
+      161 GETTABLEKS                       R7 R2 K7 ["_materialServiceWrapper"]
+      163 NAMECALL                         R7 R7 K33 ["asService"]
+      165 CALL                             R7 1 1
+      166 GETTABLEKS                       R6 R7 K36 ["Use2022Materials"]
+      168 CALL                             R5 1 -1
+      169 NAMECALL                         R3 R3 K39 ["dispatch"]
+      171 CALL                             R3 -1 0
+      172 GETIMPORT                        R3 K41 [pairs]
+      174 GETUPVAL                         R4 7
+      175 CALL                             R3 1 3
+      176 FORGPREP_NEXT                    R3
+      177 MOVE                             R10 R6
+      178 LOADNIL                          R11
+      179 GETUPVAL                         R12 3
+      180 MOVE                             R13 R6
+      181 CALL                             R12 1 1
+      182 LOADB                            R13 1
+      183 NAMECALL                         R8 R2 K42 ["addMaterial"]
+      185 CALL                             R8 5 0
+      186 JUMPIFNOT                        R7 ; [+18]
+      187 GETTABLEKS                       R8 R2 K1 ["_overrideChangedListeners"]
+      189 GETTABLEKS                       R9 R2 K7 ["_materialServiceWrapper"]
+      191 NAMECALL                         R9 R9 K33 ["asService"]
+      193 CALL                             R9 1 1
+      194 MOVE                             R11 R6
+      195 NAMECALL                         R9 R9 K43 ["GetMaterialOverrideChanged"]
+      197 CALL                             R9 2 1
+      198 NEWCLOSURE                       R11 P5
+      199 CAPTURE                          VAL R2
+      200 CAPTURE                          VAL R6
+      201 NAMECALL                         R9 R9 K27 ["Connect"]
+      203 CALL                             R9 2 1
+      204 SETTABLE                         R9 R8 R6
+      205 FORGLOOP                         R3 2 ; [-29]
+      207 GETIMPORT                        R3 K45 [ipairs]
+      209 GETTABLEKS                       R4 R2 K7 ["_materialServiceWrapper"]
+      211 NAMECALL                         R4 R4 K25 ["asInstance"]
+      213 CALL                             R4 1 1
+      214 NAMECALL                         R4 R4 K46 ["GetDescendants"]
+      216 CALL                             R4 1 -1
+      217 CALL                             R3 -1 3
+      218 FORGPREP_INEXT                   R3
+      219 LOADK                            R10 K47 ["MaterialVariant"]
+      220 NAMECALL                         R8 R7 K48 ["IsA"]
+      222 CALL                             R8 2 1
+      223 JUMPIFNOT                        R8 ; [+11]
+      224 GETTABLEKS                       R10 R7 K49 ["BaseMaterial"]
+      226 MOVE                             R11 R7
+      227 GETUPVAL                         R12 3
+      228 GETTABLEKS                       R13 R7 K49 ["BaseMaterial"]
+      230 CALL                             R12 1 1
+      231 LOADB                            R13 1
+      232 NAMECALL                         R8 R2 K42 ["addMaterial"]
+      234 CALL                             R8 5 0
+      235 FORGLOOP                         R3 2 [inext] ; [-17]
+      237 GETIMPORT                        R3 K45 [ipairs]
+      239 GETUPVAL                         R4 7
+      240 CALL                             R3 1 3
+      241 FORGPREP_INEXT                   R3
+      242 GETUPVAL                         R11 8
+      243 MOVE                             R12 R6
+      244 CALL                             R11 1 1
+      245 MOVE                             R9 R11
+      246 LOADK                            R10 K50 ["Name"]
+      247 CONCAT                           R8 R9 R10
+      248 GETTABLEKS                       R9 R2 K8 ["_nameToEnum"]
+      250 SETTABLE                         R6 R9 R8
+      251 FORGLOOP                         R3 2 [inext] ; [-10]
+      253 GETUPVAL                         R3 9
+      254 CALL                             R3 0 1
+      255 JUMPIFNOT                        R3 ; [+3]
+      256 NAMECALL                         R3 R2 K51 ["updateMaterialList"]
+      258 CALL                             R3 1 0
+      259 GETUPVAL                         R3 10
+      260 CALL                             R3 0 1
+      261 JUMPIFNOT                        R3 ; [+11]
+      262 GETUPVAL                         R3 7
+      263 LOADNIL                          R4
+      264 LOADNIL                          R5
+      265 FORGPREP                         R3
+      266 JUMPIFNOT                        R7 ; [+4]
+      267 MOVE                             R10 R6
+      268 NAMECALL                         R8 R2 K52 ["updateOverrides"]
+      270 CALL                             R8 2 0
+      271 FORGLOOP                         R3 2 ; [-6]
+      273 LOADB                            R3 0
+      274 SETTABLEKS                       R3 R2 K9 ["_initializing"]
+      276 RETURN                           R2 1
 
 PROTO_8:
         0 GETUPVAL                         R2 0
@@ -573,46 +591,63 @@ PROTO_16:
       107 CALL                             R8 -1 0
       108 GETUPVAL                         R9 3
       109 GETTABLE                         R8 R9 R1
-      110 JUMPIFNOT                        R8 ; [+4]
-      111 MOVE                             R10 R1
-      112 NAMECALL                         R8 R0 K25 ["updateOverrides"]
-      114 CALL                             R8 2 0
-      115 GETTABLEKS                       R8 R0 K20 ["_store"]
-      117 GETUPVAL                         R10 1
-      118 MOVE                             R11 R6
-      119 CALL                             R10 1 -1
-      120 NAMECALL                         R8 R8 K24 ["dispatch"]
-      122 CALL                             R8 -1 0
-      123 GETUPVAL                         R8 4
-      124 CALL                             R8 0 1
-      125 JUMPIFNOT                        R8 ; [+19]
-      126 JUMPIF                           R4 ; [+35]
-      127 GETTABLEKS                       R10 R0 K20 ["_store"]
-      129 NAMECALL                         R10 R10 K26 ["getState"]
-      131 CALL                             R10 1 1
-      132 GETTABLEKS                       R9 R10 K27 ["MaterialBrowserReducer"]
-      134 GETTABLEKS                       R8 R9 K28 ["Path"]
-      136 GETUPVAL                         R9 5
-      137 MOVE                             R10 R8
-      138 MOVE                             R11 R5
-      139 CALL                             R9 2 1
-      140 JUMPIFNOT                        R9 ; [+21]
-      141 NAMECALL                         R9 R0 K29 ["updateMaterialList"]
-      143 CALL                             R9 1 0
-      144 RETURN                           R0 0
-      145 GETTABLEKS                       R10 R0 K20 ["_store"]
-      147 NAMECALL                         R10 R10 K26 ["getState"]
-      149 CALL                             R10 1 1
-      150 GETTABLEKS                       R9 R10 K27 ["MaterialBrowserReducer"]
-      152 GETTABLEKS                       R8 R9 K28 ["Path"]
-      154 GETUPVAL                         R9 5
-      155 MOVE                             R10 R8
-      156 MOVE                             R11 R5
-      157 CALL                             R9 2 1
-      158 JUMPIFNOT                        R9 ; [+3]
-      159 NAMECALL                         R9 R0 K29 ["updateMaterialList"]
-      161 CALL                             R9 1 0
-      162 RETURN                           R0 0
+      110 JUMPIFNOT                        R8 ; [+16]
+      111 GETUPVAL                         R8 4
+      112 CALL                             R8 0 1
+      113 JUMPIFNOT                        R8 ; [+1]
+      114 JUMPIF                           R4 ; [+12]
+      115 GETUPVAL                         R8 4
+      116 CALL                             R8 0 1
+      117 JUMPIFNOT                        R8 ; [+5]
+      118 MOVE                             R10 R1
+      119 NAMECALL                         R8 R0 K25 ["scheduleDeferredOverrideUpdate"]
+      121 CALL                             R8 2 0
+      122 JUMP                             ; [+4]
+      123 MOVE                             R10 R1
+      124 NAMECALL                         R8 R0 K26 ["updateOverrides"]
+      126 CALL                             R8 2 0
+      127 GETTABLEKS                       R8 R0 K20 ["_store"]
+      129 GETUPVAL                         R10 1
+      130 MOVE                             R11 R6
+      131 CALL                             R10 1 -1
+      132 NAMECALL                         R8 R8 K24 ["dispatch"]
+      134 CALL                             R8 -1 0
+      135 GETUPVAL                         R8 5
+      136 CALL                             R8 0 1
+      137 JUMPIFNOT                        R8 ; [+26]
+      138 JUMPIF                           R4 ; [+42]
+      139 GETTABLEKS                       R10 R0 K20 ["_store"]
+      141 NAMECALL                         R10 R10 K27 ["getState"]
+      143 CALL                             R10 1 1
+      144 GETTABLEKS                       R9 R10 K28 ["MaterialBrowserReducer"]
+      146 GETTABLEKS                       R8 R9 K29 ["Path"]
+      148 GETUPVAL                         R9 6
+      149 MOVE                             R10 R8
+      150 MOVE                             R11 R5
+      151 CALL                             R9 2 1
+      152 JUMPIFNOT                        R9 ; [+28]
+      153 GETUPVAL                         R9 4
+      154 CALL                             R9 0 1
+      155 JUMPIFNOT                        R9 ; [+4]
+      156 NAMECALL                         R9 R0 K30 ["scheduleDeferredMaterialListUpdate"]
+      158 CALL                             R9 1 0
+      159 RETURN                           R0 0
+      160 NAMECALL                         R9 R0 K31 ["updateMaterialList"]
+      162 CALL                             R9 1 0
+      163 RETURN                           R0 0
+      164 GETTABLEKS                       R10 R0 K20 ["_store"]
+      166 NAMECALL                         R10 R10 K27 ["getState"]
+      168 CALL                             R10 1 1
+      169 GETTABLEKS                       R9 R10 K28 ["MaterialBrowserReducer"]
+      171 GETTABLEKS                       R8 R9 K29 ["Path"]
+      173 GETUPVAL                         R9 6
+      174 MOVE                             R10 R8
+      175 MOVE                             R11 R5
+      176 CALL                             R9 2 1
+      177 JUMPIFNOT                        R9 ; [+3]
+      178 NAMECALL                         R9 R0 K31 ["updateMaterialList"]
+      180 CALL                             R9 1 0
+      181 RETURN                           R0 0
 
 PROTO_17:
         0 GETTABLEKS                       R4 R0 K0 ["_materialPaths"]
@@ -679,22 +714,41 @@ PROTO_17:
        90 CALL                             R7 1 -1
        91 NAMECALL                         R5 R5 K21 ["dispatch"]
        93 CALL                             R5 -1 0
-       94 GETTABLEKS                       R7 R1 K22 ["BaseMaterial"]
-       96 NAMECALL                         R5 R0 K23 ["updateOverrides"]
-       98 CALL                             R5 2 0
-       99 GETTABLEKS                       R7 R0 K18 ["_store"]
-      101 NAMECALL                         R7 R7 K19 ["getState"]
-      103 CALL                             R7 1 1
-      104 GETTABLEKS                       R6 R7 K20 ["MaterialBrowserReducer"]
-      106 GETTABLEKS                       R5 R6 K24 ["Path"]
-      108 GETUPVAL                         R6 1
-      109 MOVE                             R7 R5
-      110 MOVE                             R8 R3
-      111 CALL                             R6 2 1
-      112 JUMPIFNOT                        R6 ; [+3]
-      113 NAMECALL                         R6 R0 K25 ["updateMaterialList"]
-      115 CALL                             R6 1 0
-      116 RETURN                           R0 0
+       94 GETUPVAL                         R5 1
+       95 CALL                             R5 0 1
+       96 JUMPIFNOT                        R5 ; [+23]
+       97 GETTABLEKS                       R7 R1 K22 ["BaseMaterial"]
+       99 NAMECALL                         R5 R0 K23 ["scheduleDeferredOverrideUpdate"]
+      101 CALL                             R5 2 0
+      102 GETTABLEKS                       R7 R0 K18 ["_store"]
+      104 NAMECALL                         R7 R7 K19 ["getState"]
+      106 CALL                             R7 1 1
+      107 GETTABLEKS                       R6 R7 K20 ["MaterialBrowserReducer"]
+      109 GETTABLEKS                       R5 R6 K24 ["Path"]
+      111 GETUPVAL                         R6 2
+      112 MOVE                             R7 R5
+      113 MOVE                             R8 R3
+      114 CALL                             R6 2 1
+      115 JUMPIFNOT                        R6 ; [+26]
+      116 NAMECALL                         R6 R0 K25 ["scheduleDeferredMaterialListUpdate"]
+      118 CALL                             R6 1 0
+      119 RETURN                           R0 0
+      120 GETTABLEKS                       R7 R1 K22 ["BaseMaterial"]
+      122 NAMECALL                         R5 R0 K26 ["updateOverrides"]
+      124 CALL                             R5 2 0
+      125 GETTABLEKS                       R7 R0 K18 ["_store"]
+      127 NAMECALL                         R7 R7 K19 ["getState"]
+      129 CALL                             R7 1 1
+      130 GETTABLEKS                       R6 R7 K20 ["MaterialBrowserReducer"]
+      132 GETTABLEKS                       R5 R6 K24 ["Path"]
+      134 GETUPVAL                         R6 2
+      135 MOVE                             R7 R5
+      136 MOVE                             R8 R3
+      137 CALL                             R6 2 1
+      138 JUMPIFNOT                        R6 ; [+3]
+      139 NAMECALL                         R6 R0 K27 ["updateMaterialList"]
+      141 CALL                             R6 1 0
+      142 RETURN                           R0 0
 
 PROTO_18:
         0 GETTABLEKS                       R4 R0 K0 ["_materialPaths"]
@@ -726,63 +780,83 @@ PROTO_18:
        39 FORGPREP_INEXT                   R4
        40 GETTABLEKS                       R9 R8 K1 ["MaterialVariant"]
        42 GETTABLEKS                       R10 R1 K1 ["MaterialVariant"]
-       44 JUMPIFNOTEQ                      R9 R10 ; [+13]
+       44 JUMPIFNOTEQ                      R9 R10 ; [+22]
        46 GETIMPORT                        R9 K13 [table.remove]
        48 GETTABLEKS                       R10 R3 K10 ["Materials"]
        50 MOVE                             R11 R7
        51 CALL                             R9 2 0
-       52 GETTABLEKS                       R11 R8 K14 ["Material"]
-       54 NAMECALL                         R9 R0 K15 ["updateOverrides"]
-       56 CALL                             R9 2 0
-       57 JUMP                             ; [+2]
-       58 FORGLOOP                         R4 2 [inext] ; [-19]
-       60 GETTABLEKS                       R4 R0 K0 ["_materialPaths"]
-       62 GETTABLEKS                       R5 R1 K1 ["MaterialVariant"]
-       64 GETUPVAL                         R6 0
-       65 GETTABLEKS                       R7 R1 K14 ["Material"]
-       67 CALL                             R6 1 1
-       68 SETTABLE                         R6 R4 R5
-       69 GETTABLEKS                       R7 R0 K0 ["_materialPaths"]
-       71 GETTABLEKS                       R8 R1 K1 ["MaterialVariant"]
-       73 GETTABLE                         R6 R7 R8
-       74 GETTABLEKS                       R8 R1 K1 ["MaterialVariant"]
-       76 NOT                              R7 R8
-       77 NAMECALL                         R4 R0 K16 ["addCategory"]
-       79 CALL                             R4 3 1
-       80 MOVE                             R3 R4
-       81 FASTCALL2K                       ASSERT R3 K17 ; [+5]
-       83 MOVE                             R5 R3
-       84 LOADK                            R6 K17 ["Category to which a Material is added should exist, or be created"]
-       85 GETIMPORT                        R4 K4 [assert]
-       87 CALL                             R4 2 0
-       88 GETTABLEKS                       R5 R3 K10 ["Materials"]
-       90 FASTCALL2                        TABLE_INSERT R5 R1 ; [+4]
-       92 MOVE                             R6 R1
-       93 GETIMPORT                        R4 K19 [table.insert]
-       95 CALL                             R4 2 0
-       96 GETTABLEKS                       R6 R1 K14 ["Material"]
-       98 NAMECALL                         R4 R0 K15 ["updateOverrides"]
-      100 CALL                             R4 2 0
-      101 GETTABLEKS                       R6 R0 K20 ["_store"]
-      103 NAMECALL                         R6 R6 K21 ["getState"]
-      105 CALL                             R6 1 1
-      106 GETTABLEKS                       R5 R6 K22 ["MaterialBrowserReducer"]
-      108 GETTABLEKS                       R4 R5 K23 ["Path"]
-      110 GETUPVAL                         R5 1
-      111 MOVE                             R6 R4
-      112 MOVE                             R7 R2
-      113 CALL                             R5 2 1
-      114 JUMPIF                           R5 ; [+10]
-      115 GETUPVAL                         R5 1
-      116 GETTABLEKS                       R7 R0 K0 ["_materialPaths"]
-      118 GETTABLEKS                       R8 R1 K1 ["MaterialVariant"]
-      120 GETTABLE                         R6 R7 R8
-      121 GETTABLEKS                       R7 R1 K24 ["MaterialPath"]
-      123 CALL                             R5 2 1
-      124 JUMPIFNOT                        R5 ; [+3]
-      125 NAMECALL                         R5 R0 K25 ["updateMaterialList"]
-      127 CALL                             R5 1 0
-      128 RETURN                           R0 0
+       52 GETUPVAL                         R9 0
+       53 CALL                             R9 0 1
+       54 JUMPIFNOT                        R9 ; [+6]
+       55 GETTABLEKS                       R11 R8 K14 ["Material"]
+       57 NAMECALL                         R9 R0 K15 ["scheduleDeferredOverrideUpdate"]
+       59 CALL                             R9 2 0
+       60 JUMP                             ; [+8]
+       61 GETTABLEKS                       R11 R8 K14 ["Material"]
+       63 NAMECALL                         R9 R0 K16 ["updateOverrides"]
+       65 CALL                             R9 2 0
+       66 JUMP                             ; [+2]
+       67 FORGLOOP                         R4 2 [inext] ; [-28]
+       69 GETTABLEKS                       R4 R0 K0 ["_materialPaths"]
+       71 GETTABLEKS                       R5 R1 K1 ["MaterialVariant"]
+       73 GETUPVAL                         R6 1
+       74 GETTABLEKS                       R7 R1 K14 ["Material"]
+       76 CALL                             R6 1 1
+       77 SETTABLE                         R6 R4 R5
+       78 GETTABLEKS                       R7 R0 K0 ["_materialPaths"]
+       80 GETTABLEKS                       R8 R1 K1 ["MaterialVariant"]
+       82 GETTABLE                         R6 R7 R8
+       83 GETTABLEKS                       R8 R1 K1 ["MaterialVariant"]
+       85 NOT                              R7 R8
+       86 NAMECALL                         R4 R0 K17 ["addCategory"]
+       88 CALL                             R4 3 1
+       89 MOVE                             R3 R4
+       90 FASTCALL2K                       ASSERT R3 K18 ; [+5]
+       92 MOVE                             R5 R3
+       93 LOADK                            R6 K18 ["Category to which a Material is added should exist, or be created"]
+       94 GETIMPORT                        R4 K4 [assert]
+       96 CALL                             R4 2 0
+       97 GETTABLEKS                       R5 R3 K10 ["Materials"]
+       99 FASTCALL2                        TABLE_INSERT R5 R1 ; [+4]
+      101 MOVE                             R6 R1
+      102 GETIMPORT                        R4 K20 [table.insert]
+      104 CALL                             R4 2 0
+      105 GETUPVAL                         R4 0
+      106 CALL                             R4 0 1
+      107 JUMPIFNOT                        R4 ; [+6]
+      108 GETTABLEKS                       R6 R1 K14 ["Material"]
+      110 NAMECALL                         R4 R0 K15 ["scheduleDeferredOverrideUpdate"]
+      112 CALL                             R4 2 0
+      113 JUMP                             ; [+5]
+      114 GETTABLEKS                       R6 R1 K14 ["Material"]
+      116 NAMECALL                         R4 R0 K16 ["updateOverrides"]
+      118 CALL                             R4 2 0
+      119 GETTABLEKS                       R6 R0 K21 ["_store"]
+      121 NAMECALL                         R6 R6 K22 ["getState"]
+      123 CALL                             R6 1 1
+      124 GETTABLEKS                       R5 R6 K23 ["MaterialBrowserReducer"]
+      126 GETTABLEKS                       R4 R5 K24 ["Path"]
+      128 GETUPVAL                         R5 2
+      129 MOVE                             R6 R4
+      130 MOVE                             R7 R2
+      131 CALL                             R5 2 1
+      132 JUMPIF                           R5 ; [+10]
+      133 GETUPVAL                         R5 2
+      134 GETTABLEKS                       R7 R0 K0 ["_materialPaths"]
+      136 GETTABLEKS                       R8 R1 K1 ["MaterialVariant"]
+      138 GETTABLE                         R6 R7 R8
+      139 GETTABLEKS                       R7 R1 K25 ["MaterialPath"]
+      141 CALL                             R5 2 1
+      142 JUMPIFNOT                        R5 ; [+10]
+      143 GETUPVAL                         R5 0
+      144 CALL                             R5 0 1
+      145 JUMPIFNOT                        R5 ; [+4]
+      146 NAMECALL                         R5 R0 K26 ["scheduleDeferredMaterialListUpdate"]
+      148 CALL                             R5 1 0
+      149 RETURN                           R0 0
+      150 NAMECALL                         R5 R0 K27 ["updateMaterialList"]
+      152 CALL                             R5 1 0
+      153 RETURN                           R0 0
 
 PROTO_19:
         0 GETUPVAL                         R2 0
@@ -824,6 +898,61 @@ PROTO_20:
        10 RETURN                           R0 0
 
 PROTO_21:
+        0 GETTABLEKS                       R2 R0 K0 ["_pendingOverrideUpdates"]
+        2 LOADB                            R3 1
+        3 SETTABLE                         R3 R2 R1
+        4 NAMECALL                         R2 R0 K1 ["scheduleDeferredFlush"]
+        6 CALL                             R2 1 0
+        7 RETURN                           R0 0
+
+PROTO_22:
+        0 LOADB                            R1 1
+        1 SETTABLEKS                       R1 R0 K0 ["_pendingMaterialListUpdate"]
+        3 NAMECALL                         R1 R0 K1 ["scheduleDeferredFlush"]
+        5 CALL                             R1 1 0
+        6 RETURN                           R0 0
+
+PROTO_23:
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["flushDeferredUpdates"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
+
+PROTO_24:
+        0 GETTABLEKS                       R1 R0 K0 ["_deferredUpdateScheduled"]
+        2 JUMPIFNOT                        R1 ; [+1]
+        3 RETURN                           R0 0
+        4 LOADB                            R1 1
+        5 SETTABLEKS                       R1 R0 K0 ["_deferredUpdateScheduled"]
+        7 GETIMPORT                        R1 K3 [task.defer]
+        9 NEWCLOSURE                       R2 P0
+       10 CAPTURE                          VAL R0
+       11 CALL                             R1 1 0
+       12 RETURN                           R0 0
+
+PROTO_25:
+        0 LOADB                            R1 0
+        1 SETTABLEKS                       R1 R0 K0 ["_deferredUpdateScheduled"]
+        3 GETTABLEKS                       R1 R0 K1 ["_pendingOverrideUpdates"]
+        5 NEWTABLE                         R2 0 0
+        7 SETTABLEKS                       R2 R0 K1 ["_pendingOverrideUpdates"]
+        9 MOVE                             R2 R1
+       10 LOADNIL                          R3
+       11 LOADNIL                          R4
+       12 FORGPREP                         R2
+       13 MOVE                             R9 R5
+       14 NAMECALL                         R7 R0 K2 ["updateOverrides"]
+       16 CALL                             R7 2 0
+       17 FORGLOOP                         R2 1 ; [-5]
+       19 GETTABLEKS                       R2 R0 K3 ["_pendingMaterialListUpdate"]
+       21 JUMPIFNOT                        R2 ; [+6]
+       22 LOADB                            R2 0
+       23 SETTABLEKS                       R2 R0 K3 ["_pendingMaterialListUpdate"]
+       25 NAMECALL                         R2 R0 K4 ["updateMaterialList"]
+       27 CALL                             R2 1 0
+       28 RETURN                           R0 0
+
+PROTO_26:
         0 GETTABLEKS                       R4 R0 K0 ["_store"]
         2 NAMECALL                         R4 R4 K1 ["getState"]
         4 CALL                             R4 1 1
@@ -850,7 +979,7 @@ PROTO_21:
        31 CALL                             R8 -1 0
        32 RETURN                           R0 0
 
-PROTO_22:
+PROTO_27:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["updateMaterialList"]
         3 CALL                             R2 2 0
@@ -862,7 +991,7 @@ PROTO_22:
        11 CALL                             R2 -1 0
        12 RETURN                           R0 0
 
-PROTO_23:
+PROTO_28:
         0 LOADNIL                          R4
         1 MOVE                             R5 R1
         2 NAMECALL                         R2 R0 K0 ["updateMaterialList"]
@@ -875,7 +1004,7 @@ PROTO_23:
        12 CALL                             R2 -1 0
        13 RETURN                           R0 0
 
-PROTO_24:
+PROTO_29:
         0 GETTABLEKS                       R3 R0 K0 ["_materialWrappers"]
         2 GETTABLE                         R2 R3 R1
         3 GETTABLEKS                       R3 R0 K1 ["_store"]
@@ -886,7 +1015,7 @@ PROTO_24:
        10 CALL                             R3 -1 0
        11 RETURN                           R0 0
 
-PROTO_25:
+PROTO_30:
         0 JUMPIFNOTEQKS                    R2 K0 ["None"] ; [+2]
         2 LOADK                            R2 K1 [""]
         3 GETUPVAL                         R4 0
@@ -905,7 +1034,7 @@ PROTO_25:
        21 NOT                              R3 R4
        22 RETURN                           R3 1
 
-PROTO_26:
+PROTO_31:
         0 NEWTABLE                         R5 0 0
         2 NAMECALL                         R3 R0 K0 ["findCategory"]
         4 CALL                             R3 2 1
@@ -921,7 +1050,7 @@ PROTO_26:
        16 CALL                             R4 3 1
        17 RETURN                           R4 1
 
-PROTO_27:
+PROTO_32:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R1
         2 CALL                             R2 1 1
@@ -1035,79 +1164,92 @@ MAIN:
       157 CALL                             R29 1 1
       158 GETTABLEKS                       R30 R29 K39 ["getFFlagUpdateMaterialListHangFix"]
       160 GETTABLEKS                       R31 R29 K40 ["getFFlagUpdateMaterialListHangFix2"]
-      162 LOADK                            R34 K41 ["MaterialServiceController"]
-      163 NAMECALL                         R32 R3 K42 ["extend"]
-      165 CALL                             R32 2 1
-      166 DUPCLOSURE                       R33 K43 [PROTO_7]
-      167 CAPTURE                          VAL R4
-      168 CAPTURE                          VAL R32
-      169 CAPTURE                          VAL R31
-      170 CAPTURE                          VAL R19
-      171 CAPTURE                          VAL R13
-      172 CAPTURE                          VAL R12
-      173 CAPTURE                          VAL R16
-      174 CAPTURE                          VAL R28
-      175 CAPTURE                          VAL R21
-      176 CAPTURE                          VAL R30
-      177 SETTABLEKS                       R33 R32 K44 ["new"]
-      179 DUPCLOSURE                       R33 K45 [PROTO_8]
-      180 CAPTURE                          VAL R32
-      181 SETTABLEKS                       R33 R32 K46 ["mock"]
-      183 DUPCLOSURE                       R33 K47 [PROTO_9]
-      184 SETTABLEKS                       R33 R32 K48 ["destroy"]
-      186 DUPCLOSURE                       R33 K49 [PROTO_10]
-      187 SETTABLEKS                       R33 R32 K50 ["getRootCategory"]
-      189 DUPCLOSURE                       R33 K51 [PROTO_11]
-      190 CAPTURE                          VAL R19
-      191 CAPTURE                          VAL R20
-      192 SETTABLEKS                       R33 R32 K52 ["getMaterialWrapper"]
-      194 DUPCLOSURE                       R33 K53 [PROTO_12]
-      195 SETTABLEKS                       R33 R32 K54 ["addCategory"]
-      197 DUPCLOSURE                       R33 K55 [PROTO_13]
-      198 SETTABLEKS                       R33 R32 K56 ["findCategory"]
-      200 DUPCLOSURE                       R33 K57 [PROTO_16]
-      201 CAPTURE                          VAL R19
-      202 CAPTURE                          VAL R13
-      203 CAPTURE                          VAL R12
-      204 CAPTURE                          VAL R28
-      205 CAPTURE                          VAL R30
-      206 CAPTURE                          VAL R25
-      207 SETTABLEKS                       R33 R32 K58 ["addMaterial"]
-      209 DUPCLOSURE                       R33 K59 [PROTO_17]
-      210 CAPTURE                          VAL R7
-      211 CAPTURE                          VAL R25
-      212 SETTABLEKS                       R33 R32 K60 ["removeMaterial"]
-      214 DUPCLOSURE                       R33 K61 [PROTO_18]
-      215 CAPTURE                          VAL R19
+      162 GETTABLEKS                       R32 R29 K41 ["getFFlagUpdateMaterialListHangFix3"]
+      164 LOADK                            R35 K42 ["MaterialServiceController"]
+      165 NAMECALL                         R33 R3 K43 ["extend"]
+      167 CALL                             R33 2 1
+      168 DUPCLOSURE                       R34 K44 [PROTO_7]
+      169 CAPTURE                          VAL R4
+      170 CAPTURE                          VAL R33
+      171 CAPTURE                          VAL R31
+      172 CAPTURE                          VAL R19
+      173 CAPTURE                          VAL R13
+      174 CAPTURE                          VAL R12
+      175 CAPTURE                          VAL R16
+      176 CAPTURE                          VAL R28
+      177 CAPTURE                          VAL R21
+      178 CAPTURE                          VAL R30
+      179 CAPTURE                          VAL R32
+      180 SETTABLEKS                       R34 R33 K45 ["new"]
+      182 DUPCLOSURE                       R34 K46 [PROTO_8]
+      183 CAPTURE                          VAL R33
+      184 SETTABLEKS                       R34 R33 K47 ["mock"]
+      186 DUPCLOSURE                       R34 K48 [PROTO_9]
+      187 SETTABLEKS                       R34 R33 K49 ["destroy"]
+      189 DUPCLOSURE                       R34 K50 [PROTO_10]
+      190 SETTABLEKS                       R34 R33 K51 ["getRootCategory"]
+      192 DUPCLOSURE                       R34 K52 [PROTO_11]
+      193 CAPTURE                          VAL R19
+      194 CAPTURE                          VAL R20
+      195 SETTABLEKS                       R34 R33 K53 ["getMaterialWrapper"]
+      197 DUPCLOSURE                       R34 K54 [PROTO_12]
+      198 SETTABLEKS                       R34 R33 K55 ["addCategory"]
+      200 DUPCLOSURE                       R34 K56 [PROTO_13]
+      201 SETTABLEKS                       R34 R33 K57 ["findCategory"]
+      203 DUPCLOSURE                       R34 K58 [PROTO_16]
+      204 CAPTURE                          VAL R19
+      205 CAPTURE                          VAL R13
+      206 CAPTURE                          VAL R12
+      207 CAPTURE                          VAL R28
+      208 CAPTURE                          VAL R32
+      209 CAPTURE                          VAL R30
+      210 CAPTURE                          VAL R25
+      211 SETTABLEKS                       R34 R33 K59 ["addMaterial"]
+      213 DUPCLOSURE                       R34 K60 [PROTO_17]
+      214 CAPTURE                          VAL R7
+      215 CAPTURE                          VAL R32
       216 CAPTURE                          VAL R25
-      217 SETTABLEKS                       R33 R32 K62 ["moveMaterial"]
-      219 DUPCLOSURE                       R33 K63 [PROTO_19]
-      220 CAPTURE                          VAL R27
-      221 CAPTURE                          VAL R9
-      222 CAPTURE                          VAL R8
-      223 SETTABLEKS                       R33 R32 K64 ["updateOverrides"]
-      225 DUPCLOSURE                       R33 K65 [PROTO_20]
-      226 SETTABLEKS                       R33 R32 K66 ["setMaterialOverride"]
-      228 DUPCLOSURE                       R33 K67 [PROTO_21]
-      229 CAPTURE                          VAL R26
-      230 CAPTURE                          VAL R11
-      231 SETTABLEKS                       R33 R32 K68 ["updateMaterialList"]
-      233 DUPCLOSURE                       R33 K69 [PROTO_22]
-      234 CAPTURE                          VAL R14
-      235 SETTABLEKS                       R33 R32 K70 ["setPath"]
-      237 DUPCLOSURE                       R33 K71 [PROTO_23]
-      238 CAPTURE                          VAL R15
-      239 SETTABLEKS                       R33 R32 K72 ["setSearch"]
-      241 DUPCLOSURE                       R33 K73 [PROTO_24]
-      242 CAPTURE                          VAL R10
-      243 SETTABLEKS                       R33 R32 K74 ["setMaterial"]
-      245 DUPCLOSURE                       R33 K75 [PROTO_25]
-      246 CAPTURE                          VAL R21
-      247 SETTABLEKS                       R33 R32 K76 ["hasDefaultMaterial"]
-      249 DUPCLOSURE                       R33 K77 [PROTO_26]
-      250 CAPTURE                          VAL R24
-      251 SETTABLEKS                       R33 R32 K78 ["checkMaterialName"]
-      253 DUPCLOSURE                       R33 K79 [PROTO_27]
-      254 CAPTURE                          VAL R18
-      255 SETTABLEKS                       R33 R32 K80 ["getCategoryDefaultMaterial"]
-      257 RETURN                           R32 1
+      217 SETTABLEKS                       R34 R33 K61 ["removeMaterial"]
+      219 DUPCLOSURE                       R34 K62 [PROTO_18]
+      220 CAPTURE                          VAL R32
+      221 CAPTURE                          VAL R19
+      222 CAPTURE                          VAL R25
+      223 SETTABLEKS                       R34 R33 K63 ["moveMaterial"]
+      225 DUPCLOSURE                       R34 K64 [PROTO_19]
+      226 CAPTURE                          VAL R27
+      227 CAPTURE                          VAL R9
+      228 CAPTURE                          VAL R8
+      229 SETTABLEKS                       R34 R33 K65 ["updateOverrides"]
+      231 DUPCLOSURE                       R34 K66 [PROTO_20]
+      232 SETTABLEKS                       R34 R33 K67 ["setMaterialOverride"]
+      234 DUPCLOSURE                       R34 K68 [PROTO_21]
+      235 SETTABLEKS                       R34 R33 K69 ["scheduleDeferredOverrideUpdate"]
+      237 DUPCLOSURE                       R34 K70 [PROTO_22]
+      238 SETTABLEKS                       R34 R33 K71 ["scheduleDeferredMaterialListUpdate"]
+      240 DUPCLOSURE                       R34 K72 [PROTO_24]
+      241 SETTABLEKS                       R34 R33 K73 ["scheduleDeferredFlush"]
+      243 DUPCLOSURE                       R34 K74 [PROTO_25]
+      244 SETTABLEKS                       R34 R33 K75 ["flushDeferredUpdates"]
+      246 DUPCLOSURE                       R34 K76 [PROTO_26]
+      247 CAPTURE                          VAL R26
+      248 CAPTURE                          VAL R11
+      249 SETTABLEKS                       R34 R33 K77 ["updateMaterialList"]
+      251 DUPCLOSURE                       R34 K78 [PROTO_27]
+      252 CAPTURE                          VAL R14
+      253 SETTABLEKS                       R34 R33 K79 ["setPath"]
+      255 DUPCLOSURE                       R34 K80 [PROTO_28]
+      256 CAPTURE                          VAL R15
+      257 SETTABLEKS                       R34 R33 K81 ["setSearch"]
+      259 DUPCLOSURE                       R34 K82 [PROTO_29]
+      260 CAPTURE                          VAL R10
+      261 SETTABLEKS                       R34 R33 K83 ["setMaterial"]
+      263 DUPCLOSURE                       R34 K84 [PROTO_30]
+      264 CAPTURE                          VAL R21
+      265 SETTABLEKS                       R34 R33 K85 ["hasDefaultMaterial"]
+      267 DUPCLOSURE                       R34 K86 [PROTO_31]
+      268 CAPTURE                          VAL R24
+      269 SETTABLEKS                       R34 R33 K87 ["checkMaterialName"]
+      271 DUPCLOSURE                       R34 K88 [PROTO_32]
+      272 CAPTURE                          VAL R18
+      273 SETTABLEKS                       R34 R33 K89 ["getCategoryDefaultMaterial"]
+      275 RETURN                           R33 1

@@ -21,8 +21,8 @@ PROTO_1:
         4 CAPTURE                          VAL R1
         5 CAPTURE                          VAL R0
         6 NEWTABLE                         R4 0 2
-        8 MOVE                             R5 R0
-        9 MOVE                             R6 R1
+        8 MOVE                             R5 R1
+        9 MOVE                             R6 R0
        10 SETLIST                          R4 R5 2 [1]
        12 CALL                             R2 2 0
        13 RETURN                           R0 0

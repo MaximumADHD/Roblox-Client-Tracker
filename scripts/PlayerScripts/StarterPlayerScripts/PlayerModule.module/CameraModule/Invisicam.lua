@@ -11,7 +11,7 @@ local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 
 --[[ Flags ]]--
-local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI")
+local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI2")
 
 --[[ Constants ]]--
 local ZERO_VECTOR3 = Vector3.new(0,0,0)

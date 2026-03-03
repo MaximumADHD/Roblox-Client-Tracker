@@ -6,7 +6,7 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnConfirmRemovePlaceChanged"]
+        1 GETTABLEKS                       R0 R1 K0 ["DEPRECATED_OnConfirmRemovePlaceChanged"]
         3 GETUPVAL                         R2 1
         4 NAMECALL                         R0 R0 K1 ["Connect"]
         6 CALL                             R0 2 1
@@ -19,7 +19,7 @@ PROTO_2:
         1 GETTABLEKS                       R0 R1 K0 ["use"]
         3 CALL                             R0 0 1
         4 GETUPVAL                         R1 1
-        5 NAMECALL                         R2 R0 K1 ["getConfirmRemovePlace"]
+        5 NAMECALL                         R2 R0 K1 ["DEPRECATED_getConfirmRemovePlace"]
         7 CALL                             R2 1 -1
         8 CALL                             R1 -1 2
         9 GETUPVAL                         R3 2

@@ -1374,7 +1374,7 @@ MAIN:
       324 GETIMPORT                        R52 K8 [require]
       326 GETTABLEKS                       R55 R1 K15 ["Src"]
       328 GETTABLEKS                       R54 R55 K47 ["Flags"]
-      330 GETTABLEKS                       R53 R54 K69 ["getFFlagStyleEditorQueries"]
+      330 GETTABLEKS                       R53 R54 K69 ["getFFlagStyleQuery"]
       332 CALL                             R52 1 1
       333 CALL                             R52 0 1
       334 NEWTABLE                         R53 0 1

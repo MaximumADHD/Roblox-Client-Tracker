@@ -29,7 +29,7 @@ local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 -- VARIABLES
 local FFlagGameplayPausePausesInteraction = game:DefineFastFlag("GameplayPausePausesInteraction", false)
-local FFlagGameplayPauseAntiFlicker = game:DefineFastFlag("GameplayPauseAntiFlicker", false)
+local FFlagGameplayPauseAntiFlicker = game:DefineFastFlag("GameplayPauseAntiFlicker2", false)
 local FIntRapidGameplayPauseIntervalMs = game:DefineFastInt("RapidGameplayPauseIntervalMs", 1000) -- If we repause within this time since the last pause, keep the pause notification up longer to prevent oscillation
 local FIntRapidGameplayPauseMinNotificationDurationMs = game:DefineFastInt("RapidGameplayPauseMinNotificationDurationMs", 500) -- Min time to show pause notification for repeat pauses
 local isFirstPauseChange = true -- Skip showing UI on first pause to avoid displaying during loading process.
@@ -64,12 +64,14 @@ local NetworkPauseGui = Create "ScreenGui" {
 local function cancelNotificationDismissTimer()
 	if dismissDelayTimerHandle ~= nil then
 		task.cancel(dismissDelayTimerHandle)
+		dismissDelayTimerHandle = nil
 	end
 end
 
 local function scheduleNotificationDismissTimer()
 	cancelNotificationDismissTimer()
 	dismissDelayTimerHandle = task.delay(FIntRapidGameplayPauseMinNotificationDurationMs / 1000, function()
+		dismissDelayTimerHandle = nil -- Clear handle so we don't try to cancel the current task
 		updatePauseState()
 	end)
 end

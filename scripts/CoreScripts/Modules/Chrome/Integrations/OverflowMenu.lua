@@ -42,7 +42,6 @@ local GetShouldShowPlatformChatBasedOnPolicy = require(Chrome.Flags.GetShouldSho
 local FFlagFixIntegrationActivated = game:DefineFastFlag("FixIntegrationActivated1", false)
 local FFlagFixInventoryFilledIcon = game:DefineFastFlag("FixInventoryFilledIcon", false)
 local FFlagEnableUnibarTooltipQueue = require(Chrome.Flags.FFlagEnableUnibarTooltipQueue)()
-local FFlagRemoveUnusedTopBarNotifications = game:DefineFastFlag("RemoveUnusedTopBarNotifications", false)
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
@@ -327,7 +326,6 @@ end
 
 return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Pinned,
-	notification = if FFlagRemoveUnusedTopBarNotifications then nil else ChromeService:subMenuNotifications("nine_dot"),
 	id = "nine_dot",
 	label = "CoreScripts.TopBar.MoreMenu",
 	isActivated = if FFlagFixIntegrationActivated

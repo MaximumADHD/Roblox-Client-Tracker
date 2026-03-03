@@ -27,7 +27,7 @@ local GuiService = game:GetService("GuiService")
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 
-local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI")
+local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI2")
 
 --[[ Configuration ]]
 local ShowPath = true
@@ -765,9 +765,9 @@ function OnTap(tapPositions: {Vector3}, goToPoint: Vector3?, wasTouchTap: boolea
 
 								characterResult = instance
 								instance = instance.Parent
-							until humanoidResult or not instance or instance == Workspace
+							until humanoidResult or not instance
 
-							if not humanoidResult then
+							if not humanoidResult and instance then
 								characterResult = nil
 								encounteredCollider = false
 

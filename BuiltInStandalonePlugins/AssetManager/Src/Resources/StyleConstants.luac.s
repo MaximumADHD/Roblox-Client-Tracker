@@ -1,6 +1,6 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K28 [{"AMR_LOADING_BAR_THICKNESS", "AMR_PADDING_SMALL", "AMR_PADDING", "AMR_PADDING_LARGE", "AMR_PADDING_XLARGE", "AMR_ICON_WIDTH_XSMALL", "AMR_ICON_WIDTH_SMALL", "AMR_ICON_WIDTH", "AMR_ICON_WIDTH_XLARGE", "AMR_SIDEBAR_TOGGLE_PADDING", "AMR_ITEMROW_DEFAULT_HEIGHT", "AMR_SHIMMER_ROTATION", "AMR_TOPBAR_HEIGHT", "AMR_EXPLORERROW_HEIGHT", "AMR_HEADERROW_HEIGHT", "AMR_HEADERBUTTON_SIZE", "AMR_CELLDATA_HEIGHT", "BASE_WIDTH", "HEIGHT", "THUMBNAIL_CONTAINER_SIZE", "AMR_GRIDCELL_HEIGHT_MIN", "AMR_GRIDCELL_HEIGHT_MAX", "AMR_SORTOPTIONS_WIDTH", "AMR_FILTERTYPES_WIDTH", "AMR_FILTERTYPES_HEIGHT", "AMR_ANCHOR_CENTER", "AMR_POSITION_CENTER", "AMR_QUICKSHARE_DIALOG_SIZE"}]
+        1 DUPTABLE                         R0 K31 [{"AMR_LOADING_BAR_THICKNESS", "AMR_PADDING_SMALL", "AMR_PADDING", "AMR_PADDING_LARGE", "AMR_PADDING_XLARGE", "AMR_ICON_WIDTH_XSMALL", "AMR_ICON_WIDTH_SMALL", "AMR_ICON_WIDTH", "AMR_ICON_WIDTH_XLARGE", "AMR_SIDEBAR_TOGGLE_PADDING", "AMR_ITEMROW_DEFAULT_HEIGHT", "AMR_SHIMMER_ROTATION", "AMR_TOPBAR_HEIGHT", "AMR_EXPLORERROW_HEIGHT", "AMR_HEADERROW_HEIGHT", "AMR_HEADERBUTTON_SIZE", "AMR_CELLDATA_HEIGHT", "BASE_WIDTH", "HEIGHT", "THUMBNAIL_CONTAINER_SIZE", "AMR_GRIDCELL_HEIGHT_MIN", "AMR_GRIDCELL_HEIGHT_MAX", "AMR_SORTOPTIONS_WIDTH", "AMR_FILTERTYPES_WIDTH", "AMR_FILTERTYPES_HEIGHT", "AMR_ANCHOR_CENTER", "AMR_POSITION_CENTER", "AMR_QUICKSHARE_DIALOG_SIZE", "AMR_QUICKSHARE_DROPDOWN_SIZE", "AMR_QUICKSHARE_PERMISSIONS_DROPDOWN_SIZE", "AMR_CONFIRM_DIALOG_SIZE"}]
         2 LOADN                            R1 8
         3 SETTABLEKS                       R1 R0 K0 ["AMR_LOADING_BAR_THICKNESS"]
         5 LOADN                            R1 5
@@ -31,7 +31,7 @@ MAIN:
        42 SETTABLEKS                       R1 R0 K13 ["AMR_EXPLORERROW_HEIGHT"]
        44 LOADN                            R1 25
        45 SETTABLEKS                       R1 R0 K14 ["AMR_HEADERROW_HEIGHT"]
-       47 GETIMPORT                        R1 K31 [UDim2.fromOffset]
+       47 GETIMPORT                        R1 K34 [UDim2.fromOffset]
        49 LOADN                            R2 25
        50 LOADN                            R3 25
        51 CALL                             R1 2 1
@@ -54,39 +54,54 @@ MAIN:
        76 SETTABLEKS                       R1 R0 K23 ["AMR_FILTERTYPES_WIDTH"]
        78 LOADN                            R1 64
        79 SETTABLEKS                       R1 R0 K24 ["AMR_FILTERTYPES_HEIGHT"]
-       81 GETIMPORT                        R1 K34 [Vector2.new]
-       83 LOADK                            R2 K35 [0.5]
-       84 LOADK                            R3 K35 [0.5]
+       81 GETIMPORT                        R1 K37 [Vector2.new]
+       83 LOADK                            R2 K38 [0.5]
+       84 LOADK                            R3 K38 [0.5]
        85 CALL                             R1 2 1
        86 SETTABLEKS                       R1 R0 K25 ["AMR_ANCHOR_CENTER"]
-       88 GETIMPORT                        R1 K37 [UDim2.fromScale]
-       90 LOADK                            R2 K35 [0.5]
-       91 LOADK                            R3 K35 [0.5]
+       88 GETIMPORT                        R1 K40 [UDim2.fromScale]
+       90 LOADK                            R2 K38 [0.5]
+       91 LOADK                            R3 K38 [0.5]
        92 CALL                             R1 2 1
        93 SETTABLEKS                       R1 R0 K26 ["AMR_POSITION_CENTER"]
-       95 GETIMPORT                        R1 K34 [Vector2.new]
+       95 GETIMPORT                        R1 K37 [Vector2.new]
        97 LOADN                            R2 128
        98 LOADN                            R3 104
        99 CALL                             R1 2 1
       100 SETTABLEKS                       R1 R0 K27 ["AMR_QUICKSHARE_DIALOG_SIZE"]
-      102 GETIMPORT                        R1 K31 [UDim2.fromOffset]
-      104 GETTABLEKS                       R2 R0 K5 ["AMR_ICON_WIDTH_XSMALL"]
-      106 GETTABLEKS                       R3 R0 K5 ["AMR_ICON_WIDTH_XSMALL"]
-      108 CALL                             R1 2 1
-      109 SETTABLEKS                       R1 R0 K38 ["AMR_ICON_SIZE_XSMALL"]
-      111 GETIMPORT                        R1 K31 [UDim2.fromOffset]
-      113 GETTABLEKS                       R2 R0 K6 ["AMR_ICON_WIDTH_SMALL"]
-      115 GETTABLEKS                       R3 R0 K6 ["AMR_ICON_WIDTH_SMALL"]
-      117 CALL                             R1 2 1
-      118 SETTABLEKS                       R1 R0 K39 ["AMR_ICON_SIZE_SMALL"]
-      120 GETIMPORT                        R1 K31 [UDim2.fromOffset]
-      122 GETTABLEKS                       R2 R0 K7 ["AMR_ICON_WIDTH"]
-      124 GETTABLEKS                       R3 R0 K7 ["AMR_ICON_WIDTH"]
-      126 CALL                             R1 2 1
-      127 SETTABLEKS                       R1 R0 K40 ["AMR_ICON_SIZE"]
-      129 GETIMPORT                        R1 K31 [UDim2.fromOffset]
-      131 GETTABLEKS                       R2 R0 K8 ["AMR_ICON_WIDTH_XLARGE"]
-      133 GETTABLEKS                       R3 R0 K8 ["AMR_ICON_WIDTH_XLARGE"]
-      135 CALL                             R1 2 1
-      136 SETTABLEKS                       R1 R0 K41 ["AMR_ICON_SIZE_XLARGE"]
-      138 RETURN                           R0 1
+      102 GETIMPORT                        R1 K34 [UDim2.fromOffset]
+      104 LOADN                            R2 96
+      105 LOADN                            R3 125
+      106 CALL                             R1 2 1
+      107 SETTABLEKS                       R1 R0 K28 ["AMR_QUICKSHARE_DROPDOWN_SIZE"]
+      109 GETIMPORT                        R1 K37 [Vector2.new]
+      111 LOADN                            R2 100
+      112 LOADN                            R3 200
+      113 CALL                             R1 2 1
+      114 SETTABLEKS                       R1 R0 K29 ["AMR_QUICKSHARE_PERMISSIONS_DROPDOWN_SIZE"]
+      116 GETIMPORT                        R1 K37 [Vector2.new]
+      118 LOADN                            R2 159
+      119 LOADN                            R3 100
+      120 CALL                             R1 2 1
+      121 SETTABLEKS                       R1 R0 K30 ["AMR_CONFIRM_DIALOG_SIZE"]
+      123 GETIMPORT                        R1 K34 [UDim2.fromOffset]
+      125 GETTABLEKS                       R2 R0 K5 ["AMR_ICON_WIDTH_XSMALL"]
+      127 GETTABLEKS                       R3 R0 K5 ["AMR_ICON_WIDTH_XSMALL"]
+      129 CALL                             R1 2 1
+      130 SETTABLEKS                       R1 R0 K41 ["AMR_ICON_SIZE_XSMALL"]
+      132 GETIMPORT                        R1 K34 [UDim2.fromOffset]
+      134 GETTABLEKS                       R2 R0 K6 ["AMR_ICON_WIDTH_SMALL"]
+      136 GETTABLEKS                       R3 R0 K6 ["AMR_ICON_WIDTH_SMALL"]
+      138 CALL                             R1 2 1
+      139 SETTABLEKS                       R1 R0 K42 ["AMR_ICON_SIZE_SMALL"]
+      141 GETIMPORT                        R1 K34 [UDim2.fromOffset]
+      143 GETTABLEKS                       R2 R0 K7 ["AMR_ICON_WIDTH"]
+      145 GETTABLEKS                       R3 R0 K7 ["AMR_ICON_WIDTH"]
+      147 CALL                             R1 2 1
+      148 SETTABLEKS                       R1 R0 K43 ["AMR_ICON_SIZE"]
+      150 GETIMPORT                        R1 K34 [UDim2.fromOffset]
+      152 GETTABLEKS                       R2 R0 K8 ["AMR_ICON_WIDTH_XLARGE"]
+      154 GETTABLEKS                       R3 R0 K8 ["AMR_ICON_WIDTH_XLARGE"]
+      156 CALL                             R1 2 1
+      157 SETTABLEKS                       R1 R0 K44 ["AMR_ICON_SIZE_XLARGE"]
+      159 RETURN                           R0 1

@@ -1542,8 +1542,8 @@ MAIN:
       232 NAMECALL                         R40 R40 K53 ["DefineFastInt"]
       234 CALL                             R40 3 1
       235 GETIMPORT                        R41 K51 [game]
-      237 LOADK                            R43 K54 ["EnablePlaceVersionHistory"]
-      238 NAMECALL                         R41 R41 K55 ["GetFastFlag"]
+      237 LOADK                            R43 K54 ["PlaceVersionHistory"]
+      238 NAMECALL                         R41 R41 K55 ["GetEngineFeature"]
       240 CALL                             R41 2 1
       241 LOADN                            R42 0
       242 LOADNIL                          R43

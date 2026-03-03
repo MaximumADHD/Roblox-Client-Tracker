@@ -45,9 +45,9 @@ local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvide
 
 local GamepadConnector = require(Components.GamepadConnector)
 local GamepadNavigationDialog = require(Presentation.GamepadNavigationDialog)
-local HealthBar = require(TopBar.ComponentsV2.HealthBar)
-local HurtOverlay = require(TopBar.ComponentsV2.HurtOverlay)
-local HeadsetDisconnectDialog = require(TopBar.ComponentsV2.HeadsetDisconnectDialog)
+local HealthBar = CoreGuiCommon.Components.HealthBar
+local HurtOverlay = CoreGuiCommon.Components.HurtOverlay
+local HeadsetDisconnectDialog = CoreGuiCommon.Components.HeadsetDisconnectDialog
 local MenuIcon = require(TopBar.ComponentsV2.MenuIcon)
 local MenuIconContext = require(Components.MenuIconContext)
 local MenuNavigationToggleDialog = require(Presentation.GamepadMenu.MenuNavigationToggleDialog)
@@ -88,7 +88,6 @@ local function TopBarApp(props: TopBarProps)
     local showTopBarSignal = GamepadConnector:getShowTopBar()
 	local showTopBar, setShowTopBar = React.useBinding(showTopBarSignal:get())
 
-
 	React.useEffect(function()
 		GamepadConnector:connectToTopbar()
 		local showTopBarConn = showTopBarSignal:connect(function() 
@@ -120,7 +119,6 @@ local function TopBarApp(props: TopBarProps)
 		Popups = React.createElement(View, {
 			tag = "size-full",
 		}, {
-			HeadsetDisconnectDialog = React.createElement(HeadsetDisconnectDialog),
 			SongbirdReportAudioFrame = React.createElement(View, {
 				tag = "anchor-center-center position-center-center",
 				Size = UDim2.new(1, 0, 0, MusicConstants.AUDIO_REPORTING_WINDOW_MIN_HEIGHT),
@@ -136,8 +134,6 @@ local function TopBarApp(props: TopBarProps)
 			GamepadNavigationDialog = if FFlagGamepadNavigationDialogABTest
 				then React.createElement(GamepadNavigationDialog)
 				else nil,
-
-			HurtOverlay = React.createElement(HurtOverlay),
 		}),
 		Binders = React.createElement(React.Fragment, {}, 
 		{
@@ -148,7 +144,6 @@ local function TopBarApp(props: TopBarProps)
 				then React.createElement(PartyMicBinder)
 				else nil,
 			ChromeAnalytics = if ChromeAnalytics then React.createElement(ChromeAnalytics) else nil,
-			SongbirdDebugAudio = React.createElement(Songbird.DebugAudioEmitters),
 		}),
 		TopBarFrame = React.createElement(View, {
 			Size = UDim2.new(1, 0, 0, topBarHeight),

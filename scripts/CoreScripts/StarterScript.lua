@@ -26,8 +26,6 @@ local FFlagUseRoactGlobalConfigInCoreScripts = require(RobloxGui.Modules.Flags.F
 
 local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreenshotHudApi)
 
-local GetFFlagEnableVoiceDefaultChannel = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceDefaultChannel)
-
 local GetFFlagEnableNewInviteMenuIXP = require(CoreGuiModules.Flags.GetFFlagEnableNewInviteMenuIXP)
 local NewInviteMenuExperimentManager = require(CoreGuiModules.Settings.Pages.ShareGame.NewInviteMenuExperimentManager)
 local GetFFlagEnableSoundSessionTelemetry = require(CoreGuiModules.Flags.GetFFlagEnableSoundSessionTelemetry)
@@ -49,8 +47,6 @@ local GetFFlagChromeCentralizedConfiguration =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeCentralizedConfiguration
 local GetFFlagEnableCrossExpVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExpVoice
-local FFlagEnableReactSessionMetrics =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableReactSessionMetrics
 local FStringReactSchedulingContext =
 	require(CorePackages.Workspace.Packages.SharedFlags).FStringReactSchedulingContext
 
@@ -85,10 +81,12 @@ local FFlagFixExperimentCacheManagerCoreScriptInit =
 local FFlagLuaAppEnableEnhancedVideoScripts = game:DefineFastFlag("LuaAppEnableEnhancedVideoScripts3", false)
 local FFlagLuaAppEnableInExperienceClickoutScripts = game:DefineFastFlag("LuaAppEnableInExperienceClickoutScripts", false)
 local FFlagSelfieFrontendConsoleDesktop = game:DefineFastFlag("SelfieFrontendConsoleDesktop2", false) and game:GetEngineFeature("EnableSelfieQRCode")
-
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
 UIBlox.init(uiBloxConfig)
+
+local InExperienceTopBar = require(CorePackages.Workspace.Packages.InExperienceTopBar)
+local FFlagTopBarRefactor = InExperienceTopBar.Flags.FFlagTopBarRefactor
 
 if FFlagFixExperimentCacheManagerCoreScriptInit then
 	local ExperimentCacheManager =
@@ -102,6 +100,13 @@ local FFlagReactTelemetryEnabled =
 if FFlagReactTelemetryEnabled then
 	local ReactTelemetry = require(CorePackages.Packages.ReactTelemetry)
 	ReactTelemetry.customFields.context = "in_experience"
+end
+
+-- Set up HttpStore
+local FFlagLuaAppUseAppHttpStore = game:DefineFastFlag("LuaAppUseAppHttpStoreInExperience", false)
+if FFlagLuaAppUseAppHttpStore then
+	local HttpStore = require(CorePackages.Workspace.Packages.HttpStore)
+	HttpStore.Instance._create({})
 end
 
 -- Set up React Scheduler experiment
@@ -234,6 +239,13 @@ coroutine.wrap(safeRequire)(CoreGuiModules.SelfieView)
 
 -- TopBar
 coroutine.wrap(safeRequire)(CoreGuiModules.TopBar)
+
+if FFlagTopBarRefactor then
+	local InExperienceOverlay = coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.InExperienceOverlay)
+	if InExperienceOverlay then
+		InExperienceOverlay.createOverlay()
+	end
+end
 
 if game:GetEngineFeature("LuobuModerationStatus") then
 	coroutine.wrap(function()
@@ -391,7 +403,7 @@ end
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/MicrophoneDevicePermissionsLoggingInitializer", RobloxGui)
 
-if game:GetEngineFeature("VoiceChatSupported") and GetFFlagEnableVoiceDefaultChannel() then
+if game:GetEngineFeature("VoiceChatSupported") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceDefaultChannel", RobloxGui)
 end
 coroutine.wrap(function()
@@ -591,18 +603,10 @@ local FIntReactSchedulingTrackerStartUpDelayMs = game:DefineFastInt("ReactSchedu
 local ReactSchedulingDelaySeconds = FIntReactSchedulingTrackerStartUpDelayMs / 1000
 
 local ReactSchedulingTracker = require(CoreGuiModules.Common.ReactSchedulingTracker)
-if FFlagEnableReactSessionMetrics then
-	-- delay to reduce startup noise
-	task.delay(ReactSchedulingDelaySeconds, function()
-		(ReactSchedulingTracker::ReactSchedulingTracker.ReactSchedulingTracker):start()
-	end)
-elseif ReactSchedulingTracker then
-	local reactSchedulingTracker = ReactSchedulingTracker.new(FStringReactSchedulingContext)
-	-- delay to reduce startup noise
-	task.delay(ReactSchedulingDelaySeconds, function()
-		reactSchedulingTracker:start()
-	end)
-end
+-- delay to reduce startup noise
+task.delay(ReactSchedulingDelaySeconds, function()
+	(ReactSchedulingTracker::ReactSchedulingTracker.ReactSchedulingTracker):start()
+end)
 
 local CorescriptMemoryTracker = require(CoreGuiModules.Common.CorescriptMemoryTracker)
 local coreScriptMemoryTracker = CorescriptMemoryTracker(FStringReactSchedulingContext)

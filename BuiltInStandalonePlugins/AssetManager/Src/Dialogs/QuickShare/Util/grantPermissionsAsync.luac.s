@@ -31,16 +31,16 @@ PROTO_1:
         4 GETTABLEKS                       R2 R0 K0 ["Action"]
         6 GETTABLEKS                       R3 R0 K1 ["Subject"]
         8 GETUPVAL                         R6 2
-        9 GETTABLEKS                       R5 R6 K2 ["PermissionsGrantSubject"]
+        9 GETTABLEKS                       R5 R6 K2 ["PermissionsSubject"]
        11 GETTABLEKS                       R4 R5 K3 ["Group"]
        13 JUMPIFNOTEQ                      R3 R4 ; [+7]
        15 GETUPVAL                         R4 2
-       16 GETTABLEKS                       R3 R4 K4 ["PermissionsGrantAction"]
+       16 GETTABLEKS                       R3 R4 K4 ["PermissionsAction"]
        18 GETTABLEKS                       R2 R3 K5 ["Use"]
        20 JUMP                             ; [+10]
        21 GETTABLEKS                       R3 R0 K1 ["Subject"]
        23 GETUPVAL                         R6 2
-       24 GETTABLEKS                       R5 R6 K2 ["PermissionsGrantSubject"]
+       24 GETTABLEKS                       R5 R6 K2 ["PermissionsSubject"]
        26 GETTABLEKS                       R4 R5 K6 ["Universe"]
        28 JUMPIFNOTEQ                      R3 R4 ; [+2]
        30 LOADB                            R1 1
@@ -51,7 +51,7 @@ PROTO_1:
        37 MOVE                             R8 R2
        38 MOVE                             R9 R1
        39 GETUPVAL                         R10 5
-       40 NAMECALL                         R3 R3 K8 ["grantAssetsPermissions"]
+       40 NAMECALL                         R3 R3 K8 ["grantAssetsPermissionsAsync"]
        42 CALL                             R3 7 0
        43 RETURN                           R0 0
 

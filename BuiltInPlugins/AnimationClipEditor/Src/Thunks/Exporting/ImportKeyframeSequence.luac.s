@@ -29,13 +29,13 @@ PROTO_2:
        13 CALL                             R3 1 2
        14 JUMPIF                           R3 ; [+1]
        15 RETURN                           R0 0
-       16 JUMPIFNOT                        R4 ; [+116]
+       16 JUMPIFNOT                        R4 ; [+127]
        17 FASTCALL1                        TONUMBER R4 ; [+3]
        18 MOVE                             R6 R4
        19 GETIMPORT                        R5 K6 [tonumber]
        21 CALL                             R5 1 1
        22 LOADN                            R6 0
-       23 JUMPIFNOTLT                      R6 R5 ; [+109]
+       23 JUMPIFNOTLT                      R6 R5 ; [+120]
        25 LOADNIL                          R5
        26 GETIMPORT                        R6 K4 [pcall]
        28 NEWCLOSURE                       R7 P1
@@ -76,56 +76,64 @@ PROTO_2:
        67 GETTABLEKS                       R7 R8 K13 ["DEFAULT_FRAMERATE"]
        69 GETUPVAL                         R8 5
        70 CALL                             R8 0 1
-       71 JUMPIFNOT                        R8 ; [+11]
+       71 JUMPIFNOT                        R8 ; [+22]
        72 GETUPVAL                         R8 6
        73 CALL                             R8 0 1
-       74 JUMPIFNOT                        R8 ; [+8]
+       74 JUMPIFNOT                        R8 ; [+19]
        75 GETUPVAL                         R9 7
        76 GETTABLEKS                       R8 R9 K14 ["getAnimSavesFolder"]
        78 MOVE                             R9 R2
        79 LOADB                            R10 1
        80 CALL                             R8 2 2
-       81 SETTABLEKS                       R8 R5 K15 ["Parent"]
-       83 GETTABLEKS                       R8 R6 K16 ["Metadata"]
-       85 GETUPVAL                         R10 4
-       86 GETTABLEKS                       R9 R10 K17 ["DEFAULT_IMPORTED_NAME"]
-       88 SETTABLEKS                       R9 R8 K18 ["Name"]
-       90 GETUPVAL                         R10 8
-       91 MOVE                             R11 R6
-       92 GETUPVAL                         R12 9
-       93 CALL                             R10 2 -1
-       94 NAMECALL                         R8 R0 K8 ["dispatch"]
-       96 CALL                             R8 -1 0
-       97 GETUPVAL                         R10 10
-       98 LOADB                            R11 0
-       99 CALL                             R10 1 -1
-      100 NAMECALL                         R8 R0 K8 ["dispatch"]
-      102 CALL                             R8 -1 0
-      103 GETUPVAL                         R10 11
-      104 LOADB                            R11 0
-      105 CALL                             R10 1 -1
-      106 NAMECALL                         R8 R0 K8 ["dispatch"]
-      108 CALL                             R8 -1 0
-      109 GETUPVAL                         R10 12
-      110 MOVE                             R11 R7
-      111 CALL                             R10 1 -1
-      112 NAMECALL                         R8 R0 K8 ["dispatch"]
-      114 CALL                             R8 -1 0
-      115 GETUPVAL                         R8 9
-      116 JUMPIFNOT                        R8 ; [+15]
-      117 GETUPVAL                         R8 9
-      118 LOADK                            R10 K19 ["onImportAnimation"]
-      119 MOVE                             R11 R4
-      120 GETTABLEKS                       R13 R6 K16 ["Metadata"]
-      122 JUMPIFNOT                        R13 ; [+5]
-      123 GETTABLEKS                       R13 R6 K16 ["Metadata"]
-      125 GETTABLEKS                       R12 R13 K20 ["Guid"]
-      127 JUMP                             ; [+1]
-      128 LOADNIL                          R12
-      129 NAMECALL                         R8 R8 K21 ["report"]
-      131 CALL                             R8 4 0
-      132 CLOSEUPVALS                      R5
-      133 RETURN                           R0 0
+       81 GETUPVAL                         R10 8
+       82 JUMPIFNOT                        R10 ; [+9]
+       83 GETTABLEKS                       R12 R5 K15 ["Name"]
+       85 NAMECALL                         R10 R8 K16 ["FindFirstChild"]
+       87 CALL                             R10 2 1
+       88 JUMPIFNOT                        R10 ; [+3]
+       89 NAMECALL                         R11 R10 K17 ["Destroy"]
+       91 CALL                             R11 1 0
+       92 SETTABLEKS                       R8 R5 K18 ["Parent"]
+       94 GETTABLEKS                       R8 R6 K19 ["Metadata"]
+       96 GETUPVAL                         R10 4
+       97 GETTABLEKS                       R9 R10 K20 ["DEFAULT_IMPORTED_NAME"]
+       99 SETTABLEKS                       R9 R8 K15 ["Name"]
+      101 GETUPVAL                         R10 9
+      102 MOVE                             R11 R6
+      103 GETUPVAL                         R12 10
+      104 CALL                             R10 2 -1
+      105 NAMECALL                         R8 R0 K8 ["dispatch"]
+      107 CALL                             R8 -1 0
+      108 GETUPVAL                         R10 11
+      109 LOADB                            R11 0
+      110 CALL                             R10 1 -1
+      111 NAMECALL                         R8 R0 K8 ["dispatch"]
+      113 CALL                             R8 -1 0
+      114 GETUPVAL                         R10 12
+      115 LOADB                            R11 0
+      116 CALL                             R10 1 -1
+      117 NAMECALL                         R8 R0 K8 ["dispatch"]
+      119 CALL                             R8 -1 0
+      120 GETUPVAL                         R10 13
+      121 MOVE                             R11 R7
+      122 CALL                             R10 1 -1
+      123 NAMECALL                         R8 R0 K8 ["dispatch"]
+      125 CALL                             R8 -1 0
+      126 GETUPVAL                         R8 10
+      127 JUMPIFNOT                        R8 ; [+15]
+      128 GETUPVAL                         R8 10
+      129 LOADK                            R10 K21 ["onImportAnimation"]
+      130 MOVE                             R11 R4
+      131 GETTABLEKS                       R13 R6 K19 ["Metadata"]
+      133 JUMPIFNOT                        R13 ; [+5]
+      134 GETTABLEKS                       R13 R6 K19 ["Metadata"]
+      136 GETTABLEKS                       R12 R13 K22 ["Guid"]
+      138 JUMP                             ; [+1]
+      139 LOADNIL                          R12
+      140 NAMECALL                         R8 R8 K23 ["report"]
+      142 CALL                             R8 4 0
+      143 CLOSEUPVALS                      R5
+      144 RETURN                           R0 0
 
 PROTO_3:
         0 NEWCLOSURE                       R2 P0
@@ -138,11 +146,12 @@ PROTO_3:
         7 CAPTURE                          UPVAL U5
         8 CAPTURE                          UPVAL U6
         9 CAPTURE                          UPVAL U7
-       10 CAPTURE                          VAL R1
-       11 CAPTURE                          UPVAL U8
+       10 CAPTURE                          UPVAL U8
+       11 CAPTURE                          VAL R1
        12 CAPTURE                          UPVAL U9
        13 CAPTURE                          UPVAL U10
-       14 RETURN                           R2 1
+       14 CAPTURE                          UPVAL U11
+       15 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -192,16 +201,22 @@ MAIN:
        74 GETIMPORT                        R14 K9 [require]
        76 GETTABLEKS                       R15 R11 K24 ["RigUtils"]
        78 CALL                             R14 1 1
-       79 DUPCLOSURE                       R15 K25 [PROTO_3]
-       80 CAPTURE                          VAL R0
-       81 CAPTURE                          VAL R8
-       82 CAPTURE                          VAL R13
-       83 CAPTURE                          VAL R12
-       84 CAPTURE                          VAL R3
-       85 CAPTURE                          VAL R2
-       86 CAPTURE                          VAL R14
-       87 CAPTURE                          VAL R10
-       88 CAPTURE                          VAL R5
-       89 CAPTURE                          VAL R6
-       90 CAPTURE                          VAL R7
-       91 RETURN                           R15 1
+       79 GETIMPORT                        R15 K1 [game]
+       81 LOADK                            R17 K25 ["ACEDuplicateImport"]
+       82 LOADB                            R18 0
+       83 NAMECALL                         R15 R15 K26 ["DefineFastFlag"]
+       85 CALL                             R15 3 1
+       86 DUPCLOSURE                       R16 K27 [PROTO_3]
+       87 CAPTURE                          VAL R0
+       88 CAPTURE                          VAL R8
+       89 CAPTURE                          VAL R13
+       90 CAPTURE                          VAL R12
+       91 CAPTURE                          VAL R3
+       92 CAPTURE                          VAL R2
+       93 CAPTURE                          VAL R14
+       94 CAPTURE                          VAL R15
+       95 CAPTURE                          VAL R10
+       96 CAPTURE                          VAL R5
+       97 CAPTURE                          VAL R6
+       98 CAPTURE                          VAL R7
+       99 RETURN                           R16 1

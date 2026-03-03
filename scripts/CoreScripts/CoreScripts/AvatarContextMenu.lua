@@ -74,7 +74,7 @@ local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 local FFlagAvatarContextMenuItemsChatButtonRefactor = require(CoreGuiModules.Flags.FFlagAvatarContextMenuItemsChatButtonRefactor)
 
 local success, FFlagUserRaycastUpdateAPI = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserRaycastUpdateAPI")
+	return UserSettings():IsUserFeatureEnabled("UserRaycastUpdateAPI2")
 end)
 FFlagUserRaycastUpdateAPI = success and FFlagUserRaycastUpdateAPI
 

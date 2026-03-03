@@ -6,7 +6,7 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R4 R0 K6 ["Tests"]
-       11 GETTABLEKS                       R3 R4 K7 ["Utils"]
+       11 GETTABLEKS                       R3 R4 K7 ["TestUtils"]
        13 GETTABLEKS                       R2 R3 K8 ["TestMatch"]
        15 CALL                             R1 1 1
        16 DUPTABLE                         R2 K12 [{"displayName", "testMatch", "testTimeout"}]

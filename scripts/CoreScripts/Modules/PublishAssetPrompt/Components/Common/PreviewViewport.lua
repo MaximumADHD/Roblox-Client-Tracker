@@ -16,8 +16,9 @@ local RunService = game:GetService("RunService")
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local Skeleton = Foundation.Skeleton
 
-local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local EmptyState = UIBlox.App.Indicator.EmptyState
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
@@ -524,7 +525,7 @@ function PreviewViewport:render()
 			})
 			else nil,
 
-		ShimmerFrame = (loadingState == LoadingState.LOADING) and Roact.createElement(ShimmerPanel, {
+		ShimmerFrame = (loadingState == LoadingState.LOADING) and Roact.createElement(Skeleton, {
 			Size = UDim2.fromScale(1, 1),
 			Position = UDim2.fromScale(0.5, 0.5),
 			AnchorPoint = Vector2.new(0.5, 0.5),

@@ -2,8 +2,6 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local FFlagPlayerIconAvatarFix = require(RobloxGui.Modules.Flags.FFlagPlayerIconAvatarFix)
-
 local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
@@ -86,12 +84,7 @@ function PlayerIcon:render()
 	return WithLayoutValues(function(layoutValues)
 		layoutValues = if FFlagUseNewPlayerList then self.props.layoutValues else layoutValues
 
-		local avatarIcon = nil
-		if FFlagPlayerIconAvatarFix then
-			avatarIcon = self.props.playerIconInfo and self.props.playerIconInfo.avatarIcon
-		else
-			avatarIcon = self.props.playerIconInfo.avatarIcon
-		end
+		local avatarIcon = self.props.playerIconInfo and self.props.playerIconInfo.avatarIcon
 		if avatarIcon == nil then
 			avatarIcon = layoutValues.DefaultThumbnail
 		end

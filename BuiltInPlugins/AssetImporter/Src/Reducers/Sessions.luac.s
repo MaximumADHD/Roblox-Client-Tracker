@@ -76,14 +76,17 @@ PROTO_2:
        45 RETURN                           R4 -1
 
 PROTO_3:
-        0 DUPTABLE                         R0 K3 [{"activeSessionCount", "sessionCount", "sessionQueue"}]
-        1 LOADN                            R1 0
-        2 SETTABLEKS                       R1 R0 K0 ["activeSessionCount"]
-        4 LOADN                            R1 0
-        5 SETTABLEKS                       R1 R0 K1 ["sessionCount"]
-        7 NEWTABLE                         R1 0 0
-        9 SETTABLEKS                       R1 R0 K2 ["sessionQueue"]
-       11 RETURN                           R0 1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K3 [{"activeSessionCount", "sessionCount", "sessionQueue"}]
+        3 LOADN                            R5 0
+        4 SETTABLEKS                       R5 R4 K0 ["activeSessionCount"]
+        6 LOADN                            R5 0
+        7 SETTABLEKS                       R5 R4 K1 ["sessionCount"]
+        9 NEWTABLE                         R5 0 0
+       11 SETTABLEKS                       R5 R4 K2 ["sessionQueue"]
+       13 CALL                             R2 2 -1
+       14 RETURN                           R2 -1
 
 PROTO_4:
         0 GETUPVAL                         R2 0
@@ -213,26 +216,27 @@ MAIN:
       126 SETTABLE                         R20 R18 R19
       127 GETTABLEKS                       R19 R6 K34 ["name"]
       129 DUPCLOSURE                       R20 K38 [PROTO_3]
-      130 SETTABLE                         R20 R18 R19
-      131 GETTABLEKS                       R19 R9 K34 ["name"]
-      133 DUPCLOSURE                       R20 K39 [PROTO_4]
-      134 CAPTURE                          VAL R3
-      135 SETTABLE                         R20 R18 R19
-      136 GETTABLEKS                       R19 R10 K34 ["name"]
-      138 DUPCLOSURE                       R20 K40 [PROTO_5]
-      139 CAPTURE                          VAL R3
-      140 SETTABLE                         R20 R18 R19
-      141 GETTABLEKS                       R19 R11 K34 ["name"]
-      143 DUPCLOSURE                       R20 K41 [PROTO_6]
-      144 CAPTURE                          VAL R3
-      145 SETTABLE                         R20 R18 R19
-      146 GETTABLEKS                       R19 R12 K34 ["name"]
-      148 DUPCLOSURE                       R20 K42 [PROTO_7]
-      149 CAPTURE                          VAL R3
-      150 SETTABLE                         R20 R18 R19
-      151 GETTABLEKS                       R19 R13 K34 ["name"]
-      153 DUPCLOSURE                       R20 K43 [PROTO_8]
-      154 CAPTURE                          VAL R3
-      155 SETTABLE                         R20 R18 R19
-      156 CALL                             R16 2 -1
-      157 RETURN                           R16 -1
+      130 CAPTURE                          VAL R3
+      131 SETTABLE                         R20 R18 R19
+      132 GETTABLEKS                       R19 R9 K34 ["name"]
+      134 DUPCLOSURE                       R20 K39 [PROTO_4]
+      135 CAPTURE                          VAL R3
+      136 SETTABLE                         R20 R18 R19
+      137 GETTABLEKS                       R19 R10 K34 ["name"]
+      139 DUPCLOSURE                       R20 K40 [PROTO_5]
+      140 CAPTURE                          VAL R3
+      141 SETTABLE                         R20 R18 R19
+      142 GETTABLEKS                       R19 R11 K34 ["name"]
+      144 DUPCLOSURE                       R20 K41 [PROTO_6]
+      145 CAPTURE                          VAL R3
+      146 SETTABLE                         R20 R18 R19
+      147 GETTABLEKS                       R19 R12 K34 ["name"]
+      149 DUPCLOSURE                       R20 K42 [PROTO_7]
+      150 CAPTURE                          VAL R3
+      151 SETTABLE                         R20 R18 R19
+      152 GETTABLEKS                       R19 R13 K34 ["name"]
+      154 DUPCLOSURE                       R20 K43 [PROTO_8]
+      155 CAPTURE                          VAL R3
+      156 SETTABLE                         R20 R18 R19
+      157 CALL                             R16 2 -1
+      158 RETURN                           R16 -1

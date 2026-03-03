@@ -32,9 +32,6 @@ local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
 local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
--- flagging roact gamepad for removal due to deprecation - focusNavigation will be used instead for engine navigation
-local FFlagPublishAssetPromptNoPromptNoRender = game:DefineFastFlag("PublishAssetPromptNoPromptNoRender", false)
-
 --Displays behind the in-game menu so that developers can't block interaction with the InGameMenu by constantly prompting.
 --The in-game menu displays at level 0, to render behind it we need to display at level -1.
 local DISPLAY_ORDER = -1
@@ -93,7 +90,7 @@ function PublishAssetPromptApp:render()
 		})
 	end
 
-	return if FFlagPublishAssetPromptNoPromptNoRender and promptElement == nil
+	return if promptElement == nil
 		then nil
 		else Roact.createElement("ScreenGui", {
 			IgnoreGuiInset = true,

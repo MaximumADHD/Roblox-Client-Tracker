@@ -13,44 +13,54 @@ PROTO_0:
        19 RETURN                           R2 1
        20 GETUPVAL                         R1 0
        21 CALL                             R1 0 1
-       22 JUMPIFNOT                        R1 ; [+21]
+       22 JUMPIFNOT                        R1 ; [+36]
        23 GETTABLEKS                       R2 R0 K0 ["item"]
        25 GETTABLEKS                       R1 R2 K1 ["source"]
        27 GETUPVAL                         R3 1
        28 GETTABLEKS                       R2 R3 K7 ["SOURCE_MARKETPLACE"]
-       30 JUMPIFNOTEQ                      R1 R2 ; [+13]
-       32 GETUPVAL                         R1 2
-       33 GETTABLEKS                       R3 R0 K3 ["palette"]
-       35 GETTABLEKS                       R2 R3 K8 ["Key"]
-       37 CALL                             R1 1 2
-       38 JUMPIFNOTEQKS                    R2 K9 ["clothing"] ; [+3]
-       40 LOADK                            R3 K10 ["layered"]
-       41 RETURN                           R3 1
-       42 LOADK                            R3 K11 ["rigid"]
-       43 RETURN                           R3 1
-       44 GETTABLEKS                       R2 R0 K0 ["item"]
-       46 GETTABLEKS                       R1 R2 K12 ["instance"]
-       48 LOADK                            R3 K13 ["WrapLayer"]
-       49 LOADB                            R4 1
-       50 NAMECALL                         R1 R1 K14 ["FindFirstChildWhichIsA"]
-       52 CALL                             R1 3 1
-       53 JUMPIFEQKNIL                     R1 ; [+3]
-       55 LOADK                            R1 K10 ["layered"]
-       56 RETURN                           R1 1
-       57 GETUPVAL                         R1 3
-       58 CALL                             R1 0 1
-       59 JUMPIFNOT                        R1 ; [+13]
-       60 GETTABLEKS                       R2 R0 K0 ["item"]
-       62 GETTABLEKS                       R1 R2 K12 ["instance"]
-       64 LOADK                            R3 K15 ["WrapTextureTransfer"]
-       65 LOADB                            R4 1
-       66 NAMECALL                         R1 R1 K14 ["FindFirstChildWhichIsA"]
-       68 CALL                             R1 3 1
-       69 JUMPIFEQKNIL                     R1 ; [+3]
-       71 LOADK                            R1 K16 ["makeup"]
-       72 RETURN                           R1 1
-       73 LOADK                            R1 K11 ["rigid"]
-       74 RETURN                           R1 1
+       30 JUMPIFNOTEQ                      R1 R2 ; [+28]
+       32 GETTABLEKS                       R2 R0 K3 ["palette"]
+       34 GETTABLEKS                       R1 R2 K8 ["PublishAssetType"]
+       36 JUMPIFNOT                        R1 ; [+10]
+       37 GETUPVAL                         R3 1
+       38 GETTABLEKS                       R2 R3 K9 ["MARKETPLACE_PUBLISH_ASSET_TYPE_TO_MAKEUP_ASSET_TYPE"]
+       40 GETTABLEKS                       R4 R0 K3 ["palette"]
+       42 GETTABLEKS                       R3 R4 K8 ["PublishAssetType"]
+       44 GETTABLE                         R1 R2 R3
+       45 JUMPIFNOT                        R1 ; [+1]
+       46 RETURN                           R1 1
+       47 GETUPVAL                         R1 2
+       48 GETTABLEKS                       R3 R0 K3 ["palette"]
+       50 GETTABLEKS                       R2 R3 K10 ["Key"]
+       52 CALL                             R1 1 2
+       53 JUMPIFNOTEQKS                    R2 K11 ["clothing"] ; [+3]
+       55 LOADK                            R3 K12 ["layered"]
+       56 RETURN                           R3 1
+       57 LOADK                            R3 K13 ["rigid"]
+       58 RETURN                           R3 1
+       59 GETTABLEKS                       R2 R0 K0 ["item"]
+       61 GETTABLEKS                       R1 R2 K14 ["instance"]
+       63 LOADK                            R3 K15 ["WrapLayer"]
+       64 LOADB                            R4 1
+       65 NAMECALL                         R1 R1 K16 ["FindFirstChildWhichIsA"]
+       67 CALL                             R1 3 1
+       68 JUMPIFEQKNIL                     R1 ; [+3]
+       70 LOADK                            R1 K12 ["layered"]
+       71 RETURN                           R1 1
+       72 GETUPVAL                         R1 3
+       73 CALL                             R1 0 1
+       74 JUMPIFNOT                        R1 ; [+13]
+       75 GETTABLEKS                       R2 R0 K0 ["item"]
+       77 GETTABLEKS                       R1 R2 K14 ["instance"]
+       79 LOADK                            R3 K17 ["WrapTextureTransfer"]
+       80 LOADB                            R4 1
+       81 NAMECALL                         R1 R1 K16 ["FindFirstChildWhichIsA"]
+       83 CALL                             R1 3 1
+       84 JUMPIFEQKNIL                     R1 ; [+3]
+       86 LOADK                            R1 K18 ["makeup"]
+       87 RETURN                           R1 1
+       88 LOADK                            R1 K13 ["rigid"]
+       89 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
