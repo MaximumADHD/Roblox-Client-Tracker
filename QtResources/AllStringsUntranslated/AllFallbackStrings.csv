@@ -3549,6 +3549,8 @@ Studio.App.RobloxRibbonMainWindow.AGUIObjectContainingText,,A GUI object contain
 Studio.App.RobloxRibbonMainWindow.ATextEntryBox,,A text entry box,A text entry box
 Studio.App.RobloxRibbonMainWindow.Actions,,Actions,Actions
 Studio.App.RobloxRibbonMainWindow.ActionsAsTools,,Actions as Tools,Actions as Tools
+Studio.App.RobloxRibbonMainWindow.AdaptiveAnimation,"plugin name, matches Studio.AdaptiveAnimationSupport.Plugin.Name",Adaptive Animation Support,Adaptive Animation Support
+Studio.App.RobloxRibbonMainWindow.AdaptiveAnimationTooltip,"plugin ribbon tooltip, matches Studio.AdaptiveAnimationSupport.Plugin.Description",Adaptive Animation Support,Adaptive Animation Support
 Studio.App.RobloxRibbonMainWindow.AddASpawnPoint,,Click here to add a spawn point into your game,Click here to add a spawn point into your game
 Studio.App.RobloxRibbonMainWindow.AddDebugPlugin,,Add Debug Plugin,Add Debug Plugin
 Studio.App.RobloxRibbonMainWindow.AddWeld,,Weld,Weld
@@ -6096,6 +6098,8 @@ Studio.BetaFeatures.SkyboxOrientationDescription,Enables setting the orientation
 Studio.BetaFeatures.SkyboxOrientationTitle,"Refers to a new feature that adds an ""Orientation"" property to the ""Sky"" that will rotate the six textures known as the ""Skybox"".",Skybox Orientation,Skybox Orientation
 Studio.BetaFeatures.SmoothVoxelsDescription,1:1 Copy from Studio.App.BetaFeature.SmoothVoxelsDescription,Enable the terrain upgrade changing the way voxels are rendered to make them much smoother in cases where there were terracing issues and LOD artefacts before. (NOTE: Requires Upgrade Shorelines!),Enable the terrain upgrade changing the way voxels are rendered to make them much smoother in cases where there were terracing issues and LOD artefacts before. (NOTE: Requires Upgrade Shorelines!)
 Studio.BetaFeatures.SmoothVoxelsTitle,1:1 copy from Studio.App.BetaFeature.SmoothVoxelsTitle,Smooth Voxels,Smooth Voxels
+Studio.BetaFeatures.SolidModelingOnMeshes,"Adds MeshPart support for both Studio and in-experience CSG tools, and introduces new APIs for simplified in-experience destruction.",Solid Modeling On Meshes,Solid Modeling On Meshes
+Studio.BetaFeatures.SolidModelingOnMeshesDescription,Description for Solid Modeling On Meshes Beta.,"Adds MeshPart support for both Studio and in-experience CSG tools, and introduces new APIs for simplified in-experience destruction.","Adds MeshPart support for both Studio and in-experience CSG tools, and introduces new APIs for simplified in-experience destruction."
 Studio.BetaFeatures.SomethingChangedPrompt,,Would you like to restart Studio now?,Would you like to restart Studio now?
 Studio.BetaFeatures.SoundAsAShimDescription,Description for the Sound as a Shim Beta Feature,"Replaces the implementation of Sounds with the advanced Audio API, enabling Acoustic Simulation and new audio features when using the legacy Sound framework.","Replaces the implementation of Sounds with the advanced Audio API, enabling Acoustic Simulation and new audio features when using the legacy Sound framework."
 Studio.BetaFeatures.SoundAsAShimTitle,Title for the Sound as a Shim Beta Feature,Sound as a Shim,Sound as a Shim

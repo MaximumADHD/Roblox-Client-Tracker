@@ -6301,7 +6301,7 @@ Studio.GameSettings.General.PlayabilityWarning,,,Complete the {link} to make thi
 Studio.GameSettings.General.PlayabilityWarningLink,,,Content & Maturity questionnaire,Content & Maturity questionnaire
 Studio.GameSettings.Guidelines.UnratedExpPlayabilityWaringBeforeSept30,,,This experience may be unplayable after Sept 30. Complete the Maturity & Compliance questionnaire to assign a content maturity label. {link},This experience may be unplayable after Sept 30. Complete the Maturity & Compliance questionnaire to assign a content maturity label. {link}
 Studio.GameSettings.Guidelines.UnratedExpPlayabilityWaringLink,,,View policy details.,View policy details.
-Studio.GameSettings.Guidelines.UnratedExpPlayabilityWaring,,,Experiences must have a content maturity label to be playable. {link},Experiences must have a content maturity label to be playable. {link}
+Studio.GameSettings.Guidelines.UnratedExpPlayabilityWaring,,,This experience is unplayable. Complete the Maturity & Compliance questionnaire to assign a content maturity label. {link},This experience is unplayable. Complete the Maturity & Compliance questionnaire to assign a content maturity label. {link}
 Studio.GameSettings.Security.AssetInsertionWarning,,,"You are responsible for assets inserted in your experience. If assets in your experience violate your experience’s maturity rating or [linkTOS], your place or account may face moderation.","You are responsible for assets inserted in your experience. If assets in your experience violate your experience’s maturity rating or [linkTOS], your place or account may face moderation."
 Studio.GameSettings.Security.AssetInsertionWarningLinkTOS,,,Roblox Terms of Use,Roblox Terms of Use
 Studio.GameSettings.ButtonRestartServers,,,Restart Servers,Restart Servers
@@ -6336,8 +6336,9 @@ Studio.GameSettings.General.TermsOfUseLink,,,Terms of Use,Terms of Use
 Studio.GameSettings.General.CommunityStandardsLink,,,Community Standards,Community Standards
 Studio.GameSettings.General.StudioApiServicesDescExp,,,Enables Studio access to experience services such as Data Stores,Enables Studio access to experience services such as Data Stores
 Studio.GameSettings.Places.VersionHistoryMovedTitle,,,Version History Has Moved,Version History Has Moved
-Studio.GameSettings.Places.VersionHistoryMovedHeader,,,Version History Has Moved,Version History Has Moved
-Studio.GameSettings.Places.VersionHistoryMovedBody,,,You can now find it under {location},You can now find it under {location}
+Studio.GameSettings.Places.VersionHistoryMovedHeader,,,Version History has moved,Version History has moved
+Studio.GameSettings.Places.VersionHistoryMovedBody,,,"Now, you can find it under {location}","Now, you can find it under {location}"
+Studio.GameSettings.Places.Window,,,Window,Window
 Studio.Toolbox.General.ToolboxToolbarName,,,Toolbox,Toolbox
 Studio.Toolbox.General.CategoryModels,,,Models,Models
 Studio.Toolbox.General.CategoryDecals,,,Images,Images
@@ -8087,6 +8088,21 @@ Studio.Toolbox.Subcategory.ModelGameplayAds,,,Ads,Ads
 Studio.Toolbox.Subcategory.ModelGameplayPackages,,,Packages,Packages
 Studio.Toolbox.Error.SkinColorRequired,,,Skin color required,Skin color required
 Studio.Toolbox.General.ThumbnailSkinTone,,,Thumbnail skin tone,Thumbnail skin tone
+Studio.Toolbox.Subcategory.Model3dBuildingBlocks,,,Parts,Parts
+Studio.Toolbox.Subcategory.Model3d,,,3D Assets,3D Assets
+Studio.Toolbox.Subcategory.Model3dCharacters,,,Characters,Characters
+Studio.Toolbox.Subcategory.Model3dMaps,,,Maps,Maps
+Studio.Toolbox.Subcategory.Model3dMeshparts,,,Meshparts,Meshparts
+Studio.Toolbox.Subcategory.Model3dNature,,,Nature,Nature
+Studio.Toolbox.Subcategory.Model3dPropsAndDecor,,,Props and Decor,Props and Decor
+Studio.Toolbox.Subcategory.Model3dStructures,,,Structures,Structures
+Studio.Toolbox.Subcategory.Model3dVehicles,,,Vehicles,Vehicles
+Studio.Toolbox.Subcategory.Model3dWeapons,,,Weapons,Weapons
+Studio.Toolbox.Subcategory.Model2d,,,2D Assets,2D Assets
+Studio.Toolbox.Subcategory.Model2dDecals,,,Decals,Decals
+Studio.Toolbox.Subcategory.Model2dFonts,,,Fonts,Fonts
+Studio.Toolbox.Subcategory.Model2dVideos,,,Videos,Videos
+Studio.Toolbox.General.TooltipThumbnailSkinColorDescription,,,This skin color will only be used in the thumbnail to merchandise your Makeup item,This skin color will only be used in the thumbnail to merchandise your Makeup item
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9354,6 +9370,27 @@ Studio.AssetManager.QuickShare.PermissionErrorDescription,,,Some assets can't be
 Studio.AssetManager.ContextMenu.CopyToClipboard,,,Copy to Clipboard,Copy to Clipboard
 Studio.AssetManager.QuickShare.PermissionBannerTitle,,,Some assets can't be shared,Some assets can't be shared
 Studio.AssetManager.QuickShare.PermissionBannerButton,,,View assets,View assets
+Studio.AssetManager.ContextMenu.CreateFolder,,,Create Folder,Create Folder
+Studio.AssetManager.ContextMenu.GroupSelectionAsFolder,,,Group Selection as Folder,Group Selection as Folder
+Studio.AssetManager.ContextMenu.DeleteFolder,,,Delete Folder,Delete Folder
+Studio.AssetManager.ContextMenu.Move,,,Move,Move
+Studio.AssetManager.ContextMenu.Copy,,,Copy,Copy
+Studio.AssetManager.ContextMenu.CopyId,,,Copy ID,Copy ID
+Studio.AssetManager.ContextMenu.CopyIds,,,Copy IDs,Copy IDs
+Studio.AssetManager.ContextMenu.CopyInfo,,,Copy Info,Copy Info
+Studio.AssetManager.ContextMenu.ClearRecent,,,Clear,Clear
+Studio.AssetManager.Sidebar.Inventories,,,Inventories,Inventories
+Studio.AssetManager.Sidebar.Recent,,,Recent,Recent
+Studio.AssetManager.Scopes.RecentUploads,,,Uploads,Uploads
+Studio.AssetManager.QuickShare.NoEditWarningTitle,,,Cannot grant Edit to all assets,Cannot grant Edit to all assets
+Studio.AssetManager.QuickShare.NoEditWarningDescription,,,Only Models and Packages will be editable,Only Models and Packages will be editable
+Studio.AssetManager.ContextMenu.OpenUse,,,Make Open Use,Make Open Use
+Studio.AssetManager.ContextMenu.WithCollaborators,,,With Collaborators,With Collaborators
+Studio.AssetManager.OpenUse.LearnMore,,,Learn about Open Use permissions,Learn about Open Use permissions
+Studio.AssetManager.OpenUse.ConfirmText,,,Are you sure you want to make the selected assets Open Use? This action is permanent.,Are you sure you want to make the selected assets Open Use? This action is permanent.
+Studio.AssetManager.OpenUse.ErrorTitle,,,The following assets cannot be made Open Use,The following assets cannot be made Open Use
+Studio.AssetManager.AssetType.Folder,,,Folder,Folder
+Studio.AssetManager.ContextMenu.Edit,,,Edit,Edit
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -12206,6 +12243,7 @@ Studio.AvatarCompatibilityPreviewer.AddItems.AddContentFromLabel,,,Add content f
 Studio.AvatarCompatibilityPreviewer.AddItems.SelectedInstancesLabel,,,Selected instance(s),Selected instance(s)
 Studio.AvatarCompatibilityPreviewer.AddItems.AssetIDLabel,,,AssetID,AssetID
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ThumbnailSkinTone,,,Thumbnail skin tone,Thumbnail skin tone
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.TooltipThumbnailSkinColorDescription,,,This skin color will only be used in the thumbnail to merchandise your Makeup item,This skin color will only be used in the thumbnail to merchandise your Makeup item
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -13785,6 +13823,10 @@ Studio.Assistant.Tools.StartStopPlay,,,Start/Stop Play,Start/Stop Play
 Studio.Assistant.Tools.GetConsoleOutput,,,Get Console Output,Get Console Output
 Studio.Assistant.GenericLongRunToolContentWidget.Processing,,,Processing...,Processing...
 Studio.Assistant.GenericLongRunToolContentWidget.CodeTruncated,,,Code truncated ({charCount} characters total). Use the copy button to get the full code.,Code truncated ({charCount} characters total). Use the copy button to get the full code.
+Studio.Assistant.ScriptChangeConfirmation.AcceptAllPrompt,,,Accept All Script Changes This Prompt,Accept All Script Changes This Prompt
+Studio.Assistant.ScriptChangeConfirmation.AcceptAllSession,,,Accept All Script Changes This Session,Accept All Script Changes This Session
+Studio.Assistant.ScriptChangeConfirmation.ReviewEach,,,Review Each Script Change,Review Each Script Change
+Studio.Assistant.ScriptChangeConfirmation.Warning,,,This prompt will make changes to your scripts,This prompt will make changes to your scripts
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -14426,6 +14468,8 @@ Studio.BetaFeatures.UniversalImporterTitle,,,Universal Importer,Universal Import
 Studio.BetaFeatures.UniversalImporterDescription,,,"Add support for images, audio and video and replace bulk importer in the revamped Asset Manager.","Add support for images, audio and video and replace bulk importer in the revamped Asset Manager."
 Studio.BetaFeatures.AvatarAbilitiesTitle,,,AvatarAbilities Character Controller Library,AvatarAbilities Character Controller Library
 Studio.BetaFeatures.AvatarAbilitiesDescription,,,"A Luau-native character controller system — an extensible alternative to the Humanoid state machine, built on ControllerManager physics.","A Luau-native character controller system — an extensible alternative to the Humanoid state machine, built on ControllerManager physics."
+Studio.BetaFeatures.SolidModelingOnMeshes,,,Solid Modeling On Meshes,Solid Modeling On Meshes
+Studio.BetaFeatures.SolidModelingOnMeshesDescription,,,"Adds MeshPart support for both Studio and in-experience CSG tools, and introduces new APIs for simplified in-experience destruction.","Adds MeshPart support for both Studio and in-experience CSG tools, and introduces new APIs for simplified in-experience destruction."
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -14513,10 +14557,10 @@ Studio.PlaceVersionHistory.Option.AllSaves,,,All saves,All saves
 Studio.PlaceVersionHistory.Option.Published,,,Published,Published
 Studio.PlaceVersionHistory.Option.HasNotes,,,Has notes,Has notes
 Studio.PlaceVersionHistory.Label.FindAPlace,,,Find a place,Find a place
-Studio.PlaceVersionHistory.Label.AllUsers,,,All users,All users
-Studio.PlaceVersionHistory.Label.FindAUser,,,Find a user,Find a user
+Studio.PlaceVersionHistory.Label.AllUsers,,,All collaborators,All collaborators
+Studio.PlaceVersionHistory.Label.FindAUser,,,Find a collaborator,Find a collaborator
 Studio.PlaceVersionHistory.Action.Cancel,,,Cancel,Cancel
-Studio.PlaceVersionHistory.Label.ResetUser,,,Show history for all users,Show history for all users
+Studio.PlaceVersionHistory.Label.ResetUser,,,All collaborators,All collaborators
 Studio.PlaceVersionHistory.Label.Search,,,Search,Search
 Studio.PlaceVersionHistory.Action.Refresh,,,Refresh,Refresh
 Studio.PlaceVersionHistory.Action.ClearFilters,,,Clear filters,Clear filters

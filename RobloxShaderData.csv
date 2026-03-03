@@ -46,6 +46,7 @@ ClearOneChannelCS,Compute,❌,❌,✔,❌,✔
 ClearThreeChannelCS,Compute,❌,❌,✔,❌,✔
 ClearTwoChannelCS,Compute,❌,❌,✔,❌,✔
 CloudsBsmFS,Fragment,✔,✔,✔,✔,✔
+CloudsBsmFSOld,Fragment,✔,✔,✔,✔,✔
 CloudsClearToSkyColorFS,Fragment,✔,✔,✔,✔,✔
 CloudsCompFS,Fragment,✔,✔,✔,✔,✔
 CloudsDist2dFS,Fragment,✔,✔,✔,✔,✔
