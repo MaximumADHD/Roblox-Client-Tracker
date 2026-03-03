@@ -4,7 +4,7 @@ version = "1.9.1"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React 17.3.7 registry",
-    "ReactRoblox ReactRoblox 17.3.7 registry",
+    "React React 17.3.8 registry",
+    "ReactRoblox ReactRoblox 17.3.8 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
 ]

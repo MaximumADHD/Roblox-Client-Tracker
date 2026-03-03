@@ -112,7 +112,7 @@
                                 "KeyboardBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
-                                        "Scale": 0.1,
+                                        "Scale": 6.0,
                                         "Down": "I",
                                         "Up": "O"
                                     }
@@ -135,10 +135,10 @@
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "Vector2Scale": [
-                                            1.0,
-                                            0.77
-                                        ], // 4.189, 3.22537
-                                        "Scale": "4.1887902047863905",
+                                            4.189,
+                                            3.225
+                                        ],
+                                        "ResponseCurve": 2,
                                         "KeyCode": "Thumbstick2"
                                     }
                                 }
@@ -161,7 +161,7 @@
                                     }
                                 }
                             },
-                            "CameraGamepadResetAction": {
+                            "CameraGamepadReset": {
                                 "$className": "InputAction",
                                 "$properties": {
                                     "Enabled": false
@@ -173,7 +173,7 @@
                                     }
                                 }
                             },
-                            "CameraToggleAction": {
+                            "CameraToggle": {
                                 "$className": "InputAction",
                                 "$properties": {
                                     "Enabled": false

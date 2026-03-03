@@ -6,5 +6,5 @@ dependencies = [
     "FocusBehaviors FocusBehaviors 2.0.0 registry",
     "FocusNavigation FocusNavigation 2.0.0 registry",
     "FocusNavigationUtils FocusNavigationUtils 2.0.0 registry",
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
 ]

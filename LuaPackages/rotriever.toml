@@ -39,14 +39,14 @@ RoduxGames = "1.4.3"
 ReactFocusNavigation = "2.0.0"
 FocusBehaviors = "2.0.0"
 InputHandlers = "2.0.0"
-Roact = { version = "17.3.7", package = "RoactCompat" }
-React = "17.3.7"
-ReactIs = "17.3.7"
-ReactGlobals = "17.3.7"
-ReactReconciler = "17.3.7"
-ReactTelemetry = "17.3.7"
-ReactRoblox = "17.3.7"
-Scheduler = "17.3.7"
+Roact = { version = "17.3.8", package = "RoactCompat" }
+React = "17.3.8"
+ReactIs = "17.3.8"
+ReactGlobals = "17.3.8"
+ReactReconciler = "17.3.8"
+ReactTelemetry = "17.3.8"
+ReactRoblox = "17.3.8"
+Scheduler = "17.3.8"
 ReactSceneUnderstanding = "0.13.1"
 ReactUtils = "1.9.1"
 Promise = "3.5.1"
@@ -63,7 +63,7 @@ QRCode = "0.1.0"
 Merge = "0.3.1"
 GraphqlToolsUtils = { version = "0.3.1", package = "Utils" }
 DataLoader = "0.2.0"
-UGCValidation = "1.17.29"
+UGCValidation = "1.17.31"
 RoduxPresence = "3.2.3"
 RoduxFriends = "4.3.0"
 RoduxUsers = "1.5.1"
@@ -100,9 +100,9 @@ Rhodium = "0.5.0"
 TagUtils = "0.1.0"
 RecordPlayback = "0.1.1"
 RoduxDevtools = "1.0.0-rc.1"
-ReactDevtoolsCore = "17.3.7"
+ReactDevtoolsCore = "17.3.8"
 # Dependencies for the Roact17 inspector
-ReactDevtoolsExtensions = "17.3.7"
+ReactDevtoolsExtensions = "17.3.8"
 DeveloperTools = "0.2.7"
 ApolloClientTesting = "0.3.10"
 UsageTracker = "0.1.1"
@@ -122,7 +122,7 @@ RoactNavigation = "0.5.10"
 
 # Roact 17 - Patch in roact compat for legacy roact
 [config.patch."github.com/roblox/roact"]
-Roact = { version = "17.3.7", package = "RoactCompat" }
+Roact = { version = "17.3.8", package = "RoactCompat" }
 
 [config.patch."github.com/roblox/roact-rodux"]
 RoactRodux = "0.5.1"

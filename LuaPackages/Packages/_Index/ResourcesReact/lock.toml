@@ -3,6 +3,6 @@ name = "ResourcesReact"
 version = "0.6.0"
 source = "registry"
 dependencies = [
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
     "Resources Resources 0.6.0 registry",
 ]

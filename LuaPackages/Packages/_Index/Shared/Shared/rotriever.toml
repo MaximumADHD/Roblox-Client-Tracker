@@ -1,12 +1,13 @@
 [package]
 name = "Shared"
-version = "17.3.7"
+version = "17.3.8"
+readme = "README.md"
 content_root = "src"
 files = [
     "*",
     "!**/__tests__/**",
 ]
-publish = false
+publish = true
 authors = [
     "Paul Doyle <pdoyle@roblox.com>",
     "Matt Hargett <mhargett@roblox.com>",
@@ -17,11 +18,32 @@ authors = [
     "Hugh Collins <hcollins@roblox.com>",
 ]
 [dependencies.LuauPolyfill]
+target = "https://github.com/roblox/luau-polyfill"
 version = "^1"
 
 [dependencies.ReactGlobals]
 package = "ReactGlobals"
-version = "^17.3.7"
+version = "^17.3.8"
 
 [dependencies.SafeFlags]
+target = "https://github.com/roblox/safe-flags-internal"
 version = "^0.1.1"
+[dev_dependencies.JestGlobals]
+target = "https://github.com/roblox/jest-roblox"
+version = "^3"
+
+[dev_dependencies.JestReact]
+package = "JestReact"
+version = "^17.3.8"
+
+[dev_dependencies.React]
+package = "React"
+version = "^17.3.8"
+
+[dev_dependencies.ReactNoop]
+package = "ReactNoopRenderer"
+version = "^17.3.8"
+
+[dev_dependencies.Scheduler]
+package = "Scheduler"
+version = "^17.3.8"

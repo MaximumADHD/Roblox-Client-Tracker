@@ -13,7 +13,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "LuauRegExp RegExp 0.2.2 registry",
     "Promise <patched> Promise 3.5.1 registry",
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
     "RobloxRequests RobloxRequests 0.1.0 registry",
     "ZenObservable ZenObservable 0.8.16-roblox.2 registry",
 ]
@@ -31,7 +31,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "LuauRegExp RegExp 0.2.2 registry",
     "Promise <patched> Promise 3.5.1 registry",
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.3.4 registry",
     "ZenObservable ZenObservable 0.8.16-roblox.2 registry",
 ]
@@ -126,19 +126,19 @@ dependencies = [
     "PolicyProvider LuaRoactPolicyProvider 0.1.3 registry",
     "Promise <patched> Promise 3.5.1 registry",
     "QRCode QRCode 0.1.0 registry",
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
     "ReactDebugging ReactDebugging 1.8.0 registry",
-    "ReactDevtoolsCore ReactDevtoolsCore 17.3.7 registry",
-    "ReactDevtoolsExtensions ReactDevtoolsExtensions 17.3.7 registry",
+    "ReactDevtoolsCore ReactDevtoolsCore 17.3.8 registry",
+    "ReactDevtoolsExtensions ReactDevtoolsExtensions 17.3.8 registry",
     "ReactFocusNavigation ReactFocusNavigation 2.0.0 registry",
-    "ReactGlobals ReactGlobals 17.3.7 registry",
+    "ReactGlobals ReactGlobals 17.3.8 registry",
     "ReactHMR ReactHMR 0.1.1 registry",
-    "ReactIs ReactIs 17.3.7 registry",
+    "ReactIs ReactIs 17.3.8 registry",
     "ReactOtter ReactOtter 1.3.7 registry",
-    "ReactReconciler ReactReconciler 17.3.7 registry",
-    "ReactRoblox ReactRoblox 17.3.7 registry",
+    "ReactReconciler ReactReconciler 17.3.8 registry",
+    "ReactRoblox ReactRoblox 17.3.8 registry",
     "ReactSceneUnderstanding ReactSceneUnderstanding 0.13.1 registry",
-    "ReactTelemetry ReactTelemetry 17.3.7 registry",
+    "ReactTelemetry ReactTelemetry 17.3.8 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.3.4 registry",
     "ReactTestingUtils ReactTestingUtils 1.3.1 registry",
     "ReactUtils ReactUtils 1.9.1 registry",
@@ -148,7 +148,7 @@ dependencies = [
     "ResourcesReact ResourcesReact 0.6.0 registry",
     "Result lua-result 0.1.0 registry",
     "Rhodium Rhodium 0.5.0 registry",
-    "Roact RoactCompat 17.3.7 registry",
+    "Roact RoactCompat 17.3.8 registry",
     "RoactAppExperiment RoactAppExperiment 0.4.1 registry",
     "RoactGamepad RoactGamepad 0.5.13 registry",
     "RoactNavigation <patched> RoactNavigation 0.5.10 registry",
@@ -161,7 +161,7 @@ dependencies = [
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "RoduxUsers RoduxUsers 1.6.0 registry",
-    "Scheduler Scheduler 17.3.7 registry",
+    "Scheduler Scheduler 17.3.8 registry",
     "ServiceContractsProto ServiceContractsProto 1.0.267+20260209 registry",
     "Signal Signal 1.0.0 registry",
     "Signals Signals 0.6.0 registry",
@@ -171,7 +171,7 @@ dependencies = [
     "StringUtilities string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.5.1 registry",
-    "UGCValidation UGCValidation 1.17.29 registry",
+    "UGCValidation UGCValidation 1.17.31 registry",
     "UIBlox UIBlox 0.2.230 registry",
     "UrlBuilder UrlBuilder 1.2.16 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
@@ -323,12 +323,12 @@ dependencies = [
     "Motion Motion 0.1.0 registry",
     "Otter Otter 1.3.7 registry",
     "RbxDesignFoundations RbxDesignFoundations 2.0.163 registry",
-    "React React 17.3.7 registry",
-    "ReactIs ReactIs 17.3.7 registry",
+    "React React 17.3.8 registry",
+    "ReactIs ReactIs 17.3.8 registry",
     "ReactOtter ReactOtter 1.3.7 registry",
-    "ReactRoblox ReactRoblox 17.3.7 registry",
+    "ReactRoblox ReactRoblox 17.3.8 registry",
     "ReactUtils ReactUtils 1.9.1 registry",
-    "Roact RoactCompat 17.3.7 registry",
+    "Roact RoactCompat 17.3.8 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
     "Signal Signal 1.0.0 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
@@ -356,8 +356,8 @@ dependencies = [
     "Foundation Foundation 1.72.1 registry",
     "FoundationImages FoundationImages 1.33.0 registry",
     "JestGlobals JestGlobals 3.13.3 registry",
-    "React React 17.3.7 registry",
-    "ReactIs ReactIs 17.3.7 registry",
+    "React React 17.3.8 registry",
+    "ReactIs ReactIs 17.3.8 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.3.4 registry",
 ]
 
@@ -422,7 +422,7 @@ dependencies = [
     "Otter Otter 0.1.4 registry",
     "PolicyProvider LuaRoactPolicyProvider 0.1.3 registry",
     "Promise <patched> Promise 3.5.1 registry",
-    "Roact RoactCompat 17.3.7 registry",
+    "Roact RoactCompat 17.3.8 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
     "UIBlox UIBlox 0.2.230 registry",
@@ -437,8 +437,8 @@ dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
     "Foundation Foundation 1.72.1 registry",
     "MarkdownCore MarkdownCore 0.0.2 registry",
-    "React React 17.3.7 registry",
-    "ReactIs ReactIs 17.3.7 registry",
+    "React React 17.3.8 registry",
+    "ReactIs ReactIs 17.3.8 registry",
 ]
 
 [[package]]
@@ -973,7 +973,7 @@ version = "0.1.4"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
 ]
 
 [[package]]
@@ -985,7 +985,7 @@ dependencies = [
     "Lumberyak lumberyak 0.1.1 registry",
     "Mock mock 0.1.0 registry",
     "Promise <patched> Promise 3.5.1 registry",
-    "Roact <patched> RoactCompat 17.3.7 registry",
+    "Roact <patched> RoactCompat 17.3.8 registry",
     "Symbol lua-symbol 0.1.0 registry",
     "tutils tutils 0.1.2 registry",
 ]
@@ -1064,9 +1064,9 @@ source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
     "Foundation Foundation 1.72.1 registry",
-    "React React 17.3.7 registry",
-    "ReactIs ReactIs 17.3.7 registry",
-    "ReactRoblox ReactRoblox 17.3.7 registry",
+    "React React 17.3.8 registry",
+    "ReactIs ReactIs 17.3.8 registry",
+    "ReactRoblox ReactRoblox 17.3.8 registry",
 ]
 
 [[package]]
@@ -1089,9 +1089,9 @@ name = "Motion"
 version = "0.0.7"
 source = "registry"
 dependencies = [
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
     "ReactOtter ReactOtter 1.3.7 registry",
-    "RoactCompat RoactCompat 17.3.7 registry",
+    "RoactCompat RoactCompat 17.3.8 registry",
     "tutils tutils 0.1.2 registry",
 ]
 
@@ -1100,9 +1100,9 @@ name = "Motion"
 version = "0.1.0"
 source = "registry"
 dependencies = [
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
     "ReactOtter ReactOtter 1.3.7 registry",
-    "RoactCompat RoactCompat 17.3.7 registry",
+    "RoactCompat RoactCompat 17.3.8 registry",
     "tutils tutils 0.1.2 registry",
 ]
 
@@ -1257,7 +1257,7 @@ dependencies = [
     "ChalkLua ChalkLua 0.1.3 registry",
     "JestGetType JestGetType 2.4.1 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
-    "ReactIs ReactIs 17.3.7 registry",
+    "ReactIs ReactIs 17.3.8 registry",
     "RegExp RegExp 0.2.2 registry",
     "RobloxShared RobloxShared 2.4.1 registry",
 ]
@@ -1270,7 +1270,7 @@ dependencies = [
     "ChalkLua ChalkLua 0.2.0 registry",
     "JestGetType JestGetType 3.13.3 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "ReactIs ReactIs 17.3.7 registry",
+    "ReactIs ReactIs 17.3.8 registry",
     "RegExp RegExp 0.2.2 registry",
     "RobloxShared RobloxShared 3.13.3 registry",
 ]
@@ -1299,69 +1299,69 @@ dependencies = ["t t 1.2.6 registry"]
 
 [[package]]
 name = "React"
-version = "17.3.7"
+version = "17.3.8"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "ReactGlobals ReactGlobals 17.3.7 registry",
-    "Shared Shared 17.3.7 registry",
+    "ReactGlobals ReactGlobals 17.3.8 registry",
+    "Shared Shared 17.3.8 registry",
 ]
 
 [[package]]
 name = "ReactDebugTools"
-version = "17.3.7"
+version = "17.3.8"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "ReactGlobals ReactGlobals 17.3.7 registry",
-    "ReactReconciler ReactReconciler 17.3.7 registry",
-    "Shared Shared 17.3.7 registry",
+    "ReactGlobals ReactGlobals 17.3.8 registry",
+    "ReactReconciler ReactReconciler 17.3.8 registry",
+    "Shared Shared 17.3.8 registry",
 ]
 
 [[package]]
 name = "ReactDebugging"
 version = "1.8.0"
 source = "registry"
-dependencies = ["React React 17.3.7 registry"]
+dependencies = ["React React 17.3.8 registry"]
 
 [[package]]
 name = "ReactDevtoolsCore"
-version = "17.3.7"
+version = "17.3.8"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "ReactDevtoolsShared ReactDevtoolsShared 17.3.7 registry",
-    "ReactGlobals ReactGlobals 17.3.7 registry",
-    "ReactTelemetry ReactTelemetry 17.3.7 registry",
+    "ReactDevtoolsShared ReactDevtoolsShared 17.3.8 registry",
+    "ReactGlobals ReactGlobals 17.3.8 registry",
+    "ReactTelemetry ReactTelemetry 17.3.8 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
 ]
 
 [[package]]
 name = "ReactDevtoolsExtensions"
-version = "17.3.7"
+version = "17.3.8"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React 17.3.7 registry",
-    "ReactDevtoolsShared ReactDevtoolsShared 17.3.7 registry",
-    "ReactGlobals ReactGlobals 17.3.7 registry",
-    "ReactRoblox ReactRoblox 17.3.7 registry",
-    "Shared Shared 17.3.7 registry",
+    "React React 17.3.8 registry",
+    "ReactDevtoolsShared ReactDevtoolsShared 17.3.8 registry",
+    "ReactGlobals ReactGlobals 17.3.8 registry",
+    "ReactRoblox ReactRoblox 17.3.8 registry",
+    "Shared Shared 17.3.8 registry",
 ]
 
 [[package]]
 name = "ReactDevtoolsShared"
-version = "17.3.7"
+version = "17.3.8"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React 17.3.7 registry",
-    "ReactDebugTools ReactDebugTools 17.3.7 registry",
-    "ReactGlobals ReactGlobals 17.3.7 registry",
-    "ReactIs ReactIs 17.3.7 registry",
-    "ReactReconciler ReactReconciler 17.3.7 registry",
-    "ReactRoblox ReactRoblox 17.3.7 registry",
-    "Shared Shared 17.3.7 registry",
+    "React React 17.3.8 registry",
+    "ReactDebugTools ReactDebugTools 17.3.8 registry",
+    "ReactGlobals ReactGlobals 17.3.8 registry",
+    "ReactIs ReactIs 17.3.8 registry",
+    "ReactReconciler ReactReconciler 17.3.8 registry",
+    "ReactRoblox ReactRoblox 17.3.8 registry",
+    "Shared Shared 17.3.8 registry",
 ]
 
 [[package]]
@@ -1372,12 +1372,12 @@ dependencies = [
     "FocusBehaviors FocusBehaviors 2.0.0 registry",
     "FocusNavigation FocusNavigation 2.0.0 registry",
     "FocusNavigationUtils FocusNavigationUtils 2.0.0 registry",
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
 ]
 
 [[package]]
 name = "ReactGlobals"
-version = "17.3.7"
+version = "17.3.8"
 source = "registry"
 dependencies = ["SafeFlags SafeFlags 0.1.1 registry"]
 
@@ -1392,12 +1392,12 @@ dependencies = [
 
 [[package]]
 name = "ReactIs"
-version = "17.3.7"
+version = "17.3.8"
 source = "registry"
 dependencies = [
-    "ReactGlobals ReactGlobals 17.3.7 registry",
+    "ReactGlobals ReactGlobals 17.3.8 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
-    "Shared Shared 17.3.7 registry",
+    "Shared Shared 17.3.8 registry",
 ]
 
 [[package]]
@@ -1406,21 +1406,21 @@ version = "1.3.7"
 source = "registry"
 dependencies = [
     "Otter Otter 1.3.7 registry",
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
 ]
 
 [[package]]
 name = "ReactReconciler"
-version = "17.3.7"
+version = "17.3.8"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Promise <patched> Promise 3.5.1 registry",
-    "React React 17.3.7 registry",
-    "ReactGlobals ReactGlobals 17.3.7 registry",
+    "React React 17.3.8 registry",
+    "ReactGlobals ReactGlobals 17.3.8 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
-    "Scheduler Scheduler 17.3.7 registry",
-    "Shared Shared 17.3.7 registry",
+    "Scheduler Scheduler 17.3.8 registry",
+    "Shared Shared 17.3.8 registry",
 ]
 
 [[package]]
@@ -1429,21 +1429,21 @@ version = "17.3.1"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "ReactReconciler ReactReconciler 17.3.7 registry",
-    "Shared Shared 17.3.7 registry",
+    "ReactReconciler ReactReconciler 17.3.8 registry",
+    "Shared Shared 17.3.8 registry",
 ]
 
 [[package]]
 name = "ReactRoblox"
-version = "17.3.7"
+version = "17.3.8"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React 17.3.7 registry",
-    "ReactGlobals ReactGlobals 17.3.7 registry",
-    "ReactReconciler ReactReconciler 17.3.7 registry",
-    "Scheduler Scheduler 17.3.7 registry",
-    "Shared Shared 17.3.7 registry",
+    "React React 17.3.8 registry",
+    "ReactGlobals ReactGlobals 17.3.8 registry",
+    "ReactReconciler ReactReconciler 17.3.8 registry",
+    "Scheduler Scheduler 17.3.8 registry",
+    "Shared Shared 17.3.8 registry",
 ]
 
 [[package]]
@@ -1452,7 +1452,7 @@ version = "0.13.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
     "ReactUtils ReactUtils 1.9.1 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
     "SceneUnderstanding SceneUnderstanding 0.13.1 registry",
@@ -1460,11 +1460,11 @@ dependencies = [
 
 [[package]]
 name = "ReactTelemetry"
-version = "17.3.7"
+version = "17.3.8"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "ReactGlobals ReactGlobals 17.3.7 registry",
+    "ReactGlobals ReactGlobals 17.3.8 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
 ]
 
@@ -1477,10 +1477,10 @@ dependencies = [
     "JestGlobals JestGlobals 3.13.3 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Promise <patched> Promise 3.5.1 registry",
-    "React React 17.3.7 registry",
-    "ReactRoblox ReactRoblox 17.3.7 registry",
-    "Scheduler Scheduler 17.3.7 registry",
-    "Shared Shared 17.3.7 registry",
+    "React React 17.3.8 registry",
+    "ReactRoblox ReactRoblox 17.3.8 registry",
+    "Scheduler Scheduler 17.3.8 registry",
+    "Shared Shared 17.3.8 registry",
 ]
 
 [[package]]
@@ -1488,7 +1488,7 @@ name = "ReactTestingUtils"
 version = "1.3.1"
 source = "registry"
 dependencies = [
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.3.4 registry",
     "ReactUtils ReactUtils 1.9.1 registry",
 ]
@@ -1499,8 +1499,8 @@ version = "1.9.1"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React 17.3.7 registry",
-    "ReactRoblox ReactRoblox 17.3.7 registry",
+    "React React 17.3.8 registry",
+    "ReactRoblox ReactRoblox 17.3.8 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
 ]
 
@@ -1543,7 +1543,7 @@ name = "ResourcesReact"
 version = "0.6.0"
 source = "registry"
 dependencies = [
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
     "Resources Resources 0.6.0 registry",
 ]
 
@@ -1559,22 +1559,22 @@ version = "0.4.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "React React 17.3.7 registry",
-    "ReactRoblox ReactRoblox 17.3.7 registry",
-    "Roact RoactCompat 17.3.7 registry",
+    "React React 17.3.8 registry",
+    "ReactRoblox ReactRoblox 17.3.8 registry",
+    "Roact RoactCompat 17.3.8 registry",
     "t t 1.2.6 registry",
 ]
 
 [[package]]
 name = "RoactCompat"
-version = "17.3.7"
+version = "17.3.8"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React 17.3.7 registry",
-    "ReactGlobals ReactGlobals 17.3.7 registry",
-    "ReactRoblox ReactRoblox 17.3.7 registry",
-    "Shared Shared 17.3.7 registry",
+    "React React 17.3.8 registry",
+    "ReactGlobals ReactGlobals 17.3.8 registry",
+    "ReactRoblox ReactRoblox 17.3.8 registry",
+    "Shared Shared 17.3.8 registry",
 ]
 
 [[package]]
@@ -1583,7 +1583,7 @@ version = "2.0.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "Roact <patched> RoactCompat 17.3.7 registry",
+    "Roact <patched> RoactCompat 17.3.8 registry",
 ]
 
 [[package]]
@@ -1592,8 +1592,8 @@ version = "0.5.13"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "React React 17.3.7 registry",
-    "Roact RoactCompat 17.3.7 registry",
+    "React React 17.3.8 registry",
+    "Roact RoactCompat 17.3.8 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.6 registry",
 ]
@@ -1605,7 +1605,7 @@ source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Otter Otter 0.1.4 registry",
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
     "RegExp RegExp 0.2.2 registry",
 ]
 
@@ -1614,7 +1614,7 @@ name = "RoactRodux"
 version = "0.5.1"
 source = "registry"
 dependencies = [
-    "Roact <patched> RoactCompat 17.3.7 registry",
+    "Roact <patched> RoactCompat 17.3.8 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
 ]
 
@@ -1805,13 +1805,13 @@ dependencies = ["SafeFlags SafeFlags 0.1.1 registry"]
 
 [[package]]
 name = "Scheduler"
-version = "17.3.7"
+version = "17.3.8"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "ReactGlobals ReactGlobals 17.3.7 registry",
+    "ReactGlobals ReactGlobals 17.3.8 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
-    "Shared Shared 17.3.7 registry",
+    "Shared Shared 17.3.8 registry",
 ]
 
 [[package]]
@@ -1821,11 +1821,11 @@ source = "registry"
 
 [[package]]
 name = "Shared"
-version = "17.3.7"
+version = "17.3.8"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "ReactGlobals ReactGlobals 17.3.7 registry",
+    "ReactGlobals ReactGlobals 17.3.8 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
 ]
 
@@ -1860,7 +1860,7 @@ name = "SignalsReact"
 version = "0.6.0"
 source = "registry"
 dependencies = [
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
     "Signals Signals 0.6.0 registry",
 ]
 
@@ -1887,8 +1887,8 @@ dependencies = [
     "Lumberyak lumberyak 0.1.1 registry",
     "Otter Otter 0.1.4 registry",
     "Promise <patched> Promise 3.5.1 registry",
-    "React React 17.3.7 registry",
-    "Roact RoactCompat 17.3.7 registry",
+    "React React 17.3.8 registry",
+    "Roact RoactCompat 17.3.8 registry",
     "RoactFitComponents RoactFitComponents 2.0.0 registry",
     "RoactNavigation <patched> RoactNavigation 0.5.10 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
@@ -1983,7 +1983,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.17.29"
+version = "1.17.31"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -2007,13 +2007,13 @@ dependencies = [
     "Promise <patched> Promise 3.5.1 registry",
     "RbxDesignFoundations RbxDesignFoundations 1.1.107 registry",
     "RbxDesignFoundationsV2 RbxDesignFoundations 2.0.163 registry",
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
     "ReactOtter ReactOtter 1.3.7 registry",
-    "ReactRoblox ReactRoblox 17.3.7 registry",
+    "ReactRoblox ReactRoblox 17.3.8 registry",
     "ReactUtils ReactUtils 1.9.1 registry",
-    "Roact RoactCompat 17.3.7 registry",
+    "Roact RoactCompat 17.3.8 registry",
     "RoactGamepad RoactGamepad 0.5.13 registry",
-    "Shared Shared 17.3.7 registry",
+    "Shared Shared 17.3.8 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList VirtualizedList 1.4.3 registry",
     "enumerate enumerate 1.1.0 registry",
@@ -2035,7 +2035,7 @@ version = "0.1.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "ReactIs ReactIs 17.3.7 registry",
+    "ReactIs ReactIs 17.3.8 registry",
 ]
 
 [[package]]
@@ -2077,7 +2077,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Otter Otter 1.3.7 registry",
     "Promise <patched> Promise 3.5.1 registry",
-    "React React 17.3.7 registry",
+    "React React 17.3.8 registry",
 ]
 
 [[package]]
