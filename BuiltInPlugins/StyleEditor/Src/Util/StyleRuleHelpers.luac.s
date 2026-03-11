@@ -49,24 +49,6 @@ PROTO_0:
        62 RETURN                           R7 1
 
 PROTO_1:
-        0 GETTABLEKS                       R3 R0 K0 ["Priority"]
-        2 GETTABLEKS                       R4 R1 K0 ["Priority"]
-        4 JUMPIFLT                         R4 R3 ; [+2]
-        6 LOADB                            R2 0 +1
-        7 LOADB                            R2 1
-        8 RETURN                           R2 1
-
-PROTO_2:
-        0 DUPCLOSURE                       R1 K0 [PROTO_1]
-        1 NAMECALL                         R2 R0 K1 ["GetStyleRules"]
-        3 CALL                             R2 1 1
-        4 GETIMPORT                        R3 K4 [table.sort]
-        6 MOVE                             R4 R2
-        7 MOVE                             R5 R1
-        8 CALL                             R3 2 0
-        9 RETURN                           R2 1
-
-PROTO_3:
         0 NAMECALL                         R2 R0 K0 ["GetStyleRules"]
         2 CALL                             R2 1 1
         3 GETUPVAL                         R4 0
@@ -135,6 +117,87 @@ PROTO_3:
        85 LOADN                            R5 1
        86 RETURN                           R5 1
 
+PROTO_2:
+        0 GETTABLEKS                       R3 R0 K0 ["Priority"]
+        2 GETTABLEKS                       R4 R1 K0 ["Priority"]
+        4 JUMPIFLT                         R4 R3 ; [+2]
+        6 LOADB                            R2 0 +1
+        7 LOADB                            R2 1
+        8 RETURN                           R2 1
+
+PROTO_3:
+        0 DUPCLOSURE                       R1 K0 [PROTO_2]
+        1 NAMECALL                         R2 R0 K1 ["GetStyleRules"]
+        3 CALL                             R2 1 1
+        4 GETIMPORT                        R3 K4 [table.sort]
+        6 MOVE                             R4 R2
+        7 MOVE                             R5 R1
+        8 CALL                             R3 2 0
+        9 RETURN                           R2 1
+
+PROTO_4:
+        0 GETTABLEKS                       R3 R0 K0 ["Priority"]
+        2 GETTABLEKS                       R4 R1 K0 ["Priority"]
+        4 JUMPIFLT                         R4 R3 ; [+2]
+        6 LOADB                            R2 0 +1
+        7 LOADB                            R2 1
+        8 RETURN                           R2 1
+
+PROTO_5:
+        0 GETTABLEKS                       R3 R0 K0 ["Name"]
+        2 NAMECALL                         R3 R3 K1 ["lower"]
+        4 CALL                             R3 1 1
+        5 GETTABLEKS                       R4 R1 K0 ["Name"]
+        7 NAMECALL                         R4 R4 K1 ["lower"]
+        9 CALL                             R4 1 1
+       10 JUMPIFLT                         R3 R4 ; [+2]
+       12 LOADB                            R2 0 +1
+       13 LOADB                            R2 1
+       14 RETURN                           R2 1
+
+PROTO_6:
+        0 NAMECALL                         R1 R0 K0 ["GetChildren"]
+        2 CALL                             R1 1 1
+        3 NEWTABLE                         R2 0 0
+        5 NEWTABLE                         R3 0 0
+        7 GETIMPORT                        R4 K2 [ipairs]
+        9 MOVE                             R5 R1
+       10 CALL                             R4 1 3
+       11 FORGPREP_INEXT                   R4
+       12 LOADK                            R11 K3 ["StyleRule"]
+       13 NAMECALL                         R9 R8 K4 ["IsA"]
+       15 CALL                             R9 2 1
+       16 JUMPIFNOT                        R9 ; [+8]
+       17 FASTCALL2                        TABLE_INSERT R2 R8 ; [+5]
+       19 MOVE                             R10 R2
+       20 MOVE                             R11 R8
+       21 GETIMPORT                        R9 K7 [table.insert]
+       23 CALL                             R9 2 0
+       24 JUMP                             ; [+12]
+       25 LOADK                            R11 K8 ["Folder"]
+       26 NAMECALL                         R9 R8 K4 ["IsA"]
+       28 CALL                             R9 2 1
+       29 JUMPIFNOT                        R9 ; [+7]
+       30 FASTCALL2                        TABLE_INSERT R3 R8 ; [+5]
+       32 MOVE                             R10 R3
+       33 MOVE                             R11 R8
+       34 GETIMPORT                        R9 K7 [table.insert]
+       36 CALL                             R9 2 0
+       37 FORGLOOP                         R4 2 [inext] ; [-26]
+       39 GETIMPORT                        R4 K10 [table.sort]
+       41 MOVE                             R5 R2
+       42 DUPCLOSURE                       R6 K11 [PROTO_4]
+       43 CALL                             R4 2 0
+       44 GETIMPORT                        R4 K10 [table.sort]
+       46 MOVE                             R5 R3
+       47 DUPCLOSURE                       R6 K12 [PROTO_5]
+       48 CALL                             R4 2 0
+       49 GETUPVAL                         R4 0
+       50 MOVE                             R5 R2
+       51 MOVE                             R6 R3
+       52 CALL                             R4 2 -1
+       53 RETURN                           R4 -1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R3 K1 [script]
@@ -147,11 +210,19 @@ MAIN:
        15 GETTABLEKS                       R2 R3 K7 ["DesignHelpers"]
        17 CALL                             R1 1 1
        18 NEWTABLE                         R2 4 0
-       20 DUPCLOSURE                       R3 K8 [PROTO_0]
-       21 SETTABLEKS                       R3 R2 K9 ["changeStyleRulePriority"]
-       23 DUPCLOSURE                       R3 K10 [PROTO_2]
-       24 SETTABLEKS                       R3 R2 K11 ["getOrderedStyleRules"]
-       26 DUPCLOSURE                       R3 K12 [PROTO_3]
-       27 CAPTURE                          VAL R1
-       28 SETTABLEKS                       R3 R2 K13 ["calculatePriority"]
-       30 RETURN                           R2 1
+       20 GETIMPORT                        R3 K4 [require]
+       22 GETTABLEKS                       R5 R0 K8 ["Packages"]
+       24 GETTABLEKS                       R4 R5 K9 ["Dash"]
+       26 CALL                             R3 1 1
+       27 GETTABLEKS                       R4 R3 K10 ["append"]
+       29 DUPCLOSURE                       R5 K11 [PROTO_0]
+       30 SETTABLEKS                       R5 R2 K12 ["changeStyleRulePriority"]
+       32 DUPCLOSURE                       R5 K13 [PROTO_1]
+       33 CAPTURE                          VAL R1
+       34 SETTABLEKS                       R5 R2 K14 ["calculatePriority"]
+       36 DUPCLOSURE                       R5 K15 [PROTO_3]
+       37 SETTABLEKS                       R5 R2 K16 ["getOrderedStyleRules"]
+       39 DUPCLOSURE                       R5 K17 [PROTO_6]
+       40 CAPTURE                          VAL R4
+       41 SETTABLEKS                       R5 R2 K18 ["getOrderedStyleRulesAndFolders"]
+       43 RETURN                           R2 1

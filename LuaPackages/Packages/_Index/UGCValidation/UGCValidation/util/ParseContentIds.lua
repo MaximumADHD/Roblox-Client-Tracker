@@ -7,11 +7,8 @@
 
 local root = script.Parent.Parent
 
-local getFFlagUGCValidateCheckHSRFileDataFix = require(root.flags.getFFlagUGCValidateCheckHSRFileDataFix)
-
 local Constants = require(root.Constants)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
-local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 
 local ParseContentIds = {}
@@ -33,12 +30,7 @@ local function getAssetUrlId(contentId)
 		return nil
 	end
 
-	local id = nil
-	if getFFlagUGCValidateCheckHSRFileDataFix() then
-		id = string.match(contentId, "^%.com//?asset/%?id=(%d+)$") -- allows for one or two forward slashes after '.com'
-	else
-		id = string.match(contentId, "^%.com/asset/%?id=(%d+)$")
-	end
+	local id = string.match(contentId, "^%.com//?asset/%?id=(%d+)$") -- allows for one or two forward slashes after '.com'
 	return id
 end
 
@@ -58,16 +50,12 @@ end
 
 -- attempt to extract the asset id out of a valid content id URL
 local function tryGetAssetIdFromContentIdInternal(contentId)
-	local id
-
-	if getFFlagAddUGCValidationForPackage() then
-		id = tonumber(contentId)
-		if id ~= nil then
-			if getFFlagFixPackageIDFieldName() then
-				return tostring(id)
-			else
-				return id
-			end
+	local id = tonumber(contentId)
+	if id ~= nil then
+		if getFFlagFixPackageIDFieldName() then
+			return tostring(id)
+		else
+			return id
 		end
 	end
 

@@ -8,10 +8,10 @@
 
 local GuiService = game:GetService("GuiService")
 
-local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 
-local ConnectionUtil = require(CommonUtils:WaitForChild("ConnectionUtil"))
-local CharacterUtil = require(CommonUtils:WaitForChild("CharacterUtil"))
+local ConnectionUtil = CommonUtils.get("ConnectionUtil")
+local CharacterUtil = CommonUtils.get("CharacterUtil")
 
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
 local character = inputContexts:WaitForChild("Character")

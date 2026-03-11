@@ -202,6 +202,9 @@ else
 			[Enum.MembershipType.Premium] = Images["icons/status/premium_small"],
 		}
 
+		-- TODO(SUBS-4332): replace with actual subscription badge asset
+		LayoutValues.SubscriptionIcon = Images["icons/menu/gem_small"]
+
 		LayoutValues.CustomPlayerIcons = { -- Admins with special icons
 			[7210880] = "rbxassetid://134032333", -- Jeditkacheff
 			[13268404] = "rbxassetid://113059239", -- Sorcus

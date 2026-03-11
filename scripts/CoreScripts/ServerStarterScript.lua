@@ -40,9 +40,7 @@ end
 --
 
 -- Remote allow list
-if game:DefineFastFlag("ImplementLuaAppsRemoteAllowList", false) then
-	require(RobloxGui.Modules.Server.RemoteAllowList)()
-end
+require(RobloxGui.Modules.Server.RemoteAllowList)()
 
 -- OpenCloud
 if game:DefineFastFlag("OpenCloudCoreScriptLuaEnabled", false) then

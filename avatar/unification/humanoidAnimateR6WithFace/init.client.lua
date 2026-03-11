@@ -12,15 +12,8 @@ local pose = "Standing"
 
 local EMOTE_TRANSITION_TIME = 0.1
 
-local userAnimateScaleRunSuccess, userAnimateScaleRunValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserAnimateScaleRun") end)
-local userAnimateScaleRun = userAnimateScaleRunSuccess and userAnimateScaleRunValue
-
 local function getRigScale()
-	if userAnimateScaleRun then
-		return Figure:GetScale()
-	else
-		return 1
-	end
+	return Figure:GetScale()
 end
 
 local currentAnim = ""

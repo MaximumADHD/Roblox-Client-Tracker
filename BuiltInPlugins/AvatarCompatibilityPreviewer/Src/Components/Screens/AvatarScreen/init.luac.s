@@ -629,51 +629,41 @@ PROTO_10:
       683 SETTABLEKS                       R25 R24 K34 ["avatar"]
       685 CALL                             R22 2 1
       686 SETTABLE                         R22 R20 R21
-      687 GETUPVAL                         R21 36
-      688 CALL                             R21 0 1
-      689 JUMPIFNOT                        R21 ; [+8]
-      690 GETUPVAL                         R22 1
-      691 GETTABLEKS                       R21 R22 K25 ["createElement"]
-      693 GETUPVAL                         R22 37
-      694 DUPTABLE                         R23 K116 [{"dummy"}]
-      695 SETTABLEKS                       R16 R23 K17 ["dummy"]
-      697 CALL                             R21 2 1
-      698 SETTABLEKS                       R21 R20 K117 ["LookComposerDialog"]
-      700 GETUPVAL                         R22 1
-      701 GETTABLEKS                       R21 R22 K25 ["createElement"]
-      703 GETUPVAL                         R22 38
-      704 DUPTABLE                         R23 K119 [{"providers"}]
-      705 NEWTABLE                         R24 0 3
-      707 GETUPVAL                         R26 1
-      708 GETTABLEKS                       R25 R26 K25 ["createElement"]
-      710 GETUPVAL                         R27 39
-      711 GETTABLEKS                       R26 R27 K120 ["Provider"]
-      713 DUPTABLE                         R27 K124 [{"openPalette", "resetCamera", "stage", "selectedAvatar"}]
-      714 SETTABLEKS                       R12 R27 K121 ["openPalette"]
-      716 SETTABLEKS                       R18 R27 K122 ["resetCamera"]
-      718 SETTABLEKS                       R5 R27 K4 ["stage"]
-      720 SETTABLEKS                       R6 R27 K123 ["selectedAvatar"]
-      722 CALL                             R25 2 1
-      723 GETUPVAL                         R27 1
-      724 GETTABLEKS                       R26 R27 K25 ["createElement"]
-      726 GETUPVAL                         R28 40
-      727 GETTABLEKS                       R27 R28 K120 ["Provider"]
-      729 CALL                             R26 1 1
-      730 GETUPVAL                         R28 15
-      731 CALL                             R28 0 1
-      732 JUMPIFNOT                        R28 ; [+8]
-      733 GETUPVAL                         R28 1
-      734 GETTABLEKS                       R27 R28 K25 ["createElement"]
-      736 GETUPVAL                         R29 41
-      737 GETTABLEKS                       R28 R29 K120 ["Provider"]
-      739 CALL                             R27 1 1
-      740 JUMP                             ; [+1]
-      741 LOADNIL                          R27
-      742 SETLIST                          R24 R25 3 [1]
-      744 SETTABLEKS                       R24 R23 K118 ["providers"]
-      746 MOVE                             R24 R20
-      747 CALL                             R21 3 -1
-      748 RETURN                           R21 -1
+      687 GETUPVAL                         R22 1
+      688 GETTABLEKS                       R21 R22 K25 ["createElement"]
+      690 GETUPVAL                         R22 36
+      691 DUPTABLE                         R23 K117 [{"providers"}]
+      692 NEWTABLE                         R24 0 3
+      694 GETUPVAL                         R26 1
+      695 GETTABLEKS                       R25 R26 K25 ["createElement"]
+      697 GETUPVAL                         R27 37
+      698 GETTABLEKS                       R26 R27 K118 ["Provider"]
+      700 DUPTABLE                         R27 K122 [{"openPalette", "resetCamera", "stage", "selectedAvatar"}]
+      701 SETTABLEKS                       R12 R27 K119 ["openPalette"]
+      703 SETTABLEKS                       R18 R27 K120 ["resetCamera"]
+      705 SETTABLEKS                       R5 R27 K4 ["stage"]
+      707 SETTABLEKS                       R6 R27 K121 ["selectedAvatar"]
+      709 CALL                             R25 2 1
+      710 GETUPVAL                         R27 1
+      711 GETTABLEKS                       R26 R27 K25 ["createElement"]
+      713 GETUPVAL                         R28 38
+      714 GETTABLEKS                       R27 R28 K118 ["Provider"]
+      716 CALL                             R26 1 1
+      717 GETUPVAL                         R28 15
+      718 CALL                             R28 0 1
+      719 JUMPIFNOT                        R28 ; [+8]
+      720 GETUPVAL                         R28 1
+      721 GETTABLEKS                       R27 R28 K25 ["createElement"]
+      723 GETUPVAL                         R29 39
+      724 GETTABLEKS                       R28 R29 K118 ["Provider"]
+      726 CALL                             R27 1 1
+      727 JUMP                             ; [+1]
+      728 LOADNIL                          R27
+      729 SETLIST                          R24 R25 3 [1]
+      731 SETTABLEKS                       R24 R23 K116 ["providers"]
+      733 MOVE                             R24 R20
+      734 CALL                             R21 3 -1
+      735 RETURN                           R21 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -807,149 +797,137 @@ MAIN:
       228 GETIMPORT                        R26 K5 [require]
       230 GETTABLEKS                       R29 R0 K6 ["Src"]
       232 GETTABLEKS                       R28 R29 K37 ["Flags"]
-      234 GETTABLEKS                       R27 R28 K39 ["getFFlagAvatarPreviewerLookComposer"]
+      234 GETTABLEKS                       R27 R28 K39 ["getFFlagAvatarPreviewerMakeup"]
       236 CALL                             R26 1 1
       237 GETIMPORT                        R27 K5 [require]
       239 GETTABLEKS                       R30 R0 K6 ["Src"]
       241 GETTABLEKS                       R29 R30 K37 ["Flags"]
-      243 GETTABLEKS                       R28 R29 K40 ["getFFlagAvatarPreviewerMakeup"]
+      243 GETTABLEKS                       R28 R29 K40 ["getFFlagAvatarPreviewerMakeupDescription"]
       245 CALL                             R27 1 1
       246 GETIMPORT                        R28 K5 [require]
       248 GETTABLEKS                       R31 R0 K6 ["Src"]
-      250 GETTABLEKS                       R30 R31 K37 ["Flags"]
-      252 GETTABLEKS                       R29 R30 K41 ["getFFlagAvatarPreviewerMakeupDescription"]
+      250 GETTABLEKS                       R30 R31 K15 ["Util"]
+      252 GETTABLEKS                       R29 R30 K41 ["getPaletteFromKey"]
       254 CALL                             R28 1 1
       255 GETIMPORT                        R29 K5 [require]
       257 GETTABLEKS                       R32 R0 K6 ["Src"]
-      259 GETTABLEKS                       R31 R32 K7 ["Components"]
-      261 GETTABLEKS                       R30 R31 K42 ["LookComposerDialog"]
+      259 GETTABLEKS                       R31 R32 K42 ["Hooks"]
+      261 GETTABLEKS                       R30 R31 K43 ["useAccessoryWelding"]
       263 CALL                             R29 1 1
       264 GETIMPORT                        R30 K5 [require]
       266 GETTABLEKS                       R33 R0 K6 ["Src"]
-      268 GETTABLEKS                       R32 R33 K15 ["Util"]
-      270 GETTABLEKS                       R31 R32 K43 ["getPaletteFromKey"]
+      268 GETTABLEKS                       R32 R33 K42 ["Hooks"]
+      270 GETTABLEKS                       R31 R32 K44 ["useBodyPartsFromBase"]
       272 CALL                             R30 1 1
       273 GETIMPORT                        R31 K5 [require]
       275 GETTABLEKS                       R34 R0 K6 ["Src"]
-      277 GETTABLEKS                       R33 R34 K44 ["Hooks"]
-      279 GETTABLEKS                       R32 R33 K45 ["useAccessoryWelding"]
+      277 GETTABLEKS                       R33 R34 K42 ["Hooks"]
+      279 GETTABLEKS                       R32 R33 K45 ["useClothingFromInstances"]
       281 CALL                             R31 1 1
       282 GETIMPORT                        R32 K5 [require]
       284 GETTABLEKS                       R35 R0 K6 ["Src"]
-      286 GETTABLEKS                       R34 R35 K44 ["Hooks"]
-      288 GETTABLEKS                       R33 R34 K46 ["useBodyPartsFromBase"]
+      286 GETTABLEKS                       R34 R35 K42 ["Hooks"]
+      288 GETTABLEKS                       R33 R34 K46 ["useClothingFromInstances_DEPRECATED"]
       290 CALL                             R32 1 1
       291 GETIMPORT                        R33 K5 [require]
       293 GETTABLEKS                       R36 R0 K6 ["Src"]
-      295 GETTABLEKS                       R35 R36 K44 ["Hooks"]
-      297 GETTABLEKS                       R34 R35 K47 ["useClothingFromInstances"]
+      295 GETTABLEKS                       R35 R36 K42 ["Hooks"]
+      297 GETTABLEKS                       R34 R35 K47 ["useCopyPropertyChanges"]
       299 CALL                             R33 1 1
       300 GETIMPORT                        R34 K5 [require]
       302 GETTABLEKS                       R37 R0 K6 ["Src"]
-      304 GETTABLEKS                       R36 R37 K44 ["Hooks"]
-      306 GETTABLEKS                       R35 R36 K48 ["useClothingFromInstances_DEPRECATED"]
+      304 GETTABLEKS                       R36 R37 K42 ["Hooks"]
+      306 GETTABLEKS                       R35 R36 K48 ["useDummyFromHumanoidDescription"]
       308 CALL                             R34 1 1
       309 GETIMPORT                        R35 K5 [require]
       311 GETTABLEKS                       R38 R0 K6 ["Src"]
-      313 GETTABLEKS                       R37 R38 K44 ["Hooks"]
-      315 GETTABLEKS                       R36 R37 K49 ["useCopyPropertyChanges"]
+      313 GETTABLEKS                       R37 R38 K42 ["Hooks"]
+      315 GETTABLEKS                       R36 R37 K49 ["useInitialImportController"]
       317 CALL                             R35 1 1
       318 GETIMPORT                        R36 K5 [require]
       320 GETTABLEKS                       R39 R0 K6 ["Src"]
-      322 GETTABLEKS                       R38 R39 K44 ["Hooks"]
-      324 GETTABLEKS                       R37 R38 K50 ["useDummyFromHumanoidDescription"]
+      322 GETTABLEKS                       R38 R39 K42 ["Hooks"]
+      324 GETTABLEKS                       R37 R38 K50 ["useMoveAccessoriesAlongsideAttachments"]
       326 CALL                             R36 1 1
       327 GETIMPORT                        R37 K5 [require]
       329 GETTABLEKS                       R40 R0 K6 ["Src"]
-      331 GETTABLEKS                       R39 R40 K44 ["Hooks"]
-      333 GETTABLEKS                       R38 R39 K51 ["useInitialImportController"]
+      331 GETTABLEKS                       R39 R40 K42 ["Hooks"]
+      333 GETTABLEKS                       R38 R39 K51 ["usePreviewHumanoidDescription"]
       335 CALL                             R37 1 1
       336 GETIMPORT                        R38 K5 [require]
       338 GETTABLEKS                       R41 R0 K6 ["Src"]
-      340 GETTABLEKS                       R40 R41 K44 ["Hooks"]
-      342 GETTABLEKS                       R39 R40 K52 ["useMoveAccessoriesAlongsideAttachments"]
+      340 GETTABLEKS                       R40 R41 K42 ["Hooks"]
+      342 GETTABLEKS                       R39 R40 K52 ["useSynchronizeAvatarMakeup_DEPRECATED"]
       344 CALL                             R38 1 1
       345 GETIMPORT                        R39 K5 [require]
       347 GETTABLEKS                       R42 R0 K6 ["Src"]
-      349 GETTABLEKS                       R41 R42 K44 ["Hooks"]
-      351 GETTABLEKS                       R40 R41 K53 ["usePreviewHumanoidDescription"]
+      349 GETTABLEKS                       R41 R42 K42 ["Hooks"]
+      351 GETTABLEKS                       R40 R41 K53 ["useSynchronizeGearAccessories"]
       353 CALL                             R39 1 1
       354 GETIMPORT                        R40 K5 [require]
       356 GETTABLEKS                       R43 R0 K6 ["Src"]
-      358 GETTABLEKS                       R42 R43 K44 ["Hooks"]
-      360 GETTABLEKS                       R41 R42 K54 ["useSynchronizeAvatarMakeup_DEPRECATED"]
+      358 GETTABLEKS                       R42 R43 K42 ["Hooks"]
+      360 GETTABLEKS                       R41 R42 K54 ["useTrackNewChildrenController"]
       362 CALL                             R40 1 1
       363 GETIMPORT                        R41 K5 [require]
       365 GETTABLEKS                       R44 R0 K6 ["Src"]
-      367 GETTABLEKS                       R43 R44 K44 ["Hooks"]
-      369 GETTABLEKS                       R42 R43 K55 ["useSynchronizeGearAccessories"]
+      367 GETTABLEKS                       R43 R44 K42 ["Hooks"]
+      369 GETTABLEKS                       R42 R43 K55 ["useUntexturedController"]
       371 CALL                             R41 1 1
-      372 GETIMPORT                        R42 K5 [require]
-      374 GETTABLEKS                       R45 R0 K6 ["Src"]
-      376 GETTABLEKS                       R44 R45 K44 ["Hooks"]
-      378 GETTABLEKS                       R43 R44 K56 ["useTrackNewChildrenController"]
-      380 CALL                             R42 1 1
-      381 GETIMPORT                        R43 K5 [require]
-      383 GETTABLEKS                       R46 R0 K6 ["Src"]
-      385 GETTABLEKS                       R45 R46 K44 ["Hooks"]
-      387 GETTABLEKS                       R44 R45 K57 ["useUntexturedController"]
-      389 CALL                             R43 1 1
-      390 GETTABLEKS                       R44 R14 K58 ["UI"]
-      392 GETTABLEKS                       R45 R44 K59 ["Pane"]
-      394 GETTABLEKS                       R47 R14 K15 ["Util"]
-      396 GETTABLEKS                       R46 R47 K60 ["LayoutOrderIterator"]
-      398 GETTABLEKS                       R48 R14 K15 ["Util"]
-      400 GETTABLEKS                       R47 R48 K61 ["Signal"]
-      402 GETTABLEKS                       R49 R14 K62 ["ContextServices"]
-      404 GETTABLEKS                       R48 R49 K63 ["Stylizer"]
-      406 DUPCLOSURE                       R49 K64 [PROTO_0]
-      407 CAPTURE                          VAL R5
-      408 DUPCLOSURE                       R50 K65 [PROTO_1]
-      409 CAPTURE                          VAL R37
-      410 CAPTURE                          VAL R42
+      372 GETTABLEKS                       R42 R14 K56 ["UI"]
+      374 GETTABLEKS                       R43 R42 K57 ["Pane"]
+      376 GETTABLEKS                       R45 R14 K15 ["Util"]
+      378 GETTABLEKS                       R44 R45 K58 ["LayoutOrderIterator"]
+      380 GETTABLEKS                       R46 R14 K15 ["Util"]
+      382 GETTABLEKS                       R45 R46 K59 ["Signal"]
+      384 GETTABLEKS                       R47 R14 K60 ["ContextServices"]
+      386 GETTABLEKS                       R46 R47 K61 ["Stylizer"]
+      388 DUPCLOSURE                       R47 K62 [PROTO_0]
+      389 CAPTURE                          VAL R5
+      390 DUPCLOSURE                       R48 K63 [PROTO_1]
+      391 CAPTURE                          VAL R35
+      392 CAPTURE                          VAL R40
+      393 CAPTURE                          VAL R25
+      394 CAPTURE                          VAL R33
+      395 DUPCLOSURE                       R49 K64 [PROTO_10]
+      396 CAPTURE                          VAL R46
+      397 CAPTURE                          VAL R16
+      398 CAPTURE                          VAL R13
+      399 CAPTURE                          VAL R18
+      400 CAPTURE                          VAL R20
+      401 CAPTURE                          VAL R5
+      402 CAPTURE                          VAL R9
+      403 CAPTURE                          VAL R28
+      404 CAPTURE                          VAL R37
+      405 CAPTURE                          VAL R34
+      406 CAPTURE                          VAL R30
+      407 CAPTURE                          VAL R27
+      408 CAPTURE                          VAL R26
+      409 CAPTURE                          VAL R38
+      410 CAPTURE                          VAL R39
       411 CAPTURE                          VAL R25
-      412 CAPTURE                          VAL R35
-      413 DUPCLOSURE                       R51 K66 [PROTO_10]
-      414 CAPTURE                          VAL R48
-      415 CAPTURE                          VAL R16
-      416 CAPTURE                          VAL R13
-      417 CAPTURE                          VAL R18
-      418 CAPTURE                          VAL R20
-      419 CAPTURE                          VAL R5
-      420 CAPTURE                          VAL R9
-      421 CAPTURE                          VAL R30
-      422 CAPTURE                          VAL R39
-      423 CAPTURE                          VAL R36
-      424 CAPTURE                          VAL R32
-      425 CAPTURE                          VAL R28
-      426 CAPTURE                          VAL R27
-      427 CAPTURE                          VAL R40
-      428 CAPTURE                          VAL R41
-      429 CAPTURE                          VAL R25
-      430 CAPTURE                          VAL R33
-      431 CAPTURE                          VAL R34
-      432 CAPTURE                          VAL R43
-      433 CAPTURE                          VAL R31
-      434 CAPTURE                          VAL R38
-      435 CAPTURE                          VAL R47
-      436 CAPTURE                          VAL R6
-      437 CAPTURE                          VAL R46
-      438 CAPTURE                          VAL R45
-      439 CAPTURE                          VAL R19
-      440 CAPTURE                          VAL R21
-      441 CAPTURE                          VAL R1
-      442 CAPTURE                          VAL R4
-      443 CAPTURE                          VAL R15
-      444 CAPTURE                          VAL R17
-      445 CAPTURE                          VAL R3
-      446 CAPTURE                          VAL R24
-      447 CAPTURE                          VAL R8
-      448 CAPTURE                          VAL R50
-      449 CAPTURE                          VAL R12
-      450 CAPTURE                          VAL R26
-      451 CAPTURE                          VAL R29
-      452 CAPTURE                          VAL R7
-      453 CAPTURE                          VAL R2
-      454 CAPTURE                          VAL R10
-      455 CAPTURE                          VAL R11
-      456 RETURN                           R51 1
+      412 CAPTURE                          VAL R31
+      413 CAPTURE                          VAL R32
+      414 CAPTURE                          VAL R41
+      415 CAPTURE                          VAL R29
+      416 CAPTURE                          VAL R36
+      417 CAPTURE                          VAL R45
+      418 CAPTURE                          VAL R6
+      419 CAPTURE                          VAL R44
+      420 CAPTURE                          VAL R43
+      421 CAPTURE                          VAL R19
+      422 CAPTURE                          VAL R21
+      423 CAPTURE                          VAL R1
+      424 CAPTURE                          VAL R4
+      425 CAPTURE                          VAL R15
+      426 CAPTURE                          VAL R17
+      427 CAPTURE                          VAL R3
+      428 CAPTURE                          VAL R24
+      429 CAPTURE                          VAL R8
+      430 CAPTURE                          VAL R48
+      431 CAPTURE                          VAL R12
+      432 CAPTURE                          VAL R7
+      433 CAPTURE                          VAL R2
+      434 CAPTURE                          VAL R10
+      435 CAPTURE                          VAL R11
+      436 RETURN                           R49 1

@@ -8,8 +8,4 @@ MAIN:
         9 GETTABLEKS                       R3 R0 K6 ["Packages"]
        11 GETTABLEKS                       R2 R3 K7 ["Foundation"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Utility"]
-       16 GETTABLEKS                       R2 R3 K9 ["Flags"]
-       18 LOADB                            R3 1
-       19 SETTABLEKS                       R3 R2 K10 ["FoundationDisableStylingPolyfill"]
-       21 RETURN                           R1 1
+       14 RETURN                           R1 1

@@ -3,16 +3,9 @@ local UGCValidationService = game:GetService("UGCValidationService")
 local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
-
-local getFFlagUGCValidatePartSizeWithinRenderSizeLimits =
-	require(root.flags.getFFlagUGCValidatePartSizeWithinRenderSizeLimits)
-local getFFlagUGCValidateMeshBBoxIsCentered = require(root.flags.getFFlagUGCValidateMeshBBoxIsCentered)
-local getFFlagUGCValidateMeshBBoxMinSize = require(root.flags.getFFlagUGCValidateMeshBBoxMinSize)
 local getFFlagUGCValidateMeshMaxScale = require(root.flags.getFFlagUGCValidateMeshMaxScale)
 local getFIntUGCValidateMeshCenteringHundredsThreshold =
 	require(root.flags.getFIntUGCValidateMeshCenteringHundredsThreshold)
-local getFIntUGCValidateMeshMinSizeHundredsThreshold =
-	require(root.flags.getFIntUGCValidateMeshMinSizeHundredsThreshold)
 local getMeshMinMax = require(root.util.getMeshMinMax)
 local Analytics = require(root.Analytics)
 
@@ -147,59 +140,38 @@ local function validateMeshBounds(
 		end
 	end
 
-	if getFFlagUGCValidatePartSizeWithinRenderSizeLimits() then
-		if FFlagRenderBoundsCheckAttachmentOrientation then
-			local handleToBoundsOrientation = attachment.CFrame.Rotation
-			if not isSizeWithinBounds(handle, boundsSize, handleToBoundsOrientation) then
-				Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge, nil, validationContext)
-				return false, getErrors(handle:GetFullName(), assetTypeName, boundsSize)
-			end
-		else
-			if not isSizeWithinBounds_deprecated(handle, boundsSize) then
-				Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge, nil, validationContext)
-				return false, getErrors(handle:GetFullName(), assetTypeName, boundsSize)
-			end
+	if FFlagRenderBoundsCheckAttachmentOrientation then
+		local handleToBoundsOrientation = attachment.CFrame.Rotation
+		if not isSizeWithinBounds(handle, boundsSize, handleToBoundsOrientation) then
+			Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge, nil, validationContext)
+			return false, getErrors(handle:GetFullName(), assetTypeName, boundsSize)
+		end
+	else
+		if not isSizeWithinBounds_deprecated(handle, boundsSize) then
+			Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge, nil, validationContext)
+			return false, getErrors(handle:GetFullName(), assetTypeName, boundsSize)
 		end
 	end
 
-	if getFFlagUGCValidateMeshBBoxIsCentered() or getFFlagUGCValidateMeshBBoxMinSize() then
-		-- I am not sure how we dont have the scale here, but don't want to make downstream changes so we will clone it
-		-- This is another reason to unify the data gathering in the new structure
-		local scaledMeshInfo = table.clone(meshInfo)
-		scaledMeshInfo.scale = meshScale
-		local successMinMax, failureReasonsMinMax, meshMinOpt, meshMaxOpt =
-			getMeshMinMax(scaledMeshInfo, validationContext)
+	-- I am not sure how we dont have the scale here, but don't want to make downstream changes so we will clone it
+	-- This is another reason to unify the data gathering in the new structure
+	local scaledMeshInfo = table.clone(meshInfo)
+	scaledMeshInfo.scale = meshScale
+	local successMinMax, failureReasonsMinMax, meshMinOpt, meshMaxOpt = getMeshMinMax(scaledMeshInfo, validationContext)
 
-		if not successMinMax then
-			return false, failureReasonsMinMax
-		end
+	if not successMinMax then
+		return false, failureReasonsMinMax
+	end
 
-		if getFFlagUGCValidateMeshBBoxMinSize() then
-			local bboxSize = (meshMaxOpt :: Vector3) - (meshMinOpt :: Vector3)
-			local acceptableSize = getFIntUGCValidateMeshMinSizeHundredsThreshold() / 100
-			if math.min(bboxSize.X, bboxSize.Y, bboxSize.Z) < acceptableSize then
-				Analytics.reportFailure(
-					Analytics.ErrorType.validateAssetBounds_AssetSizeTooSmall,
-					nil,
-					validationContext
-				)
-				return false,
-					{
-						`{meshInfo.fullName}.{meshInfo.fieldName} is smaller than the min size of ({acceptableSize}, {acceptableSize}, {acceptableSize}).`,
-					}
-			end
-		end
-
-		if getFFlagUGCValidateMeshBBoxIsCentered() and not validationContext.allowEditableInstances then
-			local bboxCenter = (meshMinOpt :: Vector3 + meshMaxOpt :: Vector3) / 2
-			local acceptableCenterMagnitude = getFIntUGCValidateMeshCenteringHundredsThreshold() / 100
-			if bboxCenter.Magnitude > acceptableCenterMagnitude then
-				Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_Shifted, nil, validationContext)
-				return false,
-					{
-						`{meshInfo.fullName}.{meshInfo.fieldName} has mesh data that is not centered. Please reimport this mesh with the roblox 3d importer, and ensure there is no loose geometry in the source file.`,
-					}
-			end
+	if not validationContext.allowEditableInstances then
+		local bboxCenter = (meshMinOpt :: Vector3 + meshMaxOpt :: Vector3) / 2
+		local acceptableCenterMagnitude = getFIntUGCValidateMeshCenteringHundredsThreshold() / 100
+		if bboxCenter.Magnitude > acceptableCenterMagnitude then
+			Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_Shifted, nil, validationContext)
+			return false,
+				{
+					`{meshInfo.fullName}.{meshInfo.fieldName} has mesh data that is not centered. Please reimport this mesh with the roblox 3d importer, and ensure there is no loose geometry in the source file.`,
+				}
 		end
 	end
 

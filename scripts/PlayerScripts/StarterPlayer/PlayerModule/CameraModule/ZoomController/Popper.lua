@@ -6,10 +6,10 @@
 
 local Players = game:GetService("Players")
 
-local CommonUtils = script.Parent.Parent.Parent:WaitForChild("CommonUtils")
-local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
-local CameraWrapper = require(CommonUtils:WaitForChild("CameraWrapper"))
-local ConnectionUtil = require(CommonUtils:WaitForChild("ConnectionUtil"))
+local CommonUtils = require(script.Parent.Parent.Parent:WaitForChild("CommonUtils"))
+local FlagUtil = CommonUtils.get("FlagUtil")
+local CameraWrapper = CommonUtils.get("CameraWrapper")
+local ConnectionUtil = CommonUtils.get("ConnectionUtil")
 
 -- Flags
 local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI2")

@@ -17,8 +17,8 @@ local cameraGamepadReset = character:WaitForChild("CameraGamepadReset") :: Input
 
 local cameraRotationGamepadBinding = cameraRotation:WaitForChild("GamepadBinding") :: InputBinding
 
-local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
-local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
+local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPSSinkUnknownTouchEvents = FlagUtil.getUserFlag("UserPSSinkUnknownTouchEvents")
 local FFlagUserPSTextboxResetCameraInput = FlagUtil.getUserFlag("UserPSTextboxResetCameraInput")
 local FFlagUserPlayerScriptsCameraInputUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsCameraInputUsesIAS")

@@ -40,7 +40,6 @@ type Marker = {
 }
 
 local FIntReactPerfTrackerKibana: number = game:DefineFastInt("ReactPerfTrackerKibana", 0)
-local FFlagEnableReactPerfSummaryEvents = game:DefineFastFlag("EnableReactPerfSummaryEvents", false)
 
 local MAX_SAMPLE_RATE = 1000
 local SAMPLE_ID_BIAS = 327
@@ -165,14 +164,12 @@ function ReactPerfTracker:start()
 			if self.nextSendTime > 0 then
 				self:sendEvents()
 			end
-			if FFlagEnableReactPerfSummaryEvents then
-				self.previousSendTime = self.nextSendTime
+			self.previousSendTime = self.nextSendTime
 
-				-- edge case: on startup, nextSendTime is initialized at 0, but we can't init previousSendTime as 0
-				-- instead init as first marker's start time, as that marks the beginning of the first period 
-				if self.previousSendTime == 0 then
-					self.previousSendTime = marker.startTime
-				end
+			-- edge case: on startup, nextSendTime is initialized at 0, but we can't init previousSendTime as 0
+			-- instead init as first marker's start time, as that marks the beginning of the first period 
+			if self.previousSendTime == 0 then
+				self.previousSendTime = marker.startTime
 			end
 			self.nextSendTime = marker.startTime + 30
 		end
@@ -183,9 +180,7 @@ end
 function ReactPerfTracker:genEvents()
 	local numComponents = 0
 	for component, _ in self.componentCount do
-		if FFlagEnableReactPerfSummaryEvents then
-			numComponents += 1
-		end
+		numComponents += 1
 		table.insert(self.outgoingEvents, {
 			sessionid = if AnalyticsService then AnalyticsService:GetSessionId() else "",
 			component = component,
@@ -199,16 +194,13 @@ function ReactPerfTracker:genEvents()
 			count_pct = (self :: ReactPerfTracker).componentCount[component] / (self :: ReactPerfTracker).sampleCount,
 		})
 	end
-
-	if FFlagEnableReactPerfSummaryEvents then
-		table.insert( (self :: ReactPerfTracker).outgoingEvents, 1, {
-			summary_sessionid = if AnalyticsService then AnalyticsService:GetSessionId() else "",
-			summary_total_time_ms = (self :: ReactPerfTracker).totalTime,
-			summary_sample_time_s = ((self :: ReactPerfTracker).nextSendTime - (self :: ReactPerfTracker).previousSendTime),
-			summary_num_components = numComponents,
-			summary_sample_count = (self :: ReactPerfTracker).sampleCount,
-		})
-	end
+	table.insert( (self :: ReactPerfTracker).outgoingEvents, 1, {
+		summary_sessionid = if AnalyticsService then AnalyticsService:GetSessionId() else "",
+		summary_total_time_ms = (self :: ReactPerfTracker).totalTime,
+		summary_sample_time_s = ((self :: ReactPerfTracker).nextSendTime - (self :: ReactPerfTracker).previousSendTime),
+		summary_num_components = numComponents,
+		summary_sample_count = (self :: ReactPerfTracker).sampleCount,
+	})
 end
 
 function ReactPerfTracker:sendEvents()

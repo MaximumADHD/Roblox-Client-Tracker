@@ -16,11 +16,11 @@ local mixamoMapping = {
     LeftHip       = 'mixamorig:LeftUpLeg',
     LeftKnee      = 'mixamorig:LeftLeg',
     LeftAnkle     = 'mixamorig:LeftFoot',
-    LeftToes      = 'mixamorig:LeftToeBase',
+    LeftToeBase   = 'mixamorig:LeftToeBase',
     RightHip      = 'mixamorig:RightUpLeg',
     RightKnee     = 'mixamorig:RightLeg',
     RightAnkle    = 'mixamorig:RightFoot',
-    RightToes     = 'mixamorig:RightToeBase',
+    RightToeBase  = 'mixamorig:RightToeBase',
 }
 
 local function AutoMap(hrd: HumanoidRigDescription, char: Model)

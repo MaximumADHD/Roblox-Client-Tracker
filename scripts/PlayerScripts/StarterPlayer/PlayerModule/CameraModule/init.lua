@@ -52,9 +52,9 @@ local UserInputService = game:GetService("UserInputService")
 local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
-local CommonUtils = script.Parent:WaitForChild("CommonUtils")
-local ConnectionUtil = require(CommonUtils:WaitForChild("ConnectionUtil"))
-local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
+local ConnectionUtil = CommonUtils.get("ConnectionUtil")
+local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerModuleHiddenAPI = FlagUtil.getUserFlag("UserPlayerModuleHiddenAPI")
 
 -- Static camera utils

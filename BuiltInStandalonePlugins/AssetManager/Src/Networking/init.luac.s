@@ -542,13 +542,15 @@ PROTO_23:
        31 RETURN                           R0 0
 
 PROTO_24:
-        0 GETTABLEKS                       R5 R0 K0 ["_impl"]
-        2 GETTABLEKS                       R4 R5 K1 ["fetchAssetInfoAsync"]
-        4 MOVE                             R5 R1
-        5 MOVE                             R6 R2
-        6 MOVE                             R7 R3
-        7 CALL                             R4 3 0
-        8 RETURN                           R0 0
+        0 GETTABLEKS                       R7 R0 K0 ["_impl"]
+        2 GETTABLEKS                       R6 R7 K1 ["fetchAssetInfoAsync"]
+        4 MOVE                             R7 R1
+        5 MOVE                             R8 R2
+        6 MOVE                             R9 R3
+        7 MOVE                             R10 R4
+        8 MOVE                             R11 R5
+        9 CALL                             R6 5 0
+       10 RETURN                           R0 0
 
 PROTO_25:
         0 GETTABLEKS                       R4 R0 K0 ["_impl"]

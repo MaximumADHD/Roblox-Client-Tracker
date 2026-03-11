@@ -12,7 +12,7 @@ MAIN:
        16 GETTABLEKS                       R4 R0 K8 ["Packages"]
        18 GETTABLEKS                       R3 R4 K9 ["Dash"]
        20 CALL                             R2 1 1
-       21 NEWTABLE                         R3 2 0
+       21 NEWTABLE                         R3 4 0
        23 GETTABLEKS                       R5 R1 K10 ["DialogType"]
        25 GETTABLEKS                       R4 R5 K11 ["AssetError"]
        27 GETIMPORT                        R5 K5 [require]
@@ -33,26 +33,36 @@ MAIN:
        55 GETTABLEKS                       R6 R7 K17 ["ConfirmDialog"]
        57 CALL                             R5 1 1
        58 SETTABLE                         R5 R3 R4
-       59 GETTABLEKS                       R6 R2 K18 ["count"]
-       61 GETTABLEKS                       R7 R2 K19 ["omit"]
-       63 GETTABLEKS                       R8 R1 K10 ["DialogType"]
-       65 NEWTABLE                         R9 0 1
-       67 GETTABLEKS                       R11 R1 K10 ["DialogType"]
-       69 GETTABLEKS                       R10 R11 K20 ["Test"]
-       71 SETLIST                          R9 R10 1 [1]
-       73 CALL                             R7 2 -1
-       74 CALL                             R6 -1 1
-       75 GETTABLEKS                       R7 R2 K18 ["count"]
-       77 MOVE                             R8 R3
-       78 CALL                             R7 1 1
-       79 JUMPIFEQ                         R6 R7 ; [+2]
-       81 LOADB                            R5 0 +1
-       82 LOADB                            R5 1
-       83 FASTCALL2K                       ASSERT R5 K21 ; [+4]
-       85 LOADK                            R6 K21 ["Dialog type is missing a component mapping! Update dialogTypes to fix"]
-       86 GETIMPORT                        R4 K23 [assert]
-       88 CALL                             R4 2 0
-       89 GETIMPORT                        R4 K26 [table.freeze]
-       91 MOVE                             R5 R3
-       92 CALL                             R4 1 -1
-       93 RETURN                           R4 -1
+       59 GETTABLEKS                       R5 R1 K10 ["DialogType"]
+       61 GETTABLEKS                       R4 R5 K18 ["QuickShare"]
+       63 GETIMPORT                        R5 K5 [require]
+       65 GETTABLEKS                       R10 R0 K6 ["Src"]
+       67 GETTABLEKS                       R9 R10 K12 ["Components"]
+       69 GETTABLEKS                       R8 R9 K13 ["App"]
+       71 GETTABLEKS                       R7 R8 K14 ["Dialogs"]
+       73 GETTABLEKS                       R6 R7 K19 ["QuickShareDialog"]
+       75 CALL                             R5 1 1
+       76 SETTABLE                         R5 R3 R4
+       77 GETTABLEKS                       R6 R2 K20 ["count"]
+       79 GETTABLEKS                       R7 R2 K21 ["omit"]
+       81 GETTABLEKS                       R8 R1 K10 ["DialogType"]
+       83 NEWTABLE                         R9 0 1
+       85 GETTABLEKS                       R11 R1 K10 ["DialogType"]
+       87 GETTABLEKS                       R10 R11 K22 ["Test"]
+       89 SETLIST                          R9 R10 1 [1]
+       91 CALL                             R7 2 -1
+       92 CALL                             R6 -1 1
+       93 GETTABLEKS                       R7 R2 K20 ["count"]
+       95 MOVE                             R8 R3
+       96 CALL                             R7 1 1
+       97 JUMPIFEQ                         R6 R7 ; [+2]
+       99 LOADB                            R5 0 +1
+      100 LOADB                            R5 1
+      101 FASTCALL2K                       ASSERT R5 K23 ; [+4]
+      103 LOADK                            R6 K23 ["Dialog type is missing a component mapping! Update dialogTypes to fix"]
+      104 GETIMPORT                        R4 K25 [assert]
+      106 CALL                             R4 2 0
+      107 GETIMPORT                        R4 K28 [table.freeze]
+      109 MOVE                             R5 R3
+      110 CALL                             R4 1 -1
+      111 RETURN                           R4 -1

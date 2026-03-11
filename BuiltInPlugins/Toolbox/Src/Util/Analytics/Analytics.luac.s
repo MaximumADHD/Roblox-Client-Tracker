@@ -2238,7 +2238,7 @@ PROTO_77:
        27 GETUPVAL                         R11 1
        28 GETTABLEKS                       R10 R11 K11 ["eventTarget"]
        30 LOADK                            R11 K12 ["toolbox"]
-       31 LOADK                            R12 K13 ["StoreAssetCapabilitiesChanged"]
+       31 LOADK                            R12 K13 ["StoreAssetCapabilitiesChangedLua"]
        32 MOVE                             R13 R8
        33 CALL                             R9 4 0
        34 RETURN                           R0 0
@@ -2264,7 +2264,7 @@ PROTO_78:
        27 GETUPVAL                         R11 1
        28 GETTABLEKS                       R10 R11 K11 ["eventTarget"]
        30 LOADK                            R11 K12 ["toolbox"]
-       31 LOADK                            R12 K13 ["StoreAssetSandboxChanged"]
+       31 LOADK                            R12 K13 ["StoreAssetSandboxChangedLua"]
        32 MOVE                             R13 R8
        33 CALL                             R9 4 0
        34 RETURN                           R0 0

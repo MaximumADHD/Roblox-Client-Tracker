@@ -40,11 +40,8 @@ local pcallDeferred = require(root.util.pcallDeferred)
 local getAccessoryScale = require(root.util.getAccessoryScale)
 local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 
-local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
-
 local getEngineFeatureEngineUGCValidateRigidNonSkinned =
 	require(root.flags.getEngineFeatureEngineUGCValidateRigidNonSkinned)
-local getFFlagUGCValidateAccessoriesRCCOwnership = require(root.flags.getFFlagUGCValidateAccessoriesRCCOwnership)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateAccessoryAssetTextureLimit = require(root.flags.getFFlagUGCValidateAccessoryAssetTextureLimit)
@@ -102,12 +99,9 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 			return false, reasons
 		end
 	end
-
-	if getFFlagUGCValidateAccessoriesRCCOwnership() then
-		success, reasons = validateDependencies(instance, validationContext)
-		if not success then
-			return false, reasons
-		end
+	success, reasons = validateDependencies(instance, validationContext)
+	if not success then
+		return false, reasons
 	end
 
 	local handle = instance:FindFirstChild("Handle") :: MeshPart
@@ -249,10 +243,7 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 		)
 
 		reasonsAccumulator:updateReasons(validateMeshTriangles(meshInfo, nil, validationContext))
-
-		if getFFlagUGCValidateMeshVertColors() then
-			reasonsAccumulator:updateReasons(validateMeshVertColors(meshInfo, false, validationContext))
-		end
+		reasonsAccumulator:updateReasons(validateMeshVertColors(meshInfo, false, validationContext))
 
 		reasonsAccumulator:updateReasons(validateCoplanarIntersection(meshInfo, meshScale, validationContext))
 	end

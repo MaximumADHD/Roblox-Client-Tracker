@@ -16,6 +16,7 @@ local useViewBreakpoints = AvatarExperienceInspectAndBuy.Hooks.useViewBreakpoint
 local ResponsivePanelLayout = AvatarExperienceInspectAndBuy.Components.ResponsivePanelLayout
 local useResponsivePanelLayoutProps = AvatarExperienceInspectAndBuy.Hooks.useResponsivePanelLayoutProps
 local applyTryOnItemToHumanoidDescription = AvatarExperienceInspectAndBuy.Utils.applyTryOnItemToHumanoidDescription
+local useInspectAndBuyFocusNavigation = AvatarExperienceInspectAndBuy.Hooks.useInspectAndBuyFocusNavigation
 
 local UpdateBulkPuchaseResults = require(InspectAndBuyFolder.Actions.UpdateBulkPuchaseResults)
 local GetProductInfo = require(InspectAndBuyFolder.Thunks.GetProductInfo)
@@ -27,7 +28,8 @@ local CreateFavoriteForBundle = require(InspectAndBuyFolder.Thunks.CreateFavorit
 local DeleteFavoriteForBundle = require(InspectAndBuyFolder.Thunks.DeleteFavoriteForBundle)
 local PromptPurchase = require(InspectAndBuyFolder.Thunks.PromptPurchase)
 local GetItemDetails = require(InspectAndBuyFolder.Thunks.GetItemDetails)
-local useDispatch = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch
+local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
+local useDispatch = RoactUtils.Hooks.RoactRodux.useDispatch
 local ItemTypeEnum = require(CorePackages.Workspace.Packages.AvatarExperienceCommon).Enums.ItemTypeEnum
 local OpenOverlay = require(InspectAndBuyFolder.Actions.OpenOverlay)
 local OverlayEnum = require(InspectAndBuyFolder.Enums.Overlay)
@@ -53,6 +55,7 @@ local FFlagEnableAvatarViewportAutoRotation = game:DefineFastFlag("EnableAvatarV
 local FIntViewportCameraFieldOfView = game:DefineFastInt("AXViewportCameraFieldOfView", 68)
 local FFlagIBV2Attribution = SharedFlags.FFlagIBV2Attribution
 local FFlagAXEnableBatchItemDetailsFetchV2 = AvatarExperienceFlags.FFlagAXEnableBatchItemDetailsFetchV2
+local FFlagAXEnableInspectAndBuyFocusNavigation = AvatarExperienceFlags.FFlagAXEnableInspectAndBuyFocusNavigation
 
 export type InspectAndBuyBaseContainerProps = {
 	localPlayerModel: LocalPlayerModel?,
@@ -135,9 +138,11 @@ local function InspectAndBuyBaseContainer(props)
 		end
 	end, { dispatch })
 
-	local openAttributionOverlay = if FFlagIBV2Attribution then React.useCallback(function(experienceInfo)
-		dispatch(OpenOverlay(OverlayEnum.AttributionTraversal, experienceInfo))
-	end, { dispatch }) else nil
+	local openAttributionOverlay = if FFlagIBV2Attribution
+		then React.useCallback(function(experienceInfo)
+			dispatch(OpenOverlay(OverlayEnum.AttributionTraversal, experienceInfo))
+		end, { dispatch })
+		else nil
 
 	--[[
 	Prompts a purchase for a single item.
@@ -232,39 +237,88 @@ local function InspectAndBuyBaseContainer(props)
 
 	useUnifiedEventListenerInExperience()
 
-	-- outer overlay container will close the menu when clicked on
-	return React.createElement(Foundation.View, {
-		Size = viewBreakpoints.OverlaySize,
-		Position = viewBreakpoints.OverlayPosition,
-		backgroundStyle = tokens.Color.Common.Shadow,
-		stateLayer = {
-			affordance = Foundation.Enums.StateLayerAffordance.None,
-		},
-		onActivated = function()
-			GuiService:CloseInspectMenu()
-		end,
-	}, {
-		ContainerView = React.createElement(Foundation.View, {
-			AnchorPoint = viewBreakpoints.ContainerAnchorPoint,
-			ClipsDescendants = true,
-			Size = viewBreakpoints.ContainerSize,
-			Position = viewBreakpoints.ContainerPosition,
-			backgroundStyle = {
-				Color3 = Theme.color("MenuContainer"),
-				Transparency = Theme.transparency("MenuContainer", 1) * GuiService.PreferredTransparency,
-			},
+	if FFlagAXEnableInspectAndBuyFocusNavigation then
+		-- Focus navigation (handles purchase modal detection and auto-focus)
+		local focusNavigationConfig = useInspectAndBuyFocusNavigation()
+
+		return React.createElement("Frame", {
+			ref = focusNavigationConfig.setFocusRef,
+			Size = UDim2.fromScale(1, 1),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			SelectionGroup = focusNavigationConfig.focusNavigationProps.SelectionGroup,
+			SelectionBehaviorDown = focusNavigationConfig.focusNavigationProps.SelectionBehaviorDown,
+			SelectionBehaviorLeft = focusNavigationConfig.focusNavigationProps.SelectionBehaviorLeft,
+			SelectionBehaviorRight = focusNavigationConfig.focusNavigationProps.SelectionBehaviorRight,
+			SelectionBehaviorUp = focusNavigationConfig.focusNavigationProps.SelectionBehaviorUp,
+		}, {
+			Content = React.createElement(Foundation.View, {
+				Size = viewBreakpoints.OverlaySize,
+				Position = viewBreakpoints.OverlayPosition,
+				backgroundStyle = tokens.Color.Common.Shadow,
+				stateLayer = {
+					affordance = Foundation.Enums.StateLayerAffordance.None,
+				},
+				onActivated = function()
+					GuiService:CloseInspectMenu()
+				end,
+			}, {
+				ContainerView = React.createElement(Foundation.View, {
+					AnchorPoint = viewBreakpoints.ContainerAnchorPoint,
+					ClipsDescendants = true,
+					Size = viewBreakpoints.ContainerSize,
+					Position = viewBreakpoints.ContainerPosition,
+					backgroundStyle = {
+						Color3 = Theme.color("MenuContainer"),
+						Transparency = Theme.transparency("MenuContainer", 1) * GuiService.PreferredTransparency,
+					},
+					stateLayer = {
+						affordance = Foundation.Enums.StateLayerAffordance.None,
+					},
+					onActivated = function() end, -- stop click events from propagating up to overlay
+				}, {
+					UICorner = React.createElement("UICorner", {
+						CornerRadius = Theme.DefaultCornerRadius,
+					}),
+					ResponsivePanelLayout = React.createElement(ResponsivePanelLayout, responsivePanelLayoutProps),
+				}),
+				Overlay = if FFlagIBV2Attribution then React.createElement(Overlay) else nil,
+			}),
+		})
+	else
+		return React.createElement(Foundation.View, {
+			Size = viewBreakpoints.OverlaySize,
+			Position = viewBreakpoints.OverlayPosition,
+			backgroundStyle = tokens.Color.Common.Shadow,
 			stateLayer = {
 				affordance = Foundation.Enums.StateLayerAffordance.None,
 			},
-			onActivated = function() end, -- stop click events from propagating up to overlay
+			onActivated = function()
+				GuiService:CloseInspectMenu()
+			end,
 		}, {
-			UICorner = React.createElement("UICorner", {
-				CornerRadius = Theme.DefaultCornerRadius,
+			ContainerView = React.createElement(Foundation.View, {
+				AnchorPoint = viewBreakpoints.ContainerAnchorPoint,
+				ClipsDescendants = true,
+				Size = viewBreakpoints.ContainerSize,
+				Position = viewBreakpoints.ContainerPosition,
+				backgroundStyle = {
+					Color3 = Theme.color("MenuContainer"),
+					Transparency = Theme.transparency("MenuContainer", 1) * GuiService.PreferredTransparency,
+				},
+				stateLayer = {
+					affordance = Foundation.Enums.StateLayerAffordance.None,
+				},
+				onActivated = function() end, -- stop click events from propagating up to overlay
+			}, {
+				UICorner = React.createElement("UICorner", {
+					CornerRadius = Theme.DefaultCornerRadius,
+				}),
+				ResponsivePanelLayout = React.createElement(ResponsivePanelLayout, responsivePanelLayoutProps),
 			}),
-			ResponsivePanelLayout = React.createElement(ResponsivePanelLayout, responsivePanelLayoutProps),
-		}),
-		Overlay = if FFlagIBV2Attribution then React.createElement(Overlay) else nil,
-	})
+			Overlay = if FFlagIBV2Attribution then React.createElement(Overlay) else nil,
+		}) :: any
+	end
 end
 
 return InspectAndBuyBaseContainer

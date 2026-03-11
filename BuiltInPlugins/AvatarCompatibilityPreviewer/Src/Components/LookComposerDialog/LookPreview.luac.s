@@ -20,73 +20,65 @@ PROTO_1:
         2 JUMPIF                           R1 ; [+2]
         3 LOADNIL                          R1
         4 RETURN                           R1 1
-        5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K0 ["useContext"]
-        8 GETUPVAL                         R3 2
-        9 GETTABLEKS                       R2 R3 K1 ["Context"]
-       11 CALL                             R1 1 1
-       12 GETUPVAL                         R3 1
-       13 GETTABLEKS                       R2 R3 K0 ["useContext"]
-       15 GETUPVAL                         R3 3
-       16 CALL                             R2 1 1
-       17 GETTABLEKS                       R3 R1 K2 ["dialogLookType"]
-       19 JUMPIF                           R3 ; [+5]
-       20 GETUPVAL                         R4 4
-       21 GETTABLEKS                       R5 R0 K3 ["LayoutOrder"]
-       23 CALL                             R4 1 -1
-       24 RETURN                           R4 -1
-       25 JUMPIFEQKS                       R3 K4 ["MakeupLook"] ; [+2]
-       27 LOADB                            R4 0 +1
-       28 LOADB                            R4 1
-       29 JUMPIFEQKS                       R3 K5 ["AvatarLook"] ; [+2]
-       31 LOADB                            R5 0 +1
-       32 LOADB                            R5 1
-       33 JUMPIFNOT                        R4 ; [+19]
-       34 GETUPVAL                         R7 1
-       35 GETTABLEKS                       R6 R7 K6 ["createElement"]
-       37 GETUPVAL                         R7 5
-       38 DUPTABLE                         R8 K9 [{"LayoutOrder", "worldModel", "skinColor"}]
-       39 GETTABLEKS                       R9 R0 K3 ["LayoutOrder"]
-       41 SETTABLEKS                       R9 R8 K3 ["LayoutOrder"]
-       43 GETTABLEKS                       R9 R0 K10 ["makeupWorldModel"]
-       45 SETTABLEKS                       R9 R8 K7 ["worldModel"]
-       47 GETTABLEKS                       R9 R0 K11 ["makeupSkinColor"]
-       49 SETTABLEKS                       R9 R8 K8 ["skinColor"]
-       51 CALL                             R6 2 -1
-       52 RETURN                           R6 -1
-       53 JUMPIFNOT                        R5 ; [+45]
-       54 LOADNIL                          R6
-       55 GETTABLEKS                       R7 R1 K12 ["itemsList"]
-       57 LOADNIL                          R8
-       58 LOADNIL                          R9
-       59 FORGPREP                         R7
-       60 GETTABLEKS                       R12 R11 K13 ["type"]
-       62 JUMPIFNOTEQKS                    R12 K14 ["BodyColor"] ; [+8]
-       64 GETTABLEKS                       R12 R11 K15 ["rowState"]
-       66 JUMPIFNOTEQKS                    R12 K16 ["Selected"] ; [+4]
-       68 GETTABLEKS                       R6 R11 K17 ["color"]
-       70 JUMP                             ; [+2]
-       71 FORGLOOP                         R7 2 ; [-12]
-       73 JUMPIF                           R6 ; [+4]
-       74 GETTABLEKS                       R7 R2 K18 ["avatarAssets"]
-       76 GETTABLEKS                       R6 R7 K19 ["skinTone"]
-       78 GETUPVAL                         R8 1
-       79 GETTABLEKS                       R7 R8 K6 ["createElement"]
-       81 GETUPVAL                         R8 6
-       82 DUPTABLE                         R9 K23 [{"bodyColor", "bodyProportions", "LayoutOrder", "dummy"}]
-       83 SETTABLEKS                       R6 R9 K20 ["bodyColor"]
-       85 GETTABLEKS                       R10 R1 K21 ["bodyProportions"]
-       87 SETTABLEKS                       R10 R9 K21 ["bodyProportions"]
-       89 GETTABLEKS                       R10 R0 K3 ["LayoutOrder"]
-       91 SETTABLEKS                       R10 R9 K3 ["LayoutOrder"]
-       93 GETTABLEKS                       R10 R0 K22 ["dummy"]
-       95 SETTABLEKS                       R10 R9 K22 ["dummy"]
-       97 CALL                             R7 2 -1
-       98 RETURN                           R7 -1
-       99 GETUPVAL                         R6 4
-      100 GETTABLEKS                       R7 R0 K3 ["LayoutOrder"]
-      102 CALL                             R6 1 -1
-      103 RETURN                           R6 -1
+        5 GETTABLEKS                       R1 R0 K0 ["dialogLookType"]
+        7 JUMPIF                           R1 ; [+5]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R3 R0 K1 ["LayoutOrder"]
+       11 CALL                             R2 1 -1
+       12 RETURN                           R2 -1
+       13 JUMPIFEQKS                       R1 K2 ["MakeupLook"] ; [+2]
+       15 LOADB                            R2 0 +1
+       16 LOADB                            R2 1
+       17 JUMPIFEQKS                       R1 K3 ["AvatarLook"] ; [+2]
+       19 LOADB                            R3 0 +1
+       20 LOADB                            R3 1
+       21 JUMPIFNOT                        R2 ; [+19]
+       22 GETUPVAL                         R5 2
+       23 GETTABLEKS                       R4 R5 K4 ["createElement"]
+       25 GETUPVAL                         R5 3
+       26 DUPTABLE                         R6 K7 [{"LayoutOrder", "worldModel", "skinColor"}]
+       27 GETTABLEKS                       R7 R0 K1 ["LayoutOrder"]
+       29 SETTABLEKS                       R7 R6 K1 ["LayoutOrder"]
+       31 GETTABLEKS                       R7 R0 K8 ["makeupWorldModel"]
+       33 SETTABLEKS                       R7 R6 K5 ["worldModel"]
+       35 GETTABLEKS                       R7 R0 K9 ["makeupSkinColor"]
+       37 SETTABLEKS                       R7 R6 K6 ["skinColor"]
+       39 CALL                             R4 2 -1
+       40 RETURN                           R4 -1
+       41 JUMPIFNOT                        R3 ; [+46]
+       42 LOADNIL                          R4
+       43 GETTABLEKS                       R5 R0 K10 ["itemsList"]
+       45 JUMPIFNOT                        R5 ; [+18]
+       46 GETTABLEKS                       R5 R0 K10 ["itemsList"]
+       48 LOADNIL                          R6
+       49 LOADNIL                          R7
+       50 FORGPREP                         R5
+       51 GETTABLEKS                       R10 R9 K11 ["itemRowType"]
+       53 JUMPIFNOTEQKS                    R10 K12 ["BodyColor"] ; [+8]
+       55 GETTABLEKS                       R10 R9 K13 ["rowState"]
+       57 JUMPIFNOTEQKS                    R10 K14 ["Selected"] ; [+4]
+       59 GETTABLEKS                       R4 R9 K15 ["color"]
+       61 JUMP                             ; [+2]
+       62 FORGLOOP                         R5 2 ; [-12]
+       64 JUMPIF                           R4 ; [+2]
+       65 GETTABLEKS                       R4 R0 K9 ["makeupSkinColor"]
+       67 GETUPVAL                         R6 2
+       68 GETTABLEKS                       R5 R6 K4 ["createElement"]
+       70 GETUPVAL                         R6 4
+       71 DUPTABLE                         R7 K19 [{"bodyColor", "bodyProportions", "LayoutOrder", "dummy"}]
+       72 SETTABLEKS                       R4 R7 K16 ["bodyColor"]
+       74 GETTABLEKS                       R8 R0 K17 ["bodyProportions"]
+       76 SETTABLEKS                       R8 R7 K17 ["bodyProportions"]
+       78 GETTABLEKS                       R8 R0 K1 ["LayoutOrder"]
+       80 SETTABLEKS                       R8 R7 K1 ["LayoutOrder"]
+       82 GETTABLEKS                       R8 R0 K18 ["dummy"]
+       84 SETTABLEKS                       R8 R7 K18 ["dummy"]
+       86 CALL                             R5 2 -1
+       87 RETURN                           R5 -1
+       88 GETUPVAL                         R4 1
+       89 GETTABLEKS                       R5 R0 K1 ["LayoutOrder"]
+       91 CALL                             R4 1 -1
+       92 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -104,45 +96,33 @@ MAIN:
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["View"]
        23 GETIMPORT                        R4 K5 [require]
-       25 GETTABLEKS                       R7 R0 K10 ["Src"]
-       27 GETTABLEKS                       R6 R7 K11 ["Util"]
-       29 GETTABLEKS                       R5 R6 K12 ["EquipmentStateContext"]
-       31 CALL                             R4 1 1
-       32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R8 R0 K10 ["Src"]
-       36 GETTABLEKS                       R7 R8 K13 ["Components"]
-       38 GETTABLEKS                       R6 R7 K14 ["LookContext"]
-       40 CALL                             R5 1 1
-       41 GETIMPORT                        R6 K5 [require]
-       43 GETTABLEKS                       R8 R0 K10 ["Src"]
-       45 GETTABLEKS                       R7 R8 K15 ["Types"]
-       47 CALL                             R6 1 1
-       48 GETIMPORT                        R7 K5 [require]
-       50 GETTABLEKS                       R10 R0 K10 ["Src"]
-       52 GETTABLEKS                       R9 R10 K16 ["Flags"]
-       54 GETTABLEKS                       R8 R9 K17 ["getFFlagAvatarPreviewerLookComposer"]
-       56 CALL                             R7 1 1
-       57 GETIMPORT                        R8 K5 [require]
-       59 GETTABLEKS                       R12 R0 K10 ["Src"]
-       61 GETTABLEKS                       R11 R12 K13 ["Components"]
-       63 GETTABLEKS                       R10 R11 K18 ["LookComposerDialog"]
-       65 GETTABLEKS                       R9 R10 K19 ["MakeupLookPreview"]
-       67 CALL                             R8 1 1
-       68 GETIMPORT                        R9 K5 [require]
-       70 GETTABLEKS                       R13 R0 K10 ["Src"]
-       72 GETTABLEKS                       R12 R13 K13 ["Components"]
-       74 GETTABLEKS                       R11 R12 K18 ["LookComposerDialog"]
-       76 GETTABLEKS                       R10 R11 K20 ["AvatarLookPreview"]
-       78 CALL                             R9 1 1
-       79 DUPCLOSURE                       R10 K21 [PROTO_0]
-       80 CAPTURE                          VAL R1
-       81 CAPTURE                          VAL R3
-       82 DUPCLOSURE                       R11 K22 [PROTO_1]
-       83 CAPTURE                          VAL R7
-       84 CAPTURE                          VAL R1
-       85 CAPTURE                          VAL R5
-       86 CAPTURE                          VAL R4
-       87 CAPTURE                          VAL R10
-       88 CAPTURE                          VAL R8
-       89 CAPTURE                          VAL R9
-       90 RETURN                           R11 1
+       25 GETTABLEKS                       R6 R0 K10 ["Src"]
+       27 GETTABLEKS                       R5 R6 K11 ["Types"]
+       29 CALL                             R4 1 1
+       30 GETIMPORT                        R5 K5 [require]
+       32 GETTABLEKS                       R8 R0 K10 ["Src"]
+       34 GETTABLEKS                       R7 R8 K12 ["Flags"]
+       36 GETTABLEKS                       R6 R7 K13 ["getFFlagAvatarPreviewerLookComposer"]
+       38 CALL                             R5 1 1
+       39 GETIMPORT                        R6 K5 [require]
+       41 GETTABLEKS                       R10 R0 K10 ["Src"]
+       43 GETTABLEKS                       R9 R10 K14 ["Components"]
+       45 GETTABLEKS                       R8 R9 K15 ["LookComposerDialog"]
+       47 GETTABLEKS                       R7 R8 K16 ["MakeupLookPreview"]
+       49 CALL                             R6 1 1
+       50 GETIMPORT                        R7 K5 [require]
+       52 GETTABLEKS                       R11 R0 K10 ["Src"]
+       54 GETTABLEKS                       R10 R11 K14 ["Components"]
+       56 GETTABLEKS                       R9 R10 K15 ["LookComposerDialog"]
+       58 GETTABLEKS                       R8 R9 K17 ["AvatarLookPreview"]
+       60 CALL                             R7 1 1
+       61 DUPCLOSURE                       R8 K18 [PROTO_0]
+       62 CAPTURE                          VAL R1
+       63 CAPTURE                          VAL R3
+       64 DUPCLOSURE                       R9 K19 [PROTO_1]
+       65 CAPTURE                          VAL R5
+       66 CAPTURE                          VAL R8
+       67 CAPTURE                          VAL R1
+       68 CAPTURE                          VAL R6
+       69 CAPTURE                          VAL R7
+       70 RETURN                           R9 1

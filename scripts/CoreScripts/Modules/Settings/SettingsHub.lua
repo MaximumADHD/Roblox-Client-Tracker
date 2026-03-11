@@ -164,7 +164,7 @@ local Flags = {
 	FFlagHelpPageIXPExposure = HelpPage.Flags.FFlagHelpPageIXPExposure,
 	FStringHelpPageIXPLayer = HelpPage.Flags.FStringHelpPageIXPLayer,
 
-	FFlagMenuButtonsCheckVisibilityBeforeMount = SettingsFlags.FFlagMenuButtonsCheckVisibilityBeforeMount or game:DefineFastFlag("MenuButtonsCheckVisibilityBeforeMount", false),
+	FFlagMenuButtonsCheckVisibilityBeforeMount = true ,
 
 	FFlagFixSpatialUICaptures = game:DefineFastFlag("FixSpatialUICaptures", false),
 	FFlagMenuButtonsSkipAnimation = game:DefineFastFlag("MenuButtonsSkipAnimation", false),
@@ -940,7 +940,7 @@ local function CreateSettingsHub()
 
 	local mountMenuButtons = if Flags.FFlagRelocateMobileMenuButtons and Flags.FIntRelocateMobileMenuButtonsVariant ~= 0 
 		then function()
-			if Flags.FFlagMenuButtonsCheckVisibilityBeforeMount and this.BottomButtonFrameRoot then
+			if this.BottomButtonFrameRoot then
 				return
 			end
 
@@ -2201,7 +2201,7 @@ local function CreateSettingsHub()
 		end
 
 		if Flags.FFlagRelocateMobileMenuButtons and Flags.FIntRelocateMobileMenuButtonsVariant == 2 then
-			if not Flags.FFlagMenuButtonsCheckVisibilityBeforeMount or this.Visible then
+			if this.Visible then
 				if not (utility:IsPortrait() or utility:IsSmallTouchScreen()) or Theme.AlwaysShowBottomBar() then
 					-- Mount when menu buttons move from top to bottom of IEM (portrait to landscape mode)
 					if not this.BottomButtonFrameRoot then

@@ -149,51 +149,38 @@ PROTO_6:
         6 LOADNIL                          R5
         7 LOADNIL                          R6
         8 FORGPREP                         R4
-        9 GETTABLEKS                       R9 R8 K0 ["isHidden"]
-       11 JUMPIF                           R9 ; [+66]
-       12 GETTABLEKS                       R10 R8 K1 ["palette"]
-       14 GETTABLEKS                       R9 R10 K2 ["PublishAssetType"]
-       16 JUMPIFNOT                        R9 ; [+61]
-       17 GETIMPORT                        R10 K5 [table.find]
-       19 GETUPVAL                         R12 0
-       20 GETTABLEKS                       R11 R12 K6 ["MAKEUP_ASSET_TYPES"]
-       22 MOVE                             R12 R9
-       23 CALL                             R10 2 1
-       24 JUMPIFNOT                        R10 ; [+53]
-       25 GETTABLEKS                       R11 R8 K7 ["item"]
-       27 GETTABLEKS                       R10 R11 K8 ["source"]
-       29 GETUPVAL                         R12 0
-       30 GETTABLEKS                       R11 R12 K9 ["SOURCE_MARKETPLACE"]
-       32 JUMPIFNOTEQ                      R10 R11 ; [+45]
-       34 GETUPVAL                         R11 1
-       35 GETTABLEKS                       R10 R11 K10 ["extractUniqueId"]
-       37 GETTABLEKS                       R12 R8 K7 ["item"]
-       39 GETTABLEKS                       R11 R12 K11 ["marketplaceItem"]
-       41 CALL                             R10 1 1
-       42 ADDK                             R3 R3 K12 [1]
-       43 GETIMPORT                        R11 K16 [Enum.AssetType.EyebrowAccessory]
-       45 JUMPIFEQ                         R9 R11 ; [+5]
-       47 GETIMPORT                        R11 K18 [Enum.AssetType.EyelashAccessory]
-       49 JUMPIFNOTEQ                      R9 R11 ; [+15]
-       51 DUPTABLE                         R13 K21 [{"AssetId", "AssetType", "Order"}]
-       52 SETTABLEKS                       R10 R13 K19 ["AssetId"]
-       54 SETTABLEKS                       R9 R13 K14 ["AssetType"]
-       56 SETTABLEKS                       R3 R13 K20 ["Order"]
-       58 FASTCALL2                        TABLE_INSERT R1 R13 ; [+4]
-       60 MOVE                             R12 R1
-       61 GETIMPORT                        R11 K23 [table.insert]
-       63 CALL                             R11 2 0
-       64 JUMP                             ; [+13]
-       65 DUPTABLE                         R13 K21 [{"AssetId", "AssetType", "Order"}]
-       66 SETTABLEKS                       R10 R13 K19 ["AssetId"]
-       68 SETTABLEKS                       R9 R13 K14 ["AssetType"]
-       70 SETTABLEKS                       R3 R13 K20 ["Order"]
-       72 FASTCALL2                        TABLE_INSERT R2 R13 ; [+4]
-       74 MOVE                             R12 R2
-       75 GETIMPORT                        R11 K23 [table.insert]
-       77 CALL                             R11 2 0
-       78 FORGLOOP                         R4 2 ; [-70]
-       80 RETURN                           R1 2
+        9 GETTABLEKS                       R9 R8 K0 ["rowState"]
+       11 JUMPIFNOTEQKS                    R9 K1 ["Selected"] ; [+49]
+       13 ADDK                             R3 R3 K2 [1]
+       14 GETTABLEKS                       R9 R8 K3 ["assetType"]
+       16 GETIMPORT                        R10 K7 [Enum.AssetType.EyebrowAccessory]
+       18 JUMPIFEQ                         R9 R10 ; [+7]
+       20 GETTABLEKS                       R9 R8 K3 ["assetType"]
+       22 GETIMPORT                        R10 K9 [Enum.AssetType.EyelashAccessory]
+       24 JUMPIFNOTEQ                      R9 R10 ; [+19]
+       26 DUPTABLE                         R11 K12 [{"AssetId", "AssetType", "Order"}]
+       27 GETTABLEKS                       R12 R8 K13 ["id"]
+       29 SETTABLEKS                       R12 R11 K10 ["AssetId"]
+       31 GETTABLEKS                       R12 R8 K3 ["assetType"]
+       33 SETTABLEKS                       R12 R11 K5 ["AssetType"]
+       35 SETTABLEKS                       R3 R11 K11 ["Order"]
+       37 FASTCALL2                        TABLE_INSERT R1 R11 ; [+4]
+       39 MOVE                             R10 R1
+       40 GETIMPORT                        R9 K16 [table.insert]
+       42 CALL                             R9 2 0
+       43 JUMP                             ; [+17]
+       44 DUPTABLE                         R11 K12 [{"AssetId", "AssetType", "Order"}]
+       45 GETTABLEKS                       R12 R8 K13 ["id"]
+       47 SETTABLEKS                       R12 R11 K10 ["AssetId"]
+       49 GETTABLEKS                       R12 R8 K3 ["assetType"]
+       51 SETTABLEKS                       R12 R11 K5 ["AssetType"]
+       53 SETTABLEKS                       R3 R11 K11 ["Order"]
+       55 FASTCALL2                        TABLE_INSERT R2 R11 ; [+4]
+       57 MOVE                             R10 R2
+       58 GETIMPORT                        R9 K16 [table.insert]
+       60 CALL                             R9 2 0
+       61 FORGLOOP                         R4 2 ; [-53]
+       63 RETURN                           R1 2
 
 PROTO_7:
         0 GETIMPORT                        R3 K2 [Instance.new]
@@ -285,7 +272,36 @@ PROTO_8:
        79 GETUPVAL                         R7 4
        80 MOVE                             R8 R6
        81 CALL                             R7 1 2
-       82 RETURN                           R7 2
+       82 GETUPVAL                         R9 5
+       83 CALL                             R9 0 1
+       84 JUMPIFNOT                        R9 ; [+40]
+       85 LENGTH                           R9 R3
+       86 LOADN                            R10 0
+       87 JUMPIFNOTLT                      R10 R9 ; [+7]
+       89 JUMPIFEQKNIL                     R8 ; [+5]
+       91 LOADK                            R11 K21 ["MakeupDecal"]
+       92 NAMECALL                         R9 R8 K22 ["WaitForChild"]
+       94 CALL                             R9 2 1
+       95 MOVE                             R9 R2
+       96 LOADNIL                          R10
+       97 LOADNIL                          R11
+       98 FORGPREP                         R9
+       99 GETTABLEKS                       R14 R13 K17 ["AssetType"]
+      101 GETIMPORT                        R15 K25 [Enum.AssetType.EyelashAccessory]
+      103 JUMPIFNOTEQ                      R14 R15 ; [+7]
+      105 JUMPIFEQKNIL                     R7 ; [+5]
+      107 LOADK                            R16 K26 ["Accessory (Eyelashes)"]
+      108 NAMECALL                         R14 R7 K22 ["WaitForChild"]
+      110 CALL                             R14 2 1
+      111 GETTABLEKS                       R14 R13 K17 ["AssetType"]
+      113 GETIMPORT                        R15 K28 [Enum.AssetType.EyebrowAccessory]
+      115 JUMPIFNOTEQ                      R14 R15 ; [+7]
+      117 JUMPIFEQKNIL                     R7 ; [+5]
+      119 LOADK                            R16 K29 ["Accessory (Eyebrows)"]
+      120 NAMECALL                         R14 R7 K22 ["WaitForChild"]
+      122 CALL                             R14 2 1
+      123 FORGLOOP                         R9 2 ; [-25]
+      125 RETURN                           R7 2
 
 MAIN:
         0 PREPVARARGS                      0
@@ -312,13 +328,13 @@ MAIN:
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K10 [require]
        37 GETTABLEKS                       R8 R2 K11 ["Src"]
-       39 GETTABLEKS                       R7 R8 K12 ["Util"]
-       41 GETTABLEKS                       R6 R7 K15 ["MarketplaceCatalogUtils"]
+       39 GETTABLEKS                       R7 R8 K15 ["Flags"]
+       41 GETTABLEKS                       R6 R7 K16 ["getFStringDefaultDynamicHeadAssetIdLookComposer"]
        43 CALL                             R5 1 1
        44 GETIMPORT                        R6 K10 [require]
        46 GETTABLEKS                       R9 R2 K11 ["Src"]
-       48 GETTABLEKS                       R8 R9 K16 ["Flags"]
-       50 GETTABLEKS                       R7 R8 K17 ["getFStringDefaultDynamicHeadAssetIdLookComposer"]
+       48 GETTABLEKS                       R8 R9 K15 ["Flags"]
+       50 GETTABLEKS                       R7 R8 K17 ["getFFlagDebugAvatarPreviewerMakeupWorldModelWait"]
        52 CALL                             R6 1 1
        53 DUPCLOSURE                       R7 K18 [PROTO_0]
        54 CAPTURE                          VAL R3
@@ -332,17 +348,16 @@ MAIN:
        64 CAPTURE                          VAL R1
        65 CAPTURE                          VAL R9
        66 DUPCLOSURE                       R11 K23 [PROTO_6]
-       67 CAPTURE                          VAL R3
-       68 CAPTURE                          VAL R5
-       69 SETTABLEKS                       R11 R8 K24 ["processMakeupItems"]
-       71 DUPCLOSURE                       R11 K25 [PROTO_7]
-       72 CAPTURE                          VAL R3
-       73 SETTABLEKS                       R11 R8 K26 ["setupHeadInWorldModel"]
-       75 DUPCLOSURE                       R11 K27 [PROTO_8]
-       76 CAPTURE                          VAL R8
-       77 CAPTURE                          VAL R6
-       78 CAPTURE                          VAL R7
-       79 CAPTURE                          VAL R3
-       80 CAPTURE                          VAL R10
-       81 SETTABLEKS                       R11 R8 K28 ["createMakeupCharacterModel"]
-       83 RETURN                           R8 1
+       67 SETTABLEKS                       R11 R8 K24 ["processMakeupItems"]
+       69 DUPCLOSURE                       R11 K25 [PROTO_7]
+       70 CAPTURE                          VAL R3
+       71 SETTABLEKS                       R11 R8 K26 ["setupHeadInWorldModel"]
+       73 DUPCLOSURE                       R11 K27 [PROTO_8]
+       74 CAPTURE                          VAL R8
+       75 CAPTURE                          VAL R5
+       76 CAPTURE                          VAL R7
+       77 CAPTURE                          VAL R3
+       78 CAPTURE                          VAL R10
+       79 CAPTURE                          VAL R6
+       80 SETTABLEKS                       R11 R8 K28 ["createMakeupCharacterModel"]
+       82 RETURN                           R8 1

@@ -15,6 +15,7 @@ local messages: _Messages = {} :: _Messages
 local _roblox_apppageplatform_shared_v1beta1_prop_types = require(script.Parent.prop_types)
 local _roblox_apppageplatform_shared_v1beta1_actions = require(script.Parent.actions)
 local _roblox_apppageplatform_shared_v1beta1_component_shared = require(script.Parent.component_shared)
+local _roblox_apppageplatform_shared_v1beta1_prop_types_engine = require(script.Parent.prop_types_engine)
 
 type _AttributionRowSchemaImpl = {
 	__index: _AttributionRowSchemaImpl,
@@ -78,9 +79,9 @@ type _AttributionRowSchema_PropsFields = {
 	subtitle_background_icon_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	subtitle_background_icon_background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
 	title_text_wrap: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
-	title_text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	subtitle_text_wrap: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	subtitle_text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	title_text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp?,
+	subtitle_text_wrap: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	subtitle_text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp?,
 }
 
 type _AttributionRowSchema_PropsPartialFields = {
@@ -109,9 +110,9 @@ type _AttributionRowSchema_PropsPartialFields = {
 	subtitle_background_icon_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	subtitle_background_icon_background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
 	title_text_wrap: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
-	title_text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	subtitle_text_wrap: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	subtitle_text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	title_text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp?,
+	subtitle_text_wrap: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	subtitle_text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp?,
 }
 
 export type AttributionRowSchema_Props = typeof(setmetatable(
@@ -632,18 +633,18 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.title_text_truncate =
-						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp.decode(value)
 					continue
 				elseif field == 27 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.subtitle_text_wrap = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					self.subtitle_text_wrap = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				elseif field == 28 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.subtitle_text_truncate =
-						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp.decode(value)
 					continue
 				end
 
@@ -1014,32 +1015,40 @@ do
 
 		if input.title_text_truncate ~= nil then
 			self.title_text_truncate =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.title_text_truncate)
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp.jsonDecode(
+					input.title_text_truncate
+				)
 		end
 
 		if input.titleTextTruncate ~= nil then
 			self.title_text_truncate =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.titleTextTruncate)
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp.jsonDecode(
+					input.titleTextTruncate
+				)
 		end
 
 		if input.subtitle_text_wrap ~= nil then
 			self.subtitle_text_wrap =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitle_text_wrap)
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.subtitle_text_wrap)
 		end
 
 		if input.subtitleTextWrap ~= nil then
 			self.subtitle_text_wrap =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitleTextWrap)
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.subtitleTextWrap)
 		end
 
 		if input.subtitle_text_truncate ~= nil then
 			self.subtitle_text_truncate =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitle_text_truncate)
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp.jsonDecode(
+					input.subtitle_text_truncate
+				)
 		end
 
 		if input.subtitleTextTruncate ~= nil then
 			self.subtitle_text_truncate =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitleTextTruncate)
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp.jsonDecode(
+					input.subtitleTextTruncate
+				)
 		end
 
 		return self

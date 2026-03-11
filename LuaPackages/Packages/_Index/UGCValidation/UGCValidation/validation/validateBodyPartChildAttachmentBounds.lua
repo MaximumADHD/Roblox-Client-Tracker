@@ -6,14 +6,11 @@ local Constants = require(root.Constants)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local prettyPrintVector3 = require(root.util.prettyPrintVector3)
-local floatEquals = require(root.util.floatEquals)
 local BoundsCalculator = require(root.util.BoundsCalculator)
 local BoundsDataUtils = require(root.util.BoundsDataUtils)
 local MeshSpaceUtils = require(root.util.MeshSpaceUtils)
 
 local getFStringUGCValidationAttachmentErrorLink = require(root.flags.getFStringUGCValidationAttachmentErrorLink)
-local getFFlagRefactorBodyAttachmentOrientationsCheck =
-	require(root.flags.getFFlagRefactorBodyAttachmentOrientationsCheck)
 
 -- this function relies on validateMeshIsAtOrigin() in validateDescendantMeshMetrics.lua to catch meshes not built at the origin
 local function validateInMeshSpace(
@@ -123,39 +120,6 @@ local function checkAll(
 	return reasonsAccumulator:getFinalResults()
 end
 
-local function validateAttachmentRotation(
-	inst: Instance,
-	validationContext: Types.ValidationContext
-): (boolean, { string }?)
-	-- remove function when cleaning up FFlagRefactorBodyAttachmentOrientationsCheck
-	assert(Analytics.ErrorType.validateBodyPartChildAttachmentBounds_AttachmentRotated)
-	local reasonsAccumulator = FailureReasonsAccumulator.new()
-
-	for _, desc: Attachment in inst:GetDescendants() :: { any } do
-		local isRigAttachment = desc.ClassName == "Attachment" and string.find(desc.Name, "RigAttachment")
-		if not isRigAttachment then
-			continue
-		end
-
-		local x, y, z = desc.CFrame:ToOrientation()
-		if not floatEquals(x, 0) or not floatEquals(y, 0) or not floatEquals(z, 0) then
-			Analytics.reportFailure(
-				Analytics.ErrorType.validateBodyPartChildAttachmentBounds_AttachmentRotated,
-				nil,
-				validationContext
-			)
-			reasonsAccumulator:updateReasons(false, {
-				string.format(
-					"Detected rotation in Attachment '%s'. You must reset all rotation values for this attachment to zero.",
-					desc:GetFullName()
-				),
-			})
-		end
-	end
-
-	return reasonsAccumulator:getFinalResults()
-end
-
 local function validateBodyPartChildAttachmentBounds(
 	inst: Instance,
 	validationContext: Types.ValidationContext
@@ -170,10 +134,6 @@ local function validateBodyPartChildAttachmentBounds(
 	assert(assetInfo)
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
-
-	if not getFFlagRefactorBodyAttachmentOrientationsCheck() then
-		reasonsAccumulator:updateReasons(validateAttachmentRotation(inst, validationContext))
-	end
 
 	local successData, failureReasonsData, boundsTransformDataOpt =
 		BoundsCalculator.calculateIndividualAssetPartsData(inst, validationContext)

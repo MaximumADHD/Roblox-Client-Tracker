@@ -1,107 +1,137 @@
 PROTO_0:
+        0 LOADN                            R0 0
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R1 R4 K0 ["dialogItems"]
+        4 LOADNIL                          R2
+        5 LOADNIL                          R3
+        6 FORGPREP                         R1
+        7 GETTABLEKS                       R6 R5 K1 ["itemRowType"]
+        9 JUMPIFNOTEQKS                    R6 K2 ["Asset"] ; [+9]
+       11 GETTABLEKS                       R6 R5 K3 ["rowState"]
+       13 JUMPIFNOTEQKS                    R6 K4 ["Selected"] ; [+5]
+       15 GETTABLEKS                       R6 R5 K5 ["price"]
+       17 ADD                              R0 R0 R6
+       18 JUMP                             ; [+11]
+       19 GETTABLEKS                       R6 R5 K1 ["itemRowType"]
+       21 JUMPIFNOTEQKS                    R6 K6 ["Bundle"] ; [+8]
+       23 GETTABLEKS                       R6 R5 K3 ["rowState"]
+       25 JUMPIFNOTEQKS                    R6 K4 ["Selected"] ; [+4]
+       27 GETTABLEKS                       R6 R5 K5 ["price"]
+       29 ADD                              R0 R0 R6
+       30 FORGLOOP                         R1 2 ; [-24]
+       32 RETURN                           R0 1
+
+PROTO_1:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 JUMPIF                           R1 ; [+2]
         3 LOADNIL                          R1
         4 RETURN                           R1 1
         5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K0 ["new"]
-        8 CALL                             R1 0 1
-        9 GETUPVAL                         R3 2
-       10 GETTABLEKS                       R2 R3 K1 ["createElement"]
-       12 GETUPVAL                         R3 3
-       13 DUPTABLE                         R4 K6 [{"tag", "Size", "AutomaticSize", "LayoutOrder"}]
-       14 LOADK                            R5 K7 ["row gap-large align-y-top"]
-       15 SETTABLEKS                       R5 R4 K2 ["tag"]
-       17 GETIMPORT                        R5 K9 [UDim2.new]
-       19 LOADK                            R6 K10 [0.5]
-       20 LOADN                            R7 0
-       21 LOADN                            R8 0
-       22 LOADN                            R9 0
-       23 CALL                             R5 4 1
-       24 SETTABLEKS                       R5 R4 K3 ["Size"]
-       26 GETIMPORT                        R5 K13 [Enum.AutomaticSize.Y]
-       28 SETTABLEKS                       R5 R4 K4 ["AutomaticSize"]
-       30 GETTABLEKS                       R5 R0 K5 ["LayoutOrder"]
-       32 SETTABLEKS                       R5 R4 K5 ["LayoutOrder"]
-       34 DUPTABLE                         R5 K16 [{"Preview", "InfoColumn"}]
-       35 GETUPVAL                         R7 2
-       36 GETTABLEKS                       R6 R7 K1 ["createElement"]
-       38 GETUPVAL                         R7 3
-       39 DUPTABLE                         R8 K17 [{"LayoutOrder", "AutomaticSize"}]
-       40 NAMECALL                         R9 R1 K18 ["getNextOrder"]
-       42 CALL                             R9 1 1
-       43 SETTABLEKS                       R9 R8 K5 ["LayoutOrder"]
-       45 GETIMPORT                        R9 K20 [Enum.AutomaticSize.XY]
-       47 SETTABLEKS                       R9 R8 K4 ["AutomaticSize"]
-       49 DUPTABLE                         R9 K22 [{"Thumbnail"}]
-       50 GETTABLEKS                       R10 R0 K23 ["lookPreview"]
-       52 SETTABLEKS                       R10 R9 K21 ["Thumbnail"]
-       54 CALL                             R6 3 1
-       55 SETTABLEKS                       R6 R5 K14 ["Preview"]
-       57 GETUPVAL                         R7 2
-       58 GETTABLEKS                       R6 R7 K1 ["createElement"]
-       60 GETUPVAL                         R7 3
-       61 DUPTABLE                         R8 K24 [{"tag", "LayoutOrder"}]
-       62 LOADK                            R9 K25 ["col gap-large grow auto-y"]
-       63 SETTABLEKS                       R9 R8 K2 ["tag"]
-       65 NAMECALL                         R9 R1 K18 ["getNextOrder"]
-       67 CALL                             R9 1 1
-       68 SETTABLEKS                       R9 R8 K5 ["LayoutOrder"]
-       70 DUPTABLE                         R9 K29 [{"CreatorDropdown", "SkinColor", "TotalPrice"}]
-       71 GETUPVAL                         R11 2
-       72 GETTABLEKS                       R10 R11 K1 ["createElement"]
-       74 GETUPVAL                         R11 4
-       75 DUPTABLE                         R12 K34 [{"LayoutOrder", "selectedCreatorId", "creators", "onCreatorChanged", "disabled"}]
-       76 NAMECALL                         R13 R1 K18 ["getNextOrder"]
-       78 CALL                             R13 1 1
-       79 SETTABLEKS                       R13 R12 K5 ["LayoutOrder"]
-       81 GETTABLEKS                       R13 R0 K30 ["selectedCreatorId"]
-       83 SETTABLEKS                       R13 R12 K30 ["selectedCreatorId"]
-       85 GETTABLEKS                       R13 R0 K31 ["creators"]
-       87 SETTABLEKS                       R13 R12 K31 ["creators"]
-       89 GETTABLEKS                       R13 R0 K32 ["onCreatorChanged"]
-       91 SETTABLEKS                       R13 R12 K32 ["onCreatorChanged"]
-       93 GETTABLEKS                       R13 R0 K35 ["isAvatarLook"]
-       95 SETTABLEKS                       R13 R12 K33 ["disabled"]
-       97 CALL                             R10 2 1
-       98 SETTABLEKS                       R10 R9 K26 ["CreatorDropdown"]
-      100 GETTABLEKS                       R11 R0 K35 ["isAvatarLook"]
-      102 JUMPIF                           R11 ; [+26]
-      103 GETTABLEKS                       R11 R0 K36 ["skinColor"]
-      105 JUMPIFNOT                        R11 ; [+23]
-      106 GETTABLEKS                       R11 R0 K37 ["onSkinColorChanged"]
-      108 JUMPIFNOT                        R11 ; [+20]
-      109 GETUPVAL                         R11 2
-      110 GETTABLEKS                       R10 R11 K1 ["createElement"]
-      112 GETUPVAL                         R11 5
-      113 DUPTABLE                         R12 K40 [{"LayoutOrder", "selectedColor", "onColorChanged"}]
-      114 NAMECALL                         R13 R1 K18 ["getNextOrder"]
-      116 CALL                             R13 1 1
-      117 SETTABLEKS                       R13 R12 K5 ["LayoutOrder"]
-      119 GETTABLEKS                       R13 R0 K36 ["skinColor"]
-      121 SETTABLEKS                       R13 R12 K38 ["selectedColor"]
-      123 GETTABLEKS                       R13 R0 K37 ["onSkinColorChanged"]
-      125 SETTABLEKS                       R13 R12 K39 ["onColorChanged"]
-      127 CALL                             R10 2 1
-      128 JUMP                             ; [+1]
-      129 LOADNIL                          R10
-      130 SETTABLEKS                       R10 R9 K27 ["SkinColor"]
-      132 GETUPVAL                         R11 2
-      133 GETTABLEKS                       R10 R11 K1 ["createElement"]
-      135 GETUPVAL                         R11 6
-      136 DUPTABLE                         R12 K42 [{"LayoutOrder", "price"}]
-      137 NAMECALL                         R13 R1 K18 ["getNextOrder"]
-      139 CALL                             R13 1 1
-      140 SETTABLEKS                       R13 R12 K5 ["LayoutOrder"]
-      142 GETTABLEKS                       R13 R0 K43 ["totalPrice"]
-      144 SETTABLEKS                       R13 R12 K41 ["price"]
-      146 CALL                             R10 2 1
-      147 SETTABLEKS                       R10 R9 K28 ["TotalPrice"]
-      149 CALL                             R6 3 1
-      150 SETTABLEKS                       R6 R5 K15 ["InfoColumn"]
-      152 CALL                             R2 3 -1
-      153 RETURN                           R2 -1
+        6 GETTABLEKS                       R1 R2 K0 ["useMemo"]
+        8 NEWCLOSURE                       R2 P0
+        9 CAPTURE                          VAL R0
+       10 NEWTABLE                         R3 0 1
+       12 GETTABLEKS                       R4 R0 K1 ["dialogItems"]
+       14 SETLIST                          R3 R4 1 [1]
+       16 CALL                             R1 2 1
+       17 GETUPVAL                         R3 2
+       18 GETTABLEKS                       R2 R3 K2 ["new"]
+       20 CALL                             R2 0 1
+       21 GETUPVAL                         R4 1
+       22 GETTABLEKS                       R3 R4 K3 ["createElement"]
+       24 GETUPVAL                         R4 3
+       25 DUPTABLE                         R5 K8 [{"tag", "Size", "AutomaticSize", "LayoutOrder"}]
+       26 LOADK                            R6 K9 ["row gap-large align-y-top"]
+       27 SETTABLEKS                       R6 R5 K4 ["tag"]
+       29 GETIMPORT                        R6 K11 [UDim2.new]
+       31 LOADK                            R7 K12 [0.5]
+       32 LOADN                            R8 0
+       33 LOADN                            R9 0
+       34 LOADN                            R10 0
+       35 CALL                             R6 4 1
+       36 SETTABLEKS                       R6 R5 K5 ["Size"]
+       38 GETIMPORT                        R6 K15 [Enum.AutomaticSize.Y]
+       40 SETTABLEKS                       R6 R5 K6 ["AutomaticSize"]
+       42 GETTABLEKS                       R6 R0 K7 ["LayoutOrder"]
+       44 SETTABLEKS                       R6 R5 K7 ["LayoutOrder"]
+       46 DUPTABLE                         R6 K18 [{"Preview", "InfoColumn"}]
+       47 GETUPVAL                         R8 1
+       48 GETTABLEKS                       R7 R8 K3 ["createElement"]
+       50 GETUPVAL                         R8 3
+       51 DUPTABLE                         R9 K19 [{"LayoutOrder", "AutomaticSize"}]
+       52 NAMECALL                         R10 R2 K20 ["getNextOrder"]
+       54 CALL                             R10 1 1
+       55 SETTABLEKS                       R10 R9 K7 ["LayoutOrder"]
+       57 GETIMPORT                        R10 K22 [Enum.AutomaticSize.XY]
+       59 SETTABLEKS                       R10 R9 K6 ["AutomaticSize"]
+       61 DUPTABLE                         R10 K24 [{"Thumbnail"}]
+       62 GETTABLEKS                       R11 R0 K25 ["lookPreview"]
+       64 SETTABLEKS                       R11 R10 K23 ["Thumbnail"]
+       66 CALL                             R7 3 1
+       67 SETTABLEKS                       R7 R6 K16 ["Preview"]
+       69 GETUPVAL                         R8 1
+       70 GETTABLEKS                       R7 R8 K3 ["createElement"]
+       72 GETUPVAL                         R8 3
+       73 DUPTABLE                         R9 K26 [{"tag", "LayoutOrder"}]
+       74 LOADK                            R10 K27 ["col gap-large grow auto-y"]
+       75 SETTABLEKS                       R10 R9 K4 ["tag"]
+       77 NAMECALL                         R10 R2 K20 ["getNextOrder"]
+       79 CALL                             R10 1 1
+       80 SETTABLEKS                       R10 R9 K7 ["LayoutOrder"]
+       82 DUPTABLE                         R10 K31 [{"CreatorDropdown", "SkinColor", "TotalPrice"}]
+       83 GETUPVAL                         R12 1
+       84 GETTABLEKS                       R11 R12 K3 ["createElement"]
+       86 GETUPVAL                         R12 4
+       87 DUPTABLE                         R13 K36 [{"LayoutOrder", "selectedCreatorId", "creators", "onCreatorChanged", "disabled"}]
+       88 NAMECALL                         R14 R2 K20 ["getNextOrder"]
+       90 CALL                             R14 1 1
+       91 SETTABLEKS                       R14 R13 K7 ["LayoutOrder"]
+       93 GETTABLEKS                       R14 R0 K32 ["selectedCreatorId"]
+       95 SETTABLEKS                       R14 R13 K32 ["selectedCreatorId"]
+       97 GETTABLEKS                       R14 R0 K33 ["creators"]
+       99 SETTABLEKS                       R14 R13 K33 ["creators"]
+      101 GETTABLEKS                       R14 R0 K34 ["onCreatorChanged"]
+      103 SETTABLEKS                       R14 R13 K34 ["onCreatorChanged"]
+      105 GETTABLEKS                       R14 R0 K37 ["isAvatarLook"]
+      107 SETTABLEKS                       R14 R13 K35 ["disabled"]
+      109 CALL                             R11 2 1
+      110 SETTABLEKS                       R11 R10 K28 ["CreatorDropdown"]
+      112 GETTABLEKS                       R12 R0 K37 ["isAvatarLook"]
+      114 JUMPIF                           R12 ; [+26]
+      115 GETTABLEKS                       R12 R0 K38 ["skinColor"]
+      117 JUMPIFNOT                        R12 ; [+23]
+      118 GETTABLEKS                       R12 R0 K39 ["onSkinColorChanged"]
+      120 JUMPIFNOT                        R12 ; [+20]
+      121 GETUPVAL                         R12 1
+      122 GETTABLEKS                       R11 R12 K3 ["createElement"]
+      124 GETUPVAL                         R12 5
+      125 DUPTABLE                         R13 K42 [{"LayoutOrder", "selectedColor", "onColorChanged"}]
+      126 NAMECALL                         R14 R2 K20 ["getNextOrder"]
+      128 CALL                             R14 1 1
+      129 SETTABLEKS                       R14 R13 K7 ["LayoutOrder"]
+      131 GETTABLEKS                       R14 R0 K38 ["skinColor"]
+      133 SETTABLEKS                       R14 R13 K40 ["selectedColor"]
+      135 GETTABLEKS                       R14 R0 K39 ["onSkinColorChanged"]
+      137 SETTABLEKS                       R14 R13 K41 ["onColorChanged"]
+      139 CALL                             R11 2 1
+      140 JUMP                             ; [+1]
+      141 LOADNIL                          R11
+      142 SETTABLEKS                       R11 R10 K29 ["SkinColor"]
+      144 GETUPVAL                         R12 1
+      145 GETTABLEKS                       R11 R12 K3 ["createElement"]
+      147 GETUPVAL                         R12 6
+      148 DUPTABLE                         R13 K44 [{"LayoutOrder", "price"}]
+      149 NAMECALL                         R14 R2 K20 ["getNextOrder"]
+      151 CALL                             R14 1 1
+      152 SETTABLEKS                       R14 R13 K7 ["LayoutOrder"]
+      154 SETTABLEKS                       R1 R13 K43 ["price"]
+      156 CALL                             R11 2 1
+      157 SETTABLEKS                       R11 R10 K30 ["TotalPrice"]
+      159 CALL                             R7 3 1
+      160 SETTABLEKS                       R7 R6 K17 ["InfoColumn"]
+      162 CALL                             R3 3 -1
+      163 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -144,12 +174,16 @@ MAIN:
        65 GETTABLEKS                       R11 R12 K18 ["Flags"]
        67 GETTABLEKS                       R10 R11 K19 ["getFFlagAvatarPreviewerLookComposer"]
        69 CALL                             R9 1 1
-       70 DUPCLOSURE                       R10 K20 [PROTO_0]
-       71 CAPTURE                          VAL R9
-       72 CAPTURE                          VAL R8
-       73 CAPTURE                          VAL R1
-       74 CAPTURE                          VAL R3
-       75 CAPTURE                          VAL R4
-       76 CAPTURE                          VAL R6
-       77 CAPTURE                          VAL R5
-       78 RETURN                           R10 1
+       70 GETIMPORT                        R10 K5 [require]
+       72 GETTABLEKS                       R12 R0 K17 ["Src"]
+       74 GETTABLEKS                       R11 R12 K20 ["Types"]
+       76 CALL                             R10 1 1
+       77 DUPCLOSURE                       R11 K21 [PROTO_1]
+       78 CAPTURE                          VAL R9
+       79 CAPTURE                          VAL R1
+       80 CAPTURE                          VAL R8
+       81 CAPTURE                          VAL R3
+       82 CAPTURE                          VAL R4
+       83 CAPTURE                          VAL R6
+       84 CAPTURE                          VAL R5
+       85 RETURN                           R11 1

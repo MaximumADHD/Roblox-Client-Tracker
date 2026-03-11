@@ -12,6 +12,7 @@ local badges_see_all = require(script.badges_see_all)
 -- Exported types
 export type BadgeDetailsPageRequest = badge_details_page.BadgeDetailsPageRequest
 export type BadgeDetailsPageResponse = badge_details_page.BadgeDetailsPageResponse
+export type BadgeDetailsPageV2Response = badge_details_page.BadgeDetailsPageV2Response
 export type BadgeDetailsPageEntry = badge_details_page.BadgeDetailsPageEntry
 export type BadgeDetailsContent = badge_details_page.BadgeDetailsContent
 export type BadgeDetailsContent_LocalizedLiterals = badge_details_page.BadgeDetailsContent_LocalizedLiterals
@@ -20,6 +21,7 @@ export type Pagination = badges_see_all.Pagination
 export type BadgesGridPageEntry = badges_see_all.BadgesGridPageEntry
 export type BadgesSeeAllPageEntry = badges_see_all.BadgesSeeAllPageEntry
 export type BadgesSeeAllResponse = badges_see_all.BadgesSeeAllResponse
+export type BadgesSeeAllV2Response = badges_see_all.BadgesSeeAllV2Response
 export type BadgesGridPageEntry_BadgeInputData = badges_see_all.BadgesGridPageEntry_BadgeInputData
 
 return {

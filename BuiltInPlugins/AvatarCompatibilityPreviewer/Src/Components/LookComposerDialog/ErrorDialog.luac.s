@@ -11,31 +11,27 @@ PROTO_0:
        12 LOADK                            R10 K1 ["ErrorRow_"]
        13 MOVE                             R11 R7
        14 CONCAT                           R9 R10 R11
-       15 LOADK                            R12 K2 ["LookComposerDialog"]
-       16 MOVE                             R13 R8
-       17 NAMECALL                         R10 R1 K3 ["getText"]
-       19 CALL                             R10 3 1
-       20 GETUPVAL                         R12 0
-       21 GETTABLEKS                       R11 R12 K4 ["createElement"]
-       23 GETUPVAL                         R12 1
-       24 DUPTABLE                         R13 K10 [{"Text", "tag", "Size", "AutomaticSize", "LayoutOrder"}]
-       25 SETTABLEKS                       R10 R13 K5 ["Text"]
-       27 LOADK                            R14 K11 ["text-body-small text-align-x-left text-wrap content-default"]
-       28 SETTABLEKS                       R14 R13 K6 ["tag"]
-       30 GETIMPORT                        R14 K14 [UDim2.fromScale]
-       32 LOADN                            R15 1
-       33 LOADN                            R16 0
-       34 CALL                             R14 2 1
-       35 SETTABLEKS                       R14 R13 K7 ["Size"]
-       37 GETIMPORT                        R14 K17 [Enum.AutomaticSize.Y]
-       39 SETTABLEKS                       R14 R13 K8 ["AutomaticSize"]
-       41 NAMECALL                         R14 R2 K18 ["getNextOrder"]
-       43 CALL                             R14 1 1
-       44 SETTABLEKS                       R14 R13 K9 ["LayoutOrder"]
-       46 CALL                             R11 2 1
-       47 SETTABLE                         R11 R3 R9
-       48 FORGLOOP                         R4 2 ; [-37]
-       50 RETURN                           R3 1
+       15 GETUPVAL                         R11 0
+       16 GETTABLEKS                       R10 R11 K2 ["createElement"]
+       18 GETUPVAL                         R11 1
+       19 DUPTABLE                         R12 K8 [{"Text", "tag", "Size", "AutomaticSize", "LayoutOrder"}]
+       20 SETTABLEKS                       R8 R12 K3 ["Text"]
+       22 LOADK                            R13 K9 ["text-body-small text-align-x-left text-wrap content-default"]
+       23 SETTABLEKS                       R13 R12 K4 ["tag"]
+       25 GETIMPORT                        R13 K12 [UDim2.fromScale]
+       27 LOADN                            R14 1
+       28 LOADN                            R15 0
+       29 CALL                             R13 2 1
+       30 SETTABLEKS                       R13 R12 K5 ["Size"]
+       32 GETIMPORT                        R13 K15 [Enum.AutomaticSize.Y]
+       34 SETTABLEKS                       R13 R12 K6 ["AutomaticSize"]
+       36 NAMECALL                         R13 R2 K16 ["getNextOrder"]
+       38 CALL                             R13 1 1
+       39 SETTABLEKS                       R13 R12 K7 ["LayoutOrder"]
+       41 CALL                             R10 2 1
+       42 SETTABLE                         R10 R3 R9
+       43 FORGLOOP                         R4 2 ; [-32]
+       45 RETURN                           R3 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0

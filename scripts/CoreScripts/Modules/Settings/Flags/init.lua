@@ -1,7 +1,6 @@
 return {
 	FFlagIEMSettingsLogExposureIXPFlags = require(script.FFlagIEMSettingsLogExposureIXPFlags),
 	FFlagCreateInExperienceMenuReact = require(script.FFlagCreateInExperienceMenuReact),
-	FFlagMenuButtonsCheckVisibilityBeforeMount = require(script.FFlagMenuButtonsCheckVisibilityBeforeMount),
 	FFlagAddTraversalHistoryReactMenuButtons = require(script.FFlagAddTraversalHistoryReactMenuButtons),
 	FFlagRefactorInExpSettingsInDevelopment = require(script.FFlagRefactorInExpSettingsInDevelopment),
 }

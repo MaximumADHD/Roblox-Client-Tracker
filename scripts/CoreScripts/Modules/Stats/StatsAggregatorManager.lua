@@ -11,6 +11,8 @@ local CoreGuiService = game:GetService('CoreGui')
 local StatsUtils = require(CoreGuiService.RobloxGui.Modules.Stats.StatsUtils)
 local StatsAggregatorClass = require(CoreGuiService.RobloxGui.Modules.Stats.StatsAggregator)
 
+--[[ Flags ]]--
+local GetFFlagLazyPerfStatsInit = require(CoreGuiService.RobloxGui.Modules.Flags.GetFFlagLazyPerfStatsInit)
 
 --[[ Classes ]]--
 local StatsAggregatorManagerClass = {}
@@ -24,8 +26,9 @@ local statsAggregatorManagerSingleton = nil
 function StatsAggregatorManagerClass.getSingleton()
   if (statsAggregatorManagerSingleton == nil) then
     statsAggregatorManagerSingleton = StatsAggregatorManagerClass.__new()
-    -- Start listening for updates in stats.
-    statsAggregatorManagerSingleton:StartListening()
+    if not GetFFlagLazyPerfStatsInit() then
+      statsAggregatorManagerSingleton:StartListening()
+    end
   end
   return statsAggregatorManagerSingleton
 end

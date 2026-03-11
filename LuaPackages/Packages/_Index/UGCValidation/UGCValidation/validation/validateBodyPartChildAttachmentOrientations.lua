@@ -16,8 +16,6 @@ local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getDiffBetweenOrientations = require(root.util.getDiffBetweenOrientations)
 local floatEquals = require(root.util.floatEquals)
 local valueToString = require(root.util.valueToString)
-local getFFlagRefactorBodyAttachmentOrientationsCheck =
-	require(root.flags.getFFlagRefactorBodyAttachmentOrientationsCheck)
 
 local ValidateBodyPartChildAttachmentOrientations = {}
 
@@ -159,7 +157,6 @@ function ValidateBodyPartChildAttachmentOrientations.runValidation(
 	-- Grip attachments must be perpendicular to the bone, facing with the character
 	-- Non-rig and non-grip attachments must be within 30 degrees of (0,0,0)
 
-	assert(getFFlagRefactorBodyAttachmentOrientationsCheck())
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	for _, desc: Attachment in inst:GetDescendants() :: { any } do

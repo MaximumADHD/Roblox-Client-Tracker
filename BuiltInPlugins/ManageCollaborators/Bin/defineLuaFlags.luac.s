@@ -155,20 +155,35 @@ MAIN:
       214 LOADB                            R3 0
       215 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
       217 CALL                             R0 3 0
-      218 DUPTABLE                         R0 K37 [{"fflagManageCollaboratorsVerifyAgeDialog", "fflagUpsellMCCollabReverification", "fflagRemoveHeaderWithUpsellBanner2"}]
-      219 GETIMPORT                        R1 K1 [game]
-      221 LOADK                            R3 K31 ["ManageCollaboratorsVerifyAgeDialog"]
-      222 NAMECALL                         R1 R1 K38 ["GetFastFlag"]
-      224 CALL                             R1 2 1
-      225 SETTABLEKS                       R1 R0 K34 ["fflagManageCollaboratorsVerifyAgeDialog"]
-      227 GETIMPORT                        R1 K1 [game]
-      229 LOADK                            R3 K32 ["UpsellMCCollabReverification"]
-      230 NAMECALL                         R1 R1 K38 ["GetFastFlag"]
-      232 CALL                             R1 2 1
-      233 SETTABLEKS                       R1 R0 K35 ["fflagUpsellMCCollabReverification"]
-      235 GETIMPORT                        R1 K1 [game]
-      237 LOADK                            R3 K33 ["RemoveHeaderWithUpsellBanner2"]
-      238 NAMECALL                         R1 R1 K38 ["GetFastFlag"]
-      240 CALL                             R1 2 1
-      241 SETTABLEKS                       R1 R0 K36 ["fflagRemoveHeaderWithUpsellBanner2"]
-      243 RETURN                           R0 1
+      218 GETIMPORT                        R0 K1 [game]
+      220 LOADK                            R2 K34 ["ManageCollaboratorsActionNeededLabel"]
+      221 LOADB                            R3 0
+      222 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
+      224 CALL                             R0 3 0
+      225 DUPTABLE                         R0 K39 [{"fflagManageCollaboratorsVerifyAgeDialog", "fflagUpsellMCCollabReverification", "fflagRemoveHeaderWithUpsellBanner2", "fflagManageCollaboratorsActionNeededLabel"}]
+      226 GETIMPORT                        R1 K1 [game]
+      228 LOADK                            R3 K31 ["ManageCollaboratorsVerifyAgeDialog"]
+      229 NAMECALL                         R1 R1 K40 ["GetFastFlag"]
+      231 CALL                             R1 2 1
+      232 SETTABLEKS                       R1 R0 K35 ["fflagManageCollaboratorsVerifyAgeDialog"]
+      234 GETIMPORT                        R1 K1 [game]
+      236 LOADK                            R3 K32 ["UpsellMCCollabReverification"]
+      237 NAMECALL                         R1 R1 K40 ["GetFastFlag"]
+      239 CALL                             R1 2 1
+      240 SETTABLEKS                       R1 R0 K36 ["fflagUpsellMCCollabReverification"]
+      242 GETIMPORT                        R1 K1 [game]
+      244 LOADK                            R3 K33 ["RemoveHeaderWithUpsellBanner2"]
+      245 NAMECALL                         R1 R1 K40 ["GetFastFlag"]
+      247 CALL                             R1 2 1
+      248 SETTABLEKS                       R1 R0 K37 ["fflagRemoveHeaderWithUpsellBanner2"]
+      250 GETIMPORT                        R1 K1 [game]
+      252 LOADK                            R3 K41 ["MultiGetCanCollaborateCollabServiceFeature"]
+      253 NAMECALL                         R1 R1 K42 ["GetEngineFeature"]
+      255 CALL                             R1 2 1
+      256 JUMPIFNOT                        R1 ; [+6]
+      257 GETIMPORT                        R1 K1 [game]
+      259 LOADK                            R3 K34 ["ManageCollaboratorsActionNeededLabel"]
+      260 NAMECALL                         R1 R1 K40 ["GetFastFlag"]
+      262 CALL                             R1 2 1
+      263 SETTABLEKS                       R1 R0 K38 ["fflagManageCollaboratorsActionNeededLabel"]
+      265 RETURN                           R0 1

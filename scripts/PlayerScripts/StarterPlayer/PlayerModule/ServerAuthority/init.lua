@@ -11,8 +11,8 @@ local ControlModule = require(script.Parent:WaitForChild("ControlModule"))
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
-local CommonUtils = script.Parent:WaitForChild("CommonUtils")
-local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
+local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserDisableForceLocalHumanoidPrediction = FlagUtil.getUserFlag("UserDisableForceLocalHumanoidPrediction")
 
 function ServerAuthority.new()

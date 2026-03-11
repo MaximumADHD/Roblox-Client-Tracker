@@ -66,10 +66,12 @@ local CloseOverlay = require(InspectAndBuyFolder.Actions.CloseOverlay)
 local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
 local getViewType = AvatarExperienceInspectAndBuy.Utils.getViewType
 local InspectAndBuyVersion = AvatarExperienceInspectAndBuy.Enums.InspectAndBuyVersion
+local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
 local FFlagEnableInspectAndBuyV2RootFlag =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableInspectAndBuyV2RootFlag
 local FFlagAXEnableInspectAndBuyVersionAnalytics =
 	require(InspectAndBuyFolder.Flags.FFlagAXEnableInspectAndBuyVersionAnalytics)
+local FFlagAXEnableInspectAndBuyFocusNavigation = AvatarExperienceFlags.FFlagAXEnableInspectAndBuyFocusNavigation
 
 local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 
@@ -328,20 +330,35 @@ function InspectAndBuy:render()
 
 	if FFlagAXEnableNewInspectAndBuyContainer then
 		return Roact.createElement("Folder", { Name = "InspectAndBuyApp" }, {
-			CoreScriptsRootProvider = Roact.createElement(CoreScriptsRootProvider, {}, {
-				FocusNavigationWrapper = Roact.createElement(FocusRoot, {
-					surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-				}, {
-					StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
-						store = self.state.store,
-					}, {
-						Container = Roact.createElement(InspectAndBuyBaseContainer, {
-							localPlayerModel = localPlayerModel,
-							analytics = self.analytics,
+			CoreScriptsRootProvider = Roact.createElement(
+				CoreScriptsRootProvider,
+				{},
+				if FFlagAXEnableInspectAndBuyFocusNavigation
+					then {
+						StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
+							store = self.state.store,
+						}, {
+							Container = Roact.createElement(InspectAndBuyBaseContainer, {
+								localPlayerModel = localPlayerModel,
+								analytics = self.analytics,
+							}),
 						}),
-					}),
-				}),
-			}),
+					}
+					else {
+						FocusNavigationWrapper = Roact.createElement(FocusRoot, {
+							surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+						}, {
+							StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
+								store = self.state.store,
+							}, {
+								Container = Roact.createElement(InspectAndBuyBaseContainer, {
+									localPlayerModel = localPlayerModel,
+									analytics = self.analytics,
+								}),
+							}),
+						}),
+					}
+			),
 		})
 	end
 

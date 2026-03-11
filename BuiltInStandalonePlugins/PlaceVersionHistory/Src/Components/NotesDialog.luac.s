@@ -529,7 +529,7 @@ PROTO_13:
       326 GETUPVAL                         R45 1
       327 GETTABLEKS                       R44 R45 K22 ["createElement"]
       329 GETUPVAL                         R46 14
-      330 GETTABLEKS                       R45 R46 K52 ["TextInput"]
+      330 GETTABLEKS                       R45 R46 K52 ["TextArea"]
       332 DUPTABLE                         R46 K62 [{"text", "onChanged", "label", "hint", "hasError", "isDisabled", "width", "numLines", "size", "LayoutOrder"}]
       333 SETTABLEKS                       R7 R46 K53 ["text"]
       335 SETTABLEKS                       R31 R46 K54 ["onChanged"]
@@ -569,12 +569,12 @@ PROTO_13:
       386 GETUPVAL                         R45 1
       387 GETTABLEKS                       R44 R45 K22 ["createElement"]
       389 GETUPVAL                         R46 14
-      390 GETTABLEKS                       R45 R46 K73 ["TextArea"]
+      390 GETTABLEKS                       R45 R46 K52 ["TextArea"]
       392 DUPTABLE                         R46 K62 [{"text", "onChanged", "label", "hint", "hasError", "isDisabled", "width", "numLines", "size", "LayoutOrder"}]
       393 SETTABLEKS                       R14 R46 K53 ["text"]
       395 SETTABLEKS                       R15 R46 K54 ["onChanged"]
       397 LOADK                            R49 K64 ["Label"]
-      398 LOADK                            R50 K74 ["VersionNotes"]
+      398 LOADK                            R50 K73 ["VersionNotes"]
       399 NAMECALL                         R47 R3 K14 ["getText"]
       401 CALL                             R47 3 1
       402 SETTABLEKS                       R47 R46 K55 ["label"]
@@ -608,88 +608,88 @@ PROTO_13:
       445 GETTABLEKS                       R40 R41 K22 ["createElement"]
       447 GETUPVAL                         R42 14
       448 GETTABLEKS                       R41 R42 K36 ["View"]
-      450 DUPTABLE                         R42 K75 [{"tag", "LayoutOrder"}]
-      451 LOADK                            R43 K76 ["size-full-0 auto-y row gap-small"]
+      450 DUPTABLE                         R42 K74 [{"tag", "LayoutOrder"}]
+      451 LOADK                            R43 K75 ["size-full-0 auto-y row gap-small"]
       452 SETTABLEKS                       R43 R42 K37 ["tag"]
       454 MOVE                             R43 R1
       455 CALL                             R43 0 1
       456 SETTABLEKS                       R43 R42 K45 ["LayoutOrder"]
-      458 DUPTABLE                         R43 K80 [{"Spacer", "CancelButton", "AcceptButton"}]
+      458 DUPTABLE                         R43 K79 [{"Spacer", "CancelButton", "AcceptButton"}]
       459 GETUPVAL                         R45 1
       460 GETTABLEKS                       R44 R45 K22 ["createElement"]
       462 GETUPVAL                         R46 14
       463 GETTABLEKS                       R45 R46 K36 ["View"]
-      465 DUPTABLE                         R46 K75 [{"tag", "LayoutOrder"}]
-      466 LOADK                            R47 K81 ["fill"]
+      465 DUPTABLE                         R46 K74 [{"tag", "LayoutOrder"}]
+      466 LOADK                            R47 K80 ["fill"]
       467 SETTABLEKS                       R47 R46 K37 ["tag"]
       469 MOVE                             R47 R1
       470 CALL                             R47 0 1
       471 SETTABLEKS                       R47 R46 K45 ["LayoutOrder"]
       473 CALL                             R44 2 1
-      474 SETTABLEKS                       R44 R43 K77 ["Spacer"]
+      474 SETTABLEKS                       R44 R43 K76 ["Spacer"]
       476 GETUPVAL                         R45 1
       477 GETTABLEKS                       R44 R45 K22 ["createElement"]
       479 GETUPVAL                         R46 14
-      480 GETTABLEKS                       R45 R46 K82 ["Button"]
-      482 DUPTABLE                         R46 K84 [{"text", "isDisabled", "variant", "onActivated", "size", "testId", "LayoutOrder"}]
+      480 GETTABLEKS                       R45 R46 K81 ["Button"]
+      482 DUPTABLE                         R46 K83 [{"text", "isDisabled", "variant", "onActivated", "size", "testId", "LayoutOrder"}]
       483 LOADK                            R49 K15 ["Action"]
-      484 LOADK                            R50 K85 ["Cancel"]
+      484 LOADK                            R50 K84 ["Cancel"]
       485 NAMECALL                         R47 R3 K14 ["getText"]
       487 CALL                             R47 3 1
       488 SETTABLEKS                       R47 R46 K53 ["text"]
       490 SETTABLEKS                       R20 R46 K58 ["isDisabled"]
       492 GETUPVAL                         R50 14
       493 GETTABLEKS                       R49 R50 K70 ["Enums"]
-      495 GETTABLEKS                       R48 R49 K86 ["ButtonVariant"]
-      497 GETTABLEKS                       R47 R48 K87 ["Standard"]
+      495 GETTABLEKS                       R48 R49 K85 ["ButtonVariant"]
+      497 GETTABLEKS                       R47 R48 K86 ["Standard"]
       499 SETTABLEKS                       R47 R46 K10 ["variant"]
-      501 SETTABLEKS                       R29 R46 K83 ["onActivated"]
+      501 SETTABLEKS                       R29 R46 K82 ["onActivated"]
       503 GETUPVAL                         R50 14
       504 GETTABLEKS                       R49 R50 K70 ["Enums"]
       506 GETTABLEKS                       R48 R49 K71 ["InputSize"]
-      508 GETTABLEKS                       R47 R48 K88 ["Small"]
+      508 GETTABLEKS                       R47 R48 K87 ["Small"]
       510 SETTABLEKS                       R47 R46 K61 ["size"]
-      512 LOADK                            R47 K89 ["--notes-dialog-cancel-button"]
+      512 LOADK                            R47 K88 ["--notes-dialog-cancel-button"]
       513 SETTABLEKS                       R47 R46 K44 ["testId"]
       515 MOVE                             R47 R1
       516 CALL                             R47 0 1
       517 SETTABLEKS                       R47 R46 K45 ["LayoutOrder"]
       519 CALL                             R44 2 1
-      520 SETTABLEKS                       R44 R43 K78 ["CancelButton"]
+      520 SETTABLEKS                       R44 R43 K77 ["CancelButton"]
       522 GETUPVAL                         R45 1
       523 GETTABLEKS                       R44 R45 K22 ["createElement"]
       525 GETUPVAL                         R46 14
-      526 GETTABLEKS                       R45 R46 K82 ["Button"]
-      528 DUPTABLE                         R46 K90 [{"text", "variant", "onActivated", "size", "isDisabled", "testId", "LayoutOrder"}]
+      526 GETTABLEKS                       R45 R46 K81 ["Button"]
+      528 DUPTABLE                         R46 K89 [{"text", "variant", "onActivated", "size", "isDisabled", "testId", "LayoutOrder"}]
       529 SETTABLEKS                       R25 R46 K53 ["text"]
       531 GETUPVAL                         R50 14
       532 GETTABLEKS                       R49 R50 K70 ["Enums"]
-      534 GETTABLEKS                       R48 R49 K86 ["ButtonVariant"]
-      536 GETTABLEKS                       R47 R48 K91 ["Emphasis"]
+      534 GETTABLEKS                       R48 R49 K85 ["ButtonVariant"]
+      536 GETTABLEKS                       R47 R48 K90 ["Emphasis"]
       538 SETTABLEKS                       R47 R46 K10 ["variant"]
-      540 SETTABLEKS                       R28 R46 K83 ["onActivated"]
+      540 SETTABLEKS                       R28 R46 K82 ["onActivated"]
       542 GETUPVAL                         R50 14
       543 GETTABLEKS                       R49 R50 K70 ["Enums"]
       545 GETTABLEKS                       R48 R49 K71 ["InputSize"]
-      547 GETTABLEKS                       R47 R48 K88 ["Small"]
+      547 GETTABLEKS                       R47 R48 K87 ["Small"]
       549 SETTABLEKS                       R47 R46 K61 ["size"]
       551 MOVE                             R47 R20
       552 JUMPIF                           R47 ; [+10]
       553 LOADB                            R47 1
-      554 JUMPIFEQKN                       R11 K92 [0] ; [+8]
+      554 JUMPIFEQKN                       R11 K91 [0] ; [+8]
       556 LOADB                            R47 1
       557 JUMPIFNOTEQKNIL                  R9 ; [+5]
       559 JUMPIFNOTEQKNIL                  R16 ; [+2]
       561 LOADB                            R47 0 +1
       562 LOADB                            R47 1
       563 SETTABLEKS                       R47 R46 K58 ["isDisabled"]
-      565 LOADK                            R47 K93 ["--notes-dialog-accept-button"]
+      565 LOADK                            R47 K92 ["--notes-dialog-accept-button"]
       566 SETTABLEKS                       R47 R46 K44 ["testId"]
       568 MOVE                             R47 R1
       569 CALL                             R47 0 1
       570 SETTABLEKS                       R47 R46 K45 ["LayoutOrder"]
       572 CALL                             R44 2 1
-      573 SETTABLEKS                       R44 R43 K79 ["AcceptButton"]
+      573 SETTABLEKS                       R44 R43 K78 ["AcceptButton"]
       575 CALL                             R40 3 1
       576 SETTABLEKS                       R40 R39 K42 ["Footer"]
       578 CALL                             R36 3 1

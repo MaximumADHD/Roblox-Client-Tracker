@@ -15,6 +15,7 @@ local Connection = require(script.Parent.Connection)
 local Prompts = script.Parent.Prompts
 local AllowInventoryReadAccessPrompt = require(Prompts.AllowInventoryReadAccessPrompt)
 local SaveAvatarPrompt = require(Prompts.SaveAvatarPrompt)
+local SaveAvatarTimeoutPrompt = require(Prompts.SaveAvatarTimeoutPrompt)
 local CreateOutfitPrompt = require(Prompts.CreateOutfitPrompt)
 local EnterOutfitNamePrompt = require(Prompts.EnterOutfitNamePrompt)
 local SetFavoritePrompt = require(Prompts.SetFavoritePrompt)
@@ -22,7 +23,8 @@ local DeleteOutfitPrompt = require(Prompts.DeleteOutfitPrompt)
 local RenameOutfitPrompt = require(Prompts.RenameOutfitPrompt)
 local UpdateOutfitPrompt = require(Prompts.UpdateOutfitPrompt)
 
-local FFlagAvatarEditorPromptsNoPromptNoRender = game:DefineFastFlag("AvatarEditorPromptsNoPromptNoRender", false)
+local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
+local FFlagAXAvatarTimeoutFlowIE = AvatarExperienceFlags.FFlagAXAvatarTimeoutFlowIE
 
 local LocalPlayer = Players.LocalPlayer
 
@@ -56,6 +58,9 @@ local PROMPT_COMPONENTS_MAP = {
 	[PromptType.RenameOutfit] = RenameOutfitPrompt,
 	[PromptType.UpdateOutfit] = UpdateOutfitPrompt,
 }
+if FFlagAXAvatarTimeoutFlowIE then
+	PROMPT_COMPONENTS_MAP[PromptType.SaveAvatarTimeout] = SaveAvatarTimeoutPrompt
+end
 
 local AvatarEditorPromptsApp = Roact.PureComponent:extend("AvatarEditorPromptsApp")
 
@@ -93,7 +98,7 @@ function AvatarEditorPromptsApp:render()
 		end
 	end
 
-	return if FFlagAvatarEditorPromptsNoPromptNoRender and promptElement == nil
+	return if promptElement == nil
 		then nil
 		else Roact.createElement("ScreenGui", {
 			IgnoreGuiInset = true,

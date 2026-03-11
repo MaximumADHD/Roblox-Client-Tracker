@@ -113,23 +113,20 @@ PROTO_1:
       118 LOADK                            R6 K25 ["Insert imported asset"]
       119 NAMECALL                         R4 R4 K26 ["SetWaypoint"]
       121 CALL                             R4 2 0
-      122 GETUPVAL                         R4 5
-      123 CALL                             R4 0 1
-      124 JUMPIFNOT                        R4 ; [+19]
-      125 JUMPIFNOT                        R2 ; [+18]
-      126 GETUPVAL                         R4 6
-      127 NEWTABLE                         R6 0 1
-      129 MOVE                             R7 R3
-      130 SETLIST                          R6 R7 1 [1]
-      132 NAMECALL                         R4 R4 K27 ["Set"]
-      134 CALL                             R4 2 0
-      135 GETUPVAL                         R4 7
-      136 GETIMPORT                        R7 K29 [game]
-      138 GETTABLEKS                       R6 R7 K30 ["Workspace"]
-      140 GETTABLEKS                       R5 R6 K31 ["CurrentCamera"]
-      142 MOVE                             R6 R3
-      143 CALL                             R4 2 0
-      144 RETURN                           R0 0
+      122 JUMPIFNOT                        R2 ; [+18]
+      123 GETUPVAL                         R4 5
+      124 NEWTABLE                         R6 0 1
+      126 MOVE                             R7 R3
+      127 SETLIST                          R6 R7 1 [1]
+      129 NAMECALL                         R4 R4 K27 ["Set"]
+      131 CALL                             R4 2 0
+      132 GETUPVAL                         R4 6
+      133 GETIMPORT                        R7 K29 [game]
+      135 GETTABLEKS                       R6 R7 K30 ["Workspace"]
+      137 GETTABLEKS                       R5 R6 K31 ["CurrentCamera"]
+      139 MOVE                             R6 R3
+      140 CALL                             R4 2 0
+      141 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -182,21 +179,15 @@ MAIN:
        50 GETTABLEKS                       R9 R10 K14 ["Flags"]
        52 GETTABLEKS                       R8 R9 K16 ["getFFlagAssetImportSetSourceAssetId"]
        54 CALL                             R7 1 1
-       55 GETIMPORT                        R8 K5 [require]
-       57 GETTABLEKS                       R11 R0 K6 ["Src"]
-       59 GETTABLEKS                       R10 R11 K14 ["Flags"]
-       61 GETTABLEKS                       R9 R10 K17 ["getFFlagEnableQuickImporter"]
-       63 CALL                             R8 1 1
-       64 DUPCLOSURE                       R9 K18 [PROTO_0]
-       65 DUPCLOSURE                       R10 K19 [PROTO_1]
-       66 CAPTURE                          VAL R7
-       67 CAPTURE                          VAL R6
-       68 CAPTURE                          VAL R2
-       69 CAPTURE                          VAL R5
-       70 CAPTURE                          VAL R4
-       71 CAPTURE                          VAL R8
-       72 CAPTURE                          VAL R3
-       73 CAPTURE                          VAL R9
-       74 DUPCLOSURE                       R11 K20 [PROTO_3]
-       75 CAPTURE                          VAL R10
-       76 RETURN                           R11 1
+       55 DUPCLOSURE                       R8 K17 [PROTO_0]
+       56 DUPCLOSURE                       R9 K18 [PROTO_1]
+       57 CAPTURE                          VAL R7
+       58 CAPTURE                          VAL R6
+       59 CAPTURE                          VAL R2
+       60 CAPTURE                          VAL R5
+       61 CAPTURE                          VAL R4
+       62 CAPTURE                          VAL R3
+       63 CAPTURE                          VAL R8
+       64 DUPCLOSURE                       R10 K19 [PROTO_3]
+       65 CAPTURE                          VAL R9
+       66 RETURN                           R10 1

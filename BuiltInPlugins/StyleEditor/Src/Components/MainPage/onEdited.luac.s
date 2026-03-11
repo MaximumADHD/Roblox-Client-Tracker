@@ -56,26 +56,26 @@ PROTO_3:
        31 GETTABLEKS                       R4 R5 K11 ["getQueryTypeFromSelector"]
        33 GETTABLEKS                       R5 R2 K12 ["Selector"]
        35 CALL                             R4 1 1
-       36 LOADNIL                          R5
-       37 JUMPIFNOT                        R4 ; [+8]
-       38 GETUPVAL                         R7 2
-       39 GETTABLEKS                       R6 R7 K13 ["getDataFromSelector"]
-       41 GETTABLEKS                       R7 R2 K12 ["Selector"]
-       43 MOVE                             R8 R4
-       44 CALL                             R6 2 1
-       45 MOVE                             R5 R6
+       36 JUMPIFNOT                        R4 ; [+8]
+       37 GETUPVAL                         R6 2
+       38 GETTABLEKS                       R5 R6 K13 ["getDataFromSelector"]
+       40 GETTABLEKS                       R6 R2 K12 ["Selector"]
+       42 MOVE                             R7 R4
+       43 CALL                             R5 2 1
+       44 JUMP                             ; [+1]
+       45 LOADNIL                          R5
        46 GETUPVAL                         R7 2
        47 GETTABLEKS                       R6 R7 K11 ["getQueryTypeFromSelector"]
        49 MOVE                             R7 R3
        50 CALL                             R6 1 1
-       51 LOADNIL                          R7
-       52 JUMPIFNOT                        R6 ; [+7]
-       53 GETUPVAL                         R9 2
-       54 GETTABLEKS                       R8 R9 K13 ["getDataFromSelector"]
-       56 MOVE                             R9 R3
-       57 MOVE                             R10 R6
-       58 CALL                             R8 2 1
-       59 MOVE                             R7 R8
+       51 JUMPIFNOT                        R6 ; [+7]
+       52 GETUPVAL                         R8 2
+       53 GETTABLEKS                       R7 R8 K13 ["getDataFromSelector"]
+       55 MOVE                             R8 R3
+       56 MOVE                             R9 R6
+       57 CALL                             R7 2 1
+       58 JUMP                             ; [+1]
+       59 LOADNIL                          R7
        60 JUMPIFNOT                        R6 ; [+8]
        61 JUMPIFNOT                        R7 ; [+7]
        62 GETUPVAL                         R9 2

@@ -1408,11 +1408,12 @@ PROTO_50:
         5 GETTABLEKS                       R6 R7 K0 ["fetchAssetInfoAsync"]
         7 MOVE                             R7 R5
         8 GETUPVAL                         R8 1
-        9 GETUPVAL                         R9 2
-       10 GETUPVAL                         R10 3
-       11 CALL                             R6 4 0
-       12 FORGLOOP                         R1 2 ; [-9]
-       14 RETURN                           R0 0
+        9 LOADB                            R9 1
+       10 GETUPVAL                         R10 2
+       11 GETUPVAL                         R11 3
+       12 CALL                             R6 5 0
+       13 FORGLOOP                         R1 2 ; [-10]
+       15 RETURN                           R0 0
 
 PROTO_51:
         0 GETUPVAL                         R1 0
@@ -1525,34 +1526,36 @@ PROTO_52:
       147 LOADNIL                          R9
       148 SETTABLEKS                       R9 R8 K31 ["IsPackage"]
       150 GETUPVAL                         R9 10
-      151 GETTABLEKS                       R10 R8 K23 ["AssetType"]
-      153 CALL                             R9 1 1
-      154 JUMPIFNOT                        R9 ; [+10]
-      155 GETUPVAL                         R10 11
-      156 GETTABLEKS                       R9 R10 K41 ["_fetchAssetDependenciesAsync"]
-      158 GETUPVAL                         R10 8
-      159 NEWCLOSURE                       R11 P0
-      160 CAPTURE                          UPVAL U11
-      161 CAPTURE                          UPVAL U0
+      151 JUMPIFNOT                        R9 ; [+15]
+      152 GETUPVAL                         R9 11
+      153 GETTABLEKS                       R10 R8 K23 ["AssetType"]
+      155 CALL                             R9 1 1
+      156 JUMPIFNOT                        R9 ; [+10]
+      157 GETUPVAL                         R10 12
+      158 GETTABLEKS                       R9 R10 K41 ["_fetchAssetDependenciesAsync"]
+      160 GETUPVAL                         R10 8
+      161 NEWCLOSURE                       R11 P0
       162 CAPTURE                          UPVAL U12
-      163 CAPTURE                          UPVAL U13
-      164 CALL                             R9 2 0
-      165 GETUPVAL                         R9 14
-      166 GETTABLEKS                       R10 R8 K23 ["AssetType"]
-      168 CALL                             R9 1 1
-      169 JUMPIFNOT                        R9 ; [+9]
-      170 GETUPVAL                         R10 11
-      171 GETTABLEKS                       R9 R10 K42 ["_fetchIsPackageAsync"]
-      173 GETUPVAL                         R10 8
-      174 NEWCLOSURE                       R11 P1
-      175 CAPTURE                          VAL R8
-      176 CAPTURE                          UPVAL U12
-      177 CALL                             R9 2 0
-      178 RETURN                           R0 0
-      179 GETUPVAL                         R9 12
-      180 MOVE                             R10 R8
-      181 CALL                             R9 1 0
-      182 RETURN                           R0 0
+      163 CAPTURE                          UPVAL U0
+      164 CAPTURE                          UPVAL U13
+      165 CAPTURE                          UPVAL U14
+      166 CALL                             R9 2 0
+      167 GETUPVAL                         R9 15
+      168 GETTABLEKS                       R10 R8 K23 ["AssetType"]
+      170 CALL                             R9 1 1
+      171 JUMPIFNOT                        R9 ; [+9]
+      172 GETUPVAL                         R10 12
+      173 GETTABLEKS                       R9 R10 K42 ["_fetchIsPackageAsync"]
+      175 GETUPVAL                         R10 8
+      176 NEWCLOSURE                       R11 P1
+      177 CAPTURE                          VAL R8
+      178 CAPTURE                          UPVAL U13
+      179 CALL                             R9 2 0
+      180 RETURN                           R0 0
+      181 GETUPVAL                         R9 13
+      182 MOVE                             R10 R8
+      183 CALL                             R9 1 0
+      184 RETURN                           R0 0
 
 PROTO_53:
         0 GETUPVAL                         R1 0
@@ -1572,13 +1575,13 @@ PROTO_53:
        16 RETURN                           R0 0
 
 PROTO_54:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["GetFetchAssetDataRequest"]
-        3 MOVE                             R5 R0
-        4 CALL                             R4 1 1
-        5 NAMECALL                         R4 R4 K1 ["makeRequest"]
-        7 CALL                             R4 1 1
-        8 NEWCLOSURE                       R6 P0
+        0 GETUPVAL                         R6 0
+        1 GETTABLEKS                       R5 R6 K0 ["GetFetchAssetDataRequest"]
+        3 MOVE                             R6 R0
+        4 CALL                             R5 1 1
+        5 NAMECALL                         R5 R5 K1 ["makeRequest"]
+        7 CALL                             R5 1 1
+        8 NEWCLOSURE                       R7 P0
         9 CAPTURE                          VAL R1
        10 CAPTURE                          UPVAL U1
        11 CAPTURE                          UPVAL U2
@@ -1589,19 +1592,20 @@ PROTO_54:
        16 CAPTURE                          UPVAL U7
        17 CAPTURE                          VAL R0
        18 CAPTURE                          UPVAL U8
-       19 CAPTURE                          UPVAL U9
-       20 CAPTURE                          UPVAL U10
-       21 CAPTURE                          VAL R2
+       19 CAPTURE                          VAL R2
+       20 CAPTURE                          UPVAL U9
+       21 CAPTURE                          UPVAL U10
        22 CAPTURE                          VAL R3
-       23 CAPTURE                          UPVAL U11
-       24 NEWCLOSURE                       R7 P1
-       25 CAPTURE                          UPVAL U12
-       26 CAPTURE                          VAL R0
-       27 CAPTURE                          UPVAL U13
-       28 CAPTURE                          VAL R3
-       29 NAMECALL                         R4 R4 K2 ["andThen"]
-       31 CALL                             R4 3 0
-       32 RETURN                           R0 0
+       23 CAPTURE                          VAL R4
+       24 CAPTURE                          UPVAL U11
+       25 NEWCLOSURE                       R8 P1
+       26 CAPTURE                          UPVAL U12
+       27 CAPTURE                          VAL R0
+       28 CAPTURE                          UPVAL U13
+       29 CAPTURE                          VAL R4
+       30 NAMECALL                         R5 R5 K2 ["andThen"]
+       32 CALL                             R5 3 0
+       33 RETURN                           R0 0
 
 PROTO_55:
         0 MOVE                             R3 R1

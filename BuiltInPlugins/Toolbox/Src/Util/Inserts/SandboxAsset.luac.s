@@ -1,4 +1,16 @@
 PROTO_0:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["_capabilitiesHandlerComponent"]
+        3 JUMPIFNOT                        R1 ; [+1]
+        4 RETURN                           R0 0
+        5 GETUPVAL                         R1 0
+        6 LOADK                            R4 K1 ["CapabilitiesHandler"]
+        7 NAMECALL                         R2 R0 K2 ["GetPluginComponent"]
+        9 CALL                             R2 2 1
+       10 SETTABLEKS                       R2 R1 K0 ["_capabilitiesHandlerComponent"]
+       12 RETURN                           R0 0
+
+PROTO_1:
         0 NEWTABLE                         R0 0 0
         2 GETIMPORT                        R1 K1 [pairs]
         4 GETUPVAL                         R2 0
@@ -17,7 +29,7 @@ PROTO_0:
        20 FORGLOOP                         R1 2 ; [-14]
        22 RETURN                           R0 1
 
-PROTO_1:
+PROTO_2:
         0 NEWTABLE                         R1 0 0
         2 NEWTABLE                         R2 0 0
         4 NEWTABLE                         R3 0 0
@@ -56,7 +68,7 @@ PROTO_1:
        47 FORGLOOP                         R4 2 ; [-37]
        49 RETURN                           R1 3
 
-PROTO_2:
+PROTO_3:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["GetCapabilitiesDelta"]
         3 GETTABLEKS                       R4 R0 K1 ["Capabilities"]
@@ -81,7 +93,7 @@ PROTO_2:
        27 CALL                             R7 8 0
        28 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["GetCapabilitiesDelta"]
         3 GETTABLEKS                       R4 R0 K1 ["Capabilities"]
@@ -106,7 +118,7 @@ PROTO_3:
        27 CALL                             R7 8 0
        28 RETURN                           R0 0
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["CapabilitiesChanged"]
         3 GETUPVAL                         R1 1
@@ -115,7 +127,7 @@ PROTO_4:
         6 CALL                             R0 3 0
         7 RETURN                           R0 0
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["SandboxChanged"]
         3 GETUPVAL                         R1 1
@@ -124,7 +136,7 @@ PROTO_5:
         6 CALL                             R0 3 0
         7 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 LOADK                            R5 K0 ["Capabilities"]
         1 NAMECALL                         R3 R0 K1 ["GetPropertyChangedSignal"]
         3 CALL                             R3 2 1
@@ -147,7 +159,7 @@ PROTO_6:
        23 CALL                             R3 2 0
        24 RETURN                           R0 0
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R2 0
         1 SETTABLEKS                       R2 R0 K0 ["Capabilities"]
         3 LOADB                            R2 1
@@ -160,96 +172,139 @@ PROTO_7:
        12 CALL                             R2 3 0
        13 RETURN                           R0 0
 
-PROTO_8:
-        0 LOADB                            R2 0
-        1 MOVE                             R3 R0
-        2 LOADNIL                          R4
-        3 LOADNIL                          R5
-        4 FORGPREP                         R3
-        5 LOADK                            R10 K0 ["LuaSourceContainer"]
-        6 NAMECALL                         R8 R7 K1 ["IsA"]
-        8 CALL                             R8 2 1
-        9 JUMPIFNOT                        R8 ; [+2]
-       10 LOADB                            R2 1
-       11 JUMP                             ; [+16]
-       12 NAMECALL                         R8 R7 K2 ["GetDescendants"]
-       14 CALL                             R8 1 3
-       15 FORGPREP                         R8
-       16 LOADK                            R15 K0 ["LuaSourceContainer"]
-       17 NAMECALL                         R13 R12 K1 ["IsA"]
-       19 CALL                             R13 2 1
-       20 JUMPIFNOT                        R13 ; [+2]
-       21 LOADB                            R2 1
-       22 JUMP                             ; [+2]
-       23 FORGLOOP                         R8 2 ; [-8]
-       25 JUMPIF                           R2 ; [+2]
-       26 FORGLOOP                         R3 2 ; [-22]
-       28 JUMPIF                           R2 ; [+1]
-       29 RETURN                           R0 0
-       30 MOVE                             R3 R0
-       31 LOADNIL                          R4
-       32 LOADNIL                          R5
-       33 FORGPREP                         R3
-       34 LOADK                            R10 K3 ["Model"]
-       35 NAMECALL                         R8 R7 K1 ["IsA"]
-       37 CALL                             R8 2 1
-       38 JUMPIF                           R8 ; [+10]
-       39 LOADK                            R10 K4 ["Folder"]
-       40 NAMECALL                         R8 R7 K1 ["IsA"]
-       42 CALL                             R8 2 1
-       43 JUMPIF                           R8 ; [+5]
-       44 LOADK                            R10 K0 ["LuaSourceContainer"]
-       45 NAMECALL                         R8 R7 K1 ["IsA"]
-       47 CALL                             R8 2 1
-       48 JUMPIFNOT                        R8 ; [+6]
-       49 GETUPVAL                         R9 0
-       50 GETTABLEKS                       R8 R9 K5 ["SetCapabilitiesAndSandboxForInstance"]
-       52 MOVE                             R9 R7
-       53 MOVE                             R10 R1
-       54 CALL                             R8 2 0
-       55 NAMECALL                         R8 R7 K6 ["GetChildren"]
-       57 CALL                             R8 1 3
-       58 FORGPREP                         R8
-       59 NEWTABLE                         R13 0 1
-       61 MOVE                             R14 R12
-       62 SETLIST                          R13 R14 1 [1]
-       64 LENGTH                           R14 R13
-       65 LOADN                            R15 0
-       66 JUMPIFNOTLT                      R15 R14 ; [+41]
-       68 GETIMPORT                        R14 K9 [table.remove]
-       70 MOVE                             R15 R13
-       71 LOADN                            R16 1
-       72 CALL                             R14 2 1
-       73 LOADK                            R17 K3 ["Model"]
-       74 NAMECALL                         R15 R14 K1 ["IsA"]
-       76 CALL                             R15 2 1
-       77 JUMPIF                           R15 ; [+10]
-       78 LOADK                            R17 K4 ["Folder"]
-       79 NAMECALL                         R15 R14 K1 ["IsA"]
-       81 CALL                             R15 2 1
-       82 JUMPIF                           R15 ; [+5]
-       83 LOADK                            R17 K0 ["LuaSourceContainer"]
-       84 NAMECALL                         R15 R14 K1 ["IsA"]
-       86 CALL                             R15 2 1
-       87 JUMPIFNOT                        R15 ; [+6]
-       88 GETUPVAL                         R16 0
-       89 GETTABLEKS                       R15 R16 K5 ["SetCapabilitiesAndSandboxForInstance"]
-       91 MOVE                             R16 R14
-       92 MOVE                             R17 R1
-       93 CALL                             R15 2 0
-       94 NAMECALL                         R15 R14 K6 ["GetChildren"]
-       96 CALL                             R15 1 3
-       97 FORGPREP                         R15
-       98 FASTCALL2                        TABLE_INSERT R13 R19 ; [+5]
-      100 MOVE                             R21 R13
-      101 MOVE                             R22 R19
-      102 GETIMPORT                        R20 K11 [table.insert]
-      104 CALL                             R20 2 0
-      105 FORGLOOP                         R15 2 ; [-8]
-      107 JUMPBACK                         ; [-44]
-      108 FORGLOOP                         R8 2 ; [-50]
-      110 FORGLOOP                         R3 2 ; [-77]
-      112 RETURN                           R0 0
+PROTO_9:
+        0 LOADK                            R3 K0 ["Model"]
+        1 NAMECALL                         R1 R0 K1 ["IsA"]
+        3 CALL                             R1 2 1
+        4 JUMPIF                           R1 ; [+29]
+        5 LOADK                            R3 K2 ["Folder"]
+        6 NAMECALL                         R1 R0 K1 ["IsA"]
+        8 CALL                             R1 2 1
+        9 JUMPIF                           R1 ; [+24]
+       10 LOADK                            R3 K3 ["LuaSourceContainer"]
+       11 NAMECALL                         R1 R0 K1 ["IsA"]
+       13 CALL                             R1 2 1
+       14 JUMPIF                           R1 ; [+19]
+       15 LOADK                            R3 K4 ["BindableEvent"]
+       16 NAMECALL                         R1 R0 K1 ["IsA"]
+       18 CALL                             R1 2 1
+       19 JUMPIF                           R1 ; [+14]
+       20 LOADK                            R3 K5 ["BindableFunction"]
+       21 NAMECALL                         R1 R0 K1 ["IsA"]
+       23 CALL                             R1 2 1
+       24 JUMPIF                           R1 ; [+9]
+       25 LOADK                            R3 K6 ["RemoteFunction"]
+       26 NAMECALL                         R1 R0 K1 ["IsA"]
+       28 CALL                             R1 2 1
+       29 JUMPIF                           R1 ; [+4]
+       30 LOADK                            R3 K7 ["BaseRemoteEvent"]
+       31 NAMECALL                         R1 R0 K1 ["IsA"]
+       33 CALL                             R1 2 1
+       34 RETURN                           R1 1
+
+PROTO_10:
+        0 LOADB                            R3 0
+        1 MOVE                             R4 R0
+        2 LOADNIL                          R5
+        3 LOADNIL                          R6
+        4 FORGPREP                         R4
+        5 LOADK                            R11 K0 ["LuaSourceContainer"]
+        6 NAMECALL                         R9 R8 K1 ["IsA"]
+        8 CALL                             R9 2 1
+        9 JUMPIF                           R9 ; [+5]
+       10 LOADK                            R11 K2 ["PartOperation"]
+       11 NAMECALL                         R9 R8 K1 ["IsA"]
+       13 CALL                             R9 2 1
+       14 JUMPIFNOT                        R9 ; [+2]
+       15 LOADB                            R3 1
+       16 JUMP                             ; [+21]
+       17 NAMECALL                         R9 R8 K3 ["GetDescendants"]
+       19 CALL                             R9 1 3
+       20 FORGPREP                         R9
+       21 LOADK                            R16 K0 ["LuaSourceContainer"]
+       22 NAMECALL                         R14 R13 K1 ["IsA"]
+       24 CALL                             R14 2 1
+       25 JUMPIF                           R14 ; [+5]
+       26 LOADK                            R16 K2 ["PartOperation"]
+       27 NAMECALL                         R14 R13 K1 ["IsA"]
+       29 CALL                             R14 2 1
+       30 JUMPIFNOT                        R14 ; [+2]
+       31 LOADB                            R3 1
+       32 JUMP                             ; [+2]
+       33 FORGLOOP                         R9 2 ; [-13]
+       35 JUMPIF                           R3 ; [+2]
+       36 FORGLOOP                         R4 2 ; [-32]
+       38 JUMPIF                           R3 ; [+1]
+       39 RETURN                           R0 0
+       40 GETUPVAL                         R4 0
+       41 CALL                             R4 0 1
+       42 JUMPIFNOT                        R4 ; [+20]
+       43 GETUPVAL                         R5 1
+       44 GETTABLEKS                       R4 R5 K4 ["setUpCapabilitiesHandlerComponent"]
+       46 MOVE                             R5 R2
+       47 CALL                             R4 1 0
+       48 MOVE                             R4 R0
+       49 LOADNIL                          R5
+       50 LOADNIL                          R6
+       51 FORGPREP                         R4
+       52 GETUPVAL                         R10 1
+       53 GETTABLEKS                       R9 R10 K5 ["_capabilitiesHandlerComponent"]
+       55 MOVE                             R11 R8
+       56 GETUPVAL                         R12 2
+       57 NAMECALL                         R9 R9 K6 ["SetUpCapabilitiesForTreeAsync"]
+       59 CALL                             R9 3 0
+       60 FORGLOOP                         R4 2 ; [-9]
+       62 RETURN                           R0 0
+       63 MOVE                             R4 R0
+       64 LOADNIL                          R5
+       65 LOADNIL                          R6
+       66 FORGPREP                         R4
+       67 GETUPVAL                         R10 1
+       68 GETTABLEKS                       R9 R10 K7 ["IsRelevantInstanceType"]
+       70 MOVE                             R10 R8
+       71 CALL                             R9 1 1
+       72 JUMPIFNOT                        R9 ; [+6]
+       73 GETUPVAL                         R10 1
+       74 GETTABLEKS                       R9 R10 K8 ["SetCapabilitiesAndSandboxForInstance"]
+       76 MOVE                             R10 R8
+       77 MOVE                             R11 R1
+       78 CALL                             R9 2 0
+       79 NAMECALL                         R9 R8 K9 ["GetChildren"]
+       81 CALL                             R9 1 3
+       82 FORGPREP                         R9
+       83 NEWTABLE                         R14 0 1
+       85 MOVE                             R15 R13
+       86 SETLIST                          R14 R15 1 [1]
+       88 LENGTH                           R15 R14
+       89 LOADN                            R16 0
+       90 JUMPIFNOTLT                      R16 R15 ; [+32]
+       92 GETIMPORT                        R15 K12 [table.remove]
+       94 MOVE                             R16 R14
+       95 LOADN                            R17 1
+       96 CALL                             R15 2 1
+       97 GETUPVAL                         R17 1
+       98 GETTABLEKS                       R16 R17 K7 ["IsRelevantInstanceType"]
+      100 MOVE                             R17 R15
+      101 CALL                             R16 1 1
+      102 JUMPIFNOT                        R16 ; [+6]
+      103 GETUPVAL                         R17 1
+      104 GETTABLEKS                       R16 R17 K8 ["SetCapabilitiesAndSandboxForInstance"]
+      106 MOVE                             R17 R15
+      107 MOVE                             R18 R1
+      108 CALL                             R16 2 0
+      109 NAMECALL                         R16 R15 K9 ["GetChildren"]
+      111 CALL                             R16 1 3
+      112 FORGPREP                         R16
+      113 FASTCALL2                        TABLE_INSERT R14 R20 ; [+5]
+      115 MOVE                             R22 R14
+      116 MOVE                             R23 R20
+      117 GETIMPORT                        R21 K14 [table.insert]
+      119 CALL                             R21 2 0
+      120 FORGLOOP                         R16 2 ; [-8]
+      122 JUMPBACK                         ; [-35]
+      123 FORGLOOP                         R9 2 ; [-41]
+      125 FORGLOOP                         R4 2 ; [-59]
+      127 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -274,93 +329,108 @@ MAIN:
        33 GETTABLEKS                       R5 R6 K10 ["SharedFlags"]
        35 GETTABLEKS                       R4 R5 K11 ["getFFlagToolboxCapabilities"]
        37 CALL                             R3 1 1
-       38 MOVE                             R4 R3
-       39 CALL                             R4 0 1
-       40 JUMPIFNOT                        R4 ; [+141]
-       41 NEWTABLE                         R4 8 0
-       43 NEWTABLE                         R5 0 38
-       45 GETIMPORT                        R6 K15 [Enum.SecurityCapability.Animation]
-       47 GETIMPORT                        R7 K17 [Enum.SecurityCapability.UI]
-       49 GETIMPORT                        R8 K19 [Enum.SecurityCapability.CSG]
-       51 GETIMPORT                        R9 K21 [Enum.SecurityCapability.Chat]
-       53 GETIMPORT                        R10 K23 [Enum.SecurityCapability.Audio]
-       55 GETIMPORT                        R11 K25 [Enum.SecurityCapability.Basic]
-       57 GETIMPORT                        R12 K27 [Enum.SecurityCapability.Input]
-       59 GETIMPORT                        R13 K29 [Enum.SecurityCapability.Avatar]
-       61 GETIMPORT                        R14 K31 [Enum.SecurityCapability.Network]
-       63 GETIMPORT                        R15 K33 [Enum.SecurityCapability.Physics]
-       65 GETIMPORT                        R16 K35 [Enum.SecurityCapability.Players]
-       67 GETIMPORT                        R17 K37 [Enum.SecurityCapability.DataStore]
-       69 GETIMPORT                        R18 K39 [Enum.SecurityCapability.Environment]
-       71 GETIMPORT                        R19 K41 [Enum.SecurityCapability.LegacySound]
-       73 GETIMPORT                        R20 K43 [Enum.SecurityCapability.RemoteEvent]
-       75 GETIMPORT                        R21 K45 [Enum.SecurityCapability.CreateInstances]
-       77 SETLIST                          R5 R6 16 [1]
-       79 GETIMPORT                        R6 K47 [Enum.SecurityCapability.RunClientScript]
-       81 GETIMPORT                        R7 K49 [Enum.SecurityCapability.RunServerScript]
-       83 GETIMPORT                        R8 K51 [Enum.SecurityCapability.AccessOutsideWrite]
-       85 GETIMPORT                        R9 K53 [Enum.SecurityCapability.ScriptGlobals]
-       87 GETIMPORT                        R10 K55 [Enum.SecurityCapability.AssetRead]
-       89 GETIMPORT                        R11 K57 [Enum.SecurityCapability.AssetManagement]
-       91 GETIMPORT                        R12 K59 [Enum.SecurityCapability.DynamicGeneration]
-       93 GETIMPORT                        R13 K61 [Enum.SecurityCapability.PlatformAvatarEditing]
-       95 GETIMPORT                        R14 K63 [Enum.SecurityCapability.AssetCreateUpdate]
-       97 GETIMPORT                        R15 K65 [Enum.SecurityCapability.Capture]
-       99 GETIMPORT                        R16 K67 [Enum.SecurityCapability.SensitiveInput]
-      101 GETIMPORT                        R17 K69 [Enum.SecurityCapability.Monetization]
-      103 GETIMPORT                        R18 K71 [Enum.SecurityCapability.LoadOwnedAsset]
-      105 GETIMPORT                        R19 K73 [Enum.SecurityCapability.Social]
-      107 GETIMPORT                        R20 K75 [Enum.SecurityCapability.ServerCommunication]
-      109 GETIMPORT                        R21 K77 [Enum.SecurityCapability.Logging]
-      111 SETLIST                          R5 R6 16 [17]
-      113 GETIMPORT                        R6 K79 [Enum.SecurityCapability.PromptExternalPurchase]
-      115 GETIMPORT                        R7 K81 [Enum.SecurityCapability.Groups]
-      117 GETIMPORT                        R8 K83 [Enum.SecurityCapability.Teleport]
-      119 GETIMPORT                        R9 K85 [Enum.SecurityCapability.Consequences]
-      121 GETIMPORT                        R10 K87 [Enum.SecurityCapability.Material]
-      123 GETIMPORT                        R11 K89 [Enum.SecurityCapability.AvatarBehavior]
-      125 SETLIST                          R5 R6 6 [33]
-      127 GETIMPORT                        R6 K90 [Enum.SecurityCapability]
-      129 NAMECALL                         R6 R6 K91 ["GetEnumItems"]
-      131 CALL                             R6 1 1
-      132 GETIMPORT                        R7 K94 [Instance.new]
-      134 LOADK                            R8 K95 ["Folder"]
-      135 CALL                             R7 1 1
-      136 GETTABLEKS                       R8 R7 K96 ["Capabilities"]
-      138 FASTCALL1                        TABLE_UNPACK R5 ; [+3]
-      139 MOVE                             R11 R5
-      140 GETIMPORT                        R10 K98 [unpack]
-      142 CALL                             R10 1 -1
-      143 NAMECALL                         R8 R8 K99 ["Add"]
-      145 CALL                             R8 -1 1
-      146 DUPCLOSURE                       R9 K100 [PROTO_0]
-      147 CAPTURE                          VAL R6
-      148 CAPTURE                          VAL R8
-      149 SETTABLEKS                       R9 R4 K101 ["GetBasicCapabilities"]
-      151 DUPCLOSURE                       R9 K102 [PROTO_1]
-      152 CAPTURE                          VAL R6
-      153 CAPTURE                          VAL R8
-      154 SETTABLEKS                       R9 R4 K103 ["GetCapabilitiesDelta"]
-      156 DUPCLOSURE                       R9 K104 [PROTO_2]
-      157 CAPTURE                          VAL R4
-      158 CAPTURE                          VAL R2
-      159 CAPTURE                          VAL R1
-      160 SETTABLEKS                       R9 R4 K105 ["CapabilitiesChanged"]
-      162 DUPCLOSURE                       R9 K106 [PROTO_3]
-      163 CAPTURE                          VAL R4
-      164 CAPTURE                          VAL R2
-      165 CAPTURE                          VAL R1
-      166 SETTABLEKS                       R9 R4 K107 ["SandboxChanged"]
-      168 DUPCLOSURE                       R9 K108 [PROTO_6]
-      169 CAPTURE                          VAL R4
-      170 SETTABLEKS                       R9 R4 K109 ["SetTelemetryForInstance"]
-      172 DUPCLOSURE                       R9 K110 [PROTO_7]
-      173 CAPTURE                          VAL R8
-      174 CAPTURE                          VAL R4
-      175 SETTABLEKS                       R9 R4 K111 ["SetCapabilitiesAndSandboxForInstance"]
-      177 DUPCLOSURE                       R9 K112 [PROTO_8]
-      178 CAPTURE                          VAL R4
-      179 SETTABLEKS                       R9 R4 K113 ["SetCapabilitiesAndSandboxForModel"]
-      181 RETURN                           R4 1
-      182 NEWTABLE                         R4 0 0
-      184 RETURN                           R4 1
+       38 GETIMPORT                        R4 K5 [require]
+       40 GETTABLEKS                       R8 R0 K6 ["Src"]
+       42 GETTABLEKS                       R7 R8 K7 ["Util"]
+       44 GETTABLEKS                       R6 R7 K10 ["SharedFlags"]
+       46 GETTABLEKS                       R5 R6 K12 ["getEngineFeatureCapabilitiesHandler"]
+       48 CALL                             R4 1 1
+       49 MOVE                             R5 R3
+       50 CALL                             R5 0 1
+       51 JUMPIFNOT                        R5 ; [+153]
+       52 NEWTABLE                         R5 16 0
+       54 NEWTABLE                         R6 0 38
+       56 GETIMPORT                        R7 K16 [Enum.SecurityCapability.Animation]
+       58 GETIMPORT                        R8 K18 [Enum.SecurityCapability.UI]
+       60 GETIMPORT                        R9 K20 [Enum.SecurityCapability.CSG]
+       62 GETIMPORT                        R10 K22 [Enum.SecurityCapability.Chat]
+       64 GETIMPORT                        R11 K24 [Enum.SecurityCapability.Audio]
+       66 GETIMPORT                        R12 K26 [Enum.SecurityCapability.Basic]
+       68 GETIMPORT                        R13 K28 [Enum.SecurityCapability.Input]
+       70 GETIMPORT                        R14 K30 [Enum.SecurityCapability.Avatar]
+       72 GETIMPORT                        R15 K32 [Enum.SecurityCapability.Network]
+       74 GETIMPORT                        R16 K34 [Enum.SecurityCapability.Physics]
+       76 GETIMPORT                        R17 K36 [Enum.SecurityCapability.Players]
+       78 GETIMPORT                        R18 K38 [Enum.SecurityCapability.DataStore]
+       80 GETIMPORT                        R19 K40 [Enum.SecurityCapability.Environment]
+       82 GETIMPORT                        R20 K42 [Enum.SecurityCapability.LegacySound]
+       84 GETIMPORT                        R21 K44 [Enum.SecurityCapability.RemoteEvent]
+       86 GETIMPORT                        R22 K46 [Enum.SecurityCapability.CreateInstances]
+       88 SETLIST                          R6 R7 16 [1]
+       90 GETIMPORT                        R7 K48 [Enum.SecurityCapability.RunClientScript]
+       92 GETIMPORT                        R8 K50 [Enum.SecurityCapability.RunServerScript]
+       94 GETIMPORT                        R9 K52 [Enum.SecurityCapability.AccessOutsideWrite]
+       96 GETIMPORT                        R10 K54 [Enum.SecurityCapability.ScriptGlobals]
+       98 GETIMPORT                        R11 K56 [Enum.SecurityCapability.AssetRead]
+      100 GETIMPORT                        R12 K58 [Enum.SecurityCapability.AssetManagement]
+      102 GETIMPORT                        R13 K60 [Enum.SecurityCapability.DynamicGeneration]
+      104 GETIMPORT                        R14 K62 [Enum.SecurityCapability.PlatformAvatarEditing]
+      106 GETIMPORT                        R15 K64 [Enum.SecurityCapability.AssetCreateUpdate]
+      108 GETIMPORT                        R16 K66 [Enum.SecurityCapability.Capture]
+      110 GETIMPORT                        R17 K68 [Enum.SecurityCapability.SensitiveInput]
+      112 GETIMPORT                        R18 K70 [Enum.SecurityCapability.Monetization]
+      114 GETIMPORT                        R19 K72 [Enum.SecurityCapability.LoadOwnedAsset]
+      116 GETIMPORT                        R20 K74 [Enum.SecurityCapability.Social]
+      118 GETIMPORT                        R21 K76 [Enum.SecurityCapability.ServerCommunication]
+      120 GETIMPORT                        R22 K78 [Enum.SecurityCapability.Logging]
+      122 SETLIST                          R6 R7 16 [17]
+      124 GETIMPORT                        R7 K80 [Enum.SecurityCapability.PromptExternalPurchase]
+      126 GETIMPORT                        R8 K82 [Enum.SecurityCapability.Groups]
+      128 GETIMPORT                        R9 K84 [Enum.SecurityCapability.Teleport]
+      130 GETIMPORT                        R10 K86 [Enum.SecurityCapability.Consequences]
+      132 GETIMPORT                        R11 K88 [Enum.SecurityCapability.Material]
+      134 GETIMPORT                        R12 K90 [Enum.SecurityCapability.AvatarBehavior]
+      136 SETLIST                          R6 R7 6 [33]
+      138 GETIMPORT                        R7 K91 [Enum.SecurityCapability]
+      140 NAMECALL                         R7 R7 K92 ["GetEnumItems"]
+      142 CALL                             R7 1 1
+      143 GETIMPORT                        R8 K95 [Instance.new]
+      145 LOADK                            R9 K96 ["Folder"]
+      146 CALL                             R8 1 1
+      147 GETTABLEKS                       R9 R8 K97 ["Capabilities"]
+      149 FASTCALL1                        TABLE_UNPACK R6 ; [+3]
+      150 MOVE                             R12 R6
+      151 GETIMPORT                        R11 K99 [unpack]
+      153 CALL                             R11 1 -1
+      154 NAMECALL                         R9 R9 K100 ["Add"]
+      156 CALL                             R9 -1 1
+      157 LOADNIL                          R10
+      158 SETTABLEKS                       R10 R5 K101 ["_capabilitiesHandlerComponent"]
+      160 DUPCLOSURE                       R10 K102 [PROTO_0]
+      161 CAPTURE                          VAL R5
+      162 SETTABLEKS                       R10 R5 K103 ["setUpCapabilitiesHandlerComponent"]
+      164 DUPCLOSURE                       R10 K104 [PROTO_1]
+      165 CAPTURE                          VAL R7
+      166 CAPTURE                          VAL R9
+      167 SETTABLEKS                       R10 R5 K105 ["GetBasicCapabilities"]
+      169 DUPCLOSURE                       R10 K106 [PROTO_2]
+      170 CAPTURE                          VAL R7
+      171 CAPTURE                          VAL R9
+      172 SETTABLEKS                       R10 R5 K107 ["GetCapabilitiesDelta"]
+      174 DUPCLOSURE                       R10 K108 [PROTO_3]
+      175 CAPTURE                          VAL R5
+      176 CAPTURE                          VAL R2
+      177 CAPTURE                          VAL R1
+      178 SETTABLEKS                       R10 R5 K109 ["CapabilitiesChanged"]
+      180 DUPCLOSURE                       R10 K110 [PROTO_4]
+      181 CAPTURE                          VAL R5
+      182 CAPTURE                          VAL R2
+      183 CAPTURE                          VAL R1
+      184 SETTABLEKS                       R10 R5 K111 ["SandboxChanged"]
+      186 DUPCLOSURE                       R10 K112 [PROTO_7]
+      187 CAPTURE                          VAL R5
+      188 SETTABLEKS                       R10 R5 K113 ["SetTelemetryForInstance"]
+      190 DUPCLOSURE                       R10 K114 [PROTO_8]
+      191 CAPTURE                          VAL R9
+      192 CAPTURE                          VAL R5
+      193 SETTABLEKS                       R10 R5 K115 ["SetCapabilitiesAndSandboxForInstance"]
+      195 DUPCLOSURE                       R10 K116 [PROTO_9]
+      196 SETTABLEKS                       R10 R5 K117 ["IsRelevantInstanceType"]
+      198 DUPCLOSURE                       R10 K118 [PROTO_10]
+      199 CAPTURE                          VAL R4
+      200 CAPTURE                          VAL R5
+      201 CAPTURE                          VAL R9
+      202 SETTABLEKS                       R10 R5 K119 ["SetCapabilitiesAndSandboxForModel"]
+      204 RETURN                           R5 1
+      205 NEWTABLE                         R5 0 0
+      207 RETURN                           R5 1

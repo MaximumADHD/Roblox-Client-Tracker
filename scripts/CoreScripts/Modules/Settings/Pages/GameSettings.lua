@@ -88,6 +88,7 @@ local FFlagVoiceChatSelectorReconnectFocus = game:DefineFastFlag("VoiceChatSelec
 local FFlagMicroProfilerReadOnlyInformationLabel = game:DefineFastFlag("MicroProfilerReadOnlyInformationLabel", false)
 local FFlagEnableModerateChatRemoteEvent = SharedFlags.FFlagEnableModerateChatRemoteEvent
 local FFlagModerateChatAnalytics = game:DefineFastFlag("ModerateChatAnalytics", false)
+local FFlagPSUseVibrationInsteadOfHaptics = game:DefineFastFlag("PSUseVibrationInsteadOfHaptics", false)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -2434,8 +2435,11 @@ local function Initialize()
 
 	local function createHapticsToggle()
 		local initialIndex = GameSettings.HapticStrength == 0 and 1 or 2
+		
+		local hapticsFrameText = if FFlagPSUseVibrationInsteadOfHaptics and getAppFeaturePolicies().getShouldUseVibrationInsteadOfHaptics() then locales:Format("CoreScripts.InGameMenu.Vibration") else "Haptics"
+		
 		this.HapticsFrame, _, this.HapticsSelector =
-			utility:AddNewRow(this, "Haptics", "Selector", { "Off", "On" }, initialIndex)
+			utility:AddNewRow(this, hapticsFrameText, "Selector", { "Off", "On" }, initialIndex)
 		this.HapticsFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["HapticsFrame"]
 
 		this.HapticsSelector.IndexChanged:connect(function(newIndex)

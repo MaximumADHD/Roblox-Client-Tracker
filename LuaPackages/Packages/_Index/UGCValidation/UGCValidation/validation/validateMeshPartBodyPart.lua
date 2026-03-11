@@ -7,15 +7,9 @@ local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 
 local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFlagDebugUGCDisableSurfaceAppearanceTests)
-local getFFlagUGCValidateIndividualPartBBoxes = require(root.flags.getFFlagUGCValidateIndividualPartBBoxes)
-local getEngineFeatureUGCValidateBodyPartCageMeshDistance =
-	require(root.flags.getEngineFeatureUGCValidateBodyPartCageMeshDistance)
-local getFFlagRefactorBodyAttachmentOrientationsCheck =
-	require(root.flags.getFFlagRefactorBodyAttachmentOrientationsCheck)
 local getFFlagUGCValidateBoundsManipulation = require(root.flags.getFFlagUGCValidateBoundsManipulation)
 local getFFlagUGCValidateAccurateBoundingBoxRasterMethod =
 	require(root.flags.getFFlagUGCValidateAccurateBoundingBoxRasterMethod)
-local getFFlagUGCValidateLegAssetSeparation = require(root.flags.getFFlagUGCValidateLegAssetSeparation)
 
 local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
 local validateAssetBounds = require(root.validation.validateAssetBounds)
@@ -41,7 +35,6 @@ local validateModeration = require(root.validation.validateModeration)
 local validateAssetTransparency = require(root.validation.validateAssetTransparency)
 local validatePose = require(root.validation.validatePose)
 local ValidateBodyBlockingTests = require(root.util.ValidateBodyBlockingTests)
-local ValidateAssetBodyPartCages = require(root.validation.ValidateAssetBodyPartCages)
 local ValidateMeshSizeProperty = require(root.validation.ValidateMeshSizeProperty)
 local ValidatePropertiesSensible = require(root.validation.ValidatePropertiesSensible)
 local ValidateLegsSeparation = require(root.validation.ValidateLegsSeparation)
@@ -134,27 +127,15 @@ local function validateMeshPartBodyPart(
 		reasonsAccumulator:updateReasons(ValidateTexturePack.validate(inst, true, validationContext))
 	end
 
-	if getEngineFeatureUGCValidateBodyPartCageMeshDistance() then
-		reasonsAccumulator:updateReasons(ValidateAssetBodyPartCages.validateSingleBodyPart(inst, validationContext))
-	end
-
 	reasonsAccumulator:updateReasons(validateBodyPartChildAttachmentBounds(inst, validationContext))
-	if getFFlagUGCValidateIndividualPartBBoxes() then
-		reasonsAccumulator:updateReasons(validateBodyPartExtentsRelativeToParent.runValidation(inst, validationContext))
-	end
-	if getFFlagRefactorBodyAttachmentOrientationsCheck() then
-		reasonsAccumulator:updateReasons(
-			validateBodyPartChildAttachmentOrientations.runValidation(inst, validationContext)
-		)
-	end
+	reasonsAccumulator:updateReasons(validateBodyPartExtentsRelativeToParent.runValidation(inst, validationContext))
+
+	reasonsAccumulator:updateReasons(validateBodyPartChildAttachmentOrientations.runValidation(inst, validationContext))
 
 	reasonsAccumulator:updateReasons(validatePose(inst, validationContext))
 
 	reasonsAccumulator:updateReasons(validateAssetBounds(nil, inst, validationContext))
-
-	if getFFlagUGCValidateLegAssetSeparation() then
-		reasonsAccumulator:updateReasons(ValidateLegsSeparation.validateAsset(inst, validationContext))
-	end
+	reasonsAccumulator:updateReasons(ValidateLegsSeparation.validateAsset(inst, validationContext))
 
 	if getFFlagUGCValidateAccurateBoundingBoxRasterMethod() then
 		local viewsForAsset = validateAccurateBoundingBoxRasterMethod.getBoundsViewsForAssetType(assetTypeEnum)

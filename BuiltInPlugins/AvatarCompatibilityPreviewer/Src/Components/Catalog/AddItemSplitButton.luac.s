@@ -360,7 +360,7 @@ PROTO_11:
       216 GETTABLEKS                       R23 R24 K32 ["createElement"]
       218 GETUPVAL                         R24 11
       219 DUPTABLE                         R25 K40 [{"tag"}]
-      220 LOADK                            R26 K41 ["size-full-1000 row align-x-center align-y-center bg-action-standard gap-none radius-small"]
+      220 LOADK                            R26 K41 ["size-full-1000 row align-x-center align-y-center gap-none radius-small"]
       221 SETTABLEKS                       R26 R25 K33 ["tag"]
       223 DUPTABLE                         R26 K44 [{"AddButton", "AddItemMenu"}]
       224 GETUPVAL                         R28 2
@@ -378,8 +378,8 @@ PROTO_11:
       242 SETTABLEKS                       R30 R29 K47 ["variant"]
       244 SETTABLEKS                       R7 R29 K48 ["onActivated"]
       246 GETIMPORT                        R30 K55 [UDim.new]
-      248 LOADK                            R31 K56 [0.57]
-      249 LOADN                            R32 0
+      248 LOADN                            R31 0
+      249 LOADN                            R32 48
       250 CALL                             R30 2 1
       251 SETTABLEKS                       R30 R29 K49 ["width"]
       253 LOADN                            R30 1
@@ -389,211 +389,234 @@ PROTO_11:
       259 GETUPVAL                         R28 2
       260 GETTABLEKS                       R27 R28 K32 ["createElement"]
       262 GETUPVAL                         R28 16
-      263 DUPTABLE                         R29 K63 [{"isOpen", "onClose", "onAddSelectedInstances", "onAddFromAssetId", "validInstancesSelected", "LayoutOrder", "anchor"}]
+      263 DUPTABLE                         R29 K63 [{"isOpen", "onClose", "onAddSelectedInstances", "onAddFromAssetId", "validInstancesSelected", "LayoutOrder", "anchorSize", "anchor"}]
       264 GETTABLEKS                       R30 R15 K64 ["enabled"]
-      266 SETTABLEKS                       R30 R29 K57 ["isOpen"]
+      266 SETTABLEKS                       R30 R29 K56 ["isOpen"]
       268 GETTABLEKS                       R30 R15 K65 ["disable"]
-      270 SETTABLEKS                       R30 R29 K58 ["onClose"]
-      272 SETTABLEKS                       R7 R29 K59 ["onAddSelectedInstances"]
-      274 SETTABLEKS                       R16 R29 K60 ["onAddFromAssetId"]
-      276 SETTABLEKS                       R17 R29 K61 ["validInstancesSelected"]
+      270 SETTABLEKS                       R30 R29 K57 ["onClose"]
+      272 SETTABLEKS                       R7 R29 K58 ["onAddSelectedInstances"]
+      274 SETTABLEKS                       R16 R29 K59 ["onAddFromAssetId"]
+      276 SETTABLEKS                       R17 R29 K60 ["validInstancesSelected"]
       278 LOADN                            R30 2
       279 SETTABLEKS                       R30 R29 K34 ["LayoutOrder"]
-      281 GETUPVAL                         R31 2
-      282 GETTABLEKS                       R30 R31 K32 ["createElement"]
-      284 GETUPVAL                         R31 17
-      285 DUPTABLE                         R32 K66 [{"icon", "LayoutOrder", "size", "onActivated", "width"}]
-      286 DUPTABLE                         R33 K68 [{"name", "variant"}]
-      287 GETUPVAL                         R35 13
-      288 GETTABLEKS                       R34 R35 K69 ["CaretSmallDown"]
-      290 SETTABLEKS                       R34 R33 K67 ["name"]
-      292 GETUPVAL                         R35 18
-      293 GETTABLEKS                       R34 R35 K70 ["Filled"]
-      295 SETTABLEKS                       R34 R33 K47 ["variant"]
-      297 SETTABLEKS                       R33 R32 K45 ["icon"]
-      299 LOADN                            R33 3
-      300 SETTABLEKS                       R33 R32 K34 ["LayoutOrder"]
-      302 GETUPVAL                         R34 14
-      303 GETTABLEKS                       R33 R34 K52 ["Medium"]
-      305 SETTABLEKS                       R33 R32 K46 ["size"]
-      307 GETTABLEKS                       R33 R15 K71 ["toggle"]
-      309 SETTABLEKS                       R33 R32 K48 ["onActivated"]
-      311 GETIMPORT                        R33 K55 [UDim.new]
-      313 LOADK                            R34 K72 [0.43]
-      314 LOADN                            R35 0
-      315 CALL                             R33 2 1
-      316 SETTABLEKS                       R33 R32 K49 ["width"]
-      318 CALL                             R30 2 1
-      319 SETTABLEKS                       R30 R29 K62 ["anchor"]
-      321 CALL                             R27 2 1
-      322 SETTABLEKS                       R27 R26 K43 ["AddItemMenu"]
-      324 CALL                             R23 3 1
-      325 SETTABLEKS                       R23 R22 K37 ["SplitButtonContainer"]
-      327 JUMPIFEQKNIL                     R4 ; [+245]
-      329 GETUPVAL                         R24 2
-      330 GETTABLEKS                       R23 R24 K32 ["createElement"]
-      332 GETUPVAL                         R24 19
-      333 DUPTABLE                         R25 K81 [{"Title", "Enabled", "MinContentSize", "Modal", "OnClose", "OnButtonPressed", "Buttons", "ButtonHorizontalAlignment"}]
-      334 JUMPIFEQKNIL                     R4 ; [+30]
-      336 GETTABLEKS                       R28 R4 K7 ["type"]
-      338 JUMPIFNOTEQKS                    R28 K8 ["noPalette"] ; [+26]
-      340 GETTABLEKS                       R29 R4 K9 ["instances"]
-      342 LENGTH                           R28 R29
-      343 JUMPIFNOTEQKN                    R28 K10 [1] ; [+21]
-      345 GETTABLEKS                       R28 R4 K11 ["extraErrors"]
-      347 JUMPIFEQKNIL                     R28 ; [+17]
-      349 GETIMPORT                        R28 K13 [next]
-      351 GETTABLEKS                       R29 R4 K11 ["extraErrors"]
-      353 CALL                             R28 1 2
-      354 LOADB                            R27 0
-      355 JUMPIFNOTEQKS                    R29 K14 ["OnlyOneShoe"] ; [+10]
-      357 GETTABLEKS                       R31 R4 K9 ["instances"]
-      359 GETTABLEN                        R30 R31 1
-      360 JUMPIFEQ                         R30 R28 ; [+2]
-      362 LOADB                            R27 0 +1
-      363 LOADB                            R27 1
-      364 JUMP                             ; [+1]
-      365 LOADB                            R27 0
-      366 JUMPIFNOT                        R27 ; [+6]
-      367 LOADK                            R28 K15 ["AddItems"]
-      368 LOADK                            R29 K82 ["WarningTitle"]
-      369 NAMECALL                         R26 R1 K17 ["getText"]
-      371 CALL                             R26 3 1
-      372 JUMP                             ; [+5]
-      373 LOADK                            R28 K15 ["AddItems"]
-      374 LOADK                            R29 K83 ["FailedTitle"]
-      375 NAMECALL                         R26 R1 K17 ["getText"]
-      377 CALL                             R26 3 1
-      378 SETTABLEKS                       R26 R25 K73 ["Title"]
-      380 LOADB                            R26 1
-      381 SETTABLEKS                       R26 R25 K74 ["Enabled"]
-      383 GETIMPORT                        R26 K85 [Vector2.new]
-      385 LOADN                            R27 94
-      386 MOVE                             R28 R12
-      387 CALL                             R26 2 1
-      388 SETTABLEKS                       R26 R25 K75 ["MinContentSize"]
-      390 LOADB                            R26 1
-      391 SETTABLEKS                       R26 R25 K76 ["Modal"]
-      393 SETTABLEKS                       R6 R25 K77 ["OnClose"]
-      395 SETTABLEKS                       R6 R25 K78 ["OnButtonPressed"]
-      397 NEWTABLE                         R26 0 1
-      399 DUPTABLE                         R27 K88 [{"Key", "Text"}]
-      400 LOADK                            R28 K89 ["OK"]
-      401 SETTABLEKS                       R28 R27 K86 ["Key"]
-      403 LOADK                            R30 K15 ["AddItems"]
-      404 LOADK                            R31 K89 ["OK"]
-      405 NAMECALL                         R28 R1 K17 ["getText"]
-      407 CALL                             R28 3 1
-      408 SETTABLEKS                       R28 R27 K87 ["Text"]
-      410 SETLIST                          R26 R27 1 [1]
-      412 SETTABLEKS                       R26 R25 K79 ["Buttons"]
-      414 GETIMPORT                        R26 K93 [Enum.HorizontalAlignment.Center]
-      416 SETTABLEKS                       R26 R25 K80 ["ButtonHorizontalAlignment"]
-      418 DUPTABLE                         R26 K95 [{"Contents"}]
-      419 GETUPVAL                         R28 2
-      420 GETTABLEKS                       R27 R28 K32 ["createElement"]
-      422 GETUPVAL                         R28 20
-      423 NEWTABLE                         R29 8 0
-      425 GETIMPORT                        R30 K98 [Enum.AutomaticSize.Y]
-      427 SETTABLEKS                       R30 R29 K96 ["AutomaticSize"]
-      429 GETIMPORT                        R30 K101 [Enum.FillDirection.Vertical]
-      431 SETTABLEKS                       R30 R29 K102 ["Layout"]
-      433 GETIMPORT                        R30 K93 [Enum.HorizontalAlignment.Center]
-      435 SETTABLEKS                       R30 R29 K91 ["HorizontalAlignment"]
-      437 GETIMPORT                        R30 K105 [Enum.VerticalAlignment.Top]
-      439 SETTABLEKS                       R30 R29 K103 ["VerticalAlignment"]
-      441 GETTABLEKS                       R30 R2 K106 ["FailureDialogSpacing"]
-      443 SETTABLEKS                       R30 R29 K107 ["Spacing"]
-      445 GETUPVAL                         R32 2
-      446 GETTABLEKS                       R31 R32 K108 ["Change"]
-      448 GETTABLEKS                       R30 R31 K109 ["AbsoluteSize"]
-      450 NEWCLOSURE                       R31 P7
-      451 CAPTURE                          VAL R13
-      452 SETTABLE                         R31 R29 R30
-      453 DUPTABLE                         R30 K111 [{"Title", "Hint"}]
-      454 MOVE                             R31 R10
-      455 JUMPIFNOT                        R31 ; [+35]
-      456 GETUPVAL                         R32 2
-      457 GETTABLEKS                       R31 R32 K32 ["createElement"]
-      459 GETUPVAL                         R32 21
-      460 DUPTABLE                         R33 K116 [{"AutomaticSize", "Font", "LayoutOrder", "Size", "Text", "TextWrapped", "TextXAlignment"}]
-      461 GETIMPORT                        R34 K98 [Enum.AutomaticSize.Y]
-      463 SETTABLEKS                       R34 R33 K96 ["AutomaticSize"]
-      465 GETIMPORT                        R34 K118 [Enum.Font.SourceSansBold]
-      467 SETTABLEKS                       R34 R33 K112 ["Font"]
-      469 NAMECALL                         R34 R8 K119 ["getNextOrder"]
-      471 CALL                             R34 1 1
-      472 SETTABLEKS                       R34 R33 K34 ["LayoutOrder"]
-      474 GETIMPORT                        R34 K122 [UDim2.fromScale]
-      476 LOADN                            R35 1
-      477 LOADN                            R36 0
-      478 CALL                             R34 2 1
-      479 SETTABLEKS                       R34 R33 K113 ["Size"]
-      481 SETTABLEKS                       R10 R33 K87 ["Text"]
-      483 LOADB                            R34 1
-      484 SETTABLEKS                       R34 R33 K114 ["TextWrapped"]
-      486 GETIMPORT                        R34 K124 [Enum.TextXAlignment.Left]
-      488 SETTABLEKS                       R34 R33 K115 ["TextXAlignment"]
-      490 CALL                             R31 2 1
-      491 SETTABLEKS                       R31 R30 K73 ["Title"]
-      493 GETUPVAL                         R32 2
-      494 GETTABLEKS                       R31 R32 K32 ["createElement"]
-      496 GETUPVAL                         R32 21
-      497 DUPTABLE                         R33 K125 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextWrapped", "TextXAlignment"}]
-      498 GETIMPORT                        R34 K98 [Enum.AutomaticSize.Y]
-      500 SETTABLEKS                       R34 R33 K96 ["AutomaticSize"]
-      502 NAMECALL                         R34 R8 K119 ["getNextOrder"]
-      504 CALL                             R34 1 1
-      505 SETTABLEKS                       R34 R33 K34 ["LayoutOrder"]
-      507 GETIMPORT                        R34 K122 [UDim2.fromScale]
-      509 LOADN                            R35 1
-      510 LOADN                            R36 0
-      511 CALL                             R34 2 1
-      512 SETTABLEKS                       R34 R33 K113 ["Size"]
-      514 JUMPIFEQKNIL                     R4 ; [+30]
-      516 GETTABLEKS                       R36 R4 K7 ["type"]
-      518 JUMPIFNOTEQKS                    R36 K8 ["noPalette"] ; [+26]
-      520 GETTABLEKS                       R37 R4 K9 ["instances"]
-      522 LENGTH                           R36 R37
-      523 JUMPIFNOTEQKN                    R36 K10 [1] ; [+21]
-      525 GETTABLEKS                       R36 R4 K11 ["extraErrors"]
-      527 JUMPIFEQKNIL                     R36 ; [+17]
-      529 GETIMPORT                        R36 K13 [next]
-      531 GETTABLEKS                       R37 R4 K11 ["extraErrors"]
-      533 CALL                             R36 1 2
-      534 LOADB                            R35 0
-      535 JUMPIFNOTEQKS                    R37 K14 ["OnlyOneShoe"] ; [+10]
-      537 GETTABLEKS                       R39 R4 K9 ["instances"]
-      539 GETTABLEN                        R38 R39 1
-      540 JUMPIFEQ                         R38 R36 ; [+2]
-      542 LOADB                            R35 0 +1
-      543 LOADB                            R35 1
-      544 JUMP                             ; [+1]
-      545 LOADB                            R35 0
-      546 JUMPIFNOT                        R35 ; [+2]
-      547 MOVE                             R34 R11
-      548 JUMP                             ; [+7]
-      549 MOVE                             R35 R11
-      550 LOADK                            R38 K15 ["AddItems"]
-      551 LOADK                            R39 K126 ["FailedAddHint"]
-      552 NAMECALL                         R36 R1 K17 ["getText"]
-      554 CALL                             R36 3 1
-      555 CONCAT                           R34 R35 R36
-      556 SETTABLEKS                       R34 R33 K87 ["Text"]
-      558 LOADB                            R34 1
-      559 SETTABLEKS                       R34 R33 K114 ["TextWrapped"]
-      561 GETIMPORT                        R34 K124 [Enum.TextXAlignment.Left]
-      563 SETTABLEKS                       R34 R33 K115 ["TextXAlignment"]
-      565 CALL                             R31 2 1
-      566 SETTABLEKS                       R31 R30 K110 ["Hint"]
-      568 CALL                             R27 3 1
-      569 SETTABLEKS                       R27 R26 K94 ["Contents"]
-      571 CALL                             R23 3 1
-      572 JUMP                             ; [+1]
-      573 LOADNIL                          R23
-      574 SETTABLEKS                       R23 R22 K38 ["FailureDialog"]
-      576 CALL                             R19 3 -1
-      577 RETURN                           R19 -1
+      281 GETIMPORT                        R30 K68 [UDim2.fromScale]
+      283 LOADK                            R31 K69 [0.43]
+      284 LOADN                            R32 1
+      285 CALL                             R30 2 1
+      286 SETTABLEKS                       R30 R29 K61 ["anchorSize"]
+      288 GETUPVAL                         R31 2
+      289 GETTABLEKS                       R30 R31 K32 ["createElement"]
+      291 GETUPVAL                         R31 11
+      292 DUPTABLE                         R32 K71 [{"tag", "Size", "LayoutOrder", "onActivated", "width"}]
+      293 LOADK                            R33 K72 ["row align-x-center align-y-center hover-bg-action-standard size-full-1000 radius-small cursor-pointer"]
+      294 SETTABLEKS                       R33 R32 K33 ["tag"]
+      296 GETIMPORT                        R33 K73 [UDim2.new]
+      298 LOADN                            R34 1
+      299 LOADN                            R35 0
+      300 LOADN                            R36 1
+      301 LOADN                            R37 0
+      302 CALL                             R33 4 1
+      303 SETTABLEKS                       R33 R32 K70 ["Size"]
+      305 LOADN                            R33 3
+      306 SETTABLEKS                       R33 R32 K34 ["LayoutOrder"]
+      308 GETTABLEKS                       R33 R15 K74 ["toggle"]
+      310 SETTABLEKS                       R33 R32 K48 ["onActivated"]
+      312 GETIMPORT                        R33 K55 [UDim.new]
+      314 LOADN                            R34 0
+      315 LOADN                            R35 38
+      316 CALL                             R33 2 1
+      317 SETTABLEKS                       R33 R32 K49 ["width"]
+      319 DUPTABLE                         R33 K76 [{"Icon"}]
+      320 GETUPVAL                         R35 2
+      321 GETTABLEKS                       R34 R35 K32 ["createElement"]
+      323 GETUPVAL                         R35 17
+      324 DUPTABLE                         R36 K77 [{"icon", "size", "onActivated"}]
+      325 DUPTABLE                         R37 K79 [{"name", "variant"}]
+      326 GETUPVAL                         R39 13
+      327 GETTABLEKS                       R38 R39 K80 ["CaretSmallDown"]
+      329 SETTABLEKS                       R38 R37 K78 ["name"]
+      331 GETUPVAL                         R39 18
+      332 GETTABLEKS                       R38 R39 K81 ["Filled"]
+      334 SETTABLEKS                       R38 R37 K47 ["variant"]
+      336 SETTABLEKS                       R37 R36 K45 ["icon"]
+      338 GETUPVAL                         R38 14
+      339 GETTABLEKS                       R37 R38 K52 ["Medium"]
+      341 SETTABLEKS                       R37 R36 K46 ["size"]
+      343 GETTABLEKS                       R37 R15 K74 ["toggle"]
+      345 SETTABLEKS                       R37 R36 K48 ["onActivated"]
+      347 CALL                             R34 2 1
+      348 SETTABLEKS                       R34 R33 K75 ["Icon"]
+      350 CALL                             R30 3 1
+      351 SETTABLEKS                       R30 R29 K62 ["anchor"]
+      353 CALL                             R27 2 1
+      354 SETTABLEKS                       R27 R26 K43 ["AddItemMenu"]
+      356 CALL                             R23 3 1
+      357 SETTABLEKS                       R23 R22 K37 ["SplitButtonContainer"]
+      359 JUMPIFEQKNIL                     R4 ; [+245]
+      361 GETUPVAL                         R24 2
+      362 GETTABLEKS                       R23 R24 K32 ["createElement"]
+      364 GETUPVAL                         R24 19
+      365 DUPTABLE                         R25 K90 [{"Title", "Enabled", "MinContentSize", "Modal", "OnClose", "OnButtonPressed", "Buttons", "ButtonHorizontalAlignment"}]
+      366 JUMPIFEQKNIL                     R4 ; [+30]
+      368 GETTABLEKS                       R28 R4 K7 ["type"]
+      370 JUMPIFNOTEQKS                    R28 K8 ["noPalette"] ; [+26]
+      372 GETTABLEKS                       R29 R4 K9 ["instances"]
+      374 LENGTH                           R28 R29
+      375 JUMPIFNOTEQKN                    R28 K10 [1] ; [+21]
+      377 GETTABLEKS                       R28 R4 K11 ["extraErrors"]
+      379 JUMPIFEQKNIL                     R28 ; [+17]
+      381 GETIMPORT                        R28 K13 [next]
+      383 GETTABLEKS                       R29 R4 K11 ["extraErrors"]
+      385 CALL                             R28 1 2
+      386 LOADB                            R27 0
+      387 JUMPIFNOTEQKS                    R29 K14 ["OnlyOneShoe"] ; [+10]
+      389 GETTABLEKS                       R31 R4 K9 ["instances"]
+      391 GETTABLEN                        R30 R31 1
+      392 JUMPIFEQ                         R30 R28 ; [+2]
+      394 LOADB                            R27 0 +1
+      395 LOADB                            R27 1
+      396 JUMP                             ; [+1]
+      397 LOADB                            R27 0
+      398 JUMPIFNOT                        R27 ; [+6]
+      399 LOADK                            R28 K15 ["AddItems"]
+      400 LOADK                            R29 K91 ["WarningTitle"]
+      401 NAMECALL                         R26 R1 K17 ["getText"]
+      403 CALL                             R26 3 1
+      404 JUMP                             ; [+5]
+      405 LOADK                            R28 K15 ["AddItems"]
+      406 LOADK                            R29 K92 ["FailedTitle"]
+      407 NAMECALL                         R26 R1 K17 ["getText"]
+      409 CALL                             R26 3 1
+      410 SETTABLEKS                       R26 R25 K82 ["Title"]
+      412 LOADB                            R26 1
+      413 SETTABLEKS                       R26 R25 K83 ["Enabled"]
+      415 GETIMPORT                        R26 K94 [Vector2.new]
+      417 LOADN                            R27 94
+      418 MOVE                             R28 R12
+      419 CALL                             R26 2 1
+      420 SETTABLEKS                       R26 R25 K84 ["MinContentSize"]
+      422 LOADB                            R26 1
+      423 SETTABLEKS                       R26 R25 K85 ["Modal"]
+      425 SETTABLEKS                       R6 R25 K86 ["OnClose"]
+      427 SETTABLEKS                       R6 R25 K87 ["OnButtonPressed"]
+      429 NEWTABLE                         R26 0 1
+      431 DUPTABLE                         R27 K97 [{"Key", "Text"}]
+      432 LOADK                            R28 K98 ["OK"]
+      433 SETTABLEKS                       R28 R27 K95 ["Key"]
+      435 LOADK                            R30 K15 ["AddItems"]
+      436 LOADK                            R31 K98 ["OK"]
+      437 NAMECALL                         R28 R1 K17 ["getText"]
+      439 CALL                             R28 3 1
+      440 SETTABLEKS                       R28 R27 K96 ["Text"]
+      442 SETLIST                          R26 R27 1 [1]
+      444 SETTABLEKS                       R26 R25 K88 ["Buttons"]
+      446 GETIMPORT                        R26 K102 [Enum.HorizontalAlignment.Center]
+      448 SETTABLEKS                       R26 R25 K89 ["ButtonHorizontalAlignment"]
+      450 DUPTABLE                         R26 K104 [{"Contents"}]
+      451 GETUPVAL                         R28 2
+      452 GETTABLEKS                       R27 R28 K32 ["createElement"]
+      454 GETUPVAL                         R28 20
+      455 NEWTABLE                         R29 8 0
+      457 GETIMPORT                        R30 K107 [Enum.AutomaticSize.Y]
+      459 SETTABLEKS                       R30 R29 K105 ["AutomaticSize"]
+      461 GETIMPORT                        R30 K110 [Enum.FillDirection.Vertical]
+      463 SETTABLEKS                       R30 R29 K111 ["Layout"]
+      465 GETIMPORT                        R30 K102 [Enum.HorizontalAlignment.Center]
+      467 SETTABLEKS                       R30 R29 K100 ["HorizontalAlignment"]
+      469 GETIMPORT                        R30 K114 [Enum.VerticalAlignment.Top]
+      471 SETTABLEKS                       R30 R29 K112 ["VerticalAlignment"]
+      473 GETTABLEKS                       R30 R2 K115 ["FailureDialogSpacing"]
+      475 SETTABLEKS                       R30 R29 K116 ["Spacing"]
+      477 GETUPVAL                         R32 2
+      478 GETTABLEKS                       R31 R32 K117 ["Change"]
+      480 GETTABLEKS                       R30 R31 K118 ["AbsoluteSize"]
+      482 NEWCLOSURE                       R31 P7
+      483 CAPTURE                          VAL R13
+      484 SETTABLE                         R31 R29 R30
+      485 DUPTABLE                         R30 K120 [{"Title", "Hint"}]
+      486 MOVE                             R31 R10
+      487 JUMPIFNOT                        R31 ; [+35]
+      488 GETUPVAL                         R32 2
+      489 GETTABLEKS                       R31 R32 K32 ["createElement"]
+      491 GETUPVAL                         R32 21
+      492 DUPTABLE                         R33 K124 [{"AutomaticSize", "Font", "LayoutOrder", "Size", "Text", "TextWrapped", "TextXAlignment"}]
+      493 GETIMPORT                        R34 K107 [Enum.AutomaticSize.Y]
+      495 SETTABLEKS                       R34 R33 K105 ["AutomaticSize"]
+      497 GETIMPORT                        R34 K126 [Enum.Font.SourceSansBold]
+      499 SETTABLEKS                       R34 R33 K121 ["Font"]
+      501 NAMECALL                         R34 R8 K127 ["getNextOrder"]
+      503 CALL                             R34 1 1
+      504 SETTABLEKS                       R34 R33 K34 ["LayoutOrder"]
+      506 GETIMPORT                        R34 K68 [UDim2.fromScale]
+      508 LOADN                            R35 1
+      509 LOADN                            R36 0
+      510 CALL                             R34 2 1
+      511 SETTABLEKS                       R34 R33 K70 ["Size"]
+      513 SETTABLEKS                       R10 R33 K96 ["Text"]
+      515 LOADB                            R34 1
+      516 SETTABLEKS                       R34 R33 K122 ["TextWrapped"]
+      518 GETIMPORT                        R34 K129 [Enum.TextXAlignment.Left]
+      520 SETTABLEKS                       R34 R33 K123 ["TextXAlignment"]
+      522 CALL                             R31 2 1
+      523 SETTABLEKS                       R31 R30 K82 ["Title"]
+      525 GETUPVAL                         R32 2
+      526 GETTABLEKS                       R31 R32 K32 ["createElement"]
+      528 GETUPVAL                         R32 21
+      529 DUPTABLE                         R33 K130 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextWrapped", "TextXAlignment"}]
+      530 GETIMPORT                        R34 K107 [Enum.AutomaticSize.Y]
+      532 SETTABLEKS                       R34 R33 K105 ["AutomaticSize"]
+      534 NAMECALL                         R34 R8 K127 ["getNextOrder"]
+      536 CALL                             R34 1 1
+      537 SETTABLEKS                       R34 R33 K34 ["LayoutOrder"]
+      539 GETIMPORT                        R34 K68 [UDim2.fromScale]
+      541 LOADN                            R35 1
+      542 LOADN                            R36 0
+      543 CALL                             R34 2 1
+      544 SETTABLEKS                       R34 R33 K70 ["Size"]
+      546 JUMPIFEQKNIL                     R4 ; [+30]
+      548 GETTABLEKS                       R36 R4 K7 ["type"]
+      550 JUMPIFNOTEQKS                    R36 K8 ["noPalette"] ; [+26]
+      552 GETTABLEKS                       R37 R4 K9 ["instances"]
+      554 LENGTH                           R36 R37
+      555 JUMPIFNOTEQKN                    R36 K10 [1] ; [+21]
+      557 GETTABLEKS                       R36 R4 K11 ["extraErrors"]
+      559 JUMPIFEQKNIL                     R36 ; [+17]
+      561 GETIMPORT                        R36 K13 [next]
+      563 GETTABLEKS                       R37 R4 K11 ["extraErrors"]
+      565 CALL                             R36 1 2
+      566 LOADB                            R35 0
+      567 JUMPIFNOTEQKS                    R37 K14 ["OnlyOneShoe"] ; [+10]
+      569 GETTABLEKS                       R39 R4 K9 ["instances"]
+      571 GETTABLEN                        R38 R39 1
+      572 JUMPIFEQ                         R38 R36 ; [+2]
+      574 LOADB                            R35 0 +1
+      575 LOADB                            R35 1
+      576 JUMP                             ; [+1]
+      577 LOADB                            R35 0
+      578 JUMPIFNOT                        R35 ; [+2]
+      579 MOVE                             R34 R11
+      580 JUMP                             ; [+7]
+      581 MOVE                             R35 R11
+      582 LOADK                            R38 K15 ["AddItems"]
+      583 LOADK                            R39 K131 ["FailedAddHint"]
+      584 NAMECALL                         R36 R1 K17 ["getText"]
+      586 CALL                             R36 3 1
+      587 CONCAT                           R34 R35 R36
+      588 SETTABLEKS                       R34 R33 K96 ["Text"]
+      590 LOADB                            R34 1
+      591 SETTABLEKS                       R34 R33 K122 ["TextWrapped"]
+      593 GETIMPORT                        R34 K129 [Enum.TextXAlignment.Left]
+      595 SETTABLEKS                       R34 R33 K123 ["TextXAlignment"]
+      597 CALL                             R31 2 1
+      598 SETTABLEKS                       R31 R30 K119 ["Hint"]
+      600 CALL                             R27 3 1
+      601 SETTABLEKS                       R27 R26 K103 ["Contents"]
+      603 CALL                             R23 3 1
+      604 JUMP                             ; [+1]
+      605 LOADNIL                          R23
+      606 SETTABLEKS                       R23 R22 K38 ["FailureDialog"]
+      608 CALL                             R19 3 -1
+      609 RETURN                           R19 -1
 
 MAIN:
         0 PREPVARARGS                      0

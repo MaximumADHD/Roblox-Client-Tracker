@@ -7,9 +7,9 @@ local VRService = game:GetService("VRService")
 local GuiService = game:GetService("GuiService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
-local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
-local ConnectionUtil = require(CommonUtils:WaitForChild("ConnectionUtil"))
-local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
+local ConnectionUtil = CommonUtils.get("ConnectionUtil")
+local FlagUtil = CommonUtils.get("FlagUtil")
 
 local CameraUtils = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))

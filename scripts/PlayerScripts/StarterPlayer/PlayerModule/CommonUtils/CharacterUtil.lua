@@ -6,8 +6,8 @@
 
 local Players = game:GetService("Players")
 
-local CommonUtils = script.Parent
-local ConnectionUtil = require(CommonUtils:WaitForChild("ConnectionUtil"))
+local CommonUtils = require(script.Parent)
+local ConnectionUtil = CommonUtils.get("ConnectionUtil")
 
 local CONNECTIONS = {
     LOCAL_PLAYER = "LOCAL_PLAYER",

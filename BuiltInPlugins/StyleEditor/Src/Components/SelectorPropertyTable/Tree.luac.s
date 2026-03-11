@@ -10,56 +10,6 @@ PROTO_1:
         3 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getOrderedStyleRules"]
-        3 MOVE                             R3 R0
-        4 CALL                             R2 1 1
-        5 NEWTABLE                         R3 0 0
-        7 MOVE                             R4 R2
-        8 LOADNIL                          R5
-        9 LOADNIL                          R6
-       10 FORGPREP                         R4
-       11 GETUPVAL                         R10 1
-       12 GETTABLEKS                       R9 R10 K1 ["getQueryTypeFromSelector"]
-       14 GETTABLEKS                       R10 R8 K2 ["Selector"]
-       16 CALL                             R9 1 1
-       17 JUMPIFNOT                        R9 ; [+20]
-       18 GETUPVAL                         R12 1
-       19 GETTABLEKS                       R11 R12 K3 ["Type"]
-       21 GETTABLEKS                       R10 R11 K4 ["Pseudo"]
-       23 JUMPIFNOTEQ                      R9 R10 ; [+14]
-       25 GETUPVAL                         R11 1
-       26 GETTABLEKS                       R10 R11 K5 ["getQueryStyleRulesForPseudo"]
-       28 MOVE                             R11 R8
-       29 CALL                             R10 1 1
-       30 MOVE                             R11 R10
-       31 LOADNIL                          R12
-       32 LOADNIL                          R13
-       33 FORGPREP                         R11
-       34 LOADB                            R16 1
-       35 SETTABLE                         R16 R3 R15
-       36 FORGLOOP                         R11 2 ; [-3]
-       38 FORGLOOP                         R4 2 ; [-28]
-       40 NEWTABLE                         R4 0 0
-       42 MOVE                             R5 R2
-       43 LOADNIL                          R6
-       44 LOADNIL                          R7
-       45 FORGPREP                         R5
-       46 GETTABLE                         R10 R3 R9
-       47 JUMPIF                           R10 ; [+11]
-       48 MOVE                             R11 R4
-       49 GETUPVAL                         R13 2
-       50 GETTABLEKS                       R12 R13 K6 ["_buildStyleRule"]
-       52 MOVE                             R13 R9
-       53 MOVE                             R14 R1
-       54 CALL                             R12 2 -1
-       55 FASTCALL                         TABLE_INSERT ; [+2]
-       56 GETIMPORT                        R10 K9 [table.insert]
-       58 CALL                             R10 -1 0
-       59 FORGLOOP                         R5 2 ; [-14]
-       61 RETURN                           R4 1
-
-PROTO_3:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["_buildStyleRule"]
         3 MOVE                             R2 R0
@@ -67,100 +17,188 @@ PROTO_3:
         5 CALL                             R1 2 -1
         6 RETURN                           R1 -1
 
+PROTO_3:
+        0 GETUPVAL                         R2 0
+        1 JUMPIFNOT                        R2 ; [+69]
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R2 R3 K0 ["getOrderedStyleRulesAndFolders"]
+        5 MOVE                             R3 R0
+        6 CALL                             R2 1 1
+        7 NEWTABLE                         R3 0 0
+        9 MOVE                             R4 R2
+       10 LOADNIL                          R5
+       11 LOADNIL                          R6
+       12 FORGPREP                         R4
+       13 LOADK                            R11 K1 ["StyleRule"]
+       14 NAMECALL                         R9 R8 K2 ["IsA"]
+       16 CALL                             R9 2 1
+       17 JUMPIFNOT                        R9 ; [+26]
+       18 GETUPVAL                         R10 2
+       19 GETTABLEKS                       R9 R10 K3 ["getQueryTypeFromSelector"]
+       21 GETTABLEKS                       R10 R8 K4 ["Selector"]
+       23 CALL                             R9 1 1
+       24 GETUPVAL                         R12 2
+       25 GETTABLEKS                       R11 R12 K5 ["Type"]
+       27 GETTABLEKS                       R10 R11 K6 ["Pseudo"]
+       29 JUMPIFNOTEQ                      R9 R10 ; [+14]
+       31 GETUPVAL                         R11 2
+       32 GETTABLEKS                       R10 R11 K7 ["getQueryStyleRulesForPseudo"]
+       34 MOVE                             R11 R8
+       35 CALL                             R10 1 1
+       36 MOVE                             R11 R10
+       37 LOADNIL                          R12
+       38 LOADNIL                          R13
+       39 FORGPREP                         R11
+       40 LOADB                            R16 1
+       41 SETTABLE                         R16 R3 R15
+       42 FORGLOOP                         R11 2 ; [-3]
+       44 FORGLOOP                         R4 2 ; [-32]
+       46 NEWTABLE                         R4 0 0
+       48 MOVE                             R5 R2
+       49 LOADNIL                          R6
+       50 LOADNIL                          R7
+       51 FORGPREP                         R5
+       52 GETTABLE                         R10 R3 R9
+       53 JUMPIF                           R10 ; [+14]
+       54 GETUPVAL                         R11 3
+       55 GETTABLEKS                       R10 R11 K8 ["_buildInstance"]
+       57 MOVE                             R11 R9
+       58 MOVE                             R12 R1
+       59 CALL                             R10 2 1
+       60 JUMPIFNOT                        R10 ; [+7]
+       61 FASTCALL2                        TABLE_INSERT R4 R10 ; [+5]
+       63 MOVE                             R12 R4
+       64 MOVE                             R13 R10
+       65 GETIMPORT                        R11 K11 [table.insert]
+       67 CALL                             R11 2 0
+       68 FORGLOOP                         R5 2 ; [-17]
+       70 RETURN                           R4 1
+       71 LOADK                            R5 K1 ["StyleRule"]
+       72 NAMECALL                         R3 R0 K2 ["IsA"]
+       74 CALL                             R3 2 -1
+       75 FASTCALL                         ASSERT ; [+2]
+       76 GETIMPORT                        R2 K13 [assert]
+       78 CALL                             R2 -1 0
+       79 GETUPVAL                         R2 4
+       80 GETUPVAL                         R4 1
+       81 GETTABLEKS                       R3 R4 K14 ["getOrderedStyleRules"]
+       83 MOVE                             R4 R0
+       84 CALL                             R3 1 1
+       85 NEWCLOSURE                       R4 P0
+       86 CAPTURE                          UPVAL U3
+       87 CAPTURE                          VAL R1
+       88 CALL                             R2 2 -1
+       89 RETURN                           R2 -1
+
 PROTO_4:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["createItemId"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
-        5 LOADNIL                          R3
-        6 GETUPVAL                         R4 1
-        7 JUMPIFNOT                        R4 ; [+44]
-        8 GETUPVAL                         R5 2
-        9 GETTABLEKS                       R4 R5 K1 ["_getFilteredChildRows"]
-       11 MOVE                             R5 R0
-       12 MOVE                             R6 R1
-       13 CALL                             R4 2 1
-       14 MOVE                             R3 R4
-       15 GETUPVAL                         R5 3
-       16 GETTABLEKS                       R4 R5 K2 ["getQueryTypeFromSelector"]
-       18 GETTABLEKS                       R5 R0 K3 ["Selector"]
-       20 CALL                             R4 1 1
-       21 JUMPIFNOT                        R4 ; [+41]
-       22 GETUPVAL                         R7 3
-       23 GETTABLEKS                       R6 R7 K4 ["Type"]
-       25 GETTABLEKS                       R5 R6 K5 ["Pseudo"]
-       27 JUMPIFNOTEQ                      R4 R5 ; [+35]
-       29 GETUPVAL                         R6 3
-       30 GETTABLEKS                       R5 R6 K6 ["getQueryStyleRulesForPseudo"]
-       32 MOVE                             R6 R0
-       33 CALL                             R5 1 1
-       34 MOVE                             R6 R5
-       35 LOADNIL                          R7
-       36 LOADNIL                          R8
-       37 FORGPREP                         R6
-       38 MOVE                             R12 R3
-       39 GETUPVAL                         R14 2
-       40 GETTABLEKS                       R13 R14 K7 ["_buildStyleRule"]
-       42 MOVE                             R14 R10
-       43 MOVE                             R15 R1
-       44 CALL                             R13 2 -1
-       45 FASTCALL                         TABLE_INSERT ; [+2]
-       46 GETIMPORT                        R11 K10 [table.insert]
-       48 CALL                             R11 -1 0
-       49 FORGLOOP                         R6 2 ; [-12]
-       51 JUMP                             ; [+11]
-       52 GETUPVAL                         R4 4
-       53 GETUPVAL                         R6 5
-       54 GETTABLEKS                       R5 R6 K11 ["getOrderedStyleRules"]
-       56 MOVE                             R6 R0
-       57 CALL                             R5 1 1
-       58 NEWCLOSURE                       R6 P0
-       59 CAPTURE                          UPVAL U2
-       60 CAPTURE                          VAL R1
-       61 CALL                             R4 2 1
-       62 MOVE                             R3 R4
-       63 GETTABLEKS                       R4 R0 K12 ["SelectorError"]
-       65 GETUPVAL                         R5 6
-       66 JUMPIF                           R5 ; [+14]
-       67 JUMPIFNOTEQKS                    R4 K13 [""] ; [+13]
-       69 GETUPVAL                         R6 7
-       70 GETTABLEKS                       R5 R6 K14 ["DEPRECATED_isNestedPseudoInstance"]
-       72 MOVE                             R6 R0
-       73 CALL                             R5 1 1
-       74 JUMPIFNOT                        R5 ; [+6]
-       75 LOADK                            R7 K15 ["Label"]
-       76 LOADK                            R8 K16 ["NestedPseudoInstanceError"]
-       77 NAMECALL                         R5 R1 K17 ["getText"]
-       79 CALL                             R5 3 1
-       80 MOVE                             R4 R5
-       81 DUPTABLE                         R5 K22 [{"Id", "Name", "Instance", "Children"}]
-       82 SETTABLEKS                       R2 R5 K18 ["Id"]
-       84 DUPTABLE                         R6 K28 [{"ErrorMessage", "FullSpan", "Actions", "Schema", "Value"}]
-       85 SETTABLEKS                       R4 R6 K23 ["ErrorMessage"]
-       87 LOADB                            R7 1
-       88 SETTABLEKS                       R7 R6 K24 ["FullSpan"]
-       90 GETUPVAL                         R8 8
-       91 GETTABLEKS                       R7 R8 K29 ["FullSpanMoreAction"]
-       93 SETTABLEKS                       R7 R6 K25 ["Actions"]
-       95 GETUPVAL                         R8 9
-       96 GETTABLEKS                       R7 R8 K30 ["SelectorSchema"]
-       98 SETTABLEKS                       R7 R6 K26 ["Schema"]
-      100 GETTABLEKS                       R7 R0 K3 ["Selector"]
-      102 SETTABLEKS                       R7 R6 K27 ["Value"]
-      104 SETTABLEKS                       R6 R5 K19 ["Name"]
-      106 SETTABLEKS                       R0 R5 K20 ["Instance"]
-      108 GETUPVAL                         R6 10
-      109 GETUPVAL                         R8 2
-      110 GETTABLEKS                       R7 R8 K31 ["_buildProperties"]
-      112 MOVE                             R8 R2
-      113 MOVE                             R9 R0
-      114 CALL                             R7 2 1
-      115 MOVE                             R8 R3
-      116 CALL                             R6 2 1
-      117 SETTABLEKS                       R6 R5 K21 ["Children"]
-      119 RETURN                           R5 1
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R3 R4 K1 ["_getChildRows"]
+        8 MOVE                             R4 R0
+        9 MOVE                             R5 R1
+       10 CALL                             R3 2 1
+       11 DUPTABLE                         R4 K6 [{"Id", "Name", "Instance", "Children"}]
+       12 SETTABLEKS                       R2 R4 K2 ["Id"]
+       14 DUPTABLE                         R5 K11 [{"Schema", "Value", "FullSpan", "Actions"}]
+       15 GETUPVAL                         R7 2
+       16 GETTABLEKS                       R6 R7 K12 ["FolderSchema"]
+       18 SETTABLEKS                       R6 R5 K7 ["Schema"]
+       20 GETTABLEKS                       R6 R0 K3 ["Name"]
+       22 SETTABLEKS                       R6 R5 K8 ["Value"]
+       24 LOADB                            R6 1
+       25 SETTABLEKS                       R6 R5 K9 ["FullSpan"]
+       27 GETUPVAL                         R7 3
+       28 GETTABLEKS                       R6 R7 K13 ["MoreAction"]
+       30 SETTABLEKS                       R6 R5 K10 ["Actions"]
+       32 SETTABLEKS                       R5 R4 K3 ["Name"]
+       34 SETTABLEKS                       R0 R4 K4 ["Instance"]
+       36 SETTABLEKS                       R3 R4 K5 ["Children"]
+       38 RETURN                           R4 1
 
 PROTO_5:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["createItemId"]
+        3 MOVE                             R3 R0
+        4 CALL                             R2 1 1
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R3 R4 K1 ["_getChildRows"]
+        8 MOVE                             R4 R0
+        9 MOVE                             R5 R1
+       10 CALL                             R3 2 1
+       11 GETUPVAL                         R4 2
+       12 JUMPIFNOT                        R4 ; [+36]
+       13 GETUPVAL                         R5 3
+       14 GETTABLEKS                       R4 R5 K2 ["getQueryTypeFromSelector"]
+       16 GETTABLEKS                       R5 R0 K3 ["Selector"]
+       18 CALL                             R4 1 1
+       19 JUMPIFNOT                        R4 ; [+29]
+       20 GETUPVAL                         R7 3
+       21 GETTABLEKS                       R6 R7 K4 ["Type"]
+       23 GETTABLEKS                       R5 R6 K5 ["Pseudo"]
+       25 JUMPIFNOTEQ                      R4 R5 ; [+23]
+       27 GETUPVAL                         R6 3
+       28 GETTABLEKS                       R5 R6 K6 ["getQueryStyleRulesForPseudo"]
+       30 MOVE                             R6 R0
+       31 CALL                             R5 1 1
+       32 MOVE                             R6 R5
+       33 LOADNIL                          R7
+       34 LOADNIL                          R8
+       35 FORGPREP                         R6
+       36 MOVE                             R12 R3
+       37 GETUPVAL                         R14 1
+       38 GETTABLEKS                       R13 R14 K7 ["_buildStyleRule"]
+       40 MOVE                             R14 R10
+       41 MOVE                             R15 R1
+       42 CALL                             R13 2 -1
+       43 FASTCALL                         TABLE_INSERT ; [+2]
+       44 GETIMPORT                        R11 K10 [table.insert]
+       46 CALL                             R11 -1 0
+       47 FORGLOOP                         R6 2 ; [-12]
+       49 GETTABLEKS                       R4 R0 K11 ["SelectorError"]
+       51 GETUPVAL                         R5 4
+       52 JUMPIF                           R5 ; [+14]
+       53 JUMPIFNOTEQKS                    R4 K12 [""] ; [+13]
+       55 GETUPVAL                         R6 5
+       56 GETTABLEKS                       R5 R6 K13 ["DEPRECATED_isNestedPseudoInstance"]
+       58 MOVE                             R6 R0
+       59 CALL                             R5 1 1
+       60 JUMPIFNOT                        R5 ; [+6]
+       61 LOADK                            R7 K14 ["Label"]
+       62 LOADK                            R8 K15 ["NestedPseudoInstanceError"]
+       63 NAMECALL                         R5 R1 K16 ["getText"]
+       65 CALL                             R5 3 1
+       66 MOVE                             R4 R5
+       67 DUPTABLE                         R5 K21 [{"Id", "Name", "Instance", "Children"}]
+       68 SETTABLEKS                       R2 R5 K17 ["Id"]
+       70 DUPTABLE                         R6 K27 [{"ErrorMessage", "FullSpan", "Actions", "Schema", "Value"}]
+       71 SETTABLEKS                       R4 R6 K22 ["ErrorMessage"]
+       73 LOADB                            R7 1
+       74 SETTABLEKS                       R7 R6 K23 ["FullSpan"]
+       76 GETUPVAL                         R8 6
+       77 GETTABLEKS                       R7 R8 K28 ["FullSpanMoreAction"]
+       79 SETTABLEKS                       R7 R6 K24 ["Actions"]
+       81 GETUPVAL                         R8 7
+       82 GETTABLEKS                       R7 R8 K29 ["SelectorSchema"]
+       84 SETTABLEKS                       R7 R6 K25 ["Schema"]
+       86 GETTABLEKS                       R7 R0 K3 ["Selector"]
+       88 SETTABLEKS                       R7 R6 K26 ["Value"]
+       90 SETTABLEKS                       R6 R5 K18 ["Name"]
+       92 SETTABLEKS                       R0 R5 K19 ["Instance"]
+       94 GETUPVAL                         R6 8
+       95 GETUPVAL                         R8 1
+       96 GETTABLEKS                       R7 R8 K30 ["_buildProperties"]
+       98 MOVE                             R8 R2
+       99 MOVE                             R9 R0
+      100 CALL                             R7 2 1
+      101 MOVE                             R8 R3
+      102 CALL                             R6 2 1
+      103 SETTABLEKS                       R6 R5 K20 ["Children"]
+      105 RETURN                           R5 1
+
+PROTO_6:
         0 DUPTABLE                         R2 K4 [{"Id", "Name", "Value", "Children"}]
         1 GETUPVAL                         R4 0
         2 GETTABLEKS                       R3 R4 K5 ["createItemId"]
@@ -194,7 +232,7 @@ PROTO_5:
        44 SETTABLEKS                       R3 R2 K3 ["Children"]
        46 RETURN                           R2 1
 
-PROTO_6:
+PROTO_7:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R1
         2 LOADNIL                          R3
@@ -300,7 +338,7 @@ PROTO_6:
       134 SETTABLEKS                       R7 R6 K16 ["Children"]
       136 RETURN                           R6 1
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["findFirstClassSelector"]
         3 MOVE                             R3 R1
@@ -341,7 +379,31 @@ PROTO_7:
        43 CALL                             R7 -1 0
        44 RETURN                           R6 1
 
-PROTO_8:
+PROTO_9:
+        0 LOADK                            R4 K0 ["StyleRule"]
+        1 NAMECALL                         R2 R0 K1 ["IsA"]
+        3 CALL                             R2 2 1
+        4 JUMPIFNOT                        R2 ; [+7]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R2 R3 K2 ["_buildStyleRule"]
+        8 MOVE                             R3 R0
+        9 MOVE                             R4 R1
+       10 CALL                             R2 2 -1
+       11 RETURN                           R2 -1
+       12 LOADK                            R4 K3 ["Folder"]
+       13 NAMECALL                         R2 R0 K1 ["IsA"]
+       15 CALL                             R2 2 1
+       16 JUMPIFNOT                        R2 ; [+7]
+       17 GETUPVAL                         R3 0
+       18 GETTABLEKS                       R2 R3 K4 ["_buildFolderRow"]
+       20 MOVE                             R3 R0
+       21 MOVE                             R4 R1
+       22 CALL                             R2 2 -1
+       23 RETURN                           R2 -1
+       24 LOADNIL                          R2
+       25 RETURN                           R2 1
+
+PROTO_10:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["_buildStyleRule"]
         3 MOVE                             R3 R0
@@ -356,7 +418,26 @@ PROTO_8:
        15 CALL                             R4 2 -1
        16 RETURN                           R4 -1
 
-PROTO_9:
+PROTO_11:
+        0 GETUPVAL                         R3 0
+        1 FASTCALL1                        ASSERT R3 ; [+2]
+        2 GETIMPORT                        R2 K1 [assert]
+        4 CALL                             R2 1 0
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R2 R3 K2 ["_buildInstance"]
+        8 MOVE                             R3 R0
+        9 MOVE                             R4 R1
+       10 CALL                             R2 2 1
+       11 NEWTABLE                         R3 0 1
+       13 MOVE                             R4 R2
+       14 SETLIST                          R3 R4 1 [1]
+       16 GETUPVAL                         R4 2
+       17 MOVE                             R6 R3
+       18 NAMECALL                         R4 R4 K3 ["updatePaths"]
+       20 CALL                             R4 2 -1
+       21 RETURN                           R4 -1
+
+PROTO_12:
         0 JUMPIFNOT                        R0 ; [+3]
         1 LENGTH                           R2 R0
         2 JUMPIFNOTEQKN                    R2 K0 [0] ; [+2]
@@ -500,47 +581,61 @@ MAIN:
       195 SETTABLEKS                       R23 R22 K45 ["getId"]
       197 CALL                             R21 1 1
       198 SETTABLEKS                       R21 R20 K8 ["EditTree"]
-      200 DUPCLOSURE                       R22 K47 [PROTO_2]
-      201 CAPTURE                          VAL R14
-      202 CAPTURE                          VAL R13
-      203 CAPTURE                          VAL R20
-      204 SETTABLEKS                       R22 R20 K48 ["_getFilteredChildRows"]
-      206 DUPCLOSURE                       R22 K49 [PROTO_4]
-      207 CAPTURE                          VAL R18
-      208 CAPTURE                          VAL R4
-      209 CAPTURE                          VAL R20
-      210 CAPTURE                          VAL R13
-      211 CAPTURE                          VAL R10
-      212 CAPTURE                          VAL R14
-      213 CAPTURE                          VAL R3
-      214 CAPTURE                          VAL R12
-      215 CAPTURE                          VAL R11
-      216 CAPTURE                          VAL R15
-      217 CAPTURE                          VAL R6
-      218 SETTABLEKS                       R22 R20 K50 ["_buildStyleRule"]
-      220 DUPCLOSURE                       R22 K51 [PROTO_5]
-      221 CAPTURE                          VAL R18
-      222 CAPTURE                          VAL R8
+      200 DUPCLOSURE                       R22 K47 [PROTO_3]
+      201 CAPTURE                          VAL R4
+      202 CAPTURE                          VAL R14
+      203 CAPTURE                          VAL R13
+      204 CAPTURE                          VAL R20
+      205 CAPTURE                          VAL R10
+      206 SETTABLEKS                       R22 R20 K48 ["_getChildRows"]
+      208 DUPCLOSURE                       R22 K49 [PROTO_4]
+      209 CAPTURE                          VAL R18
+      210 CAPTURE                          VAL R20
+      211 CAPTURE                          VAL R15
+      212 CAPTURE                          VAL R11
+      213 SETTABLEKS                       R22 R20 K50 ["_buildFolderRow"]
+      215 DUPCLOSURE                       R22 K51 [PROTO_5]
+      216 CAPTURE                          VAL R18
+      217 CAPTURE                          VAL R20
+      218 CAPTURE                          VAL R4
+      219 CAPTURE                          VAL R13
+      220 CAPTURE                          VAL R3
+      221 CAPTURE                          VAL R12
+      222 CAPTURE                          VAL R11
       223 CAPTURE                          VAL R15
-      224 CAPTURE                          VAL R11
-      225 SETTABLEKS                       R22 R20 K52 ["_buildEmptyRow"]
-      227 DUPCLOSURE                       R22 K53 [PROTO_7]
-      228 CAPTURE                          VAL R12
-      229 CAPTURE                          VAL R9
-      230 CAPTURE                          VAL R16
-      231 CAPTURE                          VAL R7
-      232 CAPTURE                          VAL R17
-      233 CAPTURE                          VAL R15
-      234 CAPTURE                          VAL R8
-      235 CAPTURE                          VAL R18
-      236 CAPTURE                          VAL R11
-      237 CAPTURE                          VAL R20
-      238 SETTABLEKS                       R22 R20 K54 ["_buildProperties"]
-      240 DUPCLOSURE                       R22 K55 [PROTO_8]
-      241 CAPTURE                          VAL R20
-      242 CAPTURE                          VAL R21
-      243 SETTABLEKS                       R22 R20 K56 ["buildItems"]
-      245 DUPCLOSURE                       R22 K57 [PROTO_9]
-      246 CAPTURE                          VAL R20
-      247 SETTABLEKS                       R22 R20 K58 ["expandNewRows"]
-      249 RETURN                           R20 1
+      224 CAPTURE                          VAL R6
+      225 SETTABLEKS                       R22 R20 K52 ["_buildStyleRule"]
+      227 DUPCLOSURE                       R22 K53 [PROTO_6]
+      228 CAPTURE                          VAL R18
+      229 CAPTURE                          VAL R8
+      230 CAPTURE                          VAL R15
+      231 CAPTURE                          VAL R11
+      232 SETTABLEKS                       R22 R20 K54 ["_buildEmptyRow"]
+      234 DUPCLOSURE                       R22 K55 [PROTO_8]
+      235 CAPTURE                          VAL R12
+      236 CAPTURE                          VAL R9
+      237 CAPTURE                          VAL R16
+      238 CAPTURE                          VAL R7
+      239 CAPTURE                          VAL R17
+      240 CAPTURE                          VAL R15
+      241 CAPTURE                          VAL R8
+      242 CAPTURE                          VAL R18
+      243 CAPTURE                          VAL R11
+      244 CAPTURE                          VAL R20
+      245 SETTABLEKS                       R22 R20 K56 ["_buildProperties"]
+      247 DUPCLOSURE                       R22 K57 [PROTO_9]
+      248 CAPTURE                          VAL R20
+      249 SETTABLEKS                       R22 R20 K58 ["_buildInstance"]
+      251 DUPCLOSURE                       R22 K59 [PROTO_10]
+      252 CAPTURE                          VAL R20
+      253 CAPTURE                          VAL R21
+      254 SETTABLEKS                       R22 R20 K60 ["DEPRECATED_buildItems"]
+      256 DUPCLOSURE                       R22 K61 [PROTO_11]
+      257 CAPTURE                          VAL R4
+      258 CAPTURE                          VAL R20
+      259 CAPTURE                          VAL R21
+      260 SETTABLEKS                       R22 R20 K62 ["buildItems"]
+      262 DUPCLOSURE                       R22 K63 [PROTO_12]
+      263 CAPTURE                          VAL R20
+      264 SETTABLEKS                       R22 R20 K64 ["expandNewRows"]
+      266 RETURN                           R20 1

@@ -6,7 +6,6 @@ local Types = require(Root.util.Types)
 
 local Analytics = require(Root.Analytics)
 
-local getFFlagUGCValidatePartMass = require(Root.flags.getFFlagUGCValidatePartMass)
 local getFIntUGCValidationPartMaxMass = require(Root.flags.getFIntUGCValidationPartMaxMass)
 
 -- validation logic uses MeshPart.Size in several places to check asset bounds
@@ -44,21 +43,15 @@ local function resetPhysicsData(roots: { Instance }, validationContext: Types.Va
 						return false, "Failed to load mesh data"
 					end
 
-					if getFFlagUGCValidatePartMass() then
-						if instance:GetMass() > getFIntUGCValidationPartMaxMass() then
-							Analytics.reportFailure(
-								Analytics.ErrorType.resetPhysicsData_LargeMass,
-								nil,
-								validationContext
+					if instance:GetMass() > getFIntUGCValidationPartMaxMass() then
+						Analytics.reportFailure(Analytics.ErrorType.resetPhysicsData_LargeMass, nil, validationContext)
+						return false,
+							string.format(
+								"%s has a mass of %d while the limit is %d.",
+								instance.Name,
+								instance:GetMass(),
+								getFIntUGCValidationPartMaxMass()
 							)
-							return false,
-								string.format(
-									"%s has a mass of %d while the limit is %d.",
-									instance.Name,
-									instance:GetMass(),
-									getFIntUGCValidationPartMaxMass()
-								)
-						end
 					end
 				end
 			end

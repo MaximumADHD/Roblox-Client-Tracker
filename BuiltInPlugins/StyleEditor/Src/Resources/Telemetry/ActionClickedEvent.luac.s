@@ -79,12 +79,12 @@ MAIN:
        93 SETTABLEKS                       R12 R11 K28 ["backends"]
        95 SETTABLEKS                       R9 R11 K29 ["throttlingPercentage"]
        97 NEWTABLE                         R12 0 3
-       99 LOADN                            R13 12
-      100 LOADN                            R14 5
-      101 LOADN                            R15 22
+       99 LOADN                            R13 2
+      100 LOADN                            R14 25
+      101 LOADN                            R15 26
       102 SETLIST                          R12 R13 3 [1]
       104 SETTABLEKS                       R12 R11 K30 ["lastUpdated"]
-      106 LOADK                            R12 K37 ["ContextMenu, onboarding link, button pressed or token/property edited in the StyleEditor."]
+      106 LOADK                            R12 K37 ["ContextMenu, onboarding link, button pressed, token/property created, or property created in the StyleEditor."]
       107 SETTABLEKS                       R12 R11 K31 ["description"]
       109 LOADK                            R12 K38 [""]
       110 SETTABLEKS                       R12 R11 K32 ["links"]

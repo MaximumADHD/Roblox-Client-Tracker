@@ -1,8 +1,6 @@
 local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
-
-local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagUGCValidationMakeupSupport = require(root.flags.getFFlagUGCValidationMakeupSupport)
 
 local ConstantsInterface = require(root.ConstantsInterface)
@@ -51,7 +49,7 @@ local function validateInternal(validationContext: Types.ValidationContext): (bo
 		return validateBodyPartInternal(validationContext)
 	end
 
-	if getFFlagAddUGCValidationForPackage() and assetTypeEnum == Enum.AssetType.Model then
+	if assetTypeEnum == Enum.AssetType.Model then
 		return validatePackage(validationContext)
 	end
 

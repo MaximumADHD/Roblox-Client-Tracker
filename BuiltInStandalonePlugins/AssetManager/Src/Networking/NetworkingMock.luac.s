@@ -584,22 +584,25 @@ PROTO_29:
       126 GETUPVAL                         R3 4
       127 MOVE                             R4 R1
       128 CALL                             R3 1 0
-      129 GETUPVAL                         R3 4
-      130 MOVE                             R4 R2
-      131 CALL                             R3 1 0
-      132 RETURN                           R0 0
+      129 GETUPVAL                         R3 5
+      130 JUMPIFNOT                        R3 ; [+3]
+      131 GETUPVAL                         R3 4
+      132 MOVE                             R4 R2
+      133 CALL                             R3 1 0
+      134 RETURN                           R0 0
 
 PROTO_30:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["ResumeAsync"]
-        3 NEWCLOSURE                       R5 P0
-        4 CAPTURE                          VAL R3
+        0 GETUPVAL                         R6 0
+        1 GETTABLEKS                       R5 R6 K0 ["ResumeAsync"]
+        3 NEWCLOSURE                       R6 P0
+        4 CAPTURE                          VAL R4
         5 CAPTURE                          VAL R0
         6 CAPTURE                          VAL R1
         7 CAPTURE                          UPVAL U1
-        8 CAPTURE                          VAL R2
-        9 SETTABLEKS                       R5 R4 K1 ["FetchAssetInfo"]
-       11 RETURN                           R0 0
+        8 CAPTURE                          VAL R3
+        9 CAPTURE                          VAL R2
+       10 SETTABLEKS                       R6 R5 K1 ["FetchAssetInfo"]
+       12 RETURN                           R0 0
 
 PROTO_31:
         0 JUMPIFNOT                        R0 ; [+9]

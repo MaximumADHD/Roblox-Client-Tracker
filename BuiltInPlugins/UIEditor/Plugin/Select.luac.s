@@ -105,75 +105,32 @@ PROTO_1:
 
 PROTO_2:
         0 NEWTABLE                         R1 0 0
-        2 GETUPVAL                         R2 0
-        3 JUMPIFNOT                        R2 ; [+33]
-        4 NAMECALL                         R2 R0 K0 ["GetDescendants"]
-        6 CALL                             R2 1 1
-        7 MOVE                             R3 R2
-        8 LOADNIL                          R4
-        9 LOADNIL                          R5
-       10 FORGPREP                         R3
-       11 LOADK                            R10 K1 ["GuiBase2d"]
-       12 NAMECALL                         R8 R7 K2 ["IsA"]
-       14 CALL                             R8 2 1
-       15 JUMPIF                           R8 ; [+5]
-       16 LOADK                            R10 K3 ["Folder"]
-       17 NAMECALL                         R8 R7 K2 ["IsA"]
-       19 CALL                             R8 2 1
-       20 JUMPIFNOT                        R8 ; [+13]
-       21 GETUPVAL                         R8 1
-       22 MOVE                             R10 R7
-       23 NAMECALL                         R8 R8 K4 ["isVisible"]
-       25 CALL                             R8 2 1
-       26 JUMPIFNOT                        R8 ; [+7]
-       27 FASTCALL2                        TABLE_INSERT R1 R7 ; [+5]
-       29 MOVE                             R9 R1
-       30 MOVE                             R10 R7
-       31 GETIMPORT                        R8 K7 [table.insert]
-       33 CALL                             R8 2 0
-       34 FORGLOOP                         R3 2 ; [-24]
-       36 RETURN                           R1 1
-       37 NAMECALL                         R2 R0 K8 ["GetChildren"]
-       39 CALL                             R2 1 1
-       40 LOADN                            R5 1
-       41 LENGTH                           R3 R2
-       42 LOADN                            R4 1
-       43 FORNPREP                         R3
-       44 GETTABLE                         R6 R2 R5
-       45 LOADK                            R8 K1 ["GuiBase2d"]
-       46 NAMECALL                         R6 R6 K2 ["IsA"]
-       48 CALL                             R6 2 1
-       49 JUMPIF                           R6 ; [+6]
-       50 GETTABLE                         R6 R2 R5
-       51 LOADK                            R8 K3 ["Folder"]
-       52 NAMECALL                         R6 R6 K2 ["IsA"]
-       54 CALL                             R6 2 1
-       55 JUMPIFNOT                        R6 ; [+28]
-       56 GETUPVAL                         R6 2
-       57 GETTABLE                         R7 R2 R5
-       58 CALL                             R6 1 1
-       59 GETUPVAL                         R7 1
-       60 GETTABLE                         R9 R2 R5
-       61 NAMECALL                         R7 R7 K4 ["isVisible"]
-       63 CALL                             R7 2 1
-       64 JUMPIFNOT                        R7 ; [+7]
-       65 GETTABLE                         R9 R2 R5
-       66 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
-       68 MOVE                             R8 R1
-       69 GETIMPORT                        R7 K7 [table.insert]
-       71 CALL                             R7 2 0
-       72 LOADN                            R9 1
-       73 LENGTH                           R7 R6
-       74 LOADN                            R8 1
-       75 FORNPREP                         R7
-       76 GETTABLE                         R12 R6 R9
-       77 FASTCALL2                        TABLE_INSERT R1 R12 ; [+4]
-       79 MOVE                             R11 R1
-       80 GETIMPORT                        R10 K7 [table.insert]
-       82 CALL                             R10 2 0
-       83 FORNLOOP                         R7
-       84 FORNLOOP                         R3
-       85 RETURN                           R1 1
+        2 NAMECALL                         R2 R0 K0 ["GetDescendants"]
+        4 CALL                             R2 1 1
+        5 MOVE                             R3 R2
+        6 LOADNIL                          R4
+        7 LOADNIL                          R5
+        8 FORGPREP                         R3
+        9 LOADK                            R10 K1 ["GuiBase2d"]
+       10 NAMECALL                         R8 R7 K2 ["IsA"]
+       12 CALL                             R8 2 1
+       13 JUMPIF                           R8 ; [+5]
+       14 LOADK                            R10 K3 ["Folder"]
+       15 NAMECALL                         R8 R7 K2 ["IsA"]
+       17 CALL                             R8 2 1
+       18 JUMPIFNOT                        R8 ; [+13]
+       19 GETUPVAL                         R8 0
+       20 MOVE                             R10 R7
+       21 NAMECALL                         R8 R8 K4 ["isVisible"]
+       23 CALL                             R8 2 1
+       24 JUMPIFNOT                        R8 ; [+7]
+       25 FASTCALL2                        TABLE_INSERT R1 R7 ; [+5]
+       27 MOVE                             R9 R1
+       28 MOVE                             R10 R7
+       29 GETIMPORT                        R8 K7 [table.insert]
+       31 CALL                             R8 2 0
+       32 FORGLOOP                         R3 2 ; [-24]
+       34 RETURN                           R1 1
 
 PROTO_3:
         0 LOADK                            R4 K0 ["ZIndex"]
@@ -261,78 +218,30 @@ PROTO_5:
        49 RETURN                           R0 0
 
 PROTO_6:
-        0 LOADK                            R5 K0 ["ZIndex"]
-        1 NAMECALL                         R3 R0 K1 ["GetStyled"]
-        3 CALL                             R3 2 1
-        4 LOADK                            R6 K0 ["ZIndex"]
-        5 NAMECALL                         R4 R1 K1 ["GetStyled"]
-        7 CALL                             R4 2 1
-        8 JUMPIFLT                         R3 R4 ; [+2]
-       10 LOADB                            R2 0 +1
-       11 LOADB                            R2 1
-       12 RETURN                           R2 1
-
-PROTO_7:
         0 NEWTABLE                         R1 0 0
         2 GETUPVAL                         R2 0
-        3 JUMPIFNOT                        R2 ; [+46]
-        4 GETUPVAL                         R2 1
-        5 JUMPIFNOT                        R2 ; [+27]
-        6 GETUPVAL                         R2 2
-        7 GETTABLEKS                       R4 R0 K0 ["X"]
-        9 GETTABLEKS                       R5 R0 K1 ["Y"]
-       11 NAMECALL                         R2 R2 K2 ["GetGuiObjectsAtPosition"]
-       13 CALL                             R2 3 1
-       14 LOADN                            R5 1
-       15 LENGTH                           R3 R2
-       16 LOADN                            R4 1
-       17 FORNPREP                         R3
-       18 GETUPVAL                         R6 3
-       19 GETTABLE                         R8 R2 R5
-       20 NAMECALL                         R6 R6 K3 ["isVisible"]
-       22 CALL                             R6 2 1
-       23 JUMPIFNOT                        R6 ; [+7]
-       24 GETTABLE                         R8 R2 R5
-       25 FASTCALL2                        TABLE_INSERT R1 R8 ; [+4]
-       27 MOVE                             R7 R1
-       28 GETIMPORT                        R6 K6 [table.insert]
-       30 CALL                             R6 2 0
-       31 FORNLOOP                         R3
-       32 JUMP                             ; [+9]
-       33 GETUPVAL                         R2 2
-       34 GETTABLEKS                       R4 R0 K0 ["X"]
-       36 GETTABLEKS                       R5 R0 K1 ["Y"]
-       38 NAMECALL                         R2 R2 K2 ["GetGuiObjectsAtPosition"]
-       40 CALL                             R2 3 1
-       41 MOVE                             R1 R2
-       42 GETUPVAL                         R2 4
-       43 JUMPIF                           R2 ; [+26]
-       44 GETIMPORT                        R2 K8 [table.sort]
-       46 MOVE                             R3 R1
-       47 DUPCLOSURE                       R4 K9 [PROTO_6]
-       48 CALL                             R2 2 0
-       49 RETURN                           R1 1
-       50 GETUPVAL                         R5 5
-       51 LENGTH                           R4 R5
-       52 LOADN                            R2 1
-       53 LOADN                            R3 255
-       54 FORNPREP                         R2
-       55 GETUPVAL                         R5 6
-       56 MOVE                             R6 R0
-       57 GETUPVAL                         R8 5
-       58 GETTABLE                         R7 R8 R4
-       59 CALL                             R5 2 1
-       60 JUMPIFNOT                        R5 ; [+8]
-       61 GETUPVAL                         R8 5
-       62 GETTABLE                         R7 R8 R4
-       63 FASTCALL2                        TABLE_INSERT R1 R7 ; [+4]
-       65 MOVE                             R6 R1
-       66 GETIMPORT                        R5 K6 [table.insert]
-       68 CALL                             R5 2 0
-       69 FORNLOOP                         R2
-       70 RETURN                           R1 1
+        3 GETTABLEKS                       R4 R0 K0 ["X"]
+        5 GETTABLEKS                       R5 R0 K1 ["Y"]
+        7 NAMECALL                         R2 R2 K2 ["GetGuiObjectsAtPosition"]
+        9 CALL                             R2 3 1
+       10 LOADN                            R5 1
+       11 LENGTH                           R3 R2
+       12 LOADN                            R4 1
+       13 FORNPREP                         R3
+       14 GETUPVAL                         R6 1
+       15 GETTABLE                         R8 R2 R5
+       16 NAMECALL                         R6 R6 K3 ["isVisible"]
+       18 CALL                             R6 2 1
+       19 JUMPIFNOT                        R6 ; [+7]
+       20 GETTABLE                         R8 R2 R5
+       21 FASTCALL2                        TABLE_INSERT R1 R8 ; [+4]
+       23 MOVE                             R7 R1
+       24 GETIMPORT                        R6 K6 [table.insert]
+       26 CALL                             R6 2 0
+       27 FORNLOOP                         R3
+       28 RETURN                           R1 1
 
-PROTO_8:
+PROTO_7:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 0
         2 GETUPVAL                         R1 1
@@ -361,7 +270,7 @@ PROTO_8:
        32 GETTABLE                         R2 R1 R4
        33 RETURN                           R2 1
 
-PROTO_9:
+PROTO_8:
         0 GETUPVAL                         R2 0
         1 MOVE                             R4 R0
         2 MOVE                             R5 R1
@@ -383,7 +292,7 @@ PROTO_9:
        23 LOADB                            R3 1
        24 RETURN                           R3 1
 
-PROTO_10:
+PROTO_9:
         0 NEWTABLE                         R1 0 0
         2 GETIMPORT                        R2 K1 [ipairs]
         4 GETUPVAL                         R3 0
@@ -393,18 +302,18 @@ PROTO_10:
         8 FORGLOOP                         R2 2 [inext] ; [-2]
        10 RETURN                           R1 1
 
-PROTO_11:
+PROTO_10:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R1
         2 CALL                             R2 1 1
         3 RETURN                           R2 1
 
-PROTO_12:
+PROTO_11:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 0
         2 RETURN                           R0 0
 
-PROTO_13:
+PROTO_12:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R1
         2 CALL                             R2 1 1
@@ -527,7 +436,7 @@ PROTO_13:
       154 GETUPVAL                         R6 5
       155 RETURN                           R6 1
 
-PROTO_14:
+PROTO_13:
         0 GETIMPORT                        R3 K2 [Vector2.new]
         2 GETTABLEKS                       R5 R1 K3 ["X"]
         4 GETTABLEKS                       R6 R2 K3 ["X"]
@@ -605,7 +514,7 @@ PROTO_14:
       116 CALL                             R6 2 0
       117 RETURN                           R0 0
 
-PROTO_15:
+PROTO_14:
         0 GETIMPORT                        R4 K2 [Vector2.new]
         2 GETTABLEKS                       R6 R2 K3 ["X"]
         4 GETTABLEKS                       R7 R3 K3 ["X"]
@@ -734,79 +643,57 @@ MAIN:
        45 LOADK                            R7 K13 ["UserInputService"]
        46 NAMECALL                         R5 R5 K12 ["GetService"]
        48 CALL                             R5 2 1
-       49 GETIMPORT                        R6 K10 [game]
-       51 LOADK                            R8 K14 ["SelectRotatedGuiObjects"]
-       52 LOADB                            R9 0
-       53 NAMECALL                         R6 R6 K15 ["DefineFastFlag"]
-       55 CALL                             R6 3 1
-       56 GETIMPORT                        R7 K10 [game]
-       58 LOADK                            R9 K16 ["UIEditorFixSelectionZIndexOrdering"]
-       59 LOADB                            R10 0
-       60 NAMECALL                         R7 R7 K15 ["DefineFastFlag"]
-       62 CALL                             R7 3 1
-       63 GETIMPORT                        R8 K10 [game]
-       65 LOADK                            R10 K17 ["UIEditorFixDisplayOrderAndTransparencySelection"]
-       66 LOADB                            R11 0
-       67 NAMECALL                         R8 R8 K15 ["DefineFastFlag"]
-       69 CALL                             R8 3 1
-       70 NEWTABLE                         R9 0 0
-       72 NEWTABLE                         R10 0 0
-       74 LOADNIL                          R11
-       75 DUPCLOSURE                       R12 K18 [PROTO_0]
-       76 DUPCLOSURE                       R13 K19 [PROTO_1]
-       77 CAPTURE                          VAL R12
-       78 DUPCLOSURE                       R14 K20 [PROTO_2]
-       79 CAPTURE                          VAL R6
-       80 CAPTURE                          VAL R2
-       81 CAPTURE                          VAL R14
-       82 DUPCLOSURE                       R15 K21 [PROTO_4]
+       49 NEWTABLE                         R6 0 0
+       51 NEWTABLE                         R7 0 0
+       53 LOADNIL                          R8
+       54 DUPCLOSURE                       R9 K14 [PROTO_0]
+       55 DUPCLOSURE                       R10 K15 [PROTO_1]
+       56 CAPTURE                          VAL R9
+       57 DUPCLOSURE                       R11 K16 [PROTO_2]
+       58 CAPTURE                          VAL R2
+       59 DUPCLOSURE                       R12 K17 [PROTO_4]
+       60 CAPTURE                          VAL R11
+       61 NEWCLOSURE                       R13 P4
+       62 CAPTURE                          REF R6
+       63 CAPTURE                          VAL R12
+       64 CAPTURE                          VAL R7
+       65 DUPCLOSURE                       R14 K18 [PROTO_6]
+       66 CAPTURE                          VAL R4
+       67 CAPTURE                          VAL R2
+       68 NEWCLOSURE                       R15 P6
+       69 CAPTURE                          VAL R13
+       70 CAPTURE                          VAL R14
+       71 CAPTURE                          VAL R5
+       72 CAPTURE                          VAL R0
+       73 CAPTURE                          REF R8
+       74 DUPCLOSURE                       R16 K19 [PROTO_8]
+       75 CAPTURE                          VAL R0
+       76 NEWTABLE                         R17 8 0
+       78 NEWCLOSURE                       R18 P8
+       79 CAPTURE                          REF R6
+       80 SETTABLEKS                       R18 R17 K20 ["getGuiObjects"]
+       82 DUPCLOSURE                       R18 K21 [PROTO_10]
        83 CAPTURE                          VAL R14
-       84 NEWCLOSURE                       R16 P4
-       85 CAPTURE                          REF R9
-       86 CAPTURE                          VAL R15
-       87 CAPTURE                          VAL R10
-       88 NEWCLOSURE                       R17 P5
-       89 CAPTURE                          VAL R6
-       90 CAPTURE                          VAL R8
-       91 CAPTURE                          VAL R4
-       92 CAPTURE                          VAL R2
-       93 CAPTURE                          VAL R7
-       94 CAPTURE                          REF R9
-       95 CAPTURE                          VAL R13
-       96 NEWCLOSURE                       R18 P6
-       97 CAPTURE                          VAL R16
-       98 CAPTURE                          VAL R17
-       99 CAPTURE                          VAL R5
-      100 CAPTURE                          VAL R0
-      101 CAPTURE                          REF R11
-      102 DUPCLOSURE                       R19 K22 [PROTO_9]
-      103 CAPTURE                          VAL R0
-      104 NEWTABLE                         R20 8 0
-      106 NEWCLOSURE                       R21 P8
-      107 CAPTURE                          REF R9
-      108 SETTABLEKS                       R21 R20 K23 ["getGuiObjects"]
-      110 DUPCLOSURE                       R21 K24 [PROTO_11]
-      111 CAPTURE                          VAL R17
-      112 SETTABLEKS                       R21 R20 K25 ["getGuiObjectsAtPoint"]
-      114 DUPCLOSURE                       R21 K26 [PROTO_12]
-      115 CAPTURE                          VAL R16
-      116 SETTABLEKS                       R21 R20 K27 ["refreshPaintOrder"]
-      118 NEWCLOSURE                       R21 P11
-      119 CAPTURE                          VAL R18
-      120 CAPTURE                          VAL R1
-      121 CAPTURE                          VAL R5
-      122 CAPTURE                          VAL R0
-      123 CAPTURE                          VAL R3
-      124 CAPTURE                          REF R11
-      125 SETTABLEKS                       R21 R20 K28 ["selectTopLevelItemAtPoint"]
-      127 NEWCLOSURE                       R21 P12
-      128 CAPTURE                          REF R9
-      129 CAPTURE                          VAL R1
-      130 SETTABLEKS                       R21 R20 K29 ["selectAllObjectsInBounds"]
-      132 NEWCLOSURE                       R21 P13
-      133 CAPTURE                          REF R9
-      134 CAPTURE                          VAL R0
-      135 CAPTURE                          VAL R1
-      136 SETTABLEKS                       R21 R20 K30 ["toggleSelectionOfAllObjectsInBounds"]
-      138 CLOSEUPVALS                      R9
-      139 RETURN                           R20 1
+       84 SETTABLEKS                       R18 R17 K22 ["getGuiObjectsAtPoint"]
+       86 DUPCLOSURE                       R18 K23 [PROTO_11]
+       87 CAPTURE                          VAL R13
+       88 SETTABLEKS                       R18 R17 K24 ["refreshPaintOrder"]
+       90 NEWCLOSURE                       R18 P11
+       91 CAPTURE                          VAL R15
+       92 CAPTURE                          VAL R1
+       93 CAPTURE                          VAL R5
+       94 CAPTURE                          VAL R0
+       95 CAPTURE                          VAL R3
+       96 CAPTURE                          REF R8
+       97 SETTABLEKS                       R18 R17 K25 ["selectTopLevelItemAtPoint"]
+       99 NEWCLOSURE                       R18 P12
+      100 CAPTURE                          REF R6
+      101 CAPTURE                          VAL R1
+      102 SETTABLEKS                       R18 R17 K26 ["selectAllObjectsInBounds"]
+      104 NEWCLOSURE                       R18 P13
+      105 CAPTURE                          REF R6
+      106 CAPTURE                          VAL R0
+      107 CAPTURE                          VAL R1
+      108 SETTABLEKS                       R18 R17 K27 ["toggleSelectionOfAllObjectsInBounds"]
+      110 CLOSEUPVALS                      R6
+      111 RETURN                           R17 1

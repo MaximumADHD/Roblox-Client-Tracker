@@ -21,7 +21,6 @@ local pcallDeferred = require(root.util.pcallDeferred)
 local Types = require(root.util.Types)
 
 local getFStringUGCValidateBoundsInflationThreshold = require(root.flags.getFStringUGCValidateBoundsInflationThreshold)
-local getFFlagReportVisibilityAndIslandTelemetry = require(root.flags.getFFlagReportVisibilityAndIslandTelemetry)
 
 type Extents = {
 	min: Vector3,
@@ -303,11 +302,8 @@ local function validateAccurateBoundingBox(
 	checkInflatingGeo(validExtents, smallIslands, 3, "small geometry", assetType, reasonsAccumulator)
 
 	checkInflatingGeo(validExtents, skinnyTris, 3, "skinny triangle(s)", assetType, reasonsAccumulator)
-
-	if getFFlagReportVisibilityAndIslandTelemetry() then
-		if not (reasonsAccumulator:getFinalResults()) then
-			Analytics.reportFailure(Analytics.ErrorType.validateAccurateBoundingBox :: string, nil, validationContext)
-		end
+	if not (reasonsAccumulator:getFinalResults()) then
+		Analytics.reportFailure(Analytics.ErrorType.validateAccurateBoundingBox :: string, nil, validationContext)
 	end
 
 	return reasonsAccumulator:getFinalResults()

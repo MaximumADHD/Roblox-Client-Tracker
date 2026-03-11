@@ -1,106 +1,114 @@
 PROTO_0:
         0 GETUPVAL                         R3 0
-        1 GETUPVAL                         R4 1
-        2 CALL                             R4 0 1
-        3 LOADK                            R5 K0 ["auto"]
-        4 CALL                             R3 2 1
-        5 GETUPVAL                         R4 0
-        6 GETUPVAL                         R5 2
-        7 CALL                             R5 0 1
-        8 LOADK                            R6 K0 ["auto"]
-        9 CALL                             R4 2 1
-       10 DUPTABLE                         R5 K5 [{"system", "llm_config", "messages", "tools"}]
-       11 GETTABLEKS                       R6 R1 K1 ["system"]
-       13 SETTABLEKS                       R6 R5 K1 ["system"]
-       15 DUPTABLE                         R6 K10 [{"model", "thinking_mode", "max_tokens", "parallel_tool_calls"}]
-       16 SETTABLEKS                       R3 R6 K6 ["model"]
-       18 SETTABLEKS                       R4 R6 K7 ["thinking_mode"]
-       20 GETUPVAL                         R7 3
-       21 CALL                             R7 0 1
-       22 SETTABLEKS                       R7 R6 K8 ["max_tokens"]
-       24 LOADB                            R7 0
-       25 SETTABLEKS                       R7 R6 K9 ["parallel_tool_calls"]
-       27 SETTABLEKS                       R6 R5 K2 ["llm_config"]
-       29 GETTABLEKS                       R6 R1 K3 ["messages"]
-       31 SETTABLEKS                       R6 R5 K3 ["messages"]
-       33 GETTABLEKS                       R6 R1 K4 ["tools"]
-       35 SETTABLEKS                       R6 R5 K4 ["tools"]
-       37 DUPTABLE                         R6 K18 [{"threadId", "messageId", "requestId", "conversation", "firstMessage", "useAgenticMode", "isDebugMode"}]
-       38 GETTABLEKS                       R7 R1 K11 ["threadId"]
-       40 SETTABLEKS                       R7 R6 K11 ["threadId"]
-       42 GETTABLEKS                       R7 R1 K19 ["messageGuid"]
-       44 SETTABLEKS                       R7 R6 K12 ["messageId"]
-       46 SETTABLEKS                       R2 R6 K13 ["requestId"]
-       48 SETTABLEKS                       R5 R6 K14 ["conversation"]
-       50 GETTABLEKS                       R7 R1 K20 ["isFirstMessage"]
-       52 SETTABLEKS                       R7 R6 K15 ["firstMessage"]
-       54 GETTABLEKS                       R7 R1 K21 ["isAgenticMode"]
-       56 SETTABLEKS                       R7 R6 K16 ["useAgenticMode"]
-       58 GETUPVAL                         R9 4
-       59 GETTABLEKS                       R8 R9 K23 ["isTestAutomationEnabled"]
-       61 CALL                             R8 0 1
-       62 ORK                              R7 R8 K22 []
-       63 SETTABLEKS                       R7 R6 K17 ["isDebugMode"]
-       65 GETUPVAL                         R7 5
-       66 CALL                             R7 0 1
-       67 GETUPVAL                         R8 0
-       68 MOVE                             R9 R7
-       69 GETUPVAL                         R10 6
-       70 CALL                             R8 2 1
-       71 NEWTABLE                         R9 1 0
-       73 LOADK                            R10 K24 ["application/json"]
-       74 SETTABLEKS                       R10 R9 K25 ["Content-Type"]
-       76 JUMPIFEQKS                       R7 K26 [""] ; [+10]
-       78 NAMECALL                         R11 R0 K27 ["GetUserId"]
-       80 CALL                             R11 1 -1
-       81 FASTCALL                         TOSTRING ; [+2]
-       82 GETIMPORT                        R10 K29 [tostring]
-       84 CALL                             R10 -1 1
-       85 SETTABLEKS                       R10 R9 K30 ["robloxctx-authenticated-userid"]
-       87 GETUPVAL                         R10 7
-       88 CALL                             R10 0 1
-       89 JUMPIFNOT                        R10 ; [+15]
-       90 GETUPVAL                         R12 8
-       91 GETTABLEKS                       R11 R12 K31 ["Json"]
-       93 GETTABLEKS                       R10 R11 K32 ["encode"]
-       95 MOVE                             R11 R6
-       96 CALL                             R10 1 1
-       97 GETUPVAL                         R11 9
-       98 MOVE                             R13 R8
-       99 MOVE                             R14 R10
-      100 MOVE                             R15 R9
-      101 NAMECALL                         R11 R11 K33 ["post"]
-      103 CALL                             R11 4 -1
-      104 RETURN                           R11 -1
-      105 GETUPVAL                         R10 10
-      106 CALL                             R10 0 1
-      107 JUMPIFNOT                        R10 ; [+19]
-      108 GETUPVAL                         R10 11
-      109 MOVE                             R12 R6
-      110 NAMECALL                         R10 R10 K34 ["JSONEncode"]
-      112 CALL                             R10 2 1
-      113 LOADK                            R13 K35 ["%[%]"]
-      114 LOADK                            R14 K36 ["{}"]
-      115 NAMECALL                         R11 R10 K37 ["gsub"]
-      117 CALL                             R11 3 1
-      118 MOVE                             R10 R11
-      119 GETUPVAL                         R11 9
-      120 MOVE                             R13 R8
-      121 MOVE                             R14 R10
-      122 MOVE                             R15 R9
-      123 NAMECALL                         R11 R11 K33 ["post"]
-      125 CALL                             R11 4 -1
-      126 RETURN                           R11 -1
-      127 GETUPVAL                         R10 9
-      128 MOVE                             R12 R8
-      129 GETUPVAL                         R13 11
-      130 MOVE                             R15 R6
-      131 NAMECALL                         R13 R13 K34 ["JSONEncode"]
-      133 CALL                             R13 2 1
-      134 MOVE                             R14 R9
-      135 NAMECALL                         R10 R10 K33 ["post"]
-      137 CALL                             R10 4 -1
-      138 RETURN                           R10 -1
+        1 GETTABLEKS                       R5 R1 K0 ["isSubagent"]
+        3 JUMPIFNOT                        R5 ; [+3]
+        4 GETTABLEKS                       R4 R1 K1 ["selectedModel"]
+        6 JUMP                             ; [+1]
+        7 LOADNIL                          R4
+        8 GETUPVAL                         R5 1
+        9 CALL                             R5 0 1
+       10 LOADK                            R6 K2 ["auto"]
+       11 CALL                             R3 3 1
+       12 GETUPVAL                         R4 0
+       13 GETUPVAL                         R5 2
+       14 CALL                             R5 0 1
+       15 LOADK                            R6 K2 ["auto"]
+       16 CALL                             R4 2 1
+       17 DUPTABLE                         R5 K7 [{"system", "llm_config", "messages", "tools"}]
+       18 GETTABLEKS                       R6 R1 K3 ["system"]
+       20 SETTABLEKS                       R6 R5 K3 ["system"]
+       22 DUPTABLE                         R6 K12 [{"model", "thinking_mode", "max_tokens", "parallel_tool_calls"}]
+       23 SETTABLEKS                       R3 R6 K8 ["model"]
+       25 SETTABLEKS                       R4 R6 K9 ["thinking_mode"]
+       27 GETUPVAL                         R7 3
+       28 CALL                             R7 0 1
+       29 SETTABLEKS                       R7 R6 K10 ["max_tokens"]
+       31 LOADB                            R7 0
+       32 SETTABLEKS                       R7 R6 K11 ["parallel_tool_calls"]
+       34 SETTABLEKS                       R6 R5 K4 ["llm_config"]
+       36 GETTABLEKS                       R6 R1 K5 ["messages"]
+       38 SETTABLEKS                       R6 R5 K5 ["messages"]
+       40 GETTABLEKS                       R6 R1 K6 ["tools"]
+       42 SETTABLEKS                       R6 R5 K6 ["tools"]
+       44 DUPTABLE                         R6 K20 [{"threadId", "messageId", "requestId", "conversation", "firstMessage", "useAgenticMode", "isDebugMode", "isSubagent"}]
+       45 GETTABLEKS                       R7 R1 K13 ["threadId"]
+       47 SETTABLEKS                       R7 R6 K13 ["threadId"]
+       49 GETTABLEKS                       R7 R1 K21 ["messageGuid"]
+       51 SETTABLEKS                       R7 R6 K14 ["messageId"]
+       53 SETTABLEKS                       R2 R6 K15 ["requestId"]
+       55 SETTABLEKS                       R5 R6 K16 ["conversation"]
+       57 GETTABLEKS                       R7 R1 K22 ["isFirstMessage"]
+       59 SETTABLEKS                       R7 R6 K17 ["firstMessage"]
+       61 GETTABLEKS                       R7 R1 K23 ["isAgenticMode"]
+       63 SETTABLEKS                       R7 R6 K18 ["useAgenticMode"]
+       65 GETUPVAL                         R9 4
+       66 GETTABLEKS                       R8 R9 K25 ["isTestAutomationEnabled"]
+       68 CALL                             R8 0 1
+       69 ORK                              R7 R8 K24 []
+       70 SETTABLEKS                       R7 R6 K19 ["isDebugMode"]
+       72 GETTABLEKS                       R8 R1 K0 ["isSubagent"]
+       74 ORK                              R7 R8 K24 []
+       75 SETTABLEKS                       R7 R6 K0 ["isSubagent"]
+       77 GETUPVAL                         R7 5
+       78 CALL                             R7 0 1
+       79 GETUPVAL                         R8 0
+       80 MOVE                             R9 R7
+       81 GETUPVAL                         R10 6
+       82 CALL                             R8 2 1
+       83 NEWTABLE                         R9 1 0
+       85 LOADK                            R10 K26 ["application/json"]
+       86 SETTABLEKS                       R10 R9 K27 ["Content-Type"]
+       88 JUMPIFEQKS                       R7 K28 [""] ; [+10]
+       90 NAMECALL                         R11 R0 K29 ["GetUserId"]
+       92 CALL                             R11 1 -1
+       93 FASTCALL                         TOSTRING ; [+2]
+       94 GETIMPORT                        R10 K31 [tostring]
+       96 CALL                             R10 -1 1
+       97 SETTABLEKS                       R10 R9 K32 ["robloxctx-authenticated-userid"]
+       99 GETUPVAL                         R10 7
+      100 CALL                             R10 0 1
+      101 JUMPIFNOT                        R10 ; [+15]
+      102 GETUPVAL                         R12 8
+      103 GETTABLEKS                       R11 R12 K33 ["Json"]
+      105 GETTABLEKS                       R10 R11 K34 ["encode"]
+      107 MOVE                             R11 R6
+      108 CALL                             R10 1 1
+      109 GETUPVAL                         R11 9
+      110 MOVE                             R13 R8
+      111 MOVE                             R14 R10
+      112 MOVE                             R15 R9
+      113 NAMECALL                         R11 R11 K35 ["post"]
+      115 CALL                             R11 4 -1
+      116 RETURN                           R11 -1
+      117 GETUPVAL                         R10 10
+      118 CALL                             R10 0 1
+      119 JUMPIFNOT                        R10 ; [+19]
+      120 GETUPVAL                         R10 11
+      121 MOVE                             R12 R6
+      122 NAMECALL                         R10 R10 K36 ["JSONEncode"]
+      124 CALL                             R10 2 1
+      125 LOADK                            R13 K37 ["%[%]"]
+      126 LOADK                            R14 K38 ["{}"]
+      127 NAMECALL                         R11 R10 K39 ["gsub"]
+      129 CALL                             R11 3 1
+      130 MOVE                             R10 R11
+      131 GETUPVAL                         R11 9
+      132 MOVE                             R13 R8
+      133 MOVE                             R14 R10
+      134 MOVE                             R15 R9
+      135 NAMECALL                         R11 R11 K35 ["post"]
+      137 CALL                             R11 4 -1
+      138 RETURN                           R11 -1
+      139 GETUPVAL                         R10 9
+      140 MOVE                             R12 R8
+      141 GETUPVAL                         R13 11
+      142 MOVE                             R15 R6
+      143 NAMECALL                         R13 R13 K36 ["JSONEncode"]
+      145 CALL                             R13 2 1
+      146 MOVE                             R14 R9
+      147 NAMECALL                         R10 R10 K35 ["post"]
+      149 CALL                             R10 4 -1
+      150 RETURN                           R10 -1
 
 PROTO_1:
         0 GETUPVAL                         R0 0

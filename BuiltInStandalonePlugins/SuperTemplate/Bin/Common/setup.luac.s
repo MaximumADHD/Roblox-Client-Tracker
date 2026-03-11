@@ -78,7 +78,7 @@ PROTO_6:
        31 SETTABLEKS                       R6 R5 K3 ["getText"]
        33 DUPCLOSURE                       R6 K21 [PROTO_1]
        34 SETTABLEKS                       R6 R5 K4 ["getTooltip"]
-       36 LOADK                            R6 K22 ["rbxlocaltheme://GameSettings"]
+       36 LOADK                            R6 K22 ["GameSettings"]
        37 SETTABLEKS                       R6 R5 K5 ["icon"]
        39 LOADB                            R6 1
        40 SETTABLEKS                       R6 R5 K6 ["enabled"]
@@ -96,52 +96,52 @@ PROTO_6:
        57 SETTABLEKS                       R5 R4 K23 ["getName"]
        59 DUPCLOSURE                       R5 K27 [PROTO_3]
        60 SETTABLEKS                       R5 R4 K24 ["getDescription"]
-       62 LOADK                            R5 K22 ["rbxlocaltheme://GameSettings"]
+       62 LOADK                            R5 K28 ["rbxlocaltheme://GameSettings"]
        63 SETTABLEKS                       R5 R4 K5 ["icon"]
        65 LOADB                            R5 0
        66 SETTABLEKS                       R5 R4 K6 ["enabled"]
        68 MOVE                             R2 R4
-       69 DUPTABLE                         R4 K36 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar", "getToolbarName", "buttonInfo", "actionInfos"}]
-       70 SETTABLEKS                       R0 R4 K28 ["plugin"]
+       69 DUPTABLE                         R4 K37 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar", "getToolbarName", "buttonInfo", "actionInfos"}]
+       70 SETTABLEKS                       R0 R4 K29 ["plugin"]
        72 LOADK                            R5 K17 ["SuperTemplate"]
-       73 SETTABLEKS                       R5 R4 K29 ["pluginName"]
+       73 SETTABLEKS                       R5 R4 K30 ["pluginName"]
        75 GETUPVAL                         R5 2
-       76 SETTABLEKS                       R5 R4 K30 ["translationResourceTable"]
+       76 SETTABLEKS                       R5 R4 K31 ["translationResourceTable"]
        78 GETUPVAL                         R5 3
-       79 SETTABLEKS                       R5 R4 K31 ["fallbackResourceTable"]
+       79 SETTABLEKS                       R5 R4 K32 ["fallbackResourceTable"]
        81 GETUPVAL                         R5 1
-       82 SETTABLEKS                       R5 R4 K32 ["noToolbar"]
+       82 SETTABLEKS                       R5 R4 K33 ["noToolbar"]
        84 GETUPVAL                         R6 1
        85 JUMPIFNOT                        R6 ; [+2]
        86 LOADNIL                          R5
        87 JUMP                             ; [+1]
-       88 DUPCLOSURE                       R5 K37 [PROTO_4]
-       89 SETTABLEKS                       R5 R4 K33 ["getToolbarName"]
+       88 DUPCLOSURE                       R5 K38 [PROTO_4]
+       89 SETTABLEKS                       R5 R4 K34 ["getToolbarName"]
        91 GETUPVAL                         R6 1
        92 JUMPIFNOT                        R6 ; [+2]
        93 LOADNIL                          R5
        94 JUMP                             ; [+1]
        95 MOVE                             R5 R2
-       96 SETTABLEKS                       R5 R4 K34 ["buttonInfo"]
+       96 SETTABLEKS                       R5 R4 K35 ["buttonInfo"]
        98 GETUPVAL                         R6 1
        99 JUMPIFNOT                        R6 ; [+2]
       100 MOVE                             R5 R3
       101 JUMP                             ; [+1]
       102 LOADNIL                          R5
-      103 SETTABLEKS                       R5 R4 K35 ["actionInfos"]
-      105 GETIMPORT                        R5 K39 [game]
-      107 LOADK                            R7 K40 ["RunService"]
-      108 NAMECALL                         R5 R5 K41 ["GetService"]
+      103 SETTABLEKS                       R5 R4 K36 ["actionInfos"]
+      105 GETIMPORT                        R5 K40 [game]
+      107 LOADK                            R7 K41 ["RunService"]
+      108 NAMECALL                         R5 R5 K42 ["GetService"]
       110 CALL                             R5 2 1
       111 GETUPVAL                         R8 4
-      112 GETTABLEKS                       R7 R8 K42 ["get"]
+      112 GETTABLEKS                       R7 R8 K43 ["get"]
       114 CALL                             R7 0 1
       115 GETUPVAL                         R9 4
       116 GETTABLEKS                       R8 R9 K16 ["Standalone"]
       118 JUMPIFEQ                         R7 R8 ; [+2]
       120 LOADB                            R6 0 +1
       121 LOADB                            R6 1
-      122 NAMECALL                         R7 R5 K43 ["IsEdit"]
+      122 NAMECALL                         R7 R5 K44 ["IsEdit"]
       124 CALL                             R7 1 1
       125 JUMPIF                           R6 ; [+1]
       126 JUMPIFNOT                        R7 ; [+48]
@@ -149,11 +149,11 @@ PROTO_6:
       128 JUMPIF                           R8 ; [+3]
       129 LOADB                            R8 1
       130 SETTABLEKS                       R8 R2 K6 ["enabled"]
-      132 DUPTABLE                         R8 K48 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
+      132 DUPTABLE                         R8 K49 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
       133 LOADK                            R9 K17 ["SuperTemplate"]
-      134 SETTABLEKS                       R9 R8 K44 ["id"]
-      136 GETIMPORT                        R9 K51 [DockWidgetPluginGuiInfo.new]
-      138 GETIMPORT                        R10 K55 [Enum.InitialDockState.Bottom]
+      134 SETTABLEKS                       R9 R8 K45 ["id"]
+      136 GETIMPORT                        R9 K52 [DockWidgetPluginGuiInfo.new]
+      138 GETIMPORT                        R10 K56 [Enum.InitialDockState.Bottom]
       140 LOADB                            R11 0
       141 LOADB                            R12 0
       142 LOADN                            R13 128
@@ -161,18 +161,18 @@ PROTO_6:
       144 LOADN                            R15 250
       145 LOADN                            R16 200
       146 CALL                             R9 7 1
-      147 SETTABLEKS                       R9 R8 K45 ["dockWidgetPluginGuiInfo"]
-      149 DUPCLOSURE                       R9 K56 [PROTO_5]
-      150 SETTABLEKS                       R9 R8 K46 ["getDockTitle"]
-      152 GETIMPORT                        R9 K59 [Enum.ZIndexBehavior.Sibling]
-      154 SETTABLEKS                       R9 R8 K47 ["zIndexBehavior"]
-      156 SETTABLEKS                       R8 R4 K60 ["dockWidgetInfo"]
+      147 SETTABLEKS                       R9 R8 K46 ["dockWidgetPluginGuiInfo"]
+      149 DUPCLOSURE                       R9 K57 [PROTO_5]
+      150 SETTABLEKS                       R9 R8 K47 ["getDockTitle"]
+      152 GETIMPORT                        R9 K60 [Enum.ZIndexBehavior.Sibling]
+      154 SETTABLEKS                       R9 R8 K48 ["zIndexBehavior"]
+      156 SETTABLEKS                       R8 R4 K61 ["dockWidgetInfo"]
       158 GETUPVAL                         R9 5
-      159 GETTABLEKS                       R8 R9 K61 ["build"]
+      159 GETTABLEKS                       R8 R9 K62 ["build"]
       161 MOVE                             R9 R4
       162 CALL                             R8 1 1
-      163 GETTABLEKS                       R9 R8 K62 ["pluginLoader"]
-      165 NAMECALL                         R9 R9 K63 ["waitForUserInteraction"]
+      163 GETTABLEKS                       R9 R8 K63 ["pluginLoader"]
+      165 NAMECALL                         R9 R9 K64 ["waitForUserInteraction"]
       167 CALL                             R9 1 1
       168 JUMPIF                           R9 ; [+1]
       169 RETURN                           R0 0
@@ -182,7 +182,7 @@ PROTO_6:
       173 CALL                             R10 2 0
       174 RETURN                           R0 0
       175 GETUPVAL                         R9 5
-      176 GETTABLEKS                       R8 R9 K61 ["build"]
+      176 GETTABLEKS                       R8 R9 K62 ["build"]
       178 MOVE                             R9 R4
       179 CALL                             R8 1 0
       180 RETURN                           R0 0

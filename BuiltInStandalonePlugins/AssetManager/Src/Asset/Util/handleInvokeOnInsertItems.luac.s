@@ -14,100 +14,111 @@ PROTO_0:
        16 RETURN                           R0 0
 
 PROTO_1:
-        0 JUMPIFNOT                        R1 ; [+2]
-        1 LOADNIL                          R2
-        2 JUMP                             ; [+2]
-        3 GETUPVAL                         R2 0
-        4 CALL                             R2 0 1
-        5 GETUPVAL                         R3 1
-        6 MOVE                             R5 R0
-        7 NAMECALL                         R3 R3 K0 ["JSONDecode"]
-        9 CALL                             R3 2 1
-       10 NEWTABLE                         R4 0 0
-       12 GETUPVAL                         R7 2
-       13 NAMECALL                         R7 R7 K1 ["Get"]
-       15 CALL                             R7 1 1
-       16 LENGTH                           R6 R7
-       17 LOADN                            R7 0
-       18 JUMPIFNOTLT                      R7 R6 ; [+7]
-       20 GETUPVAL                         R6 2
-       21 NAMECALL                         R6 R6 K1 ["Get"]
-       23 CALL                             R6 1 1
-       24 GETTABLEN                        R5 R6 1
-       25 JUMP                             ; [+4]
-       26 GETIMPORT                        R6 K3 [game]
-       28 GETTABLEKS                       R5 R6 K4 ["Workspace"]
-       30 MOVE                             R6 R3
-       31 LOADNIL                          R7
-       32 LOADNIL                          R8
-       33 FORGPREP                         R6
-       34 GETUPVAL                         R12 3
-       35 GETTABLEKS                       R13 R10 K5 ["AssetType"]
-       37 GETTABLE                         R11 R12 R13
-       38 MOVE                             R12 R10
-       39 MOVE                             R13 R2
-       40 CALL                             R11 2 1
-       41 GETTABLEN                        R12 R11 1
-       42 JUMPIFNOT                        R12 ; [+53]
-       43 GETTABLEKS                       R13 R12 K6 ["SourceAssetId"]
-       45 JUMPIFNOT                        R13 ; [+18]
-       46 GETTABLEKS                       R13 R10 K7 ["AssetId"]
-       48 SETTABLEKS                       R13 R12 K6 ["SourceAssetId"]
-       50 GETTABLEKS                       R13 R10 K5 ["AssetType"]
-       52 GETUPVAL                         R16 4
-       53 GETTABLEKS                       R15 R16 K5 ["AssetType"]
-       55 GETTABLEKS                       R14 R15 K8 ["Model"]
-       57 JUMPIFNOTEQ                      R13 R14 ; [+6]
-       59 GETUPVAL                         R13 5
-       60 MOVE                             R14 R12
-       61 GETTABLEKS                       R15 R10 K7 ["AssetId"]
-       63 CALL                             R13 2 0
-       64 GETUPVAL                         R13 6
-       65 CALL                             R13 0 1
-       66 JUMPIFNOT                        R13 ; [+9]
-       67 GETTABLEKS                       R13 R10 K5 ["AssetType"]
-       69 GETUPVAL                         R16 4
-       70 GETTABLEKS                       R15 R16 K5 ["AssetType"]
-       72 GETTABLEKS                       R14 R15 K9 ["Audio"]
-       74 JUMPIFEQ                         R13 R14 ; [+3]
-       76 SETTABLEKS                       R5 R12 K10 ["Parent"]
-       78 GETTABLEKS                       R13 R10 K11 ["DisplayName"]
-       80 SETTABLEKS                       R13 R12 K12 ["Name"]
-       82 MOVE                             R13 R11
-       83 LOADNIL                          R14
-       84 LOADNIL                          R15
-       85 FORGPREP                         R13
-       86 FASTCALL2                        TABLE_INSERT R4 R17 ; [+5]
-       88 MOVE                             R19 R4
-       89 MOVE                             R20 R17
-       90 GETIMPORT                        R18 K15 [table.insert]
-       92 CALL                             R18 2 0
-       93 FORGLOOP                         R13 2 ; [-8]
-       95 JUMP                             ; [+4]
-       96 GETUPVAL                         R13 7
-       97 LOADK                            R14 K16 ["Asset failed to load!"]
-       98 CALL                             R13 1 0
-       99 JUMP                             ; [0]
-      100 FORGLOOP                         R6 2 ; [-67]
-      102 LENGTH                           R6 R4
-      103 JUMPIFEQKN                       R6 K17 [0] ; [+22]
-      105 GETUPVAL                         R6 2
-      106 MOVE                             R8 R4
-      107 NAMECALL                         R6 R6 K18 ["Set"]
-      109 CALL                             R6 2 0
-      110 GETUPVAL                         R6 8
-      111 LOADK                            R8 K19 ["Insert assets"]
-      112 NAMECALL                         R6 R6 K20 ["SetWaypoint"]
-      114 CALL                             R6 2 0
-      115 GETIMPORT                        R8 K3 [game]
-      117 GETTABLEKS                       R7 R8 K4 ["Workspace"]
-      119 GETTABLEKS                       R6 R7 K21 ["CurrentCamera"]
-      121 JUMPIFNOT                        R6 ; [+4]
-      122 GETUPVAL                         R7 9
-      123 MOVE                             R8 R6
-      124 MOVE                             R9 R4
+        0 JUMPIFEQKNIL                     R1 ; [+7]
+        2 GETUPVAL                         R2 0
+        3 MOVE                             R4 R1
+        4 NAMECALL                         R2 R2 K0 ["JSONDecode"]
+        6 CALL                             R2 2 1
+        7 JUMP                             ; [+1]
+        8 LOADNIL                          R2
+        9 JUMPIFNOT                        R2 ; [+5]
+       10 GETTABLEKS                       R4 R2 K1 ["UseAssetPosition"]
+       12 JUMPIFNOT                        R4 ; [+2]
+       13 LOADNIL                          R3
+       14 JUMP                             ; [+2]
+       15 GETUPVAL                         R3 1
+       16 CALL                             R3 0 1
+       17 GETUPVAL                         R4 0
+       18 MOVE                             R6 R0
+       19 NAMECALL                         R4 R4 K0 ["JSONDecode"]
+       21 CALL                             R4 2 1
+       22 NEWTABLE                         R5 0 0
+       24 GETUPVAL                         R8 2
+       25 NAMECALL                         R8 R8 K2 ["Get"]
+       27 CALL                             R8 1 1
+       28 LENGTH                           R7 R8
+       29 LOADN                            R8 0
+       30 JUMPIFNOTLT                      R8 R7 ; [+7]
+       32 GETUPVAL                         R7 2
+       33 NAMECALL                         R7 R7 K2 ["Get"]
+       35 CALL                             R7 1 1
+       36 GETTABLEN                        R6 R7 1
+       37 JUMP                             ; [+4]
+       38 GETIMPORT                        R7 K4 [game]
+       40 GETTABLEKS                       R6 R7 K5 ["Workspace"]
+       42 MOVE                             R7 R4
+       43 LOADNIL                          R8
+       44 LOADNIL                          R9
+       45 FORGPREP                         R7
+       46 GETUPVAL                         R13 3
+       47 GETTABLEKS                       R14 R11 K6 ["AssetType"]
+       49 GETTABLE                         R12 R13 R14
+       50 MOVE                             R13 R11
+       51 DUPTABLE                         R14 K9 [{"Flags", "InsertPosition"}]
+       52 SETTABLEKS                       R2 R14 K7 ["Flags"]
+       54 SETTABLEKS                       R3 R14 K8 ["InsertPosition"]
+       56 CALL                             R12 2 1
+       57 GETTABLEN                        R13 R12 1
+       58 JUMPIFNOT                        R13 ; [+53]
+       59 GETTABLEKS                       R14 R13 K10 ["SourceAssetId"]
+       61 JUMPIFNOT                        R14 ; [+18]
+       62 GETTABLEKS                       R14 R11 K11 ["AssetId"]
+       64 SETTABLEKS                       R14 R13 K10 ["SourceAssetId"]
+       66 GETTABLEKS                       R14 R11 K6 ["AssetType"]
+       68 GETUPVAL                         R17 4
+       69 GETTABLEKS                       R16 R17 K6 ["AssetType"]
+       71 GETTABLEKS                       R15 R16 K12 ["Model"]
+       73 JUMPIFNOTEQ                      R14 R15 ; [+6]
+       75 GETUPVAL                         R14 5
+       76 MOVE                             R15 R13
+       77 GETTABLEKS                       R16 R11 K11 ["AssetId"]
+       79 CALL                             R14 2 0
+       80 GETUPVAL                         R14 6
+       81 CALL                             R14 0 1
+       82 JUMPIFNOT                        R14 ; [+9]
+       83 GETTABLEKS                       R14 R11 K6 ["AssetType"]
+       85 GETUPVAL                         R17 4
+       86 GETTABLEKS                       R16 R17 K6 ["AssetType"]
+       88 GETTABLEKS                       R15 R16 K13 ["Audio"]
+       90 JUMPIFEQ                         R14 R15 ; [+3]
+       92 SETTABLEKS                       R6 R13 K14 ["Parent"]
+       94 GETTABLEKS                       R14 R11 K15 ["DisplayName"]
+       96 SETTABLEKS                       R14 R13 K16 ["Name"]
+       98 MOVE                             R14 R12
+       99 LOADNIL                          R15
+      100 LOADNIL                          R16
+      101 FORGPREP                         R14
+      102 FASTCALL2                        TABLE_INSERT R5 R18 ; [+5]
+      104 MOVE                             R20 R5
+      105 MOVE                             R21 R18
+      106 GETIMPORT                        R19 K19 [table.insert]
+      108 CALL                             R19 2 0
+      109 FORGLOOP                         R14 2 ; [-8]
+      111 JUMP                             ; [+4]
+      112 GETUPVAL                         R14 7
+      113 LOADK                            R15 K20 ["Asset failed to load!"]
+      114 CALL                             R14 1 0
+      115 JUMP                             ; [0]
+      116 FORGLOOP                         R7 2 ; [-71]
+      118 LENGTH                           R7 R5
+      119 JUMPIFEQKN                       R7 K21 [0] ; [+22]
+      121 GETUPVAL                         R7 2
+      122 MOVE                             R9 R5
+      123 NAMECALL                         R7 R7 K22 ["Set"]
       125 CALL                             R7 2 0
-      126 RETURN                           R0 0
+      126 GETUPVAL                         R7 8
+      127 LOADK                            R9 K23 ["Insert assets"]
+      128 NAMECALL                         R7 R7 K24 ["SetWaypoint"]
+      130 CALL                             R7 2 0
+      131 GETIMPORT                        R9 K4 [game]
+      133 GETTABLEKS                       R8 R9 K5 ["Workspace"]
+      135 GETTABLEKS                       R7 R8 K25 ["CurrentCamera"]
+      137 JUMPIFNOT                        R7 ; [+4]
+      138 GETUPVAL                         R8 9
+      139 MOVE                             R9 R7
+      140 MOVE                             R10 R5
+      141 CALL                             R8 2 0
+      142 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -161,8 +172,8 @@ MAIN:
        82 CALL                             R9 1 1
        83 DUPCLOSURE                       R10 K22 [PROTO_0]
        84 DUPCLOSURE                       R11 K23 [PROTO_1]
-       85 CAPTURE                          VAL R4
-       86 CAPTURE                          VAL R7
+       85 CAPTURE                          VAL R7
+       86 CAPTURE                          VAL R4
        87 CAPTURE                          VAL R8
        88 CAPTURE                          VAL R2
        89 CAPTURE                          VAL R1

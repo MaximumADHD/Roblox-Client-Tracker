@@ -32,11 +32,8 @@ local getAccessoryScale = require(root.util.getAccessoryScale)
 
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
-
-local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
 local getEngineFeatureEngineUGCValidateRigidNonSkinned =
 	require(root.flags.getEngineFeatureEngineUGCValidateRigidNonSkinned)
-local getFFlagUGCValidateAccessoriesRCCOwnership = require(root.flags.getFFlagUGCValidateAccessoriesRCCOwnership)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateAccessoryAssetTextureLimit = require(root.flags.getFFlagUGCValidateAccessoryAssetTextureLimit)
@@ -89,12 +86,9 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 			return false, reasons
 		end
 	end
-
-	if getFFlagUGCValidateAccessoriesRCCOwnership() then
-		success, reasons = validateDependencies(instance, validationContext)
-		if not success then
-			return false, reasons
-		end
+	success, reasons = validateDependencies(instance, validationContext)
+	if not success then
+		return false, reasons
 	end
 
 	local handle = instance:FindFirstChild("Handle") :: Part
@@ -255,13 +249,10 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
 		end
-
-		if getFFlagUGCValidateMeshVertColors() then
-			success, failedReason = validateMeshVertColors(meshInfo, false, validationContext)
-			if not success then
-				table.insert(reasons, table.concat(failedReason, "\n"))
-				validationResult = false
-			end
+		success, failedReason = validateMeshVertColors(meshInfo, false, validationContext)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
 		end
 
 		success, failedReason = validateCoplanarIntersection(meshInfo, meshScale, validationContext)

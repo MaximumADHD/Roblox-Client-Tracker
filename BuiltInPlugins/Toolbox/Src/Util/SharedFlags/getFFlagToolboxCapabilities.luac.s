@@ -1,6 +1,6 @@
 PROTO_0:
         0 GETIMPORT                        R0 K1 [game]
-        2 LOADK                            R2 K2 ["ToolboxCapabilities5"]
+        2 LOADK                            R2 K2 ["ToolboxCapabilities7"]
         3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
         5 CALL                             R0 2 1
         6 JUMPIFNOT                        R0 ; [+19]
@@ -26,7 +26,7 @@ PROTO_0:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["ToolboxCapabilities5"]
+        3 LOADK                            R2 K2 ["ToolboxCapabilities7"]
         4 LOADB                            R3 0
         5 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
         7 CALL                             R0 3 0

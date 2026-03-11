@@ -29,7 +29,6 @@ local Constants = require(root.Constants)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
-local getFFlagUGCValidateAccessoriesRCCOwnership = require(root.flags.getFFlagUGCValidateAccessoriesRCCOwnership)
 local getFStringUGCValidationReferenceMeshIdWhitelistForIEC =
 	require(root.flags.getFStringUGCValidationReferenceMeshIdWhitelistForIEC)
 
@@ -85,12 +84,7 @@ local function validateAssetCreator(
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local isServer = validationContext.isServer
-	local restrictedUserIds = nil
-	if getFFlagUGCValidateAccessoriesRCCOwnership() then
-		restrictedUserIds = if validationContext.restrictedUserIds then validationContext.restrictedUserIds else {}
-	else
-		restrictedUserIds = validationContext.restrictedUserIds
-	end
+	local restrictedUserIds = if validationContext.restrictedUserIds then validationContext.restrictedUserIds else {}
 	local token = validationContext.token
 	local universeId = validationContext.universeId
 

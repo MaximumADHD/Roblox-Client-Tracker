@@ -29,8 +29,8 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
-local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
-local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
+local FlagUtil = CommonUtils.get("FlagUtil")
 
 --[[ The Module ]]--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))

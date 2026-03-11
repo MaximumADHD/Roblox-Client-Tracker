@@ -4,18 +4,8 @@ local Character = script.Parent
 local Humanoid = Character:WaitForChild("Humanoid")
 local pose = "Standing"
 
-local userNoUpdateOnLoopSuccess, userNoUpdateOnLoopValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNoUpdateOnLoop") end)
-local userNoUpdateOnLoop = userNoUpdateOnLoopSuccess and userNoUpdateOnLoopValue
-
-local userAnimateScaleRunSuccess, userAnimateScaleRunValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserAnimateScaleRun") end)
-local userAnimateScaleRun = userAnimateScaleRunSuccess and userAnimateScaleRunValue
-
 local function getRigScale()
-	if userAnimateScaleRun then
-		return Character:GetScale()
-	else
-		return 1
-	end
+	return Character:GetScale()
 end
 
 local AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
@@ -406,15 +396,10 @@ end
 function keyFrameReachedFunc(frameName)
 	if (frameName == "End") then
 		if currentAnim == "walk" then
-			if userNoUpdateOnLoop == true then
-				if runAnimTrack.Looped ~= true then
-					runAnimTrack.TimePosition = 0.0
-				end
-				if currentAnimTrack.Looped ~= true then
-					currentAnimTrack.TimePosition = 0.0
-				end
-			else
+			if runAnimTrack.Looped ~= true then
 				runAnimTrack.TimePosition = 0.0
+			end
+			if currentAnimTrack.Looped ~= true then
 				currentAnimTrack.TimePosition = 0.0
 			end
 		else
@@ -464,9 +449,7 @@ local function switchToAnim(anim, animName, transitionTime, humanoid)
 		if (runAnimTrack ~= nil) then
 			runAnimTrack:Stop(transitionTime)
 			runAnimTrack:Destroy()
-			if userNoUpdateOnLoop == true then
-				runAnimTrack = nil
-			end
+			runAnimTrack = nil
 		end
 
 		currentAnimSpeed = 1.0
@@ -581,7 +564,7 @@ end
 -- STATE CHANGE HANDLERS
 
 function onRunning(speed)
-	local heightScale = if userAnimateScaleRun then getHeightScale() else 1
+	local heightScale = getHeightScale()
 	
 	local movedDuringEmote = currentlyPlayingEmote and Humanoid.MoveDirection == Vector3.new(0, 0, 0)
 	local speedThreshold = movedDuringEmote and (Humanoid.WalkSpeed / heightScale) or 0.75
@@ -609,9 +592,7 @@ function onJumping()
 end
 
 function onClimbing(speed)
-	if userAnimateScaleRun then
-		speed /= getHeightScale()
-	end
+	speed /= getHeightScale()
 	local scale = 5.0
 	playAnimation("climb", 0.1, Humanoid)
 	setAnimationSpeed(speed / scale)
@@ -645,9 +626,7 @@ end
 -------------------------------------------------------------------------------------------
 
 function onSwimming(speed)
-	if userAnimateScaleRun then
-		speed /= getHeightScale()
-	end
+	speed /= getHeightScale()
 	if speed > 1.00 then
 		local scale = 10.0
 		playAnimation("swim", 0.4, Humanoid)

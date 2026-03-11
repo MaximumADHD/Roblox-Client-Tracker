@@ -1,4 +1,5 @@
 local AvatarEditorService = game:GetService("AvatarEditorService")
+local CorePackages = game:GetService("CorePackages")
 
 local AvatarEditorPrompts = script.Parent
 
@@ -11,11 +12,28 @@ local OpenDeleteOutfitPrompt = require(AvatarEditorPrompts.Thunks.OpenDeleteOutf
 local OpenRenameOutfitPrompt = require(AvatarEditorPrompts.Thunks.OpenRenameOutfitPrompt)
 local OpenUpdateOutfitPrompt = require(AvatarEditorPrompts.Thunks.OpenUpdateOutfitPrompt)
 
+local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+local FFlagAXAvatarTimeoutFlowIE = require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXAvatarTimeoutFlowIE
+
 local function ConnectAvatarEditorServiceEvents(store)
 	local connections = {}
 
 	table.insert(connections, AvatarEditorService.OpenPromptSaveAvatar:Connect(function(humanoidDescription, rigType)
-		store:dispatch(OpenSaveAvatarPrompt(humanoidDescription, rigType))
+		if FFlagAXAvatarTimeoutFlowIE then
+			local timeoutStore = AvatarExperienceCommon.Stores.getTimeoutStatusStore()
+			timeoutStore.fetchStatusAsync():andThen(function()
+				if timeoutStore.getIsTimedOut(false) then
+					local details = timeoutStore.getTimeoutDetails(false)
+					store:dispatch(OpenPrompt(PromptType.SaveAvatarTimeout, {
+						timeoutDetails = details,
+					}))
+				else
+					store:dispatch(OpenSaveAvatarPrompt(humanoidDescription, rigType))
+				end
+			end)
+		else
+			store:dispatch(OpenSaveAvatarPrompt(humanoidDescription, rigType))
+		end
 	end))
 
 	table.insert(connections, AvatarEditorService.OpenAllowInventoryReadAccess:Connect(function()

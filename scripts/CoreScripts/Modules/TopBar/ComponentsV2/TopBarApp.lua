@@ -32,6 +32,7 @@ local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppP
 -- Flags
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
 local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
+local FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton
 local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 	SharedFlags.GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
@@ -163,7 +164,7 @@ local function TopBarApp(props: TopBarProps)
 						unibarMenuRef = unibarMenuRef,
 					}),
 				}),
-				TraversalBackButton = React.createElement(TraversalBackButton),
+				TraversalBackButton = if FFlagAddTraversalBackButton then React.createElement(TraversalBackButton) else nil,
 				UnibarFrame = React.createElement(MenuIconContext.Provider, {
 					value = {
 						menuIconRef = menuIconRef,

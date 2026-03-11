@@ -1,35 +1,37 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R2 K0 ["Folder"]
-        2 NAMECALL                         R0 R0 K1 ["IsA"]
-        4 CALL                             R0 2 1
-        5 JUMPIFNOT                        R0 ; [+28]
-        6 GETUPVAL                         R0 0
-        7 NAMECALL                         R0 R0 K2 ["GetChildren"]
-        9 CALL                             R0 1 3
-       10 FORGPREP                         R0
-       11 LOADK                            R7 K3 ["StyleCategory"]
-       12 NAMECALL                         R5 R4 K4 ["GetAttribute"]
-       14 CALL                             R5 2 1
-       15 MOVE                             R6 R5
-       16 JUMPIFNOT                        R6 ; [+4]
-       17 JUMPIFEQKS                       R5 K5 ["Themes"] ; [+2]
-       19 LOADB                            R6 0 +1
-       20 LOADB                            R6 1
-       21 JUMPIFNOT                        R6 ; [+5]
-       22 LOADK                            R9 K6 ["StyleSheet"]
-       23 NAMECALL                         R7 R4 K1 ["IsA"]
-       25 CALL                             R7 2 1
-       26 JUMPIF                           R7 ; [+5]
-       27 GETUPVAL                         R8 0
-       28 GETTABLEKS                       R7 R8 K7 ["Parent"]
-       30 SETTABLEKS                       R7 R4 K7 ["Parent"]
-       32 FORGLOOP                         R0 2 ; [-22]
-       34 GETUPVAL                         R0 0
-       35 NAMECALL                         R0 R0 K8 ["Remove"]
-       37 CALL                             R0 1 0
-       38 GETIMPORT                        R0 K12 [Enum.FinishRecordingOperation.Commit]
-       40 RETURN                           R0 1
+        1 JUMPIF                           R0 ; [+34]
+        2 GETUPVAL                         R0 1
+        3 LOADK                            R2 K0 ["Folder"]
+        4 NAMECALL                         R0 R0 K1 ["IsA"]
+        6 CALL                             R0 2 1
+        7 JUMPIFNOT                        R0 ; [+28]
+        8 GETUPVAL                         R0 1
+        9 NAMECALL                         R0 R0 K2 ["GetChildren"]
+       11 CALL                             R0 1 3
+       12 FORGPREP                         R0
+       13 LOADK                            R7 K3 ["StyleCategory"]
+       14 NAMECALL                         R5 R4 K4 ["GetAttribute"]
+       16 CALL                             R5 2 1
+       17 MOVE                             R6 R5
+       18 JUMPIFNOT                        R6 ; [+4]
+       19 JUMPIFEQKS                       R5 K5 ["Themes"] ; [+2]
+       21 LOADB                            R6 0 +1
+       22 LOADB                            R6 1
+       23 JUMPIFNOT                        R6 ; [+5]
+       24 LOADK                            R9 K6 ["StyleSheet"]
+       25 NAMECALL                         R7 R4 K1 ["IsA"]
+       27 CALL                             R7 2 1
+       28 JUMPIF                           R7 ; [+5]
+       29 GETUPVAL                         R8 1
+       30 GETTABLEKS                       R7 R8 K7 ["Parent"]
+       32 SETTABLEKS                       R7 R4 K7 ["Parent"]
+       34 FORGLOOP                         R0 2 ; [-22]
+       36 GETUPVAL                         R0 1
+       37 NAMECALL                         R0 R0 K8 ["Remove"]
+       39 CALL                             R0 1 0
+       40 GETIMPORT                        R0 K12 [Enum.FinishRecordingOperation.Commit]
+       42 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -42,15 +44,17 @@ PROTO_1:
         9 LOADK                            R4 K6 ["StyleEditor - Delete Instance"]
        10 SETTABLEKS                       R4 R3 K2 ["DisplayName"]
        12 NEWCLOSURE                       R4 P0
-       13 CAPTURE                          UPVAL U0
-       14 SETTABLEKS                       R4 R3 K3 ["DoChange"]
-       16 CALL                             R2 1 0
-       17 RETURN                           R0 0
+       13 CAPTURE                          UPVAL U1
+       14 CAPTURE                          UPVAL U0
+       15 SETTABLEKS                       R4 R3 K3 ["DoChange"]
+       17 CALL                             R2 1 0
+       18 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R1 P0
         1 CAPTURE                          VAL R0
-        2 RETURN                           R1 1
+        2 CAPTURE                          UPVAL U0
+        3 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -69,5 +73,11 @@ MAIN:
        24 GETTABLEKS                       R4 R5 K8 ["Thunks"]
        26 GETTABLEKS                       R3 R4 K9 ["Types"]
        28 CALL                             R2 1 1
-       29 DUPCLOSURE                       R3 K10 [PROTO_2]
-       30 RETURN                           R3 1
+       29 GETIMPORT                        R3 K4 [require]
+       31 GETTABLEKS                       R6 R0 K5 ["Src"]
+       33 GETTABLEKS                       R5 R6 K10 ["Flags"]
+       35 GETTABLEKS                       R4 R5 K11 ["getFFlagStyleQuery"]
+       37 CALL                             R3 1 1
+       38 DUPCLOSURE                       R4 K12 [PROTO_2]
+       39 CAPTURE                          VAL R3
+       40 RETURN                           R4 1

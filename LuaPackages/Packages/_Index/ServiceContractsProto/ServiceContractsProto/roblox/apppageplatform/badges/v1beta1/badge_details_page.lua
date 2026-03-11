@@ -10,6 +10,8 @@ type _Messages = {
 	BadgeDetailsPageRequest: _BadgeDetailsPageRequestMessage,
 	BadgeDetailsPageResponse: _BadgeDetailsPageResponseMessage,
 	BadgeDetailsPageResponse_TemplatesEntry: _BadgeDetailsPageResponse_TemplatesEntryMessage,
+	BadgeDetailsPageV2Response: _BadgeDetailsPageV2ResponseMessage,
+	BadgeDetailsPageV2Response_TemplatesEntry: _BadgeDetailsPageV2Response_TemplatesEntryMessage,
 	BadgeDetailsPageEntry: _BadgeDetailsPageEntryMessage,
 	BadgeDetailsContent: _BadgeDetailsContentMessage,
 	BadgeDetailsContent_LocalizedLiterals: _BadgeDetailsContent_LocalizedLiteralsMessage,
@@ -24,6 +26,8 @@ local _roblox_apppageplatform_shared_v1beta1_hydration_content =
 local _roblox_apppageplatform_shared_v1beta1_page_entry = require(script.Parent.Parent.Parent.shared.v1beta1.page_entry)
 local _roblox_apppageplatform_shared_v1beta1_template_entry =
 	require(script.Parent.Parent.Parent.shared.v1beta1.template_entry)
+local _roblox_apppageplatform_shared_v1beta1_universal_page_entry =
+	require(script.Parent.Parent.Parent.shared.v1beta1.universal_page_entry)
 
 type _BadgeDetailsPageRequestImpl = {
 	__index: _BadgeDetailsPageRequestImpl,
@@ -38,11 +42,13 @@ type _BadgeDetailsPageRequestImpl = {
 type _BadgeDetailsPageRequestFields = {
 	badge_id: number,
 	user_id: number,
+	page_entry_format: _roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat,
 }
 
 type _BadgeDetailsPageRequestPartialFields = {
 	badge_id: number?,
 	user_id: number?,
+	page_entry_format: _roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat?,
 }
 
 export type BadgeDetailsPageRequest = typeof(setmetatable(
@@ -106,6 +112,68 @@ export type BadgeDetailsPageResponse_TemplatesEntry = typeof(setmetatable(
 type _BadgeDetailsPageResponse_TemplatesEntryMessage = proto.Message<
 	BadgeDetailsPageResponse_TemplatesEntry,
 	_BadgeDetailsPageResponse_TemplatesEntryPartialFields
+>
+
+type _BadgeDetailsPageV2ResponseImpl = {
+	__index: _BadgeDetailsPageV2ResponseImpl,
+	new: (fields: _BadgeDetailsPageV2ResponsePartialFields?) -> BadgeDetailsPageV2Response,
+	encode: (self: BadgeDetailsPageV2Response) -> buffer,
+	decode: (input: buffer) -> BadgeDetailsPageV2Response,
+	jsonEncode: (self: BadgeDetailsPageV2Response) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BadgeDetailsPageV2Response,
+	descriptor: proto.Descriptor,
+}
+
+type _BadgeDetailsPageV2ResponseFields = {
+	page_entries: { _roblox_apppageplatform_shared_v1beta1_universal_page_entry.UniversalPageEntry },
+	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
+	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry },
+}
+
+type _BadgeDetailsPageV2ResponsePartialFields = {
+	page_entries: { _roblox_apppageplatform_shared_v1beta1_universal_page_entry.UniversalPageEntry }?,
+	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
+	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry }?,
+}
+
+export type BadgeDetailsPageV2Response = typeof(setmetatable(
+	{} :: _BadgeDetailsPageV2ResponseFields,
+	{} :: _BadgeDetailsPageV2ResponseImpl
+))
+type _BadgeDetailsPageV2ResponseMessage = proto.Message<
+	BadgeDetailsPageV2Response,
+	_BadgeDetailsPageV2ResponsePartialFields
+>
+
+type _BadgeDetailsPageV2Response_TemplatesEntryImpl = {
+	__index: _BadgeDetailsPageV2Response_TemplatesEntryImpl,
+	new: (
+		fields: _BadgeDetailsPageV2Response_TemplatesEntryPartialFields?
+	) -> BadgeDetailsPageV2Response_TemplatesEntry,
+	encode: (self: BadgeDetailsPageV2Response_TemplatesEntry) -> buffer,
+	decode: (input: buffer) -> BadgeDetailsPageV2Response_TemplatesEntry,
+	jsonEncode: (self: BadgeDetailsPageV2Response_TemplatesEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BadgeDetailsPageV2Response_TemplatesEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _BadgeDetailsPageV2Response_TemplatesEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry?,
+}
+
+type _BadgeDetailsPageV2Response_TemplatesEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry?,
+}
+
+export type BadgeDetailsPageV2Response_TemplatesEntry = typeof(setmetatable(
+	{} :: _BadgeDetailsPageV2Response_TemplatesEntryFields,
+	{} :: _BadgeDetailsPageV2Response_TemplatesEntryImpl
+))
+type _BadgeDetailsPageV2Response_TemplatesEntryMessage = proto.Message<
+	BadgeDetailsPageV2Response_TemplatesEntry,
+	_BadgeDetailsPageV2Response_TemplatesEntryPartialFields
 >
 
 type _BadgeDetailsPageEntryImpl = {
@@ -303,6 +371,12 @@ do
 		return setmetatable({
 			badge_id = if data == nil or data.badge_id == nil then 0 else data.badge_id,
 			user_id = if data == nil or data.user_id == nil then 0 else data.user_id,
+			page_entry_format = if data == nil or data.page_entry_format == nil
+				then assert(
+					_roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromNumber(0),
+					"Enum has no 0 default"
+				)
+				else data.page_entry_format,
 		}, _BadgeDetailsPageRequestImpl :: _BadgeDetailsPageRequestImpl)
 	end
 
@@ -318,6 +392,24 @@ do
 		if self.user_id ~= nil and self.user_id ~= 0 then
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.user_id)
+		end
+
+		if
+			self.page_entry_format ~= nil
+			and (
+				self.page_entry_format ~= nil and self.page_entry_format ~= 0
+				or self.page_entry_format
+					~= _roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(
+				output,
+				cursor,
+				_roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.toNumber(
+					self.page_entry_format :: any
+				)
+			)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -343,6 +435,14 @@ do
 					local value
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.user_id = value
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.page_entry_format = (
+						_roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromNumber(value)
+						or value
+					) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
 					continue
 				end
 
@@ -384,6 +484,21 @@ do
 			output.userId = self.user_id
 		end
 
+		if
+			self.page_entry_format ~= nil
+			and (
+				self.page_entry_format ~= nil and self.page_entry_format ~= 0
+				or self.page_entry_format
+					~= _roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromNumber(0)
+			)
+		then
+			output.pageEntryFormat = if typeof(self.page_entry_format) == "number"
+				then self.page_entry_format
+				else _roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.toNumber(
+					self.page_entry_format :: any
+				)
+		end
+
 		return output
 	end
 
@@ -404,6 +519,26 @@ do
 
 		if input.userId ~= nil then
 			self.user_id = input.userId
+		end
+
+		if input.page_entry_format ~= nil then
+			self.page_entry_format = if typeof(input.page_entry_format) == "number"
+				then (_roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromNumber(
+					input.page_entry_format
+				) or input.page_entry_format)
+				else (_roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromName(
+					input.page_entry_format
+				) or input.page_entry_format)
+		end
+
+		if input.pageEntryFormat ~= nil then
+			self.page_entry_format = if typeof(input.pageEntryFormat) == "number"
+				then (_roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromNumber(
+					input.pageEntryFormat
+				) or input.pageEntryFormat)
+				else (_roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromName(
+					input.pageEntryFormat
+				) or input.pageEntryFormat)
 		end
 
 		return self
@@ -729,6 +864,335 @@ do
 	messages.BadgeDetailsPageResponse_TemplatesEntry = _BadgeDetailsPageResponse_TemplatesEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.BadgeDetailsPageResponse_TemplatesEntry)
+end
+
+do
+	local _BadgeDetailsPageV2ResponseImpl = {}
+	_BadgeDetailsPageV2ResponseImpl.__index = _BadgeDetailsPageV2ResponseImpl
+
+	function _BadgeDetailsPageV2ResponseImpl.new(
+		data: _BadgeDetailsPageV2ResponsePartialFields?
+	): BadgeDetailsPageV2Response
+		return setmetatable({
+			page_entries = if data == nil or data.page_entries == nil then {} else data.page_entries,
+			hydration_data = if data == nil or data.hydration_data == nil then nil else data.hydration_data,
+			templates = if data == nil or data.templates == nil then {} else data.templates,
+		}, _BadgeDetailsPageV2ResponseImpl :: _BadgeDetailsPageV2ResponseImpl)
+	end
+
+	function _BadgeDetailsPageV2ResponseImpl.encode(self: BadgeDetailsPageV2Response): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.page_entries ~= nil and #self.page_entries > 0 then
+			for _, value in self.page_entries do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.hydration_data ~= nil then
+			local encoded = self.hydration_data:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.templates ~= nil and next(self.templates) ~= nil then
+			for key, value in self.templates do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BadgeDetailsPageV2ResponseImpl.decode(input: buffer): BadgeDetailsPageV2Response
+		local self = _BadgeDetailsPageV2ResponseImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.page_entries,
+						_roblox_apppageplatform_shared_v1beta1_universal_page_entry.UniversalPageEntry.decode(value)
+					)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.hydration_data =
+						_roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.BadgeDetailsPageV2Response_TemplatesEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry.new()
+
+					self.templates[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BadgeDetailsPageV2ResponseImpl.jsonEncode(self: BadgeDetailsPageV2Response): any
+		local output = {}
+
+		if self.page_entries ~= nil and #self.page_entries > 0 then
+			local newOutput = {}
+			for _, value in self.page_entries do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.pageEntries = newOutput
+		end
+
+		if self.hydration_data ~= nil then
+			output.hydrationData = self.hydration_data:jsonEncode()
+		end
+
+		if self.templates ~= nil and next(self.templates) ~= nil then
+			local newOutput = {}
+			for key, value in self.templates do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.templates = newOutput
+		end
+
+		return output
+	end
+
+	function _BadgeDetailsPageV2ResponseImpl.jsonDecode(input: { [string]: any }): BadgeDetailsPageV2Response
+		local self = _BadgeDetailsPageV2ResponseImpl.new()
+
+		if input.page_entries ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_universal_page_entry.UniversalPageEntry } = {}
+			for _, value in input.page_entries do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_universal_page_entry.UniversalPageEntry.jsonDecode(value)
+				)
+			end
+
+			self.page_entries = newOutput
+		end
+
+		if input.pageEntries ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_universal_page_entry.UniversalPageEntry } = {}
+			for _, value in input.pageEntries do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_universal_page_entry.UniversalPageEntry.jsonDecode(value)
+				)
+			end
+
+			self.page_entries = newOutput
+		end
+
+		if input.hydration_data ~= nil then
+			self.hydration_data = _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent.jsonDecode(
+				input.hydration_data
+			)
+		end
+
+		if input.hydrationData ~= nil then
+			self.hydration_data = _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent.jsonDecode(
+				input.hydrationData
+			)
+		end
+
+		if input.templates ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry } = {}
+			for key, value in input.templates do
+				newOutput[key] = _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry.jsonDecode(value)
+			end
+
+			self.templates = newOutput
+		end
+
+		return self
+	end
+
+	_BadgeDetailsPageV2ResponseImpl.descriptor = {
+		name = "BadgeDetailsPageV2Response",
+		fullName = "roblox.apppageplatform.badges.v1beta1.BadgeDetailsPageV2Response",
+	}
+
+	messages.BadgeDetailsPageV2Response = _BadgeDetailsPageV2ResponseImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BadgeDetailsPageV2Response)
+end
+
+do
+	local _BadgeDetailsPageV2Response_TemplatesEntryImpl = {}
+	_BadgeDetailsPageV2Response_TemplatesEntryImpl.__index = _BadgeDetailsPageV2Response_TemplatesEntryImpl
+
+	function _BadgeDetailsPageV2Response_TemplatesEntryImpl.new(
+		data: _BadgeDetailsPageV2Response_TemplatesEntryPartialFields?
+	): BadgeDetailsPageV2Response_TemplatesEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _BadgeDetailsPageV2Response_TemplatesEntryImpl :: _BadgeDetailsPageV2Response_TemplatesEntryImpl)
+	end
+
+	function _BadgeDetailsPageV2Response_TemplatesEntryImpl.encode(
+		self: BadgeDetailsPageV2Response_TemplatesEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BadgeDetailsPageV2Response_TemplatesEntryImpl.decode(
+		input: buffer
+	): BadgeDetailsPageV2Response_TemplatesEntry
+		local self = _BadgeDetailsPageV2Response_TemplatesEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BadgeDetailsPageV2Response_TemplatesEntryImpl.jsonEncode(
+		self: BadgeDetailsPageV2Response_TemplatesEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _BadgeDetailsPageV2Response_TemplatesEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): BadgeDetailsPageV2Response_TemplatesEntry
+		local self = _BadgeDetailsPageV2Response_TemplatesEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_BadgeDetailsPageV2Response_TemplatesEntryImpl.descriptor = {
+		name = "BadgeDetailsPageV2Response_TemplatesEntry",
+		fullName = "roblox.apppageplatform.badges.v1beta1.TemplatesEntry",
+	}
+
+	messages.BadgeDetailsPageV2Response_TemplatesEntry = _BadgeDetailsPageV2Response_TemplatesEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BadgeDetailsPageV2Response_TemplatesEntry)
 end
 
 do
@@ -1708,6 +2172,7 @@ end
 return {
 	BadgeDetailsPageRequest = messages.BadgeDetailsPageRequest,
 	BadgeDetailsPageResponse = messages.BadgeDetailsPageResponse,
+	BadgeDetailsPageV2Response = messages.BadgeDetailsPageV2Response,
 	BadgeDetailsPageEntry = messages.BadgeDetailsPageEntry,
 	BadgeDetailsContent = messages.BadgeDetailsContent,
 	BadgeDetailsContent_LocalizedLiterals = messages.BadgeDetailsContent_LocalizedLiterals,

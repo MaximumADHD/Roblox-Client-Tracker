@@ -11,12 +11,26 @@ type _Messages = {
 	HydrationContent_BadgeEntry: _HydrationContent_BadgeEntryMessage,
 	HydrationContent_UniverseEntry: _HydrationContent_UniverseEntryMessage,
 	HydrationContent_CreatorEntry: _HydrationContent_CreatorEntryMessage,
+	HydrationContent_EventEntry: _HydrationContent_EventEntryMessage,
+	HydrationContent_SongEntry: _HydrationContent_SongEntryMessage,
+	HydrationContent_GamePassEntry: _HydrationContent_GamePassEntryMessage,
+	HydrationContent_MediaAssetEntry: _HydrationContent_MediaAssetEntryMessage,
+	HydrationContent_SocialLinkEntry: _HydrationContent_SocialLinkEntryMessage,
+	HydrationContent_DeveloperProductEntry: _HydrationContent_DeveloperProductEntryMessage,
+	HydrationContent_SubscriptionEntry: _HydrationContent_SubscriptionEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
 local _roblox_apppageplatform_shared_v1beta1_badge_data = require(script.Parent.badge_data)
 local _roblox_apppageplatform_shared_v1beta1_universe_data = require(script.Parent.universe_data)
 local _roblox_apppageplatform_shared_v1beta1_creator_data = require(script.Parent.creator_data)
+local _roblox_apppageplatform_shared_v1beta1_event_data = require(script.Parent.event_data)
+local _roblox_apppageplatform_shared_v1beta1_song_data = require(script.Parent.song_data)
+local _roblox_apppageplatform_shared_v1beta1_game_pass_data = require(script.Parent.game_pass_data)
+local _roblox_apppageplatform_shared_v1beta1_media_asset_data = require(script.Parent.media_asset_data)
+local _roblox_apppageplatform_shared_v1beta1_social_link_data = require(script.Parent.social_link_data)
+local _roblox_apppageplatform_shared_v1beta1_developer_product_data = require(script.Parent.developer_product_data)
+local _roblox_apppageplatform_shared_v1beta1_subscription_data = require(script.Parent.subscription_data)
 
 type _HydrationContentImpl = {
 	__index: _HydrationContentImpl,
@@ -32,12 +46,26 @@ type _HydrationContentFields = {
 	badge: { [string]: _roblox_apppageplatform_shared_v1beta1_badge_data.BadgeData },
 	universe: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_data.UniverseData },
 	creator: { [string]: _roblox_apppageplatform_shared_v1beta1_creator_data.CreatorData },
+	event: { [string]: _roblox_apppageplatform_shared_v1beta1_event_data.EventData },
+	song: { [string]: _roblox_apppageplatform_shared_v1beta1_song_data.SongData },
+	game_pass: { [string]: _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData },
+	media_asset: { [string]: _roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData },
+	social_link: { [string]: _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData },
+	developer_product: { [string]: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData },
+	subscription: { [string]: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData },
 }
 
 type _HydrationContentPartialFields = {
 	badge: { [string]: _roblox_apppageplatform_shared_v1beta1_badge_data.BadgeData }?,
 	universe: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_data.UniverseData }?,
 	creator: { [string]: _roblox_apppageplatform_shared_v1beta1_creator_data.CreatorData }?,
+	event: { [string]: _roblox_apppageplatform_shared_v1beta1_event_data.EventData }?,
+	song: { [string]: _roblox_apppageplatform_shared_v1beta1_song_data.SongData }?,
+	game_pass: { [string]: _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData }?,
+	media_asset: { [string]: _roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData }?,
+	social_link: { [string]: _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData }?,
+	developer_product: { [string]: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData }?,
+	subscription: { [string]: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData }?,
 }
 
 export type HydrationContent = typeof(setmetatable({} :: _HydrationContentFields, {} :: _HydrationContentImpl))
@@ -130,6 +158,209 @@ type _HydrationContent_CreatorEntryMessage = proto.Message<
 	_HydrationContent_CreatorEntryPartialFields
 >
 
+type _HydrationContent_EventEntryImpl = {
+	__index: _HydrationContent_EventEntryImpl,
+	new: (fields: _HydrationContent_EventEntryPartialFields?) -> HydrationContent_EventEntry,
+	encode: (self: HydrationContent_EventEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_EventEntry,
+	jsonEncode: (self: HydrationContent_EventEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_EventEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_EventEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_event_data.EventData?,
+}
+
+type _HydrationContent_EventEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_event_data.EventData?,
+}
+
+export type HydrationContent_EventEntry = typeof(setmetatable(
+	{} :: _HydrationContent_EventEntryFields,
+	{} :: _HydrationContent_EventEntryImpl
+))
+type _HydrationContent_EventEntryMessage = proto.Message<
+	HydrationContent_EventEntry,
+	_HydrationContent_EventEntryPartialFields
+>
+
+type _HydrationContent_SongEntryImpl = {
+	__index: _HydrationContent_SongEntryImpl,
+	new: (fields: _HydrationContent_SongEntryPartialFields?) -> HydrationContent_SongEntry,
+	encode: (self: HydrationContent_SongEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_SongEntry,
+	jsonEncode: (self: HydrationContent_SongEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_SongEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_SongEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_song_data.SongData?,
+}
+
+type _HydrationContent_SongEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_song_data.SongData?,
+}
+
+export type HydrationContent_SongEntry = typeof(setmetatable(
+	{} :: _HydrationContent_SongEntryFields,
+	{} :: _HydrationContent_SongEntryImpl
+))
+type _HydrationContent_SongEntryMessage = proto.Message<
+	HydrationContent_SongEntry,
+	_HydrationContent_SongEntryPartialFields
+>
+
+type _HydrationContent_GamePassEntryImpl = {
+	__index: _HydrationContent_GamePassEntryImpl,
+	new: (fields: _HydrationContent_GamePassEntryPartialFields?) -> HydrationContent_GamePassEntry,
+	encode: (self: HydrationContent_GamePassEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_GamePassEntry,
+	jsonEncode: (self: HydrationContent_GamePassEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_GamePassEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_GamePassEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData?,
+}
+
+type _HydrationContent_GamePassEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData?,
+}
+
+export type HydrationContent_GamePassEntry = typeof(setmetatable(
+	{} :: _HydrationContent_GamePassEntryFields,
+	{} :: _HydrationContent_GamePassEntryImpl
+))
+type _HydrationContent_GamePassEntryMessage = proto.Message<
+	HydrationContent_GamePassEntry,
+	_HydrationContent_GamePassEntryPartialFields
+>
+
+type _HydrationContent_MediaAssetEntryImpl = {
+	__index: _HydrationContent_MediaAssetEntryImpl,
+	new: (fields: _HydrationContent_MediaAssetEntryPartialFields?) -> HydrationContent_MediaAssetEntry,
+	encode: (self: HydrationContent_MediaAssetEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_MediaAssetEntry,
+	jsonEncode: (self: HydrationContent_MediaAssetEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_MediaAssetEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_MediaAssetEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData?,
+}
+
+type _HydrationContent_MediaAssetEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData?,
+}
+
+export type HydrationContent_MediaAssetEntry = typeof(setmetatable(
+	{} :: _HydrationContent_MediaAssetEntryFields,
+	{} :: _HydrationContent_MediaAssetEntryImpl
+))
+type _HydrationContent_MediaAssetEntryMessage = proto.Message<
+	HydrationContent_MediaAssetEntry,
+	_HydrationContent_MediaAssetEntryPartialFields
+>
+
+type _HydrationContent_SocialLinkEntryImpl = {
+	__index: _HydrationContent_SocialLinkEntryImpl,
+	new: (fields: _HydrationContent_SocialLinkEntryPartialFields?) -> HydrationContent_SocialLinkEntry,
+	encode: (self: HydrationContent_SocialLinkEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_SocialLinkEntry,
+	jsonEncode: (self: HydrationContent_SocialLinkEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_SocialLinkEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_SocialLinkEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData?,
+}
+
+type _HydrationContent_SocialLinkEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData?,
+}
+
+export type HydrationContent_SocialLinkEntry = typeof(setmetatable(
+	{} :: _HydrationContent_SocialLinkEntryFields,
+	{} :: _HydrationContent_SocialLinkEntryImpl
+))
+type _HydrationContent_SocialLinkEntryMessage = proto.Message<
+	HydrationContent_SocialLinkEntry,
+	_HydrationContent_SocialLinkEntryPartialFields
+>
+
+type _HydrationContent_DeveloperProductEntryImpl = {
+	__index: _HydrationContent_DeveloperProductEntryImpl,
+	new: (fields: _HydrationContent_DeveloperProductEntryPartialFields?) -> HydrationContent_DeveloperProductEntry,
+	encode: (self: HydrationContent_DeveloperProductEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_DeveloperProductEntry,
+	jsonEncode: (self: HydrationContent_DeveloperProductEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_DeveloperProductEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_DeveloperProductEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData?,
+}
+
+type _HydrationContent_DeveloperProductEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData?,
+}
+
+export type HydrationContent_DeveloperProductEntry = typeof(setmetatable(
+	{} :: _HydrationContent_DeveloperProductEntryFields,
+	{} :: _HydrationContent_DeveloperProductEntryImpl
+))
+type _HydrationContent_DeveloperProductEntryMessage = proto.Message<
+	HydrationContent_DeveloperProductEntry,
+	_HydrationContent_DeveloperProductEntryPartialFields
+>
+
+type _HydrationContent_SubscriptionEntryImpl = {
+	__index: _HydrationContent_SubscriptionEntryImpl,
+	new: (fields: _HydrationContent_SubscriptionEntryPartialFields?) -> HydrationContent_SubscriptionEntry,
+	encode: (self: HydrationContent_SubscriptionEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_SubscriptionEntry,
+	jsonEncode: (self: HydrationContent_SubscriptionEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_SubscriptionEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_SubscriptionEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData?,
+}
+
+type _HydrationContent_SubscriptionEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData?,
+}
+
+export type HydrationContent_SubscriptionEntry = typeof(setmetatable(
+	{} :: _HydrationContent_SubscriptionEntryFields,
+	{} :: _HydrationContent_SubscriptionEntryImpl
+))
+type _HydrationContent_SubscriptionEntryMessage = proto.Message<
+	HydrationContent_SubscriptionEntry,
+	_HydrationContent_SubscriptionEntryPartialFields
+>
+
 do
 	local _HydrationContentImpl = {}
 	_HydrationContentImpl.__index = _HydrationContentImpl
@@ -139,6 +370,13 @@ do
 			badge = if data == nil or data.badge == nil then {} else data.badge,
 			universe = if data == nil or data.universe == nil then {} else data.universe,
 			creator = if data == nil or data.creator == nil then {} else data.creator,
+			event = if data == nil or data.event == nil then {} else data.event,
+			song = if data == nil or data.song == nil then {} else data.song,
+			game_pass = if data == nil or data.game_pass == nil then {} else data.game_pass,
+			media_asset = if data == nil or data.media_asset == nil then {} else data.media_asset,
+			social_link = if data == nil or data.social_link == nil then {} else data.social_link,
+			developer_product = if data == nil or data.developer_product == nil then {} else data.developer_product,
+			subscription = if data == nil or data.subscription == nil then {} else data.subscription,
 		}, _HydrationContentImpl :: _HydrationContentImpl)
 	end
 
@@ -184,6 +422,104 @@ do
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
 				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.event ~= nil and next(self.event) ~= nil then
+			for key, value in self.event do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.song ~= nil and next(self.song) ~= nil then
+			for key, value in self.song do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.game_pass ~= nil and next(self.game_pass) ~= nil then
+			for key, value in self.game_pass do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.media_asset ~= nil and next(self.media_asset) ~= nil then
+			for key, value in self.media_asset do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.social_link ~= nil and next(self.social_link) ~= nil then
+			for key, value in self.social_link do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.developer_product ~= nil and next(self.developer_product) ~= nil then
+			for key, value in self.developer_product do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.subscription ~= nil and next(self.subscription) ~= nil then
+			for key, value in self.subscription do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
 			end
 		end
@@ -243,6 +579,91 @@ do
 					self.creator[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_EventEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = _roblox_apppageplatform_shared_v1beta1_event_data.EventData.new()
+
+					self.event[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_SongEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = _roblox_apppageplatform_shared_v1beta1_song_data.SongData.new()
+
+					self.song[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_GamePassEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData.new()
+
+					self.game_pass[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_MediaAssetEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = _roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData.new()
+
+					self.media_asset[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_SocialLinkEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData.new()
+
+					self.social_link[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_DeveloperProductEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData.new()
+
+					self.developer_product[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_SubscriptionEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData.new()
+
+					self.subscription[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
 				end
 
 				local length
@@ -294,6 +715,62 @@ do
 			output.creator = newOutput
 		end
 
+		if self.event ~= nil and next(self.event) ~= nil then
+			local newOutput = {}
+			for key, value in self.event do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.event = newOutput
+		end
+
+		if self.song ~= nil and next(self.song) ~= nil then
+			local newOutput = {}
+			for key, value in self.song do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.song = newOutput
+		end
+
+		if self.game_pass ~= nil and next(self.game_pass) ~= nil then
+			local newOutput = {}
+			for key, value in self.game_pass do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.gamePass = newOutput
+		end
+
+		if self.media_asset ~= nil and next(self.media_asset) ~= nil then
+			local newOutput = {}
+			for key, value in self.media_asset do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.mediaAsset = newOutput
+		end
+
+		if self.social_link ~= nil and next(self.social_link) ~= nil then
+			local newOutput = {}
+			for key, value in self.social_link do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.socialLink = newOutput
+		end
+
+		if self.developer_product ~= nil and next(self.developer_product) ~= nil then
+			local newOutput = {}
+			for key, value in self.developer_product do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.developerProduct = newOutput
+		end
+
+		if self.subscription ~= nil and next(self.subscription) ~= nil then
+			local newOutput = {}
+			for key, value in self.subscription do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.subscription = newOutput
+		end
+
 		return output
 	end
 
@@ -325,6 +802,115 @@ do
 			end
 
 			self.creator = newOutput
+		end
+
+		if input.event ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_event_data.EventData } = {}
+			for key, value in input.event do
+				newOutput[key] = _roblox_apppageplatform_shared_v1beta1_event_data.EventData.jsonDecode(value)
+			end
+
+			self.event = newOutput
+		end
+
+		if input.song ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_song_data.SongData } = {}
+			for key, value in input.song do
+				newOutput[key] = _roblox_apppageplatform_shared_v1beta1_song_data.SongData.jsonDecode(value)
+			end
+
+			self.song = newOutput
+		end
+
+		if input.game_pass ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData } = {}
+			for key, value in input.game_pass do
+				newOutput[key] = _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData.jsonDecode(value)
+			end
+
+			self.game_pass = newOutput
+		end
+
+		if input.gamePass ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData } = {}
+			for key, value in input.gamePass do
+				newOutput[key] = _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData.jsonDecode(value)
+			end
+
+			self.game_pass = newOutput
+		end
+
+		if input.media_asset ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData } = {}
+			for key, value in input.media_asset do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData.jsonDecode(value)
+			end
+
+			self.media_asset = newOutput
+		end
+
+		if input.mediaAsset ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData } = {}
+			for key, value in input.mediaAsset do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData.jsonDecode(value)
+			end
+
+			self.media_asset = newOutput
+		end
+
+		if input.social_link ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData } = {}
+			for key, value in input.social_link do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData.jsonDecode(value)
+			end
+
+			self.social_link = newOutput
+		end
+
+		if input.socialLink ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData } = {}
+			for key, value in input.socialLink do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData.jsonDecode(value)
+			end
+
+			self.social_link = newOutput
+		end
+
+		if input.developer_product ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData } =
+				{}
+			for key, value in input.developer_product do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData.jsonDecode(value)
+			end
+
+			self.developer_product = newOutput
+		end
+
+		if input.developerProduct ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData } =
+				{}
+			for key, value in input.developerProduct do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData.jsonDecode(value)
+			end
+
+			self.developer_product = newOutput
+		end
+
+		if input.subscription ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData } =
+				{}
+			for key, value in input.subscription do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData.jsonDecode(value)
+			end
+
+			self.subscription = newOutput
 		end
 
 		return self
@@ -695,6 +1281,851 @@ do
 	messages.HydrationContent_CreatorEntry = _HydrationContent_CreatorEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.HydrationContent_CreatorEntry)
+end
+
+do
+	local _HydrationContent_EventEntryImpl = {}
+	_HydrationContent_EventEntryImpl.__index = _HydrationContent_EventEntryImpl
+
+	function _HydrationContent_EventEntryImpl.new(
+		data: _HydrationContent_EventEntryPartialFields?
+	): HydrationContent_EventEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_EventEntryImpl :: _HydrationContent_EventEntryImpl)
+	end
+
+	function _HydrationContent_EventEntryImpl.encode(self: HydrationContent_EventEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_EventEntryImpl.decode(input: buffer): HydrationContent_EventEntry
+		local self = _HydrationContent_EventEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = _roblox_apppageplatform_shared_v1beta1_event_data.EventData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_EventEntryImpl.jsonEncode(self: HydrationContent_EventEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_EventEntryImpl.jsonDecode(input: { [string]: any }): HydrationContent_EventEntry
+		local self = _HydrationContent_EventEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_event_data.EventData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_HydrationContent_EventEntryImpl.descriptor = {
+		name = "HydrationContent_EventEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EventEntry",
+	}
+
+	messages.HydrationContent_EventEntry = _HydrationContent_EventEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_EventEntry)
+end
+
+do
+	local _HydrationContent_SongEntryImpl = {}
+	_HydrationContent_SongEntryImpl.__index = _HydrationContent_SongEntryImpl
+
+	function _HydrationContent_SongEntryImpl.new(
+		data: _HydrationContent_SongEntryPartialFields?
+	): HydrationContent_SongEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_SongEntryImpl :: _HydrationContent_SongEntryImpl)
+	end
+
+	function _HydrationContent_SongEntryImpl.encode(self: HydrationContent_SongEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_SongEntryImpl.decode(input: buffer): HydrationContent_SongEntry
+		local self = _HydrationContent_SongEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = _roblox_apppageplatform_shared_v1beta1_song_data.SongData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_SongEntryImpl.jsonEncode(self: HydrationContent_SongEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_SongEntryImpl.jsonDecode(input: { [string]: any }): HydrationContent_SongEntry
+		local self = _HydrationContent_SongEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_song_data.SongData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_HydrationContent_SongEntryImpl.descriptor = {
+		name = "HydrationContent_SongEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SongEntry",
+	}
+
+	messages.HydrationContent_SongEntry = _HydrationContent_SongEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_SongEntry)
+end
+
+do
+	local _HydrationContent_GamePassEntryImpl = {}
+	_HydrationContent_GamePassEntryImpl.__index = _HydrationContent_GamePassEntryImpl
+
+	function _HydrationContent_GamePassEntryImpl.new(
+		data: _HydrationContent_GamePassEntryPartialFields?
+	): HydrationContent_GamePassEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_GamePassEntryImpl :: _HydrationContent_GamePassEntryImpl)
+	end
+
+	function _HydrationContent_GamePassEntryImpl.encode(self: HydrationContent_GamePassEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_GamePassEntryImpl.decode(input: buffer): HydrationContent_GamePassEntry
+		local self = _HydrationContent_GamePassEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_GamePassEntryImpl.jsonEncode(self: HydrationContent_GamePassEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_GamePassEntryImpl.jsonDecode(input: { [string]: any }): HydrationContent_GamePassEntry
+		local self = _HydrationContent_GamePassEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_HydrationContent_GamePassEntryImpl.descriptor = {
+		name = "HydrationContent_GamePassEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GamePassEntry",
+	}
+
+	messages.HydrationContent_GamePassEntry = _HydrationContent_GamePassEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_GamePassEntry)
+end
+
+do
+	local _HydrationContent_MediaAssetEntryImpl = {}
+	_HydrationContent_MediaAssetEntryImpl.__index = _HydrationContent_MediaAssetEntryImpl
+
+	function _HydrationContent_MediaAssetEntryImpl.new(
+		data: _HydrationContent_MediaAssetEntryPartialFields?
+	): HydrationContent_MediaAssetEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_MediaAssetEntryImpl :: _HydrationContent_MediaAssetEntryImpl)
+	end
+
+	function _HydrationContent_MediaAssetEntryImpl.encode(self: HydrationContent_MediaAssetEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_MediaAssetEntryImpl.decode(input: buffer): HydrationContent_MediaAssetEntry
+		local self = _HydrationContent_MediaAssetEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = _roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_MediaAssetEntryImpl.jsonEncode(self: HydrationContent_MediaAssetEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_MediaAssetEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_MediaAssetEntry
+		local self = _HydrationContent_MediaAssetEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_HydrationContent_MediaAssetEntryImpl.descriptor = {
+		name = "HydrationContent_MediaAssetEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MediaAssetEntry",
+	}
+
+	messages.HydrationContent_MediaAssetEntry = _HydrationContent_MediaAssetEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_MediaAssetEntry)
+end
+
+do
+	local _HydrationContent_SocialLinkEntryImpl = {}
+	_HydrationContent_SocialLinkEntryImpl.__index = _HydrationContent_SocialLinkEntryImpl
+
+	function _HydrationContent_SocialLinkEntryImpl.new(
+		data: _HydrationContent_SocialLinkEntryPartialFields?
+	): HydrationContent_SocialLinkEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_SocialLinkEntryImpl :: _HydrationContent_SocialLinkEntryImpl)
+	end
+
+	function _HydrationContent_SocialLinkEntryImpl.encode(self: HydrationContent_SocialLinkEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_SocialLinkEntryImpl.decode(input: buffer): HydrationContent_SocialLinkEntry
+		local self = _HydrationContent_SocialLinkEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_SocialLinkEntryImpl.jsonEncode(self: HydrationContent_SocialLinkEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_SocialLinkEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_SocialLinkEntry
+		local self = _HydrationContent_SocialLinkEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_HydrationContent_SocialLinkEntryImpl.descriptor = {
+		name = "HydrationContent_SocialLinkEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SocialLinkEntry",
+	}
+
+	messages.HydrationContent_SocialLinkEntry = _HydrationContent_SocialLinkEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_SocialLinkEntry)
+end
+
+do
+	local _HydrationContent_DeveloperProductEntryImpl = {}
+	_HydrationContent_DeveloperProductEntryImpl.__index = _HydrationContent_DeveloperProductEntryImpl
+
+	function _HydrationContent_DeveloperProductEntryImpl.new(
+		data: _HydrationContent_DeveloperProductEntryPartialFields?
+	): HydrationContent_DeveloperProductEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_DeveloperProductEntryImpl :: _HydrationContent_DeveloperProductEntryImpl)
+	end
+
+	function _HydrationContent_DeveloperProductEntryImpl.encode(self: HydrationContent_DeveloperProductEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_DeveloperProductEntryImpl.decode(input: buffer): HydrationContent_DeveloperProductEntry
+		local self = _HydrationContent_DeveloperProductEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_DeveloperProductEntryImpl.jsonEncode(self: HydrationContent_DeveloperProductEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_DeveloperProductEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_DeveloperProductEntry
+		local self = _HydrationContent_DeveloperProductEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData.jsonDecode(
+				input.value
+			)
+		end
+
+		return self
+	end
+
+	_HydrationContent_DeveloperProductEntryImpl.descriptor = {
+		name = "HydrationContent_DeveloperProductEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.DeveloperProductEntry",
+	}
+
+	messages.HydrationContent_DeveloperProductEntry = _HydrationContent_DeveloperProductEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_DeveloperProductEntry)
+end
+
+do
+	local _HydrationContent_SubscriptionEntryImpl = {}
+	_HydrationContent_SubscriptionEntryImpl.__index = _HydrationContent_SubscriptionEntryImpl
+
+	function _HydrationContent_SubscriptionEntryImpl.new(
+		data: _HydrationContent_SubscriptionEntryPartialFields?
+	): HydrationContent_SubscriptionEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_SubscriptionEntryImpl :: _HydrationContent_SubscriptionEntryImpl)
+	end
+
+	function _HydrationContent_SubscriptionEntryImpl.encode(self: HydrationContent_SubscriptionEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_SubscriptionEntryImpl.decode(input: buffer): HydrationContent_SubscriptionEntry
+		local self = _HydrationContent_SubscriptionEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_SubscriptionEntryImpl.jsonEncode(self: HydrationContent_SubscriptionEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_SubscriptionEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_SubscriptionEntry
+		local self = _HydrationContent_SubscriptionEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_HydrationContent_SubscriptionEntryImpl.descriptor = {
+		name = "HydrationContent_SubscriptionEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SubscriptionEntry",
+	}
+
+	messages.HydrationContent_SubscriptionEntry = _HydrationContent_SubscriptionEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_SubscriptionEntry)
 end
 
 return {

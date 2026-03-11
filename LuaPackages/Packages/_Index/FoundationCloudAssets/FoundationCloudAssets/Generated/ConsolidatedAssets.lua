@@ -46,7 +46,7 @@ return {
         size = Vector2.new(960, 540),
     },
     ["pictograms/captures"] = {
-        assetId = "rbxassetid://117011861606730",
+        assetId = "rbxassetid://128551263833065",
         size = Vector2.new(960, 540),
     },
     ["pictograms/celebrate"] = {
@@ -129,6 +129,10 @@ return {
         assetId = "rbxassetid://80325486497687",
         size = Vector2.new(960, 540),
     },
+    ["pictograms/makeup_look"] = {
+        assetId = "rbxassetid://107245665197852",
+        size = Vector2.new(960, 540),
+    },
     ["pictograms/meshes"] = {
         assetId = "rbxassetid://137071965581451",
         size = Vector2.new(960, 540),
@@ -163,6 +167,14 @@ return {
     },
     ["pictograms/payments"] = {
         assetId = "rbxassetid://129382655285262",
+        size = Vector2.new(960, 540),
+    },
+    ["pictograms/photo_retain"] = {
+        assetId = "rbxassetid://131301807703582",
+        size = Vector2.new(960, 540),
+    },
+    ["pictograms/photo_ver"] = {
+        assetId = "rbxassetid://107820394997300",
         size = Vector2.new(960, 540),
     },
     ["pictograms/protection_shield"] = {

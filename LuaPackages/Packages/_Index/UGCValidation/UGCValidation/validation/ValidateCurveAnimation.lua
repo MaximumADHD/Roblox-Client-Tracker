@@ -34,9 +34,6 @@ local getFIntUGCValidateMaxMarkerCurveValueLength = require(flags.getFIntUGCVali
 local GetFStringUGCValidateMaxAnimationMovementPerPart = require(flags.GetFStringUGCValidateMaxAnimationMovementPerPart)
 local getFFlagUGCValidateStopNaNsInfsInAnimationKeys = require(flags.getFFlagUGCValidateStopNaNsInfsInAnimationKeys)
 local getFFlagUGCValidateStopNaNsInfsInCalculatedData = require(flags.getFFlagUGCValidateStopNaNsInfsInCalculatedData)
-local getFFlagUGCValidateSingleAnimationRigData = require(flags.getFFlagUGCValidateSingleAnimationRigData)
-local getEngineFeatureEngineUGCIsValidR15AnimationRigCheck =
-	require(flags.getEngineFeatureEngineUGCIsValidR15AnimationRigCheck)
 local GetFStringUGCValidateFrameDeltaKeyTimeTol = require(flags.GetFStringUGCValidateFrameDeltaKeyTimeTol)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
@@ -393,20 +390,14 @@ local function validateAnimationRigData(
 	curveAnim: CurveAnimation,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
-	if getFFlagUGCValidateSingleAnimationRigData() then
-		local success, errorMessages =
-			ValidateCurveAnimation.validateSingleAnimationRigData(curveAnim, validationContext)
-		if not success then
-			return false, errorMessages
-		end
+	local success, errorMessages = ValidateCurveAnimation.validateSingleAnimationRigData(curveAnim, validationContext)
+	if not success then
+		return false, errorMessages
 	end
 
-	if getEngineFeatureEngineUGCIsValidR15AnimationRigCheck() then
-		local success, errorMessages =
-			ValidateCurveAnimation.validateAnimationRigDataInternals(curveAnim, validationContext)
-		if not success then
-			return false, errorMessages
-		end
+	success, errorMessages = ValidateCurveAnimation.validateAnimationRigDataInternals(curveAnim, validationContext)
+	if not success then
+		return false, errorMessages
 	end
 	return true
 end
@@ -511,11 +502,9 @@ local function validateAnimationHierarchy(
 		return false, errorMessages
 	end
 
-	if getFFlagUGCValidateSingleAnimationRigData() or getEngineFeatureEngineUGCIsValidR15AnimationRigCheck() then
-		success, errorMessages = validateAnimationRigData(curveAnim, validationContext)
-		if not success then
-			return false, errorMessages
-		end
+	success, errorMessages = validateAnimationRigData(curveAnim, validationContext)
+	if not success then
+		return false, errorMessages
 	end
 
 	if getFFlagUGCValidateRestrictNumMarkerCurves() then

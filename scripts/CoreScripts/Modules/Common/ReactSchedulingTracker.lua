@@ -13,7 +13,6 @@ local FFlagDebugReactSchedulingEnableErrorEvents = game:DefineFastFlag("DebugRea
 local FFlagReactSchedulingTrackerLayoutEffects = game:DefineFastFlag("ReactSchedulingTrackerLayoutEffects", false)
 local FFlagReactSchedulingTrackerDataModelUpdate = game:DefineFastFlag("ReactSchedulingTrackerDataModelUpdate", false)
 local EngineFeatureTelemetryServicePlaySessionInfoEnabled = game:GetEngineFeature("TelemetryServicePlaySessionInfoEnabled")
-local FFlagReactSchedulingAddPlaySessionId = game:DefineFastFlag("ReactSchedulingAddPlaySessionId", false)
 local FFlagEnableCorescriptExecutionTime = game:DefineFastFlag("EnableCorescriptExecutionTime", false)
 local EngineFeatureScriptPlusExecutionTimeEnabled = game:GetEngineFeature("ScriptPlusExecutionTimeEnabled")
 
@@ -292,7 +291,7 @@ if EngineFeatureTelemetryServiceMemoryCPUInfoEnabled then
 	summaryStandardizedFields =
 		{ "addPlaceId", "addUniverseId", "addSessionId", "addOSInfo", "addSessionInfo", "addMemoryInfo", "addCPUInfo" }
 end
-if FFlagReactSchedulingAddPlaySessionId and EngineFeatureTelemetryServicePlaySessionInfoEnabled then
+if EngineFeatureTelemetryServicePlaySessionInfoEnabled then
 	table.insert(summaryStandardizedFields, "addPlaySessionId")
 end
 

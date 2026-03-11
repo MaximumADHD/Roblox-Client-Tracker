@@ -3,8 +3,8 @@
 	Poppercam - Occlusion module that brings the camera closer to the subject when objects are blocking the view.
 --]]
 
-local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
-local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
+local FlagUtil = CommonUtils.get("FlagUtil")
 
 local ZoomController =  require(script.Parent:WaitForChild("ZoomController"))
 local FFlagUserFixCameraFPError = FlagUtil.getUserFlag("UserFixCameraFPError")

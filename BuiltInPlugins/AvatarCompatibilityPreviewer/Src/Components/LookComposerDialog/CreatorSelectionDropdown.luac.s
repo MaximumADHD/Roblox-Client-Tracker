@@ -75,35 +75,47 @@ PROTO_2:
        62 JUMP                             ; [+1]
        63 LOADN                            R7 0
        64 SETTABLEKS                       R7 R6 K10 ["GroupTransparency"]
-       66 DUPTABLE                         R7 K22 [{"DropdownWrapper"}]
+       66 DUPTABLE                         R7 K23 [{"Title", "DropdownWrapper"}]
        67 GETUPVAL                         R9 2
        68 GETTABLEKS                       R8 R9 K5 ["createElement"]
        70 GETUPVAL                         R9 4
-       71 DUPTABLE                         R10 K30 [{"label", "value", "items", "onItemChanged", "isDisabled", "width", "size", "LayoutOrder"}]
-       72 LOADK                            R13 K31 ["LookComposerDialog"]
-       73 LOADK                            R14 K32 ["Creator"]
-       74 NAMECALL                         R11 R1 K33 ["getText"]
+       71 DUPTABLE                         R10 K25 [{"Text", "tag", "LayoutOrder"}]
+       72 LOADK                            R13 K26 ["LookComposerDialog"]
+       73 LOADK                            R14 K27 ["Creator"]
+       74 NAMECALL                         R11 R1 K28 ["getText"]
        76 CALL                             R11 3 1
-       77 SETTABLEKS                       R11 R10 K23 ["label"]
-       79 GETTABLEKS                       R11 R0 K34 ["selectedCreatorId"]
-       81 SETTABLEKS                       R11 R10 K24 ["value"]
-       83 SETTABLEKS                       R2 R10 K25 ["items"]
-       85 SETTABLEKS                       R3 R10 K26 ["onItemChanged"]
-       87 GETTABLEKS                       R11 R0 K19 ["disabled"]
-       89 SETTABLEKS                       R11 R10 K27 ["isDisabled"]
-       91 GETIMPORT                        R11 K36 [UDim.new]
-       93 LOADN                            R12 1
-       94 LOADN                            R13 0
-       95 CALL                             R11 2 1
-       96 SETTABLEKS                       R11 R10 K28 ["width"]
-       98 LOADK                            R11 K37 ["Small"]
-       99 SETTABLEKS                       R11 R10 K29 ["size"]
-      101 LOADN                            R11 1
-      102 SETTABLEKS                       R11 R10 K9 ["LayoutOrder"]
-      104 CALL                             R8 2 1
-      105 SETTABLEKS                       R8 R7 K21 ["DropdownWrapper"]
-      107 CALL                             R4 3 -1
-      108 RETURN                           R4 -1
+       77 SETTABLEKS                       R11 R10 K24 ["Text"]
+       79 LOADK                            R11 K29 ["text-label-medium auto-xy content-emphasis"]
+       80 SETTABLEKS                       R11 R10 K6 ["tag"]
+       82 LOADN                            R11 1
+       83 SETTABLEKS                       R11 R10 K9 ["LayoutOrder"]
+       85 CALL                             R8 2 1
+       86 SETTABLEKS                       R8 R7 K21 ["Title"]
+       88 GETUPVAL                         R9 2
+       89 GETTABLEKS                       R8 R9 K5 ["createElement"]
+       91 GETUPVAL                         R9 5
+       92 DUPTABLE                         R10 K37 [{"label", "value", "items", "onItemChanged", "isDisabled", "width", "size", "LayoutOrder"}]
+       93 LOADK                            R11 K38 [""]
+       94 SETTABLEKS                       R11 R10 K30 ["label"]
+       96 GETTABLEKS                       R11 R0 K39 ["selectedCreatorId"]
+       98 SETTABLEKS                       R11 R10 K31 ["value"]
+      100 SETTABLEKS                       R2 R10 K32 ["items"]
+      102 SETTABLEKS                       R3 R10 K33 ["onItemChanged"]
+      104 GETTABLEKS                       R11 R0 K19 ["disabled"]
+      106 SETTABLEKS                       R11 R10 K34 ["isDisabled"]
+      108 GETIMPORT                        R11 K41 [UDim.new]
+      110 LOADN                            R12 1
+      111 LOADN                            R13 0
+      112 CALL                             R11 2 1
+      113 SETTABLEKS                       R11 R10 K35 ["width"]
+      115 LOADK                            R11 K42 ["Small"]
+      116 SETTABLEKS                       R11 R10 K36 ["size"]
+      118 LOADN                            R11 2
+      119 SETTABLEKS                       R11 R10 K9 ["LayoutOrder"]
+      121 CALL                             R8 2 1
+      122 SETTABLEKS                       R8 R7 K22 ["DropdownWrapper"]
+      124 CALL                             R4 3 -1
+      125 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -122,21 +134,23 @@ MAIN:
        21 GETTABLEKS                       R3 R2 K9 ["View"]
        23 GETTABLEKS                       R5 R2 K10 ["Dropdown"]
        25 GETTABLEKS                       R4 R5 K11 ["Root"]
-       27 GETIMPORT                        R5 K5 [require]
-       29 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       31 GETTABLEKS                       R6 R7 K12 ["Framework"]
-       33 CALL                             R5 1 1
-       34 GETTABLEKS                       R7 R5 K13 ["ContextServices"]
-       36 GETTABLEKS                       R6 R7 K14 ["Localization"]
-       38 GETIMPORT                        R7 K5 [require]
-       40 GETTABLEKS                       R10 R0 K15 ["Src"]
-       42 GETTABLEKS                       R9 R10 K16 ["Flags"]
-       44 GETTABLEKS                       R8 R9 K17 ["getFFlagAvatarPreviewerLookComposer"]
-       46 CALL                             R7 1 1
-       47 DUPCLOSURE                       R8 K18 [PROTO_2]
-       48 CAPTURE                          VAL R7
-       49 CAPTURE                          VAL R6
-       50 CAPTURE                          VAL R1
-       51 CAPTURE                          VAL R3
-       52 CAPTURE                          VAL R4
-       53 RETURN                           R8 1
+       27 GETTABLEKS                       R5 R2 K12 ["Text"]
+       29 GETIMPORT                        R6 K5 [require]
+       31 GETTABLEKS                       R8 R0 K6 ["Packages"]
+       33 GETTABLEKS                       R7 R8 K13 ["Framework"]
+       35 CALL                             R6 1 1
+       36 GETTABLEKS                       R8 R6 K14 ["ContextServices"]
+       38 GETTABLEKS                       R7 R8 K15 ["Localization"]
+       40 GETIMPORT                        R8 K5 [require]
+       42 GETTABLEKS                       R11 R0 K16 ["Src"]
+       44 GETTABLEKS                       R10 R11 K17 ["Flags"]
+       46 GETTABLEKS                       R9 R10 K18 ["getFFlagAvatarPreviewerLookComposer"]
+       48 CALL                             R8 1 1
+       49 DUPCLOSURE                       R9 K19 [PROTO_2]
+       50 CAPTURE                          VAL R8
+       51 CAPTURE                          VAL R7
+       52 CAPTURE                          VAL R1
+       53 CAPTURE                          VAL R3
+       54 CAPTURE                          VAL R5
+       55 CAPTURE                          VAL R4
+       56 RETURN                           R9 1

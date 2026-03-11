@@ -188,15 +188,14 @@ MAIN:
        44 GETTABLEKS                       R9 R10 K17 ["getFFlagAvatarPreviewerLookComposer"]
        46 CALL                             R8 1 1
        47 GETIMPORT                        R9 K5 [require]
-       49 GETIMPORT                        R12 K1 [script]
-       51 GETTABLEKS                       R11 R12 K18 ["Parent"]
-       53 GETTABLEKS                       R10 R11 K19 ["Types"]
-       55 CALL                             R9 1 1
-       56 DUPCLOSURE                       R10 K20 [PROTO_1]
-       57 CAPTURE                          VAL R8
-       58 CAPTURE                          VAL R7
-       59 CAPTURE                          VAL R1
-       60 CAPTURE                          VAL R3
-       61 CAPTURE                          VAL R4
-       62 CAPTURE                          VAL R5
-       63 RETURN                           R10 1
+       49 GETTABLEKS                       R11 R0 K15 ["Src"]
+       51 GETTABLEKS                       R10 R11 K18 ["Types"]
+       53 CALL                             R9 1 1
+       54 DUPCLOSURE                       R10 K19 [PROTO_1]
+       55 CAPTURE                          VAL R8
+       56 CAPTURE                          VAL R7
+       57 CAPTURE                          VAL R1
+       58 CAPTURE                          VAL R3
+       59 CAPTURE                          VAL R4
+       60 CAPTURE                          VAL R5
+       61 RETURN                           R10 1

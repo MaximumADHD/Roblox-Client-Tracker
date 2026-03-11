@@ -49,6 +49,7 @@ local HealthBar = require(Presentation.HealthBar)
 local HurtOverlay = require(Presentation.HurtOverlay)
 local GamepadNavigationDialog = require(Presentation.GamepadNavigationDialog)
 local HeadsetMenu = require(Presentation.HeadsetMenu)
+local HeadsetDisconnectDialog = CoreGuiCommon.Components.HeadsetDisconnectDialog
 local VoiceBetaBadge = require(Presentation.VoiceBetaBadge)
 
 local TraversalBackButton = require(script.Parent.TraversalBackButton)
@@ -69,6 +70,7 @@ local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMen
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 
 local FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton
+local FFlagUseNewHeadsetDisconnectDialog = game:DefineFastFlag("UseNewHeadsetDisconnectDialog", false)
 
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
@@ -512,7 +514,9 @@ function TopBarApp:renderWithStyle(style)
 		GamepadNavigationDialog = if FFlagGamepadNavigationDialogABTest
 			then Roact.createElement(GamepadNavigationDialog)
 			else nil,
-		HeadsetMenu = Roact.createElement(HeadsetMenu),
+		HeadsetMenu = if FFlagUseNewHeadsetDisconnectDialog 
+			then Roact.createElement(HeadsetDisconnectDialog) 
+			else Roact.createElement(HeadsetMenu),
 		VRBottomBar = VRService.VREnabled and bottomBar or nil,
 		KeepOutAreasHandler = if not FFlagTopBarSignalizeKeepOutAreas and KeepOutAreasHandler
 			then Roact.createElement(KeepOutAreasHandler)

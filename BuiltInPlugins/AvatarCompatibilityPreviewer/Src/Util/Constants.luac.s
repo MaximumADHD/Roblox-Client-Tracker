@@ -70,423 +70,431 @@ MAIN:
        96 SETTABLEKS                       R4 R3 K64 ["ORIGINAL_INSTANCE_VALUE_NAME"]
        98 LOADK                            R4 K65 ["AvatarPreviewer_OriginalObjectReference_"]
        99 SETTABLEKS                       R4 R3 K66 ["REFERENCE_VALUE_NAME"]
-      101 LOADK                            R4 K67 ["AutoSetupJobInitialization"]
-      102 SETTABLEKS                       R4 R3 K68 ["AUTO_SETUP_JOB_INITIALIZATION"]
-      104 NEWTABLE                         R4 32 0
-      106 GETIMPORT                        R5 K72 [Enum.AssetType.BackAccessory]
-      108 GETIMPORT                        R6 K75 [Enum.AccessoryType.Back]
-      110 SETTABLE                         R6 R4 R5
-      111 GETIMPORT                        R5 K77 [Enum.AssetType.DressSkirtAccessory]
-      113 GETIMPORT                        R6 K79 [Enum.AccessoryType.DressSkirt]
-      115 SETTABLE                         R6 R4 R5
-      116 GETIMPORT                        R5 K81 [Enum.AssetType.EyebrowAccessory]
-      118 GETIMPORT                        R6 K83 [Enum.AccessoryType.Eyebrow]
-      120 SETTABLE                         R6 R4 R5
-      121 GETIMPORT                        R5 K85 [Enum.AssetType.EyelashAccessory]
-      123 GETIMPORT                        R6 K87 [Enum.AccessoryType.Eyelash]
-      125 SETTABLE                         R6 R4 R5
-      126 GETIMPORT                        R5 K89 [Enum.AssetType.FaceAccessory]
-      128 GETIMPORT                        R6 K91 [Enum.AccessoryType.Face]
-      130 SETTABLE                         R6 R4 R5
-      131 GETIMPORT                        R5 K93 [Enum.AssetType.FrontAccessory]
-      133 GETIMPORT                        R6 K95 [Enum.AccessoryType.Front]
-      135 SETTABLE                         R6 R4 R5
-      136 GETIMPORT                        R5 K97 [Enum.AssetType.HairAccessory]
-      138 GETIMPORT                        R6 K99 [Enum.AccessoryType.Hair]
-      140 SETTABLE                         R6 R4 R5
-      141 GETIMPORT                        R5 K101 [Enum.AssetType.Hat]
-      143 GETIMPORT                        R6 K102 [Enum.AccessoryType.Hat]
-      145 SETTABLE                         R6 R4 R5
-      146 GETIMPORT                        R5 K104 [Enum.AssetType.JacketAccessory]
-      148 GETIMPORT                        R6 K106 [Enum.AccessoryType.Jacket]
-      150 SETTABLE                         R6 R4 R5
-      151 GETIMPORT                        R5 K108 [Enum.AssetType.LeftShoeAccessory]
-      153 GETIMPORT                        R6 K110 [Enum.AccessoryType.LeftShoe]
-      155 SETTABLE                         R6 R4 R5
-      156 GETIMPORT                        R5 K112 [Enum.AssetType.NeckAccessory]
-      158 GETIMPORT                        R6 K114 [Enum.AccessoryType.Neck]
-      160 SETTABLE                         R6 R4 R5
-      161 GETIMPORT                        R5 K116 [Enum.AssetType.PantsAccessory]
-      163 GETIMPORT                        R6 K118 [Enum.AccessoryType.Pants]
-      165 SETTABLE                         R6 R4 R5
-      166 GETIMPORT                        R5 K120 [Enum.AssetType.RightShoeAccessory]
-      168 GETIMPORT                        R6 K122 [Enum.AccessoryType.RightShoe]
-      170 SETTABLE                         R6 R4 R5
-      171 GETIMPORT                        R5 K124 [Enum.AssetType.ShirtAccessory]
-      173 GETIMPORT                        R6 K126 [Enum.AccessoryType.Shirt]
-      175 SETTABLE                         R6 R4 R5
-      176 GETIMPORT                        R5 K128 [Enum.AssetType.ShoulderAccessory]
-      178 GETIMPORT                        R6 K130 [Enum.AccessoryType.Shoulder]
-      180 SETTABLE                         R6 R4 R5
-      181 GETIMPORT                        R5 K132 [Enum.AssetType.ShortsAccessory]
-      183 GETIMPORT                        R6 K134 [Enum.AccessoryType.Shorts]
-      185 SETTABLE                         R6 R4 R5
-      186 GETIMPORT                        R5 K136 [Enum.AssetType.SweaterAccessory]
-      188 GETIMPORT                        R6 K138 [Enum.AccessoryType.Sweater]
-      190 SETTABLE                         R6 R4 R5
-      191 GETIMPORT                        R5 K140 [Enum.AssetType.TShirtAccessory]
-      193 GETIMPORT                        R6 K142 [Enum.AccessoryType.TShirt]
-      195 SETTABLE                         R6 R4 R5
-      196 GETIMPORT                        R5 K144 [Enum.AssetType.WaistAccessory]
-      198 GETIMPORT                        R6 K146 [Enum.AccessoryType.Waist]
-      200 SETTABLE                         R6 R4 R5
-      201 SETTABLEKS                       R4 R3 K147 ["ASSET_TYPE_TO_ACCESSORY_TYPE"]
-      203 NEWTABLE                         R4 4 0
-      205 GETIMPORT                        R5 K149 [Enum.AssetType.FaceMakeup]
-      207 GETIMPORT                        R6 K151 [Enum.MakeupType.Face]
-      209 SETTABLE                         R6 R4 R5
-      210 GETIMPORT                        R5 K153 [Enum.AssetType.LipMakeup]
-      212 GETIMPORT                        R6 K155 [Enum.MakeupType.Lip]
-      214 SETTABLE                         R6 R4 R5
-      215 GETIMPORT                        R5 K157 [Enum.AssetType.EyeMakeup]
-      217 GETIMPORT                        R6 K159 [Enum.MakeupType.Eye]
-      219 SETTABLE                         R6 R4 R5
-      220 SETTABLEKS                       R4 R3 K160 ["ASSET_TYPE_TO_MAKEUP_TYPE"]
-      222 NEWTABLE                         R4 0 50
-      224 LOADK                            R5 K161 ["ChinRaiser"]
-      225 LOADK                            R6 K162 ["ChinRaiserUpperLip"]
-      226 LOADK                            R7 K163 ["Corrugator"]
-      227 LOADK                            R8 K164 ["EyesLookDown"]
-      228 LOADK                            R9 K165 ["EyesLookLeft"]
-      229 LOADK                            R10 K166 ["EyesLookRight"]
-      230 LOADK                            R11 K167 ["EyesLookUp"]
-      231 LOADK                            R12 K168 ["FlatPucker"]
-      232 LOADK                            R13 K169 ["Funneler"]
-      233 LOADK                            R14 K170 ["JawDrop"]
-      234 LOADK                            R15 K171 ["JawLeft"]
-      235 LOADK                            R16 K172 ["JawRight"]
-      236 LOADK                            R17 K173 ["LeftBrowLowerer"]
-      237 LOADK                            R18 K174 ["LeftCheekPuff"]
-      238 LOADK                            R19 K175 ["LeftCheekRaiser"]
-      239 LOADK                            R20 K176 ["LeftDimpler"]
-      240 SETLIST                          R4 R5 16 [1]
-      242 LOADK                            R5 K177 ["LeftEyeClosed"]
-      243 LOADK                            R6 K178 ["LeftEyeUpperLidRaiser"]
-      244 LOADK                            R7 K179 ["LeftInnerBrowRaiser"]
-      245 LOADK                            R8 K180 ["LeftLipCornerDown"]
-      246 LOADK                            R9 K181 ["LeftLipCornerPuller"]
-      247 LOADK                            R10 K182 ["LeftLipStretcher"]
-      248 LOADK                            R11 K183 ["LeftLowerLipDepressor"]
-      249 LOADK                            R12 K184 ["LeftNoseWrinkler"]
-      250 LOADK                            R13 K185 ["LeftOuterBrowRaiser"]
-      251 LOADK                            R14 K186 ["LeftUpperLipRaiser"]
-      252 LOADK                            R15 K187 ["LipPresser"]
-      253 LOADK                            R16 K188 ["LipsTogether"]
-      254 LOADK                            R17 K189 ["LowerLipSuck"]
-      255 LOADK                            R18 K190 ["MouthLeft"]
-      256 LOADK                            R19 K191 ["MouthRight"]
-      257 LOADK                            R20 K192 ["Pucker"]
-      258 SETLIST                          R4 R5 16 [17]
-      260 LOADK                            R5 K193 ["RightBrowLowerer"]
-      261 LOADK                            R6 K194 ["RightCheekPuff"]
-      262 LOADK                            R7 K195 ["RightCheekRaiser"]
-      263 LOADK                            R8 K196 ["RightDimpler"]
-      264 LOADK                            R9 K197 ["RightEyeClosed"]
-      265 LOADK                            R10 K198 ["RightEyeUpperLidRaiser"]
-      266 LOADK                            R11 K199 ["RightInnerBrowRaiser"]
-      267 LOADK                            R12 K200 ["RightLipCornerDown"]
-      268 LOADK                            R13 K201 ["RightLipCornerPuller"]
-      269 LOADK                            R14 K202 ["RightLipStretcher"]
-      270 LOADK                            R15 K203 ["RightLowerLipDepressor"]
-      271 LOADK                            R16 K204 ["RightNoseWrinkler"]
-      272 LOADK                            R17 K205 ["RightOuterBrowRaiser"]
-      273 LOADK                            R18 K206 ["RightUpperLipRaiser"]
-      274 LOADK                            R19 K207 ["TongueDown"]
-      275 LOADK                            R20 K208 ["TongueOut"]
-      276 SETLIST                          R4 R5 16 [33]
-      278 LOADK                            R5 K209 ["TongueUp"]
-      279 LOADK                            R6 K210 ["UpperLipSuck"]
-      280 SETLIST                          R4 R5 2 [49]
-      282 SETTABLEKS                       R4 R3 K211 ["FACE_CONTROLS_PROPERTIES"]
-      284 SETTABLEKS                       R2 R3 K212 ["LIMBS"]
-      286 GETTABLEKS                       R5 R1 K213 ["List"]
-      288 GETTABLEKS                       R4 R5 K214 ["join"]
-      290 MOVE                             R5 R2
-      291 NEWTABLE                         R6 0 2
-      293 LOADK                            R7 K215 ["Handle"]
-      294 LOADK                            R8 K216 ["HumanoidRootPart"]
-      295 SETLIST                          R6 R7 2 [1]
-      297 CALL                             R4 2 1
-      298 SETTABLEKS                       R4 R3 K217 ["ALL_ALLOWED_PART_NAMES"]
-      300 DUPTABLE                         R4 K223 [{"BodyPoints", "EditingToolbar", "BodyPointsToolToolbar", "CageEditingToolToolbar", "MeshEditingModuleControlPointsAdornments"}]
-      301 LOADK                            R5 K224 ["AvatarPreviewerEditingBodyPoints"]
-      302 SETTABLEKS                       R5 R4 K218 ["BodyPoints"]
-      304 LOADK                            R5 K225 ["AvatarPreviewerEditingToolbar"]
-      305 SETTABLEKS                       R5 R4 K219 ["EditingToolbar"]
-      307 LOADK                            R5 K226 ["AvatarPreviewerBodyPointsToolToolbar"]
-      308 SETTABLEKS                       R5 R4 K220 ["BodyPointsToolToolbar"]
-      310 LOADK                            R5 K227 ["AvatarPreviewerCageEditingToolToolbar"]
-      311 SETTABLEKS                       R5 R4 K221 ["CageEditingToolToolbar"]
-      313 LOADK                            R5 K222 ["MeshEditingModuleControlPointsAdornments"]
-      314 SETTABLEKS                       R5 R4 K222 ["MeshEditingModuleControlPointsAdornments"]
-      316 SETTABLEKS                       R4 R3 K228 ["EDITING_TOOLS_GUI_NAMES"]
-      318 LOADK                            R4 K229 ["AvatarPreviewerClonedDummy"]
-      319 SETTABLEKS                       R4 R3 K230 ["CLONED_DUMMY_NAME"]
-      321 LOADK                            R4 K231 ["OriginalPosition"]
-      322 SETTABLEKS                       R4 R3 K232 ["ORIGINAL_POSITION_VALUE"]
-      324 LOADK                            R4 K233 ["NoSelection"]
-      325 SETTABLEKS                       R4 R3 K234 ["PHONY_NO_SELECTION"]
-      327 LOADK                            R4 K235 ["AvatarPreviewerMakeup"]
-      328 SETTABLEKS                       R4 R3 K236 ["MAKEUP_FOLDER_NAME"]
-      330 LOADK                            R4 K237 ["AvatarPreviewerMakeupDecal"]
-      331 SETTABLEKS                       R4 R3 K238 ["MAKEUP_DECAL_NAME"]
-      333 LOADK                            R4 K239 ["RenderRig"]
-      334 SETTABLEKS                       R4 R3 K240 ["RENDER_RIG_NAME"]
-      336 LOADK                            R4 K241 ["MakeupPreviewWorldModel"]
-      337 SETTABLEKS                       R4 R3 K242 ["MAKEUP_PREVIEW_WORLD_MODEL_NAME"]
-      339 GETIMPORT                        R4 K245 [CFrame.lookAt]
-      341 LOADK                            R5 K246 [{-5.2, 1, -9.2}]
-      342 LOADK                            R6 K247 [{0.5, -1.2, 0.85}]
-      343 CALL                             R4 2 1
-      344 SETTABLEKS                       R4 R3 K248 ["DEFAULT_CAMERA_ANGLE"]
-      346 DUPTABLE                         R4 K255 [{"Eyelashes", "Eyebrows", "Face", "Hair", "Shoes", "Bottoms", "Tops", "Outerwear"}]
-      347 LOADN                            R5 1
-      348 SETTABLEKS                       R5 R4 K249 ["Eyelashes"]
-      350 LOADN                            R5 2
-      351 SETTABLEKS                       R5 R4 K250 ["Eyebrows"]
-      353 LOADN                            R5 3
-      354 SETTABLEKS                       R5 R4 K90 ["Face"]
-      356 LOADN                            R5 4
-      357 SETTABLEKS                       R5 R4 K98 ["Hair"]
-      359 LOADN                            R5 5
-      360 SETTABLEKS                       R5 R4 K251 ["Shoes"]
-      362 LOADN                            R5 6
-      363 SETTABLEKS                       R5 R4 K252 ["Bottoms"]
-      365 LOADN                            R5 7
-      366 SETTABLEKS                       R5 R4 K253 ["Tops"]
-      368 LOADN                            R5 8
-      369 SETTABLEKS                       R5 R4 K254 ["Outerwear"]
-      371 SETTABLEKS                       R4 R3 K256 ["PREFERRED_LAYERS"]
-      373 DUPTABLE                         R4 K259 [{"Positions", "Dummy"}]
-      374 LOADN                            R5 1
-      375 SETTABLEKS                       R5 R4 K257 ["Positions"]
-      377 LOADN                            R5 2
-      378 SETTABLEKS                       R5 R4 K258 ["Dummy"]
-      380 SETTABLEKS                       R4 R3 K260 ["FOCUS_CALLBACK_PRIORITIES"]
-      382 GETIMPORT                        R4 K263 [Color3.fromRGB]
-      384 LOADN                            R5 130
-      385 LOADN                            R6 130
-      386 LOADN                            R7 130
-      387 CALL                             R4 3 1
-      388 SETTABLEKS                       R4 R3 K264 ["DEFAULT_SKIN_COLOR"]
-      390 LOADK                            R4 K9 ["UpperTorso"]
-      391 SETTABLEKS                       R4 R3 K266 ["BODY_MESH_SUFFIX"]
+      101 LOADK                            R4 K67 ["AvatarPreviewer_DisplayName"]
+      102 SETTABLEKS                       R4 R3 K68 ["DISPLAY_NAME"]
+      104 LOADK                            R4 K69 ["AutoSetupJobInitialization"]
+      105 SETTABLEKS                       R4 R3 K70 ["AUTO_SETUP_JOB_INITIALIZATION"]
+      107 NEWTABLE                         R4 32 0
+      109 GETIMPORT                        R5 K74 [Enum.AssetType.BackAccessory]
+      111 GETIMPORT                        R6 K77 [Enum.AccessoryType.Back]
+      113 SETTABLE                         R6 R4 R5
+      114 GETIMPORT                        R5 K79 [Enum.AssetType.DressSkirtAccessory]
+      116 GETIMPORT                        R6 K81 [Enum.AccessoryType.DressSkirt]
+      118 SETTABLE                         R6 R4 R5
+      119 GETIMPORT                        R5 K83 [Enum.AssetType.EyebrowAccessory]
+      121 GETIMPORT                        R6 K85 [Enum.AccessoryType.Eyebrow]
+      123 SETTABLE                         R6 R4 R5
+      124 GETIMPORT                        R5 K87 [Enum.AssetType.EyelashAccessory]
+      126 GETIMPORT                        R6 K89 [Enum.AccessoryType.Eyelash]
+      128 SETTABLE                         R6 R4 R5
+      129 GETIMPORT                        R5 K91 [Enum.AssetType.FaceAccessory]
+      131 GETIMPORT                        R6 K93 [Enum.AccessoryType.Face]
+      133 SETTABLE                         R6 R4 R5
+      134 GETIMPORT                        R5 K95 [Enum.AssetType.FrontAccessory]
+      136 GETIMPORT                        R6 K97 [Enum.AccessoryType.Front]
+      138 SETTABLE                         R6 R4 R5
+      139 GETIMPORT                        R5 K99 [Enum.AssetType.HairAccessory]
+      141 GETIMPORT                        R6 K101 [Enum.AccessoryType.Hair]
+      143 SETTABLE                         R6 R4 R5
+      144 GETIMPORT                        R5 K103 [Enum.AssetType.Hat]
+      146 GETIMPORT                        R6 K104 [Enum.AccessoryType.Hat]
+      148 SETTABLE                         R6 R4 R5
+      149 GETIMPORT                        R5 K106 [Enum.AssetType.JacketAccessory]
+      151 GETIMPORT                        R6 K108 [Enum.AccessoryType.Jacket]
+      153 SETTABLE                         R6 R4 R5
+      154 GETIMPORT                        R5 K110 [Enum.AssetType.LeftShoeAccessory]
+      156 GETIMPORT                        R6 K112 [Enum.AccessoryType.LeftShoe]
+      158 SETTABLE                         R6 R4 R5
+      159 GETIMPORT                        R5 K114 [Enum.AssetType.NeckAccessory]
+      161 GETIMPORT                        R6 K116 [Enum.AccessoryType.Neck]
+      163 SETTABLE                         R6 R4 R5
+      164 GETIMPORT                        R5 K118 [Enum.AssetType.PantsAccessory]
+      166 GETIMPORT                        R6 K120 [Enum.AccessoryType.Pants]
+      168 SETTABLE                         R6 R4 R5
+      169 GETIMPORT                        R5 K122 [Enum.AssetType.RightShoeAccessory]
+      171 GETIMPORT                        R6 K124 [Enum.AccessoryType.RightShoe]
+      173 SETTABLE                         R6 R4 R5
+      174 GETIMPORT                        R5 K126 [Enum.AssetType.ShirtAccessory]
+      176 GETIMPORT                        R6 K128 [Enum.AccessoryType.Shirt]
+      178 SETTABLE                         R6 R4 R5
+      179 GETIMPORT                        R5 K130 [Enum.AssetType.ShoulderAccessory]
+      181 GETIMPORT                        R6 K132 [Enum.AccessoryType.Shoulder]
+      183 SETTABLE                         R6 R4 R5
+      184 GETIMPORT                        R5 K134 [Enum.AssetType.ShortsAccessory]
+      186 GETIMPORT                        R6 K136 [Enum.AccessoryType.Shorts]
+      188 SETTABLE                         R6 R4 R5
+      189 GETIMPORT                        R5 K138 [Enum.AssetType.SweaterAccessory]
+      191 GETIMPORT                        R6 K140 [Enum.AccessoryType.Sweater]
+      193 SETTABLE                         R6 R4 R5
+      194 GETIMPORT                        R5 K142 [Enum.AssetType.TShirtAccessory]
+      196 GETIMPORT                        R6 K144 [Enum.AccessoryType.TShirt]
+      198 SETTABLE                         R6 R4 R5
+      199 GETIMPORT                        R5 K146 [Enum.AssetType.WaistAccessory]
+      201 GETIMPORT                        R6 K148 [Enum.AccessoryType.Waist]
+      203 SETTABLE                         R6 R4 R5
+      204 SETTABLEKS                       R4 R3 K149 ["ASSET_TYPE_TO_ACCESSORY_TYPE"]
+      206 NEWTABLE                         R4 4 0
+      208 GETIMPORT                        R5 K151 [Enum.AssetType.FaceMakeup]
+      210 GETIMPORT                        R6 K153 [Enum.MakeupType.Face]
+      212 SETTABLE                         R6 R4 R5
+      213 GETIMPORT                        R5 K155 [Enum.AssetType.LipMakeup]
+      215 GETIMPORT                        R6 K157 [Enum.MakeupType.Lip]
+      217 SETTABLE                         R6 R4 R5
+      218 GETIMPORT                        R5 K159 [Enum.AssetType.EyeMakeup]
+      220 GETIMPORT                        R6 K161 [Enum.MakeupType.Eye]
+      222 SETTABLE                         R6 R4 R5
+      223 SETTABLEKS                       R4 R3 K162 ["ASSET_TYPE_TO_MAKEUP_TYPE"]
+      225 NEWTABLE                         R4 0 50
+      227 LOADK                            R5 K163 ["ChinRaiser"]
+      228 LOADK                            R6 K164 ["ChinRaiserUpperLip"]
+      229 LOADK                            R7 K165 ["Corrugator"]
+      230 LOADK                            R8 K166 ["EyesLookDown"]
+      231 LOADK                            R9 K167 ["EyesLookLeft"]
+      232 LOADK                            R10 K168 ["EyesLookRight"]
+      233 LOADK                            R11 K169 ["EyesLookUp"]
+      234 LOADK                            R12 K170 ["FlatPucker"]
+      235 LOADK                            R13 K171 ["Funneler"]
+      236 LOADK                            R14 K172 ["JawDrop"]
+      237 LOADK                            R15 K173 ["JawLeft"]
+      238 LOADK                            R16 K174 ["JawRight"]
+      239 LOADK                            R17 K175 ["LeftBrowLowerer"]
+      240 LOADK                            R18 K176 ["LeftCheekPuff"]
+      241 LOADK                            R19 K177 ["LeftCheekRaiser"]
+      242 LOADK                            R20 K178 ["LeftDimpler"]
+      243 SETLIST                          R4 R5 16 [1]
+      245 LOADK                            R5 K179 ["LeftEyeClosed"]
+      246 LOADK                            R6 K180 ["LeftEyeUpperLidRaiser"]
+      247 LOADK                            R7 K181 ["LeftInnerBrowRaiser"]
+      248 LOADK                            R8 K182 ["LeftLipCornerDown"]
+      249 LOADK                            R9 K183 ["LeftLipCornerPuller"]
+      250 LOADK                            R10 K184 ["LeftLipStretcher"]
+      251 LOADK                            R11 K185 ["LeftLowerLipDepressor"]
+      252 LOADK                            R12 K186 ["LeftNoseWrinkler"]
+      253 LOADK                            R13 K187 ["LeftOuterBrowRaiser"]
+      254 LOADK                            R14 K188 ["LeftUpperLipRaiser"]
+      255 LOADK                            R15 K189 ["LipPresser"]
+      256 LOADK                            R16 K190 ["LipsTogether"]
+      257 LOADK                            R17 K191 ["LowerLipSuck"]
+      258 LOADK                            R18 K192 ["MouthLeft"]
+      259 LOADK                            R19 K193 ["MouthRight"]
+      260 LOADK                            R20 K194 ["Pucker"]
+      261 SETLIST                          R4 R5 16 [17]
+      263 LOADK                            R5 K195 ["RightBrowLowerer"]
+      264 LOADK                            R6 K196 ["RightCheekPuff"]
+      265 LOADK                            R7 K197 ["RightCheekRaiser"]
+      266 LOADK                            R8 K198 ["RightDimpler"]
+      267 LOADK                            R9 K199 ["RightEyeClosed"]
+      268 LOADK                            R10 K200 ["RightEyeUpperLidRaiser"]
+      269 LOADK                            R11 K201 ["RightInnerBrowRaiser"]
+      270 LOADK                            R12 K202 ["RightLipCornerDown"]
+      271 LOADK                            R13 K203 ["RightLipCornerPuller"]
+      272 LOADK                            R14 K204 ["RightLipStretcher"]
+      273 LOADK                            R15 K205 ["RightLowerLipDepressor"]
+      274 LOADK                            R16 K206 ["RightNoseWrinkler"]
+      275 LOADK                            R17 K207 ["RightOuterBrowRaiser"]
+      276 LOADK                            R18 K208 ["RightUpperLipRaiser"]
+      277 LOADK                            R19 K209 ["TongueDown"]
+      278 LOADK                            R20 K210 ["TongueOut"]
+      279 SETLIST                          R4 R5 16 [33]
+      281 LOADK                            R5 K211 ["TongueUp"]
+      282 LOADK                            R6 K212 ["UpperLipSuck"]
+      283 SETLIST                          R4 R5 2 [49]
+      285 SETTABLEKS                       R4 R3 K213 ["FACE_CONTROLS_PROPERTIES"]
+      287 SETTABLEKS                       R2 R3 K214 ["LIMBS"]
+      289 GETTABLEKS                       R5 R1 K215 ["List"]
+      291 GETTABLEKS                       R4 R5 K216 ["join"]
+      293 MOVE                             R5 R2
+      294 NEWTABLE                         R6 0 2
+      296 LOADK                            R7 K217 ["Handle"]
+      297 LOADK                            R8 K218 ["HumanoidRootPart"]
+      298 SETLIST                          R6 R7 2 [1]
+      300 CALL                             R4 2 1
+      301 SETTABLEKS                       R4 R3 K219 ["ALL_ALLOWED_PART_NAMES"]
+      303 DUPTABLE                         R4 K225 [{"BodyPoints", "EditingToolbar", "BodyPointsToolToolbar", "CageEditingToolToolbar", "MeshEditingModuleControlPointsAdornments"}]
+      304 LOADK                            R5 K226 ["AvatarPreviewerEditingBodyPoints"]
+      305 SETTABLEKS                       R5 R4 K220 ["BodyPoints"]
+      307 LOADK                            R5 K227 ["AvatarPreviewerEditingToolbar"]
+      308 SETTABLEKS                       R5 R4 K221 ["EditingToolbar"]
+      310 LOADK                            R5 K228 ["AvatarPreviewerBodyPointsToolToolbar"]
+      311 SETTABLEKS                       R5 R4 K222 ["BodyPointsToolToolbar"]
+      313 LOADK                            R5 K229 ["AvatarPreviewerCageEditingToolToolbar"]
+      314 SETTABLEKS                       R5 R4 K223 ["CageEditingToolToolbar"]
+      316 LOADK                            R5 K224 ["MeshEditingModuleControlPointsAdornments"]
+      317 SETTABLEKS                       R5 R4 K224 ["MeshEditingModuleControlPointsAdornments"]
+      319 SETTABLEKS                       R4 R3 K230 ["EDITING_TOOLS_GUI_NAMES"]
+      321 LOADK                            R4 K231 ["AvatarPreviewerClonedDummy"]
+      322 SETTABLEKS                       R4 R3 K232 ["CLONED_DUMMY_NAME"]
+      324 LOADK                            R4 K233 ["OriginalPosition"]
+      325 SETTABLEKS                       R4 R3 K234 ["ORIGINAL_POSITION_VALUE"]
+      327 LOADK                            R4 K235 ["NoSelection"]
+      328 SETTABLEKS                       R4 R3 K236 ["PHONY_NO_SELECTION"]
+      330 LOADK                            R4 K237 ["AvatarPreviewerMakeup"]
+      331 SETTABLEKS                       R4 R3 K238 ["MAKEUP_FOLDER_NAME"]
+      333 LOADK                            R4 K239 ["AvatarPreviewerMakeupDecal"]
+      334 SETTABLEKS                       R4 R3 K240 ["MAKEUP_DECAL_NAME"]
+      336 LOADK                            R4 K241 ["RenderRig"]
+      337 SETTABLEKS                       R4 R3 K242 ["RENDER_RIG_NAME"]
+      339 LOADK                            R4 K243 ["MakeupPreviewWorldModel"]
+      340 SETTABLEKS                       R4 R3 K244 ["MAKEUP_PREVIEW_WORLD_MODEL_NAME"]
+      342 GETIMPORT                        R4 K247 [CFrame.lookAt]
+      344 LOADK                            R5 K248 [{-5.2, 1, -9.2}]
+      345 LOADK                            R6 K249 [{0.5, -1.2, 0.85}]
+      346 CALL                             R4 2 1
+      347 SETTABLEKS                       R4 R3 K250 ["DEFAULT_CAMERA_ANGLE"]
+      349 DUPTABLE                         R4 K257 [{"Eyelashes", "Eyebrows", "Face", "Hair", "Shoes", "Bottoms", "Tops", "Outerwear"}]
+      350 LOADN                            R5 1
+      351 SETTABLEKS                       R5 R4 K251 ["Eyelashes"]
+      353 LOADN                            R5 2
+      354 SETTABLEKS                       R5 R4 K252 ["Eyebrows"]
+      356 LOADN                            R5 3
+      357 SETTABLEKS                       R5 R4 K92 ["Face"]
+      359 LOADN                            R5 4
+      360 SETTABLEKS                       R5 R4 K100 ["Hair"]
+      362 LOADN                            R5 5
+      363 SETTABLEKS                       R5 R4 K253 ["Shoes"]
+      365 LOADN                            R5 6
+      366 SETTABLEKS                       R5 R4 K254 ["Bottoms"]
+      368 LOADN                            R5 7
+      369 SETTABLEKS                       R5 R4 K255 ["Tops"]
+      371 LOADN                            R5 8
+      372 SETTABLEKS                       R5 R4 K256 ["Outerwear"]
+      374 SETTABLEKS                       R4 R3 K258 ["PREFERRED_LAYERS"]
+      376 DUPTABLE                         R4 K261 [{"Positions", "Dummy"}]
+      377 LOADN                            R5 1
+      378 SETTABLEKS                       R5 R4 K259 ["Positions"]
+      380 LOADN                            R5 2
+      381 SETTABLEKS                       R5 R4 K260 ["Dummy"]
+      383 SETTABLEKS                       R4 R3 K262 ["FOCUS_CALLBACK_PRIORITIES"]
+      385 GETIMPORT                        R4 K265 [Color3.fromRGB]
+      387 LOADN                            R5 130
+      388 LOADN                            R6 130
+      389 LOADN                            R7 130
+      390 CALL                             R4 3 1
+      391 SETTABLEKS                       R4 R3 K266 ["DEFAULT_SKIN_COLOR"]
       393 LOADK                            R4 K11 ["LeftUpperLeg"]
-      394 SETTABLEKS                       R4 R3 K268 ["OUTPUT_MODEL_SUFFIX"]
-      396 DUPTABLE                         R4 K269 [{"Head", "UpperTorso", "LowerTorso", "LeftUpperArm", "LeftLowerArm", "LeftHand", "RightUpperArm", "RightLowerArm", "RightHand", "LeftUpperLeg", "LeftLowerLeg", "LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot"}]
-      397 LOADK                            R5 K8 ["Head"]
-      398 SETTABLEKS                       R5 R4 K8 ["Head"]
-      400 LOADK                            R5 K14 ["RightUpperLeg"]
-      401 SETTABLEKS                       R5 R4 K9 ["UpperTorso"]
-      403 LOADK                            R5 K14 ["RightUpperLeg"]
-      404 SETTABLEKS                       R5 R4 K10 ["LowerTorso"]
-      406 LOADK                            R5 K15 ["RightLowerLeg"]
-      407 SETTABLEKS                       R5 R4 K17 ["LeftUpperArm"]
-      409 LOADK                            R5 K15 ["RightLowerLeg"]
-      410 SETTABLEKS                       R5 R4 K18 ["LeftLowerArm"]
-      412 LOADK                            R5 K15 ["RightLowerLeg"]
-      413 SETTABLEKS                       R5 R4 K19 ["LeftHand"]
-      415 LOADK                            R5 K16 ["RightFoot"]
-      416 SETTABLEKS                       R5 R4 K20 ["RightUpperArm"]
-      418 LOADK                            R5 K16 ["RightFoot"]
-      419 SETTABLEKS                       R5 R4 K21 ["RightLowerArm"]
-      421 LOADK                            R5 K16 ["RightFoot"]
-      422 SETTABLEKS                       R5 R4 K22 ["RightHand"]
-      424 LOADK                            R5 K17 ["LeftUpperArm"]
-      425 SETTABLEKS                       R5 R4 K11 ["LeftUpperLeg"]
-      427 LOADK                            R5 K17 ["LeftUpperArm"]
-      428 SETTABLEKS                       R5 R4 K12 ["LeftLowerLeg"]
-      430 LOADK                            R5 K17 ["LeftUpperArm"]
-      431 SETTABLEKS                       R5 R4 K13 ["LeftFoot"]
-      433 LOADK                            R5 K18 ["LeftLowerArm"]
-      434 SETTABLEKS                       R5 R4 K14 ["RightUpperLeg"]
-      436 LOADK                            R5 K18 ["LeftLowerArm"]
-      437 SETTABLEKS                       R5 R4 K15 ["RightLowerLeg"]
-      439 LOADK                            R5 K18 ["LeftLowerArm"]
-      440 SETTABLEKS                       R5 R4 K16 ["RightFoot"]
-      442 SETTABLEKS                       R4 R3 K275 ["BODY_PART_TO_LIMB_NAME"]
-      444 LOADK                            R4 K20 ["RightUpperArm"]
-      445 SETTABLEKS                       R4 R3 K277 ["FALLOFF_CURSOR_ADJUSTMENT"]
+      394 SETTABLEKS                       R4 R3 K268 ["BODY_MESH_SUFFIX"]
+      396 LOADK                            R4 K13 ["LeftFoot"]
+      397 SETTABLEKS                       R4 R3 K270 ["OUTPUT_MODEL_SUFFIX"]
+      399 DUPTABLE                         R4 K271 [{"Head", "UpperTorso", "LowerTorso", "LeftUpperArm", "LeftLowerArm", "LeftHand", "RightUpperArm", "RightLowerArm", "RightHand", "LeftUpperLeg", "LeftLowerLeg", "LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot"}]
+      400 LOADK                            R5 K8 ["Head"]
+      401 SETTABLEKS                       R5 R4 K8 ["Head"]
+      403 LOADK                            R5 K16 ["RightFoot"]
+      404 SETTABLEKS                       R5 R4 K9 ["UpperTorso"]
+      406 LOADK                            R5 K16 ["RightFoot"]
+      407 SETTABLEKS                       R5 R4 K10 ["LowerTorso"]
+      409 LOADK                            R5 K17 ["LeftUpperArm"]
+      410 SETTABLEKS                       R5 R4 K17 ["LeftUpperArm"]
+      412 LOADK                            R5 K17 ["LeftUpperArm"]
+      413 SETTABLEKS                       R5 R4 K18 ["LeftLowerArm"]
+      415 LOADK                            R5 K17 ["LeftUpperArm"]
+      416 SETTABLEKS                       R5 R4 K19 ["LeftHand"]
+      418 LOADK                            R5 K18 ["LeftLowerArm"]
+      419 SETTABLEKS                       R5 R4 K20 ["RightUpperArm"]
+      421 LOADK                            R5 K18 ["LeftLowerArm"]
+      422 SETTABLEKS                       R5 R4 K21 ["RightLowerArm"]
+      424 LOADK                            R5 K18 ["LeftLowerArm"]
+      425 SETTABLEKS                       R5 R4 K22 ["RightHand"]
+      427 LOADK                            R5 K19 ["LeftHand"]
+      428 SETTABLEKS                       R5 R4 K11 ["LeftUpperLeg"]
+      430 LOADK                            R5 K19 ["LeftHand"]
+      431 SETTABLEKS                       R5 R4 K12 ["LeftLowerLeg"]
+      433 LOADK                            R5 K19 ["LeftHand"]
+      434 SETTABLEKS                       R5 R4 K13 ["LeftFoot"]
+      436 LOADK                            R5 K20 ["RightUpperArm"]
+      437 SETTABLEKS                       R5 R4 K14 ["RightUpperLeg"]
+      439 LOADK                            R5 K20 ["RightUpperArm"]
+      440 SETTABLEKS                       R5 R4 K15 ["RightLowerLeg"]
+      442 LOADK                            R5 K20 ["RightUpperArm"]
+      443 SETTABLEKS                       R5 R4 K16 ["RightFoot"]
+      445 SETTABLEKS                       R4 R3 K277 ["BODY_PART_TO_LIMB_NAME"]
       447 LOADK                            R4 K22 ["RightHand"]
-      448 SETTABLEKS                       R4 R3 K279 ["THROTTLE_DELAY"]
+      448 SETTABLEKS                       R4 R3 K279 ["FALLOFF_CURSOR_ADJUSTMENT"]
       450 LOADK                            R4 K24 ["ERROR_NO_VALID_SCALE_ERROR"]
-      451 SETTABLEKS                       R4 R3 K281 ["IDLE_ANIMATION_ID"]
+      451 SETTABLEKS                       R4 R3 K281 ["THROTTLE_DELAY"]
       453 LOADK                            R4 K26 ["SOURCE_BUILTIN"]
-      454 SETTABLEKS                       R4 R3 K283 ["WAYPOINT_NAME_ADD_ITEMS"]
+      454 SETTABLEKS                       R4 R3 K283 ["IDLE_ANIMATION_ID"]
       456 LOADK                            R4 K28 ["SOURCE_INSTANCE"]
-      457 SETTABLEKS                       R4 R3 K285 ["WAYPOINT_NAME_DISAMBIGUATION"]
+      457 SETTABLEKS                       R4 R3 K285 ["WAYPOINT_NAME_ADD_ITEMS"]
       459 LOADK                            R4 K30 ["SOURCE_MARKETPLACE"]
-      460 SETTABLEKS                       R4 R3 K287 ["WAYPOINT_NAME_EDIT_CAGE_MESH"]
-      462 DUPTABLE                         R4 K290 [{"Radius", "Falloff"}]
-      463 DUPTABLE                         R5 K293 [{"minimum", "maximum"}]
-      464 LOADK                            R6 K38 ["PEDESTAL_PATH"]
-      465 SETTABLEKS                       R6 R5 K291 ["minimum"]
-      467 LOADN                            R6 2
-      468 SETTABLEKS                       R6 R5 K292 ["maximum"]
-      470 SETTABLEKS                       R5 R4 K288 ["Radius"]
-      472 DUPTABLE                         R5 K293 [{"minimum", "maximum"}]
-      473 LOADN                            R6 1
-      474 SETTABLEKS                       R6 R5 K291 ["minimum"]
-      476 LOADN                            R6 100
-      477 SETTABLEKS                       R6 R5 K292 ["maximum"]
-      479 SETTABLEKS                       R5 R4 K289 ["Falloff"]
-      481 SETTABLEKS                       R4 R3 K295 ["CAGE_BRUSH_SETTINGS"]
-      483 LOADK                            R4 K40 ["MAKEUP_CAMERAS_ASSET_PATH"]
-      484 SETTABLEKS                       R4 R3 K297 ["TEMPLATE_BODY_OUTFIT_ID"]
-      486 NEWTABLE                         R4 0 5
-      488 GETIMPORT                        R5 K81 [Enum.AssetType.EyebrowAccessory]
-      490 GETIMPORT                        R6 K85 [Enum.AssetType.EyelashAccessory]
-      492 GETIMPORT                        R7 K149 [Enum.AssetType.FaceMakeup]
-      494 GETIMPORT                        R8 K153 [Enum.AssetType.LipMakeup]
-      496 GETIMPORT                        R9 K157 [Enum.AssetType.EyeMakeup]
-      498 SETLIST                          R4 R5 5 [1]
-      500 SETTABLEKS                       R4 R3 K298 ["MAKEUP_ASSET_TYPES"]
-      502 NEWTABLE                         R4 0 7
-      504 GETIMPORT                        R5 K124 [Enum.AssetType.ShirtAccessory]
-      506 GETIMPORT                        R6 K140 [Enum.AssetType.TShirtAccessory]
-      508 GETIMPORT                        R7 K104 [Enum.AssetType.JacketAccessory]
-      510 GETIMPORT                        R8 K136 [Enum.AssetType.SweaterAccessory]
-      512 GETIMPORT                        R9 K116 [Enum.AssetType.PantsAccessory]
-      514 GETIMPORT                        R10 K132 [Enum.AssetType.ShortsAccessory]
-      516 GETIMPORT                        R11 K77 [Enum.AssetType.DressSkirtAccessory]
-      518 SETLIST                          R4 R5 7 [1]
-      520 SETTABLEKS                       R4 R3 K299 ["CLOTHING_ASSET_TYPES"]
-      522 NEWTABLE                         R4 0 12
-      524 GETIMPORT                        R5 K101 [Enum.AssetType.Hat]
-      526 GETIMPORT                        R6 K97 [Enum.AssetType.HairAccessory]
-      528 GETIMPORT                        R7 K89 [Enum.AssetType.FaceAccessory]
-      530 GETIMPORT                        R8 K112 [Enum.AssetType.NeckAccessory]
-      532 GETIMPORT                        R9 K128 [Enum.AssetType.ShoulderAccessory]
-      534 GETIMPORT                        R10 K93 [Enum.AssetType.FrontAccessory]
-      536 GETIMPORT                        R11 K72 [Enum.AssetType.BackAccessory]
-      538 GETIMPORT                        R12 K144 [Enum.AssetType.WaistAccessory]
-      540 GETIMPORT                        R13 K108 [Enum.AssetType.LeftShoeAccessory]
-      542 GETIMPORT                        R14 K120 [Enum.AssetType.RightShoeAccessory]
-      544 GETIMPORT                        R15 K81 [Enum.AssetType.EyebrowAccessory]
-      546 GETIMPORT                        R16 K85 [Enum.AssetType.EyelashAccessory]
-      548 SETLIST                          R4 R5 12 [1]
-      550 SETTABLEKS                       R4 R3 K300 ["ACCESSORY_ASSET_TYPES"]
-      552 NEWTABLE                         R4 32 0
-      554 GETIMPORT                        R6 K101 [Enum.AssetType.Hat]
-      556 GETTABLEKS                       R5 R6 K301 ["Name"]
-      558 LOADK                            R6 K8 ["Head"]
-      559 SETTABLE                         R6 R4 R5
-      560 GETIMPORT                        R6 K97 [Enum.AssetType.HairAccessory]
-      562 GETTABLEKS                       R5 R6 K301 ["Name"]
-      564 LOADK                            R6 K98 ["Hair"]
-      565 SETTABLE                         R6 R4 R5
-      566 GETIMPORT                        R6 K89 [Enum.AssetType.FaceAccessory]
-      568 GETTABLEKS                       R5 R6 K301 ["Name"]
-      570 LOADK                            R6 K90 ["Face"]
-      571 SETTABLE                         R6 R4 R5
-      572 GETIMPORT                        R6 K112 [Enum.AssetType.NeckAccessory]
-      574 GETTABLEKS                       R5 R6 K301 ["Name"]
-      576 LOADK                            R6 K113 ["Neck"]
-      577 SETTABLE                         R6 R4 R5
-      578 GETIMPORT                        R6 K128 [Enum.AssetType.ShoulderAccessory]
-      580 GETTABLEKS                       R5 R6 K301 ["Name"]
-      582 LOADK                            R6 K129 ["Shoulder"]
-      583 SETTABLE                         R6 R4 R5
-      584 GETIMPORT                        R6 K93 [Enum.AssetType.FrontAccessory]
-      586 GETTABLEKS                       R5 R6 K301 ["Name"]
-      588 LOADK                            R6 K94 ["Front"]
-      589 SETTABLE                         R6 R4 R5
-      590 GETIMPORT                        R6 K72 [Enum.AssetType.BackAccessory]
-      592 GETTABLEKS                       R5 R6 K301 ["Name"]
-      594 LOADK                            R6 K74 ["Back"]
-      595 SETTABLE                         R6 R4 R5
-      596 GETIMPORT                        R6 K144 [Enum.AssetType.WaistAccessory]
-      598 GETTABLEKS                       R5 R6 K301 ["Name"]
-      600 LOADK                            R6 K145 ["Waist"]
-      601 SETTABLE                         R6 R4 R5
-      602 GETIMPORT                        R6 K302 [Enum.AssetType.Torso]
-      604 GETTABLEKS                       R5 R6 K301 ["Name"]
-      606 LOADK                            R6 K14 ["RightUpperLeg"]
-      607 SETTABLE                         R6 R4 R5
-      608 GETIMPORT                        R6 K303 [Enum.AssetType.RightArm]
-      610 GETTABLEKS                       R5 R6 K301 ["Name"]
-      612 LOADK                            R6 K16 ["RightFoot"]
-      613 SETTABLE                         R6 R4 R5
-      614 GETIMPORT                        R6 K304 [Enum.AssetType.LeftArm]
-      616 GETTABLEKS                       R5 R6 K301 ["Name"]
-      618 LOADK                            R6 K15 ["RightLowerLeg"]
-      619 SETTABLE                         R6 R4 R5
-      620 GETIMPORT                        R6 K305 [Enum.AssetType.LeftLeg]
-      622 GETTABLEKS                       R5 R6 K301 ["Name"]
-      624 LOADK                            R6 K17 ["LeftUpperArm"]
-      625 SETTABLE                         R6 R4 R5
-      626 GETIMPORT                        R6 K306 [Enum.AssetType.RightLeg]
-      628 GETTABLEKS                       R5 R6 K301 ["Name"]
-      630 LOADK                            R6 K18 ["LeftLowerArm"]
-      631 SETTABLE                         R6 R4 R5
-      632 GETIMPORT                        R6 K308 [Enum.AssetType.DynamicHead]
-      634 GETTABLEKS                       R5 R6 K301 ["Name"]
-      636 LOADK                            R6 K53 ["RBX_AutoSetupInputAsset"]
-      637 SETTABLE                         R6 R4 R5
-      638 GETIMPORT                        R6 K140 [Enum.AssetType.TShirtAccessory]
-      640 GETTABLEKS                       R5 R6 K301 ["Name"]
-      642 LOADK                            R6 K54 ["ATTRIBUTE_AUTO_SETUP_INPUT_ASSET"]
-      643 SETTABLE                         R6 R4 R5
-      644 GETIMPORT                        R6 K124 [Enum.AssetType.ShirtAccessory]
-      646 GETTABLEKS                       R5 R6 K301 ["Name"]
-      648 LOADK                            R6 K55 ["RBX_OriginalBuiltinAssetId"]
-      649 SETTABLE                         R6 R4 R5
-      650 GETIMPORT                        R6 K116 [Enum.AssetType.PantsAccessory]
-      652 GETTABLEKS                       R5 R6 K301 ["Name"]
-      654 LOADK                            R6 K117 ["Pants"]
-      655 SETTABLE                         R6 R4 R5
-      656 GETIMPORT                        R6 K104 [Enum.AssetType.JacketAccessory]
-      658 GETTABLEKS                       R5 R6 K301 ["Name"]
-      660 LOADK                            R6 K56 ["ATTRIBUTE_ORIGINAL_BUILTIN_ASSET_ID"]
-      661 SETTABLE                         R6 R4 R5
-      662 GETIMPORT                        R6 K136 [Enum.AssetType.SweaterAccessory]
-      664 GETTABLEKS                       R5 R6 K301 ["Name"]
-      666 LOADK                            R6 K57 ["RBX_IsPreviewAccessory"]
-      667 SETTABLE                         R6 R4 R5
-      668 GETIMPORT                        R6 K132 [Enum.AssetType.ShortsAccessory]
-      670 GETTABLEKS                       R5 R6 K301 ["Name"]
-      672 LOADK                            R6 K133 ["Shorts"]
-      673 SETTABLE                         R6 R4 R5
-      674 GETIMPORT                        R6 K77 [Enum.AssetType.DressSkirtAccessory]
-      676 GETTABLEKS                       R5 R6 K301 ["Name"]
-      678 LOADK                            R6 K58 ["ATTRIBUTE_IS_PREVIEW_ACCESSORY"]
-      679 SETTABLE                         R6 R4 R5
-      680 GETIMPORT                        R6 K81 [Enum.AssetType.EyebrowAccessory]
-      682 GETTABLEKS                       R5 R6 K301 ["Name"]
-      684 LOADK                            R6 K250 ["Eyebrows"]
-      685 SETTABLE                         R6 R4 R5
-      686 GETIMPORT                        R6 K85 [Enum.AssetType.EyelashAccessory]
-      688 GETTABLEKS                       R5 R6 K301 ["Name"]
-      690 LOADK                            R6 K249 ["Eyelashes"]
-      691 SETTABLE                         R6 R4 R5
-      692 GETIMPORT                        R6 K149 [Enum.AssetType.FaceMakeup]
-      694 GETTABLEKS                       R5 R6 K301 ["Name"]
-      696 LOADK                            R6 K148 ["FaceMakeup"]
-      697 SETTABLE                         R6 R4 R5
-      698 GETIMPORT                        R6 K153 [Enum.AssetType.LipMakeup]
-      700 GETTABLEKS                       R5 R6 K301 ["Name"]
-      702 LOADK                            R6 K152 ["LipMakeup"]
-      703 SETTABLE                         R6 R4 R5
-      704 GETIMPORT                        R6 K157 [Enum.AssetType.EyeMakeup]
-      706 GETTABLEKS                       R5 R6 K301 ["Name"]
-      708 LOADK                            R6 K156 ["EyeMakeup"]
-      709 SETTABLE                         R6 R4 R5
-      710 SETTABLEKS                       R4 R3 K315 ["MARKETPLACE_ASSET_TYPE_TO_PALETTE_KEY"]
-      712 NEWTABLE                         R4 8 0
-      714 GETIMPORT                        R5 K149 [Enum.AssetType.FaceMakeup]
-      716 LOADK                            R6 K60 ["ATTRIBUTE_ASSET_CLASSIFICATION"]
-      717 SETTABLE                         R6 R4 R5
-      718 GETIMPORT                        R5 K153 [Enum.AssetType.LipMakeup]
-      720 LOADK                            R6 K60 ["ATTRIBUTE_ASSET_CLASSIFICATION"]
-      721 SETTABLE                         R6 R4 R5
-      722 GETIMPORT                        R5 K157 [Enum.AssetType.EyeMakeup]
-      724 LOADK                            R6 K60 ["ATTRIBUTE_ASSET_CLASSIFICATION"]
-      725 SETTABLE                         R6 R4 R5
-      726 GETIMPORT                        R5 K81 [Enum.AssetType.EyebrowAccessory]
-      728 LOADK                            R6 K61 ["RBX_AvatarPreviewer_shouldReimport"]
-      729 SETTABLE                         R6 R4 R5
-      730 GETIMPORT                        R5 K85 [Enum.AssetType.EyelashAccessory]
-      732 LOADK                            R6 K61 ["RBX_AvatarPreviewer_shouldReimport"]
-      733 SETTABLE                         R6 R4 R5
-      734 SETTABLEKS                       R4 R3 K318 ["MARKETPLACE_PUBLISH_ASSET_TYPE_TO_MAKEUP_ASSET_TYPE"]
-      736 RETURN                           R3 1
+      460 SETTABLEKS                       R4 R3 K287 ["WAYPOINT_NAME_DISAMBIGUATION"]
+      462 LOADK                            R4 K32 ["LUAU_ANALYZE_ERROR"]
+      463 SETTABLEKS                       R4 R3 K289 ["WAYPOINT_NAME_EDIT_CAGE_MESH"]
+      465 DUPTABLE                         R4 K292 [{"Radius", "Falloff"}]
+      466 DUPTABLE                         R5 K295 [{"minimum", "maximum"}]
+      467 LOADK                            R6 K40 ["MAKEUP_CAMERAS_ASSET_PATH"]
+      468 SETTABLEKS                       R6 R5 K293 ["minimum"]
+      470 LOADN                            R6 2
+      471 SETTABLEKS                       R6 R5 K294 ["maximum"]
+      473 SETTABLEKS                       R5 R4 K290 ["Radius"]
+      475 DUPTABLE                         R5 K295 [{"minimum", "maximum"}]
+      476 LOADN                            R6 1
+      477 SETTABLEKS                       R6 R5 K293 ["minimum"]
+      479 LOADN                            R6 100
+      480 SETTABLEKS                       R6 R5 K294 ["maximum"]
+      482 SETTABLEKS                       R5 R4 K291 ["Falloff"]
+      484 SETTABLEKS                       R4 R3 K297 ["CAGE_BRUSH_SETTINGS"]
+      486 LOADK                            R4 K42 ["ATTRIBUTE_PREFIX"]
+      487 SETTABLEKS                       R4 R3 K299 ["TEMPLATE_BODY_OUTFIT_ID"]
+      489 NEWTABLE                         R4 0 5
+      491 GETIMPORT                        R5 K83 [Enum.AssetType.EyebrowAccessory]
+      493 GETIMPORT                        R6 K87 [Enum.AssetType.EyelashAccessory]
+      495 GETIMPORT                        R7 K151 [Enum.AssetType.FaceMakeup]
+      497 GETIMPORT                        R8 K155 [Enum.AssetType.LipMakeup]
+      499 GETIMPORT                        R9 K159 [Enum.AssetType.EyeMakeup]
+      501 SETLIST                          R4 R5 5 [1]
+      503 SETTABLEKS                       R4 R3 K300 ["MAKEUP_ASSET_TYPES"]
+      505 NEWTABLE                         R4 0 7
+      507 GETIMPORT                        R5 K126 [Enum.AssetType.ShirtAccessory]
+      509 GETIMPORT                        R6 K142 [Enum.AssetType.TShirtAccessory]
+      511 GETIMPORT                        R7 K106 [Enum.AssetType.JacketAccessory]
+      513 GETIMPORT                        R8 K138 [Enum.AssetType.SweaterAccessory]
+      515 GETIMPORT                        R9 K118 [Enum.AssetType.PantsAccessory]
+      517 GETIMPORT                        R10 K134 [Enum.AssetType.ShortsAccessory]
+      519 GETIMPORT                        R11 K79 [Enum.AssetType.DressSkirtAccessory]
+      521 SETLIST                          R4 R5 7 [1]
+      523 SETTABLEKS                       R4 R3 K301 ["CLOTHING_ASSET_TYPES"]
+      525 NEWTABLE                         R4 0 12
+      527 GETIMPORT                        R5 K103 [Enum.AssetType.Hat]
+      529 GETIMPORT                        R6 K99 [Enum.AssetType.HairAccessory]
+      531 GETIMPORT                        R7 K91 [Enum.AssetType.FaceAccessory]
+      533 GETIMPORT                        R8 K114 [Enum.AssetType.NeckAccessory]
+      535 GETIMPORT                        R9 K130 [Enum.AssetType.ShoulderAccessory]
+      537 GETIMPORT                        R10 K95 [Enum.AssetType.FrontAccessory]
+      539 GETIMPORT                        R11 K74 [Enum.AssetType.BackAccessory]
+      541 GETIMPORT                        R12 K146 [Enum.AssetType.WaistAccessory]
+      543 GETIMPORT                        R13 K110 [Enum.AssetType.LeftShoeAccessory]
+      545 GETIMPORT                        R14 K122 [Enum.AssetType.RightShoeAccessory]
+      547 GETIMPORT                        R15 K83 [Enum.AssetType.EyebrowAccessory]
+      549 GETIMPORT                        R16 K87 [Enum.AssetType.EyelashAccessory]
+      551 SETLIST                          R4 R5 12 [1]
+      553 SETTABLEKS                       R4 R3 K302 ["ACCESSORY_ASSET_TYPES"]
+      555 NEWTABLE                         R4 32 0
+      557 GETIMPORT                        R6 K103 [Enum.AssetType.Hat]
+      559 GETTABLEKS                       R5 R6 K303 ["Name"]
+      561 LOADK                            R6 K8 ["Head"]
+      562 SETTABLE                         R6 R4 R5
+      563 GETIMPORT                        R6 K99 [Enum.AssetType.HairAccessory]
+      565 GETTABLEKS                       R5 R6 K303 ["Name"]
+      567 LOADK                            R6 K100 ["Hair"]
+      568 SETTABLE                         R6 R4 R5
+      569 GETIMPORT                        R6 K91 [Enum.AssetType.FaceAccessory]
+      571 GETTABLEKS                       R5 R6 K303 ["Name"]
+      573 LOADK                            R6 K92 ["Face"]
+      574 SETTABLE                         R6 R4 R5
+      575 GETIMPORT                        R6 K114 [Enum.AssetType.NeckAccessory]
+      577 GETTABLEKS                       R5 R6 K303 ["Name"]
+      579 LOADK                            R6 K115 ["Neck"]
+      580 SETTABLE                         R6 R4 R5
+      581 GETIMPORT                        R6 K130 [Enum.AssetType.ShoulderAccessory]
+      583 GETTABLEKS                       R5 R6 K303 ["Name"]
+      585 LOADK                            R6 K131 ["Shoulder"]
+      586 SETTABLE                         R6 R4 R5
+      587 GETIMPORT                        R6 K95 [Enum.AssetType.FrontAccessory]
+      589 GETTABLEKS                       R5 R6 K303 ["Name"]
+      591 LOADK                            R6 K96 ["Front"]
+      592 SETTABLE                         R6 R4 R5
+      593 GETIMPORT                        R6 K74 [Enum.AssetType.BackAccessory]
+      595 GETTABLEKS                       R5 R6 K303 ["Name"]
+      597 LOADK                            R6 K76 ["Back"]
+      598 SETTABLE                         R6 R4 R5
+      599 GETIMPORT                        R6 K146 [Enum.AssetType.WaistAccessory]
+      601 GETTABLEKS                       R5 R6 K303 ["Name"]
+      603 LOADK                            R6 K147 ["Waist"]
+      604 SETTABLE                         R6 R4 R5
+      605 GETIMPORT                        R6 K304 [Enum.AssetType.Torso]
+      607 GETTABLEKS                       R5 R6 K303 ["Name"]
+      609 LOADK                            R6 K16 ["RightFoot"]
+      610 SETTABLE                         R6 R4 R5
+      611 GETIMPORT                        R6 K305 [Enum.AssetType.RightArm]
+      613 GETTABLEKS                       R5 R6 K303 ["Name"]
+      615 LOADK                            R6 K18 ["LeftLowerArm"]
+      616 SETTABLE                         R6 R4 R5
+      617 GETIMPORT                        R6 K306 [Enum.AssetType.LeftArm]
+      619 GETTABLEKS                       R5 R6 K303 ["Name"]
+      621 LOADK                            R6 K17 ["LeftUpperArm"]
+      622 SETTABLE                         R6 R4 R5
+      623 GETIMPORT                        R6 K307 [Enum.AssetType.LeftLeg]
+      625 GETTABLEKS                       R5 R6 K303 ["Name"]
+      627 LOADK                            R6 K19 ["LeftHand"]
+      628 SETTABLE                         R6 R4 R5
+      629 GETIMPORT                        R6 K308 [Enum.AssetType.RightLeg]
+      631 GETTABLEKS                       R5 R6 K303 ["Name"]
+      633 LOADK                            R6 K20 ["RightUpperArm"]
+      634 SETTABLE                         R6 R4 R5
+      635 GETIMPORT                        R6 K310 [Enum.AssetType.DynamicHead]
+      637 GETTABLEKS                       R5 R6 K303 ["Name"]
+      639 LOADK                            R6 K55 ["RBX_OriginalBuiltinAssetId"]
+      640 SETTABLE                         R6 R4 R5
+      641 GETIMPORT                        R6 K142 [Enum.AssetType.TShirtAccessory]
+      643 GETTABLEKS                       R5 R6 K303 ["Name"]
+      645 LOADK                            R6 K56 ["ATTRIBUTE_ORIGINAL_BUILTIN_ASSET_ID"]
+      646 SETTABLE                         R6 R4 R5
+      647 GETIMPORT                        R6 K126 [Enum.AssetType.ShirtAccessory]
+      649 GETTABLEKS                       R5 R6 K303 ["Name"]
+      651 LOADK                            R6 K57 ["RBX_IsPreviewAccessory"]
+      652 SETTABLE                         R6 R4 R5
+      653 GETIMPORT                        R6 K118 [Enum.AssetType.PantsAccessory]
+      655 GETTABLEKS                       R5 R6 K303 ["Name"]
+      657 LOADK                            R6 K119 ["Pants"]
+      658 SETTABLE                         R6 R4 R5
+      659 GETIMPORT                        R6 K106 [Enum.AssetType.JacketAccessory]
+      661 GETTABLEKS                       R5 R6 K303 ["Name"]
+      663 LOADK                            R6 K58 ["ATTRIBUTE_IS_PREVIEW_ACCESSORY"]
+      664 SETTABLE                         R6 R4 R5
+      665 GETIMPORT                        R6 K138 [Enum.AssetType.SweaterAccessory]
+      667 GETTABLEKS                       R5 R6 K303 ["Name"]
+      669 LOADK                            R6 K59 ["RBX_AutoSetup_AssetConfiguration"]
+      670 SETTABLE                         R6 R4 R5
+      671 GETIMPORT                        R6 K134 [Enum.AssetType.ShortsAccessory]
+      673 GETTABLEKS                       R5 R6 K303 ["Name"]
+      675 LOADK                            R6 K135 ["Shorts"]
+      676 SETTABLE                         R6 R4 R5
+      677 GETIMPORT                        R6 K79 [Enum.AssetType.DressSkirtAccessory]
+      679 GETTABLEKS                       R5 R6 K303 ["Name"]
+      681 LOADK                            R6 K60 ["ATTRIBUTE_ASSET_CLASSIFICATION"]
+      682 SETTABLE                         R6 R4 R5
+      683 GETIMPORT                        R6 K83 [Enum.AssetType.EyebrowAccessory]
+      685 GETTABLEKS                       R5 R6 K303 ["Name"]
+      687 LOADK                            R6 K252 ["Eyebrows"]
+      688 SETTABLE                         R6 R4 R5
+      689 GETIMPORT                        R6 K87 [Enum.AssetType.EyelashAccessory]
+      691 GETTABLEKS                       R5 R6 K303 ["Name"]
+      693 LOADK                            R6 K251 ["Eyelashes"]
+      694 SETTABLE                         R6 R4 R5
+      695 GETIMPORT                        R6 K151 [Enum.AssetType.FaceMakeup]
+      697 GETTABLEKS                       R5 R6 K303 ["Name"]
+      699 LOADK                            R6 K150 ["FaceMakeup"]
+      700 SETTABLE                         R6 R4 R5
+      701 GETIMPORT                        R6 K155 [Enum.AssetType.LipMakeup]
+      703 GETTABLEKS                       R5 R6 K303 ["Name"]
+      705 LOADK                            R6 K154 ["LipMakeup"]
+      706 SETTABLE                         R6 R4 R5
+      707 GETIMPORT                        R6 K159 [Enum.AssetType.EyeMakeup]
+      709 GETTABLEKS                       R5 R6 K303 ["Name"]
+      711 LOADK                            R6 K158 ["EyeMakeup"]
+      712 SETTABLE                         R6 R4 R5
+      713 SETTABLEKS                       R4 R3 K317 ["MARKETPLACE_ASSET_TYPE_TO_PALETTE_KEY"]
+      715 NEWTABLE                         R4 8 0
+      717 GETIMPORT                        R5 K151 [Enum.AssetType.FaceMakeup]
+      719 LOADK                            R6 K62 ["ATTRIBUTE_SHOULD_REIMPORT"]
+      720 SETTABLE                         R6 R4 R5
+      721 GETIMPORT                        R5 K155 [Enum.AssetType.LipMakeup]
+      723 LOADK                            R6 K62 ["ATTRIBUTE_SHOULD_REIMPORT"]
+      724 SETTABLE                         R6 R4 R5
+      725 GETIMPORT                        R5 K159 [Enum.AssetType.EyeMakeup]
+      727 LOADK                            R6 K62 ["ATTRIBUTE_SHOULD_REIMPORT"]
+      728 SETTABLE                         R6 R4 R5
+      729 GETIMPORT                        R5 K83 [Enum.AssetType.EyebrowAccessory]
+      731 LOADK                            R6 K63 ["AutoSetup_OriginalObjectInstance"]
+      732 SETTABLE                         R6 R4 R5
+      733 GETIMPORT                        R5 K87 [Enum.AssetType.EyelashAccessory]
+      735 LOADK                            R6 K63 ["AutoSetup_OriginalObjectInstance"]
+      736 SETTABLE                         R6 R4 R5
+      737 SETTABLEKS                       R4 R3 K320 ["MARKETPLACE_PUBLISH_ASSET_TYPE_TO_MAKEUP_ASSET_TYPE"]
+      739 GETIMPORT                        R4 K265 [Color3.fromRGB]
+      741 LOADN                            R5 205
+      742 LOADN                            R6 205
+      743 LOADN                            R7 204
+      744 CALL                             R4 3 1
+      745 SETTABLEKS                       R4 R3 K321 ["DEFAULT_SKIN_TONE"]
+      747 RETURN                           R3 1

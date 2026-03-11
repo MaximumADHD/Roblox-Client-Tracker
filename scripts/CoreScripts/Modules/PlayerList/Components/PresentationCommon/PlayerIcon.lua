@@ -19,6 +19,9 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagEnableBlackbirdCheckDev = SharedFlags.FFlagEnableBlackbirdCheckDev
+
 local PlayerList = Components.Parent
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
@@ -61,7 +64,6 @@ local function getSocialIconImage(layoutValues, relationship)
 end
 
 local function getIconImage(layoutValues, player, iconInfo, relationship)
-	local membershipIcon = layoutValues.MembershipIcons[player.MembershipType]
 	local socialIcon = getSocialIconImage(layoutValues, relationship)
 	if socialIcon then
 		return socialIcon
@@ -73,10 +75,20 @@ local function getIconImage(layoutValues, player, iconInfo, relationship)
 		return iconInfo.specialGroupIcon
 	elseif relationship.isFollowing then
 		return layoutValues.FollowingIcon
-	elseif membershipIcon then
-		-- TODO: Replace this with single premium icon check if that is the future.
+	end
+
+	if FFlagEnableBlackbirdCheckDev
+		and game:GetEngineFeature("ReadHasRobloxSubscriptionLua")
+		and player.HasRobloxSubscription
+	then
+		return layoutValues.SubscriptionIcon
+	end
+
+	local membershipIcon = layoutValues.MembershipIcons[player.MembershipType]
+	if membershipIcon then
 		return membershipIcon
 	end
+
 	return "" :: any
 end
 

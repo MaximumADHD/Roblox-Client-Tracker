@@ -63,6 +63,44 @@ PROTO_4:
         2 CONCAT                           R0 R1 R2
         3 RETURN                           R0 1
 
+PROTO_5:
+        0 GETUPVAL                         R1 0
+        1 LOADK                            R2 K0 ["look-api/v1/looks/preview"]
+        2 CONCAT                           R0 R1 R2
+        3 RETURN                           R0 1
+
+PROTO_6:
+        0 GETUPVAL                         R1 0
+        1 LOADK                            R2 K0 ["look-api/v1/looks/create"]
+        2 CONCAT                           R0 R1 R2
+        3 RETURN                           R0 1
+
+PROTO_7:
+        0 GETIMPORT                        R0 K2 [string.format]
+        2 LOADK                            R1 K3 ["https://create.%s/dashboard"]
+        3 GETUPVAL                         R2 0
+        4 CALL                             R0 2 -1
+        5 RETURN                           R0 -1
+
+PROTO_8:
+        0 GETIMPORT                        R4 K2 [string.format]
+        2 LOADK                            R5 K3 ["https://create.%s/dashboard"]
+        3 GETUPVAL                         R6 0
+        4 CALL                             R4 2 1
+        5 MOVE                             R2 R4
+        6 LOADK                            R3 K4 ["/creations/look/%s/configure"]
+        7 MOVE                             R5 R0
+        8 NAMECALL                         R3 R3 K1 ["format"]
+       10 CALL                             R3 2 1
+       11 CONCAT                           R1 R2 R3
+       12 RETURN                           R1 1
+
+PROTO_9:
+        0 GETUPVAL                         R1 0
+        1 LOADK                            R2 K0 ["look-api/v1/me/features"]
+        2 CONCAT                           R0 R1 R2
+        3 RETURN                           R0 1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
@@ -78,7 +116,7 @@ MAIN:
        17 GETTABLEKS                       R4 R5 K11 ["Flags"]
        19 GETTABLEKS                       R3 R4 K12 ["getFFlagAvatarPreviewerLookComposer"]
        21 CALL                             R2 1 1
-       22 NEWTABLE                         R3 4 0
+       22 NEWTABLE                         R3 8 0
        24 DUPCLOSURE                       R4 K13 [PROTO_0]
        25 CAPTURE                          VAL R2
        26 CAPTURE                          VAL R0
@@ -104,4 +142,18 @@ MAIN:
        51 DUPCLOSURE                       R10 K25 [PROTO_4]
        52 CAPTURE                          VAL R9
        53 SETTABLEKS                       R10 R3 K26 ["manageableGroupsUrl"]
-       55 RETURN                           R3 1
+       55 DUPCLOSURE                       R10 K27 [PROTO_5]
+       56 CAPTURE                          VAL R9
+       57 SETTABLEKS                       R10 R3 K28 ["lookPreviewUrl"]
+       59 DUPCLOSURE                       R10 K29 [PROTO_6]
+       60 CAPTURE                          VAL R9
+       61 SETTABLEKS                       R10 R3 K30 ["lookCreateUrl"]
+       63 DUPCLOSURE                       R10 K31 [PROTO_7]
+       64 CAPTURE                          VAL R7
+       65 DUPCLOSURE                       R11 K32 [PROTO_8]
+       66 CAPTURE                          VAL R7
+       67 SETTABLEKS                       R11 R3 K33 ["creatorHubLookConfigureUrl"]
+       69 DUPCLOSURE                       R11 K34 [PROTO_9]
+       70 CAPTURE                          VAL R9
+       71 SETTABLEKS                       R11 R3 K35 ["getFeatureAccessUrl"]
+       73 RETURN                           R3 1

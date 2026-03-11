@@ -5,8 +5,6 @@ local Cryo = require(root.Parent.Cryo)
 
 local ValidationRulesUtil = require(root.util.ValidationRulesUtil)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
-
-local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 local getFFlagUGCValidateWrapLayersEnabled = require(root.flags.getFFlagUGCValidateWrapLayersEnabled)
 local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
@@ -17,6 +15,8 @@ local getFFlagUGCValidateCheckHSROwner = require(root.flags.getFFlagUGCValidateC
 local getFFlagUGCValidateCheckTexturePackOwner = require(root.flags.getFFlagUGCValidateCheckTexturePackOwner)
 
 local getFFlagUGCValidationMakeupSupport = require(root.flags.getFFlagUGCValidationMakeupSupport)
+
+local FFlagUGCValidateMakeupDecalUVProperties = game:DefineFastFlag("UGCValidateMakeupDecalUVProperties", false)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -312,6 +312,8 @@ Constants.PROPERTIES = {
 		then {
 			Color3 = Color3.new(1, 1, 1),
 			Transparency = 0,
+			UVOffset = if FFlagUGCValidateMakeupDecalUVProperties then Vector2.new(0, 0) else nil,
+			UVScale = if FFlagUGCValidateMakeupDecalUVProperties then Vector2.new(1, 1) else nil,
 		}
 		else nil,
 	SpecialMesh = {
@@ -531,46 +533,43 @@ Constants.WRAP_TARGET_CAGE_MESH_UV_COUNTS = {
 	RightLowerLeg = 88,
 	RightFoot = 86,
 }
+Constants.PACKAGE_CONTENT_ID_FIELDS = Cryo.Dictionary.join(
+	Constants.CONTENT_ID_FIELDS,
+	if getFFlagFixPackageIDFieldName()
+		then {
+			Sound = { "SoundId" },
+			Decal = { "Texture" },
+			VideoFrame = { "Video" },
+			PackageLink = { "PackageId" },
+			CharacterMesh = { "OverlayTextureId", "MeshId", "BaseTextureId" },
+			Tool = { "TextureId" },
+			Trail = { "Texture" },
+			Beam = { "Texture" },
+			ShirtGraphic = { "Graphic" },
+			Shirt = { "ShirtTemplate" },
+			Pants = { "PantsTemplate" },
+			AdGui = { "FallbackImage" },
+		}
+		else {
+			Sound = { "SoundId" },
+			Decal = { "Texture" },
+			VideoFrame = { "Video" },
+			PackageLink = { "PackageId" },
+			CharacterMesh = { "baseTextureAssetId", "overlayTextureAssetId", "meshAssetId" },
+			Tool = { "TextureId" },
+			Sky = { "SkyUp", "SkyLf", "SkyRt", "SkyBk", "SkyFt", "SkyDn", "Sun", "Moon" },
+			Trail = { "texture" },
+			Beam = { "texture" },
+			ShirtGraphic = { "Graphic" },
+			Shirt = { "ShirtTemplate" },
+			Pants = { "PantsTemplate" },
+			AdGui = { "FallbackImage" },
+		}
+)
 
-if getFFlagAddUGCValidationForPackage() then
-	Constants.PACKAGE_CONTENT_ID_FIELDS = Cryo.Dictionary.join(
-		Constants.CONTENT_ID_FIELDS,
-		if getFFlagFixPackageIDFieldName()
-			then {
-				Sound = { "SoundId" },
-				Decal = { "Texture" },
-				VideoFrame = { "Video" },
-				PackageLink = { "PackageId" },
-				CharacterMesh = { "OverlayTextureId", "MeshId", "BaseTextureId" },
-				Tool = { "TextureId" },
-				Trail = { "Texture" },
-				Beam = { "Texture" },
-				ShirtGraphic = { "Graphic" },
-				Shirt = { "ShirtTemplate" },
-				Pants = { "PantsTemplate" },
-				AdGui = { "FallbackImage" },
-			}
-			else {
-				Sound = { "SoundId" },
-				Decal = { "Texture" },
-				VideoFrame = { "Video" },
-				PackageLink = { "PackageId" },
-				CharacterMesh = { "baseTextureAssetId", "overlayTextureAssetId", "meshAssetId" },
-				Tool = { "TextureId" },
-				Sky = { "SkyUp", "SkyLf", "SkyRt", "SkyBk", "SkyFt", "SkyDn", "Sun", "Moon" },
-				Trail = { "texture" },
-				Beam = { "texture" },
-				ShirtGraphic = { "Graphic" },
-				Shirt = { "ShirtTemplate" },
-				Pants = { "PantsTemplate" },
-				AdGui = { "FallbackImage" },
-			}
-	)
-
-	Constants.ExperienceAuthHeaderKey = "RBX-ExperienceAuthorization"
-	Constants.ContentType = "Content-Type"
-	Constants.ApplicationJson = "application/json"
-end
+Constants.ExperienceAuthHeaderKey = "RBX-ExperienceAuthorization"
+Constants.ContentType = "Content-Type"
+Constants.ApplicationJson = "application/json"
 
 -- Name of the special attribute that is allowed on root instances
 -- see validateAttributes for more info

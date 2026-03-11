@@ -11,7 +11,7 @@ PROTO_0:
        10 CALL                             R2 0 1
        11 GETTABLEKS                       R5 R2 K1 ["Color"]
        13 GETTABLEKS                       R4 R5 K2 ["Content"]
-       15 GETTABLEKS                       R3 R4 K3 ["Default"]
+       15 GETTABLEKS                       R3 R4 K3 ["Emphasis"]
        17 GETUPVAL                         R5 3
        18 GETTABLEKS                       R4 R5 K4 ["createElement"]
        20 GETUPVAL                         R5 4
@@ -30,7 +30,7 @@ PROTO_0:
        37 NAMECALL                         R11 R1 K16 ["getText"]
        39 CALL                             R11 3 1
        40 SETTABLEKS                       R11 R10 K12 ["Text"]
-       42 LOADK                            R11 K17 ["text-label-medium auto-xy content-default"]
+       42 LOADK                            R11 K17 ["text-label-medium auto-xy content-emphasis"]
        43 SETTABLEKS                       R11 R10 K5 ["tag"]
        45 LOADN                            R11 1
        46 SETTABLEKS                       R11 R10 K6 ["LayoutOrder"]
@@ -40,7 +40,7 @@ PROTO_0:
        52 GETTABLEKS                       R8 R9 K4 ["createElement"]
        54 GETUPVAL                         R9 4
        55 DUPTABLE                         R10 K7 [{"tag", "LayoutOrder"}]
-       56 LOADK                            R11 K18 ["row gap-small align-y-center auto-xy"]
+       56 LOADK                            R11 K18 ["row gap-xsmall align-y-center auto-xy"]
        57 SETTABLEKS                       R11 R10 K5 ["tag"]
        59 LOADN                            R11 2
        60 SETTABLEKS                       R11 R10 K6 ["LayoutOrder"]
@@ -70,7 +70,7 @@ PROTO_0:
        94 GETIMPORT                        R15 K32 [tostring]
        96 CALL                             R15 1 1
        97 SETTABLEKS                       R15 R14 K12 ["Text"]
-       99 LOADK                            R15 K33 ["text-body-medium auto-xy content-default"]
+       99 LOADK                            R15 K33 ["text-label-medium auto-xy content-default"]
       100 SETTABLEKS                       R15 R14 K5 ["tag"]
       102 LOADN                            R15 2
       103 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]

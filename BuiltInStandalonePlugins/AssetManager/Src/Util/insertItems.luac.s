@@ -162,27 +162,34 @@ PROTO_2:
       164 MOVE                             R11 R8
       165 NAMECALL                         R9 R9 K20 ["JSONEncode"]
       167 CALL                             R9 2 1
-      168 GETUPVAL                         R10 5
-      169 CALL                             R10 0 1
-      170 JUMPIFNOT                        R10 ; [+10]
-      171 NAMECALL                         R10 R0 K11 ["getPlugin"]
-      173 CALL                             R10 1 1
-      174 LOADK                            R12 K21 ["OnInsertAndGrantItems"]
-      175 MOVE                             R13 R9
-      176 MOVE                             R14 R3
-      177 NAMECALL                         R10 R10 K22 ["Invoke"]
-      179 CALL                             R10 4 0
-      180 JUMP                             ; [+9]
-      181 NAMECALL                         R10 R0 K11 ["getPlugin"]
-      183 CALL                             R10 1 1
-      184 LOADK                            R12 K23 ["OnInsertItems"]
-      185 MOVE                             R13 R9
-      186 MOVE                             R14 R3
-      187 NAMECALL                         R10 R10 K22 ["Invoke"]
-      189 CALL                             R10 4 0
-      190 NAMECALL                         R10 R0 K24 ["sendInsertToAnalytics"]
-      192 CALL                             R10 1 0
-      193 RETURN                           R0 0
+      168 JUMPIFEQKNIL                     R3 ; [+7]
+      170 GETUPVAL                         R10 7
+      171 MOVE                             R12 R3
+      172 NAMECALL                         R10 R10 K20 ["JSONEncode"]
+      174 CALL                             R10 2 1
+      175 JUMP                             ; [+1]
+      176 LOADNIL                          R10
+      177 GETUPVAL                         R11 5
+      178 CALL                             R11 0 1
+      179 JUMPIFNOT                        R11 ; [+10]
+      180 NAMECALL                         R11 R0 K11 ["getPlugin"]
+      182 CALL                             R11 1 1
+      183 LOADK                            R13 K21 ["OnInsertAndGrantItems"]
+      184 MOVE                             R14 R9
+      185 MOVE                             R15 R10
+      186 NAMECALL                         R11 R11 K22 ["Invoke"]
+      188 CALL                             R11 4 0
+      189 JUMP                             ; [+9]
+      190 NAMECALL                         R11 R0 K11 ["getPlugin"]
+      192 CALL                             R11 1 1
+      193 LOADK                            R13 K23 ["OnInsertItems"]
+      194 MOVE                             R14 R9
+      195 MOVE                             R15 R10
+      196 NAMECALL                         R11 R11 K22 ["Invoke"]
+      198 CALL                             R11 4 0
+      199 NAMECALL                         R11 R0 K24 ["sendInsertToAnalytics"]
+      201 CALL                             R11 1 0
+      202 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

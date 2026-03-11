@@ -48,6 +48,8 @@ local _roblox_apppageplatform_shared_v1beta1_associated_items_row = require(scri
 local _roblox_apppageplatform_shared_v1beta1_overflow_menu = require(script.Parent.overflow_menu)
 local _roblox_apppageplatform_shared_v1beta1_details_page_image_header =
 	require(script.Parent.details_page_image_header)
+local _roblox_apppageplatform_shared_v1beta1_card = require(script.Parent.card)
+local _roblox_apppageplatform_shared_v1beta1_tabs = require(script.Parent.tabs)
 
 type _UiComponentSchemaImpl = {
 	__index: _UiComponentSchemaImpl,
@@ -120,6 +122,8 @@ type _UiComponentSchemaFields = {
 			type: "details_page_image_header",
 			value: _roblox_apppageplatform_shared_v1beta1_details_page_image_header.DetailsPageImageHeaderSchema,
 		}
+		| { type: "card", value: _roblox_apppageplatform_shared_v1beta1_card.CardSchema }
+		| { type: "tabs", value: _roblox_apppageplatform_shared_v1beta1_tabs.TabsSchema }
 	)?,
 }
 
@@ -184,6 +188,8 @@ type _UiComponentSchemaPartialFields = {
 			type: "details_page_image_header",
 			value: _roblox_apppageplatform_shared_v1beta1_details_page_image_header.DetailsPageImageHeaderSchema,
 		}
+		| { type: "card", value: _roblox_apppageplatform_shared_v1beta1_card.CardSchema }
+		| { type: "tabs", value: _roblox_apppageplatform_shared_v1beta1_tabs.TabsSchema }
 	)?,
 }
 
@@ -344,6 +350,14 @@ do
 			elseif self.kind.type == "details_page_image_header" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 35, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "card" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 36, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "tabs" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 37, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -663,6 +677,18 @@ do
 						),
 					}
 					continue
+				elseif field == 36 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "card", value = _roblox_apppageplatform_shared_v1beta1_card.CardSchema.decode(value) }
+					continue
+				elseif field == 37 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "tabs", value = _roblox_apppageplatform_shared_v1beta1_tabs.TabsSchema.decode(value) }
+					continue
 				end
 
 				local length
@@ -761,6 +787,10 @@ do
 				output.overflowMenu = self.kind.value:jsonEncode()
 			elseif self.kind.type == "details_page_image_header" then
 				output.detailsPageImageHeader = self.kind.value:jsonEncode()
+			elseif self.kind.type == "card" then
+				output.card = self.kind.value:jsonEncode()
+			elseif self.kind.type == "tabs" then
+				output.tabs = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -1271,6 +1301,16 @@ do
 					input.detailsPageImageHeader
 				),
 			}
+		end
+
+		if input.card ~= nil then
+			self.kind =
+				{ type = "card", value = _roblox_apppageplatform_shared_v1beta1_card.CardSchema.jsonDecode(input.card) }
+		end
+
+		if input.tabs ~= nil then
+			self.kind =
+				{ type = "tabs", value = _roblox_apppageplatform_shared_v1beta1_tabs.TabsSchema.jsonDecode(input.tabs) }
 		end
 
 		return self

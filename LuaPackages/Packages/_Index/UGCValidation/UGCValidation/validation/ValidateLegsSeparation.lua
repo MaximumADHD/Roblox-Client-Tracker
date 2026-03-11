@@ -8,7 +8,6 @@ local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local flags = root.flags
-local getFFlagUGCValidateLegAssetSeparation = require(flags.getFFlagUGCValidateLegAssetSeparation)
 local getFFlagUGCValidateLegFullBodySeparation = require(flags.getFFlagUGCValidateLegFullBodySeparation)
 local GetFStringUGCValidateLegHipAttachmentRange = require(flags.GetFStringUGCValidateLegHipAttachmentRange)
 local GetFStringUGCValidateAllowedLegOverlapMultiplier = require(flags.GetFStringUGCValidateAllowedLegOverlapMultiplier)
@@ -56,10 +55,6 @@ function ValidateLegsSeparation.validateAsset(
 	inst: Instance,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
-	if not getFFlagUGCValidateLegAssetSeparation() then
-		return true
-	end
-
 	local startTime = tick()
 
 	local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType

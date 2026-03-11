@@ -15,8 +15,6 @@ local validateDependencies = require(root.validation.validateDependencies)
 
 local createMakeupSchema = require(root.util.createMakeupSchema)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
-
-local getFFlagUGCValidateAccessoriesRCCOwnership = require(root.flags.getFFlagUGCValidateAccessoriesRCCOwnership)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 
@@ -43,12 +41,9 @@ local function validateMakeupAsset(validationContext: Types.ValidationContext): 
 			return false, reasons
 		end
 	end
-
-	if getFFlagUGCValidateAccessoriesRCCOwnership() then
-		success, reasons = validateDependencies(instance, validationContext)
-		if not success then
-			return false, reasons
-		end
+	success, reasons = validateDependencies(instance, validationContext)
+	if not success then
+		return false, reasons
 	end
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()

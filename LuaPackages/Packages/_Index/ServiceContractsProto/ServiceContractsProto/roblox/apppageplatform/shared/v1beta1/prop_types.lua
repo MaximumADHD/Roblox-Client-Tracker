@@ -49,6 +49,12 @@ type _Messages = {
 	ColorStyleProp: _ColorStylePropMessage,
 	ColorStyleProp_ConditionalOption: _ColorStyleProp_ConditionalOptionMessage,
 	ColorStyleProp_ConditionalOptions: _ColorStyleProp_ConditionalOptionsMessage,
+	FillBehaviorProp: _FillBehaviorPropMessage,
+	FillBehaviorProp_ConditionalOption: _FillBehaviorProp_ConditionalOptionMessage,
+	FillBehaviorProp_ConditionalOptions: _FillBehaviorProp_ConditionalOptionsMessage,
+	InputSizeProp: _InputSizePropMessage,
+	InputSizeProp_ConditionalOption: _InputSizeProp_ConditionalOptionMessage,
+	InputSizeProp_ConditionalOptions: _InputSizeProp_ConditionalOptionsMessage,
 	UDimProp: _UDimPropMessage,
 	UDimProp_ConditionalOption: _UDimProp_ConditionalOptionMessage,
 	UDimProp_ConditionalOptions: _UDimProp_ConditionalOptionsMessage,
@@ -1313,6 +1319,176 @@ export type ColorStyleProp_ConditionalOptions = typeof(setmetatable(
 type _ColorStyleProp_ConditionalOptionsMessage = proto.Message<
 	ColorStyleProp_ConditionalOptions,
 	_ColorStyleProp_ConditionalOptionsPartialFields
+>
+
+type _FillBehaviorPropImpl = {
+	__index: _FillBehaviorPropImpl,
+	new: (fields: _FillBehaviorPropPartialFields?) -> FillBehaviorProp,
+	encode: (self: FillBehaviorProp) -> buffer,
+	decode: (input: buffer) -> FillBehaviorProp,
+	jsonEncode: (self: FillBehaviorProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FillBehaviorProp,
+	descriptor: proto.Descriptor,
+}
+
+type _FillBehaviorPropFields = {
+	kind: (
+		{ type: "literal", value: string }
+		| { type: "conditional", value: FillBehaviorProp_ConditionalOptions }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+type _FillBehaviorPropPartialFields = {
+	kind: (
+		{ type: "literal", value: string }
+		| { type: "conditional", value: FillBehaviorProp_ConditionalOptions }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+export type FillBehaviorProp = typeof(setmetatable({} :: _FillBehaviorPropFields, {} :: _FillBehaviorPropImpl))
+type _FillBehaviorPropMessage = proto.Message<FillBehaviorProp, _FillBehaviorPropPartialFields>
+
+type _FillBehaviorProp_ConditionalOptionImpl = {
+	__index: _FillBehaviorProp_ConditionalOptionImpl,
+	new: (fields: _FillBehaviorProp_ConditionalOptionPartialFields?) -> FillBehaviorProp_ConditionalOption,
+	encode: (self: FillBehaviorProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> FillBehaviorProp_ConditionalOption,
+	jsonEncode: (self: FillBehaviorProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FillBehaviorProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _FillBehaviorProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: string } | { type: "binding_path", value: string })?,
+}
+
+type _FillBehaviorProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: string } | { type: "binding_path", value: string })?,
+}
+
+export type FillBehaviorProp_ConditionalOption = typeof(setmetatable(
+	{} :: _FillBehaviorProp_ConditionalOptionFields,
+	{} :: _FillBehaviorProp_ConditionalOptionImpl
+))
+type _FillBehaviorProp_ConditionalOptionMessage = proto.Message<
+	FillBehaviorProp_ConditionalOption,
+	_FillBehaviorProp_ConditionalOptionPartialFields
+>
+
+type _FillBehaviorProp_ConditionalOptionsImpl = {
+	__index: _FillBehaviorProp_ConditionalOptionsImpl,
+	new: (fields: _FillBehaviorProp_ConditionalOptionsPartialFields?) -> FillBehaviorProp_ConditionalOptions,
+	encode: (self: FillBehaviorProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> FillBehaviorProp_ConditionalOptions,
+	jsonEncode: (self: FillBehaviorProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FillBehaviorProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _FillBehaviorProp_ConditionalOptionsFields = {
+	options: { FillBehaviorProp_ConditionalOption },
+}
+
+type _FillBehaviorProp_ConditionalOptionsPartialFields = {
+	options: { FillBehaviorProp_ConditionalOption }?,
+}
+
+export type FillBehaviorProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _FillBehaviorProp_ConditionalOptionsFields,
+	{} :: _FillBehaviorProp_ConditionalOptionsImpl
+))
+type _FillBehaviorProp_ConditionalOptionsMessage = proto.Message<
+	FillBehaviorProp_ConditionalOptions,
+	_FillBehaviorProp_ConditionalOptionsPartialFields
+>
+
+type _InputSizePropImpl = {
+	__index: _InputSizePropImpl,
+	new: (fields: _InputSizePropPartialFields?) -> InputSizeProp,
+	encode: (self: InputSizeProp) -> buffer,
+	decode: (input: buffer) -> InputSizeProp,
+	jsonEncode: (self: InputSizeProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> InputSizeProp,
+	descriptor: proto.Descriptor,
+}
+
+type _InputSizePropFields = {
+	kind: (
+		{ type: "literal", value: string }
+		| { type: "conditional", value: InputSizeProp_ConditionalOptions }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+type _InputSizePropPartialFields = {
+	kind: (
+		{ type: "literal", value: string }
+		| { type: "conditional", value: InputSizeProp_ConditionalOptions }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+export type InputSizeProp = typeof(setmetatable({} :: _InputSizePropFields, {} :: _InputSizePropImpl))
+type _InputSizePropMessage = proto.Message<InputSizeProp, _InputSizePropPartialFields>
+
+type _InputSizeProp_ConditionalOptionImpl = {
+	__index: _InputSizeProp_ConditionalOptionImpl,
+	new: (fields: _InputSizeProp_ConditionalOptionPartialFields?) -> InputSizeProp_ConditionalOption,
+	encode: (self: InputSizeProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> InputSizeProp_ConditionalOption,
+	jsonEncode: (self: InputSizeProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> InputSizeProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _InputSizeProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: string } | { type: "binding_path", value: string })?,
+}
+
+type _InputSizeProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: string } | { type: "binding_path", value: string })?,
+}
+
+export type InputSizeProp_ConditionalOption = typeof(setmetatable(
+	{} :: _InputSizeProp_ConditionalOptionFields,
+	{} :: _InputSizeProp_ConditionalOptionImpl
+))
+type _InputSizeProp_ConditionalOptionMessage = proto.Message<
+	InputSizeProp_ConditionalOption,
+	_InputSizeProp_ConditionalOptionPartialFields
+>
+
+type _InputSizeProp_ConditionalOptionsImpl = {
+	__index: _InputSizeProp_ConditionalOptionsImpl,
+	new: (fields: _InputSizeProp_ConditionalOptionsPartialFields?) -> InputSizeProp_ConditionalOptions,
+	encode: (self: InputSizeProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> InputSizeProp_ConditionalOptions,
+	jsonEncode: (self: InputSizeProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> InputSizeProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _InputSizeProp_ConditionalOptionsFields = {
+	options: { InputSizeProp_ConditionalOption },
+}
+
+type _InputSizeProp_ConditionalOptionsPartialFields = {
+	options: { InputSizeProp_ConditionalOption }?,
+}
+
+export type InputSizeProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _InputSizeProp_ConditionalOptionsFields,
+	{} :: _InputSizeProp_ConditionalOptionsImpl
+))
+type _InputSizeProp_ConditionalOptionsMessage = proto.Message<
+	InputSizeProp_ConditionalOptions,
+	_InputSizeProp_ConditionalOptionsPartialFields
 >
 
 type _UDimPropImpl = {
@@ -8172,6 +8348,794 @@ do
 end
 
 do
+	local _FillBehaviorPropImpl = {}
+	_FillBehaviorPropImpl.__index = _FillBehaviorPropImpl
+
+	function _FillBehaviorPropImpl.new(data: _FillBehaviorPropPartialFields?): FillBehaviorProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _FillBehaviorPropImpl :: _FillBehaviorPropImpl)
+	end
+
+	function _FillBehaviorPropImpl.encode(self: FillBehaviorProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FillBehaviorPropImpl.decode(input: buffer): FillBehaviorProp
+		local self = _FillBehaviorPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = buffer.tostring(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "conditional", value = messages.FillBehaviorProp_ConditionalOptions.decode(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FillBehaviorPropImpl.jsonEncode(self: FillBehaviorProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _FillBehaviorPropImpl.jsonDecode(input: { [string]: any }): FillBehaviorProp
+		local self = _FillBehaviorPropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = input.literal }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.FillBehaviorProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_FillBehaviorPropImpl.descriptor = {
+		name = "FillBehaviorProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.FillBehaviorProp",
+	}
+
+	messages.FillBehaviorProp = _FillBehaviorPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FillBehaviorProp)
+end
+
+do
+	local _FillBehaviorProp_ConditionalOptionImpl = {}
+	_FillBehaviorProp_ConditionalOptionImpl.__index = _FillBehaviorProp_ConditionalOptionImpl
+
+	function _FillBehaviorProp_ConditionalOptionImpl.new(
+		data: _FillBehaviorProp_ConditionalOptionPartialFields?
+	): FillBehaviorProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _FillBehaviorProp_ConditionalOptionImpl :: _FillBehaviorProp_ConditionalOptionImpl)
+	end
+
+	function _FillBehaviorProp_ConditionalOptionImpl.encode(self: FillBehaviorProp_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FillBehaviorProp_ConditionalOptionImpl.decode(input: buffer): FillBehaviorProp_ConditionalOption
+		local self = _FillBehaviorProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FillBehaviorProp_ConditionalOptionImpl.jsonEncode(self: FillBehaviorProp_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _FillBehaviorProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): FillBehaviorProp_ConditionalOption
+		local self = _FillBehaviorProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = input.literal }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_FillBehaviorProp_ConditionalOptionImpl.descriptor = {
+		name = "FillBehaviorProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.FillBehaviorProp_ConditionalOption = _FillBehaviorProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FillBehaviorProp_ConditionalOption)
+end
+
+do
+	local _FillBehaviorProp_ConditionalOptionsImpl = {}
+	_FillBehaviorProp_ConditionalOptionsImpl.__index = _FillBehaviorProp_ConditionalOptionsImpl
+
+	function _FillBehaviorProp_ConditionalOptionsImpl.new(
+		data: _FillBehaviorProp_ConditionalOptionsPartialFields?
+	): FillBehaviorProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _FillBehaviorProp_ConditionalOptionsImpl :: _FillBehaviorProp_ConditionalOptionsImpl)
+	end
+
+	function _FillBehaviorProp_ConditionalOptionsImpl.encode(self: FillBehaviorProp_ConditionalOptions): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FillBehaviorProp_ConditionalOptionsImpl.decode(input: buffer): FillBehaviorProp_ConditionalOptions
+		local self = _FillBehaviorProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.FillBehaviorProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FillBehaviorProp_ConditionalOptionsImpl.jsonEncode(self: FillBehaviorProp_ConditionalOptions): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _FillBehaviorProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): FillBehaviorProp_ConditionalOptions
+		local self = _FillBehaviorProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { FillBehaviorProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.FillBehaviorProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_FillBehaviorProp_ConditionalOptionsImpl.descriptor = {
+		name = "FillBehaviorProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.FillBehaviorProp_ConditionalOptions = _FillBehaviorProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FillBehaviorProp_ConditionalOptions)
+end
+
+do
+	local _InputSizePropImpl = {}
+	_InputSizePropImpl.__index = _InputSizePropImpl
+
+	function _InputSizePropImpl.new(data: _InputSizePropPartialFields?): InputSizeProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _InputSizePropImpl :: _InputSizePropImpl)
+	end
+
+	function _InputSizePropImpl.encode(self: InputSizeProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _InputSizePropImpl.decode(input: buffer): InputSizeProp
+		local self = _InputSizePropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = buffer.tostring(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "conditional", value = messages.InputSizeProp_ConditionalOptions.decode(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _InputSizePropImpl.jsonEncode(self: InputSizeProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _InputSizePropImpl.jsonDecode(input: { [string]: any }): InputSizeProp
+		local self = _InputSizePropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = input.literal }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.InputSizeProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_InputSizePropImpl.descriptor = {
+		name = "InputSizeProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.InputSizeProp",
+	}
+
+	messages.InputSizeProp = _InputSizePropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.InputSizeProp)
+end
+
+do
+	local _InputSizeProp_ConditionalOptionImpl = {}
+	_InputSizeProp_ConditionalOptionImpl.__index = _InputSizeProp_ConditionalOptionImpl
+
+	function _InputSizeProp_ConditionalOptionImpl.new(
+		data: _InputSizeProp_ConditionalOptionPartialFields?
+	): InputSizeProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _InputSizeProp_ConditionalOptionImpl :: _InputSizeProp_ConditionalOptionImpl)
+	end
+
+	function _InputSizeProp_ConditionalOptionImpl.encode(self: InputSizeProp_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _InputSizeProp_ConditionalOptionImpl.decode(input: buffer): InputSizeProp_ConditionalOption
+		local self = _InputSizeProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _InputSizeProp_ConditionalOptionImpl.jsonEncode(self: InputSizeProp_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _InputSizeProp_ConditionalOptionImpl.jsonDecode(input: { [string]: any }): InputSizeProp_ConditionalOption
+		local self = _InputSizeProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = input.literal }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_InputSizeProp_ConditionalOptionImpl.descriptor = {
+		name = "InputSizeProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.InputSizeProp_ConditionalOption = _InputSizeProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.InputSizeProp_ConditionalOption)
+end
+
+do
+	local _InputSizeProp_ConditionalOptionsImpl = {}
+	_InputSizeProp_ConditionalOptionsImpl.__index = _InputSizeProp_ConditionalOptionsImpl
+
+	function _InputSizeProp_ConditionalOptionsImpl.new(
+		data: _InputSizeProp_ConditionalOptionsPartialFields?
+	): InputSizeProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _InputSizeProp_ConditionalOptionsImpl :: _InputSizeProp_ConditionalOptionsImpl)
+	end
+
+	function _InputSizeProp_ConditionalOptionsImpl.encode(self: InputSizeProp_ConditionalOptions): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _InputSizeProp_ConditionalOptionsImpl.decode(input: buffer): InputSizeProp_ConditionalOptions
+		local self = _InputSizeProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.InputSizeProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _InputSizeProp_ConditionalOptionsImpl.jsonEncode(self: InputSizeProp_ConditionalOptions): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _InputSizeProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): InputSizeProp_ConditionalOptions
+		local self = _InputSizeProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { InputSizeProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.InputSizeProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_InputSizeProp_ConditionalOptionsImpl.descriptor = {
+		name = "InputSizeProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.InputSizeProp_ConditionalOptions = _InputSizeProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.InputSizeProp_ConditionalOptions)
+end
+
+do
 	local _UDimPropImpl = {}
 	_UDimPropImpl.__index = _UDimPropImpl
 
@@ -14006,6 +14970,12 @@ return {
 	ColorStyleProp = messages.ColorStyleProp,
 	ColorStyleProp_ConditionalOption = messages.ColorStyleProp_ConditionalOption,
 	ColorStyleProp_ConditionalOptions = messages.ColorStyleProp_ConditionalOptions,
+	FillBehaviorProp = messages.FillBehaviorProp,
+	FillBehaviorProp_ConditionalOption = messages.FillBehaviorProp_ConditionalOption,
+	FillBehaviorProp_ConditionalOptions = messages.FillBehaviorProp_ConditionalOptions,
+	InputSizeProp = messages.InputSizeProp,
+	InputSizeProp_ConditionalOption = messages.InputSizeProp_ConditionalOption,
+	InputSizeProp_ConditionalOptions = messages.InputSizeProp_ConditionalOptions,
 	UDimProp = messages.UDimProp,
 	UDimProp_ConditionalOption = messages.UDimProp_ConditionalOption,
 	UDimProp_ConditionalOptions = messages.UDimProp_ConditionalOptions,

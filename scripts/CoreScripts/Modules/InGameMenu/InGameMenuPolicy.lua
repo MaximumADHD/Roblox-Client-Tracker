@@ -13,16 +13,10 @@ local GetFIntEducationalPopupDisplayMaxCount =
 
 local isSubjectToDesktopPolicies = require(CorePackages.Workspace.Packages.SharedFlags).isSubjectToDesktopPolicies
 
-local FFlagUseGUACforDUARPolicy = game:DefineFastFlag("UseGUACforDUARPolicy", false)
-
 InGameMenuPolicy.Mapper = function(policy)
 	return {
 		enableInGameHomeIcon = function()
-			if FFlagUseGUACforDUARPolicy then
-				return policy.EnableInGameHomeIcon or false
-			else
-				return isSubjectToDesktopPolicies()
-			end
+			return isSubjectToDesktopPolicies()
 		end,
 
 		enableEducationalPopup = function()

@@ -10,6 +10,7 @@ local InsertService = game:GetService("InsertService")
 local FStringEmoteUtilityFallbackKeyframeSequenceAssetId =
 	game:DefineFastString("EmoteUtilityFallbackKeyframeSequenceAssetId", "10921261056")
 local FFlagFixKeyframeGeneration = game:DefineFastFlag("FixKeyframeGeneration", false)
+local FFlagEmoteUtilityDefaultMoodFromCharacter = game:DefineFastFlag("EmoteUtilityDefaultMoodFromCharacter", false)
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
@@ -1037,6 +1038,25 @@ module.SetPlayerCharacterNeutralPose = function(character: Model)
 	recurResetJoint(character)
 end
 
+module.FindDefaultMoodAnimationId = function(character: Model): string?
+	local animateScript = character:FindFirstChild("Animate")
+	if not animateScript then
+		return nil
+	end
+
+	local moodStringValue = animateScript:FindFirstChild("mood")
+	if not moodStringValue then
+		return nil
+	end
+
+	local moodAnim = moodStringValue:FindFirstChildOfClass("Animation")
+	if not moodAnim or moodAnim.AnimationId == "" then
+		return nil
+	end
+
+	return moodAnim.AnimationId
+end
+
 local function loadKeyframesForPoseR15(
 	character: Model,
 	animationAssetId: number?,
@@ -1082,7 +1102,7 @@ local function loadKeyframesForPoseR15(
 	--   the emote is a stronger/more explicit choice about mood.
 	-- * Otherwise we do care about the mood asset: load it.
 	local shouldApplyMood = false
-	if moodAssetId and moodAssetId ~= 0 then
+	if FFlagEmoteUtilityDefaultMoodFromCharacter or (moodAssetId and moodAssetId ~= 0) then
 		if animationAssetId == nil then
 			shouldApplyMood = true
 		else
@@ -1092,7 +1112,24 @@ local function loadKeyframesForPoseR15(
 		end
 	end
 	if shouldApplyMood then
-		moodKeyframe = getMoodThumbnailKeyframe(moodAssetId)
+		if FFlagEmoteUtilityDefaultMoodFromCharacter then
+			if moodAssetId and moodAssetId ~= 0 then
+				moodKeyframe = getMoodThumbnailKeyframe(moodAssetId)
+			end
+
+			-- Fallback to default R15 mood animation
+			if not moodKeyframe then
+				local defaultMoodAnimationId = module.FindDefaultMoodAnimationId(character)
+				if defaultMoodAnimationId then
+					local moodAnimationClip = getAnimationClipByAssetId(defaultMoodAnimationId)
+					if moodAnimationClip and moodAnimationClip:IsA("KeyframeSequence") then
+						moodKeyframe = module.GetThumbnailKeyframe(nil, moodAnimationClip, 0)
+					end
+				end
+			end
+		else
+			moodKeyframe = getMoodThumbnailKeyframe(moodAssetId)
+		end
 	end
 
 	keyframesForPose.poseKeyframe = poseKeyframe

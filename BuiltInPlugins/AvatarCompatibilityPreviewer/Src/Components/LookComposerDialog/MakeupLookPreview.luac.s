@@ -38,23 +38,6 @@ PROTO_1:
         9 RETURN                           R0 1
 
 PROTO_2:
-        0 GETUPVAL                         R0 0
-        1 JUMPIF                           R0 ; [+1]
-        2 RETURN                           R0 0
-        3 GETUPVAL                         R0 0
-        4 LOADK                            R2 K0 ["Head"]
-        5 NAMECALL                         R0 R0 K1 ["FindFirstChild"]
-        7 CALL                             R0 2 1
-        8 JUMPIFNOT                        R0 ; [+8]
-        9 LOADK                            R3 K2 ["BasePart"]
-       10 NAMECALL                         R1 R0 K3 ["IsA"]
-       12 CALL                             R1 2 1
-       13 JUMPIFNOT                        R1 ; [+3]
-       14 GETUPVAL                         R1 1
-       15 SETTABLEKS                       R1 R0 K4 ["Color"]
-       17 RETURN                           R0 0
-
-PROTO_3:
         0 LOADK                            R3 K0 ["Head"]
         1 NAMECALL                         R1 R0 K1 ["FindFirstChild"]
         3 CALL                             R1 2 1
@@ -79,6 +62,23 @@ PROTO_3:
        31 GETTABLEKS                       R4 R5 K11 ["FieldOfView"]
        33 SETTABLEKS                       R4 R3 K5 ["fov"]
        35 RETURN                           R3 1
+
+PROTO_3:
+        0 GETUPVAL                         R0 0
+        1 JUMPIF                           R0 ; [+1]
+        2 RETURN                           R0 0
+        3 GETUPVAL                         R0 0
+        4 LOADK                            R2 K0 ["Head"]
+        5 NAMECALL                         R0 R0 K1 ["FindFirstChild"]
+        7 CALL                             R0 2 1
+        8 JUMPIFNOT                        R0 ; [+8]
+        9 LOADK                            R3 K2 ["BasePart"]
+       10 NAMECALL                         R1 R0 K3 ["IsA"]
+       12 CALL                             R1 2 1
+       13 JUMPIFNOT                        R1 ; [+3]
+       14 GETUPVAL                         R1 1
+       15 SETTABLEKS                       R1 R0 K4 ["Color"]
+       17 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -106,82 +106,88 @@ PROTO_4:
        29 CAPTURE                          UPVAL U3
        30 CALL                             R4 1 2
        31 GETUPVAL                         R7 2
-       32 GETTABLEKS                       R6 R7 K6 ["useEffect"]
+       32 GETTABLEKS                       R6 R7 K6 ["useCallback"]
        34 NEWCLOSURE                       R7 P2
-       35 CAPTURE                          VAL R3
-       36 CAPTURE                          VAL R2
-       37 NEWTABLE                         R8 0 2
-       39 MOVE                             R9 R2
-       40 MOVE                             R10 R3
-       41 SETLIST                          R8 R9 2 [1]
-       43 CALL                             R6 2 0
-       44 GETUPVAL                         R7 2
-       45 GETTABLEKS                       R6 R7 K7 ["createElement"]
-       47 GETUPVAL                         R7 4
-       48 DUPTABLE                         R8 K11 [{"tag", "Size", "LayoutOrder"}]
-       49 LOADK                            R9 K12 ["bg-surface-200 radius-medium stroke-default"]
-       50 SETTABLEKS                       R9 R8 K8 ["tag"]
-       52 GETIMPORT                        R9 K15 [UDim2.fromOffset]
-       54 LOADN                            R10 150
-       55 LOADN                            R11 150
-       56 CALL                             R9 2 1
-       57 SETTABLEKS                       R9 R8 K9 ["Size"]
-       59 GETTABLEKS                       R9 R0 K10 ["LayoutOrder"]
-       61 SETTABLEKS                       R9 R8 K10 ["LayoutOrder"]
-       63 DUPTABLE                         R9 K18 [{"Preview", "LoadingOverlay"}]
-       64 JUMPIFNOT                        R3 ; [+16]
-       65 GETUPVAL                         R11 2
-       66 GETTABLEKS                       R10 R11 K7 ["createElement"]
-       68 GETUPVAL                         R11 5
-       69 DUPTABLE                         R12 K22 [{"Model", "GetCameraModifications", "Static"}]
-       70 SETTABLEKS                       R3 R12 K19 ["Model"]
-       72 NEWCLOSURE                       R13 P3
-       73 CAPTURE                          VAL R4
-       74 SETTABLEKS                       R13 R12 K20 ["GetCameraModifications"]
-       76 LOADB                            R13 1
-       77 SETTABLEKS                       R13 R12 K21 ["Static"]
-       79 CALL                             R10 2 1
-       80 JUMP                             ; [+1]
-       81 LOADNIL                          R10
-       82 SETTABLEKS                       R10 R9 K16 ["Preview"]
-       84 JUMPIF                           R3 ; [+45]
-       85 GETUPVAL                         R11 2
-       86 GETTABLEKS                       R10 R11 K7 ["createElement"]
-       88 GETUPVAL                         R11 4
-       89 DUPTABLE                         R12 K24 [{"tag", "ZIndex"}]
-       90 LOADK                            R13 K25 ["size-full bg-surface-200"]
-       91 SETTABLEKS                       R13 R12 K8 ["tag"]
-       93 LOADN                            R13 10
-       94 SETTABLEKS                       R13 R12 K23 ["ZIndex"]
-       96 DUPTABLE                         R13 K27 [{"LoadingIndicator"}]
-       97 GETUPVAL                         R15 2
-       98 GETTABLEKS                       R14 R15 K7 ["createElement"]
-      100 GETUPVAL                         R16 6
-      101 GETTABLEKS                       R15 R16 K26 ["LoadingIndicator"]
-      103 DUPTABLE                         R16 K30 [{"Size", "AnchorPoint", "Position"}]
-      104 GETIMPORT                        R17 K15 [UDim2.fromOffset]
-      106 LOADN                            R18 32
-      107 LOADN                            R19 32
-      108 CALL                             R17 2 1
-      109 SETTABLEKS                       R17 R16 K9 ["Size"]
-      111 GETIMPORT                        R17 K33 [Vector2.new]
-      113 LOADK                            R18 K34 [0.5]
-      114 LOADK                            R19 K34 [0.5]
-      115 CALL                             R17 2 1
-      116 SETTABLEKS                       R17 R16 K28 ["AnchorPoint"]
-      118 GETIMPORT                        R17 K36 [UDim2.fromScale]
-      120 LOADK                            R18 K34 [0.5]
-      121 LOADK                            R19 K34 [0.5]
-      122 CALL                             R17 2 1
-      123 SETTABLEKS                       R17 R16 K29 ["Position"]
-      125 CALL                             R14 2 1
-      126 SETTABLEKS                       R14 R13 K26 ["LoadingIndicator"]
-      128 CALL                             R10 3 1
-      129 JUMP                             ; [+1]
-      130 LOADNIL                          R10
-      131 SETTABLEKS                       R10 R9 K17 ["LoadingOverlay"]
-      133 CALL                             R6 3 -1
-      134 RETURN                           R6 -1
+       35 CAPTURE                          VAL R4
+       36 NEWTABLE                         R8 0 1
+       38 MOVE                             R9 R4
+       39 SETLIST                          R8 R9 1 [1]
+       41 CALL                             R6 2 1
+       42 GETUPVAL                         R8 2
+       43 GETTABLEKS                       R7 R8 K7 ["useEffect"]
+       45 NEWCLOSURE                       R8 P3
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R2
+       48 NEWTABLE                         R9 0 2
+       50 MOVE                             R10 R2
+       51 MOVE                             R11 R3
+       52 SETLIST                          R9 R10 2 [1]
+       54 CALL                             R7 2 0
+       55 GETUPVAL                         R8 2
+       56 GETTABLEKS                       R7 R8 K8 ["createElement"]
+       58 GETUPVAL                         R8 4
+       59 DUPTABLE                         R9 K12 [{"tag", "Size", "LayoutOrder"}]
+       60 LOADK                            R10 K13 ["bg-surface-200 radius-medium stroke-default"]
+       61 SETTABLEKS                       R10 R9 K9 ["tag"]
+       63 GETIMPORT                        R10 K16 [UDim2.fromOffset]
+       65 LOADN                            R11 150
+       66 LOADN                            R12 150
+       67 CALL                             R10 2 1
+       68 SETTABLEKS                       R10 R9 K10 ["Size"]
+       70 GETTABLEKS                       R10 R0 K11 ["LayoutOrder"]
+       72 SETTABLEKS                       R10 R9 K11 ["LayoutOrder"]
+       74 DUPTABLE                         R10 K19 [{"Preview", "LoadingOverlay"}]
+       75 JUMPIFNOT                        R3 ; [+14]
+       76 GETUPVAL                         R12 2
+       77 GETTABLEKS                       R11 R12 K8 ["createElement"]
+       79 GETUPVAL                         R12 5
+       80 DUPTABLE                         R13 K23 [{"Model", "GetCameraModifications", "Static"}]
+       81 SETTABLEKS                       R3 R13 K20 ["Model"]
+       83 SETTABLEKS                       R6 R13 K21 ["GetCameraModifications"]
+       85 LOADB                            R14 1
+       86 SETTABLEKS                       R14 R13 K22 ["Static"]
+       88 CALL                             R11 2 1
+       89 JUMP                             ; [+1]
+       90 LOADNIL                          R11
+       91 SETTABLEKS                       R11 R10 K17 ["Preview"]
+       93 JUMPIF                           R3 ; [+45]
+       94 GETUPVAL                         R12 2
+       95 GETTABLEKS                       R11 R12 K8 ["createElement"]
+       97 GETUPVAL                         R12 4
+       98 DUPTABLE                         R13 K25 [{"tag", "ZIndex"}]
+       99 LOADK                            R14 K26 ["size-full bg-surface-200"]
+      100 SETTABLEKS                       R14 R13 K9 ["tag"]
+      102 LOADN                            R14 10
+      103 SETTABLEKS                       R14 R13 K24 ["ZIndex"]
+      105 DUPTABLE                         R14 K28 [{"LoadingIndicator"}]
+      106 GETUPVAL                         R16 2
+      107 GETTABLEKS                       R15 R16 K8 ["createElement"]
+      109 GETUPVAL                         R17 6
+      110 GETTABLEKS                       R16 R17 K27 ["LoadingIndicator"]
+      112 DUPTABLE                         R17 K31 [{"Size", "AnchorPoint", "Position"}]
+      113 GETIMPORT                        R18 K16 [UDim2.fromOffset]
+      115 LOADN                            R19 32
+      116 LOADN                            R20 32
+      117 CALL                             R18 2 1
+      118 SETTABLEKS                       R18 R17 K10 ["Size"]
+      120 GETIMPORT                        R18 K34 [Vector2.new]
+      122 LOADK                            R19 K35 [0.5]
+      123 LOADK                            R20 K35 [0.5]
+      124 CALL                             R18 2 1
+      125 SETTABLEKS                       R18 R17 K29 ["AnchorPoint"]
+      127 GETIMPORT                        R18 K37 [UDim2.fromScale]
+      129 LOADK                            R19 K35 [0.5]
+      130 LOADK                            R20 K35 [0.5]
+      131 CALL                             R18 2 1
+      132 SETTABLEKS                       R18 R17 K30 ["Position"]
+      134 CALL                             R15 2 1
+      135 SETTABLEKS                       R15 R14 K27 ["LoadingIndicator"]
+      137 CALL                             R11 3 1
+      138 JUMP                             ; [+1]
+      139 LOADNIL                          R11
+      140 SETTABLEKS                       R11 R10 K18 ["LoadingOverlay"]
+      142 CALL                             R7 3 -1
+      143 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -45,6 +45,8 @@ local FFlagHideChatButtonForChatDisabledUsers = game:DefineFastFlag("HideChatBut
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
+local FFlagExpChatPerfTracking = SharedFlags.FFlagExpChatPerfTracking
+local ExpChatPerfTracker = ExpChat.ExpChatPerfTracker
 
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
@@ -144,6 +146,9 @@ chatChromeIntegration = ChromeService:register({
 		if chatVisibility then
 			ChatSelector:SetVisible(false)
 		else
+			if FFlagExpChatPerfTracking then
+				ExpChatPerfTracker.start(ExpChatPerfTracker.Events.ChatWindowMountTTI, {})
+			end
 			if (isInExperienceUIVREnabled and isSpatial()) and not InExperienceUIVRIXP:isMovePanelToCenter() then
 				ChatSelector:SetVisible(true)
 			else

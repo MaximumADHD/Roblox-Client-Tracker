@@ -28,6 +28,19 @@ type _UniverseDataFields = {
 	root_place_id: number,
 	creator_type: string,
 	creator_id: number,
+	player_count: number,
+	total_up_votes: number,
+	total_down_votes: number,
+	is_voice_supported: boolean,
+	is_camera_supported: boolean,
+	localized_fiat_price: string,
+	genre_l1: string,
+	genre_l2: string,
+	maximum_server_size: number,
+	created_date: string,
+	updated_date: string,
+	favorite_count: number,
+	total_visits: number,
 }
 
 type _UniverseDataPartialFields = {
@@ -37,6 +50,19 @@ type _UniverseDataPartialFields = {
 	root_place_id: number?,
 	creator_type: string?,
 	creator_id: number?,
+	player_count: number?,
+	total_up_votes: number?,
+	total_down_votes: number?,
+	is_voice_supported: boolean?,
+	is_camera_supported: boolean?,
+	localized_fiat_price: string?,
+	genre_l1: string?,
+	genre_l2: string?,
+	maximum_server_size: number?,
+	created_date: string?,
+	updated_date: string?,
+	favorite_count: number?,
+	total_visits: number?,
 }
 
 export type UniverseData = typeof(setmetatable({} :: _UniverseDataFields, {} :: _UniverseDataImpl))
@@ -54,6 +80,27 @@ do
 			root_place_id = if data == nil or data.root_place_id == nil then 0 else data.root_place_id,
 			creator_type = if data == nil or data.creator_type == nil then "" else data.creator_type,
 			creator_id = if data == nil or data.creator_id == nil then 0 else data.creator_id,
+			player_count = if data == nil or data.player_count == nil then 0 else data.player_count,
+			total_up_votes = if data == nil or data.total_up_votes == nil then 0 else data.total_up_votes,
+			total_down_votes = if data == nil or data.total_down_votes == nil then 0 else data.total_down_votes,
+			is_voice_supported = if data == nil or data.is_voice_supported == nil
+				then false
+				else data.is_voice_supported,
+			is_camera_supported = if data == nil or data.is_camera_supported == nil
+				then false
+				else data.is_camera_supported,
+			localized_fiat_price = if data == nil or data.localized_fiat_price == nil
+				then ""
+				else data.localized_fiat_price,
+			genre_l1 = if data == nil or data.genre_l1 == nil then "" else data.genre_l1,
+			genre_l2 = if data == nil or data.genre_l2 == nil then "" else data.genre_l2,
+			maximum_server_size = if data == nil or data.maximum_server_size == nil
+				then 0
+				else data.maximum_server_size,
+			created_date = if data == nil or data.created_date == nil then "" else data.created_date,
+			updated_date = if data == nil or data.updated_date == nil then "" else data.updated_date,
+			favorite_count = if data == nil or data.favorite_count == nil then 0 else data.favorite_count,
+			total_visits = if data == nil or data.total_visits == nil then 0 else data.total_visits,
 		}, _UniverseDataImpl :: _UniverseDataImpl)
 	end
 
@@ -91,6 +138,71 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, self.creator_id)
 		end
 
+		if self.player_count ~= nil and self.player_count ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.player_count)
+		end
+
+		if self.total_up_votes ~= nil and self.total_up_votes ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.total_up_votes)
+		end
+
+		if self.total_down_votes ~= nil and self.total_down_votes ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.total_down_votes)
+		end
+
+		if self.is_voice_supported then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_voice_supported then 1 else 0)
+		end
+
+		if self.is_camera_supported then
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_camera_supported then 1 else 0)
+		end
+
+		if self.localized_fiat_price ~= nil and self.localized_fiat_price ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.localized_fiat_price)
+		end
+
+		if self.genre_l1 ~= nil and self.genre_l1 ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.genre_l1)
+		end
+
+		if self.genre_l2 ~= nil and self.genre_l2 ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.genre_l2)
+		end
+
+		if self.maximum_server_size ~= nil and self.maximum_server_size ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.maximum_server_size)
+		end
+
+		if self.created_date ~= nil and self.created_date ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.created_date)
+		end
+
+		if self.updated_date ~= nil and self.updated_date ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.updated_date)
+		end
+
+		if self.favorite_count ~= nil and self.favorite_count ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.favorite_count)
+		end
+
+		if self.total_visits ~= nil and self.total_visits ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.total_visits)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -120,6 +232,46 @@ do
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.creator_id = value
 					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.player_count = value
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.total_up_votes = value
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.total_down_votes = value
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_voice_supported = value ~= 0
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_camera_supported = value ~= 0
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.maximum_server_size = value
+					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.favorite_count = value
+					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.total_visits = value
+					continue
 				end
 
 				local _
@@ -139,6 +291,31 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.creator_type = buffer.tostring(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.localized_fiat_price = buffer.tostring(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.genre_l1 = buffer.tostring(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.genre_l2 = buffer.tostring(value)
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.created_date = buffer.tostring(value)
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.updated_date = buffer.tostring(value)
 					continue
 				end
 
@@ -191,6 +368,58 @@ do
 			output.creatorId = self.creator_id
 		end
 
+		if self.player_count ~= nil and self.player_count ~= 0 then
+			output.playerCount = self.player_count
+		end
+
+		if self.total_up_votes ~= nil and self.total_up_votes ~= 0 then
+			output.totalUpVotes = self.total_up_votes
+		end
+
+		if self.total_down_votes ~= nil and self.total_down_votes ~= 0 then
+			output.totalDownVotes = self.total_down_votes
+		end
+
+		if self.is_voice_supported then
+			output.isVoiceSupported = self.is_voice_supported
+		end
+
+		if self.is_camera_supported then
+			output.isCameraSupported = self.is_camera_supported
+		end
+
+		if self.localized_fiat_price ~= nil and self.localized_fiat_price ~= "" then
+			output.localizedFiatPrice = self.localized_fiat_price
+		end
+
+		if self.genre_l1 ~= nil and self.genre_l1 ~= "" then
+			output.genreL1 = self.genre_l1
+		end
+
+		if self.genre_l2 ~= nil and self.genre_l2 ~= "" then
+			output.genreL2 = self.genre_l2
+		end
+
+		if self.maximum_server_size ~= nil and self.maximum_server_size ~= 0 then
+			output.maximumServerSize = self.maximum_server_size
+		end
+
+		if self.created_date ~= nil and self.created_date ~= "" then
+			output.createdDate = self.created_date
+		end
+
+		if self.updated_date ~= nil and self.updated_date ~= "" then
+			output.updatedDate = self.updated_date
+		end
+
+		if self.favorite_count ~= nil and self.favorite_count ~= 0 then
+			output.favoriteCount = self.favorite_count
+		end
+
+		if self.total_visits ~= nil and self.total_visits ~= 0 then
+			output.totalVisits = self.total_visits
+		end
+
 		return output
 	end
 
@@ -231,6 +460,110 @@ do
 
 		if input.creatorId ~= nil then
 			self.creator_id = input.creatorId
+		end
+
+		if input.player_count ~= nil then
+			self.player_count = input.player_count
+		end
+
+		if input.playerCount ~= nil then
+			self.player_count = input.playerCount
+		end
+
+		if input.total_up_votes ~= nil then
+			self.total_up_votes = input.total_up_votes
+		end
+
+		if input.totalUpVotes ~= nil then
+			self.total_up_votes = input.totalUpVotes
+		end
+
+		if input.total_down_votes ~= nil then
+			self.total_down_votes = input.total_down_votes
+		end
+
+		if input.totalDownVotes ~= nil then
+			self.total_down_votes = input.totalDownVotes
+		end
+
+		if input.is_voice_supported ~= nil then
+			self.is_voice_supported = input.is_voice_supported
+		end
+
+		if input.isVoiceSupported ~= nil then
+			self.is_voice_supported = input.isVoiceSupported
+		end
+
+		if input.is_camera_supported ~= nil then
+			self.is_camera_supported = input.is_camera_supported
+		end
+
+		if input.isCameraSupported ~= nil then
+			self.is_camera_supported = input.isCameraSupported
+		end
+
+		if input.localized_fiat_price ~= nil then
+			self.localized_fiat_price = input.localized_fiat_price
+		end
+
+		if input.localizedFiatPrice ~= nil then
+			self.localized_fiat_price = input.localizedFiatPrice
+		end
+
+		if input.genre_l1 ~= nil then
+			self.genre_l1 = input.genre_l1
+		end
+
+		if input.genreL1 ~= nil then
+			self.genre_l1 = input.genreL1
+		end
+
+		if input.genre_l2 ~= nil then
+			self.genre_l2 = input.genre_l2
+		end
+
+		if input.genreL2 ~= nil then
+			self.genre_l2 = input.genreL2
+		end
+
+		if input.maximum_server_size ~= nil then
+			self.maximum_server_size = input.maximum_server_size
+		end
+
+		if input.maximumServerSize ~= nil then
+			self.maximum_server_size = input.maximumServerSize
+		end
+
+		if input.created_date ~= nil then
+			self.created_date = input.created_date
+		end
+
+		if input.createdDate ~= nil then
+			self.created_date = input.createdDate
+		end
+
+		if input.updated_date ~= nil then
+			self.updated_date = input.updated_date
+		end
+
+		if input.updatedDate ~= nil then
+			self.updated_date = input.updatedDate
+		end
+
+		if input.favorite_count ~= nil then
+			self.favorite_count = input.favorite_count
+		end
+
+		if input.favoriteCount ~= nil then
+			self.favorite_count = input.favoriteCount
+		end
+
+		if input.total_visits ~= nil then
+			self.total_visits = input.total_visits
+		end
+
+		if input.totalVisits ~= nil then
+			self.total_visits = input.totalVisits
 		end
 
 		return self

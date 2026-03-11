@@ -96,7 +96,7 @@ PROTO_8:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["Name"]
         3 SETTABLEKS                       R2 R0 K0 ["Name"]
-        5 JUMPIFNOTEQKS                    R1 K1 ["ui"] ; [+193]
+        5 JUMPIFNOTEQKS                    R1 K1 ["ui"] ; [+196]
         7 LOADNIL                          R2
         8 LOADNIL                          R3
         9 GETUPVAL                         R5 1
@@ -192,7 +192,7 @@ PROTO_8:
       139 JUMPIF                           R5 ; [+3]
       140 LOADB                            R5 1
       141 SETTABLEKS                       R5 R2 K8 ["enabled"]
-      143 DUPTABLE                         R5 K45 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
+      143 DUPTABLE                         R5 K45 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior", "uri"}]
       144 LOADK                            R6 K16 ["AnimationGraphEditor"]
       145 SETTABLEKS                       R6 R5 K41 ["id"]
       147 GETIMPORT                        R6 K48 [DockWidgetPluginGuiInfo.new]
@@ -209,59 +209,61 @@ PROTO_8:
       161 SETTABLEKS                       R6 R5 K43 ["getDockTitle"]
       163 GETIMPORT                        R6 K56 [Enum.ZIndexBehavior.Sibling]
       165 SETTABLEKS                       R6 R5 K44 ["zIndexBehavior"]
-      167 SETTABLEKS                       R5 R4 K57 ["dockWidgetInfo"]
-      169 GETUPVAL                         R7 3
-      170 GETTABLEKS                       R6 R7 K58 ["PluginLoaderBuilder"]
-      172 GETTABLEKS                       R5 R6 K59 ["build"]
-      174 MOVE                             R6 R4
-      175 CALL                             R5 1 1
-      176 GETTABLEKS                       R6 R5 K60 ["pluginLoader"]
-      178 NAMECALL                         R6 R6 K61 ["waitForUserInteraction"]
-      180 CALL                             R6 1 1
-      181 JUMPIF                           R6 ; [+1]
-      182 RETURN                           R0 0
-      183 GETUPVAL                         R7 4
-      184 GETIMPORT                        R8 K63 [require]
-      186 GETUPVAL                         R11 0
-      187 GETTABLEKS                       R10 R11 K35 ["Src"]
-      189 GETTABLEKS                       R9 R10 K64 ["UIDataModelMainPlugin"]
-      191 CALL                             R8 1 1
-      192 DUPTABLE                         R9 K67 [{"Plugin", "PluginLoaderContext"}]
-      193 SETTABLEKS                       R0 R9 K65 ["Plugin"]
-      195 SETTABLEKS                       R5 R9 K66 ["PluginLoaderContext"]
-      197 CALL                             R7 2 0
-      198 RETURN                           R0 0
-      199 JUMPIFNOTEQKS                    R1 K68 ["editabledatamodel"] ; [+15]
-      201 GETUPVAL                         R2 4
-      202 GETIMPORT                        R3 K63 [require]
-      204 GETUPVAL                         R6 0
-      205 GETTABLEKS                       R5 R6 K35 ["Src"]
-      207 GETTABLEKS                       R4 R5 K69 ["EditableDataModelMainPlugin"]
-      209 CALL                             R3 1 1
-      210 DUPTABLE                         R4 K70 [{"Plugin"}]
-      211 SETTABLEKS                       R0 R4 K65 ["Plugin"]
-      213 CALL                             R2 2 0
-      214 RETURN                           R0 0
-      215 JUMPIFNOTEQKS                    R1 K71 ["previewdatamodel"] ; [+15]
-      217 GETUPVAL                         R2 4
-      218 GETIMPORT                        R3 K63 [require]
-      220 GETUPVAL                         R6 0
-      221 GETTABLEKS                       R5 R6 K35 ["Src"]
-      223 GETTABLEKS                       R4 R5 K72 ["PreviewDataModelMainPlugin"]
-      225 CALL                             R3 1 1
-      226 DUPTABLE                         R4 K70 [{"Plugin"}]
-      227 SETTABLEKS                       R0 R4 K65 ["Plugin"]
-      229 CALL                             R2 2 0
-      230 RETURN                           R0 0
-      231 GETIMPORT                        R2 K74 [error]
-      233 LOADK                            R4 K75 ["Unknown plugin type: "]
-      234 FASTCALL1                        TOSTRING R1 ; [+3]
-      235 MOVE                             R6 R1
-      236 GETIMPORT                        R5 K77 [tostring]
-      238 CALL                             R5 1 1
-      239 CONCAT                           R3 R4 R5
-      240 CALL                             R2 1 0
-      241 RETURN                           R0 0
+      167 GETUPVAL                         R6 3
+      168 SETTABLEKS                       R6 R5 K3 ["uri"]
+      170 SETTABLEKS                       R5 R4 K57 ["dockWidgetInfo"]
+      172 GETUPVAL                         R7 4
+      173 GETTABLEKS                       R6 R7 K58 ["PluginLoaderBuilder"]
+      175 GETTABLEKS                       R5 R6 K59 ["build"]
+      177 MOVE                             R6 R4
+      178 CALL                             R5 1 1
+      179 GETTABLEKS                       R6 R5 K60 ["pluginLoader"]
+      181 NAMECALL                         R6 R6 K61 ["waitForUserInteraction"]
+      183 CALL                             R6 1 1
+      184 JUMPIF                           R6 ; [+1]
+      185 RETURN                           R0 0
+      186 GETUPVAL                         R7 5
+      187 GETIMPORT                        R8 K63 [require]
+      189 GETUPVAL                         R11 0
+      190 GETTABLEKS                       R10 R11 K35 ["Src"]
+      192 GETTABLEKS                       R9 R10 K64 ["UIDataModelMainPlugin"]
+      194 CALL                             R8 1 1
+      195 DUPTABLE                         R9 K67 [{"Plugin", "PluginLoaderContext"}]
+      196 SETTABLEKS                       R0 R9 K65 ["Plugin"]
+      198 SETTABLEKS                       R5 R9 K66 ["PluginLoaderContext"]
+      200 CALL                             R7 2 0
+      201 RETURN                           R0 0
+      202 JUMPIFNOTEQKS                    R1 K68 ["editabledatamodel"] ; [+15]
+      204 GETUPVAL                         R2 5
+      205 GETIMPORT                        R3 K63 [require]
+      207 GETUPVAL                         R6 0
+      208 GETTABLEKS                       R5 R6 K35 ["Src"]
+      210 GETTABLEKS                       R4 R5 K69 ["EditableDataModelMainPlugin"]
+      212 CALL                             R3 1 1
+      213 DUPTABLE                         R4 K70 [{"Plugin"}]
+      214 SETTABLEKS                       R0 R4 K65 ["Plugin"]
+      216 CALL                             R2 2 0
+      217 RETURN                           R0 0
+      218 JUMPIFNOTEQKS                    R1 K71 ["previewdatamodel"] ; [+15]
+      220 GETUPVAL                         R2 5
+      221 GETIMPORT                        R3 K63 [require]
+      223 GETUPVAL                         R6 0
+      224 GETTABLEKS                       R5 R6 K35 ["Src"]
+      226 GETTABLEKS                       R4 R5 K72 ["PreviewDataModelMainPlugin"]
+      228 CALL                             R3 1 1
+      229 DUPTABLE                         R4 K70 [{"Plugin"}]
+      230 SETTABLEKS                       R0 R4 K65 ["Plugin"]
+      232 CALL                             R2 2 0
+      233 RETURN                           R0 0
+      234 GETIMPORT                        R2 K74 [error]
+      236 LOADK                            R4 K75 ["Unknown plugin type: "]
+      237 FASTCALL1                        TOSTRING R1 ; [+3]
+      238 MOVE                             R6 R1
+      239 GETIMPORT                        R5 K77 [tostring]
+      241 CALL                             R5 1 1
+      242 CONCAT                           R3 R4 R5
+      243 CALL                             R2 1 0
+      244 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -270,24 +272,29 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["PluginLoader"]
+        9 GETTABLEKS                       R3 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R3 K7 ["GuiUri"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["StudioFoundation"]
+       16 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K9 ["PluginLoader"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Bin"]
-       25 GETTABLEKS                       R5 R6 K10 ["Common"]
-       27 GETTABLEKS                       R4 R5 K11 ["defineLuaFlags"]
-       29 CALL                             R3 1 1
-       30 DUPCLOSURE                       R4 K12 [PROTO_1]
-       31 CAPTURE                          VAL R0
-       32 DUPCLOSURE                       R5 K13 [PROTO_8]
-       33 CAPTURE                          VAL R0
-       34 CAPTURE                          VAL R3
-       35 CAPTURE                          VAL R2
-       36 CAPTURE                          VAL R1
-       37 CAPTURE                          VAL R4
-       38 RETURN                           R5 1
+       23 GETTABLEKS                       R5 R0 K8 ["Packages"]
+       25 GETTABLEKS                       R4 R5 K10 ["StudioFoundation"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R7 R0 K11 ["Bin"]
+       32 GETTABLEKS                       R6 R7 K12 ["Common"]
+       34 GETTABLEKS                       R5 R6 K13 ["defineLuaFlags"]
+       36 CALL                             R4 1 1
+       37 DUPCLOSURE                       R5 K14 [PROTO_1]
+       38 CAPTURE                          VAL R0
+       39 DUPCLOSURE                       R6 K15 [PROTO_8]
+       40 CAPTURE                          VAL R0
+       41 CAPTURE                          VAL R4
+       42 CAPTURE                          VAL R3
+       43 CAPTURE                          VAL R1
+       44 CAPTURE                          VAL R2
+       45 CAPTURE                          VAL R5
+       46 RETURN                           R6 1

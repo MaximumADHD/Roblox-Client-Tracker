@@ -7,20 +7,11 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local Analytics = require(root.Analytics)
 
-local ParseContentIds = require(root.util.ParseContentIds)
 local getMeshMinMax = require(root.util.getMeshMinMax)
-
-local getFFlagFixValidateMeshComparisonErrorFormat = require(root.flags.getFFlagFixValidateMeshComparisonErrorFormat)
 
 local function formatError(mesh: Types.MeshInfo, otherMesh: Types.MeshInfo, maxDiff: number)
 	local function getContext(data: Types.MeshInfo)
-		if getFFlagFixValidateMeshComparisonErrorFormat() then
-			return data.fullName .. "." .. data.fieldName
-		else
-			local result = (data.context and (data.context .. " mesh ") or "mesh ")
-			result = result .. ParseContentIds.tryGetAssetIdFromContentId(data.contentId :: string)
-			return result
-		end
+		return data.fullName .. "." .. data.fieldName
 	end
 
 	local context = getContext(mesh)

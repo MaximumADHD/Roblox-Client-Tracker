@@ -4,8 +4,8 @@
 	2018 Camera Update - AllYourBlox
 --]]
 
-local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
-local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
+local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserFixOrbitalCameraAzimuth = FlagUtil.getUserFlag("UserFixOrbitalCameraAzimuth")
 
 -- Local private variables and constants

@@ -1,4 +1,32 @@
 PROTO_0:
+        0 FASTCALL1                        TYPE R0 ; [+3]
+        1 MOVE                             R2 R0
+        2 GETIMPORT                        R1 K1 [type]
+        4 CALL                             R1 1 1
+        5 JUMPIFNOTEQKS                    R1 K2 ["string"] ; [+4]
+        7 LENGTH                           R1 R0
+        8 JUMPIFNOTEQKN                    R1 K3 [0] ; [+3]
+       10 LOADB                            R1 0
+       11 RETURN                           R1 1
+       12 LENGTH                           R2 R0
+       13 JUMPIFNOTEQKN                    R2 K4 [38] ; [+8]
+       15 LOADB                            R1 1
+       16 LOADK                            R4 K5 ["^{%x+%-%x+%-%x+%-%x+%-%x+}$"]
+       17 NAMECALL                         R2 R0 K6 ["match"]
+       19 CALL                             R2 2 1
+       20 JUMPIFNOTEQKNIL                  R2 ; [+13]
+       22 LOADB                            R1 0
+       23 LENGTH                           R2 R0
+       24 JUMPIFNOTEQKN                    R2 K7 [36] ; [+9]
+       26 LOADK                            R4 K8 ["^%x+%-%x+%-%x+%-%x+%-%x+$"]
+       27 NAMECALL                         R2 R0 K6 ["match"]
+       29 CALL                             R2 2 1
+       30 JUMPIFNOTEQKNIL                  R2 ; [+2]
+       32 LOADB                            R1 0 +1
+       33 LOADB                            R1 1
+       34 RETURN                           R1 1
+
+PROTO_1:
         0 LOADN                            R5 1
         1 LENGTH                           R6 R1
         2 FASTCALL3                        STRING_SUB R0 R5 R6
@@ -10,7 +38,7 @@ PROTO_0:
        11 LOADB                            R2 1
        12 RETURN                           R2 1
 
-PROTO_1:
+PROTO_2:
         0 LOADN                            R4 1
         1 LENGTH                           R5 R1
         2 FASTCALL3                        STRING_SUB R0 R4 R5
@@ -27,7 +55,7 @@ PROTO_1:
        18 RETURN                           R2 1
        19 RETURN                           R0 1
 
-PROTO_2:
+PROTO_3:
         0 LENGTH                           R5 R1
         1 MINUS                            R4 R5
         2 FASTCALL2                        STRING_SUB R0 R4 ; [+4]
@@ -50,9 +78,11 @@ MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 4 0
         3 DUPCLOSURE                       R1 K0 [PROTO_0]
-        4 SETTABLEKS                       R1 R0 K1 ["startsWith"]
+        4 SETTABLEKS                       R1 R0 K1 ["isGuid"]
         6 DUPCLOSURE                       R1 K2 [PROTO_1]
-        7 SETTABLEKS                       R1 R0 K3 ["removePrefix"]
+        7 SETTABLEKS                       R1 R0 K3 ["startsWith"]
         9 DUPCLOSURE                       R1 K4 [PROTO_2]
-       10 SETTABLEKS                       R1 R0 K5 ["removePostfix"]
-       12 RETURN                           R0 1
+       10 SETTABLEKS                       R1 R0 K5 ["removePrefix"]
+       12 DUPCLOSURE                       R1 K6 [PROTO_3]
+       13 SETTABLEKS                       R1 R0 K7 ["removePostfix"]
+       15 RETURN                           R0 1

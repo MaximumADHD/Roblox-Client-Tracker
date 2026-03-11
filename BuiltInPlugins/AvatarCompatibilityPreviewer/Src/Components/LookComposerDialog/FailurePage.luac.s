@@ -71,17 +71,17 @@ PROTO_0:
        98 GETTABLEKS                       R8 R9 K5 ["createElement"]
       100 GETUPVAL                         R9 8
       101 DUPTABLE                         R10 K31 [{"Text", "tag", "LayoutOrder"}]
-      102 LOADK                            R11 K36 ["Error string here"]
-      103 SETTABLEKS                       R11 R10 K30 ["Text"]
-      105 LOADK                            R11 K37 ["text-body-medium auto-xy content-muted text-center"]
-      106 SETTABLEKS                       R11 R10 K6 ["tag"]
-      108 NAMECALL                         R11 R3 K20 ["getNextOrder"]
-      110 CALL                             R11 1 1
-      111 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
-      113 CALL                             R8 2 1
-      114 SETTABLEKS                       R8 R7 K11 ["Subtitle"]
-      116 CALL                             R4 3 -1
-      117 RETURN                           R4 -1
+      102 GETTABLEKS                       R11 R0 K36 ["errorMessage"]
+      104 SETTABLEKS                       R11 R10 K30 ["Text"]
+      106 LOADK                            R11 K37 ["text-body-medium auto-xy content-muted text-center"]
+      107 SETTABLEKS                       R11 R10 K6 ["tag"]
+      109 NAMECALL                         R11 R3 K20 ["getNextOrder"]
+      111 CALL                             R11 1 1
+      112 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
+      114 CALL                             R8 2 1
+      115 SETTABLEKS                       R8 R7 K11 ["Subtitle"]
+      117 CALL                             R4 3 -1
+      118 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

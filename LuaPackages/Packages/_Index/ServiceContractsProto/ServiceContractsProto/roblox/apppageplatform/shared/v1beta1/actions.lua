@@ -46,6 +46,8 @@ type _Messages = {
 	OpenAddConnectionsAction_Params: _OpenAddConnectionsAction_ParamsMessage,
 	OpenMarketplaceAction: _OpenMarketplaceActionMessage,
 	OpenMarketplaceAction_Params: _OpenMarketplaceAction_ParamsMessage,
+	SendPromptImpression: _SendPromptImpressionMessage,
+	SendPromptImpression_Params: _SendPromptImpression_ParamsMessage,
 	Action: _ActionMessage,
 	ActionProp: _ActionPropMessage,
 	ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -1101,6 +1103,63 @@ type _OpenMarketplaceAction_ParamsMessage = proto.Message<
 	_OpenMarketplaceAction_ParamsPartialFields
 >
 
+type _SendPromptImpressionImpl = {
+	__index: _SendPromptImpressionImpl,
+	new: (fields: _SendPromptImpressionPartialFields?) -> SendPromptImpression,
+	encode: (self: SendPromptImpression) -> buffer,
+	decode: (input: buffer) -> SendPromptImpression,
+	jsonEncode: (self: SendPromptImpression) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SendPromptImpression,
+	descriptor: proto.Descriptor,
+}
+
+type _SendPromptImpressionFields = {
+	action_type: ActionType,
+	action_params: SendPromptImpression_Params?,
+}
+
+type _SendPromptImpressionPartialFields = {
+	action_type: ActionType?,
+	action_params: SendPromptImpression_Params?,
+}
+
+export type SendPromptImpression = typeof(setmetatable(
+	{} :: _SendPromptImpressionFields,
+	{} :: _SendPromptImpressionImpl
+))
+type _SendPromptImpressionMessage = proto.Message<SendPromptImpression, _SendPromptImpressionPartialFields>
+
+type _SendPromptImpression_ParamsImpl = {
+	__index: _SendPromptImpression_ParamsImpl,
+	new: (fields: _SendPromptImpression_ParamsPartialFields?) -> SendPromptImpression_Params,
+	encode: (self: SendPromptImpression_Params) -> buffer,
+	decode: (input: buffer) -> SendPromptImpression_Params,
+	jsonEncode: (self: SendPromptImpression_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SendPromptImpression_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _SendPromptImpression_ParamsFields = {
+	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	modal_history_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _SendPromptImpression_ParamsPartialFields = {
+	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	modal_history_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type SendPromptImpression_Params = typeof(setmetatable(
+	{} :: _SendPromptImpression_ParamsFields,
+	{} :: _SendPromptImpression_ParamsImpl
+))
+type _SendPromptImpression_ParamsMessage = proto.Message<
+	SendPromptImpression_Params,
+	_SendPromptImpression_ParamsPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -1132,6 +1191,7 @@ type _ActionFields = {
 		| { type: "open_fae_action", value: OpenFaeAction }
 		| { type: "open_add_connections_action", value: OpenAddConnectionsAction }
 		| { type: "open_marketplace_action", value: OpenMarketplaceAction }
+		| { type: "send_prompt_impression_action", value: SendPromptImpression }
 	)?,
 }
 
@@ -1156,6 +1216,7 @@ type _ActionPartialFields = {
 		| { type: "open_fae_action", value: OpenFaeAction }
 		| { type: "open_add_connections_action", value: OpenAddConnectionsAction }
 		| { type: "open_marketplace_action", value: OpenMarketplaceAction }
+		| { type: "send_prompt_impression_action", value: SendPromptImpression }
 	)?,
 }
 
@@ -1435,6 +1496,7 @@ export type ActionType =
 	| "ACTION_TYPE_OPEN_FAE"
 	| "ACTION_TYPE_OPEN_ADD_CONNECTIONS"
 	| "ACTION_TYPE_OPEN_MARKETPLACE"
+	| "ACTION_TYPE_SEND_PROMPT_IMPRESSION"
 	| number -- Unknown
 
 do
@@ -6728,6 +6790,301 @@ do
 end
 
 do
+	local _SendPromptImpressionImpl = {}
+	_SendPromptImpressionImpl.__index = _SendPromptImpressionImpl
+
+	function _SendPromptImpressionImpl.new(data: _SendPromptImpressionPartialFields?): SendPromptImpression
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _SendPromptImpressionImpl :: _SendPromptImpressionImpl)
+	end
+
+	function _SendPromptImpressionImpl.encode(self: SendPromptImpression): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SendPromptImpressionImpl.decode(input: buffer): SendPromptImpression
+		local self = _SendPromptImpressionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.SendPromptImpression_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SendPromptImpressionImpl.jsonEncode(self: SendPromptImpression): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SendPromptImpressionImpl.jsonDecode(input: { [string]: any }): SendPromptImpression
+		local self = _SendPromptImpressionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.SendPromptImpression_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.SendPromptImpression_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_SendPromptImpressionImpl.descriptor = {
+		name = "SendPromptImpression",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SendPromptImpression",
+	}
+
+	messages.SendPromptImpression = _SendPromptImpressionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SendPromptImpression)
+end
+
+do
+	local _SendPromptImpression_ParamsImpl = {}
+	_SendPromptImpression_ParamsImpl.__index = _SendPromptImpression_ParamsImpl
+
+	function _SendPromptImpression_ParamsImpl.new(
+		data: _SendPromptImpression_ParamsPartialFields?
+	): SendPromptImpression_Params
+		return setmetatable({
+			user_id = if data == nil or data.user_id == nil then nil else data.user_id,
+			modal_history_id = if data == nil or data.modal_history_id == nil then nil else data.modal_history_id,
+			source = if data == nil or data.source == nil then nil else data.source,
+		}, _SendPromptImpression_ParamsImpl :: _SendPromptImpression_ParamsImpl)
+	end
+
+	function _SendPromptImpression_ParamsImpl.encode(self: SendPromptImpression_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.user_id ~= nil then
+			local encoded = self.user_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.modal_history_id ~= nil then
+			local encoded = self.modal_history_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.source ~= nil then
+			local encoded = self.source:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SendPromptImpression_ParamsImpl.decode(input: buffer): SendPromptImpression_Params
+		local self = _SendPromptImpression_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.modal_history_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SendPromptImpression_ParamsImpl.jsonEncode(self: SendPromptImpression_Params): any
+		local output = {}
+
+		if self.user_id ~= nil then
+			output.userId = self.user_id:jsonEncode()
+		end
+
+		if self.modal_history_id ~= nil then
+			output.modalHistoryId = self.modal_history_id:jsonEncode()
+		end
+
+		if self.source ~= nil then
+			output.source = self.source:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SendPromptImpression_ParamsImpl.jsonDecode(input: { [string]: any }): SendPromptImpression_Params
+		local self = _SendPromptImpression_ParamsImpl.new()
+
+		if input.user_id ~= nil then
+			self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.user_id)
+		end
+
+		if input.userId ~= nil then
+			self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.userId)
+		end
+
+		if input.modal_history_id ~= nil then
+			self.modal_history_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.modal_history_id)
+		end
+
+		if input.modalHistoryId ~= nil then
+			self.modal_history_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.modalHistoryId)
+		end
+
+		if input.source ~= nil then
+			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
+		end
+
+		return self
+	end
+
+	_SendPromptImpression_ParamsImpl.descriptor = {
+		name = "SendPromptImpression_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.SendPromptImpression_Params = _SendPromptImpression_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SendPromptImpression_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -6817,6 +7174,10 @@ do
 			elseif self.kind.type == "open_marketplace_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "send_prompt_impression_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -6957,6 +7318,12 @@ do
 					self.kind =
 						{ type = "open_marketplace_action", value = messages.OpenMarketplaceAction.decode(value) }
 					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "send_prompt_impression_action", value = messages.SendPromptImpression.decode(value) }
+					continue
 				end
 
 				local length
@@ -7023,6 +7390,8 @@ do
 				output.openAddConnectionsAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "open_marketplace_action" then
 				output.openMarketplaceAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "send_prompt_impression_action" then
+				output.sendPromptImpressionAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -7271,6 +7640,20 @@ do
 			self.kind = {
 				type = "open_marketplace_action",
 				value = messages.OpenMarketplaceAction.jsonDecode(input.openMarketplaceAction),
+			}
+		end
+
+		if input.send_prompt_impression_action ~= nil then
+			self.kind = {
+				type = "send_prompt_impression_action",
+				value = messages.SendPromptImpression.jsonDecode(input.send_prompt_impression_action),
+			}
+		end
+
+		if input.sendPromptImpressionAction ~= nil then
+			self.kind = {
+				type = "send_prompt_impression_action",
+				value = messages.SendPromptImpression.jsonDecode(input.sendPromptImpressionAction),
 			}
 		end
 
@@ -8458,6 +8841,8 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_ADD_CONNECTIONS"
 		elseif value == 19 then
 			return "ACTION_TYPE_OPEN_MARKETPLACE"
+		elseif value == 20 then
+			return "ACTION_TYPE_SEND_PROMPT_IMPRESSION"
 		else
 			return nil
 		end
@@ -8504,6 +8889,8 @@ messages.ActionType = {
 			return 18
 		elseif self == "ACTION_TYPE_OPEN_MARKETPLACE" then
 			return 19
+		elseif self == "ACTION_TYPE_SEND_PROMPT_IMPRESSION" then
+			return 20
 		else
 			return self
 		end
@@ -8550,6 +8937,8 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_ADD_CONNECTIONS"
 		elseif name == "ACTION_TYPE_OPEN_MARKETPLACE" then
 			return "ACTION_TYPE_OPEN_MARKETPLACE"
+		elseif name == "ACTION_TYPE_SEND_PROMPT_IMPRESSION" then
+			return "ACTION_TYPE_SEND_PROMPT_IMPRESSION"
 		else
 			return nil
 		end
@@ -8596,6 +8985,8 @@ return {
 	OpenAddConnectionsAction_Params = messages.OpenAddConnectionsAction_Params,
 	OpenMarketplaceAction = messages.OpenMarketplaceAction,
 	OpenMarketplaceAction_Params = messages.OpenMarketplaceAction_Params,
+	SendPromptImpression = messages.SendPromptImpression,
+	SendPromptImpression_Params = messages.SendPromptImpression_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

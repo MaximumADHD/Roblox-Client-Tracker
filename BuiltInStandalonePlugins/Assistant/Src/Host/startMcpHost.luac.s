@@ -175,95 +175,99 @@ PROTO_8:
         6 GETIMPORT                        R3 K3 [assert]
         8 CALL                             R3 2 0
         9 GETTABLEKS                       R3 R2 K4 ["_meta"]
-       11 GETTABLEKS                       R4 R2 K5 ["name"]
-       13 MOVE                             R6 R4
-       14 JUMPIFNOT                        R6 ; [+9]
-       15 FASTCALL1                        TYPEOF R4 ; [+3]
-       16 MOVE                             R8 R4
-       17 GETIMPORT                        R7 K7 [typeof]
-       19 CALL                             R7 1 1
-       20 JUMPIFEQKS                       R7 K8 ["string"] ; [+2]
-       22 LOADB                            R6 0 +1
-       23 LOADB                            R6 1
-       24 FASTCALL2K                       ASSERT R6 K9 ; [+4]
-       26 LOADK                            R7 K9 ["Expected tool name to be a string"]
-       27 GETIMPORT                        R5 K3 [assert]
-       29 CALL                             R5 2 0
-       30 GETTABLEKS                       R5 R2 K10 ["arguments"]
-       32 GETUPVAL                         R7 0
-       33 GETTABLEKS                       R6 R7 K11 ["getHandler"]
-       35 MOVE                             R7 R4
-       36 CALL                             R6 1 1
-       37 GETUPVAL                         R9 1
-       38 GETTABLEKS                       R8 R9 K12 ["get"]
-       40 CALL                             R8 0 1
-       41 GETTABLEKS                       R7 R8 K13 ["EventLogger"]
-       43 GETUPVAL                         R8 2
-       44 LOADB                            R10 0
-       45 NAMECALL                         R8 R8 K14 ["GenerateGUID"]
-       47 CALL                             R8 2 1
-       48 GETTABLEKS                       R9 R7 K15 ["logToolStarted"]
-       50 DUPTABLE                         R10 K21 [{"messageGuid", "sessionId", "toolName", "clientName", "isThirdPartyRequest"}]
-       51 SETTABLEKS                       R8 R10 K16 ["messageGuid"]
-       53 GETUPVAL                         R12 3
-       54 ORK                              R11 R12 K22 [""]
-       55 SETTABLEKS                       R11 R10 K17 ["sessionId"]
-       57 SETTABLEKS                       R4 R10 K18 ["toolName"]
-       59 GETTABLEKS                       R11 R3 K23 ["client_name"]
-       61 SETTABLEKS                       R11 R10 K19 ["clientName"]
-       63 LOADB                            R11 1
-       64 SETTABLEKS                       R11 R10 K20 ["isThirdPartyRequest"]
-       66 CALL                             R9 1 0
-       67 GETUPVAL                         R10 4
-       68 GETTABLEKS                       R9 R10 K24 ["getTimestampMilliseconds"]
-       70 CALL                             R9 0 1
-       71 LOADNIL                          R10
-       72 GETUPVAL                         R11 5
-       73 CALL                             R11 0 1
-       74 JUMPIFNOT                        R11 ; [+22]
-       75 GETUPVAL                         R11 6
-       76 CALL                             R11 0 1
-       77 JUMPIFNOT                        R11 ; [+19]
-       78 DUPTABLE                         R11 K27 [{"isError", "content"}]
-       79 LOADB                            R12 1
-       80 SETTABLEKS                       R12 R11 K25 ["isError"]
-       82 NEWTABLE                         R12 0 1
-       84 DUPTABLE                         R13 K30 [{"type", "text"}]
-       85 LOADK                            R14 K29 ["text"]
-       86 SETTABLEKS                       R14 R13 K28 ["type"]
-       88 LOADK                            R14 K31 ["Tool calls are not allowed while in Play mode."]
-       89 SETTABLEKS                       R14 R13 K29 ["text"]
-       91 SETLIST                          R12 R13 1 [1]
-       93 SETTABLEKS                       R12 R11 K26 ["content"]
-       95 MOVE                             R10 R11
-       96 JUMP                             ; [+6]
-       97 MOVE                             R11 R6
-       98 MOVE                             R12 R5
-       99 MOVE                             R13 R3
-      100 MOVE                             R14 R1
-      101 CALL                             R11 3 1
-      102 MOVE                             R10 R11
-      103 GETUPVAL                         R12 4
-      104 GETTABLEKS                       R11 R12 K24 ["getTimestampMilliseconds"]
-      106 CALL                             R11 0 1
-      107 GETTABLEKS                       R12 R7 K32 ["logToolEnded"]
-      109 DUPTABLE                         R13 K37 [{"messageGuid", "toolId", "toolName", "startTime", "startTimeAfterConfirmation", "endTime", "isError", "clientName", "isThirdPartyRequest"}]
-      110 SETTABLEKS                       R8 R13 K16 ["messageGuid"]
-      112 LOADK                            R14 K22 [""]
-      113 SETTABLEKS                       R14 R13 K33 ["toolId"]
-      115 SETTABLEKS                       R4 R13 K18 ["toolName"]
-      117 SETTABLEKS                       R9 R13 K34 ["startTime"]
-      119 SETTABLEKS                       R9 R13 K35 ["startTimeAfterConfirmation"]
-      121 SETTABLEKS                       R11 R13 K36 ["endTime"]
-      123 GETTABLEKS                       R15 R10 K25 ["isError"]
-      125 ORK                              R14 R15 K38 [False]
-      126 SETTABLEKS                       R14 R13 K25 ["isError"]
-      128 GETTABLEKS                       R14 R3 K23 ["client_name"]
-      130 SETTABLEKS                       R14 R13 K19 ["clientName"]
-      132 LOADB                            R14 1
-      133 SETTABLEKS                       R14 R13 K20 ["isThirdPartyRequest"]
-      135 CALL                             R12 1 0
-      136 RETURN                           R10 1
+       11 JUMPIF                           R3 ; [+2]
+       12 NEWTABLE                         R3 0 0
+       14 LOADB                            R4 1
+       15 SETTABLEKS                       R4 R3 K5 ["isThirdPartyRequest"]
+       17 GETTABLEKS                       R4 R2 K6 ["name"]
+       19 MOVE                             R6 R4
+       20 JUMPIFNOT                        R6 ; [+9]
+       21 FASTCALL1                        TYPEOF R4 ; [+3]
+       22 MOVE                             R8 R4
+       23 GETIMPORT                        R7 K8 [typeof]
+       25 CALL                             R7 1 1
+       26 JUMPIFEQKS                       R7 K9 ["string"] ; [+2]
+       28 LOADB                            R6 0 +1
+       29 LOADB                            R6 1
+       30 FASTCALL2K                       ASSERT R6 K10 ; [+4]
+       32 LOADK                            R7 K10 ["Expected tool name to be a string"]
+       33 GETIMPORT                        R5 K3 [assert]
+       35 CALL                             R5 2 0
+       36 GETTABLEKS                       R5 R2 K11 ["arguments"]
+       38 GETUPVAL                         R7 0
+       39 GETTABLEKS                       R6 R7 K12 ["getHandler"]
+       41 MOVE                             R7 R4
+       42 CALL                             R6 1 1
+       43 GETUPVAL                         R9 1
+       44 GETTABLEKS                       R8 R9 K13 ["get"]
+       46 CALL                             R8 0 1
+       47 GETTABLEKS                       R7 R8 K14 ["EventLogger"]
+       49 GETUPVAL                         R8 2
+       50 LOADB                            R10 0
+       51 NAMECALL                         R8 R8 K15 ["GenerateGUID"]
+       53 CALL                             R8 2 1
+       54 GETTABLEKS                       R9 R7 K16 ["logToolStarted"]
+       56 DUPTABLE                         R10 K21 [{"messageGuid", "sessionId", "toolName", "clientName", "isThirdPartyRequest"}]
+       57 SETTABLEKS                       R8 R10 K17 ["messageGuid"]
+       59 GETUPVAL                         R12 3
+       60 ORK                              R11 R12 K22 [""]
+       61 SETTABLEKS                       R11 R10 K18 ["sessionId"]
+       63 SETTABLEKS                       R4 R10 K19 ["toolName"]
+       65 GETTABLEKS                       R11 R3 K23 ["client_name"]
+       67 SETTABLEKS                       R11 R10 K20 ["clientName"]
+       69 LOADB                            R11 1
+       70 SETTABLEKS                       R11 R10 K5 ["isThirdPartyRequest"]
+       72 CALL                             R9 1 0
+       73 GETUPVAL                         R10 4
+       74 GETTABLEKS                       R9 R10 K24 ["getTimestampMilliseconds"]
+       76 CALL                             R9 0 1
+       77 LOADNIL                          R10
+       78 GETUPVAL                         R11 5
+       79 CALL                             R11 0 1
+       80 JUMPIFNOT                        R11 ; [+22]
+       81 GETUPVAL                         R11 6
+       82 CALL                             R11 0 1
+       83 JUMPIFNOT                        R11 ; [+19]
+       84 DUPTABLE                         R11 K27 [{"isError", "content"}]
+       85 LOADB                            R12 1
+       86 SETTABLEKS                       R12 R11 K25 ["isError"]
+       88 NEWTABLE                         R12 0 1
+       90 DUPTABLE                         R13 K30 [{"type", "text"}]
+       91 LOADK                            R14 K29 ["text"]
+       92 SETTABLEKS                       R14 R13 K28 ["type"]
+       94 LOADK                            R14 K31 ["Tool calls are not allowed while in Play mode."]
+       95 SETTABLEKS                       R14 R13 K29 ["text"]
+       97 SETLIST                          R12 R13 1 [1]
+       99 SETTABLEKS                       R12 R11 K26 ["content"]
+      101 MOVE                             R10 R11
+      102 JUMP                             ; [+6]
+      103 MOVE                             R11 R6
+      104 MOVE                             R12 R5
+      105 MOVE                             R13 R3
+      106 MOVE                             R14 R1
+      107 CALL                             R11 3 1
+      108 MOVE                             R10 R11
+      109 GETUPVAL                         R12 4
+      110 GETTABLEKS                       R11 R12 K24 ["getTimestampMilliseconds"]
+      112 CALL                             R11 0 1
+      113 GETTABLEKS                       R12 R7 K32 ["logToolEnded"]
+      115 DUPTABLE                         R13 K37 [{"messageGuid", "toolId", "toolName", "startTime", "startTimeAfterConfirmation", "endTime", "isError", "clientName", "isThirdPartyRequest"}]
+      116 SETTABLEKS                       R8 R13 K17 ["messageGuid"]
+      118 LOADK                            R14 K22 [""]
+      119 SETTABLEKS                       R14 R13 K33 ["toolId"]
+      121 SETTABLEKS                       R4 R13 K19 ["toolName"]
+      123 SETTABLEKS                       R9 R13 K34 ["startTime"]
+      125 SETTABLEKS                       R9 R13 K35 ["startTimeAfterConfirmation"]
+      127 SETTABLEKS                       R11 R13 K36 ["endTime"]
+      129 GETTABLEKS                       R15 R10 K25 ["isError"]
+      131 ORK                              R14 R15 K38 [False]
+      132 SETTABLEKS                       R14 R13 K25 ["isError"]
+      134 GETTABLEKS                       R14 R3 K23 ["client_name"]
+      136 SETTABLEKS                       R14 R13 K20 ["clientName"]
+      138 LOADB                            R14 1
+      139 SETTABLEKS                       R14 R13 K5 ["isThirdPartyRequest"]
+      141 CALL                             R12 1 0
+      142 RETURN                           R10 1
 
 PROTO_9:
         0 GETUPVAL                         R1 0

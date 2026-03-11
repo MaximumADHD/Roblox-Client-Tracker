@@ -50,14 +50,21 @@ PROTO_1:
        29 RETURN                           R0 0
        30 GETUPVAL                         R4 1
        31 SETTABLEKS                       R0 R4 K1 ["current"]
-       33 GETIMPORT                        R4 K5 [task.spawn]
-       35 NEWCLOSURE                       R5 P0
-       36 CAPTURE                          UPVAL U2
-       37 CAPTURE                          VAL R0
-       38 CAPTURE                          UPVAL U0
-       39 CAPTURE                          UPVAL U3
+       33 GETUPVAL                         R4 2
+       34 CALL                             R4 0 1
+       35 JUMPIFNOT                        R4 ; [+5]
+       36 GETUPVAL                         R5 0
+       37 GETTABLEKS                       R4 R5 K3 ["setWorldModel"]
+       39 LOADNIL                          R5
        40 CALL                             R4 1 0
-       41 RETURN                           R0 0
+       41 GETIMPORT                        R4 K6 [task.spawn]
+       43 NEWCLOSURE                       R5 P0
+       44 CAPTURE                          UPVAL U3
+       45 CAPTURE                          VAL R0
+       46 CAPTURE                          UPVAL U0
+       47 CAPTURE                          UPVAL U4
+       48 CALL                             R4 1 0
+       49 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R2 0
@@ -73,14 +80,15 @@ PROTO_2:
        14 CAPTURE                          VAL R1
        15 CAPTURE                          UPVAL U1
        16 CAPTURE                          UPVAL U2
-       17 NEWTABLE                         R4 0 4
-       19 GETTABLEKS                       R5 R0 K1 ["makeupItems"]
-       21 GETTABLEKS                       R6 R0 K3 ["skinColor"]
-       23 GETTABLEKS                       R7 R0 K4 ["worldModel"]
-       25 GETTABLEKS                       R8 R0 K5 ["setWorldModel"]
-       27 SETLIST                          R4 R5 4 [1]
-       29 CALL                             R2 2 0
-       30 RETURN                           R0 0
+       17 CAPTURE                          UPVAL U3
+       18 NEWTABLE                         R4 0 4
+       20 GETTABLEKS                       R5 R0 K1 ["makeupItems"]
+       22 GETTABLEKS                       R6 R0 K3 ["skinColor"]
+       24 GETTABLEKS                       R7 R0 K4 ["worldModel"]
+       26 GETTABLEKS                       R8 R0 K5 ["setWorldModel"]
+       28 SETLIST                          R4 R5 4 [1]
+       30 CALL                             R2 2 0
+       31 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -106,8 +114,14 @@ MAIN:
        34 GETTABLEKS                       R6 R7 K9 ["Util"]
        36 GETTABLEKS                       R5 R6 K12 ["MakeupLookPreviewUtils"]
        38 CALL                             R4 1 1
-       39 DUPCLOSURE                       R5 K13 [PROTO_2]
-       40 CAPTURE                          VAL R1
-       41 CAPTURE                          VAL R4
-       42 CAPTURE                          VAL R2
-       43 RETURN                           R5 1
+       39 GETIMPORT                        R5 K5 [require]
+       41 GETTABLEKS                       R8 R0 K8 ["Src"]
+       43 GETTABLEKS                       R7 R8 K13 ["Flags"]
+       45 GETTABLEKS                       R6 R7 K14 ["getFFlagDebugAvatarPreviewerMakeupWorldModelWait"]
+       47 CALL                             R5 1 1
+       48 DUPCLOSURE                       R6 K15 [PROTO_2]
+       49 CAPTURE                          VAL R1
+       50 CAPTURE                          VAL R5
+       51 CAPTURE                          VAL R4
+       52 CAPTURE                          VAL R2
+       53 RETURN                           R6 1

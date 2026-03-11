@@ -1,4 +1,23 @@
 PROTO_0:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 GETIMPORT                        R3 K3 [Enum.CollisionFidelity.Default]
+        4 GETIMPORT                        R4 K6 [Enum.RenderFidelity.Precise]
+        6 NAMECALL                         R0 R0 K7 ["CreateMeshPartAsync"]
+        8 CALL                             R0 4 1
+        9 GETUPVAL                         R1 2
+       10 SETTABLEKS                       R1 R0 K8 ["Name"]
+       12 GETUPVAL                         R1 3
+       13 SETTABLEKS                       R1 R0 K9 ["Parent"]
+       15 GETUPVAL                         R2 4
+       16 GETUPVAL                         R3 2
+       17 GETTABLE                         R1 R2 R3
+       18 SETTABLEKS                       R1 R0 K10 ["CFrame"]
+       20 GETTABLEKS                       R1 R0 K11 ["MeshSize"]
+       22 SETTABLEKS                       R1 R0 K12 ["Size"]
+       24 RETURN                           R0 0
+
+PROTO_1:
         0 NEWTABLE                         R1 0 0
         2 JUMPIFNOT                        R0 ; [+10]
         3 GETUPVAL                         R2 0
@@ -95,7 +114,7 @@ PROTO_0:
       138 JUMPIFNOTEQKNIL                  R10 ; [+2]
       140 LOADB                            R9 0 +1
       141 LOADB                            R9 1
-      142 JUMPIFNOT                        R9 ; [+35]
+      142 JUMPIFNOT                        R9 ; [+55]
       143 GETIMPORT                        R10 K26 [Instance.new]
       145 LOADK                            R11 K27 ["Folder"]
       146 CALL                             R10 1 1
@@ -107,32 +126,60 @@ PROTO_0:
       154 LOADNIL                          R13
       155 FORGPREP                         R11
       156 GETUPVAL                         R16 1
-      157 MOVE                             R18 R15
-      158 GETIMPORT                        R19 K32 [Enum.CollisionFidelity.Default]
-      160 GETIMPORT                        R20 K35 [Enum.RenderFidelity.Precise]
-      162 NAMECALL                         R16 R16 K36 ["CreateMeshPartAsync"]
-      164 CALL                             R16 4 1
-      165 SETTABLEKS                       R14 R16 K15 ["Name"]
-      167 SETTABLEKS                       R10 R16 K12 ["Parent"]
-      169 GETTABLE                         R17 R3 R14
-      170 SETTABLEKS                       R17 R16 K20 ["CFrame"]
-      172 GETTABLEKS                       R17 R16 K37 ["MeshSize"]
-      174 SETTABLEKS                       R17 R16 K38 ["Size"]
-      176 FORGLOOP                         R11 2 ; [-21]
-      178 FORGLOOP                         R4 2 ; [-150]
-      180 RETURN                           R0 0
+      157 CALL                             R16 0 1
+      158 JUMPIFNOT                        R16 ; [+17]
+      159 GETIMPORT                        R16 K30 [pcall]
+      161 NEWCLOSURE                       R17 P0
+      162 CAPTURE                          UPVAL U2
+      163 CAPTURE                          VAL R15
+      164 CAPTURE                          VAL R14
+      165 CAPTURE                          VAL R10
+      166 CAPTURE                          VAL R3
+      167 CALL                             R16 1 1
+      168 JUMPIF                           R16 ; [+27]
+      169 GETIMPORT                        R17 K32 [warn]
+      171 LOADK                            R19 K33 ["Failed to create cage for "]
+      172 MOVE                             R20 R14
+      173 CONCAT                           R18 R19 R20
+      174 CALL                             R17 1 0
+      175 JUMP                             ; [+20]
+      176 GETUPVAL                         R16 2
+      177 MOVE                             R18 R15
+      178 GETIMPORT                        R19 K37 [Enum.CollisionFidelity.Default]
+      180 GETIMPORT                        R20 K40 [Enum.RenderFidelity.Precise]
+      182 NAMECALL                         R16 R16 K41 ["CreateMeshPartAsync"]
+      184 CALL                             R16 4 1
+      185 SETTABLEKS                       R14 R16 K15 ["Name"]
+      187 SETTABLEKS                       R10 R16 K12 ["Parent"]
+      189 GETTABLE                         R17 R3 R14
+      190 SETTABLEKS                       R17 R16 K20 ["CFrame"]
+      192 GETTABLEKS                       R17 R16 K42 ["MeshSize"]
+      194 SETTABLEKS                       R17 R16 K43 ["Size"]
+      196 FORGLOOP                         R11 2 ; [-41]
+      198 FORGLOOP                         R4 2 ; [-170]
+      200 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["Selection"]
-        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AssetExport"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K1 [game]
-        9 LOADK                            R3 K4 ["InsertService"]
-       10 NAMECALL                         R1 R1 K3 ["GetService"]
-       12 CALL                             R1 2 1
-       13 DUPCLOSURE                       R2 K5 [PROTO_0]
-       14 CAPTURE                          VAL R0
-       15 CAPTURE                          VAL R1
-       16 RETURN                           R2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Src"]
+       11 GETTABLEKS                       R3 R4 K7 ["Flags"]
+       13 GETTABLEKS                       R2 R3 K8 ["getFFlagExportPartialCages"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K10 [game]
+       18 LOADK                            R4 K11 ["Selection"]
+       19 NAMECALL                         R2 R2 K12 ["GetService"]
+       21 CALL                             R2 2 1
+       22 GETIMPORT                        R3 K10 [game]
+       24 LOADK                            R5 K13 ["InsertService"]
+       25 NAMECALL                         R3 R3 K12 ["GetService"]
+       27 CALL                             R3 2 1
+       28 DUPCLOSURE                       R4 K14 [PROTO_1]
+       29 CAPTURE                          VAL R2
+       30 CAPTURE                          VAL R1
+       31 CAPTURE                          VAL R3
+       32 RETURN                           R4 1

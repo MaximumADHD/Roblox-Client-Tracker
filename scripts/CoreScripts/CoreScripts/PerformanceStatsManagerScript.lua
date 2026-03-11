@@ -19,22 +19,30 @@ local StatsButtonClass = require(CoreGuiService.RobloxGui.Modules.Stats.StatsBut
 local StatsUtils = require(CoreGuiService.RobloxGui.Modules.Stats.StatsUtils)
 local StatsViewerClass = require(CoreGuiService.RobloxGui.Modules.Stats.StatsViewer)
 
---[[ Script Variables ]]--
-local masterFrame = Instance.new("Frame")
-masterFrame.Name = "PerformanceStats"
+--[[ Flags ]]--
+local GetFFlagLazyPerfStatsInit = require(CoreGuiService.RobloxGui.Modules.Flags.GetFFlagLazyPerfStatsInit)
+local FFlagLazyPerfStatsInit = GetFFlagLazyPerfStatsInit()
 
-local statsAggregatorManager = StatsAggregatorManagerClass.getSingleton()
-local statsViewer = StatsViewerClass.new()
-local statsButtonsByType ={}
+--[[ Script Variables ]]--
+local masterFrame = nil
+local statsAggregatorManager = nil
+local statsViewer = nil
+local statsButtonsByType = {}
 local currentStatType = nil
 
 local OpenCounterName = "OpenPerformanceProfiler"
 local TimeOpenCounterName = "TimeOpenPerformanceProfiler"
 local openTimeStamp = nil
 
-for i, statType in ipairs(StatsUtils.AllStatTypes) do
-  local button = StatsButtonClass.new(statType)
-  statsButtonsByType[statType] = button
+if not FFlagLazyPerfStatsInit then
+  masterFrame = Instance.new("Frame")
+  masterFrame.Name = "PerformanceStats"
+  statsAggregatorManager = StatsAggregatorManagerClass.getSingleton()
+  statsViewer = StatsViewerClass.new()
+  for i, statType in ipairs(StatsUtils.AllStatTypes) do
+    local button = StatsButtonClass.new(statType)
+    statsButtonsByType[statType] = button
+  end
 end
 
 function ShowMasterFrame()
@@ -154,65 +162,146 @@ function ConfigureStatViewerInMasterFrame()
   statsViewer:SetSizeAndPosition(size, position)
 end
 
-function UpdatePerformanceStatsVisibility()
-  local shouldBeVisible = StatsUtils.PerformanceStatsShouldBeVisible()
+if FFlagLazyPerfStatsInit then
+  function CreatePerformanceStatsUI()
+    statsAggregatorManager = StatsAggregatorManagerClass.getSingleton()
+    statsAggregatorManager:StartListening()
 
-  if (shouldBeVisible == masterFrame.Visible) then
-    return
-  end
+    masterFrame = Instance.new("Frame")
+    masterFrame.Name = "PerformanceStats"
 
-  if shouldBeVisible then
+    statsButtonsByType = {}
+    for i, statType in StatsUtils.AllStatTypes do
+      local button = StatsButtonClass.new(statType)
+      statsButtonsByType[statType] = button
+    end
+
+    statsViewer = StatsViewerClass.new()
+    currentStatType = nil
+
+    ConfigureMasterFrame()
+    ConfigureStatButtonsInMasterFrame()
+    ConfigureStatViewerInMasterFrame()
+
+    UpdateButtonSelectedStates()
+    UpdateViewerVisibility()
+
     ShowMasterFrame()
-  else
-    HideMasterFrame()
   end
 
-  -- Let the children respond to the transition that they are/are not visible.
-  statsViewer:OnPerformanceStatsShouldBeVisibleChanged()
-  for i, buttonType in ipairs(StatsUtils.AllStatTypes) do
+  function DestroyPerformanceStatsUI()
+    -- Notify children so they stop listening to aggregators before destruction
+    if statsViewer then
+      statsViewer:OnPerformanceStatsShouldBeVisibleChanged()
+    end
+    for _, buttonType in ipairs(StatsUtils.AllStatTypes) do
       local button = statsButtonsByType[buttonType]
-      button:OnPerformanceStatsShouldBeVisibleChanged()
+      if button then
+        button:OnPerformanceStatsShouldBeVisibleChanged()
+      end
+    end
+
+    if masterFrame then
+      masterFrame:Destroy()
+      masterFrame = nil
+    end
+
+    statsViewer = nil
+    statsButtonsByType = {}
+    currentStatType = nil
+
+    if statsAggregatorManager then
+      statsAggregatorManager:StopListening()
+    end
   end
 
-  -- track it.
-  local actionName = "Hide PerfStats"
-  if shouldBeVisible then
-    actionName = "Show PerfStats"
+  function UpdatePerformanceStatsVisibility()
+    local shouldBeVisible = StatsUtils.PerformanceStatsShouldBeVisible()
+  
+      local isVisible = masterFrame ~= nil
+  
+      if shouldBeVisible == isVisible then
+        return
+      end
+  
+      if shouldBeVisible then
+        CreatePerformanceStatsUI()
+      else
+        DestroyPerformanceStatsUI()
+      end
+  
+      local actionName = "Hide PerfStats"
+      if shouldBeVisible then
+        actionName = "Show PerfStats"
+      end
+    
+      AnalyticsService:TrackEvent("Game", actionName, "", 0)
+    
+      if shouldBeVisible then
+        openTimeStamp = time()
+        AnalyticsService:ReportCounter(OpenCounterName, 1)
+      else
+        if openTimeStamp then
+          local timeDiff = time() - openTimeStamp
+          AnalyticsService:ReportStats(TimeOpenCounterName, timeDiff)
+        end
+      end
   end
-
-  AnalyticsService:TrackEvent("Game", actionName, "", 0)
-
-  if shouldBeVisible then
-    openTimeStamp = time()
-    AnalyticsService:ReportCounter(OpenCounterName, 1)
-  else
-    if openTimeStamp then
-      local timeDiff = time() - openTimeStamp
-      AnalyticsService:ReportStats(TimeOpenCounterName, timeDiff)
+else
+  function UpdatePerformanceStatsVisibility()
+    local shouldBeVisible = StatsUtils.PerformanceStatsShouldBeVisible()
+  
+    if (shouldBeVisible == masterFrame.Visible) then
+      return
+    end
+  
+    if shouldBeVisible then
+      ShowMasterFrame()
+    else
+      HideMasterFrame()
+    end
+  
+    -- Let the children respond to the transition that they are/are not visible.
+    statsViewer:OnPerformanceStatsShouldBeVisibleChanged()
+    for i, buttonType in ipairs(StatsUtils.AllStatTypes) do
+        local button = statsButtonsByType[buttonType]
+        button:OnPerformanceStatsShouldBeVisibleChanged()
+    end
+  
+    -- track it.
+    local actionName = "Hide PerfStats"
+    if shouldBeVisible then
+      actionName = "Show PerfStats"
+    end
+  
+    AnalyticsService:TrackEvent("Game", actionName, "", 0)
+  
+    if shouldBeVisible then
+      openTimeStamp = time()
+      AnalyticsService:ReportCounter(OpenCounterName, 1)
+    else
+      if openTimeStamp then
+        local timeDiff = time() - openTimeStamp
+        AnalyticsService:ReportStats(TimeOpenCounterName, timeDiff)
+      end
     end
   end
 end
 
-
 --[[ Top Level Code ]]--
--- Set up our GUI.
-ConfigureMasterFrame()
-ConfigureStatButtonsInMasterFrame()
-ConfigureStatViewerInMasterFrame()
-
-
--- Watch for changes in performance stats visibility.
 GameSettings.PerformanceStatsVisibleChanged:connect(
   UpdatePerformanceStatsVisibility)
 
--- Make sure we're showing buttons and viewer based on current selection.
-UpdateButtonSelectedStates()
-UpdateViewerVisibility()
+if not FFlagLazyPerfStatsInit then
+  ConfigureMasterFrame()
+  ConfigureStatButtonsInMasterFrame()
+  ConfigureStatViewerInMasterFrame()
 
--- Make sure stats are visible or not, as specified by current setting.
-UpdatePerformanceStatsVisibility()
+  UpdateButtonSelectedStates()
+  UpdateViewerVisibility()
+  UpdatePerformanceStatsVisibility()
+end
 
--- This may change if Player shows up...
 spawn(function()
     local localPlayer = PlayersService.LocalPlayer
     while not localPlayer do

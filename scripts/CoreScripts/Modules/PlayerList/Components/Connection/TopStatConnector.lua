@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
 
 local Roact = require(CorePackages.Packages.Roact)
@@ -16,11 +17,13 @@ local PlayerList = script.Parent.Parent.Parent
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
+local FFlagPlayerListTopStatCheckGamepad = game:DefineFastFlag("PlayerListTopStatCheckGamepad", false)
 
 -- TODO: This top stat thing is bad, can just make TenFootInterface fully responsible?
 -- Or just move this whole thing into new Roact PlayerList?
 local topStat = nil
-local shouldSetupTopStat = if FFlagEnableMobilePlayerListOnConsole then GuiService.ViewportDisplaySize == Enum.DisplaySize.Large else TenFootInterface:IsEnabled()
+local isGamepadInput = if FFlagPlayerListTopStatCheckGamepad then UserInputService.PreferredInput == Enum.PreferredInput.Gamepad else true
+local shouldSetupTopStat = if FFlagEnableMobilePlayerListOnConsole then GuiService.ViewportDisplaySize == Enum.DisplaySize.Large and isGamepadInput else TenFootInterface:IsEnabled()
 if shouldSetupTopStat then
 	topStat = TenFootInterface:SetupTopStat()
 end

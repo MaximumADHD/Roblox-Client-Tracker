@@ -93,6 +93,7 @@ function DynamicThumbstick:Enable(enable: boolean?, uiParentFrame): boolean?
 	if enable == nil then return false end			-- If nil, return false (invalid argument)
 	enable = enable and true or false				-- Force anything non-nil to boolean before comparison
 	if self.enabled == enable then return true end	-- If no state change, return true indicating already in requested state
+	ActionController.Enable(self, enable)
 
 	if enable then
 		-- Enable

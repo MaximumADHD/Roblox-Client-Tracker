@@ -28,42 +28,62 @@ PROTO_1:
        15 CALL                             R3 2 1
        16 JUMPIF                           R3 ; [+1]
        17 RETURN                           R0 0
-       18 GETTABLEKS                       R4 R3 K2 ["GetDefaultValue"]
-       20 CALL                             R4 0 1
-       21 GETUPVAL                         R5 3
-       22 GETUPVAL                         R7 0
-       23 NAMECALL                         R5 R5 K3 ["GetPropertyResolved"]
-       25 CALL                             R5 2 1
-       26 GETUPVAL                         R6 3
-       27 GETUPVAL                         R8 0
-       28 NAMECALL                         R6 R6 K4 ["GetProperty"]
-       30 CALL                             R6 2 1
-       31 FASTCALL1                        TYPEOF R4 ; [+3]
-       32 MOVE                             R9 R4
-       33 GETIMPORT                        R8 K6 [typeof]
-       35 CALL                             R8 1 1
-       36 FASTCALL1                        TYPEOF R5 ; [+3]
-       37 MOVE                             R10 R5
-       38 GETIMPORT                        R9 K6 [typeof]
-       40 CALL                             R9 1 1
-       41 JUMPIFNOTEQ                      R8 R9 ; [+3]
-       43 MOVE                             R7 R6
-       44 JUMP                             ; [+1]
-       45 MOVE                             R7 R4
-       46 GETTABLEKS                       R8 R1 K7 ["recordChange"]
-       48 DUPTABLE                         R9 K11 [{"Name", "DisplayName", "DoChange"}]
-       49 LOADK                            R10 K12 ["StyleEditor/RenameStyleRuleProperty"]
-       50 SETTABLEKS                       R10 R9 K8 ["Name"]
-       52 LOADK                            R10 K13 ["StyleEditor - Rename StyleRule Property"]
-       53 SETTABLEKS                       R10 R9 K9 ["DisplayName"]
-       55 NEWCLOSURE                       R10 P0
-       56 CAPTURE                          UPVAL U3
-       57 CAPTURE                          UPVAL U0
-       58 CAPTURE                          UPVAL U1
-       59 CAPTURE                          VAL R7
-       60 SETTABLEKS                       R10 R9 K10 ["DoChange"]
-       62 CALL                             R8 1 0
-       63 RETURN                           R0 0
+       18 GETUPVAL                         R4 5
+       19 JUMPIFNOT                        R4 ; [+25]
+       20 GETUPVAL                         R4 0
+       21 JUMPIFNOTEQKS                    R4 K2 [""] ; [+23]
+       23 GETUPVAL                         R6 6
+       24 GETUPVAL                         R7 7
+       25 DUPTABLE                         R8 K6 [{"eventType", "path", "data"}]
+       26 GETUPVAL                         R11 8
+       27 GETTABLEKS                       R10 R11 K7 ["PropertyCreated"]
+       29 GETTABLEKS                       R9 R10 K8 ["rawValue"]
+       31 CALL                             R9 0 1
+       32 SETTABLEKS                       R9 R8 K3 ["eventType"]
+       34 LOADK                            R9 K2 [""]
+       35 SETTABLEKS                       R9 R8 K4 ["path"]
+       37 GETUPVAL                         R9 1
+       38 SETTABLEKS                       R9 R8 K5 ["data"]
+       40 CALL                             R7 1 -1
+       41 CALL                             R6 -1 -1
+       42 NAMECALL                         R4 R0 K9 ["dispatch"]
+       44 CALL                             R4 -1 0
+       45 GETTABLEKS                       R4 R3 K10 ["GetDefaultValue"]
+       47 CALL                             R4 0 1
+       48 GETUPVAL                         R5 3
+       49 GETUPVAL                         R7 0
+       50 NAMECALL                         R5 R5 K11 ["GetPropertyResolved"]
+       52 CALL                             R5 2 1
+       53 GETUPVAL                         R6 3
+       54 GETUPVAL                         R8 0
+       55 NAMECALL                         R6 R6 K12 ["GetProperty"]
+       57 CALL                             R6 2 1
+       58 FASTCALL1                        TYPEOF R4 ; [+3]
+       59 MOVE                             R9 R4
+       60 GETIMPORT                        R8 K14 [typeof]
+       62 CALL                             R8 1 1
+       63 FASTCALL1                        TYPEOF R5 ; [+3]
+       64 MOVE                             R10 R5
+       65 GETIMPORT                        R9 K14 [typeof]
+       67 CALL                             R9 1 1
+       68 JUMPIFNOTEQ                      R8 R9 ; [+3]
+       70 MOVE                             R7 R6
+       71 JUMP                             ; [+1]
+       72 MOVE                             R7 R4
+       73 GETTABLEKS                       R8 R1 K15 ["recordChange"]
+       75 DUPTABLE                         R9 K19 [{"Name", "DisplayName", "DoChange"}]
+       76 LOADK                            R10 K20 ["StyleEditor/RenameStyleRuleProperty"]
+       77 SETTABLEKS                       R10 R9 K16 ["Name"]
+       79 LOADK                            R10 K21 ["StyleEditor - Rename StyleRule Property"]
+       80 SETTABLEKS                       R10 R9 K17 ["DisplayName"]
+       82 NEWCLOSURE                       R10 P0
+       83 CAPTURE                          UPVAL U3
+       84 CAPTURE                          UPVAL U0
+       85 CAPTURE                          UPVAL U1
+       86 CAPTURE                          VAL R7
+       87 SETTABLEKS                       R10 R9 K18 ["DoChange"]
+       89 CALL                             R8 1 0
+       90 RETURN                           R0 0
 
 PROTO_2:
         0 MOVE                             R4 R0
@@ -81,7 +101,11 @@ PROTO_2:
        15 CAPTURE                          UPVAL U0
        16 CAPTURE                          VAL R0
        17 CAPTURE                          UPVAL U1
-       18 RETURN                           R3 1
+       18 CAPTURE                          UPVAL U2
+       19 CAPTURE                          UPVAL U3
+       20 CAPTURE                          UPVAL U4
+       21 CAPTURE                          UPVAL U5
+       22 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -106,11 +130,38 @@ MAIN:
        35 GETTABLEKS                       R4 R5 K10 ["RootReducer"]
        37 CALL                             R3 1 1
        38 GETIMPORT                        R4 K4 [require]
-       40 GETTABLEKS                       R7 R0 K5 ["Src"]
-       42 GETTABLEKS                       R6 R7 K11 ["Thunks"]
-       44 GETTABLEKS                       R5 R6 K12 ["Types"]
-       46 CALL                             R4 1 1
-       47 DUPCLOSURE                       R5 K13 [PROTO_2]
-       48 CAPTURE                          VAL R1
-       49 CAPTURE                          VAL R2
-       50 RETURN                           R5 1
+       40 GETTABLEKS                       R8 R0 K5 ["Src"]
+       42 GETTABLEKS                       R7 R8 K11 ["Resources"]
+       44 GETTABLEKS                       R6 R7 K12 ["Telemetry"]
+       46 GETTABLEKS                       R5 R6 K13 ["ActionClickedEvent"]
+       48 CALL                             R4 1 1
+       49 GETIMPORT                        R5 K4 [require]
+       51 GETTABLEKS                       R8 R0 K5 ["Src"]
+       53 GETTABLEKS                       R7 R8 K14 ["Enums"]
+       55 GETTABLEKS                       R6 R7 K15 ["ActionClickedEventType"]
+       57 CALL                             R5 1 1
+       58 GETIMPORT                        R6 K4 [require]
+       60 GETTABLEKS                       R10 R0 K5 ["Src"]
+       62 GETTABLEKS                       R9 R10 K16 ["Thunks"]
+       64 GETTABLEKS                       R8 R9 K12 ["Telemetry"]
+       66 GETTABLEKS                       R7 R8 K17 ["SendTelemetryEvent"]
+       68 CALL                             R6 1 1
+       69 GETIMPORT                        R7 K4 [require]
+       71 GETTABLEKS                       R10 R0 K5 ["Src"]
+       73 GETTABLEKS                       R9 R10 K18 ["Flags"]
+       75 GETTABLEKS                       R8 R9 K19 ["getFFlagStyleQuery"]
+       77 CALL                             R7 1 1
+       78 CALL                             R7 0 1
+       79 GETIMPORT                        R8 K4 [require]
+       81 GETTABLEKS                       R11 R0 K5 ["Src"]
+       83 GETTABLEKS                       R10 R11 K16 ["Thunks"]
+       85 GETTABLEKS                       R9 R10 K20 ["Types"]
+       87 CALL                             R8 1 1
+       88 DUPCLOSURE                       R9 K21 [PROTO_2]
+       89 CAPTURE                          VAL R1
+       90 CAPTURE                          VAL R2
+       91 CAPTURE                          VAL R7
+       92 CAPTURE                          VAL R6
+       93 CAPTURE                          VAL R4
+       94 CAPTURE                          VAL R5
+       95 RETURN                           R9 1

@@ -43,43 +43,44 @@ PROTO_0:
        69 SETTABLEKS                       R4 R3 K19 ["AssetSubTypes"]
        71 GETUPVAL                         R5 2
        72 CALL                             R5 0 1
-       73 JUMPIFNOT                        R5 ; [+3]
-       74 GETTABLEKS                       R4 R1 K31 ["capabilities"]
-       76 JUMP                             ; [+1]
-       77 LOADNIL                          R4
-       78 SETTABLEKS                       R4 R3 K20 ["Capabilities"]
-       80 SETTABLEKS                       R3 R2 K8 ["Asset"]
-       82 NEWTABLE                         R3 0 0
-       84 SETTABLEKS                       R3 R2 K9 ["Context"]
-       86 DUPTABLE                         R3 K33 [{"Name", "Id", "Type"}]
-       87 GETTABLEKS                       R5 R1 K34 ["creator"]
-       89 GETTABLEKS                       R4 R5 K26 ["name"]
-       91 SETTABLEKS                       R4 R3 K15 ["Name"]
-       93 GETTABLEKS                       R5 R1 K34 ["creator"]
-       95 GETTABLEKS                       R4 R5 K23 ["id"]
-       97 SETTABLEKS                       R4 R3 K12 ["Id"]
-       99 GETTABLEKS                       R5 R1 K34 ["creator"]
-      101 GETTABLEKS                       R4 R5 K35 ["type"]
-      103 SETTABLEKS                       R4 R3 K32 ["Type"]
-      105 SETTABLEKS                       R3 R2 K10 ["Creator"]
-      107 GETUPVAL                         R3 3
-      108 MOVE                             R4 R2
-      109 CALL                             R3 1 0
-      110 GETUPVAL                         R3 4
-      111 MOVE                             R4 R2
-      112 LOADB                            R5 0
-      113 CALL                             R3 2 0
-      114 GETUPVAL                         R4 1
-      115 GETTABLEKS                       R3 R4 K36 ["onTryAsset"]
-      117 GETUPVAL                         R4 0
-      118 CALL                             R3 1 0
-      119 GETUPVAL                         R3 5
-      120 GETUPVAL                         R5 6
-      121 GETUPVAL                         R6 0
-      122 CALL                             R5 1 -1
-      123 NAMECALL                         R3 R3 K37 ["dispatch"]
-      125 CALL                             R3 -1 0
-      126 RETURN                           R0 0
+       73 JUMPIFNOT                        R5 ; [+5]
+       74 GETTABLEKS                       R5 R1 K22 ["asset"]
+       76 GETTABLEKS                       R4 R5 K31 ["capabilities"]
+       78 JUMP                             ; [+1]
+       79 LOADNIL                          R4
+       80 SETTABLEKS                       R4 R3 K20 ["Capabilities"]
+       82 SETTABLEKS                       R3 R2 K8 ["Asset"]
+       84 NEWTABLE                         R3 0 0
+       86 SETTABLEKS                       R3 R2 K9 ["Context"]
+       88 DUPTABLE                         R3 K33 [{"Name", "Id", "Type"}]
+       89 GETTABLEKS                       R5 R1 K34 ["creator"]
+       91 GETTABLEKS                       R4 R5 K26 ["name"]
+       93 SETTABLEKS                       R4 R3 K15 ["Name"]
+       95 GETTABLEKS                       R5 R1 K34 ["creator"]
+       97 GETTABLEKS                       R4 R5 K23 ["id"]
+       99 SETTABLEKS                       R4 R3 K12 ["Id"]
+      101 GETTABLEKS                       R5 R1 K34 ["creator"]
+      103 GETTABLEKS                       R4 R5 K35 ["type"]
+      105 SETTABLEKS                       R4 R3 K32 ["Type"]
+      107 SETTABLEKS                       R3 R2 K10 ["Creator"]
+      109 GETUPVAL                         R3 3
+      110 MOVE                             R4 R2
+      111 CALL                             R3 1 0
+      112 GETUPVAL                         R3 4
+      113 MOVE                             R4 R2
+      114 LOADB                            R5 0
+      115 CALL                             R3 2 0
+      116 GETUPVAL                         R4 1
+      117 GETTABLEKS                       R3 R4 K36 ["onTryAsset"]
+      119 GETUPVAL                         R4 0
+      120 CALL                             R3 1 0
+      121 GETUPVAL                         R3 5
+      122 GETUPVAL                         R5 6
+      123 GETUPVAL                         R6 0
+      124 CALL                             R5 1 -1
+      125 NAMECALL                         R3 R3 K37 ["dispatch"]
+      127 CALL                             R3 -1 0
+      128 RETURN                           R0 0
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [warn]

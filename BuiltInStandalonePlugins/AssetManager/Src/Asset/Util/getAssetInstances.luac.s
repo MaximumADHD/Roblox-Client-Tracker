@@ -47,111 +47,112 @@ PROTO_4:
         2 RETURN                           R2 1
 
 PROTO_5:
-        0 GETTABLEKS                       R2 R0 K0 ["IsPackage"]
-        2 JUMPIFNOT                        R2 ; [+49]
-        3 GETIMPORT                        R2 K2 [pcall]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K3 ["LoadPackageAssetAsync"]
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R6 R0 K4 ["AssetId"]
-       11 LOADK                            R7 K5 ["rbxassetid://%*"]
-       12 MOVE                             R9 R6
-       13 NAMECALL                         R7 R7 K6 ["format"]
-       15 CALL                             R7 2 1
-       16 MOVE                             R5 R7
-       17 CALL                             R2 3 2
-       18 JUMPIFNOT                        R2 ; [+126]
-       19 JUMPIFNOT                        R3 ; [+125]
-       20 JUMPIFNOT                        R1 ; [+24]
-       21 GETIMPORT                        R4 K9 [Instance.new]
-       23 LOADK                            R5 K10 ["Model"]
-       24 CALL                             R4 1 1
-       25 GETIMPORT                        R6 K12 [game]
-       27 GETTABLEKS                       R5 R6 K13 ["Workspace"]
-       29 SETTABLEKS                       R5 R4 K14 ["Parent"]
-       31 GETTABLEN                        R5 R3 1
-       32 SETTABLEKS                       R4 R5 K14 ["Parent"]
-       34 MOVE                             R7 R1
-       35 NAMECALL                         R5 R4 K15 ["MoveTo"]
-       37 CALL                             R5 2 0
-       38 GETTABLEN                        R5 R3 1
-       39 LOADNIL                          R6
-       40 SETTABLEKS                       R6 R5 K14 ["Parent"]
-       42 NAMECALL                         R5 R4 K16 ["Destroy"]
-       44 CALL                             R5 1 0
-       45 NEWTABLE                         R4 0 1
-       47 GETTABLEN                        R5 R3 1
-       48 SETLIST                          R4 R5 1 [1]
-       50 RETURN                           R4 1
-       51 JUMP                             ; [+93]
-       52 GETUPVAL                         R2 1
-       53 CALL                             R2 0 1
-       54 JUMPIFNOT                        R2 ; [+56]
-       55 GETIMPORT                        R2 K2 [pcall]
-       57 GETUPVAL                         R4 2
-       58 CALL                             R4 0 1
-       59 JUMPIF                           R4 ; [+5]
-       60 GETIMPORT                        R4 K12 [game]
-       62 GETTABLEKS                       R3 R4 K17 ["InsertObjectsAndJoinIfLegacyAsync"]
-       64 JUMP                             ; [+1]
-       65 DUPCLOSURE                       R3 K18 [PROTO_1]
-       66 GETIMPORT                        R4 K12 [game]
-       68 GETTABLEKS                       R6 R0 K4 ["AssetId"]
-       70 LOADK                            R7 K5 ["rbxassetid://%*"]
-       71 MOVE                             R9 R6
-       72 NAMECALL                         R7 R7 K6 ["format"]
-       74 CALL                             R7 2 1
-       75 MOVE                             R5 R7
-       76 CALL                             R2 3 2
-       77 JUMPIFNOT                        R2 ; [+67]
-       78 GETTABLEN                        R4 R3 1
-       79 JUMPIFNOT                        R4 ; [+65]
-       80 GETTABLEN                        R4 R3 1
-       81 JUMPIFNOT                        R1 ; [+22]
-       82 GETIMPORT                        R5 K9 [Instance.new]
-       84 LOADK                            R6 K10 ["Model"]
-       85 CALL                             R5 1 1
-       86 GETIMPORT                        R7 K12 [game]
-       88 GETTABLEKS                       R6 R7 K13 ["Workspace"]
-       90 SETTABLEKS                       R6 R5 K14 ["Parent"]
-       92 SETTABLEKS                       R5 R4 K14 ["Parent"]
-       94 MOVE                             R8 R1
-       95 NAMECALL                         R6 R5 K15 ["MoveTo"]
-       97 CALL                             R6 2 0
-       98 LOADNIL                          R6
-       99 SETTABLEKS                       R6 R4 K14 ["Parent"]
-      101 NAMECALL                         R6 R5 K16 ["Destroy"]
-      103 CALL                             R6 1 0
-      104 NEWTABLE                         R5 0 1
-      106 MOVE                             R6 R4
-      107 SETLIST                          R5 R6 1 [1]
-      109 RETURN                           R5 1
-      110 JUMP                             ; [+34]
-      111 GETIMPORT                        R2 K2 [pcall]
-      113 GETUPVAL                         R4 0
-      114 GETTABLEKS                       R3 R4 K19 ["LoadAsset"]
-      116 GETUPVAL                         R4 0
-      117 GETTABLEKS                       R5 R0 K4 ["AssetId"]
-      119 CALL                             R2 3 2
-      120 JUMPIFNOT                        R2 ; [+24]
-      121 JUMPIFNOT                        R3 ; [+23]
-      122 JUMPIFNOT                        R1 ; [+13]
-      123 GETIMPORT                        R5 K12 [game]
-      125 GETTABLEKS                       R4 R5 K13 ["Workspace"]
-      127 SETTABLEKS                       R4 R3 K14 ["Parent"]
-      129 MOVE                             R6 R1
-      130 NAMECALL                         R4 R3 K15 ["MoveTo"]
-      132 CALL                             R4 2 0
-      133 LOADNIL                          R4
-      134 SETTABLEKS                       R4 R3 K14 ["Parent"]
-      136 NEWTABLE                         R4 0 1
-      138 NAMECALL                         R6 R3 K20 ["GetChildren"]
-      140 CALL                             R6 1 1
-      141 GETTABLEN                        R5 R6 1
-      142 SETLIST                          R4 R5 1 [1]
-      144 RETURN                           R4 1
-      145 NEWTABLE                         R2 0 0
-      147 RETURN                           R2 1
+        0 GETTABLEKS                       R2 R1 K0 ["InsertPosition"]
+        2 GETTABLEKS                       R3 R0 K1 ["IsPackage"]
+        4 JUMPIFNOT                        R3 ; [+49]
+        5 GETIMPORT                        R3 K3 [pcall]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R4 R5 K4 ["LoadPackageAssetAsync"]
+       10 GETUPVAL                         R5 0
+       11 GETTABLEKS                       R7 R0 K5 ["AssetId"]
+       13 LOADK                            R8 K6 ["rbxassetid://%*"]
+       14 MOVE                             R10 R7
+       15 NAMECALL                         R8 R8 K7 ["format"]
+       17 CALL                             R8 2 1
+       18 MOVE                             R6 R8
+       19 CALL                             R3 3 2
+       20 JUMPIFNOT                        R3 ; [+126]
+       21 JUMPIFNOT                        R4 ; [+125]
+       22 JUMPIFNOT                        R2 ; [+24]
+       23 GETIMPORT                        R5 K10 [Instance.new]
+       25 LOADK                            R6 K11 ["Model"]
+       26 CALL                             R5 1 1
+       27 GETIMPORT                        R7 K13 [game]
+       29 GETTABLEKS                       R6 R7 K14 ["Workspace"]
+       31 SETTABLEKS                       R6 R5 K15 ["Parent"]
+       33 GETTABLEN                        R6 R4 1
+       34 SETTABLEKS                       R5 R6 K15 ["Parent"]
+       36 MOVE                             R8 R2
+       37 NAMECALL                         R6 R5 K16 ["MoveTo"]
+       39 CALL                             R6 2 0
+       40 GETTABLEN                        R6 R4 1
+       41 LOADNIL                          R7
+       42 SETTABLEKS                       R7 R6 K15 ["Parent"]
+       44 NAMECALL                         R6 R5 K17 ["Destroy"]
+       46 CALL                             R6 1 0
+       47 NEWTABLE                         R5 0 1
+       49 GETTABLEN                        R6 R4 1
+       50 SETLIST                          R5 R6 1 [1]
+       52 RETURN                           R5 1
+       53 JUMP                             ; [+93]
+       54 GETUPVAL                         R3 1
+       55 CALL                             R3 0 1
+       56 JUMPIFNOT                        R3 ; [+56]
+       57 GETIMPORT                        R3 K3 [pcall]
+       59 GETUPVAL                         R5 2
+       60 CALL                             R5 0 1
+       61 JUMPIF                           R5 ; [+5]
+       62 GETIMPORT                        R5 K13 [game]
+       64 GETTABLEKS                       R4 R5 K18 ["InsertObjectsAndJoinIfLegacyAsync"]
+       66 JUMP                             ; [+1]
+       67 DUPCLOSURE                       R4 K19 [PROTO_1]
+       68 GETIMPORT                        R5 K13 [game]
+       70 GETTABLEKS                       R7 R0 K5 ["AssetId"]
+       72 LOADK                            R8 K6 ["rbxassetid://%*"]
+       73 MOVE                             R10 R7
+       74 NAMECALL                         R8 R8 K7 ["format"]
+       76 CALL                             R8 2 1
+       77 MOVE                             R6 R8
+       78 CALL                             R3 3 2
+       79 JUMPIFNOT                        R3 ; [+67]
+       80 GETTABLEN                        R5 R4 1
+       81 JUMPIFNOT                        R5 ; [+65]
+       82 GETTABLEN                        R5 R4 1
+       83 JUMPIFNOT                        R2 ; [+22]
+       84 GETIMPORT                        R6 K10 [Instance.new]
+       86 LOADK                            R7 K11 ["Model"]
+       87 CALL                             R6 1 1
+       88 GETIMPORT                        R8 K13 [game]
+       90 GETTABLEKS                       R7 R8 K14 ["Workspace"]
+       92 SETTABLEKS                       R7 R6 K15 ["Parent"]
+       94 SETTABLEKS                       R6 R5 K15 ["Parent"]
+       96 MOVE                             R9 R2
+       97 NAMECALL                         R7 R6 K16 ["MoveTo"]
+       99 CALL                             R7 2 0
+      100 LOADNIL                          R7
+      101 SETTABLEKS                       R7 R5 K15 ["Parent"]
+      103 NAMECALL                         R7 R6 K17 ["Destroy"]
+      105 CALL                             R7 1 0
+      106 NEWTABLE                         R6 0 1
+      108 MOVE                             R7 R5
+      109 SETLIST                          R6 R7 1 [1]
+      111 RETURN                           R6 1
+      112 JUMP                             ; [+34]
+      113 GETIMPORT                        R3 K3 [pcall]
+      115 GETUPVAL                         R5 0
+      116 GETTABLEKS                       R4 R5 K20 ["LoadAsset"]
+      118 GETUPVAL                         R5 0
+      119 GETTABLEKS                       R6 R0 K5 ["AssetId"]
+      121 CALL                             R3 3 2
+      122 JUMPIFNOT                        R3 ; [+24]
+      123 JUMPIFNOT                        R4 ; [+23]
+      124 JUMPIFNOT                        R2 ; [+13]
+      125 GETIMPORT                        R6 K13 [game]
+      127 GETTABLEKS                       R5 R6 K14 ["Workspace"]
+      129 SETTABLEKS                       R5 R4 K15 ["Parent"]
+      131 MOVE                             R7 R2
+      132 NAMECALL                         R5 R4 K16 ["MoveTo"]
+      134 CALL                             R5 2 0
+      135 LOADNIL                          R5
+      136 SETTABLEKS                       R5 R4 K15 ["Parent"]
+      138 NEWTABLE                         R5 0 1
+      140 NAMECALL                         R7 R4 K21 ["GetChildren"]
+      142 CALL                             R7 1 1
+      143 GETTABLEN                        R6 R7 1
+      144 SETLIST                          R5 R6 1 [1]
+      146 RETURN                           R5 1
+      147 NEWTABLE                         R3 0 0
+      149 RETURN                           R3 1
 
 PROTO_6:
         0 GETUPVAL                         R3 0
@@ -174,19 +175,21 @@ PROTO_7:
        10 GETUPVAL                         R5 0
        11 MOVE                             R6 R2
        12 CALL                             R3 3 2
-       13 JUMPIFNOT                        R3 ; [+10]
-       14 JUMPIFNOT                        R4 ; [+9]
-       15 JUMPIFNOT                        R1 ; [+2]
-       16 SETTABLEKS                       R1 R4 K7 ["Position"]
-       18 NEWTABLE                         R5 0 1
-       20 MOVE                             R6 R4
-       21 SETLIST                          R5 R6 1 [1]
-       23 RETURN                           R5 1
-       24 GETIMPORT                        R5 K9 [warn]
-       26 MOVE                             R6 R4
-       27 CALL                             R5 1 0
-       28 NEWTABLE                         R5 0 0
-       30 RETURN                           R5 1
+       13 JUMPIFNOT                        R3 ; [+14]
+       14 JUMPIFNOT                        R4 ; [+13]
+       15 GETTABLEKS                       R5 R1 K7 ["InsertPosition"]
+       17 JUMPIFNOT                        R5 ; [+4]
+       18 GETTABLEKS                       R5 R1 K7 ["InsertPosition"]
+       20 SETTABLEKS                       R5 R4 K8 ["Position"]
+       22 NEWTABLE                         R5 0 1
+       24 MOVE                             R6 R4
+       25 SETLIST                          R5 R6 1 [1]
+       27 RETURN                           R5 1
+       28 GETIMPORT                        R5 K10 [warn]
+       30 MOVE                             R6 R4
+       31 CALL                             R5 1 0
+       32 NEWTABLE                         R5 0 0
+       34 RETURN                           R5 1
 
 PROTO_8:
         0 GETIMPORT                        R1 K2 [Instance.new]
@@ -200,7 +203,7 @@ PROTO_8:
        12 NAMECALL                         R4 R4 K8 ["format"]
        14 CALL                             R4 2 1
        15 MOVE                             R2 R4
-       16 SETTABLEKS                       R2 R1 K9 ["Texture"]
+       16 SETTABLEKS                       R2 R1 K9 ["ColorMap"]
        18 NEWTABLE                         R2 0 1
        20 MOVE                             R3 R1
        21 SETLIST                          R2 R3 1 [1]
@@ -286,14 +289,43 @@ PROTO_10:
        39 RETURN                           R2 1
 
 PROTO_11:
-        0 NEWTABLE                         R1 0 0
-        2 RETURN                           R1 1
+        0 GETTABLEKS                       R2 R1 K0 ["Flags"]
+        2 JUMPIFNOT                        R2 ; [+5]
+        3 GETTABLEKS                       R3 R1 K0 ["Flags"]
+        5 GETTABLEKS                       R2 R3 K1 ["UseAnimationInstance"]
+        7 JUMPIF                           R2 ; [+4]
+        8 GETUPVAL                         R2 0
+        9 MOVE                             R3 R0
+       10 CALL                             R2 1 1
+       11 RETURN                           R2 1
+       12 GETIMPORT                        R2 K4 [Instance.new]
+       14 LOADK                            R3 K5 ["Animation"]
+       15 CALL                             R2 1 1
+       16 GETTABLEKS                       R3 R0 K6 ["DisplayName"]
+       18 SETTABLEKS                       R3 R2 K7 ["Name"]
+       20 GETTABLEKS                       R4 R0 K8 ["AssetId"]
+       22 LOADK                            R5 K9 ["rbxassetid://%*"]
+       23 MOVE                             R7 R4
+       24 NAMECALL                         R5 R5 K10 ["format"]
+       26 CALL                             R5 2 1
+       27 MOVE                             R3 R5
+       28 SETTABLEKS                       R3 R2 K11 ["AnimationId"]
+       30 GETTABLEKS                       R3 R0 K8 ["AssetId"]
+       32 SETTABLEKS                       R3 R2 K12 ["SourceAssetId"]
+       34 NEWTABLE                         R3 0 1
+       36 MOVE                             R4 R2
+       37 SETLIST                          R3 R4 1 [1]
+       39 RETURN                           R3 1
 
 PROTO_12:
         0 NEWTABLE                         R1 0 0
         2 RETURN                           R1 1
 
 PROTO_13:
+        0 NEWTABLE                         R1 0 0
+        2 RETURN                           R1 1
+
+PROTO_14:
         0 NEWTABLE                         R1 0 0
         2 RETURN                           R1 1
 
@@ -346,70 +378,85 @@ MAIN:
        74 GETTABLEKS                       R12 R13 K7 ["Flags"]
        76 GETTABLEKS                       R11 R12 K21 ["getFFlagAmrFixInsertInPlaySolo"]
        78 CALL                             R10 1 1
-       79 DUPCLOSURE                       R11 K22 [PROTO_0]
-       80 DUPCLOSURE                       R12 K23 [PROTO_2]
-       81 CAPTURE                          VAL R8
-       82 DUPCLOSURE                       R13 K24 [PROTO_3]
-       83 CAPTURE                          VAL R4
-       84 NEWTABLE                         R14 0 0
-       86 GETTABLEKS                       R15 R7 K25 ["getEnumAsList"]
-       88 GETTABLEKS                       R16 R7 K26 ["AssetType"]
-       90 CALL                             R15 1 3
-       91 FORGPREP                         R15
-       92 SETTABLE                         R13 R14 R19
-       93 FORGLOOP                         R15 2 ; [-2]
-       95 MOVE                             R15 R9
-       96 CALL                             R15 0 1
-       97 JUMPIFNOT                        R15 ; [+6]
-       98 GETTABLEKS                       R16 R7 K26 ["AssetType"]
-      100 GETTABLEKS                       R15 R16 K27 ["Folder"]
-      102 DUPCLOSURE                       R16 K28 [PROTO_4]
-      103 SETTABLE                         R16 R14 R15
-      104 GETTABLEKS                       R16 R7 K26 ["AssetType"]
-      106 GETTABLEKS                       R15 R16 K29 ["Model"]
-      108 DUPCLOSURE                       R16 K30 [PROTO_5]
-      109 CAPTURE                          VAL R4
-      110 CAPTURE                          VAL R10
-      111 CAPTURE                          VAL R8
-      112 SETTABLE                         R16 R14 R15
-      113 GETTABLEKS                       R16 R7 K26 ["AssetType"]
-      115 GETTABLEKS                       R15 R16 K31 ["MeshPart"]
-      117 DUPCLOSURE                       R16 K32 [PROTO_6]
-      118 CAPTURE                          VAL R14
-      119 CAPTURE                          VAL R7
-      120 SETTABLE                         R16 R14 R15
-      121 GETTABLEKS                       R16 R7 K26 ["AssetType"]
-      123 GETTABLEKS                       R15 R16 K33 ["Mesh"]
-      125 DUPCLOSURE                       R16 K34 [PROTO_7]
-      126 CAPTURE                          VAL R3
-      127 SETTABLE                         R16 R14 R15
-      128 GETTABLEKS                       R16 R7 K26 ["AssetType"]
-      130 GETTABLEKS                       R15 R16 K35 ["Image"]
-      132 DUPCLOSURE                       R16 K36 [PROTO_8]
-      133 SETTABLE                         R16 R14 R15
-      134 GETTABLEKS                       R16 R7 K26 ["AssetType"]
-      136 GETTABLEKS                       R15 R16 K37 ["Audio"]
-      138 DUPCLOSURE                       R16 K38 [PROTO_9]
-      139 CAPTURE                          VAL R5
-      140 CAPTURE                          VAL R1
-      141 CAPTURE                          VAL R8
-      142 CAPTURE                          VAL R6
-      143 SETTABLE                         R16 R14 R15
-      144 GETTABLEKS                       R16 R7 K26 ["AssetType"]
-      146 GETTABLEKS                       R15 R16 K39 ["Video"]
-      148 DUPCLOSURE                       R16 K40 [PROTO_10]
-      149 CAPTURE                          VAL R8
-      150 SETTABLE                         R16 R14 R15
-      151 GETTABLEKS                       R16 R7 K26 ["AssetType"]
-      153 GETTABLEKS                       R15 R16 K41 ["Plugin"]
-      155 DUPCLOSURE                       R16 K42 [PROTO_11]
-      156 SETTABLE                         R16 R14 R15
-      157 GETTABLEKS                       R16 R7 K26 ["AssetType"]
-      159 GETTABLEKS                       R15 R16 K43 ["FontFamily"]
-      161 DUPCLOSURE                       R16 K44 [PROTO_12]
-      162 SETTABLE                         R16 R14 R15
-      163 GETTABLEKS                       R16 R7 K26 ["AssetType"]
-      165 GETTABLEKS                       R15 R16 K45 ["Place"]
-      167 DUPCLOSURE                       R16 K46 [PROTO_13]
-      168 SETTABLE                         R16 R14 R15
-      169 RETURN                           R14 1
+       79 GETIMPORT                        R11 K5 [require]
+       81 GETTABLEKS                       R14 R0 K6 ["Src"]
+       83 GETTABLEKS                       R13 R14 K7 ["Flags"]
+       85 GETTABLEKS                       R12 R13 K22 ["getFFlagAmrInsertAnimationInstance"]
+       87 CALL                             R11 1 1
+       88 DUPCLOSURE                       R12 K23 [PROTO_0]
+       89 DUPCLOSURE                       R13 K24 [PROTO_2]
+       90 CAPTURE                          VAL R8
+       91 DUPCLOSURE                       R14 K25 [PROTO_3]
+       92 CAPTURE                          VAL R4
+       93 NEWTABLE                         R15 0 0
+       95 GETTABLEKS                       R16 R7 K26 ["getEnumAsList"]
+       97 GETTABLEKS                       R17 R7 K27 ["AssetType"]
+       99 CALL                             R16 1 3
+      100 FORGPREP                         R16
+      101 SETTABLE                         R14 R15 R20
+      102 FORGLOOP                         R16 2 ; [-2]
+      104 MOVE                             R16 R9
+      105 CALL                             R16 0 1
+      106 JUMPIFNOT                        R16 ; [+6]
+      107 GETTABLEKS                       R17 R7 K27 ["AssetType"]
+      109 GETTABLEKS                       R16 R17 K28 ["Folder"]
+      111 DUPCLOSURE                       R17 K29 [PROTO_4]
+      112 SETTABLE                         R17 R15 R16
+      113 GETTABLEKS                       R17 R7 K27 ["AssetType"]
+      115 GETTABLEKS                       R16 R17 K30 ["Model"]
+      117 DUPCLOSURE                       R17 K31 [PROTO_5]
+      118 CAPTURE                          VAL R4
+      119 CAPTURE                          VAL R10
+      120 CAPTURE                          VAL R8
+      121 SETTABLE                         R17 R15 R16
+      122 GETTABLEKS                       R17 R7 K27 ["AssetType"]
+      124 GETTABLEKS                       R16 R17 K32 ["MeshPart"]
+      126 DUPCLOSURE                       R17 K33 [PROTO_6]
+      127 CAPTURE                          VAL R15
+      128 CAPTURE                          VAL R7
+      129 SETTABLE                         R17 R15 R16
+      130 GETTABLEKS                       R17 R7 K27 ["AssetType"]
+      132 GETTABLEKS                       R16 R17 K34 ["Mesh"]
+      134 DUPCLOSURE                       R17 K35 [PROTO_7]
+      135 CAPTURE                          VAL R3
+      136 SETTABLE                         R17 R15 R16
+      137 GETTABLEKS                       R17 R7 K27 ["AssetType"]
+      139 GETTABLEKS                       R16 R17 K36 ["Image"]
+      141 DUPCLOSURE                       R17 K37 [PROTO_8]
+      142 SETTABLE                         R17 R15 R16
+      143 GETTABLEKS                       R17 R7 K27 ["AssetType"]
+      145 GETTABLEKS                       R16 R17 K38 ["Audio"]
+      147 DUPCLOSURE                       R17 K39 [PROTO_9]
+      148 CAPTURE                          VAL R5
+      149 CAPTURE                          VAL R1
+      150 CAPTURE                          VAL R8
+      151 CAPTURE                          VAL R6
+      152 SETTABLE                         R17 R15 R16
+      153 GETTABLEKS                       R17 R7 K27 ["AssetType"]
+      155 GETTABLEKS                       R16 R17 K40 ["Video"]
+      157 DUPCLOSURE                       R17 K41 [PROTO_10]
+      158 CAPTURE                          VAL R8
+      159 SETTABLE                         R17 R15 R16
+      160 GETTABLEKS                       R17 R7 K27 ["AssetType"]
+      162 GETTABLEKS                       R16 R17 K42 ["Animation"]
+      164 MOVE                             R18 R11
+      165 CALL                             R18 0 1
+      166 JUMPIFNOT                        R18 ; [+3]
+      167 DUPCLOSURE                       R17 K43 [PROTO_11]
+      168 CAPTURE                          VAL R14
+      169 JUMP                             ; [+1]
+      170 MOVE                             R17 R14
+      171 SETTABLE                         R17 R15 R16
+      172 GETTABLEKS                       R17 R7 K27 ["AssetType"]
+      174 GETTABLEKS                       R16 R17 K44 ["Plugin"]
+      176 DUPCLOSURE                       R17 K45 [PROTO_12]
+      177 SETTABLE                         R17 R15 R16
+      178 GETTABLEKS                       R17 R7 K27 ["AssetType"]
+      180 GETTABLEKS                       R16 R17 K46 ["FontFamily"]
+      182 DUPCLOSURE                       R17 K47 [PROTO_13]
+      183 SETTABLE                         R17 R15 R16
+      184 GETTABLEKS                       R17 R7 K27 ["AssetType"]
+      186 GETTABLEKS                       R16 R17 K48 ["Place"]
+      188 DUPCLOSURE                       R17 K49 [PROTO_14]
+      189 SETTABLE                         R17 R15 R16
+      190 RETURN                           R15 1

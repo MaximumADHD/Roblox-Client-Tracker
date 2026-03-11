@@ -267,7 +267,7 @@ MAIN:
       140 CALL                             R14 1 1
       141 GETTABLEKS                       R17 R1 K25 ["Flags"]
       143 GETTABLEKS                       R16 R17 K27 ["Shared"]
-      145 GETTABLEKS                       R15 R16 K28 ["FFlagCAP2605"]
+      145 GETTABLEKS                       R15 R16 K28 ["FFlagExternalMCPUI"]
       147 GETTABLEKS                       R17 R5 K11 ["Components"]
       149 GETTABLEKS                       R16 R17 K29 ["FoundationProviderAdapter"]
       151 GETTABLEKS                       R19 R1 K11 ["Components"]

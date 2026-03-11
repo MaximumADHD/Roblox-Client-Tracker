@@ -8,7 +8,6 @@ local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
 
-local getEngineFeatureUGCValidationFullBodyFacs = require(root.flags.getEngineFeatureUGCValidationFullBodyFacs)
 local getFFlagUGCValidateLegFullBodySeparation = require(root.flags.getFFlagUGCValidateLegFullBodySeparation)
 
 local Types = require(root.util.Types)
@@ -19,7 +18,6 @@ local validateAssetBounds = require(root.validation.validateAssetBounds)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
 local ValidateBodyBlockingTests = require(root.util.ValidateBodyBlockingTests)
 local ValidateAssetBodyPartCages = require(root.validation.ValidateAssetBodyPartCages)
-local ValidateEachBodyPartFacsBounds = require(root.validation.ValidateEachBodyPartFacsBounds)
 local ValidateLegsSeparation = require(root.validation.ValidateLegsSeparation)
 
 local createDynamicHeadMeshPartSchema = require(root.util.createDynamicHeadMeshPartSchema)
@@ -238,10 +236,6 @@ local function validateFullBody(validationContext: Types.ValidationContext): (bo
 
 		if getFFlagUGCValidateLegFullBodySeparation() then
 			reasonsAccumulator:updateReasons(ValidateLegsSeparation.validateFullBody(allBodyParts, validationContext))
-		end
-
-		if getEngineFeatureUGCValidationFullBodyFacs() then
-			reasonsAccumulator:updateReasons(ValidateEachBodyPartFacsBounds(allBodyParts, validationContext))
 		end
 	end
 	return reasonsAccumulator:getFinalResults()

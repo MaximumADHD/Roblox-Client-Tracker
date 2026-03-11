@@ -207,74 +207,75 @@ PROTO_10:
        23 SETTABLEKS                       R2 R1 K9 ["RightArmColor"]
        25 SETTABLEKS                       R2 R1 K10 ["LeftLegColor"]
        27 SETTABLEKS                       R2 R1 K11 ["RightLegColor"]
-       29 JUMP                             ; [+60]
+       29 JUMP                             ; [+62]
        30 GETUPVAL                         R2 1
        31 GETTABLEKS                       R1 R2 K12 ["WorldModel"]
        33 LOADK                            R3 K13 ["BodyColors"]
        34 NAMECALL                         R1 R1 K14 ["FindFirstChildWhichIsA"]
        36 CALL                             R1 2 1
-       37 JUMPIFNOTEQKNIL                  R1 ; [+16]
+       37 JUMPIFNOTEQKNIL                  R1 ; [+18]
        39 MOVE                             R2 R0
-       40 GETUPVAL                         R3 2
-       41 SETTABLEKS                       R3 R2 K6 ["HeadColor"]
-       43 SETTABLEKS                       R3 R2 K7 ["TorsoColor"]
-       45 SETTABLEKS                       R3 R2 K8 ["LeftArmColor"]
-       47 SETTABLEKS                       R3 R2 K9 ["RightArmColor"]
-       49 SETTABLEKS                       R3 R2 K10 ["LeftLegColor"]
-       51 SETTABLEKS                       R3 R2 K11 ["RightLegColor"]
-       53 JUMP                             ; [+36]
-       54 LOADK                            R5 K13 ["BodyColors"]
-       55 NAMECALL                         R3 R1 K15 ["IsA"]
-       57 CALL                             R3 2 1
-       58 GETUPVAL                         R5 3
-       59 GETTABLEKS                       R4 R5 K16 ["LUAU_ANALYZE_ERROR"]
-       61 FASTCALL2                        ASSERT R3 R4 ; [+3]
-       63 GETIMPORT                        R2 K18 [assert]
-       65 CALL                             R2 2 0
-       66 GETTABLEKS                       R2 R1 K19 ["HeadColor3"]
-       68 SETTABLEKS                       R2 R0 K6 ["HeadColor"]
-       70 GETTABLEKS                       R2 R1 K20 ["TorsoColor3"]
-       72 SETTABLEKS                       R2 R0 K7 ["TorsoColor"]
-       74 GETTABLEKS                       R2 R1 K21 ["LeftArmColor3"]
-       76 SETTABLEKS                       R2 R0 K8 ["LeftArmColor"]
-       78 GETTABLEKS                       R2 R1 K22 ["RightArmColor3"]
-       80 SETTABLEKS                       R2 R0 K9 ["RightArmColor"]
-       82 GETTABLEKS                       R2 R1 K23 ["LeftLegColor3"]
-       84 SETTABLEKS                       R2 R0 K10 ["LeftLegColor"]
-       86 GETTABLEKS                       R2 R1 K24 ["RightLegColor3"]
-       88 SETTABLEKS                       R2 R0 K11 ["RightLegColor"]
-       90 GETUPVAL                         R1 4
-       91 MOVE                             R2 R0
-       92 GETUPVAL                         R5 0
-       93 GETTABLEKS                       R4 R5 K4 ["avatarAssets"]
-       95 GETTABLEKS                       R3 R4 K25 ["patches"]
-       97 GETUPVAL                         R4 5
-       98 GETUPVAL                         R5 6
-       99 CALL                             R1 4 1
-      100 MOVE                             R0 R1
-      101 GETUPVAL                         R1 7
-      102 MOVE                             R2 R0
-      103 GETUPVAL                         R5 1
-      104 GETTABLEKS                       R4 R5 K12 ["WorldModel"]
-      106 GETTABLEKS                       R3 R4 K26 ["Humanoid"]
-      108 CALL                             R1 2 0
-      109 GETUPVAL                         R1 8
-      110 CALL                             R1 0 1
-      111 JUMPIFNOT                        R1 ; [+20]
-      112 GETUPVAL                         R1 9
-      113 JUMPIFNOT                        R1 ; [+3]
-      114 GETUPVAL                         R2 9
-      115 GETTABLEKS                       R1 R2 K27 ["resetIncludesBodyParts"]
-      117 JUMPIFEQKNIL                     R1 ; [+14]
-      119 GETUPVAL                         R2 9
-      120 JUMPIFEQKNIL                     R2 ; [+11]
-      122 GETUPVAL                         R3 9
-      123 GETTABLEKS                       R2 R3 K27 ["resetIncludesBodyParts"]
-      125 JUMPIFEQKNIL                     R2 ; [+6]
-      127 GETUPVAL                         R3 9
-      128 GETTABLEKS                       R2 R3 K27 ["resetIncludesBodyParts"]
-      130 SETTABLEKS                       R2 R0 K28 ["ResetIncludesBodyParts"]
-      132 RETURN                           R0 1
+       40 GETUPVAL                         R4 2
+       41 GETTABLEKS                       R3 R4 K15 ["DEFAULT_SKIN_TONE"]
+       43 SETTABLEKS                       R3 R2 K6 ["HeadColor"]
+       45 SETTABLEKS                       R3 R2 K7 ["TorsoColor"]
+       47 SETTABLEKS                       R3 R2 K8 ["LeftArmColor"]
+       49 SETTABLEKS                       R3 R2 K9 ["RightArmColor"]
+       51 SETTABLEKS                       R3 R2 K10 ["LeftLegColor"]
+       53 SETTABLEKS                       R3 R2 K11 ["RightLegColor"]
+       55 JUMP                             ; [+36]
+       56 LOADK                            R5 K13 ["BodyColors"]
+       57 NAMECALL                         R3 R1 K16 ["IsA"]
+       59 CALL                             R3 2 1
+       60 GETUPVAL                         R5 2
+       61 GETTABLEKS                       R4 R5 K17 ["LUAU_ANALYZE_ERROR"]
+       63 FASTCALL2                        ASSERT R3 R4 ; [+3]
+       65 GETIMPORT                        R2 K19 [assert]
+       67 CALL                             R2 2 0
+       68 GETTABLEKS                       R2 R1 K20 ["HeadColor3"]
+       70 SETTABLEKS                       R2 R0 K6 ["HeadColor"]
+       72 GETTABLEKS                       R2 R1 K21 ["TorsoColor3"]
+       74 SETTABLEKS                       R2 R0 K7 ["TorsoColor"]
+       76 GETTABLEKS                       R2 R1 K22 ["LeftArmColor3"]
+       78 SETTABLEKS                       R2 R0 K8 ["LeftArmColor"]
+       80 GETTABLEKS                       R2 R1 K23 ["RightArmColor3"]
+       82 SETTABLEKS                       R2 R0 K9 ["RightArmColor"]
+       84 GETTABLEKS                       R2 R1 K24 ["LeftLegColor3"]
+       86 SETTABLEKS                       R2 R0 K10 ["LeftLegColor"]
+       88 GETTABLEKS                       R2 R1 K25 ["RightLegColor3"]
+       90 SETTABLEKS                       R2 R0 K11 ["RightLegColor"]
+       92 GETUPVAL                         R1 3
+       93 MOVE                             R2 R0
+       94 GETUPVAL                         R5 0
+       95 GETTABLEKS                       R4 R5 K4 ["avatarAssets"]
+       97 GETTABLEKS                       R3 R4 K26 ["patches"]
+       99 GETUPVAL                         R4 4
+      100 GETUPVAL                         R5 5
+      101 CALL                             R1 4 1
+      102 MOVE                             R0 R1
+      103 GETUPVAL                         R1 6
+      104 MOVE                             R2 R0
+      105 GETUPVAL                         R5 1
+      106 GETTABLEKS                       R4 R5 K12 ["WorldModel"]
+      108 GETTABLEKS                       R3 R4 K27 ["Humanoid"]
+      110 CALL                             R1 2 0
+      111 GETUPVAL                         R1 7
+      112 CALL                             R1 0 1
+      113 JUMPIFNOT                        R1 ; [+20]
+      114 GETUPVAL                         R1 8
+      115 JUMPIFNOT                        R1 ; [+3]
+      116 GETUPVAL                         R2 8
+      117 GETTABLEKS                       R1 R2 K28 ["resetIncludesBodyParts"]
+      119 JUMPIFEQKNIL                     R1 ; [+14]
+      121 GETUPVAL                         R2 8
+      122 JUMPIFEQKNIL                     R2 ; [+11]
+      124 GETUPVAL                         R3 8
+      125 GETTABLEKS                       R2 R3 K28 ["resetIncludesBodyParts"]
+      127 JUMPIFEQKNIL                     R2 ; [+6]
+      129 GETUPVAL                         R3 8
+      130 GETTABLEKS                       R2 R3 K28 ["resetIncludesBodyParts"]
+      132 SETTABLEKS                       R2 R0 K29 ["ResetIncludesBodyParts"]
+      134 RETURN                           R0 1
 
 PROTO_11:
         0 GETUPVAL                         R4 0
@@ -339,34 +340,33 @@ PROTO_11:
        81 CAPTURE                          VAL R0
        82 CAPTURE                          UPVAL U7
        83 CAPTURE                          UPVAL U8
-       84 CAPTURE                          UPVAL U9
-       85 CAPTURE                          VAL R4
-       86 CAPTURE                          VAL R5
+       84 CAPTURE                          VAL R4
+       85 CAPTURE                          VAL R5
+       86 CAPTURE                          UPVAL U9
        87 CAPTURE                          UPVAL U10
-       88 CAPTURE                          UPVAL U11
-       89 CAPTURE                          VAL R2
-       90 GETUPVAL                         R10 3
-       91 GETTABLEKS                       R9 R10 K6 ["List"]
-       93 GETTABLEKS                       R8 R9 K7 ["join"]
-       95 NEWTABLE                         R9 0 3
-       97 GETTABLEKS                       R10 R3 K3 ["avatarAssets"]
-       99 GETUPVAL                         R12 2
-      100 JUMPIFNOT                        R12 ; [+2]
-      101 MOVE                             R11 R4
-      102 JUMP                             ; [+1]
-      103 LOADNIL                          R11
-      104 GETUPVAL                         R13 2
-      105 JUMPIFNOT                        R13 ; [+5]
-      106 MOVE                             R12 R2
-      107 JUMPIFNOT                        R12 ; [+4]
-      108 GETTABLEKS                       R12 R2 K11 ["resetIncludesBodyParts"]
-      110 JUMP                             ; [+1]
-      111 LOADNIL                          R12
-      112 SETLIST                          R9 R10 3 [1]
-      114 MOVE                             R10 R1
-      115 CALL                             R8 2 -1
-      116 CALL                             R6 -1 -1
-      117 RETURN                           R6 -1
+       88 CAPTURE                          VAL R2
+       89 GETUPVAL                         R10 3
+       90 GETTABLEKS                       R9 R10 K6 ["List"]
+       92 GETTABLEKS                       R8 R9 K7 ["join"]
+       94 NEWTABLE                         R9 0 3
+       96 GETTABLEKS                       R10 R3 K3 ["avatarAssets"]
+       98 GETUPVAL                         R12 2
+       99 JUMPIFNOT                        R12 ; [+2]
+      100 MOVE                             R11 R4
+      101 JUMP                             ; [+1]
+      102 LOADNIL                          R11
+      103 GETUPVAL                         R13 2
+      104 JUMPIFNOT                        R13 ; [+5]
+      105 MOVE                             R12 R2
+      106 JUMPIFNOT                        R12 ; [+4]
+      107 GETTABLEKS                       R12 R2 K11 ["resetIncludesBodyParts"]
+      109 JUMP                             ; [+1]
+      110 LOADNIL                          R12
+      111 SETLIST                          R9 R10 3 [1]
+      113 MOVE                             R10 R1
+      114 CALL                             R8 2 -1
+      115 CALL                             R6 -1 -1
+      116 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -422,30 +422,24 @@ MAIN:
        86 GETTABLEKS                       R13 R14 K17 ["Flags"]
        88 GETTABLEKS                       R12 R13 K19 ["getFFlagAvatarPreviewerMakeupDescription"]
        90 CALL                             R11 1 1
-       91 GETIMPORT                        R12 K22 [Color3.fromRGB]
-       93 LOADN                            R13 205
-       94 LOADN                            R14 205
-       95 LOADN                            R15 204
-       96 CALL                             R12 3 1
-       97 DUPCLOSURE                       R13 K23 [PROTO_0]
-       98 DUPCLOSURE                       R14 K24 [PROTO_2]
-       99 CAPTURE                          VAL R2
-      100 CAPTURE                          VAL R4
-      101 DUPCLOSURE                       R15 K25 [PROTO_3]
-      102 CAPTURE                          VAL R2
-      103 CAPTURE                          VAL R4
-      104 CAPTURE                          VAL R11
-      105 DUPCLOSURE                       R16 K26 [PROTO_11]
-      106 CAPTURE                          VAL R3
-      107 CAPTURE                          VAL R5
-      108 CAPTURE                          VAL R10
-      109 CAPTURE                          VAL R1
-      110 CAPTURE                          VAL R2
-      111 CAPTURE                          VAL R11
-      112 CAPTURE                          VAL R8
-      113 CAPTURE                          VAL R12
-      114 CAPTURE                          VAL R4
-      115 CAPTURE                          VAL R15
-      116 CAPTURE                          VAL R7
-      117 CAPTURE                          VAL R9
-      118 RETURN                           R16 1
+       91 DUPCLOSURE                       R12 K20 [PROTO_0]
+       92 DUPCLOSURE                       R13 K21 [PROTO_2]
+       93 CAPTURE                          VAL R2
+       94 CAPTURE                          VAL R4
+       95 DUPCLOSURE                       R14 K22 [PROTO_3]
+       96 CAPTURE                          VAL R2
+       97 CAPTURE                          VAL R4
+       98 CAPTURE                          VAL R11
+       99 DUPCLOSURE                       R15 K23 [PROTO_11]
+      100 CAPTURE                          VAL R3
+      101 CAPTURE                          VAL R5
+      102 CAPTURE                          VAL R10
+      103 CAPTURE                          VAL R1
+      104 CAPTURE                          VAL R2
+      105 CAPTURE                          VAL R11
+      106 CAPTURE                          VAL R8
+      107 CAPTURE                          VAL R4
+      108 CAPTURE                          VAL R14
+      109 CAPTURE                          VAL R7
+      110 CAPTURE                          VAL R9
+      111 RETURN                           R15 1

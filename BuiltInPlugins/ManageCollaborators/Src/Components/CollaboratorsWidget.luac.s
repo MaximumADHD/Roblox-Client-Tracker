@@ -72,121 +72,141 @@ PROTO_0:
       102 GETIMPORT                        R19 K23 [table.insert]
       104 CALL                             R19 2 0
       105 FORGLOOP                         R13 2 ; [-26]
-      107 MOVE                             R13 R4
-      108 LOADNIL                          R14
-      109 LOADNIL                          R15
-      110 FORGPREP                         R13
-      111 GETUPVAL                         R19 4
-      112 GETTABLEKS                       R18 R19 K16 ["createElement"]
-      114 GETUPVAL                         R19 2
-      115 DUPTABLE                         R20 K26 [{"LayoutOrder", "Writable", "Id", "HideSeparator", "IsGroupGame"}]
-      116 NAMECALL                         R21 R12 K20 ["getNextOrder"]
-      118 CALL                             R21 1 1
-      119 SETTABLEKS                       R21 R20 K1 ["LayoutOrder"]
-      121 SETTABLEKS                       R3 R20 K2 ["Writable"]
-      123 SETTABLEKS                       R17 R20 K17 ["Id"]
-      125 LOADB                            R21 0
-      126 SETTABLEKS                       R21 R20 K18 ["HideSeparator"]
-      128 SETTABLEKS                       R10 R20 K9 ["IsGroupGame"]
-      130 CALL                             R18 2 1
-      131 FASTCALL2                        TABLE_INSERT R11 R18 ; [+5]
-      133 MOVE                             R20 R11
-      134 MOVE                             R21 R18
-      135 GETIMPORT                        R19 K23 [table.insert]
-      137 CALL                             R19 2 0
-      138 FORGLOOP                         R13 2 ; [-28]
-      140 MOVE                             R13 R6
-      141 LOADNIL                          R14
-      142 LOADNIL                          R15
-      143 FORGPREP                         R13
-      144 GETUPVAL                         R19 4
-      145 GETTABLEKS                       R18 R19 K16 ["createElement"]
-      147 GETUPVAL                         R19 3
-      148 DUPTABLE                         R20 K28 [{"LayoutOrder", "Writable", "Id", "CurrentPermission", "HideSeparator", "IsGroupGame"}]
-      149 NAMECALL                         R21 R12 K20 ["getNextOrder"]
-      151 CALL                             R21 1 1
-      152 SETTABLEKS                       R21 R20 K1 ["LayoutOrder"]
-      154 SETTABLEKS                       R3 R20 K2 ["Writable"]
-      156 SETTABLEKS                       R17 R20 K17 ["Id"]
-      158 GETUPVAL                         R22 6
-      159 GETTABLEKS                       R21 R22 K29 ["MultipleKey"]
-      161 SETTABLEKS                       R21 R20 K27 ["CurrentPermission"]
-      163 LOADB                            R21 0
-      164 SETTABLEKS                       R21 R20 K18 ["HideSeparator"]
-      166 SETTABLEKS                       R10 R20 K9 ["IsGroupGame"]
-      168 CALL                             R18 2 1
-      169 FASTCALL2                        TABLE_INSERT R11 R18 ; [+5]
-      171 MOVE                             R20 R11
-      172 MOVE                             R21 R18
-      173 GETIMPORT                        R19 K23 [table.insert]
-      175 CALL                             R19 2 0
-      176 FORGLOOP                         R13 2 ; [-33]
-      178 MOVE                             R13 R5
-      179 LOADNIL                          R14
-      180 LOADNIL                          R15
-      181 FORGPREP                         R13
-      182 GETUPVAL                         R19 4
-      183 GETTABLEKS                       R18 R19 K16 ["createElement"]
-      185 GETUPVAL                         R19 2
-      186 DUPTABLE                         R20 K26 [{"LayoutOrder", "Writable", "Id", "HideSeparator", "IsGroupGame"}]
-      187 NAMECALL                         R21 R12 K20 ["getNextOrder"]
-      189 CALL                             R21 1 1
-      190 SETTABLEKS                       R21 R20 K1 ["LayoutOrder"]
-      192 SETTABLEKS                       R3 R20 K2 ["Writable"]
-      194 SETTABLEKS                       R17 R20 K17 ["Id"]
-      196 LOADB                            R21 0
-      197 SETTABLEKS                       R21 R20 K18 ["HideSeparator"]
-      199 SETTABLEKS                       R10 R20 K9 ["IsGroupGame"]
-      201 CALL                             R18 2 1
-      202 FASTCALL2                        TABLE_INSERT R11 R18 ; [+5]
-      204 MOVE                             R20 R11
-      205 MOVE                             R21 R18
-      206 GETIMPORT                        R19 K23 [table.insert]
-      208 CALL                             R19 2 0
-      209 FORGLOOP                         R13 2 ; [-28]
-      211 MOVE                             R13 R7
-      212 LOADNIL                          R14
-      213 LOADNIL                          R15
-      214 FORGPREP                         R13
-      215 GETUPVAL                         R19 4
-      216 GETTABLEKS                       R18 R19 K16 ["createElement"]
-      218 GETUPVAL                         R19 3
-      219 DUPTABLE                         R20 K28 [{"LayoutOrder", "Writable", "Id", "CurrentPermission", "HideSeparator", "IsGroupGame"}]
-      220 NAMECALL                         R21 R12 K20 ["getNextOrder"]
-      222 CALL                             R21 1 1
-      223 SETTABLEKS                       R21 R20 K1 ["LayoutOrder"]
-      225 SETTABLEKS                       R3 R20 K2 ["Writable"]
-      227 SETTABLEKS                       R17 R20 K17 ["Id"]
-      229 GETUPVAL                         R22 6
-      230 GETTABLEKS                       R21 R22 K29 ["MultipleKey"]
-      232 SETTABLEKS                       R21 R20 K27 ["CurrentPermission"]
-      234 LOADB                            R21 0
-      235 SETTABLEKS                       R21 R20 K18 ["HideSeparator"]
-      237 SETTABLEKS                       R10 R20 K9 ["IsGroupGame"]
-      239 CALL                             R18 2 1
-      240 FASTCALL2                        TABLE_INSERT R11 R18 ; [+5]
-      242 MOVE                             R20 R11
-      243 MOVE                             R21 R18
-      244 GETIMPORT                        R19 K23 [table.insert]
-      246 CALL                             R19 2 0
-      247 FORGLOOP                         R13 2 ; [-33]
-      249 LENGTH                           R15 R11
-      250 GETTABLE                         R14 R11 R15
-      251 GETTABLEKS                       R13 R14 K0 ["props"]
-      253 LOADB                            R14 1
-      254 SETTABLEKS                       R14 R13 K18 ["HideSeparator"]
-      256 GETUPVAL                         R14 4
-      257 GETTABLEKS                       R13 R14 K16 ["createElement"]
-      259 GETUPVAL                         R14 7
-      260 DUPTABLE                         R15 K31 [{"LayoutOrder", "BackgroundTransparency"}]
-      261 SETTABLEKS                       R2 R15 K1 ["LayoutOrder"]
-      263 LOADN                            R16 1
-      264 SETTABLEKS                       R16 R15 K30 ["BackgroundTransparency"]
-      266 NEWTABLE                         R16 0 1
-      268 MOVE                             R17 R11
-      269 SETLIST                          R16 R17 1 [1]
-      271 CALL                             R13 3 -1
-      272 RETURN                           R13 -1
+      107 GETUPVAL                         R15 6
+      108 GETTABLEKS                       R14 R15 K26 ["fflagManageCollaboratorsActionNeededLabel"]
+      110 JUMPIFNOT                        R14 ; [+3]
+      111 GETTABLEKS                       R13 R1 K27 ["CanCollaborateResponses"]
+      113 JUMP                             ; [+1]
+      114 LOADNIL                          R13
+      115 MOVE                             R14 R4
+      116 LOADNIL                          R15
+      117 LOADNIL                          R16
+      118 FORGPREP                         R14
+      119 GETUPVAL                         R20 4
+      120 GETTABLEKS                       R19 R20 K16 ["createElement"]
+      122 GETUPVAL                         R20 2
+      123 DUPTABLE                         R21 K29 [{"LayoutOrder", "Writable", "Id", "HideSeparator", "IsGroupGame", "CanCollaborateResponse"}]
+      124 NAMECALL                         R22 R12 K20 ["getNextOrder"]
+      126 CALL                             R22 1 1
+      127 SETTABLEKS                       R22 R21 K1 ["LayoutOrder"]
+      129 SETTABLEKS                       R3 R21 K2 ["Writable"]
+      131 SETTABLEKS                       R18 R21 K17 ["Id"]
+      133 LOADB                            R22 0
+      134 SETTABLEKS                       R22 R21 K18 ["HideSeparator"]
+      136 SETTABLEKS                       R10 R21 K9 ["IsGroupGame"]
+      138 GETUPVAL                         R24 6
+      139 GETTABLEKS                       R23 R24 K26 ["fflagManageCollaboratorsActionNeededLabel"]
+      141 JUMPIFNOT                        R23 ; [+2]
+      142 GETTABLE                         R22 R13 R18
+      143 JUMP                             ; [+1]
+      144 LOADNIL                          R22
+      145 SETTABLEKS                       R22 R21 K28 ["CanCollaborateResponse"]
+      147 CALL                             R19 2 1
+      148 FASTCALL2                        TABLE_INSERT R11 R19 ; [+5]
+      150 MOVE                             R21 R11
+      151 MOVE                             R22 R19
+      152 GETIMPORT                        R20 K23 [table.insert]
+      154 CALL                             R20 2 0
+      155 FORGLOOP                         R14 2 ; [-37]
+      157 MOVE                             R14 R6
+      158 LOADNIL                          R15
+      159 LOADNIL                          R16
+      160 FORGPREP                         R14
+      161 GETUPVAL                         R20 4
+      162 GETTABLEKS                       R19 R20 K16 ["createElement"]
+      164 GETUPVAL                         R20 3
+      165 DUPTABLE                         R21 K31 [{"LayoutOrder", "Writable", "Id", "CurrentPermission", "HideSeparator", "IsGroupGame"}]
+      166 NAMECALL                         R22 R12 K20 ["getNextOrder"]
+      168 CALL                             R22 1 1
+      169 SETTABLEKS                       R22 R21 K1 ["LayoutOrder"]
+      171 SETTABLEKS                       R3 R21 K2 ["Writable"]
+      173 SETTABLEKS                       R18 R21 K17 ["Id"]
+      175 GETUPVAL                         R23 7
+      176 GETTABLEKS                       R22 R23 K32 ["MultipleKey"]
+      178 SETTABLEKS                       R22 R21 K30 ["CurrentPermission"]
+      180 LOADB                            R22 0
+      181 SETTABLEKS                       R22 R21 K18 ["HideSeparator"]
+      183 SETTABLEKS                       R10 R21 K9 ["IsGroupGame"]
+      185 CALL                             R19 2 1
+      186 FASTCALL2                        TABLE_INSERT R11 R19 ; [+5]
+      188 MOVE                             R21 R11
+      189 MOVE                             R22 R19
+      190 GETIMPORT                        R20 K23 [table.insert]
+      192 CALL                             R20 2 0
+      193 FORGLOOP                         R14 2 ; [-33]
+      195 MOVE                             R14 R5
+      196 LOADNIL                          R15
+      197 LOADNIL                          R16
+      198 FORGPREP                         R14
+      199 GETUPVAL                         R20 4
+      200 GETTABLEKS                       R19 R20 K16 ["createElement"]
+      202 GETUPVAL                         R20 2
+      203 DUPTABLE                         R21 K29 [{"LayoutOrder", "Writable", "Id", "HideSeparator", "IsGroupGame", "CanCollaborateResponse"}]
+      204 NAMECALL                         R22 R12 K20 ["getNextOrder"]
+      206 CALL                             R22 1 1
+      207 SETTABLEKS                       R22 R21 K1 ["LayoutOrder"]
+      209 SETTABLEKS                       R3 R21 K2 ["Writable"]
+      211 SETTABLEKS                       R18 R21 K17 ["Id"]
+      213 LOADB                            R22 0
+      214 SETTABLEKS                       R22 R21 K18 ["HideSeparator"]
+      216 SETTABLEKS                       R10 R21 K9 ["IsGroupGame"]
+      218 GETUPVAL                         R24 6
+      219 GETTABLEKS                       R23 R24 K26 ["fflagManageCollaboratorsActionNeededLabel"]
+      221 JUMPIFNOT                        R23 ; [+2]
+      222 GETTABLE                         R22 R13 R18
+      223 JUMP                             ; [+1]
+      224 LOADNIL                          R22
+      225 SETTABLEKS                       R22 R21 K28 ["CanCollaborateResponse"]
+      227 CALL                             R19 2 1
+      228 FASTCALL2                        TABLE_INSERT R11 R19 ; [+5]
+      230 MOVE                             R21 R11
+      231 MOVE                             R22 R19
+      232 GETIMPORT                        R20 K23 [table.insert]
+      234 CALL                             R20 2 0
+      235 FORGLOOP                         R14 2 ; [-37]
+      237 MOVE                             R14 R7
+      238 LOADNIL                          R15
+      239 LOADNIL                          R16
+      240 FORGPREP                         R14
+      241 GETUPVAL                         R20 4
+      242 GETTABLEKS                       R19 R20 K16 ["createElement"]
+      244 GETUPVAL                         R20 3
+      245 DUPTABLE                         R21 K31 [{"LayoutOrder", "Writable", "Id", "CurrentPermission", "HideSeparator", "IsGroupGame"}]
+      246 NAMECALL                         R22 R12 K20 ["getNextOrder"]
+      248 CALL                             R22 1 1
+      249 SETTABLEKS                       R22 R21 K1 ["LayoutOrder"]
+      251 SETTABLEKS                       R3 R21 K2 ["Writable"]
+      253 SETTABLEKS                       R18 R21 K17 ["Id"]
+      255 GETUPVAL                         R23 7
+      256 GETTABLEKS                       R22 R23 K32 ["MultipleKey"]
+      258 SETTABLEKS                       R22 R21 K30 ["CurrentPermission"]
+      260 LOADB                            R22 0
+      261 SETTABLEKS                       R22 R21 K18 ["HideSeparator"]
+      263 SETTABLEKS                       R10 R21 K9 ["IsGroupGame"]
+      265 CALL                             R19 2 1
+      266 FASTCALL2                        TABLE_INSERT R11 R19 ; [+5]
+      268 MOVE                             R21 R11
+      269 MOVE                             R22 R19
+      270 GETIMPORT                        R20 K23 [table.insert]
+      272 CALL                             R20 2 0
+      273 FORGLOOP                         R14 2 ; [-33]
+      275 LENGTH                           R16 R11
+      276 GETTABLE                         R15 R11 R16
+      277 GETTABLEKS                       R14 R15 K0 ["props"]
+      279 LOADB                            R15 1
+      280 SETTABLEKS                       R15 R14 K18 ["HideSeparator"]
+      282 GETUPVAL                         R15 4
+      283 GETTABLEKS                       R14 R15 K16 ["createElement"]
+      285 GETUPVAL                         R15 8
+      286 DUPTABLE                         R16 K34 [{"LayoutOrder", "BackgroundTransparency"}]
+      287 SETTABLEKS                       R2 R16 K1 ["LayoutOrder"]
+      289 LOADN                            R17 1
+      290 SETTABLEKS                       R17 R16 K33 ["BackgroundTransparency"]
+      292 NEWTABLE                         R17 0 1
+      294 MOVE                             R18 R11
+      295 SETLIST                          R17 R18 1 [1]
+      297 CALL                             R14 3 -1
+      298 RETURN                           R14 -1
 
 PROTO_1:
         0 GETUPVAL                         R3 0
@@ -238,20 +258,27 @@ PROTO_1:
        64 GETTABLE                         R8 R2 R9
        65 JUMP                             ; [+1]
        66 LOADB                            R8 1
-       67 DUPTABLE                         R9 K19 [{"NewUserCollaborators", "CurrentUserCollaborators", "NewGroupCollaborators", "CurrentGroupCollaborators", "GranularCollaborators", "OwnerId", "OwnerType", "ShowOwner"}]
+       67 DUPTABLE                         R9 K20 [{"NewUserCollaborators", "CurrentUserCollaborators", "NewGroupCollaborators", "CurrentGroupCollaborators", "GranularCollaborators", "OwnerId", "OwnerType", "ShowOwner", "CanCollaborateResponses"}]
        68 SETTABLEKS                       R3 R9 K11 ["NewUserCollaborators"]
        70 SETTABLEKS                       R4 R9 K12 ["CurrentUserCollaborators"]
        72 SETTABLEKS                       R5 R9 K13 ["NewGroupCollaborators"]
        74 SETTABLEKS                       R6 R9 K14 ["CurrentGroupCollaborators"]
        76 SETTABLEKS                       R7 R9 K15 ["GranularCollaborators"]
        78 GETTABLEKS                       R11 R0 K3 ["GameOwnerMetadata"]
-       80 GETTABLEKS                       R10 R11 K20 ["creatorId"]
+       80 GETTABLEKS                       R10 R11 K21 ["creatorId"]
        82 SETTABLEKS                       R10 R9 K16 ["OwnerId"]
        84 GETTABLEKS                       R11 R0 K3 ["GameOwnerMetadata"]
        86 GETTABLEKS                       R10 R11 K4 ["creatorType"]
        88 SETTABLEKS                       R10 R9 K17 ["OwnerType"]
        90 SETTABLEKS                       R8 R9 K18 ["ShowOwner"]
-       92 RETURN                           R9 1
+       92 GETUPVAL                         R12 5
+       93 GETTABLEKS                       R11 R12 K22 ["fflagManageCollaboratorsActionNeededLabel"]
+       95 JUMPIFNOT                        R11 ; [+3]
+       96 GETTABLEKS                       R10 R0 K19 ["CanCollaborateResponses"]
+       98 JUMP                             ; [+1]
+       99 LOADNIL                          R10
+      100 SETTABLEKS                       R10 R9 K19 ["CanCollaborateResponses"]
+      102 RETURN                           R9 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -271,113 +298,119 @@ MAIN:
        24 GETTABLEKS                       R5 R1 K9 ["Packages"]
        26 GETTABLEKS                       R4 R5 K11 ["RoactRodux"]
        28 CALL                             R3 1 1
-       29 GETIMPORT                        R5 K8 [require]
-       31 GETTABLEKS                       R7 R1 K9 ["Packages"]
-       33 GETTABLEKS                       R6 R7 K12 ["Framework"]
-       35 CALL                             R5 1 1
-       36 GETTABLEKS                       R4 R5 K13 ["ContextServices"]
-       38 GETTABLEKS                       R5 R4 K14 ["withContext"]
-       40 GETIMPORT                        R6 K8 [require]
-       42 GETTABLEKS                       R8 R1 K9 ["Packages"]
-       44 GETTABLEKS                       R7 R8 K12 ["Framework"]
-       46 CALL                             R6 1 1
-       47 GETTABLEKS                       R8 R6 K15 ["Style"]
-       49 GETTABLEKS                       R7 R8 K16 ["Stylizer"]
-       51 GETIMPORT                        R8 K8 [require]
-       53 GETTABLEKS                       R11 R1 K17 ["Src"]
-       55 GETTABLEKS                       R10 R11 K18 ["Util"]
-       57 GETTABLEKS                       R9 R10 K19 ["CreateFitToContent"]
-       59 CALL                             R8 1 1
-       60 GETIMPORT                        R9 K8 [require]
-       62 GETTABLEKS                       R12 R1 K17 ["Src"]
-       64 GETTABLEKS                       R11 R12 K20 ["Components"]
-       66 GETTABLEKS                       R10 R11 K21 ["UserCollaboratorItem"]
-       68 CALL                             R9 1 1
-       69 GETIMPORT                        R10 K8 [require]
-       71 GETTABLEKS                       R13 R1 K17 ["Src"]
-       73 GETTABLEKS                       R12 R13 K20 ["Components"]
-       75 GETTABLEKS                       R11 R12 K22 ["GroupCollaboratorItem"]
-       77 CALL                             R10 1 1
-       78 GETIMPORT                        R11 K8 [require]
-       80 GETTABLEKS                       R14 R1 K17 ["Src"]
-       82 GETTABLEKS                       R13 R14 K20 ["Components"]
-       84 GETTABLEKS                       R12 R13 K23 ["GranularCollaboratorItem"]
-       86 CALL                             R11 1 1
-       87 GETIMPORT                        R12 K8 [require]
-       89 GETTABLEKS                       R15 R1 K17 ["Src"]
-       91 GETTABLEKS                       R14 R15 K24 ["Selectors"]
-       93 GETTABLEKS                       R13 R14 K25 ["GetUserCollaborators"]
-       95 CALL                             R12 1 1
-       96 GETIMPORT                        R13 K8 [require]
-       98 GETTABLEKS                       R16 R1 K17 ["Src"]
-      100 GETTABLEKS                       R15 R16 K24 ["Selectors"]
-      102 GETTABLEKS                       R14 R15 K26 ["GetGroupCollaborators"]
-      104 CALL                             R13 1 1
-      105 GETIMPORT                        R14 K8 [require]
-      107 GETTABLEKS                       R17 R1 K17 ["Src"]
-      109 GETTABLEKS                       R16 R17 K24 ["Selectors"]
-      111 GETTABLEKS                       R15 R16 K27 ["GetGranularCollaborators"]
-      113 CALL                             R14 1 1
-      114 GETIMPORT                        R15 K8 [require]
-      116 GETTABLEKS                       R18 R1 K17 ["Src"]
-      118 GETTABLEKS                       R17 R18 K24 ["Selectors"]
-      120 GETTABLEKS                       R16 R17 K28 ["GetSelectedFilterPill"]
-      122 CALL                             R15 1 1
-      123 GETTABLEKS                       R16 R6 K18 ["Util"]
-      125 GETTABLEKS                       R17 R16 K29 ["LayoutOrderIterator"]
-      127 MOVE                             R18 R8
-      128 LOADK                            R19 K30 ["Frame"]
-      129 LOADK                            R20 K31 ["UIListLayout"]
-      130 DUPTABLE                         R21 K36 [{"SortOrder", "FillDirection", "Padding", "HorizontalAlignment"}]
-      131 GETIMPORT                        R22 K39 [Enum.SortOrder.LayoutOrder]
-      133 SETTABLEKS                       R22 R21 K32 ["SortOrder"]
-      135 GETIMPORT                        R22 K41 [Enum.FillDirection.Vertical]
-      137 SETTABLEKS                       R22 R21 K33 ["FillDirection"]
-      139 GETIMPORT                        R22 K44 [UDim.new]
-      141 LOADN                            R23 0
-      142 LOADN                            R24 0
-      143 CALL                             R22 2 1
-      144 SETTABLEKS                       R22 R21 K34 ["Padding"]
-      146 GETIMPORT                        R22 K46 [Enum.HorizontalAlignment.Center]
-      148 SETTABLEKS                       R22 R21 K35 ["HorizontalAlignment"]
-      150 CALL                             R18 3 1
-      151 GETTABLEKS                       R19 R2 K47 ["PureComponent"]
-      153 LOADK                            R21 K48 ["CollaboratorsWidget"]
-      154 NAMECALL                         R19 R19 K49 ["extend"]
-      156 CALL                             R19 2 1
-      157 GETIMPORT                        R20 K8 [require]
-      159 GETTABLEKS                       R23 R1 K17 ["Src"]
-      161 GETTABLEKS                       R22 R23 K18 ["Util"]
-      163 GETTABLEKS                       R21 R22 K50 ["PermissionsConstants"]
-      165 CALL                             R20 1 1
-      166 DUPCLOSURE                       R21 K51 [PROTO_0]
-      167 CAPTURE                          VAL R0
-      168 CAPTURE                          VAL R17
-      169 CAPTURE                          VAL R9
-      170 CAPTURE                          VAL R10
-      171 CAPTURE                          VAL R2
-      172 CAPTURE                          VAL R11
-      173 CAPTURE                          VAL R20
-      174 CAPTURE                          VAL R18
-      175 SETTABLEKS                       R21 R19 K52 ["render"]
-      177 MOVE                             R21 R5
-      178 DUPTABLE                         R22 K54 [{"Stylizer", "Localization"}]
-      179 SETTABLEKS                       R7 R22 K16 ["Stylizer"]
-      181 GETTABLEKS                       R23 R4 K53 ["Localization"]
-      183 SETTABLEKS                       R23 R22 K53 ["Localization"]
-      185 CALL                             R21 1 1
-      186 MOVE                             R22 R19
-      187 CALL                             R21 1 1
-      188 MOVE                             R19 R21
-      189 GETTABLEKS                       R21 R3 K55 ["connect"]
-      191 DUPCLOSURE                       R22 K56 [PROTO_1]
-      192 CAPTURE                          VAL R15
-      193 CAPTURE                          VAL R20
-      194 CAPTURE                          VAL R12
-      195 CAPTURE                          VAL R13
-      196 CAPTURE                          VAL R14
-      197 CALL                             R21 1 1
-      198 MOVE                             R22 R19
-      199 CALL                             R21 1 1
-      200 MOVE                             R19 R21
-      201 RETURN                           R19 1
+       29 GETIMPORT                        R4 K8 [require]
+       31 GETTABLEKS                       R6 R1 K12 ["Bin"]
+       33 GETTABLEKS                       R5 R6 K13 ["defineLuaFlags"]
+       35 CALL                             R4 1 1
+       36 GETIMPORT                        R6 K8 [require]
+       38 GETTABLEKS                       R8 R1 K9 ["Packages"]
+       40 GETTABLEKS                       R7 R8 K14 ["Framework"]
+       42 CALL                             R6 1 1
+       43 GETTABLEKS                       R5 R6 K15 ["ContextServices"]
+       45 GETTABLEKS                       R6 R5 K16 ["withContext"]
+       47 GETIMPORT                        R7 K8 [require]
+       49 GETTABLEKS                       R9 R1 K9 ["Packages"]
+       51 GETTABLEKS                       R8 R9 K14 ["Framework"]
+       53 CALL                             R7 1 1
+       54 GETTABLEKS                       R9 R7 K17 ["Style"]
+       56 GETTABLEKS                       R8 R9 K18 ["Stylizer"]
+       58 GETIMPORT                        R9 K8 [require]
+       60 GETTABLEKS                       R12 R1 K19 ["Src"]
+       62 GETTABLEKS                       R11 R12 K20 ["Util"]
+       64 GETTABLEKS                       R10 R11 K21 ["CreateFitToContent"]
+       66 CALL                             R9 1 1
+       67 GETIMPORT                        R10 K8 [require]
+       69 GETTABLEKS                       R13 R1 K19 ["Src"]
+       71 GETTABLEKS                       R12 R13 K22 ["Components"]
+       73 GETTABLEKS                       R11 R12 K23 ["UserCollaboratorItem"]
+       75 CALL                             R10 1 1
+       76 GETIMPORT                        R11 K8 [require]
+       78 GETTABLEKS                       R14 R1 K19 ["Src"]
+       80 GETTABLEKS                       R13 R14 K22 ["Components"]
+       82 GETTABLEKS                       R12 R13 K24 ["GroupCollaboratorItem"]
+       84 CALL                             R11 1 1
+       85 GETIMPORT                        R12 K8 [require]
+       87 GETTABLEKS                       R15 R1 K19 ["Src"]
+       89 GETTABLEKS                       R14 R15 K22 ["Components"]
+       91 GETTABLEKS                       R13 R14 K25 ["GranularCollaboratorItem"]
+       93 CALL                             R12 1 1
+       94 GETIMPORT                        R13 K8 [require]
+       96 GETTABLEKS                       R16 R1 K19 ["Src"]
+       98 GETTABLEKS                       R15 R16 K26 ["Selectors"]
+      100 GETTABLEKS                       R14 R15 K27 ["GetUserCollaborators"]
+      102 CALL                             R13 1 1
+      103 GETIMPORT                        R14 K8 [require]
+      105 GETTABLEKS                       R17 R1 K19 ["Src"]
+      107 GETTABLEKS                       R16 R17 K26 ["Selectors"]
+      109 GETTABLEKS                       R15 R16 K28 ["GetGroupCollaborators"]
+      111 CALL                             R14 1 1
+      112 GETIMPORT                        R15 K8 [require]
+      114 GETTABLEKS                       R18 R1 K19 ["Src"]
+      116 GETTABLEKS                       R17 R18 K26 ["Selectors"]
+      118 GETTABLEKS                       R16 R17 K29 ["GetGranularCollaborators"]
+      120 CALL                             R15 1 1
+      121 GETIMPORT                        R16 K8 [require]
+      123 GETTABLEKS                       R19 R1 K19 ["Src"]
+      125 GETTABLEKS                       R18 R19 K26 ["Selectors"]
+      127 GETTABLEKS                       R17 R18 K30 ["GetSelectedFilterPill"]
+      129 CALL                             R16 1 1
+      130 GETTABLEKS                       R17 R7 K20 ["Util"]
+      132 GETTABLEKS                       R18 R17 K31 ["LayoutOrderIterator"]
+      134 MOVE                             R19 R9
+      135 LOADK                            R20 K32 ["Frame"]
+      136 LOADK                            R21 K33 ["UIListLayout"]
+      137 DUPTABLE                         R22 K38 [{"SortOrder", "FillDirection", "Padding", "HorizontalAlignment"}]
+      138 GETIMPORT                        R23 K41 [Enum.SortOrder.LayoutOrder]
+      140 SETTABLEKS                       R23 R22 K34 ["SortOrder"]
+      142 GETIMPORT                        R23 K43 [Enum.FillDirection.Vertical]
+      144 SETTABLEKS                       R23 R22 K35 ["FillDirection"]
+      146 GETIMPORT                        R23 K46 [UDim.new]
+      148 LOADN                            R24 0
+      149 LOADN                            R25 0
+      150 CALL                             R23 2 1
+      151 SETTABLEKS                       R23 R22 K36 ["Padding"]
+      153 GETIMPORT                        R23 K48 [Enum.HorizontalAlignment.Center]
+      155 SETTABLEKS                       R23 R22 K37 ["HorizontalAlignment"]
+      157 CALL                             R19 3 1
+      158 GETTABLEKS                       R20 R2 K49 ["PureComponent"]
+      160 LOADK                            R22 K50 ["CollaboratorsWidget"]
+      161 NAMECALL                         R20 R20 K51 ["extend"]
+      163 CALL                             R20 2 1
+      164 GETIMPORT                        R21 K8 [require]
+      166 GETTABLEKS                       R24 R1 K19 ["Src"]
+      168 GETTABLEKS                       R23 R24 K20 ["Util"]
+      170 GETTABLEKS                       R22 R23 K52 ["PermissionsConstants"]
+      172 CALL                             R21 1 1
+      173 DUPCLOSURE                       R22 K53 [PROTO_0]
+      174 CAPTURE                          VAL R0
+      175 CAPTURE                          VAL R18
+      176 CAPTURE                          VAL R10
+      177 CAPTURE                          VAL R11
+      178 CAPTURE                          VAL R2
+      179 CAPTURE                          VAL R12
+      180 CAPTURE                          VAL R4
+      181 CAPTURE                          VAL R21
+      182 CAPTURE                          VAL R19
+      183 SETTABLEKS                       R22 R20 K54 ["render"]
+      185 MOVE                             R22 R6
+      186 DUPTABLE                         R23 K56 [{"Stylizer", "Localization"}]
+      187 SETTABLEKS                       R8 R23 K18 ["Stylizer"]
+      189 GETTABLEKS                       R24 R5 K55 ["Localization"]
+      191 SETTABLEKS                       R24 R23 K55 ["Localization"]
+      193 CALL                             R22 1 1
+      194 MOVE                             R23 R20
+      195 CALL                             R22 1 1
+      196 MOVE                             R20 R22
+      197 GETTABLEKS                       R22 R3 K57 ["connect"]
+      199 DUPCLOSURE                       R23 K58 [PROTO_1]
+      200 CAPTURE                          VAL R16
+      201 CAPTURE                          VAL R21
+      202 CAPTURE                          VAL R13
+      203 CAPTURE                          VAL R14
+      204 CAPTURE                          VAL R15
+      205 CAPTURE                          VAL R4
+      206 CALL                             R22 1 1
+      207 MOVE                             R23 R20
+      208 CALL                             R22 1 1
+      209 MOVE                             R20 R22
+      210 RETURN                           R20 1

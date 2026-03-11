@@ -378,7 +378,7 @@ PROTO_11:
       360 SETTABLE                         R27 R25 R26
       361 CALL                             R23 2 1
       362 SETTABLEKS                       R23 R22 K56 ["Icon"]
-      364 JUMPIFNOT                        R10 ; [+88]
+      364 JUMPIFNOT                        R10 ; [+76]
       365 GETUPVAL                         R24 10
       366 GETTABLEKS                       R23 R24 K62 ["createPortal"]
       368 GETUPVAL                         R25 4
@@ -410,42 +410,32 @@ PROTO_11:
       407 SETTABLE                         R28 R26 R27
       408 GETUPVAL                         R28 4
       409 GETTABLEKS                       R27 R28 K39 ["Tag"]
-      411 GETUPVAL                         R28 9
-      412 LOADK                            R29 K70 ["Component-Dropdown"]
-      413 GETIMPORT                        R31 K72 [game]
-      415 LOADK                            R33 K73 ["FoundationDisableStylingPolyfill"]
-      416 NAMECALL                         R31 R31 K74 ["GetFastFlag"]
-      418 CALL                             R31 2 1
-      419 JUMPIF                           R31 ; [+2]
-      420 LOADK                            R30 K75 ["X-Column"]
-      421 JUMP                             ; [+1]
-      422 LOADNIL                          R30
-      423 CALL                             R28 2 1
-      424 SETTABLE                         R28 R26 R27
-      425 DUPTABLE                         R27 K77 [{"Wrapper"}]
-      426 GETUPVAL                         R29 4
-      427 GETTABLEKS                       R28 R29 K24 ["createElement"]
-      429 LOADK                            R29 K78 ["Frame"]
-      430 NEWTABLE                         R30 4 0
-      432 GETTABLEKS                       R31 R1 K53 ["Size"]
-      434 SETTABLEKS                       R31 R30 K53 ["Size"]
-      436 GETTABLEKS                       R31 R1 K65 ["AutomaticSize"]
-      438 SETTABLEKS                       R31 R30 K65 ["AutomaticSize"]
-      440 GETUPVAL                         R32 4
-      441 GETTABLEKS                       R31 R32 K39 ["Tag"]
-      443 LOADK                            R32 K79 ["X-Fill X-Column X-Transparent"]
-      444 SETTABLE                         R32 R30 R31
-      445 MOVE                             R31 R18
-      446 CALL                             R28 3 1
-      447 SETTABLEKS                       R28 R27 K76 ["Wrapper"]
-      449 CALL                             R24 3 1
-      450 MOVE                             R25 R4
-      451 CALL                             R23 2 1
-      452 JUMP                             ; [+1]
-      453 LOADNIL                          R23
-      454 SETTABLEKS                       R23 R22 K57 ["Dropdown"]
-      456 CALL                             R19 3 -1
-      457 RETURN                           R19 -1
+      411 LOADK                            R28 K70 ["Component-Dropdown"]
+      412 SETTABLE                         R28 R26 R27
+      413 DUPTABLE                         R27 K72 [{"Wrapper"}]
+      414 GETUPVAL                         R29 4
+      415 GETTABLEKS                       R28 R29 K24 ["createElement"]
+      417 LOADK                            R29 K73 ["Frame"]
+      418 NEWTABLE                         R30 4 0
+      420 GETTABLEKS                       R31 R1 K53 ["Size"]
+      422 SETTABLEKS                       R31 R30 K53 ["Size"]
+      424 GETTABLEKS                       R31 R1 K65 ["AutomaticSize"]
+      426 SETTABLEKS                       R31 R30 K65 ["AutomaticSize"]
+      428 GETUPVAL                         R32 4
+      429 GETTABLEKS                       R31 R32 K39 ["Tag"]
+      431 LOADK                            R32 K74 ["X-Fill X-Column X-Transparent"]
+      432 SETTABLE                         R32 R30 R31
+      433 MOVE                             R31 R18
+      434 CALL                             R28 3 1
+      435 SETTABLEKS                       R28 R27 K71 ["Wrapper"]
+      437 CALL                             R24 3 1
+      438 MOVE                             R25 R4
+      439 CALL                             R23 2 1
+      440 JUMP                             ; [+1]
+      441 LOADNIL                          R23
+      442 SETTABLEKS                       R23 R22 K57 ["Dropdown"]
+      444 CALL                             R19 3 -1
+      445 RETURN                           R19 -1
 
 MAIN:
         0 PREPVARARGS                      0

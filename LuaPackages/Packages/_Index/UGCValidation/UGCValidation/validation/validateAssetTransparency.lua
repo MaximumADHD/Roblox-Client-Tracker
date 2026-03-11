@@ -26,7 +26,6 @@ local SummedAreaTable = require(root.util.SummedAreaTable)
 local ConstantsTransparencyValidation = require(root.ConstantsTransparencyValidation)
 
 local getFFlagUGCValidateMinBoundsVisibility = require(root.flags.getFFlagUGCValidateMinBoundsVisibility)
-local getFFlagReportVisibilityAndIslandTelemetry = require(root.flags.getFFlagReportVisibilityAndIslandTelemetry)
 
 type SummedAreaTable = SummedAreaTable.SummedAreaTable
 type ValidationContext = Types.ValidationContext
@@ -473,15 +472,12 @@ local function validateAssetTransparency(inst: Instance, validationContext: Vali
 				})
 			end
 		end
-
-		if getFFlagReportVisibilityAndIslandTelemetry() then
-			if not (reasonsAccumulator:getFinalResults()) then
-				Analytics.reportFailure(
-					Analytics.ErrorType.validateAssetTransparency_AssetTransparencyThresholds :: string,
-					nil,
-					validationContext
-				)
-			end
+		if not (reasonsAccumulator:getFinalResults()) then
+			Analytics.reportFailure(
+				Analytics.ErrorType.validateAssetTransparency_AssetTransparencyThresholds :: string,
+				nil,
+				validationContext
+			)
 		end
 
 		return reasonsAccumulator:getFinalResults()
@@ -529,15 +525,12 @@ local function validateAssetTransparency(inst: Instance, validationContext: Vali
 			end
 			editableImage:Destroy()
 		end
-
-		if getFFlagReportVisibilityAndIslandTelemetry() then
-			if not (reasonsAccumulator:getFinalResults()) then
-				Analytics.reportFailure(
-					Analytics.ErrorType.validateAssetTransparency_AssetTransparencyThresholds :: string,
-					nil,
-					validationContext
-				)
-			end
+		if not (reasonsAccumulator:getFinalResults()) then
+			Analytics.reportFailure(
+				Analytics.ErrorType.validateAssetTransparency_AssetTransparencyThresholds :: string,
+				nil,
+				validationContext
+			)
 		end
 
 		return reasonsAccumulator:getFinalResults()

@@ -62,6 +62,7 @@ local function ProfileHeader(props: ProfileHeaderProps)
 			username = profileInfoFromJson.names.username,
 			isPremium = profileInfoFromJson.isPremium,
 			isVerified = profileInfoFromJson.isVerified,
+			isRobloxAdmin = profileInfoFromJson.isRobloxAdmin,
 			layoutOrder = 1,
 		}),
 		SocialCountsRow = if shouldDisplayCounts

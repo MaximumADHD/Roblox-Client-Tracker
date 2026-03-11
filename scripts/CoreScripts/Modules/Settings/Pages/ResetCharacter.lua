@@ -10,6 +10,7 @@
 local RESET_CHARACTER_GAME_ACTION = "ResetCharacterAction"
 
 -------------- SERVICES --------------
+local AvatarEditorService = game:GetService("AvatarEditorService")
 local CoreGui = game:GetService("CoreGui")
 local ContextActionService = game:GetService("ContextActionService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -57,6 +58,8 @@ local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.
 local FFlagConfirmationButtonsUseGreyButtons = require(RobloxGui.Modules.Settings.Flags.FFlagConfirmationButtonsUseGreyButtons)
 local FFlagMenuButtonsFixConfirmationScrolling = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsFixConfirmationScrolling)
 local FFlagRenameRespawnConfirmationPage = SharedFlags.FFlagRenameRespawnConfirmationPage
+
+local EngineFeatureAvatarEditorServiceBustCacheEnabled = game:GetEngineFeature("AvatarEditorServiceBustCacheEnabled")
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
@@ -265,6 +268,11 @@ local function Initialize()
 	this.ResetBindable = true
 
 	local onResetFunction = function(props: ResetProps?)
+		if EngineFeatureAvatarEditorServiceBustCacheEnabled then
+			-- Remove any cast with EngineFeatureAvatarEditorServiceBustCacheEnabled
+			(AvatarEditorService :: any):BustAvatarFetchCache()
+		end
+
 		if this.ResetBindable == true then
 			resetCharFunc(props)
 		elseif this.ResetBindable then
