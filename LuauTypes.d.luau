@@ -490,5 +490,19 @@ type TerrainMergeConfig = {
     Magnitude : number?,
 }
 
+type GetCampaignEligibilityResult = { IsEligible: boolean }
+
+type GetAdAvailabilityNowResult = {
+    AdAvailabilityResult: Enum.AdAvailabilityResult,
+}
+
+type GetAdAvailabilityNowForUniverseResult = {
+    AdAvailabilityResult: Enum.AdAvailabilityResult,
+    ProductId: string?,
+    ProductName: string?,
+    ProductImageAssetId: string?,
+    ExperimentVariantData: string?,
+}
+
 
 -- SECTION END: Reflection Adjacent
