@@ -5699,6 +5699,9 @@ Studio.App.RobloxRibbonMainWindow.CreateAnimationConstraint,,,Create animation c
 Studio.App.GenerativeAI.FileDialog.AllFiles,,,All files,All files
 Studio.App.GenerativeAI.FileDialog.AllowedFiles,,,Allowed files,Allowed files
 Studio.App.PackageService.CircularDependency,,,Cannot publish package with circular package link dependencies,Cannot publish package with circular package link dependencies
+Studio.App.RobloxRibbonMainWindow.AdaptiveAnimation,,,Adaptive Animation Support,Adaptive Animation Support
+Studio.App.RobloxRibbonMainWindow.AdaptiveAnimationTooltip,,,Adaptive Animation Support,Adaptive Animation Support
+Studio.App.StudioPluginHost.CantSaveSettings,,,Unable to save settings for plugin,Unable to save settings for plugin
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -9378,7 +9381,7 @@ Studio.AssetManager.ContextMenu.Copy,,,Copy,Copy
 Studio.AssetManager.ContextMenu.CopyId,,,Copy ID,Copy ID
 Studio.AssetManager.ContextMenu.CopyIds,,,Copy IDs,Copy IDs
 Studio.AssetManager.ContextMenu.CopyInfo,,,Copy Info,Copy Info
-Studio.AssetManager.ContextMenu.ClearRecent,,,Clear,Clear
+Studio.AssetManager.ContextMenu.ClearRecent,,,Clear All,Clear All
 Studio.AssetManager.Sidebar.Inventories,,,Inventories,Inventories
 Studio.AssetManager.Sidebar.Recent,,,Recent,Recent
 Studio.AssetManager.Scopes.RecentUploads,,,Uploads,Uploads
@@ -9391,6 +9394,8 @@ Studio.AssetManager.OpenUse.ConfirmText,,,Are you sure you want to make the sele
 Studio.AssetManager.OpenUse.ErrorTitle,,,The following assets cannot be made Open Use,The following assets cannot be made Open Use
 Studio.AssetManager.AssetType.Folder,,,Folder,Folder
 Studio.AssetManager.ContextMenu.Edit,,,Edit,Edit
+Studio.AssetManager.ContextMenu.InsertAsAnimation,,,Insert as Animation,Insert as Animation
+Studio.AssetManager.ContextMenu.InsertAsKeyframes,,,Insert as Keyframes,Insert as Keyframes
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10275,6 +10280,10 @@ Studio.AssetImporter.UploadError.OkButton,,,Ok,Ok
 Studio.AssetImporter.Statuses.EmissiveNeedsTransformWarning,,,Roblox transforms emissive map textures into a grayscale mask texture and modifies the imported color map to include the color information from the emissive map texture.,Roblox transforms emissive map textures into a grayscale mask texture and modifies the imported color map to include the color information from the emissive map texture.
 Studio.AssetImporter.ImportQueue.NoPreset,,,N/A,N/A
 Studio.AssetImporter.ImportQueue.SearchBar,,,Search Import Queue,Search Import Queue
+Studio.AssetImporter.Properties.ScaleFactor,,,Scale Factor,Scale Factor
+Studio.AssetImporter.PropertiesTooltip.ScaleFactor,,,The scale factor used when importing the file. It is multiplied on top of the unit scaling.,The scale factor used when importing the file. It is multiplied on top of the unit scaling.
+Studio.AssetImporter.Statuses.ScaleUnitNotStudWarning,,,"Scale Unit is not set to Stud. The current Stud-to-meter conversion factor (20:1), used by all non-Stud units, will soon be updated to 25:7. If your workflow depends on the existing conversion factor, you will need to adjust the Scale Factor to 5.6 to maintain consistency.","Scale Unit is not set to Stud. The current Stud-to-meter conversion factor (20:1), used by all non-Stud units, will soon be updated to 25:7. If your workflow depends on the existing conversion factor, you will need to adjust the Scale Factor to 5.6 to maintain consistency."
+Studio.AssetImporter.Statuses.ScaleUnitNotStudWarning2,,,"Scale Unit is not set to Stud. The previous Stud-to-meter conversion factor (20:1), used by all non-Stud units, has been updated to 25:7. If your workflow relied on the old conversion factor, you must now adjust the Scale Factor to 5.6 to maintain the same behavior.","Scale Unit is not set to Stud. The previous Stud-to-meter conversion factor (20:1), used by all non-Stud units, has been updated to 25:7. If your workflow relied on the old conversion factor, you must now adjust the Scale Factor to 5.6 to maintain the same behavior."
 Studio.MaterialManager.Plugin.Name,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Button,,,Material Manager,Material Manager
@@ -12244,6 +12253,20 @@ Studio.AvatarCompatibilityPreviewer.AddItems.SelectedInstancesLabel,,,Selected i
 Studio.AvatarCompatibilityPreviewer.AddItems.AssetIDLabel,,,AssetID,AssetID
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ThumbnailSkinTone,,,Thumbnail skin tone,Thumbnail skin tone
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.TooltipThumbnailSkinColorDescription,,,This skin color will only be used in the thumbnail to merchandise your Makeup item,This skin color will only be used in the thumbnail to merchandise your Makeup item
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ErrorFailedToParseHex,,,Failed to parse hex,Failed to parse hex
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ErrorHexCharCount,,,Hex must be 3 or 6 characters,Hex must be 3 or 6 characters
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ErrorInvalidHexCharacters,,,Invalid hex characters,Invalid hex characters
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.PressEnterToLoadAssetIDs,,,Press enter to load AssetIDs,Press enter to load AssetIDs
+Studio.AvatarCompatibilityPreviewer.SubmitDialog.SelectAssetsToSaveToRoblox,,,Select assets to save to Roblox,Select assets to save to Roblox
+Studio.AvatarCompatibilityPreviewer.SubmitDialog.Continue,,,Continue,Continue
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.MinimumMakeupItems,,,At least 3 makeup items must be selected,At least 3 makeup items must be selected
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.MakeupLookDifferentCreator,,,You can only create a Makeup Look using items that you created,You can only create a Makeup Look using items that you created
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.UnexpectedErrorLookPreview,,,"Something unexpected went wrong with the look preview request, please try again later or file a bug report.","Something unexpected went wrong with the look preview request, please try again later or file a bug report."
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.UnexpectedErrorLookValidation,,,"Something unexpected went wrong with the look validation request, please try again later or file a bug report.","Something unexpected went wrong with the look validation request, please try again later or file a bug report."
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.UnexpectedErrorLookCreation,,,"Something unexpected went wrong with the look creation request, please try again later or file a bug report.","Something unexpected went wrong with the look creation request, please try again later or file a bug report."
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.ConfigureAssetCategory,,,Configure asset category,Configure asset category
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Save,,,Save,Save
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Category,,,Category,Category
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -13741,6 +13764,7 @@ Studio.Assistant.GenerateMesh.InitialResponse,,,"On it! Generating your model, I
 Studio.Assistant.Message.AuthoredBy,,,{asset} by {creator},{asset} by {creator}
 Studio.Assistant.RunCode.CodeDropdownClosedTitle,,,Show code,Show code
 Studio.Assistant.RunCode.CodeDropdownOpenedTitle,,,Hide code,Hide code
+Studio.Assistant.InputArea.PIINotice,,,"This is an AI-powered conversation, not human. It may make mistakes.","This is an AI-powered conversation, not human. It may make mistakes."
 Studio.Assistant.ErrorMessage.Timeout,,,The current request's connection was inactive for too long. Please try again.,The current request's connection was inactive for too long. Please try again.
 Studio.Assistant.ErrorMessage.ClientError,,,An unexpected client error occurred. Please try again,An unexpected client error occurred. Please try again
 Studio.Assistant.ErrorMessage.CopyID,,,Copy ID to use in a bug report,Copy ID to use in a bug report
@@ -13827,6 +13851,8 @@ Studio.Assistant.ScriptChangeConfirmation.AcceptAllPrompt,,,Accept All Script Ch
 Studio.Assistant.ScriptChangeConfirmation.AcceptAllSession,,,Accept All Script Changes This Session,Accept All Script Changes This Session
 Studio.Assistant.ScriptChangeConfirmation.ReviewEach,,,Review Each Script Change,Review Each Script Change
 Studio.Assistant.ScriptChangeConfirmation.Warning,,,This prompt will make changes to your scripts,This prompt will make changes to your scripts
+Studio.Assistant.Subagent.Running,,,Running subagent...,Running subagent...
+Studio.Assistant.Subagent.Completed,,,Subagent complete,Subagent complete
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -14591,6 +14617,7 @@ Studio.PlaceVersionHistory.Title.MigrationInProgress,,,Your version history is b
 Studio.PlaceVersionHistory.Description.MigrationInProgress,,,We have started moving your version history. It will show up here soon.,We have started moving your version history. It will show up here soon.
 Studio.PlaceVersionHistory.Label.ResetPlace,,,Back to current place,Back to current place
 Studio.PlaceVersionHistory.Label.PreviouslyPublished,,,Previously Published,Previously Published
+Studio.PlaceVersionHistory.Title.AddVersionNotes,,,Add version notes,Add version notes
 Studio.PerformanceTools.SceneBudgetThermometer.Plugin.Toolbar,,,Performance Tools,Performance Tools
 Studio.PerformanceTools.SceneBudgetThermometer.Name,,,Scene Budget Thermometer,Scene Budget Thermometer
 Studio.PerformanceTools.SceneBudgetThermometer.Button,,,Scene Budget Thermometer,Scene Budget Thermometer
@@ -14929,6 +14956,10 @@ Studio.PublishPlace.Error.PublishEligibilityTitle,,,Unable to publish this exper
 Studio.PublishPlace.Error.PublishEligibilityDescription,,,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.
 Studio.PublishPlace.Button.Manage,,,View eligibility,View eligibility
 Studio.PublishPlace.Button.Close,,,Close,Close
+Studio.PublishPlace.Toast.ViewQuestionnaireLink,,,View questionnaire,View questionnaire
+Studio.PublishPlace.Toast.ViewQuestionnaireMessage,,,Changes published. Take the questionnaire to make your experience playable.,Changes published. Take the questionnaire to make your experience playable.
+Studio.PublishPlace.Toast.ChangesPublished,,,Changes published.,Changes published.
+Studio.PublishPlace.Toast.AddNotes,,,Add notes,Add notes
 Studio.ReactDevTools.Plugin.Name,,,React DevTools,React DevTools
 Studio.ReactDevTools.Plugin.Description,,,Use React DevTools to debug and profile your React Luau applications.,Use React DevTools to debug and profile your React Luau applications.
 Studio.ReactDevTools.Plugin.Button,,,DevTools,DevTools
@@ -14983,8 +15014,22 @@ Studio.AdaptiveAnimationSupport.Animation.Pause,,,Pause,Pause
 Studio.AdaptiveAnimationSupport.Animation.Laugh,,,Laugh,Laugh
 Studio.AdaptiveAnimationSupport.Toolbar.SymmetryOff,,,Symmetry Off,Symmetry Off
 Studio.AdaptiveAnimationSupport.Toolbar.EnforceTposeTooltip,,,Automatically position avatar to match T-Pose requirements,Automatically position avatar to match T-Pose requirements
+Studio.AdaptiveAnimationSupport.Plugin.Name,,,Adaptive Animation Support,Adaptive Animation Support
 Studio.AdaptiveAnimationSupport.Plugin.Description,,,Adaptive Animation Support,Adaptive Animation Support
+Studio.AdaptiveAnimationSupport.Plugin.Button,,,Adaptive Animation Support,Adaptive Animation Support
+Studio.AdaptiveAnimationSupport.Plugin.Toolbar,,,Adaptive Animation Support,Adaptive Animation Support
 Studio.TeamCreate.DisconnectReasonUnknown,,,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.
 Studio.TeamCreate.Disconnected,,,Disconnected,Disconnected
 Studio.AnimationGraphEditor.Plugin.Button,,,Animation Graph Editor,Animation Graph Editor
 Studio.AnimationGraphEditor.Plugin.Name,,,Animation Graph Editor,Animation Graph Editor
+Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForYears,,,Connected for {age} years,Connected for {age} years
+Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForOneYear,,,Connected for one year,Connected for one year
+Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForMonths,,,Connected for {age} months,Connected for {age} months
+Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForOneMonth,,,Connected for one month,Connected for one month
+Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForDays,,,Connected for {age} days,Connected for {age} days
+Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForOneDay,,,Connected for one day,Connected for one day
+Studio.TeamCreateCollaborators.ProfileInsights.NotConnected,,,Not Connected,Not Connected
+Studio.TeamCreateCollaborators.ProfileInsights.JoinedInYear,,,Joined in {year},Joined in {year}
+Studio.TeamCreateCollaborators.MainView.Title,,,Get a shareable link to add Trusted Connections,Get a shareable link to add Trusted Connections
+Studio.TeamCreateCollaborators.MainView.Subtitle,,,"This unlocks live collaboration in Studio, chat without filters, Party voice, and more.","This unlocks live collaboration in Studio, chat without filters, Party voice, and more."
+Studio.TeamCreateCollaborators.MainView.AskParentButton,,,Ask Parent,Ask Parent

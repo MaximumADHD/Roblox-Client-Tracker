@@ -1954,6 +1954,7 @@ Studio.App.PackagesBlockingPublishDialog.PackageIsModified,,Package is modified,
 Studio.App.PackagesBlockingPublishDialog.Permission,,Permission,Permission
 Studio.App.PackagesBlockingPublishDialog.SelectPackages,,Select All in Explorer,Select All in Explorer
 Studio.App.PackagesBlockingPublishDialog.Warning,,The following packages are preventing this place from being published:,The following packages are preventing this place from being published:
+Studio.App.PackageService.CircularDependency,Indicates to the user that there is a package dependency cycle within the hierarchy of the package they are trying to publish,Cannot publish package with circular package link dependencies,Cannot publish package with circular package link dependencies
 Studio.App.PackageService.GetPackageInfoError1,,Get package info error: %1,Get package info error: %1
 Studio.App.PackageService.PackageAPIError.InvalidArgument,,Argument 1 is invalid,Argument 1 is invalid
 Studio.App.PackageService.PackageAPIError.LatestVersionFail,,Can't get selected package link latestVersionNum: data not available,Can't get selected package link latestVersionNum: data not available
@@ -2122,6 +2123,7 @@ Studio.App.PropertyEnum.Automatic,,Automatic,Automatic
 Studio.App.PropertyEnum.Benchmark,,Benchmark,Benchmark
 Studio.App.PropertyEnum.Client,,Client,Client
 Studio.App.PropertyEnum.Custom,A fully custom Script Editor Syntax Highlighting Preset,Custom,Custom
+Studio.App.PropertyEnum.CustomEditor,"Dropdown item choice for when user wants to select a specific application to open scripts with when using ""Open in External Editor""",Custom editor,Custom editor
 Studio.App.PropertyEnum.Dark,Application theme with darker tones and colors,Dark,Dark
 Studio.App.PropertyEnum.Decal,,Decal,Decal
 Studio.App.PropertyEnum.DefaultAuto,,Default Auto,Default Auto
@@ -5220,6 +5222,7 @@ Studio.App.StudioPluginHost.CantLoadInvalidPlugin,,Error: Plugin at %1 could not
 Studio.App.StudioPluginHost.CantLoadMetadata,,Unable to load metadata for installed plugins. Installed plugins will not be loaded.,Unable to load metadata for installed plugins. Installed plugins will not be loaded.
 Studio.App.StudioPluginHost.CantParseSettings,,Unable to parse settings file for plugin,Unable to parse settings file for plugin
 Studio.App.StudioPluginHost.CantRemovePluginFiles,,Unable to remove all of the plugin files in directory %1. Please clean this location manually,Unable to remove all of the plugin files in directory %1. Please clean this location manually
+Studio.App.StudioPluginHost.CantSaveSettings,A warning message when plugin setting can't be saved,Unable to save settings for plugin,Unable to save settings for plugin
 Studio.App.StudioPluginHost.CantSetEnabledDisabled,,Unable to set enabled/disabled state for plugin: %1,Unable to set enabled/disabled state for plugin: %1
 Studio.App.StudioPluginHost.CantValidatePlugin,,Warning: Plugin at %1 could not be verified.,Warning: Plugin at %1 could not be verified.
 Studio.App.StudioPluginHost.ErrorParsingAssetId,,Error parsing plugin asset id for plugin: %1,Error parsing plugin asset id for plugin: %1
@@ -6063,10 +6066,14 @@ Studio.BetaFeatures.R15MigratorDescription,,"Enable tools to convert an R6 exper
 Studio.BetaFeatures.R15MigratorTitle,,R6-to-R15 Conversion,R6-to-R15 Conversion
 Studio.BetaFeatures.ReimportDescription,description of reimport beta feature,Adds the ability to quickly and non-destructively reimport Models and SurfaceAppearances from external files through the right-click menu in the Explorer,Adds the ability to quickly and non-destructively reimport Models and SurfaceAppearances from external files through the right-click menu in the Explorer
 Studio.BetaFeatures.ReimportTitle,"Title of the ""Reimport"" beta feature which lets users quickly update models previously imported through the 3D importer",Reimport,Reimport
+Studio.BetaFeatures.RemoteBreakpointsDescription,Describes what the Remote Breakpoints beta feature can do.,Enables the ability to debug Team Test servers from Studio.,Enables the ability to debug Team Test servers from Studio.
+Studio.BetaFeatures.RemoteBreakpointsTitle,The Title of a feature which allows you to remotely set breakpoints on Team Test servers.,Remote Breakpoints,Remote Breakpoints
 Studio.BetaFeatures.RestartStudioTitle,,Restart Studio,Restart Studio
 Studio.BetaFeatures.RestartWarning,,Beta features will not be activated until you restart Studio,Beta features will not be activated until you restart Studio
 Studio.BetaFeatures.RobloxClassicDescription,,Enable tools to create a Roblox Classic experience (R15 experience that plays like an R6).,Enable tools to create a Roblox Classic experience (R15 experience that plays like an R6).
 Studio.BetaFeatures.RobloxClassicTitle,,Roblox Classic,Roblox Classic
+Studio.BetaFeatures.RuntimeContentDescription,Description of the RuntimeContent studio beta feature,"EditableMesh and EditableImage objects can be converted into static, unpublished content that exists and replicates within the Data Model session using the new CreateContentAsync API","EditableMesh and EditableImage objects can be converted into static, unpublished content that exists and replicates within the Data Model session using the new CreateContentAsync API"
+Studio.BetaFeatures.RuntimeContentTitle,Title for Runtime Content studio beta feature,Editable Mesh/Image to static content conversion API,Editable Mesh/Image to static content conversion API
 Studio.BetaFeatures.SaveToCloudV2Description,,Create new games in the cloud automatically.,Create new games in the cloud automatically.
 Studio.BetaFeatures.SaveToCloudV2Title,,New Games in the Cloud,New Games in the Cloud
 Studio.BetaFeatures.ScriptEditorApiDescription,,"Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor.","Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor."
@@ -6417,6 +6424,7 @@ Studio.Debugger.Plugin.Button,,Toggle,Toggle
 Studio.Debugger.Plugin.Description,,Toggles the Debugger plugin window.,Toggles the Debugger plugin window.
 Studio.Debugger.Plugin.Name,,Debugger,Debugger
 Studio.Debugger.Plugin.Toolbar,,Debugger,Debugger
+Studio.Debugger.RemoteDebugger.OtherClientDebugging,Message displayed in the output window when a user connects to an existing Team Test session that another user is already debugging.,Another user is already debugging the Server DataModel. Server breakpoints will not be hit.,Another user is already debugging the Server DataModel. Server breakpoints will not be hit.
 Studio.Debugger.RemoteDebugger.ScriptChanged,"During Team Test debugging, it is possible for the source of a script to change. This message informs the user when they open a script whose source has changed.",The contents of this script have changed. You are viewing a newer version of the script.,The contents of this script have changed. You are viewing a newer version of the script.
 Studio.Debugger.Watch.AllColumns,,All Columns,All Columns
 Studio.Debugger.Watch.AllScopes,,All Scopes,All Scopes
@@ -6850,9 +6858,11 @@ Studio.LiveSync.OpenInExternalEditorTooltip,tooltip that displays when hovering 
 Studio.LiveSync.PackageLinkAdded,Instance cannot be synced now because it is a package,Unable to sync '%1' because it is part of a package.,Unable to sync '%1' because it is part of a package.
 Studio.LiveSync.PathTranslationError,Header text for the dialog that is shown when a file with an invalid extension is chosen for start sync according to the selected script type and/or runcontext,<b>Path Translation Error</b>,<b>Path Translation Error</b>
 Studio.LiveSync.PathTranslationErrorContent,Content text for the dialog that is shown when a file with an invalid extension is chosen for start sync according to the selected script type and/or runcontext,Can't sync %1 to disk: Encountered an error with the chosen file's extension. See output window for details.,Can't sync %1 to disk: Encountered an error with the chosen file's extension. See output window for details.
-Studio.LiveSync.Property.ExternalEditorSelection,"Property name for the application to be used with ""open in external editor""",External script editor,External script editor
+Studio.LiveSync.Property.ExternalEditorMode,Dropdown property name for choosing between system default or custom external script editor,External script editor,External script editor
+Studio.LiveSync.Property.ExternalEditorSelection,"Property name for the application to be used with ""open in external editor""",Editor path,Editor path
 Studio.LiveSync.Property.UseDefaultExternalEditor,Property name for if a default application should be used or not,Use default as external script editor,Use default as external script editor
 Studio.LiveSync.PropertyItems.ApplicationNotFound1,Message Displayed when the configured/selected application cannot be found. The argument %1 is the path to the application.,Application not found (%1),Application not found (%1)
+Studio.LiveSync.PropertyItems.ChooseApp,"Text to display when no application is selected to open scripts with when using ""Open in External Editor""",Choose an application,Choose an application
 Studio.LiveSync.PropertyItems.SystemDefault,Text displayed in settings when no custom application path is configured for external editor app.,System Default,System Default
 Studio.LiveSync.ResumeSyncConflictsDetected,Notifying the user that scripts did not auto-resume sync due to content mismatch.,Studio did not resume syncing %1 script(s) because their contents do not match the files on disk. You can resume them manually in the context menu. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open,Studio did not resume syncing %1 script(s) because their contents do not match the files on disk. You can resume them manually in the context menu. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open
 Studio.LiveSync.ResumeSyncConflictsDetectedM3,Notifying the user that scripts did not auto-resume sync due to content mismatch.,Studio did not resume syncing %1 instance(s) because their contents do not match the files on disk. You can resume them manually in the context menu. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open,Studio did not resume syncing %1 instance(s) because their contents do not match the files on disk. You can resume them manually in the context menu. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open
@@ -7174,13 +7184,9 @@ Studio.PublishPlace.AfterPublish.ViewCreatorHubText,Message to display after pub
 Studio.PublishPlace.AfterPublish.ViewQuestionnaire,Message to display after publish in toast notification,View questionnaire,View questionnaire
 Studio.PublishPlace.AfterPublish.ViewQuestionnaireText,Message to display after publish in toast notification,Changes published. Take the questionnaire to make your experience playable.,Changes published. Take the questionnaire to make your experience playable.
 Studio.PublishPlace.Button.Close,Button to close,Close,Close
-Studio.PublishPlace.Button.LearnMore,Button to open the policy page,Learn more,Learn more
 Studio.PublishPlace.Button.Manage,"Button to open a web page that displays user's ""eligibility""",View eligibility,View eligibility
-Studio.PublishPlace.Button.Ok,Button to acknowledge and close,Ok,Ok
 Studio.PublishPlace.Error.PublishEligibilityDescription,Shown when the user cannot publish their place due to eligibility checks.,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.
 Studio.PublishPlace.Error.PublishEligibilityTitle,Shown when the user cannot publish their place to a universe,Unable to publish this experience,Unable to publish this experience
-Studio.PublishPlace.Error.PublishLimitReachedTitle,Shown when the user cannot publish their place to a universe due to daily distinct experiences publish limit.,Daily publish limit reached,Daily publish limit reached
-Studio.PublishPlace.Error.PublishlimitReachedDescription,Shown when the user cannot publish their place due to daily limit checks.,You've reached today's limit for publishing public and community places. You can publish again tomorrow.,You've reached today's limit for publishing public and community places. You can publish again tomorrow.
 Studio.QtUI.Action.DoNotAskMeAgain,,Do not ask me again,Do not ask me again
 Studio.ReactDevTools.Plugin.Button,The text displayed on the default button entry point for the React DevTools plugin.,DevTools,DevTools
 Studio.ReactDevTools.Plugin.Description,The description (tooltip) displayed on the default button entry point for the React DevTools plugin.,Use React DevTools to debug and profile your React Luau applications.,Use React DevTools to debug and profile your React Luau applications.
@@ -7459,6 +7465,7 @@ Studio.RobloxPropertiesWidget.Category.Goals,,Goals,Goals
 Studio.RobloxPropertiesWidget.Category.Haptic,Category Haptic,Haptic,Haptic
 Studio.RobloxPropertiesWidget.Category.Hinge,,Hinge,Hinge
 Studio.RobloxPropertiesWidget.Category.Image,,Image,Image
+Studio.RobloxPropertiesWidget.Category.IndividualCorners,Specification for each of the corners of the parent GuiObject,Individual Corners,Individual Corners
 Studio.RobloxPropertiesWidget.Category.Input,,Input,Input
 Studio.RobloxPropertiesWidget.Category.Interactions,,Interactions,Interactions
 Studio.RobloxPropertiesWidget.Category.Internal,,Internal,Internal
@@ -7555,6 +7562,7 @@ Studio.RobloxPropertiesWidget.Category.Video,,Video,Video
 Studio.RobloxPropertiesWidget.Category.Visualization,,Visualization,Visualization
 Studio.RobloxPropertiesWidget.Category.Winch,,Winch,Winch
 Studio.RobloxPropertiesWidget.Color3Picker.HexLabel,,Hex:,Hex:
+Studio.RobloxPropertiesWidget.WorkspaceAuthorityModeDepProperty,Tooltip shown on properties who are forced to a value to support enabling Server Authority.,This property is required given your Server Authority settings.,This property is required given your Server Authority settings.
 Studio.ScriptEditor.NoDeclarationFoundParameterTooltip,No declaration/definition was found for the given parameter,No declaration found for '%1',No declaration found for '%1'
 Studio.ScriptEditor.NoDeclarationFoundTooltip,Tooltip string indicating that no declaration/definition was found,No declaration found,No declaration found
 Studio.ScriptEditor.TypeColor,The color of Luau Types in the Studio Script Editor Syntax highlighter,Type Color,Type Color
