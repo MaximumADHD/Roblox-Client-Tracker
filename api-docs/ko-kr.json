@@ -23295,6 +23295,375 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ClimbController#MoveMaxForce",
     "code_sample": ""
   },
+  "@roblox/globaltype/DigitsRigDescription": {
+    "documentation": "",
+    "keys": {
+      "Index1": "@roblox/globaltype/DigitsRigDescription.Index1",
+      "Index1TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Index1TposeAdjustment",
+      "Index2": "@roblox/globaltype/DigitsRigDescription.Index2",
+      "Index2TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Index2TposeAdjustment",
+      "Index3": "@roblox/globaltype/DigitsRigDescription.Index3",
+      "Index3TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Index3TposeAdjustment",
+      "IndexRange": "@roblox/globaltype/DigitsRigDescription.IndexRange",
+      "IndexSize": "@roblox/globaltype/DigitsRigDescription.IndexSize",
+      "Middle1": "@roblox/globaltype/DigitsRigDescription.Middle1",
+      "Middle1TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Middle1TposeAdjustment",
+      "Middle2": "@roblox/globaltype/DigitsRigDescription.Middle2",
+      "Middle2TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Middle2TposeAdjustment",
+      "Middle3": "@roblox/globaltype/DigitsRigDescription.Middle3",
+      "Middle3TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Middle3TposeAdjustment",
+      "MiddleRange": "@roblox/globaltype/DigitsRigDescription.MiddleRange",
+      "MiddleSize": "@roblox/globaltype/DigitsRigDescription.MiddleSize",
+      "Pinky1": "@roblox/globaltype/DigitsRigDescription.Pinky1",
+      "Pinky1TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Pinky1TposeAdjustment",
+      "Pinky2": "@roblox/globaltype/DigitsRigDescription.Pinky2",
+      "Pinky2TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Pinky2TposeAdjustment",
+      "Pinky3": "@roblox/globaltype/DigitsRigDescription.Pinky3",
+      "Pinky3TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Pinky3TposeAdjustment",
+      "PinkyRange": "@roblox/globaltype/DigitsRigDescription.PinkyRange",
+      "PinkySize": "@roblox/globaltype/DigitsRigDescription.PinkySize",
+      "Ring1": "@roblox/globaltype/DigitsRigDescription.Ring1",
+      "Ring1TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Ring1TposeAdjustment",
+      "Ring2": "@roblox/globaltype/DigitsRigDescription.Ring2",
+      "Ring2TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Ring2TposeAdjustment",
+      "Ring3": "@roblox/globaltype/DigitsRigDescription.Ring3",
+      "Ring3TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Ring3TposeAdjustment",
+      "RingRange": "@roblox/globaltype/DigitsRigDescription.RingRange",
+      "RingSize": "@roblox/globaltype/DigitsRigDescription.RingSize",
+      "Side": "@roblox/globaltype/DigitsRigDescription.Side",
+      "Thumb1": "@roblox/globaltype/DigitsRigDescription.Thumb1",
+      "Thumb1TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Thumb1TposeAdjustment",
+      "Thumb2": "@roblox/globaltype/DigitsRigDescription.Thumb2",
+      "Thumb2TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Thumb2TposeAdjustment",
+      "Thumb3": "@roblox/globaltype/DigitsRigDescription.Thumb3",
+      "Thumb3TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Thumb3TposeAdjustment",
+      "ThumbRange": "@roblox/globaltype/DigitsRigDescription.ThumbRange",
+      "ThumbSize": "@roblox/globaltype/DigitsRigDescription.ThumbSize",
+      "GetFingerControl": "@roblox/globaltype/DigitsRigDescription.GetFingerControl",
+      "GetFingerTip": "@roblox/globaltype/DigitsRigDescription.GetFingerTip",
+      "SetFingerControl": "@roblox/globaltype/DigitsRigDescription.SetFingerControl",
+      "SetFingerTip": "@roblox/globaltype/DigitsRigDescription.SetFingerTip"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Index1": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Index1",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Index1TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Index1TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Index2": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Index2",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Index2TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Index2TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Index3": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Index3",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Index3TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Index3TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.IndexRange": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#IndexRange",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.IndexSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#IndexSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Middle1": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Middle1",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Middle1TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Middle1TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Middle2": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Middle2",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Middle2TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Middle2TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Middle3": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Middle3",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Middle3TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Middle3TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.MiddleRange": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#MiddleRange",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.MiddleSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#MiddleSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Pinky1": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Pinky1",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Pinky1TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Pinky1TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Pinky2": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Pinky2",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Pinky2TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Pinky2TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Pinky3": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Pinky3",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Pinky3TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Pinky3TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.PinkyRange": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#PinkyRange",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.PinkySize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#PinkySize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Ring1": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Ring1",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Ring1TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Ring1TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Ring2": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Ring2",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Ring2TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Ring2TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Ring3": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Ring3",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Ring3TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Ring3TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.RingRange": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#RingRange",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.RingSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#RingSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Side": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Side",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Thumb1": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Thumb1",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Thumb1TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Thumb1TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Thumb2": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Thumb2",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Thumb2TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Thumb2TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Thumb3": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Thumb3",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Thumb3TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Thumb3TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.ThumbRange": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#ThumbRange",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.ThumbSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#ThumbSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerControl/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerControl/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerControl/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerControl": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.GetFingerControl/param/0"
+      },
+      {
+        "name": "fingerIndex",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.GetFingerControl/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/DigitsRigDescription.GetFingerControl/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#GetFingerControl",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerTip/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerTip/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerTip/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerTip": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.GetFingerTip/param/0"
+      },
+      {
+        "name": "fingerIndex",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.GetFingerTip/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/DigitsRigDescription.GetFingerTip/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#GetFingerTip",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerControl/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerControl/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerControl/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerControl": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.SetFingerControl/param/0"
+      },
+      {
+        "name": "fingerIndex",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.SetFingerControl/param/1"
+      },
+      {
+        "name": "control",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.SetFingerControl/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#SetFingerControl",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerTip/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerTip/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerTip/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerTip": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.SetFingerTip/param/0"
+      },
+      {
+        "name": "fingerIndex",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.SetFingerTip/param/1"
+      },
+      {
+        "name": "point",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.SetFingerTip/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#SetFingerTip",
+    "code_sample": ""
+  },
   "@roblox/globaltype/BodyMover": {
     "documentation": "<strong>Deprecated:</strong> 이 클래스는 더 이상 사용되지 않습니다. <code>BodyMover</code> 대체품에 대한 개요는 <a href=\"../../../physics/mover-constraints.md\">이동자 제약 조건</a> 문서를 참조하시고, <a href=\"../../../physics/mover-constraints.md#legacy-mover-conversion\">레거시 변환 노트</a>도 확인하십시오.<br>어셈블리에 지속적으로 힘을 가하는 객체의 기본 클래스입니다.",
     "keys": {},
@@ -26661,6 +27030,157 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputContext#Sink",
     "code_sample": ""
   },
+  "@roblox/globaltype/StyleQuery": {
+    "documentation": "",
+    "keys": {
+      "AspectRatioRange": "@roblox/globaltype/StyleQuery.AspectRatioRange",
+      "IsActive": "@roblox/globaltype/StyleQuery.IsActive",
+      "MaxSize": "@roblox/globaltype/StyleQuery.MaxSize",
+      "MinSize": "@roblox/globaltype/StyleQuery.MinSize",
+      "PreferredInput": "@roblox/globaltype/StyleQuery.PreferredInput",
+      "ReducedMotionEnabled": "@roblox/globaltype/StyleQuery.ReducedMotionEnabled",
+      "ViewportDisplaySize": "@roblox/globaltype/StyleQuery.ViewportDisplaySize",
+      "GetCondition": "@roblox/globaltype/StyleQuery.GetCondition",
+      "GetConditions": "@roblox/globaltype/StyleQuery.GetConditions",
+      "SetCondition": "@roblox/globaltype/StyleQuery.SetCondition",
+      "SetConditions": "@roblox/globaltype/StyleQuery.SetConditions"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.AspectRatioRange": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#AspectRatioRange",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.IsActive": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#IsActive",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.MaxSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#MaxSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.MinSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#MinSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.PreferredInput": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#PreferredInput",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.ReducedMotionEnabled": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#ReducedMotionEnabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.ViewportDisplaySize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#ViewportDisplaySize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.GetCondition/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.GetCondition/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.GetCondition/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.GetCondition": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StyleQuery.GetCondition/param/0"
+      },
+      {
+        "name": "name",
+        "documentation": "@roblox/globaltype/StyleQuery.GetCondition/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StyleQuery.GetCondition/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#GetCondition",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.GetConditions/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.GetConditions/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.GetConditions": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StyleQuery.GetConditions/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StyleQuery.GetConditions/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#GetConditions",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.SetCondition/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.SetCondition/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.SetCondition/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.SetCondition": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StyleQuery.SetCondition/param/0"
+      },
+      {
+        "name": "name",
+        "documentation": "@roblox/globaltype/StyleQuery.SetCondition/param/1"
+      },
+      {
+        "name": "value",
+        "documentation": "@roblox/globaltype/StyleQuery.SetCondition/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#SetCondition",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.SetConditions/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.SetConditions/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.SetConditions": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StyleQuery.SetConditions/param/0"
+      },
+      {
+        "name": "conditions",
+        "documentation": "@roblox/globaltype/StyleQuery.SetConditions/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#SetConditions",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AudioDeviceOutput": {
     "documentation": "물리적 하드웨어 장치(스피커 또는 헤드폰 등)로 렌더링될 오디오 스트림을 수신합니다.",
     "keys": {
@@ -28527,6 +29047,49 @@
   "@roblox/globaltype/Decal.ZIndex": {
     "documentation": "같은 면에 여러 개의 데칼이 할당될 때 렌더링 순서를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow": {
+    "documentation": "",
+    "keys": {
+      "BlurRadius": "@roblox/globaltype/UIShadow.BlurRadius",
+      "Color": "@roblox/globaltype/UIShadow.Color",
+      "Offset": "@roblox/globaltype/UIShadow.Offset",
+      "Spread": "@roblox/globaltype/UIShadow.Spread",
+      "Transparency": "@roblox/globaltype/UIShadow.Transparency",
+      "ZIndex": "@roblox/globaltype/UIShadow.ZIndex"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow.BlurRadius": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#BlurRadius",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow.Color": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#Color",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow.Offset": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#Offset",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow.Spread": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#Spread",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow.Transparency": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#Transparency",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow.ZIndex": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#ZIndex",
     "code_sample": ""
   },
   "@roblox/globaltype/EncodingService": {

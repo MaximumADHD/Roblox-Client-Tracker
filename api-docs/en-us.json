@@ -12281,7 +12281,7 @@
     "documentation": "<strong>Must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
   },
   "@roblox/globaltype/ChangeHistoryService.FinishRecording/param/1": {
-    "documentation": "Identifies the recording from the previous call to <code>TryBeginRecording()</code>. If the operation is <code>ChangeHistoryService.FinishRecordingOperation.Cancel</code>, this value is ignored, and the recording is determined by context."
+    "documentation": "Identifies the recording from the previous call to <code>TryBeginRecording()</code>. If the operation is <code>FinishRecordingOperation.Cancel</code>, this value is ignored, and the recording is determined by context."
   },
   "@roblox/globaltype/ChangeHistoryService.FinishRecording/param/2": {
     "documentation": "Specifies the operation to take."
@@ -13034,6 +13034,7 @@
       "Drag": "@roblox/globaltype/ParticleEmitter.Drag",
       "EmissionDirection": "@roblox/globaltype/ParticleEmitter.EmissionDirection",
       "Enabled": "@roblox/globaltype/ParticleEmitter.Enabled",
+      "FlipbookBlendFrames": "@roblox/globaltype/ParticleEmitter.FlipbookBlendFrames",
       "FlipbookFramerate": "@roblox/globaltype/ParticleEmitter.FlipbookFramerate",
       "FlipbookIncompatible": "@roblox/globaltype/ParticleEmitter.FlipbookIncompatible",
       "FlipbookLayout": "@roblox/globaltype/ParticleEmitter.FlipbookLayout",
@@ -13099,6 +13100,11 @@
   "@roblox/globaltype/ParticleEmitter.Enabled": {
     "documentation": "Determines if particles emit from the emitter.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ParticleEmitter.FlipbookBlendFrames": {
+    "documentation": "Determines whether the flipbook frames are blended between.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookBlendFrames",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.FlipbookFramerate": {
@@ -15530,7 +15536,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioGate": {
-    "documentation": "",
+    "documentation": "Mutes audio streams that fall below a certain volume threshold.",
     "keys": {
       "Attack": "@roblox/globaltype/AudioGate.Attack",
       "Bypass": "@roblox/globaltype/AudioGate.Bypass",
@@ -15544,27 +15550,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioGate.Attack": {
-    "documentation": "",
+    "documentation": "Controls how long it takes for the gate to open when the signal level rises above the <code>Threshold</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#Attack",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioGate.Bypass": {
-    "documentation": "",
+    "documentation": "Whether audio streams are passed-through unaffected by this effect.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#Bypass",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioGate.Release": {
-    "documentation": "",
+    "documentation": "Controls how long it takes for the gate to close when the signal level drops below the <code>Threshold</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#Release",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioGate.Threshold": {
-    "documentation": "",
+    "documentation": "The gain value(s) around which the gate opens and closes.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#Threshold",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires/param/0": {
-    "documentation": ""
+    "documentation": "Mutes audio streams that fall below a certain volume threshold."
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires/param/1": {
     "documentation": "An input or output pin on this instance"
@@ -15591,7 +15597,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioGate.GetInputPins/param/0": {
-    "documentation": ""
+    "documentation": "Mutes audio streams that fall below a certain volume threshold."
   },
   "@roblox/globaltype/AudioGate.GetInputPins/return/0": {
     "documentation": "An array of strings representing valid pin names."
@@ -15611,7 +15617,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioGate.GetOutputPins/param/0": {
-    "documentation": ""
+    "documentation": "Mutes audio streams that fall below a certain volume threshold."
   },
   "@roblox/globaltype/AudioGate.GetOutputPins/return/0": {
     "documentation": "An array of strings representing valid pin names."
@@ -15708,7 +15714,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioGate.WiringChanged": {
-    "documentation": "Fires when another instance is connected to or disconnected from the <code>AudioAnalyzer</code> via a <code>Wire</code>.",
+    "documentation": "Fires when another instance is connected to or disconnected from the <code>AudioGate</code> via a <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioGate.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel",
@@ -18141,7 +18147,7 @@
     "documentation": "Resulting <code>IntersectOperation</code> with default name <strong>Intersect</strong>."
   },
   "@roblox/globaltype/BasePart.IntersectAsync": {
-    "documentation": "Creates a new <code>IntersectOperation</code> from the overlapping geometry of the part and the other parts in the given array.",
+    "documentation": "Note: It is highly recommended to use the newer <code>GeometryService:IntersectAsync</code> instead of this function. As well as having better performance and more features, the new function differs as follows: <ul> <li>The output is an array of instances rather than a single instance.</li> <li>The input parts do not need to be parented to the scene, allowing for   background operations.</li> <li>When the <code>SplitApart</code> option is set to <code>true</code> (default), each distinct   body will be returned in its own <code>PartOperation</code>.</li> <li>All the returned parts are in the coordinate space of the main part, so   their <code>PVInstance.Origin</code> positions are the same as the main   part's. This keeps the vertices of the mesh in the same position   relative to the object as before the operation, but it does also mean   the <code>(0, 0, 0)</code> of a returned part is not necessarily at the center of   its body.</li> </ul> Creates a new <code>IntersectOperation</code> from the overlapping geometry   of the part and the other parts in the given array.",
     "params": [
       {
         "name": "self",
@@ -18337,7 +18343,7 @@
     "documentation": "Resulting <code>UnionOperation</code> with default name <strong>Union</strong>."
   },
   "@roblox/globaltype/BasePart.SubtractAsync": {
-    "documentation": "Creates a new <code>UnionOperation</code> from the part, minus the geometry occupied by the parts in the given array.",
+    "documentation": "Note: It is highly recommended to use the newer <code>GeometryService:UnionAsync</code> instead of this function. As well as having better performance and more features, the new function differs as follows: <ul> <li>The output is an array of instances rather than a single instance.</li> <li>The input parts do not need to be parented to the scene, allowing for   background operations.</li> <li>When the <code>SplitApart</code> option is set to <code>true</code> (default), each distinct   body will be returned in its own <code>PartOperation</code>.</li> <li>All the returned parts are in the coordinate space of the main part, so   their <code>PVInstance.Origin</code> positions are the same as the main   part's. This keeps the vertices of the mesh in the same position   relative to the object as before the operation, but it does also mean   the <code>(0, 0, 0)</code> of a returned part is not necessarily at the center of   its body.</li> </ul> Creates a new <code>UnionOperation</code> from the part, minus the geometry   occupied by the parts in the given array.",
     "params": [
       {
         "name": "self",
@@ -18412,7 +18418,7 @@
     "documentation": "Resulting <code>UnionOperation</code> with default name <strong>Union</strong>."
   },
   "@roblox/globaltype/BasePart.UnionAsync": {
-    "documentation": "Creates a new <code>UnionOperation</code> from the part, plus the geometry occupied by the parts in the given array.",
+    "documentation": "Note: It is highly recommended to use the newer <code>GeometryService:UnionAsync</code> instead of this function. As well as having better performance and more features, the new function differs as follows: <ul> <li>The output is an array of instances rather than a single instance.</li> <li>The input parts do not need to be parented to the scene, allowing for   background operations.</li> <li>When the <code>SplitApart</code> option is set to <code>true</code> (default), each distinct   body will be returned in its own <code>PartOperation</code>.</li> <li>All the returned parts are in the coordinate space of the main part, so   their <code>PVInstance.Origin</code> positions are the same as the main   part's. This keeps the vertices of the mesh in the same position   relative to the object as before the operation, but it does also mean   the <code>(0, 0, 0)</code> of a returned part is not necessarily at the center of   its body.<pre><code>Creates a new `UnionOperation` from the part, plus the geometry </code></pre> </li> </ul> occupied by the parts in the given array.",
     "params": [
       {
         "name": "self",
@@ -23332,6 +23338,375 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ClimbController#MoveMaxForce",
     "code_sample": ""
   },
+  "@roblox/globaltype/DigitsRigDescription": {
+    "documentation": "",
+    "keys": {
+      "Index1": "@roblox/globaltype/DigitsRigDescription.Index1",
+      "Index1TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Index1TposeAdjustment",
+      "Index2": "@roblox/globaltype/DigitsRigDescription.Index2",
+      "Index2TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Index2TposeAdjustment",
+      "Index3": "@roblox/globaltype/DigitsRigDescription.Index3",
+      "Index3TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Index3TposeAdjustment",
+      "IndexRange": "@roblox/globaltype/DigitsRigDescription.IndexRange",
+      "IndexSize": "@roblox/globaltype/DigitsRigDescription.IndexSize",
+      "Middle1": "@roblox/globaltype/DigitsRigDescription.Middle1",
+      "Middle1TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Middle1TposeAdjustment",
+      "Middle2": "@roblox/globaltype/DigitsRigDescription.Middle2",
+      "Middle2TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Middle2TposeAdjustment",
+      "Middle3": "@roblox/globaltype/DigitsRigDescription.Middle3",
+      "Middle3TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Middle3TposeAdjustment",
+      "MiddleRange": "@roblox/globaltype/DigitsRigDescription.MiddleRange",
+      "MiddleSize": "@roblox/globaltype/DigitsRigDescription.MiddleSize",
+      "Pinky1": "@roblox/globaltype/DigitsRigDescription.Pinky1",
+      "Pinky1TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Pinky1TposeAdjustment",
+      "Pinky2": "@roblox/globaltype/DigitsRigDescription.Pinky2",
+      "Pinky2TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Pinky2TposeAdjustment",
+      "Pinky3": "@roblox/globaltype/DigitsRigDescription.Pinky3",
+      "Pinky3TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Pinky3TposeAdjustment",
+      "PinkyRange": "@roblox/globaltype/DigitsRigDescription.PinkyRange",
+      "PinkySize": "@roblox/globaltype/DigitsRigDescription.PinkySize",
+      "Ring1": "@roblox/globaltype/DigitsRigDescription.Ring1",
+      "Ring1TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Ring1TposeAdjustment",
+      "Ring2": "@roblox/globaltype/DigitsRigDescription.Ring2",
+      "Ring2TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Ring2TposeAdjustment",
+      "Ring3": "@roblox/globaltype/DigitsRigDescription.Ring3",
+      "Ring3TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Ring3TposeAdjustment",
+      "RingRange": "@roblox/globaltype/DigitsRigDescription.RingRange",
+      "RingSize": "@roblox/globaltype/DigitsRigDescription.RingSize",
+      "Side": "@roblox/globaltype/DigitsRigDescription.Side",
+      "Thumb1": "@roblox/globaltype/DigitsRigDescription.Thumb1",
+      "Thumb1TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Thumb1TposeAdjustment",
+      "Thumb2": "@roblox/globaltype/DigitsRigDescription.Thumb2",
+      "Thumb2TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Thumb2TposeAdjustment",
+      "Thumb3": "@roblox/globaltype/DigitsRigDescription.Thumb3",
+      "Thumb3TposeAdjustment": "@roblox/globaltype/DigitsRigDescription.Thumb3TposeAdjustment",
+      "ThumbRange": "@roblox/globaltype/DigitsRigDescription.ThumbRange",
+      "ThumbSize": "@roblox/globaltype/DigitsRigDescription.ThumbSize",
+      "GetFingerControl": "@roblox/globaltype/DigitsRigDescription.GetFingerControl",
+      "GetFingerTip": "@roblox/globaltype/DigitsRigDescription.GetFingerTip",
+      "SetFingerControl": "@roblox/globaltype/DigitsRigDescription.SetFingerControl",
+      "SetFingerTip": "@roblox/globaltype/DigitsRigDescription.SetFingerTip"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Index1": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Index1",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Index1TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Index1TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Index2": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Index2",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Index2TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Index2TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Index3": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Index3",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Index3TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Index3TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.IndexRange": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#IndexRange",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.IndexSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#IndexSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Middle1": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Middle1",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Middle1TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Middle1TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Middle2": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Middle2",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Middle2TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Middle2TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Middle3": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Middle3",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Middle3TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Middle3TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.MiddleRange": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#MiddleRange",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.MiddleSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#MiddleSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Pinky1": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Pinky1",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Pinky1TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Pinky1TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Pinky2": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Pinky2",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Pinky2TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Pinky2TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Pinky3": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Pinky3",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Pinky3TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Pinky3TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.PinkyRange": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#PinkyRange",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.PinkySize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#PinkySize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Ring1": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Ring1",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Ring1TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Ring1TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Ring2": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Ring2",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Ring2TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Ring2TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Ring3": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Ring3",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Ring3TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Ring3TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.RingRange": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#RingRange",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.RingSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#RingSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Side": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Side",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Thumb1": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Thumb1",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Thumb1TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Thumb1TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Thumb2": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Thumb2",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Thumb2TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Thumb2TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Thumb3": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Thumb3",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.Thumb3TposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#Thumb3TposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.ThumbRange": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#ThumbRange",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.ThumbSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#ThumbSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerControl/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerControl/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerControl/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerControl": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.GetFingerControl/param/0"
+      },
+      {
+        "name": "fingerIndex",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.GetFingerControl/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/DigitsRigDescription.GetFingerControl/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#GetFingerControl",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerTip/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerTip/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerTip/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.GetFingerTip": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.GetFingerTip/param/0"
+      },
+      {
+        "name": "fingerIndex",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.GetFingerTip/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/DigitsRigDescription.GetFingerTip/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#GetFingerTip",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerControl/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerControl/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerControl/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerControl": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.SetFingerControl/param/0"
+      },
+      {
+        "name": "fingerIndex",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.SetFingerControl/param/1"
+      },
+      {
+        "name": "control",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.SetFingerControl/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#SetFingerControl",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerTip/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerTip/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerTip/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DigitsRigDescription.SetFingerTip": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.SetFingerTip/param/0"
+      },
+      {
+        "name": "fingerIndex",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.SetFingerTip/param/1"
+      },
+      {
+        "name": "point",
+        "documentation": "@roblox/globaltype/DigitsRigDescription.SetFingerTip/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DigitsRigDescription#SetFingerTip",
+    "code_sample": ""
+  },
   "@roblox/globaltype/BodyMover": {
     "documentation": "<strong>Deprecated:</strong> This class has been deprecated. See the <a href=\"../../../physics/mover-constraints.md\">mover constraints</a> article for an overview of <code>BodyMover</code> replacements, as well as the <a href=\"../../../physics/mover-constraints.md#legacy-mover-conversion\">legacy conversion notes</a>.<br>Base class for objects that continually exert forces to assemblies.",
     "keys": {},
@@ -25972,6 +26347,7 @@
       "IKControlConstraintSupport": "@roblox/globaltype/Workspace.IKControlConstraintSupport",
       "InsertPoint": "@roblox/globaltype/Workspace.InsertPoint",
       "InterpolationThrottling": "@roblox/globaltype/Workspace.InterpolationThrottling",
+      "LayeredClothingCacheOptimizations": "@roblox/globaltype/Workspace.LayeredClothingCacheOptimizations",
       "LuauTypeCheckMode": "@roblox/globaltype/Workspace.LuauTypeCheckMode",
       "MeshPartHeadsAndAccessories": "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories",
       "ModelStreamingBehavior": "@roblox/globaltype/Workspace.ModelStreamingBehavior",
@@ -26096,6 +26472,11 @@
   "@roblox/globaltype/Workspace.InterpolationThrottling": {
     "documentation": "<strong>Deprecated:</strong> This property should not be used for new work.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#InterpolationThrottling",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Workspace.LayeredClothingCacheOptimizations": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#LayeredClothingCacheOptimizations",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.LuauTypeCheckMode": {
@@ -26702,6 +27083,157 @@
   "@roblox/globaltype/InputContext.Sink": {
     "documentation": "Determines whether input bindings of lower priority will be processed.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputContext#Sink",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery": {
+    "documentation": "",
+    "keys": {
+      "AspectRatioRange": "@roblox/globaltype/StyleQuery.AspectRatioRange",
+      "IsActive": "@roblox/globaltype/StyleQuery.IsActive",
+      "MaxSize": "@roblox/globaltype/StyleQuery.MaxSize",
+      "MinSize": "@roblox/globaltype/StyleQuery.MinSize",
+      "PreferredInput": "@roblox/globaltype/StyleQuery.PreferredInput",
+      "ReducedMotionEnabled": "@roblox/globaltype/StyleQuery.ReducedMotionEnabled",
+      "ViewportDisplaySize": "@roblox/globaltype/StyleQuery.ViewportDisplaySize",
+      "GetCondition": "@roblox/globaltype/StyleQuery.GetCondition",
+      "GetConditions": "@roblox/globaltype/StyleQuery.GetConditions",
+      "SetCondition": "@roblox/globaltype/StyleQuery.SetCondition",
+      "SetConditions": "@roblox/globaltype/StyleQuery.SetConditions"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.AspectRatioRange": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#AspectRatioRange",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.IsActive": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#IsActive",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.MaxSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#MaxSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.MinSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#MinSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.PreferredInput": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#PreferredInput",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.ReducedMotionEnabled": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#ReducedMotionEnabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.ViewportDisplaySize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#ViewportDisplaySize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.GetCondition/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.GetCondition/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.GetCondition/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.GetCondition": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StyleQuery.GetCondition/param/0"
+      },
+      {
+        "name": "name",
+        "documentation": "@roblox/globaltype/StyleQuery.GetCondition/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StyleQuery.GetCondition/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#GetCondition",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.GetConditions/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.GetConditions/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.GetConditions": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StyleQuery.GetConditions/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StyleQuery.GetConditions/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#GetConditions",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.SetCondition/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.SetCondition/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.SetCondition/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.SetCondition": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StyleQuery.SetCondition/param/0"
+      },
+      {
+        "name": "name",
+        "documentation": "@roblox/globaltype/StyleQuery.SetCondition/param/1"
+      },
+      {
+        "name": "value",
+        "documentation": "@roblox/globaltype/StyleQuery.SetCondition/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#SetCondition",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleQuery.SetConditions/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.SetConditions/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StyleQuery.SetConditions": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StyleQuery.SetConditions/param/0"
+      },
+      {
+        "name": "conditions",
+        "documentation": "@roblox/globaltype/StyleQuery.SetConditions/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#SetConditions",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioDeviceOutput": {
@@ -28588,6 +29120,49 @@
   "@roblox/globaltype/Decal.ZIndex": {
     "documentation": "Determines the rendering order when multiple decals are assigned the same face.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow": {
+    "documentation": "",
+    "keys": {
+      "BlurRadius": "@roblox/globaltype/UIShadow.BlurRadius",
+      "Color": "@roblox/globaltype/UIShadow.Color",
+      "Offset": "@roblox/globaltype/UIShadow.Offset",
+      "Spread": "@roblox/globaltype/UIShadow.Spread",
+      "Transparency": "@roblox/globaltype/UIShadow.Transparency",
+      "ZIndex": "@roblox/globaltype/UIShadow.ZIndex"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow.BlurRadius": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#BlurRadius",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow.Color": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#Color",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow.Offset": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#Offset",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow.Spread": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#Spread",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow.Transparency": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#Transparency",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow.ZIndex": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#ZIndex",
     "code_sample": ""
   },
   "@roblox/globaltype/EncodingService": {
@@ -30788,7 +31363,7 @@
     "documentation": "Used to insert assets from the Roblox website."
   },
   "@roblox/globaltype/InsertService.GetFreeModels/param/1": {
-    "documentation": "String used to search for free decals in the Catalog."
+    "documentation": "String used to search for free models in the Catalog."
   },
   "@roblox/globaltype/InsertService.GetFreeModels/param/2": {
     "documentation": "The page number in the Catalog to return."
@@ -39650,7 +40225,7 @@
     "code_sample": "local listener = Instance.new(\"AudioListener\")\nlocal output = Instance.new(\"AudioDeviceOutput\")\nlocal wire = Instance.new(\"Wire\")\n\nlistener.Parent = workspace.Camera\nwire.Parent = listener\noutput.Parent = wire\n\nwire.SourceInstance = listener\nwire.TargetInstance = output"
   },
   "@roblox/globaltype/AudioListener.AcousticSimulationEnabled": {
-    "documentation": "",
+    "documentation": "Determines whether acoustic simulation should be used for this <code>AudioListener</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#AcousticSimulationEnabled",
     "code_sample": ""
   },
@@ -42058,12 +42633,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioRecorder.IsRecording": {
-    "documentation": "",
+    "documentation": "Whether the <code>AudioRecorder</code> is currently recording.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioRecorder#IsRecording",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioRecorder.TimeLength": {
-    "documentation": "",
+    "documentation": "The current length of the recording in seconds.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioRecorder#TimeLength",
     "code_sample": ""
   },
@@ -42071,10 +42646,10 @@
     "documentation": "Records audio streams in-experience."
   },
   "@roblox/globaltype/AudioRecorder.CanRecordAsync/return/0": {
-    "documentation": ""
+    "documentation": "<code>true</code> if recording is possible, <code>false</code> otherwise."
   },
   "@roblox/globaltype/AudioRecorder.CanRecordAsync": {
-    "documentation": "",
+    "documentation": "Returns whether the <code>AudioRecorder</code> can currently record.",
     "params": [
       {
         "name": "self",
@@ -42091,7 +42666,7 @@
     "documentation": "Records audio streams in-experience."
   },
   "@roblox/globaltype/AudioRecorder.Clear": {
-    "documentation": "",
+    "documentation": "Clears out the recording from the <code>AudioRecorder</code>.",
     "params": [
       {
         "name": "self",
@@ -42173,10 +42748,10 @@
     "documentation": "Records audio streams in-experience."
   },
   "@roblox/globaltype/AudioRecorder.GetTemporaryContent/return/0": {
-    "documentation": ""
+    "documentation": "A temporary <code>Content</code> ID that can be used with <code>AudioPlayer</code>."
   },
   "@roblox/globaltype/AudioRecorder.GetTemporaryContent": {
-    "documentation": "",
+    "documentation": "Returns a <code>Content</code> object representing the current audio recording.",
     "params": [
       {
         "name": "self",
@@ -42193,10 +42768,10 @@
     "documentation": "Records audio streams in-experience."
   },
   "@roblox/globaltype/AudioRecorder.GetUnrecordableInstancesAsync/return/0": {
-    "documentation": ""
+    "documentation": "A table of <code>Instances</code> that are not recordable."
   },
   "@roblox/globaltype/AudioRecorder.GetUnrecordableInstancesAsync": {
-    "documentation": "",
+    "documentation": "Returns any instances which cannot be recorded.",
     "params": [
       {
         "name": "self",
@@ -42213,7 +42788,7 @@
     "documentation": "Records audio streams in-experience."
   },
   "@roblox/globaltype/AudioRecorder.RecordAsync": {
-    "documentation": "",
+    "documentation": "Starts recording audio.",
     "params": [
       {
         "name": "self",
@@ -42228,7 +42803,7 @@
     "documentation": "Records audio streams in-experience."
   },
   "@roblox/globaltype/AudioRecorder.Stop": {
-    "documentation": "",
+    "documentation": "Stops recording audio.",
     "params": [
       {
         "name": "self",
@@ -42317,7 +42892,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioRecorder.WiringChanged": {
-    "documentation": "Fires when another instance is connected to or disconnected from the <code>AudioAnalyzer</code> via a <code>Wire</code>.",
+    "documentation": "Fires when another instance is connected to or disconnected from the <code>AudioRecorder</code> via a <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioRecorder.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioRecorder.WiringChanged.ConnectParallel",
@@ -54195,7 +54770,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEcho.RampTime": {
-    "documentation": "",
+    "documentation": "The time taken to interpolate between <code>DelayTime</code> values.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEcho#RampTime",
     "code_sample": ""
   },
@@ -55232,25 +55807,25 @@
       "@roblox/globaltype/GeometryService.CalculateConstraintsToPreserve/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GeometryService#CalculateConstraintsToPreserve",
-    "code_sample": ""
+    "code_sample": "local GeometryService = game:GetService(\"GeometryService\")\nlocal main, other = workspace.Part1, workspace.Part2\n\nlocal success, newParts = pcall(function()\n\treturn GeometryService:SubtractAsync(main, {other})\nend)\nif success and newParts then\n\tfor _, p in newParts do p.Parent = workspace end\n\n\tfor _, rec in GeometryService:CalculateConstraintsToPreserve(main, newParts) do\n\t\tif rec.Constraint then\n\t\t\trec.Constraint.Parent = rec.ConstraintParent\n\t\tend\n\tend\nend\nmain:Destroy()\nother:Destroy()"
   },
   "@roblox/globaltype/GeometryService.FragmentAsync/param/0": {
     "documentation": "Service containing geometric operations."
   },
   "@roblox/globaltype/GeometryService.FragmentAsync/param/1": {
-    "documentation": ""
+    "documentation": "A <code>Part</code>, <code>PartOperation</code>, or <code>MeshPart</code> to operate on."
   },
   "@roblox/globaltype/GeometryService.FragmentAsync/param/2": {
-    "documentation": ""
+    "documentation": "Array of <code>Vector3</code> defining the site positions. Each site will become a separate part. You can also provide a jagged 2D array of <code>Vector3</code> by including inner arrays of <code>Vector3</code> as elements of the outer array. Each inner array will have all of its voronoi cells merged into a single part. <code>GeometryService:GenerateFragmentSites</code> can be used to easily create this input."
   },
   "@roblox/globaltype/GeometryService.FragmentAsync/param/3": {
-    "documentation": ""
+    "documentation": "Options table containing all the controls for the method: <ul> <li><code>CollisionFidelity</code> — The value of   <code>CollisionFidelity</code> in the   resulting parts, with one caveat: If a 2D array of sites is   provided, this collision fidelity will only be applied to parts   which came from more than one site. The others will be given <code>Hull</code>   precision.</li> <li><code>RenderFidelity</code> — The value of   <code>RenderFidelity</code> in the resulting   parts.</li> <li><code>FluidFidelity</code> — The value of   <code>FluidFidelity</code> in the   resulting parts.</li> <li><code>SplitApart</code> — Boolean controlling whether a part should be split   into multiple parts if it contains multiple connected components.   Default is <code>true</code> (split).</li> </ul>"
   },
   "@roblox/globaltype/GeometryService.FragmentAsync/return/0": {
-    "documentation": ""
+    "documentation": "Array of <code>MeshPart</code> along with mapping info. Each array element is a Dictionary with two elements: <code>{ “Instance”: instance, “Index”: index }</code>. <code>Index</code> is the index in the outer array of sites; in other words, it tells you which group of sites this instance came from. Note that it is possible for multiple instances to have the same index, if SplitApart is <code>true</code>."
   },
   "@roblox/globaltype/GeometryService.FragmentAsync": {
-    "documentation": "This API has not been released.",
+    "documentation": "Breaks a <code>BasePart</code> into multiple <code>MeshPart</code> instances, according to the pattern of points passed in, by using voronoi decomposition.",
     "params": [
       {
         "name": "self",
@@ -55273,22 +55848,22 @@
       "@roblox/globaltype/GeometryService.FragmentAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GeometryService#FragmentAsync",
-    "code_sample": ""
+    "code_sample": "local GeometryService = game:GetService(\"GeometryService\")\n\nlocal inputPart = Instance.new(\"Part\")\ninputPart.Position = Vector3.new(0, 0.7, 20)\n\nlocal sites = GeometryService:GenerateFragmentSites(inputPart)\n\nlocal success, fragments = pcall( function()\n\treturn GeometryService:FragmentAsync(inputPart, sites)\nend)\nif success and fragments then\n\tfor _, item in fragments do\n\t\tlocal instance = item.Instance\n\t\tinstance.Parent = workspace\n\tend\nend"
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites/param/0": {
     "documentation": "Service containing geometric operations."
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites/param/1": {
-    "documentation": ""
+    "documentation": "The <code>Part</code>, <code>PartOperation</code>, or <code>MeshPart</code> which you are planning to pass into <code>FragmentAsync()</code>. This is necessary to make the fragment site generation and the subsequent <code>FragmentAsync()</code> call efficient."
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites/param/2": {
-    "documentation": ""
+    "documentation": "Options table containing all the controls for the method: <ul> <li><code>SiteSpacing</code> — The approximate distance between sites, which   directly corresponds to the diameter of the resulting fragments. If   not specified, a reasonable value will be chosen.</li> <li><code>Origin</code> — If provided, this will be the center of the area to be   fragmented. If not provided, the entire object will be fragmented.</li> <li><code>Radius</code> — If provided, this will be the center of the area to be   fragmented. Either <code>Origin</code> and <code>Radius</code> should both be provided, or   neither.</li> </ul>"
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites/return/0": {
-    "documentation": ""
+    "documentation": "An array of <code>Vector3</code> which is typically passed into <code>FragmentAsync()</code>. The output depends on the options provided. If <code>Origin</code> and <code>Radius</code> are provided, then the output array will contain several <code>Vector3</code> elements which will all be located within the radius, but the last element of the array will be an inner array containing many <code>Vector3</code> sites which are outside the radius. If <code>Origin</code> and <code>Radius</code> are not provided, the output will simply be an array of <code>Vector3</code> positions within the extents of the input <code>part</code>."
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites": {
-    "documentation": "This API has not been released.",
+    "documentation": "Provides an array of positions which can easily be passed into <code>FragmentAsync</code> to perform simple types of destruction.",
     "params": [
       {
         "name": "self",
@@ -55313,19 +55888,19 @@
     "documentation": "Service containing geometric operations."
   },
   "@roblox/globaltype/GeometryService.IntersectAsync/param/1": {
-    "documentation": "Main <code>Part</code> or <code>PartOperation</code> to operate on."
+    "documentation": "Main <code>Part</code>, <code>PartOperation</code>, or <code>MeshPart</code> to operate on."
   },
   "@roblox/globaltype/GeometryService.IntersectAsync/param/2": {
-    "documentation": "Array of parts to intersect with the main part."
+    "documentation": "Array of other parts to intersect with the main part."
   },
   "@roblox/globaltype/GeometryService.IntersectAsync/param/3": {
-    "documentation": "Options table containing all the controls for the method: <ul> <li><code>CollisionFidelity</code> — The value of   <code>CollisionFidelity</code> in the   resulting parts.</li> <li><code>RenderFidelity</code> — The value of   <code>RenderFidelity</code> in the resulting   parts.</li> <li><code>FluidFidelity</code> — The value of   <code>FluidFidelity</code> in the resulting   parts.</li> <li><code>SplitApart</code> — Boolean controlling whether the objects should all be   kept together or properly split apart. Default is <code>true</code> (split).</li> </ul>"
+    "documentation": "Options table containing all the controls for the method: <ul> <li><code>CollisionFidelity</code> — The value of   <code>CollisionFidelity</code> in the   resulting parts.</li> <li><code>RenderFidelity</code> — The value of   <code>RenderFidelity</code> or   <code>RenderFidelity</code> in the resulting   parts.</li> <li><code>FluidFidelity</code> — The value of   <code>FluidFidelity</code> in the   resulting parts.</li> <li><code>SplitApart</code> — Boolean controlling whether the objects should all be   kept together or properly split apart. Default is <code>true</code> (split).</li> </ul>"
   },
   "@roblox/globaltype/GeometryService.IntersectAsync/return/0": {
-    "documentation": "One or more <code>PartOperations</code> from the intersecting geometry of the main part (<code>part</code>) and the other parts."
+    "documentation": "One or more <code>PartOperations</code> or <code>MeshParts</code>. If the input contained any <code>MeshParts</code>, then the results will always be <code>MeshParts</code>."
   },
   "@roblox/globaltype/GeometryService.IntersectAsync": {
-    "documentation": "Creates one or more <code>PartOperations</code> from the intersecting geometry of one part and other parts.",
+    "documentation": "Creates one or more <code>PartOperations</code> or <code>MeshParts</code> from the intersecting geometry of multiple parts.",
     "params": [
       {
         "name": "self",
@@ -55348,25 +55923,25 @@
       "@roblox/globaltype/GeometryService.IntersectAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GeometryService#IntersectAsync",
-    "code_sample": ""
+    "code_sample": "local GeometryService = game:GetService(\"GeometryService\")\n\nlocal mainPart = Instance.new(\"Part\")\nlocal otherPart = Instance.new(\"Part\")\notherPart.Position = Vector3.new(1, 0.5, 1)\n\nlocal success, newParts = pcall(function()\n\treturn GeometryService:IntersectAsync(mainPart, {otherPart})\nend)\nif success and newParts then\n\tfor _, newPart in pairs(newParts) do\n\t\tnewPart.Parent = workspace\n\tend\nend"
   },
   "@roblox/globaltype/GeometryService.SubtractAsync/param/0": {
     "documentation": "Service containing geometric operations."
   },
   "@roblox/globaltype/GeometryService.SubtractAsync/param/1": {
-    "documentation": "Main <code>Part</code> or <code>PartOperation</code> to operate on."
+    "documentation": "Main <code>Part</code>, <code>PartOperation</code>, or <code>MeshPart</code> to operate on."
   },
   "@roblox/globaltype/GeometryService.SubtractAsync/param/2": {
     "documentation": "Array of parts to subtract from the main part."
   },
   "@roblox/globaltype/GeometryService.SubtractAsync/param/3": {
-    "documentation": "Options table containing all the controls for the method: <ul> <li><code>CollisionFidelity</code> — The value of   <code>CollisionFidelity</code> in the   resulting parts.</li> <li><code>RenderFidelity</code> — The value of   <code>RenderFidelity</code> in the resulting   parts.</li> <li><code>FluidFidelity</code> — The value of   <code>FluidFidelity</code> in the resulting   parts.</li> <li><code>SplitApart</code> — Boolean controlling whether the objects should all be   kept together or properly split apart. Default is <code>true</code> (split).</li> </ul>"
+    "documentation": "Options table containing all the controls for the method: <ul> <li><code>CollisionFidelity</code> — The value of   <code>CollisionFidelity</code> in the   resulting parts.</li> <li><code>RenderFidelity</code> — The value of   <code>RenderFidelity</code> or   <code>RenderFidelity</code> in the resulting   parts.</li> <li><code>FluidFidelity</code> — The value of   <code>FluidFidelity</code> in the   resulting parts.</li> <li><code>SplitApart</code> — Boolean controlling whether the objects should all be   kept together or properly split apart. Default is <code>true</code> (split).</li> </ul>"
   },
   "@roblox/globaltype/GeometryService.SubtractAsync/return/0": {
-    "documentation": "One or more <code>PartOperations</code> from the geometry of the main part (<code>part</code>) minus the geometry occupied by the other parts."
+    "documentation": "One or more <code>PartOperations</code> or <code>MeshParts</code>. If the input contained any <code>MeshParts</code>, then the results will always be <code>MeshParts</code>."
   },
   "@roblox/globaltype/GeometryService.SubtractAsync": {
-    "documentation": "Creates one or more <code>PartOperations</code> from one part minus the geometry occupied by other parts.",
+    "documentation": "Creates one or more <code>PartOperations</code> or <code>MeshParts</code> from one part minus the space occupied by other parts.",
     "params": [
       {
         "name": "self",
@@ -55389,25 +55964,25 @@
       "@roblox/globaltype/GeometryService.SubtractAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GeometryService#SubtractAsync",
-    "code_sample": ""
+    "code_sample": "local GeometryService = game:GetService(\"GeometryService\")\n\nlocal mainPart = Instance.new(\"Part\")\nlocal otherPart = Instance.new(\"Part\")\notherPart.Position = Vector3.new(1, 0.5, 1)\n\nlocal success, newParts = pcall(function()\n\treturn GeometryService:SubtractAsync(mainPart, {otherPart})\nend)\nif success and newParts then\n\tfor _, newPart in pairs(newParts) do\n\t\tnewPart.Parent = workspace\n\tend\nend"
   },
   "@roblox/globaltype/GeometryService.SweepPartAsync/param/0": {
     "documentation": "Service containing geometric operations."
   },
   "@roblox/globaltype/GeometryService.SweepPartAsync/param/1": {
-    "documentation": ""
+    "documentation": "A <code>Part</code>, <code>PartOperation</code>, or <code>MeshPart</code> to operate on."
   },
   "@roblox/globaltype/GeometryService.SweepPartAsync/param/2": {
-    "documentation": ""
+    "documentation": "Array of coordinate frames to sweep parts through."
   },
   "@roblox/globaltype/GeometryService.SweepPartAsync/param/3": {
-    "documentation": ""
+    "documentation": "Options table containing all the controls for the method: <ul> <li><code>CollisionFidelity</code> — The value of   <code>CollisionFidelity</code> in the   resulting parts.</li> <li><code>RenderFidelity</code> — The value of   <code>RenderFidelity</code> in the resulting   parts.</li> <li><code>FluidFidelity</code> — The value of   <code>FluidFidelity</code> in the   resulting parts.</li> </ul>"
   },
   "@roblox/globaltype/GeometryService.SweepPartAsync/return/0": {
-    "documentation": ""
+    "documentation": "A new <code>MeshPart</code> with the swept geometry."
   },
   "@roblox/globaltype/GeometryService.SweepPartAsync": {
-    "documentation": "This API has not been released.",
+    "documentation": "Creates a <code>MeshPart</code> which has the shape of the input part stretched/dragged through the given set of <code>CFrame</code> positions.",
     "params": [
       {
         "name": "self",
@@ -55430,25 +56005,25 @@
       "@roblox/globaltype/GeometryService.SweepPartAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GeometryService#SweepPartAsync",
-    "code_sample": ""
+    "code_sample": "local GeometryService = game:GetService(\"GeometryService\")\n\nlocal inputPart = Instance.new(\"Part\")\ninputPart.Shape = Enum.PartType.Ball\n\nlocal cframeList = {}\nfor i = 1, 50 do\n\tlocal rotation = CFrame.Angles(0, i * 0.2, 0)\n\tlocal position = Vector3.new(0, i * 0.1, -1)\n\ttable.insert(cframeList, rotation * CFrame.new(position))\nend\n\nlocal success, sweptPart = pcall( function()\n\treturn GeometryService:SweepPartAsync(inputPart, cframeList)\nend)\nif success and sweptPart then\n\tsweptPart.Parent = workspace\nend"
   },
   "@roblox/globaltype/GeometryService.UnionAsync/param/0": {
     "documentation": "Service containing geometric operations."
   },
   "@roblox/globaltype/GeometryService.UnionAsync/param/1": {
-    "documentation": "Main <code>Part</code> or <code>PartOperation</code> to operate on."
+    "documentation": "Main <code>Part</code>, <code>PartOperation</code>, or <code>MeshPart</code> to operate on."
   },
   "@roblox/globaltype/GeometryService.UnionAsync/param/2": {
     "documentation": "Array of parts to union with the main part."
   },
   "@roblox/globaltype/GeometryService.UnionAsync/param/3": {
-    "documentation": "Options table containing all the controls for the method: <ul> <li><code>CollisionFidelity</code> — The value of   <code>CollisionFidelity</code> in the   resulting parts.</li> <li><code>RenderFidelity</code> — The value of   <code>RenderFidelity</code> in the resulting   parts.</li> <li><code>FluidFidelity</code> — The value of   <code>FluidFidelity</code> in the resulting   parts.</li> <li><code>SplitApart</code> — Boolean controlling whether the objects should all be   kept together or properly split apart. Default is <code>true</code> (split).</li> </ul>"
+    "documentation": "Options table containing all the controls for the method: <ul> <li><code>CollisionFidelity</code> — The value of   <code>CollisionFidelity</code> in the   resulting parts.</li> <li><code>RenderFidelity</code> — The value of   <code>RenderFidelity</code> or   <code>RenderFidelity</code> in the resulting   parts.</li> <li><code>FluidFidelity</code> — The value of   <code>FluidFidelity</code> in the   resulting parts.</li> <li><code>SplitApart</code> — Boolean controlling whether the objects should all be   kept together or properly split apart. Default is <code>true</code> (split).</li> </ul>"
   },
   "@roblox/globaltype/GeometryService.UnionAsync/return/0": {
-    "documentation": "One or more <code>PartOperations</code> from the geometry of the main part (<code>part</code>) plus the geometry occupied by the other parts."
+    "documentation": "One or more <code>PartOperations</code> or <code>MeshParts</code>. If the input contained any <code>MeshParts</code>, then the results will always be <code>MeshParts</code>."
   },
   "@roblox/globaltype/GeometryService.UnionAsync": {
-    "documentation": "Creates one or more <code>PartOperations</code> from one part plus the geometry occupied by other parts.",
+    "documentation": "Creates one or more <code>PartOperations</code> or <code>MeshParts</code> from one part plus the space occupied by other parts.",
     "params": [
       {
         "name": "self",
@@ -55471,7 +56046,7 @@
       "@roblox/globaltype/GeometryService.UnionAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GeometryService#UnionAsync",
-    "code_sample": ""
+    "code_sample": "local GeometryService = game:GetService(\"GeometryService\")\n\nlocal mainPart = Instance.new(\"Part\")\nlocal otherPart = Instance.new(\"Part\")\notherPart.Position = Vector3.new(1, 0.5, 1)\n\nlocal success, newParts = pcall(function()\n\treturn GeometryService:UnionAsync(mainPart, {otherPart})\nend)\nif success and newParts then\n\tfor _, newPart in pairs(newParts) do\n\t\tnewPart.Parent = workspace\n\tend\nend"
   },
   "@roblox/globaltype/SoundService": {
     "documentation": "A service that determines various aspects of how the audio engine works. Most of its properties affect how <code>Sounds</code> play in the experience.",
@@ -58781,7 +59356,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPitchShifter.WindowSize": {
-    "documentation": "",
+    "documentation": "Controls how much audio will be buffered and shifted at once.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPitchShifter#WindowSize",
     "code_sample": ""
   },
@@ -61399,7 +61974,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioAnalyzer.WindowSize": {
-    "documentation": "",
+    "documentation": "Controls the resolution and timeliness of <code>GetSpectrum</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioAnalyzer#WindowSize",
     "code_sample": ""
   },
@@ -61474,7 +62049,7 @@
     "documentation": "Takes measurements from audio streams that are connected to it via one or more <code>Wires</code>."
   },
   "@roblox/globaltype/AudioAnalyzer.GetSpectrum/return/0": {
-    "documentation": ""
+    "documentation": "A table of numbers representing the amplitude levels of various frequencies of audio within the last buffer, or an empty table if a spectrum cannot be obtained."
   },
   "@roblox/globaltype/AudioAnalyzer.GetSpectrum": {
     "documentation": "Returns the frequency spectrum of the last audio buffer.",
@@ -62278,16 +62853,16 @@
     "documentation": "Plays text as speech audio."
   },
   "@roblox/globaltype/AudioTextToSpeech.GetWaveformAsync/param/1": {
-    "documentation": ""
+    "documentation": "The start and end time (in seconds) of the segment to read."
   },
   "@roblox/globaltype/AudioTextToSpeech.GetWaveformAsync/param/2": {
-    "documentation": ""
+    "documentation": "The number of samples to return for the specified range."
   },
   "@roblox/globaltype/AudioTextToSpeech.GetWaveformAsync/return/0": {
-    "documentation": ""
+    "documentation": "A table of <code>samples</code> numbers ranging between -1 and 1 representing the sampled waveform,"
   },
   "@roblox/globaltype/AudioTextToSpeech.GetWaveformAsync": {
-    "documentation": "",
+    "documentation": "Returns a sampling of the waveform data for the generated audio.",
     "params": [
       {
         "name": "self",
@@ -76510,7 +77085,7 @@
     "documentation": "Optional. User defined data, could be a string, a number or a table."
   },
   "@roblox/globaltype/AnalyticsService.FireCustomEvent": {
-    "documentation": "<strong>Deprecated:</strong> <br>Fires a custom event with a custom event name and data.",
+    "documentation": "<strong>Deprecated:</strong> This deprecated function is a variant of <code>AnalyticsService:LogCustomEvent()</code> which should be used instead.<br>Fires a custom event with a custom event name and data.",
     "params": [
       {
         "name": "self",
@@ -76531,7 +77106,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FireCustomEvent",
-    "code_sample": "local AnalyticsService = game:GetService(\"AnalyticsService\")\nlocal Players = game:GetService(\"Players\")\n\n-- server event, report a new server started\nlocal serverInfo = {\n\tTime = os.time(),\n\tPlaceId = game.PlaceId,\n}\n\nAnalyticsService:FireCustomEvent(nil, \"ServerStart\", serverInfo)\n\nPlayers.PlayerAdded:Connect(function(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tlocal customData = {\n\t\t\tTime = os.time(),\n\t\t\tMessage = message,\n\t\t}\n\t\tAnalyticsService:FireCustomEvent(player, \"PlayerChatted\", customData)\n\tend)\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.FireEvent/param/0": {
     "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
@@ -76543,7 +77118,7 @@
     "documentation": "A value to be serialized and reported. Serialized length must not exceed 1 KiB, or 1024 bytes."
   },
   "@roblox/globaltype/AnalyticsService.FireEvent": {
-    "documentation": "<strong>Deprecated:</strong> This function has been deprecated in favor of more descriptive methods, including: <ul> <li><code>AnalyticsService:FireCustomEvent()</code></li> <li><code>AnalyticsService:FireInGameEconomyEvent()</code></li> <li><code>AnalyticsService:FireLogEvent()</code></li> <li><code>AnalyticsService:FirePlayerProgressionEvent()</code><br>Report a custom event to PlayFab.</li> </ul>",
+    "documentation": "<strong>Deprecated:</strong> This function has been deprecated in favor of more descriptive methods, including <code>AnalyticsService:LogCustomEvent()</code>, <code>AnalyticsService:LogEconomyEvent()</code>, and <code>AnalyticsService:LogProgressionEvent()</code>.<br>Report a custom event to PlayFab.",
     "params": [
       {
         "name": "self",
@@ -76590,7 +77165,7 @@
     "documentation": "Optional. User defined data, could be a string, a number or a table."
   },
   "@roblox/globaltype/AnalyticsService.FireInGameEconomyEvent": {
-    "documentation": "<strong>Deprecated:</strong> <br>Fire an event used to track player actions pertaining to the in-game economy.",
+    "documentation": "<strong>Deprecated:</strong> This deprecated function is a variant of <code>AnalyticsService:LogEconomyEvent()</code> which should be used instead.<br>Fire an event used to track player actions pertaining to the in-game economy.",
     "params": [
       {
         "name": "self",
@@ -76631,7 +77206,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FireInGameEconomyEvent",
-    "code_sample": "local AnalyticsService = game:GetService(\"AnalyticsService\")\n\nlocal gold = script.Parent\n\ngold.Touched:Connect(function(otherPart)\n\tlocal player = game.Players:GetPlayerFromCharacter(otherPart.Parent)\n\tif player == nil then\n\t\treturn\n\tend\n\n\tlocal location = {\n\t\t[\"Map\"] = \"someMap\",\n\t\t[\"Position\"] = tostring(gold.Position),\n\t}\n\n\tAnalyticsService:FireInGameEconomyEvent(\n\t\tplayer,\n\t\t\"Sword\", -- item name\n\t\tEnum.AnalyticsEconomyAction.Spend,\n\t\t\"Weapon\", -- itemCategory\n\t\t2020, -- amount of Gold\n\t\t\"Gold\", -- currency\n\t\tlocation,\n\t\t{ SomeCustomKey = \"SomeCustomValue\" }\n\t) -- optional customData\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.FireLogEvent/param/0": {
     "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
@@ -76646,7 +77221,7 @@
     "documentation": "User defined message."
   },
   "@roblox/globaltype/AnalyticsService.FireLogEvent/param/4": {
-    "documentation": "Optional. A dictionary which contains predefined keys including \"errorCode\" and \"stackTrace\". Both keys values are strings. stackTrace is a traceback of the current function call stack. <pre><code class=\"language-lua\">local debugInfo = {             errorCode = '123',             stackTrace = debug.traceback()       } </code></pre>"
+    "documentation": "Optional. A dictionary which contains predefined keys including \"errorCode\" and \"stackTrace\". Both keys values are strings. stackTrace is a traceback of the current function call stack."
   },
   "@roblox/globaltype/AnalyticsService.FireLogEvent/param/5": {
     "documentation": "Optional. User defined data, could be a string, a number or a table."
@@ -76681,7 +77256,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FireLogEvent",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal TeleportService = game:GetService(\"TeleportService\")\nlocal AnalyticsService = game:GetService(\"AnalyticsService\")\n\nlocal placeId = game.PlaceId\n\nlocal player = Players:GetPlayerByUserId(123)\n\nxpcall(function()\n\tTeleportService:Teleport(placeId, player)\nend, function(errorMessage)\n\tlocal debugInfo = {\n\t\terrorCode = \"TeleportFailed\",\n\t\tstackTrace = debug.traceback(), -- the function call stack\n\t}\n\tAnalyticsService:FireLogEvent(\n\t\tplayer,\n\t\tEnum.AnalyticsLogLevel.Error, -- log level\n\t\terrorMessage, -- message\n\t\tdebugInfo, -- optional\n\t\t{\n\t\t\tPlayerId = player.UserId,\n\t\t\tPlaceId = placeId,\n\t\t}\n\t) -- customData optional\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent/param/0": {
     "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
@@ -76696,16 +77271,16 @@
     "documentation": "Indicates the status of the progression."
   },
   "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent/param/4": {
-    "documentation": "The event location. A dictionary that each key-value represents an entry of location data. The key-value is a string-string pair. With this developers can query where is the most frequent location for a specific progression event category. For example, the category could be \"LevelUp\". <pre><code class=\"language-lua\">local location = {     [&quot;placeDesc&quot;] = &quot;Dungeon1&quot;,     [&quot;levelDesc&quot;] = &quot;level2&quot;,     [&quot;mapDesc&quot;] = &quot;LeftChamberMap&quot;,     [&quot;ProgresionType&quot;] = &quot;LevelUp&quot;,     [&quot;userDefinedKey5&quot;] = &quot;0005&quot; } </code></pre>"
+    "documentation": "The event location. A dictionary that each key-value represents an entry of location data. The key-value is a string-string pair. With this developers can query where is the most frequent location for a specific progression event category. For example, the category could be \"LevelUp\"."
   },
   "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent/param/5": {
-    "documentation": "Optional. A dictionary that each key-value represents an entry of statistics data that allows developers to track any specific data that they want to collect as players progress through their game. Key-Value is a string-number pair. <pre><code class=\"language-lua\">local statistics = {     [&quot;numberOfKills&quot;] = 111,     [&quot;numberOfExp&quot;] = 222,     [&quot;userDefinedKey3&quot;] = number,     [&quot;userDefinedKey4&quot;] = number,     [&quot;userDefinedKey5&quot;] = number } </code></pre>"
+    "documentation": "Optional. A dictionary that each key-value represents an entry of statistics data that allows developers to track any specific data that they want to collect as players progress through their game. Key-Value is a string-number pair."
   },
   "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent/param/6": {
     "documentation": "Optional. User defined data, could be a string, a number or a table."
   },
   "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent": {
-    "documentation": "<strong>Deprecated:</strong> <br>Fire an event used to track player progression through the game.",
+    "documentation": "<strong>Deprecated:</strong> This deprecated function is a variant of <code>AnalyticsService:LogProgressionEvent()</code> which should be used instead.<br>Fire an event used to track player progression through the game.",
     "params": [
       {
         "name": "self",
@@ -79985,6 +80560,7 @@
       "GetDeveloperProductsAsync": "@roblox/globaltype/MarketplaceService.GetDeveloperProductsAsync",
       "GetProductInfo": "@roblox/globaltype/MarketplaceService.GetProductInfo",
       "GetProductInfoAsync": "@roblox/globaltype/MarketplaceService.GetProductInfoAsync",
+      "GetRobloxSubscriptionDetailsAsync": "@roblox/globaltype/MarketplaceService.GetRobloxSubscriptionDetailsAsync",
       "GetSubscriptionProductInfoAsync": "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync",
       "GetUsersPriceLevelsAsync": "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync",
       "GetUserSubscriptionDetailsAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync",
@@ -80097,6 +80673,33 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetProductInfoAsync",
     "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfoAsync(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
+  },
+  "@roblox/globaltype/MarketplaceService.GetRobloxSubscriptionDetailsAsync/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.GetRobloxSubscriptionDetailsAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.GetRobloxSubscriptionDetailsAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.GetRobloxSubscriptionDetailsAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.GetRobloxSubscriptionDetailsAsync/param/0"
+      },
+      {
+        "name": "user",
+        "documentation": "@roblox/globaltype/MarketplaceService.GetRobloxSubscriptionDetailsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/MarketplaceService.GetRobloxSubscriptionDetailsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetRobloxSubscriptionDetailsAsync",
+    "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/param/0": {
     "documentation": "The service responsible for in-experience transactions."
@@ -84039,7 +84642,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSearchParams.AudioSubType": {
-    "documentation": "",
+    "documentation": "The subtype of the audio asset.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSearchParams#AudioSubType",
     "code_sample": ""
   },
@@ -88151,7 +88754,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Bypass": {
-    "documentation": "",
+    "documentation": "Whether audio streams are passed-through unaffected by this effect.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Bypass",
     "code_sample": ""
   },
@@ -88330,7 +88933,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioTremolo.WiringChanged": {
-    "documentation": "Fires when another instance is connected to or disconnected from the <code>AudioAnalyzer</code> via a <code>Wire</code>.",
+    "documentation": "Fires when another instance is connected to or disconnected from the <code>AudioTremolo</code> via a <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioTremolo.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioTremolo.WiringChanged.ConnectParallel",
@@ -89907,7 +90510,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.AudioContent": {
-    "documentation": "",
+    "documentation": "The audio content to be loaded into the <code>AudioPlayer</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#AudioContent",
     "code_sample": ""
   },
@@ -90037,16 +90640,16 @@
     "documentation": "Used to play audio assets."
   },
   "@roblox/globaltype/AudioPlayer.GetWaveformAsync/param/1": {
-    "documentation": ""
+    "documentation": "The start and end time (in seconds) of the segment to read."
   },
   "@roblox/globaltype/AudioPlayer.GetWaveformAsync/param/2": {
-    "documentation": ""
+    "documentation": "The number of samples to return for the specified range."
   },
   "@roblox/globaltype/AudioPlayer.GetWaveformAsync/return/0": {
-    "documentation": ""
+    "documentation": "A table of <code>samples</code> numbers ranging between -1 and 1 representing the sampled waveform, or an empty table if a waveform could not be read."
   },
   "@roblox/globaltype/AudioPlayer.GetWaveformAsync": {
-    "documentation": "",
+    "documentation": "Returns a sampling of the waveform data for the loaded <code>Asset</code>.",
     "params": [
       {
         "name": "self",
@@ -90896,7 +91499,7 @@
     "code_sample": "local part1: BasePart = workspace.Speakers.Left\nlocal part2: BasePart = workspace.Speakers.Right\nlocal player: AudioPlayer = workspace.AudioPlayer\n\nlocal leftEmitter = Instance.new(\"AudioEmitter\")\nlocal rightEmitter = Instance.new(\"AudioEmitter\")\nlocal toLeft = Instance.new(\"Wire\")\nlocal toRight = Instance.new(\"Wire\")\n\nleftEmitter.Parent = part1\nrightEmitter.Parent = part2\n\ntoLeft.Parent = leftEmitter\ntoLeft.SourceInstance = player\ntoLeft.TargetInstance = leftEmitter\n\ntoRight.Parent = rightEmitter\ntoRight.SourceInstance = player\ntoRight.TargetInstance = rightEmitter\n\nplayer:Play()"
   },
   "@roblox/globaltype/AudioEmitter.AcousticSimulationEnabled": {
-    "documentation": "",
+    "documentation": "Determines whether acoustic simulation should be used for this <code>AudioEmitter</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#AcousticSimulationEnabled",
     "code_sample": ""
   },
@@ -93679,16 +94282,16 @@
     "documentation": "A service handling in-experience text chat."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
-    "documentation": "The user must be in the current server, otherwise an error will occur."
+    "documentation": ""
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/2": {
-    "documentation": "The user must be in the current server, otherwise an error will occur."
+    "documentation": ""
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync": {
-    "documentation": "Determines whether or not two users would receive messages between each other.",
+    "documentation": "Determines whether or not two users can receive messages from each other.",
     "params": [
       {
         "name": "self",
@@ -93713,13 +94316,13 @@
     "documentation": "A service handling in-experience text chat."
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync/param/1": {
-    "documentation": "The user who would have initiated the direct chat request. If the requesterUserId is not in the current server, this method will error."
+    "documentation": "The user who would have initiated the direct chat request. If the user is not in the current server, this method will error."
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync/param/2": {
-    "documentation": "A list of users who the requesterUserId would like to chat with directly. Users not in the current server are ignored."
+    "documentation": "A list of users who the <code>requesterUserId</code> would like to chat with directly. Users not in the current server are ignored."
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync/return/0": {
-    "documentation": "A list of users who could participate in the direct chat request. If none of the users can direct chat with the requesterUserId, the result is an empty array."
+    "documentation": "A list of users who could participate in the direct chat request. If none of the users can direct chat with the <code>requesterUserId</code>, the result is an empty array."
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync": {
     "documentation": "Determines whether a user has permission to chat directly with other users in experiences based on factors such as their parental control settings.",
@@ -96388,11 +96991,6 @@
       "LeftShoulderRangeMin": "@roblox/globaltype/HumanoidRigDescription.LeftShoulderRangeMin",
       "LeftShoulderSize": "@roblox/globaltype/HumanoidRigDescription.LeftShoulderSize",
       "LeftShoulderTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.LeftShoulderTposeAdjustment",
-      "LeftToes": "@roblox/globaltype/HumanoidRigDescription.LeftToes",
-      "LeftToesRangeMax": "@roblox/globaltype/HumanoidRigDescription.LeftToesRangeMax",
-      "LeftToesRangeMin": "@roblox/globaltype/HumanoidRigDescription.LeftToesRangeMin",
-      "LeftToesSize": "@roblox/globaltype/HumanoidRigDescription.LeftToesSize",
-      "LeftToesTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.LeftToesTposeAdjustment",
       "LeftWrist": "@roblox/globaltype/HumanoidRigDescription.LeftWrist",
       "LeftWristRangeMax": "@roblox/globaltype/HumanoidRigDescription.LeftWristRangeMax",
       "LeftWristRangeMin": "@roblox/globaltype/HumanoidRigDescription.LeftWristRangeMin",
@@ -96404,11 +97002,6 @@
       "NeckSize": "@roblox/globaltype/HumanoidRigDescription.NeckSize",
       "NeckTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.NeckTposeAdjustment",
       "OriginOffset": "@roblox/globaltype/HumanoidRigDescription.OriginOffset",
-      "Pelvis": "@roblox/globaltype/HumanoidRigDescription.Pelvis",
-      "PelvisRangeMax": "@roblox/globaltype/HumanoidRigDescription.PelvisRangeMax",
-      "PelvisRangeMin": "@roblox/globaltype/HumanoidRigDescription.PelvisRangeMin",
-      "PelvisSize": "@roblox/globaltype/HumanoidRigDescription.PelvisSize",
-      "PelvisTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.PelvisTposeAdjustment",
       "RightAnkle": "@roblox/globaltype/HumanoidRigDescription.RightAnkle",
       "RightAnkleRangeMax": "@roblox/globaltype/HumanoidRigDescription.RightAnkleRangeMax",
       "RightAnkleRangeMin": "@roblox/globaltype/HumanoidRigDescription.RightAnkleRangeMin",
@@ -96439,11 +97032,6 @@
       "RightShoulderRangeMin": "@roblox/globaltype/HumanoidRigDescription.RightShoulderRangeMin",
       "RightShoulderSize": "@roblox/globaltype/HumanoidRigDescription.RightShoulderSize",
       "RightShoulderTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.RightShoulderTposeAdjustment",
-      "RightToes": "@roblox/globaltype/HumanoidRigDescription.RightToes",
-      "RightToesRangeMax": "@roblox/globaltype/HumanoidRigDescription.RightToesRangeMax",
-      "RightToesRangeMin": "@roblox/globaltype/HumanoidRigDescription.RightToesRangeMin",
-      "RightToesSize": "@roblox/globaltype/HumanoidRigDescription.RightToesSize",
-      "RightToesTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.RightToesTposeAdjustment",
       "RightWrist": "@roblox/globaltype/HumanoidRigDescription.RightWrist",
       "RightWristRangeMax": "@roblox/globaltype/HumanoidRigDescription.RightWristRangeMax",
       "RightWristRangeMin": "@roblox/globaltype/HumanoidRigDescription.RightWristRangeMin",
@@ -96667,31 +97255,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftShoulderTposeAdjustment",
     "code_sample": ""
   },
-  "@roblox/globaltype/HumanoidRigDescription.LeftToes": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftToes",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.LeftToesRangeMax": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftToesRangeMax",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.LeftToesRangeMin": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftToesRangeMin",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.LeftToesSize": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftToesSize",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.LeftToesTposeAdjustment": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftToesTposeAdjustment",
-    "code_sample": ""
-  },
   "@roblox/globaltype/HumanoidRigDescription.LeftWrist": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftWrist",
@@ -96745,31 +97308,6 @@
   "@roblox/globaltype/HumanoidRigDescription.OriginOffset": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#OriginOffset",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.Pelvis": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#Pelvis",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.PelvisRangeMax": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#PelvisRangeMax",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.PelvisRangeMin": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#PelvisRangeMin",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.PelvisSize": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#PelvisSize",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.PelvisTposeAdjustment": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#PelvisTposeAdjustment",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidRigDescription.RightAnkle": {
@@ -96920,31 +97458,6 @@
   "@roblox/globaltype/HumanoidRigDescription.RightShoulderTposeAdjustment": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightShoulderTposeAdjustment",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.RightToes": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightToes",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.RightToesRangeMax": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightToesRangeMax",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.RightToesRangeMin": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightToesRangeMin",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.RightToesSize": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightToesSize",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.RightToesTposeAdjustment": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightToesTposeAdjustment",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidRigDescription.RightWrist": {
@@ -104950,7 +105463,7 @@
     "code_sample": ""
   },
   "@roblox/enum/VolumetricAudio.Disabled": {
-    "documentation": "",
+    "documentation": "Volumetric audio is disabled; sound emanates from a single point.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -104960,7 +105473,7 @@
     "code_sample": ""
   },
   "@roblox/enum/VolumetricAudio.Automatic": {
-    "documentation": "",
+    "documentation": "Currently equivalent to <code>VolumetricAudio.Disabled</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -104970,7 +105483,7 @@
     "code_sample": ""
   },
   "@roblox/enum/VolumetricAudio.Enabled": {
-    "documentation": "",
+    "documentation": "Volumetric audio is enabled; sound emanates from the object's volume.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -104980,7 +105493,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.VolumetricAudio": {
-    "documentation": "",
+    "documentation": "Controls how the engine renders volumetric audio effects.",
     "keys": {
       "Disabled": "@roblox/enum/VolumetricAudio.Disabled",
       "Automatic": "@roblox/enum/VolumetricAudio.Automatic",
@@ -105467,7 +105980,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AudioWindowSize": {
-    "documentation": "",
+    "documentation": "For audio effects that use some internal buffering, determines the window-size used.",
     "keys": {
       "Small": "@roblox/enum/AudioWindowSize.Small",
       "Medium": "@roblox/enum/AudioWindowSize.Medium",
@@ -114406,7 +114919,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.AssetRequire": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114536,7 +115049,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Avatar": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -115757,7 +116270,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AudioSubType.Music": {
-    "documentation": "",
+    "documentation": "Represents an asset which contains music.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -115767,7 +116280,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AudioSubType.SoundEffect": {
-    "documentation": "",
+    "documentation": "Represents an asset which is a sound effect.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -115777,7 +116290,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AudioSubType": {
-    "documentation": "",
+    "documentation": "The categorization of an audio asset.",
     "keys": {
       "Music": "@roblox/enum/AudioSubType.Music",
       "SoundEffect": "@roblox/enum/AudioSubType.SoundEffect"
@@ -119505,7 +120018,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AudioFilterType.Lowpass6dB": {
-    "documentation": "",
+    "documentation": "Filter that cuts sound above a specified <code>Frequency</code>, at a slope of -6dB/octave.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139715,8 +140228,13 @@
       "sqrt": "@luau/global/math.sqrt",
       "tan": "@luau/global/math.tan",
       "tanh": "@luau/global/math.tanh",
+      "e": "@luau/global/math.e",
       "huge": "@luau/global/math.huge",
-      "pi": "@luau/global/math.pi"
+      "nan": "@luau/global/math.nan",
+      "phi": "@luau/global/math.phi",
+      "pi": "@luau/global/math.pi",
+      "sqrt2": "@luau/global/math.sqrt2",
+      "tau": "@luau/global/math.tau"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/math",
     "code_sample": ""
@@ -140590,14 +141108,39 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/math#tanh",
     "code_sample": ""
   },
+  "@luau/global/math.e": {
+    "documentation": "The value of Euler's number, e.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/math#e",
+    "code_sample": ""
+  },
   "@luau/global/math.huge": {
     "documentation": "Returns a value larger than or equal to any other numerical value (about 2<sup>1024</sup>).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/math#huge",
     "code_sample": ""
   },
+  "@luau/global/math.nan": {
+    "documentation": "A NaN value, as defined by the IEEE 754 standard.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/math#nan",
+    "code_sample": ""
+  },
+  "@luau/global/math.phi": {
+    "documentation": "The value of the golden ratio.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/math#phi",
+    "code_sample": ""
+  },
   "@luau/global/math.pi": {
     "documentation": "The value of pi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/math#pi",
+    "code_sample": ""
+  },
+  "@luau/global/math.sqrt2": {
+    "documentation": "The value of the square root of 2.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/math#sqrt2",
+    "code_sample": ""
+  },
+  "@luau/global/math.tau": {
+    "documentation": "The value of tau, which is defined as <code>2 * math.pi</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/math#tau",
     "code_sample": ""
   },
   "@luau/global/bit32": {
@@ -142623,7 +143166,7 @@
     "documentation": "Destination table."
   },
   "@luau/global/table.move/return/0": {
-    "documentation": "<code>dst</code>, for convenience."
+    "documentation": "<code>dst</code> for convenience."
   },
   "@luau/global/table.move": {
     "documentation": "Copies the specified range of elements from one table to another.",
