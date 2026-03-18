@@ -4414,6 +4414,28 @@
       </Item>
     </Item>
 
+     <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">UIShadow</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">26</string>
+        <string name="ClassCategory">GUI</string>
+        <string name="PreferredParent">GuiBase2d</string>
+        <string name="FFlag">UIShadow</string>
+      </Properties>
+
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Transparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Path2D</string>

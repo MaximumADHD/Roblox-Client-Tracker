@@ -1,0 +1,1 @@
+Ensures that the head mesh does not noticably deform through facial animations. Currently checks min and max bounds.

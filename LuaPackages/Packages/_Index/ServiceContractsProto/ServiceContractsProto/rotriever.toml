@@ -1,6 +1,6 @@
 [package]
 name = "ServiceContractsProto"
-version = "1.0.385+20260226"
+version = "1.0.549+20260312"
 readme = "README.md"
 content_root = "protos/gen/luau"
 files = [
@@ -12,6 +12,14 @@ files = [
     "roblox/apppageplatform/badges/v1beta1/*",
     "roblox/apppageplatform/shared/v1beta1/**/*",
     "roblox/apppageplatform/shared/v1beta1/*",
+    "roblox/apppageplatform/experiencedetails/v1beta1/**/*",
+    "roblox/apppageplatform/experiencedetails/v1beta1/*",
+    "roblox/apppageplatform/prompts/v1beta1/**/*",
+    "roblox/apppageplatform/prompts/v1beta1/*",
+    "roblox/apppageplatform/experienceevents/v1beta1/**/*",
+    "roblox/apppageplatform/experienceevents/v1beta1/*",
+    "roblox/apppageplatform/charts/v1beta1/**/*",
+    "roblox/apppageplatform/charts/v1beta1/*",
     "roblox/apppageplatform/*",
 ]
 publish = true
