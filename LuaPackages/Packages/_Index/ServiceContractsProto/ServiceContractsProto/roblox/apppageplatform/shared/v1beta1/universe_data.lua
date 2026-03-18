@@ -41,6 +41,7 @@ type _UniverseDataFields = {
 	updated_date: string,
 	favorite_count: number,
 	total_visits: number,
+	canonical_url_path: string,
 }
 
 type _UniverseDataPartialFields = {
@@ -63,6 +64,7 @@ type _UniverseDataPartialFields = {
 	updated_date: string?,
 	favorite_count: number?,
 	total_visits: number?,
+	canonical_url_path: string?,
 }
 
 export type UniverseData = typeof(setmetatable({} :: _UniverseDataFields, {} :: _UniverseDataImpl))
@@ -101,6 +103,7 @@ do
 			updated_date = if data == nil or data.updated_date == nil then "" else data.updated_date,
 			favorite_count = if data == nil or data.favorite_count == nil then 0 else data.favorite_count,
 			total_visits = if data == nil or data.total_visits == nil then 0 else data.total_visits,
+			canonical_url_path = if data == nil or data.canonical_url_path == nil then "" else data.canonical_url_path,
 		}, _UniverseDataImpl :: _UniverseDataImpl)
 	end
 
@@ -201,6 +204,11 @@ do
 		if self.total_visits ~= nil and self.total_visits ~= 0 then
 			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.total_visits)
+		end
+
+		if self.canonical_url_path ~= nil and self.canonical_url_path ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.canonical_url_path)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -317,6 +325,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.updated_date = buffer.tostring(value)
 					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.canonical_url_path = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -418,6 +431,10 @@ do
 
 		if self.total_visits ~= nil and self.total_visits ~= 0 then
 			output.totalVisits = self.total_visits
+		end
+
+		if self.canonical_url_path ~= nil and self.canonical_url_path ~= "" then
+			output.canonicalUrlPath = self.canonical_url_path
 		end
 
 		return output
@@ -564,6 +581,14 @@ do
 
 		if input.totalVisits ~= nil then
 			self.total_visits = input.totalVisits
+		end
+
+		if input.canonical_url_path ~= nil then
+			self.canonical_url_path = input.canonical_url_path
+		end
+
+		if input.canonicalUrlPath ~= nil then
+			self.canonical_url_path = input.canonicalUrlPath
 		end
 
 		return self

@@ -9,19 +9,13 @@ local getMeshInfo = require(root.util.getMeshInfo)
 local getMeshMinMax = require(root.util.getMeshMinMax)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
 
-local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
-
 local function getRenderMeshScale(
 	meshPart: MeshPart,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?, Vector3?)
 	local success, failureReasons, meshInfoOpt
-	if getFFlagUGCValidationConsolidateGetMeshInfos() then
-		success, failureReasons, meshInfoOpt =
-			getMeshInfo(meshPart, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
-	else
-		success, failureReasons, meshInfoOpt = (getMeshInfo :: any)(meshPart, validationContext)
-	end
+	success, failureReasons, meshInfoOpt =
+		getMeshInfo(meshPart, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
 
 	if not success then
 		return success, failureReasons

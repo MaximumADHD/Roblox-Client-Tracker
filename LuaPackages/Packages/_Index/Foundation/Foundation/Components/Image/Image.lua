@@ -8,6 +8,8 @@ local FoundationImages = require(Packages.FoundationImages)
 local React = require(Packages.React)
 local ReactIs = require(Packages.ReactIs)
 
+local useOnLoaded = require(script.Parent.useOnLoaded)
+
 local Assets = FoundationCloudAssets.Assets
 local Interactable = require(Foundation.Components.Interactable)
 local Images = FoundationImages.Images
@@ -44,6 +46,9 @@ export type ImageProps = {
 	ResampleMode: Bindable<Enum.ResamplerMode>?,
 	ScaleType: Bindable<Enum.ScaleType>?,
 	TileSize: Bindable<UDim2>?,
+
+	-- Callback for when the image asset is finished fetching. Status can be one of Success, Failure, or TimedOut.
+	onLoaded: ((assetStatus: Enum.AssetFetchStatus) -> ())?,
 } & Types.GuiObjectProps & Types.CommonProps
 
 local defaultProps = {
@@ -55,6 +60,27 @@ local defaultProps = {
 
 local function getAspectRatio(size: Vector2)
 	return size.X / size.Y
+end
+
+local isDev = _G.__DEV__ == true
+
+local function getFoundationImageAsset(image: string): ImageSetImage?
+	-- FoundationImages guards unknown keys with an __index throw.
+	-- In dev we keep strict indexing so CI catches bad keys early.
+	-- In production we use rawget to avoid render-time crashes from malformed user input.
+	if isDev then
+		return Images[image]
+	end
+
+	return rawget(Images :: any, image)
+end
+
+local function shouldUseFoundationSlice(image: string): boolean
+	if not isFoundationImage(image) then
+		return false
+	end
+
+	return isCloudAsset(image) or getFoundationImageAsset(image) ~= nil
 end
 
 local DEFAULT_TAGS = "gui-object-defaults"
@@ -75,9 +101,7 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 			-- selene: allow(shadowing)
 			local imageRectSize = if props.imageRect then props.imageRect.size else nil
 			-- selene: allow(shadowing)
-			local aspectRatio = if Flags.FoundationFixAspectRatioBindingHandling
-				then providedAspectRatio
-				else props.aspectRatio
+			local aspectRatio = providedAspectRatio
 
 			if ReactIs.isBinding(props.Image) then
 				local function getImageBindingValue(prop)
@@ -86,20 +110,20 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 							local asset
 							if isCloudAsset(value) then
 								asset = Assets[value]
-								if not Flags.FoundationFixAspectRatioBindingHandling then
-									aspectRatio = getAspectRatio(asset.size)
-								end
 								if prop == "Image" then
 									return asset.assetId
-								elseif Flags.FoundationFixAspectRatioBindingHandling and prop == "AspectRatio" then
+								elseif prop == "AspectRatio" then
 									return getAspectRatio(asset.size)
 								end
 								return nil
 							end
-							asset = Images[value]
-							return if Flags.FoundationFixAspectRatioBindingHandling and prop == "AspectRatio"
+							asset = if Flags.FoundationImageSafeLookup
+								then getFoundationImageAsset(value)
+								else Images[value]
+							return if prop == "AspectRatio"
 								then providedAspectRatio
 								elseif asset then asset[prop]
+								elseif Flags.FoundationImageSafeLookup and prop == "Image" then value
 								else nil
 						elseif prop == "Image" then
 							return value
@@ -112,10 +136,7 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 						end
 					end)
 				end
-
-				if Flags.FoundationFixAspectRatioBindingHandling then
-					aspectRatio = getImageBindingValue("AspectRatio")
-				end
+				aspectRatio = getImageBindingValue("AspectRatio")
 				image = getImageBindingValue("Image")
 				imageRectOffset = getImageBindingValue("ImageRectOffset")
 				imageRectSize = getImageBindingValue("ImageRectSize")
@@ -125,7 +146,9 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 					image = asset.assetId
 					aspectRatio = getAspectRatio(asset.size)
 				else
-					local asset = Images[props.Image]
+					local asset = if Flags.FoundationImageSafeLookup
+						then getFoundationImageAsset(props.Image)
+						else Images[props.Image]
 					if asset then
 						image = asset.Image
 						imageRectOffset = asset.ImageRectOffset
@@ -139,8 +162,7 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 		{
 			props.Image,
 			props.imageRect,
-			-- TODO: figure out which to use when cleaning up FoundationFixAspectRatioBindingHandling
-			if Flags.FoundationFixAspectRatioBindingHandling then providedAspectRatio else props.aspectRatio,
+			providedAspectRatio,
 			Images,
 		} :: { unknown }
 	)
@@ -149,7 +171,11 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 	if props.slice then
 		if ReactIs.isBinding(props.Image) then
 			local slice = (props.Image :: React.Binding<string>):map(function(value: string)
-				if isFoundationImage(value) then
+				if
+					if Flags.FoundationImageSafeLookup
+						then shouldUseFoundationSlice(value)
+						else isFoundationImage(value)
+				then
 					return getScaledSlice(props.slice.center, props.slice.scale)
 				else
 					return props.slice
@@ -162,7 +188,11 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 				return value.scale
 			end)
 		elseif typeof(props.Image) == "string" then
-			if isFoundationImage(props.Image) then
+			if
+				if Flags.FoundationImageSafeLookup
+					then shouldUseFoundationSlice(props.Image)
+					else isFoundationImage(props.Image)
+			then
 				local slice = getScaledSlice(props.slice.center, props.slice.scale)
 				sliceCenter = slice.center
 				sliceScale = slice.scale
@@ -179,6 +209,10 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 
 	local tagsWithDefaults = useDefaultTags(props.tag, defaultTags)
 	local tag = useStyleTags(tagsWithDefaults)
+
+	if Flags.FoundationImageOnLoadedCallback then
+		useOnLoaded(image, props.onLoaded)
+	end
 
 	local engineComponent = if isInteractable then "ImageButton" else "ImageLabel"
 

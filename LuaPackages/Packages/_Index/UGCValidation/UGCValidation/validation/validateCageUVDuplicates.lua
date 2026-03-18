@@ -10,7 +10,6 @@ local pcallDeferred = require(root.util.pcallDeferred)
 local WRAP_TARGET_CAGE_REFERENCE_VALUES = require(root.WrapTargetCageUVReferenceValues)
 
 local getFIntUGCValidateCageDuplicateUVThreshold = require(root.flags.getFIntUGCValidateCageDuplicateUVThreshold)
-local getFFlagUGCValidationHyperlinksInCageQuality = require(root.flags.getFFlagUGCValidationHyperlinksInCageQuality)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local Analytics = require(root.Analytics)
 
@@ -62,11 +61,8 @@ local function validateCageUVDuplicates(
 				countUVNotInReference,
 				if isInner then "inner" else "outer"
 			)
-
-			if getFFlagUGCValidationHyperlinksInCageQuality() then
-				errorString = errorString
-					.. "[Read more](https://create.roblox.com/docs/art/validation-errors#cageExtraUvs)"
-			end
+			errorString = errorString
+				.. "[Read more](https://create.roblox.com/docs/art/validation-errors#cageExtraUvs)"
 
 			return false, { errorString }
 		end

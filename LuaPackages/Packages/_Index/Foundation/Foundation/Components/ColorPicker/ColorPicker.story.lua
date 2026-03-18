@@ -6,6 +6,7 @@ local Button = require(Foundation.Components.Button)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local ColorInputMode = require(Foundation.Enums.ColorInputMode)
 local ColorPicker = require(Foundation.Components.ColorPicker)
+local Image = require(Foundation.Components.Image)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 local colorUtils = require(Foundation.Components.ColorPicker.colorUtils)
@@ -69,16 +70,28 @@ local function ColorPreview(props: ColorPreviewProps)
 	}, {
 		ColorSwatch = React.createElement(View, {
 			Size = UDim2.fromOffset(64, 64),
-			backgroundStyle = {
-				Color3 = props.color,
-				Transparency = swatchTransparency,
-			},
-			cornerRadius = UDim.new(0, 8),
+			tag = "radius-medium",
 			stroke = {
 				Color = tokens.Color.System.Neutral.Color3,
 				Transparency = tokens.Color.System.Neutral.Transparency,
 				Thickness = 1,
 			},
+		}, {
+			Checkerboard = React.createElement(Image, {
+				Image = "component_assets/checkerboard_12",
+				ScaleType = Enum.ScaleType.Tile,
+				TileSize = UDim2.fromOffset(12, 12),
+				tag = "size-full radius-medium",
+				ZIndex = 1,
+			}),
+			ColorOverlay = React.createElement(View, {
+				tag = "size-full radius-medium",
+				backgroundStyle = {
+					Color3 = props.color,
+					Transparency = swatchTransparency,
+				},
+				ZIndex = 2,
+			}),
 		}),
 
 		ColorInfo = React.createElement(View, {
@@ -152,6 +165,12 @@ return {
 						initialAlpha = selectedAlpha,
 						onColorChanged = setSelectedColor,
 						onAlphaChanged = setSelectedAlpha,
+						onDragStarted = function()
+							print("Drag started!")
+						end,
+						onDragEnded = function()
+							print("Drag ended!")
+						end,
 					}),
 				})
 			end,
@@ -230,16 +249,28 @@ return {
 									}, {
 										ColorSwatch = React.createElement(View, {
 											Size = UDim2.fromOffset(24, 24),
-											backgroundStyle = {
-												Color3 = selectedColor,
-												Transparency = 1 - selectedAlpha,
-											},
-											cornerRadius = UDim.new(0, 4),
+											tag = "radius-small",
 											stroke = {
 												Color = tokens.Color.System.Neutral.Color3,
 												Transparency = tokens.Color.System.Neutral.Transparency,
 												Thickness = 1,
 											},
+										}, {
+											Checkerboard = React.createElement(Image, {
+												Image = "component_assets/checkerboard_12",
+												ScaleType = Enum.ScaleType.Tile,
+												TileSize = UDim2.fromOffset(12, 12),
+												tag = "size-full radius-small",
+												ZIndex = 1,
+											}),
+											ColorOverlay = React.createElement(View, {
+												tag = "size-full radius-small",
+												backgroundStyle = {
+													Color3 = selectedColor,
+													Transparency = 1 - selectedAlpha,
+												},
+												ZIndex = 2,
+											}),
 										}),
 
 										ColorLabel = React.createElement(Text, {
@@ -341,28 +372,86 @@ return {
 			end,
 		},
 		{
+			name = "Properties Panel Spec",
+			story = function(_props)
+				local tokens = useTokens()
+				local selectedColor, setSelectedColor = React.useState(tokens.Color.Extended.Blue.Blue_1100.Color3)
+				local selectedAlpha, setSelectedAlpha = React.useState(1)
+
+				return React.createElement(View, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Size = UDim2.fromOffset(208, 0),
+					BackgroundTransparency = 1,
+				}, {
+					Stroke = React.createElement("UIStroke", {
+						Color = tokens.Color.System.Contrast.Color3,
+						Thickness = 1,
+						Transparency = 0,
+					}),
+					Picker = React.createElement(ColorPicker, {
+						initialColor = selectedColor,
+						initialAlpha = selectedAlpha,
+						initialMode = ColorInputMode.Hex,
+						onColorChanged = setSelectedColor,
+						onAlphaChanged = setSelectedAlpha,
+					}),
+				})
+			end,
+		},
+		{
 			name = "BrickColor Only",
 			story = function(_props)
+				local tokens = useTokens()
 				local selectedColor, setSelectedColor = React.useState(BrickColor.new("Bright red").Color)
+				local pickerSize, setPickerSize = React.useState(Vector2.new(0, 0))
 
 				local availableModes = { ColorInputMode.Brick }
 
+				local containerRef = React.useRef(nil :: Frame?)
+
+				React.useEffect(function()
+					local frame = containerRef.current
+					if not frame then
+						return
+					end
+					setPickerSize(frame.AbsoluteSize)
+					local conn = frame:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+						setPickerSize(frame.AbsoluteSize)
+					end)
+					return function()
+						conn:Disconnect()
+					end
+				end, {})
+
 				return React.createElement(View, {
-					Size = UDim2.fromOffset(300, 300),
-					tag = "col gap-medium",
+					tag = "col gap-small",
 				}, {
-					PreviewContainer = React.createElement(ColorPreview, {
-						color = selectedColor,
-						showAlpha = false,
+					SizeLabel = React.createElement(Text, {
+						Text = `Actual size: {math.round(pickerSize.X)}×{math.round(pickerSize.Y)}`,
+						tag = "text-caption-small content-muted",
+						LayoutOrder = 1,
 					}),
 
-					Picker = React.createElement(ColorPicker, {
-						initialColor = selectedColor,
-						availableModes = availableModes,
-						initialMode = ColorInputMode.Brick,
-						onColorChanged = function(newColor: Color3, _brickColor: BrickColor?)
-							setSelectedColor(newColor)
-						end,
+					PickerContainer = React.createElement("Frame", {
+						AutomaticSize = Enum.AutomaticSize.XY,
+						Size = UDim2.new(),
+						BackgroundTransparency = 1,
+						LayoutOrder = 2,
+						ref = containerRef,
+					}, {
+						Stroke = React.createElement("UIStroke", {
+							Color = tokens.Color.System.Contrast.Color3,
+							Thickness = 1,
+							Transparency = 0,
+						}),
+						Picker = React.createElement(ColorPicker, {
+							initialColor = selectedColor,
+							availableModes = availableModes,
+							initialMode = ColorInputMode.Brick,
+							onColorChanged = function(newColor: Color3, _brickColor: BrickColor?)
+								setSelectedColor(newColor)
+							end,
+						}),
 					}),
 				})
 			end,

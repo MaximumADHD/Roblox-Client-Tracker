@@ -8,7 +8,6 @@
 
 local PlayersService = game:GetService("Players")
 local VRService = game:GetService("VRService")
-local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 -- Local private variables and constants
 local CAMERA_BLACKOUT_TIME = 0.1
@@ -32,7 +31,7 @@ function VRCamera.new()
 	self.focusOffset = CFrame.new()
 	self:Reset()
 
-	self.controlModule = require(PlayersService.LocalPlayer:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule"))
+	self.controlModule = require(script.Parent.Parent:WaitForChild("ControlModule"))
 	self.savedAutoRotate = true 
 
 	return self
@@ -53,8 +52,6 @@ function VRCamera:Update(timeDelta)
 	local newCameraFocus = camera.Focus
 
 	local player = PlayersService.LocalPlayer
-	local humanoid = self:GetHumanoid()
-	local cameraSubject = camera.CameraSubject
 
 	if self.lastUpdate == nil or timeDelta > 1 then
 		self.lastCameraTransform = nil
@@ -270,7 +267,6 @@ function VRCamera:UpdateThirdPersonComfortTransform(timeDelta, newCameraCFrame, 
 
 	if lastSubjPos ~= nil and self.lastCameraFocus ~= nil then
 		-- compute delta of subject since last update
-		local player = PlayersService.LocalPlayer
 		local subjectDelta = lastSubjPos - subjectPosition
 		local moveVector = self.controlModule:GetMoveVector()
 
@@ -361,7 +357,6 @@ function VRCamera:UpdateThirdPersonFollowTransform(timeDelta, newCameraCFrame, n
 	local trackCameraCFrame = vrFocus:ToWorldSpace(self.focusOffset)
 	
 	-- figure out if the player is moving
-	local player = PlayersService.LocalPlayer
 	local subjectDelta = lastSubjPos - subjectPosition
 	local controlModule = self.controlModule
 	local moveVector = controlModule:GetMoveVector()

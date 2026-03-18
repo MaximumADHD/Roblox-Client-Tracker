@@ -3,12 +3,29 @@ local App = Loading.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
+local Foundation = require(Packages.Foundation)
+local FoundationLoading = Foundation.Loading
+
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
 local Images = require(UIBlox.App.ImageSet.Images)
 
 local SpinningImage = require(UIBlox.Core.Animation.SpinningImage)
+
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local getLoadingIconSize = require(UIBlox.Utility.getLoadingIconSize)
+
+local useTokens = Foundation.Hooks.useTokens
+
+local function FoundationLoadingSpinner(props)
+	local tokens = useTokens()
+	return Roact.createElement(FoundationLoading, {
+		AnchorPoint = props.anchorPoint,
+		Position = props.position,
+		size = getLoadingIconSize(props.size, tokens),
+	})
+end
 
 local LoadingSpinner = Roact.PureComponent:extend("LoadingSpinner")
 
@@ -24,6 +41,14 @@ LoadingSpinner.validateProps = t.strictInterface({
 })
 
 function LoadingSpinner:render()
+	if UIBloxConfig.useFoundationLoading then
+		return Roact.createElement(FoundationLoadingSpinner, {
+			anchorPoint = self.props.anchorPoint,
+			position = self.props.position,
+			size = self.props.size,
+		})
+	end
+
 	return Roact.createElement(SpinningImage, {
 		image = Images["icons/graphic/loadingspinner"],
 		size = self.props.size,

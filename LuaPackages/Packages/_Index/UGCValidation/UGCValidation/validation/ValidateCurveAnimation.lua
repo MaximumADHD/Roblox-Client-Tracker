@@ -32,8 +32,6 @@ local getFFlagUGCValidateMaxTotalInstances = require(flags.getFFlagUGCValidateMa
 local getFIntUGCValidateMaxAnimationFPS = require(flags.getFIntUGCValidateMaxAnimationFPS)
 local getFIntUGCValidateMaxMarkerCurveValueLength = require(flags.getFIntUGCValidateMaxMarkerCurveValueLength)
 local GetFStringUGCValidateMaxAnimationMovementPerPart = require(flags.GetFStringUGCValidateMaxAnimationMovementPerPart)
-local getFFlagUGCValidateStopNaNsInfsInAnimationKeys = require(flags.getFFlagUGCValidateStopNaNsInfsInAnimationKeys)
-local getFFlagUGCValidateStopNaNsInfsInCalculatedData = require(flags.getFFlagUGCValidateStopNaNsInfsInCalculatedData)
 local GetFStringUGCValidateFrameDeltaKeyTimeTol = require(flags.GetFStringUGCValidateFrameDeltaKeyTimeTol)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
@@ -1108,10 +1106,6 @@ function ValidateCurveAnimation.validateData(
 	inst: Instance,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
-	local function isNaN(value: number): boolean
-		return value ~= value
-	end
-
 	local frameDeltaTol = frameDelta * GetFStringUGCValidateFrameDeltaKeyTimeTol.asNumber()
 	local fpsWithTol = 1.0 / frameDeltaTol
 	local maxTotalKeys = math.ceil(fpsWithTol * GetFStringUGCValidationMaxAnimationLength.asNumber())
@@ -1141,9 +1135,7 @@ function ValidateCurveAnimation.validateData(
 			for __, marker in allMarkers do
 				if
 					not marker.Time
-					or (if getFFlagUGCValidateStopNaNsInfsInAnimationKeys()
-						then not areNumbersGood(marker.Time)
-						else isNaN(marker.Time))
+					or (not areNumbersGood(marker.Time))
 					or not marker.Value
 					or #marker.Value > getFIntUGCValidateMaxMarkerCurveValueLength()
 				then
@@ -1172,18 +1164,7 @@ function ValidateCurveAnimation.validateData(
 
 		local prevTime = nil
 		for __, key in allKeys do
-			if
-				not key.Time
-				or (if getFFlagUGCValidateStopNaNsInfsInAnimationKeys()
-					then not areNumbersGood(key.Time)
-					else isNaN(key.Time))
-				or not key.Value
-				or (
-					if getFFlagUGCValidateStopNaNsInfsInAnimationKeys()
-						then not areNumbersGood(key.Value)
-						else isNaN(key.Value)
-				)
-			then
+			if not key.Time or (not areNumbersGood(key.Time)) or not key.Value or (not areNumbersGood(key.Value)) then
 				return reportFailure(
 					"CurveAnimation contains Curves with invalid Time or Value. Please fix the animation.",
 					Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData,
@@ -1286,13 +1267,10 @@ function ValidateCurveAnimation.validateFrames(
 ): (boolean, { string }?)
 	local animFrames, animLength, positionMagnitudeFrames, tracks =
 		ValidateCurveAnimation.calculateAnimFramesAtOrigin(curveAnim)
-
-	if getFFlagUGCValidateStopNaNsInfsInCalculatedData() then
-		local calculatedDataSuccess, calculatedDataReasons =
-			ValidateCurveAnimation.validateCalculatedData(animFrames, positionMagnitudeFrames, validationContext)
-		if not calculatedDataSuccess then
-			return calculatedDataSuccess, calculatedDataReasons
-		end
+	local calculatedDataSuccess, calculatedDataReasons =
+		ValidateCurveAnimation.validateCalculatedData(animFrames, positionMagnitudeFrames, validationContext)
+	if not calculatedDataSuccess then
+		return calculatedDataSuccess, calculatedDataReasons
 	end
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()

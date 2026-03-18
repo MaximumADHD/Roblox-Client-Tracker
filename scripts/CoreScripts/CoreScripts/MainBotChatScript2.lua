@@ -63,11 +63,6 @@ end
 game:GetService("UserInputService").InputBegan:Connect(setUsingGamepad)
 game:GetService("UserInputService").InputChanged:Connect(setUsingGamepad)
 
-local goodbyeChoiceActiveFlagSuccess, goodbyeChoiceActiveFlagValue = pcall(function()
-	return settings():GetFFlag("GoodbyeChoiceActiveProperty")
-end)
-local goodbyeChoiceActiveFlag = (goodbyeChoiceActiveFlagSuccess and goodbyeChoiceActiveFlagValue)
-
 local mainFrame
 local choices = {}
 local lastChoice
@@ -489,7 +484,7 @@ function presentDialogChoices(talkingPart, dialogChoices, parentDialog)
 	lastChoice.Position = UDim2.new(0, XPOS_OFFSET, 0, YPOS_OFFSET + yPosition)
 	lastChoice.Visible = true
 
-	if goodbyeChoiceActiveFlag and not parentDialog.GoodbyeChoiceActive then
+	if not parentDialog.GoodbyeChoiceActive then
 		lastChoice.Visible = false
 		mainFrame.Size = UDim2.new(0, FRAME_WIDTH, 0, yPosition + (STYLE_PADDING * 2) + (YPOS_OFFSET * 2))
 	else

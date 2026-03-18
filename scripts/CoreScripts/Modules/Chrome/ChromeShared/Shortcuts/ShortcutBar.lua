@@ -19,6 +19,9 @@ local ChromeService = require(Root.Service)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
+local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
+local FFlagDisableGamepadConnectorInVR =
+	require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagDisableGamepadConnectorInVR
 
 function ChromeShortcutBar(props)
 	local shortcuts, setShortcuts = React.useState({})
@@ -58,25 +61,27 @@ function ChromeShortcutBar(props)
 			setTrimmedShortcuts({})
 		end)
 
-		local showTopBar = GamepadConnector:getShowTopBar()
-		local gamepadActive = GamepadConnector:getGamepadActive()
+		if not FFlagDisableGamepadConnectorInVR or not isSpatial() then
+			local showTopBar = GamepadConnector:getShowTopBar()
+			local gamepadActive = GamepadConnector:getGamepadActive()
 
-		if FFlagEnableConsoleExpControls then
-			local function shouldHideShortcutBar()
-				local shouldHide = not showTopBar:get() or not gamepadActive:get()
-				ChromeService:setHideShortcutBar("TopBar", shouldHide)
-			end
-			shouldHideShortcutBar()
-			showTopBar:connect(shouldHideShortcutBar)
-			gamepadActive:connect(shouldHideShortcutBar)
-		else
-			local function shouldShowShortcutBar()
-				local shouldShow = showTopBar:get() and gamepadActive:get()
-				setShowShortcutBar(shouldShow)
-			end
+			if FFlagEnableConsoleExpControls then
+				local function shouldHideShortcutBar()
+					local shouldHide = not showTopBar:get() or not gamepadActive:get()
+					ChromeService:setHideShortcutBar("TopBar", shouldHide)
+				end
+				shouldHideShortcutBar()
+				showTopBar:connect(shouldHideShortcutBar)
+				gamepadActive:connect(shouldHideShortcutBar)
+			else
+				local function shouldShowShortcutBar()
+					local shouldShow = showTopBar:get() and gamepadActive:get()
+					setShowShortcutBar(shouldShow)
+				end
 
-			showTopBar:connect(shouldShowShortcutBar)
-			gamepadActive:connect(shouldShowShortcutBar)
+				showTopBar:connect(shouldShowShortcutBar)
+				gamepadActive:connect(shouldShowShortcutBar)
+			end
 		end
 	end, {})
 

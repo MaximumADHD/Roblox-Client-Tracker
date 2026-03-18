@@ -262,23 +262,13 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	end, { tokens, controlsVariant } :: { any })
 
 	local onDragStarted = React.useCallback(function(_rbx, position: Vector2)
-		if not Flags.FoundationDontCreateUIDDForNumberInput then
-			if not props.isScrubbable then
-				return
-			end
-		end
 		local value = tonumber(currentTextRef.current)
 		if value then
 			dragStartTable.current = { position = position.X, value = value }
 		end
-	end, { props.isScrubbable } :: { unknown })
+	end, {})
 
 	local onDrag = React.useCallback(function(_rbx, position: Vector2)
-		if not Flags.FoundationDontCreateUIDDForNumberInput then
-			if not props.isScrubbable then
-				return
-			end
-		end
 		if dragStartTable.current then
 			local newValue = calculateNumberInputValueFromPositions(
 				dragStartTable.current.value,
@@ -289,18 +279,13 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 			newValue = math.clamp(round(newValue, props.precision), props.minimum, props.maximum)
 			props.onChanged(newValue)
 		end
-	end, { props.isScrubbable, props.onChanged } :: { unknown })
+	end, { props.onChanged })
 
 	local onDragEnded = React.useCallback(function()
-		if not Flags.FoundationDontCreateUIDDForNumberInput then
-			if not props.isScrubbable then
-				return
-			end
-		end
 		if dragStartTable.current then
 			dragStartTable.current = nil
 		end
-	end, { props.isScrubbable } :: { unknown })
+	end, {})
 
 	local filledStyleTransparency = tokens.Color.Shift.Shift_300.Transparency
 	local unfilledStyleTransparency = tokens.Color.Shift.Shift_100.Transparency
@@ -348,15 +333,9 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 					onChanged = onChanged,
 					onFocusLost = onFocusLost,
 					onFocus = onFocus,
-					onDragStarted = if Flags.FoundationDontCreateUIDDForNumberInput
-						then if props.isScrubbable then onDragStarted else nil
-						else onDragStarted,
-					onDrag = if Flags.FoundationDontCreateUIDDForNumberInput
-						then if props.isScrubbable then onDrag else nil
-						else onDrag,
-					onDragEnded = if Flags.FoundationDontCreateUIDDForNumberInput
-						then if props.isScrubbable then onDragEnded else nil
-						else onDragEnded,
+					onDragStarted = if props.isScrubbable then onDragStarted else nil,
+					onDrag = if props.isScrubbable then onDrag else nil,
+					onDragEnded = if props.isScrubbable then onDragEnded else nil,
 					onReturnPressed = props.onReturnPressed,
 					ref = inputRef,
 					backgroundGradient = if props.isScrubbable and scrubbableTransparencySequence

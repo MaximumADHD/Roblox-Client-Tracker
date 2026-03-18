@@ -21,12 +21,9 @@ local function ConnectAvatarEditorServiceEvents(store)
 	table.insert(connections, AvatarEditorService.OpenPromptSaveAvatar:Connect(function(humanoidDescription, rigType)
 		if FFlagAXAvatarTimeoutFlowIE then
 			local timeoutStore = AvatarExperienceCommon.Stores.getTimeoutStatusStore()
-			timeoutStore.fetchStatusAsync():andThen(function()
-				if timeoutStore.getIsTimedOut(false) then
-					local details = timeoutStore.getTimeoutDetails(false)
-					store:dispatch(OpenPrompt(PromptType.SaveAvatarTimeout, {
-						timeoutDetails = details,
-					}))
+			timeoutStore.fetchStatusAsync():andThen(function(status)
+				if status.isTimedOut then
+					store:dispatch(OpenPrompt(PromptType.SaveAvatarTimeout,{}))
 				else
 					store:dispatch(OpenSaveAvatarPrompt(humanoidDescription, rigType))
 				end

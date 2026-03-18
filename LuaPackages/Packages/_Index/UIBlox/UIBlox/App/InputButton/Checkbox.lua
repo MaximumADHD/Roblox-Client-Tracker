@@ -1,5 +1,8 @@
 local Packages = script.Parent.Parent.Parent.Parent
 
+local Foundation = require(Packages.Foundation)
+local FoundationCheckbox = Foundation.Checkbox
+
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
@@ -9,6 +12,8 @@ local InputButton = require(Packages.UIBlox.Core.InputButton.InputButton)
 local CursorKind = require(Packages.UIBlox.App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(Packages.UIBlox.App.SelectionImage.withSelectionCursorProvider)
 local useCursorByType = require(Packages.UIBlox.App.SelectionCursor.useCursorByType)
+
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 --TODO: This code is considered Control.Checkbox by design, consider moving this out of InputButton for consistency.
 
@@ -116,6 +121,26 @@ function Checkbox:renderWithProviders(style, getSelectionCursor, cursor)
 end
 
 return Roact.forwardRef(function(props, ref)
+	if UIBloxConfig.useFoundationCheckbox then
+		-- Not forwarding `size` — the legacy UIBlox checkbox only applied it to the
+		-- outer container frame while the input square stayed hardcoded at 26px.
+		-- Callers that need a wrapping frame should add one at the integration layer
+		-- (e.g. in lua-apps), making the layout constraint explicit and easier for
+		-- codemods to clean up later.
+		return Roact.createElement(FoundationCheckbox, {
+			label = props.text or Checkbox.defaultProps.text,
+			isChecked = props.isSelected,
+			isDisabled = props.isDisabled,
+			onActivated = props.onActivated,
+			LayoutOrder = props.layoutOrder,
+			NextSelectionDown = props.NextSelectionDown,
+			NextSelectionUp = props.NextSelectionUp,
+			NextSelectionLeft = props.NextSelectionLeft,
+			NextSelectionRight = props.NextSelectionRight,
+			ref = ref,
+		})
+	end
+
 	local cursor = useCursorByType(CursorKind.InputButton)
 	return Roact.createElement(Checkbox, Cryo.Dictionary.join(props, { frameRef = ref, cursor = cursor }))
 end)

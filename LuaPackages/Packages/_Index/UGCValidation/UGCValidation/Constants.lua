@@ -5,11 +5,7 @@ local Cryo = require(root.Parent.Cryo)
 
 local ValidationRulesUtil = require(root.util.ValidationRulesUtil)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
-local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
-local getFFlagUGCValidateWrapLayersEnabled = require(root.flags.getFFlagUGCValidateWrapLayersEnabled)
-local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
 local getFFlagUGCValidationFixConstantsTypoLeg = require(root.flags.getFFlagUGCValidationFixConstantsTypoLeg)
-local getFFlagUGCValidateBindOffset = require(root.flags.getFFlagUGCValidateBindOffset)
 local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
 local getFFlagUGCValidateCheckHSROwner = require(root.flags.getFFlagUGCValidateCheckHSROwner)
 local getFFlagUGCValidateCheckTexturePackOwner = require(root.flags.getFFlagUGCValidateCheckTexturePackOwner)
@@ -406,7 +402,7 @@ Constants.PROPERTIES = {
 	},
 	WrapLayer = {
 		-- ====== Simple checks ======
-		Enabled = if getFFlagUGCValidateWrapLayersEnabled() then true else nil,
+		Enabled = true,
 
 		-- ====== Extra Context checks ======
 		CageOrigin = {
@@ -431,16 +427,14 @@ Constants.PROPERTIES = {
 			},
 		},
 
-		BindOffset = if getFFlagUGCValidateBindOffset()
-			then {
-				Position = {
-					[Constants.COMPARISON_METHODS.EXACT_EQ] = Vector3.new(0, 0, 0),
-				},
-				Orientation = {
-					[Constants.COMPARISON_METHODS.EXACT_EQ] = Vector3.new(0, 0, 0),
-				},
-			}
-			else nil,
+		BindOffset = {
+			Position = {
+				[Constants.COMPARISON_METHODS.EXACT_EQ] = Vector3.new(0, 0, 0),
+			},
+			Orientation = {
+				[Constants.COMPARISON_METHODS.EXACT_EQ] = Vector3.new(0, 0, 0),
+			},
+		},
 	},
 
 	WrapTarget = {
@@ -533,39 +527,21 @@ Constants.WRAP_TARGET_CAGE_MESH_UV_COUNTS = {
 	RightLowerLeg = 88,
 	RightFoot = 86,
 }
-Constants.PACKAGE_CONTENT_ID_FIELDS = Cryo.Dictionary.join(
-	Constants.CONTENT_ID_FIELDS,
-	if getFFlagFixPackageIDFieldName()
-		then {
-			Sound = { "SoundId" },
-			Decal = { "Texture" },
-			VideoFrame = { "Video" },
-			PackageLink = { "PackageId" },
-			CharacterMesh = { "OverlayTextureId", "MeshId", "BaseTextureId" },
-			Tool = { "TextureId" },
-			Trail = { "Texture" },
-			Beam = { "Texture" },
-			ShirtGraphic = { "Graphic" },
-			Shirt = { "ShirtTemplate" },
-			Pants = { "PantsTemplate" },
-			AdGui = { "FallbackImage" },
-		}
-		else {
-			Sound = { "SoundId" },
-			Decal = { "Texture" },
-			VideoFrame = { "Video" },
-			PackageLink = { "PackageId" },
-			CharacterMesh = { "baseTextureAssetId", "overlayTextureAssetId", "meshAssetId" },
-			Tool = { "TextureId" },
-			Sky = { "SkyUp", "SkyLf", "SkyRt", "SkyBk", "SkyFt", "SkyDn", "Sun", "Moon" },
-			Trail = { "texture" },
-			Beam = { "texture" },
-			ShirtGraphic = { "Graphic" },
-			Shirt = { "ShirtTemplate" },
-			Pants = { "PantsTemplate" },
-			AdGui = { "FallbackImage" },
-		}
-)
+Constants.PACKAGE_CONTENT_ID_FIELDS = Cryo.Dictionary.join(Constants.CONTENT_ID_FIELDS, {
+	Sound = { "SoundId" },
+	Decal = { "Texture" },
+	VideoFrame = { "Video" },
+	PackageLink = { "PackageId" },
+	CharacterMesh = { "baseTextureAssetId", "overlayTextureAssetId", "meshAssetId" },
+	Tool = { "TextureId" },
+	Sky = { "SkyUp", "SkyLf", "SkyRt", "SkyBk", "SkyFt", "SkyDn", "Sun", "Moon" },
+	Trail = { "texture" },
+	Beam = { "texture" },
+	ShirtGraphic = { "Graphic" },
+	Shirt = { "ShirtTemplate" },
+	Pants = { "PantsTemplate" },
+	AdGui = { "FallbackImage" },
+})
 
 Constants.ExperienceAuthHeaderKey = "RBX-ExperienceAuthorization"
 Constants.ContentType = "Content-Type"
@@ -577,20 +553,17 @@ Constants.GUIDAttributeName = "RBXGUID"
 Constants.GUIDAttributeMaxLength = 100
 
 Constants.AlternateMeshIdAttributeName = "RBX_ALT_MESH_ID"
+Constants.MESH_CONTENT_TYPE = {
+	RENDER_MESH = "RenderMesh",
+	OUTER_CAGE = "OuterCage",
+	INNER_CAGE = "InnerCage",
+}
 
-if getFFlagUGCValidationConsolidateGetMeshInfos() then
-	Constants.MESH_CONTENT_TYPE = {
-		RENDER_MESH = "RenderMesh",
-		OUTER_CAGE = "OuterCage",
-		INNER_CAGE = "InnerCage",
-	}
-
-	Constants.MESH_CONTENT_TYPE_TO_FIELD_NAME = {
-		[Constants.MESH_CONTENT_TYPE.RENDER_MESH] = "MeshId",
-		[Constants.MESH_CONTENT_TYPE.OUTER_CAGE] = "CageMeshId",
-		[Constants.MESH_CONTENT_TYPE.INNER_CAGE] = "ReferenceMeshId",
-	}
-end
+Constants.MESH_CONTENT_TYPE_TO_FIELD_NAME = {
+	[Constants.MESH_CONTENT_TYPE.RENDER_MESH] = "MeshId",
+	[Constants.MESH_CONTENT_TYPE.OUTER_CAGE] = "CageMeshId",
+	[Constants.MESH_CONTENT_TYPE.INNER_CAGE] = "ReferenceMeshId",
+}
 
 Constants.AllAssetUploadCategories = {
 	-- For tests that run on all assets

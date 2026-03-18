@@ -13,7 +13,6 @@ local Constants = require(root.Constants)
 local util = root.util
 local Types = require(util.Types)
 local pcallDeferred = require(util.pcallDeferred)
-local getEditableMeshFromContext = require(util.getEditableMeshFromContext)
 local FailureReasonsAccumulator = require(util.FailureReasonsAccumulator)
 local getExpectedPartSize = require(util.getExpectedPartSize)
 local getMeshInfo = require(util.getMeshInfo)
@@ -21,79 +20,29 @@ local AssetCalculator = require(util.AssetCalculator)
 
 local flags = root.flags
 local GetFStringUGCValidationMaxCageDistance = require(flags.GetFStringUGCValidationMaxCageDistance)
-local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
-local getFFlagUGCValidationHyperlinksInCageQuality = require(root.flags.getFFlagUGCValidationHyperlinksInCageQuality)
 
 local ValidateAssetBodyPartCages = {}
-
--- TODO: Remove with FFlagConsolidateGetMeshInfos
-local function DEPRECATED_getMeshInfo(
-	inst: Instance,
-	fieldName: string,
-	contentId: string,
-	contextName: string,
-	validationContext: Types.ValidationContext
-): (boolean, Types.MeshInfo)
-	local meshInfo = {
-		fullName = inst:GetFullName(),
-		contentId = contentId,
-		fieldName = fieldName,
-		context = contextName,
-	} :: Types.MeshInfo
-
-	local success, editableMesh = getEditableMeshFromContext(inst, fieldName, validationContext)
-	if not success then
-		return false, meshInfo
-	end
-
-	meshInfo.editableMesh = editableMesh :: EditableMesh
-
-	return true, meshInfo
-end
 
 local function validateInternal(
 	meshHandle: MeshPart,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local getMeshInfoSuccess, meshInfoErrors, meshInfo
-	if getFFlagUGCValidationConsolidateGetMeshInfos() then
-		getMeshInfoSuccess, meshInfoErrors, meshInfo =
-			getMeshInfo(meshHandle, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
-	else
-		getMeshInfoSuccess, meshInfo =
-			DEPRECATED_getMeshInfo(meshHandle, "MeshId", meshHandle.MeshId, meshHandle.Name, validationContext)
-	end
+	getMeshInfoSuccess, meshInfoErrors, meshInfo =
+		getMeshInfo(meshHandle, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
 
 	if not getMeshInfoSuccess then
-		if getFFlagUGCValidationConsolidateGetMeshInfos() then
-			return false, meshInfoErrors
-		else
-			return false, { "Failed to load " .. meshHandle.Name .. "'s render mesh data" }
-		end
+		return false, meshInfoErrors
 	end
 
 	local wrapTarget = meshHandle:FindFirstChildWhichIsA("WrapTarget")
 	assert(wrapTarget, "Missing WrapTarget child for " .. meshHandle.Name)
 	local getWrapTargetCageInfoSuccess, cageInfoErrors, cageInfo
-	if getFFlagUGCValidationConsolidateGetMeshInfos() then
-		getWrapTargetCageInfoSuccess, cageInfoErrors, cageInfo =
-			getMeshInfo(wrapTarget, Constants.MESH_CONTENT_TYPE.OUTER_CAGE, validationContext)
-	else
-		getWrapTargetCageInfoSuccess, cageInfo = DEPRECATED_getMeshInfo(
-			wrapTarget,
-			"CageMeshId",
-			wrapTarget.CageMeshId,
-			wrapTarget.ClassName,
-			validationContext
-		)
-	end
+	getWrapTargetCageInfoSuccess, cageInfoErrors, cageInfo =
+		getMeshInfo(wrapTarget, Constants.MESH_CONTENT_TYPE.OUTER_CAGE, validationContext)
 
 	if not getWrapTargetCageInfoSuccess then
-		if getFFlagUGCValidationConsolidateGetMeshInfos() then
-			return false, cageInfoErrors
-		else
-			return false, { "Failed to load " .. meshHandle.Name .. "'s WrapTarget's cage mesh data" }
-		end
+		return false, cageInfoErrors
 	end
 
 	local scale = getExpectedPartSize(meshHandle, validationContext)
@@ -175,49 +124,21 @@ function ValidateAssetBodyPartCages.validateFullBody(
 	local testInputInfo = {}
 	for _, meshHandle in fullBodyAssets do
 		local getMeshInfoSuccess, meshInfoErrors, meshInfo
-		if getFFlagUGCValidationConsolidateGetMeshInfos() then
-			getMeshInfoSuccess, meshInfoErrors, meshInfo =
-				getMeshInfo(meshHandle, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
-		else
-			getMeshInfoSuccess, meshInfo = DEPRECATED_getMeshInfo(
-				meshHandle,
-				"MeshId",
-				(meshHandle :: MeshPart).MeshId,
-				meshHandle.Name,
-				validationContext
-			)
-		end
+		getMeshInfoSuccess, meshInfoErrors, meshInfo =
+			getMeshInfo(meshHandle, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
 
 		if not getMeshInfoSuccess then
-			if getFFlagUGCValidationConsolidateGetMeshInfos() then
-				return false, meshInfoErrors
-			else
-				return false, { "Failed to load " .. meshHandle.Name .. "'s render mesh data" }
-			end
+			return false, meshInfoErrors
 		end
 
 		local wrapTarget = meshHandle:FindFirstChildWhichIsA("WrapTarget")
 		assert(wrapTarget, "Missing WrapTarget child for " .. meshHandle.Name)
 		local getWrapTargetCageInfoSuccess, cageInfoErrors, cageInfo
-		if getFFlagUGCValidationConsolidateGetMeshInfos() then
-			getWrapTargetCageInfoSuccess, cageInfoErrors, cageInfo =
-				getMeshInfo(wrapTarget, Constants.MESH_CONTENT_TYPE.OUTER_CAGE, validationContext)
-		else
-			getWrapTargetCageInfoSuccess, cageInfo = DEPRECATED_getMeshInfo(
-				wrapTarget,
-				"CageMeshId",
-				wrapTarget.CageMeshId,
-				wrapTarget.ClassName,
-				validationContext
-			)
-		end
+		getWrapTargetCageInfoSuccess, cageInfoErrors, cageInfo =
+			getMeshInfo(wrapTarget, Constants.MESH_CONTENT_TYPE.OUTER_CAGE, validationContext)
 
 		if not getWrapTargetCageInfoSuccess then
-			if getFFlagUGCValidationConsolidateGetMeshInfos() then
-				return false, cageInfoErrors
-			else
-				return false, { "Failed to load " .. meshHandle.Name .. "'s WrapTarget's cage mesh data" }
-			end
+			return false, cageInfoErrors
 		end
 
 		local scale = getExpectedPartSize(meshHandle :: MeshPart, validationContext)
@@ -266,10 +187,7 @@ function ValidateAssetBodyPartCages.validateFullBody(
 			maxCageDistance,
 			GetFStringUGCValidationMaxCageDistance.asString()
 		)
-		if getFFlagUGCValidationHyperlinksInCageQuality() then
-			errorString = errorString
-				.. "[Read more](https://create.roblox.com/docs/art/validation-errors#bodyCageMaxSize)"
-		end
+		errorString = errorString .. "[Read more](https://create.roblox.com/docs/art/validation-errors#bodyCageMaxSize)"
 
 		return false, {
 			errorString,

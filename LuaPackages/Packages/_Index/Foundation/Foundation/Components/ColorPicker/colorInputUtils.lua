@@ -6,6 +6,8 @@ local React = require(Packages.React)
 local ColorInputMode = require(Foundation.Enums.ColorInputMode)
 type ColorInputMode = ColorInputMode.ColorInputMode
 
+local Flags = require(Foundation.Utility.Flags)
+
 local RGB_MAX_VALUE = 255
 
 export type Config<T, V> = {
@@ -77,7 +79,9 @@ local function createInputConfigs(
 			value = hexValue,
 			handler = handleHexChange,
 			placeholder = "#000000",
-			width = tokens.Size and tokens.Size.Size_2000 and tokens.Size.Size_2000 or nil,
+			width = if Flags.FoundationColorPickerDesignUpdate
+				then UDim.new(1, 0)
+				else (tokens.Size and tokens.Size.Size_2000 and tokens.Size.Size_2000 or nil),
 		},
 	}
 

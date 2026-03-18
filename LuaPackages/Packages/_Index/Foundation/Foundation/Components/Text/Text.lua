@@ -55,6 +55,9 @@ local function Text(textProps: TextProps, ref: React.Ref<GuiObject>?)
 	local isInteractable = props.onStateChanged ~= nil or props.onActivated ~= nil or props.onSecondaryActivated ~= nil
 
 	local defaultTags = if props.backgroundStyle ~= nil then DEFAULT_TAGS_WITH_BG else DEFAULT_TAGS
+	if Flags.FoundationTextSizeDefaults and props.fontStyle and props.fontStyle.FontSize then
+		defaultTags ..= " x-default-text-size"
+	end
 
 	local tagsWithDefaults = useDefaultTags(props.tag, defaultTags)
 	local tag = useStyleTags(tagsWithDefaults)

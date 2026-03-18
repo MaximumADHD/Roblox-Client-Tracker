@@ -12,6 +12,8 @@ type StateLayerMode = StateLayerMode.StateLayerMode
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 
+local Flags = require(Foundation.Utility.Flags)
+
 function guiStateToStateLayer(guiState: ControlState): "Idle" | "Press" | "Hover"
 	if guiState == ControlState.Pressed then
 		return "Press"
@@ -40,10 +42,15 @@ end
 
 local function getStateLayerStyle(
 	tokens: Tokens,
-	stateLayer: StateLayer?,
+	-- TODO: clean up with FFlagFoundationBindableStateLayer as "mode"
+	stateLayerOrMode: StateLayer? | StateLayerMode?,
 	guiState: ControlState
 ): { Color3: Color3, Transparency: number }
-	local colorNamespace = stateLayerModeToTokenNamespace(stateLayer and stateLayer.mode)
+	local colorNamespace = stateLayerModeToTokenNamespace(
+		if Flags.FoundationBindableStateLayer
+			then stateLayerOrMode :: StateLayerMode?
+			else (stateLayerOrMode :: StateLayer?) and (stateLayerOrMode :: StateLayer).mode :: StateLayerMode?
+	)
 	local stateLayerState = guiStateToStateLayer(guiState)
 
 	local stateLayerStyle = (tokens[colorNamespace] :: typeof(tokens.Color)).State[stateLayerState]

@@ -630,7 +630,11 @@ function CameraModule:OnMouseLockToggled()
 end
 
 if FFlagUserPlayerModuleHiddenAPI then
-	return CameraModule.new()
+	if RunService:IsClient() then
+		return CameraModule.new()
+	else
+		return CameraModule
+	end
 else
 	CameraModule.new()
 	return {}

@@ -55,12 +55,13 @@ type _CardSchema_PropsFields = {
 	cta_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	cta_variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	cta_size: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	on_cta_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	cta_on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	is_cta_disabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
 	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 	corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	focus_navigation_actions_component: _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp?,
+	image_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 }
 
 type _CardSchema_PropsPartialFields = {
@@ -69,12 +70,13 @@ type _CardSchema_PropsPartialFields = {
 	cta_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	cta_variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	cta_size: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	on_cta_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	cta_on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	is_cta_disabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
 	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 	corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	focus_navigation_actions_component: _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp?,
+	image_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 }
 
 export type CardSchema_Props = typeof(setmetatable({} :: _CardSchema_PropsFields, {} :: _CardSchema_PropsImpl))
@@ -210,7 +212,7 @@ do
 			cta_text = if data == nil or data.cta_text == nil then nil else data.cta_text,
 			cta_variant = if data == nil or data.cta_variant == nil then nil else data.cta_variant,
 			cta_size = if data == nil or data.cta_size == nil then nil else data.cta_size,
-			on_cta_activated = if data == nil or data.on_cta_activated == nil then nil else data.on_cta_activated,
+			cta_on_activated = if data == nil or data.cta_on_activated == nil then nil else data.cta_on_activated,
 			is_cta_disabled = if data == nil or data.is_cta_disabled == nil then nil else data.is_cta_disabled,
 			image = if data == nil or data.image == nil then nil else data.image,
 			background_style = if data == nil or data.background_style == nil then nil else data.background_style,
@@ -219,6 +221,7 @@ do
 					or data.focus_navigation_actions_component == nil
 				then nil
 				else data.focus_navigation_actions_component,
+			image_style = if data == nil or data.image_style == nil then nil else data.image_style,
 		}, _CardSchema_PropsImpl :: _CardSchema_PropsImpl)
 	end
 
@@ -256,8 +259,8 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.on_cta_activated ~= nil then
-			local encoded = self.on_cta_activated:encode()
+		if self.cta_on_activated ~= nil then
+			local encoded = self.cta_on_activated:encode()
 			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
@@ -289,6 +292,12 @@ do
 		if self.focus_navigation_actions_component ~= nil then
 			local encoded = self.focus_navigation_actions_component:encode()
 			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.image_style ~= nil then
+			local encoded = self.image_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -339,7 +348,7 @@ do
 				elseif field == 6 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.on_cta_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
+					self.cta_on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
 					continue
 				elseif field == 7 then
 					local value
@@ -367,6 +376,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.focus_navigation_actions_component =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
 					continue
 				end
 
@@ -415,8 +429,8 @@ do
 			output.ctaSize = self.cta_size:jsonEncode()
 		end
 
-		if self.on_cta_activated ~= nil then
-			output.onCtaActivated = self.on_cta_activated:jsonEncode()
+		if self.cta_on_activated ~= nil then
+			output.ctaOnActivated = self.cta_on_activated:jsonEncode()
 		end
 
 		if self.is_cta_disabled ~= nil then
@@ -437,6 +451,10 @@ do
 
 		if self.focus_navigation_actions_component ~= nil then
 			output.focusNavigationActionsComponent = self.focus_navigation_actions_component:jsonEncode()
+		end
+
+		if self.image_style ~= nil then
+			output.imageStyle = self.image_style:jsonEncode()
 		end
 
 		return output
@@ -488,14 +506,14 @@ do
 			self.cta_size = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.ctaSize)
 		end
 
-		if input.on_cta_activated ~= nil then
-			self.on_cta_activated =
-				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.on_cta_activated)
+		if input.cta_on_activated ~= nil then
+			self.cta_on_activated =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.cta_on_activated)
 		end
 
-		if input.onCtaActivated ~= nil then
-			self.on_cta_activated =
-				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onCtaActivated)
+		if input.ctaOnActivated ~= nil then
+			self.cta_on_activated =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.ctaOnActivated)
 		end
 
 		if input.is_cta_disabled ~= nil then
@@ -544,6 +562,16 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp.jsonDecode(
 					input.focusNavigationActionsComponent
 				)
+		end
+
+		if input.image_style ~= nil then
+			self.image_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.image_style)
+		end
+
+		if input.imageStyle ~= nil then
+			self.image_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.imageStyle)
 		end
 
 		return self

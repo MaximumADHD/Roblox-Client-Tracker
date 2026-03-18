@@ -11,6 +11,7 @@ local Constants = require(Foundation.Constants)
 
 local Icon = require(Foundation.Components.Icon)
 local Image = require(Foundation.Components.Image)
+local Popover = require(Foundation.Components.Popover)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
@@ -22,13 +23,21 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
-local ControlState = require(Foundation.Enums.ControlState)
-type ControlState = ControlState.ControlState
+local ReactUtils = require(Packages.ReactUtils)
+local useComposedRef = ReactUtils.useComposedRef
+
 local InputSize = require(Foundation.Enums.InputSize)
+local PopoverAlign = require(Foundation.Enums.PopoverAlign)
+local PopoverSide = require(Foundation.Enums.PopoverSide)
+local Radius = require(Foundation.Enums.Radius)
+
 type InputSize = InputSize.InputSize
+
+local Flags = require(Foundation.Utility.Flags)
 
 local BaseMenuContext = require(script.Parent.BaseMenuContext)
 local useBaseMenuItemVariants = require(script.Parent.useBaseMenuItemVariants)
+local useMenuItemHover = require(script.Parent.useMenuItemHover)
 
 export type BaseMenuItemProps = {
 	id: ItemId,
@@ -38,6 +47,7 @@ export type BaseMenuItemProps = {
 	text: string,
 	onActivated: OnItemActivated?,
 	size: InputSize?,
+	children: React.ReactNode?,
 } & Types.CommonProps
 
 local defaultProps = {
@@ -50,25 +60,87 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 	local hasLeading = context.hasLeading
 	local tokens = useTokens()
 	local size: InputSize = props.size or context.size
+	local depth = context.depth
 
-	local variantProps = useBaseMenuItemVariants(tokens, size, props.isChecked)
+	local isSubmenu = Flags.FoundationBaseMenuSubmenuSupport and props.children ~= nil
+	local isOpen = isSubmenu and context.hoverOpenPath[depth] == props.id
 
-	-- If at least one item has an icon, other items should use placeholders
+	local variantProps = useBaseMenuItemVariants(tokens, size, if isSubmenu then false else props.isChecked)
+
+	local itemRef = React.useRef(nil :: GuiObject?)
+
+	local submenuHasLeading, setSubmenuHasLeadingInternal, setSubmenuHasLeading
+
+	if Flags.FoundationBaseMenuSubmenuSupport then
+		submenuHasLeading, setSubmenuHasLeadingInternal = React.useState(false)
+		setSubmenuHasLeading = React.useCallback(function()
+			setSubmenuHasLeadingInternal(true)
+		end, {})
+	end
+
 	React.useEffect(function()
 		if props.icon and context.setHasLeading then
 			context.setHasLeading()
 		end
 	end, { props.icon, context.setHasLeading } :: { unknown })
 
-	local onActivated = React.useCallback(function()
-		local callback = if props.onActivated then props.onActivated else context.onActivated
-		if not callback then
-			Logger:warning("Menu should have either onActivated on itself or on all of its children")
-			callback = function(_itemId: ItemId) end
-		end
-		-- Type checker thinks it's still OnItemActivated? here
-		(callback :: OnItemActivated)(props.id)
-	end, { props.onActivated, context.onActivated } :: { unknown })
+	if Flags.FoundationBaseMenuSubmenuSupport then
+		useMenuItemHover({
+			itemRef = itemRef,
+			id = props.id,
+			depth = depth,
+			isSubmenu = isSubmenu,
+			isDisabled = props.isDisabled,
+			hoverOpenAtDepth = context.hoverOpenAtDepth,
+			hoverCloseAtDepth = context.hoverCloseAtDepth,
+		})
+	end
+
+	local onActivated = React.useCallback(
+		function()
+			if isSubmenu then
+				if props.isDisabled then
+					return
+				end
+
+				if context.hoverOpenAtDepth and not isOpen then
+					context.hoverOpenAtDepth(depth, props.id, true)
+				end
+			else
+				if Flags.FoundationBaseMenuSubmenuSupport and context.hoverReset then
+					context.hoverReset()
+				end
+
+				local callback = if props.onActivated then props.onActivated else context.onActivated
+
+				if not callback then
+					Logger:warning("Menu should have either onActivated on itself or on all of its children")
+				else
+					callback(props.id)
+				end
+			end
+		end,
+		{
+			isSubmenu,
+			props.isDisabled,
+			isOpen,
+			depth,
+			props.id,
+			props.onActivated,
+			context.onActivated,
+			context.hoverOpenAtDepth,
+			context.hoverReset,
+		} :: { unknown }
+	)
+
+	local onSubmenuPressedOutside
+	if Flags.FoundationBaseMenuSubmenuSupport then
+		onSubmenuPressedOutside = React.useCallback(function()
+			if context.hoverReset then
+				context.hoverReset()
+			end
+		end, { context.hoverReset })
+	end
 
 	local cursor = React.useMemo(function()
 		return {
@@ -82,7 +154,9 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 		return BuilderIcons.Migration["uiblox"][props.icon]
 	end, { props.icon })
 
-	return React.createElement(
+	local combinedRef = useComposedRef(itemRef :: React.Ref<any>, ref :: React.Ref<any>)
+
+	local itemElement = React.createElement(
 		View,
 		withCommonProps(props, {
 			GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
@@ -93,14 +167,14 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 			},
 			cursor = cursor,
 			tag = variantProps.container.tag,
-			ref = ref,
+			ref = if Flags.FoundationBaseMenuSubmenuSupport then combinedRef else ref,
 		}),
 		{
 			Icon = if props.icon or hasLeading
 				then if props.icon and isBuilderIconOrMigrated(props.icon)
 					then React.createElement(View, {
 						LayoutOrder = 1,
-						tag = `{variantProps.icon.tag} align-x-center align-y-center`,
+						tag = `align-x-center align-y-center {variantProps.icon.tag}`,
 					}, {
 						Icon = React.createElement(Icon, {
 							name = if migratedIcon then migratedIcon.name else props.icon,
@@ -119,7 +193,16 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 				Text = props.text,
 				tag = variantProps.text.tag,
 			}),
-			Check = if props.isChecked
+			Chevron = if isSubmenu
+				then React.createElement(Icon, {
+					LayoutOrder = 3,
+					name = BuilderIcons.Icon.ChevronSmallRight,
+					style = variantProps.check.style,
+					size = variantProps.chevron.size,
+					testId = `{props.testId}--chevron`,
+				})
+				else nil,
+			Check = if not isSubmenu and props.isChecked
 				then React.createElement(Icon, {
 					LayoutOrder = 3,
 					name = BuilderIcons.Icon.Check,
@@ -130,6 +213,61 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 				else nil,
 		}
 	)
+
+	if not isSubmenu then
+		return itemElement
+	end
+
+	local strokeThickness = tokens.Stroke.Standard
+	local groupPadding = variantProps.groupPadding.size
+
+	return React.createElement(React.Fragment, nil, {
+		Item = itemElement,
+		Submenu = React.createElement(Popover.Root, {
+			isOpen = isOpen,
+			testId = `{props.testId}--submenu`,
+		}, {
+			Anchor = React.createElement(Popover.Anchor, {
+				anchorRef = itemRef,
+			}),
+			Content = React.createElement(
+				Popover.Content,
+				{
+					side = {
+						position = PopoverSide.Right,
+						offset = groupPadding / 2 + strokeThickness,
+					},
+					align = {
+						position = PopoverAlign.Start,
+						offset = -groupPadding,
+					},
+					hasArrow = false,
+					onPressedOutside = onSubmenuPressedOutside,
+					backgroundStyle = tokens.Color.Surface.Surface_100,
+					radius = Radius.Medium,
+				},
+				React.createElement(
+					View,
+					{
+						tag = "col auto-xy stroke-standard stroke-default radius-medium",
+					},
+					React.createElement(BaseMenuContext.Provider, {
+						value = {
+							onActivated = context.onActivated,
+							size = size,
+							hasLeading = submenuHasLeading,
+							setHasLeading = setSubmenuHasLeading,
+							hoverOpenPath = context.hoverOpenPath,
+							hoverOpenAtDepth = context.hoverOpenAtDepth,
+							hoverCloseAtDepth = context.hoverCloseAtDepth,
+							hoverReset = context.hoverReset,
+							depth = depth + 1,
+						},
+					}, props.children)
+				)
+			),
+		}),
+	})
 end
 
 return React.memo(React.forwardRef(BaseMenuItem))

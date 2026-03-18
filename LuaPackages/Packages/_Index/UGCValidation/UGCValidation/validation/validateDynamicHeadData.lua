@@ -30,7 +30,8 @@ local pcallDeferred = require(root.util.pcallDeferred)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 
 local getFFlagUGCValidationUpdateHeadIsDynamic = require(root.flags.getFFlagUGCValidationUpdateHeadIsDynamic)
-
+local getEngineFeatureEngineUGCValidateMinMaxMeshSizeAcrossAllFacs =
+	require(root.flags.getEngineFeatureEngineUGCValidateMinMaxMeshSizeAcrossAllFacs)
 local requiredActiveFACSControls
 if getFFlagUGCValidationUpdateHeadIsDynamic() then
 	requiredActiveFACSControls = {
@@ -275,7 +276,10 @@ local function validateDynamicHeadData(
 
 	reasonsAccumulator:updateReasons(validateFacialExpressiveness(meshPartHead, validationContext))
 
-	reasonsAccumulator:updateReasons(validateFacialBounds(meshPartHead, validationContext))
+	if not getEngineFeatureEngineUGCValidateMinMaxMeshSizeAcrossAllFacs() then
+		-- moved to new system
+		reasonsAccumulator:updateReasons(validateFacialBounds(meshPartHead, validationContext))
+	end
 
 	if getEngineFeatureEngineUGCValidateFACSJointTransformsWithinBounds() then
 		reasonsAccumulator:updateReasons(validateFacsJointBounds(meshPartHead, validationContext))

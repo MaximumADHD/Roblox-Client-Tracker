@@ -7,6 +7,7 @@ local ContextStack = require(Packages.ReactUtils).ContextStack
 
 local CursorProvider = require(Providers.Cursor)
 local OverlayProvider = require(Providers.Overlay)
+local PluginProvider = require(Providers.Plugin.PluginProvider)
 local PreferencesProvider = require(Providers.Preferences.PreferencesProvider)
 local ResponsiveContext = require(Providers.Responsive.ResponsiveContext)
 local ResponsiveProvider = require(Providers.Responsive.ResponsiveProvider)
@@ -25,6 +26,7 @@ export type FoundationProviderProps = {
 	overlayGui: (OverlayConfig | GuiBase2d)?,
 	preferences: Preferences?,
 	responsiveConfig: ResponsiveConfig?,
+	plugin: Plugin?,
 } & StyleProps
 
 local function FoundationProvider(props: FoundationProviderProps)
@@ -34,6 +36,9 @@ local function FoundationProvider(props: FoundationProviderProps)
 
 	return React.createElement(ContextStack, {
 		providers = {
+			React.createElement(PluginProvider, {
+				plugin = props.plugin,
+			}),
 			React.createElement(ElevationProvider, nil),
 			React.createElement(PreferencesProvider, preferences),
 			React.createElement(StyleProvider, {

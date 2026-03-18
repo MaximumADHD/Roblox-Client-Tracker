@@ -158,6 +158,14 @@ local function getItemDetails(itemId, itemType)
 	return Promise.resolve(details)
 end
 
+local function getBatchItemDetails(itemIds)
+	local details = {}
+	for _, itemId in ipairs(itemIds) do
+		table.insert(details, Cryo.Dictionary.join(MOCK_ITEM_DETAILS, { Id = itemId }))
+	end
+	return Promise.resolve(details)
+end
+
 --[[
 	FIXME(dbanks)
 	2023/12/07
@@ -272,6 +280,7 @@ function MockNetwork.new(shouldFail, notRobloxAuthored)
 			getExperiencePlayability = networkFailure,
 			getExperienceInfo = networkFailure,
 			getItemDetails = networkFailure,
+			getBatchItemDetails = networkFailure,
 		}
 	else
 		mockNetworkService = {
@@ -292,6 +301,7 @@ function MockNetwork.new(shouldFail, notRobloxAuthored)
 			getExperiencePlayability = getExperiencePlayability,
 			getExperienceInfo = getExperienceInfo,
 			getItemDetails = getItemDetails,
+			getBatchItemDetails = getBatchItemDetails,
 		}
 	end
 

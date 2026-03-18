@@ -6,98 +6,103 @@
 local proto = require(script.Parent.Parent.Parent.Parent.Parent.proto)
 local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry)
 
-type _Messages = {
-	StringFormat: _StringFormatMessage,
-	StringFormat_FormatArg: _StringFormat_FormatArgMessage,
-	StringFormat_ArgsEntry: _StringFormat_ArgsEntryMessage,
-	StringProp: _StringPropMessage,
-	StringProp_ConditionalOption: _StringProp_ConditionalOptionMessage,
-	StringProp_ConditionalOptions: _StringProp_ConditionalOptionsMessage,
-	FloatProp: _FloatPropMessage,
-	FloatProp_ConditionalOption: _FloatProp_ConditionalOptionMessage,
-	FloatProp_ConditionalOptions: _FloatProp_ConditionalOptionsMessage,
-	DoubleProp: _DoublePropMessage,
-	DoubleProp_ConditionalOption: _DoubleProp_ConditionalOptionMessage,
-	DoubleProp_ConditionalOptions: _DoubleProp_ConditionalOptionsMessage,
-	Int32Prop: _Int32PropMessage,
-	Int32Prop_ConditionalOption: _Int32Prop_ConditionalOptionMessage,
-	Int32Prop_ConditionalOptions: _Int32Prop_ConditionalOptionsMessage,
-	Int64Prop: _Int64PropMessage,
-	Int64Prop_ConditionalOption: _Int64Prop_ConditionalOptionMessage,
-	Int64Prop_ConditionalOptions: _Int64Prop_ConditionalOptionsMessage,
-	BoolProp: _BoolPropMessage,
-	BoolProp_ConditionalOption: _BoolProp_ConditionalOptionMessage,
-	BoolProp_ConditionalOptions: _BoolProp_ConditionalOptionsMessage,
-	StructProp: _StructPropMessage,
-	StructProp_ConditionalOption: _StructProp_ConditionalOptionMessage,
-	StructProp_ConditionalOptions: _StructProp_ConditionalOptionsMessage,
-	ImageStringProp: _ImageStringPropMessage,
-	ImageStringProp_ConditionalOption: _ImageStringProp_ConditionalOptionMessage,
-	ImageStringProp_ConditionalOptions: _ImageStringProp_ConditionalOptionsMessage,
-	ImageSetProp: _ImageSetPropMessage,
-	ImageSetProp_ConditionalOption: _ImageSetProp_ConditionalOptionMessage,
-	ImageSetProp_ConditionalOptions: _ImageSetProp_ConditionalOptionsMessage,
-	ColorProp: _ColorPropMessage,
-	ColorProp_ConditionalOption: _ColorProp_ConditionalOptionMessage,
-	ColorProp_ConditionalOptions: _ColorProp_ConditionalOptionsMessage,
-	TypographyProp: _TypographyPropMessage,
-	TypographyProp_ConditionalOption: _TypographyProp_ConditionalOptionMessage,
-	TypographyProp_ConditionalOptions: _TypographyProp_ConditionalOptionsMessage,
-	TypographyFontProp: _TypographyFontPropMessage,
-	TypographyFontProp_ConditionalOption: _TypographyFontProp_ConditionalOptionMessage,
-	TypographyFontProp_ConditionalOptions: _TypographyFontProp_ConditionalOptionsMessage,
-	ColorStyleProp: _ColorStylePropMessage,
-	ColorStyleProp_ConditionalOption: _ColorStyleProp_ConditionalOptionMessage,
-	ColorStyleProp_ConditionalOptions: _ColorStyleProp_ConditionalOptionsMessage,
-	FillBehaviorProp: _FillBehaviorPropMessage,
-	FillBehaviorProp_ConditionalOption: _FillBehaviorProp_ConditionalOptionMessage,
-	FillBehaviorProp_ConditionalOptions: _FillBehaviorProp_ConditionalOptionsMessage,
-	InputSizeProp: _InputSizePropMessage,
-	InputSizeProp_ConditionalOption: _InputSizeProp_ConditionalOptionMessage,
-	InputSizeProp_ConditionalOptions: _InputSizeProp_ConditionalOptionsMessage,
-	UDimProp: _UDimPropMessage,
-	UDimProp_ConditionalOption: _UDimProp_ConditionalOptionMessage,
-	UDimProp_ConditionalOptions: _UDimProp_ConditionalOptionsMessage,
-	UDim2Prop: _UDim2PropMessage,
-	UDim2Prop_ConditionalOption: _UDim2Prop_ConditionalOptionMessage,
-	UDim2Prop_ConditionalOptions: _UDim2Prop_ConditionalOptionsMessage,
-	Vector2Prop: _Vector2PropMessage,
-	Vector2Prop_ConditionalOption: _Vector2Prop_ConditionalOptionMessage,
-	Vector2Prop_ConditionalOptions: _Vector2Prop_ConditionalOptionsMessage,
-	TemplateArg: _TemplateArgMessage,
-	TemplateArg_LiteralValue: _TemplateArg_LiteralValueMessage,
-	NestedComponentProp: _NestedComponentPropMessage,
-	NestedComponentProp_ConditionalOption: _NestedComponentProp_ConditionalOptionMessage,
-	NestedComponentProp_ConditionalOptions: _NestedComponentProp_ConditionalOptionsMessage,
-	NestedComponentProp_TemplateData: _NestedComponentProp_TemplateDataMessage,
-	NestedComponentProp_TemplateData_InputsEntry: _NestedComponentProp_TemplateData_InputsEntryMessage,
-	LazyNestedComponentListProp: _LazyNestedComponentListPropMessage,
-	LazyNestedComponentListProp_ConditionalOption: _LazyNestedComponentListProp_ConditionalOptionMessage,
-	LazyNestedComponentListProp_ConditionalOptions: _LazyNestedComponentListProp_ConditionalOptionsMessage,
-	LazyNestedComponentListProp_TemplateData: _LazyNestedComponentListProp_TemplateDataMessage,
-	LazyNestedComponentListProp_TemplateData_InputsEntry: _LazyNestedComponentListProp_TemplateData_InputsEntryMessage,
-	LazyNestedComponentListProp_TemplateDataList: _LazyNestedComponentListProp_TemplateDataListMessage,
-	IconProp: _IconPropMessage,
-	IconProp_ConditionalOption: _IconProp_ConditionalOptionMessage,
-	IconProp_ConditionalOptions: _IconProp_ConditionalOptionsMessage,
-	GradientProp: _GradientPropMessage,
-	GradientProp_ConditionalOption: _GradientProp_ConditionalOptionMessage,
-	GradientProp_ConditionalOptions: _GradientProp_ConditionalOptionsMessage,
-	GradientProp_GradientData: _GradientProp_GradientDataMessage,
-	ArrayOfStructProp: _ArrayOfStructPropMessage,
-	ArrayOfStructProp_ConditionalOption: _ArrayOfStructProp_ConditionalOptionMessage,
-	ArrayOfStructProp_ConditionalOptions: _ArrayOfStructProp_ConditionalOptionsMessage,
-	ArrayOfStructProp_ArrayOfStructs: _ArrayOfStructProp_ArrayOfStructsMessage,
-	UiScaledFloatProp: _UiScaledFloatPropMessage,
-	UiScaledFloatProp_ConditionalOption: _UiScaledFloatProp_ConditionalOptionMessage,
-	UiScaledFloatProp_ConditionalOptions: _UiScaledFloatProp_ConditionalOptionsMessage,
-	UiScaledUDimProp: _UiScaledUDimPropMessage,
-	UiScaledUDimProp_ConditionalOption: _UiScaledUDimProp_ConditionalOptionMessage,
-	UiScaledUDimProp_ConditionalOptions: _UiScaledUDimProp_ConditionalOptionsMessage,
-	UiScaledUDim2Prop: _UiScaledUDim2PropMessage,
-	UiScaledUDim2Prop_ConditionalOption: _UiScaledUDim2Prop_ConditionalOptionMessage,
-	UiScaledUDim2Prop_ConditionalOptions: _UiScaledUDim2Prop_ConditionalOptionsMessage,
-}
+type _Messages =
+	{
+		StringFormat: _StringFormatMessage,
+		StringFormat_FormatArg: _StringFormat_FormatArgMessage,
+		StringFormat_ArgsEntry: _StringFormat_ArgsEntryMessage,
+		StringProp: _StringPropMessage,
+		StringProp_ConditionalOption: _StringProp_ConditionalOptionMessage,
+		StringProp_ConditionalOptions: _StringProp_ConditionalOptionsMessage,
+		FloatProp: _FloatPropMessage,
+		FloatProp_ConditionalOption: _FloatProp_ConditionalOptionMessage,
+		FloatProp_ConditionalOptions: _FloatProp_ConditionalOptionsMessage,
+		DoubleProp: _DoublePropMessage,
+		DoubleProp_ConditionalOption: _DoubleProp_ConditionalOptionMessage,
+		DoubleProp_ConditionalOptions: _DoubleProp_ConditionalOptionsMessage,
+		Int32Prop: _Int32PropMessage,
+		Int32Prop_ConditionalOption: _Int32Prop_ConditionalOptionMessage,
+		Int32Prop_ConditionalOptions: _Int32Prop_ConditionalOptionsMessage,
+		Int64Prop: _Int64PropMessage,
+		Int64Prop_ConditionalOption: _Int64Prop_ConditionalOptionMessage,
+		Int64Prop_ConditionalOptions: _Int64Prop_ConditionalOptionsMessage,
+		BoolProp: _BoolPropMessage,
+		BoolProp_ConditionalOption: _BoolProp_ConditionalOptionMessage,
+		BoolProp_ConditionalOptions: _BoolProp_ConditionalOptionsMessage,
+		StructProp: _StructPropMessage,
+		StructProp_ConditionalOption: _StructProp_ConditionalOptionMessage,
+		StructProp_ConditionalOptions: _StructProp_ConditionalOptionsMessage,
+		ImageStringProp: _ImageStringPropMessage,
+		ImageStringProp_ConditionalOption: _ImageStringProp_ConditionalOptionMessage,
+		ImageStringProp_ConditionalOptions: _ImageStringProp_ConditionalOptionsMessage,
+		ImageSetProp: _ImageSetPropMessage,
+		ImageSetProp_ConditionalOption: _ImageSetProp_ConditionalOptionMessage,
+		ImageSetProp_ConditionalOptions: _ImageSetProp_ConditionalOptionsMessage,
+		ColorProp: _ColorPropMessage,
+		ColorProp_ConditionalOption: _ColorProp_ConditionalOptionMessage,
+		ColorProp_ConditionalOptions: _ColorProp_ConditionalOptionsMessage,
+		TypographyProp: _TypographyPropMessage,
+		TypographyProp_ConditionalOption: _TypographyProp_ConditionalOptionMessage,
+		TypographyProp_ConditionalOptions: _TypographyProp_ConditionalOptionsMessage,
+		TypographyFontProp: _TypographyFontPropMessage,
+		TypographyFontProp_ConditionalOption: _TypographyFontProp_ConditionalOptionMessage,
+		TypographyFontProp_ConditionalOptions: _TypographyFontProp_ConditionalOptionsMessage,
+		ColorStyleProp: _ColorStylePropMessage,
+		ColorStyleProp_ConditionalOption: _ColorStyleProp_ConditionalOptionMessage,
+		ColorStyleProp_ConditionalOptions: _ColorStyleProp_ConditionalOptionsMessage,
+		FillBehaviorProp: _FillBehaviorPropMessage,
+		FillBehaviorProp_ConditionalOption: _FillBehaviorProp_ConditionalOptionMessage,
+		FillBehaviorProp_ConditionalOptions: _FillBehaviorProp_ConditionalOptionsMessage,
+		InputSizeProp: _InputSizePropMessage,
+		InputSizeProp_ConditionalOption: _InputSizeProp_ConditionalOptionMessage,
+		InputSizeProp_ConditionalOptions: _InputSizeProp_ConditionalOptionsMessage,
+		UDimProp: _UDimPropMessage,
+		UDimProp_ConditionalOption: _UDimProp_ConditionalOptionMessage,
+		UDimProp_ConditionalOptions: _UDimProp_ConditionalOptionsMessage,
+		UDim2Prop: _UDim2PropMessage,
+		UDim2Prop_ConditionalOption: _UDim2Prop_ConditionalOptionMessage,
+		UDim2Prop_ConditionalOptions: _UDim2Prop_ConditionalOptionsMessage,
+		Vector2Prop: _Vector2PropMessage,
+		Vector2Prop_ConditionalOption: _Vector2Prop_ConditionalOptionMessage,
+		Vector2Prop_ConditionalOptions: _Vector2Prop_ConditionalOptionsMessage,
+		TemplateArg: _TemplateArgMessage,
+		TemplateArg_LiteralValue: _TemplateArg_LiteralValueMessage,
+		NestedComponentProp: _NestedComponentPropMessage,
+		NestedComponentProp_ConditionalOption: _NestedComponentProp_ConditionalOptionMessage,
+		NestedComponentProp_ConditionalOptions: _NestedComponentProp_ConditionalOptionsMessage,
+		NestedComponentProp_TemplateData: _NestedComponentProp_TemplateDataMessage,
+		NestedComponentProp_TemplateData_InputsEntry: _NestedComponentProp_TemplateData_InputsEntryMessage,
+		LazyNestedComponentListProp: _LazyNestedComponentListPropMessage,
+		LazyNestedComponentListProp_ConditionalOption: _LazyNestedComponentListProp_ConditionalOptionMessage,
+		LazyNestedComponentListProp_ConditionalOptions: _LazyNestedComponentListProp_ConditionalOptionsMessage,
+		LazyNestedComponentListProp_TemplateData: _LazyNestedComponentListProp_TemplateDataMessage,
+		LazyNestedComponentListProp_TemplateData_InputsEntry: _LazyNestedComponentListProp_TemplateData_InputsEntryMessage,
+		LazyNestedComponentListProp_TemplateDataList: _LazyNestedComponentListProp_TemplateDataListMessage,
+		LazyNestedComponentListProp_OrderedTemplateData: _LazyNestedComponentListProp_OrderedTemplateDataMessage,
+		LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataMessage,
+		LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueMessage,
+		LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryMessage,
+		IconProp: _IconPropMessage,
+		IconProp_ConditionalOption: _IconProp_ConditionalOptionMessage,
+		IconProp_ConditionalOptions: _IconProp_ConditionalOptionsMessage,
+		GradientProp: _GradientPropMessage,
+		GradientProp_ConditionalOption: _GradientProp_ConditionalOptionMessage,
+		GradientProp_ConditionalOptions: _GradientProp_ConditionalOptionsMessage,
+		GradientProp_GradientData: _GradientProp_GradientDataMessage,
+		ArrayOfStructProp: _ArrayOfStructPropMessage,
+		ArrayOfStructProp_ConditionalOption: _ArrayOfStructProp_ConditionalOptionMessage,
+		ArrayOfStructProp_ConditionalOptions: _ArrayOfStructProp_ConditionalOptionsMessage,
+		ArrayOfStructProp_ArrayOfStructs: _ArrayOfStructProp_ArrayOfStructsMessage,
+		UiScaledFloatProp: _UiScaledFloatPropMessage,
+		UiScaledFloatProp_ConditionalOption: _UiScaledFloatProp_ConditionalOptionMessage,
+		UiScaledFloatProp_ConditionalOptions: _UiScaledFloatProp_ConditionalOptionsMessage,
+		UiScaledUDimProp: _UiScaledUDimPropMessage,
+		UiScaledUDimProp_ConditionalOption: _UiScaledUDimProp_ConditionalOptionMessage,
+		UiScaledUDimProp_ConditionalOptions: _UiScaledUDimProp_ConditionalOptionsMessage,
+		UiScaledUDim2Prop: _UiScaledUDim2PropMessage,
+		UiScaledUDim2Prop_ConditionalOption: _UiScaledUDim2Prop_ConditionalOptionMessage,
+		UiScaledUDim2Prop_ConditionalOptions: _UiScaledUDim2Prop_ConditionalOptionsMessage,
+	}
 local messages: _Messages = {} :: _Messages
 
 local _google_protobuf_struct = require(script.Parent.Parent.Parent.Parent.Parent.google.protobuf.struct)
@@ -1981,6 +1986,7 @@ type _LazyNestedComponentListPropFields = {
 		{ type: "array_map", value: LazyNestedComponentListProp_TemplateData }
 		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
 		| { type: "conditional", value: LazyNestedComponentListProp_ConditionalOptions }
+		| { type: "ordered_template_data", value: LazyNestedComponentListProp_OrderedTemplateData }
 	)?,
 }
 
@@ -1989,6 +1995,7 @@ type _LazyNestedComponentListPropPartialFields = {
 		{ type: "array_map", value: LazyNestedComponentListProp_TemplateData }
 		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
 		| { type: "conditional", value: LazyNestedComponentListProp_ConditionalOptions }
+		| { type: "ordered_template_data", value: LazyNestedComponentListProp_OrderedTemplateData }
 	)?,
 }
 
@@ -2156,6 +2163,138 @@ export type LazyNestedComponentListProp_TemplateDataList = typeof(setmetatable(
 type _LazyNestedComponentListProp_TemplateDataListMessage = proto.Message<
 	LazyNestedComponentListProp_TemplateDataList,
 	_LazyNestedComponentListProp_TemplateDataListPartialFields
+>
+
+type _LazyNestedComponentListProp_OrderedTemplateDataImpl = {
+	__index: _LazyNestedComponentListProp_OrderedTemplateDataImpl,
+	new: (
+		fields: _LazyNestedComponentListProp_OrderedTemplateDataPartialFields?
+	) -> LazyNestedComponentListProp_OrderedTemplateData,
+	encode: (self: LazyNestedComponentListProp_OrderedTemplateData) -> buffer,
+	decode: (input: buffer) -> LazyNestedComponentListProp_OrderedTemplateData,
+	jsonEncode: (self: LazyNestedComponentListProp_OrderedTemplateData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_OrderedTemplateData,
+	descriptor: proto.Descriptor,
+}
+
+type _LazyNestedComponentListProp_OrderedTemplateDataFields = {
+	entry_map_path: string,
+	entry_order: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData?,
+	template_data_map: { [string]: LazyNestedComponentListProp_TemplateData },
+}
+
+type _LazyNestedComponentListProp_OrderedTemplateDataPartialFields = {
+	entry_map_path: string?,
+	entry_order: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData?,
+	template_data_map: { [string]: LazyNestedComponentListProp_TemplateData }?,
+}
+
+export type LazyNestedComponentListProp_OrderedTemplateData = typeof(setmetatable(
+	{} :: _LazyNestedComponentListProp_OrderedTemplateDataFields,
+	{} :: _LazyNestedComponentListProp_OrderedTemplateDataImpl
+))
+type _LazyNestedComponentListProp_OrderedTemplateDataMessage = proto.Message<
+	LazyNestedComponentListProp_OrderedTemplateData,
+	_LazyNestedComponentListProp_OrderedTemplateDataPartialFields
+>
+
+type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl = {
+	__index: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl,
+	new: (
+		fields: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataPartialFields?
+	) -> LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData,
+	encode: (self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData) -> buffer,
+	decode: (input: buffer) -> LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData,
+	jsonEncode: (self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData,
+	descriptor: proto.Descriptor,
+}
+
+type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataFields = {
+	kind: (
+		{ type: "literal", value: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataPartialFields = {
+	kind: (
+		{ type: "literal", value: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+export type LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData = typeof(setmetatable(
+	{} :: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataFields,
+	{} :: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl
+))
+type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataMessage = proto.Message<
+	LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData,
+	_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataPartialFields
+>
+
+type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl = {
+	__index: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl,
+	new: (
+		fields: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValuePartialFields?
+	) -> LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue,
+	encode: (self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue) -> buffer,
+	decode: (input: buffer) -> LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue,
+	jsonEncode: (
+		self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue
+	) -> { [string]: any },
+	jsonDecode: (
+		input: { [string]: any }
+	) -> LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue,
+	descriptor: proto.Descriptor,
+}
+
+type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueFields = {
+	items: { string },
+}
+
+type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValuePartialFields = {
+	items: { string }?,
+}
+
+export type LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue = typeof(setmetatable(
+	{} :: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueFields,
+	{} :: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl
+))
+type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueMessage = proto.Message<
+	LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue,
+	_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValuePartialFields
+>
+
+type _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl = {
+	__index: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl,
+	new: (
+		fields: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryPartialFields?
+	) -> LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry,
+	encode: (self: LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry) -> buffer,
+	decode: (input: buffer) -> LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry,
+	jsonEncode: (self: LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryFields = {
+	key: string,
+	value: LazyNestedComponentListProp_TemplateData?,
+}
+
+type _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryPartialFields = {
+	key: string?,
+	value: LazyNestedComponentListProp_TemplateData?,
+}
+
+export type LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry = typeof(setmetatable(
+	{} :: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryFields,
+	{} :: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl
+))
+type _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryMessage = proto.Message<
+	LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry,
+	_LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryPartialFields
 >
 
 type _IconPropImpl = {
@@ -11366,6 +11505,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "ordered_template_data" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -11410,6 +11553,14 @@ do
 						value = messages.LazyNestedComponentListProp_ConditionalOptions.decode(value),
 					}
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "ordered_template_data",
+						value = messages.LazyNestedComponentListProp_OrderedTemplateData.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -11444,6 +11595,8 @@ do
 				output.itemList = self.kind.value:jsonEncode()
 			elseif self.kind.type == "conditional" then
 				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "ordered_template_data" then
+				output.orderedTemplateData = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -11485,6 +11638,22 @@ do
 			self.kind = {
 				type = "conditional",
 				value = messages.LazyNestedComponentListProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		if input.ordered_template_data ~= nil then
+			self.kind = {
+				type = "ordered_template_data",
+				value = messages.LazyNestedComponentListProp_OrderedTemplateData.jsonDecode(
+					input.ordered_template_data
+				),
+			}
+		end
+
+		if input.orderedTemplateData ~= nil then
+			self.kind = {
+				type = "ordered_template_data",
+				value = messages.LazyNestedComponentListProp_OrderedTemplateData.jsonDecode(input.orderedTemplateData),
 			}
 		end
 
@@ -12212,6 +12381,601 @@ do
 	messages.LazyNestedComponentListProp_TemplateDataList = _LazyNestedComponentListProp_TemplateDataListImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.LazyNestedComponentListProp_TemplateDataList)
+end
+
+do
+	local _LazyNestedComponentListProp_OrderedTemplateDataImpl = {}
+	_LazyNestedComponentListProp_OrderedTemplateDataImpl.__index = _LazyNestedComponentListProp_OrderedTemplateDataImpl
+
+	function _LazyNestedComponentListProp_OrderedTemplateDataImpl.new(
+		data: _LazyNestedComponentListProp_OrderedTemplateDataPartialFields?
+	): LazyNestedComponentListProp_OrderedTemplateData
+		return setmetatable({
+			entry_map_path = if data == nil or data.entry_map_path == nil then "" else data.entry_map_path,
+			entry_order = if data == nil or data.entry_order == nil then nil else data.entry_order,
+			template_data_map = if data == nil or data.template_data_map == nil then {} else data.template_data_map,
+		}, _LazyNestedComponentListProp_OrderedTemplateDataImpl :: _LazyNestedComponentListProp_OrderedTemplateDataImpl)
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateDataImpl.encode(
+		self: LazyNestedComponentListProp_OrderedTemplateData
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.entry_map_path ~= nil and self.entry_map_path ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.entry_map_path)
+		end
+
+		if self.entry_order ~= nil then
+			local encoded = self.entry_order:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.template_data_map ~= nil and next(self.template_data_map) ~= nil then
+			for key, value in self.template_data_map do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateDataImpl.decode(
+		input: buffer
+	): LazyNestedComponentListProp_OrderedTemplateData
+		local self = _LazyNestedComponentListProp_OrderedTemplateDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.entry_map_path = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.entry_order =
+						messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry =
+						messages.LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.LazyNestedComponentListProp_TemplateData.new()
+
+					self.template_data_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateDataImpl.jsonEncode(
+		self: LazyNestedComponentListProp_OrderedTemplateData
+	): any
+		local output = {}
+
+		if self.entry_map_path ~= nil and self.entry_map_path ~= "" then
+			output.entryMapPath = self.entry_map_path
+		end
+
+		if self.entry_order ~= nil then
+			output.entryOrder = self.entry_order:jsonEncode()
+		end
+
+		if self.template_data_map ~= nil and next(self.template_data_map) ~= nil then
+			local newOutput = {}
+			for key, value in self.template_data_map do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.templateDataMap = newOutput
+		end
+
+		return output
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateDataImpl.jsonDecode(
+		input: { [string]: any }
+	): LazyNestedComponentListProp_OrderedTemplateData
+		local self = _LazyNestedComponentListProp_OrderedTemplateDataImpl.new()
+
+		if input.entry_map_path ~= nil then
+			self.entry_map_path = input.entry_map_path
+		end
+
+		if input.entryMapPath ~= nil then
+			self.entry_map_path = input.entryMapPath
+		end
+
+		if input.entry_order ~= nil then
+			self.entry_order =
+				messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData.jsonDecode(input.entry_order)
+		end
+
+		if input.entryOrder ~= nil then
+			self.entry_order =
+				messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData.jsonDecode(input.entryOrder)
+		end
+
+		if input.template_data_map ~= nil then
+			local newOutput: { [string]: LazyNestedComponentListProp_TemplateData } = {}
+			for key, value in input.template_data_map do
+				newOutput[key] = messages.LazyNestedComponentListProp_TemplateData.jsonDecode(value)
+			end
+
+			self.template_data_map = newOutput
+		end
+
+		if input.templateDataMap ~= nil then
+			local newOutput: { [string]: LazyNestedComponentListProp_TemplateData } = {}
+			for key, value in input.templateDataMap do
+				newOutput[key] = messages.LazyNestedComponentListProp_TemplateData.jsonDecode(value)
+			end
+
+			self.template_data_map = newOutput
+		end
+
+		return self
+	end
+
+	_LazyNestedComponentListProp_OrderedTemplateDataImpl.descriptor = {
+		name = "LazyNestedComponentListProp_OrderedTemplateData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OrderedTemplateData",
+	}
+
+	messages.LazyNestedComponentListProp_OrderedTemplateData =
+		_LazyNestedComponentListProp_OrderedTemplateDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LazyNestedComponentListProp_OrderedTemplateData)
+end
+
+do
+	local _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl = {}
+	_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.__index =
+		_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl
+
+	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.new(
+		data: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataPartialFields?
+	): LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData
+		return setmetatable(
+			{
+				kind = if data == nil or data.kind == nil then nil else data.kind,
+			},
+			_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl :: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl
+		)
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.encode(
+		self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.decode(
+		input: buffer
+	): LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData
+		local self = _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue.decode(
+							value
+						),
+					}
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.jsonEncode(
+		self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData
+	): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.jsonDecode(
+		input: { [string]: any }
+	): LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData
+		local self = _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue.jsonDecode(
+					input.literal
+				),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.descriptor = {
+		name = "LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EntryOrderData",
+	}
+
+	messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData =
+		_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData)
+end
+
+do
+	local _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl = {}
+	_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.__index =
+		_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl
+
+	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.new(
+		data: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValuePartialFields?
+	): LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue
+		return setmetatable(
+			{
+				items = if data == nil or data.items == nil then {} else data.items,
+			},
+			_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl :: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl
+		)
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.encode(
+		self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.items ~= nil and #self.items > 0 then
+			for _, value in self.items do
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.decode(
+		input: buffer
+	): LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue
+		local self = _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.items, buffer.tostring(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.jsonEncode(
+		self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue
+	): any
+		local output = {}
+
+		if self.items ~= nil and #self.items > 0 then
+			local newOutput = {}
+			for _, value in self.items do
+				table.insert(newOutput, value)
+			end
+			output.items = newOutput
+		end
+
+		return output
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.jsonDecode(
+		input: {
+			[string]: any,
+		}
+	): LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue
+		local self = _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.new()
+
+		if input.items ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.items do
+				table.insert(newOutput, value)
+			end
+
+			self.items = newOutput
+		end
+
+		return self
+	end
+
+	_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.descriptor = {
+		name = "LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue",
+		fullName = "roblox.apppageplatform.shared.v1beta1.LiteralValue",
+	}
+
+	messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue =
+		_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue)
+end
+
+do
+	local _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl = {}
+	_LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.__index =
+		_LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl
+
+	function _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.new(
+		data: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryPartialFields?
+	): LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then nil else data.value,
+			},
+			_LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl :: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl
+		)
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.encode(
+		self: LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.decode(
+		input: buffer
+	): LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry
+		local self = _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.LazyNestedComponentListProp_TemplateData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.jsonEncode(
+		self: LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry
+		local self = _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.LazyNestedComponentListProp_TemplateData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.descriptor = {
+		name = "LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.TemplateDataMapEntry",
+	}
+
+	messages.LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry =
+		_LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry)
 end
 
 do
@@ -14996,6 +15760,9 @@ return {
 	LazyNestedComponentListProp_ConditionalOptions = messages.LazyNestedComponentListProp_ConditionalOptions,
 	LazyNestedComponentListProp_TemplateData = messages.LazyNestedComponentListProp_TemplateData,
 	LazyNestedComponentListProp_TemplateDataList = messages.LazyNestedComponentListProp_TemplateDataList,
+	LazyNestedComponentListProp_OrderedTemplateData = messages.LazyNestedComponentListProp_OrderedTemplateData,
+	LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData = messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData,
+	LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue = messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue,
 	IconProp = messages.IconProp,
 	IconProp_ConditionalOption = messages.IconProp_ConditionalOption,
 	IconProp_ConditionalOptions = messages.IconProp_ConditionalOptions,

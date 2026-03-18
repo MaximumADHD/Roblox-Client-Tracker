@@ -31,7 +31,7 @@ function variantsFactory(tokens: Tokens)
 		},
 		text = {
 			tag = {
-				["auto-xy text-label-small text-align-x-left text-truncate-end"] = Flags.FoundationTruncateBadgeText,
+				["auto-xy text-label-small text-align-x-left text-truncate-split"] = Flags.FoundationTruncateBadgeText,
 				["auto-xy text-label-small text-align-x-left"] = not Flags.FoundationTruncateBadgeText,
 			},
 		},

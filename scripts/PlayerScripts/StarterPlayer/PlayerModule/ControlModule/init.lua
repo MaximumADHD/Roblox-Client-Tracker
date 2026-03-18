@@ -2,12 +2,6 @@
 --[[
 	ControlModule - This ModuleScript implements a singleton class to manage the
 	selection, activation, and deactivation of the current character movement controller.
-	This script binds to RenderStepped at Input priority and calls the Update() methods
-	on the active controller instances.
-
-	The character controller ModuleScripts implement classes which are instantiated and
-	activated as-needed, they are no longer all instantiated up front as they were in
-	the previous generation of PlayerScripts.
 
 	Release notes:
 		7/14/2025 - Use PreferredInput instead of LastInputType for enabling/disabling virtual thumbstick
@@ -32,6 +26,7 @@ local VRService = game:GetService("VRService")
 local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerModuleHiddenAPI = FlagUtil.getUserFlag("UserPlayerModuleHiddenAPI")
+local FFlagUserPSActionsPathAware = FlagUtil.getUserFlag("UserPSActionsPathAware")
 
 local ActionController = require(script:WaitForChild("ActionController"))
 local DynamicThumbstick
@@ -76,7 +71,7 @@ local movementEnumToModuleMap = {
 	[Enum.DevComputerMovementMode.ClickToMove] = ClickToMove,
 }
 
-function ControlModule.new()
+function ControlModule.new() -- TODO ControlModule should be static
 	local self = setmetatable({},ControlModule)
 	if RunService:IsServer() then
 		-- ServerAuthority causes the server to require ControlModule
@@ -215,14 +210,16 @@ function ControlModule:InitializeServerAuthority()
 	end
 end
 
--- Convenience function so that calling code does not have to first get the activeController
--- and then call GetMoveVector on it. When there is no active controller, this function returns the
--- zero vector
-function ControlModule:GetMoveVector(): Vector3
-	if self.activeController then
-		return self.activeController:GetMoveVector()
+if not FFlagUserPSActionsPathAware then
+	-- Convenience function so that calling code does not have to first get the activeController
+	-- and then call GetMoveVector on it. When there is no active controller, this function returns the
+	-- zero vector
+	function ControlModule:GetMoveVector(): Vector3
+		if self.activeController then
+			return self.activeController:GetMoveVector()
+		end
+		return Vector3.new(0,0,0)
 	end
-	return Vector3.new(0,0,0)
 end
 
 local function NormalizeAngle(angle): number
@@ -309,7 +306,7 @@ function ControlModule:UpdateActiveControlModuleEnabled()
 			)
 		then
 			if not self.controllers[TouchJump] then
-				self.controllers[TouchJump] = TouchJump.new()
+				self.controllers[TouchJump] = TouchJump.new(self.data, self.playerData)
 			end
 			self.touchJumpController = self.controllers[TouchJump]
 			self.touchJumpController:Enable(true, self.touchControlFrame)
@@ -498,19 +495,51 @@ function ControlModule:calculateRawMoveVector(humanoid: Humanoid, cameraRelative
 	)
 end
 
-function ControlModule:Update(data, dt)
+if FFlagUserPSActionsPathAware then
+	-- This function should be used to set up necessary connectinos. DO NOT STORE STATE
+	function ControlModule:initialize(data, playerData)
+		self.data = data
+		self.playerData = playerData -- DO NOT DO THIS, THIS IS A CONVERSION STEP. MODULES SHOULD NOT SAVE STATE
+
+		ActionController.initializeActions(data, playerData)
+	end
+end
+
+function ControlModule:Update(data, playerData, dt)
+	if FFlagUserPSActionsPathAware then
+		assert(playerData.player)
+		assert(playerData.character)
+
+		-- We may need to wait for actions to come from the server so we initialize again
+		ActionController.initializeActions(data, playerData)
+		if not playerData.actions["Move"] or not playerData.actions["Jump"] then
+			return
+		end
+	end
+
 	if self.activeController and self.activeController.enabled and self.humanoid then
 
-		if FFlagUserPlayerModuleHiddenAPI then
-			-- TODO remove all controllers but ActionController
-			-- then read data directly without calling GetMoveVector()
-			if self.activeController.Update then
-				self.activeController:Update(data)
+		if FFlagUserPSActionsPathAware then
+			ActionController.update(playerData)
+		else
+			if FFlagUserPlayerModuleHiddenAPI then
+				-- TODO remove all controllers but ActionController
+				-- then read data directly without calling GetMoveVector()
+				if self.activeController.Update then
+					self.activeController:Update(data)
+				end
 			end
 		end
 
 		-- Now retrieve info from the controller
-		local moveVector = self:GetMoveVector()
+		local moveVector
+		
+		if FFlagUserPSActionsPathAware then
+			moveVector = Vector3.new(playerData.moveVector.X, 0, -playerData.moveVector.Y)
+		else
+			moveVector = self:GetMoveVector()
+		end
+
 		local cameraRelative = true
 
 		local clickToMoveController = self:GetClickToMoveController()
@@ -524,7 +553,9 @@ function ControlModule:Update(data, dt)
 			else
 				-- Get move vector for developer started MoveTo
 				clickToMoveController:OnRenderStepped(dt)
-				moveVector = clickToMoveController:GetMoveVector()
+				if not FFlagUserPSActionsPathAware then
+					moveVector = clickToMoveController:GetMoveVector()
+				end
 				cameraRelative = clickToMoveController:IsMoveVectorCameraRelative()
 			end
 		end
@@ -549,10 +580,13 @@ function ControlModule:Update(data, dt)
 		end
 
 		self.moveFunction(Players.LocalPlayer, moveVector, false)
-		--end
 
 		-- And make them jump if needed
-		self.humanoid.Jump = self.activeController:GetIsJumping() or (self.touchJumpController and self.touchJumpController:GetIsJumping())
+		if FFlagUserPSActionsPathAware then
+			self.humanoid.Jump = playerData.isJumping
+		else
+			self.humanoid.Jump = self.activeController:GetIsJumping() or (self.touchJumpController and self.touchJumpController:GetIsJumping())
+		end
 	end
 end
 
@@ -652,7 +686,7 @@ function ControlModule:SwitchToController(controlModule)
 
 	-- first time switching to this control module, should instantiate it
 	if not self.controllers[controlModule] then
-		self.controllers[controlModule] = controlModule.new(CONTROL_ACTION_PRIORITY)
+		self.controllers[controlModule] = controlModule.new(self.playerData)
 	end
 
 	-- switch to the new controlModule
@@ -797,4 +831,8 @@ function ControlModule:ProcessInputs(player:Player, dt:number)
 	humanoid.Jump = jumpBool
 end
 
-return ControlModule.new()
+if RunService:IsClient() then
+	return ControlModule.new()
+else
+	return ControlModule
+end

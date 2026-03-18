@@ -99,8 +99,8 @@ export type OnItemActivated = (id: ItemId) -> ()
 
 export type StateLayer = {
 	inset: boolean?,
-	mode: StateLayerMode?,
-	affordance: StateLayerAffordance?,
+	mode: Bindable<StateLayerMode>?,
+	affordance: Bindable<StateLayerAffordance>?,
 }
 
 -- SelectionProps are broken out such that any Foundation component that is selectable

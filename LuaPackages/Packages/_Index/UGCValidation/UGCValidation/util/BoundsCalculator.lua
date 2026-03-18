@@ -21,8 +21,6 @@ local getMeshVerts = require(root.util.getMeshVerts)
 local getMeshInfo = require(root.util.getMeshInfo)
 local BoundsDataUtils = require(root.util.BoundsDataUtils)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
-
-local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
 local getFFlagUGCValidateLegFullBodySeparation = require(root.flags.getFFlagUGCValidateLegFullBodySeparation)
 
 local BoundsCalculator = {}
@@ -151,12 +149,8 @@ local function calculateAllPartsBoundsData(
 		local meshInfo = nil
 		if not dataCache then
 			local success, failureReasons, meshInfoOpt
-			if getFFlagUGCValidationConsolidateGetMeshInfos() then
-				success, failureReasons, meshInfoOpt =
-					getMeshInfo(meshPart, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
-			else
-				success, failureReasons, meshInfoOpt = (getMeshInfo :: any)(meshPart, validationContext)
-			end
+			success, failureReasons, meshInfoOpt =
+				getMeshInfo(meshPart, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
 			if not success then
 				return success, failureReasons
 			end

@@ -6,15 +6,12 @@ local ConstantsInterface = require(root.ConstantsInterface)
 
 local BundlesMetadata = require(root.util.BundlesMetadata)
 local Types = require(root.util.Types)
-local getRestrictedUserTable = require(root.util.getRestrictedUserTable)
 local createEditableInstancesForContext = require(root.util.createEditableInstancesForContext)
 local destroyEditableInstances = require(root.util.destroyEditableInstances)
 local createUGCBodyPartFolders = require(root.util.createUGCBodyPartFolders)
 local fixUpPreValidation = require(root.util.fixUpPreValidation)
 local validateInternal = require(root.validation.validateInternal)
 local validateFullBody = require(root.validation.validateFullBody)
-
-local getFFlagUGCValidateDontUseRestrictedUserTable = require(root.flags.getFFlagUGCValidateDontUseRestrictedUserTable)
 
 local getFFlagUGCValidationEnableFolderStructure = require(root.flags.getFFlagUGCValidationEnableFolderStructure)
 local LegacyValidationAdapter = require(root.util.LegacyValidationAdapter)
@@ -174,9 +171,6 @@ local function validateBundleReadyForUpload(
 			instances = instances :: { Instance },
 			assetTypeEnum = piece.assetType :: Enum.AssetType,
 			allowUnreviewedAssets = false,
-			restrictedUserIds = if getFFlagUGCValidateDontUseRestrictedUserTable()
-				then nil
-				else getRestrictedUserTable(),
 			isServer = false,
 			isAsync = false,
 			allowEditableInstances = allowEditableInstances,

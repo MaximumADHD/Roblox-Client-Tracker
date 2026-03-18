@@ -21,6 +21,8 @@ type BaseMenuItemVariantProps = {
 	text: { tag: string },
 	check: { tag: string, style: Types.ColorStyleValue, size: number },
 	title: { tag: string },
+	chevron: { size: IconSize },
+	groupPadding: { size: number },
 }
 
 local variantsMap = function(tokens: Tokens)
@@ -53,6 +55,8 @@ local variantsMap = function(tokens: Tokens)
 			text = { tag = "text-body-small" },
 			title = { tag = "text-caption-small" },
 			check = { tag = "size-300", size = tokens.Size.Size_600 },
+			chevron = { size = IconSize.Small :: IconSize },
+			groupPadding = { size = tokens.Padding.XSmall },
 		},
 		[InputSize.Small] = {
 			container = {
@@ -62,6 +66,8 @@ local variantsMap = function(tokens: Tokens)
 			text = { tag = "text-body-small" },
 			title = { tag = "text-caption-small" },
 			check = { tag = "size-400", size = tokens.Size.Size_700 },
+			chevron = { size = IconSize.Small :: IconSize },
+			groupPadding = { size = tokens.Padding.Small },
 		},
 		[InputSize.Medium] = {
 			container = {
@@ -71,6 +77,8 @@ local variantsMap = function(tokens: Tokens)
 			text = { tag = "text-body-medium" },
 			title = { tag = "text-caption-medium" },
 			check = { tag = "size-500", size = tokens.Size.Size_800 },
+			chevron = { size = IconSize.Medium :: IconSize },
+			groupPadding = { size = tokens.Padding.Small },
 		},
 		[InputSize.Large] = {
 			container = {
@@ -80,6 +88,8 @@ local variantsMap = function(tokens: Tokens)
 			text = { tag = "text-body-large" },
 			title = { tag = "text-caption-large" },
 			check = { tag = "size-600", size = tokens.Size.Size_900 },
+			chevron = { size = IconSize.Large :: IconSize },
+			groupPadding = { size = tokens.Padding.Small },
 		},
 	}
 

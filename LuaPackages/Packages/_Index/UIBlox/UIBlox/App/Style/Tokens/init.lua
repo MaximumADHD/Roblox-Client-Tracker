@@ -9,6 +9,7 @@ local GetTokenGenerators = dependencies.GetTokenGenerators
 local Validators = dependencies.SchemaPackage.Validators
 local GetFoundationTokens = dependencies.GetFoundationTokens
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Types = require(script.Types)
 local Constants = require(script.Parent.Constants)
 
@@ -16,6 +17,10 @@ type ThemeName = Constants.ThemeName
 type DeviceType = Constants.DeviceType
 
 local function getPlatformScale(deviceType: DeviceType, scaleFactor: number?)
+	if UIBloxConfig.disableTokenScaling then
+		return 1
+	end
+
 	scaleFactor = if scaleFactor ~= nil then scaleFactor else 1
 	scaleFactor = math.clamp(scaleFactor :: number, 0, math.huge)
 

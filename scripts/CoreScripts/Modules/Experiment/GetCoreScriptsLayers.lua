@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.IsExperienceMenuABTestEnabled)
 local FStringSocialCaptureIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringSocialCaptureIXPLayer
 local FStringSocialCaptureTakenIXPLayer =
 	require(CorePackages.Workspace.Packages.SharedFlags).FStringSocialCaptureTakenIXPLayer
@@ -53,14 +52,8 @@ return function()
 		FStringSocialCaptureTakenIXPLayer,
 	}
 
-	if
-		IsExperienceMenuABTestEnabled()
-		or GetFFlagEnableNewInviteMenuIXP()
-		or GetFFlagReportTabShareIXPLayerWithMenu()
-	then
-		table.insert(layers, GetFStringLuaAppExperienceMenuLayer())
-		table.insert(layers, GetFStringLuaAppConsoleExperienceMenuLayer())
-	end
+	table.insert(layers, GetFStringLuaAppExperienceMenuLayer())
+	table.insert(layers, GetFStringLuaAppConsoleExperienceMenuLayer())
 
 	if GetFStringLargerRobuxUpsellIxpLayer() then
 		table.insert(layers, GetFStringLargerRobuxUpsellIxpLayer())

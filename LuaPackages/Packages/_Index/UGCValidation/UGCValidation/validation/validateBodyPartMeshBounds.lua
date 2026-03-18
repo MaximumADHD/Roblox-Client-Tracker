@@ -18,101 +18,28 @@ local getMeshInfo = require(root.util.getMeshInfo)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
-local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
-
--- TODO: Remove with FFlagConsolidateGetMeshInfos
-local function DEPRECATED_getMeshInfoHelper(
-	inst: Instance,
-	fieldName: string,
-	contentId: string,
-	meshScale: Vector3,
-	contextName: string,
-	validationContext: Types.ValidationContext
-): (boolean, Types.MeshInfo)
-	local meshInfo = {
-		fullName = inst:GetFullName(),
-		contentId = contentId,
-		fieldName = fieldName,
-		context = contextName,
-		scale = meshScale,
-	} :: Types.MeshInfo
-
-	local success, editableMesh = getEditableMeshFromContext(inst, fieldName, validationContext)
-	if not success then
-		return false, meshInfo
-	end
-
-	meshInfo.editableMesh = editableMesh :: EditableMesh
-
-	return true, meshInfo
-end
-
--- TODO: Remove with FFlagConsolidateGetMeshInfos
-local function DEPRECATED_getMeshInfo(
-	inst: Instance,
-	meshScale: Vector3,
-	validationContext: Types.ValidationContext
-): (boolean, Types.MeshInfo?)
-	if inst:IsA("WrapTarget") then
-		return DEPRECATED_getMeshInfoHelper(
-			inst,
-			"CageMeshId",
-			(inst :: WrapTarget).CageMeshId,
-			meshScale,
-			inst.ClassName,
-			validationContext
-		)
-	elseif inst:IsA("MeshPart") then
-		return DEPRECATED_getMeshInfoHelper(
-			inst,
-			"MeshId",
-			(inst :: MeshPart).MeshId,
-			meshScale,
-			inst.Name,
-			validationContext
-		)
-	end
-
-	return false
-end
-
 local function validateWrapTargetComparison(
 	meshScale: Vector3,
 	meshHandle: MeshPart,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local getMeshInfoSuccess, meshInfoErrors, meshInfo
-	if getFFlagUGCValidationConsolidateGetMeshInfos() then
-		getMeshInfoSuccess, meshInfoErrors, meshInfo =
-			getMeshInfo(meshHandle, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
-	else
-		getMeshInfoSuccess, meshInfo = DEPRECATED_getMeshInfo(meshHandle, meshScale, validationContext)
-	end
+	getMeshInfoSuccess, meshInfoErrors, meshInfo =
+		getMeshInfo(meshHandle, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
 	if not getMeshInfoSuccess then
-		return false,
-			if getFFlagUGCValidationConsolidateGetMeshInfos() then meshInfoErrors else { "Failed to load mesh data" }
+		return false, meshInfoErrors
 	end
 
 	local wrapTarget = meshHandle:FindFirstChildWhichIsA("WrapTarget")
 	assert(wrapTarget, "Missing WrapTarget child for " .. meshHandle.Name)
 	local getOtherMeshInfoSuccess, wrapMeshInfoErrors, wrapMeshInfo
-	if getFFlagUGCValidationConsolidateGetMeshInfos() then
-		getOtherMeshInfoSuccess, wrapMeshInfoErrors, wrapMeshInfo =
-			getMeshInfo(wrapTarget, Constants.MESH_CONTENT_TYPE.OUTER_CAGE, validationContext)
-	else
-		getOtherMeshInfoSuccess, wrapMeshInfo = DEPRECATED_getMeshInfo(wrapTarget, meshScale, validationContext)
-	end
+	getOtherMeshInfoSuccess, wrapMeshInfoErrors, wrapMeshInfo =
+		getMeshInfo(wrapTarget, Constants.MESH_CONTENT_TYPE.OUTER_CAGE, validationContext)
 	if not getOtherMeshInfoSuccess then
-		return false,
-			if getFFlagUGCValidationConsolidateGetMeshInfos()
-				then wrapMeshInfoErrors
-				else { "Failed to load mesh data" }
+		return false, wrapMeshInfoErrors
 	end
-
-	if getFFlagUGCValidationConsolidateGetMeshInfos() then
-		(meshInfo :: Types.MeshInfo).scale = meshScale;
-		(wrapMeshInfo :: Types.MeshInfo).scale = meshScale
-	end
+	(meshInfo :: Types.MeshInfo).scale = meshScale;
+	(wrapMeshInfo :: Types.MeshInfo).scale = meshScale
 
 	return validateMeshComparison(
 		meshInfo :: Types.MeshInfo,

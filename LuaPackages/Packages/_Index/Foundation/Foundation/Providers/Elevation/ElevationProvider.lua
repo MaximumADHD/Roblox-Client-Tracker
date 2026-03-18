@@ -11,7 +11,7 @@ type ElevationLayer = ElevationLayer.ElevationLayer
 type Token = elevation.Token
 
 export type Manager = {
-	acquire: (layer: ElevationLayer, options: { reserve: boolean }) -> elevation.Token,
+	acquire: (layer: ElevationLayer, options: { reserve: boolean, owner: elevation.Token? }) -> elevation.Token,
 	peek: (layer: ElevationLayer) -> number,
 	releaseIfTop: (layer: ElevationLayer, index: number) -> nil,
 }
@@ -35,37 +35,38 @@ local function ElevationProvider(props: ElevationProviderProps)
 	local manager = React.useMemo(function(): Manager
 		return {
 			acquire = if Flags.FoundationElevationKeepSiblingZIndex
-				then function(layer: ElevationLayer, options: { reserve: boolean })
-					local count = countersRef.current[layer] or 0
+				then function(layer: ElevationLayer, options: { reserve: boolean, owner: Token? })
 					local spec = elevation.ELEVATION_LAYERS[layer]
+					local index = -1
+					local zIndex
+					local shouldCap = true
 
-					if not options.reserve then
-						return { layer = layer, index = -1, zIndex = spec.start }
+					if options.owner then
+						zIndex = options.owner.zIndex + 1
+						shouldCap = options.owner.zIndex <= spec.finish
+					elseif options.reserve then
+						local count = countersRef.current[layer] or 0
+						zIndex = spec.start + (count + 1) * spec.step
+						countersRef.current[layer] = count + 1
+						index = count
+					else
+						zIndex = spec.start
 					end
 
-					local desiredZIndex = spec.start + (count + 1) * spec.step
-
-					if desiredZIndex > spec.finish then
+					if shouldCap and zIndex > spec.finish then
 						warn(
 							string.format(
 								"Layer '%s' capacity exceeded (%d/%d). Capping zIndex at %d.",
 								tostring(layer),
-								desiredZIndex,
+								zIndex,
 								spec.finish,
 								spec.finish
 							)
 						)
-					end
-
-					countersRef.current[layer] = count + 1
-
-					local zIndex = desiredZIndex
-
-					if zIndex > spec.finish then
 						zIndex = spec.finish
 					end
 
-					return { layer = layer, index = count, zIndex = zIndex }
+					return { layer = layer, index = index, zIndex = zIndex }
 				end
 				else function(layer: ElevationLayer)
 					local count = countersRef.current[layer] or 0

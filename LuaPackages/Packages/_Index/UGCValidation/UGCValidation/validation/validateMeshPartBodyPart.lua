@@ -7,17 +7,10 @@ local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 
 local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFlagDebugUGCDisableSurfaceAppearanceTests)
-local getFFlagUGCValidateBoundsManipulation = require(root.flags.getFFlagUGCValidateBoundsManipulation)
-local getFFlagUGCValidateAccurateBoundingBoxRasterMethod =
-	require(root.flags.getFFlagUGCValidateAccurateBoundingBoxRasterMethod)
 
 local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
 local validateAssetBounds = require(root.validation.validateAssetBounds)
-local validateAccurateBoundingBox = require(root.validation.validateAccurateBoundingBox)
-local validateAccurateBoundingBoxRasterMethod = nil
-if getFFlagUGCValidateAccurateBoundingBoxRasterMethod() then
-	validateAccurateBoundingBoxRasterMethod = require(root.validation.validateAccurateBoundingBoxRasterMethod)
-end
+local validateAccurateBoundingBoxRasterMethod = require(root.validation.validateAccurateBoundingBoxRasterMethod)
 local validateBodyPartChildAttachmentBounds = require(root.validation.validateBodyPartChildAttachmentBounds)
 local validateBodyPartChildAttachmentOrientations = require(root.validation.validateBodyPartChildAttachmentOrientations)
 local validateBodyPartExtentsRelativeToParent = require(root.validation.validateBodyPartExtentsRelativeToParent)
@@ -47,6 +40,7 @@ local BodyAssetMasksRenderer = require(root.util.bodyAssetMasksRenderer)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateTexturePack = require(root.flags.getFFlagUGCValidateTexturePack)
+local getFFlagUGCValidationEnableR15plusSkinning = require(root.flags.getFFlagUGCValidationEnableR15plusSkinning)
 
 local resetPhysicsData = require(root.util.resetPhysicsData)
 local Types = require(root.util.Types)
@@ -136,23 +130,16 @@ local function validateMeshPartBodyPart(
 
 	reasonsAccumulator:updateReasons(validateAssetBounds(nil, inst, validationContext))
 	reasonsAccumulator:updateReasons(ValidateLegsSeparation.validateAsset(inst, validationContext))
-
-	if getFFlagUGCValidateAccurateBoundingBoxRasterMethod() then
-		local viewsForAsset = validateAccurateBoundingBoxRasterMethod.getBoundsViewsForAssetType(assetTypeEnum)
-		local result = nil
-		success, result = BodyAssetMasksRenderer.new(inst, viewsForAsset, validationContext)
-		if success then
-			local bodyAssetMasksWrapper = result :: BodyAssetMasksRenderer
-			reasonsAccumulator:updateReasons(
-				validateAccurateBoundingBoxRasterMethod.validate(inst, bodyAssetMasksWrapper, validationContext)
-			)
-		else
-			reasonsAccumulator:updateReasons(success, result)
-		end
+	local viewsForAsset = validateAccurateBoundingBoxRasterMethod.getBoundsViewsForAssetType(assetTypeEnum)
+	local result = nil
+	success, result = BodyAssetMasksRenderer.new(inst, viewsForAsset, validationContext)
+	if success then
+		local bodyAssetMasksWrapper = result :: BodyAssetMasksRenderer
+		reasonsAccumulator:updateReasons(
+			validateAccurateBoundingBoxRasterMethod.validate(inst, bodyAssetMasksWrapper, validationContext)
+		)
 	else
-		if getFFlagUGCValidateBoundsManipulation() then
-			reasonsAccumulator:updateReasons(validateAccurateBoundingBox(inst, validationContext))
-		end
+		reasonsAccumulator:updateReasons(success, result)
 	end
 
 	reasonsAccumulator:updateReasons(validateDescendantMeshMetrics(inst, validationContext))
@@ -176,8 +163,12 @@ local function validateMeshPartBodyPart(
 
 	reasonsAccumulator:updateReasons(validateAttributes(inst, validationContext))
 
-	if assetTypeEnum ~= Enum.AssetType.DynamicHead then
-		reasonsAccumulator:updateReasons(ValidateMeshPartOnlySkinnedToR15.validateBodyParts(inst, validationContext))
+	if not getFFlagUGCValidationEnableR15plusSkinning() then
+		if assetTypeEnum ~= Enum.AssetType.DynamicHead then
+			reasonsAccumulator:updateReasons(
+				ValidateMeshPartOnlySkinnedToR15.validateBodyParts(inst, validationContext)
+			)
+		end
 	end
 
 	local checkModeration = not isServer

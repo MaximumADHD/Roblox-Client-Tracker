@@ -14,13 +14,27 @@ export type BaseMenuContextType = {
 	size: InputSize,
 	hasLeading: boolean?,
 	setHasLeading: (() -> ())?,
+	-- Centralized submenu state
+	hoverOpenPath: { ItemId },
+	hoverOpenAtDepth: ((depth: number, id: ItemId, immediate: boolean?) -> ())?,
+	hoverCloseAtDepth: ((depth: number) -> ())?,
+	hoverReset: (() -> ())?,
+	-- Current nesting depth (1-based, root menu items are at depth 1)
+	depth: number,
 }
+
+local EMPTY_PATH: { ItemId } = {}
 
 local BaseMenuContext = React.createContext({
 	onActivated = nil,
 	size = InputSize.Medium,
 	hasLeading = nil,
 	setHasLeading = nil,
+	hoverOpenPath = EMPTY_PATH,
+	hoverOpenAtDepth = nil,
+	hoverCloseAtDepth = nil,
+	hoverReset = nil,
+	depth = 1,
 } :: BaseMenuContextType)
 
 return BaseMenuContext

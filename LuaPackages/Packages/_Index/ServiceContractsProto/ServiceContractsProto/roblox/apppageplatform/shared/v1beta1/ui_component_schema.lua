@@ -50,6 +50,11 @@ local _roblox_apppageplatform_shared_v1beta1_details_page_image_header =
 	require(script.Parent.details_page_image_header)
 local _roblox_apppageplatform_shared_v1beta1_card = require(script.Parent.card)
 local _roblox_apppageplatform_shared_v1beta1_tabs = require(script.Parent.tabs)
+local _roblox_apppageplatform_shared_v1beta1_action_bar = require(script.Parent.action_bar)
+local _roblox_apppageplatform_shared_v1beta1_catalog_virtualized_feed = require(script.Parent.catalog_virtualized_feed)
+local _roblox_apppageplatform_shared_v1beta1_catalog_item_group = require(script.Parent.catalog_item_group)
+local _roblox_apppageplatform_shared_v1beta1_catalog_item_carousel = require(script.Parent.catalog_item_carousel)
+local _roblox_apppageplatform_shared_v1beta1_catalog_category_menu = require(script.Parent.catalog_category_menu)
 
 type _UiComponentSchemaImpl = {
 	__index: _UiComponentSchemaImpl,
@@ -124,6 +129,23 @@ type _UiComponentSchemaFields = {
 		}
 		| { type: "card", value: _roblox_apppageplatform_shared_v1beta1_card.CardSchema }
 		| { type: "tabs", value: _roblox_apppageplatform_shared_v1beta1_tabs.TabsSchema }
+		| { type: "action_bar", value: _roblox_apppageplatform_shared_v1beta1_action_bar.ActionBarSchema }
+		| {
+			type: "catalog_virtualized_feed",
+			value: _roblox_apppageplatform_shared_v1beta1_catalog_virtualized_feed.CatalogVirtualizedFeedSchema,
+		}
+		| {
+			type: "catalog_item_group",
+			value: _roblox_apppageplatform_shared_v1beta1_catalog_item_group.CatalogItemGroupSchema,
+		}
+		| {
+			type: "catalog_item_carousel",
+			value: _roblox_apppageplatform_shared_v1beta1_catalog_item_carousel.CatalogItemCarouselSchema,
+		}
+		| {
+			type: "catalog_category_menu",
+			value: _roblox_apppageplatform_shared_v1beta1_catalog_category_menu.CatalogCategoryMenuSchema,
+		}
 	)?,
 }
 
@@ -190,6 +212,23 @@ type _UiComponentSchemaPartialFields = {
 		}
 		| { type: "card", value: _roblox_apppageplatform_shared_v1beta1_card.CardSchema }
 		| { type: "tabs", value: _roblox_apppageplatform_shared_v1beta1_tabs.TabsSchema }
+		| { type: "action_bar", value: _roblox_apppageplatform_shared_v1beta1_action_bar.ActionBarSchema }
+		| {
+			type: "catalog_virtualized_feed",
+			value: _roblox_apppageplatform_shared_v1beta1_catalog_virtualized_feed.CatalogVirtualizedFeedSchema,
+		}
+		| {
+			type: "catalog_item_group",
+			value: _roblox_apppageplatform_shared_v1beta1_catalog_item_group.CatalogItemGroupSchema,
+		}
+		| {
+			type: "catalog_item_carousel",
+			value: _roblox_apppageplatform_shared_v1beta1_catalog_item_carousel.CatalogItemCarouselSchema,
+		}
+		| {
+			type: "catalog_category_menu",
+			value: _roblox_apppageplatform_shared_v1beta1_catalog_category_menu.CatalogCategoryMenuSchema,
+		}
 	)?,
 }
 
@@ -358,6 +397,26 @@ do
 			elseif self.kind.type == "tabs" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 37, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "action_bar" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 38, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "catalog_virtualized_feed" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 39, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "catalog_item_group" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 40, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "catalog_item_carousel" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 41, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "catalog_category_menu" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 42, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -689,6 +748,54 @@ do
 					self.kind =
 						{ type = "tabs", value = _roblox_apppageplatform_shared_v1beta1_tabs.TabsSchema.decode(value) }
 					continue
+				elseif field == 38 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "action_bar",
+						value = _roblox_apppageplatform_shared_v1beta1_action_bar.ActionBarSchema.decode(value),
+					}
+					continue
+				elseif field == 39 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "catalog_virtualized_feed",
+						value = _roblox_apppageplatform_shared_v1beta1_catalog_virtualized_feed.CatalogVirtualizedFeedSchema.decode(
+							value
+						),
+					}
+					continue
+				elseif field == 40 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "catalog_item_group",
+						value = _roblox_apppageplatform_shared_v1beta1_catalog_item_group.CatalogItemGroupSchema.decode(
+							value
+						),
+					}
+					continue
+				elseif field == 41 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "catalog_item_carousel",
+						value = _roblox_apppageplatform_shared_v1beta1_catalog_item_carousel.CatalogItemCarouselSchema.decode(
+							value
+						),
+					}
+					continue
+				elseif field == 42 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "catalog_category_menu",
+						value = _roblox_apppageplatform_shared_v1beta1_catalog_category_menu.CatalogCategoryMenuSchema.decode(
+							value
+						),
+					}
+					continue
 				end
 
 				local length
@@ -791,6 +898,16 @@ do
 				output.card = self.kind.value:jsonEncode()
 			elseif self.kind.type == "tabs" then
 				output.tabs = self.kind.value:jsonEncode()
+			elseif self.kind.type == "action_bar" then
+				output.actionBar = self.kind.value:jsonEncode()
+			elseif self.kind.type == "catalog_virtualized_feed" then
+				output.catalogVirtualizedFeed = self.kind.value:jsonEncode()
+			elseif self.kind.type == "catalog_item_group" then
+				output.catalogItemGroup = self.kind.value:jsonEncode()
+			elseif self.kind.type == "catalog_item_carousel" then
+				output.catalogItemCarousel = self.kind.value:jsonEncode()
+			elseif self.kind.type == "catalog_category_menu" then
+				output.catalogCategoryMenu = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -1311,6 +1428,92 @@ do
 		if input.tabs ~= nil then
 			self.kind =
 				{ type = "tabs", value = _roblox_apppageplatform_shared_v1beta1_tabs.TabsSchema.jsonDecode(input.tabs) }
+		end
+
+		if input.action_bar ~= nil then
+			self.kind = {
+				type = "action_bar",
+				value = _roblox_apppageplatform_shared_v1beta1_action_bar.ActionBarSchema.jsonDecode(input.action_bar),
+			}
+		end
+
+		if input.actionBar ~= nil then
+			self.kind = {
+				type = "action_bar",
+				value = _roblox_apppageplatform_shared_v1beta1_action_bar.ActionBarSchema.jsonDecode(input.actionBar),
+			}
+		end
+
+		if input.catalog_virtualized_feed ~= nil then
+			self.kind = {
+				type = "catalog_virtualized_feed",
+				value = _roblox_apppageplatform_shared_v1beta1_catalog_virtualized_feed.CatalogVirtualizedFeedSchema.jsonDecode(
+					input.catalog_virtualized_feed
+				),
+			}
+		end
+
+		if input.catalogVirtualizedFeed ~= nil then
+			self.kind = {
+				type = "catalog_virtualized_feed",
+				value = _roblox_apppageplatform_shared_v1beta1_catalog_virtualized_feed.CatalogVirtualizedFeedSchema.jsonDecode(
+					input.catalogVirtualizedFeed
+				),
+			}
+		end
+
+		if input.catalog_item_group ~= nil then
+			self.kind = {
+				type = "catalog_item_group",
+				value = _roblox_apppageplatform_shared_v1beta1_catalog_item_group.CatalogItemGroupSchema.jsonDecode(
+					input.catalog_item_group
+				),
+			}
+		end
+
+		if input.catalogItemGroup ~= nil then
+			self.kind = {
+				type = "catalog_item_group",
+				value = _roblox_apppageplatform_shared_v1beta1_catalog_item_group.CatalogItemGroupSchema.jsonDecode(
+					input.catalogItemGroup
+				),
+			}
+		end
+
+		if input.catalog_item_carousel ~= nil then
+			self.kind = {
+				type = "catalog_item_carousel",
+				value = _roblox_apppageplatform_shared_v1beta1_catalog_item_carousel.CatalogItemCarouselSchema.jsonDecode(
+					input.catalog_item_carousel
+				),
+			}
+		end
+
+		if input.catalogItemCarousel ~= nil then
+			self.kind = {
+				type = "catalog_item_carousel",
+				value = _roblox_apppageplatform_shared_v1beta1_catalog_item_carousel.CatalogItemCarouselSchema.jsonDecode(
+					input.catalogItemCarousel
+				),
+			}
+		end
+
+		if input.catalog_category_menu ~= nil then
+			self.kind = {
+				type = "catalog_category_menu",
+				value = _roblox_apppageplatform_shared_v1beta1_catalog_category_menu.CatalogCategoryMenuSchema.jsonDecode(
+					input.catalog_category_menu
+				),
+			}
+		end
+
+		if input.catalogCategoryMenu ~= nil then
+			self.kind = {
+				type = "catalog_category_menu",
+				value = _roblox_apppageplatform_shared_v1beta1_catalog_category_menu.CatalogCategoryMenuSchema.jsonDecode(
+					input.catalogCategoryMenu
+				),
+			}
 		end
 
 		return self

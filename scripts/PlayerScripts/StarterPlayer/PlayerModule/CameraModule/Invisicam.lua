@@ -387,7 +387,7 @@ function Invisicam:SmartCircleBehavior(castPoints)
 				end
 
 				local ray = Ray.new(torsoPoint, (castPoint - torsoPoint))
-				local hit, hitPoint, hitNormal = game.Workspace:FindPartOnRayWithIgnoreList(ray, {self.char}, false, false )
+				local hit, hitPoint = game.Workspace:FindPartOnRayWithIgnoreList(ray, {self.char}, false, false )
 
 				if hit then
 					local castPoint2 = hitPoint - 0.1 * (castPoint - torsoPoint).unit

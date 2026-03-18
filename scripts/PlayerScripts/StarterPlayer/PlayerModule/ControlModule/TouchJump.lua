@@ -12,7 +12,10 @@ local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 
 local ConnectionUtil = CommonUtils.get("ConnectionUtil")
 local CharacterUtil = CommonUtils.get("CharacterUtil")
+local FlagUtil = CommonUtils.get("FlagUtil")
+local FFlagUserPSActionsPathAware = FlagUtil.getUserFlag("UserPSActionsPathAware")
 
+-- remove with FFlagUserPSActionsPathAware
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
 local character = inputContexts:WaitForChild("Character")
 local jumpAction = character:WaitForChild("Jump")
@@ -25,6 +28,7 @@ local CONNECTIONS = {
 	HUMANOID_JUMP_HEIGHT = "HUMANOID_JUMP_HEIGHT",
 	HUMANOID = "HUMANOID",
 	MENU_OPENED = "MENU_OPENED",
+	ACTIONS_RELOADED = "ACTIONS_RELOADED",
 }
 
 type TouchJumpClass = {
@@ -51,8 +55,15 @@ local ActionController = require(script.Parent:WaitForChild("ActionController"))
 local TouchJump = setmetatable({}, ActionController)
 TouchJump.__index = TouchJump
 
-function TouchJump.new()
+function TouchJump.new(data, playerData)
 	local self = setmetatable(ActionController.new() :: any, TouchJump)
+
+	if FFlagUserPSActionsPathAware then
+		self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
+		data.eventBus:subscribe(CONNECTIONS.ACTIONS_RELOADED, function()
+			self:Create()
+		end)
+	end
 
 	self.parentUIFrame = nil
 	self.jumpButton = nil
@@ -65,7 +76,9 @@ function TouchJump.new()
 end
 
 function TouchJump:_reset()
-	jumpAction:Fire(false)
+	if FFlagUserPSActionsPathAware then
+		self.playerData.actions.Jump:Fire(false)
+	end
 
 	if self.jumpButton then
 		self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
@@ -199,23 +212,44 @@ function TouchJump:Create()
 
 	self.jumpButton.Parent = self.parentUIFrame
 
-	touchJumpBinding.UIButton = self.jumpButton
+	if FFlagUserPSActionsPathAware then
+		self.playerData.actions.Jump:WaitForChild("TouchJumpBinding").UIButton = self.jumpButton
 
-	jumpAction.Pressed:Connect(function()
-		if not self.jumpButton then
-			return
-		end
+		self.playerData.actions.Jump.Pressed:Connect(function()
+			if not self.jumpButton then
+				return
+			end
 
-		self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
-	end)
+			self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
+		end)
 
-	jumpAction.Released:Connect(function()
-		if not self.jumpButton then
-			return
-		end
+		self.playerData.actions.Jump.Released:Connect(function()
+			if not self.jumpButton then
+				return
+			end
 
-		self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
-	end)
+			self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
+		end)
+	else
+		touchJumpBinding.UIButton = self.jumpButton
+
+		jumpAction.Pressed:Connect(function()
+			if not self.jumpButton then
+				return
+			end
+
+			self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
+		end)
+
+		jumpAction.Released:Connect(function()
+			if not self.jumpButton then
+				return
+			end
+
+			self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
+		end)
+	end
+
 end
 
 return TouchJump

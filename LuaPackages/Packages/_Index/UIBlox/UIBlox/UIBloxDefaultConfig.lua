@@ -49,4 +49,13 @@ return {
 
 	-- Enable rich text support for TooltipV2 header and body text
 	enableTooltipRichText = false,
+
+	-- Use Foundation Checkbox
+	useFoundationCheckbox = false,
+
+	-- Use Foundation Loading spinner
+	useFoundationLoading = false,
+
+	-- Disable token scaling so scale is always 1
+	disableTokenScaling = false,
 }

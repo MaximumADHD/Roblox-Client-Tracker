@@ -151,6 +151,7 @@ local Flags = {
 	FFlagInExperienceReportClosingBugfix = SharedFlags.FFlagInExperienceReportClosingBugfix,
 	FFlagEnableSettingsHubUIDelegateRollout = SharedFlags.FFlagEnableSettingsHubUIDelegateRollout,
 	FFlagAddIEMProfilePage = SharedFlags.FFlagAddIEMProfilePage,
+	FFlagSetUnibarShortcutOnTopBarFocus = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagSetUnibarShortcutOnTopBarFocus,
 
 	FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton,
 	FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory,
@@ -3474,8 +3475,12 @@ local function CreateSettingsHub()
 			
 			if Flags.ChromeEnabled and Flags.FFlagEnableConsoleExpControls then
 				local ChromeService = require(RobloxGui.Modules.Chrome.Service)
-				local ChromeConstants = require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants)
-				ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
+				if Flags.FFlagSetUnibarShortcutOnTopBarFocus then
+					ChromeService:setShortcutBar(nil)
+				else
+					local ChromeConstants = require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants)
+					ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
+				end
 			end
 
 			if Flags.GetFFlagEnableAppChatInExperience() and connectWasVisible then
@@ -3563,8 +3568,12 @@ local function CreateSettingsHub()
 				else
 					if Flags.ChromeEnabled and Flags.FFlagEnableConsoleExpControls then 
 						local ChromeService = require(RobloxGui.Modules.Chrome.Service)
-						local ChromeConstants = require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants)
-						ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
+						if Flags.FFlagSetUnibarShortcutOnTopBarFocus then
+							ChromeService:setShortcutBar(nil)
+						else
+							local ChromeConstants = require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants)
+							ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
+						end
 					end
 					this.Shield:TweenPosition(
 						SETTINGS_SHIELD_INACTIVE_POSITION,

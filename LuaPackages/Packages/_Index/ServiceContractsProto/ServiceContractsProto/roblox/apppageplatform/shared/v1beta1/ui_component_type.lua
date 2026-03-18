@@ -49,9 +49,14 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_DETAILS_PAGE_IMAGE_HEADER"
 	| "UI_COMPONENT_TYPE_CARD"
 	| "UI_COMPONENT_TYPE_TABS"
+	| "UI_COMPONENT_TYPE_ACTION_BAR"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
+	| "UI_COMPONENT_TYPE_CATALOG_VIRTUALIZED_FEED"
+	| "UI_COMPONENT_TYPE_CATALOG_ITEM_GROUP"
+	| "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL"
+	| "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU"
 	| "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 	| number -- Unknown
 
@@ -129,12 +134,22 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_CARD"
 		elseif value == 226 then
 			return "UI_COMPONENT_TYPE_TABS"
+		elseif value == 227 then
+			return "UI_COMPONENT_TYPE_ACTION_BAR"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
 			return "UI_COMPONENT_TYPE_FRAGMENT"
 		elseif value == 500 then
 			return "UI_COMPONENT_TYPE_VERTICAL_FEED"
+		elseif value == 600 then
+			return "UI_COMPONENT_TYPE_CATALOG_VIRTUALIZED_FEED"
+		elseif value == 601 then
+			return "UI_COMPONENT_TYPE_CATALOG_ITEM_GROUP"
+		elseif value == 602 then
+			return "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL"
+		elseif value == 603 then
+			return "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU"
 		elseif value == 9999 then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else
@@ -215,12 +230,22 @@ messages.UiComponentType = {
 			return 225
 		elseif self == "UI_COMPONENT_TYPE_TABS" then
 			return 226
+		elseif self == "UI_COMPONENT_TYPE_ACTION_BAR" then
+			return 227
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
 			return 400
 		elseif self == "UI_COMPONENT_TYPE_VERTICAL_FEED" then
 			return 500
+		elseif self == "UI_COMPONENT_TYPE_CATALOG_VIRTUALIZED_FEED" then
+			return 600
+		elseif self == "UI_COMPONENT_TYPE_CATALOG_ITEM_GROUP" then
+			return 601
+		elseif self == "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL" then
+			return 602
+		elseif self == "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU" then
+			return 603
 		elseif self == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return 9999
 		else
@@ -301,12 +326,22 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_CARD"
 		elseif name == "UI_COMPONENT_TYPE_TABS" then
 			return "UI_COMPONENT_TYPE_TABS"
+		elseif name == "UI_COMPONENT_TYPE_ACTION_BAR" then
+			return "UI_COMPONENT_TYPE_ACTION_BAR"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then
 			return "UI_COMPONENT_TYPE_FRAGMENT"
 		elseif name == "UI_COMPONENT_TYPE_VERTICAL_FEED" then
 			return "UI_COMPONENT_TYPE_VERTICAL_FEED"
+		elseif name == "UI_COMPONENT_TYPE_CATALOG_VIRTUALIZED_FEED" then
+			return "UI_COMPONENT_TYPE_CATALOG_VIRTUALIZED_FEED"
+		elseif name == "UI_COMPONENT_TYPE_CATALOG_ITEM_GROUP" then
+			return "UI_COMPONENT_TYPE_CATALOG_ITEM_GROUP"
+		elseif name == "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL" then
+			return "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL"
+		elseif name == "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU" then
+			return "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU"
 		elseif name == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else

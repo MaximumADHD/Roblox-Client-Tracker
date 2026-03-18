@@ -39,6 +39,7 @@ local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
+local FFlagDisableGamepadConnectorInVR = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagDisableGamepadConnectorInVR
 
 -- Components 
 local View = Foundation.View
@@ -90,11 +91,29 @@ local function TopBarApp(props: TopBarProps)
 	local showTopBar, setShowTopBar = React.useBinding(showTopBarSignal:get())
 
 	React.useEffect(function()
-		GamepadConnector:connectToTopbar()
+		local vrEnabledConnection
+		if FFlagDisableGamepadConnectorInVR then
+			if not isSpatial() then
+				GamepadConnector:connectToTopbar()
+			end
+			vrEnabledConnection = VRService:GetPropertyChangedSignal("VREnabled"):Connect(function()
+				if isSpatial() then
+					GamepadConnector:disconnectFromTopbar()
+				else
+					GamepadConnector:connectToTopbar()
+				end
+			end)
+		else
+			GamepadConnector:connectToTopbar()
+		end
+
 		local showTopBarConn = showTopBarSignal:connect(function() 
 			setShowTopBar(showTopBarSignal:get())
 		end)
 		return function() 
+			if FFlagDisableGamepadConnectorInVR and vrEnabledConnection then
+				vrEnabledConnection:Disconnect()
+			end
 			GamepadConnector:disconnectFromTopbar()
 			if keepOutAreasStore then 
 				keepOutAreasStore.cleanup()

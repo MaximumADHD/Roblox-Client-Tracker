@@ -9,7 +9,6 @@ local View = require(Foundation.Components.View)
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
 
-local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 local useRotation = require(Foundation.Utility.useRotation)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -36,21 +35,16 @@ local function Loading(loadingProps: LoadingProps, ref: React.Ref<GuiObject>?)
 		style = tokens.DarkMode.Content.Emphasis,
 		Rotation = rotation,
 		ref = ref,
-		testId = if Flags.FoundationLoadingWrapInView then `{props.testId}--icon` else nil,
+		testId = `{props.testId}--icon`,
 	}
 
 	return React.createElement(
-		if Flags.FoundationLoadingWrapInView then View else React.Fragment,
-		if Flags.FoundationLoadingWrapInView
-			then withCommonProps(props, {
-				tag = "auto-xy",
-			})
-			else {},
+		View,
+		withCommonProps(props, {
+			tag = "auto-xy",
+		}),
 		{
-			Icon = React.createElement(
-				Icon,
-				if Flags.FoundationLoadingWrapInView then iconProps else withCommonProps(props, iconProps)
-			),
+			Icon = React.createElement(Icon, iconProps),
 		}
 	)
 end

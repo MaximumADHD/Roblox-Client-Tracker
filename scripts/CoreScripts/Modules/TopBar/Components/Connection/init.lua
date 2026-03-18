@@ -3,8 +3,6 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Packages.Roact)
 
 local TopBar = script.Parent.Parent
-
-local FFlagRemoveTopBarInputTypeRodux = require(TopBar.Flags.GetFFlagRemoveTopBarInputTypeRodux)()
 local FFlagTopBarDeprecateCoreGuiRodux = require(TopBar.Flags.FFlagTopBarDeprecateCoreGuiRodux)
 local FFlagTopBarDeprecateChatRodux = require(TopBar.Flags.FFlagTopBarDeprecateChatRodux)
 local FFlagTopBarDeprecateDisplayOptionsRodux = require(TopBar.Flags.FFlagTopBarDeprecateDisplayOptionsRodux)
@@ -33,7 +31,6 @@ function Connection:render()
 		HealthConnector = if FFlagTopBarSignalizeHealthBar then nil else Roact.createElement(HealthConnector),
 		EnabledNotifier = if FFlagTopBarDeprecateDisplayOptionsRodux then nil else Roact.createElement(EnabledNotifier),
 		OpenUIConnector = if FFlagTopBarDeprecateMoreMenuRodux then nil else Roact.createElement(OpenUIConnector),
-		LastInputTypeConnector = if FFlagRemoveTopBarInputTypeRodux then nil else Roact.createElement(LastInputTypeConnector),
 	})
 end
 

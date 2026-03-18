@@ -25,6 +25,7 @@ local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCurso
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
 local FFlagVirtualCursorTopbarAlwaysVisible = SharedFlags.FFlagVirtualCursorTopbarAlwaysVisible
+local FFlagDisableGamepadConnectorInVR = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagDisableGamepadConnectorInVR
 
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
@@ -33,7 +34,9 @@ local Modules = script.Parent.Parent.Parent
 local TopBar = Modules.TopBar
 
 local FFlagAddTopBarScrim = require(TopBar.Flags.FFlagAddTopBarScrim)
+local FFlagSetUnibarShortcutOnTopBarFocus = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagSetUnibarShortcutOnTopBarFocus
 
+local isSpatial = AppCommonLib.isSpatial
 local TopBarTelemetry = require(TopBar:WaitForChild("Telemetry"))
 local LogGamepadOpenExperienceControlsMenu = TopBarTelemetry.LogGamepadOpenExperienceControlsMenu
 local Chrome = Modules.Chrome
@@ -44,12 +47,12 @@ local ChromeFocusUtils = require(CorePackages.Workspace.Packages.Chrome).FocusUt
 local ObservableValue = if ChromeEnabled and FFlagEnableConsoleExpControls
 	then ChromeUtils.ObservableValue
 	else nil
+local ChromeConstants = if ChromeEnabled then require(Chrome.ChromeShared.Unibar.Constants) else nil :: any
 local ToastNotificationConstants = require(CorePackages.Workspace.Packages.ToastNotification).ToastNotificationConstants
 local Constants = require(script.Parent.Parent.Constants)
 local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
 local PlayerList = Modules.PlayerList
 local PlayerListManager = require(PlayerList.PlayerListManager)
-
 local MenuIconSelectedSignal = ChromeFocusUtils.MenuIconSelectedSignal
 
 local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
@@ -170,30 +173,32 @@ function GamepadConnector.new(): GamepadConnector
 			end)
 		end
 
-		local shouldShowTopBar = function()
-			local showTopBar = not self._gamepadActive:get()
-				or self._chromeFocused:get()
-				or self._selectedCoreObject:get() ~= nil
-				or UserInputService.TouchEnabled
-				or self._tiltMenuOpen:get()
-				or (FFlagAddNewPlayerListFocusNav and self._playerListModalOpen:get())
-				or (FFlagShowUnibarOnVirtualCursor and GamepadService.GamepadCursorEnabled)
-				or (FFlagVirtualCursorTopbarAlwaysVisible and GamepadService.GamepadCursorEnabled)
-			self._showTopBar:set(showTopBar)
-			if showTopBar then
-				GuiService.CoreGuiNavigationEnabled = true
-			else
-				GuiService.CoreGuiNavigationEnabled = self._devSetCoreGuiNavEnabled
+		if not FFlagDisableGamepadConnectorInVR or not isSpatial() then
+			local shouldShowTopBar = function()
+				local showTopBar = not self._gamepadActive:get()
+					or self._chromeFocused:get()
+					or self._selectedCoreObject:get() ~= nil
+					or UserInputService.TouchEnabled
+					or self._tiltMenuOpen:get()
+					or (FFlagAddNewPlayerListFocusNav and self._playerListModalOpen:get())
+					or (FFlagShowUnibarOnVirtualCursor and GamepadService.GamepadCursorEnabled)
+					or (FFlagVirtualCursorTopbarAlwaysVisible and GamepadService.GamepadCursorEnabled)
+				self._showTopBar:set(showTopBar)
+				if showTopBar then
+					GuiService.CoreGuiNavigationEnabled = true
+				else
+					GuiService.CoreGuiNavigationEnabled = self._devSetCoreGuiNavEnabled
+				end
 			end
-		end
 
-		self._selectedCoreObject:connect(shouldShowTopBar)
-		self._chromeFocused:connect(shouldShowTopBar)
-		self._tiltMenuOpen:connect(shouldShowTopBar)
-		if FFlagShowUnibarOnVirtualCursor or FFlagVirtualCursorTopbarAlwaysVisible then
-			GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"):Connect(shouldShowTopBar)
+			self._selectedCoreObject:connect(shouldShowTopBar)
+			self._chromeFocused:connect(shouldShowTopBar)
+			self._tiltMenuOpen:connect(shouldShowTopBar)
+			if FFlagShowUnibarOnVirtualCursor or FFlagVirtualCursorTopbarAlwaysVisible then
+				GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"):Connect(shouldShowTopBar)
+			end
+			self._gamepadActive:connect(shouldShowTopBar, true)
 		end
-		self._gamepadActive:connect(shouldShowTopBar, true)
 	end
 
 	if FFlagEnableConsoleExpControls then
@@ -236,6 +241,9 @@ function GamepadConnector:connectToTopbar()
 			end
 
 			if focused then
+				if FFlagSetUnibarShortcutOnTopBarFocus then
+					ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
+				end
 				self:_addDismissFocusConnections()
 			else
 				self:_removeDismissFocusConnections()

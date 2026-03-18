@@ -5,11 +5,7 @@ local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local React = require(Packages.React)
 local positioning = require(script.Parent.positioning)
-local Services = require(Foundation.Utility.Wrappers).Services
-local UserInputService = Services.UserInputService
-local GuiService = Services.GuiService
 
-local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 
 type PopoverSide = PopoverSide.PopoverSide
@@ -92,14 +88,6 @@ local function useFloating(
 		local anchorRect = Rect.new(anchorPosition, anchorPosition + anchorSize)
 		local screenRect = Rect.new(screenPosition, screenPosition + screenSize)
 
-		if Flags.FoundationPopoverOnScreenKeyboard and UserInputService.OnScreenKeyboardVisible then
-			screenRect = positioning.adjustForOnScreenKeyboard(
-				screenRect,
-				UserInputService.OnScreenKeyboardPosition,
-				GuiService:GetGuiInset()
-			)
-		end
-
 		-- If the anchor is not visible on the screen, hide the popover
 		if not positioning.isOnScreen(anchorRect, screenRect) then
 			setIsVisible(false)
@@ -154,13 +142,6 @@ local function useFloating(
 	useConnectSignals(anchor, { "AbsolutePosition", "AbsoluteSize" }, recalculatePositionRef)
 	useConnectSignals(content, { "AbsoluteSize" }, recalculatePositionRef)
 	useConnectSignals(overlay, { "AbsoluteSize" }, recalculatePositionRef)
-	if Flags.FoundationPopoverOnScreenKeyboard then
-		useConnectSignals(
-			UserInputService,
-			{ "OnScreenKeyboardVisible", "OnScreenKeyboardPosition" },
-			recalculatePositionRef
-		)
-	end
 
 	React.useLayoutEffect(function()
 		recalculatePosition()

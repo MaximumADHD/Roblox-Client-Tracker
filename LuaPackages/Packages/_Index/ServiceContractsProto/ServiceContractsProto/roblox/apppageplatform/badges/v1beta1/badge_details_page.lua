@@ -26,8 +26,8 @@ local _roblox_apppageplatform_shared_v1beta1_hydration_content =
 local _roblox_apppageplatform_shared_v1beta1_page_entry = require(script.Parent.Parent.Parent.shared.v1beta1.page_entry)
 local _roblox_apppageplatform_shared_v1beta1_template_entry =
 	require(script.Parent.Parent.Parent.shared.v1beta1.template_entry)
-local _roblox_apppageplatform_shared_v1beta1_universal_page_entry =
-	require(script.Parent.Parent.Parent.shared.v1beta1.universal_page_entry)
+local _roblox_apppageplatform_shared_v1beta1_page_entry_content =
+	require(script.Parent.Parent.Parent.shared.v1beta1.page_entry_content)
 
 type _BadgeDetailsPageRequestImpl = {
 	__index: _BadgeDetailsPageRequestImpl,
@@ -42,13 +42,13 @@ type _BadgeDetailsPageRequestImpl = {
 type _BadgeDetailsPageRequestFields = {
 	badge_id: number,
 	user_id: number,
-	page_entry_format: _roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat,
+	page_entry_format: _roblox_apppageplatform_shared_v1beta1_page_entry_content.PageEntryFormat,
 }
 
 type _BadgeDetailsPageRequestPartialFields = {
 	badge_id: number?,
 	user_id: number?,
-	page_entry_format: _roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat?,
+	page_entry_format: _roblox_apppageplatform_shared_v1beta1_page_entry_content.PageEntryFormat?,
 }
 
 export type BadgeDetailsPageRequest = typeof(setmetatable(
@@ -125,13 +125,13 @@ type _BadgeDetailsPageV2ResponseImpl = {
 }
 
 type _BadgeDetailsPageV2ResponseFields = {
-	page_entries: { _roblox_apppageplatform_shared_v1beta1_universal_page_entry.UniversalPageEntry },
+	page_entries: { _roblox_apppageplatform_shared_v1beta1_page_entry_content.UniversalPageEntry },
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry },
 }
 
 type _BadgeDetailsPageV2ResponsePartialFields = {
-	page_entries: { _roblox_apppageplatform_shared_v1beta1_universal_page_entry.UniversalPageEntry }?,
+	page_entries: { _roblox_apppageplatform_shared_v1beta1_page_entry_content.UniversalPageEntry }?,
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry }?,
 }
@@ -373,7 +373,7 @@ do
 			user_id = if data == nil or data.user_id == nil then 0 else data.user_id,
 			page_entry_format = if data == nil or data.page_entry_format == nil
 				then assert(
-					_roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromNumber(0),
+					_roblox_apppageplatform_shared_v1beta1_page_entry_content.PageEntryFormat.fromNumber(0),
 					"Enum has no 0 default"
 				)
 				else data.page_entry_format,
@@ -399,14 +399,14 @@ do
 			and (
 				self.page_entry_format ~= nil and self.page_entry_format ~= 0
 				or self.page_entry_format
-					~= _roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromNumber(0)
+					~= _roblox_apppageplatform_shared_v1beta1_page_entry_content.PageEntryFormat.fromNumber(0)
 			)
 		then
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(
 				output,
 				cursor,
-				_roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.toNumber(
+				_roblox_apppageplatform_shared_v1beta1_page_entry_content.PageEntryFormat.toNumber(
 					self.page_entry_format :: any
 				)
 			)
@@ -440,7 +440,7 @@ do
 					local value
 					value, cursor = proto.readVarIntI32(input, cursor)
 					self.page_entry_format = (
-						_roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromNumber(value)
+						_roblox_apppageplatform_shared_v1beta1_page_entry_content.PageEntryFormat.fromNumber(value)
 						or value
 					) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
 					continue
@@ -489,12 +489,12 @@ do
 			and (
 				self.page_entry_format ~= nil and self.page_entry_format ~= 0
 				or self.page_entry_format
-					~= _roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromNumber(0)
+					~= _roblox_apppageplatform_shared_v1beta1_page_entry_content.PageEntryFormat.fromNumber(0)
 			)
 		then
 			output.pageEntryFormat = if typeof(self.page_entry_format) == "number"
 				then self.page_entry_format
-				else _roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.toNumber(
+				else _roblox_apppageplatform_shared_v1beta1_page_entry_content.PageEntryFormat.toNumber(
 					self.page_entry_format :: any
 				)
 		end
@@ -523,20 +523,20 @@ do
 
 		if input.page_entry_format ~= nil then
 			self.page_entry_format = if typeof(input.page_entry_format) == "number"
-				then (_roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromNumber(
+				then (_roblox_apppageplatform_shared_v1beta1_page_entry_content.PageEntryFormat.fromNumber(
 					input.page_entry_format
 				) or input.page_entry_format)
-				else (_roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromName(
+				else (_roblox_apppageplatform_shared_v1beta1_page_entry_content.PageEntryFormat.fromName(
 					input.page_entry_format
 				) or input.page_entry_format)
 		end
 
 		if input.pageEntryFormat ~= nil then
 			self.page_entry_format = if typeof(input.pageEntryFormat) == "number"
-				then (_roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromNumber(
+				then (_roblox_apppageplatform_shared_v1beta1_page_entry_content.PageEntryFormat.fromNumber(
 					input.pageEntryFormat
 				) or input.pageEntryFormat)
-				else (_roblox_apppageplatform_shared_v1beta1_universal_page_entry.PageEntryFormat.fromName(
+				else (_roblox_apppageplatform_shared_v1beta1_page_entry_content.PageEntryFormat.fromName(
 					input.pageEntryFormat
 				) or input.pageEntryFormat)
 		end
@@ -936,7 +936,7 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(
 						self.page_entries,
-						_roblox_apppageplatform_shared_v1beta1_universal_page_entry.UniversalPageEntry.decode(value)
+						_roblox_apppageplatform_shared_v1beta1_page_entry_content.UniversalPageEntry.decode(value)
 					)
 					continue
 				elseif field == 2 then
@@ -1011,11 +1011,11 @@ do
 		local self = _BadgeDetailsPageV2ResponseImpl.new()
 
 		if input.page_entries ~= nil then
-			local newOutput: { _roblox_apppageplatform_shared_v1beta1_universal_page_entry.UniversalPageEntry } = {}
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_page_entry_content.UniversalPageEntry } = {}
 			for _, value in input.page_entries do
 				table.insert(
 					newOutput,
-					_roblox_apppageplatform_shared_v1beta1_universal_page_entry.UniversalPageEntry.jsonDecode(value)
+					_roblox_apppageplatform_shared_v1beta1_page_entry_content.UniversalPageEntry.jsonDecode(value)
 				)
 			end
 
@@ -1023,11 +1023,11 @@ do
 		end
 
 		if input.pageEntries ~= nil then
-			local newOutput: { _roblox_apppageplatform_shared_v1beta1_universal_page_entry.UniversalPageEntry } = {}
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_page_entry_content.UniversalPageEntry } = {}
 			for _, value in input.pageEntries do
 				table.insert(
 					newOutput,
-					_roblox_apppageplatform_shared_v1beta1_universal_page_entry.UniversalPageEntry.jsonDecode(value)
+					_roblox_apppageplatform_shared_v1beta1_page_entry_content.UniversalPageEntry.jsonDecode(value)
 				)
 			end
 

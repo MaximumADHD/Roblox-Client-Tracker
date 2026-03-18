@@ -66,9 +66,7 @@ local function OverlayProvider(overlayProps: Props)
 						then props.DisplayOrder
 						else Constants.MAX_LAYOUT_ORDER - 1,
 					ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-					ScreenInsets = if Flags.FoundationOverlayLuaAppInsetsFix
-						then Enum.ScreenInsets.CoreUISafeInsets
-						else Enum.ScreenInsets.DeviceSafeInsets,
+					ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets,
 					SafeAreaCompatibility = Enum.SafeAreaCompatibility.None,
 					ClipToDeviceSafeArea = false,
 					ref = if not Flags.FoundationOverlayKeyboardAwareness then setOverlay else nil,

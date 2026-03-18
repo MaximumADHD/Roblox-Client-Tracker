@@ -91,6 +91,12 @@ local function EngineDefaultBypassRules(): { StyleRule }
 				BackgroundTransparency = 0,
 			},
 		},
+		{
+			tag = "x-default-text-size",
+			properties = {
+				TextSize = 8,
+			},
+		},
 	}
 end
 

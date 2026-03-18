@@ -40,7 +40,6 @@ local MAX_Y = math.rad(80)
 
 local VR_ANGLE = math.rad(15)
 
-local ZERO_VECTOR2 = Vector2.new(0,0)
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 
 local SEAT_OFFSET = Vector3.new(0,5,0)

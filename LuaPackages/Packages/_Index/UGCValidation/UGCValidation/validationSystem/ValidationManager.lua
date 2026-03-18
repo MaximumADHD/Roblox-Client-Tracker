@@ -79,7 +79,8 @@ local function initRunVariables(
 	local desiredValidations: { [string]: Types.SingleValidationFileData } = {}
 	local desiredData: { [string]: boolean } = {}
 
-	for key, testEnum in ValidationEnums.ValidationModule do
+	local moduleEnumMap = (ValidationEnums.ValidationModule :: any) :: { [string]: string }
+	for key, testEnum in moduleEnumMap do
 		assert(key == testEnum)
 		local validationModule: Types.PreloadedValidationModule = ValidationModuleLoader.getValidationModule(testEnum)
 		local categories = validationModule.categories

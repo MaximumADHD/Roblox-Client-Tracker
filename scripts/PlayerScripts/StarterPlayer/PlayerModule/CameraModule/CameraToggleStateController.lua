@@ -1,6 +1,3 @@
-local Players = game:GetService("Players")
-local GameSettings = UserSettings():GetService("UserGameSettings")
-
 local Input = require(script.Parent:WaitForChild("CameraInput"))
 local CameraUI = require(script.Parent:WaitForChild("CameraUI"))
 local CameraUtils = require(script.Parent:WaitForChild("CameraUtils"))

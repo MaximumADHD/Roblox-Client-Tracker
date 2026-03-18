@@ -18,6 +18,11 @@ type _Messages = {
 	HydrationContent_SocialLinkEntry: _HydrationContent_SocialLinkEntryMessage,
 	HydrationContent_DeveloperProductEntry: _HydrationContent_DeveloperProductEntryMessage,
 	HydrationContent_SubscriptionEntry: _HydrationContent_SubscriptionEntryMessage,
+	HydrationContent_MarketplaceCatalogCategoryEntry: _HydrationContent_MarketplaceCatalogCategoryEntryMessage,
+	HydrationContent_MarketplaceAssetEntry: _HydrationContent_MarketplaceAssetEntryMessage,
+	HydrationContent_MarketplaceBundleEntry: _HydrationContent_MarketplaceBundleEntryMessage,
+	HydrationContent_MarketplaceLookEntry: _HydrationContent_MarketplaceLookEntryMessage,
+	HydrationContent_CatalogSortEntry: _HydrationContent_CatalogSortEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -29,6 +34,12 @@ local _roblox_apppageplatform_shared_v1beta1_song_data = require(script.Parent.s
 local _roblox_apppageplatform_shared_v1beta1_game_pass_data = require(script.Parent.game_pass_data)
 local _roblox_apppageplatform_shared_v1beta1_media_asset_data = require(script.Parent.media_asset_data)
 local _roblox_apppageplatform_shared_v1beta1_social_link_data = require(script.Parent.social_link_data)
+local _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data =
+	require(script.Parent.marketplace_catalog_category_data)
+local _roblox_apppageplatform_shared_v1beta1_marketplace_asset_data = require(script.Parent.marketplace_asset_data)
+local _roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data = require(script.Parent.marketplace_bundle_data)
+local _roblox_apppageplatform_shared_v1beta1_marketplace_look_data = require(script.Parent.marketplace_look_data)
+local _roblox_apppageplatform_shared_v1beta1_catalog_sort_data = require(script.Parent.catalog_sort_data)
 local _roblox_apppageplatform_shared_v1beta1_developer_product_data = require(script.Parent.developer_product_data)
 local _roblox_apppageplatform_shared_v1beta1_subscription_data = require(script.Parent.subscription_data)
 
@@ -53,6 +64,15 @@ type _HydrationContentFields = {
 	social_link: { [string]: _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData },
 	developer_product: { [string]: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData },
 	subscription: { [string]: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData },
+	marketplace_catalog_category: {
+		[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData,
+	},
+	marketplace_asset: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_asset_data.MarketplaceAssetData },
+	marketplace_bundle: {
+		[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data.MarketplaceBundleData,
+	},
+	marketplace_look: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_look_data.MarketplaceLookData },
+	catalog_sort: { [string]: _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortData },
 }
 
 type _HydrationContentPartialFields = {
@@ -66,6 +86,15 @@ type _HydrationContentPartialFields = {
 	social_link: { [string]: _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData }?,
 	developer_product: { [string]: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData }?,
 	subscription: { [string]: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData }?,
+	marketplace_catalog_category: {
+		[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData,
+	}?,
+	marketplace_asset: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_asset_data.MarketplaceAssetData }?,
+	marketplace_bundle: {
+		[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data.MarketplaceBundleData,
+	}?,
+	marketplace_look: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_look_data.MarketplaceLookData }?,
+	catalog_sort: { [string]: _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortData }?,
 }
 
 export type HydrationContent = typeof(setmetatable({} :: _HydrationContentFields, {} :: _HydrationContentImpl))
@@ -361,6 +390,153 @@ type _HydrationContent_SubscriptionEntryMessage = proto.Message<
 	_HydrationContent_SubscriptionEntryPartialFields
 >
 
+type _HydrationContent_MarketplaceCatalogCategoryEntryImpl = {
+	__index: _HydrationContent_MarketplaceCatalogCategoryEntryImpl,
+	new: (
+		fields: _HydrationContent_MarketplaceCatalogCategoryEntryPartialFields?
+	) -> HydrationContent_MarketplaceCatalogCategoryEntry,
+	encode: (self: HydrationContent_MarketplaceCatalogCategoryEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_MarketplaceCatalogCategoryEntry,
+	jsonEncode: (self: HydrationContent_MarketplaceCatalogCategoryEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_MarketplaceCatalogCategoryEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_MarketplaceCatalogCategoryEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData?,
+}
+
+type _HydrationContent_MarketplaceCatalogCategoryEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData?,
+}
+
+export type HydrationContent_MarketplaceCatalogCategoryEntry = typeof(setmetatable(
+	{} :: _HydrationContent_MarketplaceCatalogCategoryEntryFields,
+	{} :: _HydrationContent_MarketplaceCatalogCategoryEntryImpl
+))
+type _HydrationContent_MarketplaceCatalogCategoryEntryMessage = proto.Message<
+	HydrationContent_MarketplaceCatalogCategoryEntry,
+	_HydrationContent_MarketplaceCatalogCategoryEntryPartialFields
+>
+
+type _HydrationContent_MarketplaceAssetEntryImpl = {
+	__index: _HydrationContent_MarketplaceAssetEntryImpl,
+	new: (fields: _HydrationContent_MarketplaceAssetEntryPartialFields?) -> HydrationContent_MarketplaceAssetEntry,
+	encode: (self: HydrationContent_MarketplaceAssetEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_MarketplaceAssetEntry,
+	jsonEncode: (self: HydrationContent_MarketplaceAssetEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_MarketplaceAssetEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_MarketplaceAssetEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_marketplace_asset_data.MarketplaceAssetData?,
+}
+
+type _HydrationContent_MarketplaceAssetEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_marketplace_asset_data.MarketplaceAssetData?,
+}
+
+export type HydrationContent_MarketplaceAssetEntry = typeof(setmetatable(
+	{} :: _HydrationContent_MarketplaceAssetEntryFields,
+	{} :: _HydrationContent_MarketplaceAssetEntryImpl
+))
+type _HydrationContent_MarketplaceAssetEntryMessage = proto.Message<
+	HydrationContent_MarketplaceAssetEntry,
+	_HydrationContent_MarketplaceAssetEntryPartialFields
+>
+
+type _HydrationContent_MarketplaceBundleEntryImpl = {
+	__index: _HydrationContent_MarketplaceBundleEntryImpl,
+	new: (fields: _HydrationContent_MarketplaceBundleEntryPartialFields?) -> HydrationContent_MarketplaceBundleEntry,
+	encode: (self: HydrationContent_MarketplaceBundleEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_MarketplaceBundleEntry,
+	jsonEncode: (self: HydrationContent_MarketplaceBundleEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_MarketplaceBundleEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_MarketplaceBundleEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data.MarketplaceBundleData?,
+}
+
+type _HydrationContent_MarketplaceBundleEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data.MarketplaceBundleData?,
+}
+
+export type HydrationContent_MarketplaceBundleEntry = typeof(setmetatable(
+	{} :: _HydrationContent_MarketplaceBundleEntryFields,
+	{} :: _HydrationContent_MarketplaceBundleEntryImpl
+))
+type _HydrationContent_MarketplaceBundleEntryMessage = proto.Message<
+	HydrationContent_MarketplaceBundleEntry,
+	_HydrationContent_MarketplaceBundleEntryPartialFields
+>
+
+type _HydrationContent_MarketplaceLookEntryImpl = {
+	__index: _HydrationContent_MarketplaceLookEntryImpl,
+	new: (fields: _HydrationContent_MarketplaceLookEntryPartialFields?) -> HydrationContent_MarketplaceLookEntry,
+	encode: (self: HydrationContent_MarketplaceLookEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_MarketplaceLookEntry,
+	jsonEncode: (self: HydrationContent_MarketplaceLookEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_MarketplaceLookEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_MarketplaceLookEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_marketplace_look_data.MarketplaceLookData?,
+}
+
+type _HydrationContent_MarketplaceLookEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_marketplace_look_data.MarketplaceLookData?,
+}
+
+export type HydrationContent_MarketplaceLookEntry = typeof(setmetatable(
+	{} :: _HydrationContent_MarketplaceLookEntryFields,
+	{} :: _HydrationContent_MarketplaceLookEntryImpl
+))
+type _HydrationContent_MarketplaceLookEntryMessage = proto.Message<
+	HydrationContent_MarketplaceLookEntry,
+	_HydrationContent_MarketplaceLookEntryPartialFields
+>
+
+type _HydrationContent_CatalogSortEntryImpl = {
+	__index: _HydrationContent_CatalogSortEntryImpl,
+	new: (fields: _HydrationContent_CatalogSortEntryPartialFields?) -> HydrationContent_CatalogSortEntry,
+	encode: (self: HydrationContent_CatalogSortEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_CatalogSortEntry,
+	jsonEncode: (self: HydrationContent_CatalogSortEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_CatalogSortEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_CatalogSortEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortData?,
+}
+
+type _HydrationContent_CatalogSortEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortData?,
+}
+
+export type HydrationContent_CatalogSortEntry = typeof(setmetatable(
+	{} :: _HydrationContent_CatalogSortEntryFields,
+	{} :: _HydrationContent_CatalogSortEntryImpl
+))
+type _HydrationContent_CatalogSortEntryMessage = proto.Message<
+	HydrationContent_CatalogSortEntry,
+	_HydrationContent_CatalogSortEntryPartialFields
+>
+
 do
 	local _HydrationContentImpl = {}
 	_HydrationContentImpl.__index = _HydrationContentImpl
@@ -377,6 +553,13 @@ do
 			social_link = if data == nil or data.social_link == nil then {} else data.social_link,
 			developer_product = if data == nil or data.developer_product == nil then {} else data.developer_product,
 			subscription = if data == nil or data.subscription == nil then {} else data.subscription,
+			marketplace_catalog_category = if data == nil or data.marketplace_catalog_category == nil
+				then {}
+				else data.marketplace_catalog_category,
+			marketplace_asset = if data == nil or data.marketplace_asset == nil then {} else data.marketplace_asset,
+			marketplace_bundle = if data == nil or data.marketplace_bundle == nil then {} else data.marketplace_bundle,
+			marketplace_look = if data == nil or data.marketplace_look == nil then {} else data.marketplace_look,
+			catalog_sort = if data == nil or data.catalog_sort == nil then {} else data.catalog_sort,
 		}, _HydrationContentImpl :: _HydrationContentImpl)
 	end
 
@@ -524,6 +707,76 @@ do
 			end
 		end
 
+		if self.marketplace_catalog_category ~= nil and next(self.marketplace_catalog_category) ~= nil then
+			for key, value in self.marketplace_catalog_category do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.marketplace_asset ~= nil and next(self.marketplace_asset) ~= nil then
+			for key, value in self.marketplace_asset do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.marketplace_bundle ~= nil and next(self.marketplace_bundle) ~= nil then
+			for key, value in self.marketplace_bundle do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.marketplace_look ~= nil and next(self.marketplace_look) ~= nil then
+			for key, value in self.marketplace_look do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.catalog_sort ~= nil and next(self.catalog_sort) ~= nil then
+			for key, value in self.catalog_sort do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -664,6 +917,70 @@ do
 					self.subscription[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_MarketplaceCatalogCategoryEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData.new()
+
+					self.marketplace_catalog_category[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_MarketplaceAssetEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_marketplace_asset_data.MarketplaceAssetData.new()
+
+					self.marketplace_asset[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_MarketplaceBundleEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data.MarketplaceBundleData.new()
+
+					self.marketplace_bundle[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_MarketplaceLookEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_marketplace_look_data.MarketplaceLookData.new()
+
+					self.marketplace_look[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_CatalogSortEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortData.new()
+
+					self.catalog_sort[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
 				end
 
 				local length
@@ -769,6 +1086,46 @@ do
 				newOutput[key] = value:jsonEncode()
 			end
 			output.subscription = newOutput
+		end
+
+		if self.marketplace_catalog_category ~= nil and next(self.marketplace_catalog_category) ~= nil then
+			local newOutput = {}
+			for key, value in self.marketplace_catalog_category do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.marketplaceCatalogCategory = newOutput
+		end
+
+		if self.marketplace_asset ~= nil and next(self.marketplace_asset) ~= nil then
+			local newOutput = {}
+			for key, value in self.marketplace_asset do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.marketplaceAsset = newOutput
+		end
+
+		if self.marketplace_bundle ~= nil and next(self.marketplace_bundle) ~= nil then
+			local newOutput = {}
+			for key, value in self.marketplace_bundle do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.marketplaceBundle = newOutput
+		end
+
+		if self.marketplace_look ~= nil and next(self.marketplace_look) ~= nil then
+			local newOutput = {}
+			for key, value in self.marketplace_look do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.marketplaceLook = newOutput
+		end
+
+		if self.catalog_sort ~= nil and next(self.catalog_sort) ~= nil then
+			local newOutput = {}
+			for key, value in self.catalog_sort do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.catalogSort = newOutput
 		end
 
 		return output
@@ -911,6 +1268,126 @@ do
 			end
 
 			self.subscription = newOutput
+		end
+
+		if input.marketplace_catalog_category ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData,
+			} =
+				{}
+			for key, value in input.marketplace_catalog_category do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData.jsonDecode(
+						value
+					)
+			end
+
+			self.marketplace_catalog_category = newOutput
+		end
+
+		if input.marketplaceCatalogCategory ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData,
+			} =
+				{}
+			for key, value in input.marketplaceCatalogCategory do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData.jsonDecode(
+						value
+					)
+			end
+
+			self.marketplace_catalog_category = newOutput
+		end
+
+		if input.marketplace_asset ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_asset_data.MarketplaceAssetData } =
+				{}
+			for key, value in input.marketplace_asset do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_marketplace_asset_data.MarketplaceAssetData.jsonDecode(value)
+			end
+
+			self.marketplace_asset = newOutput
+		end
+
+		if input.marketplaceAsset ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_asset_data.MarketplaceAssetData } =
+				{}
+			for key, value in input.marketplaceAsset do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_marketplace_asset_data.MarketplaceAssetData.jsonDecode(value)
+			end
+
+			self.marketplace_asset = newOutput
+		end
+
+		if input.marketplace_bundle ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data.MarketplaceBundleData } =
+				{}
+			for key, value in input.marketplace_bundle do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data.MarketplaceBundleData.jsonDecode(
+						value
+					)
+			end
+
+			self.marketplace_bundle = newOutput
+		end
+
+		if input.marketplaceBundle ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data.MarketplaceBundleData } =
+				{}
+			for key, value in input.marketplaceBundle do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data.MarketplaceBundleData.jsonDecode(
+						value
+					)
+			end
+
+			self.marketplace_bundle = newOutput
+		end
+
+		if input.marketplace_look ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_look_data.MarketplaceLookData } =
+				{}
+			for key, value in input.marketplace_look do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_marketplace_look_data.MarketplaceLookData.jsonDecode(value)
+			end
+
+			self.marketplace_look = newOutput
+		end
+
+		if input.marketplaceLook ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_look_data.MarketplaceLookData } =
+				{}
+			for key, value in input.marketplaceLook do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_marketplace_look_data.MarketplaceLookData.jsonDecode(value)
+			end
+
+			self.marketplace_look = newOutput
+		end
+
+		if input.catalog_sort ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortData } = {}
+			for key, value in input.catalog_sort do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortData.jsonDecode(value)
+			end
+
+			self.catalog_sort = newOutput
+		end
+
+		if input.catalogSort ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortData } = {}
+			for key, value in input.catalogSort do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortData.jsonDecode(value)
+			end
+
+			self.catalog_sort = newOutput
 		end
 
 		return self
@@ -2126,6 +2603,640 @@ do
 	messages.HydrationContent_SubscriptionEntry = _HydrationContent_SubscriptionEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.HydrationContent_SubscriptionEntry)
+end
+
+do
+	local _HydrationContent_MarketplaceCatalogCategoryEntryImpl = {}
+	_HydrationContent_MarketplaceCatalogCategoryEntryImpl.__index =
+		_HydrationContent_MarketplaceCatalogCategoryEntryImpl
+
+	function _HydrationContent_MarketplaceCatalogCategoryEntryImpl.new(
+		data: _HydrationContent_MarketplaceCatalogCategoryEntryPartialFields?
+	): HydrationContent_MarketplaceCatalogCategoryEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then nil else data.value,
+			},
+			_HydrationContent_MarketplaceCatalogCategoryEntryImpl :: _HydrationContent_MarketplaceCatalogCategoryEntryImpl
+		)
+	end
+
+	function _HydrationContent_MarketplaceCatalogCategoryEntryImpl.encode(
+		self: HydrationContent_MarketplaceCatalogCategoryEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_MarketplaceCatalogCategoryEntryImpl.decode(
+		input: buffer
+	): HydrationContent_MarketplaceCatalogCategoryEntry
+		local self = _HydrationContent_MarketplaceCatalogCategoryEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_MarketplaceCatalogCategoryEntryImpl.jsonEncode(
+		self: HydrationContent_MarketplaceCatalogCategoryEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_MarketplaceCatalogCategoryEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_MarketplaceCatalogCategoryEntry
+		local self = _HydrationContent_MarketplaceCatalogCategoryEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_MarketplaceCatalogCategoryEntryImpl.descriptor = {
+		name = "HydrationContent_MarketplaceCatalogCategoryEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MarketplaceCatalogCategoryEntry",
+	}
+
+	messages.HydrationContent_MarketplaceCatalogCategoryEntry =
+		_HydrationContent_MarketplaceCatalogCategoryEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_MarketplaceCatalogCategoryEntry)
+end
+
+do
+	local _HydrationContent_MarketplaceAssetEntryImpl = {}
+	_HydrationContent_MarketplaceAssetEntryImpl.__index = _HydrationContent_MarketplaceAssetEntryImpl
+
+	function _HydrationContent_MarketplaceAssetEntryImpl.new(
+		data: _HydrationContent_MarketplaceAssetEntryPartialFields?
+	): HydrationContent_MarketplaceAssetEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_MarketplaceAssetEntryImpl :: _HydrationContent_MarketplaceAssetEntryImpl)
+	end
+
+	function _HydrationContent_MarketplaceAssetEntryImpl.encode(self: HydrationContent_MarketplaceAssetEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_MarketplaceAssetEntryImpl.decode(input: buffer): HydrationContent_MarketplaceAssetEntry
+		local self = _HydrationContent_MarketplaceAssetEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_marketplace_asset_data.MarketplaceAssetData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_MarketplaceAssetEntryImpl.jsonEncode(self: HydrationContent_MarketplaceAssetEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_MarketplaceAssetEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_MarketplaceAssetEntry
+		local self = _HydrationContent_MarketplaceAssetEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_marketplace_asset_data.MarketplaceAssetData.jsonDecode(
+				input.value
+			)
+		end
+
+		return self
+	end
+
+	_HydrationContent_MarketplaceAssetEntryImpl.descriptor = {
+		name = "HydrationContent_MarketplaceAssetEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MarketplaceAssetEntry",
+	}
+
+	messages.HydrationContent_MarketplaceAssetEntry = _HydrationContent_MarketplaceAssetEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_MarketplaceAssetEntry)
+end
+
+do
+	local _HydrationContent_MarketplaceBundleEntryImpl = {}
+	_HydrationContent_MarketplaceBundleEntryImpl.__index = _HydrationContent_MarketplaceBundleEntryImpl
+
+	function _HydrationContent_MarketplaceBundleEntryImpl.new(
+		data: _HydrationContent_MarketplaceBundleEntryPartialFields?
+	): HydrationContent_MarketplaceBundleEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_MarketplaceBundleEntryImpl :: _HydrationContent_MarketplaceBundleEntryImpl)
+	end
+
+	function _HydrationContent_MarketplaceBundleEntryImpl.encode(self: HydrationContent_MarketplaceBundleEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_MarketplaceBundleEntryImpl.decode(input: buffer): HydrationContent_MarketplaceBundleEntry
+		local self = _HydrationContent_MarketplaceBundleEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data.MarketplaceBundleData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_MarketplaceBundleEntryImpl.jsonEncode(self: HydrationContent_MarketplaceBundleEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_MarketplaceBundleEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_MarketplaceBundleEntry
+		local self = _HydrationContent_MarketplaceBundleEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data.MarketplaceBundleData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_MarketplaceBundleEntryImpl.descriptor = {
+		name = "HydrationContent_MarketplaceBundleEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MarketplaceBundleEntry",
+	}
+
+	messages.HydrationContent_MarketplaceBundleEntry = _HydrationContent_MarketplaceBundleEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_MarketplaceBundleEntry)
+end
+
+do
+	local _HydrationContent_MarketplaceLookEntryImpl = {}
+	_HydrationContent_MarketplaceLookEntryImpl.__index = _HydrationContent_MarketplaceLookEntryImpl
+
+	function _HydrationContent_MarketplaceLookEntryImpl.new(
+		data: _HydrationContent_MarketplaceLookEntryPartialFields?
+	): HydrationContent_MarketplaceLookEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_MarketplaceLookEntryImpl :: _HydrationContent_MarketplaceLookEntryImpl)
+	end
+
+	function _HydrationContent_MarketplaceLookEntryImpl.encode(self: HydrationContent_MarketplaceLookEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_MarketplaceLookEntryImpl.decode(input: buffer): HydrationContent_MarketplaceLookEntry
+		local self = _HydrationContent_MarketplaceLookEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_marketplace_look_data.MarketplaceLookData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_MarketplaceLookEntryImpl.jsonEncode(self: HydrationContent_MarketplaceLookEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_MarketplaceLookEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_MarketplaceLookEntry
+		local self = _HydrationContent_MarketplaceLookEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_marketplace_look_data.MarketplaceLookData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_HydrationContent_MarketplaceLookEntryImpl.descriptor = {
+		name = "HydrationContent_MarketplaceLookEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MarketplaceLookEntry",
+	}
+
+	messages.HydrationContent_MarketplaceLookEntry = _HydrationContent_MarketplaceLookEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_MarketplaceLookEntry)
+end
+
+do
+	local _HydrationContent_CatalogSortEntryImpl = {}
+	_HydrationContent_CatalogSortEntryImpl.__index = _HydrationContent_CatalogSortEntryImpl
+
+	function _HydrationContent_CatalogSortEntryImpl.new(
+		data: _HydrationContent_CatalogSortEntryPartialFields?
+	): HydrationContent_CatalogSortEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_CatalogSortEntryImpl :: _HydrationContent_CatalogSortEntryImpl)
+	end
+
+	function _HydrationContent_CatalogSortEntryImpl.encode(self: HydrationContent_CatalogSortEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_CatalogSortEntryImpl.decode(input: buffer): HydrationContent_CatalogSortEntry
+		local self = _HydrationContent_CatalogSortEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_CatalogSortEntryImpl.jsonEncode(self: HydrationContent_CatalogSortEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_CatalogSortEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_CatalogSortEntry
+		local self = _HydrationContent_CatalogSortEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_HydrationContent_CatalogSortEntryImpl.descriptor = {
+		name = "HydrationContent_CatalogSortEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.CatalogSortEntry",
+	}
+
+	messages.HydrationContent_CatalogSortEntry = _HydrationContent_CatalogSortEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_CatalogSortEntry)
 end
 
 return {

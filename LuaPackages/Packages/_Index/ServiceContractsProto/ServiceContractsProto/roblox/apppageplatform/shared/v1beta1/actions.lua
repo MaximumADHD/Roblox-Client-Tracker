@@ -40,14 +40,26 @@ type _Messages = {
 	RemoveBadgeFromInventoryAction_Params: _RemoveBadgeFromInventoryAction_ParamsMessage,
 	OpenProfileAction: _OpenProfileActionMessage,
 	OpenProfileAction_Params: _OpenProfileAction_ParamsMessage,
-	OpenFaeAction: _OpenFaeActionMessage,
-	OpenFaeAction_Params: _OpenFaeAction_ParamsMessage,
-	OpenAddConnectionsAction: _OpenAddConnectionsActionMessage,
-	OpenAddConnectionsAction_Params: _OpenAddConnectionsAction_ParamsMessage,
+	OpenFacialAgeEstimationAction: _OpenFacialAgeEstimationActionMessage,
+	OpenFacialAgeEstimationAction_Params: _OpenFacialAgeEstimationAction_ParamsMessage,
+	OpenAddConnectionsPageAction: _OpenAddConnectionsPageActionMessage,
+	OpenAddConnectionsPageAction_Params: _OpenAddConnectionsPageAction_ParamsMessage,
 	OpenMarketplaceAction: _OpenMarketplaceActionMessage,
 	OpenMarketplaceAction_Params: _OpenMarketplaceAction_ParamsMessage,
-	SendPromptImpression: _SendPromptImpressionMessage,
-	SendPromptImpression_Params: _SendPromptImpression_ParamsMessage,
+	HideProfileCompletionAction: _HideProfileCompletionActionMessage,
+	HideProfileCompletionAction_Params: _HideProfileCompletionAction_ParamsMessage,
+	SelectMarketplaceCatalogCategory: _SelectMarketplaceCatalogCategoryMessage,
+	SelectMarketplaceCatalogCategory_Params: _SelectMarketplaceCatalogCategory_ParamsMessage,
+	SelectMarketplaceCatalogSubcategory: _SelectMarketplaceCatalogSubcategoryMessage,
+	SelectMarketplaceCatalogSubcategory_Params: _SelectMarketplaceCatalogSubcategory_ParamsMessage,
+	OpenMarketplaceCatalogSeeAll: _OpenMarketplaceCatalogSeeAllMessage,
+	OpenMarketplaceCatalogSeeAll_Params: _OpenMarketplaceCatalogSeeAll_ParamsMessage,
+	CloseMarketplaceCategoryTooltip: _CloseMarketplaceCategoryTooltipMessage,
+	CloseMarketplaceCategoryTooltip_Params: _CloseMarketplaceCategoryTooltip_ParamsMessage,
+	ResizeMarketplaceCatalog: _ResizeMarketplaceCatalogMessage,
+	ResizeMarketplaceCatalog_Params: _ResizeMarketplaceCatalog_ParamsMessage,
+	OpenMarketplaceCatalogFilters: _OpenMarketplaceCatalogFiltersMessage,
+	OpenMarketplaceCatalogFilters_Params: _OpenMarketplaceCatalogFilters_ParamsMessage,
 	Action: _ActionMessage,
 	ActionProp: _ActionPropMessage,
 	ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -944,108 +956,120 @@ export type OpenProfileAction_Params = typeof(setmetatable(
 ))
 type _OpenProfileAction_ParamsMessage = proto.Message<OpenProfileAction_Params, _OpenProfileAction_ParamsPartialFields>
 
-type _OpenFaeActionImpl = {
-	__index: _OpenFaeActionImpl,
-	new: (fields: _OpenFaeActionPartialFields?) -> OpenFaeAction,
-	encode: (self: OpenFaeAction) -> buffer,
-	decode: (input: buffer) -> OpenFaeAction,
-	jsonEncode: (self: OpenFaeAction) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> OpenFaeAction,
+type _OpenFacialAgeEstimationActionImpl = {
+	__index: _OpenFacialAgeEstimationActionImpl,
+	new: (fields: _OpenFacialAgeEstimationActionPartialFields?) -> OpenFacialAgeEstimationAction,
+	encode: (self: OpenFacialAgeEstimationAction) -> buffer,
+	decode: (input: buffer) -> OpenFacialAgeEstimationAction,
+	jsonEncode: (self: OpenFacialAgeEstimationAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenFacialAgeEstimationAction,
 	descriptor: proto.Descriptor,
 }
 
-type _OpenFaeActionFields = {
+type _OpenFacialAgeEstimationActionFields = {
 	action_type: ActionType,
-	action_params: OpenFaeAction_Params?,
+	action_params: OpenFacialAgeEstimationAction_Params?,
 }
 
-type _OpenFaeActionPartialFields = {
+type _OpenFacialAgeEstimationActionPartialFields = {
 	action_type: ActionType?,
-	action_params: OpenFaeAction_Params?,
+	action_params: OpenFacialAgeEstimationAction_Params?,
 }
 
-export type OpenFaeAction = typeof(setmetatable({} :: _OpenFaeActionFields, {} :: _OpenFaeActionImpl))
-type _OpenFaeActionMessage = proto.Message<OpenFaeAction, _OpenFaeActionPartialFields>
-
-type _OpenFaeAction_ParamsImpl = {
-	__index: _OpenFaeAction_ParamsImpl,
-	new: (fields: _OpenFaeAction_ParamsPartialFields?) -> OpenFaeAction_Params,
-	encode: (self: OpenFaeAction_Params) -> buffer,
-	decode: (input: buffer) -> OpenFaeAction_Params,
-	jsonEncode: (self: OpenFaeAction_Params) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> OpenFaeAction_Params,
-	descriptor: proto.Descriptor,
-}
-
-type _OpenFaeAction_ParamsFields = {
-	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-}
-
-type _OpenFaeAction_ParamsPartialFields = {
-	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-}
-
-export type OpenFaeAction_Params = typeof(setmetatable(
-	{} :: _OpenFaeAction_ParamsFields,
-	{} :: _OpenFaeAction_ParamsImpl
+export type OpenFacialAgeEstimationAction = typeof(setmetatable(
+	{} :: _OpenFacialAgeEstimationActionFields,
+	{} :: _OpenFacialAgeEstimationActionImpl
 ))
-type _OpenFaeAction_ParamsMessage = proto.Message<OpenFaeAction_Params, _OpenFaeAction_ParamsPartialFields>
+type _OpenFacialAgeEstimationActionMessage = proto.Message<
+	OpenFacialAgeEstimationAction,
+	_OpenFacialAgeEstimationActionPartialFields
+>
 
-type _OpenAddConnectionsActionImpl = {
-	__index: _OpenAddConnectionsActionImpl,
-	new: (fields: _OpenAddConnectionsActionPartialFields?) -> OpenAddConnectionsAction,
-	encode: (self: OpenAddConnectionsAction) -> buffer,
-	decode: (input: buffer) -> OpenAddConnectionsAction,
-	jsonEncode: (self: OpenAddConnectionsAction) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> OpenAddConnectionsAction,
+type _OpenFacialAgeEstimationAction_ParamsImpl = {
+	__index: _OpenFacialAgeEstimationAction_ParamsImpl,
+	new: (fields: _OpenFacialAgeEstimationAction_ParamsPartialFields?) -> OpenFacialAgeEstimationAction_Params,
+	encode: (self: OpenFacialAgeEstimationAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenFacialAgeEstimationAction_Params,
+	jsonEncode: (self: OpenFacialAgeEstimationAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenFacialAgeEstimationAction_Params,
 	descriptor: proto.Descriptor,
 }
 
-type _OpenAddConnectionsActionFields = {
+type _OpenFacialAgeEstimationAction_ParamsFields = {
+	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenFacialAgeEstimationAction_ParamsPartialFields = {
+	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenFacialAgeEstimationAction_Params = typeof(setmetatable(
+	{} :: _OpenFacialAgeEstimationAction_ParamsFields,
+	{} :: _OpenFacialAgeEstimationAction_ParamsImpl
+))
+type _OpenFacialAgeEstimationAction_ParamsMessage = proto.Message<
+	OpenFacialAgeEstimationAction_Params,
+	_OpenFacialAgeEstimationAction_ParamsPartialFields
+>
+
+type _OpenAddConnectionsPageActionImpl = {
+	__index: _OpenAddConnectionsPageActionImpl,
+	new: (fields: _OpenAddConnectionsPageActionPartialFields?) -> OpenAddConnectionsPageAction,
+	encode: (self: OpenAddConnectionsPageAction) -> buffer,
+	decode: (input: buffer) -> OpenAddConnectionsPageAction,
+	jsonEncode: (self: OpenAddConnectionsPageAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenAddConnectionsPageAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenAddConnectionsPageActionFields = {
 	action_type: ActionType,
-	action_params: OpenAddConnectionsAction_Params?,
+	action_params: OpenAddConnectionsPageAction_Params?,
 }
 
-type _OpenAddConnectionsActionPartialFields = {
+type _OpenAddConnectionsPageActionPartialFields = {
 	action_type: ActionType?,
-	action_params: OpenAddConnectionsAction_Params?,
+	action_params: OpenAddConnectionsPageAction_Params?,
 }
 
-export type OpenAddConnectionsAction = typeof(setmetatable(
-	{} :: _OpenAddConnectionsActionFields,
-	{} :: _OpenAddConnectionsActionImpl
+export type OpenAddConnectionsPageAction = typeof(setmetatable(
+	{} :: _OpenAddConnectionsPageActionFields,
+	{} :: _OpenAddConnectionsPageActionImpl
 ))
-type _OpenAddConnectionsActionMessage = proto.Message<OpenAddConnectionsAction, _OpenAddConnectionsActionPartialFields>
+type _OpenAddConnectionsPageActionMessage = proto.Message<
+	OpenAddConnectionsPageAction,
+	_OpenAddConnectionsPageActionPartialFields
+>
 
-type _OpenAddConnectionsAction_ParamsImpl = {
-	__index: _OpenAddConnectionsAction_ParamsImpl,
-	new: (fields: _OpenAddConnectionsAction_ParamsPartialFields?) -> OpenAddConnectionsAction_Params,
-	encode: (self: OpenAddConnectionsAction_Params) -> buffer,
-	decode: (input: buffer) -> OpenAddConnectionsAction_Params,
-	jsonEncode: (self: OpenAddConnectionsAction_Params) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> OpenAddConnectionsAction_Params,
+type _OpenAddConnectionsPageAction_ParamsImpl = {
+	__index: _OpenAddConnectionsPageAction_ParamsImpl,
+	new: (fields: _OpenAddConnectionsPageAction_ParamsPartialFields?) -> OpenAddConnectionsPageAction_Params,
+	encode: (self: OpenAddConnectionsPageAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenAddConnectionsPageAction_Params,
+	jsonEncode: (self: OpenAddConnectionsPageAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenAddConnectionsPageAction_Params,
 	descriptor: proto.Descriptor,
 }
 
-type _OpenAddConnectionsAction_ParamsFields = {
+type _OpenAddConnectionsPageAction_ParamsFields = {
 	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
-type _OpenAddConnectionsAction_ParamsPartialFields = {
+type _OpenAddConnectionsPageAction_ParamsPartialFields = {
 	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
-export type OpenAddConnectionsAction_Params = typeof(setmetatable(
-	{} :: _OpenAddConnectionsAction_ParamsFields,
-	{} :: _OpenAddConnectionsAction_ParamsImpl
+export type OpenAddConnectionsPageAction_Params = typeof(setmetatable(
+	{} :: _OpenAddConnectionsPageAction_ParamsFields,
+	{} :: _OpenAddConnectionsPageAction_ParamsImpl
 ))
-type _OpenAddConnectionsAction_ParamsMessage = proto.Message<
-	OpenAddConnectionsAction_Params,
-	_OpenAddConnectionsAction_ParamsPartialFields
+type _OpenAddConnectionsPageAction_ParamsMessage = proto.Message<
+	OpenAddConnectionsPageAction_Params,
+	_OpenAddConnectionsPageAction_ParamsPartialFields
 >
 
 type _OpenMarketplaceActionImpl = {
@@ -1103,61 +1127,407 @@ type _OpenMarketplaceAction_ParamsMessage = proto.Message<
 	_OpenMarketplaceAction_ParamsPartialFields
 >
 
-type _SendPromptImpressionImpl = {
-	__index: _SendPromptImpressionImpl,
-	new: (fields: _SendPromptImpressionPartialFields?) -> SendPromptImpression,
-	encode: (self: SendPromptImpression) -> buffer,
-	decode: (input: buffer) -> SendPromptImpression,
-	jsonEncode: (self: SendPromptImpression) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> SendPromptImpression,
+type _HideProfileCompletionActionImpl = {
+	__index: _HideProfileCompletionActionImpl,
+	new: (fields: _HideProfileCompletionActionPartialFields?) -> HideProfileCompletionAction,
+	encode: (self: HideProfileCompletionAction) -> buffer,
+	decode: (input: buffer) -> HideProfileCompletionAction,
+	jsonEncode: (self: HideProfileCompletionAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HideProfileCompletionAction,
 	descriptor: proto.Descriptor,
 }
 
-type _SendPromptImpressionFields = {
+type _HideProfileCompletionActionFields = {
 	action_type: ActionType,
-	action_params: SendPromptImpression_Params?,
+	action_params: HideProfileCompletionAction_Params?,
 }
 
-type _SendPromptImpressionPartialFields = {
+type _HideProfileCompletionActionPartialFields = {
 	action_type: ActionType?,
-	action_params: SendPromptImpression_Params?,
+	action_params: HideProfileCompletionAction_Params?,
 }
 
-export type SendPromptImpression = typeof(setmetatable(
-	{} :: _SendPromptImpressionFields,
-	{} :: _SendPromptImpressionImpl
+export type HideProfileCompletionAction = typeof(setmetatable(
+	{} :: _HideProfileCompletionActionFields,
+	{} :: _HideProfileCompletionActionImpl
 ))
-type _SendPromptImpressionMessage = proto.Message<SendPromptImpression, _SendPromptImpressionPartialFields>
+type _HideProfileCompletionActionMessage = proto.Message<
+	HideProfileCompletionAction,
+	_HideProfileCompletionActionPartialFields
+>
 
-type _SendPromptImpression_ParamsImpl = {
-	__index: _SendPromptImpression_ParamsImpl,
-	new: (fields: _SendPromptImpression_ParamsPartialFields?) -> SendPromptImpression_Params,
-	encode: (self: SendPromptImpression_Params) -> buffer,
-	decode: (input: buffer) -> SendPromptImpression_Params,
-	jsonEncode: (self: SendPromptImpression_Params) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> SendPromptImpression_Params,
+type _HideProfileCompletionAction_ParamsImpl = {
+	__index: _HideProfileCompletionAction_ParamsImpl,
+	new: (fields: _HideProfileCompletionAction_ParamsPartialFields?) -> HideProfileCompletionAction_Params,
+	encode: (self: HideProfileCompletionAction_Params) -> buffer,
+	decode: (input: buffer) -> HideProfileCompletionAction_Params,
+	jsonEncode: (self: HideProfileCompletionAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HideProfileCompletionAction_Params,
 	descriptor: proto.Descriptor,
 }
 
-type _SendPromptImpression_ParamsFields = {
+type _HideProfileCompletionAction_ParamsFields = {
 	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	modal_history_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prompt_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prompt_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
-type _SendPromptImpression_ParamsPartialFields = {
+type _HideProfileCompletionAction_ParamsPartialFields = {
 	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	modal_history_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prompt_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prompt_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
-export type SendPromptImpression_Params = typeof(setmetatable(
-	{} :: _SendPromptImpression_ParamsFields,
-	{} :: _SendPromptImpression_ParamsImpl
+export type HideProfileCompletionAction_Params = typeof(setmetatable(
+	{} :: _HideProfileCompletionAction_ParamsFields,
+	{} :: _HideProfileCompletionAction_ParamsImpl
 ))
-type _SendPromptImpression_ParamsMessage = proto.Message<
-	SendPromptImpression_Params,
-	_SendPromptImpression_ParamsPartialFields
+type _HideProfileCompletionAction_ParamsMessage = proto.Message<
+	HideProfileCompletionAction_Params,
+	_HideProfileCompletionAction_ParamsPartialFields
+>
+
+type _SelectMarketplaceCatalogCategoryImpl = {
+	__index: _SelectMarketplaceCatalogCategoryImpl,
+	new: (fields: _SelectMarketplaceCatalogCategoryPartialFields?) -> SelectMarketplaceCatalogCategory,
+	encode: (self: SelectMarketplaceCatalogCategory) -> buffer,
+	decode: (input: buffer) -> SelectMarketplaceCatalogCategory,
+	jsonEncode: (self: SelectMarketplaceCatalogCategory) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SelectMarketplaceCatalogCategory,
+	descriptor: proto.Descriptor,
+}
+
+type _SelectMarketplaceCatalogCategoryFields = {
+	action_type: ActionType,
+	action_params: SelectMarketplaceCatalogCategory_Params?,
+}
+
+type _SelectMarketplaceCatalogCategoryPartialFields = {
+	action_type: ActionType?,
+	action_params: SelectMarketplaceCatalogCategory_Params?,
+}
+
+export type SelectMarketplaceCatalogCategory = typeof(setmetatable(
+	{} :: _SelectMarketplaceCatalogCategoryFields,
+	{} :: _SelectMarketplaceCatalogCategoryImpl
+))
+type _SelectMarketplaceCatalogCategoryMessage = proto.Message<
+	SelectMarketplaceCatalogCategory,
+	_SelectMarketplaceCatalogCategoryPartialFields
+>
+
+type _SelectMarketplaceCatalogCategory_ParamsImpl = {
+	__index: _SelectMarketplaceCatalogCategory_ParamsImpl,
+	new: (fields: _SelectMarketplaceCatalogCategory_ParamsPartialFields?) -> SelectMarketplaceCatalogCategory_Params,
+	encode: (self: SelectMarketplaceCatalogCategory_Params) -> buffer,
+	decode: (input: buffer) -> SelectMarketplaceCatalogCategory_Params,
+	jsonEncode: (self: SelectMarketplaceCatalogCategory_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SelectMarketplaceCatalogCategory_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _SelectMarketplaceCatalogCategory_ParamsFields = {
+	category_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _SelectMarketplaceCatalogCategory_ParamsPartialFields = {
+	category_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type SelectMarketplaceCatalogCategory_Params = typeof(setmetatable(
+	{} :: _SelectMarketplaceCatalogCategory_ParamsFields,
+	{} :: _SelectMarketplaceCatalogCategory_ParamsImpl
+))
+type _SelectMarketplaceCatalogCategory_ParamsMessage = proto.Message<
+	SelectMarketplaceCatalogCategory_Params,
+	_SelectMarketplaceCatalogCategory_ParamsPartialFields
+>
+
+type _SelectMarketplaceCatalogSubcategoryImpl = {
+	__index: _SelectMarketplaceCatalogSubcategoryImpl,
+	new: (fields: _SelectMarketplaceCatalogSubcategoryPartialFields?) -> SelectMarketplaceCatalogSubcategory,
+	encode: (self: SelectMarketplaceCatalogSubcategory) -> buffer,
+	decode: (input: buffer) -> SelectMarketplaceCatalogSubcategory,
+	jsonEncode: (self: SelectMarketplaceCatalogSubcategory) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SelectMarketplaceCatalogSubcategory,
+	descriptor: proto.Descriptor,
+}
+
+type _SelectMarketplaceCatalogSubcategoryFields = {
+	action_type: ActionType,
+	action_params: SelectMarketplaceCatalogSubcategory_Params?,
+}
+
+type _SelectMarketplaceCatalogSubcategoryPartialFields = {
+	action_type: ActionType?,
+	action_params: SelectMarketplaceCatalogSubcategory_Params?,
+}
+
+export type SelectMarketplaceCatalogSubcategory = typeof(setmetatable(
+	{} :: _SelectMarketplaceCatalogSubcategoryFields,
+	{} :: _SelectMarketplaceCatalogSubcategoryImpl
+))
+type _SelectMarketplaceCatalogSubcategoryMessage = proto.Message<
+	SelectMarketplaceCatalogSubcategory,
+	_SelectMarketplaceCatalogSubcategoryPartialFields
+>
+
+type _SelectMarketplaceCatalogSubcategory_ParamsImpl = {
+	__index: _SelectMarketplaceCatalogSubcategory_ParamsImpl,
+	new: (
+		fields: _SelectMarketplaceCatalogSubcategory_ParamsPartialFields?
+	) -> SelectMarketplaceCatalogSubcategory_Params,
+	encode: (self: SelectMarketplaceCatalogSubcategory_Params) -> buffer,
+	decode: (input: buffer) -> SelectMarketplaceCatalogSubcategory_Params,
+	jsonEncode: (self: SelectMarketplaceCatalogSubcategory_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SelectMarketplaceCatalogSubcategory_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _SelectMarketplaceCatalogSubcategory_ParamsFields = {
+	subcategory_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _SelectMarketplaceCatalogSubcategory_ParamsPartialFields = {
+	subcategory_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type SelectMarketplaceCatalogSubcategory_Params = typeof(setmetatable(
+	{} :: _SelectMarketplaceCatalogSubcategory_ParamsFields,
+	{} :: _SelectMarketplaceCatalogSubcategory_ParamsImpl
+))
+type _SelectMarketplaceCatalogSubcategory_ParamsMessage = proto.Message<
+	SelectMarketplaceCatalogSubcategory_Params,
+	_SelectMarketplaceCatalogSubcategory_ParamsPartialFields
+>
+
+type _OpenMarketplaceCatalogSeeAllImpl = {
+	__index: _OpenMarketplaceCatalogSeeAllImpl,
+	new: (fields: _OpenMarketplaceCatalogSeeAllPartialFields?) -> OpenMarketplaceCatalogSeeAll,
+	encode: (self: OpenMarketplaceCatalogSeeAll) -> buffer,
+	decode: (input: buffer) -> OpenMarketplaceCatalogSeeAll,
+	jsonEncode: (self: OpenMarketplaceCatalogSeeAll) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenMarketplaceCatalogSeeAll,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenMarketplaceCatalogSeeAllFields = {
+	action_type: ActionType,
+	action_params: OpenMarketplaceCatalogSeeAll_Params?,
+}
+
+type _OpenMarketplaceCatalogSeeAllPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenMarketplaceCatalogSeeAll_Params?,
+}
+
+export type OpenMarketplaceCatalogSeeAll = typeof(setmetatable(
+	{} :: _OpenMarketplaceCatalogSeeAllFields,
+	{} :: _OpenMarketplaceCatalogSeeAllImpl
+))
+type _OpenMarketplaceCatalogSeeAllMessage = proto.Message<
+	OpenMarketplaceCatalogSeeAll,
+	_OpenMarketplaceCatalogSeeAllPartialFields
+>
+
+type _OpenMarketplaceCatalogSeeAll_ParamsImpl = {
+	__index: _OpenMarketplaceCatalogSeeAll_ParamsImpl,
+	new: (fields: _OpenMarketplaceCatalogSeeAll_ParamsPartialFields?) -> OpenMarketplaceCatalogSeeAll_Params,
+	encode: (self: OpenMarketplaceCatalogSeeAll_Params) -> buffer,
+	decode: (input: buffer) -> OpenMarketplaceCatalogSeeAll_Params,
+	jsonEncode: (self: OpenMarketplaceCatalogSeeAll_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenMarketplaceCatalogSeeAll_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenMarketplaceCatalogSeeAll_ParamsFields = {
+	sort_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	description: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	tooltip_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenMarketplaceCatalogSeeAll_ParamsPartialFields = {
+	sort_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	description: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	tooltip_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenMarketplaceCatalogSeeAll_Params = typeof(setmetatable(
+	{} :: _OpenMarketplaceCatalogSeeAll_ParamsFields,
+	{} :: _OpenMarketplaceCatalogSeeAll_ParamsImpl
+))
+type _OpenMarketplaceCatalogSeeAll_ParamsMessage = proto.Message<
+	OpenMarketplaceCatalogSeeAll_Params,
+	_OpenMarketplaceCatalogSeeAll_ParamsPartialFields
+>
+
+type _CloseMarketplaceCategoryTooltipImpl = {
+	__index: _CloseMarketplaceCategoryTooltipImpl,
+	new: (fields: _CloseMarketplaceCategoryTooltipPartialFields?) -> CloseMarketplaceCategoryTooltip,
+	encode: (self: CloseMarketplaceCategoryTooltip) -> buffer,
+	decode: (input: buffer) -> CloseMarketplaceCategoryTooltip,
+	jsonEncode: (self: CloseMarketplaceCategoryTooltip) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CloseMarketplaceCategoryTooltip,
+	descriptor: proto.Descriptor,
+}
+
+type _CloseMarketplaceCategoryTooltipFields = {
+	action_type: ActionType,
+	action_params: CloseMarketplaceCategoryTooltip_Params?,
+}
+
+type _CloseMarketplaceCategoryTooltipPartialFields = {
+	action_type: ActionType?,
+	action_params: CloseMarketplaceCategoryTooltip_Params?,
+}
+
+export type CloseMarketplaceCategoryTooltip = typeof(setmetatable(
+	{} :: _CloseMarketplaceCategoryTooltipFields,
+	{} :: _CloseMarketplaceCategoryTooltipImpl
+))
+type _CloseMarketplaceCategoryTooltipMessage = proto.Message<
+	CloseMarketplaceCategoryTooltip,
+	_CloseMarketplaceCategoryTooltipPartialFields
+>
+
+type _CloseMarketplaceCategoryTooltip_ParamsImpl = {
+	__index: _CloseMarketplaceCategoryTooltip_ParamsImpl,
+	new: (fields: _CloseMarketplaceCategoryTooltip_ParamsPartialFields?) -> CloseMarketplaceCategoryTooltip_Params,
+	encode: (self: CloseMarketplaceCategoryTooltip_Params) -> buffer,
+	decode: (input: buffer) -> CloseMarketplaceCategoryTooltip_Params,
+	jsonEncode: (self: CloseMarketplaceCategoryTooltip_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CloseMarketplaceCategoryTooltip_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _CloseMarketplaceCategoryTooltip_ParamsFields = {
+	tooltip_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _CloseMarketplaceCategoryTooltip_ParamsPartialFields = {
+	tooltip_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type CloseMarketplaceCategoryTooltip_Params = typeof(setmetatable(
+	{} :: _CloseMarketplaceCategoryTooltip_ParamsFields,
+	{} :: _CloseMarketplaceCategoryTooltip_ParamsImpl
+))
+type _CloseMarketplaceCategoryTooltip_ParamsMessage = proto.Message<
+	CloseMarketplaceCategoryTooltip_Params,
+	_CloseMarketplaceCategoryTooltip_ParamsPartialFields
+>
+
+type _ResizeMarketplaceCatalogImpl = {
+	__index: _ResizeMarketplaceCatalogImpl,
+	new: (fields: _ResizeMarketplaceCatalogPartialFields?) -> ResizeMarketplaceCatalog,
+	encode: (self: ResizeMarketplaceCatalog) -> buffer,
+	decode: (input: buffer) -> ResizeMarketplaceCatalog,
+	jsonEncode: (self: ResizeMarketplaceCatalog) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ResizeMarketplaceCatalog,
+	descriptor: proto.Descriptor,
+}
+
+type _ResizeMarketplaceCatalogFields = {
+	action_type: ActionType,
+	action_params: ResizeMarketplaceCatalog_Params?,
+}
+
+type _ResizeMarketplaceCatalogPartialFields = {
+	action_type: ActionType?,
+	action_params: ResizeMarketplaceCatalog_Params?,
+}
+
+export type ResizeMarketplaceCatalog = typeof(setmetatable(
+	{} :: _ResizeMarketplaceCatalogFields,
+	{} :: _ResizeMarketplaceCatalogImpl
+))
+type _ResizeMarketplaceCatalogMessage = proto.Message<ResizeMarketplaceCatalog, _ResizeMarketplaceCatalogPartialFields>
+
+type _ResizeMarketplaceCatalog_ParamsImpl = {
+	__index: _ResizeMarketplaceCatalog_ParamsImpl,
+	new: (fields: _ResizeMarketplaceCatalog_ParamsPartialFields?) -> ResizeMarketplaceCatalog_Params,
+	encode: (self: ResizeMarketplaceCatalog_Params) -> buffer,
+	decode: (input: buffer) -> ResizeMarketplaceCatalog_Params,
+	jsonEncode: (self: ResizeMarketplaceCatalog_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ResizeMarketplaceCatalog_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ResizeMarketplaceCatalog_ParamsFields = {
+	category_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subcategory_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	screen_size: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _ResizeMarketplaceCatalog_ParamsPartialFields = {
+	category_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subcategory_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	screen_size: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type ResizeMarketplaceCatalog_Params = typeof(setmetatable(
+	{} :: _ResizeMarketplaceCatalog_ParamsFields,
+	{} :: _ResizeMarketplaceCatalog_ParamsImpl
+))
+type _ResizeMarketplaceCatalog_ParamsMessage = proto.Message<
+	ResizeMarketplaceCatalog_Params,
+	_ResizeMarketplaceCatalog_ParamsPartialFields
+>
+
+type _OpenMarketplaceCatalogFiltersImpl = {
+	__index: _OpenMarketplaceCatalogFiltersImpl,
+	new: (fields: _OpenMarketplaceCatalogFiltersPartialFields?) -> OpenMarketplaceCatalogFilters,
+	encode: (self: OpenMarketplaceCatalogFilters) -> buffer,
+	decode: (input: buffer) -> OpenMarketplaceCatalogFilters,
+	jsonEncode: (self: OpenMarketplaceCatalogFilters) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenMarketplaceCatalogFilters,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenMarketplaceCatalogFiltersFields = {
+	action_type: ActionType,
+	action_params: OpenMarketplaceCatalogFilters_Params?,
+}
+
+type _OpenMarketplaceCatalogFiltersPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenMarketplaceCatalogFilters_Params?,
+}
+
+export type OpenMarketplaceCatalogFilters = typeof(setmetatable(
+	{} :: _OpenMarketplaceCatalogFiltersFields,
+	{} :: _OpenMarketplaceCatalogFiltersImpl
+))
+type _OpenMarketplaceCatalogFiltersMessage = proto.Message<
+	OpenMarketplaceCatalogFilters,
+	_OpenMarketplaceCatalogFiltersPartialFields
+>
+
+type _OpenMarketplaceCatalogFilters_ParamsImpl = {
+	__index: _OpenMarketplaceCatalogFilters_ParamsImpl,
+	new: (fields: _OpenMarketplaceCatalogFilters_ParamsPartialFields?) -> OpenMarketplaceCatalogFilters_Params,
+	encode: (self: OpenMarketplaceCatalogFilters_Params) -> buffer,
+	decode: (input: buffer) -> OpenMarketplaceCatalogFilters_Params,
+	jsonEncode: (self: OpenMarketplaceCatalogFilters_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenMarketplaceCatalogFilters_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenMarketplaceCatalogFilters_ParamsFields = {}
+
+type _OpenMarketplaceCatalogFilters_ParamsPartialFields = {}
+
+export type OpenMarketplaceCatalogFilters_Params = typeof(setmetatable(
+	{} :: _OpenMarketplaceCatalogFilters_ParamsFields,
+	{} :: _OpenMarketplaceCatalogFilters_ParamsImpl
+))
+type _OpenMarketplaceCatalogFilters_ParamsMessage = proto.Message<
+	OpenMarketplaceCatalogFilters_Params,
+	_OpenMarketplaceCatalogFilters_ParamsPartialFields
 >
 
 type _ActionImpl = {
@@ -1188,10 +1558,16 @@ type _ActionFields = {
 		| { type: "open_abuse_report_action", value: OpenAbuseReportAction }
 		| { type: "remove_badge_from_inventory_action", value: RemoveBadgeFromInventoryAction }
 		| { type: "open_profile_action", value: OpenProfileAction }
-		| { type: "open_fae_action", value: OpenFaeAction }
-		| { type: "open_add_connections_action", value: OpenAddConnectionsAction }
+		| { type: "open_facial_age_estimation_action", value: OpenFacialAgeEstimationAction }
+		| { type: "open_add_connections_page_action", value: OpenAddConnectionsPageAction }
 		| { type: "open_marketplace_action", value: OpenMarketplaceAction }
-		| { type: "send_prompt_impression_action", value: SendPromptImpression }
+		| { type: "hide_profile_completion_action", value: HideProfileCompletionAction }
+		| { type: "select_marketplace_catalog_category", value: SelectMarketplaceCatalogCategory }
+		| { type: "select_marketplace_catalog_subcategory", value: SelectMarketplaceCatalogSubcategory }
+		| { type: "open_marketplace_catalog_see_all", value: OpenMarketplaceCatalogSeeAll }
+		| { type: "close_marketplace_category_tooltip", value: CloseMarketplaceCategoryTooltip }
+		| { type: "resize_marketplace_catalog", value: ResizeMarketplaceCatalog }
+		| { type: "open_marketplace_catalog_filters", value: OpenMarketplaceCatalogFilters }
 	)?,
 }
 
@@ -1213,10 +1589,16 @@ type _ActionPartialFields = {
 		| { type: "open_abuse_report_action", value: OpenAbuseReportAction }
 		| { type: "remove_badge_from_inventory_action", value: RemoveBadgeFromInventoryAction }
 		| { type: "open_profile_action", value: OpenProfileAction }
-		| { type: "open_fae_action", value: OpenFaeAction }
-		| { type: "open_add_connections_action", value: OpenAddConnectionsAction }
+		| { type: "open_facial_age_estimation_action", value: OpenFacialAgeEstimationAction }
+		| { type: "open_add_connections_page_action", value: OpenAddConnectionsPageAction }
 		| { type: "open_marketplace_action", value: OpenMarketplaceAction }
-		| { type: "send_prompt_impression_action", value: SendPromptImpression }
+		| { type: "hide_profile_completion_action", value: HideProfileCompletionAction }
+		| { type: "select_marketplace_catalog_category", value: SelectMarketplaceCatalogCategory }
+		| { type: "select_marketplace_catalog_subcategory", value: SelectMarketplaceCatalogSubcategory }
+		| { type: "open_marketplace_catalog_see_all", value: OpenMarketplaceCatalogSeeAll }
+		| { type: "close_marketplace_category_tooltip", value: CloseMarketplaceCategoryTooltip }
+		| { type: "resize_marketplace_catalog", value: ResizeMarketplaceCatalog }
+		| { type: "open_marketplace_catalog_filters", value: OpenMarketplaceCatalogFilters }
 	)?,
 }
 
@@ -1493,10 +1875,16 @@ export type ActionType =
 	| "ACTION_TYPE_OPEN_ABUSE_REPORT"
 	| "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY"
 	| "ACTION_TYPE_OPEN_PROFILE"
-	| "ACTION_TYPE_OPEN_FAE"
-	| "ACTION_TYPE_OPEN_ADD_CONNECTIONS"
+	| "ACTION_TYPE_OPEN_FACIAL_AGE_ESTIMATION"
+	| "ACTION_TYPE_OPEN_ADD_CONNECTIONS_PAGE"
 	| "ACTION_TYPE_OPEN_MARKETPLACE"
-	| "ACTION_TYPE_SEND_PROMPT_IMPRESSION"
+	| "ACTION_TYPE_HIDE_PROFILE_COMPLETION"
+	| "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_CATEGORY"
+	| "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_SUBCATEGORY"
+	| "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_SEE_ALL"
+	| "ACTION_TYPE_CLOSE_MARKETPLACE_CATEGORY_TOOLTIP"
+	| "ACTION_TYPE_RESIZE_MARKETPLACE_CATALOG"
+	| "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS"
 	| number -- Unknown
 
 do
@@ -5985,19 +6373,21 @@ do
 end
 
 do
-	local _OpenFaeActionImpl = {}
-	_OpenFaeActionImpl.__index = _OpenFaeActionImpl
+	local _OpenFacialAgeEstimationActionImpl = {}
+	_OpenFacialAgeEstimationActionImpl.__index = _OpenFacialAgeEstimationActionImpl
 
-	function _OpenFaeActionImpl.new(data: _OpenFaeActionPartialFields?): OpenFaeAction
+	function _OpenFacialAgeEstimationActionImpl.new(
+		data: _OpenFacialAgeEstimationActionPartialFields?
+	): OpenFacialAgeEstimationAction
 		return setmetatable({
 			action_type = if data == nil or data.action_type == nil
 				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
 				else data.action_type,
 			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
-		}, _OpenFaeActionImpl :: _OpenFaeActionImpl)
+		}, _OpenFacialAgeEstimationActionImpl :: _OpenFacialAgeEstimationActionImpl)
 	end
 
-	function _OpenFaeActionImpl.encode(self: OpenFaeAction): buffer
+	function _OpenFacialAgeEstimationActionImpl.encode(self: OpenFacialAgeEstimationAction): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -6023,8 +6413,8 @@ do
 		return shrunkBuffer
 	end
 
-	function _OpenFaeActionImpl.decode(input: buffer): OpenFaeAction
-		local self = _OpenFaeActionImpl.new()
+	function _OpenFacialAgeEstimationActionImpl.decode(input: buffer): OpenFacialAgeEstimationAction
+		local self = _OpenFacialAgeEstimationActionImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -6045,7 +6435,7 @@ do
 				if field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.action_params = messages.OpenFaeAction_Params.decode(value)
+					self.action_params = messages.OpenFacialAgeEstimationAction_Params.decode(value)
 					continue
 				end
 
@@ -6071,7 +6461,7 @@ do
 		return self
 	end
 
-	function _OpenFaeActionImpl.jsonEncode(self: OpenFaeAction): any
+	function _OpenFacialAgeEstimationActionImpl.jsonEncode(self: OpenFacialAgeEstimationAction): any
 		local output = {}
 
 		if
@@ -6093,8 +6483,8 @@ do
 		return output
 	end
 
-	function _OpenFaeActionImpl.jsonDecode(input: { [string]: any }): OpenFaeAction
-		local self = _OpenFaeActionImpl.new()
+	function _OpenFacialAgeEstimationActionImpl.jsonDecode(input: { [string]: any }): OpenFacialAgeEstimationAction
+		local self = _OpenFacialAgeEstimationActionImpl.new()
 
 		if input.action_type ~= nil then
 			self.action_type = if typeof(input.action_type) == "number"
@@ -6109,38 +6499,40 @@ do
 		end
 
 		if input.action_params ~= nil then
-			self.action_params = messages.OpenFaeAction_Params.jsonDecode(input.action_params)
+			self.action_params = messages.OpenFacialAgeEstimationAction_Params.jsonDecode(input.action_params)
 		end
 
 		if input.actionParams ~= nil then
-			self.action_params = messages.OpenFaeAction_Params.jsonDecode(input.actionParams)
+			self.action_params = messages.OpenFacialAgeEstimationAction_Params.jsonDecode(input.actionParams)
 		end
 
 		return self
 	end
 
-	_OpenFaeActionImpl.descriptor = {
-		name = "OpenFaeAction",
-		fullName = "roblox.apppageplatform.shared.v1beta1.OpenFaeAction",
+	_OpenFacialAgeEstimationActionImpl.descriptor = {
+		name = "OpenFacialAgeEstimationAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenFacialAgeEstimationAction",
 	}
 
-	messages.OpenFaeAction = _OpenFaeActionImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.OpenFacialAgeEstimationAction = _OpenFacialAgeEstimationActionImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.OpenFaeAction)
+	typeRegistry.default:register(messages.OpenFacialAgeEstimationAction)
 end
 
 do
-	local _OpenFaeAction_ParamsImpl = {}
-	_OpenFaeAction_ParamsImpl.__index = _OpenFaeAction_ParamsImpl
+	local _OpenFacialAgeEstimationAction_ParamsImpl = {}
+	_OpenFacialAgeEstimationAction_ParamsImpl.__index = _OpenFacialAgeEstimationAction_ParamsImpl
 
-	function _OpenFaeAction_ParamsImpl.new(data: _OpenFaeAction_ParamsPartialFields?): OpenFaeAction_Params
+	function _OpenFacialAgeEstimationAction_ParamsImpl.new(
+		data: _OpenFacialAgeEstimationAction_ParamsPartialFields?
+	): OpenFacialAgeEstimationAction_Params
 		return setmetatable({
 			user_id = if data == nil or data.user_id == nil then nil else data.user_id,
 			source = if data == nil or data.source == nil then nil else data.source,
-		}, _OpenFaeAction_ParamsImpl :: _OpenFaeAction_ParamsImpl)
+		}, _OpenFacialAgeEstimationAction_ParamsImpl :: _OpenFacialAgeEstimationAction_ParamsImpl)
 	end
 
-	function _OpenFaeAction_ParamsImpl.encode(self: OpenFaeAction_Params): buffer
+	function _OpenFacialAgeEstimationAction_ParamsImpl.encode(self: OpenFacialAgeEstimationAction_Params): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -6161,8 +6553,8 @@ do
 		return shrunkBuffer
 	end
 
-	function _OpenFaeAction_ParamsImpl.decode(input: buffer): OpenFaeAction_Params
-		local self = _OpenFaeAction_ParamsImpl.new()
+	function _OpenFacialAgeEstimationAction_ParamsImpl.decode(input: buffer): OpenFacialAgeEstimationAction_Params
+		local self = _OpenFacialAgeEstimationAction_ParamsImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -6209,7 +6601,7 @@ do
 		return self
 	end
 
-	function _OpenFaeAction_ParamsImpl.jsonEncode(self: OpenFaeAction_Params): any
+	function _OpenFacialAgeEstimationAction_ParamsImpl.jsonEncode(self: OpenFacialAgeEstimationAction_Params): any
 		local output = {}
 
 		if self.user_id ~= nil then
@@ -6223,8 +6615,10 @@ do
 		return output
 	end
 
-	function _OpenFaeAction_ParamsImpl.jsonDecode(input: { [string]: any }): OpenFaeAction_Params
-		local self = _OpenFaeAction_ParamsImpl.new()
+	function _OpenFacialAgeEstimationAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenFacialAgeEstimationAction_Params
+		local self = _OpenFacialAgeEstimationAction_ParamsImpl.new()
 
 		if input.user_id ~= nil then
 			self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.user_id)
@@ -6241,30 +6635,32 @@ do
 		return self
 	end
 
-	_OpenFaeAction_ParamsImpl.descriptor = {
-		name = "OpenFaeAction_Params",
+	_OpenFacialAgeEstimationAction_ParamsImpl.descriptor = {
+		name = "OpenFacialAgeEstimationAction_Params",
 		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
 	}
 
-	messages.OpenFaeAction_Params = _OpenFaeAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.OpenFacialAgeEstimationAction_Params = _OpenFacialAgeEstimationAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.OpenFaeAction_Params)
+	typeRegistry.default:register(messages.OpenFacialAgeEstimationAction_Params)
 end
 
 do
-	local _OpenAddConnectionsActionImpl = {}
-	_OpenAddConnectionsActionImpl.__index = _OpenAddConnectionsActionImpl
+	local _OpenAddConnectionsPageActionImpl = {}
+	_OpenAddConnectionsPageActionImpl.__index = _OpenAddConnectionsPageActionImpl
 
-	function _OpenAddConnectionsActionImpl.new(data: _OpenAddConnectionsActionPartialFields?): OpenAddConnectionsAction
+	function _OpenAddConnectionsPageActionImpl.new(
+		data: _OpenAddConnectionsPageActionPartialFields?
+	): OpenAddConnectionsPageAction
 		return setmetatable({
 			action_type = if data == nil or data.action_type == nil
 				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
 				else data.action_type,
 			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
-		}, _OpenAddConnectionsActionImpl :: _OpenAddConnectionsActionImpl)
+		}, _OpenAddConnectionsPageActionImpl :: _OpenAddConnectionsPageActionImpl)
 	end
 
-	function _OpenAddConnectionsActionImpl.encode(self: OpenAddConnectionsAction): buffer
+	function _OpenAddConnectionsPageActionImpl.encode(self: OpenAddConnectionsPageAction): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -6290,8 +6686,8 @@ do
 		return shrunkBuffer
 	end
 
-	function _OpenAddConnectionsActionImpl.decode(input: buffer): OpenAddConnectionsAction
-		local self = _OpenAddConnectionsActionImpl.new()
+	function _OpenAddConnectionsPageActionImpl.decode(input: buffer): OpenAddConnectionsPageAction
+		local self = _OpenAddConnectionsPageActionImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -6312,7 +6708,7 @@ do
 				if field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.action_params = messages.OpenAddConnectionsAction_Params.decode(value)
+					self.action_params = messages.OpenAddConnectionsPageAction_Params.decode(value)
 					continue
 				end
 
@@ -6338,7 +6734,7 @@ do
 		return self
 	end
 
-	function _OpenAddConnectionsActionImpl.jsonEncode(self: OpenAddConnectionsAction): any
+	function _OpenAddConnectionsPageActionImpl.jsonEncode(self: OpenAddConnectionsPageAction): any
 		local output = {}
 
 		if
@@ -6360,8 +6756,8 @@ do
 		return output
 	end
 
-	function _OpenAddConnectionsActionImpl.jsonDecode(input: { [string]: any }): OpenAddConnectionsAction
-		local self = _OpenAddConnectionsActionImpl.new()
+	function _OpenAddConnectionsPageActionImpl.jsonDecode(input: { [string]: any }): OpenAddConnectionsPageAction
+		local self = _OpenAddConnectionsPageActionImpl.new()
 
 		if input.action_type ~= nil then
 			self.action_type = if typeof(input.action_type) == "number"
@@ -6376,40 +6772,40 @@ do
 		end
 
 		if input.action_params ~= nil then
-			self.action_params = messages.OpenAddConnectionsAction_Params.jsonDecode(input.action_params)
+			self.action_params = messages.OpenAddConnectionsPageAction_Params.jsonDecode(input.action_params)
 		end
 
 		if input.actionParams ~= nil then
-			self.action_params = messages.OpenAddConnectionsAction_Params.jsonDecode(input.actionParams)
+			self.action_params = messages.OpenAddConnectionsPageAction_Params.jsonDecode(input.actionParams)
 		end
 
 		return self
 	end
 
-	_OpenAddConnectionsActionImpl.descriptor = {
-		name = "OpenAddConnectionsAction",
-		fullName = "roblox.apppageplatform.shared.v1beta1.OpenAddConnectionsAction",
+	_OpenAddConnectionsPageActionImpl.descriptor = {
+		name = "OpenAddConnectionsPageAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenAddConnectionsPageAction",
 	}
 
-	messages.OpenAddConnectionsAction = _OpenAddConnectionsActionImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.OpenAddConnectionsPageAction = _OpenAddConnectionsPageActionImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.OpenAddConnectionsAction)
+	typeRegistry.default:register(messages.OpenAddConnectionsPageAction)
 end
 
 do
-	local _OpenAddConnectionsAction_ParamsImpl = {}
-	_OpenAddConnectionsAction_ParamsImpl.__index = _OpenAddConnectionsAction_ParamsImpl
+	local _OpenAddConnectionsPageAction_ParamsImpl = {}
+	_OpenAddConnectionsPageAction_ParamsImpl.__index = _OpenAddConnectionsPageAction_ParamsImpl
 
-	function _OpenAddConnectionsAction_ParamsImpl.new(
-		data: _OpenAddConnectionsAction_ParamsPartialFields?
-	): OpenAddConnectionsAction_Params
+	function _OpenAddConnectionsPageAction_ParamsImpl.new(
+		data: _OpenAddConnectionsPageAction_ParamsPartialFields?
+	): OpenAddConnectionsPageAction_Params
 		return setmetatable({
 			user_id = if data == nil or data.user_id == nil then nil else data.user_id,
 			source = if data == nil or data.source == nil then nil else data.source,
-		}, _OpenAddConnectionsAction_ParamsImpl :: _OpenAddConnectionsAction_ParamsImpl)
+		}, _OpenAddConnectionsPageAction_ParamsImpl :: _OpenAddConnectionsPageAction_ParamsImpl)
 	end
 
-	function _OpenAddConnectionsAction_ParamsImpl.encode(self: OpenAddConnectionsAction_Params): buffer
+	function _OpenAddConnectionsPageAction_ParamsImpl.encode(self: OpenAddConnectionsPageAction_Params): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -6430,8 +6826,8 @@ do
 		return shrunkBuffer
 	end
 
-	function _OpenAddConnectionsAction_ParamsImpl.decode(input: buffer): OpenAddConnectionsAction_Params
-		local self = _OpenAddConnectionsAction_ParamsImpl.new()
+	function _OpenAddConnectionsPageAction_ParamsImpl.decode(input: buffer): OpenAddConnectionsPageAction_Params
+		local self = _OpenAddConnectionsPageAction_ParamsImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -6478,7 +6874,7 @@ do
 		return self
 	end
 
-	function _OpenAddConnectionsAction_ParamsImpl.jsonEncode(self: OpenAddConnectionsAction_Params): any
+	function _OpenAddConnectionsPageAction_ParamsImpl.jsonEncode(self: OpenAddConnectionsPageAction_Params): any
 		local output = {}
 
 		if self.user_id ~= nil then
@@ -6492,8 +6888,10 @@ do
 		return output
 	end
 
-	function _OpenAddConnectionsAction_ParamsImpl.jsonDecode(input: { [string]: any }): OpenAddConnectionsAction_Params
-		local self = _OpenAddConnectionsAction_ParamsImpl.new()
+	function _OpenAddConnectionsPageAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenAddConnectionsPageAction_Params
+		local self = _OpenAddConnectionsPageAction_ParamsImpl.new()
 
 		if input.user_id ~= nil then
 			self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.user_id)
@@ -6510,14 +6908,14 @@ do
 		return self
 	end
 
-	_OpenAddConnectionsAction_ParamsImpl.descriptor = {
-		name = "OpenAddConnectionsAction_Params",
+	_OpenAddConnectionsPageAction_ParamsImpl.descriptor = {
+		name = "OpenAddConnectionsPageAction_Params",
 		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
 	}
 
-	messages.OpenAddConnectionsAction_Params = _OpenAddConnectionsAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.OpenAddConnectionsPageAction_Params = _OpenAddConnectionsPageAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.OpenAddConnectionsAction_Params)
+	typeRegistry.default:register(messages.OpenAddConnectionsPageAction_Params)
 end
 
 do
@@ -6790,19 +7188,21 @@ do
 end
 
 do
-	local _SendPromptImpressionImpl = {}
-	_SendPromptImpressionImpl.__index = _SendPromptImpressionImpl
+	local _HideProfileCompletionActionImpl = {}
+	_HideProfileCompletionActionImpl.__index = _HideProfileCompletionActionImpl
 
-	function _SendPromptImpressionImpl.new(data: _SendPromptImpressionPartialFields?): SendPromptImpression
+	function _HideProfileCompletionActionImpl.new(
+		data: _HideProfileCompletionActionPartialFields?
+	): HideProfileCompletionAction
 		return setmetatable({
 			action_type = if data == nil or data.action_type == nil
 				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
 				else data.action_type,
 			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
-		}, _SendPromptImpressionImpl :: _SendPromptImpressionImpl)
+		}, _HideProfileCompletionActionImpl :: _HideProfileCompletionActionImpl)
 	end
 
-	function _SendPromptImpressionImpl.encode(self: SendPromptImpression): buffer
+	function _HideProfileCompletionActionImpl.encode(self: HideProfileCompletionAction): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -6828,8 +7228,8 @@ do
 		return shrunkBuffer
 	end
 
-	function _SendPromptImpressionImpl.decode(input: buffer): SendPromptImpression
-		local self = _SendPromptImpressionImpl.new()
+	function _HideProfileCompletionActionImpl.decode(input: buffer): HideProfileCompletionAction
+		local self = _HideProfileCompletionActionImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -6850,7 +7250,7 @@ do
 				if field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.action_params = messages.SendPromptImpression_Params.decode(value)
+					self.action_params = messages.HideProfileCompletionAction_Params.decode(value)
 					continue
 				end
 
@@ -6876,7 +7276,7 @@ do
 		return self
 	end
 
-	function _SendPromptImpressionImpl.jsonEncode(self: SendPromptImpression): any
+	function _HideProfileCompletionActionImpl.jsonEncode(self: HideProfileCompletionAction): any
 		local output = {}
 
 		if
@@ -6898,8 +7298,8 @@ do
 		return output
 	end
 
-	function _SendPromptImpressionImpl.jsonDecode(input: { [string]: any }): SendPromptImpression
-		local self = _SendPromptImpressionImpl.new()
+	function _HideProfileCompletionActionImpl.jsonDecode(input: { [string]: any }): HideProfileCompletionAction
+		local self = _HideProfileCompletionActionImpl.new()
 
 		if input.action_type ~= nil then
 			self.action_type = if typeof(input.action_type) == "number"
@@ -6914,41 +7314,42 @@ do
 		end
 
 		if input.action_params ~= nil then
-			self.action_params = messages.SendPromptImpression_Params.jsonDecode(input.action_params)
+			self.action_params = messages.HideProfileCompletionAction_Params.jsonDecode(input.action_params)
 		end
 
 		if input.actionParams ~= nil then
-			self.action_params = messages.SendPromptImpression_Params.jsonDecode(input.actionParams)
+			self.action_params = messages.HideProfileCompletionAction_Params.jsonDecode(input.actionParams)
 		end
 
 		return self
 	end
 
-	_SendPromptImpressionImpl.descriptor = {
-		name = "SendPromptImpression",
-		fullName = "roblox.apppageplatform.shared.v1beta1.SendPromptImpression",
+	_HideProfileCompletionActionImpl.descriptor = {
+		name = "HideProfileCompletionAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.HideProfileCompletionAction",
 	}
 
-	messages.SendPromptImpression = _SendPromptImpressionImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.HideProfileCompletionAction = _HideProfileCompletionActionImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.SendPromptImpression)
+	typeRegistry.default:register(messages.HideProfileCompletionAction)
 end
 
 do
-	local _SendPromptImpression_ParamsImpl = {}
-	_SendPromptImpression_ParamsImpl.__index = _SendPromptImpression_ParamsImpl
+	local _HideProfileCompletionAction_ParamsImpl = {}
+	_HideProfileCompletionAction_ParamsImpl.__index = _HideProfileCompletionAction_ParamsImpl
 
-	function _SendPromptImpression_ParamsImpl.new(
-		data: _SendPromptImpression_ParamsPartialFields?
-	): SendPromptImpression_Params
+	function _HideProfileCompletionAction_ParamsImpl.new(
+		data: _HideProfileCompletionAction_ParamsPartialFields?
+	): HideProfileCompletionAction_Params
 		return setmetatable({
 			user_id = if data == nil or data.user_id == nil then nil else data.user_id,
-			modal_history_id = if data == nil or data.modal_history_id == nil then nil else data.modal_history_id,
+			prompt_id = if data == nil or data.prompt_id == nil then nil else data.prompt_id,
 			source = if data == nil or data.source == nil then nil else data.source,
-		}, _SendPromptImpression_ParamsImpl :: _SendPromptImpression_ParamsImpl)
+			prompt_type = if data == nil or data.prompt_type == nil then nil else data.prompt_type,
+		}, _HideProfileCompletionAction_ParamsImpl :: _HideProfileCompletionAction_ParamsImpl)
 	end
 
-	function _SendPromptImpression_ParamsImpl.encode(self: SendPromptImpression_Params): buffer
+	function _HideProfileCompletionAction_ParamsImpl.encode(self: HideProfileCompletionAction_Params): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -6958,8 +7359,8 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.modal_history_id ~= nil then
-			local encoded = self.modal_history_id:encode()
+		if self.prompt_id ~= nil then
+			local encoded = self.prompt_id:encode()
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
@@ -6970,13 +7371,19 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.prompt_type ~= nil then
+			local encoded = self.prompt_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
 	end
 
-	function _SendPromptImpression_ParamsImpl.decode(input: buffer): SendPromptImpression_Params
-		local self = _SendPromptImpression_ParamsImpl.new()
+	function _HideProfileCompletionAction_ParamsImpl.decode(input: buffer): HideProfileCompletionAction_Params
+		local self = _HideProfileCompletionAction_ParamsImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -6997,12 +7404,17 @@ do
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.modal_history_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					self.prompt_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				elseif field == 3 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -7028,26 +7440,32 @@ do
 		return self
 	end
 
-	function _SendPromptImpression_ParamsImpl.jsonEncode(self: SendPromptImpression_Params): any
+	function _HideProfileCompletionAction_ParamsImpl.jsonEncode(self: HideProfileCompletionAction_Params): any
 		local output = {}
 
 		if self.user_id ~= nil then
 			output.userId = self.user_id:jsonEncode()
 		end
 
-		if self.modal_history_id ~= nil then
-			output.modalHistoryId = self.modal_history_id:jsonEncode()
+		if self.prompt_id ~= nil then
+			output.promptId = self.prompt_id:jsonEncode()
 		end
 
 		if self.source ~= nil then
 			output.source = self.source:jsonEncode()
 		end
 
+		if self.prompt_type ~= nil then
+			output.promptType = self.prompt_type:jsonEncode()
+		end
+
 		return output
 	end
 
-	function _SendPromptImpression_ParamsImpl.jsonDecode(input: { [string]: any }): SendPromptImpression_Params
-		local self = _SendPromptImpression_ParamsImpl.new()
+	function _HideProfileCompletionAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): HideProfileCompletionAction_Params
+		local self = _HideProfileCompletionAction_ParamsImpl.new()
 
 		if input.user_id ~= nil then
 			self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.user_id)
@@ -7057,31 +7475,1659 @@ do
 			self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.userId)
 		end
 
-		if input.modal_history_id ~= nil then
-			self.modal_history_id =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.modal_history_id)
+		if input.prompt_id ~= nil then
+			self.prompt_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.prompt_id)
 		end
 
-		if input.modalHistoryId ~= nil then
-			self.modal_history_id =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.modalHistoryId)
+		if input.promptId ~= nil then
+			self.prompt_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.promptId)
 		end
 
 		if input.source ~= nil then
 			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
 		end
 
+		if input.prompt_type ~= nil then
+			self.prompt_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.prompt_type)
+		end
+
+		if input.promptType ~= nil then
+			self.prompt_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.promptType)
+		end
+
 		return self
 	end
 
-	_SendPromptImpression_ParamsImpl.descriptor = {
-		name = "SendPromptImpression_Params",
+	_HideProfileCompletionAction_ParamsImpl.descriptor = {
+		name = "HideProfileCompletionAction_Params",
 		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
 	}
 
-	messages.SendPromptImpression_Params = _SendPromptImpression_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.HideProfileCompletionAction_Params = _HideProfileCompletionAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.SendPromptImpression_Params)
+	typeRegistry.default:register(messages.HideProfileCompletionAction_Params)
+end
+
+do
+	local _SelectMarketplaceCatalogCategoryImpl = {}
+	_SelectMarketplaceCatalogCategoryImpl.__index = _SelectMarketplaceCatalogCategoryImpl
+
+	function _SelectMarketplaceCatalogCategoryImpl.new(
+		data: _SelectMarketplaceCatalogCategoryPartialFields?
+	): SelectMarketplaceCatalogCategory
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _SelectMarketplaceCatalogCategoryImpl :: _SelectMarketplaceCatalogCategoryImpl)
+	end
+
+	function _SelectMarketplaceCatalogCategoryImpl.encode(self: SelectMarketplaceCatalogCategory): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SelectMarketplaceCatalogCategoryImpl.decode(input: buffer): SelectMarketplaceCatalogCategory
+		local self = _SelectMarketplaceCatalogCategoryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.SelectMarketplaceCatalogCategory_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SelectMarketplaceCatalogCategoryImpl.jsonEncode(self: SelectMarketplaceCatalogCategory): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SelectMarketplaceCatalogCategoryImpl.jsonDecode(
+		input: { [string]: any }
+	): SelectMarketplaceCatalogCategory
+		local self = _SelectMarketplaceCatalogCategoryImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.SelectMarketplaceCatalogCategory_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.SelectMarketplaceCatalogCategory_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_SelectMarketplaceCatalogCategoryImpl.descriptor = {
+		name = "SelectMarketplaceCatalogCategory",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SelectMarketplaceCatalogCategory",
+	}
+
+	messages.SelectMarketplaceCatalogCategory = _SelectMarketplaceCatalogCategoryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SelectMarketplaceCatalogCategory)
+end
+
+do
+	local _SelectMarketplaceCatalogCategory_ParamsImpl = {}
+	_SelectMarketplaceCatalogCategory_ParamsImpl.__index = _SelectMarketplaceCatalogCategory_ParamsImpl
+
+	function _SelectMarketplaceCatalogCategory_ParamsImpl.new(
+		data: _SelectMarketplaceCatalogCategory_ParamsPartialFields?
+	): SelectMarketplaceCatalogCategory_Params
+		return setmetatable({
+			category_id = if data == nil or data.category_id == nil then nil else data.category_id,
+		}, _SelectMarketplaceCatalogCategory_ParamsImpl :: _SelectMarketplaceCatalogCategory_ParamsImpl)
+	end
+
+	function _SelectMarketplaceCatalogCategory_ParamsImpl.encode(self: SelectMarketplaceCatalogCategory_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.category_id ~= nil then
+			local encoded = self.category_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SelectMarketplaceCatalogCategory_ParamsImpl.decode(input: buffer): SelectMarketplaceCatalogCategory_Params
+		local self = _SelectMarketplaceCatalogCategory_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.category_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SelectMarketplaceCatalogCategory_ParamsImpl.jsonEncode(self: SelectMarketplaceCatalogCategory_Params): any
+		local output = {}
+
+		if self.category_id ~= nil then
+			output.categoryId = self.category_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SelectMarketplaceCatalogCategory_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): SelectMarketplaceCatalogCategory_Params
+		local self = _SelectMarketplaceCatalogCategory_ParamsImpl.new()
+
+		if input.category_id ~= nil then
+			self.category_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.category_id)
+		end
+
+		if input.categoryId ~= nil then
+			self.category_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.categoryId)
+		end
+
+		return self
+	end
+
+	_SelectMarketplaceCatalogCategory_ParamsImpl.descriptor = {
+		name = "SelectMarketplaceCatalogCategory_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.SelectMarketplaceCatalogCategory_Params = _SelectMarketplaceCatalogCategory_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SelectMarketplaceCatalogCategory_Params)
+end
+
+do
+	local _SelectMarketplaceCatalogSubcategoryImpl = {}
+	_SelectMarketplaceCatalogSubcategoryImpl.__index = _SelectMarketplaceCatalogSubcategoryImpl
+
+	function _SelectMarketplaceCatalogSubcategoryImpl.new(
+		data: _SelectMarketplaceCatalogSubcategoryPartialFields?
+	): SelectMarketplaceCatalogSubcategory
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _SelectMarketplaceCatalogSubcategoryImpl :: _SelectMarketplaceCatalogSubcategoryImpl)
+	end
+
+	function _SelectMarketplaceCatalogSubcategoryImpl.encode(self: SelectMarketplaceCatalogSubcategory): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SelectMarketplaceCatalogSubcategoryImpl.decode(input: buffer): SelectMarketplaceCatalogSubcategory
+		local self = _SelectMarketplaceCatalogSubcategoryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.SelectMarketplaceCatalogSubcategory_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SelectMarketplaceCatalogSubcategoryImpl.jsonEncode(self: SelectMarketplaceCatalogSubcategory): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SelectMarketplaceCatalogSubcategoryImpl.jsonDecode(
+		input: { [string]: any }
+	): SelectMarketplaceCatalogSubcategory
+		local self = _SelectMarketplaceCatalogSubcategoryImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.SelectMarketplaceCatalogSubcategory_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.SelectMarketplaceCatalogSubcategory_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_SelectMarketplaceCatalogSubcategoryImpl.descriptor = {
+		name = "SelectMarketplaceCatalogSubcategory",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SelectMarketplaceCatalogSubcategory",
+	}
+
+	messages.SelectMarketplaceCatalogSubcategory = _SelectMarketplaceCatalogSubcategoryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SelectMarketplaceCatalogSubcategory)
+end
+
+do
+	local _SelectMarketplaceCatalogSubcategory_ParamsImpl = {}
+	_SelectMarketplaceCatalogSubcategory_ParamsImpl.__index = _SelectMarketplaceCatalogSubcategory_ParamsImpl
+
+	function _SelectMarketplaceCatalogSubcategory_ParamsImpl.new(
+		data: _SelectMarketplaceCatalogSubcategory_ParamsPartialFields?
+	): SelectMarketplaceCatalogSubcategory_Params
+		return setmetatable({
+			subcategory_id = if data == nil or data.subcategory_id == nil then nil else data.subcategory_id,
+		}, _SelectMarketplaceCatalogSubcategory_ParamsImpl :: _SelectMarketplaceCatalogSubcategory_ParamsImpl)
+	end
+
+	function _SelectMarketplaceCatalogSubcategory_ParamsImpl.encode(
+		self: SelectMarketplaceCatalogSubcategory_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.subcategory_id ~= nil then
+			local encoded = self.subcategory_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SelectMarketplaceCatalogSubcategory_ParamsImpl.decode(
+		input: buffer
+	): SelectMarketplaceCatalogSubcategory_Params
+		local self = _SelectMarketplaceCatalogSubcategory_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subcategory_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SelectMarketplaceCatalogSubcategory_ParamsImpl.jsonEncode(
+		self: SelectMarketplaceCatalogSubcategory_Params
+	): any
+		local output = {}
+
+		if self.subcategory_id ~= nil then
+			output.subcategoryId = self.subcategory_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SelectMarketplaceCatalogSubcategory_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): SelectMarketplaceCatalogSubcategory_Params
+		local self = _SelectMarketplaceCatalogSubcategory_ParamsImpl.new()
+
+		if input.subcategory_id ~= nil then
+			self.subcategory_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subcategory_id)
+		end
+
+		if input.subcategoryId ~= nil then
+			self.subcategory_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subcategoryId)
+		end
+
+		return self
+	end
+
+	_SelectMarketplaceCatalogSubcategory_ParamsImpl.descriptor = {
+		name = "SelectMarketplaceCatalogSubcategory_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.SelectMarketplaceCatalogSubcategory_Params = _SelectMarketplaceCatalogSubcategory_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SelectMarketplaceCatalogSubcategory_Params)
+end
+
+do
+	local _OpenMarketplaceCatalogSeeAllImpl = {}
+	_OpenMarketplaceCatalogSeeAllImpl.__index = _OpenMarketplaceCatalogSeeAllImpl
+
+	function _OpenMarketplaceCatalogSeeAllImpl.new(
+		data: _OpenMarketplaceCatalogSeeAllPartialFields?
+	): OpenMarketplaceCatalogSeeAll
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenMarketplaceCatalogSeeAllImpl :: _OpenMarketplaceCatalogSeeAllImpl)
+	end
+
+	function _OpenMarketplaceCatalogSeeAllImpl.encode(self: OpenMarketplaceCatalogSeeAll): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenMarketplaceCatalogSeeAllImpl.decode(input: buffer): OpenMarketplaceCatalogSeeAll
+		local self = _OpenMarketplaceCatalogSeeAllImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenMarketplaceCatalogSeeAll_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenMarketplaceCatalogSeeAllImpl.jsonEncode(self: OpenMarketplaceCatalogSeeAll): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenMarketplaceCatalogSeeAllImpl.jsonDecode(input: { [string]: any }): OpenMarketplaceCatalogSeeAll
+		local self = _OpenMarketplaceCatalogSeeAllImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenMarketplaceCatalogSeeAll_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenMarketplaceCatalogSeeAll_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenMarketplaceCatalogSeeAllImpl.descriptor = {
+		name = "OpenMarketplaceCatalogSeeAll",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenMarketplaceCatalogSeeAll",
+	}
+
+	messages.OpenMarketplaceCatalogSeeAll = _OpenMarketplaceCatalogSeeAllImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenMarketplaceCatalogSeeAll)
+end
+
+do
+	local _OpenMarketplaceCatalogSeeAll_ParamsImpl = {}
+	_OpenMarketplaceCatalogSeeAll_ParamsImpl.__index = _OpenMarketplaceCatalogSeeAll_ParamsImpl
+
+	function _OpenMarketplaceCatalogSeeAll_ParamsImpl.new(
+		data: _OpenMarketplaceCatalogSeeAll_ParamsPartialFields?
+	): OpenMarketplaceCatalogSeeAll_Params
+		return setmetatable({
+			sort_id = if data == nil or data.sort_id == nil then nil else data.sort_id,
+			title = if data == nil or data.title == nil then nil else data.title,
+			description = if data == nil or data.description == nil then nil else data.description,
+			tooltip_text = if data == nil or data.tooltip_text == nil then nil else data.tooltip_text,
+		}, _OpenMarketplaceCatalogSeeAll_ParamsImpl :: _OpenMarketplaceCatalogSeeAll_ParamsImpl)
+	end
+
+	function _OpenMarketplaceCatalogSeeAll_ParamsImpl.encode(self: OpenMarketplaceCatalogSeeAll_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.sort_id ~= nil then
+			local encoded = self.sort_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.title ~= nil then
+			local encoded = self.title:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.description ~= nil then
+			local encoded = self.description:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.tooltip_text ~= nil then
+			local encoded = self.tooltip_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenMarketplaceCatalogSeeAll_ParamsImpl.decode(input: buffer): OpenMarketplaceCatalogSeeAll_Params
+		local self = _OpenMarketplaceCatalogSeeAll_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.description = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tooltip_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenMarketplaceCatalogSeeAll_ParamsImpl.jsonEncode(self: OpenMarketplaceCatalogSeeAll_Params): any
+		local output = {}
+
+		if self.sort_id ~= nil then
+			output.sortId = self.sort_id:jsonEncode()
+		end
+
+		if self.title ~= nil then
+			output.title = self.title:jsonEncode()
+		end
+
+		if self.description ~= nil then
+			output.description = self.description:jsonEncode()
+		end
+
+		if self.tooltip_text ~= nil then
+			output.tooltipText = self.tooltip_text:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenMarketplaceCatalogSeeAll_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenMarketplaceCatalogSeeAll_Params
+		local self = _OpenMarketplaceCatalogSeeAll_ParamsImpl.new()
+
+		if input.sort_id ~= nil then
+			self.sort_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sort_id)
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sortId)
+		end
+
+		if input.title ~= nil then
+			self.title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.title)
+		end
+
+		if input.description ~= nil then
+			self.description =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.description)
+		end
+
+		if input.tooltip_text ~= nil then
+			self.tooltip_text =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tooltip_text)
+		end
+
+		if input.tooltipText ~= nil then
+			self.tooltip_text =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tooltipText)
+		end
+
+		return self
+	end
+
+	_OpenMarketplaceCatalogSeeAll_ParamsImpl.descriptor = {
+		name = "OpenMarketplaceCatalogSeeAll_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenMarketplaceCatalogSeeAll_Params = _OpenMarketplaceCatalogSeeAll_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenMarketplaceCatalogSeeAll_Params)
+end
+
+do
+	local _CloseMarketplaceCategoryTooltipImpl = {}
+	_CloseMarketplaceCategoryTooltipImpl.__index = _CloseMarketplaceCategoryTooltipImpl
+
+	function _CloseMarketplaceCategoryTooltipImpl.new(
+		data: _CloseMarketplaceCategoryTooltipPartialFields?
+	): CloseMarketplaceCategoryTooltip
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _CloseMarketplaceCategoryTooltipImpl :: _CloseMarketplaceCategoryTooltipImpl)
+	end
+
+	function _CloseMarketplaceCategoryTooltipImpl.encode(self: CloseMarketplaceCategoryTooltip): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CloseMarketplaceCategoryTooltipImpl.decode(input: buffer): CloseMarketplaceCategoryTooltip
+		local self = _CloseMarketplaceCategoryTooltipImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.CloseMarketplaceCategoryTooltip_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CloseMarketplaceCategoryTooltipImpl.jsonEncode(self: CloseMarketplaceCategoryTooltip): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _CloseMarketplaceCategoryTooltipImpl.jsonDecode(input: { [string]: any }): CloseMarketplaceCategoryTooltip
+		local self = _CloseMarketplaceCategoryTooltipImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.CloseMarketplaceCategoryTooltip_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.CloseMarketplaceCategoryTooltip_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_CloseMarketplaceCategoryTooltipImpl.descriptor = {
+		name = "CloseMarketplaceCategoryTooltip",
+		fullName = "roblox.apppageplatform.shared.v1beta1.CloseMarketplaceCategoryTooltip",
+	}
+
+	messages.CloseMarketplaceCategoryTooltip = _CloseMarketplaceCategoryTooltipImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CloseMarketplaceCategoryTooltip)
+end
+
+do
+	local _CloseMarketplaceCategoryTooltip_ParamsImpl = {}
+	_CloseMarketplaceCategoryTooltip_ParamsImpl.__index = _CloseMarketplaceCategoryTooltip_ParamsImpl
+
+	function _CloseMarketplaceCategoryTooltip_ParamsImpl.new(
+		data: _CloseMarketplaceCategoryTooltip_ParamsPartialFields?
+	): CloseMarketplaceCategoryTooltip_Params
+		return setmetatable({
+			tooltip_id = if data == nil or data.tooltip_id == nil then nil else data.tooltip_id,
+		}, _CloseMarketplaceCategoryTooltip_ParamsImpl :: _CloseMarketplaceCategoryTooltip_ParamsImpl)
+	end
+
+	function _CloseMarketplaceCategoryTooltip_ParamsImpl.encode(self: CloseMarketplaceCategoryTooltip_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.tooltip_id ~= nil then
+			local encoded = self.tooltip_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CloseMarketplaceCategoryTooltip_ParamsImpl.decode(input: buffer): CloseMarketplaceCategoryTooltip_Params
+		local self = _CloseMarketplaceCategoryTooltip_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tooltip_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CloseMarketplaceCategoryTooltip_ParamsImpl.jsonEncode(self: CloseMarketplaceCategoryTooltip_Params): any
+		local output = {}
+
+		if self.tooltip_id ~= nil then
+			output.tooltipId = self.tooltip_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _CloseMarketplaceCategoryTooltip_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): CloseMarketplaceCategoryTooltip_Params
+		local self = _CloseMarketplaceCategoryTooltip_ParamsImpl.new()
+
+		if input.tooltip_id ~= nil then
+			self.tooltip_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tooltip_id)
+		end
+
+		if input.tooltipId ~= nil then
+			self.tooltip_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tooltipId)
+		end
+
+		return self
+	end
+
+	_CloseMarketplaceCategoryTooltip_ParamsImpl.descriptor = {
+		name = "CloseMarketplaceCategoryTooltip_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.CloseMarketplaceCategoryTooltip_Params = _CloseMarketplaceCategoryTooltip_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CloseMarketplaceCategoryTooltip_Params)
+end
+
+do
+	local _ResizeMarketplaceCatalogImpl = {}
+	_ResizeMarketplaceCatalogImpl.__index = _ResizeMarketplaceCatalogImpl
+
+	function _ResizeMarketplaceCatalogImpl.new(data: _ResizeMarketplaceCatalogPartialFields?): ResizeMarketplaceCatalog
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ResizeMarketplaceCatalogImpl :: _ResizeMarketplaceCatalogImpl)
+	end
+
+	function _ResizeMarketplaceCatalogImpl.encode(self: ResizeMarketplaceCatalog): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ResizeMarketplaceCatalogImpl.decode(input: buffer): ResizeMarketplaceCatalog
+		local self = _ResizeMarketplaceCatalogImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ResizeMarketplaceCatalog_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ResizeMarketplaceCatalogImpl.jsonEncode(self: ResizeMarketplaceCatalog): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ResizeMarketplaceCatalogImpl.jsonDecode(input: { [string]: any }): ResizeMarketplaceCatalog
+		local self = _ResizeMarketplaceCatalogImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ResizeMarketplaceCatalog_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ResizeMarketplaceCatalog_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ResizeMarketplaceCatalogImpl.descriptor = {
+		name = "ResizeMarketplaceCatalog",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ResizeMarketplaceCatalog",
+	}
+
+	messages.ResizeMarketplaceCatalog = _ResizeMarketplaceCatalogImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ResizeMarketplaceCatalog)
+end
+
+do
+	local _ResizeMarketplaceCatalog_ParamsImpl = {}
+	_ResizeMarketplaceCatalog_ParamsImpl.__index = _ResizeMarketplaceCatalog_ParamsImpl
+
+	function _ResizeMarketplaceCatalog_ParamsImpl.new(
+		data: _ResizeMarketplaceCatalog_ParamsPartialFields?
+	): ResizeMarketplaceCatalog_Params
+		return setmetatable({
+			category_id = if data == nil or data.category_id == nil then nil else data.category_id,
+			subcategory_id = if data == nil or data.subcategory_id == nil then nil else data.subcategory_id,
+			screen_size = if data == nil or data.screen_size == nil then nil else data.screen_size,
+		}, _ResizeMarketplaceCatalog_ParamsImpl :: _ResizeMarketplaceCatalog_ParamsImpl)
+	end
+
+	function _ResizeMarketplaceCatalog_ParamsImpl.encode(self: ResizeMarketplaceCatalog_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.category_id ~= nil then
+			local encoded = self.category_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subcategory_id ~= nil then
+			local encoded = self.subcategory_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.screen_size ~= nil then
+			local encoded = self.screen_size:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ResizeMarketplaceCatalog_ParamsImpl.decode(input: buffer): ResizeMarketplaceCatalog_Params
+		local self = _ResizeMarketplaceCatalog_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.category_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subcategory_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.screen_size = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ResizeMarketplaceCatalog_ParamsImpl.jsonEncode(self: ResizeMarketplaceCatalog_Params): any
+		local output = {}
+
+		if self.category_id ~= nil then
+			output.categoryId = self.category_id:jsonEncode()
+		end
+
+		if self.subcategory_id ~= nil then
+			output.subcategoryId = self.subcategory_id:jsonEncode()
+		end
+
+		if self.screen_size ~= nil then
+			output.screenSize = self.screen_size:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ResizeMarketplaceCatalog_ParamsImpl.jsonDecode(input: { [string]: any }): ResizeMarketplaceCatalog_Params
+		local self = _ResizeMarketplaceCatalog_ParamsImpl.new()
+
+		if input.category_id ~= nil then
+			self.category_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.category_id)
+		end
+
+		if input.categoryId ~= nil then
+			self.category_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.categoryId)
+		end
+
+		if input.subcategory_id ~= nil then
+			self.subcategory_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subcategory_id)
+		end
+
+		if input.subcategoryId ~= nil then
+			self.subcategory_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subcategoryId)
+		end
+
+		if input.screen_size ~= nil then
+			self.screen_size =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.screen_size)
+		end
+
+		if input.screenSize ~= nil then
+			self.screen_size = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.screenSize)
+		end
+
+		return self
+	end
+
+	_ResizeMarketplaceCatalog_ParamsImpl.descriptor = {
+		name = "ResizeMarketplaceCatalog_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ResizeMarketplaceCatalog_Params = _ResizeMarketplaceCatalog_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ResizeMarketplaceCatalog_Params)
+end
+
+do
+	local _OpenMarketplaceCatalogFiltersImpl = {}
+	_OpenMarketplaceCatalogFiltersImpl.__index = _OpenMarketplaceCatalogFiltersImpl
+
+	function _OpenMarketplaceCatalogFiltersImpl.new(
+		data: _OpenMarketplaceCatalogFiltersPartialFields?
+	): OpenMarketplaceCatalogFilters
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenMarketplaceCatalogFiltersImpl :: _OpenMarketplaceCatalogFiltersImpl)
+	end
+
+	function _OpenMarketplaceCatalogFiltersImpl.encode(self: OpenMarketplaceCatalogFilters): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenMarketplaceCatalogFiltersImpl.decode(input: buffer): OpenMarketplaceCatalogFilters
+		local self = _OpenMarketplaceCatalogFiltersImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenMarketplaceCatalogFilters_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenMarketplaceCatalogFiltersImpl.jsonEncode(self: OpenMarketplaceCatalogFilters): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenMarketplaceCatalogFiltersImpl.jsonDecode(input: { [string]: any }): OpenMarketplaceCatalogFilters
+		local self = _OpenMarketplaceCatalogFiltersImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenMarketplaceCatalogFilters_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenMarketplaceCatalogFilters_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenMarketplaceCatalogFiltersImpl.descriptor = {
+		name = "OpenMarketplaceCatalogFilters",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenMarketplaceCatalogFilters",
+	}
+
+	messages.OpenMarketplaceCatalogFilters = _OpenMarketplaceCatalogFiltersImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenMarketplaceCatalogFilters)
+end
+
+do
+	local _OpenMarketplaceCatalogFilters_ParamsImpl = {}
+	_OpenMarketplaceCatalogFilters_ParamsImpl.__index = _OpenMarketplaceCatalogFilters_ParamsImpl
+
+	function _OpenMarketplaceCatalogFilters_ParamsImpl.new(
+		data: _OpenMarketplaceCatalogFilters_ParamsPartialFields?
+	): OpenMarketplaceCatalogFilters_Params
+		return setmetatable({}, _OpenMarketplaceCatalogFilters_ParamsImpl :: _OpenMarketplaceCatalogFilters_ParamsImpl)
+	end
+
+	function _OpenMarketplaceCatalogFilters_ParamsImpl.encode(self: OpenMarketplaceCatalogFilters_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenMarketplaceCatalogFilters_ParamsImpl.decode(input: buffer): OpenMarketplaceCatalogFilters_Params
+		local self = _OpenMarketplaceCatalogFilters_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				-- No fields
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenMarketplaceCatalogFilters_ParamsImpl.jsonEncode(self: OpenMarketplaceCatalogFilters_Params): any
+		local output = {}
+
+		return output
+	end
+
+	function _OpenMarketplaceCatalogFilters_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenMarketplaceCatalogFilters_Params
+		local self = _OpenMarketplaceCatalogFilters_ParamsImpl.new()
+
+		return self
+	end
+
+	_OpenMarketplaceCatalogFilters_ParamsImpl.descriptor = {
+		name = "OpenMarketplaceCatalogFilters_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenMarketplaceCatalogFilters_Params = _OpenMarketplaceCatalogFilters_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenMarketplaceCatalogFilters_Params)
 end
 
 do
@@ -7163,11 +9209,11 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "open_fae_action" then
+			elseif self.kind.type == "open_facial_age_estimation_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "open_add_connections_action" then
+			elseif self.kind.type == "open_add_connections_page_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -7175,9 +9221,33 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "send_prompt_impression_action" then
+			elseif self.kind.type == "hide_profile_completion_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "select_marketplace_catalog_category" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "select_marketplace_catalog_subcategory" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_marketplace_catalog_see_all" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "close_marketplace_category_tooltip" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "resize_marketplace_catalog" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 25, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_marketplace_catalog_filters" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -7302,14 +9372,17 @@ do
 				elseif field == 17 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "open_fae_action", value = messages.OpenFaeAction.decode(value) }
+					self.kind = {
+						type = "open_facial_age_estimation_action",
+						value = messages.OpenFacialAgeEstimationAction.decode(value),
+					}
 					continue
 				elseif field == 18 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = {
-						type = "open_add_connections_action",
-						value = messages.OpenAddConnectionsAction.decode(value),
+						type = "open_add_connections_page_action",
+						value = messages.OpenAddConnectionsPageAction.decode(value),
 					}
 					continue
 				elseif field == 19 then
@@ -7321,8 +9394,56 @@ do
 				elseif field == 20 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "hide_profile_completion_action",
+						value = messages.HideProfileCompletionAction.decode(value),
+					}
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "select_marketplace_catalog_category",
+						value = messages.SelectMarketplaceCatalogCategory.decode(value),
+					}
+					continue
+				elseif field == 22 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "select_marketplace_catalog_subcategory",
+						value = messages.SelectMarketplaceCatalogSubcategory.decode(value),
+					}
+					continue
+				elseif field == 23 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_marketplace_catalog_see_all",
+						value = messages.OpenMarketplaceCatalogSeeAll.decode(value),
+					}
+					continue
+				elseif field == 24 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "close_marketplace_category_tooltip",
+						value = messages.CloseMarketplaceCategoryTooltip.decode(value),
+					}
+					continue
+				elseif field == 25 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
 					self.kind =
-						{ type = "send_prompt_impression_action", value = messages.SendPromptImpression.decode(value) }
+						{ type = "resize_marketplace_catalog", value = messages.ResizeMarketplaceCatalog.decode(value) }
+					continue
+				elseif field == 26 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_marketplace_catalog_filters",
+						value = messages.OpenMarketplaceCatalogFilters.decode(value),
+					}
 					continue
 				end
 
@@ -7384,14 +9505,26 @@ do
 				output.removeBadgeFromInventoryAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "open_profile_action" then
 				output.openProfileAction = self.kind.value:jsonEncode()
-			elseif self.kind.type == "open_fae_action" then
-				output.openFaeAction = self.kind.value:jsonEncode()
-			elseif self.kind.type == "open_add_connections_action" then
-				output.openAddConnectionsAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_facial_age_estimation_action" then
+				output.openFacialAgeEstimationAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_add_connections_page_action" then
+				output.openAddConnectionsPageAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "open_marketplace_action" then
 				output.openMarketplaceAction = self.kind.value:jsonEncode()
-			elseif self.kind.type == "send_prompt_impression_action" then
-				output.sendPromptImpressionAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "hide_profile_completion_action" then
+				output.hideProfileCompletionAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "select_marketplace_catalog_category" then
+				output.selectMarketplaceCatalogCategory = self.kind.value:jsonEncode()
+			elseif self.kind.type == "select_marketplace_catalog_subcategory" then
+				output.selectMarketplaceCatalogSubcategory = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_marketplace_catalog_see_all" then
+				output.openMarketplaceCatalogSeeAll = self.kind.value:jsonEncode()
+			elseif self.kind.type == "close_marketplace_category_tooltip" then
+				output.closeMarketplaceCategoryTooltip = self.kind.value:jsonEncode()
+			elseif self.kind.type == "resize_marketplace_catalog" then
+				output.resizeMarketplaceCatalog = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_marketplace_catalog_filters" then
+				output.openMarketplaceCatalogFilters = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -7607,25 +9740,31 @@ do
 				{ type = "open_profile_action", value = messages.OpenProfileAction.jsonDecode(input.openProfileAction) }
 		end
 
-		if input.open_fae_action ~= nil then
-			self.kind = { type = "open_fae_action", value = messages.OpenFaeAction.jsonDecode(input.open_fae_action) }
-		end
-
-		if input.openFaeAction ~= nil then
-			self.kind = { type = "open_fae_action", value = messages.OpenFaeAction.jsonDecode(input.openFaeAction) }
-		end
-
-		if input.open_add_connections_action ~= nil then
+		if input.open_facial_age_estimation_action ~= nil then
 			self.kind = {
-				type = "open_add_connections_action",
-				value = messages.OpenAddConnectionsAction.jsonDecode(input.open_add_connections_action),
+				type = "open_facial_age_estimation_action",
+				value = messages.OpenFacialAgeEstimationAction.jsonDecode(input.open_facial_age_estimation_action),
 			}
 		end
 
-		if input.openAddConnectionsAction ~= nil then
+		if input.openFacialAgeEstimationAction ~= nil then
 			self.kind = {
-				type = "open_add_connections_action",
-				value = messages.OpenAddConnectionsAction.jsonDecode(input.openAddConnectionsAction),
+				type = "open_facial_age_estimation_action",
+				value = messages.OpenFacialAgeEstimationAction.jsonDecode(input.openFacialAgeEstimationAction),
+			}
+		end
+
+		if input.open_add_connections_page_action ~= nil then
+			self.kind = {
+				type = "open_add_connections_page_action",
+				value = messages.OpenAddConnectionsPageAction.jsonDecode(input.open_add_connections_page_action),
+			}
+		end
+
+		if input.openAddConnectionsPageAction ~= nil then
+			self.kind = {
+				type = "open_add_connections_page_action",
+				value = messages.OpenAddConnectionsPageAction.jsonDecode(input.openAddConnectionsPageAction),
 			}
 		end
 
@@ -7643,17 +9782,105 @@ do
 			}
 		end
 
-		if input.send_prompt_impression_action ~= nil then
+		if input.hide_profile_completion_action ~= nil then
 			self.kind = {
-				type = "send_prompt_impression_action",
-				value = messages.SendPromptImpression.jsonDecode(input.send_prompt_impression_action),
+				type = "hide_profile_completion_action",
+				value = messages.HideProfileCompletionAction.jsonDecode(input.hide_profile_completion_action),
 			}
 		end
 
-		if input.sendPromptImpressionAction ~= nil then
+		if input.hideProfileCompletionAction ~= nil then
 			self.kind = {
-				type = "send_prompt_impression_action",
-				value = messages.SendPromptImpression.jsonDecode(input.sendPromptImpressionAction),
+				type = "hide_profile_completion_action",
+				value = messages.HideProfileCompletionAction.jsonDecode(input.hideProfileCompletionAction),
+			}
+		end
+
+		if input.select_marketplace_catalog_category ~= nil then
+			self.kind = {
+				type = "select_marketplace_catalog_category",
+				value = messages.SelectMarketplaceCatalogCategory.jsonDecode(input.select_marketplace_catalog_category),
+			}
+		end
+
+		if input.selectMarketplaceCatalogCategory ~= nil then
+			self.kind = {
+				type = "select_marketplace_catalog_category",
+				value = messages.SelectMarketplaceCatalogCategory.jsonDecode(input.selectMarketplaceCatalogCategory),
+			}
+		end
+
+		if input.select_marketplace_catalog_subcategory ~= nil then
+			self.kind = {
+				type = "select_marketplace_catalog_subcategory",
+				value = messages.SelectMarketplaceCatalogSubcategory.jsonDecode(
+					input.select_marketplace_catalog_subcategory
+				),
+			}
+		end
+
+		if input.selectMarketplaceCatalogSubcategory ~= nil then
+			self.kind = {
+				type = "select_marketplace_catalog_subcategory",
+				value = messages.SelectMarketplaceCatalogSubcategory.jsonDecode(
+					input.selectMarketplaceCatalogSubcategory
+				),
+			}
+		end
+
+		if input.open_marketplace_catalog_see_all ~= nil then
+			self.kind = {
+				type = "open_marketplace_catalog_see_all",
+				value = messages.OpenMarketplaceCatalogSeeAll.jsonDecode(input.open_marketplace_catalog_see_all),
+			}
+		end
+
+		if input.openMarketplaceCatalogSeeAll ~= nil then
+			self.kind = {
+				type = "open_marketplace_catalog_see_all",
+				value = messages.OpenMarketplaceCatalogSeeAll.jsonDecode(input.openMarketplaceCatalogSeeAll),
+			}
+		end
+
+		if input.close_marketplace_category_tooltip ~= nil then
+			self.kind = {
+				type = "close_marketplace_category_tooltip",
+				value = messages.CloseMarketplaceCategoryTooltip.jsonDecode(input.close_marketplace_category_tooltip),
+			}
+		end
+
+		if input.closeMarketplaceCategoryTooltip ~= nil then
+			self.kind = {
+				type = "close_marketplace_category_tooltip",
+				value = messages.CloseMarketplaceCategoryTooltip.jsonDecode(input.closeMarketplaceCategoryTooltip),
+			}
+		end
+
+		if input.resize_marketplace_catalog ~= nil then
+			self.kind = {
+				type = "resize_marketplace_catalog",
+				value = messages.ResizeMarketplaceCatalog.jsonDecode(input.resize_marketplace_catalog),
+			}
+		end
+
+		if input.resizeMarketplaceCatalog ~= nil then
+			self.kind = {
+				type = "resize_marketplace_catalog",
+				value = messages.ResizeMarketplaceCatalog.jsonDecode(input.resizeMarketplaceCatalog),
+			}
+		end
+
+		if input.open_marketplace_catalog_filters ~= nil then
+			self.kind = {
+				type = "open_marketplace_catalog_filters",
+				value = messages.OpenMarketplaceCatalogFilters.jsonDecode(input.open_marketplace_catalog_filters),
+			}
+		end
+
+		if input.openMarketplaceCatalogFilters ~= nil then
+			self.kind = {
+				type = "open_marketplace_catalog_filters",
+				value = messages.OpenMarketplaceCatalogFilters.jsonDecode(input.openMarketplaceCatalogFilters),
 			}
 		end
 
@@ -8836,13 +11063,25 @@ messages.ActionType = {
 		elseif value == 16 then
 			return "ACTION_TYPE_OPEN_PROFILE"
 		elseif value == 17 then
-			return "ACTION_TYPE_OPEN_FAE"
+			return "ACTION_TYPE_OPEN_FACIAL_AGE_ESTIMATION"
 		elseif value == 18 then
-			return "ACTION_TYPE_OPEN_ADD_CONNECTIONS"
+			return "ACTION_TYPE_OPEN_ADD_CONNECTIONS_PAGE"
 		elseif value == 19 then
 			return "ACTION_TYPE_OPEN_MARKETPLACE"
 		elseif value == 20 then
-			return "ACTION_TYPE_SEND_PROMPT_IMPRESSION"
+			return "ACTION_TYPE_HIDE_PROFILE_COMPLETION"
+		elseif value == 21 then
+			return "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_CATEGORY"
+		elseif value == 22 then
+			return "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_SUBCATEGORY"
+		elseif value == 23 then
+			return "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_SEE_ALL"
+		elseif value == 24 then
+			return "ACTION_TYPE_CLOSE_MARKETPLACE_CATEGORY_TOOLTIP"
+		elseif value == 25 then
+			return "ACTION_TYPE_RESIZE_MARKETPLACE_CATALOG"
+		elseif value == 26 then
+			return "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS"
 		else
 			return nil
 		end
@@ -8883,14 +11122,26 @@ messages.ActionType = {
 			return 15
 		elseif self == "ACTION_TYPE_OPEN_PROFILE" then
 			return 16
-		elseif self == "ACTION_TYPE_OPEN_FAE" then
+		elseif self == "ACTION_TYPE_OPEN_FACIAL_AGE_ESTIMATION" then
 			return 17
-		elseif self == "ACTION_TYPE_OPEN_ADD_CONNECTIONS" then
+		elseif self == "ACTION_TYPE_OPEN_ADD_CONNECTIONS_PAGE" then
 			return 18
 		elseif self == "ACTION_TYPE_OPEN_MARKETPLACE" then
 			return 19
-		elseif self == "ACTION_TYPE_SEND_PROMPT_IMPRESSION" then
+		elseif self == "ACTION_TYPE_HIDE_PROFILE_COMPLETION" then
 			return 20
+		elseif self == "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_CATEGORY" then
+			return 21
+		elseif self == "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_SUBCATEGORY" then
+			return 22
+		elseif self == "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_SEE_ALL" then
+			return 23
+		elseif self == "ACTION_TYPE_CLOSE_MARKETPLACE_CATEGORY_TOOLTIP" then
+			return 24
+		elseif self == "ACTION_TYPE_RESIZE_MARKETPLACE_CATALOG" then
+			return 25
+		elseif self == "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS" then
+			return 26
 		else
 			return self
 		end
@@ -8931,14 +11182,26 @@ messages.ActionType = {
 			return "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY"
 		elseif name == "ACTION_TYPE_OPEN_PROFILE" then
 			return "ACTION_TYPE_OPEN_PROFILE"
-		elseif name == "ACTION_TYPE_OPEN_FAE" then
-			return "ACTION_TYPE_OPEN_FAE"
-		elseif name == "ACTION_TYPE_OPEN_ADD_CONNECTIONS" then
-			return "ACTION_TYPE_OPEN_ADD_CONNECTIONS"
+		elseif name == "ACTION_TYPE_OPEN_FACIAL_AGE_ESTIMATION" then
+			return "ACTION_TYPE_OPEN_FACIAL_AGE_ESTIMATION"
+		elseif name == "ACTION_TYPE_OPEN_ADD_CONNECTIONS_PAGE" then
+			return "ACTION_TYPE_OPEN_ADD_CONNECTIONS_PAGE"
 		elseif name == "ACTION_TYPE_OPEN_MARKETPLACE" then
 			return "ACTION_TYPE_OPEN_MARKETPLACE"
-		elseif name == "ACTION_TYPE_SEND_PROMPT_IMPRESSION" then
-			return "ACTION_TYPE_SEND_PROMPT_IMPRESSION"
+		elseif name == "ACTION_TYPE_HIDE_PROFILE_COMPLETION" then
+			return "ACTION_TYPE_HIDE_PROFILE_COMPLETION"
+		elseif name == "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_CATEGORY" then
+			return "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_CATEGORY"
+		elseif name == "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_SUBCATEGORY" then
+			return "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_SUBCATEGORY"
+		elseif name == "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_SEE_ALL" then
+			return "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_SEE_ALL"
+		elseif name == "ACTION_TYPE_CLOSE_MARKETPLACE_CATEGORY_TOOLTIP" then
+			return "ACTION_TYPE_CLOSE_MARKETPLACE_CATEGORY_TOOLTIP"
+		elseif name == "ACTION_TYPE_RESIZE_MARKETPLACE_CATALOG" then
+			return "ACTION_TYPE_RESIZE_MARKETPLACE_CATALOG"
+		elseif name == "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS" then
+			return "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS"
 		else
 			return nil
 		end
@@ -8979,14 +11242,26 @@ return {
 	RemoveBadgeFromInventoryAction_Params = messages.RemoveBadgeFromInventoryAction_Params,
 	OpenProfileAction = messages.OpenProfileAction,
 	OpenProfileAction_Params = messages.OpenProfileAction_Params,
-	OpenFaeAction = messages.OpenFaeAction,
-	OpenFaeAction_Params = messages.OpenFaeAction_Params,
-	OpenAddConnectionsAction = messages.OpenAddConnectionsAction,
-	OpenAddConnectionsAction_Params = messages.OpenAddConnectionsAction_Params,
+	OpenFacialAgeEstimationAction = messages.OpenFacialAgeEstimationAction,
+	OpenFacialAgeEstimationAction_Params = messages.OpenFacialAgeEstimationAction_Params,
+	OpenAddConnectionsPageAction = messages.OpenAddConnectionsPageAction,
+	OpenAddConnectionsPageAction_Params = messages.OpenAddConnectionsPageAction_Params,
 	OpenMarketplaceAction = messages.OpenMarketplaceAction,
 	OpenMarketplaceAction_Params = messages.OpenMarketplaceAction_Params,
-	SendPromptImpression = messages.SendPromptImpression,
-	SendPromptImpression_Params = messages.SendPromptImpression_Params,
+	HideProfileCompletionAction = messages.HideProfileCompletionAction,
+	HideProfileCompletionAction_Params = messages.HideProfileCompletionAction_Params,
+	SelectMarketplaceCatalogCategory = messages.SelectMarketplaceCatalogCategory,
+	SelectMarketplaceCatalogCategory_Params = messages.SelectMarketplaceCatalogCategory_Params,
+	SelectMarketplaceCatalogSubcategory = messages.SelectMarketplaceCatalogSubcategory,
+	SelectMarketplaceCatalogSubcategory_Params = messages.SelectMarketplaceCatalogSubcategory_Params,
+	OpenMarketplaceCatalogSeeAll = messages.OpenMarketplaceCatalogSeeAll,
+	OpenMarketplaceCatalogSeeAll_Params = messages.OpenMarketplaceCatalogSeeAll_Params,
+	CloseMarketplaceCategoryTooltip = messages.CloseMarketplaceCategoryTooltip,
+	CloseMarketplaceCategoryTooltip_Params = messages.CloseMarketplaceCategoryTooltip_Params,
+	ResizeMarketplaceCatalog = messages.ResizeMarketplaceCatalog,
+	ResizeMarketplaceCatalog_Params = messages.ResizeMarketplaceCatalog_Params,
+	OpenMarketplaceCatalogFilters = messages.OpenMarketplaceCatalogFilters,
+	OpenMarketplaceCatalogFilters_Params = messages.OpenMarketplaceCatalogFilters_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

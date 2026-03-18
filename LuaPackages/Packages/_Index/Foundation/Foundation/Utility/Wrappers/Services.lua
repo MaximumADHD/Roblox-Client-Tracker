@@ -1,4 +1,5 @@
 export type MockServices = {
+	ContentProvider: { [any]: any }?,
 	CoreGui: { [any]: any }?,
 	GuiService: { [any]: any }?,
 	LocalizationService: { [any]: any }?,
@@ -9,6 +10,7 @@ export type MockServices = {
 }
 
 local Services = {
+	ContentProvider = game:GetService("ContentProvider"),
 	CoreGui = game:GetService("CoreGui"),
 	GuiService = game:GetService("GuiService"),
 	LocalizationService = game:GetService("LocalizationService"),

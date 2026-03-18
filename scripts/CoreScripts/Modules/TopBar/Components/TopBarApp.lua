@@ -75,6 +75,7 @@ local FFlagUseNewHeadsetDisconnectDialog = game:DefineFastFlag("UseNewHeadsetDis
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
+local FFlagDisableGamepadConnectorInVR = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagDisableGamepadConnectorInVR
 
 local Unibar
 local KeepOutAreasHandler
@@ -330,7 +331,20 @@ function TopBarApp:didMount()
 		end)
 
 		if FFlagEnableConsoleExpControls then
-			self.GamepadConnector:connectToTopbar()
+			if FFlagDisableGamepadConnectorInVR then
+				if not isSpatial() then
+					self.GamepadConnector:connectToTopbar()
+				end
+				self.vrEnabledConnection = VRService:GetPropertyChangedSignal("VREnabled"):Connect(function()
+					if isSpatial() then
+						self.GamepadConnector:disconnectFromTopbar()
+					else
+						self.GamepadConnector:connectToTopbar()
+					end
+				end)
+			else
+				self.GamepadConnector:connectToTopbar()
+			end
 		end
 	end
 end
@@ -343,6 +357,12 @@ function TopBarApp:willUnmount()
 		end
 
 		if FFlagEnableConsoleExpControls then
+			if FFlagDisableGamepadConnectorInVR then
+				if self.vrEnabledConnection then
+					self.vrEnabledConnection:Disconnect()
+					self.vrEnabledConnection = nil
+				end
+			end
 			self.GamepadConnector:disconnectFromTopbar()
 		end
 	end

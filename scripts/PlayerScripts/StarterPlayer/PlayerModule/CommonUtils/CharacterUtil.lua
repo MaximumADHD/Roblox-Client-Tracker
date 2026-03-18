@@ -1,6 +1,8 @@
 --!strict
 --[[
-    Utility for handing LocalPlayer, Character and instances under Character (including Humanoid)
+    Utility for handing LocalPlayer, Character and instances under Character (including Humanoid). This utility is exclusively
+    for handling player/character on the client and does not work for the server.
+
     This is a static class.
 --]]
 

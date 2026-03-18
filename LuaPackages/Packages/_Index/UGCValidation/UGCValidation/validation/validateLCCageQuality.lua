@@ -3,7 +3,6 @@ local root = script.Parent.Parent
 local getCageMeshInfos = require(root.validation.getCageMeshInfos)
 
 local getFStringLCCageQualityDocumentationLink = require(root.flags.getFStringLCCageQualityDocumentationLink)
-local getFFlagUGCValidationHyperlinksInCageQuality = require(root.flags.getFFlagUGCValidationHyperlinksInCageQuality)
 local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
 
 local validateVerticesSimilarity = require(root.validation.validateVerticesSimilarity)
@@ -130,16 +129,8 @@ local function validateLCCageQuality(
 
 	if not validationResult then
 		if getFStringLCCageQualityDocumentationLink() ~= "" then
-			local urlErrorMessage
-			if getFFlagUGCValidationHyperlinksInCageQuality() then
-				urlErrorMessage =
-					string.format("[Caging best practices](%s)", getFStringLCCageQualityDocumentationLink())
-			else
-				urlErrorMessage = string.format(
-					"To better understand caging requirements, please visit %s",
-					getFStringLCCageQualityDocumentationLink()
-				)
-			end
+			local urlErrorMessage =
+				string.format("[Caging best practices](%s)", getFStringLCCageQualityDocumentationLink())
 
 			table.insert(issues, urlErrorMessage)
 		end

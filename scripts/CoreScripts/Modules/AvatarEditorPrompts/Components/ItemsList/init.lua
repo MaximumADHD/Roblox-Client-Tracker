@@ -7,10 +7,12 @@ local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local Skeleton = Foundation.Skeleton
+
 
 local VerticalScrollViewWithMargin = UIBlox.App.Container.VerticalScrollViewWithMargin
 local withStyle = UIBlox.Style.withStyle
-local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local EmptyState = UIBlox.App.Indicator.EmptyState
 
 local ListSection = require(script.ListSection)
@@ -290,7 +292,7 @@ function ItemsList:renderItemsList()
 end
 
 function ItemsList:renderLoading()
-	return Roact.createElement(ShimmerPanel, {
+	return Roact.createElement(Skeleton, {
 		Size = UDim2.fromScale(1, 1),
 		Position = UDim2.fromScale(0.5, 0.5),
 		AnchorPoint = Vector2.new(0.5, 0.5),

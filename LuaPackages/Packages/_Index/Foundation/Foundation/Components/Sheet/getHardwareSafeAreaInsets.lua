@@ -38,9 +38,7 @@ local function getHardwareSafeAreaInsets(): HardwareInsets
 		local deviceGui = Instance.new("ScreenGui")
 		deviceGui.Name = "_DeviceTestGui"
 		deviceGui.Parent = mainGui
-		deviceGui.ScreenInsets = if Flags.FoundationOverlayLuaAppInsetsFix
-			then Enum.ScreenInsets.CoreUISafeInsets
-			else Enum.ScreenInsets.DeviceSafeInsets
+		deviceGui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
 
 		local tlInset = deviceGui.AbsolutePosition - fullscreenGui.AbsolutePosition
 		local brInset = fullscreenGui.AbsolutePosition

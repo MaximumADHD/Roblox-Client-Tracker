@@ -6,22 +6,118 @@
 local proto = require(script.Parent.Parent.Parent.Parent.Parent.proto)
 local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry)
 
-type _Messages = {
-	PageEntryInputData: _PageEntryInputDataMessage,
-	BadgesGridInputData: _BadgesGridInputDataMessage,
-	BadgesGridInputData_BadgeInputData: _BadgesGridInputData_BadgeInputDataMessage,
-	BadgeDetailsInputData: _BadgeDetailsInputDataMessage,
-	BadgeDetailsInputData_LocalizedLiterals: _BadgeDetailsInputData_LocalizedLiteralsMessage,
-	BadgeDetailsInputData_LocalizedLiterals_InfoTable: _BadgeDetailsInputData_LocalizedLiterals_InfoTableMessage,
-	BadgeDetailsInputData_LocalizedLiterals_ActionModule: _BadgeDetailsInputData_LocalizedLiterals_ActionModuleMessage,
-	BadgeDetailsInputData_LocalizedLiterals_OverflowMenu: _BadgeDetailsInputData_LocalizedLiterals_OverflowMenuMessage,
-	StaticInputData: _StaticInputDataMessage,
-	PromptsInputData: _PromptsInputDataMessage,
-	PromptsInputData_CardContainerCardInputData: _PromptsInputData_CardContainerCardInputDataMessage,
-	PromptsInputData_CardInputData: _PromptsInputData_CardInputDataMessage,
-	PromptsInputData_CardContainerInputData: _PromptsInputData_CardContainerInputDataMessage,
-}
+type _Messages =
+	{
+		UniversalPageEntry: _UniversalPageEntryMessage,
+		FeedEntry: _FeedEntryMessage,
+		PageEntryInputData: _PageEntryInputDataMessage,
+		BadgesGridInputData: _BadgesGridInputDataMessage,
+		BadgesGridInputData_BadgeInputData: _BadgesGridInputData_BadgeInputDataMessage,
+		BadgeDetailsInputData: _BadgeDetailsInputDataMessage,
+		BadgeDetailsInputData_LocalizedLiterals: _BadgeDetailsInputData_LocalizedLiteralsMessage,
+		BadgeDetailsInputData_LocalizedLiterals_InfoTable: _BadgeDetailsInputData_LocalizedLiterals_InfoTableMessage,
+		BadgeDetailsInputData_LocalizedLiterals_ActionModule: _BadgeDetailsInputData_LocalizedLiterals_ActionModuleMessage,
+		BadgeDetailsInputData_LocalizedLiterals_OverflowMenu: _BadgeDetailsInputData_LocalizedLiterals_OverflowMenuMessage,
+		StaticInputData: _StaticInputDataMessage,
+		ExperienceDetailsFeedInputData: _ExperienceDetailsFeedInputDataMessage,
+		ExperienceDetailsFeedInputData_EntryMapEntry: _ExperienceDetailsFeedInputData_EntryMapEntryMessage,
+		ExperienceDetailsActionBarInputData: _ExperienceDetailsActionBarInputDataMessage,
+		ExperienceAttributionRowInputData: _ExperienceAttributionRowInputDataMessage,
+		ExperienceActionModuleInputData: _ExperienceActionModuleInputDataMessage,
+		ExperienceMediaGalleryInputData: _ExperienceMediaGalleryInputDataMessage,
+		ExperienceMediaGalleryInputData_MediaItem: _ExperienceMediaGalleryInputData_MediaItemMessage,
+		ExperienceDescriptionInputData: _ExperienceDescriptionInputDataMessage,
+		ExperienceStatRowInputData: _ExperienceStatRowInputDataMessage,
+		ExperienceInfoTableInputData: _ExperienceInfoTableInputDataMessage,
+		SocialLinkRowInputData: _SocialLinkRowInputDataMessage,
+		SocialLinkRowInputData_SocialLinkItem: _SocialLinkRowInputData_SocialLinkItemMessage,
+		ExperienceCarouselInputData: _ExperienceCarouselInputDataMessage,
+		ExperienceCarouselInputData_UniverseItem: _ExperienceCarouselInputData_UniverseItemMessage,
+		SongCarouselInputData: _SongCarouselInputDataMessage,
+		SongCarouselInputData_SongItem: _SongCarouselInputData_SongItemMessage,
+		EventsCarouselInputData: _EventsCarouselInputDataMessage,
+		EventsCarouselInputData_EventItem: _EventsCarouselInputData_EventItemMessage,
+		DevStoreFeedInputData: _DevStoreFeedInputDataMessage,
+		DevStoreFeedInputData_EntryMapEntry: _DevStoreFeedInputData_EntryMapEntryMessage,
+		GamePassesGridInputData: _GamePassesGridInputDataMessage,
+		GamePassesGridInputData_GamePassItem: _GamePassesGridInputData_GamePassItemMessage,
+		GameDeveloperProductsGridInputData: _GameDeveloperProductsGridInputDataMessage,
+		GameDeveloperProductsGridInputData_DeveloperProductItem: _GameDeveloperProductsGridInputData_DeveloperProductItemMessage,
+		GameSubscriptionsGridInputData: _GameSubscriptionsGridInputDataMessage,
+		GameSubscriptionsGridInputData_SubscriptionItem: _GameSubscriptionsGridInputData_SubscriptionItemMessage,
+		CardContainerCardInputData: _CardContainerCardInputDataMessage,
+		CardContainerInputData: _CardContainerInputDataMessage,
+		CardInputData: _CardInputDataMessage,
+		DialogInputData: _DialogInputDataMessage,
+		BannerInputData: _BannerInputDataMessage,
+		TooltipInputData: _TooltipInputDataMessage,
+		EventDetailsFeedInputData: _EventDetailsFeedInputDataMessage,
+		EventDetailsFeedInputData_EntryMapEntry: _EventDetailsFeedInputData_EntryMapEntryMessage,
+		ChartsFeedInputData: _ChartsFeedInputDataMessage,
+		ChartsFeedInputData_EntryMapEntry: _ChartsFeedInputData_EntryMapEntryMessage,
+		FilterPillsInputData: _FilterPillsInputDataMessage,
+		FilterPillsInputData_FilterGroup: _FilterPillsInputData_FilterGroupMessage,
+		FilterPillsInputData_FilterOption: _FilterPillsInputData_FilterOptionMessage,
+		SortSelectorInputData: _SortSelectorInputDataMessage,
+		SortSelectorInputData_SortOption: _SortSelectorInputData_SortOptionMessage,
+		UAMarketplaceCatalogItemGroupInputData: _UAMarketplaceCatalogItemGroupInputDataMessage,
+		UAMarketplaceCatalogItemCarouselInputData: _UAMarketplaceCatalogItemCarouselInputDataMessage,
+		UAMarketplaceCatalogFeedInputData: _UAMarketplaceCatalogFeedInputDataMessage,
+		UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem: _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemMessage,
+		UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry: _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryMessage,
+		UAMarketplaceCatalogCategoryMenuInputData: _UAMarketplaceCatalogCategoryMenuInputDataMessage,
+		UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem: _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemMessage,
+		PageEntryFormat: _PageEntryFormatMessage,
+	}
 local messages: _Messages = {} :: _Messages
+
+local _roblox_apppageplatform_shared_v1beta1_page_entry = require(script.Parent.page_entry)
+
+type _UniversalPageEntryImpl = {
+	__index: _UniversalPageEntryImpl,
+	new: (fields: _UniversalPageEntryPartialFields?) -> UniversalPageEntry,
+	encode: (self: UniversalPageEntry) -> buffer,
+	decode: (input: buffer) -> UniversalPageEntry,
+	jsonEncode: (self: UniversalPageEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UniversalPageEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _UniversalPageEntryFields = {
+	page_entry: _roblox_apppageplatform_shared_v1beta1_page_entry.PageEntry?,
+	input_data: PageEntryInputData?,
+}
+
+type _UniversalPageEntryPartialFields = {
+	page_entry: _roblox_apppageplatform_shared_v1beta1_page_entry.PageEntry?,
+	input_data: PageEntryInputData?,
+}
+
+export type UniversalPageEntry = typeof(setmetatable({} :: _UniversalPageEntryFields, {} :: _UniversalPageEntryImpl))
+type _UniversalPageEntryMessage = proto.Message<UniversalPageEntry, _UniversalPageEntryPartialFields>
+
+type _FeedEntryImpl = {
+	__index: _FeedEntryImpl,
+	new: (fields: _FeedEntryPartialFields?) -> FeedEntry,
+	encode: (self: FeedEntry) -> buffer,
+	decode: (input: buffer) -> FeedEntry,
+	jsonEncode: (self: FeedEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FeedEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _FeedEntryFields = {
+	input_data: PageEntryInputData?,
+	roblox_component: string,
+}
+
+type _FeedEntryPartialFields = {
+	input_data: PageEntryInputData?,
+	roblox_component: string?,
+}
+
+export type FeedEntry = typeof(setmetatable({} :: _FeedEntryFields, {} :: _FeedEntryImpl))
+type _FeedEntryMessage = proto.Message<FeedEntry, _FeedEntryPartialFields>
 
 type _PageEntryInputDataImpl = {
 	__index: _PageEntryInputDataImpl,
@@ -38,7 +134,35 @@ type _PageEntryInputDataFields = {
 		{ type: "badges_grid", value: BadgesGridInputData }
 		| { type: "badge_details", value: BadgeDetailsInputData }
 		| { type: "static_content", value: StaticInputData }
-		| { type: "prompts", value: PromptsInputData }
+		| { type: "experience_attribution_row", value: ExperienceAttributionRowInputData }
+		| { type: "experience_action_module", value: ExperienceActionModuleInputData }
+		| { type: "experience_media_gallery", value: ExperienceMediaGalleryInputData }
+		| { type: "experience_description", value: ExperienceDescriptionInputData }
+		| { type: "experience_stat_row", value: ExperienceStatRowInputData }
+		| { type: "experience_info_table", value: ExperienceInfoTableInputData }
+		| { type: "social_link_row", value: SocialLinkRowInputData }
+		| { type: "experience_carousel", value: ExperienceCarouselInputData }
+		| { type: "song_carousel", value: SongCarouselInputData }
+		| { type: "events_carousel", value: EventsCarouselInputData }
+		| { type: "game_passes_grid", value: GamePassesGridInputData }
+		| { type: "developer_products_grid", value: GameDeveloperProductsGridInputData }
+		| { type: "subscriptions_grid", value: GameSubscriptionsGridInputData }
+		| { type: "card_container", value: CardContainerInputData }
+		| { type: "card", value: CardInputData }
+		| { type: "dialog", value: DialogInputData }
+		| { type: "banner", value: BannerInputData }
+		| { type: "tooltip", value: TooltipInputData }
+		| { type: "experience_details_feed", value: ExperienceDetailsFeedInputData }
+		| { type: "experience_details_action_bar", value: ExperienceDetailsActionBarInputData }
+		| { type: "event_details_feed", value: EventDetailsFeedInputData }
+		| { type: "dev_store_feed", value: DevStoreFeedInputData }
+		| { type: "charts_feed", value: ChartsFeedInputData }
+		| { type: "filter_pills", value: FilterPillsInputData }
+		| { type: "sort_selector", value: SortSelectorInputData }
+		| { type: "marketplace_catalog_feed", value: UAMarketplaceCatalogFeedInputData }
+		| { type: "marketplace_catalog_category_menu", value: UAMarketplaceCatalogCategoryMenuInputData }
+		| { type: "marketplace_catalog_item_group", value: UAMarketplaceCatalogItemGroupInputData }
+		| { type: "marketplace_catalog_item_carousel", value: UAMarketplaceCatalogItemCarouselInputData }
 	)?,
 }
 
@@ -47,7 +171,35 @@ type _PageEntryInputDataPartialFields = {
 		{ type: "badges_grid", value: BadgesGridInputData }
 		| { type: "badge_details", value: BadgeDetailsInputData }
 		| { type: "static_content", value: StaticInputData }
-		| { type: "prompts", value: PromptsInputData }
+		| { type: "experience_attribution_row", value: ExperienceAttributionRowInputData }
+		| { type: "experience_action_module", value: ExperienceActionModuleInputData }
+		| { type: "experience_media_gallery", value: ExperienceMediaGalleryInputData }
+		| { type: "experience_description", value: ExperienceDescriptionInputData }
+		| { type: "experience_stat_row", value: ExperienceStatRowInputData }
+		| { type: "experience_info_table", value: ExperienceInfoTableInputData }
+		| { type: "social_link_row", value: SocialLinkRowInputData }
+		| { type: "experience_carousel", value: ExperienceCarouselInputData }
+		| { type: "song_carousel", value: SongCarouselInputData }
+		| { type: "events_carousel", value: EventsCarouselInputData }
+		| { type: "game_passes_grid", value: GamePassesGridInputData }
+		| { type: "developer_products_grid", value: GameDeveloperProductsGridInputData }
+		| { type: "subscriptions_grid", value: GameSubscriptionsGridInputData }
+		| { type: "card_container", value: CardContainerInputData }
+		| { type: "card", value: CardInputData }
+		| { type: "dialog", value: DialogInputData }
+		| { type: "banner", value: BannerInputData }
+		| { type: "tooltip", value: TooltipInputData }
+		| { type: "experience_details_feed", value: ExperienceDetailsFeedInputData }
+		| { type: "experience_details_action_bar", value: ExperienceDetailsActionBarInputData }
+		| { type: "event_details_feed", value: EventDetailsFeedInputData }
+		| { type: "dev_store_feed", value: DevStoreFeedInputData }
+		| { type: "charts_feed", value: ChartsFeedInputData }
+		| { type: "filter_pills", value: FilterPillsInputData }
+		| { type: "sort_selector", value: SortSelectorInputData }
+		| { type: "marketplace_catalog_feed", value: UAMarketplaceCatalogFeedInputData }
+		| { type: "marketplace_catalog_category_menu", value: UAMarketplaceCatalogCategoryMenuInputData }
+		| { type: "marketplace_catalog_item_group", value: UAMarketplaceCatalogItemGroupInputData }
+		| { type: "marketplace_catalog_item_carousel", value: UAMarketplaceCatalogItemCarouselInputData }
 	)?,
 }
 
@@ -291,137 +443,1613 @@ type _StaticInputDataPartialFields = {}
 export type StaticInputData = typeof(setmetatable({} :: _StaticInputDataFields, {} :: _StaticInputDataImpl))
 type _StaticInputDataMessage = proto.Message<StaticInputData, _StaticInputDataPartialFields>
 
-type _PromptsInputDataImpl = {
-	__index: _PromptsInputDataImpl,
-	new: (fields: _PromptsInputDataPartialFields?) -> PromptsInputData,
-	encode: (self: PromptsInputData) -> buffer,
-	decode: (input: buffer) -> PromptsInputData,
-	jsonEncode: (self: PromptsInputData) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> PromptsInputData,
+type _ExperienceDetailsFeedInputDataImpl = {
+	__index: _ExperienceDetailsFeedInputDataImpl,
+	new: (fields: _ExperienceDetailsFeedInputDataPartialFields?) -> ExperienceDetailsFeedInputData,
+	encode: (self: ExperienceDetailsFeedInputData) -> buffer,
+	decode: (input: buffer) -> ExperienceDetailsFeedInputData,
+	jsonEncode: (self: ExperienceDetailsFeedInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceDetailsFeedInputData,
 	descriptor: proto.Descriptor,
 }
 
-type _PromptsInputDataFields = {
-	kind: (
-		{ type: "card_container", value: PromptsInputData_CardContainerInputData }
-		| { type: "card", value: PromptsInputData_CardInputData }
-	)?,
+type _ExperienceDetailsFeedInputDataFields = {
+	universe_id: string,
+	creator_key: string,
+	entry_map: { [string]: FeedEntry },
+	entry_order: { string },
 }
 
-type _PromptsInputDataPartialFields = {
-	kind: (
-		{ type: "card_container", value: PromptsInputData_CardContainerInputData }
-		| { type: "card", value: PromptsInputData_CardInputData }
-	)?,
+type _ExperienceDetailsFeedInputDataPartialFields = {
+	universe_id: string?,
+	creator_key: string?,
+	entry_map: { [string]: FeedEntry }?,
+	entry_order: { string }?,
 }
 
-export type PromptsInputData = typeof(setmetatable({} :: _PromptsInputDataFields, {} :: _PromptsInputDataImpl))
-type _PromptsInputDataMessage = proto.Message<PromptsInputData, _PromptsInputDataPartialFields>
+export type ExperienceDetailsFeedInputData = typeof(setmetatable(
+	{} :: _ExperienceDetailsFeedInputDataFields,
+	{} :: _ExperienceDetailsFeedInputDataImpl
+))
+type _ExperienceDetailsFeedInputDataMessage = proto.Message<
+	ExperienceDetailsFeedInputData,
+	_ExperienceDetailsFeedInputDataPartialFields
+>
 
-type _PromptsInputData_CardContainerCardInputDataImpl = {
-	__index: _PromptsInputData_CardContainerCardInputDataImpl,
+type _ExperienceDetailsFeedInputData_EntryMapEntryImpl = {
+	__index: _ExperienceDetailsFeedInputData_EntryMapEntryImpl,
 	new: (
-		fields: _PromptsInputData_CardContainerCardInputDataPartialFields?
-	) -> PromptsInputData_CardContainerCardInputData,
-	encode: (self: PromptsInputData_CardContainerCardInputData) -> buffer,
-	decode: (input: buffer) -> PromptsInputData_CardContainerCardInputData,
-	jsonEncode: (self: PromptsInputData_CardContainerCardInputData) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> PromptsInputData_CardContainerCardInputData,
+		fields: _ExperienceDetailsFeedInputData_EntryMapEntryPartialFields?
+	) -> ExperienceDetailsFeedInputData_EntryMapEntry,
+	encode: (self: ExperienceDetailsFeedInputData_EntryMapEntry) -> buffer,
+	decode: (input: buffer) -> ExperienceDetailsFeedInputData_EntryMapEntry,
+	jsonEncode: (self: ExperienceDetailsFeedInputData_EntryMapEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceDetailsFeedInputData_EntryMapEntry,
 	descriptor: proto.Descriptor,
 }
 
-type _PromptsInputData_CardContainerCardInputDataFields = {
+type _ExperienceDetailsFeedInputData_EntryMapEntryFields = {
+	key: string,
+	value: FeedEntry?,
+}
+
+type _ExperienceDetailsFeedInputData_EntryMapEntryPartialFields = {
+	key: string?,
+	value: FeedEntry?,
+}
+
+export type ExperienceDetailsFeedInputData_EntryMapEntry = typeof(setmetatable(
+	{} :: _ExperienceDetailsFeedInputData_EntryMapEntryFields,
+	{} :: _ExperienceDetailsFeedInputData_EntryMapEntryImpl
+))
+type _ExperienceDetailsFeedInputData_EntryMapEntryMessage = proto.Message<
+	ExperienceDetailsFeedInputData_EntryMapEntry,
+	_ExperienceDetailsFeedInputData_EntryMapEntryPartialFields
+>
+
+type _ExperienceDetailsActionBarInputDataImpl = {
+	__index: _ExperienceDetailsActionBarInputDataImpl,
+	new: (fields: _ExperienceDetailsActionBarInputDataPartialFields?) -> ExperienceDetailsActionBarInputData,
+	encode: (self: ExperienceDetailsActionBarInputData) -> buffer,
+	decode: (input: buffer) -> ExperienceDetailsActionBarInputData,
+	jsonEncode: (self: ExperienceDetailsActionBarInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceDetailsActionBarInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceDetailsActionBarInputDataFields = {
+	universe_id: string,
+}
+
+type _ExperienceDetailsActionBarInputDataPartialFields = {
+	universe_id: string?,
+}
+
+export type ExperienceDetailsActionBarInputData = typeof(setmetatable(
+	{} :: _ExperienceDetailsActionBarInputDataFields,
+	{} :: _ExperienceDetailsActionBarInputDataImpl
+))
+type _ExperienceDetailsActionBarInputDataMessage = proto.Message<
+	ExperienceDetailsActionBarInputData,
+	_ExperienceDetailsActionBarInputDataPartialFields
+>
+
+type _ExperienceAttributionRowInputDataImpl = {
+	__index: _ExperienceAttributionRowInputDataImpl,
+	new: (fields: _ExperienceAttributionRowInputDataPartialFields?) -> ExperienceAttributionRowInputData,
+	encode: (self: ExperienceAttributionRowInputData) -> buffer,
+	decode: (input: buffer) -> ExperienceAttributionRowInputData,
+	jsonEncode: (self: ExperienceAttributionRowInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceAttributionRowInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceAttributionRowInputDataFields = {
+	universe_id: string,
+	creator_key: string,
+}
+
+type _ExperienceAttributionRowInputDataPartialFields = {
+	universe_id: string?,
+	creator_key: string?,
+}
+
+export type ExperienceAttributionRowInputData = typeof(setmetatable(
+	{} :: _ExperienceAttributionRowInputDataFields,
+	{} :: _ExperienceAttributionRowInputDataImpl
+))
+type _ExperienceAttributionRowInputDataMessage = proto.Message<
+	ExperienceAttributionRowInputData,
+	_ExperienceAttributionRowInputDataPartialFields
+>
+
+type _ExperienceActionModuleInputDataImpl = {
+	__index: _ExperienceActionModuleInputDataImpl,
+	new: (fields: _ExperienceActionModuleInputDataPartialFields?) -> ExperienceActionModuleInputData,
+	encode: (self: ExperienceActionModuleInputData) -> buffer,
+	decode: (input: buffer) -> ExperienceActionModuleInputData,
+	jsonEncode: (self: ExperienceActionModuleInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceActionModuleInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceActionModuleInputDataFields = {
+	universe_id: string,
+}
+
+type _ExperienceActionModuleInputDataPartialFields = {
+	universe_id: string?,
+}
+
+export type ExperienceActionModuleInputData = typeof(setmetatable(
+	{} :: _ExperienceActionModuleInputDataFields,
+	{} :: _ExperienceActionModuleInputDataImpl
+))
+type _ExperienceActionModuleInputDataMessage = proto.Message<
+	ExperienceActionModuleInputData,
+	_ExperienceActionModuleInputDataPartialFields
+>
+
+type _ExperienceMediaGalleryInputDataImpl = {
+	__index: _ExperienceMediaGalleryInputDataImpl,
+	new: (fields: _ExperienceMediaGalleryInputDataPartialFields?) -> ExperienceMediaGalleryInputData,
+	encode: (self: ExperienceMediaGalleryInputData) -> buffer,
+	decode: (input: buffer) -> ExperienceMediaGalleryInputData,
+	jsonEncode: (self: ExperienceMediaGalleryInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceMediaGalleryInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceMediaGalleryInputDataFields = {
+	media_items: { ExperienceMediaGalleryInputData_MediaItem },
+}
+
+type _ExperienceMediaGalleryInputDataPartialFields = {
+	media_items: { ExperienceMediaGalleryInputData_MediaItem }?,
+}
+
+export type ExperienceMediaGalleryInputData = typeof(setmetatable(
+	{} :: _ExperienceMediaGalleryInputDataFields,
+	{} :: _ExperienceMediaGalleryInputDataImpl
+))
+type _ExperienceMediaGalleryInputDataMessage = proto.Message<
+	ExperienceMediaGalleryInputData,
+	_ExperienceMediaGalleryInputDataPartialFields
+>
+
+type _ExperienceMediaGalleryInputData_MediaItemImpl = {
+	__index: _ExperienceMediaGalleryInputData_MediaItemImpl,
+	new: (
+		fields: _ExperienceMediaGalleryInputData_MediaItemPartialFields?
+	) -> ExperienceMediaGalleryInputData_MediaItem,
+	encode: (self: ExperienceMediaGalleryInputData_MediaItem) -> buffer,
+	decode: (input: buffer) -> ExperienceMediaGalleryInputData_MediaItem,
+	jsonEncode: (self: ExperienceMediaGalleryInputData_MediaItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceMediaGalleryInputData_MediaItem,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceMediaGalleryInputData_MediaItemFields = {
+	media_asset_id: string,
+}
+
+type _ExperienceMediaGalleryInputData_MediaItemPartialFields = {
+	media_asset_id: string?,
+}
+
+export type ExperienceMediaGalleryInputData_MediaItem = typeof(setmetatable(
+	{} :: _ExperienceMediaGalleryInputData_MediaItemFields,
+	{} :: _ExperienceMediaGalleryInputData_MediaItemImpl
+))
+type _ExperienceMediaGalleryInputData_MediaItemMessage = proto.Message<
+	ExperienceMediaGalleryInputData_MediaItem,
+	_ExperienceMediaGalleryInputData_MediaItemPartialFields
+>
+
+type _ExperienceDescriptionInputDataImpl = {
+	__index: _ExperienceDescriptionInputDataImpl,
+	new: (fields: _ExperienceDescriptionInputDataPartialFields?) -> ExperienceDescriptionInputData,
+	encode: (self: ExperienceDescriptionInputData) -> buffer,
+	decode: (input: buffer) -> ExperienceDescriptionInputData,
+	jsonEncode: (self: ExperienceDescriptionInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceDescriptionInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceDescriptionInputDataFields = {
+	universe_id: string,
+}
+
+type _ExperienceDescriptionInputDataPartialFields = {
+	universe_id: string?,
+}
+
+export type ExperienceDescriptionInputData = typeof(setmetatable(
+	{} :: _ExperienceDescriptionInputDataFields,
+	{} :: _ExperienceDescriptionInputDataImpl
+))
+type _ExperienceDescriptionInputDataMessage = proto.Message<
+	ExperienceDescriptionInputData,
+	_ExperienceDescriptionInputDataPartialFields
+>
+
+type _ExperienceStatRowInputDataImpl = {
+	__index: _ExperienceStatRowInputDataImpl,
+	new: (fields: _ExperienceStatRowInputDataPartialFields?) -> ExperienceStatRowInputData,
+	encode: (self: ExperienceStatRowInputData) -> buffer,
+	decode: (input: buffer) -> ExperienceStatRowInputData,
+	jsonEncode: (self: ExperienceStatRowInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceStatRowInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceStatRowInputDataFields = {
+	universe_id: string,
+}
+
+type _ExperienceStatRowInputDataPartialFields = {
+	universe_id: string?,
+}
+
+export type ExperienceStatRowInputData = typeof(setmetatable(
+	{} :: _ExperienceStatRowInputDataFields,
+	{} :: _ExperienceStatRowInputDataImpl
+))
+type _ExperienceStatRowInputDataMessage = proto.Message<
+	ExperienceStatRowInputData,
+	_ExperienceStatRowInputDataPartialFields
+>
+
+type _ExperienceInfoTableInputDataImpl = {
+	__index: _ExperienceInfoTableInputDataImpl,
+	new: (fields: _ExperienceInfoTableInputDataPartialFields?) -> ExperienceInfoTableInputData,
+	encode: (self: ExperienceInfoTableInputData) -> buffer,
+	decode: (input: buffer) -> ExperienceInfoTableInputData,
+	jsonEncode: (self: ExperienceInfoTableInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceInfoTableInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceInfoTableInputDataFields = {
+	universe_id: string,
+}
+
+type _ExperienceInfoTableInputDataPartialFields = {
+	universe_id: string?,
+}
+
+export type ExperienceInfoTableInputData = typeof(setmetatable(
+	{} :: _ExperienceInfoTableInputDataFields,
+	{} :: _ExperienceInfoTableInputDataImpl
+))
+type _ExperienceInfoTableInputDataMessage = proto.Message<
+	ExperienceInfoTableInputData,
+	_ExperienceInfoTableInputDataPartialFields
+>
+
+type _SocialLinkRowInputDataImpl = {
+	__index: _SocialLinkRowInputDataImpl,
+	new: (fields: _SocialLinkRowInputDataPartialFields?) -> SocialLinkRowInputData,
+	encode: (self: SocialLinkRowInputData) -> buffer,
+	decode: (input: buffer) -> SocialLinkRowInputData,
+	jsonEncode: (self: SocialLinkRowInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SocialLinkRowInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _SocialLinkRowInputDataFields = {
+	social_link_items: { SocialLinkRowInputData_SocialLinkItem },
+}
+
+type _SocialLinkRowInputDataPartialFields = {
+	social_link_items: { SocialLinkRowInputData_SocialLinkItem }?,
+}
+
+export type SocialLinkRowInputData = typeof(setmetatable(
+	{} :: _SocialLinkRowInputDataFields,
+	{} :: _SocialLinkRowInputDataImpl
+))
+type _SocialLinkRowInputDataMessage = proto.Message<SocialLinkRowInputData, _SocialLinkRowInputDataPartialFields>
+
+type _SocialLinkRowInputData_SocialLinkItemImpl = {
+	__index: _SocialLinkRowInputData_SocialLinkItemImpl,
+	new: (fields: _SocialLinkRowInputData_SocialLinkItemPartialFields?) -> SocialLinkRowInputData_SocialLinkItem,
+	encode: (self: SocialLinkRowInputData_SocialLinkItem) -> buffer,
+	decode: (input: buffer) -> SocialLinkRowInputData_SocialLinkItem,
+	jsonEncode: (self: SocialLinkRowInputData_SocialLinkItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SocialLinkRowInputData_SocialLinkItem,
+	descriptor: proto.Descriptor,
+}
+
+type _SocialLinkRowInputData_SocialLinkItemFields = {
+	social_link_id: string,
+}
+
+type _SocialLinkRowInputData_SocialLinkItemPartialFields = {
+	social_link_id: string?,
+}
+
+export type SocialLinkRowInputData_SocialLinkItem = typeof(setmetatable(
+	{} :: _SocialLinkRowInputData_SocialLinkItemFields,
+	{} :: _SocialLinkRowInputData_SocialLinkItemImpl
+))
+type _SocialLinkRowInputData_SocialLinkItemMessage = proto.Message<
+	SocialLinkRowInputData_SocialLinkItem,
+	_SocialLinkRowInputData_SocialLinkItemPartialFields
+>
+
+type _ExperienceCarouselInputDataImpl = {
+	__index: _ExperienceCarouselInputDataImpl,
+	new: (fields: _ExperienceCarouselInputDataPartialFields?) -> ExperienceCarouselInputData,
+	encode: (self: ExperienceCarouselInputData) -> buffer,
+	decode: (input: buffer) -> ExperienceCarouselInputData,
+	jsonEncode: (self: ExperienceCarouselInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceCarouselInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceCarouselInputDataFields = {
+	title: string,
+	universe_items: { ExperienceCarouselInputData_UniverseItem },
+	next_page_token: string,
+	sort_id: string,
+	secondary_sort_id: number,
+}
+
+type _ExperienceCarouselInputDataPartialFields = {
+	title: string?,
+	universe_items: { ExperienceCarouselInputData_UniverseItem }?,
+	next_page_token: string?,
+	sort_id: string?,
+	secondary_sort_id: number?,
+}
+
+export type ExperienceCarouselInputData = typeof(setmetatable(
+	{} :: _ExperienceCarouselInputDataFields,
+	{} :: _ExperienceCarouselInputDataImpl
+))
+type _ExperienceCarouselInputDataMessage = proto.Message<
+	ExperienceCarouselInputData,
+	_ExperienceCarouselInputDataPartialFields
+>
+
+type _ExperienceCarouselInputData_UniverseItemImpl = {
+	__index: _ExperienceCarouselInputData_UniverseItemImpl,
+	new: (fields: _ExperienceCarouselInputData_UniverseItemPartialFields?) -> ExperienceCarouselInputData_UniverseItem,
+	encode: (self: ExperienceCarouselInputData_UniverseItem) -> buffer,
+	decode: (input: buffer) -> ExperienceCarouselInputData_UniverseItem,
+	jsonEncode: (self: ExperienceCarouselInputData_UniverseItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceCarouselInputData_UniverseItem,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceCarouselInputData_UniverseItemFields = {
+	universe_id: string,
+}
+
+type _ExperienceCarouselInputData_UniverseItemPartialFields = {
+	universe_id: string?,
+}
+
+export type ExperienceCarouselInputData_UniverseItem = typeof(setmetatable(
+	{} :: _ExperienceCarouselInputData_UniverseItemFields,
+	{} :: _ExperienceCarouselInputData_UniverseItemImpl
+))
+type _ExperienceCarouselInputData_UniverseItemMessage = proto.Message<
+	ExperienceCarouselInputData_UniverseItem,
+	_ExperienceCarouselInputData_UniverseItemPartialFields
+>
+
+type _SongCarouselInputDataImpl = {
+	__index: _SongCarouselInputDataImpl,
+	new: (fields: _SongCarouselInputDataPartialFields?) -> SongCarouselInputData,
+	encode: (self: SongCarouselInputData) -> buffer,
+	decode: (input: buffer) -> SongCarouselInputData,
+	jsonEncode: (self: SongCarouselInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SongCarouselInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _SongCarouselInputDataFields = {
+	title: string,
+	song_items: { SongCarouselInputData_SongItem },
+	next_page_token: string,
+	sort_id: string,
+	secondary_sort_id: number,
+}
+
+type _SongCarouselInputDataPartialFields = {
+	title: string?,
+	song_items: { SongCarouselInputData_SongItem }?,
+	next_page_token: string?,
+	sort_id: string?,
+	secondary_sort_id: number?,
+}
+
+export type SongCarouselInputData = typeof(setmetatable(
+	{} :: _SongCarouselInputDataFields,
+	{} :: _SongCarouselInputDataImpl
+))
+type _SongCarouselInputDataMessage = proto.Message<SongCarouselInputData, _SongCarouselInputDataPartialFields>
+
+type _SongCarouselInputData_SongItemImpl = {
+	__index: _SongCarouselInputData_SongItemImpl,
+	new: (fields: _SongCarouselInputData_SongItemPartialFields?) -> SongCarouselInputData_SongItem,
+	encode: (self: SongCarouselInputData_SongItem) -> buffer,
+	decode: (input: buffer) -> SongCarouselInputData_SongItem,
+	jsonEncode: (self: SongCarouselInputData_SongItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SongCarouselInputData_SongItem,
+	descriptor: proto.Descriptor,
+}
+
+type _SongCarouselInputData_SongItemFields = {
+	song_id: string,
+}
+
+type _SongCarouselInputData_SongItemPartialFields = {
+	song_id: string?,
+}
+
+export type SongCarouselInputData_SongItem = typeof(setmetatable(
+	{} :: _SongCarouselInputData_SongItemFields,
+	{} :: _SongCarouselInputData_SongItemImpl
+))
+type _SongCarouselInputData_SongItemMessage = proto.Message<
+	SongCarouselInputData_SongItem,
+	_SongCarouselInputData_SongItemPartialFields
+>
+
+type _EventsCarouselInputDataImpl = {
+	__index: _EventsCarouselInputDataImpl,
+	new: (fields: _EventsCarouselInputDataPartialFields?) -> EventsCarouselInputData,
+	encode: (self: EventsCarouselInputData) -> buffer,
+	decode: (input: buffer) -> EventsCarouselInputData,
+	jsonEncode: (self: EventsCarouselInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> EventsCarouselInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _EventsCarouselInputDataFields = {
+	title: string,
+	event_items: { EventsCarouselInputData_EventItem },
+}
+
+type _EventsCarouselInputDataPartialFields = {
+	title: string?,
+	event_items: { EventsCarouselInputData_EventItem }?,
+}
+
+export type EventsCarouselInputData = typeof(setmetatable(
+	{} :: _EventsCarouselInputDataFields,
+	{} :: _EventsCarouselInputDataImpl
+))
+type _EventsCarouselInputDataMessage = proto.Message<EventsCarouselInputData, _EventsCarouselInputDataPartialFields>
+
+type _EventsCarouselInputData_EventItemImpl = {
+	__index: _EventsCarouselInputData_EventItemImpl,
+	new: (fields: _EventsCarouselInputData_EventItemPartialFields?) -> EventsCarouselInputData_EventItem,
+	encode: (self: EventsCarouselInputData_EventItem) -> buffer,
+	decode: (input: buffer) -> EventsCarouselInputData_EventItem,
+	jsonEncode: (self: EventsCarouselInputData_EventItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> EventsCarouselInputData_EventItem,
+	descriptor: proto.Descriptor,
+}
+
+type _EventsCarouselInputData_EventItemFields = {
+	event_id: string,
+}
+
+type _EventsCarouselInputData_EventItemPartialFields = {
+	event_id: string?,
+}
+
+export type EventsCarouselInputData_EventItem = typeof(setmetatable(
+	{} :: _EventsCarouselInputData_EventItemFields,
+	{} :: _EventsCarouselInputData_EventItemImpl
+))
+type _EventsCarouselInputData_EventItemMessage = proto.Message<
+	EventsCarouselInputData_EventItem,
+	_EventsCarouselInputData_EventItemPartialFields
+>
+
+type _DevStoreFeedInputDataImpl = {
+	__index: _DevStoreFeedInputDataImpl,
+	new: (fields: _DevStoreFeedInputDataPartialFields?) -> DevStoreFeedInputData,
+	encode: (self: DevStoreFeedInputData) -> buffer,
+	decode: (input: buffer) -> DevStoreFeedInputData,
+	jsonEncode: (self: DevStoreFeedInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> DevStoreFeedInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _DevStoreFeedInputDataFields = {
+	universe_id: string,
+	entry_map: { [string]: FeedEntry },
+}
+
+type _DevStoreFeedInputDataPartialFields = {
+	universe_id: string?,
+	entry_map: { [string]: FeedEntry }?,
+}
+
+export type DevStoreFeedInputData = typeof(setmetatable(
+	{} :: _DevStoreFeedInputDataFields,
+	{} :: _DevStoreFeedInputDataImpl
+))
+type _DevStoreFeedInputDataMessage = proto.Message<DevStoreFeedInputData, _DevStoreFeedInputDataPartialFields>
+
+type _DevStoreFeedInputData_EntryMapEntryImpl = {
+	__index: _DevStoreFeedInputData_EntryMapEntryImpl,
+	new: (fields: _DevStoreFeedInputData_EntryMapEntryPartialFields?) -> DevStoreFeedInputData_EntryMapEntry,
+	encode: (self: DevStoreFeedInputData_EntryMapEntry) -> buffer,
+	decode: (input: buffer) -> DevStoreFeedInputData_EntryMapEntry,
+	jsonEncode: (self: DevStoreFeedInputData_EntryMapEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> DevStoreFeedInputData_EntryMapEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _DevStoreFeedInputData_EntryMapEntryFields = {
+	key: string,
+	value: FeedEntry?,
+}
+
+type _DevStoreFeedInputData_EntryMapEntryPartialFields = {
+	key: string?,
+	value: FeedEntry?,
+}
+
+export type DevStoreFeedInputData_EntryMapEntry = typeof(setmetatable(
+	{} :: _DevStoreFeedInputData_EntryMapEntryFields,
+	{} :: _DevStoreFeedInputData_EntryMapEntryImpl
+))
+type _DevStoreFeedInputData_EntryMapEntryMessage = proto.Message<
+	DevStoreFeedInputData_EntryMapEntry,
+	_DevStoreFeedInputData_EntryMapEntryPartialFields
+>
+
+type _GamePassesGridInputDataImpl = {
+	__index: _GamePassesGridInputDataImpl,
+	new: (fields: _GamePassesGridInputDataPartialFields?) -> GamePassesGridInputData,
+	encode: (self: GamePassesGridInputData) -> buffer,
+	decode: (input: buffer) -> GamePassesGridInputData,
+	jsonEncode: (self: GamePassesGridInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GamePassesGridInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _GamePassesGridInputDataFields = {
+	game_passes: { GamePassesGridInputData_GamePassItem },
+}
+
+type _GamePassesGridInputDataPartialFields = {
+	game_passes: { GamePassesGridInputData_GamePassItem }?,
+}
+
+export type GamePassesGridInputData = typeof(setmetatable(
+	{} :: _GamePassesGridInputDataFields,
+	{} :: _GamePassesGridInputDataImpl
+))
+type _GamePassesGridInputDataMessage = proto.Message<GamePassesGridInputData, _GamePassesGridInputDataPartialFields>
+
+type _GamePassesGridInputData_GamePassItemImpl = {
+	__index: _GamePassesGridInputData_GamePassItemImpl,
+	new: (fields: _GamePassesGridInputData_GamePassItemPartialFields?) -> GamePassesGridInputData_GamePassItem,
+	encode: (self: GamePassesGridInputData_GamePassItem) -> buffer,
+	decode: (input: buffer) -> GamePassesGridInputData_GamePassItem,
+	jsonEncode: (self: GamePassesGridInputData_GamePassItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GamePassesGridInputData_GamePassItem,
+	descriptor: proto.Descriptor,
+}
+
+type _GamePassesGridInputData_GamePassItemFields = {
+	game_pass_id: string,
+}
+
+type _GamePassesGridInputData_GamePassItemPartialFields = {
+	game_pass_id: string?,
+}
+
+export type GamePassesGridInputData_GamePassItem = typeof(setmetatable(
+	{} :: _GamePassesGridInputData_GamePassItemFields,
+	{} :: _GamePassesGridInputData_GamePassItemImpl
+))
+type _GamePassesGridInputData_GamePassItemMessage = proto.Message<
+	GamePassesGridInputData_GamePassItem,
+	_GamePassesGridInputData_GamePassItemPartialFields
+>
+
+type _GameDeveloperProductsGridInputDataImpl = {
+	__index: _GameDeveloperProductsGridInputDataImpl,
+	new: (fields: _GameDeveloperProductsGridInputDataPartialFields?) -> GameDeveloperProductsGridInputData,
+	encode: (self: GameDeveloperProductsGridInputData) -> buffer,
+	decode: (input: buffer) -> GameDeveloperProductsGridInputData,
+	jsonEncode: (self: GameDeveloperProductsGridInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GameDeveloperProductsGridInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _GameDeveloperProductsGridInputDataFields = {
+	developer_products: { GameDeveloperProductsGridInputData_DeveloperProductItem },
+}
+
+type _GameDeveloperProductsGridInputDataPartialFields = {
+	developer_products: { GameDeveloperProductsGridInputData_DeveloperProductItem }?,
+}
+
+export type GameDeveloperProductsGridInputData = typeof(setmetatable(
+	{} :: _GameDeveloperProductsGridInputDataFields,
+	{} :: _GameDeveloperProductsGridInputDataImpl
+))
+type _GameDeveloperProductsGridInputDataMessage = proto.Message<
+	GameDeveloperProductsGridInputData,
+	_GameDeveloperProductsGridInputDataPartialFields
+>
+
+type _GameDeveloperProductsGridInputData_DeveloperProductItemImpl = {
+	__index: _GameDeveloperProductsGridInputData_DeveloperProductItemImpl,
+	new: (
+		fields: _GameDeveloperProductsGridInputData_DeveloperProductItemPartialFields?
+	) -> GameDeveloperProductsGridInputData_DeveloperProductItem,
+	encode: (self: GameDeveloperProductsGridInputData_DeveloperProductItem) -> buffer,
+	decode: (input: buffer) -> GameDeveloperProductsGridInputData_DeveloperProductItem,
+	jsonEncode: (self: GameDeveloperProductsGridInputData_DeveloperProductItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GameDeveloperProductsGridInputData_DeveloperProductItem,
+	descriptor: proto.Descriptor,
+}
+
+type _GameDeveloperProductsGridInputData_DeveloperProductItemFields = {
+	developer_product_id: string,
+}
+
+type _GameDeveloperProductsGridInputData_DeveloperProductItemPartialFields = {
+	developer_product_id: string?,
+}
+
+export type GameDeveloperProductsGridInputData_DeveloperProductItem = typeof(setmetatable(
+	{} :: _GameDeveloperProductsGridInputData_DeveloperProductItemFields,
+	{} :: _GameDeveloperProductsGridInputData_DeveloperProductItemImpl
+))
+type _GameDeveloperProductsGridInputData_DeveloperProductItemMessage = proto.Message<
+	GameDeveloperProductsGridInputData_DeveloperProductItem,
+	_GameDeveloperProductsGridInputData_DeveloperProductItemPartialFields
+>
+
+type _GameSubscriptionsGridInputDataImpl = {
+	__index: _GameSubscriptionsGridInputDataImpl,
+	new: (fields: _GameSubscriptionsGridInputDataPartialFields?) -> GameSubscriptionsGridInputData,
+	encode: (self: GameSubscriptionsGridInputData) -> buffer,
+	decode: (input: buffer) -> GameSubscriptionsGridInputData,
+	jsonEncode: (self: GameSubscriptionsGridInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GameSubscriptionsGridInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _GameSubscriptionsGridInputDataFields = {
+	subscriptions: { GameSubscriptionsGridInputData_SubscriptionItem },
+}
+
+type _GameSubscriptionsGridInputDataPartialFields = {
+	subscriptions: { GameSubscriptionsGridInputData_SubscriptionItem }?,
+}
+
+export type GameSubscriptionsGridInputData = typeof(setmetatable(
+	{} :: _GameSubscriptionsGridInputDataFields,
+	{} :: _GameSubscriptionsGridInputDataImpl
+))
+type _GameSubscriptionsGridInputDataMessage = proto.Message<
+	GameSubscriptionsGridInputData,
+	_GameSubscriptionsGridInputDataPartialFields
+>
+
+type _GameSubscriptionsGridInputData_SubscriptionItemImpl = {
+	__index: _GameSubscriptionsGridInputData_SubscriptionItemImpl,
+	new: (
+		fields: _GameSubscriptionsGridInputData_SubscriptionItemPartialFields?
+	) -> GameSubscriptionsGridInputData_SubscriptionItem,
+	encode: (self: GameSubscriptionsGridInputData_SubscriptionItem) -> buffer,
+	decode: (input: buffer) -> GameSubscriptionsGridInputData_SubscriptionItem,
+	jsonEncode: (self: GameSubscriptionsGridInputData_SubscriptionItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GameSubscriptionsGridInputData_SubscriptionItem,
+	descriptor: proto.Descriptor,
+}
+
+type _GameSubscriptionsGridInputData_SubscriptionItemFields = {
+	subscription_id: string,
+}
+
+type _GameSubscriptionsGridInputData_SubscriptionItemPartialFields = {
+	subscription_id: string?,
+}
+
+export type GameSubscriptionsGridInputData_SubscriptionItem = typeof(setmetatable(
+	{} :: _GameSubscriptionsGridInputData_SubscriptionItemFields,
+	{} :: _GameSubscriptionsGridInputData_SubscriptionItemImpl
+))
+type _GameSubscriptionsGridInputData_SubscriptionItemMessage = proto.Message<
+	GameSubscriptionsGridInputData_SubscriptionItem,
+	_GameSubscriptionsGridInputData_SubscriptionItemPartialFields
+>
+
+type _CardContainerCardInputDataImpl = {
+	__index: _CardContainerCardInputDataImpl,
+	new: (fields: _CardContainerCardInputDataPartialFields?) -> CardContainerCardInputData,
+	encode: (self: CardContainerCardInputData) -> buffer,
+	decode: (input: buffer) -> CardContainerCardInputData,
+	jsonEncode: (self: CardContainerCardInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CardContainerCardInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _CardContainerCardInputDataFields = {
 	roblox_component: string,
 	identifier: string,
 	title: string,
 	user_id: string,
 	description: string,
 	cta_text: string,
+	prompt_id: string,
+	prompt_type: string,
 }
 
-type _PromptsInputData_CardContainerCardInputDataPartialFields = {
+type _CardContainerCardInputDataPartialFields = {
 	roblox_component: string?,
 	identifier: string?,
 	title: string?,
 	user_id: string?,
 	description: string?,
 	cta_text: string?,
+	prompt_id: string?,
+	prompt_type: string?,
 }
 
-export type PromptsInputData_CardContainerCardInputData = typeof(setmetatable(
-	{} :: _PromptsInputData_CardContainerCardInputDataFields,
-	{} :: _PromptsInputData_CardContainerCardInputDataImpl
+export type CardContainerCardInputData = typeof(setmetatable(
+	{} :: _CardContainerCardInputDataFields,
+	{} :: _CardContainerCardInputDataImpl
 ))
-type _PromptsInputData_CardContainerCardInputDataMessage = proto.Message<
-	PromptsInputData_CardContainerCardInputData,
-	_PromptsInputData_CardContainerCardInputDataPartialFields
+type _CardContainerCardInputDataMessage = proto.Message<
+	CardContainerCardInputData,
+	_CardContainerCardInputDataPartialFields
 >
 
-type _PromptsInputData_CardInputDataImpl = {
-	__index: _PromptsInputData_CardInputDataImpl,
-	new: (fields: _PromptsInputData_CardInputDataPartialFields?) -> PromptsInputData_CardInputData,
-	encode: (self: PromptsInputData_CardInputData) -> buffer,
-	decode: (input: buffer) -> PromptsInputData_CardInputData,
-	jsonEncode: (self: PromptsInputData_CardInputData) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> PromptsInputData_CardInputData,
+type _CardContainerInputDataImpl = {
+	__index: _CardContainerInputDataImpl,
+	new: (fields: _CardContainerInputDataPartialFields?) -> CardContainerInputData,
+	encode: (self: CardContainerInputData) -> buffer,
+	decode: (input: buffer) -> CardContainerInputData,
+	jsonEncode: (self: CardContainerInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CardContainerInputData,
 	descriptor: proto.Descriptor,
 }
 
-type _PromptsInputData_CardInputDataFields = {
+type _CardContainerInputDataFields = {
+	title: string,
+	dismiss_text: string,
+	user_id: string,
+	cards: { CardContainerCardInputData },
+	prompt_id: string,
+	prompt_type: string,
+}
+
+type _CardContainerInputDataPartialFields = {
+	title: string?,
+	dismiss_text: string?,
+	user_id: string?,
+	cards: { CardContainerCardInputData }?,
+	prompt_id: string?,
+	prompt_type: string?,
+}
+
+export type CardContainerInputData = typeof(setmetatable(
+	{} :: _CardContainerInputDataFields,
+	{} :: _CardContainerInputDataImpl
+))
+type _CardContainerInputDataMessage = proto.Message<CardContainerInputData, _CardContainerInputDataPartialFields>
+
+type _CardInputDataImpl = {
+	__index: _CardInputDataImpl,
+	new: (fields: _CardInputDataPartialFields?) -> CardInputData,
+	encode: (self: CardInputData) -> buffer,
+	decode: (input: buffer) -> CardInputData,
+	jsonEncode: (self: CardInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CardInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _CardInputDataFields = {
 	title: string,
 	user_id: string,
 	description: string,
 	cta_text: string,
+	prompt_id: string,
+	prompt_type: string,
 }
 
-type _PromptsInputData_CardInputDataPartialFields = {
+type _CardInputDataPartialFields = {
 	title: string?,
 	user_id: string?,
 	description: string?,
 	cta_text: string?,
+	prompt_id: string?,
+	prompt_type: string?,
 }
 
-export type PromptsInputData_CardInputData = typeof(setmetatable(
-	{} :: _PromptsInputData_CardInputDataFields,
-	{} :: _PromptsInputData_CardInputDataImpl
-))
-type _PromptsInputData_CardInputDataMessage = proto.Message<
-	PromptsInputData_CardInputData,
-	_PromptsInputData_CardInputDataPartialFields
->
+export type CardInputData = typeof(setmetatable({} :: _CardInputDataFields, {} :: _CardInputDataImpl))
+type _CardInputDataMessage = proto.Message<CardInputData, _CardInputDataPartialFields>
 
-type _PromptsInputData_CardContainerInputDataImpl = {
-	__index: _PromptsInputData_CardContainerInputDataImpl,
-	new: (fields: _PromptsInputData_CardContainerInputDataPartialFields?) -> PromptsInputData_CardContainerInputData,
-	encode: (self: PromptsInputData_CardContainerInputData) -> buffer,
-	decode: (input: buffer) -> PromptsInputData_CardContainerInputData,
-	jsonEncode: (self: PromptsInputData_CardContainerInputData) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> PromptsInputData_CardContainerInputData,
+type _DialogInputDataImpl = {
+	__index: _DialogInputDataImpl,
+	new: (fields: _DialogInputDataPartialFields?) -> DialogInputData,
+	encode: (self: DialogInputData) -> buffer,
+	decode: (input: buffer) -> DialogInputData,
+	jsonEncode: (self: DialogInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> DialogInputData,
 	descriptor: proto.Descriptor,
 }
 
-type _PromptsInputData_CardContainerInputDataFields = {
-	title: string,
-	dismiss_text: string,
-	user_id: string,
-	cards: { PromptsInputData_CardContainerCardInputData },
+type _DialogInputDataFields = {}
+
+type _DialogInputDataPartialFields = {}
+
+export type DialogInputData = typeof(setmetatable({} :: _DialogInputDataFields, {} :: _DialogInputDataImpl))
+type _DialogInputDataMessage = proto.Message<DialogInputData, _DialogInputDataPartialFields>
+
+type _BannerInputDataImpl = {
+	__index: _BannerInputDataImpl,
+	new: (fields: _BannerInputDataPartialFields?) -> BannerInputData,
+	encode: (self: BannerInputData) -> buffer,
+	decode: (input: buffer) -> BannerInputData,
+	jsonEncode: (self: BannerInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BannerInputData,
+	descriptor: proto.Descriptor,
 }
 
-type _PromptsInputData_CardContainerInputDataPartialFields = {
-	title: string?,
-	dismiss_text: string?,
-	user_id: string?,
-	cards: { PromptsInputData_CardContainerCardInputData }?,
+type _BannerInputDataFields = {}
+
+type _BannerInputDataPartialFields = {}
+
+export type BannerInputData = typeof(setmetatable({} :: _BannerInputDataFields, {} :: _BannerInputDataImpl))
+type _BannerInputDataMessage = proto.Message<BannerInputData, _BannerInputDataPartialFields>
+
+type _TooltipInputDataImpl = {
+	__index: _TooltipInputDataImpl,
+	new: (fields: _TooltipInputDataPartialFields?) -> TooltipInputData,
+	encode: (self: TooltipInputData) -> buffer,
+	decode: (input: buffer) -> TooltipInputData,
+	jsonEncode: (self: TooltipInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> TooltipInputData,
+	descriptor: proto.Descriptor,
 }
 
-export type PromptsInputData_CardContainerInputData = typeof(setmetatable(
-	{} :: _PromptsInputData_CardContainerInputDataFields,
-	{} :: _PromptsInputData_CardContainerInputDataImpl
+type _TooltipInputDataFields = {}
+
+type _TooltipInputDataPartialFields = {}
+
+export type TooltipInputData = typeof(setmetatable({} :: _TooltipInputDataFields, {} :: _TooltipInputDataImpl))
+type _TooltipInputDataMessage = proto.Message<TooltipInputData, _TooltipInputDataPartialFields>
+
+type _EventDetailsFeedInputDataImpl = {
+	__index: _EventDetailsFeedInputDataImpl,
+	new: (fields: _EventDetailsFeedInputDataPartialFields?) -> EventDetailsFeedInputData,
+	encode: (self: EventDetailsFeedInputData) -> buffer,
+	decode: (input: buffer) -> EventDetailsFeedInputData,
+	jsonEncode: (self: EventDetailsFeedInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> EventDetailsFeedInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _EventDetailsFeedInputDataFields = {
+	event_id: number,
+	entry_map: { [string]: FeedEntry },
+	entry_order: { string },
+}
+
+type _EventDetailsFeedInputDataPartialFields = {
+	event_id: number?,
+	entry_map: { [string]: FeedEntry }?,
+	entry_order: { string }?,
+}
+
+export type EventDetailsFeedInputData = typeof(setmetatable(
+	{} :: _EventDetailsFeedInputDataFields,
+	{} :: _EventDetailsFeedInputDataImpl
 ))
-type _PromptsInputData_CardContainerInputDataMessage = proto.Message<
-	PromptsInputData_CardContainerInputData,
-	_PromptsInputData_CardContainerInputDataPartialFields
+type _EventDetailsFeedInputDataMessage = proto.Message<
+	EventDetailsFeedInputData,
+	_EventDetailsFeedInputDataPartialFields
 >
+
+type _EventDetailsFeedInputData_EntryMapEntryImpl = {
+	__index: _EventDetailsFeedInputData_EntryMapEntryImpl,
+	new: (fields: _EventDetailsFeedInputData_EntryMapEntryPartialFields?) -> EventDetailsFeedInputData_EntryMapEntry,
+	encode: (self: EventDetailsFeedInputData_EntryMapEntry) -> buffer,
+	decode: (input: buffer) -> EventDetailsFeedInputData_EntryMapEntry,
+	jsonEncode: (self: EventDetailsFeedInputData_EntryMapEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> EventDetailsFeedInputData_EntryMapEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _EventDetailsFeedInputData_EntryMapEntryFields = {
+	key: string,
+	value: FeedEntry?,
+}
+
+type _EventDetailsFeedInputData_EntryMapEntryPartialFields = {
+	key: string?,
+	value: FeedEntry?,
+}
+
+export type EventDetailsFeedInputData_EntryMapEntry = typeof(setmetatable(
+	{} :: _EventDetailsFeedInputData_EntryMapEntryFields,
+	{} :: _EventDetailsFeedInputData_EntryMapEntryImpl
+))
+type _EventDetailsFeedInputData_EntryMapEntryMessage = proto.Message<
+	EventDetailsFeedInputData_EntryMapEntry,
+	_EventDetailsFeedInputData_EntryMapEntryPartialFields
+>
+
+type _ChartsFeedInputDataImpl = {
+	__index: _ChartsFeedInputDataImpl,
+	new: (fields: _ChartsFeedInputDataPartialFields?) -> ChartsFeedInputData,
+	encode: (self: ChartsFeedInputData) -> buffer,
+	decode: (input: buffer) -> ChartsFeedInputData,
+	jsonEncode: (self: ChartsFeedInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ChartsFeedInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _ChartsFeedInputDataFields = {
+	entry_map: { [string]: FeedEntry },
+	entry_order: { string },
+	next_page_token: string,
+}
+
+type _ChartsFeedInputDataPartialFields = {
+	entry_map: { [string]: FeedEntry }?,
+	entry_order: { string }?,
+	next_page_token: string?,
+}
+
+export type ChartsFeedInputData = typeof(setmetatable({} :: _ChartsFeedInputDataFields, {} :: _ChartsFeedInputDataImpl))
+type _ChartsFeedInputDataMessage = proto.Message<ChartsFeedInputData, _ChartsFeedInputDataPartialFields>
+
+type _ChartsFeedInputData_EntryMapEntryImpl = {
+	__index: _ChartsFeedInputData_EntryMapEntryImpl,
+	new: (fields: _ChartsFeedInputData_EntryMapEntryPartialFields?) -> ChartsFeedInputData_EntryMapEntry,
+	encode: (self: ChartsFeedInputData_EntryMapEntry) -> buffer,
+	decode: (input: buffer) -> ChartsFeedInputData_EntryMapEntry,
+	jsonEncode: (self: ChartsFeedInputData_EntryMapEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ChartsFeedInputData_EntryMapEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _ChartsFeedInputData_EntryMapEntryFields = {
+	key: string,
+	value: FeedEntry?,
+}
+
+type _ChartsFeedInputData_EntryMapEntryPartialFields = {
+	key: string?,
+	value: FeedEntry?,
+}
+
+export type ChartsFeedInputData_EntryMapEntry = typeof(setmetatable(
+	{} :: _ChartsFeedInputData_EntryMapEntryFields,
+	{} :: _ChartsFeedInputData_EntryMapEntryImpl
+))
+type _ChartsFeedInputData_EntryMapEntryMessage = proto.Message<
+	ChartsFeedInputData_EntryMapEntry,
+	_ChartsFeedInputData_EntryMapEntryPartialFields
+>
+
+type _FilterPillsInputDataImpl = {
+	__index: _FilterPillsInputDataImpl,
+	new: (fields: _FilterPillsInputDataPartialFields?) -> FilterPillsInputData,
+	encode: (self: FilterPillsInputData) -> buffer,
+	decode: (input: buffer) -> FilterPillsInputData,
+	jsonEncode: (self: FilterPillsInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FilterPillsInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _FilterPillsInputDataFields = {
+	filter_groups: { FilterPillsInputData_FilterGroup },
+}
+
+type _FilterPillsInputDataPartialFields = {
+	filter_groups: { FilterPillsInputData_FilterGroup }?,
+}
+
+export type FilterPillsInputData = typeof(setmetatable(
+	{} :: _FilterPillsInputDataFields,
+	{} :: _FilterPillsInputDataImpl
+))
+type _FilterPillsInputDataMessage = proto.Message<FilterPillsInputData, _FilterPillsInputDataPartialFields>
+
+type _FilterPillsInputData_FilterGroupImpl = {
+	__index: _FilterPillsInputData_FilterGroupImpl,
+	new: (fields: _FilterPillsInputData_FilterGroupPartialFields?) -> FilterPillsInputData_FilterGroup,
+	encode: (self: FilterPillsInputData_FilterGroup) -> buffer,
+	decode: (input: buffer) -> FilterPillsInputData_FilterGroup,
+	jsonEncode: (self: FilterPillsInputData_FilterGroup) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FilterPillsInputData_FilterGroup,
+	descriptor: proto.Descriptor,
+}
+
+type _FilterPillsInputData_FilterGroupFields = {
+	filter_id: string,
+	display_name: string,
+	options: { FilterPillsInputData_FilterOption },
+	default_option_id: string,
+}
+
+type _FilterPillsInputData_FilterGroupPartialFields = {
+	filter_id: string?,
+	display_name: string?,
+	options: { FilterPillsInputData_FilterOption }?,
+	default_option_id: string?,
+}
+
+export type FilterPillsInputData_FilterGroup = typeof(setmetatable(
+	{} :: _FilterPillsInputData_FilterGroupFields,
+	{} :: _FilterPillsInputData_FilterGroupImpl
+))
+type _FilterPillsInputData_FilterGroupMessage = proto.Message<
+	FilterPillsInputData_FilterGroup,
+	_FilterPillsInputData_FilterGroupPartialFields
+>
+
+type _FilterPillsInputData_FilterOptionImpl = {
+	__index: _FilterPillsInputData_FilterOptionImpl,
+	new: (fields: _FilterPillsInputData_FilterOptionPartialFields?) -> FilterPillsInputData_FilterOption,
+	encode: (self: FilterPillsInputData_FilterOption) -> buffer,
+	decode: (input: buffer) -> FilterPillsInputData_FilterOption,
+	jsonEncode: (self: FilterPillsInputData_FilterOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FilterPillsInputData_FilterOption,
+	descriptor: proto.Descriptor,
+}
+
+type _FilterPillsInputData_FilterOptionFields = {
+	option_id: string,
+	display_name: string,
+}
+
+type _FilterPillsInputData_FilterOptionPartialFields = {
+	option_id: string?,
+	display_name: string?,
+}
+
+export type FilterPillsInputData_FilterOption = typeof(setmetatable(
+	{} :: _FilterPillsInputData_FilterOptionFields,
+	{} :: _FilterPillsInputData_FilterOptionImpl
+))
+type _FilterPillsInputData_FilterOptionMessage = proto.Message<
+	FilterPillsInputData_FilterOption,
+	_FilterPillsInputData_FilterOptionPartialFields
+>
+
+type _SortSelectorInputDataImpl = {
+	__index: _SortSelectorInputDataImpl,
+	new: (fields: _SortSelectorInputDataPartialFields?) -> SortSelectorInputData,
+	encode: (self: SortSelectorInputData) -> buffer,
+	decode: (input: buffer) -> SortSelectorInputData,
+	jsonEncode: (self: SortSelectorInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SortSelectorInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _SortSelectorInputDataFields = {
+	sort_options: { SortSelectorInputData_SortOption },
+	selected_sort_id: string,
+}
+
+type _SortSelectorInputDataPartialFields = {
+	sort_options: { SortSelectorInputData_SortOption }?,
+	selected_sort_id: string?,
+}
+
+export type SortSelectorInputData = typeof(setmetatable(
+	{} :: _SortSelectorInputDataFields,
+	{} :: _SortSelectorInputDataImpl
+))
+type _SortSelectorInputDataMessage = proto.Message<SortSelectorInputData, _SortSelectorInputDataPartialFields>
+
+type _SortSelectorInputData_SortOptionImpl = {
+	__index: _SortSelectorInputData_SortOptionImpl,
+	new: (fields: _SortSelectorInputData_SortOptionPartialFields?) -> SortSelectorInputData_SortOption,
+	encode: (self: SortSelectorInputData_SortOption) -> buffer,
+	decode: (input: buffer) -> SortSelectorInputData_SortOption,
+	jsonEncode: (self: SortSelectorInputData_SortOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SortSelectorInputData_SortOption,
+	descriptor: proto.Descriptor,
+}
+
+type _SortSelectorInputData_SortOptionFields = {
+	sort_id: string,
+	display_name: string,
+	content_type: string,
+}
+
+type _SortSelectorInputData_SortOptionPartialFields = {
+	sort_id: string?,
+	display_name: string?,
+	content_type: string?,
+}
+
+export type SortSelectorInputData_SortOption = typeof(setmetatable(
+	{} :: _SortSelectorInputData_SortOptionFields,
+	{} :: _SortSelectorInputData_SortOptionImpl
+))
+type _SortSelectorInputData_SortOptionMessage = proto.Message<
+	SortSelectorInputData_SortOption,
+	_SortSelectorInputData_SortOptionPartialFields
+>
+
+type _UAMarketplaceCatalogItemGroupInputDataImpl = {
+	__index: _UAMarketplaceCatalogItemGroupInputDataImpl,
+	new: (fields: _UAMarketplaceCatalogItemGroupInputDataPartialFields?) -> UAMarketplaceCatalogItemGroupInputData,
+	encode: (self: UAMarketplaceCatalogItemGroupInputData) -> buffer,
+	decode: (input: buffer) -> UAMarketplaceCatalogItemGroupInputData,
+	jsonEncode: (self: UAMarketplaceCatalogItemGroupInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UAMarketplaceCatalogItemGroupInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _UAMarketplaceCatalogItemGroupInputDataFields = {
+	id: string,
+	preview_rows: number,
+}
+
+type _UAMarketplaceCatalogItemGroupInputDataPartialFields = {
+	id: string?,
+	preview_rows: number?,
+}
+
+export type UAMarketplaceCatalogItemGroupInputData = typeof(setmetatable(
+	{} :: _UAMarketplaceCatalogItemGroupInputDataFields,
+	{} :: _UAMarketplaceCatalogItemGroupInputDataImpl
+))
+type _UAMarketplaceCatalogItemGroupInputDataMessage = proto.Message<
+	UAMarketplaceCatalogItemGroupInputData,
+	_UAMarketplaceCatalogItemGroupInputDataPartialFields
+>
+
+type _UAMarketplaceCatalogItemCarouselInputDataImpl = {
+	__index: _UAMarketplaceCatalogItemCarouselInputDataImpl,
+	new: (
+		fields: _UAMarketplaceCatalogItemCarouselInputDataPartialFields?
+	) -> UAMarketplaceCatalogItemCarouselInputData,
+	encode: (self: UAMarketplaceCatalogItemCarouselInputData) -> buffer,
+	decode: (input: buffer) -> UAMarketplaceCatalogItemCarouselInputData,
+	jsonEncode: (self: UAMarketplaceCatalogItemCarouselInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UAMarketplaceCatalogItemCarouselInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _UAMarketplaceCatalogItemCarouselInputDataFields = {
+	id: string,
+	num_items_to_show: number,
+}
+
+type _UAMarketplaceCatalogItemCarouselInputDataPartialFields = {
+	id: string?,
+	num_items_to_show: number?,
+}
+
+export type UAMarketplaceCatalogItemCarouselInputData = typeof(setmetatable(
+	{} :: _UAMarketplaceCatalogItemCarouselInputDataFields,
+	{} :: _UAMarketplaceCatalogItemCarouselInputDataImpl
+))
+type _UAMarketplaceCatalogItemCarouselInputDataMessage = proto.Message<
+	UAMarketplaceCatalogItemCarouselInputData,
+	_UAMarketplaceCatalogItemCarouselInputDataPartialFields
+>
+
+type _UAMarketplaceCatalogFeedInputDataImpl = {
+	__index: _UAMarketplaceCatalogFeedInputDataImpl,
+	new: (fields: _UAMarketplaceCatalogFeedInputDataPartialFields?) -> UAMarketplaceCatalogFeedInputData,
+	encode: (self: UAMarketplaceCatalogFeedInputData) -> buffer,
+	decode: (input: buffer) -> UAMarketplaceCatalogFeedInputData,
+	jsonEncode: (self: UAMarketplaceCatalogFeedInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UAMarketplaceCatalogFeedInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _UAMarketplaceCatalogFeedInputDataFields = {
+	feed_item_input_map: { [string]: PageEntryInputData },
+	marketplace_catalog_feed_items: { UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem },
+}
+
+type _UAMarketplaceCatalogFeedInputDataPartialFields = {
+	feed_item_input_map: { [string]: PageEntryInputData }?,
+	marketplace_catalog_feed_items: { UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem }?,
+}
+
+export type UAMarketplaceCatalogFeedInputData = typeof(setmetatable(
+	{} :: _UAMarketplaceCatalogFeedInputDataFields,
+	{} :: _UAMarketplaceCatalogFeedInputDataImpl
+))
+type _UAMarketplaceCatalogFeedInputDataMessage = proto.Message<
+	UAMarketplaceCatalogFeedInputData,
+	_UAMarketplaceCatalogFeedInputDataPartialFields
+>
+
+type _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl = {
+	__index: _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl,
+	new: (
+		fields: _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemPartialFields?
+	) -> UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem,
+	encode: (self: UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem) -> buffer,
+	decode: (input: buffer) -> UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem,
+	jsonEncode: (self: UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem,
+	descriptor: proto.Descriptor,
+}
+
+type _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemFields = {
+	roblox_component: string,
+	feed_item_id: string,
+}
+
+type _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemPartialFields = {
+	roblox_component: string?,
+	feed_item_id: string?,
+}
+
+export type UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem = typeof(setmetatable(
+	{} :: _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemFields,
+	{} :: _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl
+))
+type _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemMessage = proto.Message<
+	UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem,
+	_UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemPartialFields
+>
+
+type _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl = {
+	__index: _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl,
+	new: (
+		fields: _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryPartialFields?
+	) -> UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry,
+	encode: (self: UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry) -> buffer,
+	decode: (input: buffer) -> UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry,
+	jsonEncode: (self: UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryFields = {
+	key: string,
+	value: PageEntryInputData?,
+}
+
+type _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryPartialFields = {
+	key: string?,
+	value: PageEntryInputData?,
+}
+
+export type UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry = typeof(setmetatable(
+	{} :: _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryFields,
+	{} :: _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl
+))
+type _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryMessage = proto.Message<
+	UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry,
+	_UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryPartialFields
+>
+
+type _UAMarketplaceCatalogCategoryMenuInputDataImpl = {
+	__index: _UAMarketplaceCatalogCategoryMenuInputDataImpl,
+	new: (
+		fields: _UAMarketplaceCatalogCategoryMenuInputDataPartialFields?
+	) -> UAMarketplaceCatalogCategoryMenuInputData,
+	encode: (self: UAMarketplaceCatalogCategoryMenuInputData) -> buffer,
+	decode: (input: buffer) -> UAMarketplaceCatalogCategoryMenuInputData,
+	jsonEncode: (self: UAMarketplaceCatalogCategoryMenuInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UAMarketplaceCatalogCategoryMenuInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _UAMarketplaceCatalogCategoryMenuInputDataFields = {
+	marketplace_catalog_category_items: { UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem },
+	active_category_id: string,
+	active_tooltip_idx: number,
+}
+
+type _UAMarketplaceCatalogCategoryMenuInputDataPartialFields = {
+	marketplace_catalog_category_items: { UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem }?,
+	active_category_id: string?,
+	active_tooltip_idx: number?,
+}
+
+export type UAMarketplaceCatalogCategoryMenuInputData = typeof(setmetatable(
+	{} :: _UAMarketplaceCatalogCategoryMenuInputDataFields,
+	{} :: _UAMarketplaceCatalogCategoryMenuInputDataImpl
+))
+type _UAMarketplaceCatalogCategoryMenuInputDataMessage = proto.Message<
+	UAMarketplaceCatalogCategoryMenuInputData,
+	_UAMarketplaceCatalogCategoryMenuInputDataPartialFields
+>
+
+type _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl = {
+	__index: _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl,
+	new: (
+		fields: _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemPartialFields?
+	) -> UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem,
+	encode: (self: UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem) -> buffer,
+	decode: (input: buffer) -> UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem,
+	jsonEncode: (self: UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem,
+	descriptor: proto.Descriptor,
+}
+
+type _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemFields = {
+	marketplace_catalog_category_item_id: string,
+}
+
+type _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemPartialFields = {
+	marketplace_catalog_category_item_id: string?,
+}
+
+export type UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem = typeof(setmetatable(
+	{} :: _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemFields,
+	{} :: _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl
+))
+type _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemMessage = proto.Message<
+	UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem,
+	_UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemPartialFields
+>
+
+type _PageEntryFormatMessage = proto.Enum<PageEntryFormat>
+export type PageEntryFormat = "PAGE_ENTRY_FORMAT_INVALID" | "PAGE_ENTRY_FORMAT_UNIVERSAL" | number -- Unknown
+
+do
+	local _UniversalPageEntryImpl = {}
+	_UniversalPageEntryImpl.__index = _UniversalPageEntryImpl
+
+	function _UniversalPageEntryImpl.new(data: _UniversalPageEntryPartialFields?): UniversalPageEntry
+		return setmetatable({
+			page_entry = if data == nil or data.page_entry == nil then nil else data.page_entry,
+			input_data = if data == nil or data.input_data == nil then nil else data.input_data,
+		}, _UniversalPageEntryImpl :: _UniversalPageEntryImpl)
+	end
+
+	function _UniversalPageEntryImpl.encode(self: UniversalPageEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.page_entry ~= nil then
+			local encoded = self.page_entry:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.input_data ~= nil then
+			local encoded = self.input_data:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UniversalPageEntryImpl.decode(input: buffer): UniversalPageEntry
+		local self = _UniversalPageEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.page_entry = _roblox_apppageplatform_shared_v1beta1_page_entry.PageEntry.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.input_data = messages.PageEntryInputData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UniversalPageEntryImpl.jsonEncode(self: UniversalPageEntry): any
+		local output = {}
+
+		if self.page_entry ~= nil then
+			output.pageEntry = self.page_entry:jsonEncode()
+		end
+
+		if self.input_data ~= nil then
+			output.inputData = self.input_data:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _UniversalPageEntryImpl.jsonDecode(input: { [string]: any }): UniversalPageEntry
+		local self = _UniversalPageEntryImpl.new()
+
+		if input.page_entry ~= nil then
+			self.page_entry = _roblox_apppageplatform_shared_v1beta1_page_entry.PageEntry.jsonDecode(input.page_entry)
+		end
+
+		if input.pageEntry ~= nil then
+			self.page_entry = _roblox_apppageplatform_shared_v1beta1_page_entry.PageEntry.jsonDecode(input.pageEntry)
+		end
+
+		if input.input_data ~= nil then
+			self.input_data = messages.PageEntryInputData.jsonDecode(input.input_data)
+		end
+
+		if input.inputData ~= nil then
+			self.input_data = messages.PageEntryInputData.jsonDecode(input.inputData)
+		end
+
+		return self
+	end
+
+	_UniversalPageEntryImpl.descriptor = {
+		name = "UniversalPageEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UniversalPageEntry",
+	}
+
+	messages.UniversalPageEntry = _UniversalPageEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UniversalPageEntry)
+end
+
+do
+	local _FeedEntryImpl = {}
+	_FeedEntryImpl.__index = _FeedEntryImpl
+
+	function _FeedEntryImpl.new(data: _FeedEntryPartialFields?): FeedEntry
+		return setmetatable({
+			input_data = if data == nil or data.input_data == nil then nil else data.input_data,
+			roblox_component = if data == nil or data.roblox_component == nil then "" else data.roblox_component,
+		}, _FeedEntryImpl :: _FeedEntryImpl)
+	end
+
+	function _FeedEntryImpl.encode(self: FeedEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.input_data ~= nil then
+			local encoded = self.input_data:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.roblox_component ~= nil and self.roblox_component ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.roblox_component)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FeedEntryImpl.decode(input: buffer): FeedEntry
+		local self = _FeedEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.input_data = messages.PageEntryInputData.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.roblox_component = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FeedEntryImpl.jsonEncode(self: FeedEntry): any
+		local output = {}
+
+		if self.input_data ~= nil then
+			output.inputData = self.input_data:jsonEncode()
+		end
+
+		if self.roblox_component ~= nil and self.roblox_component ~= "" then
+			output.robloxComponent = self.roblox_component
+		end
+
+		return output
+	end
+
+	function _FeedEntryImpl.jsonDecode(input: { [string]: any }): FeedEntry
+		local self = _FeedEntryImpl.new()
+
+		if input.input_data ~= nil then
+			self.input_data = messages.PageEntryInputData.jsonDecode(input.input_data)
+		end
+
+		if input.inputData ~= nil then
+			self.input_data = messages.PageEntryInputData.jsonDecode(input.inputData)
+		end
+
+		if input.roblox_component ~= nil then
+			self.roblox_component = input.roblox_component
+		end
+
+		if input.robloxComponent ~= nil then
+			self.roblox_component = input.robloxComponent
+		end
+
+		return self
+	end
+
+	_FeedEntryImpl.descriptor = {
+		name = "FeedEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.FeedEntry",
+	}
+
+	messages.FeedEntry = _FeedEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FeedEntry)
+end
 
 do
 	local _PageEntryInputDataImpl = {}
@@ -450,9 +2078,121 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "prompts" then
+			elseif self.kind.type == "experience_attribution_row" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "experience_action_module" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "experience_media_gallery" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "experience_description" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "experience_stat_row" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "experience_info_table" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "social_link_row" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "experience_carousel" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "song_carousel" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "events_carousel" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "game_passes_grid" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "developer_products_grid" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "subscriptions_grid" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "card_container" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "card" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "dialog" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "banner" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "tooltip" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "experience_details_feed" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 500, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "experience_details_action_bar" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 501, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "event_details_feed" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 600, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "dev_store_feed" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 700, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "charts_feed" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 800, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "filter_pills" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 801, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "sort_selector" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 802, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "marketplace_catalog_feed" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 900, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "marketplace_catalog_category_menu" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 901, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "marketplace_catalog_item_group" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 902, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "marketplace_catalog_item_carousel" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 903, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -494,7 +2234,185 @@ do
 				elseif field == 4 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "prompts", value = messages.PromptsInputData.decode(value) }
+					self.kind = {
+						type = "experience_attribution_row",
+						value = messages.ExperienceAttributionRowInputData.decode(value),
+					}
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "experience_action_module",
+						value = messages.ExperienceActionModuleInputData.decode(value),
+					}
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "experience_media_gallery",
+						value = messages.ExperienceMediaGalleryInputData.decode(value),
+					}
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "experience_description",
+						value = messages.ExperienceDescriptionInputData.decode(value),
+					}
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "experience_stat_row", value = messages.ExperienceStatRowInputData.decode(value) }
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "experience_info_table", value = messages.ExperienceInfoTableInputData.decode(value) }
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "social_link_row", value = messages.SocialLinkRowInputData.decode(value) }
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "experience_carousel", value = messages.ExperienceCarouselInputData.decode(value) }
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "song_carousel", value = messages.SongCarouselInputData.decode(value) }
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "events_carousel", value = messages.EventsCarouselInputData.decode(value) }
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "game_passes_grid", value = messages.GamePassesGridInputData.decode(value) }
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "developer_products_grid",
+						value = messages.GameDeveloperProductsGridInputData.decode(value),
+					}
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "subscriptions_grid", value = messages.GameSubscriptionsGridInputData.decode(value) }
+					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "card_container", value = messages.CardContainerInputData.decode(value) }
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "card", value = messages.CardInputData.decode(value) }
+					continue
+				elseif field == 22 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "dialog", value = messages.DialogInputData.decode(value) }
+					continue
+				elseif field == 23 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "banner", value = messages.BannerInputData.decode(value) }
+					continue
+				elseif field == 24 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "tooltip", value = messages.TooltipInputData.decode(value) }
+					continue
+				elseif field == 500 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "experience_details_feed",
+						value = messages.ExperienceDetailsFeedInputData.decode(value),
+					}
+					continue
+				elseif field == 501 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "experience_details_action_bar",
+						value = messages.ExperienceDetailsActionBarInputData.decode(value),
+					}
+					continue
+				elseif field == 600 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "event_details_feed", value = messages.EventDetailsFeedInputData.decode(value) }
+					continue
+				elseif field == 700 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "dev_store_feed", value = messages.DevStoreFeedInputData.decode(value) }
+					continue
+				elseif field == 800 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "charts_feed", value = messages.ChartsFeedInputData.decode(value) }
+					continue
+				elseif field == 801 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "filter_pills", value = messages.FilterPillsInputData.decode(value) }
+					continue
+				elseif field == 802 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "sort_selector", value = messages.SortSelectorInputData.decode(value) }
+					continue
+				elseif field == 900 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "marketplace_catalog_feed",
+						value = messages.UAMarketplaceCatalogFeedInputData.decode(value),
+					}
+					continue
+				elseif field == 901 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "marketplace_catalog_category_menu",
+						value = messages.UAMarketplaceCatalogCategoryMenuInputData.decode(value),
+					}
+					continue
+				elseif field == 902 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "marketplace_catalog_item_group",
+						value = messages.UAMarketplaceCatalogItemGroupInputData.decode(value),
+					}
+					continue
+				elseif field == 903 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "marketplace_catalog_item_carousel",
+						value = messages.UAMarketplaceCatalogItemCarouselInputData.decode(value),
+					}
 					continue
 				end
 
@@ -530,8 +2448,64 @@ do
 				output.badgeDetails = self.kind.value:jsonEncode()
 			elseif self.kind.type == "static_content" then
 				output.staticContent = self.kind.value:jsonEncode()
-			elseif self.kind.type == "prompts" then
-				output.prompts = self.kind.value:jsonEncode()
+			elseif self.kind.type == "experience_attribution_row" then
+				output.experienceAttributionRow = self.kind.value:jsonEncode()
+			elseif self.kind.type == "experience_action_module" then
+				output.experienceActionModule = self.kind.value:jsonEncode()
+			elseif self.kind.type == "experience_media_gallery" then
+				output.experienceMediaGallery = self.kind.value:jsonEncode()
+			elseif self.kind.type == "experience_description" then
+				output.experienceDescription = self.kind.value:jsonEncode()
+			elseif self.kind.type == "experience_stat_row" then
+				output.experienceStatRow = self.kind.value:jsonEncode()
+			elseif self.kind.type == "experience_info_table" then
+				output.experienceInfoTable = self.kind.value:jsonEncode()
+			elseif self.kind.type == "social_link_row" then
+				output.socialLinkRow = self.kind.value:jsonEncode()
+			elseif self.kind.type == "experience_carousel" then
+				output.experienceCarousel = self.kind.value:jsonEncode()
+			elseif self.kind.type == "song_carousel" then
+				output.songCarousel = self.kind.value:jsonEncode()
+			elseif self.kind.type == "events_carousel" then
+				output.eventsCarousel = self.kind.value:jsonEncode()
+			elseif self.kind.type == "game_passes_grid" then
+				output.gamePassesGrid = self.kind.value:jsonEncode()
+			elseif self.kind.type == "developer_products_grid" then
+				output.developerProductsGrid = self.kind.value:jsonEncode()
+			elseif self.kind.type == "subscriptions_grid" then
+				output.subscriptionsGrid = self.kind.value:jsonEncode()
+			elseif self.kind.type == "card_container" then
+				output.cardContainer = self.kind.value:jsonEncode()
+			elseif self.kind.type == "card" then
+				output.card = self.kind.value:jsonEncode()
+			elseif self.kind.type == "dialog" then
+				output.dialog = self.kind.value:jsonEncode()
+			elseif self.kind.type == "banner" then
+				output.banner = self.kind.value:jsonEncode()
+			elseif self.kind.type == "tooltip" then
+				output.tooltip = self.kind.value:jsonEncode()
+			elseif self.kind.type == "experience_details_feed" then
+				output.experienceDetailsFeed = self.kind.value:jsonEncode()
+			elseif self.kind.type == "experience_details_action_bar" then
+				output.experienceDetailsActionBar = self.kind.value:jsonEncode()
+			elseif self.kind.type == "event_details_feed" then
+				output.eventDetailsFeed = self.kind.value:jsonEncode()
+			elseif self.kind.type == "dev_store_feed" then
+				output.devStoreFeed = self.kind.value:jsonEncode()
+			elseif self.kind.type == "charts_feed" then
+				output.chartsFeed = self.kind.value:jsonEncode()
+			elseif self.kind.type == "filter_pills" then
+				output.filterPills = self.kind.value:jsonEncode()
+			elseif self.kind.type == "sort_selector" then
+				output.sortSelector = self.kind.value:jsonEncode()
+			elseif self.kind.type == "marketplace_catalog_feed" then
+				output.marketplaceCatalogFeed = self.kind.value:jsonEncode()
+			elseif self.kind.type == "marketplace_catalog_category_menu" then
+				output.marketplaceCatalogCategoryMenu = self.kind.value:jsonEncode()
+			elseif self.kind.type == "marketplace_catalog_item_group" then
+				output.marketplaceCatalogItemGroup = self.kind.value:jsonEncode()
+			elseif self.kind.type == "marketplace_catalog_item_carousel" then
+				output.marketplaceCatalogItemCarousel = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -567,8 +2541,342 @@ do
 			self.kind = { type = "static_content", value = messages.StaticInputData.jsonDecode(input.staticContent) }
 		end
 
-		if input.prompts ~= nil then
-			self.kind = { type = "prompts", value = messages.PromptsInputData.jsonDecode(input.prompts) }
+		if input.experience_attribution_row ~= nil then
+			self.kind = {
+				type = "experience_attribution_row",
+				value = messages.ExperienceAttributionRowInputData.jsonDecode(input.experience_attribution_row),
+			}
+		end
+
+		if input.experienceAttributionRow ~= nil then
+			self.kind = {
+				type = "experience_attribution_row",
+				value = messages.ExperienceAttributionRowInputData.jsonDecode(input.experienceAttributionRow),
+			}
+		end
+
+		if input.experience_action_module ~= nil then
+			self.kind = {
+				type = "experience_action_module",
+				value = messages.ExperienceActionModuleInputData.jsonDecode(input.experience_action_module),
+			}
+		end
+
+		if input.experienceActionModule ~= nil then
+			self.kind = {
+				type = "experience_action_module",
+				value = messages.ExperienceActionModuleInputData.jsonDecode(input.experienceActionModule),
+			}
+		end
+
+		if input.experience_media_gallery ~= nil then
+			self.kind = {
+				type = "experience_media_gallery",
+				value = messages.ExperienceMediaGalleryInputData.jsonDecode(input.experience_media_gallery),
+			}
+		end
+
+		if input.experienceMediaGallery ~= nil then
+			self.kind = {
+				type = "experience_media_gallery",
+				value = messages.ExperienceMediaGalleryInputData.jsonDecode(input.experienceMediaGallery),
+			}
+		end
+
+		if input.experience_description ~= nil then
+			self.kind = {
+				type = "experience_description",
+				value = messages.ExperienceDescriptionInputData.jsonDecode(input.experience_description),
+			}
+		end
+
+		if input.experienceDescription ~= nil then
+			self.kind = {
+				type = "experience_description",
+				value = messages.ExperienceDescriptionInputData.jsonDecode(input.experienceDescription),
+			}
+		end
+
+		if input.experience_stat_row ~= nil then
+			self.kind = {
+				type = "experience_stat_row",
+				value = messages.ExperienceStatRowInputData.jsonDecode(input.experience_stat_row),
+			}
+		end
+
+		if input.experienceStatRow ~= nil then
+			self.kind = {
+				type = "experience_stat_row",
+				value = messages.ExperienceStatRowInputData.jsonDecode(input.experienceStatRow),
+			}
+		end
+
+		if input.experience_info_table ~= nil then
+			self.kind = {
+				type = "experience_info_table",
+				value = messages.ExperienceInfoTableInputData.jsonDecode(input.experience_info_table),
+			}
+		end
+
+		if input.experienceInfoTable ~= nil then
+			self.kind = {
+				type = "experience_info_table",
+				value = messages.ExperienceInfoTableInputData.jsonDecode(input.experienceInfoTable),
+			}
+		end
+
+		if input.social_link_row ~= nil then
+			self.kind =
+				{ type = "social_link_row", value = messages.SocialLinkRowInputData.jsonDecode(input.social_link_row) }
+		end
+
+		if input.socialLinkRow ~= nil then
+			self.kind =
+				{ type = "social_link_row", value = messages.SocialLinkRowInputData.jsonDecode(input.socialLinkRow) }
+		end
+
+		if input.experience_carousel ~= nil then
+			self.kind = {
+				type = "experience_carousel",
+				value = messages.ExperienceCarouselInputData.jsonDecode(input.experience_carousel),
+			}
+		end
+
+		if input.experienceCarousel ~= nil then
+			self.kind = {
+				type = "experience_carousel",
+				value = messages.ExperienceCarouselInputData.jsonDecode(input.experienceCarousel),
+			}
+		end
+
+		if input.song_carousel ~= nil then
+			self.kind =
+				{ type = "song_carousel", value = messages.SongCarouselInputData.jsonDecode(input.song_carousel) }
+		end
+
+		if input.songCarousel ~= nil then
+			self.kind =
+				{ type = "song_carousel", value = messages.SongCarouselInputData.jsonDecode(input.songCarousel) }
+		end
+
+		if input.events_carousel ~= nil then
+			self.kind =
+				{ type = "events_carousel", value = messages.EventsCarouselInputData.jsonDecode(input.events_carousel) }
+		end
+
+		if input.eventsCarousel ~= nil then
+			self.kind =
+				{ type = "events_carousel", value = messages.EventsCarouselInputData.jsonDecode(input.eventsCarousel) }
+		end
+
+		if input.game_passes_grid ~= nil then
+			self.kind = {
+				type = "game_passes_grid",
+				value = messages.GamePassesGridInputData.jsonDecode(input.game_passes_grid),
+			}
+		end
+
+		if input.gamePassesGrid ~= nil then
+			self.kind =
+				{ type = "game_passes_grid", value = messages.GamePassesGridInputData.jsonDecode(input.gamePassesGrid) }
+		end
+
+		if input.developer_products_grid ~= nil then
+			self.kind = {
+				type = "developer_products_grid",
+				value = messages.GameDeveloperProductsGridInputData.jsonDecode(input.developer_products_grid),
+			}
+		end
+
+		if input.developerProductsGrid ~= nil then
+			self.kind = {
+				type = "developer_products_grid",
+				value = messages.GameDeveloperProductsGridInputData.jsonDecode(input.developerProductsGrid),
+			}
+		end
+
+		if input.subscriptions_grid ~= nil then
+			self.kind = {
+				type = "subscriptions_grid",
+				value = messages.GameSubscriptionsGridInputData.jsonDecode(input.subscriptions_grid),
+			}
+		end
+
+		if input.subscriptionsGrid ~= nil then
+			self.kind = {
+				type = "subscriptions_grid",
+				value = messages.GameSubscriptionsGridInputData.jsonDecode(input.subscriptionsGrid),
+			}
+		end
+
+		if input.card_container ~= nil then
+			self.kind =
+				{ type = "card_container", value = messages.CardContainerInputData.jsonDecode(input.card_container) }
+		end
+
+		if input.cardContainer ~= nil then
+			self.kind =
+				{ type = "card_container", value = messages.CardContainerInputData.jsonDecode(input.cardContainer) }
+		end
+
+		if input.card ~= nil then
+			self.kind = { type = "card", value = messages.CardInputData.jsonDecode(input.card) }
+		end
+
+		if input.dialog ~= nil then
+			self.kind = { type = "dialog", value = messages.DialogInputData.jsonDecode(input.dialog) }
+		end
+
+		if input.banner ~= nil then
+			self.kind = { type = "banner", value = messages.BannerInputData.jsonDecode(input.banner) }
+		end
+
+		if input.tooltip ~= nil then
+			self.kind = { type = "tooltip", value = messages.TooltipInputData.jsonDecode(input.tooltip) }
+		end
+
+		if input.experience_details_feed ~= nil then
+			self.kind = {
+				type = "experience_details_feed",
+				value = messages.ExperienceDetailsFeedInputData.jsonDecode(input.experience_details_feed),
+			}
+		end
+
+		if input.experienceDetailsFeed ~= nil then
+			self.kind = {
+				type = "experience_details_feed",
+				value = messages.ExperienceDetailsFeedInputData.jsonDecode(input.experienceDetailsFeed),
+			}
+		end
+
+		if input.experience_details_action_bar ~= nil then
+			self.kind = {
+				type = "experience_details_action_bar",
+				value = messages.ExperienceDetailsActionBarInputData.jsonDecode(input.experience_details_action_bar),
+			}
+		end
+
+		if input.experienceDetailsActionBar ~= nil then
+			self.kind = {
+				type = "experience_details_action_bar",
+				value = messages.ExperienceDetailsActionBarInputData.jsonDecode(input.experienceDetailsActionBar),
+			}
+		end
+
+		if input.event_details_feed ~= nil then
+			self.kind = {
+				type = "event_details_feed",
+				value = messages.EventDetailsFeedInputData.jsonDecode(input.event_details_feed),
+			}
+		end
+
+		if input.eventDetailsFeed ~= nil then
+			self.kind = {
+				type = "event_details_feed",
+				value = messages.EventDetailsFeedInputData.jsonDecode(input.eventDetailsFeed),
+			}
+		end
+
+		if input.dev_store_feed ~= nil then
+			self.kind =
+				{ type = "dev_store_feed", value = messages.DevStoreFeedInputData.jsonDecode(input.dev_store_feed) }
+		end
+
+		if input.devStoreFeed ~= nil then
+			self.kind =
+				{ type = "dev_store_feed", value = messages.DevStoreFeedInputData.jsonDecode(input.devStoreFeed) }
+		end
+
+		if input.charts_feed ~= nil then
+			self.kind = { type = "charts_feed", value = messages.ChartsFeedInputData.jsonDecode(input.charts_feed) }
+		end
+
+		if input.chartsFeed ~= nil then
+			self.kind = { type = "charts_feed", value = messages.ChartsFeedInputData.jsonDecode(input.chartsFeed) }
+		end
+
+		if input.filter_pills ~= nil then
+			self.kind = { type = "filter_pills", value = messages.FilterPillsInputData.jsonDecode(input.filter_pills) }
+		end
+
+		if input.filterPills ~= nil then
+			self.kind = { type = "filter_pills", value = messages.FilterPillsInputData.jsonDecode(input.filterPills) }
+		end
+
+		if input.sort_selector ~= nil then
+			self.kind =
+				{ type = "sort_selector", value = messages.SortSelectorInputData.jsonDecode(input.sort_selector) }
+		end
+
+		if input.sortSelector ~= nil then
+			self.kind =
+				{ type = "sort_selector", value = messages.SortSelectorInputData.jsonDecode(input.sortSelector) }
+		end
+
+		if input.marketplace_catalog_feed ~= nil then
+			self.kind = {
+				type = "marketplace_catalog_feed",
+				value = messages.UAMarketplaceCatalogFeedInputData.jsonDecode(input.marketplace_catalog_feed),
+			}
+		end
+
+		if input.marketplaceCatalogFeed ~= nil then
+			self.kind = {
+				type = "marketplace_catalog_feed",
+				value = messages.UAMarketplaceCatalogFeedInputData.jsonDecode(input.marketplaceCatalogFeed),
+			}
+		end
+
+		if input.marketplace_catalog_category_menu ~= nil then
+			self.kind = {
+				type = "marketplace_catalog_category_menu",
+				value = messages.UAMarketplaceCatalogCategoryMenuInputData.jsonDecode(
+					input.marketplace_catalog_category_menu
+				),
+			}
+		end
+
+		if input.marketplaceCatalogCategoryMenu ~= nil then
+			self.kind = {
+				type = "marketplace_catalog_category_menu",
+				value = messages.UAMarketplaceCatalogCategoryMenuInputData.jsonDecode(
+					input.marketplaceCatalogCategoryMenu
+				),
+			}
+		end
+
+		if input.marketplace_catalog_item_group ~= nil then
+			self.kind = {
+				type = "marketplace_catalog_item_group",
+				value = messages.UAMarketplaceCatalogItemGroupInputData.jsonDecode(
+					input.marketplace_catalog_item_group
+				),
+			}
+		end
+
+		if input.marketplaceCatalogItemGroup ~= nil then
+			self.kind = {
+				type = "marketplace_catalog_item_group",
+				value = messages.UAMarketplaceCatalogItemGroupInputData.jsonDecode(input.marketplaceCatalogItemGroup),
+			}
+		end
+
+		if input.marketplace_catalog_item_carousel ~= nil then
+			self.kind = {
+				type = "marketplace_catalog_item_carousel",
+				value = messages.UAMarketplaceCatalogItemCarouselInputData.jsonDecode(
+					input.marketplace_catalog_item_carousel
+				),
+			}
+		end
+
+		if input.marketplaceCatalogItemCarousel ~= nil then
+			self.kind = {
+				type = "marketplace_catalog_item_carousel",
+				value = messages.UAMarketplaceCatalogItemCarouselInputData.jsonDecode(
+					input.marketplaceCatalogItemCarousel
+				),
+			}
 		end
 
 		return self
@@ -1819,28 +4127,52 @@ do
 end
 
 do
-	local _PromptsInputDataImpl = {}
-	_PromptsInputDataImpl.__index = _PromptsInputDataImpl
+	local _ExperienceDetailsFeedInputDataImpl = {}
+	_ExperienceDetailsFeedInputDataImpl.__index = _ExperienceDetailsFeedInputDataImpl
 
-	function _PromptsInputDataImpl.new(data: _PromptsInputDataPartialFields?): PromptsInputData
+	function _ExperienceDetailsFeedInputDataImpl.new(
+		data: _ExperienceDetailsFeedInputDataPartialFields?
+	): ExperienceDetailsFeedInputData
 		return setmetatable({
-			kind = if data == nil or data.kind == nil then nil else data.kind,
-		}, _PromptsInputDataImpl :: _PromptsInputDataImpl)
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+			creator_key = if data == nil or data.creator_key == nil then "" else data.creator_key,
+			entry_map = if data == nil or data.entry_map == nil then {} else data.entry_map,
+			entry_order = if data == nil or data.entry_order == nil then {} else data.entry_order,
+		}, _ExperienceDetailsFeedInputDataImpl :: _ExperienceDetailsFeedInputDataImpl)
 	end
 
-	function _PromptsInputDataImpl.encode(self: PromptsInputData): buffer
+	function _ExperienceDetailsFeedInputDataImpl.encode(self: ExperienceDetailsFeedInputData): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.kind ~= nil then
-			if self.kind.type == "card_container" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "card" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		if self.creator_key ~= nil and self.creator_key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creator_key)
+		end
+
+		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
+			for key, value in self.entry_map do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.entry_order ~= nil and #self.entry_order > 0 then
+			for _, value in self.entry_order do
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
 			end
 		end
 
@@ -1849,8 +4181,8 @@ do
 		return shrunkBuffer
 	end
 
-	function _PromptsInputDataImpl.decode(input: buffer): PromptsInputData
-		local self = _PromptsInputDataImpl.new()
+	function _ExperienceDetailsFeedInputDataImpl.decode(input: buffer): ExperienceDetailsFeedInputData
+		local self = _ExperienceDetailsFeedInputDataImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -1866,15 +4198,29 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = {
-						type = "card_container",
-						value = messages.PromptsInputData_CardContainerInputData.decode(value),
-					}
+					self.universe_id = buffer.tostring(value)
 					continue
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "card", value = messages.PromptsInputData_CardInputData.decode(value) }
+					self.creator_key = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.ExperienceDetailsFeedInputData_EntryMapEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.FeedEntry.new()
+
+					self.entry_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.entry_order, buffer.tostring(value))
 					continue
 				end
 
@@ -1900,61 +4246,3180 @@ do
 		return self
 	end
 
-	function _PromptsInputDataImpl.jsonEncode(self: PromptsInputData): any
+	function _ExperienceDetailsFeedInputDataImpl.jsonEncode(self: ExperienceDetailsFeedInputData): any
 		local output = {}
 
-		if self.kind ~= nil then
-			if self.kind.type == "card_container" then
-				output.cardContainer = self.kind.value:jsonEncode()
-			elseif self.kind.type == "card" then
-				output.card = self.kind.value:jsonEncode()
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
+		if self.creator_key ~= nil and self.creator_key ~= "" then
+			output.creatorKey = self.creator_key
+		end
+
+		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
+			local newOutput = {}
+			for key, value in self.entry_map do
+				newOutput[key] = value:jsonEncode()
 			end
+			output.entryMap = newOutput
+		end
+
+		if self.entry_order ~= nil and #self.entry_order > 0 then
+			local newOutput = {}
+			for _, value in self.entry_order do
+				table.insert(newOutput, value)
+			end
+			output.entryOrder = newOutput
 		end
 
 		return output
 	end
 
-	function _PromptsInputDataImpl.jsonDecode(input: { [string]: any }): PromptsInputData
-		local self = _PromptsInputDataImpl.new()
+	function _ExperienceDetailsFeedInputDataImpl.jsonDecode(input: { [string]: any }): ExperienceDetailsFeedInputData
+		local self = _ExperienceDetailsFeedInputDataImpl.new()
 
-		if input.card_container ~= nil then
-			self.kind = {
-				type = "card_container",
-				value = messages.PromptsInputData_CardContainerInputData.jsonDecode(input.card_container),
-			}
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
 		end
 
-		if input.cardContainer ~= nil then
-			self.kind = {
-				type = "card_container",
-				value = messages.PromptsInputData_CardContainerInputData.jsonDecode(input.cardContainer),
-			}
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
 		end
 
-		if input.card ~= nil then
-			self.kind = { type = "card", value = messages.PromptsInputData_CardInputData.jsonDecode(input.card) }
+		if input.creator_key ~= nil then
+			self.creator_key = input.creator_key
+		end
+
+		if input.creatorKey ~= nil then
+			self.creator_key = input.creatorKey
+		end
+
+		if input.entry_map ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.entry_map do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
+			end
+
+			self.entry_map = newOutput
+		end
+
+		if input.entryMap ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.entryMap do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
+			end
+
+			self.entry_map = newOutput
+		end
+
+		if input.entry_order ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.entry_order do
+				table.insert(newOutput, value)
+			end
+
+			self.entry_order = newOutput
+		end
+
+		if input.entryOrder ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.entryOrder do
+				table.insert(newOutput, value)
+			end
+
+			self.entry_order = newOutput
 		end
 
 		return self
 	end
 
-	_PromptsInputDataImpl.descriptor = {
-		name = "PromptsInputData",
-		fullName = "roblox.apppageplatform.shared.v1beta1.PromptsInputData",
+	_ExperienceDetailsFeedInputDataImpl.descriptor = {
+		name = "ExperienceDetailsFeedInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperienceDetailsFeedInputData",
 	}
 
-	messages.PromptsInputData = _PromptsInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.ExperienceDetailsFeedInputData = _ExperienceDetailsFeedInputDataImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.PromptsInputData)
+	typeRegistry.default:register(messages.ExperienceDetailsFeedInputData)
 end
 
 do
-	local _PromptsInputData_CardContainerCardInputDataImpl = {}
-	_PromptsInputData_CardContainerCardInputDataImpl.__index = _PromptsInputData_CardContainerCardInputDataImpl
+	local _ExperienceDetailsFeedInputData_EntryMapEntryImpl = {}
+	_ExperienceDetailsFeedInputData_EntryMapEntryImpl.__index = _ExperienceDetailsFeedInputData_EntryMapEntryImpl
 
-	function _PromptsInputData_CardContainerCardInputDataImpl.new(
-		data: _PromptsInputData_CardContainerCardInputDataPartialFields?
-	): PromptsInputData_CardContainerCardInputData
+	function _ExperienceDetailsFeedInputData_EntryMapEntryImpl.new(
+		data: _ExperienceDetailsFeedInputData_EntryMapEntryPartialFields?
+	): ExperienceDetailsFeedInputData_EntryMapEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _ExperienceDetailsFeedInputData_EntryMapEntryImpl :: _ExperienceDetailsFeedInputData_EntryMapEntryImpl)
+	end
+
+	function _ExperienceDetailsFeedInputData_EntryMapEntryImpl.encode(
+		self: ExperienceDetailsFeedInputData_EntryMapEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceDetailsFeedInputData_EntryMapEntryImpl.decode(
+		input: buffer
+	): ExperienceDetailsFeedInputData_EntryMapEntry
+		local self = _ExperienceDetailsFeedInputData_EntryMapEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.FeedEntry.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceDetailsFeedInputData_EntryMapEntryImpl.jsonEncode(
+		self: ExperienceDetailsFeedInputData_EntryMapEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ExperienceDetailsFeedInputData_EntryMapEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): ExperienceDetailsFeedInputData_EntryMapEntry
+		local self = _ExperienceDetailsFeedInputData_EntryMapEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.FeedEntry.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_ExperienceDetailsFeedInputData_EntryMapEntryImpl.descriptor = {
+		name = "ExperienceDetailsFeedInputData_EntryMapEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EntryMapEntry",
+	}
+
+	messages.ExperienceDetailsFeedInputData_EntryMapEntry = _ExperienceDetailsFeedInputData_EntryMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceDetailsFeedInputData_EntryMapEntry)
+end
+
+do
+	local _ExperienceDetailsActionBarInputDataImpl = {}
+	_ExperienceDetailsActionBarInputDataImpl.__index = _ExperienceDetailsActionBarInputDataImpl
+
+	function _ExperienceDetailsActionBarInputDataImpl.new(
+		data: _ExperienceDetailsActionBarInputDataPartialFields?
+	): ExperienceDetailsActionBarInputData
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+		}, _ExperienceDetailsActionBarInputDataImpl :: _ExperienceDetailsActionBarInputDataImpl)
+	end
+
+	function _ExperienceDetailsActionBarInputDataImpl.encode(self: ExperienceDetailsActionBarInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceDetailsActionBarInputDataImpl.decode(input: buffer): ExperienceDetailsActionBarInputData
+		local self = _ExperienceDetailsActionBarInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceDetailsActionBarInputDataImpl.jsonEncode(self: ExperienceDetailsActionBarInputData): any
+		local output = {}
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
+		return output
+	end
+
+	function _ExperienceDetailsActionBarInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): ExperienceDetailsActionBarInputData
+		local self = _ExperienceDetailsActionBarInputDataImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		return self
+	end
+
+	_ExperienceDetailsActionBarInputDataImpl.descriptor = {
+		name = "ExperienceDetailsActionBarInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperienceDetailsActionBarInputData",
+	}
+
+	messages.ExperienceDetailsActionBarInputData = _ExperienceDetailsActionBarInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceDetailsActionBarInputData)
+end
+
+do
+	local _ExperienceAttributionRowInputDataImpl = {}
+	_ExperienceAttributionRowInputDataImpl.__index = _ExperienceAttributionRowInputDataImpl
+
+	function _ExperienceAttributionRowInputDataImpl.new(
+		data: _ExperienceAttributionRowInputDataPartialFields?
+	): ExperienceAttributionRowInputData
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+			creator_key = if data == nil or data.creator_key == nil then "" else data.creator_key,
+		}, _ExperienceAttributionRowInputDataImpl :: _ExperienceAttributionRowInputDataImpl)
+	end
+
+	function _ExperienceAttributionRowInputDataImpl.encode(self: ExperienceAttributionRowInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		if self.creator_key ~= nil and self.creator_key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creator_key)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceAttributionRowInputDataImpl.decode(input: buffer): ExperienceAttributionRowInputData
+		local self = _ExperienceAttributionRowInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_key = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceAttributionRowInputDataImpl.jsonEncode(self: ExperienceAttributionRowInputData): any
+		local output = {}
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
+		if self.creator_key ~= nil and self.creator_key ~= "" then
+			output.creatorKey = self.creator_key
+		end
+
+		return output
+	end
+
+	function _ExperienceAttributionRowInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): ExperienceAttributionRowInputData
+		local self = _ExperienceAttributionRowInputDataImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		if input.creator_key ~= nil then
+			self.creator_key = input.creator_key
+		end
+
+		if input.creatorKey ~= nil then
+			self.creator_key = input.creatorKey
+		end
+
+		return self
+	end
+
+	_ExperienceAttributionRowInputDataImpl.descriptor = {
+		name = "ExperienceAttributionRowInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperienceAttributionRowInputData",
+	}
+
+	messages.ExperienceAttributionRowInputData = _ExperienceAttributionRowInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceAttributionRowInputData)
+end
+
+do
+	local _ExperienceActionModuleInputDataImpl = {}
+	_ExperienceActionModuleInputDataImpl.__index = _ExperienceActionModuleInputDataImpl
+
+	function _ExperienceActionModuleInputDataImpl.new(
+		data: _ExperienceActionModuleInputDataPartialFields?
+	): ExperienceActionModuleInputData
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+		}, _ExperienceActionModuleInputDataImpl :: _ExperienceActionModuleInputDataImpl)
+	end
+
+	function _ExperienceActionModuleInputDataImpl.encode(self: ExperienceActionModuleInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceActionModuleInputDataImpl.decode(input: buffer): ExperienceActionModuleInputData
+		local self = _ExperienceActionModuleInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceActionModuleInputDataImpl.jsonEncode(self: ExperienceActionModuleInputData): any
+		local output = {}
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
+		return output
+	end
+
+	function _ExperienceActionModuleInputDataImpl.jsonDecode(input: { [string]: any }): ExperienceActionModuleInputData
+		local self = _ExperienceActionModuleInputDataImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		return self
+	end
+
+	_ExperienceActionModuleInputDataImpl.descriptor = {
+		name = "ExperienceActionModuleInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperienceActionModuleInputData",
+	}
+
+	messages.ExperienceActionModuleInputData = _ExperienceActionModuleInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceActionModuleInputData)
+end
+
+do
+	local _ExperienceMediaGalleryInputDataImpl = {}
+	_ExperienceMediaGalleryInputDataImpl.__index = _ExperienceMediaGalleryInputDataImpl
+
+	function _ExperienceMediaGalleryInputDataImpl.new(
+		data: _ExperienceMediaGalleryInputDataPartialFields?
+	): ExperienceMediaGalleryInputData
+		return setmetatable({
+			media_items = if data == nil or data.media_items == nil then {} else data.media_items,
+		}, _ExperienceMediaGalleryInputDataImpl :: _ExperienceMediaGalleryInputDataImpl)
+	end
+
+	function _ExperienceMediaGalleryInputDataImpl.encode(self: ExperienceMediaGalleryInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.media_items ~= nil and #self.media_items > 0 then
+			for _, value in self.media_items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceMediaGalleryInputDataImpl.decode(input: buffer): ExperienceMediaGalleryInputData
+		local self = _ExperienceMediaGalleryInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.media_items, messages.ExperienceMediaGalleryInputData_MediaItem.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceMediaGalleryInputDataImpl.jsonEncode(self: ExperienceMediaGalleryInputData): any
+		local output = {}
+
+		if self.media_items ~= nil and #self.media_items > 0 then
+			local newOutput = {}
+			for _, value in self.media_items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.mediaItems = newOutput
+		end
+
+		return output
+	end
+
+	function _ExperienceMediaGalleryInputDataImpl.jsonDecode(input: { [string]: any }): ExperienceMediaGalleryInputData
+		local self = _ExperienceMediaGalleryInputDataImpl.new()
+
+		if input.media_items ~= nil then
+			local newOutput: { ExperienceMediaGalleryInputData_MediaItem } = {}
+			for _, value in input.media_items do
+				table.insert(newOutput, messages.ExperienceMediaGalleryInputData_MediaItem.jsonDecode(value))
+			end
+
+			self.media_items = newOutput
+		end
+
+		if input.mediaItems ~= nil then
+			local newOutput: { ExperienceMediaGalleryInputData_MediaItem } = {}
+			for _, value in input.mediaItems do
+				table.insert(newOutput, messages.ExperienceMediaGalleryInputData_MediaItem.jsonDecode(value))
+			end
+
+			self.media_items = newOutput
+		end
+
+		return self
+	end
+
+	_ExperienceMediaGalleryInputDataImpl.descriptor = {
+		name = "ExperienceMediaGalleryInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperienceMediaGalleryInputData",
+	}
+
+	messages.ExperienceMediaGalleryInputData = _ExperienceMediaGalleryInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceMediaGalleryInputData)
+end
+
+do
+	local _ExperienceMediaGalleryInputData_MediaItemImpl = {}
+	_ExperienceMediaGalleryInputData_MediaItemImpl.__index = _ExperienceMediaGalleryInputData_MediaItemImpl
+
+	function _ExperienceMediaGalleryInputData_MediaItemImpl.new(
+		data: _ExperienceMediaGalleryInputData_MediaItemPartialFields?
+	): ExperienceMediaGalleryInputData_MediaItem
+		return setmetatable({
+			media_asset_id = if data == nil or data.media_asset_id == nil then "" else data.media_asset_id,
+		}, _ExperienceMediaGalleryInputData_MediaItemImpl :: _ExperienceMediaGalleryInputData_MediaItemImpl)
+	end
+
+	function _ExperienceMediaGalleryInputData_MediaItemImpl.encode(
+		self: ExperienceMediaGalleryInputData_MediaItem
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.media_asset_id ~= nil and self.media_asset_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.media_asset_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceMediaGalleryInputData_MediaItemImpl.decode(
+		input: buffer
+	): ExperienceMediaGalleryInputData_MediaItem
+		local self = _ExperienceMediaGalleryInputData_MediaItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.media_asset_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceMediaGalleryInputData_MediaItemImpl.jsonEncode(
+		self: ExperienceMediaGalleryInputData_MediaItem
+	): any
+		local output = {}
+
+		if self.media_asset_id ~= nil and self.media_asset_id ~= "" then
+			output.mediaAssetId = self.media_asset_id
+		end
+
+		return output
+	end
+
+	function _ExperienceMediaGalleryInputData_MediaItemImpl.jsonDecode(
+		input: { [string]: any }
+	): ExperienceMediaGalleryInputData_MediaItem
+		local self = _ExperienceMediaGalleryInputData_MediaItemImpl.new()
+
+		if input.media_asset_id ~= nil then
+			self.media_asset_id = input.media_asset_id
+		end
+
+		if input.mediaAssetId ~= nil then
+			self.media_asset_id = input.mediaAssetId
+		end
+
+		return self
+	end
+
+	_ExperienceMediaGalleryInputData_MediaItemImpl.descriptor = {
+		name = "ExperienceMediaGalleryInputData_MediaItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MediaItem",
+	}
+
+	messages.ExperienceMediaGalleryInputData_MediaItem = _ExperienceMediaGalleryInputData_MediaItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceMediaGalleryInputData_MediaItem)
+end
+
+do
+	local _ExperienceDescriptionInputDataImpl = {}
+	_ExperienceDescriptionInputDataImpl.__index = _ExperienceDescriptionInputDataImpl
+
+	function _ExperienceDescriptionInputDataImpl.new(
+		data: _ExperienceDescriptionInputDataPartialFields?
+	): ExperienceDescriptionInputData
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+		}, _ExperienceDescriptionInputDataImpl :: _ExperienceDescriptionInputDataImpl)
+	end
+
+	function _ExperienceDescriptionInputDataImpl.encode(self: ExperienceDescriptionInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceDescriptionInputDataImpl.decode(input: buffer): ExperienceDescriptionInputData
+		local self = _ExperienceDescriptionInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceDescriptionInputDataImpl.jsonEncode(self: ExperienceDescriptionInputData): any
+		local output = {}
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
+		return output
+	end
+
+	function _ExperienceDescriptionInputDataImpl.jsonDecode(input: { [string]: any }): ExperienceDescriptionInputData
+		local self = _ExperienceDescriptionInputDataImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		return self
+	end
+
+	_ExperienceDescriptionInputDataImpl.descriptor = {
+		name = "ExperienceDescriptionInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperienceDescriptionInputData",
+	}
+
+	messages.ExperienceDescriptionInputData = _ExperienceDescriptionInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceDescriptionInputData)
+end
+
+do
+	local _ExperienceStatRowInputDataImpl = {}
+	_ExperienceStatRowInputDataImpl.__index = _ExperienceStatRowInputDataImpl
+
+	function _ExperienceStatRowInputDataImpl.new(
+		data: _ExperienceStatRowInputDataPartialFields?
+	): ExperienceStatRowInputData
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+		}, _ExperienceStatRowInputDataImpl :: _ExperienceStatRowInputDataImpl)
+	end
+
+	function _ExperienceStatRowInputDataImpl.encode(self: ExperienceStatRowInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceStatRowInputDataImpl.decode(input: buffer): ExperienceStatRowInputData
+		local self = _ExperienceStatRowInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceStatRowInputDataImpl.jsonEncode(self: ExperienceStatRowInputData): any
+		local output = {}
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
+		return output
+	end
+
+	function _ExperienceStatRowInputDataImpl.jsonDecode(input: { [string]: any }): ExperienceStatRowInputData
+		local self = _ExperienceStatRowInputDataImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		return self
+	end
+
+	_ExperienceStatRowInputDataImpl.descriptor = {
+		name = "ExperienceStatRowInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperienceStatRowInputData",
+	}
+
+	messages.ExperienceStatRowInputData = _ExperienceStatRowInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceStatRowInputData)
+end
+
+do
+	local _ExperienceInfoTableInputDataImpl = {}
+	_ExperienceInfoTableInputDataImpl.__index = _ExperienceInfoTableInputDataImpl
+
+	function _ExperienceInfoTableInputDataImpl.new(
+		data: _ExperienceInfoTableInputDataPartialFields?
+	): ExperienceInfoTableInputData
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+		}, _ExperienceInfoTableInputDataImpl :: _ExperienceInfoTableInputDataImpl)
+	end
+
+	function _ExperienceInfoTableInputDataImpl.encode(self: ExperienceInfoTableInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceInfoTableInputDataImpl.decode(input: buffer): ExperienceInfoTableInputData
+		local self = _ExperienceInfoTableInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceInfoTableInputDataImpl.jsonEncode(self: ExperienceInfoTableInputData): any
+		local output = {}
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
+		return output
+	end
+
+	function _ExperienceInfoTableInputDataImpl.jsonDecode(input: { [string]: any }): ExperienceInfoTableInputData
+		local self = _ExperienceInfoTableInputDataImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		return self
+	end
+
+	_ExperienceInfoTableInputDataImpl.descriptor = {
+		name = "ExperienceInfoTableInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperienceInfoTableInputData",
+	}
+
+	messages.ExperienceInfoTableInputData = _ExperienceInfoTableInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceInfoTableInputData)
+end
+
+do
+	local _SocialLinkRowInputDataImpl = {}
+	_SocialLinkRowInputDataImpl.__index = _SocialLinkRowInputDataImpl
+
+	function _SocialLinkRowInputDataImpl.new(data: _SocialLinkRowInputDataPartialFields?): SocialLinkRowInputData
+		return setmetatable({
+			social_link_items = if data == nil or data.social_link_items == nil then {} else data.social_link_items,
+		}, _SocialLinkRowInputDataImpl :: _SocialLinkRowInputDataImpl)
+	end
+
+	function _SocialLinkRowInputDataImpl.encode(self: SocialLinkRowInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.social_link_items ~= nil and #self.social_link_items > 0 then
+			for _, value in self.social_link_items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SocialLinkRowInputDataImpl.decode(input: buffer): SocialLinkRowInputData
+		local self = _SocialLinkRowInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.social_link_items, messages.SocialLinkRowInputData_SocialLinkItem.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SocialLinkRowInputDataImpl.jsonEncode(self: SocialLinkRowInputData): any
+		local output = {}
+
+		if self.social_link_items ~= nil and #self.social_link_items > 0 then
+			local newOutput = {}
+			for _, value in self.social_link_items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.socialLinkItems = newOutput
+		end
+
+		return output
+	end
+
+	function _SocialLinkRowInputDataImpl.jsonDecode(input: { [string]: any }): SocialLinkRowInputData
+		local self = _SocialLinkRowInputDataImpl.new()
+
+		if input.social_link_items ~= nil then
+			local newOutput: { SocialLinkRowInputData_SocialLinkItem } = {}
+			for _, value in input.social_link_items do
+				table.insert(newOutput, messages.SocialLinkRowInputData_SocialLinkItem.jsonDecode(value))
+			end
+
+			self.social_link_items = newOutput
+		end
+
+		if input.socialLinkItems ~= nil then
+			local newOutput: { SocialLinkRowInputData_SocialLinkItem } = {}
+			for _, value in input.socialLinkItems do
+				table.insert(newOutput, messages.SocialLinkRowInputData_SocialLinkItem.jsonDecode(value))
+			end
+
+			self.social_link_items = newOutput
+		end
+
+		return self
+	end
+
+	_SocialLinkRowInputDataImpl.descriptor = {
+		name = "SocialLinkRowInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SocialLinkRowInputData",
+	}
+
+	messages.SocialLinkRowInputData = _SocialLinkRowInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SocialLinkRowInputData)
+end
+
+do
+	local _SocialLinkRowInputData_SocialLinkItemImpl = {}
+	_SocialLinkRowInputData_SocialLinkItemImpl.__index = _SocialLinkRowInputData_SocialLinkItemImpl
+
+	function _SocialLinkRowInputData_SocialLinkItemImpl.new(
+		data: _SocialLinkRowInputData_SocialLinkItemPartialFields?
+	): SocialLinkRowInputData_SocialLinkItem
+		return setmetatable({
+			social_link_id = if data == nil or data.social_link_id == nil then "" else data.social_link_id,
+		}, _SocialLinkRowInputData_SocialLinkItemImpl :: _SocialLinkRowInputData_SocialLinkItemImpl)
+	end
+
+	function _SocialLinkRowInputData_SocialLinkItemImpl.encode(self: SocialLinkRowInputData_SocialLinkItem): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.social_link_id ~= nil and self.social_link_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.social_link_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SocialLinkRowInputData_SocialLinkItemImpl.decode(input: buffer): SocialLinkRowInputData_SocialLinkItem
+		local self = _SocialLinkRowInputData_SocialLinkItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.social_link_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SocialLinkRowInputData_SocialLinkItemImpl.jsonEncode(self: SocialLinkRowInputData_SocialLinkItem): any
+		local output = {}
+
+		if self.social_link_id ~= nil and self.social_link_id ~= "" then
+			output.socialLinkId = self.social_link_id
+		end
+
+		return output
+	end
+
+	function _SocialLinkRowInputData_SocialLinkItemImpl.jsonDecode(
+		input: { [string]: any }
+	): SocialLinkRowInputData_SocialLinkItem
+		local self = _SocialLinkRowInputData_SocialLinkItemImpl.new()
+
+		if input.social_link_id ~= nil then
+			self.social_link_id = input.social_link_id
+		end
+
+		if input.socialLinkId ~= nil then
+			self.social_link_id = input.socialLinkId
+		end
+
+		return self
+	end
+
+	_SocialLinkRowInputData_SocialLinkItemImpl.descriptor = {
+		name = "SocialLinkRowInputData_SocialLinkItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SocialLinkItem",
+	}
+
+	messages.SocialLinkRowInputData_SocialLinkItem = _SocialLinkRowInputData_SocialLinkItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SocialLinkRowInputData_SocialLinkItem)
+end
+
+do
+	local _ExperienceCarouselInputDataImpl = {}
+	_ExperienceCarouselInputDataImpl.__index = _ExperienceCarouselInputDataImpl
+
+	function _ExperienceCarouselInputDataImpl.new(
+		data: _ExperienceCarouselInputDataPartialFields?
+	): ExperienceCarouselInputData
+		return setmetatable({
+			title = if data == nil or data.title == nil then "" else data.title,
+			universe_items = if data == nil or data.universe_items == nil then {} else data.universe_items,
+			next_page_token = if data == nil or data.next_page_token == nil then "" else data.next_page_token,
+			sort_id = if data == nil or data.sort_id == nil then "" else data.sort_id,
+			secondary_sort_id = if data == nil or data.secondary_sort_id == nil then 0 else data.secondary_sort_id,
+		}, _ExperienceCarouselInputDataImpl :: _ExperienceCarouselInputDataImpl)
+	end
+
+	function _ExperienceCarouselInputDataImpl.encode(self: ExperienceCarouselInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.title ~= nil and self.title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.universe_items ~= nil and #self.universe_items > 0 then
+			for _, value in self.universe_items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.next_page_token ~= nil and self.next_page_token ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.next_page_token)
+		end
+
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sort_id)
+		end
+
+		if self.secondary_sort_id ~= nil and self.secondary_sort_id ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.secondary_sort_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceCarouselInputDataImpl.decode(input: buffer): ExperienceCarouselInputData
+		local self = _ExperienceCarouselInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 5 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.secondary_sort_id = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.universe_items, messages.ExperienceCarouselInputData_UniverseItem.decode(value))
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.next_page_token = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceCarouselInputDataImpl.jsonEncode(self: ExperienceCarouselInputData): any
+		local output = {}
+
+		if self.title ~= nil and self.title ~= "" then
+			output.title = self.title
+		end
+
+		if self.universe_items ~= nil and #self.universe_items > 0 then
+			local newOutput = {}
+			for _, value in self.universe_items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.universeItems = newOutput
+		end
+
+		if self.next_page_token ~= nil and self.next_page_token ~= "" then
+			output.nextPageToken = self.next_page_token
+		end
+
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output.sortId = self.sort_id
+		end
+
+		if self.secondary_sort_id ~= nil and self.secondary_sort_id ~= 0 then
+			output.secondarySortId = self.secondary_sort_id
+		end
+
+		return output
+	end
+
+	function _ExperienceCarouselInputDataImpl.jsonDecode(input: { [string]: any }): ExperienceCarouselInputData
+		local self = _ExperienceCarouselInputDataImpl.new()
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.universe_items ~= nil then
+			local newOutput: { ExperienceCarouselInputData_UniverseItem } = {}
+			for _, value in input.universe_items do
+				table.insert(newOutput, messages.ExperienceCarouselInputData_UniverseItem.jsonDecode(value))
+			end
+
+			self.universe_items = newOutput
+		end
+
+		if input.universeItems ~= nil then
+			local newOutput: { ExperienceCarouselInputData_UniverseItem } = {}
+			for _, value in input.universeItems do
+				table.insert(newOutput, messages.ExperienceCarouselInputData_UniverseItem.jsonDecode(value))
+			end
+
+			self.universe_items = newOutput
+		end
+
+		if input.next_page_token ~= nil then
+			self.next_page_token = input.next_page_token
+		end
+
+		if input.nextPageToken ~= nil then
+			self.next_page_token = input.nextPageToken
+		end
+
+		if input.sort_id ~= nil then
+			self.sort_id = input.sort_id
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = input.sortId
+		end
+
+		if input.secondary_sort_id ~= nil then
+			self.secondary_sort_id = input.secondary_sort_id
+		end
+
+		if input.secondarySortId ~= nil then
+			self.secondary_sort_id = input.secondarySortId
+		end
+
+		return self
+	end
+
+	_ExperienceCarouselInputDataImpl.descriptor = {
+		name = "ExperienceCarouselInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperienceCarouselInputData",
+	}
+
+	messages.ExperienceCarouselInputData = _ExperienceCarouselInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceCarouselInputData)
+end
+
+do
+	local _ExperienceCarouselInputData_UniverseItemImpl = {}
+	_ExperienceCarouselInputData_UniverseItemImpl.__index = _ExperienceCarouselInputData_UniverseItemImpl
+
+	function _ExperienceCarouselInputData_UniverseItemImpl.new(
+		data: _ExperienceCarouselInputData_UniverseItemPartialFields?
+	): ExperienceCarouselInputData_UniverseItem
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+		}, _ExperienceCarouselInputData_UniverseItemImpl :: _ExperienceCarouselInputData_UniverseItemImpl)
+	end
+
+	function _ExperienceCarouselInputData_UniverseItemImpl.encode(
+		self: ExperienceCarouselInputData_UniverseItem
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceCarouselInputData_UniverseItemImpl.decode(
+		input: buffer
+	): ExperienceCarouselInputData_UniverseItem
+		local self = _ExperienceCarouselInputData_UniverseItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceCarouselInputData_UniverseItemImpl.jsonEncode(
+		self: ExperienceCarouselInputData_UniverseItem
+	): any
+		local output = {}
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
+		return output
+	end
+
+	function _ExperienceCarouselInputData_UniverseItemImpl.jsonDecode(
+		input: { [string]: any }
+	): ExperienceCarouselInputData_UniverseItem
+		local self = _ExperienceCarouselInputData_UniverseItemImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		return self
+	end
+
+	_ExperienceCarouselInputData_UniverseItemImpl.descriptor = {
+		name = "ExperienceCarouselInputData_UniverseItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UniverseItem",
+	}
+
+	messages.ExperienceCarouselInputData_UniverseItem = _ExperienceCarouselInputData_UniverseItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceCarouselInputData_UniverseItem)
+end
+
+do
+	local _SongCarouselInputDataImpl = {}
+	_SongCarouselInputDataImpl.__index = _SongCarouselInputDataImpl
+
+	function _SongCarouselInputDataImpl.new(data: _SongCarouselInputDataPartialFields?): SongCarouselInputData
+		return setmetatable({
+			title = if data == nil or data.title == nil then "" else data.title,
+			song_items = if data == nil or data.song_items == nil then {} else data.song_items,
+			next_page_token = if data == nil or data.next_page_token == nil then "" else data.next_page_token,
+			sort_id = if data == nil or data.sort_id == nil then "" else data.sort_id,
+			secondary_sort_id = if data == nil or data.secondary_sort_id == nil then 0 else data.secondary_sort_id,
+		}, _SongCarouselInputDataImpl :: _SongCarouselInputDataImpl)
+	end
+
+	function _SongCarouselInputDataImpl.encode(self: SongCarouselInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.title ~= nil and self.title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.song_items ~= nil and #self.song_items > 0 then
+			for _, value in self.song_items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.next_page_token ~= nil and self.next_page_token ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.next_page_token)
+		end
+
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sort_id)
+		end
+
+		if self.secondary_sort_id ~= nil and self.secondary_sort_id ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.secondary_sort_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SongCarouselInputDataImpl.decode(input: buffer): SongCarouselInputData
+		local self = _SongCarouselInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 5 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.secondary_sort_id = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.song_items, messages.SongCarouselInputData_SongItem.decode(value))
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.next_page_token = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SongCarouselInputDataImpl.jsonEncode(self: SongCarouselInputData): any
+		local output = {}
+
+		if self.title ~= nil and self.title ~= "" then
+			output.title = self.title
+		end
+
+		if self.song_items ~= nil and #self.song_items > 0 then
+			local newOutput = {}
+			for _, value in self.song_items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.songItems = newOutput
+		end
+
+		if self.next_page_token ~= nil and self.next_page_token ~= "" then
+			output.nextPageToken = self.next_page_token
+		end
+
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output.sortId = self.sort_id
+		end
+
+		if self.secondary_sort_id ~= nil and self.secondary_sort_id ~= 0 then
+			output.secondarySortId = self.secondary_sort_id
+		end
+
+		return output
+	end
+
+	function _SongCarouselInputDataImpl.jsonDecode(input: { [string]: any }): SongCarouselInputData
+		local self = _SongCarouselInputDataImpl.new()
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.song_items ~= nil then
+			local newOutput: { SongCarouselInputData_SongItem } = {}
+			for _, value in input.song_items do
+				table.insert(newOutput, messages.SongCarouselInputData_SongItem.jsonDecode(value))
+			end
+
+			self.song_items = newOutput
+		end
+
+		if input.songItems ~= nil then
+			local newOutput: { SongCarouselInputData_SongItem } = {}
+			for _, value in input.songItems do
+				table.insert(newOutput, messages.SongCarouselInputData_SongItem.jsonDecode(value))
+			end
+
+			self.song_items = newOutput
+		end
+
+		if input.next_page_token ~= nil then
+			self.next_page_token = input.next_page_token
+		end
+
+		if input.nextPageToken ~= nil then
+			self.next_page_token = input.nextPageToken
+		end
+
+		if input.sort_id ~= nil then
+			self.sort_id = input.sort_id
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = input.sortId
+		end
+
+		if input.secondary_sort_id ~= nil then
+			self.secondary_sort_id = input.secondary_sort_id
+		end
+
+		if input.secondarySortId ~= nil then
+			self.secondary_sort_id = input.secondarySortId
+		end
+
+		return self
+	end
+
+	_SongCarouselInputDataImpl.descriptor = {
+		name = "SongCarouselInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SongCarouselInputData",
+	}
+
+	messages.SongCarouselInputData = _SongCarouselInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SongCarouselInputData)
+end
+
+do
+	local _SongCarouselInputData_SongItemImpl = {}
+	_SongCarouselInputData_SongItemImpl.__index = _SongCarouselInputData_SongItemImpl
+
+	function _SongCarouselInputData_SongItemImpl.new(
+		data: _SongCarouselInputData_SongItemPartialFields?
+	): SongCarouselInputData_SongItem
+		return setmetatable({
+			song_id = if data == nil or data.song_id == nil then "" else data.song_id,
+		}, _SongCarouselInputData_SongItemImpl :: _SongCarouselInputData_SongItemImpl)
+	end
+
+	function _SongCarouselInputData_SongItemImpl.encode(self: SongCarouselInputData_SongItem): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.song_id ~= nil and self.song_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.song_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SongCarouselInputData_SongItemImpl.decode(input: buffer): SongCarouselInputData_SongItem
+		local self = _SongCarouselInputData_SongItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.song_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SongCarouselInputData_SongItemImpl.jsonEncode(self: SongCarouselInputData_SongItem): any
+		local output = {}
+
+		if self.song_id ~= nil and self.song_id ~= "" then
+			output.songId = self.song_id
+		end
+
+		return output
+	end
+
+	function _SongCarouselInputData_SongItemImpl.jsonDecode(input: { [string]: any }): SongCarouselInputData_SongItem
+		local self = _SongCarouselInputData_SongItemImpl.new()
+
+		if input.song_id ~= nil then
+			self.song_id = input.song_id
+		end
+
+		if input.songId ~= nil then
+			self.song_id = input.songId
+		end
+
+		return self
+	end
+
+	_SongCarouselInputData_SongItemImpl.descriptor = {
+		name = "SongCarouselInputData_SongItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SongItem",
+	}
+
+	messages.SongCarouselInputData_SongItem = _SongCarouselInputData_SongItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SongCarouselInputData_SongItem)
+end
+
+do
+	local _EventsCarouselInputDataImpl = {}
+	_EventsCarouselInputDataImpl.__index = _EventsCarouselInputDataImpl
+
+	function _EventsCarouselInputDataImpl.new(data: _EventsCarouselInputDataPartialFields?): EventsCarouselInputData
+		return setmetatable({
+			title = if data == nil or data.title == nil then "" else data.title,
+			event_items = if data == nil or data.event_items == nil then {} else data.event_items,
+		}, _EventsCarouselInputDataImpl :: _EventsCarouselInputDataImpl)
+	end
+
+	function _EventsCarouselInputDataImpl.encode(self: EventsCarouselInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.title ~= nil and self.title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.event_items ~= nil and #self.event_items > 0 then
+			for _, value in self.event_items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _EventsCarouselInputDataImpl.decode(input: buffer): EventsCarouselInputData
+		local self = _EventsCarouselInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.event_items, messages.EventsCarouselInputData_EventItem.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _EventsCarouselInputDataImpl.jsonEncode(self: EventsCarouselInputData): any
+		local output = {}
+
+		if self.title ~= nil and self.title ~= "" then
+			output.title = self.title
+		end
+
+		if self.event_items ~= nil and #self.event_items > 0 then
+			local newOutput = {}
+			for _, value in self.event_items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.eventItems = newOutput
+		end
+
+		return output
+	end
+
+	function _EventsCarouselInputDataImpl.jsonDecode(input: { [string]: any }): EventsCarouselInputData
+		local self = _EventsCarouselInputDataImpl.new()
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.event_items ~= nil then
+			local newOutput: { EventsCarouselInputData_EventItem } = {}
+			for _, value in input.event_items do
+				table.insert(newOutput, messages.EventsCarouselInputData_EventItem.jsonDecode(value))
+			end
+
+			self.event_items = newOutput
+		end
+
+		if input.eventItems ~= nil then
+			local newOutput: { EventsCarouselInputData_EventItem } = {}
+			for _, value in input.eventItems do
+				table.insert(newOutput, messages.EventsCarouselInputData_EventItem.jsonDecode(value))
+			end
+
+			self.event_items = newOutput
+		end
+
+		return self
+	end
+
+	_EventsCarouselInputDataImpl.descriptor = {
+		name = "EventsCarouselInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EventsCarouselInputData",
+	}
+
+	messages.EventsCarouselInputData = _EventsCarouselInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.EventsCarouselInputData)
+end
+
+do
+	local _EventsCarouselInputData_EventItemImpl = {}
+	_EventsCarouselInputData_EventItemImpl.__index = _EventsCarouselInputData_EventItemImpl
+
+	function _EventsCarouselInputData_EventItemImpl.new(
+		data: _EventsCarouselInputData_EventItemPartialFields?
+	): EventsCarouselInputData_EventItem
+		return setmetatable({
+			event_id = if data == nil or data.event_id == nil then "" else data.event_id,
+		}, _EventsCarouselInputData_EventItemImpl :: _EventsCarouselInputData_EventItemImpl)
+	end
+
+	function _EventsCarouselInputData_EventItemImpl.encode(self: EventsCarouselInputData_EventItem): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.event_id ~= nil and self.event_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.event_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _EventsCarouselInputData_EventItemImpl.decode(input: buffer): EventsCarouselInputData_EventItem
+		local self = _EventsCarouselInputData_EventItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _EventsCarouselInputData_EventItemImpl.jsonEncode(self: EventsCarouselInputData_EventItem): any
+		local output = {}
+
+		if self.event_id ~= nil and self.event_id ~= "" then
+			output.eventId = self.event_id
+		end
+
+		return output
+	end
+
+	function _EventsCarouselInputData_EventItemImpl.jsonDecode(
+		input: { [string]: any }
+	): EventsCarouselInputData_EventItem
+		local self = _EventsCarouselInputData_EventItemImpl.new()
+
+		if input.event_id ~= nil then
+			self.event_id = input.event_id
+		end
+
+		if input.eventId ~= nil then
+			self.event_id = input.eventId
+		end
+
+		return self
+	end
+
+	_EventsCarouselInputData_EventItemImpl.descriptor = {
+		name = "EventsCarouselInputData_EventItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EventItem",
+	}
+
+	messages.EventsCarouselInputData_EventItem = _EventsCarouselInputData_EventItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.EventsCarouselInputData_EventItem)
+end
+
+do
+	local _DevStoreFeedInputDataImpl = {}
+	_DevStoreFeedInputDataImpl.__index = _DevStoreFeedInputDataImpl
+
+	function _DevStoreFeedInputDataImpl.new(data: _DevStoreFeedInputDataPartialFields?): DevStoreFeedInputData
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+			entry_map = if data == nil or data.entry_map == nil then {} else data.entry_map,
+		}, _DevStoreFeedInputDataImpl :: _DevStoreFeedInputDataImpl)
+	end
+
+	function _DevStoreFeedInputDataImpl.encode(self: DevStoreFeedInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
+			for key, value in self.entry_map do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _DevStoreFeedInputDataImpl.decode(input: buffer): DevStoreFeedInputData
+		local self = _DevStoreFeedInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.DevStoreFeedInputData_EntryMapEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.FeedEntry.new()
+
+					self.entry_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _DevStoreFeedInputDataImpl.jsonEncode(self: DevStoreFeedInputData): any
+		local output = {}
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
+		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
+			local newOutput = {}
+			for key, value in self.entry_map do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.entryMap = newOutput
+		end
+
+		return output
+	end
+
+	function _DevStoreFeedInputDataImpl.jsonDecode(input: { [string]: any }): DevStoreFeedInputData
+		local self = _DevStoreFeedInputDataImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		if input.entry_map ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.entry_map do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
+			end
+
+			self.entry_map = newOutput
+		end
+
+		if input.entryMap ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.entryMap do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
+			end
+
+			self.entry_map = newOutput
+		end
+
+		return self
+	end
+
+	_DevStoreFeedInputDataImpl.descriptor = {
+		name = "DevStoreFeedInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.DevStoreFeedInputData",
+	}
+
+	messages.DevStoreFeedInputData = _DevStoreFeedInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.DevStoreFeedInputData)
+end
+
+do
+	local _DevStoreFeedInputData_EntryMapEntryImpl = {}
+	_DevStoreFeedInputData_EntryMapEntryImpl.__index = _DevStoreFeedInputData_EntryMapEntryImpl
+
+	function _DevStoreFeedInputData_EntryMapEntryImpl.new(
+		data: _DevStoreFeedInputData_EntryMapEntryPartialFields?
+	): DevStoreFeedInputData_EntryMapEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _DevStoreFeedInputData_EntryMapEntryImpl :: _DevStoreFeedInputData_EntryMapEntryImpl)
+	end
+
+	function _DevStoreFeedInputData_EntryMapEntryImpl.encode(self: DevStoreFeedInputData_EntryMapEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _DevStoreFeedInputData_EntryMapEntryImpl.decode(input: buffer): DevStoreFeedInputData_EntryMapEntry
+		local self = _DevStoreFeedInputData_EntryMapEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.FeedEntry.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _DevStoreFeedInputData_EntryMapEntryImpl.jsonEncode(self: DevStoreFeedInputData_EntryMapEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _DevStoreFeedInputData_EntryMapEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): DevStoreFeedInputData_EntryMapEntry
+		local self = _DevStoreFeedInputData_EntryMapEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.FeedEntry.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_DevStoreFeedInputData_EntryMapEntryImpl.descriptor = {
+		name = "DevStoreFeedInputData_EntryMapEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EntryMapEntry",
+	}
+
+	messages.DevStoreFeedInputData_EntryMapEntry = _DevStoreFeedInputData_EntryMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.DevStoreFeedInputData_EntryMapEntry)
+end
+
+do
+	local _GamePassesGridInputDataImpl = {}
+	_GamePassesGridInputDataImpl.__index = _GamePassesGridInputDataImpl
+
+	function _GamePassesGridInputDataImpl.new(data: _GamePassesGridInputDataPartialFields?): GamePassesGridInputData
+		return setmetatable({
+			game_passes = if data == nil or data.game_passes == nil then {} else data.game_passes,
+		}, _GamePassesGridInputDataImpl :: _GamePassesGridInputDataImpl)
+	end
+
+	function _GamePassesGridInputDataImpl.encode(self: GamePassesGridInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.game_passes ~= nil and #self.game_passes > 0 then
+			for _, value in self.game_passes do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GamePassesGridInputDataImpl.decode(input: buffer): GamePassesGridInputData
+		local self = _GamePassesGridInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.game_passes, messages.GamePassesGridInputData_GamePassItem.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GamePassesGridInputDataImpl.jsonEncode(self: GamePassesGridInputData): any
+		local output = {}
+
+		if self.game_passes ~= nil and #self.game_passes > 0 then
+			local newOutput = {}
+			for _, value in self.game_passes do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.gamePasses = newOutput
+		end
+
+		return output
+	end
+
+	function _GamePassesGridInputDataImpl.jsonDecode(input: { [string]: any }): GamePassesGridInputData
+		local self = _GamePassesGridInputDataImpl.new()
+
+		if input.game_passes ~= nil then
+			local newOutput: { GamePassesGridInputData_GamePassItem } = {}
+			for _, value in input.game_passes do
+				table.insert(newOutput, messages.GamePassesGridInputData_GamePassItem.jsonDecode(value))
+			end
+
+			self.game_passes = newOutput
+		end
+
+		if input.gamePasses ~= nil then
+			local newOutput: { GamePassesGridInputData_GamePassItem } = {}
+			for _, value in input.gamePasses do
+				table.insert(newOutput, messages.GamePassesGridInputData_GamePassItem.jsonDecode(value))
+			end
+
+			self.game_passes = newOutput
+		end
+
+		return self
+	end
+
+	_GamePassesGridInputDataImpl.descriptor = {
+		name = "GamePassesGridInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GamePassesGridInputData",
+	}
+
+	messages.GamePassesGridInputData = _GamePassesGridInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GamePassesGridInputData)
+end
+
+do
+	local _GamePassesGridInputData_GamePassItemImpl = {}
+	_GamePassesGridInputData_GamePassItemImpl.__index = _GamePassesGridInputData_GamePassItemImpl
+
+	function _GamePassesGridInputData_GamePassItemImpl.new(
+		data: _GamePassesGridInputData_GamePassItemPartialFields?
+	): GamePassesGridInputData_GamePassItem
+		return setmetatable({
+			game_pass_id = if data == nil or data.game_pass_id == nil then "" else data.game_pass_id,
+		}, _GamePassesGridInputData_GamePassItemImpl :: _GamePassesGridInputData_GamePassItemImpl)
+	end
+
+	function _GamePassesGridInputData_GamePassItemImpl.encode(self: GamePassesGridInputData_GamePassItem): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.game_pass_id ~= nil and self.game_pass_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.game_pass_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GamePassesGridInputData_GamePassItemImpl.decode(input: buffer): GamePassesGridInputData_GamePassItem
+		local self = _GamePassesGridInputData_GamePassItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.game_pass_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GamePassesGridInputData_GamePassItemImpl.jsonEncode(self: GamePassesGridInputData_GamePassItem): any
+		local output = {}
+
+		if self.game_pass_id ~= nil and self.game_pass_id ~= "" then
+			output.gamePassId = self.game_pass_id
+		end
+
+		return output
+	end
+
+	function _GamePassesGridInputData_GamePassItemImpl.jsonDecode(
+		input: { [string]: any }
+	): GamePassesGridInputData_GamePassItem
+		local self = _GamePassesGridInputData_GamePassItemImpl.new()
+
+		if input.game_pass_id ~= nil then
+			self.game_pass_id = input.game_pass_id
+		end
+
+		if input.gamePassId ~= nil then
+			self.game_pass_id = input.gamePassId
+		end
+
+		return self
+	end
+
+	_GamePassesGridInputData_GamePassItemImpl.descriptor = {
+		name = "GamePassesGridInputData_GamePassItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GamePassItem",
+	}
+
+	messages.GamePassesGridInputData_GamePassItem = _GamePassesGridInputData_GamePassItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GamePassesGridInputData_GamePassItem)
+end
+
+do
+	local _GameDeveloperProductsGridInputDataImpl = {}
+	_GameDeveloperProductsGridInputDataImpl.__index = _GameDeveloperProductsGridInputDataImpl
+
+	function _GameDeveloperProductsGridInputDataImpl.new(
+		data: _GameDeveloperProductsGridInputDataPartialFields?
+	): GameDeveloperProductsGridInputData
+		return setmetatable({
+			developer_products = if data == nil or data.developer_products == nil then {} else data.developer_products,
+		}, _GameDeveloperProductsGridInputDataImpl :: _GameDeveloperProductsGridInputDataImpl)
+	end
+
+	function _GameDeveloperProductsGridInputDataImpl.encode(self: GameDeveloperProductsGridInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.developer_products ~= nil and #self.developer_products > 0 then
+			for _, value in self.developer_products do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GameDeveloperProductsGridInputDataImpl.decode(input: buffer): GameDeveloperProductsGridInputData
+		local self = _GameDeveloperProductsGridInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.developer_products,
+						messages.GameDeveloperProductsGridInputData_DeveloperProductItem.decode(value)
+					)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GameDeveloperProductsGridInputDataImpl.jsonEncode(self: GameDeveloperProductsGridInputData): any
+		local output = {}
+
+		if self.developer_products ~= nil and #self.developer_products > 0 then
+			local newOutput = {}
+			for _, value in self.developer_products do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.developerProducts = newOutput
+		end
+
+		return output
+	end
+
+	function _GameDeveloperProductsGridInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): GameDeveloperProductsGridInputData
+		local self = _GameDeveloperProductsGridInputDataImpl.new()
+
+		if input.developer_products ~= nil then
+			local newOutput: { GameDeveloperProductsGridInputData_DeveloperProductItem } = {}
+			for _, value in input.developer_products do
+				table.insert(
+					newOutput,
+					messages.GameDeveloperProductsGridInputData_DeveloperProductItem.jsonDecode(value)
+				)
+			end
+
+			self.developer_products = newOutput
+		end
+
+		if input.developerProducts ~= nil then
+			local newOutput: { GameDeveloperProductsGridInputData_DeveloperProductItem } = {}
+			for _, value in input.developerProducts do
+				table.insert(
+					newOutput,
+					messages.GameDeveloperProductsGridInputData_DeveloperProductItem.jsonDecode(value)
+				)
+			end
+
+			self.developer_products = newOutput
+		end
+
+		return self
+	end
+
+	_GameDeveloperProductsGridInputDataImpl.descriptor = {
+		name = "GameDeveloperProductsGridInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GameDeveloperProductsGridInputData",
+	}
+
+	messages.GameDeveloperProductsGridInputData = _GameDeveloperProductsGridInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GameDeveloperProductsGridInputData)
+end
+
+do
+	local _GameDeveloperProductsGridInputData_DeveloperProductItemImpl = {}
+	_GameDeveloperProductsGridInputData_DeveloperProductItemImpl.__index =
+		_GameDeveloperProductsGridInputData_DeveloperProductItemImpl
+
+	function _GameDeveloperProductsGridInputData_DeveloperProductItemImpl.new(
+		data: _GameDeveloperProductsGridInputData_DeveloperProductItemPartialFields?
+	): GameDeveloperProductsGridInputData_DeveloperProductItem
+		return setmetatable(
+			{
+				developer_product_id = if data == nil or data.developer_product_id == nil
+					then ""
+					else data.developer_product_id,
+			},
+			_GameDeveloperProductsGridInputData_DeveloperProductItemImpl :: _GameDeveloperProductsGridInputData_DeveloperProductItemImpl
+		)
+	end
+
+	function _GameDeveloperProductsGridInputData_DeveloperProductItemImpl.encode(
+		self: GameDeveloperProductsGridInputData_DeveloperProductItem
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.developer_product_id ~= nil and self.developer_product_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.developer_product_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GameDeveloperProductsGridInputData_DeveloperProductItemImpl.decode(
+		input: buffer
+	): GameDeveloperProductsGridInputData_DeveloperProductItem
+		local self = _GameDeveloperProductsGridInputData_DeveloperProductItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.developer_product_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GameDeveloperProductsGridInputData_DeveloperProductItemImpl.jsonEncode(
+		self: GameDeveloperProductsGridInputData_DeveloperProductItem
+	): any
+		local output = {}
+
+		if self.developer_product_id ~= nil and self.developer_product_id ~= "" then
+			output.developerProductId = self.developer_product_id
+		end
+
+		return output
+	end
+
+	function _GameDeveloperProductsGridInputData_DeveloperProductItemImpl.jsonDecode(
+		input: { [string]: any }
+	): GameDeveloperProductsGridInputData_DeveloperProductItem
+		local self = _GameDeveloperProductsGridInputData_DeveloperProductItemImpl.new()
+
+		if input.developer_product_id ~= nil then
+			self.developer_product_id = input.developer_product_id
+		end
+
+		if input.developerProductId ~= nil then
+			self.developer_product_id = input.developerProductId
+		end
+
+		return self
+	end
+
+	_GameDeveloperProductsGridInputData_DeveloperProductItemImpl.descriptor = {
+		name = "GameDeveloperProductsGridInputData_DeveloperProductItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.DeveloperProductItem",
+	}
+
+	messages.GameDeveloperProductsGridInputData_DeveloperProductItem =
+		_GameDeveloperProductsGridInputData_DeveloperProductItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GameDeveloperProductsGridInputData_DeveloperProductItem)
+end
+
+do
+	local _GameSubscriptionsGridInputDataImpl = {}
+	_GameSubscriptionsGridInputDataImpl.__index = _GameSubscriptionsGridInputDataImpl
+
+	function _GameSubscriptionsGridInputDataImpl.new(
+		data: _GameSubscriptionsGridInputDataPartialFields?
+	): GameSubscriptionsGridInputData
+		return setmetatable({
+			subscriptions = if data == nil or data.subscriptions == nil then {} else data.subscriptions,
+		}, _GameSubscriptionsGridInputDataImpl :: _GameSubscriptionsGridInputDataImpl)
+	end
+
+	function _GameSubscriptionsGridInputDataImpl.encode(self: GameSubscriptionsGridInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.subscriptions ~= nil and #self.subscriptions > 0 then
+			for _, value in self.subscriptions do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GameSubscriptionsGridInputDataImpl.decode(input: buffer): GameSubscriptionsGridInputData
+		local self = _GameSubscriptionsGridInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.subscriptions,
+						messages.GameSubscriptionsGridInputData_SubscriptionItem.decode(value)
+					)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GameSubscriptionsGridInputDataImpl.jsonEncode(self: GameSubscriptionsGridInputData): any
+		local output = {}
+
+		if self.subscriptions ~= nil and #self.subscriptions > 0 then
+			local newOutput = {}
+			for _, value in self.subscriptions do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.subscriptions = newOutput
+		end
+
+		return output
+	end
+
+	function _GameSubscriptionsGridInputDataImpl.jsonDecode(input: { [string]: any }): GameSubscriptionsGridInputData
+		local self = _GameSubscriptionsGridInputDataImpl.new()
+
+		if input.subscriptions ~= nil then
+			local newOutput: { GameSubscriptionsGridInputData_SubscriptionItem } = {}
+			for _, value in input.subscriptions do
+				table.insert(newOutput, messages.GameSubscriptionsGridInputData_SubscriptionItem.jsonDecode(value))
+			end
+
+			self.subscriptions = newOutput
+		end
+
+		return self
+	end
+
+	_GameSubscriptionsGridInputDataImpl.descriptor = {
+		name = "GameSubscriptionsGridInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GameSubscriptionsGridInputData",
+	}
+
+	messages.GameSubscriptionsGridInputData = _GameSubscriptionsGridInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GameSubscriptionsGridInputData)
+end
+
+do
+	local _GameSubscriptionsGridInputData_SubscriptionItemImpl = {}
+	_GameSubscriptionsGridInputData_SubscriptionItemImpl.__index = _GameSubscriptionsGridInputData_SubscriptionItemImpl
+
+	function _GameSubscriptionsGridInputData_SubscriptionItemImpl.new(
+		data: _GameSubscriptionsGridInputData_SubscriptionItemPartialFields?
+	): GameSubscriptionsGridInputData_SubscriptionItem
+		return setmetatable({
+			subscription_id = if data == nil or data.subscription_id == nil then "" else data.subscription_id,
+		}, _GameSubscriptionsGridInputData_SubscriptionItemImpl :: _GameSubscriptionsGridInputData_SubscriptionItemImpl)
+	end
+
+	function _GameSubscriptionsGridInputData_SubscriptionItemImpl.encode(
+		self: GameSubscriptionsGridInputData_SubscriptionItem
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.subscription_id ~= nil and self.subscription_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.subscription_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GameSubscriptionsGridInputData_SubscriptionItemImpl.decode(
+		input: buffer
+	): GameSubscriptionsGridInputData_SubscriptionItem
+		local self = _GameSubscriptionsGridInputData_SubscriptionItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subscription_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GameSubscriptionsGridInputData_SubscriptionItemImpl.jsonEncode(
+		self: GameSubscriptionsGridInputData_SubscriptionItem
+	): any
+		local output = {}
+
+		if self.subscription_id ~= nil and self.subscription_id ~= "" then
+			output.subscriptionId = self.subscription_id
+		end
+
+		return output
+	end
+
+	function _GameSubscriptionsGridInputData_SubscriptionItemImpl.jsonDecode(
+		input: { [string]: any }
+	): GameSubscriptionsGridInputData_SubscriptionItem
+		local self = _GameSubscriptionsGridInputData_SubscriptionItemImpl.new()
+
+		if input.subscription_id ~= nil then
+			self.subscription_id = input.subscription_id
+		end
+
+		if input.subscriptionId ~= nil then
+			self.subscription_id = input.subscriptionId
+		end
+
+		return self
+	end
+
+	_GameSubscriptionsGridInputData_SubscriptionItemImpl.descriptor = {
+		name = "GameSubscriptionsGridInputData_SubscriptionItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SubscriptionItem",
+	}
+
+	messages.GameSubscriptionsGridInputData_SubscriptionItem =
+		_GameSubscriptionsGridInputData_SubscriptionItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GameSubscriptionsGridInputData_SubscriptionItem)
+end
+
+do
+	local _CardContainerCardInputDataImpl = {}
+	_CardContainerCardInputDataImpl.__index = _CardContainerCardInputDataImpl
+
+	function _CardContainerCardInputDataImpl.new(
+		data: _CardContainerCardInputDataPartialFields?
+	): CardContainerCardInputData
 		return setmetatable({
 			roblox_component = if data == nil or data.roblox_component == nil then "" else data.roblox_component,
 			identifier = if data == nil or data.identifier == nil then "" else data.identifier,
@@ -1962,12 +7427,12 @@ do
 			user_id = if data == nil or data.user_id == nil then "" else data.user_id,
 			description = if data == nil or data.description == nil then "" else data.description,
 			cta_text = if data == nil or data.cta_text == nil then "" else data.cta_text,
-		}, _PromptsInputData_CardContainerCardInputDataImpl :: _PromptsInputData_CardContainerCardInputDataImpl)
+			prompt_id = if data == nil or data.prompt_id == nil then "" else data.prompt_id,
+			prompt_type = if data == nil or data.prompt_type == nil then "" else data.prompt_type,
+		}, _CardContainerCardInputDataImpl :: _CardContainerCardInputDataImpl)
 	end
 
-	function _PromptsInputData_CardContainerCardInputDataImpl.encode(
-		self: PromptsInputData_CardContainerCardInputData
-	): buffer
+	function _CardContainerCardInputDataImpl.encode(self: CardContainerCardInputData): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -2001,15 +7466,23 @@ do
 			output, cursor = proto.writeString(output, cursor, self.cta_text)
 		end
 
+		if self.prompt_id ~= nil and self.prompt_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.prompt_id)
+		end
+
+		if self.prompt_type ~= nil and self.prompt_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.prompt_type)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
 	end
 
-	function _PromptsInputData_CardContainerCardInputDataImpl.decode(
-		input: buffer
-	): PromptsInputData_CardContainerCardInputData
-		local self = _PromptsInputData_CardContainerCardInputDataImpl.new()
+	function _CardContainerCardInputDataImpl.decode(input: buffer): CardContainerCardInputData
+		local self = _CardContainerCardInputDataImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -2052,6 +7525,16 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.cta_text = buffer.tostring(value)
 					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_id = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_type = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -2076,9 +7559,7 @@ do
 		return self
 	end
 
-	function _PromptsInputData_CardContainerCardInputDataImpl.jsonEncode(
-		self: PromptsInputData_CardContainerCardInputData
-	): any
+	function _CardContainerCardInputDataImpl.jsonEncode(self: CardContainerCardInputData): any
 		local output = {}
 
 		if self.roblox_component ~= nil and self.roblox_component ~= "" then
@@ -2105,13 +7586,19 @@ do
 			output.ctaText = self.cta_text
 		end
 
+		if self.prompt_id ~= nil and self.prompt_id ~= "" then
+			output.promptId = self.prompt_id
+		end
+
+		if self.prompt_type ~= nil and self.prompt_type ~= "" then
+			output.promptType = self.prompt_type
+		end
+
 		return output
 	end
 
-	function _PromptsInputData_CardContainerCardInputDataImpl.jsonDecode(
-		input: { [string]: any }
-	): PromptsInputData_CardContainerCardInputData
-		local self = _PromptsInputData_CardContainerCardInputDataImpl.new()
+	function _CardContainerCardInputDataImpl.jsonDecode(input: { [string]: any }): CardContainerCardInputData
+		local self = _CardContainerCardInputDataImpl.new()
 
 		if input.roblox_component ~= nil then
 			self.roblox_component = input.roblox_component
@@ -2149,35 +7636,271 @@ do
 			self.cta_text = input.ctaText
 		end
 
+		if input.prompt_id ~= nil then
+			self.prompt_id = input.prompt_id
+		end
+
+		if input.promptId ~= nil then
+			self.prompt_id = input.promptId
+		end
+
+		if input.prompt_type ~= nil then
+			self.prompt_type = input.prompt_type
+		end
+
+		if input.promptType ~= nil then
+			self.prompt_type = input.promptType
+		end
+
 		return self
 	end
 
-	_PromptsInputData_CardContainerCardInputDataImpl.descriptor = {
-		name = "PromptsInputData_CardContainerCardInputData",
+	_CardContainerCardInputDataImpl.descriptor = {
+		name = "CardContainerCardInputData",
 		fullName = "roblox.apppageplatform.shared.v1beta1.CardContainerCardInputData",
 	}
 
-	messages.PromptsInputData_CardContainerCardInputData = _PromptsInputData_CardContainerCardInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.CardContainerCardInputData = _CardContainerCardInputDataImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.PromptsInputData_CardContainerCardInputData)
+	typeRegistry.default:register(messages.CardContainerCardInputData)
 end
 
 do
-	local _PromptsInputData_CardInputDataImpl = {}
-	_PromptsInputData_CardInputDataImpl.__index = _PromptsInputData_CardInputDataImpl
+	local _CardContainerInputDataImpl = {}
+	_CardContainerInputDataImpl.__index = _CardContainerInputDataImpl
 
-	function _PromptsInputData_CardInputDataImpl.new(
-		data: _PromptsInputData_CardInputDataPartialFields?
-	): PromptsInputData_CardInputData
+	function _CardContainerInputDataImpl.new(data: _CardContainerInputDataPartialFields?): CardContainerInputData
+		return setmetatable({
+			title = if data == nil or data.title == nil then "" else data.title,
+			dismiss_text = if data == nil or data.dismiss_text == nil then "" else data.dismiss_text,
+			user_id = if data == nil or data.user_id == nil then "" else data.user_id,
+			cards = if data == nil or data.cards == nil then {} else data.cards,
+			prompt_id = if data == nil or data.prompt_id == nil then "" else data.prompt_id,
+			prompt_type = if data == nil or data.prompt_type == nil then "" else data.prompt_type,
+		}, _CardContainerInputDataImpl :: _CardContainerInputDataImpl)
+	end
+
+	function _CardContainerInputDataImpl.encode(self: CardContainerInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.title ~= nil and self.title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.dismiss_text ~= nil and self.dismiss_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.dismiss_text)
+		end
+
+		if self.user_id ~= nil and self.user_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.user_id)
+		end
+
+		if self.cards ~= nil and #self.cards > 0 then
+			for _, value in self.cards do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.prompt_id ~= nil and self.prompt_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.prompt_id)
+		end
+
+		if self.prompt_type ~= nil and self.prompt_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.prompt_type)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CardContainerInputDataImpl.decode(input: buffer): CardContainerInputData
+		local self = _CardContainerInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.dismiss_text = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.user_id = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.cards, messages.CardContainerCardInputData.decode(value))
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_id = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_type = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CardContainerInputDataImpl.jsonEncode(self: CardContainerInputData): any
+		local output = {}
+
+		if self.title ~= nil and self.title ~= "" then
+			output.title = self.title
+		end
+
+		if self.dismiss_text ~= nil and self.dismiss_text ~= "" then
+			output.dismissText = self.dismiss_text
+		end
+
+		if self.user_id ~= nil and self.user_id ~= "" then
+			output.userId = self.user_id
+		end
+
+		if self.cards ~= nil and #self.cards > 0 then
+			local newOutput = {}
+			for _, value in self.cards do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.cards = newOutput
+		end
+
+		if self.prompt_id ~= nil and self.prompt_id ~= "" then
+			output.promptId = self.prompt_id
+		end
+
+		if self.prompt_type ~= nil and self.prompt_type ~= "" then
+			output.promptType = self.prompt_type
+		end
+
+		return output
+	end
+
+	function _CardContainerInputDataImpl.jsonDecode(input: { [string]: any }): CardContainerInputData
+		local self = _CardContainerInputDataImpl.new()
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.dismiss_text ~= nil then
+			self.dismiss_text = input.dismiss_text
+		end
+
+		if input.dismissText ~= nil then
+			self.dismiss_text = input.dismissText
+		end
+
+		if input.user_id ~= nil then
+			self.user_id = input.user_id
+		end
+
+		if input.userId ~= nil then
+			self.user_id = input.userId
+		end
+
+		if input.cards ~= nil then
+			local newOutput: { CardContainerCardInputData } = {}
+			for _, value in input.cards do
+				table.insert(newOutput, messages.CardContainerCardInputData.jsonDecode(value))
+			end
+
+			self.cards = newOutput
+		end
+
+		if input.prompt_id ~= nil then
+			self.prompt_id = input.prompt_id
+		end
+
+		if input.promptId ~= nil then
+			self.prompt_id = input.promptId
+		end
+
+		if input.prompt_type ~= nil then
+			self.prompt_type = input.prompt_type
+		end
+
+		if input.promptType ~= nil then
+			self.prompt_type = input.promptType
+		end
+
+		return self
+	end
+
+	_CardContainerInputDataImpl.descriptor = {
+		name = "CardContainerInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.CardContainerInputData",
+	}
+
+	messages.CardContainerInputData = _CardContainerInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CardContainerInputData)
+end
+
+do
+	local _CardInputDataImpl = {}
+	_CardInputDataImpl.__index = _CardInputDataImpl
+
+	function _CardInputDataImpl.new(data: _CardInputDataPartialFields?): CardInputData
 		return setmetatable({
 			title = if data == nil or data.title == nil then "" else data.title,
 			user_id = if data == nil or data.user_id == nil then "" else data.user_id,
 			description = if data == nil or data.description == nil then "" else data.description,
 			cta_text = if data == nil or data.cta_text == nil then "" else data.cta_text,
-		}, _PromptsInputData_CardInputDataImpl :: _PromptsInputData_CardInputDataImpl)
+			prompt_id = if data == nil or data.prompt_id == nil then "" else data.prompt_id,
+			prompt_type = if data == nil or data.prompt_type == nil then "" else data.prompt_type,
+		}, _CardInputDataImpl :: _CardInputDataImpl)
 	end
 
-	function _PromptsInputData_CardInputDataImpl.encode(self: PromptsInputData_CardInputData): buffer
+	function _CardInputDataImpl.encode(self: CardInputData): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -2201,13 +7924,23 @@ do
 			output, cursor = proto.writeString(output, cursor, self.cta_text)
 		end
 
+		if self.prompt_id ~= nil and self.prompt_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.prompt_id)
+		end
+
+		if self.prompt_type ~= nil and self.prompt_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.prompt_type)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
 	end
 
-	function _PromptsInputData_CardInputDataImpl.decode(input: buffer): PromptsInputData_CardInputData
-		local self = _PromptsInputData_CardInputDataImpl.new()
+	function _CardInputDataImpl.decode(input: buffer): CardInputData
+		local self = _CardInputDataImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -2240,6 +7973,16 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.cta_text = buffer.tostring(value)
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_id = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_type = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -2264,7 +8007,7 @@ do
 		return self
 	end
 
-	function _PromptsInputData_CardInputDataImpl.jsonEncode(self: PromptsInputData_CardInputData): any
+	function _CardInputDataImpl.jsonEncode(self: CardInputData): any
 		local output = {}
 
 		if self.title ~= nil and self.title ~= "" then
@@ -2283,11 +8026,19 @@ do
 			output.ctaText = self.cta_text
 		end
 
+		if self.prompt_id ~= nil and self.prompt_id ~= "" then
+			output.promptId = self.prompt_id
+		end
+
+		if self.prompt_type ~= nil and self.prompt_type ~= "" then
+			output.promptType = self.prompt_type
+		end
+
 		return output
 	end
 
-	function _PromptsInputData_CardInputDataImpl.jsonDecode(input: { [string]: any }): PromptsInputData_CardInputData
-		local self = _PromptsInputData_CardInputDataImpl.new()
+	function _CardInputDataImpl.jsonDecode(input: { [string]: any }): CardInputData
+		local self = _CardInputDataImpl.new()
 
 		if input.title ~= nil then
 			self.title = input.title
@@ -2313,68 +8064,54 @@ do
 			self.cta_text = input.ctaText
 		end
 
+		if input.prompt_id ~= nil then
+			self.prompt_id = input.prompt_id
+		end
+
+		if input.promptId ~= nil then
+			self.prompt_id = input.promptId
+		end
+
+		if input.prompt_type ~= nil then
+			self.prompt_type = input.prompt_type
+		end
+
+		if input.promptType ~= nil then
+			self.prompt_type = input.promptType
+		end
+
 		return self
 	end
 
-	_PromptsInputData_CardInputDataImpl.descriptor = {
-		name = "PromptsInputData_CardInputData",
+	_CardInputDataImpl.descriptor = {
+		name = "CardInputData",
 		fullName = "roblox.apppageplatform.shared.v1beta1.CardInputData",
 	}
 
-	messages.PromptsInputData_CardInputData = _PromptsInputData_CardInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.CardInputData = _CardInputDataImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.PromptsInputData_CardInputData)
+	typeRegistry.default:register(messages.CardInputData)
 end
 
 do
-	local _PromptsInputData_CardContainerInputDataImpl = {}
-	_PromptsInputData_CardContainerInputDataImpl.__index = _PromptsInputData_CardContainerInputDataImpl
+	local _DialogInputDataImpl = {}
+	_DialogInputDataImpl.__index = _DialogInputDataImpl
 
-	function _PromptsInputData_CardContainerInputDataImpl.new(
-		data: _PromptsInputData_CardContainerInputDataPartialFields?
-	): PromptsInputData_CardContainerInputData
-		return setmetatable({
-			title = if data == nil or data.title == nil then "" else data.title,
-			dismiss_text = if data == nil or data.dismiss_text == nil then "" else data.dismiss_text,
-			user_id = if data == nil or data.user_id == nil then "" else data.user_id,
-			cards = if data == nil or data.cards == nil then {} else data.cards,
-		}, _PromptsInputData_CardContainerInputDataImpl :: _PromptsInputData_CardContainerInputDataImpl)
+	function _DialogInputDataImpl.new(data: _DialogInputDataPartialFields?): DialogInputData
+		return setmetatable({}, _DialogInputDataImpl :: _DialogInputDataImpl)
 	end
 
-	function _PromptsInputData_CardContainerInputDataImpl.encode(self: PromptsInputData_CardContainerInputData): buffer
+	function _DialogInputDataImpl.encode(self: DialogInputData): buffer
 		local output = buffer.create(0)
 		local cursor = 0
-
-		if self.title ~= nil and self.title ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.title)
-		end
-
-		if self.dismiss_text ~= nil and self.dismiss_text ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.dismiss_text)
-		end
-
-		if self.user_id ~= nil and self.user_id ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.user_id)
-		end
-
-		if self.cards ~= nil and #self.cards > 0 then
-			for _, value in self.cards do
-				local encoded = value:encode()
-				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			end
-		end
 
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
 	end
 
-	function _PromptsInputData_CardContainerInputDataImpl.decode(input: buffer): PromptsInputData_CardContainerInputData
-		local self = _PromptsInputData_CardContainerInputDataImpl.new()
+	function _DialogInputDataImpl.decode(input: buffer): DialogInputData
+		local self = _DialogInputDataImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -2387,25 +8124,290 @@ do
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
 			elseif wireType == proto.wireTypes.lengthDelimited then
+				-- No fields
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _DialogInputDataImpl.jsonEncode(self: DialogInputData): any
+		local output = {}
+
+		return output
+	end
+
+	function _DialogInputDataImpl.jsonDecode(input: { [string]: any }): DialogInputData
+		local self = _DialogInputDataImpl.new()
+
+		return self
+	end
+
+	_DialogInputDataImpl.descriptor = {
+		name = "DialogInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.DialogInputData",
+	}
+
+	messages.DialogInputData = _DialogInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.DialogInputData)
+end
+
+do
+	local _BannerInputDataImpl = {}
+	_BannerInputDataImpl.__index = _BannerInputDataImpl
+
+	function _BannerInputDataImpl.new(data: _BannerInputDataPartialFields?): BannerInputData
+		return setmetatable({}, _BannerInputDataImpl :: _BannerInputDataImpl)
+	end
+
+	function _BannerInputDataImpl.encode(self: BannerInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BannerInputDataImpl.decode(input: buffer): BannerInputData
+		local self = _BannerInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				-- No fields
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BannerInputDataImpl.jsonEncode(self: BannerInputData): any
+		local output = {}
+
+		return output
+	end
+
+	function _BannerInputDataImpl.jsonDecode(input: { [string]: any }): BannerInputData
+		local self = _BannerInputDataImpl.new()
+
+		return self
+	end
+
+	_BannerInputDataImpl.descriptor = {
+		name = "BannerInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BannerInputData",
+	}
+
+	messages.BannerInputData = _BannerInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BannerInputData)
+end
+
+do
+	local _TooltipInputDataImpl = {}
+	_TooltipInputDataImpl.__index = _TooltipInputDataImpl
+
+	function _TooltipInputDataImpl.new(data: _TooltipInputDataPartialFields?): TooltipInputData
+		return setmetatable({}, _TooltipInputDataImpl :: _TooltipInputDataImpl)
+	end
+
+	function _TooltipInputDataImpl.encode(self: TooltipInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _TooltipInputDataImpl.decode(input: buffer): TooltipInputData
+		local self = _TooltipInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				-- No fields
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _TooltipInputDataImpl.jsonEncode(self: TooltipInputData): any
+		local output = {}
+
+		return output
+	end
+
+	function _TooltipInputDataImpl.jsonDecode(input: { [string]: any }): TooltipInputData
+		local self = _TooltipInputDataImpl.new()
+
+		return self
+	end
+
+	_TooltipInputDataImpl.descriptor = {
+		name = "TooltipInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.TooltipInputData",
+	}
+
+	messages.TooltipInputData = _TooltipInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.TooltipInputData)
+end
+
+do
+	local _EventDetailsFeedInputDataImpl = {}
+	_EventDetailsFeedInputDataImpl.__index = _EventDetailsFeedInputDataImpl
+
+	function _EventDetailsFeedInputDataImpl.new(
+		data: _EventDetailsFeedInputDataPartialFields?
+	): EventDetailsFeedInputData
+		return setmetatable({
+			event_id = if data == nil or data.event_id == nil then 0 else data.event_id,
+			entry_map = if data == nil or data.entry_map == nil then {} else data.entry_map,
+			entry_order = if data == nil or data.entry_order == nil then {} else data.entry_order,
+		}, _EventDetailsFeedInputDataImpl :: _EventDetailsFeedInputDataImpl)
+	end
+
+	function _EventDetailsFeedInputDataImpl.encode(self: EventDetailsFeedInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.event_id ~= nil and self.event_id ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.event_id)
+		end
+
+		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
+			for key, value in self.entry_map do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.entry_order ~= nil and #self.entry_order > 0 then
+			for _, value in self.entry_order do
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _EventDetailsFeedInputDataImpl.decode(input: buffer): EventDetailsFeedInputData
+		local self = _EventDetailsFeedInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
 				if field == 1 then
 					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.title = buffer.tostring(value)
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.event_id = value
 					continue
-				elseif field == 2 then
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 3 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.dismiss_text = buffer.tostring(value)
-					continue
-				elseif field == 3 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.user_id = buffer.tostring(value)
+
+					local mapEntry = messages.EventDetailsFeedInputData_EntryMapEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.FeedEntry.new()
+
+					self.entry_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
 					continue
 				elseif field == 4 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.cards, messages.PromptsInputData_CardContainerCardInputData.decode(value))
+					table.insert(self.entry_order, buffer.tostring(value))
 					continue
 				end
 
@@ -2431,80 +8433,2302 @@ do
 		return self
 	end
 
-	function _PromptsInputData_CardContainerInputDataImpl.jsonEncode(self: PromptsInputData_CardContainerInputData): any
+	function _EventDetailsFeedInputDataImpl.jsonEncode(self: EventDetailsFeedInputData): any
 		local output = {}
 
-		if self.title ~= nil and self.title ~= "" then
-			output.title = self.title
+		if self.event_id ~= nil and self.event_id ~= 0 then
+			output.eventId = self.event_id
 		end
 
-		if self.dismiss_text ~= nil and self.dismiss_text ~= "" then
-			output.dismissText = self.dismiss_text
-		end
-
-		if self.user_id ~= nil and self.user_id ~= "" then
-			output.userId = self.user_id
-		end
-
-		if self.cards ~= nil and #self.cards > 0 then
+		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
 			local newOutput = {}
-			for _, value in self.cards do
-				table.insert(newOutput, value:jsonEncode())
+			for key, value in self.entry_map do
+				newOutput[key] = value:jsonEncode()
 			end
-			output.cards = newOutput
+			output.entryMap = newOutput
+		end
+
+		if self.entry_order ~= nil and #self.entry_order > 0 then
+			local newOutput = {}
+			for _, value in self.entry_order do
+				table.insert(newOutput, value)
+			end
+			output.entryOrder = newOutput
 		end
 
 		return output
 	end
 
-	function _PromptsInputData_CardContainerInputDataImpl.jsonDecode(
-		input: { [string]: any }
-	): PromptsInputData_CardContainerInputData
-		local self = _PromptsInputData_CardContainerInputDataImpl.new()
+	function _EventDetailsFeedInputDataImpl.jsonDecode(input: { [string]: any }): EventDetailsFeedInputData
+		local self = _EventDetailsFeedInputDataImpl.new()
 
-		if input.title ~= nil then
-			self.title = input.title
+		if input.event_id ~= nil then
+			self.event_id = input.event_id
 		end
 
-		if input.dismiss_text ~= nil then
-			self.dismiss_text = input.dismiss_text
+		if input.eventId ~= nil then
+			self.event_id = input.eventId
 		end
 
-		if input.dismissText ~= nil then
-			self.dismiss_text = input.dismissText
-		end
-
-		if input.user_id ~= nil then
-			self.user_id = input.user_id
-		end
-
-		if input.userId ~= nil then
-			self.user_id = input.userId
-		end
-
-		if input.cards ~= nil then
-			local newOutput: { PromptsInputData_CardContainerCardInputData } = {}
-			for _, value in input.cards do
-				table.insert(newOutput, messages.PromptsInputData_CardContainerCardInputData.jsonDecode(value))
+		if input.entry_map ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.entry_map do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
 			end
 
-			self.cards = newOutput
+			self.entry_map = newOutput
+		end
+
+		if input.entryMap ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.entryMap do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
+			end
+
+			self.entry_map = newOutput
+		end
+
+		if input.entry_order ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.entry_order do
+				table.insert(newOutput, value)
+			end
+
+			self.entry_order = newOutput
+		end
+
+		if input.entryOrder ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.entryOrder do
+				table.insert(newOutput, value)
+			end
+
+			self.entry_order = newOutput
 		end
 
 		return self
 	end
 
-	_PromptsInputData_CardContainerInputDataImpl.descriptor = {
-		name = "PromptsInputData_CardContainerInputData",
-		fullName = "roblox.apppageplatform.shared.v1beta1.CardContainerInputData",
+	_EventDetailsFeedInputDataImpl.descriptor = {
+		name = "EventDetailsFeedInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EventDetailsFeedInputData",
 	}
 
-	messages.PromptsInputData_CardContainerInputData = _PromptsInputData_CardContainerInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.EventDetailsFeedInputData = _EventDetailsFeedInputDataImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.PromptsInputData_CardContainerInputData)
+	typeRegistry.default:register(messages.EventDetailsFeedInputData)
 end
 
+do
+	local _EventDetailsFeedInputData_EntryMapEntryImpl = {}
+	_EventDetailsFeedInputData_EntryMapEntryImpl.__index = _EventDetailsFeedInputData_EntryMapEntryImpl
+
+	function _EventDetailsFeedInputData_EntryMapEntryImpl.new(
+		data: _EventDetailsFeedInputData_EntryMapEntryPartialFields?
+	): EventDetailsFeedInputData_EntryMapEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _EventDetailsFeedInputData_EntryMapEntryImpl :: _EventDetailsFeedInputData_EntryMapEntryImpl)
+	end
+
+	function _EventDetailsFeedInputData_EntryMapEntryImpl.encode(self: EventDetailsFeedInputData_EntryMapEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _EventDetailsFeedInputData_EntryMapEntryImpl.decode(input: buffer): EventDetailsFeedInputData_EntryMapEntry
+		local self = _EventDetailsFeedInputData_EntryMapEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.FeedEntry.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _EventDetailsFeedInputData_EntryMapEntryImpl.jsonEncode(self: EventDetailsFeedInputData_EntryMapEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _EventDetailsFeedInputData_EntryMapEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): EventDetailsFeedInputData_EntryMapEntry
+		local self = _EventDetailsFeedInputData_EntryMapEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.FeedEntry.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_EventDetailsFeedInputData_EntryMapEntryImpl.descriptor = {
+		name = "EventDetailsFeedInputData_EntryMapEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EntryMapEntry",
+	}
+
+	messages.EventDetailsFeedInputData_EntryMapEntry = _EventDetailsFeedInputData_EntryMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.EventDetailsFeedInputData_EntryMapEntry)
+end
+
+do
+	local _ChartsFeedInputDataImpl = {}
+	_ChartsFeedInputDataImpl.__index = _ChartsFeedInputDataImpl
+
+	function _ChartsFeedInputDataImpl.new(data: _ChartsFeedInputDataPartialFields?): ChartsFeedInputData
+		return setmetatable({
+			entry_map = if data == nil or data.entry_map == nil then {} else data.entry_map,
+			entry_order = if data == nil or data.entry_order == nil then {} else data.entry_order,
+			next_page_token = if data == nil or data.next_page_token == nil then "" else data.next_page_token,
+		}, _ChartsFeedInputDataImpl :: _ChartsFeedInputDataImpl)
+	end
+
+	function _ChartsFeedInputDataImpl.encode(self: ChartsFeedInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
+			for key, value in self.entry_map do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.entry_order ~= nil and #self.entry_order > 0 then
+			for _, value in self.entry_order do
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.next_page_token ~= nil and self.next_page_token ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.next_page_token)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ChartsFeedInputDataImpl.decode(input: buffer): ChartsFeedInputData
+		local self = _ChartsFeedInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.ChartsFeedInputData_EntryMapEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.FeedEntry.new()
+
+					self.entry_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.entry_order, buffer.tostring(value))
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.next_page_token = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ChartsFeedInputDataImpl.jsonEncode(self: ChartsFeedInputData): any
+		local output = {}
+
+		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
+			local newOutput = {}
+			for key, value in self.entry_map do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.entryMap = newOutput
+		end
+
+		if self.entry_order ~= nil and #self.entry_order > 0 then
+			local newOutput = {}
+			for _, value in self.entry_order do
+				table.insert(newOutput, value)
+			end
+			output.entryOrder = newOutput
+		end
+
+		if self.next_page_token ~= nil and self.next_page_token ~= "" then
+			output.nextPageToken = self.next_page_token
+		end
+
+		return output
+	end
+
+	function _ChartsFeedInputDataImpl.jsonDecode(input: { [string]: any }): ChartsFeedInputData
+		local self = _ChartsFeedInputDataImpl.new()
+
+		if input.entry_map ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.entry_map do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
+			end
+
+			self.entry_map = newOutput
+		end
+
+		if input.entryMap ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.entryMap do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
+			end
+
+			self.entry_map = newOutput
+		end
+
+		if input.entry_order ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.entry_order do
+				table.insert(newOutput, value)
+			end
+
+			self.entry_order = newOutput
+		end
+
+		if input.entryOrder ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.entryOrder do
+				table.insert(newOutput, value)
+			end
+
+			self.entry_order = newOutput
+		end
+
+		if input.next_page_token ~= nil then
+			self.next_page_token = input.next_page_token
+		end
+
+		if input.nextPageToken ~= nil then
+			self.next_page_token = input.nextPageToken
+		end
+
+		return self
+	end
+
+	_ChartsFeedInputDataImpl.descriptor = {
+		name = "ChartsFeedInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ChartsFeedInputData",
+	}
+
+	messages.ChartsFeedInputData = _ChartsFeedInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ChartsFeedInputData)
+end
+
+do
+	local _ChartsFeedInputData_EntryMapEntryImpl = {}
+	_ChartsFeedInputData_EntryMapEntryImpl.__index = _ChartsFeedInputData_EntryMapEntryImpl
+
+	function _ChartsFeedInputData_EntryMapEntryImpl.new(
+		data: _ChartsFeedInputData_EntryMapEntryPartialFields?
+	): ChartsFeedInputData_EntryMapEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _ChartsFeedInputData_EntryMapEntryImpl :: _ChartsFeedInputData_EntryMapEntryImpl)
+	end
+
+	function _ChartsFeedInputData_EntryMapEntryImpl.encode(self: ChartsFeedInputData_EntryMapEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ChartsFeedInputData_EntryMapEntryImpl.decode(input: buffer): ChartsFeedInputData_EntryMapEntry
+		local self = _ChartsFeedInputData_EntryMapEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.FeedEntry.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ChartsFeedInputData_EntryMapEntryImpl.jsonEncode(self: ChartsFeedInputData_EntryMapEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ChartsFeedInputData_EntryMapEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): ChartsFeedInputData_EntryMapEntry
+		local self = _ChartsFeedInputData_EntryMapEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.FeedEntry.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_ChartsFeedInputData_EntryMapEntryImpl.descriptor = {
+		name = "ChartsFeedInputData_EntryMapEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EntryMapEntry",
+	}
+
+	messages.ChartsFeedInputData_EntryMapEntry = _ChartsFeedInputData_EntryMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ChartsFeedInputData_EntryMapEntry)
+end
+
+do
+	local _FilterPillsInputDataImpl = {}
+	_FilterPillsInputDataImpl.__index = _FilterPillsInputDataImpl
+
+	function _FilterPillsInputDataImpl.new(data: _FilterPillsInputDataPartialFields?): FilterPillsInputData
+		return setmetatable({
+			filter_groups = if data == nil or data.filter_groups == nil then {} else data.filter_groups,
+		}, _FilterPillsInputDataImpl :: _FilterPillsInputDataImpl)
+	end
+
+	function _FilterPillsInputDataImpl.encode(self: FilterPillsInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.filter_groups ~= nil and #self.filter_groups > 0 then
+			for _, value in self.filter_groups do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FilterPillsInputDataImpl.decode(input: buffer): FilterPillsInputData
+		local self = _FilterPillsInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.filter_groups, messages.FilterPillsInputData_FilterGroup.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FilterPillsInputDataImpl.jsonEncode(self: FilterPillsInputData): any
+		local output = {}
+
+		if self.filter_groups ~= nil and #self.filter_groups > 0 then
+			local newOutput = {}
+			for _, value in self.filter_groups do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.filterGroups = newOutput
+		end
+
+		return output
+	end
+
+	function _FilterPillsInputDataImpl.jsonDecode(input: { [string]: any }): FilterPillsInputData
+		local self = _FilterPillsInputDataImpl.new()
+
+		if input.filter_groups ~= nil then
+			local newOutput: { FilterPillsInputData_FilterGroup } = {}
+			for _, value in input.filter_groups do
+				table.insert(newOutput, messages.FilterPillsInputData_FilterGroup.jsonDecode(value))
+			end
+
+			self.filter_groups = newOutput
+		end
+
+		if input.filterGroups ~= nil then
+			local newOutput: { FilterPillsInputData_FilterGroup } = {}
+			for _, value in input.filterGroups do
+				table.insert(newOutput, messages.FilterPillsInputData_FilterGroup.jsonDecode(value))
+			end
+
+			self.filter_groups = newOutput
+		end
+
+		return self
+	end
+
+	_FilterPillsInputDataImpl.descriptor = {
+		name = "FilterPillsInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.FilterPillsInputData",
+	}
+
+	messages.FilterPillsInputData = _FilterPillsInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FilterPillsInputData)
+end
+
+do
+	local _FilterPillsInputData_FilterGroupImpl = {}
+	_FilterPillsInputData_FilterGroupImpl.__index = _FilterPillsInputData_FilterGroupImpl
+
+	function _FilterPillsInputData_FilterGroupImpl.new(
+		data: _FilterPillsInputData_FilterGroupPartialFields?
+	): FilterPillsInputData_FilterGroup
+		return setmetatable({
+			filter_id = if data == nil or data.filter_id == nil then "" else data.filter_id,
+			display_name = if data == nil or data.display_name == nil then "" else data.display_name,
+			options = if data == nil or data.options == nil then {} else data.options,
+			default_option_id = if data == nil or data.default_option_id == nil then "" else data.default_option_id,
+		}, _FilterPillsInputData_FilterGroupImpl :: _FilterPillsInputData_FilterGroupImpl)
+	end
+
+	function _FilterPillsInputData_FilterGroupImpl.encode(self: FilterPillsInputData_FilterGroup): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.filter_id ~= nil and self.filter_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.filter_id)
+		end
+
+		if self.display_name ~= nil and self.display_name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.display_name)
+		end
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.default_option_id ~= nil and self.default_option_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.default_option_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FilterPillsInputData_FilterGroupImpl.decode(input: buffer): FilterPillsInputData_FilterGroup
+		local self = _FilterPillsInputData_FilterGroupImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.filter_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.display_name = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.FilterPillsInputData_FilterOption.decode(value))
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.default_option_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FilterPillsInputData_FilterGroupImpl.jsonEncode(self: FilterPillsInputData_FilterGroup): any
+		local output = {}
+
+		if self.filter_id ~= nil and self.filter_id ~= "" then
+			output.filterId = self.filter_id
+		end
+
+		if self.display_name ~= nil and self.display_name ~= "" then
+			output.displayName = self.display_name
+		end
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		if self.default_option_id ~= nil and self.default_option_id ~= "" then
+			output.defaultOptionId = self.default_option_id
+		end
+
+		return output
+	end
+
+	function _FilterPillsInputData_FilterGroupImpl.jsonDecode(
+		input: { [string]: any }
+	): FilterPillsInputData_FilterGroup
+		local self = _FilterPillsInputData_FilterGroupImpl.new()
+
+		if input.filter_id ~= nil then
+			self.filter_id = input.filter_id
+		end
+
+		if input.filterId ~= nil then
+			self.filter_id = input.filterId
+		end
+
+		if input.display_name ~= nil then
+			self.display_name = input.display_name
+		end
+
+		if input.displayName ~= nil then
+			self.display_name = input.displayName
+		end
+
+		if input.options ~= nil then
+			local newOutput: { FilterPillsInputData_FilterOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.FilterPillsInputData_FilterOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		if input.default_option_id ~= nil then
+			self.default_option_id = input.default_option_id
+		end
+
+		if input.defaultOptionId ~= nil then
+			self.default_option_id = input.defaultOptionId
+		end
+
+		return self
+	end
+
+	_FilterPillsInputData_FilterGroupImpl.descriptor = {
+		name = "FilterPillsInputData_FilterGroup",
+		fullName = "roblox.apppageplatform.shared.v1beta1.FilterGroup",
+	}
+
+	messages.FilterPillsInputData_FilterGroup = _FilterPillsInputData_FilterGroupImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FilterPillsInputData_FilterGroup)
+end
+
+do
+	local _FilterPillsInputData_FilterOptionImpl = {}
+	_FilterPillsInputData_FilterOptionImpl.__index = _FilterPillsInputData_FilterOptionImpl
+
+	function _FilterPillsInputData_FilterOptionImpl.new(
+		data: _FilterPillsInputData_FilterOptionPartialFields?
+	): FilterPillsInputData_FilterOption
+		return setmetatable({
+			option_id = if data == nil or data.option_id == nil then "" else data.option_id,
+			display_name = if data == nil or data.display_name == nil then "" else data.display_name,
+		}, _FilterPillsInputData_FilterOptionImpl :: _FilterPillsInputData_FilterOptionImpl)
+	end
+
+	function _FilterPillsInputData_FilterOptionImpl.encode(self: FilterPillsInputData_FilterOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.option_id ~= nil and self.option_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.option_id)
+		end
+
+		if self.display_name ~= nil and self.display_name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.display_name)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FilterPillsInputData_FilterOptionImpl.decode(input: buffer): FilterPillsInputData_FilterOption
+		local self = _FilterPillsInputData_FilterOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.option_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.display_name = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FilterPillsInputData_FilterOptionImpl.jsonEncode(self: FilterPillsInputData_FilterOption): any
+		local output = {}
+
+		if self.option_id ~= nil and self.option_id ~= "" then
+			output.optionId = self.option_id
+		end
+
+		if self.display_name ~= nil and self.display_name ~= "" then
+			output.displayName = self.display_name
+		end
+
+		return output
+	end
+
+	function _FilterPillsInputData_FilterOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): FilterPillsInputData_FilterOption
+		local self = _FilterPillsInputData_FilterOptionImpl.new()
+
+		if input.option_id ~= nil then
+			self.option_id = input.option_id
+		end
+
+		if input.optionId ~= nil then
+			self.option_id = input.optionId
+		end
+
+		if input.display_name ~= nil then
+			self.display_name = input.display_name
+		end
+
+		if input.displayName ~= nil then
+			self.display_name = input.displayName
+		end
+
+		return self
+	end
+
+	_FilterPillsInputData_FilterOptionImpl.descriptor = {
+		name = "FilterPillsInputData_FilterOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.FilterOption",
+	}
+
+	messages.FilterPillsInputData_FilterOption = _FilterPillsInputData_FilterOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FilterPillsInputData_FilterOption)
+end
+
+do
+	local _SortSelectorInputDataImpl = {}
+	_SortSelectorInputDataImpl.__index = _SortSelectorInputDataImpl
+
+	function _SortSelectorInputDataImpl.new(data: _SortSelectorInputDataPartialFields?): SortSelectorInputData
+		return setmetatable({
+			sort_options = if data == nil or data.sort_options == nil then {} else data.sort_options,
+			selected_sort_id = if data == nil or data.selected_sort_id == nil then "" else data.selected_sort_id,
+		}, _SortSelectorInputDataImpl :: _SortSelectorInputDataImpl)
+	end
+
+	function _SortSelectorInputDataImpl.encode(self: SortSelectorInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.sort_options ~= nil and #self.sort_options > 0 then
+			for _, value in self.sort_options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.selected_sort_id ~= nil and self.selected_sort_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.selected_sort_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SortSelectorInputDataImpl.decode(input: buffer): SortSelectorInputData
+		local self = _SortSelectorInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.sort_options, messages.SortSelectorInputData_SortOption.decode(value))
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selected_sort_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SortSelectorInputDataImpl.jsonEncode(self: SortSelectorInputData): any
+		local output = {}
+
+		if self.sort_options ~= nil and #self.sort_options > 0 then
+			local newOutput = {}
+			for _, value in self.sort_options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.sortOptions = newOutput
+		end
+
+		if self.selected_sort_id ~= nil and self.selected_sort_id ~= "" then
+			output.selectedSortId = self.selected_sort_id
+		end
+
+		return output
+	end
+
+	function _SortSelectorInputDataImpl.jsonDecode(input: { [string]: any }): SortSelectorInputData
+		local self = _SortSelectorInputDataImpl.new()
+
+		if input.sort_options ~= nil then
+			local newOutput: { SortSelectorInputData_SortOption } = {}
+			for _, value in input.sort_options do
+				table.insert(newOutput, messages.SortSelectorInputData_SortOption.jsonDecode(value))
+			end
+
+			self.sort_options = newOutput
+		end
+
+		if input.sortOptions ~= nil then
+			local newOutput: { SortSelectorInputData_SortOption } = {}
+			for _, value in input.sortOptions do
+				table.insert(newOutput, messages.SortSelectorInputData_SortOption.jsonDecode(value))
+			end
+
+			self.sort_options = newOutput
+		end
+
+		if input.selected_sort_id ~= nil then
+			self.selected_sort_id = input.selected_sort_id
+		end
+
+		if input.selectedSortId ~= nil then
+			self.selected_sort_id = input.selectedSortId
+		end
+
+		return self
+	end
+
+	_SortSelectorInputDataImpl.descriptor = {
+		name = "SortSelectorInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SortSelectorInputData",
+	}
+
+	messages.SortSelectorInputData = _SortSelectorInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SortSelectorInputData)
+end
+
+do
+	local _SortSelectorInputData_SortOptionImpl = {}
+	_SortSelectorInputData_SortOptionImpl.__index = _SortSelectorInputData_SortOptionImpl
+
+	function _SortSelectorInputData_SortOptionImpl.new(
+		data: _SortSelectorInputData_SortOptionPartialFields?
+	): SortSelectorInputData_SortOption
+		return setmetatable({
+			sort_id = if data == nil or data.sort_id == nil then "" else data.sort_id,
+			display_name = if data == nil or data.display_name == nil then "" else data.display_name,
+			content_type = if data == nil or data.content_type == nil then "" else data.content_type,
+		}, _SortSelectorInputData_SortOptionImpl :: _SortSelectorInputData_SortOptionImpl)
+	end
+
+	function _SortSelectorInputData_SortOptionImpl.encode(self: SortSelectorInputData_SortOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sort_id)
+		end
+
+		if self.display_name ~= nil and self.display_name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.display_name)
+		end
+
+		if self.content_type ~= nil and self.content_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.content_type)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SortSelectorInputData_SortOptionImpl.decode(input: buffer): SortSelectorInputData_SortOption
+		local self = _SortSelectorInputData_SortOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.display_name = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.content_type = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SortSelectorInputData_SortOptionImpl.jsonEncode(self: SortSelectorInputData_SortOption): any
+		local output = {}
+
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output.sortId = self.sort_id
+		end
+
+		if self.display_name ~= nil and self.display_name ~= "" then
+			output.displayName = self.display_name
+		end
+
+		if self.content_type ~= nil and self.content_type ~= "" then
+			output.contentType = self.content_type
+		end
+
+		return output
+	end
+
+	function _SortSelectorInputData_SortOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): SortSelectorInputData_SortOption
+		local self = _SortSelectorInputData_SortOptionImpl.new()
+
+		if input.sort_id ~= nil then
+			self.sort_id = input.sort_id
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = input.sortId
+		end
+
+		if input.display_name ~= nil then
+			self.display_name = input.display_name
+		end
+
+		if input.displayName ~= nil then
+			self.display_name = input.displayName
+		end
+
+		if input.content_type ~= nil then
+			self.content_type = input.content_type
+		end
+
+		if input.contentType ~= nil then
+			self.content_type = input.contentType
+		end
+
+		return self
+	end
+
+	_SortSelectorInputData_SortOptionImpl.descriptor = {
+		name = "SortSelectorInputData_SortOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SortOption",
+	}
+
+	messages.SortSelectorInputData_SortOption = _SortSelectorInputData_SortOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SortSelectorInputData_SortOption)
+end
+
+do
+	local _UAMarketplaceCatalogItemGroupInputDataImpl = {}
+	_UAMarketplaceCatalogItemGroupInputDataImpl.__index = _UAMarketplaceCatalogItemGroupInputDataImpl
+
+	function _UAMarketplaceCatalogItemGroupInputDataImpl.new(
+		data: _UAMarketplaceCatalogItemGroupInputDataPartialFields?
+	): UAMarketplaceCatalogItemGroupInputData
+		return setmetatable({
+			id = if data == nil or data.id == nil then "" else data.id,
+			preview_rows = if data == nil or data.preview_rows == nil then 0 else data.preview_rows,
+		}, _UAMarketplaceCatalogItemGroupInputDataImpl :: _UAMarketplaceCatalogItemGroupInputDataImpl)
+	end
+
+	function _UAMarketplaceCatalogItemGroupInputDataImpl.encode(self: UAMarketplaceCatalogItemGroupInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.id ~= nil and self.id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.id)
+		end
+
+		if self.preview_rows ~= nil and self.preview_rows ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.preview_rows)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UAMarketplaceCatalogItemGroupInputDataImpl.decode(input: buffer): UAMarketplaceCatalogItemGroupInputData
+		local self = _UAMarketplaceCatalogItemGroupInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 4 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.preview_rows = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UAMarketplaceCatalogItemGroupInputDataImpl.jsonEncode(self: UAMarketplaceCatalogItemGroupInputData): any
+		local output = {}
+
+		if self.id ~= nil and self.id ~= "" then
+			output.id = self.id
+		end
+
+		if self.preview_rows ~= nil and self.preview_rows ~= 0 then
+			output.previewRows = self.preview_rows
+		end
+
+		return output
+	end
+
+	function _UAMarketplaceCatalogItemGroupInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): UAMarketplaceCatalogItemGroupInputData
+		local self = _UAMarketplaceCatalogItemGroupInputDataImpl.new()
+
+		if input.id ~= nil then
+			self.id = input.id
+		end
+
+		if input.preview_rows ~= nil then
+			self.preview_rows = input.preview_rows
+		end
+
+		if input.previewRows ~= nil then
+			self.preview_rows = input.previewRows
+		end
+
+		return self
+	end
+
+	_UAMarketplaceCatalogItemGroupInputDataImpl.descriptor = {
+		name = "UAMarketplaceCatalogItemGroupInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UAMarketplaceCatalogItemGroupInputData",
+	}
+
+	messages.UAMarketplaceCatalogItemGroupInputData = _UAMarketplaceCatalogItemGroupInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UAMarketplaceCatalogItemGroupInputData)
+end
+
+do
+	local _UAMarketplaceCatalogItemCarouselInputDataImpl = {}
+	_UAMarketplaceCatalogItemCarouselInputDataImpl.__index = _UAMarketplaceCatalogItemCarouselInputDataImpl
+
+	function _UAMarketplaceCatalogItemCarouselInputDataImpl.new(
+		data: _UAMarketplaceCatalogItemCarouselInputDataPartialFields?
+	): UAMarketplaceCatalogItemCarouselInputData
+		return setmetatable({
+			id = if data == nil or data.id == nil then "" else data.id,
+			num_items_to_show = if data == nil or data.num_items_to_show == nil then 0 else data.num_items_to_show,
+		}, _UAMarketplaceCatalogItemCarouselInputDataImpl :: _UAMarketplaceCatalogItemCarouselInputDataImpl)
+	end
+
+	function _UAMarketplaceCatalogItemCarouselInputDataImpl.encode(
+		self: UAMarketplaceCatalogItemCarouselInputData
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.id ~= nil and self.id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.id)
+		end
+
+		if self.num_items_to_show ~= nil and self.num_items_to_show ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.num_items_to_show)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UAMarketplaceCatalogItemCarouselInputDataImpl.decode(
+		input: buffer
+	): UAMarketplaceCatalogItemCarouselInputData
+		local self = _UAMarketplaceCatalogItemCarouselInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 5 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.num_items_to_show = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UAMarketplaceCatalogItemCarouselInputDataImpl.jsonEncode(
+		self: UAMarketplaceCatalogItemCarouselInputData
+	): any
+		local output = {}
+
+		if self.id ~= nil and self.id ~= "" then
+			output.id = self.id
+		end
+
+		if self.num_items_to_show ~= nil and self.num_items_to_show ~= 0 then
+			output.numItemsToShow = self.num_items_to_show
+		end
+
+		return output
+	end
+
+	function _UAMarketplaceCatalogItemCarouselInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): UAMarketplaceCatalogItemCarouselInputData
+		local self = _UAMarketplaceCatalogItemCarouselInputDataImpl.new()
+
+		if input.id ~= nil then
+			self.id = input.id
+		end
+
+		if input.num_items_to_show ~= nil then
+			self.num_items_to_show = input.num_items_to_show
+		end
+
+		if input.numItemsToShow ~= nil then
+			self.num_items_to_show = input.numItemsToShow
+		end
+
+		return self
+	end
+
+	_UAMarketplaceCatalogItemCarouselInputDataImpl.descriptor = {
+		name = "UAMarketplaceCatalogItemCarouselInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UAMarketplaceCatalogItemCarouselInputData",
+	}
+
+	messages.UAMarketplaceCatalogItemCarouselInputData = _UAMarketplaceCatalogItemCarouselInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UAMarketplaceCatalogItemCarouselInputData)
+end
+
+do
+	local _UAMarketplaceCatalogFeedInputDataImpl = {}
+	_UAMarketplaceCatalogFeedInputDataImpl.__index = _UAMarketplaceCatalogFeedInputDataImpl
+
+	function _UAMarketplaceCatalogFeedInputDataImpl.new(
+		data: _UAMarketplaceCatalogFeedInputDataPartialFields?
+	): UAMarketplaceCatalogFeedInputData
+		return setmetatable({
+			feed_item_input_map = if data == nil or data.feed_item_input_map == nil
+				then {}
+				else data.feed_item_input_map,
+			marketplace_catalog_feed_items = if data == nil or data.marketplace_catalog_feed_items == nil
+				then {}
+				else data.marketplace_catalog_feed_items,
+		}, _UAMarketplaceCatalogFeedInputDataImpl :: _UAMarketplaceCatalogFeedInputDataImpl)
+	end
+
+	function _UAMarketplaceCatalogFeedInputDataImpl.encode(self: UAMarketplaceCatalogFeedInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.feed_item_input_map ~= nil and next(self.feed_item_input_map) ~= nil then
+			for key, value in self.feed_item_input_map do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.marketplace_catalog_feed_items ~= nil and #self.marketplace_catalog_feed_items > 0 then
+			for _, value in self.marketplace_catalog_feed_items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UAMarketplaceCatalogFeedInputDataImpl.decode(input: buffer): UAMarketplaceCatalogFeedInputData
+		local self = _UAMarketplaceCatalogFeedInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.PageEntryInputData.new()
+
+					self.feed_item_input_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.marketplace_catalog_feed_items,
+						messages.UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem.decode(value)
+					)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UAMarketplaceCatalogFeedInputDataImpl.jsonEncode(self: UAMarketplaceCatalogFeedInputData): any
+		local output = {}
+
+		if self.feed_item_input_map ~= nil and next(self.feed_item_input_map) ~= nil then
+			local newOutput = {}
+			for key, value in self.feed_item_input_map do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.feedItemInputMap = newOutput
+		end
+
+		if self.marketplace_catalog_feed_items ~= nil and #self.marketplace_catalog_feed_items > 0 then
+			local newOutput = {}
+			for _, value in self.marketplace_catalog_feed_items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.marketplaceCatalogFeedItems = newOutput
+		end
+
+		return output
+	end
+
+	function _UAMarketplaceCatalogFeedInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): UAMarketplaceCatalogFeedInputData
+		local self = _UAMarketplaceCatalogFeedInputDataImpl.new()
+
+		if input.feed_item_input_map ~= nil then
+			local newOutput: { [string]: PageEntryInputData } = {}
+			for key, value in input.feed_item_input_map do
+				newOutput[key] = messages.PageEntryInputData.jsonDecode(value)
+			end
+
+			self.feed_item_input_map = newOutput
+		end
+
+		if input.feedItemInputMap ~= nil then
+			local newOutput: { [string]: PageEntryInputData } = {}
+			for key, value in input.feedItemInputMap do
+				newOutput[key] = messages.PageEntryInputData.jsonDecode(value)
+			end
+
+			self.feed_item_input_map = newOutput
+		end
+
+		if input.marketplace_catalog_feed_items ~= nil then
+			local newOutput: { UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem } = {}
+			for _, value in input.marketplace_catalog_feed_items do
+				table.insert(
+					newOutput,
+					messages.UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem.jsonDecode(value)
+				)
+			end
+
+			self.marketplace_catalog_feed_items = newOutput
+		end
+
+		if input.marketplaceCatalogFeedItems ~= nil then
+			local newOutput: { UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem } = {}
+			for _, value in input.marketplaceCatalogFeedItems do
+				table.insert(
+					newOutput,
+					messages.UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem.jsonDecode(value)
+				)
+			end
+
+			self.marketplace_catalog_feed_items = newOutput
+		end
+
+		return self
+	end
+
+	_UAMarketplaceCatalogFeedInputDataImpl.descriptor = {
+		name = "UAMarketplaceCatalogFeedInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UAMarketplaceCatalogFeedInputData",
+	}
+
+	messages.UAMarketplaceCatalogFeedInputData = _UAMarketplaceCatalogFeedInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UAMarketplaceCatalogFeedInputData)
+end
+
+do
+	local _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl = {}
+	_UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.__index =
+		_UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl
+
+	function _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.new(
+		data: _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemPartialFields?
+	): UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem
+		return setmetatable(
+			{
+				roblox_component = if data == nil or data.roblox_component == nil then "" else data.roblox_component,
+				feed_item_id = if data == nil or data.feed_item_id == nil then "" else data.feed_item_id,
+			},
+			_UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl :: _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl
+		)
+	end
+
+	function _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.encode(
+		self: UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.roblox_component ~= nil and self.roblox_component ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.roblox_component)
+		end
+
+		if self.feed_item_id ~= nil and self.feed_item_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.feed_item_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.decode(
+		input: buffer
+	): UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem
+		local self = _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.roblox_component = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.feed_item_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.jsonEncode(
+		self: UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem
+	): any
+		local output = {}
+
+		if self.roblox_component ~= nil and self.roblox_component ~= "" then
+			output.robloxComponent = self.roblox_component
+		end
+
+		if self.feed_item_id ~= nil and self.feed_item_id ~= "" then
+			output.feedItemId = self.feed_item_id
+		end
+
+		return output
+	end
+
+	function _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.jsonDecode(
+		input: { [string]: any }
+	): UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem
+		local self = _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.new()
+
+		if input.roblox_component ~= nil then
+			self.roblox_component = input.roblox_component
+		end
+
+		if input.robloxComponent ~= nil then
+			self.roblox_component = input.robloxComponent
+		end
+
+		if input.feed_item_id ~= nil then
+			self.feed_item_id = input.feed_item_id
+		end
+
+		if input.feedItemId ~= nil then
+			self.feed_item_id = input.feedItemId
+		end
+
+		return self
+	end
+
+	_UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.descriptor = {
+		name = "UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MarketplaceCatalogFeedItem",
+	}
+
+	messages.UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem =
+		_UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem)
+end
+
+do
+	local _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl = {}
+	_UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.__index =
+		_UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl
+
+	function _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.new(
+		data: _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryPartialFields?
+	): UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then nil else data.value,
+			},
+			_UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl :: _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl
+		)
+	end
+
+	function _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.encode(
+		self: UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.decode(
+		input: buffer
+	): UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry
+		local self = _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.PageEntryInputData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.jsonEncode(
+		self: UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry
+		local self = _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.PageEntryInputData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.descriptor = {
+		name = "UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.FeedItemInputMapEntry",
+	}
+
+	messages.UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry =
+		_UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry)
+end
+
+do
+	local _UAMarketplaceCatalogCategoryMenuInputDataImpl = {}
+	_UAMarketplaceCatalogCategoryMenuInputDataImpl.__index = _UAMarketplaceCatalogCategoryMenuInputDataImpl
+
+	function _UAMarketplaceCatalogCategoryMenuInputDataImpl.new(
+		data: _UAMarketplaceCatalogCategoryMenuInputDataPartialFields?
+	): UAMarketplaceCatalogCategoryMenuInputData
+		return setmetatable({
+			marketplace_catalog_category_items = if data == nil
+					or data.marketplace_catalog_category_items == nil
+				then {}
+				else data.marketplace_catalog_category_items,
+			active_category_id = if data == nil or data.active_category_id == nil then "" else data.active_category_id,
+			active_tooltip_idx = if data == nil or data.active_tooltip_idx == nil then 0 else data.active_tooltip_idx,
+		}, _UAMarketplaceCatalogCategoryMenuInputDataImpl :: _UAMarketplaceCatalogCategoryMenuInputDataImpl)
+	end
+
+	function _UAMarketplaceCatalogCategoryMenuInputDataImpl.encode(
+		self: UAMarketplaceCatalogCategoryMenuInputData
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.marketplace_catalog_category_items ~= nil and #self.marketplace_catalog_category_items > 0 then
+			for _, value in self.marketplace_catalog_category_items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.active_category_id ~= nil and self.active_category_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.active_category_id)
+		end
+
+		if self.active_tooltip_idx ~= nil and self.active_tooltip_idx ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.active_tooltip_idx)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UAMarketplaceCatalogCategoryMenuInputDataImpl.decode(
+		input: buffer
+	): UAMarketplaceCatalogCategoryMenuInputData
+		local self = _UAMarketplaceCatalogCategoryMenuInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 3 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.active_tooltip_idx = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.marketplace_catalog_category_items,
+						messages.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem.decode(value)
+					)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.active_category_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UAMarketplaceCatalogCategoryMenuInputDataImpl.jsonEncode(
+		self: UAMarketplaceCatalogCategoryMenuInputData
+	): any
+		local output = {}
+
+		if self.marketplace_catalog_category_items ~= nil and #self.marketplace_catalog_category_items > 0 then
+			local newOutput = {}
+			for _, value in self.marketplace_catalog_category_items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.marketplaceCatalogCategoryItems = newOutput
+		end
+
+		if self.active_category_id ~= nil and self.active_category_id ~= "" then
+			output.activeCategoryId = self.active_category_id
+		end
+
+		if self.active_tooltip_idx ~= nil and self.active_tooltip_idx ~= 0 then
+			output.activeTooltipIdx = self.active_tooltip_idx
+		end
+
+		return output
+	end
+
+	function _UAMarketplaceCatalogCategoryMenuInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): UAMarketplaceCatalogCategoryMenuInputData
+		local self = _UAMarketplaceCatalogCategoryMenuInputDataImpl.new()
+
+		if input.marketplace_catalog_category_items ~= nil then
+			local newOutput: { UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem } = {}
+			for _, value in input.marketplace_catalog_category_items do
+				table.insert(
+					newOutput,
+					messages.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem.jsonDecode(value)
+				)
+			end
+
+			self.marketplace_catalog_category_items = newOutput
+		end
+
+		if input.marketplaceCatalogCategoryItems ~= nil then
+			local newOutput: { UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem } = {}
+			for _, value in input.marketplaceCatalogCategoryItems do
+				table.insert(
+					newOutput,
+					messages.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem.jsonDecode(value)
+				)
+			end
+
+			self.marketplace_catalog_category_items = newOutput
+		end
+
+		if input.active_category_id ~= nil then
+			self.active_category_id = input.active_category_id
+		end
+
+		if input.activeCategoryId ~= nil then
+			self.active_category_id = input.activeCategoryId
+		end
+
+		if input.active_tooltip_idx ~= nil then
+			self.active_tooltip_idx = input.active_tooltip_idx
+		end
+
+		if input.activeTooltipIdx ~= nil then
+			self.active_tooltip_idx = input.activeTooltipIdx
+		end
+
+		return self
+	end
+
+	_UAMarketplaceCatalogCategoryMenuInputDataImpl.descriptor = {
+		name = "UAMarketplaceCatalogCategoryMenuInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UAMarketplaceCatalogCategoryMenuInputData",
+	}
+
+	messages.UAMarketplaceCatalogCategoryMenuInputData = _UAMarketplaceCatalogCategoryMenuInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UAMarketplaceCatalogCategoryMenuInputData)
+end
+
+do
+	local _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl = {}
+	_UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl.__index =
+		_UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl
+
+	function _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl.new(
+		data: _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemPartialFields?
+	): UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem
+		return setmetatable(
+			{
+				marketplace_catalog_category_item_id = if data == nil
+						or data.marketplace_catalog_category_item_id == nil
+					then ""
+					else data.marketplace_catalog_category_item_id,
+			},
+			_UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl :: _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl
+		)
+	end
+
+	function _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl.encode(
+		self: UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.marketplace_catalog_category_item_id ~= nil and self.marketplace_catalog_category_item_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.marketplace_catalog_category_item_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl.decode(
+		input: buffer
+	): UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem
+		local self = _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.marketplace_catalog_category_item_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl.jsonEncode(
+		self: UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem
+	): any
+		local output = {}
+
+		if self.marketplace_catalog_category_item_id ~= nil and self.marketplace_catalog_category_item_id ~= "" then
+			output.marketplaceCatalogCategoryItemId = self.marketplace_catalog_category_item_id
+		end
+
+		return output
+	end
+
+	function _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl.jsonDecode(
+		input: {
+			[string]: any,
+		}
+	): UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem
+		local self = _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl.new()
+
+		if input.marketplace_catalog_category_item_id ~= nil then
+			self.marketplace_catalog_category_item_id = input.marketplace_catalog_category_item_id
+		end
+
+		if input.marketplaceCatalogCategoryItemId ~= nil then
+			self.marketplace_catalog_category_item_id = input.marketplaceCatalogCategoryItemId
+		end
+
+		return self
+	end
+
+	_UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl.descriptor = {
+		name = "UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MarketplaceCatalogCategoryItem",
+	}
+
+	messages.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem =
+		_UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem)
+end
+
+messages.PageEntryFormat = {
+	fromNumber = function(value: number): PageEntryFormat?
+		if value == 0 then
+			return "PAGE_ENTRY_FORMAT_INVALID"
+		elseif value == 1 then
+			return "PAGE_ENTRY_FORMAT_UNIVERSAL"
+		else
+			return nil
+		end
+	end,
+
+	toNumber = function(self: PageEntryFormat): number
+		if self == "PAGE_ENTRY_FORMAT_INVALID" then
+			return 0
+		elseif self == "PAGE_ENTRY_FORMAT_UNIVERSAL" then
+			return 1
+		else
+			return self
+		end
+	end,
+
+	fromName = function(name: string): PageEntryFormat?
+		if name == "PAGE_ENTRY_FORMAT_INVALID" then
+			return "PAGE_ENTRY_FORMAT_INVALID"
+		elseif name == "PAGE_ENTRY_FORMAT_UNIVERSAL" then
+			return "PAGE_ENTRY_FORMAT_UNIVERSAL"
+		else
+			return nil
+		end
+	end,
+}
+
 return {
+	UniversalPageEntry = messages.UniversalPageEntry,
+	FeedEntry = messages.FeedEntry,
 	PageEntryInputData = messages.PageEntryInputData,
 	BadgesGridInputData = messages.BadgesGridInputData,
 	BadgesGridInputData_BadgeInputData = messages.BadgesGridInputData_BadgeInputData,
@@ -2514,8 +10738,48 @@ return {
 	BadgeDetailsInputData_LocalizedLiterals_ActionModule = messages.BadgeDetailsInputData_LocalizedLiterals_ActionModule,
 	BadgeDetailsInputData_LocalizedLiterals_OverflowMenu = messages.BadgeDetailsInputData_LocalizedLiterals_OverflowMenu,
 	StaticInputData = messages.StaticInputData,
-	PromptsInputData = messages.PromptsInputData,
-	PromptsInputData_CardContainerCardInputData = messages.PromptsInputData_CardContainerCardInputData,
-	PromptsInputData_CardInputData = messages.PromptsInputData_CardInputData,
-	PromptsInputData_CardContainerInputData = messages.PromptsInputData_CardContainerInputData,
+	ExperienceDetailsFeedInputData = messages.ExperienceDetailsFeedInputData,
+	ExperienceDetailsActionBarInputData = messages.ExperienceDetailsActionBarInputData,
+	ExperienceAttributionRowInputData = messages.ExperienceAttributionRowInputData,
+	ExperienceActionModuleInputData = messages.ExperienceActionModuleInputData,
+	ExperienceMediaGalleryInputData = messages.ExperienceMediaGalleryInputData,
+	ExperienceMediaGalleryInputData_MediaItem = messages.ExperienceMediaGalleryInputData_MediaItem,
+	ExperienceDescriptionInputData = messages.ExperienceDescriptionInputData,
+	ExperienceStatRowInputData = messages.ExperienceStatRowInputData,
+	ExperienceInfoTableInputData = messages.ExperienceInfoTableInputData,
+	SocialLinkRowInputData = messages.SocialLinkRowInputData,
+	SocialLinkRowInputData_SocialLinkItem = messages.SocialLinkRowInputData_SocialLinkItem,
+	ExperienceCarouselInputData = messages.ExperienceCarouselInputData,
+	ExperienceCarouselInputData_UniverseItem = messages.ExperienceCarouselInputData_UniverseItem,
+	SongCarouselInputData = messages.SongCarouselInputData,
+	SongCarouselInputData_SongItem = messages.SongCarouselInputData_SongItem,
+	EventsCarouselInputData = messages.EventsCarouselInputData,
+	EventsCarouselInputData_EventItem = messages.EventsCarouselInputData_EventItem,
+	DevStoreFeedInputData = messages.DevStoreFeedInputData,
+	GamePassesGridInputData = messages.GamePassesGridInputData,
+	GamePassesGridInputData_GamePassItem = messages.GamePassesGridInputData_GamePassItem,
+	GameDeveloperProductsGridInputData = messages.GameDeveloperProductsGridInputData,
+	GameDeveloperProductsGridInputData_DeveloperProductItem = messages.GameDeveloperProductsGridInputData_DeveloperProductItem,
+	GameSubscriptionsGridInputData = messages.GameSubscriptionsGridInputData,
+	GameSubscriptionsGridInputData_SubscriptionItem = messages.GameSubscriptionsGridInputData_SubscriptionItem,
+	CardContainerCardInputData = messages.CardContainerCardInputData,
+	CardContainerInputData = messages.CardContainerInputData,
+	CardInputData = messages.CardInputData,
+	DialogInputData = messages.DialogInputData,
+	BannerInputData = messages.BannerInputData,
+	TooltipInputData = messages.TooltipInputData,
+	EventDetailsFeedInputData = messages.EventDetailsFeedInputData,
+	ChartsFeedInputData = messages.ChartsFeedInputData,
+	FilterPillsInputData = messages.FilterPillsInputData,
+	FilterPillsInputData_FilterGroup = messages.FilterPillsInputData_FilterGroup,
+	FilterPillsInputData_FilterOption = messages.FilterPillsInputData_FilterOption,
+	SortSelectorInputData = messages.SortSelectorInputData,
+	SortSelectorInputData_SortOption = messages.SortSelectorInputData_SortOption,
+	UAMarketplaceCatalogItemGroupInputData = messages.UAMarketplaceCatalogItemGroupInputData,
+	UAMarketplaceCatalogItemCarouselInputData = messages.UAMarketplaceCatalogItemCarouselInputData,
+	UAMarketplaceCatalogFeedInputData = messages.UAMarketplaceCatalogFeedInputData,
+	UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem = messages.UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem,
+	UAMarketplaceCatalogCategoryMenuInputData = messages.UAMarketplaceCatalogCategoryMenuInputData,
+	UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem = messages.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem,
+	PageEntryFormat = messages.PageEntryFormat,
 }

@@ -9,6 +9,7 @@ local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox']
 
 local AbuseReportMenu = require(RobloxGui.Modules.AbuseReportMenu).AbuseReportMenu
+local AbuseReportMenuV2 = require(RobloxGui.Modules.AbuseReportMenu).AbuseReportMenuV2
 local ReportAbuseAnalytics = require(RobloxGui.Modules.AbuseReportMenu).ReportAbuseAnalytics
 
 local Chrome = RobloxGui.Modules.Chrome
@@ -19,6 +20,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagInExperienceReportClosingBugfix = SharedFlags.FFlagInExperienceReportClosingBugfix
 
 local FFlagHideShortcutsOnReportDropdown = require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagHideShortcutsOnReportDropdown)
+local FFlagAbuseReportMenuV2 = SharedFlags.FFlagAbuseReportMenuV2
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -92,7 +94,7 @@ local function Initialize()
 	this.ShouldShowBottomBar = true
 	this.ShouldShowHubBar = true
 
-	local abuseReportMenu = Roact.createElement(AbuseReportMenu, {
+	local abuseReportMenu = Roact.createElement(if FFlagAbuseReportMenuV2 then AbuseReportMenuV2 else AbuseReportMenu, {
 		hideReportTab = function()
 			this:HideMenu()
 		end,

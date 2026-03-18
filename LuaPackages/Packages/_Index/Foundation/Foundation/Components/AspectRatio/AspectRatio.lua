@@ -11,44 +11,25 @@ type Bindable<T> = Types.Bindable<T>
 type AspectRatio = Types.AspectRatio
 type AspectRatioTable = Types.AspectRatioTable
 
-local Flags = require(Foundation.Utility.Flags)
-
 local function getAspectRatio(aspectRatio: AspectRatio): {
 	AspectRatio: Bindable<number>,
 	AspectType: Bindable<Enum.AspectType>?,
 	DominantAxis: Bindable<Enum.DominantAxis>?,
 }
-	if Flags.FoundationFixAspectRatioBindingHandling then
-		if ReactIs.isBinding(aspectRatio) or typeof(aspectRatio) == "number" then
-			-- only possible if AspectRatio is binding-based number
-			return {
-				AspectRatio = aspectRatio,
-				AspectType = nil,
-				DominantAxis = nil,
-			}
-		else
-			local aspectRatioTable = aspectRatio :: AspectRatioTable
-			return {
-				AspectRatio = aspectRatioTable.AspectRatio,
-				AspectType = aspectRatioTable.AspectType,
-				DominantAxis = aspectRatioTable.DominantAxis,
-			}
-		end
+	if ReactIs.isBinding(aspectRatio) or typeof(aspectRatio) == "number" then
+		-- only possible if AspectRatio is binding-based number
+		return {
+			AspectRatio = aspectRatio,
+			AspectType = nil,
+			DominantAxis = nil,
+		}
 	else
-		if typeof(aspectRatio) == "table" then
-			local aspectRatioTable = aspectRatio :: AspectRatioTable
-			return {
-				AspectRatio = aspectRatioTable.AspectRatio,
-				AspectType = aspectRatioTable.AspectType,
-				DominantAxis = aspectRatioTable.DominantAxis,
-			}
-		else
-			return {
-				AspectRatio = aspectRatio,
-				AspectType = nil,
-				DominantAxis = nil,
-			}
-		end
+		local aspectRatioTable = aspectRatio :: AspectRatioTable
+		return {
+			AspectRatio = aspectRatioTable.AspectRatio,
+			AspectType = aspectRatioTable.AspectType,
+			DominantAxis = aspectRatioTable.DominantAxis,
+		}
 	end
 end
 

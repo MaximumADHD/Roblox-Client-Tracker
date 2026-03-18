@@ -10,7 +10,6 @@ local MESSAGE_EXECUTE_FAILED =
 	"Failed to execute similarity mesh vertex check for '%s'. Make sure mesh exists and try again."
 local MESSAGE_SIMILARITY_FAILED =
 	"%s has %d%% of vertices too close to each other. Please edit the vertices to have at most %d%% coincident or close to one another."
-local getFFlagUGCValidationHyperlinksInCageQuality = require(root.flags.getFFlagUGCValidationHyperlinksInCageQuality)
 
 local function validateVerticesSimilarity(
 	meshInfo: Types.MeshInfo,
@@ -45,9 +44,7 @@ local function validateVerticesSimilarity(
 
 		local errorString =
 			string.format(MESSAGE_SIMILARITY_FAILED, debugName, result, getFIntUGCLCCageVerticesSimilarityMaximum())
-		if getFFlagUGCValidationHyperlinksInCageQuality() then
-			errorString = errorString .. "[Read more](https://create.roblox.com/docs/art/validation-errors#cageDensity)"
-		end
+		errorString = errorString .. "[Read more](https://create.roblox.com/docs/art/validation-errors#cageDensity)"
 
 		return false, { errorString }
 	end

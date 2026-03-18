@@ -38,7 +38,6 @@ local Constants = require(root.Constants)
 local Types = require(root.util.Types)
 local valueToString = require(root.util.valueToString)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
-local getFFlagUGCValidateBindOffset = require(root.flags.getFFlagUGCValidateBindOffset)
 local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
 
 local EPSILON = 1e-5
@@ -126,7 +125,7 @@ local function extractSubProperty(propName: string, currentValue: any): (boolean
 		return true, currentValue.Position.Magnitude
 	elseif typeof(currentValue) == "CFrame" and propName == "Orientation" then
 		return true, Vector3.new(currentValue:ToOrientation())
-	elseif getFFlagUGCValidateBindOffset() and (typeof(currentValue) == "CFrame" and propName == "Position") then
+	elseif typeof(currentValue) == "CFrame" and propName == "Position" then
 		return true, currentValue.Position
 	end
 

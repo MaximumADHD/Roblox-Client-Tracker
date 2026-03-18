@@ -23,8 +23,6 @@ local validateModeration = require(validation.validateModeration)
 local ValidateCurveAnimation = require(validation.ValidateCurveAnimation)
 local ValidatePropertiesSensible = require(validation.ValidatePropertiesSensible)
 
-local flags = root.flags
-local getFFlagUGCValidateNoDoubleRoots = require(flags.getFFlagUGCValidateNoDoubleRoots)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 
@@ -94,11 +92,7 @@ function ValidateEmoteAnimation.validate(validationContext: Types.ValidationCont
 	do
 		local successfullyExecuted, animOpt = pcallDeferred(function()
 			local resultTab = game:GetObjectsAllOrNone((instance :: Animation).AnimationId)
-			if getFFlagUGCValidateNoDoubleRoots() then
-				return resultTab
-			else
-				return if resultTab and #resultTab > 0 then resultTab[1] else nil
-			end
+			return resultTab
 		end, validationContext)
 
 		if not successfullyExecuted or not animOpt then
@@ -109,19 +103,15 @@ function ValidateEmoteAnimation.validate(validationContext: Types.ValidationCont
 			)
 		end
 
-		if getFFlagUGCValidateNoDoubleRoots() then
-			if #animOpt == 1 then
-				anim = animOpt[1]
-			else
-				Analytics.reportFailure(
-					Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
-					nil,
-					validationContext
-				)
-				return false, { "Downloaded Curve animation did not have exactly one root. Please fix the animation." }
-			end
+		if #animOpt == 1 then
+			anim = animOpt[1]
 		else
-			anim = animOpt :: Instance
+			Analytics.reportFailure(
+				Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
+				nil,
+				validationContext
+			)
+			return false, { "Downloaded Curve animation did not have exactly one root. Please fix the animation." }
 		end
 	end
 

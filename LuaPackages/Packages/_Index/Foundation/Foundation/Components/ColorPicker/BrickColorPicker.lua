@@ -3,6 +3,8 @@
 
 	Hexagonal grid color picker displaying BrickColors in C++ implementation order.
 	Used within ColorPicker dropdown for "Brick" mode selection.
+	Layout: Diamond-shaped hex grid (128 main colors) + pill-shaped bottom row (12 grayscale colors).
+	Sized to fit within the 192px-wide ColorPicker content area per Figma spec.
 ]]
 
 local Foundation = script:FindFirstAncestor("Foundation")
@@ -17,6 +19,11 @@ local View = require(Foundation.Components.View)
 local BRICK_COLOR_PALETTES = require(Foundation.Components.ColorPicker.BrickColorConstants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+
+local Flags = require(Foundation.Utility.Flags)
+local Wrappers = require(Foundation.Utility.Wrappers)
+local Connection = Wrappers.Connection
+local Signal = Wrappers.Signal
 
 export type BrickColorPickerProps = {
 	selectedColor: React.Binding<Color3>?,
@@ -38,6 +45,7 @@ type GridBounds = {
 
 local HEXAGON_IMAGE = "component_assets/hexagon_24"
 local MIN_GRID_RADIUS = 3
+local HEXAGON_SPACING = 1
 
 local function getHexagonDimensions(hexagonSize: number): (number, number)
 	return math.sqrt(3) * hexagonSize, 2 * hexagonSize
@@ -53,14 +61,85 @@ local function calculateGridRadius(colorCount: number): number
 	return 7 -- fallback
 end
 
+--[[
+	BottomRowSwatches: evenly-spaced grayscale swatch row inside the pill container.
+	Owns its own AbsoluteSize listener so the parent doesn't need to track width state.
+]]
+type BottomRowSwatchesProps = {
+	colors: { BrickColor },
+	paddingHorizontal: number,
+	swatchWidth: number,
+	swatchHeight: number,
+	swatchCenterY: number,
+}
+
+local function BottomRowSwatches(props: BottomRowSwatchesProps)
+	local containerWidth, setContainerWidth = React.useState(0)
+	local containerRef = React.useRef(nil :: GuiObject?)
+
+	React.useEffect(function()
+		local rbx = containerRef.current
+		if not rbx then
+			return
+		end
+		local w = math.round(rbx.AbsoluteSize.X)
+		if w ~= containerWidth then
+			setContainerWidth(w)
+		end
+		local conn = Signal.Connect(rbx:GetPropertyChangedSignal("AbsoluteSize"), function()
+			setContainerWidth(math.round(rbx.AbsoluteSize.X))
+		end)
+		return function()
+			Connection.Disconnect(conn)
+		end
+	end, { containerWidth })
+
+	local children: { [string]: React.ReactElement } = {}
+	if containerWidth > 0 then
+		local count = #props.colors
+
+		-- Integer math only: avoids sub-pixel misalignment at non-integer DPI scales
+		local contentWidth = containerWidth - 2 * props.paddingHorizontal
+		local swatchStep = math.floor(contentWidth / count)
+		local totalUsed = swatchStep * (count - 1)
+		local startX = props.paddingHorizontal + math.floor((contentWidth - totalUsed) / 2)
+
+		for i, brickColor in ipairs(props.colors) do
+			local x = startX + swatchStep * (i - 1)
+
+			children[`Swatch_{i}`] = React.createElement(Image, {
+				Size = UDim2.fromOffset(props.swatchWidth, props.swatchHeight),
+				Position = UDim2.fromOffset(x, props.swatchCenterY),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Image = HEXAGON_IMAGE,
+				imageStyle = { Color3 = brickColor.Color },
+			})
+		end
+	end
+
+	return React.createElement(View, {
+		tag = "size-full",
+		ref = containerRef,
+		-- createElement children type doesn't include { [string]: ReactElement } directly
+	}, children :: any)
+end
+
 local function BrickColorPicker(brickColorPickerProps: BrickColorPickerProps)
 	local props = brickColorPickerProps
 	local tokens = useTokens()
 
-	local HEXAGON_SIZE = tokens.Size.Size_350 -- 14px
-	local HEXAGON_SPACING = tokens.Size.Size_50 -- 2px
-	local BOTTOM_ROW_OFFSET = tokens.Size.Size_100 -- 4px
-	local SELECTION_OUTLINE_WIDTH = tokens.Size.Size_200 -- 8px
+	local HEXAGON_SIZE = if Flags.FoundationColorPickerDesignUpdate then tokens.Size.Size_200 else tokens.Size.Size_350
+	local HEXAGON_WIDTH, HEXAGON_HEIGHT
+	if Flags.FoundationColorPickerDesignUpdate then
+		HEXAGON_WIDTH = tokens.Size.Size_350
+		HEXAGON_HEIGHT = tokens.Size.Size_400
+	else
+		HEXAGON_WIDTH, HEXAGON_HEIGHT = getHexagonDimensions(HEXAGON_SIZE)
+	end
+	local BOTTOM_PILL_PADDING_HORIZONTAL = tokens.Size.Size_100
+	local BOTTOM_SWATCH_WIDTH = tokens.Size.Size_350
+	local BOTTOM_SWATCH_HEIGHT = tokens.Size.Size_400
+	local SELECTION_OUTLINE_WIDTH = tokens.Size.Size_200
 
 	local allBrickColors = React.useMemo(function()
 		return BRICK_COLOR_PALETTES.MAIN
@@ -70,7 +149,6 @@ local function BrickColorPicker(brickColorPickerProps: BrickColorPickerProps)
 		return BRICK_COLOR_PALETTES.BOTTOM
 	end, {})
 
-	local HEXAGON_WIDTH, HEXAGON_HEIGHT = getHexagonDimensions(HEXAGON_SIZE)
 	local maxPolygonsInARow = React.useMemo(function()
 		local radius = calculateGridRadius(#allBrickColors)
 		if radius < MIN_GRID_RADIUS then
@@ -80,77 +158,83 @@ local function BrickColorPicker(brickColorPickerProps: BrickColorPickerProps)
 		return radius
 	end, {})
 
-	local gridData, gridBounds = React.useMemo(function()
-		local positions = {}
+	-- Grid data only includes MAIN colors; bottom row is rendered separately as a pill.
+	local gridData, gridBounds = React.useMemo(
+		function()
+			local positions = {}
 
-		local colorIndex = 1
-		local radius = maxPolygonsInARow
-		local hexagonSpacing = HEXAGON_SIZE + HEXAGON_SPACING
+			local colorIndex = 1
+			local radius = maxPolygonsInARow
+			local hexagonSpacing = HEXAGON_SIZE
+				+ (if Flags.FoundationColorPickerDesignUpdate then HEXAGON_SPACING else tokens.Size.Size_50)
+			local horizontalStep = HEXAGON_SIZE
+			local verticalStep = if Flags.FoundationColorPickerDesignUpdate
+				then math.round(hexagonSpacing * 1.5)
+				else nil
 
-		local horizontalStep = HEXAGON_SIZE
+			for row = 0, radius - 1 do
+				for col = 0, (2 * radius - 1) - 1 do
+					local rowFromCenter = math.abs(math.floor(radius / 2) - row)
+					local colFromCenter = math.abs(math.floor((2 * radius - 1) / 2) - col)
 
-		for row = 0, radius - 1 do
-			for col = 0, (2 * radius - 1) - 1 do
-				local rowFromCenter = math.abs(math.floor(radius / 2) - row)
-				local colFromCenter = math.abs(math.floor((2 * radius - 1) / 2) - col)
+					if
+						(rowFromCenter + colFromCenter < radius)
+						and (row % 2 == col % 2)
+						and colorIndex <= #allBrickColors
+					then
+						local x = horizontalStep * col
+						local y = if verticalStep then verticalStep * row else math.round(hexagonSpacing * 1.5 * row)
 
-				if
-					(rowFromCenter + colFromCenter < radius)
-					and (row % 2 == col % 2)
-					and colorIndex <= #allBrickColors
-				then
-					local x_float = horizontalStep * col
-					local y_float = hexagonSpacing * 1.5 * row
-					local x = x_float
-					local y = math.round(y_float)
-
-					table.insert(positions, {
-						brickColor = allBrickColors[colorIndex],
-						x = x,
-						y = y,
-					})
-					colorIndex += 1
+						table.insert(positions, {
+							brickColor = allBrickColors[colorIndex],
+							x = x,
+							y = y,
+						})
+						colorIndex += 1
+					end
 				end
 			end
-		end
 
-		if #bottomRowColors > 0 then
-			local bottomY_float = hexagonSpacing * 1.5 * radius + BOTTOM_ROW_OFFSET
-			local bottomY = math.round(bottomY_float)
-			local startCol = 1
+			if not Flags.FoundationColorPickerDesignUpdate and #bottomRowColors > 0 then
+				local BOTTOM_ROW_OFFSET = tokens.Size.Size_100
+				local bottomY = math.round(hexagonSpacing * 1.5 * radius + BOTTOM_ROW_OFFSET)
+				local startCol = 1
 
-			for i, brickColor in ipairs(bottomRowColors) do
-				local col = startCol + (i - 1) * 2
-				local x = horizontalStep * col
+				for i, brickColor in ipairs(bottomRowColors) do
+					local col = startCol + (i - 1) * 2
+					local x = horizontalStep * col
 
-				table.insert(positions, {
-					brickColor = brickColor,
-					x = x,
-					y = bottomY,
-				})
+					table.insert(positions, {
+						brickColor = brickColor,
+						x = x,
+						y = bottomY,
+					})
+				end
 			end
-		end
 
-		local minX, maxX = math.huge, -math.huge
-		local minY, maxY = math.huge, -math.huge
+			local minX, maxX = math.huge, -math.huge
+			local minY, maxY = math.huge, -math.huge
 
-		for _, pos in positions do
-			minX = math.min(minX, pos.x - HEXAGON_WIDTH / 2)
-			maxX = math.max(maxX, pos.x + HEXAGON_WIDTH / 2)
-			minY = math.min(minY, pos.y - HEXAGON_HEIGHT / 2)
-			maxY = math.max(maxY, pos.y + HEXAGON_HEIGHT / 2)
-		end
+			for _, pos in positions do
+				minX = math.min(minX, pos.x - HEXAGON_WIDTH / 2)
+				maxX = math.max(maxX, pos.x + HEXAGON_WIDTH / 2)
+				minY = math.min(minY, pos.y - HEXAGON_HEIGHT / 2)
+				maxY = math.max(maxY, pos.y + HEXAGON_HEIGHT / 2)
+			end
 
-		local bounds = {
-			width = maxX - minX,
-			height = maxY - minY,
-			offset = Vector2.new(minX, minY),
-		}
+			local bounds = {
+				width = maxX - minX,
+				height = maxY - minY,
+				offset = Vector2.new(minX, minY),
+			}
 
-		return positions, bounds
-	end, { maxPolygonsInARow })
+			return positions, bounds
+		end,
+		{ maxPolygonsInARow, HEXAGON_SIZE, allBrickColors, bottomRowColors, tokens.Size.Size_100, tokens.Size.Size_50 } :: { unknown }
+	)
 
-	local onActivated = React.useCallback(function(self: GuiObject, inputObject: InputObject)
+	-- Nearest-distance matching since hexagons aren't axis-aligned
+	local onGridActivated = React.useCallback(function(self: GuiObject, inputObject: InputObject)
 		if inputObject.UserInputType == Enum.UserInputType.MouseButton1 then
 			local closestHexagon: HexagonData? = nil
 			local minDistanceSq = math.huge
@@ -174,7 +258,25 @@ local function BrickColorPicker(brickColorPickerProps: BrickColorPickerProps)
 				end
 			end
 		end
-	end, { gridData, gridBounds :: any })
+	end, { gridData, gridBounds, HEXAGON_SIZE, props.onBrickColorChanged, props.onColorChanged } :: { unknown })
+
+	local onBottomRowActivated = React.useCallback(function(self: GuiObject, inputObject: InputObject)
+		if inputObject.UserInputType == Enum.UserInputType.MouseButton1 then
+			local relativeX = inputObject.Position.X - self.AbsolutePosition.X
+			local containerWidth = self.AbsoluteSize.X
+			local contentWidth = containerWidth - 2 * BOTTOM_PILL_PADDING_HORIZONTAL
+			local contentX = relativeX - BOTTOM_PILL_PADDING_HORIZONTAL
+
+			if contentX >= 0 and contentX <= contentWidth then
+				local idx = math.clamp(math.floor(contentX / contentWidth * #bottomRowColors) + 1, 1, #bottomRowColors)
+				local brickColor = bottomRowColors[idx]
+				props.onBrickColorChanged(brickColor)
+				if props.onColorChanged then
+					props.onColorChanged(brickColor.Color)
+				end
+			end
+		end
+	end, { bottomRowColors, props.onBrickColorChanged, props.onColorChanged } :: { unknown })
 
 	local createHexagonElement = React.useCallback(
 		function(hexagonData: HexagonData, isSelected: boolean): { [string]: React.ReactElement }
@@ -226,19 +328,56 @@ local function BrickColorPicker(brickColorPickerProps: BrickColorPickerProps)
 		return elements
 	end, { props.selectedColor })
 
+	if not Flags.FoundationColorPickerDesignUpdate then
+		return React.createElement(
+			View,
+			withCommonProps(props, {
+				Size = UDim2.fromOffset(gridBounds.width, gridBounds.height),
+			}),
+			{
+				ColorGrid = React.createElement(View, {
+					tag = "size-full position-top-left anchor-top-left",
+					onActivated = onGridActivated,
+					stateLayer = {
+						affordance = StateLayerAffordance.None,
+					},
+				}, createHexagonVisuals() :: any),
+			}
+		)
+	end
+
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			Size = UDim2.fromOffset(gridBounds.width, gridBounds.height),
+			tag = "col align-x-center gap-small auto-y size-full-0",
 		}),
 		{
 			ColorGrid = React.createElement(View, {
-				tag = "size-full position-top-left anchor-top-left",
-				onActivated = onActivated,
+				Size = UDim2.fromOffset(gridBounds.width, gridBounds.height),
+				LayoutOrder = 1,
+				onActivated = onGridActivated,
 				stateLayer = {
 					affordance = StateLayerAffordance.None,
 				},
 			}, createHexagonVisuals() :: any),
+
+			BottomRow = React.createElement(View, {
+				Size = UDim2.new(1, -tokens.Size.Size_400, 0, tokens.Size.Size_500),
+				tag = "stroke-standard stroke-muted radius-circle bg-surface-100",
+				LayoutOrder = 2,
+				onActivated = onBottomRowActivated,
+				stateLayer = {
+					affordance = StateLayerAffordance.None,
+				},
+			}, {
+				Swatches = React.createElement(BottomRowSwatches, {
+					colors = bottomRowColors,
+					paddingHorizontal = BOTTOM_PILL_PADDING_HORIZONTAL,
+					swatchWidth = BOTTOM_SWATCH_WIDTH,
+					swatchHeight = BOTTOM_SWATCH_HEIGHT,
+					swatchCenterY = tokens.Size.Size_250,
+				}),
+			}),
 		}
 	)
 end

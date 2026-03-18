@@ -52,7 +52,10 @@ ValidationEnums.ValidationModule = {
 	NoExtraTags = "NoExtraTags",
 	HeadIsDynamic = "HeadIsDynamic",
 	NoFACSOverrideData = "NoFACSOverrideData",
-} :: { [string]: string }
+	FacsHeadConsistency = "FacsHeadConsistency",
+	BodySkinnedToSchema = "BodySkinnedToSchema",
+	FacsNotDrivingSchema = "FacsNotDrivingSchema",
+}
 finalizeEnumTable("ValidationModule")
 
 ---- Camel case enums (module members) ----
@@ -81,7 +84,7 @@ ValidationEnums.SharedDataMember = {
 	innerCagesData = "innerCagesData",
 	outerCagesData = "outerCagesData",
 	meshTextures = "meshTextures",
-} :: { [string]: string }
+}
 finalizeEnumTable("SharedDataMember")
 
 ValidationEnums.ValidationConfig = {
@@ -102,7 +105,7 @@ ValidationEnums.ValidationConfig = {
 	-- Extra configs you should include
 	expectedFailures = "expectedFailures", -- List of System tests that we expect to fail this specific check. For bundles, you must specify Name.AssetType or Name.FullBody
 	run = "run", -- The main validation function
-} :: { [string]: string }
+}
 finalizeEnumTable("ValidationConfig")
 
 ---- Upper case enums (constants) ----
@@ -113,7 +116,7 @@ ValidationEnums.Status = {
 	ERROR = "ERROR",
 	FAIL = "FAIL",
 	PASS = "PASS",
-} :: { [string]: string }
+}
 finalizeEnumTable("Status")
 
 ValidationEnums.UploadCategory = {
@@ -127,7 +130,7 @@ ValidationEnums.UploadCategory = {
 	MAKEUP = "MAKEUP",
 	FULL_BODY = "FULL_BODY",
 	BOTH_SHOES = "BOTH_SHOES",
-} :: { [string]: string }
+}
 finalizeEnumTable("UploadCategory")
 
 return ValidationEnums

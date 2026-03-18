@@ -10,6 +10,7 @@ local DateTimeUtilities = require(script.Parent.DateTimeUtilities)
 local IconName = BuilderIcons.Icon
 
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+local Flags = require(Foundation.Utility.Flags)
 local IconButton = require(Foundation.Components.IconButton)
 local InputSize = require(Foundation.Enums.InputSize)
 local Text = require(Foundation.Components.Text)
@@ -18,6 +19,8 @@ local TimeDropdown = require(script.Parent.TimeDropdown)
 local View = require(Foundation.Components.View)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 local useTokens = require(Foundation.Providers.Style.useTokens)
+
+local FFlagFoundationDateTimePickerDSTFix = Flags.FFlagFoundationDateTimePickerDSTFix
 
 type Props = {
 	-- Default dates
@@ -476,15 +479,20 @@ local function Calendar(props: Props)
 		-- https://roblox.atlassian.net/browse/CLI-147909
 		local isDst = os.date("*t", item).isdst
 		if isDst then
-			local localDateTime = dateTime:ToLocalTime()
-			dateTime = DateTime.fromLocalTime(
-				localDateTime.Year,
-				localDateTime.Month,
-				localDateTime.Day,
-				if localDateTime.Hour == 0 then 23 else localDateTime.Hour - 1,
-				localDateTime.Minute,
-				localDateTime.Second
-			)
+			if FFlagFoundationDateTimePickerDSTFix then
+				local unixTimestamp = dateTime.UnixTimestamp
+				dateTime = DateTime.fromUnixTimestamp(unixTimestamp - 3600)
+			else
+				local localDateTime = dateTime:ToLocalTime()
+				dateTime = DateTime.fromLocalTime(
+					localDateTime.Year,
+					localDateTime.Month,
+					localDateTime.Day,
+					if localDateTime.Hour == 0 then 23 else localDateTime.Hour - 1,
+					localDateTime.Minute,
+					localDateTime.Second
+				)
+			end
 		end
 
 		setSelectedDateTimes({ dateTime })

@@ -31,7 +31,7 @@ local function useElevation(layer: ElevationLayer, options: Options): Token
 				end
 
 				if isNestedSameLayer then
-					return manager.acquire(layer, { reserve = true })
+					return manager.acquire(layer, { reserve = true, owner = owner })
 				end
 
 				local desired = owner.zIndex + 1

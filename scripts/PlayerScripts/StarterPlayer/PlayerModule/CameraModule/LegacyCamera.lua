@@ -4,7 +4,6 @@
 	2018 Camera Update - AllYourBlox
 --]]
 
-local ZERO_VECTOR2 = Vector2.new()
 local PITCH_LIMIT = math.rad(80)
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))

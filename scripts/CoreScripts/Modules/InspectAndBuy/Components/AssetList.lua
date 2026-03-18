@@ -5,11 +5,12 @@ local InspectAndBuyFolder = script.Parent.Parent
 local Roact = require(CorePackages.Packages.Roact)
 local Cryo = require(CorePackages.Packages.Cryo)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
-local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local Skeleton = Foundation.Skeleton
+
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local AssetCard = require(InspectAndBuyFolder.Components.AssetCard)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
-local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local SetAssetFromBundleInfo = require(InspectAndBuyFolder.Actions.SetAssetFromBundleInfo)
 
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
@@ -80,7 +81,7 @@ function AssetList:render()
 	if numAssets == 0 then
 		-- show shimmer panels if we're still waiting for the assets table to be filled
 		for i = 1, NUM_SHIMMER_PANELS do
-			assetCards[i] = Roact.createElement(ShimmerPanel, {
+			assetCards[i] = Roact.createElement(Skeleton, {
 				Size = UDim2.new(1, 0, 0, assetCardSizeX),
 			})
 		end

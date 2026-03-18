@@ -3,6 +3,8 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
+local Flags = require(Foundation.Utility.Flags)
+
 local Button = require(Foundation.Components.Button)
 local IconButton = require(Foundation.Components.IconButton)
 local IconSize = require(Foundation.Enums.IconSize)
@@ -38,8 +40,183 @@ type Props = {
 		size: InputSize,
 		side: PopoverSide,
 		align: PopoverAlign,
+		maxDepth: number,
 	},
 }
+
+local function truncateDepth(items: any, depth: number, maxDepth: number): any
+	local result = {}
+	for _, item in items do
+		local processed = table.clone(item)
+		if processed.items then
+			if depth >= maxDepth then
+				processed.items = nil
+			else
+				processed.items = truncateDepth(processed.items, depth + 1, maxDepth)
+			end
+		end
+		table.insert(result, processed)
+	end
+	return result
+end
+
+local function truncateGroups(groups: any, maxDepth: number): any
+	local result = {}
+	for _, group in groups do
+		if group.items then
+			local processed = table.clone(group)
+			processed.items = truncateDepth(group.items, 1, maxDepth)
+			table.insert(result, processed)
+		else
+			table.insert(result, truncateDepth({ group }, 1, maxDepth)[1])
+		end
+	end
+	return result
+end
+
+local function makeNestedSubmenuItems(setIsOpen: (boolean) -> ())
+	local obbyVersions: { MenuItem } = {
+		{ id = "obby-v3", icon = "check-large", text = "v3.0 (Live)" },
+		{ id = "obby-v2", text = "v2.5 (Draft)" },
+		{ id = "obby-v1", text = "v1.0 (Archived)" },
+		{ id = "obby-restore", icon = "arrow-rotate-right", text = "Restore Backup" },
+	}
+	local myPlaces: { MenuItems } = {
+		{ id = "place-obby", icon = "globe-simplified", text = "Obby World", items = obbyVersions },
+		{ id = "place-racing", icon = "globe-simplified", text = "Racing Game" },
+		{ id = "place-rpg", icon = "globe-simplified", text = "RPG Quest" },
+		{ id = "place-tycoon", icon = "globe-simplified", text = "Tycoon Builder" },
+	}
+	local openRecent: { MenuItems } = {
+		{ id = "recent-places", icon = "folder", text = "My Places", items = myPlaces },
+		{ id = "recent-team", icon = "folder", text = "Team Projects" },
+		{ id = "recent-templates", text = "Templates" },
+		{ id = "recent-clear", icon = "trash-can", text = "Clear History", isDisabled = true },
+	}
+	local exportItems: { MenuItems } = {
+		{ id = "export-rbxl", text = "Place File (.rbxl)" },
+		{ id = "export-rbxm", text = "Model File (.rbxm)" },
+		{ id = "export-png", icon = "photo-camera", text = "Screenshot (.png)" },
+		{ id = "export-json", icon = "code", text = "Selection as JSON" },
+	}
+	local fileItems: { MenuItems } = {
+		{ id = "file-new", icon = "plus-small", text = "New Place" },
+		{ id = "file-open-recent", icon = "clock", text = "Open Recent", items = openRecent },
+		{ id = "file-save", icon = "floppy-disk", text = "Save" },
+		{ id = "file-save-as", text = "Save As...", isDisabled = true },
+		{ id = "file-export", icon = "arrow-large-right", text = "Export", items = exportItems },
+		{ id = "file-publish", icon = "globe-simplified", text = "Publish to Roblox" },
+		{ id = "file-close", icon = "x-large", text = "Close Place" },
+	}
+
+	local alignItems: { MenuItems } = {
+		{ id = "align-left", icon = "arrow-large-left", text = "Align Left" },
+		{ id = "align-center", text = "Align Center" },
+		{ id = "align-right", icon = "arrow-large-right", text = "Align Right" },
+		{ id = "align-top", icon = "arrow-large-up", text = "Align Top" },
+		{ id = "align-middle", text = "Align Middle" },
+		{ id = "align-bottom", icon = "arrow-large-down", text = "Align Bottom" },
+	}
+	local transformItems: { MenuItems } = {
+		{ id = "transform-align", icon = "two-arrows-left-right", text = "Align", items = alignItems },
+		{ id = "transform-rotate-cw", icon = "arrow-spin-clockwise", text = "Rotate 90\u{00B0} CW" },
+		{ id = "transform-rotate-ccw", text = "Rotate 90\u{00B0} CCW" },
+		{ id = "transform-flip-h", icon = "two-arrows-left-right", text = "Flip Horizontal" },
+		{ id = "transform-flip-v", text = "Flip Vertical" },
+		{ id = "transform-reset", text = "Reset Transform", isDisabled = true },
+	}
+	local editItems: { MenuItems } = {
+		{ id = "edit-undo", icon = "arrow-large-left", text = "Undo" },
+		{ id = "edit-redo", icon = "arrow-large-right", text = "Redo" },
+		{
+			id = "edit-cut",
+			text = "Cut",
+			onActivated = function()
+				print("Menu item activated by child: edit-cut")
+				setIsOpen(false)
+			end,
+		},
+		{
+			id = "edit-copy",
+			text = "Copy",
+			onActivated = function()
+				print("Menu item activated by child: edit-copy")
+				setIsOpen(false)
+			end,
+		},
+		{
+			id = "edit-paste",
+			text = "Paste",
+			onActivated = function()
+				print("Menu item activated by child: edit-paste")
+				setIsOpen(false)
+			end,
+		},
+		{ id = "edit-duplicate", text = "Duplicate", isDisabled = true },
+		{ id = "edit-transform", icon = "arrow-spin-clockwise", text = "Transform", items = transformItems },
+	}
+
+	local viewItems: { MenuItems } = {
+		{ id = "view-explorer", icon = "folder", text = "Explorer" },
+		{ id = "view-properties", icon = "rectangle-list", text = "Properties" },
+		{ id = "view-output", text = "Output" },
+		{ id = "view-cmd-bar", text = "Command Bar" },
+		{ id = "view-toolbox", text = "Toolbox" },
+		{ id = "view-terrain", text = "Terrain Editor" },
+	}
+
+	local particleItems: { MenuItems } = {
+		{ id = "style-fire", icon = "flame", text = "Fire" },
+		{ id = "style-smoke", icon = "cloud", text = "Smoke" },
+		{ id = "style-sparks", icon = "star", text = "Sparks" },
+		{ id = "style-custom", icon = "gear", text = "Custom..." },
+	}
+	local effectItems: { MenuItems } = {
+		{ id = "insert-particles", icon = "star", text = "Particles", items = particleItems },
+		{ id = "effect-explosion", text = "Explosion" },
+		{ id = "effect-highlight", icon = "eye", text = "Highlight" },
+		{ id = "effect-bloom", text = "Bloom" },
+	}
+	local objectItems: { MenuItems } = {
+		{ id = "insert-effects", icon = "star", text = "Effects", items = effectItems },
+		{ id = "insert-part", icon = "cube-vertexes", text = "Part" },
+		{ id = "insert-mesh", text = "Mesh Part" },
+		{ id = "insert-model", text = "Model" },
+		{ id = "insert-light", icon = "lightning-bolt", text = "Light" },
+		{ id = "insert-sound", icon = "speaker", text = "Sound", isDisabled = true },
+	}
+	local insertItems: { MenuItems } = {
+		{ id = "insert-object", icon = "cube-vertexes", text = "Object", items = objectItems },
+		{ id = "insert-script", icon = "code", text = "Script" },
+		{ id = "insert-local-script", text = "Local Script" },
+		{ id = "insert-module", text = "Module Script" },
+		{ id = "insert-folder", icon = "folder", text = "Folder" },
+	}
+
+	return {
+		{
+			title = "Document",
+			items = {
+				{ id = "file", icon = "page", text = "File", items = fileItems },
+				{ id = "edit", icon = "pencil-square", text = "Edit", items = editItems },
+			},
+		},
+		{
+			title = "Workspace",
+			items = {
+				{ id = "view", icon = "eye", text = "View", items = viewItems },
+				{ id = "insert", icon = "plus-large", text = "Insert", items = insertItems },
+			},
+		},
+		{
+			title = "Quick Actions",
+			items = {
+				{ id = "select-all", icon = "check-large", text = "Select All" },
+				{ id = "preferences", icon = "gear", text = "Preferences" },
+			},
+		},
+	} :: { MenuItems }
+end
 
 return {
 	summary = "Menu - A popover-based menu component that combines Popover with InternalMenu",
@@ -308,10 +485,10 @@ return {
 		},
 		{
 			name = "Grouped",
-			story = function(props)
+			story = function(props: Props)
 				local isOpen, setIsOpen = React.useState(false)
 				local selectedItemId, setSelectedItemId = React.useState("a1")
-				local items: MenuItems = {
+				local items = {
 					{
 						title = "First title" :: string?,
 						items = {
@@ -379,10 +556,52 @@ return {
 				})
 			end,
 		},
+		if Flags.FoundationBaseMenuSubmenuSupport
+			then {
+				name = "Nested Submenus",
+				story = function(props: Props)
+					local isOpen, setIsOpen = React.useState(false)
+
+					local maxDepth = props.controls.maxDepth
+					local items = React.useMemo(function()
+						return truncateGroups(makeNestedSubmenuItems(setIsOpen), maxDepth)
+					end, { maxDepth })
+
+					return React.createElement(View, {
+						Size = UDim2.new(1, 0, 0, 600),
+						tag = "row align-x-center align-y-center",
+					}, {
+						Menu = React.createElement(Menu, {
+							isOpen = isOpen,
+							items = items,
+							size = props.controls.size,
+							side = props.controls.side,
+							align = props.controls.align,
+							onPressedOutside = function()
+								setIsOpen(false)
+							end,
+							onActivated = function(id)
+								print("Menu item activated by parent:", id)
+								setIsOpen(false)
+							end,
+						}, {
+							Button = React.createElement(Button, {
+								text = "Open Menu",
+								size = InputSize.Medium,
+								onActivated = function()
+									setIsOpen(not isOpen)
+								end,
+							}),
+						}),
+					})
+				end,
+			}
+			else {} :: any,
 	},
 	controls = {
 		size = Dash.values(InputSize),
 		side = { PopoverSide.Bottom, PopoverSide.Top, PopoverSide.Left, PopoverSide.Right } :: { PopoverSide },
 		align = Dash.values(PopoverAlign),
+		maxDepth = { 3, 4, 5 },
 	},
 }

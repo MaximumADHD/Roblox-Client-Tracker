@@ -10,6 +10,8 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
+local Flags = require(Foundation.Utility.Flags)
+
 local Types = require(Foundation.Components.Types)
 type CommonProps = Types.CommonProps
 
@@ -18,6 +20,8 @@ export type SVPickerProps = {
 	saturation: React.Binding<number>,
 	value: React.Binding<number>,
 	onChanged: (saturation: number, value: number) -> (),
+	onDragStarted: (() -> ())?,
+	onDragEnded: (() -> ())?,
 	-- When false, the selection knob on the S/V gradient is hidden.
 	showSelectionKnob: boolean?,
 } & CommonProps
@@ -30,6 +34,8 @@ local function SVPicker(svPickerProps: SVPickerProps)
 	local props = withDefaults(svPickerProps, defaultProps)
 	local hue, saturation, value = props.hue, props.saturation, props.value
 	local onChanged = props.onChanged
+	local onDragStarted = props.onDragStarted
+	local onDragEnded = props.onDragEnded
 	local tokens = useTokens()
 
 	--selene: allow(roblox_internal_custom_color)
@@ -51,8 +57,11 @@ local function SVPicker(svPickerProps: SVPickerProps)
 	end, { onChanged })
 
 	local onDragStart = React.useCallback(function(_rbx, inputPosition: Vector2)
+		if onDragStarted then
+			onDragStarted()
+		end
 		calculatePositionFromDrag(inputPosition)
-	end, { calculatePositionFromDrag })
+	end, { calculatePositionFromDrag, onDragStarted } :: { unknown })
 
 	local onDragContinue = React.useCallback(function(_rbx, inputPosition: Vector2)
 		calculatePositionFromDrag(inputPosition)
@@ -61,7 +70,7 @@ local function SVPicker(svPickerProps: SVPickerProps)
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			tag = "size-full",
+			tag = if Flags.FoundationColorPickerDesignUpdate then "size-full radius-small" else "size-full",
 			ref = pickerRef,
 			ClipsDescendants = true,
 		}),
@@ -70,6 +79,7 @@ local function SVPicker(svPickerProps: SVPickerProps)
 				DragStyle = Enum.UIDragDetectorDragStyle.Scriptable,
 				[React.Event.DragStart] = onDragStart :: any,
 				[React.Event.DragContinue] = onDragContinue :: any,
+				[React.Event.DragEnd] = onDragEnded :: any,
 			}),
 			Base = React.createElement("Frame", {
 				Size = UDim2.fromScale(1, 1),
@@ -106,7 +116,7 @@ local function SVPicker(svPickerProps: SVPickerProps)
 			}),
 			Knob = if props.showSelectionKnob
 				then React.createElement(Knob, {
-					size = InputSize.Large,
+					size = if Flags.FoundationColorPickerDesignUpdate then InputSize.Medium else InputSize.Large,
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Position = React.joinBindings({ saturation, value }):map(function(values)
 						local s, v = values[1], values[2]

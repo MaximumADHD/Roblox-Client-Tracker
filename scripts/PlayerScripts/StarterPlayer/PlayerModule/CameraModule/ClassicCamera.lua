@@ -9,16 +9,12 @@
 
 -- Local private variables and constants
 
-local ZERO_VECTOR2 = Vector2.new(0,0)
-
 local tweenAcceleration = math.rad(220) -- Radians/Second^2
 local tweenSpeed = math.rad(0)          -- Radians/Second
 local tweenMaxSpeed = math.rad(250)     -- Radians/Second
 local TIME_BEFORE_AUTO_ROTATE = 2       -- Seconds, used when auto-aligning camera with vehicles
 
 local INITIAL_CAMERA_ANGLE = CFrame.fromOrientation(math.rad(-15), 0, 0)
-local ZOOM_SENSITIVITY_CURVATURE = 0.5
-local FIRST_PERSON_DISTANCE_MIN = 0.5
 
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")

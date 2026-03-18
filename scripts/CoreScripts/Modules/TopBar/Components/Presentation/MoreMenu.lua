@@ -34,7 +34,6 @@ local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignaliz
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 
 local FFlagEnableTopBarAnalytics = require(TopBar.Flags.GetFFlagEnableTopBarAnalytics)()
-local FFlagRemoveTopBarInputTypeRodux = require(TopBar.Flags.GetFFlagRemoveTopBarInputTypeRodux)()
 
 local Constants = require(TopBar.Constants)
 local InputType = Constants.InputType
@@ -102,8 +101,6 @@ MoreMenu.validateProps = t.strictInterface({
 	leaderboardOpen = t.boolean,
 	backpackOpen = t.boolean,
 	emotesOpen = t.boolean,
-
-	inputType = if FFlagRemoveTopBarInputTypeRodux then nil else t.string,
 	setKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.callback,
 	removeKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.callback,
 })
@@ -177,9 +174,6 @@ end
 function MoreMenu:renderWithStyle(style)
 	local menuOptions = {}
 	local hasOptions = false
-
-	local isUsingKeyBoard = if FFlagRemoveTopBarInputTypeRodux then false else self.props.inputType == InputType.MouseAndKeyBoard
-
 	local enableLeaderboardButton = self.props.leaderboardEnabled
 
 	if enableLeaderboardButton then
@@ -190,7 +184,6 @@ function MoreMenu:renderWithStyle(style)
 		table.insert(menuOptions, {
 			icon = leaderboardIcon,
 			text = RobloxTranslator:FormatByKey("CoreScripts.TopBar.Leaderboard"),
-			keyCodeLabel = isUsingKeyBoard and Enum.KeyCode.Tab or nil,
 			onActivated = function()
 				local isLeaderboardActive = self.props.leaderboardOpen
 				if VRService.VREnabled then
@@ -219,7 +212,6 @@ function MoreMenu:renderWithStyle(style)
 		table.insert(menuOptions, {
 			icon = emotesIcon,
 			text = RobloxTranslator:FormatByKey("CoreScripts.TopBar.Emotes"),
-			keyCodeLabel = isUsingKeyBoard and emotesKeybind or nil,
 			onActivated = function()
 				if EmotesMenuMaster:isOpen() then
 					EmotesMenuMaster:close()
@@ -255,7 +247,6 @@ function MoreMenu:renderWithStyle(style)
 		table.insert(menuOptions, {
 			icon = backpackIcon,
 			text = RobloxTranslator:FormatByKey("CoreScripts.TopBar.Inventory"),
-			keyCodeLabel = isUsingKeyBoard and Enum.KeyCode.Backquote or nil,
 			onActivated = function()
 				BackpackModule:OpenClose()
 				self.props.setMoreMenuOpen(false)
@@ -415,8 +406,6 @@ local function mapStateToProps(state)
 		leaderboardOpen = state.moreMenu.leaderboardOpen,
 		backpackOpen = state.moreMenu.backpackOpen,
 		emotesOpen = state.moreMenu.emotesOpen,
-
-		inputType = if FFlagRemoveTopBarInputTypeRodux then nil else state.displayOptions.inputType,
 	}
 end
 

@@ -4,7 +4,6 @@ local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local Button = require(Foundation.Components.Button)
-local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
 local Popover = require(Foundation.Components.Popover)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
@@ -199,8 +198,7 @@ return {
 		},
 		KeyboardAware = {
 			name = "Keyboard Aware Input",
-			story = function(props)
-				Flags.FoundationPopoverOnScreenKeyboard = props.controls.keyboardAware
+			story = function()
 				local open, setOpen = React.useState(false)
 				local inputText, setInputText = React.useState("")
 
@@ -413,6 +411,5 @@ return {
 		align = Dash.values(PopoverAlign),
 		radius = { Radius.Small, Radius.Medium, Radius.Circle } :: { Radius.Radius },
 		backgroundStyle = backgroundStyleOrderedKeys,
-		keyboardAware = Flags.FoundationPopoverOnScreenKeyboard,
 	},
 }

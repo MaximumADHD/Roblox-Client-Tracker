@@ -6,14 +6,16 @@ local React = require(Packages.React)
 local Flags = require(Foundation.Utility.Flags)
 local Icon = require(Foundation.Components.Icon)
 local IconButton = require(Foundation.Components.IconButton)
-local InternalTextInput = require(Foundation.Components.InternalTextInput)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local IconSize = require(Foundation.Enums.IconSize)
 local InputSize = require(Foundation.Enums.InputSize)
+local InputVariant = require(Foundation.Enums.InputVariant)
 local Radius = require(Foundation.Enums.Radius)
+
+local InternalTextInput = require(Foundation.Components.InternalTextInput)
 
 local function Story(props)
 	local controls = props.controls
@@ -47,6 +49,7 @@ local function Story(props)
 			InternalTextInput = React.createElement(InternalTextInput, {
 				text = text,
 				size = controls.size,
+				variant = if Flags.FoundationInternalTextInputVariants then controls.variant else nil,
 				hasError = controls.hasError,
 				isDisabled = controls.isDisabled,
 				numLines = controls.numLines,
@@ -128,6 +131,7 @@ return {
 		hasError = false,
 		isDisabled = false,
 		size = Dash.values(InputSize),
+		variant = if Flags.FoundationInternalTextInputVariants then Dash.values(InputVariant) else nil,
 		numLines = 3,
 		width = 400,
 		radius = if Flags.FoundationInternalTextInputCornerRadius

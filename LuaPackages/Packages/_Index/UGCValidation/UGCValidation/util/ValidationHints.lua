@@ -22,8 +22,6 @@ local ParseContentIds = require(root.util.ParseContentIds)
 local getMeshInfo = require(root.util.getMeshInfo)
 local getMeshVerts = require(root.util.getMeshVerts)
 
-local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
-
 local ValidationHints = {}
 
 local fieldsToCheckFor = {
@@ -201,12 +199,8 @@ function ValidationHints.preprocessDataAsync(
 			local meshPart = allBodyData[subPartName] :: MeshPart
 
 			local success, failureReasons, meshInfoOpt
-			if getFFlagUGCValidationConsolidateGetMeshInfos() then
-				success, failureReasons, meshInfoOpt =
-					getMeshInfo(meshPart, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
-			else
-				success, failureReasons, meshInfoOpt = (getMeshInfo :: any)(meshPart, validationContext)
-			end
+			success, failureReasons, meshInfoOpt =
+				getMeshInfo(meshPart, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
 			if not success then
 				return {
 					ok = false,

@@ -6,9 +6,10 @@ local Players = game:GetService("Players")
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
-local Promise = require(CorePackages.Packages.Promise)
+local Foundation = require(CorePackages.Packages.Foundation)
+local Skeleton = Foundation.Skeleton
 
-local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
+local Promise = require(CorePackages.Packages.Promise)
 local EmptyState = UIBlox.App.Indicator.EmptyState
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -218,7 +219,7 @@ function HumanoidViewport:render()
 			DominantAxis = Enum.DominantAxis.Width,
 		}),
 
-		ShimmerFrame = showShimmerFrame and Roact.createElement(ShimmerPanel, {
+		ShimmerFrame = showShimmerFrame and Roact.createElement(Skeleton, {
 			Size = UDim2.fromScale(1, 1),
 			Position = UDim2.fromScale(0.5, 0.5),
 			AnchorPoint = Vector2.new(0.5, 0.5),

@@ -71,6 +71,7 @@ type _CollectionCarouselSchema_PropsFields = {
 	disable_selection_order: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	num_items_to_render_off_screen: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	items: _roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp?,
+	item_height_mode: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _CollectionCarouselSchema_PropsPartialFields = {
@@ -92,6 +93,7 @@ type _CollectionCarouselSchema_PropsPartialFields = {
 	disable_selection_order: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	num_items_to_render_off_screen: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	items: _roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp?,
+	item_height_mode: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type CollectionCarouselSchema_Props = typeof(setmetatable(
@@ -267,6 +269,7 @@ do
 				then nil
 				else data.num_items_to_render_off_screen,
 			items = if data == nil or data.items == nil then nil else data.items,
+			item_height_mode = if data == nil or data.item_height_mode == nil then nil else data.item_height_mode,
 		}, _CollectionCarouselSchema_PropsImpl :: _CollectionCarouselSchema_PropsImpl)
 	end
 
@@ -379,6 +382,12 @@ do
 		if self.items ~= nil then
 			local encoded = self.items:encode()
 			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.item_height_mode ~= nil then
+			local encoded = self.item_height_mode:encode()
+			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -502,6 +511,11 @@ do
 					self.items =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp.decode(value)
 					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_height_mode = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -599,6 +613,10 @@ do
 
 		if self.items ~= nil then
 			output.items = self.items:jsonEncode()
+		end
+
+		if self.item_height_mode ~= nil then
+			output.itemHeightMode = self.item_height_mode:jsonEncode()
 		end
 
 		return output
@@ -778,6 +796,16 @@ do
 		if input.items ~= nil then
 			self.items =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp.jsonDecode(input.items)
+		end
+
+		if input.item_height_mode ~= nil then
+			self.item_height_mode =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.item_height_mode)
+		end
+
+		if input.itemHeightMode ~= nil then
+			self.item_height_mode =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.itemHeightMode)
 		end
 
 		return self

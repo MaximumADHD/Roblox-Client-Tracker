@@ -79,8 +79,6 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 	local hardwareInsets = useHardwareInsets(overlay)
 	local screenSize = if Flags.FoundationSideSheetNewWidthCalculation then useScreenSize() else nil :: never
 	local safeAreaPadding = hardwareInsets.right
-	-- Top hardware inset in landscape orientation currently is only possible if it's top bar
-	local topBarHeight = if Flags.FoundationSheetSideSheetTopBarFix then hardwareInsets.top else 0
 
 	local isSmallDisplay = props.displaySize == Enum.DisplaySize.Small
 
@@ -164,7 +162,7 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 		0,
 		width + if isSmallDisplay then safeAreaPadding else 0,
 		1,
-		(if isSmallDisplay then 0 else -sheetPadding * 2) + topBarHeight
+		if isSmallDisplay then 0 else -sheetPadding * 2
 	)
 
 	local sheetPosition = rightPosition:map(function(value: number)
@@ -172,7 +170,7 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 			1,
 			if isSmallDisplay then -value else -(value + sheetPadding),
 			0,
-			(if isSmallDisplay then 0 else sheetPadding) - topBarHeight
+			if isSmallDisplay then 0 else sheetPadding
 		)
 	end)
 

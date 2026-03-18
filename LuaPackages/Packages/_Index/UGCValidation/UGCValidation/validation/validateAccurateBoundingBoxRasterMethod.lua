@@ -22,8 +22,6 @@ local Extents = require(root.util.Extents)
 local tryYield = require(root.util.tryYield)
 
 local validateAccurateBoundingBoxFlags = require(root.flags.validateAccurateBoundingBoxFlags)
-local getFFlagUGCValidateAccurateBoundingBoxRasterMethodTopViewFix =
-	require(root.flags.getFFlagUGCValidateAccurateBoundingBoxRasterMethodTopViewFix)
 local getFFlagUGCValidateTinyTrianglesIntersectFix = require(root.flags.getFFlagUGCValidateTinyTrianglesIntersectFix)
 
 type BodyAssetMasksRenderer = BodyAssetMasksRenderer.BodyAssetMasksRenderer
@@ -185,18 +183,10 @@ end
 
 -- returns true if a resultant vector component is mapped to exactly one component of the input vector, that is not z
 local function transformIsAlignedWithAxis(transform: CFrame, axis: Vector3)
-	if getFFlagUGCValidateAccurateBoundingBoxRasterMethodTopViewFix() then
-		if axis:FuzzyEq(transform.XVector:Abs()) then
-			return true
-		elseif axis:FuzzyEq(transform.YVector:Abs()) then
-			return true
-		end
-	else
-		if axis:Abs():FuzzyEq(transform.XVector) then
-			return true
-		elseif axis:Abs():FuzzyEq(transform.YVector) then
-			return true
-		end
+	if axis:FuzzyEq(transform.XVector:Abs()) then
+		return true
+	elseif axis:FuzzyEq(transform.YVector:Abs()) then
+		return true
 	end
 
 	return false

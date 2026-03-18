@@ -3,11 +3,16 @@ local Packages = Foundation.Parent
 local RbxDesignFoundations = require(Packages.RbxDesignFoundations)
 
 local Device = require(Foundation.Enums.Device)
+local Flags = require(Foundation.Utility.Flags)
 local Theme = require(Foundation.Enums.Theme)
 type Theme = Theme.Theme
 type Device = Device.Device
 
 local function getPlatformScale(device: Device, scaleFactor: number?)
+	if Flags.FoundationDisableTokenScaling then
+		return 1
+	end
+
 	scaleFactor = if scaleFactor ~= nil then scaleFactor else 1
 	scaleFactor = math.clamp(scaleFactor :: number, 0, math.huge)
 	-- Platform scale will be from engine API as soon as it's ready.

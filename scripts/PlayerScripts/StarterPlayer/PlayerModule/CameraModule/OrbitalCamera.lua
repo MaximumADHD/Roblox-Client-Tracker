@@ -10,7 +10,6 @@ local FFlagUserFixOrbitalCameraAzimuth = FlagUtil.getUserFlag("UserFixOrbitalCam
 
 -- Local private variables and constants
 local UNIT_Z = Vector3.new(0,0,1)
-local X1_Y0_Z1 = Vector3.new(1,0,1)	--Note: not a unit vector, used for projecting onto XZ plane
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local TAU = 2 * math.pi
 

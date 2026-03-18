@@ -17,7 +17,6 @@ local MIN_ASSEMBLY_RADIUS = 5
 local PITCH_LIMIT = math.rad(80)
 local YAW_DEFAULT = math.rad(0)
 local ZOOM_MINIMUM = 0.5
-local ZOOM_SENSITIVITY_CURVATURE = 0.5
 local TP_FOLLOW_DIST = 200
 local TP_FOLLOW_ANGLE_DOT = 0.56
 -- assume an assembly radius of 10
@@ -39,8 +38,6 @@ local localPlayer = Players.LocalPlayer
 local Spring = CameraUtils.Spring
 local mapClamp = CameraUtils.mapClamp
 local sanitizeAngle = CameraUtils.sanitizeAngle
-
-local ZERO_VECTOR3 = Vector3.new(0,0,0)
 
 -- pitch-axis rotational velocity of a part with a given CFrame and total RotVelocity
 local function pitchVelocity(rotVel, cf)
@@ -229,7 +226,7 @@ function VRVehicleCamera:addDrift(currentCamera, focus)
 	local zoom = self:GetCameraToSubjectDistance()
 	local subjectVel: Vector3 = self:GetSubjectVelocity()
 	local subjectCFrame: CFrame = self:GetSubjectCFrame()
-	local controlModule = require(localPlayer:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule"))
+	local controlModule = require(script.Parent.Parent:WaitForChild("ControlModule"))
 
 	-- while moving, slowly adjust camera so the avatar is in front of your head
 	if subjectVel.Magnitude > 0.1 then -- is the subject moving?
@@ -426,7 +423,6 @@ function VRVehicleCamera:UpdateComfortCamera(dt)
 	local subjectRotVel = self:GetSubjectRotVelocity()
 
 	-- measure the local-to-world-space forward velocity of the vehicle
-	local vDotZ = math.abs(subjectVel:Dot(subjectCFrame.ZVector))
 	local yawVel = yawVelocity(subjectRotVel, subjectCFrame)
 	local pitchVel = pitchVelocity(subjectRotVel, subjectCFrame)
 

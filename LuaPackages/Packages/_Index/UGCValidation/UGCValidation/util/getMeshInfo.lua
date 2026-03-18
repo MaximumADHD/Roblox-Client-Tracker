@@ -9,8 +9,6 @@ local Constants = require(root.Constants)
 local Types = require(root.util.Types)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 
-local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
-
 local function getContent(instance: Instance, meshContentType: string): string?
 	if meshContentType == Constants.MESH_CONTENT_TYPE.RENDER_MESH then
 		assert(instance:IsA("MeshPart"), "Only MESH_TYPE.RENDER_MESH is only supported for MeshPart")
@@ -53,31 +51,4 @@ local function getMeshInfo(
 	return true, nil, meshInfo
 end
 
-local function DEPRECATED_getMeshInfo(
-	meshPart: MeshPart,
-	validationContext: Types.ValidationContext
-): (boolean, { string }?, Types.MeshInfo?)
-	local meshPartFullName = meshPart:GetFullName()
-	local success, theEditableMesh = getEditableMeshFromContext(meshPart, "MeshId", validationContext)
-	if not success then
-		return false,
-			{
-				string.format(
-					"Mesh for '%s' failed to load. Make sure the mesh exists and try again.",
-					meshPartFullName
-				),
-			}
-	end
-
-	local meshInfo = {
-		fullName = meshPartFullName,
-		fieldName = "MeshId",
-		contentId = meshPart.MeshId,
-		context = meshPart.ClassName,
-		editableMesh = theEditableMesh,
-	} :: Types.MeshInfo
-
-	return true, nil, meshInfo
-end
-
-return if getFFlagUGCValidationConsolidateGetMeshInfos() then getMeshInfo else DEPRECATED_getMeshInfo :: never
+return getMeshInfo

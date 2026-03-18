@@ -11,6 +11,8 @@ local DateTimeUtilities = require(script.Parent.DateTimeUtilities)
 
 local Button = require(Foundation.Components.Button)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+local Flags = require(Foundation.Utility.Flags)
+local GuiService = require(Foundation.Utility.Wrappers.Services).GuiService
 local InputSize = require(Foundation.Enums.InputSize)
 local Popover = require(Foundation.Components.Popover)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
@@ -21,6 +23,8 @@ local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
+
+local FFlagFoundationDateTimePickerScreenSize = Flags.FoundationDateTimePickerScreenSize
 
 local DateTimePickerVariant = require(Foundation.Enums.DateTimePickerVariant)
 type DateTimePickerVariant = DateTimePickerVariant.DateTimePickerVariant
@@ -103,6 +107,14 @@ local function DateTimePicker(dateTimePickerProps: DateTimePickerProps)
 		setIsOpen(true)
 	end, {})
 
+	local onFocusGained = if FFlagFoundationDateTimePickerScreenSize
+		then React.useCallback(function()
+			if GuiService.ViewportDisplaySize ~= Enum.DisplaySize.Small then
+				showDateTimePicker()
+			end
+		end, { showDateTimePicker, GuiService.ViewportDisplaySize } :: { unknown })
+		else nil
+
 	-- Since we allow user input we need to parse the text to a DateTime object before calling onChanged
 	local updateInputText = React.useCallback(function(txt: string)
 		setInputText(txt)
@@ -182,7 +194,7 @@ local function DateTimePicker(dateTimePickerProps: DateTimePickerProps)
 				key = "date-input",
 				label = props.label,
 				onChanged = updateInputText,
-				onFocusGained = showDateTimePicker,
+				onFocusGained = if FFlagFoundationDateTimePickerScreenSize then onFocusGained else showDateTimePicker,
 				placeholder = Translator:FormatByKey("CommonUI.Controls.Label.SelectDate"),
 				ref = textInputRef,
 				selectableDateRange = props.selectableDateRange,

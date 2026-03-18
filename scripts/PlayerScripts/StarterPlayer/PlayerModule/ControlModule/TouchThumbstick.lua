@@ -1,19 +1,15 @@
 --!nonstrict
---[[
-
-	TouchThumbstick
-
---]]
-local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 
-local UserGameSettings = UserSettings():GetService("UserGameSettings")
+local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
+local FlagUtil = CommonUtils.get("FlagUtil")
+local FFlagUserPSActionsPathAware = FlagUtil.getUserFlag("UserPSActionsPathAware")
 
 --[[ Constants ]]--
-local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/TouchControlsSheet.png"
 
+-- remove with FFlagUserPSActionsPathAware
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
 local character = inputContexts:WaitForChild("Character")
 local moveAction = character:WaitForChild("Move")
@@ -22,8 +18,11 @@ local moveAction = character:WaitForChild("Move")
 local ActionController = require(script.Parent:WaitForChild("ActionController"))
 local TouchThumbstick = setmetatable({}, ActionController)
 TouchThumbstick.__index = TouchThumbstick
-function TouchThumbstick.new()
+
+function TouchThumbstick.new(playerData)
 	local self = setmetatable(ActionController.new() :: any, TouchThumbstick)
+
+	self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
 
 	self.isFollowStick = false
 
@@ -37,6 +36,7 @@ function TouchThumbstick.new()
 
 	return self
 end
+
 function TouchThumbstick:Enable(enable: boolean?, uiParentFrame)
 	if enable == nil then return false end			-- If nil, return false (invalid argument)
 	enable = enable and true or false				-- Force anything non-nil to boolean before comparison
@@ -62,7 +62,12 @@ function TouchThumbstick:OnInputEnded()
 	self.thumbstickFrame.Position = self.screenPos
 	self.stickImage.Position = UDim2.new(0, self.thumbstickFrame.Size.X.Offset/2 - self.thumbstickSize/4, 0, self.thumbstickFrame.Size.Y.Offset/2 - self.thumbstickSize/4)
 
-	moveAction:Fire(Vector2.zero)
+	if FFlagUserPSActionsPathAware then
+		self.playerData.actions.Move:Fire(Vector2.zero)
+	else
+		moveAction:Fire(Vector2.zero)
+	end
+
 	self.isJumping = false
 	self.thumbstickFrame.Position = self.screenPos
 	self.moveTouchObject = nil
@@ -143,7 +148,11 @@ function TouchThumbstick:Create(parentFrame)
 		end
 
 		currentMoveVector = Vector2.new(currentMoveVector.X, -currentMoveVector.Y)
-		moveAction:Fire(currentMoveVector)
+		if FFlagUserPSActionsPathAware then
+			self.playerData.actions.Move:Fire(currentMoveVector)
+		else
+			moveAction:Fire(currentMoveVector)
+		end
 	end
 
 	local function MoveStick(pos: Vector3)
@@ -175,7 +184,6 @@ function TouchThumbstick:Create(parentFrame)
 		self.thumbstickFrame.Position = UDim2.new(0, inputObject.Position.X - self.thumbstickFrame.Size.X.Offset/2, 0, inputObject.Position.Y - self.thumbstickFrame.Size.Y.Offset/2)
 		centerPosition = Vector2.new(self.thumbstickFrame.AbsolutePosition.X + self.thumbstickFrame.AbsoluteSize.X/2,
 			self.thumbstickFrame.AbsolutePosition.Y + self.thumbstickFrame.AbsoluteSize.Y/2)
-		local direction = Vector2.new(inputObject.Position.X - centerPosition.X, inputObject.Position.Y - centerPosition.Y)
 	end)
 
 	self.onTouchMovedConn = UserInputService.TouchMoved:Connect(function(inputObject: InputObject, isProcessed: boolean)

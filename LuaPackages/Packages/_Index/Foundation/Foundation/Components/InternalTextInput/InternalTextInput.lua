@@ -11,8 +11,8 @@ local View = require(Components.View)
 
 local Constants = require(Foundation.Constants)
 local Flags = require(Foundation.Utility.Flags)
-local FoundationConstants = require(Foundation.Constants)
 local blendTransparencies = require(Foundation.Utility.blendTransparencies)
+local getDisabledStyle = require(Foundation.Utility.getDisabledStyle)
 local getMultiLineTextHeight = require(Foundation.Utility.getMultiLineTextHeight)
 local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 local truncateTextToCursor = require(script.Parent.truncateTextToCursor)
@@ -26,6 +26,9 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
+
+local InputVariant = require(Foundation.Enums.InputVariant)
+type InputVariant = InputVariant.InputVariant
 
 local Radius = require(Foundation.Enums.Radius)
 type Radius = Radius.Radius
@@ -48,6 +51,8 @@ type TextInputProps = {
 	textInputType: Enum.TextInputType?,
 	-- Size of the text input
 	size: InputSize?,
+	-- Style variant of the text input
+	variant: InputVariant?,
 	-- Radius of the input container's corners
 	radius: Radius?,
 	-- Horizontal-only padding around the text input
@@ -77,6 +82,7 @@ type TextInputProps = {
 
 local defaultProps = {
 	size = InputSize.Large,
+	variant = if Flags.FoundationInternalTextInputVariants then InputVariant.Standard else nil,
 	numLines = 1,
 	testId = "--foundation-internal-text-input",
 }
@@ -168,9 +174,14 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 	local hover, setHover = React.useState(false)
 	local focus, setFocus = React.useState(false)
 
+	-- TODO: cleanup with Flags.FoundationInternalTextInputVariants
+	if Flags.FoundationInternalTextInputVariants then
+		props.variant = if props.variant then props.variant else InputVariant.Standard
+	end
 	local variantProps = useTextInputVariants(
 		tokens,
 		props.size,
+		if Flags.FoundationInternalTextInputVariants then props.variant else nil,
 		if Flags.FoundationInternalTextInputCornerRadius then props.radius else nil,
 		if Flags.FoundationTextInputAlignStrokeBehavior then focus else nil,
 		if Flags.FoundationTextInputAlignStrokeBehavior then hover else nil,
@@ -188,7 +199,9 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 	local innerBorderThickness = tokens.Stroke.Thick
 	local innerBorderOffset = math.ceil(innerBorderThickness) * 2
 
-	local textStyle = if Flags.FoundationCleanupTextInputPolyfill then nil else tokens.Color.Content.Emphasis
+	local textStyle = if Flags.FoundationInternalTextInputDisabledTransparency
+		then getDisabledStyle(tokens.Color.Content.Emphasis, props.isDisabled)
+		else tokens.Color.Content.Emphasis
 	local fontStyle = variantProps.textBox.fontStyle
 	local fontSize = fontStyle.FontSize :: number
 	local lineHeight = fontStyle.LineHeight :: number
@@ -491,7 +504,9 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			GroupTransparency = if props.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else nil,
+			GroupTransparency = if not Flags.FoundationInternalTextInputDisabledTransparency and props.isDisabled
+				then Constants.DISABLED_TRANSPARENCY
+				else nil,
 			Size = UDim2.new(1, 0, 0, borderFrameHeight),
 			selection = {
 				Selectable = not props.isDisabled,
@@ -522,6 +537,10 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 						else Enum.BorderStrokePosition.Inner,
 				}
 				else nil,
+			cornerRadius = if Flags.FoundationTextInputSingleLineCircleRadius
+					and props.radius == Radius.Circle
+				then UDim.new(0, math.ceil(variantProps.outerContainer.minHeight / 2))
+				else nil,
 			padding = {
 				left = horizontalPaddingLeftBinding:map(function(leftPadding)
 					return UDim.new(0, outerBorderThickness) + leftPadding
@@ -535,10 +554,23 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			onActivated = if not props.isDisabled then focusTextBox else nil,
 			onStateChanged = onInputStateChanged,
 			isDisabled = props.isDisabled,
-			backgroundStyle = {
-				Color3 = variantProps.outerView.bgStyle.Color3,
-				Transparency = if props.backgroundGradient then 0 else variantProps.outerView.bgStyle.Transparency,
-			},
+			backgroundStyle = if not Flags.FoundationInternalTextInputVariants or variantProps.outerView.bgStyle
+				then if Flags.FoundationInternalTextInputDisabledTransparency
+					then getDisabledStyle({
+						-- TODO: cleanup casts with Flags.FoundationInternalTextInputVariants
+						Color3 = (variantProps.outerView.bgStyle :: Types.ColorStyleValue).Color3,
+						Transparency = if props.backgroundGradient
+							then 0
+							else (variantProps.outerView.bgStyle :: Types.ColorStyleValue).Transparency,
+					}, props.isDisabled)
+					else {
+						-- TODO: cleanup casts with Flags.FoundationInternalTextInputVariants
+						Color3 = (variantProps.outerView.bgStyle :: Types.ColorStyleValue).Color3,
+						Transparency = if props.backgroundGradient
+							then 0
+							else (variantProps.outerView.bgStyle :: Types.ColorStyleValue).Transparency,
+					}
+				else nil,
 			-- TODO: Update to border affordance
 			stateLayer = { affordance = StateLayerAffordance.None },
 			tag = variantProps.outerView.tag,
@@ -561,6 +593,10 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 
 			Leading = if props.leadingElement
 				then React.createElement(View, {
+					GroupTransparency = if Flags.FoundationInternalTextInputDisabledTransparency
+							and props.isDisabled
+						then Constants.DISABLED_TRANSPARENCY
+						else nil,
 					LayoutOrder = 1,
 					tag = "size-0-full auto-x",
 					testId = `{props.testId}--leading`,
@@ -580,7 +616,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 						placeholder = props.placeholder,
 						textInputType = props.textInputType,
 						fontStyle = fontStyle,
-						textStyle = if Flags.FoundationCleanupTextInputPolyfill then nil else textStyle,
+						textStyle = textStyle,
 						isMultiLine = isMultiLine,
 						isDisabled = props.isDisabled,
 						ref = textBoxRef,
@@ -604,7 +640,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 							then React.createElement(TextBox, {
 								isBoundsChecker = true,
 								fontStyle = fontStyle,
-								textStyle = if Flags.FoundationCleanupTextInputPolyfill then nil else textStyle,
+								textStyle = textStyle,
 								Size = UDim2.new(1, 0, 1, textBoxVerticalPadding), -- It's required to keep the padding applied in Size instead of as UIPadding due to undesired results with TextBounds calculations
 								ref = textBoundsCheckerRef,
 							})
@@ -619,7 +655,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 						placeholder = props.placeholder,
 						textInputType = props.textInputType,
 						fontStyle = fontStyle,
-						textStyle = if Flags.FoundationCleanupTextInputPolyfill then nil else textStyle,
+						textStyle = textStyle,
 						isMultiLine = isMultiLine,
 						isDisabled = props.isDisabled,
 						padding = textBoxWrapperPadding,
@@ -634,6 +670,10 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			}),
 			Trailing = if props.trailingElement
 				then React.createElement(View, {
+					GroupTransparency = if Flags.FoundationInternalTextInputDisabledTransparency
+							and props.isDisabled
+						then Constants.DISABLED_TRANSPARENCY
+						else nil,
 					LayoutOrder = 3,
 					tag = "size-0-full auto-x",
 					testId = `{props.testId}--trailing`,

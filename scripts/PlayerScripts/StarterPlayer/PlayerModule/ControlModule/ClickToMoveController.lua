@@ -28,6 +28,7 @@ local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 
 local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI2")
+local FFlagUserPSActionsPathAware = FlagUtil.getUserFlag("UserPSActionsPathAware")
 
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
 local character = inputContexts:WaitForChild("Character")
@@ -850,12 +851,18 @@ local function DisconnectEvent(event)
 end
 
 --[[ The ClickToMove Controller Class ]]--
-local ActionController = require(script.Parent:WaitForChild("ActionController"))
+local ActionController = require(script.Parent:WaitForChild("ActionController")) -- remove with FFlagUserPSActionsPathAware
 local ClickToMove = setmetatable({}, ActionController)
+if FFlagUserPSActionsPathAware then
+	ClickToMove = {}
+end
 ClickToMove.__index = ClickToMove
 
 function ClickToMove.new()
 	local self = setmetatable(ActionController.new(), ClickToMove)
+	if FFlagUserPSActionsPathAware then
+		self = setmetatable({} , ClickToMove)
+	end
 
 	self.fingerTouches = {}
 	self.numUnsunkTouches = 0
@@ -1077,8 +1084,10 @@ function ClickToMove:Enable(enable: boolean, enableWASD: boolean, touchJumpContr
 		self.touchJumpController = nil
 	end
 
-	-- Extension for initializing Keyboard input as this class now derives from Keyboard
-	ActionController.Enable(self, enable)
+	if not FFlagUserPSActionsPathAware then
+		-- Extension for initializing Keyboard input as this class now derives from Keyboard
+		ActionController.Enable(self, enable)
+	end
 
 	self.wasdEnabled = enable and enableWASD or false
 	self.enabled = enable

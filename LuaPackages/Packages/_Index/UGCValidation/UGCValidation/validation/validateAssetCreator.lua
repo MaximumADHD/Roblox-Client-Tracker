@@ -28,7 +28,6 @@ local maxAssetIdSize = game:GetFastInt("UGCValidationMaxAssetSizeAllowed")
 local Constants = require(root.Constants)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
-local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 local getFStringUGCValidationReferenceMeshIdWhitelistForIEC =
 	require(root.flags.getFStringUGCValidationReferenceMeshIdWhitelistForIEC)
 
@@ -120,12 +119,6 @@ local function validateAssetCreator(
 	local assetIdList = {}
 
 	for assetId, _ in assetIdTable do
-		if getFFlagFixPackageIDFieldName() then
-			if assetId == 0 then
-				continue
-			end
-		end
-
 		table.insert(assetIdList, assetId)
 
 		if #assetIdList >= pageSize then

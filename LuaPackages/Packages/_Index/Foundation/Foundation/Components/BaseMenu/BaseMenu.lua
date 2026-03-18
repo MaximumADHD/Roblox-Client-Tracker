@@ -23,8 +23,8 @@ type ItemId = Types.ItemId
 type OnItemActivated = Types.OnItemActivated
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
-
 local BaseMenuContext = require(script.Parent.BaseMenuContext)
+local useSubmenuHover = require(script.Parent.useSubmenuHover)
 
 local DeclarativeBaseMenuContent = require(script.Parent.DeclarativeBaseMenuContent)
 
@@ -96,6 +96,7 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 	local scaledMaxWidth = useScaledValue(MAX_WIDTH)
 	local hasLeading, internalSetHasLeading = React.useState(false)
 	local canvasSize, setCanvasSize = React.useBinding(UDim2.fromScale(0, 1))
+	local submenuHover = useSubmenuHover()
 
 	if Flags.FoundationBaseMenuDelayVisible then
 		React.useEffect(function()
@@ -193,6 +194,11 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 						size = props.size,
 						hasLeading = hasLeading,
 						setHasLeading = setHasLeading,
+						hoverOpenPath = submenuHover.openPath,
+						hoverOpenAtDepth = submenuHover.openAtDepth,
+						hoverCloseAtDepth = submenuHover.closeAtDepth,
+						hoverReset = submenuHover.reset,
+						depth = 1,
 					},
 				}, children)
 			)
@@ -219,6 +225,11 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 					size = props.size,
 					hasLeading = hasLeading,
 					setHasLeading = setHasLeading,
+					hoverOpenPath = submenuHover.openPath,
+					hoverOpenAtDepth = submenuHover.openAtDepth,
+					hoverCloseAtDepth = submenuHover.closeAtDepth,
+					hoverReset = submenuHover.reset,
+					depth = 1,
 				},
 			}, children)
 		)
