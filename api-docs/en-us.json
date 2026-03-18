@@ -37671,7 +37671,6 @@
       "CameraOrbitSensitivity": "@roblox/globaltype/Studio.CameraOrbitSensitivity",
       "CameraPanSensitivity": "@roblox/globaltype/Studio.CameraPanSensitivity",
       "CameraShiftFactor": "@roblox/globaltype/Studio.CameraShiftFactor",
-      "CameraSpeedLockDefault": "@roblox/globaltype/Studio.CameraSpeedLockDefault",
       "CameraTweenFocus": "@roblox/globaltype/Studio.CameraTweenFocus",
       "CameraZoomSpeed": "@roblox/globaltype/Studio.CameraZoomSpeed",
       "Clear Output On Start": "@roblox/globaltype/Studio.Clear Output On Start",
@@ -38007,11 +38006,6 @@
   "@roblox/globaltype/Studio.CameraShiftFactor": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraShiftFactor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Studio.CameraSpeedLockDefault": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraSpeedLockDefault",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraTweenFocus": {
@@ -47045,6 +47039,9 @@
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/1": {
     "documentation": "A <code>HumanoidDescription</code> containing traits like body parts/colors, body scaling, accessories, clothing, and animations that will be equipped to the loaded character."
   },
+  "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/2": {
+    "documentation": "The asset type verification mode."
+  },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
     "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>LoadCharacterWithHumanoidDescriptionAsync()</code>.<br>Spawns a player character with everything equipped in the passed in <code>HumanoidDescription</code>.",
     "params": [
@@ -47055,6 +47052,10 @@
       {
         "name": "humanoidDescription",
         "documentation": "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/1"
+      },
+      {
+        "name": "assetTypeVerification",
+        "documentation": "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/2"
       }
     ],
     "returns": [],
@@ -47067,6 +47068,9 @@
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/1": {
     "documentation": "A <code>HumanoidDescription</code> containing traits like body parts/colors, body scaling, accessories, clothing, and animations that will be equipped to the loaded character."
   },
+  "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/2": {
+    "documentation": "The asset type verification mode."
+  },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync": {
     "documentation": "Spawns a player character with everything equipped in the passed in <code>HumanoidDescription</code>.",
     "params": [
@@ -47077,6 +47081,10 @@
       {
         "name": "humanoidDescription",
         "documentation": "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/1"
+      },
+      {
+        "name": "assetTypeVerification",
+        "documentation": "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/2"
       }
     ],
     "returns": [],
@@ -73730,7 +73738,7 @@
     "documentation": "A service which provides control over screenshot and video capture features."
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1": {
-    "documentation": "a capture object of type <code>Capture</code>"
+    "documentation": "The <code>Capture</code> to upload."
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
     "documentation": "Tuple of (result: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
@@ -76907,7 +76915,7 @@
     "returns": []
   },
   "@roblox/globaltype/GuiButton.SecondaryActivated": {
-    "documentation": "",
+    "documentation": "Fires when a right-click is detected on desktop, long press detected on mobile, or triangle / Y activated in UI navigation mode on console. This function is not available yet.",
     "keys": {
       "Connect": "@roblox/globaltype/GuiButton.SecondaryActivated.Connect",
       "ConnectParallel": "@roblox/globaltype/GuiButton.SecondaryActivated.ConnectParallel",
@@ -77047,7 +77055,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService": {
-    "documentation": "Collection of methods that allows developers to track how users interact with their experiences.",
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences.",
     "keys": {
       "ApiKey": "@roblox/globaltype/AnalyticsService.ApiKey",
       "FireCustomEvent": "@roblox/globaltype/AnalyticsService.FireCustomEvent",
@@ -77073,7 +77081,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.FireCustomEvent/param/0": {
-    "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences."
   },
   "@roblox/globaltype/AnalyticsService.FireCustomEvent/param/1": {
     "documentation": "The player who triggered the custom event. <code>nil</code> if not player related."
@@ -77109,7 +77117,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.FireEvent/param/0": {
-    "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences."
   },
   "@roblox/globaltype/AnalyticsService.FireEvent/param/1": {
     "documentation": "'The category of event to report. Cannot contain the following characters: comma <code>,</code>, double quote <code>\"</code> or newline characters <code>\\r\\n</code>'."
@@ -77138,7 +77146,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.FireInGameEconomyEvent/param/0": {
-    "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences."
   },
   "@roblox/globaltype/AnalyticsService.FireInGameEconomyEvent/param/1": {
     "documentation": "The player who triggered the economy event."
@@ -77209,7 +77217,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.FireLogEvent/param/0": {
-    "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences."
   },
   "@roblox/globaltype/AnalyticsService.FireLogEvent/param/1": {
     "documentation": "The player who triggered the error event, <code>nil</code> if not player related."
@@ -77259,7 +77267,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent/param/0": {
-    "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences."
   },
   "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent/param/1": {
     "documentation": "The player who triggered the event."
@@ -77316,7 +77324,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/0": {
-    "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences."
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/1": {
     "documentation": "The user who triggered the event."
@@ -77359,7 +77367,7 @@
     "code_sample": "local AnalyticsService = game:GetService(\"AnalyticsService\")\n\n-- Log when the mission starts\nAnalyticsService:LogCustomEvent(\n\tplayer,\n\t\"MissionStarted\" -- Custom event name\n)\n\n-- Log when the mission is completed with the time it took\nAnalyticsService:LogCustomEvent(\n\tplayer,\n\t\"MissionCompletedDuration\", -- Custom event name\n\t120 -- Event value used in aggregation\n)"
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/0": {
-    "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/1": {
     "documentation": "The user who triggered the event."
@@ -77430,7 +77438,7 @@
     "code_sample": "local AnalyticsService = game:GetService(\"AnalyticsService\")\n\nAnalyticsService:LogEconomyEvent(\n\tplayer,\n\tEnum.AnalyticsEconomyFlowType.Source,\n\t\"Coins\",\n\t1000, -- How many coins are in the bundle\n\t1020, -- balance after transaction\n\tEnum.AnalyticsEconomyTransactionType.IAP.Name,\n\t\"1000CoinBundle\" -- Unique identifier of the coin bundle\n)"
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/0": {
-    "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/1": {
     "documentation": "The user who triggered the event."
@@ -77487,7 +77495,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/0": {
-    "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/1": {
     "documentation": "The user who triggered the event."
@@ -77530,7 +77538,7 @@
     "code_sample": "local AnalyticsService = game:GetService(\"AnalyticsService\")\n\n-- Log the first step of the FTUE\nAnalyticsService:LogOnboardingFunnelStepEvent(\n\tplayer,\n\t1, -- Step number\n\t\"Joined Game\" -- Step name\n)\n\n-- Log the second step of the FTUE\nAnalyticsService:LogOnboardingFunnelStepEvent(\n\tplayer,\n\t2, -- Step number\n\t\"Choose Class\" -- Step name\n)"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/0": {
-    "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/1": {
     "documentation": "The player who triggered the event."
@@ -77580,7 +77588,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/0": {
-    "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/1": {
     "documentation": "The player who triggered the event."
@@ -77637,7 +77645,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/0": {
-    "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/1": {
     "documentation": "The user who triggered the event."
@@ -77687,7 +77695,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/0": {
-    "documentation": "Collection of methods that allows developers to track how users interact with their experiences."
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/1": {
     "documentation": "The player who triggered the event."
@@ -83238,7 +83246,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/DataStoreService.SetRateLimitForRequestType": {
-    "documentation": "",
+    "documentation": "Sets the rate limit for a given request type per minute.",
     "params": [
       {
         "name": "self",
@@ -102511,14 +102519,14 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#AddNode",
     "code_sample": ""
   },
-  "@roblox/enum/AnimationNodeType.BlendNode": {
+  "@roblox/enum/AnimationNodeType.OverNode": {
     "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#BlendNode",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#OverNode",
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeType.Blend1DNode": {
@@ -102636,7 +102644,7 @@
     "keys": {
       "InvalidNode": "@roblox/enum/AnimationNodeType.InvalidNode",
       "AddNode": "@roblox/enum/AnimationNodeType.AddNode",
-      "BlendNode": "@roblox/enum/AnimationNodeType.BlendNode",
+      "OverNode": "@roblox/enum/AnimationNodeType.OverNode",
       "Blend1DNode": "@roblox/enum/AnimationNodeType.Blend1DNode",
       "Blend2DNode": "@roblox/enum/AnimationNodeType.Blend2DNode",
       "ClipNode": "@roblox/enum/AnimationNodeType.ClipNode",
@@ -110524,7 +110532,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.StandardRead": {
-    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>GetAsync()</code>, <code>GetVersionAsync()</code>, <code>GetVersionAtTimeAsync()</code>, and the read of <code>UpdateAsync()</code> for <code>DataStore</code>.",
+    "documentation": "Refers to <code>GetAsync()</code>, <code>GetVersionAsync()</code>, <code>GetVersionAtTimeAsync()</code>, and the read of <code>UpdateAsync()</code> for <code>DataStore</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -110534,7 +110542,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.StandardWrite": {
-    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>SetAsync()</code>, <code>IncrementAsync()</code>, and the write of <code>UpdateAsync()</code> for <code>DataStore</code>.",
+    "documentation": "Refers to <code>SetAsync()</code>, <code>IncrementAsync()</code>, and the write of <code>UpdateAsync()</code> for <code>DataStore</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -110544,7 +110552,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.StandardList": {
-    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>ListDataStoresAsync()</code>, and <code>ListKeysAsync()</code> and <code>ListVersionsAsync()</code> for <code>DataStore</code>.",
+    "documentation": "Refers to <code>ListDataStoresAsync()</code>, and <code>ListKeysAsync()</code> and <code>ListVersionsAsync()</code> for <code>DataStore</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -110554,7 +110562,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.StandardRemove": {
-    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>RemoveAsync()</code> for <code>DataStore</code>.",
+    "documentation": "Refers to <code>RemoveAsync()</code> for <code>DataStore</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -110564,7 +110572,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.OrderedRead": {
-    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>GetAsync()</code> and the read of <code>UpdateAsync()</code> for <code>OrderedDataStore</code>.",
+    "documentation": "Refers to <code>GetAsync()</code> and the read of <code>UpdateAsync()</code> for <code>OrderedDataStore</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -110574,7 +110582,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.OrderedWrite": {
-    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>SetAsync()</code>, <code>IncrementAsync()</code>, and the write of <code>UpdateAsync()</code> for <code>OrderedDataStore</code>.",
+    "documentation": "Refers to <code>SetAsync()</code>, <code>IncrementAsync()</code>, and the write of <code>UpdateAsync()</code> for <code>OrderedDataStore</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -110584,7 +110592,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.OrderedList": {
-    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>GetSortedAsync()</code> for <code>OrderedDataStore</code>. GetRequestBudgetForRequestType()<code>with this enum will return</code>0`.",
+    "documentation": "Refers to <code>GetSortedAsync()</code> for <code>OrderedDataStore</code>. GetRequestBudgetForRequestType()<code>with this enum will return</code>0`.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -110594,7 +110602,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.OrderedRemove": {
-    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>RemoveAsync()</code> for <code>OrderedDataStore</code>.",
+    "documentation": "Refers to <code>RemoveAsync()</code> for <code>OrderedDataStore</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
