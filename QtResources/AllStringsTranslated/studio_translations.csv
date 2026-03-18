@@ -8106,6 +8106,7 @@ Studio.Toolbox.Subcategory.Model2dDecals,,,Decals,Decals
 Studio.Toolbox.Subcategory.Model2dFonts,,,Fonts,Fonts
 Studio.Toolbox.Subcategory.Model2dVideos,,,Videos,Videos
 Studio.Toolbox.General.TooltipThumbnailSkinColorDescription,,,This skin color will only be used in the thumbnail to merchandise your Makeup item,This skin color will only be used in the thumbnail to merchandise your Makeup item
+Studio.Toolbox.General.AssetXOutOfY,,,Asset {current} out of {total},Asset {current} out of {total}
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9299,7 +9300,7 @@ Studio.AssetManager.Scopes.OptionsTitle,,,Customize Sidebar,Customize Sidebar
 Studio.AssetManager.Scopes.OptionsDescription,,,Your selection will also customize which items you want to see in your sidebar and search options.,Your selection will also customize which items you want to see in your sidebar and search options.
 Studio.AssetManager.Scopes.SelectAll,,,Select All,Select All
 Studio.AssetManager.Filters.ResetFilters,,,Reset Filters,Reset Filters
-Studio.AssetManager.AssetType.FontFamily,,,FontFamily,FontFamily
+Studio.AssetManager.AssetType.FontFamily,,,Font,Font
 Studio.AssetManager.AssetType.Plugin,,,Plugin,Plugin
 Studio.AssetManager.AssetType.MeshPart,,,MeshPart,MeshPart
 Studio.AssetManager.ContextMenu.InsertAsset,,,Insert Asset,Insert Asset
@@ -9396,6 +9397,22 @@ Studio.AssetManager.AssetType.Folder,,,Folder,Folder
 Studio.AssetManager.ContextMenu.Edit,,,Edit,Edit
 Studio.AssetManager.ContextMenu.InsertAsAnimation,,,Insert as Animation,Insert as Animation
 Studio.AssetManager.ContextMenu.InsertAsKeyframes,,,Insert as Keyframes,Insert as Keyframes
+Studio.AssetManager.AssetType.Videos,,,Videos,Videos
+Studio.AssetManager.AssetType.Animations,,,Animations,Animations
+Studio.AssetManager.AssetType.Audios,,,Audios,Audios
+Studio.AssetManager.AssetType.Decals,,,Decals,Decals
+Studio.AssetManager.AssetType.Folders,,,Folders,Folders
+Studio.AssetManager.AssetType.FontFamilies,,,Fonts,Fonts
+Studio.AssetManager.AssetType.Images,,,Images,Images
+Studio.AssetManager.AssetType.Meshes,,,Meshes,Meshes
+Studio.AssetManager.AssetType.MeshParts,,,MeshParts,MeshParts
+Studio.AssetManager.AssetType.Models,,,Models,Models
+Studio.AssetManager.AssetType.Plugins,,,Plugins,Plugins
+Studio.AssetManager.QuickShare.GrantedAsset,,,Granted permissions to 1 asset.,Granted permissions to 1 asset.
+Studio.AssetManager.QuickShare.GrantedAssets,,,Granted permissions to {count} assets.,Granted permissions to {count} assets.
+Studio.AssetManager.OpenUse.OneAsset,,,1 asset has been made Open Use.,1 asset has been made Open Use.
+Studio.AssetManager.OpenUse.MultipleAssets,,,{count} assets have been made Open Use.,{count} assets have been made Open Use.
+Studio.AssetManager.QuickShare.FailedToGrant,,,Failed to update permissions.,Failed to update permissions.
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10282,8 +10299,8 @@ Studio.AssetImporter.ImportQueue.NoPreset,,,N/A,N/A
 Studio.AssetImporter.ImportQueue.SearchBar,,,Search Import Queue,Search Import Queue
 Studio.AssetImporter.Properties.ScaleFactor,,,Scale Factor,Scale Factor
 Studio.AssetImporter.PropertiesTooltip.ScaleFactor,,,The scale factor used when importing the file. It is multiplied on top of the unit scaling.,The scale factor used when importing the file. It is multiplied on top of the unit scaling.
-Studio.AssetImporter.Statuses.ScaleUnitNotStudWarning,,,"Scale Unit is not set to Stud. The current Stud-to-meter conversion factor (20:1), used by all non-Stud units, will soon be updated to 25:7. If your workflow depends on the existing conversion factor, you will need to adjust the Scale Factor to 5.6 to maintain consistency.","Scale Unit is not set to Stud. The current Stud-to-meter conversion factor (20:1), used by all non-Stud units, will soon be updated to 25:7. If your workflow depends on the existing conversion factor, you will need to adjust the Scale Factor to 5.6 to maintain consistency."
-Studio.AssetImporter.Statuses.ScaleUnitNotStudWarning2,,,"Scale Unit is not set to Stud. The previous Stud-to-meter conversion factor (20:1), used by all non-Stud units, has been updated to 25:7. If your workflow relied on the old conversion factor, you must now adjust the Scale Factor to 5.6 to maintain the same behavior.","Scale Unit is not set to Stud. The previous Stud-to-meter conversion factor (20:1), used by all non-Stud units, has been updated to 25:7. If your workflow relied on the old conversion factor, you must now adjust the Scale Factor to 5.6 to maintain the same behavior."
+Studio.AssetImporter.Statuses.ScaleUnitNotStudWarning,,,"The current Stud-to-meter conversion factor (20:1), used by all non-Stud units, will soon be updated to 25:7. If your workflow depends on the existing conversion factor, you will need to adjust the Scale Factor to 5.6 to maintain consistency.","The current Stud-to-meter conversion factor (20:1), used by all non-Stud units, will soon be updated to 25:7. If your workflow depends on the existing conversion factor, you will need to adjust the Scale Factor to 5.6 to maintain consistency."
+Studio.AssetImporter.Statuses.ScaleUnitNotStudWarning2,,,"The previous Stud-to-meter conversion factor (20:1), used by all non-Stud units, has been updated to 25:7. If your workflow relied on the old conversion factor, you must now adjust the Scale Factor to 5.6 to maintain the same behavior.","The previous Stud-to-meter conversion factor (20:1), used by all non-Stud units, has been updated to 25:7. If your workflow relied on the old conversion factor, you must now adjust the Scale Factor to 5.6 to maintain the same behavior."
 Studio.MaterialManager.Plugin.Name,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Button,,,Material Manager,Material Manager
@@ -11310,6 +11327,7 @@ Studio.StyleEditor.Categories.Queries,,,Queries,Queries
 Studio.StyleEditor.ContextMenu.New.Query,,,Query,Query
 Studio.StyleEditor.SourceSelect.Source,,,Source:,Source:
 Studio.StyleEditor.ContextMenu.Insert,,,Insert,Insert
+Studio.StyleEditor.ContextMenu.New.Transition,,,Transition,Transition
 Studio.AudioDiscovery.Plugin.Name,,,Audio Discovery,Audio Discovery
 Studio.AudioDiscovery.Plugin.Toolbar,,,Audio Discovery,Audio Discovery
 Studio.AudioDiscovery.Plugin.Button,,,View Sounds,View Sounds
@@ -12267,6 +12285,11 @@ Studio.AvatarCompatibilityPreviewer.LookComposerDialog.UnexpectedErrorLookCreati
 Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.ConfigureAssetCategory,,,Configure asset category,Configure asset category
 Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Save,,,Save,Save
 Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Category,,,Category,Category
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.MakeupAsset,,,Makeup asset,Makeup asset
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Body,,,Body,Body
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Layered,,,Layered,Layered
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Rigid,,,Rigid,Rigid
+Studio.AvatarCompatibilityPreviewer.Categories.body_face,,,Body,Body
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -13027,6 +13050,11 @@ Studio.Ribbon.Title.AddNewTab,,,Add New Tab,Add New Tab
 Studio.Ribbon.Tooltip.AddNewTab,,,"Create a new, empty tab for a custom toolbar","Create a new, empty tab for a custom toolbar"
 Studio.Ribbon.Plugin.Add,,,Add,Add
 Studio.Ribbon.Plugin.Exit,,,Exit,Exit
+Studio.Ribbon.Tooltip.UpdateAvailable,,,Download the latest version and launch the installer to complete the update process.,Download the latest version and launch the installer to complete the update process.
+Studio.Ribbon.Tooltip.UpdateInProgress,,,You can disable background updates in settings.,You can disable background updates in settings.
+Studio.Ribbon.Tooltip.UpdateReady,,,Restart to get the new version of Studio,Restart to get the new version of Studio
+Studio.Ribbon.Tooltip.UpdateFailed,,,You’ll need to restart Studio and launch the installer to update.,You’ll need to restart Studio and launch the installer to update.
+Studio.Ribbon.Action.UpdateReady,,,Restart to update,Restart to update
 Studio.Ribbon.Action.UpdateFailed,,,Update failed,Update failed
 Studio.Ribbon.Plugin.AddTools_PlayClientOnly,,,Client,Client
 Studio.Ribbon.Plugin.AddTools_PlayServerOnly,,,Server,Server
@@ -13036,6 +13064,9 @@ Studio.Ribbon.StartPage.Category.CreatorPlugin,,,Creator Plugins,Creator Plugins
 Studio.Ribbon.PreparingUpdate,,,Preparing update,Preparing update
 Studio.Ribbon.Action.Update,,,Update,Update
 Studio.Ribbon.Action.PreparingUpdate,,,Preparing update,Preparing update
+Studio.Ribbon.Action.RestartToUpdate,,,Restart to update,Restart to update
+Studio.Ribbon.Tooltip.UpdateInProgressTitle,,,Downloading update in the background,Downloading update in the background
+Studio.Ribbon.Tooltip.UpdateFailedTitle,,,The background download failed,The background download failed
 Studio.VisualizationModes.Plugin.Name,,,Visualization Modes,Visualization Modes
 Studio.VisualizationModes.Plugin.Text,,,Hello World,Hello World
 Studio.VisualizationModes.Plugin.Button,,,Visualization Modes,Visualization Modes
@@ -13302,22 +13333,22 @@ Studio.CapabilitiesPropertyItem.Capability.UI,,,Allows access to User Interface 
 Studio.CapabilitiesPropertyItem.Capability.CSG,,,Allows access to Constructive Solid Geometry engine APIs,Allows access to Constructive Solid Geometry engine APIs
 Studio.CapabilitiesPropertyItem.Capability.Chat,,,Allows access to in-experience Chat engine APIs,Allows access to in-experience Chat engine APIs
 Studio.CapabilitiesPropertyItem.Capability.Animation,,,Allows access to engine APIs related to work with animations,Allows access to engine APIs related to work with animations
-Studio.CapabilitiesPropertyItem.Capability.Avatar,,,Allows access to engine APIs related to work with avatars,Allows access to engine APIs related to work with avatars
+Studio.CapabilitiesPropertyItem.Capability.Avatar,,,Access to instances related to the visual elements of avatars,Access to instances related to the visual elements of avatars
 Studio.CapabilitiesPropertyItem.Capability.Input,,,Allows access to engine APIs related to handling user input,Allows access to engine APIs related to handling user input
 Studio.CapabilitiesPropertyItem.Capability.Environment,,,Allows access to engine APIs related to control of how experience environment is rendered,Allows access to engine APIs related to control of how experience environment is rendered
 Studio.CapabilitiesPropertyItem.Capability.RemoteEvent,,,Allows access to engine APIs for internal networking operations,Allows access to engine APIs for internal networking operations
 Studio.CapabilitiesPropertyItem.Capability.LegacySound,,,Allows access to engine APIs related to sound that will be deprecated,Allows access to engine APIs related to sound that will be deprecated
-Studio.CapabilitiesPropertyItem.Capability.Players,,,Allows access to engine APIs related to the Player instance,Allows access to engine APIs related to the Player instance
+Studio.CapabilitiesPropertyItem.Capability.Players,,,Allows access to engine APIs related to the Player instance or that return/interact with LocalPlayer,Allows access to engine APIs related to the Player instance or that return/interact with LocalPlayer
 Studio.CapabilitiesPropertyItem.Capability.CapabilityControl,,,Allows access to modifying the Sandboxed and Capabilities properties of instances,Allows access to modifying the Sandboxed and Capabilities properties of instances
 Studio.CapabilitiesPropertyItem.Capability.AssetRead,,,Allows access to engine APIs related to getting information about assets,Allows access to engine APIs related to getting information about assets
-Studio.CapabilitiesPropertyItem.Capability.AvatarBehavior,,,Allows access to engine APIs changing the behavior of the humanoid,Allows access to engine APIs changing the behavior of the humanoid
+Studio.CapabilitiesPropertyItem.Capability.AvatarBehavior,,,Allows access to engine APIs related to controlling or modifying the humanoid,Allows access to engine APIs related to controlling or modifying the humanoid
 Studio.CapabilitiesPropertyItem.Capability.AssetCreateUpdate,,,Allows access to engine APIs related to creating or updating assets,Allows access to engine APIs related to creating or updating assets
 Studio.CapabilitiesPropertyItem.Capability.AssetManagement,,,"Allows access to engine APIs related to operations on assets that are not read, create, or update","Allows access to engine APIs related to operations on assets that are not read, create, or update"
 Studio.CapabilitiesPropertyItem.Capability.DynamicGeneration,,,Allows access to engine APIs related to dynamically modifying assets,Allows access to engine APIs related to dynamically modifying assets
 Studio.CapabilitiesPropertyItem.Capability.PlatformAvatarEditing,,,"Allows access to engine APIs related to creating or updating Avatars, or APIs to aid with that","Allows access to engine APIs related to creating or updating Avatars, or APIs to aid with that"
 Studio.CapabilitiesPropertyItem.Capability.Capture,,,Allows access to engine APIs related to capturing screenshots or videos on the user's screen,Allows access to engine APIs related to capturing screenshots or videos on the user's screen
-Studio.CapabilitiesPropertyItem.Capability.SensitiveInput,,,Allows access to engine APIs related to capturing sensitive input from the user,Allows access to engine APIs related to capturing sensitive input from the user
-Studio.CapabilitiesPropertyItem.Capability.PromptExternalPurchase,,,Allows access to engine APIs related to prompting purchase of arbitrary assets,Allows access to engine APIs related to prompting purchase of arbitrary assets
+Studio.CapabilitiesPropertyItem.Capability.SensitiveInput,,,"Allows access to engine APIs related to capturing sensitive input from the user, i.e. high-privacy hardware sensors.","Allows access to engine APIs related to capturing sensitive input from the user, i.e. high-privacy hardware sensors."
+Studio.CapabilitiesPropertyItem.Capability.PromptExternalPurchase,,,Allows access to engine APIs related to prompting purchase of content or products users did not make,Allows access to engine APIs related to prompting purchase of content or products users did not make
 Studio.CapabilitiesPropertyItem.Capability.Monetization,,,"Allows access to engine APIs related to monetizing an experience, excluding most PromptPurchases","Allows access to engine APIs related to monetizing an experience, excluding most PromptPurchases"
 Studio.CapabilitiesPropertyItem.Capability.LoadOwnedAsset,,,"Allows access to the engine APIs for loading assets that are owned by you, shared to you, or owned by Roblox, or are a benign asset type","Allows access to the engine APIs for loading assets that are owned by you, shared to you, or owned by Roblox, or are a benign asset type"
 Studio.CapabilitiesPropertyItem.Capability.Social,,,"Allows access to engine APIs related to social features, such as friends and invites","Allows access to engine APIs related to social features, such as friends and invites"
@@ -13853,6 +13884,22 @@ Studio.Assistant.ScriptChangeConfirmation.ReviewEach,,,Review Each Script Change
 Studio.Assistant.ScriptChangeConfirmation.Warning,,,This prompt will make changes to your scripts,This prompt will make changes to your scripts
 Studio.Assistant.Subagent.Running,,,Running subagent...,Running subagent...
 Studio.Assistant.Subagent.Completed,,,Subagent complete,Subagent complete
+Studio.Assistant.FileSearch.SearchingFor,,,"Searching for ""{keywords}""","Searching for ""{keywords}"""
+Studio.Assistant.ReadFile.Read,,,Read {file},Read {file}
+Studio.Assistant.ReadFile.Reading,,,Reading {file},Reading {file}
+Studio.Assistant.InspectInstance.Inspected,,,Inspected {path},Inspected {path}
+Studio.Assistant.InspectInstance.Inspecting,,,Inspecting {path},Inspecting {path}
+Studio.Assistant.GrepSearch.SearchingFor,,,"Searching for ""{query}""","Searching for ""{query}"""
+Studio.Assistant.InspectInstance.Pending,,,Inspecting...,Inspecting...
+Studio.Assistant.GameTree.Pending,,,Exploring game tree...,Exploring game tree...
+Studio.Assistant.GameTree.Found,,,Found {count:int} instances,Found {count:int} instances
+Studio.Assistant.GameTree.ExploringAll,,,Exploring game tree,Exploring game tree
+Studio.Assistant.GameTree.Exploring,,,Exploring {path},Exploring {path}
+Studio.Assistant.GrepSearch.FoundCount,,,Found {count:int} matches,Found {count:int} matches
+Studio.Assistant.GameTree.Listed,,,Listed {params},Listed {params}
+Studio.Assistant.GrepSearch.Grepped,,,Grepped '{query}',Grepped '{query}'
+Studio.Assistant.FileSearch.Searched,,,Searched '{keywords}',Searched '{keywords}'
+Studio.Assistant.Summarized.AndMore,,,... and {count:int} more,... and {count:int} more
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -15020,16 +15067,25 @@ Studio.AdaptiveAnimationSupport.Plugin.Button,,,Adaptive Animation Support,Adapt
 Studio.AdaptiveAnimationSupport.Plugin.Toolbar,,,Adaptive Animation Support,Adaptive Animation Support
 Studio.TeamCreate.DisconnectReasonUnknown,,,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.
 Studio.TeamCreate.Disconnected,,,Disconnected,Disconnected
+Studio.TeamCreate.SafetyEvictDialog.PlaceLocked,,,This place is locked,This place is locked
+Studio.TeamCreate.SafetyEvictDialog.BreakTermsOfUseAppealUnlock,,,We found content in this Experience that breaks the rules of our Terms of Use. The owner needs to send an appeal to unlock this place.,We found content in this Experience that breaks the rules of our Terms of Use. The owner needs to send an appeal to unlock this place.
+Studio.TeamCreate.SafetyEvictDialog.OKButton,,,OK,OK
+Studio.TeamCreate.SafetyEvictDialog.TermsOfUseButton,,,View Terms of Use,View Terms of Use
 Studio.AnimationGraphEditor.Plugin.Button,,,Animation Graph Editor,Animation Graph Editor
 Studio.AnimationGraphEditor.Plugin.Name,,,Animation Graph Editor,Animation Graph Editor
-Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForYears,,,Connected for {age} years,Connected for {age} years
+Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForYears,,,Connected for {age:int} years,Connected for {age:int} years
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForOneYear,,,Connected for one year,Connected for one year
-Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForMonths,,,Connected for {age} months,Connected for {age} months
+Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForMonths,,,Connected for {age:int} months,Connected for {age:int} months
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForOneMonth,,,Connected for one month,Connected for one month
-Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForDays,,,Connected for {age} days,Connected for {age} days
+Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForDays,,,Connected for {age:int} days,Connected for {age:int} days
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForOneDay,,,Connected for one day,Connected for one day
 Studio.TeamCreateCollaborators.ProfileInsights.NotConnected,,,Not Connected,Not Connected
-Studio.TeamCreateCollaborators.ProfileInsights.JoinedInYear,,,Joined in {year},Joined in {year}
+Studio.TeamCreateCollaborators.ProfileInsights.JoinedInYear,,,Joined in {year:int},Joined in {year:int}
 Studio.TeamCreateCollaborators.MainView.Title,,,Get a shareable link to add Trusted Connections,Get a shareable link to add Trusted Connections
 Studio.TeamCreateCollaborators.MainView.Subtitle,,,"This unlocks live collaboration in Studio, chat without filters, Party voice, and more.","This unlocks live collaboration in Studio, chat without filters, Party voice, and more."
 Studio.TeamCreateCollaborators.MainView.AskParentButton,,,Ask Parent,Ask Parent
+Studio.TeamCreateCollaborators.TrustedConnectionWidget.AgeVerified,,,Age verified,Age verified
+Studio.TeamCreateCollaborators.TrustedConnectionWidget.AgeNotVerified,,,Age not verified,Age not verified
+Studio.TeamCreateCollaborators.TrustedConnectionWidget.MutualConnections,,,{count:int} mutual connections,{count:int} mutual connections
+Studio.TeamCreateCollaborators.MainView.GetLinkButton,,,Get Link,Get Link
+Studio.TeamCreateCollaborators.MainView.ViewDetailsButton,,,Learn More,Learn More
