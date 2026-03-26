@@ -170,6 +170,8 @@ DefaultUnifiedPlasticReflectionVS_10000010,Vertex
 DefaultUnifiedPlasticReflectionVS_10000012,Vertex
 DefaultUnifiedPlasticReflectionVS_10000016,Vertex
 DefaultUnifiedPlasticReflectionVS_10000400,Vertex
+DefaultUnifiedPlasticReflectionVS_10000402,Vertex
+DefaultUnifiedPlasticReflectionVS_10000406,Vertex
 DefaultUnifiedPlasticReflectionVS_10001000,Vertex
 DefaultUnifiedPlasticReflectionVS_10001002,Vertex
 DefaultUnifiedPlasticReflectionVS_10001006,Vertex
@@ -220,6 +222,7 @@ FastConvolutionPS,Fragment
 FixUpCoCFS,Fragment
 FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment
+GenTileBorderRadialFS,Fragment
 GrassHQVSWindDepth,Vertex
 GrassVSDepth,Vertex
 HighlightInPlaceFS_00000000,Fragment
@@ -350,8 +353,6 @@ TrailVSQuadLight,Vertex
 UIFogFSSDBox,Fragment
 UIFogVS,Vertex
 UIFS,Fragment
-UIFSAdvSDBox,Fragment
 UIFSMdrSDBox,Fragment
-UITransformedVS,Vertex
 UIVS,Vertex
 UpSampleTentFS,Fragment

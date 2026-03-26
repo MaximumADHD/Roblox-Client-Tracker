@@ -5329,7 +5329,7 @@ Studio.App.Ribbon.Beta.Accessory,,,Accessory,Accessory
 Studio.App.Ribbon.Beta.Accessory.Tooltip,,,Edit and review cage mesh for clothing and accessories,Edit and review cage mesh for clothing and accessories
 Studio.App.Ribbon.Beta.Snippets,,,Snippets,Snippets
 Studio.App.Ribbon.Beta.Layered,,,Layered,Layered
-Studio.App.Ribbon.Beta.Animation,,,Animation,Animation
+Studio.App.Ribbon.Beta.Animation,,,Clip Editor,Clip Editor
 Studio.App.Ribbon.Beta.Character,,,Character,Character
 Studio.App.Ribbon.Beta.R6toR15,,,R6 to R15,R6 to R15
 Studio.App.Ribbon.Beta.Align,,,Align,Align
@@ -5696,12 +5696,16 @@ Studio.App.Property.DraggerShowAxisTicks,,,Dragger Show Axis Ticks,Dragger Show 
 Studio.App.PropertyTooltip.DraggerShowAxisTicks,,,Show the axis ticks while dragging if snapping is enabled.,Show the axis ticks while dragging if snapping is enabled.
 Studio.App.RobloxRibbonMainWindow.AnimationConstraint,,,Animation Constraint,Animation Constraint
 Studio.App.RobloxRibbonMainWindow.CreateAnimationConstraint,,,Create animation constraint,Create animation constraint
+Studio.App.Actions.UIShadow,,,UIShadow,UIShadow
 Studio.App.GenerativeAI.FileDialog.AllFiles,,,All files,All files
 Studio.App.GenerativeAI.FileDialog.AllowedFiles,,,Allowed files,Allowed files
 Studio.App.PackageService.CircularDependency,,,Cannot publish package with circular package link dependencies,Cannot publish package with circular package link dependencies
 Studio.App.RobloxRibbonMainWindow.AdaptiveAnimation,,,Adaptive Animation Support,Adaptive Animation Support
 Studio.App.RobloxRibbonMainWindow.AdaptiveAnimationTooltip,,,Adaptive Animation Support,Adaptive Animation Support
 Studio.App.StudioPluginHost.CantSaveSettings,,,Unable to save settings for plugin,Unable to save settings for plugin
+Studio.App.PropertyItems.SandboxedDisabledWarning,,,Disabling the Sandboxed property might make your game vulnerable to exploits. Are you sure you want to disable this?,Disabling the Sandboxed property might make your game vulnerable to exploits. Are you sure you want to disable this?
+Studio.App.PropertyItems.SandboxedDisabledKeep,,,Keep Sandboxed,Keep Sandboxed
+Studio.App.PropertyItems.SandboxedDisabledRemove,,,Disable,Disable
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -8075,7 +8079,7 @@ Studio.Toolbox.Subcategory.Model3DStructures,,,Structures,Structures
 Studio.Toolbox.Subcategory.Model3DNature,,,Nature,Nature
 Studio.Toolbox.Subcategory.Model3DMaps,,,Maps,Maps
 Studio.Toolbox.Subcategory.Model3DBuildingBlocks,,,Parts,Parts
-Studio.Toolbox.Subcategory.Model3DMeshparts,,,Meshparts,Meshparts
+Studio.Toolbox.Subcategory.Model3DMeshparts,,,MeshParts,MeshParts
 Studio.Toolbox.Subcategory.ModelVisualEffectsMaterials,,,Materials,Materials
 Studio.Toolbox.Subcategory.ModelVisualEffectsMaterialsAndTextures,,,Textured Assets,Textured Assets
 Studio.Toolbox.Subcategory.ModelVisualEffectsParticleEffects,,,Particle Effects,Particle Effects
@@ -8095,7 +8099,7 @@ Studio.Toolbox.Subcategory.Model3dBuildingBlocks,,,Parts,Parts
 Studio.Toolbox.Subcategory.Model3d,,,3D Assets,3D Assets
 Studio.Toolbox.Subcategory.Model3dCharacters,,,Characters,Characters
 Studio.Toolbox.Subcategory.Model3dMaps,,,Maps,Maps
-Studio.Toolbox.Subcategory.Model3dMeshparts,,,Meshparts,Meshparts
+Studio.Toolbox.Subcategory.Model3dMeshparts,,,MeshParts,MeshParts
 Studio.Toolbox.Subcategory.Model3dNature,,,Nature,Nature
 Studio.Toolbox.Subcategory.Model3dPropsAndDecor,,,Props and Decor,Props and Decor
 Studio.Toolbox.Subcategory.Model3dStructures,,,Structures,Structures
@@ -8107,6 +8111,7 @@ Studio.Toolbox.Subcategory.Model2dFonts,,,Fonts,Fonts
 Studio.Toolbox.Subcategory.Model2dVideos,,,Videos,Videos
 Studio.Toolbox.General.TooltipThumbnailSkinColorDescription,,,This skin color will only be used in the thumbnail to merchandise your Makeup item,This skin color will only be used in the thumbnail to merchandise your Makeup item
 Studio.Toolbox.General.AssetXOutOfY,,,Asset {current} out of {total},Asset {current} out of {total}
+Studio.Toolbox.AssetConfigPackagePermissions.GiveAccessFriendsSubtext,,,Give your friends and groups access to this asset.,Give your friends and groups access to this asset.
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9413,6 +9418,8 @@ Studio.AssetManager.QuickShare.GrantedAssets,,,Granted permissions to {count} as
 Studio.AssetManager.OpenUse.OneAsset,,,1 asset has been made Open Use.,1 asset has been made Open Use.
 Studio.AssetManager.OpenUse.MultipleAssets,,,{count} assets have been made Open Use.,{count} assets have been made Open Use.
 Studio.AssetManager.QuickShare.FailedToGrant,,,Failed to update permissions.,Failed to update permissions.
+Studio.AssetManager.QuickShare.CollaboratorPlaceholder.FriendsRename,,,Search for a friend or group,Search for a friend or group
+Studio.AssetManager.QuickShare.CollaboratorsHintDescription.FriendsRename,,,Give your friends and groups access to this asset,Give your friends and groups access to this asset
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10301,6 +10308,9 @@ Studio.AssetImporter.Properties.ScaleFactor,,,Scale Factor,Scale Factor
 Studio.AssetImporter.PropertiesTooltip.ScaleFactor,,,The scale factor used when importing the file. It is multiplied on top of the unit scaling.,The scale factor used when importing the file. It is multiplied on top of the unit scaling.
 Studio.AssetImporter.Statuses.ScaleUnitNotStudWarning,,,"The current Stud-to-meter conversion factor (20:1), used by all non-Stud units, will soon be updated to 25:7. If your workflow depends on the existing conversion factor, you will need to adjust the Scale Factor to 5.6 to maintain consistency.","The current Stud-to-meter conversion factor (20:1), used by all non-Stud units, will soon be updated to 25:7. If your workflow depends on the existing conversion factor, you will need to adjust the Scale Factor to 5.6 to maintain consistency."
 Studio.AssetImporter.Statuses.ScaleUnitNotStudWarning2,,,"The previous Stud-to-meter conversion factor (20:1), used by all non-Stud units, has been updated to 25:7. If your workflow relied on the old conversion factor, you must now adjust the Scale Factor to 5.6 to maintain the same behavior.","The previous Stud-to-meter conversion factor (20:1), used by all non-Stud units, has been updated to 25:7. If your workflow relied on the old conversion factor, you must now adjust the Scale Factor to 5.6 to maintain the same behavior."
+Studio.AssetImporter.ImportQueue.FindInWorkspace,,,Find in Workspace,Find in Workspace
+Studio.AssetImporter.ImportQueue.CopyAssetId,,,Copy AssetId,Copy AssetId
+Studio.AssetImporter.PropertiesTooltip.PreferredUploadId,,,The user or group who will own the asset after upload,The user or group who will own the asset after upload
 Studio.MaterialManager.Plugin.Name,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Button,,,Material Manager,Material Manager
@@ -10841,6 +10851,8 @@ Studio.ManageCollaborators.UpsellDialog.description,,,"To use Studio collaborati
 Studio.ManageCollaborators.UpsellBanner.nextStepDescription,,,There’s one more step if you want to work with people older than your age group,There’s one more step if you want to work with people older than your age group
 Studio.ManageCollaborators.UpsellDialog.ParentalConsentButton,,,Get consent,Get consent
 Studio.ManageCollaborators.UpsellDialog.TrustedConnectionsButton,,,Establish Trusted Connections,Establish Trusted Connections
+Studio.ManageCollaborators.UpsellDialog.TrustedFriendsButton,,,Establish trusted friends,Establish trusted friends
+Studio.ManageCollaborators.UpsellDialog.description.TFRename,,,"To use Studio collaboration with others outside of your age group, establish trusted friends or get parental consent.","To use Studio collaboration with others outside of your age group, establish trusted friends or get parental consent."
 Studio.DeviceEmulator.Plugin.Name,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Button,,,Toggle,Toggle
@@ -11226,6 +11238,7 @@ Studio.AssetImport.TextureFilePickerCaption,,,Open Texture File,Open Texture Fil
 Studio.AssetImport.ImportFilePickerCaption,,,"Open 3D File (FBX, OBJ, GLB, GLTF)","Open 3D File (FBX, OBJ, GLB, GLTF)"
 Studio.AssetImport.GrantExperienceAssetPermissionsErrorMessage,,,Failed to grant Game permission to use asset %1.,Failed to grant Game permission to use asset %1.
 Studio.AssetImport.ImportMultifilePickerCaption,,,"Open 3D or Image File (FBX, OBJ, GLB, GLTF, BMP, JPEG, JPG, PNG, TGA)","Open 3D or Image File (FBX, OBJ, GLB, GLTF, BMP, JPEG, JPG, PNG, TGA)"
+Studio.AssetImport.PropertiesTooltip.PreferredUploadId,,,The Group or User who will own the model after upload,The Group or User who will own the model after upload
 Studio.StyleEditor.Plugin.Name,,,Style Editor,Style Editor
 Studio.StyleEditor.Plugin.Toolbar,,,Style Editor,Style Editor
 Studio.StyleEditor.Plugin.Button,,,Style Editor,Style Editor
@@ -11541,6 +11554,7 @@ Studio.RobloxPropertiesWidget.Category.ServerAuthority,,,Server Authority,Server
 Studio.RobloxPropertiesWidget.Category.Conditions,,,Conditions,Conditions
 Studio.RobloxPropertiesWidget.AddConditionPopup.NoConditionsCreated,,,No Conditions have been created yet,No Conditions have been created yet
 Studio.RobloxPropertiesWidget.AddConditionPopup.LineEditText,,,Search for a condition,Search for a condition
+Studio.RobloxPropertiesWidget.WorkspaceAuthorityModeDepProperty,,,This property is required given your Server Authority settings.,This property is required given your Server Authority settings.
 Studio.DynamicHeadExportTool.Plugin.Name,,,DynamicHeadExportTool,DynamicHeadExportTool
 Studio.DynamicHeadExportTool.Plugin.Toolbar,,,DynamicHeadExportTool,DynamicHeadExportTool
 Studio.DynamicHeadExportTool.Plugin.Button,,,Toggle,Toggle
@@ -13054,6 +13068,7 @@ Studio.Ribbon.Tooltip.UpdateAvailable,,,Download the latest version and launch t
 Studio.Ribbon.Tooltip.UpdateInProgress,,,You can disable background updates in settings.,You can disable background updates in settings.
 Studio.Ribbon.Tooltip.UpdateReady,,,Restart to get the new version of Studio,Restart to get the new version of Studio
 Studio.Ribbon.Tooltip.UpdateFailed,,,You’ll need to restart Studio and launch the installer to update.,You’ll need to restart Studio and launch the installer to update.
+Studio.Ribbon.Action.UpdateAvailable,,,Download update,Download update
 Studio.Ribbon.Action.UpdateReady,,,Restart to update,Restart to update
 Studio.Ribbon.Action.UpdateFailed,,,Update failed,Update failed
 Studio.Ribbon.Plugin.AddTools_PlayClientOnly,,,Client,Client
@@ -13254,6 +13269,7 @@ Studio.SocialPresence.Settings.EnableTeamCreate,,,Turn On,Turn On
 Studio.SocialPresence.Ribbon.Collaborate,,,Collaborate,Collaborate
 Studio.SocialPresence.Settings.EnableTeamCreateTextConnection,,,Enable Team Create to edit this place with your Connections.,Enable Team Create to edit this place with your Connections.
 Studio.SocialPresence.Settings.SaveToRobloxTextConnection,,,Save and enable Team Create to build this place with your Connection.,Save and enable Team Create to build this place with your Connection.
+Studio.SocialPresence.Settings.SaveToRobloxTextFriend,,,Save and enable Team Create to build this place with your friend.,Save and enable Team Create to build this place with your friend.
 Studio.AssetAccess.Plugin.Text,,,Example Text!,Example Text!
 Studio.AssetAccess.Plugin.Name,,,AssetAccess,AssetAccess
 Studio.AssetAccess.AssetMetadataTable.ColumnId,,,Asset ID,Asset ID
@@ -13752,6 +13768,11 @@ Studio.StartPage.EstablishTrustDialog.Title,,,Choose how to continue,Choose how 
 Studio.StartPage.EstablishTrustDialog.Body,,,"To use Studio collaboration with people older than your age group, add them as Trusted Connections or get permission from your parent.","To use Studio collaboration with people older than your age group, add them as Trusted Connections or get permission from your parent."
 Studio.StartPage.EstablishTrustDialog.PrimaryButton,,,Add Trusted Connections,Add Trusted Connections
 Studio.StartPage.EstablishTrustDialog.SecondaryButton,,,Ask parent,Ask parent
+Studio.StartPage.EstablishTrustBanner.Body.TFRename,,,You'll need to add them as trusted friends or get permissions from your parent.,You'll need to add them as trusted friends or get permissions from your parent.
+Studio.StartPage.EstablishTrustDialog.Body.TFRename,,,"To use Studio collaboration with people older than your age group, add them as trusted friends or get permission from your parent.","To use Studio collaboration with people older than your age group, add them as trusted friends or get permission from your parent."
+Studio.StartPage.EstablishTrustDialog.PrimaryButton.TFRename,,,Add trusted friends,Add trusted friends
+Studio.StartPage.Plugin.TrustedFriendsGateDialog.PrimaryAction,,,Become trusted friends,Become trusted friends
+Studio.StartPage.Plugin.TrustedFriendsGateDialog.Title,,,Establish trusted friends,Establish trusted friends
 Studio.ConstraintTool.Plugin.Name,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Toolbar,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Button,,,Create,Create
@@ -14189,6 +14210,18 @@ Studio.AvatarSettings.UnsavedChangesDialog.SaveFailed,,,Save failed,Save failed
 Studio.AvatarSettings.UnsavedChangesDialog.SaveFailedDescription,,,"We hit an internal error, check your connection and retry saving your changes.","We hit an internal error, check your connection and retry saving your changes."
 Studio.AvatarSettings.UnsavedChangesDialog.Retry,,,Retry,Retry
 Studio.AvatarSettings.ShortTitle,,,Settings,Settings
+Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSection,,,Abilities,Abilities
+Studio.AvatarSettings.MovementSettings.AbilitiesSectionLegacyHumanoidButtonText,,,Legacy Humanoid,Legacy Humanoid
+Studio.AvatarSettings.MovementSettings.AbilitiesSectionLuaCharControllerButtonText,,,Lua Character Controller,Lua Character Controller
+Studio.AvatarSettings.MovementSettings.AbilitiesSectionControllerModeLegacySubText,,,Use the legacy Humanoid for movement.,Use the legacy Humanoid for movement.
+Studio.AvatarSettings.MovementSettings.AbilitiesSectionControllerModeLuaSubText,,,Choose abilities you turn on at runtime.,Choose abilities you turn on at runtime.
+Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableRunning,,,Running,Running
+Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableJumping,,,Jumping,Jumping
+Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableSitting,,,Sitting,Sitting
+Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableFallingDown,,,Falling Down,Falling Down
+Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableGettingUp,,,Getting Up,Getting Up
+Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableClimbing,,,Climbing,Climbing
+Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableSwimming,,,Swimming,Swimming
 Studio.ExplorerLibrary.HistoryDropdown.TitleText,,,History,History
 Studio.ExplorerLibrary.SearchBar.PlaceholderText,,,Search,Search
 Studio.ExplorerLibrary.SearchBrowser.ResultCountSingular,,,1 match,1 match
@@ -14543,6 +14576,8 @@ Studio.BetaFeatures.AvatarAbilitiesTitle,,,AvatarAbilities Character Controller 
 Studio.BetaFeatures.AvatarAbilitiesDescription,,,"A Luau-native character controller system — an extensible alternative to the Humanoid state machine, built on ControllerManager physics.","A Luau-native character controller system — an extensible alternative to the Humanoid state machine, built on ControllerManager physics."
 Studio.BetaFeatures.SolidModelingOnMeshes,,,Solid Modeling On Meshes,Solid Modeling On Meshes
 Studio.BetaFeatures.SolidModelingOnMeshesDescription,,,"Adds MeshPart support for both Studio and in-experience CSG tools, and introduces new APIs for simplified in-experience destruction.","Adds MeshPart support for both Studio and in-experience CSG tools, and introduces new APIs for simplified in-experience destruction."
+Studio.BetaFeatures.StyleQueryTitle,,,StyleQuery,StyleQuery
+Studio.BetaFeatures.StyleQueryDescription,,,The new StyleQuery instance enables conditional styling based on parent sizing properties or device/user settings.,The new StyleQuery instance enables conditional styling based on parent sizing properties or device/user settings.
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -14986,6 +15021,7 @@ Studio.CustomizedDefaults.SaveAsDefaultBlockedByStyling,,,Save as Default (Style
 Studio.Reimport.Actions.Reimport,,,Reimport,Reimport
 Studio.Reimport.Actions.ReimportRelativeToThis,,,Reimport relative to this,Reimport relative to this
 Studio.Reimport.Actions.Configure,,,Configure...,Configure...
+Studio.Reimport.Tooltips.Configure,,,Configure reimport settings,Configure reimport settings
 Studio.ParticleSystem.Tooltip.FlipbookLayout.IncompatibleTexture,,,The texture size must be an exact multiple of the flipbook layout size.,The texture size must be an exact multiple of the flipbook layout size.
 Studio.ShutdownManagement.ClosingStudio,,,Closing all Studio windows,Closing all Studio windows
 Studio.ShutdownManagement.Cancel,,,Cancel,Cancel
@@ -15067,10 +15103,11 @@ Studio.AdaptiveAnimationSupport.Plugin.Button,,,Adaptive Animation Support,Adapt
 Studio.AdaptiveAnimationSupport.Plugin.Toolbar,,,Adaptive Animation Support,Adaptive Animation Support
 Studio.TeamCreate.DisconnectReasonUnknown,,,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.
 Studio.TeamCreate.Disconnected,,,Disconnected,Disconnected
-Studio.TeamCreate.SafetyEvictDialog.PlaceLocked,,,This place is locked,This place is locked
 Studio.TeamCreate.SafetyEvictDialog.BreakTermsOfUseAppealUnlock,,,We found content in this Experience that breaks the rules of our Terms of Use. The owner needs to send an appeal to unlock this place.,We found content in this Experience that breaks the rules of our Terms of Use. The owner needs to send an appeal to unlock this place.
 Studio.TeamCreate.SafetyEvictDialog.OKButton,,,OK,OK
 Studio.TeamCreate.SafetyEvictDialog.TermsOfUseButton,,,View Terms of Use,View Terms of Use
+Studio.TeamCreate.SafetyEvictDialog.EstablishTrustedFriends,,,Add trusted friends,Add trusted friends
+Studio.TeamCreate.SafetyEvictDialog.ExperienceLocked,,,This Experience is locked,This Experience is locked
 Studio.AnimationGraphEditor.Plugin.Button,,,Animation Graph Editor,Animation Graph Editor
 Studio.AnimationGraphEditor.Plugin.Name,,,Animation Graph Editor,Animation Graph Editor
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForYears,,,Connected for {age:int} years,Connected for {age:int} years
@@ -15080,12 +15117,15 @@ Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForOneMonth,,,Connected 
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForDays,,,Connected for {age:int} days,Connected for {age:int} days
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForOneDay,,,Connected for one day,Connected for one day
 Studio.TeamCreateCollaborators.ProfileInsights.NotConnected,,,Not Connected,Not Connected
-Studio.TeamCreateCollaborators.ProfileInsights.JoinedInYear,,,Joined in {year:int},Joined in {year:int}
+Studio.TeamCreateCollaborators.ProfileInsights.JoinedInYear,,,Joined in {year},Joined in {year}
 Studio.TeamCreateCollaborators.MainView.Title,,,Get a shareable link to add Trusted Connections,Get a shareable link to add Trusted Connections
 Studio.TeamCreateCollaborators.MainView.Subtitle,,,"This unlocks live collaboration in Studio, chat without filters, Party voice, and more.","This unlocks live collaboration in Studio, chat without filters, Party voice, and more."
-Studio.TeamCreateCollaborators.MainView.AskParentButton,,,Ask Parent,Ask Parent
+Studio.TeamCreateCollaborators.MainView.AskParentButton,,,Ask parent,Ask parent
 Studio.TeamCreateCollaborators.TrustedConnectionWidget.AgeVerified,,,Age verified,Age verified
 Studio.TeamCreateCollaborators.TrustedConnectionWidget.AgeNotVerified,,,Age not verified,Age not verified
 Studio.TeamCreateCollaborators.TrustedConnectionWidget.MutualConnections,,,{count:int} mutual connections,{count:int} mutual connections
-Studio.TeamCreateCollaborators.MainView.GetLinkButton,,,Get Link,Get Link
-Studio.TeamCreateCollaborators.MainView.ViewDetailsButton,,,Learn More,Learn More
+Studio.TeamCreateCollaborators.MainView.GetLinkButton,,,Get link,Get link
+Studio.TeamCreateCollaborators.MainView.ViewDetailsButton,,,Learn more,Learn more
+Studio.TeamCreateCollaborators.MainView.CopiedToClipboard,,,Copied to clipboard,Copied to clipboard
+Studio.TeamCreateCollaborators.MainView.Title.TFRename,,,Get a shareable link to add trusted friends,Get a shareable link to add trusted friends
+Studio.TeamCreateCollaborators.TrustedFriendWidget.MutualFriends,,,{count:int} mutual friends,{count:int} mutual friends

@@ -167,6 +167,7 @@ DefaultUnifiedGridVS_40001000,Vertex
 DefaultUnifiedGridVS_40001002,Vertex
 DefaultUnifiedGridVS_40001006,Vertex
 DefaultUnifiedGridVS_40001012,Vertex
+DefaultUnifiedGridVS_40001016,Vertex
 DefaultUnifiedGridVS_40100001,Vertex
 DefaultUnifiedGridVS_40100007,Vertex
 DefaultUnifiedGridVS_40108001,Vertex
@@ -180,6 +181,7 @@ DefaultUnifiedGridVS_40308026,Vertex
 DefaultUnifiedGridVS_44000006,Vertex
 DefaultUnifiedGridVS_44000016,Vertex
 DefaultUnifiedGridVS_44001006,Vertex
+DefaultUnifiedGridVS_44001016,Vertex
 DefaultUnifiedModelLodFS,Fragment
 DefaultUnifiedModelLodVS,Vertex
 DefaultUnifiedWangFallbackFS,Fragment
@@ -197,6 +199,7 @@ FastConvDownsamplePS,Fragment
 FastConvolutionPS,Fragment
 FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment
+GenTileBorderRadialFS,Fragment
 GrassHQVSWindDepth,Vertex
 GrassVSDepth,Vertex
 HighlightInPlaceFS_00000000,Fragment
@@ -339,8 +342,6 @@ TrailVSQuadLight,Vertex
 UIFogFSSDBox,Fragment
 UIFogVS,Vertex
 UIFS,Fragment
-UIFSAdvSDBox,Fragment
 UIFSMdrSDBox,Fragment
-UITransformedVS,Vertex
 UIVS,Vertex
 UpSampleTentFS,Fragment

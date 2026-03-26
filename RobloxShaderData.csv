@@ -58,8 +58,12 @@ CloudsVS,Vertex,✔,✔,✔,✔,✔
 CompressBc1CS,Compute,❌,❌,✔,❌,✔
 CompressBc3CS,Compute,❌,❌,✔,❌,✔
 CompressBc4CS,Compute,❌,❌,✔,❌,✔
-CompressTileAstcCS,Compute,❌,❌,✔,❌,✔
-CompressTileBcCS,Compute,❌,❌,✔,❌,✔
+CompressTileAlbedoAstcCS,Compute,❌,❌,❌,❌,✔
+CompressTileAlbedoBcCS,Compute,❌,❌,✔,❌,✔
+CompressTileNormalAstcCS,Compute,❌,❌,❌,❌,✔
+CompressTileNormalBcCS,Compute,❌,❌,✔,❌,✔
+CompressTileSpecAstcCS,Compute,❌,❌,❌,❌,✔
+CompressTileSpecBcCS,Compute,❌,❌,✔,❌,✔
 CopyGuiVS,Vertex,✔,✔,✔,✔,✔
 DefaultDepthFS,Fragment,✔,✔,✔,✔,✔
 DefaultMaterialVariantDitheredDepthFS,Fragment,✔,✔,✔,✔,✔
@@ -187,6 +191,7 @@ DefaultUnifiedGridVS_40001000,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_40001002,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_40001006,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_40001012,Vertex,✔,✔,✔,❌,✔
+DefaultUnifiedGridVS_40001016,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_40100001,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_40100007,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_40108001,Vertex,✔,✔,✔,❌,✔
@@ -200,6 +205,7 @@ DefaultUnifiedGridVS_40308026,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_44000006,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_44000016,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_44001006,Vertex,✔,✔,✔,❌,✔
+DefaultUnifiedGridVS_44001016,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedModelLodFS,Fragment,✔,✔,✔,✔,✔
 DefaultUnifiedModelLodVS,Vertex,✔,✔,✔,✔,✔
 DefaultUnifiedPlasticReflectionVS_00000800,Vertex,❌,❌,❌,✔,❌
@@ -229,6 +235,8 @@ DefaultUnifiedPlasticReflectionVS_10000010,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10000012,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10000016,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10000400,Vertex,❌,❌,❌,✔,❌
+DefaultUnifiedPlasticReflectionVS_10000402,Vertex,❌,❌,❌,✔,❌
+DefaultUnifiedPlasticReflectionVS_10000406,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10001000,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10001002,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10001006,Vertex,❌,❌,❌,✔,❌
@@ -282,6 +290,7 @@ FXCompositingFS,Fragment,✔,✔,✔,✔,✔
 FXCompositingLinearFS,Fragment,✔,✔,✔,✔,✔
 GenNormalsFS,Fragment,❌,❌,✔,❌,✔
 GenTileBorderCS,Compute,❌,❌,✔,❌,✔
+GenTileBorderRadialFS,Fragment,✔,✔,✔,✔,✔
 GrassHQVSWindDepth,Vertex,✔,✔,✔,✔,✔
 GrassVSDepth,Vertex,✔,✔,✔,✔,✔
 HbaoCompositFS,Fragment,❌,❌,✔,❌,✔
@@ -444,9 +453,7 @@ TrailVSQuadLight,Vertex,✔,✔,✔,✔,✔
 UIFogFSSDBox,Fragment,✔,✔,✔,✔,✔
 UIFogVS,Vertex,✔,✔,✔,✔,✔
 UIFS,Fragment,✔,✔,✔,✔,✔
-UIFSAdvSDBox,Fragment,✔,✔,✔,✔,✔
 UIFSMdrSDBox,Fragment,✔,✔,✔,✔,✔
-UITransformedVS,Vertex,✔,✔,✔,✔,✔
 UIVS,Vertex,✔,✔,✔,✔,✔
 UpSampleTentFS,Fragment,✔,✔,✔,✔,✔
 VoxelBufferCopyCS,Compute,❌,❌,✔,❌,✔
