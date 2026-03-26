@@ -47,26 +47,56 @@ PROTO_1:
        53 RETURN                           R2 1
        54 GETUPVAL                         R2 0
        55 CALL                             R2 0 1
-       56 JUMPIFNOT                        R2 ; [+29]
+       56 JUMPIFNOT                        R2 ; [+76]
        57 GETTABLEKS                       R3 R0 K0 ["item"]
        59 GETTABLEKS                       R2 R3 K1 ["source"]
        61 GETUPVAL                         R4 1
        62 GETTABLEKS                       R3 R4 K6 ["SOURCE_MARKETPLACE"]
-       64 JUMPIFNOTEQ                      R2 R3 ; [+21]
+       64 JUMPIFNOTEQ                      R2 R3 ; [+68]
        66 GETTABLEKS                       R3 R1 K0 ["item"]
        68 GETTABLEKS                       R2 R3 K1 ["source"]
        70 GETUPVAL                         R4 1
        71 GETTABLEKS                       R3 R4 K6 ["SOURCE_MARKETPLACE"]
-       73 JUMPIFNOTEQ                      R2 R3 ; [+12]
+       73 JUMPIFNOTEQ                      R2 R3 ; [+59]
        75 GETUPVAL                         R2 2
-       76 GETTABLEKS                       R4 R0 K0 ["item"]
-       78 GETTABLEKS                       R3 R4 K7 ["marketplaceItem"]
-       80 GETTABLEKS                       R5 R1 K0 ["item"]
-       82 GETTABLEKS                       R4 R5 K7 ["marketplaceItem"]
-       84 CALL                             R2 2 -1
-       85 RETURN                           R2 -1
-       86 LOADB                            R2 0
-       87 RETURN                           R2 1
+       76 CALL                             R2 0 1
+       77 JUMPIFNOT                        R2 ; [+11]
+       78 GETUPVAL                         R2 3
+       79 GETTABLEKS                       R4 R0 K0 ["item"]
+       81 GETTABLEKS                       R3 R4 K7 ["marketplaceItem"]
+       83 GETTABLEKS                       R5 R1 K0 ["item"]
+       85 GETTABLEKS                       R4 R5 K7 ["marketplaceItem"]
+       87 CALL                             R2 2 -1
+       88 RETURN                           R2 -1
+       89 GETTABLEKS                       R4 R0 K0 ["item"]
+       91 GETTABLEKS                       R3 R4 K7 ["marketplaceItem"]
+       93 FASTCALL1                        TYPEOF R3 ; [+2]
+       94 GETIMPORT                        R2 K9 [typeof]
+       96 CALL                             R2 1 1
+       97 JUMPIFNOTEQKS                    R2 K10 ["table"] ; [+22]
+       99 GETTABLEKS                       R4 R1 K0 ["item"]
+      101 GETTABLEKS                       R3 R4 K7 ["marketplaceItem"]
+      103 FASTCALL1                        TYPEOF R3 ; [+2]
+      104 GETIMPORT                        R2 K9 [typeof]
+      106 CALL                             R2 1 1
+      107 JUMPIFNOTEQKS                    R2 K10 ["table"] ; [+12]
+      109 GETUPVAL                         R2 3
+      110 GETTABLEKS                       R4 R0 K0 ["item"]
+      112 GETTABLEKS                       R3 R4 K7 ["marketplaceItem"]
+      114 GETTABLEKS                       R5 R1 K0 ["item"]
+      116 GETTABLEKS                       R4 R5 K7 ["marketplaceItem"]
+      118 CALL                             R2 2 -1
+      119 RETURN                           R2 -1
+      120 GETTABLEKS                       R4 R0 K0 ["item"]
+      122 GETTABLEKS                       R3 R4 K7 ["marketplaceItem"]
+      124 GETTABLEKS                       R5 R1 K0 ["item"]
+      126 GETTABLEKS                       R4 R5 K7 ["marketplaceItem"]
+      128 JUMPIFEQ                         R3 R4 ; [+2]
+      130 LOADB                            R2 0 +1
+      131 LOADB                            R2 1
+      132 RETURN                           R2 1
+      133 LOADB                            R2 0
+      134 RETURN                           R2 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -194,14 +224,20 @@ MAIN:
        59 GETTABLEKS                       R9 R10 K14 ["Flags"]
        61 GETTABLEKS                       R8 R9 K16 ["getFFlagAvatarPreviewerLookComposer"]
        63 CALL                             R7 1 1
-       64 DUPCLOSURE                       R8 K17 [PROTO_0]
-       65 DUPCLOSURE                       R9 K18 [PROTO_1]
-       66 CAPTURE                          VAL R7
-       67 CAPTURE                          VAL R4
-       68 CAPTURE                          VAL R5
-       69 DUPCLOSURE                       R10 K19 [PROTO_5]
-       70 CAPTURE                          VAL R2
-       71 CAPTURE                          VAL R1
-       72 CAPTURE                          VAL R6
-       73 CAPTURE                          VAL R9
-       74 RETURN                           R10 1
+       64 GETIMPORT                        R8 K5 [require]
+       66 GETTABLEKS                       R11 R0 K9 ["Src"]
+       68 GETTABLEKS                       R10 R11 K14 ["Flags"]
+       70 GETTABLEKS                       R9 R10 K17 ["getFFlagAvatarPreviewerFixShallowEqual"]
+       72 CALL                             R8 1 1
+       73 DUPCLOSURE                       R9 K18 [PROTO_0]
+       74 DUPCLOSURE                       R10 K19 [PROTO_1]
+       75 CAPTURE                          VAL R7
+       76 CAPTURE                          VAL R4
+       77 CAPTURE                          VAL R8
+       78 CAPTURE                          VAL R5
+       79 DUPCLOSURE                       R11 K20 [PROTO_5]
+       80 CAPTURE                          VAL R2
+       81 CAPTURE                          VAL R1
+       82 CAPTURE                          VAL R6
+       83 CAPTURE                          VAL R10
+       84 RETURN                           R11 1

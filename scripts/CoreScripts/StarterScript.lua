@@ -76,8 +76,6 @@ local FFlagLuaAppInExperienceDetailsPrompt =
 local FFlagEnableSystemScrim = game:DefineFastFlag("EnableSystemScrim", false)
 local FFlagEnableCorescriptsProfiler = game:DefineFastFlag("EnableCorescriptsProfiler", false)
 local FFlagCoreScriptsProfilerTelemetryContext = game:DefineFastFlag("CoreScriptsProfilerTelemetryContext", false)
-local FFlagFixExperimentCacheManagerCoreScriptInit =
-	game:DefineFastFlag("FixExperimentCacheManagerCoreScriptInit2", false)
 local FFlagLuaAppEnableEnhancedVideoScripts = game:DefineFastFlag("LuaAppEnableEnhancedVideoScripts3", false)
 local FFlagLuaAppEnableInExperienceClickoutScripts = game:DefineFastFlag("LuaAppEnableInExperienceClickoutScripts", false)
 local FFlagSelfieFrontendConsoleDesktop = game:DefineFastFlag("SelfieFrontendConsoleDesktop2", false) and game:GetEngineFeature("EnableSelfieQRCode")
@@ -88,11 +86,8 @@ UIBlox.init(uiBloxConfig)
 local InExperienceTopBar = require(CorePackages.Workspace.Packages.InExperienceTopBar)
 local FFlagTopBarRefactor = InExperienceTopBar.Flags.FFlagTopBarRefactor
 
-if FFlagFixExperimentCacheManagerCoreScriptInit then
-	local ExperimentCacheManager =
-		require(CorePackages.Workspace.Packages.ExperimentCacheManager).ExperimentCacheManager
-	ExperimentCacheManager.default:initialize()
-end
+local ExperimentCacheManager = require(CorePackages.Workspace.Packages.ExperimentCacheManager).ExperimentCacheManager
+ExperimentCacheManager.default:initialize()
 
 -- Add a label for internal React telemetry
 local FFlagReactTelemetryEnabled =
@@ -134,12 +129,6 @@ if GetFFlagEnableAppChatInExperience() then
 end
 
 if GetFFlagEnableCrossExpVoice() then
-	if not FFlagFixExperimentCacheManagerCoreScriptInit then
-		local ExperimentCacheManager =
-			require(CorePackages.Workspace.Packages.ExperimentCacheManager).ExperimentCacheManager
-		ExperimentCacheManager.default:initialize()
-	end
-
 	local CrossExperienceVoiceIXPManager =
 		require(CorePackages.Workspace.Packages.CrossExperienceVoice).IXPManager
 	CrossExperienceVoiceIXPManager.default:initialize()
@@ -239,6 +228,12 @@ coroutine.wrap(safeRequire)(CoreGuiModules.SelfieView)
 
 -- TopBar
 coroutine.wrap(safeRequire)(CoreGuiModules.TopBar)
+
+-- SideSheet
+local FFlagEnableSideSheet = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableSideSheet
+if FFlagEnableSideSheet then
+	coroutine.wrap(safeRequire)(CoreGuiModules.InExperienceSideSheet)
+end
 
 if FFlagTopBarRefactor then
 	local InExperienceOverlay = coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.InExperienceOverlay)

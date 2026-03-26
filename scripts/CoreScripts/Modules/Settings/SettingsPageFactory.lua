@@ -33,6 +33,8 @@ local FFlagIEMSettingsGroups = require(script.Parent.Flags.FFlagIEMSettingsGroup
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 
+local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
+
 local TEXT_BUTTON_FONT_SIZE_SMALL_TOUCH_SCREEN = 18
 local TEXT_BUTTON_FONT_SIZE = 24
 local TEXT_BUTTON_FONT_SIZE_TEN_FOOT = 48
@@ -339,7 +341,11 @@ local function Initialize()
 				animationComplete();
 			end)
 		else
-			this.Page:TweenPosition(endPos, Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.1, true, animationComplete)
+			if featureDeprecateOldGuiObjectProperties then
+				this.Page:TweenPositionInternal(endPos, Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.1, true, animationComplete)
+			else
+				this.Page:TweenPosition(endPos, Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.1, true, animationComplete)
+			end
 		end
 	end
 	function this:Hide(direction, newPagePos, skipAnimation, delayBeforeHiding, pageParent, isPrevPage)
@@ -385,7 +391,11 @@ local function Initialize()
 						animationComplete();
 					end)
 				else
-					this.Page:TweenPosition(endPos, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.1, true, animationComplete)
+					if featureDeprecateOldGuiObjectProperties then
+						this.Page:TweenPositionInternal(endPos, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.1, true, animationComplete)
+					else
+						this.Page:TweenPosition(endPos, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.1, true, animationComplete)
+					end
 				end
 			end
 

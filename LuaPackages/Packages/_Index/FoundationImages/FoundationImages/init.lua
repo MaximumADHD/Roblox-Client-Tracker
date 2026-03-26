@@ -5,4 +5,5 @@ export type Images = ImagesTypes.Images
 return {
 	getResolutionScale = require(script.getResolutionScale),
 	Images = require(script.Images),
+	Flags = require(script.Flags),
 }

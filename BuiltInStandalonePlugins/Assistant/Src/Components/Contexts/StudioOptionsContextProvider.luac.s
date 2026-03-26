@@ -73,13 +73,17 @@ PROTO_3:
        13 RETURN                           R0 0
 
 PROTO_4:
-        0 NAMECALL                         R1 R0 K0 ["listTools"]
-        2 CALL                             R1 1 1
-        3 NEWCLOSURE                       R3 P0
-        4 CAPTURE                          UPVAL U0
-        5 NAMECALL                         R1 R1 K1 ["andThen"]
-        7 CALL                             R1 2 0
-        8 RETURN                           R0 0
+        0 DUPTABLE                         R1 K1 [{"disableScreenCapture"}]
+        1 GETUPVAL                         R2 0
+        2 SETTABLEKS                       R2 R1 K0 ["disableScreenCapture"]
+        4 MOVE                             R4 R1
+        5 NAMECALL                         R2 R0 K2 ["listTools"]
+        7 CALL                             R2 2 1
+        8 NEWCLOSURE                       R4 P0
+        9 CAPTURE                          UPVAL U1
+       10 NAMECALL                         R2 R2 K3 ["andThen"]
+       12 CALL                             R2 2 0
+       13 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -88,8 +92,9 @@ PROTO_5:
         4 GETUPVAL                         R0 0
         5 NEWCLOSURE                       R1 P0
         6 CAPTURE                          UPVAL U1
-        7 CALL                             R0 1 0
-        8 RETURN                           R0 0
+        7 CAPTURE                          UPVAL U2
+        8 CALL                             R0 1 0
+        9 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -119,38 +124,59 @@ PROTO_7:
        18 GETTABLEKS                       R4 R5 K0 ["useState"]
        20 NEWTABLE                         R5 0 0
        22 CALL                             R4 1 2
-       23 GETUPVAL                         R7 3
-       24 GETTABLEKS                       R6 R7 K1 ["useEffect"]
-       26 NEWCLOSURE                       R7 P0
-       27 CAPTURE                          REF R1
-       28 CAPTURE                          VAL R3
-       29 NEWTABLE                         R8 0 1
-       31 MOVE                             R9 R1
-       32 SETLIST                          R8 R9 1 [1]
-       34 CALL                             R6 2 0
-       35 GETUPVAL                         R7 3
-       36 GETTABLEKS                       R6 R7 K2 ["useMemo"]
-       38 NEWCLOSURE                       R7 P1
-       39 CAPTURE                          UPVAL U4
-       40 CAPTURE                          VAL R2
-       41 CAPTURE                          VAL R4
-       42 CAPTURE                          VAL R5
-       43 NEWTABLE                         R8 0 2
-       45 MOVE                             R9 R2
-       46 MOVE                             R10 R4
-       47 SETLIST                          R8 R9 2 [1]
-       49 CALL                             R6 2 1
-       50 GETUPVAL                         R7 5
-       51 GETUPVAL                         R11 6
-       52 GETTABLEKS                       R10 R11 K3 ["Components"]
-       54 GETTABLEKS                       R9 R10 K4 ["Contexts"]
-       56 GETTABLEKS                       R8 R9 K5 ["OptionsContextProvider"]
-       58 DUPTABLE                         R9 K7 [{"options"}]
-       59 SETTABLEKS                       R6 R9 K6 ["options"]
-       61 GETTABLEKS                       R10 R0 K8 ["children"]
-       63 CALL                             R7 3 -1
-       64 CLOSEUPVALS                      R1
-       65 RETURN                           R7 -1
+       23 LOADNIL                          R6
+       24 GETUPVAL                         R7 4
+       25 CALL                             R7 0 1
+       26 JUMPIFNOT                        R7 ; [+21]
+       27 GETUPVAL                         R8 3
+       28 GETTABLEKS                       R7 R8 K1 ["useContext"]
+       30 GETUPVAL                         R9 5
+       31 GETTABLEKS                       R8 R9 K2 ["Context"]
+       33 CALL                             R7 1 1
+       34 MOVE                             R8 R7
+       35 JUMPIFNOT                        R8 ; [+11]
+       36 LOADB                            R8 1
+       37 GETTABLEKS                       R9 R7 K3 ["selectedProvider"]
+       39 JUMPIFEQKS                       R9 K4 ["Studio"] ; [+7]
+       41 GETTABLEKS                       R9 R7 K3 ["selectedProvider"]
+       43 JUMPIFEQKS                       R9 K5 ["OpenAI"] ; [+2]
+       45 LOADB                            R8 0 +1
+       46 LOADB                            R8 1
+       47 MOVE                             R6 R8
+       48 GETUPVAL                         R8 3
+       49 GETTABLEKS                       R7 R8 K6 ["useEffect"]
+       51 NEWCLOSURE                       R8 P0
+       52 CAPTURE                          REF R1
+       53 CAPTURE                          REF R6
+       54 CAPTURE                          VAL R3
+       55 NEWTABLE                         R9 0 2
+       57 MOVE                             R10 R1
+       58 MOVE                             R11 R6
+       59 SETLIST                          R9 R10 2 [1]
+       61 CALL                             R7 2 0
+       62 GETUPVAL                         R8 3
+       63 GETTABLEKS                       R7 R8 K7 ["useMemo"]
+       65 NEWCLOSURE                       R8 P1
+       66 CAPTURE                          UPVAL U6
+       67 CAPTURE                          VAL R2
+       68 CAPTURE                          VAL R4
+       69 CAPTURE                          VAL R5
+       70 NEWTABLE                         R9 0 2
+       72 MOVE                             R10 R2
+       73 MOVE                             R11 R4
+       74 SETLIST                          R9 R10 2 [1]
+       76 CALL                             R7 2 1
+       77 GETUPVAL                         R8 7
+       78 GETUPVAL                         R12 8
+       79 GETTABLEKS                       R11 R12 K8 ["Components"]
+       81 GETTABLEKS                       R10 R11 K9 ["Contexts"]
+       83 GETTABLEKS                       R9 R10 K10 ["OptionsContextProvider"]
+       85 DUPTABLE                         R10 K12 [{"options"}]
+       86 SETTABLEKS                       R7 R10 K11 ["options"]
+       88 GETTABLEKS                       R11 R0 K13 ["children"]
+       90 CALL                             R8 3 -1
+       91 CLOSEUPVALS                      R1
+       92 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -175,89 +201,97 @@ MAIN:
        32 GETTABLEKS                       R6 R7 K11 ["Hooks"]
        34 GETTABLEKS                       R5 R6 K12 ["useRunWithMcpClient_DEPRECATED"]
        36 CALL                             R4 1 1
-       37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R8 R0 K10 ["Src"]
-       41 GETTABLEKS                       R7 R8 K13 ["Flags"]
-       43 GETTABLEKS                       R6 R7 K14 ["FFlagAssistantDebugMode"]
-       45 CALL                             R5 1 1
-       46 GETTABLEKS                       R8 R1 K13 ["Flags"]
-       48 GETTABLEKS                       R7 R8 K15 ["Shared"]
-       50 GETTABLEKS                       R6 R7 K16 ["FFlagAssistantTestAutomation"]
-       52 GETIMPORT                        R7 K5 [require]
-       54 GETTABLEKS                       R10 R0 K10 ["Src"]
-       56 GETTABLEKS                       R9 R10 K13 ["Flags"]
-       58 GETTABLEKS                       R8 R9 K17 ["FFlagMCPAssistantDeduplicateMcpClient"]
-       60 CALL                             R7 1 1
-       61 GETTABLEKS                       R10 R1 K18 ["Components"]
-       63 GETTABLEKS                       R9 R10 K11 ["Hooks"]
-       65 GETTABLEKS                       R8 R9 K19 ["useWithClient"]
-       67 GETTABLEKS                       R9 R2 K20 ["ToolRegistry"]
-       69 GETTABLEKS                       R12 R1 K21 ["Resources"]
-       71 GETTABLEKS                       R11 R12 K22 ["Localization"]
-       73 GETTABLEKS                       R10 R11 K23 ["Translator"]
-       75 GETTABLEKS                       R13 R1 K24 ["Tools"]
-       77 GETTABLEKS                       R12 R13 K25 ["ToolTypes"]
-       79 GETTABLEKS                       R11 R12 K26 ["ToolNames"]
-       81 GETTABLEKS                       R12 R3 K27 ["createElement"]
-       83 NEWTABLE                         R13 8 0
-       85 GETTABLEKS                       R14 R11 K28 ["ExecuteLuau"]
-       87 LOADK                            R15 K28 ["ExecuteLuau"]
-       88 SETTABLE                         R15 R13 R14
-       89 GETTABLEKS                       R14 R11 K29 ["MaterialGen"]
-       91 LOADK                            R15 K30 ["GenerateMaterial"]
-       92 SETTABLE                         R15 R13 R14
-       93 GETTABLEKS                       R14 R11 K31 ["InsertFromMarketplace"]
-       95 LOADK                            R15 K31 ["InsertFromMarketplace"]
-       96 SETTABLE                         R15 R13 R14
-       97 GETTABLEKS                       R14 R11 K32 ["MultiEdit"]
-       99 LOADK                            R15 K33 ["MultiEditUpdated"]
-      100 SETTABLE                         R15 R13 R14
-      101 GETTABLEKS                       R14 R11 K34 ["ScreenCapture"]
-      103 LOADK                            R15 K34 ["ScreenCapture"]
-      104 SETTABLE                         R15 R13 R14
-      105 GETTABLEKS                       R14 R11 K35 ["UploadImage"]
-      107 LOADK                            R15 K35 ["UploadImage"]
-      108 SETTABLE                         R15 R13 R14
-      109 GETTABLEKS                       R14 R11 K36 ["PrimitiveGen"]
-      111 LOADK                            R15 K36 ["PrimitiveGen"]
-      112 SETTABLE                         R15 R13 R14
-      113 MOVE                             R14 R5
-      114 CALL                             R14 0 1
-      115 JUMPIFNOT                        R14 ; [+7]
-      116 MOVE                             R14 R6
-      117 CALL                             R14 0 1
-      118 JUMPIF                           R14 ; [+4]
-      119 GETTABLEKS                       R14 R11 K37 ["TestGame"]
-      121 LOADK                            R15 K37 ["TestGame"]
-      122 SETTABLE                         R15 R13 R14
-      123 MOVE                             R14 R6
-      124 CALL                             R14 0 1
-      125 JUMPIFNOT                        R14 ; [+20]
-      126 GETTABLEKS                       R14 R11 K38 ["StartStopPlay"]
-      128 LOADK                            R15 K38 ["StartStopPlay"]
-      129 SETTABLE                         R15 R13 R14
-      130 GETTABLEKS                       R14 R11 K39 ["GetConsoleOutput"]
-      132 LOADK                            R15 K39 ["GetConsoleOutput"]
-      133 SETTABLE                         R15 R13 R14
-      134 GETTABLEKS                       R14 R11 K40 ["UserKeyboardInput"]
-      136 LOADK                            R15 K40 ["UserKeyboardInput"]
-      137 SETTABLE                         R15 R13 R14
-      138 GETTABLEKS                       R14 R11 K41 ["UserMouseInput"]
-      140 LOADK                            R15 K41 ["UserMouseInput"]
-      141 SETTABLE                         R15 R13 R14
-      142 GETTABLEKS                       R14 R11 K42 ["CharacterNavigation"]
-      144 LOADK                            R15 K42 ["CharacterNavigation"]
-      145 SETTABLE                         R15 R13 R14
-      146 DUPCLOSURE                       R14 K43 [PROTO_2]
-      147 CAPTURE                          VAL R13
-      148 CAPTURE                          VAL R10
-      149 CAPTURE                          VAL R9
-      150 DUPCLOSURE                       R15 K44 [PROTO_7]
-      151 CAPTURE                          VAL R7
-      152 CAPTURE                          VAL R8
-      153 CAPTURE                          VAL R4
-      154 CAPTURE                          VAL R3
-      155 CAPTURE                          VAL R14
-      156 CAPTURE                          VAL R12
-      157 CAPTURE                          VAL R1
-      158 RETURN                           R15 1
+       37 GETTABLEKS                       R7 R1 K13 ["Components"]
+       39 GETTABLEKS                       R6 R7 K14 ["Contexts"]
+       41 GETTABLEKS                       R5 R6 K15 ["LLMProviderSelectionContext"]
+       43 GETIMPORT                        R6 K5 [require]
+       45 GETTABLEKS                       R9 R0 K10 ["Src"]
+       47 GETTABLEKS                       R8 R9 K16 ["Flags"]
+       49 GETTABLEKS                       R7 R8 K17 ["FFlagAssistantDebugMode"]
+       51 CALL                             R6 1 1
+       52 GETTABLEKS                       R9 R1 K16 ["Flags"]
+       54 GETTABLEKS                       R8 R9 K18 ["Shared"]
+       56 GETTABLEKS                       R7 R8 K19 ["FFlagAssistantTestAutomation"]
+       58 GETTABLEKS                       R10 R1 K16 ["Flags"]
+       60 GETTABLEKS                       R9 R10 K18 ["Shared"]
+       62 GETTABLEKS                       R8 R9 K20 ["FFlagDisableScreenCaptureForDefaultModel"]
+       64 GETIMPORT                        R9 K5 [require]
+       66 GETTABLEKS                       R12 R0 K10 ["Src"]
+       68 GETTABLEKS                       R11 R12 K16 ["Flags"]
+       70 GETTABLEKS                       R10 R11 K21 ["FFlagMCPAssistantDeduplicateMcpClient"]
+       72 CALL                             R9 1 1
+       73 GETTABLEKS                       R12 R1 K13 ["Components"]
+       75 GETTABLEKS                       R11 R12 K11 ["Hooks"]
+       77 GETTABLEKS                       R10 R11 K22 ["useWithClient"]
+       79 GETTABLEKS                       R11 R2 K23 ["ToolRegistry"]
+       81 GETTABLEKS                       R14 R1 K24 ["Resources"]
+       83 GETTABLEKS                       R13 R14 K25 ["Localization"]
+       85 GETTABLEKS                       R12 R13 K26 ["Translator"]
+       87 GETTABLEKS                       R15 R1 K27 ["Tools"]
+       89 GETTABLEKS                       R14 R15 K28 ["ToolTypes"]
+       91 GETTABLEKS                       R13 R14 K29 ["ToolNames"]
+       93 GETTABLEKS                       R14 R3 K30 ["createElement"]
+       95 NEWTABLE                         R15 8 0
+       97 GETTABLEKS                       R16 R13 K31 ["ExecuteLuau"]
+       99 LOADK                            R17 K31 ["ExecuteLuau"]
+      100 SETTABLE                         R17 R15 R16
+      101 GETTABLEKS                       R16 R13 K32 ["MaterialGen"]
+      103 LOADK                            R17 K33 ["GenerateMaterial"]
+      104 SETTABLE                         R17 R15 R16
+      105 GETTABLEKS                       R16 R13 K34 ["InsertFromMarketplace"]
+      107 LOADK                            R17 K34 ["InsertFromMarketplace"]
+      108 SETTABLE                         R17 R15 R16
+      109 GETTABLEKS                       R16 R13 K35 ["MultiEdit"]
+      111 LOADK                            R17 K36 ["MultiEditUpdated"]
+      112 SETTABLE                         R17 R15 R16
+      113 GETTABLEKS                       R16 R13 K37 ["ScreenCapture"]
+      115 LOADK                            R17 K37 ["ScreenCapture"]
+      116 SETTABLE                         R17 R15 R16
+      117 GETTABLEKS                       R16 R13 K38 ["UploadImage"]
+      119 LOADK                            R17 K38 ["UploadImage"]
+      120 SETTABLE                         R17 R15 R16
+      121 GETTABLEKS                       R16 R13 K39 ["PrimitiveGen"]
+      123 LOADK                            R17 K39 ["PrimitiveGen"]
+      124 SETTABLE                         R17 R15 R16
+      125 MOVE                             R16 R6
+      126 CALL                             R16 0 1
+      127 JUMPIFNOT                        R16 ; [+7]
+      128 MOVE                             R16 R7
+      129 CALL                             R16 0 1
+      130 JUMPIF                           R16 ; [+4]
+      131 GETTABLEKS                       R16 R13 K40 ["TestGame"]
+      133 LOADK                            R17 K40 ["TestGame"]
+      134 SETTABLE                         R17 R15 R16
+      135 MOVE                             R16 R7
+      136 CALL                             R16 0 1
+      137 JUMPIFNOT                        R16 ; [+20]
+      138 GETTABLEKS                       R16 R13 K41 ["StartStopPlay"]
+      140 LOADK                            R17 K41 ["StartStopPlay"]
+      141 SETTABLE                         R17 R15 R16
+      142 GETTABLEKS                       R16 R13 K42 ["GetConsoleOutput"]
+      144 LOADK                            R17 K42 ["GetConsoleOutput"]
+      145 SETTABLE                         R17 R15 R16
+      146 GETTABLEKS                       R16 R13 K43 ["UserKeyboardInput"]
+      148 LOADK                            R17 K43 ["UserKeyboardInput"]
+      149 SETTABLE                         R17 R15 R16
+      150 GETTABLEKS                       R16 R13 K44 ["UserMouseInput"]
+      152 LOADK                            R17 K44 ["UserMouseInput"]
+      153 SETTABLE                         R17 R15 R16
+      154 GETTABLEKS                       R16 R13 K45 ["CharacterNavigation"]
+      156 LOADK                            R17 K45 ["CharacterNavigation"]
+      157 SETTABLE                         R17 R15 R16
+      158 DUPCLOSURE                       R16 K46 [PROTO_2]
+      159 CAPTURE                          VAL R15
+      160 CAPTURE                          VAL R12
+      161 CAPTURE                          VAL R11
+      162 DUPCLOSURE                       R17 K47 [PROTO_7]
+      163 CAPTURE                          VAL R9
+      164 CAPTURE                          VAL R10
+      165 CAPTURE                          VAL R4
+      166 CAPTURE                          VAL R3
+      167 CAPTURE                          VAL R8
+      168 CAPTURE                          VAL R5
+      169 CAPTURE                          VAL R16
+      170 CAPTURE                          VAL R14
+      171 CAPTURE                          VAL R1
+      172 RETURN                           R17 1

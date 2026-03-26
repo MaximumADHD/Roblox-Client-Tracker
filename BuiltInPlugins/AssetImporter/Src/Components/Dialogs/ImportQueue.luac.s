@@ -13,22 +13,6 @@ PROTO_1:
         4 RETURN                           R0 0
 
 PROTO_2:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Analytics"]
-        4 LOADK                            R3 K2 ["ImportQueueEnabled"]
-        5 NAMECALL                         R1 R1 K3 ["report"]
-        7 CALL                             R1 2 0
-        8 RETURN                           R0 0
-
-PROTO_3:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Analytics"]
-        4 LOADK                            R3 K2 ["ImportQueueDisabled"]
-        5 NAMECALL                         R1 R1 K3 ["report"]
-        7 CALL                             R1 2 0
-        8 RETURN                           R0 0
-
-PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R3 R1 K1 ["Stylizer"]
         4 GETTABLEKS                       R2 R3 K2 ["ImportQueue"]
@@ -148,7 +132,7 @@ PROTO_4:
       165 CALL                             R6 3 -1
       166 RETURN                           R6 -1
 
-PROTO_5:
+PROTO_3:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 MOVE                             R3 R0
@@ -156,7 +140,7 @@ PROTO_5:
         4 CALL                             R1 -1 0
         5 RETURN                           R0 0
 
-PROTO_6:
+PROTO_4:
         0 DUPTABLE                         R1 K1 [{"SetShowQueue"}]
         1 NEWCLOSURE                       R2 P0
         2 CAPTURE                          VAL R0
@@ -164,7 +148,7 @@ PROTO_6:
         4 SETTABLEKS                       R2 R1 K0 ["SetShowQueue"]
         6 RETURN                           R1 1
 
-PROTO_7:
+PROTO_5:
         0 DUPTABLE                         R1 K3 [{"ShowQueue", "Uploading", "Parsing"}]
         1 GETTABLEKS                       R3 R0 K4 ["Dialogs"]
         3 GETTABLEKS                       R2 R3 K5 ["showQueue"]
@@ -202,108 +186,102 @@ MAIN:
        35 GETTABLEKS                       R5 R4 K11 ["ContextServices"]
        37 GETTABLEKS                       R6 R5 K12 ["withContext"]
        39 GETTABLEKS                       R7 R5 K13 ["Localization"]
-       41 GETTABLEKS                       R8 R5 K14 ["Analytics"]
-       43 GETTABLEKS                       R10 R4 K15 ["Style"]
-       45 GETTABLEKS                       R9 R10 K16 ["Stylizer"]
-       47 GETTABLEKS                       R10 R4 K17 ["UI"]
-       49 GETTABLEKS                       R11 R10 K18 ["DockWidget"]
-       51 GETTABLEKS                       R12 R10 K19 ["Pane"]
-       53 GETIMPORT                        R13 K5 [require]
-       55 GETTABLEKS                       R15 R0 K20 ["Src"]
-       57 GETTABLEKS                       R14 R15 K21 ["Types"]
-       59 CALL                             R13 1 1
-       60 GETTABLEKS                       R15 R0 K20 ["Src"]
-       62 GETTABLEKS                       R14 R15 K22 ["Components"]
-       64 GETIMPORT                        R15 K5 [require]
-       66 GETTABLEKS                       R17 R14 K23 ["Dialogs"]
-       68 GETTABLEKS                       R16 R17 K24 ["UploadErrorDialog"]
-       70 CALL                             R15 1 1
-       71 GETIMPORT                        R16 K5 [require]
-       73 GETTABLEKS                       R18 R14 K23 ["Dialogs"]
-       75 GETTABLEKS                       R17 R18 K25 ["UploadConfirmationDialog"]
-       77 CALL                             R16 1 1
-       78 GETIMPORT                        R17 K5 [require]
-       80 GETTABLEKS                       R19 R14 K26 ["ImportQueue"]
-       82 GETTABLEKS                       R18 R19 K27 ["AssetList"]
-       84 CALL                             R17 1 1
-       85 GETIMPORT                        R18 K5 [require]
-       87 GETTABLEKS                       R20 R14 K26 ["ImportQueue"]
-       89 GETTABLEKS                       R19 R20 K28 ["QueueControls"]
-       91 CALL                             R18 1 1
-       92 GETIMPORT                        R19 K5 [require]
-       94 GETTABLEKS                       R21 R14 K26 ["ImportQueue"]
-       96 GETTABLEKS                       R20 R21 K29 ["ImportProgressBar"]
-       98 CALL                             R19 1 1
-       99 GETIMPORT                        R20 K5 [require]
-      101 GETTABLEKS                       R23 R0 K20 ["Src"]
-      103 GETTABLEKS                       R22 R23 K30 ["Actions"]
-      105 GETTABLEKS                       R21 R22 K31 ["SetShowQueue"]
-      107 CALL                             R20 1 1
-      108 GETIMPORT                        R21 K5 [require]
-      110 GETTABLEKS                       R24 R0 K20 ["Src"]
-      112 GETTABLEKS                       R23 R24 K32 ["Controllers"]
-      114 GETTABLEKS                       R22 R23 K33 ["FileController"]
-      116 CALL                             R21 1 1
-      117 GETIMPORT                        R22 K5 [require]
-      119 GETTABLEKS                       R25 R0 K20 ["Src"]
-      121 GETTABLEKS                       R24 R25 K32 ["Controllers"]
-      123 GETTABLEKS                       R23 R24 K34 ["QueueController"]
-      125 CALL                             R22 1 1
-      126 GETIMPORT                        R23 K5 [require]
-      128 GETTABLEKS                       R25 R0 K6 ["Packages"]
-      130 GETTABLEKS                       R24 R25 K35 ["StudioFoundation"]
-      132 CALL                             R23 1 1
-      133 JUMPIFNOT                        R23 ; [+5]
-      134 GETTABLEKS                       R25 R23 K22 ["Components"]
-      136 GETTABLEKS                       R24 R25 K36 ["FoundationProviderAdapter"]
-      138 JUMP                             ; [+1]
-      139 LOADNIL                          R24
-      140 GETIMPORT                        R25 K5 [require]
-      142 GETTABLEKS                       R28 R0 K20 ["Src"]
-      144 GETTABLEKS                       R27 R28 K37 ["Flags"]
-      146 GETTABLEKS                       R26 R27 K38 ["getEFCinUnifiedImportQueue"]
-      148 CALL                             R25 1 1
-      149 GETTABLEKS                       R26 R2 K39 ["PureComponent"]
-      151 LOADK                            R28 K26 ["ImportQueue"]
-      152 NAMECALL                         R26 R26 K40 ["extend"]
-      154 CALL                             R26 2 1
-      155 DUPCLOSURE                       R27 K41 [PROTO_1]
-      156 SETTABLEKS                       R27 R26 K42 ["init"]
-      158 DUPCLOSURE                       R27 K43 [PROTO_2]
-      159 SETTABLEKS                       R27 R26 K44 ["didMount"]
-      161 DUPCLOSURE                       R27 K45 [PROTO_3]
-      162 SETTABLEKS                       R27 R26 K46 ["willUnmount"]
-      164 DUPCLOSURE                       R27 K47 [PROTO_4]
-      165 CAPTURE                          VAL R2
-      166 CAPTURE                          VAL R11
-      167 CAPTURE                          VAL R24
-      168 CAPTURE                          VAL R12
-      169 CAPTURE                          VAL R18
-      170 CAPTURE                          VAL R17
-      171 CAPTURE                          VAL R19
-      172 CAPTURE                          VAL R25
-      173 CAPTURE                          VAL R1
-      174 CAPTURE                          VAL R15
-      175 CAPTURE                          VAL R16
-      176 SETTABLEKS                       R27 R26 K48 ["render"]
-      178 MOVE                             R27 R6
-      179 DUPTABLE                         R28 K49 [{"Analytics", "Localization", "Stylizer", "FileController", "QueueController"}]
-      180 SETTABLEKS                       R8 R28 K14 ["Analytics"]
-      182 SETTABLEKS                       R7 R28 K13 ["Localization"]
-      184 SETTABLEKS                       R9 R28 K16 ["Stylizer"]
-      186 SETTABLEKS                       R21 R28 K33 ["FileController"]
-      188 SETTABLEKS                       R22 R28 K34 ["QueueController"]
-      190 CALL                             R27 1 1
-      191 MOVE                             R28 R26
-      192 CALL                             R27 1 1
-      193 MOVE                             R26 R27
-      194 DUPCLOSURE                       R27 K50 [PROTO_6]
-      195 CAPTURE                          VAL R20
-      196 DUPCLOSURE                       R28 K51 [PROTO_7]
-      197 GETTABLEKS                       R29 R3 K52 ["connect"]
-      199 MOVE                             R30 R28
-      200 MOVE                             R31 R27
-      201 CALL                             R29 2 1
-      202 MOVE                             R30 R26
-      203 CALL                             R29 1 -1
-      204 RETURN                           R29 -1
+       41 GETTABLEKS                       R9 R4 K14 ["Style"]
+       43 GETTABLEKS                       R8 R9 K15 ["Stylizer"]
+       45 GETTABLEKS                       R9 R4 K16 ["UI"]
+       47 GETTABLEKS                       R10 R9 K17 ["DockWidget"]
+       49 GETTABLEKS                       R11 R9 K18 ["Pane"]
+       51 GETIMPORT                        R12 K5 [require]
+       53 GETTABLEKS                       R14 R0 K19 ["Src"]
+       55 GETTABLEKS                       R13 R14 K20 ["Types"]
+       57 CALL                             R12 1 1
+       58 GETTABLEKS                       R14 R0 K19 ["Src"]
+       60 GETTABLEKS                       R13 R14 K21 ["Components"]
+       62 GETIMPORT                        R14 K5 [require]
+       64 GETTABLEKS                       R16 R13 K22 ["Dialogs"]
+       66 GETTABLEKS                       R15 R16 K23 ["UploadErrorDialog"]
+       68 CALL                             R14 1 1
+       69 GETIMPORT                        R15 K5 [require]
+       71 GETTABLEKS                       R17 R13 K22 ["Dialogs"]
+       73 GETTABLEKS                       R16 R17 K24 ["UploadConfirmationDialog"]
+       75 CALL                             R15 1 1
+       76 GETIMPORT                        R16 K5 [require]
+       78 GETTABLEKS                       R18 R13 K25 ["ImportQueue"]
+       80 GETTABLEKS                       R17 R18 K26 ["AssetList"]
+       82 CALL                             R16 1 1
+       83 GETIMPORT                        R17 K5 [require]
+       85 GETTABLEKS                       R19 R13 K25 ["ImportQueue"]
+       87 GETTABLEKS                       R18 R19 K27 ["QueueControls"]
+       89 CALL                             R17 1 1
+       90 GETIMPORT                        R18 K5 [require]
+       92 GETTABLEKS                       R20 R13 K25 ["ImportQueue"]
+       94 GETTABLEKS                       R19 R20 K28 ["ImportProgressBar"]
+       96 CALL                             R18 1 1
+       97 GETIMPORT                        R19 K5 [require]
+       99 GETTABLEKS                       R22 R0 K19 ["Src"]
+      101 GETTABLEKS                       R21 R22 K29 ["Actions"]
+      103 GETTABLEKS                       R20 R21 K30 ["SetShowQueue"]
+      105 CALL                             R19 1 1
+      106 GETIMPORT                        R20 K5 [require]
+      108 GETTABLEKS                       R23 R0 K19 ["Src"]
+      110 GETTABLEKS                       R22 R23 K31 ["Controllers"]
+      112 GETTABLEKS                       R21 R22 K32 ["FileController"]
+      114 CALL                             R20 1 1
+      115 GETIMPORT                        R21 K5 [require]
+      117 GETTABLEKS                       R24 R0 K19 ["Src"]
+      119 GETTABLEKS                       R23 R24 K31 ["Controllers"]
+      121 GETTABLEKS                       R22 R23 K33 ["QueueController"]
+      123 CALL                             R21 1 1
+      124 GETIMPORT                        R22 K5 [require]
+      126 GETTABLEKS                       R24 R0 K6 ["Packages"]
+      128 GETTABLEKS                       R23 R24 K34 ["StudioFoundation"]
+      130 CALL                             R22 1 1
+      131 JUMPIFNOT                        R22 ; [+5]
+      132 GETTABLEKS                       R24 R22 K21 ["Components"]
+      134 GETTABLEKS                       R23 R24 K35 ["FoundationProviderAdapter"]
+      136 JUMP                             ; [+1]
+      137 LOADNIL                          R23
+      138 GETIMPORT                        R24 K5 [require]
+      140 GETTABLEKS                       R27 R0 K19 ["Src"]
+      142 GETTABLEKS                       R26 R27 K36 ["Flags"]
+      144 GETTABLEKS                       R25 R26 K37 ["getEFCinUnifiedImportQueue"]
+      146 CALL                             R24 1 1
+      147 GETTABLEKS                       R25 R2 K38 ["PureComponent"]
+      149 LOADK                            R27 K25 ["ImportQueue"]
+      150 NAMECALL                         R25 R25 K39 ["extend"]
+      152 CALL                             R25 2 1
+      153 DUPCLOSURE                       R26 K40 [PROTO_1]
+      154 SETTABLEKS                       R26 R25 K41 ["init"]
+      156 DUPCLOSURE                       R26 K42 [PROTO_2]
+      157 CAPTURE                          VAL R2
+      158 CAPTURE                          VAL R10
+      159 CAPTURE                          VAL R23
+      160 CAPTURE                          VAL R11
+      161 CAPTURE                          VAL R17
+      162 CAPTURE                          VAL R16
+      163 CAPTURE                          VAL R18
+      164 CAPTURE                          VAL R24
+      165 CAPTURE                          VAL R1
+      166 CAPTURE                          VAL R14
+      167 CAPTURE                          VAL R15
+      168 SETTABLEKS                       R26 R25 K43 ["render"]
+      170 MOVE                             R26 R6
+      171 DUPTABLE                         R27 K44 [{"Localization", "Stylizer", "FileController", "QueueController"}]
+      172 SETTABLEKS                       R7 R27 K13 ["Localization"]
+      174 SETTABLEKS                       R8 R27 K15 ["Stylizer"]
+      176 SETTABLEKS                       R20 R27 K32 ["FileController"]
+      178 SETTABLEKS                       R21 R27 K33 ["QueueController"]
+      180 CALL                             R26 1 1
+      181 MOVE                             R27 R25
+      182 CALL                             R26 1 1
+      183 MOVE                             R25 R26
+      184 DUPCLOSURE                       R26 K45 [PROTO_4]
+      185 CAPTURE                          VAL R19
+      186 DUPCLOSURE                       R27 K46 [PROTO_5]
+      187 GETTABLEKS                       R28 R3 K47 ["connect"]
+      189 MOVE                             R29 R27
+      190 MOVE                             R30 R26
+      191 CALL                             R28 2 1
+      192 MOVE                             R29 R25
+      193 CALL                             R28 1 -1
+      194 RETURN                           R28 -1

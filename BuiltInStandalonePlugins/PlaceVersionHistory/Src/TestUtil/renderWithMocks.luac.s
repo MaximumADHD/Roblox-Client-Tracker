@@ -2,12 +2,10 @@ PROTO_0:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K2 [{"mockNetworkConfig"}]
-        5 GETUPVAL                         R4 2
-        6 SETTABLEKS                       R4 R3 K1 ["mockNetworkConfig"]
-        8 GETTABLEKS                       R4 R0 K3 ["children"]
-       10 CALL                             R1 3 -1
-       11 RETURN                           R1 -1
+        4 GETUPVAL                         R3 2
+        5 GETTABLEKS                       R4 R0 K1 ["children"]
+        7 CALL                             R1 3 -1
+        8 RETURN                           R1 -1
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -42,20 +40,15 @@ MAIN:
        25 GETIMPORT                        R4 K5 [require]
        27 GETTABLEKS                       R7 R0 K11 ["Src"]
        29 GETTABLEKS                       R6 R7 K12 ["TestUtil"]
-       31 GETTABLEKS                       R5 R6 K13 ["MockNetwork"]
+       31 GETTABLEKS                       R5 R6 K13 ["MockWrapper"]
        33 CALL                             R4 1 1
-       34 GETIMPORT                        R5 K5 [require]
-       36 GETTABLEKS                       R8 R0 K11 ["Src"]
-       38 GETTABLEKS                       R7 R8 K12 ["TestUtil"]
-       40 GETTABLEKS                       R6 R7 K14 ["MockWrapper"]
-       42 CALL                             R5 1 1
-       43 GETIMPORT                        R6 K16 [game]
-       45 LOADK                            R8 K17 ["CoreGui"]
-       46 NAMECALL                         R6 R6 K18 ["GetService"]
-       48 CALL                             R6 2 1
-       49 DUPCLOSURE                       R7 K19 [PROTO_1]
-       50 CAPTURE                          VAL R3
-       51 CAPTURE                          VAL R6
-       52 CAPTURE                          VAL R1
-       53 CAPTURE                          VAL R5
-       54 RETURN                           R7 1
+       34 GETIMPORT                        R5 K15 [game]
+       36 LOADK                            R7 K16 ["CoreGui"]
+       37 NAMECALL                         R5 R5 K17 ["GetService"]
+       39 CALL                             R5 2 1
+       40 DUPCLOSURE                       R6 K18 [PROTO_1]
+       41 CAPTURE                          VAL R3
+       42 CAPTURE                          VAL R5
+       43 CAPTURE                          VAL R1
+       44 CAPTURE                          VAL R4
+       45 RETURN                           R6 1

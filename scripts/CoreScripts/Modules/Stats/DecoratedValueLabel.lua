@@ -13,18 +13,6 @@ local StatsUtils = require(CoreGuiService.RobloxGui.Modules.Stats.StatsUtils)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
-function LocalizedGetKey(key)
-  local rtv = key
-  pcall(function()
-      rtv = RobloxTranslator:FormatByKey(key)
-  end)
-
-  return rtv
-end
-
-local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
-local FFlagUseNotificationsLocalization = success and result
-
 local DecoratedValueLabelClass = {}
 DecoratedValueLabelClass.__index = DecoratedValueLabelClass
 
@@ -35,13 +23,7 @@ function DecoratedValueLabelClass.new(statType, valueName)
   self._frame = Instance.new("Frame")
   self._frame.Name = "PS_DecoratedValueLabel"
   self._frame.BackgroundTransparency = 1.0
-
-  if FFlagUseNotificationsLocalization == true then
-    self._valueName = LocalizedGetKey(valueName)
-  else
-    self._valueName = valueName
-  end
-
+  self._valueName = valueName
   self._statType = statType
 
   self._decorationFrame = Instance.new("Frame")

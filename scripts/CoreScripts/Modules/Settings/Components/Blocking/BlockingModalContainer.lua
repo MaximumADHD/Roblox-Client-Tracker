@@ -12,6 +12,9 @@ local Toast = UIBlox.App.Dialog.Toast
 
 local ActionModal = require(script.Parent.ActionModal)
 
+local FFlagConnectionsToFriendsRename =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionsToFriendsRename
+
 type Props = {
 	analytics: any,
 	closeModal: () -> (),
@@ -75,7 +78,9 @@ local function BlockingModalContainer(props: Props)
 			"Feature.BlockingModal.Heading.BlockUser",
 			DisplayName = player.DisplayName,
 		},
-		bodyKey = "Feature.BlockingModal.Message.BlockConfirmation",
+		bodyKey = if FFlagConnectionsToFriendsRename 
+			then "Feature.BlockingModal.Message.BlockConfirmation.FriendsRename"
+			else "Feature.BlockingModal.Message.BlockConfirmation",
 		cancelTextKey = "Feature.BlockingModal.Action.Cancel",
 		blockTextKey = "Feature.BlockingModal.Action.Block",
 		blockAndReportTextKey = "Feature.BlockingModal.Action.BlockAndReport",

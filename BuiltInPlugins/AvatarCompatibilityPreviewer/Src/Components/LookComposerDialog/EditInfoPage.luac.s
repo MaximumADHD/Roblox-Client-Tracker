@@ -19,7 +19,7 @@ PROTO_0:
        22 CALL                             R5 1 1
        23 GETTABLEKS                       R6 R0 K6 ["onNameChanged"]
        25 GETTABLEKS                       R7 R0 K7 ["onDescriptionChanged"]
-       27 LOADN                            R9 15
+       27 LOADN                            R9 50
        28 JUMPIFLT                         R9 R3 ; [+2]
        30 LOADB                            R8 0 +1
        31 LOADB                            R8 1
@@ -89,7 +89,7 @@ PROTO_0:
       122 GETIMPORT                        R26 K54 [string.format]
       124 LOADK                            R27 K55 ["%d/%d"]
       125 MOVE                             R28 R3
-      126 LOADN                            R29 15
+      126 LOADN                            R29 50
       127 CALL                             R26 3 1
       128 SETTABLEKS                       R26 R25 K45 ["hint"]
       130 LOADK                            R26 K56 [""]

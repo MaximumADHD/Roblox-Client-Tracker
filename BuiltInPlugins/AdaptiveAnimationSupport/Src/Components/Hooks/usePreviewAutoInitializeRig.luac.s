@@ -17,106 +17,96 @@ PROTO_0:
        17 JUMPIFEQKNIL                     R0 ; [+2]
        19 RETURN                           R0 0
        20 GETUPVAL                         R1 4
-       21 GETTABLEKS                       R0 R1 K3 ["autoMap"]
+       21 GETTABLEKS                       R0 R1 K3 ["autoAll"]
        23 GETUPVAL                         R1 2
        24 GETUPVAL                         R2 3
        25 CALL                             R0 2 0
-       26 GETUPVAL                         R1 4
-       27 GETTABLEKS                       R0 R1 K4 ["enforceTpose"]
-       29 GETUPVAL                         R1 2
-       30 GETUPVAL                         R2 3
-       31 CALL                             R0 2 0
-       32 GETUPVAL                         R1 4
-       33 GETTABLEKS                       R0 R1 K5 ["applyTposeAdjustment"]
-       35 GETUPVAL                         R1 2
-       36 GETUPVAL                         R2 3
-       37 CALL                             R0 2 0
-       38 GETUPVAL                         R0 0
-       39 CALL                             R0 0 1
-       40 JUMPIFNOT                        R0 ; [+92]
-       41 NEWTABLE                         R0 0 2
-       43 GETIMPORT                        R3 K9 [Enum.DigitsRigDescriptionSide.Left]
-       45 GETIMPORT                        R4 K11 [Enum.DigitsRigDescriptionSide.Right]
-       47 SETLIST                          R0 R3 2 [1]
-       49 LOADNIL                          R1
-       50 LOADNIL                          R2
-       51 FORGPREP                         R0
-       52 GETIMPORT                        R6 K9 [Enum.DigitsRigDescriptionSide.Left]
-       54 JUMPIFNOTEQ                      R4 R6 ; [+4]
-       56 GETIMPORT                        R5 K14 [Enum.RigLabel.LeftWrist]
-       58 JUMP                             ; [+2]
-       59 GETIMPORT                        R5 K16 [Enum.RigLabel.RightWrist]
-       61 GETUPVAL                         R6 2
-       62 MOVE                             R8 R5
-       63 NAMECALL                         R6 R6 K17 ["GetJoint"]
-       65 CALL                             R6 2 1
-       66 JUMPIFNOT                        R6 ; [+64]
-       67 LOADNIL                          R7
-       68 GETUPVAL                         R8 2
-       69 NAMECALL                         R8 R8 K18 ["GetChildren"]
-       71 CALL                             R8 1 3
-       72 FORGPREP                         R8
-       73 LOADK                            R15 K19 ["DigitsRigDescription"]
-       74 NAMECALL                         R13 R12 K20 ["IsA"]
-       76 CALL                             R13 2 1
-       77 JUMPIFNOT                        R13 ; [+6]
-       78 GETTABLEKS                       R13 R12 K21 ["Side"]
-       80 JUMPIFNOTEQ                      R13 R4 ; [+3]
-       82 MOVE                             R7 R12
-       83 JUMP                             ; [+2]
-       84 FORGLOOP                         R8 2 ; [-12]
-       86 JUMPIFEQKNIL                     R7 ; [+2]
-       88 LOADB                            R8 0 +1
-       89 LOADB                            R8 1
-       90 JUMPIF                           R7 ; [+10]
-       91 GETIMPORT                        R9 K24 [Instance.new]
-       93 LOADK                            R10 K19 ["DigitsRigDescription"]
-       94 CALL                             R9 1 1
-       95 SETTABLEKS                       R4 R9 K21 ["Side"]
-       97 GETUPVAL                         R10 2
-       98 SETTABLEKS                       R10 R9 K25 ["Parent"]
-      100 MOVE                             R7 R9
-      101 GETUPVAL                         R10 4
-      102 GETTABLEKS                       R9 R10 K26 ["autoMapHand"]
-      104 MOVE                             R10 R7
-      105 GETUPVAL                         R11 2
-      106 GETUPVAL                         R13 4
-      107 GETTABLEKS                       R12 R13 K27 ["handRigLabels"]
-      109 CALL                             R9 3 0
-      110 JUMPIFNOT                        R8 ; [+20]
-      111 LOADB                            R9 0
-      112 GETUPVAL                         R13 4
-      113 GETTABLEKS                       R10 R13 K27 ["handRigLabels"]
-      115 LOADNIL                          R11
-      116 LOADNIL                          R12
-      117 FORGPREP                         R10
-      118 MOVE                             R17 R14
-      119 NAMECALL                         R15 R7 K17 ["GetJoint"]
-      121 CALL                             R15 2 1
-      122 JUMPIFNOT                        R15 ; [+2]
-      123 LOADB                            R9 1
-      124 JUMP                             ; [+2]
-      125 FORGLOOP                         R10 2 ; [-8]
-      127 JUMPIF                           R9 ; [+3]
-      128 NAMECALL                         R10 R7 K28 ["Destroy"]
-      130 CALL                             R10 1 0
-      131 FORGLOOP                         R0 2 ; [-80]
-      133 GETUPVAL                         R0 2
-      134 LOADK                            R2 K1 ["RBX_AutoRun"]
-      135 LOADB                            R3 1
-      136 NAMECALL                         R0 R0 K29 ["SetAttribute"]
-      138 CALL                             R0 3 0
-      139 GETUPVAL                         R0 1
-      140 JUMPIFNOTEQKS                    R0 K0 ["preview"] ; [+11]
-      142 GETUPVAL                         R1 5
-      143 GETTABLEKS                       R0 R1 K30 ["SIZE_ENABLED"]
-      145 JUMPIFNOT                        R0 ; [+6]
-      146 GETUPVAL                         R1 4
-      147 GETTABLEKS                       R0 R1 K31 ["autoSize"]
-      149 GETUPVAL                         R1 2
-      150 GETUPVAL                         R2 3
-      151 CALL                             R0 2 0
-      152 RETURN                           R0 0
+       26 GETUPVAL                         R0 0
+       27 CALL                             R0 0 1
+       28 JUMPIFNOT                        R0 ; [+92]
+       29 NEWTABLE                         R0 0 2
+       31 GETIMPORT                        R3 K7 [Enum.DigitsRigDescriptionSide.Left]
+       33 GETIMPORT                        R4 K9 [Enum.DigitsRigDescriptionSide.Right]
+       35 SETLIST                          R0 R3 2 [1]
+       37 LOADNIL                          R1
+       38 LOADNIL                          R2
+       39 FORGPREP                         R0
+       40 GETIMPORT                        R6 K7 [Enum.DigitsRigDescriptionSide.Left]
+       42 JUMPIFNOTEQ                      R4 R6 ; [+4]
+       44 GETIMPORT                        R5 K12 [Enum.RigLabel.LeftWrist]
+       46 JUMP                             ; [+2]
+       47 GETIMPORT                        R5 K14 [Enum.RigLabel.RightWrist]
+       49 GETUPVAL                         R6 2
+       50 MOVE                             R8 R5
+       51 NAMECALL                         R6 R6 K15 ["GetJoint"]
+       53 CALL                             R6 2 1
+       54 JUMPIFNOT                        R6 ; [+64]
+       55 LOADNIL                          R7
+       56 GETUPVAL                         R8 2
+       57 NAMECALL                         R8 R8 K16 ["GetChildren"]
+       59 CALL                             R8 1 3
+       60 FORGPREP                         R8
+       61 LOADK                            R15 K17 ["DigitsRigDescription"]
+       62 NAMECALL                         R13 R12 K18 ["IsA"]
+       64 CALL                             R13 2 1
+       65 JUMPIFNOT                        R13 ; [+6]
+       66 GETTABLEKS                       R13 R12 K19 ["Side"]
+       68 JUMPIFNOTEQ                      R13 R4 ; [+3]
+       70 MOVE                             R7 R12
+       71 JUMP                             ; [+2]
+       72 FORGLOOP                         R8 2 ; [-12]
+       74 JUMPIFEQKNIL                     R7 ; [+2]
+       76 LOADB                            R8 0 +1
+       77 LOADB                            R8 1
+       78 JUMPIF                           R7 ; [+10]
+       79 GETIMPORT                        R9 K22 [Instance.new]
+       81 LOADK                            R10 K17 ["DigitsRigDescription"]
+       82 CALL                             R9 1 1
+       83 SETTABLEKS                       R4 R9 K19 ["Side"]
+       85 GETUPVAL                         R10 2
+       86 SETTABLEKS                       R10 R9 K23 ["Parent"]
+       88 MOVE                             R7 R9
+       89 GETUPVAL                         R10 4
+       90 GETTABLEKS                       R9 R10 K24 ["autoMapHand"]
+       92 MOVE                             R10 R7
+       93 GETUPVAL                         R11 2
+       94 GETUPVAL                         R13 4
+       95 GETTABLEKS                       R12 R13 K25 ["handRigLabels"]
+       97 CALL                             R9 3 0
+       98 JUMPIFNOT                        R8 ; [+20]
+       99 LOADB                            R9 0
+      100 GETUPVAL                         R13 4
+      101 GETTABLEKS                       R10 R13 K25 ["handRigLabels"]
+      103 LOADNIL                          R11
+      104 LOADNIL                          R12
+      105 FORGPREP                         R10
+      106 MOVE                             R17 R14
+      107 NAMECALL                         R15 R7 K15 ["GetJoint"]
+      109 CALL                             R15 2 1
+      110 JUMPIFNOT                        R15 ; [+2]
+      111 LOADB                            R9 1
+      112 JUMP                             ; [+2]
+      113 FORGLOOP                         R10 2 ; [-8]
+      115 JUMPIF                           R9 ; [+3]
+      116 NAMECALL                         R10 R7 K26 ["Destroy"]
+      118 CALL                             R10 1 0
+      119 FORGLOOP                         R0 2 ; [-80]
+      121 GETUPVAL                         R0 2
+      122 LOADK                            R2 K1 ["RBX_AutoRun"]
+      123 LOADB                            R3 1
+      124 NAMECALL                         R0 R0 K27 ["SetAttribute"]
+      126 CALL                             R0 3 0
+      127 GETUPVAL                         R0 1
+      128 JUMPIFNOTEQKS                    R0 K0 ["preview"] ; [+11]
+      130 GETUPVAL                         R1 5
+      131 GETTABLEKS                       R0 R1 K28 ["SIZE_ENABLED"]
+      133 JUMPIFNOT                        R0 ; [+6]
+      134 GETUPVAL                         R1 4
+      135 GETTABLEKS                       R0 R1 K29 ["autoSize"]
+      137 GETUPVAL                         R1 2
+      138 GETUPVAL                         R2 3
+      139 CALL                             R0 2 0
+      140 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R4 0

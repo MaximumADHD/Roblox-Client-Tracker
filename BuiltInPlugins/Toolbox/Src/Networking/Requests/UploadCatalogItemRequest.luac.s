@@ -50,14 +50,14 @@ PROTO_3:
         3 CAPTURE                          UPVAL U0
         4 CAPTURE                          VAL R0
         5 CALL                             R1 1 2
-        6 JUMPIFNOT                        R1 ; [+87]
-        7 JUMPIFNOT                        R2 ; [+86]
+        6 JUMPIFNOT                        R1 ; [+81]
+        7 JUMPIFNOT                        R2 ; [+80]
         8 GETTABLEKS                       R3 R2 K2 ["AssetDetails"]
-       10 JUMPIFNOT                        R3 ; [+83]
+       10 JUMPIFNOT                        R3 ; [+77]
        11 GETTABLEKS                       R4 R2 K2 ["AssetDetails"]
        13 LENGTH                           R3 R4
        14 LOADN                            R4 0
-       15 JUMPIFNOTLT                      R4 R3 ; [+78]
+       15 JUMPIFNOTLT                      R4 R3 ; [+72]
        17 GETTABLEKS                       R4 R2 K2 ["AssetDetails"]
        19 GETTABLEN                        R3 R4 1
        20 GETTABLEKS                       R4 R3 K3 ["uploadAssetError"]
@@ -80,7 +80,7 @@ PROTO_3:
        42 CALL                             R4 1 0
        43 RETURN                           R0 0
        44 GETTABLEKS                       R4 R3 K6 ["assetId"]
-       46 JUMPIFNOT                        R4 ; [+47]
+       46 JUMPIFNOT                        R4 ; [+41]
        47 GETUPVAL                         R4 1
        48 GETUPVAL                         R6 6
        49 GETTABLEKS                       R7 R3 K6 ["assetId"]
@@ -95,44 +95,38 @@ PROTO_3:
        61 GETUPVAL                         R10 9
        62 GETUPVAL                         R11 10
        63 GETUPVAL                         R12 11
-       64 GETUPVAL                         R14 12
-       65 CALL                             R14 0 1
-       66 JUMPIFNOT                        R14 ; [+2]
-       67 LOADNIL                          R13
-       68 JUMP                             ; [+1]
-       69 GETUPVAL                         R13 13
-       70 CALL                             R6 7 -1
-       71 NAMECALL                         R4 R4 K4 ["dispatch"]
-       73 CALL                             R4 -1 0
-       74 GETUPVAL                         R5 4
-       75 GETTABLEKS                       R4 R5 K7 ["incrementUploadAssetSuccess"]
-       77 GETUPVAL                         R5 5
-       78 CALL                             R4 1 0
-       79 GETUPVAL                         R4 14
-       80 JUMPIFEQKNIL                     R4 ; [+12]
-       82 GETUPVAL                         R4 1
-       83 GETUPVAL                         R6 15
-       84 GETUPVAL                         R7 8
-       85 GETTABLEKS                       R8 R3 K6 ["assetId"]
-       87 GETUPVAL                         R9 14
-       88 GETUPVAL                         R10 16
-       89 CALL                             R6 4 -1
-       90 NAMECALL                         R4 R4 K4 ["dispatch"]
-       92 CALL                             R4 -1 0
-       93 RETURN                           R0 0
-       94 GETUPVAL                         R3 1
-       95 GETUPVAL                         R5 2
-       96 LOADK                            R6 K8 ["Unknown Error"]
-       97 CALL                             R5 1 -1
-       98 NAMECALL                         R3 R3 K4 ["dispatch"]
-      100 CALL                             R3 -1 0
-      101 GETUPVAL                         R3 1
-      102 GETUPVAL                         R5 3
-      103 LOADB                            R6 0
-      104 CALL                             R5 1 -1
-      105 NAMECALL                         R3 R3 K4 ["dispatch"]
-      107 CALL                             R3 -1 0
-      108 RETURN                           R0 0
+       64 CALL                             R6 6 -1
+       65 NAMECALL                         R4 R4 K4 ["dispatch"]
+       67 CALL                             R4 -1 0
+       68 GETUPVAL                         R5 4
+       69 GETTABLEKS                       R4 R5 K7 ["incrementUploadAssetSuccess"]
+       71 GETUPVAL                         R5 5
+       72 CALL                             R4 1 0
+       73 GETUPVAL                         R4 12
+       74 JUMPIFEQKNIL                     R4 ; [+12]
+       76 GETUPVAL                         R4 1
+       77 GETUPVAL                         R6 13
+       78 GETUPVAL                         R7 8
+       79 GETTABLEKS                       R8 R3 K6 ["assetId"]
+       81 GETUPVAL                         R9 12
+       82 GETUPVAL                         R10 14
+       83 CALL                             R6 4 -1
+       84 NAMECALL                         R4 R4 K4 ["dispatch"]
+       86 CALL                             R4 -1 0
+       87 RETURN                           R0 0
+       88 GETUPVAL                         R3 1
+       89 GETUPVAL                         R5 2
+       90 LOADK                            R6 K8 ["Unknown Error"]
+       91 CALL                             R5 1 -1
+       92 NAMECALL                         R3 R3 K4 ["dispatch"]
+       94 CALL                             R3 -1 0
+       95 GETUPVAL                         R3 1
+       96 GETUPVAL                         R5 3
+       97 LOADB                            R6 0
+       98 CALL                             R5 1 -1
+       99 NAMECALL                         R3 R3 K4 ["dispatch"]
+      101 CALL                             R3 -1 0
+      102 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R2 0
@@ -284,43 +278,41 @@ PROTO_7:
        45 CAPTURE                          UPVAL U13
        46 CAPTURE                          UPVAL U14
        47 CAPTURE                          UPVAL U15
-       48 CAPTURE                          UPVAL U16
-       49 CAPTURE                          UPVAL U17
-       50 NEWCLOSURE                       R3 P1
-       51 CAPTURE                          UPVAL U18
-       52 CAPTURE                          VAL R0
-       53 CAPTURE                          UPVAL U5
-       54 CAPTURE                          UPVAL U6
-       55 CAPTURE                          UPVAL U7
-       56 CAPTURE                          UPVAL U8
-       57 NEWCLOSURE                       R4 P2
-       58 CAPTURE                          UPVAL U18
-       59 CAPTURE                          VAL R0
-       60 CAPTURE                          UPVAL U5
-       61 CAPTURE                          UPVAL U6
-       62 CAPTURE                          UPVAL U7
-       63 CAPTURE                          UPVAL U8
-       64 GETUPVAL                         R5 19
-       65 GETUPVAL                         R6 12
-       66 GETTABLEKS                       R7 R1 K9 ["StudioAssetService"]
-       68 CALL                             R5 2 1
-       69 NEWCLOSURE                       R7 P3
-       70 CAPTURE                          UPVAL U11
-       71 CAPTURE                          UPVAL U0
-       72 CAPTURE                          UPVAL U8
-       73 CAPTURE                          UPVAL U2
-       74 CAPTURE                          UPVAL U20
-       75 CAPTURE                          UPVAL U21
-       76 CAPTURE                          UPVAL U1
-       77 CAPTURE                          VAL R2
-       78 CAPTURE                          VAL R4
-       79 MOVE                             R8 R3
-       80 NAMECALL                         R5 R5 K10 ["andThen"]
-       82 CALL                             R5 3 -1
-       83 RETURN                           R5 -1
+       48 NEWCLOSURE                       R3 P1
+       49 CAPTURE                          UPVAL U16
+       50 CAPTURE                          VAL R0
+       51 CAPTURE                          UPVAL U5
+       52 CAPTURE                          UPVAL U6
+       53 CAPTURE                          UPVAL U7
+       54 CAPTURE                          UPVAL U8
+       55 NEWCLOSURE                       R4 P2
+       56 CAPTURE                          UPVAL U16
+       57 CAPTURE                          VAL R0
+       58 CAPTURE                          UPVAL U5
+       59 CAPTURE                          UPVAL U6
+       60 CAPTURE                          UPVAL U7
+       61 CAPTURE                          UPVAL U8
+       62 GETUPVAL                         R5 17
+       63 GETUPVAL                         R6 12
+       64 GETTABLEKS                       R7 R1 K9 ["StudioAssetService"]
+       66 CALL                             R5 2 1
+       67 NEWCLOSURE                       R7 P3
+       68 CAPTURE                          UPVAL U11
+       69 CAPTURE                          UPVAL U0
+       70 CAPTURE                          UPVAL U8
+       71 CAPTURE                          UPVAL U2
+       72 CAPTURE                          UPVAL U18
+       73 CAPTURE                          UPVAL U19
+       74 CAPTURE                          UPVAL U1
+       75 CAPTURE                          VAL R2
+       76 CAPTURE                          VAL R4
+       77 MOVE                             R8 R3
+       78 NAMECALL                         R5 R5 K10 ["andThen"]
+       80 CALL                             R5 3 -1
+       81 RETURN                           R5 -1
 
 PROTO_8:
-        0 NEWCLOSURE                       R9 P0
+        0 NEWCLOSURE                       R8 P0
         1 CAPTURE                          REF R1
         2 CAPTURE                          UPVAL U0
         3 CAPTURE                          REF R3
@@ -334,17 +326,15 @@ PROTO_8:
        11 CAPTURE                          UPVAL U7
        12 CAPTURE                          VAL R0
        13 CAPTURE                          VAL R5
-       14 CAPTURE                          UPVAL U8
-       15 CAPTURE                          VAL R6
+       14 CAPTURE                          VAL R6
+       15 CAPTURE                          UPVAL U8
        16 CAPTURE                          VAL R7
        17 CAPTURE                          UPVAL U9
-       18 CAPTURE                          VAL R8
-       19 CAPTURE                          UPVAL U10
-       20 CAPTURE                          UPVAL U11
-       21 CAPTURE                          UPVAL U12
-       22 CAPTURE                          VAL R2
-       23 CLOSEUPVALS                      R1
-       24 RETURN                           R9 1
+       18 CAPTURE                          UPVAL U10
+       19 CAPTURE                          UPVAL U11
+       20 CAPTURE                          VAL R2
+       21 CLOSEUPVALS                      R1
+       22 RETURN                           R8 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -396,36 +386,30 @@ MAIN:
        81 GETTABLEKS                       R12 R6 K20 ["createMultipartFormDataBody"]
        83 CALL                             R11 1 1
        84 GETIMPORT                        R12 K8 [require]
-       86 GETTABLEKS                       R15 R1 K9 ["Src"]
-       88 GETTABLEKS                       R14 R15 K21 ["Flags"]
-       90 GETTABLEKS                       R13 R14 K22 ["getFFlagRemoveItemTags"]
-       92 CALL                             R12 1 1
-       93 GETIMPORT                        R13 K8 [require]
-       95 GETTABLEKS                       R17 R1 K9 ["Src"]
-       97 GETTABLEKS                       R16 R17 K23 ["Networking"]
-       99 GETTABLEKS                       R15 R16 K24 ["Requests"]
-      101 GETTABLEKS                       R14 R15 K25 ["UploadCatalogItemMeshPartFormatRequest"]
-      103 CALL                             R13 1 1
-      104 GETIMPORT                        R14 K8 [require]
-      106 GETTABLEKS                       R18 R1 K9 ["Src"]
-      108 GETTABLEKS                       R17 R18 K23 ["Networking"]
-      110 GETTABLEKS                       R16 R17 K24 ["Requests"]
-      112 GETTABLEKS                       R15 R16 K26 ["UGCAssetUploadDataSharingRequest"]
-      114 CALL                             R14 1 1
-      115 DUPCLOSURE                       R15 K27 [PROTO_0]
-      116 DUPCLOSURE                       R16 K28 [PROTO_1]
-      117 DUPCLOSURE                       R17 K29 [PROTO_8]
-      118 CAPTURE                          VAL R8
-      119 CAPTURE                          VAL R4
-      120 CAPTURE                          VAL R0
-      121 CAPTURE                          VAL R3
-      122 CAPTURE                          VAL R5
-      123 CAPTURE                          VAL R10
-      124 CAPTURE                          VAL R2
-      125 CAPTURE                          VAL R13
-      126 CAPTURE                          VAL R12
-      127 CAPTURE                          VAL R14
-      128 CAPTURE                          VAL R7
-      129 CAPTURE                          VAL R9
-      130 CAPTURE                          VAL R11
-      131 RETURN                           R17 1
+       86 GETTABLEKS                       R16 R1 K9 ["Src"]
+       88 GETTABLEKS                       R15 R16 K21 ["Networking"]
+       90 GETTABLEKS                       R14 R15 K22 ["Requests"]
+       92 GETTABLEKS                       R13 R14 K23 ["UploadCatalogItemMeshPartFormatRequest"]
+       94 CALL                             R12 1 1
+       95 GETIMPORT                        R13 K8 [require]
+       97 GETTABLEKS                       R17 R1 K9 ["Src"]
+       99 GETTABLEKS                       R16 R17 K21 ["Networking"]
+      101 GETTABLEKS                       R15 R16 K22 ["Requests"]
+      103 GETTABLEKS                       R14 R15 K24 ["UGCAssetUploadDataSharingRequest"]
+      105 CALL                             R13 1 1
+      106 DUPCLOSURE                       R14 K25 [PROTO_0]
+      107 DUPCLOSURE                       R15 K26 [PROTO_1]
+      108 DUPCLOSURE                       R16 K27 [PROTO_8]
+      109 CAPTURE                          VAL R8
+      110 CAPTURE                          VAL R4
+      111 CAPTURE                          VAL R0
+      112 CAPTURE                          VAL R3
+      113 CAPTURE                          VAL R5
+      114 CAPTURE                          VAL R10
+      115 CAPTURE                          VAL R2
+      116 CAPTURE                          VAL R12
+      117 CAPTURE                          VAL R13
+      118 CAPTURE                          VAL R7
+      119 CAPTURE                          VAL R9
+      120 CAPTURE                          VAL R11
+      121 RETURN                           R16 1

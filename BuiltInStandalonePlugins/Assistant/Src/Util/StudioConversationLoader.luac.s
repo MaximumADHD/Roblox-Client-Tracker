@@ -1,4 +1,19 @@
 PROTO_0:
+        0 GETUPVAL                         R7 0
+        1 GETTABLEKS                       R6 R7 K0 ["getTimestampMilliseconds"]
+        3 CALL                             R6 0 1
+        4 SUB                              R5 R6 R4
+        5 GETTABLEKS                       R7 R0 K1 ["EventLogger"]
+        7 GETTABLEKS                       R6 R7 K2 ["logPersistenceOperation"]
+        9 DUPTABLE                         R7 K7 [{"operation", "scope", "success", "latencyMs"}]
+       10 SETTABLEKS                       R1 R7 K3 ["operation"]
+       12 SETTABLEKS                       R2 R7 K4 ["scope"]
+       14 SETTABLEKS                       R3 R7 K5 ["success"]
+       16 SETTABLEKS                       R5 R7 K6 ["latencyMs"]
+       18 CALL                             R6 1 0
+       19 RETURN                           R0 0
+
+PROTO_1:
         0 LOADK                            R2 K0 ["Assistant_Conversation_%*"]
         1 MOVE                             R4 R0
         2 NAMECALL                         R2 R2 K1 ["format"]
@@ -6,7 +21,7 @@ PROTO_0:
         5 MOVE                             R1 R2
         6 RETURN                           R1 1
 
-PROTO_1:
+PROTO_2:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["serializeConversation"]
         3 GETUPVAL                         R1 1
@@ -23,101 +38,151 @@ PROTO_1:
        17 CALL                             R1 2 0
        18 RETURN                           R0 0
 
-PROTO_2:
-        0 LOADK                            R4 K0 ["Assistant_Conversation_%*"]
-        1 MOVE                             R6 R2
-        2 NAMECALL                         R4 R4 K1 ["format"]
-        4 CALL                             R4 2 1
-        5 MOVE                             R3 R4
-        6 GETIMPORT                        R4 K3 [pcall]
-        8 NEWCLOSURE                       R5 P0
-        9 CAPTURE                          UPVAL U0
-       10 CAPTURE                          VAL R1
-       11 CAPTURE                          VAL R0
-       12 CAPTURE                          VAL R3
-       13 CALL                             R4 1 2
-       14 JUMPIF                           R4 ; [+12]
-       15 GETIMPORT                        R6 K5 [warn]
-       17 LOADK                            R8 K6 ["Failed to save conversation for key %*. Reason: '%*'"]
-       18 MOVE                             R10 R3
-       19 MOVE                             R11 R5
-       20 NAMECALL                         R8 R8 K1 ["format"]
-       22 CALL                             R8 3 1
-       23 MOVE                             R7 R8
-       24 CALL                             R6 1 0
-       25 LOADB                            R6 0
-       26 RETURN                           R6 1
-       27 LOADB                            R6 1
-       28 RETURN                           R6 1
-
 PROTO_3:
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["getTimestampMilliseconds"]
+        3 CALL                             R3 0 1
+        4 LOADK                            R5 K1 ["Assistant_Conversation_%*"]
+        5 MOVE                             R7 R2
+        6 NAMECALL                         R5 R5 K2 ["format"]
+        8 CALL                             R5 2 1
+        9 MOVE                             R4 R5
+       10 GETIMPORT                        R5 K4 [pcall]
+       12 NEWCLOSURE                       R6 P0
+       13 CAPTURE                          UPVAL U1
+       14 CAPTURE                          VAL R1
+       15 CAPTURE                          VAL R0
+       16 CAPTURE                          VAL R4
+       17 CALL                             R5 1 2
+       18 GETUPVAL                         R8 2
+       19 GETTABLEKS                       R7 R8 K5 ["Save"]
+       21 GETUPVAL                         R9 3
+       22 GETTABLEKS                       R8 R9 K6 ["Conversation"]
+       24 GETUPVAL                         R11 0
+       25 GETTABLEKS                       R10 R11 K0 ["getTimestampMilliseconds"]
+       27 CALL                             R10 0 1
+       28 SUB                              R9 R10 R3
+       29 GETTABLEKS                       R11 R0 K7 ["EventLogger"]
+       31 GETTABLEKS                       R10 R11 K8 ["logPersistenceOperation"]
+       33 DUPTABLE                         R11 K13 [{"operation", "scope", "success", "latencyMs"}]
+       34 SETTABLEKS                       R7 R11 K9 ["operation"]
+       36 SETTABLEKS                       R8 R11 K10 ["scope"]
+       38 SETTABLEKS                       R5 R11 K11 ["success"]
+       40 SETTABLEKS                       R9 R11 K12 ["latencyMs"]
+       42 CALL                             R10 1 0
+       43 JUMPIF                           R5 ; [+12]
+       44 GETIMPORT                        R7 K15 [warn]
+       46 LOADK                            R9 K16 ["Failed to save conversation for key %*. Reason: '%*'"]
+       47 MOVE                             R11 R4
+       48 MOVE                             R12 R6
+       49 NAMECALL                         R9 R9 K2 ["format"]
+       51 CALL                             R9 3 1
+       52 MOVE                             R8 R9
+       53 CALL                             R7 1 0
+       54 LOADB                            R7 0
+       55 RETURN                           R7 1
+       56 LOADB                            R7 1
+       57 RETURN                           R7 1
+
+PROTO_4:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["getUserSettingsAsync"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 -1
         5 RETURN                           R0 -1
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["deserializeConversation"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 -1
         5 RETURN                           R0 -1
 
-PROTO_5:
-        0 GETTABLEKS                       R3 R1 K0 ["placeId"]
-        2 LOADK                            R4 K1 ["Assistant_Conversation_%*"]
-        3 MOVE                             R6 R3
-        4 NAMECALL                         R4 R4 K2 ["format"]
-        6 CALL                             R4 2 1
-        7 MOVE                             R2 R4
-        8 GETIMPORT                        R3 K4 [pcall]
-       10 NEWCLOSURE                       R4 P0
-       11 CAPTURE                          VAL R0
-       12 CAPTURE                          VAL R2
-       13 CALL                             R3 1 2
-       14 JUMPIF                           R3 ; [+12]
-       15 GETIMPORT                        R5 K6 [warn]
-       17 LOADK                            R7 K7 ["Failed to get conversation for key %*. Reason: '%*'"]
-       18 MOVE                             R9 R2
-       19 MOVE                             R10 R4
-       20 NAMECALL                         R7 R7 K2 ["format"]
-       22 CALL                             R7 3 1
-       23 MOVE                             R6 R7
-       24 CALL                             R5 1 0
-       25 LOADB                            R5 0
-       26 RETURN                           R5 1
-       27 JUMPIF                           R4 ; [+2]
-       28 LOADB                            R5 1
-       29 RETURN                           R5 1
-       30 GETIMPORT                        R5 K4 [pcall]
-       32 NEWCLOSURE                       R6 P1
-       33 CAPTURE                          UPVAL U0
-       34 CAPTURE                          VAL R4
-       35 CALL                             R5 1 2
-       36 JUMPIF                           R5 ; [+12]
-       37 GETIMPORT                        R7 K6 [warn]
-       39 LOADK                            R9 K8 ["Failed to deserialize conversation for key %*. Reason: '%*'"]
-       40 MOVE                             R11 R2
-       41 MOVE                             R12 R6
-       42 NAMECALL                         R9 R9 K2 ["format"]
-       44 CALL                             R9 3 1
-       45 MOVE                             R8 R9
-       46 CALL                             R7 1 0
-       47 LOADB                            R7 0
-       48 RETURN                           R7 1
-       49 GETTABLEKS                       R7 R0 K9 ["conversationPersistence"]
-       51 GETTABLEKS                       R8 R7 K10 ["notifyLoadedAsync"]
-       53 DUPTABLE                         R9 K13 [{"scope", "conversation"}]
-       54 GETUPVAL                         R11 1
-       55 GETTABLEKS                       R10 R11 K14 ["Conversation"]
-       57 SETTABLEKS                       R10 R9 K11 ["scope"]
-       59 SETTABLEKS                       R6 R9 K12 ["conversation"]
-       61 CALL                             R8 1 0
-       62 LOADB                            R8 1
-       63 RETURN                           R8 1
-
 PROTO_6:
+        0 GETIMPORT                        R0 K1 [pcall]
+        2 NEWCLOSURE                       R1 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          UPVAL U1
+        5 CALL                             R0 1 2
+        6 JUMPIF                           R0 ; [+12]
+        7 GETIMPORT                        R2 K3 [warn]
+        9 LOADK                            R4 K4 ["Failed to get conversation for key %*. Reason: '%*'"]
+       10 GETUPVAL                         R6 1
+       11 MOVE                             R7 R1
+       12 NAMECALL                         R4 R4 K5 ["format"]
+       14 CALL                             R4 3 1
+       15 MOVE                             R3 R4
+       16 CALL                             R2 1 0
+       17 LOADB                            R2 0
+       18 RETURN                           R2 1
+       19 JUMPIF                           R1 ; [+2]
+       20 LOADB                            R2 1
+       21 RETURN                           R2 1
+       22 GETIMPORT                        R2 K1 [pcall]
+       24 NEWCLOSURE                       R3 P1
+       25 CAPTURE                          UPVAL U2
+       26 CAPTURE                          VAL R1
+       27 CALL                             R2 1 2
+       28 JUMPIF                           R2 ; [+12]
+       29 GETIMPORT                        R4 K3 [warn]
+       31 LOADK                            R6 K6 ["Failed to deserialize conversation for key %*. Reason: '%*'"]
+       32 GETUPVAL                         R8 1
+       33 MOVE                             R9 R3
+       34 NAMECALL                         R6 R6 K5 ["format"]
+       36 CALL                             R6 3 1
+       37 MOVE                             R5 R6
+       38 CALL                             R4 1 0
+       39 LOADB                            R4 0
+       40 RETURN                           R4 1
+       41 LOADB                            R4 1
+       42 MOVE                             R5 R3
+       43 RETURN                           R4 2
+
+PROTO_7:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["getTimestampMilliseconds"]
+        3 CALL                             R2 0 1
+        4 GETTABLEKS                       R4 R1 K1 ["placeId"]
+        6 LOADK                            R5 K2 ["Assistant_Conversation_%*"]
+        7 MOVE                             R7 R4
+        8 NAMECALL                         R5 R5 K3 ["format"]
+       10 CALL                             R5 2 1
+       11 MOVE                             R3 R5
+       12 NEWCLOSURE                       R4 P0
+       13 CAPTURE                          VAL R0
+       14 CAPTURE                          VAL R3
+       15 CAPTURE                          UPVAL U1
+       16 MOVE                             R5 R4
+       17 CALL                             R5 0 2
+       18 GETUPVAL                         R8 2
+       19 GETTABLEKS                       R7 R8 K4 ["Load"]
+       21 GETUPVAL                         R9 3
+       22 GETTABLEKS                       R8 R9 K5 ["Conversation"]
+       24 GETUPVAL                         R11 0
+       25 GETTABLEKS                       R10 R11 K0 ["getTimestampMilliseconds"]
+       27 CALL                             R10 0 1
+       28 SUB                              R9 R10 R2
+       29 GETTABLEKS                       R11 R0 K6 ["EventLogger"]
+       31 GETTABLEKS                       R10 R11 K7 ["logPersistenceOperation"]
+       33 DUPTABLE                         R11 K12 [{"operation", "scope", "success", "latencyMs"}]
+       34 SETTABLEKS                       R7 R11 K8 ["operation"]
+       36 SETTABLEKS                       R8 R11 K9 ["scope"]
+       38 SETTABLEKS                       R5 R11 K10 ["success"]
+       40 SETTABLEKS                       R9 R11 K11 ["latencyMs"]
+       42 CALL                             R10 1 0
+       43 JUMPIFNOT                        R5 ; [+14]
+       44 JUMPIFNOT                        R6 ; [+13]
+       45 GETTABLEKS                       R7 R0 K13 ["conversationPersistence"]
+       47 GETTABLEKS                       R8 R7 K14 ["notifyLoadedAsync"]
+       49 DUPTABLE                         R9 K16 [{"scope", "conversation"}]
+       50 GETUPVAL                         R11 3
+       51 GETTABLEKS                       R10 R11 K5 ["Conversation"]
+       53 SETTABLEKS                       R10 R9 K9 ["scope"]
+       55 SETTABLEKS                       R6 R9 K15 ["conversation"]
+       57 CALL                             R8 1 0
+       58 RETURN                           R5 1
+
+PROTO_8:
         0 LOADK                            R2 K0 ["Assistant_ThreadMessages_%*"]
         1 MOVE                             R4 R0
         2 NAMECALL                         R2 R2 K1 ["format"]
@@ -125,7 +190,7 @@ PROTO_6:
         5 MOVE                             R1 R2
         6 RETURN                           R1 1
 
-PROTO_7:
+PROTO_9:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["serializeMessages"]
         3 GETUPVAL                         R1 1
@@ -142,41 +207,60 @@ PROTO_7:
        17 CALL                             R1 2 0
        18 RETURN                           R0 0
 
-PROTO_8:
-        0 LOADK                            R4 K0 ["Assistant_ThreadMessages_%*"]
-        1 MOVE                             R6 R1
-        2 NAMECALL                         R4 R4 K1 ["format"]
-        4 CALL                             R4 2 1
-        5 MOVE                             R3 R4
-        6 GETIMPORT                        R4 K3 [pcall]
-        8 NEWCLOSURE                       R5 P0
-        9 CAPTURE                          UPVAL U0
-       10 CAPTURE                          VAL R2
-       11 CAPTURE                          VAL R0
-       12 CAPTURE                          VAL R3
-       13 CALL                             R4 1 2
-       14 JUMPIF                           R4 ; [+12]
-       15 GETIMPORT                        R6 K5 [warn]
-       17 LOADK                            R8 K6 ["Failed to save messages for key %*. Reason: '%*'"]
-       18 MOVE                             R10 R3
-       19 MOVE                             R11 R5
-       20 NAMECALL                         R8 R8 K1 ["format"]
-       22 CALL                             R8 3 1
-       23 MOVE                             R7 R8
-       24 CALL                             R6 1 0
-       25 LOADB                            R6 0
-       26 RETURN                           R6 1
-       27 LOADB                            R6 1
-       28 RETURN                           R6 1
+PROTO_10:
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["getTimestampMilliseconds"]
+        3 CALL                             R3 0 1
+        4 LOADK                            R5 K1 ["Assistant_ThreadMessages_%*"]
+        5 MOVE                             R7 R1
+        6 NAMECALL                         R5 R5 K2 ["format"]
+        8 CALL                             R5 2 1
+        9 MOVE                             R4 R5
+       10 GETIMPORT                        R5 K4 [pcall]
+       12 NEWCLOSURE                       R6 P0
+       13 CAPTURE                          UPVAL U1
+       14 CAPTURE                          VAL R2
+       15 CAPTURE                          VAL R0
+       16 CAPTURE                          VAL R4
+       17 CALL                             R5 1 2
+       18 GETUPVAL                         R8 2
+       19 GETTABLEKS                       R7 R8 K5 ["Save"]
+       21 GETUPVAL                         R9 3
+       22 GETTABLEKS                       R8 R9 K6 ["Thread"]
+       24 GETUPVAL                         R11 0
+       25 GETTABLEKS                       R10 R11 K0 ["getTimestampMilliseconds"]
+       27 CALL                             R10 0 1
+       28 SUB                              R9 R10 R3
+       29 GETTABLEKS                       R11 R0 K7 ["EventLogger"]
+       31 GETTABLEKS                       R10 R11 K8 ["logPersistenceOperation"]
+       33 DUPTABLE                         R11 K13 [{"operation", "scope", "success", "latencyMs"}]
+       34 SETTABLEKS                       R7 R11 K9 ["operation"]
+       36 SETTABLEKS                       R8 R11 K10 ["scope"]
+       38 SETTABLEKS                       R5 R11 K11 ["success"]
+       40 SETTABLEKS                       R9 R11 K12 ["latencyMs"]
+       42 CALL                             R10 1 0
+       43 JUMPIF                           R5 ; [+12]
+       44 GETIMPORT                        R7 K15 [warn]
+       46 LOADK                            R9 K16 ["Failed to save messages for key %*. Reason: '%*'"]
+       47 MOVE                             R11 R4
+       48 MOVE                             R12 R6
+       49 NAMECALL                         R9 R9 K2 ["format"]
+       51 CALL                             R9 3 1
+       52 MOVE                             R8 R9
+       53 CALL                             R7 1 0
+       54 LOADB                            R7 0
+       55 RETURN                           R7 1
+       56 LOADB                            R7 1
+       57 RETURN                           R7 1
 
-PROTO_9:
+PROTO_11:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["getUserSettingsAsync"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 -1
         5 RETURN                           R0 -1
 
-PROTO_10:
+PROTO_12:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["deserializeMessages"]
         3 GETUPVAL                         R1 1
@@ -184,57 +268,93 @@ PROTO_10:
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
-PROTO_11:
-        0 LOADK                            R3 K0 ["Assistant_ThreadMessages_%*"]
-        1 MOVE                             R5 R1
-        2 NAMECALL                         R3 R3 K1 ["format"]
-        4 CALL                             R3 2 1
-        5 MOVE                             R2 R3
-        6 GETIMPORT                        R3 K3 [pcall]
-        8 NEWCLOSURE                       R4 P0
-        9 CAPTURE                          VAL R0
-       10 CAPTURE                          VAL R2
-       11 CALL                             R3 1 2
-       12 JUMPIF                           R3 ; [+11]
-       13 GETIMPORT                        R5 K5 [warn]
-       15 LOADK                            R7 K6 ["Failed to get messages for key %*. Reason: '%*'"]
-       16 MOVE                             R9 R2
-       17 MOVE                             R10 R4
-       18 NAMECALL                         R7 R7 K1 ["format"]
-       20 CALL                             R7 3 1
-       21 MOVE                             R6 R7
-       22 CALL                             R5 1 0
-       23 RETURN                           R0 0
-       24 JUMPIF                           R4 ; [+1]
-       25 RETURN                           R0 0
-       26 GETIMPORT                        R5 K3 [pcall]
-       28 NEWCLOSURE                       R6 P1
-       29 CAPTURE                          UPVAL U0
-       30 CAPTURE                          VAL R1
-       31 CAPTURE                          VAL R4
-       32 CALL                             R5 1 2
-       33 JUMPIF                           R5 ; [+11]
-       34 GETIMPORT                        R7 K5 [warn]
-       36 LOADK                            R9 K7 ["Failed to deserialize messages for key %*. Reason: '%*'"]
-       37 MOVE                             R11 R2
-       38 MOVE                             R12 R6
-       39 NAMECALL                         R9 R9 K1 ["format"]
-       41 CALL                             R9 3 1
-       42 MOVE                             R8 R9
-       43 CALL                             R7 1 0
-       44 RETURN                           R0 0
-       45 GETTABLEKS                       R7 R0 K8 ["conversationPersistence"]
-       47 GETTABLEKS                       R8 R7 K9 ["notifyLoadedAsync"]
-       49 DUPTABLE                         R9 K13 [{"scope", "threadId", "messages"}]
-       50 GETUPVAL                         R11 1
-       51 GETTABLEKS                       R10 R11 K14 ["Thread"]
-       53 SETTABLEKS                       R10 R9 K10 ["scope"]
-       55 SETTABLEKS                       R1 R9 K11 ["threadId"]
-       57 SETTABLEKS                       R6 R9 K12 ["messages"]
-       59 CALL                             R8 1 0
-       60 RETURN                           R0 0
+PROTO_13:
+        0 GETIMPORT                        R0 K1 [pcall]
+        2 NEWCLOSURE                       R1 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          UPVAL U1
+        5 CALL                             R0 1 2
+        6 JUMPIF                           R0 ; [+12]
+        7 GETIMPORT                        R2 K3 [warn]
+        9 LOADK                            R4 K4 ["Failed to get messages for key %*. Reason: '%*'"]
+       10 GETUPVAL                         R6 1
+       11 MOVE                             R7 R1
+       12 NAMECALL                         R4 R4 K5 ["format"]
+       14 CALL                             R4 3 1
+       15 MOVE                             R3 R4
+       16 CALL                             R2 1 0
+       17 LOADB                            R2 0
+       18 RETURN                           R2 1
+       19 JUMPIF                           R1 ; [+2]
+       20 LOADB                            R2 1
+       21 RETURN                           R2 1
+       22 GETIMPORT                        R2 K1 [pcall]
+       24 NEWCLOSURE                       R3 P1
+       25 CAPTURE                          UPVAL U2
+       26 CAPTURE                          UPVAL U3
+       27 CAPTURE                          VAL R1
+       28 CALL                             R2 1 2
+       29 JUMPIF                           R2 ; [+12]
+       30 GETIMPORT                        R4 K3 [warn]
+       32 LOADK                            R6 K6 ["Failed to deserialize messages for key %*. Reason: '%*'"]
+       33 GETUPVAL                         R8 1
+       34 MOVE                             R9 R3
+       35 NAMECALL                         R6 R6 K5 ["format"]
+       37 CALL                             R6 3 1
+       38 MOVE                             R5 R6
+       39 CALL                             R4 1 0
+       40 LOADB                            R4 0
+       41 RETURN                           R4 1
+       42 LOADB                            R4 1
+       43 MOVE                             R5 R3
+       44 RETURN                           R4 2
 
-PROTO_12:
+PROTO_14:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["getTimestampMilliseconds"]
+        3 CALL                             R2 0 1
+        4 LOADK                            R4 K1 ["Assistant_ThreadMessages_%*"]
+        5 MOVE                             R6 R1
+        6 NAMECALL                         R4 R4 K2 ["format"]
+        8 CALL                             R4 2 1
+        9 MOVE                             R3 R4
+       10 NEWCLOSURE                       R4 P0
+       11 CAPTURE                          VAL R0
+       12 CAPTURE                          VAL R3
+       13 CAPTURE                          UPVAL U1
+       14 CAPTURE                          VAL R1
+       15 MOVE                             R5 R4
+       16 CALL                             R5 0 2
+       17 GETUPVAL                         R8 2
+       18 GETTABLEKS                       R7 R8 K3 ["Load"]
+       20 GETUPVAL                         R9 3
+       21 GETTABLEKS                       R8 R9 K4 ["Thread"]
+       23 GETUPVAL                         R11 0
+       24 GETTABLEKS                       R10 R11 K0 ["getTimestampMilliseconds"]
+       26 CALL                             R10 0 1
+       27 SUB                              R9 R10 R2
+       28 GETTABLEKS                       R11 R0 K5 ["EventLogger"]
+       30 GETTABLEKS                       R10 R11 K6 ["logPersistenceOperation"]
+       32 DUPTABLE                         R11 K11 [{"operation", "scope", "success", "latencyMs"}]
+       33 SETTABLEKS                       R7 R11 K7 ["operation"]
+       35 SETTABLEKS                       R8 R11 K8 ["scope"]
+       37 SETTABLEKS                       R5 R11 K9 ["success"]
+       39 SETTABLEKS                       R9 R11 K10 ["latencyMs"]
+       41 CALL                             R10 1 0
+       42 JUMPIFNOT                        R5 ; [+16]
+       43 JUMPIFNOT                        R6 ; [+15]
+       44 GETTABLEKS                       R7 R0 K12 ["conversationPersistence"]
+       46 GETTABLEKS                       R8 R7 K13 ["notifyLoadedAsync"]
+       48 DUPTABLE                         R9 K16 [{"scope", "threadId", "messages"}]
+       49 GETUPVAL                         R11 3
+       50 GETTABLEKS                       R10 R11 K4 ["Thread"]
+       52 SETTABLEKS                       R10 R9 K8 ["scope"]
+       54 SETTABLEKS                       R1 R9 K14 ["threadId"]
+       56 SETTABLEKS                       R6 R9 K15 ["messages"]
+       58 CALL                             R8 1 0
+       59 RETURN                           R5 1
+
+PROTO_15:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["setUserSettingsAsync"]
         3 GETUPVAL                         R1 1
@@ -242,32 +362,51 @@ PROTO_12:
         5 CALL                             R0 2 0
         6 RETURN                           R0 0
 
-PROTO_13:
-        0 LOADK                            R3 K0 ["Assistant_ThreadMessages_%*"]
-        1 MOVE                             R5 R1
-        2 NAMECALL                         R3 R3 K1 ["format"]
-        4 CALL                             R3 2 1
-        5 MOVE                             R2 R3
-        6 GETIMPORT                        R3 K3 [pcall]
-        8 NEWCLOSURE                       R4 P0
-        9 CAPTURE                          VAL R0
-       10 CAPTURE                          VAL R2
-       11 CALL                             R3 1 2
-       12 JUMPIF                           R3 ; [+12]
-       13 GETIMPORT                        R5 K5 [warn]
-       15 LOADK                            R7 K6 ["Failed to delete thread for key %*. Reason: '%*'"]
-       16 MOVE                             R9 R2
-       17 MOVE                             R10 R4
-       18 NAMECALL                         R7 R7 K1 ["format"]
-       20 CALL                             R7 3 1
-       21 MOVE                             R6 R7
-       22 CALL                             R5 1 0
-       23 LOADB                            R5 0
-       24 RETURN                           R5 1
-       25 LOADB                            R5 1
-       26 RETURN                           R5 1
+PROTO_16:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["getTimestampMilliseconds"]
+        3 CALL                             R2 0 1
+        4 LOADK                            R4 K1 ["Assistant_ThreadMessages_%*"]
+        5 MOVE                             R6 R1
+        6 NAMECALL                         R4 R4 K2 ["format"]
+        8 CALL                             R4 2 1
+        9 MOVE                             R3 R4
+       10 GETIMPORT                        R4 K4 [pcall]
+       12 NEWCLOSURE                       R5 P0
+       13 CAPTURE                          VAL R0
+       14 CAPTURE                          VAL R3
+       15 CALL                             R4 1 2
+       16 GETUPVAL                         R7 1
+       17 GETTABLEKS                       R6 R7 K5 ["Delete"]
+       19 GETUPVAL                         R8 2
+       20 GETTABLEKS                       R7 R8 K6 ["Thread"]
+       22 GETUPVAL                         R10 0
+       23 GETTABLEKS                       R9 R10 K0 ["getTimestampMilliseconds"]
+       25 CALL                             R9 0 1
+       26 SUB                              R8 R9 R2
+       27 GETTABLEKS                       R10 R0 K7 ["EventLogger"]
+       29 GETTABLEKS                       R9 R10 K8 ["logPersistenceOperation"]
+       31 DUPTABLE                         R10 K13 [{"operation", "scope", "success", "latencyMs"}]
+       32 SETTABLEKS                       R6 R10 K9 ["operation"]
+       34 SETTABLEKS                       R7 R10 K10 ["scope"]
+       36 SETTABLEKS                       R4 R10 K11 ["success"]
+       38 SETTABLEKS                       R8 R10 K12 ["latencyMs"]
+       40 CALL                             R9 1 0
+       41 JUMPIF                           R4 ; [+12]
+       42 GETIMPORT                        R6 K15 [warn]
+       44 LOADK                            R8 K16 ["Failed to delete thread for key %*. Reason: '%*'"]
+       45 MOVE                             R10 R3
+       46 MOVE                             R11 R5
+       47 NAMECALL                         R8 R8 K2 ["format"]
+       49 CALL                             R8 3 1
+       50 MOVE                             R7 R8
+       51 CALL                             R6 1 0
+       52 LOADB                            R6 0
+       53 RETURN                           R6 1
+       54 LOADB                            R6 1
+       55 RETURN                           R6 1
 
-PROTO_14:
+PROTO_17:
         0 LOADB                            R2 0
         1 LOADN                            R3 0
         2 JUMPIFNOTLT                      R3 R0 ; [+6]
@@ -277,7 +416,7 @@ PROTO_14:
         8 LOADB                            R2 1
         9 RETURN                           R2 1
 
-PROTO_15:
+PROTO_18:
         0 GETTABLEKS                       R3 R1 K0 ["gameId"]
         2 GETTABLEKS                       R4 R1 K1 ["placeId"]
         4 LOADB                            R2 0
@@ -332,7 +471,7 @@ PROTO_15:
        73 CALL                             R3 2 0
        74 RETURN                           R0 0
 
-PROTO_16:
+PROTO_19:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["SessionId"]
         3 SETTABLEKS                       R2 R1 K1 ["sessionId"]
@@ -351,7 +490,7 @@ PROTO_16:
        23 CALL                             R2 2 0
        24 RETURN                           R0 0
 
-PROTO_17:
+PROTO_20:
         0 LOADK                            R4 K0 ["DataModelSession"]
         1 NAMECALL                         R2 R0 K1 ["IsA"]
         3 CALL                             R2 2 1
@@ -377,7 +516,7 @@ PROTO_17:
        33 CALL                             R2 2 0
        34 RETURN                           R0 0
 
-PROTO_18:
+PROTO_21:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 LOADB                            R0 0
@@ -418,7 +557,7 @@ PROTO_18:
        48 CALL                             R3 2 0
        49 RETURN                           R0 0
 
-PROTO_19:
+PROTO_22:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
@@ -427,7 +566,7 @@ PROTO_19:
         7 CALL                             R0 1 0
         8 RETURN                           R0 0
 
-PROTO_20:
+PROTO_23:
         0 LOADK                            R4 K0 ["DataModelSession"]
         1 NAMECALL                         R2 R0 K1 ["IsA"]
         3 CALL                             R2 2 1
@@ -440,7 +579,7 @@ PROTO_20:
        13 SETTABLEKS                       R2 R1 K6 ["sessionId"]
        15 RETURN                           R0 0
 
-PROTO_21:
+PROTO_24:
         0 LOADK                            R4 K0 ["DataModelSession"]
         1 NAMECALL                         R2 R0 K1 ["IsA"]
         3 CALL                             R2 2 1
@@ -472,7 +611,7 @@ PROTO_21:
        40 CALL                             R2 1 0
        41 RETURN                           R0 0
 
-PROTO_22:
+PROTO_25:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
@@ -481,7 +620,7 @@ PROTO_22:
         7 CALL                             R0 1 0
         8 RETURN                           R0 0
 
-PROTO_23:
+PROTO_26:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
@@ -491,7 +630,7 @@ PROTO_23:
         6 FORGLOOP                         R0 2 ; [-3]
         8 RETURN                           R0 0
 
-PROTO_24:
+PROTO_27:
         0 JUMPIF                           R0 ; [+1]
         1 RETURN                           R0 0
         2 NEWTABLE                         R1 0 0
@@ -581,7 +720,7 @@ PROTO_24:
       114 CAPTURE                          VAL R1
       115 RETURN                           R2 1
 
-PROTO_25:
+PROTO_28:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+2]
         2 GETUPVAL                         R0 0
@@ -593,7 +732,7 @@ PROTO_25:
         9 SETUPVAL                         R0 0
        10 RETURN                           R0 0
 
-PROTO_26:
+PROTO_29:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+2]
         2 GETUPVAL                         R0 0
@@ -607,7 +746,7 @@ PROTO_26:
        11 CALL                             R0 0 0
        12 RETURN                           R0 0
 
-PROTO_27:
+PROTO_30:
         0 GETTABLEKS                       R2 R0 K0 ["dataModel"]
         2 GETTABLEKS                       R3 R0 K1 ["plugin"]
         4 GETTABLEKS                       R4 R0 K2 ["networking"]
@@ -649,7 +788,7 @@ PROTO_27:
        46 CLOSEUPVALS                      R9
        47 RETURN                           R11 1
 
-PROTO_28:
+PROTO_31:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
         2 GETIMPORT                        R1 K2 [task.wait]
@@ -664,7 +803,7 @@ PROTO_28:
        14 JUMPBACK                         ; [-15]
        15 RETURN                           R0 0
 
-PROTO_29:
+PROTO_32:
         0 GETIMPORT                        R0 K2 [coroutine.status]
         2 GETUPVAL                         R1 0
         3 CALL                             R0 1 1
@@ -680,7 +819,7 @@ PROTO_29:
        17 CALL                             R0 1 0
        18 RETURN                           R0 0
 
-PROTO_30:
+PROTO_33:
         0 GETTABLEKS                       R2 R0 K0 ["conversationPersistence"]
         2 DUPTABLE                         R3 K3 [{"gameId", "placeId"}]
         3 GETTABLEKS                       R4 R1 K1 ["gameId"]
@@ -702,7 +841,7 @@ PROTO_30:
        26 CALL                             R5 2 0
        27 RETURN                           R0 0
 
-PROTO_31:
+PROTO_34:
         0 GETTABLEKS                       R1 R0 K0 ["scope"]
         2 GETUPVAL                         R3 0
         3 GETTABLEKS                       R2 R3 K1 ["Conversation"]
@@ -763,121 +902,59 @@ PROTO_31:
        75 CALL                             R1 2 0
        76 RETURN                           R0 0
 
-PROTO_32:
+PROTO_35:
         0 GETTABLEKS                       R1 R0 K0 ["scope"]
         2 GETUPVAL                         R3 0
         3 GETTABLEKS                       R2 R3 K1 ["Conversation"]
-        5 JUMPIFNOTEQ                      R1 R2 ; [+48]
+        5 JUMPIFNOTEQ                      R1 R2 ; [+22]
         7 GETTABLEKS                       R1 R0 K2 ["metadata"]
-        9 GETUPVAL                         R3 1
-       10 GETTABLEKS                       R4 R0 K3 ["conversation"]
-       12 GETTABLEKS                       R5 R1 K4 ["placeId"]
-       14 LOADK                            R7 K5 ["Assistant_Conversation_%*"]
-       15 MOVE                             R9 R5
-       16 NAMECALL                         R7 R7 K6 ["format"]
-       18 CALL                             R7 2 1
-       19 MOVE                             R6 R7
-       20 GETIMPORT                        R7 K8 [pcall]
-       22 NEWCLOSURE                       R8 P0
-       23 CAPTURE                          UPVAL U2
-       24 CAPTURE                          VAL R4
-       25 CAPTURE                          VAL R3
-       26 CAPTURE                          VAL R6
-       27 CALL                             R7 1 2
-       28 JUMPIF                           R7 ; [+12]
-       29 GETIMPORT                        R9 K10 [warn]
-       31 LOADK                            R11 K11 ["Failed to save conversation for key %*. Reason: '%*'"]
-       32 MOVE                             R13 R6
-       33 MOVE                             R14 R8
-       34 NAMECALL                         R11 R11 K6 ["format"]
-       36 CALL                             R11 3 1
-       37 MOVE                             R10 R11
-       38 CALL                             R9 1 0
-       39 LOADB                            R2 0
-       40 JUMP                             ; [+1]
-       41 LOADB                            R2 1
-       42 JUMPIFNOT                        R2 ; [+66]
-       43 GETUPVAL                         R4 3
-       44 GETTABLEKS                       R3 R4 K12 ["clearDirty"]
-       46 DUPTABLE                         R4 K13 [{"scope"}]
-       47 GETUPVAL                         R6 0
-       48 GETTABLEKS                       R5 R6 K1 ["Conversation"]
-       50 SETTABLEKS                       R5 R4 K0 ["scope"]
-       52 CALL                             R3 1 0
-       53 RETURN                           R0 0
-       54 GETTABLEKS                       R1 R0 K0 ["scope"]
-       56 GETUPVAL                         R3 0
-       57 GETTABLEKS                       R2 R3 K14 ["Thread"]
-       59 JUMPIFNOTEQ                      R1 R2 ; [+49]
-       61 GETUPVAL                         R2 1
-       62 GETTABLEKS                       R3 R0 K15 ["threadId"]
-       64 GETTABLEKS                       R4 R0 K16 ["messages"]
-       66 LOADK                            R6 K17 ["Assistant_ThreadMessages_%*"]
-       67 MOVE                             R8 R3
-       68 NAMECALL                         R6 R6 K6 ["format"]
-       70 CALL                             R6 2 1
-       71 MOVE                             R5 R6
-       72 GETIMPORT                        R6 K8 [pcall]
-       74 NEWCLOSURE                       R7 P1
-       75 CAPTURE                          UPVAL U2
-       76 CAPTURE                          VAL R4
-       77 CAPTURE                          VAL R2
-       78 CAPTURE                          VAL R5
-       79 CALL                             R6 1 2
-       80 JUMPIF                           R6 ; [+12]
-       81 GETIMPORT                        R8 K10 [warn]
-       83 LOADK                            R10 K18 ["Failed to save messages for key %*. Reason: '%*'"]
-       84 MOVE                             R12 R5
-       85 MOVE                             R13 R7
-       86 NAMECALL                         R10 R10 K6 ["format"]
-       88 CALL                             R10 3 1
-       89 MOVE                             R9 R10
-       90 CALL                             R8 1 0
-       91 LOADB                            R1 0
-       92 JUMP                             ; [+1]
-       93 LOADB                            R1 1
-       94 JUMPIFNOT                        R1 ; [+14]
-       95 GETUPVAL                         R3 3
-       96 GETTABLEKS                       R2 R3 K12 ["clearDirty"]
-       98 DUPTABLE                         R3 K19 [{"scope", "threadId"}]
-       99 GETUPVAL                         R5 0
-      100 GETTABLEKS                       R4 R5 K14 ["Thread"]
-      102 SETTABLEKS                       R4 R3 K0 ["scope"]
-      104 GETTABLEKS                       R4 R0 K15 ["threadId"]
-      106 SETTABLEKS                       R4 R3 K15 ["threadId"]
-      108 CALL                             R2 1 0
-      109 RETURN                           R0 0
+        9 GETUPVAL                         R2 1
+       10 GETUPVAL                         R3 2
+       11 GETTABLEKS                       R4 R0 K3 ["conversation"]
+       13 GETTABLEKS                       R5 R1 K4 ["placeId"]
+       15 CALL                             R2 3 1
+       16 JUMPIFNOT                        R2 ; [+40]
+       17 GETUPVAL                         R4 3
+       18 GETTABLEKS                       R3 R4 K5 ["clearDirty"]
+       20 DUPTABLE                         R4 K6 [{"scope"}]
+       21 GETUPVAL                         R6 0
+       22 GETTABLEKS                       R5 R6 K1 ["Conversation"]
+       24 SETTABLEKS                       R5 R4 K0 ["scope"]
+       26 CALL                             R3 1 0
+       27 RETURN                           R0 0
+       28 GETTABLEKS                       R1 R0 K0 ["scope"]
+       30 GETUPVAL                         R3 0
+       31 GETTABLEKS                       R2 R3 K7 ["Thread"]
+       33 JUMPIFNOTEQ                      R1 R2 ; [+23]
+       35 GETUPVAL                         R1 4
+       36 GETUPVAL                         R2 2
+       37 GETTABLEKS                       R3 R0 K8 ["threadId"]
+       39 GETTABLEKS                       R4 R0 K9 ["messages"]
+       41 CALL                             R1 3 1
+       42 JUMPIFNOT                        R1 ; [+14]
+       43 GETUPVAL                         R3 3
+       44 GETTABLEKS                       R2 R3 K5 ["clearDirty"]
+       46 DUPTABLE                         R3 K10 [{"scope", "threadId"}]
+       47 GETUPVAL                         R5 0
+       48 GETTABLEKS                       R4 R5 K7 ["Thread"]
+       50 SETTABLEKS                       R4 R3 K0 ["scope"]
+       52 GETTABLEKS                       R4 R0 K8 ["threadId"]
+       54 SETTABLEKS                       R4 R3 K8 ["threadId"]
+       56 CALL                             R2 1 0
+       57 RETURN                           R0 0
 
-PROTO_33:
+PROTO_36:
         0 GETTABLEKS                       R1 R0 K0 ["scope"]
         2 GETUPVAL                         R3 0
         3 GETTABLEKS                       R2 R3 K1 ["Thread"]
-        5 JUMPIFNOTEQ                      R1 R2 ; [+28]
+        5 JUMPIFNOTEQ                      R1 R2 ; [+6]
         7 GETUPVAL                         R1 1
-        8 GETTABLEKS                       R2 R0 K2 ["threadId"]
-       10 LOADK                            R4 K3 ["Assistant_ThreadMessages_%*"]
-       11 MOVE                             R6 R2
-       12 NAMECALL                         R4 R4 K4 ["format"]
-       14 CALL                             R4 2 1
-       15 MOVE                             R3 R4
-       16 GETIMPORT                        R4 K6 [pcall]
-       18 NEWCLOSURE                       R5 P0
-       19 CAPTURE                          VAL R1
-       20 CAPTURE                          VAL R3
-       21 CALL                             R4 1 2
-       22 JUMPIF                           R4 ; [+11]
-       23 GETIMPORT                        R6 K8 [warn]
-       25 LOADK                            R8 K9 ["Failed to delete thread for key %*. Reason: '%*'"]
-       26 MOVE                             R10 R3
-       27 MOVE                             R11 R5
-       28 NAMECALL                         R8 R8 K4 ["format"]
-       30 CALL                             R8 3 1
-       31 MOVE                             R7 R8
-       32 CALL                             R6 1 0
-       33 RETURN                           R0 0
-       34 RETURN                           R0 0
+        8 GETUPVAL                         R2 2
+        9 GETTABLEKS                       R3 R0 K2 ["threadId"]
+       11 CALL                             R1 2 0
+       12 RETURN                           R0 0
 
-PROTO_34:
+PROTO_37:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
@@ -906,7 +983,7 @@ PROTO_34:
        29 CALL                             R0 2 0
        30 RETURN                           R0 0
 
-PROTO_35:
+PROTO_38:
         0 GETTABLEKS                       R1 R0 K0 ["networking"]
         2 GETTABLEKS                       R2 R0 K1 ["environment"]
         4 DUPTABLE                         R3 K3 [{"sessionId"}]
@@ -921,7 +998,7 @@ PROTO_35:
        14 LOADNIL                          R7
        15 NAMECALL                         R8 R1 K5 ["IsGuest"]
        17 CALL                             R8 1 1
-       18 JUMPIFNOT                        R8 ; [+31]
+       18 JUMPIFNOT                        R8 ; [+33]
        19 GETTABLEKS                       R8 R2 K6 ["conversationPersistence"]
        21 GETTABLEKS                       R9 R8 K7 ["onLoadRequested"]
        23 NEWCLOSURE                       R10 P0
@@ -938,30 +1015,32 @@ PROTO_35:
        34 GETTABLEKS                       R9 R8 K8 ["onSaveReady"]
        36 NEWCLOSURE                       R10 P1
        37 CAPTURE                          UPVAL U1
-       38 CAPTURE                          VAL R2
-       39 CAPTURE                          UPVAL U7
+       38 CAPTURE                          UPVAL U7
+       39 CAPTURE                          VAL R2
        40 CAPTURE                          VAL R8
-       41 CALL                             R9 1 1
-       42 MOVE                             R6 R9
-       43 GETTABLEKS                       R9 R8 K9 ["onDeleteRequested"]
-       45 NEWCLOSURE                       R10 P2
-       46 CAPTURE                          UPVAL U1
-       47 CAPTURE                          VAL R2
-       48 CALL                             R9 1 1
-       49 MOVE                             R7 R9
-       50 GETTABLEKS                       R8 R1 K10 ["Destroying"]
-       52 NEWCLOSURE                       R10 P3
-       53 CAPTURE                          UPVAL U2
-       54 CAPTURE                          VAL R4
-       55 CAPTURE                          REF R5
-       56 CAPTURE                          REF R7
-       57 CAPTURE                          REF R6
-       58 NAMECALL                         R8 R8 K11 ["Once"]
-       60 CALL                             R8 2 0
-       61 CLOSEUPVALS                      R5
-       62 RETURN                           R0 0
+       41 CAPTURE                          UPVAL U8
+       42 CALL                             R9 1 1
+       43 MOVE                             R6 R9
+       44 GETTABLEKS                       R9 R8 K9 ["onDeleteRequested"]
+       46 NEWCLOSURE                       R10 P2
+       47 CAPTURE                          UPVAL U1
+       48 CAPTURE                          UPVAL U9
+       49 CAPTURE                          VAL R2
+       50 CALL                             R9 1 1
+       51 MOVE                             R7 R9
+       52 GETTABLEKS                       R8 R1 K10 ["Destroying"]
+       54 NEWCLOSURE                       R10 P3
+       55 CAPTURE                          UPVAL U2
+       56 CAPTURE                          VAL R4
+       57 CAPTURE                          REF R5
+       58 CAPTURE                          REF R7
+       59 CAPTURE                          REF R6
+       60 NAMECALL                         R8 R8 K11 ["Once"]
+       62 CALL                             R8 2 0
+       63 CLOSEUPVALS                      R5
+       64 RETURN                           R0 0
 
-PROTO_36:
+PROTO_39:
         0 NEWTABLE                         R0 0 0
         2 SETUPVAL                         R0 0
         3 NEWTABLE                         R0 0 0
@@ -992,51 +1071,72 @@ MAIN:
        34 GETTABLEKS                       R5 R6 K12 ["FIntAssistantAutoSaveInterval"]
        36 CALL                             R4 1 1
        37 GETTABLEKS                       R5 R1 K13 ["Serializer"]
-       39 GETTABLEKS                       R7 R1 K14 ["Constants"]
-       41 GETTABLEKS                       R6 R7 K15 ["SCOPE_TYPES"]
-       43 NEWTABLE                         R7 0 0
-       45 NEWTABLE                         R8 0 0
-       47 GETTABLEKS                       R9 R3 K16 ["new"]
-       49 CALL                             R9 0 1
-       50 DUPCLOSURE                       R10 K17 [PROTO_0]
-       51 DUPCLOSURE                       R11 K18 [PROTO_2]
-       52 CAPTURE                          VAL R5
-       53 DUPCLOSURE                       R12 K19 [PROTO_5]
-       54 CAPTURE                          VAL R5
-       55 CAPTURE                          VAL R6
-       56 DUPCLOSURE                       R13 K20 [PROTO_6]
-       57 DUPCLOSURE                       R14 K21 [PROTO_8]
-       58 CAPTURE                          VAL R5
-       59 DUPCLOSURE                       R15 K22 [PROTO_11]
-       60 CAPTURE                          VAL R5
-       61 CAPTURE                          VAL R6
-       62 DUPCLOSURE                       R16 K23 [PROTO_13]
-       63 DUPCLOSURE                       R17 K24 [PROTO_14]
-       64 NEWCLOSURE                       R18 P8
-       65 CAPTURE                          REF R7
-       66 CAPTURE                          REF R8
-       67 CAPTURE                          VAL R3
-       68 CAPTURE                          VAL R9
-       69 DUPCLOSURE                       R19 K25 [PROTO_30]
-       70 CAPTURE                          VAL R4
-       71 NEWCLOSURE                       R20 P10
-       72 CAPTURE                          VAL R18
+       39 GETTABLEKS                       R7 R1 K14 ["Utils"]
+       41 GETTABLEKS                       R6 R7 K15 ["Time"]
+       43 GETTABLEKS                       R8 R1 K16 ["Constants"]
+       45 GETTABLEKS                       R7 R8 K17 ["SCOPE_TYPES"]
+       47 GETTABLEKS                       R9 R1 K18 ["Types"]
+       49 GETTABLEKS                       R8 R9 K19 ["PersistenceOperation"]
+       51 NEWTABLE                         R9 0 0
+       53 NEWTABLE                         R10 0 0
+       55 GETTABLEKS                       R11 R3 K20 ["new"]
+       57 CALL                             R11 0 1
+       58 DUPCLOSURE                       R12 K21 [PROTO_0]
+       59 CAPTURE                          VAL R6
+       60 DUPCLOSURE                       R13 K22 [PROTO_1]
+       61 DUPCLOSURE                       R14 K23 [PROTO_3]
+       62 CAPTURE                          VAL R6
+       63 CAPTURE                          VAL R5
+       64 CAPTURE                          VAL R8
+       65 CAPTURE                          VAL R7
+       66 DUPCLOSURE                       R15 K24 [PROTO_7]
+       67 CAPTURE                          VAL R6
+       68 CAPTURE                          VAL R5
+       69 CAPTURE                          VAL R8
+       70 CAPTURE                          VAL R7
+       71 DUPCLOSURE                       R16 K25 [PROTO_8]
+       72 DUPCLOSURE                       R17 K26 [PROTO_10]
        73 CAPTURE                          VAL R6
-       74 CAPTURE                          REF R7
-       75 CAPTURE                          VAL R9
-       76 CAPTURE                          VAL R12
-       77 CAPTURE                          VAL R19
-       78 CAPTURE                          VAL R15
+       74 CAPTURE                          VAL R5
+       75 CAPTURE                          VAL R8
+       76 CAPTURE                          VAL R7
+       77 DUPCLOSURE                       R18 K27 [PROTO_14]
+       78 CAPTURE                          VAL R6
        79 CAPTURE                          VAL R5
-       80 NEWCLOSURE                       R21 P11
-       81 CAPTURE                          REF R7
-       82 CAPTURE                          REF R8
-       83 DUPTABLE                         R22 K28 [{"trackSessions", "test"}]
-       84 SETTABLEKS                       R20 R22 K26 ["trackSessions"]
-       86 DUPTABLE                         R23 K32 [{"saveConversation", "saveMessages", "clear"}]
-       87 SETTABLEKS                       R11 R23 K29 ["saveConversation"]
-       89 SETTABLEKS                       R14 R23 K30 ["saveMessages"]
-       91 SETTABLEKS                       R21 R23 K31 ["clear"]
-       93 SETTABLEKS                       R23 R22 K27 ["test"]
-       95 CLOSEUPVALS                      R7
-       96 RETURN                           R22 1
+       80 CAPTURE                          VAL R8
+       81 CAPTURE                          VAL R7
+       82 DUPCLOSURE                       R19 K28 [PROTO_16]
+       83 CAPTURE                          VAL R6
+       84 CAPTURE                          VAL R8
+       85 CAPTURE                          VAL R7
+       86 DUPCLOSURE                       R20 K29 [PROTO_17]
+       87 NEWCLOSURE                       R21 P9
+       88 CAPTURE                          REF R9
+       89 CAPTURE                          REF R10
+       90 CAPTURE                          VAL R3
+       91 CAPTURE                          VAL R11
+       92 DUPCLOSURE                       R22 K30 [PROTO_33]
+       93 CAPTURE                          VAL R4
+       94 NEWCLOSURE                       R23 P11
+       95 CAPTURE                          VAL R21
+       96 CAPTURE                          VAL R7
+       97 CAPTURE                          REF R9
+       98 CAPTURE                          VAL R11
+       99 CAPTURE                          VAL R15
+      100 CAPTURE                          VAL R22
+      101 CAPTURE                          VAL R18
+      102 CAPTURE                          VAL R14
+      103 CAPTURE                          VAL R17
+      104 CAPTURE                          VAL R19
+      105 NEWCLOSURE                       R24 P12
+      106 CAPTURE                          REF R9
+      107 CAPTURE                          REF R10
+      108 DUPTABLE                         R25 K33 [{"trackSessions", "test"}]
+      109 SETTABLEKS                       R23 R25 K31 ["trackSessions"]
+      111 DUPTABLE                         R26 K37 [{"saveConversation", "saveMessages", "clear"}]
+      112 SETTABLEKS                       R14 R26 K34 ["saveConversation"]
+      114 SETTABLEKS                       R17 R26 K35 ["saveMessages"]
+      116 SETTABLEKS                       R24 R26 K36 ["clear"]
+      118 SETTABLEKS                       R26 R25 K32 ["test"]
+      120 CLOSEUPVALS                      R9
+      121 RETURN                           R25 1

@@ -346,14 +346,19 @@ PROTO_5:
 PROTO_6:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["publishInProgress"]
-        3 JUMPIFNOTEQKS                    R0 K1 ["None"] ; [+10]
+        3 JUMPIFNOTEQKS                    R0 K1 ["None"] ; [+18]
         5 GETUPVAL                         R1 1
         6 GETTABLEKS                       R0 R1 K2 ["pageNumber"]
-        8 JUMPIFNOTEQKN                    R0 K3 [1] ; [+5]
-       10 GETUPVAL                         R1 2
-       11 GETTABLEKS                       R0 R1 K4 ["refresh"]
-       13 CALL                             R0 0 0
-       14 RETURN                           R0 0
+        8 JUMPIFNOTEQKN                    R0 K3 [1] ; [+13]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R0 R1 K4 ["placeId"]
+       13 GETUPVAL                         R2 0
+       14 GETTABLEKS                       R1 R2 K5 ["sessionPlaceId"]
+       16 JUMPIFNOTEQ                      R0 R1 ; [+5]
+       18 GETUPVAL                         R1 2
+       19 GETTABLEKS                       R0 R1 K6 ["refresh"]
+       21 CALL                             R0 0 0
+       22 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -407,20 +412,22 @@ PROTO_7:
        72 CALL                             R12 0 1
        73 SETTABLEKS                       R12 R11 K7 ["LayoutOrder"]
        75 CALL                             R9 2 1
-       76 JUMP                             ; [+14]
+       76 JUMP                             ; [+18]
        77 GETUPVAL                         R10 1
        78 GETTABLEKS                       R9 R10 K4 ["createElement"]
        80 GETUPVAL                         R10 6
-       81 DUPTABLE                         R11 K22 [{"page", "LayoutOrder"}]
-       82 GETTABLEKS                       R12 R4 K21 ["page"]
-       84 SETTABLEKS                       R12 R11 K21 ["page"]
-       86 MOVE                             R12 R1
-       87 CALL                             R12 0 1
-       88 SETTABLEKS                       R12 R11 K7 ["LayoutOrder"]
-       90 CALL                             R9 2 1
-       91 SETTABLEKS                       R9 R8 K10 ["Page"]
-       93 CALL                             R5 3 -1
-       94 RETURN                           R5 -1
+       81 DUPTABLE                         R11 K23 [{"pageNumber", "page", "LayoutOrder"}]
+       82 GETTABLEKS                       R12 R4 K21 ["pageNumber"]
+       84 SETTABLEKS                       R12 R11 K21 ["pageNumber"]
+       86 GETTABLEKS                       R12 R4 K22 ["page"]
+       88 SETTABLEKS                       R12 R11 K22 ["page"]
+       90 MOVE                             R12 R1
+       91 CALL                             R12 0 1
+       92 SETTABLEKS                       R12 R11 K7 ["LayoutOrder"]
+       94 CALL                             R9 2 1
+       95 SETTABLEKS                       R9 R8 K10 ["Page"]
+       97 CALL                             R5 3 -1
+       98 RETURN                           R5 -1
 
 PROTO_8:
         0 GETUPVAL                         R1 0

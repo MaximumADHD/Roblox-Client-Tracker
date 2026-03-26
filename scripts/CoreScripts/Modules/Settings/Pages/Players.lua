@@ -64,6 +64,7 @@ local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 local FFlagMenuButtonsMountWithIEM = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsMountWithIEM)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
+local FFlagConnectionsToFriendsRename = SharedFlags.FFlagConnectionsToFriendsRename
 
 local UserProfileStore = UserProfiles.Stores.UserProfileStore
 
@@ -110,10 +111,6 @@ while not localPlayer do
 end
 
 ------------ FAST FLAGS -------------------
-local success, result = pcall(function()
-	return settings():GetFFlag("UseNotificationsLocalization")
-end)
-local FFlagUseNotificationsLocalization = success and result
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagDefaultFriendingLabelTextNonEmpty =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagDefaultFriendingLabelTextNonEmpty)
@@ -218,7 +215,9 @@ local function Initialize()
 			friendLabel.TextColor3 = Color3.new(1, 1, 1)
 			friendLabel.SelectionImageObject = fakeSelection
 			if status == Enum.FriendStatus.Friend then
-				friendLabel.Text = LocalizationStrings[localeId]:Format(Constants.ConnectionLocalizedKey)
+				friendLabel.Text = if FFlagConnectionsToFriendsRename
+					then LocalizationStrings[localeId]:Format(Constants.FriendLocalizedKey)
+					else LocalizationStrings[localeId]:Format(Constants.ConnectionLocalizedKey)
 			else
 				friendLabel.Text = "Request Sent"
 			end
@@ -232,7 +231,9 @@ local function Initialize()
 					friendLabel.ImageTransparency = 1
 					friendLabelText.Text = ""
 					if GetFFlagDefaultFriendingLabelTextNonEmpty() then
-						friendLabelText.Text = LocalizationStrings[localeId]:Format(Constants.AddConnectionLocalizedKey)
+						friendLabelText.Text = if FFlagConnectionsToFriendsRename
+							then LocalizationStrings[localeId]:Format(Constants.AddFriendLocalizedKey)
+							else LocalizationStrings[localeId]:Format(Constants.AddConnectionLocalizedKey)
 					end
 					if localPlayer and player then
 						AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
@@ -251,7 +252,9 @@ local function Initialize()
 
 			friendLabel, friendLabelText = utility:MakeStyledButton(
 				"FriendStatus",
-				LocalizationStrings[localeId]:Format(Constants.AddConnectionLocalizedKey),
+				if FFlagConnectionsToFriendsRename
+					then LocalizationStrings[localeId]:Format(Constants.AddFriendLocalizedKey)
+					else LocalizationStrings[localeId]:Format(Constants.AddConnectionLocalizedKey),
 				UDim2.new(0, 182, 0, Theme.ButtonHeight),
 				addFriendFunc
 			)
@@ -795,8 +798,8 @@ local function Initialize()
 			Constants.AnalyticsTargetName,
 			Constants.AnalyticsResumeGameName,
 			Constants.AnalyticsMenuActionName,
-			{ 
-				source = Constants.AnalyticsResumeButtonSource, 
+			{
+				source = Constants.AnalyticsResumeButtonSource,
 				playsessionid = this.playSessionId ,
 				universeid = tostring(game.GameId) ,
 			}
@@ -820,9 +823,9 @@ local function Initialize()
 		local newMuted = VoiceChatServiceManager.localMuted
 		local image
 		if newMuted == nil then
-			image = PlayerMuteStatusIcons.Loading 
+			image = PlayerMuteStatusIcons.Loading
 		elseif newMuted then
-			image = PlayerMuteStatusIcons.MicOff 
+			image = PlayerMuteStatusIcons.MicOff
 		elseif VoiceChatServiceManager.isTalking then
 			local level = math.random()
 			local roundedLevel = 20 * math.floor(0.5 + 5 * level)
@@ -911,19 +914,6 @@ local function Initialize()
 			buttonsContainer.Size = UDim2.new(1, 0, 0, 0)
 		end
 	end)
-
-	if FFlagUseNotificationsLocalization then
-		local function ApplyLocalizeTextSettingsToLabel(label)
-			label.AnchorPoint = Vector2.new(0.5, 0.5)
-			label.Position = UDim2.new(0.5, 0, 0.5, -3)
-			label.Size = UDim2.new(0.75, 0, 0.5, 0)
-		end
-		if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
-			ApplyLocalizeTextSettingsToLabel(leaveLabel)
-			ApplyLocalizeTextSettingsToLabel(resetLabel)
-			ApplyLocalizeTextSettingsToLabel(resetLabel)
-		end
-	end
 
 	local function reportAbuseButtonCreate(playerLabel, player)
 		local rightSideButtons = playerLabel:FindFirstChild("RightSideButtons")
@@ -1083,7 +1073,7 @@ local function Initialize()
 
 		textLabel.Font = Theme.font(Enum.Font.SourceSansSemibold, "Semibold")
 		textLabel.AutoLocalize = false
-		textLabel.Text = LocalizationStrings[localeId]:Format(Constants.InviteConnectionsLocalizedKey)
+		textLabel.Text = LocalizationStrings[localeId]:Format(if FFlagConnectionsToFriendsRename then Constants.InviteFriendsLocalizedKey else Constants.InviteConnectionsLocalizedKey)
 
 		icon.AnchorPoint = Vector2.new(0, 0.5)
 		icon.Position = UDim2.new(0, 18, 0.5, 0)
@@ -1832,7 +1822,7 @@ local function Initialize()
 		muteAllButton.Icon.Image =
 			VoiceChatServiceManager:GetIcon(muteAllState and "MuteAll" or "UnmuteAll", "Misc")
 	end
-	
+
 
 	local function destroyAllUserMuteButtons()
 		local players = PlayersService:GetPlayers()
@@ -2385,7 +2375,7 @@ local function Initialize()
 			inspectButton:Destroy()
 		end
 
-		if GetFFlagDestroyPlayerCardOnLeave() then 
+		if GetFFlagDestroyPlayerCardOnLeave() then
 			existingPlayerLabels[player.Name] = nil
 			playerLabel:Destroy()
 		end

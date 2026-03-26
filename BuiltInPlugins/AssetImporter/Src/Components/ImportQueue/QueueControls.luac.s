@@ -18,34 +18,21 @@ PROTO_2:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["Uploading"]
-        5 JUMPIFNOT                        R1 ; [+12]
-        6 GETTABLEKS                       R1 R0 K2 ["Analytics"]
-        8 LOADK                            R3 K3 ["ImportQueueHalted"]
-        9 NAMECALL                         R1 R1 K4 ["report"]
-       11 CALL                             R1 2 0
-       12 GETTABLEKS                       R1 R0 K5 ["UploadController"]
-       14 NAMECALL                         R1 R1 K6 ["cancelUpload"]
-       16 CALL                             R1 1 0
-       17 RETURN                           R0 0
-       18 GETTABLEKS                       R1 R0 K7 ["Parsing"]
-       20 JUMPIFNOT                        R1 ; [+12]
-       21 GETTABLEKS                       R1 R0 K2 ["Analytics"]
-       23 LOADK                            R3 K8 ["ImportQueueParseHalted"]
-       24 NAMECALL                         R1 R1 K4 ["report"]
-       26 CALL                             R1 2 0
-       27 GETTABLEKS                       R1 R0 K9 ["QueueController"]
-       29 NAMECALL                         R1 R1 K10 ["stopImportQueueParse"]
-       31 CALL                             R1 1 0
-       32 RETURN                           R0 0
-       33 GETTABLEKS                       R1 R0 K2 ["Analytics"]
-       35 LOADK                            R3 K11 ["ImportQueueStarted"]
-       36 GETTABLEKS                       R4 R0 K12 ["ActiveSessionCount"]
-       38 NAMECALL                         R1 R1 K4 ["report"]
-       40 CALL                             R1 3 0
-       41 GETTABLEKS                       R1 R0 K5 ["UploadController"]
-       43 NAMECALL                         R1 R1 K13 ["uploadQueue"]
-       45 CALL                             R1 1 0
-       46 RETURN                           R0 0
+        5 JUMPIFNOT                        R1 ; [+6]
+        6 GETTABLEKS                       R1 R0 K2 ["UploadController"]
+        8 NAMECALL                         R1 R1 K3 ["cancelUpload"]
+       10 CALL                             R1 1 0
+       11 RETURN                           R0 0
+       12 GETTABLEKS                       R1 R0 K4 ["Parsing"]
+       14 JUMPIFNOT                        R1 ; [+6]
+       15 GETTABLEKS                       R1 R0 K5 ["QueueController"]
+       17 NAMECALL                         R1 R1 K6 ["stopImportQueueParse"]
+       19 CALL                             R1 1 0
+       20 RETURN                           R0 0
+       21 GETTABLEKS                       R1 R0 K2 ["UploadController"]
+       23 NAMECALL                         R1 R1 K7 ["uploadQueue"]
+       25 CALL                             R1 1 0
+       26 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R3 0
@@ -336,80 +323,78 @@ MAIN:
        28 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
        30 GETTABLEKS                       R5 R4 K11 ["withContext"]
        32 GETTABLEKS                       R6 R4 K12 ["Localization"]
-       34 GETTABLEKS                       R7 R4 K13 ["Analytics"]
-       36 GETTABLEKS                       R9 R3 K14 ["Style"]
-       38 GETTABLEKS                       R8 R9 K15 ["Stylizer"]
-       40 GETTABLEKS                       R9 R3 K16 ["Util"]
-       42 GETTABLEKS                       R10 R9 K17 ["StyleModifier"]
-       44 GETTABLEKS                       R11 R3 K18 ["UI"]
-       46 GETTABLEKS                       R12 R11 K19 ["Pane"]
-       48 GETTABLEKS                       R13 R11 K20 ["SearchBar"]
-       50 GETTABLEKS                       R14 R11 K21 ["Button"]
-       52 GETTABLEKS                       R15 R11 K22 ["IconButton"]
-       54 GETTABLEKS                       R16 R11 K23 ["Tooltip"]
-       56 GETIMPORT                        R17 K5 [require]
-       58 GETTABLEKS                       R20 R0 K24 ["Src"]
-       60 GETTABLEKS                       R19 R20 K25 ["Controllers"]
-       62 GETTABLEKS                       R18 R19 K26 ["FileController"]
-       64 CALL                             R17 1 1
-       65 GETIMPORT                        R18 K5 [require]
-       67 GETTABLEKS                       R21 R0 K24 ["Src"]
-       69 GETTABLEKS                       R20 R21 K25 ["Controllers"]
-       71 GETTABLEKS                       R19 R20 K27 ["QueueController"]
-       73 CALL                             R18 1 1
-       74 GETIMPORT                        R19 K5 [require]
-       76 GETTABLEKS                       R22 R0 K24 ["Src"]
-       78 GETTABLEKS                       R21 R22 K25 ["Controllers"]
-       80 GETTABLEKS                       R20 R21 K28 ["UploadController"]
-       82 CALL                             R19 1 1
-       83 GETIMPORT                        R20 K5 [require]
-       85 GETTABLEKS                       R23 R0 K24 ["Src"]
-       87 GETTABLEKS                       R22 R23 K29 ["Actions"]
-       89 GETTABLEKS                       R21 R22 K30 ["SetSearchTerm"]
-       91 CALL                             R20 1 1
-       92 GETIMPORT                        R21 K5 [require]
-       94 GETTABLEKS                       R24 R0 K24 ["Src"]
-       96 GETTABLEKS                       R23 R24 K29 ["Actions"]
-       98 GETTABLEKS                       R22 R23 K31 ["SetShowWarning"]
-      100 CALL                             R21 1 1
-      101 GETTABLEKS                       R22 R1 K32 ["PureComponent"]
-      103 LOADK                            R24 K33 ["QueueControls"]
-      104 NAMECALL                         R22 R22 K34 ["extend"]
-      106 CALL                             R22 2 1
-      107 DUPCLOSURE                       R23 K35 [PROTO_4]
-      108 SETTABLEKS                       R23 R22 K36 ["init"]
-      110 DUPCLOSURE                       R23 K37 [PROTO_5]
-      111 CAPTURE                          VAL R1
-      112 CAPTURE                          VAL R15
-      113 SETTABLEKS                       R23 R22 K38 ["_createIconButton"]
-      115 DUPCLOSURE                       R23 K39 [PROTO_6]
-      116 CAPTURE                          VAL R1
-      117 CAPTURE                          VAL R12
-      118 CAPTURE                          VAL R13
-      119 CAPTURE                          VAL R14
-      120 CAPTURE                          VAL R10
-      121 CAPTURE                          VAL R16
-      122 SETTABLEKS                       R23 R22 K40 ["render"]
-      124 MOVE                             R23 R5
-      125 DUPTABLE                         R24 K41 [{"FileController", "QueueController", "UploadController", "Analytics", "Localization", "Stylizer"}]
-      126 SETTABLEKS                       R17 R24 K26 ["FileController"]
-      128 SETTABLEKS                       R18 R24 K27 ["QueueController"]
-      130 SETTABLEKS                       R19 R24 K28 ["UploadController"]
-      132 SETTABLEKS                       R7 R24 K13 ["Analytics"]
-      134 SETTABLEKS                       R6 R24 K12 ["Localization"]
-      136 SETTABLEKS                       R8 R24 K15 ["Stylizer"]
-      138 CALL                             R23 1 1
-      139 MOVE                             R24 R22
-      140 CALL                             R23 1 1
-      141 MOVE                             R22 R23
-      142 DUPCLOSURE                       R23 K42 [PROTO_7]
-      143 DUPCLOSURE                       R24 K43 [PROTO_10]
-      144 CAPTURE                          VAL R20
-      145 CAPTURE                          VAL R21
-      146 GETTABLEKS                       R25 R2 K44 ["connect"]
-      148 MOVE                             R26 R23
-      149 MOVE                             R27 R24
-      150 CALL                             R25 2 1
-      151 MOVE                             R26 R22
-      152 CALL                             R25 1 -1
-      153 RETURN                           R25 -1
+       34 GETTABLEKS                       R8 R3 K13 ["Style"]
+       36 GETTABLEKS                       R7 R8 K14 ["Stylizer"]
+       38 GETTABLEKS                       R8 R3 K15 ["Util"]
+       40 GETTABLEKS                       R9 R8 K16 ["StyleModifier"]
+       42 GETTABLEKS                       R10 R3 K17 ["UI"]
+       44 GETTABLEKS                       R11 R10 K18 ["Pane"]
+       46 GETTABLEKS                       R12 R10 K19 ["SearchBar"]
+       48 GETTABLEKS                       R13 R10 K20 ["Button"]
+       50 GETTABLEKS                       R14 R10 K21 ["IconButton"]
+       52 GETTABLEKS                       R15 R10 K22 ["Tooltip"]
+       54 GETIMPORT                        R16 K5 [require]
+       56 GETTABLEKS                       R19 R0 K23 ["Src"]
+       58 GETTABLEKS                       R18 R19 K24 ["Controllers"]
+       60 GETTABLEKS                       R17 R18 K25 ["FileController"]
+       62 CALL                             R16 1 1
+       63 GETIMPORT                        R17 K5 [require]
+       65 GETTABLEKS                       R20 R0 K23 ["Src"]
+       67 GETTABLEKS                       R19 R20 K24 ["Controllers"]
+       69 GETTABLEKS                       R18 R19 K26 ["QueueController"]
+       71 CALL                             R17 1 1
+       72 GETIMPORT                        R18 K5 [require]
+       74 GETTABLEKS                       R21 R0 K23 ["Src"]
+       76 GETTABLEKS                       R20 R21 K24 ["Controllers"]
+       78 GETTABLEKS                       R19 R20 K27 ["UploadController"]
+       80 CALL                             R18 1 1
+       81 GETIMPORT                        R19 K5 [require]
+       83 GETTABLEKS                       R22 R0 K23 ["Src"]
+       85 GETTABLEKS                       R21 R22 K28 ["Actions"]
+       87 GETTABLEKS                       R20 R21 K29 ["SetSearchTerm"]
+       89 CALL                             R19 1 1
+       90 GETIMPORT                        R20 K5 [require]
+       92 GETTABLEKS                       R23 R0 K23 ["Src"]
+       94 GETTABLEKS                       R22 R23 K28 ["Actions"]
+       96 GETTABLEKS                       R21 R22 K30 ["SetShowWarning"]
+       98 CALL                             R20 1 1
+       99 GETTABLEKS                       R21 R1 K31 ["PureComponent"]
+      101 LOADK                            R23 K32 ["QueueControls"]
+      102 NAMECALL                         R21 R21 K33 ["extend"]
+      104 CALL                             R21 2 1
+      105 DUPCLOSURE                       R22 K34 [PROTO_4]
+      106 SETTABLEKS                       R22 R21 K35 ["init"]
+      108 DUPCLOSURE                       R22 K36 [PROTO_5]
+      109 CAPTURE                          VAL R1
+      110 CAPTURE                          VAL R14
+      111 SETTABLEKS                       R22 R21 K37 ["_createIconButton"]
+      113 DUPCLOSURE                       R22 K38 [PROTO_6]
+      114 CAPTURE                          VAL R1
+      115 CAPTURE                          VAL R11
+      116 CAPTURE                          VAL R12
+      117 CAPTURE                          VAL R13
+      118 CAPTURE                          VAL R9
+      119 CAPTURE                          VAL R15
+      120 SETTABLEKS                       R22 R21 K39 ["render"]
+      122 MOVE                             R22 R5
+      123 DUPTABLE                         R23 K40 [{"FileController", "QueueController", "UploadController", "Localization", "Stylizer"}]
+      124 SETTABLEKS                       R16 R23 K25 ["FileController"]
+      126 SETTABLEKS                       R17 R23 K26 ["QueueController"]
+      128 SETTABLEKS                       R18 R23 K27 ["UploadController"]
+      130 SETTABLEKS                       R6 R23 K12 ["Localization"]
+      132 SETTABLEKS                       R7 R23 K14 ["Stylizer"]
+      134 CALL                             R22 1 1
+      135 MOVE                             R23 R21
+      136 CALL                             R22 1 1
+      137 MOVE                             R21 R22
+      138 DUPCLOSURE                       R22 K41 [PROTO_7]
+      139 DUPCLOSURE                       R23 K42 [PROTO_10]
+      140 CAPTURE                          VAL R19
+      141 CAPTURE                          VAL R20
+      142 GETTABLEKS                       R24 R2 K43 ["connect"]
+      144 MOVE                             R25 R22
+      145 MOVE                             R26 R23
+      146 CALL                             R24 2 1
+      147 MOVE                             R25 R21
+      148 CALL                             R24 1 -1
+      149 RETURN                           R24 -1

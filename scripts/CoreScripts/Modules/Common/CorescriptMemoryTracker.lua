@@ -1,6 +1,7 @@
 -- Flags
 local FIntCorescriptMemoryPeriodSeconds: number = game:DefineFastInt("CorescriptMemoryPeriodSeconds", 30)
-local FFlagEnableCorescriptMemoryTracker = game:DefineFastFlag("EnableCorescriptMemoryTracker", false)
+local FFlagEnableCorescriptMemoryTracker = require(script.Parent.Flags.FFlagEnableCorescriptMemoryTracker)
+local FFlagEnableCorescriptAvgMemoryTracking = game:DefineFastFlag("EnableCorescriptAvgMemoryTracking", false)
 
 -- Deps
 local StatsService = game:GetService("Stats")
@@ -59,12 +60,23 @@ local SessionMaxMemoryStatConfig = {
 	links = DOCS_LINK,
 }
 
+local SessionAvgMemoryStatConfig = {
+	eventName = "CorescriptSessionAvgMemory",
+	backends = { "RobloxTelemetryStat" },
+	lastUpdated = { 2026, 03, 04 },
+	throttlingPercentage = 10000,
+	description = "Average memory consumption for corescript in the session, in MB",
+	links = DOCS_LINK,
+}
+
 local CorescriptMemoryTracker = {}
 CorescriptMemoryTracker.__index = CorescriptMemoryTracker
 type CorescriptMemoryTracker = typeof(setmetatable(
 	{} :: {
         memoryMb: number,
         maxMemoryMb: number,
+        avgMemoryMb: number,
+        sampleCount: number,
         status: number,
         loggingTask: thread?,
         context: string?,
@@ -76,6 +88,8 @@ function CorescriptMemoryTracker.new(context: string?): CorescriptMemoryTracker
     local self = setmetatable({
         memoryMb = 0,
         maxMemoryMb = 0,
+        avgMemoryMb = 0,
+        sampleCount = 0,
         context = context,
         status = Status.PAUSED,
         loggingTask = nil,
@@ -90,6 +104,10 @@ function CorescriptMemoryTracker.start(self: CorescriptMemoryTracker)
         local memory = GetCorescriptMemory()
         if memory then 
             self.maxMemoryMb = math.max(memory, self.maxMemoryMb)
+            if FFlagEnableCorescriptAvgMemoryTracking then
+                self.sampleCount = self.sampleCount + 1
+                self.avgMemoryMb = self.avgMemoryMb + (memory - self.avgMemoryMb) / self.sampleCount
+            end
             self:report(self.context, memory)
         end 
         if self.status == Status.ACTIVE then
@@ -121,6 +139,9 @@ function CorescriptMemoryTracker.destroy(self: CorescriptMemoryTracker)
     if self.maxMemoryMb > 0 then
         self:reportMaxMemoryUsed(self.context, self.maxMemoryMb)
     end
+    if FFlagEnableCorescriptAvgMemoryTracking and self.sampleCount > 0 then
+        self:reportAvgMemoryUsed(self.context, self.avgMemoryMb)
+    end
 end
 
 function CorescriptMemoryTracker.report(self: CorescriptMemoryTracker, context, memory)
@@ -145,15 +166,27 @@ function CorescriptMemoryTracker.reportMaxMemoryUsed(self: CorescriptMemoryTrack
     )
 end
 
+function CorescriptMemoryTracker.reportAvgMemoryUsed(self: CorescriptMemoryTracker, context, avgMemoryInSession)
+    TelemetryService:LogStat(
+        SessionAvgMemoryStatConfig,
+        { customFields = {
+            deviceTier = DeviceTier.GetDeviceMemoryTier(),
+            context = context,
+        } },
+        avgMemoryInSession
+    )
+end
+
 local corescriptMemoryTrackerInstance: CorescriptMemoryTracker? = nil
 
 return function(context : string?): CorescriptMemoryTracker?
-  if not FFlagEnableCorescriptMemoryTracker then
-    return nil
-  end 
-  if not corescriptMemoryTrackerInstance then
-     corescriptMemoryTrackerInstance = CorescriptMemoryTracker.new(context)
-  end
-
-  return corescriptMemoryTrackerInstance
+    if not FFlagEnableCorescriptMemoryTracker then
+        return nil
+    end 
+    if not corescriptMemoryTrackerInstance then
+        corescriptMemoryTrackerInstance = CorescriptMemoryTracker.new(context)
+    end
+    
+    return corescriptMemoryTrackerInstance
 end
+

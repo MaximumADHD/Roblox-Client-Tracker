@@ -10,6 +10,10 @@ local SetEquippedAssets = require(InspectAndBuyFolder.Actions.SetEquippedAssets)
 local Constants = require(InspectAndBuyFolder.Constants)
 local GetAvatarPreview = require(InspectAndBuyFolder.Thunks.GetAvatarPreview)
 
+local CorePackages = game:GetService("CorePackages")
+local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
+local FFlagAXInspectAndBuyMakeupSupport = AvatarExperienceFlags.FFlagAXInspectAndBuyMakeupSupport
+
 local requiredServices = {}
 
 local function getAssetIds(humanoidDescription)
@@ -57,6 +61,14 @@ local function getAssetIds(humanoidDescription)
 	for _, emote in emotes do
 		for _, assetId in emote do
 			assets[#assets + 1] = AssetInfo.fromHumanoidDescription(assetId)
+		end
+	end
+
+	if FFlagAXInspectAndBuyMakeupSupport then
+		for _, child in humanoidDescription:GetChildren() do
+			if child:IsA("MakeupDescription") and child.AssetId > 0 then
+				assets[#assets + 1] = AssetInfo.fromHumanoidDescription(child.AssetId)
+			end
 		end
 	end
 

@@ -5,7 +5,7 @@ PROTO_0:
         3 JUMPIFLT                         R0 R1 ; [+6]
         5 GETUPVAL                         R1 0
         6 LENGTH                           R0 R1
-        7 LOADN                            R1 15
+        7 LOADN                            R1 50
         8 JUMPIFNOTLT                      R1 R0 ; [+3]
        10 LOADB                            R0 1
        11 RETURN                           R0 1

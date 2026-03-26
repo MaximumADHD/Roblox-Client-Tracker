@@ -436,34 +436,78 @@ PROTO_16:
 
 PROTO_17:
         0 GETUPVAL                         R2 0
+        1 MOVE                             R4 R1
+        2 NAMECALL                         R2 R2 K0 ["isStudioDefault"]
+        4 CALL                             R2 2 1
+        5 JUMPIFNOT                        R2 ; [+3]
+        6 GETUPVAL                         R2 1
+        7 SETTABLEN                        R1 R2 1
+        8 RETURN                           R0 0
+        9 GETUPVAL                         R2 0
+       10 MOVE                             R4 R1
+       11 NAMECALL                         R2 R2 K1 ["isLastImport"]
+       13 CALL                             R2 2 1
+       14 JUMPIFNOT                        R2 ; [+3]
+       15 GETUPVAL                         R2 1
+       16 SETTABLEN                        R1 R2 2
+       17 RETURN                           R0 0
+       18 GETUPVAL                         R2 2
+       19 ADDK                             R2 R2 K2 [1]
+       20 SETUPVAL                         R2 2
+       21 GETUPVAL                         R2 1
+       22 GETUPVAL                         R3 2
+       23 SETTABLE                         R1 R2 R3
+       24 RETURN                           R0 0
+
+PROTO_18:
+        0 GETUPVAL                         R2 0
         1 JUMPIFEQ                         R0 R2 ; [+2]
         3 LOADB                            R1 0 +1
         4 LOADB                            R1 1
         5 RETURN                           R1 1
 
-PROTO_18:
-        0 GETUPVAL                         R3 0
-        1 NAMECALL                         R4 R0 K0 ["getAllPresets"]
-        3 CALL                             R4 1 -1
-        4 CALL                             R3 -1 1
-        5 JUMPIFNOT                        R2 ; [+3]
-        6 GETTABLEKS                       R4 R2 K1 ["settingsChanged"]
-        8 JUMP                             ; [+1]
-        9 LOADB                            R4 0
-       10 GETUPVAL                         R5 1
-       11 MOVE                             R6 R3
-       12 NEWCLOSURE                       R7 P0
-       13 CAPTURE                          VAL R1
-       14 CALL                             R5 2 1
-       15 JUMPIFNOT                        R5 ; [+5]
-       16 JUMPIFNOT                        R4 ; [+4]
-       17 MOVE                             R7 R1
-       18 LOADK                            R8 K2 ["*"]
-       19 CONCAT                           R6 R7 R8
-       20 SETTABLE                         R6 R3 R5
-       21 RETURN                           R3 1
-
 PROTO_19:
+        0 LOADNIL                          R3
+        1 GETUPVAL                         R4 0
+        2 CALL                             R4 0 1
+        3 JUMPIFNOT                        R4 ; [+16]
+        4 LOADN                            R4 2
+        5 NEWTABLE                         R3 0 0
+        7 GETUPVAL                         R6 1
+        8 GETTABLEKS                       R5 R6 K0 ["forEach"]
+       10 NAMECALL                         R6 R0 K1 ["getAllPresets"]
+       12 CALL                             R6 1 1
+       13 NEWCLOSURE                       R7 P0
+       14 CAPTURE                          VAL R0
+       15 CAPTURE                          REF R3
+       16 CAPTURE                          REF R4
+       17 CALL                             R5 2 0
+       18 CLOSEUPVALS                      R4
+       19 JUMP                             ; [+6]
+       20 GETUPVAL                         R4 2
+       21 NAMECALL                         R5 R0 K1 ["getAllPresets"]
+       23 CALL                             R5 1 -1
+       24 CALL                             R4 -1 1
+       25 MOVE                             R3 R4
+       26 JUMPIFNOT                        R2 ; [+3]
+       27 GETTABLEKS                       R4 R2 K2 ["settingsChanged"]
+       29 JUMP                             ; [+1]
+       30 LOADB                            R4 0
+       31 GETUPVAL                         R5 3
+       32 MOVE                             R6 R3
+       33 NEWCLOSURE                       R7 P1
+       34 CAPTURE                          VAL R1
+       35 CALL                             R5 2 1
+       36 JUMPIFNOT                        R5 ; [+5]
+       37 JUMPIFNOT                        R4 ; [+4]
+       38 MOVE                             R7 R1
+       39 LOADK                            R8 K3 ["*"]
+       40 CONCAT                           R6 R7 R8
+       41 SETTABLE                         R6 R3 R5
+       42 CLOSEUPVALS                      R3
+       43 RETURN                           R3 1
+
+PROTO_20:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["GetAllPresets"]
         3 CALL                             R1 1 1
@@ -479,7 +523,7 @@ PROTO_19:
        19 SETTABLE                         R3 R1 R2
        20 RETURN                           R1 1
 
-PROTO_20:
+PROTO_21:
         0 NAMECALL                         R1 R0 K0 ["getAllPresets"]
         2 CALL                             R1 1 1
         3 GETTABLEKS                       R4 R0 K1 ["lastImportName"]
@@ -563,67 +607,74 @@ MAIN:
       107 GETTABLEKS                       R18 R19 K27 ["Flags"]
       109 GETTABLEKS                       R17 R18 K28 ["getFIntAssetImportMaxPresetCount"]
       111 CALL                             R16 1 1
-      112 LOADK                            R19 K29 ["PresetController"]
-      113 NAMECALL                         R17 R6 K30 ["extend"]
-      115 CALL                             R17 2 1
-      116 DUPCLOSURE                       R18 K31 [PROTO_0]
-      117 CAPTURE                          VAL R17
-      118 SETTABLEKS                       R18 R17 K32 ["new"]
-      120 DUPCLOSURE                       R18 K33 [PROTO_1]
-      121 SETTABLEKS                       R18 R17 K34 ["destroy"]
-      123 DUPCLOSURE                       R18 K35 [PROTO_2]
-      124 SETTABLEKS                       R18 R17 K36 ["_filter"]
-      126 DUPCLOSURE                       R18 K37 [PROTO_3]
-      127 CAPTURE                          VAL R2
-      128 CAPTURE                          VAL R7
-      129 CAPTURE                          VAL R11
-      130 SETTABLEKS                       R18 R17 K38 ["save"]
-      132 DUPCLOSURE                       R18 K39 [PROTO_4]
-      133 CAPTURE                          VAL R2
-      134 SETTABLEKS                       R18 R17 K40 ["createPresetFromLastImport"]
-      136 DUPCLOSURE                       R18 K41 [PROTO_5]
-      137 CAPTURE                          VAL R11
-      138 CAPTURE                          VAL R10
-      139 SETTABLEKS                       R18 R17 K42 ["_updateQueueItems"]
-      141 DUPCLOSURE                       R18 K43 [PROTO_6]
+      112 GETIMPORT                        R17 K5 [require]
+      114 GETTABLEKS                       R20 R0 K6 ["Src"]
+      116 GETTABLEKS                       R19 R20 K27 ["Flags"]
+      118 GETTABLEKS                       R18 R19 K29 ["getFFlagCinBulkImportPostBeta"]
+      120 CALL                             R17 1 1
+      121 LOADK                            R20 K30 ["PresetController"]
+      122 NAMECALL                         R18 R6 K31 ["extend"]
+      124 CALL                             R18 2 1
+      125 DUPCLOSURE                       R19 K32 [PROTO_0]
+      126 CAPTURE                          VAL R18
+      127 SETTABLEKS                       R19 R18 K33 ["new"]
+      129 DUPCLOSURE                       R19 K34 [PROTO_1]
+      130 SETTABLEKS                       R19 R18 K35 ["destroy"]
+      132 DUPCLOSURE                       R19 K36 [PROTO_2]
+      133 SETTABLEKS                       R19 R18 K37 ["_filter"]
+      135 DUPCLOSURE                       R19 K38 [PROTO_3]
+      136 CAPTURE                          VAL R2
+      137 CAPTURE                          VAL R7
+      138 CAPTURE                          VAL R11
+      139 SETTABLEKS                       R19 R18 K39 ["save"]
+      141 DUPCLOSURE                       R19 K40 [PROTO_4]
       142 CAPTURE                          VAL R2
-      143 SETTABLEKS                       R18 R17 K44 ["rename"]
-      145 DUPCLOSURE                       R18 K45 [PROTO_7]
-      146 CAPTURE                          VAL R2
-      147 SETTABLEKS                       R18 R17 K46 ["delete"]
-      149 DUPCLOSURE                       R18 K47 [PROTO_8]
-      150 SETTABLEKS                       R18 R17 K48 ["setDefault"]
-      152 DUPCLOSURE                       R18 K49 [PROTO_9]
-      153 SETTABLEKS                       R18 R17 K50 ["hasCustomDefault"]
-      155 DUPCLOSURE                       R18 K51 [PROTO_10]
-      156 CAPTURE                          VAL R14
-      157 SETTABLEKS                       R18 R17 K52 ["applyPresetToAllSessions"]
-      159 DUPCLOSURE                       R18 K53 [PROTO_11]
-      160 CAPTURE                          VAL R11
-      161 SETTABLEKS                       R18 R17 K54 ["applyImportDataToSession"]
-      163 DUPCLOSURE                       R18 K55 [PROTO_12]
-      164 SETTABLEKS                       R18 R17 K56 ["isDefault"]
-      166 DUPCLOSURE                       R18 K57 [PROTO_13]
-      167 SETTABLEKS                       R18 R17 K58 ["isLastImport"]
-      169 DUPCLOSURE                       R18 K59 [PROTO_14]
-      170 SETTABLEKS                       R18 R17 K60 ["isStudioDefault"]
-      172 DUPCLOSURE                       R18 K61 [PROTO_15]
-      173 SETTABLEKS                       R18 R17 K62 ["reset"]
-      175 DUPCLOSURE                       R18 K63 [PROTO_16]
-      176 CAPTURE                          VAL R2
-      177 CAPTURE                          VAL R12
-      178 CAPTURE                          VAL R13
-      179 CAPTURE                          VAL R11
-      180 SETTABLEKS                       R18 R17 K64 ["resolvePreset"]
-      182 DUPCLOSURE                       R18 K65 [PROTO_18]
-      183 CAPTURE                          VAL R8
-      184 CAPTURE                          VAL R9
-      185 SETTABLEKS                       R18 R17 K66 ["getNameList"]
-      187 DUPCLOSURE                       R18 K67 [PROTO_19]
-      188 CAPTURE                          VAL R2
-      189 SETTABLEKS                       R18 R17 K68 ["getAllPresets"]
-      191 DUPCLOSURE                       R18 K69 [PROTO_20]
-      192 CAPTURE                          VAL R16
-      193 CAPTURE                          VAL R8
-      194 SETTABLEKS                       R18 R17 K70 ["getNumPresetsRemaining"]
-      196 RETURN                           R17 1
+      143 SETTABLEKS                       R19 R18 K41 ["createPresetFromLastImport"]
+      145 DUPCLOSURE                       R19 K42 [PROTO_5]
+      146 CAPTURE                          VAL R11
+      147 CAPTURE                          VAL R10
+      148 SETTABLEKS                       R19 R18 K43 ["_updateQueueItems"]
+      150 DUPCLOSURE                       R19 K44 [PROTO_6]
+      151 CAPTURE                          VAL R2
+      152 SETTABLEKS                       R19 R18 K45 ["rename"]
+      154 DUPCLOSURE                       R19 K46 [PROTO_7]
+      155 CAPTURE                          VAL R2
+      156 SETTABLEKS                       R19 R18 K47 ["delete"]
+      158 DUPCLOSURE                       R19 K48 [PROTO_8]
+      159 SETTABLEKS                       R19 R18 K49 ["setDefault"]
+      161 DUPCLOSURE                       R19 K50 [PROTO_9]
+      162 SETTABLEKS                       R19 R18 K51 ["hasCustomDefault"]
+      164 DUPCLOSURE                       R19 K52 [PROTO_10]
+      165 CAPTURE                          VAL R14
+      166 SETTABLEKS                       R19 R18 K53 ["DEPRECATED_applyPresetToAllSessions"]
+      168 DUPCLOSURE                       R19 K54 [PROTO_11]
+      169 CAPTURE                          VAL R11
+      170 SETTABLEKS                       R19 R18 K55 ["applyImportDataToSession"]
+      172 DUPCLOSURE                       R19 K56 [PROTO_12]
+      173 SETTABLEKS                       R19 R18 K57 ["isDefault"]
+      175 DUPCLOSURE                       R19 K58 [PROTO_13]
+      176 SETTABLEKS                       R19 R18 K59 ["isLastImport"]
+      178 DUPCLOSURE                       R19 K60 [PROTO_14]
+      179 SETTABLEKS                       R19 R18 K61 ["isStudioDefault"]
+      181 DUPCLOSURE                       R19 K62 [PROTO_15]
+      182 SETTABLEKS                       R19 R18 K63 ["reset"]
+      184 DUPCLOSURE                       R19 K64 [PROTO_16]
+      185 CAPTURE                          VAL R2
+      186 CAPTURE                          VAL R12
+      187 CAPTURE                          VAL R13
+      188 CAPTURE                          VAL R11
+      189 SETTABLEKS                       R19 R18 K65 ["resolvePreset"]
+      191 DUPCLOSURE                       R19 K66 [PROTO_19]
+      192 CAPTURE                          VAL R17
+      193 CAPTURE                          VAL R5
+      194 CAPTURE                          VAL R8
+      195 CAPTURE                          VAL R9
+      196 SETTABLEKS                       R19 R18 K67 ["getNameList"]
+      198 DUPCLOSURE                       R19 K68 [PROTO_20]
+      199 CAPTURE                          VAL R2
+      200 SETTABLEKS                       R19 R18 K69 ["getAllPresets"]
+      202 DUPCLOSURE                       R19 K70 [PROTO_21]
+      203 CAPTURE                          VAL R16
+      204 CAPTURE                          VAL R8
+      205 SETTABLEKS                       R19 R18 K71 ["getNumPresetsRemaining"]
+      207 RETURN                           R18 1

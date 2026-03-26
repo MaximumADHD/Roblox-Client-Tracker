@@ -12,6 +12,8 @@ local useTextSizeOffset = Foundation.Hooks.useTextSizeOffset
 local scaleSliceToResolution = require(UIBlox.App.ImageSet.scaleSliceToResolution)
 local ImagesInverse = require(UIBlox.App.ImageSet.ImagesInverse)
 local getBuilderIconElement = require(ImageSet.getBuilderIconElement)
+local FoundationImages = require(Packages.FoundationImages)
+local FoundationImagesFlags = FoundationImages.Flags
 
 return function(innerComponent, resolutionScale)
 	assert(
@@ -25,20 +27,29 @@ return function(innerComponent, resolutionScale)
 			[Roact.Children] = props[Roact.Children],
 		}
 		local imageSetProps
+		local deprecatedImageName
 		local usesImageSet = false
+		local usesDeprecatedIconAsset = false
 
 		for key, value in pairs(props) do
 			if key == "Image" and typeof(value) == "table" then
-				usesImageSet = true
-				imageSetProps = value
+				if
+					FoundationImagesFlags.FoundationImagesRemoveDeprecatedIconAssets and migrationLookup[value.Image]
+				then
+					usesDeprecatedIconAsset = true
+					deprecatedImageName = value.Image
+				else
+					usesImageSet = true
+					imageSetProps = value
+				end
 			else
 				fullProps[key] = value
 			end
 		end
 		local tokens = useTokens()
 		local textSizeOffset = useTextSizeOffset()
-		if usesImageSet then
-			local imageName = ImagesInverse[imageSetProps]
+		if usesImageSet or usesDeprecatedIconAsset then
+			local imageName = if usesDeprecatedIconAsset then deprecatedImageName else ImagesInverse[imageSetProps]
 			if imageName and migrationLookup[imageName] then
 				if not tokens.Stroke then
 					error(

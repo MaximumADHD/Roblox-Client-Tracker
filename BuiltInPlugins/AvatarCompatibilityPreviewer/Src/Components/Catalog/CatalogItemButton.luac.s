@@ -422,11 +422,11 @@ PROTO_8:
       404 CALL                             R23 3 1
       405 SETTABLEKS                       R23 R22 K50 ["AccessoryTypeImage"]
       407 GETTABLEKS                       R23 R0 K78 ["IsUserProvided"]
-      409 JUMPIFNOT                        R23 ; [+52]
+      409 JUMPIFNOT                        R23 ; [+60]
       410 GETUPVAL                         R24 3
       411 GETTABLEKS                       R23 R24 K28 ["createElement"]
       413 GETUPVAL                         R24 17
-      414 DUPTABLE                         R25 K59 [{"AnchorPoint", "Position", "Size"}]
+      414 DUPTABLE                         R25 K80 [{"AnchorPoint", "Position", "Size", "ZIndex"}]
       415 GETTABLEKS                       R27 R2 K51 ["UserImage"]
       417 GETTABLEKS                       R26 R27 K57 ["AnchorPoint"]
       419 SETTABLEKS                       R26 R25 K57 ["AnchorPoint"]
@@ -436,64 +436,71 @@ PROTO_8:
       427 GETTABLEKS                       R27 R2 K51 ["UserImage"]
       429 GETTABLEKS                       R26 R27 K30 ["Size"]
       431 SETTABLEKS                       R26 R25 K30 ["Size"]
-      433 DUPTABLE                         R26 K79 [{"UserImage"}]
-      434 GETUPVAL                         R28 3
-      435 GETTABLEKS                       R27 R28 K28 ["createElement"]
-      437 GETUPVAL                         R28 20
-      438 DUPTABLE                         R29 K73 [{"Image", "ImageColor3", "Size"}]
-      439 GETTABLEKS                       R31 R2 K51 ["UserImage"]
-      441 GETTABLEKS                       R30 R31 K66 ["Image"]
-      443 SETTABLEKS                       R30 R29 K66 ["Image"]
-      445 GETTABLEKS                       R31 R2 K51 ["UserImage"]
-      447 GETTABLEKS                       R30 R31 K77 ["Color"]
-      449 SETTABLEKS                       R30 R29 K72 ["ImageColor3"]
-      451 GETIMPORT                        R30 K70 [UDim2.fromScale]
-      453 LOADN                            R31 1
-      454 LOADN                            R32 1
-      455 CALL                             R30 2 1
-      456 SETTABLEKS                       R30 R29 K30 ["Size"]
-      458 CALL                             R27 2 1
-      459 SETTABLEKS                       R27 R26 K51 ["UserImage"]
-      461 CALL                             R23 3 1
-      462 SETTABLEKS                       R23 R22 K51 ["UserImage"]
-      464 CALL                             R19 3 1
-      465 SETTABLEKS                       R19 R18 K38 ["Contents"]
-      467 JUMPIFNOT                        R9 ; [+49]
-      468 JUMPIFNOT                        R11 ; [+48]
-      469 GETUPVAL                         R20 3
-      470 GETTABLEKS                       R19 R20 K28 ["createElement"]
-      472 GETUPVAL                         R20 21
-      473 DUPTABLE                         R21 K85 [{"Text", "TextWrapped", "TextXAlignment", "TextYAlignment", "ZIndex"}]
-      474 SETTABLEKS                       R9 R21 K80 ["Text"]
-      476 LOADB                            R22 1
-      477 SETTABLEKS                       R22 R21 K81 ["TextWrapped"]
-      479 GETIMPORT                        R22 K88 [Enum.TextXAlignment.Left]
-      481 SETTABLEKS                       R22 R21 K82 ["TextXAlignment"]
-      483 GETIMPORT                        R22 K90 [Enum.TextYAlignment.Bottom]
-      485 SETTABLEKS                       R22 R21 K83 ["TextYAlignment"]
-      487 LOADN                            R22 2
-      488 SETTABLEKS                       R22 R21 K84 ["ZIndex"]
-      490 DUPTABLE                         R22 K91 [{"Padding"}]
-      491 GETUPVAL                         R24 3
-      492 GETTABLEKS                       R23 R24 K28 ["createElement"]
-      494 LOADK                            R24 K92 ["UIPadding"]
-      495 DUPTABLE                         R25 K97 [{"PaddingLeft", "PaddingBottom", "PaddingRight", "PaddingTop"}]
-      496 GETTABLEKS                       R26 R2 K98 ["TextLabelPadding"]
-      498 SETTABLEKS                       R26 R25 K93 ["PaddingLeft"]
-      500 GETTABLEKS                       R26 R2 K98 ["TextLabelPadding"]
-      502 SETTABLEKS                       R26 R25 K94 ["PaddingBottom"]
-      504 GETTABLEKS                       R26 R2 K98 ["TextLabelPadding"]
-      506 SETTABLEKS                       R26 R25 K95 ["PaddingRight"]
-      508 GETTABLEKS                       R26 R2 K98 ["TextLabelPadding"]
-      510 SETTABLEKS                       R26 R25 K96 ["PaddingTop"]
-      512 CALL                             R23 2 1
-      513 SETTABLEKS                       R23 R22 K47 ["Padding"]
-      515 CALL                             R19 3 1
-      516 JUMP                             ; [+1]
-      517 LOADNIL                          R19
-      518 SETTABLEKS                       R19 R18 K39 ["ItemName"]
-      520 CALL                             R15 3 -1
-      521 RETURN                           R15 -1
+      433 GETUPVAL                         R27 21
+      434 CALL                             R27 0 1
+      435 JUMPIFNOT                        R27 ; [+2]
+      436 LOADN                            R26 100
+      437 JUMP                             ; [+1]
+      438 LOADNIL                          R26
+      439 SETTABLEKS                       R26 R25 K79 ["ZIndex"]
+      441 DUPTABLE                         R26 K81 [{"UserImage"}]
+      442 GETUPVAL                         R28 3
+      443 GETTABLEKS                       R27 R28 K28 ["createElement"]
+      445 GETUPVAL                         R28 20
+      446 DUPTABLE                         R29 K73 [{"Image", "ImageColor3", "Size"}]
+      447 GETTABLEKS                       R31 R2 K51 ["UserImage"]
+      449 GETTABLEKS                       R30 R31 K66 ["Image"]
+      451 SETTABLEKS                       R30 R29 K66 ["Image"]
+      453 GETTABLEKS                       R31 R2 K51 ["UserImage"]
+      455 GETTABLEKS                       R30 R31 K77 ["Color"]
+      457 SETTABLEKS                       R30 R29 K72 ["ImageColor3"]
+      459 GETIMPORT                        R30 K70 [UDim2.fromScale]
+      461 LOADN                            R31 1
+      462 LOADN                            R32 1
+      463 CALL                             R30 2 1
+      464 SETTABLEKS                       R30 R29 K30 ["Size"]
+      466 CALL                             R27 2 1
+      467 SETTABLEKS                       R27 R26 K51 ["UserImage"]
+      469 CALL                             R23 3 1
+      470 SETTABLEKS                       R23 R22 K51 ["UserImage"]
+      472 CALL                             R19 3 1
+      473 SETTABLEKS                       R19 R18 K38 ["Contents"]
+      475 JUMPIFNOT                        R9 ; [+49]
+      476 JUMPIFNOT                        R11 ; [+48]
+      477 GETUPVAL                         R20 3
+      478 GETTABLEKS                       R19 R20 K28 ["createElement"]
+      480 GETUPVAL                         R20 22
+      481 DUPTABLE                         R21 K86 [{"Text", "TextWrapped", "TextXAlignment", "TextYAlignment", "ZIndex"}]
+      482 SETTABLEKS                       R9 R21 K82 ["Text"]
+      484 LOADB                            R22 1
+      485 SETTABLEKS                       R22 R21 K83 ["TextWrapped"]
+      487 GETIMPORT                        R22 K89 [Enum.TextXAlignment.Left]
+      489 SETTABLEKS                       R22 R21 K84 ["TextXAlignment"]
+      491 GETIMPORT                        R22 K91 [Enum.TextYAlignment.Bottom]
+      493 SETTABLEKS                       R22 R21 K85 ["TextYAlignment"]
+      495 LOADN                            R22 2
+      496 SETTABLEKS                       R22 R21 K79 ["ZIndex"]
+      498 DUPTABLE                         R22 K92 [{"Padding"}]
+      499 GETUPVAL                         R24 3
+      500 GETTABLEKS                       R23 R24 K28 ["createElement"]
+      502 LOADK                            R24 K93 ["UIPadding"]
+      503 DUPTABLE                         R25 K98 [{"PaddingLeft", "PaddingBottom", "PaddingRight", "PaddingTop"}]
+      504 GETTABLEKS                       R26 R2 K99 ["TextLabelPadding"]
+      506 SETTABLEKS                       R26 R25 K94 ["PaddingLeft"]
+      508 GETTABLEKS                       R26 R2 K99 ["TextLabelPadding"]
+      510 SETTABLEKS                       R26 R25 K95 ["PaddingBottom"]
+      512 GETTABLEKS                       R26 R2 K99 ["TextLabelPadding"]
+      514 SETTABLEKS                       R26 R25 K96 ["PaddingRight"]
+      516 GETTABLEKS                       R26 R2 K99 ["TextLabelPadding"]
+      518 SETTABLEKS                       R26 R25 K97 ["PaddingTop"]
+      520 CALL                             R23 2 1
+      521 SETTABLEKS                       R23 R22 K47 ["Padding"]
+      523 CALL                             R19 3 1
+      524 JUMP                             ; [+1]
+      525 LOADNIL                          R19
+      526 SETTABLEKS                       R19 R18 K39 ["ItemName"]
+      528 CALL                             R15 3 -1
+      529 RETURN                           R15 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -563,54 +570,60 @@ MAIN:
       113 GETTABLEKS                       R15 R16 K24 ["Flags"]
       115 GETTABLEKS                       R14 R15 K25 ["getFFlagAvatarPreviewerEditingTools"]
       117 CALL                             R13 1 1
-      118 MOVE                             R14 R13
-      119 CALL                             R14 0 1
-      120 GETIMPORT                        R15 K5 [require]
-      122 GETTABLEKS                       R18 R0 K10 ["Src"]
-      124 GETTABLEKS                       R17 R18 K13 ["Resources"]
-      126 GETTABLEKS                       R16 R17 K26 ["Theme"]
-      128 CALL                             R15 1 1
+      118 GETIMPORT                        R14 K5 [require]
+      120 GETTABLEKS                       R17 R0 K10 ["Src"]
+      122 GETTABLEKS                       R16 R17 K24 ["Flags"]
+      124 GETTABLEKS                       R15 R16 K26 ["getFFlagAvatarPreviewerLookComposer"]
+      126 CALL                             R14 1 1
+      127 MOVE                             R15 R13
+      128 CALL                             R15 0 1
       129 GETIMPORT                        R16 K5 [require]
-      131 GETTABLEKS                       R18 R0 K10 ["Src"]
-      133 GETTABLEKS                       R17 R18 K27 ["Types"]
-      135 CALL                             R16 1 1
-      136 GETTABLEKS                       R17 R2 K28 ["UI"]
-      138 GETTABLEKS                       R18 R17 K29 ["Button"]
-      140 GETTABLEKS                       R19 R17 K30 ["Image"]
-      142 GETTABLEKS                       R20 R17 K31 ["TextLabel"]
-      144 GETTABLEKS                       R21 R17 K32 ["Pane"]
-      146 GETTABLEKS                       R22 R17 K33 ["showContextMenu"]
-      148 GETTABLEKS                       R24 R2 K34 ["ContextServices"]
-      150 GETTABLEKS                       R23 R24 K35 ["Analytics"]
-      152 GETTABLEKS                       R25 R2 K34 ["ContextServices"]
-      154 GETTABLEKS                       R24 R25 K36 ["Localization"]
-      156 GETTABLEKS                       R26 R2 K16 ["Util"]
-      158 GETTABLEKS                       R25 R26 K37 ["StyleModifier"]
-      160 GETTABLEKS                       R27 R2 K34 ["ContextServices"]
-      162 GETTABLEKS                       R26 R27 K38 ["Stylizer"]
-      164 DUPCLOSURE                       R27 K39 [PROTO_1]
-      165 CAPTURE                          VAL R10
-      166 DUPCLOSURE                       R28 K40 [PROTO_8]
-      167 CAPTURE                          VAL R23
-      168 CAPTURE                          VAL R26
-      169 CAPTURE                          VAL R14
-      170 CAPTURE                          VAL R3
-      171 CAPTURE                          VAL R4
-      172 CAPTURE                          VAL R7
-      173 CAPTURE                          VAL R24
-      174 CAPTURE                          VAL R1
-      175 CAPTURE                          VAL R8
-      176 CAPTURE                          VAL R11
-      177 CAPTURE                          VAL R12
-      178 CAPTURE                          VAL R27
-      179 CAPTURE                          VAL R22
-      180 CAPTURE                          VAL R0
-      181 CAPTURE                          VAL R9
-      182 CAPTURE                          VAL R5
-      183 CAPTURE                          VAL R18
-      184 CAPTURE                          VAL R21
-      185 CAPTURE                          VAL R6
-      186 CAPTURE                          VAL R25
-      187 CAPTURE                          VAL R19
-      188 CAPTURE                          VAL R20
-      189 RETURN                           R28 1
+      131 GETTABLEKS                       R19 R0 K10 ["Src"]
+      133 GETTABLEKS                       R18 R19 K13 ["Resources"]
+      135 GETTABLEKS                       R17 R18 K27 ["Theme"]
+      137 CALL                             R16 1 1
+      138 GETIMPORT                        R17 K5 [require]
+      140 GETTABLEKS                       R19 R0 K10 ["Src"]
+      142 GETTABLEKS                       R18 R19 K28 ["Types"]
+      144 CALL                             R17 1 1
+      145 GETTABLEKS                       R18 R2 K29 ["UI"]
+      147 GETTABLEKS                       R19 R18 K30 ["Button"]
+      149 GETTABLEKS                       R20 R18 K31 ["Image"]
+      151 GETTABLEKS                       R21 R18 K32 ["TextLabel"]
+      153 GETTABLEKS                       R22 R18 K33 ["Pane"]
+      155 GETTABLEKS                       R23 R18 K34 ["showContextMenu"]
+      157 GETTABLEKS                       R25 R2 K35 ["ContextServices"]
+      159 GETTABLEKS                       R24 R25 K36 ["Analytics"]
+      161 GETTABLEKS                       R26 R2 K35 ["ContextServices"]
+      163 GETTABLEKS                       R25 R26 K37 ["Localization"]
+      165 GETTABLEKS                       R27 R2 K16 ["Util"]
+      167 GETTABLEKS                       R26 R27 K38 ["StyleModifier"]
+      169 GETTABLEKS                       R28 R2 K35 ["ContextServices"]
+      171 GETTABLEKS                       R27 R28 K39 ["Stylizer"]
+      173 DUPCLOSURE                       R28 K40 [PROTO_1]
+      174 CAPTURE                          VAL R10
+      175 DUPCLOSURE                       R29 K41 [PROTO_8]
+      176 CAPTURE                          VAL R24
+      177 CAPTURE                          VAL R27
+      178 CAPTURE                          VAL R15
+      179 CAPTURE                          VAL R3
+      180 CAPTURE                          VAL R4
+      181 CAPTURE                          VAL R7
+      182 CAPTURE                          VAL R25
+      183 CAPTURE                          VAL R1
+      184 CAPTURE                          VAL R8
+      185 CAPTURE                          VAL R11
+      186 CAPTURE                          VAL R12
+      187 CAPTURE                          VAL R28
+      188 CAPTURE                          VAL R23
+      189 CAPTURE                          VAL R0
+      190 CAPTURE                          VAL R9
+      191 CAPTURE                          VAL R5
+      192 CAPTURE                          VAL R19
+      193 CAPTURE                          VAL R22
+      194 CAPTURE                          VAL R6
+      195 CAPTURE                          VAL R26
+      196 CAPTURE                          VAL R20
+      197 CAPTURE                          VAL R14
+      198 CAPTURE                          VAL R21
+      199 RETURN                           R29 1

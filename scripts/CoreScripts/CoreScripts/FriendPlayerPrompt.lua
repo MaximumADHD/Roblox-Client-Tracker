@@ -43,9 +43,6 @@ local CONSOLE_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size352x352
 local REGULAR_THUMBNAIL_IMAGE_TYPE = Enum.ThumbnailType.HeadShot
 local CONSOLE_THUMBNAIL_IMAGE_TYPE = Enum.ThumbnailType.AvatarThumbnail
 
-local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
-local FFlagUseNotificationsLocalization = success and result
-
 local function LocalizedGetString(key, rtv)
 	pcall(function()
 		rtv = RobloxTranslator:FormatByKey(key)
@@ -124,13 +121,6 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 
 					local mainText = string.format("You can not send a friend request to %s because they are at the max friend limit.",  playerToFriend.Name)
 
-					if FFlagUseNotificationsLocalization then
-						mainText = string.gsub(LocalizedGetString(
-								"InGame.FriendPlayerPrompt.promptCompletedCallback.AtFriendLimit" ,
-								mainText
-							),"{RBX_NAME}",playerToFriend.Name)
-					end
-
 					PromptCreator:CreatePrompt({
 						WindowTitle = "Error Sending Friend Request",
 						MainText = mainText,
@@ -150,12 +140,6 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 						end
 
                         local mainText = string.format("An error occurred while sending %s a friend request. Please try again later.", playerToFriend.Name)
-						if FFlagUseNotificationsLocalization then
-							mainText = string.gsub(LocalizedGetString(
-									"InGame.FriendPlayerPrompt.promptCompletedCallback.UnknownError",
-									mainText
-								),"{RBX_NAME}",playerToFriend.Name)
-						end
 
 						PromptCreator:CreatePrompt({
 							WindowTitle = "Error Sending Friend Request",
@@ -175,13 +159,6 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 	end
 
 	local mainText = string.format("Would you like to send %s a Friend Request?", playerToFriend.Name)
-
-	if FFlagUseNotificationsLocalization then
-		mainText = string.gsub(LocalizedGetString(
-				"InGame.FriendPlayerPrompt.DoPromptRequestFriendPlayer",
-				mainText
-			),"{RBX_NAME}",playerToFriend.Name)
-	end
 
 	PromptCreator:CreatePrompt({
 		WindowTitle = RobloxTranslator:FormatByKey("InGame.FriendPlayerPrompt.Title.SendFriendRequest"),
@@ -244,12 +221,6 @@ function DoPromptUnfriendPlayer(playerToUnfriend)
 				end
 
 				local mainText = string.format("An error occurred while unfriending %s. Please try again later.", playerToUnfriend.Name)
-				if FFlagUseNotificationsLocalization then
-					mainText = string.gsub(LocalizedGetString(
-							"InGame.FriendPlayerPrompt.promptCompletedCallback.UnknownError",
-							mainText
-						),"{RBX_NAME}",playerToUnfriend.Name)
-				end
 
 				PromptCreator:CreatePrompt({
 					WindowTitle = "Error Unfriending Person",
@@ -267,12 +238,6 @@ function DoPromptUnfriendPlayer(playerToUnfriend)
 	end
 
 	local mainText = string.format("Would you like to remove %s from your friends list?", playerToUnfriend.Name)
-	if FFlagUseNotificationsLocalization then
-		mainText = string.gsub(LocalizedGetString(
-				"InGame.FriendPlayerPrompt.DoPromptUnfriendPlayer",
-				mainText
-			),"{RBX_NAME}",playerToUnfriend.Name)
-	end
 
 	PromptCreator:CreatePrompt({
 		WindowTitle = "Unfriend Person?",

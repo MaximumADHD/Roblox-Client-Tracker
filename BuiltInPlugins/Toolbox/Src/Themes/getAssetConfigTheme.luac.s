@@ -428,144 +428,98 @@ PROTO_0:
       675 SETTABLE                         R5 R3 R4
       676 GETUPVAL                         R5 3
       677 GETTABLEKS                       R4 R5 K0 ["RoundBox"]
-      679 GETUPVAL                         R6 5
-      680 CALL                             R6 0 1
-      681 JUMPIFNOT                        R6 ; [+2]
-      682 MOVE                             R5 R0
-      683 JUMP                             ; [+64]
-      684 GETUPVAL                         R7 4
-      685 GETTABLEKS                       R6 R7 K181 ["Dictionary"]
-      687 GETTABLEKS                       R5 R6 K182 ["join"]
-      689 MOVE                             R6 R0
-      690 NEWTABLE                         R7 4 0
-      692 DUPTABLE                         R8 K192 [{"Color", "BorderColor"}]
-      693 GETUPVAL                         R10 1
-      694 GETTABLEKS                       R9 R10 K13 ["MainBackground"]
-      696 SETTABLEKS                       R9 R8 K185 ["Color"]
-      698 GETUPVAL                         R10 1
-      699 GETTABLEKS                       R9 R10 K75 ["Border"]
-      701 SETTABLEKS                       R9 R8 K191 ["BorderColor"]
-      703 SETTABLEKS                       R8 R7 K193 ["&CatalogTag"]
-      705 NEWTABLE                         R8 4 0
-      707 GETUPVAL                         R10 1
-      708 GETTABLEKS                       R9 R10 K48 ["InputFieldBackground"]
-      710 SETTABLEKS                       R9 R8 K185 ["Color"]
-      712 GETUPVAL                         R10 1
-      713 GETTABLEKS                       R9 R10 K75 ["Border"]
-      715 SETTABLEKS                       R9 R8 K191 ["BorderColor"]
-      717 GETUPVAL                         R10 6
-      718 GETTABLEKS                       R9 R10 K194 ["Selected"]
-      720 DUPTABLE                         R10 K195 [{"BorderColor"}]
-      721 GETUPVAL                         R12 1
-      722 GETTABLEKS                       R11 R12 K196 ["InputFieldBorderSelected"]
-      724 SETTABLEKS                       R11 R10 K191 ["BorderColor"]
-      726 SETTABLE                         R10 R8 R9
-      727 GETUPVAL                         R10 6
-      728 GETTABLEKS                       R9 R10 K197 ["Disabled"]
-      730 DUPTABLE                         R10 K198 [{"Color"}]
-      731 GETUPVAL                         R12 1
-      732 GETTABLEKS                       R11 R12 K199 ["InputFieldBackgroundDisabled"]
-      734 SETTABLEKS                       R11 R10 K185 ["Color"]
-      736 SETTABLE                         R10 R8 R9
-      737 SETTABLEKS                       R8 R7 K200 ["&TagsComponent"]
-      739 DUPTABLE                         R8 K195 [{"BorderColor"}]
-      740 GETUPVAL                         R10 1
-      741 GETTABLEKS                       R9 R10 K15 ["ErrorText"]
-      743 SETTABLEKS                       R9 R8 K191 ["BorderColor"]
-      745 SETTABLEKS                       R8 R7 K201 ["&TagsComponentError"]
-      747 CALL                             R5 2 1
-      748 SETTABLE                         R5 R3 R4
-      749 GETUPVAL                         R5 3
-      750 GETTABLEKS                       R4 R5 K202 ["StyledDialog"]
-      752 GETUPVAL                         R7 4
-      753 GETTABLEKS                       R6 R7 K181 ["Dictionary"]
-      755 GETTABLEKS                       R5 R6 K182 ["join"]
-      757 GETUPVAL                         R6 0
-      758 LOADK                            R7 K202 ["StyledDialog"]
-      759 CALL                             R6 1 1
-      760 NEWTABLE                         R7 1 0
-      762 DUPTABLE                         R8 K204 [{"ButtonSpacing"}]
-      763 LOADN                            R9 8
-      764 SETTABLEKS                       R9 R8 K203 ["ButtonSpacing"]
-      766 SETTABLEKS                       R8 R7 K205 ["&AssetConfigWarningDialog"]
-      768 CALL                             R5 2 1
-      769 SETTABLE                         R5 R3 R4
-      770 GETUPVAL                         R5 3
-      771 GETTABLEKS                       R4 R5 K2 ["RadioButton"]
-      773 GETUPVAL                         R7 4
-      774 GETTABLEKS                       R6 R7 K181 ["Dictionary"]
-      776 GETTABLEKS                       R5 R6 K182 ["join"]
-      778 MOVE                             R6 R2
-      779 NEWTABLE                         R7 1 0
-      781 DUPTABLE                         R8 K207 [{"TextSize", "BackgroundStyle"}]
-      782 GETUPVAL                         R10 7
-      783 GETTABLEKS                       R9 R10 K208 ["FONT_SIZE_ASSET_CONFIG_INPUT"]
-      785 SETTABLEKS                       R9 R8 K206 ["TextSize"]
-      787 GETUPVAL                         R11 4
-      788 GETTABLEKS                       R10 R11 K181 ["Dictionary"]
-      790 GETTABLEKS                       R9 R10 K182 ["join"]
-      792 GETTABLEKS                       R10 R2 K183 ["BackgroundStyle"]
-      794 NEWTABLE                         R11 2 0
-      796 GETUPVAL                         R14 4
-      797 GETTABLEKS                       R13 R14 K181 ["Dictionary"]
-      799 GETTABLEKS                       R12 R13 K182 ["join"]
-      801 GETTABLEKS                       R14 R2 K183 ["BackgroundStyle"]
-      803 GETTABLEKS                       R13 R14 K183 ["BackgroundStyle"]
-      805 DUPTABLE                         R14 K198 [{"Color"}]
-      806 GETUPVAL                         R16 1
-      807 GETTABLEKS                       R15 R16 K48 ["InputFieldBackground"]
-      809 SETTABLEKS                       R15 R14 K185 ["Color"]
-      811 CALL                             R12 2 1
-      812 SETTABLEKS                       R12 R11 K183 ["BackgroundStyle"]
-      814 GETUPVAL                         R13 6
-      815 GETTABLEKS                       R12 R13 K194 ["Selected"]
-      817 GETUPVAL                         R15 4
-      818 GETTABLEKS                       R14 R15 K181 ["Dictionary"]
-      820 GETTABLEKS                       R13 R14 K182 ["join"]
-      822 GETTABLEKS                       R15 R2 K183 ["BackgroundStyle"]
-      824 GETUPVAL                         R17 6
-      825 GETTABLEKS                       R16 R17 K194 ["Selected"]
-      827 GETTABLE                         R14 R15 R16
-      828 DUPTABLE                         R15 K184 [{"BackgroundStyle"}]
-      829 GETUPVAL                         R18 4
-      830 GETTABLEKS                       R17 R18 K181 ["Dictionary"]
-      832 GETTABLEKS                       R16 R17 K182 ["join"]
-      834 GETTABLEKS                       R19 R2 K183 ["BackgroundStyle"]
-      836 GETUPVAL                         R21 6
-      837 GETTABLEKS                       R20 R21 K194 ["Selected"]
-      839 GETTABLE                         R18 R19 R20
-      840 GETTABLEKS                       R17 R18 K183 ["BackgroundStyle"]
-      842 DUPTABLE                         R18 K198 [{"Color"}]
-      843 GETUPVAL                         R20 1
-      844 GETTABLEKS                       R19 R20 K48 ["InputFieldBackground"]
-      846 SETTABLEKS                       R19 R18 K185 ["Color"]
-      848 CALL                             R16 2 1
-      849 SETTABLEKS                       R16 R15 K183 ["BackgroundStyle"]
-      851 CALL                             R13 2 1
-      852 SETTABLE                         R13 R11 R12
-      853 CALL                             R9 2 1
-      854 SETTABLEKS                       R9 R8 K183 ["BackgroundStyle"]
-      856 SETTABLEKS                       R8 R7 K209 ["&AssetConfigRadioButton"]
-      858 CALL                             R5 2 1
-      859 SETTABLE                         R5 R3 R4
-      860 GETUPVAL                         R5 3
-      861 GETTABLEKS                       R4 R5 K210 ["RadioButtonList"]
-      863 GETUPVAL                         R7 4
-      864 GETTABLEKS                       R6 R7 K181 ["Dictionary"]
-      866 GETTABLEKS                       R5 R6 K182 ["join"]
-      868 GETUPVAL                         R6 0
-      869 LOADK                            R7 K210 ["RadioButtonList"]
-      870 CALL                             R6 1 1
-      871 NEWTABLE                         R7 1 0
-      873 DUPTABLE                         R8 K213 [{"Padding", "RadioButtonStyle"}]
-      874 LOADN                            R9 17
-      875 SETTABLEKS                       R9 R8 K211 ["Padding"]
-      877 LOADK                            R9 K214 ["AssetConfigRadioButton"]
-      878 SETTABLEKS                       R9 R8 K212 ["RadioButtonStyle"]
-      880 SETTABLEKS                       R8 R7 K215 ["&AssetConfigRadioButtonList"]
-      882 CALL                             R5 2 1
-      883 SETTABLE                         R5 R3 R4
-      884 RETURN                           R3 1
+      679 SETTABLE                         R0 R3 R4
+      680 GETUPVAL                         R5 3
+      681 GETTABLEKS                       R4 R5 K191 ["StyledDialog"]
+      683 GETUPVAL                         R7 4
+      684 GETTABLEKS                       R6 R7 K181 ["Dictionary"]
+      686 GETTABLEKS                       R5 R6 K182 ["join"]
+      688 GETUPVAL                         R6 0
+      689 LOADK                            R7 K191 ["StyledDialog"]
+      690 CALL                             R6 1 1
+      691 NEWTABLE                         R7 1 0
+      693 DUPTABLE                         R8 K193 [{"ButtonSpacing"}]
+      694 LOADN                            R9 8
+      695 SETTABLEKS                       R9 R8 K192 ["ButtonSpacing"]
+      697 SETTABLEKS                       R8 R7 K194 ["&AssetConfigWarningDialog"]
+      699 CALL                             R5 2 1
+      700 SETTABLE                         R5 R3 R4
+      701 GETUPVAL                         R5 3
+      702 GETTABLEKS                       R4 R5 K2 ["RadioButton"]
+      704 GETUPVAL                         R7 4
+      705 GETTABLEKS                       R6 R7 K181 ["Dictionary"]
+      707 GETTABLEKS                       R5 R6 K182 ["join"]
+      709 MOVE                             R6 R2
+      710 NEWTABLE                         R7 1 0
+      712 DUPTABLE                         R8 K196 [{"TextSize", "BackgroundStyle"}]
+      713 GETUPVAL                         R10 5
+      714 GETTABLEKS                       R9 R10 K197 ["FONT_SIZE_ASSET_CONFIG_INPUT"]
+      716 SETTABLEKS                       R9 R8 K195 ["TextSize"]
+      718 GETUPVAL                         R11 4
+      719 GETTABLEKS                       R10 R11 K181 ["Dictionary"]
+      721 GETTABLEKS                       R9 R10 K182 ["join"]
+      723 GETTABLEKS                       R10 R2 K183 ["BackgroundStyle"]
+      725 NEWTABLE                         R11 2 0
+      727 GETUPVAL                         R14 4
+      728 GETTABLEKS                       R13 R14 K181 ["Dictionary"]
+      730 GETTABLEKS                       R12 R13 K182 ["join"]
+      732 GETTABLEKS                       R14 R2 K183 ["BackgroundStyle"]
+      734 GETTABLEKS                       R13 R14 K183 ["BackgroundStyle"]
+      736 DUPTABLE                         R14 K198 [{"Color"}]
+      737 GETUPVAL                         R16 1
+      738 GETTABLEKS                       R15 R16 K48 ["InputFieldBackground"]
+      740 SETTABLEKS                       R15 R14 K185 ["Color"]
+      742 CALL                             R12 2 1
+      743 SETTABLEKS                       R12 R11 K183 ["BackgroundStyle"]
+      745 GETUPVAL                         R13 6
+      746 GETTABLEKS                       R12 R13 K199 ["Selected"]
+      748 GETUPVAL                         R15 4
+      749 GETTABLEKS                       R14 R15 K181 ["Dictionary"]
+      751 GETTABLEKS                       R13 R14 K182 ["join"]
+      753 GETTABLEKS                       R15 R2 K183 ["BackgroundStyle"]
+      755 GETUPVAL                         R17 6
+      756 GETTABLEKS                       R16 R17 K199 ["Selected"]
+      758 GETTABLE                         R14 R15 R16
+      759 DUPTABLE                         R15 K184 [{"BackgroundStyle"}]
+      760 GETUPVAL                         R18 4
+      761 GETTABLEKS                       R17 R18 K181 ["Dictionary"]
+      763 GETTABLEKS                       R16 R17 K182 ["join"]
+      765 GETTABLEKS                       R19 R2 K183 ["BackgroundStyle"]
+      767 GETUPVAL                         R21 6
+      768 GETTABLEKS                       R20 R21 K199 ["Selected"]
+      770 GETTABLE                         R18 R19 R20
+      771 GETTABLEKS                       R17 R18 K183 ["BackgroundStyle"]
+      773 DUPTABLE                         R18 K198 [{"Color"}]
+      774 GETUPVAL                         R20 1
+      775 GETTABLEKS                       R19 R20 K48 ["InputFieldBackground"]
+      777 SETTABLEKS                       R19 R18 K185 ["Color"]
+      779 CALL                             R16 2 1
+      780 SETTABLEKS                       R16 R15 K183 ["BackgroundStyle"]
+      782 CALL                             R13 2 1
+      783 SETTABLE                         R13 R11 R12
+      784 CALL                             R9 2 1
+      785 SETTABLEKS                       R9 R8 K183 ["BackgroundStyle"]
+      787 SETTABLEKS                       R8 R7 K200 ["&AssetConfigRadioButton"]
+      789 CALL                             R5 2 1
+      790 SETTABLE                         R5 R3 R4
+      791 GETUPVAL                         R5 3
+      792 GETTABLEKS                       R4 R5 K201 ["RadioButtonList"]
+      794 GETUPVAL                         R7 4
+      795 GETTABLEKS                       R6 R7 K181 ["Dictionary"]
+      797 GETTABLEKS                       R5 R6 K182 ["join"]
+      799 GETUPVAL                         R6 0
+      800 LOADK                            R7 K201 ["RadioButtonList"]
+      801 CALL                             R6 1 1
+      802 NEWTABLE                         R7 1 0
+      804 DUPTABLE                         R8 K204 [{"Padding", "RadioButtonStyle"}]
+      805 LOADN                            R9 17
+      806 SETTABLEKS                       R9 R8 K202 ["Padding"]
+      808 LOADK                            R9 K205 ["AssetConfigRadioButton"]
+      809 SETTABLEKS                       R9 R8 K203 ["RadioButtonStyle"]
+      811 SETTABLEKS                       R8 R7 K206 ["&AssetConfigRadioButtonList"]
+      813 CALL                             R5 2 1
+      814 SETTABLE                         R5 R3 R4
+      815 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -595,18 +549,12 @@ MAIN:
        44 GETIMPORT                        R11 K5 [require]
        46 GETTABLEKS                       R12 R1 K16 ["Cryo"]
        48 CALL                             R11 1 1
-       49 GETIMPORT                        R12 K5 [require]
-       51 GETTABLEKS                       R15 R0 K14 ["Src"]
-       53 GETTABLEKS                       R14 R15 K17 ["Flags"]
-       55 GETTABLEKS                       R13 R14 K18 ["getFFlagRemoveItemTags"]
-       57 CALL                             R12 1 1
-       58 DUPCLOSURE                       R13 K19 [PROTO_0]
-       59 CAPTURE                          VAL R6
-       60 CAPTURE                          VAL R4
-       61 CAPTURE                          VAL R8
-       62 CAPTURE                          VAL R5
-       63 CAPTURE                          VAL R11
-       64 CAPTURE                          VAL R12
-       65 CAPTURE                          VAL R7
-       66 CAPTURE                          VAL R10
-       67 RETURN                           R13 1
+       49 DUPCLOSURE                       R12 K17 [PROTO_0]
+       50 CAPTURE                          VAL R6
+       51 CAPTURE                          VAL R4
+       52 CAPTURE                          VAL R8
+       53 CAPTURE                          VAL R5
+       54 CAPTURE                          VAL R11
+       55 CAPTURE                          VAL R10
+       56 CAPTURE                          VAL R7
+       57 RETURN                           R12 1

@@ -11,6 +11,8 @@ type _Messages = {
 	DismissDialogAction_Params: _DismissDialogAction_ParamsMessage,
 	LinkAction: _LinkActionMessage,
 	LinkAction_Params: _LinkAction_ParamsMessage,
+	OpenSocialLinkAction: _OpenSocialLinkActionMessage,
+	OpenSocialLinkAction_Params: _OpenSocialLinkAction_ParamsMessage,
 	OpenGameDetailsAction: _OpenGameDetailsActionMessage,
 	OpenGameDetailsAction_Params: _OpenGameDetailsAction_ParamsMessage,
 	OpenJoinFriendsAction: _OpenJoinFriendsActionMessage,
@@ -172,6 +174,67 @@ type _LinkAction_ParamsPartialFields = {
 
 export type LinkAction_Params = typeof(setmetatable({} :: _LinkAction_ParamsFields, {} :: _LinkAction_ParamsImpl))
 type _LinkAction_ParamsMessage = proto.Message<LinkAction_Params, _LinkAction_ParamsPartialFields>
+
+type _OpenSocialLinkActionImpl = {
+	__index: _OpenSocialLinkActionImpl,
+	new: (fields: _OpenSocialLinkActionPartialFields?) -> OpenSocialLinkAction,
+	encode: (self: OpenSocialLinkAction) -> buffer,
+	decode: (input: buffer) -> OpenSocialLinkAction,
+	jsonEncode: (self: OpenSocialLinkAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenSocialLinkAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenSocialLinkActionFields = {
+	action_type: ActionType,
+	action_params: OpenSocialLinkAction_Params?,
+}
+
+type _OpenSocialLinkActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenSocialLinkAction_Params?,
+}
+
+export type OpenSocialLinkAction = typeof(setmetatable(
+	{} :: _OpenSocialLinkActionFields,
+	{} :: _OpenSocialLinkActionImpl
+))
+type _OpenSocialLinkActionMessage = proto.Message<OpenSocialLinkAction, _OpenSocialLinkActionPartialFields>
+
+type _OpenSocialLinkAction_ParamsImpl = {
+	__index: _OpenSocialLinkAction_ParamsImpl,
+	new: (fields: _OpenSocialLinkAction_ParamsPartialFields?) -> OpenSocialLinkAction_Params,
+	encode: (self: OpenSocialLinkAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenSocialLinkAction_Params,
+	jsonEncode: (self: OpenSocialLinkAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenSocialLinkAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenSocialLinkAction_ParamsFields = {
+	assignment_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	assignment_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	social_link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	social_link_url: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	social_link_display_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenSocialLinkAction_ParamsPartialFields = {
+	assignment_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	assignment_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	social_link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	social_link_url: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	social_link_display_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenSocialLinkAction_Params = typeof(setmetatable(
+	{} :: _OpenSocialLinkAction_ParamsFields,
+	{} :: _OpenSocialLinkAction_ParamsImpl
+))
+type _OpenSocialLinkAction_ParamsMessage = proto.Message<
+	OpenSocialLinkAction_Params,
+	_OpenSocialLinkAction_ParamsPartialFields
+>
 
 type _OpenGameDetailsActionImpl = {
 	__index: _OpenGameDetailsActionImpl,
@@ -1568,6 +1631,7 @@ type _ActionFields = {
 		| { type: "close_marketplace_category_tooltip", value: CloseMarketplaceCategoryTooltip }
 		| { type: "resize_marketplace_catalog", value: ResizeMarketplaceCatalog }
 		| { type: "open_marketplace_catalog_filters", value: OpenMarketplaceCatalogFilters }
+		| { type: "open_social_link_action", value: OpenSocialLinkAction }
 	)?,
 }
 
@@ -1599,6 +1663,7 @@ type _ActionPartialFields = {
 		| { type: "close_marketplace_category_tooltip", value: CloseMarketplaceCategoryTooltip }
 		| { type: "resize_marketplace_catalog", value: ResizeMarketplaceCatalog }
 		| { type: "open_marketplace_catalog_filters", value: OpenMarketplaceCatalogFilters }
+		| { type: "open_social_link_action", value: OpenSocialLinkAction }
 	)?,
 }
 
@@ -1885,6 +1950,7 @@ export type ActionType =
 	| "ACTION_TYPE_CLOSE_MARKETPLACE_CATEGORY_TOOLTIP"
 	| "ACTION_TYPE_RESIZE_MARKETPLACE_CATALOG"
 	| "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS"
+	| "ACTION_TYPE_OPEN_SOCIAL_LINK"
 	| number -- Unknown
 
 do
@@ -2378,6 +2444,364 @@ do
 	messages.LinkAction_Params = _LinkAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.LinkAction_Params)
+end
+
+do
+	local _OpenSocialLinkActionImpl = {}
+	_OpenSocialLinkActionImpl.__index = _OpenSocialLinkActionImpl
+
+	function _OpenSocialLinkActionImpl.new(data: _OpenSocialLinkActionPartialFields?): OpenSocialLinkAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenSocialLinkActionImpl :: _OpenSocialLinkActionImpl)
+	end
+
+	function _OpenSocialLinkActionImpl.encode(self: OpenSocialLinkAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenSocialLinkActionImpl.decode(input: buffer): OpenSocialLinkAction
+		local self = _OpenSocialLinkActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenSocialLinkAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenSocialLinkActionImpl.jsonEncode(self: OpenSocialLinkAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenSocialLinkActionImpl.jsonDecode(input: { [string]: any }): OpenSocialLinkAction
+		local self = _OpenSocialLinkActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenSocialLinkAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenSocialLinkAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenSocialLinkActionImpl.descriptor = {
+		name = "OpenSocialLinkAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenSocialLinkAction",
+	}
+
+	messages.OpenSocialLinkAction = _OpenSocialLinkActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenSocialLinkAction)
+end
+
+do
+	local _OpenSocialLinkAction_ParamsImpl = {}
+	_OpenSocialLinkAction_ParamsImpl.__index = _OpenSocialLinkAction_ParamsImpl
+
+	function _OpenSocialLinkAction_ParamsImpl.new(
+		data: _OpenSocialLinkAction_ParamsPartialFields?
+	): OpenSocialLinkAction_Params
+		return setmetatable({
+			assignment_id = if data == nil or data.assignment_id == nil then nil else data.assignment_id,
+			assignment_type = if data == nil or data.assignment_type == nil then nil else data.assignment_type,
+			social_link_type = if data == nil or data.social_link_type == nil then nil else data.social_link_type,
+			social_link_url = if data == nil or data.social_link_url == nil then nil else data.social_link_url,
+			social_link_display_type = if data == nil or data.social_link_display_type == nil
+				then nil
+				else data.social_link_display_type,
+		}, _OpenSocialLinkAction_ParamsImpl :: _OpenSocialLinkAction_ParamsImpl)
+	end
+
+	function _OpenSocialLinkAction_ParamsImpl.encode(self: OpenSocialLinkAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.assignment_id ~= nil then
+			local encoded = self.assignment_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.assignment_type ~= nil then
+			local encoded = self.assignment_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.social_link_type ~= nil then
+			local encoded = self.social_link_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.social_link_url ~= nil then
+			local encoded = self.social_link_url:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.social_link_display_type ~= nil then
+			local encoded = self.social_link_display_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenSocialLinkAction_ParamsImpl.decode(input: buffer): OpenSocialLinkAction_Params
+		local self = _OpenSocialLinkAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.assignment_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.assignment_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.social_link_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.social_link_url = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.social_link_display_type =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenSocialLinkAction_ParamsImpl.jsonEncode(self: OpenSocialLinkAction_Params): any
+		local output = {}
+
+		if self.assignment_id ~= nil then
+			output.assignmentId = self.assignment_id:jsonEncode()
+		end
+
+		if self.assignment_type ~= nil then
+			output.assignmentType = self.assignment_type:jsonEncode()
+		end
+
+		if self.social_link_type ~= nil then
+			output.socialLinkType = self.social_link_type:jsonEncode()
+		end
+
+		if self.social_link_url ~= nil then
+			output.socialLinkUrl = self.social_link_url:jsonEncode()
+		end
+
+		if self.social_link_display_type ~= nil then
+			output.socialLinkDisplayType = self.social_link_display_type:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenSocialLinkAction_ParamsImpl.jsonDecode(input: { [string]: any }): OpenSocialLinkAction_Params
+		local self = _OpenSocialLinkAction_ParamsImpl.new()
+
+		if input.assignment_id ~= nil then
+			self.assignment_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.assignment_id)
+		end
+
+		if input.assignmentId ~= nil then
+			self.assignment_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.assignmentId)
+		end
+
+		if input.assignment_type ~= nil then
+			self.assignment_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.assignment_type)
+		end
+
+		if input.assignmentType ~= nil then
+			self.assignment_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.assignmentType)
+		end
+
+		if input.social_link_type ~= nil then
+			self.social_link_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.social_link_type)
+		end
+
+		if input.socialLinkType ~= nil then
+			self.social_link_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.socialLinkType)
+		end
+
+		if input.social_link_url ~= nil then
+			self.social_link_url =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.social_link_url)
+		end
+
+		if input.socialLinkUrl ~= nil then
+			self.social_link_url =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.socialLinkUrl)
+		end
+
+		if input.social_link_display_type ~= nil then
+			self.social_link_display_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.social_link_display_type)
+		end
+
+		if input.socialLinkDisplayType ~= nil then
+			self.social_link_display_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.socialLinkDisplayType)
+		end
+
+		return self
+	end
+
+	_OpenSocialLinkAction_ParamsImpl.descriptor = {
+		name = "OpenSocialLinkAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenSocialLinkAction_Params = _OpenSocialLinkAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenSocialLinkAction_Params)
 end
 
 do
@@ -9249,6 +9673,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_social_link_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -9445,6 +9873,12 @@ do
 						value = messages.OpenMarketplaceCatalogFilters.decode(value),
 					}
 					continue
+				elseif field == 27 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "open_social_link_action", value = messages.OpenSocialLinkAction.decode(value) }
+					continue
 				end
 
 				local length
@@ -9525,6 +9959,8 @@ do
 				output.resizeMarketplaceCatalog = self.kind.value:jsonEncode()
 			elseif self.kind.type == "open_marketplace_catalog_filters" then
 				output.openMarketplaceCatalogFilters = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_social_link_action" then
+				output.openSocialLinkAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -9881,6 +10317,20 @@ do
 			self.kind = {
 				type = "open_marketplace_catalog_filters",
 				value = messages.OpenMarketplaceCatalogFilters.jsonDecode(input.openMarketplaceCatalogFilters),
+			}
+		end
+
+		if input.open_social_link_action ~= nil then
+			self.kind = {
+				type = "open_social_link_action",
+				value = messages.OpenSocialLinkAction.jsonDecode(input.open_social_link_action),
+			}
+		end
+
+		if input.openSocialLinkAction ~= nil then
+			self.kind = {
+				type = "open_social_link_action",
+				value = messages.OpenSocialLinkAction.jsonDecode(input.openSocialLinkAction),
 			}
 		end
 
@@ -11082,6 +11532,8 @@ messages.ActionType = {
 			return "ACTION_TYPE_RESIZE_MARKETPLACE_CATALOG"
 		elseif value == 26 then
 			return "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS"
+		elseif value == 27 then
+			return "ACTION_TYPE_OPEN_SOCIAL_LINK"
 		else
 			return nil
 		end
@@ -11142,6 +11594,8 @@ messages.ActionType = {
 			return 25
 		elseif self == "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS" then
 			return 26
+		elseif self == "ACTION_TYPE_OPEN_SOCIAL_LINK" then
+			return 27
 		else
 			return self
 		end
@@ -11202,6 +11656,8 @@ messages.ActionType = {
 			return "ACTION_TYPE_RESIZE_MARKETPLACE_CATALOG"
 		elseif name == "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS" then
 			return "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS"
+		elseif name == "ACTION_TYPE_OPEN_SOCIAL_LINK" then
+			return "ACTION_TYPE_OPEN_SOCIAL_LINK"
 		else
 			return nil
 		end
@@ -11213,6 +11669,8 @@ return {
 	DismissDialogAction_Params = messages.DismissDialogAction_Params,
 	LinkAction = messages.LinkAction,
 	LinkAction_Params = messages.LinkAction_Params,
+	OpenSocialLinkAction = messages.OpenSocialLinkAction,
+	OpenSocialLinkAction_Params = messages.OpenSocialLinkAction_Params,
 	OpenGameDetailsAction = messages.OpenGameDetailsAction,
 	OpenGameDetailsAction_Params = messages.OpenGameDetailsAction_Params,
 	OpenJoinFriendsAction = messages.OpenJoinFriendsAction,

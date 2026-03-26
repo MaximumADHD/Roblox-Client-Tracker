@@ -11,6 +11,7 @@ local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExp
 local AXPartialPageModal = AvatarExperienceCommon.Components.AXPartialPageModal
 local GetTimeoutStatusStore = AvatarExperienceCommon.Stores.getTimeoutStatusStore
 local formatTimeoutEndTime = AvatarExperienceCommon.Utils.formatTimeoutEndTime
+local labelAbuseTypeMapping = AvatarExperienceCommon.Constants.LabelAbuseTypeMapping
 local Foundation = require(CorePackages.Packages.Foundation)
 local View = Foundation.View
 local Text = Foundation.Text
@@ -31,8 +32,9 @@ local function SaveAvatarTimeoutPrompt()
 		dispatch(CloseOpenPromptThunk)
 	end, { dispatch } :: { any })
 
-	local localizedRule = useLocalization({ 
-		rule = if details then "Feature.NotApproved." .. details.labelTranslationKey else nil 
+	local ruleKey = if details then labelAbuseTypeMapping[details.labelTranslationKey] else nil
+	local localizedRule = useLocalization({
+		rule = ruleKey,
 	})
 	local localized = useLocalization({
 		titleText = "Feature.Timeout.Prompt.SaveTitleText",

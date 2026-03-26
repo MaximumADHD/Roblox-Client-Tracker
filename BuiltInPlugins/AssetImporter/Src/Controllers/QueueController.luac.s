@@ -121,6 +121,54 @@ PROTO_7:
         7 RETURN                           R0 0
 
 PROTO_8:
+        0 NAMECALL                         R3 R0 K0 ["_getSessionQueue"]
+        2 CALL                             R3 1 3
+        3 FORGPREP                         R3
+        4 GETTABLEKS                       R8 R7 K1 ["state"]
+        6 GETUPVAL                         R11 0
+        7 GETTABLEKS                       R10 R11 K2 ["SessionState"]
+        9 GETTABLEKS                       R9 R10 K3 ["Parsed"]
+       11 JUMPIFNOTEQ                      R8 R9 ; [+15]
+       13 JUMPIFNOT                        R1 ; [+7]
+       14 GETTABLEKS                       R8 R0 K4 ["presetController"]
+       16 MOVE                             R10 R1
+       17 MOVE                             R11 R7
+       18 NAMECALL                         R8 R8 K5 ["resolvePreset"]
+       20 CALL                             R8 3 0
+       21 MOVE                             R10 R7
+       22 MOVE                             R11 R2
+       23 NAMECALL                         R8 R0 K6 ["changeCreatorId"]
+       25 CALL                             R8 3 1
+       26 MOVE                             R7 R8
+       27 FORGLOOP                         R3 2 ; [-24]
+       29 RETURN                           R0 0
+
+PROTO_9:
+        0 GETTABLEKS                       R3 R1 K0 ["creatorId"]
+        2 JUMPIFEQ                         R3 R2 ; [+32]
+        4 GETTABLEKS                       R3 R0 K1 ["_store"]
+        6 GETUPVAL                         R5 0
+        7 MOVE                             R6 R1
+        8 DUPTABLE                         R7 K2 [{"creatorId"}]
+        9 SETTABLEKS                       R2 R7 K0 ["creatorId"]
+       11 CALL                             R5 2 -1
+       12 NAMECALL                         R3 R3 K3 ["dispatch"]
+       14 CALL                             R3 -1 1
+       15 MOVE                             R1 R3
+       16 GETTABLEKS                       R3 R1 K4 ["fileType"]
+       18 GETUPVAL                         R6 1
+       19 GETTABLEKS                       R5 R6 K5 ["FileType"]
+       21 GETTABLEKS                       R4 R5 K6 ["Scene"]
+       23 JUMPIFNOTEQ                      R3 R4 ; [+11]
+       25 GETTABLEKS                       R3 R1 K7 ["session"]
+       27 JUMPIFNOT                        R3 ; [+7]
+       28 GETTABLEKS                       R3 R1 K7 ["session"]
+       30 NAMECALL                         R3 R3 K8 ["GetImportTree"]
+       32 CALL                             R3 1 1
+       33 SETTABLEKS                       R2 R3 K9 ["PreferredUploadId"]
+       35 RETURN                           R1 1
+
+PROTO_10:
         0 GETTABLEKS                       R2 R0 K0 ["_store"]
         2 GETUPVAL                         R4 0
         3 GETTABLEKS                       R5 R1 K1 ["filepath"]
@@ -129,59 +177,61 @@ PROTO_8:
         8 CALL                             R2 -1 0
         9 RETURN                           R0 0
 
-PROTO_9:
-        0 NAMECALL                         R2 R0 K0 ["_getSessionQueue"]
-        2 CALL                             R2 1 1
-        3 JUMPIFNOT                        R1 ; [+2]
-        4 JUMPIFNOTEQKS                    R1 K1 [""] ; [+15]
-        6 GETUPVAL                         R3 0
-        7 MOVE                             R4 R2
-        8 CALL                             R3 1 1
-        9 JUMPIF                           R3 ; [+2]
-       10 NEWTABLE                         R3 0 0
-       12 GETIMPORT                        R4 K4 [table.sort]
-       14 MOVE                             R5 R3
-       15 GETUPVAL                         R7 1
-       16 GETTABLEKS                       R6 R7 K5 ["compare"]
-       18 CALL                             R4 2 0
-       19 RETURN                           R3 1
-       20 GETIMPORT                        R3 K8 [string.lower]
-       22 MOVE                             R4 R1
-       23 CALL                             R3 1 1
-       24 MOVE                             R1 R3
-       25 NEWTABLE                         R3 0 0
-       27 MOVE                             R4 R2
-       28 LOADNIL                          R5
-       29 LOADNIL                          R6
-       30 FORGPREP                         R4
-       31 GETIMPORT                        R9 K8 [string.lower]
-       33 GETTABLEKS                       R10 R8 K9 ["assetName"]
-       35 CALL                             R9 1 1
-       36 GETIMPORT                        R10 K11 [string.find]
-       38 MOVE                             R11 R9
-       39 MOVE                             R12 R1
-       40 LOADN                            R13 1
-       41 LOADB                            R14 1
-       42 CALL                             R10 4 1
-       43 JUMPIF                           R10 ; [+7]
-       44 GETUPVAL                         R10 2
-       45 MOVE                             R11 R1
-       46 MOVE                             R12 R9
-       47 CALL                             R10 2 1
-       48 LOADN                            R11 1
-       49 JUMPIFNOTLE                      R10 R11 ; [+8]
-       51 FASTCALL2                        TABLE_INSERT R3 R8 ; [+5]
-       53 MOVE                             R11 R3
-       54 MOVE                             R12 R8
-       55 GETIMPORT                        R10 K13 [table.insert]
-       57 CALL                             R10 2 0
-       58 FORGLOOP                         R4 2 ; [-28]
-       60 GETIMPORT                        R4 K4 [table.sort]
-       62 MOVE                             R5 R3
-       63 GETUPVAL                         R7 1
-       64 GETTABLEKS                       R6 R7 K5 ["compare"]
-       66 CALL                             R4 2 0
-       67 RETURN                           R3 1
+PROTO_11:
+        0 JUMPIF                           R2 ; [+4]
+        1 NAMECALL                         R3 R0 K0 ["_getSessionQueue"]
+        3 CALL                             R3 1 1
+        4 MOVE                             R2 R3
+        5 JUMPIFNOT                        R1 ; [+2]
+        6 JUMPIFNOTEQKS                    R1 K1 [""] ; [+15]
+        8 GETUPVAL                         R3 0
+        9 MOVE                             R4 R2
+       10 CALL                             R3 1 1
+       11 JUMPIF                           R3 ; [+2]
+       12 NEWTABLE                         R3 0 0
+       14 GETIMPORT                        R4 K4 [table.sort]
+       16 MOVE                             R5 R3
+       17 GETUPVAL                         R7 1
+       18 GETTABLEKS                       R6 R7 K5 ["compare"]
+       20 CALL                             R4 2 0
+       21 RETURN                           R3 1
+       22 GETIMPORT                        R3 K8 [string.lower]
+       24 MOVE                             R4 R1
+       25 CALL                             R3 1 1
+       26 MOVE                             R1 R3
+       27 NEWTABLE                         R3 0 0
+       29 MOVE                             R4 R2
+       30 LOADNIL                          R5
+       31 LOADNIL                          R6
+       32 FORGPREP                         R4
+       33 GETIMPORT                        R9 K8 [string.lower]
+       35 GETTABLEKS                       R10 R8 K9 ["assetName"]
+       37 CALL                             R9 1 1
+       38 GETIMPORT                        R10 K11 [string.find]
+       40 MOVE                             R11 R9
+       41 MOVE                             R12 R1
+       42 LOADN                            R13 1
+       43 LOADB                            R14 1
+       44 CALL                             R10 4 1
+       45 JUMPIF                           R10 ; [+7]
+       46 GETUPVAL                         R10 2
+       47 MOVE                             R11 R1
+       48 MOVE                             R12 R9
+       49 CALL                             R10 2 1
+       50 LOADN                            R11 1
+       51 JUMPIFNOTLE                      R10 R11 ; [+8]
+       53 FASTCALL2                        TABLE_INSERT R3 R8 ; [+5]
+       55 MOVE                             R11 R3
+       56 MOVE                             R12 R8
+       57 GETIMPORT                        R10 K13 [table.insert]
+       59 CALL                             R10 2 0
+       60 FORGLOOP                         R4 2 ; [-28]
+       62 GETIMPORT                        R4 K4 [table.sort]
+       64 MOVE                             R5 R3
+       65 GETUPVAL                         R7 1
+       66 GETTABLEKS                       R6 R7 K5 ["compare"]
+       68 CALL                             R4 2 0
+       69 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -233,45 +283,55 @@ MAIN:
        80 GETTABLEKS                       R17 R15 K25 ["ClosePreview"]
        82 CALL                             R16 1 1
        83 GETIMPORT                        R17 K5 [require]
-       85 GETTABLEKS                       R19 R0 K14 ["Src"]
-       87 GETTABLEKS                       R18 R19 K22 ["Types"]
-       89 CALL                             R17 1 1
-       90 LOADK                            R20 K26 ["QueueController"]
-       91 NAMECALL                         R18 R4 K27 ["extend"]
-       93 CALL                             R18 2 1
-       94 DUPCLOSURE                       R19 K28 [PROTO_0]
-       95 CAPTURE                          VAL R18
-       96 SETTABLEKS                       R19 R18 K29 ["new"]
-       98 DUPCLOSURE                       R19 K30 [PROTO_1]
-       99 CAPTURE                          VAL R9
-      100 CAPTURE                          VAL R8
-      101 SETTABLEKS                       R19 R18 K31 ["destroy"]
-      103 DUPCLOSURE                       R19 K32 [PROTO_2]
-      104 CAPTURE                          VAL R17
-      105 CAPTURE                          VAL R13
-      106 CAPTURE                          VAL R10
-      107 SETTABLEKS                       R19 R18 K33 ["stopImportQueueParse"]
-      109 DUPCLOSURE                       R19 K34 [PROTO_3]
-      110 SETTABLEKS                       R19 R18 K35 ["_getSessionQueue"]
-      112 DUPCLOSURE                       R19 K36 [PROTO_4]
-      113 SETTABLEKS                       R19 R18 K37 ["destroyItem"]
-      115 DUPCLOSURE                       R19 K38 [PROTO_5]
-      116 CAPTURE                          VAL R16
-      117 CAPTURE                          VAL R12
-      118 CAPTURE                          VAL R11
-      119 SETTABLEKS                       R19 R18 K39 ["removeAllQueuedFiles"]
-      121 DUPCLOSURE                       R19 K40 [PROTO_6]
-      122 CAPTURE                          VAL R16
-      123 SETTABLEKS                       R19 R18 K41 ["removeErroredQueuedFiles"]
-      125 DUPCLOSURE                       R19 K42 [PROTO_7]
-      126 CAPTURE                          VAL R16
-      127 SETTABLEKS                       R19 R18 K43 ["removeUploadedQueuedFiles"]
-      129 DUPCLOSURE                       R19 K44 [PROTO_8]
-      130 CAPTURE                          VAL R13
-      131 SETTABLEKS                       R19 R18 K45 ["removeSelectedQueuedFile"]
-      133 DUPCLOSURE                       R19 K46 [PROTO_9]
-      134 CAPTURE                          VAL R6
-      135 CAPTURE                          VAL R14
-      136 CAPTURE                          VAL R5
-      137 SETTABLEKS                       R19 R18 K47 ["getFilteredRows"]
-      139 RETURN                           R18 1
+       85 GETTABLEKS                       R18 R15 K26 ["UpdateQueueItem"]
+       87 CALL                             R17 1 1
+       88 GETIMPORT                        R18 K5 [require]
+       90 GETTABLEKS                       R20 R0 K14 ["Src"]
+       92 GETTABLEKS                       R19 R20 K22 ["Types"]
+       94 CALL                             R18 1 1
+       95 LOADK                            R21 K27 ["QueueController"]
+       96 NAMECALL                         R19 R4 K28 ["extend"]
+       98 CALL                             R19 2 1
+       99 DUPCLOSURE                       R20 K29 [PROTO_0]
+      100 CAPTURE                          VAL R19
+      101 SETTABLEKS                       R20 R19 K30 ["new"]
+      103 DUPCLOSURE                       R20 K31 [PROTO_1]
+      104 CAPTURE                          VAL R9
+      105 CAPTURE                          VAL R8
+      106 SETTABLEKS                       R20 R19 K32 ["destroy"]
+      108 DUPCLOSURE                       R20 K33 [PROTO_2]
+      109 CAPTURE                          VAL R18
+      110 CAPTURE                          VAL R13
+      111 CAPTURE                          VAL R10
+      112 SETTABLEKS                       R20 R19 K34 ["stopImportQueueParse"]
+      114 DUPCLOSURE                       R20 K35 [PROTO_3]
+      115 SETTABLEKS                       R20 R19 K36 ["_getSessionQueue"]
+      117 DUPCLOSURE                       R20 K37 [PROTO_4]
+      118 SETTABLEKS                       R20 R19 K38 ["destroyItem"]
+      120 DUPCLOSURE                       R20 K39 [PROTO_5]
+      121 CAPTURE                          VAL R16
+      122 CAPTURE                          VAL R12
+      123 CAPTURE                          VAL R11
+      124 SETTABLEKS                       R20 R19 K40 ["removeAllQueuedFiles"]
+      126 DUPCLOSURE                       R20 K41 [PROTO_6]
+      127 CAPTURE                          VAL R16
+      128 SETTABLEKS                       R20 R19 K42 ["removeErroredQueuedFiles"]
+      130 DUPCLOSURE                       R20 K43 [PROTO_7]
+      131 CAPTURE                          VAL R16
+      132 SETTABLEKS                       R20 R19 K44 ["removeUploadedQueuedFiles"]
+      134 DUPCLOSURE                       R20 K45 [PROTO_8]
+      135 CAPTURE                          VAL R18
+      136 SETTABLEKS                       R20 R19 K46 ["applySettingstoAll"]
+      138 DUPCLOSURE                       R20 K47 [PROTO_9]
+      139 CAPTURE                          VAL R17
+      140 CAPTURE                          VAL R18
+      141 SETTABLEKS                       R20 R19 K48 ["changeCreatorId"]
+      143 DUPCLOSURE                       R20 K49 [PROTO_10]
+      144 CAPTURE                          VAL R13
+      145 SETTABLEKS                       R20 R19 K50 ["removeSelectedQueuedFile"]
+      147 DUPCLOSURE                       R20 K51 [PROTO_11]
+      148 CAPTURE                          VAL R6
+      149 CAPTURE                          VAL R14
+      150 CAPTURE                          VAL R5
+      151 SETTABLEKS                       R20 R19 K52 ["getFilteredRows"]
+      153 RETURN                           R19 1

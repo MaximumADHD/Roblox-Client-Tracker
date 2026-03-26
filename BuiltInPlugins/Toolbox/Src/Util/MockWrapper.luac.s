@@ -191,26 +191,40 @@ PROTO_1:
       260 SETLIST                          R27 R28 16 [1]
       262 MOVE                             R28 R21
       263 SETLIST                          R27 R28 1 [17]
-      265 GETUPVAL                         R29 22
-      266 GETTABLEKS                       R28 R29 K53 ["createElement"]
-      268 GETUPVAL                         R29 23
-      269 DUPTABLE                         R30 K54 [{"store", "plugin", "pluginGui", "settings", "theme", "networkInterface"}]
-      270 SETTABLEKS                       R2 R30 K1 ["store"]
-      272 SETTABLEKS                       R3 R30 K5 ["plugin"]
-      274 SETTABLEKS                       R4 R30 K7 ["pluginGui"]
-      276 SETTABLEKS                       R5 R30 K8 ["settings"]
-      278 SETTABLEKS                       R6 R30 K9 ["theme"]
-      280 SETTABLEKS                       R7 R30 K11 ["networkInterface"]
-      282 DUPTABLE                         R31 K56 [{"MockContextProvider"}]
-      283 GETUPVAL                         R32 24
-      284 MOVE                             R33 R27
-      285 GETUPVAL                         R36 22
-      286 GETTABLEKS                       R35 R36 K57 ["Children"]
-      288 GETTABLE                         R34 R0 R35
-      289 CALL                             R32 2 1
-      290 SETTABLEKS                       R32 R31 K55 ["MockContextProvider"]
-      292 CALL                             R28 3 -1
-      293 RETURN                           R28 -1
+      265 GETUPVAL                         R30 22
+      266 GETTABLEKS                       R29 R30 K53 ["Children"]
+      268 GETTABLE                         R28 R0 R29
+      269 GETUPVAL                         R29 23
+      270 CALL                             R29 0 1
+      271 JUMPIFNOT                        R29 ; [+13]
+      272 DUPTABLE                         R29 K55 [{"FoundationProvider"}]
+      273 GETUPVAL                         R31 22
+      274 GETTABLEKS                       R30 R31 K56 ["createElement"]
+      276 GETUPVAL                         R32 24
+      277 GETTABLEKS                       R31 R32 K54 ["FoundationProvider"]
+      279 LOADNIL                          R32
+      280 MOVE                             R33 R28
+      281 CALL                             R30 3 1
+      282 SETTABLEKS                       R30 R29 K54 ["FoundationProvider"]
+      284 MOVE                             R28 R29
+      285 GETUPVAL                         R30 22
+      286 GETTABLEKS                       R29 R30 K56 ["createElement"]
+      288 GETUPVAL                         R30 25
+      289 DUPTABLE                         R31 K57 [{"store", "plugin", "pluginGui", "settings", "theme", "networkInterface"}]
+      290 SETTABLEKS                       R2 R31 K1 ["store"]
+      292 SETTABLEKS                       R3 R31 K5 ["plugin"]
+      294 SETTABLEKS                       R4 R31 K7 ["pluginGui"]
+      296 SETTABLEKS                       R5 R31 K8 ["settings"]
+      298 SETTABLEKS                       R6 R31 K9 ["theme"]
+      300 SETTABLEKS                       R7 R31 K11 ["networkInterface"]
+      302 DUPTABLE                         R32 K59 [{"MockContextProvider"}]
+      303 GETUPVAL                         R33 26
+      304 MOVE                             R34 R27
+      305 MOVE                             R35 R28
+      306 CALL                             R33 2 1
+      307 SETTABLEKS                       R33 R32 K58 ["MockContextProvider"]
+      309 CALL                             R29 3 -1
+      310 RETURN                           R29 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -317,30 +331,40 @@ MAIN:
       182 GETTABLEKS                       R29 R14 K9 ["TestHelpers"]
       184 GETTABLEKS                       R28 R29 K38 ["Instances"]
       186 GETTABLEKS                       R27 R28 K39 ["MockPlugin"]
-      188 DUPCLOSURE                       R28 K40 [PROTO_1]
-      189 CAPTURE                          VAL R26
-      190 CAPTURE                          VAL R3
-      191 CAPTURE                          VAL R8
-      192 CAPTURE                          VAL R27
-      193 CAPTURE                          VAL R6
-      194 CAPTURE                          VAL R7
-      195 CAPTURE                          VAL R9
-      196 CAPTURE                          VAL R20
-      197 CAPTURE                          VAL R17
-      198 CAPTURE                          VAL R16
-      199 CAPTURE                          VAL R19
-      200 CAPTURE                          VAL R13
-      201 CAPTURE                          VAL R22
-      202 CAPTURE                          VAL R25
-      203 CAPTURE                          VAL R15
-      204 CAPTURE                          VAL R23
-      205 CAPTURE                          VAL R10
-      206 CAPTURE                          VAL R11
-      207 CAPTURE                          VAL R0
-      208 CAPTURE                          VAL R14
-      209 CAPTURE                          VAL R18
-      210 CAPTURE                          VAL R21
-      211 CAPTURE                          VAL R2
-      212 CAPTURE                          VAL R12
-      213 CAPTURE                          VAL R5
-      214 RETURN                           R28 1
+      188 GETIMPORT                        R28 K5 [require]
+      190 GETTABLEKS                       R29 R1 K40 ["Foundation"]
+      192 CALL                             R28 1 1
+      193 GETIMPORT                        R29 K5 [require]
+      195 GETTABLEKS                       R32 R0 K11 ["Src"]
+      197 GETTABLEKS                       R31 R32 K41 ["Flags"]
+      199 GETTABLEKS                       R30 R31 K42 ["getFFlagToolboxAssetConfigFoundationMigration"]
+      201 CALL                             R29 1 1
+      202 DUPCLOSURE                       R30 K43 [PROTO_1]
+      203 CAPTURE                          VAL R26
+      204 CAPTURE                          VAL R3
+      205 CAPTURE                          VAL R8
+      206 CAPTURE                          VAL R27
+      207 CAPTURE                          VAL R6
+      208 CAPTURE                          VAL R7
+      209 CAPTURE                          VAL R9
+      210 CAPTURE                          VAL R20
+      211 CAPTURE                          VAL R17
+      212 CAPTURE                          VAL R16
+      213 CAPTURE                          VAL R19
+      214 CAPTURE                          VAL R13
+      215 CAPTURE                          VAL R22
+      216 CAPTURE                          VAL R25
+      217 CAPTURE                          VAL R15
+      218 CAPTURE                          VAL R23
+      219 CAPTURE                          VAL R10
+      220 CAPTURE                          VAL R11
+      221 CAPTURE                          VAL R0
+      222 CAPTURE                          VAL R14
+      223 CAPTURE                          VAL R18
+      224 CAPTURE                          VAL R21
+      225 CAPTURE                          VAL R2
+      226 CAPTURE                          VAL R29
+      227 CAPTURE                          VAL R28
+      228 CAPTURE                          VAL R12
+      229 CAPTURE                          VAL R5
+      230 RETURN                           R30 1

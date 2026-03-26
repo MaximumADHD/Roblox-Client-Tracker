@@ -52,6 +52,8 @@ local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.
 local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp.Flags.FFlagAddNextUpContainer)
 local FFlagRepositionDropDownScrim = game:DefineFastFlag("RepositionDropDownScrim", false)
 
+local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
+
 local Chrome = RobloxGui.Modules.Chrome
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: never
@@ -1283,13 +1285,23 @@ local function CreateSelector(selectionStringTable, startPosition)
 				selectionLabel.Visible = true
 				PropertyTweener(selectionLabel, "TextTransparency", 1, 0, TweenTime * 1.1, EaseOutQuad)
 				if selectionLabel:IsDescendantOf(game) then
-					selectionLabel:TweenPosition(
-						leftButtonUDim,
-						Enum.EasingDirection.In,
-						Enum.EasingStyle.Quad,
-						TweenTime,
-						true
-					)
+					if featureDeprecateOldGuiObjectProperties then
+						selectionLabel:TweenPositionInternal(
+							leftButtonUDim,
+							Enum.EasingDirection.In,
+							Enum.EasingStyle.Quad,
+							TweenTime,
+							true
+						)
+					else
+						selectionLabel:TweenPosition(
+							leftButtonUDim,
+							Enum.EasingDirection.In,
+							Enum.EasingStyle.Quad,
+							TweenTime,
+							true
+						)
+					end
 				else
 					selectionLabel.Position = leftButtonUDim
 				end
@@ -1299,13 +1311,23 @@ local function CreateSelector(selectionStringTable, startPosition)
 				isSelectionLabelVisible[selectionLabel] = false
 				PropertyTweener(selectionLabel, "TextTransparency", 0, 1, TweenTime * 1.1, EaseOutQuad)
 				if selectionLabel:IsDescendantOf(game) then
-					selectionLabel:TweenPosition(
-						tweenPos,
-						Enum.EasingDirection.Out,
-						Enum.EasingStyle.Quad,
-						TweenTime * 0.9,
-						true
-					)
+					if featureDeprecateOldGuiObjectProperties then
+						selectionLabel:TweenPositionInternal(
+							tweenPos,
+							Enum.EasingDirection.Out,
+							Enum.EasingStyle.Quad,
+							TweenTime * 0.9,
+							true
+						)
+					else
+						selectionLabel:TweenPosition(
+							tweenPos,
+							Enum.EasingDirection.Out,
+							Enum.EasingStyle.Quad,
+							TweenTime * 0.9,
+							true
+						)
+					end
 				else
 					selectionLabel.Position = tweenPos
 				end

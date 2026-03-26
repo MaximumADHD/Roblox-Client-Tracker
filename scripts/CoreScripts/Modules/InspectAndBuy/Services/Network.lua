@@ -17,6 +17,9 @@ type BatchItemDetailsRequest = AvatarExperienceInspectAndBuy.BatchItemDetailsReq
 
 local DEVELOPER_URL = string.format("https://develop.%s", Url.DOMAIN)
 
+local FFlagAXEnableIaBRbxClientFeature = game:DefineFastFlag("AXEnableIaBRbxClientFeature", false)
+local FStringInspectAndBuyFeature = game:DefineFastString("InspectAndBuyFeature", "InspectAndBuy")
+
 type Promise<T = any> = LuauPolyfill.Promise<T>
 
 --[[
@@ -47,6 +50,10 @@ local function request(options, parseJson, resolve, reject)
 end
 
 local function createYieldingPromise(options, decodeJson)
+	if FFlagAXEnableIaBRbxClientFeature then
+		options.Headers = options.Headers or {}
+		options.Headers["rbx-client-feature"] = FStringInspectAndBuyFeature
+	end
 	return Promise.new(function(resolve, reject)
 		coroutine.wrap(function()
 			request(options, decodeJson, resolve, reject)
@@ -105,7 +112,7 @@ local function getBatchItemDetails(itemIds, itemType)
 				return (AvatarEditorService :: never):GetBatchItemDetails(itemIds, itemType)
 			end
 		end)
-			
+
 		if success then
 			resolve(result)
 		else
@@ -191,11 +198,9 @@ end
 local function getHumanoidDescriptionFromCostumeId(costumeId)
 	return Promise.new(function(resolve, reject)
 		spawn(function()
-			local humanoidDescription =
-				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-					Players:GetHumanoidDescriptionFromOutfitIdAsync(costumeId)
-				else
-					(Players :: never):GetHumanoidDescriptionFromOutfitId(costumeId)
+			local humanoidDescription = if game:GetEngineFeature("AsyncRenamesUsedInLuaApps")
+				then Players:GetHumanoidDescriptionFromOutfitIdAsync(costumeId)
+				else (Players :: never):GetHumanoidDescriptionFromOutfitId(costumeId)
 
 			if humanoidDescription then
 				resolve(humanoidDescription)
@@ -365,10 +370,9 @@ end
 local function getModelFromUserId(userId)
 	return Promise.new(function(resolve, reject)
 		spawn(function()
-			local model = if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				Players:CreateHumanoidModelFromUserIdAsync(userId)
-			else
-				(Players :: never):CreateHumanoidModelFromUserId(userId)
+			local model = if game:GetEngineFeature("AsyncRenamesUsedInLuaApps")
+				then Players:CreateHumanoidModelFromUserIdAsync(userId)
+				else (Players :: never):CreateHumanoidModelFromUserId(userId)
 
 			if model then
 				resolve(model)

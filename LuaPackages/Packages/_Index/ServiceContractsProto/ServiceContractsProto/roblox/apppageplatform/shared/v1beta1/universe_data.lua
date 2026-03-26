@@ -42,6 +42,9 @@ type _UniverseDataFields = {
 	favorite_count: number,
 	total_visits: number,
 	canonical_url_path: string,
+	game_minimum_age: number,
+	game_age_display_name: string,
+	content_maturity: string,
 }
 
 type _UniverseDataPartialFields = {
@@ -65,6 +68,9 @@ type _UniverseDataPartialFields = {
 	favorite_count: number?,
 	total_visits: number?,
 	canonical_url_path: string?,
+	game_minimum_age: number?,
+	game_age_display_name: string?,
+	content_maturity: string?,
 }
 
 export type UniverseData = typeof(setmetatable({} :: _UniverseDataFields, {} :: _UniverseDataImpl))
@@ -104,6 +110,11 @@ do
 			favorite_count = if data == nil or data.favorite_count == nil then 0 else data.favorite_count,
 			total_visits = if data == nil or data.total_visits == nil then 0 else data.total_visits,
 			canonical_url_path = if data == nil or data.canonical_url_path == nil then "" else data.canonical_url_path,
+			game_minimum_age = if data == nil or data.game_minimum_age == nil then 0 else data.game_minimum_age,
+			game_age_display_name = if data == nil or data.game_age_display_name == nil
+				then ""
+				else data.game_age_display_name,
+			content_maturity = if data == nil or data.content_maturity == nil then "" else data.content_maturity,
 		}, _UniverseDataImpl :: _UniverseDataImpl)
 	end
 
@@ -211,6 +222,21 @@ do
 			output, cursor = proto.writeString(output, cursor, self.canonical_url_path)
 		end
 
+		if self.game_minimum_age ~= nil and self.game_minimum_age ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.game_minimum_age)
+		end
+
+		if self.game_age_display_name ~= nil and self.game_age_display_name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.game_age_display_name)
+		end
+
+		if self.content_maturity ~= nil and self.content_maturity ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.content_maturity)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -280,6 +306,11 @@ do
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.total_visits = value
 					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.game_minimum_age = value
+					continue
 				end
 
 				local _
@@ -329,6 +360,16 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.canonical_url_path = buffer.tostring(value)
+					continue
+				elseif field == 22 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.game_age_display_name = buffer.tostring(value)
+					continue
+				elseif field == 23 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.content_maturity = buffer.tostring(value)
 					continue
 				end
 
@@ -435,6 +476,18 @@ do
 
 		if self.canonical_url_path ~= nil and self.canonical_url_path ~= "" then
 			output.canonicalUrlPath = self.canonical_url_path
+		end
+
+		if self.game_minimum_age ~= nil and self.game_minimum_age ~= 0 then
+			output.gameMinimumAge = self.game_minimum_age
+		end
+
+		if self.game_age_display_name ~= nil and self.game_age_display_name ~= "" then
+			output.gameAgeDisplayName = self.game_age_display_name
+		end
+
+		if self.content_maturity ~= nil and self.content_maturity ~= "" then
+			output.contentMaturity = self.content_maturity
 		end
 
 		return output
@@ -589,6 +642,30 @@ do
 
 		if input.canonicalUrlPath ~= nil then
 			self.canonical_url_path = input.canonicalUrlPath
+		end
+
+		if input.game_minimum_age ~= nil then
+			self.game_minimum_age = input.game_minimum_age
+		end
+
+		if input.gameMinimumAge ~= nil then
+			self.game_minimum_age = input.gameMinimumAge
+		end
+
+		if input.game_age_display_name ~= nil then
+			self.game_age_display_name = input.game_age_display_name
+		end
+
+		if input.gameAgeDisplayName ~= nil then
+			self.game_age_display_name = input.gameAgeDisplayName
+		end
+
+		if input.content_maturity ~= nil then
+			self.content_maturity = input.content_maturity
+		end
+
+		if input.contentMaturity ~= nil then
+			self.content_maturity = input.contentMaturity
 		end
 
 		return self

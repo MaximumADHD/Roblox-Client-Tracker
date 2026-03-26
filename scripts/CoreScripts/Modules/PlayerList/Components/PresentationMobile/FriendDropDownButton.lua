@@ -19,13 +19,21 @@ local Images = UIBlox.App.ImageSet.Images
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
+local FFlagConnectionsToFriendsRename =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionsToFriendsRename
+
 local LocalPlayer = Players.LocalPlayer
 
 local LOCALIZATION_TEXT = {
-	removeConnection = "CommonUI.Features.Label.RemoveConnection",
-	connectionRequest = "InGame.PlayerDropDown.Action.ConnectionRequest",
+	unfriend = if FFlagConnectionsToFriendsRename then "Feature.Friends.Action.Unfriend" else nil :: never,
+	friendRequest = if FFlagConnectionsToFriendsRename then "Feature.Friends.Label.FriendRequest" else nil :: never,
+	removeConnection = if FFlagConnectionsToFriendsRename
+		then nil :: never
+		else "CommonUI.Features.Label.RemoveConnection",
+	connectionRequest = if FFlagConnectionsToFriendsRename
+		then nil :: never
+		else "InGame.PlayerDropDown.Action.ConnectionRequest",
 }
-
 local FriendDropDownButton = Roact.PureComponent:extend("FriendDropDownButton")
 
 FriendDropDownButton.validateProps = t.strictInterface({
@@ -51,9 +59,17 @@ local function getFriendTextAndIcon(friendStatus)
 	local locales = Localization.new(LocalizationService.RobloxLocaleId)
 
 	if friendStatus == Enum.FriendStatus.Friend then
-		return locales:Format(LOCALIZATION_TEXT.removeConnection), unfriendIcon
+		return locales:Format(
+			if FFlagConnectionsToFriendsRename then LOCALIZATION_TEXT.unfriend else LOCALIZATION_TEXT.removeConnection
+		),
+			unfriendIcon
 	elseif friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend then
-		return locales:Format(LOCALIZATION_TEXT.connectionRequest), addFriendIcon
+		return locales:Format(
+			if FFlagConnectionsToFriendsRename
+				then LOCALIZATION_TEXT.friendRequest
+				else LOCALIZATION_TEXT.connectionRequest
+		),
+			addFriendIcon
 	elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
 		return RobloxTranslator:FormatByKey("InGame.PlayerDropDown.CancelRequest"), addFriendIcon
 	elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
@@ -155,8 +171,10 @@ function FriendDropDownButton:didUpdate(prevProps, prevState)
 
 	if self.props.isUsingGamepad then
 		-- Focus the right-side buttons when they appear
-		local rightButtonsVisible = self.state.unfriendConfirm or (self.props.playerRelationship.friendStatus == Enum.FriendStatus.FriendRequestReceived)
-		local prevRightButtonsVisible = prevState.unfriendConfirm or (prevProps.playerRelationship.friendStatus == Enum.FriendStatus.FriendRequestReceived)
+		local rightButtonsVisible = self.state.unfriendConfirm
+			or (self.props.playerRelationship.friendStatus == Enum.FriendStatus.FriendRequestReceived)
+		local prevRightButtonsVisible = prevState.unfriendConfirm
+			or (prevProps.playerRelationship.friendStatus == Enum.FriendStatus.FriendRequestReceived)
 		if rightButtonsVisible and (rightButtonsVisible ~= prevRightButtonsVisible) then
 			self.props.focusGuiObject(self.dropDownButtonAnimatorRef.current)
 		end
@@ -170,9 +188,12 @@ end
 function FriendDropDownButtonWrapper(props)
 	local focusGuiObject = useFocusGuiObject()
 
-	return Roact.createElement(FriendDropDownButton, Cryo.Dictionary.join(props, {
-		focusGuiObject = focusGuiObject,
-	}))
+	return Roact.createElement(
+		FriendDropDownButton,
+		Cryo.Dictionary.join(props, {
+			focusGuiObject = focusGuiObject,
+		})
+	)
 end
 
 return FriendDropDownButtonWrapper

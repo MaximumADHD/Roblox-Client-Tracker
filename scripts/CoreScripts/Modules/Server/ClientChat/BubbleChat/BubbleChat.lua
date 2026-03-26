@@ -47,6 +47,8 @@ local UserPreventOldBubbleChatOverlap do
 	UserPreventOldBubbleChatOverlap = success and value
 end
 
+local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
+
 local function getMessageLength(message)
 	return utf8.len(utf8.nfcnormalize(message))
 end
@@ -505,7 +507,11 @@ function this:UpdateChatLinesForOrigin(origin, currentBubbleYPos)
 
 		local udimValue = UDim2.new( bubble.Position.X.Scale, bubble.Position.X.Offset,
 									1, currentBubbleYPos - bubble.Size.Y.Offset - CHAT_BUBBLE_TAIL_HEIGHT)
-		bubble:TweenPosition(udimValue, Enum.EasingDirection.Out, Enum.EasingStyle.Bounce, 0.1, true)
+		if featureDeprecateOldGuiObjectProperties then
+			bubble:TweenPositionInternal(udimValue, Enum.EasingDirection.Out, Enum.EasingStyle.Bounce, 0.1, true)
+		else
+			bubble:TweenPosition(udimValue, Enum.EasingDirection.Out, Enum.EasingStyle.Bounce, 0.1, true)
+		end
 		currentBubbleYPos = currentBubbleYPos - bubble.Size.Y.Offset - CHAT_BUBBLE_TAIL_HEIGHT
 	end
 end

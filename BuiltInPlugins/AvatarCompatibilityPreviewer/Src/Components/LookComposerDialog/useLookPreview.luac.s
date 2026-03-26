@@ -13,7 +13,11 @@ PROTO_0:
        16 GETIMPORT                        R6 K5 [table.insert]
        18 CALL                             R6 2 0
        19 FORGLOOP                         R1 2 ; [-12]
-       21 RETURN                           R0 1
+       21 GETUPVAL                         R2 1
+       22 GETTABLEKS                       R1 R2 K6 ["reverse"]
+       24 MOVE                             R2 R0
+       25 CALL                             R1 1 -1
+       26 RETURN                           R1 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -45,35 +49,36 @@ PROTO_2:
         6 GETTABLEKS                       R3 R4 K1 ["useMemo"]
         8 NEWCLOSURE                       R4 P0
         9 CAPTURE                          VAL R0
-       10 NEWTABLE                         R5 0 1
-       12 GETTABLEKS                       R6 R0 K2 ["dialogItems"]
-       14 SETLIST                          R5 R6 1 [1]
-       16 CALL                             R3 2 1
-       17 GETUPVAL                         R4 1
-       18 DUPTABLE                         R5 K7 [{"makeupItems", "skinColor", "worldModel", "setWorldModel"}]
-       19 SETTABLEKS                       R3 R5 K3 ["makeupItems"]
-       21 GETTABLEKS                       R6 R0 K4 ["skinColor"]
-       23 SETTABLEKS                       R6 R5 K4 ["skinColor"]
-       25 SETTABLEKS                       R1 R5 K5 ["worldModel"]
-       27 SETTABLEKS                       R2 R5 K6 ["setWorldModel"]
-       29 CALL                             R4 1 0
-       30 GETUPVAL                         R5 0
-       31 GETTABLEKS                       R4 R5 K1 ["useMemo"]
-       33 NEWCLOSURE                       R5 P1
-       34 CAPTURE                          UPVAL U0
-       35 CAPTURE                          UPVAL U2
-       36 CAPTURE                          VAL R1
-       37 CAPTURE                          VAL R0
-       38 NEWTABLE                         R6 0 4
-       40 MOVE                             R7 R1
-       41 GETTABLEKS                       R8 R0 K4 ["skinColor"]
-       43 GETTABLEKS                       R9 R0 K2 ["dialogItems"]
-       45 GETTABLEKS                       R10 R0 K8 ["dialogLookType"]
-       47 SETLIST                          R6 R7 4 [1]
-       49 CALL                             R4 2 1
-       50 DUPTABLE                         R5 K10 [{"lookPreview"}]
-       51 SETTABLEKS                       R4 R5 K9 ["lookPreview"]
-       53 RETURN                           R5 1
+       10 CAPTURE                          UPVAL U1
+       11 NEWTABLE                         R5 0 1
+       13 GETTABLEKS                       R6 R0 K2 ["dialogItems"]
+       15 SETLIST                          R5 R6 1 [1]
+       17 CALL                             R3 2 1
+       18 GETUPVAL                         R4 2
+       19 DUPTABLE                         R5 K7 [{"makeupItems", "skinColor", "worldModel", "setWorldModel"}]
+       20 SETTABLEKS                       R3 R5 K3 ["makeupItems"]
+       22 GETTABLEKS                       R6 R0 K4 ["skinColor"]
+       24 SETTABLEKS                       R6 R5 K4 ["skinColor"]
+       26 SETTABLEKS                       R1 R5 K5 ["worldModel"]
+       28 SETTABLEKS                       R2 R5 K6 ["setWorldModel"]
+       30 CALL                             R4 1 0
+       31 GETUPVAL                         R5 0
+       32 GETTABLEKS                       R4 R5 K1 ["useMemo"]
+       34 NEWCLOSURE                       R5 P1
+       35 CAPTURE                          UPVAL U0
+       36 CAPTURE                          UPVAL U3
+       37 CAPTURE                          VAL R1
+       38 CAPTURE                          VAL R0
+       39 NEWTABLE                         R6 0 4
+       41 MOVE                             R7 R1
+       42 GETTABLEKS                       R8 R0 K4 ["skinColor"]
+       44 GETTABLEKS                       R9 R0 K2 ["dialogItems"]
+       46 GETTABLEKS                       R10 R0 K8 ["dialogLookType"]
+       48 SETLIST                          R6 R7 4 [1]
+       50 CALL                             R4 2 1
+       51 DUPTABLE                         R5 K10 [{"lookPreview"}]
+       52 SETTABLEKS                       R4 R5 K9 ["lookPreview"]
+       54 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -86,23 +91,28 @@ MAIN:
        11 GETTABLEKS                       R2 R3 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R4 K9 ["Types"]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["Dash"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R7 R0 K8 ["Src"]
-       25 GETTABLEKS                       R6 R7 K10 ["Components"]
-       27 GETTABLEKS                       R5 R6 K11 ["LookComposerDialog"]
-       29 GETTABLEKS                       R4 R5 K12 ["useMakeupWorldModel"]
-       31 CALL                             R3 1 1
-       32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R8 R0 K8 ["Src"]
-       36 GETTABLEKS                       R7 R8 K10 ["Components"]
-       38 GETTABLEKS                       R6 R7 K11 ["LookComposerDialog"]
-       40 GETTABLEKS                       R5 R6 K13 ["LookPreview"]
-       42 CALL                             R4 1 1
-       43 DUPCLOSURE                       R5 K14 [PROTO_2]
-       44 CAPTURE                          VAL R1
-       45 CAPTURE                          VAL R3
-       46 CAPTURE                          VAL R4
-       47 RETURN                           R5 1
+       23 GETTABLEKS                       R5 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R5 K10 ["Types"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R8 R0 K9 ["Src"]
+       32 GETTABLEKS                       R7 R8 K11 ["Components"]
+       34 GETTABLEKS                       R6 R7 K12 ["LookComposerDialog"]
+       36 GETTABLEKS                       R5 R6 K13 ["useMakeupWorldModel"]
+       38 CALL                             R4 1 1
+       39 GETIMPORT                        R5 K5 [require]
+       41 GETTABLEKS                       R9 R0 K9 ["Src"]
+       43 GETTABLEKS                       R8 R9 K11 ["Components"]
+       45 GETTABLEKS                       R7 R8 K12 ["LookComposerDialog"]
+       47 GETTABLEKS                       R6 R7 K14 ["LookPreview"]
+       49 CALL                             R5 1 1
+       50 DUPCLOSURE                       R6 K15 [PROTO_2]
+       51 CAPTURE                          VAL R1
+       52 CAPTURE                          VAL R2
+       53 CAPTURE                          VAL R4
+       54 CAPTURE                          VAL R5
+       55 RETURN                           R6 1

@@ -78,94 +78,133 @@ PROTO_2:
        77 GETTABLEKS                       R11 R8 K16 ["Bone"]
        79 GETTABLEKS                       R10 R11 K19 ["Transform"]
        81 SETTABLE                         R10 R9 R8
-       82 JUMP                             ; [+25]
-       83 GETTABLEKS                       R9 R8 K14 ["Type"]
-       85 GETUPVAL                         R12 1
-       86 GETTABLEKS                       R11 R12 K15 ["JOINT_TYPES"]
-       88 GETTABLEKS                       R10 R11 K20 ["Motor6D"]
-       90 JUMPIFEQ                         R9 R10 ; [+10]
-       92 GETTABLEKS                       R9 R8 K14 ["Type"]
-       94 GETUPVAL                         R12 1
-       95 GETTABLEKS                       R11 R12 K15 ["JOINT_TYPES"]
-       97 GETTABLEKS                       R10 R11 K21 ["AnimationConstraint"]
-       99 JUMPIFNOTEQ                      R9 R10 ; [+8]
-      101 GETTABLEKS                       R9 R0 K5 ["_jointsToOrigPart1CFrame"]
-      103 GETTABLEKS                       R11 R8 K22 ["Part1"]
-      105 GETTABLEKS                       R10 R11 K18 ["CFrame"]
-      107 SETTABLE                         R10 R9 R8
-      108 FORGLOOP                         R4 2 [inext] ; [-57]
-      110 NAMECALL                         R4 R0 K23 ["_shouldSolveConstraints"]
-      112 CALL                             R4 1 1
-      113 JUMPIFNOT                        R4 ; [+81]
-      114 NAMECALL                         R4 R0 K24 ["_useFFlagUseIKControls"]
-      116 CALL                             R4 1 1
-      117 JUMPIFNOT                        R4 ; [+30]
-      118 LENGTH                           R6 R1
-      119 JUMPIFEQKN                       R6 K25 [1] ; [+2]
-      121 LOADB                            R5 0 +1
-      122 LOADB                            R5 1
-      123 FASTCALL2K                       ASSERT R5 K26 ; [+4]
-      125 LOADK                            R6 K26 ["Must have exactly one part selected to use IK controls"]
-      126 GETIMPORT                        R4 K28 [assert]
-      128 CALL                             R4 2 0
-      129 GETTABLEKS                       R5 R0 K2 ["_draggerContext"]
-      131 GETTABLEKS                       R4 R5 K29 ["ikControlManager"]
-      133 GETTABLEN                        R6 R1 1
-      134 NAMECALL                         R4 R4 K30 ["setupIKControl"]
-      136 CALL                             R4 2 1
-      137 JUMPIF                           R4 ; [+4]
-      138 LOADNIL                          R5
-      139 SETTABLEKS                       R5 R0 K31 ["_effectorCFrame"]
-      141 RETURN                           R0 0
-      142 GETTABLEN                        R6 R1 1
-      143 GETTABLEKS                       R5 R6 K18 ["CFrame"]
-      145 SETTABLEKS                       R5 R0 K31 ["_effectorCFrame"]
-      147 JUMP                             ; [+47]
-      148 GETTABLEKS                       R7 R0 K11 ["_joints"]
-      150 JUMPIFNOT                        R7 ; [+3]
-      151 LENGTH                           R8 R7
-      152 GETTABLE                         R6 R7 R8
-      153 JUMP                             ; [+1]
-      154 LOADNIL                          R6
-      155 GETTABLEKS                       R5 R6 K22 ["Part1"]
-      157 GETTABLEKS                       R4 R5 K18 ["CFrame"]
-      159 SETTABLEKS                       R4 R0 K31 ["_effectorCFrame"]
-      161 GETUPVAL                         R5 2
-      162 GETTABLEKS                       R4 R5 K32 ["ikDragStart"]
-      164 GETTABLEKS                       R6 R0 K2 ["_draggerContext"]
-      166 GETTABLEKS                       R5 R6 K10 ["RootInstance"]
-      168 GETTABLEN                        R6 R3 1
-      169 GETTABLEKS                       R9 R0 K2 ["_draggerContext"]
-      171 GETTABLEKS                       R8 R9 K33 ["IKMode"]
-      173 GETUPVAL                         R11 1
-      174 GETTABLEKS                       R10 R11 K34 ["IK_MODE"]
-      176 GETTABLEKS                       R9 R10 K35 ["BodyPart"]
-      178 JUMPIFEQ                         R8 R9 ; [+2]
-      180 LOADB                            R7 0 +1
-      181 LOADB                            R7 1
-      182 GETTABLEKS                       R9 R0 K2 ["_draggerContext"]
-      184 GETTABLEKS                       R8 R9 K36 ["StartingPose"]
-      186 GETTABLEKS                       R10 R0 K2 ["_draggerContext"]
-      188 GETTABLEKS                       R9 R10 K37 ["PinnedParts"]
-      190 CALL                             R4 5 2
-      191 SETTABLEKS                       R4 R0 K38 ["_motorData"]
-      193 SETTABLEKS                       R5 R0 K39 ["_animConstraintData"]
-      195 GETIMPORT                        R4 K41 [CFrame.new]
-      197 CALL                             R4 0 1
-      198 SETTABLEKS                       R4 R0 K42 ["_lastGoodGeometricTransform"]
-      200 LOADNIL                          R4
-      201 LOADNIL                          R5
-      202 NAMECALL                         R6 R2 K43 ["getBoundingBox"]
-      204 CALL                             R6 1 3
-      205 SETTABLEKS                       R8 R0 K44 ["_boundingBoxSize"]
-      207 MOVE                             R4 R6
-      208 MOVE                             R5 R7
-      209 GETIMPORT                        R7 K41 [CFrame.new]
-      211 MOVE                             R8 R5
-      212 CALL                             R7 1 1
-      213 MUL                              R6 R4 R7
-      214 SETTABLEKS                       R6 R0 K45 ["_centerPoint"]
-      216 RETURN                           R0 0
+       82 JUMP                             ; [+89]
+       83 GETUPVAL                         R9 2
+       84 JUMPIFNOT                        R9 ; [+62]
+       85 GETTABLEKS                       R9 R8 K14 ["Type"]
+       87 GETUPVAL                         R12 1
+       88 GETTABLEKS                       R11 R12 K15 ["JOINT_TYPES"]
+       90 GETTABLEKS                       R10 R11 K20 ["AnimationConstraint"]
+       92 JUMPIFNOTEQ                      R9 R10 ; [+37]
+       94 GETTABLEKS                       R9 R0 K5 ["_jointsToOrigPart1CFrame"]
+       96 GETTABLEKS                       R11 R8 K21 ["Part1"]
+       98 GETTABLEKS                       R10 R11 K18 ["CFrame"]
+      100 SETTABLE                         R10 R9 R8
+      101 GETTABLEKS                       R9 R8 K22 ["Part0"]
+      103 LOADK                            R11 K16 ["Bone"]
+      104 NAMECALL                         R9 R9 K23 ["IsA"]
+      106 CALL                             R9 2 1
+      107 JUMPIFNOT                        R9 ; [+64]
+      108 GETTABLEKS                       R9 R0 K6 ["_jointsToOrigBoneTransformedWorldCFrame"]
+      110 GETTABLEKS                       R11 R8 K22 ["Part0"]
+      112 GETTABLEKS                       R10 R11 K17 ["TransformedWorldCFrame"]
+      114 SETTABLE                         R10 R9 R8
+      115 GETTABLEKS                       R9 R0 K7 ["_jointsToOrigBoneCFrame"]
+      117 GETTABLEKS                       R11 R8 K22 ["Part0"]
+      119 GETTABLEKS                       R10 R11 K18 ["CFrame"]
+      121 SETTABLE                         R10 R9 R8
+      122 GETTABLEKS                       R9 R0 K8 ["_originalTransform"]
+      124 GETTABLEKS                       R11 R8 K22 ["Part0"]
+      126 GETTABLEKS                       R10 R11 K19 ["Transform"]
+      128 SETTABLE                         R10 R9 R8
+      129 JUMP                             ; [+42]
+      130 GETTABLEKS                       R9 R8 K14 ["Type"]
+      132 GETUPVAL                         R12 1
+      133 GETTABLEKS                       R11 R12 K15 ["JOINT_TYPES"]
+      135 GETTABLEKS                       R10 R11 K24 ["Motor6D"]
+      137 JUMPIFNOTEQ                      R9 R10 ; [+34]
+      139 GETTABLEKS                       R9 R0 K5 ["_jointsToOrigPart1CFrame"]
+      141 GETTABLEKS                       R11 R8 K21 ["Part1"]
+      143 GETTABLEKS                       R10 R11 K18 ["CFrame"]
+      145 SETTABLE                         R10 R9 R8
+      146 JUMP                             ; [+25]
+      147 GETTABLEKS                       R9 R8 K14 ["Type"]
+      149 GETUPVAL                         R12 1
+      150 GETTABLEKS                       R11 R12 K15 ["JOINT_TYPES"]
+      152 GETTABLEKS                       R10 R11 K24 ["Motor6D"]
+      154 JUMPIFEQ                         R9 R10 ; [+10]
+      156 GETTABLEKS                       R9 R8 K14 ["Type"]
+      158 GETUPVAL                         R12 1
+      159 GETTABLEKS                       R11 R12 K15 ["JOINT_TYPES"]
+      161 GETTABLEKS                       R10 R11 K20 ["AnimationConstraint"]
+      163 JUMPIFNOTEQ                      R9 R10 ; [+8]
+      165 GETTABLEKS                       R9 R0 K5 ["_jointsToOrigPart1CFrame"]
+      167 GETTABLEKS                       R11 R8 K21 ["Part1"]
+      169 GETTABLEKS                       R10 R11 K18 ["CFrame"]
+      171 SETTABLE                         R10 R9 R8
+      172 FORGLOOP                         R4 2 [inext] ; [-121]
+      174 NAMECALL                         R4 R0 K25 ["_shouldSolveConstraints"]
+      176 CALL                             R4 1 1
+      177 JUMPIFNOT                        R4 ; [+81]
+      178 NAMECALL                         R4 R0 K26 ["_useFFlagUseIKControls"]
+      180 CALL                             R4 1 1
+      181 JUMPIFNOT                        R4 ; [+30]
+      182 LENGTH                           R6 R1
+      183 JUMPIFEQKN                       R6 K27 [1] ; [+2]
+      185 LOADB                            R5 0 +1
+      186 LOADB                            R5 1
+      187 FASTCALL2K                       ASSERT R5 K28 ; [+4]
+      189 LOADK                            R6 K28 ["Must have exactly one part selected to use IK controls"]
+      190 GETIMPORT                        R4 K30 [assert]
+      192 CALL                             R4 2 0
+      193 GETTABLEKS                       R5 R0 K2 ["_draggerContext"]
+      195 GETTABLEKS                       R4 R5 K31 ["ikControlManager"]
+      197 GETTABLEN                        R6 R1 1
+      198 NAMECALL                         R4 R4 K32 ["setupIKControl"]
+      200 CALL                             R4 2 1
+      201 JUMPIF                           R4 ; [+4]
+      202 LOADNIL                          R5
+      203 SETTABLEKS                       R5 R0 K33 ["_effectorCFrame"]
+      205 RETURN                           R0 0
+      206 GETTABLEN                        R6 R1 1
+      207 GETTABLEKS                       R5 R6 K18 ["CFrame"]
+      209 SETTABLEKS                       R5 R0 K33 ["_effectorCFrame"]
+      211 JUMP                             ; [+47]
+      212 GETTABLEKS                       R7 R0 K11 ["_joints"]
+      214 JUMPIFNOT                        R7 ; [+3]
+      215 LENGTH                           R8 R7
+      216 GETTABLE                         R6 R7 R8
+      217 JUMP                             ; [+1]
+      218 LOADNIL                          R6
+      219 GETTABLEKS                       R5 R6 K21 ["Part1"]
+      221 GETTABLEKS                       R4 R5 K18 ["CFrame"]
+      223 SETTABLEKS                       R4 R0 K33 ["_effectorCFrame"]
+      225 GETUPVAL                         R5 3
+      226 GETTABLEKS                       R4 R5 K34 ["ikDragStart"]
+      228 GETTABLEKS                       R6 R0 K2 ["_draggerContext"]
+      230 GETTABLEKS                       R5 R6 K10 ["RootInstance"]
+      232 GETTABLEN                        R6 R3 1
+      233 GETTABLEKS                       R9 R0 K2 ["_draggerContext"]
+      235 GETTABLEKS                       R8 R9 K35 ["IKMode"]
+      237 GETUPVAL                         R11 1
+      238 GETTABLEKS                       R10 R11 K36 ["IK_MODE"]
+      240 GETTABLEKS                       R9 R10 K37 ["BodyPart"]
+      242 JUMPIFEQ                         R8 R9 ; [+2]
+      244 LOADB                            R7 0 +1
+      245 LOADB                            R7 1
+      246 GETTABLEKS                       R9 R0 K2 ["_draggerContext"]
+      248 GETTABLEKS                       R8 R9 K38 ["StartingPose"]
+      250 GETTABLEKS                       R10 R0 K2 ["_draggerContext"]
+      252 GETTABLEKS                       R9 R10 K39 ["PinnedParts"]
+      254 CALL                             R4 5 2
+      255 SETTABLEKS                       R4 R0 K40 ["_motorData"]
+      257 SETTABLEKS                       R5 R0 K41 ["_animConstraintData"]
+      259 GETIMPORT                        R4 K43 [CFrame.new]
+      261 CALL                             R4 0 1
+      262 SETTABLEKS                       R4 R0 K44 ["_lastGoodGeometricTransform"]
+      264 LOADNIL                          R4
+      265 LOADNIL                          R5
+      266 NAMECALL                         R6 R2 K45 ["getBoundingBox"]
+      268 CALL                             R6 1 3
+      269 SETTABLEKS                       R8 R0 K46 ["_boundingBoxSize"]
+      271 MOVE                             R4 R6
+      272 MOVE                             R5 R7
+      273 GETIMPORT                        R7 K43 [CFrame.new]
+      275 MOVE                             R8 R5
+      276 CALL                             R7 1 1
+      277 MUL                              R6 R4 R7
+      278 SETTABLEKS                       R6 R0 K47 ["_centerPoint"]
+      280 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["Parent"]
@@ -187,26 +226,50 @@ PROTO_3:
        22 RETURN                           R2 -1
 
 PROTO_4:
-        0 GETTABLEKS                       R4 R0 K0 ["Bone"]
-        2 GETTABLEKS                       R5 R4 K1 ["Parent"]
-        4 JUMPIFNOT                        R5 ; [+16]
-        5 LOADK                            R8 K0 ["Bone"]
-        6 NAMECALL                         R6 R5 K2 ["IsA"]
-        8 CALL                             R6 2 1
-        9 JUMPIFNOT                        R6 ; [+3]
-       10 GETTABLEKS                       R3 R5 K3 ["TransformedWorldCFrame"]
-       12 JUMP                             ; [+12]
-       13 LOADK                            R8 K4 ["BasePart"]
-       14 NAMECALL                         R6 R5 K2 ["IsA"]
-       16 CALL                             R6 2 1
-       17 JUMPIFNOT                        R6 ; [+3]
-       18 GETTABLEKS                       R3 R5 K5 ["CFrame"]
-       20 JUMP                             ; [+4]
-       21 GETIMPORT                        R6 K7 [CFrame.new]
-       23 CALL                             R6 0 1
-       24 MOVE                             R3 R6
-       25 MUL                              R2 R3 R1
-       26 RETURN                           R2 1
+        0 GETUPVAL                         R2 0
+        1 JUMPIFNOT                        R2 ; [+30]
+        2 GETTABLEKS                       R4 R0 K0 ["Bone"]
+        4 JUMPIF                           R4 ; [+2]
+        5 GETTABLEKS                       R4 R0 K1 ["Part0"]
+        7 GETTABLEKS                       R5 R4 K2 ["Parent"]
+        9 JUMPIFNOT                        R5 ; [+16]
+       10 LOADK                            R8 K0 ["Bone"]
+       11 NAMECALL                         R6 R5 K3 ["IsA"]
+       13 CALL                             R6 2 1
+       14 JUMPIFNOT                        R6 ; [+3]
+       15 GETTABLEKS                       R3 R5 K4 ["TransformedWorldCFrame"]
+       17 JUMP                             ; [+12]
+       18 LOADK                            R8 K5 ["BasePart"]
+       19 NAMECALL                         R6 R5 K3 ["IsA"]
+       21 CALL                             R6 2 1
+       22 JUMPIFNOT                        R6 ; [+3]
+       23 GETTABLEKS                       R3 R5 K6 ["CFrame"]
+       25 JUMP                             ; [+4]
+       26 GETIMPORT                        R6 K8 [CFrame.new]
+       28 CALL                             R6 0 1
+       29 MOVE                             R3 R6
+       30 MUL                              R2 R3 R1
+       31 RETURN                           R2 1
+       32 GETTABLEKS                       R4 R0 K0 ["Bone"]
+       34 GETTABLEKS                       R5 R4 K2 ["Parent"]
+       36 JUMPIFNOT                        R5 ; [+16]
+       37 LOADK                            R8 K0 ["Bone"]
+       38 NAMECALL                         R6 R5 K3 ["IsA"]
+       40 CALL                             R6 2 1
+       41 JUMPIFNOT                        R6 ; [+3]
+       42 GETTABLEKS                       R3 R5 K4 ["TransformedWorldCFrame"]
+       44 JUMP                             ; [+12]
+       45 LOADK                            R8 K5 ["BasePart"]
+       46 NAMECALL                         R6 R5 K3 ["IsA"]
+       48 CALL                             R6 2 1
+       49 JUMPIFNOT                        R6 ; [+3]
+       50 GETTABLEKS                       R3 R5 K6 ["CFrame"]
+       52 JUMP                             ; [+4]
+       53 GETIMPORT                        R6 K8 [CFrame.new]
+       55 CALL                             R6 0 1
+       56 MOVE                             R3 R6
+       57 MUL                              R2 R3 R1
+       58 RETURN                           R2 1
 
 PROTO_5:
         0 GETTABLEKS                       R5 R2 K0 ["Part0"]
@@ -226,34 +289,134 @@ PROTO_5:
 PROTO_6:
         0 GETTABLEKS                       R5 R0 K0 ["_jointsToOrigBoneCFrame"]
         2 GETTABLE                         R4 R5 R2
-        3 GETTABLEKS                       R6 R2 K1 ["Bone"]
-        5 GETTABLEKS                       R7 R6 K2 ["Parent"]
-        7 JUMPIFNOT                        R7 ; [+16]
-        8 LOADK                            R10 K1 ["Bone"]
-        9 NAMECALL                         R8 R7 K3 ["IsA"]
-       11 CALL                             R8 2 1
-       12 JUMPIFNOT                        R8 ; [+3]
-       13 GETTABLEKS                       R5 R7 K4 ["TransformedWorldCFrame"]
-       15 JUMP                             ; [+12]
-       16 LOADK                            R10 K5 ["BasePart"]
-       17 NAMECALL                         R8 R7 K3 ["IsA"]
-       19 CALL                             R8 2 1
-       20 JUMPIFNOT                        R8 ; [+3]
-       21 GETTABLEKS                       R5 R7 K6 ["CFrame"]
-       23 JUMP                             ; [+4]
-       24 GETIMPORT                        R8 K8 [CFrame.new]
-       26 CALL                             R8 0 1
-       27 MOVE                             R5 R8
-       28 MUL                              R3 R5 R4
-       29 GETTABLEKS                       R5 R0 K9 ["_jointsToOrigBoneTransformedWorldCFrame"]
-       31 GETTABLE                         R4 R5 R2
-       32 MUL                              R4 R1 R4
-       33 MOVE                             R7 R4
-       34 NAMECALL                         R5 R3 K10 ["toObjectSpace"]
-       36 CALL                             R5 2 -1
-       37 RETURN                           R5 -1
+        3 GETUPVAL                         R5 0
+        4 JUMPIFNOT                        R5 ; [+30]
+        5 GETTABLEKS                       R6 R2 K1 ["Bone"]
+        7 JUMPIF                           R6 ; [+2]
+        8 GETTABLEKS                       R6 R2 K2 ["Part0"]
+       10 GETTABLEKS                       R7 R6 K3 ["Parent"]
+       12 JUMPIFNOT                        R7 ; [+16]
+       13 LOADK                            R10 K1 ["Bone"]
+       14 NAMECALL                         R8 R7 K4 ["IsA"]
+       16 CALL                             R8 2 1
+       17 JUMPIFNOT                        R8 ; [+3]
+       18 GETTABLEKS                       R5 R7 K5 ["TransformedWorldCFrame"]
+       20 JUMP                             ; [+12]
+       21 LOADK                            R10 K6 ["BasePart"]
+       22 NAMECALL                         R8 R7 K4 ["IsA"]
+       24 CALL                             R8 2 1
+       25 JUMPIFNOT                        R8 ; [+3]
+       26 GETTABLEKS                       R5 R7 K7 ["CFrame"]
+       28 JUMP                             ; [+4]
+       29 GETIMPORT                        R8 K9 [CFrame.new]
+       31 CALL                             R8 0 1
+       32 MOVE                             R5 R8
+       33 MUL                              R3 R5 R4
+       34 JUMP                             ; [+27]
+       35 GETTABLEKS                       R6 R2 K1 ["Bone"]
+       37 GETTABLEKS                       R7 R6 K3 ["Parent"]
+       39 JUMPIFNOT                        R7 ; [+16]
+       40 LOADK                            R10 K1 ["Bone"]
+       41 NAMECALL                         R8 R7 K4 ["IsA"]
+       43 CALL                             R8 2 1
+       44 JUMPIFNOT                        R8 ; [+3]
+       45 GETTABLEKS                       R5 R7 K5 ["TransformedWorldCFrame"]
+       47 JUMP                             ; [+12]
+       48 LOADK                            R10 K6 ["BasePart"]
+       49 NAMECALL                         R8 R7 K4 ["IsA"]
+       51 CALL                             R8 2 1
+       52 JUMPIFNOT                        R8 ; [+3]
+       53 GETTABLEKS                       R5 R7 K7 ["CFrame"]
+       55 JUMP                             ; [+4]
+       56 GETIMPORT                        R8 K9 [CFrame.new]
+       58 CALL                             R8 0 1
+       59 MOVE                             R5 R8
+       60 MUL                              R3 R5 R4
+       61 JUMP                             ; [0]
+       62 GETTABLEKS                       R5 R0 K10 ["_jointsToOrigBoneTransformedWorldCFrame"]
+       64 GETTABLE                         R4 R5 R2
+       65 MUL                              R4 R1 R4
+       66 MOVE                             R7 R4
+       67 NAMECALL                         R5 R3 K11 ["toObjectSpace"]
+       69 CALL                             R5 2 -1
+       70 RETURN                           R5 -1
 
 PROTO_7:
+        0 GETTABLEKS                       R5 R2 K0 ["Part0"]
+        2 LOADK                            R7 K1 ["Bone"]
+        3 NAMECALL                         R5 R5 K2 ["IsA"]
+        5 CALL                             R5 2 1
+        6 JUMPIFNOT                        R5 ; [+63]
+        7 GETTABLEKS                       R6 R0 K3 ["_jointsToOrigBoneCFrame"]
+        9 GETTABLE                         R5 R6 R2
+       10 GETUPVAL                         R6 0
+       11 JUMPIFNOT                        R6 ; [+30]
+       12 GETTABLEKS                       R7 R2 K1 ["Bone"]
+       14 JUMPIF                           R7 ; [+2]
+       15 GETTABLEKS                       R7 R2 K0 ["Part0"]
+       17 GETTABLEKS                       R8 R7 K4 ["Parent"]
+       19 JUMPIFNOT                        R8 ; [+16]
+       20 LOADK                            R11 K1 ["Bone"]
+       21 NAMECALL                         R9 R8 K2 ["IsA"]
+       23 CALL                             R9 2 1
+       24 JUMPIFNOT                        R9 ; [+3]
+       25 GETTABLEKS                       R6 R8 K5 ["TransformedWorldCFrame"]
+       27 JUMP                             ; [+12]
+       28 LOADK                            R11 K6 ["BasePart"]
+       29 NAMECALL                         R9 R8 K2 ["IsA"]
+       31 CALL                             R9 2 1
+       32 JUMPIFNOT                        R9 ; [+3]
+       33 GETTABLEKS                       R6 R8 K7 ["CFrame"]
+       35 JUMP                             ; [+4]
+       36 GETIMPORT                        R9 K9 [CFrame.new]
+       38 CALL                             R9 0 1
+       39 MOVE                             R6 R9
+       40 MUL                              R4 R6 R5
+       41 JUMP                             ; [+32]
+       42 GETTABLEKS                       R7 R2 K1 ["Bone"]
+       44 GETTABLEKS                       R8 R7 K4 ["Parent"]
+       46 JUMPIFNOT                        R8 ; [+16]
+       47 LOADK                            R11 K1 ["Bone"]
+       48 NAMECALL                         R9 R8 K2 ["IsA"]
+       50 CALL                             R9 2 1
+       51 JUMPIFNOT                        R9 ; [+3]
+       52 GETTABLEKS                       R6 R8 K5 ["TransformedWorldCFrame"]
+       54 JUMP                             ; [+12]
+       55 LOADK                            R11 K6 ["BasePart"]
+       56 NAMECALL                         R9 R8 K2 ["IsA"]
+       58 CALL                             R9 2 1
+       59 JUMPIFNOT                        R9 ; [+3]
+       60 GETTABLEKS                       R6 R8 K7 ["CFrame"]
+       62 JUMP                             ; [+4]
+       63 GETIMPORT                        R9 K9 [CFrame.new]
+       65 CALL                             R9 0 1
+       66 MOVE                             R6 R9
+       67 MUL                              R4 R6 R5
+       68 JUMP                             ; [+5]
+       69 JUMP                             ; [+4]
+       70 GETTABLEKS                       R5 R2 K0 ["Part0"]
+       72 GETTABLEKS                       R4 R5 K7 ["CFrame"]
+       74 GETTABLEKS                       R5 R2 K10 ["C0"]
+       76 MUL                              R3 R4 R5
+       77 GETTABLEKS                       R6 R2 K11 ["Part1"]
+       79 LOADK                            R8 K1 ["Bone"]
+       80 NAMECALL                         R6 R6 K2 ["IsA"]
+       82 CALL                             R6 2 1
+       83 JUMPIFNOT                        R6 ; [+4]
+       84 GETTABLEKS                       R6 R0 K12 ["_jointsToOrigBoneTransformedWorldCFrame"]
+       86 GETTABLE                         R5 R6 R2
+       87 JUMP                             ; [+3]
+       88 GETTABLEKS                       R6 R0 K13 ["_jointsToOrigPart1CFrame"]
+       90 GETTABLE                         R5 R6 R2
+       91 GETTABLEKS                       R6 R2 K14 ["C1"]
+       93 MUL                              R4 R5 R6
+       94 MUL                              R4 R1 R4
+       95 MOVE                             R7 R4
+       96 NAMECALL                         R5 R3 K15 ["toObjectSpace"]
+       98 CALL                             R5 2 -1
+       99 RETURN                           R5 -1
+
+PROTO_8:
         0 GETTABLEKS                       R3 R0 K0 ["_draggerContext"]
         2 GETTABLEKS                       R2 R3 K1 ["IsPlaying"]
         4 JUMPIFNOT                        R2 ; [+4]
@@ -263,7 +426,7 @@ PROTO_7:
         9 SETTABLEKS                       R1 R0 K5 ["_globalTransform"]
        11 NAMECALL                         R2 R0 K6 ["_shouldSolveConstraints"]
        13 CALL                             R2 1 1
-       14 JUMPIF                           R2 ; [+53]
+       14 JUMPIF                           R2 ; [+76]
        15 LOADNIL                          R2
        16 NEWTABLE                         R3 0 0
        18 GETIMPORT                        R4 K8 [ipairs]
@@ -283,141 +446,157 @@ PROTO_7:
        39 GETTABLEKS                       R10 R8 K12 ["Bone"]
        41 GETTABLEKS                       R9 R10 K14 ["Name"]
        43 SETTABLE                         R2 R3 R9
-       44 JUMP                             ; [+11]
-       45 MOVE                             R11 R1
-       46 MOVE                             R12 R8
-       47 NAMECALL                         R9 R0 K15 ["applyWorldTransformToPart"]
-       49 CALL                             R9 3 1
-       50 MOVE                             R2 R9
-       51 GETTABLEKS                       R10 R8 K16 ["Part1"]
-       53 GETTABLEKS                       R9 R10 K14 ["Name"]
-       55 SETTABLE                         R2 R3 R9
-       56 FORGLOOP                         R4 2 [inext] ; [-33]
-       58 JUMPIFEQKNIL                     R3 ; [+181]
-       60 GETTABLEKS                       R5 R0 K0 ["_draggerContext"]
-       62 GETTABLEKS                       R4 R5 K17 ["OnManipulateJoints"]
-       64 LOADK                            R5 K18 ["Root"]
-       65 MOVE                             R6 R3
-       66 CALL                             R4 2 0
-       67 RETURN                           R1 1
-       68 GETTABLEKS                       R2 R0 K19 ["_tool"]
-       70 GETIMPORT                        R3 K23 [Enum.RibbonTool.Move]
-       72 JUMPIFNOTEQ                      R2 R3 ; [+99]
-       74 GETTABLEKS                       R2 R0 K24 ["_effectorCFrame"]
-       76 JUMPIFNOT                        R2 ; [+95]
-       77 GETTABLEKS                       R3 R0 K24 ["_effectorCFrame"]
-       79 MUL                              R2 R1 R3
-       80 LOADNIL                          R3
-       81 NAMECALL                         R4 R0 K25 ["_useFFlagUseIKControls"]
-       83 CALL                             R4 1 1
-       84 JUMPIFNOT                        R4 ; [+18]
-       85 GETTABLEKS                       R5 R0 K0 ["_draggerContext"]
-       87 GETTABLEKS                       R4 R5 K26 ["ikControlManager"]
-       89 MOVE                             R6 R2
-       90 NAMECALL                         R4 R4 K27 ["solve"]
-       92 CALL                             R4 2 0
-       93 GETTABLEKS                       R5 R0 K0 ["_draggerContext"]
-       95 GETTABLEKS                       R4 R5 K26 ["ikControlManager"]
-       97 NAMECALL                         R4 R4 K28 ["getSelectedPart"]
-       99 CALL                             R4 1 1
-      100 GETTABLEKS                       R3 R4 K2 ["CFrame"]
-      102 JUMP                             ; [+62]
-      103 GETTABLEKS                       R5 R0 K9 ["_joints"]
-      105 JUMPIFNOT                        R5 ; [+3]
-      106 LENGTH                           R6 R5
-      107 GETTABLE                         R4 R5 R6
-      108 JUMP                             ; [+1]
-      109 LOADNIL                          R4
-      110 GETUPVAL                         R6 1
-      111 GETTABLEKS                       R5 R6 K29 ["findRootPart"]
-      113 GETTABLEKS                       R7 R0 K0 ["_draggerContext"]
-      115 GETTABLEKS                       R6 R7 K30 ["RootInstance"]
-      117 CALL                             R5 1 1
-      118 GETTABLEKS                       R10 R5 K2 ["CFrame"]
-      120 GETTABLEKS                       R9 R10 K31 ["p"]
-      122 GETTABLEKS                       R10 R2 K31 ["p"]
-      124 SUB                              R8 R9 R10
-      125 GETTABLEKS                       R7 R8 K32 ["Magnitude"]
-      127 GETUPVAL                         R9 0
-      128 GETTABLEKS                       R8 R9 K33 ["MIN_EFFECTOR_DISTANCE"]
-      130 JUMPIFLE                         R7 R8 ; [+2]
-      132 LOADB                            R6 0 +1
-      133 LOADB                            R6 1
-      134 JUMPIFNOT                        R6 ; [+4]
-      135 GETUPVAL                         R8 0
-      136 GETTABLEKS                       R7 R8 K34 ["MIN_TRANSLATION_STIFFNESS"]
-      138 JUMPIF                           R7 ; [+3]
-      139 GETUPVAL                         R8 0
-      140 GETTABLEKS                       R7 R8 K34 ["MIN_TRANSLATION_STIFFNESS"]
-      142 JUMPIFNOT                        R6 ; [+4]
-      143 GETUPVAL                         R9 0
-      144 GETTABLEKS                       R8 R9 K35 ["MIN_ROTATION_STIFFNESS"]
-      146 JUMPIF                           R8 ; [+3]
-      147 GETUPVAL                         R9 0
-      148 GETTABLEKS                       R8 R9 K35 ["MIN_ROTATION_STIFFNESS"]
-      150 GETUPVAL                         R9 2
-      151 GETTABLEKS                       R11 R4 K16 ["Part1"]
-      153 MOVE                             R12 R2
-      154 MOVE                             R13 R7
-      155 MOVE                             R14 R8
-      156 GETIMPORT                        R15 K38 [Enum.IKCollisionsMode.NoCollisions]
-      158 NAMECALL                         R9 R9 K39 ["IKMoveTo"]
-      160 CALL                             R9 6 0
-      161 GETTABLEKS                       R9 R4 K16 ["Part1"]
-      163 GETTABLEKS                       R3 R9 K2 ["CFrame"]
-      165 GETTABLEKS                       R5 R0 K24 ["_effectorCFrame"]
-      167 NAMECALL                         R5 R5 K40 ["Inverse"]
-      169 CALL                             R5 1 1
-      170 MUL                              R4 R3 R5
-      171 RETURN                           R4 1
-      172 GETTABLEKS                       R2 R0 K19 ["_tool"]
-      174 GETIMPORT                        R3 K42 [Enum.RibbonTool.Rotate]
-      176 JUMPIFNOTEQ                      R2 R3 ; [+63]
-      178 GETTABLEKS                       R2 R0 K24 ["_effectorCFrame"]
-      180 JUMPIFNOT                        R2 ; [+59]
-      181 GETTABLEKS                       R3 R0 K24 ["_effectorCFrame"]
-      183 MUL                              R2 R1 R3
-      184 LOADNIL                          R3
-      185 NAMECALL                         R4 R0 K25 ["_useFFlagUseIKControls"]
-      187 CALL                             R4 1 1
-      188 JUMPIFNOT                        R4 ; [+18]
-      189 GETTABLEKS                       R5 R0 K0 ["_draggerContext"]
-      191 GETTABLEKS                       R4 R5 K26 ["ikControlManager"]
-      193 MOVE                             R6 R2
-      194 NAMECALL                         R4 R4 K27 ["solve"]
-      196 CALL                             R4 2 0
-      197 GETTABLEKS                       R5 R0 K0 ["_draggerContext"]
-      199 GETTABLEKS                       R4 R5 K26 ["ikControlManager"]
-      201 NAMECALL                         R4 R4 K28 ["getSelectedPart"]
-      203 CALL                             R4 1 1
-      204 GETTABLEKS                       R3 R4 K2 ["CFrame"]
-      206 JUMP                             ; [+26]
-      207 GETTABLEKS                       R5 R0 K9 ["_joints"]
-      209 JUMPIFNOT                        R5 ; [+3]
-      210 LENGTH                           R6 R5
-      211 GETTABLE                         R4 R5 R6
-      212 JUMP                             ; [+1]
-      213 LOADNIL                          R4
-      214 GETUPVAL                         R5 2
-      215 GETTABLEKS                       R7 R4 K16 ["Part1"]
-      217 MOVE                             R8 R2
-      218 GETUPVAL                         R10 0
-      219 GETTABLEKS                       R9 R10 K43 ["TRANSLATION_STIFFNESS"]
-      221 GETUPVAL                         R11 0
-      222 GETTABLEKS                       R10 R11 K44 ["ROTATION_STIFFNESS"]
-      224 GETIMPORT                        R11 K38 [Enum.IKCollisionsMode.NoCollisions]
-      226 NAMECALL                         R5 R5 K39 ["IKMoveTo"]
-      228 CALL                             R5 6 0
-      229 GETTABLEKS                       R5 R4 K16 ["Part1"]
-      231 GETTABLEKS                       R3 R5 K2 ["CFrame"]
-      233 GETTABLEKS                       R5 R0 K24 ["_effectorCFrame"]
-      235 NAMECALL                         R5 R5 K40 ["Inverse"]
-      237 CALL                             R5 1 1
-      238 MUL                              R4 R3 R5
-      239 RETURN                           R4 1
-      240 RETURN                           R1 1
+       44 JUMP                             ; [+34]
+       45 GETUPVAL                         R9 1
+       46 JUMPIFNOT                        R9 ; [+21]
+       47 GETTABLEKS                       R9 R8 K10 ["Type"]
+       49 GETUPVAL                         R12 0
+       50 GETTABLEKS                       R11 R12 K11 ["JOINT_TYPES"]
+       52 GETTABLEKS                       R10 R11 K15 ["AnimationConstraint"]
+       54 JUMPIFNOTEQ                      R9 R10 ; [+13]
+       56 MOVE                             R11 R1
+       57 MOVE                             R12 R8
+       58 NAMECALL                         R9 R0 K16 ["applyWorldTransformToAnimConstraint"]
+       60 CALL                             R9 3 1
+       61 MOVE                             R2 R9
+       62 GETTABLEKS                       R10 R8 K17 ["Part1"]
+       64 GETTABLEKS                       R9 R10 K14 ["Name"]
+       66 SETTABLE                         R2 R3 R9
+       67 JUMP                             ; [+11]
+       68 MOVE                             R11 R1
+       69 MOVE                             R12 R8
+       70 NAMECALL                         R9 R0 K18 ["applyWorldTransformToPart"]
+       72 CALL                             R9 3 1
+       73 MOVE                             R2 R9
+       74 GETTABLEKS                       R10 R8 K17 ["Part1"]
+       76 GETTABLEKS                       R9 R10 K14 ["Name"]
+       78 SETTABLE                         R2 R3 R9
+       79 FORGLOOP                         R4 2 [inext] ; [-56]
+       81 JUMPIFEQKNIL                     R3 ; [+181]
+       83 GETTABLEKS                       R5 R0 K0 ["_draggerContext"]
+       85 GETTABLEKS                       R4 R5 K19 ["OnManipulateJoints"]
+       87 LOADK                            R5 K20 ["Root"]
+       88 MOVE                             R6 R3
+       89 CALL                             R4 2 0
+       90 RETURN                           R1 1
+       91 GETTABLEKS                       R2 R0 K21 ["_tool"]
+       93 GETIMPORT                        R3 K25 [Enum.RibbonTool.Move]
+       95 JUMPIFNOTEQ                      R2 R3 ; [+99]
+       97 GETTABLEKS                       R2 R0 K26 ["_effectorCFrame"]
+       99 JUMPIFNOT                        R2 ; [+95]
+      100 GETTABLEKS                       R3 R0 K26 ["_effectorCFrame"]
+      102 MUL                              R2 R1 R3
+      103 LOADNIL                          R3
+      104 NAMECALL                         R4 R0 K27 ["_useFFlagUseIKControls"]
+      106 CALL                             R4 1 1
+      107 JUMPIFNOT                        R4 ; [+18]
+      108 GETTABLEKS                       R5 R0 K0 ["_draggerContext"]
+      110 GETTABLEKS                       R4 R5 K28 ["ikControlManager"]
+      112 MOVE                             R6 R2
+      113 NAMECALL                         R4 R4 K29 ["solve"]
+      115 CALL                             R4 2 0
+      116 GETTABLEKS                       R5 R0 K0 ["_draggerContext"]
+      118 GETTABLEKS                       R4 R5 K28 ["ikControlManager"]
+      120 NAMECALL                         R4 R4 K30 ["getSelectedPart"]
+      122 CALL                             R4 1 1
+      123 GETTABLEKS                       R3 R4 K2 ["CFrame"]
+      125 JUMP                             ; [+62]
+      126 GETTABLEKS                       R5 R0 K9 ["_joints"]
+      128 JUMPIFNOT                        R5 ; [+3]
+      129 LENGTH                           R6 R5
+      130 GETTABLE                         R4 R5 R6
+      131 JUMP                             ; [+1]
+      132 LOADNIL                          R4
+      133 GETUPVAL                         R6 2
+      134 GETTABLEKS                       R5 R6 K31 ["findRootPart"]
+      136 GETTABLEKS                       R7 R0 K0 ["_draggerContext"]
+      138 GETTABLEKS                       R6 R7 K32 ["RootInstance"]
+      140 CALL                             R5 1 1
+      141 GETTABLEKS                       R10 R5 K2 ["CFrame"]
+      143 GETTABLEKS                       R9 R10 K33 ["p"]
+      145 GETTABLEKS                       R10 R2 K33 ["p"]
+      147 SUB                              R8 R9 R10
+      148 GETTABLEKS                       R7 R8 K34 ["Magnitude"]
+      150 GETUPVAL                         R9 0
+      151 GETTABLEKS                       R8 R9 K35 ["MIN_EFFECTOR_DISTANCE"]
+      153 JUMPIFLE                         R7 R8 ; [+2]
+      155 LOADB                            R6 0 +1
+      156 LOADB                            R6 1
+      157 JUMPIFNOT                        R6 ; [+4]
+      158 GETUPVAL                         R8 0
+      159 GETTABLEKS                       R7 R8 K36 ["MIN_TRANSLATION_STIFFNESS"]
+      161 JUMPIF                           R7 ; [+3]
+      162 GETUPVAL                         R8 0
+      163 GETTABLEKS                       R7 R8 K36 ["MIN_TRANSLATION_STIFFNESS"]
+      165 JUMPIFNOT                        R6 ; [+4]
+      166 GETUPVAL                         R9 0
+      167 GETTABLEKS                       R8 R9 K37 ["MIN_ROTATION_STIFFNESS"]
+      169 JUMPIF                           R8 ; [+3]
+      170 GETUPVAL                         R9 0
+      171 GETTABLEKS                       R8 R9 K37 ["MIN_ROTATION_STIFFNESS"]
+      173 GETUPVAL                         R9 3
+      174 GETTABLEKS                       R11 R4 K17 ["Part1"]
+      176 MOVE                             R12 R2
+      177 MOVE                             R13 R7
+      178 MOVE                             R14 R8
+      179 GETIMPORT                        R15 K40 [Enum.IKCollisionsMode.NoCollisions]
+      181 NAMECALL                         R9 R9 K41 ["IKMoveTo"]
+      183 CALL                             R9 6 0
+      184 GETTABLEKS                       R9 R4 K17 ["Part1"]
+      186 GETTABLEKS                       R3 R9 K2 ["CFrame"]
+      188 GETTABLEKS                       R5 R0 K26 ["_effectorCFrame"]
+      190 NAMECALL                         R5 R5 K42 ["Inverse"]
+      192 CALL                             R5 1 1
+      193 MUL                              R4 R3 R5
+      194 RETURN                           R4 1
+      195 GETTABLEKS                       R2 R0 K21 ["_tool"]
+      197 GETIMPORT                        R3 K44 [Enum.RibbonTool.Rotate]
+      199 JUMPIFNOTEQ                      R2 R3 ; [+63]
+      201 GETTABLEKS                       R2 R0 K26 ["_effectorCFrame"]
+      203 JUMPIFNOT                        R2 ; [+59]
+      204 GETTABLEKS                       R3 R0 K26 ["_effectorCFrame"]
+      206 MUL                              R2 R1 R3
+      207 LOADNIL                          R3
+      208 NAMECALL                         R4 R0 K27 ["_useFFlagUseIKControls"]
+      210 CALL                             R4 1 1
+      211 JUMPIFNOT                        R4 ; [+18]
+      212 GETTABLEKS                       R5 R0 K0 ["_draggerContext"]
+      214 GETTABLEKS                       R4 R5 K28 ["ikControlManager"]
+      216 MOVE                             R6 R2
+      217 NAMECALL                         R4 R4 K29 ["solve"]
+      219 CALL                             R4 2 0
+      220 GETTABLEKS                       R5 R0 K0 ["_draggerContext"]
+      222 GETTABLEKS                       R4 R5 K28 ["ikControlManager"]
+      224 NAMECALL                         R4 R4 K30 ["getSelectedPart"]
+      226 CALL                             R4 1 1
+      227 GETTABLEKS                       R3 R4 K2 ["CFrame"]
+      229 JUMP                             ; [+26]
+      230 GETTABLEKS                       R5 R0 K9 ["_joints"]
+      232 JUMPIFNOT                        R5 ; [+3]
+      233 LENGTH                           R6 R5
+      234 GETTABLE                         R4 R5 R6
+      235 JUMP                             ; [+1]
+      236 LOADNIL                          R4
+      237 GETUPVAL                         R5 3
+      238 GETTABLEKS                       R7 R4 K17 ["Part1"]
+      240 MOVE                             R8 R2
+      241 GETUPVAL                         R10 0
+      242 GETTABLEKS                       R9 R10 K45 ["TRANSLATION_STIFFNESS"]
+      244 GETUPVAL                         R11 0
+      245 GETTABLEKS                       R10 R11 K46 ["ROTATION_STIFFNESS"]
+      247 GETIMPORT                        R11 K40 [Enum.IKCollisionsMode.NoCollisions]
+      249 NAMECALL                         R5 R5 K41 ["IKMoveTo"]
+      251 CALL                             R5 6 0
+      252 GETTABLEKS                       R5 R4 K17 ["Part1"]
+      254 GETTABLEKS                       R3 R5 K2 ["CFrame"]
+      256 GETTABLEKS                       R5 R0 K26 ["_effectorCFrame"]
+      258 NAMECALL                         R5 R5 K42 ["Inverse"]
+      260 CALL                             R5 1 1
+      261 MUL                              R4 R3 R5
+      262 RETURN                           R4 1
+      263 RETURN                           R1 1
 
-PROTO_8:
+PROTO_9:
         0 NAMECALL                         R1 R0 K0 ["_shouldSolveConstraints"]
         2 CALL                             R1 1 1
         3 JUMPIFNOT                        R1 ; [+38]
@@ -448,11 +627,11 @@ PROTO_8:
        41 CALL                             R2 2 0
        42 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 LOADNIL                          R2
         1 RETURN                           R2 1
 
-PROTO_10:
+PROTO_11:
         0 GETTABLEKS                       R4 R0 K0 ["_centerPoint"]
         2 NAMECALL                         R4 R4 K1 ["Inverse"]
         4 CALL                             R4 1 1
@@ -461,14 +640,14 @@ PROTO_10:
         8 MUL                              R2 R3 R4
         9 RETURN                           R2 1
 
-PROTO_11:
+PROTO_12:
         0 GETTABLEKS                       R2 R0 K0 ["_draggerContext"]
         2 GETTABLEKS                       R1 R2 K1 ["IKEnabled"]
         4 JUMPIFNOT                        R1 ; [+2]
         5 GETTABLEKS                       R1 R0 K2 ["_hasPartsToMove"]
         7 RETURN                           R1 1
 
-PROTO_12:
+PROTO_13:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 JUMPIFNOT                        R1 ; [+13]
@@ -528,39 +707,51 @@ MAIN:
        73 CALL                             R9 1 1
        74 NEWTABLE                         R10 16 0
        76 SETTABLEKS                       R10 R10 K23 ["__index"]
-       78 DUPCLOSURE                       R11 K24 [PROTO_0]
-       79 CAPTURE                          VAL R3
-       80 CAPTURE                          VAL R4
-       81 CAPTURE                          VAL R10
-       82 SETTABLEKS                       R11 R10 K25 ["new"]
-       84 DUPCLOSURE                       R11 K26 [PROTO_1]
-       85 DUPCLOSURE                       R12 K27 [PROTO_2]
-       86 CAPTURE                          VAL R6
-       87 CAPTURE                          VAL R2
-       88 CAPTURE                          VAL R5
-       89 SETTABLEKS                       R12 R10 K28 ["beginDrag"]
-       91 DUPCLOSURE                       R12 K29 [PROTO_3]
-       92 DUPCLOSURE                       R13 K30 [PROTO_4]
-       93 DUPCLOSURE                       R14 K31 [PROTO_5]
-       94 SETTABLEKS                       R14 R10 K32 ["applyWorldTransformToPart"]
-       96 DUPCLOSURE                       R14 K33 [PROTO_6]
-       97 SETTABLEKS                       R14 R10 K34 ["applyWorldTransformToBone"]
-       99 DUPCLOSURE                       R14 K35 [PROTO_7]
-      100 CAPTURE                          VAL R2
-      101 CAPTURE                          VAL R7
-      102 CAPTURE                          VAL R8
-      103 SETTABLEKS                       R14 R10 K36 ["updateDrag"]
-      105 DUPCLOSURE                       R14 K37 [PROTO_8]
-      106 CAPTURE                          VAL R5
-      107 SETTABLEKS                       R14 R10 K38 ["endDrag"]
-      109 DUPCLOSURE                       R14 K39 [PROTO_9]
-      110 SETTABLEKS                       R14 R10 K40 ["render"]
-      112 DUPCLOSURE                       R14 K41 [PROTO_10]
-      113 SETTABLEKS                       R14 R10 K42 ["_toLocalTransform"]
-      115 DUPCLOSURE                       R14 K43 [PROTO_11]
-      116 SETTABLEKS                       R14 R10 K44 ["_shouldSolveConstraints"]
-      118 DUPCLOSURE                       R14 K45 [PROTO_12]
-      119 CAPTURE                          VAL R9
-      120 CAPTURE                          VAL R2
-      121 SETTABLEKS                       R14 R10 K46 ["_useFFlagUseIKControls"]
-      123 RETURN                           R10 1
+       78 GETIMPORT                        R11 K18 [game]
+       80 LOADK                            R13 K24 ["ACEAnimConstraintsBones"]
+       81 LOADB                            R14 0
+       82 NAMECALL                         R11 R11 K25 ["DefineFastFlag"]
+       84 CALL                             R11 3 1
+       85 DUPCLOSURE                       R12 K26 [PROTO_0]
+       86 CAPTURE                          VAL R3
+       87 CAPTURE                          VAL R4
+       88 CAPTURE                          VAL R10
+       89 SETTABLEKS                       R12 R10 K27 ["new"]
+       91 DUPCLOSURE                       R12 K28 [PROTO_1]
+       92 DUPCLOSURE                       R13 K29 [PROTO_2]
+       93 CAPTURE                          VAL R6
+       94 CAPTURE                          VAL R2
+       95 CAPTURE                          VAL R11
+       96 CAPTURE                          VAL R5
+       97 SETTABLEKS                       R13 R10 K30 ["beginDrag"]
+       99 DUPCLOSURE                       R13 K31 [PROTO_3]
+      100 DUPCLOSURE                       R14 K32 [PROTO_4]
+      101 CAPTURE                          VAL R11
+      102 DUPCLOSURE                       R15 K33 [PROTO_5]
+      103 SETTABLEKS                       R15 R10 K34 ["applyWorldTransformToPart"]
+      105 DUPCLOSURE                       R15 K35 [PROTO_6]
+      106 CAPTURE                          VAL R11
+      107 SETTABLEKS                       R15 R10 K36 ["applyWorldTransformToBone"]
+      109 DUPCLOSURE                       R15 K37 [PROTO_7]
+      110 CAPTURE                          VAL R11
+      111 SETTABLEKS                       R15 R10 K38 ["applyWorldTransformToAnimConstraint"]
+      113 DUPCLOSURE                       R15 K39 [PROTO_8]
+      114 CAPTURE                          VAL R2
+      115 CAPTURE                          VAL R11
+      116 CAPTURE                          VAL R7
+      117 CAPTURE                          VAL R8
+      118 SETTABLEKS                       R15 R10 K40 ["updateDrag"]
+      120 DUPCLOSURE                       R15 K41 [PROTO_9]
+      121 CAPTURE                          VAL R5
+      122 SETTABLEKS                       R15 R10 K42 ["endDrag"]
+      124 DUPCLOSURE                       R15 K43 [PROTO_10]
+      125 SETTABLEKS                       R15 R10 K44 ["render"]
+      127 DUPCLOSURE                       R15 K45 [PROTO_11]
+      128 SETTABLEKS                       R15 R10 K46 ["_toLocalTransform"]
+      130 DUPCLOSURE                       R15 K47 [PROTO_12]
+      131 SETTABLEKS                       R15 R10 K48 ["_shouldSolveConstraints"]
+      133 DUPCLOSURE                       R15 K49 [PROTO_13]
+      134 CAPTURE                          VAL R9
+      135 CAPTURE                          VAL R2
+      136 SETTABLEKS                       R15 R10 K50 ["_useFFlagUseIKControls"]
+      138 RETURN                           R10 1

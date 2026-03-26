@@ -14,6 +14,7 @@ local ConnectionUtil = CommonUtils.get("ConnectionUtil")
 local CharacterUtil = CommonUtils.get("CharacterUtil")
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPSActionsPathAware = FlagUtil.getUserFlag("UserPSActionsPathAware")
+local FFlagUserPlayerScriptsCanUseLCC = FlagUtil.getUserFlag("UserPlayerScriptsCanUseLCC")
 
 -- remove with FFlagUserPSActionsPathAware
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
@@ -21,7 +22,15 @@ local character = inputContexts:WaitForChild("Character")
 local jumpAction = character:WaitForChild("Jump")
 local touchJumpBinding = jumpAction:WaitForChild("TouchJumpBinding")
 
+local AvatarAbilitiesInterface
+if FFlagUserPlayerScriptsCanUseLCC then
+	AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
+end
+
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/Input/TouchControlsSheetV2.png"
+local JUMP_BUTTON_IMAGES = {
+	"rbxasset://textures/ui/Input/JumpButtonRegular.png",
+	"rbxasset://textures/ui/Input/JumpButtonPressed.png"}
 local CONNECTIONS = {
 	HUMANOID_STATE_ENABLED_CHANGED = "HUMANOID_STATE_ENABLED_CHANGED",
 	HUMANOID_JUMP_POWER = "HUMANOID_JUMP_POWER",
@@ -60,7 +69,7 @@ function TouchJump.new(data, playerData)
 
 	if FFlagUserPSActionsPathAware then
 		self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
-		data.eventBus:subscribe(CONNECTIONS.ACTIONS_RELOADED, function()
+		data.eventBus:subscribe(CONNECTIONS.ACTIONS_RELOADED):Connect(function()
 			self:Create()
 		end)
 	end
@@ -76,12 +85,16 @@ function TouchJump.new(data, playerData)
 end
 
 function TouchJump:_reset()
-	if FFlagUserPSActionsPathAware then
+	if FFlagUserPSActionsPathAware and self.playerData.actions.Jump then
 		self.playerData.actions.Jump:Fire(false)
 	end
 
 	if self.jumpButton then
-		self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
+		if FFlagUserPlayerScriptsCanUseLCC and AvatarAbilitiesInterface:isEnabled() then
+			self.jumpButton.Image = JUMP_BUTTON_IMAGES[1]
+		else
+			self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
+		end
 	end
 end
 
@@ -188,31 +201,68 @@ function TouchJump:Create()
 		self.absoluteSizeChangedConn:Disconnect()
 		self.absoluteSizeChangedConn = nil
 	end
+	
+	if FFlagUserPlayerScriptsCanUseLCC then		
+		if self.avatarAbilitiesEnabledChangedConn then
+			self.avatarAbilitiesEnabledChangedConn:Disconnect()
+			self.avatarAbilitiesEnabledChangedConn = nil
+		end
+	end
 
 	self.jumpButton = Instance.new("ImageButton")
 	self.jumpButton.Name = "JumpButton"
 	self.jumpButton.Visible = false
 	self.jumpButton.BackgroundTransparency = 1
-	self.jumpButton.Image = TOUCH_CONTROL_SHEET
-	self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
-	self.jumpButton.ImageRectSize = Vector2.new(144, 144)
+
+	if FFlagUserPlayerScriptsCanUseLCC and AvatarAbilitiesInterface:isEnabled() then		
+		self.jumpButton.Image = JUMP_BUTTON_IMAGES[1]
+	else
+		self.jumpButton.Image = TOUCH_CONTROL_SHEET
+		self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
+		self.jumpButton.ImageRectSize = Vector2.new(144, 144)
+	end
 
 	local function ResizeJumpButton()
 		local minAxis = math.min(self.parentUIFrame.AbsoluteSize.x, self.parentUIFrame.AbsoluteSize.y)
 		local isSmallScreen = minAxis <= 500
-		local jumpButtonSize = isSmallScreen and 70 or 120
 
-		self.jumpButton.Size = UDim2.new(0, jumpButtonSize, 0, jumpButtonSize)
-		self.jumpButton.Position = isSmallScreen and UDim2.new(1, -(jumpButtonSize*1.5-10), 1, -jumpButtonSize - 20) or
-			UDim2.new(1, -(jumpButtonSize*1.5-10), 1, -jumpButtonSize * 1.75)
+		if FFlagUserPlayerScriptsCanUseLCC and AvatarAbilitiesInterface:isEnabled() then
+			local jumpButtonSize = isSmallScreen and 72 or 120
+			local buttonInset = isSmallScreen and 64 or 88
+
+			local jumpButtonPositionFromEdge = -jumpButtonSize - buttonInset
+
+			self.jumpButton.Image = JUMP_BUTTON_IMAGES[1]
+			self.jumpButton.ImageRectOffset = Vector2.new(0, 0)
+			self.jumpButton.ImageRectSize = Vector2.new(0, 0)
+			self.jumpButton.Size = UDim2.new(0, jumpButtonSize, 0, jumpButtonSize)
+			self.jumpButton.Position = UDim2.new(1, jumpButtonPositionFromEdge, 1, jumpButtonPositionFromEdge)
+		else
+			local jumpButtonSize = isSmallScreen and 70 or 120
+
+			if FFlagUserPlayerScriptsCanUseLCC then
+				self.jumpButton.Image = TOUCH_CONTROL_SHEET
+				self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
+				self.jumpButton.ImageRectSize = Vector2.new(144, 144)
+			end
+			self.jumpButton.Size = UDim2.new(0, jumpButtonSize, 0, jumpButtonSize)
+			self.jumpButton.Position = isSmallScreen and UDim2.new(1, -(jumpButtonSize*1.5-10), 1, -jumpButtonSize - 20) or
+				UDim2.new(1, -(jumpButtonSize*1.5-10), 1, -jumpButtonSize * 1.75)
+		end
 	end
 
 	ResizeJumpButton()
 	self.absoluteSizeChangedConn = self.parentUIFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeJumpButton)
+	if FFlagUserPlayerScriptsCanUseLCC then
+		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface:GetEnabledChangedSignal():Connect(ResizeJumpButton)
+	end
 
 	self.jumpButton.Parent = self.parentUIFrame
 
 	if FFlagUserPSActionsPathAware then
+		if not self.playerData.actions.Jump then 
+			return
+		end
 		self.playerData.actions.Jump:WaitForChild("TouchJumpBinding").UIButton = self.jumpButton
 
 		self.playerData.actions.Jump.Pressed:Connect(function()
@@ -220,7 +270,11 @@ function TouchJump:Create()
 				return
 			end
 
-			self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
+			if FFlagUserPlayerScriptsCanUseLCC and AvatarAbilitiesInterface:isEnabled() then
+				self.jumpButton.Image = JUMP_BUTTON_IMAGES[2]
+			else
+				self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
+			end
 		end)
 
 		self.playerData.actions.Jump.Released:Connect(function()
@@ -228,7 +282,11 @@ function TouchJump:Create()
 				return
 			end
 
-			self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
+			if FFlagUserPlayerScriptsCanUseLCC and AvatarAbilitiesInterface:isEnabled() then
+				self.jumpButton.Image = JUMP_BUTTON_IMAGES[1]
+			else
+				self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
+			end
 		end)
 	else
 		touchJumpBinding.UIButton = self.jumpButton
@@ -238,7 +296,11 @@ function TouchJump:Create()
 				return
 			end
 
-			self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
+			if FFlagUserPlayerScriptsCanUseLCC and AvatarAbilitiesInterface:isEnabled() then
+				self.jumpButton.Image = JUMP_BUTTON_IMAGES[2]
+			else
+				self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
+			end
 		end)
 
 		jumpAction.Released:Connect(function()
@@ -246,7 +308,11 @@ function TouchJump:Create()
 				return
 			end
 
-			self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
+			if FFlagUserPlayerScriptsCanUseLCC and AvatarAbilitiesInterface:isEnabled() then
+				self.jumpButton.Image = JUMP_BUTTON_IMAGES[1]
+			else
+				self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
+			end
 		end)
 	end
 

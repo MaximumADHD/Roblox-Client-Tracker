@@ -29,60 +29,63 @@ PROTO_0:
        38 LOADK                            R3 K11 ["Failed to clone pseudo rule"]
        39 GETIMPORT                        R1 K6 [assert]
        41 CALL                             R1 2 0
-       42 GETUPVAL                         R1 2
-       43 GETUPVAL                         R3 0
-       44 GETTABLEKS                       R2 R3 K12 ["constructSelector"]
-       46 GETUPVAL                         R5 0
-       47 GETTABLEKS                       R4 R5 K2 ["Type"]
-       49 GETTABLEKS                       R3 R4 K3 ["Pseudo"]
-       51 MOVE                             R4 R0
-       52 CALL                             R2 2 1
-       53 SETTABLEKS                       R2 R1 K1 ["Selector"]
-       55 GETUPVAL                         R1 2
-       56 GETUPVAL                         R3 1
-       57 GETTABLEKS                       R2 R3 K13 ["Parent"]
-       59 SETTABLEKS                       R2 R1 K13 ["Parent"]
-       61 GETUPVAL                         R1 3
-       62 LOADNIL                          R2
-       63 LOADNIL                          R3
-       64 FORGPREP                         R1
-       65 NAMECALL                         R6 R5 K10 ["Clone"]
-       67 CALL                             R6 1 1
-       68 GETUPVAL                         R8 0
-       69 GETTABLEKS                       R7 R8 K14 ["getQueryTypeFromSelector"]
-       71 GETTABLEKS                       R8 R5 K1 ["Selector"]
-       73 CALL                             R7 1 1
-       74 GETUPVAL                         R12 0
-       75 GETTABLEKS                       R11 R12 K2 ["Type"]
-       77 GETTABLEKS                       R10 R11 K15 ["Query"]
-       79 JUMPIFEQ                         R7 R10 ; [+2]
-       81 LOADB                            R9 0 +1
-       82 LOADB                            R9 1
-       83 FASTCALL1                        ASSERT R9 ; [+2]
-       84 GETIMPORT                        R8 K6 [assert]
-       86 CALL                             R8 1 0
-       87 GETUPVAL                         R9 0
-       88 GETTABLEKS                       R8 R9 K0 ["getDataFromSelector"]
-       90 GETTABLEKS                       R9 R5 K1 ["Selector"]
-       92 MOVE                             R10 R7
-       93 CALL                             R8 2 1
-       94 FASTCALL1                        ASSERT R8 ; [+3]
-       95 MOVE                             R10 R8
-       96 GETIMPORT                        R9 K6 [assert]
-       98 CALL                             R9 1 0
-       99 GETTABLEKS                       R9 R0 K7 ["Name"]
-      101 SETTABLEKS                       R9 R8 K7 ["Name"]
-      103 GETUPVAL                         R10 0
-      104 GETTABLEKS                       R9 R10 K12 ["constructSelector"]
-      106 MOVE                             R10 R7
-      107 MOVE                             R11 R8
-      108 CALL                             R9 2 1
-      109 SETTABLEKS                       R9 R6 K1 ["Selector"]
-      111 GETTABLEKS                       R9 R5 K13 ["Parent"]
-      113 SETTABLEKS                       R9 R6 K13 ["Parent"]
-      115 FORGLOOP                         R1 2 ; [-51]
-      117 GETIMPORT                        R1 K19 [Enum.FinishRecordingOperation.Commit]
-      119 RETURN                           R1 1
+       42 GETUPVAL                         R2 0
+       43 GETTABLEKS                       R1 R2 K12 ["constructSelector"]
+       45 GETUPVAL                         R4 0
+       46 GETTABLEKS                       R3 R4 K2 ["Type"]
+       48 GETTABLEKS                       R2 R3 K3 ["Pseudo"]
+       50 MOVE                             R3 R0
+       51 CALL                             R1 2 1
+       52 GETUPVAL                         R2 2
+       53 SETTABLEKS                       R1 R2 K1 ["Selector"]
+       55 GETUPVAL                         R2 2
+       56 SETTABLEKS                       R1 R2 K7 ["Name"]
+       58 GETUPVAL                         R2 2
+       59 GETUPVAL                         R4 1
+       60 GETTABLEKS                       R3 R4 K13 ["Parent"]
+       62 SETTABLEKS                       R3 R2 K13 ["Parent"]
+       64 GETUPVAL                         R2 3
+       65 LOADNIL                          R3
+       66 LOADNIL                          R4
+       67 FORGPREP                         R2
+       68 NAMECALL                         R7 R6 K10 ["Clone"]
+       70 CALL                             R7 1 1
+       71 GETUPVAL                         R9 0
+       72 GETTABLEKS                       R8 R9 K14 ["getQueryTypeFromSelector"]
+       74 GETTABLEKS                       R9 R6 K1 ["Selector"]
+       76 CALL                             R8 1 1
+       77 GETUPVAL                         R13 0
+       78 GETTABLEKS                       R12 R13 K2 ["Type"]
+       80 GETTABLEKS                       R11 R12 K15 ["Query"]
+       82 JUMPIFEQ                         R8 R11 ; [+2]
+       84 LOADB                            R10 0 +1
+       85 LOADB                            R10 1
+       86 FASTCALL1                        ASSERT R10 ; [+2]
+       87 GETIMPORT                        R9 K6 [assert]
+       89 CALL                             R9 1 0
+       90 GETUPVAL                         R10 0
+       91 GETTABLEKS                       R9 R10 K0 ["getDataFromSelector"]
+       93 GETTABLEKS                       R10 R6 K1 ["Selector"]
+       95 MOVE                             R11 R8
+       96 CALL                             R9 2 1
+       97 FASTCALL1                        ASSERT R9 ; [+3]
+       98 MOVE                             R11 R9
+       99 GETIMPORT                        R10 K6 [assert]
+      101 CALL                             R10 1 0
+      102 GETTABLEKS                       R10 R0 K7 ["Name"]
+      104 SETTABLEKS                       R10 R9 K7 ["Name"]
+      106 GETUPVAL                         R11 0
+      107 GETTABLEKS                       R10 R11 K12 ["constructSelector"]
+      109 MOVE                             R11 R8
+      110 MOVE                             R12 R9
+      111 CALL                             R10 2 1
+      112 SETTABLEKS                       R10 R7 K1 ["Selector"]
+      114 SETTABLEKS                       R10 R7 K7 ["Name"]
+      116 GETTABLEKS                       R11 R6 K13 ["Parent"]
+      118 SETTABLEKS                       R11 R7 K13 ["Parent"]
+      120 FORGLOOP                         R2 2 ; [-53]
+      122 GETIMPORT                        R2 K19 [Enum.FinishRecordingOperation.Commit]
+      124 RETURN                           R2 1
 
 PROTO_1:
         0 GETUPVAL                         R3 0

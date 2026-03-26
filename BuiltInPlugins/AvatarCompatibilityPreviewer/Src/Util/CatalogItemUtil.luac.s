@@ -986,51 +986,58 @@ PROTO_52:
        47 RETURN                           R5 1
 
 PROTO_53:
-        0 DUPTABLE                         R3 K10 [{"Key", "MaxItems", "PublishAssetType", "Items", "PreviewComponent", "WearBuiltin", "CreateCustomInstanceFromSelection", "GetBuiltinItemData", "WearInstance", "UpdateInstances"}]
+        0 DUPTABLE                         R3 K11 [{"Key", "OverrideEquipKey", "MaxItems", "PublishAssetType", "Items", "PreviewComponent", "WearBuiltin", "CreateCustomInstanceFromSelection", "GetBuiltinItemData", "WearInstance", "UpdateInstances"}]
         1 SETTABLEKS                       R0 R3 K0 ["Key"]
-        3 LOADN                            R4 6
-        4 SETTABLEKS                       R4 R3 K1 ["MaxItems"]
-        6 GETUPVAL                         R5 0
-        7 CALL                             R5 0 1
-        8 JUMPIF                           R5 ; [+3]
-        9 GETUPVAL                         R5 1
-       10 CALL                             R5 0 1
-       11 JUMPIFNOT                        R5 ; [+2]
-       12 MOVE                             R4 R1
-       13 JUMP                             ; [+1]
-       14 LOADNIL                          R4
-       15 SETTABLEKS                       R4 R3 K2 ["PublishAssetType"]
-       17 SETTABLEKS                       R2 R3 K3 ["Items"]
-       19 GETUPVAL                         R4 2
-       20 SETTABLEKS                       R4 R3 K4 ["PreviewComponent"]
-       22 GETUPVAL                         R5 1
-       23 CALL                             R5 0 1
-       24 JUMPIFNOT                        R5 ; [+3]
-       25 NEWCLOSURE                       R4 P0
-       26 CAPTURE                          VAL R1
-       27 JUMP                             ; [+1]
-       28 GETUPVAL                         R4 3
-       29 SETTABLEKS                       R4 R3 K5 ["WearBuiltin"]
-       31 DUPCLOSURE                       R4 K11 [PROTO_49]
-       32 SETTABLEKS                       R4 R3 K6 ["CreateCustomInstanceFromSelection"]
-       34 GETUPVAL                         R5 1
-       35 CALL                             R5 0 1
-       36 JUMPIFNOT                        R5 ; [+2]
-       37 GETUPVAL                         R4 4
-       38 JUMP                             ; [+1]
-       39 DUPCLOSURE                       R4 K12 [PROTO_50]
-       40 SETTABLEKS                       R4 R3 K7 ["GetBuiltinItemData"]
-       42 DUPCLOSURE                       R4 K13 [PROTO_52]
-       43 CAPTURE                          UPVAL U1
-       44 SETTABLEKS                       R4 R3 K8 ["WearInstance"]
-       46 GETUPVAL                         R5 1
-       47 CALL                             R5 0 1
-       48 JUMPIFNOT                        R5 ; [+2]
-       49 LOADNIL                          R4
-       50 JUMP                             ; [+1]
-       51 GETUPVAL                         R4 5
-       52 SETTABLEKS                       R4 R3 K9 ["UpdateInstances"]
-       54 RETURN                           R3 1
+        3 GETUPVAL                         R5 0
+        4 CALL                             R5 0 1
+        5 JUMPIFNOT                        R5 ; [+2]
+        6 LOADK                            R4 K12 ["Makeup"]
+        7 JUMP                             ; [+1]
+        8 LOADNIL                          R4
+        9 SETTABLEKS                       R4 R3 K1 ["OverrideEquipKey"]
+       11 LOADN                            R4 6
+       12 SETTABLEKS                       R4 R3 K2 ["MaxItems"]
+       14 GETUPVAL                         R5 1
+       15 CALL                             R5 0 1
+       16 JUMPIF                           R5 ; [+3]
+       17 GETUPVAL                         R5 2
+       18 CALL                             R5 0 1
+       19 JUMPIFNOT                        R5 ; [+2]
+       20 MOVE                             R4 R1
+       21 JUMP                             ; [+1]
+       22 LOADNIL                          R4
+       23 SETTABLEKS                       R4 R3 K3 ["PublishAssetType"]
+       25 SETTABLEKS                       R2 R3 K4 ["Items"]
+       27 GETUPVAL                         R4 3
+       28 SETTABLEKS                       R4 R3 K5 ["PreviewComponent"]
+       30 GETUPVAL                         R5 2
+       31 CALL                             R5 0 1
+       32 JUMPIFNOT                        R5 ; [+3]
+       33 NEWCLOSURE                       R4 P0
+       34 CAPTURE                          VAL R1
+       35 JUMP                             ; [+1]
+       36 GETUPVAL                         R4 4
+       37 SETTABLEKS                       R4 R3 K6 ["WearBuiltin"]
+       39 DUPCLOSURE                       R4 K13 [PROTO_49]
+       40 SETTABLEKS                       R4 R3 K7 ["CreateCustomInstanceFromSelection"]
+       42 GETUPVAL                         R5 2
+       43 CALL                             R5 0 1
+       44 JUMPIFNOT                        R5 ; [+2]
+       45 GETUPVAL                         R4 5
+       46 JUMP                             ; [+1]
+       47 DUPCLOSURE                       R4 K14 [PROTO_50]
+       48 SETTABLEKS                       R4 R3 K8 ["GetBuiltinItemData"]
+       50 DUPCLOSURE                       R4 K15 [PROTO_52]
+       51 CAPTURE                          UPVAL U2
+       52 SETTABLEKS                       R4 R3 K9 ["WearInstance"]
+       54 GETUPVAL                         R5 2
+       55 CALL                             R5 0 1
+       56 JUMPIFNOT                        R5 ; [+2]
+       57 LOADNIL                          R4
+       58 JUMP                             ; [+1]
+       59 GETUPVAL                         R4 6
+       60 SETTABLEKS                       R4 R3 K10 ["UpdateInstances"]
+       62 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1092,91 +1099,97 @@ MAIN:
        98 GETIMPORT                        R12 K5 [require]
       100 GETTABLEKS                       R15 R0 K10 ["Src"]
       102 GETTABLEKS                       R14 R15 K21 ["Flags"]
-      104 GETTABLEKS                       R13 R14 K23 ["getFFlagAvatarPreviewerLookComposer"]
+      104 GETTABLEKS                       R13 R14 K23 ["getFFlagAvatarPreviewerMakeupSharedLimit"]
       106 CALL                             R12 1 1
-      107 GETTABLEKS                       R15 R1 K17 ["Util"]
-      109 GETTABLEKS                       R14 R15 K24 ["AccessoryAndBodyToolShared"]
-      111 GETTABLEKS                       R13 R14 K25 ["AssetTypeAttachmentInfo"]
-      113 NEWTABLE                         R14 16 0
-      115 DUPCLOSURE                       R15 K26 [PROTO_0]
-      116 DUPCLOSURE                       R16 K27 [PROTO_1]
-      117 DUPCLOSURE                       R17 K28 [PROTO_3]
-      118 CAPTURE                          VAL R8
-      119 CAPTURE                          VAL R2
-      120 CAPTURE                          VAL R13
-      121 DUPCLOSURE                       R18 K29 [PROTO_4]
-      122 DUPCLOSURE                       R19 K30 [PROTO_6]
-      123 DUPCLOSURE                       R20 K31 [PROTO_7]
-      124 DUPCLOSURE                       R21 K32 [PROTO_9]
-      125 CAPTURE                          VAL R10
-      126 CAPTURE                          VAL R6
+      107 GETIMPORT                        R13 K5 [require]
+      109 GETTABLEKS                       R16 R0 K10 ["Src"]
+      111 GETTABLEKS                       R15 R16 K21 ["Flags"]
+      113 GETTABLEKS                       R14 R15 K24 ["getFFlagAvatarPreviewerLookComposer"]
+      115 CALL                             R13 1 1
+      116 GETTABLEKS                       R16 R1 K17 ["Util"]
+      118 GETTABLEKS                       R15 R16 K25 ["AccessoryAndBodyToolShared"]
+      120 GETTABLEKS                       R14 R15 K26 ["AssetTypeAttachmentInfo"]
+      122 NEWTABLE                         R15 16 0
+      124 DUPCLOSURE                       R16 K27 [PROTO_0]
+      125 DUPCLOSURE                       R17 K28 [PROTO_1]
+      126 DUPCLOSURE                       R18 K29 [PROTO_3]
       127 CAPTURE                          VAL R8
-      128 DUPCLOSURE                       R22 K33 [PROTO_12]
-      129 CAPTURE                          VAL R7
-      130 CAPTURE                          VAL R18
-      131 CAPTURE                          VAL R17
-      132 CAPTURE                          VAL R21
-      133 CAPTURE                          VAL R19
-      134 SETTABLEKS                       R22 R14 K34 ["basicAccessoryPalette"]
-      136 DUPCLOSURE                       R22 K35 [PROTO_15]
-      137 CAPTURE                          VAL R7
-      138 CAPTURE                          VAL R17
-      139 CAPTURE                          VAL R18
-      140 CAPTURE                          VAL R19
-      141 CAPTURE                          VAL R21
-      142 SETTABLEKS                       R22 R14 K36 ["layeredClothingPalette"]
-      144 DUPCLOSURE                       R22 K37 [PROTO_18]
-      145 CAPTURE                          VAL R7
-      146 SETTABLEKS                       R22 R14 K38 ["createBodyPalette"]
-      148 DUPCLOSURE                       R22 K39 [PROTO_20]
-      149 CAPTURE                          VAL R14
-      150 CAPTURE                          VAL R15
-      151 CAPTURE                          VAL R16
-      152 SETTABLEKS                       R22 R14 K40 ["createBodyCategory"]
-      154 DUPCLOSURE                       R22 K41 [PROTO_23]
-      155 CAPTURE                          VAL R14
-      156 SETTABLEKS                       R22 R14 K42 ["createHeadPalette"]
-      158 DUPCLOSURE                       R22 K43 [PROTO_27]
-      159 CAPTURE                          VAL R3
-      160 CAPTURE                          VAL R5
-      161 CAPTURE                          VAL R8
-      162 CAPTURE                          VAL R15
-      163 CAPTURE                          VAL R16
-      164 SETTABLEKS                       R22 R14 K44 ["createBodyAnimationPalette"]
-      166 DUPCLOSURE                       R22 K45 [PROTO_35]
-      167 CAPTURE                          VAL R3
-      168 CAPTURE                          VAL R7
-      169 CAPTURE                          VAL R17
-      170 CAPTURE                          VAL R18
-      171 CAPTURE                          VAL R19
-      172 CAPTURE                          VAL R10
-      173 CAPTURE                          VAL R6
-      174 CAPTURE                          VAL R8
-      175 SETTABLEKS                       R22 R14 K46 ["shoesPalette"]
-      177 DUPCLOSURE                       R22 K47 [PROTO_39]
-      178 CAPTURE                          VAL R3
-      179 CAPTURE                          VAL R5
-      180 CAPTURE                          VAL R8
-      181 CAPTURE                          VAL R15
-      182 CAPTURE                          VAL R16
-      183 SETTABLEKS                       R22 R14 K48 ["emotionPalette"]
-      185 DUPCLOSURE                       R22 K49 [PROTO_44]
-      186 CAPTURE                          VAL R9
-      187 CAPTURE                          VAL R15
-      188 CAPTURE                          VAL R16
-      189 SETTABLEKS                       R22 R14 K50 ["skinPalette"]
-      191 DUPCLOSURE                       R22 K51 [PROTO_47]
-      192 CAPTURE                          VAL R7
-      193 CAPTURE                          VAL R18
-      194 CAPTURE                          VAL R21
-      195 CAPTURE                          VAL R19
-      196 SETTABLEKS                       R22 R14 K52 ["gearPalette"]
-      198 DUPCLOSURE                       R22 K53 [PROTO_53]
-      199 CAPTURE                          VAL R12
-      200 CAPTURE                          VAL R11
+      128 CAPTURE                          VAL R2
+      129 CAPTURE                          VAL R14
+      130 DUPCLOSURE                       R19 K30 [PROTO_4]
+      131 DUPCLOSURE                       R20 K31 [PROTO_6]
+      132 DUPCLOSURE                       R21 K32 [PROTO_7]
+      133 DUPCLOSURE                       R22 K33 [PROTO_9]
+      134 CAPTURE                          VAL R10
+      135 CAPTURE                          VAL R6
+      136 CAPTURE                          VAL R8
+      137 DUPCLOSURE                       R23 K34 [PROTO_12]
+      138 CAPTURE                          VAL R7
+      139 CAPTURE                          VAL R19
+      140 CAPTURE                          VAL R18
+      141 CAPTURE                          VAL R22
+      142 CAPTURE                          VAL R20
+      143 SETTABLEKS                       R23 R15 K35 ["basicAccessoryPalette"]
+      145 DUPCLOSURE                       R23 K36 [PROTO_15]
+      146 CAPTURE                          VAL R7
+      147 CAPTURE                          VAL R18
+      148 CAPTURE                          VAL R19
+      149 CAPTURE                          VAL R20
+      150 CAPTURE                          VAL R22
+      151 SETTABLEKS                       R23 R15 K37 ["layeredClothingPalette"]
+      153 DUPCLOSURE                       R23 K38 [PROTO_18]
+      154 CAPTURE                          VAL R7
+      155 SETTABLEKS                       R23 R15 K39 ["createBodyPalette"]
+      157 DUPCLOSURE                       R23 K40 [PROTO_20]
+      158 CAPTURE                          VAL R15
+      159 CAPTURE                          VAL R16
+      160 CAPTURE                          VAL R17
+      161 SETTABLEKS                       R23 R15 K41 ["createBodyCategory"]
+      163 DUPCLOSURE                       R23 K42 [PROTO_23]
+      164 CAPTURE                          VAL R15
+      165 SETTABLEKS                       R23 R15 K43 ["createHeadPalette"]
+      167 DUPCLOSURE                       R23 K44 [PROTO_27]
+      168 CAPTURE                          VAL R3
+      169 CAPTURE                          VAL R5
+      170 CAPTURE                          VAL R8
+      171 CAPTURE                          VAL R16
+      172 CAPTURE                          VAL R17
+      173 SETTABLEKS                       R23 R15 K45 ["createBodyAnimationPalette"]
+      175 DUPCLOSURE                       R23 K46 [PROTO_35]
+      176 CAPTURE                          VAL R3
+      177 CAPTURE                          VAL R7
+      178 CAPTURE                          VAL R18
+      179 CAPTURE                          VAL R19
+      180 CAPTURE                          VAL R20
+      181 CAPTURE                          VAL R10
+      182 CAPTURE                          VAL R6
+      183 CAPTURE                          VAL R8
+      184 SETTABLEKS                       R23 R15 K47 ["shoesPalette"]
+      186 DUPCLOSURE                       R23 K48 [PROTO_39]
+      187 CAPTURE                          VAL R3
+      188 CAPTURE                          VAL R5
+      189 CAPTURE                          VAL R8
+      190 CAPTURE                          VAL R16
+      191 CAPTURE                          VAL R17
+      192 SETTABLEKS                       R23 R15 K49 ["emotionPalette"]
+      194 DUPCLOSURE                       R23 K50 [PROTO_44]
+      195 CAPTURE                          VAL R9
+      196 CAPTURE                          VAL R16
+      197 CAPTURE                          VAL R17
+      198 SETTABLEKS                       R23 R15 K51 ["skinPalette"]
+      200 DUPCLOSURE                       R23 K52 [PROTO_47]
       201 CAPTURE                          VAL R7
-      202 CAPTURE                          VAL R16
-      203 CAPTURE                          VAL R21
+      202 CAPTURE                          VAL R19
+      203 CAPTURE                          VAL R22
       204 CAPTURE                          VAL R20
-      205 SETTABLEKS                       R22 R14 K54 ["createMakeupPalette"]
-      207 RETURN                           R14 1
+      205 SETTABLEKS                       R23 R15 K53 ["gearPalette"]
+      207 DUPCLOSURE                       R23 K54 [PROTO_53]
+      208 CAPTURE                          VAL R12
+      209 CAPTURE                          VAL R13
+      210 CAPTURE                          VAL R11
+      211 CAPTURE                          VAL R7
+      212 CAPTURE                          VAL R17
+      213 CAPTURE                          VAL R22
+      214 CAPTURE                          VAL R21
+      215 SETTABLEKS                       R23 R15 K55 ["createMakeupPalette"]
+      217 RETURN                           R15 1

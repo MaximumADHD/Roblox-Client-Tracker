@@ -69,6 +69,30 @@ PROTO_5:
        18 FORGLOOP                         R2 2 ; [-13]
        20 RETURN                           R1 1
 
+PROTO_6:
+        0 GETIMPORT                        R2 K2 [BrickColor.new]
+        2 MOVE                             R3 R0
+        3 CALL                             R2 1 1
+        4 GETTABLEKS                       R1 R2 K3 ["Color"]
+        6 RETURN                           R1 1
+
+PROTO_7:
+        0 NEWTABLE                         R1 0 0
+        2 MOVE                             R2 R0
+        3 LOADNIL                          R3
+        4 LOADNIL                          R4
+        5 FORGPREP                         R2
+        6 GETIMPORT                        R10 K2 [BrickColor.new]
+        8 MOVE                             R11 R6
+        9 CALL                             R10 1 1
+       10 GETTABLEKS                       R9 R10 K3 ["Color"]
+       12 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
+       14 MOVE                             R8 R1
+       15 GETIMPORT                        R7 K6 [table.insert]
+       17 CALL                             R7 2 0
+       18 FORGLOOP                         R2 2 ; [-13]
+       20 RETURN                           R1 1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -545,4 +569,87 @@ MAIN:
       590 GETTABLEKS                       R43 R4 K202 ["eyeMakeup"]
       592 CALL                             R20 23 1
       593 SETTABLEKS                       R20 R4 K203 ["allItems"]
-      595 RETURN                           R4 1
+      595 DUPCLOSURE                       R20 K204 [PROTO_6]
+      596 DUPCLOSURE                       R21 K205 [PROTO_7]
+      597 NEWTABLE                         R22 0 71
+      599 LOADK                            R23 K206 ["Dirt brown"]
+      600 LOADK                            R24 K207 ["Reddish brown"]
+      601 LOADK                            R25 K208 ["Brown"]
+      602 LOADK                            R26 K209 ["Sand red"]
+      603 LOADK                            R27 K210 ["Linen"]
+      604 LOADK                            R28 K211 ["Burlap"]
+      605 LOADK                            R29 K212 ["Brick yellow"]
+      606 LOADK                            R30 K213 ["Medium red"]
+      607 LOADK                            R31 K214 ["Dusty Rose"]
+      608 LOADK                            R32 K215 ["CGA brown"]
+      609 LOADK                            R33 K216 ["Dark orange"]
+      610 LOADK                            R34 K217 ["Nougat"]
+      611 LOADK                            R35 K218 ["Light orange"]
+      612 LOADK                            R36 K219 ["Pastel brown"]
+      613 LOADK                            R37 K220 ["Neon orange"]
+      614 LOADK                            R38 K221 ["Bright orange"]
+      615 SETLIST                          R22 R23 16 [1]
+      617 LOADK                            R23 K222 ["Br. yellowish orange"]
+      618 LOADK                            R24 K223 ["Deep orange"]
+      619 LOADK                            R25 K224 ["Bright yellow"]
+      620 LOADK                            R26 K225 ["Daisy orange"]
+      621 LOADK                            R27 K226 ["Cool yellow"]
+      622 LOADK                            R28 K227 ["Earth green"]
+      623 LOADK                            R29 K228 ["Camo"]
+      624 LOADK                            R30 K229 ["Dark green"]
+      625 LOADK                            R31 K230 ["Br. yellowish green"]
+      626 LOADK                            R32 K231 ["Navy blue"]
+      627 LOADK                            R33 K232 ["Deep blue"]
+      628 LOADK                            R34 K233 ["Really blue"]
+      629 LOADK                            R35 K234 ["Bright blue"]
+      630 LOADK                            R36 K235 ["Steel blue"]
+      631 LOADK                            R37 K236 ["Medium blue"]
+      632 LOADK                            R38 K237 ["Light blue"]
+      633 SETLIST                          R22 R23 16 [17]
+      635 LOADK                            R23 K238 ["Bright bluish green"]
+      636 LOADK                            R24 K239 ["Teal"]
+      637 LOADK                            R25 K240 ["Pastel blue-green"]
+      638 LOADK                            R26 K241 ["Toothpaste"]
+      639 LOADK                            R27 K242 ["Cyan"]
+      640 LOADK                            R28 K243 ["Pastel Blue"]
+      641 LOADK                            R29 K244 ["Pastel light blue"]
+      642 LOADK                            R30 K245 ["Bright violet"]
+      643 LOADK                            R31 K246 ["Lavender"]
+      644 LOADK                            R32 K247 ["Lilac"]
+      645 LOADK                            R33 K248 ["Magenta"]
+      646 LOADK                            R34 K249 ["Royal purple"]
+      647 LOADK                            R35 K250 ["Alder"]
+      648 LOADK                            R36 K251 ["Pastel violet"]
+      649 LOADK                            R37 K252 ["Bright red"]
+      650 LOADK                            R38 K253 ["Really red"]
+      651 SETLIST                          R22 R23 16 [33]
+      653 LOADK                            R23 K254 ["Hot pink"]
+      654 LOADK                            R24 K255 ["Pink"]
+      655 LOADK                            R25 K0 ["script"]
+      656 LOADK                            R26 K1 [script]
+      657 LOADK                            R27 K2 ["AvatarCompatibilityPreviewer"]
+      658 LOADK                            R28 K3 ["FindFirstAncestor"]
+      659 LOADK                            R29 K4 ["require"]
+      660 LOADK                            R30 K5 [require]
+      661 LOADK                            R31 K6 ["Src"]
+      662 LOADK                            R32 K7 ["Types"]
+      663 LOADK                            R33 K8 ["Util"]
+      664 LOADK                            R34 K9 ["flatten"]
+      665 LOADK                            R35 K10 ["Flags"]
+      666 LOADK                            R36 K11 ["getFFlagAvatarPreviewerMakeupDescription"]
+      667 LOADK                            R37 K12 [PROTO_0]
+      668 LOADK                            R38 K13 [PROTO_2]
+      669 SETLIST                          R22 R23 16 [49]
+      671 LOADK                            R23 K14 [PROTO_3]
+      672 LOADK                            R24 K15 [PROTO_4]
+      673 LOADK                            R25 K16 [PROTO_5]
+      674 LOADK                            R26 K17 ["HairAttachment"]
+      675 LOADK                            R27 K18 [13902886383]
+      676 LOADK                            R28 K19 [11195420056]
+      677 LOADK                            R29 K20 ["layered"]
+      678 SETLIST                          R22 R23 7 [65]
+      680 MOVE                             R23 R21
+      681 MOVE                             R24 R22
+      682 CALL                             R23 1 1
+      683 SETTABLEKS                       R23 R4 K277 ["skinColors"]
+      685 RETURN                           R4 1

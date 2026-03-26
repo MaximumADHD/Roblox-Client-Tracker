@@ -561,7 +561,7 @@ PROTO_27:
       213 GETUPVAL                         R19 6
       214 GETTABLEKS                       R18 R19 K50 ["ContextStack"]
       216 DUPTABLE                         R19 K53 [{"providers"}]
-      217 NEWTABLE                         R20 0 25
+      217 NEWTABLE                         R20 0 26
       219 GETUPVAL                         R22 2
       220 GETTABLEKS                       R21 R22 K15 ["createElement"]
       222 GETUPVAL                         R24 4
@@ -727,30 +727,36 @@ PROTO_27:
       466 CALL                             R28 1 1
       467 GETUPVAL                         R30 2
       468 GETTABLEKS                       R29 R30 K15 ["createElement"]
-      470 GETUPVAL                         R32 9
-      471 GETTABLEKS                       R31 R32 K96 ["AssetPickerProvider"]
-      473 GETTABLEKS                       R30 R31 K79 ["StudioProvider"]
-      475 DUPTABLE                         R31 K98 [{"plugin", "theme", "studioService"}]
-      476 GETTABLEKS                       R32 R0 K4 ["Plugin"]
-      478 SETTABLEKS                       R32 R31 K65 ["plugin"]
-      480 SETTABLEKS                       R1 R31 K70 ["theme"]
-      482 GETUPVAL                         R32 10
-      483 SETTABLEKS                       R32 R31 K97 ["studioService"]
-      485 CALL                             R29 2 -1
-      486 SETLIST                          R20 R21 -1 [17]
-      488 SETTABLEKS                       R20 R19 K52 ["providers"]
-      490 DUPTABLE                         R20 K100 [{"MainView"}]
-      491 GETUPVAL                         R22 2
-      492 GETTABLEKS                       R21 R22 K15 ["createElement"]
-      494 GETUPVAL                         R22 11
-      495 CALL                             R21 1 1
-      496 SETTABLEKS                       R21 R20 K99 ["MainView"]
-      498 CALL                             R17 3 1
-      499 SETTABLEKS                       R17 R16 K50 ["ContextStack"]
-      501 CALL                             R13 3 1
-      502 SETTABLEKS                       R13 R12 K13 ["MainWidget"]
-      504 CALL                             R10 2 -1
-      505 RETURN                           R10 -1
+      470 GETUPVAL                         R32 0
+      471 GETTABLEKS                       R31 R32 K96 ["CompositorConnectionContext"]
+      473 GETTABLEKS                       R30 R31 K60 ["Provider"]
+      475 CALL                             R29 1 1
+      476 GETUPVAL                         R31 2
+      477 GETTABLEKS                       R30 R31 K15 ["createElement"]
+      479 GETUPVAL                         R33 9
+      480 GETTABLEKS                       R32 R33 K97 ["AssetPickerProvider"]
+      482 GETTABLEKS                       R31 R32 K79 ["StudioProvider"]
+      484 DUPTABLE                         R32 K99 [{"plugin", "theme", "studioService"}]
+      485 GETTABLEKS                       R33 R0 K4 ["Plugin"]
+      487 SETTABLEKS                       R33 R32 K65 ["plugin"]
+      489 SETTABLEKS                       R1 R32 K70 ["theme"]
+      491 GETUPVAL                         R33 10
+      492 SETTABLEKS                       R33 R32 K98 ["studioService"]
+      494 CALL                             R30 2 -1
+      495 SETLIST                          R20 R21 -1 [17]
+      497 SETTABLEKS                       R20 R19 K52 ["providers"]
+      499 DUPTABLE                         R20 K101 [{"MainView"}]
+      500 GETUPVAL                         R22 2
+      501 GETTABLEKS                       R21 R22 K15 ["createElement"]
+      503 GETUPVAL                         R22 11
+      504 CALL                             R21 1 1
+      505 SETTABLEKS                       R21 R20 K100 ["MainView"]
+      507 CALL                             R17 3 1
+      508 SETTABLEKS                       R17 R16 K50 ["ContextStack"]
+      510 CALL                             R13 3 1
+      511 SETTABLEKS                       R13 R12 K13 ["MainWidget"]
+      513 CALL                             R10 2 -1
+      514 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

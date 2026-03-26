@@ -40,15 +40,13 @@ export type Props = {
 
 local function AbuseReportMenuContent(props: Props)
 	return React.createElement("Frame", {
-		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundTransparency = 1,
 		Position = UDim2.new(0, 0, 0, 0),
-		Size = UDim2.new(1, 0, 0, 0),
+		Size = UDim2.new(1, 0, 1, 0),
 	}, {
 		FocusNavigationCoreScriptsWrapper = React.createElement(FocusRoot, {
 			frameProps = {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = UDim2.new(1, 0, 0, 0),
+				Size = UDim2.new(1, 0, 1, 0),
 			},
 			isAutoFocusRoot = true,
 			isIsolated = true,

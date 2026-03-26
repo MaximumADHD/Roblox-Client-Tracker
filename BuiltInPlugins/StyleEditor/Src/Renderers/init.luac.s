@@ -1,69 +1,86 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K12 [{"BrickColor", "Color", "ColorSequence", "Derive", "FontFamily", "FontStyle", "FontWeight", "NumberSequence", "PropertyName", "StaticText", "Theme", "TokenReference"}]
-        2 GETIMPORT                        R1 K14 [require]
-        4 GETIMPORT                        R3 K16 [script]
-        6 GETTABLEKS                       R2 R3 K17 ["BrickColorRenderer"]
-        8 CALL                             R1 1 1
-        9 SETTABLEKS                       R1 R0 K0 ["BrickColor"]
-       11 GETIMPORT                        R1 K14 [require]
-       13 GETIMPORT                        R3 K16 [script]
-       15 GETTABLEKS                       R2 R3 K18 ["ColorRenderer"]
-       17 CALL                             R1 1 1
-       18 SETTABLEKS                       R1 R0 K1 ["Color"]
-       20 GETIMPORT                        R1 K14 [require]
-       22 GETIMPORT                        R4 K16 [script]
-       24 GETTABLEKS                       R3 R4 K19 ["SequenceRenderers"]
-       26 GETTABLEKS                       R2 R3 K20 ["ColorSequenceRenderer"]
-       28 CALL                             R1 1 1
-       29 SETTABLEKS                       R1 R0 K2 ["ColorSequence"]
-       31 GETIMPORT                        R1 K14 [require]
-       33 GETIMPORT                        R3 K16 [script]
-       35 GETTABLEKS                       R2 R3 K21 ["DeriveRenderer"]
-       37 CALL                             R1 1 1
-       38 SETTABLEKS                       R1 R0 K3 ["Derive"]
-       40 GETIMPORT                        R1 K14 [require]
-       42 GETIMPORT                        R4 K16 [script]
-       44 GETTABLEKS                       R3 R4 K22 ["FontRenderers"]
-       46 GETTABLEKS                       R2 R3 K23 ["FontFamilyRenderer"]
-       48 CALL                             R1 1 1
-       49 SETTABLEKS                       R1 R0 K4 ["FontFamily"]
-       51 GETIMPORT                        R1 K14 [require]
-       53 GETIMPORT                        R4 K16 [script]
-       55 GETTABLEKS                       R3 R4 K22 ["FontRenderers"]
-       57 GETTABLEKS                       R2 R3 K24 ["FontStyleRenderer"]
-       59 CALL                             R1 1 1
-       60 SETTABLEKS                       R1 R0 K5 ["FontStyle"]
-       62 GETIMPORT                        R1 K14 [require]
-       64 GETIMPORT                        R4 K16 [script]
-       66 GETTABLEKS                       R3 R4 K22 ["FontRenderers"]
-       68 GETTABLEKS                       R2 R3 K25 ["FontWeightRenderer"]
-       70 CALL                             R1 1 1
-       71 SETTABLEKS                       R1 R0 K6 ["FontWeight"]
-       73 GETIMPORT                        R1 K14 [require]
-       75 GETIMPORT                        R4 K16 [script]
-       77 GETTABLEKS                       R3 R4 K19 ["SequenceRenderers"]
-       79 GETTABLEKS                       R2 R3 K26 ["NumberSequenceRenderer"]
-       81 CALL                             R1 1 1
-       82 SETTABLEKS                       R1 R0 K7 ["NumberSequence"]
-       84 GETIMPORT                        R1 K14 [require]
-       86 GETIMPORT                        R3 K16 [script]
-       88 GETTABLEKS                       R2 R3 K27 ["PropertyNameRenderer"]
-       90 CALL                             R1 1 1
-       91 SETTABLEKS                       R1 R0 K8 ["PropertyName"]
-       93 GETIMPORT                        R1 K14 [require]
-       95 GETIMPORT                        R3 K16 [script]
-       97 GETTABLEKS                       R2 R3 K28 ["StaticTextRenderer"]
-       99 CALL                             R1 1 1
-      100 SETTABLEKS                       R1 R0 K9 ["StaticText"]
-      102 GETIMPORT                        R1 K14 [require]
-      104 GETIMPORT                        R3 K16 [script]
-      106 GETTABLEKS                       R2 R3 K29 ["BreadcrumbRadioRenderer"]
-      108 CALL                             R1 1 1
-      109 SETTABLEKS                       R1 R0 K10 ["Theme"]
-      111 GETIMPORT                        R1 K14 [require]
-      113 GETIMPORT                        R3 K16 [script]
-      115 GETTABLEKS                       R2 R3 K30 ["TokenReferenceRenderer"]
-      117 CALL                             R1 1 1
-      118 SETTABLEKS                       R1 R0 K11 ["TokenReference"]
-      120 RETURN                           R0 1
+        1 GETIMPORT                        R2 K1 [script]
+        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        7 GETIMPORT                        R1 K4 [require]
+        9 GETTABLEKS                       R4 R0 K5 ["Src"]
+       11 GETTABLEKS                       R3 R4 K6 ["Flags"]
+       13 GETTABLEKS                       R2 R3 K7 ["getFFlagStyleEditorSupportTransitions"]
+       15 CALL                             R1 1 1
+       16 CALL                             R1 0 1
+       17 DUPTABLE                         R2 K21 [{"BrickColor", "Color", "ColorSequence", "Derive", "FontFamily", "FontStyle", "FontWeight", "NumberSequence", "PropertyName", "StaticText", "Theme", "TweenInfo", "TokenReference"}]
+       18 GETIMPORT                        R3 K4 [require]
+       20 GETIMPORT                        R5 K1 [script]
+       22 GETTABLEKS                       R4 R5 K22 ["BrickColorRenderer"]
+       24 CALL                             R3 1 1
+       25 SETTABLEKS                       R3 R2 K8 ["BrickColor"]
+       27 GETIMPORT                        R3 K4 [require]
+       29 GETIMPORT                        R5 K1 [script]
+       31 GETTABLEKS                       R4 R5 K23 ["ColorRenderer"]
+       33 CALL                             R3 1 1
+       34 SETTABLEKS                       R3 R2 K9 ["Color"]
+       36 GETIMPORT                        R3 K4 [require]
+       38 GETIMPORT                        R6 K1 [script]
+       40 GETTABLEKS                       R5 R6 K24 ["SequenceRenderers"]
+       42 GETTABLEKS                       R4 R5 K25 ["ColorSequenceRenderer"]
+       44 CALL                             R3 1 1
+       45 SETTABLEKS                       R3 R2 K10 ["ColorSequence"]
+       47 GETIMPORT                        R3 K4 [require]
+       49 GETIMPORT                        R5 K1 [script]
+       51 GETTABLEKS                       R4 R5 K26 ["DeriveRenderer"]
+       53 CALL                             R3 1 1
+       54 SETTABLEKS                       R3 R2 K11 ["Derive"]
+       56 GETIMPORT                        R3 K4 [require]
+       58 GETIMPORT                        R6 K1 [script]
+       60 GETTABLEKS                       R5 R6 K27 ["FontRenderers"]
+       62 GETTABLEKS                       R4 R5 K28 ["FontFamilyRenderer"]
+       64 CALL                             R3 1 1
+       65 SETTABLEKS                       R3 R2 K12 ["FontFamily"]
+       67 GETIMPORT                        R3 K4 [require]
+       69 GETIMPORT                        R6 K1 [script]
+       71 GETTABLEKS                       R5 R6 K27 ["FontRenderers"]
+       73 GETTABLEKS                       R4 R5 K29 ["FontStyleRenderer"]
+       75 CALL                             R3 1 1
+       76 SETTABLEKS                       R3 R2 K13 ["FontStyle"]
+       78 GETIMPORT                        R3 K4 [require]
+       80 GETIMPORT                        R6 K1 [script]
+       82 GETTABLEKS                       R5 R6 K27 ["FontRenderers"]
+       84 GETTABLEKS                       R4 R5 K30 ["FontWeightRenderer"]
+       86 CALL                             R3 1 1
+       87 SETTABLEKS                       R3 R2 K14 ["FontWeight"]
+       89 GETIMPORT                        R3 K4 [require]
+       91 GETIMPORT                        R6 K1 [script]
+       93 GETTABLEKS                       R5 R6 K24 ["SequenceRenderers"]
+       95 GETTABLEKS                       R4 R5 K31 ["NumberSequenceRenderer"]
+       97 CALL                             R3 1 1
+       98 SETTABLEKS                       R3 R2 K15 ["NumberSequence"]
+      100 GETIMPORT                        R3 K4 [require]
+      102 GETIMPORT                        R5 K1 [script]
+      104 GETTABLEKS                       R4 R5 K32 ["PropertyNameRenderer"]
+      106 CALL                             R3 1 1
+      107 SETTABLEKS                       R3 R2 K16 ["PropertyName"]
+      109 GETIMPORT                        R3 K4 [require]
+      111 GETIMPORT                        R5 K1 [script]
+      113 GETTABLEKS                       R4 R5 K33 ["StaticTextRenderer"]
+      115 CALL                             R3 1 1
+      116 SETTABLEKS                       R3 R2 K17 ["StaticText"]
+      118 GETIMPORT                        R3 K4 [require]
+      120 GETIMPORT                        R5 K1 [script]
+      122 GETTABLEKS                       R4 R5 K34 ["BreadcrumbRadioRenderer"]
+      124 CALL                             R3 1 1
+      125 SETTABLEKS                       R3 R2 K18 ["Theme"]
+      127 JUMPIFNOT                        R1 ; [+8]
+      128 GETIMPORT                        R3 K4 [require]
+      130 GETIMPORT                        R5 K1 [script]
+      132 GETTABLEKS                       R4 R5 K35 ["TweenInfoRenderer"]
+      134 CALL                             R3 1 1
+      135 JUMP                             ; [+1]
+      136 LOADNIL                          R3
+      137 SETTABLEKS                       R3 R2 K19 ["TweenInfo"]
+      139 GETIMPORT                        R3 K4 [require]
+      141 GETIMPORT                        R5 K1 [script]
+      143 GETTABLEKS                       R4 R5 K36 ["TokenReferenceRenderer"]
+      145 CALL                             R3 1 1
+      146 SETTABLEKS                       R3 R2 K20 ["TokenReference"]
+      148 RETURN                           R2 1

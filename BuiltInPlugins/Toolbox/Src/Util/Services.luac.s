@@ -45,40 +45,32 @@ MAIN:
        42 GETTABLEKS                       R6 R7 K12 ["Flags"]
        44 GETTABLEKS                       R5 R6 K13 ["getFFlagEnableUploadingMakeup"]
        46 CALL                             R4 1 1
-       47 GETIMPORT                        R5 K5 [require]
-       49 GETTABLEKS                       R8 R0 K6 ["Src"]
-       51 GETTABLEKS                       R7 R8 K12 ["Flags"]
-       53 GETTABLEKS                       R6 R7 K14 ["getFFlagRemoveItemTags"]
-       55 CALL                             R5 1 1
-       56 NEWTABLE                         R6 1 0
-       58 MOVE                             R8 R4
-       59 CALL                             R8 0 1
-       60 JUMPIFNOT                        R8 ; [+25]
-       61 DUPTABLE                         R7 K17 [{"InsertService", "PublishService"}]
-       62 MOVE                             R9 R1
-       63 CALL                             R9 0 1
-       64 JUMPIFNOT                        R9 ; [+4]
-       65 GETTABLEKS                       R8 R2 K18 ["new"]
-       67 CALL                             R8 0 1
-       68 JUMPIF                           R8 ; [+1]
-       69 LOADNIL                          R8
-       70 SETTABLEKS                       R8 R7 K15 ["InsertService"]
-       72 MOVE                             R9 R5
-       73 CALL                             R9 0 1
-       74 JUMPIFNOT                        R9 ; [+7]
-       75 MOVE                             R9 R1
-       76 CALL                             R9 0 1
-       77 JUMPIFNOT                        R9 ; [+4]
-       78 GETTABLEKS                       R8 R3 K18 ["new"]
-       80 CALL                             R8 0 1
-       81 JUMPIF                           R8 ; [+1]
-       82 LOADNIL                          R8
-       83 SETTABLEKS                       R8 R7 K16 ["PublishService"]
-       85 JUMP                             ; [+1]
-       86 LOADNIL                          R7
-       87 DUPCLOSURE                       R8 K19 [PROTO_0]
-       88 CAPTURE                          VAL R4
-       89 CAPTURE                          VAL R1
-       90 CAPTURE                          VAL R7
-       91 SETTABLEKS                       R8 R6 K20 ["GetService"]
-       93 RETURN                           R6 1
+       47 NEWTABLE                         R5 1 0
+       49 MOVE                             R7 R4
+       50 CALL                             R7 0 1
+       51 JUMPIFNOT                        R7 ; [+22]
+       52 DUPTABLE                         R6 K16 [{"InsertService", "PublishService"}]
+       53 MOVE                             R8 R1
+       54 CALL                             R8 0 1
+       55 JUMPIFNOT                        R8 ; [+4]
+       56 GETTABLEKS                       R7 R2 K17 ["new"]
+       58 CALL                             R7 0 1
+       59 JUMPIF                           R7 ; [+1]
+       60 LOADNIL                          R7
+       61 SETTABLEKS                       R7 R6 K14 ["InsertService"]
+       63 MOVE                             R8 R1
+       64 CALL                             R8 0 1
+       65 JUMPIFNOT                        R8 ; [+4]
+       66 GETTABLEKS                       R7 R3 K17 ["new"]
+       68 CALL                             R7 0 1
+       69 JUMPIF                           R7 ; [+1]
+       70 LOADNIL                          R7
+       71 SETTABLEKS                       R7 R6 K15 ["PublishService"]
+       73 JUMP                             ; [+1]
+       74 LOADNIL                          R6
+       75 DUPCLOSURE                       R7 K18 [PROTO_0]
+       76 CAPTURE                          VAL R4
+       77 CAPTURE                          VAL R1
+       78 CAPTURE                          VAL R6
+       79 SETTABLEKS                       R7 R5 K19 ["GetService"]
+       81 RETURN                           R5 1

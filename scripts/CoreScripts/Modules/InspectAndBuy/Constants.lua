@@ -1,5 +1,9 @@
 --!nonstrict
 
+local CorePackages = game:GetService("CorePackages")
+local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
+local FFlagAXInspectAndBuyMakeupSupport = AvatarExperienceFlags.FFlagAXInspectAndBuyMakeupSupport
+
 local Constants = {
 	NotificationKeys = {
 		MultipleBundleNoticeKey = "InGame.InspectMenu.Description.MultipleBundlesNotice",
@@ -25,6 +29,7 @@ local Constants = {
 		Clothing = "Clothing",
 		Accessory = "Accessory",
 		Emotes = "Emotes",
+		Makeup = if FFlagAXInspectAndBuyMakeupSupport then "Makeup" else nil :: never,
 	},
 
 	AssetTypeIdStringToHumanoidDescriptionProp = {
@@ -155,6 +160,12 @@ Constants.AssetTypeIdToCategory = {
 	[tostring(Enum.AssetType.DynamicHead.Value)] = Constants.AssetCategories.Body,
 }
 
+if FFlagAXInspectAndBuyMakeupSupport then
+	Constants.AssetTypeIdToCategory[tostring(Enum.AssetType.EyeMakeup.Value)] = Constants.AssetCategories.Makeup
+	Constants.AssetTypeIdToCategory[tostring(Enum.AssetType.FaceMakeup.Value)] = Constants.AssetCategories.Makeup
+	Constants.AssetTypeIdToCategory[tostring(Enum.AssetType.LipMakeup.Value)] = Constants.AssetCategories.Makeup
+end
+
 Constants.AssetCategoriesLocalized = {
 	[Constants.AssetCategories.Animation] = "Feature.Catalog.Label.Animation",
 	[Constants.AssetCategories.Body] = "Feature.Catalog.Label.Body",
@@ -162,6 +173,10 @@ Constants.AssetCategoriesLocalized = {
 	[Constants.AssetCategories.Accessory] = "Feature.Avatar.Label.Accessory",
 	[Constants.AssetCategories.Emotes] = "Feature.Catalog.Label.Emotes",
 }
+
+if FFlagAXInspectAndBuyMakeupSupport then
+	Constants.AssetCategoriesLocalized[Constants.AssetCategories.Makeup] = "Feature.Catalog.Label.Makeup"
+end
 
 Constants.AssetTypeIdToTypeLocalized = {
 	[tostring(Enum.AssetType.TShirt.Value)] = "Feature.Avatar.Label.ClassicTShirts",
@@ -205,6 +220,12 @@ Constants.AssetTypeIdToTypeLocalized = {
 	[tostring(Enum.AssetType.MoodAnimation.Value)] = "Feature.Avatar.Label.Mood",
 	[tostring(Enum.AssetType.DynamicHead.Value)] = "Feature.Avatar.Label.DynamicHead",
 }
+
+if FFlagAXInspectAndBuyMakeupSupport then
+	Constants.AssetTypeIdToTypeLocalized[tostring(Enum.AssetType.EyeMakeup.Value)] = "Feature.Catalog.Label.EyeMakeup"
+	Constants.AssetTypeIdToTypeLocalized[tostring(Enum.AssetType.FaceMakeup.Value)] = "Feature.Catalog.Label.FaceMakeup"
+	Constants.AssetTypeIdToTypeLocalized[tostring(Enum.AssetType.LipMakeup.Value)] = "Feature.Catalog.Label.LipMakeup"
+end
 
 -- AVBURST-9497 TODO Remove when Mood/DynamicHead Enum are in the engine
 Constants.MoodAnimationAssetTypeId = "78"

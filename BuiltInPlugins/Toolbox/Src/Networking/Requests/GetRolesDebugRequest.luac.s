@@ -831,75 +831,51 @@ PROTO_1:
       993 CALL                             R4 -1 0
       994 GETUPVAL                         R4 3
       995 CALL                             R4 0 1
-      996 JUMPIFNOT                        R4 ; [+70]
-      997 DUPTABLE                         R4 K56 [{"isItemTagsFeatureEnabled", "enabledAssetTypes", "maximumItemTagsPerItem"}]
-      998 GETUPVAL                         R6 4
-      999 CALL                             R6 0 1
-     1000 JUMPIFNOT                        R6 ; [+2]
-     1001 LOADNIL                          R5
-     1002 JUMP                             ; [+1]
-     1003 LOADB                            R5 1
-     1004 SETTABLEKS                       R5 R4 K53 ["isItemTagsFeatureEnabled"]
-     1006 NEWTABLE                         R5 0 20
-     1008 LOADK                            R6 K2 ["Hat"]
-     1009 LOADK                            R7 K3 ["HairAccessory"]
-     1010 LOADK                            R8 K4 ["FaceAccessory"]
-     1011 LOADK                            R9 K5 ["NeckAccessory"]
-     1012 LOADK                            R10 K6 ["ShoulderAccessory"]
-     1013 LOADK                            R11 K8 ["BackAccessory"]
-     1014 LOADK                            R12 K7 ["FrontAccessory"]
-     1015 LOADK                            R13 K9 ["WaistAccessory"]
-     1016 LOADK                            R14 K10 ["TShirtAccessory"]
-     1017 LOADK                            R15 K11 ["ShirtAccessory"]
-     1018 LOADK                            R16 K12 ["PantsAccessory"]
-     1019 LOADK                            R17 K13 ["JacketAccessory"]
-     1020 LOADK                            R18 K14 ["SweaterAccessory"]
-     1021 LOADK                            R19 K15 ["ShortsAccessory"]
-     1022 LOADK                            R20 K16 ["LeftShoeAccessory"]
-     1023 LOADK                            R21 K17 ["RightShoeAccessory"]
-     1024 SETLIST                          R5 R6 16 [1]
-     1026 LOADK                            R6 K18 ["DressSkirtAccessory"]
-     1027 LOADK                            R7 K37 ["Shirt"]
-     1028 LOADK                            R8 K39 ["TShirt"]
-     1029 LOADK                            R9 K38 ["Pants"]
-     1030 SETLIST                          R5 R6 4 [17]
-     1032 SETTABLEKS                       R5 R4 K54 ["enabledAssetTypes"]
-     1034 GETUPVAL                         R6 4
-     1035 CALL                             R6 0 1
-     1036 JUMPIFNOT                        R6 ; [+2]
-     1037 LOADNIL                          R5
-     1038 JUMP                             ; [+1]
-     1039 LOADN                            R5 5
-     1040 SETTABLEKS                       R5 R4 K55 ["maximumItemTagsPerItem"]
-     1042 GETUPVAL                         R5 0
-     1043 CALL                             R5 0 1
-     1044 JUMPIFNOT                        R5 ; [+8]
-     1045 GETTABLEKS                       R6 R4 K54 ["enabledAssetTypes"]
-     1047 FASTCALL2K                       TABLE_INSERT R6 K28 ; [+4]
-     1049 LOADK                            R7 K28 ["EmoteAnimation"]
-     1050 GETIMPORT                        R5 K59 [table.insert]
-     1052 CALL                             R5 2 0
-     1053 GETUPVAL                         R5 4
-     1054 CALL                             R5 0 1
-     1055 JUMPIF                           R5 ; [+11]
-     1056 GETUPVAL                         R7 5
-     1057 GETTABLEKS                       R8 R4 K53 ["isItemTagsFeatureEnabled"]
-     1059 GETTABLEKS                       R9 R4 K54 ["enabledAssetTypes"]
-     1061 GETTABLEKS                       R10 R4 K55 ["maximumItemTagsPerItem"]
-     1063 CALL                             R7 3 -1
-     1064 NAMECALL                         R5 R0 K52 ["dispatch"]
-     1066 CALL                             R5 -1 0
-     1067 GETUPVAL                         R6 6
-     1068 GETGLOBAL                        R7 K60 ["getDebugUgcBundleMetadata"]
-     1070 CALL                             R7 0 -1
-     1071 CALL                             R6 -1 -1
-     1072 NAMECALL                         R4 R0 K52 ["dispatch"]
-     1074 CALL                             R4 -1 0
-     1075 GETUPVAL                         R5 7
-     1076 GETTABLEKS                       R4 R5 K61 ["resolve"]
-     1078 NEWTABLE                         R5 0 0
-     1080 CALL                             R4 1 -1
-     1081 RETURN                           R4 -1
+      996 JUMPIFNOT                        R4 ; [+40]
+      997 DUPTABLE                         R4 K54 [{"enabledAssetTypes"}]
+      998 NEWTABLE                         R5 0 20
+     1000 LOADK                            R6 K2 ["Hat"]
+     1001 LOADK                            R7 K3 ["HairAccessory"]
+     1002 LOADK                            R8 K4 ["FaceAccessory"]
+     1003 LOADK                            R9 K5 ["NeckAccessory"]
+     1004 LOADK                            R10 K6 ["ShoulderAccessory"]
+     1005 LOADK                            R11 K8 ["BackAccessory"]
+     1006 LOADK                            R12 K7 ["FrontAccessory"]
+     1007 LOADK                            R13 K9 ["WaistAccessory"]
+     1008 LOADK                            R14 K10 ["TShirtAccessory"]
+     1009 LOADK                            R15 K11 ["ShirtAccessory"]
+     1010 LOADK                            R16 K12 ["PantsAccessory"]
+     1011 LOADK                            R17 K13 ["JacketAccessory"]
+     1012 LOADK                            R18 K14 ["SweaterAccessory"]
+     1013 LOADK                            R19 K15 ["ShortsAccessory"]
+     1014 LOADK                            R20 K16 ["LeftShoeAccessory"]
+     1015 LOADK                            R21 K17 ["RightShoeAccessory"]
+     1016 SETLIST                          R5 R6 16 [1]
+     1018 LOADK                            R6 K18 ["DressSkirtAccessory"]
+     1019 LOADK                            R7 K37 ["Shirt"]
+     1020 LOADK                            R8 K39 ["TShirt"]
+     1021 LOADK                            R9 K38 ["Pants"]
+     1022 SETLIST                          R5 R6 4 [17]
+     1024 SETTABLEKS                       R5 R4 K53 ["enabledAssetTypes"]
+     1026 GETUPVAL                         R5 0
+     1027 CALL                             R5 0 1
+     1028 JUMPIFNOT                        R5 ; [+8]
+     1029 GETTABLEKS                       R6 R4 K53 ["enabledAssetTypes"]
+     1031 FASTCALL2K                       TABLE_INSERT R6 K28 ; [+4]
+     1033 LOADK                            R7 K28 ["EmoteAnimation"]
+     1034 GETIMPORT                        R5 K57 [table.insert]
+     1036 CALL                             R5 2 0
+     1037 GETUPVAL                         R6 4
+     1038 GETGLOBAL                        R7 K58 ["getDebugUgcBundleMetadata"]
+     1040 CALL                             R7 0 -1
+     1041 CALL                             R6 -1 -1
+     1042 NAMECALL                         R4 R0 K52 ["dispatch"]
+     1044 CALL                             R4 -1 0
+     1045 GETUPVAL                         R5 5
+     1046 GETTABLEKS                       R4 R5 K59 ["resolve"]
+     1048 NEWTABLE                         R5 0 0
+     1050 CALL                             R4 1 -1
+     1051 RETURN                           R4 -1
 
 PROTO_2:
         0 DUPCLOSURE                       R1 K0 [PROTO_1]
@@ -909,9 +885,7 @@ PROTO_2:
         4 CAPTURE                          UPVAL U3
         5 CAPTURE                          UPVAL U4
         6 CAPTURE                          UPVAL U5
-        7 CAPTURE                          UPVAL U6
-        8 CAPTURE                          UPVAL U7
-        9 RETURN                           R1 1
+        7 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -957,53 +931,36 @@ MAIN:
        73 GETTABLEKS                       R10 R11 K17 ["Flags"]
        75 GETTABLEKS                       R9 R10 K18 ["getFFlagEnableUploadingEmote"]
        77 CALL                             R8 1 1
-       78 GETIMPORT                        R9 K5 [require]
-       80 GETTABLEKS                       R12 R0 K9 ["Src"]
-       82 GETTABLEKS                       R11 R12 K17 ["Flags"]
-       84 GETTABLEKS                       R10 R11 K19 ["getFFlagRemoveItemTags"]
-       86 CALL                             R9 1 1
-       87 MOVE                             R11 R9
-       88 CALL                             R11 0 1
-       89 JUMPIFNOT                        R11 ; [+2]
-       90 LOADNIL                          R10
-       91 JUMP                             ; [+9]
-       92 GETIMPORT                        R10 K5 [require]
-       94 GETTABLEKS                       R13 R0 K9 ["Src"]
-       96 GETTABLEKS                       R12 R13 K10 ["Actions"]
-       98 GETTABLEKS                       R11 R12 K20 ["SetTagsMetadata"]
-      100 CALL                             R10 1 1
-      101 DUPTABLE                         R11 K24 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      102 DUPTABLE                         R12 K27 [{"minRobux", "maxRobux"}]
-      103 LOADN                            R13 50
-      104 SETTABLEKS                       R13 R12 K25 ["minRobux"]
-      106 LOADN                            R13 136
-      107 SETTABLEKS                       R13 R12 K26 ["maxRobux"]
-      109 SETTABLEKS                       R12 R11 K21 ["allowedPriceRange"]
-      111 LOADN                            R12 70
-      112 SETTABLEKS                       R12 R11 K22 ["marketplaceFeesPercentage"]
-      114 DUPTABLE                         R12 K29 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      115 NEWTABLE                         R13 0 3
-      117 LOADN                            R14 25
-      118 LOADN                            R15 50
-      119 LOADN                            R16 75
-      120 SETLIST                          R13 R14 3 [1]
-      122 SETTABLEKS                       R13 R12 K28 ["allowedDiscountPercentages"]
-      124 DUPTABLE                         R13 K27 [{"minRobux", "maxRobux"}]
-      125 LOADN                            R14 50
-      126 SETTABLEKS                       R14 R13 K25 ["minRobux"]
-      128 LOADN                            R14 136
-      129 SETTABLEKS                       R14 R13 K26 ["maxRobux"]
-      131 SETTABLEKS                       R13 R12 K21 ["allowedPriceRange"]
-      133 SETTABLEKS                       R12 R11 K23 ["premiumPricing"]
-      135 DUPCLOSURE                       R12 K30 [PROTO_0]
-      136 SETGLOBAL                        R12 K31 ["getDebugUgcBundleMetadata"]
-      138 DUPCLOSURE                       R12 K32 [PROTO_2]
-      139 CAPTURE                          VAL R8
-      140 CAPTURE                          VAL R11
-      141 CAPTURE                          VAL R4
-      142 CAPTURE                          VAL R7
-      143 CAPTURE                          VAL R9
-      144 CAPTURE                          VAL R10
-      145 CAPTURE                          VAL R5
-      146 CAPTURE                          VAL R2
-      147 RETURN                           R12 1
+       78 DUPTABLE                         R9 K22 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+       79 DUPTABLE                         R10 K25 [{"minRobux", "maxRobux"}]
+       80 LOADN                            R11 50
+       81 SETTABLEKS                       R11 R10 K23 ["minRobux"]
+       83 LOADN                            R11 136
+       84 SETTABLEKS                       R11 R10 K24 ["maxRobux"]
+       86 SETTABLEKS                       R10 R9 K19 ["allowedPriceRange"]
+       88 LOADN                            R10 70
+       89 SETTABLEKS                       R10 R9 K20 ["marketplaceFeesPercentage"]
+       91 DUPTABLE                         R10 K27 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+       92 NEWTABLE                         R11 0 3
+       94 LOADN                            R12 25
+       95 LOADN                            R13 50
+       96 LOADN                            R14 75
+       97 SETLIST                          R11 R12 3 [1]
+       99 SETTABLEKS                       R11 R10 K26 ["allowedDiscountPercentages"]
+      101 DUPTABLE                         R11 K25 [{"minRobux", "maxRobux"}]
+      102 LOADN                            R12 50
+      103 SETTABLEKS                       R12 R11 K23 ["minRobux"]
+      105 LOADN                            R12 136
+      106 SETTABLEKS                       R12 R11 K24 ["maxRobux"]
+      108 SETTABLEKS                       R11 R10 K19 ["allowedPriceRange"]
+      110 SETTABLEKS                       R10 R9 K21 ["premiumPricing"]
+      112 DUPCLOSURE                       R10 K28 [PROTO_0]
+      113 SETGLOBAL                        R10 K29 ["getDebugUgcBundleMetadata"]
+      115 DUPCLOSURE                       R10 K30 [PROTO_2]
+      116 CAPTURE                          VAL R8
+      117 CAPTURE                          VAL R9
+      118 CAPTURE                          VAL R4
+      119 CAPTURE                          VAL R7
+      120 CAPTURE                          VAL R5
+      121 CAPTURE                          VAL R2
+      122 RETURN                           R10 1

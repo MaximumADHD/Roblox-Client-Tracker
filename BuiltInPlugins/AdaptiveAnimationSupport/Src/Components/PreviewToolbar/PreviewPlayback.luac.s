@@ -1,21 +1,4 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["useContext"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["PlayStateContext"]
-        6 GETTABLEKS                       R1 R2 K2 ["Context"]
-        8 CALL                             R0 1 1
-        9 GETUPVAL                         R1 2
-       10 DUPTABLE                         R2 K5 [{"isPlaying", "currentTime"}]
-       11 GETTABLEKS                       R3 R0 K3 ["isPlaying"]
-       13 SETTABLEKS                       R3 R2 K3 ["isPlaying"]
-       15 GETTABLEKS                       R3 R0 K4 ["currentTime"]
-       17 SETTABLEKS                       R3 R2 K4 ["currentTime"]
-       19 CALL                             R1 1 0
-       20 LOADNIL                          R1
-       21 RETURN                           R1 1
-
-PROTO_1:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R3 1
         2 GETTABLEKS                       R2 R3 K0 ["animationId"]
@@ -23,7 +6,7 @@ PROTO_1:
         6 CALL                             R0 2 -1
         7 RETURN                           R0 -1
 
-PROTO_2:
+PROTO_1:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 1
@@ -39,7 +22,7 @@ PROTO_2:
        16 CALL                             R2 2 0
        17 RETURN                           R1 1
 
-PROTO_3:
+PROTO_2:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["SignalsInstanceUtils"]
         3 GETTABLEKS                       R0 R1 K1 ["observeFirstDescendantWhichIsA"]
@@ -54,7 +37,7 @@ PROTO_3:
        15 CALL                             R1 1 -1
        16 RETURN                           R1 -1
 
-PROTO_4:
+PROTO_3:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["useAsync"]
         3 NEWCLOSURE                       R2 P0
@@ -138,14 +121,8 @@ PROTO_4:
       119 CALL                             R10 2 -1
       120 SETLIST                          R6 R7 -1 [1]
       122 SETTABLEKS                       R6 R5 K10 ["providers"]
-      124 DUPTABLE                         R6 K33 [{"PlaybackDriver"}]
-      125 GETUPVAL                         R8 3
-      126 GETTABLEKS                       R7 R8 K8 ["createElement"]
-      128 GETUPVAL                         R8 6
-      129 CALL                             R7 1 1
-      130 SETTABLEKS                       R7 R6 K32 ["PlaybackDriver"]
-      132 CALL                             R3 3 -1
-      133 RETURN                           R3 -1
+      124 CALL                             R3 2 -1
+      125 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -177,25 +154,11 @@ MAIN:
        43 GETTABLEKS                       R8 R0 K10 ["Packages"]
        45 GETTABLEKS                       R7 R8 K15 ["SignalsReact"]
        47 CALL                             R6 1 1
-       48 GETIMPORT                        R7 K9 [require]
-       50 GETTABLEKS                       R14 R0 K10 ["Packages"]
-       52 GETTABLEKS                       R13 R14 K16 ["_Index"]
-       54 GETTABLEKS                       R12 R13 K11 ["AnimationEditor"]
-       56 GETTABLEKS                       R11 R12 K11 ["AnimationEditor"]
-       58 GETTABLEKS                       R10 R11 K17 ["Contexts"]
-       60 GETTABLEKS                       R9 R10 K18 ["PlayStateContext"]
-       62 GETTABLEKS                       R8 R9 K19 ["usePreviewPlayback"]
-       64 CALL                             R7 1 1
-       65 DUPCLOSURE                       R8 K20 [PROTO_0]
-       66 CAPTURE                          VAL R3
-       67 CAPTURE                          VAL R2
-       68 CAPTURE                          VAL R7
-       69 DUPCLOSURE                       R9 K21 [PROTO_4]
-       70 CAPTURE                          VAL R4
-       71 CAPTURE                          VAL R1
-       72 CAPTURE                          VAL R6
-       73 CAPTURE                          VAL R3
-       74 CAPTURE                          VAL R2
-       75 CAPTURE                          VAL R5
-       76 CAPTURE                          VAL R8
-       77 RETURN                           R9 1
+       48 DUPCLOSURE                       R7 K16 [PROTO_3]
+       49 CAPTURE                          VAL R4
+       50 CAPTURE                          VAL R1
+       51 CAPTURE                          VAL R6
+       52 CAPTURE                          VAL R3
+       53 CAPTURE                          VAL R2
+       54 CAPTURE                          VAL R5
+       55 RETURN                           R7 1

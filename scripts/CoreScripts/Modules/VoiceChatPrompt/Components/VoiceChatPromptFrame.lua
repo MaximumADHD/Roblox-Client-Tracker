@@ -46,8 +46,9 @@ local GetFFlagSupportGamepadNavInVoiceModals = VoiceChatFlags.GetFFlagSupportGam
 local GetFIntVoiceToxicityToastDurationSeconds =
 	require(RobloxGui.Modules.Flags.GetFIntVoiceToxicityToastDurationSeconds)
 local FFlagVoiceChatOnlyReportVoiceBans = game:DefineFastFlag("VoiceChatOnlyReportVoiceBans", false)
-local GetFFlagShowDevicePermissionsModal =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowDevicePermissionsModal
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagConnectionsToFriendsRename = SharedFlags.FFlagConnectionsToFriendsRename
+local GetFFlagShowDevicePermissionsModal = SharedFlags.GetFFlagShowDevicePermissionsModal
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local GetFIntVoiceJoinM3ToastDurationSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceJoinM3ToastDurationSeconds)
@@ -57,8 +58,7 @@ local GetFFlagUpdateVoiceConnectionToasts =
 	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagUpdateVoiceConnectionToasts)
 local GetFFlagEnableVoiceTrustedConnectionsToasts =
 	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagEnableVoiceTrustedConnectionsToasts)
-local GetFFlagShowToastWhenAgeGatingVoice =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowToastWhenAgeGatingVoice
+local GetFFlagShowToastWhenAgeGatingVoice = SharedFlags.GetFFlagShowToastWhenAgeGatingVoice
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -140,6 +140,14 @@ local PromptTitle = {
 		then locales:Format("Feature.SettingsHub.Prompt.UpdateToVoiceChat")
 		else nil,
 }
+
+local unifiedJoinVoiceToastKey = if FFlagConnectionsToFriendsRename
+	then "Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupTrustedFriends"
+	else "Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupTrustedConnections"
+local updateOnAutoJoinToastKey = if FFlagConnectionsToFriendsRename
+	then "Feature.SettingsHub.Prompt.Subtitle.TalkAgeGroupTrustedFriendsUpdate"
+	else "Feature.SettingsHub.Prompt.Subtitle.TalkAgeGroupTrustedConnectionsUpdate"
+
 local PromptSubTitle = {
 	[PromptType.None] = "",
 	[PromptType.NotAudible] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.NotAudible"),
@@ -202,16 +210,17 @@ local PromptSubTitle = {
 	[PromptType.VoiceDataConsentOptOutToast] = if GetFFlagEnableSeamlessVoiceDataConsentToast()
 		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.ThanksForVoiceData")
 		else nil,
-	[PromptType.UnifiedJoinVoiceToast] = if GetFFlagEnableVoiceTrustedConnectionsToasts() 
-		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupTrustedConnections")
-		elseif GetFFlagUpdateVoiceConnectionToasts()
-			then locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupV2")
+	[PromptType.UnifiedJoinVoiceToast] = if GetFFlagEnableVoiceTrustedConnectionsToasts()
+		then locales:Format(unifiedJoinVoiceToastKey)
+		elseif GetFFlagUpdateVoiceConnectionToasts() then locales:Format(
+			"Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupV2"
+		)
 		else nil,
 	[PromptType.AgeCheckForVoiceToast] = if GetFFlagShowToastWhenAgeGatingVoice()
 		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.GoToAccountInfo")
 		else nil,
 	[PromptType.UpdateOnAutoJoinToast] = if GetFFlagEnableVoiceTrustedConnectionsToasts()
-		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkAgeGroupTrustedConnectionsUpdate")
+		then locales:Format(updateOnAutoJoinToastKey)
 		else nil,
 }
 
@@ -795,10 +804,7 @@ function VoiceChatPromptFrame:render()
 			[Roact.Change.AbsoluteSize] = self.onScreenSizeChanged,
 		}, {
 			Toast = self.state.promptType ~= PromptType.None and Roact.createElement(SlideFromTopToast, {
-				duration = if isNudgeToast
-					then GetFIntVoiceToxicityToastDurationSeconds()
-					else toastDuration
-,
+				duration = if isNudgeToast then GetFIntVoiceToxicityToastDurationSeconds() else toastDuration,
 				toastContent = self.state.toastContent,
 				show = showThisToast,
 			}),

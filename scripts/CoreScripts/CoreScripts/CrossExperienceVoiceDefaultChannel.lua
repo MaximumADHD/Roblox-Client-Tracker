@@ -9,8 +9,6 @@ local Promise = require(CorePackages.Packages.Promise)
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local CrossExperience = require(CorePackages.Workspace.Packages.CrossExperience)
-local GetFFlagPartyVoiceMuteScopeFix =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPartyVoiceMuteScopeFix
 local FStringTimeoutLoadingLocalPlayerInBackgroundDM =
 	require(CorePackages.Workspace.Packages.SharedFlags).FStringTimeoutLoadingLocalPlayerInBackgroundDM
 
@@ -793,12 +791,6 @@ local function setupListeners()
 		end)
 	end
 
-	-- Always start party voice muted to prevent updateRecording race conditions
-	-- Audio focus management will safely unmute after all transitions are complete
-	if not GetFFlagPartyVoiceMuteScopeFix() then
-		unmuteMicrophoneOnce()
-	end
-
 	if FFlagEnableCrossExpVoiceDebug then
 		cevEventManager:addObserver(CrossExperience.Constants.EVENTS.DEBUG_COMMAND, function(params)
 			if params.name == "dump_session" then
@@ -905,19 +897,11 @@ function initializeAFM()
 				end
 
 				if (FFlagPartyVoiceFixCaptureVideoCheck and not isCapturingVideo()) or not isCapturingVideo then
-					if GetFFlagPartyVoiceMuteScopeFix() then
-						CoreVoiceManager:MuteAll(true, "AudioFocusManagement - CEV deafenAll")
-					else
-						CoreVoiceManager:MuteAll(true, "AudioFocusManagement CEV")
-					end
+					CoreVoiceManager:MuteAll(true, "AudioFocusManagement - CEV deafenAll")
 				end
 
 				if not CoreVoiceManager.localMuted and (not FFlagEnableCEVPersistMuteStateForAFM or coreVoiceManagerState.previousMutedState == CoreVoiceManager.localMuted) then
-					if GetFFlagPartyVoiceMuteScopeFix() then
-						CoreVoiceManager:ToggleMic("AudioFocusManagement - CEV deafenAll")
-					else
-						CoreVoiceManager:ToggleMic()
-					end
+					CoreVoiceManager:ToggleMic("AudioFocusManagement - CEV deafenAll")
 				end
 			end
 
@@ -931,18 +915,12 @@ function initializeAFM()
 					CoreVoiceManager:MuteAll(false, "AudioFocusManagement - CEV Mute All")
 				end
 
-				if GetFFlagPartyVoiceMuteScopeFix() then
-					if CoreVoiceManager.localMuted == nil then
-						log:info("CEV undeafenAll - Voice not connected yet - calling unmuteMicrophoneOnce")
-						unmuteMicrophoneOnce()
-					elseif CoreVoiceManager.localMuted and (not FFlagEnableCEVPersistMuteStateForAFM or coreVoiceManagerState.previousMutedState ~= CoreVoiceManager.localMuted) then
-						log:info("CEV undeafenAll - Voice connected and muted - unmuting immediately")
-						CoreVoiceManager:ToggleMic("AudioFocusManagement - CEV undeafenAll")
-					end
-				else
-					if CoreVoiceManager.localMuted then
-						CoreVoiceManager:ToggleMic()
-					end
+				if CoreVoiceManager.localMuted == nil then
+					log:info("CEV undeafenAll - Voice not connected yet - calling unmuteMicrophoneOnce")
+					unmuteMicrophoneOnce()
+				elseif CoreVoiceManager.localMuted and (not FFlagEnableCEVPersistMuteStateForAFM or coreVoiceManagerState.previousMutedState ~= CoreVoiceManager.localMuted) then
+					log:info("CEV undeafenAll - Voice connected and muted - unmuting immediately")
+					CoreVoiceManager:ToggleMic("AudioFocusManagement - CEV undeafenAll")
 				end
 			end
 
@@ -959,13 +937,11 @@ function initializeAFM()
 
 			AudioFocusService.OnUndeafenVoiceAudio:Connect(function(serviceContextId)
 				if serviceContextId == contextId then
-					if GetFFlagPartyVoiceMuteScopeFix() then
-						log:info(
-							"CEV OnUndeafenVoiceAudio fired for context: {} - expected: {}",
-							serviceContextId,
-							contextId
-						)
-					end
+					log:info(
+						"CEV OnUndeafenVoiceAudio fired for context: {} - expected: {}",
+						serviceContextId,
+						contextId
+					)
 					if FIntPartyVoiceUndeafenDelayMS > 0 then
 						if undeafenTimerHandle then
 							task.cancel(undeafenTimerHandle)
@@ -983,21 +959,15 @@ function initializeAFM()
 			end)
 
 			local requestAudioFocusWithPromise = function(id, prio)
-				if GetFFlagPartyVoiceMuteScopeFix() then
-					log:info("CEV requestAudioFocusWithPromise - id: {} - priority: {}", id, prio)
-				end
+				log:info("CEV requestAudioFocusWithPromise - id: {} - priority: {}", id, prio)
 				return Promise.new(function(resolve, reject)
 					local requestSuccess, focusGranted =
 						pcall(AudioFocusService.RequestFocus, AudioFocusService, id, prio)
 					if requestSuccess then
-						if GetFFlagPartyVoiceMuteScopeFix() then
-							log:info("CEV requestAudioFocusWithPromise - focusGranted: {}", focusGranted)
-						end
+						log:info("CEV requestAudioFocusWithPromise - focusGranted: {}", focusGranted)
 						resolve(focusGranted) -- Still resolve, but indicate failure to grant focus
 					else
-						if GetFFlagPartyVoiceMuteScopeFix() then
-							log:info("CEV requestAudioFocusWithPromise - rejected")
-						end
+						log:info("CEV requestAudioFocusWithPromise - rejected")
 						reject("Failed to call RequestFocus due to an error") -- Reject the promise in case of an error
 					end
 				end)
@@ -1006,9 +976,7 @@ function initializeAFM()
 			requestAudioFocusWithPromise(contextId, focusPriority)
 				:andThen(function(focusGranted)
 					if focusGranted then
-						if GetFFlagPartyVoiceMuteScopeFix() then
-							log:info("CEV audio focus request granted, preparing to undeafen.")
-						end
+						log:info("CEV audio focus request granted, preparing to undeafen.")
 						CoreVoiceManager.muteChanged.Event:Once(function(muted)
 							if
 								muted ~= nil and (FFlagPartyVoiceFixCaptureVideoCheck and not isCapturingVideo())

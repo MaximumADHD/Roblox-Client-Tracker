@@ -212,49 +212,64 @@ MAIN:
        83 CALL                             R9 1 1
        84 GETIMPORT                        R10 K5 [require]
        86 GETTABLEKS                       R13 R0 K9 ["Src"]
-       88 GETTABLEKS                       R12 R13 K20 ["Util"]
-       90 GETTABLEKS                       R11 R12 K21 ["Constants"]
+       88 GETTABLEKS                       R12 R13 K17 ["Flags"]
+       90 GETTABLEKS                       R11 R12 K20 ["getFFlagAvatarPreviewerLookComposer"]
        92 CALL                             R10 1 1
        93 GETIMPORT                        R11 K5 [require]
        95 GETTABLEKS                       R14 R0 K9 ["Src"]
-       97 GETTABLEKS                       R13 R14 K20 ["Util"]
-       99 GETTABLEKS                       R12 R13 K22 ["EquipmentStateContext"]
+       97 GETTABLEKS                       R13 R14 K21 ["Util"]
+       99 GETTABLEKS                       R12 R13 K22 ["Constants"]
       101 CALL                             R11 1 1
       102 GETIMPORT                        R12 K5 [require]
-      104 GETIMPORT                        R15 K1 [script]
-      106 GETTABLEKS                       R14 R15 K23 ["Parent"]
-      108 GETTABLEKS                       R13 R14 K24 ["StageType"]
+      104 GETTABLEKS                       R15 R0 K9 ["Src"]
+      106 GETTABLEKS                       R14 R15 K21 ["Util"]
+      108 GETTABLEKS                       R13 R14 K23 ["EquipmentStateContext"]
       110 CALL                             R12 1 1
-      111 GETTABLEKS                       R14 R1 K25 ["ContextServices"]
-      113 GETTABLEKS                       R13 R14 K26 ["Localization"]
-      115 DUPTABLE                         R14 K30 [{"tabs", "render", "getPreviewCameraModifications"}]
-      116 MOVE                             R16 R8
-      117 CALL                             R16 0 1
-      118 JUMPIFNOT                        R16 ; [+8]
-      119 NEWTABLE                         R15 0 3
-      121 LOADK                            R16 K31 ["animations_face"]
-      122 LOADK                            R17 K32 ["accessories_face"]
-      123 LOADK                            R18 K33 ["makeup"]
-      124 SETLIST                          R15 R16 3 [1]
-      126 JUMP                             ; [+6]
-      127 NEWTABLE                         R15 0 2
-      129 LOADK                            R16 K31 ["animations_face"]
-      130 LOADK                            R17 K32 ["accessories_face"]
-      131 SETLIST                          R15 R16 2 [1]
-      133 SETTABLEKS                       R15 R14 K27 ["tabs"]
-      135 DUPCLOSURE                       R15 K34 [PROTO_1]
-      136 CAPTURE                          VAL R13
-      137 CAPTURE                          VAL R2
-      138 CAPTURE                          VAL R11
-      139 CAPTURE                          VAL R7
-      140 CAPTURE                          VAL R8
-      141 CAPTURE                          VAL R9
-      142 CAPTURE                          VAL R6
-      143 CAPTURE                          VAL R10
-      144 CAPTURE                          VAL R5
-      145 CAPTURE                          VAL R3
-      146 CAPTURE                          VAL R4
-      147 SETTABLEKS                       R15 R14 K28 ["render"]
-      149 DUPCLOSURE                       R15 K35 [PROTO_2]
-      150 SETTABLEKS                       R15 R14 K29 ["getPreviewCameraModifications"]
-      152 RETURN                           R14 1
+      111 GETIMPORT                        R13 K5 [require]
+      113 GETIMPORT                        R16 K1 [script]
+      115 GETTABLEKS                       R15 R16 K24 ["Parent"]
+      117 GETTABLEKS                       R14 R15 K25 ["StageType"]
+      119 CALL                             R13 1 1
+      120 GETTABLEKS                       R15 R1 K26 ["ContextServices"]
+      122 GETTABLEKS                       R14 R15 K27 ["Localization"]
+      124 DUPTABLE                         R15 K31 [{"tabs", "render", "getPreviewCameraModifications"}]
+      125 MOVE                             R17 R10
+      126 CALL                             R17 0 1
+      127 JUMPIFNOT                        R17 ; [+9]
+      128 NEWTABLE                         R16 0 4
+      130 LOADK                            R17 K32 ["animations_face"]
+      131 LOADK                            R18 K33 ["body_face"]
+      132 LOADK                            R19 K34 ["makeup"]
+      133 LOADK                            R20 K35 ["accessories_face"]
+      134 SETLIST                          R16 R17 4 [1]
+      136 JUMP                             ; [+17]
+      137 MOVE                             R17 R8
+      138 CALL                             R17 0 1
+      139 JUMPIFNOT                        R17 ; [+8]
+      140 NEWTABLE                         R16 0 3
+      142 LOADK                            R17 K32 ["animations_face"]
+      143 LOADK                            R18 K35 ["accessories_face"]
+      144 LOADK                            R19 K34 ["makeup"]
+      145 SETLIST                          R16 R17 3 [1]
+      147 JUMP                             ; [+6]
+      148 NEWTABLE                         R16 0 2
+      150 LOADK                            R17 K32 ["animations_face"]
+      151 LOADK                            R18 K35 ["accessories_face"]
+      152 SETLIST                          R16 R17 2 [1]
+      154 SETTABLEKS                       R16 R15 K28 ["tabs"]
+      156 DUPCLOSURE                       R16 K36 [PROTO_1]
+      157 CAPTURE                          VAL R14
+      158 CAPTURE                          VAL R2
+      159 CAPTURE                          VAL R12
+      160 CAPTURE                          VAL R7
+      161 CAPTURE                          VAL R8
+      162 CAPTURE                          VAL R9
+      163 CAPTURE                          VAL R6
+      164 CAPTURE                          VAL R11
+      165 CAPTURE                          VAL R5
+      166 CAPTURE                          VAL R3
+      167 CAPTURE                          VAL R4
+      168 SETTABLEKS                       R16 R15 K29 ["render"]
+      170 DUPCLOSURE                       R16 K37 [PROTO_2]
+      171 SETTABLEKS                       R16 R15 K30 ["getPreviewCameraModifications"]
+      173 RETURN                           R15 1

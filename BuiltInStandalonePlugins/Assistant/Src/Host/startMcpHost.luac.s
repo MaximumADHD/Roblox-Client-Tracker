@@ -20,6 +20,27 @@ PROTO_0:
        24 RETURN                           R1 1
 
 PROTO_1:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["getDefinitions"]
+        3 CALL                             R0 0 1
+        4 NEWTABLE                         R1 0 0
+        6 MOVE                             R2 R0
+        7 LOADNIL                          R3
+        8 LOADNIL                          R4
+        9 FORGPREP                         R2
+       10 GETUPVAL                         R8 1
+       11 GETTABLEKS                       R9 R6 K1 ["name"]
+       13 GETTABLE                         R7 R8 R9
+       14 JUMPIF                           R7 ; [+7]
+       15 FASTCALL2                        TABLE_INSERT R1 R6 ; [+5]
+       17 MOVE                             R8 R1
+       18 MOVE                             R9 R6
+       19 GETIMPORT                        R7 K4 [table.insert]
+       21 CALL                             R7 2 0
+       22 FORGLOOP                         R2 2 ; [-13]
+       24 RETURN                           R1 1
+
+PROTO_2:
         0 DUPTABLE                         R0 K1 [{"message"}]
         1 LOADK                            R2 K2 ["pong from "]
         2 GETUPVAL                         R5 0
@@ -29,15 +50,31 @@ PROTO_1:
         8 SETTABLEKS                       R1 R0 K0 ["message"]
        10 RETURN                           R0 1
 
-PROTO_2:
-        0 DUPTABLE                         R0 K1 [{"tools"}]
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K2 ["getDefinitions"]
-        4 CALL                             R1 0 1
-        5 SETTABLEKS                       R1 R0 K0 ["tools"]
-        7 RETURN                           R0 1
-
 PROTO_3:
+        0 GETTABLEKS                       R2 R0 K0 ["params"]
+        2 JUMPIFNOT                        R2 ; [+4]
+        3 GETTABLEKS                       R3 R0 K0 ["params"]
+        5 GETTABLEKS                       R2 R3 K1 ["disableScreenCapture"]
+        7 GETUPVAL                         R3 0
+        8 CALL                             R3 0 1
+        9 JUMPIF                           R3 ; [+4]
+       10 GETUPVAL                         R3 1
+       11 CALL                             R3 0 1
+       12 JUMPIFNOT                        R3 ; [+7]
+       13 JUMPIFNOT                        R2 ; [+6]
+       14 DUPTABLE                         R3 K3 [{"tools"}]
+       15 GETUPVAL                         R4 2
+       16 CALL                             R4 0 1
+       17 SETTABLEKS                       R4 R3 K2 ["tools"]
+       19 RETURN                           R3 1
+       20 DUPTABLE                         R3 K3 [{"tools"}]
+       21 GETUPVAL                         R5 3
+       22 GETTABLEKS                       R4 R5 K4 ["getDefinitions"]
+       24 CALL                             R4 0 1
+       25 SETTABLEKS                       R4 R3 K2 ["tools"]
+       27 RETURN                           R3 1
+
+PROTO_4:
         0 GETTABLEKS                       R2 R0 K0 ["params"]
         2 FASTCALL2K                       ASSERT R2 K1 ; [+5]
         4 MOVE                             R4 R2
@@ -101,7 +138,7 @@ PROTO_3:
        79 CALL                             R8 1 0
        80 RETURN                           R7 1
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["new"]
         3 DUPTABLE                         R1 K3 [{"name", "version"}]
@@ -121,22 +158,25 @@ PROTO_4:
        21 DUPTABLE                         R3 K7 [{"method"}]
        22 LOADK                            R4 K10 ["tools/list"]
        23 SETTABLEKS                       R4 R3 K6 ["method"]
-       25 DUPCLOSURE                       R4 K11 [PROTO_2]
+       25 DUPCLOSURE                       R4 K11 [PROTO_3]
        26 CAPTURE                          UPVAL U2
-       27 NAMECALL                         R1 R0 K9 ["setRequestHandler"]
-       29 CALL                             R1 3 0
-       30 DUPTABLE                         R3 K7 [{"method"}]
-       31 LOADK                            R4 K12 ["tools/call"]
-       32 SETTABLEKS                       R4 R3 K6 ["method"]
-       34 DUPCLOSURE                       R4 K13 [PROTO_3]
-       35 CAPTURE                          UPVAL U2
-       36 CAPTURE                          UPVAL U3
-       37 CAPTURE                          UPVAL U4
-       38 NAMECALL                         R1 R0 K9 ["setRequestHandler"]
-       40 CALL                             R1 3 0
-       41 RETURN                           R0 1
+       27 CAPTURE                          UPVAL U3
+       28 CAPTURE                          UPVAL U4
+       29 CAPTURE                          UPVAL U5
+       30 NAMECALL                         R1 R0 K9 ["setRequestHandler"]
+       32 CALL                             R1 3 0
+       33 DUPTABLE                         R3 K7 [{"method"}]
+       34 LOADK                            R4 K12 ["tools/call"]
+       35 SETTABLEKS                       R4 R3 K6 ["method"]
+       37 DUPCLOSURE                       R4 K13 [PROTO_4]
+       38 CAPTURE                          UPVAL U5
+       39 CAPTURE                          UPVAL U6
+       40 CAPTURE                          UPVAL U7
+       41 NAMECALL                         R1 R0 K9 ["setRequestHandler"]
+       43 CALL                             R1 3 0
+       44 RETURN                           R0 1
 
-PROTO_5:
+PROTO_6:
         0 GETGLOBAL                        R1 K0 ["getBuiltinServer"]
         2 CALL                             R1 0 1
         3 GETUPVAL                         R3 0
@@ -148,7 +188,7 @@ PROTO_5:
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
 
-PROTO_6:
+PROTO_7:
         0 DUPTABLE                         R0 K1 [{"message"}]
         1 LOADK                            R2 K2 ["pong from %*"]
         2 GETUPVAL                         R6 0
@@ -160,14 +200,14 @@ PROTO_6:
        11 SETTABLEKS                       R1 R0 K0 ["message"]
        13 RETURN                           R0 1
 
-PROTO_7:
+PROTO_8:
         0 DUPTABLE                         R0 K1 [{"tools"}]
         1 GETUPVAL                         R1 0
         2 CALL                             R1 0 1
         3 SETTABLEKS                       R1 R0 K0 ["tools"]
         5 RETURN                           R0 1
 
-PROTO_8:
+PROTO_9:
         0 GETTABLEKS                       R2 R0 K0 ["params"]
         2 FASTCALL2K                       ASSERT R2 K1 ; [+5]
         4 MOVE                             R4 R2
@@ -269,7 +309,7 @@ PROTO_8:
       141 CALL                             R12 1 0
       142 RETURN                           R10 1
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["isActive"]
         3 NAMECALL                         R0 R0 K1 ["get"]
@@ -309,7 +349,7 @@ PROTO_9:
        49 JUMPBACK                         ; [-50]
        50 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["get"]
         3 CALL                             R2 0 1
@@ -331,7 +371,7 @@ PROTO_10:
        23 SETUPVAL                         R2 2
        24 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
@@ -345,7 +385,7 @@ PROTO_11:
        13 SETUPVAL                         R0 1
        14 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
         0 GETTABLEKS                       R2 R0 K0 ["transport"]
         2 GETUPVAL                         R4 0
         3 GETTABLEKS                       R3 R4 K1 ["new"]
@@ -372,7 +412,7 @@ PROTO_12:
        31 DUPTABLE                         R9 K9 [{"method"}]
        32 LOADK                            R10 K12 ["tools/list"]
        33 SETTABLEKS                       R10 R9 K8 ["method"]
-       35 DUPCLOSURE                       R10 K13 [PROTO_7]
+       35 DUPCLOSURE                       R10 K13 [PROTO_8]
        36 CAPTURE                          UPVAL U3
        37 NAMECALL                         R7 R3 K11 ["setRequestHandler"]
        39 CALL                             R7 3 0
@@ -417,7 +457,7 @@ PROTO_12:
        88 CLOSEUPVALS                      R6
        89 RETURN                           R8 1
 
-PROTO_13:
+PROTO_14:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["new"]
         3 LOADK                            R1 K1 ["Client->Side"]
@@ -432,7 +472,7 @@ PROTO_13:
        14 CALL                             R2 3 0
        15 RETURN                           R0 2
 
-PROTO_14:
+PROTO_15:
         0 GETUPVAL                         R1 0
         1 GETIMPORT                        R3 K3 [Enum.WebStreamClientType.RawStream]
         3 MOVE                             R4 R0
@@ -440,19 +480,19 @@ PROTO_14:
         6 CALL                             R1 3 -1
         7 RETURN                           R1 -1
 
-PROTO_15:
+PROTO_16:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 CALL                             R1 0 1
         3 SETTABLEKS                       R1 R0 K0 ["ALL_LOGGING_ENABLED"]
         5 GETUPVAL                         R1 2
         6 GETTABLEKS                       R0 R1 K1 ["setStreamingClientCreationFunc"]
-        8 DUPCLOSURE                       R1 K2 [PROTO_14]
+        8 DUPCLOSURE                       R1 K2 [PROTO_15]
         9 CAPTURE                          UPVAL U3
        10 CALL                             R0 1 0
        11 RETURN                           R0 0
 
-PROTO_16:
+PROTO_17:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
         2 JUMPIFNOT                        R0 ; [+5]
@@ -468,7 +508,7 @@ PROTO_16:
        15 CALL                             R0 1 0
        16 RETURN                           R0 0
 
-PROTO_17:
+PROTO_18:
         0 GETUPVAL                         R2 0
         1 CALL                             R2 0 1
         2 JUMPIFNOT                        R2 ; [+64]
@@ -546,7 +586,7 @@ PROTO_17:
        96 CALL                             R4 1 0
        97 RETURN                           R0 0
 
-PROTO_18:
+PROTO_19:
         0 GETUPVAL                         R5 0
         1 GETTABLEKS                       R4 R5 K0 ["new"]
         3 LOADK                            R5 K1 ["Client->Side"]
@@ -655,124 +695,151 @@ MAIN:
        53 GETTABLEKS                       R10 R2 K16 ["Flags"]
        55 GETTABLEKS                       R9 R10 K17 ["Shared"]
        57 GETTABLEKS                       R8 R9 K20 ["FFlagAssistantUseVariantHttpTransport"]
-       59 GETIMPORT                        R9 K9 [require]
-       61 GETTABLEKS                       R12 R0 K14 ["Src"]
-       63 GETTABLEKS                       R11 R12 K16 ["Flags"]
-       65 GETTABLEKS                       R10 R11 K21 ["FFlagSkipExternalToolsNoDebugMode"]
-       67 CALL                             R9 1 1
-       68 GETTABLEKS                       R11 R2 K22 ["Utils"]
-       70 GETTABLEKS                       R10 R11 K23 ["Tools"]
-       72 GETTABLEKS                       R12 R4 K24 ["Util"]
-       74 GETTABLEKS                       R11 R12 K25 ["Logging"]
-       76 GETTABLEKS                       R12 R4 K15 ["Types"]
-       78 GETTABLEKS                       R13 R4 K26 ["MultiplexedClient"]
-       80 GETTABLEKS                       R15 R4 K24 ["Util"]
-       82 GETTABLEKS                       R14 R15 K27 ["Observable"]
-       84 GETTABLEKS                       R15 R4 K28 ["PeerTransport"]
-       86 GETTABLEKS                       R16 R4 K29 ["Promise"]
-       88 GETTABLEKS                       R17 R4 K30 ["Server"]
-       90 GETTABLEKS                       R18 R4 K31 ["ServerRegistry"]
-       92 GETTABLEKS                       R20 R4 K32 ["StreamableHttpClient"]
-       94 GETTABLEKS                       R19 R20 K33 ["StreamableHttpClientTransport"]
-       96 GETTABLEKS                       R20 R4 K34 ["ToolRegistry"]
-       98 GETTABLEKS                       R22 R2 K35 ["IntegrationManagement"]
-      100 GETTABLEKS                       R21 R22 K36 ["IntegrationManager"]
-      102 GETTABLEKS                       R23 R2 K37 ["Guest"]
-      104 GETTABLEKS                       R22 R23 K38 ["Environment"]
-      106 GETTABLEKS                       R24 R4 K32 ["StreamableHttpClient"]
-      108 GETTABLEKS                       R23 R24 K39 ["StreamingClientFactory"]
-      110 GETTABLEKS                       R25 R4 K40 ["HttpVariantClientTransport"]
-      112 GETTABLEKS                       R24 R25 K40 ["HttpVariantClientTransport"]
-      114 GETTABLEKS                       R26 R2 K22 ["Utils"]
-      116 GETTABLEKS                       R25 R26 K41 ["Time"]
-      118 GETTABLEKS                       R28 R2 K23 ["Tools"]
-      120 GETTABLEKS                       R27 R28 K42 ["ToolTypes"]
-      122 GETTABLEKS                       R26 R27 K43 ["ToolNames"]
-      124 DUPTABLE                         R27 K45 [{"capabilities"}]
-      125 DUPTABLE                         R28 K49 [{"experimental", "roots", "sampling"}]
-      126 GETTABLEKS                       R29 R12 K50 ["emptyObject"]
-      128 CALL                             R29 0 1
-      129 SETTABLEKS                       R29 R28 K46 ["experimental"]
-      131 GETTABLEKS                       R29 R12 K50 ["emptyObject"]
-      133 CALL                             R29 0 1
-      134 SETTABLEKS                       R29 R28 K47 ["roots"]
-      136 GETTABLEKS                       R29 R12 K50 ["emptyObject"]
-      138 CALL                             R29 0 1
-      139 SETTABLEKS                       R29 R28 K48 ["sampling"]
-      141 SETTABLEKS                       R28 R27 K44 ["capabilities"]
-      143 DUPTABLE                         R28 K45 [{"capabilities"}]
-      144 DUPTABLE                         R29 K54 [{"prompts", "resources", "tools"}]
-      145 GETTABLEKS                       R30 R12 K50 ["emptyObject"]
-      147 CALL                             R30 0 1
-      148 SETTABLEKS                       R30 R29 K51 ["prompts"]
-      150 GETTABLEKS                       R30 R12 K50 ["emptyObject"]
-      152 CALL                             R30 0 1
-      153 SETTABLEKS                       R30 R29 K52 ["resources"]
-      155 DUPTABLE                         R30 K56 [{"listChanged"}]
-      156 LOADB                            R31 1
-      157 SETTABLEKS                       R31 R30 K55 ["listChanged"]
-      159 SETTABLEKS                       R30 R29 K53 ["tools"]
-      161 SETTABLEKS                       R29 R28 K44 ["capabilities"]
-      163 NEWTABLE                         R29 4 0
-      165 GETTABLEKS                       R30 R26 K57 ["InsertFromMarketplace"]
-      167 LOADB                            R31 1
-      168 SETTABLE                         R31 R29 R30
-      169 GETTABLEKS                       R30 R26 K58 ["MaterialGen"]
-      171 LOADB                            R31 1
-      172 SETTABLE                         R31 R29 R30
-      173 GETTABLEKS                       R30 R26 K59 ["MeshGen"]
-      175 LOADB                            R31 1
-      176 SETTABLE                         R31 R29 R30
-      177 DUPCLOSURE                       R30 K60 [PROTO_0]
-      178 CAPTURE                          VAL R20
-      179 CAPTURE                          VAL R29
-      180 DUPCLOSURE                       R31 K61 [PROTO_4]
-      181 CAPTURE                          VAL R17
-      182 CAPTURE                          VAL R28
-      183 CAPTURE                          VAL R20
-      184 CAPTURE                          VAL R6
-      185 CAPTURE                          VAL R10
-      186 SETGLOBAL                        R31 K62 ["getBuiltinServer"]
-      188 DUPCLOSURE                       R31 K63 [PROTO_5]
-      189 CAPTURE                          VAL R18
-      190 SETGLOBAL                        R31 K64 ["startLocalServer"]
-      192 DUPCLOSURE                       R31 K65 [PROTO_12]
-      193 CAPTURE                          VAL R17
-      194 CAPTURE                          VAL R28
-      195 CAPTURE                          VAL R14
-      196 CAPTURE                          VAL R30
-      197 CAPTURE                          VAL R20
-      198 CAPTURE                          VAL R22
-      199 CAPTURE                          VAL R1
-      200 CAPTURE                          VAL R25
-      201 CAPTURE                          VAL R9
-      202 CAPTURE                          VAL R18
-      203 SETGLOBAL                        R31 K66 ["startExternalServer"]
-      205 DUPCLOSURE                       R31 K67 [PROTO_13]
-      206 CAPTURE                          VAL R15
-      207 DUPCLOSURE                       R32 K68 [PROTO_15]
-      208 CAPTURE                          VAL R11
-      209 CAPTURE                          VAL R6
-      210 CAPTURE                          VAL R23
-      211 CAPTURE                          VAL R1
-      212 DUPCLOSURE                       R33 K69 [PROTO_18]
-      213 CAPTURE                          VAL R15
-      214 CAPTURE                          VAL R16
-      215 CAPTURE                          VAL R13
-      216 CAPTURE                          VAL R5
-      217 CAPTURE                          VAL R12
-      218 CAPTURE                          VAL R7
-      219 CAPTURE                          VAL R27
-      220 CAPTURE                          VAL R22
-      221 CAPTURE                          VAL R21
-      222 CAPTURE                          VAL R8
-      223 CAPTURE                          VAL R24
-      224 CAPTURE                          VAL R19
-      225 DUPTABLE                         R34 K72 [{"promiseMcpHost", "configureModelContextProtocol", "startLocalServer", "startExternalServer"}]
-      226 SETTABLEKS                       R33 R34 K70 ["promiseMcpHost"]
-      228 SETTABLEKS                       R32 R34 K71 ["configureModelContextProtocol"]
-      230 GETGLOBAL                        R35 K64 ["startLocalServer"]
-      232 SETTABLEKS                       R35 R34 K64 ["startLocalServer"]
-      234 GETGLOBAL                        R35 K66 ["startExternalServer"]
-      236 SETTABLEKS                       R35 R34 K66 ["startExternalServer"]
-      238 RETURN                           R34 1
+       59 GETTABLEKS                       R11 R2 K16 ["Flags"]
+       61 GETTABLEKS                       R10 R11 K17 ["Shared"]
+       63 GETTABLEKS                       R9 R10 K21 ["FFlagAssistantUseNewMeshGenTool"]
+       65 GETIMPORT                        R10 K9 [require]
+       67 GETTABLEKS                       R13 R0 K14 ["Src"]
+       69 GETTABLEKS                       R12 R13 K16 ["Flags"]
+       71 GETTABLEKS                       R11 R12 K22 ["FFlagDisableInternalScreenCapture"]
+       73 CALL                             R10 1 1
+       74 GETTABLEKS                       R13 R2 K16 ["Flags"]
+       76 GETTABLEKS                       R12 R13 K17 ["Shared"]
+       78 GETTABLEKS                       R11 R12 K23 ["FFlagDisableScreenCaptureForDefaultModel"]
+       80 GETIMPORT                        R12 K9 [require]
+       82 GETTABLEKS                       R15 R0 K14 ["Src"]
+       84 GETTABLEKS                       R14 R15 K16 ["Flags"]
+       86 GETTABLEKS                       R13 R14 K24 ["FFlagSkipExternalToolsNoDebugMode"]
+       88 CALL                             R12 1 1
+       89 GETTABLEKS                       R14 R2 K25 ["Utils"]
+       91 GETTABLEKS                       R13 R14 K26 ["Tools"]
+       93 GETTABLEKS                       R15 R4 K27 ["Util"]
+       95 GETTABLEKS                       R14 R15 K28 ["Logging"]
+       97 GETTABLEKS                       R15 R4 K15 ["Types"]
+       99 GETTABLEKS                       R16 R4 K29 ["MultiplexedClient"]
+      101 GETTABLEKS                       R18 R4 K27 ["Util"]
+      103 GETTABLEKS                       R17 R18 K30 ["Observable"]
+      105 GETTABLEKS                       R18 R4 K31 ["PeerTransport"]
+      107 GETTABLEKS                       R19 R4 K32 ["Promise"]
+      109 GETTABLEKS                       R20 R4 K33 ["Server"]
+      111 GETTABLEKS                       R21 R4 K34 ["ServerRegistry"]
+      113 GETTABLEKS                       R23 R4 K35 ["StreamableHttpClient"]
+      115 GETTABLEKS                       R22 R23 K36 ["StreamableHttpClientTransport"]
+      117 GETTABLEKS                       R23 R4 K37 ["ToolRegistry"]
+      119 GETTABLEKS                       R25 R2 K38 ["IntegrationManagement"]
+      121 GETTABLEKS                       R24 R25 K39 ["IntegrationManager"]
+      123 GETTABLEKS                       R26 R2 K40 ["Guest"]
+      125 GETTABLEKS                       R25 R26 K41 ["Environment"]
+      127 GETTABLEKS                       R27 R4 K35 ["StreamableHttpClient"]
+      129 GETTABLEKS                       R26 R27 K42 ["StreamingClientFactory"]
+      131 GETTABLEKS                       R28 R4 K43 ["HttpVariantClientTransport"]
+      133 GETTABLEKS                       R27 R28 K43 ["HttpVariantClientTransport"]
+      135 GETTABLEKS                       R29 R2 K25 ["Utils"]
+      137 GETTABLEKS                       R28 R29 K44 ["Time"]
+      139 GETTABLEKS                       R31 R2 K26 ["Tools"]
+      141 GETTABLEKS                       R30 R31 K45 ["ToolTypes"]
+      143 GETTABLEKS                       R29 R30 K46 ["ToolNames"]
+      145 DUPTABLE                         R30 K48 [{"capabilities"}]
+      146 DUPTABLE                         R31 K52 [{"experimental", "roots", "sampling"}]
+      147 GETTABLEKS                       R32 R15 K53 ["emptyObject"]
+      149 CALL                             R32 0 1
+      150 SETTABLEKS                       R32 R31 K49 ["experimental"]
+      152 GETTABLEKS                       R32 R15 K53 ["emptyObject"]
+      154 CALL                             R32 0 1
+      155 SETTABLEKS                       R32 R31 K50 ["roots"]
+      157 GETTABLEKS                       R32 R15 K53 ["emptyObject"]
+      159 CALL                             R32 0 1
+      160 SETTABLEKS                       R32 R31 K51 ["sampling"]
+      162 SETTABLEKS                       R31 R30 K47 ["capabilities"]
+      164 DUPTABLE                         R31 K48 [{"capabilities"}]
+      165 DUPTABLE                         R32 K57 [{"prompts", "resources", "tools"}]
+      166 GETTABLEKS                       R33 R15 K53 ["emptyObject"]
+      168 CALL                             R33 0 1
+      169 SETTABLEKS                       R33 R32 K54 ["prompts"]
+      171 GETTABLEKS                       R33 R15 K53 ["emptyObject"]
+      173 CALL                             R33 0 1
+      174 SETTABLEKS                       R33 R32 K55 ["resources"]
+      176 DUPTABLE                         R33 K59 [{"listChanged"}]
+      177 LOADB                            R34 1
+      178 SETTABLEKS                       R34 R33 K58 ["listChanged"]
+      180 SETTABLEKS                       R33 R32 K56 ["tools"]
+      182 SETTABLEKS                       R32 R31 K47 ["capabilities"]
+      184 NEWTABLE                         R32 4 0
+      186 GETTABLEKS                       R33 R29 K60 ["InsertFromMarketplace"]
+      188 MOVE                             R35 R9
+      189 CALL                             R35 0 1
+      190 NOT                              R34 R35
+      191 SETTABLE                         R34 R32 R33
+      192 GETTABLEKS                       R33 R29 K61 ["MaterialGen"]
+      194 MOVE                             R35 R9
+      195 CALL                             R35 0 1
+      196 NOT                              R34 R35
+      197 SETTABLE                         R34 R32 R33
+      198 GETTABLEKS                       R33 R29 K62 ["MeshGen"]
+      200 MOVE                             R35 R9
+      201 CALL                             R35 0 1
+      202 NOT                              R34 R35
+      203 SETTABLE                         R34 R32 R33
+      204 NEWTABLE                         R33 1 0
+      206 GETTABLEKS                       R34 R29 K63 ["ScreenCapture"]
+      208 LOADB                            R35 1
+      209 SETTABLE                         R35 R33 R34
+      210 DUPCLOSURE                       R34 K64 [PROTO_0]
+      211 CAPTURE                          VAL R23
+      212 CAPTURE                          VAL R32
+      213 DUPCLOSURE                       R35 K65 [PROTO_1]
+      214 CAPTURE                          VAL R23
+      215 CAPTURE                          VAL R33
+      216 DUPCLOSURE                       R36 K66 [PROTO_5]
+      217 CAPTURE                          VAL R20
+      218 CAPTURE                          VAL R31
+      219 CAPTURE                          VAL R10
+      220 CAPTURE                          VAL R11
+      221 CAPTURE                          VAL R35
+      222 CAPTURE                          VAL R23
+      223 CAPTURE                          VAL R6
+      224 CAPTURE                          VAL R13
+      225 SETGLOBAL                        R36 K67 ["getBuiltinServer"]
+      227 DUPCLOSURE                       R36 K68 [PROTO_6]
+      228 CAPTURE                          VAL R21
+      229 SETGLOBAL                        R36 K69 ["startLocalServer"]
+      231 DUPCLOSURE                       R36 K70 [PROTO_13]
+      232 CAPTURE                          VAL R20
+      233 CAPTURE                          VAL R31
+      234 CAPTURE                          VAL R17
+      235 CAPTURE                          VAL R34
+      236 CAPTURE                          VAL R23
+      237 CAPTURE                          VAL R25
+      238 CAPTURE                          VAL R1
+      239 CAPTURE                          VAL R28
+      240 CAPTURE                          VAL R12
+      241 CAPTURE                          VAL R21
+      242 SETGLOBAL                        R36 K71 ["startExternalServer"]
+      244 DUPCLOSURE                       R36 K72 [PROTO_14]
+      245 CAPTURE                          VAL R18
+      246 DUPCLOSURE                       R37 K73 [PROTO_16]
+      247 CAPTURE                          VAL R14
+      248 CAPTURE                          VAL R6
+      249 CAPTURE                          VAL R26
+      250 CAPTURE                          VAL R1
+      251 DUPCLOSURE                       R38 K74 [PROTO_19]
+      252 CAPTURE                          VAL R18
+      253 CAPTURE                          VAL R19
+      254 CAPTURE                          VAL R16
+      255 CAPTURE                          VAL R5
+      256 CAPTURE                          VAL R15
+      257 CAPTURE                          VAL R7
+      258 CAPTURE                          VAL R30
+      259 CAPTURE                          VAL R25
+      260 CAPTURE                          VAL R24
+      261 CAPTURE                          VAL R8
+      262 CAPTURE                          VAL R27
+      263 CAPTURE                          VAL R22
+      264 DUPTABLE                         R39 K77 [{"promiseMcpHost", "configureModelContextProtocol", "startLocalServer", "startExternalServer"}]
+      265 SETTABLEKS                       R38 R39 K75 ["promiseMcpHost"]
+      267 SETTABLEKS                       R37 R39 K76 ["configureModelContextProtocol"]
+      269 GETGLOBAL                        R40 K69 ["startLocalServer"]
+      271 SETTABLEKS                       R40 R39 K69 ["startLocalServer"]
+      273 GETGLOBAL                        R40 K71 ["startExternalServer"]
+      275 SETTABLEKS                       R40 R39 K71 ["startExternalServer"]
+      277 RETURN                           R39 1

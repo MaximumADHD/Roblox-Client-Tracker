@@ -1,99 +1,111 @@
+PROTO_0:
+        0 GETIMPORT                        R0 K1 [require]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R2 R3 K2 ["Packages"]
+        5 GETTABLEKS                       R1 R2 K3 ["TestLoader"]
+        7 CALL                             R0 1 1
+        8 GETTABLEKS                       R1 R0 K4 ["isFTF"]
+       10 CALL                             R1 0 1
+       11 SETUPVAL                         R1 1
+       12 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
         3 LOADK                            R2 K2 ["Dialog"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["TestLoader"]
-       13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K9 [game]
-       16 LOADK                            R4 K10 ["StudioDialogShownThrottleHundredthsPercent"]
+        7 LOADB                            R1 0
+        8 GETIMPORT                        R2 K5 [pcall]
+       10 NEWCLOSURE                       R3 P0
+       11 CAPTURE                          VAL R0
+       12 CAPTURE                          REF R1
+       13 CALL                             R2 1 0
+       14 GETIMPORT                        R2 K7 [game]
+       16 LOADK                            R4 K8 ["StudioDialogShownThrottleHundredthsPercent"]
        17 LOADN                            R5 16
-       18 NAMECALL                         R2 R2 K11 ["DefineFastInt"]
+       18 NAMECALL                         R2 R2 K9 ["DefineFastInt"]
        20 CALL                             R2 3 1
-       21 GETIMPORT                        R3 K9 [game]
-       23 LOADK                            R5 K12 ["StudioDialogInteractedThrottleHundredthsPercent"]
+       21 GETIMPORT                        R3 K7 [game]
+       23 LOADK                            R5 K10 ["StudioDialogInteractedThrottleHundredthsPercent"]
        24 LOADN                            R6 16
-       25 NAMECALL                         R3 R3 K11 ["DefineFastInt"]
+       25 NAMECALL                         R3 R3 K9 ["DefineFastInt"]
        27 CALL                             R3 3 1
-       28 GETIMPORT                        R4 K9 [game]
-       30 LOADK                            R6 K13 ["StudioDialogDestroyedThrottleHundredthsPercent"]
+       28 GETIMPORT                        R4 K7 [game]
+       30 LOADK                            R6 K11 ["StudioDialogDestroyedThrottleHundredthsPercent"]
        31 LOADN                            R7 16
-       32 NAMECALL                         R4 R4 K11 ["DefineFastInt"]
+       32 NAMECALL                         R4 R4 K9 ["DefineFastInt"]
        34 CALL                             R4 3 1
        35 NEWTABLE                         R5 4 0
-       37 GETIMPORT                        R6 K16 [table.freeze]
-       39 DUPTABLE                         R7 K18 [{"customFields"}]
-       40 DUPTABLE                         R8 K20 [{"isFtf"}]
-       41 GETTABLEKS                       R9 R1 K21 ["isFTF"]
-       43 CALL                             R9 0 1
-       44 SETTABLEKS                       R9 R8 K19 ["isFtf"]
-       46 SETTABLEKS                       R8 R7 K17 ["customFields"]
-       48 CALL                             R6 1 1
-       49 SETTABLEKS                       R6 R5 K22 ["DEFAULT_METADATA"]
-       51 GETIMPORT                        R6 K16 [table.freeze]
-       53 DUPTABLE                         R7 K28 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description"}]
-       54 LOADK                            R8 K29 ["StudioDialogShown"]
-       55 SETTABLEKS                       R8 R7 K23 ["eventName"]
-       57 NEWTABLE                         R8 0 2
-       59 LOADK                            R9 K30 ["EventIngest"]
-       60 LOADK                            R10 K31 ["Points"]
-       61 SETLIST                          R8 R9 2 [1]
-       63 SETTABLEKS                       R8 R7 K24 ["backends"]
-       65 SETTABLEKS                       R2 R7 K25 ["throttlingPercentage"]
-       67 NEWTABLE                         R8 0 3
-       69 LOADN                            R9 234
-       70 LOADN                            R10 2
-       71 LOADN                            R11 17
-       72 SETLIST                          R8 R9 3 [1]
-       74 SETTABLEKS                       R8 R7 K26 ["lastUpdated"]
-       76 LOADK                            R8 K32 ["Event sent when Studio DialogManager dialogs are shown"]
-       77 SETTABLEKS                       R8 R7 K27 ["description"]
-       79 CALL                             R6 1 1
-       80 SETTABLEKS                       R6 R5 K33 ["DIALOG_SHOWN"]
-       82 GETIMPORT                        R6 K16 [table.freeze]
-       84 DUPTABLE                         R7 K28 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description"}]
-       85 LOADK                            R8 K34 ["StudioDialogInteracted"]
-       86 SETTABLEKS                       R8 R7 K23 ["eventName"]
-       88 NEWTABLE                         R8 0 2
-       90 LOADK                            R9 K30 ["EventIngest"]
-       91 LOADK                            R10 K31 ["Points"]
-       92 SETLIST                          R8 R9 2 [1]
-       94 SETTABLEKS                       R8 R7 K24 ["backends"]
-       96 SETTABLEKS                       R3 R7 K25 ["throttlingPercentage"]
-       98 NEWTABLE                         R8 0 3
-      100 LOADN                            R9 234
-      101 LOADN                            R10 2
-      102 LOADN                            R11 17
-      103 SETLIST                          R8 R9 3 [1]
-      105 SETTABLEKS                       R8 R7 K26 ["lastUpdated"]
-      107 LOADK                            R8 K35 ["Event sent when Studio DialogManager dialogs are interacted with by the user"]
-      108 SETTABLEKS                       R8 R7 K27 ["description"]
-      110 CALL                             R6 1 1
-      111 SETTABLEKS                       R6 R5 K36 ["DIALOG_INTERACTED"]
-      113 GETIMPORT                        R6 K16 [table.freeze]
-      115 DUPTABLE                         R7 K28 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description"}]
-      116 LOADK                            R8 K37 ["StudioDialogDestroyed"]
-      117 SETTABLEKS                       R8 R7 K23 ["eventName"]
-      119 NEWTABLE                         R8 0 2
-      121 LOADK                            R9 K30 ["EventIngest"]
-      122 LOADK                            R10 K31 ["Points"]
-      123 SETLIST                          R8 R9 2 [1]
-      125 SETTABLEKS                       R8 R7 K24 ["backends"]
-      127 SETTABLEKS                       R4 R7 K25 ["throttlingPercentage"]
-      129 NEWTABLE                         R8 0 3
-      131 LOADN                            R9 234
-      132 LOADN                            R10 2
-      133 LOADN                            R11 17
-      134 SETLIST                          R8 R9 3 [1]
-      136 SETTABLEKS                       R8 R7 K26 ["lastUpdated"]
-      138 LOADK                            R8 K38 ["Event sent when Studio DialogManager dialogs are torn down"]
-      139 SETTABLEKS                       R8 R7 K27 ["description"]
-      141 CALL                             R6 1 1
-      142 SETTABLEKS                       R6 R5 K39 ["DIALOG_DESTROYED"]
-      144 GETIMPORT                        R6 K16 [table.freeze]
-      146 MOVE                             R7 R5
-      147 CALL                             R6 1 -1
-      148 RETURN                           R6 -1
+       37 GETIMPORT                        R6 K14 [table.freeze]
+       39 DUPTABLE                         R7 K16 [{"customFields"}]
+       40 DUPTABLE                         R8 K18 [{"isFtf"}]
+       41 SETTABLEKS                       R1 R8 K17 ["isFtf"]
+       43 SETTABLEKS                       R8 R7 K15 ["customFields"]
+       45 CALL                             R6 1 1
+       46 SETTABLEKS                       R6 R5 K19 ["DEFAULT_METADATA"]
+       48 GETIMPORT                        R6 K14 [table.freeze]
+       50 DUPTABLE                         R7 K25 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description"}]
+       51 LOADK                            R8 K26 ["StudioDialogShown"]
+       52 SETTABLEKS                       R8 R7 K20 ["eventName"]
+       54 NEWTABLE                         R8 0 2
+       56 LOADK                            R9 K27 ["EventIngest"]
+       57 LOADK                            R10 K28 ["Points"]
+       58 SETLIST                          R8 R9 2 [1]
+       60 SETTABLEKS                       R8 R7 K21 ["backends"]
+       62 SETTABLEKS                       R2 R7 K22 ["throttlingPercentage"]
+       64 NEWTABLE                         R8 0 3
+       66 LOADN                            R9 234
+       67 LOADN                            R10 2
+       68 LOADN                            R11 17
+       69 SETLIST                          R8 R9 3 [1]
+       71 SETTABLEKS                       R8 R7 K23 ["lastUpdated"]
+       73 LOADK                            R8 K29 ["Event sent when Studio DialogManager dialogs are shown"]
+       74 SETTABLEKS                       R8 R7 K24 ["description"]
+       76 CALL                             R6 1 1
+       77 SETTABLEKS                       R6 R5 K30 ["DIALOG_SHOWN"]
+       79 GETIMPORT                        R6 K14 [table.freeze]
+       81 DUPTABLE                         R7 K25 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description"}]
+       82 LOADK                            R8 K31 ["StudioDialogInteracted"]
+       83 SETTABLEKS                       R8 R7 K20 ["eventName"]
+       85 NEWTABLE                         R8 0 2
+       87 LOADK                            R9 K27 ["EventIngest"]
+       88 LOADK                            R10 K28 ["Points"]
+       89 SETLIST                          R8 R9 2 [1]
+       91 SETTABLEKS                       R8 R7 K21 ["backends"]
+       93 SETTABLEKS                       R3 R7 K22 ["throttlingPercentage"]
+       95 NEWTABLE                         R8 0 3
+       97 LOADN                            R9 234
+       98 LOADN                            R10 2
+       99 LOADN                            R11 17
+      100 SETLIST                          R8 R9 3 [1]
+      102 SETTABLEKS                       R8 R7 K23 ["lastUpdated"]
+      104 LOADK                            R8 K32 ["Event sent when Studio DialogManager dialogs are interacted with by the user"]
+      105 SETTABLEKS                       R8 R7 K24 ["description"]
+      107 CALL                             R6 1 1
+      108 SETTABLEKS                       R6 R5 K33 ["DIALOG_INTERACTED"]
+      110 GETIMPORT                        R6 K14 [table.freeze]
+      112 DUPTABLE                         R7 K25 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description"}]
+      113 LOADK                            R8 K34 ["StudioDialogDestroyed"]
+      114 SETTABLEKS                       R8 R7 K20 ["eventName"]
+      116 NEWTABLE                         R8 0 2
+      118 LOADK                            R9 K27 ["EventIngest"]
+      119 LOADK                            R10 K28 ["Points"]
+      120 SETLIST                          R8 R9 2 [1]
+      122 SETTABLEKS                       R8 R7 K21 ["backends"]
+      124 SETTABLEKS                       R4 R7 K22 ["throttlingPercentage"]
+      126 NEWTABLE                         R8 0 3
+      128 LOADN                            R9 234
+      129 LOADN                            R10 2
+      130 LOADN                            R11 17
+      131 SETLIST                          R8 R9 3 [1]
+      133 SETTABLEKS                       R8 R7 K23 ["lastUpdated"]
+      135 LOADK                            R8 K35 ["Event sent when Studio DialogManager dialogs are torn down"]
+      136 SETTABLEKS                       R8 R7 K24 ["description"]
+      138 CALL                             R6 1 1
+      139 SETTABLEKS                       R6 R5 K36 ["DIALOG_DESTROYED"]
+      141 GETIMPORT                        R6 K14 [table.freeze]
+      143 MOVE                             R7 R5
+      144 CALL                             R6 1 -1
+      145 CLOSEUPVALS                      R1
+      146 RETURN                           R6 -1

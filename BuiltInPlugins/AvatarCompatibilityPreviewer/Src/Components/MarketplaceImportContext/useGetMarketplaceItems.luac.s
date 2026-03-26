@@ -134,34 +134,45 @@ PROTO_2:
       165 MOVE                             R19 R16
       166 GETIMPORT                        R17 K26 [table.insert]
       168 CALL                             R17 2 0
-      169 DUPTABLE                         R16 K6 [{"itemRows", "errors", "marketplaceItems"}]
-      170 SETTABLEKS                       R13 R16 K3 ["itemRows"]
-      172 SETTABLEKS                       R15 R16 K4 ["errors"]
-      174 GETTABLEKS                       R17 R11 K5 ["marketplaceItems"]
-      176 SETTABLEKS                       R17 R16 K5 ["marketplaceItems"]
-      178 RETURN                           R16 1
+      169 LENGTH                           R16 R15
+      170 LOADN                            R17 0
+      171 JUMPIFNOTLT                      R17 R16 ; [+6]
+      173 GETUPVAL                         R16 3
+      174 LOADK                            R18 K34 ["marketplaceGetItemsError"]
+      175 NAMECALL                         R16 R16 K35 ["report"]
+      177 CALL                             R16 2 0
+      178 DUPTABLE                         R16 K6 [{"itemRows", "errors", "marketplaceItems"}]
+      179 SETTABLEKS                       R13 R16 K3 ["itemRows"]
+      181 SETTABLEKS                       R15 R16 K4 ["errors"]
+      183 GETTABLEKS                       R17 R11 K5 ["marketplaceItems"]
+      185 SETTABLEKS                       R17 R16 K5 ["marketplaceItems"]
+      187 RETURN                           R16 1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["use"]
         3 CALL                             R0 1 1
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["useContext"]
-        7 GETUPVAL                         R2 2
-        8 CALL                             R1 1 1
-        9 GETUPVAL                         R3 1
-       10 GETTABLEKS                       R2 R3 K2 ["useCallback"]
-       12 NEWCLOSURE                       R3 P0
-       13 CAPTURE                          UPVAL U3
-       14 CAPTURE                          VAL R1
-       15 CAPTURE                          VAL R0
-       16 NEWTABLE                         R4 0 3
-       18 MOVE                             R5 R0
-       19 GETTABLEKS                       R6 R1 K3 ["getBatchAssetDetailsAsync"]
-       21 GETTABLEKS                       R7 R1 K4 ["getBatchBundleDetailsAsync"]
-       23 SETLIST                          R4 R5 3 [1]
-       25 CALL                             R2 2 1
-       26 RETURN                           R2 1
+        4 GETUPVAL                         R1 1
+        5 NAMECALL                         R1 R1 K0 ["use"]
+        7 CALL                             R1 1 1
+        8 GETUPVAL                         R3 2
+        9 GETTABLEKS                       R2 R3 K1 ["useContext"]
+       11 GETUPVAL                         R3 3
+       12 CALL                             R2 1 1
+       13 GETUPVAL                         R4 2
+       14 GETTABLEKS                       R3 R4 K2 ["useCallback"]
+       16 NEWCLOSURE                       R4 P0
+       17 CAPTURE                          UPVAL U4
+       18 CAPTURE                          VAL R2
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          VAL R1
+       21 NEWTABLE                         R5 0 3
+       23 MOVE                             R6 R0
+       24 GETTABLEKS                       R7 R2 K3 ["getBatchAssetDetailsAsync"]
+       26 GETTABLEKS                       R8 R2 K4 ["getBatchBundleDetailsAsync"]
+       28 SETLIST                          R5 R6 3 [1]
+       30 CALL                             R3 2 1
+       31 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -189,13 +200,16 @@ MAIN:
        38 CALL                             R4 1 1
        39 GETTABLEKS                       R6 R4 K14 ["ContextServices"]
        41 GETTABLEKS                       R5 R6 K15 ["Localization"]
-       43 GETIMPORT                        R6 K5 [require]
-       45 GETTABLEKS                       R8 R0 K8 ["Src"]
-       47 GETTABLEKS                       R7 R8 K16 ["Types"]
-       49 CALL                             R6 1 1
-       50 DUPCLOSURE                       R7 K17 [PROTO_3]
-       51 CAPTURE                          VAL R5
-       52 CAPTURE                          VAL R1
-       53 CAPTURE                          VAL R3
-       54 CAPTURE                          VAL R2
-       55 RETURN                           R7 1
+       43 GETTABLEKS                       R7 R4 K14 ["ContextServices"]
+       45 GETTABLEKS                       R6 R7 K16 ["Analytics"]
+       47 GETIMPORT                        R7 K5 [require]
+       49 GETTABLEKS                       R9 R0 K8 ["Src"]
+       51 GETTABLEKS                       R8 R9 K17 ["Types"]
+       53 CALL                             R7 1 1
+       54 DUPCLOSURE                       R8 K18 [PROTO_3]
+       55 CAPTURE                          VAL R5
+       56 CAPTURE                          VAL R6
+       57 CAPTURE                          VAL R1
+       58 CAPTURE                          VAL R3
+       59 CAPTURE                          VAL R2
+       60 RETURN                           R8 1

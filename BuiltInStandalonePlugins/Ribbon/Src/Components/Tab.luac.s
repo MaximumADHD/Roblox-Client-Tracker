@@ -136,7 +136,16 @@ PROTO_6:
         1 JUMPIFNOT                        R0 ; [+2]
         2 GETUPVAL                         R0 1
         3 CALL                             R0 0 0
-        4 RETURN                           R0 0
+        4 GETUPVAL                         R0 2
+        5 CALL                             R0 0 1
+        6 JUMPIFNOT                        R0 ; [+8]
+        7 GETUPVAL                         R1 3
+        8 GETTABLEKS                       R0 R1 K0 ["OnHoverEnd"]
+       10 JUMPIFNOT                        R0 ; [+4]
+       11 GETUPVAL                         R1 3
+       12 GETTABLEKS                       R0 R1 K0 ["OnHoverEnd"]
+       14 CALL                             R0 0 0
+       15 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -305,9 +314,11 @@ PROTO_7:
       225 NEWCLOSURE                       R13 P6
       226 CAPTURE                          VAL R2
       227 CAPTURE                          VAL R4
-      228 SETTABLE                         R13 R11 R12
-      229 CALL                             R9 2 -1
-      230 RETURN                           R9 -1
+      228 CAPTURE                          UPVAL U12
+      229 CAPTURE                          VAL R0
+      230 SETTABLE                         R13 R11 R12
+      231 CALL                             R9 2 -1
+      232 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -361,17 +372,23 @@ MAIN:
        86 GETTABLEKS                       R16 R17 K24 ["SharedFlags"]
        88 GETTABLEKS                       R15 R16 K25 ["getFeatureRibbonControlsCaching"]
        90 CALL                             R14 1 1
-       91 DUPCLOSURE                       R15 K26 [PROTO_7]
-       92 CAPTURE                          VAL R6
-       93 CAPTURE                          VAL R13
-       94 CAPTURE                          VAL R11
-       95 CAPTURE                          VAL R10
-       96 CAPTURE                          VAL R7
-       97 CAPTURE                          VAL R4
-       98 CAPTURE                          VAL R8
-       99 CAPTURE                          VAL R2
-      100 CAPTURE                          VAL R3
-      101 CAPTURE                          VAL R9
-      102 CAPTURE                          VAL R14
-      103 CAPTURE                          VAL R12
-      104 RETURN                           R15 1
+       91 GETIMPORT                        R15 K5 [require]
+       93 GETTABLEKS                       R18 R0 K9 ["Src"]
+       95 GETTABLEKS                       R17 R18 K24 ["SharedFlags"]
+       97 GETTABLEKS                       R16 R17 K26 ["getFFlagRibbonCancelShowFloatingTask"]
+       99 CALL                             R15 1 1
+      100 DUPCLOSURE                       R16 K27 [PROTO_7]
+      101 CAPTURE                          VAL R6
+      102 CAPTURE                          VAL R13
+      103 CAPTURE                          VAL R11
+      104 CAPTURE                          VAL R10
+      105 CAPTURE                          VAL R7
+      106 CAPTURE                          VAL R4
+      107 CAPTURE                          VAL R8
+      108 CAPTURE                          VAL R2
+      109 CAPTURE                          VAL R3
+      110 CAPTURE                          VAL R9
+      111 CAPTURE                          VAL R14
+      112 CAPTURE                          VAL R12
+      113 CAPTURE                          VAL R15
+      114 RETURN                           R16 1

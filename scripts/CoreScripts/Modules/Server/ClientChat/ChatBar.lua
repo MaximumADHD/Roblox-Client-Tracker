@@ -11,6 +11,8 @@ local Players = game:GetService("Players")
 local TextService = game:GetService("TextService")
 local LocalPlayer = Players.LocalPlayer
 
+local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
+
 while not LocalPlayer do
 	Players.PlayerAdded:wait()
 	LocalPlayer = Players.LocalPlayer
@@ -360,7 +362,13 @@ function methods:TweenToTargetYSize()
 	local pixelDistance = math.abs(endAbsoluteSizeY - curAbsoluteSizeY)
 	local tweeningTime = math.min(1, (pixelDistance * (1 / self.TweenPixelsPerSecond))) -- pixelDistance * (seconds per pixels)
 
-	local success = pcall(function() self.GuiObject:TweenSize(endSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, tweeningTime, true) end)
+	local success = pcall(function()
+		if featureDeprecateOldGuiObjectProperties then
+			self.GuiObject:TweenSizeInternal(endSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, tweeningTime, true)
+		else
+			self.GuiObject:TweenSize(endSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, tweeningTime, true)
+		end
+	end)
 	if (not success) then
 		self.GuiObject.Size = endSize
 	end

@@ -1,5 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 
+local FFlagConnectionsToFriendsRename =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionsToFriendsRename
+
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -86,7 +89,9 @@ function SearchBox:render()
 			Size = UDim2.new(1, -(SEARCH_ICON_SIZE + CLEAR_ICON_SIZE + SEARCH_FIELD_MARGINS * 2), 1, 0),
 			ClearTextOnFocus = false,
 			PlaceholderColor3 = Constants.Color.GRAY3,
-			PlaceholderText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.SearchForFriendsPlaceholder"),
+			PlaceholderText = if FFlagConnectionsToFriendsRename
+				then RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.SearchForFriendsPlaceholder.FriendsRename")
+				else RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.SearchForFriendsPlaceholder"),
 			Text = "",
 			TextColor3 = Constants.Color.WHITE,
 			TextWrapped = true,

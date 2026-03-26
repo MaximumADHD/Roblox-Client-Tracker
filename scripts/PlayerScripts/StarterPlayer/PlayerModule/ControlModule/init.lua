@@ -27,6 +27,11 @@ local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerModuleHiddenAPI = FlagUtil.getUserFlag("UserPlayerModuleHiddenAPI")
 local FFlagUserPSActionsPathAware = FlagUtil.getUserFlag("UserPSActionsPathAware")
+local FFlagUserPlayerScriptsControlModuleModernize = FlagUtil.getUserFlag("UserPlayerScriptsControlModuleModernize")
+
+local CONNECTIONS = {
+	SERVER_AUTHORITY_CHANGED = "SERVER_AUTHORITY_CHANGED",
+}
 
 local ActionController = require(script:WaitForChild("ActionController"))
 local DynamicThumbstick
@@ -42,6 +47,13 @@ local ClickToMove = require(script:WaitForChild("ClickToMoveController"))
 local TouchJump = require(script:WaitForChild("TouchJump"))
 
 local VehicleController = require(script:WaitForChild("VehicleController"))
+
+local cameraRotation: InputAction? = nil
+if FFlagUserPlayerScriptsControlModuleModernize then
+	local inputContexts = script.Parent:WaitForChild("InputContexts")
+	local characterContext = inputContexts:WaitForChild("Character") :: InputContext
+	cameraRotation = characterContext:WaitForChild("CameraRotation") :: InputAction
+end
 
 local CONTROL_ACTION_PRIORITY = Enum.ContextActionPriority.Medium.Value
 local NECK_OFFSET = -0.7
@@ -207,6 +219,11 @@ function ControlModule:InitializeServerAuthority()
 		RunService:BindToSimulation(function(dt)
 			self:ProcessInputs(Players.LocalPlayer, dt)
 		end)
+	end
+
+	if FFlagUserPSActionsPathAware and self.data and self.data.eventBus then
+		self.data.isServerAuthority = true
+		self.data.eventBus:publish(CONNECTIONS.SERVER_AUTHORITY_CHANGED, true)
 	end
 end
 
@@ -377,8 +394,14 @@ end
 
 -- Returns module (possibly nil) and success code to differentiate returning nil due to error vs Scriptable
 function ControlModule:SelectComputerMovementModule(): ({}?, boolean)
-	if not (UserInputService.KeyboardEnabled or UserInputService.GamepadEnabled) then
-		return nil, false
+	if FFlagUserPlayerScriptsControlModuleModernize then
+		if not (UserInputService.PreferredInput == Enum.PreferredInput.KeyboardAndMouse or UserInputService.PreferredInput == Enum.PreferredInput.Gamepad) then
+			return nil, false
+		end
+	else
+		if not (UserInputService.KeyboardEnabled or UserInputService.GamepadEnabled) then
+			return nil, false
+		end
 	end
 
 	local computerModule = ActionController
@@ -426,7 +449,9 @@ function ControlModule:SelectTouchModule(): ({}?, boolean)
 	return touchModule, true
 end
 
+-- Remove with FFlagUserPlayerScriptsControlModuleModernize
 local function getGamepadRightThumbstickPosition(): Vector3
+	assert(not FFlagUserPlayerScriptsControlModuleModernize)
 	local state = UserInputService:GetGamepadState(Enum.UserInputType.Gamepad1)
 	for _, input in pairs(state) do
 		if input.KeyCode == Enum.KeyCode.Thumbstick2 then
@@ -464,7 +489,12 @@ function ControlModule:calculateRawMoveVector(humanoid: Humanoid, cameraRelative
 				return Vector3.zero
 			end
 
-			local pitch = -getGamepadRightThumbstickPosition().Y * math.rad(80)
+			local pitch
+			if FFlagUserPlayerScriptsControlModuleModernize and cameraRotation and cameraRotation.Enabled then
+				pitch = -cameraRotation:GetState().Y / 2.31
+			else
+				pitch = -getGamepadRightThumbstickPosition().Y * math.rad(80)
+			end
 			local yawAngle = math.atan2(-cameraRelativeMoveVector.X, -cameraRelativeMoveVector.Z)
 			local _, cameraYaw, _ = cameraCFrame:ToEulerAnglesYXZ()
 			yawAngle += cameraYaw
@@ -496,12 +526,12 @@ function ControlModule:calculateRawMoveVector(humanoid: Humanoid, cameraRelative
 end
 
 if FFlagUserPSActionsPathAware then
-	-- This function should be used to set up necessary connectinos. DO NOT STORE STATE
+	-- This function should be used to set up necessary connections. DO NOT STORE STATE
 	function ControlModule:initialize(data, playerData)
 		self.data = data
 		self.playerData = playerData -- DO NOT DO THIS, THIS IS A CONVERSION STEP. MODULES SHOULD NOT SAVE STATE
 
-		ActionController.initializeActions(data, playerData)
+		ActionController.initializeActions(self.data, self.playerData)
 	end
 end
 

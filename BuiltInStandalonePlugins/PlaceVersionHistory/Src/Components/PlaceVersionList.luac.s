@@ -79,6 +79,19 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["current"]
+        3 JUMPIFNOT                        R0 ; [+10]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R0 R1 K0 ["current"]
+        7 GETIMPORT                        R1 K3 [Vector2.new]
+        9 LOADN                            R2 0
+       10 LOADN                            R3 0
+       11 CALL                             R1 2 1
+       12 SETTABLEKS                       R1 R0 K4 ["CanvasPosition"]
+       14 RETURN                           R0 0
+
+PROTO_4:
+        0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 GETUPVAL                         R2 1
         3 CALL                             R2 0 1
@@ -102,60 +115,72 @@ PROTO_3:
        25 GETTABLEKS                       R8 R0 K3 ["page"]
        27 SETLIST                          R7 R8 1 [1]
        29 CALL                             R5 2 1
-       30 GETUPVAL                         R7 3
-       31 GETTABLEKS                       R6 R7 K4 ["useEffect"]
-       33 NEWCLOSURE                       R7 P1
-       34 CAPTURE                          VAL R4
-       35 NEWTABLE                         R8 0 1
-       37 GETTABLEKS                       R9 R0 K3 ["page"]
-       39 SETLIST                          R8 R9 1 [1]
-       41 CALL                             R6 2 0
-       42 GETUPVAL                         R7 3
-       43 GETTABLEKS                       R6 R7 K5 ["createElement"]
-       45 GETUPVAL                         R8 5
-       46 GETTABLEKS                       R7 R8 K6 ["ScrollView"]
-       48 DUPTABLE                         R8 K12 [{"tag", "scrollingFrameRef", "layout", "scroll", "LayoutOrder"}]
-       49 LOADK                            R9 K13 ["size-full-full"]
-       50 SETTABLEKS                       R9 R8 K7 ["tag"]
-       52 SETTABLEKS                       R4 R8 K8 ["scrollingFrameRef"]
-       54 DUPTABLE                         R9 K18 [{"HorizontalAlignment", "FillDirection", "SortOrder", "HorizontalFlex"}]
-       55 GETIMPORT                        R10 K21 [Enum.HorizontalAlignment.Left]
-       57 SETTABLEKS                       R10 R9 K14 ["HorizontalAlignment"]
-       59 GETIMPORT                        R10 K23 [Enum.FillDirection.Vertical]
-       61 SETTABLEKS                       R10 R9 K15 ["FillDirection"]
-       63 GETIMPORT                        R10 K24 [Enum.SortOrder.LayoutOrder]
-       65 SETTABLEKS                       R10 R9 K16 ["SortOrder"]
-       67 GETIMPORT                        R10 K27 [Enum.UIFlexAlignment.Fill]
-       69 SETTABLEKS                       R10 R9 K17 ["HorizontalFlex"]
-       71 SETTABLEKS                       R9 R8 K9 ["layout"]
-       73 DUPTABLE                         R9 K32 [{"AutomaticCanvasSize", "ScrollingDirection", "VerticalScrollBarInset", "CanvasSize"}]
-       74 GETIMPORT                        R10 K35 [Enum.AutomaticSize.Y]
-       76 SETTABLEKS                       R10 R9 K28 ["AutomaticCanvasSize"]
-       78 GETIMPORT                        R10 K36 [Enum.ScrollingDirection.Y]
-       80 SETTABLEKS                       R10 R9 K29 ["ScrollingDirection"]
-       82 GETIMPORT                        R10 K39 [Enum.ScrollBarInset.None]
-       84 SETTABLEKS                       R10 R9 K30 ["VerticalScrollBarInset"]
-       86 GETIMPORT                        R10 K42 [UDim2.fromScale]
-       88 LOADN                            R11 0
-       89 LOADN                            R12 0
-       90 CALL                             R10 2 1
-       91 SETTABLEKS                       R10 R9 K31 ["CanvasSize"]
-       93 SETTABLEKS                       R9 R8 K10 ["scroll"]
-       95 GETTABLEKS                       R9 R0 K11 ["LayoutOrder"]
-       97 SETTABLEKS                       R9 R8 K11 ["LayoutOrder"]
-       99 DUPTABLE                         R9 K44 [{"View"}]
-      100 GETUPVAL                         R11 3
-      101 GETTABLEKS                       R10 R11 K5 ["createElement"]
-      103 GETUPVAL                         R12 5
-      104 GETTABLEKS                       R11 R12 K43 ["View"]
-      106 DUPTABLE                         R12 K45 [{"tag"}]
-      107 LOADK                            R13 K46 ["size-0-0 auto-xy col flex-x-fill align-x-left padding-left-medium padding-right-medium padding-top-small gap-small"]
-      108 SETTABLEKS                       R13 R12 K7 ["tag"]
-      110 MOVE                             R13 R5
-      111 CALL                             R10 3 1
-      112 SETTABLEKS                       R10 R9 K43 ["View"]
-      114 CALL                             R6 3 -1
-      115 RETURN                           R6 -1
+       30 GETUPVAL                         R7 5
+       31 GETTABLEKS                       R6 R7 K4 ["FFlagPVHUpdatePageOnNotesEdit"]
+       33 JUMPIFNOT                        R6 ; [+13]
+       34 GETUPVAL                         R7 3
+       35 GETTABLEKS                       R6 R7 K5 ["useEffect"]
+       37 NEWCLOSURE                       R7 P1
+       38 CAPTURE                          VAL R4
+       39 NEWTABLE                         R8 0 1
+       41 GETTABLEKS                       R9 R0 K6 ["pageNumber"]
+       43 SETLIST                          R8 R9 1 [1]
+       45 CALL                             R6 2 0
+       46 JUMP                             ; [+12]
+       47 GETUPVAL                         R7 3
+       48 GETTABLEKS                       R6 R7 K5 ["useEffect"]
+       50 NEWCLOSURE                       R7 P2
+       51 CAPTURE                          VAL R4
+       52 NEWTABLE                         R8 0 1
+       54 GETTABLEKS                       R9 R0 K3 ["page"]
+       56 SETLIST                          R8 R9 1 [1]
+       58 CALL                             R6 2 0
+       59 GETUPVAL                         R7 3
+       60 GETTABLEKS                       R6 R7 K7 ["createElement"]
+       62 GETUPVAL                         R8 6
+       63 GETTABLEKS                       R7 R8 K8 ["ScrollView"]
+       65 DUPTABLE                         R8 K14 [{"tag", "scrollingFrameRef", "layout", "scroll", "LayoutOrder"}]
+       66 LOADK                            R9 K15 ["size-full-full"]
+       67 SETTABLEKS                       R9 R8 K9 ["tag"]
+       69 SETTABLEKS                       R4 R8 K10 ["scrollingFrameRef"]
+       71 DUPTABLE                         R9 K20 [{"HorizontalAlignment", "FillDirection", "SortOrder", "HorizontalFlex"}]
+       72 GETIMPORT                        R10 K23 [Enum.HorizontalAlignment.Left]
+       74 SETTABLEKS                       R10 R9 K16 ["HorizontalAlignment"]
+       76 GETIMPORT                        R10 K25 [Enum.FillDirection.Vertical]
+       78 SETTABLEKS                       R10 R9 K17 ["FillDirection"]
+       80 GETIMPORT                        R10 K26 [Enum.SortOrder.LayoutOrder]
+       82 SETTABLEKS                       R10 R9 K18 ["SortOrder"]
+       84 GETIMPORT                        R10 K29 [Enum.UIFlexAlignment.Fill]
+       86 SETTABLEKS                       R10 R9 K19 ["HorizontalFlex"]
+       88 SETTABLEKS                       R9 R8 K11 ["layout"]
+       90 DUPTABLE                         R9 K34 [{"AutomaticCanvasSize", "ScrollingDirection", "VerticalScrollBarInset", "CanvasSize"}]
+       91 GETIMPORT                        R10 K37 [Enum.AutomaticSize.Y]
+       93 SETTABLEKS                       R10 R9 K30 ["AutomaticCanvasSize"]
+       95 GETIMPORT                        R10 K38 [Enum.ScrollingDirection.Y]
+       97 SETTABLEKS                       R10 R9 K31 ["ScrollingDirection"]
+       99 GETIMPORT                        R10 K41 [Enum.ScrollBarInset.None]
+      101 SETTABLEKS                       R10 R9 K32 ["VerticalScrollBarInset"]
+      103 GETIMPORT                        R10 K44 [UDim2.fromScale]
+      105 LOADN                            R11 0
+      106 LOADN                            R12 0
+      107 CALL                             R10 2 1
+      108 SETTABLEKS                       R10 R9 K33 ["CanvasSize"]
+      110 SETTABLEKS                       R9 R8 K12 ["scroll"]
+      112 GETTABLEKS                       R9 R0 K13 ["LayoutOrder"]
+      114 SETTABLEKS                       R9 R8 K13 ["LayoutOrder"]
+      116 DUPTABLE                         R9 K46 [{"View"}]
+      117 GETUPVAL                         R11 3
+      118 GETTABLEKS                       R10 R11 K7 ["createElement"]
+      120 GETUPVAL                         R12 6
+      121 GETTABLEKS                       R11 R12 K45 ["View"]
+      123 DUPTABLE                         R12 K47 [{"tag"}]
+      124 LOADK                            R13 K48 ["size-0-0 auto-xy col flex-x-fill align-x-left padding-left-medium padding-right-medium padding-top-small gap-small"]
+      125 SETTABLEKS                       R13 R12 K9 ["tag"]
+      127 MOVE                             R13 R5
+      128 CALL                             R10 3 1
+      129 SETTABLEKS                       R10 R9 K45 ["View"]
+      131 CALL                             R6 3 -1
+      132 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -164,39 +189,45 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
-       13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Foundation"]
-       20 CALL                             R2 1 1
-       21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["ReactUtils"]
-       27 CALL                             R3 1 1
-       28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K10 ["Framework"]
-       34 CALL                             R4 1 1
-       35 GETTABLEKS                       R5 R4 K11 ["ContextServices"]
-       37 GETTABLEKS                       R6 R5 K12 ["Localization"]
-       39 GETTABLEKS                       R8 R0 K13 ["Src"]
-       41 GETTABLEKS                       R7 R8 K14 ["Components"]
-       43 GETIMPORT                        R8 K5 [require]
-       45 GETTABLEKS                       R9 R7 K15 ["PlaceVersionGroup"]
-       47 CALL                             R8 1 1
-       48 GETTABLEKS                       R9 R3 K16 ["createNextOrder"]
-       50 GETTABLEKS                       R10 R3 K17 ["createUniqueKey"]
-       52 GETIMPORT                        R11 K5 [require]
-       54 GETTABLEKS                       R13 R0 K13 ["Src"]
-       56 GETTABLEKS                       R12 R13 K18 ["Types"]
-       58 CALL                             R11 1 1
-       59 DUPCLOSURE                       R12 K19 [PROTO_3]
-       60 CAPTURE                          VAL R9
-       61 CAPTURE                          VAL R10
-       62 CAPTURE                          VAL R6
-       63 CAPTURE                          VAL R1
-       64 CAPTURE                          VAL R8
-       65 CAPTURE                          VAL R2
-       66 RETURN                           R12 1
+        9 GETTABLEKS                       R4 R0 K6 ["Bin"]
+       11 GETTABLEKS                       R3 R4 K7 ["Common"]
+       13 GETTABLEKS                       R2 R3 K8 ["flags"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K10 ["React"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R5 R0 K9 ["Packages"]
+       27 GETTABLEKS                       R4 R5 K11 ["Foundation"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K5 [require]
+       32 GETTABLEKS                       R6 R0 K9 ["Packages"]
+       34 GETTABLEKS                       R5 R6 K12 ["ReactUtils"]
+       36 CALL                             R4 1 1
+       37 GETIMPORT                        R5 K5 [require]
+       39 GETTABLEKS                       R7 R0 K9 ["Packages"]
+       41 GETTABLEKS                       R6 R7 K13 ["Framework"]
+       43 CALL                             R5 1 1
+       44 GETTABLEKS                       R6 R5 K14 ["ContextServices"]
+       46 GETTABLEKS                       R7 R6 K15 ["Localization"]
+       48 GETTABLEKS                       R9 R0 K16 ["Src"]
+       50 GETTABLEKS                       R8 R9 K17 ["Components"]
+       52 GETIMPORT                        R9 K5 [require]
+       54 GETTABLEKS                       R10 R8 K18 ["PlaceVersionGroup"]
+       56 CALL                             R9 1 1
+       57 GETTABLEKS                       R10 R4 K19 ["createNextOrder"]
+       59 GETTABLEKS                       R11 R4 K20 ["createUniqueKey"]
+       61 GETIMPORT                        R12 K5 [require]
+       63 GETTABLEKS                       R14 R0 K16 ["Src"]
+       65 GETTABLEKS                       R13 R14 K21 ["Types"]
+       67 CALL                             R12 1 1
+       68 DUPCLOSURE                       R13 K22 [PROTO_4]
+       69 CAPTURE                          VAL R10
+       70 CAPTURE                          VAL R11
+       71 CAPTURE                          VAL R7
+       72 CAPTURE                          VAL R2
+       73 CAPTURE                          VAL R9
+       74 CAPTURE                          VAL R1
+       75 CAPTURE                          VAL R3
+       76 RETURN                           R13 1

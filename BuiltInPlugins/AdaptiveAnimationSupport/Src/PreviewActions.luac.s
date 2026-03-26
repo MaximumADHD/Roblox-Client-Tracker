@@ -59,6 +59,24 @@ PROTO_2:
        22 CALL                             R2 1 0
        23 RETURN                           R0 0
 
+PROTO_3:
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R4 R5 K0 ["clearTransforms"]
+        3 MOVE                             R5 R1
+        4 MOVE                             R6 R0
+        5 CALL                             R4 2 0
+        6 JUMPIFNOTEQKS                    R3 K1 ["tpose"] ; [+7]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R4 R5 K2 ["applyTposeAdjustment"]
+       11 MOVE                             R5 R1
+       12 MOVE                             R6 R0
+       13 CALL                             R4 2 0
+       14 JUMPIFNOT                        R2 ; [+4]
+       15 LOADN                            R6 0
+       16 NAMECALL                         R4 R2 K3 ["StepAnimations"]
+       18 CALL                             R4 2 0
+       19 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -92,4 +110,7 @@ MAIN:
        45 CAPTURE                          VAL R1
        46 CAPTURE                          VAL R2
        47 SETTABLEKS                       R5 R4 K18 ["resetAll"]
-       49 RETURN                           R4 1
+       49 DUPCLOSURE                       R5 K19 [PROTO_3]
+       50 CAPTURE                          VAL R1
+       51 SETTABLEKS                       R5 R4 K20 ["onPlaybackStopped"]
+       53 RETURN                           R4 1

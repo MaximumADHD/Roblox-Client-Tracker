@@ -151,40 +151,37 @@ PROTO_9:
         8 MOVE                             R3 R0
         9 CALL                             R2 1 0
        10 RETURN                           R0 0
-       11 GETUPVAL                         R2 1
-       12 CALL                             R2 0 1
-       13 JUMPIFNOT                        R2 ; [+11]
-       14 LOADK                            R4 K3 ["Decal"]
-       15 NAMECALL                         R2 R0 K1 ["IsA"]
-       17 CALL                             R2 2 1
-       18 JUMPIFNOT                        R2 ; [+6]
-       19 GETUPVAL                         R3 0
-       20 GETTABLEKS                       R2 R3 K4 ["reimportDecal"]
-       22 MOVE                             R3 R0
-       23 CALL                             R2 1 0
-       24 RETURN                           R0 0
-       25 GETTABLEKS                       R2 R0 K5 ["ClassName"]
-       27 JUMPIFNOTEQKS                    R2 K6 ["Model"] ; [+16]
-       29 LOADK                            R5 K6 ["Model"]
-       30 NAMECALL                         R3 R0 K1 ["IsA"]
-       32 CALL                             R3 2 -1
-       33 FASTCALL                         ASSERT ; [+2]
-       34 GETIMPORT                        R2 K8 [assert]
-       36 CALL                             R2 -1 0
-       37 GETUPVAL                         R3 0
-       38 GETTABLEKS                       R2 R3 K9 ["reimportModel"]
-       40 MOVE                             R3 R0
-       41 MOVE                             R4 R1
-       42 CALL                             R2 2 0
-       43 RETURN                           R0 0
-       44 GETIMPORT                        R2 K11 [error]
-       46 LOADK                            R4 K12 ["reimport is not supported for targets of type '%*'"]
-       47 GETTABLEKS                       R6 R0 K5 ["ClassName"]
-       49 NAMECALL                         R4 R4 K13 ["format"]
-       51 CALL                             R4 2 1
-       52 MOVE                             R3 R4
-       53 CALL                             R2 1 0
-       54 RETURN                           R0 0
+       11 LOADK                            R4 K3 ["Decal"]
+       12 NAMECALL                         R2 R0 K1 ["IsA"]
+       14 CALL                             R2 2 1
+       15 JUMPIFNOT                        R2 ; [+6]
+       16 GETUPVAL                         R3 0
+       17 GETTABLEKS                       R2 R3 K4 ["reimportDecal"]
+       19 MOVE                             R3 R0
+       20 CALL                             R2 1 0
+       21 RETURN                           R0 0
+       22 GETTABLEKS                       R2 R0 K5 ["ClassName"]
+       24 JUMPIFNOTEQKS                    R2 K6 ["Model"] ; [+16]
+       26 LOADK                            R5 K6 ["Model"]
+       27 NAMECALL                         R3 R0 K1 ["IsA"]
+       29 CALL                             R3 2 -1
+       30 FASTCALL                         ASSERT ; [+2]
+       31 GETIMPORT                        R2 K8 [assert]
+       33 CALL                             R2 -1 0
+       34 GETUPVAL                         R3 0
+       35 GETTABLEKS                       R2 R3 K9 ["reimportModel"]
+       37 MOVE                             R3 R0
+       38 MOVE                             R4 R1
+       39 CALL                             R2 2 0
+       40 RETURN                           R0 0
+       41 GETIMPORT                        R2 K11 [error]
+       43 LOADK                            R4 K12 ["reimport is not supported for targets of type '%*'"]
+       44 GETTABLEKS                       R6 R0 K5 ["ClassName"]
+       46 NAMECALL                         R4 R4 K13 ["format"]
+       48 CALL                             R4 2 1
+       49 MOVE                             R3 R4
+       50 CALL                             R2 1 0
+       51 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -213,36 +210,31 @@ MAIN:
        39 GETIMPORT                        R7 K1 [script]
        41 GETTABLEKS                       R6 R7 K13 ["Types"]
        43 CALL                             R5 1 1
-       44 GETIMPORT                        R6 K5 [require]
-       46 GETTABLEKS                       R8 R0 K14 ["Flags"]
-       48 GETTABLEKS                       R7 R8 K15 ["GetFFlagReimportDecalSupport"]
+       44 GETTABLEKS                       R6 R1 K14 ["new"]
+       46 GETTABLEKS                       R8 R4 K15 ["REIMPORT"]
+       48 GETTABLEKS                       R7 R8 K16 ["CPC_ID"]
        50 CALL                             R6 1 1
-       51 GETTABLEKS                       R7 R1 K16 ["new"]
-       53 GETTABLEKS                       R9 R4 K17 ["REIMPORT"]
-       55 GETTABLEKS                       R8 R9 K18 ["CPC_ID"]
-       57 CALL                             R7 1 1
-       58 NEWTABLE                         R8 4 0
-       60 DUPCLOSURE                       R9 K19 [PROTO_0]
-       61 CAPTURE                          VAL R7
-       62 CAPTURE                          VAL R4
-       63 DUPCLOSURE                       R10 K20 [PROTO_5]
-       64 CAPTURE                          VAL R7
-       65 CAPTURE                          VAL R4
-       66 CAPTURE                          VAL R0
-       67 DUPCLOSURE                       R11 K21 [PROTO_6]
-       68 CAPTURE                          VAL R10
-       69 CAPTURE                          VAL R2
-       70 SETTABLEKS                       R11 R8 K22 ["reimportModel"]
-       72 DUPCLOSURE                       R11 K23 [PROTO_7]
-       73 CAPTURE                          VAL R10
-       74 CAPTURE                          VAL R3
-       75 SETTABLEKS                       R11 R8 K24 ["reimportSurfaceAppearance"]
-       77 DUPCLOSURE                       R11 K25 [PROTO_8]
-       78 CAPTURE                          VAL R10
-       79 CAPTURE                          VAL R3
-       80 SETTABLEKS                       R11 R8 K26 ["reimportDecal"]
-       82 DUPCLOSURE                       R11 K27 [PROTO_9]
-       83 CAPTURE                          VAL R8
-       84 CAPTURE                          VAL R6
-       85 SETTABLEKS                       R11 R8 K28 ["reimportInstance"]
-       87 RETURN                           R8 1
+       51 NEWTABLE                         R7 4 0
+       53 DUPCLOSURE                       R8 K17 [PROTO_0]
+       54 CAPTURE                          VAL R6
+       55 CAPTURE                          VAL R4
+       56 DUPCLOSURE                       R9 K18 [PROTO_5]
+       57 CAPTURE                          VAL R6
+       58 CAPTURE                          VAL R4
+       59 CAPTURE                          VAL R0
+       60 DUPCLOSURE                       R10 K19 [PROTO_6]
+       61 CAPTURE                          VAL R9
+       62 CAPTURE                          VAL R2
+       63 SETTABLEKS                       R10 R7 K20 ["reimportModel"]
+       65 DUPCLOSURE                       R10 K21 [PROTO_7]
+       66 CAPTURE                          VAL R9
+       67 CAPTURE                          VAL R3
+       68 SETTABLEKS                       R10 R7 K22 ["reimportSurfaceAppearance"]
+       70 DUPCLOSURE                       R10 K23 [PROTO_8]
+       71 CAPTURE                          VAL R9
+       72 CAPTURE                          VAL R3
+       73 SETTABLEKS                       R10 R7 K24 ["reimportDecal"]
+       75 DUPCLOSURE                       R10 K25 [PROTO_9]
+       76 CAPTURE                          VAL R7
+       77 SETTABLEKS                       R10 R7 K26 ["reimportInstance"]
+       79 RETURN                           R7 1

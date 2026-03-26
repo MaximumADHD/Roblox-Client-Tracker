@@ -50,6 +50,8 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_CARD"
 	| "UI_COMPONENT_TYPE_TABS"
 	| "UI_COMPONENT_TYPE_ACTION_BAR"
+	| "UI_COMPONENT_TYPE_ICON"
+	| "UI_COMPONENT_TYPE_CIRCLE_ICON"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -136,6 +138,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_TABS"
 		elseif value == 227 then
 			return "UI_COMPONENT_TYPE_ACTION_BAR"
+		elseif value == 228 then
+			return "UI_COMPONENT_TYPE_ICON"
+		elseif value == 229 then
+			return "UI_COMPONENT_TYPE_CIRCLE_ICON"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -232,6 +238,10 @@ messages.UiComponentType = {
 			return 226
 		elseif self == "UI_COMPONENT_TYPE_ACTION_BAR" then
 			return 227
+		elseif self == "UI_COMPONENT_TYPE_ICON" then
+			return 228
+		elseif self == "UI_COMPONENT_TYPE_CIRCLE_ICON" then
+			return 229
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -328,6 +338,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_TABS"
 		elseif name == "UI_COMPONENT_TYPE_ACTION_BAR" then
 			return "UI_COMPONENT_TYPE_ACTION_BAR"
+		elseif name == "UI_COMPONENT_TYPE_ICON" then
+			return "UI_COMPONENT_TYPE_ICON"
+		elseif name == "UI_COMPONENT_TYPE_CIRCLE_ICON" then
+			return "UI_COMPONENT_TYPE_CIRCLE_ICON"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then

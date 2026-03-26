@@ -51,53 +51,63 @@ PROTO_0:
        85 RETURN                           R2 1
        86 GETUPVAL                         R2 1
        87 CALL                             R2 0 1
-       88 JUMPIFNOT                        R2 ; [+62]
+       88 JUMPIFNOT                        R2 ; [+76]
        89 GETTABLEKS                       R3 R0 K2 ["item"]
        91 GETTABLEKS                       R2 R3 K3 ["source"]
        93 GETUPVAL                         R4 0
        94 GETTABLEKS                       R3 R4 K8 ["SOURCE_MARKETPLACE"]
-       96 JUMPIFNOTEQ                      R2 R3 ; [+54]
+       96 JUMPIFNOTEQ                      R2 R3 ; [+68]
        98 GETTABLEKS                       R3 R1 K2 ["item"]
       100 GETTABLEKS                       R2 R3 K3 ["source"]
       102 GETUPVAL                         R4 0
       103 GETTABLEKS                       R3 R4 K8 ["SOURCE_MARKETPLACE"]
-      105 JUMPIFNOTEQ                      R2 R3 ; [+45]
-      107 GETTABLEKS                       R4 R0 K2 ["item"]
-      109 GETTABLEKS                       R3 R4 K9 ["marketplaceItem"]
-      111 FASTCALL1                        TYPEOF R3 ; [+2]
-      112 GETIMPORT                        R2 K11 [typeof]
-      114 CALL                             R2 1 1
-      115 JUMPIFNOTEQKS                    R2 K12 ["table"] ; [+22]
-      117 GETTABLEKS                       R4 R1 K2 ["item"]
-      119 GETTABLEKS                       R3 R4 K9 ["marketplaceItem"]
-      121 FASTCALL1                        TYPEOF R3 ; [+2]
-      122 GETIMPORT                        R2 K11 [typeof]
-      124 CALL                             R2 1 1
-      125 JUMPIFNOTEQKS                    R2 K12 ["table"] ; [+12]
-      127 GETUPVAL                         R2 2
-      128 GETTABLEKS                       R4 R0 K2 ["item"]
-      130 GETTABLEKS                       R3 R4 K9 ["marketplaceItem"]
-      132 GETTABLEKS                       R5 R1 K2 ["item"]
-      134 GETTABLEKS                       R4 R5 K9 ["marketplaceItem"]
-      136 CALL                             R2 2 -1
-      137 RETURN                           R2 -1
-      138 GETTABLEKS                       R4 R0 K2 ["item"]
-      140 GETTABLEKS                       R3 R4 K9 ["marketplaceItem"]
-      142 GETTABLEKS                       R5 R1 K2 ["item"]
-      144 GETTABLEKS                       R4 R5 K9 ["marketplaceItem"]
-      146 JUMPIFEQ                         R3 R4 ; [+2]
-      148 LOADB                            R2 0 +1
-      149 LOADB                            R2 1
-      150 RETURN                           R2 1
-      151 GETIMPORT                        R2 K14 [error]
-      153 LOADK                            R4 K15 ["Unknown item source: %*"]
-      154 GETTABLEKS                       R7 R0 K2 ["item"]
-      156 GETTABLEKS                       R6 R7 K3 ["source"]
-      158 NAMECALL                         R4 R4 K16 ["format"]
-      160 CALL                             R4 2 1
-      161 MOVE                             R3 R4
-      162 CALL                             R2 1 0
-      163 RETURN                           R0 0
+      105 JUMPIFNOTEQ                      R2 R3 ; [+59]
+      107 GETUPVAL                         R2 2
+      108 CALL                             R2 0 1
+      109 JUMPIFNOT                        R2 ; [+11]
+      110 GETUPVAL                         R2 3
+      111 GETTABLEKS                       R4 R0 K2 ["item"]
+      113 GETTABLEKS                       R3 R4 K9 ["marketplaceItem"]
+      115 GETTABLEKS                       R5 R1 K2 ["item"]
+      117 GETTABLEKS                       R4 R5 K9 ["marketplaceItem"]
+      119 CALL                             R2 2 -1
+      120 RETURN                           R2 -1
+      121 GETTABLEKS                       R4 R0 K2 ["item"]
+      123 GETTABLEKS                       R3 R4 K9 ["marketplaceItem"]
+      125 FASTCALL1                        TYPEOF R3 ; [+2]
+      126 GETIMPORT                        R2 K11 [typeof]
+      128 CALL                             R2 1 1
+      129 JUMPIFNOTEQKS                    R2 K12 ["table"] ; [+22]
+      131 GETTABLEKS                       R4 R1 K2 ["item"]
+      133 GETTABLEKS                       R3 R4 K9 ["marketplaceItem"]
+      135 FASTCALL1                        TYPEOF R3 ; [+2]
+      136 GETIMPORT                        R2 K11 [typeof]
+      138 CALL                             R2 1 1
+      139 JUMPIFNOTEQKS                    R2 K12 ["table"] ; [+12]
+      141 GETUPVAL                         R2 3
+      142 GETTABLEKS                       R4 R0 K2 ["item"]
+      144 GETTABLEKS                       R3 R4 K9 ["marketplaceItem"]
+      146 GETTABLEKS                       R5 R1 K2 ["item"]
+      148 GETTABLEKS                       R4 R5 K9 ["marketplaceItem"]
+      150 CALL                             R2 2 -1
+      151 RETURN                           R2 -1
+      152 GETTABLEKS                       R4 R0 K2 ["item"]
+      154 GETTABLEKS                       R3 R4 K9 ["marketplaceItem"]
+      156 GETTABLEKS                       R5 R1 K2 ["item"]
+      158 GETTABLEKS                       R4 R5 K9 ["marketplaceItem"]
+      160 JUMPIFEQ                         R3 R4 ; [+2]
+      162 LOADB                            R2 0 +1
+      163 LOADB                            R2 1
+      164 RETURN                           R2 1
+      165 GETIMPORT                        R2 K14 [error]
+      167 LOADK                            R4 K15 ["Unknown item source: %*"]
+      168 GETTABLEKS                       R7 R0 K2 ["item"]
+      170 GETTABLEKS                       R6 R7 K3 ["source"]
+      172 NAMECALL                         R4 R4 K16 ["format"]
+      174 CALL                             R4 2 1
+      175 MOVE                             R3 R4
+      176 CALL                             R2 1 0
+      177 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -124,8 +134,14 @@ MAIN:
        36 GETTABLEKS                       R6 R7 K11 ["Flags"]
        38 GETTABLEKS                       R5 R6 K12 ["getFFlagAvatarPreviewerLookComposer"]
        40 CALL                             R4 1 1
-       41 DUPCLOSURE                       R5 K13 [PROTO_0]
-       42 CAPTURE                          VAL R1
-       43 CAPTURE                          VAL R4
-       44 CAPTURE                          VAL R3
-       45 RETURN                           R5 1
+       41 GETIMPORT                        R5 K5 [require]
+       43 GETTABLEKS                       R8 R0 K6 ["Src"]
+       45 GETTABLEKS                       R7 R8 K11 ["Flags"]
+       47 GETTABLEKS                       R6 R7 K13 ["getFFlagAvatarPreviewerFixShallowEqual"]
+       49 CALL                             R5 1 1
+       50 DUPCLOSURE                       R6 K14 [PROTO_0]
+       51 CAPTURE                          VAL R1
+       52 CAPTURE                          VAL R4
+       53 CAPTURE                          VAL R5
+       54 CAPTURE                          VAL R3
+       55 RETURN                           R6 1

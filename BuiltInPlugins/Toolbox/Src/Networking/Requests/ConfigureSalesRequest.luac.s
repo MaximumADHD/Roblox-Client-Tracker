@@ -1,17 +1,5 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIF                           R1 ; [+10]
-        3 GETUPVAL                         R1 1
-        4 GETUPVAL                         R3 2
-        5 GETUPVAL                         R4 3
-        6 GETUPVAL                         R5 4
-        7 GETUPVAL                         R6 5
-        8 GETUPVAL                         R7 6
-        9 CALL                             R3 4 -1
-       10 NAMECALL                         R1 R1 K0 ["dispatch"]
-       12 CALL                             R1 -1 0
-       13 RETURN                           R0 0
+        0 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -36,100 +24,77 @@ PROTO_1:
        23 RETURN                           R0 0
 
 PROTO_2:
-        0 NEWCLOSURE                       R1 P0
-        1 CAPTURE                          UPVAL U0
-        2 CAPTURE                          VAL R0
-        3 CAPTURE                          UPVAL U1
-        4 CAPTURE                          UPVAL U2
-        5 CAPTURE                          UPVAL U3
-        6 CAPTURE                          UPVAL U4
-        7 CAPTURE                          UPVAL U5
-        8 NEWCLOSURE                       R2 P1
-        9 CAPTURE                          UPVAL U6
-       10 CAPTURE                          VAL R0
-       11 CAPTURE                          UPVAL U7
-       12 CAPTURE                          UPVAL U8
-       13 GETUPVAL                         R4 9
-       14 GETUPVAL                         R7 10
-       15 GETTABLEKS                       R6 R7 K0 ["ASSET_STATUS"]
-       17 GETTABLEKS                       R5 R6 K1 ["OnSale"]
-       19 JUMPIFEQ                         R4 R5 ; [+2]
-       21 LOADB                            R3 0 +1
-       22 LOADB                            R3 1
-       23 JUMPIFNOT                        R3 ; [+6]
-       24 GETUPVAL                         R6 10
-       25 GETTABLEKS                       R5 R6 K0 ["ASSET_STATUS"]
-       27 GETTABLEKS                       R4 R5 K1 ["OnSale"]
-       29 JUMPIF                           R4 ; [+5]
-       30 GETUPVAL                         R6 10
-       31 GETTABLEKS                       R5 R6 K0 ["ASSET_STATUS"]
-       33 GETTABLEKS                       R4 R5 K2 ["OffSale"]
-       35 JUMPIFNOT                        R3 ; [+2]
-       36 GETUPVAL                         R5 11
-       37 JUMPIF                           R5 ; [+1]
-       38 LOADNIL                          R5
-       39 GETUPVAL                         R6 12
-       40 GETUPVAL                         R7 9
-       41 JUMPIFEQ                         R6 R7 ; [+14]
-       43 GETUPVAL                         R6 2
-       44 GETUPVAL                         R8 3
-       45 MOVE                             R9 R4
-       46 MOVE                             R10 R5
-       47 NAMECALL                         R6 R6 K3 ["configureSales"]
-       49 CALL                             R6 4 1
-       50 MOVE                             R8 R1
-       51 MOVE                             R9 R2
-       52 NAMECALL                         R6 R6 K4 ["andThen"]
-       54 CALL                             R6 3 0
-       55 RETURN                           R0 0
-       56 GETUPVAL                         R6 12
-       57 GETUPVAL                         R9 10
-       58 GETTABLEKS                       R8 R9 K0 ["ASSET_STATUS"]
-       60 GETTABLEKS                       R7 R8 K1 ["OnSale"]
-       62 JUMPIFNOTEQ                      R6 R7 ; [+17]
-       64 GETUPVAL                         R6 13
-       65 GETUPVAL                         R7 11
-       66 JUMPIFEQ                         R6 R7 ; [+13]
-       68 GETUPVAL                         R6 2
-       69 GETUPVAL                         R8 3
-       70 MOVE                             R9 R5
-       71 NAMECALL                         R6 R6 K5 ["updateSales"]
-       73 CALL                             R6 3 1
-       74 MOVE                             R8 R1
-       75 MOVE                             R9 R2
-       76 NAMECALL                         R6 R6 K4 ["andThen"]
-       78 CALL                             R6 3 0
-       79 RETURN                           R0 0
-       80 GETUPVAL                         R6 0
-       81 CALL                             R6 0 1
-       82 JUMPIF                           R6 ; [+9]
-       83 GETUPVAL                         R8 1
-       84 GETUPVAL                         R9 2
-       85 GETUPVAL                         R10 3
-       86 GETUPVAL                         R11 4
-       87 GETUPVAL                         R12 5
-       88 CALL                             R8 4 -1
-       89 NAMECALL                         R6 R0 K6 ["dispatch"]
-       91 CALL                             R6 -1 0
-       92 RETURN                           R0 0
+        0 DUPCLOSURE                       R1 K0 [PROTO_0]
+        1 NEWCLOSURE                       R2 P1
+        2 CAPTURE                          UPVAL U0
+        3 CAPTURE                          VAL R0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          UPVAL U2
+        6 GETUPVAL                         R4 3
+        7 GETUPVAL                         R7 4
+        8 GETTABLEKS                       R6 R7 K1 ["ASSET_STATUS"]
+       10 GETTABLEKS                       R5 R6 K2 ["OnSale"]
+       12 JUMPIFEQ                         R4 R5 ; [+2]
+       14 LOADB                            R3 0 +1
+       15 LOADB                            R3 1
+       16 JUMPIFNOT                        R3 ; [+6]
+       17 GETUPVAL                         R6 4
+       18 GETTABLEKS                       R5 R6 K1 ["ASSET_STATUS"]
+       20 GETTABLEKS                       R4 R5 K2 ["OnSale"]
+       22 JUMPIF                           R4 ; [+5]
+       23 GETUPVAL                         R6 4
+       24 GETTABLEKS                       R5 R6 K1 ["ASSET_STATUS"]
+       26 GETTABLEKS                       R4 R5 K3 ["OffSale"]
+       28 JUMPIFNOT                        R3 ; [+2]
+       29 GETUPVAL                         R5 5
+       30 JUMPIF                           R5 ; [+1]
+       31 LOADNIL                          R5
+       32 GETUPVAL                         R6 6
+       33 GETUPVAL                         R7 3
+       34 JUMPIFEQ                         R6 R7 ; [+14]
+       36 GETUPVAL                         R6 7
+       37 GETUPVAL                         R8 8
+       38 MOVE                             R9 R4
+       39 MOVE                             R10 R5
+       40 NAMECALL                         R6 R6 K4 ["configureSales"]
+       42 CALL                             R6 4 1
+       43 MOVE                             R8 R1
+       44 MOVE                             R9 R2
+       45 NAMECALL                         R6 R6 K5 ["andThen"]
+       47 CALL                             R6 3 0
+       48 RETURN                           R0 0
+       49 GETUPVAL                         R6 6
+       50 GETUPVAL                         R9 4
+       51 GETTABLEKS                       R8 R9 K1 ["ASSET_STATUS"]
+       53 GETTABLEKS                       R7 R8 K2 ["OnSale"]
+       55 JUMPIFNOTEQ                      R6 R7 ; [+16]
+       57 GETUPVAL                         R6 9
+       58 GETUPVAL                         R7 5
+       59 JUMPIFEQ                         R6 R7 ; [+12]
+       61 GETUPVAL                         R6 7
+       62 GETUPVAL                         R8 8
+       63 MOVE                             R9 R5
+       64 NAMECALL                         R6 R6 K6 ["updateSales"]
+       66 CALL                             R6 3 1
+       67 MOVE                             R8 R1
+       68 MOVE                             R9 R2
+       69 NAMECALL                         R6 R6 K5 ["andThen"]
+       71 CALL                             R6 3 0
+       72 RETURN                           R0 0
 
 PROTO_3:
-        0 NEWCLOSURE                       R8 P0
+        0 NEWCLOSURE                       R6 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          UPVAL U1
-        3 CAPTURE                          VAL R0
-        4 CAPTURE                          VAL R1
-        5 CAPTURE                          VAL R6
-        6 CAPTURE                          VAL R7
-        7 CAPTURE                          UPVAL U2
-        8 CAPTURE                          UPVAL U3
-        9 CAPTURE                          UPVAL U4
-       10 CAPTURE                          VAL R3
-       11 CAPTURE                          UPVAL U5
-       12 CAPTURE                          VAL R5
-       13 CAPTURE                          VAL R2
-       14 CAPTURE                          VAL R4
-       15 RETURN                           R8 1
+        3 CAPTURE                          UPVAL U2
+        4 CAPTURE                          VAL R3
+        5 CAPTURE                          UPVAL U3
+        6 CAPTURE                          VAL R5
+        7 CAPTURE                          VAL R2
+        8 CAPTURE                          VAL R0
+        9 CAPTURE                          VAL R1
+       10 CAPTURE                          VAL R4
+       11 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -158,27 +123,9 @@ MAIN:
        42 GETTABLEKS                       R6 R7 K6 ["Util"]
        44 GETTABLEKS                       R5 R6 K11 ["DebugFlags"]
        46 CALL                             R4 1 1
-       47 GETIMPORT                        R5 K4 [require]
-       49 GETTABLEKS                       R8 R0 K5 ["Src"]
-       51 GETTABLEKS                       R7 R8 K12 ["Flags"]
-       53 GETTABLEKS                       R6 R7 K13 ["getFFlagRemoveItemTags"]
-       55 CALL                             R5 1 1
-       56 MOVE                             R7 R5
-       57 CALL                             R7 0 1
-       58 JUMPIFNOT                        R7 ; [+2]
-       59 LOADNIL                          R6
-       60 JUMP                             ; [+11]
-       61 GETIMPORT                        R6 K4 [require]
-       63 GETTABLEKS                       R10 R0 K5 ["Src"]
-       65 GETTABLEKS                       R9 R10 K14 ["Networking"]
-       67 GETTABLEKS                       R8 R9 K15 ["Requests"]
-       69 GETTABLEKS                       R7 R8 K16 ["ConfigureItemTagsRequest"]
-       71 CALL                             R6 1 1
-       72 DUPCLOSURE                       R7 K17 [PROTO_3]
-       73 CAPTURE                          VAL R5
-       74 CAPTURE                          VAL R6
-       75 CAPTURE                          VAL R4
-       76 CAPTURE                          VAL R2
-       77 CAPTURE                          VAL R3
-       78 CAPTURE                          VAL R1
-       79 RETURN                           R7 1
+       47 DUPCLOSURE                       R5 K12 [PROTO_3]
+       48 CAPTURE                          VAL R4
+       49 CAPTURE                          VAL R2
+       50 CAPTURE                          VAL R3
+       51 CAPTURE                          VAL R1
+       52 RETURN                           R5 1

@@ -55,6 +55,8 @@ local _roblox_apppageplatform_shared_v1beta1_catalog_virtualized_feed = require(
 local _roblox_apppageplatform_shared_v1beta1_catalog_item_group = require(script.Parent.catalog_item_group)
 local _roblox_apppageplatform_shared_v1beta1_catalog_item_carousel = require(script.Parent.catalog_item_carousel)
 local _roblox_apppageplatform_shared_v1beta1_catalog_category_menu = require(script.Parent.catalog_category_menu)
+local _roblox_apppageplatform_shared_v1beta1_icon = require(script.Parent.icon)
+local _roblox_apppageplatform_shared_v1beta1_circle_icon = require(script.Parent.circle_icon)
 
 type _UiComponentSchemaImpl = {
 	__index: _UiComponentSchemaImpl,
@@ -146,6 +148,8 @@ type _UiComponentSchemaFields = {
 			type: "catalog_category_menu",
 			value: _roblox_apppageplatform_shared_v1beta1_catalog_category_menu.CatalogCategoryMenuSchema,
 		}
+		| { type: "icon", value: _roblox_apppageplatform_shared_v1beta1_icon.IconSchema }
+		| { type: "circle_icon", value: _roblox_apppageplatform_shared_v1beta1_circle_icon.CircleIconSchema }
 	)?,
 }
 
@@ -229,6 +233,8 @@ type _UiComponentSchemaPartialFields = {
 			type: "catalog_category_menu",
 			value: _roblox_apppageplatform_shared_v1beta1_catalog_category_menu.CatalogCategoryMenuSchema,
 		}
+		| { type: "icon", value: _roblox_apppageplatform_shared_v1beta1_icon.IconSchema }
+		| { type: "circle_icon", value: _roblox_apppageplatform_shared_v1beta1_circle_icon.CircleIconSchema }
 	)?,
 }
 
@@ -417,6 +423,14 @@ do
 			elseif self.kind.type == "catalog_category_menu" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 42, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "icon" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 43, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "circle_icon" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 44, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -796,6 +810,20 @@ do
 						),
 					}
 					continue
+				elseif field == 43 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "icon", value = _roblox_apppageplatform_shared_v1beta1_icon.IconSchema.decode(value) }
+					continue
+				elseif field == 44 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "circle_icon",
+						value = _roblox_apppageplatform_shared_v1beta1_circle_icon.CircleIconSchema.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -908,6 +936,10 @@ do
 				output.catalogItemCarousel = self.kind.value:jsonEncode()
 			elseif self.kind.type == "catalog_category_menu" then
 				output.catalogCategoryMenu = self.kind.value:jsonEncode()
+			elseif self.kind.type == "icon" then
+				output.icon = self.kind.value:jsonEncode()
+			elseif self.kind.type == "circle_icon" then
+				output.circleIcon = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -1512,6 +1544,29 @@ do
 				type = "catalog_category_menu",
 				value = _roblox_apppageplatform_shared_v1beta1_catalog_category_menu.CatalogCategoryMenuSchema.jsonDecode(
 					input.catalogCategoryMenu
+				),
+			}
+		end
+
+		if input.icon ~= nil then
+			self.kind =
+				{ type = "icon", value = _roblox_apppageplatform_shared_v1beta1_icon.IconSchema.jsonDecode(input.icon) }
+		end
+
+		if input.circle_icon ~= nil then
+			self.kind = {
+				type = "circle_icon",
+				value = _roblox_apppageplatform_shared_v1beta1_circle_icon.CircleIconSchema.jsonDecode(
+					input.circle_icon
+				),
+			}
+		end
+
+		if input.circleIcon ~= nil then
+			self.kind = {
+				type = "circle_icon",
+				value = _roblox_apppageplatform_shared_v1beta1_circle_icon.CircleIconSchema.jsonDecode(
+					input.circleIcon
 				),
 			}
 		end

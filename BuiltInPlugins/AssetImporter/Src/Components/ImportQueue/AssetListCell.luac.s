@@ -315,7 +315,7 @@ PROTO_9:
        14 MOVE                             R6 R2
        15 GETTABLEKS                       R8 R0 K1 ["Row"]
        17 GETTABLEKS                       R7 R8 K6 ["creatorId"]
-       19 NAMECALL                         R3 R3 K7 ["applyPresetToAllSessions"]
+       19 NAMECALL                         R3 R3 K7 ["DEPRECATED_applyPresetToAllSessions"]
        21 CALL                             R3 4 0
        22 RETURN                           R0 0
 

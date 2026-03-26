@@ -25,9 +25,7 @@ local GetFStringGamepadNavigationDialogABTestLayerName =
 	require(TopBar.Flags.GetFStringGamepadNavigationDialogABTestLayerName)
 local FFlagAlwaysShowGamepadNavigationDialog =
 	require(TopBar.Flags.FFlagAlwaysShowGamepadNavigationDialog)
-local FFlagAlwaysSelectButtonDismissesGamepadNavigationDialog =
-	require(TopBar.Flags.FFlagAlwaysSelectButtonDismissesGamepadNavigationDialog)
-local GetFIntGamepadNavigationDialogShowCount = require(TopBar.Flags.GetFIntGamepadNavigationDialogShowCount)
+
 local FFlagTopBarDeprecateGamepadNavigationDialogRodux = require(TopBar.Flags.FFlagTopBarDeprecateGamepadNavigationDialogRodux)
 
 local function GamepadNavigationDialogContainer(props)
@@ -59,9 +57,9 @@ local function GamepadNavigationDialogContainer(props)
 	return if gamepadNavigationDialogOpen 
 		then React.createElement(GamepadNavigationDialogShowCounter, {
 			isGamepadNavigationDialogEnabled = FFlagAlwaysShowGamepadNavigationDialog,
-			selectButtonDismissesGamepadNavigationDialog = FFlagAlwaysSelectButtonDismissesGamepadNavigationDialog,
+			selectButtonDismissesGamepadNavigationDialog = false,
 			appStorageKey = "GamepadMenuVirtualCursorPromptShown",
-			maxShownCount = GetFIntGamepadNavigationDialogShowCount(),
+			maxShownCount = 1,
 			isGamepadNavigationDialogOpen = gamepadNavigationDialogOpen,
 			SetGamepadNavigationDialogOpen = setGamepadNavigationDialogOpen,
 		})
@@ -76,10 +74,9 @@ local GamepadNavigationDialogWithExperiments = RoactAppExperiment.connectUserLay
 		return {
 			isGamepadNavigationDialogEnabled = FFlagAlwaysShowGamepadNavigationDialog
 				or variables.isGamepadNavigationDialogEnabled,
-			selectButtonDismissesGamepadNavigationDialog = FFlagAlwaysSelectButtonDismissesGamepadNavigationDialog
-				or variables.selectButtonDismissesGamepadNavigationDialog,
+			selectButtonDismissesGamepadNavigationDialog = variables.selectButtonDismissesGamepadNavigationDialog,
 			appStorageKey = "GamepadMenuVirtualCursorPromptShown",
-			maxShownCount = GetFIntGamepadNavigationDialogShowCount(),
+			maxShownCount = 1,
 		}
 	end
 )(GamepadNavigationDialogShowCounter)

@@ -31,62 +31,59 @@ PROTO_2:
        18 SETTABLEKS                       R6 R5 K5 ["openInsertObjectMenuAsync"]
        20 GETUPVAL                         R7 5
        21 CALL                             R7 0 1
-       22 JUMPIFNOT                        R7 ; [+9]
-       23 GETUPVAL                         R7 6
-       24 CALL                             R7 0 1
-       25 JUMPIFNOT                        R7 ; [+6]
-       26 GETIMPORT                        R8 K4 [game]
-       28 GETTABLEKS                       R7 R8 K18 ["UniqueId"]
-       30 JUMPIFNOTEQKS                    R7 K19 ["00000000-0000-0000-0000-000000000000"] ; [+3]
-       32 LOADNIL                          R6
-       33 JUMP                             ; [+2]
-       34 DUPCLOSURE                       R6 K20 [PROTO_1]
-       35 CAPTURE                          UPVAL U7
-       36 SETTABLEKS                       R6 R5 K6 ["getInstanceId"]
+       22 JUMPIFNOT                        R7 ; [+6]
+       23 GETIMPORT                        R8 K4 [game]
+       25 GETTABLEKS                       R7 R8 K18 ["UniqueId"]
+       27 JUMPIFNOTEQKS                    R7 K19 ["00000000-0000-0000-0000-000000000000"] ; [+3]
+       29 LOADNIL                          R6
+       30 JUMP                             ; [+2]
+       31 DUPCLOSURE                       R6 K20 [PROTO_1]
+       32 CAPTURE                          UPVAL U6
+       33 SETTABLEKS                       R6 R5 K6 ["getInstanceId"]
+       35 GETUPVAL                         R6 7
+       36 SETTABLEKS                       R6 R5 K7 ["listenForVisibilityChanges"]
        38 GETUPVAL                         R6 8
-       39 SETTABLEKS                       R6 R5 K7 ["listenForVisibilityChanges"]
-       41 GETUPVAL                         R6 9
-       42 SETTABLEKS                       R6 R5 K8 ["instancePicker"]
-       44 GETUPVAL                         R9 0
-       45 GETTABLEKS                       R8 R9 K21 ["Flags"]
-       47 GETTABLEKS                       R7 R8 K22 ["getFFlagExplorerStreaming"]
-       49 CALL                             R7 0 1
-       50 JUMPIFNOT                        R7 ; [+3]
-       51 GETUPVAL                         R6 10
-       52 CALL                             R6 0 1
-       53 JUMP                             ; [+1]
-       54 LOADNIL                          R6
-       55 SETTABLEKS                       R6 R5 K9 ["streamingInterface"]
-       57 GETUPVAL                         R6 11
-       58 SETTABLEKS                       R6 R5 K10 ["isServiceVisible"]
-       60 GETUPVAL                         R7 12
-       61 CALL                             R7 0 1
-       62 JUMPIFNOT                        R7 ; [+2]
-       63 GETUPVAL                         R6 13
-       64 JUMP                             ; [+1]
-       65 LOADNIL                          R6
-       66 SETTABLEKS                       R6 R5 K11 ["clickScript"]
-       68 GETUPVAL                         R6 14
-       69 SETTABLEKS                       R6 R5 K12 ["openScript"]
-       71 DUPTABLE                         R6 K26 [{"createLiveSyncStatusWatcher", "createInstanceFileSyncStatusWatcher", "createCollaboratorSelectionWatcher"}]
+       39 SETTABLEKS                       R6 R5 K8 ["instancePicker"]
+       41 GETUPVAL                         R9 0
+       42 GETTABLEKS                       R8 R9 K21 ["Flags"]
+       44 GETTABLEKS                       R7 R8 K22 ["getFFlagExplorerStreaming"]
+       46 CALL                             R7 0 1
+       47 JUMPIFNOT                        R7 ; [+3]
+       48 GETUPVAL                         R6 9
+       49 CALL                             R6 0 1
+       50 JUMP                             ; [+1]
+       51 LOADNIL                          R6
+       52 SETTABLEKS                       R6 R5 K9 ["streamingInterface"]
+       54 GETUPVAL                         R6 10
+       55 SETTABLEKS                       R6 R5 K10 ["isServiceVisible"]
+       57 GETUPVAL                         R7 11
+       58 CALL                             R7 0 1
+       59 JUMPIFNOT                        R7 ; [+2]
+       60 GETUPVAL                         R6 12
+       61 JUMP                             ; [+1]
+       62 LOADNIL                          R6
+       63 SETTABLEKS                       R6 R5 K11 ["clickScript"]
+       65 GETUPVAL                         R6 13
+       66 SETTABLEKS                       R6 R5 K12 ["openScript"]
+       68 DUPTABLE                         R6 K26 [{"createLiveSyncStatusWatcher", "createInstanceFileSyncStatusWatcher", "createCollaboratorSelectionWatcher"}]
+       69 GETUPVAL                         R7 14
+       70 SETTABLEKS                       R7 R6 K23 ["createLiveSyncStatusWatcher"]
        72 GETUPVAL                         R7 15
-       73 SETTABLEKS                       R7 R6 K23 ["createLiveSyncStatusWatcher"]
+       73 SETTABLEKS                       R7 R6 K24 ["createInstanceFileSyncStatusWatcher"]
        75 GETUPVAL                         R7 16
-       76 SETTABLEKS                       R7 R6 K24 ["createInstanceFileSyncStatusWatcher"]
-       78 GETUPVAL                         R7 17
-       79 SETTABLEKS                       R7 R6 K25 ["createCollaboratorSelectionWatcher"]
-       81 SETTABLEKS                       R6 R5 K13 ["fieldsConfig"]
-       83 LOADB                            R6 1
-       84 SETTABLEKS                       R6 R5 K14 ["enableOpenContextMenuDelayHack"]
-       86 GETUPVAL                         R8 2
-       87 GETTABLEKS                       R7 R8 K27 ["HostDataModelType"]
-       89 GETTABLEKS                       R6 R7 K28 ["Name"]
-       91 SETTABLEKS                       R6 R5 K15 ["DEBUG_dataModelType"]
-       93 GETIMPORT                        R6 K31 [os.clock]
-       95 CALL                             R6 0 1
-       96 SETTABLEKS                       R6 R5 K16 ["DEBUG_startTime"]
-       98 CALL                             R1 4 -1
-       99 RETURN                           R1 -1
+       76 SETTABLEKS                       R7 R6 K25 ["createCollaboratorSelectionWatcher"]
+       78 SETTABLEKS                       R6 R5 K13 ["fieldsConfig"]
+       80 LOADB                            R6 1
+       81 SETTABLEKS                       R6 R5 K14 ["enableOpenContextMenuDelayHack"]
+       83 GETUPVAL                         R8 2
+       84 GETTABLEKS                       R7 R8 K27 ["HostDataModelType"]
+       86 GETTABLEKS                       R6 R7 K28 ["Name"]
+       88 SETTABLEKS                       R6 R5 K15 ["DEBUG_dataModelType"]
+       90 GETIMPORT                        R6 K31 [os.clock]
+       92 CALL                             R6 0 1
+       93 SETTABLEKS                       R6 R5 K16 ["DEBUG_startTime"]
+       95 CALL                             R1 4 -1
+       96 RETURN                           R1 -1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -203,8 +200,8 @@ PROTO_6:
        32 CAPTURE                          UPVAL U8
        33 CAPTURE                          UPVAL U9
        34 CAPTURE                          UPVAL U10
-       35 CAPTURE                          UPVAL U11
-       36 CAPTURE                          VAL R6
+       35 CAPTURE                          VAL R6
+       36 CAPTURE                          UPVAL U11
        37 CAPTURE                          UPVAL U12
        38 CAPTURE                          UPVAL U13
        39 CAPTURE                          UPVAL U14
@@ -212,22 +209,21 @@ PROTO_6:
        41 CAPTURE                          UPVAL U16
        42 CAPTURE                          UPVAL U17
        43 CAPTURE                          UPVAL U18
-       44 CAPTURE                          UPVAL U19
-       45 SETTABLEKS                       R10 R9 K4 ["createGuestRpcInterface"]
-       47 CALL                             R8 1 1
-       48 GETTABLEKS                       R9 R0 K6 ["Unloading"]
-       50 NEWCLOSURE                       R11 P1
-       51 CAPTURE                          VAL R8
-       52 CAPTURE                          VAL R5
-       53 CAPTURE                          VAL R7
-       54 CAPTURE                          VAL R2
-       55 CAPTURE                          VAL R3
-       56 CAPTURE                          VAL R1
-       57 CAPTURE                          UPVAL U20
-       58 CAPTURE                          VAL R0
-       59 NAMECALL                         R9 R9 K7 ["Connect"]
-       61 CALL                             R9 2 0
-       62 RETURN                           R0 0
+       44 SETTABLEKS                       R10 R9 K4 ["createGuestRpcInterface"]
+       46 CALL                             R8 1 1
+       47 GETTABLEKS                       R9 R0 K6 ["Unloading"]
+       49 NEWCLOSURE                       R11 P1
+       50 CAPTURE                          VAL R8
+       51 CAPTURE                          VAL R5
+       52 CAPTURE                          VAL R7
+       53 CAPTURE                          VAL R2
+       54 CAPTURE                          VAL R3
+       55 CAPTURE                          VAL R1
+       56 CAPTURE                          UPVAL U19
+       57 CAPTURE                          VAL R0
+       58 NAMECALL                         R9 R9 K7 ["Connect"]
+       60 CALL                             R9 2 0
+       61 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -331,34 +327,30 @@ MAIN:
       173 GETTABLEKS                       R20 R21 K34 ["openScript"]
       175 CALL                             R19 1 1
       176 MOVE                             R20 R8
-      177 LOADK                            R21 K35 ["GetOrCreateUniqueIdMethod"]
+      177 LOADK                            R21 K35 ["OpenScriptDocOptionsLua"]
       178 CALL                             R20 1 1
       179 MOVE                             R21 R8
-      180 LOADK                            R22 K36 ["OpenScriptDocOptionsLua"]
+      180 LOADK                            R22 K36 ["UniqueIdOverLuau"]
       181 CALL                             R21 1 1
-      182 MOVE                             R22 R8
-      183 LOADK                            R23 K37 ["UniqueIdOverLuau"]
-      184 CALL                             R22 1 1
-      185 DUPCLOSURE                       R23 K38 [PROTO_6]
-      186 CAPTURE                          VAL R7
-      187 CAPTURE                          VAL R4
-      188 CAPTURE                          VAL R5
-      189 CAPTURE                          VAL R12
-      190 CAPTURE                          VAL R14
-      191 CAPTURE                          VAL R3
-      192 CAPTURE                          VAL R13
-      193 CAPTURE                          VAL R18
-      194 CAPTURE                          VAL R20
-      195 CAPTURE                          VAL R22
-      196 CAPTURE                          VAL R1
-      197 CAPTURE                          VAL R17
-      198 CAPTURE                          VAL R15
-      199 CAPTURE                          VAL R16
-      200 CAPTURE                          VAL R21
-      201 CAPTURE                          VAL R6
-      202 CAPTURE                          VAL R19
-      203 CAPTURE                          VAL R10
-      204 CAPTURE                          VAL R9
-      205 CAPTURE                          VAL R11
-      206 CAPTURE                          VAL R0
-      207 RETURN                           R23 1
+      182 DUPCLOSURE                       R22 K37 [PROTO_6]
+      183 CAPTURE                          VAL R7
+      184 CAPTURE                          VAL R4
+      185 CAPTURE                          VAL R5
+      186 CAPTURE                          VAL R12
+      187 CAPTURE                          VAL R14
+      188 CAPTURE                          VAL R3
+      189 CAPTURE                          VAL R13
+      190 CAPTURE                          VAL R18
+      191 CAPTURE                          VAL R21
+      192 CAPTURE                          VAL R1
+      193 CAPTURE                          VAL R17
+      194 CAPTURE                          VAL R15
+      195 CAPTURE                          VAL R16
+      196 CAPTURE                          VAL R20
+      197 CAPTURE                          VAL R6
+      198 CAPTURE                          VAL R19
+      199 CAPTURE                          VAL R10
+      200 CAPTURE                          VAL R9
+      201 CAPTURE                          VAL R11
+      202 CAPTURE                          VAL R0
+      203 RETURN                           R22 1

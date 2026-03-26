@@ -78,6 +78,7 @@ MAIN:
        33 GETTABLEKS                       R5 R6 K10 ["Flags"]
        35 GETTABLEKS                       R4 R5 K11 ["getFFlagStyleQuery"]
        37 CALL                             R3 1 1
-       38 DUPCLOSURE                       R4 K12 [PROTO_2]
-       39 CAPTURE                          VAL R3
-       40 RETURN                           R4 1
+       38 CALL                             R3 0 1
+       39 DUPCLOSURE                       R4 K12 [PROTO_2]
+       40 CAPTURE                          VAL R3
+       41 RETURN                           R4 1

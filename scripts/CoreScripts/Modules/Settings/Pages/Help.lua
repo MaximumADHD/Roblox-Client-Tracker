@@ -45,8 +45,6 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
 ------------ FFLAGS -------------------
-local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
-local FFlagUseNotificationsLocalization = success and result
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 
@@ -332,42 +330,21 @@ local function Initialize()
 		local gamepadFontSize = isTenFootInterface and Theme.fontSize(Enum.FontSize.Size36) or Theme.fontSize(Enum.FontSize.Size24)
 		local textVerticalSize = (gamepadFontSize == Theme.fontSize(Enum.FontSize.Size36)) and Theme.textSize(36) or Theme.textSize(24)
 		local function createGamepadLabel(text, position, size, rightAligned)
-			local nameLabel = nil
-			if FFlagUseNotificationsLocalization == true then
-				nameLabel = Create'TextLabel'{
-				  Position = position,
-				  Size = size,
-				  BackgroundTransparency = 1,
-				  Text = text,
-				  TextXAlignment = rightAligned and Enum.TextXAlignment.Right or Enum.TextXAlignment.Left,
-				  AnchorPoint = rightAligned and Vector2.new(1, 0.5) or Vector2.new(0, 0.5),
-				  Font = Theme.font(Enum.Font.SourceSansBold, "HelpGamepad"),
-				  FontSize = gamepadFontSize,
-				  TextColor3 = Color3.new(1,1,1),
-				  Name = text .. "Label",
-				  ZIndex = 2,
-				  Parent = gamepadImageLabel,
-				  TextScaled = true,
-				  TextWrapped = true,
-				  TextTruncate = Enum.TextTruncate.AtEnd,			
-				};
-			else
-				nameLabel = Create'TextLabel'{
-				  Position = position,
-				  Size = size,
-				  BackgroundTransparency = 1,
-				  Text = text,
-				  TextXAlignment = rightAligned and Enum.TextXAlignment.Right or Enum.TextXAlignment.Left,
-				  AnchorPoint = rightAligned and Vector2.new(1, 0.5) or Vector2.new(0, 0.5),
-				  Font = Theme.font(Enum.Font.SourceSansBold, "HelpGamepad"),
-				  FontSize = gamepadFontSize,
-				  TextColor3 = Color3.new(1,1,1),
-				  Name = text .. "Label",
-				  ZIndex = 2,
-				  Parent = gamepadImageLabel,
-				  TextTruncate = Enum.TextTruncate.AtEnd,
-				};
-			end
+			local nameLabel = Create'TextLabel'{
+				Position = position,
+				Size = size,
+				BackgroundTransparency = 1,
+				Text = text,
+				TextXAlignment = rightAligned and Enum.TextXAlignment.Right or Enum.TextXAlignment.Left,
+				AnchorPoint = rightAligned and Vector2.new(1, 0.5) or Vector2.new(0, 0.5),
+				Font = Theme.font(Enum.Font.SourceSansBold, "HelpGamepad"),
+				FontSize = gamepadFontSize,
+				TextColor3 = Color3.new(1,1,1),
+				Name = text .. "Label",
+				ZIndex = 2,
+				Parent = gamepadImageLabel,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+			};
 
 			nameLabel.TextWrapped = true
 

@@ -85,6 +85,7 @@ type _Messages =
 		IconProp: _IconPropMessage,
 		IconProp_ConditionalOption: _IconProp_ConditionalOptionMessage,
 		IconProp_ConditionalOptions: _IconProp_ConditionalOptionsMessage,
+		IconSizeProp: _IconSizePropMessage,
 		GradientProp: _GradientPropMessage,
 		GradientProp_ConditionalOption: _GradientProp_ConditionalOptionMessage,
 		GradientProp_ConditionalOptions: _GradientProp_ConditionalOptionsMessage,
@@ -2381,6 +2382,27 @@ type _IconProp_ConditionalOptionsMessage = proto.Message<
 	IconProp_ConditionalOptions,
 	_IconProp_ConditionalOptionsPartialFields
 >
+
+type _IconSizePropImpl = {
+	__index: _IconSizePropImpl,
+	new: (fields: _IconSizePropPartialFields?) -> IconSizeProp,
+	encode: (self: IconSizeProp) -> buffer,
+	decode: (input: buffer) -> IconSizeProp,
+	jsonEncode: (self: IconSizeProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> IconSizeProp,
+	descriptor: proto.Descriptor,
+}
+
+type _IconSizePropFields = {
+	oneof_prop: ({ type: "string_prop", value: StringProp } | { type: "int32_prop", value: Int32Prop })?,
+}
+
+type _IconSizePropPartialFields = {
+	oneof_prop: ({ type: "string_prop", value: StringProp } | { type: "int32_prop", value: Int32Prop })?,
+}
+
+export type IconSizeProp = typeof(setmetatable({} :: _IconSizePropFields, {} :: _IconSizePropImpl))
+type _IconSizePropMessage = proto.Message<IconSizeProp, _IconSizePropPartialFields>
 
 type _GradientPropImpl = {
 	__index: _GradientPropImpl,
@@ -13367,6 +13389,131 @@ do
 end
 
 do
+	local _IconSizePropImpl = {}
+	_IconSizePropImpl.__index = _IconSizePropImpl
+
+	function _IconSizePropImpl.new(data: _IconSizePropPartialFields?): IconSizeProp
+		return setmetatable({
+			oneof_prop = if data == nil or data.oneof_prop == nil then nil else data.oneof_prop,
+		}, _IconSizePropImpl :: _IconSizePropImpl)
+	end
+
+	function _IconSizePropImpl.encode(self: IconSizeProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.oneof_prop ~= nil then
+			if self.oneof_prop.type == "string_prop" then
+				local encoded = self.oneof_prop.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.oneof_prop.type == "int32_prop" then
+				local encoded = self.oneof_prop.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _IconSizePropImpl.decode(input: buffer): IconSizeProp
+		local self = _IconSizePropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.oneof_prop = { type = "string_prop", value = messages.StringProp.decode(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.oneof_prop = { type = "int32_prop", value = messages.Int32Prop.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _IconSizePropImpl.jsonEncode(self: IconSizeProp): any
+		local output = {}
+
+		if self.oneof_prop ~= nil then
+			if self.oneof_prop.type == "string_prop" then
+				output.stringProp = self.oneof_prop.value:jsonEncode()
+			elseif self.oneof_prop.type == "int32_prop" then
+				output.int32Prop = self.oneof_prop.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _IconSizePropImpl.jsonDecode(input: { [string]: any }): IconSizeProp
+		local self = _IconSizePropImpl.new()
+
+		if input.string_prop ~= nil then
+			self.oneof_prop = { type = "string_prop", value = messages.StringProp.jsonDecode(input.string_prop) }
+		end
+
+		if input.stringProp ~= nil then
+			self.oneof_prop = { type = "string_prop", value = messages.StringProp.jsonDecode(input.stringProp) }
+		end
+
+		if input.int32_prop ~= nil then
+			self.oneof_prop = { type = "int32_prop", value = messages.Int32Prop.jsonDecode(input.int32_prop) }
+		end
+
+		if input.int32Prop ~= nil then
+			self.oneof_prop = { type = "int32_prop", value = messages.Int32Prop.jsonDecode(input.int32Prop) }
+		end
+
+		return self
+	end
+
+	_IconSizePropImpl.descriptor = {
+		name = "IconSizeProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.IconSizeProp",
+	}
+
+	messages.IconSizeProp = _IconSizePropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.IconSizeProp)
+end
+
+do
 	local _GradientPropImpl = {}
 	_GradientPropImpl.__index = _GradientPropImpl
 
@@ -15766,6 +15913,7 @@ return {
 	IconProp = messages.IconProp,
 	IconProp_ConditionalOption = messages.IconProp_ConditionalOption,
 	IconProp_ConditionalOptions = messages.IconProp_ConditionalOptions,
+	IconSizeProp = messages.IconSizeProp,
 	GradientProp = messages.GradientProp,
 	GradientProp_ConditionalOption = messages.GradientProp_ConditionalOption,
 	GradientProp_ConditionalOptions = messages.GradientProp_ConditionalOptions,

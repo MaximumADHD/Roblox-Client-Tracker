@@ -26,6 +26,7 @@ local AvailabilitySignal = utils.AvailabilitySignal
 local Types = require(Root.Service.Types)
 local Constants = require(Root.Unibar.Constants)
 local ShortcutService = require(Root.Service.ShortcutService)
+local openSideSheet
 
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local isInExperienceUIVREnabled =
@@ -33,10 +34,15 @@ local isInExperienceUIVREnabled =
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
 local FFlagChromeDeprecateMRUs = game:DefineFastFlag("ChromeDeprecateMRUs", false)
 local FFlagVirtualCursorTopbarAlwaysVisible = SharedFlags.FFlagVirtualCursorTopbarAlwaysVisible
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
 local CHROME_WINDOW_POSITION_KEY = "ChromeWindowPosition"
 local CHROME_WINDOW_STATE_KEY = "ChromeWindowStatus"
+
+if FFlagEnableSideSheet then
+	openSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet).openSideSheet
+end
 
 -- todo: Consider how ChromeService could support multiple UI at the same time, not only the Unibar
 --       Does there need to be another layer "IntegrationsService" that ChromeService can pull from?
@@ -349,6 +355,11 @@ function ChromeService:notificationIndicator()
 end
 
 function ChromeService:toggleSubMenu(subMenuId: Types.IntegrationId)
+	if FFlagEnableSideSheet then
+		openSideSheet()
+		return
+	end
+
 	if not self._subMenuConfig[subMenuId] then
 		warn("Not a valid subMenuId:" .. subMenuId)
 		return

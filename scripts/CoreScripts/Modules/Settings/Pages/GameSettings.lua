@@ -89,6 +89,8 @@ local FFlagMicroProfilerReadOnlyInformationLabel = game:DefineFastFlag("MicroPro
 local FFlagEnableModerateChatRemoteEvent = SharedFlags.FFlagEnableModerateChatRemoteEvent
 local FFlagModerateChatAnalytics = game:DefineFastFlag("ModerateChatAnalytics", false)
 local FFlagPSUseVibrationInsteadOfHaptics = game:DefineFastFlag("PSUseVibrationInsteadOfHaptics", false)
+local FFlagVoiceSelectorAvailableAfterFae = game:DefineFastFlag("VoiceSelectorAvailableAfterFae", false)
+local FFlagDifferentiateVoiceSelectorSystemAndUser = game:DefineFastFlag("DifferentiateVoiceSelectorSystemAndUser", false)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -3461,7 +3463,17 @@ local function Initialize()
 	end
 
 	local micPermissionsDenied = false
+	local isProgrammaticChange
+	if FFlagDifferentiateVoiceSelectorSystemAndUser then
+		isProgrammaticChange = false
+	end
 	local function createVoiceChatSelector()
+		if FFlagVoiceSelectorAvailableAfterFae then
+			if this.VoiceConnectDisconnectFrame and this.VoiceConnectDisconnectSelector then
+				return
+			end
+		end
+
 		local frameText = "Voice Chat"
 		local disconnectedText = "Disconnected"
 		local connectedText = "Connected"
@@ -3479,14 +3491,30 @@ local function Initialize()
 
 		-- Update selector based on voice chat state changes
 		local voiceService = VoiceChatServiceManager:getService()
-		if voiceService then
+		if voiceService and not FFlagDifferentiateVoiceSelectorSystemAndUser then
 			voiceService.StateChanged:Connect(function(oldState, newState)
-				if oldState == newState then
-					return
-				elseif newState == (Enum :: any).VoiceChatState.Joined then
-					this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
-				elseif VoiceChatServiceManager:VoiceChatEnded() then
-					this.VoiceConnectDisconnectSelector:SetSelectionIndex(1)
+				if FFlagVoiceSelectorAvailableAfterFae then
+					if oldState == newState then
+						return
+					elseif newState == (Enum :: any).VoiceChatState.Joined
+						and this.VoiceConnectDisconnectSelector:GetSelectedIndex() ~= 2
+					then
+						this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
+					elseif (newState == (Enum :: any).VoiceChatState.Ended 
+						or newState == (Enum :: any).VoiceChatState.Failed
+						or newState == (Enum :: any).VoiceChatState.Idle)
+						and this.VoiceConnectDisconnectSelector:GetSelectedIndex() ~= 1
+					then
+						this.VoiceConnectDisconnectSelector:SetSelectionIndex(1)
+					end
+				else
+					if oldState == newState then
+						return
+					elseif newState == (Enum :: any).VoiceChatState.Joined then
+						this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
+					elseif VoiceChatServiceManager:VoiceChatEnded() then
+						this.VoiceConnectDisconnectSelector:SetSelectionIndex(1)
+					end
 				end
 			end)
 		end
@@ -3504,6 +3532,10 @@ local function Initialize()
 			end
 
 			previousIndex = newIndex
+
+			if FFlagDifferentiateVoiceSelectorSystemAndUser and isProgrammaticChange then
+				return
+			end
 
 			VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
 				"clicked",
@@ -3541,8 +3573,19 @@ local function Initialize()
 		end
 
 		VoiceChatServiceManager:subscribe("OnStateChanged", function(oldState, newState)
+			if FFlagDifferentiateVoiceSelectorSystemAndUser then
+				isProgrammaticChange = true
+				if newState == (Enum :: any).VoiceChatState.Joined then
+					this.VoiceConnectDisconnectSelector:SetSelectionIndex(connectedIndex)
+				end
+			end
+
 			if newState == (Enum :: any).VoiceChatState.Failed then
 				this.VoiceConnectDisconnectSelector:SetSelectionIndex(disconnectedIndex)
+			end
+
+			if FFlagDifferentiateVoiceSelectorSystemAndUser then
+				isProgrammaticChange = false
 			end
 		end)
 
@@ -3550,7 +3593,13 @@ local function Initialize()
 			task.spawn(function()
 				task.wait(0.5)
 				micPermissionsDenied = true
+				if FFlagDifferentiateVoiceSelectorSystemAndUser then
+					isProgrammaticChange = true
+				end
 				this.VoiceConnectDisconnectSelector:SetSelectionIndex(disconnectedIndex)
+				if FFlagDifferentiateVoiceSelectorSystemAndUser then
+					isProgrammaticChange = false
+				end
 			end)
 		end)
 	end
@@ -3867,6 +3916,12 @@ local function Initialize()
 				:andThen(function()
 					VoiceChatService = VoiceChatServiceManager:getService()
 					checkVoiceChatOptions()
+
+					if FFlagVoiceSelectorAvailableAfterFae then
+						if VoiceChatServiceManager:UserVoiceEnabled() then
+							createVoiceChatSelector()
+						end
+					end
 
 					-- Check volume settings. Show prompt if volume is 0
 					if not GetFFlagEnableUniveralVoiceToasts() then

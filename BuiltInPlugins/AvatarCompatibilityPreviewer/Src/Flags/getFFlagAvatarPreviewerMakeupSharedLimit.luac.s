@@ -1,0 +1,25 @@
+PROTO_0:
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["AvatarPreviewerMakeupSharedLimit"]
+        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        5 CALL                             R0 2 1
+        6 JUMPIFNOT                        R0 ; [+2]
+        7 GETUPVAL                         R0 0
+        8 CALL                             R0 0 1
+        9 RETURN                           R0 1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [require]
+        3 GETIMPORT                        R3 K3 [script]
+        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K5 ["getFFlagAvatarPreviewerMakeup"]
+        9 CALL                             R0 1 1
+       10 GETIMPORT                        R1 K7 [game]
+       12 LOADK                            R3 K8 ["AvatarPreviewerMakeupSharedLimit"]
+       13 LOADB                            R4 0
+       14 NAMECALL                         R1 R1 K9 ["DefineFastFlag"]
+       16 CALL                             R1 3 0
+       17 DUPCLOSURE                       R1 K10 [PROTO_0]
+       18 CAPTURE                          VAL R0
+       19 RETURN                           R1 1

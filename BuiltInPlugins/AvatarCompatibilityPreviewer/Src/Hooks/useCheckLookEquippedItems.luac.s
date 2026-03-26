@@ -9,43 +9,45 @@ PROTO_0:
         8 GETTABLEKS                       R7 R8 K1 ["source"]
        10 GETUPVAL                         R9 1
        11 GETTABLEKS                       R8 R9 K2 ["SOURCE_MARKETPLACE"]
-       13 JUMPIFNOTEQ                      R7 R8 ; [+33]
+       13 JUMPIFNOTEQ                      R7 R8 ; [+36]
        15 GETTABLEKS                       R8 R6 K3 ["palette"]
        17 GETTABLEKS                       R7 R8 K4 ["PublishAssetType"]
-       19 JUMPIFEQKNIL                     R7 ; [+27]
-       21 GETIMPORT                        R8 K7 [table.find]
-       23 GETUPVAL                         R10 1
-       24 GETTABLEKS                       R9 R10 K8 ["CLOTHING_ASSET_TYPES"]
-       26 MOVE                             R10 R7
-       27 CALL                             R8 2 1
-       28 GETIMPORT                        R9 K7 [table.find]
-       30 GETUPVAL                         R11 1
-       31 GETTABLEKS                       R10 R11 K9 ["ACCESSORY_ASSET_TYPES"]
-       33 MOVE                             R11 R7
-       34 CALL                             R9 2 1
-       35 JUMPIF                           R8 ; [+1]
-       36 JUMPIFNOT                        R9 ; [+1]
-       37 ADDK                             R0 R0 K10 [1]
-       38 GETIMPORT                        R10 K7 [table.find]
-       40 GETUPVAL                         R12 1
-       41 GETTABLEKS                       R11 R12 K11 ["MAKEUP_ASSET_TYPES"]
-       43 MOVE                             R12 R7
-       44 CALL                             R10 2 1
-       45 JUMPIFNOT                        R10 ; [+1]
-       46 ADDK                             R1 R1 K10 [1]
-       47 FORGLOOP                         R2 2 ; [-42]
-       49 DUPTABLE                         R2 K14 [{"canCreateAvatarLook", "canCreateMakeupLook"}]
-       50 LOADN                            R4 1
-       51 JUMPIFLE                         R4 R0 ; [+2]
-       53 LOADB                            R3 0 +1
-       54 LOADB                            R3 1
-       55 SETTABLEKS                       R3 R2 K12 ["canCreateAvatarLook"]
-       57 LOADN                            R4 2
-       58 JUMPIFLE                         R4 R1 ; [+2]
-       60 LOADB                            R3 0 +1
-       61 LOADB                            R3 1
-       62 SETTABLEKS                       R3 R2 K13 ["canCreateMakeupLook"]
-       64 RETURN                           R2 1
+       19 JUMPIFEQKNIL                     R7 ; [+30]
+       21 GETTABLEKS                       R8 R6 K5 ["isHidden"]
+       23 JUMPIF                           R8 ; [+26]
+       24 GETIMPORT                        R8 K8 [table.find]
+       26 GETUPVAL                         R10 1
+       27 GETTABLEKS                       R9 R10 K9 ["CLOTHING_ASSET_TYPES"]
+       29 MOVE                             R10 R7
+       30 CALL                             R8 2 1
+       31 GETIMPORT                        R9 K8 [table.find]
+       33 GETUPVAL                         R11 1
+       34 GETTABLEKS                       R10 R11 K10 ["ACCESSORY_ASSET_TYPES"]
+       36 MOVE                             R11 R7
+       37 CALL                             R9 2 1
+       38 JUMPIF                           R8 ; [+1]
+       39 JUMPIFNOT                        R9 ; [+1]
+       40 ADDK                             R0 R0 K11 [1]
+       41 GETIMPORT                        R10 K8 [table.find]
+       43 GETUPVAL                         R12 1
+       44 GETTABLEKS                       R11 R12 K12 ["MAKEUP_ASSET_TYPES"]
+       46 MOVE                             R12 R7
+       47 CALL                             R10 2 1
+       48 JUMPIFNOT                        R10 ; [+1]
+       49 ADDK                             R1 R1 K11 [1]
+       50 FORGLOOP                         R2 2 ; [-45]
+       52 DUPTABLE                         R2 K15 [{"canCreateAvatarLook", "canCreateMakeupLook"}]
+       53 LOADN                            R4 1
+       54 JUMPIFLE                         R4 R0 ; [+2]
+       56 LOADB                            R3 0 +1
+       57 LOADB                            R3 1
+       58 SETTABLEKS                       R3 R2 K13 ["canCreateAvatarLook"]
+       60 LOADN                            R4 2
+       61 JUMPIFLE                         R4 R1 ; [+2]
+       63 LOADB                            R3 0 +1
+       64 LOADB                            R3 1
+       65 SETTABLEKS                       R3 R2 K14 ["canCreateMakeupLook"]
+       67 RETURN                           R2 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0

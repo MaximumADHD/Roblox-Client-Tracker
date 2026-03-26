@@ -29,9 +29,6 @@ function LocalizeWithFallback(key, fallback)
   return fallback
 end
 
-local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
-local FFlagUseNotificationsLocalization = success and result
-
 function PingStatName()
   if game:GetEngineFeature("PerfStatNetworkPingEnabled2") then
     return "NetworkPing"
@@ -197,24 +194,7 @@ function StatsUtils.StyleButtonSelected(frame, isSelected)
   end
 end
 
-local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
-local FFlagUseNotificationsLocalization = success and result
-
 function StatsUtils.FormatTypedValue(value, statType)
-  if FFlagUseNotificationsLocalization then
-    if statType == StatsUtils.StatType_CPU or statType == StatsUtils.StatType_GPU then
-      return string.gsub(
-        LocalizeWithFallback("InGame.StatsUtil.ms",string.format("%.2f MB", value)),
-        "{RBX_NUMBER}",string.format("%.2f",value)
-      )
-    elseif statType == StatsUtils.StatType_NetworkSent or statType == StatsUtils.StatType_NetworkReceived then
-      return string.gsub(
-        LocalizeWithFallback("InGame.StatsUtil.KBps",string.format("%.2f KB/s", value)),
-        "{RBX_NUMBER}",string.format("%.2f",value)
-      )
-    end
-  end
-
   if statType == StatsUtils.StatType_Memory then
     return string.format("%.2f MB", value)
   elseif statType == StatsUtils.StatType_CPU then

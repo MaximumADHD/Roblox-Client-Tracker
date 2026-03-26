@@ -1,48 +1,5 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
-        2 JUMPIFNOT                        R1 ; [+8]
-        3 GETTABLEKS                       R3 R0 K0 ["responseBody"]
-        5 GETTABLEKS                       R2 R3 K1 ["isItemTagsFeatureEnabled"]
-        7 JUMPIFEQKB                       R2 TRUE ; [+2]
-        9 LOADB                            R1 0 +1
-       10 LOADB                            R1 1
-       11 GETTABLEKS                       R3 R0 K0 ["responseBody"]
-       13 JUMPIFNOT                        R3 ; [+8]
-       14 GETTABLEKS                       R3 R0 K0 ["responseBody"]
-       16 GETTABLEKS                       R2 R3 K2 ["enabledAssetTypes"]
-       18 JUMPIF                           R2 ; [+5]
-       19 NEWTABLE                         R2 0 0
-       21 JUMP                             ; [+2]
-       22 NEWTABLE                         R2 0 0
-       24 GETTABLEKS                       R4 R0 K0 ["responseBody"]
-       26 JUMPIFNOT                        R4 ; [+6]
-       27 GETTABLEKS                       R5 R0 K0 ["responseBody"]
-       29 GETTABLEKS                       R4 R5 K4 ["maximumItemTagsPerItem"]
-       31 ORK                              R3 R4 K3 [0]
-       32 JUMP                             ; [+1]
-       33 LOADN                            R3 0
-       34 GETUPVAL                         R4 0
-       35 GETUPVAL                         R6 1
-       36 MOVE                             R7 R1
-       37 MOVE                             R8 R2
-       38 MOVE                             R9 R3
-       39 CALL                             R6 3 -1
-       40 NAMECALL                         R4 R4 K5 ["dispatch"]
-       42 CALL                             R4 -1 0
-       43 RETURN                           R0 0
-
-PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
-        3 CALL                             R1 0 1
-        4 JUMPIFNOT                        R1 ; [+4]
-        5 GETIMPORT                        R1 K2 [warn]
-        7 LOADK                            R2 K3 ["Lua toolbox: Could not get tags metadata"]
-        8 CALL                             R1 1 0
-        9 RETURN                           R0 0
-
-PROTO_2:
-        0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
         2 JUMPIFNOT                        R1 ; [+4]
         3 GETTABLEKS                       R2 R0 K0 ["responseBody"]
         5 GETTABLEKS                       R1 R2 K1 ["isBundlesControllerEnabled"]
@@ -76,28 +33,12 @@ PROTO_2:
        41 CALL                             R6 1 -1
        42 NAMECALL                         R4 R4 K4 ["dispatch"]
        44 CALL                             R4 -1 0
-       45 GETUPVAL                         R2 4
-       46 CALL                             R2 0 1
-       47 JUMPIFNOT                        R2 ; [+5]
-       48 GETUPVAL                         R3 5
-       49 GETTABLEKS                       R2 R3 K5 ["resolve"]
-       51 CALL                             R2 0 -1
-       52 RETURN                           R2 -1
-       53 NEWCLOSURE                       R2 P0
-       54 CAPTURE                          UPVAL U1
-       55 CAPTURE                          UPVAL U6
-       56 DUPCLOSURE                       R3 K6 [PROTO_1]
-       57 CAPTURE                          UPVAL U7
-       58 GETUPVAL                         R4 8
-       59 NAMECALL                         R4 R4 K7 ["getTagsMetadata"]
-       61 CALL                             R4 1 1
-       62 MOVE                             R6 R2
-       63 MOVE                             R7 R3
-       64 NAMECALL                         R4 R4 K8 ["andThen"]
-       66 CALL                             R4 3 -1
-       67 RETURN                           R4 -1
+       45 GETUPVAL                         R3 4
+       46 GETTABLEKS                       R2 R3 K5 ["resolve"]
+       48 CALL                             R2 0 -1
+       49 RETURN                           R2 -1
 
-PROTO_3:
+PROTO_1:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
@@ -107,7 +48,7 @@ PROTO_3:
         8 CALL                             R1 1 0
         9 RETURN                           R0 0
 
-PROTO_4:
+PROTO_2:
         0 NEWTABLE                         R1 0 0
         2 GETTABLEKS                       R2 R0 K0 ["responseBody"]
         4 JUMPIFNOT                        R2 ; [+26]
@@ -142,22 +83,18 @@ PROTO_4:
        43 CAPTURE                          UPVAL U5
        44 CAPTURE                          UPVAL U6
        45 CAPTURE                          UPVAL U7
-       46 CAPTURE                          UPVAL U8
-       47 CAPTURE                          UPVAL U9
-       48 CAPTURE                          UPVAL U10
-       49 CAPTURE                          UPVAL U11
-       50 DUPCLOSURE                       R3 K5 [PROTO_3]
-       51 CAPTURE                          UPVAL U10
-       52 GETUPVAL                         R4 11
-       53 NAMECALL                         R4 R4 K6 ["getBundleMetadata"]
-       55 CALL                             R4 1 1
-       56 MOVE                             R6 R2
-       57 MOVE                             R7 R3
-       58 NAMECALL                         R4 R4 K7 ["andThen"]
-       60 CALL                             R4 3 -1
-       61 RETURN                           R4 -1
+       46 DUPCLOSURE                       R3 K5 [PROTO_1]
+       47 CAPTURE                          UPVAL U8
+       48 GETUPVAL                         R4 9
+       49 NAMECALL                         R4 R4 K6 ["getBundleMetadata"]
+       51 CALL                             R4 1 1
+       52 MOVE                             R6 R2
+       53 MOVE                             R7 R3
+       54 NAMECALL                         R4 R4 K7 ["andThen"]
+       56 CALL                             R4 3 -1
+       57 RETURN                           R4 -1
 
-PROTO_5:
+PROTO_3:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
@@ -173,9 +110,9 @@ PROTO_5:
        15 CALL                             R1 -1 0
        16 RETURN                           R0 0
 
-PROTO_6:
+PROTO_4:
         0 GETUPVAL                         R1 0
-        1 JUMPIFNOT                        R1 ; [+44]
+        1 JUMPIFNOT                        R1 ; [+42]
         2 NEWCLOSURE                       R1 P0
         3 CAPTURE                          UPVAL U1
         4 CAPTURE                          UPVAL U2
@@ -186,39 +123,37 @@ PROTO_6:
         9 CAPTURE                          UPVAL U6
        10 CAPTURE                          UPVAL U7
        11 CAPTURE                          UPVAL U8
-       12 CAPTURE                          UPVAL U9
-       13 CAPTURE                          UPVAL U10
-       14 CAPTURE                          UPVAL U0
-       15 NEWCLOSURE                       R2 P1
-       16 CAPTURE                          UPVAL U10
-       17 CAPTURE                          VAL R0
-       18 CAPTURE                          UPVAL U11
-       19 GETUPVAL                         R3 0
-       20 GETUPVAL                         R6 12
-       21 CALL                             R6 0 1
-       22 JUMPIFNOT                        R6 ; [+4]
-       23 GETUPVAL                         R6 13
-       24 GETTABLEKS                       R5 R6 K0 ["MARKETPLACE_ACTION_TYPE_PUBLISH"]
-       26 JUMP                             ; [+3]
-       27 GETUPVAL                         R6 13
-       28 GETTABLEKS                       R5 R6 K1 ["MARKETPLACE_ACTION_TYPE_UPLOAD"]
-       30 NEWTABLE                         R6 0 1
-       32 GETUPVAL                         R8 14
-       33 GETTABLEKS                       R7 R8 K2 ["TARGET_TYPE_ASSET"]
-       35 SETLIST                          R6 R7 1 [1]
-       37 NAMECALL                         R3 R3 K3 ["getAllowedItemTypes"]
-       39 CALL                             R3 3 1
-       40 MOVE                             R5 R1
-       41 MOVE                             R6 R2
-       42 NAMECALL                         R3 R3 K4 ["andThen"]
-       44 CALL                             R3 3 -1
-       45 RETURN                           R3 -1
-       46 GETUPVAL                         R2 8
-       47 GETTABLEKS                       R1 R2 K5 ["reject"]
-       49 CALL                             R1 0 -1
-       50 RETURN                           R1 -1
+       12 CAPTURE                          UPVAL U0
+       13 NEWCLOSURE                       R2 P1
+       14 CAPTURE                          UPVAL U8
+       15 CAPTURE                          VAL R0
+       16 CAPTURE                          UPVAL U9
+       17 GETUPVAL                         R3 0
+       18 GETUPVAL                         R6 10
+       19 CALL                             R6 0 1
+       20 JUMPIFNOT                        R6 ; [+4]
+       21 GETUPVAL                         R6 11
+       22 GETTABLEKS                       R5 R6 K0 ["MARKETPLACE_ACTION_TYPE_PUBLISH"]
+       24 JUMP                             ; [+3]
+       25 GETUPVAL                         R6 11
+       26 GETTABLEKS                       R5 R6 K1 ["MARKETPLACE_ACTION_TYPE_UPLOAD"]
+       28 NEWTABLE                         R6 0 1
+       30 GETUPVAL                         R8 12
+       31 GETTABLEKS                       R7 R8 K2 ["TARGET_TYPE_ASSET"]
+       33 SETLIST                          R6 R7 1 [1]
+       35 NAMECALL                         R3 R3 K3 ["getAllowedItemTypes"]
+       37 CALL                             R3 3 1
+       38 MOVE                             R5 R1
+       39 MOVE                             R6 R2
+       40 NAMECALL                         R3 R3 K4 ["andThen"]
+       42 CALL                             R3 3 -1
+       43 RETURN                           R3 -1
+       44 GETUPVAL                         R2 7
+       45 GETTABLEKS                       R1 R2 K5 ["reject"]
+       47 CALL                             R1 0 -1
+       48 RETURN                           R1 -1
 
-PROTO_7:
+PROTO_5:
         0 NEWCLOSURE                       R1 P0
         1 CAPTURE                          VAL R0
         2 CAPTURE                          UPVAL U0
@@ -233,9 +168,7 @@ PROTO_7:
        11 CAPTURE                          UPVAL U9
        12 CAPTURE                          UPVAL U10
        13 CAPTURE                          UPVAL U11
-       14 CAPTURE                          UPVAL U12
-       15 CAPTURE                          UPVAL U13
-       16 RETURN                           R1 1
+       14 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -305,34 +238,17 @@ MAIN:
       116 GETTABLEKS                       R15 R16 K21 ["Flags"]
       118 GETTABLEKS                       R14 R15 K23 ["getFFlagUsePublishMarketplaceActionType"]
       120 CALL                             R13 1 1
-      121 GETIMPORT                        R14 K5 [require]
-      123 GETTABLEKS                       R17 R0 K9 ["Src"]
-      125 GETTABLEKS                       R16 R17 K21 ["Flags"]
-      127 GETTABLEKS                       R15 R16 K24 ["getFFlagRemoveItemTags"]
-      129 CALL                             R14 1 1
-      130 MOVE                             R16 R14
-      131 CALL                             R16 0 1
-      132 JUMPIFNOT                        R16 ; [+2]
-      133 LOADNIL                          R15
-      134 JUMP                             ; [+9]
-      135 GETIMPORT                        R15 K5 [require]
-      137 GETTABLEKS                       R18 R0 K9 ["Src"]
-      139 GETTABLEKS                       R17 R18 K10 ["Actions"]
-      141 GETTABLEKS                       R16 R17 K25 ["SetTagsMetadata"]
-      143 CALL                             R15 1 1
-      144 DUPCLOSURE                       R16 K26 [PROTO_7]
-      145 CAPTURE                          VAL R10
-      146 CAPTURE                          VAL R11
-      147 CAPTURE                          VAL R4
-      148 CAPTURE                          VAL R12
-      149 CAPTURE                          VAL R6
-      150 CAPTURE                          VAL R5
-      151 CAPTURE                          VAL R14
-      152 CAPTURE                          VAL R2
-      153 CAPTURE                          VAL R15
-      154 CAPTURE                          VAL R9
-      155 CAPTURE                          VAL R3
-      156 CAPTURE                          VAL R13
-      157 CAPTURE                          VAL R7
-      158 CAPTURE                          VAL R8
-      159 RETURN                           R16 1
+      121 DUPCLOSURE                       R14 K24 [PROTO_5]
+      122 CAPTURE                          VAL R10
+      123 CAPTURE                          VAL R11
+      124 CAPTURE                          VAL R4
+      125 CAPTURE                          VAL R12
+      126 CAPTURE                          VAL R6
+      127 CAPTURE                          VAL R5
+      128 CAPTURE                          VAL R2
+      129 CAPTURE                          VAL R9
+      130 CAPTURE                          VAL R3
+      131 CAPTURE                          VAL R13
+      132 CAPTURE                          VAL R7
+      133 CAPTURE                          VAL R8
+      134 RETURN                           R14 1

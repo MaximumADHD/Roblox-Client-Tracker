@@ -17,6 +17,8 @@ local ContextActionService = game:GetService("ContextActionService")
 local TextService = game:GetService("TextService")
 local GuiService = game:GetService("GuiService")
 
+local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
+
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local TenFootInterface = require(CoreGuiModules:WaitForChild("TenFootInterface"))
@@ -526,7 +528,11 @@ function ShowPrompt()
 		PromptDialogVR:Show(true)
 		DisableControllerMovement()
 	else
-		PromptDialog:TweenPosition(SHOW_POSITION, Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, TWEEN_TIME, true, OnTweenInFinished)
+		if featureDeprecateOldGuiObjectProperties then
+			PromptDialog:TweenPositionInternal(SHOW_POSITION, Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, TWEEN_TIME, true, OnTweenInFinished)
+		else
+			PromptDialog:TweenPosition(SHOW_POSITION, Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, TWEEN_TIME, true, OnTweenInFinished)
+		end
 		DisableControllerMovement()
 		EnableControllerInput()
 	end
@@ -549,7 +555,11 @@ function HidePrompt()
 		PromptDialogVR:Close()
 		onClosed()
 	else
-		PromptDialog:TweenPosition(HIDE_POSITION, Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, TWEEN_TIME, true, onClosed)
+		if featureDeprecateOldGuiObjectProperties then
+			PromptDialog:TweenPositionInternal(HIDE_POSITION, Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, TWEEN_TIME, true, onClosed)
+		else
+			PromptDialog:TweenPosition(HIDE_POSITION, Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, TWEEN_TIME, true, onClosed)
+		end
 	end
 end
 

@@ -175,8 +175,11 @@ local Constants = {
 	DontLeaveGameLocalizedKey = "CoreScripts.InGameMenu.Action.DontLeaveGame",
 	DontResetCharacterLocalizedKey = if FFlagRenameRespawnConfirmationPage then "CoreScripts.InGameMenu.Action.DontRespawnCharacter" else "CoreScripts.InGameMenu.Action.DontResetCharacter",
 	ConnectionLocalizedKey = "CommonUI.Features.Label.Connection",
+	FriendLocalizedKey = "Feature.Friends.Label.Friend",
 	AddConnectionLocalizedKey = "CommonUI.Features.Label.AddConnection",
+	AddFriendLocalizedKey = "Feature.Profile.Label.AddFriend",
 	InviteConnectionsLocalizedKey = "CommonUI.Features.Label.InviteConnections",
+	InviteFriendsLocalizedKey = "Feature.SettingsHub.Heading.InviteFriends",
 	MovementModeDynamicThumbstickKey = "Feature.SettingsHub.Default.DynamicThumbstick",
 }
 

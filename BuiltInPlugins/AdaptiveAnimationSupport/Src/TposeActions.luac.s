@@ -1,11 +1,15 @@
 PROTO_0:
+        0 GETIMPORT                        R0 K3 [Enum.RigLabel.LeftToeBase]
+        2 RETURN                           R0 1
+
+PROTO_1:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["mirrorTransformMotor6D"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 -1
         5 RETURN                           R1 -1
 
-PROTO_1:
+PROTO_2:
         0 JUMPIFNOT                        R2 ; [+1]
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
@@ -131,50 +135,61 @@ MAIN:
        31 GETTABLEKS                       R7 R8 K13 ["Flags"]
        33 GETTABLEKS                       R6 R7 K14 ["getFFlagAdaptiveAnimationConstraints"]
        35 CALL                             R5 1 1
-       36 NEWTABLE                         R6 0 8
-       38 NEWTABLE                         R7 0 2
-       40 GETIMPORT                        R8 K18 [Enum.RigLabel.LeftClavicle]
-       42 GETIMPORT                        R9 K20 [Enum.RigLabel.RightClavicle]
-       44 SETLIST                          R7 R8 2 [1]
-       46 NEWTABLE                         R8 0 2
-       48 GETIMPORT                        R9 K22 [Enum.RigLabel.LeftShoulder]
-       50 GETIMPORT                        R10 K24 [Enum.RigLabel.RightShoulder]
-       52 SETLIST                          R8 R9 2 [1]
-       54 NEWTABLE                         R9 0 2
-       56 GETIMPORT                        R10 K26 [Enum.RigLabel.LeftElbow]
-       58 GETIMPORT                        R11 K28 [Enum.RigLabel.RightElbow]
-       60 SETLIST                          R9 R10 2 [1]
-       62 NEWTABLE                         R10 0 2
-       64 GETIMPORT                        R11 K30 [Enum.RigLabel.LeftWrist]
-       66 GETIMPORT                        R12 K32 [Enum.RigLabel.RightWrist]
-       68 SETLIST                          R10 R11 2 [1]
-       70 NEWTABLE                         R11 0 2
-       72 GETIMPORT                        R12 K34 [Enum.RigLabel.LeftHip]
-       74 GETIMPORT                        R13 K36 [Enum.RigLabel.RightHip]
-       76 SETLIST                          R11 R12 2 [1]
-       78 NEWTABLE                         R12 0 2
-       80 GETIMPORT                        R13 K38 [Enum.RigLabel.LeftKnee]
-       82 GETIMPORT                        R14 K40 [Enum.RigLabel.RightKnee]
-       84 SETLIST                          R12 R13 2 [1]
-       86 NEWTABLE                         R13 0 2
-       88 GETIMPORT                        R14 K42 [Enum.RigLabel.LeftAnkle]
-       90 GETIMPORT                        R15 K44 [Enum.RigLabel.RightAnkle]
-       92 SETLIST                          R13 R14 2 [1]
-       94 NEWTABLE                         R14 0 2
-       96 GETIMPORT                        R15 K46 [Enum.RigLabel.LeftToes]
-       98 GETIMPORT                        R16 K48 [Enum.RigLabel.RightToes]
-      100 SETLIST                          R14 R15 2 [1]
-      102 SETLIST                          R6 R7 8 [1]
-      104 DUPCLOSURE                       R7 K49 [PROTO_0]
-      105 CAPTURE                          VAL R2
-      106 DUPCLOSURE                       R8 K50 [PROTO_1]
-      107 CAPTURE                          VAL R4
-      108 CAPTURE                          VAL R6
-      109 CAPTURE                          VAL R1
-      110 CAPTURE                          VAL R2
-      111 CAPTURE                          VAL R5
-      112 CAPTURE                          VAL R3
-      113 DUPTABLE                         R9 K53 [{"copyAdjustments", "LR_PAIRS"}]
-      114 SETTABLEKS                       R8 R9 K51 ["copyAdjustments"]
-      116 SETTABLEKS                       R6 R9 K52 ["LR_PAIRS"]
-      118 RETURN                           R9 1
+       36 GETIMPORT                        R6 K16 [pcall]
+       38 DUPCLOSURE                       R7 K17 [PROTO_0]
+       39 CALL                             R6 1 2
+       40 JUMPIFNOT                        R6 ; [+2]
+       41 MOVE                             R8 R7
+       42 JUMP                             ; [+2]
+       43 GETIMPORT                        R8 K21 [Enum.RigLabel.LeftToes]
+       45 JUMPIFNOT                        R6 ; [+3]
+       46 GETIMPORT                        R9 K23 [Enum.RigLabel.RightToeBase]
+       48 JUMP                             ; [+2]
+       49 GETIMPORT                        R9 K25 [Enum.RigLabel.RightToes]
+       51 NEWTABLE                         R10 0 8
+       53 NEWTABLE                         R11 0 2
+       55 GETIMPORT                        R12 K27 [Enum.RigLabel.LeftClavicle]
+       57 GETIMPORT                        R13 K29 [Enum.RigLabel.RightClavicle]
+       59 SETLIST                          R11 R12 2 [1]
+       61 NEWTABLE                         R12 0 2
+       63 GETIMPORT                        R13 K31 [Enum.RigLabel.LeftShoulder]
+       65 GETIMPORT                        R14 K33 [Enum.RigLabel.RightShoulder]
+       67 SETLIST                          R12 R13 2 [1]
+       69 NEWTABLE                         R13 0 2
+       71 GETIMPORT                        R14 K35 [Enum.RigLabel.LeftElbow]
+       73 GETIMPORT                        R15 K37 [Enum.RigLabel.RightElbow]
+       75 SETLIST                          R13 R14 2 [1]
+       77 NEWTABLE                         R14 0 2
+       79 GETIMPORT                        R15 K39 [Enum.RigLabel.LeftWrist]
+       81 GETIMPORT                        R16 K41 [Enum.RigLabel.RightWrist]
+       83 SETLIST                          R14 R15 2 [1]
+       85 NEWTABLE                         R15 0 2
+       87 GETIMPORT                        R16 K43 [Enum.RigLabel.LeftHip]
+       89 GETIMPORT                        R17 K45 [Enum.RigLabel.RightHip]
+       91 SETLIST                          R15 R16 2 [1]
+       93 NEWTABLE                         R16 0 2
+       95 GETIMPORT                        R17 K47 [Enum.RigLabel.LeftKnee]
+       97 GETIMPORT                        R18 K49 [Enum.RigLabel.RightKnee]
+       99 SETLIST                          R16 R17 2 [1]
+      101 NEWTABLE                         R17 0 2
+      103 GETIMPORT                        R18 K51 [Enum.RigLabel.LeftAnkle]
+      105 GETIMPORT                        R19 K53 [Enum.RigLabel.RightAnkle]
+      107 SETLIST                          R17 R18 2 [1]
+      109 NEWTABLE                         R18 0 2
+      111 MOVE                             R19 R8
+      112 MOVE                             R20 R9
+      113 SETLIST                          R18 R19 2 [1]
+      115 SETLIST                          R10 R11 8 [1]
+      117 DUPCLOSURE                       R11 K54 [PROTO_1]
+      118 CAPTURE                          VAL R2
+      119 DUPCLOSURE                       R12 K55 [PROTO_2]
+      120 CAPTURE                          VAL R4
+      121 CAPTURE                          VAL R10
+      122 CAPTURE                          VAL R1
+      123 CAPTURE                          VAL R2
+      124 CAPTURE                          VAL R5
+      125 CAPTURE                          VAL R3
+      126 DUPTABLE                         R13 K58 [{"copyAdjustments", "LR_PAIRS"}]
+      127 SETTABLEKS                       R12 R13 K56 ["copyAdjustments"]
+      129 SETTABLEKS                       R10 R13 K57 ["LR_PAIRS"]
+      131 RETURN                           R13 1

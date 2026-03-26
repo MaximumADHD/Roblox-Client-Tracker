@@ -63,11 +63,11 @@ end
 if FFlagUserPSActionsPathAware then
 
 	function ActionController.initializeActions(data, playerData)
-		local eventBus = data.eventBus
-
-		eventBus:subscribe(CONNECTIONS.SERVER_AUTHORITY_CHANGED, function(isServerAuthority)
-			playerData.actions = {}
-		end)
+		data.connectionUtil:trackConnection(CONNECTIONS.SERVER_AUTHORITY_CHANGED,
+			data.eventBus:subscribe(CONNECTIONS.SERVER_AUTHORITY_CHANGED):Connect(function()
+				playerData.actions = {}
+			end)
+		)
 
 		if playerData.actions.Move and playerData.actions.Jump then return end
 		if not playerData.player then return end
@@ -85,9 +85,8 @@ if FFlagUserPSActionsPathAware then
 				Jump = characterContext.Jump,
 			}
 
-			eventBus:publish(CONNECTIONS.ACTIONS_RELOADED)
+			data.eventBus:publish(CONNECTIONS.ACTIONS_RELOADED)
 		end)
-
 	end
 
 	function ActionController.update(playerData)

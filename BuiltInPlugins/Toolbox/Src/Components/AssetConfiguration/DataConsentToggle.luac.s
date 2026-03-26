@@ -70,122 +70,148 @@ PROTO_2:
        76 GETTABLEKS                       R12 R13 K37 ["verticalListPadding"]
        78 SETTABLEKS                       R12 R11 K27 ["Spacing"]
        80 DUPTABLE                         R12 K40 [{"ToggleButton", "DescriptionTextPane"}]
-       81 GETUPVAL                         R14 2
-       82 GETTABLEKS                       R13 R14 K13 ["createElement"]
-       84 GETUPVAL                         R14 5
-       85 DUPTABLE                         R15 K44 [{"LayoutOrder", "OnClick", "Selected", "Size"}]
-       86 NAMECALL                         R16 R3 K31 ["getNextOrder"]
-       88 CALL                             R16 1 1
-       89 SETTABLEKS                       R16 R15 K15 ["LayoutOrder"]
-       91 GETTABLEKS                       R16 R0 K45 ["onDataConsentToggleClick"]
-       93 SETTABLEKS                       R16 R15 K41 ["OnClick"]
-       95 GETTABLEKS                       R16 R0 K46 ["dataSharingToggled"]
-       97 SETTABLEKS                       R16 R15 K42 ["Selected"]
-       99 GETIMPORT                        R16 K48 [UDim2.new]
-      101 LOADN                            R17 0
-      102 GETTABLEKS                       R19 R1 K36 ["toggle"]
-      104 GETTABLEKS                       R18 R19 K49 ["buttonWidth"]
-      106 LOADN                            R19 0
-      107 GETTABLEKS                       R21 R1 K36 ["toggle"]
-      109 GETTABLEKS                       R20 R21 K50 ["buttonHeight"]
-      111 CALL                             R16 4 1
-      112 SETTABLEKS                       R16 R15 K43 ["Size"]
-      114 CALL                             R13 2 1
-      115 SETTABLEKS                       R13 R12 K38 ["ToggleButton"]
-      117 GETUPVAL                         R14 2
-      118 GETTABLEKS                       R13 R14 K13 ["createElement"]
-      120 GETUPVAL                         R14 4
-      121 DUPTABLE                         R15 K51 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Spacing"}]
-      122 GETIMPORT                        R16 K30 [Enum.AutomaticSize.Y]
-      124 SETTABLEKS                       R16 R15 K14 ["AutomaticSize"]
-      126 GETIMPORT                        R16 K35 [Enum.HorizontalAlignment.Left]
-      128 SETTABLEKS                       R16 R15 K26 ["HorizontalAlignment"]
-      130 GETIMPORT                        R16 K34 [Enum.FillDirection.Vertical]
-      132 SETTABLEKS                       R16 R15 K25 ["Layout"]
-      134 NAMECALL                         R16 R3 K31 ["getNextOrder"]
-      136 CALL                             R16 1 1
-      137 SETTABLEKS                       R16 R15 K15 ["LayoutOrder"]
-      139 GETTABLEKS                       R17 R1 K36 ["toggle"]
-      141 GETTABLEKS                       R16 R17 K52 ["verticalTextSpacing"]
-      143 SETTABLEKS                       R16 R15 K27 ["Spacing"]
-      145 DUPTABLE                         R16 K55 [{"DescriptionText", "LinkText"}]
-      146 GETUPVAL                         R18 2
-      147 GETTABLEKS                       R17 R18 K13 ["createElement"]
-      149 GETUPVAL                         R18 6
-      150 GETUPVAL                         R20 7
-      151 GETTABLEKS                       R19 R20 K56 ["join"]
-      153 DUPTABLE                         R20 K60 [{"Text", "AutomaticSize", "LayoutOrder", "MaxWidth", "TextWrapped"}]
-      154 LOADK                            R23 K20 ["AssetConfig"]
-      155 LOADK                            R24 K61 ["ShareDataDescriptionText"]
-      156 NAMECALL                         R21 R2 K22 ["getText"]
-      158 CALL                             R21 3 1
-      159 SETTABLEKS                       R21 R20 K57 ["Text"]
-      161 GETIMPORT                        R21 K19 [Enum.AutomaticSize.XY]
-      163 SETTABLEKS                       R21 R20 K14 ["AutomaticSize"]
-      165 NAMECALL                         R21 R3 K31 ["getNextOrder"]
-      167 CALL                             R21 1 1
-      168 SETTABLEKS                       R21 R20 K15 ["LayoutOrder"]
-      170 GETTABLEKS                       R21 R1 K58 ["MaxWidth"]
-      172 SETTABLEKS                       R21 R20 K58 ["MaxWidth"]
-      174 LOADB                            R21 1
-      175 SETTABLEKS                       R21 R20 K59 ["TextWrapped"]
-      177 MOVE                             R21 R4
-      178 CALL                             R19 2 -1
-      179 CALL                             R17 -1 1
-      180 SETTABLEKS                       R17 R16 K53 ["DescriptionText"]
-      182 GETUPVAL                         R18 2
-      183 GETTABLEKS                       R17 R18 K13 ["createElement"]
-      185 GETUPVAL                         R18 8
-      186 DUPTABLE                         R19 K64 [{"AutomaticSize", "HorizontalAlignment", "LayoutOrder", "LinkMap", "Text", "TextProps", "TextWrapped"}]
-      187 GETIMPORT                        R20 K30 [Enum.AutomaticSize.Y]
-      189 SETTABLEKS                       R20 R19 K14 ["AutomaticSize"]
-      191 GETIMPORT                        R20 K35 [Enum.HorizontalAlignment.Left]
-      193 SETTABLEKS                       R20 R19 K26 ["HorizontalAlignment"]
-      195 NAMECALL                         R20 R3 K31 ["getNextOrder"]
-      197 CALL                             R20 1 1
-      198 SETTABLEKS                       R20 R19 K15 ["LayoutOrder"]
-      200 NEWTABLE                         R20 2 0
-      202 DUPTABLE                         R21 K66 [{"LinkText", "LinkCallback"}]
-      203 LOADK                            R24 K20 ["AssetConfig"]
-      204 LOADK                            R25 K67 ["ShareDataDescriptionLinkPreferences"]
-      205 NAMECALL                         R22 R2 K22 ["getText"]
-      207 CALL                             R22 3 1
-      208 SETTABLEKS                       R22 R21 K54 ["LinkText"]
-      210 DUPCLOSURE                       R22 K68 [PROTO_0]
-      211 CAPTURE                          UPVAL U9
-      212 CAPTURE                          UPVAL U10
-      213 CAPTURE                          UPVAL U11
-      214 SETTABLEKS                       R22 R21 K65 ["LinkCallback"]
-      216 SETTABLEKS                       R21 R20 K69 ["[link1]"]
-      218 DUPTABLE                         R21 K66 [{"LinkText", "LinkCallback"}]
-      219 LOADK                            R24 K20 ["AssetConfig"]
-      220 LOADK                            R25 K70 ["ShareDataDescriptionLinkLearnMore"]
-      221 NAMECALL                         R22 R2 K22 ["getText"]
-      223 CALL                             R22 3 1
-      224 SETTABLEKS                       R22 R21 K54 ["LinkText"]
-      226 DUPCLOSURE                       R22 K71 [PROTO_1]
-      227 CAPTURE                          UPVAL U9
-      228 CAPTURE                          UPVAL U10
-      229 CAPTURE                          UPVAL U12
-      230 SETTABLEKS                       R22 R21 K65 ["LinkCallback"]
-      232 SETTABLEKS                       R21 R20 K72 ["[link2]"]
-      234 SETTABLEKS                       R20 R19 K62 ["LinkMap"]
-      236 LOADK                            R22 K20 ["AssetConfig"]
-      237 LOADK                            R23 K73 ["ShareDataDescriptionLinks"]
-      238 NAMECALL                         R20 R2 K22 ["getText"]
-      240 CALL                             R20 3 1
-      241 SETTABLEKS                       R20 R19 K57 ["Text"]
-      243 SETTABLEKS                       R4 R19 K63 ["TextProps"]
-      245 LOADB                            R20 1
-      246 SETTABLEKS                       R20 R19 K59 ["TextWrapped"]
-      248 CALL                             R17 2 1
-      249 SETTABLEKS                       R17 R16 K54 ["LinkText"]
-      251 CALL                             R13 3 1
-      252 SETTABLEKS                       R13 R12 K39 ["DescriptionTextPane"]
-      254 CALL                             R9 3 1
-      255 SETTABLEKS                       R9 R8 K23 ["DescriptionPane"]
-      257 CALL                             R5 3 -1
-      258 RETURN                           R5 -1
+       81 GETUPVAL                         R14 5
+       82 CALL                             R14 0 1
+       83 JUMPIFNOT                        R14 ; [+37]
+       84 GETUPVAL                         R14 2
+       85 GETTABLEKS                       R13 R14 K13 ["createElement"]
+       87 GETUPVAL                         R15 6
+       88 GETTABLEKS                       R14 R15 K41 ["Toggle"]
+       90 DUPTABLE                         R15 K47 [{"label", "isChecked", "onActivated", "LayoutOrder", "isDisabled", "size"}]
+       91 LOADK                            R16 K48 [""]
+       92 SETTABLEKS                       R16 R15 K42 ["label"]
+       94 GETTABLEKS                       R16 R0 K49 ["dataSharingToggled"]
+       96 SETTABLEKS                       R16 R15 K43 ["isChecked"]
+       98 GETTABLEKS                       R16 R0 K50 ["onDataConsentToggleClick"]
+      100 SETTABLEKS                       R16 R15 K44 ["onActivated"]
+      102 NAMECALL                         R16 R3 K31 ["getNextOrder"]
+      104 CALL                             R16 1 1
+      105 SETTABLEKS                       R16 R15 K15 ["LayoutOrder"]
+      107 LOADB                            R16 0
+      108 SETTABLEKS                       R16 R15 K45 ["isDisabled"]
+      110 GETUPVAL                         R19 6
+      111 GETTABLEKS                       R18 R19 K51 ["Enums"]
+      113 GETTABLEKS                       R17 R18 K52 ["InputSize"]
+      115 GETTABLEKS                       R16 R17 K53 ["Medium"]
+      117 SETTABLEKS                       R16 R15 K46 ["size"]
+      119 CALL                             R13 2 1
+      120 JUMP                             ; [+34]
+      121 GETUPVAL                         R14 2
+      122 GETTABLEKS                       R13 R14 K13 ["createElement"]
+      124 GETUPVAL                         R14 7
+      125 DUPTABLE                         R15 K57 [{"LayoutOrder", "OnClick", "Selected", "Size"}]
+      126 NAMECALL                         R16 R3 K31 ["getNextOrder"]
+      128 CALL                             R16 1 1
+      129 SETTABLEKS                       R16 R15 K15 ["LayoutOrder"]
+      131 GETTABLEKS                       R16 R0 K50 ["onDataConsentToggleClick"]
+      133 SETTABLEKS                       R16 R15 K54 ["OnClick"]
+      135 GETTABLEKS                       R16 R0 K49 ["dataSharingToggled"]
+      137 SETTABLEKS                       R16 R15 K55 ["Selected"]
+      139 GETIMPORT                        R16 K59 [UDim2.new]
+      141 LOADN                            R17 0
+      142 GETTABLEKS                       R19 R1 K36 ["toggle"]
+      144 GETTABLEKS                       R18 R19 K60 ["buttonWidth"]
+      146 LOADN                            R19 0
+      147 GETTABLEKS                       R21 R1 K36 ["toggle"]
+      149 GETTABLEKS                       R20 R21 K61 ["buttonHeight"]
+      151 CALL                             R16 4 1
+      152 SETTABLEKS                       R16 R15 K56 ["Size"]
+      154 CALL                             R13 2 1
+      155 SETTABLEKS                       R13 R12 K38 ["ToggleButton"]
+      157 GETUPVAL                         R14 2
+      158 GETTABLEKS                       R13 R14 K13 ["createElement"]
+      160 GETUPVAL                         R14 4
+      161 DUPTABLE                         R15 K62 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Spacing"}]
+      162 GETIMPORT                        R16 K30 [Enum.AutomaticSize.Y]
+      164 SETTABLEKS                       R16 R15 K14 ["AutomaticSize"]
+      166 GETIMPORT                        R16 K35 [Enum.HorizontalAlignment.Left]
+      168 SETTABLEKS                       R16 R15 K26 ["HorizontalAlignment"]
+      170 GETIMPORT                        R16 K34 [Enum.FillDirection.Vertical]
+      172 SETTABLEKS                       R16 R15 K25 ["Layout"]
+      174 NAMECALL                         R16 R3 K31 ["getNextOrder"]
+      176 CALL                             R16 1 1
+      177 SETTABLEKS                       R16 R15 K15 ["LayoutOrder"]
+      179 GETTABLEKS                       R17 R1 K36 ["toggle"]
+      181 GETTABLEKS                       R16 R17 K63 ["verticalTextSpacing"]
+      183 SETTABLEKS                       R16 R15 K27 ["Spacing"]
+      185 DUPTABLE                         R16 K66 [{"DescriptionText", "LinkText"}]
+      186 GETUPVAL                         R18 2
+      187 GETTABLEKS                       R17 R18 K13 ["createElement"]
+      189 GETUPVAL                         R18 8
+      190 GETUPVAL                         R20 9
+      191 GETTABLEKS                       R19 R20 K67 ["join"]
+      193 DUPTABLE                         R20 K71 [{"Text", "AutomaticSize", "LayoutOrder", "MaxWidth", "TextWrapped"}]
+      194 LOADK                            R23 K20 ["AssetConfig"]
+      195 LOADK                            R24 K72 ["ShareDataDescriptionText"]
+      196 NAMECALL                         R21 R2 K22 ["getText"]
+      198 CALL                             R21 3 1
+      199 SETTABLEKS                       R21 R20 K68 ["Text"]
+      201 GETIMPORT                        R21 K19 [Enum.AutomaticSize.XY]
+      203 SETTABLEKS                       R21 R20 K14 ["AutomaticSize"]
+      205 NAMECALL                         R21 R3 K31 ["getNextOrder"]
+      207 CALL                             R21 1 1
+      208 SETTABLEKS                       R21 R20 K15 ["LayoutOrder"]
+      210 GETTABLEKS                       R21 R1 K69 ["MaxWidth"]
+      212 SETTABLEKS                       R21 R20 K69 ["MaxWidth"]
+      214 LOADB                            R21 1
+      215 SETTABLEKS                       R21 R20 K70 ["TextWrapped"]
+      217 MOVE                             R21 R4
+      218 CALL                             R19 2 -1
+      219 CALL                             R17 -1 1
+      220 SETTABLEKS                       R17 R16 K64 ["DescriptionText"]
+      222 GETUPVAL                         R18 2
+      223 GETTABLEKS                       R17 R18 K13 ["createElement"]
+      225 GETUPVAL                         R18 10
+      226 DUPTABLE                         R19 K75 [{"AutomaticSize", "HorizontalAlignment", "LayoutOrder", "LinkMap", "Text", "TextProps", "TextWrapped"}]
+      227 GETIMPORT                        R20 K30 [Enum.AutomaticSize.Y]
+      229 SETTABLEKS                       R20 R19 K14 ["AutomaticSize"]
+      231 GETIMPORT                        R20 K35 [Enum.HorizontalAlignment.Left]
+      233 SETTABLEKS                       R20 R19 K26 ["HorizontalAlignment"]
+      235 NAMECALL                         R20 R3 K31 ["getNextOrder"]
+      237 CALL                             R20 1 1
+      238 SETTABLEKS                       R20 R19 K15 ["LayoutOrder"]
+      240 NEWTABLE                         R20 2 0
+      242 DUPTABLE                         R21 K77 [{"LinkText", "LinkCallback"}]
+      243 LOADK                            R24 K20 ["AssetConfig"]
+      244 LOADK                            R25 K78 ["ShareDataDescriptionLinkPreferences"]
+      245 NAMECALL                         R22 R2 K22 ["getText"]
+      247 CALL                             R22 3 1
+      248 SETTABLEKS                       R22 R21 K65 ["LinkText"]
+      250 DUPCLOSURE                       R22 K79 [PROTO_0]
+      251 CAPTURE                          UPVAL U11
+      252 CAPTURE                          UPVAL U12
+      253 CAPTURE                          UPVAL U13
+      254 SETTABLEKS                       R22 R21 K76 ["LinkCallback"]
+      256 SETTABLEKS                       R21 R20 K80 ["[link1]"]
+      258 DUPTABLE                         R21 K77 [{"LinkText", "LinkCallback"}]
+      259 LOADK                            R24 K20 ["AssetConfig"]
+      260 LOADK                            R25 K81 ["ShareDataDescriptionLinkLearnMore"]
+      261 NAMECALL                         R22 R2 K22 ["getText"]
+      263 CALL                             R22 3 1
+      264 SETTABLEKS                       R22 R21 K65 ["LinkText"]
+      266 DUPCLOSURE                       R22 K82 [PROTO_1]
+      267 CAPTURE                          UPVAL U11
+      268 CAPTURE                          UPVAL U12
+      269 CAPTURE                          UPVAL U14
+      270 SETTABLEKS                       R22 R21 K76 ["LinkCallback"]
+      272 SETTABLEKS                       R21 R20 K83 ["[link2]"]
+      274 SETTABLEKS                       R20 R19 K73 ["LinkMap"]
+      276 LOADK                            R22 K20 ["AssetConfig"]
+      277 LOADK                            R23 K84 ["ShareDataDescriptionLinks"]
+      278 NAMECALL                         R20 R2 K22 ["getText"]
+      280 CALL                             R20 3 1
+      281 SETTABLEKS                       R20 R19 K68 ["Text"]
+      283 SETTABLEKS                       R4 R19 K74 ["TextProps"]
+      285 LOADB                            R20 1
+      286 SETTABLEKS                       R20 R19 K70 ["TextWrapped"]
+      288 CALL                             R17 2 1
+      289 SETTABLEKS                       R17 R16 K65 ["LinkText"]
+      291 CALL                             R13 3 1
+      292 SETTABLEKS                       R13 R12 K39 ["DescriptionTextPane"]
+      294 CALL                             R9 3 1
+      295 SETTABLEKS                       R9 R8 K23 ["DescriptionPane"]
+      297 CALL                             R5 3 -1
+      298 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -203,61 +229,71 @@ MAIN:
        19 GETIMPORT                        R4 K6 [require]
        21 GETTABLEKS                       R5 R1 K9 ["React"]
        23 CALL                             R4 1 1
-       24 GETTABLEKS                       R6 R0 K10 ["Src"]
-       26 GETTABLEKS                       R5 R6 K11 ["Util"]
-       28 GETIMPORT                        R6 K6 [require]
-       30 GETTABLEKS                       R7 R5 K12 ["Constants"]
-       32 CALL                             R6 1 1
-       33 GETIMPORT                        R7 K6 [require]
-       35 GETTABLEKS                       R8 R5 K13 ["AssetConfigConstants"]
-       37 CALL                             R7 1 1
-       38 GETIMPORT                        R8 K6 [require]
-       40 GETTABLEKS                       R11 R0 K14 ["Libs"]
-       42 GETTABLEKS                       R10 R11 K15 ["Http"]
-       44 GETTABLEKS                       R9 R10 K16 ["Url"]
+       24 GETIMPORT                        R5 K6 [require]
+       26 GETTABLEKS                       R6 R1 K10 ["Foundation"]
+       28 CALL                             R5 1 1
+       29 GETIMPORT                        R6 K6 [require]
+       31 GETTABLEKS                       R9 R0 K11 ["Src"]
+       33 GETTABLEKS                       R8 R9 K12 ["Flags"]
+       35 GETTABLEKS                       R7 R8 K13 ["getFFlagToolboxAssetConfigFoundationMigration"]
+       37 CALL                             R6 1 1
+       38 GETTABLEKS                       R8 R0 K11 ["Src"]
+       40 GETTABLEKS                       R7 R8 K14 ["Util"]
+       42 GETIMPORT                        R8 K6 [require]
+       44 GETTABLEKS                       R9 R7 K15 ["Constants"]
        46 CALL                             R8 1 1
-       47 GETTABLEKS                       R9 R3 K17 ["ContextServices"]
-       49 GETIMPORT                        R10 K19 [game]
-       51 LOADK                            R12 K20 ["BrowserService"]
-       52 NAMECALL                         R10 R10 K21 ["GetService"]
-       54 CALL                             R10 2 1
-       55 GETTABLEKS                       R11 R3 K22 ["UI"]
-       57 GETTABLEKS                       R12 R11 K23 ["Pane"]
-       59 GETTABLEKS                       R13 R11 K24 ["TextLabel"]
-       61 GETTABLEKS                       R14 R11 K25 ["TextWithLinks"]
-       63 GETTABLEKS                       R15 R11 K26 ["ToggleButton"]
-       65 GETTABLEKS                       R17 R3 K11 ["Util"]
-       67 GETTABLEKS                       R16 R17 K27 ["LayoutOrderIterator"]
-       69 GETTABLEKS                       R18 R3 K11 ["Util"]
-       71 GETTABLEKS                       R17 R18 K28 ["StyleModifier"]
-       73 GETTABLEKS                       R20 R0 K10 ["Src"]
-       75 GETTABLEKS                       R19 R20 K29 ["Components"]
-       77 GETTABLEKS                       R18 R19 K30 ["AssetConfiguration"]
-       79 GETIMPORT                        R19 K6 [require]
-       81 GETTABLEKS                       R20 R18 K31 ["ConfigSectionWrapper"]
-       83 CALL                             R19 1 1
-       84 GETIMPORT                        R20 K19 [game]
-       86 LOADK                            R22 K32 ["DataSharing_PreferencesUrlSuffix"]
-       87 LOADK                            R23 K33 ["settings/data-collection?tab=avatar-items"]
-       88 NAMECALL                         R20 R20 K34 ["DefineFastString"]
-       90 CALL                             R20 3 1
-       91 GETIMPORT                        R21 K19 [game]
-       93 LOADK                            R23 K35 ["DataSharing_TermsUrlSuffix"]
-       94 LOADK                            R24 K36 ["docs/ai-data-sharing"]
-       95 NAMECALL                         R21 R21 K34 ["DefineFastString"]
-       97 CALL                             R21 3 1
-       98 DUPCLOSURE                       R22 K37 [PROTO_2]
-       99 CAPTURE                          VAL R9
-      100 CAPTURE                          VAL R16
-      101 CAPTURE                          VAL R4
-      102 CAPTURE                          VAL R19
-      103 CAPTURE                          VAL R12
-      104 CAPTURE                          VAL R15
-      105 CAPTURE                          VAL R13
-      106 CAPTURE                          VAL R2
-      107 CAPTURE                          VAL R14
-      108 CAPTURE                          VAL R10
-      109 CAPTURE                          VAL R8
-      110 CAPTURE                          VAL R20
-      111 CAPTURE                          VAL R21
-      112 RETURN                           R22 1
+       47 GETIMPORT                        R9 K6 [require]
+       49 GETTABLEKS                       R10 R7 K16 ["AssetConfigConstants"]
+       51 CALL                             R9 1 1
+       52 GETIMPORT                        R10 K6 [require]
+       54 GETTABLEKS                       R13 R0 K17 ["Libs"]
+       56 GETTABLEKS                       R12 R13 K18 ["Http"]
+       58 GETTABLEKS                       R11 R12 K19 ["Url"]
+       60 CALL                             R10 1 1
+       61 GETTABLEKS                       R11 R3 K20 ["ContextServices"]
+       63 GETIMPORT                        R12 K22 [game]
+       65 LOADK                            R14 K23 ["BrowserService"]
+       66 NAMECALL                         R12 R12 K24 ["GetService"]
+       68 CALL                             R12 2 1
+       69 GETTABLEKS                       R13 R3 K25 ["UI"]
+       71 GETTABLEKS                       R14 R13 K26 ["Pane"]
+       73 GETTABLEKS                       R15 R13 K27 ["TextLabel"]
+       75 GETTABLEKS                       R16 R13 K28 ["TextWithLinks"]
+       77 GETTABLEKS                       R17 R13 K29 ["ToggleButton"]
+       79 GETTABLEKS                       R19 R3 K14 ["Util"]
+       81 GETTABLEKS                       R18 R19 K30 ["LayoutOrderIterator"]
+       83 GETTABLEKS                       R20 R3 K14 ["Util"]
+       85 GETTABLEKS                       R19 R20 K31 ["StyleModifier"]
+       87 GETTABLEKS                       R22 R0 K11 ["Src"]
+       89 GETTABLEKS                       R21 R22 K32 ["Components"]
+       91 GETTABLEKS                       R20 R21 K33 ["AssetConfiguration"]
+       93 GETIMPORT                        R21 K6 [require]
+       95 GETTABLEKS                       R22 R20 K34 ["ConfigSectionWrapper"]
+       97 CALL                             R21 1 1
+       98 GETIMPORT                        R22 K22 [game]
+      100 LOADK                            R24 K35 ["DataSharing_PreferencesUrlSuffix"]
+      101 LOADK                            R25 K36 ["settings/data-collection?tab=avatar-items"]
+      102 NAMECALL                         R22 R22 K37 ["DefineFastString"]
+      104 CALL                             R22 3 1
+      105 GETIMPORT                        R23 K22 [game]
+      107 LOADK                            R25 K38 ["DataSharing_TermsUrlSuffix"]
+      108 LOADK                            R26 K39 ["docs/ai-data-sharing"]
+      109 NAMECALL                         R23 R23 K37 ["DefineFastString"]
+      111 CALL                             R23 3 1
+      112 DUPCLOSURE                       R24 K40 [PROTO_2]
+      113 CAPTURE                          VAL R11
+      114 CAPTURE                          VAL R18
+      115 CAPTURE                          VAL R4
+      116 CAPTURE                          VAL R21
+      117 CAPTURE                          VAL R14
+      118 CAPTURE                          VAL R6
+      119 CAPTURE                          VAL R5
+      120 CAPTURE                          VAL R17
+      121 CAPTURE                          VAL R15
+      122 CAPTURE                          VAL R2
+      123 CAPTURE                          VAL R16
+      124 CAPTURE                          VAL R12
+      125 CAPTURE                          VAL R10
+      126 CAPTURE                          VAL R22
+      127 CAPTURE                          VAL R23
+      128 RETURN                           R24 1

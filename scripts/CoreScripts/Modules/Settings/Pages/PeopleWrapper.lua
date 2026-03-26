@@ -55,6 +55,7 @@ local PeopleFlags = PeopleService.getService("Flags")
 local GetFFlagAddPeoplePageCardLayout = PeopleFlags.GetFFlagAddPeoplePageCardLayout
 local GetFFlagPeoplePageLazyRenderCards = PeopleFlags.GetFFlagPeoplePageLazyRenderCards
 local FFlagEnablePeopleListLazyRender = PeopleFlags.FFlagEnablePeopleListLazyRender
+local FFlagPeopleCardsEnableVirtualizedGrid = PeopleFlags.FFlagPeopleCardsEnableVirtualizedGrid
 
 local tree: ReactRoblox.RootType? = nil
 local getDisplayed, setDisplayed = Signals.createSignal(false)
@@ -105,7 +106,7 @@ local function createPeoplePage()
 			return
 		end
 
-		local scrollingFrame = if GetFFlagPeoplePageLazyRenderCards() or FFlagEnablePeopleListLazyRender then PeoplePage.Page:FindFirstAncestorWhichIsA("ScrollingFrame") else nil
+		local scrollingFrame = if GetFFlagPeoplePageLazyRenderCards() or FFlagEnablePeopleListLazyRender or FFlagPeopleCardsEnableVirtualizedGrid then PeoplePage.Page:FindFirstAncestorWhichIsA("ScrollingFrame") else nil
 
 		local PeopleConditionalView = function()
 			local displayed = SignalsReact.useSignalState(getDisplayed)
@@ -118,7 +119,7 @@ local function createPeoplePage()
 							PeopleReactView = React.createElement(PeopleReactView, {
 								blockingModalScreen = BlockingModalScreen,
 								blockingFlags = {},
-								scrollingFrame = if GetFFlagPeoplePageLazyRenderCards() or FFlagEnablePeopleListLazyRender then scrollingFrame else nil,
+								scrollingFrame = if GetFFlagPeoplePageLazyRenderCards() or FFlagEnablePeopleListLazyRender or FFlagPeopleCardsEnableVirtualizedGrid then scrollingFrame else nil,
 								chromeEnabled = ChromeEnabled,
 								getUniversesExposedTo = if GetFFlagAddPeoplePageCardLayout() and LocalStore then LocalStore.getUniversesExposedTo else nil,
 								addUniverseToExposureList = if GetFFlagAddPeoplePageCardLayout() and LocalStore then LocalStore.addUniverseToExposureList else nil,

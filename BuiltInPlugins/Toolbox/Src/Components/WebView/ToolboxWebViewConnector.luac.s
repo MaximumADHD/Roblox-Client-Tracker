@@ -618,7 +618,7 @@ PROTO_23:
        24 GETUPVAL                         R6 2
        25 GETTABLEKS                       R5 R6 K10 ["createElement"]
        27 GETUPVAL                         R6 3
-       28 DUPTABLE                         R7 K26 [{"Plugin", "PluginManagerComponent", "Url", "initAutoRetryMaxAttempts", "manualRetryAttempt", "hasValidSize", "hasWebViewEverLoaded", "HandleFailedInitCheck", "HandlePassedInitAndLoadingCheck", "webViewLoadingStatus", "webViewError", "eventHandlers", "WebViewManagerContext", "analyticsContext", "offsetHeight", "onWebViewInitEvent"}]
+       28 DUPTABLE                         R7 K27 [{"Plugin", "PluginManagerComponent", "Url", "initAutoRetryMaxAttempts", "manualRetryAttempt", "hasValidSize", "hasWebViewEverLoaded", "HandleFailedInitCheck", "HandlePassedInitAndLoadingCheck", "webViewLoadingStatus", "webViewError", "eventHandlers", "WebViewManagerContext", "analyticsContext", "offsetHeight", "onWebViewInitEvent", "getPluginMetadata"}]
        29 GETTABLEKS                       R8 R1 K7 ["Plugin"]
        31 SETTABLEKS                       R8 R7 K7 ["Plugin"]
        33 SETTABLEKS                       R4 R7 K11 ["PluginManagerComponent"]
@@ -643,18 +643,26 @@ PROTO_23:
        69 GETTABLEKS                       R8 R0 K21 ["eventHandlers"]
        71 SETTABLEKS                       R8 R7 K21 ["eventHandlers"]
        73 GETTABLEKS                       R8 R1 K22 ["WebViewManagerContext"]
-       75 NAMECALL                         R8 R8 K27 ["get"]
+       75 NAMECALL                         R8 R8 K28 ["get"]
        77 CALL                             R8 1 1
        78 SETTABLEKS                       R8 R7 K22 ["WebViewManagerContext"]
-       80 LOADK                            R8 K28 ["marketplace"]
+       80 LOADK                            R8 K29 ["marketplace"]
        81 SETTABLEKS                       R8 R7 K23 ["analyticsContext"]
        83 LOADN                            R8 36
        84 SETTABLEKS                       R8 R7 K24 ["offsetHeight"]
        86 NEWCLOSURE                       R8 P0
        87 CAPTURE                          VAL R0
        88 SETTABLEKS                       R8 R7 K25 ["onWebViewInitEvent"]
-       90 CALL                             R5 2 -1
-       91 RETURN                           R5 -1
+       90 GETUPVAL                         R9 5
+       91 CALL                             R9 0 1
+       92 JUMPIFNOT                        R9 ; [+4]
+       93 GETUPVAL                         R9 6
+       94 GETTABLEKS                       R8 R9 K30 ["getStudioMetadata"]
+       96 JUMP                             ; [+1]
+       97 LOADNIL                          R8
+       98 SETTABLEKS                       R8 R7 K26 ["getPluginMetadata"]
+      100 CALL                             R5 2 -1
+      101 RETURN                           R5 -1
 
 PROTO_24:
         0 MOVE                             R2 R0
@@ -820,79 +828,87 @@ MAIN:
       187 GETTABLEKS                       R34 R35 K43 ["SharedFlags"]
       189 GETTABLEKS                       R33 R34 K48 ["getFFlagToolboxCapabilities"]
       191 CALL                             R32 1 1
-      192 DUPCLOSURE                       R33 K49 [PROTO_0]
-      193 DUPCLOSURE                       R34 K50 [PROTO_1]
-      194 SETTABLEKS                       R34 R29 K51 ["init"]
-      196 DUPCLOSURE                       R34 K52 [PROTO_2]
-      197 CAPTURE                          VAL R13
-      198 SETTABLEKS                       R34 R29 K53 ["changeToStoreTab"]
-      200 DUPCLOSURE                       R34 K54 [PROTO_4]
-      201 CAPTURE                          VAL R20
-      202 CAPTURE                          VAL R18
-      203 CAPTURE                          VAL R10
-      204 SETTABLEKS                       R34 R29 K55 ["onWebViewInitEvent"]
-      206 DUPCLOSURE                       R34 K56 [PROTO_13]
-      207 CAPTURE                          VAL R28
-      208 CAPTURE                          VAL R7
-      209 CAPTURE                          VAL R21
-      210 CAPTURE                          VAL R23
-      211 CAPTURE                          VAL R22
-      212 CAPTURE                          VAL R32
-      213 CAPTURE                          VAL R24
-      214 SETTABLEKS                       R34 R29 K57 ["createEventHandlers"]
-      216 DUPCLOSURE                       R34 K58 [PROTO_17]
-      217 CAPTURE                          VAL R5
-      218 CAPTURE                          VAL R7
-      219 CAPTURE                          VAL R9
-      220 SETTABLEKS                       R34 R29 K59 ["setUpExternalSignalConnections"]
-      222 DUPCLOSURE                       R34 K60 [PROTO_18]
-      223 SETTABLEKS                       R34 R29 K61 ["disconnectExternalSignals"]
-      225 DUPCLOSURE                       R34 K62 [PROTO_19]
-      226 CAPTURE                          VAL R13
-      227 CAPTURE                          VAL R7
-      228 CAPTURE                          VAL R9
-      229 SETTABLEKS                       R34 R29 K63 ["didMount"]
-      231 DUPCLOSURE                       R34 K64 [PROTO_20]
-      232 CAPTURE                          VAL R20
-      233 CAPTURE                          VAL R18
-      234 SETTABLEKS                       R34 R29 K65 ["didUpdate"]
-      236 DUPCLOSURE                       R34 K66 [PROTO_21]
-      237 SETTABLEKS                       R34 R29 K67 ["willUnmount"]
-      239 DUPCLOSURE                       R34 K68 [PROTO_23]
-      240 CAPTURE                          VAL R31
-      241 CAPTURE                          VAL R11
-      242 CAPTURE                          VAL R3
-      243 CAPTURE                          VAL R26
-      244 CAPTURE                          VAL R30
-      245 SETTABLEKS                       R34 R29 K69 ["render"]
-      247 MOVE                             R34 R15
-      248 DUPTABLE                         R35 K73 [{"AssetAnalytics", "Localization", "Network", "WebViewManagerContext"}]
-      249 SETTABLEKS                       R8 R35 K70 ["AssetAnalytics"]
-      251 GETTABLEKS                       R36 R14 K71 ["Localization"]
-      253 SETTABLEKS                       R36 R35 K71 ["Localization"]
-      255 SETTABLEKS                       R16 R35 K72 ["Network"]
-      257 SETTABLEKS                       R27 R35 K38 ["WebViewManagerContext"]
-      259 CALL                             R34 1 1
-      260 MOVE                             R35 R29
-      261 CALL                             R34 1 1
-      262 MOVE                             R29 R34
-      263 DUPCLOSURE                       R34 K74 [PROTO_24]
-      264 CAPTURE                          VAL R13
-      265 DUPCLOSURE                       R35 K75 [PROTO_26]
-      266 CAPTURE                          VAL R19
-      267 GETTABLEKS                       R36 R4 K76 ["connect"]
-      269 MOVE                             R37 R34
-      270 MOVE                             R38 R35
-      271 CALL                             R36 2 1
-      272 MOVE                             R37 R29
-      273 CALL                             R36 1 1
-      274 MOVE                             R29 R36
-      275 NEWCLOSURE                       R36 P13
-      276 CAPTURE                          VAL R3
-      277 CAPTURE                          REF R29
-      278 SETGLOBAL                        R36 K77 ["TypedComponent"]
-      280 MOVE                             R36 R17
-      281 GETGLOBAL                        R37 K77 ["TypedComponent"]
-      283 CALL                             R36 1 -1
-      284 CLOSEUPVALS                      R29
-      285 RETURN                           R36 -1
+      192 GETIMPORT                        R33 K6 [require]
+      194 GETTABLEKS                       R37 R0 K11 ["Src"]
+      196 GETTABLEKS                       R36 R37 K12 ["Util"]
+      198 GETTABLEKS                       R35 R36 K43 ["SharedFlags"]
+      200 GETTABLEKS                       R34 R35 K49 ["getFFlagToolboxInitResponseTrackingAttributes"]
+      202 CALL                             R33 1 1
+      203 DUPCLOSURE                       R34 K50 [PROTO_0]
+      204 DUPCLOSURE                       R35 K51 [PROTO_1]
+      205 SETTABLEKS                       R35 R29 K52 ["init"]
+      207 DUPCLOSURE                       R35 K53 [PROTO_2]
+      208 CAPTURE                          VAL R13
+      209 SETTABLEKS                       R35 R29 K54 ["changeToStoreTab"]
+      211 DUPCLOSURE                       R35 K55 [PROTO_4]
+      212 CAPTURE                          VAL R20
+      213 CAPTURE                          VAL R18
+      214 CAPTURE                          VAL R10
+      215 SETTABLEKS                       R35 R29 K56 ["onWebViewInitEvent"]
+      217 DUPCLOSURE                       R35 K57 [PROTO_13]
+      218 CAPTURE                          VAL R28
+      219 CAPTURE                          VAL R7
+      220 CAPTURE                          VAL R21
+      221 CAPTURE                          VAL R23
+      222 CAPTURE                          VAL R22
+      223 CAPTURE                          VAL R32
+      224 CAPTURE                          VAL R24
+      225 SETTABLEKS                       R35 R29 K58 ["createEventHandlers"]
+      227 DUPCLOSURE                       R35 K59 [PROTO_17]
+      228 CAPTURE                          VAL R5
+      229 CAPTURE                          VAL R7
+      230 CAPTURE                          VAL R9
+      231 SETTABLEKS                       R35 R29 K60 ["setUpExternalSignalConnections"]
+      233 DUPCLOSURE                       R35 K61 [PROTO_18]
+      234 SETTABLEKS                       R35 R29 K62 ["disconnectExternalSignals"]
+      236 DUPCLOSURE                       R35 K63 [PROTO_19]
+      237 CAPTURE                          VAL R13
+      238 CAPTURE                          VAL R7
+      239 CAPTURE                          VAL R9
+      240 SETTABLEKS                       R35 R29 K64 ["didMount"]
+      242 DUPCLOSURE                       R35 K65 [PROTO_20]
+      243 CAPTURE                          VAL R20
+      244 CAPTURE                          VAL R18
+      245 SETTABLEKS                       R35 R29 K66 ["didUpdate"]
+      247 DUPCLOSURE                       R35 K67 [PROTO_21]
+      248 SETTABLEKS                       R35 R29 K68 ["willUnmount"]
+      250 DUPCLOSURE                       R35 K69 [PROTO_23]
+      251 CAPTURE                          VAL R31
+      252 CAPTURE                          VAL R11
+      253 CAPTURE                          VAL R3
+      254 CAPTURE                          VAL R26
+      255 CAPTURE                          VAL R30
+      256 CAPTURE                          VAL R33
+      257 CAPTURE                          VAL R7
+      258 SETTABLEKS                       R35 R29 K70 ["render"]
+      260 MOVE                             R35 R15
+      261 DUPTABLE                         R36 K74 [{"AssetAnalytics", "Localization", "Network", "WebViewManagerContext"}]
+      262 SETTABLEKS                       R8 R36 K71 ["AssetAnalytics"]
+      264 GETTABLEKS                       R37 R14 K72 ["Localization"]
+      266 SETTABLEKS                       R37 R36 K72 ["Localization"]
+      268 SETTABLEKS                       R16 R36 K73 ["Network"]
+      270 SETTABLEKS                       R27 R36 K38 ["WebViewManagerContext"]
+      272 CALL                             R35 1 1
+      273 MOVE                             R36 R29
+      274 CALL                             R35 1 1
+      275 MOVE                             R29 R35
+      276 DUPCLOSURE                       R35 K75 [PROTO_24]
+      277 CAPTURE                          VAL R13
+      278 DUPCLOSURE                       R36 K76 [PROTO_26]
+      279 CAPTURE                          VAL R19
+      280 GETTABLEKS                       R37 R4 K77 ["connect"]
+      282 MOVE                             R38 R35
+      283 MOVE                             R39 R36
+      284 CALL                             R37 2 1
+      285 MOVE                             R38 R29
+      286 CALL                             R37 1 1
+      287 MOVE                             R29 R37
+      288 NEWCLOSURE                       R37 P13
+      289 CAPTURE                          VAL R3
+      290 CAPTURE                          REF R29
+      291 SETGLOBAL                        R37 K78 ["TypedComponent"]
+      293 MOVE                             R37 R17
+      294 GETGLOBAL                        R38 K78 ["TypedComponent"]
+      296 CALL                             R37 1 -1
+      297 CLOSEUPVALS                      R29
+      298 RETURN                           R37 -1

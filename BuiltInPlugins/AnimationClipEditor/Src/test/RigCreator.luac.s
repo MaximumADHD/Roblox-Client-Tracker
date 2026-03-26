@@ -785,60 +785,66 @@ PROTO_8:
        25 LOADK                            R4 K8 ["Head"]
        26 SETTABLEKS                       R4 R3 K6 ["Name"]
        28 GETIMPORT                        R4 K2 [Instance.new]
-       30 LOADK                            R5 K9 ["Motor6D"]
-       31 MOVE                             R6 R2
+       30 LOADK                            R5 K9 ["FaceControls"]
+       31 MOVE                             R6 R3
        32 CALL                             R4 2 1
-       33 SETTABLEKS                       R1 R4 K10 ["Part0"]
-       35 SETTABLEKS                       R2 R4 K11 ["Part1"]
-       37 GETIMPORT                        R5 K2 [Instance.new]
-       39 LOADK                            R6 K9 ["Motor6D"]
-       40 MOVE                             R7 R3
-       41 CALL                             R5 2 1
-       42 SETTABLEKS                       R2 R5 K10 ["Part0"]
-       44 SETTABLEKS                       R3 R5 K11 ["Part1"]
-       46 GETIMPORT                        R6 K2 [Instance.new]
-       48 LOADK                            R7 K12 ["Attachment"]
-       49 MOVE                             R8 R1
-       50 CALL                             R6 2 1
-       51 LOADK                            R7 K13 ["RootAttachment"]
-       52 SETTABLEKS                       R7 R6 K6 ["Name"]
+       33 LOADK                            R5 K9 ["FaceControls"]
+       34 SETTABLEKS                       R5 R4 K6 ["Name"]
+       36 GETIMPORT                        R5 K2 [Instance.new]
+       38 LOADK                            R6 K10 ["Motor6D"]
+       39 MOVE                             R7 R2
+       40 CALL                             R5 2 1
+       41 SETTABLEKS                       R1 R5 K11 ["Part0"]
+       43 SETTABLEKS                       R2 R5 K12 ["Part1"]
+       45 GETIMPORT                        R6 K2 [Instance.new]
+       47 LOADK                            R7 K10 ["Motor6D"]
+       48 MOVE                             R8 R3
+       49 CALL                             R6 2 1
+       50 SETTABLEKS                       R2 R6 K11 ["Part0"]
+       52 SETTABLEKS                       R3 R6 K12 ["Part1"]
        54 GETIMPORT                        R7 K2 [Instance.new]
-       56 LOADK                            R8 K12 ["Attachment"]
-       57 MOVE                             R9 R2
+       56 LOADK                            R8 K13 ["Attachment"]
+       57 MOVE                             R9 R1
        58 CALL                             R7 2 1
-       59 LOADK                            R8 K13 ["RootAttachment"]
+       59 LOADK                            R8 K14 ["RootAttachment"]
        60 SETTABLEKS                       R8 R7 K6 ["Name"]
        62 GETIMPORT                        R8 K2 [Instance.new]
-       64 LOADK                            R9 K12 ["Attachment"]
+       64 LOADK                            R9 K13 ["Attachment"]
        65 MOVE                             R10 R2
        66 CALL                             R8 2 1
-       67 LOADK                            R9 K14 ["NeckAttachment"]
+       67 LOADK                            R9 K14 ["RootAttachment"]
        68 SETTABLEKS                       R9 R8 K6 ["Name"]
        70 GETIMPORT                        R9 K2 [Instance.new]
-       72 LOADK                            R10 K12 ["Attachment"]
-       73 MOVE                             R11 R3
+       72 LOADK                            R10 K13 ["Attachment"]
+       73 MOVE                             R11 R2
        74 CALL                             R9 2 1
-       75 LOADK                            R10 K14 ["NeckAttachment"]
+       75 LOADK                            R10 K15 ["NeckAttachment"]
        76 SETTABLEKS                       R10 R9 K6 ["Name"]
        78 GETIMPORT                        R10 K2 [Instance.new]
-       80 LOADK                            R11 K15 ["BallSocketConstraint"]
-       81 MOVE                             R12 R0
+       80 LOADK                            R11 K13 ["Attachment"]
+       81 MOVE                             R12 R3
        82 CALL                             R10 2 1
-       83 LOADB                            R11 0
-       84 SETTABLEKS                       R11 R10 K16 ["Enabled"]
-       86 SETTABLEKS                       R8 R10 K17 ["Attachment0"]
-       88 SETTABLEKS                       R9 R10 K18 ["Attachment1"]
-       90 GETIMPORT                        R11 K2 [Instance.new]
-       92 LOADK                            R12 K19 ["AnimationController"]
-       93 MOVE                             R13 R0
-       94 CALL                             R11 2 0
-       95 GETIMPORT                        R11 K2 [Instance.new]
-       97 LOADK                            R12 K20 ["Bone"]
-       98 MOVE                             R13 R3
-       99 CALL                             R11 2 1
-      100 LOADK                            R12 K21 ["Jaw"]
-      101 SETTABLEKS                       R12 R11 K6 ["Name"]
-      103 RETURN                           R0 1
+       83 LOADK                            R11 K15 ["NeckAttachment"]
+       84 SETTABLEKS                       R11 R10 K6 ["Name"]
+       86 GETIMPORT                        R11 K2 [Instance.new]
+       88 LOADK                            R12 K16 ["BallSocketConstraint"]
+       89 MOVE                             R13 R0
+       90 CALL                             R11 2 1
+       91 LOADB                            R12 0
+       92 SETTABLEKS                       R12 R11 K17 ["Enabled"]
+       94 SETTABLEKS                       R9 R11 K18 ["Attachment0"]
+       96 SETTABLEKS                       R10 R11 K19 ["Attachment1"]
+       98 GETIMPORT                        R12 K2 [Instance.new]
+      100 LOADK                            R13 K20 ["AnimationController"]
+      101 MOVE                             R14 R0
+      102 CALL                             R12 2 0
+      103 GETIMPORT                        R12 K2 [Instance.new]
+      105 LOADK                            R13 K21 ["Bone"]
+      106 MOVE                             R14 R3
+      107 CALL                             R12 2 1
+      108 LOADK                            R13 K22 ["Jaw"]
+      109 SETTABLEKS                       R13 R12 K6 ["Name"]
+      111 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

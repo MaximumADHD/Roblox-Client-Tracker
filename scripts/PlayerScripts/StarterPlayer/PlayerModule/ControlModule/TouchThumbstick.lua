@@ -5,6 +5,7 @@ local UserInputService = game:GetService("UserInputService")
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPSActionsPathAware = FlagUtil.getUserFlag("UserPSActionsPathAware")
+local FFlagUserPlayerScriptsCanUseLCC = FlagUtil.getUserFlag("UserPlayerScriptsCanUseLCC")
 
 --[[ Constants ]]--
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/TouchControlsSheet.png"
@@ -14,6 +15,11 @@ local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
 local character = inputContexts:WaitForChild("Character")
 local moveAction = character:WaitForChild("Move")
 
+local AvatarAbilitiesInterface
+if FFlagUserPlayerScriptsCanUseLCC then
+	AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
+end
+
 --[[ The Module ]]--
 local ActionController = require(script.Parent:WaitForChild("ActionController"))
 local TouchThumbstick = setmetatable({}, ActionController)
@@ -22,7 +28,10 @@ TouchThumbstick.__index = TouchThumbstick
 function TouchThumbstick.new(playerData)
 	local self = setmetatable(ActionController.new() :: any, TouchThumbstick)
 
-	self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
+	if FFlagUserPSActionsPathAware then 
+		self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
+		self.enabled = false
+	end
 
 	self.isFollowStick = false
 
@@ -88,6 +97,12 @@ function TouchThumbstick:Create(parentFrame)
 			self.absoluteSizeChangedConn:Disconnect()
 			self.absoluteSizeChangedConn = nil
 		end
+		if FFlagUserPlayerScriptsCanUseLCC then		
+			if self.avatarAbilitiesEnabledChangedConn then
+				self.avatarAbilitiesEnabledChangedConn:Disconnect()
+				self.avatarAbilitiesEnabledChangedConn = nil
+			end
+		end
 	end
 
 	self.thumbstickFrame = Instance.new("Frame")
@@ -115,9 +130,17 @@ function TouchThumbstick:Create(parentFrame)
 	local function ResizeThumbstick()
 		local minAxis = math.min(parentFrame.AbsoluteSize.X, parentFrame.AbsoluteSize.Y)
 		local isSmallScreen = minAxis <= 500
-		self.thumbstickSize = isSmallScreen and 70 or 120
-		self.screenPos = isSmallScreen and UDim2.new(0, (self.thumbstickSize/2) - 10, 1, -self.thumbstickSize - 20) or
-			UDim2.new(0, self.thumbstickSize/2, 1, -self.thumbstickSize * 1.75)
+
+		if FFlagUserPlayerScriptsCanUseLCC and AvatarAbilitiesInterface:isEnabled() then
+			local buttonInset = isSmallScreen and 64 or 88
+			self.thumbstickSize = isSmallScreen and 72 or 120
+			self.screenPos = UDim2.new(0, buttonInset, 1, -self.thumbstickSize - buttonInset)
+		else
+			self.thumbstickSize = isSmallScreen and 70 or 120
+			self.screenPos = isSmallScreen and UDim2.new(0, (self.thumbstickSize/2) - 10, 1, -self.thumbstickSize - 20) or
+				UDim2.new(0, self.thumbstickSize/2, 1, -self.thumbstickSize * 1.75)
+		end
+
 		self.thumbstickFrame.Size = UDim2.new(0, self.thumbstickSize, 0, self.thumbstickSize)
 		self.thumbstickFrame.Position = self.screenPos
 		outerImage.Size = UDim2.new(0, self.thumbstickSize, 0, self.thumbstickSize)
@@ -127,7 +150,10 @@ function TouchThumbstick:Create(parentFrame)
 
 	ResizeThumbstick()
 	self.absoluteSizeChangedConn = parentFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeThumbstick)
-	
+	if FFlagUserPlayerScriptsCanUseLCC then
+		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface:GetEnabledChangedSignal():Connect(ResizeThumbstick)
+	end
+
 	outerImage.Parent = self.thumbstickFrame
 	self.stickImage.Parent = self.thumbstickFrame
 

@@ -17,7 +17,7 @@ PROTO_0:
        19 MOVE                             R3 R0
        20 GETIMPORT                        R2 K1 [typeof]
        22 CALL                             R2 1 1
-       23 JUMPIFNOTEQKS                    R2 K2 ["table"] ; [+46]
+       23 JUMPIFNOTEQKS                    R2 K2 ["table"] ; [+51]
        25 FASTCALL1                        TYPEOF R1 ; [+3]
        26 MOVE                             R5 R1
        27 GETIMPORT                        R4 K1 [typeof]
@@ -54,10 +54,32 @@ PROTO_0:
        66 LOADB                            R7 0
        67 RETURN                           R7 1
        68 FORGLOOP                         R2 1 ; [-7]
-       70 LOADB                            R2 1
-       71 RETURN                           R2 1
+       70 GETUPVAL                         R2 0
+       71 CALL                             R2 0 1
+       72 JUMPIFNOT                        R2 ; [+2]
+       73 LOADB                            R2 1
+       74 RETURN                           R2 1
+       75 GETUPVAL                         R2 0
+       76 CALL                             R2 0 1
+       77 JUMPIFNOT                        R2 ; [+5]
+       78 JUMPIFEQ                         R0 R1 ; [+2]
+       80 LOADB                            R2 0 +1
+       81 LOADB                            R2 1
+       82 RETURN                           R2 1
+       83 LOADB                            R2 1
+       84 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPCLOSURE                       R0 K0 [PROTO_0]
-        2 RETURN                           R0 1
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarCompatibilityPreviewer"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Src"]
+       11 GETTABLEKS                       R3 R4 K7 ["Flags"]
+       13 GETTABLEKS                       R2 R3 K8 ["getFFlagAvatarPreviewerFixShallowEqual"]
+       15 CALL                             R1 1 1
+       16 DUPCLOSURE                       R2 K9 [PROTO_0]
+       17 CAPTURE                          VAL R1
+       18 RETURN                           R2 1

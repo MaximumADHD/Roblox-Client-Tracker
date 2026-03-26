@@ -950,28 +950,36 @@ PROTO_12:
        42 LOADNIL                          R10
        43 FORGPREP                         R8
        44 GETTABLEKS                       R13 R12 K8 ["Parent"]
-       46 JUMPIFNOT                        R13 ; [+15]
+       46 JUMPIFNOT                        R13 ; [+25]
        47 GETTABLEKS                       R13 R12 K8 ["Parent"]
        49 LOADK                            R15 K9 ["BasePart"]
        50 NAMECALL                         R13 R13 K10 ["IsA"]
        52 CALL                             R13 2 1
-       53 JUMPIF                           R13 ; [+8]
-       54 GETTABLEKS                       R15 R12 K2 ["Name"]
-       56 FASTCALL2                        TABLE_INSERT R7 R15 ; [+4]
-       58 MOVE                             R14 R7
-       59 GETIMPORT                        R13 K5 [table.insert]
-       61 CALL                             R13 2 0
-       62 FORGLOOP                         R8 2 ; [-19]
-       64 LENGTH                           R8 R7
-       65 LOADN                            R9 0
-       66 JUMPIFNOTLT                      R9 R8 ; [+10]
-       68 GETUPVAL                         R12 2
-       69 GETTABLEKS                       R11 R12 K6 ["RIG_ERRORS"]
-       71 GETTABLEKS                       R10 R11 K11 ["FaceControlsParent"]
-       73 MOVE                             R11 R7
-       74 NAMECALL                         R8 R4 K4 ["insert"]
-       76 CALL                             R8 3 0
-       77 RETURN                           R4 1
+       53 JUMPIF                           R13 ; [+18]
+       54 GETUPVAL                         R13 3
+       55 CALL                             R13 0 1
+       56 JUMPIFNOT                        R13 ; [+7]
+       57 GETTABLEKS                       R13 R12 K8 ["Parent"]
+       59 LOADK                            R15 K11 ["Bone"]
+       60 NAMECALL                         R13 R13 K10 ["IsA"]
+       62 CALL                             R13 2 1
+       63 JUMPIF                           R13 ; [+8]
+       64 GETTABLEKS                       R15 R12 K2 ["Name"]
+       66 FASTCALL2                        TABLE_INSERT R7 R15 ; [+4]
+       68 MOVE                             R14 R7
+       69 GETIMPORT                        R13 K5 [table.insert]
+       71 CALL                             R13 2 0
+       72 FORGLOOP                         R8 2 ; [-29]
+       74 LENGTH                           R8 R7
+       75 LOADN                            R9 0
+       76 JUMPIFNOTLT                      R9 R8 ; [+10]
+       78 GETUPVAL                         R12 2
+       79 GETTABLEKS                       R11 R12 K6 ["RIG_ERRORS"]
+       81 GETTABLEKS                       R10 R11 K12 ["FaceControlsParent"]
+       83 MOVE                             R11 R7
+       84 NAMECALL                         R8 R4 K4 ["insert"]
+       86 CALL                             R8 3 0
+       87 RETURN                           R4 1
 
 PROTO_13:
         0 GETUPVAL                         R2 0
@@ -1060,58 +1068,63 @@ MAIN:
        55 LOADB                            R11 0
        56 NAMECALL                         R8 R8 K20 ["DefineFastFlag"]
        58 CALL                             R8 3 1
-       59 NEWTABLE                         R9 1 0
-       61 DUPCLOSURE                       R10 K21 [PROTO_1]
-       62 CAPTURE                          VAL R6
-       63 CAPTURE                          VAL R7
-       64 CAPTURE                          VAL R4
-       65 CAPTURE                          VAL R3
-       66 CAPTURE                          VAL R5
-       67 DUPCLOSURE                       R11 K22 [PROTO_2]
-       68 CAPTURE                          VAL R6
-       69 CAPTURE                          VAL R5
-       70 CAPTURE                          VAL R4
-       71 DUPCLOSURE                       R12 K23 [PROTO_4]
-       72 CAPTURE                          VAL R6
+       59 GETIMPORT                        R9 K5 [require]
+       61 GETTABLEKS                       R11 R0 K15 ["LuaFlags"]
+       63 GETTABLEKS                       R10 R11 K21 ["GetFFlagFaceControlsBoneParent"]
+       65 CALL                             R9 1 1
+       66 NEWTABLE                         R10 1 0
+       68 DUPCLOSURE                       R11 K22 [PROTO_1]
+       69 CAPTURE                          VAL R6
+       70 CAPTURE                          VAL R7
+       71 CAPTURE                          VAL R4
+       72 CAPTURE                          VAL R3
        73 CAPTURE                          VAL R5
-       74 CAPTURE                          VAL R4
-       75 DUPCLOSURE                       R13 K24 [PROTO_6]
-       76 CAPTURE                          VAL R6
+       74 DUPCLOSURE                       R12 K23 [PROTO_2]
+       75 CAPTURE                          VAL R6
+       76 CAPTURE                          VAL R5
        77 CAPTURE                          VAL R4
-       78 CAPTURE                          VAL R5
-       79 CAPTURE                          VAL R3
-       80 DUPCLOSURE                       R14 K25 [PROTO_7]
-       81 CAPTURE                          VAL R6
-       82 CAPTURE                          VAL R4
-       83 CAPTURE                          VAL R5
-       84 DUPCLOSURE                       R15 K26 [PROTO_9]
-       85 CAPTURE                          VAL R6
-       86 CAPTURE                          VAL R5
-       87 CAPTURE                          VAL R4
-       88 DUPCLOSURE                       R16 K27 [PROTO_10]
-       89 CAPTURE                          VAL R6
-       90 CAPTURE                          VAL R8
-       91 CAPTURE                          VAL R4
-       92 CAPTURE                          VAL R5
-       93 DUPCLOSURE                       R17 K28 [PROTO_11]
-       94 CAPTURE                          VAL R6
-       95 CAPTURE                          VAL R4
-       96 CAPTURE                          VAL R5
-       97 DUPCLOSURE                       R18 K29 [PROTO_12]
-       98 CAPTURE                          VAL R6
-       99 CAPTURE                          VAL R4
-      100 CAPTURE                          VAL R5
-      101 DUPCLOSURE                       R19 K30 [PROTO_13]
+       78 DUPCLOSURE                       R13 K24 [PROTO_4]
+       79 CAPTURE                          VAL R6
+       80 CAPTURE                          VAL R5
+       81 CAPTURE                          VAL R4
+       82 DUPCLOSURE                       R14 K25 [PROTO_6]
+       83 CAPTURE                          VAL R6
+       84 CAPTURE                          VAL R4
+       85 CAPTURE                          VAL R5
+       86 CAPTURE                          VAL R3
+       87 DUPCLOSURE                       R15 K26 [PROTO_7]
+       88 CAPTURE                          VAL R6
+       89 CAPTURE                          VAL R4
+       90 CAPTURE                          VAL R5
+       91 DUPCLOSURE                       R16 K27 [PROTO_9]
+       92 CAPTURE                          VAL R6
+       93 CAPTURE                          VAL R5
+       94 CAPTURE                          VAL R4
+       95 DUPCLOSURE                       R17 K28 [PROTO_10]
+       96 CAPTURE                          VAL R6
+       97 CAPTURE                          VAL R8
+       98 CAPTURE                          VAL R4
+       99 CAPTURE                          VAL R5
+      100 DUPCLOSURE                       R18 K29 [PROTO_11]
+      101 CAPTURE                          VAL R6
       102 CAPTURE                          VAL R4
-      103 CAPTURE                          VAL R6
-      104 CAPTURE                          VAL R10
-      105 CAPTURE                          VAL R11
-      106 CAPTURE                          VAL R12
-      107 CAPTURE                          VAL R13
-      108 CAPTURE                          VAL R14
-      109 CAPTURE                          VAL R15
-      110 CAPTURE                          VAL R16
-      111 CAPTURE                          VAL R17
-      112 CAPTURE                          VAL R18
-      113 SETTABLEKS                       R19 R9 K31 ["validate"]
-      115 RETURN                           R9 1
+      103 CAPTURE                          VAL R5
+      104 DUPCLOSURE                       R19 K30 [PROTO_12]
+      105 CAPTURE                          VAL R6
+      106 CAPTURE                          VAL R4
+      107 CAPTURE                          VAL R5
+      108 CAPTURE                          VAL R9
+      109 DUPCLOSURE                       R20 K31 [PROTO_13]
+      110 CAPTURE                          VAL R4
+      111 CAPTURE                          VAL R6
+      112 CAPTURE                          VAL R11
+      113 CAPTURE                          VAL R12
+      114 CAPTURE                          VAL R13
+      115 CAPTURE                          VAL R14
+      116 CAPTURE                          VAL R15
+      117 CAPTURE                          VAL R16
+      118 CAPTURE                          VAL R17
+      119 CAPTURE                          VAL R18
+      120 CAPTURE                          VAL R19
+      121 SETTABLEKS                       R20 R10 K32 ["validate"]
+      123 RETURN                           R10 1

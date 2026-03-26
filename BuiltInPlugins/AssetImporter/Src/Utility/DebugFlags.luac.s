@@ -87,31 +87,22 @@ MAIN:
        67 SETTABLEKS                       R7 R6 K20 ["LogTestsQuiet"]
        69 LOADNIL                          R8
        70 ORK                              R8 R8 K17 [False]
-       71 LOADK                            R9 K21 ["LogAnalytics"]
+       71 LOADK                            R9 K21 ["RunDeveloperFrameworkTests"]
        72 NEWCLOSURE                       R7 P2
        73 CAPTURE                          VAL R2
        74 CAPTURE                          VAL R9
        75 CAPTURE                          REF R8
        76 CLOSEUPVALS                      R8
-       77 SETTABLEKS                       R7 R6 K21 ["LogAnalytics"]
-       79 LOADNIL                          R8
-       80 ORK                              R8 R8 K17 [False]
-       81 LOADK                            R9 K22 ["RunDeveloperFrameworkTests"]
-       82 NEWCLOSURE                       R7 P2
-       83 CAPTURE                          VAL R2
-       84 CAPTURE                          VAL R9
-       85 CAPTURE                          REF R8
-       86 CLOSEUPVALS                      R8
-       87 SETTABLEKS                       R7 R6 K22 ["RunDeveloperFrameworkTests"]
-       89 GETTABLEKS                       R9 R6 K19 ["RunTests"]
-       91 CALL                             R9 0 1
-       92 OR                               R8 R9 R3
-       93 ORK                              R8 R8 K17 [False]
-       94 LOADK                            R9 K23 ["EnableRoactConfigs"]
-       95 NEWCLOSURE                       R7 P2
-       96 CAPTURE                          VAL R2
-       97 CAPTURE                          VAL R9
-       98 CAPTURE                          REF R8
-       99 CLOSEUPVALS                      R8
-      100 SETTABLEKS                       R7 R6 K23 ["EnableRoactConfigs"]
-      102 RETURN                           R6 1
+       77 SETTABLEKS                       R7 R6 K21 ["RunDeveloperFrameworkTests"]
+       79 GETTABLEKS                       R9 R6 K19 ["RunTests"]
+       81 CALL                             R9 0 1
+       82 OR                               R8 R9 R3
+       83 ORK                              R8 R8 K17 [False]
+       84 LOADK                            R9 K22 ["EnableRoactConfigs"]
+       85 NEWCLOSURE                       R7 P2
+       86 CAPTURE                          VAL R2
+       87 CAPTURE                          VAL R9
+       88 CAPTURE                          REF R8
+       89 CLOSEUPVALS                      R8
+       90 SETTABLEKS                       R7 R6 K22 ["EnableRoactConfigs"]
+       92 RETURN                           R6 1

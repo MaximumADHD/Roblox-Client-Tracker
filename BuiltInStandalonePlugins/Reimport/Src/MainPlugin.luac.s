@@ -40,7 +40,7 @@ PROTO_5:
        15 GETUPVAL                         R3 0
        16 GETTABLEKS                       R2 R3 K0 ["dialogConfig"]
        18 GETTABLEKS                       R1 R2 K4 ["kind"]
-       20 JUMPIFNOTEQKS                    R1 K5 ["config"] ; [+64]
+       20 JUMPIFNOTEQKS                    R1 K5 ["config"] ; [+61]
        22 GETUPVAL                         R3 0
        23 GETTABLEKS                       R2 R3 K0 ["dialogConfig"]
        25 GETTABLEKS                       R1 R2 K6 ["class"]
@@ -59,54 +59,51 @@ PROTO_5:
        43 MOVE                             R3 R0
        44 CALL                             R1 2 -1
        45 RETURN                           R1 -1
-       46 GETUPVAL                         R1 5
-       47 CALL                             R1 0 1
-       48 JUMPIFNOT                        R1 ; [+12]
-       49 GETUPVAL                         R3 0
-       50 GETTABLEKS                       R2 R3 K0 ["dialogConfig"]
-       52 GETTABLEKS                       R1 R2 K6 ["class"]
-       54 JUMPIFNOTEQKS                    R1 K9 ["Decal"] ; [+6]
-       56 GETUPVAL                         R1 2
-       57 GETUPVAL                         R2 4
-       58 MOVE                             R3 R0
-       59 CALL                             R1 2 -1
-       60 RETURN                           R1 -1
-       61 GETUPVAL                         R1 2
-       62 GETUPVAL                         R2 6
-       63 DUPTABLE                         R3 K11 [{"errors"}]
-       64 NEWTABLE                         R4 0 1
-       66 DUPTABLE                         R5 K13 [{"message"}]
-       67 LOADK                            R7 K14 ["Instance class not supported for reimport: '%*'"]
-       68 GETUPVAL                         R11 0
-       69 GETTABLEKS                       R10 R11 K0 ["dialogConfig"]
-       71 GETTABLEKS                       R9 R10 K6 ["class"]
-       73 NAMECALL                         R7 R7 K15 ["format"]
-       75 CALL                             R7 2 1
-       76 MOVE                             R6 R7
-       77 SETTABLEKS                       R6 R5 K12 ["message"]
-       79 SETLIST                          R4 R5 1 [1]
-       81 SETTABLEKS                       R4 R3 K10 ["errors"]
-       83 CALL                             R1 2 -1
-       84 RETURN                           R1 -1
-       85 GETUPVAL                         R3 0
-       86 GETTABLEKS                       R2 R3 K0 ["dialogConfig"]
-       88 GETTABLEKS                       R1 R2 K4 ["kind"]
-       90 JUMPIFNOTEQKS                    R1 K16 ["error"] ; [+6]
-       92 GETUPVAL                         R1 2
-       93 GETUPVAL                         R2 6
-       94 MOVE                             R3 R0
-       95 CALL                             R1 2 -1
-       96 RETURN                           R1 -1
-       97 GETIMPORT                        R1 K17 [error]
-       99 LOADK                            R3 K18 ["Unknown dialog kind: $%*"]
-      100 GETUPVAL                         R7 0
-      101 GETTABLEKS                       R6 R7 K0 ["dialogConfig"]
-      103 GETTABLEKS                       R5 R6 K4 ["kind"]
-      105 NAMECALL                         R3 R3 K15 ["format"]
-      107 CALL                             R3 2 1
-      108 MOVE                             R2 R3
-      109 CALL                             R1 1 0
-      110 RETURN                           R0 0
+       46 GETUPVAL                         R3 0
+       47 GETTABLEKS                       R2 R3 K0 ["dialogConfig"]
+       49 GETTABLEKS                       R1 R2 K6 ["class"]
+       51 JUMPIFNOTEQKS                    R1 K9 ["Decal"] ; [+6]
+       53 GETUPVAL                         R1 2
+       54 GETUPVAL                         R2 4
+       55 MOVE                             R3 R0
+       56 CALL                             R1 2 -1
+       57 RETURN                           R1 -1
+       58 GETUPVAL                         R1 2
+       59 GETUPVAL                         R2 5
+       60 DUPTABLE                         R3 K11 [{"errors"}]
+       61 NEWTABLE                         R4 0 1
+       63 DUPTABLE                         R5 K13 [{"message"}]
+       64 LOADK                            R7 K14 ["Instance class not supported for reimport: '%*'"]
+       65 GETUPVAL                         R11 0
+       66 GETTABLEKS                       R10 R11 K0 ["dialogConfig"]
+       68 GETTABLEKS                       R9 R10 K6 ["class"]
+       70 NAMECALL                         R7 R7 K15 ["format"]
+       72 CALL                             R7 2 1
+       73 MOVE                             R6 R7
+       74 SETTABLEKS                       R6 R5 K12 ["message"]
+       76 SETLIST                          R4 R5 1 [1]
+       78 SETTABLEKS                       R4 R3 K10 ["errors"]
+       80 CALL                             R1 2 -1
+       81 RETURN                           R1 -1
+       82 GETUPVAL                         R3 0
+       83 GETTABLEKS                       R2 R3 K0 ["dialogConfig"]
+       85 GETTABLEKS                       R1 R2 K4 ["kind"]
+       87 JUMPIFNOTEQKS                    R1 K16 ["error"] ; [+6]
+       89 GETUPVAL                         R1 2
+       90 GETUPVAL                         R2 5
+       91 MOVE                             R3 R0
+       92 CALL                             R1 2 -1
+       93 RETURN                           R1 -1
+       94 GETIMPORT                        R1 K17 [error]
+       96 LOADK                            R3 K18 ["Unknown dialog kind: $%*"]
+       97 GETUPVAL                         R7 0
+       98 GETTABLEKS                       R6 R7 K0 ["dialogConfig"]
+      100 GETTABLEKS                       R5 R6 K4 ["kind"]
+      102 NAMECALL                         R3 R3 K15 ["format"]
+      104 CALL                             R3 2 1
+      105 MOVE                             R2 R3
+      106 CALL                             R1 1 0
+      107 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R3 0
@@ -245,15 +242,14 @@ PROTO_6:
       193 CAPTURE                          UPVAL U12
       194 CAPTURE                          UPVAL U13
       195 CAPTURE                          UPVAL U14
-      196 CAPTURE                          UPVAL U15
-      197 CALL                             R24 1 -1
-      198 SETLIST                          R23 R24 -1 [1]
-      200 CALL                             R20 3 1
-      201 SETTABLEKS                       R20 R19 K48 ["FoundationProvider"]
-      203 CALL                             R16 3 1
-      204 SETTABLEKS                       R16 R15 K32 ["MainWindow"]
-      206 CALL                             R13 2 -1
-      207 RETURN                           R13 -1
+      196 CALL                             R24 1 -1
+      197 SETLIST                          R23 R24 -1 [1]
+      199 CALL                             R20 3 1
+      200 SETTABLEKS                       R20 R19 K48 ["FoundationProvider"]
+      202 CALL                             R16 3 1
+      203 SETTABLEKS                       R16 R15 K32 ["MainWindow"]
+      205 CALL                             R13 2 -1
+      206 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -301,25 +297,20 @@ MAIN:
        75 GETTABLEKS                       R16 R0 K24 ["Lib"]
        77 GETTABLEKS                       R15 R16 K25 ["Constants"]
        79 CALL                             R14 1 1
-       80 GETIMPORT                        R15 K5 [require]
-       82 GETTABLEKS                       R17 R0 K26 ["Flags"]
-       84 GETTABLEKS                       R16 R17 K27 ["GetFFlagReimportDecalSupport"]
-       86 CALL                             R15 1 1
-       87 DUPCLOSURE                       R16 K28 [PROTO_6]
-       88 CAPTURE                          VAL R4
-       89 CAPTURE                          VAL R0
-       90 CAPTURE                          VAL R2
-       91 CAPTURE                          VAL R8
-       92 CAPTURE                          VAL R9
-       93 CAPTURE                          VAL R14
-       94 CAPTURE                          VAL R5
-       95 CAPTURE                          VAL R6
-       96 CAPTURE                          VAL R7
-       97 CAPTURE                          VAL R10
-       98 CAPTURE                          VAL R1
-       99 CAPTURE                          VAL R3
-      100 CAPTURE                          VAL R11
-      101 CAPTURE                          VAL R12
-      102 CAPTURE                          VAL R15
-      103 CAPTURE                          VAL R13
-      104 RETURN                           R16 1
+       80 DUPCLOSURE                       R15 K26 [PROTO_6]
+       81 CAPTURE                          VAL R4
+       82 CAPTURE                          VAL R0
+       83 CAPTURE                          VAL R2
+       84 CAPTURE                          VAL R8
+       85 CAPTURE                          VAL R9
+       86 CAPTURE                          VAL R14
+       87 CAPTURE                          VAL R5
+       88 CAPTURE                          VAL R6
+       89 CAPTURE                          VAL R7
+       90 CAPTURE                          VAL R10
+       91 CAPTURE                          VAL R1
+       92 CAPTURE                          VAL R3
+       93 CAPTURE                          VAL R11
+       94 CAPTURE                          VAL R12
+       95 CAPTURE                          VAL R13
+       96 RETURN                           R15 1

@@ -59,6 +59,7 @@ type _ExpandableTextSchema_PropsFields = {
 	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	header_component: _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp?,
 }
 
 type _ExpandableTextSchema_PropsPartialFields = {
@@ -69,6 +70,7 @@ type _ExpandableTextSchema_PropsPartialFields = {
 	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	header_component: _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp?,
 }
 
 export type ExpandableTextSchema_Props = typeof(setmetatable(
@@ -216,6 +218,7 @@ do
 			anchor_point = if data == nil or data.anchor_point == nil then nil else data.anchor_point,
 			position = if data == nil or data.position == nil then nil else data.position,
 			size = if data == nil or data.size == nil then nil else data.size,
+			header_component = if data == nil or data.header_component == nil then nil else data.header_component,
 		}, _ExpandableTextSchema_PropsImpl :: _ExpandableTextSchema_PropsImpl)
 	end
 
@@ -262,6 +265,12 @@ do
 		if self.size ~= nil then
 			local encoded = self.size:encode()
 			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.header_component ~= nil then
+			local encoded = self.header_component:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -320,6 +329,12 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.decode(value)
 					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.header_component =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp.decode(value)
+					continue
 				end
 
 				local length
@@ -373,6 +388,10 @@ do
 
 		if self.size ~= nil then
 			output.size = self.size:jsonEncode()
+		end
+
+		if self.header_component ~= nil then
+			output.headerComponent = self.header_component:jsonEncode()
 		end
 
 		return output
@@ -431,6 +450,16 @@ do
 
 		if input.size ~= nil then
 			self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.jsonDecode(input.size)
+		end
+
+		if input.header_component ~= nil then
+			self.header_component =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp.jsonDecode(input.header_component)
+		end
+
+		if input.headerComponent ~= nil then
+			self.header_component =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp.jsonDecode(input.headerComponent)
 		end
 
 		return self

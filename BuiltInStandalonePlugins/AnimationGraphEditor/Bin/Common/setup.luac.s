@@ -113,7 +113,7 @@ PROTO_8:
        25 LOADK                            R8 K17 ["Toggle"]
        26 CALL                             R6 2 1
        27 SETTABLEKS                       R6 R5 K3 ["uri"]
-       29 LOADB                            R6 0
+       29 GETUPVAL                         R6 3
        30 SETTABLEKS                       R6 R5 K4 ["isPreexistingAction"]
        32 DUPCLOSURE                       R6 K18 [PROTO_2]
        33 SETTABLEKS                       R6 R5 K5 ["getText"]
@@ -209,10 +209,10 @@ PROTO_8:
       161 SETTABLEKS                       R6 R5 K43 ["getDockTitle"]
       163 GETIMPORT                        R6 K56 [Enum.ZIndexBehavior.Sibling]
       165 SETTABLEKS                       R6 R5 K44 ["zIndexBehavior"]
-      167 GETUPVAL                         R6 3
+      167 GETUPVAL                         R6 4
       168 SETTABLEKS                       R6 R5 K3 ["uri"]
       170 SETTABLEKS                       R5 R4 K57 ["dockWidgetInfo"]
-      172 GETUPVAL                         R7 4
+      172 GETUPVAL                         R7 5
       173 GETTABLEKS                       R6 R7 K58 ["PluginLoaderBuilder"]
       175 GETTABLEKS                       R5 R6 K59 ["build"]
       177 MOVE                             R6 R4
@@ -222,7 +222,7 @@ PROTO_8:
       183 CALL                             R6 1 1
       184 JUMPIF                           R6 ; [+1]
       185 RETURN                           R0 0
-      186 GETUPVAL                         R7 5
+      186 GETUPVAL                         R7 6
       187 GETIMPORT                        R8 K63 [require]
       189 GETUPVAL                         R11 0
       190 GETTABLEKS                       R10 R11 K35 ["Src"]
@@ -234,7 +234,7 @@ PROTO_8:
       200 CALL                             R7 2 0
       201 RETURN                           R0 0
       202 JUMPIFNOTEQKS                    R1 K68 ["editabledatamodel"] ; [+15]
-      204 GETUPVAL                         R2 5
+      204 GETUPVAL                         R2 6
       205 GETIMPORT                        R3 K63 [require]
       207 GETUPVAL                         R6 0
       208 GETTABLEKS                       R5 R6 K35 ["Src"]
@@ -245,7 +245,7 @@ PROTO_8:
       216 CALL                             R2 2 0
       217 RETURN                           R0 0
       218 JUMPIFNOTEQKS                    R1 K71 ["previewdatamodel"] ; [+15]
-      220 GETUPVAL                         R2 5
+      220 GETUPVAL                         R2 6
       221 GETIMPORT                        R3 K63 [require]
       223 GETUPVAL                         R6 0
       224 GETTABLEKS                       R5 R6 K35 ["Src"]
@@ -288,13 +288,19 @@ MAIN:
        32 GETTABLEKS                       R6 R7 K12 ["Common"]
        34 GETTABLEKS                       R5 R6 K13 ["defineLuaFlags"]
        36 CALL                             R4 1 1
-       37 DUPCLOSURE                       R5 K14 [PROTO_1]
-       38 CAPTURE                          VAL R0
-       39 DUPCLOSURE                       R6 K15 [PROTO_8]
-       40 CAPTURE                          VAL R0
-       41 CAPTURE                          VAL R4
-       42 CAPTURE                          VAL R3
-       43 CAPTURE                          VAL R1
-       44 CAPTURE                          VAL R2
-       45 CAPTURE                          VAL R5
-       46 RETURN                           R6 1
+       37 GETIMPORT                        R5 K15 [game]
+       39 LOADK                            R7 K16 ["AnimationGraphEditorAction"]
+       40 LOADB                            R8 0
+       41 NAMECALL                         R5 R5 K17 ["DefineFastFlag"]
+       43 CALL                             R5 3 1
+       44 DUPCLOSURE                       R6 K18 [PROTO_1]
+       45 CAPTURE                          VAL R0
+       46 DUPCLOSURE                       R7 K19 [PROTO_8]
+       47 CAPTURE                          VAL R0
+       48 CAPTURE                          VAL R4
+       49 CAPTURE                          VAL R3
+       50 CAPTURE                          VAL R5
+       51 CAPTURE                          VAL R1
+       52 CAPTURE                          VAL R2
+       53 CAPTURE                          VAL R6
+       54 RETURN                           R7 1

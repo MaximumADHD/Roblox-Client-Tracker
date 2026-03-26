@@ -18,6 +18,8 @@ local IXPService = game:GetService("IXPService")
 local LocalizationService = game:GetService("LocalizationService")
 local TelemetryService = game:GetService("TelemetryService")
 
+local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
+
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
@@ -2751,14 +2753,25 @@ local function CreateSettingsHub()
 		)
 
 		local movementTime = 0.3
-		this.PageViewClipper:TweenSize(
-			targetSize,
-			Enum.EasingDirection.InOut,
-			Enum.EasingStyle.Quart,
-			movementTime,
-			true,
-			animateBottomBarComplete
-		)
+		if featureDeprecateOldGuiObjectProperties then
+			this.PageViewClipper:TweenSizeInternal(
+				targetSize,
+				Enum.EasingDirection.InOut,
+				Enum.EasingStyle.Quart,
+				movementTime,
+				true,
+				animateBottomBarComplete
+			)
+		else
+			this.PageViewClipper:TweenSize(
+				targetSize,
+				Enum.EasingDirection.InOut,
+				Enum.EasingStyle.Quart,
+				movementTime,
+				true,
+				animateBottomBarComplete
+			)
+		end
 		return
 	end
 
@@ -2779,14 +2792,25 @@ local function CreateSettingsHub()
 		)
 
 		local movementTime = 0.3
-		this.PageViewClipper:TweenSize(
-			targetSize,
-			Enum.EasingDirection.InOut,
-			Enum.EasingStyle.Quart,
-			movementTime,
-			true,
-			animateBottomBarComplete
-		)
+		if featureDeprecateOldGuiObjectProperties then
+			this.PageViewClipper:TweenSizeInternal(
+				targetSize,
+				Enum.EasingDirection.InOut,
+				Enum.EasingStyle.Quart,
+				movementTime,
+				true,
+				animateBottomBarComplete
+			)
+		else
+			this.PageViewClipper:TweenSize(
+				targetSize,
+				Enum.EasingDirection.InOut,
+				Enum.EasingStyle.Quart,
+				movementTime,
+				true,
+				animateBottomBarComplete
+			)
+		end
 		return
 	end
 
@@ -3333,18 +3357,33 @@ local function CreateSettingsHub()
 						PerfUtils.menuOpenComplete()
 					end
 				else
-					this.Shield:TweenPosition(
-						UDim2.new(0, 0, 0, 0),
-						Enum.EasingDirection.InOut,
-						Enum.EasingStyle.Quart,
-						movementTime,
-						true,
-						function ()
-							if Flags.FFlagEnableInGameMenuDurationLogger then
-								PerfUtils.menuOpenComplete()
+					if featureDeprecateOldGuiObjectProperties then
+						this.Shield:TweenPositionInternal(
+							UDim2.new(0, 0, 0, 0),
+							Enum.EasingDirection.InOut,
+							Enum.EasingStyle.Quart,
+							movementTime,
+							true,
+							function ()
+								if Flags.FFlagEnableInGameMenuDurationLogger then
+									PerfUtils.menuOpenComplete()
+								end
 							end
-						end
-					)
+						)
+					else
+						this.Shield:TweenPosition(
+							UDim2.new(0, 0, 0, 0),
+							Enum.EasingDirection.InOut,
+							Enum.EasingStyle.Quart,
+							movementTime,
+							true,
+							function ()
+								if Flags.FFlagEnableInGameMenuDurationLogger then
+									PerfUtils.menuOpenComplete()
+								end
+							end
+						)
+					end
 				end
 
 				if not Flags.FFlagSettingsHubIndependentBackgroundVisibility then
@@ -3575,17 +3614,31 @@ local function CreateSettingsHub()
 							ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
 						end
 					end
-					this.Shield:TweenPosition(
-						SETTINGS_SHIELD_INACTIVE_POSITION,
-						Enum.EasingDirection.In,
-						Enum.EasingStyle.Quad,
-						movementTime,
-						true,
-						function()
-							this.Shield.Visible = this.Visible 
-							handleShieldClose()
-						end
-					)
+					if featureDeprecateOldGuiObjectProperties then
+						this.Shield:TweenPositionInternal(
+							SETTINGS_SHIELD_INACTIVE_POSITION,
+							Enum.EasingDirection.In,
+							Enum.EasingStyle.Quad,
+							movementTime,
+							true,
+							function()
+								this.Shield.Visible = this.Visible 
+								handleShieldClose()
+							end
+						)
+					else
+						this.Shield:TweenPosition(
+							SETTINGS_SHIELD_INACTIVE_POSITION,
+							Enum.EasingDirection.In,
+							Enum.EasingStyle.Quad,
+							movementTime,
+							true,
+							function()
+								this.Shield.Visible = this.Visible 
+								handleShieldClose()
+							end
+						)
+					end
 				end
 
 				if not Flags.FFlagSettingsHubIndependentBackgroundVisibility then
