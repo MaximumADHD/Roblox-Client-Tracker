@@ -11657,7 +11657,7 @@
     "documentation": "Version number of the key to remove."
   },
   "@roblox/globaltype/DataStore.RemoveVersionAsync": {
-    "documentation": "Permanently deletes the specified version of a key.",
+    "documentation": "<strong>Deprecated:</strong> <br>Permanently deletes the specified version of a key.",
     "params": [
       {
         "name": "self",
@@ -31053,7 +31053,6 @@
     "keys": {
       "BalanceMaxTorque": "@roblox/globaltype/AirController.BalanceMaxTorque",
       "BalanceSpeed": "@roblox/globaltype/AirController.BalanceSpeed",
-      "LinearImpulse": "@roblox/globaltype/AirController.LinearImpulse",
       "MaintainAngularMomentum": "@roblox/globaltype/AirController.MaintainAngularMomentum",
       "MaintainLinearMomentum": "@roblox/globaltype/AirController.MaintainLinearMomentum",
       "MoveMaxForce": "@roblox/globaltype/AirController.MoveMaxForce",
@@ -31071,11 +31070,6 @@
   "@roblox/globaltype/AirController.BalanceSpeed": {
     "documentation": "The maximum angular speed used to align the character upright.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#BalanceSpeed",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AirController.LinearImpulse": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#LinearImpulse",
     "code_sample": ""
   },
   "@roblox/globaltype/AirController.MaintainAngularMomentum": {
@@ -45034,18 +45028,12 @@
   "@roblox/globaltype/SwimController": {
     "documentation": "",
     "keys": {
-      "AccelerationTime": "@roblox/globaltype/SwimController.AccelerationTime",
       "PitchMaxTorque": "@roblox/globaltype/SwimController.PitchMaxTorque",
       "PitchSpeedFactor": "@roblox/globaltype/SwimController.PitchSpeedFactor",
       "RollMaxTorque": "@roblox/globaltype/SwimController.RollMaxTorque",
       "RollSpeedFactor": "@roblox/globaltype/SwimController.RollSpeedFactor"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/SwimController.AccelerationTime": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#AccelerationTime",
     "code_sample": ""
   },
   "@roblox/globaltype/SwimController.PitchMaxTorque": {
@@ -68051,7 +68039,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/ScriptEditorService.OpenScriptDocumentAsync/param/2": {
-    "documentation": ""
+    "documentation": "A dictionary that supports the following options: <ul> <li><code>Temporary</code> &mdash; Boolean. Whether to open the script in a preview   tab. Default is false.</li> <li><code>HighlightRange</code> &mdash; A nested dictionary containing a line and   character range to highlight in the editor. Example:   <code>HighlightRange = { Start = { Line = 10, Character = 1 }, End = { Line = 15, Character = 20 }}</code>.</li> </ul>"
   },
   "@roblox/globaltype/ScriptEditorService.OpenScriptDocumentAsync/return/0": {
     "documentation": ""
@@ -75932,7 +75920,6 @@
   "@roblox/globaltype/GroundController": {
     "documentation": "",
     "keys": {
-      "AccelerationLean": "@roblox/globaltype/GroundController.AccelerationLean",
       "AccelerationTime": "@roblox/globaltype/GroundController.AccelerationTime",
       "BalanceMaxTorque": "@roblox/globaltype/GroundController.BalanceMaxTorque",
       "BalanceSpeed": "@roblox/globaltype/GroundController.BalanceSpeed",
@@ -75940,16 +75927,9 @@
       "Friction": "@roblox/globaltype/GroundController.Friction",
       "FrictionWeight": "@roblox/globaltype/GroundController.FrictionWeight",
       "GroundOffset": "@roblox/globaltype/GroundController.GroundOffset",
-      "StandForce": "@roblox/globaltype/GroundController.StandForce",
-      "StandSpeed": "@roblox/globaltype/GroundController.StandSpeed",
       "TurnSpeedFactor": "@roblox/globaltype/GroundController.TurnSpeedFactor"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GroundController.AccelerationLean": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#AccelerationLean",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.AccelerationTime": {
@@ -75985,16 +75965,6 @@
   "@roblox/globaltype/GroundController.GroundOffset": {
     "documentation": "The target distance above the ground to keep the <code>ControllerManager.RootPart</code> at.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#GroundOffset",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GroundController.StandForce": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#StandForce",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GroundController.StandSpeed": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#StandSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.TurnSpeedFactor": {
@@ -77063,6 +77033,7 @@
       "FireInGameEconomyEvent": "@roblox/globaltype/AnalyticsService.FireInGameEconomyEvent",
       "FireLogEvent": "@roblox/globaltype/AnalyticsService.FireLogEvent",
       "FirePlayerProgressionEvent": "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent",
+      "GetPlayerSegmentsAsync": "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync",
       "LogCustomEvent": "@roblox/globaltype/AnalyticsService.LogCustomEvent",
       "LogEconomyEvent": "@roblox/globaltype/AnalyticsService.LogEconomyEvent",
       "LogFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent",
@@ -77322,6 +77293,33 @@
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FirePlayerProgressionEvent",
     "code_sample": ""
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/0": {
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences."
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/1": {
+    "documentation": "The player whose segment buckets should be returned."
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/return/0": {
+    "documentation": "A dictionary containing coarse player segment buckets for the current experience."
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync": {
+    "documentation": "Returns coarse player segment buckets for the current experience.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#GetPlayerSegmentsAsync",
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal AnalyticsService = game:GetService(\"AnalyticsService\")\n\nlocal function configurePlayerExperience(player)\n\tlocal segments = AnalyticsService:GetPlayerSegmentsAsync(player)\n\n\tif not segments.HasData then\n\t\treturn\n\tend\n\n\tif segments.WhenUserFirstPlayed == Enum.WhenUserFirstPlayed.Days0To30 then\n\t\tprint(\"Show additional onboarding for\", player.Name)\n\tend\n\n\tif segments.ActivePayerStatus == Enum.ActivePayerStatus.Top15Percent then\n\t\tprint(\"Show high-value offer to\", player.Name)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(configurePlayerExperience)"
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/0": {
     "documentation": "Collection of methods that allows you to track how users interact with your experiences."
@@ -79881,10 +79879,10 @@
   "@roblox/globaltype/TextBox.Font": {
     "documentation": "Determines the font used to render text.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Font",
-    "code_sample": "local textLabel = script.Parent\n\nwhile true do\n\t-- Iterate over all the different fonts\n\tfor _, font in pairs(Enum.Font:GetEnumItems()) do\n\t\ttextLabel.Font = font\n\t\ttextLabel.Text = font.Name\n\t\ttask.wait(1)\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.FontFace": {
-    "documentation": "Determines the font used to render text.",
+    "documentation": "Determines the font face used to render text.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#FontFace",
     "code_sample": ""
   },
@@ -79904,7 +79902,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.MultiLine": {
-    "documentation": "When set to <code>true</code>, text inside a <code>TextBox</code> is able to move onto multiple lines. This also enables players to use the enter key to move onto a new line.",
+    "documentation": "When set to <code>true</code>, text inside a <code>TextBox</code> is able to move onto multiple lines.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#MultiLine",
     "code_sample": ""
   },
@@ -79919,37 +79917,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.PlaceholderColor3": {
-    "documentation": "Sets the text color that gets used when no text has been entered into the <code>TextBox</code> yet.",
+    "documentation": "Sets the text color that gets used when no text has been entered into the <code>TextBox</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#PlaceholderColor3",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.PlaceholderText": {
-    "documentation": "Sets the text that gets displayed when no text has been entered into the <code>TextBox</code> yet.",
+    "documentation": "Sets the text that gets displayed when no text has been entered into the <code>TextBox</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#PlaceholderText",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.RichText": {
-    "documentation": "Determines whether the <code>TextBox</code> renders the <code>TextBox.Text</code> string using rich text formatting.",
+    "documentation": "Determines whether the <code>TextBox</code> renders the <code>Text</code> string using rich text formatting.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#RichText",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.SelectionStart": {
-    "documentation": "Determines the starting position of a text selection, or -1 if no text is selected.",
+    "documentation": "Determines the starting position of a text selection.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#SelectionStart",
     "code_sample": "local textBox = script.Parent\n\nlocal function showSelection()\n\tif textBox.CursorPosition == -1 or textBox.SelectionStart == -1 then\n\t\tprint(\"No selection\")\n\telse\n\t\tlocal selectedText = string.sub(\n\t\t\ttextBox.Text,\n\t\t\tmath.min(textBox.CursorPosition, textBox.SelectionStart),\n\t\t\tmath.max(textBox.CursorPosition, textBox.SelectionStart)\n\t\t)\n\t\tprint('The selection is:\"', selectedText, '\"')\n\tend\nend\n\ntextBox:GetPropertyChangedSignal(\"CursorPosition\"):Connect(showSelection)\ntextBox:GetPropertyChangedSignal(\"SelectionStart\"):Connect(showSelection)"
   },
   "@roblox/globaltype/TextBox.ShowNativeInput": {
-    "documentation": "If set to true, input native to the platform is used instead of Roblox's built-in keyboard.",
+    "documentation": "If set to <code>true</code>, input native to the platform is used instead of Roblox's built-in keyboard.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#ShowNativeInput",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.Text": {
-    "documentation": "Determines the string rendered by the UI element.",
+    "documentation": "Determines the string rendered by the <code>TextBox</code> element.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Text",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextBounds": {
-    "documentation": "The size of a UI element's text in offsets.",
+    "documentation": "The size of a <code>TextBox</code> element's text in offsets.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextBounds",
     "code_sample": ""
   },
@@ -79959,7 +79957,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextColor3": {
-    "documentation": "Determines the color of rendered text.",
+    "documentation": "Determines the color of non-placeholder rendered text.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextColor3",
     "code_sample": "local textBox = script.Parent\n\nlocal function hasVowels(str)\n\treturn str:lower():find(\"[aeiou]\")\nend\n\nlocal function onTextChanged()\n\tlocal text = textBox.Text\n\t-- Check for vowels\n\tif hasVowels(text) then\n\t\ttextBox.TextColor3 = Color3.new(0, 0, 0) -- Black\n\telse\n\t\ttextBox.TextColor3 = Color3.new(1, 0, 0) -- Red\n\tend\nend\n\ntextBox:GetPropertyChangedSignal(\"Text\"):Connect(onTextChanged)"
   },
@@ -79974,19 +79972,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextFits": {
-    "documentation": "Whether the text fits within the constraints of the TextBox.",
+    "documentation": "Whether the text fits within the constraints of the <code>TextBox</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextFits",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextScaled": {
-    "documentation": "Changes whether text is resized to fit the GUI object that renders it.",
+    "documentation": "Changes whether text is resized to fit within the <code>TextBox</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextScaled",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextSize": {
     "documentation": "Determine the line height of text in offsets.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextSize",
-    "code_sample": "local textLabel = script.Parent\n\ntextLabel.Text = \"Kaboom!\"\n\nwhile true do\n\tfor size = 5, 100, 5 do\n\t\ttextLabel.TextSize = size\n\t\ttextLabel.TextTransparency = size / 100\n\t\ttask.wait()\n\tend\n\ttask.wait(1)\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextStrokeColor3": {
     "documentation": "Determines the color of the text stroke (outline).",
@@ -79999,12 +79997,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextTransparency": {
-    "documentation": "Determines the transparency of rendered text.",
+    "documentation": "Determines the transparency of the rendered text.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextTransparency",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextTruncate": {
-    "documentation": "Controls the truncation of the text displayed in this TextBox.",
+    "documentation": "Controls the truncation of the text displayed in the <code>TextBox</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextTruncate",
     "code_sample": ""
   },
@@ -80014,25 +80012,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextWrapped": {
-    "documentation": "Determines if text wraps to multiple lines within the <code>GuiObject</code> element space, truncating excess text.",
+    "documentation": "Determines if text wraps to multiple lines within the <code>TextBox</code> element space, truncating excess text.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextWrapped",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextXAlignment": {
-    "documentation": "Determines the horizontal alignment of rendered text.",
+    "documentation": "Determines the horizontal alignment of the rendered text.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextXAlignment",
-    "code_sample": "-- Paste this in a LocalScript within a TextLabel/TextButton/TextBox\nlocal textLabel = script.Parent\n\nlocal function setAlignment(xAlign, yAlign)\n\ttextLabel.TextXAlignment = xAlign\n\ttextLabel.TextYAlignment = yAlign\n\ttextLabel.Text = xAlign.Name .. \" + \" .. yAlign.Name\nend\n\nwhile true do\n\t-- Iterate over both TextXAlignment and TextYAlignment enum items\n\tfor _, yAlign in pairs(Enum.TextYAlignment:GetEnumItems()) do\n\t\tfor _, xAlign in pairs(Enum.TextXAlignment:GetEnumItems()) do\n\t\t\tsetAlignment(xAlign, yAlign)\n\t\t\ttask.wait(1)\n\t\tend\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextYAlignment": {
-    "documentation": "Determines the vertical alignment of rendered text.",
+    "documentation": "Determines the vertical alignment of the rendered text.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextYAlignment",
-    "code_sample": "-- Paste this in a LocalScript within a TextLabel/TextButton/TextBox\nlocal textLabel = script.Parent\n\nlocal function setAlignment(xAlign, yAlign)\n\ttextLabel.TextXAlignment = xAlign\n\ttextLabel.TextYAlignment = yAlign\n\ttextLabel.Text = xAlign.Name .. \" + \" .. yAlign.Name\nend\n\nwhile true do\n\t-- Iterate over both TextXAlignment and TextYAlignment enum items\n\tfor _, yAlign in pairs(Enum.TextYAlignment:GetEnumItems()) do\n\t\tfor _, xAlign in pairs(Enum.TextXAlignment:GetEnumItems()) do\n\t\t\tsetAlignment(xAlign, yAlign)\n\t\t\ttask.wait(1)\n\t\tend\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.CaptureFocus/param/0": {
     "documentation": "A 2D user interface element that displays player-editable text."
   },
   "@roblox/globaltype/TextBox.CaptureFocus": {
-    "documentation": "Forces the client to focus on the TextBox.",
+    "documentation": "Forces the client to focus on the <code>TextBox</code>.",
     "params": [
       {
         "name": "self",
@@ -80041,7 +80039,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#CaptureFocus",
-    "code_sample": ""
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal textBox = script.Parent\n\nlocal input = UserInputService.InputBegan:Connect(function(input, processed)\n\tif input.KeyCode == Enum.KeyCode.Q then\n\t\ttextBox:CaptureFocus()\n\tend\nend)"
   },
   "@roblox/globaltype/TextBox.IsFocused/param/0": {
     "documentation": "A 2D user interface element that displays player-editable text."
@@ -80083,7 +80081,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#ReleaseFocus",
-    "code_sample": "local textBox = script.Parent\n\nlocal function onFocused()\n\ttask.wait(5)\n\ttextBox:ReleaseFocus()\nend\n\ntextBox.Focused:Connect(onFocused)"
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal textBox = script.Parent\n\nlocal input = UserInputService.InputBegan:Connect(function(input, processed)\n\tif input.KeyCode == Enum.KeyCode.Escape and textBox.IsFocused then\n\t\ttextBox:ReleaseFocus()\n\tend\nend)"
   },
   "@roblox/globaltype/TextBox.Focused.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -80171,7 +80169,7 @@
       "Wait": "@roblox/globaltype/TextBox.Focused.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Focused",
-    "code_sample": "local textBox = script.Parent\n\nlocal function onFocused()\n\tprint(\"Focused\")\nend\n\ntextBox.Focused:Connect(onFocused)"
+    "code_sample": "local textBox = script.Parent\n\ntextBox.Focused:Connect(function()\n\tprint(\"Focused!\")\nend)\n\ntextBox.FocusLost:Connect(function()\n\tprint(\"Focus lost!\")\nend)"
   },
   "@roblox/globaltype/TextBox.FocusLost.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -80251,7 +80249,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextBox.FocusLost": {
-    "documentation": "Fires when the client lets their focus leave the <code>TextBox</code>.",
+    "documentation": "Fires when the <code>TextBox</code> loses its focus.",
     "keys": {
       "Connect": "@roblox/globaltype/TextBox.FocusLost.Connect",
       "ConnectParallel": "@roblox/globaltype/TextBox.FocusLost.ConnectParallel",
@@ -80259,7 +80257,7 @@
       "Wait": "@roblox/globaltype/TextBox.FocusLost.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#FocusLost",
-    "code_sample": "local gui = script.Parent\nlocal textBox = gui.TextBox\n\nlocal function focusLost(enterPressed)\n\tif enterPressed then\n\t\tprint(\"Focus was lost because enter was pressed!\")\n\telse\n\t\tprint(\"Focus was lost without enter being pressed\")\n\tend\nend\n\ntextBox.FocusLost:Connect(focusLost)"
+    "code_sample": "local textBox = script.Parent\n\ntextBox.Focused:Connect(function()\n\tprint(\"Focused!\")\nend)\n\ntextBox.FocusLost:Connect(function()\n\tprint(\"Focus lost!\")\nend)"
   },
   "@roblox/globaltype/TextBox.ReturnPressedFromOnScreenKeyboard.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -83938,7 +83936,7 @@
       "UnregisterEncryptedAsset": "@roblox/globaltype/ContentProvider.UnregisterEncryptedAsset"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ContentProvider",
-    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal LOGO_ID = \"rbxassetid://658743164\"\nlocal PAGE_TURN_ID = \"rbxassetid://12222076\"\n\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent = LOGO_ID\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = PAGE_TURN_ID\n\nlocal assets = { decal, sound }\n\nContentProvider:PreloadAsync(assets)\n\nprint(\"All assets loaded.\")"
+    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal LOGO_ID = \"rbxassetid://658743164\"\nlocal PAGE_TURN_ID = \"rbxassetid://12222076\"\n\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent =  Content.fromUri(LOGO_ID)\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = PAGE_TURN_ID\n\nlocal assets = { decal, sound }\n\nContentProvider:PreloadAsync(assets)\n\nprint(\"All assets loaded.\")"
   },
   "@roblox/globaltype/ContentProvider.BaseUrl": {
     "documentation": "Used by the <code>ContentProvider</code> to download assets from the Roblox website.",
@@ -84073,7 +84071,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ContentProvider#PreloadAsync",
-    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent = \"rbxassetid://5447528495\"\n\nlocal assets = {\n\tdecal,\n\tsound,\n}\n\n-- This will be hit as each asset resolves\nlocal callback = function(assetId, assetFetchStatus)\n\tprint(\"PreloadAsync() resolved asset ID:\", assetId)\n\tprint(\"PreloadAsync() final AssetFetchStatus:\", assetFetchStatus)\nend\n\n-- Preload the content and time it\nlocal startTime = os.clock()\nContentProvider:PreloadAsync(assets, callback)\nlocal deltaTime = os.clock() - startTime\nprint((\"Preloading complete, took %.2f seconds\"):format(deltaTime))"
+    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent = Content.fromUri(\"rbxassetid://5447528495\")\n\nlocal assets = {\n\tdecal,\n\tsound,\n}\n\n-- This will be hit as each asset resolves\nlocal callback = function(assetId, assetFetchStatus)\n\tprint(\"PreloadAsync() resolved asset ID:\", assetId)\n\tprint(\"PreloadAsync() final AssetFetchStatus:\", assetFetchStatus)\nend\n\n-- Preload the content and time it\nlocal startTime = os.clock()\nContentProvider:PreloadAsync(assets, callback)\nlocal deltaTime = os.clock() - startTime\nprint((\"Preloading complete, took %.2f seconds\"):format(deltaTime))"
   },
   "@roblox/globaltype/ContentProvider.RegisterDefaultEncryptionKey/param/0": {
     "documentation": "Service that is used to load content, or assets, into a game."
@@ -96999,6 +96997,11 @@
       "LeftShoulderRangeMin": "@roblox/globaltype/HumanoidRigDescription.LeftShoulderRangeMin",
       "LeftShoulderSize": "@roblox/globaltype/HumanoidRigDescription.LeftShoulderSize",
       "LeftShoulderTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.LeftShoulderTposeAdjustment",
+      "LeftToeBase": "@roblox/globaltype/HumanoidRigDescription.LeftToeBase",
+      "LeftToeBaseRangeMax": "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseRangeMax",
+      "LeftToeBaseRangeMin": "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseRangeMin",
+      "LeftToeBaseSize": "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseSize",
+      "LeftToeBaseTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseTposeAdjustment",
       "LeftWrist": "@roblox/globaltype/HumanoidRigDescription.LeftWrist",
       "LeftWristRangeMax": "@roblox/globaltype/HumanoidRigDescription.LeftWristRangeMax",
       "LeftWristRangeMin": "@roblox/globaltype/HumanoidRigDescription.LeftWristRangeMin",
@@ -97040,6 +97043,11 @@
       "RightShoulderRangeMin": "@roblox/globaltype/HumanoidRigDescription.RightShoulderRangeMin",
       "RightShoulderSize": "@roblox/globaltype/HumanoidRigDescription.RightShoulderSize",
       "RightShoulderTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.RightShoulderTposeAdjustment",
+      "RightToeBase": "@roblox/globaltype/HumanoidRigDescription.RightToeBase",
+      "RightToeBaseRangeMax": "@roblox/globaltype/HumanoidRigDescription.RightToeBaseRangeMax",
+      "RightToeBaseRangeMin": "@roblox/globaltype/HumanoidRigDescription.RightToeBaseRangeMin",
+      "RightToeBaseSize": "@roblox/globaltype/HumanoidRigDescription.RightToeBaseSize",
+      "RightToeBaseTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.RightToeBaseTposeAdjustment",
       "RightWrist": "@roblox/globaltype/HumanoidRigDescription.RightWrist",
       "RightWristRangeMax": "@roblox/globaltype/HumanoidRigDescription.RightWristRangeMax",
       "RightWristRangeMin": "@roblox/globaltype/HumanoidRigDescription.RightWristRangeMin",
@@ -97050,6 +97058,11 @@
       "RootRangeMin": "@roblox/globaltype/HumanoidRigDescription.RootRangeMin",
       "RootSize": "@roblox/globaltype/HumanoidRigDescription.RootSize",
       "RootTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.RootTposeAdjustment",
+      "Spine": "@roblox/globaltype/HumanoidRigDescription.Spine",
+      "SpineRangeMax": "@roblox/globaltype/HumanoidRigDescription.SpineRangeMax",
+      "SpineRangeMin": "@roblox/globaltype/HumanoidRigDescription.SpineRangeMin",
+      "SpineSize": "@roblox/globaltype/HumanoidRigDescription.SpineSize",
+      "SpineTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.SpineTposeAdjustment",
       "Waist": "@roblox/globaltype/HumanoidRigDescription.Waist",
       "WaistRangeMax": "@roblox/globaltype/HumanoidRigDescription.WaistRangeMax",
       "WaistRangeMin": "@roblox/globaltype/HumanoidRigDescription.WaistRangeMin",
@@ -97263,6 +97276,31 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftShoulderTposeAdjustment",
     "code_sample": ""
   },
+  "@roblox/globaltype/HumanoidRigDescription.LeftToeBase": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftToeBase",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseRangeMax": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftToeBaseRangeMax",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseRangeMin": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftToeBaseRangeMin",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftToeBaseSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseTposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftToeBaseTposeAdjustment",
+    "code_sample": ""
+  },
   "@roblox/globaltype/HumanoidRigDescription.LeftWrist": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftWrist",
@@ -97468,6 +97506,31 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightShoulderTposeAdjustment",
     "code_sample": ""
   },
+  "@roblox/globaltype/HumanoidRigDescription.RightToeBase": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightToeBase",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.RightToeBaseRangeMax": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightToeBaseRangeMax",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.RightToeBaseRangeMin": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightToeBaseRangeMin",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.RightToeBaseSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightToeBaseSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.RightToeBaseTposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightToeBaseTposeAdjustment",
+    "code_sample": ""
+  },
   "@roblox/globaltype/HumanoidRigDescription.RightWrist": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightWrist",
@@ -97516,6 +97579,31 @@
   "@roblox/globaltype/HumanoidRigDescription.RootTposeAdjustment": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RootTposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.Spine": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#Spine",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.SpineRangeMax": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#SpineRangeMax",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.SpineRangeMin": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#SpineRangeMin",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.SpineSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#SpineSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.SpineTposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#SpineTposeAdjustment",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidRigDescription.Waist": {
@@ -129792,6 +129880,79 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RollOffMode",
     "code_sample": ""
   },
+  "@roblox/enum/ActivePayerStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActivePayerStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/ActivePayerStatus.Never": {
+    "documentation": "The player has not made a qualifying purchase in the experience.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActivePayerStatus#Never",
+    "code_sample": ""
+  },
+  "@roblox/enum/ActivePayerStatus.Lapsed": {
+    "documentation": "The player has previously spent in the experience but is not currently an active payer.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActivePayerStatus#Lapsed",
+    "code_sample": ""
+  },
+  "@roblox/enum/ActivePayerStatus.Casual50Percent": {
+    "documentation": "The player is in the casual payer bucket for the experience.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActivePayerStatus#Casual50Percent",
+    "code_sample": ""
+  },
+  "@roblox/enum/ActivePayerStatus.Intermediate35Percent": {
+    "documentation": "The player is in the intermediate payer bucket for the experience.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActivePayerStatus#Intermediate35Percent",
+    "code_sample": ""
+  },
+  "@roblox/enum/ActivePayerStatus.Top15Percent": {
+    "documentation": "The player is in the top payer bucket for the experience.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActivePayerStatus#Top15Percent",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ActivePayerStatus": {
+    "documentation": "Describes a player's payer status bucket for the current experience.",
+    "keys": {
+      "Unknown": "@roblox/enum/ActivePayerStatus.Unknown",
+      "Never": "@roblox/enum/ActivePayerStatus.Never",
+      "Lapsed": "@roblox/enum/ActivePayerStatus.Lapsed",
+      "Casual50Percent": "@roblox/enum/ActivePayerStatus.Casual50Percent",
+      "Intermediate35Percent": "@roblox/enum/ActivePayerStatus.Intermediate35Percent",
+      "Top15Percent": "@roblox/enum/ActivePayerStatus.Top15Percent"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActivePayerStatus",
+    "code_sample": ""
+  },
   "@roblox/enum/TonemapperPreset.Default": {
     "documentation": "Sets the tone mapper to use the post‑2019 Roblox appearance which provides vivid colors and high contrasts.",
     "keys": {
@@ -130589,6 +130750,46 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StudioScriptEditorColorCategories",
     "code_sample": ""
   },
+  "@roblox/enum/PlayerPlatformSpenderStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformSpenderStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformSpenderStatus.Active": {
+    "documentation": "The player is an active platform spender.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformSpenderStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformSpenderStatus.OtherPayer": {
+    "documentation": "The player is not an active platform spender, including players who have never spent.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformSpenderStatus#OtherPayer",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PlayerPlatformSpenderStatus": {
+    "documentation": "Describes a player's platform-wide spender status bucket.",
+    "keys": {
+      "Unknown": "@roblox/enum/PlayerPlatformSpenderStatus.Unknown",
+      "Active": "@roblox/enum/PlayerPlatformSpenderStatus.Active",
+      "OtherPayer": "@roblox/enum/PlayerPlatformSpenderStatus.OtherPayer"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformSpenderStatus",
+    "code_sample": ""
+  },
   "@roblox/enum/TextDirection.Auto": {
     "documentation": "",
     "keys": {
@@ -131108,6 +131309,79 @@
       "Stretch": "@roblox/enum/ItemLineAlignment.Stretch"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ItemLineAlignment",
+    "code_sample": ""
+  },
+  "@roblox/enum/WhenUserFirstPlayed.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WhenUserFirstPlayed#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/WhenUserFirstPlayed.Days0To30": {
+    "documentation": "The player first played the experience within the last 30 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WhenUserFirstPlayed#Days0To30",
+    "code_sample": ""
+  },
+  "@roblox/enum/WhenUserFirstPlayed.Days31To90": {
+    "documentation": "The player first played the experience between 31 and 90 days ago.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WhenUserFirstPlayed#Days31To90",
+    "code_sample": ""
+  },
+  "@roblox/enum/WhenUserFirstPlayed.Days91To180": {
+    "documentation": "The player first played the experience between 91 and 180 days ago.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WhenUserFirstPlayed#Days91To180",
+    "code_sample": ""
+  },
+  "@roblox/enum/WhenUserFirstPlayed.Days181To365": {
+    "documentation": "The player first played the experience between 181 and 365 days ago.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WhenUserFirstPlayed#Days181To365",
+    "code_sample": ""
+  },
+  "@roblox/enum/WhenUserFirstPlayed.Days366Plus": {
+    "documentation": "The player first played the experience more than 365 days ago.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WhenUserFirstPlayed#Days366Plus",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.WhenUserFirstPlayed": {
+    "documentation": "Describes when a player first played the current experience, represented as a bucket.",
+    "keys": {
+      "Unknown": "@roblox/enum/WhenUserFirstPlayed.Unknown",
+      "Days0To30": "@roblox/enum/WhenUserFirstPlayed.Days0To30",
+      "Days31To90": "@roblox/enum/WhenUserFirstPlayed.Days31To90",
+      "Days91To180": "@roblox/enum/WhenUserFirstPlayed.Days91To180",
+      "Days181To365": "@roblox/enum/WhenUserFirstPlayed.Days181To365",
+      "Days366Plus": "@roblox/enum/WhenUserFirstPlayed.Days366Plus"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WhenUserFirstPlayed",
     "code_sample": ""
   },
   "@roblox/enum/TrackerError.Ok": {
@@ -134219,7 +134493,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AutomaticSize.X": {
-    "documentation": "Automatically resize element along X-axis to fit child contents.",
+    "documentation": "Automatically resize element along the <strong>X</strong> axis to fit child contents.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -134229,7 +134503,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AutomaticSize.Y": {
-    "documentation": "Automatically resize element along Y-axis to fit child contents. Text Objects will only resize along the Y-axis if TextWrapped is enabled.",
+    "documentation": "Automatically resize element along the <strong>Y</strong> axis to fit child contents. Text objects will only resize along the <strong>Y</strong> axis if their <code>TextWrapped</code> property is enabled.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -134239,7 +134513,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AutomaticSize.XY": {
-    "documentation": "Automatically resize element along X and Y axes to fit child contents.",
+    "documentation": "Automatically resize element along the <strong>X</strong> and <strong>Y</strong> axes to fit child contents.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

@@ -11657,7 +11657,7 @@
     "documentation": "Número da versão da chave a ser removida."
   },
   "@roblox/globaltype/DataStore.RemoveVersionAsync": {
-    "documentation": "Exclui permanentemente a versão especificada de uma chave.",
+    "documentation": "<strong>Deprecated:</strong> <br>Exclui permanentemente a versão especificada de uma chave.",
     "params": [
       {
         "name": "self",
@@ -68051,7 +68051,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/ScriptEditorService.OpenScriptDocumentAsync/param/2": {
-    "documentation": ""
+    "documentation": "Um dicionário que suporta as seguintes opções: <ul> <li><code>Temporary</code> &mdash; Booleano. Se deve abrir o script em uma aba de pré-visualização. O padrão é falso.</li> <li><code>HighlightRange</code> &mdash; Um dicionário aninhado contendo uma linha e um intervalo de caracteres a serem destacados no editor. Exemplo:   <code>HighlightRange = { Start = { Line = 10, Character = 1 }, End = { Line = 15, Character = 20 }}</code>.</li> </ul>"
   },
   "@roblox/globaltype/ScriptEditorService.OpenScriptDocumentAsync/return/0": {
     "documentation": ""
@@ -73738,7 +73738,7 @@
     "documentation": "Um serviço que fornece controle sobre recursos de captura de tela e vídeo."
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1": {
-    "documentation": "um objeto de captura do tipo <code>Capture</code>"
+    "documentation": "A <code>Capture</code> a ser carregada."
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
     "documentation": "Tupla de (resultado: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
@@ -77055,7 +77055,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService": {
-    "documentation": "Coleção de métodos que permite aos desenvolvedores rastrear como os usuários interagem com suas experiências.",
+    "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências.",
     "keys": {
       "ApiKey": "@roblox/globaltype/AnalyticsService.ApiKey",
       "FireCustomEvent": "@roblox/globaltype/AnalyticsService.FireCustomEvent",
@@ -77081,7 +77081,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.FireCustomEvent/param/0": {
-    "documentation": "Coleção de métodos que permite aos desenvolvedores rastrear como os usuários interagem com suas experiências."
+    "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
   },
   "@roblox/globaltype/AnalyticsService.FireCustomEvent/param/1": {
     "documentation": "O jogador que acionou o evento personalizado. <code>nil</code> se não for relacionado ao jogador."
@@ -77117,7 +77117,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.FireEvent/param/0": {
-    "documentation": "Coleção de métodos que permite aos desenvolvedores rastrear como os usuários interagem com suas experiências."
+    "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
   },
   "@roblox/globaltype/AnalyticsService.FireEvent/param/1": {
     "documentation": "'A categoria do evento a ser relatada. Não pode conter os seguintes caracteres: vírgula <code>,</code>, aspas duplas <code>\"</code> ou caracteres de nova linha <code>\\r\\n</code>'."
@@ -77146,7 +77146,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.FireInGameEconomyEvent/param/0": {
-    "documentation": "Coleção de métodos que permite aos desenvolvedores rastrear como os usuários interagem com suas experiências."
+    "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
   },
   "@roblox/globaltype/AnalyticsService.FireInGameEconomyEvent/param/1": {
     "documentation": "O jogador que acionou o evento de economia."
@@ -77217,7 +77217,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.FireLogEvent/param/0": {
-    "documentation": "Coleção de métodos que permite aos desenvolvedores rastrear como os usuários interagem com suas experiências."
+    "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
   },
   "@roblox/globaltype/AnalyticsService.FireLogEvent/param/1": {
     "documentation": "O jogador que acionou o evento de erro, <code>nil</code> se não for relacionado ao jogador."
@@ -77267,7 +77267,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent/param/0": {
-    "documentation": "Coleção de métodos que permite aos desenvolvedores rastrear como os usuários interagem com suas experiências."
+    "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
   },
   "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent/param/1": {
     "documentation": "O jogador que acionou o evento."
@@ -77324,7 +77324,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/0": {
-    "documentation": "Coleção de métodos que permite aos desenvolvedores rastrear como os usuários interagem com suas experiências."
+    "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/1": {
     "documentation": "O usuário que acionou o evento."
@@ -77367,7 +77367,7 @@
     "code_sample": "local AnalyticsService = game:GetService(\"AnalyticsService\")\n\n-- Registre quando a missão começa\nAnalyticsService:LogCustomEvent(\n\tplayer,\n\t\"MissionStarted\" -- Nome do evento personalizado\n)\n\n-- Registre quando a missão é concluída com o tempo que levou\nAnalyticsService:LogCustomEvent(\n\tplayer,\n\t\"MissionCompletedDuration\", -- Nome do evento personalizado\n\t120 -- Valor do evento usado na agregação\n)"
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/0": {
-    "documentation": "Coleção de métodos que permite aos desenvolvedores rastrear como os usuários interagem com suas experiências."
+    "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/1": {
     "documentation": "O usuário que acionou o evento."
@@ -77438,7 +77438,7 @@
     "code_sample": "local AnalyticsService = game:GetService(\"AnalyticsService\")\n\nAnalyticsService:LogEconomyEvent(\n\tplayer,\n\tEnum.AnalyticsEconomyFlowType.Source,\n\t\"Coins\",\n\t1000, -- Quantas moedas estão no pacote\n\t1020, -- saldo após a transação\n\tEnum.AnalyticsEconomyTransactionType.IAP.Name,\n\t\"1000CoinBundle\" -- Identificador único do pacote de moedas\n)"
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/0": {
-    "documentation": "Coleção de métodos que permite aos desenvolvedores rastrear como os usuários interagem com suas experiências."
+    "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/1": {
     "documentation": "O usuário que acionou o evento."
@@ -77495,7 +77495,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/0": {
-    "documentation": "Coleção de métodos que permite aos desenvolvedores rastrear como os usuários interagem com suas experiências."
+    "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/1": {
     "documentation": "O usuário que acionou o evento."
@@ -77538,7 +77538,7 @@
     "code_sample": "local AnalyticsService = game:GetService(\"AnalyticsService\")\n\n-- Registra a primeira etapa do FTUE\nAnalyticsService:LogOnboardingFunnelStepEvent(\n\tplayer,\n\t1, -- Número da etapa\n\t\"Entrou no Jogo\" -- Nome da etapa\n)\n\n-- Registra a segunda etapa do FTUE\nAnalyticsService:LogOnboardingFunnelStepEvent(\n\tplayer,\n\t2, -- Número da etapa\n\t\"Escolher Classe\" -- Nome da etapa\n)"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/0": {
-    "documentation": "Coleção de métodos que permite aos desenvolvedores rastrear como os usuários interagem com suas experiências."
+    "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/1": {
     "documentation": "O jogador que acionou o evento."
@@ -77588,7 +77588,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/0": {
-    "documentation": "Coleção de métodos que permite aos desenvolvedores rastrear como os usuários interagem com suas experiências."
+    "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/1": {
     "documentation": "O jogador que acionou o evento."
@@ -77645,7 +77645,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/0": {
-    "documentation": "Coleção de métodos que permite aos desenvolvedores rastrear como os usuários interagem com suas experiências."
+    "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/1": {
     "documentation": "O usuário que acionou o evento."
@@ -77695,7 +77695,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/0": {
-    "documentation": "Coleção de métodos que permite aos desenvolvedores rastrear como os usuários interagem com suas experiências."
+    "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/1": {
     "documentation": "O jogador que acionou o evento."
@@ -83938,7 +83938,7 @@
       "UnregisterEncryptedAsset": "@roblox/globaltype/ContentProvider.UnregisterEncryptedAsset"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ContentProvider",
-    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal LOGO_ID = \"rbxassetid://658743164\"\nlocal PAGE_TURN_ID = \"rbxassetid://12222076\"\n\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent = LOGO_ID\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = PAGE_TURN_ID\n\nlocal assets = { decal, sound }\n\nContentProvider:PreloadAsync(assets)\n\nprint(\"Todos os ativos carregados.\")"
+    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal LOGO_ID = \"rbxassetid://658743164\"\nlocal PAGE_TURN_ID = \"rbxassetid://12222076\"\n\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent =  Content.fromUri(LOGO_ID)\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = PAGE_TURN_ID\n\nlocal assets = { decal, sound }\n\nContentProvider:PreloadAsync(assets)\n\nprint(\"Todos os ativos carregados.\")"
   },
   "@roblox/globaltype/ContentProvider.BaseUrl": {
     "documentation": "Usado pela <code>ContentProvider</code> para baixar ativos do site da Roblox.",
@@ -84073,7 +84073,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ContentProvider#PreloadAsync",
-    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent = \"rbxassetid://5447528495\"\n\nlocal assets = {\n\tdecal,\n\tsound,\n}\n\n-- Isso será acionado à medida que cada ativo for resolvido\nlocal callback = function(assetId, assetFetchStatus)\n\tprint(\"PreloadAsync() resolveu o ID do ativo:\", assetId)\n\tprint(\"PreloadAsync() StatusFinal do AssetFetchStatus:\", assetFetchStatus)\nend\n\n-- Pré-carregue o conteúdo e meça o tempo\nlocal startTime = os.clock()\nContentProvider:PreloadAsync(assets, callback)\nlocal deltaTime = os.clock() - startTime\nprint((\"Pré-carregamento completo, levou %.2f segundos\"):format(deltaTime))"
+    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent = Content.fromUri(\"rbxassetid://5447528495\")\n\nlocal assets = {\n\tdecal,\n\tsound,\n}\n\n-- Isso será executado à medida que cada ativo for resolvido\nlocal callback = function(assetId, assetFetchStatus)\n\tprint(\"PreloadAsync() resolveu o ID do ativo:\", assetId)\n\tprint(\"PreloadAsync() Status final do AssetFetch:\", assetFetchStatus)\nend\n\n-- Pré-carregue o conteúdo e meça o tempo\nlocal startTime = os.clock()\nContentProvider:PreloadAsync(assets, callback)\nlocal deltaTime = os.clock() - startTime\nprint((\"Pré-carregamento completo, levou %.2f segundos\"):format(deltaTime))"
   },
   "@roblox/globaltype/ContentProvider.RegisterDefaultEncryptionKey/param/0": {
     "documentation": "Serviço que é utilizado para carregar conteúdo ou ativos em um jogo."
@@ -96999,6 +96999,11 @@
       "LeftShoulderRangeMin": "@roblox/globaltype/HumanoidRigDescription.LeftShoulderRangeMin",
       "LeftShoulderSize": "@roblox/globaltype/HumanoidRigDescription.LeftShoulderSize",
       "LeftShoulderTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.LeftShoulderTposeAdjustment",
+      "LeftToeBase": "@roblox/globaltype/HumanoidRigDescription.LeftToeBase",
+      "LeftToeBaseRangeMax": "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseRangeMax",
+      "LeftToeBaseRangeMin": "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseRangeMin",
+      "LeftToeBaseSize": "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseSize",
+      "LeftToeBaseTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseTposeAdjustment",
       "LeftWrist": "@roblox/globaltype/HumanoidRigDescription.LeftWrist",
       "LeftWristRangeMax": "@roblox/globaltype/HumanoidRigDescription.LeftWristRangeMax",
       "LeftWristRangeMin": "@roblox/globaltype/HumanoidRigDescription.LeftWristRangeMin",
@@ -97040,6 +97045,11 @@
       "RightShoulderRangeMin": "@roblox/globaltype/HumanoidRigDescription.RightShoulderRangeMin",
       "RightShoulderSize": "@roblox/globaltype/HumanoidRigDescription.RightShoulderSize",
       "RightShoulderTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.RightShoulderTposeAdjustment",
+      "RightToeBase": "@roblox/globaltype/HumanoidRigDescription.RightToeBase",
+      "RightToeBaseRangeMax": "@roblox/globaltype/HumanoidRigDescription.RightToeBaseRangeMax",
+      "RightToeBaseRangeMin": "@roblox/globaltype/HumanoidRigDescription.RightToeBaseRangeMin",
+      "RightToeBaseSize": "@roblox/globaltype/HumanoidRigDescription.RightToeBaseSize",
+      "RightToeBaseTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.RightToeBaseTposeAdjustment",
       "RightWrist": "@roblox/globaltype/HumanoidRigDescription.RightWrist",
       "RightWristRangeMax": "@roblox/globaltype/HumanoidRigDescription.RightWristRangeMax",
       "RightWristRangeMin": "@roblox/globaltype/HumanoidRigDescription.RightWristRangeMin",
@@ -97050,6 +97060,11 @@
       "RootRangeMin": "@roblox/globaltype/HumanoidRigDescription.RootRangeMin",
       "RootSize": "@roblox/globaltype/HumanoidRigDescription.RootSize",
       "RootTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.RootTposeAdjustment",
+      "Spine": "@roblox/globaltype/HumanoidRigDescription.Spine",
+      "SpineRangeMax": "@roblox/globaltype/HumanoidRigDescription.SpineRangeMax",
+      "SpineRangeMin": "@roblox/globaltype/HumanoidRigDescription.SpineRangeMin",
+      "SpineSize": "@roblox/globaltype/HumanoidRigDescription.SpineSize",
+      "SpineTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.SpineTposeAdjustment",
       "Waist": "@roblox/globaltype/HumanoidRigDescription.Waist",
       "WaistRangeMax": "@roblox/globaltype/HumanoidRigDescription.WaistRangeMax",
       "WaistRangeMin": "@roblox/globaltype/HumanoidRigDescription.WaistRangeMin",
@@ -97263,6 +97278,31 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftShoulderTposeAdjustment",
     "code_sample": ""
   },
+  "@roblox/globaltype/HumanoidRigDescription.LeftToeBase": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftToeBase",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseRangeMax": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftToeBaseRangeMax",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseRangeMin": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftToeBaseRangeMin",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftToeBaseSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.LeftToeBaseTposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftToeBaseTposeAdjustment",
+    "code_sample": ""
+  },
   "@roblox/globaltype/HumanoidRigDescription.LeftWrist": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#LeftWrist",
@@ -97468,6 +97508,31 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightShoulderTposeAdjustment",
     "code_sample": ""
   },
+  "@roblox/globaltype/HumanoidRigDescription.RightToeBase": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightToeBase",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.RightToeBaseRangeMax": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightToeBaseRangeMax",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.RightToeBaseRangeMin": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightToeBaseRangeMin",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.RightToeBaseSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightToeBaseSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.RightToeBaseTposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightToeBaseTposeAdjustment",
+    "code_sample": ""
+  },
   "@roblox/globaltype/HumanoidRigDescription.RightWrist": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RightWrist",
@@ -97516,6 +97581,31 @@
   "@roblox/globaltype/HumanoidRigDescription.RootTposeAdjustment": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#RootTposeAdjustment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.Spine": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#Spine",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.SpineRangeMax": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#SpineRangeMax",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.SpineRangeMin": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#SpineRangeMin",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.SpineSize": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#SpineSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HumanoidRigDescription.SpineTposeAdjustment": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#SpineTposeAdjustment",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidRigDescription.Waist": {
@@ -110532,7 +110622,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.StandardRead": {
-    "documentation": "Este tipo de solicitação ainda não está ativo, <code>GetRequestBudgetForRequestType()</code> com este enum retornará <code>0</code>.<br /><br /> Refere-se a <code>GetAsync()</code>, <code>GetVersionAsync()</code>, <code>GetVersionAtTimeAsync()</code>, e a leitura de <code>UpdateAsync()</code> para <code>DataStore</code>.",
+    "documentation": "Refere-se a <code>GetAsync()</code>, <code>GetVersionAsync()</code>, <code>GetVersionAtTimeAsync()</code>, e a leitura de <code>UpdateAsync()</code> para <code>DataStore</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -110542,7 +110632,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.StandardWrite": {
-    "documentation": "Este tipo de solicitação ainda não está ativo, <code>GetRequestBudgetForRequestType()</code> com este enum retornará <code>0</code>.<br /><br /> Refere-se a <code>SetAsync()</code>, <code>IncrementAsync()</code>, e a escrita de <code>UpdateAsync()</code> para <code>DataStore</code>.",
+    "documentation": "Refere-se a <code>SetAsync()</code>, <code>IncrementAsync()</code>, e a gravação de <code>UpdateAsync()</code> para <code>DataStore</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -110552,7 +110642,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.StandardList": {
-    "documentation": "Este tipo de solicitação ainda não está ativo, <code>GetRequestBudgetForRequestType()</code> com este enum retornará <code>0</code>.<br /><br /> Refere-se a <code>ListDataStoresAsync()</code>, e <code>ListKeysAsync()</code> e <code>ListVersionsAsync()</code> para <code>DataStore</code>.",
+    "documentation": "Refere-se a <code>ListDataStoresAsync()</code>, e <code>ListKeysAsync()</code> e <code>ListVersionsAsync()</code> para <code>DataStore</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -110562,7 +110652,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.StandardRemove": {
-    "documentation": "Este tipo de solicitação ainda não está ativo, <code>GetRequestBudgetForRequestType()</code> com este enum retornará <code>0</code>.<br /><br /> Refere-se a <code>RemoveAsync()</code> para <code>DataStore</code>.",
+    "documentation": "Refere-se a <code>RemoveAsync()</code> para <code>DataStore</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -110572,7 +110662,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.OrderedRead": {
-    "documentation": "Este tipo de solicitação ainda não está ativo, <code>GetRequestBudgetForRequestType()</code> com este enum retornará <code>0</code>.<br /><br /> Refere-se a <code>GetAsync()</code> e a leitura de <code>UpdateAsync()</code> para <code>OrderedDataStore</code>.",
+    "documentation": "Refere-se a <code>GetAsync()</code> e a leitura de <code>UpdateAsync()</code> para <code>OrderedDataStore</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -110582,7 +110672,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.OrderedWrite": {
-    "documentation": "Este tipo de solicitação ainda não está ativo, <code>GetRequestBudgetForRequestType()</code> com este enum retornará <code>0</code>.<br /><br /> Refere-se a <code>SetAsync()</code>, <code>IncrementAsync()</code>, e a escrita  de <code>UpdateAsync()</code> para <code>OrderedDataStore</code>.",
+    "documentation": "Refere-se a <code>SetAsync()</code>, <code>IncrementAsync()</code>, e a gravação de <code>UpdateAsync()</code> para <code>OrderedDataStore</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -110592,7 +110682,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.OrderedList": {
-    "documentation": "Este tipo de solicitação ainda não está ativo, <code>GetRequestBudgetForRequestType()</code> com este enum retornará <code>0</code>.<br /><br /> Refere-se a <code>GetSortedAsync()</code> para <code>OrderedDataStore</code>. GetRequestBudgetForRequestType()<code>com este enum retornará</code>0`.",
+    "documentation": "Refere-se a <code>GetSortedAsync()</code> para <code>OrderedDataStore</code>. GetRequestBudgetForRequestType()<code>com este enum retornará</code>0`.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -110602,7 +110692,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.OrderedRemove": {
-    "documentation": "Este tipo de solicitação ainda não está ativo, <code>GetRequestBudgetForRequestType()</code> com este enum retornará <code>0</code>.<br /><br /> Refere-se a <code>RemoveAsync()</code> para <code>OrderedDataStore</code>.",
+    "documentation": "Refere-se a <code>RemoveAsync()</code> para <code>OrderedDataStore</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129792,6 +129882,79 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RollOffMode",
     "code_sample": ""
   },
+  "@roblox/enum/ActivePayerStatus.Unknown": {
+    "documentation": "Os dados do segmento estão indisponíveis.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActivePayerStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/ActivePayerStatus.Never": {
+    "documentation": "O jogador não fez uma compra qualificatória na experiência.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActivePayerStatus#Never",
+    "code_sample": ""
+  },
+  "@roblox/enum/ActivePayerStatus.Lapsed": {
+    "documentation": "O jogador já gastou na experiência anteriormente, mas não é um pagador ativo no momento.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActivePayerStatus#Lapsed",
+    "code_sample": ""
+  },
+  "@roblox/enum/ActivePayerStatus.Casual50Percent": {
+    "documentation": "O jogador está no bucket de pagadores casuais para a experiência.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActivePayerStatus#Casual50Percent",
+    "code_sample": ""
+  },
+  "@roblox/enum/ActivePayerStatus.Intermediate35Percent": {
+    "documentation": "O jogador está no bucket de pagadores intermediários para a experiência.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActivePayerStatus#Intermediate35Percent",
+    "code_sample": ""
+  },
+  "@roblox/enum/ActivePayerStatus.Top15Percent": {
+    "documentation": "O jogador está no bucket de principais pagadores para a experiência.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActivePayerStatus#Top15Percent",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ActivePayerStatus": {
+    "documentation": "Descreve o bucket de status de pagador de um jogador para a experiência atual.",
+    "keys": {
+      "Unknown": "@roblox/enum/ActivePayerStatus.Unknown",
+      "Never": "@roblox/enum/ActivePayerStatus.Never",
+      "Lapsed": "@roblox/enum/ActivePayerStatus.Lapsed",
+      "Casual50Percent": "@roblox/enum/ActivePayerStatus.Casual50Percent",
+      "Intermediate35Percent": "@roblox/enum/ActivePayerStatus.Intermediate35Percent",
+      "Top15Percent": "@roblox/enum/ActivePayerStatus.Top15Percent"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActivePayerStatus",
+    "code_sample": ""
+  },
   "@roblox/enum/TonemapperPreset.Default": {
     "documentation": "Define o mapeador de tons para usar a aparência do Roblox pós-2019, que fornece cores vívidas e altos contrastes.",
     "keys": {
@@ -130589,6 +130752,46 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StudioScriptEditorColorCategories",
     "code_sample": ""
   },
+  "@roblox/enum/PlayerPlatformSpenderStatus.Unknown": {
+    "documentation": "Os dados do segmento estão indisponíveis.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformSpenderStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformSpenderStatus.Active": {
+    "documentation": "O jogador é um despensor ativo na plataforma.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformSpenderStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformSpenderStatus.OtherPayer": {
+    "documentation": "O jogador não é um despensor ativo na plataforma, incluindo jogadores que nunca gastaram.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformSpenderStatus#OtherPayer",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PlayerPlatformSpenderStatus": {
+    "documentation": "Descreve o status de despesa do jogador em toda a plataforma.",
+    "keys": {
+      "Unknown": "@roblox/enum/PlayerPlatformSpenderStatus.Unknown",
+      "Active": "@roblox/enum/PlayerPlatformSpenderStatus.Active",
+      "OtherPayer": "@roblox/enum/PlayerPlatformSpenderStatus.OtherPayer"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformSpenderStatus",
+    "code_sample": ""
+  },
   "@roblox/enum/TextDirection.Auto": {
     "documentation": "",
     "keys": {
@@ -131108,6 +131311,79 @@
       "Stretch": "@roblox/enum/ItemLineAlignment.Stretch"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ItemLineAlignment",
+    "code_sample": ""
+  },
+  "@roblox/enum/WhenUserFirstPlayed.Unknown": {
+    "documentation": "Dados do segmento estão indisponíveis.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WhenUserFirstPlayed#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/WhenUserFirstPlayed.Days0To30": {
+    "documentation": "O jogador jogou pela primeira vez a experiência nos últimos 30 dias.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WhenUserFirstPlayed#Days0To30",
+    "code_sample": ""
+  },
+  "@roblox/enum/WhenUserFirstPlayed.Days31To90": {
+    "documentation": "O jogador jogou pela primeira vez a experiência entre 31 e 90 dias atrás.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WhenUserFirstPlayed#Days31To90",
+    "code_sample": ""
+  },
+  "@roblox/enum/WhenUserFirstPlayed.Days91To180": {
+    "documentation": "O jogador jogou pela primeira vez a experiência entre 91 e 180 dias atrás.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WhenUserFirstPlayed#Days91To180",
+    "code_sample": ""
+  },
+  "@roblox/enum/WhenUserFirstPlayed.Days181To365": {
+    "documentation": "O jogador jogou pela primeira vez a experiência entre 181 e 365 dias atrás.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WhenUserFirstPlayed#Days181To365",
+    "code_sample": ""
+  },
+  "@roblox/enum/WhenUserFirstPlayed.Days366Plus": {
+    "documentation": "O jogador jogou pela primeira vez a experiência há mais de 365 dias.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WhenUserFirstPlayed#Days366Plus",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.WhenUserFirstPlayed": {
+    "documentation": "Descreve quando um jogador jogou pela primeira vez a experiência atual, representada como um bucket.",
+    "keys": {
+      "Unknown": "@roblox/enum/WhenUserFirstPlayed.Unknown",
+      "Days0To30": "@roblox/enum/WhenUserFirstPlayed.Days0To30",
+      "Days31To90": "@roblox/enum/WhenUserFirstPlayed.Days31To90",
+      "Days91To180": "@roblox/enum/WhenUserFirstPlayed.Days91To180",
+      "Days181To365": "@roblox/enum/WhenUserFirstPlayed.Days181To365",
+      "Days366Plus": "@roblox/enum/WhenUserFirstPlayed.Days366Plus"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WhenUserFirstPlayed",
     "code_sample": ""
   },
   "@roblox/enum/TrackerError.Ok": {
