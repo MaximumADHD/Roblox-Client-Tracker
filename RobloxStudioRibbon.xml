@@ -24,7 +24,7 @@
       <addaction name="fileSaveAction"/>
       <addaction name="fileSaveAsAction"/>
       <addaction name="savePlaceToRobloxAction"/>
-      <addaction fflag="EnablePlaceVersionHistory2" name="savePlaceToRobloxWithNotesAction"/>
+      <addaction fflag="EnablePlaceVersionHistory3" name="savePlaceToRobloxWithNotesAction"/>
       <addaction name="savePlaceToRobloxAsAction"/>
       <addaction name="publishToRobloxAction"/>
       <addaction name="publishToRobloxAsAction"/>
@@ -441,7 +441,7 @@
         <addaction name="toggleAssistantDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
         <addaction fflag="EnableTextureGenerator2" name="textureGeneratorAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.TextureGenerator" modernIcon="MeshTextureTool"/>
         <addaction name="toggleStudioAnnotationsAction" style="textbesideicon" />
-        <addaction fflag="EnablePlaceVersionHistory2" name="togglePlaceVersionHistoryAction" style="textbesideicon"/>
+        <addaction fflag="EnablePlaceVersionHistory3" name="togglePlaceVersionHistoryAction" style="textbesideicon"/>
       </Group>
       <Group name="Actions" text="Studio.App.RobloxRibbonMainWindow.Actions" modernIcon="ViewSelector" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" width="32" height="32">
         <addaction name="viewSelectorAction" style="textundericon" text="Studio.App.RBXMainWindow.ViewSelector" tooltip="Studio.App.RBXMainWindow.ViewSelectorTooltip" type="plugin" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" modernIcon="ViewSelector" width="32" height="32"/>

@@ -9279,15 +9279,15 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">Pelvis</string>
-            <string name="Description">Specifies which joint corresponds to the Pelvis.</string>
+            <string name="Name">Waist</string>
+            <string name="Description">Specifies which joint corresponds to the Waist.</string>
             <string name="PropertyOrder">1001</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">Waist</string>
-            <string name="Description">Specifies which joint corresponds to the Waist.</string>
+            <string name="Name">Spine</string>
+            <string name="Description">Specifies which joint corresponds to the Spine.</string>
             <string name="PropertyOrder">1002</string>
           </Properties>
         </Item>
@@ -9434,15 +9434,15 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">PelvisRangeMin</string>
-            <string name="Description">Specifies the minimum range of the Pelvis.</string>
+            <string name="Name">WaistRangeMin</string>
+            <string name="Description">Specifies the minimum range of the Waist.</string>
             <string name="PropertyOrder">1102</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">WaistRangeMin</string>
-            <string name="Description">Specifies the minimum range of the Waist.</string>
+            <string name="Name">SpineRangeMin</string>
+            <string name="Description">Specifies the minimum range of the Spine.</string>
             <string name="PropertyOrder">1104</string>
           </Properties>
         </Item>
@@ -9589,15 +9589,15 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">PelvisRangeMax</string>
-            <string name="Description">Specifies the maximum range of the Pelvis.</string>
+            <string name="Name">WaistRangeMax</string>
+            <string name="Description">Specifies the maximum range of the Waist.</string>
             <string name="PropertyOrder">1103</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">WaistRangeMax</string>
-            <string name="Description">Specifies the maximum range of the Waist.</string>
+            <string name="Name">SpineRangeMax</string>
+            <string name="Description">Specifies the maximum range of the Spine.</string>
             <string name="PropertyOrder">1105</string>
           </Properties>
         </Item>
@@ -9744,15 +9744,15 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">PelvisSize</string>
-            <string name="Description">Specifies the size of the Pelvis.</string>
+            <string name="Name">WaistSize</string>
+            <string name="Description">Specifies the size of the Waist.</string>
             <string name="PropertyOrder">1201</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">WaistSize</string>
-            <string name="Description">Specifies the size of the Waist.</string>
+            <string name="Name">SpineSize</string>
+            <string name="Description">Specifies the size of the Spine.</string>
             <string name="PropertyOrder">1202</string>
           </Properties>
         </Item>
@@ -9899,15 +9899,15 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">PelvisTposeAdjustment</string>
-            <string name="Description">Specifies the T-pose adjustment of the Pelvis.</string>
+            <string name="Name">WaistTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Waist.</string>
             <string name="PropertyOrder">1301</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">WaistTposeAdjustment</string>
-            <string name="Description">Specifies the T-pose adjustment of the Waist.</string>
+            <string name="Name">SpineTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Spine.</string>
             <string name="PropertyOrder">1302</string>
           </Properties>
         </Item>

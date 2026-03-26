@@ -414,6 +414,15 @@ type VideoSamplerOptions = {
     Size: Enum.VideoSampleSize,
 }
 
+type StudioScreenshotOptions = {
+    Position: Vector2?,
+    CaptureSize: Vector2?,
+    OutputSize: Vector2?,
+    Format: Enum.StudioCaptureScreenshotFormat?,
+    UICaptureMode: Enum.UICaptureMode?,
+    ResampleMode: Enum.ResamplerMode?
+}
+
 type VideoSample = {
     Time: number,
     Image: Content
