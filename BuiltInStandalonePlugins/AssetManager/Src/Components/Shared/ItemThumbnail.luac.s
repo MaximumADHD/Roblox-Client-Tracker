@@ -1,20 +1,46 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["Image"]
-        6 DUPTABLE                         R2 K3 [{"Image", "tag"}]
-        7 GETUPVAL                         R4 2
-        8 GETTABLEKS                       R3 R4 K4 ["get"]
-       10 GETUPVAL                         R6 2
-       11 GETTABLEKS                       R5 R6 K5 ["AvailableImages"]
-       13 GETTABLEKS                       R4 R5 K6 ["Folder"]
-       15 CALL                             R3 1 1
-       16 SETTABLEKS                       R3 R2 K1 ["Image"]
-       18 LOADK                            R3 K7 ["size-900 bg-action-subtle data-testid=folder-thumbnail-content"]
-       19 SETTABLEKS                       R3 R2 K2 ["tag"]
-       21 CALL                             R0 2 -1
-       22 RETURN                           R0 -1
+        0 GETUPVAL                         R0 0
+        1 CALL                             R0 0 2
+        2 GETUPVAL                         R2 1
+        3 CALL                             R2 0 1
+        4 GETUPVAL                         R4 2
+        5 GETTABLEKS                       R3 R4 K0 ["createElement"]
+        7 GETUPVAL                         R5 3
+        8 GETTABLEKS                       R4 R5 K1 ["View"]
+       10 DUPTABLE                         R5 K4 [{"Size", "tag"}]
+       11 GETIMPORT                        R6 K7 [UDim2.fromOffset]
+       13 MOVE                             R7 R1
+       14 MOVE                             R8 R1
+       15 CALL                             R6 2 1
+       16 SETTABLEKS                       R6 R5 K2 ["Size"]
+       18 LOADK                            R6 K8 ["position-center-center anchor-center-center data-testid=folder-thumbnail-content"]
+       19 SETTABLEKS                       R6 R5 K3 ["tag"]
+       21 NEWTABLE                         R6 0 1
+       23 GETUPVAL                         R8 2
+       24 GETTABLEKS                       R7 R8 K0 ["createElement"]
+       26 GETUPVAL                         R9 3
+       27 GETTABLEKS                       R8 R9 K9 ["Icon"]
+       29 DUPTABLE                         R9 K14 [{"name", "variant", "style", "size"}]
+       30 GETUPVAL                         R13 3
+       31 GETTABLEKS                       R12 R13 K15 ["Enums"]
+       33 GETTABLEKS                       R11 R12 K16 ["IconName"]
+       35 GETTABLEKS                       R10 R11 K17 ["Folder"]
+       37 SETTABLEKS                       R10 R9 K10 ["name"]
+       39 GETUPVAL                         R13 3
+       40 GETTABLEKS                       R12 R13 K15 ["Enums"]
+       42 GETTABLEKS                       R11 R12 K18 ["IconVariant"]
+       44 GETTABLEKS                       R10 R11 K19 ["Filled"]
+       46 SETTABLEKS                       R10 R9 K11 ["variant"]
+       48 GETTABLEKS                       R13 R2 K20 ["Color"]
+       50 GETTABLEKS                       R12 R13 K21 ["Extended"]
+       52 GETTABLEKS                       R11 R12 K22 ["Yellow"]
+       54 GETTABLEKS                       R10 R11 K23 ["Yellow_300"]
+       56 SETTABLEKS                       R10 R9 K12 ["style"]
+       58 SETTABLEKS                       R1 R9 K13 ["size"]
+       60 CALL                             R7 2 -1
+       61 SETLIST                          R6 R7 -1 [1]
+       63 CALL                             R3 3 -1
+       64 RETURN                           R3 -1
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -198,46 +224,54 @@ MAIN:
        39 GETTABLEKS                       R7 R8 K12 ["Controllers"]
        41 GETTABLEKS                       R6 R7 K13 ["ItemsController"]
        43 CALL                             R5 1 1
-       44 GETIMPORT                        R6 K5 [require]
-       46 GETTABLEKS                       R9 R0 K9 ["Src"]
-       48 GETTABLEKS                       R8 R9 K14 ["Resources"]
-       50 GETTABLEKS                       R7 R8 K15 ["PluginStyles"]
-       52 CALL                             R6 1 1
-       53 GETIMPORT                        R7 K5 [require]
-       55 GETIMPORT                        R11 K1 [script]
-       57 GETTABLEKS                       R10 R11 K16 ["Parent"]
-       59 GETTABLEKS                       R9 R10 K17 ["AssetThumbnail"]
-       61 GETTABLEKS                       R8 R9 K18 ["Shimmer"]
-       63 CALL                             R7 1 1
-       64 GETIMPORT                        R8 K5 [require]
-       66 GETTABLEKS                       R11 R0 K9 ["Src"]
-       68 GETTABLEKS                       R10 R11 K19 ["Util"]
-       70 GETTABLEKS                       R9 R10 K20 ["Images"]
-       72 CALL                             R8 1 1
-       73 GETIMPORT                        R9 K5 [require]
-       75 GETTABLEKS                       R12 R0 K9 ["Src"]
-       77 GETTABLEKS                       R11 R12 K21 ["Flags"]
-       79 GETTABLEKS                       R10 R11 K22 ["getFFlagAmrUpdatedItemsCache"]
-       81 CALL                             R9 1 1
-       82 GETIMPORT                        R10 K5 [require]
-       84 GETTABLEKS                       R13 R0 K9 ["Src"]
-       86 GETTABLEKS                       R12 R13 K21 ["Flags"]
-       88 GETTABLEKS                       R11 R12 K23 ["getFFlagAmrOrganizationFoundation"]
-       90 CALL                             R10 1 1
-       91 DUPCLOSURE                       R11 K24 [PROTO_0]
-       92 CAPTURE                          VAL R1
-       93 CAPTURE                          VAL R2
-       94 CAPTURE                          VAL R8
-       95 DUPCLOSURE                       R12 K25 [PROTO_3]
-       96 CAPTURE                          VAL R10
-       97 CAPTURE                          VAL R3
-       98 CAPTURE                          VAL R1
-       99 CAPTURE                          VAL R11
-      100 CAPTURE                          VAL R4
-      101 CAPTURE                          VAL R5
-      102 CAPTURE                          VAL R9
-      103 CAPTURE                          VAL R2
-      104 CAPTURE                          VAL R8
+       44 GETTABLEKS                       R7 R2 K14 ["Hooks"]
+       46 GETTABLEKS                       R6 R7 K15 ["useTokens"]
+       48 GETIMPORT                        R7 K5 [require]
+       50 GETTABLEKS                       R10 R0 K9 ["Src"]
+       52 GETTABLEKS                       R9 R10 K14 ["Hooks"]
+       54 GETTABLEKS                       R8 R9 K16 ["useLayoutInfo"]
+       56 CALL                             R7 1 1
+       57 GETIMPORT                        R8 K5 [require]
+       59 GETTABLEKS                       R11 R0 K9 ["Src"]
+       61 GETTABLEKS                       R10 R11 K17 ["Resources"]
+       63 GETTABLEKS                       R9 R10 K18 ["PluginStyles"]
+       65 CALL                             R8 1 1
+       66 GETIMPORT                        R9 K5 [require]
+       68 GETIMPORT                        R13 K1 [script]
+       70 GETTABLEKS                       R12 R13 K19 ["Parent"]
+       72 GETTABLEKS                       R11 R12 K20 ["AssetThumbnail"]
+       74 GETTABLEKS                       R10 R11 K21 ["Shimmer"]
+       76 CALL                             R9 1 1
+       77 GETIMPORT                        R10 K5 [require]
+       79 GETTABLEKS                       R13 R0 K9 ["Src"]
+       81 GETTABLEKS                       R12 R13 K22 ["Util"]
+       83 GETTABLEKS                       R11 R12 K23 ["Images"]
+       85 CALL                             R10 1 1
+       86 GETIMPORT                        R11 K5 [require]
+       88 GETTABLEKS                       R14 R0 K9 ["Src"]
+       90 GETTABLEKS                       R13 R14 K24 ["Flags"]
+       92 GETTABLEKS                       R12 R13 K25 ["getFFlagAmrUpdatedItemsCache"]
+       94 CALL                             R11 1 1
+       95 GETIMPORT                        R12 K5 [require]
+       97 GETTABLEKS                       R15 R0 K9 ["Src"]
+       99 GETTABLEKS                       R14 R15 K24 ["Flags"]
+      101 GETTABLEKS                       R13 R14 K26 ["getFFlagAmrOrganizationFoundation"]
+      103 CALL                             R12 1 1
+      104 DUPCLOSURE                       R13 K27 [PROTO_0]
       105 CAPTURE                          VAL R7
       106 CAPTURE                          VAL R6
-      107 RETURN                           R12 1
+      107 CAPTURE                          VAL R1
+      108 CAPTURE                          VAL R2
+      109 DUPCLOSURE                       R14 K28 [PROTO_3]
+      110 CAPTURE                          VAL R12
+      111 CAPTURE                          VAL R3
+      112 CAPTURE                          VAL R1
+      113 CAPTURE                          VAL R13
+      114 CAPTURE                          VAL R4
+      115 CAPTURE                          VAL R5
+      116 CAPTURE                          VAL R11
+      117 CAPTURE                          VAL R2
+      118 CAPTURE                          VAL R10
+      119 CAPTURE                          VAL R9
+      120 CAPTURE                          VAL R8
+      121 RETURN                           R14 1

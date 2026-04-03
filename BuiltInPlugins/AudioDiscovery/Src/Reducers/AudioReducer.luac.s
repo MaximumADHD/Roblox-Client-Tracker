@@ -34,7 +34,7 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R2 0
         1 GETIMPORT                        R3 K3 [Enum.SortDirection.Descending]
-        3 JUMPIFNOTEQ                      R2 R3 ; [+96]
+        3 JUMPIFNOTEQ                      R2 R3 ; [+94]
         5 GETUPVAL                         R4 1
         6 GETUPVAL                         R5 2
         7 GETTABLE                         R6 R0 R4
@@ -44,7 +44,7 @@ PROTO_1:
        12 GETIMPORT                        R7 K6 [tonumber]
        14 CALL                             R7 1 1
        15 MOVE                             R3 R7
-       16 JUMP                             ; [+33]
+       16 JUMP                             ; [+32]
        17 JUMPIFNOT                        R5 ; [+16]
        18 JUMPIFNOTEQKS                    R4 K7 ["OK"] ; [+15]
        20 GETTABLEKS                       R8 R0 K4 ["Id"]
@@ -55,9 +55,9 @@ PROTO_1:
        27 LENGTH                           R7 R8
        28 JUMPIFNOTEQKN                    R7 K8 [0] ; [+3]
        30 LOADK                            R3 K9 ["fixed"]
-       31 JUMP                             ; [+18]
+       31 JUMP                             ; [+17]
        32 MOVE                             R3 R6
-       33 JUMP                             ; [+16]
+       33 JUMP                             ; [+15]
        34 FASTCALL1                        TYPE R6 ; [+3]
        35 MOVE                             R8 R6
        36 GETIMPORT                        R7 K11 [type]
@@ -68,125 +68,121 @@ PROTO_1:
        43 GETIMPORT                        R7 K14 [tostring]
        45 CALL                             R7 1 1
        46 MOVE                             R3 R7
-       47 JUMP                             ; [+2]
+       47 JUMP                             ; [+1]
        48 MOVE                             R3 R6
-       49 JUMP                             ; [0]
-       50 GETUPVAL                         R5 1
-       51 GETUPVAL                         R6 2
-       52 GETTABLE                         R7 R1 R5
-       53 JUMPIFNOTEQKS                    R5 K4 ["Id"] ; [+8]
-       55 FASTCALL1                        TONUMBER R7 ; [+3]
-       56 MOVE                             R9 R7
-       57 GETIMPORT                        R8 K6 [tonumber]
-       59 CALL                             R8 1 1
-       60 MOVE                             R4 R8
-       61 JUMP                             ; [+33]
-       62 JUMPIFNOT                        R6 ; [+16]
-       63 JUMPIFNOTEQKS                    R5 K7 ["OK"] ; [+15]
-       65 GETTABLEKS                       R9 R1 K4 ["Id"]
-       67 GETTABLE                         R8 R6 R9
-       68 JUMPIFNOT                        R8 ; [+8]
-       69 GETTABLEKS                       R10 R1 K4 ["Id"]
-       71 GETTABLE                         R9 R6 R10
-       72 LENGTH                           R8 R9
-       73 JUMPIFNOTEQKN                    R8 K8 [0] ; [+3]
-       75 LOADK                            R4 K9 ["fixed"]
-       76 JUMP                             ; [+18]
-       77 MOVE                             R4 R7
-       78 JUMP                             ; [+16]
-       79 FASTCALL1                        TYPE R7 ; [+3]
-       80 MOVE                             R9 R7
-       81 GETIMPORT                        R8 K11 [type]
-       83 CALL                             R8 1 1
-       84 JUMPIFNOTEQKS                    R8 K12 ["userdata"] ; [+8]
-       86 FASTCALL1                        TOSTRING R7 ; [+3]
-       87 MOVE                             R9 R7
-       88 GETIMPORT                        R8 K14 [tostring]
-       90 CALL                             R8 1 1
-       91 MOVE                             R4 R8
-       92 JUMP                             ; [+2]
-       93 MOVE                             R4 R7
-       94 JUMP                             ; [0]
-       95 JUMPIFLT                         R3 R4 ; [+2]
-       97 LOADB                            R2 0 +1
-       98 LOADB                            R2 1
-       99 RETURN                           R2 1
-      100 GETUPVAL                         R4 1
-      101 GETUPVAL                         R5 2
-      102 GETTABLE                         R6 R0 R4
-      103 JUMPIFNOTEQKS                    R4 K4 ["Id"] ; [+8]
-      105 FASTCALL1                        TONUMBER R6 ; [+3]
-      106 MOVE                             R8 R6
-      107 GETIMPORT                        R7 K6 [tonumber]
-      109 CALL                             R7 1 1
-      110 MOVE                             R3 R7
-      111 JUMP                             ; [+33]
-      112 JUMPIFNOT                        R5 ; [+16]
-      113 JUMPIFNOTEQKS                    R4 K7 ["OK"] ; [+15]
-      115 GETTABLEKS                       R8 R0 K4 ["Id"]
-      117 GETTABLE                         R7 R5 R8
-      118 JUMPIFNOT                        R7 ; [+8]
-      119 GETTABLEKS                       R9 R0 K4 ["Id"]
-      121 GETTABLE                         R8 R5 R9
-      122 LENGTH                           R7 R8
-      123 JUMPIFNOTEQKN                    R7 K8 [0] ; [+3]
-      125 LOADK                            R3 K9 ["fixed"]
-      126 JUMP                             ; [+18]
-      127 MOVE                             R3 R6
-      128 JUMP                             ; [+16]
-      129 FASTCALL1                        TYPE R6 ; [+3]
-      130 MOVE                             R8 R6
-      131 GETIMPORT                        R7 K11 [type]
-      133 CALL                             R7 1 1
-      134 JUMPIFNOTEQKS                    R7 K12 ["userdata"] ; [+8]
-      136 FASTCALL1                        TOSTRING R6 ; [+3]
-      137 MOVE                             R8 R6
-      138 GETIMPORT                        R7 K14 [tostring]
-      140 CALL                             R7 1 1
-      141 MOVE                             R3 R7
-      142 JUMP                             ; [+2]
-      143 MOVE                             R3 R6
-      144 JUMP                             ; [0]
-      145 GETUPVAL                         R5 1
-      146 GETUPVAL                         R6 2
-      147 GETTABLE                         R7 R1 R5
-      148 JUMPIFNOTEQKS                    R5 K4 ["Id"] ; [+8]
-      150 FASTCALL1                        TONUMBER R7 ; [+3]
-      151 MOVE                             R9 R7
-      152 GETIMPORT                        R8 K6 [tonumber]
-      154 CALL                             R8 1 1
-      155 MOVE                             R4 R8
-      156 JUMP                             ; [+33]
-      157 JUMPIFNOT                        R6 ; [+16]
-      158 JUMPIFNOTEQKS                    R5 K7 ["OK"] ; [+15]
-      160 GETTABLEKS                       R9 R1 K4 ["Id"]
-      162 GETTABLE                         R8 R6 R9
-      163 JUMPIFNOT                        R8 ; [+8]
-      164 GETTABLEKS                       R10 R1 K4 ["Id"]
-      166 GETTABLE                         R9 R6 R10
-      167 LENGTH                           R8 R9
-      168 JUMPIFNOTEQKN                    R8 K8 [0] ; [+3]
-      170 LOADK                            R4 K9 ["fixed"]
-      171 JUMP                             ; [+18]
-      172 MOVE                             R4 R7
-      173 JUMP                             ; [+16]
-      174 FASTCALL1                        TYPE R7 ; [+3]
-      175 MOVE                             R9 R7
-      176 GETIMPORT                        R8 K11 [type]
-      178 CALL                             R8 1 1
-      179 JUMPIFNOTEQKS                    R8 K12 ["userdata"] ; [+8]
-      181 FASTCALL1                        TOSTRING R7 ; [+3]
-      182 MOVE                             R9 R7
-      183 GETIMPORT                        R8 K14 [tostring]
-      185 CALL                             R8 1 1
-      186 MOVE                             R4 R8
-      187 JUMP                             ; [+2]
-      188 MOVE                             R4 R7
-      189 JUMP                             ; [0]
-      190 JUMPIFLT                         R4 R3 ; [+2]
-      192 LOADB                            R2 0 +1
-      193 LOADB                            R2 1
-      194 RETURN                           R2 1
+       49 GETUPVAL                         R5 1
+       50 GETUPVAL                         R6 2
+       51 GETTABLE                         R7 R1 R5
+       52 JUMPIFNOTEQKS                    R5 K4 ["Id"] ; [+8]
+       54 FASTCALL1                        TONUMBER R7 ; [+3]
+       55 MOVE                             R9 R7
+       56 GETIMPORT                        R8 K6 [tonumber]
+       58 CALL                             R8 1 1
+       59 MOVE                             R4 R8
+       60 JUMP                             ; [+32]
+       61 JUMPIFNOT                        R6 ; [+16]
+       62 JUMPIFNOTEQKS                    R5 K7 ["OK"] ; [+15]
+       64 GETTABLEKS                       R9 R1 K4 ["Id"]
+       66 GETTABLE                         R8 R6 R9
+       67 JUMPIFNOT                        R8 ; [+8]
+       68 GETTABLEKS                       R10 R1 K4 ["Id"]
+       70 GETTABLE                         R9 R6 R10
+       71 LENGTH                           R8 R9
+       72 JUMPIFNOTEQKN                    R8 K8 [0] ; [+3]
+       74 LOADK                            R4 K9 ["fixed"]
+       75 JUMP                             ; [+17]
+       76 MOVE                             R4 R7
+       77 JUMP                             ; [+15]
+       78 FASTCALL1                        TYPE R7 ; [+3]
+       79 MOVE                             R9 R7
+       80 GETIMPORT                        R8 K11 [type]
+       82 CALL                             R8 1 1
+       83 JUMPIFNOTEQKS                    R8 K12 ["userdata"] ; [+8]
+       85 FASTCALL1                        TOSTRING R7 ; [+3]
+       86 MOVE                             R9 R7
+       87 GETIMPORT                        R8 K14 [tostring]
+       89 CALL                             R8 1 1
+       90 MOVE                             R4 R8
+       91 JUMP                             ; [+1]
+       92 MOVE                             R4 R7
+       93 JUMPIFLT                         R3 R4 ; [+2]
+       95 LOADB                            R2 0 +1
+       96 LOADB                            R2 1
+       97 RETURN                           R2 1
+       98 GETUPVAL                         R4 1
+       99 GETUPVAL                         R5 2
+      100 GETTABLE                         R6 R0 R4
+      101 JUMPIFNOTEQKS                    R4 K4 ["Id"] ; [+8]
+      103 FASTCALL1                        TONUMBER R6 ; [+3]
+      104 MOVE                             R8 R6
+      105 GETIMPORT                        R7 K6 [tonumber]
+      107 CALL                             R7 1 1
+      108 MOVE                             R3 R7
+      109 JUMP                             ; [+32]
+      110 JUMPIFNOT                        R5 ; [+16]
+      111 JUMPIFNOTEQKS                    R4 K7 ["OK"] ; [+15]
+      113 GETTABLEKS                       R8 R0 K4 ["Id"]
+      115 GETTABLE                         R7 R5 R8
+      116 JUMPIFNOT                        R7 ; [+8]
+      117 GETTABLEKS                       R9 R0 K4 ["Id"]
+      119 GETTABLE                         R8 R5 R9
+      120 LENGTH                           R7 R8
+      121 JUMPIFNOTEQKN                    R7 K8 [0] ; [+3]
+      123 LOADK                            R3 K9 ["fixed"]
+      124 JUMP                             ; [+17]
+      125 MOVE                             R3 R6
+      126 JUMP                             ; [+15]
+      127 FASTCALL1                        TYPE R6 ; [+3]
+      128 MOVE                             R8 R6
+      129 GETIMPORT                        R7 K11 [type]
+      131 CALL                             R7 1 1
+      132 JUMPIFNOTEQKS                    R7 K12 ["userdata"] ; [+8]
+      134 FASTCALL1                        TOSTRING R6 ; [+3]
+      135 MOVE                             R8 R6
+      136 GETIMPORT                        R7 K14 [tostring]
+      138 CALL                             R7 1 1
+      139 MOVE                             R3 R7
+      140 JUMP                             ; [+1]
+      141 MOVE                             R3 R6
+      142 GETUPVAL                         R5 1
+      143 GETUPVAL                         R6 2
+      144 GETTABLE                         R7 R1 R5
+      145 JUMPIFNOTEQKS                    R5 K4 ["Id"] ; [+8]
+      147 FASTCALL1                        TONUMBER R7 ; [+3]
+      148 MOVE                             R9 R7
+      149 GETIMPORT                        R8 K6 [tonumber]
+      151 CALL                             R8 1 1
+      152 MOVE                             R4 R8
+      153 JUMP                             ; [+32]
+      154 JUMPIFNOT                        R6 ; [+16]
+      155 JUMPIFNOTEQKS                    R5 K7 ["OK"] ; [+15]
+      157 GETTABLEKS                       R9 R1 K4 ["Id"]
+      159 GETTABLE                         R8 R6 R9
+      160 JUMPIFNOT                        R8 ; [+8]
+      161 GETTABLEKS                       R10 R1 K4 ["Id"]
+      163 GETTABLE                         R9 R6 R10
+      164 LENGTH                           R8 R9
+      165 JUMPIFNOTEQKN                    R8 K8 [0] ; [+3]
+      167 LOADK                            R4 K9 ["fixed"]
+      168 JUMP                             ; [+17]
+      169 MOVE                             R4 R7
+      170 JUMP                             ; [+15]
+      171 FASTCALL1                        TYPE R7 ; [+3]
+      172 MOVE                             R9 R7
+      173 GETIMPORT                        R8 K11 [type]
+      175 CALL                             R8 1 1
+      176 JUMPIFNOTEQKS                    R8 K12 ["userdata"] ; [+8]
+      178 FASTCALL1                        TOSTRING R7 ; [+3]
+      179 MOVE                             R9 R7
+      180 GETIMPORT                        R8 K14 [tostring]
+      182 CALL                             R8 1 1
+      183 MOVE                             R4 R8
+      184 JUMP                             ; [+1]
+      185 MOVE                             R4 R7
+      186 JUMPIFLT                         R4 R3 ; [+2]
+      188 LOADB                            R2 0 +1
+      189 LOADB                            R2 1
+      190 RETURN                           R2 1
 
 PROTO_2:
         0 GETUPVAL                         R4 0

@@ -389,7 +389,7 @@ MAIN:
        91 DUPCLOSURE                       R14 K25 [PROTO_3]
        92 CAPTURE                          VAL R4
        93 NEWTABLE                         R15 0 0
-       95 GETTABLEKS                       R16 R7 K26 ["getEnumAsList"]
+       95 GETTABLEKS                       R16 R7 K26 ["asList"]
        97 GETTABLEKS                       R17 R7 K27 ["AssetType"]
        99 CALL                             R16 1 3
       100 FORGPREP                         R16

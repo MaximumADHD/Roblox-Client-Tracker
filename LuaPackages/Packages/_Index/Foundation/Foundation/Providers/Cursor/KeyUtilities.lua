@@ -2,7 +2,6 @@ local Foundation = script:FindFirstAncestor("Foundation")
 
 local ColorMode = require(Foundation.Enums.ColorMode)
 local CursorType = require(Foundation.Enums.CursorType)
-local Flags = require(Foundation.Utility.Flags)
 type CursorType = CursorType.CursorType
 local Tokens = require(Foundation.Providers.Style.Tokens)
 local Types = require(Foundation.Components.Types)
@@ -22,9 +21,7 @@ local function encodeKey(
 	local pOffset = (offset or tokens.Size.Size_150) - pBorderWidth
 	local pColorMode = colorMode or ColorMode.Color
 
-	return if Flags.FoundationSupportPresentationContextInSelectionCursor
-		then pRadius.Scale .. " " .. pRadius.Offset .. " " .. pOffset .. " " .. pBorderWidth .. " " .. pColorMode
-		else pRadius.Scale .. " " .. pRadius.Offset .. " " .. pOffset .. " " .. pBorderWidth
+	return pRadius.Scale .. " " .. pRadius.Offset .. " " .. pOffset .. " " .. pBorderWidth .. " " .. pColorMode
 end
 
 local decodeKey = function(key: string | { string }): (UDim, number, number, ColorMode)
@@ -65,13 +62,9 @@ local function mapCursorToKey(cursor: Types.Cursor?, tokens)
 	elseif cursor == nil then
 		key = encodeKey(tokens)
 	elseif typeof(cursor) == "userdata" then -- for migrating from prior UIBlox Cursor types (would like a cleaner condition than userdata type check)
-		key = if Flags.FoundationSupportPresentationContextInSelectionCursor
-			then encodeCursorTypeKey(migrateCursorType(cursor))
-			else migrateCursorType(cursor)
+		key = encodeCursorTypeKey(migrateCursorType(cursor))
 	else
-		key = if Flags.FoundationSupportPresentationContextInSelectionCursor
-			then encodeCursorTypeKey(cursor)
-			else cursor
+		key = encodeCursorTypeKey(cursor)
 	end
 
 	return key

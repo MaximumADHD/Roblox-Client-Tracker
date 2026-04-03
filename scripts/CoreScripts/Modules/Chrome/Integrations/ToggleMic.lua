@@ -17,10 +17,9 @@ local EnableChromeAudioFocusManagement = AudioFocusManagementEnabled and FFlagEn
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
-
 local ChromeService = require(Chrome.Service)
 local RedVoiceDot = require(Chrome.Integrations.RedVoiceDot)
-local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
+local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
 
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 

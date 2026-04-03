@@ -28,6 +28,8 @@ local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerModuleHiddenAPI = FlagUtil.getUserFlag("UserPlayerModuleHiddenAPI")
 local FFlagUserPSActionsPathAware = FlagUtil.getUserFlag("UserPSActionsPathAware")
 local FFlagUserPlayerScriptsControlModuleModernize = FlagUtil.getUserFlag("UserPlayerScriptsControlModuleModernize")
+local FFlagUserPSSpecifySimulationFrequency = FlagUtil.getUserFlag("UserPSSpecifySimulationFrequency")
+local FFlagUserPlayerScriptsClickToMoveUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClickToMoveUsesIAS")
 
 local CONNECTIONS = {
 	SERVER_AUTHORITY_CHANGED = "SERVER_AUTHORITY_CHANGED",
@@ -205,20 +207,34 @@ function ControlModule:InitializeServerAuthority()
 		end
 		Players.PlayerAdded:Connect(_cloneInputs)
 		-- Server processes all input
-		RunService:BindToSimulation(function(dt)
-			for _, player in Players:GetPlayers() do
-				self:ProcessInputs(player, dt)
-			end
-		end)
+		if (FFlagUserPSSpecifySimulationFrequency) then
+			RunService:BindToSimulation(function(dt)
+				for _, player in Players:GetPlayers() do
+					self:ProcessInputs(player, dt)
+				end
+			end, Enum.StepFrequency.Hz60)
+		else
+			RunService:BindToSimulation(function(dt)
+				for _, player in Players:GetPlayers() do
+					self:ProcessInputs(player, dt)
+				end
+			end)		
+		end
 	else
 		-- Fire Custom Inputs
 		RunService:BindToRenderStep("CameraInput", Enum.RenderPriority.Last.Value, function()
 			_fireCustomInputs(Players.LocalPlayer)
 		end)
 		-- Client processes local player input only
-		RunService:BindToSimulation(function(dt)
-			self:ProcessInputs(Players.LocalPlayer, dt)
-		end)
+		if (FFlagUserPSSpecifySimulationFrequency) then
+			RunService:BindToSimulation(function(dt)
+				self:ProcessInputs(Players.LocalPlayer, dt)
+			end, Enum.StepFrequency.Hz60)
+		else
+			RunService:BindToSimulation(function(dt)
+				self:ProcessInputs(Players.LocalPlayer, dt)
+			end)
+		end
 	end
 
 	if FFlagUserPSActionsPathAware and self.data and self.data.eventBus then
@@ -275,11 +291,11 @@ function ControlModule:GetEstimatedVRTorsoFrame(): CFrame
 		local averageHandAngleValid =
 			averageHandAngleRelativeToCurrentAngle > -math.pi/2 and
 			averageHandAngleRelativeToCurrentAngle < math.pi/2
-		
+
 		if not averageHandAngleValid then
 			averageHandAngleRelativeToCurrentAngle = headAngleRelativeToCurrentAngle
 		end
-		
+
 		local minimumValidAngle = math.min(averageHandAngleRelativeToCurrentAngle, headAngleRelativeToCurrentAngle)
 		local maximumValidAngle = math.max(averageHandAngleRelativeToCurrentAngle, headAngleRelativeToCurrentAngle)
 
@@ -470,9 +486,9 @@ function ControlModule:calculateRawMoveVector(humanoid: Humanoid, cameraRelative
 
 	if VRService.VREnabled and humanoid.RootPart then
 		local vrFrame = VRService:GetUserCFrame(Enum.UserCFrame.Head)
-		
+
 		vrFrame = self:GetEstimatedVRTorsoFrame()
-					
+
 		-- movement relative to VR frustum
 		local cameraDelta = camera.Focus.Position - cameraCFrame.Position
 		if cameraDelta.Magnitude < 3 then -- "nearly" first person
@@ -548,7 +564,6 @@ function ControlModule:Update(data, playerData, dt)
 	end
 
 	if self.activeController and self.activeController.enabled and self.humanoid then
-
 		if FFlagUserPSActionsPathAware then
 			ActionController.update(playerData)
 		else
@@ -560,48 +575,59 @@ function ControlModule:Update(data, playerData, dt)
 				end
 			end
 		end
+		
+		if FFlagUserPlayerScriptsClickToMoveUsesIAS then 
+			local clickToMoveController = self:GetClickToMoveController()
+			clickToMoveController:Update(playerData, dt)
+		end
 
 		-- Now retrieve info from the controller
 		local moveVector
-		
+
 		if FFlagUserPSActionsPathAware then
 			moveVector = Vector3.new(playerData.moveVector.X, 0, -playerData.moveVector.Y)
 		else
 			moveVector = self:GetMoveVector()
 		end
 
-		local cameraRelative = true
+		local cameraRelative = true  -- Remove with FFlagUserPlayerScriptsClickToMoveUsesIAS
 
-		local clickToMoveController = self:GetClickToMoveController()
-		if self.activeController == clickToMoveController then
-			clickToMoveController:OnRenderStepped(dt)
-			cameraRelative = clickToMoveController:IsMoveVectorCameraRelative()
-		else
-			if moveVector.magnitude > 0 then
-				-- Clean up any developer started MoveTo path
-				clickToMoveController:CleanupPath()
-			else
-				-- Get move vector for developer started MoveTo
-				clickToMoveController:OnRenderStepped(dt)
-				if not FFlagUserPSActionsPathAware then
-					moveVector = clickToMoveController:GetMoveVector()
-				end
+		if not FFlagUserPlayerScriptsClickToMoveUsesIAS then 
+			local clickToMoveController = self:GetClickToMoveController()
+			if self.activeController == clickToMoveController then
+				clickToMoveController:Update(playerData, dt)
 				cameraRelative = clickToMoveController:IsMoveVectorCameraRelative()
+			else
+				if moveVector.magnitude > 0 then
+					-- Clean up any developer started MoveTo path
+					clickToMoveController:CleanupPath()
+				else
+					-- Get move vector for developer started MoveTo
+					clickToMoveController:Update(playerData, dt)
+					if not FFlagUserPSActionsPathAware then
+						moveVector = clickToMoveController:GetMoveVector()
+					end
+					cameraRelative = clickToMoveController:IsMoveVectorCameraRelative()
+				end
 			end
 		end
 
 		-- Are we driving a vehicle ?
 		local vehicleConsumedInput = false
 		if self.vehicleController then
-			moveVector, vehicleConsumedInput = self.vehicleController:Update(moveVector, cameraRelative)
+			moveVector, vehicleConsumedInput = self.vehicleController:Update(moveVector, if FFlagUserPlayerScriptsClickToMoveUsesIAS then true else cameraRelative)
 		end
 
 		-- If not, move the player
 		-- Verification of vehicleConsumedInput is commented out to preserve legacy behavior,
 		-- in case some game relies on Humanoid.MoveDirection still being set while in a VehicleSeat
 		--if not vehicleConsumedInput then
-		if cameraRelative then
+		if FFlagUserPlayerScriptsClickToMoveUsesIAS then
 			moveVector = self:calculateRawMoveVector(self.humanoid, moveVector)
+		else
+			if cameraRelative then 
+				moveVector = self:calculateRawMoveVector(self.humanoid, moveVector)
+			end
 		end
 
 		self.inputMoveVector = moveVector
@@ -626,7 +652,7 @@ function ControlModule:updateVRMoveVector(moveVector)
 	-- movement relative to VR frustum
 	local cameraDelta = curCamera.Focus.Position - curCamera.CFrame	.Position
 	local firstPerson = cameraDelta.Magnitude < FIRST_PERSON_THRESHOLD_DISTANCE and true
-	
+
 	-- if the player is not moving via input in first person, follow the VRHead
 	if moveVector.Magnitude == 0 and firstPerson and VRService.AvatarGestures and self.humanoid 
 		and not self.humanoid.Sit then
@@ -637,7 +663,7 @@ function ControlModule:updateVRMoveVector(moveVector)
 		-- get the position in world space and offset at the neck
 		local neck_offset = NECK_OFFSET * self.humanoid.RootPart.Size.Y / 2
 		local vrHeadWorld = curCamera.CFrame * vrHeadOffset * CFrame.new(0, neck_offset, 0)
-		
+
 		local moveOffset = vrHeadWorld.Position - self.humanoid.RootPart.CFrame.Position
 		return Vector3.new(moveOffset.x, 0, moveOffset.z)
 	end

@@ -1,3 +1,6 @@
+-- TEMPORARY: Uses getAttachmentCFrameInPartSpace to fix HRD bone-nested attachment CFrame interpretation.
+-- All bounds/transform calculation in this file must be refactored in the new validation system.
+
 --[[
 calculateBounds:
 	Uses the given minMaxBounds to determine the minMaxBounds after adding a new part (including its attachments)
@@ -15,7 +18,8 @@ local calculateMinMax = require(root.util.calculateMinMax)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
 local ConstantsInterface = require(root.ConstantsInterface)
 local getPartNamesInHierarchyOrder = require(root.util.getPartNamesInHierarchyOrder)
-
+local R15plusUtils = require(root.util.R15plusUtils)
+local getAttachmentCFrameInPartSpace = require(root.util.getAttachmentCFrameInPartSpace)
 local AssetTraversalUtils = {}
 
 function AssetTraversalUtils.calculateBounds(
@@ -58,14 +62,15 @@ function AssetTraversalUtils.calculateBounds(
 	end
 
 	for _, attachName in ConstantsInterface.getAttachments(singleAsset, part.Name) do
-		local attach: Attachment? = part:FindFirstChild(attachName) :: Attachment
+		local attach: Attachment? =
+			part:FindFirstChild(attachName, R15plusUtils.checkFlagEnabledForAllowHrd()) :: Attachment
 		assert(attach)
 
 		local isRigAttachment = string.match(attach.Name, "RigAttachment$") ~= nil
 		if not isRigAttachment then
 			continue
 		end
-		local world = cframe * attach.CFrame
+		local world = cframe * getAttachmentCFrameInPartSpace(attach :: Attachment)
 		minMaxBounds.minRigAttachment, minMaxBounds.maxRigAttachment = calculateMinMax(
 			minMaxBounds.minRigAttachment,
 			minMaxBounds.maxRigAttachment,
@@ -123,12 +128,15 @@ function AssetTraversalUtils.traverseHierarchy(
 		assert(parentMeshHandle)
 
 		local rigAttachmentName = ConstantsInterface.getRigAttachmentToParent(singleAsset, name)
-		local parentAttachment: Attachment? = parentMeshHandle:FindFirstChild(rigAttachmentName) :: Attachment
+		local parentAttachment: Attachment? =
+			parentMeshHandle:FindFirstChild(rigAttachmentName, R15plusUtils.checkFlagEnabledForAllowHrd()) :: Attachment
 		assert(parentAttachment)
-		local attachment: Attachment? = meshHandle:FindFirstChild(rigAttachmentName) :: Attachment
+		local attachment: Attachment? =
+			meshHandle:FindFirstChild(rigAttachmentName, R15plusUtils.checkFlagEnabledForAllowHrd()) :: Attachment
 		assert(attachment)
 
-		cframe = (cframe * (parentAttachment :: Attachment).CFrame) * (attachment :: Attachment).CFrame:Inverse()
+		cframe = (cframe * getAttachmentCFrameInPartSpace(parentAttachment :: Attachment))
+			* getAttachmentCFrameInPartSpace(attachment :: Attachment):Inverse()
 	else
 		cframe = CFrame.new()
 	end

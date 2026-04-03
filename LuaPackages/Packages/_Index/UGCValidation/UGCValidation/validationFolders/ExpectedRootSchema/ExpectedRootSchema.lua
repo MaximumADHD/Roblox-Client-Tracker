@@ -5,6 +5,8 @@ local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local CreateExpectedSchema = require(root.util.CreateExpectedSchema)
 
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local getFFlagUGCValidationExtendSchemaToIgnoreDescendants =
+	require(root.flags.getFFlagUGCValidationExtendSchemaToIgnoreDescendants)
 local ExpectedRootSchema = {}
 
 ExpectedRootSchema.categories = Constants.AllUploadCategories
@@ -38,6 +40,20 @@ local function validateInstancesFromSchema(
 	reporter: Types.ValidationReporter
 )
 	authorizedSet[instance] = true
+	if getFFlagUGCValidationExtendSchemaToIgnoreDescendants() then
+		if schema._ignoreDescendants then
+			assert(
+				not schema._children,
+				"if _ignoreDescendants is true, there should be no descendants in the schema as they would be ignored anyway"
+			)
+			for _, descendant in instance:GetDescendants() do
+				authorizedSet[descendant] = true
+			end
+
+			return
+		end
+	end
+
 	for _, childSchema in (schema._children or {}) do
 		local found = false
 		for _, child in instance:GetChildren() do
@@ -85,7 +101,7 @@ ExpectedRootSchema.run = function(reporter: Types.ValidationReporter, data: Type
 	local instance: Instance, category: string, uploadEnum: Types.UploadEnum =
 		data.rootInstance, data.uploadCategory, data.uploadEnum
 
-	if instance == nil then
+	if (instance :: Instance?) == nil then
 		-- We don't validate the selection input yet, so we should verify the root instance exists. Other validations can assume it exists as it passes schema check.
 
 		reporter:fail(ErrorSourceStrings.Keys.SelectionCountNotOne)

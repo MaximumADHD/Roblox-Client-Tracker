@@ -52,6 +52,7 @@ export type ValidationContext = {
 	partSizes: PartSizes?,
 	requireAllFolders: boolean?,
 	specialMeshAccessory: Accessory?,
+	isBackendBundleUpload: boolean?,
 }
 
 export type MeshInfo = {
@@ -212,6 +213,19 @@ export type PreloadedValidationModule = {
 	run: (ValidationReporter, SharedData) -> nil,
 }
 
+export type SimpleSchemaTable = {
+	[string]: {
+		ClassName: string,
+		_children: SimpleSchemaTable?,
+	},
+}
+
+export type SimpleSchemaFlatHierarchyList = {
+	[string]: {
+		ClassName: string,
+		path: { string },
+	},
+}
 -- ========
 export type TextureInfo = {
 	editableImage: EditableImage,

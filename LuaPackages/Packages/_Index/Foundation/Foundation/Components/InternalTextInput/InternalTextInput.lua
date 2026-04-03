@@ -63,6 +63,8 @@ type TextInputProps = {
 	isDisabled: boolean?,
 	-- The number of lines to render at once
 	numLines: number?,
+	-- https://roblox.atlassian.net/browse/UIBLOX-4297 - REMOVE AFTER CLEANING UP ALL 3 FLAGS: FFlagFoundationTextInputAlignStrokeBehavior, FFlagFoundationInternalTextInputVariants, FFlagFoundationInternalTextInputCornerRadius
+	forceEnableFlagsForSearchInput: boolean?,
 	-- On input text change
 	onChanged: (text: string) -> (),
 	onFocus: (() -> ())?,
@@ -175,17 +177,22 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 	local focus, setFocus = React.useState(false)
 
 	-- TODO: cleanup with Flags.FoundationInternalTextInputVariants
-	if Flags.FoundationInternalTextInputVariants then
+	if Flags.FoundationInternalTextInputVariants or props.forceEnableFlagsForSearchInput then
 		props.variant = if props.variant then props.variant else InputVariant.Standard
 	end
 	local variantProps = useTextInputVariants(
 		tokens,
 		props.size,
-		if Flags.FoundationInternalTextInputVariants then props.variant else nil,
-		if Flags.FoundationInternalTextInputCornerRadius then props.radius else nil,
-		if Flags.FoundationTextInputAlignStrokeBehavior then focus else nil,
-		if Flags.FoundationTextInputAlignStrokeBehavior then hover else nil,
-		if Flags.FoundationTextInputAlignStrokeBehavior then props.hasError else nil
+		if Flags.FoundationInternalTextInputVariants or props.forceEnableFlagsForSearchInput then props.variant else nil,
+		if Flags.FoundationInternalTextInputCornerRadius or props.forceEnableFlagsForSearchInput
+			then props.radius
+			else nil,
+		if Flags.FoundationTextInputAlignStrokeBehavior or props.forceEnableFlagsForSearchInput then focus else nil,
+		if Flags.FoundationTextInputAlignStrokeBehavior or props.forceEnableFlagsForSearchInput then hover else nil,
+		if Flags.FoundationTextInputAlignStrokeBehavior or props.forceEnableFlagsForSearchInput
+			then props.hasError
+			else nil,
+		props.forceEnableFlagsForSearchInput
 	)
 	local textBoxTag = useStyleTags(variantProps.textBox.tag)
 
@@ -512,14 +519,16 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 				Selectable = not props.isDisabled,
 			},
 			cursor = cursor,
-			stroke = if not Flags.FoundationTextInputAlignStrokeBehavior
+			stroke = if not (Flags.FoundationTextInputAlignStrokeBehavior or props.forceEnableFlagsForSearchInput)
 					or (variantProps.outerView.strokeStyle and variantProps.outerView.strokeThickness)
 				then {
 					Color = if Flags.FoundationTextInputAlignStrokeBehavior
+							or props.forceEnableFlagsForSearchInput
 						then variantProps.outerView.strokeStyle.Color3
 						elseif props.hasError then tokens.Color.System.Alert.Color3
 						else tokens.Color.Stroke.Emphasis.Color3,
 					Transparency = if Flags.FoundationTextInputAlignStrokeBehavior
+							or props.forceEnableFlagsForSearchInput
 						then if props.isDisabled
 							then blendTransparencies(
 								variantProps.outerView.strokeStyle.Transparency,
@@ -530,9 +539,12 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 							then tokens.Color.System.Alert.Transparency
 							else if focus then 0 else tokens.Color.Stroke.Emphasis.Transparency,
 					Thickness = if Flags.FoundationTextInputAlignStrokeBehavior
+							or props.forceEnableFlagsForSearchInput
 						then variantProps.outerView.strokeThickness
 						else outerBorderThickness,
-					BorderStrokePosition = if Flags.FoundationTextInputAlignStrokeBehavior and (focus or hover)
+					BorderStrokePosition = if (
+							Flags.FoundationTextInputAlignStrokeBehavior or props.forceEnableFlagsForSearchInput
+						) and (focus or hover)
 						then Enum.BorderStrokePosition.Center
 						else Enum.BorderStrokePosition.Inner,
 				}
@@ -554,7 +566,9 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			onActivated = if not props.isDisabled then focusTextBox else nil,
 			onStateChanged = onInputStateChanged,
 			isDisabled = props.isDisabled,
-			backgroundStyle = if not Flags.FoundationInternalTextInputVariants or variantProps.outerView.bgStyle
+			backgroundStyle = if not (
+						Flags.FoundationInternalTextInputVariants or props.forceEnableFlagsForSearchInput
+					) or variantProps.outerView.bgStyle
 				then if Flags.FoundationInternalTextInputDisabledTransparency
 					then getDisabledStyle({
 						-- TODO: cleanup casts with Flags.FoundationInternalTextInputVariants
@@ -579,7 +593,9 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		{
 			DragDetector = dragDetector,
 			Background = props.backgroundGradient,
-			HoverStroke = if not Flags.FoundationTextInputAlignStrokeBehavior
+			HoverStroke = if not (
+						Flags.FoundationTextInputAlignStrokeBehavior or props.forceEnableFlagsForSearchInput
+					)
 					and not props.isDisabled
 					and (hover or focus)
 				then React.createElement("UIStroke", {

@@ -478,12 +478,36 @@ PROTO_7:
        51 MOVE                             R7 R4
        52 CALL                             R6 1 0
        53 GETUPVAL                         R6 8
-       54 GETUPVAL                         R7 9
-       55 MOVE                             R8 R4
-       56 LOADB                            R9 1
-       57 CALL                             R7 2 1
-       58 CALL                             R6 1 0
-       59 RETURN                           R0 0
+       54 DUPTABLE                         R8 K12 [{"CurveType", "Min", "Max"}]
+       55 GETUPVAL                         R10 9
+       56 GETTABLEKS                       R9 R10 K13 ["CUSTOM"]
+       58 SETTABLEKS                       R9 R8 K9 ["CurveType"]
+       60 LOADN                            R9 10
+       61 SETTABLEKS                       R9 R8 K10 ["Min"]
+       63 LOADN                            R9 232
+       64 SETTABLEKS                       R9 R8 K11 ["Max"]
+       66 LENGTH                           R9 R4
+       67 LOADN                            R10 2
+       68 JUMPIFNOTLT                      R9 R10 ; [+3]
+       70 MOVE                             R7 R8
+       71 JUMP                             ; [+23]
+       72 GETTABLEN                        R11 R4 1
+       73 GETTABLEKS                       R10 R11 K0 ["X"]
+       75 SETTABLEKS                       R10 R8 K10 ["Min"]
+       77 GETTABLE                         R11 R4 R9
+       78 GETTABLEKS                       R10 R11 K0 ["X"]
+       80 SETTABLEKS                       R10 R8 K11 ["Max"]
+       82 GETTABLEN                        R11 R4 1
+       83 GETTABLEKS                       R10 R11 K1 ["Y"]
+       85 JUMPIFEQKN                       R10 K14 [1] ; [+8]
+       87 GETTABLE                         R11 R4 R9
+       88 GETTABLEKS                       R10 R11 K1 ["Y"]
+       90 JUMPIFEQKN                       R10 K15 [0] ; [+3]
+       92 MOVE                             R7 R8
+       93 JUMP                             ; [+1]
+       94 MOVE                             R7 R8
+       95 CALL                             R6 1 0
+       96 RETURN                           R0 0
 
 PROTO_8:
         0 LOADN                            R1 1
@@ -547,13 +571,37 @@ PROTO_9:
        37 MOVE                             R4 R2
        38 CALL                             R3 1 0
        39 GETUPVAL                         R3 6
-       40 GETUPVAL                         R4 7
-       41 MOVE                             R5 R1
-       42 LOADB                            R6 1
-       43 CALL                             R4 2 1
-       44 CALL                             R3 1 0
-       45 LOADB                            R3 1
-       46 RETURN                           R3 1
+       40 DUPTABLE                         R5 K7 [{"CurveType", "Min", "Max"}]
+       41 GETUPVAL                         R7 7
+       42 GETTABLEKS                       R6 R7 K8 ["CUSTOM"]
+       44 SETTABLEKS                       R6 R5 K4 ["CurveType"]
+       46 LOADN                            R6 10
+       47 SETTABLEKS                       R6 R5 K5 ["Min"]
+       49 LOADN                            R6 232
+       50 SETTABLEKS                       R6 R5 K6 ["Max"]
+       52 LENGTH                           R6 R1
+       53 LOADN                            R7 2
+       54 JUMPIFNOTLT                      R6 R7 ; [+3]
+       56 MOVE                             R4 R5
+       57 JUMP                             ; [+23]
+       58 GETTABLEN                        R8 R1 1
+       59 GETTABLEKS                       R7 R8 K0 ["X"]
+       61 SETTABLEKS                       R7 R5 K5 ["Min"]
+       63 GETTABLE                         R8 R1 R6
+       64 GETTABLEKS                       R7 R8 K0 ["X"]
+       66 SETTABLEKS                       R7 R5 K6 ["Max"]
+       68 GETTABLEN                        R8 R1 1
+       69 GETTABLEKS                       R7 R8 K9 ["Y"]
+       71 JUMPIFEQKN                       R7 K10 [1] ; [+8]
+       73 GETTABLE                         R8 R1 R6
+       74 GETTABLEKS                       R7 R8 K9 ["Y"]
+       76 JUMPIFEQKN                       R7 K11 [0] ; [+3]
+       78 MOVE                             R4 R5
+       79 JUMP                             ; [+1]
+       80 MOVE                             R4 R5
+       81 CALL                             R3 1 0
+       82 LOADB                            R3 1
+       83 RETURN                           R3 1
 
 PROTO_10:
         0 GETUPVAL                         R0 0
@@ -573,12 +621,36 @@ PROTO_10:
        16 LENGTH                           R2 R0
        17 CALL                             R1 1 0
        18 GETUPVAL                         R1 5
-       19 GETUPVAL                         R2 6
-       20 MOVE                             R3 R0
-       21 LOADB                            R4 1
-       22 CALL                             R2 2 1
-       23 CALL                             R1 1 0
-       24 RETURN                           R0 0
+       19 DUPTABLE                         R3 K6 [{"CurveType", "Min", "Max"}]
+       20 GETUPVAL                         R5 6
+       21 GETTABLEKS                       R4 R5 K7 ["CUSTOM"]
+       23 SETTABLEKS                       R4 R3 K3 ["CurveType"]
+       25 LOADN                            R4 10
+       26 SETTABLEKS                       R4 R3 K4 ["Min"]
+       28 LOADN                            R4 232
+       29 SETTABLEKS                       R4 R3 K5 ["Max"]
+       31 LENGTH                           R4 R0
+       32 LOADN                            R5 2
+       33 JUMPIFNOTLT                      R4 R5 ; [+3]
+       35 MOVE                             R2 R3
+       36 JUMP                             ; [+23]
+       37 GETTABLEN                        R6 R0 1
+       38 GETTABLEKS                       R5 R6 K8 ["X"]
+       40 SETTABLEKS                       R5 R3 K4 ["Min"]
+       42 GETTABLE                         R6 R0 R4
+       43 GETTABLEKS                       R5 R6 K8 ["X"]
+       45 SETTABLEKS                       R5 R3 K5 ["Max"]
+       47 GETTABLEN                        R6 R0 1
+       48 GETTABLEKS                       R5 R6 K9 ["Y"]
+       50 JUMPIFEQKN                       R5 K10 [1] ; [+8]
+       52 GETTABLE                         R6 R0 R4
+       53 GETTABLEKS                       R5 R6 K9 ["Y"]
+       55 JUMPIFEQKN                       R5 K11 [0] ; [+3]
+       57 MOVE                             R2 R3
+       58 JUMP                             ; [+1]
+       59 MOVE                             R2 R3
+       60 CALL                             R1 1 0
+       61 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R1 0
@@ -672,7 +744,7 @@ PROTO_14:
        56 CAPTURE                          VAL R5
        57 CAPTURE                          VAL R3
        58 CAPTURE                          VAL R7
-       59 CAPTURE                          UPVAL U1
+       59 CAPTURE                          UPVAL U7
        60 NEWTABLE                         R15 0 2
        62 MOVE                             R16 R2
        63 MOVE                             R17 R4
@@ -689,12 +761,12 @@ PROTO_14:
        77 NEWCLOSURE                       R16 P6
        78 CAPTURE                          VAL R2
        79 CAPTURE                          UPVAL U4
-       80 CAPTURE                          UPVAL U7
+       80 CAPTURE                          UPVAL U8
        81 CAPTURE                          VAL R14
        82 CAPTURE                          VAL R3
        83 CAPTURE                          VAL R5
        84 CAPTURE                          VAL R7
-       85 CAPTURE                          UPVAL U1
+       85 CAPTURE                          UPVAL U7
        86 NEWTABLE                         R17 0 3
        88 MOVE                             R18 R2
        89 MOVE                             R19 R4
@@ -703,13 +775,13 @@ PROTO_14:
        93 CALL                             R15 2 1
        94 GETUPVAL                         R16 3
        95 NEWCLOSURE                       R17 P7
-       96 CAPTURE                          UPVAL U7
+       96 CAPTURE                          UPVAL U8
        97 CAPTURE                          VAL R2
        98 CAPTURE                          VAL R4
        99 CAPTURE                          VAL R3
       100 CAPTURE                          VAL R5
       101 CAPTURE                          VAL R7
-      102 CAPTURE                          UPVAL U1
+      102 CAPTURE                          UPVAL U7
       103 NEWTABLE                         R18 0 2
       105 MOVE                             R19 R2
       106 MOVE                             R20 R4
@@ -731,7 +803,7 @@ PROTO_14:
       126 CALL                             R18 2 1
       127 GETUPVAL                         R19 3
       128 NEWCLOSURE                       R20 P10
-      129 CAPTURE                          UPVAL U8
+      129 CAPTURE                          UPVAL U7
       130 CAPTURE                          VAL R3
       131 CAPTURE                          UPVAL U9
       132 CAPTURE                          VAL R7
@@ -801,7 +873,7 @@ MAIN:
        68 CAPTURE                          VAL R11
        69 CAPTURE                          VAL R8
        70 CAPTURE                          VAL R2
-       71 CAPTURE                          VAL R3
-       72 CAPTURE                          VAL R9
+       71 CAPTURE                          VAL R9
+       72 CAPTURE                          VAL R3
        73 CAPTURE                          VAL R13
        74 RETURN                           R14 1

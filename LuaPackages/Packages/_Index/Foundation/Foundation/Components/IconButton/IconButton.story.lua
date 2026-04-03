@@ -19,8 +19,6 @@ type InputSize = InputSize.InputSize
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
 
-local Flags = require(Foundation.Utility.Flags)
-
 -- Only show the supported variants for IconButton
 local SUPPORTED_VARIANTS: { ButtonVariant } = {
 	ButtonVariant.Utility,
@@ -134,33 +132,30 @@ table.insert(stories, {
 				}),
 			}),
 		}
-
-		if Flags.FoundationIconButtonFillBehavior then
-			children.FillBehaviorTakesPrecedence = React.createElement(View, {
-				LayoutOrder = 4,
-				tag = "col gap-xxsmall auto-xy",
+		children.FillBehaviorTakesPrecedence = React.createElement(View, {
+			LayoutOrder = 4,
+			tag = "col gap-xxsmall auto-xy",
+		}, {
+			Label = React.createElement(Text, {
+				Text = "fillBehavior.Fill takes precedence over width=200px",
+				tag = "auto-xy text-body-small",
+				LayoutOrder = 1,
+			}),
+			Row = React.createElement(View, {
+				tag = "row size-full-0 auto-xy",
+				LayoutOrder = 2,
+				Size = UDim2.new(1, 0, 0, 60),
 			}, {
-				Label = React.createElement(Text, {
-					Text = "fillBehavior.Fill takes precedence over width=200px",
-					tag = "auto-xy text-body-small",
-					LayoutOrder = 1,
+				React.createElement(IconButton, {
+					icon = { name = controls.name, variant = controls.variant },
+					variant = ButtonVariant.Emphasis,
+					onActivated = function() end,
+					size = InputSize.Medium,
+					width = UDim.new(0, 200),
+					fillBehavior = FillBehavior.Fill,
 				}),
-				Row = React.createElement(View, {
-					tag = "row size-full-0 auto-xy",
-					LayoutOrder = 2,
-					Size = UDim2.new(1, 0, 0, 60),
-				}, {
-					React.createElement(IconButton, {
-						icon = { name = controls.name, variant = controls.variant },
-						variant = ButtonVariant.Emphasis,
-						onActivated = function() end,
-						size = InputSize.Medium,
-						width = UDim.new(0, 200),
-						fillBehavior = FillBehavior.Fill,
-					}),
-				}),
-			})
-		end
+			}),
+		})
 
 		return React.createElement(View, {
 			tag = "col gap-large size-full-0 auto-xy padding-large radius-medium",
@@ -168,66 +163,63 @@ table.insert(stories, {
 		}, children)
 	end,
 })
+table.insert(stories, {
+	name = "FillBehavior",
+	story = function(props)
+		local controls = props.controls
+		local colorMode = controls.colorMode
+		local tokens = useTokens()
+		local selectedBehavior = if controls.fillBehavior == React.None then nil else controls.fillBehavior
 
-if Flags.FoundationIconButtonFillBehavior then
-	table.insert(stories, {
-		name = "FillBehavior",
-		story = function(props)
-			local controls = props.controls
-			local colorMode = controls.colorMode
-			local tokens = useTokens()
-			local selectedBehavior = if controls.fillBehavior == React.None then nil else controls.fillBehavior
-
-			return React.createElement(View, {
-				tag = "row gap-medium size-full-0 auto-y padding-medium radius-medium",
-				backgroundStyle = if colorMode then tokens[colorMode].Surface.Surface_100 else nil,
-			}, {
-				One = React.createElement(IconButton, {
-					icon = {
-						name = controls.name,
-						variant = controls.variant,
-					},
-					variant = ButtonVariant.Emphasis,
-					onActivated = function()
-						print(`{colorMode} IconButton row {selectedBehavior} activated`)
-					end,
-					isDisabled = controls.isDisabled,
-					size = InputSize.Medium,
-					isCircular = controls.isCircular,
-					fillBehavior = selectedBehavior,
-				}),
-				Two = React.createElement(IconButton, {
-					icon = {
-						name = controls.name,
-						variant = controls.variant,
-					},
-					variant = ButtonVariant.Utility,
-					onActivated = function()
-						print(`{colorMode} IconButton row {selectedBehavior} activated`)
-					end,
-					isDisabled = controls.isDisabled,
-					size = InputSize.Medium,
-					isCircular = controls.isCircular,
-					fillBehavior = selectedBehavior,
-				}),
-				Three = React.createElement(IconButton, {
-					icon = {
-						name = controls.name,
-						variant = controls.variant,
-					},
-					variant = ButtonVariant.Utility,
-					onActivated = function()
-						print(`{colorMode} IconButton row {selectedBehavior} activated`)
-					end,
-					isDisabled = controls.isDisabled,
-					size = InputSize.Medium,
-					isCircular = controls.isCircular,
-					fillBehavior = selectedBehavior,
-				}),
-			})
-		end,
-	})
-end
+		return React.createElement(View, {
+			tag = "row gap-medium size-full-0 auto-y padding-medium radius-medium",
+			backgroundStyle = if colorMode then tokens[colorMode].Surface.Surface_100 else nil,
+		}, {
+			One = React.createElement(IconButton, {
+				icon = {
+					name = controls.name,
+					variant = controls.variant,
+				},
+				variant = ButtonVariant.Emphasis,
+				onActivated = function()
+					print(`{colorMode} IconButton row {selectedBehavior} activated`)
+				end,
+				isDisabled = controls.isDisabled,
+				size = InputSize.Medium,
+				isCircular = controls.isCircular,
+				fillBehavior = selectedBehavior,
+			}),
+			Two = React.createElement(IconButton, {
+				icon = {
+					name = controls.name,
+					variant = controls.variant,
+				},
+				variant = ButtonVariant.Utility,
+				onActivated = function()
+					print(`{colorMode} IconButton row {selectedBehavior} activated`)
+				end,
+				isDisabled = controls.isDisabled,
+				size = InputSize.Medium,
+				isCircular = controls.isCircular,
+				fillBehavior = selectedBehavior,
+			}),
+			Three = React.createElement(IconButton, {
+				icon = {
+					name = controls.name,
+					variant = controls.variant,
+				},
+				variant = ButtonVariant.Utility,
+				onActivated = function()
+					print(`{colorMode} IconButton row {selectedBehavior} activated`)
+				end,
+				isDisabled = controls.isDisabled,
+				size = InputSize.Medium,
+				isCircular = controls.isCircular,
+				fillBehavior = selectedBehavior,
+			}),
+		})
+	end,
+})
 
 return {
 	summary = "IconButton",
@@ -245,12 +237,10 @@ return {
 		isDisabled = false,
 		isCircular = false,
 		colorMode = Dash.values(ColorMode),
-		fillBehavior = if Flags.FoundationIconButtonFillBehavior
-			then {
-				React.None,
-				FillBehavior.Fit,
-				FillBehavior.Fill,
-			} :: { FillBehavior }
-			else nil,
+		fillBehavior = {
+			React.None,
+			FillBehavior.Fit,
+			FillBehavior.Fill,
+		} :: { FillBehavior },
 	},
 }

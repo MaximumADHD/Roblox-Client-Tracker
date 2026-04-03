@@ -78,50 +78,49 @@ PROTO_1:
       102 JUMPIF                           R9 ; [+4]
       103 GETUPVAL                         R26 6
       104 GETTABLEKS                       R25 R26 K43 ["LOADING_BUTTON"]
-      106 JUMP                             ; [+9]
+      106 JUMP                             ; [+8]
       107 JUMPIFNOT                        R8 ; [+4]
       108 GETUPVAL                         R26 6
       109 GETTABLEKS                       R25 R26 K44 ["PAUSE_BUTTON"]
-      111 JUMP                             ; [+4]
+      111 JUMP                             ; [+3]
       112 GETUPVAL                         R26 6
       113 GETTABLEKS                       R25 R26 K45 ["PLAY_BUTTON"]
-      115 JUMP                             ; [0]
-      116 SETTABLEKS                       R25 R24 K40 ["Image"]
-      118 GETTABLEKS                       R25 R2 K46 ["ImageColor"]
-      120 SETTABLEKS                       R25 R24 K41 ["ImageColor3"]
-      122 CALL                             R22 2 1
-      123 SETTABLEKS                       R22 R21 K38 ["Icon"]
-      125 CALL                             R18 3 1
-      126 SETTABLEKS                       R18 R17 K28 ["PlayOrPauseButton"]
-      128 GETUPVAL                         R19 1
-      129 GETTABLEKS                       R18 R19 K13 ["createElement"]
-      131 GETUPVAL                         R19 7
-      132 DUPTABLE                         R20 K51 [{"Min", "Max", "Size", "Value", "LayoutOrder", "OnValueChanged", "Disabled"}]
-      133 LOADN                            R21 0
-      134 SETTABLEKS                       R21 R20 K47 ["Min"]
-      136 SETTABLEKS                       R7 R20 K48 ["Max"]
-      138 GETTABLEKS                       R21 R2 K52 ["SliderSize"]
-      140 SETTABLEKS                       R21 R20 K3 ["Size"]
-      142 LOADN                            R23 0
-      143 FASTCALL3                        MATH_CLAMP R6 R23 R7
-      145 MOVE                             R22 R6
-      146 MOVE                             R24 R7
-      147 GETIMPORT                        R21 K55 [math.clamp]
-      149 CALL                             R21 3 1
-      150 SETTABLEKS                       R21 R20 K49 ["Value"]
-      152 NAMECALL                         R21 R13 K35 ["getNextOrder"]
-      154 CALL                             R21 1 1
-      155 SETTABLEKS                       R21 R20 K4 ["LayoutOrder"]
-      157 SETTABLEKS                       R12 R20 K50 ["OnValueChanged"]
-      159 JUMPIF                           R9 ; [+2]
-      160 LOADB                            R21 1
-      161 JUMP                             ; [+1]
-      162 LOADNIL                          R21
-      163 SETTABLEKS                       R21 R20 K37 ["Disabled"]
-      165 CALL                             R18 2 1
-      166 SETTABLEKS                       R18 R17 K29 ["Scrubber"]
-      168 CALL                             R14 3 -1
-      169 RETURN                           R14 -1
+      115 SETTABLEKS                       R25 R24 K40 ["Image"]
+      117 GETTABLEKS                       R25 R2 K46 ["ImageColor"]
+      119 SETTABLEKS                       R25 R24 K41 ["ImageColor3"]
+      121 CALL                             R22 2 1
+      122 SETTABLEKS                       R22 R21 K38 ["Icon"]
+      124 CALL                             R18 3 1
+      125 SETTABLEKS                       R18 R17 K28 ["PlayOrPauseButton"]
+      127 GETUPVAL                         R19 1
+      128 GETTABLEKS                       R18 R19 K13 ["createElement"]
+      130 GETUPVAL                         R19 7
+      131 DUPTABLE                         R20 K51 [{"Min", "Max", "Size", "Value", "LayoutOrder", "OnValueChanged", "Disabled"}]
+      132 LOADN                            R21 0
+      133 SETTABLEKS                       R21 R20 K47 ["Min"]
+      135 SETTABLEKS                       R7 R20 K48 ["Max"]
+      137 GETTABLEKS                       R21 R2 K52 ["SliderSize"]
+      139 SETTABLEKS                       R21 R20 K3 ["Size"]
+      141 LOADN                            R23 0
+      142 FASTCALL3                        MATH_CLAMP R6 R23 R7
+      144 MOVE                             R22 R6
+      145 MOVE                             R24 R7
+      146 GETIMPORT                        R21 K55 [math.clamp]
+      148 CALL                             R21 3 1
+      149 SETTABLEKS                       R21 R20 K49 ["Value"]
+      151 NAMECALL                         R21 R13 K35 ["getNextOrder"]
+      153 CALL                             R21 1 1
+      154 SETTABLEKS                       R21 R20 K4 ["LayoutOrder"]
+      156 SETTABLEKS                       R12 R20 K50 ["OnValueChanged"]
+      158 JUMPIF                           R9 ; [+2]
+      159 LOADB                            R21 1
+      160 JUMP                             ; [+1]
+      161 LOADNIL                          R21
+      162 SETTABLEKS                       R21 R20 K37 ["Disabled"]
+      164 CALL                             R18 2 1
+      165 SETTABLEKS                       R18 R17 K29 ["Scrubber"]
+      167 CALL                             R14 3 -1
+      168 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0

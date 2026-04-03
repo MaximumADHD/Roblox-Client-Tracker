@@ -1,3 +1,6 @@
+-- TEMPORARY: Uses getAttachmentCFrameInPartSpace to fix HRD bone-nested attachment CFrame interpretation.
+-- All bounds/transform calculation in this file must be refactored in the new validation system.
+
 --[[
 validateBodyPartChildAttachmentBounds.lua performs calculations in the space of the MeshPart mesh. This file gives functions to go to and from mesh space
 
@@ -10,6 +13,7 @@ calculateAcceptableBoundsLocalSpace:
 local root = script.Parent.Parent
 
 local BoundsDataUtils = require(root.util.BoundsDataUtils)
+local getAttachmentCFrameInPartSpace = require(root.util.getAttachmentCFrameInPartSpace)
 
 local MeshSpaceUtils = {}
 
@@ -48,7 +52,7 @@ function MeshSpaceUtils.clampAttachmentToBounds(
 ): CFrame
 	clampTol = if clampTol then clampTol else 0.001
 
-	local attachWorldCFrame = transformData.cframe * att.CFrame
+	local attachWorldCFrame = transformData.cframe * getAttachmentCFrameInPartSpace(att)
 
 	local meshCenterPos = BoundsDataUtils.calculateBoundsCenters(transformData.boundsData)
 	local meshDimensions = BoundsDataUtils.calculateBoundsDimensions(transformData.boundsData)

@@ -751,63 +751,58 @@ PROTO_31:
        28 CALL                             R6 2 1
        29 JUMPIFNOT                        R6 ; [+3]
        30 GETTABLEKS                       R4 R5 K14 ["Value"]
-       32 JUMP                             ; [+2]
+       32 JUMP                             ; [+1]
        33 LOADNIL                          R4
-       34 JUMP                             ; [0]
-       35 SETTABLEKS                       R4 R3 K5 ["height"]
-       37 LOADK                            R7 K15 ["BodyWidthScale"]
-       38 NAMECALL                         R5 R1 K4 ["FindFirstChild"]
-       40 CALL                             R5 2 1
-       41 JUMPIFEQKNIL                     R5 ; [+9]
-       43 LOADK                            R8 K12 ["NumberValue"]
-       44 NAMECALL                         R6 R5 K13 ["IsA"]
-       46 CALL                             R6 2 1
-       47 JUMPIFNOT                        R6 ; [+3]
-       48 GETTABLEKS                       R4 R5 K14 ["Value"]
-       50 JUMP                             ; [+2]
-       51 LOADNIL                          R4
-       52 JUMP                             ; [0]
-       53 SETTABLEKS                       R4 R3 K6 ["width"]
-       55 LOADK                            R7 K16 ["HeadScale"]
-       56 NAMECALL                         R5 R1 K4 ["FindFirstChild"]
-       58 CALL                             R5 2 1
-       59 JUMPIFEQKNIL                     R5 ; [+9]
-       61 LOADK                            R8 K12 ["NumberValue"]
-       62 NAMECALL                         R6 R5 K13 ["IsA"]
-       64 CALL                             R6 2 1
-       65 JUMPIFNOT                        R6 ; [+3]
-       66 GETTABLEKS                       R4 R5 K14 ["Value"]
-       68 JUMP                             ; [+2]
-       69 LOADNIL                          R4
-       70 JUMP                             ; [0]
-       71 SETTABLEKS                       R4 R3 K7 ["head"]
-       73 LOADK                            R7 K17 ["BodyTypeScale"]
-       74 NAMECALL                         R5 R1 K4 ["FindFirstChild"]
-       76 CALL                             R5 2 1
-       77 JUMPIFEQKNIL                     R5 ; [+9]
-       79 LOADK                            R8 K12 ["NumberValue"]
-       80 NAMECALL                         R6 R5 K13 ["IsA"]
-       82 CALL                             R6 2 1
-       83 JUMPIFNOT                        R6 ; [+3]
-       84 GETTABLEKS                       R4 R5 K14 ["Value"]
-       86 JUMP                             ; [+2]
-       87 LOADNIL                          R4
-       88 JUMP                             ; [0]
-       89 SETTABLEKS                       R4 R3 K8 ["bodyType"]
-       91 LOADK                            R7 K18 ["BodyProportionScale"]
-       92 NAMECALL                         R5 R1 K4 ["FindFirstChild"]
-       94 CALL                             R5 2 1
-       95 JUMPIFEQKNIL                     R5 ; [+9]
-       97 LOADK                            R8 K12 ["NumberValue"]
-       98 NAMECALL                         R6 R5 K13 ["IsA"]
-      100 CALL                             R6 2 1
-      101 JUMPIFNOT                        R6 ; [+3]
-      102 GETTABLEKS                       R4 R5 K14 ["Value"]
-      104 JUMP                             ; [+2]
-      105 LOADNIL                          R4
-      106 JUMP                             ; [0]
-      107 SETTABLEKS                       R4 R3 K9 ["proportion"]
-      109 RETURN                           R3 1
+       34 SETTABLEKS                       R4 R3 K5 ["height"]
+       36 LOADK                            R7 K15 ["BodyWidthScale"]
+       37 NAMECALL                         R5 R1 K4 ["FindFirstChild"]
+       39 CALL                             R5 2 1
+       40 JUMPIFEQKNIL                     R5 ; [+9]
+       42 LOADK                            R8 K12 ["NumberValue"]
+       43 NAMECALL                         R6 R5 K13 ["IsA"]
+       45 CALL                             R6 2 1
+       46 JUMPIFNOT                        R6 ; [+3]
+       47 GETTABLEKS                       R4 R5 K14 ["Value"]
+       49 JUMP                             ; [+1]
+       50 LOADNIL                          R4
+       51 SETTABLEKS                       R4 R3 K6 ["width"]
+       53 LOADK                            R7 K16 ["HeadScale"]
+       54 NAMECALL                         R5 R1 K4 ["FindFirstChild"]
+       56 CALL                             R5 2 1
+       57 JUMPIFEQKNIL                     R5 ; [+9]
+       59 LOADK                            R8 K12 ["NumberValue"]
+       60 NAMECALL                         R6 R5 K13 ["IsA"]
+       62 CALL                             R6 2 1
+       63 JUMPIFNOT                        R6 ; [+3]
+       64 GETTABLEKS                       R4 R5 K14 ["Value"]
+       66 JUMP                             ; [+1]
+       67 LOADNIL                          R4
+       68 SETTABLEKS                       R4 R3 K7 ["head"]
+       70 LOADK                            R7 K17 ["BodyTypeScale"]
+       71 NAMECALL                         R5 R1 K4 ["FindFirstChild"]
+       73 CALL                             R5 2 1
+       74 JUMPIFEQKNIL                     R5 ; [+9]
+       76 LOADK                            R8 K12 ["NumberValue"]
+       77 NAMECALL                         R6 R5 K13 ["IsA"]
+       79 CALL                             R6 2 1
+       80 JUMPIFNOT                        R6 ; [+3]
+       81 GETTABLEKS                       R4 R5 K14 ["Value"]
+       83 JUMP                             ; [+1]
+       84 LOADNIL                          R4
+       85 SETTABLEKS                       R4 R3 K8 ["bodyType"]
+       87 LOADK                            R7 K18 ["BodyProportionScale"]
+       88 NAMECALL                         R5 R1 K4 ["FindFirstChild"]
+       90 CALL                             R5 2 1
+       91 JUMPIFEQKNIL                     R5 ; [+9]
+       93 LOADK                            R8 K12 ["NumberValue"]
+       94 NAMECALL                         R6 R5 K13 ["IsA"]
+       96 CALL                             R6 2 1
+       97 JUMPIFNOT                        R6 ; [+3]
+       98 GETTABLEKS                       R4 R5 K14 ["Value"]
+      100 JUMP                             ; [+1]
+      101 LOADNIL                          R4
+      102 SETTABLEKS                       R4 R3 K9 ["proportion"]
+      104 RETURN                           R3 1
 
 PROTO_32:
         0 LOADK                            R3 K0 ["Head"]

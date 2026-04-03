@@ -20,27 +20,24 @@ PROTO_2:
         2 GETTABLEKS                       R5 R1 K0 ["X"]
         4 JUMPIFNOTEQKN                    R5 K1 [0] ; [+3]
         6 LOADN                            R3 0
-        7 JUMP                             ; [+2]
+        7 JUMP                             ; [+1]
         8 DIV                              R3 R4 R5
-        9 JUMP                             ; [0]
-       10 GETTABLEKS                       R5 R0 K2 ["Y"]
-       12 GETTABLEKS                       R6 R1 K2 ["Y"]
-       14 JUMPIFNOTEQKN                    R6 K1 [0] ; [+3]
-       16 LOADN                            R4 0
-       17 JUMP                             ; [+2]
-       18 DIV                              R4 R5 R6
-       19 JUMP                             ; [0]
-       20 GETTABLEKS                       R6 R0 K3 ["Z"]
-       22 GETTABLEKS                       R7 R1 K3 ["Z"]
-       24 JUMPIFNOTEQKN                    R7 K1 [0] ; [+3]
-       26 LOADN                            R5 0
-       27 JUMP                             ; [+2]
-       28 DIV                              R5 R6 R7
-       29 JUMP                             ; [0]
-       30 FASTCALL                         VECTOR ; [+2]
-       31 GETIMPORT                        R2 K6 [Vector3.new]
-       33 CALL                             R2 3 1
-       34 RETURN                           R2 1
+        9 GETTABLEKS                       R5 R0 K2 ["Y"]
+       11 GETTABLEKS                       R6 R1 K2 ["Y"]
+       13 JUMPIFNOTEQKN                    R6 K1 [0] ; [+3]
+       15 LOADN                            R4 0
+       16 JUMP                             ; [+1]
+       17 DIV                              R4 R5 R6
+       18 GETTABLEKS                       R6 R0 K3 ["Z"]
+       20 GETTABLEKS                       R7 R1 K3 ["Z"]
+       22 JUMPIFNOTEQKN                    R7 K1 [0] ; [+3]
+       24 LOADN                            R5 0
+       25 JUMP                             ; [+1]
+       26 DIV                              R5 R6 R7
+       27 FASTCALL                         VECTOR ; [+2]
+       28 GETIMPORT                        R2 K6 [Vector3.new]
+       30 CALL                             R2 3 1
+       31 RETURN                           R2 1
 
 PROTO_3:
         0 LOADNIL                          R1
@@ -83,29 +80,26 @@ PROTO_3:
        54 GETTABLEKS                       R11 R7 K15 ["X"]
        56 JUMPIFNOTEQKN                    R11 K16 [0] ; [+3]
        58 LOADN                            R9 0
-       59 JUMP                             ; [+2]
+       59 JUMP                             ; [+1]
        60 DIV                              R9 R10 R11
-       61 JUMP                             ; [0]
-       62 GETTABLEKS                       R11 R4 K17 ["Y"]
-       64 GETTABLEKS                       R12 R7 K17 ["Y"]
-       66 JUMPIFNOTEQKN                    R12 K16 [0] ; [+3]
-       68 LOADN                            R10 0
-       69 JUMP                             ; [+2]
-       70 DIV                              R10 R11 R12
-       71 JUMP                             ; [0]
-       72 GETTABLEKS                       R12 R4 K18 ["Z"]
-       74 GETTABLEKS                       R13 R7 K18 ["Z"]
-       76 JUMPIFNOTEQKN                    R13 K16 [0] ; [+3]
-       78 LOADN                            R11 0
-       79 JUMP                             ; [+2]
-       80 DIV                              R11 R12 R13
-       81 JUMP                             ; [0]
-       82 FASTCALL                         VECTOR ; [+2]
-       83 GETIMPORT                        R8 K21 [Vector3.new]
-       85 CALL                             R8 3 1
-       86 MOVE                             R6 R8
-       87 MOVE                             R7 R5
-       88 RETURN                           R6 2
+       61 GETTABLEKS                       R11 R4 K17 ["Y"]
+       63 GETTABLEKS                       R12 R7 K17 ["Y"]
+       65 JUMPIFNOTEQKN                    R12 K16 [0] ; [+3]
+       67 LOADN                            R10 0
+       68 JUMP                             ; [+1]
+       69 DIV                              R10 R11 R12
+       70 GETTABLEKS                       R12 R4 K18 ["Z"]
+       72 GETTABLEKS                       R13 R7 K18 ["Z"]
+       74 JUMPIFNOTEQKN                    R13 K16 [0] ; [+3]
+       76 LOADN                            R11 0
+       77 JUMP                             ; [+1]
+       78 DIV                              R11 R12 R13
+       79 FASTCALL                         VECTOR ; [+2]
+       80 GETIMPORT                        R8 K21 [Vector3.new]
+       82 CALL                             R8 3 1
+       83 MOVE                             R6 R8
+       84 MOVE                             R7 R5
+       85 RETURN                           R6 2
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["_draggerContext"]

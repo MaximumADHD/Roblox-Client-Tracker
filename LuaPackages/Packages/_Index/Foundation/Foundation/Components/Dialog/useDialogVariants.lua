@@ -69,7 +69,9 @@ local function variantsFactory(tokens: Tokens)
 			tag = "size-full-0 auto-y",
 		},
 		titleText = {
-			tag = "size-full-0 auto-y content-emphasized text-wrap text-align-x-left",
+			tag = `size-full-0 auto-y text-wrap text-align-x-left {if Flags.FoundationDialogTitleEmphasisFix
+				then "content-emphasis"
+				else "content-emphasized"}`,
 		},
 		content = {
 			tag = "auto-y size-full fill",

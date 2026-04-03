@@ -1,3 +1,6 @@
+-- TEMPORARY: Uses getAttachmentCFrameInPartSpace to fix HRD bone-nested attachment CFrame interpretation.
+-- All bounds/transform calculation in this file must be refactored in the new validation system.
+
 --[[
 calculateAssetBounds:
 	traverses through the hierarchy of each part of an asset type in order to determine the total bounds
@@ -22,6 +25,8 @@ local getMeshInfo = require(root.util.getMeshInfo)
 local BoundsDataUtils = require(root.util.BoundsDataUtils)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
 local getFFlagUGCValidateLegFullBodySeparation = require(root.flags.getFFlagUGCValidateLegFullBodySeparation)
+local R15plusUtils = require(root.util.R15plusUtils)
+local getAttachmentCFrameInPartSpace = require(root.util.getAttachmentCFrameInPartSpace)
 
 local BoundsCalculator = {}
 
@@ -54,15 +59,19 @@ local function orientFullBodyArmsLegsToWorldAxes(partsCFrames: { string: CFrame 
 		local upperPart = findMeshHandle(partNames[1])
 
 		local attachmentoParentName = ConstantsInterface.getRigAttachmentToParent(singleAsset, upperPart.Name)
-		local attachmentInChild: Attachment? = upperPart:FindFirstChild(attachmentoParentName) :: Attachment
+		local attachmentInChild: Attachment? =
+			upperPart:FindFirstChild(attachmentoParentName, R15plusUtils.checkFlagEnabledForAllowHrd()) :: Attachment
 		assert(attachmentInChild)
-		local rigAttachmentInChildCFrame = partsCFrames[upperPart.Name] * attachmentInChild.CFrame
+		local rigAttachmentInChildCFrame = partsCFrames[upperPart.Name]
+			* getAttachmentCFrameInPartSpace(attachmentInChild :: Attachment)
 
 		local parentPart = findMeshHandle(parentPartName)
 		assert(parentPart)
-		local attachmentInParent: Attachment? = parentPart:FindFirstChild(attachmentoParentName) :: Attachment
+		local attachmentInParent: Attachment? =
+			parentPart:FindFirstChild(attachmentoParentName, R15plusUtils.checkFlagEnabledForAllowHrd()) :: Attachment
 		assert(attachmentInParent)
-		local rigAttachmentInParentCFrame = partsCFrames[parentPart.Name] * attachmentInParent.CFrame
+		local rigAttachmentInParentCFrame = partsCFrames[parentPart.Name]
+			* getAttachmentCFrameInPartSpace(attachmentInParent :: Attachment)
 
 		local fixUpVector = rigAttachmentInParentCFrame.Position - rigAttachmentInChildCFrame.Position
 
@@ -125,10 +134,10 @@ local function calculateBoundsDataForPart(
 			continue
 		end
 
-		local attach = part:FindFirstChild(attachName) :: Attachment
+		local attach = part:FindFirstChild(attachName, R15plusUtils.checkFlagEnabledForAllowHrd()) :: Attachment
 		assert(attach)
 
-		local world = cframe * attach.CFrame
+		local world = cframe * getAttachmentCFrameInPartSpace(attach :: Attachment)
 		BoundsDataUtils.expandRigAttachmentBounds(resultMinMaxBounds, world.Position)
 	end
 

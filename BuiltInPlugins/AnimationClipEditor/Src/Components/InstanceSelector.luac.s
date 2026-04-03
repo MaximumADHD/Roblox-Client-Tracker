@@ -91,13 +91,13 @@ PROTO_6:
         8 NAMECALL                         R4 R4 K3 ["get"]
        10 CALL                             R4 1 1
        11 GETTABLEKS                       R3 R4 K4 ["Target"]
-       13 JUMPIFEQKNIL                     R3 ; [+67]
+       13 JUMPIFEQKNIL                     R3 ; [+66]
        15 JUMPIFNOT                        R3 ; [+6]
        16 GETIMPORT                        R6 K6 [game]
        18 GETTABLEKS                       R5 R6 K7 ["Workspace"]
        20 JUMPIFNOTEQ                      R3 R5 ; [+3]
        22 LOADNIL                          R4
-       23 JUMP                             ; [+17]
+       23 JUMP                             ; [+16]
        24 FASTCALL1                        ASSERT R3 ; [+3]
        25 MOVE                             R6 R3
        26 GETIMPORT                        R5 K9 [assert]
@@ -107,43 +107,42 @@ PROTO_6:
        32 CALL                             R5 2 1
        33 JUMPIFNOT                        R5 ; [+2]
        34 MOVE                             R4 R3
-       35 JUMP                             ; [+5]
+       35 JUMP                             ; [+4]
        36 GETUPVAL                         R4 0
        37 GETTABLEKS                       R5 R3 K12 ["Parent"]
        39 CALL                             R4 1 1
-       40 JUMP                             ; [0]
-       41 JUMPIFNOT                        R4 ; [+36]
-       42 MOVE                             R7 R4
-       43 NAMECALL                         R5 R0 K13 ["isCurrentRootInstance"]
-       45 CALL                             R5 2 1
-       46 JUMPIF                           R5 ; [+31]
-       47 LOADB                            R5 0
-       48 JUMPIFEQKNIL                     R4 ; [+24]
-       50 GETIMPORT                        R10 K6 [game]
-       52 GETTABLEKS                       R9 R10 K7 ["Workspace"]
-       54 GETTABLEKS                       R8 R9 K14 ["Name"]
-       56 NAMECALL                         R6 R4 K15 ["FindFirstAncestor"]
-       58 CALL                             R6 2 1
-       59 JUMPIFNOTEQKNIL                  R6 ; [+2]
-       61 LOADB                            R5 0 +1
-       62 LOADB                            R5 1
-       63 JUMPIFNOT                        R5 ; [+9]
-       64 GETUPVAL                         R7 1
-       65 GETTABLEKS                       R6 R7 K16 ["getAnimationController"]
-       67 MOVE                             R7 R4
-       68 CALL                             R6 1 1
-       69 JUMPIFNOTEQKNIL                  R6 ; [+2]
-       71 LOADB                            R5 0 +1
-       72 LOADB                            R5 1
-       73 JUMPIFNOT                        R5 ; [+4]
-       74 MOVE                             R5 R1
-       75 MOVE                             R6 R4
-       76 CALL                             R5 1 0
-       77 RETURN                           R0 0
-       78 JUMPIFNOT                        R2 ; [+2]
-       79 MOVE                             R5 R2
-       80 CALL                             R5 0 0
-       81 RETURN                           R0 0
+       40 JUMPIFNOT                        R4 ; [+36]
+       41 MOVE                             R7 R4
+       42 NAMECALL                         R5 R0 K13 ["isCurrentRootInstance"]
+       44 CALL                             R5 2 1
+       45 JUMPIF                           R5 ; [+31]
+       46 LOADB                            R5 0
+       47 JUMPIFEQKNIL                     R4 ; [+24]
+       49 GETIMPORT                        R10 K6 [game]
+       51 GETTABLEKS                       R9 R10 K7 ["Workspace"]
+       53 GETTABLEKS                       R8 R9 K14 ["Name"]
+       55 NAMECALL                         R6 R4 K15 ["FindFirstAncestor"]
+       57 CALL                             R6 2 1
+       58 JUMPIFNOTEQKNIL                  R6 ; [+2]
+       60 LOADB                            R5 0 +1
+       61 LOADB                            R5 1
+       62 JUMPIFNOT                        R5 ; [+9]
+       63 GETUPVAL                         R7 1
+       64 GETTABLEKS                       R6 R7 K16 ["getAnimationController"]
+       66 MOVE                             R7 R4
+       67 CALL                             R6 1 1
+       68 JUMPIFNOTEQKNIL                  R6 ; [+2]
+       70 LOADB                            R5 0 +1
+       71 LOADB                            R5 1
+       72 JUMPIFNOT                        R5 ; [+4]
+       73 MOVE                             R5 R1
+       74 MOVE                             R6 R4
+       75 CALL                             R5 1 0
+       76 RETURN                           R0 0
+       77 JUMPIFNOT                        R2 ; [+2]
+       78 MOVE                             R5 R2
+       79 CALL                             R5 0 0
+       80 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R3 0
@@ -252,7 +251,7 @@ PROTO_14:
        28 GETTABLEKS                       R2 R3 K5 ["Workspace"]
        30 JUMPIFNOTEQ                      R0 R2 ; [+3]
        32 LOADNIL                          R1
-       33 JUMP                             ; [+17]
+       33 JUMP                             ; [+16]
        34 FASTCALL1                        ASSERT R0 ; [+3]
        35 MOVE                             R3 R0
        36 GETIMPORT                        R2 K7 [assert]
@@ -262,120 +261,119 @@ PROTO_14:
        42 CALL                             R2 2 1
        43 JUMPIFNOT                        R2 ; [+2]
        44 MOVE                             R1 R0
-       45 JUMP                             ; [+5]
+       45 JUMP                             ; [+4]
        46 GETUPVAL                         R1 3
        47 GETTABLEKS                       R2 R0 K10 ["Parent"]
        49 CALL                             R1 1 1
-       50 JUMP                             ; [0]
-       51 GETUPVAL                         R4 1
-       52 GETTABLEKS                       R3 R4 K0 ["props"]
-       54 GETTABLEKS                       R2 R3 K11 ["Plugin"]
-       56 GETUPVAL                         R3 1
-       57 MOVE                             R5 R1
-       58 NAMECALL                         R3 R3 K12 ["isCurrentRootInstance"]
-       60 CALL                             R3 2 1
-       61 JUMPIF                           R3 ; [+144]
-       62 LOADB                            R3 0
-       63 JUMPIFEQKNIL                     R1 ; [+24]
-       65 GETIMPORT                        R8 K4 [game]
-       67 GETTABLEKS                       R7 R8 K5 ["Workspace"]
-       69 GETTABLEKS                       R6 R7 K13 ["Name"]
-       71 NAMECALL                         R4 R1 K14 ["FindFirstAncestor"]
-       73 CALL                             R4 2 1
-       74 JUMPIFNOTEQKNIL                  R4 ; [+2]
-       76 LOADB                            R3 0 +1
-       77 LOADB                            R3 1
-       78 JUMPIFNOT                        R3 ; [+9]
-       79 GETUPVAL                         R5 4
-       80 GETTABLEKS                       R4 R5 K15 ["getAnimationController"]
-       82 MOVE                             R5 R1
-       83 CALL                             R4 1 1
-       84 JUMPIFNOTEQKNIL                  R4 ; [+2]
-       86 LOADB                            R3 0 +1
-       87 LOADB                            R3 1
-       88 JUMPIFNOT                        R3 ; [+109]
-       89 GETUPVAL                         R4 5
-       90 GETTABLEKS                       R3 R4 K16 ["validate"]
-       92 MOVE                             R4 R1
-       93 CALL                             R3 1 1
-       94 NAMECALL                         R4 R3 K17 ["hasErrors"]
-       96 CALL                             R4 1 1
-       97 JUMPIF                           R4 ; [+42]
-       98 GETIMPORT                        R4 K19 [next]
-      100 GETTABLEKS                       R5 R3 K20 ["messages"]
-      102 CALL                             R4 1 1
-      103 JUMPIFNOT                        R4 ; [+14]
-      104 GETUPVAL                         R8 1
-      105 GETTABLEKS                       R7 R8 K21 ["state"]
-      107 GETTABLEKS                       R6 R7 K22 ["LastValidation"]
-      109 NAMECALL                         R4 R3 K23 ["equals"]
-      111 CALL                             R4 2 1
-      112 JUMPIF                           R4 ; [+5]
-      113 GETUPVAL                         R4 1
-      114 MOVE                             R6 R3
-      115 NAMECALL                         R4 R4 K24 ["showErrorDialogs"]
-      117 CALL                             R4 2 0
-      118 GETUPVAL                         R6 1
-      119 GETTABLEKS                       R5 R6 K0 ["props"]
-      121 GETTABLEKS                       R4 R5 K25 ["UpdateRootInstance"]
-      123 MOVE                             R5 R1
-      124 GETUPVAL                         R8 1
-      125 GETTABLEKS                       R7 R8 K0 ["props"]
-      127 GETTABLEKS                       R6 R7 K26 ["Analytics"]
-      129 GETUPVAL                         R9 1
-      130 GETTABLEKS                       R8 R9 K0 ["props"]
-      132 GETTABLEKS                       R7 R8 K27 ["Localization"]
-      134 CALL                             R4 3 0
-      135 GETUPVAL                         R5 1
-      136 GETTABLEKS                       R4 R5 K28 ["removeSelectedTrackInstances"]
-      138 CALL                             R4 0 0
-      139 JUMP                             ; [+48]
-      140 GETUPVAL                         R6 1
-      141 GETTABLEKS                       R5 R6 K0 ["props"]
-      143 GETTABLEKS                       R4 R5 K25 ["UpdateRootInstance"]
-      145 LOADNIL                          R5
-      146 GETUPVAL                         R8 1
-      147 GETTABLEKS                       R7 R8 K0 ["props"]
-      149 GETTABLEKS                       R6 R7 K26 ["Analytics"]
-      151 GETUPVAL                         R9 1
-      152 GETTABLEKS                       R8 R9 K0 ["props"]
-      154 GETTABLEKS                       R7 R8 K27 ["Localization"]
-      156 CALL                             R4 3 0
-      157 GETUPVAL                         R5 1
-      158 GETTABLEKS                       R4 R5 K28 ["removeSelectedTrackInstances"]
-      160 CALL                             R4 0 0
-      161 NAMECALL                         R4 R2 K29 ["get"]
-      163 CALL                             R4 1 1
-      164 NAMECALL                         R4 R4 K30 ["Deactivate"]
-      166 CALL                             R4 1 0
-      167 GETUPVAL                         R8 1
-      168 GETTABLEKS                       R7 R8 K21 ["state"]
-      170 GETTABLEKS                       R6 R7 K22 ["LastValidation"]
-      172 NAMECALL                         R4 R3 K23 ["equals"]
-      174 CALL                             R4 2 1
-      175 JUMPIFNOT                        R4 ; [+7]
-      176 GETUPVAL                         R6 1
-      177 GETTABLEKS                       R5 R6 K21 ["state"]
-      179 GETTABLEKS                       R4 R5 K31 ["LastValidatedRig"]
-      181 JUMPIFEQ                         R1 R4 ; [+6]
-      183 GETUPVAL                         R4 1
-      184 MOVE                             R6 R3
-      185 NAMECALL                         R4 R4 K24 ["showErrorDialogs"]
-      187 CALL                             R4 2 0
-      188 GETUPVAL                         R4 1
-      189 DUPTABLE                         R6 K32 [{"LastValidation", "LastValidatedRig"}]
-      190 SETTABLEKS                       R3 R6 K22 ["LastValidation"]
-      192 SETTABLEKS                       R1 R6 K31 ["LastValidatedRig"]
-      194 NAMECALL                         R4 R4 K33 ["setState"]
-      196 CALL                             R4 2 0
-      197 RETURN                           R0 0
-      198 JUMPIFNOT                        R0 ; [+7]
-      199 JUMPIFNOT                        R2 ; [+6]
-      200 NAMECALL                         R3 R2 K29 ["get"]
-      202 CALL                             R3 1 1
-      203 NAMECALL                         R3 R3 K30 ["Deactivate"]
-      205 CALL                             R3 1 0
-      206 RETURN                           R0 0
+       50 GETUPVAL                         R4 1
+       51 GETTABLEKS                       R3 R4 K0 ["props"]
+       53 GETTABLEKS                       R2 R3 K11 ["Plugin"]
+       55 GETUPVAL                         R3 1
+       56 MOVE                             R5 R1
+       57 NAMECALL                         R3 R3 K12 ["isCurrentRootInstance"]
+       59 CALL                             R3 2 1
+       60 JUMPIF                           R3 ; [+144]
+       61 LOADB                            R3 0
+       62 JUMPIFEQKNIL                     R1 ; [+24]
+       64 GETIMPORT                        R8 K4 [game]
+       66 GETTABLEKS                       R7 R8 K5 ["Workspace"]
+       68 GETTABLEKS                       R6 R7 K13 ["Name"]
+       70 NAMECALL                         R4 R1 K14 ["FindFirstAncestor"]
+       72 CALL                             R4 2 1
+       73 JUMPIFNOTEQKNIL                  R4 ; [+2]
+       75 LOADB                            R3 0 +1
+       76 LOADB                            R3 1
+       77 JUMPIFNOT                        R3 ; [+9]
+       78 GETUPVAL                         R5 4
+       79 GETTABLEKS                       R4 R5 K15 ["getAnimationController"]
+       81 MOVE                             R5 R1
+       82 CALL                             R4 1 1
+       83 JUMPIFNOTEQKNIL                  R4 ; [+2]
+       85 LOADB                            R3 0 +1
+       86 LOADB                            R3 1
+       87 JUMPIFNOT                        R3 ; [+109]
+       88 GETUPVAL                         R4 5
+       89 GETTABLEKS                       R3 R4 K16 ["validate"]
+       91 MOVE                             R4 R1
+       92 CALL                             R3 1 1
+       93 NAMECALL                         R4 R3 K17 ["hasErrors"]
+       95 CALL                             R4 1 1
+       96 JUMPIF                           R4 ; [+42]
+       97 GETIMPORT                        R4 K19 [next]
+       99 GETTABLEKS                       R5 R3 K20 ["messages"]
+      101 CALL                             R4 1 1
+      102 JUMPIFNOT                        R4 ; [+14]
+      103 GETUPVAL                         R8 1
+      104 GETTABLEKS                       R7 R8 K21 ["state"]
+      106 GETTABLEKS                       R6 R7 K22 ["LastValidation"]
+      108 NAMECALL                         R4 R3 K23 ["equals"]
+      110 CALL                             R4 2 1
+      111 JUMPIF                           R4 ; [+5]
+      112 GETUPVAL                         R4 1
+      113 MOVE                             R6 R3
+      114 NAMECALL                         R4 R4 K24 ["showErrorDialogs"]
+      116 CALL                             R4 2 0
+      117 GETUPVAL                         R6 1
+      118 GETTABLEKS                       R5 R6 K0 ["props"]
+      120 GETTABLEKS                       R4 R5 K25 ["UpdateRootInstance"]
+      122 MOVE                             R5 R1
+      123 GETUPVAL                         R8 1
+      124 GETTABLEKS                       R7 R8 K0 ["props"]
+      126 GETTABLEKS                       R6 R7 K26 ["Analytics"]
+      128 GETUPVAL                         R9 1
+      129 GETTABLEKS                       R8 R9 K0 ["props"]
+      131 GETTABLEKS                       R7 R8 K27 ["Localization"]
+      133 CALL                             R4 3 0
+      134 GETUPVAL                         R5 1
+      135 GETTABLEKS                       R4 R5 K28 ["removeSelectedTrackInstances"]
+      137 CALL                             R4 0 0
+      138 JUMP                             ; [+48]
+      139 GETUPVAL                         R6 1
+      140 GETTABLEKS                       R5 R6 K0 ["props"]
+      142 GETTABLEKS                       R4 R5 K25 ["UpdateRootInstance"]
+      144 LOADNIL                          R5
+      145 GETUPVAL                         R8 1
+      146 GETTABLEKS                       R7 R8 K0 ["props"]
+      148 GETTABLEKS                       R6 R7 K26 ["Analytics"]
+      150 GETUPVAL                         R9 1
+      151 GETTABLEKS                       R8 R9 K0 ["props"]
+      153 GETTABLEKS                       R7 R8 K27 ["Localization"]
+      155 CALL                             R4 3 0
+      156 GETUPVAL                         R5 1
+      157 GETTABLEKS                       R4 R5 K28 ["removeSelectedTrackInstances"]
+      159 CALL                             R4 0 0
+      160 NAMECALL                         R4 R2 K29 ["get"]
+      162 CALL                             R4 1 1
+      163 NAMECALL                         R4 R4 K30 ["Deactivate"]
+      165 CALL                             R4 1 0
+      166 GETUPVAL                         R8 1
+      167 GETTABLEKS                       R7 R8 K21 ["state"]
+      169 GETTABLEKS                       R6 R7 K22 ["LastValidation"]
+      171 NAMECALL                         R4 R3 K23 ["equals"]
+      173 CALL                             R4 2 1
+      174 JUMPIFNOT                        R4 ; [+7]
+      175 GETUPVAL                         R6 1
+      176 GETTABLEKS                       R5 R6 K21 ["state"]
+      178 GETTABLEKS                       R4 R5 K31 ["LastValidatedRig"]
+      180 JUMPIFEQ                         R1 R4 ; [+6]
+      182 GETUPVAL                         R4 1
+      183 MOVE                             R6 R3
+      184 NAMECALL                         R4 R4 K24 ["showErrorDialogs"]
+      186 CALL                             R4 2 0
+      187 GETUPVAL                         R4 1
+      188 DUPTABLE                         R6 K32 [{"LastValidation", "LastValidatedRig"}]
+      189 SETTABLEKS                       R3 R6 K22 ["LastValidation"]
+      191 SETTABLEKS                       R1 R6 K31 ["LastValidatedRig"]
+      193 NAMECALL                         R4 R4 K33 ["setState"]
+      195 CALL                             R4 2 0
+      196 RETURN                           R0 0
+      197 JUMPIFNOT                        R0 ; [+7]
+      198 JUMPIFNOT                        R2 ; [+6]
+      199 NAMECALL                         R3 R2 K29 ["get"]
+      201 CALL                             R3 1 1
+      202 NAMECALL                         R3 R3 K30 ["Deactivate"]
+      204 CALL                             R3 1 0
+      205 RETURN                           R0 0
 
 PROTO_15:
         0 LOADB                            R1 0

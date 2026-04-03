@@ -118,30 +118,32 @@ PROTO_7:
 PROTO_8:
         0 GETUPVAL                         R4 0
         1 CALL                             R4 0 1
-        2 JUMPIFNOT                        R4 ; [+31]
-        3 JUMPIFEQKNIL                     R1 ; [+30]
+        2 JUMPIFNOT                        R4 ; [+35]
+        3 JUMPIFEQKNIL                     R1 ; [+34]
         5 GETUPVAL                         R4 1
         6 LOADK                            R5 K0 ["AutoSetupRequested"]
-        7 DUPTABLE                         R6 K8 [{"clientJobId", "assetHash", "bodyCount", "layeredCount", "rigidCount", "avatarCount", "unselectedCount"}]
+        7 DUPTABLE                         R6 K9 [{"clientJobId", "assetHash", "bodyCount", "layeredCount", "eyeLayeredCount", "rigidCount", "avatarCount", "unselectedCount"}]
         8 SETTABLEKS                       R2 R6 K1 ["clientJobId"]
        10 SETTABLEKS                       R3 R6 K2 ["assetHash"]
        12 GETTABLEKS                       R7 R1 K3 ["bodyCount"]
        14 SETTABLEKS                       R7 R6 K3 ["bodyCount"]
        16 GETTABLEKS                       R7 R1 K4 ["layeredCount"]
        18 SETTABLEKS                       R7 R6 K4 ["layeredCount"]
-       20 GETTABLEKS                       R7 R1 K5 ["rigidCount"]
-       22 SETTABLEKS                       R7 R6 K5 ["rigidCount"]
-       24 GETTABLEKS                       R7 R1 K6 ["avatarCount"]
-       26 SETTABLEKS                       R7 R6 K6 ["avatarCount"]
-       28 GETTABLEKS                       R7 R1 K7 ["unselectedCount"]
-       30 SETTABLEKS                       R7 R6 K7 ["unselectedCount"]
-       32 CALL                             R4 2 0
-       33 RETURN                           R0 0
-       34 GETUPVAL                         R4 1
-       35 LOADK                            R5 K0 ["AutoSetupRequested"]
-       36 NEWTABLE                         R6 0 0
-       38 CALL                             R4 2 0
-       39 RETURN                           R0 0
+       20 GETTABLEKS                       R7 R1 K5 ["eyeLayeredCount"]
+       22 SETTABLEKS                       R7 R6 K5 ["eyeLayeredCount"]
+       24 GETTABLEKS                       R7 R1 K6 ["rigidCount"]
+       26 SETTABLEKS                       R7 R6 K6 ["rigidCount"]
+       28 GETTABLEKS                       R7 R1 K7 ["avatarCount"]
+       30 SETTABLEKS                       R7 R6 K7 ["avatarCount"]
+       32 GETTABLEKS                       R7 R1 K8 ["unselectedCount"]
+       34 SETTABLEKS                       R7 R6 K8 ["unselectedCount"]
+       36 CALL                             R4 2 0
+       37 RETURN                           R0 0
+       38 GETUPVAL                         R4 1
+       39 LOADK                            R5 K0 ["AutoSetupRequested"]
+       40 NEWTABLE                         R6 0 0
+       42 CALL                             R4 2 0
+       43 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R3 0

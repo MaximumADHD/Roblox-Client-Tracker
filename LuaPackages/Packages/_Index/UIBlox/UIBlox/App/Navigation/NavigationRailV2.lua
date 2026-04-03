@@ -44,6 +44,10 @@ export type Props = {
 	clipsDescendants: boolean?,
 	-- ReactOtter animation spring settings
 	animationConfig: ReactOtter.SpringOptions?,
+	-- React Component that will be rendered in-line before the primary items
+	leadingComponent: React.ReactElement?,
+	-- React Component that will be rendered in-line after the primary items
+	trailingComponent: React.ReactElement?,
 }
 
 local defaultProps = {
@@ -132,6 +136,17 @@ local function NavigationRail(providedProps: Props)
 	local visibilityPos = xOffset:map(function(xOffset: number)
 		return UDim2.new(0, math.floor(xOffset + 0.5), 0, 0)
 	end)
+
+	-- Using index-to-string keys above means we can't have more than 10 items without going out of order
+	-- because 10 will loop back to 1 in terms of ordering ("10" < "2"). Using "0" and ":" as keys ensures
+	-- leading/trailing are always first and last, respectively.
+	-- Ideally we either set a LayoutOrder, but that requires a larger refactor
+	if props.leadingComponent then
+		primaryChildren["0"] = props.leadingComponent
+	end
+	if props.trailingComponent then
+		primaryChildren[":"] = props.trailingComponent
+	end
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,

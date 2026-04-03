@@ -245,11 +245,10 @@ PROTO_10:
        30 GETTABLEKS                       R2 R3 K9 ["Name"]
        32 JUMPIFNOTEQKS                    R2 K10 ["Light"] ; [+3]
        34 GETUPVAL                         R1 1
-       35 JUMP                             ; [+2]
+       35 JUMP                             ; [+1]
        36 GETUPVAL                         R1 2
-       37 JUMP                             ; [0]
-       38 CALL                             R0 1 0
-       39 RETURN                           R0 0
+       37 CALL                             R0 1 0
+       38 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R0 0
@@ -316,7 +315,7 @@ PROTO_17:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["state"]
         3 GETTABLEKS                       R0 R1 K1 ["selectedMaterialIdentifier"]
-        5 JUMPIFNOTEQKNIL                  R0 ; [+20]
+        5 JUMPIFNOTEQKNIL                  R0 ; [+19]
         7 GETUPVAL                         R1 0
         8 GETTABLEKS                       R0 R1 K2 ["setButtonIcon"]
        10 GETIMPORT                        R5 K4 [settings]
@@ -326,11 +325,10 @@ PROTO_17:
        17 GETTABLEKS                       R2 R3 K7 ["Name"]
        19 JUMPIFNOTEQKS                    R2 K8 ["Light"] ; [+3]
        21 GETUPVAL                         R1 1
-       22 JUMP                             ; [+2]
+       22 JUMP                             ; [+1]
        23 GETUPVAL                         R1 2
-       24 JUMP                             ; [0]
-       25 CALL                             R0 1 0
-       26 RETURN                           R0 0
+       24 CALL                             R0 1 0
+       25 RETURN                           R0 0
 
 PROTO_18:
         0 GETUPVAL                         R1 0

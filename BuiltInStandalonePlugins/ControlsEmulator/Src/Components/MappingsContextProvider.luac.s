@@ -112,233 +112,231 @@ PROTO_4:
        29 SETTABLE                         R11 R9 R10
        30 CALL                             R7 2 1
        31 MOVE                             R5 R7
-       32 JUMP                             ; [+2]
+       32 JUMP                             ; [+1]
        33 MOVE                             R5 R6
-       34 JUMP                             ; [0]
-       35 SETTABLEKS                       R5 R4 K2 ["mappings"]
-       37 CALL                             R2 2 1
-       38 MOVE                             R0 R2
-       39 GETUPVAL                         R4 0
-       40 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-       42 GETTABLEKS                       R2 R3 K1 ["join"]
-       44 MOVE                             R3 R0
-       45 DUPTABLE                         R4 K10 [{"mappingsOverrides"}]
-       46 GETUPVAL                         R5 1
-       47 GETTABLEKS                       R6 R0 K9 ["mappingsOverrides"]
-       49 MOVE                             R7 R1
-       50 CALL                             R5 2 1
-       51 SETTABLEKS                       R5 R4 K9 ["mappingsOverrides"]
-       53 CALL                             R2 2 1
-       54 MOVE                             R0 R2
-       55 GETTABLEKS                       R2 R1 K4 ["type"]
-       57 JUMPIFNOTEQKS                    R2 K11 ["SetVRUserCFrameActive"] ; [+46]
-       59 GETUPVAL                         R4 0
-       60 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-       62 GETTABLEKS                       R2 R3 K1 ["join"]
-       64 MOVE                             R3 R0
-       65 DUPTABLE                         R4 K14 [{"activeVRUserCFrames", "shouldVRControlsRespond"}]
-       66 GETTABLEKS                       R6 R0 K12 ["activeVRUserCFrames"]
-       68 GETTABLEKS                       R7 R1 K4 ["type"]
-       70 JUMPIFNOTEQKS                    R7 K11 ["SetVRUserCFrameActive"] ; [+21]
-       72 GETUPVAL                         R9 0
-       73 GETTABLEKS                       R8 R9 K0 ["Dictionary"]
-       75 GETTABLEKS                       R7 R8 K1 ["join"]
-       77 MOVE                             R8 R6
-       78 NEWTABLE                         R9 1 0
-       80 GETTABLEKS                       R11 R1 K6 ["payload"]
-       82 GETTABLEKS                       R10 R11 K15 ["vrUserCFrame"]
-       84 GETTABLEKS                       R12 R1 K6 ["payload"]
-       86 GETTABLEKS                       R11 R12 K16 ["isActive"]
-       88 SETTABLE                         R11 R9 R10
-       89 CALL                             R7 2 1
-       90 MOVE                             R5 R7
-       91 JUMP                             ; [+2]
-       92 MOVE                             R5 R6
-       93 JUMP                             ; [0]
-       94 SETTABLEKS                       R5 R4 K12 ["activeVRUserCFrames"]
-       96 GETTABLEKS                       R6 R1 K6 ["payload"]
-       98 GETTABLEKS                       R5 R6 K13 ["shouldVRControlsRespond"]
-      100 SETTABLEKS                       R5 R4 K13 ["shouldVRControlsRespond"]
-      102 CALL                             R2 2 1
-      103 MOVE                             R0 R2
-      104 GETTABLEKS                       R2 R1 K4 ["type"]
-      106 JUMPIFNOTEQKS                    R2 K17 ["SetConnectedGamepadId"] ; [+17]
-      108 GETUPVAL                         R4 0
-      109 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-      111 GETTABLEKS                       R2 R3 K1 ["join"]
-      113 MOVE                             R3 R0
-      114 DUPTABLE                         R4 K18 [{"gamepadId"}]
-      115 GETTABLEKS                       R6 R1 K6 ["payload"]
-      117 GETTABLEKS                       R5 R6 K7 ["gamepadId"]
-      119 SETTABLEKS                       R5 R4 K7 ["gamepadId"]
-      121 CALL                             R2 2 -1
-      122 CLOSEUPVALS                      R0
-      123 RETURN                           R2 -1
-      124 GETTABLEKS                       R2 R1 K4 ["type"]
-      126 JUMPIFNOTEQKS                    R2 K5 ["UpdateMappingsForGamepadId"] ; [+28]
-      128 GETUPVAL                         R4 0
-      129 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-      131 GETTABLEKS                       R2 R3 K1 ["join"]
-      133 MOVE                             R3 R0
-      134 DUPTABLE                         R4 K22 [{"isUpdatingMappingForKey", "isUpdatingMappingForGamepadId", "latestErrorMessage"}]
-      135 GETUPVAL                         R6 0
-      136 GETTABLEKS                       R5 R6 K23 ["None"]
-      138 SETTABLEKS                       R5 R4 K19 ["isUpdatingMappingForKey"]
-      140 GETTABLEKS                       R6 R1 K6 ["payload"]
-      142 GETTABLEKS                       R5 R6 K7 ["gamepadId"]
-      144 SETTABLEKS                       R5 R4 K20 ["isUpdatingMappingForGamepadId"]
-      146 GETTABLEKS                       R6 R1 K6 ["payload"]
-      148 GETTABLEKS                       R5 R6 K21 ["latestErrorMessage"]
-      150 SETTABLEKS                       R5 R4 K21 ["latestErrorMessage"]
-      152 CALL                             R2 2 -1
-      153 CLOSEUPVALS                      R0
-      154 RETURN                           R2 -1
-      155 GETTABLEKS                       R2 R1 K4 ["type"]
-      157 JUMPIFNOTEQKS                    R2 K24 ["SetGamepadId"] ; [+23]
-      159 GETUPVAL                         R4 0
-      160 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-      162 GETTABLEKS                       R2 R3 K1 ["join"]
-      164 MOVE                             R3 R0
-      165 DUPTABLE                         R4 K25 [{"gamepadId", "isUpdatingMappingForGamepadId"}]
-      166 GETTABLEKS                       R6 R1 K6 ["payload"]
-      168 GETTABLEKS                       R5 R6 K7 ["gamepadId"]
-      170 SETTABLEKS                       R5 R4 K7 ["gamepadId"]
-      172 GETTABLEKS                       R6 R1 K6 ["payload"]
-      174 GETTABLEKS                       R5 R6 K7 ["gamepadId"]
-      176 SETTABLEKS                       R5 R4 K20 ["isUpdatingMappingForGamepadId"]
-      178 CALL                             R2 2 -1
-      179 CLOSEUPVALS                      R0
-      180 RETURN                           R2 -1
-      181 GETTABLEKS                       R2 R1 K4 ["type"]
-      183 JUMPIFNOTEQKS                    R2 K26 ["SetIsUpdatingMappingFor"] ; [+29]
-      185 GETUPVAL                         R4 0
-      186 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-      188 GETTABLEKS                       R2 R3 K1 ["join"]
-      190 MOVE                             R3 R0
-      191 DUPTABLE                         R4 K27 [{"isUpdatingMappingForGamepadId", "isUpdatingMappingForKey"}]
-      192 GETTABLEKS                       R6 R1 K6 ["payload"]
-      194 GETTABLEKS                       R5 R6 K7 ["gamepadId"]
-      196 JUMPIF                           R5 ; [+2]
-      197 GETTABLEKS                       R5 R0 K20 ["isUpdatingMappingForGamepadId"]
-      199 SETTABLEKS                       R5 R4 K20 ["isUpdatingMappingForGamepadId"]
-      201 GETTABLEKS                       R6 R1 K6 ["payload"]
-      203 GETTABLEKS                       R5 R6 K28 ["keyName"]
-      205 JUMPIF                           R5 ; [+2]
-      206 GETTABLEKS                       R5 R0 K19 ["isUpdatingMappingForKey"]
-      208 SETTABLEKS                       R5 R4 K19 ["isUpdatingMappingForKey"]
-      210 CALL                             R2 2 -1
-      211 CLOSEUPVALS                      R0
-      212 RETURN                           R2 -1
-      213 GETTABLEKS                       R2 R1 K4 ["type"]
-      215 JUMPIFNOTEQKS                    R2 K29 ["OpenMappingsDialog"] ; [+14]
-      217 GETUPVAL                         R4 0
-      218 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-      220 GETTABLEKS                       R2 R3 K1 ["join"]
-      222 MOVE                             R3 R0
-      223 DUPTABLE                         R4 K31 [{"isMappingsDialogOpen"}]
-      224 LOADB                            R5 1
-      225 SETTABLEKS                       R5 R4 K30 ["isMappingsDialogOpen"]
-      227 CALL                             R2 2 -1
-      228 CLOSEUPVALS                      R0
-      229 RETURN                           R2 -1
-      230 GETTABLEKS                       R2 R1 K4 ["type"]
-      232 JUMPIFNOTEQKS                    R2 K32 ["CloseMappingsDialog"] ; [+34]
-      234 GETUPVAL                         R4 0
-      235 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-      237 GETTABLEKS                       R2 R3 K1 ["join"]
-      239 MOVE                             R3 R0
-      240 DUPTABLE                         R4 K33 [{"isMappingsDialogOpen", "mappings", "mappingsOverrides", "latestErrorMessage"}]
-      241 LOADB                            R5 0
-      242 SETTABLEKS                       R5 R4 K30 ["isMappingsDialogOpen"]
-      244 GETUPVAL                         R6 2
-      245 GETTABLEKS                       R5 R6 K34 ["map"]
-      247 GETTABLEKS                       R6 R0 K2 ["mappings"]
-      249 NEWCLOSURE                       R7 P0
-      250 CAPTURE                          UPVAL U0
-      251 CAPTURE                          REF R0
-      252 CALL                             R5 2 1
-      253 SETTABLEKS                       R5 R4 K2 ["mappings"]
-      255 NEWTABLE                         R5 0 0
-      257 SETTABLEKS                       R5 R4 K9 ["mappingsOverrides"]
-      259 GETUPVAL                         R6 0
-      260 GETTABLEKS                       R5 R6 K23 ["None"]
-      262 SETTABLEKS                       R5 R4 K21 ["latestErrorMessage"]
-      264 CALL                             R2 2 -1
-      265 CLOSEUPVALS                      R0
-      266 RETURN                           R2 -1
-      267 GETTABLEKS                       R2 R1 K4 ["type"]
-      269 JUMPIFNOTEQKS                    R2 K35 ["ResetCaches"] ; [+21]
-      271 GETUPVAL                         R4 0
-      272 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-      274 GETTABLEKS                       R2 R3 K1 ["join"]
-      276 MOVE                             R3 R0
-      277 DUPTABLE                         R4 K36 [{"isUpdatingMappingForKey", "latestErrorMessage"}]
-      278 GETUPVAL                         R6 0
-      279 GETTABLEKS                       R5 R6 K23 ["None"]
-      281 SETTABLEKS                       R5 R4 K19 ["isUpdatingMappingForKey"]
-      283 GETUPVAL                         R6 0
-      284 GETTABLEKS                       R5 R6 K23 ["None"]
-      286 SETTABLEKS                       R5 R4 K21 ["latestErrorMessage"]
-      288 CALL                             R2 2 -1
-      289 CLOSEUPVALS                      R0
-      290 RETURN                           R2 -1
-      291 GETTABLEKS                       R2 R1 K4 ["type"]
-      293 JUMPIFNOTEQKS                    R2 K37 ["ShowErrorBanner"] ; [+17]
-      295 GETUPVAL                         R4 0
-      296 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-      298 GETTABLEKS                       R2 R3 K1 ["join"]
-      300 MOVE                             R3 R0
-      301 DUPTABLE                         R4 K38 [{"latestErrorMessage"}]
-      302 GETTABLEKS                       R6 R1 K6 ["payload"]
-      304 GETTABLEKS                       R5 R6 K39 ["errorMessage"]
-      306 SETTABLEKS                       R5 R4 K21 ["latestErrorMessage"]
-      308 CALL                             R2 2 -1
-      309 CLOSEUPVALS                      R0
-      310 RETURN                           R2 -1
-      311 GETTABLEKS                       R2 R1 K4 ["type"]
-      313 JUMPIFNOTEQKS                    R2 K40 ["SetVRConnected"] ; [+17]
-      315 GETUPVAL                         R4 0
-      316 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-      318 GETTABLEKS                       R2 R3 K1 ["join"]
-      320 MOVE                             R3 R0
-      321 DUPTABLE                         R4 K42 [{"isVRConnected"}]
-      322 GETTABLEKS                       R6 R1 K6 ["payload"]
-      324 GETTABLEKS                       R5 R6 K43 ["isConnected"]
-      326 SETTABLEKS                       R5 R4 K41 ["isVRConnected"]
-      328 CALL                             R2 2 -1
-      329 CLOSEUPVALS                      R0
-      330 RETURN                           R2 -1
-      331 GETTABLEKS                       R2 R1 K4 ["type"]
-      333 JUMPIFNOTEQKS                    R2 K44 ["ChangeEmulatedDevice"] ; [+23]
-      335 GETUPVAL                         R4 0
-      336 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-      338 GETTABLEKS                       R2 R3 K1 ["join"]
-      340 MOVE                             R3 R0
-      341 DUPTABLE                         R4 K47 [{"emulatedDeviceId", "availableDeviceIds"}]
-      342 GETTABLEKS                       R6 R1 K6 ["payload"]
-      344 GETTABLEKS                       R5 R6 K45 ["emulatedDeviceId"]
-      346 SETTABLEKS                       R5 R4 K45 ["emulatedDeviceId"]
-      348 GETTABLEKS                       R6 R1 K6 ["payload"]
-      350 GETTABLEKS                       R5 R6 K46 ["availableDeviceIds"]
-      352 SETTABLEKS                       R5 R4 K46 ["availableDeviceIds"]
-      354 CALL                             R2 2 -1
-      355 CLOSEUPVALS                      R0
-      356 RETURN                           R2 -1
-      357 GETTABLEKS                       R2 R1 K4 ["type"]
-      359 JUMPIFNOTEQKS                    R2 K48 ["SetVRCFrameTranslationSensitivity"] ; [+17]
-      361 GETUPVAL                         R4 0
-      362 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-      364 GETTABLEKS                       R2 R3 K1 ["join"]
-      366 MOVE                             R3 R0
-      367 DUPTABLE                         R4 K50 [{"translationSensitivity"}]
-      368 GETTABLEKS                       R6 R1 K6 ["payload"]
-      370 GETTABLEKS                       R5 R6 K49 ["translationSensitivity"]
-      372 SETTABLEKS                       R5 R4 K49 ["translationSensitivity"]
-      374 CALL                             R2 2 -1
+       34 SETTABLEKS                       R5 R4 K2 ["mappings"]
+       36 CALL                             R2 2 1
+       37 MOVE                             R0 R2
+       38 GETUPVAL                         R4 0
+       39 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+       41 GETTABLEKS                       R2 R3 K1 ["join"]
+       43 MOVE                             R3 R0
+       44 DUPTABLE                         R4 K10 [{"mappingsOverrides"}]
+       45 GETUPVAL                         R5 1
+       46 GETTABLEKS                       R6 R0 K9 ["mappingsOverrides"]
+       48 MOVE                             R7 R1
+       49 CALL                             R5 2 1
+       50 SETTABLEKS                       R5 R4 K9 ["mappingsOverrides"]
+       52 CALL                             R2 2 1
+       53 MOVE                             R0 R2
+       54 GETTABLEKS                       R2 R1 K4 ["type"]
+       56 JUMPIFNOTEQKS                    R2 K11 ["SetVRUserCFrameActive"] ; [+45]
+       58 GETUPVAL                         R4 0
+       59 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+       61 GETTABLEKS                       R2 R3 K1 ["join"]
+       63 MOVE                             R3 R0
+       64 DUPTABLE                         R4 K14 [{"activeVRUserCFrames", "shouldVRControlsRespond"}]
+       65 GETTABLEKS                       R6 R0 K12 ["activeVRUserCFrames"]
+       67 GETTABLEKS                       R7 R1 K4 ["type"]
+       69 JUMPIFNOTEQKS                    R7 K11 ["SetVRUserCFrameActive"] ; [+21]
+       71 GETUPVAL                         R9 0
+       72 GETTABLEKS                       R8 R9 K0 ["Dictionary"]
+       74 GETTABLEKS                       R7 R8 K1 ["join"]
+       76 MOVE                             R8 R6
+       77 NEWTABLE                         R9 1 0
+       79 GETTABLEKS                       R11 R1 K6 ["payload"]
+       81 GETTABLEKS                       R10 R11 K15 ["vrUserCFrame"]
+       83 GETTABLEKS                       R12 R1 K6 ["payload"]
+       85 GETTABLEKS                       R11 R12 K16 ["isActive"]
+       87 SETTABLE                         R11 R9 R10
+       88 CALL                             R7 2 1
+       89 MOVE                             R5 R7
+       90 JUMP                             ; [+1]
+       91 MOVE                             R5 R6
+       92 SETTABLEKS                       R5 R4 K12 ["activeVRUserCFrames"]
+       94 GETTABLEKS                       R6 R1 K6 ["payload"]
+       96 GETTABLEKS                       R5 R6 K13 ["shouldVRControlsRespond"]
+       98 SETTABLEKS                       R5 R4 K13 ["shouldVRControlsRespond"]
+      100 CALL                             R2 2 1
+      101 MOVE                             R0 R2
+      102 GETTABLEKS                       R2 R1 K4 ["type"]
+      104 JUMPIFNOTEQKS                    R2 K17 ["SetConnectedGamepadId"] ; [+17]
+      106 GETUPVAL                         R4 0
+      107 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+      109 GETTABLEKS                       R2 R3 K1 ["join"]
+      111 MOVE                             R3 R0
+      112 DUPTABLE                         R4 K18 [{"gamepadId"}]
+      113 GETTABLEKS                       R6 R1 K6 ["payload"]
+      115 GETTABLEKS                       R5 R6 K7 ["gamepadId"]
+      117 SETTABLEKS                       R5 R4 K7 ["gamepadId"]
+      119 CALL                             R2 2 -1
+      120 CLOSEUPVALS                      R0
+      121 RETURN                           R2 -1
+      122 GETTABLEKS                       R2 R1 K4 ["type"]
+      124 JUMPIFNOTEQKS                    R2 K5 ["UpdateMappingsForGamepadId"] ; [+28]
+      126 GETUPVAL                         R4 0
+      127 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+      129 GETTABLEKS                       R2 R3 K1 ["join"]
+      131 MOVE                             R3 R0
+      132 DUPTABLE                         R4 K22 [{"isUpdatingMappingForKey", "isUpdatingMappingForGamepadId", "latestErrorMessage"}]
+      133 GETUPVAL                         R6 0
+      134 GETTABLEKS                       R5 R6 K23 ["None"]
+      136 SETTABLEKS                       R5 R4 K19 ["isUpdatingMappingForKey"]
+      138 GETTABLEKS                       R6 R1 K6 ["payload"]
+      140 GETTABLEKS                       R5 R6 K7 ["gamepadId"]
+      142 SETTABLEKS                       R5 R4 K20 ["isUpdatingMappingForGamepadId"]
+      144 GETTABLEKS                       R6 R1 K6 ["payload"]
+      146 GETTABLEKS                       R5 R6 K21 ["latestErrorMessage"]
+      148 SETTABLEKS                       R5 R4 K21 ["latestErrorMessage"]
+      150 CALL                             R2 2 -1
+      151 CLOSEUPVALS                      R0
+      152 RETURN                           R2 -1
+      153 GETTABLEKS                       R2 R1 K4 ["type"]
+      155 JUMPIFNOTEQKS                    R2 K24 ["SetGamepadId"] ; [+23]
+      157 GETUPVAL                         R4 0
+      158 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+      160 GETTABLEKS                       R2 R3 K1 ["join"]
+      162 MOVE                             R3 R0
+      163 DUPTABLE                         R4 K25 [{"gamepadId", "isUpdatingMappingForGamepadId"}]
+      164 GETTABLEKS                       R6 R1 K6 ["payload"]
+      166 GETTABLEKS                       R5 R6 K7 ["gamepadId"]
+      168 SETTABLEKS                       R5 R4 K7 ["gamepadId"]
+      170 GETTABLEKS                       R6 R1 K6 ["payload"]
+      172 GETTABLEKS                       R5 R6 K7 ["gamepadId"]
+      174 SETTABLEKS                       R5 R4 K20 ["isUpdatingMappingForGamepadId"]
+      176 CALL                             R2 2 -1
+      177 CLOSEUPVALS                      R0
+      178 RETURN                           R2 -1
+      179 GETTABLEKS                       R2 R1 K4 ["type"]
+      181 JUMPIFNOTEQKS                    R2 K26 ["SetIsUpdatingMappingFor"] ; [+29]
+      183 GETUPVAL                         R4 0
+      184 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+      186 GETTABLEKS                       R2 R3 K1 ["join"]
+      188 MOVE                             R3 R0
+      189 DUPTABLE                         R4 K27 [{"isUpdatingMappingForGamepadId", "isUpdatingMappingForKey"}]
+      190 GETTABLEKS                       R6 R1 K6 ["payload"]
+      192 GETTABLEKS                       R5 R6 K7 ["gamepadId"]
+      194 JUMPIF                           R5 ; [+2]
+      195 GETTABLEKS                       R5 R0 K20 ["isUpdatingMappingForGamepadId"]
+      197 SETTABLEKS                       R5 R4 K20 ["isUpdatingMappingForGamepadId"]
+      199 GETTABLEKS                       R6 R1 K6 ["payload"]
+      201 GETTABLEKS                       R5 R6 K28 ["keyName"]
+      203 JUMPIF                           R5 ; [+2]
+      204 GETTABLEKS                       R5 R0 K19 ["isUpdatingMappingForKey"]
+      206 SETTABLEKS                       R5 R4 K19 ["isUpdatingMappingForKey"]
+      208 CALL                             R2 2 -1
+      209 CLOSEUPVALS                      R0
+      210 RETURN                           R2 -1
+      211 GETTABLEKS                       R2 R1 K4 ["type"]
+      213 JUMPIFNOTEQKS                    R2 K29 ["OpenMappingsDialog"] ; [+14]
+      215 GETUPVAL                         R4 0
+      216 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+      218 GETTABLEKS                       R2 R3 K1 ["join"]
+      220 MOVE                             R3 R0
+      221 DUPTABLE                         R4 K31 [{"isMappingsDialogOpen"}]
+      222 LOADB                            R5 1
+      223 SETTABLEKS                       R5 R4 K30 ["isMappingsDialogOpen"]
+      225 CALL                             R2 2 -1
+      226 CLOSEUPVALS                      R0
+      227 RETURN                           R2 -1
+      228 GETTABLEKS                       R2 R1 K4 ["type"]
+      230 JUMPIFNOTEQKS                    R2 K32 ["CloseMappingsDialog"] ; [+34]
+      232 GETUPVAL                         R4 0
+      233 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+      235 GETTABLEKS                       R2 R3 K1 ["join"]
+      237 MOVE                             R3 R0
+      238 DUPTABLE                         R4 K33 [{"isMappingsDialogOpen", "mappings", "mappingsOverrides", "latestErrorMessage"}]
+      239 LOADB                            R5 0
+      240 SETTABLEKS                       R5 R4 K30 ["isMappingsDialogOpen"]
+      242 GETUPVAL                         R6 2
+      243 GETTABLEKS                       R5 R6 K34 ["map"]
+      245 GETTABLEKS                       R6 R0 K2 ["mappings"]
+      247 NEWCLOSURE                       R7 P0
+      248 CAPTURE                          UPVAL U0
+      249 CAPTURE                          REF R0
+      250 CALL                             R5 2 1
+      251 SETTABLEKS                       R5 R4 K2 ["mappings"]
+      253 NEWTABLE                         R5 0 0
+      255 SETTABLEKS                       R5 R4 K9 ["mappingsOverrides"]
+      257 GETUPVAL                         R6 0
+      258 GETTABLEKS                       R5 R6 K23 ["None"]
+      260 SETTABLEKS                       R5 R4 K21 ["latestErrorMessage"]
+      262 CALL                             R2 2 -1
+      263 CLOSEUPVALS                      R0
+      264 RETURN                           R2 -1
+      265 GETTABLEKS                       R2 R1 K4 ["type"]
+      267 JUMPIFNOTEQKS                    R2 K35 ["ResetCaches"] ; [+21]
+      269 GETUPVAL                         R4 0
+      270 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+      272 GETTABLEKS                       R2 R3 K1 ["join"]
+      274 MOVE                             R3 R0
+      275 DUPTABLE                         R4 K36 [{"isUpdatingMappingForKey", "latestErrorMessage"}]
+      276 GETUPVAL                         R6 0
+      277 GETTABLEKS                       R5 R6 K23 ["None"]
+      279 SETTABLEKS                       R5 R4 K19 ["isUpdatingMappingForKey"]
+      281 GETUPVAL                         R6 0
+      282 GETTABLEKS                       R5 R6 K23 ["None"]
+      284 SETTABLEKS                       R5 R4 K21 ["latestErrorMessage"]
+      286 CALL                             R2 2 -1
+      287 CLOSEUPVALS                      R0
+      288 RETURN                           R2 -1
+      289 GETTABLEKS                       R2 R1 K4 ["type"]
+      291 JUMPIFNOTEQKS                    R2 K37 ["ShowErrorBanner"] ; [+17]
+      293 GETUPVAL                         R4 0
+      294 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+      296 GETTABLEKS                       R2 R3 K1 ["join"]
+      298 MOVE                             R3 R0
+      299 DUPTABLE                         R4 K38 [{"latestErrorMessage"}]
+      300 GETTABLEKS                       R6 R1 K6 ["payload"]
+      302 GETTABLEKS                       R5 R6 K39 ["errorMessage"]
+      304 SETTABLEKS                       R5 R4 K21 ["latestErrorMessage"]
+      306 CALL                             R2 2 -1
+      307 CLOSEUPVALS                      R0
+      308 RETURN                           R2 -1
+      309 GETTABLEKS                       R2 R1 K4 ["type"]
+      311 JUMPIFNOTEQKS                    R2 K40 ["SetVRConnected"] ; [+17]
+      313 GETUPVAL                         R4 0
+      314 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+      316 GETTABLEKS                       R2 R3 K1 ["join"]
+      318 MOVE                             R3 R0
+      319 DUPTABLE                         R4 K42 [{"isVRConnected"}]
+      320 GETTABLEKS                       R6 R1 K6 ["payload"]
+      322 GETTABLEKS                       R5 R6 K43 ["isConnected"]
+      324 SETTABLEKS                       R5 R4 K41 ["isVRConnected"]
+      326 CALL                             R2 2 -1
+      327 CLOSEUPVALS                      R0
+      328 RETURN                           R2 -1
+      329 GETTABLEKS                       R2 R1 K4 ["type"]
+      331 JUMPIFNOTEQKS                    R2 K44 ["ChangeEmulatedDevice"] ; [+23]
+      333 GETUPVAL                         R4 0
+      334 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+      336 GETTABLEKS                       R2 R3 K1 ["join"]
+      338 MOVE                             R3 R0
+      339 DUPTABLE                         R4 K47 [{"emulatedDeviceId", "availableDeviceIds"}]
+      340 GETTABLEKS                       R6 R1 K6 ["payload"]
+      342 GETTABLEKS                       R5 R6 K45 ["emulatedDeviceId"]
+      344 SETTABLEKS                       R5 R4 K45 ["emulatedDeviceId"]
+      346 GETTABLEKS                       R6 R1 K6 ["payload"]
+      348 GETTABLEKS                       R5 R6 K46 ["availableDeviceIds"]
+      350 SETTABLEKS                       R5 R4 K46 ["availableDeviceIds"]
+      352 CALL                             R2 2 -1
+      353 CLOSEUPVALS                      R0
+      354 RETURN                           R2 -1
+      355 GETTABLEKS                       R2 R1 K4 ["type"]
+      357 JUMPIFNOTEQKS                    R2 K48 ["SetVRCFrameTranslationSensitivity"] ; [+17]
+      359 GETUPVAL                         R4 0
+      360 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+      362 GETTABLEKS                       R2 R3 K1 ["join"]
+      364 MOVE                             R3 R0
+      365 DUPTABLE                         R4 K50 [{"translationSensitivity"}]
+      366 GETTABLEKS                       R6 R1 K6 ["payload"]
+      368 GETTABLEKS                       R5 R6 K49 ["translationSensitivity"]
+      370 SETTABLEKS                       R5 R4 K49 ["translationSensitivity"]
+      372 CALL                             R2 2 -1
+      373 CLOSEUPVALS                      R0
+      374 RETURN                           R2 -1
       375 CLOSEUPVALS                      R0
-      376 RETURN                           R2 -1
-      377 CLOSEUPVALS                      R0
-      378 RETURN                           R0 1
+      376 RETURN                           R0 1
 
 PROTO_5:
         0 PREPVARARGS                      0

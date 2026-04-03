@@ -2052,11 +2052,6 @@ PROTO_58:
        10 MOVE                             R7 R0
        11 CALL                             R4 3 1
        12 RETURN                           R4 1
-       13 GETUPVAL                         R4 2
-       14 MOVE                             R5 R2
-       15 MOVE                             R6 R3
-       16 CALL                             R4 2 1
-       17 RETURN                           R4 1
 
 PROTO_59:
         0 GETUPVAL                         R1 0
@@ -2354,13 +2349,12 @@ MAIN:
       413 DUPCLOSURE                       R58 K87 [PROTO_58]
       414 CAPTURE                          VAL R56
       415 CAPTURE                          VAL R51
-      416 CAPTURE                          VAL R50
-      417 DUPCLOSURE                       R59 K88 [PROTO_61]
-      418 CAPTURE                          VAL R30
-      419 CAPTURE                          VAL R52
-      420 CALL                             R57 2 1
-      421 MOVE                             R58 R53
-      422 CALL                             R57 1 1
-      423 MOVE                             R53 R57
-      424 SETTABLEKS                       R39 R53 K89 ["LocalizationId"]
-      426 RETURN                           R53 1
+      416 DUPCLOSURE                       R59 K88 [PROTO_61]
+      417 CAPTURE                          VAL R30
+      418 CAPTURE                          VAL R52
+      419 CALL                             R57 2 1
+      420 MOVE                             R58 R53
+      421 CALL                             R57 1 1
+      422 MOVE                             R53 R57
+      423 SETTABLEKS                       R39 R53 K89 ["LocalizationId"]
+      425 RETURN                           R53 1

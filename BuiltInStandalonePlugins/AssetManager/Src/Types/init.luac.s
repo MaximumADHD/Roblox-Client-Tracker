@@ -9,17 +9,8 @@ MAIN:
        11 GETTABLEKS                       R2 R3 K7 ["Promise"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Dash"]
-       20 CALL                             R2 1 1
-       21 GETTABLEKS                       R3 R2 K9 ["join"]
-       23 GETIMPORT                        R4 K5 [require]
-       25 GETTABLEKS                       R7 R0 K10 ["Src"]
-       27 GETTABLEKS                       R6 R7 K11 ["Types"]
-       29 GETTABLEKS                       R5 R6 K12 ["Enums"]
-       31 CALL                             R4 1 1
-       32 MOVE                             R5 R3
-       33 NEWTABLE                         R6 0 0
-       35 MOVE                             R7 R4
-       36 CALL                             R5 2 1
-       37 RETURN                           R5 1
+       16 GETTABLEKS                       R5 R0 K8 ["Src"]
+       18 GETTABLEKS                       R4 R5 K9 ["Types"]
+       20 GETTABLEKS                       R3 R4 K10 ["Enums"]
+       22 CALL                             R2 1 1
+       23 RETURN                           R2 1

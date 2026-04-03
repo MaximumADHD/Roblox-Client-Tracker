@@ -14,10 +14,13 @@ local RunService = game:GetService("RunService")
 local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local EventBus = CommonUtils.get("EventBus")
+local PlayerModuleEventBus = CommonUtils.get("PlayerModuleEventBus")
 local FFlagUserDisableForceLocalHumanoidPrediction = FlagUtil.getUserFlag("UserDisableForceLocalHumanoidPrediction")
+local FFlagUserPlayerScriptsClickToMoveUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClickToMoveUsesIAS")
 
 local CONNECTIONS = {
 	SERVER_AUTHORITY_CHANGED = "SERVER_AUTHORITY_CHANGED",
+	INPUTS_SETUP = "INPUTS_SETUP",
 }
 
 local isServerAuthority = false
@@ -42,6 +45,11 @@ function ServerAuthority.Initialize()
 	if not FFlagUserDisableForceLocalHumanoidPrediction then
 		if RunService:IsClient() then
 			ServerAuthority.PredictLocalHumanoid()
+		end
+	end
+	if FFlagUserPlayerScriptsClickToMoveUsesIAS and not PlayerModuleEventBus.data.inputsSetupComplete then
+		if RunService:IsServer() then 
+			PlayerModuleEventBus:subscribe(CONNECTIONS.INPUTS_SETUP):Wait()
 		end
 	end
 	ControlModule:InitializeServerAuthority()

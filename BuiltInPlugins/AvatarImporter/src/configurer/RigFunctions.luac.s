@@ -565,11 +565,11 @@ PROTO_21:
         4 JUMPIFNOT                        R2 ; [+4]
         5 NAMECALL                         R2 R1 K2 ["Destroy"]
         7 CALL                             R2 1 0
-        8 JUMP                             ; [+83]
+        8 JUMP                             ; [+82]
         9 LOADK                            R4 K3 ["Attachment"]
        10 NAMECALL                         R2 R1 K1 ["IsA"]
        12 CALL                             R2 2 1
-       13 JUMPIFNOT                        R2 ; [+78]
+       13 JUMPIFNOT                        R2 ; [+77]
        14 GETTABLEKS                       R4 R1 K4 ["Parent"]
        16 LOADK                            R7 K5 ["AvatarPartScaleType"]
        17 NAMECALL                         R5 R4 K6 ["FindFirstChild"]
@@ -588,7 +588,7 @@ PROTO_21:
        37 GETTABLEKS                       R4 R5 K11 ["AnthroNormalFixedRigAttachmentMap"]
        39 GETTABLEKS                       R5 R1 K12 ["Name"]
        41 GETTABLE                         R2 R4 R5
-       42 JUMP                             ; [+21]
+       42 JUMP                             ; [+20]
        43 GETUPVAL                         R6 0
        44 GETTABLEKS                       R5 R6 K8 ["AVATAR_PART_SCALE_TYPE"]
        46 GETTABLEKS                       R4 R5 K13 ["PROPORTIONS_SLENDER"]
@@ -597,44 +597,43 @@ PROTO_21:
        51 GETTABLEKS                       R4 R5 K14 ["AnthroSlenderFixedRigAttachmentMap"]
        53 GETTABLEKS                       R5 R1 K12 ["Name"]
        55 GETTABLE                         R2 R4 R5
-       56 JUMP                             ; [+7]
+       56 JUMP                             ; [+6]
        57 GETUPVAL                         R5 1
        58 GETTABLEKS                       R4 R5 K15 ["R15FixedRigAttachmentMap"]
        60 GETTABLEKS                       R5 R1 K12 ["Name"]
        62 GETTABLE                         R2 R4 R5
-       63 JUMP                             ; [0]
-       64 JUMPIFNOT                        R2 ; [+27]
-       65 GETTABLEKS                       R3 R1 K4 ["Parent"]
-       67 LOADK                            R6 K16 ["OriginalPosition"]
-       68 NAMECALL                         R4 R1 K6 ["FindFirstChild"]
-       70 CALL                             R4 2 1
-       71 JUMPIFNOT                        R4 ; [+3]
-       72 NAMECALL                         R5 R4 K2 ["Destroy"]
-       74 CALL                             R5 1 0
-       75 GETTABLEKS                       R6 R3 K17 ["CFrame"]
-       77 GETTABLEKS                       R7 R0 K18 ["WorldPosition"]
-       79 SUB                              R5 R6 R7
-       80 NAMECALL                         R7 R5 K19 ["inverse"]
-       82 CALL                             R7 1 1
-       83 GETIMPORT                        R8 K21 [CFrame.new]
-       85 MOVE                             R9 R2
-       86 CALL                             R8 1 1
-       87 MUL                              R6 R7 R8
-       88 GETTABLEKS                       R7 R6 K22 ["p"]
-       90 SETTABLEKS                       R7 R1 K23 ["Position"]
-       92 GETTABLEKS                       R2 R1 K12 ["Name"]
-       94 JUMPIFEQKS                       R2 K24 ["HumanoidRootPart"] ; [+14]
-       96 GETIMPORT                        R2 K26 [pairs]
-       98 NAMECALL                         R3 R1 K27 ["GetChildren"]
-      100 CALL                             R3 1 -1
-      101 CALL                             R2 -1 3
-      102 FORGPREP_NEXT                    R2
-      103 GETUPVAL                         R7 2
-      104 MOVE                             R8 R0
-      105 MOVE                             R9 R6
-      106 CALL                             R7 2 0
-      107 FORGLOOP                         R2 2 ; [-5]
-      109 RETURN                           R0 0
+       63 JUMPIFNOT                        R2 ; [+27]
+       64 GETTABLEKS                       R3 R1 K4 ["Parent"]
+       66 LOADK                            R6 K16 ["OriginalPosition"]
+       67 NAMECALL                         R4 R1 K6 ["FindFirstChild"]
+       69 CALL                             R4 2 1
+       70 JUMPIFNOT                        R4 ; [+3]
+       71 NAMECALL                         R5 R4 K2 ["Destroy"]
+       73 CALL                             R5 1 0
+       74 GETTABLEKS                       R6 R3 K17 ["CFrame"]
+       76 GETTABLEKS                       R7 R0 K18 ["WorldPosition"]
+       78 SUB                              R5 R6 R7
+       79 NAMECALL                         R7 R5 K19 ["inverse"]
+       81 CALL                             R7 1 1
+       82 GETIMPORT                        R8 K21 [CFrame.new]
+       84 MOVE                             R9 R2
+       85 CALL                             R8 1 1
+       86 MUL                              R6 R7 R8
+       87 GETTABLEKS                       R7 R6 K22 ["p"]
+       89 SETTABLEKS                       R7 R1 K23 ["Position"]
+       91 GETTABLEKS                       R2 R1 K12 ["Name"]
+       93 JUMPIFEQKS                       R2 K24 ["HumanoidRootPart"] ; [+14]
+       95 GETIMPORT                        R2 K26 [pairs]
+       97 NAMECALL                         R3 R1 K27 ["GetChildren"]
+       99 CALL                             R3 1 -1
+      100 CALL                             R2 -1 3
+      101 FORGPREP_NEXT                    R2
+      102 GETUPVAL                         R7 2
+      103 MOVE                             R8 R0
+      104 MOVE                             R9 R6
+      105 CALL                             R7 2 0
+      106 FORGLOOP                         R2 2 ; [-5]
+      108 RETURN                           R0 0
 
 PROTO_22:
         0 LOADK                            R3 K0 ["Motor6D"]

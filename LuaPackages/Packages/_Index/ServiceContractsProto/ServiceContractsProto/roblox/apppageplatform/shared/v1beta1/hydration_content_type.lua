@@ -29,6 +29,7 @@ export type HydrationContentType =
 	| "HYDRATION_CONTENT_TYPE_MARKETPLACE_LOOK"
 	| "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_CATEGORY"
 	| "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT"
+	| "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION"
 	| number -- Unknown
 
 messages.HydrationContentType = {
@@ -65,6 +66,8 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_CATEGORY"
 		elseif value == 15 then
 			return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT"
+		elseif value == 16 then
+			return "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION"
 		else
 			return nil
 		end
@@ -103,6 +106,8 @@ messages.HydrationContentType = {
 			return 14
 		elseif self == "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT" then
 			return 15
+		elseif self == "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION" then
+			return 16
 		else
 			return self
 		end
@@ -141,6 +146,8 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_CATEGORY"
 		elseif name == "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT" then
 			return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT"
+		elseif name == "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION" then
+			return "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION"
 		else
 			return nil
 		end

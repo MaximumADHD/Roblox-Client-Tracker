@@ -18,7 +18,6 @@ local LOCAL_PLAYER_LOADING_TIMEOUT_ENUM = CrossExperience.Constants.LOCAL_PLAYER
 
 local FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds =
 	game:DefineFastInt("BackgroundDMLocalPlayerLoadingTimeoutSeconds", 12)
-local FFlagDelayBackgroundDMLocalPlayerLoading = game:DefineFastFlag("DelayBackgroundDMLocalPlayerLoading", false)
 local FFlagDelayAudioFocusReplication = game:DefineFastFlag("DelayAudioFocusReplication", false)
 local FIntPlayerAudioFocusReplicationTimeoutSeconds =
 	game:DefineFastInt("PlayerAudioFocusReplicationTimeoutSeconds", 10)
@@ -35,7 +34,8 @@ local function sendAnalyticsEvent(eventName: string, args: { [string]: any }?)
 	local cevJoinAttemptId = getMemStorageKey(CEV_JOIN_ATTEMPT_ID_KEY)
 	analyticsPayload.cevJoinAttemptId = cevJoinAttemptId
 	analyticsPayload.clientTimeStamp = os.time()
-	analyticsPayload.userId = if FStringTimeoutLoadingLocalPlayerInBackgroundDM ~= LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable
+	analyticsPayload.userId = if FStringTimeoutLoadingLocalPlayerInBackgroundDM
+			~= LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable
 		then nil
 		else localUserId
 
@@ -114,12 +114,8 @@ local function ensureLocalPlayerWithTimeout()
 end
 
 if FStringTimeoutLoadingLocalPlayerInBackgroundDM ~= LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable then
-	if FFlagDelayBackgroundDMLocalPlayerLoading then
-		-- Delay loading local player until we need it much later
-		localUserId = -1
-	else
-		localUserId = ensureLocalPlayerWithTimeout()
-	end
+	-- Delay loading local player until we need it much later
+	localUserId = -1
 end
 
 if FStringTimeoutLoadingLocalPlayerInBackgroundDM == LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable then
@@ -900,7 +896,13 @@ function initializeAFM()
 					CoreVoiceManager:MuteAll(true, "AudioFocusManagement - CEV deafenAll")
 				end
 
-				if not CoreVoiceManager.localMuted and (not FFlagEnableCEVPersistMuteStateForAFM or coreVoiceManagerState.previousMutedState == CoreVoiceManager.localMuted) then
+				if
+					not CoreVoiceManager.localMuted
+					and (
+						not FFlagEnableCEVPersistMuteStateForAFM
+						or coreVoiceManagerState.previousMutedState == CoreVoiceManager.localMuted
+					)
+				then
 					CoreVoiceManager:ToggleMic("AudioFocusManagement - CEV deafenAll")
 				end
 			end
@@ -918,7 +920,13 @@ function initializeAFM()
 				if CoreVoiceManager.localMuted == nil then
 					log:info("CEV undeafenAll - Voice not connected yet - calling unmuteMicrophoneOnce")
 					unmuteMicrophoneOnce()
-				elseif CoreVoiceManager.localMuted and (not FFlagEnableCEVPersistMuteStateForAFM or coreVoiceManagerState.previousMutedState ~= CoreVoiceManager.localMuted) then
+				elseif
+					CoreVoiceManager.localMuted
+					and (
+						not FFlagEnableCEVPersistMuteStateForAFM
+						or coreVoiceManagerState.previousMutedState ~= CoreVoiceManager.localMuted
+					)
+				then
 					log:info("CEV undeafenAll - Voice connected and muted - unmuting immediately")
 					CoreVoiceManager:ToggleMic("AudioFocusManagement - CEV undeafenAll")
 				end
@@ -1047,12 +1055,10 @@ end
 
 function startVoice()
 	if validateSetup() then
-		if FFlagDelayBackgroundDMLocalPlayerLoading then
-			-- Call it here instead, right before we actually need the LocalPlayer
-			if FStringTimeoutLoadingLocalPlayerInBackgroundDM ~= LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable then
-				localUserId = ensureLocalPlayerWithTimeout()
-				log:info("Delayed loading of LocalPlayer loaded with UserId: {}", localUserId)
-			end
+		-- Call it here instead, right before we actually need the LocalPlayer
+		if FStringTimeoutLoadingLocalPlayerInBackgroundDM ~= LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable then
+			localUserId = ensureLocalPlayerWithTimeout()
+			log:info("Delayed loading of LocalPlayer loaded with UserId: {}", localUserId)
 		end
 		setupListeners()
 		initializeVoice()

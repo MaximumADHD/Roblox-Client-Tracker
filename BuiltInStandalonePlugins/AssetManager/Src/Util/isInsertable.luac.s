@@ -30,15 +30,12 @@ MAIN:
        35 GETTABLEKS                       R5 R2 K13 ["Place"]
        37 LOADB                            R6 1
        38 SETTABLE                         R6 R4 R5
-       39 GETTABLEKS                       R5 R2 K11 ["Plugin"]
-       41 LOADB                            R6 1
-       42 SETTABLE                         R6 R4 R5
-       43 MOVE                             R5 R3
-       44 CALL                             R5 0 1
-       45 JUMPIFNOT                        R5 ; [+4]
-       46 GETTABLEKS                       R5 R2 K14 ["Folder"]
-       48 LOADB                            R6 1
-       49 SETTABLE                         R6 R4 R5
-       50 DUPCLOSURE                       R5 K15 [PROTO_0]
-       51 CAPTURE                          VAL R4
-       52 RETURN                           R5 1
+       39 MOVE                             R5 R3
+       40 CALL                             R5 0 1
+       41 JUMPIFNOT                        R5 ; [+4]
+       42 GETTABLEKS                       R5 R2 K14 ["Folder"]
+       44 LOADB                            R6 1
+       45 SETTABLE                         R6 R4 R5
+       46 DUPCLOSURE                       R5 K15 [PROTO_0]
+       47 CAPTURE                          VAL R4
+       48 RETURN                           R5 1

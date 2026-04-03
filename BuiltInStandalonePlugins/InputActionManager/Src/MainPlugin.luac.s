@@ -259,13 +259,21 @@ PROTO_13:
        15 RETURN                           R0 0
 
 PROTO_14:
+        0 GETIMPORT                        R1 K1 [print]
+        2 LOADK                            R3 K2 ["Searched for: "]
+        3 MOVE                             R4 R0
+        4 CONCAT                           R2 R3 R4
+        5 CALL                             R1 1 0
+        6 RETURN                           R0 0
+
+PROTO_15:
         0 GETUPVAL                         R1 0
         1 MOVE                             R3 R0
         2 NAMECALL                         R1 R1 K0 ["Fire"]
         4 CALL                             R1 2 0
         5 RETURN                           R0 0
 
-PROTO_15:
+PROTO_16:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Plugin"]
@@ -386,28 +394,30 @@ PROTO_15:
       185 GETUPVAL                         R34 5
       186 GETTABLEKS                       R33 R34 K11 ["createElement"]
       188 GETUPVAL                         R34 13
-      189 DUPTABLE                         R35 K60 [{"updateSize"}]
-      190 NEWCLOSURE                       R36 P0
-      191 CAPTURE                          VAL R5
-      192 SETTABLEKS                       R36 R35 K59 ["updateSize"]
-      194 CALL                             R33 2 1
-      195 SETTABLEKS                       R33 R32 K57 ["Root"]
-      197 CALL                             R29 3 -1
-      198 SETLIST                          R28 R29 -1 [1]
-      200 CALL                             R25 3 -1
-      201 SETLIST                          R24 R25 -1 [1]
-      203 CALL                             R21 3 -1
-      204 SETLIST                          R20 R21 -1 [1]
-      206 CALL                             R17 3 -1
-      207 SETLIST                          R16 R17 -1 [1]
-      209 CALL                             R13 3 1
-      210 SETTABLEKS                       R13 R12 K43 ["FoundationProvider"]
-      212 CALL                             R9 3 1
-      213 SETTABLEKS                       R9 R8 K9 ["MainWidget"]
-      215 CALL                             R6 2 -1
-      216 RETURN                           R6 -1
+      189 DUPTABLE                         R35 K61 [{"onSearchActivated", "updateSize"}]
+      190 DUPCLOSURE                       R36 K62 [PROTO_14]
+      191 SETTABLEKS                       R36 R35 K59 ["onSearchActivated"]
+      193 NEWCLOSURE                       R36 P1
+      194 CAPTURE                          VAL R5
+      195 SETTABLEKS                       R36 R35 K60 ["updateSize"]
+      197 CALL                             R33 2 1
+      198 SETTABLEKS                       R33 R32 K57 ["Root"]
+      200 CALL                             R29 3 -1
+      201 SETLIST                          R28 R29 -1 [1]
+      203 CALL                             R25 3 -1
+      204 SETLIST                          R24 R25 -1 [1]
+      206 CALL                             R21 3 -1
+      207 SETLIST                          R20 R21 -1 [1]
+      209 CALL                             R17 3 -1
+      210 SETLIST                          R16 R17 -1 [1]
+      212 CALL                             R13 3 1
+      213 SETTABLEKS                       R13 R12 K43 ["FoundationProvider"]
+      215 CALL                             R9 3 1
+      216 SETTABLEKS                       R9 R8 K9 ["MainWidget"]
+      218 CALL                             R6 2 -1
+      219 RETURN                           R6 -1
 
-PROTO_16:
+PROTO_17:
         0 GETTABLEKS                       R1 R0 K0 ["actionActivatedConnection"]
         2 JUMPIFNOT                        R1 ; [+5]
         3 GETTABLEKS                       R1 R0 K0 ["actionActivatedConnection"]
@@ -534,7 +544,7 @@ MAIN:
       176 DUPCLOSURE                       R28 K49 [PROTO_13]
       177 CAPTURE                          VAL R21
       178 SETTABLEKS                       R28 R26 K50 ["didUpdate"]
-      180 DUPCLOSURE                       R28 K51 [PROTO_15]
+      180 DUPCLOSURE                       R28 K51 [PROTO_16]
       181 CAPTURE                          VAL R4
       182 CAPTURE                          VAL R8
       183 CAPTURE                          VAL R9
@@ -550,7 +560,7 @@ MAIN:
       193 CAPTURE                          VAL R6
       194 CAPTURE                          VAL R18
       195 SETTABLEKS                       R28 R26 K52 ["render"]
-      197 DUPCLOSURE                       R28 K53 [PROTO_16]
+      197 DUPCLOSURE                       R28 K53 [PROTO_17]
       198 CAPTURE                          VAL R20
       199 SETTABLEKS                       R28 R26 K54 ["willUnmount"]
       201 RETURN                           R26 1

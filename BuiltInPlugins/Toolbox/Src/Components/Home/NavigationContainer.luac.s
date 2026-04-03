@@ -899,7 +899,7 @@ MAIN:
       233 CAPTURE                          VAL R11
       234 CAPTURE                          VAL R26
       235 CAPTURE                          VAL R8
-      236 NEWCLOSURE                       R30 P3
+      236 DUPCLOSURE                       R30 K47 [PROTO_10]
       237 CAPTURE                          VAL R5
       238 CAPTURE                          VAL R4
       239 CAPTURE                          VAL R11
@@ -916,14 +916,14 @@ MAIN:
       250 SETTABLE                         R30 R28 R29
       251 NEWTABLE                         R29 1 0
       253 GETTABLEKS                       R31 R8 K44 ["NAVIGATION"]
-      255 GETTABLEKS                       R30 R31 K47 ["ALL_SUBCATEGORIES"]
-      257 DUPCLOSURE                       R32 K48 [PROTO_20]
+      255 GETTABLEKS                       R30 R31 K48 ["ALL_SUBCATEGORIES"]
+      257 DUPCLOSURE                       R32 K49 [PROTO_20]
       258 CAPTURE                          VAL R5
       259 CAPTURE                          VAL R17
       260 CAPTURE                          VAL R11
       261 CAPTURE                          VAL R26
       262 CAPTURE                          VAL R8
-      263 NEWCLOSURE                       R31 P3
+      263 DUPCLOSURE                       R31 K47 [PROTO_10]
       264 CAPTURE                          VAL R5
       265 CAPTURE                          VAL R4
       266 CAPTURE                          VAL R11
@@ -940,14 +940,14 @@ MAIN:
       277 SETTABLE                         R31 R29 R30
       278 NEWTABLE                         R30 1 0
       280 GETTABLEKS                       R32 R8 K44 ["NAVIGATION"]
-      282 GETTABLEKS                       R31 R32 K49 ["SUBCATEGORY"]
-      284 DUPCLOSURE                       R33 K50 [PROTO_23]
+      282 GETTABLEKS                       R31 R32 K50 ["SUBCATEGORY"]
+      284 DUPCLOSURE                       R33 K51 [PROTO_23]
       285 CAPTURE                          VAL R5
       286 CAPTURE                          VAL R18
       287 CAPTURE                          VAL R11
       288 CAPTURE                          VAL R26
       289 CAPTURE                          VAL R8
-      290 NEWCLOSURE                       R32 P3
+      290 DUPCLOSURE                       R32 K47 [PROTO_10]
       291 CAPTURE                          VAL R5
       292 CAPTURE                          VAL R4
       293 CAPTURE                          VAL R11
@@ -964,13 +964,13 @@ MAIN:
       304 SETTABLE                         R32 R30 R31
       305 NEWTABLE                         R31 1 0
       307 GETTABLEKS                       R33 R8 K44 ["NAVIGATION"]
-      309 GETTABLEKS                       R32 R33 K51 ["RESULTS"]
-      311 DUPCLOSURE                       R34 K52 [PROTO_25]
+      309 GETTABLEKS                       R32 R33 K52 ["RESULTS"]
+      311 DUPCLOSURE                       R34 K53 [PROTO_25]
       312 CAPTURE                          VAL R5
       313 CAPTURE                          VAL R16
       314 CAPTURE                          VAL R11
       315 CAPTURE                          VAL R26
-      316 NEWCLOSURE                       R33 P3
+      316 DUPCLOSURE                       R33 K47 [PROTO_10]
       317 CAPTURE                          VAL R5
       318 CAPTURE                          VAL R4
       319 CAPTURE                          VAL R11
@@ -986,18 +986,18 @@ MAIN:
       329 CAPTURE                          VAL R6
       330 SETTABLE                         R33 R31 R32
       331 SETLIST                          R27 R28 4 [1]
-      333 GETTABLEKS                       R28 R5 K53 ["PureComponent"]
-      335 LOADK                            R30 K54 ["NavigationContainer"]
-      336 NAMECALL                         R28 R28 K55 ["extend"]
+      333 GETTABLEKS                       R28 R5 K54 ["PureComponent"]
+      335 LOADK                            R30 K55 ["NavigationContainer"]
+      336 NAMECALL                         R28 R28 K56 ["extend"]
       338 CALL                             R28 2 1
-      339 DUPCLOSURE                       R29 K56 [PROTO_26]
+      339 DUPCLOSURE                       R29 K57 [PROTO_26]
       340 CAPTURE                          VAL R8
       341 CAPTURE                          VAL R7
       342 CAPTURE                          VAL R27
       343 CAPTURE                          VAL R9
       344 CAPTURE                          VAL R19
       345 CAPTURE                          VAL R5
-      346 SETTABLEKS                       R29 R28 K57 ["render"]
+      346 SETTABLEKS                       R29 R28 K58 ["render"]
       348 MOVE                             R29 R12
       349 MOVE                             R30 R28
       350 CALL                             R29 1 -1

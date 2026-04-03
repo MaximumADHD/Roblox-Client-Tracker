@@ -52,6 +52,8 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_ACTION_BAR"
 	| "UI_COMPONENT_TYPE_ICON"
 	| "UI_COMPONENT_TYPE_CIRCLE_ICON"
+	| "UI_COMPONENT_TYPE_CONTENT_RATING_LABEL"
+	| "UI_COMPONENT_TYPE_PLAY_BUTTON_WITH_CONTEXTUAL_MESSAGE"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -142,6 +144,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_ICON"
 		elseif value == 229 then
 			return "UI_COMPONENT_TYPE_CIRCLE_ICON"
+		elseif value == 230 then
+			return "UI_COMPONENT_TYPE_CONTENT_RATING_LABEL"
+		elseif value == 231 then
+			return "UI_COMPONENT_TYPE_PLAY_BUTTON_WITH_CONTEXTUAL_MESSAGE"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -242,6 +248,10 @@ messages.UiComponentType = {
 			return 228
 		elseif self == "UI_COMPONENT_TYPE_CIRCLE_ICON" then
 			return 229
+		elseif self == "UI_COMPONENT_TYPE_CONTENT_RATING_LABEL" then
+			return 230
+		elseif self == "UI_COMPONENT_TYPE_PLAY_BUTTON_WITH_CONTEXTUAL_MESSAGE" then
+			return 231
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -342,6 +352,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_ICON"
 		elseif name == "UI_COMPONENT_TYPE_CIRCLE_ICON" then
 			return "UI_COMPONENT_TYPE_CIRCLE_ICON"
+		elseif name == "UI_COMPONENT_TYPE_CONTENT_RATING_LABEL" then
+			return "UI_COMPONENT_TYPE_CONTENT_RATING_LABEL"
+		elseif name == "UI_COMPONENT_TYPE_PLAY_BUTTON_WITH_CONTEXTUAL_MESSAGE" then
+			return "UI_COMPONENT_TYPE_PLAY_BUTTON_WITH_CONTEXTUAL_MESSAGE"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then

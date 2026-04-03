@@ -35,7 +35,7 @@ local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
 local SPRING_FREQUENCY = 18
 local SPRING_FREQUENCY_HZ = 4
 local SPRING_OMEGA = 2 * math.pi * SPRING_FREQUENCY_HZ
-local SPRING_DAMPING = if Flags.FoundationBottomSheetImproveSpring then 1 else 0.9
+local SPRING_DAMPING = 0.9
 local VELOCITY_THRESHOLD = 1
 local POSITION_THRESHOLD = 0.5
 local ENGINE_INERTIA_FRICTION = 2.35
@@ -48,6 +48,30 @@ local defaultProps = {
 
 local SHADOW_IMAGE = Constants.SHADOW_IMAGE
 local SHADOW_SIZE = Constants.SHADOW_SIZE
+
+--[[
+Critical damping is a type of damping that results in the fastest possible return to equilibrium without overshooting.
+This is a closed form solution making it frame rate independent.
+
+https://en.wikipedia.org/wiki/Damping#Critical_damping_(ζ_=_1)
+https://mathworld.wolfram.com/CriticallyDampedSimpleHarmonicMotion.html
+]]
+local function advanceCriticalDampedSpring(
+	position: number,
+	velocity: number,
+	target: number,
+	delta: number
+): (number, number)
+	local displacement = position - target
+	local normalizedTime = SPRING_OMEGA * delta
+	local decay = math.exp(-normalizedTime)
+	local springTerm = velocity + SPRING_OMEGA * displacement
+
+	local newDisplacement = (displacement + springTerm * delta) * decay
+	local newVelocity = (velocity - springTerm * normalizedTime) * decay
+
+	return target + newDisplacement, newVelocity
+end
 
 local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local props = withDefaults(sheetProps, defaultProps)
@@ -139,30 +163,35 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			end
 
 			local currentPos = outerScrollingRef.current.CanvasPosition.Y
-			local displacement = springTarget - currentPos
-			local springForce = if Flags.FoundationBottomSheetImproveSpring
-				then displacement * SPRING_OMEGA * SPRING_OMEGA
-				else displacement * SPRING_FREQUENCY * SPRING_FREQUENCY
+			local displacement
+			if Flags.FoundationBottomSheetImproveSpring then
+				local newCanvasY, newVelocity =
+					advanceCriticalDampedSpring(currentPos, springVelocity.current, springTarget, delta)
 
-			if not Flags.FoundationBottomSheetImproveSpring then
+				springVelocity.current = newVelocity
+				outerScrollingRef.current.CanvasPosition = Vector2.new(0, newCanvasY)
+				lastPosition = outerScrollingRef.current.CanvasPosition.Y
+				displacement = springTarget - outerScrollingRef.current.CanvasPosition.Y
+			else
+				displacement = springTarget - currentPos
+				local springForce = displacement * SPRING_FREQUENCY * SPRING_FREQUENCY
+
 				-- Engine has inertia, we can estimate it based off the delta from our expected last position
 				-- then we remove that inertia from our spring to compensate and make the spring smooth
 				local scrollingInertia = (currentPos - lastPosition) / delta
 				springVelocity.current -= scrollingInertia
+
+				local dampingForce = -springVelocity.current * 2 * SPRING_DAMPING * SPRING_FREQUENCY
+				local totalForce = springForce + dampingForce
+				local dt = math.min(delta, 1 / 30) -- cap delta to avoid large jumps
+
+				springVelocity.current = springVelocity.current + totalForce * dt
+
+				-- Apply the velocity to move the canvas position
+				local newCanvasY = currentPos + springVelocity.current * dt
+				outerScrollingRef.current.CanvasPosition = Vector2.new(0, newCanvasY)
+				lastPosition = outerScrollingRef.current.CanvasPosition.Y
 			end
-
-			local dampingForce = if Flags.FoundationBottomSheetImproveSpring
-				then -springVelocity.current * 2 * SPRING_DAMPING * SPRING_OMEGA
-				else -springVelocity.current * 2 * SPRING_DAMPING * SPRING_FREQUENCY
-			local totalForce = springForce + dampingForce
-			local dt = math.min(delta, 1 / 30) -- cap delta to avoid large jumps
-
-			springVelocity.current = springVelocity.current + totalForce * dt
-
-			-- Apply the velocity to move the canvas position
-			local newCanvasY = currentPos + springVelocity.current * dt
-			outerScrollingRef.current.CanvasPosition = Vector2.new(0, newCanvasY)
-			lastPosition = outerScrollingRef.current.CanvasPosition.Y
 
 			local hasSettled = math.abs(displacement) < POSITION_THRESHOLD
 				and math.abs(springVelocity.current) < VELOCITY_THRESHOLD

@@ -110,7 +110,7 @@ PROTO_3:
        92 GETUPVAL                         R10 4
        93 GETUPVAL                         R12 3
        94 GETTABLEKS                       R11 R12 K21 ["Button"]
-       96 DUPTABLE                         R12 K28 [{"ref", "text", "variant", "size", "fillBehavior", "onActivated", "testId"}]
+       96 DUPTABLE                         R12 K29 [{"ref", "text", "variant", "size", "fillBehavior", "onActivated", "isDisabled", "testId"}]
        97 SETTABLEKS                       R1 R12 K12 ["ref"]
        99 GETTABLEKS                       R14 R0 K0 ["action"]
       101 GETTABLEKS                       R13 R14 K6 ["text"]
@@ -118,29 +118,36 @@ PROTO_3:
       105 GETTABLEKS                       R13 R0 K24 ["variant"]
       107 SETTABLEKS                       R13 R12 K24 ["variant"]
       109 GETUPVAL                         R16 3
-      110 GETTABLEKS                       R15 R16 K29 ["Enums"]
-      112 GETTABLEKS                       R14 R15 K30 ["InputSize"]
-      114 GETTABLEKS                       R13 R14 K31 ["XSmall"]
+      110 GETTABLEKS                       R15 R16 K30 ["Enums"]
+      112 GETTABLEKS                       R14 R15 K31 ["InputSize"]
+      114 GETTABLEKS                       R13 R14 K32 ["XSmall"]
       116 SETTABLEKS                       R13 R12 K25 ["size"]
       118 GETUPVAL                         R16 3
-      119 GETTABLEKS                       R15 R16 K29 ["Enums"]
-      121 GETTABLEKS                       R14 R15 K32 ["FillBehavior"]
-      123 GETTABLEKS                       R13 R14 K33 ["Fill"]
+      119 GETTABLEKS                       R15 R16 K30 ["Enums"]
+      121 GETTABLEKS                       R14 R15 K33 ["FillBehavior"]
+      123 GETTABLEKS                       R13 R14 K34 ["Fill"]
       125 SETTABLEKS                       R13 R12 K26 ["fillBehavior"]
       127 SETTABLEKS                       R5 R12 K9 ["onActivated"]
-      129 GETTABLEKS                       R13 R0 K27 ["testId"]
-      131 SETTABLEKS                       R13 R12 K27 ["testId"]
-      133 CALL                             R10 2 1
-      134 SETTABLEKS                       R10 R9 K21 ["Button"]
-      136 GETUPVAL                         R10 4
-      137 LOADK                            R11 K22 ["UISizeConstraint"]
-      138 DUPTABLE                         R12 K35 [{"MaxSize"}]
-      139 GETTABLEKS                       R13 R0 K36 ["maxSizeBinding"]
-      141 SETTABLEKS                       R13 R12 K34 ["MaxSize"]
+      129 GETUPVAL                         R14 5
+      130 JUMPIFNOT                        R14 ; [+5]
+      131 GETTABLEKS                       R14 R0 K0 ["action"]
+      133 GETTABLEKS                       R13 R14 K35 ["disabled"]
+      135 JUMP                             ; [+1]
+      136 LOADNIL                          R13
+      137 SETTABLEKS                       R13 R12 K27 ["isDisabled"]
+      139 GETTABLEKS                       R13 R0 K28 ["testId"]
+      141 SETTABLEKS                       R13 R12 K28 ["testId"]
       143 CALL                             R10 2 1
-      144 SETTABLEKS                       R10 R9 K22 ["UISizeConstraint"]
-      146 CALL                             R6 3 -1
-      147 RETURN                           R6 -1
+      144 SETTABLEKS                       R10 R9 K21 ["Button"]
+      146 GETUPVAL                         R10 4
+      147 LOADK                            R11 K22 ["UISizeConstraint"]
+      148 DUPTABLE                         R12 K37 [{"MaxSize"}]
+      149 GETTABLEKS                       R13 R0 K38 ["maxSizeBinding"]
+      151 SETTABLEKS                       R13 R12 K36 ["MaxSize"]
+      153 CALL                             R10 2 1
+      154 SETTABLEKS                       R10 R9 K22 ["UISizeConstraint"]
+      156 CALL                             R6 3 -1
+      157 RETURN                           R6 -1
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -376,39 +383,47 @@ MAIN:
        41 CALL                             R5 1 1
        42 GETIMPORT                        R6 K5 [require]
        44 GETTABLEKS                       R9 R0 K11 ["Src"]
-       46 GETTABLEKS                       R8 R9 K13 ["Hooks"]
-       48 GETTABLEKS                       R7 R8 K14 ["useBindable"]
+       46 GETTABLEKS                       R8 R9 K13 ["Flags"]
+       48 GETTABLEKS                       R7 R8 K14 ["getFFlagDialogManagerUpdateSemantics"]
        50 CALL                             R6 1 1
        51 GETIMPORT                        R7 K5 [require]
        53 GETTABLEKS                       R10 R0 K11 ["Src"]
-       55 GETTABLEKS                       R9 R10 K13 ["Hooks"]
-       57 GETTABLEKS                       R8 R9 K15 ["useButtonGroupSizeAlignment"]
+       55 GETTABLEKS                       R9 R10 K15 ["Hooks"]
+       57 GETTABLEKS                       R8 R9 K16 ["useBindable"]
        59 CALL                             R7 1 1
-       60 GETTABLEKS                       R9 R2 K16 ["Util"]
-       62 GETTABLEKS                       R8 R9 K17 ["counter"]
-       64 GETTABLEKS                       R9 R3 K18 ["createElement"]
-       66 GETTABLEKS                       R12 R2 K19 ["UI"]
-       68 GETTABLEKS                       R11 R12 K13 ["Hooks"]
-       70 GETTABLEKS                       R10 R11 K20 ["useTooltip"]
-       72 GETTABLEKS                       R12 R4 K13 ["Hooks"]
-       74 GETTABLEKS                       R11 R12 K21 ["useWidgetRef"]
-       76 GETTABLEKS                       R12 R3 K22 ["memo"]
-       78 DUPCLOSURE                       R13 K23 [PROTO_3]
-       79 CAPTURE                          VAL R11
-       80 CAPTURE                          VAL R10
-       81 CAPTURE                          VAL R3
-       82 CAPTURE                          VAL R1
-       83 CAPTURE                          VAL R9
-       84 CALL                             R12 1 1
-       85 DUPCLOSURE                       R13 K24 [PROTO_7]
-       86 CAPTURE                          VAL R6
-       87 CAPTURE                          VAL R8
-       88 CAPTURE                          VAL R3
-       89 CAPTURE                          VAL R1
-       90 CAPTURE                          VAL R7
-       91 CAPTURE                          VAL R9
-       92 CAPTURE                          VAL R12
-       93 GETTABLEKS                       R14 R3 K22 ["memo"]
-       95 MOVE                             R15 R13
-       96 CALL                             R14 1 -1
-       97 RETURN                           R14 -1
+       60 GETIMPORT                        R8 K5 [require]
+       62 GETTABLEKS                       R11 R0 K11 ["Src"]
+       64 GETTABLEKS                       R10 R11 K15 ["Hooks"]
+       66 GETTABLEKS                       R9 R10 K17 ["useButtonGroupSizeAlignment"]
+       68 CALL                             R8 1 1
+       69 GETTABLEKS                       R10 R2 K18 ["Util"]
+       71 GETTABLEKS                       R9 R10 K19 ["counter"]
+       73 MOVE                             R10 R6
+       74 CALL                             R10 0 1
+       75 GETTABLEKS                       R11 R3 K20 ["createElement"]
+       77 GETTABLEKS                       R14 R2 K21 ["UI"]
+       79 GETTABLEKS                       R13 R14 K15 ["Hooks"]
+       81 GETTABLEKS                       R12 R13 K22 ["useTooltip"]
+       83 GETTABLEKS                       R14 R4 K15 ["Hooks"]
+       85 GETTABLEKS                       R13 R14 K23 ["useWidgetRef"]
+       87 GETTABLEKS                       R14 R3 K24 ["memo"]
+       89 DUPCLOSURE                       R15 K25 [PROTO_3]
+       90 CAPTURE                          VAL R13
+       91 CAPTURE                          VAL R12
+       92 CAPTURE                          VAL R3
+       93 CAPTURE                          VAL R1
+       94 CAPTURE                          VAL R11
+       95 CAPTURE                          VAL R10
+       96 CALL                             R14 1 1
+       97 DUPCLOSURE                       R15 K26 [PROTO_7]
+       98 CAPTURE                          VAL R7
+       99 CAPTURE                          VAL R9
+      100 CAPTURE                          VAL R3
+      101 CAPTURE                          VAL R1
+      102 CAPTURE                          VAL R8
+      103 CAPTURE                          VAL R11
+      104 CAPTURE                          VAL R14
+      105 GETTABLEKS                       R16 R3 K24 ["memo"]
+      107 MOVE                             R17 R15
+      108 CALL                             R16 1 -1
+      109 RETURN                           R16 -1

@@ -7,11 +7,12 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local Foundation = require(Packages.Foundation)
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local Images = require(UIBlox.App.ImageSet.Images)
 
-local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
+local Skeleton = Foundation.Skeleton
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 
 local ICON_PADDING = 4
@@ -53,7 +54,7 @@ function ItemTileFooter:render()
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
 		}, {
-			Shimmer = not priceText and Roact.createElement(ShimmerPanel, {
+			Shimmer = not priceText and Roact.createElement(Skeleton, {
 				Size = UDim2.new(0.8, 0, 0, fontSize),
 			}),
 

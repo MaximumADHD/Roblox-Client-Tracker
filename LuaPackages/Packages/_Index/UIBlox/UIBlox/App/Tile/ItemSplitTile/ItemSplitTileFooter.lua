@@ -7,11 +7,12 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local Foundation = require(Packages.Foundation)
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local Images = require(UIBlox.App.ImageSet.Images)
 
-local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
+local Skeleton = Foundation.Skeleton
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSizeUDim2 = require(App.ImageSet.getIconSizeUDim2)
@@ -50,7 +51,7 @@ function ItemSplitTileFooter:render()
 			LayoutOrder = self.props.layoutOrder,
 		}, {
 			Shimmer = if not priceText
-				then Roact.createElement(ShimmerPanel, {
+				then Roact.createElement(Skeleton, {
 					Size = UDim2.new(0.8, 0, 0, fontSize),
 				})
 				else nil,

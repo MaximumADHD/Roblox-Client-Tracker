@@ -10,7 +10,6 @@ local pcallDeferred = require(root.util.pcallDeferred)
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
-local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getFIntUniqueUVTolerance = require(root.flags.getFIntUniqueUVTolerance)
 
 local UGCValidationService = game:GetService("UGCValidationService")
@@ -23,10 +22,6 @@ local function validateCageUVs(
 	local startTime = tick()
 
 	local isServer = validationContext.isServer
-	if not getEngineFeatureEngineUGCValidateBodyParts() then
-		return true
-	end
-
 	local requiredUVCount = assert(
 		Constants.WRAP_TARGET_CAGE_MESH_UV_COUNTS[(wrapTarget.Parent :: Instance).Name],
 		"WrapTarget is not parented to a MeshPart"

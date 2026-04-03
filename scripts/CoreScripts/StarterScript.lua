@@ -57,7 +57,6 @@ local GetFFlagVoiceUserAgency3 = require(RobloxGui.Modules.Flags.GetFFlagVoiceUs
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification =
 	require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 
-game:DefineFastFlag("MoodsEmoteFix3", false)
 local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCameraAccessAnalytics", false)
 
 local FFlagEnableExperienceNotificationPrompts = game:DefineFastFlag("EnableExperienceNotificationPrompts2", false)
@@ -137,16 +136,11 @@ end
 -- Initialize SessionManager
 local _inExperienceSessionization = require(CorePackages.Workspace.Packages.InExperienceSessionization)
 
-local FFlagAvatarChatCoreScriptSupport =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 if ChromeEnabled then
 	local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
-	ExperienceChat.GlobalFlags.AvatarChatEnabled = FFlagAvatarChatCoreScriptSupport
+	ExperienceChat.GlobalFlags.AvatarChatEnabled = false
 	ExperienceChat.GlobalFlags.ChromeEnabled = true
-elseif FFlagAvatarChatCoreScriptSupport then
-	local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
-	ExperienceChat.GlobalFlags.AvatarChatEnabled = true
 end
 
 local getFFlagDoNotPromptCameraPermissionsOnMount =
@@ -430,13 +424,7 @@ if game:GetEngineFeature("FacialAnimationStreaming2") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreaming", script.Parent)
 end
 
-if FFlagAvatarChatCoreScriptSupport then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/FaceChatSelfieView", RobloxGui)
-end
-
-if game:GetEngineFeature("NewMoodAnimationTypeApiEnabled") and game:GetFastFlag("MoodsEmoteFix3") then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarMood", script.Parent)
-end
+ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarMood", script.Parent)
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/PortalTeleportGUI", RobloxGui)
 
@@ -469,7 +457,7 @@ if game:GetEngineFeature("EnableAdGuiInteractivityControlRefactor") then
 	end)()
 end
 
-if FFlagLuaAppEnableEnhancedVideoScripts then 
+if FFlagLuaAppEnableEnhancedVideoScripts then
 	coroutine.wrap(function()
 		local EnhancedVideo = safeRequire(CorePackages.Workspace.Packages.EnhancedVideo)
 
@@ -479,7 +467,7 @@ if FFlagLuaAppEnableEnhancedVideoScripts then
 	end)()
 end
 
-if FFlagLuaAppEnableInExperienceClickoutScripts then 
+if FFlagLuaAppEnableInExperienceClickoutScripts then
 	coroutine.wrap(function()
 		local InExperienceClickout = safeRequire(CorePackages.Workspace.Packages.InExperienceClickout)
 
@@ -489,7 +477,7 @@ if FFlagLuaAppEnableInExperienceClickoutScripts then
 	end)()
 end
 
-if game:GetEngineFeature("EnableLuaAdPlayer") then 
+if game:GetEngineFeature("EnableLuaAdPlayer") then
 	safeRequire(CorePackages.Workspace.Packages.AdPlayer).init()
 end
 
@@ -564,7 +552,7 @@ end
 if FFlagEnableSystemScrim then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/SystemScrim", RobloxGui)
 end
-	
+
 ScriptContext:AddCoreScriptLocal("CoreScripts/CoreGuiEnableAnalytics", RobloxGui)
 
 if FFlagEnableLinkSharingEvent then
@@ -603,10 +591,10 @@ task.delay(ReactSchedulingDelaySeconds, function()
 	(ReactSchedulingTracker::ReactSchedulingTracker.ReactSchedulingTracker):start()
 end)
 
-local CorescriptMemoryTracker = require(CoreGuiModules.Common.CorescriptMemoryTracker)
-local coreScriptMemoryTracker = CorescriptMemoryTracker(FStringReactSchedulingContext)
-if coreScriptMemoryTracker then
-    coreScriptMemoryTracker:start()
+local MemoryTracker = require(CorePackages.Workspace.Packages.Memory).MemoryTracker
+local memoryTracker = MemoryTracker(FStringReactSchedulingContext)
+if memoryTracker then
+    memoryTracker:start()
 end
 
 if game:GetEngineFeature("RecordingServicePlaybackApiLua") then

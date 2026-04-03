@@ -1,7 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local Flags = require(Foundation.Utility.Flags)
 local FoundationImages = require(Packages.FoundationImages)
 local React = require(Packages.React)
 
@@ -140,9 +139,7 @@ type Props = {
 
 local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 	local tokens = useTokens()
-	local colorIndex = if Flags.FoundationSupportPresentationContextInSelectionCursor
-		then props.colorMode
-		else ColorMode.Color -- default, current behavior
+	local colorIndex = props.colorMode
 	if props.cursorType == CursorType.NavHighlight then
 		return React.createElement("Frame", {
 			AnchorPoint = Vector2.new(0, 1),

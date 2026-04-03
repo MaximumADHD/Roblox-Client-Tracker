@@ -39,11 +39,11 @@ PROTO_2:
        17 JUMPIF                           R4 ; [+2]
        18 GETTABLEKS                       R4 R3 K5 ["Z"]
        20 LOADNIL                          R5
-       21 JUMPIFNOT                        R4 ; [+45]
+       21 JUMPIFNOT                        R4 ; [+44]
        22 GETTABLEKS                       R6 R1 K6 ["relativeTo"]
        24 GETUPVAL                         R8 0
        25 GETTABLEKS                       R7 R8 K7 ["Active"]
-       27 JUMPIFNOTEQ                      R6 R7 ; [+39]
+       27 JUMPIFNOTEQ                      R6 R7 ; [+38]
        29 GETUPVAL                         R7 1
        30 GETTABLEKS                       R6 R7 K8 ["ActiveInstance"]
        32 LOADK                            R10 K9 ["BasePart"]
@@ -53,33 +53,32 @@ PROTO_2:
        37 GETUPVAL                         R8 2
        38 JUMPIFEQ                         R6 R8 ; [+3]
        40 LOADB                            R7 1
-       41 JUMP                             ; [+9]
+       41 JUMP                             ; [+8]
        42 LOADK                            R10 K11 ["Model"]
        43 NAMECALL                         R8 R6 K10 ["IsA"]
        45 CALL                             R8 2 1
        46 JUMPIFNOT                        R8 ; [+2]
        47 LOADB                            R7 1
-       48 JUMP                             ; [+2]
+       48 JUMP                             ; [+1]
        49 LOADB                            R7 0
-       50 JUMP                             ; [0]
-       51 JUMPIF                           R7 ; [+15]
-       52 LOADB                            R4 0
-       53 DUPTABLE                         R7 K14 [{"errorCode", "formatParameters"}]
-       54 GETUPVAL                         R9 3
-       55 GETTABLEKS                       R8 R9 K15 ["InvalidActiveObject"]
-       57 SETTABLEKS                       R8 R7 K12 ["errorCode"]
-       59 DUPTABLE                         R8 K17 [{"name"}]
-       60 GETTABLEKS                       R9 R6 K18 ["Name"]
-       62 SETTABLEKS                       R9 R8 K16 ["name"]
-       64 SETTABLEKS                       R8 R7 K13 ["formatParameters"]
-       66 MOVE                             R5 R7
-       67 GETUPVAL                         R8 4
-       68 MOVE                             R9 R4
-       69 MOVE                             R10 R5
-       70 CALL                             R8 2 -1
-       71 NAMECALL                         R6 R0 K19 ["dispatch"]
-       73 CALL                             R6 -1 0
-       74 RETURN                           R0 0
+       50 JUMPIF                           R7 ; [+15]
+       51 LOADB                            R4 0
+       52 DUPTABLE                         R7 K14 [{"errorCode", "formatParameters"}]
+       53 GETUPVAL                         R9 3
+       54 GETTABLEKS                       R8 R9 K15 ["InvalidActiveObject"]
+       56 SETTABLEKS                       R8 R7 K12 ["errorCode"]
+       58 DUPTABLE                         R8 K17 [{"name"}]
+       59 GETTABLEKS                       R9 R6 K18 ["Name"]
+       61 SETTABLEKS                       R9 R8 K16 ["name"]
+       63 SETTABLEKS                       R8 R7 K13 ["formatParameters"]
+       65 MOVE                             R5 R7
+       66 GETUPVAL                         R8 4
+       67 MOVE                             R9 R4
+       68 MOVE                             R10 R5
+       69 CALL                             R8 2 -1
+       70 NAMECALL                         R6 R0 K19 ["dispatch"]
+       72 CALL                             R6 -1 0
+       73 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0

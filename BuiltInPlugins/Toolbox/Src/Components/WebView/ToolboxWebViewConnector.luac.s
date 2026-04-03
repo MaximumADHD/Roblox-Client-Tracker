@@ -60,7 +60,7 @@ PROTO_4:
         4 CALL                             R1 1 1
         5 NAMECALL                         R1 R1 K2 ["ShouldLaunchTutorial"]
         7 CALL                             R1 1 1
-        8 JUMPIFNOT                        R1 ; [+55]
+        8 JUMPIFNOT                        R1 ; [+54]
         9 GETTABLEKS                       R3 R0 K3 ["props"]
        11 GETTABLEKS                       R2 R3 K4 ["WebViewManagerContext"]
        13 NAMECALL                         R2 R2 K5 ["get"]
@@ -87,50 +87,49 @@ PROTO_4:
        45 LOADN                            R10 0
        46 JUMPIFNOTLT                      R10 R9 ; [+3]
        48 LOADB                            R7 1
-       49 JUMP                             ; [+2]
+       49 JUMP                             ; [+1]
        50 LOADB                            R7 0
-       51 JUMP                             ; [0]
-       52 SETTABLEKS                       R7 R6 K8 ["isToolboxTutorialActive"]
-       54 GETUPVAL                         R9 1
-       55 GETTABLEKS                       R8 R9 K15 ["TutorialStep"]
-       57 GETTABLEKS                       R7 R8 K16 ["SEARCH"]
-       59 SETTABLEKS                       R7 R6 K9 ["nextTutorialStep"]
-       61 NAMECALL                         R3 R2 K17 ["fire"]
-       63 CALL                             R3 3 0
-       64 GETTABLEKS                       R2 R0 K18 ["didOpenItemsDetails"]
-       66 JUMPIF                           R2 ; [+44]
-       67 GETTABLEKS                       R4 R0 K3 ["props"]
-       69 GETTABLEKS                       R3 R4 K19 ["startupAssetId"]
-       71 JUMPIFNOT                        R3 ; [+5]
-       72 GETTABLEKS                       R3 R0 K3 ["props"]
-       74 GETTABLEKS                       R2 R3 K19 ["startupAssetId"]
-       76 JUMP                             ; [+2]
-       77 GETUPVAL                         R2 2
-       78 CALL                             R2 0 1
-       79 JUMPIFNOT                        R2 ; [+6]
-       80 FASTCALL1                        TONUMBER R2 ; [+3]
-       81 MOVE                             R4 R2
-       82 GETIMPORT                        R3 K21 [tonumber]
-       84 CALL                             R3 1 1
-       85 JUMP                             ; [+1]
-       86 LOADNIL                          R3
-       87 JUMPIFNOT                        R3 ; [+20]
-       88 GETTABLEKS                       R5 R0 K3 ["props"]
-       90 GETTABLEKS                       R4 R5 K22 ["getAssetPreviewDataForStartup"]
-       92 MOVE                             R5 R3
-       93 GETTABLEKS                       R7 R0 K3 ["props"]
-       95 GETTABLEKS                       R6 R7 K23 ["TryInsert"]
-       97 LOADNIL                          R7
-       98 GETTABLEKS                       R10 R0 K3 ["props"]
-      100 GETTABLEKS                       R9 R10 K24 ["Network"]
-      102 GETTABLEKS                       R8 R9 K25 ["networkInterface"]
-      104 NEWCLOSURE                       R9 P0
-      105 CAPTURE                          VAL R0
-      106 CAPTURE                          VAL R3
-      107 CALL                             R4 5 0
-      108 LOADB                            R4 1
-      109 SETTABLEKS                       R4 R0 K18 ["didOpenItemsDetails"]
-      111 RETURN                           R0 0
+       51 SETTABLEKS                       R7 R6 K8 ["isToolboxTutorialActive"]
+       53 GETUPVAL                         R9 1
+       54 GETTABLEKS                       R8 R9 K15 ["TutorialStep"]
+       56 GETTABLEKS                       R7 R8 K16 ["SEARCH"]
+       58 SETTABLEKS                       R7 R6 K9 ["nextTutorialStep"]
+       60 NAMECALL                         R3 R2 K17 ["fire"]
+       62 CALL                             R3 3 0
+       63 GETTABLEKS                       R2 R0 K18 ["didOpenItemsDetails"]
+       65 JUMPIF                           R2 ; [+44]
+       66 GETTABLEKS                       R4 R0 K3 ["props"]
+       68 GETTABLEKS                       R3 R4 K19 ["startupAssetId"]
+       70 JUMPIFNOT                        R3 ; [+5]
+       71 GETTABLEKS                       R3 R0 K3 ["props"]
+       73 GETTABLEKS                       R2 R3 K19 ["startupAssetId"]
+       75 JUMP                             ; [+2]
+       76 GETUPVAL                         R2 2
+       77 CALL                             R2 0 1
+       78 JUMPIFNOT                        R2 ; [+6]
+       79 FASTCALL1                        TONUMBER R2 ; [+3]
+       80 MOVE                             R4 R2
+       81 GETIMPORT                        R3 K21 [tonumber]
+       83 CALL                             R3 1 1
+       84 JUMP                             ; [+1]
+       85 LOADNIL                          R3
+       86 JUMPIFNOT                        R3 ; [+20]
+       87 GETTABLEKS                       R5 R0 K3 ["props"]
+       89 GETTABLEKS                       R4 R5 K22 ["getAssetPreviewDataForStartup"]
+       91 MOVE                             R5 R3
+       92 GETTABLEKS                       R7 R0 K3 ["props"]
+       94 GETTABLEKS                       R6 R7 K23 ["TryInsert"]
+       96 LOADNIL                          R7
+       97 GETTABLEKS                       R10 R0 K3 ["props"]
+       99 GETTABLEKS                       R9 R10 K24 ["Network"]
+      101 GETTABLEKS                       R8 R9 K25 ["networkInterface"]
+      103 NEWCLOSURE                       R9 P0
+      104 CAPTURE                          VAL R0
+      105 CAPTURE                          VAL R3
+      106 CALL                             R4 5 0
+      107 LOADB                            R4 1
+      108 SETTABLEKS                       R4 R0 K18 ["didOpenItemsDetails"]
+      110 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R2 R0 K1 ["analyticsEventName"]
@@ -531,10 +530,10 @@ PROTO_20:
         0 GETTABLEKS                       R3 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R3 K1 ["tutorialAssetIds"]
         4 GETTABLEKS                       R3 R1 K1 ["tutorialAssetIds"]
-        6 JUMPIFEQ                         R2 R3 ; [+77]
+        6 JUMPIFEQ                         R2 R3 ; [+76]
         8 GETTABLEKS                       R3 R0 K0 ["props"]
        10 GETTABLEKS                       R2 R3 K2 ["hasWebViewEverLoaded"]
-       12 JUMPIFNOT                        R2 ; [+71]
+       12 JUMPIFNOT                        R2 ; [+70]
        13 GETUPVAL                         R3 0
        14 GETTABLEKS                       R2 R3 K3 ["GetService"]
        16 LOADK                            R3 K4 ["TutorialService"]
@@ -545,7 +544,7 @@ PROTO_20:
        23 GETTABLEKS                       R3 R4 K6 ["WebViewManagerContext"]
        25 NAMECALL                         R3 R3 K7 ["get"]
        27 CALL                             R3 1 1
-       28 JUMPIFNOT                        R2 ; [+55]
+       28 JUMPIFNOT                        R2 ; [+54]
        29 GETTABLEKS                       R6 R0 K0 ["props"]
        31 GETTABLEKS                       R5 R6 K1 ["tutorialAssetIds"]
        33 JUMPIFNOT                        R2 ; [+13]
@@ -558,32 +557,31 @@ PROTO_20:
        42 LOADN                            R7 0
        43 JUMPIFNOTLT                      R7 R6 ; [+3]
        45 LOADB                            R4 1
-       46 JUMP                             ; [+2]
+       46 JUMP                             ; [+1]
        47 LOADB                            R4 0
-       48 JUMP                             ; [0]
-       49 LOADK                            R7 K11 ["updateTutorialConfig"]
-       50 DUPTABLE                         R8 K15 [{"assetIds", "isToolboxTutorialActive", "nextTutorialStep"}]
-       51 GETTABLEKS                       R11 R0 K0 ["props"]
-       53 GETTABLEKS                       R10 R11 K1 ["tutorialAssetIds"]
-       55 JUMPIFNOT                        R10 ; [+5]
-       56 GETTABLEKS                       R10 R0 K0 ["props"]
-       58 GETTABLEKS                       R9 R10 K1 ["tutorialAssetIds"]
-       60 JUMP                             ; [+2]
-       61 NEWTABLE                         R9 0 0
-       63 SETTABLEKS                       R9 R8 K12 ["assetIds"]
-       65 SETTABLEKS                       R4 R8 K13 ["isToolboxTutorialActive"]
-       67 JUMPIFNOT                        R4 ; [+6]
-       68 GETUPVAL                         R11 1
-       69 GETTABLEKS                       R10 R11 K16 ["TutorialStep"]
-       71 GETTABLEKS                       R9 R10 K17 ["SEARCH"]
-       73 JUMP                             ; [+5]
-       74 GETUPVAL                         R11 1
-       75 GETTABLEKS                       R10 R11 K16 ["TutorialStep"]
-       77 GETTABLEKS                       R9 R10 K18 ["NONE"]
-       79 SETTABLEKS                       R9 R8 K14 ["nextTutorialStep"]
-       81 NAMECALL                         R5 R3 K19 ["fire"]
-       83 CALL                             R5 3 0
-       84 RETURN                           R0 0
+       48 LOADK                            R7 K11 ["updateTutorialConfig"]
+       49 DUPTABLE                         R8 K15 [{"assetIds", "isToolboxTutorialActive", "nextTutorialStep"}]
+       50 GETTABLEKS                       R11 R0 K0 ["props"]
+       52 GETTABLEKS                       R10 R11 K1 ["tutorialAssetIds"]
+       54 JUMPIFNOT                        R10 ; [+5]
+       55 GETTABLEKS                       R10 R0 K0 ["props"]
+       57 GETTABLEKS                       R9 R10 K1 ["tutorialAssetIds"]
+       59 JUMP                             ; [+2]
+       60 NEWTABLE                         R9 0 0
+       62 SETTABLEKS                       R9 R8 K12 ["assetIds"]
+       64 SETTABLEKS                       R4 R8 K13 ["isToolboxTutorialActive"]
+       66 JUMPIFNOT                        R4 ; [+6]
+       67 GETUPVAL                         R11 1
+       68 GETTABLEKS                       R10 R11 K16 ["TutorialStep"]
+       70 GETTABLEKS                       R9 R10 K17 ["SEARCH"]
+       72 JUMP                             ; [+5]
+       73 GETUPVAL                         R11 1
+       74 GETTABLEKS                       R10 R11 K16 ["TutorialStep"]
+       76 GETTABLEKS                       R9 R10 K18 ["NONE"]
+       78 SETTABLEKS                       R9 R8 K14 ["nextTutorialStep"]
+       80 NAMECALL                         R5 R3 K19 ["fire"]
+       82 CALL                             R5 3 0
+       83 RETURN                           R0 0
 
 PROTO_21:
         0 NAMECALL                         R1 R0 K0 ["disconnectExternalSignals"]

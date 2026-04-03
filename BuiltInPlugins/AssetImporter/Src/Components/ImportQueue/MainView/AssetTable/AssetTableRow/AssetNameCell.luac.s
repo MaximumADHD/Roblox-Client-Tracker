@@ -238,7 +238,7 @@ PROTO_5:
        99 JUMPIF                           R11 ; [+9]
       100 GETTABLEKS                       R17 R8 K19 ["Color"]
       102 GETTABLEKS                       R16 R17 K20 ["Content"]
-      104 GETTABLEKS                       R15 R16 K21 ["Muted"]
+      104 GETTABLEKS                       R15 R16 K21 ["Default"]
       106 GETTABLEKS                       R14 R15 K16 ["Color3"]
       108 JUMP                             ; [+8]
       109 GETTABLEKS                       R17 R8 K19 ["Color"]

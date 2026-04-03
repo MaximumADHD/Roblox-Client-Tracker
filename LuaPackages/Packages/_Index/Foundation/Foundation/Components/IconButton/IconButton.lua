@@ -17,8 +17,6 @@ type IconSize = IconSize.IconSize
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
 
-local Flags = require(Foundation.Utility.Flags)
-
 -- IconButton and Button variants are not currently aligned, but eventually it should be.
 -- For now we don't want to create a new variant enum for IconButton, so we'll use the Button variant enum
 -- and extract only the supported variants.
@@ -120,22 +118,17 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 
 	-- Width/fillBehavior logic: fillBehavior.Fill takes precedence over width.
 	-- Unlike Button, IconButton defaults to a fixed square (containerSize) rather than AutomaticSize
-	local fillOverridesWidth = Flags.FoundationIconButtonFillBehavior and props.fillBehavior == FillBehavior.Fill
+	local fillOverridesWidth = props.fillBehavior == FillBehavior.Fill
 
-	local sizeX
-	if Flags.FoundationIconButtonWidth then
-		local hasExplicitWidth = props.width.Scale ~= 0 or props.width.Offset ~= 0
-		sizeX = if fillOverridesWidth then UDim.new(1, 0) elseif hasExplicitWidth then props.width else containerSize.X
-	else
-		sizeX = if fillOverridesWidth then UDim.new(1, 0) else containerSize.X
-	end
+	local hasExplicitWidth = props.width.Scale ~= 0 or props.width.Offset ~= 0
+	local sizeX = if fillOverridesWidth then UDim.new(1, 0) elseif hasExplicitWidth then props.width else containerSize.X
 
 	return React.createElement(
 		View,
 		withCommonProps(props, {
 			onActivated = props.onActivated,
 			Size = UDim2.new(sizeX, UDim.new(0, containerSize.Y.Offset)),
-			flexItem = if props.fillBehavior and Flags.FoundationIconButtonFillBehavior
+			flexItem = if props.fillBehavior
 				then {
 					FlexMode = if props.fillBehavior == FillBehavior.Fill
 						then Enum.UIFlexMode.Fill

@@ -34,7 +34,7 @@ local SizingUtils = require(SelfieViewModule.Utils.SizingUtils)
 local SelfieViewPolicy = require(SelfieViewModule.Utils.SelfieViewPolicy)
 local AvailabilitySignalState = require(Chrome.ChromeShared.Service.ChromeUtils).AvailabilitySignalState
 local WindowSizeSignal = require(Chrome.ChromeShared.Service.WindowSizeSignal)
-local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
+local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
 
 local ViewportUtil = require(Chrome.ChromeShared.Service.ViewportUtil)
 local startingSize = SizingUtils.getSize(ViewportUtil.screenSize:get(), false)

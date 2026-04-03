@@ -27,32 +27,27 @@ PROTO_0:
        39 GETTABLEKS                       R9 R10 K9 ["createElement"]
        41 GETUPVAL                         R11 4
        42 GETTABLEKS                       R10 R11 K12 ["FoundationProvider"]
-       44 DUPTABLE                         R11 K16 [{"theme", "device", "derives"}]
+       44 DUPTABLE                         R11 K15 [{"theme", "device"}]
        45 GETUPVAL                         R15 4
-       46 GETTABLEKS                       R14 R15 K17 ["Enums"]
-       48 GETTABLEKS                       R13 R14 K18 ["Theme"]
-       50 GETTABLEKS                       R12 R13 K19 ["Dark"]
+       46 GETTABLEKS                       R14 R15 K16 ["Enums"]
+       48 GETTABLEKS                       R13 R14 K17 ["Theme"]
+       50 GETTABLEKS                       R12 R13 K18 ["Dark"]
        52 SETTABLEKS                       R12 R11 K13 ["theme"]
-       54 LOADK                            R12 K20 ["Desktop"]
+       54 LOADK                            R12 K19 ["Desktop"]
        55 SETTABLEKS                       R12 R11 K14 ["device"]
-       57 NEWTABLE                         R12 0 1
-       59 GETUPVAL                         R14 0
-       60 GETTABLEKS                       R13 R14 K21 ["design"]
-       62 SETLIST                          R12 R13 1 [1]
-       64 SETTABLEKS                       R12 R11 K15 ["derives"]
-       66 CALL                             R9 2 -1
-       67 SETLIST                          R8 R9 -1 [1]
-       69 SETTABLEKS                       R8 R7 K10 ["providers"]
-       71 DUPTABLE                         R8 K23 [{"MainComponent"}]
-       72 GETUPVAL                         R10 5
-       73 GETTABLEKS                       R9 R10 K24 ["Component"]
-       75 SETTABLEKS                       R9 R8 K22 ["MainComponent"]
-       77 CALL                             R5 3 1
-       78 SETTABLEKS                       R5 R4 K7 ["ContextStack"]
-       80 CALL                             R2 2 -1
-       81 NAMECALL                         R0 R0 K25 ["render"]
-       83 CALL                             R0 -1 0
-       84 RETURN                           R0 0
+       57 CALL                             R9 2 -1
+       58 SETLIST                          R8 R9 -1 [1]
+       60 SETTABLEKS                       R8 R7 K10 ["providers"]
+       62 DUPTABLE                         R8 K21 [{"MainComponent"}]
+       63 GETUPVAL                         R10 5
+       64 GETTABLEKS                       R9 R10 K22 ["Component"]
+       66 SETTABLEKS                       R9 R8 K20 ["MainComponent"]
+       68 CALL                             R5 3 1
+       69 SETTABLEKS                       R5 R4 K7 ["ContextStack"]
+       71 CALL                             R2 2 -1
+       72 NAMECALL                         R0 R0 K23 ["render"]
+       74 CALL                             R0 -1 0
+       75 RETURN                           R0 0
 
 PROTO_1:
         0 NEWTABLE                         R2 0 0

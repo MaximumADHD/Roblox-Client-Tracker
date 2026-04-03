@@ -9,6 +9,7 @@ export type TypeRegistry = proto.TypeRegistry
 local prompts = require(script.prompts)
 
 -- Exported types
+export type CustomPrompt = prompts.CustomPrompt
 export type GetEligiblePromptsResponse = prompts.GetEligiblePromptsResponse
 
 return {

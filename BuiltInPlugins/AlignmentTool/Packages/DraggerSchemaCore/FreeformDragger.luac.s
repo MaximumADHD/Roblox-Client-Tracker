@@ -150,7 +150,7 @@ PROTO_6:
        17 GETTABLEKS                       R3 R4 K5 ["_draggerContext"]
        19 NAMECALL                         R3 R3 K6 ["shouldJoinSurfaces"]
        21 CALL                             R3 1 1
-       22 JUMPIFNOT                        R3 ; [+78]
+       22 JUMPIFNOT                        R3 ; [+77]
        23 GETTABLEKS                       R3 R0 K0 ["_partMover"]
        25 GETTABLEKS                       R5 R0 K1 ["_lastAppliedTransform"]
        27 NAMECALL                         R3 R3 K7 ["computeJointPairs"]
@@ -162,49 +162,48 @@ PROTO_6:
        36 DIVK                             R5 R1 K9 [0.5]
        37 POWK                             R4 R5 K10 [4]
        38 MULK                             R3 R4 K9 [0.5]
-       39 JUMP                             ; [+6]
+       39 JUMP                             ; [+5]
        40 SUBRK                            R7 R11 K1 ["_lastAppliedTransform"]
        41 DIVK                             R6 R7 K9 [0.5]
        42 POWK                             R5 R6 K10 [4]
        43 MULK                             R4 R5 K9 [0.5]
        44 SUBRK                            R3 R11 K4 ["_draggerToolModel"]
-       45 JUMP                             ; [0]
-       46 GETTABLEKS                       R4 R0 K12 ["_animateFrom"]
-       48 GETTABLEKS                       R5 R4 K13 ["baseCFrame"]
-       50 GETTABLEKS                       R8 R0 K14 ["_lastDragTarget"]
-       52 GETTABLEKS                       R7 R8 K13 ["baseCFrame"]
-       54 MOVE                             R8 R3
-       55 NAMECALL                         R5 R5 K15 ["Lerp"]
-       57 CALL                             R5 3 1
-       58 GETTABLEKS                       R6 R4 K16 ["offsetCFrame"]
-       60 GETTABLEKS                       R9 R0 K14 ["_lastDragTarget"]
-       62 GETTABLEKS                       R8 R9 K16 ["offsetCFrame"]
-       64 MOVE                             R9 R3
-       65 NAMECALL                         R6 R6 K15 ["Lerp"]
-       67 CALL                             R6 3 1
-       68 GETTABLEKS                       R7 R4 K17 ["tiltRotate"]
-       70 GETTABLEKS                       R9 R0 K18 ["_tiltRotate"]
-       72 MOVE                             R10 R3
-       73 NAMECALL                         R7 R7 K15 ["Lerp"]
-       75 CALL                             R7 3 1
-       76 MUL                              R9 R5 R7
-       77 MUL                              R8 R9 R6
-       78 GETTABLEKS                       R10 R0 K4 ["_draggerToolModel"]
-       80 GETTABLEKS                       R9 R10 K19 ["_selectionInfo"]
-       82 NAMECALL                         R9 R9 K20 ["getLocalBoundingBox"]
-       84 CALL                             R9 1 1
-       85 NAMECALL                         R11 R9 K21 ["Inverse"]
-       87 CALL                             R11 1 1
-       88 MUL                              R10 R8 R11
-       89 GETTABLEKS                       R11 R0 K0 ["_partMover"]
-       91 MOVE                             R13 R10
-       92 NAMECALL                         R11 R11 K2 ["transformTo"]
-       94 CALL                             R11 2 0
-       95 GETTABLEKS                       R11 R0 K3 ["_attachmentMover"]
-       97 MOVE                             R13 R10
-       98 NAMECALL                         R11 R11 K2 ["transformTo"]
-      100 CALL                             R11 2 0
-      101 RETURN                           R0 0
+       45 GETTABLEKS                       R4 R0 K12 ["_animateFrom"]
+       47 GETTABLEKS                       R5 R4 K13 ["baseCFrame"]
+       49 GETTABLEKS                       R8 R0 K14 ["_lastDragTarget"]
+       51 GETTABLEKS                       R7 R8 K13 ["baseCFrame"]
+       53 MOVE                             R8 R3
+       54 NAMECALL                         R5 R5 K15 ["Lerp"]
+       56 CALL                             R5 3 1
+       57 GETTABLEKS                       R6 R4 K16 ["offsetCFrame"]
+       59 GETTABLEKS                       R9 R0 K14 ["_lastDragTarget"]
+       61 GETTABLEKS                       R8 R9 K16 ["offsetCFrame"]
+       63 MOVE                             R9 R3
+       64 NAMECALL                         R6 R6 K15 ["Lerp"]
+       66 CALL                             R6 3 1
+       67 GETTABLEKS                       R7 R4 K17 ["tiltRotate"]
+       69 GETTABLEKS                       R9 R0 K18 ["_tiltRotate"]
+       71 MOVE                             R10 R3
+       72 NAMECALL                         R7 R7 K15 ["Lerp"]
+       74 CALL                             R7 3 1
+       75 MUL                              R9 R5 R7
+       76 MUL                              R8 R9 R6
+       77 GETTABLEKS                       R10 R0 K4 ["_draggerToolModel"]
+       79 GETTABLEKS                       R9 R10 K19 ["_selectionInfo"]
+       81 NAMECALL                         R9 R9 K20 ["getLocalBoundingBox"]
+       83 CALL                             R9 1 1
+       84 NAMECALL                         R11 R9 K21 ["Inverse"]
+       86 CALL                             R11 1 1
+       87 MUL                              R10 R8 R11
+       88 GETTABLEKS                       R11 R0 K0 ["_partMover"]
+       90 MOVE                             R13 R10
+       91 NAMECALL                         R11 R11 K2 ["transformTo"]
+       93 CALL                             R11 2 0
+       94 GETTABLEKS                       R11 R0 K3 ["_attachmentMover"]
+       96 MOVE                             R13 R10
+       97 NAMECALL                         R11 R11 K2 ["transformTo"]
+       99 CALL                             R11 2 0
+      100 RETURN                           R0 0
 
 PROTO_7:
         0 GETIMPORT                        R2 K2 [table.freeze]

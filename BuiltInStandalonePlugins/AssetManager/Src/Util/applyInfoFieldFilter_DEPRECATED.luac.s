@@ -67,7 +67,7 @@ MAIN:
        42 DUPCLOSURE                       R7 K19 [PROTO_4]
        43 CAPTURE                          VAL R3
        44 SETTABLE                         R7 R4 R6
-       45 GETTABLEKS                       R6 R1 K20 ["getEnumAsList"]
+       45 GETTABLEKS                       R6 R1 K20 ["asList"]
        47 MOVE                             R7 R2
        48 CALL                             R6 1 3
        49 FORGPREP                         R6

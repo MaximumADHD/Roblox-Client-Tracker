@@ -8,7 +8,7 @@ local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtils)
 local RespawnUtils = require(Chrome.Integrations.RespawnUtils)
 local MappedSignal = ChromeUtils.MappedSignal
-local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
+local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
 
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local CommonFtuxTooltip = require(Chrome.Integrations.CommonFtuxTooltip)
@@ -41,7 +41,6 @@ local GetFFlagEnableAppChatInExperience =
 local GetShouldShowPlatformChatBasedOnPolicy = require(Chrome.Flags.GetShouldShowPlatformChatBasedOnPolicy)
 local FFlagFixIntegrationActivated = game:DefineFastFlag("FixIntegrationActivated1", false)
 local FFlagFixInventoryFilledIcon = game:DefineFastFlag("FixInventoryFilledIcon", false)
-local FFlagEnableUnibarTooltipQueue = require(Chrome.Flags.FFlagEnableUnibarTooltipQueue)()
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
@@ -245,8 +244,8 @@ function HamburgerButton(props)
 
 	local connectTooltip = if shouldShowConnectTooltip
 		then CommonFtuxTooltip({
-			id = if FFlagEnableUnibarTooltipQueue then "CONNECT_TOOLTIP" else nil,
-			priority = if FFlagEnableUnibarTooltipQueue then FIntUnibarConnectIconTooltipPriority else nil,
+			id = "CONNECT_TOOLTIP",
+			priority = FIntUnibarConnectIconTooltipPriority,
 			isIconVisible = props.visible,
 
 			headerKey = if GetFFlagAppChatRebrandStringUpdates() and GetFFlagIsSquadEnabled()

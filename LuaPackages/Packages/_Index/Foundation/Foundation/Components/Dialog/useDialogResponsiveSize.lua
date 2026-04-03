@@ -8,8 +8,6 @@ type DialogSize = DialogSize.DialogSize
 local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local Flags = require(Foundation.Utility.Flags)
-
 local getResponsiveSize = require(script.Parent.getResponsiveSize)
 local useDialog = require(script.Parent.useDialog)
 
@@ -27,11 +25,7 @@ local function useDialogResponsiveSize(size: DialogSize)
 		dialog.setResponsiveSize(getResponsiveSize(overlay.AbsoluteSize.X, size, tokens))
 	end, { overlay, size, tokens, dialog.size } :: { unknown })
 
-	local effectHook: EffectHook = if Flags.FoundationDialogFixResponsiveSize
-		then React.useLayoutEffect
-		else React.useEffect
-
-	effectHook(function()
+	React.useLayoutEffect(function()
 		if not overlay then
 			return
 		end
@@ -43,7 +37,7 @@ local function useDialogResponsiveSize(size: DialogSize)
 		return function()
 			connection:Disconnect()
 		end
-	end, { overlay, size } :: { unknown })
+	end, { overlay, size, updateSize } :: { unknown })
 end
 
 return useDialogResponsiveSize

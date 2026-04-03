@@ -8,6 +8,7 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local AssetService = game:GetService("AssetService")
 local getFFlagUGCValidationAddPBRToSharedData = require(root.flags.getFFlagUGCValidationAddPBRToSharedData)
+local R15plusUtils = require(root.util.R15plusUtils)
 
 local RecreateSceneFromEditables = {}
 
@@ -63,8 +64,38 @@ local function copyMeshPart(
 
 	for _, child in originalMeshPart:GetChildren() do
 		if child:IsA("Attachment") or child:IsA("FaceControls") then
+			if R15plusUtils.checkFlagEnabledForAllowHrd() and child:IsA("Bone") then
+				continue
+			end
+
 			local childCopy = child:Clone() :: Instance
 			childCopy.Parent = newMeshPart
+		end
+	end
+
+	if R15plusUtils.checkFlagEnabledForAllowHrd() then
+		-- This is all very hacky here. Once we move to VaaS, we won't be using this script anyways and new script exports bones.
+		-- For now (just heads hopefully), we manually put all attachments back in base level because we cant export bones yet.
+
+		local partBoneSchema = R15plusUtils.getAvatarBoneSchema(originalMeshPart.Name)
+		local expectedAttachments = R15plusUtils.getNameWhitelistOfClassInSchema(partBoneSchema, "Attachment")
+		for attName, val in expectedAttachments do
+			if not val or newMeshPart:FindFirstChild(attName) ~= nil then
+				continue
+			end
+
+			local existingAtt = (originalMeshPart:FindFirstChild(attName, true) :: any) :: Attachment?
+			local desiredWorldCFrame
+			if existingAtt ~= nil then
+				desiredWorldCFrame = existingAtt.WorldCFrame
+			else
+				desiredWorldCFrame = newMeshPart.CFrame
+			end
+
+			local newAtt = Instance.new("Attachment")
+			newAtt.Name = attName
+			newAtt.Parent = newMeshPart
+			newAtt.WorldCFrame = desiredWorldCFrame
 		end
 	end
 

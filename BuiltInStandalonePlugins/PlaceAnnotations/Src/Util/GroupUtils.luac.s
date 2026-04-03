@@ -80,39 +80,37 @@ PROTO_3:
        25 MOVE                             R10 R8
        26 CALL                             R9 1 1
        27 MOVE                             R2 R9
-       28 JUMP                             ; [+5]
+       28 JUMP                             ; [+4]
        29 MOVE                             R9 R1
        30 MOVE                             R10 R8
        31 CALL                             R9 1 0
        32 LOADNIL                          R2
-       33 JUMP                             ; [0]
-       34 JUMPIFEQKNIL                     R2 ; [+24]
-       36 LOADN                            R7 136
-       37 JUMPIFNOTLT                      R4 R7 ; [+21]
-       39 GETIMPORT                        R7 K2 [pcall]
-       41 NEWCLOSURE                       R8 P2
-       42 CAPTURE                          UPVAL U1
-       43 CAPTURE                          UPVAL U2
-       44 CAPTURE                          UPVAL U3
-       45 CAPTURE                          REF R2
-       46 CALL                             R7 1 2
-       47 JUMPIFNOT                        R7 ; [+5]
-       48 MOVE                             R9 R5
-       49 MOVE                             R10 R8
-       50 CALL                             R9 1 1
-       51 MOVE                             R2 R9
-       52 JUMP                             ; [+5]
-       53 MOVE                             R9 R1
-       54 MOVE                             R10 R8
-       55 CALL                             R9 1 0
-       56 LOADNIL                          R2
-       57 JUMP                             ; [0]
-       58 JUMPBACK                         ; [-25]
-       59 MOVE                             R7 R0
-       60 MOVE                             R8 R3
-       61 CALL                             R7 1 0
-       62 CLOSEUPVALS                      R2
-       63 RETURN                           R0 0
+       33 JUMPIFEQKNIL                     R2 ; [+23]
+       35 LOADN                            R7 136
+       36 JUMPIFNOTLT                      R4 R7 ; [+20]
+       38 GETIMPORT                        R7 K2 [pcall]
+       40 NEWCLOSURE                       R8 P2
+       41 CAPTURE                          UPVAL U1
+       42 CAPTURE                          UPVAL U2
+       43 CAPTURE                          UPVAL U3
+       44 CAPTURE                          REF R2
+       45 CALL                             R7 1 2
+       46 JUMPIFNOT                        R7 ; [+5]
+       47 MOVE                             R9 R5
+       48 MOVE                             R10 R8
+       49 CALL                             R9 1 1
+       50 MOVE                             R2 R9
+       51 JUMP                             ; [+4]
+       52 MOVE                             R9 R1
+       53 MOVE                             R10 R8
+       54 CALL                             R9 1 0
+       55 LOADNIL                          R2
+       56 JUMPBACK                         ; [-24]
+       57 MOVE                             R7 R0
+       58 MOVE                             R8 R3
+       59 CALL                             R7 1 0
+       60 CLOSEUPVALS                      R2
+       61 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R4 0

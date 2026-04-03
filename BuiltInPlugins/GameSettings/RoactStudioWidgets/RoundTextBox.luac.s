@@ -181,204 +181,203 @@ PROTO_4:
       145 GETUPVAL                         R9 0
       146 GETTABLEKS                       R8 R9 K0 ["props"]
       148 GETTABLEKS                       R7 R8 K36 ["ShowToolTip"]
-      150 JUMP                             ; [+2]
+      150 JUMP                             ; [+1]
       151 LOADB                            R7 1
-      152 JUMP                             ; [0]
-      153 LOADNIL                          R8
-      154 JUMPIFNOT                        R0 ; [+27]
-      155 JUMPIFNOT                        R4 ; [+12]
-      156 GETUPVAL                         R11 0
-      157 GETTABLEKS                       R10 R11 K0 ["props"]
-      159 GETTABLEKS                       R9 R10 K9 ["ErrorMessage"]
-      161 JUMPIFNOT                        R9 ; [+6]
-      162 GETUPVAL                         R10 0
-      163 GETTABLEKS                       R9 R10 K0 ["props"]
-      165 GETTABLEKS                       R8 R9 K9 ["ErrorMessage"]
-      167 JUMP                             ; [+15]
-      168 JUMPIF                           R7 ; [+1]
-      169 JUMPIFNOT                        R4 ; [+9]
-      170 MOVE                             R10 R3
-      171 LOADK                            R11 K37 ["/"]
-      172 GETUPVAL                         R14 0
-      173 GETTABLEKS                       R13 R14 K0 ["props"]
-      175 GETTABLEKS                       R12 R13 K10 ["MaxLength"]
-      177 CONCAT                           R9 R10 R12
-      178 JUMPIF                           R9 ; [+1]
-      179 LOADK                            R9 K38 [""]
-      180 MOVE                             R8 R9
-      181 JUMP                             ; [+1]
-      182 LOADK                            R8 K38 [""]
-      183 LOADNIL                          R9
-      184 JUMPIFNOT                        R0 ; [+10]
-      185 JUMPIFNOT                        R4 ; [+2]
-      186 GETUPVAL                         R9 3
-      187 JUMP                             ; [+9]
-      188 JUMPIFNOT                        R1 ; [+3]
-      189 GETTABLEKS                       R9 R5 K39 ["BorderHoverColor"]
-      191 JUMP                             ; [+5]
-      192 GETTABLEKS                       R9 R5 K40 ["BorderDefaultColor"]
-      194 JUMP                             ; [+2]
-      195 GETTABLEKS                       R9 R5 K40 ["BorderDefaultColor"]
-      197 DUPTABLE                         R10 K48 [{"Visible", "Enabled", "Text", "FocusChanged", "HoverChanged", "SetText", "TextColor3", "HorizontalAlignment", "PlaceholderText"}]
-      198 GETUPVAL                         R13 0
-      199 GETTABLEKS                       R12 R13 K0 ["props"]
-      201 GETTABLEKS                       R11 R12 K1 ["Enabled"]
-      203 JUMPIF                           R11 ; [+7]
-      204 GETUPVAL                         R13 0
-      205 GETTABLEKS                       R12 R13 K0 ["props"]
-      207 GETTABLEKS                       R11 R12 K49 ["ShowTextWhenDisabled"]
-      209 JUMPIF                           R11 ; [+1]
-      210 LOADB                            R11 0
-      211 SETTABLEKS                       R11 R10 K41 ["Visible"]
-      213 GETUPVAL                         R13 0
-      214 GETTABLEKS                       R12 R13 K0 ["props"]
-      216 GETTABLEKS                       R11 R12 K1 ["Enabled"]
-      218 SETTABLEKS                       R11 R10 K1 ["Enabled"]
-      220 GETUPVAL                         R13 0
-      221 GETTABLEKS                       R12 R13 K0 ["props"]
-      223 GETTABLEKS                       R11 R12 K5 ["Text"]
-      225 SETTABLEKS                       R11 R10 K5 ["Text"]
-      227 GETUPVAL                         R12 0
-      228 GETTABLEKS                       R11 R12 K50 ["focusChanged"]
-      230 SETTABLEKS                       R11 R10 K42 ["FocusChanged"]
-      232 GETUPVAL                         R12 0
-      233 GETTABLEKS                       R11 R12 K51 ["mouseHoverChanged"]
-      235 SETTABLEKS                       R11 R10 K43 ["HoverChanged"]
-      237 GETUPVAL                         R13 0
-      238 GETTABLEKS                       R12 R13 K0 ["props"]
-      240 GETTABLEKS                       R11 R12 K44 ["SetText"]
-      242 SETTABLEKS                       R11 R10 K44 ["SetText"]
-      244 GETTABLEKS                       R11 R5 K52 ["TextColor"]
-      246 SETTABLEKS                       R11 R10 K45 ["TextColor3"]
-      248 GETUPVAL                         R13 0
-      249 GETTABLEKS                       R12 R13 K0 ["props"]
-      251 GETTABLEKS                       R11 R12 K46 ["HorizontalAlignment"]
-      253 SETTABLEKS                       R11 R10 K46 ["HorizontalAlignment"]
-      255 GETUPVAL                         R13 0
-      256 GETTABLEKS                       R12 R13 K0 ["props"]
-      258 GETTABLEKS                       R11 R12 K47 ["PlaceholderText"]
-      260 SETTABLEKS                       R11 R10 K47 ["PlaceholderText"]
-      262 LOADNIL                          R11
-      263 JUMPIFNOT                        R2 ; [+8]
-      264 GETUPVAL                         R13 4
-      265 GETTABLEKS                       R12 R13 K53 ["createElement"]
-      267 GETUPVAL                         R13 5
-      268 MOVE                             R14 R10
-      269 CALL                             R12 2 1
-      270 MOVE                             R11 R12
-      271 JUMP                             ; [+7]
-      272 GETUPVAL                         R13 4
-      273 GETTABLEKS                       R12 R13 K53 ["createElement"]
-      275 GETUPVAL                         R13 6
-      276 MOVE                             R14 R10
-      277 CALL                             R12 2 1
-      278 MOVE                             R11 R12
-      279 GETUPVAL                         R13 4
-      280 GETTABLEKS                       R12 R13 K53 ["createElement"]
-      282 LOADK                            R13 K54 ["ImageLabel"]
-      283 MOVE                             R14 R6
-      284 DUPTABLE                         R15 K57 [{"Tooltip", "Border"}]
-      285 GETUPVAL                         R17 4
-      286 GETTABLEKS                       R16 R17 K53 ["createElement"]
-      288 LOADK                            R17 K58 ["TextLabel"]
-      289 DUPTABLE                         R18 K63 [{"BackgroundTransparency", "Position", "Size", "Font", "TextSize", "TextXAlignment", "TextYAlignment", "TextColor3", "Text", "Visible"}]
-      290 LOADN                            R19 1
-      291 SETTABLEKS                       R19 R18 K11 ["BackgroundTransparency"]
-      293 GETIMPORT                        R19 K31 [UDim2.new]
-      295 LOADN                            R20 0
-      296 LOADN                            R21 2
-      297 LOADN                            R22 1
-      298 LOADN                            R23 2
-      299 CALL                             R19 4 1
-      300 SETTABLEKS                       R19 R18 K17 ["Position"]
-      302 GETIMPORT                        R19 K31 [UDim2.new]
-      304 LOADN                            R20 1
-      305 LOADN                            R21 0
-      306 LOADN                            R22 0
-      307 LOADN                            R23 10
-      308 CALL                             R19 4 1
-      309 SETTABLEKS                       R19 R18 K19 ["Size"]
-      311 GETIMPORT                        R19 K65 [Enum.Font.SourceSans]
-      313 SETTABLEKS                       R19 R18 K59 ["Font"]
-      315 LOADN                            R19 16
-      316 SETTABLEKS                       R19 R18 K60 ["TextSize"]
-      318 GETIMPORT                        R19 K67 [Enum.TextXAlignment.Left]
-      320 SETTABLEKS                       R19 R18 K61 ["TextXAlignment"]
-      322 GETIMPORT                        R19 K69 [Enum.TextYAlignment.Top]
-      324 SETTABLEKS                       R19 R18 K62 ["TextYAlignment"]
-      326 JUMPIFNOT                        R0 ; [+3]
-      327 JUMPIFNOT                        R4 ; [+2]
-      328 GETUPVAL                         R19 3
-      329 JUMPIF                           R19 ; [+2]
-      330 GETTABLEKS                       R19 R5 K70 ["TooltipColor"]
-      332 SETTABLEKS                       R19 R18 K45 ["TextColor3"]
-      334 SETTABLEKS                       R8 R18 K5 ["Text"]
-      336 MOVE                             R19 R7
-      337 JUMPIF                           R19 ; [+4]
-      338 JUMPIFNOTEQKNIL                  R4 ; [+2]
-      340 LOADB                            R19 0 +1
-      341 LOADB                            R19 1
-      342 SETTABLEKS                       R19 R18 K41 ["Visible"]
-      344 CALL                             R16 2 1
-      345 SETTABLEKS                       R16 R15 K55 ["Tooltip"]
-      347 GETUPVAL                         R17 4
-      348 GETTABLEKS                       R16 R17 K53 ["createElement"]
-      350 LOADK                            R17 K54 ["ImageLabel"]
-      351 DUPTABLE                         R18 K71 [{"Size", "BackgroundTransparency", "Image", "ImageColor3", "ScaleType", "SliceCenter"}]
-      352 GETIMPORT                        R19 K31 [UDim2.new]
-      354 LOADN                            R20 1
-      355 LOADN                            R21 0
-      356 LOADN                            R22 1
-      357 LOADN                            R23 0
-      358 CALL                             R19 4 1
-      359 SETTABLEKS                       R19 R18 K19 ["Size"]
-      361 LOADN                            R19 1
-      362 SETTABLEKS                       R19 R18 K11 ["BackgroundTransparency"]
-      364 GETUPVAL                         R20 2
-      365 GETTABLEKS                       R19 R20 K72 ["ROUNDED_BORDER_IMAGE"]
-      367 SETTABLEKS                       R19 R18 K12 ["Image"]
-      369 SETTABLEKS                       R9 R18 K14 ["ImageColor3"]
-      371 GETIMPORT                        R19 K27 [Enum.ScaleType.Slice]
-      373 SETTABLEKS                       R19 R18 K15 ["ScaleType"]
-      375 GETUPVAL                         R20 2
-      376 GETTABLEKS                       R19 R20 K28 ["ROUNDED_FRAME_SLICE"]
-      378 SETTABLEKS                       R19 R18 K16 ["SliceCenter"]
-      380 DUPTABLE                         R19 K74 [{"Padding", "Text"}]
-      381 GETUPVAL                         R21 4
-      382 GETTABLEKS                       R20 R21 K53 ["createElement"]
-      384 LOADK                            R21 K75 ["UIPadding"]
-      385 DUPTABLE                         R22 K80 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-      386 GETUPVAL                         R25 0
-      387 GETTABLEKS                       R24 R25 K0 ["props"]
-      389 GETTABLEKS                       R23 R24 K76 ["PaddingLeft"]
-      391 JUMPIF                           R23 ; [+1]
-      392 GETUPVAL                         R23 7
-      393 SETTABLEKS                       R23 R22 K76 ["PaddingLeft"]
-      395 GETUPVAL                         R25 0
-      396 GETTABLEKS                       R24 R25 K0 ["props"]
-      398 GETTABLEKS                       R23 R24 K77 ["PaddingRight"]
-      400 JUMPIF                           R23 ; [+1]
-      401 GETUPVAL                         R23 7
-      402 SETTABLEKS                       R23 R22 K77 ["PaddingRight"]
-      404 GETUPVAL                         R25 0
-      405 GETTABLEKS                       R24 R25 K0 ["props"]
-      407 GETTABLEKS                       R23 R24 K78 ["PaddingTop"]
-      409 JUMPIF                           R23 ; [+1]
-      410 GETUPVAL                         R23 7
-      411 SETTABLEKS                       R23 R22 K78 ["PaddingTop"]
-      413 GETUPVAL                         R25 0
-      414 GETTABLEKS                       R24 R25 K0 ["props"]
-      416 GETTABLEKS                       R23 R24 K79 ["PaddingBottom"]
-      418 JUMPIF                           R23 ; [+1]
-      419 GETUPVAL                         R23 7
-      420 SETTABLEKS                       R23 R22 K79 ["PaddingBottom"]
-      422 CALL                             R20 2 1
-      423 SETTABLEKS                       R20 R19 K73 ["Padding"]
-      425 SETTABLEKS                       R11 R19 K5 ["Text"]
-      427 CALL                             R16 3 1
-      428 SETTABLEKS                       R16 R15 K56 ["Border"]
-      430 CALL                             R12 3 -1
-      431 RETURN                           R12 -1
+      152 LOADNIL                          R8
+      153 JUMPIFNOT                        R0 ; [+27]
+      154 JUMPIFNOT                        R4 ; [+12]
+      155 GETUPVAL                         R11 0
+      156 GETTABLEKS                       R10 R11 K0 ["props"]
+      158 GETTABLEKS                       R9 R10 K9 ["ErrorMessage"]
+      160 JUMPIFNOT                        R9 ; [+6]
+      161 GETUPVAL                         R10 0
+      162 GETTABLEKS                       R9 R10 K0 ["props"]
+      164 GETTABLEKS                       R8 R9 K9 ["ErrorMessage"]
+      166 JUMP                             ; [+15]
+      167 JUMPIF                           R7 ; [+1]
+      168 JUMPIFNOT                        R4 ; [+9]
+      169 MOVE                             R10 R3
+      170 LOADK                            R11 K37 ["/"]
+      171 GETUPVAL                         R14 0
+      172 GETTABLEKS                       R13 R14 K0 ["props"]
+      174 GETTABLEKS                       R12 R13 K10 ["MaxLength"]
+      176 CONCAT                           R9 R10 R12
+      177 JUMPIF                           R9 ; [+1]
+      178 LOADK                            R9 K38 [""]
+      179 MOVE                             R8 R9
+      180 JUMP                             ; [+1]
+      181 LOADK                            R8 K38 [""]
+      182 LOADNIL                          R9
+      183 JUMPIFNOT                        R0 ; [+10]
+      184 JUMPIFNOT                        R4 ; [+2]
+      185 GETUPVAL                         R9 3
+      186 JUMP                             ; [+9]
+      187 JUMPIFNOT                        R1 ; [+3]
+      188 GETTABLEKS                       R9 R5 K39 ["BorderHoverColor"]
+      190 JUMP                             ; [+5]
+      191 GETTABLEKS                       R9 R5 K40 ["BorderDefaultColor"]
+      193 JUMP                             ; [+2]
+      194 GETTABLEKS                       R9 R5 K40 ["BorderDefaultColor"]
+      196 DUPTABLE                         R10 K48 [{"Visible", "Enabled", "Text", "FocusChanged", "HoverChanged", "SetText", "TextColor3", "HorizontalAlignment", "PlaceholderText"}]
+      197 GETUPVAL                         R13 0
+      198 GETTABLEKS                       R12 R13 K0 ["props"]
+      200 GETTABLEKS                       R11 R12 K1 ["Enabled"]
+      202 JUMPIF                           R11 ; [+7]
+      203 GETUPVAL                         R13 0
+      204 GETTABLEKS                       R12 R13 K0 ["props"]
+      206 GETTABLEKS                       R11 R12 K49 ["ShowTextWhenDisabled"]
+      208 JUMPIF                           R11 ; [+1]
+      209 LOADB                            R11 0
+      210 SETTABLEKS                       R11 R10 K41 ["Visible"]
+      212 GETUPVAL                         R13 0
+      213 GETTABLEKS                       R12 R13 K0 ["props"]
+      215 GETTABLEKS                       R11 R12 K1 ["Enabled"]
+      217 SETTABLEKS                       R11 R10 K1 ["Enabled"]
+      219 GETUPVAL                         R13 0
+      220 GETTABLEKS                       R12 R13 K0 ["props"]
+      222 GETTABLEKS                       R11 R12 K5 ["Text"]
+      224 SETTABLEKS                       R11 R10 K5 ["Text"]
+      226 GETUPVAL                         R12 0
+      227 GETTABLEKS                       R11 R12 K50 ["focusChanged"]
+      229 SETTABLEKS                       R11 R10 K42 ["FocusChanged"]
+      231 GETUPVAL                         R12 0
+      232 GETTABLEKS                       R11 R12 K51 ["mouseHoverChanged"]
+      234 SETTABLEKS                       R11 R10 K43 ["HoverChanged"]
+      236 GETUPVAL                         R13 0
+      237 GETTABLEKS                       R12 R13 K0 ["props"]
+      239 GETTABLEKS                       R11 R12 K44 ["SetText"]
+      241 SETTABLEKS                       R11 R10 K44 ["SetText"]
+      243 GETTABLEKS                       R11 R5 K52 ["TextColor"]
+      245 SETTABLEKS                       R11 R10 K45 ["TextColor3"]
+      247 GETUPVAL                         R13 0
+      248 GETTABLEKS                       R12 R13 K0 ["props"]
+      250 GETTABLEKS                       R11 R12 K46 ["HorizontalAlignment"]
+      252 SETTABLEKS                       R11 R10 K46 ["HorizontalAlignment"]
+      254 GETUPVAL                         R13 0
+      255 GETTABLEKS                       R12 R13 K0 ["props"]
+      257 GETTABLEKS                       R11 R12 K47 ["PlaceholderText"]
+      259 SETTABLEKS                       R11 R10 K47 ["PlaceholderText"]
+      261 LOADNIL                          R11
+      262 JUMPIFNOT                        R2 ; [+8]
+      263 GETUPVAL                         R13 4
+      264 GETTABLEKS                       R12 R13 K53 ["createElement"]
+      266 GETUPVAL                         R13 5
+      267 MOVE                             R14 R10
+      268 CALL                             R12 2 1
+      269 MOVE                             R11 R12
+      270 JUMP                             ; [+7]
+      271 GETUPVAL                         R13 4
+      272 GETTABLEKS                       R12 R13 K53 ["createElement"]
+      274 GETUPVAL                         R13 6
+      275 MOVE                             R14 R10
+      276 CALL                             R12 2 1
+      277 MOVE                             R11 R12
+      278 GETUPVAL                         R13 4
+      279 GETTABLEKS                       R12 R13 K53 ["createElement"]
+      281 LOADK                            R13 K54 ["ImageLabel"]
+      282 MOVE                             R14 R6
+      283 DUPTABLE                         R15 K57 [{"Tooltip", "Border"}]
+      284 GETUPVAL                         R17 4
+      285 GETTABLEKS                       R16 R17 K53 ["createElement"]
+      287 LOADK                            R17 K58 ["TextLabel"]
+      288 DUPTABLE                         R18 K63 [{"BackgroundTransparency", "Position", "Size", "Font", "TextSize", "TextXAlignment", "TextYAlignment", "TextColor3", "Text", "Visible"}]
+      289 LOADN                            R19 1
+      290 SETTABLEKS                       R19 R18 K11 ["BackgroundTransparency"]
+      292 GETIMPORT                        R19 K31 [UDim2.new]
+      294 LOADN                            R20 0
+      295 LOADN                            R21 2
+      296 LOADN                            R22 1
+      297 LOADN                            R23 2
+      298 CALL                             R19 4 1
+      299 SETTABLEKS                       R19 R18 K17 ["Position"]
+      301 GETIMPORT                        R19 K31 [UDim2.new]
+      303 LOADN                            R20 1
+      304 LOADN                            R21 0
+      305 LOADN                            R22 0
+      306 LOADN                            R23 10
+      307 CALL                             R19 4 1
+      308 SETTABLEKS                       R19 R18 K19 ["Size"]
+      310 GETIMPORT                        R19 K65 [Enum.Font.SourceSans]
+      312 SETTABLEKS                       R19 R18 K59 ["Font"]
+      314 LOADN                            R19 16
+      315 SETTABLEKS                       R19 R18 K60 ["TextSize"]
+      317 GETIMPORT                        R19 K67 [Enum.TextXAlignment.Left]
+      319 SETTABLEKS                       R19 R18 K61 ["TextXAlignment"]
+      321 GETIMPORT                        R19 K69 [Enum.TextYAlignment.Top]
+      323 SETTABLEKS                       R19 R18 K62 ["TextYAlignment"]
+      325 JUMPIFNOT                        R0 ; [+3]
+      326 JUMPIFNOT                        R4 ; [+2]
+      327 GETUPVAL                         R19 3
+      328 JUMPIF                           R19 ; [+2]
+      329 GETTABLEKS                       R19 R5 K70 ["TooltipColor"]
+      331 SETTABLEKS                       R19 R18 K45 ["TextColor3"]
+      333 SETTABLEKS                       R8 R18 K5 ["Text"]
+      335 MOVE                             R19 R7
+      336 JUMPIF                           R19 ; [+4]
+      337 JUMPIFNOTEQKNIL                  R4 ; [+2]
+      339 LOADB                            R19 0 +1
+      340 LOADB                            R19 1
+      341 SETTABLEKS                       R19 R18 K41 ["Visible"]
+      343 CALL                             R16 2 1
+      344 SETTABLEKS                       R16 R15 K55 ["Tooltip"]
+      346 GETUPVAL                         R17 4
+      347 GETTABLEKS                       R16 R17 K53 ["createElement"]
+      349 LOADK                            R17 K54 ["ImageLabel"]
+      350 DUPTABLE                         R18 K71 [{"Size", "BackgroundTransparency", "Image", "ImageColor3", "ScaleType", "SliceCenter"}]
+      351 GETIMPORT                        R19 K31 [UDim2.new]
+      353 LOADN                            R20 1
+      354 LOADN                            R21 0
+      355 LOADN                            R22 1
+      356 LOADN                            R23 0
+      357 CALL                             R19 4 1
+      358 SETTABLEKS                       R19 R18 K19 ["Size"]
+      360 LOADN                            R19 1
+      361 SETTABLEKS                       R19 R18 K11 ["BackgroundTransparency"]
+      363 GETUPVAL                         R20 2
+      364 GETTABLEKS                       R19 R20 K72 ["ROUNDED_BORDER_IMAGE"]
+      366 SETTABLEKS                       R19 R18 K12 ["Image"]
+      368 SETTABLEKS                       R9 R18 K14 ["ImageColor3"]
+      370 GETIMPORT                        R19 K27 [Enum.ScaleType.Slice]
+      372 SETTABLEKS                       R19 R18 K15 ["ScaleType"]
+      374 GETUPVAL                         R20 2
+      375 GETTABLEKS                       R19 R20 K28 ["ROUNDED_FRAME_SLICE"]
+      377 SETTABLEKS                       R19 R18 K16 ["SliceCenter"]
+      379 DUPTABLE                         R19 K74 [{"Padding", "Text"}]
+      380 GETUPVAL                         R21 4
+      381 GETTABLEKS                       R20 R21 K53 ["createElement"]
+      383 LOADK                            R21 K75 ["UIPadding"]
+      384 DUPTABLE                         R22 K80 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+      385 GETUPVAL                         R25 0
+      386 GETTABLEKS                       R24 R25 K0 ["props"]
+      388 GETTABLEKS                       R23 R24 K76 ["PaddingLeft"]
+      390 JUMPIF                           R23 ; [+1]
+      391 GETUPVAL                         R23 7
+      392 SETTABLEKS                       R23 R22 K76 ["PaddingLeft"]
+      394 GETUPVAL                         R25 0
+      395 GETTABLEKS                       R24 R25 K0 ["props"]
+      397 GETTABLEKS                       R23 R24 K77 ["PaddingRight"]
+      399 JUMPIF                           R23 ; [+1]
+      400 GETUPVAL                         R23 7
+      401 SETTABLEKS                       R23 R22 K77 ["PaddingRight"]
+      403 GETUPVAL                         R25 0
+      404 GETTABLEKS                       R24 R25 K0 ["props"]
+      406 GETTABLEKS                       R23 R24 K78 ["PaddingTop"]
+      408 JUMPIF                           R23 ; [+1]
+      409 GETUPVAL                         R23 7
+      410 SETTABLEKS                       R23 R22 K78 ["PaddingTop"]
+      412 GETUPVAL                         R25 0
+      413 GETTABLEKS                       R24 R25 K0 ["props"]
+      415 GETTABLEKS                       R23 R24 K79 ["PaddingBottom"]
+      417 JUMPIF                           R23 ; [+1]
+      418 GETUPVAL                         R23 7
+      419 SETTABLEKS                       R23 R22 K79 ["PaddingBottom"]
+      421 CALL                             R20 2 1
+      422 SETTABLEKS                       R20 R19 K73 ["Padding"]
+      424 SETTABLEKS                       R11 R19 K5 ["Text"]
+      426 CALL                             R16 3 1
+      427 SETTABLEKS                       R16 R15 K56 ["Border"]
+      429 CALL                             R12 3 -1
+      430 RETURN                           R12 -1
 
 PROTO_5:
         0 NEWCLOSURE                       R1 P0

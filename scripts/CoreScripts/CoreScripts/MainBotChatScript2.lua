@@ -40,8 +40,6 @@ while localPlayer == nil do
 	localPlayer = playerService.LocalPlayer
 end
 
-local FFlagDisplayBottomLeftControlForDialogs = game:DefineFastFlag("DisplayBottomLeftControlForDialogs", false)
-
 local character = localPlayer.Character
 if not character or character.Parent == nil then
 	character = localPlayer.CharacterAdded:Wait()
@@ -295,7 +293,7 @@ function endDialog()
 		touchControlGui.Visible = true
 	end
 
-	if FFlagDisplayBottomLeftControlForDialogs and hideBottomLeftControlOnDialogEnd then
+	if hideBottomLeftControlOnDialogEnd then
 		gui.BottomLeftControl.Visible = false
 	end
 
@@ -501,7 +499,7 @@ function presentDialogChoices(talkingPart, dialogChoices, parentDialog)
 			end
 		end
 		mainFrame.Position = UDim2.new(0, 10, 1.0, -mainFrame.Size.Y.Offset)
-	elseif FFlagDisplayBottomLeftControlForDialogs then
+	else
 		if not touchEnabled and not gui.BottomLeftControl.Visible then
 			gui.BottomLeftControl.Visible = true
 			hideBottomLeftControlOnDialogEnd = true

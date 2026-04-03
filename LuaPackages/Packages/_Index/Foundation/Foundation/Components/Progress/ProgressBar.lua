@@ -5,7 +5,6 @@ local React = require(Packages.React)
 local ReactIs = require(Packages.ReactIs)
 
 local Constants = require(script.Parent.constants)
-local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
@@ -71,8 +70,7 @@ local function ProgressBar(progressProps: ProgressBarProps & {
 	local progress, isIndeterminate = useProgressBinding(props.value)
 	local rotation = useRotation(1)
 	local pulse = usePulseBinding(1 / Constants.INDETERMINATE_SHIMMER_SPEED)
-
-	local progressSequence = if ReactIs.isBinding(progress) or not Flags.FoundationProgressBindableValue
+	local progressSequence = if ReactIs.isBinding(progress)
 		then (progress :: React.Binding<number>):map(getBarSequenceFromProgress)
 		else getBarSequenceFromProgress(progress :: number?)
 

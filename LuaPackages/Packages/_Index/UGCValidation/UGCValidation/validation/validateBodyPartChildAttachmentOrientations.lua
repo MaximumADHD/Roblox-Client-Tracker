@@ -16,6 +16,8 @@ local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getDiffBetweenOrientations = require(root.util.getDiffBetweenOrientations)
 local floatEquals = require(root.util.floatEquals)
 local valueToString = require(root.util.valueToString)
+local R15plusUtils = require(root.util.R15plusUtils)
+local getAttachmentCFrameInPartSpace = require(root.util.getAttachmentCFrameInPartSpace)
 
 local ValidateBodyPartChildAttachmentOrientations = {}
 
@@ -120,19 +122,28 @@ function ValidateBodyPartChildAttachmentOrientations.expectedGripAttCFrameRotati
 	assert(lowerArm)
 	assert(hand)
 
-	local armElbowAtt = lowerArm:FindFirstChild(armPrefix .. "ElbowRigAttachment") :: Attachment
-	local armWristAtt = lowerArm:FindFirstChild(armPrefix .. "WristRigAttachment") :: Attachment
-	local handWristAtt = hand:FindFirstChild(armPrefix .. "WristRigAttachment") :: Attachment
-	local gripAtt = hand:FindFirstChild(armPrefix .. "GripAttachment") :: Attachment
+	local armElbowAtt = lowerArm:FindFirstChild(
+		armPrefix .. "ElbowRigAttachment",
+		R15plusUtils.checkFlagEnabledForAllowHrd()
+	) :: Attachment
+	local armWristAtt = lowerArm:FindFirstChild(
+		armPrefix .. "WristRigAttachment",
+		R15plusUtils.checkFlagEnabledForAllowHrd()
+	) :: Attachment
+	local handWristAtt =
+		hand:FindFirstChild(armPrefix .. "WristRigAttachment", R15plusUtils.checkFlagEnabledForAllowHrd()) :: Attachment
+	local gripAtt =
+		hand:FindFirstChild(armPrefix .. "GripAttachment", R15plusUtils.checkFlagEnabledForAllowHrd()) :: Attachment
 	assert(armElbowAtt)
 	assert(armWristAtt)
 	assert(handWristAtt)
 	assert(gripAtt)
 
 	-- We need to know where the wrist and elbow attachments end up if we were to reset hand to (0,0,0) orientation
-	local wristAttImportCFrame: CFrame = handWristAtt.CFrame
-	local lowerArmCFrameInHandSpace: CFrame = wristAttImportCFrame * armWristAtt.CFrame:Inverse()
-	local elbowAttImportCFrame: CFrame = lowerArmCFrameInHandSpace * armElbowAtt.CFrame
+	local wristAttImportCFrame: CFrame = getAttachmentCFrameInPartSpace(handWristAtt)
+	local lowerArmCFrameInHandSpace: CFrame = wristAttImportCFrame
+		* getAttachmentCFrameInPartSpace(armWristAtt):Inverse()
+	local elbowAttImportCFrame: CFrame = lowerArmCFrameInHandSpace * getAttachmentCFrameInPartSpace(armElbowAtt)
 	local elbowRigBone = wristAttImportCFrame.Position - elbowAttImportCFrame.Position
 
 	local fixedRigBone = Vector3.new(elbowRigBone.X, math.max(0, -elbowRigBone.Y), 0).Unit
@@ -165,7 +176,7 @@ function ValidateBodyPartChildAttachmentOrientations.runValidation(
 			local isGripAttachment = string.sub(desc.Name, -string.len(GRIP_ATT_SUFFIX)) == GRIP_ATT_SUFFIX
 
 			if isRigAttachment then
-				local x, y, z = desc.CFrame:ToOrientation()
+				local x, y, z = getAttachmentCFrameInPartSpace(desc):ToOrientation()
 				if not floatEquals(x, 0) or not floatEquals(y, 0) or not floatEquals(z, 0) then
 					Analytics.reportFailure(
 						Analytics.ErrorType.validateBodyPartChildAttachmentOrientations_RotatedRig,
@@ -189,7 +200,10 @@ function ValidateBodyPartChildAttachmentOrientations.runValidation(
 					)
 				end
 
-				if getDiffBetweenOrientations(expectedCFrame, desc.CFrame) > thresholdTable[desc.Name]() then
+				if
+					getDiffBetweenOrientations(expectedCFrame, getAttachmentCFrameInPartSpace(desc))
+					> thresholdTable[desc.Name]()
+				then
 					Analytics.reportFailure(
 						isGripAttachment and Analytics.ErrorType.validateBodyPartChildAttachmentOrientations_RotatedGrip
 							or Analytics.ErrorType.validateBodyPartChildAttachmentOrientations_RotatedBasic,

@@ -557,7 +557,7 @@ PROTO_17:
         9 MOVE                             R7 R2
        10 GETIMPORT                        R6 K2 [typeof]
        12 CALL                             R6 1 1
-       13 JUMPIFNOTEQKS                    R6 K3 ["table"] ; [+161]
+       13 JUMPIFNOTEQKS                    R6 K3 ["table"] ; [+159]
        15 GETTABLEKS                       R7 R2 K0 ["key"]
        17 JUMPIFNOTEQKNIL                  R7 ; [+22]
        19 FASTCALL1                        TYPEOF R4 ; [+3]
@@ -576,12 +576,12 @@ PROTO_17:
        38 SETTABLEKS                       R8 R2 K0 ["key"]
        40 GETTABLEKS                       R7 R2 K8 ["$$typeof"]
        42 GETUPVAL                         R8 0
-       43 JUMPIFNOTEQ                      R7 R8 ; [+58]
+       43 JUMPIFNOTEQ                      R7 R8 ; [+57]
        45 GETTABLEKS                       R8 R2 K0 ["key"]
-       47 JUMPIFNOTEQ                      R8 R5 ; [+52]
+       47 JUMPIFNOTEQ                      R8 R5 ; [+51]
        49 GETTABLEKS                       R8 R2 K9 ["type"]
        51 GETUPVAL                         R9 1
-       52 JUMPIFNOTEQ                      R8 R9 ; [+40]
+       52 JUMPIFNOTEQ                      R8 R9 ; [+39]
        54 GETTABLEKS                       R10 R2 K10 ["props"]
        56 GETTABLEKS                       R9 R10 K11 ["children"]
        58 MOVE                             R10 R5
@@ -610,132 +610,129 @@ PROTO_17:
        88 SETTABLEKS                       R0 R11 K14 ["return_"]
        90 MOVE                             R8 R11
        91 RETURN                           R8 1
-       92 RETURN                           R8 1
-       93 GETUPVAL                         R8 5
-       94 MOVE                             R9 R0
-       95 MOVE                             R10 R1
-       96 MOVE                             R11 R2
-       97 MOVE                             R12 R3
-       98 CALL                             R8 4 1
-       99 RETURN                           R8 1
-      100 LOADNIL                          R8
-      101 RETURN                           R8 1
-      102 GETUPVAL                         R8 6
-      103 JUMPIFNOTEQ                      R7 R8 ; [+14]
-      105 GETTABLEKS                       R8 R2 K0 ["key"]
-      107 JUMPIFNOTEQ                      R8 R5 ; [+8]
-      109 GETUPVAL                         R8 7
-      110 MOVE                             R9 R0
-      111 MOVE                             R10 R1
-      112 MOVE                             R11 R2
-      113 MOVE                             R12 R3
-      114 CALL                             R8 4 1
-      115 RETURN                           R8 1
-      116 LOADNIL                          R8
-      117 RETURN                           R8 1
-      118 GETUPVAL                         R8 8
-      119 JUMPIFNOTEQ                      R7 R8 ; [+17]
-      121 GETUPVAL                         R8 9
-      122 JUMPIFNOT                        R8 ; [+14]
-      123 GETTABLEKS                       R8 R2 K17 ["_payload"]
-      125 GETTABLEKS                       R9 R2 K18 ["_init"]
-      127 GETUPVAL                         R10 10
-      128 MOVE                             R11 R0
-      129 MOVE                             R12 R1
-      130 MOVE                             R13 R9
-      131 MOVE                             R14 R8
-      132 CALL                             R13 1 1
-      133 MOVE                             R14 R3
-      134 LOADNIL                          R15
-      135 CALL                             R10 5 -1
-      136 RETURN                           R10 -1
-      137 JUMPIFEQKNIL                     R5 ; [+3]
-      139 LOADNIL                          R8
-      140 RETURN                           R8 1
-      141 JUMPIFEQKNIL                     R1 ; [+6]
-      143 GETTABLEKS                       R9 R1 K12 ["tag"]
-      145 GETUPVAL                         R10 2
-      146 JUMPIFEQ                         R9 R10 ; [+12]
-      148 GETUPVAL                         R9 3
-      149 MOVE                             R10 R2
-      150 GETTABLEKS                       R11 R0 K13 ["mode"]
-      152 MOVE                             R12 R3
-      153 LOADNIL                          R13
-      154 CALL                             R9 4 1
-      155 SETTABLEKS                       R0 R9 K14 ["return_"]
-      157 MOVE                             R8 R9
-      158 RETURN                           R8 1
-      159 GETUPVAL                         R10 4
-      160 MOVE                             R11 R1
-      161 MOVE                             R12 R2
-      162 CALL                             R10 2 1
-      163 LOADN                            R11 1
-      164 SETTABLEKS                       R11 R10 K15 ["index"]
-      166 LOADNIL                          R11
-      167 SETTABLEKS                       R11 R10 K16 ["sibling"]
-      169 MOVE                             R9 R10
-      170 SETTABLEKS                       R0 R9 K14 ["return_"]
-      172 MOVE                             R8 R9
-      173 RETURN                           R8 1
-      174 RETURN                           R8 1
-      175 JUMPIFEQKS                       R6 K4 ["string"] ; [+3]
-      177 JUMPIFNOTEQKS                    R6 K5 ["number"] ; [+43]
-      179 JUMPIFEQKNIL                     R5 ; [+3]
-      181 LOADNIL                          R7
-      182 RETURN                           R7 1
-      183 FASTCALL1                        TOSTRING R2 ; [+3]
-      184 MOVE                             R9 R2
-      185 GETIMPORT                        R8 K7 [tostring]
-      187 CALL                             R8 1 1
-      188 JUMPIFEQKNIL                     R1 ; [+6]
-      190 GETTABLEKS                       R9 R1 K12 ["tag"]
-      192 GETUPVAL                         R10 11
-      193 JUMPIFEQ                         R9 R10 ; [+11]
-      195 GETUPVAL                         R9 12
-      196 MOVE                             R10 R8
-      197 GETTABLEKS                       R11 R0 K13 ["mode"]
-      199 MOVE                             R12 R3
-      200 CALL                             R9 3 1
-      201 SETTABLEKS                       R0 R9 K14 ["return_"]
-      203 MOVE                             R7 R9
-      204 RETURN                           R7 1
-      205 GETUPVAL                         R10 4
-      206 MOVE                             R11 R1
-      207 MOVE                             R12 R8
-      208 CALL                             R10 2 1
-      209 LOADN                            R11 1
-      210 SETTABLEKS                       R11 R10 K15 ["index"]
-      212 LOADNIL                          R11
-      213 SETTABLEKS                       R11 R10 K16 ["sibling"]
-      215 MOVE                             R9 R10
-      216 SETTABLEKS                       R0 R9 K14 ["return_"]
-      218 MOVE                             R7 R9
-      219 RETURN                           R7 1
-      220 RETURN                           R7 1
-      221 GETIMPORT                        R8 K20 [_G]
-      223 GETTABLEKS                       R7 R8 K21 ["__DEV__"]
-      225 JUMPIFNOT                        R7 ; [+24]
-      226 JUMPIFNOTEQKS                    R6 K22 ["function"] ; [+23]
-      228 GETIMPORT                        R8 K20 [_G]
-      230 GETTABLEKS                       R7 R8 K21 ["__DEV__"]
-      232 JUMPIFNOT                        R7 ; [+17]
-      233 GETUPVAL                         R8 13
-      234 GETTABLEKS                       R9 R0 K9 ["type"]
-      236 CALL                             R8 1 1
-      237 ORK                              R7 R8 K23 ["Component"]
-      238 GETUPVAL                         R9 14
-      239 GETTABLE                         R8 R9 R7
-      240 JUMPIFNOT                        R8 ; [+1]
-      241 JUMP                             ; [+8]
-      242 GETUPVAL                         R8 14
-      243 LOADB                            R9 1
-      244 SETTABLE                         R9 R8 R7
-      245 GETUPVAL                         R9 15
-      246 GETTABLEKS                       R8 R9 K24 ["error"]
-      248 LOADK                            R9 K25 ["Functions are not valid as a React child. This may happen if you return a Component instead of <Component /> from render. Or maybe you meant to call this function rather than return it."]
-      249 CALL                             R8 1 0
-      250 LOADNIL                          R7
-      251 RETURN                           R7 1
+       92 GETUPVAL                         R8 5
+       93 MOVE                             R9 R0
+       94 MOVE                             R10 R1
+       95 MOVE                             R11 R2
+       96 MOVE                             R12 R3
+       97 CALL                             R8 4 1
+       98 RETURN                           R8 1
+       99 LOADNIL                          R8
+      100 RETURN                           R8 1
+      101 GETUPVAL                         R8 6
+      102 JUMPIFNOTEQ                      R7 R8 ; [+14]
+      104 GETTABLEKS                       R8 R2 K0 ["key"]
+      106 JUMPIFNOTEQ                      R8 R5 ; [+8]
+      108 GETUPVAL                         R8 7
+      109 MOVE                             R9 R0
+      110 MOVE                             R10 R1
+      111 MOVE                             R11 R2
+      112 MOVE                             R12 R3
+      113 CALL                             R8 4 1
+      114 RETURN                           R8 1
+      115 LOADNIL                          R8
+      116 RETURN                           R8 1
+      117 GETUPVAL                         R8 8
+      118 JUMPIFNOTEQ                      R7 R8 ; [+17]
+      120 GETUPVAL                         R8 9
+      121 JUMPIFNOT                        R8 ; [+14]
+      122 GETTABLEKS                       R8 R2 K17 ["_payload"]
+      124 GETTABLEKS                       R9 R2 K18 ["_init"]
+      126 GETUPVAL                         R10 10
+      127 MOVE                             R11 R0
+      128 MOVE                             R12 R1
+      129 MOVE                             R13 R9
+      130 MOVE                             R14 R8
+      131 CALL                             R13 1 1
+      132 MOVE                             R14 R3
+      133 LOADNIL                          R15
+      134 CALL                             R10 5 -1
+      135 RETURN                           R10 -1
+      136 JUMPIFEQKNIL                     R5 ; [+3]
+      138 LOADNIL                          R8
+      139 RETURN                           R8 1
+      140 JUMPIFEQKNIL                     R1 ; [+6]
+      142 GETTABLEKS                       R9 R1 K12 ["tag"]
+      144 GETUPVAL                         R10 2
+      145 JUMPIFEQ                         R9 R10 ; [+12]
+      147 GETUPVAL                         R9 3
+      148 MOVE                             R10 R2
+      149 GETTABLEKS                       R11 R0 K13 ["mode"]
+      151 MOVE                             R12 R3
+      152 LOADNIL                          R13
+      153 CALL                             R9 4 1
+      154 SETTABLEKS                       R0 R9 K14 ["return_"]
+      156 MOVE                             R8 R9
+      157 RETURN                           R8 1
+      158 GETUPVAL                         R10 4
+      159 MOVE                             R11 R1
+      160 MOVE                             R12 R2
+      161 CALL                             R10 2 1
+      162 LOADN                            R11 1
+      163 SETTABLEKS                       R11 R10 K15 ["index"]
+      165 LOADNIL                          R11
+      166 SETTABLEKS                       R11 R10 K16 ["sibling"]
+      168 MOVE                             R9 R10
+      169 SETTABLEKS                       R0 R9 K14 ["return_"]
+      171 MOVE                             R8 R9
+      172 RETURN                           R8 1
+      173 JUMPIFEQKS                       R6 K4 ["string"] ; [+3]
+      175 JUMPIFNOTEQKS                    R6 K5 ["number"] ; [+42]
+      177 JUMPIFEQKNIL                     R5 ; [+3]
+      179 LOADNIL                          R7
+      180 RETURN                           R7 1
+      181 FASTCALL1                        TOSTRING R2 ; [+3]
+      182 MOVE                             R9 R2
+      183 GETIMPORT                        R8 K7 [tostring]
+      185 CALL                             R8 1 1
+      186 JUMPIFEQKNIL                     R1 ; [+6]
+      188 GETTABLEKS                       R9 R1 K12 ["tag"]
+      190 GETUPVAL                         R10 11
+      191 JUMPIFEQ                         R9 R10 ; [+11]
+      193 GETUPVAL                         R9 12
+      194 MOVE                             R10 R8
+      195 GETTABLEKS                       R11 R0 K13 ["mode"]
+      197 MOVE                             R12 R3
+      198 CALL                             R9 3 1
+      199 SETTABLEKS                       R0 R9 K14 ["return_"]
+      201 MOVE                             R7 R9
+      202 RETURN                           R7 1
+      203 GETUPVAL                         R10 4
+      204 MOVE                             R11 R1
+      205 MOVE                             R12 R8
+      206 CALL                             R10 2 1
+      207 LOADN                            R11 1
+      208 SETTABLEKS                       R11 R10 K15 ["index"]
+      210 LOADNIL                          R11
+      211 SETTABLEKS                       R11 R10 K16 ["sibling"]
+      213 MOVE                             R9 R10
+      214 SETTABLEKS                       R0 R9 K14 ["return_"]
+      216 MOVE                             R7 R9
+      217 RETURN                           R7 1
+      218 GETIMPORT                        R8 K20 [_G]
+      220 GETTABLEKS                       R7 R8 K21 ["__DEV__"]
+      222 JUMPIFNOT                        R7 ; [+24]
+      223 JUMPIFNOTEQKS                    R6 K22 ["function"] ; [+23]
+      225 GETIMPORT                        R8 K20 [_G]
+      227 GETTABLEKS                       R7 R8 K21 ["__DEV__"]
+      229 JUMPIFNOT                        R7 ; [+17]
+      230 GETUPVAL                         R8 13
+      231 GETTABLEKS                       R9 R0 K9 ["type"]
+      233 CALL                             R8 1 1
+      234 ORK                              R7 R8 K23 ["Component"]
+      235 GETUPVAL                         R9 14
+      236 GETTABLE                         R8 R9 R7
+      237 JUMPIFNOT                        R8 ; [+1]
+      238 JUMP                             ; [+8]
+      239 GETUPVAL                         R8 14
+      240 LOADB                            R9 1
+      241 SETTABLE                         R9 R8 R7
+      242 GETUPVAL                         R9 15
+      243 GETTABLEKS                       R8 R9 K24 ["error"]
+      245 LOADK                            R9 K25 ["Functions are not valid as a React child. This may happen if you return a Component instead of <Component /> from render. Or maybe you meant to call this function rather than return it."]
+      246 CALL                             R8 1 0
+      247 LOADNIL                          R7
+      248 RETURN                           R7 1
 
 PROTO_18:
         0 JUMPIFNOTEQKNIL                  R3 ; [+3]
@@ -745,7 +742,7 @@ PROTO_18:
         5 MOVE                             R7 R3
         6 GETIMPORT                        R6 K1 [typeof]
         8 CALL                             R6 1 1
-        9 JUMPIFNOTEQKS                    R6 K2 ["table"] ; [+166]
+        9 JUMPIFNOTEQKS                    R6 K2 ["table"] ; [+164]
        11 GETTABLEKS                       R7 R3 K3 ["key"]
        13 JUMPIFNOTEQKNIL                  R7 ; [+22]
        15 FASTCALL1                        TYPEOF R5 ; [+3]
@@ -765,7 +762,7 @@ PROTO_18:
        36 LOADNIL                          R7
        37 GETTABLEKS                       R8 R3 K8 ["$$typeof"]
        39 GETUPVAL                         R9 0
-       40 JUMPIFNOTEQ                      R8 R9 ; [+62]
+       40 JUMPIFNOTEQ                      R8 R9 ; [+61]
        42 GETTABLEKS                       R9 R3 K3 ["key"]
        44 JUMPIFNOTEQKNIL                  R9 ; [+3]
        46 MOVE                             R7 R2
@@ -774,7 +771,7 @@ PROTO_18:
        50 GETTABLE                         R9 R0 R7
        51 GETTABLEKS                       R10 R3 K9 ["type"]
        53 GETUPVAL                         R11 1
-       54 JUMPIFNOTEQ                      R10 R11 ; [+41]
+       54 JUMPIFNOTEQ                      R10 R11 ; [+40]
        56 GETTABLEKS                       R12 R3 K10 ["props"]
        58 GETTABLEKS                       R11 R12 K11 ["children"]
        60 GETTABLEKS                       R12 R3 K3 ["key"]
@@ -803,129 +800,126 @@ PROTO_18:
        91 SETTABLEKS                       R1 R13 K14 ["return_"]
        93 MOVE                             R10 R13
        94 RETURN                           R10 1
-       95 RETURN                           R10 1
-       96 GETUPVAL                         R10 5
-       97 MOVE                             R11 R1
-       98 MOVE                             R12 R9
-       99 MOVE                             R13 R3
-      100 MOVE                             R14 R4
-      101 CALL                             R10 4 1
-      102 RETURN                           R10 1
-      103 GETUPVAL                         R9 6
-      104 JUMPIFNOTEQ                      R8 R9 ; [+17]
-      106 GETTABLEKS                       R9 R3 K3 ["key"]
-      108 JUMPIFNOTEQKNIL                  R9 ; [+3]
-      110 MOVE                             R7 R2
-      111 JUMP                             ; [+2]
-      112 GETTABLEKS                       R7 R3 K3 ["key"]
-      114 GETTABLE                         R9 R0 R7
-      115 GETUPVAL                         R10 7
-      116 MOVE                             R11 R1
-      117 MOVE                             R12 R9
-      118 MOVE                             R13 R3
-      119 MOVE                             R14 R4
-      120 CALL                             R10 4 1
-      121 RETURN                           R10 1
-      122 GETUPVAL                         R9 8
-      123 JUMPIFNOTEQ                      R8 R9 ; [+17]
-      125 GETUPVAL                         R9 9
-      126 JUMPIFNOT                        R9 ; [+14]
-      127 GETTABLEKS                       R9 R3 K17 ["_payload"]
-      129 GETTABLEKS                       R10 R3 K18 ["_init"]
-      131 GETUPVAL                         R11 10
-      132 MOVE                             R12 R0
-      133 MOVE                             R13 R1
-      134 MOVE                             R14 R2
-      135 MOVE                             R15 R10
-      136 MOVE                             R16 R9
-      137 CALL                             R15 1 1
-      138 MOVE                             R16 R4
-      139 CALL                             R11 5 -1
-      140 RETURN                           R11 -1
-      141 GETTABLE                         R9 R0 R2
-      142 JUMPIFEQKNIL                     R9 ; [+6]
-      144 GETTABLEKS                       R11 R9 K12 ["tag"]
-      146 GETUPVAL                         R12 2
-      147 JUMPIFEQ                         R11 R12 ; [+12]
-      149 GETUPVAL                         R11 3
-      150 MOVE                             R12 R3
-      151 GETTABLEKS                       R13 R1 K13 ["mode"]
-      153 MOVE                             R14 R4
-      154 LOADNIL                          R15
-      155 CALL                             R11 4 1
-      156 SETTABLEKS                       R1 R11 K14 ["return_"]
-      158 MOVE                             R10 R11
-      159 RETURN                           R10 1
-      160 GETUPVAL                         R12 4
-      161 MOVE                             R13 R9
-      162 MOVE                             R14 R3
-      163 CALL                             R12 2 1
-      164 LOADN                            R13 1
-      165 SETTABLEKS                       R13 R12 K15 ["index"]
-      167 LOADNIL                          R13
-      168 SETTABLEKS                       R13 R12 K16 ["sibling"]
-      170 MOVE                             R11 R12
-      171 SETTABLEKS                       R1 R11 K14 ["return_"]
-      173 MOVE                             R10 R11
-      174 RETURN                           R10 1
-      175 RETURN                           R10 1
-      176 JUMPIFEQKS                       R6 K4 ["string"] ; [+3]
-      178 JUMPIFNOTEQKS                    R6 K5 ["number"] ; [+41]
-      180 GETTABLE                         R8 R0 R2
-      181 ORK                              R7 R8 K19 []
-      182 FASTCALL1                        TOSTRING R3 ; [+3]
-      183 MOVE                             R10 R3
-      184 GETIMPORT                        R9 K7 [tostring]
-      186 CALL                             R9 1 1
-      187 JUMPIFEQKNIL                     R7 ; [+6]
-      189 GETTABLEKS                       R10 R7 K12 ["tag"]
-      191 GETUPVAL                         R11 11
-      192 JUMPIFEQ                         R10 R11 ; [+11]
-      194 GETUPVAL                         R10 12
-      195 MOVE                             R11 R9
-      196 GETTABLEKS                       R12 R1 K13 ["mode"]
-      198 MOVE                             R13 R4
-      199 CALL                             R10 3 1
-      200 SETTABLEKS                       R1 R10 K14 ["return_"]
-      202 MOVE                             R8 R10
-      203 RETURN                           R8 1
-      204 GETUPVAL                         R11 4
-      205 MOVE                             R12 R7
-      206 MOVE                             R13 R9
-      207 CALL                             R11 2 1
-      208 LOADN                            R12 1
-      209 SETTABLEKS                       R12 R11 K15 ["index"]
-      211 LOADNIL                          R12
-      212 SETTABLEKS                       R12 R11 K16 ["sibling"]
-      214 MOVE                             R10 R11
-      215 SETTABLEKS                       R1 R10 K14 ["return_"]
-      217 MOVE                             R8 R10
-      218 RETURN                           R8 1
-      219 RETURN                           R8 1
-      220 GETIMPORT                        R8 K21 [_G]
-      222 GETTABLEKS                       R7 R8 K22 ["__DEV__"]
-      224 JUMPIFNOT                        R7 ; [+24]
-      225 JUMPIFNOTEQKS                    R6 K23 ["function"] ; [+23]
-      227 GETIMPORT                        R8 K21 [_G]
-      229 GETTABLEKS                       R7 R8 K22 ["__DEV__"]
-      231 JUMPIFNOT                        R7 ; [+17]
-      232 GETUPVAL                         R8 13
-      233 GETTABLEKS                       R9 R1 K9 ["type"]
-      235 CALL                             R8 1 1
-      236 ORK                              R7 R8 K24 ["Component"]
-      237 GETUPVAL                         R9 14
-      238 GETTABLE                         R8 R9 R7
-      239 JUMPIFNOT                        R8 ; [+1]
-      240 JUMP                             ; [+8]
-      241 GETUPVAL                         R8 14
-      242 LOADB                            R9 1
-      243 SETTABLE                         R9 R8 R7
-      244 GETUPVAL                         R9 15
-      245 GETTABLEKS                       R8 R9 K25 ["error"]
-      247 LOADK                            R9 K26 ["Functions are not valid as a React child. This may happen if you return a Component instead of <Component /> from render. Or maybe you meant to call this function rather than return it."]
-      248 CALL                             R8 1 0
-      249 LOADNIL                          R7
-      250 RETURN                           R7 1
+       95 GETUPVAL                         R10 5
+       96 MOVE                             R11 R1
+       97 MOVE                             R12 R9
+       98 MOVE                             R13 R3
+       99 MOVE                             R14 R4
+      100 CALL                             R10 4 1
+      101 RETURN                           R10 1
+      102 GETUPVAL                         R9 6
+      103 JUMPIFNOTEQ                      R8 R9 ; [+17]
+      105 GETTABLEKS                       R9 R3 K3 ["key"]
+      107 JUMPIFNOTEQKNIL                  R9 ; [+3]
+      109 MOVE                             R7 R2
+      110 JUMP                             ; [+2]
+      111 GETTABLEKS                       R7 R3 K3 ["key"]
+      113 GETTABLE                         R9 R0 R7
+      114 GETUPVAL                         R10 7
+      115 MOVE                             R11 R1
+      116 MOVE                             R12 R9
+      117 MOVE                             R13 R3
+      118 MOVE                             R14 R4
+      119 CALL                             R10 4 1
+      120 RETURN                           R10 1
+      121 GETUPVAL                         R9 8
+      122 JUMPIFNOTEQ                      R8 R9 ; [+17]
+      124 GETUPVAL                         R9 9
+      125 JUMPIFNOT                        R9 ; [+14]
+      126 GETTABLEKS                       R9 R3 K17 ["_payload"]
+      128 GETTABLEKS                       R10 R3 K18 ["_init"]
+      130 GETUPVAL                         R11 10
+      131 MOVE                             R12 R0
+      132 MOVE                             R13 R1
+      133 MOVE                             R14 R2
+      134 MOVE                             R15 R10
+      135 MOVE                             R16 R9
+      136 CALL                             R15 1 1
+      137 MOVE                             R16 R4
+      138 CALL                             R11 5 -1
+      139 RETURN                           R11 -1
+      140 GETTABLE                         R9 R0 R2
+      141 JUMPIFEQKNIL                     R9 ; [+6]
+      143 GETTABLEKS                       R11 R9 K12 ["tag"]
+      145 GETUPVAL                         R12 2
+      146 JUMPIFEQ                         R11 R12 ; [+12]
+      148 GETUPVAL                         R11 3
+      149 MOVE                             R12 R3
+      150 GETTABLEKS                       R13 R1 K13 ["mode"]
+      152 MOVE                             R14 R4
+      153 LOADNIL                          R15
+      154 CALL                             R11 4 1
+      155 SETTABLEKS                       R1 R11 K14 ["return_"]
+      157 MOVE                             R10 R11
+      158 RETURN                           R10 1
+      159 GETUPVAL                         R12 4
+      160 MOVE                             R13 R9
+      161 MOVE                             R14 R3
+      162 CALL                             R12 2 1
+      163 LOADN                            R13 1
+      164 SETTABLEKS                       R13 R12 K15 ["index"]
+      166 LOADNIL                          R13
+      167 SETTABLEKS                       R13 R12 K16 ["sibling"]
+      169 MOVE                             R11 R12
+      170 SETTABLEKS                       R1 R11 K14 ["return_"]
+      172 MOVE                             R10 R11
+      173 RETURN                           R10 1
+      174 JUMPIFEQKS                       R6 K4 ["string"] ; [+3]
+      176 JUMPIFNOTEQKS                    R6 K5 ["number"] ; [+40]
+      178 GETTABLE                         R8 R0 R2
+      179 ORK                              R7 R8 K19 []
+      180 FASTCALL1                        TOSTRING R3 ; [+3]
+      181 MOVE                             R10 R3
+      182 GETIMPORT                        R9 K7 [tostring]
+      184 CALL                             R9 1 1
+      185 JUMPIFEQKNIL                     R7 ; [+6]
+      187 GETTABLEKS                       R10 R7 K12 ["tag"]
+      189 GETUPVAL                         R11 11
+      190 JUMPIFEQ                         R10 R11 ; [+11]
+      192 GETUPVAL                         R10 12
+      193 MOVE                             R11 R9
+      194 GETTABLEKS                       R12 R1 K13 ["mode"]
+      196 MOVE                             R13 R4
+      197 CALL                             R10 3 1
+      198 SETTABLEKS                       R1 R10 K14 ["return_"]
+      200 MOVE                             R8 R10
+      201 RETURN                           R8 1
+      202 GETUPVAL                         R11 4
+      203 MOVE                             R12 R7
+      204 MOVE                             R13 R9
+      205 CALL                             R11 2 1
+      206 LOADN                            R12 1
+      207 SETTABLEKS                       R12 R11 K15 ["index"]
+      209 LOADNIL                          R12
+      210 SETTABLEKS                       R12 R11 K16 ["sibling"]
+      212 MOVE                             R10 R11
+      213 SETTABLEKS                       R1 R10 K14 ["return_"]
+      215 MOVE                             R8 R10
+      216 RETURN                           R8 1
+      217 GETIMPORT                        R8 K21 [_G]
+      219 GETTABLEKS                       R7 R8 K22 ["__DEV__"]
+      221 JUMPIFNOT                        R7 ; [+24]
+      222 JUMPIFNOTEQKS                    R6 K23 ["function"] ; [+23]
+      224 GETIMPORT                        R8 K21 [_G]
+      226 GETTABLEKS                       R7 R8 K22 ["__DEV__"]
+      228 JUMPIFNOT                        R7 ; [+17]
+      229 GETUPVAL                         R8 13
+      230 GETTABLEKS                       R9 R1 K9 ["type"]
+      232 CALL                             R8 1 1
+      233 ORK                              R7 R8 K24 ["Component"]
+      234 GETUPVAL                         R9 14
+      235 GETTABLE                         R8 R9 R7
+      236 JUMPIFNOT                        R8 ; [+1]
+      237 JUMP                             ; [+8]
+      238 GETUPVAL                         R8 14
+      239 LOADB                            R9 1
+      240 SETTABLE                         R9 R8 R7
+      241 GETUPVAL                         R9 15
+      242 GETTABLEKS                       R8 R9 K25 ["error"]
+      244 LOADK                            R9 K26 ["Functions are not valid as a React child. This may happen if you return a Component instead of <Component /> from render. Or maybe you meant to call this function rather than return it."]
+      245 CALL                             R8 1 0
+      246 LOADNIL                          R7
+      247 RETURN                           R7 1
 
 PROTO_19:
         0 GETIMPORT                        R4 K1 [_G]
@@ -1008,8 +1002,8 @@ PROTO_20:
        23 LOADN                            R8 1
        24 LOADNIL                          R9
        25 LENGTH                           R10 R2
-       26 JUMPIFEQKNIL                     R6 ; [+142]
-       28 JUMPIFNOTLE                      R8 R10 ; [+140]
+       26 JUMPIFEQKNIL                     R6 ; [+141]
+       28 JUMPIFNOTLE                      R8 R10 ; [+139]
        30 GETTABLEKS                       R11 R6 K5 ["index"]
        32 JUMPIFNOTLT                      R8 R11 ; [+4]
        34 MOVE                             R9 R6
@@ -1043,9 +1037,9 @@ PROTO_20:
        68 CALL                             R13 4 1
        69 MOVE                             R11 R13
        70 JUMPIFNOTEQKNIL                  R11 ; [+5]
-       72 JUMPIFNOTEQKNIL                  R6 ; [+96]
+       72 JUMPIFNOTEQKNIL                  R6 ; [+95]
        74 MOVE                             R6 R9
-       75 JUMP                             ; [+93]
+       75 JUMP                             ; [+92]
        76 GETUPVAL                         R13 2
        77 JUMPIFNOT                        R13 ; [+38]
        78 JUMPIFNOT                        R6 ; [+37]
@@ -1080,7 +1074,7 @@ PROTO_20:
       121 GETUPVAL                         R16 2
       122 JUMPIF                           R16 ; [+2]
       123 MOVE                             R7 R14
-      124 JUMP                             ; [+34]
+      124 JUMP                             ; [+33]
       125 GETTABLEKS                       R16 R13 K11 ["alternate"]
       127 JUMPIFEQKNIL                     R16 ; [+19]
       129 GETTABLEKS                       R17 R16 K5 ["index"]
@@ -1092,9 +1086,9 @@ PROTO_20:
       140 CALL                             R18 2 1
       141 SETTABLEKS                       R18 R13 K13 ["flags"]
       143 MOVE                             R7 R14
-      144 JUMP                             ; [+14]
+      144 JUMP                             ; [+13]
       145 MOVE                             R7 R17
-      146 JUMP                             ; [+12]
+      146 JUMP                             ; [+11]
       147 GETTABLEKS                       R18 R13 K13 ["flags"]
       149 GETUPVAL                         R19 4
       150 FASTCALL2                        BIT32_BOR R18 R19 ; [+3]
@@ -1102,205 +1096,202 @@ PROTO_20:
       154 CALL                             R17 2 1
       155 SETTABLEKS                       R17 R13 K13 ["flags"]
       157 MOVE                             R7 R14
-      158 JUMP                             ; [0]
-      159 JUMPIFNOTEQKNIL                  R5 ; [+3]
-      161 MOVE                             R4 R11
-      162 JUMP                             ; [+2]
-      163 SETTABLEKS                       R11 R5 K6 ["sibling"]
-      165 MOVE                             R5 R11
-      166 MOVE                             R6 R9
-      167 ADDK                             R8 R8 K19 [1]
-      168 JUMPBACK                         ; [-143]
-      169 JUMPIFNOTLT                      R10 R8 ; [+45]
-      171 MOVE                             R11 R6
-      172 GETUPVAL                         R12 2
-      173 JUMPIF                           R12 ; [+1]
-      174 RETURN                           R4 1
-      175 MOVE                             R12 R11
-      176 JUMPIFEQKNIL                     R12 ; [+37]
-      178 MOVE                             R13 R12
-      179 GETUPVAL                         R14 2
-      180 JUMPIF                           R14 ; [+1]
-      181 JUMP                             ; [+29]
-      182 GETTABLEKS                       R14 R0 K12 ["deletions"]
-      184 JUMPIFNOTEQKNIL                  R14 ; [+19]
-      186 NEWTABLE                         R15 0 1
-      188 MOVE                             R16 R13
-      189 SETLIST                          R15 R16 1 [1]
-      191 SETTABLEKS                       R15 R0 K12 ["deletions"]
-      193 GETTABLEKS                       R16 R0 K13 ["flags"]
-      195 GETUPVAL                         R17 3
-      196 FASTCALL2                        BIT32_BOR R16 R17 ; [+3]
-      198 GETIMPORT                        R15 K16 [bit32.bor]
-      200 CALL                             R15 2 1
-      201 SETTABLEKS                       R15 R0 K13 ["flags"]
-      203 JUMP                             ; [+7]
-      204 FASTCALL2                        TABLE_INSERT R14 R13 ; [+5]
-      206 MOVE                             R16 R14
-      207 MOVE                             R17 R13
-      208 GETIMPORT                        R15 K18 [table.insert]
-      210 CALL                             R15 2 0
-      211 GETTABLEKS                       R12 R12 K6 ["sibling"]
-      213 JUMPBACK                         ; [-38]
-      214 RETURN                           R4 1
-      215 JUMPIFNOTEQKNIL                  R6 ; [+89]
-      217 JUMPIFNOTLE                      R8 R10 ; [+86]
-      219 LOADNIL                          R11
-      220 GETTABLE                         R12 R2 R8
-      221 JUMPIFEQKNIL                     R12 ; [+20]
-      223 FASTCALL1                        TYPEOF R12 ; [+3]
-      224 MOVE                             R14 R12
-      225 GETIMPORT                        R13 K8 [typeof]
-      227 CALL                             R13 1 1
-      228 JUMPIFNOTEQKS                    R13 K9 ["table"] ; [+13]
-      230 GETTABLEKS                       R13 R12 K10 ["$$typeof"]
-      232 JUMPIFEQKNIL                     R13 ; [+9]
-      234 GETUPVAL                         R13 5
-      235 MOVE                             R14 R0
-      236 MOVE                             R15 R12
-      237 MOVE                             R16 R3
-      238 MOVE                             R17 R8
-      239 CALL                             R13 4 1
-      240 MOVE                             R11 R13
-      241 JUMP                             ; [+6]
-      242 GETUPVAL                         R13 5
-      243 MOVE                             R14 R0
-      244 MOVE                             R15 R12
-      245 MOVE                             R16 R3
-      246 CALL                             R13 3 1
-      247 MOVE                             R11 R13
-      248 JUMPIFNOTEQKNIL                  R11 ; [+3]
-      250 ADDK                             R8 R8 K19 [1]
-      251 JUMP                             ; [+51]
-      252 MOVE                             R13 R11
-      253 MOVE                             R14 R7
-      254 MOVE                             R15 R8
-      255 SETTABLEKS                       R15 R13 K5 ["index"]
-      257 GETUPVAL                         R16 2
-      258 JUMPIF                           R16 ; [+2]
-      259 MOVE                             R7 R14
-      260 JUMP                             ; [+34]
-      261 GETTABLEKS                       R16 R13 K11 ["alternate"]
-      263 JUMPIFEQKNIL                     R16 ; [+19]
-      265 GETTABLEKS                       R17 R16 K5 ["index"]
-      267 JUMPIFNOTLT                      R17 R14 ; [+13]
-      269 GETTABLEKS                       R19 R13 K13 ["flags"]
-      271 GETUPVAL                         R20 4
-      272 FASTCALL2                        BIT32_BOR R19 R20 ; [+3]
-      274 GETIMPORT                        R18 K16 [bit32.bor]
-      276 CALL                             R18 2 1
-      277 SETTABLEKS                       R18 R13 K13 ["flags"]
-      279 MOVE                             R7 R14
-      280 JUMP                             ; [+14]
-      281 MOVE                             R7 R17
-      282 JUMP                             ; [+12]
-      283 GETTABLEKS                       R18 R13 K13 ["flags"]
-      285 GETUPVAL                         R19 4
-      286 FASTCALL2                        BIT32_BOR R18 R19 ; [+3]
-      288 GETIMPORT                        R17 K16 [bit32.bor]
-      290 CALL                             R17 2 1
-      291 SETTABLEKS                       R17 R13 K13 ["flags"]
-      293 MOVE                             R7 R14
-      294 JUMP                             ; [0]
-      295 JUMPIFNOTEQKNIL                  R5 ; [+3]
-      297 MOVE                             R4 R11
-      298 JUMP                             ; [+2]
-      299 SETTABLEKS                       R11 R5 K6 ["sibling"]
-      301 MOVE                             R5 R11
-      302 ADDK                             R8 R8 K19 [1]
-      303 JUMPBACK                         ; [-87]
-      304 RETURN                           R4 1
-      305 GETUPVAL                         R11 6
-      306 MOVE                             R12 R0
-      307 MOVE                             R13 R6
-      308 CALL                             R11 2 1
-      309 JUMPIFNOTLE                      R8 R10 ; [+79]
-      311 GETUPVAL                         R12 7
-      312 MOVE                             R13 R11
-      313 MOVE                             R14 R0
-      314 MOVE                             R15 R8
-      315 GETTABLE                         R16 R2 R8
-      316 MOVE                             R17 R3
-      317 MOVE                             R18 R8
-      318 CALL                             R12 6 1
-      319 JUMPIFEQKNIL                     R12 ; [+67]
-      321 GETUPVAL                         R13 2
-      322 JUMPIFNOT                        R13 ; [+15]
-      323 GETTABLEKS                       R13 R12 K11 ["alternate"]
-      325 JUMPIFEQKNIL                     R13 ; [+12]
-      327 LOADNIL                          R13
-      328 GETTABLEKS                       R14 R12 K20 ["key"]
-      330 JUMPIFNOTEQKNIL                  R14 ; [+3]
-      332 MOVE                             R13 R8
-      333 JUMP                             ; [+2]
-      334 GETTABLEKS                       R13 R12 K20 ["key"]
-      336 LOADNIL                          R14
-      337 SETTABLE                         R14 R11 R13
-      338 MOVE                             R13 R7
-      339 MOVE                             R14 R8
-      340 SETTABLEKS                       R14 R12 K5 ["index"]
-      342 GETUPVAL                         R15 2
-      343 JUMPIF                           R15 ; [+2]
-      344 MOVE                             R7 R13
-      345 JUMP                             ; [+34]
-      346 GETTABLEKS                       R15 R12 K11 ["alternate"]
-      348 JUMPIFEQKNIL                     R15 ; [+19]
-      350 GETTABLEKS                       R16 R15 K5 ["index"]
-      352 JUMPIFNOTLT                      R16 R13 ; [+13]
-      354 GETTABLEKS                       R18 R12 K13 ["flags"]
-      356 GETUPVAL                         R19 4
-      357 FASTCALL2                        BIT32_BOR R18 R19 ; [+3]
-      359 GETIMPORT                        R17 K16 [bit32.bor]
-      361 CALL                             R17 2 1
-      362 SETTABLEKS                       R17 R12 K13 ["flags"]
-      364 MOVE                             R7 R13
-      365 JUMP                             ; [+14]
-      366 MOVE                             R7 R16
-      367 JUMP                             ; [+12]
-      368 GETTABLEKS                       R17 R12 K13 ["flags"]
-      370 GETUPVAL                         R18 4
-      371 FASTCALL2                        BIT32_BOR R17 R18 ; [+3]
-      373 GETIMPORT                        R16 K16 [bit32.bor]
-      375 CALL                             R16 2 1
-      376 SETTABLEKS                       R16 R12 K13 ["flags"]
-      378 MOVE                             R7 R13
-      379 JUMP                             ; [0]
-      380 JUMPIFNOTEQKNIL                  R5 ; [+3]
-      382 MOVE                             R4 R12
-      383 JUMP                             ; [+2]
-      384 SETTABLEKS                       R12 R5 K6 ["sibling"]
-      386 MOVE                             R5 R12
-      387 ADDK                             R8 R8 K19 [1]
-      388 JUMPBACK                         ; [-80]
-      389 GETUPVAL                         R12 2
-      390 JUMPIFNOT                        R12 ; [+39]
-      391 GETIMPORT                        R12 K22 [pairs]
-      393 MOVE                             R13 R11
-      394 CALL                             R12 1 3
-      395 FORGPREP_NEXT                    R12
-      396 GETUPVAL                         R17 2
-      397 JUMPIF                           R17 ; [+1]
-      398 JUMP                             ; [+29]
-      399 GETTABLEKS                       R17 R0 K12 ["deletions"]
-      401 JUMPIFNOTEQKNIL                  R17 ; [+19]
-      403 NEWTABLE                         R18 0 1
-      405 MOVE                             R19 R16
-      406 SETLIST                          R18 R19 1 [1]
-      408 SETTABLEKS                       R18 R0 K12 ["deletions"]
-      410 GETTABLEKS                       R19 R0 K13 ["flags"]
-      412 GETUPVAL                         R20 3
-      413 FASTCALL2                        BIT32_BOR R19 R20 ; [+3]
-      415 GETIMPORT                        R18 K16 [bit32.bor]
-      417 CALL                             R18 2 1
-      418 SETTABLEKS                       R18 R0 K13 ["flags"]
-      420 JUMP                             ; [+7]
-      421 FASTCALL2                        TABLE_INSERT R17 R16 ; [+5]
-      423 MOVE                             R19 R17
-      424 MOVE                             R20 R16
-      425 GETIMPORT                        R18 K18 [table.insert]
-      427 CALL                             R18 2 0
-      428 FORGLOOP                         R12 2 ; [-33]
-      430 RETURN                           R4 1
+      158 JUMPIFNOTEQKNIL                  R5 ; [+3]
+      160 MOVE                             R4 R11
+      161 JUMP                             ; [+2]
+      162 SETTABLEKS                       R11 R5 K6 ["sibling"]
+      164 MOVE                             R5 R11
+      165 MOVE                             R6 R9
+      166 ADDK                             R8 R8 K19 [1]
+      167 JUMPBACK                         ; [-142]
+      168 JUMPIFNOTLT                      R10 R8 ; [+45]
+      170 MOVE                             R11 R6
+      171 GETUPVAL                         R12 2
+      172 JUMPIF                           R12 ; [+1]
+      173 RETURN                           R4 1
+      174 MOVE                             R12 R11
+      175 JUMPIFEQKNIL                     R12 ; [+37]
+      177 MOVE                             R13 R12
+      178 GETUPVAL                         R14 2
+      179 JUMPIF                           R14 ; [+1]
+      180 JUMP                             ; [+29]
+      181 GETTABLEKS                       R14 R0 K12 ["deletions"]
+      183 JUMPIFNOTEQKNIL                  R14 ; [+19]
+      185 NEWTABLE                         R15 0 1
+      187 MOVE                             R16 R13
+      188 SETLIST                          R15 R16 1 [1]
+      190 SETTABLEKS                       R15 R0 K12 ["deletions"]
+      192 GETTABLEKS                       R16 R0 K13 ["flags"]
+      194 GETUPVAL                         R17 3
+      195 FASTCALL2                        BIT32_BOR R16 R17 ; [+3]
+      197 GETIMPORT                        R15 K16 [bit32.bor]
+      199 CALL                             R15 2 1
+      200 SETTABLEKS                       R15 R0 K13 ["flags"]
+      202 JUMP                             ; [+7]
+      203 FASTCALL2                        TABLE_INSERT R14 R13 ; [+5]
+      205 MOVE                             R16 R14
+      206 MOVE                             R17 R13
+      207 GETIMPORT                        R15 K18 [table.insert]
+      209 CALL                             R15 2 0
+      210 GETTABLEKS                       R12 R12 K6 ["sibling"]
+      212 JUMPBACK                         ; [-38]
+      213 RETURN                           R4 1
+      214 JUMPIFNOTEQKNIL                  R6 ; [+88]
+      216 JUMPIFNOTLE                      R8 R10 ; [+85]
+      218 LOADNIL                          R11
+      219 GETTABLE                         R12 R2 R8
+      220 JUMPIFEQKNIL                     R12 ; [+20]
+      222 FASTCALL1                        TYPEOF R12 ; [+3]
+      223 MOVE                             R14 R12
+      224 GETIMPORT                        R13 K8 [typeof]
+      226 CALL                             R13 1 1
+      227 JUMPIFNOTEQKS                    R13 K9 ["table"] ; [+13]
+      229 GETTABLEKS                       R13 R12 K10 ["$$typeof"]
+      231 JUMPIFEQKNIL                     R13 ; [+9]
+      233 GETUPVAL                         R13 5
+      234 MOVE                             R14 R0
+      235 MOVE                             R15 R12
+      236 MOVE                             R16 R3
+      237 MOVE                             R17 R8
+      238 CALL                             R13 4 1
+      239 MOVE                             R11 R13
+      240 JUMP                             ; [+6]
+      241 GETUPVAL                         R13 5
+      242 MOVE                             R14 R0
+      243 MOVE                             R15 R12
+      244 MOVE                             R16 R3
+      245 CALL                             R13 3 1
+      246 MOVE                             R11 R13
+      247 JUMPIFNOTEQKNIL                  R11 ; [+3]
+      249 ADDK                             R8 R8 K19 [1]
+      250 JUMP                             ; [+50]
+      251 MOVE                             R13 R11
+      252 MOVE                             R14 R7
+      253 MOVE                             R15 R8
+      254 SETTABLEKS                       R15 R13 K5 ["index"]
+      256 GETUPVAL                         R16 2
+      257 JUMPIF                           R16 ; [+2]
+      258 MOVE                             R7 R14
+      259 JUMP                             ; [+33]
+      260 GETTABLEKS                       R16 R13 K11 ["alternate"]
+      262 JUMPIFEQKNIL                     R16 ; [+19]
+      264 GETTABLEKS                       R17 R16 K5 ["index"]
+      266 JUMPIFNOTLT                      R17 R14 ; [+13]
+      268 GETTABLEKS                       R19 R13 K13 ["flags"]
+      270 GETUPVAL                         R20 4
+      271 FASTCALL2                        BIT32_BOR R19 R20 ; [+3]
+      273 GETIMPORT                        R18 K16 [bit32.bor]
+      275 CALL                             R18 2 1
+      276 SETTABLEKS                       R18 R13 K13 ["flags"]
+      278 MOVE                             R7 R14
+      279 JUMP                             ; [+13]
+      280 MOVE                             R7 R17
+      281 JUMP                             ; [+11]
+      282 GETTABLEKS                       R18 R13 K13 ["flags"]
+      284 GETUPVAL                         R19 4
+      285 FASTCALL2                        BIT32_BOR R18 R19 ; [+3]
+      287 GETIMPORT                        R17 K16 [bit32.bor]
+      289 CALL                             R17 2 1
+      290 SETTABLEKS                       R17 R13 K13 ["flags"]
+      292 MOVE                             R7 R14
+      293 JUMPIFNOTEQKNIL                  R5 ; [+3]
+      295 MOVE                             R4 R11
+      296 JUMP                             ; [+2]
+      297 SETTABLEKS                       R11 R5 K6 ["sibling"]
+      299 MOVE                             R5 R11
+      300 ADDK                             R8 R8 K19 [1]
+      301 JUMPBACK                         ; [-86]
+      302 RETURN                           R4 1
+      303 GETUPVAL                         R11 6
+      304 MOVE                             R12 R0
+      305 MOVE                             R13 R6
+      306 CALL                             R11 2 1
+      307 JUMPIFNOTLE                      R8 R10 ; [+78]
+      309 GETUPVAL                         R12 7
+      310 MOVE                             R13 R11
+      311 MOVE                             R14 R0
+      312 MOVE                             R15 R8
+      313 GETTABLE                         R16 R2 R8
+      314 MOVE                             R17 R3
+      315 MOVE                             R18 R8
+      316 CALL                             R12 6 1
+      317 JUMPIFEQKNIL                     R12 ; [+66]
+      319 GETUPVAL                         R13 2
+      320 JUMPIFNOT                        R13 ; [+15]
+      321 GETTABLEKS                       R13 R12 K11 ["alternate"]
+      323 JUMPIFEQKNIL                     R13 ; [+12]
+      325 LOADNIL                          R13
+      326 GETTABLEKS                       R14 R12 K20 ["key"]
+      328 JUMPIFNOTEQKNIL                  R14 ; [+3]
+      330 MOVE                             R13 R8
+      331 JUMP                             ; [+2]
+      332 GETTABLEKS                       R13 R12 K20 ["key"]
+      334 LOADNIL                          R14
+      335 SETTABLE                         R14 R11 R13
+      336 MOVE                             R13 R7
+      337 MOVE                             R14 R8
+      338 SETTABLEKS                       R14 R12 K5 ["index"]
+      340 GETUPVAL                         R15 2
+      341 JUMPIF                           R15 ; [+2]
+      342 MOVE                             R7 R13
+      343 JUMP                             ; [+33]
+      344 GETTABLEKS                       R15 R12 K11 ["alternate"]
+      346 JUMPIFEQKNIL                     R15 ; [+19]
+      348 GETTABLEKS                       R16 R15 K5 ["index"]
+      350 JUMPIFNOTLT                      R16 R13 ; [+13]
+      352 GETTABLEKS                       R18 R12 K13 ["flags"]
+      354 GETUPVAL                         R19 4
+      355 FASTCALL2                        BIT32_BOR R18 R19 ; [+3]
+      357 GETIMPORT                        R17 K16 [bit32.bor]
+      359 CALL                             R17 2 1
+      360 SETTABLEKS                       R17 R12 K13 ["flags"]
+      362 MOVE                             R7 R13
+      363 JUMP                             ; [+13]
+      364 MOVE                             R7 R16
+      365 JUMP                             ; [+11]
+      366 GETTABLEKS                       R17 R12 K13 ["flags"]
+      368 GETUPVAL                         R18 4
+      369 FASTCALL2                        BIT32_BOR R17 R18 ; [+3]
+      371 GETIMPORT                        R16 K16 [bit32.bor]
+      373 CALL                             R16 2 1
+      374 SETTABLEKS                       R16 R12 K13 ["flags"]
+      376 MOVE                             R7 R13
+      377 JUMPIFNOTEQKNIL                  R5 ; [+3]
+      379 MOVE                             R4 R12
+      380 JUMP                             ; [+2]
+      381 SETTABLEKS                       R12 R5 K6 ["sibling"]
+      383 MOVE                             R5 R12
+      384 ADDK                             R8 R8 K19 [1]
+      385 JUMPBACK                         ; [-79]
+      386 GETUPVAL                         R12 2
+      387 JUMPIFNOT                        R12 ; [+39]
+      388 GETIMPORT                        R12 K22 [pairs]
+      390 MOVE                             R13 R11
+      391 CALL                             R12 1 3
+      392 FORGPREP_NEXT                    R12
+      393 GETUPVAL                         R17 2
+      394 JUMPIF                           R17 ; [+1]
+      395 JUMP                             ; [+29]
+      396 GETTABLEKS                       R17 R0 K12 ["deletions"]
+      398 JUMPIFNOTEQKNIL                  R17 ; [+19]
+      400 NEWTABLE                         R18 0 1
+      402 MOVE                             R19 R16
+      403 SETLIST                          R18 R19 1 [1]
+      405 SETTABLEKS                       R18 R0 K12 ["deletions"]
+      407 GETTABLEKS                       R19 R0 K13 ["flags"]
+      409 GETUPVAL                         R20 3
+      410 FASTCALL2                        BIT32_BOR R19 R20 ; [+3]
+      412 GETIMPORT                        R18 K16 [bit32.bor]
+      414 CALL                             R18 2 1
+      415 SETTABLEKS                       R18 R0 K13 ["flags"]
+      417 JUMP                             ; [+7]
+      418 FASTCALL2                        TABLE_INSERT R17 R16 ; [+5]
+      420 MOVE                             R19 R17
+      421 MOVE                             R20 R16
+      422 GETIMPORT                        R18 K18 [table.insert]
+      424 CALL                             R18 2 0
+      425 FORGLOOP                         R12 2 ; [-33]
+      427 RETURN                           R4 1
 
 PROTO_21:
         0 GETIMPORT                        R6 K1 [_G]
@@ -1347,9 +1338,9 @@ PROTO_21:
        50 LOADNIL                          R11
        51 GETTABLEKS                       R12 R5 K6 ["next"]
        53 CALL                             R12 0 1
-       54 JUMPIFEQKNIL                     R8 ; [+124]
+       54 JUMPIFEQKNIL                     R8 ; [+123]
        56 GETTABLEKS                       R13 R12 K7 ["done"]
-       58 JUMPIF                           R13 ; [+120]
+       58 JUMPIF                           R13 ; [+119]
        59 GETTABLEKS                       R13 R8 K9 ["index"]
        61 JUMPIFNOTLT                      R10 R13 ; [+4]
        63 MOVE                             R11 R8
@@ -1364,9 +1355,9 @@ PROTO_21:
        74 GETTABLEKS                       R18 R12 K11 ["key"]
        76 CALL                             R13 5 1
        77 JUMPIFNOTEQKNIL                  R13 ; [+5]
-       79 JUMPIFNOTEQKNIL                  R8 ; [+99]
+       79 JUMPIFNOTEQKNIL                  R8 ; [+98]
        81 MOVE                             R8 R11
-       82 JUMP                             ; [+96]
+       82 JUMP                             ; [+95]
        83 GETUPVAL                         R14 4
        84 JUMPIFNOT                        R14 ; [+38]
        85 JUMPIFNOT                        R8 ; [+37]
@@ -1400,7 +1391,7 @@ PROTO_21:
       127 GETUPVAL                         R16 4
       128 JUMPIF                           R16 ; [+2]
       129 MOVE                             R9 R14
-      130 JUMP                             ; [+34]
+      130 JUMP                             ; [+33]
       131 GETTABLEKS                       R16 R13 K12 ["alternate"]
       133 JUMPIFEQKNIL                     R16 ; [+19]
       135 GETTABLEKS                       R17 R16 K9 ["index"]
@@ -1412,9 +1403,9 @@ PROTO_21:
       146 CALL                             R18 2 1
       147 SETTABLEKS                       R18 R13 K14 ["flags"]
       149 MOVE                             R9 R14
-      150 JUMP                             ; [+14]
+      150 JUMP                             ; [+13]
       151 MOVE                             R9 R17
-      152 JUMP                             ; [+12]
+      152 JUMP                             ; [+11]
       153 GETTABLEKS                       R18 R13 K14 ["flags"]
       155 GETUPVAL                         R19 6
       156 FASTCALL2                        BIT32_BOR R18 R19 ; [+3]
@@ -1422,204 +1413,201 @@ PROTO_21:
       160 CALL                             R17 2 1
       161 SETTABLEKS                       R17 R13 K14 ["flags"]
       163 MOVE                             R9 R14
-      164 JUMP                             ; [0]
-      165 JUMPIFNOTEQKNIL                  R7 ; [+3]
-      167 MOVE                             R6 R13
-      168 JUMP                             ; [+2]
-      169 SETTABLEKS                       R13 R7 K10 ["sibling"]
-      171 MOVE                             R7 R13
-      172 MOVE                             R8 R11
-      173 ADDK                             R10 R10 K21 [1]
-      174 GETTABLEKS                       R14 R5 K6 ["next"]
-      176 CALL                             R14 0 1
-      177 MOVE                             R12 R14
-      178 JUMPBACK                         ; [-125]
-      179 GETTABLEKS                       R13 R12 K7 ["done"]
-      181 JUMPIFNOT                        R13 ; [+44]
-      182 MOVE                             R13 R8
-      183 GETUPVAL                         R14 4
-      184 JUMPIF                           R14 ; [+1]
-      185 RETURN                           R6 1
-      186 MOVE                             R14 R13
-      187 JUMPIFEQKNIL                     R14 ; [+37]
-      189 MOVE                             R15 R14
-      190 GETUPVAL                         R16 4
-      191 JUMPIF                           R16 ; [+1]
-      192 JUMP                             ; [+29]
-      193 GETTABLEKS                       R16 R0 K13 ["deletions"]
-      195 JUMPIFNOTEQKNIL                  R16 ; [+19]
-      197 NEWTABLE                         R17 0 1
-      199 MOVE                             R18 R15
-      200 SETLIST                          R17 R18 1 [1]
-      202 SETTABLEKS                       R17 R0 K13 ["deletions"]
-      204 GETTABLEKS                       R18 R0 K14 ["flags"]
-      206 GETUPVAL                         R19 5
-      207 FASTCALL2                        BIT32_BOR R18 R19 ; [+3]
-      209 GETIMPORT                        R17 K17 [bit32.bor]
-      211 CALL                             R17 2 1
-      212 SETTABLEKS                       R17 R0 K14 ["flags"]
-      214 JUMP                             ; [+7]
-      215 FASTCALL2                        TABLE_INSERT R16 R15 ; [+5]
-      217 MOVE                             R18 R16
-      218 MOVE                             R19 R15
-      219 GETIMPORT                        R17 K20 [table.insert]
-      221 CALL                             R17 2 0
-      222 GETTABLEKS                       R14 R14 K10 ["sibling"]
-      224 JUMPBACK                         ; [-38]
-      225 RETURN                           R6 1
-      226 JUMPIFNOTEQKNIL                  R8 ; [+76]
-      228 GETTABLEKS                       R13 R12 K7 ["done"]
-      230 JUMPIF                           R13 ; [+71]
-      231 GETUPVAL                         R13 7
-      232 MOVE                             R14 R0
-      233 GETTABLEKS                       R15 R12 K8 ["value"]
-      235 MOVE                             R16 R3
-      236 GETTABLEKS                       R17 R12 K11 ["key"]
-      238 CALL                             R13 4 1
-      239 JUMPIFNOTEQKNIL                  R13 ; [+7]
-      241 ADDK                             R10 R10 K21 [1]
-      242 GETTABLEKS                       R14 R5 K6 ["next"]
-      244 CALL                             R14 0 1
-      245 MOVE                             R12 R14
-      246 JUMP                             ; [+54]
-      247 MOVE                             R14 R9
-      248 MOVE                             R15 R10
-      249 SETTABLEKS                       R15 R13 K9 ["index"]
-      251 GETUPVAL                         R16 4
-      252 JUMPIF                           R16 ; [+2]
-      253 MOVE                             R9 R14
-      254 JUMP                             ; [+34]
-      255 GETTABLEKS                       R16 R13 K12 ["alternate"]
-      257 JUMPIFEQKNIL                     R16 ; [+19]
-      259 GETTABLEKS                       R17 R16 K9 ["index"]
-      261 JUMPIFNOTLT                      R17 R14 ; [+13]
-      263 GETTABLEKS                       R19 R13 K14 ["flags"]
-      265 GETUPVAL                         R20 6
-      266 FASTCALL2                        BIT32_BOR R19 R20 ; [+3]
-      268 GETIMPORT                        R18 K17 [bit32.bor]
-      270 CALL                             R18 2 1
-      271 SETTABLEKS                       R18 R13 K14 ["flags"]
-      273 MOVE                             R9 R14
-      274 JUMP                             ; [+14]
-      275 MOVE                             R9 R17
-      276 JUMP                             ; [+12]
-      277 GETTABLEKS                       R18 R13 K14 ["flags"]
-      279 GETUPVAL                         R19 6
-      280 FASTCALL2                        BIT32_BOR R18 R19 ; [+3]
-      282 GETIMPORT                        R17 K17 [bit32.bor]
-      284 CALL                             R17 2 1
-      285 SETTABLEKS                       R17 R13 K14 ["flags"]
-      287 MOVE                             R9 R14
-      288 JUMP                             ; [0]
-      289 JUMPIFNOTEQKNIL                  R7 ; [+3]
-      291 MOVE                             R6 R13
-      292 JUMP                             ; [+2]
-      293 SETTABLEKS                       R13 R7 K10 ["sibling"]
-      295 MOVE                             R7 R13
-      296 ADDK                             R10 R10 K21 [1]
-      297 GETTABLEKS                       R14 R5 K6 ["next"]
-      299 CALL                             R14 0 1
-      300 MOVE                             R12 R14
-      301 JUMPBACK                         ; [-74]
-      302 RETURN                           R6 1
-      303 LOADNIL                          R13
-      304 GETTABLEKS                       R14 R12 K7 ["done"]
-      306 JUMPIF                           R14 ; [+90]
-      307 JUMPIF                           R13 ; [+5]
-      308 GETUPVAL                         R14 8
-      309 MOVE                             R15 R0
-      310 MOVE                             R16 R8
-      311 CALL                             R14 2 1
-      312 MOVE                             R13 R14
-      313 GETUPVAL                         R14 9
-      314 MOVE                             R15 R13
-      315 MOVE                             R16 R0
-      316 MOVE                             R17 R10
-      317 GETTABLEKS                       R18 R12 K8 ["value"]
-      319 MOVE                             R19 R3
-      320 GETTABLEKS                       R20 R12 K11 ["key"]
-      322 CALL                             R14 6 1
-      323 JUMPIFEQKNIL                     R14 ; [+67]
-      325 GETUPVAL                         R15 4
-      326 JUMPIFNOT                        R15 ; [+15]
-      327 GETTABLEKS                       R15 R14 K12 ["alternate"]
-      329 JUMPIFEQKNIL                     R15 ; [+12]
-      331 GETTABLEKS                       R15 R14 K11 ["key"]
-      333 JUMPIFNOTEQKNIL                  R15 ; [+4]
-      335 LOADNIL                          R15
-      336 SETTABLE                         R15 R13 R10
-      337 JUMP                             ; [+4]
-      338 GETTABLEKS                       R15 R14 K11 ["key"]
-      340 LOADNIL                          R16
-      341 SETTABLE                         R16 R13 R15
-      342 MOVE                             R15 R9
-      343 MOVE                             R16 R10
-      344 SETTABLEKS                       R16 R14 K9 ["index"]
-      346 GETUPVAL                         R17 4
-      347 JUMPIF                           R17 ; [+2]
-      348 MOVE                             R9 R15
-      349 JUMP                             ; [+34]
-      350 GETTABLEKS                       R17 R14 K12 ["alternate"]
-      352 JUMPIFEQKNIL                     R17 ; [+19]
-      354 GETTABLEKS                       R18 R17 K9 ["index"]
-      356 JUMPIFNOTLT                      R18 R15 ; [+13]
-      358 GETTABLEKS                       R20 R14 K14 ["flags"]
-      360 GETUPVAL                         R21 6
-      361 FASTCALL2                        BIT32_BOR R20 R21 ; [+3]
-      363 GETIMPORT                        R19 K17 [bit32.bor]
-      365 CALL                             R19 2 1
-      366 SETTABLEKS                       R19 R14 K14 ["flags"]
-      368 MOVE                             R9 R15
-      369 JUMP                             ; [+14]
-      370 MOVE                             R9 R18
-      371 JUMP                             ; [+12]
-      372 GETTABLEKS                       R19 R14 K14 ["flags"]
-      374 GETUPVAL                         R20 6
-      375 FASTCALL2                        BIT32_BOR R19 R20 ; [+3]
-      377 GETIMPORT                        R18 K17 [bit32.bor]
-      379 CALL                             R18 2 1
-      380 SETTABLEKS                       R18 R14 K14 ["flags"]
-      382 MOVE                             R9 R15
-      383 JUMP                             ; [0]
-      384 JUMPIFNOTEQKNIL                  R7 ; [+3]
-      386 MOVE                             R6 R14
-      387 JUMP                             ; [+2]
-      388 SETTABLEKS                       R14 R7 K10 ["sibling"]
-      390 MOVE                             R7 R14
-      391 ADDK                             R10 R10 K21 [1]
-      392 GETTABLEKS                       R15 R5 K6 ["next"]
-      394 CALL                             R15 0 1
-      395 MOVE                             R12 R15
-      396 JUMPBACK                         ; [-93]
-      397 GETUPVAL                         R14 4
-      398 JUMPIFNOT                        R14 ; [+39]
-      399 GETIMPORT                        R14 K23 [pairs]
-      401 MOVE                             R15 R13
-      402 CALL                             R14 1 3
-      403 FORGPREP_NEXT                    R14
-      404 GETUPVAL                         R19 4
-      405 JUMPIF                           R19 ; [+1]
-      406 JUMP                             ; [+29]
-      407 GETTABLEKS                       R19 R0 K13 ["deletions"]
-      409 JUMPIFNOTEQKNIL                  R19 ; [+19]
-      411 NEWTABLE                         R20 0 1
-      413 MOVE                             R21 R18
-      414 SETLIST                          R20 R21 1 [1]
-      416 SETTABLEKS                       R20 R0 K13 ["deletions"]
-      418 GETTABLEKS                       R21 R0 K14 ["flags"]
-      420 GETUPVAL                         R22 5
-      421 FASTCALL2                        BIT32_BOR R21 R22 ; [+3]
-      423 GETIMPORT                        R20 K17 [bit32.bor]
-      425 CALL                             R20 2 1
-      426 SETTABLEKS                       R20 R0 K14 ["flags"]
-      428 JUMP                             ; [+7]
-      429 FASTCALL2                        TABLE_INSERT R19 R18 ; [+5]
-      431 MOVE                             R21 R19
-      432 MOVE                             R22 R18
-      433 GETIMPORT                        R20 K20 [table.insert]
-      435 CALL                             R20 2 0
-      436 FORGLOOP                         R14 2 ; [-33]
-      438 RETURN                           R6 1
+      164 JUMPIFNOTEQKNIL                  R7 ; [+3]
+      166 MOVE                             R6 R13
+      167 JUMP                             ; [+2]
+      168 SETTABLEKS                       R13 R7 K10 ["sibling"]
+      170 MOVE                             R7 R13
+      171 MOVE                             R8 R11
+      172 ADDK                             R10 R10 K21 [1]
+      173 GETTABLEKS                       R14 R5 K6 ["next"]
+      175 CALL                             R14 0 1
+      176 MOVE                             R12 R14
+      177 JUMPBACK                         ; [-124]
+      178 GETTABLEKS                       R13 R12 K7 ["done"]
+      180 JUMPIFNOT                        R13 ; [+44]
+      181 MOVE                             R13 R8
+      182 GETUPVAL                         R14 4
+      183 JUMPIF                           R14 ; [+1]
+      184 RETURN                           R6 1
+      185 MOVE                             R14 R13
+      186 JUMPIFEQKNIL                     R14 ; [+37]
+      188 MOVE                             R15 R14
+      189 GETUPVAL                         R16 4
+      190 JUMPIF                           R16 ; [+1]
+      191 JUMP                             ; [+29]
+      192 GETTABLEKS                       R16 R0 K13 ["deletions"]
+      194 JUMPIFNOTEQKNIL                  R16 ; [+19]
+      196 NEWTABLE                         R17 0 1
+      198 MOVE                             R18 R15
+      199 SETLIST                          R17 R18 1 [1]
+      201 SETTABLEKS                       R17 R0 K13 ["deletions"]
+      203 GETTABLEKS                       R18 R0 K14 ["flags"]
+      205 GETUPVAL                         R19 5
+      206 FASTCALL2                        BIT32_BOR R18 R19 ; [+3]
+      208 GETIMPORT                        R17 K17 [bit32.bor]
+      210 CALL                             R17 2 1
+      211 SETTABLEKS                       R17 R0 K14 ["flags"]
+      213 JUMP                             ; [+7]
+      214 FASTCALL2                        TABLE_INSERT R16 R15 ; [+5]
+      216 MOVE                             R18 R16
+      217 MOVE                             R19 R15
+      218 GETIMPORT                        R17 K20 [table.insert]
+      220 CALL                             R17 2 0
+      221 GETTABLEKS                       R14 R14 K10 ["sibling"]
+      223 JUMPBACK                         ; [-38]
+      224 RETURN                           R6 1
+      225 JUMPIFNOTEQKNIL                  R8 ; [+75]
+      227 GETTABLEKS                       R13 R12 K7 ["done"]
+      229 JUMPIF                           R13 ; [+70]
+      230 GETUPVAL                         R13 7
+      231 MOVE                             R14 R0
+      232 GETTABLEKS                       R15 R12 K8 ["value"]
+      234 MOVE                             R16 R3
+      235 GETTABLEKS                       R17 R12 K11 ["key"]
+      237 CALL                             R13 4 1
+      238 JUMPIFNOTEQKNIL                  R13 ; [+7]
+      240 ADDK                             R10 R10 K21 [1]
+      241 GETTABLEKS                       R14 R5 K6 ["next"]
+      243 CALL                             R14 0 1
+      244 MOVE                             R12 R14
+      245 JUMP                             ; [+53]
+      246 MOVE                             R14 R9
+      247 MOVE                             R15 R10
+      248 SETTABLEKS                       R15 R13 K9 ["index"]
+      250 GETUPVAL                         R16 4
+      251 JUMPIF                           R16 ; [+2]
+      252 MOVE                             R9 R14
+      253 JUMP                             ; [+33]
+      254 GETTABLEKS                       R16 R13 K12 ["alternate"]
+      256 JUMPIFEQKNIL                     R16 ; [+19]
+      258 GETTABLEKS                       R17 R16 K9 ["index"]
+      260 JUMPIFNOTLT                      R17 R14 ; [+13]
+      262 GETTABLEKS                       R19 R13 K14 ["flags"]
+      264 GETUPVAL                         R20 6
+      265 FASTCALL2                        BIT32_BOR R19 R20 ; [+3]
+      267 GETIMPORT                        R18 K17 [bit32.bor]
+      269 CALL                             R18 2 1
+      270 SETTABLEKS                       R18 R13 K14 ["flags"]
+      272 MOVE                             R9 R14
+      273 JUMP                             ; [+13]
+      274 MOVE                             R9 R17
+      275 JUMP                             ; [+11]
+      276 GETTABLEKS                       R18 R13 K14 ["flags"]
+      278 GETUPVAL                         R19 6
+      279 FASTCALL2                        BIT32_BOR R18 R19 ; [+3]
+      281 GETIMPORT                        R17 K17 [bit32.bor]
+      283 CALL                             R17 2 1
+      284 SETTABLEKS                       R17 R13 K14 ["flags"]
+      286 MOVE                             R9 R14
+      287 JUMPIFNOTEQKNIL                  R7 ; [+3]
+      289 MOVE                             R6 R13
+      290 JUMP                             ; [+2]
+      291 SETTABLEKS                       R13 R7 K10 ["sibling"]
+      293 MOVE                             R7 R13
+      294 ADDK                             R10 R10 K21 [1]
+      295 GETTABLEKS                       R14 R5 K6 ["next"]
+      297 CALL                             R14 0 1
+      298 MOVE                             R12 R14
+      299 JUMPBACK                         ; [-73]
+      300 RETURN                           R6 1
+      301 LOADNIL                          R13
+      302 GETTABLEKS                       R14 R12 K7 ["done"]
+      304 JUMPIF                           R14 ; [+89]
+      305 JUMPIF                           R13 ; [+5]
+      306 GETUPVAL                         R14 8
+      307 MOVE                             R15 R0
+      308 MOVE                             R16 R8
+      309 CALL                             R14 2 1
+      310 MOVE                             R13 R14
+      311 GETUPVAL                         R14 9
+      312 MOVE                             R15 R13
+      313 MOVE                             R16 R0
+      314 MOVE                             R17 R10
+      315 GETTABLEKS                       R18 R12 K8 ["value"]
+      317 MOVE                             R19 R3
+      318 GETTABLEKS                       R20 R12 K11 ["key"]
+      320 CALL                             R14 6 1
+      321 JUMPIFEQKNIL                     R14 ; [+66]
+      323 GETUPVAL                         R15 4
+      324 JUMPIFNOT                        R15 ; [+15]
+      325 GETTABLEKS                       R15 R14 K12 ["alternate"]
+      327 JUMPIFEQKNIL                     R15 ; [+12]
+      329 GETTABLEKS                       R15 R14 K11 ["key"]
+      331 JUMPIFNOTEQKNIL                  R15 ; [+4]
+      333 LOADNIL                          R15
+      334 SETTABLE                         R15 R13 R10
+      335 JUMP                             ; [+4]
+      336 GETTABLEKS                       R15 R14 K11 ["key"]
+      338 LOADNIL                          R16
+      339 SETTABLE                         R16 R13 R15
+      340 MOVE                             R15 R9
+      341 MOVE                             R16 R10
+      342 SETTABLEKS                       R16 R14 K9 ["index"]
+      344 GETUPVAL                         R17 4
+      345 JUMPIF                           R17 ; [+2]
+      346 MOVE                             R9 R15
+      347 JUMP                             ; [+33]
+      348 GETTABLEKS                       R17 R14 K12 ["alternate"]
+      350 JUMPIFEQKNIL                     R17 ; [+19]
+      352 GETTABLEKS                       R18 R17 K9 ["index"]
+      354 JUMPIFNOTLT                      R18 R15 ; [+13]
+      356 GETTABLEKS                       R20 R14 K14 ["flags"]
+      358 GETUPVAL                         R21 6
+      359 FASTCALL2                        BIT32_BOR R20 R21 ; [+3]
+      361 GETIMPORT                        R19 K17 [bit32.bor]
+      363 CALL                             R19 2 1
+      364 SETTABLEKS                       R19 R14 K14 ["flags"]
+      366 MOVE                             R9 R15
+      367 JUMP                             ; [+13]
+      368 MOVE                             R9 R18
+      369 JUMP                             ; [+11]
+      370 GETTABLEKS                       R19 R14 K14 ["flags"]
+      372 GETUPVAL                         R20 6
+      373 FASTCALL2                        BIT32_BOR R19 R20 ; [+3]
+      375 GETIMPORT                        R18 K17 [bit32.bor]
+      377 CALL                             R18 2 1
+      378 SETTABLEKS                       R18 R14 K14 ["flags"]
+      380 MOVE                             R9 R15
+      381 JUMPIFNOTEQKNIL                  R7 ; [+3]
+      383 MOVE                             R6 R14
+      384 JUMP                             ; [+2]
+      385 SETTABLEKS                       R14 R7 K10 ["sibling"]
+      387 MOVE                             R7 R14
+      388 ADDK                             R10 R10 K21 [1]
+      389 GETTABLEKS                       R15 R5 K6 ["next"]
+      391 CALL                             R15 0 1
+      392 MOVE                             R12 R15
+      393 JUMPBACK                         ; [-92]
+      394 GETUPVAL                         R14 4
+      395 JUMPIFNOT                        R14 ; [+39]
+      396 GETIMPORT                        R14 K23 [pairs]
+      398 MOVE                             R15 R13
+      399 CALL                             R14 1 3
+      400 FORGPREP_NEXT                    R14
+      401 GETUPVAL                         R19 4
+      402 JUMPIF                           R19 ; [+1]
+      403 JUMP                             ; [+29]
+      404 GETTABLEKS                       R19 R0 K13 ["deletions"]
+      406 JUMPIFNOTEQKNIL                  R19 ; [+19]
+      408 NEWTABLE                         R20 0 1
+      410 MOVE                             R21 R18
+      411 SETLIST                          R20 R21 1 [1]
+      413 SETTABLEKS                       R20 R0 K13 ["deletions"]
+      415 GETTABLEKS                       R21 R0 K14 ["flags"]
+      417 GETUPVAL                         R22 5
+      418 FASTCALL2                        BIT32_BOR R21 R22 ; [+3]
+      420 GETIMPORT                        R20 K17 [bit32.bor]
+      422 CALL                             R20 2 1
+      423 SETTABLEKS                       R20 R0 K14 ["flags"]
+      425 JUMP                             ; [+7]
+      426 FASTCALL2                        TABLE_INSERT R19 R18 ; [+5]
+      428 MOVE                             R21 R19
+      429 MOVE                             R22 R18
+      430 GETIMPORT                        R20 K20 [table.insert]
+      432 CALL                             R20 2 0
+      433 FORGLOOP                         R14 2 ; [-33]
+      435 RETURN                           R6 1
 
 PROTO_22:
         0 JUMPIFEQKNIL                     R1 ; [+64]

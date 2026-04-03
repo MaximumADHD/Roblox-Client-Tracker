@@ -80,7 +80,7 @@ PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["avatarRules"]
         3 CALL                             R0 0 1
-        4 LOADK                            R3 K1 ["AvatarAnimationRules"]
+        4 LOADK                            R3 K1 ["AvatarAbilityRules"]
         5 NAMECALL                         R1 R0 K2 ["FindFirstChildWhichIsA"]
         7 CALL                             R1 2 1
         8 RETURN                           R1 1
@@ -89,7 +89,7 @@ PROTO_6:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["avatarRules"]
         3 CALL                             R0 0 1
-        4 LOADK                            R3 K1 ["AvatarAccessoryRules"]
+        4 LOADK                            R3 K1 ["AvatarAnimationRules"]
         5 NAMECALL                         R1 R0 K2 ["FindFirstChildWhichIsA"]
         7 CALL                             R1 2 1
         8 RETURN                           R1 1
@@ -98,12 +98,21 @@ PROTO_7:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["avatarRules"]
         3 CALL                             R0 0 1
-        4 LOADK                            R3 K1 ["AvatarClothingRules"]
+        4 LOADK                            R3 K1 ["AvatarAccessoryRules"]
         5 NAMECALL                         R1 R0 K2 ["FindFirstChildWhichIsA"]
         7 CALL                             R1 2 1
         8 RETURN                           R1 1
 
 PROTO_8:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["avatarRules"]
+        3 CALL                             R0 0 1
+        4 LOADK                            R3 K1 ["AvatarClothingRules"]
+        5 NAMECALL                         R1 R0 K2 ["FindFirstChildWhichIsA"]
+        7 CALL                             R1 2 1
+        8 RETURN                           R1 1
+
+PROTO_9:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["createRule"]
         3 LOADK                            R1 K1 ["AvatarBodyRules"]
@@ -119,7 +128,7 @@ PROTO_8:
        15 RETURN                           R1 1
        16 RETURN                           R1 1
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["createRule"]
         3 LOADK                            R1 K1 ["AvatarCollisionRules"]
@@ -135,7 +144,23 @@ PROTO_9:
        15 RETURN                           R1 1
        16 RETURN                           R1 1
 
-PROTO_10:
+PROTO_11:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["createRule"]
+        3 LOADK                            R1 K1 ["AvatarAbilityRules"]
+        4 CALL                             R0 1 1
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R1 R2 K2 ["avatarAbilityRules"]
+        8 CALL                             R1 0 1
+        9 FASTCALL1                        ASSERT R1 ; [+3]
+       10 MOVE                             R3 R1
+       11 GETIMPORT                        R2 K4 [assert]
+       13 CALL                             R2 1 0
+       14 JUMPIF                           R0 ; [+1]
+       15 RETURN                           R1 1
+       16 RETURN                           R1 1
+
+PROTO_12:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["createRule"]
         3 LOADK                            R1 K1 ["AvatarAnimationRules"]
@@ -151,7 +176,7 @@ PROTO_10:
        15 RETURN                           R1 1
        16 RETURN                           R1 1
 
-PROTO_11:
+PROTO_13:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["createRule"]
         3 LOADK                            R1 K1 ["AvatarAccessoryRules"]
@@ -167,7 +192,7 @@ PROTO_11:
        15 RETURN                           R1 1
        16 RETURN                           R1 1
 
-PROTO_12:
+PROTO_14:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["createRule"]
         3 LOADK                            R1 K1 ["AvatarClothingRules"]
@@ -202,26 +227,32 @@ MAIN:
        20 SETTABLEKS                       R1 R0 K9 ["avatarCollisionRules"]
        22 DUPCLOSURE                       R1 K10 [PROTO_5]
        23 CAPTURE                          VAL R0
-       24 SETTABLEKS                       R1 R0 K11 ["avatarAnimationRules"]
+       24 SETTABLEKS                       R1 R0 K11 ["avatarAbilityRules"]
        26 DUPCLOSURE                       R1 K12 [PROTO_6]
        27 CAPTURE                          VAL R0
-       28 SETTABLEKS                       R1 R0 K13 ["avatarAccessoryRules"]
+       28 SETTABLEKS                       R1 R0 K13 ["avatarAnimationRules"]
        30 DUPCLOSURE                       R1 K14 [PROTO_7]
        31 CAPTURE                          VAL R0
-       32 SETTABLEKS                       R1 R0 K15 ["avatarClothingRules"]
+       32 SETTABLEKS                       R1 R0 K15 ["avatarAccessoryRules"]
        34 DUPCLOSURE                       R1 K16 [PROTO_8]
        35 CAPTURE                          VAL R0
-       36 SETTABLEKS                       R1 R0 K17 ["createAvatarBodyRules"]
+       36 SETTABLEKS                       R1 R0 K17 ["avatarClothingRules"]
        38 DUPCLOSURE                       R1 K18 [PROTO_9]
        39 CAPTURE                          VAL R0
-       40 SETTABLEKS                       R1 R0 K19 ["createAvatarCollisionRules"]
+       40 SETTABLEKS                       R1 R0 K19 ["createAvatarBodyRules"]
        42 DUPCLOSURE                       R1 K20 [PROTO_10]
        43 CAPTURE                          VAL R0
-       44 SETTABLEKS                       R1 R0 K21 ["createAvatarAnimationRules"]
+       44 SETTABLEKS                       R1 R0 K21 ["createAvatarCollisionRules"]
        46 DUPCLOSURE                       R1 K22 [PROTO_11]
        47 CAPTURE                          VAL R0
-       48 SETTABLEKS                       R1 R0 K23 ["createAvatarAccessoryRules"]
+       48 SETTABLEKS                       R1 R0 K23 ["createAvatarAbilityRules"]
        50 DUPCLOSURE                       R1 K24 [PROTO_12]
        51 CAPTURE                          VAL R0
-       52 SETTABLEKS                       R1 R0 K25 ["createAvatarClothingRules"]
-       54 RETURN                           R0 1
+       52 SETTABLEKS                       R1 R0 K25 ["createAvatarAnimationRules"]
+       54 DUPCLOSURE                       R1 K26 [PROTO_13]
+       55 CAPTURE                          VAL R0
+       56 SETTABLEKS                       R1 R0 K27 ["createAvatarAccessoryRules"]
+       58 DUPCLOSURE                       R1 K28 [PROTO_14]
+       59 CAPTURE                          VAL R0
+       60 SETTABLEKS                       R1 R0 K29 ["createAvatarClothingRules"]
+       62 RETURN                           R0 1

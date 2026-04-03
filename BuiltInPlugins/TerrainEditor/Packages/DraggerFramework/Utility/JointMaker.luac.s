@@ -66,13 +66,13 @@ PROTO_3:
        52 LOADK                            R24 K9 ["Constraint"]
        53 NAMECALL                         R22 R21 K10 ["IsA"]
        55 CALL                             R22 2 1
-       56 JUMPIFNOT                        R22 ; [+95]
+       56 JUMPIFNOT                        R22 ; [+93]
        57 GETUPVAL                         R23 0
        58 GETTABLEKS                       R22 R23 K11 ["getConstraintCounterpart"]
        60 MOVE                             R23 R21
        61 MOVE                             R24 R16
        62 CALL                             R22 2 1
-       63 JUMPIFNOT                        R22 ; [+154]
+       63 JUMPIFNOT                        R22 ; [+152]
        64 GETTABLE                         R23 R8 R16
        65 LOADB                            R24 1
        66 SETTABLE                         R24 R23 R22
@@ -83,142 +83,140 @@ PROTO_3:
        72 LOADK                            R25 K13 ["RodConstraint"]
        73 NAMECALL                         R23 R21 K10 ["IsA"]
        75 CALL                             R23 2 1
-       76 JUMPIFNOT                        R23 ; [+35]
+       76 JUMPIFNOT                        R23 ; [+34]
        77 MOVE                             R24 R21
        78 JUMPIFNOT                        R2 ; [+10]
        79 JUMPIFNOT                        R24 ; [+7]
        80 GETTABLE                         R25 R2 R24
        81 JUMPIFNOT                        R25 ; [+2]
        82 LOADB                            R23 0
-       83 JUMP                             ; [+7]
+       83 JUMP                             ; [+6]
        84 GETTABLEKS                       R24 R24 K14 ["Parent"]
        86 JUMPBACK                         ; [-8]
        87 LOADB                            R23 1
-       88 JUMP                             ; [+2]
+       88 JUMP                             ; [+1]
        89 LOADB                            R23 1
-       90 JUMP                             ; [0]
-       91 JUMPIFNOT                        R23 ; [+126]
-       92 DUPTABLE                         R23 K17 [{"Span", "Length"}]
-       93 GETTABLEKS                       R26 R21 K18 ["Attachment0"]
-       95 GETTABLEKS                       R25 R26 K19 ["WorldPosition"]
-       97 GETTABLEKS                       R27 R21 K20 ["Attachment1"]
-       99 GETTABLEKS                       R26 R27 K19 ["WorldPosition"]
-      101 SUB                              R27 R26 R25
-      102 GETTABLEKS                       R24 R27 K21 ["Magnitude"]
-      104 SETTABLEKS                       R24 R23 K15 ["Span"]
-      106 GETTABLEKS                       R24 R21 K16 ["Length"]
-      108 SETTABLEKS                       R24 R23 K16 ["Length"]
-      110 SETTABLE                         R23 R11 R21
-      111 JUMP                             ; [+106]
-      112 LOADK                            R25 K22 ["SpringConstraint"]
-      113 NAMECALL                         R23 R21 K10 ["IsA"]
-      115 CALL                             R23 2 1
-      116 JUMPIFNOT                        R23 ; [+101]
-      117 MOVE                             R24 R21
-      118 JUMPIFNOT                        R2 ; [+10]
-      119 JUMPIFNOT                        R24 ; [+7]
-      120 GETTABLE                         R25 R2 R24
-      121 JUMPIFNOT                        R25 ; [+2]
-      122 LOADB                            R23 0
-      123 JUMP                             ; [+7]
-      124 GETTABLEKS                       R24 R24 K14 ["Parent"]
-      126 JUMPBACK                         ; [-8]
-      127 LOADB                            R23 1
-      128 JUMP                             ; [+2]
-      129 LOADB                            R23 1
-      130 JUMP                             ; [0]
-      131 JUMPIFNOT                        R23 ; [+86]
-      132 DUPTABLE                         R23 K24 [{"Span", "FreeLength"}]
-      133 GETTABLEKS                       R26 R21 K18 ["Attachment0"]
-      135 GETTABLEKS                       R25 R26 K19 ["WorldPosition"]
-      137 GETTABLEKS                       R27 R21 K20 ["Attachment1"]
-      139 GETTABLEKS                       R26 R27 K19 ["WorldPosition"]
-      141 SUB                              R27 R26 R25
-      142 GETTABLEKS                       R24 R27 K21 ["Magnitude"]
-      144 SETTABLEKS                       R24 R23 K15 ["Span"]
-      146 GETTABLEKS                       R24 R21 K23 ["FreeLength"]
-      148 SETTABLEKS                       R24 R23 K23 ["FreeLength"]
-      150 SETTABLE                         R23 R10 R21
-      151 JUMP                             ; [+66]
-      152 LOADK                            R24 K25 ["JointInstance"]
-      153 NAMECALL                         R22 R21 K10 ["IsA"]
-      155 CALL                             R22 2 1
-      156 JUMPIFNOT                        R22 ; [+32]
-      157 GETUPVAL                         R23 0
-      158 GETTABLEKS                       R22 R23 K26 ["getJointInstanceCounterpart"]
-      160 MOVE                             R23 R21
-      161 MOVE                             R24 R16
-      162 CALL                             R22 2 1
-      163 GETTABLE                         R23 R3 R22
-      164 JUMPIFNOT                        R23 ; [+1]
-      165 JUMP                             ; [+52]
-      166 LOADK                            R25 K27 ["Motor6D"]
-      167 NAMECALL                         R23 R21 K10 ["IsA"]
-      169 CALL                             R23 2 1
-      170 JUMPIFNOT                        R23 ; [+10]
-      171 LOADB                            R23 0
-      172 SETTABLEKS                       R23 R21 K28 ["Enabled"]
-      174 GETTABLEKS                       R23 R16 K29 ["CFrame"]
-      176 SETTABLE                         R23 R6 R21
-      177 GETTABLE                         R23 R8 R16
-      178 LOADB                            R24 1
-      179 SETTABLE                         R24 R23 R22
-      180 JUMP                             ; [+37]
-      181 FASTCALL2                        TABLE_INSERT R7 R21 ; [+5]
-      183 MOVE                             R24 R7
-      184 MOVE                             R25 R21
-      185 GETIMPORT                        R23 K32 [table.insert]
-      187 CALL                             R23 2 0
-      188 JUMP                             ; [+29]
-      189 LOADK                            R24 K33 ["WeldConstraint"]
-      190 NAMECALL                         R22 R21 K10 ["IsA"]
-      192 CALL                             R22 2 1
-      193 JUMPIFNOT                        R22 ; [+10]
-      194 GETUPVAL                         R23 0
-      195 GETTABLEKS                       R22 R23 K34 ["getWeldConstraintCounterpart"]
-      197 MOVE                             R23 R21
-      198 MOVE                             R24 R16
-      199 CALL                             R22 2 1
-      200 GETTABLE                         R23 R8 R16
-      201 LOADB                            R24 1
-      202 SETTABLE                         R24 R23 R22
-      203 JUMP                             ; [+14]
-      204 LOADK                            R24 K35 ["NoCollisionConstraint"]
-      205 NAMECALL                         R22 R21 K10 ["IsA"]
-      207 CALL                             R22 2 1
-      208 JUMPIFNOT                        R22 ; [+9]
-      209 GETUPVAL                         R23 0
-      210 GETTABLEKS                       R22 R23 K36 ["getNoCollisionConstraintCounterpart"]
-      212 MOVE                             R23 R21
-      213 MOVE                             R24 R16
-      214 CALL                             R22 2 1
-      215 GETTABLE                         R23 R8 R16
-      216 LOADB                            R24 1
-      217 SETTABLE                         R24 R23 R22
-      218 FORGLOOP                         R17 2 [inext] ; [-167]
-      220 NEWTABLE                         R17 0 0
-      222 SETTABLE                         R17 R9 R16
-      223 JUMPIFEQ                         R16 R4 ; [+13]
-      225 GETIMPORT                        R17 K1 [ipairs]
-      227 NAMECALL                         R18 R16 K37 ["GetTouchingParts"]
-      229 CALL                             R18 1 -1
-      230 CALL                             R17 -1 3
-      231 FORGPREP_INEXT                   R17
-      232 GETTABLE                         R22 R9 R16
-      233 LOADB                            R23 1
-      234 SETTABLE                         R23 R22 R21
-      235 FORGLOOP                         R17 2 [inext] ; [-4]
-      237 FORGLOOP                         R12 2 [inext] ; [-196]
-      239 SETTABLEKS                       R11 R0 K38 ["_lengthConstraintsToFixupSet"]
-      241 SETTABLEKS                       R10 R0 K39 ["_springsToFixupSet"]
-      243 SETTABLEKS                       R9 R0 K40 ["_initiallyTouchingSets"]
-      245 SETTABLEKS                       R7 R0 K41 ["_jointsToDestroy"]
-      247 SETTABLEKS                       R5 R0 K42 ["_weldConstraintsToReenableSet"]
-      249 SETTABLEKS                       R6 R0 K43 ["_motor6dsToAdjustAndReenableSet"]
-      251 SETTABLEKS                       R8 R0 K44 ["_alreadyConnectedToSets"]
-      253 NEWTABLE                         R12 0 0
-      255 SETTABLEKS                       R12 R0 K45 ["_geometryCache"]
-      257 RETURN                           R0 0
+       90 JUMPIFNOT                        R23 ; [+125]
+       91 DUPTABLE                         R23 K17 [{"Span", "Length"}]
+       92 GETTABLEKS                       R26 R21 K18 ["Attachment0"]
+       94 GETTABLEKS                       R25 R26 K19 ["WorldPosition"]
+       96 GETTABLEKS                       R27 R21 K20 ["Attachment1"]
+       98 GETTABLEKS                       R26 R27 K19 ["WorldPosition"]
+      100 SUB                              R27 R26 R25
+      101 GETTABLEKS                       R24 R27 K21 ["Magnitude"]
+      103 SETTABLEKS                       R24 R23 K15 ["Span"]
+      105 GETTABLEKS                       R24 R21 K16 ["Length"]
+      107 SETTABLEKS                       R24 R23 K16 ["Length"]
+      109 SETTABLE                         R23 R11 R21
+      110 JUMP                             ; [+105]
+      111 LOADK                            R25 K22 ["SpringConstraint"]
+      112 NAMECALL                         R23 R21 K10 ["IsA"]
+      114 CALL                             R23 2 1
+      115 JUMPIFNOT                        R23 ; [+100]
+      116 MOVE                             R24 R21
+      117 JUMPIFNOT                        R2 ; [+10]
+      118 JUMPIFNOT                        R24 ; [+7]
+      119 GETTABLE                         R25 R2 R24
+      120 JUMPIFNOT                        R25 ; [+2]
+      121 LOADB                            R23 0
+      122 JUMP                             ; [+6]
+      123 GETTABLEKS                       R24 R24 K14 ["Parent"]
+      125 JUMPBACK                         ; [-8]
+      126 LOADB                            R23 1
+      127 JUMP                             ; [+1]
+      128 LOADB                            R23 1
+      129 JUMPIFNOT                        R23 ; [+86]
+      130 DUPTABLE                         R23 K24 [{"Span", "FreeLength"}]
+      131 GETTABLEKS                       R26 R21 K18 ["Attachment0"]
+      133 GETTABLEKS                       R25 R26 K19 ["WorldPosition"]
+      135 GETTABLEKS                       R27 R21 K20 ["Attachment1"]
+      137 GETTABLEKS                       R26 R27 K19 ["WorldPosition"]
+      139 SUB                              R27 R26 R25
+      140 GETTABLEKS                       R24 R27 K21 ["Magnitude"]
+      142 SETTABLEKS                       R24 R23 K15 ["Span"]
+      144 GETTABLEKS                       R24 R21 K23 ["FreeLength"]
+      146 SETTABLEKS                       R24 R23 K23 ["FreeLength"]
+      148 SETTABLE                         R23 R10 R21
+      149 JUMP                             ; [+66]
+      150 LOADK                            R24 K25 ["JointInstance"]
+      151 NAMECALL                         R22 R21 K10 ["IsA"]
+      153 CALL                             R22 2 1
+      154 JUMPIFNOT                        R22 ; [+32]
+      155 GETUPVAL                         R23 0
+      156 GETTABLEKS                       R22 R23 K26 ["getJointInstanceCounterpart"]
+      158 MOVE                             R23 R21
+      159 MOVE                             R24 R16
+      160 CALL                             R22 2 1
+      161 GETTABLE                         R23 R3 R22
+      162 JUMPIFNOT                        R23 ; [+1]
+      163 JUMP                             ; [+52]
+      164 LOADK                            R25 K27 ["Motor6D"]
+      165 NAMECALL                         R23 R21 K10 ["IsA"]
+      167 CALL                             R23 2 1
+      168 JUMPIFNOT                        R23 ; [+10]
+      169 LOADB                            R23 0
+      170 SETTABLEKS                       R23 R21 K28 ["Enabled"]
+      172 GETTABLEKS                       R23 R16 K29 ["CFrame"]
+      174 SETTABLE                         R23 R6 R21
+      175 GETTABLE                         R23 R8 R16
+      176 LOADB                            R24 1
+      177 SETTABLE                         R24 R23 R22
+      178 JUMP                             ; [+37]
+      179 FASTCALL2                        TABLE_INSERT R7 R21 ; [+5]
+      181 MOVE                             R24 R7
+      182 MOVE                             R25 R21
+      183 GETIMPORT                        R23 K32 [table.insert]
+      185 CALL                             R23 2 0
+      186 JUMP                             ; [+29]
+      187 LOADK                            R24 K33 ["WeldConstraint"]
+      188 NAMECALL                         R22 R21 K10 ["IsA"]
+      190 CALL                             R22 2 1
+      191 JUMPIFNOT                        R22 ; [+10]
+      192 GETUPVAL                         R23 0
+      193 GETTABLEKS                       R22 R23 K34 ["getWeldConstraintCounterpart"]
+      195 MOVE                             R23 R21
+      196 MOVE                             R24 R16
+      197 CALL                             R22 2 1
+      198 GETTABLE                         R23 R8 R16
+      199 LOADB                            R24 1
+      200 SETTABLE                         R24 R23 R22
+      201 JUMP                             ; [+14]
+      202 LOADK                            R24 K35 ["NoCollisionConstraint"]
+      203 NAMECALL                         R22 R21 K10 ["IsA"]
+      205 CALL                             R22 2 1
+      206 JUMPIFNOT                        R22 ; [+9]
+      207 GETUPVAL                         R23 0
+      208 GETTABLEKS                       R22 R23 K36 ["getNoCollisionConstraintCounterpart"]
+      210 MOVE                             R23 R21
+      211 MOVE                             R24 R16
+      212 CALL                             R22 2 1
+      213 GETTABLE                         R23 R8 R16
+      214 LOADB                            R24 1
+      215 SETTABLE                         R24 R23 R22
+      216 FORGLOOP                         R17 2 [inext] ; [-165]
+      218 NEWTABLE                         R17 0 0
+      220 SETTABLE                         R17 R9 R16
+      221 JUMPIFEQ                         R16 R4 ; [+13]
+      223 GETIMPORT                        R17 K1 [ipairs]
+      225 NAMECALL                         R18 R16 K37 ["GetTouchingParts"]
+      227 CALL                             R18 1 -1
+      228 CALL                             R17 -1 3
+      229 FORGPREP_INEXT                   R17
+      230 GETTABLE                         R22 R9 R16
+      231 LOADB                            R23 1
+      232 SETTABLE                         R23 R22 R21
+      233 FORGLOOP                         R17 2 [inext] ; [-4]
+      235 FORGLOOP                         R12 2 [inext] ; [-194]
+      237 SETTABLEKS                       R11 R0 K38 ["_lengthConstraintsToFixupSet"]
+      239 SETTABLEKS                       R10 R0 K39 ["_springsToFixupSet"]
+      241 SETTABLEKS                       R9 R0 K40 ["_initiallyTouchingSets"]
+      243 SETTABLEKS                       R7 R0 K41 ["_jointsToDestroy"]
+      245 SETTABLEKS                       R5 R0 K42 ["_weldConstraintsToReenableSet"]
+      247 SETTABLEKS                       R6 R0 K43 ["_motor6dsToAdjustAndReenableSet"]
+      249 SETTABLEKS                       R8 R0 K44 ["_alreadyConnectedToSets"]
+      251 NEWTABLE                         R12 0 0
+      253 SETTABLEKS                       R12 R0 K45 ["_geometryCache"]
+      255 RETURN                           R0 0
 
 PROTO_4:
         0 NEWTABLE                         R1 0 0

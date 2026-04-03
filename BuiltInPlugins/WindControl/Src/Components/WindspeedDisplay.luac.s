@@ -439,15 +439,14 @@ PROTO_16:
        17 LOADN                            R3 0
        18 JUMPIFNOTLT                      R0 R3 ; [+3]
        20 LOADN                            R2 0
-       21 JUMP                             ; [+8]
+       21 JUMP                             ; [+7]
        22 LOADN                            R3 232
        23 DIVK                             R4 R0 K4 [3]
        24 FASTCALL2                        MATH_POW R3 R4 ; [+3]
        26 GETIMPORT                        R2 K7 [math.pow]
        28 CALL                             R2 2 1
-       29 JUMP                             ; [0]
-       30 CALL                             R1 1 0
-       31 RETURN                           R0 0
+       29 CALL                             R1 1 0
+       30 RETURN                           R0 0
 
 PROTO_17:
         0 GETUPVAL                         R0 0

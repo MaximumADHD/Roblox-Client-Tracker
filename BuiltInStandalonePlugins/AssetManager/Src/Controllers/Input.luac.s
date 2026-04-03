@@ -334,7 +334,7 @@ PROTO_14:
         1 SETTABLEKS                       R1 R0 K0 ["_lastZone"]
         3 GETUPVAL                         R4 0
         4 GETTABLEKS                       R3 R4 K1 ["UiZone"]
-        6 GETTABLEKS                       R2 R3 K2 ["Filter"]
+        6 GETTABLEKS                       R2 R3 K2 ["Filters"]
         8 JUMPIFNOTEQ                      R1 R2 ; [+8]
        10 GETTABLEKS                       R2 R0 K3 ["_itemsController"]
        12 GETVARARGS                       R4 -1
@@ -343,10 +343,10 @@ PROTO_14:
        16 RETURN                           R0 0
        17 GETUPVAL                         R4 0
        18 GETTABLEKS                       R3 R4 K1 ["UiZone"]
-       20 GETTABLEKS                       R2 R3 K5 ["Explorer"]
+       20 GETTABLEKS                       R2 R3 K5 ["Sidebar"]
        22 JUMPIFNOTEQ                      R1 R2 ; [+5]
        24 GETVARARGS                       R4 -1
-       25 NAMECALL                         R2 R0 K6 ["_handleExplorerClick"]
+       25 NAMECALL                         R2 R0 K6 ["_handleSidebarClick"]
        27 CALL                             R2 -1 0
        28 RETURN                           R0 0
 
@@ -569,7 +569,7 @@ MAIN:
        97 CAPTURE                          VAL R8
        98 SETTABLEKS                       R10 R9 K43 ["_waitForSelectionDoubleClick"]
       100 DUPCLOSURE                       R10 K44 [PROTO_13]
-      101 SETTABLEKS                       R10 R9 K45 ["_handleExplorerClick"]
+      101 SETTABLEKS                       R10 R9 K45 ["_handleSidebarClick"]
       103 DUPCLOSURE                       R10 K46 [PROTO_14]
       104 CAPTURE                          VAL R6
       105 SETTABLEKS                       R10 R9 K47 ["handleMouse1Click"]

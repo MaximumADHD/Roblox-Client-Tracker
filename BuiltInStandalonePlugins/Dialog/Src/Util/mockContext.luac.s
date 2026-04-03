@@ -104,13 +104,13 @@ MAIN:
        24 GETTABLEKS                       R4 R5 K12 ["React"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R6 R0 K10 ["Packages"]
-       31 GETTABLEKS                       R5 R6 K13 ["ReactUtils"]
-       33 CALL                             R4 1 1
-       34 GETIMPORT                        R5 K9 [require]
-       36 GETTABLEKS                       R8 R0 K10 ["Packages"]
-       38 GETTABLEKS                       R7 R8 K14 ["Dev"]
-       40 GETTABLEKS                       R6 R7 K15 ["ReactTestingLibrary"]
+       29 GETTABLEKS                       R7 R0 K10 ["Packages"]
+       31 GETTABLEKS                       R6 R7 K13 ["Dev"]
+       33 GETTABLEKS                       R5 R6 K14 ["ReactTestingLibrary"]
+       35 CALL                             R4 1 1
+       36 GETIMPORT                        R5 K9 [require]
+       38 GETTABLEKS                       R7 R0 K10 ["Packages"]
+       40 GETTABLEKS                       R6 R7 K15 ["ReactUtils"]
        42 CALL                             R5 1 1
        43 GETIMPORT                        R6 K9 [require]
        45 GETTABLEKS                       R8 R0 K10 ["Packages"]
@@ -125,7 +125,7 @@ MAIN:
        62 GETTABLEKS                       R9 R10 K23 ["MockPlugin"]
        64 GETTABLEKS                       R11 R2 K17 ["ContextServices"]
        66 GETTABLEKS                       R10 R11 K24 ["Plugin"]
-       68 GETTABLEKS                       R11 R5 K25 ["document"]
+       68 GETTABLEKS                       R11 R4 K25 ["document"]
        70 GETTABLEKS                       R12 R3 K26 ["createElement"]
        72 GETTABLEKS                       R14 R2 K17 ["ContextServices"]
        74 GETTABLEKS                       R13 R14 K27 ["provide"]
@@ -146,7 +146,7 @@ MAIN:
        92 CAPTURE                          VAL R10
        93 CAPTURE                          VAL R9
        94 CAPTURE                          VAL R12
-       95 CAPTURE                          VAL R4
+       95 CAPTURE                          VAL R5
        96 CAPTURE                          VAL R8
        97 CAPTURE                          VAL R11
        98 CAPTURE                          VAL R16

@@ -20,33 +20,46 @@ PROTO_0:
        24 GETTABLEKS                       R6 R7 K5 ["Tag"]
        26 LOADK                            R7 K6 ["AvatarSettings-SettingsPage X-Column"]
        27 SETTABLE                         R7 R5 R6
-       28 DUPTABLE                         R6 K10 [{"CollisionSection", "AnimationPacksSection", "AnimationClipsSection"}]
+       28 DUPTABLE                         R6 K11 [{"CollisionSection", "AnimationPacksSection", "AnimationClipsSection", "DefaultAbilitiesSection"}]
        29 GETUPVAL                         R7 3
        30 GETUPVAL                         R8 5
-       31 DUPTABLE                         R9 K12 [{"layoutOrder"}]
+       31 DUPTABLE                         R9 K13 [{"layoutOrder"}]
        32 MOVE                             R10 R2
        33 CALL                             R10 0 1
-       34 SETTABLEKS                       R10 R9 K11 ["layoutOrder"]
+       34 SETTABLEKS                       R10 R9 K12 ["layoutOrder"]
        36 CALL                             R7 2 1
        37 SETTABLEKS                       R7 R6 K7 ["CollisionSection"]
        39 GETUPVAL                         R7 3
        40 GETUPVAL                         R8 6
-       41 DUPTABLE                         R9 K12 [{"layoutOrder"}]
+       41 DUPTABLE                         R9 K13 [{"layoutOrder"}]
        42 MOVE                             R10 R2
        43 CALL                             R10 0 1
-       44 SETTABLEKS                       R10 R9 K11 ["layoutOrder"]
+       44 SETTABLEKS                       R10 R9 K12 ["layoutOrder"]
        46 CALL                             R7 2 1
        47 SETTABLEKS                       R7 R6 K8 ["AnimationPacksSection"]
        49 GETUPVAL                         R7 3
        50 GETUPVAL                         R8 7
-       51 DUPTABLE                         R9 K12 [{"layoutOrder"}]
+       51 DUPTABLE                         R9 K13 [{"layoutOrder"}]
        52 MOVE                             R10 R2
        53 CALL                             R10 0 1
-       54 SETTABLEKS                       R10 R9 K11 ["layoutOrder"]
+       54 SETTABLEKS                       R10 R9 K12 ["layoutOrder"]
        56 CALL                             R7 2 1
        57 SETTABLEKS                       R7 R6 K9 ["AnimationClipsSection"]
-       59 CALL                             R3 3 -1
-       60 RETURN                           R3 -1
+       59 GETUPVAL                         R8 8
+       60 CALL                             R8 0 1
+       61 JUMPIFNOT                        R8 ; [+9]
+       62 GETUPVAL                         R7 3
+       63 GETUPVAL                         R8 9
+       64 DUPTABLE                         R9 K13 [{"layoutOrder"}]
+       65 MOVE                             R10 R2
+       66 CALL                             R10 0 1
+       67 SETTABLEKS                       R10 R9 K12 ["layoutOrder"]
+       69 CALL                             R7 2 1
+       70 JUMP                             ; [+1]
+       71 LOADNIL                          R7
+       72 SETTABLEKS                       R7 R6 K10 ["DefaultAbilitiesSection"]
+       74 CALL                             R3 3 -1
+       75 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -79,28 +92,41 @@ MAIN:
        48 GETTABLEKS                       R5 R6 K13 ["CollisionSection"]
        50 CALL                             R4 1 1
        51 GETIMPORT                        R5 K5 [require]
-       53 GETTABLEKS                       R7 R0 K14 ["Packages"]
-       55 GETTABLEKS                       R6 R7 K15 ["Framework"]
-       57 CALL                             R5 1 1
-       58 GETIMPORT                        R6 K5 [require]
-       60 GETTABLEKS                       R8 R0 K14 ["Packages"]
-       62 GETTABLEKS                       R7 R8 K16 ["React"]
-       64 CALL                             R6 1 1
-       65 GETIMPORT                        R7 K5 [require]
-       67 GETTABLEKS                       R9 R0 K14 ["Packages"]
-       69 GETTABLEKS                       R8 R9 K17 ["ReactUtils"]
-       71 CALL                             R7 1 1
-       72 GETTABLEKS                       R8 R5 K18 ["UI"]
-       74 GETTABLEKS                       R9 R8 K19 ["Pane"]
-       76 GETTABLEKS                       R10 R7 K20 ["createNextOrder"]
-       78 GETTABLEKS                       R11 R6 K21 ["createElement"]
-       80 DUPCLOSURE                       R12 K22 [PROTO_0]
-       81 CAPTURE                          VAL R6
-       82 CAPTURE                          VAL R3
-       83 CAPTURE                          VAL R10
-       84 CAPTURE                          VAL R11
-       85 CAPTURE                          VAL R9
-       86 CAPTURE                          VAL R4
-       87 CAPTURE                          VAL R2
-       88 CAPTURE                          VAL R1
-       89 RETURN                           R12 1
+       53 GETTABLEKS                       R9 R0 K6 ["Src"]
+       55 GETTABLEKS                       R8 R9 K7 ["Components"]
+       57 GETTABLEKS                       R7 R8 K8 ["MovementSettings"]
+       59 GETTABLEKS                       R6 R7 K14 ["DefaultAbilitiesSection"]
+       61 CALL                             R5 1 1
+       62 GETIMPORT                        R6 K5 [require]
+       64 GETTABLEKS                       R8 R0 K15 ["Packages"]
+       66 GETTABLEKS                       R7 R8 K16 ["Framework"]
+       68 CALL                             R6 1 1
+       69 GETIMPORT                        R7 K5 [require]
+       71 GETTABLEKS                       R9 R0 K15 ["Packages"]
+       73 GETTABLEKS                       R8 R9 K17 ["React"]
+       75 CALL                             R7 1 1
+       76 GETIMPORT                        R8 K5 [require]
+       78 GETTABLEKS                       R10 R0 K15 ["Packages"]
+       80 GETTABLEKS                       R9 R10 K18 ["ReactUtils"]
+       82 CALL                             R8 1 1
+       83 GETIMPORT                        R9 K5 [require]
+       85 GETTABLEKS                       R12 R0 K6 ["Src"]
+       87 GETTABLEKS                       R11 R12 K19 ["Flags"]
+       89 GETTABLEKS                       R10 R11 K20 ["getFFlagAvatarSettingsEnableAbilities"]
+       91 CALL                             R9 1 1
+       92 GETTABLEKS                       R10 R6 K21 ["UI"]
+       94 GETTABLEKS                       R11 R10 K22 ["Pane"]
+       96 GETTABLEKS                       R12 R8 K23 ["createNextOrder"]
+       98 GETTABLEKS                       R13 R7 K24 ["createElement"]
+      100 DUPCLOSURE                       R14 K25 [PROTO_0]
+      101 CAPTURE                          VAL R7
+      102 CAPTURE                          VAL R3
+      103 CAPTURE                          VAL R12
+      104 CAPTURE                          VAL R13
+      105 CAPTURE                          VAL R11
+      106 CAPTURE                          VAL R4
+      107 CAPTURE                          VAL R2
+      108 CAPTURE                          VAL R1
+      109 CAPTURE                          VAL R9
+      110 CAPTURE                          VAL R5
+      111 RETURN                           R14 1

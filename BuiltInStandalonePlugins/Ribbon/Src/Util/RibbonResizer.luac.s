@@ -143,24 +143,23 @@ PROTO_3:
        30 JUMPIFNOT                        R6 ; [+5]
        31 JUMPIFNOT                        R7 ; [+2]
        32 MOVE                             R5 R13
-       33 JUMP                             ; [+4]
+       33 JUMP                             ; [+3]
        34 ADDK                             R5 R13 K4 [36]
-       35 JUMP                             ; [+2]
+       35 JUMP                             ; [+1]
        36 MOVE                             R5 R13
-       37 JUMP                             ; [0]
-       38 GETIMPORT                        R6 K6 [pcall]
-       40 NEWCLOSURE                       R7 P0
-       41 CAPTURE                          VAL R1
-       42 CAPTURE                          VAL R2
-       43 CAPTURE                          VAL R0
-       44 CAPTURE                          VAL R5
-       45 CALL                             R6 1 0
-       46 RETURN                           R0 0
+       37 GETIMPORT                        R6 K6 [pcall]
+       39 NEWCLOSURE                       R7 P0
+       40 CAPTURE                          VAL R1
+       41 CAPTURE                          VAL R2
+       42 CAPTURE                          VAL R0
+       43 CAPTURE                          VAL R5
+       44 CALL                             R6 1 0
+       45 RETURN                           R0 0
 
 PROTO_4:
         0 SETTABLEKS                       R1 R0 K0 ["width"]
         2 GETTABLEKS                       R2 R0 K1 ["floating"]
-        4 JUMPIFNOT                        R2 ; [+43]
+        4 JUMPIFNOT                        R2 ; [+42]
         5 GETTABLEKS                       R3 R0 K2 ["expanded"]
         7 GETTABLEKS                       R4 R0 K1 ["floating"]
         9 GETTABLEKS                       R5 R0 K3 ["showLabels"]
@@ -182,20 +181,19 @@ PROTO_4:
        27 JUMPIFNOT                        R3 ; [+5]
        28 JUMPIFNOT                        R4 ; [+2]
        29 MOVE                             R2 R10
-       30 JUMP                             ; [+4]
+       30 JUMP                             ; [+3]
        31 ADDK                             R2 R10 K5 [36]
-       32 JUMP                             ; [+2]
+       32 JUMP                             ; [+1]
        33 MOVE                             R2 R10
-       34 JUMP                             ; [0]
-       35 GETTABLEKS                       R3 R0 K6 ["Panels"]
-       37 GETTABLEKS                       R5 R0 K7 ["floatingUri"]
-       39 GETIMPORT                        R6 K10 [Vector2.new]
-       41 GETTABLEKS                       R7 R0 K0 ["width"]
-       43 MOVE                             R8 R2
-       44 CALL                             R6 2 -1
-       45 NAMECALL                         R3 R3 K11 ["SetSizeAsync"]
-       47 CALL                             R3 -1 0
-       48 RETURN                           R0 0
+       34 GETTABLEKS                       R3 R0 K6 ["Panels"]
+       36 GETTABLEKS                       R5 R0 K7 ["floatingUri"]
+       38 GETIMPORT                        R6 K10 [Vector2.new]
+       40 GETTABLEKS                       R7 R0 K0 ["width"]
+       42 MOVE                             R8 R2
+       43 CALL                             R6 2 -1
+       44 NAMECALL                         R3 R3 K11 ["SetSizeAsync"]
+       46 CALL                             R3 -1 0
+       47 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

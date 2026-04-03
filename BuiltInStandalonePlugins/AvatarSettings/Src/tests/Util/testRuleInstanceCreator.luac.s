@@ -106,6 +106,18 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["createAvatarAbilityRules"]
+        3 CALL                             R0 0 1
+        4 GETIMPORT                        R1 K4 [Enum.AvatarSettingsCharacterControllerMode.LuaCharacterController]
+        6 SETTABLEKS                       R1 R0 K5 ["CharacterControllerMode"]
+        8 LOADB                            R1 0
+        9 SETTABLEKS                       R1 R0 K6 ["EnableJumping"]
+       11 LOADB                            R1 0
+       12 SETTABLEKS                       R1 R0 K7 ["EnableSitting"]
+       14 RETURN                           R0 1
+
+PROTO_4:
+        0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["createAvatarAnimationRules"]
         3 CALL                             R0 0 1
         4 GETIMPORT                        R1 K4 [Enum.AvatarSettingsAnimationPacksMode.StandardR15]
@@ -114,7 +126,7 @@ PROTO_3:
        10 SETTABLEKS                       R1 R0 K9 ["AnimationClipsMode"]
        12 RETURN                           R0 1
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["createAvatarAccessoryRules"]
         3 CALL                             R0 0 1
@@ -160,7 +172,7 @@ PROTO_4:
        71 SETTABLEKS                       R1 R0 K19 ["CustomWaistAccessoryId"]
        73 RETURN                           R0 1
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["createAvatarClothingRules"]
         3 CALL                             R0 0 1
@@ -199,12 +211,15 @@ MAIN:
        46 SETTABLEKS                       R5 R4 K19 ["createNonDefaultAvatarCollisionRulesInstance"]
        48 DUPCLOSURE                       R5 K20 [PROTO_3]
        49 CAPTURE                          VAL R2
-       50 SETTABLEKS                       R5 R4 K21 ["createNonDefaultAvatarAnimationRulesInstance"]
+       50 SETTABLEKS                       R5 R4 K21 ["createNonDefaultAvatarAbilityRulesInstance"]
        52 DUPCLOSURE                       R5 K22 [PROTO_4]
        53 CAPTURE                          VAL R2
-       54 CAPTURE                          VAL R3
-       55 SETTABLEKS                       R5 R4 K23 ["createNonDefaultAvatarAccessoryRulesInstance"]
-       57 DUPCLOSURE                       R5 K24 [PROTO_5]
-       58 CAPTURE                          VAL R2
-       59 SETTABLEKS                       R5 R4 K25 ["createNonDefaultAvatarClothingRulesInstance"]
-       61 RETURN                           R4 1
+       54 SETTABLEKS                       R5 R4 K23 ["createNonDefaultAvatarAnimationRulesInstance"]
+       56 DUPCLOSURE                       R5 K24 [PROTO_5]
+       57 CAPTURE                          VAL R2
+       58 CAPTURE                          VAL R3
+       59 SETTABLEKS                       R5 R4 K25 ["createNonDefaultAvatarAccessoryRulesInstance"]
+       61 DUPCLOSURE                       R5 K26 [PROTO_6]
+       62 CAPTURE                          VAL R2
+       63 SETTABLEKS                       R5 R4 K27 ["createNonDefaultAvatarClothingRulesInstance"]
+       65 RETURN                           R4 1

@@ -57,6 +57,9 @@ local _roblox_apppageplatform_shared_v1beta1_catalog_item_carousel = require(scr
 local _roblox_apppageplatform_shared_v1beta1_catalog_category_menu = require(script.Parent.catalog_category_menu)
 local _roblox_apppageplatform_shared_v1beta1_icon = require(script.Parent.icon)
 local _roblox_apppageplatform_shared_v1beta1_circle_icon = require(script.Parent.circle_icon)
+local _roblox_apppageplatform_shared_v1beta1_content_rating_label = require(script.Parent.content_rating_label)
+local _roblox_apppageplatform_shared_v1beta1_play_button_with_contextual_message =
+	require(script.Parent.play_button_with_contextual_message)
 
 type _UiComponentSchemaImpl = {
 	__index: _UiComponentSchemaImpl,
@@ -68,175 +71,217 @@ type _UiComponentSchemaImpl = {
 	descriptor: proto.Descriptor,
 }
 
-type _UiComponentSchemaFields = {
-	kind: (
-		{ type: "tile", value: _roblox_apppageplatform_shared_v1beta1_tile.TileSchema }
-		| { type: "game_tile", value: _roblox_apppageplatform_shared_v1beta1_game_tile.GameTileSchema }
-		| { type: "button", value: _roblox_apppageplatform_shared_v1beta1_button.ButtonSchema }
-		| { type: "image", value: _roblox_apppageplatform_shared_v1beta1_image.ImageSchema }
-		| { type: "text", value: _roblox_apppageplatform_shared_v1beta1_text.TextSchema }
-		| { type: "view", value: _roblox_apppageplatform_shared_v1beta1_view.ViewSchema }
-		| { type: "divider", value: _roblox_apppageplatform_shared_v1beta1_divider.DividerSchema }
-		| { type: "dialog", value: _roblox_apppageplatform_shared_v1beta1_dialog.DialogSchema }
-		| { type: "text_icon_row", value: _roblox_apppageplatform_shared_v1beta1_text_icon_row.TextIconRowSchema }
-		| { type: "text_pill", value: _roblox_apppageplatform_shared_v1beta1_text_pill.TextPillSchema }
-		| { type: "section_header", value: _roblox_apppageplatform_shared_v1beta1_section_header.SectionHeaderSchema }
-		| { type: "slot_overlay", value: _roblox_apppageplatform_shared_v1beta1_slot_overlay.SlotOverlaySchema }
-		| { type: "tile_footer", value: _roblox_apppageplatform_shared_v1beta1_tile_footer.TileFooterSchema }
-		| { type: "attribution_row", value: _roblox_apppageplatform_shared_v1beta1_attribution_row.AttributionRowSchema }
-		| {
-			type: "game_tile_active_friends_footer",
-			value: _roblox_apppageplatform_shared_v1beta1_game_tile_active_friends_footer.GameTileActiveFriendsFooterSchema,
-		}
-		| { type: "hero_unit", value: _roblox_apppageplatform_shared_v1beta1_hero_unit.HeroUnitSchema }
-		| { type: "hold_to_play", value: _roblox_apppageplatform_shared_v1beta1_hold_to_play.HoldToPlaySchema }
-		| { type: "play_button", value: _roblox_apppageplatform_shared_v1beta1_play_button.PlayButtonSchema }
-		| {
-			type: "countdown_text_icon_row",
-			value: _roblox_apppageplatform_shared_v1beta1_countdown_text_icon_row.CountdownTextIconRowSchema,
-		}
-		| {
-			type: "collection_carousel",
-			value: _roblox_apppageplatform_shared_v1beta1_collection_carousel.CollectionCarouselSchema,
-		}
-		| { type: "collection_grid", value: _roblox_apppageplatform_shared_v1beta1_collection_grid.CollectionGridSchema }
-		| {
-			type: "single_item_collection",
-			value: _roblox_apppageplatform_shared_v1beta1_single_item_collection.SingleItemCollectionSchema,
-		}
-		| { type: "see_all_tile", value: _roblox_apppageplatform_shared_v1beta1_see_all_tile.SeeAllTileSchema }
-		| {
-			type: "focus_nav_actions",
-			value: _roblox_apppageplatform_shared_v1beta1_focus_nav_actions.FocusNavActionsSchema,
-		}
-		| { type: "fragment", value: _roblox_apppageplatform_shared_v1beta1_fragment.FragmentSchema }
-		| { type: "badge_tile", value: _roblox_apppageplatform_shared_v1beta1_badge_tile.BadgeTileSchema }
-		| { type: "vertical_feed", value: _roblox_apppageplatform_shared_v1beta1_vertical_feed.VerticalFeedSchema }
-		| { type: "info_table", value: _roblox_apppageplatform_shared_v1beta1_info_table.InfoTableSchema }
-		| { type: "info_table_cell", value: _roblox_apppageplatform_shared_v1beta1_info_table_cell.InfoTableCellSchema }
-		| { type: "chip", value: _roblox_apppageplatform_shared_v1beta1_chip.ChipSchema }
-		| {
-			type: "dual_action_chip",
-			value: _roblox_apppageplatform_shared_v1beta1_dual_action_chip.DualActionChipSchema,
-		}
-		| { type: "expandable_text", value: _roblox_apppageplatform_shared_v1beta1_expandable_text.ExpandableTextSchema }
-		| {
-			type: "associated_items_row",
-			value: _roblox_apppageplatform_shared_v1beta1_associated_items_row.AssociatedItemsRowSchema,
-		}
-		| { type: "overflow_menu", value: _roblox_apppageplatform_shared_v1beta1_overflow_menu.OverflowMenuSchema }
-		| {
-			type: "details_page_image_header",
-			value: _roblox_apppageplatform_shared_v1beta1_details_page_image_header.DetailsPageImageHeaderSchema,
-		}
-		| { type: "card", value: _roblox_apppageplatform_shared_v1beta1_card.CardSchema }
-		| { type: "tabs", value: _roblox_apppageplatform_shared_v1beta1_tabs.TabsSchema }
-		| { type: "action_bar", value: _roblox_apppageplatform_shared_v1beta1_action_bar.ActionBarSchema }
-		| {
-			type: "catalog_virtualized_feed",
-			value: _roblox_apppageplatform_shared_v1beta1_catalog_virtualized_feed.CatalogVirtualizedFeedSchema,
-		}
-		| {
-			type: "catalog_item_group",
-			value: _roblox_apppageplatform_shared_v1beta1_catalog_item_group.CatalogItemGroupSchema,
-		}
-		| {
-			type: "catalog_item_carousel",
-			value: _roblox_apppageplatform_shared_v1beta1_catalog_item_carousel.CatalogItemCarouselSchema,
-		}
-		| {
-			type: "catalog_category_menu",
-			value: _roblox_apppageplatform_shared_v1beta1_catalog_category_menu.CatalogCategoryMenuSchema,
-		}
-		| { type: "icon", value: _roblox_apppageplatform_shared_v1beta1_icon.IconSchema }
-		| { type: "circle_icon", value: _roblox_apppageplatform_shared_v1beta1_circle_icon.CircleIconSchema }
-	)?,
-}
+type _UiComponentSchemaFields =
+	{
+		kind: (
+			{ type: "tile", value: _roblox_apppageplatform_shared_v1beta1_tile.TileSchema }
+			| { type: "game_tile", value: _roblox_apppageplatform_shared_v1beta1_game_tile.GameTileSchema }
+			| { type: "button", value: _roblox_apppageplatform_shared_v1beta1_button.ButtonSchema }
+			| { type: "image", value: _roblox_apppageplatform_shared_v1beta1_image.ImageSchema }
+			| { type: "text", value: _roblox_apppageplatform_shared_v1beta1_text.TextSchema }
+			| { type: "view", value: _roblox_apppageplatform_shared_v1beta1_view.ViewSchema }
+			| { type: "divider", value: _roblox_apppageplatform_shared_v1beta1_divider.DividerSchema }
+			| { type: "dialog", value: _roblox_apppageplatform_shared_v1beta1_dialog.DialogSchema }
+			| { type: "text_icon_row", value: _roblox_apppageplatform_shared_v1beta1_text_icon_row.TextIconRowSchema }
+			| { type: "text_pill", value: _roblox_apppageplatform_shared_v1beta1_text_pill.TextPillSchema }
+			| { type: "section_header", value: _roblox_apppageplatform_shared_v1beta1_section_header.SectionHeaderSchema }
+			| { type: "slot_overlay", value: _roblox_apppageplatform_shared_v1beta1_slot_overlay.SlotOverlaySchema }
+			| { type: "tile_footer", value: _roblox_apppageplatform_shared_v1beta1_tile_footer.TileFooterSchema }
+			| {
+				type: "attribution_row",
+				value: _roblox_apppageplatform_shared_v1beta1_attribution_row.AttributionRowSchema,
+			}
+			| {
+				type: "game_tile_active_friends_footer",
+				value: _roblox_apppageplatform_shared_v1beta1_game_tile_active_friends_footer.GameTileActiveFriendsFooterSchema,
+			}
+			| { type: "hero_unit", value: _roblox_apppageplatform_shared_v1beta1_hero_unit.HeroUnitSchema }
+			| { type: "hold_to_play", value: _roblox_apppageplatform_shared_v1beta1_hold_to_play.HoldToPlaySchema }
+			| { type: "play_button", value: _roblox_apppageplatform_shared_v1beta1_play_button.PlayButtonSchema }
+			| {
+				type: "countdown_text_icon_row",
+				value: _roblox_apppageplatform_shared_v1beta1_countdown_text_icon_row.CountdownTextIconRowSchema,
+			}
+			| {
+				type: "collection_carousel",
+				value: _roblox_apppageplatform_shared_v1beta1_collection_carousel.CollectionCarouselSchema,
+			}
+			| {
+				type: "collection_grid",
+				value: _roblox_apppageplatform_shared_v1beta1_collection_grid.CollectionGridSchema,
+			}
+			| {
+				type: "single_item_collection",
+				value: _roblox_apppageplatform_shared_v1beta1_single_item_collection.SingleItemCollectionSchema,
+			}
+			| { type: "see_all_tile", value: _roblox_apppageplatform_shared_v1beta1_see_all_tile.SeeAllTileSchema }
+			| {
+				type: "focus_nav_actions",
+				value: _roblox_apppageplatform_shared_v1beta1_focus_nav_actions.FocusNavActionsSchema,
+			}
+			| { type: "fragment", value: _roblox_apppageplatform_shared_v1beta1_fragment.FragmentSchema }
+			| { type: "badge_tile", value: _roblox_apppageplatform_shared_v1beta1_badge_tile.BadgeTileSchema }
+			| { type: "vertical_feed", value: _roblox_apppageplatform_shared_v1beta1_vertical_feed.VerticalFeedSchema }
+			| { type: "info_table", value: _roblox_apppageplatform_shared_v1beta1_info_table.InfoTableSchema }
+			| {
+				type: "info_table_cell",
+				value: _roblox_apppageplatform_shared_v1beta1_info_table_cell.InfoTableCellSchema,
+			}
+			| { type: "chip", value: _roblox_apppageplatform_shared_v1beta1_chip.ChipSchema }
+			| {
+				type: "dual_action_chip",
+				value: _roblox_apppageplatform_shared_v1beta1_dual_action_chip.DualActionChipSchema,
+			}
+			| {
+				type: "expandable_text",
+				value: _roblox_apppageplatform_shared_v1beta1_expandable_text.ExpandableTextSchema,
+			}
+			| {
+				type: "associated_items_row",
+				value: _roblox_apppageplatform_shared_v1beta1_associated_items_row.AssociatedItemsRowSchema,
+			}
+			| { type: "overflow_menu", value: _roblox_apppageplatform_shared_v1beta1_overflow_menu.OverflowMenuSchema }
+			| {
+				type: "details_page_image_header",
+				value: _roblox_apppageplatform_shared_v1beta1_details_page_image_header.DetailsPageImageHeaderSchema,
+			}
+			| { type: "card", value: _roblox_apppageplatform_shared_v1beta1_card.CardSchema }
+			| { type: "tabs", value: _roblox_apppageplatform_shared_v1beta1_tabs.TabsSchema }
+			| { type: "action_bar", value: _roblox_apppageplatform_shared_v1beta1_action_bar.ActionBarSchema }
+			| {
+				type: "catalog_virtualized_feed",
+				value: _roblox_apppageplatform_shared_v1beta1_catalog_virtualized_feed.CatalogVirtualizedFeedSchema,
+			}
+			| {
+				type: "catalog_item_group",
+				value: _roblox_apppageplatform_shared_v1beta1_catalog_item_group.CatalogItemGroupSchema,
+			}
+			| {
+				type: "catalog_item_carousel",
+				value: _roblox_apppageplatform_shared_v1beta1_catalog_item_carousel.CatalogItemCarouselSchema,
+			}
+			| {
+				type: "catalog_category_menu",
+				value: _roblox_apppageplatform_shared_v1beta1_catalog_category_menu.CatalogCategoryMenuSchema,
+			}
+			| { type: "icon", value: _roblox_apppageplatform_shared_v1beta1_icon.IconSchema }
+			| { type: "circle_icon", value: _roblox_apppageplatform_shared_v1beta1_circle_icon.CircleIconSchema }
+			| {
+				type: "content_rating_label",
+				value: _roblox_apppageplatform_shared_v1beta1_content_rating_label.ContentRatingLabelSchema,
+			}
+			| {
+				type: "play_button_with_contextual_message",
+				value: _roblox_apppageplatform_shared_v1beta1_play_button_with_contextual_message.PlayButtonWithContextualMessageSchema,
+			}
+		)?,
+	}
 
-type _UiComponentSchemaPartialFields = {
-	kind: (
-		{ type: "tile", value: _roblox_apppageplatform_shared_v1beta1_tile.TileSchema }
-		| { type: "game_tile", value: _roblox_apppageplatform_shared_v1beta1_game_tile.GameTileSchema }
-		| { type: "button", value: _roblox_apppageplatform_shared_v1beta1_button.ButtonSchema }
-		| { type: "image", value: _roblox_apppageplatform_shared_v1beta1_image.ImageSchema }
-		| { type: "text", value: _roblox_apppageplatform_shared_v1beta1_text.TextSchema }
-		| { type: "view", value: _roblox_apppageplatform_shared_v1beta1_view.ViewSchema }
-		| { type: "divider", value: _roblox_apppageplatform_shared_v1beta1_divider.DividerSchema }
-		| { type: "dialog", value: _roblox_apppageplatform_shared_v1beta1_dialog.DialogSchema }
-		| { type: "text_icon_row", value: _roblox_apppageplatform_shared_v1beta1_text_icon_row.TextIconRowSchema }
-		| { type: "text_pill", value: _roblox_apppageplatform_shared_v1beta1_text_pill.TextPillSchema }
-		| { type: "section_header", value: _roblox_apppageplatform_shared_v1beta1_section_header.SectionHeaderSchema }
-		| { type: "slot_overlay", value: _roblox_apppageplatform_shared_v1beta1_slot_overlay.SlotOverlaySchema }
-		| { type: "tile_footer", value: _roblox_apppageplatform_shared_v1beta1_tile_footer.TileFooterSchema }
-		| { type: "attribution_row", value: _roblox_apppageplatform_shared_v1beta1_attribution_row.AttributionRowSchema }
-		| {
-			type: "game_tile_active_friends_footer",
-			value: _roblox_apppageplatform_shared_v1beta1_game_tile_active_friends_footer.GameTileActiveFriendsFooterSchema,
-		}
-		| { type: "hero_unit", value: _roblox_apppageplatform_shared_v1beta1_hero_unit.HeroUnitSchema }
-		| { type: "hold_to_play", value: _roblox_apppageplatform_shared_v1beta1_hold_to_play.HoldToPlaySchema }
-		| { type: "play_button", value: _roblox_apppageplatform_shared_v1beta1_play_button.PlayButtonSchema }
-		| {
-			type: "countdown_text_icon_row",
-			value: _roblox_apppageplatform_shared_v1beta1_countdown_text_icon_row.CountdownTextIconRowSchema,
-		}
-		| {
-			type: "collection_carousel",
-			value: _roblox_apppageplatform_shared_v1beta1_collection_carousel.CollectionCarouselSchema,
-		}
-		| { type: "collection_grid", value: _roblox_apppageplatform_shared_v1beta1_collection_grid.CollectionGridSchema }
-		| {
-			type: "single_item_collection",
-			value: _roblox_apppageplatform_shared_v1beta1_single_item_collection.SingleItemCollectionSchema,
-		}
-		| { type: "see_all_tile", value: _roblox_apppageplatform_shared_v1beta1_see_all_tile.SeeAllTileSchema }
-		| {
-			type: "focus_nav_actions",
-			value: _roblox_apppageplatform_shared_v1beta1_focus_nav_actions.FocusNavActionsSchema,
-		}
-		| { type: "fragment", value: _roblox_apppageplatform_shared_v1beta1_fragment.FragmentSchema }
-		| { type: "badge_tile", value: _roblox_apppageplatform_shared_v1beta1_badge_tile.BadgeTileSchema }
-		| { type: "vertical_feed", value: _roblox_apppageplatform_shared_v1beta1_vertical_feed.VerticalFeedSchema }
-		| { type: "info_table", value: _roblox_apppageplatform_shared_v1beta1_info_table.InfoTableSchema }
-		| { type: "info_table_cell", value: _roblox_apppageplatform_shared_v1beta1_info_table_cell.InfoTableCellSchema }
-		| { type: "chip", value: _roblox_apppageplatform_shared_v1beta1_chip.ChipSchema }
-		| {
-			type: "dual_action_chip",
-			value: _roblox_apppageplatform_shared_v1beta1_dual_action_chip.DualActionChipSchema,
-		}
-		| { type: "expandable_text", value: _roblox_apppageplatform_shared_v1beta1_expandable_text.ExpandableTextSchema }
-		| {
-			type: "associated_items_row",
-			value: _roblox_apppageplatform_shared_v1beta1_associated_items_row.AssociatedItemsRowSchema,
-		}
-		| { type: "overflow_menu", value: _roblox_apppageplatform_shared_v1beta1_overflow_menu.OverflowMenuSchema }
-		| {
-			type: "details_page_image_header",
-			value: _roblox_apppageplatform_shared_v1beta1_details_page_image_header.DetailsPageImageHeaderSchema,
-		}
-		| { type: "card", value: _roblox_apppageplatform_shared_v1beta1_card.CardSchema }
-		| { type: "tabs", value: _roblox_apppageplatform_shared_v1beta1_tabs.TabsSchema }
-		| { type: "action_bar", value: _roblox_apppageplatform_shared_v1beta1_action_bar.ActionBarSchema }
-		| {
-			type: "catalog_virtualized_feed",
-			value: _roblox_apppageplatform_shared_v1beta1_catalog_virtualized_feed.CatalogVirtualizedFeedSchema,
-		}
-		| {
-			type: "catalog_item_group",
-			value: _roblox_apppageplatform_shared_v1beta1_catalog_item_group.CatalogItemGroupSchema,
-		}
-		| {
-			type: "catalog_item_carousel",
-			value: _roblox_apppageplatform_shared_v1beta1_catalog_item_carousel.CatalogItemCarouselSchema,
-		}
-		| {
-			type: "catalog_category_menu",
-			value: _roblox_apppageplatform_shared_v1beta1_catalog_category_menu.CatalogCategoryMenuSchema,
-		}
-		| { type: "icon", value: _roblox_apppageplatform_shared_v1beta1_icon.IconSchema }
-		| { type: "circle_icon", value: _roblox_apppageplatform_shared_v1beta1_circle_icon.CircleIconSchema }
-	)?,
-}
+type _UiComponentSchemaPartialFields =
+	{
+		kind: (
+			{ type: "tile", value: _roblox_apppageplatform_shared_v1beta1_tile.TileSchema }
+			| { type: "game_tile", value: _roblox_apppageplatform_shared_v1beta1_game_tile.GameTileSchema }
+			| { type: "button", value: _roblox_apppageplatform_shared_v1beta1_button.ButtonSchema }
+			| { type: "image", value: _roblox_apppageplatform_shared_v1beta1_image.ImageSchema }
+			| { type: "text", value: _roblox_apppageplatform_shared_v1beta1_text.TextSchema }
+			| { type: "view", value: _roblox_apppageplatform_shared_v1beta1_view.ViewSchema }
+			| { type: "divider", value: _roblox_apppageplatform_shared_v1beta1_divider.DividerSchema }
+			| { type: "dialog", value: _roblox_apppageplatform_shared_v1beta1_dialog.DialogSchema }
+			| { type: "text_icon_row", value: _roblox_apppageplatform_shared_v1beta1_text_icon_row.TextIconRowSchema }
+			| { type: "text_pill", value: _roblox_apppageplatform_shared_v1beta1_text_pill.TextPillSchema }
+			| { type: "section_header", value: _roblox_apppageplatform_shared_v1beta1_section_header.SectionHeaderSchema }
+			| { type: "slot_overlay", value: _roblox_apppageplatform_shared_v1beta1_slot_overlay.SlotOverlaySchema }
+			| { type: "tile_footer", value: _roblox_apppageplatform_shared_v1beta1_tile_footer.TileFooterSchema }
+			| {
+				type: "attribution_row",
+				value: _roblox_apppageplatform_shared_v1beta1_attribution_row.AttributionRowSchema,
+			}
+			| {
+				type: "game_tile_active_friends_footer",
+				value: _roblox_apppageplatform_shared_v1beta1_game_tile_active_friends_footer.GameTileActiveFriendsFooterSchema,
+			}
+			| { type: "hero_unit", value: _roblox_apppageplatform_shared_v1beta1_hero_unit.HeroUnitSchema }
+			| { type: "hold_to_play", value: _roblox_apppageplatform_shared_v1beta1_hold_to_play.HoldToPlaySchema }
+			| { type: "play_button", value: _roblox_apppageplatform_shared_v1beta1_play_button.PlayButtonSchema }
+			| {
+				type: "countdown_text_icon_row",
+				value: _roblox_apppageplatform_shared_v1beta1_countdown_text_icon_row.CountdownTextIconRowSchema,
+			}
+			| {
+				type: "collection_carousel",
+				value: _roblox_apppageplatform_shared_v1beta1_collection_carousel.CollectionCarouselSchema,
+			}
+			| {
+				type: "collection_grid",
+				value: _roblox_apppageplatform_shared_v1beta1_collection_grid.CollectionGridSchema,
+			}
+			| {
+				type: "single_item_collection",
+				value: _roblox_apppageplatform_shared_v1beta1_single_item_collection.SingleItemCollectionSchema,
+			}
+			| { type: "see_all_tile", value: _roblox_apppageplatform_shared_v1beta1_see_all_tile.SeeAllTileSchema }
+			| {
+				type: "focus_nav_actions",
+				value: _roblox_apppageplatform_shared_v1beta1_focus_nav_actions.FocusNavActionsSchema,
+			}
+			| { type: "fragment", value: _roblox_apppageplatform_shared_v1beta1_fragment.FragmentSchema }
+			| { type: "badge_tile", value: _roblox_apppageplatform_shared_v1beta1_badge_tile.BadgeTileSchema }
+			| { type: "vertical_feed", value: _roblox_apppageplatform_shared_v1beta1_vertical_feed.VerticalFeedSchema }
+			| { type: "info_table", value: _roblox_apppageplatform_shared_v1beta1_info_table.InfoTableSchema }
+			| {
+				type: "info_table_cell",
+				value: _roblox_apppageplatform_shared_v1beta1_info_table_cell.InfoTableCellSchema,
+			}
+			| { type: "chip", value: _roblox_apppageplatform_shared_v1beta1_chip.ChipSchema }
+			| {
+				type: "dual_action_chip",
+				value: _roblox_apppageplatform_shared_v1beta1_dual_action_chip.DualActionChipSchema,
+			}
+			| {
+				type: "expandable_text",
+				value: _roblox_apppageplatform_shared_v1beta1_expandable_text.ExpandableTextSchema,
+			}
+			| {
+				type: "associated_items_row",
+				value: _roblox_apppageplatform_shared_v1beta1_associated_items_row.AssociatedItemsRowSchema,
+			}
+			| { type: "overflow_menu", value: _roblox_apppageplatform_shared_v1beta1_overflow_menu.OverflowMenuSchema }
+			| {
+				type: "details_page_image_header",
+				value: _roblox_apppageplatform_shared_v1beta1_details_page_image_header.DetailsPageImageHeaderSchema,
+			}
+			| { type: "card", value: _roblox_apppageplatform_shared_v1beta1_card.CardSchema }
+			| { type: "tabs", value: _roblox_apppageplatform_shared_v1beta1_tabs.TabsSchema }
+			| { type: "action_bar", value: _roblox_apppageplatform_shared_v1beta1_action_bar.ActionBarSchema }
+			| {
+				type: "catalog_virtualized_feed",
+				value: _roblox_apppageplatform_shared_v1beta1_catalog_virtualized_feed.CatalogVirtualizedFeedSchema,
+			}
+			| {
+				type: "catalog_item_group",
+				value: _roblox_apppageplatform_shared_v1beta1_catalog_item_group.CatalogItemGroupSchema,
+			}
+			| {
+				type: "catalog_item_carousel",
+				value: _roblox_apppageplatform_shared_v1beta1_catalog_item_carousel.CatalogItemCarouselSchema,
+			}
+			| {
+				type: "catalog_category_menu",
+				value: _roblox_apppageplatform_shared_v1beta1_catalog_category_menu.CatalogCategoryMenuSchema,
+			}
+			| { type: "icon", value: _roblox_apppageplatform_shared_v1beta1_icon.IconSchema }
+			| { type: "circle_icon", value: _roblox_apppageplatform_shared_v1beta1_circle_icon.CircleIconSchema }
+			| {
+				type: "content_rating_label",
+				value: _roblox_apppageplatform_shared_v1beta1_content_rating_label.ContentRatingLabelSchema,
+			}
+			| {
+				type: "play_button_with_contextual_message",
+				value: _roblox_apppageplatform_shared_v1beta1_play_button_with_contextual_message.PlayButtonWithContextualMessageSchema,
+			}
+		)?,
+	}
 
 export type UiComponentSchema = typeof(setmetatable({} :: _UiComponentSchemaFields, {} :: _UiComponentSchemaImpl))
 type _UiComponentSchemaMessage = proto.Message<UiComponentSchema, _UiComponentSchemaPartialFields>
@@ -431,6 +476,14 @@ do
 			elseif self.kind.type == "circle_icon" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 44, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "content_rating_label" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 45, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "play_button_with_contextual_message" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 46, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -824,6 +877,26 @@ do
 						value = _roblox_apppageplatform_shared_v1beta1_circle_icon.CircleIconSchema.decode(value),
 					}
 					continue
+				elseif field == 45 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "content_rating_label",
+						value = _roblox_apppageplatform_shared_v1beta1_content_rating_label.ContentRatingLabelSchema.decode(
+							value
+						),
+					}
+					continue
+				elseif field == 46 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "play_button_with_contextual_message",
+						value = _roblox_apppageplatform_shared_v1beta1_play_button_with_contextual_message.PlayButtonWithContextualMessageSchema.decode(
+							value
+						),
+					}
+					continue
 				end
 
 				local length
@@ -940,6 +1013,10 @@ do
 				output.icon = self.kind.value:jsonEncode()
 			elseif self.kind.type == "circle_icon" then
 				output.circleIcon = self.kind.value:jsonEncode()
+			elseif self.kind.type == "content_rating_label" then
+				output.contentRatingLabel = self.kind.value:jsonEncode()
+			elseif self.kind.type == "play_button_with_contextual_message" then
+				output.playButtonWithContextualMessage = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -1567,6 +1644,42 @@ do
 				type = "circle_icon",
 				value = _roblox_apppageplatform_shared_v1beta1_circle_icon.CircleIconSchema.jsonDecode(
 					input.circleIcon
+				),
+			}
+		end
+
+		if input.content_rating_label ~= nil then
+			self.kind = {
+				type = "content_rating_label",
+				value = _roblox_apppageplatform_shared_v1beta1_content_rating_label.ContentRatingLabelSchema.jsonDecode(
+					input.content_rating_label
+				),
+			}
+		end
+
+		if input.contentRatingLabel ~= nil then
+			self.kind = {
+				type = "content_rating_label",
+				value = _roblox_apppageplatform_shared_v1beta1_content_rating_label.ContentRatingLabelSchema.jsonDecode(
+					input.contentRatingLabel
+				),
+			}
+		end
+
+		if input.play_button_with_contextual_message ~= nil then
+			self.kind = {
+				type = "play_button_with_contextual_message",
+				value = _roblox_apppageplatform_shared_v1beta1_play_button_with_contextual_message.PlayButtonWithContextualMessageSchema.jsonDecode(
+					input.play_button_with_contextual_message
+				),
+			}
+		end
+
+		if input.playButtonWithContextualMessage ~= nil then
+			self.kind = {
+				type = "play_button_with_contextual_message",
+				value = _roblox_apppageplatform_shared_v1beta1_play_button_with_contextual_message.PlayButtonWithContextualMessageSchema.jsonDecode(
+					input.playButtonWithContextualMessage
 				),
 			}
 		end

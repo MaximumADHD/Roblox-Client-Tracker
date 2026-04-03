@@ -984,7 +984,7 @@ PROTO_17:
       687 SETTABLEKS                       R32 R31 K63 ["Style"]
       689 DUPTABLE                         R32 K107 [{"Alert", "List"}]
       690 LOADB                            R33 0
-      691 JUMPIFEQKNIL                     R18 ; [+45]
+      691 JUMPIFEQKNIL                     R18 ; [+44]
       693 GETUPVAL                         R34 0
       694 GETTABLEKS                       R33 R34 K22 ["createElement"]
       696 GETUPVAL                         R34 26
@@ -996,62 +996,61 @@ PROTO_17:
       706 GETTABLEKS                       R37 R18 K115 ["errorType"]
       708 JUMPIFNOTEQKS                    R37 K116 ["warning"] ; [+3]
       710 LOADK                            R36 K117 ["Warning"]
-      711 JUMP                             ; [+14]
+      711 JUMP                             ; [+13]
       712 JUMPIFNOTEQKS                    R37 K118 ["error"] ; [+3]
       714 LOADK                            R36 K119 ["Error"]
-      715 JUMP                             ; [+10]
+      715 JUMP                             ; [+9]
       716 JUMPIFNOTEQKS                    R37 K120 ["info"] ; [+3]
       718 LOADK                            R36 K121 ["Info"]
-      719 JUMP                             ; [+6]
+      719 JUMP                             ; [+5]
       720 JUMPIFNOTEQKS                    R37 K122 ["success"] ; [+3]
       722 LOADK                            R36 K123 ["Success"]
-      723 JUMP                             ; [+2]
+      723 JUMP                             ; [+1]
       724 LOADK                            R36 K119 ["Error"]
-      725 JUMP                             ; [0]
-      726 SETTABLEKS                       R36 R35 K63 ["Style"]
-      728 LOADN                            R36 2
-      729 SETTABLEKS                       R36 R35 K110 ["ZIndex"]
-      731 NEWCLOSURE                       R36 P8
-      732 CAPTURE                          VAL R2
-      733 CAPTURE                          VAL R9
-      734 SETTABLEKS                       R36 R35 K111 ["OnClose"]
-      736 CALL                             R33 2 1
-      737 SETTABLEKS                       R33 R32 K105 ["Alert"]
-      739 GETUPVAL                         R34 0
-      740 GETTABLEKS                       R33 R34 K22 ["createElement"]
-      742 GETUPVAL                         R34 17
-      743 DUPTABLE                         R35 K128 [{"HorizontalAlignment", "Layout", "VerticalAlignment", "Spacing", "Size"}]
-      744 GETIMPORT                        R36 K129 [Enum.HorizontalAlignment.Center]
-      746 SETTABLEKS                       R36 R35 K124 ["HorizontalAlignment"]
-      748 GETIMPORT                        R36 K132 [Enum.FillDirection.Vertical]
-      750 SETTABLEKS                       R36 R35 K125 ["Layout"]
-      752 GETIMPORT                        R36 K133 [Enum.VerticalAlignment.Center]
-      754 SETTABLEKS                       R36 R35 K126 ["VerticalAlignment"]
-      756 GETUPVAL                         R37 8
-      757 CALL                             R37 0 1
-      758 JUMPIFNOT                        R37 ; [+2]
-      759 LOADN                            R36 5
-      760 JUMP                             ; [+1]
-      761 LOADN                            R36 0
-      762 SETTABLEKS                       R36 R35 K127 ["Spacing"]
-      764 GETUPVAL                         R37 8
-      765 CALL                             R37 0 1
-      766 JUMPIFNOT                        R37 ; [+8]
-      767 GETIMPORT                        R36 K52 [UDim2.new]
-      769 LOADN                            R37 1
-      770 LOADN                            R38 246
-      771 LOADN                            R39 1
-      772 LOADN                            R40 0
-      773 CALL                             R36 4 1
-      774 JUMP                             ; [+1]
-      775 LOADNIL                          R36
-      776 SETTABLEKS                       R36 R35 K38 ["Size"]
-      778 MOVE                             R36 R27
-      779 CALL                             R33 3 1
-      780 SETTABLEKS                       R33 R32 K106 ["List"]
-      782 CALL                             R29 3 -1
-      783 CLOSEUPVALS                      R11
-      784 RETURN                           R29 -1
+      725 SETTABLEKS                       R36 R35 K63 ["Style"]
+      727 LOADN                            R36 2
+      728 SETTABLEKS                       R36 R35 K110 ["ZIndex"]
+      730 NEWCLOSURE                       R36 P8
+      731 CAPTURE                          VAL R2
+      732 CAPTURE                          VAL R9
+      733 SETTABLEKS                       R36 R35 K111 ["OnClose"]
+      735 CALL                             R33 2 1
+      736 SETTABLEKS                       R33 R32 K105 ["Alert"]
+      738 GETUPVAL                         R34 0
+      739 GETTABLEKS                       R33 R34 K22 ["createElement"]
+      741 GETUPVAL                         R34 17
+      742 DUPTABLE                         R35 K128 [{"HorizontalAlignment", "Layout", "VerticalAlignment", "Spacing", "Size"}]
+      743 GETIMPORT                        R36 K129 [Enum.HorizontalAlignment.Center]
+      745 SETTABLEKS                       R36 R35 K124 ["HorizontalAlignment"]
+      747 GETIMPORT                        R36 K132 [Enum.FillDirection.Vertical]
+      749 SETTABLEKS                       R36 R35 K125 ["Layout"]
+      751 GETIMPORT                        R36 K133 [Enum.VerticalAlignment.Center]
+      753 SETTABLEKS                       R36 R35 K126 ["VerticalAlignment"]
+      755 GETUPVAL                         R37 8
+      756 CALL                             R37 0 1
+      757 JUMPIFNOT                        R37 ; [+2]
+      758 LOADN                            R36 5
+      759 JUMP                             ; [+1]
+      760 LOADN                            R36 0
+      761 SETTABLEKS                       R36 R35 K127 ["Spacing"]
+      763 GETUPVAL                         R37 8
+      764 CALL                             R37 0 1
+      765 JUMPIFNOT                        R37 ; [+8]
+      766 GETIMPORT                        R36 K52 [UDim2.new]
+      768 LOADN                            R37 1
+      769 LOADN                            R38 246
+      770 LOADN                            R39 1
+      771 LOADN                            R40 0
+      772 CALL                             R36 4 1
+      773 JUMP                             ; [+1]
+      774 LOADNIL                          R36
+      775 SETTABLEKS                       R36 R35 K38 ["Size"]
+      777 MOVE                             R36 R27
+      778 CALL                             R33 3 1
+      779 SETTABLEKS                       R33 R32 K106 ["List"]
+      781 CALL                             R29 3 -1
+      782 CLOSEUPVALS                      R11
+      783 RETURN                           R29 -1
 
 MAIN:
         0 PREPVARARGS                      0

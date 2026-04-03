@@ -26,7 +26,7 @@ local function createIncludeError(instance, bounds, validationContext): (boolean
 	return false,
 		{
 			string.format(
-				"Opague area of ColorMap for %s does not fall within allowed UV area of [%s] and [%s] for asset type %s",
+				"Opaque area of ColorMap for %s does not fall within allowed UV area of [%s] and [%s] for asset type %s",
 				instance.Name,
 				tostring(bounds.MinBound),
 				tostring(bounds.MaxBound),
@@ -41,7 +41,7 @@ local function createExcludeError(instance, bounds, validationContext): (boolean
 	return false,
 		{
 			string.format(
-				"Opague pixels in ColorMap for %s were found within a restricted UV area of [%s] and [%s] for asset type %s",
+				"Opaque pixels in ColorMap for %s were found within a restricted UV area of [%s] and [%s] for asset type %s",
 				instance.Name,
 				tostring(bounds.MinBound),
 				tostring(bounds.MaxBound),

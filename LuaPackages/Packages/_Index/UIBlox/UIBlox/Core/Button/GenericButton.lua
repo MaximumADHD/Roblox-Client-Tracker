@@ -11,6 +11,7 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
+local Foundation = require(Packages.Foundation)
 
 local ReactUtils = require(Packages.ReactUtils)
 local EventConnection = ReactUtils.EventConnection
@@ -22,8 +23,9 @@ local getContentStyle = require(script.Parent.getContentStyle)
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
-local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
+local Skeleton = Foundation.Skeleton
 local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
+local getClosestRadius = require(UIBlox.App.Loading.getClosestRadius)
 local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local withAnimation = require(UIBlox.Core.Animation.withAnimation)
@@ -341,10 +343,10 @@ function GenericButton:renderButton(loadingProgress)
 		local buttonContentLayer
 		if isLoading then
 			buttonContentLayer = {
-				isLoadingShimmer = Roact.createElement(ShimmerPanel, {
+				isLoadingShimmer = Roact.createElement(Skeleton, {
 					Size = if standardSize then UDim2.new(1, 2 * sidePadding, 1, 0) else UDim2.new(1, 0, 1, 0),
 					Position = if standardSize then UDim2.new(0, -sidePadding, 0, 0) else nil,
-					cornerRadius = UDim.new(0, BUTTON_IMAGE_CORNER_RADIUS),
+					radius = getClosestRadius(style.Tokens.Semantic.Radius, UDim.new(0, BUTTON_IMAGE_CORNER_RADIUS)),
 				}),
 			}
 		else

@@ -2,11 +2,22 @@
 --using !nocheck instead of --!strict as this file uses deprecated BasePart.Velocity
 
 --[[
-	remove instances and fix up property values before validating
+	remove instances and fix up property values before validating.
+	Why are we changing the input to validation? Because this is actually only used by plugins as a shortcut.
+	We should have a centralized flow outside of validation to do this cleanup. Future work. 
 ]]
+
+local srcRoot = script.Parent.Parent
+local getEngineFeatureEngineSplitHumanoidRigDescriptionInUpload =
+	require(srcRoot.flags.getEngineFeatureEngineSplitHumanoidRigDescriptionInUpload)
+local SplitHumanoidRigDescriptionForUpload = require(srcRoot.util.SplitHumanoidRigDescriptionForUpload)
 
 local function fixUpPreValidation(root: Instance): Instance
 	root = root:Clone()
+
+	if getEngineFeatureEngineSplitHumanoidRigDescriptionInUpload() then
+		SplitHumanoidRigDescriptionForUpload.fixUploadInstance(root)
+	end
 
 	local objects = root:GetDescendants()
 	table.insert(objects, root)
@@ -18,6 +29,10 @@ local function fixUpPreValidation(root: Instance): Instance
 				or thing.Name == "OriginalSize"
 				or thing.Name == "OriginalPosition"
 				or (thing:IsA("Weld") and thing.Name == "AccessoryWeld")
+				or (
+					getEngineFeatureEngineSplitHumanoidRigDescriptionInUpload()
+					and (thing:IsA("Constraint") or thing:isA("NoCollisionConstraint"))
+				)
 			then
 				thing:Destroy()
 				continue

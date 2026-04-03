@@ -80,16 +80,31 @@ PROTO_4:
         1 GETTABLEKS                       R2 R3 K0 ["constructGetGroupsForSurfaceUrl"]
         3 LOADK                            R3 K1 ["StudioConvertToPackage"]
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R3 1
-        6 LOADK                            R4 K2 ["getMyGroups"]
-        7 LOADK                            R5 K3 ["GET"]
-        8 MOVE                             R6 R2
-        9 CALL                             R3 3 0
-       10 GETTABLEKS                       R3 R0 K4 ["_networkImp"]
-       12 MOVE                             R5 R2
-       13 NAMECALL                         R3 R3 K5 ["httpGetJson"]
-       15 CALL                             R3 2 -1
-       16 RETURN                           R3 -1
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R3 R4 K2 ["shouldDebugUrls"]
+        8 CALL                             R3 0 1
+        9 JUMPIFNOT                        R3 ; [+21]
+       10 GETIMPORT                        R3 K4 [print]
+       12 LOADK                            R4 K5 ["NetworkInterface:%s()"]
+       13 LOADK                            R6 K6 ["getMyGroups"]
+       14 NAMECALL                         R4 R4 K7 ["format"]
+       16 CALL                             R4 2 -1
+       17 CALL                             R3 -1 0
+       18 GETIMPORT                        R3 K4 [print]
+       20 LOADK                            R4 K8 ["\t%s %s"]
+       21 LOADK                            R7 K10 ["GET"]
+       22 NAMECALL                         R7 R7 K11 ["upper"]
+       24 CALL                             R7 1 1
+       25 ORK                              R6 R7 K9 ["method=nil"]
+       26 ORK                              R7 R2 K12 ["url=nil"]
+       27 NAMECALL                         R4 R4 K7 ["format"]
+       29 CALL                             R4 3 -1
+       30 CALL                             R3 -1 0
+       31 GETTABLEKS                       R3 R0 K13 ["_networkImp"]
+       33 MOVE                             R5 R2
+       34 NAMECALL                         R3 R3 K14 ["httpGetJson"]
+       36 CALL                             R3 2 -1
+       37 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -128,6 +143,6 @@ MAIN:
        53 SETTABLEKS                       R6 R4 K19 ["postUploadAsset"]
        55 DUPCLOSURE                       R6 K20 [PROTO_4]
        56 CAPTURE                          VAL R3
-       57 CAPTURE                          VAL R5
+       57 CAPTURE                          VAL R2
        58 SETTABLEKS                       R6 R4 K21 ["getMyGroups"]
        60 RETURN                           R4 1

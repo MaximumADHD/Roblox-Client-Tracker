@@ -111,55 +111,54 @@ PROTO_4:
        25 LOADK                            R16 K7 ["Pose"]
        26 NAMECALL                         R14 R13 K8 ["IsA"]
        28 CALL                             R14 2 1
-       29 JUMPIFNOT                        R14 ; [+38]
+       29 JUMPIFNOT                        R14 ; [+37]
        30 GETTABLEKS                       R15 R13 K9 ["Name"]
        32 GETUPVAL                         R17 1
        33 GETTABLE                         R16 R17 R15
        34 JUMPIFNOT                        R16 ; [+3]
        35 GETUPVAL                         R16 1
        36 GETTABLE                         R14 R16 R15
-       37 JUMP                             ; [+2]
+       37 JUMP                             ; [+1]
        38 MOVE                             R14 R15
-       39 JUMP                             ; [0]
-       40 GETTABLEKS                       R15 R13 K9 ["Name"]
-       42 JUMPIFNOTEQKS                    R15 K10 ["Torso"] ; [+9]
-       44 GETIMPORT                        R15 K13 [Instance.new]
-       46 LOADK                            R16 K7 ["Pose"]
-       47 CALL                             R15 1 1
-       48 MOVE                             R8 R15
-       49 LOADK                            R15 K14 ["UpperTorso"]
-       50 SETTABLEKS                       R15 R8 K9 ["Name"]
-       52 SETTABLEKS                       R14 R13 K9 ["Name"]
-       54 GETTABLEKS                       R16 R13 K15 ["CFrame"]
-       56 GETUPVAL                         R18 2
-       57 GETTABLE                         R17 R18 R14
-       58 JUMPIF                           R17 ; [+2]
-       59 MOVE                             R15 R16
-       60 JUMP                             ; [+4]
-       61 GETTABLEN                        R19 R17 1
-       62 MUL                              R18 R19 R16
-       63 GETTABLEN                        R19 R17 2
-       64 MUL                              R15 R18 R19
-       65 SETTABLEKS                       R15 R13 K15 ["CFrame"]
-       67 SETTABLE                         R13 R7 R14
-       68 FORGLOOP                         R9 2 ; [-44]
-       70 MOVE                             R9 R7
-       71 LOADNIL                          R10
-       72 LOADNIL                          R11
-       73 FORGPREP                         R9
-       74 GETUPVAL                         R15 3
-       75 GETTABLE                         R14 R15 R12
-       76 JUMPIFNOT                        R14 ; [+12]
-       77 JUMPIFNOTEQKS                    R14 K14 ["UpperTorso"] ; [+8]
-       79 GETTABLEKS                       R15 R7 K16 ["LowerTorso"]
-       81 SETTABLEKS                       R15 R8 K17 ["Parent"]
-       83 SETTABLEKS                       R8 R13 K17 ["Parent"]
-       85 JUMP                             ; [+3]
-       86 GETTABLE                         R15 R7 R14
-       87 SETTABLEKS                       R15 R13 K17 ["Parent"]
-       89 FORGLOOP                         R9 2 ; [-16]
-       91 FORGLOOP                         R2 2 ; [-74]
-       93 RETURN                           R1 1
+       39 GETTABLEKS                       R15 R13 K9 ["Name"]
+       41 JUMPIFNOTEQKS                    R15 K10 ["Torso"] ; [+9]
+       43 GETIMPORT                        R15 K13 [Instance.new]
+       45 LOADK                            R16 K7 ["Pose"]
+       46 CALL                             R15 1 1
+       47 MOVE                             R8 R15
+       48 LOADK                            R15 K14 ["UpperTorso"]
+       49 SETTABLEKS                       R15 R8 K9 ["Name"]
+       51 SETTABLEKS                       R14 R13 K9 ["Name"]
+       53 GETTABLEKS                       R16 R13 K15 ["CFrame"]
+       55 GETUPVAL                         R18 2
+       56 GETTABLE                         R17 R18 R14
+       57 JUMPIF                           R17 ; [+2]
+       58 MOVE                             R15 R16
+       59 JUMP                             ; [+4]
+       60 GETTABLEN                        R19 R17 1
+       61 MUL                              R18 R19 R16
+       62 GETTABLEN                        R19 R17 2
+       63 MUL                              R15 R18 R19
+       64 SETTABLEKS                       R15 R13 K15 ["CFrame"]
+       66 SETTABLE                         R13 R7 R14
+       67 FORGLOOP                         R9 2 ; [-43]
+       69 MOVE                             R9 R7
+       70 LOADNIL                          R10
+       71 LOADNIL                          R11
+       72 FORGPREP                         R9
+       73 GETUPVAL                         R15 3
+       74 GETTABLE                         R14 R15 R12
+       75 JUMPIFNOT                        R14 ; [+12]
+       76 JUMPIFNOTEQKS                    R14 K14 ["UpperTorso"] ; [+8]
+       78 GETTABLEKS                       R15 R7 K16 ["LowerTorso"]
+       80 SETTABLEKS                       R15 R8 K17 ["Parent"]
+       82 SETTABLEKS                       R8 R13 K17 ["Parent"]
+       84 JUMP                             ; [+3]
+       85 GETTABLE                         R15 R7 R14
+       86 SETTABLEKS                       R15 R13 K17 ["Parent"]
+       88 FORGLOOP                         R9 2 ; [-16]
+       90 FORGLOOP                         R2 2 ; [-73]
+       92 RETURN                           R1 1
 
 PROTO_5:
         0 GETUPVAL                         R1 0

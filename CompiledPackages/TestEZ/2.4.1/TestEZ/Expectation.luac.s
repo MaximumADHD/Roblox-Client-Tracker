@@ -216,21 +216,20 @@ PROTO_10:
        51 CALL                             R6 4 1
        52 JUMPIFNOT                        R4 ; [+2]
        53 MOVE                             R3 R5
-       54 JUMP                             ; [+2]
+       54 JUMP                             ; [+1]
        55 MOVE                             R3 R6
-       56 JUMP                             ; [0]
-       57 MOVE                             R4 R3
-       58 LOADN                            R5 3
-       59 ORK                              R4 R4 K9 ["Assertion failed!"]
-       60 ORK                              R5 R5 K10 [1]
-       61 JUMPIF                           R2 ; [+5]
-       62 GETIMPORT                        R6 K12 [error]
-       64 MOVE                             R7 R4
-       65 ADDK                             R8 R5 K10 [1]
-       66 CALL                             R6 2 0
-       67 NAMECALL                         R4 R0 K13 ["_resetModifiers"]
-       69 CALL                             R4 1 0
-       70 RETURN                           R0 1
+       56 MOVE                             R4 R3
+       57 LOADN                            R5 3
+       58 ORK                              R4 R4 K9 ["Assertion failed!"]
+       59 ORK                              R5 R5 K10 [1]
+       60 JUMPIF                           R2 ; [+5]
+       61 GETIMPORT                        R6 K12 [error]
+       63 MOVE                             R7 R4
+       64 ADDK                             R8 R5 K10 [1]
+       65 CALL                             R6 2 0
+       66 NAMECALL                         R4 R0 K13 ["_resetModifiers"]
+       68 CALL                             R4 1 0
+       69 RETURN                           R0 1
 
 PROTO_11:
         0 GETTABLEKS                       R3 R0 K0 ["value"]
@@ -258,21 +257,20 @@ PROTO_11:
        33 CALL                             R5 2 1
        34 JUMPIFNOT                        R3 ; [+2]
        35 MOVE                             R2 R4
-       36 JUMP                             ; [+2]
+       36 JUMP                             ; [+1]
        37 MOVE                             R2 R5
-       38 JUMP                             ; [0]
-       39 MOVE                             R3 R2
-       40 LOADN                            R4 3
-       41 ORK                              R3 R3 K7 ["Assertion failed!"]
-       42 ORK                              R4 R4 K8 [1]
-       43 JUMPIF                           R1 ; [+5]
-       44 GETIMPORT                        R5 K10 [error]
-       46 MOVE                             R6 R3
-       47 ADDK                             R7 R4 K8 [1]
-       48 CALL                             R5 2 0
-       49 NAMECALL                         R3 R0 K11 ["_resetModifiers"]
-       51 CALL                             R3 1 0
-       52 RETURN                           R0 1
+       38 MOVE                             R3 R2
+       39 LOADN                            R4 3
+       40 ORK                              R3 R3 K7 ["Assertion failed!"]
+       41 ORK                              R4 R4 K8 [1]
+       42 JUMPIF                           R1 ; [+5]
+       43 GETIMPORT                        R5 K10 [error]
+       45 MOVE                             R6 R3
+       46 ADDK                             R7 R4 K8 [1]
+       47 CALL                             R5 2 0
+       48 NAMECALL                         R3 R0 K11 ["_resetModifiers"]
+       50 CALL                             R3 1 0
+       51 RETURN                           R0 1
 
 PROTO_12:
         0 GETTABLEKS                       R4 R0 K0 ["value"]
@@ -316,21 +314,20 @@ PROTO_12:
        53 CALL                             R6 3 1
        54 JUMPIFNOT                        R4 ; [+2]
        55 MOVE                             R3 R5
-       56 JUMP                             ; [+2]
+       56 JUMP                             ; [+1]
        57 MOVE                             R3 R6
-       58 JUMP                             ; [0]
-       59 MOVE                             R4 R3
-       60 LOADN                            R5 3
-       61 ORK                              R4 R4 K9 ["Assertion failed!"]
-       62 ORK                              R5 R5 K10 [1]
-       63 JUMPIF                           R2 ; [+5]
-       64 GETIMPORT                        R6 K12 [error]
-       66 MOVE                             R7 R4
-       67 ADDK                             R8 R5 K10 [1]
-       68 CALL                             R6 2 0
-       69 NAMECALL                         R4 R0 K13 ["_resetModifiers"]
-       71 CALL                             R4 1 0
-       72 RETURN                           R0 1
+       58 MOVE                             R4 R3
+       59 LOADN                            R5 3
+       60 ORK                              R4 R4 K9 ["Assertion failed!"]
+       61 ORK                              R5 R5 K10 [1]
+       62 JUMPIF                           R2 ; [+5]
+       63 GETIMPORT                        R6 K12 [error]
+       65 MOVE                             R7 R4
+       66 ADDK                             R8 R5 K10 [1]
+       67 CALL                             R6 2 0
+       68 NAMECALL                         R4 R0 K13 ["_resetModifiers"]
+       70 CALL                             R4 1 0
+       71 RETURN                           R0 1
 
 PROTO_13:
         0 GETTABLEKS                       R6 R0 K0 ["value"]
@@ -396,21 +393,20 @@ PROTO_13:
        84 CALL                             R7 4 1
        85 JUMPIFNOT                        R5 ; [+2]
        86 MOVE                             R4 R6
-       87 JUMP                             ; [+2]
+       87 JUMP                             ; [+1]
        88 MOVE                             R4 R7
-       89 JUMP                             ; [0]
-       90 MOVE                             R5 R4
-       91 LOADN                            R6 3
-       92 ORK                              R5 R5 K17 ["Assertion failed!"]
-       93 ORK                              R6 R6 K18 [1]
-       94 JUMPIF                           R3 ; [+5]
-       95 GETIMPORT                        R7 K20 [error]
-       97 MOVE                             R8 R5
-       98 ADDK                             R9 R6 K18 [1]
-       99 CALL                             R7 2 0
-      100 NAMECALL                         R5 R0 K21 ["_resetModifiers"]
-      102 CALL                             R5 1 0
-      103 RETURN                           R0 1
+       89 MOVE                             R5 R4
+       90 LOADN                            R6 3
+       91 ORK                              R5 R5 K17 ["Assertion failed!"]
+       92 ORK                              R6 R6 K18 [1]
+       93 JUMPIF                           R3 ; [+5]
+       94 GETIMPORT                        R7 K20 [error]
+       96 MOVE                             R8 R5
+       97 ADDK                             R9 R6 K18 [1]
+       98 CALL                             R7 2 0
+       99 NAMECALL                         R5 R0 K21 ["_resetModifiers"]
+      101 CALL                             R5 1 0
+      102 RETURN                           R0 1
 
 PROTO_14:
         0 GETIMPORT                        R2 K1 [pcall]
@@ -442,7 +438,7 @@ PROTO_14:
        35 LOADB                            R4 0 +1
        36 LOADB                            R4 1
        37 LOADNIL                          R5
-       38 JUMPIFNOT                        R1 ; [+31]
+       38 JUMPIFNOT                        R1 ; [+30]
        39 GETTABLEKS                       R6 R0 K3 ["successCondition"]
        41 LOADK                            R7 K5 ["Expected function to throw an error containing %q, but it %s"]
        42 MOVE                             R9 R1
@@ -465,36 +461,34 @@ PROTO_14:
        63 CALL                             R8 3 1
        64 JUMPIFNOT                        R6 ; [+2]
        65 MOVE                             R5 R7
-       66 JUMP                             ; [+19]
+       66 JUMP                             ; [+17]
        67 MOVE                             R5 R8
-       68 JUMP                             ; [+17]
-       69 JUMP                             ; [+16]
-       70 GETTABLEKS                       R6 R0 K3 ["successCondition"]
-       72 LOADK                            R7 K12 ["Expected function to succeed, but it threw an error: %s"]
-       73 FASTCALL1                        TOSTRING R3 ; [+3]
-       74 MOVE                             R10 R3
-       75 GETIMPORT                        R9 K11 [tostring]
-       77 CALL                             R9 1 1
-       78 NAMECALL                         R7 R7 K7 ["format"]
-       80 CALL                             R7 2 1
-       81 JUMPIFNOT                        R6 ; [+2]
-       82 LOADK                            R5 K13 ["Expected function to throw an error, but it did not throw."]
-       83 JUMP                             ; [+2]
-       84 MOVE                             R5 R7
-       85 JUMP                             ; [0]
-       86 MOVE                             R6 R4
-       87 MOVE                             R7 R5
-       88 LOADN                            R8 3
-       89 ORK                              R7 R7 K14 ["Assertion failed!"]
-       90 ORK                              R8 R8 K15 [1]
-       91 JUMPIF                           R6 ; [+5]
-       92 GETIMPORT                        R9 K17 [error]
-       94 MOVE                             R10 R7
-       95 ADDK                             R11 R8 K15 [1]
-       96 CALL                             R9 2 0
-       97 NAMECALL                         R6 R0 K18 ["_resetModifiers"]
-       99 CALL                             R6 1 0
-      100 RETURN                           R0 1
+       68 JUMP                             ; [+15]
+       69 GETTABLEKS                       R6 R0 K3 ["successCondition"]
+       71 LOADK                            R7 K12 ["Expected function to succeed, but it threw an error: %s"]
+       72 FASTCALL1                        TOSTRING R3 ; [+3]
+       73 MOVE                             R10 R3
+       74 GETIMPORT                        R9 K11 [tostring]
+       76 CALL                             R9 1 1
+       77 NAMECALL                         R7 R7 K7 ["format"]
+       79 CALL                             R7 2 1
+       80 JUMPIFNOT                        R6 ; [+2]
+       81 LOADK                            R5 K13 ["Expected function to throw an error, but it did not throw."]
+       82 JUMP                             ; [+1]
+       83 MOVE                             R5 R7
+       84 MOVE                             R6 R4
+       85 MOVE                             R7 R5
+       86 LOADN                            R8 3
+       87 ORK                              R7 R7 K14 ["Assertion failed!"]
+       88 ORK                              R8 R8 K15 [1]
+       89 JUMPIF                           R6 ; [+5]
+       90 GETIMPORT                        R9 K17 [error]
+       92 MOVE                             R10 R7
+       93 ADDK                             R11 R8 K15 [1]
+       94 CALL                             R9 2 0
+       95 NAMECALL                         R6 R0 K18 ["_resetModifiers"]
+       97 CALL                             R6 1 0
+       98 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

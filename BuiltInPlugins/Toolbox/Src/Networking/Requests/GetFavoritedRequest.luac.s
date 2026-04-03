@@ -21,13 +21,12 @@ PROTO_1:
        10 LOADN                            R7 0
        11 JUMPIFNOTLT                      R7 R6 ; [+3]
        13 LOADB                            R5 1
-       14 JUMP                             ; [+2]
+       14 JUMP                             ; [+1]
        15 LOADB                            R5 0
-       16 JUMP                             ; [0]
-       17 CALL                             R3 2 -1
-       18 NAMECALL                         R1 R1 K2 ["dispatch"]
-       20 CALL                             R1 -1 0
-       21 RETURN                           R0 0
+       16 CALL                             R3 2 -1
+       17 NAMECALL                         R1 R1 K2 ["dispatch"]
+       19 CALL                             R1 -1 0
+       20 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0

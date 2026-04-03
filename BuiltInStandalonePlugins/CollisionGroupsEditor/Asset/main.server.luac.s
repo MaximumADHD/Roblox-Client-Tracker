@@ -400,7 +400,7 @@ PROTO_14:
         6 CALL                             R3 2 1
         7 JUMPIFNOT                        R3 ; [+2]
         8 LOADB                            R1 1
-        9 JUMP                             ; [+10]
+        9 JUMP                             ; [+9]
        10 GETIMPORT                        R3 K3 [pcall]
        12 GETUPVAL                         R5 0
        13 GETTABLEKS                       R4 R5 K4 ["RegisterCollisionGroup"]
@@ -408,76 +408,74 @@ PROTO_14:
        16 MOVE                             R6 R2
        17 CALL                             R3 3 2
        18 MOVE                             R1 R3
-       19 JUMP                             ; [0]
-       20 JUMPIFNOT                        R1 ; [+20]
-       21 GETTABLEKS                       R2 R0 K5 ["otherGroupName"]
-       23 GETUPVAL                         R3 0
-       24 MOVE                             R5 R2
-       25 NAMECALL                         R3 R3 K1 ["IsCollisionGroupRegistered"]
-       27 CALL                             R3 2 1
-       28 JUMPIFNOT                        R3 ; [+2]
-       29 LOADB                            R1 1
-       30 JUMP                             ; [+10]
-       31 GETIMPORT                        R3 K3 [pcall]
-       33 GETUPVAL                         R5 0
-       34 GETTABLEKS                       R4 R5 K4 ["RegisterCollisionGroup"]
-       36 GETUPVAL                         R5 0
-       37 MOVE                             R6 R2
-       38 CALL                             R3 3 2
-       39 MOVE                             R1 R3
-       40 JUMP                             ; [0]
-       41 JUMPIF                           R1 ; [+13]
-       42 GETIMPORT                        R2 K7 [warn]
-       44 LOADK                            R4 K8 ["Could not toggle collision between \"%*\" and \"%*\""]
-       45 GETTABLEKS                       R6 R0 K0 ["groupName"]
-       47 GETTABLEKS                       R7 R0 K5 ["otherGroupName"]
-       49 NAMECALL                         R4 R4 K9 ["format"]
-       51 CALL                             R4 3 1
-       52 MOVE                             R3 R4
-       53 CALL                             R2 1 0
-       54 RETURN                           R0 0
-       55 GETUPVAL                         R3 0
-       56 GETTABLEKS                       R5 R0 K0 ["groupName"]
-       58 GETTABLEKS                       R6 R0 K5 ["otherGroupName"]
-       60 NAMECALL                         R3 R3 K10 ["CollisionGroupsAreCollidable"]
-       62 CALL                             R3 3 1
-       63 NOT                              R2 R3
-       64 GETUPVAL                         R3 1
-       65 LOADK                            R5 K11 ["Setting group collision state"]
-       66 NAMECALL                         R3 R3 K12 ["SetWaypoint"]
-       68 CALL                             R3 2 0
-       69 GETUPVAL                         R3 0
-       70 GETTABLEKS                       R5 R0 K0 ["groupName"]
-       72 GETTABLEKS                       R6 R0 K5 ["otherGroupName"]
-       74 MOVE                             R7 R2
-       75 NAMECALL                         R3 R3 K13 ["CollisionGroupSetCollidable"]
-       77 CALL                             R3 4 0
-       78 GETUPVAL                         R3 1
-       79 LOADK                            R5 K14 ["Set group collision state"]
-       80 NAMECALL                         R3 R3 K12 ["SetWaypoint"]
-       82 CALL                             R3 2 0
-       83 NEWTABLE                         R3 0 0
-       85 GETUPVAL                         R4 2
-       86 CALL                             R4 0 1
-       87 GETUPVAL                         R5 3
-       88 MOVE                             R6 R4
-       89 CALL                             R5 1 1
-       90 GETIMPORT                        R6 K16 [plugin]
-       92 LOADK                            R8 K17 ["Groups"]
-       93 MOVE                             R9 R4
-       94 NAMECALL                         R6 R6 K18 ["SetItem"]
-       96 CALL                             R6 3 0
-       97 GETIMPORT                        R6 K16 [plugin]
-       99 LOADK                            R8 K19 ["SelectedGroupIds"]
-      100 MOVE                             R9 R5
-      101 NAMECALL                         R6 R6 K18 ["SetItem"]
-      103 CALL                             R6 3 0
-      104 GETIMPORT                        R4 K16 [plugin]
-      106 LOADK                            R6 K20 ["SetStateAndRefresh"]
-      107 MOVE                             R7 R3
-      108 NAMECALL                         R4 R4 K21 ["Invoke"]
-      110 CALL                             R4 3 0
-      111 RETURN                           R0 0
+       19 JUMPIFNOT                        R1 ; [+19]
+       20 GETTABLEKS                       R2 R0 K5 ["otherGroupName"]
+       22 GETUPVAL                         R3 0
+       23 MOVE                             R5 R2
+       24 NAMECALL                         R3 R3 K1 ["IsCollisionGroupRegistered"]
+       26 CALL                             R3 2 1
+       27 JUMPIFNOT                        R3 ; [+2]
+       28 LOADB                            R1 1
+       29 JUMP                             ; [+9]
+       30 GETIMPORT                        R3 K3 [pcall]
+       32 GETUPVAL                         R5 0
+       33 GETTABLEKS                       R4 R5 K4 ["RegisterCollisionGroup"]
+       35 GETUPVAL                         R5 0
+       36 MOVE                             R6 R2
+       37 CALL                             R3 3 2
+       38 MOVE                             R1 R3
+       39 JUMPIF                           R1 ; [+13]
+       40 GETIMPORT                        R2 K7 [warn]
+       42 LOADK                            R4 K8 ["Could not toggle collision between \"%*\" and \"%*\""]
+       43 GETTABLEKS                       R6 R0 K0 ["groupName"]
+       45 GETTABLEKS                       R7 R0 K5 ["otherGroupName"]
+       47 NAMECALL                         R4 R4 K9 ["format"]
+       49 CALL                             R4 3 1
+       50 MOVE                             R3 R4
+       51 CALL                             R2 1 0
+       52 RETURN                           R0 0
+       53 GETUPVAL                         R3 0
+       54 GETTABLEKS                       R5 R0 K0 ["groupName"]
+       56 GETTABLEKS                       R6 R0 K5 ["otherGroupName"]
+       58 NAMECALL                         R3 R3 K10 ["CollisionGroupsAreCollidable"]
+       60 CALL                             R3 3 1
+       61 NOT                              R2 R3
+       62 GETUPVAL                         R3 1
+       63 LOADK                            R5 K11 ["Setting group collision state"]
+       64 NAMECALL                         R3 R3 K12 ["SetWaypoint"]
+       66 CALL                             R3 2 0
+       67 GETUPVAL                         R3 0
+       68 GETTABLEKS                       R5 R0 K0 ["groupName"]
+       70 GETTABLEKS                       R6 R0 K5 ["otherGroupName"]
+       72 MOVE                             R7 R2
+       73 NAMECALL                         R3 R3 K13 ["CollisionGroupSetCollidable"]
+       75 CALL                             R3 4 0
+       76 GETUPVAL                         R3 1
+       77 LOADK                            R5 K14 ["Set group collision state"]
+       78 NAMECALL                         R3 R3 K12 ["SetWaypoint"]
+       80 CALL                             R3 2 0
+       81 NEWTABLE                         R3 0 0
+       83 GETUPVAL                         R4 2
+       84 CALL                             R4 0 1
+       85 GETUPVAL                         R5 3
+       86 MOVE                             R6 R4
+       87 CALL                             R5 1 1
+       88 GETIMPORT                        R6 K16 [plugin]
+       90 LOADK                            R8 K17 ["Groups"]
+       91 MOVE                             R9 R4
+       92 NAMECALL                         R6 R6 K18 ["SetItem"]
+       94 CALL                             R6 3 0
+       95 GETIMPORT                        R6 K16 [plugin]
+       97 LOADK                            R8 K19 ["SelectedGroupIds"]
+       98 MOVE                             R9 R5
+       99 NAMECALL                         R6 R6 K18 ["SetItem"]
+      101 CALL                             R6 3 0
+      102 GETIMPORT                        R4 K16 [plugin]
+      104 LOADK                            R6 K20 ["SetStateAndRefresh"]
+      105 MOVE                             R7 R3
+      106 NAMECALL                         R4 R4 K21 ["Invoke"]
+      108 CALL                             R4 3 0
+      109 RETURN                           R0 0
 
 PROTO_15:
         0 GETUPVAL                         R1 0

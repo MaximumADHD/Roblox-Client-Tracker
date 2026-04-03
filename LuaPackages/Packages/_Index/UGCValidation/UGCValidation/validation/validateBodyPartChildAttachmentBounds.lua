@@ -1,3 +1,6 @@
+-- TEMPORARY: Uses getAttachmentCFrameInPartSpace to fix HRD bone-nested attachment CFrame interpretation.
+-- All bounds/transform calculation in this file must be refactored in the new validation system.
+
 local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
@@ -11,6 +14,8 @@ local BoundsDataUtils = require(root.util.BoundsDataUtils)
 local MeshSpaceUtils = require(root.util.MeshSpaceUtils)
 
 local getFStringUGCValidationAttachmentErrorLink = require(root.flags.getFStringUGCValidationAttachmentErrorLink)
+local R15plusUtils = require(root.util.R15plusUtils)
+local getAttachmentCFrameInPartSpace = require(root.util.getAttachmentCFrameInPartSpace)
 
 -- this function relies on validateMeshIsAtOrigin() in validateDescendantMeshMetrics.lua to catch meshes not built at the origin
 local function validateInMeshSpace(
@@ -20,7 +25,7 @@ local function validateInMeshSpace(
 	validationContext: Types.ValidationContext,
 	transformData: any
 ): (boolean, { string }?)
-	local world = transformData.cframe * att.CFrame
+	local world = transformData.cframe * getAttachmentCFrameInPartSpace(att)
 	local meshCenterOpt = BoundsDataUtils.calculateBoundsCenters(transformData.boundsData)
 	local meshDimensionsOpt = BoundsDataUtils.calculateBoundsDimensions(transformData.boundsData)
 	if not meshCenterOpt or not meshDimensionsOpt then
@@ -89,8 +94,10 @@ local function checkAll(
 ): (boolean, { string }?)
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	local rigAttachmentToParent: Attachment? =
-		meshHandle:FindFirstChild(partData.rigAttachmentToParent.name) :: Attachment
+	local rigAttachmentToParent: Attachment? = meshHandle:FindFirstChild(
+		partData.rigAttachmentToParent.name,
+		R15plusUtils.checkFlagEnabledForAllowHrd()
+	) :: Attachment
 	assert(rigAttachmentToParent)
 
 	reasonsAccumulator:updateReasons(
@@ -104,7 +111,8 @@ local function checkAll(
 	)
 
 	for childAttachmentName, childAttachmentInfo in pairs(partData.otherAttachments) do
-		local childAttachment: Attachment? = meshHandle:FindFirstChild(childAttachmentName) :: Attachment
+		local childAttachment: Attachment? =
+			meshHandle:FindFirstChild(childAttachmentName, R15plusUtils.checkFlagEnabledForAllowHrd()) :: Attachment
 		assert(childAttachment)
 
 		reasonsAccumulator:updateReasons(

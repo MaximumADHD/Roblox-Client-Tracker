@@ -100,11 +100,17 @@ PROTO_5:
 
 PROTO_6:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["fromProps"]
-        3 GETUPVAL                         R1 1
-        4 CALL                             R1 0 1
-        5 CALL                             R0 1 0
-        6 RETURN                           R0 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R0 ; [+6]
+        3 GETIMPORT                        R2 K2 [Instance.new]
+        5 LOADK                            R3 K3 ["Model"]
+        6 CALL                             R2 1 1
+        7 SETTABLEKS                       R2 R1 K4 ["target"]
+        9 GETUPVAL                         R3 1
+       10 GETTABLEKS                       R2 R3 K5 ["fromProps"]
+       12 MOVE                             R3 R1
+       13 CALL                             R2 1 0
+       14 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -125,32 +131,30 @@ MAIN:
        11 GETTABLEKS                       R2 R3 K7 ["Constants"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R6 R0 K8 ["Bin"]
-       18 GETTABLEKS                       R5 R6 K9 ["Common"]
-       20 GETTABLEKS                       R4 R5 K10 ["Dialogs"]
-       22 GETTABLEKS                       R3 R4 K11 ["ShowConfigureDialog"]
-       24 CALL                             R2 1 1
-       25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R7 R0 K8 ["Bin"]
-       29 GETTABLEKS                       R6 R7 K9 ["Common"]
-       31 GETTABLEKS                       R5 R6 K10 ["Dialogs"]
-       33 GETTABLEKS                       R4 R5 K12 ["ShowErrorDialog"]
-       35 CALL                             R3 1 1
-       36 NEWTABLE                         R4 4 0
-       38 DUPCLOSURE                       R5 K13 [PROTO_0]
-       39 SETTABLEKS                       R5 R4 K14 ["debugEnabled"]
-       41 DUPCLOSURE                       R5 K15 [PROTO_3]
-       42 CAPTURE                          VAL R1
-       43 DUPCLOSURE                       R6 K16 [PROTO_4]
-       44 CAPTURE                          VAL R2
-       45 CAPTURE                          VAL R5
-       46 SETTABLEKS                       R6 R4 K17 ["debugShowConfigureDialog"]
-       48 DUPCLOSURE                       R6 K18 [PROTO_5]
-       49 DUPCLOSURE                       R7 K19 [PROTO_6]
-       50 CAPTURE                          VAL R3
-       51 CAPTURE                          VAL R6
-       52 SETTABLEKS                       R7 R4 K20 ["debugShowErrorDialog"]
-       54 DUPCLOSURE                       R7 K21 [PROTO_7]
-       55 CAPTURE                          VAL R4
-       56 SETTABLEKS                       R7 R4 K22 ["showDebugUi"]
-       58 RETURN                           R4 1
+       16 GETTABLEKS                       R5 R0 K6 ["Lib"]
+       18 GETTABLEKS                       R4 R5 K8 ["DialogRegistry"]
+       20 GETTABLEKS                       R3 R4 K9 ["ShowConfigureDialog"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R6 R0 K6 ["Lib"]
+       27 GETTABLEKS                       R5 R6 K8 ["DialogRegistry"]
+       29 GETTABLEKS                       R4 R5 K10 ["ShowErrorDialog"]
+       31 CALL                             R3 1 1
+       32 NEWTABLE                         R4 4 0
+       34 DUPCLOSURE                       R5 K11 [PROTO_0]
+       35 SETTABLEKS                       R5 R4 K12 ["debugEnabled"]
+       37 DUPCLOSURE                       R5 K13 [PROTO_3]
+       38 CAPTURE                          VAL R1
+       39 DUPCLOSURE                       R6 K14 [PROTO_4]
+       40 CAPTURE                          VAL R2
+       41 CAPTURE                          VAL R5
+       42 SETTABLEKS                       R6 R4 K15 ["debugShowConfigureDialog"]
+       44 DUPCLOSURE                       R6 K16 [PROTO_5]
+       45 DUPCLOSURE                       R7 K17 [PROTO_6]
+       46 CAPTURE                          VAL R6
+       47 CAPTURE                          VAL R3
+       48 SETTABLEKS                       R7 R4 K18 ["debugShowErrorDialog"]
+       50 DUPCLOSURE                       R7 K19 [PROTO_7]
+       51 CAPTURE                          VAL R4
+       52 SETTABLEKS                       R7 R4 K20 ["showDebugUi"]
+       54 RETURN                           R4 1

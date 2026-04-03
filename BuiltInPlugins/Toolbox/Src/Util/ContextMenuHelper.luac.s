@@ -255,11 +255,11 @@ PROTO_11:
        66 CALL                             R13 2 0
        67 GETIMPORT                        R14 K19 [Enum.AssetType.Plugin]
        69 GETTABLEKS                       R13 R14 K20 ["Value"]
-       71 JUMPIFEQ                         R2 R13 ; [+141]
+       71 JUMPIFEQ                         R2 R13 ; [+140]
        73 MOVE                             R13 R1
        74 GETIMPORT                        R15 K22 [Enum.AssetType.Decal]
        76 GETTABLEKS                       R14 R15 K20 ["Value"]
-       78 JUMPIFNOTEQ                      R2 R14 ; [+27]
+       78 JUMPIFNOTEQ                      R2 R14 ; [+26]
        80 LOADNIL                          R14
        81 GETIMPORT                        R15 K24 [pcall]
        83 NEWCLOSURE                       R16 P2
@@ -279,141 +279,140 @@ PROTO_11:
        99 CALL                             R18 2 1
       100 MOVE                             R13 R18
       101 CLOSEUPVALS                      R14
-      102 JUMP                             ; [+3]
+      102 JUMP                             ; [+2]
       103 LOADN                            R13 0
       104 CLOSEUPVALS                      R14
-      105 JUMP                             ; [0]
-      106 GETIMPORT                        R17 K3 [string.format]
-      108 LOADK                            R18 K28 ["CopyAssetIdToClipboard-%s"]
-      109 MOVE                             R19 R10
-      110 CALL                             R17 2 1
-      111 LOADK                            R20 K7 ["General"]
-      112 LOADK                            R21 K29 ["RightClickMenuCopyAssetID"]
-      113 NAMECALL                         R18 R4 K9 ["getText"]
-      115 CALL                             R18 3 -1
-      116 NAMECALL                         R15 R12 K10 ["AddNewAction"]
-      118 CALL                             R15 -1 1
-      119 GETTABLEKS                       R14 R15 K11 ["Triggered"]
-      121 NEWCLOSURE                       R16 P3
-      122 CAPTURE                          UPVAL U5
-      123 CAPTURE                          VAL R1
-      124 CAPTURE                          VAL R2
-      125 CAPTURE                          VAL R7
-      126 CAPTURE                          UPVAL U8
-      127 CAPTURE                          REF R13
-      128 NAMECALL                         R14 R14 K12 ["connect"]
-      130 CALL                             R14 2 0
-      131 GETIMPORT                        R15 K31 [Enum.AssetType.MeshPart]
-      133 GETTABLEKS                       R14 R15 K20 ["Value"]
-      135 JUMPIFNOTEQ                      R2 R14 ; [+76]
-      137 GETIMPORT                        R14 K24 [pcall]
-      139 GETUPVAL                         R16 9
-      140 GETTABLEKS                       R15 R16 K32 ["GetMeshIdFromAssetId"]
-      142 GETUPVAL                         R16 9
-      143 MOVE                             R17 R13
-      144 CALL                             R14 3 2
-      145 GETIMPORT                        R16 K24 [pcall]
-      147 GETUPVAL                         R18 9
-      148 GETTABLEKS                       R17 R18 K33 ["GetTextureIdFromAssetId"]
-      150 GETUPVAL                         R18 9
-      151 MOVE                             R19 R13
-      152 CALL                             R16 3 2
-      153 JUMPIFNOT                        R14 ; [+26]
-      154 GETIMPORT                        R21 K3 [string.format]
-      156 LOADK                            R22 K34 ["CopyMeshIdToClipboard-%s"]
-      157 MOVE                             R23 R10
-      158 CALL                             R21 2 1
-      159 LOADK                            R24 K7 ["General"]
-      160 LOADK                            R25 K35 ["RightClickMenuCopyMeshID"]
-      161 NAMECALL                         R22 R4 K9 ["getText"]
-      163 CALL                             R22 3 -1
-      164 NAMECALL                         R19 R12 K10 ["AddNewAction"]
-      166 CALL                             R19 -1 1
-      167 GETTABLEKS                       R18 R19 K11 ["Triggered"]
-      169 NEWCLOSURE                       R20 P4
-      170 CAPTURE                          UPVAL U5
-      171 CAPTURE                          VAL R1
-      172 CAPTURE                          VAL R2
-      173 CAPTURE                          VAL R7
-      174 CAPTURE                          UPVAL U8
-      175 CAPTURE                          VAL R15
-      176 NAMECALL                         R18 R18 K12 ["connect"]
-      178 CALL                             R18 2 0
-      179 JUMP                             ; [+6]
-      180 GETIMPORT                        R18 K37 [warn]
-      182 LOADK                            R20 K38 ["Failed to get mesh id for asset id "]
-      183 MOVE                             R21 R13
-      184 CONCAT                           R19 R20 R21
-      185 CALL                             R18 1 0
-      186 JUMPIFNOT                        R16 ; [+25]
-      187 GETIMPORT                        R21 K3 [string.format]
-      189 LOADK                            R22 K39 ["CopyTextureIdToClipboard-%s"]
-      190 MOVE                             R23 R10
-      191 CALL                             R21 2 1
-      192 LOADK                            R24 K7 ["General"]
-      193 LOADK                            R25 K40 ["RightClickMenuCopyTextureID"]
-      194 NAMECALL                         R22 R4 K9 ["getText"]
-      196 CALL                             R22 3 -1
-      197 NAMECALL                         R19 R12 K10 ["AddNewAction"]
-      199 CALL                             R19 -1 1
-      200 GETTABLEKS                       R18 R19 K11 ["Triggered"]
-      202 NEWCLOSURE                       R20 P5
-      203 CAPTURE                          UPVAL U5
-      204 CAPTURE                          VAL R1
-      205 CAPTURE                          VAL R2
-      206 CAPTURE                          VAL R7
-      207 CAPTURE                          UPVAL U8
-      208 CAPTURE                          VAL R17
-      209 NAMECALL                         R18 R18 K12 ["connect"]
-      211 CALL                             R18 2 0
-      212 CLOSEUPVALS                      R13
-      213 JUMPIFNOT                        R3 ; [+51]
-      214 JUMPIFNOT                        R5 ; [+50]
-      215 JUMPIFNOT                        R6 ; [+25]
-      216 GETIMPORT                        R16 K3 [string.format]
-      218 LOADK                            R17 K41 ["PackageDetails-%s"]
-      219 MOVE                             R18 R10
-      220 CALL                             R16 2 1
-      221 LOADK                            R19 K42 ["AssetConfigPackagePermissions"]
-      222 LOADK                            R20 K43 ["PackageDetails"]
-      223 NAMECALL                         R17 R4 K9 ["getText"]
-      225 CALL                             R17 3 -1
-      226 NAMECALL                         R14 R12 K10 ["AddNewAction"]
-      228 CALL                             R14 -1 1
-      229 GETTABLEKS                       R13 R14 K11 ["Triggered"]
-      231 NEWCLOSURE                       R15 P6
-      232 CAPTURE                          VAL R5
-      233 CAPTURE                          VAL R1
-      234 CAPTURE                          UPVAL U10
-      235 CAPTURE                          UPVAL U11
-      236 CAPTURE                          VAL R2
-      237 NAMECALL                         R13 R13 K12 ["connect"]
-      239 CALL                             R13 2 0
-      240 JUMP                             ; [+24]
-      241 GETIMPORT                        R16 K3 [string.format]
-      243 LOADK                            R17 K44 ["EditAsset-%s"]
-      244 MOVE                             R18 R10
-      245 CALL                             R16 2 1
-      246 LOADK                            R19 K7 ["General"]
-      247 LOADK                            R20 K45 ["RightClickMenuEditAsset"]
-      248 NAMECALL                         R17 R4 K9 ["getText"]
-      250 CALL                             R17 3 -1
-      251 NAMECALL                         R14 R12 K10 ["AddNewAction"]
-      253 CALL                             R14 -1 1
-      254 GETTABLEKS                       R13 R14 K11 ["Triggered"]
-      256 NEWCLOSURE                       R15 P7
-      257 CAPTURE                          VAL R5
-      258 CAPTURE                          VAL R1
-      259 CAPTURE                          UPVAL U10
-      260 CAPTURE                          UPVAL U11
-      261 CAPTURE                          VAL R2
-      262 NAMECALL                         R13 R13 K12 ["connect"]
-      264 CALL                             R13 2 0
-      265 NAMECALL                         R13 R12 K46 ["ShowAsync"]
-      267 CALL                             R13 1 0
-      268 NAMECALL                         R13 R12 K47 ["Destroy"]
-      270 CALL                             R13 1 0
-      271 RETURN                           R12 1
+      105 GETIMPORT                        R17 K3 [string.format]
+      107 LOADK                            R18 K28 ["CopyAssetIdToClipboard-%s"]
+      108 MOVE                             R19 R10
+      109 CALL                             R17 2 1
+      110 LOADK                            R20 K7 ["General"]
+      111 LOADK                            R21 K29 ["RightClickMenuCopyAssetID"]
+      112 NAMECALL                         R18 R4 K9 ["getText"]
+      114 CALL                             R18 3 -1
+      115 NAMECALL                         R15 R12 K10 ["AddNewAction"]
+      117 CALL                             R15 -1 1
+      118 GETTABLEKS                       R14 R15 K11 ["Triggered"]
+      120 NEWCLOSURE                       R16 P3
+      121 CAPTURE                          UPVAL U5
+      122 CAPTURE                          VAL R1
+      123 CAPTURE                          VAL R2
+      124 CAPTURE                          VAL R7
+      125 CAPTURE                          UPVAL U8
+      126 CAPTURE                          REF R13
+      127 NAMECALL                         R14 R14 K12 ["connect"]
+      129 CALL                             R14 2 0
+      130 GETIMPORT                        R15 K31 [Enum.AssetType.MeshPart]
+      132 GETTABLEKS                       R14 R15 K20 ["Value"]
+      134 JUMPIFNOTEQ                      R2 R14 ; [+76]
+      136 GETIMPORT                        R14 K24 [pcall]
+      138 GETUPVAL                         R16 9
+      139 GETTABLEKS                       R15 R16 K32 ["GetMeshIdFromAssetId"]
+      141 GETUPVAL                         R16 9
+      142 MOVE                             R17 R13
+      143 CALL                             R14 3 2
+      144 GETIMPORT                        R16 K24 [pcall]
+      146 GETUPVAL                         R18 9
+      147 GETTABLEKS                       R17 R18 K33 ["GetTextureIdFromAssetId"]
+      149 GETUPVAL                         R18 9
+      150 MOVE                             R19 R13
+      151 CALL                             R16 3 2
+      152 JUMPIFNOT                        R14 ; [+26]
+      153 GETIMPORT                        R21 K3 [string.format]
+      155 LOADK                            R22 K34 ["CopyMeshIdToClipboard-%s"]
+      156 MOVE                             R23 R10
+      157 CALL                             R21 2 1
+      158 LOADK                            R24 K7 ["General"]
+      159 LOADK                            R25 K35 ["RightClickMenuCopyMeshID"]
+      160 NAMECALL                         R22 R4 K9 ["getText"]
+      162 CALL                             R22 3 -1
+      163 NAMECALL                         R19 R12 K10 ["AddNewAction"]
+      165 CALL                             R19 -1 1
+      166 GETTABLEKS                       R18 R19 K11 ["Triggered"]
+      168 NEWCLOSURE                       R20 P4
+      169 CAPTURE                          UPVAL U5
+      170 CAPTURE                          VAL R1
+      171 CAPTURE                          VAL R2
+      172 CAPTURE                          VAL R7
+      173 CAPTURE                          UPVAL U8
+      174 CAPTURE                          VAL R15
+      175 NAMECALL                         R18 R18 K12 ["connect"]
+      177 CALL                             R18 2 0
+      178 JUMP                             ; [+6]
+      179 GETIMPORT                        R18 K37 [warn]
+      181 LOADK                            R20 K38 ["Failed to get mesh id for asset id "]
+      182 MOVE                             R21 R13
+      183 CONCAT                           R19 R20 R21
+      184 CALL                             R18 1 0
+      185 JUMPIFNOT                        R16 ; [+25]
+      186 GETIMPORT                        R21 K3 [string.format]
+      188 LOADK                            R22 K39 ["CopyTextureIdToClipboard-%s"]
+      189 MOVE                             R23 R10
+      190 CALL                             R21 2 1
+      191 LOADK                            R24 K7 ["General"]
+      192 LOADK                            R25 K40 ["RightClickMenuCopyTextureID"]
+      193 NAMECALL                         R22 R4 K9 ["getText"]
+      195 CALL                             R22 3 -1
+      196 NAMECALL                         R19 R12 K10 ["AddNewAction"]
+      198 CALL                             R19 -1 1
+      199 GETTABLEKS                       R18 R19 K11 ["Triggered"]
+      201 NEWCLOSURE                       R20 P5
+      202 CAPTURE                          UPVAL U5
+      203 CAPTURE                          VAL R1
+      204 CAPTURE                          VAL R2
+      205 CAPTURE                          VAL R7
+      206 CAPTURE                          UPVAL U8
+      207 CAPTURE                          VAL R17
+      208 NAMECALL                         R18 R18 K12 ["connect"]
+      210 CALL                             R18 2 0
+      211 CLOSEUPVALS                      R13
+      212 JUMPIFNOT                        R3 ; [+51]
+      213 JUMPIFNOT                        R5 ; [+50]
+      214 JUMPIFNOT                        R6 ; [+25]
+      215 GETIMPORT                        R16 K3 [string.format]
+      217 LOADK                            R17 K41 ["PackageDetails-%s"]
+      218 MOVE                             R18 R10
+      219 CALL                             R16 2 1
+      220 LOADK                            R19 K42 ["AssetConfigPackagePermissions"]
+      221 LOADK                            R20 K43 ["PackageDetails"]
+      222 NAMECALL                         R17 R4 K9 ["getText"]
+      224 CALL                             R17 3 -1
+      225 NAMECALL                         R14 R12 K10 ["AddNewAction"]
+      227 CALL                             R14 -1 1
+      228 GETTABLEKS                       R13 R14 K11 ["Triggered"]
+      230 NEWCLOSURE                       R15 P6
+      231 CAPTURE                          VAL R5
+      232 CAPTURE                          VAL R1
+      233 CAPTURE                          UPVAL U10
+      234 CAPTURE                          UPVAL U11
+      235 CAPTURE                          VAL R2
+      236 NAMECALL                         R13 R13 K12 ["connect"]
+      238 CALL                             R13 2 0
+      239 JUMP                             ; [+24]
+      240 GETIMPORT                        R16 K3 [string.format]
+      242 LOADK                            R17 K44 ["EditAsset-%s"]
+      243 MOVE                             R18 R10
+      244 CALL                             R16 2 1
+      245 LOADK                            R19 K7 ["General"]
+      246 LOADK                            R20 K45 ["RightClickMenuEditAsset"]
+      247 NAMECALL                         R17 R4 K9 ["getText"]
+      249 CALL                             R17 3 -1
+      250 NAMECALL                         R14 R12 K10 ["AddNewAction"]
+      252 CALL                             R14 -1 1
+      253 GETTABLEKS                       R13 R14 K11 ["Triggered"]
+      255 NEWCLOSURE                       R15 P7
+      256 CAPTURE                          VAL R5
+      257 CAPTURE                          VAL R1
+      258 CAPTURE                          UPVAL U10
+      259 CAPTURE                          UPVAL U11
+      260 CAPTURE                          VAL R2
+      261 NAMECALL                         R13 R13 K12 ["connect"]
+      263 CALL                             R13 2 0
+      264 NAMECALL                         R13 R12 K46 ["ShowAsync"]
+      266 CALL                             R13 1 0
+      267 NAMECALL                         R13 R12 K47 ["Destroy"]
+      269 CALL                             R13 1 0
+      270 RETURN                           R12 1
 
 MAIN:
         0 PREPVARARGS                      0

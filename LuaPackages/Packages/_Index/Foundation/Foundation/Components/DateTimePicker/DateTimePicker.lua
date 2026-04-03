@@ -25,6 +25,7 @@ local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
 local FFlagFoundationDateTimePickerScreenSize = Flags.FoundationDateTimePickerScreenSize
+local FFlagFoundationDateTimePickerDefaultDateFix = Flags.FoundationDateTimePickerDefaultDateFix
 
 local DateTimePickerVariant = require(Foundation.Enums.DateTimePickerVariant)
 type DateTimePickerVariant = DateTimePickerVariant.DateTimePickerVariant
@@ -65,7 +66,7 @@ export type DateTimePickerProps = {
 } & Types.CommonProps
 
 local defaultProps = {
-	defaultDates = { DateTime.now() },
+	defaultDates = if FFlagFoundationDateTimePickerDefaultDateFix then nil else { DateTime.now() },
 	variant = DateTimePickerVariant.Single,
 	testId = "--foundation-date-time-picker",
 }
@@ -77,27 +78,42 @@ local function DateTimePicker(dateTimePickerProps: DateTimePickerProps)
 	local isOpen, setIsOpen = React.useState(false)
 	local textInputRef = React.useRef(nil)
 
-	if props.defaultDates and typeof(props.defaultDates) ~= "table" then
-		props.defaultDates = { props.defaultDates :: DateTime }
+	local resolvedDefaultDates
+	if FFlagFoundationDateTimePickerDefaultDateFix then
+		resolvedDefaultDates = React.useMemo(function(): { DateTime }?
+			local dates = props.defaultDates
+			if dates then
+				if typeof(dates) ~= "table" then
+					return { dates :: DateTime }
+				end
+				return dates :: { DateTime }
+			end
+			return nil
+		end, { props.defaultDates })
+	else
+		resolvedDefaultDates = props.defaultDates :: { DateTime }?
+		if props.defaultDates and typeof(props.defaultDates) ~= "table" then
+			resolvedDefaultDates = { props.defaultDates :: DateTime }
+		end
 	end
 
 	local inputText, setInputText = React.useState(
-		if props.defaultDates
+		if resolvedDefaultDates
 			then if props.variant == DateTimePickerVariant.Dual
-				then `{DateTimeUtilities.formatLocalTime((props.defaultDates :: { DateTime })[1])} - {if (
-						props.defaultDates :: { DateTime }
+				then `{DateTimeUtilities.formatLocalTime((resolvedDefaultDates)[1])} - {if (
+						resolvedDefaultDates :: { DateTime }
 					)[2]
-					then DateTimeUtilities.formatLocalTime((props.defaultDates :: { DateTime })[2])
+					then DateTimeUtilities.formatLocalTime((resolvedDefaultDates)[2])
 					else ""}`
 				else DateTimeUtilities.formatLocalTime(
-					(props.defaultDates :: { DateTime })[1],
+					(resolvedDefaultDates)[1],
 					props.variant == DateTimePickerVariant.SingleWithTime
 				)
 			else ""
 	)
 
 	-- DateTime objects that we track under the hood to monitor valid calendar changes
-	local calendarDates, setCalendarDates = React.useState(props.defaultDates)
+	local calendarDates, setCalendarDates = React.useState(resolvedDefaultDates)
 
 	local closeDateTimePicker = React.useCallback(function()
 		setIsOpen(false)
@@ -165,7 +181,11 @@ local function DateTimePicker(dateTimePickerProps: DateTimePickerProps)
 	)
 
 	local isApplyButtonDisabled = function()
-		if props.variant == DateTimePickerVariant.Single or props.variant == DateTimePickerVariant.SingleWithTime then
+		if FFlagFoundationDateTimePickerDefaultDateFix and not calendarDates then
+			return false
+		elseif
+			props.variant == DateTimePickerVariant.Single or props.variant == DateTimePickerVariant.SingleWithTime
+		then
 			return calendarDates[1] == nil
 		elseif props.variant == DateTimePickerVariant.Dual then
 			return calendarDates[1] == nil

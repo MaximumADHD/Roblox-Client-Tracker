@@ -190,16 +190,32 @@ PROTO_5:
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getAssets"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getAssets"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_7:
         0 GETUPVAL                         R3 0
@@ -219,24 +235,40 @@ PROTO_7:
        23 CALL                             R3 7 1
        24 GETUPVAL                         R4 3
        25 NEWCLOSURE                       R5 P0
-       26 CAPTURE                          UPVAL U4
-       27 CAPTURE                          VAL R3
+       26 CAPTURE                          VAL R3
+       27 CAPTURE                          UPVAL U4
        28 CAPTURE                          VAL R0
        29 CALL                             R4 1 -1
        30 RETURN                           R4 -1
 
 PROTO_8:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getToolboxItems"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getToolboxItems"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_9:
         0 GETTABLEKS                       R2 R1 K0 ["categoryName"]
@@ -299,8 +331,8 @@ PROTO_9:
        76 LOADNIL                          R7
        77 GETUPVAL                         R8 8
        78 NEWCLOSURE                       R9 P0
-       79 CAPTURE                          UPVAL U9
-       80 CAPTURE                          VAL R6
+       79 CAPTURE                          VAL R6
+       80 CAPTURE                          UPVAL U9
        81 CAPTURE                          VAL R0
        82 MOVE                             R10 R7
        83 CALL                             R8 2 -1
@@ -308,16 +340,32 @@ PROTO_9:
 
 PROTO_10:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getItemDetails"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getItemDetails"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_11:
         0 GETUPVAL                         R3 0
@@ -326,8 +374,8 @@ PROTO_11:
         4 CALL                             R2 1 1
         5 GETUPVAL                         R3 1
         6 NEWCLOSURE                       R4 P0
-        7 CAPTURE                          UPVAL U2
-        8 CAPTURE                          VAL R2
+        7 CAPTURE                          VAL R2
+        8 CAPTURE                          UPVAL U2
         9 CAPTURE                          VAL R0
        10 CALL                             R3 1 -1
        11 RETURN                           R3 -1
@@ -351,16 +399,32 @@ PROTO_12:
 
 PROTO_13:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getDevelopAsset"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getDevelopAsset"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_14:
         0 GETUPVAL                         R3 0
@@ -381,24 +445,40 @@ PROTO_14:
        25 CALL                             R3 8 1
        26 GETUPVAL                         R4 3
        27 NEWCLOSURE                       R5 P0
-       28 CAPTURE                          UPVAL U4
-       29 CAPTURE                          VAL R3
+       28 CAPTURE                          VAL R3
+       29 CAPTURE                          UPVAL U4
        30 CAPTURE                          VAL R0
        31 CALL                             R4 1 -1
        32 RETURN                           R4 -1
 
 PROTO_15:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getAllowedItemTypes"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getAllowedItemTypes"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_16:
         0 GETUPVAL                         R4 0
@@ -408,24 +488,40 @@ PROTO_16:
         5 CALL                             R3 2 1
         6 GETUPVAL                         R4 1
         7 NEWCLOSURE                       R5 P0
-        8 CAPTURE                          UPVAL U2
-        9 CAPTURE                          VAL R3
+        8 CAPTURE                          VAL R3
+        9 CAPTURE                          UPVAL U2
        10 CAPTURE                          VAL R0
        11 CALL                             R4 1 -1
        12 RETURN                           R4 -1
 
 PROTO_17:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getAssetCreations"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getAssetCreations"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_18:
         0 GETUPVAL                         R1 0
@@ -507,8 +603,8 @@ PROTO_19:
        74 RETURN                           R11 -1
        75 GETUPVAL                         R11 7
        76 NEWCLOSURE                       R12 P0
-       77 CAPTURE                          UPVAL U8
-       78 CAPTURE                          REF R10
+       77 CAPTURE                          REF R10
+       78 CAPTURE                          UPVAL U8
        79 CAPTURE                          VAL R0
        80 CALL                             R11 1 1
        81 NEWCLOSURE                       R13 P1
@@ -521,16 +617,32 @@ PROTO_19:
 
 PROTO_20:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getAssetGroupCreations"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getAssetGroupCreations"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_21:
         0 GETUPVAL                         R1 0
@@ -623,8 +735,8 @@ PROTO_22:
        88 RETURN                           R12 -1
        89 GETUPVAL                         R12 6
        90 NEWCLOSURE                       R13 P0
-       91 CAPTURE                          UPVAL U7
-       92 CAPTURE                          REF R11
+       91 CAPTURE                          REF R11
+       92 CAPTURE                          UPVAL U7
        93 CAPTURE                          VAL R0
        94 CALL                             R12 1 1
        95 NEWCLOSURE                       R14 P1
@@ -637,16 +749,32 @@ PROTO_22:
 
 PROTO_23:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getItem"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getItem"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_24:
         0 GETUPVAL                         R4 0
@@ -656,24 +784,40 @@ PROTO_24:
         5 CALL                             R3 2 1
         6 GETUPVAL                         R4 1
         7 NEWCLOSURE                       R5 P0
-        8 CAPTURE                          UPVAL U2
-        9 CAPTURE                          VAL R3
+        8 CAPTURE                          VAL R3
+        9 CAPTURE                          UPVAL U2
        10 CAPTURE                          VAL R0
        11 CALL                             R4 1 -1
        12 RETURN                           R4 -1
 
 PROTO_25:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getItemsByCreator"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getItemsByCreator"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_26:
         0 LOADNIL                          R6
@@ -699,8 +843,8 @@ PROTO_26:
        23 MOVE                             R6 R7
        24 GETUPVAL                         R7 1
        25 NEWCLOSURE                       R8 P0
-       26 CAPTURE                          UPVAL U2
-       27 CAPTURE                          REF R6
+       26 CAPTURE                          REF R6
+       27 CAPTURE                          UPVAL U2
        28 CAPTURE                          VAL R0
        29 CALL                             R7 1 -1
        30 CLOSEUPVALS                      R6
@@ -708,24 +852,40 @@ PROTO_26:
 
 PROTO_27:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getAssetCreationDetails"]
-        2 LOADK                            R2 K1 ["POST"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 DUPTABLE                         R2 K4 [{"assetIds"}]
-        9 GETUPVAL                         R3 3
-       10 SETTABLEKS                       R3 R2 K3 ["assetIds"]
-       12 NAMECALL                         R0 R0 K5 ["jsonEncode"]
-       14 CALL                             R0 2 1
-       15 GETUPVAL                         R2 2
-       16 GETTABLEKS                       R1 R2 K2 ["_networkImp"]
-       18 GETUPVAL                         R3 1
-       19 MOVE                             R4 R0
-       20 NAMECALL                         R1 R1 K6 ["httpPostJson"]
-       22 CALL                             R1 3 -1
-       23 RETURN                           R1 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getAssetCreationDetails"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["POST"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 DUPTABLE                         R2 K13 [{"assetIds"}]
+       31 GETUPVAL                         R3 3
+       32 SETTABLEKS                       R3 R2 K12 ["assetIds"]
+       34 NAMECALL                         R0 R0 K14 ["jsonEncode"]
+       36 CALL                             R0 2 1
+       37 GETUPVAL                         R2 2
+       38 GETTABLEKS                       R1 R2 K11 ["_networkImp"]
+       40 GETUPVAL                         R3 0
+       41 MOVE                             R4 R0
+       42 NAMECALL                         R1 R1 K15 ["httpPostJson"]
+       44 CALL                             R1 3 -1
+       45 RETURN                           R1 -1
 
 PROTO_28:
         0 GETUPVAL                         R3 0
@@ -748,8 +908,8 @@ PROTO_28:
        23 CALL                             R2 0 1
        24 GETUPVAL                         R3 3
        25 NEWCLOSURE                       R4 P0
-       26 CAPTURE                          UPVAL U4
-       27 CAPTURE                          VAL R2
+       26 CAPTURE                          VAL R2
+       27 CAPTURE                          UPVAL U0
        28 CAPTURE                          VAL R0
        29 CAPTURE                          VAL R1
        30 CALL                             R3 1 -1
@@ -757,16 +917,32 @@ PROTO_28:
 
 PROTO_29:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getCreatorInfo"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getCreatorInfo"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_30:
         0 GETUPVAL                         R4 0
@@ -776,24 +952,40 @@ PROTO_30:
         5 CALL                             R3 2 1
         6 GETUPVAL                         R4 1
         7 NEWCLOSURE                       R5 P0
-        8 CAPTURE                          UPVAL U2
-        9 CAPTURE                          VAL R3
+        8 CAPTURE                          VAL R3
+        9 CAPTURE                          UPVAL U2
        10 CAPTURE                          VAL R0
        11 CALL                             R4 1 -1
        12 RETURN                           R4 -1
 
 PROTO_31:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getUploadPermissionStatus"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getUploadPermissionStatus"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_32:
         0 GETUPVAL                         R4 0
@@ -803,24 +995,40 @@ PROTO_32:
         5 CALL                             R3 2 1
         6 GETUPVAL                         R4 1
         7 NEWCLOSURE                       R5 P0
-        8 CAPTURE                          UPVAL U2
-        9 CAPTURE                          VAL R3
+        8 CAPTURE                          VAL R3
+        9 CAPTURE                          UPVAL U2
        10 CAPTURE                          VAL R0
        11 CALL                             R4 1 -1
        12 RETURN                           R4 -1
 
 PROTO_33:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getBundleMetadata"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getBundleMetadata"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_34:
         0 GETUPVAL                         R2 0
@@ -828,8 +1036,8 @@ PROTO_34:
         3 CALL                             R1 0 1
         4 GETUPVAL                         R2 1
         5 NEWCLOSURE                       R3 P0
-        6 CAPTURE                          UPVAL U2
-        7 CAPTURE                          VAL R1
+        6 CAPTURE                          VAL R1
+        7 CAPTURE                          UPVAL U2
         8 CAPTURE                          VAL R0
         9 CALL                             R2 1 -1
        10 RETURN                           R2 -1
@@ -997,16 +1205,32 @@ PROTO_40:
 
 PROTO_41:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getBundleCreationStatus"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getBundleCreationStatus"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_42:
         0 GETUPVAL                         R3 0
@@ -1015,24 +1239,40 @@ PROTO_42:
         4 CALL                             R2 1 1
         5 GETUPVAL                         R3 1
         6 NEWCLOSURE                       R4 P0
-        7 CAPTURE                          UPVAL U2
-        8 CAPTURE                          VAL R2
+        7 CAPTURE                          VAL R2
+        8 CAPTURE                          UPVAL U2
         9 CAPTURE                          VAL R0
        10 CALL                             R3 1 -1
        11 RETURN                           R3 -1
 
 PROTO_43:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getDefaultBundleDataSharing"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getDefaultBundleDataSharing"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_44:
         0 GETUPVAL                         R2 0
@@ -1040,8 +1280,8 @@ PROTO_44:
         3 CALL                             R1 0 1
         4 GETUPVAL                         R2 1
         5 NEWCLOSURE                       R3 P0
-        6 CAPTURE                          UPVAL U2
-        7 CAPTURE                          VAL R1
+        6 CAPTURE                          VAL R1
+        7 CAPTURE                          UPVAL U2
         8 CAPTURE                          VAL R0
         9 CALL                             R2 1 -1
        10 RETURN                           R2 -1
@@ -1124,16 +1364,32 @@ PROTO_48:
 
 PROTO_49:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getAssetMediaIds"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getAssetMediaIds"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_50:
         0 GETUPVAL                         R3 0
@@ -1142,24 +1398,40 @@ PROTO_50:
         4 CALL                             R2 1 1
         5 GETUPVAL                         R3 1
         6 NEWCLOSURE                       R4 P0
-        7 CAPTURE                          UPVAL U2
-        8 CAPTURE                          VAL R2
+        7 CAPTURE                          VAL R2
+        8 CAPTURE                          UPVAL U2
         9 CAPTURE                          VAL R0
        10 CALL                             R3 1 -1
        11 RETURN                           R3 -1
 
 PROTO_51:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getVote"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getVote"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_52:
         0 GETUPVAL                         R4 0
@@ -1169,8 +1441,8 @@ PROTO_52:
         5 CALL                             R3 2 1
         6 GETUPVAL                         R4 1
         7 NEWCLOSURE                       R5 P0
-        8 CAPTURE                          UPVAL U2
-        9 CAPTURE                          VAL R3
+        8 CAPTURE                          VAL R3
+        9 CAPTURE                          UPVAL U2
        10 CAPTURE                          VAL R0
        11 CALL                             R4 1 -1
        12 RETURN                           R4 -1
@@ -1337,16 +1609,32 @@ PROTO_62:
 
 PROTO_63:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getManageableGroups"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getManageableGroups"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_64:
         0 GETUPVAL                         R3 0
@@ -1355,8 +1643,8 @@ PROTO_64:
         4 CALL                             R2 1 1
         5 GETUPVAL                         R3 1
         6 NEWCLOSURE                       R4 P0
-        7 CAPTURE                          UPVAL U2
-        8 CAPTURE                          VAL R2
+        7 CAPTURE                          VAL R2
+        8 CAPTURE                          UPVAL U2
         9 CAPTURE                          VAL R0
        10 CALL                             R3 1 -1
        11 RETURN                           R3 -1
@@ -1391,36 +1679,66 @@ PROTO_66:
         1 GETTABLEKS                       R3 R4 K0 ["constructUserSearchUrl"]
         3 MOVE                             R4 R1
         4 CALL                             R3 1 1
-        5 GETUPVAL                         R4 1
-        6 LOADK                            R5 K1 ["getUsers"]
-        7 LOADK                            R6 K2 ["GET"]
-        8 MOVE                             R7 R3
-        9 CALL                             R4 3 0
-       10 GETTABLEKS                       R4 R0 K3 ["_networkImp"]
-       12 MOVE                             R6 R3
-       13 NAMECALL                         R4 R4 K4 ["httpGetJson"]
-       15 CALL                             R4 2 1
-       16 NEWCLOSURE                       R6 P0
-       17 CAPTURE                          VAL R2
-       18 NAMECALL                         R4 R4 K5 ["andThen"]
-       20 CALL                             R4 2 -1
-       21 RETURN                           R4 -1
+        5 GETUPVAL                         R5 1
+        6 GETTABLEKS                       R4 R5 K1 ["shouldDebugUrls"]
+        8 CALL                             R4 0 1
+        9 JUMPIFNOT                        R4 ; [+21]
+       10 GETIMPORT                        R4 K3 [print]
+       12 LOADK                            R5 K4 ["NetworkInterface:%s()"]
+       13 LOADK                            R7 K5 ["getUsers"]
+       14 NAMECALL                         R5 R5 K6 ["format"]
+       16 CALL                             R5 2 -1
+       17 CALL                             R4 -1 0
+       18 GETIMPORT                        R4 K3 [print]
+       20 LOADK                            R5 K7 ["\t%s %s"]
+       21 LOADK                            R8 K9 ["GET"]
+       22 NAMECALL                         R8 R8 K10 ["upper"]
+       24 CALL                             R8 1 1
+       25 ORK                              R7 R8 K8 ["method=nil"]
+       26 ORK                              R8 R3 K11 ["url=nil"]
+       27 NAMECALL                         R5 R5 K6 ["format"]
+       29 CALL                             R5 3 -1
+       30 CALL                             R4 -1 0
+       31 GETTABLEKS                       R4 R0 K12 ["_networkImp"]
+       33 MOVE                             R6 R3
+       34 NAMECALL                         R4 R4 K13 ["httpGetJson"]
+       36 CALL                             R4 2 1
+       37 NEWCLOSURE                       R6 P0
+       38 CAPTURE                          VAL R2
+       39 NAMECALL                         R4 R4 K14 ["andThen"]
+       41 CALL                             R4 2 -1
+       42 RETURN                           R4 -1
 
 PROTO_67:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["constructFavoriteCountsUrl"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R3 1
-        6 LOADK                            R4 K1 ["getFavorites"]
-        7 LOADK                            R5 K2 ["GET"]
-        8 MOVE                             R6 R2
-        9 CALL                             R3 3 0
-       10 GETTABLEKS                       R3 R0 K3 ["_networkImp"]
-       12 MOVE                             R5 R2
-       13 NAMECALL                         R3 R3 K4 ["httpGet"]
-       15 CALL                             R3 2 -1
-       16 RETURN                           R3 -1
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R3 R4 K1 ["shouldDebugUrls"]
+        8 CALL                             R3 0 1
+        9 JUMPIFNOT                        R3 ; [+21]
+       10 GETIMPORT                        R3 K3 [print]
+       12 LOADK                            R4 K4 ["NetworkInterface:%s()"]
+       13 LOADK                            R6 K5 ["getFavorites"]
+       14 NAMECALL                         R4 R4 K6 ["format"]
+       16 CALL                             R4 2 -1
+       17 CALL                             R3 -1 0
+       18 GETIMPORT                        R3 K3 [print]
+       20 LOADK                            R4 K7 ["\t%s %s"]
+       21 LOADK                            R7 K9 ["GET"]
+       22 NAMECALL                         R7 R7 K10 ["upper"]
+       24 CALL                             R7 1 1
+       25 ORK                              R6 R7 K8 ["method=nil"]
+       26 ORK                              R7 R2 K11 ["url=nil"]
+       27 NAMECALL                         R4 R4 K6 ["format"]
+       29 CALL                             R4 3 -1
+       30 CALL                             R3 -1 0
+       31 GETTABLEKS                       R3 R0 K12 ["_networkImp"]
+       33 MOVE                             R5 R2
+       34 NAMECALL                         R3 R3 K13 ["httpGet"]
+       36 CALL                             R3 2 -1
+       37 RETURN                           R3 -1
 
 PROTO_68:
         0 GETUPVAL                         R4 0
@@ -1428,16 +1746,31 @@ PROTO_68:
         3 MOVE                             R4 R1
         4 MOVE                             R5 R2
         5 CALL                             R3 2 1
-        6 GETUPVAL                         R4 1
-        7 LOADK                            R5 K1 ["getFavorited"]
-        8 LOADK                            R6 K2 ["GET"]
-        9 MOVE                             R7 R3
-       10 CALL                             R4 3 0
-       11 GETTABLEKS                       R4 R0 K3 ["_networkImp"]
-       13 MOVE                             R6 R3
-       14 NAMECALL                         R4 R4 K4 ["httpGet"]
-       16 CALL                             R4 2 -1
-       17 RETURN                           R4 -1
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R4 R5 K1 ["shouldDebugUrls"]
+        9 CALL                             R4 0 1
+       10 JUMPIFNOT                        R4 ; [+21]
+       11 GETIMPORT                        R4 K3 [print]
+       13 LOADK                            R5 K4 ["NetworkInterface:%s()"]
+       14 LOADK                            R7 K5 ["getFavorited"]
+       15 NAMECALL                         R5 R5 K6 ["format"]
+       17 CALL                             R5 2 -1
+       18 CALL                             R4 -1 0
+       19 GETIMPORT                        R4 K3 [print]
+       21 LOADK                            R5 K7 ["\t%s %s"]
+       22 LOADK                            R8 K9 ["GET"]
+       23 NAMECALL                         R8 R8 K10 ["upper"]
+       25 CALL                             R8 1 1
+       26 ORK                              R7 R8 K8 ["method=nil"]
+       27 ORK                              R8 R3 K11 ["url=nil"]
+       28 NAMECALL                         R5 R5 K6 ["format"]
+       30 CALL                             R5 3 -1
+       31 CALL                             R4 -1 0
+       32 GETTABLEKS                       R4 R0 K12 ["_networkImp"]
+       34 MOVE                             R6 R3
+       35 NAMECALL                         R4 R4 K13 ["httpGet"]
+       37 CALL                             R4 2 -1
+       38 RETURN                           R4 -1
 
 PROTO_69:
         0 GETUPVAL                         R4 0
@@ -1468,16 +1801,31 @@ PROTO_70:
         3 MOVE                             R4 R1
         4 MOVE                             R5 R2
         5 CALL                             R3 2 1
-        6 GETUPVAL                         R4 1
-        7 LOADK                            R5 K1 ["deleteSave"]
-        8 LOADK                            R6 K2 ["DELETE"]
-        9 MOVE                             R7 R3
-       10 CALL                             R4 3 0
-       11 GETTABLEKS                       R4 R0 K3 ["_networkImp"]
-       13 MOVE                             R6 R3
-       14 NAMECALL                         R4 R4 K4 ["httpDelete"]
-       16 CALL                             R4 2 -1
-       17 RETURN                           R4 -1
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R4 R5 K1 ["shouldDebugUrls"]
+        9 CALL                             R4 0 1
+       10 JUMPIFNOT                        R4 ; [+21]
+       11 GETIMPORT                        R4 K3 [print]
+       13 LOADK                            R5 K4 ["NetworkInterface:%s()"]
+       14 LOADK                            R7 K5 ["deleteSave"]
+       15 NAMECALL                         R5 R5 K6 ["format"]
+       17 CALL                             R5 2 -1
+       18 CALL                             R4 -1 0
+       19 GETIMPORT                        R4 K3 [print]
+       21 LOADK                            R5 K7 ["\t%s %s"]
+       22 LOADK                            R8 K9 ["DELETE"]
+       23 NAMECALL                         R8 R8 K10 ["upper"]
+       25 CALL                             R8 1 1
+       26 ORK                              R7 R8 K8 ["method=nil"]
+       27 ORK                              R8 R3 K11 ["url=nil"]
+       28 NAMECALL                         R5 R5 K6 ["format"]
+       30 CALL                             R5 3 -1
+       31 CALL                             R4 -1 0
+       32 GETTABLEKS                       R4 R0 K12 ["_networkImp"]
+       34 MOVE                             R6 R3
+       35 NAMECALL                         R4 R4 K13 ["httpDelete"]
+       37 CALL                             R4 2 -1
+       38 RETURN                           R4 -1
 
 PROTO_71:
         0 GETUPVAL                         R4 0
@@ -1485,32 +1833,62 @@ PROTO_71:
         3 MOVE                             R4 R1
         4 MOVE                             R5 R2
         5 CALL                             R3 2 1
-        6 GETUPVAL                         R4 1
-        7 LOADK                            R5 K1 ["getSave"]
-        8 LOADK                            R6 K2 ["GET"]
-        9 MOVE                             R7 R3
-       10 CALL                             R4 3 0
-       11 GETTABLEKS                       R4 R0 K3 ["_networkImp"]
-       13 MOVE                             R6 R3
-       14 NAMECALL                         R4 R4 K4 ["httpGetJson"]
-       16 CALL                             R4 2 -1
-       17 RETURN                           R4 -1
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R4 R5 K1 ["shouldDebugUrls"]
+        9 CALL                             R4 0 1
+       10 JUMPIFNOT                        R4 ; [+21]
+       11 GETIMPORT                        R4 K3 [print]
+       13 LOADK                            R5 K4 ["NetworkInterface:%s()"]
+       14 LOADK                            R7 K5 ["getSave"]
+       15 NAMECALL                         R5 R5 K6 ["format"]
+       17 CALL                             R5 2 -1
+       18 CALL                             R4 -1 0
+       19 GETIMPORT                        R4 K3 [print]
+       21 LOADK                            R5 K7 ["\t%s %s"]
+       22 LOADK                            R8 K9 ["GET"]
+       23 NAMECALL                         R8 R8 K10 ["upper"]
+       25 CALL                             R8 1 1
+       26 ORK                              R7 R8 K8 ["method=nil"]
+       27 ORK                              R8 R3 K11 ["url=nil"]
+       28 NAMECALL                         R5 R5 K6 ["format"]
+       30 CALL                             R5 3 -1
+       31 CALL                             R4 -1 0
+       32 GETTABLEKS                       R4 R0 K12 ["_networkImp"]
+       34 MOVE                             R6 R3
+       35 NAMECALL                         R4 R4 K13 ["httpGetJson"]
+       37 CALL                             R4 2 -1
+       38 RETURN                           R4 -1
 
 PROTO_72:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["constructGetDevelopAssetMetadata"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R3 1
-        6 LOADK                            R4 K1 ["getDevelopAssetMetadata"]
-        7 LOADK                            R5 K2 ["GET"]
-        8 MOVE                             R6 R2
-        9 CALL                             R3 3 0
-       10 GETTABLEKS                       R3 R0 K3 ["_networkImp"]
-       12 MOVE                             R5 R2
-       13 NAMECALL                         R3 R3 K4 ["httpGet"]
-       15 CALL                             R3 2 -1
-       16 RETURN                           R3 -1
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R3 R4 K1 ["shouldDebugUrls"]
+        8 CALL                             R3 0 1
+        9 JUMPIFNOT                        R3 ; [+21]
+       10 GETIMPORT                        R3 K3 [print]
+       12 LOADK                            R4 K4 ["NetworkInterface:%s()"]
+       13 LOADK                            R6 K5 ["getDevelopAssetMetadata"]
+       14 NAMECALL                         R4 R4 K6 ["format"]
+       16 CALL                             R4 2 -1
+       17 CALL                             R3 -1 0
+       18 GETIMPORT                        R3 K3 [print]
+       20 LOADK                            R4 K7 ["\t%s %s"]
+       21 LOADK                            R7 K9 ["GET"]
+       22 NAMECALL                         R7 R7 K10 ["upper"]
+       24 CALL                             R7 1 1
+       25 ORK                              R6 R7 K8 ["method=nil"]
+       26 ORK                              R7 R2 K11 ["url=nil"]
+       27 NAMECALL                         R4 R4 K6 ["format"]
+       29 CALL                             R4 3 -1
+       30 CALL                             R3 -1 0
+       31 GETTABLEKS                       R3 R0 K12 ["_networkImp"]
+       33 MOVE                             R5 R2
+       34 NAMECALL                         R3 R3 K13 ["httpGet"]
+       36 CALL                             R3 2 -1
+       37 RETURN                           R3 -1
 
 PROTO_73:
         0 GETUPVAL                         R5 0
@@ -1519,16 +1897,31 @@ PROTO_73:
         4 MOVE                             R6 R2
         5 MOVE                             R7 R3
         6 CALL                             R4 3 1
-        7 GETUPVAL                         R5 1
-        8 LOADK                            R6 K1 ["getVersionsHistory"]
-        9 LOADK                            R7 K2 ["GET"]
-       10 MOVE                             R8 R4
-       11 CALL                             R5 3 0
-       12 GETTABLEKS                       R5 R0 K3 ["_networkImp"]
-       14 MOVE                             R7 R4
-       15 NAMECALL                         R5 R5 K4 ["httpGet"]
-       17 CALL                             R5 2 -1
-       18 RETURN                           R5 -1
+        7 GETUPVAL                         R6 1
+        8 GETTABLEKS                       R5 R6 K1 ["shouldDebugUrls"]
+       10 CALL                             R5 0 1
+       11 JUMPIFNOT                        R5 ; [+21]
+       12 GETIMPORT                        R5 K3 [print]
+       14 LOADK                            R6 K4 ["NetworkInterface:%s()"]
+       15 LOADK                            R8 K5 ["getVersionsHistory"]
+       16 NAMECALL                         R6 R6 K6 ["format"]
+       18 CALL                             R6 2 -1
+       19 CALL                             R5 -1 0
+       20 GETIMPORT                        R5 K3 [print]
+       22 LOADK                            R6 K7 ["\t%s %s"]
+       23 LOADK                            R9 K9 ["GET"]
+       24 NAMECALL                         R9 R9 K10 ["upper"]
+       26 CALL                             R9 1 1
+       27 ORK                              R8 R9 K8 ["method=nil"]
+       28 ORK                              R9 R4 K11 ["url=nil"]
+       29 NAMECALL                         R6 R6 K6 ["format"]
+       31 CALL                             R6 3 -1
+       32 CALL                             R5 -1 0
+       33 GETTABLEKS                       R5 R0 K12 ["_networkImp"]
+       35 MOVE                             R7 R4
+       36 NAMECALL                         R5 R5 K13 ["httpGet"]
+       38 CALL                             R5 2 -1
+       39 RETURN                           R5 -1
 
 PROTO_74:
         0 GETUPVAL                         R4 0
@@ -1536,37 +1929,67 @@ PROTO_74:
         3 MOVE                             R4 R1
         4 MOVE                             R5 R2
         5 CALL                             R3 2 1
-        6 GETUPVAL                         R4 1
-        7 LOADK                            R5 K1 ["postRevertVersion"]
-        8 LOADK                            R6 K2 ["POST"]
-        9 MOVE                             R7 R3
-       10 CALL                             R4 3 0
-       11 GETTABLEKS                       R4 R0 K3 ["_networkImp"]
-       13 MOVE                             R6 R3
-       14 NEWTABLE                         R7 0 0
-       16 NAMECALL                         R4 R4 K4 ["httpPostJson"]
-       18 CALL                             R4 3 -1
-       19 RETURN                           R4 -1
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R4 R5 K1 ["shouldDebugUrls"]
+        9 CALL                             R4 0 1
+       10 JUMPIFNOT                        R4 ; [+21]
+       11 GETIMPORT                        R4 K3 [print]
+       13 LOADK                            R5 K4 ["NetworkInterface:%s()"]
+       14 LOADK                            R7 K5 ["postRevertVersion"]
+       15 NAMECALL                         R5 R5 K6 ["format"]
+       17 CALL                             R5 2 -1
+       18 CALL                             R4 -1 0
+       19 GETIMPORT                        R4 K3 [print]
+       21 LOADK                            R5 K7 ["\t%s %s"]
+       22 LOADK                            R8 K9 ["POST"]
+       23 NAMECALL                         R8 R8 K10 ["upper"]
+       25 CALL                             R8 1 1
+       26 ORK                              R7 R8 K8 ["method=nil"]
+       27 ORK                              R8 R3 K11 ["url=nil"]
+       28 NAMECALL                         R5 R5 K6 ["format"]
+       30 CALL                             R5 3 -1
+       31 CALL                             R4 -1 0
+       32 GETTABLEKS                       R4 R0 K12 ["_networkImp"]
+       34 MOVE                             R6 R3
+       35 NEWTABLE                         R7 0 0
+       37 NAMECALL                         R4 R4 K13 ["httpPostJson"]
+       39 CALL                             R4 3 -1
+       40 RETURN                           R4 -1
 
 PROTO_75:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["constructGetPackageVersionDescriptionString"]
         3 CALL                             R2 0 1
-        4 GETUPVAL                         R3 1
-        5 LOADK                            R4 K1 ["getVersionDescriptions"]
-        6 LOADK                            R5 K2 ["POST"]
-        7 MOVE                             R6 R2
-        8 CALL                             R3 3 0
-        9 GETTABLEKS                       R3 R0 K3 ["_networkImp"]
-       11 MOVE                             R5 R1
-       12 NAMECALL                         R3 R3 K4 ["jsonEncode"]
-       14 CALL                             R3 2 1
-       15 GETTABLEKS                       R4 R0 K3 ["_networkImp"]
-       17 MOVE                             R6 R2
-       18 MOVE                             R7 R3
-       19 NAMECALL                         R4 R4 K5 ["httpPostJson"]
-       21 CALL                             R4 3 -1
-       22 RETURN                           R4 -1
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R3 R4 K1 ["shouldDebugUrls"]
+        7 CALL                             R3 0 1
+        8 JUMPIFNOT                        R3 ; [+21]
+        9 GETIMPORT                        R3 K3 [print]
+       11 LOADK                            R4 K4 ["NetworkInterface:%s()"]
+       12 LOADK                            R6 K5 ["getVersionDescriptions"]
+       13 NAMECALL                         R4 R4 K6 ["format"]
+       15 CALL                             R4 2 -1
+       16 CALL                             R3 -1 0
+       17 GETIMPORT                        R3 K3 [print]
+       19 LOADK                            R4 K7 ["\t%s %s"]
+       20 LOADK                            R7 K9 ["POST"]
+       21 NAMECALL                         R7 R7 K10 ["upper"]
+       23 CALL                             R7 1 1
+       24 ORK                              R6 R7 K8 ["method=nil"]
+       25 ORK                              R7 R2 K11 ["url=nil"]
+       26 NAMECALL                         R4 R4 K6 ["format"]
+       28 CALL                             R4 3 -1
+       29 CALL                             R3 -1 0
+       30 GETTABLEKS                       R3 R0 K12 ["_networkImp"]
+       32 MOVE                             R5 R1
+       33 NAMECALL                         R3 R3 K13 ["jsonEncode"]
+       35 CALL                             R3 2 1
+       36 GETTABLEKS                       R4 R0 K12 ["_networkImp"]
+       38 MOVE                             R6 R2
+       39 MOVE                             R7 R3
+       40 NAMECALL                         R4 R4 K14 ["httpPostJson"]
+       42 CALL                             R4 3 -1
+       43 RETURN                           R4 -1
 
 PROTO_76:
         0 GETUPVAL                         R0 0
@@ -1634,16 +2057,31 @@ PROTO_79:
         3 MOVE                             R4 R1
         4 MOVE                             R5 R2
         5 CALL                             R3 2 1
-        6 GETUPVAL                         R4 1
-        7 LOADK                            R5 K1 ["deleteFavorite"]
-        8 LOADK                            R6 K2 ["DELETE"]
-        9 MOVE                             R7 R3
-       10 CALL                             R4 3 0
-       11 GETTABLEKS                       R4 R0 K3 ["_networkImp"]
-       13 MOVE                             R6 R3
-       14 NAMECALL                         R4 R4 K4 ["httpDelete"]
-       16 CALL                             R4 2 -1
-       17 RETURN                           R4 -1
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R4 R5 K1 ["shouldDebugUrls"]
+        9 CALL                             R4 0 1
+       10 JUMPIFNOT                        R4 ; [+21]
+       11 GETIMPORT                        R4 K3 [print]
+       13 LOADK                            R5 K4 ["NetworkInterface:%s()"]
+       14 LOADK                            R7 K5 ["deleteFavorite"]
+       15 NAMECALL                         R5 R5 K6 ["format"]
+       17 CALL                             R5 2 -1
+       18 CALL                             R4 -1 0
+       19 GETIMPORT                        R4 K3 [print]
+       21 LOADK                            R5 K7 ["\t%s %s"]
+       22 LOADK                            R8 K9 ["DELETE"]
+       23 NAMECALL                         R8 R8 K10 ["upper"]
+       25 CALL                             R8 1 1
+       26 ORK                              R7 R8 K8 ["method=nil"]
+       27 ORK                              R8 R3 K11 ["url=nil"]
+       28 NAMECALL                         R5 R5 K6 ["format"]
+       30 CALL                             R5 3 -1
+       31 CALL                             R4 -1 0
+       32 GETTABLEKS                       R4 R0 K12 ["_networkImp"]
+       34 MOVE                             R6 R3
+       35 NAMECALL                         R4 R4 K13 ["httpDelete"]
+       37 CALL                             R4 2 -1
+       38 RETURN                           R4 -1
 
 PROTO_80:
         0 GETUPVAL                         R2 0
@@ -1758,16 +2196,31 @@ PROTO_86:
         5 MOVE                             R4 R1
         6 SETLIST                          R3 R4 1 [1]
         8 CALL                             R2 1 1
-        9 GETUPVAL                         R3 1
-       10 LOADK                            R4 K1 ["getThumbnailStatus"]
-       11 LOADK                            R5 K2 ["GET"]
-       12 MOVE                             R6 R2
-       13 CALL                             R3 3 0
-       14 GETTABLEKS                       R3 R0 K3 ["_networkImp"]
-       16 MOVE                             R5 R2
-       17 NAMECALL                         R3 R3 K4 ["httpGetJson"]
-       19 CALL                             R3 2 -1
-       20 RETURN                           R3 -1
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R3 R4 K1 ["shouldDebugUrls"]
+       12 CALL                             R3 0 1
+       13 JUMPIFNOT                        R3 ; [+21]
+       14 GETIMPORT                        R3 K3 [print]
+       16 LOADK                            R4 K4 ["NetworkInterface:%s()"]
+       17 LOADK                            R6 K5 ["getThumbnailStatus"]
+       18 NAMECALL                         R4 R4 K6 ["format"]
+       20 CALL                             R4 2 -1
+       21 CALL                             R3 -1 0
+       22 GETIMPORT                        R3 K3 [print]
+       24 LOADK                            R4 K7 ["\t%s %s"]
+       25 LOADK                            R7 K9 ["GET"]
+       26 NAMECALL                         R7 R7 K10 ["upper"]
+       28 CALL                             R7 1 1
+       29 ORK                              R6 R7 K8 ["method=nil"]
+       30 ORK                              R7 R2 K11 ["url=nil"]
+       31 NAMECALL                         R4 R4 K6 ["format"]
+       33 CALL                             R4 3 -1
+       34 CALL                             R3 -1 0
+       35 GETTABLEKS                       R3 R0 K12 ["_networkImp"]
+       37 MOVE                             R5 R2
+       38 NAMECALL                         R3 R3 K13 ["httpGetJson"]
+       40 CALL                             R3 2 -1
+       41 RETURN                           R3 -1
 
 PROTO_87:
         0 GETUPVAL                         R2 0
@@ -1856,16 +2309,31 @@ PROTO_90:
         1 GETTABLEKS                       R2 R3 K0 ["constructValidateAnimationUrl"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R3 1
-        6 LOADK                            R4 K1 ["validateAnimation"]
-        7 LOADK                            R5 K2 ["GET"]
-        8 MOVE                             R6 R2
-        9 CALL                             R3 3 0
-       10 GETTABLEKS                       R3 R0 K3 ["_networkImp"]
-       12 MOVE                             R5 R2
-       13 NAMECALL                         R3 R3 K4 ["httpGetJson"]
-       15 CALL                             R3 2 -1
-       16 RETURN                           R3 -1
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R3 R4 K1 ["shouldDebugUrls"]
+        8 CALL                             R3 0 1
+        9 JUMPIFNOT                        R3 ; [+21]
+       10 GETIMPORT                        R3 K3 [print]
+       12 LOADK                            R4 K4 ["NetworkInterface:%s()"]
+       13 LOADK                            R6 K5 ["validateAnimation"]
+       14 NAMECALL                         R4 R4 K6 ["format"]
+       16 CALL                             R4 2 -1
+       17 CALL                             R3 -1 0
+       18 GETIMPORT                        R3 K3 [print]
+       20 LOADK                            R4 K7 ["\t%s %s"]
+       21 LOADK                            R7 K9 ["GET"]
+       22 NAMECALL                         R7 R7 K10 ["upper"]
+       24 CALL                             R7 1 1
+       25 ORK                              R6 R7 K8 ["method=nil"]
+       26 ORK                              R7 R2 K11 ["url=nil"]
+       27 NAMECALL                         R4 R4 K6 ["format"]
+       29 CALL                             R4 3 -1
+       30 CALL                             R3 -1 0
+       31 GETTABLEKS                       R3 R0 K12 ["_networkImp"]
+       33 MOVE                             R5 R2
+       34 NAMECALL                         R3 R3 K13 ["httpGetJson"]
+       36 CALL                             R3 2 -1
+       37 RETURN                           R3 -1
 
 PROTO_91:
         0 LOADK                            R1 K0 [""]
@@ -1975,30 +2443,45 @@ PROTO_94:
         3 GETTABLEKS                       R4 R5 K2 ["constructOperationUrl"]
         5 MOVE                             R5 R1
         6 CALL                             R4 1 1
-        7 GETUPVAL                         R5 1
-        8 LOADK                            R6 K3 ["waitForOperation"]
-        9 LOADK                            R7 K4 ["GET"]
-       10 MOVE                             R8 R4
-       11 CALL                             R5 3 0
-       12 GETTABLEKS                       R5 R0 K5 ["_networkImp"]
-       14 MOVE                             R7 R4
-       15 NAMECALL                         R5 R5 K6 ["httpGetJson"]
-       17 CALL                             R5 2 1
-       18 NEWCLOSURE                       R7 P0
-       19 CAPTURE                          UPVAL U2
-       20 CAPTURE                          REF R3
-       21 CAPTURE                          UPVAL U3
-       22 CAPTURE                          VAL R0
-       23 CAPTURE                          VAL R1
-       24 CAPTURE                          REF R2
-       25 NAMECALL                         R5 R5 K7 ["andThen"]
-       27 CALL                             R5 2 1
-       28 DUPCLOSURE                       R7 K8 [PROTO_93]
-       29 CAPTURE                          UPVAL U3
-       30 NAMECALL                         R5 R5 K9 ["catch"]
-       32 CALL                             R5 2 -1
-       33 CLOSEUPVALS                      R2
-       34 RETURN                           R5 -1
+        7 GETUPVAL                         R6 1
+        8 GETTABLEKS                       R5 R6 K3 ["shouldDebugUrls"]
+       10 CALL                             R5 0 1
+       11 JUMPIFNOT                        R5 ; [+21]
+       12 GETIMPORT                        R5 K5 [print]
+       14 LOADK                            R6 K6 ["NetworkInterface:%s()"]
+       15 LOADK                            R8 K7 ["waitForOperation"]
+       16 NAMECALL                         R6 R6 K8 ["format"]
+       18 CALL                             R6 2 -1
+       19 CALL                             R5 -1 0
+       20 GETIMPORT                        R5 K5 [print]
+       22 LOADK                            R6 K9 ["\t%s %s"]
+       23 LOADK                            R9 K11 ["GET"]
+       24 NAMECALL                         R9 R9 K12 ["upper"]
+       26 CALL                             R9 1 1
+       27 ORK                              R8 R9 K10 ["method=nil"]
+       28 ORK                              R9 R4 K13 ["url=nil"]
+       29 NAMECALL                         R6 R6 K8 ["format"]
+       31 CALL                             R6 3 -1
+       32 CALL                             R5 -1 0
+       33 GETTABLEKS                       R5 R0 K14 ["_networkImp"]
+       35 MOVE                             R7 R4
+       36 NAMECALL                         R5 R5 K15 ["httpGetJson"]
+       38 CALL                             R5 2 1
+       39 NEWCLOSURE                       R7 P0
+       40 CAPTURE                          UPVAL U2
+       41 CAPTURE                          REF R3
+       42 CAPTURE                          UPVAL U3
+       43 CAPTURE                          VAL R0
+       44 CAPTURE                          VAL R1
+       45 CAPTURE                          REF R2
+       46 NAMECALL                         R5 R5 K16 ["andThen"]
+       48 CALL                             R5 2 1
+       49 DUPCLOSURE                       R7 K17 [PROTO_93]
+       50 CAPTURE                          UPVAL U3
+       51 NAMECALL                         R5 R5 K18 ["catch"]
+       53 CALL                             R5 2 -1
+       54 CLOSEUPVALS                      R2
+       55 RETURN                           R5 -1
 
 PROTO_95:
         0 GETUPVAL                         R2 0
@@ -2185,48 +2668,93 @@ PROTO_101:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["constructIsVerifiedCreatorUrl"]
         3 CALL                             R1 0 1
-        4 GETUPVAL                         R2 1
-        5 LOADK                            R3 K1 ["getIsVerifiedCreator"]
-        6 LOADK                            R4 K2 ["GET"]
-        7 MOVE                             R5 R1
-        8 CALL                             R2 3 0
-        9 GETTABLEKS                       R2 R0 K3 ["_networkImp"]
-       11 MOVE                             R4 R1
-       12 NAMECALL                         R2 R2 K4 ["httpGetJson"]
-       14 CALL                             R2 2 -1
-       15 RETURN                           R2 -1
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R2 R3 K1 ["shouldDebugUrls"]
+        7 CALL                             R2 0 1
+        8 JUMPIFNOT                        R2 ; [+21]
+        9 GETIMPORT                        R2 K3 [print]
+       11 LOADK                            R3 K4 ["NetworkInterface:%s()"]
+       12 LOADK                            R5 K5 ["getIsVerifiedCreator"]
+       13 NAMECALL                         R3 R3 K6 ["format"]
+       15 CALL                             R3 2 -1
+       16 CALL                             R2 -1 0
+       17 GETIMPORT                        R2 K3 [print]
+       19 LOADK                            R3 K7 ["\t%s %s"]
+       20 LOADK                            R6 K9 ["GET"]
+       21 NAMECALL                         R6 R6 K10 ["upper"]
+       23 CALL                             R6 1 1
+       24 ORK                              R5 R6 K8 ["method=nil"]
+       25 ORK                              R6 R1 K11 ["url=nil"]
+       26 NAMECALL                         R3 R3 K6 ["format"]
+       28 CALL                             R3 3 -1
+       29 CALL                             R2 -1 0
+       30 GETTABLEKS                       R2 R0 K12 ["_networkImp"]
+       32 MOVE                             R4 R1
+       33 NAMECALL                         R2 R2 K13 ["httpGetJson"]
+       35 CALL                             R2 2 -1
+       36 RETURN                           R2 -1
 
 PROTO_102:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["constructGetPluginInfoUrl"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R3 1
-        6 LOADK                            R4 K1 ["getPluginInfo"]
-        7 LOADK                            R5 K2 ["GET"]
-        8 MOVE                             R6 R2
-        9 CALL                             R3 3 0
-       10 GETTABLEKS                       R3 R0 K3 ["_networkImp"]
-       12 MOVE                             R5 R2
-       13 NAMECALL                         R3 R3 K4 ["httpGetJson"]
-       15 CALL                             R3 2 -1
-       16 RETURN                           R3 -1
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R3 R4 K1 ["shouldDebugUrls"]
+        8 CALL                             R3 0 1
+        9 JUMPIFNOT                        R3 ; [+21]
+       10 GETIMPORT                        R3 K3 [print]
+       12 LOADK                            R4 K4 ["NetworkInterface:%s()"]
+       13 LOADK                            R6 K5 ["getPluginInfo"]
+       14 NAMECALL                         R4 R4 K6 ["format"]
+       16 CALL                             R4 2 -1
+       17 CALL                             R3 -1 0
+       18 GETIMPORT                        R3 K3 [print]
+       20 LOADK                            R4 K7 ["\t%s %s"]
+       21 LOADK                            R7 K9 ["GET"]
+       22 NAMECALL                         R7 R7 K10 ["upper"]
+       24 CALL                             R7 1 1
+       25 ORK                              R6 R7 K8 ["method=nil"]
+       26 ORK                              R7 R2 K11 ["url=nil"]
+       27 NAMECALL                         R4 R4 K6 ["format"]
+       29 CALL                             R4 3 -1
+       30 CALL                             R3 -1 0
+       31 GETTABLEKS                       R3 R0 K12 ["_networkImp"]
+       33 MOVE                             R5 R2
+       34 NAMECALL                         R3 R3 K13 ["httpGetJson"]
+       36 CALL                             R3 2 -1
+       37 RETURN                           R3 -1
 
 PROTO_103:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["constructGetUserFriendsUrl"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R3 1
-        6 LOADK                            R4 K1 ["getUserFriends"]
-        7 LOADK                            R5 K2 ["GET"]
-        8 MOVE                             R6 R1
-        9 CALL                             R3 3 0
-       10 GETTABLEKS                       R3 R0 K3 ["_networkImp"]
-       12 MOVE                             R5 R2
-       13 NAMECALL                         R3 R3 K4 ["httpGet"]
-       15 CALL                             R3 2 -1
-       16 RETURN                           R3 -1
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R3 R4 K1 ["shouldDebugUrls"]
+        8 CALL                             R3 0 1
+        9 JUMPIFNOT                        R3 ; [+21]
+       10 GETIMPORT                        R3 K3 [print]
+       12 LOADK                            R4 K4 ["NetworkInterface:%s()"]
+       13 LOADK                            R6 K5 ["getUserFriends"]
+       14 NAMECALL                         R4 R4 K6 ["format"]
+       16 CALL                             R4 2 -1
+       17 CALL                             R3 -1 0
+       18 GETIMPORT                        R3 K3 [print]
+       20 LOADK                            R4 K7 ["\t%s %s"]
+       21 LOADK                            R7 K9 ["GET"]
+       22 NAMECALL                         R7 R7 K10 ["upper"]
+       24 CALL                             R7 1 1
+       25 ORK                              R6 R7 K8 ["method=nil"]
+       26 ORK                              R7 R1 K11 ["url=nil"]
+       27 NAMECALL                         R4 R4 K6 ["format"]
+       29 CALL                             R4 3 -1
+       30 CALL                             R3 -1 0
+       31 GETTABLEKS                       R3 R0 K12 ["_networkImp"]
+       33 MOVE                             R5 R2
+       34 NAMECALL                         R3 R3 K13 ["httpGet"]
+       36 CALL                             R3 2 -1
+       37 RETURN                           R3 -1
 
 PROTO_104:
         0 GETUPVAL                         R3 0
@@ -2248,16 +2776,31 @@ PROTO_105:
         1 GETTABLEKS                       R2 R3 K0 ["constructGetRobuxBalanceUrl"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R3 1
-        6 LOADK                            R4 K1 ["getRobuxBalance"]
-        7 LOADK                            R5 K2 ["GET"]
-        8 MOVE                             R6 R2
-        9 CALL                             R3 3 0
-       10 GETTABLEKS                       R3 R0 K3 ["_networkImp"]
-       12 MOVE                             R5 R2
-       13 NAMECALL                         R3 R3 K4 ["httpGetJson"]
-       15 CALL                             R3 2 -1
-       16 RETURN                           R3 -1
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R3 R4 K1 ["shouldDebugUrls"]
+        8 CALL                             R3 0 1
+        9 JUMPIFNOT                        R3 ; [+21]
+       10 GETIMPORT                        R3 K3 [print]
+       12 LOADK                            R4 K4 ["NetworkInterface:%s()"]
+       13 LOADK                            R6 K5 ["getRobuxBalance"]
+       14 NAMECALL                         R4 R4 K6 ["format"]
+       16 CALL                             R4 2 -1
+       17 CALL                             R3 -1 0
+       18 GETIMPORT                        R3 K3 [print]
+       20 LOADK                            R4 K7 ["\t%s %s"]
+       21 LOADK                            R7 K9 ["GET"]
+       22 NAMECALL                         R7 R7 K10 ["upper"]
+       24 CALL                             R7 1 1
+       25 ORK                              R6 R7 K8 ["method=nil"]
+       26 ORK                              R7 R2 K11 ["url=nil"]
+       27 NAMECALL                         R4 R4 K6 ["format"]
+       29 CALL                             R4 3 -1
+       30 CALL                             R3 -1 0
+       31 GETTABLEKS                       R3 R0 K12 ["_networkImp"]
+       33 MOVE                             R5 R2
+       34 NAMECALL                         R3 R3 K13 ["httpGetJson"]
+       36 CALL                             R3 2 -1
+       37 RETURN                           R3 -1
 
 PROTO_106:
         0 GETTABLEKS                       R3 R0 K0 ["responseBody"]
@@ -2345,63 +2888,123 @@ PROTO_108:
        19 MOVE                             R6 R1
        20 MOVE                             R7 R3
        21 CALL                             R5 2 1
-       22 GETUPVAL                         R6 2
-       23 LOADK                            R7 K2 ["purchaseAsset"]
-       24 LOADK                            R8 K3 ["POST"]
-       25 MOVE                             R9 R5
-       26 CALL                             R6 3 0
-       27 GETTABLEKS                       R6 R0 K4 ["_networkImp"]
-       29 MOVE                             R8 R5
-       30 MOVE                             R9 R4
-       31 NAMECALL                         R6 R6 K5 ["httpPostJson"]
-       33 CALL                             R6 3 -1
-       34 RETURN                           R6 -1
+       22 GETUPVAL                         R7 2
+       23 GETTABLEKS                       R6 R7 K2 ["shouldDebugUrls"]
+       25 CALL                             R6 0 1
+       26 JUMPIFNOT                        R6 ; [+21]
+       27 GETIMPORT                        R6 K4 [print]
+       29 LOADK                            R7 K5 ["NetworkInterface:%s()"]
+       30 LOADK                            R9 K6 ["purchaseAsset"]
+       31 NAMECALL                         R7 R7 K7 ["format"]
+       33 CALL                             R7 2 -1
+       34 CALL                             R6 -1 0
+       35 GETIMPORT                        R6 K4 [print]
+       37 LOADK                            R7 K8 ["\t%s %s"]
+       38 LOADK                            R10 K10 ["POST"]
+       39 NAMECALL                         R10 R10 K11 ["upper"]
+       41 CALL                             R10 1 1
+       42 ORK                              R9 R10 K9 ["method=nil"]
+       43 ORK                              R10 R5 K12 ["url=nil"]
+       44 NAMECALL                         R7 R7 K7 ["format"]
+       46 CALL                             R7 3 -1
+       47 CALL                             R6 -1 0
+       48 GETTABLEKS                       R6 R0 K13 ["_networkImp"]
+       50 MOVE                             R8 R5
+       51 MOVE                             R9 R4
+       52 NAMECALL                         R6 R6 K14 ["httpPostJson"]
+       54 CALL                             R6 3 -1
+       55 RETURN                           R6 -1
 
 PROTO_109:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["constructPurchaserStatusUrl"]
         3 CALL                             R1 0 1
-        4 GETUPVAL                         R2 1
-        5 LOADK                            R3 K1 ["getPurchaserStatus"]
-        6 LOADK                            R4 K2 ["GET"]
-        7 MOVE                             R5 R1
-        8 CALL                             R2 3 0
-        9 GETTABLEKS                       R2 R0 K3 ["_networkImp"]
-       11 MOVE                             R4 R1
-       12 NAMECALL                         R2 R2 K4 ["httpGetJson"]
-       14 CALL                             R2 2 -1
-       15 RETURN                           R2 -1
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R2 R3 K1 ["shouldDebugUrls"]
+        7 CALL                             R2 0 1
+        8 JUMPIFNOT                        R2 ; [+21]
+        9 GETIMPORT                        R2 K3 [print]
+       11 LOADK                            R3 K4 ["NetworkInterface:%s()"]
+       12 LOADK                            R5 K5 ["getPurchaserStatus"]
+       13 NAMECALL                         R3 R3 K6 ["format"]
+       15 CALL                             R3 2 -1
+       16 CALL                             R2 -1 0
+       17 GETIMPORT                        R2 K3 [print]
+       19 LOADK                            R3 K7 ["\t%s %s"]
+       20 LOADK                            R6 K9 ["GET"]
+       21 NAMECALL                         R6 R6 K10 ["upper"]
+       23 CALL                             R6 1 1
+       24 ORK                              R5 R6 K8 ["method=nil"]
+       25 ORK                              R6 R1 K11 ["url=nil"]
+       26 NAMECALL                         R3 R3 K6 ["format"]
+       28 CALL                             R3 3 -1
+       29 CALL                             R2 -1 0
+       30 GETTABLEKS                       R2 R0 K12 ["_networkImp"]
+       32 MOVE                             R4 R1
+       33 NAMECALL                         R2 R2 K13 ["httpGetJson"]
+       35 CALL                             R2 2 -1
+       36 RETURN                           R2 -1
 
 PROTO_110:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["constructSellerStatusUrl"]
         3 CALL                             R1 0 1
-        4 GETUPVAL                         R2 1
-        5 LOADK                            R3 K1 ["getSellerStatus"]
-        6 LOADK                            R4 K2 ["GET"]
-        7 MOVE                             R5 R1
-        8 CALL                             R2 3 0
-        9 GETTABLEKS                       R2 R0 K3 ["_networkImp"]
-       11 MOVE                             R4 R1
-       12 NAMECALL                         R2 R2 K4 ["httpGetJson"]
-       14 CALL                             R2 2 -1
-       15 RETURN                           R2 -1
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R2 R3 K1 ["shouldDebugUrls"]
+        7 CALL                             R2 0 1
+        8 JUMPIFNOT                        R2 ; [+21]
+        9 GETIMPORT                        R2 K3 [print]
+       11 LOADK                            R3 K4 ["NetworkInterface:%s()"]
+       12 LOADK                            R5 K5 ["getSellerStatus"]
+       13 NAMECALL                         R3 R3 K6 ["format"]
+       15 CALL                             R3 2 -1
+       16 CALL                             R2 -1 0
+       17 GETIMPORT                        R2 K3 [print]
+       19 LOADK                            R3 K7 ["\t%s %s"]
+       20 LOADK                            R6 K9 ["GET"]
+       21 NAMECALL                         R6 R6 K10 ["upper"]
+       23 CALL                             R6 1 1
+       24 ORK                              R5 R6 K8 ["method=nil"]
+       25 ORK                              R6 R1 K11 ["url=nil"]
+       26 NAMECALL                         R3 R3 K6 ["format"]
+       28 CALL                             R3 3 -1
+       29 CALL                             R2 -1 0
+       30 GETTABLEKS                       R2 R0 K12 ["_networkImp"]
+       32 MOVE                             R4 R1
+       33 NAMECALL                         R2 R2 K13 ["httpGetJson"]
+       35 CALL                             R2 2 -1
+       36 RETURN                           R2 -1
 
 PROTO_111:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["constructGetGroupRoleInfoUrl"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R3 1
-        6 LOADK                            R4 K1 ["getGroupRoleInfo"]
-        7 LOADK                            R5 K2 ["GET"]
-        8 MOVE                             R6 R1
-        9 CALL                             R3 3 0
-       10 GETTABLEKS                       R3 R0 K3 ["_networkImp"]
-       12 MOVE                             R5 R2
-       13 NAMECALL                         R3 R3 K4 ["httpGet"]
-       15 CALL                             R3 2 -1
-       16 RETURN                           R3 -1
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R3 R4 K1 ["shouldDebugUrls"]
+        8 CALL                             R3 0 1
+        9 JUMPIFNOT                        R3 ; [+21]
+       10 GETIMPORT                        R3 K3 [print]
+       12 LOADK                            R4 K4 ["NetworkInterface:%s()"]
+       13 LOADK                            R6 K5 ["getGroupRoleInfo"]
+       14 NAMECALL                         R4 R4 K6 ["format"]
+       16 CALL                             R4 2 -1
+       17 CALL                             R3 -1 0
+       18 GETIMPORT                        R3 K3 [print]
+       20 LOADK                            R4 K7 ["\t%s %s"]
+       21 LOADK                            R7 K9 ["GET"]
+       22 NAMECALL                         R7 R7 K10 ["upper"]
+       24 CALL                             R7 1 1
+       25 ORK                              R6 R7 K8 ["method=nil"]
+       26 ORK                              R7 R1 K11 ["url=nil"]
+       27 NAMECALL                         R4 R4 K6 ["format"]
+       29 CALL                             R4 3 -1
+       30 CALL                             R3 -1 0
+       31 GETTABLEKS                       R3 R0 K12 ["_networkImp"]
+       33 MOVE                             R5 R2
+       34 NAMECALL                         R3 R3 K13 ["httpGet"]
+       36 CALL                             R3 2 -1
+       37 RETURN                           R3 -1
 
 PROTO_112:
         0 GETUPVAL                         R4 0
@@ -2546,16 +3149,31 @@ PROTO_118:
         1 GETTABLEKS                       R2 R3 K0 ["constructAssetPermissionsUrl"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R3 1
-        6 LOADK                            R4 K1 ["getAssetPermissions"]
-        7 LOADK                            R5 K2 ["GET"]
-        8 MOVE                             R6 R2
-        9 CALL                             R3 3 0
-       10 GETTABLEKS                       R3 R0 K3 ["_networkImp"]
-       12 MOVE                             R5 R2
-       13 NAMECALL                         R3 R3 K4 ["httpGetJson"]
-       15 CALL                             R3 2 -1
-       16 RETURN                           R3 -1
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R3 R4 K1 ["shouldDebugUrls"]
+        8 CALL                             R3 0 1
+        9 JUMPIFNOT                        R3 ; [+21]
+       10 GETIMPORT                        R3 K3 [print]
+       12 LOADK                            R4 K4 ["NetworkInterface:%s()"]
+       13 LOADK                            R6 K5 ["getAssetPermissions"]
+       14 NAMECALL                         R4 R4 K6 ["format"]
+       16 CALL                             R4 2 -1
+       17 CALL                             R3 -1 0
+       18 GETIMPORT                        R3 K3 [print]
+       20 LOADK                            R4 K7 ["\t%s %s"]
+       21 LOADK                            R7 K9 ["GET"]
+       22 NAMECALL                         R7 R7 K10 ["upper"]
+       24 CALL                             R7 1 1
+       25 ORK                              R6 R7 K8 ["method=nil"]
+       26 ORK                              R7 R2 K11 ["url=nil"]
+       27 NAMECALL                         R4 R4 K6 ["format"]
+       29 CALL                             R4 3 -1
+       30 CALL                             R3 -1 0
+       31 GETTABLEKS                       R3 R0 K12 ["_networkImp"]
+       33 MOVE                             R5 R2
+       34 NAMECALL                         R3 R3 K13 ["httpGetJson"]
+       36 CALL                             R3 2 -1
+       37 RETURN                           R3 -1
 
 PROTO_119:
         0 GETUPVAL                         R1 0
@@ -2568,17 +3186,33 @@ PROTO_119:
        10 NAMECALL                         R0 R0 K4 ["jsonEncode"]
        12 CALL                             R0 2 1
        13 GETUPVAL                         R1 3
-       14 LOADK                            R2 K5 ["postAssetCheckPermissions"]
-       15 LOADK                            R3 K6 ["POST"]
-       16 GETUPVAL                         R4 4
-       17 CALL                             R1 3 0
-       18 GETUPVAL                         R2 0
-       19 GETTABLEKS                       R1 R2 K0 ["_networkImp"]
-       21 GETUPVAL                         R3 4
-       22 MOVE                             R4 R0
-       23 NAMECALL                         R1 R1 K7 ["httpPostJson"]
-       25 CALL                             R1 3 -1
-       26 RETURN                           R1 -1
+       14 GETUPVAL                         R3 4
+       15 GETTABLEKS                       R2 R3 K5 ["shouldDebugUrls"]
+       17 CALL                             R2 0 1
+       18 JUMPIFNOT                        R2 ; [+21]
+       19 GETIMPORT                        R2 K7 [print]
+       21 LOADK                            R3 K8 ["NetworkInterface:%s()"]
+       22 LOADK                            R5 K9 ["postAssetCheckPermissions"]
+       23 NAMECALL                         R3 R3 K10 ["format"]
+       25 CALL                             R3 2 -1
+       26 CALL                             R2 -1 0
+       27 GETIMPORT                        R2 K7 [print]
+       29 LOADK                            R3 K11 ["\t%s %s"]
+       30 LOADK                            R6 K13 ["POST"]
+       31 NAMECALL                         R6 R6 K14 ["upper"]
+       33 CALL                             R6 1 1
+       34 ORK                              R5 R6 K12 ["method=nil"]
+       35 ORK                              R6 R1 K15 ["url=nil"]
+       36 NAMECALL                         R3 R3 K10 ["format"]
+       38 CALL                             R3 3 -1
+       39 CALL                             R2 -1 0
+       40 GETUPVAL                         R2 0
+       41 GETTABLEKS                       R1 R2 K0 ["_networkImp"]
+       43 GETUPVAL                         R3 3
+       44 MOVE                             R4 R0
+       45 NAMECALL                         R1 R1 K16 ["httpPostJson"]
+       47 CALL                             R1 3 -1
+       48 RETURN                           R1 -1
 
 PROTO_120:
         0 GETUPVAL                         R4 0
@@ -2589,23 +3223,39 @@ PROTO_120:
         6 CAPTURE                          VAL R0
         7 CAPTURE                          VAL R1
         8 CAPTURE                          VAL R2
-        9 CAPTURE                          UPVAL U2
-       10 CAPTURE                          VAL R3
+        9 CAPTURE                          VAL R3
+       10 CAPTURE                          UPVAL U2
        11 CALL                             R4 1 -1
        12 RETURN                           R4 -1
 
 PROTO_121:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getItemUploadFee"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getItemUploadFee"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_122:
         0 GETUPVAL                         R4 0
@@ -2615,24 +3265,40 @@ PROTO_122:
         5 CALL                             R3 2 1
         6 GETUPVAL                         R4 1
         7 NEWCLOSURE                       R5 P0
-        8 CAPTURE                          UPVAL U2
-        9 CAPTURE                          VAL R3
+        8 CAPTURE                          VAL R3
+        9 CAPTURE                          UPVAL U2
        10 CAPTURE                          VAL R0
        11 CALL                             R4 1 -1
        12 RETURN                           R4 -1
 
 PROTO_123:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getAssetTypeAgents"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getAssetTypeAgents"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_124:
         0 GETUPVAL                         R3 0
@@ -2641,8 +3307,8 @@ PROTO_124:
         4 CALL                             R2 1 1
         5 GETUPVAL                         R3 1
         6 NEWCLOSURE                       R4 P0
-        7 CAPTURE                          UPVAL U2
-        8 CAPTURE                          VAL R2
+        7 CAPTURE                          VAL R2
+        8 CAPTURE                          UPVAL U2
         9 CAPTURE                          VAL R0
        10 CALL                             R3 1 -1
        11 RETURN                           R3 -1
@@ -2654,16 +3320,31 @@ PROTO_125:
         4 MOVE                             R6 R2
         5 MOVE                             R7 R3
         6 CALL                             R4 3 1
-        7 GETUPVAL                         R5 1
-        8 LOADK                            R6 K1 ["getAutocompleteResults"]
-        9 LOADK                            R7 K2 ["GET"]
-       10 MOVE                             R8 R4
-       11 CALL                             R5 3 0
-       12 GETTABLEKS                       R5 R0 K3 ["_networkImp"]
-       14 MOVE                             R7 R4
-       15 NAMECALL                         R5 R5 K4 ["httpGetJson"]
-       17 CALL                             R5 2 -1
-       18 RETURN                           R5 -1
+        7 GETUPVAL                         R6 1
+        8 GETTABLEKS                       R5 R6 K1 ["shouldDebugUrls"]
+       10 CALL                             R5 0 1
+       11 JUMPIFNOT                        R5 ; [+21]
+       12 GETIMPORT                        R5 K3 [print]
+       14 LOADK                            R6 K4 ["NetworkInterface:%s()"]
+       15 LOADK                            R8 K5 ["getAutocompleteResults"]
+       16 NAMECALL                         R6 R6 K6 ["format"]
+       18 CALL                             R6 2 -1
+       19 CALL                             R5 -1 0
+       20 GETIMPORT                        R5 K3 [print]
+       22 LOADK                            R6 K7 ["\t%s %s"]
+       23 LOADK                            R9 K9 ["GET"]
+       24 NAMECALL                         R9 R9 K10 ["upper"]
+       26 CALL                             R9 1 1
+       27 ORK                              R8 R9 K8 ["method=nil"]
+       28 ORK                              R9 R4 K11 ["url=nil"]
+       29 NAMECALL                         R6 R6 K6 ["format"]
+       31 CALL                             R6 3 -1
+       32 CALL                             R5 -1 0
+       33 GETTABLEKS                       R5 R0 K12 ["_networkImp"]
+       35 MOVE                             R7 R4
+       36 NAMECALL                         R5 R5 K13 ["httpGetJson"]
+       38 CALL                             R5 2 -1
+       39 RETURN                           R5 -1
 
 PROTO_126:
         0 GETUPVAL                         R4 0
@@ -2671,16 +3352,31 @@ PROTO_126:
         3 MOVE                             R4 R1
         4 MOVE                             R5 R2
         5 CALL                             R3 2 1
-        6 GETUPVAL                         R4 1
-        7 LOADK                            R5 K1 ["getHomeConfiguration"]
-        8 LOADK                            R6 K2 ["GET"]
-        9 MOVE                             R7 R3
-       10 CALL                             R4 3 0
-       11 GETTABLEKS                       R4 R0 K3 ["_networkImp"]
-       13 MOVE                             R6 R3
-       14 NAMECALL                         R4 R4 K4 ["httpGetJson"]
-       16 CALL                             R4 2 -1
-       17 RETURN                           R4 -1
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R4 R5 K1 ["shouldDebugUrls"]
+        9 CALL                             R4 0 1
+       10 JUMPIFNOT                        R4 ; [+21]
+       11 GETIMPORT                        R4 K3 [print]
+       13 LOADK                            R5 K4 ["NetworkInterface:%s()"]
+       14 LOADK                            R7 K5 ["getHomeConfiguration"]
+       15 NAMECALL                         R5 R5 K6 ["format"]
+       17 CALL                             R5 2 -1
+       18 CALL                             R4 -1 0
+       19 GETIMPORT                        R4 K3 [print]
+       21 LOADK                            R5 K7 ["\t%s %s"]
+       22 LOADK                            R8 K9 ["GET"]
+       23 NAMECALL                         R8 R8 K10 ["upper"]
+       25 CALL                             R8 1 1
+       26 ORK                              R7 R8 K8 ["method=nil"]
+       27 ORK                              R8 R3 K11 ["url=nil"]
+       28 NAMECALL                         R5 R5 K6 ["format"]
+       30 CALL                             R5 3 -1
+       31 CALL                             R4 -1 0
+       32 GETTABLEKS                       R4 R0 K12 ["_networkImp"]
+       34 MOVE                             R6 R3
+       35 NAMECALL                         R4 R4 K13 ["httpGetJson"]
+       37 CALL                             R4 2 -1
+       38 RETURN                           R4 -1
 
 PROTO_127:
         0 GETUPVAL                         R4 0
@@ -2688,16 +3384,31 @@ PROTO_127:
         3 MOVE                             R4 R1
         4 MOVE                             R5 R2
         5 CALL                             R3 2 1
-        6 GETUPVAL                         R4 1
-        7 LOADK                            R5 K0 ["getCreatorMarketplaceQuotas"]
-        8 LOADK                            R6 K1 ["GET"]
-        9 MOVE                             R7 R3
-       10 CALL                             R4 3 0
-       11 GETTABLEKS                       R4 R0 K2 ["_networkImp"]
-       13 MOVE                             R6 R3
-       14 NAMECALL                         R4 R4 K3 ["httpGetJson"]
-       16 CALL                             R4 2 -1
-       17 RETURN                           R4 -1
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R4 R5 K1 ["shouldDebugUrls"]
+        9 CALL                             R4 0 1
+       10 JUMPIFNOT                        R4 ; [+21]
+       11 GETIMPORT                        R4 K3 [print]
+       13 LOADK                            R5 K4 ["NetworkInterface:%s()"]
+       14 LOADK                            R7 K0 ["getCreatorMarketplaceQuotas"]
+       15 NAMECALL                         R5 R5 K5 ["format"]
+       17 CALL                             R5 2 -1
+       18 CALL                             R4 -1 0
+       19 GETIMPORT                        R4 K3 [print]
+       21 LOADK                            R5 K6 ["\t%s %s"]
+       22 LOADK                            R8 K8 ["GET"]
+       23 NAMECALL                         R8 R8 K9 ["upper"]
+       25 CALL                             R8 1 1
+       26 ORK                              R7 R8 K7 ["method=nil"]
+       27 ORK                              R8 R3 K10 ["url=nil"]
+       28 NAMECALL                         R5 R5 K5 ["format"]
+       30 CALL                             R5 3 -1
+       31 CALL                             R4 -1 0
+       32 GETTABLEKS                       R4 R0 K11 ["_networkImp"]
+       34 MOVE                             R6 R3
+       35 NAMECALL                         R4 R4 K12 ["httpGetJson"]
+       37 CALL                             R4 2 -1
+       38 RETURN                           R4 -1
 
 PROTO_128:
         0 GETUPVAL                         R5 0
@@ -2707,29 +3418,60 @@ PROTO_128:
         5 MOVE                             R7 R3
         6 LOADK                            R8 K1 ["Creator"]
         7 CALL                             R4 4 1
-        8 GETUPVAL                         R5 1
-        9 LOADK                            R6 K2 ["getPublishingRequirements"]
-       10 LOADK                            R7 K3 ["GET"]
-       11 MOVE                             R8 R4
-       12 CALL                             R5 3 0
-       13 GETTABLEKS                       R5 R0 K4 ["_networkImp"]
-       15 MOVE                             R7 R4
-       16 NAMECALL                         R5 R5 K5 ["httpGetJson"]
-       18 CALL                             R5 2 -1
-       19 RETURN                           R5 -1
+        8 GETUPVAL                         R6 1
+        9 GETTABLEKS                       R5 R6 K2 ["shouldDebugUrls"]
+       11 CALL                             R5 0 1
+       12 JUMPIFNOT                        R5 ; [+21]
+       13 GETIMPORT                        R5 K4 [print]
+       15 LOADK                            R6 K5 ["NetworkInterface:%s()"]
+       16 LOADK                            R8 K6 ["getPublishingRequirements"]
+       17 NAMECALL                         R6 R6 K7 ["format"]
+       19 CALL                             R6 2 -1
+       20 CALL                             R5 -1 0
+       21 GETIMPORT                        R5 K4 [print]
+       23 LOADK                            R6 K8 ["\t%s %s"]
+       24 LOADK                            R9 K10 ["GET"]
+       25 NAMECALL                         R9 R9 K11 ["upper"]
+       27 CALL                             R9 1 1
+       28 ORK                              R8 R9 K9 ["method=nil"]
+       29 ORK                              R9 R4 K12 ["url=nil"]
+       30 NAMECALL                         R6 R6 K7 ["format"]
+       32 CALL                             R6 3 -1
+       33 CALL                             R5 -1 0
+       34 GETTABLEKS                       R5 R0 K13 ["_networkImp"]
+       36 MOVE                             R7 R4
+       37 NAMECALL                         R5 R5 K14 ["httpGetJson"]
+       39 CALL                             R5 2 -1
+       40 RETURN                           R5 -1
 
 PROTO_129:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["deleteAssetMedia"]
-        2 LOADK                            R2 K1 ["DELETE"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpDelete"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["deleteAssetMedia"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["DELETE"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpDelete"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_130:
         0 GETUPVAL                         R4 0
@@ -2739,8 +3481,8 @@ PROTO_130:
         5 CALL                             R3 2 1
         6 GETUPVAL                         R4 1
         7 NEWCLOSURE                       R5 P0
-        8 CAPTURE                          UPVAL U2
-        9 CAPTURE                          VAL R3
+        8 CAPTURE                          VAL R3
+        9 CAPTURE                          UPVAL U2
        10 CAPTURE                          VAL R0
        11 CALL                             R4 1 -1
        12 RETURN                           R4 -1
@@ -2853,32 +3595,62 @@ PROTO_137:
         1 GETTABLEKS                       R2 R3 K0 ["constructGetUniverseInfo"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R3 1
-        6 LOADK                            R4 K1 ["getUniverseInfo"]
-        7 LOADK                            R5 K2 ["GET"]
-        8 MOVE                             R6 R2
-        9 CALL                             R3 3 0
-       10 GETTABLEKS                       R3 R0 K3 ["_networkImp"]
-       12 MOVE                             R5 R2
-       13 NAMECALL                         R3 R3 K4 ["httpGet"]
-       15 CALL                             R3 2 -1
-       16 RETURN                           R3 -1
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R3 R4 K1 ["shouldDebugUrls"]
+        8 CALL                             R3 0 1
+        9 JUMPIFNOT                        R3 ; [+21]
+       10 GETIMPORT                        R3 K3 [print]
+       12 LOADK                            R4 K4 ["NetworkInterface:%s()"]
+       13 LOADK                            R6 K5 ["getUniverseInfo"]
+       14 NAMECALL                         R4 R4 K6 ["format"]
+       16 CALL                             R4 2 -1
+       17 CALL                             R3 -1 0
+       18 GETIMPORT                        R3 K3 [print]
+       20 LOADK                            R4 K7 ["\t%s %s"]
+       21 LOADK                            R7 K9 ["GET"]
+       22 NAMECALL                         R7 R7 K10 ["upper"]
+       24 CALL                             R7 1 1
+       25 ORK                              R6 R7 K8 ["method=nil"]
+       26 ORK                              R7 R2 K11 ["url=nil"]
+       27 NAMECALL                         R4 R4 K6 ["format"]
+       29 CALL                             R4 3 -1
+       30 CALL                             R3 -1 0
+       31 GETTABLEKS                       R3 R0 K12 ["_networkImp"]
+       33 MOVE                             R5 R2
+       34 NAMECALL                         R3 R3 K13 ["httpGet"]
+       36 CALL                             R3 2 -1
+       37 RETURN                           R3 -1
 
 PROTO_138:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["constructCodeUnderstandingSummaryUrl"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R3 1
-        6 LOADK                            R4 K1 ["getCodeSummary"]
-        7 LOADK                            R5 K2 ["GET"]
-        8 MOVE                             R6 R2
-        9 CALL                             R3 3 0
-       10 GETTABLEKS                       R3 R0 K3 ["_networkImp"]
-       12 MOVE                             R5 R2
-       13 NAMECALL                         R3 R3 K4 ["httpGetJson"]
-       15 CALL                             R3 2 -1
-       16 RETURN                           R3 -1
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R3 R4 K1 ["shouldDebugUrls"]
+        8 CALL                             R3 0 1
+        9 JUMPIFNOT                        R3 ; [+21]
+       10 GETIMPORT                        R3 K3 [print]
+       12 LOADK                            R4 K4 ["NetworkInterface:%s()"]
+       13 LOADK                            R6 K5 ["getCodeSummary"]
+       14 NAMECALL                         R4 R4 K6 ["format"]
+       16 CALL                             R4 2 -1
+       17 CALL                             R3 -1 0
+       18 GETIMPORT                        R3 K3 [print]
+       20 LOADK                            R4 K7 ["\t%s %s"]
+       21 LOADK                            R7 K9 ["GET"]
+       22 NAMECALL                         R7 R7 K10 ["upper"]
+       24 CALL                             R7 1 1
+       25 ORK                              R6 R7 K8 ["method=nil"]
+       26 ORK                              R7 R2 K11 ["url=nil"]
+       27 NAMECALL                         R4 R4 K6 ["format"]
+       29 CALL                             R4 3 -1
+       30 CALL                             R3 -1 0
+       31 GETTABLEKS                       R3 R0 K12 ["_networkImp"]
+       33 MOVE                             R5 R2
+       34 NAMECALL                         R3 R3 K13 ["httpGetJson"]
+       36 CALL                             R3 2 -1
+       37 RETURN                           R3 -1
 
 PROTO_139:
         0 GETUPVAL                         R4 0
@@ -2886,29 +3658,60 @@ PROTO_139:
         3 MOVE                             R4 R1
         4 MOVE                             R5 R2
         5 CALL                             R3 2 1
-        6 GETUPVAL                         R4 1
-        7 LOADK                            R5 K1 ["getFiatProduct"]
-        8 LOADK                            R6 K2 ["GET"]
-        9 MOVE                             R7 R3
-       10 CALL                             R4 3 0
-       11 GETTABLEKS                       R4 R0 K3 ["_networkImp"]
-       13 MOVE                             R6 R3
-       14 NAMECALL                         R4 R4 K4 ["httpGetJson"]
-       16 CALL                             R4 2 -1
-       17 RETURN                           R4 -1
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R4 R5 K1 ["shouldDebugUrls"]
+        9 CALL                             R4 0 1
+       10 JUMPIFNOT                        R4 ; [+21]
+       11 GETIMPORT                        R4 K3 [print]
+       13 LOADK                            R5 K4 ["NetworkInterface:%s()"]
+       14 LOADK                            R7 K5 ["getFiatProduct"]
+       15 NAMECALL                         R5 R5 K6 ["format"]
+       17 CALL                             R5 2 -1
+       18 CALL                             R4 -1 0
+       19 GETIMPORT                        R4 K3 [print]
+       21 LOADK                            R5 K7 ["\t%s %s"]
+       22 LOADK                            R8 K9 ["GET"]
+       23 NAMECALL                         R8 R8 K10 ["upper"]
+       25 CALL                             R8 1 1
+       26 ORK                              R7 R8 K8 ["method=nil"]
+       27 ORK                              R8 R3 K11 ["url=nil"]
+       28 NAMECALL                         R5 R5 K6 ["format"]
+       30 CALL                             R5 3 -1
+       31 CALL                             R4 -1 0
+       32 GETTABLEKS                       R4 R0 K12 ["_networkImp"]
+       34 MOVE                             R6 R3
+       35 NAMECALL                         R4 R4 K13 ["httpGetJson"]
+       37 CALL                             R4 2 -1
+       38 RETURN                           R4 -1
 
 PROTO_140:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getAllowedGroupsForAction"]
-        2 LOADK                            R2 K1 ["GET"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R0 R0 K3 ["httpGetJson"]
-       11 CALL                             R0 2 -1
-       12 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getAllowedGroupsForAction"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["GET"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 NAMECALL                         R0 R0 K12 ["httpGetJson"]
+       33 CALL                             R0 2 -1
+       34 RETURN                           R0 -1
 
 PROTO_141:
         0 GETUPVAL                         R3 0
@@ -2917,25 +3720,41 @@ PROTO_141:
         4 CALL                             R2 1 1
         5 GETUPVAL                         R3 1
         6 NEWCLOSURE                       R4 P0
-        7 CAPTURE                          UPVAL U2
-        8 CAPTURE                          VAL R2
+        7 CAPTURE                          VAL R2
+        8 CAPTURE                          UPVAL U2
         9 CAPTURE                          VAL R0
        10 CALL                             R3 1 -1
        11 RETURN                           R3 -1
 
 PROTO_142:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R1 K0 ["getAvatarAssetPrivacy"]
-        2 LOADK                            R2 K1 ["POST"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R0 3 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K2 ["_networkImp"]
-        8 GETUPVAL                         R2 1
-        9 GETUPVAL                         R3 3
-       10 NAMECALL                         R0 R0 K3 ["httpPostJson"]
-       12 CALL                             R0 3 -1
-       13 RETURN                           R0 -1
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["shouldDebugUrls"]
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+21]
+        6 GETIMPORT                        R1 K2 [print]
+        8 LOADK                            R2 K3 ["NetworkInterface:%s()"]
+        9 LOADK                            R4 K4 ["getAvatarAssetPrivacy"]
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 -1
+       13 CALL                             R1 -1 0
+       14 GETIMPORT                        R1 K2 [print]
+       16 LOADK                            R2 K6 ["\t%s %s"]
+       17 LOADK                            R5 K8 ["POST"]
+       18 NAMECALL                         R5 R5 K9 ["upper"]
+       20 CALL                             R5 1 1
+       21 ORK                              R4 R5 K7 ["method=nil"]
+       22 ORK                              R5 R0 K10 ["url=nil"]
+       23 NAMECALL                         R2 R2 K5 ["format"]
+       25 CALL                             R2 3 -1
+       26 CALL                             R1 -1 0
+       27 GETUPVAL                         R1 2
+       28 GETTABLEKS                       R0 R1 K11 ["_networkImp"]
+       30 GETUPVAL                         R2 0
+       31 GETUPVAL                         R3 3
+       32 NAMECALL                         R0 R0 K12 ["httpPostJson"]
+       34 CALL                             R0 3 -1
+       35 RETURN                           R0 -1
 
 PROTO_143:
         0 GETUPVAL                         R3 0
@@ -2960,8 +3779,8 @@ PROTO_143:
        28 CALL                             R4 2 1
        29 GETUPVAL                         R5 1
        30 NEWCLOSURE                       R6 P0
-       31 CAPTURE                          UPVAL U2
-       32 CAPTURE                          VAL R2
+       31 CAPTURE                          VAL R2
+       32 CAPTURE                          UPVAL U2
        33 CAPTURE                          VAL R0
        34 CAPTURE                          VAL R4
        35 CALL                             R5 1 -1
@@ -3234,7 +4053,7 @@ MAIN:
       299 CAPTURE                          VAL R26
       300 CAPTURE                          VAL R27
       301 CAPTURE                          VAL R41
-      302 CAPTURE                          VAL R40
+      302 CAPTURE                          VAL R23
       303 SETTABLEKS                       R43 R37 K64 ["getAssets"]
       305 DUPCLOSURE                       R43 K65 [PROTO_9]
       306 CAPTURE                          VAL R32
@@ -3246,12 +4065,12 @@ MAIN:
       312 CAPTURE                          VAL R6
       313 CAPTURE                          VAL R27
       314 CAPTURE                          VAL R41
-      315 CAPTURE                          VAL R40
+      315 CAPTURE                          VAL R23
       316 SETTABLEKS                       R43 R37 K66 ["getToolboxItems"]
       318 DUPCLOSURE                       R43 K67 [PROTO_11]
       319 CAPTURE                          VAL R26
       320 CAPTURE                          VAL R41
-      321 CAPTURE                          VAL R40
+      321 CAPTURE                          VAL R23
       322 SETTABLEKS                       R43 R37 K68 ["getItemDetailsAssetIds"]
       324 DUPCLOSURE                       R43 K69 [PROTO_12]
       325 SETTABLEKS                       R43 R37 K70 ["getItemDetails"]
@@ -3260,12 +4079,12 @@ MAIN:
       329 CAPTURE                          VAL R26
       330 CAPTURE                          VAL R27
       331 CAPTURE                          VAL R41
-      332 CAPTURE                          VAL R40
+      332 CAPTURE                          VAL R23
       333 SETTABLEKS                       R43 R37 K72 ["getDevelopAsset"]
       335 DUPCLOSURE                       R43 K73 [PROTO_16]
       336 CAPTURE                          VAL R26
       337 CAPTURE                          VAL R41
-      338 CAPTURE                          VAL R40
+      338 CAPTURE                          VAL R23
       339 SETTABLEKS                       R43 R37 K74 ["getAllowedItemTypes"]
       341 DUPCLOSURE                       R43 K75 [PROTO_19]
       342 CAPTURE                          VAL R25
@@ -3276,7 +4095,7 @@ MAIN:
       347 CAPTURE                          VAL R27
       348 CAPTURE                          VAL R22
       349 CAPTURE                          VAL R41
-      350 CAPTURE                          VAL R40
+      350 CAPTURE                          VAL R23
       351 CAPTURE                          VAL R38
       352 SETTABLEKS                       R43 R37 K76 ["getAssetCreations"]
       354 DUPCLOSURE                       R43 K77 [PROTO_22]
@@ -3287,7 +4106,7 @@ MAIN:
       359 CAPTURE                          VAL R27
       360 CAPTURE                          VAL R22
       361 CAPTURE                          VAL R41
-      362 CAPTURE                          VAL R40
+      362 CAPTURE                          VAL R23
       363 CAPTURE                          VAL R38
       364 SETTABLEKS                       R43 R37 K78 ["getAssetGroupCreations"]
       366 MOVE                             R43 R17
@@ -3296,375 +4115,374 @@ MAIN:
       369 DUPCLOSURE                       R43 K79 [PROTO_24]
       370 CAPTURE                          VAL R26
       371 CAPTURE                          VAL R41
-      372 CAPTURE                          VAL R40
+      372 CAPTURE                          VAL R23
       373 SETTABLEKS                       R43 R37 K80 ["getItem"]
       375 DUPCLOSURE                       R43 K81 [PROTO_26]
       376 CAPTURE                          VAL R26
       377 CAPTURE                          VAL R41
-      378 CAPTURE                          VAL R40
+      378 CAPTURE                          VAL R23
       379 SETTABLEKS                       R43 R37 K82 ["getItemsByCreator"]
-      381 JUMP                             ; [+8]
+      381 JUMP                             ; [+7]
       382 DUPCLOSURE                       R43 K83 [PROTO_28]
       383 CAPTURE                          VAL R23
       384 CAPTURE                          VAL R27
       385 CAPTURE                          VAL R26
       386 CAPTURE                          VAL R41
-      387 CAPTURE                          VAL R40
-      388 SETTABLEKS                       R43 R37 K84 ["getAssetCreationDetails"]
-      390 DUPCLOSURE                       R43 K85 [PROTO_30]
-      391 CAPTURE                          VAL R26
-      392 CAPTURE                          VAL R41
-      393 CAPTURE                          VAL R40
-      394 SETTABLEKS                       R43 R37 K86 ["getCreatorInfo"]
-      396 MOVE                             R43 R4
-      397 CALL                             R43 0 1
-      398 JUMPIFNOT                        R43 ; [+6]
-      399 DUPCLOSURE                       R43 K87 [PROTO_32]
-      400 CAPTURE                          VAL R26
-      401 CAPTURE                          VAL R41
-      402 CAPTURE                          VAL R40
-      403 SETTABLEKS                       R43 R37 K88 ["getUploadPermissionStatus"]
-      405 DUPCLOSURE                       R43 K89 [PROTO_34]
-      406 CAPTURE                          VAL R26
-      407 CAPTURE                          VAL R41
-      408 CAPTURE                          VAL R40
-      409 SETTABLEKS                       R43 R37 K90 ["getBundleMetadata"]
-      411 DUPCLOSURE                       R43 K91 [PROTO_37]
-      412 CAPTURE                          VAL R26
-      413 CAPTURE                          VAL R10
-      414 CAPTURE                          VAL R11
-      415 CAPTURE                          VAL R12
-      416 CAPTURE                          VAL R40
-      417 CAPTURE                          VAL R22
-      418 SETTABLEKS                       R43 R37 K92 ["postBundleCreationContext"]
-      420 DUPCLOSURE                       R43 K93 [PROTO_40]
-      421 CAPTURE                          VAL R26
-      422 CAPTURE                          VAL R40
-      423 CAPTURE                          VAL R22
-      424 SETTABLEKS                       R43 R37 K94 ["postCreateBundle"]
-      426 DUPCLOSURE                       R43 K95 [PROTO_42]
-      427 CAPTURE                          VAL R26
-      428 CAPTURE                          VAL R41
-      429 CAPTURE                          VAL R40
-      430 SETTABLEKS                       R43 R37 K96 ["getBundleCreationStatus"]
-      432 DUPCLOSURE                       R43 K97 [PROTO_44]
-      433 CAPTURE                          VAL R26
-      434 CAPTURE                          VAL R41
-      435 CAPTURE                          VAL R40
-      436 SETTABLEKS                       R43 R37 K98 ["getDefaultCreateBundleDataSharing"]
-      438 DUPCLOSURE                       R43 K99 [PROTO_46]
-      439 CAPTURE                          VAL R26
-      440 CAPTURE                          VAL R41
-      441 CAPTURE                          VAL R40
-      442 SETTABLEKS                       R43 R37 K100 ["postCreateBundleDataSharing"]
-      444 DUPCLOSURE                       R43 K101 [PROTO_48]
-      445 CAPTURE                          VAL R26
-      446 CAPTURE                          VAL R41
-      447 CAPTURE                          VAL R40
-      448 SETTABLEKS                       R43 R37 K102 ["postCreateAvatarAssetDataSharing"]
-      450 DUPCLOSURE                       R43 K103 [PROTO_50]
-      451 CAPTURE                          VAL R26
-      452 CAPTURE                          VAL R41
-      453 CAPTURE                          VAL R40
-      454 SETTABLEKS                       R43 R37 K104 ["getAssetMediaIds"]
-      456 DUPCLOSURE                       R43 K105 [PROTO_52]
-      457 CAPTURE                          VAL R26
-      458 CAPTURE                          VAL R41
-      459 CAPTURE                          VAL R40
-      460 SETTABLEKS                       R43 R37 K106 ["getVote"]
-      462 DUPCLOSURE                       R43 K107 [PROTO_54]
-      463 CAPTURE                          VAL R26
-      464 CAPTURE                          VAL R41
-      465 CAPTURE                          VAL R40
-      466 SETTABLEKS                       R43 R37 K108 ["postVote"]
-      468 DUPCLOSURE                       R43 K109 [PROTO_56]
-      469 CAPTURE                          VAL R26
-      470 CAPTURE                          VAL R41
-      471 CAPTURE                          VAL R40
-      472 SETTABLEKS                       R43 R37 K110 ["configureSales"]
-      474 DUPCLOSURE                       R43 K111 [PROTO_58]
-      475 CAPTURE                          VAL R26
-      476 CAPTURE                          VAL R41
-      477 CAPTURE                          VAL R40
-      478 SETTABLEKS                       R43 R37 K112 ["updateSales"]
-      480 DUPCLOSURE                       R43 K113 [PROTO_60]
-      481 CAPTURE                          VAL R26
-      482 CAPTURE                          VAL R41
-      483 CAPTURE                          VAL R40
-      484 SETTABLEKS                       R43 R37 K114 ["postUnvote"]
-      486 DUPCLOSURE                       R43 K115 [PROTO_62]
-      487 CAPTURE                          VAL R26
-      488 CAPTURE                          VAL R41
-      489 CAPTURE                          VAL R40
-      490 SETTABLEKS                       R43 R37 K116 ["postInsertAsset"]
-      492 DUPCLOSURE                       R43 K117 [PROTO_64]
-      493 CAPTURE                          VAL R26
-      494 CAPTURE                          VAL R41
-      495 CAPTURE                          VAL R40
-      496 SETTABLEKS                       R43 R37 K118 ["getManageableGroups"]
-      498 DUPCLOSURE                       R43 K119 [PROTO_66]
-      499 CAPTURE                          VAL R26
-      500 CAPTURE                          VAL R40
-      501 SETTABLEKS                       R43 R37 K120 ["getUsers"]
-      503 DUPCLOSURE                       R43 K121 [PROTO_67]
-      504 CAPTURE                          VAL R26
-      505 CAPTURE                          VAL R40
-      506 SETTABLEKS                       R43 R37 K122 ["getFavoriteCounts"]
-      508 DUPCLOSURE                       R43 K123 [PROTO_68]
-      509 CAPTURE                          VAL R26
-      510 CAPTURE                          VAL R40
-      511 SETTABLEKS                       R43 R37 K124 ["getFavorited"]
-      513 DUPCLOSURE                       R43 K125 [PROTO_69]
-      514 CAPTURE                          VAL R26
-      515 CAPTURE                          VAL R40
-      516 SETTABLEKS                       R43 R37 K126 ["createSave"]
-      518 DUPCLOSURE                       R43 K127 [PROTO_70]
-      519 CAPTURE                          VAL R26
-      520 CAPTURE                          VAL R40
-      521 SETTABLEKS                       R43 R37 K128 ["deleteSave"]
-      523 DUPCLOSURE                       R43 K129 [PROTO_71]
-      524 CAPTURE                          VAL R26
-      525 CAPTURE                          VAL R40
-      526 SETTABLEKS                       R43 R37 K130 ["getSave"]
-      528 DUPCLOSURE                       R43 K131 [PROTO_72]
-      529 CAPTURE                          VAL R26
-      530 CAPTURE                          VAL R40
-      531 SETTABLEKS                       R43 R37 K132 ["getDevelopAssetMetadata"]
-      533 DUPCLOSURE                       R43 K133 [PROTO_73]
-      534 CAPTURE                          VAL R26
-      535 CAPTURE                          VAL R40
-      536 SETTABLEKS                       R43 R37 K134 ["getVersionsHistory"]
-      538 DUPCLOSURE                       R43 K135 [PROTO_74]
-      539 CAPTURE                          VAL R26
-      540 CAPTURE                          VAL R40
-      541 SETTABLEKS                       R43 R37 K136 ["postRevertVersion"]
-      543 DUPCLOSURE                       R43 K137 [PROTO_75]
-      544 CAPTURE                          VAL R26
-      545 CAPTURE                          VAL R40
-      546 SETTABLEKS                       R43 R37 K138 ["getVersionDescriptions"]
-      548 DUPCLOSURE                       R43 K139 [PROTO_77]
-      549 CAPTURE                          VAL R26
-      550 CAPTURE                          VAL R41
-      551 CAPTURE                          VAL R40
-      552 SETTABLEKS                       R43 R37 K140 ["postVersionDescription"]
-      554 DUPCLOSURE                       R43 K141 [PROTO_78]
-      555 CAPTURE                          VAL R26
-      556 CAPTURE                          VAL R40
-      557 SETTABLEKS                       R43 R37 K142 ["postFavorite"]
-      559 DUPCLOSURE                       R43 K143 [PROTO_79]
-      560 CAPTURE                          VAL R26
-      561 CAPTURE                          VAL R40
-      562 SETTABLEKS                       R43 R37 K144 ["deleteFavorite"]
-      564 DUPCLOSURE                       R43 K145 [PROTO_81]
-      565 CAPTURE                          VAL R26
-      566 CAPTURE                          VAL R40
-      567 CAPTURE                          VAL R22
-      568 SETTABLEKS                       R43 R37 K146 ["uploadCatalogItem"]
-      570 DUPCLOSURE                       R43 K147 [PROTO_83]
-      571 CAPTURE                          VAL R26
-      572 CAPTURE                          VAL R41
-      573 CAPTURE                          VAL R40
-      574 SETTABLEKS                       R43 R37 K148 ["uploadCatalogItemFormat"]
-      576 DUPCLOSURE                       R43 K149 [PROTO_85]
-      577 CAPTURE                          VAL R26
-      578 CAPTURE                          VAL R42
-      579 CAPTURE                          VAL R40
-      580 CAPTURE                          VAL R22
-      581 SETTABLEKS                       R43 R37 K150 ["uploadAssetThumbnail"]
-      583 DUPCLOSURE                       R43 K151 [PROTO_86]
-      584 CAPTURE                          VAL R26
-      585 CAPTURE                          VAL R40
-      586 SETTABLEKS                       R43 R37 K152 ["getThumbnailStatus"]
-      588 DUPCLOSURE                       R43 K153 [PROTO_88]
-      589 CAPTURE                          VAL R26
-      590 CAPTURE                          VAL R40
-      591 CAPTURE                          VAL R22
-      592 SETTABLEKS                       R43 R37 K154 ["configureCatalogItem"]
-      594 DUPCLOSURE                       R43 K155 [PROTO_89]
-      595 CAPTURE                          VAL R26
-      596 CAPTURE                          VAL R2
-      597 CAPTURE                          VAL R3
-      598 CAPTURE                          VAL R40
-      599 SETTABLEKS                       R43 R37 K156 ["patchAsset"]
-      601 DUPCLOSURE                       R43 K157 [PROTO_90]
-      602 CAPTURE                          VAL R26
-      603 CAPTURE                          VAL R40
-      604 SETTABLEKS                       R43 R37 K158 ["validateAnimation"]
-      606 DUPCLOSURE                       R43 K159 [PROTO_91]
-      607 CAPTURE                          VAL R36
-      608 DUPCLOSURE                       R44 K160 [PROTO_94]
-      609 CAPTURE                          VAL R26
-      610 CAPTURE                          VAL R40
-      611 CAPTURE                          VAL R15
-      612 CAPTURE                          VAL R22
-      613 SETTABLEKS                       R44 R37 K161 ["waitForOperation"]
-      615 DUPCLOSURE                       R44 K162 [PROTO_97]
-      616 CAPTURE                          VAL R26
-      617 CAPTURE                          VAL R14
-      618 CAPTURE                          VAL R43
-      619 CAPTURE                          VAL R40
-      620 CAPTURE                          VAL R22
-      621 SETTABLEKS                       R44 R37 K163 ["postUploadAnimation"]
-      623 DUPCLOSURE                       R44 K164 [PROTO_100]
-      624 CAPTURE                          VAL R26
-      625 CAPTURE                          VAL R43
-      626 CAPTURE                          VAL R40
-      627 CAPTURE                          VAL R22
-      628 SETTABLEKS                       R44 R37 K165 ["postOverrideAnimation"]
-      630 DUPCLOSURE                       R44 K166 [PROTO_101]
-      631 CAPTURE                          VAL R26
-      632 CAPTURE                          VAL R40
-      633 SETTABLEKS                       R44 R37 K167 ["getIsVerifiedCreator"]
-      635 DUPCLOSURE                       R44 K168 [PROTO_102]
-      636 CAPTURE                          VAL R26
-      637 CAPTURE                          VAL R40
-      638 SETTABLEKS                       R44 R37 K169 ["getPluginInfo"]
-      640 DUPCLOSURE                       R44 K170 [PROTO_103]
-      641 CAPTURE                          VAL R26
-      642 CAPTURE                          VAL R40
-      643 SETTABLEKS                       R44 R37 K171 ["getLocalUserFriends"]
-      645 DUPCLOSURE                       R44 K172 [PROTO_104]
-      646 CAPTURE                          VAL R26
-      647 SETTABLEKS                       R44 R37 K173 ["postForPackageMetadata"]
-      649 DUPCLOSURE                       R44 K174 [PROTO_105]
-      650 CAPTURE                          VAL R26
-      651 CAPTURE                          VAL R40
-      652 SETTABLEKS                       R44 R37 K175 ["getRobuxBalance"]
-      654 DUPCLOSURE                       R44 K176 [PROTO_107]
-      655 CAPTURE                          VAL R26
-      656 CAPTURE                          VAL R40
-      657 SETTABLEKS                       R44 R37 K177 ["getHasEditPermissionForAsset"]
-      659 DUPCLOSURE                       R44 K178 [PROTO_108]
-      660 CAPTURE                          VAL R7
-      661 CAPTURE                          VAL R26
-      662 CAPTURE                          VAL R40
-      663 SETTABLEKS                       R44 R37 K179 ["purchaseAsset"]
-      665 DUPCLOSURE                       R44 K180 [PROTO_109]
-      666 CAPTURE                          VAL R26
-      667 CAPTURE                          VAL R40
-      668 SETTABLEKS                       R44 R37 K181 ["getPurchaserStatus"]
-      670 MOVE                             R44 R9
-      671 CALL                             R44 0 1
-      672 JUMPIFNOT                        R44 ; [+5]
-      673 DUPCLOSURE                       R44 K182 [PROTO_110]
-      674 CAPTURE                          VAL R26
-      675 CAPTURE                          VAL R40
-      676 SETTABLEKS                       R44 R37 K183 ["getSellerStatus"]
-      678 DUPCLOSURE                       R44 K184 [PROTO_111]
-      679 CAPTURE                          VAL R26
-      680 CAPTURE                          VAL R40
-      681 SETTABLEKS                       R44 R37 K185 ["getGroupRoleInfo"]
-      683 DUPCLOSURE                       R44 K186 [PROTO_112]
-      684 CAPTURE                          VAL R26
-      685 CAPTURE                          VAL R40
-      686 SETTABLEKS                       R44 R37 K187 ["grantAssetPermissions"]
-      688 DUPCLOSURE                       R44 K188 [PROTO_113]
-      689 CAPTURE                          VAL R26
-      690 CAPTURE                          VAL R35
-      691 SETTABLEKS                       R44 R37 K189 ["grantAssetPermissionWithTimeout"]
-      693 DUPCLOSURE                       R44 K190 [PROTO_116]
-      694 CAPTURE                          VAL R26
-      695 CAPTURE                          VAL R40
-      696 CAPTURE                          VAL R22
-      697 SETTABLEKS                       R44 R37 K191 ["batchGrantAssetPermissions"]
-      699 DUPCLOSURE                       R44 K192 [PROTO_117]
-      700 CAPTURE                          VAL R26
-      701 CAPTURE                          VAL R40
-      702 SETTABLEKS                       R44 R37 K193 ["revokeAssetPermissions"]
-      704 DUPCLOSURE                       R44 K194 [PROTO_118]
-      705 CAPTURE                          VAL R26
-      706 CAPTURE                          VAL R40
-      707 SETTABLEKS                       R44 R37 K195 ["getAssetPermissions"]
-      709 DUPCLOSURE                       R44 K196 [PROTO_120]
-      710 CAPTURE                          VAL R26
-      711 CAPTURE                          VAL R41
-      712 CAPTURE                          VAL R40
-      713 SETTABLEKS                       R44 R37 K197 ["postAssetCheckPermissions"]
-      715 DUPCLOSURE                       R44 K198 [PROTO_122]
-      716 CAPTURE                          VAL R26
-      717 CAPTURE                          VAL R41
-      718 CAPTURE                          VAL R40
-      719 SETTABLEKS                       R44 R37 K199 ["getItemUploadFee"]
-      721 DUPCLOSURE                       R44 K200 [PROTO_124]
-      722 CAPTURE                          VAL R26
-      723 CAPTURE                          VAL R41
-      724 CAPTURE                          VAL R40
-      725 SETTABLEKS                       R44 R37 K201 ["getAssetTypeAgents"]
-      727 DUPCLOSURE                       R44 K202 [PROTO_125]
-      728 CAPTURE                          VAL R26
-      729 CAPTURE                          VAL R40
-      730 SETTABLEKS                       R44 R37 K203 ["getAutocompleteResults"]
-      732 DUPCLOSURE                       R44 K204 [PROTO_126]
-      733 CAPTURE                          VAL R26
-      734 CAPTURE                          VAL R40
-      735 SETTABLEKS                       R44 R37 K205 ["getHomeConfiguration"]
-      737 DUPCLOSURE                       R44 K206 [PROTO_127]
-      738 CAPTURE                          VAL R26
-      739 CAPTURE                          VAL R40
-      740 SETTABLEKS                       R44 R37 K207 ["getCreatorMarketplaceQuotas"]
-      742 DUPCLOSURE                       R44 K208 [PROTO_128]
-      743 CAPTURE                          VAL R26
-      744 CAPTURE                          VAL R40
-      745 SETTABLEKS                       R44 R37 K209 ["getPublishingRequirements"]
-      747 DUPCLOSURE                       R44 K210 [PROTO_130]
-      748 CAPTURE                          VAL R26
-      749 CAPTURE                          VAL R41
-      750 CAPTURE                          VAL R40
-      751 SETTABLEKS                       R44 R37 K211 ["deleteAssetMedia"]
-      753 DUPCLOSURE                       R44 K212 [PROTO_132]
-      754 CAPTURE                          VAL R26
-      755 CAPTURE                          VAL R41
-      756 CAPTURE                          VAL R40
-      757 SETTABLEKS                       R44 R37 K213 ["postSetAssetMediaOrder"]
-      759 DUPCLOSURE                       R44 K214 [PROTO_136]
-      760 CAPTURE                          VAL R26
-      761 CAPTURE                          VAL R42
-      762 CAPTURE                          VAL R41
-      763 CAPTURE                          VAL R40
-      764 CAPTURE                          VAL R22
-      765 SETTABLEKS                       R44 R37 K215 ["postUploadAssetMedia"]
-      767 DUPCLOSURE                       R44 K216 [PROTO_137]
-      768 CAPTURE                          VAL R26
-      769 CAPTURE                          VAL R40
-      770 SETTABLEKS                       R44 R37 K217 ["getUniverseInfo"]
-      772 MOVE                             R44 R5
-      773 CALL                             R44 0 1
-      774 JUMPIFNOT                        R44 ; [+5]
-      775 DUPCLOSURE                       R44 K218 [PROTO_138]
-      776 CAPTURE                          VAL R26
-      777 CAPTURE                          VAL R40
-      778 SETTABLEKS                       R44 R37 K219 ["getCodeSummary"]
-      780 DUPCLOSURE                       R44 K220 [PROTO_139]
-      781 CAPTURE                          VAL R26
-      782 CAPTURE                          VAL R40
-      783 SETTABLEKS                       R44 R37 K221 ["getFiatProduct"]
-      785 MOVE                             R44 R12
-      786 CALL                             R44 0 1
-      787 JUMPIFNOT                        R44 ; [+6]
-      788 DUPCLOSURE                       R44 K222 [PROTO_141]
-      789 CAPTURE                          VAL R26
-      790 CAPTURE                          VAL R41
-      791 CAPTURE                          VAL R40
-      792 SETTABLEKS                       R44 R37 K223 ["getAllowedGroupsForAction"]
-      794 MOVE                             R44 R13
-      795 CALL                             R44 0 1
-      796 JUMPIFNOT                        R44 ; [+12]
-      797 DUPCLOSURE                       R44 K224 [PROTO_143]
-      798 CAPTURE                          VAL R26
-      799 CAPTURE                          VAL R41
-      800 CAPTURE                          VAL R40
-      801 SETTABLEKS                       R44 R37 K225 ["getAvatarAssetsPrivacy"]
-      803 DUPCLOSURE                       R44 K226 [PROTO_145]
-      804 CAPTURE                          VAL R26
-      805 CAPTURE                          VAL R41
-      806 CAPTURE                          VAL R40
-      807 SETTABLEKS                       R44 R37 K227 ["makeAvatarAssetsOpenUse"]
-      809 MOVE                             R44 R16
-      810 CALL                             R44 0 1
-      811 JUMPIFNOT                        R44 ; [+6]
-      812 DUPCLOSURE                       R44 K228 [PROTO_147]
-      813 CAPTURE                          VAL R26
-      814 CAPTURE                          VAL R40
-      815 CAPTURE                          VAL R22
-      816 SETTABLEKS                       R44 R37 K229 ["getAsset"]
-      818 RETURN                           R37 1
+      387 SETTABLEKS                       R43 R37 K84 ["getAssetCreationDetails"]
+      389 DUPCLOSURE                       R43 K85 [PROTO_30]
+      390 CAPTURE                          VAL R26
+      391 CAPTURE                          VAL R41
+      392 CAPTURE                          VAL R23
+      393 SETTABLEKS                       R43 R37 K86 ["getCreatorInfo"]
+      395 MOVE                             R43 R4
+      396 CALL                             R43 0 1
+      397 JUMPIFNOT                        R43 ; [+6]
+      398 DUPCLOSURE                       R43 K87 [PROTO_32]
+      399 CAPTURE                          VAL R26
+      400 CAPTURE                          VAL R41
+      401 CAPTURE                          VAL R23
+      402 SETTABLEKS                       R43 R37 K88 ["getUploadPermissionStatus"]
+      404 DUPCLOSURE                       R43 K89 [PROTO_34]
+      405 CAPTURE                          VAL R26
+      406 CAPTURE                          VAL R41
+      407 CAPTURE                          VAL R23
+      408 SETTABLEKS                       R43 R37 K90 ["getBundleMetadata"]
+      410 DUPCLOSURE                       R43 K91 [PROTO_37]
+      411 CAPTURE                          VAL R26
+      412 CAPTURE                          VAL R10
+      413 CAPTURE                          VAL R11
+      414 CAPTURE                          VAL R12
+      415 CAPTURE                          VAL R40
+      416 CAPTURE                          VAL R22
+      417 SETTABLEKS                       R43 R37 K92 ["postBundleCreationContext"]
+      419 DUPCLOSURE                       R43 K93 [PROTO_40]
+      420 CAPTURE                          VAL R26
+      421 CAPTURE                          VAL R40
+      422 CAPTURE                          VAL R22
+      423 SETTABLEKS                       R43 R37 K94 ["postCreateBundle"]
+      425 DUPCLOSURE                       R43 K95 [PROTO_42]
+      426 CAPTURE                          VAL R26
+      427 CAPTURE                          VAL R41
+      428 CAPTURE                          VAL R23
+      429 SETTABLEKS                       R43 R37 K96 ["getBundleCreationStatus"]
+      431 DUPCLOSURE                       R43 K97 [PROTO_44]
+      432 CAPTURE                          VAL R26
+      433 CAPTURE                          VAL R41
+      434 CAPTURE                          VAL R23
+      435 SETTABLEKS                       R43 R37 K98 ["getDefaultCreateBundleDataSharing"]
+      437 DUPCLOSURE                       R43 K99 [PROTO_46]
+      438 CAPTURE                          VAL R26
+      439 CAPTURE                          VAL R41
+      440 CAPTURE                          VAL R40
+      441 SETTABLEKS                       R43 R37 K100 ["postCreateBundleDataSharing"]
+      443 DUPCLOSURE                       R43 K101 [PROTO_48]
+      444 CAPTURE                          VAL R26
+      445 CAPTURE                          VAL R41
+      446 CAPTURE                          VAL R40
+      447 SETTABLEKS                       R43 R37 K102 ["postCreateAvatarAssetDataSharing"]
+      449 DUPCLOSURE                       R43 K103 [PROTO_50]
+      450 CAPTURE                          VAL R26
+      451 CAPTURE                          VAL R41
+      452 CAPTURE                          VAL R23
+      453 SETTABLEKS                       R43 R37 K104 ["getAssetMediaIds"]
+      455 DUPCLOSURE                       R43 K105 [PROTO_52]
+      456 CAPTURE                          VAL R26
+      457 CAPTURE                          VAL R41
+      458 CAPTURE                          VAL R23
+      459 SETTABLEKS                       R43 R37 K106 ["getVote"]
+      461 DUPCLOSURE                       R43 K107 [PROTO_54]
+      462 CAPTURE                          VAL R26
+      463 CAPTURE                          VAL R41
+      464 CAPTURE                          VAL R40
+      465 SETTABLEKS                       R43 R37 K108 ["postVote"]
+      467 DUPCLOSURE                       R43 K109 [PROTO_56]
+      468 CAPTURE                          VAL R26
+      469 CAPTURE                          VAL R41
+      470 CAPTURE                          VAL R40
+      471 SETTABLEKS                       R43 R37 K110 ["configureSales"]
+      473 DUPCLOSURE                       R43 K111 [PROTO_58]
+      474 CAPTURE                          VAL R26
+      475 CAPTURE                          VAL R41
+      476 CAPTURE                          VAL R40
+      477 SETTABLEKS                       R43 R37 K112 ["updateSales"]
+      479 DUPCLOSURE                       R43 K113 [PROTO_60]
+      480 CAPTURE                          VAL R26
+      481 CAPTURE                          VAL R41
+      482 CAPTURE                          VAL R40
+      483 SETTABLEKS                       R43 R37 K114 ["postUnvote"]
+      485 DUPCLOSURE                       R43 K115 [PROTO_62]
+      486 CAPTURE                          VAL R26
+      487 CAPTURE                          VAL R41
+      488 CAPTURE                          VAL R40
+      489 SETTABLEKS                       R43 R37 K116 ["postInsertAsset"]
+      491 DUPCLOSURE                       R43 K117 [PROTO_64]
+      492 CAPTURE                          VAL R26
+      493 CAPTURE                          VAL R41
+      494 CAPTURE                          VAL R23
+      495 SETTABLEKS                       R43 R37 K118 ["getManageableGroups"]
+      497 DUPCLOSURE                       R43 K119 [PROTO_66]
+      498 CAPTURE                          VAL R26
+      499 CAPTURE                          VAL R23
+      500 SETTABLEKS                       R43 R37 K120 ["getUsers"]
+      502 DUPCLOSURE                       R43 K121 [PROTO_67]
+      503 CAPTURE                          VAL R26
+      504 CAPTURE                          VAL R23
+      505 SETTABLEKS                       R43 R37 K122 ["getFavoriteCounts"]
+      507 DUPCLOSURE                       R43 K123 [PROTO_68]
+      508 CAPTURE                          VAL R26
+      509 CAPTURE                          VAL R23
+      510 SETTABLEKS                       R43 R37 K124 ["getFavorited"]
+      512 DUPCLOSURE                       R43 K125 [PROTO_69]
+      513 CAPTURE                          VAL R26
+      514 CAPTURE                          VAL R40
+      515 SETTABLEKS                       R43 R37 K126 ["createSave"]
+      517 DUPCLOSURE                       R43 K127 [PROTO_70]
+      518 CAPTURE                          VAL R26
+      519 CAPTURE                          VAL R23
+      520 SETTABLEKS                       R43 R37 K128 ["deleteSave"]
+      522 DUPCLOSURE                       R43 K129 [PROTO_71]
+      523 CAPTURE                          VAL R26
+      524 CAPTURE                          VAL R23
+      525 SETTABLEKS                       R43 R37 K130 ["getSave"]
+      527 DUPCLOSURE                       R43 K131 [PROTO_72]
+      528 CAPTURE                          VAL R26
+      529 CAPTURE                          VAL R23
+      530 SETTABLEKS                       R43 R37 K132 ["getDevelopAssetMetadata"]
+      532 DUPCLOSURE                       R43 K133 [PROTO_73]
+      533 CAPTURE                          VAL R26
+      534 CAPTURE                          VAL R23
+      535 SETTABLEKS                       R43 R37 K134 ["getVersionsHistory"]
+      537 DUPCLOSURE                       R43 K135 [PROTO_74]
+      538 CAPTURE                          VAL R26
+      539 CAPTURE                          VAL R23
+      540 SETTABLEKS                       R43 R37 K136 ["postRevertVersion"]
+      542 DUPCLOSURE                       R43 K137 [PROTO_75]
+      543 CAPTURE                          VAL R26
+      544 CAPTURE                          VAL R23
+      545 SETTABLEKS                       R43 R37 K138 ["getVersionDescriptions"]
+      547 DUPCLOSURE                       R43 K139 [PROTO_77]
+      548 CAPTURE                          VAL R26
+      549 CAPTURE                          VAL R41
+      550 CAPTURE                          VAL R40
+      551 SETTABLEKS                       R43 R37 K140 ["postVersionDescription"]
+      553 DUPCLOSURE                       R43 K141 [PROTO_78]
+      554 CAPTURE                          VAL R26
+      555 CAPTURE                          VAL R40
+      556 SETTABLEKS                       R43 R37 K142 ["postFavorite"]
+      558 DUPCLOSURE                       R43 K143 [PROTO_79]
+      559 CAPTURE                          VAL R26
+      560 CAPTURE                          VAL R23
+      561 SETTABLEKS                       R43 R37 K144 ["deleteFavorite"]
+      563 DUPCLOSURE                       R43 K145 [PROTO_81]
+      564 CAPTURE                          VAL R26
+      565 CAPTURE                          VAL R40
+      566 CAPTURE                          VAL R22
+      567 SETTABLEKS                       R43 R37 K146 ["uploadCatalogItem"]
+      569 DUPCLOSURE                       R43 K147 [PROTO_83]
+      570 CAPTURE                          VAL R26
+      571 CAPTURE                          VAL R41
+      572 CAPTURE                          VAL R40
+      573 SETTABLEKS                       R43 R37 K148 ["uploadCatalogItemFormat"]
+      575 DUPCLOSURE                       R43 K149 [PROTO_85]
+      576 CAPTURE                          VAL R26
+      577 CAPTURE                          VAL R42
+      578 CAPTURE                          VAL R40
+      579 CAPTURE                          VAL R22
+      580 SETTABLEKS                       R43 R37 K150 ["uploadAssetThumbnail"]
+      582 DUPCLOSURE                       R43 K151 [PROTO_86]
+      583 CAPTURE                          VAL R26
+      584 CAPTURE                          VAL R23
+      585 SETTABLEKS                       R43 R37 K152 ["getThumbnailStatus"]
+      587 DUPCLOSURE                       R43 K153 [PROTO_88]
+      588 CAPTURE                          VAL R26
+      589 CAPTURE                          VAL R40
+      590 CAPTURE                          VAL R22
+      591 SETTABLEKS                       R43 R37 K154 ["configureCatalogItem"]
+      593 DUPCLOSURE                       R43 K155 [PROTO_89]
+      594 CAPTURE                          VAL R26
+      595 CAPTURE                          VAL R2
+      596 CAPTURE                          VAL R3
+      597 CAPTURE                          VAL R40
+      598 SETTABLEKS                       R43 R37 K156 ["patchAsset"]
+      600 DUPCLOSURE                       R43 K157 [PROTO_90]
+      601 CAPTURE                          VAL R26
+      602 CAPTURE                          VAL R23
+      603 SETTABLEKS                       R43 R37 K158 ["validateAnimation"]
+      605 DUPCLOSURE                       R43 K159 [PROTO_91]
+      606 CAPTURE                          VAL R36
+      607 DUPCLOSURE                       R44 K160 [PROTO_94]
+      608 CAPTURE                          VAL R26
+      609 CAPTURE                          VAL R23
+      610 CAPTURE                          VAL R15
+      611 CAPTURE                          VAL R22
+      612 SETTABLEKS                       R44 R37 K161 ["waitForOperation"]
+      614 DUPCLOSURE                       R44 K162 [PROTO_97]
+      615 CAPTURE                          VAL R26
+      616 CAPTURE                          VAL R14
+      617 CAPTURE                          VAL R43
+      618 CAPTURE                          VAL R40
+      619 CAPTURE                          VAL R22
+      620 SETTABLEKS                       R44 R37 K163 ["postUploadAnimation"]
+      622 DUPCLOSURE                       R44 K164 [PROTO_100]
+      623 CAPTURE                          VAL R26
+      624 CAPTURE                          VAL R43
+      625 CAPTURE                          VAL R40
+      626 CAPTURE                          VAL R22
+      627 SETTABLEKS                       R44 R37 K165 ["postOverrideAnimation"]
+      629 DUPCLOSURE                       R44 K166 [PROTO_101]
+      630 CAPTURE                          VAL R26
+      631 CAPTURE                          VAL R23
+      632 SETTABLEKS                       R44 R37 K167 ["getIsVerifiedCreator"]
+      634 DUPCLOSURE                       R44 K168 [PROTO_102]
+      635 CAPTURE                          VAL R26
+      636 CAPTURE                          VAL R23
+      637 SETTABLEKS                       R44 R37 K169 ["getPluginInfo"]
+      639 DUPCLOSURE                       R44 K170 [PROTO_103]
+      640 CAPTURE                          VAL R26
+      641 CAPTURE                          VAL R23
+      642 SETTABLEKS                       R44 R37 K171 ["getLocalUserFriends"]
+      644 DUPCLOSURE                       R44 K172 [PROTO_104]
+      645 CAPTURE                          VAL R26
+      646 SETTABLEKS                       R44 R37 K173 ["postForPackageMetadata"]
+      648 DUPCLOSURE                       R44 K174 [PROTO_105]
+      649 CAPTURE                          VAL R26
+      650 CAPTURE                          VAL R23
+      651 SETTABLEKS                       R44 R37 K175 ["getRobuxBalance"]
+      653 DUPCLOSURE                       R44 K176 [PROTO_107]
+      654 CAPTURE                          VAL R26
+      655 CAPTURE                          VAL R40
+      656 SETTABLEKS                       R44 R37 K177 ["getHasEditPermissionForAsset"]
+      658 DUPCLOSURE                       R44 K178 [PROTO_108]
+      659 CAPTURE                          VAL R7
+      660 CAPTURE                          VAL R26
+      661 CAPTURE                          VAL R23
+      662 SETTABLEKS                       R44 R37 K179 ["purchaseAsset"]
+      664 DUPCLOSURE                       R44 K180 [PROTO_109]
+      665 CAPTURE                          VAL R26
+      666 CAPTURE                          VAL R23
+      667 SETTABLEKS                       R44 R37 K181 ["getPurchaserStatus"]
+      669 MOVE                             R44 R9
+      670 CALL                             R44 0 1
+      671 JUMPIFNOT                        R44 ; [+5]
+      672 DUPCLOSURE                       R44 K182 [PROTO_110]
+      673 CAPTURE                          VAL R26
+      674 CAPTURE                          VAL R23
+      675 SETTABLEKS                       R44 R37 K183 ["getSellerStatus"]
+      677 DUPCLOSURE                       R44 K184 [PROTO_111]
+      678 CAPTURE                          VAL R26
+      679 CAPTURE                          VAL R23
+      680 SETTABLEKS                       R44 R37 K185 ["getGroupRoleInfo"]
+      682 DUPCLOSURE                       R44 K186 [PROTO_112]
+      683 CAPTURE                          VAL R26
+      684 CAPTURE                          VAL R40
+      685 SETTABLEKS                       R44 R37 K187 ["grantAssetPermissions"]
+      687 DUPCLOSURE                       R44 K188 [PROTO_113]
+      688 CAPTURE                          VAL R26
+      689 CAPTURE                          VAL R35
+      690 SETTABLEKS                       R44 R37 K189 ["grantAssetPermissionWithTimeout"]
+      692 DUPCLOSURE                       R44 K190 [PROTO_116]
+      693 CAPTURE                          VAL R26
+      694 CAPTURE                          VAL R40
+      695 CAPTURE                          VAL R22
+      696 SETTABLEKS                       R44 R37 K191 ["batchGrantAssetPermissions"]
+      698 DUPCLOSURE                       R44 K192 [PROTO_117]
+      699 CAPTURE                          VAL R26
+      700 CAPTURE                          VAL R40
+      701 SETTABLEKS                       R44 R37 K193 ["revokeAssetPermissions"]
+      703 DUPCLOSURE                       R44 K194 [PROTO_118]
+      704 CAPTURE                          VAL R26
+      705 CAPTURE                          VAL R23
+      706 SETTABLEKS                       R44 R37 K195 ["getAssetPermissions"]
+      708 DUPCLOSURE                       R44 K196 [PROTO_120]
+      709 CAPTURE                          VAL R26
+      710 CAPTURE                          VAL R41
+      711 CAPTURE                          VAL R23
+      712 SETTABLEKS                       R44 R37 K197 ["postAssetCheckPermissions"]
+      714 DUPCLOSURE                       R44 K198 [PROTO_122]
+      715 CAPTURE                          VAL R26
+      716 CAPTURE                          VAL R41
+      717 CAPTURE                          VAL R23
+      718 SETTABLEKS                       R44 R37 K199 ["getItemUploadFee"]
+      720 DUPCLOSURE                       R44 K200 [PROTO_124]
+      721 CAPTURE                          VAL R26
+      722 CAPTURE                          VAL R41
+      723 CAPTURE                          VAL R23
+      724 SETTABLEKS                       R44 R37 K201 ["getAssetTypeAgents"]
+      726 DUPCLOSURE                       R44 K202 [PROTO_125]
+      727 CAPTURE                          VAL R26
+      728 CAPTURE                          VAL R23
+      729 SETTABLEKS                       R44 R37 K203 ["getAutocompleteResults"]
+      731 DUPCLOSURE                       R44 K204 [PROTO_126]
+      732 CAPTURE                          VAL R26
+      733 CAPTURE                          VAL R23
+      734 SETTABLEKS                       R44 R37 K205 ["getHomeConfiguration"]
+      736 DUPCLOSURE                       R44 K206 [PROTO_127]
+      737 CAPTURE                          VAL R26
+      738 CAPTURE                          VAL R23
+      739 SETTABLEKS                       R44 R37 K207 ["getCreatorMarketplaceQuotas"]
+      741 DUPCLOSURE                       R44 K208 [PROTO_128]
+      742 CAPTURE                          VAL R26
+      743 CAPTURE                          VAL R23
+      744 SETTABLEKS                       R44 R37 K209 ["getPublishingRequirements"]
+      746 DUPCLOSURE                       R44 K210 [PROTO_130]
+      747 CAPTURE                          VAL R26
+      748 CAPTURE                          VAL R41
+      749 CAPTURE                          VAL R23
+      750 SETTABLEKS                       R44 R37 K211 ["deleteAssetMedia"]
+      752 DUPCLOSURE                       R44 K212 [PROTO_132]
+      753 CAPTURE                          VAL R26
+      754 CAPTURE                          VAL R41
+      755 CAPTURE                          VAL R40
+      756 SETTABLEKS                       R44 R37 K213 ["postSetAssetMediaOrder"]
+      758 DUPCLOSURE                       R44 K214 [PROTO_136]
+      759 CAPTURE                          VAL R26
+      760 CAPTURE                          VAL R42
+      761 CAPTURE                          VAL R41
+      762 CAPTURE                          VAL R40
+      763 CAPTURE                          VAL R22
+      764 SETTABLEKS                       R44 R37 K215 ["postUploadAssetMedia"]
+      766 DUPCLOSURE                       R44 K216 [PROTO_137]
+      767 CAPTURE                          VAL R26
+      768 CAPTURE                          VAL R23
+      769 SETTABLEKS                       R44 R37 K217 ["getUniverseInfo"]
+      771 MOVE                             R44 R5
+      772 CALL                             R44 0 1
+      773 JUMPIFNOT                        R44 ; [+5]
+      774 DUPCLOSURE                       R44 K218 [PROTO_138]
+      775 CAPTURE                          VAL R26
+      776 CAPTURE                          VAL R23
+      777 SETTABLEKS                       R44 R37 K219 ["getCodeSummary"]
+      779 DUPCLOSURE                       R44 K220 [PROTO_139]
+      780 CAPTURE                          VAL R26
+      781 CAPTURE                          VAL R23
+      782 SETTABLEKS                       R44 R37 K221 ["getFiatProduct"]
+      784 MOVE                             R44 R12
+      785 CALL                             R44 0 1
+      786 JUMPIFNOT                        R44 ; [+6]
+      787 DUPCLOSURE                       R44 K222 [PROTO_141]
+      788 CAPTURE                          VAL R26
+      789 CAPTURE                          VAL R41
+      790 CAPTURE                          VAL R23
+      791 SETTABLEKS                       R44 R37 K223 ["getAllowedGroupsForAction"]
+      793 MOVE                             R44 R13
+      794 CALL                             R44 0 1
+      795 JUMPIFNOT                        R44 ; [+12]
+      796 DUPCLOSURE                       R44 K224 [PROTO_143]
+      797 CAPTURE                          VAL R26
+      798 CAPTURE                          VAL R41
+      799 CAPTURE                          VAL R23
+      800 SETTABLEKS                       R44 R37 K225 ["getAvatarAssetsPrivacy"]
+      802 DUPCLOSURE                       R44 K226 [PROTO_145]
+      803 CAPTURE                          VAL R26
+      804 CAPTURE                          VAL R41
+      805 CAPTURE                          VAL R40
+      806 SETTABLEKS                       R44 R37 K227 ["makeAvatarAssetsOpenUse"]
+      808 MOVE                             R44 R16
+      809 CALL                             R44 0 1
+      810 JUMPIFNOT                        R44 ; [+6]
+      811 DUPCLOSURE                       R44 K228 [PROTO_147]
+      812 CAPTURE                          VAL R26
+      813 CAPTURE                          VAL R40
+      814 CAPTURE                          VAL R22
+      815 SETTABLEKS                       R44 R37 K229 ["getAsset"]
+      817 RETURN                           R37 1

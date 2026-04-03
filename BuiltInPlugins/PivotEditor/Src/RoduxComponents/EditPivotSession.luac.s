@@ -167,7 +167,7 @@ PROTO_5:
        14 NAMECALL                         R5 R5 K4 ["setPivotIndicator"]
        16 CALL                             R5 2 0
        17 GETTABLEKS                       R5 R1 K1 ["statusMessage"]
-       19 JUMPIFEQ                         R5 R3 ; [+41]
+       19 JUMPIFEQ                         R5 R3 ; [+40]
        21 GETUPVAL                         R7 0
        22 GETTABLEKS                       R6 R7 K2 ["None"]
        24 JUMPIFEQ                         R5 R6 ; [+7]
@@ -182,21 +182,20 @@ PROTO_5:
        38 GETTABLEKS                       R7 R8 K7 ["NoSelection"]
        40 JUMPIFNOTEQ                      R3 R7 ; [+3]
        42 LOADB                            R6 0
-       43 JUMP                             ; [+2]
+       43 JUMP                             ; [+1]
        44 LOADB                            R6 1
-       45 JUMP                             ; [0]
-       46 JUMPIFNOT                        R6 ; [+14]
-       47 GETTABLEKS                       R6 R1 K8 ["Localization"]
-       49 LOADK                            R9 K9 ["Notification"]
-       50 MOVE                             R10 R3
-       51 NAMECALL                         R7 R6 K10 ["getText"]
-       53 CALL                             R7 3 1
-       54 GETTABLEKS                       R8 R1 K5 ["ToastNotification"]
-       56 MOVE                             R10 R7
-       57 MOVE                             R11 R3
-       58 NAMECALL                         R8 R8 K11 ["showNotification"]
-       60 CALL                             R8 3 0
-       61 RETURN                           R0 0
+       45 JUMPIFNOT                        R6 ; [+14]
+       46 GETTABLEKS                       R6 R1 K8 ["Localization"]
+       48 LOADK                            R9 K9 ["Notification"]
+       49 MOVE                             R10 R3
+       50 NAMECALL                         R7 R6 K10 ["getText"]
+       52 CALL                             R7 3 1
+       53 GETTABLEKS                       R8 R1 K5 ["ToastNotification"]
+       55 MOVE                             R10 R7
+       56 MOVE                             R11 R3
+       57 NAMECALL                         R8 R8 K11 ["showNotification"]
+       59 CALL                             R8 3 0
+       60 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["_draggerContext"]

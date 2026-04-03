@@ -6,7 +6,6 @@ local React = require(Packages.React)
 local DialogSize = require(Foundation.Enums.DialogSize)
 type DialogSize = DialogSize.DialogSize
 
-local Flags = require(Foundation.Utility.Flags)
 local getResponsiveSize = require(script.Parent.getResponsiveSize)
 local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -26,7 +25,7 @@ local function DialogProvider(props: DialogProviderProps)
 	local tokens = useTokens()
 
 	local responsiveSize, setResponsiveSize = React.useState(function()
-		if Flags.FoundationDialogFixResponsiveSize and overlay then
+		if overlay then
 			return getResponsiveSize(overlay.AbsoluteSize.X, props.size, tokens)
 		end
 

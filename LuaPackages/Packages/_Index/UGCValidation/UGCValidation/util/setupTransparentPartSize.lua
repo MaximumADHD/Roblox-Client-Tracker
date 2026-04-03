@@ -1,3 +1,6 @@
+-- TEMPORARY: Uses getAttachmentCFrameInPartSpace to fix HRD bone-nested attachment CFrame interpretation.
+-- All bounds/transform calculation in this file must be refactored in the new validation system.
+
 --[[
 	setupTransparentPartSize.lua sets the size of the transparent part for validating asset transparency
 ]]
@@ -6,6 +9,8 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local AssetTraversalUtils = require(root.util.AssetTraversalUtils)
 local ConstantsInterface = require(root.ConstantsInterface)
+local R15plusUtils = require(root.util.R15plusUtils)
+local getAttachmentCFrameInPartSpace = require(root.util.getAttachmentCFrameInPartSpace)
 
 return function(
 	transparentPart: MeshPart,
@@ -46,10 +51,16 @@ return function(
 			if parentName then
 				local parentMeshHandle = (folder :: Folder):FindFirstChild(parentName) :: MeshPart
 				local rigAttachmentName = ConstantsInterface.getRigAttachmentToParent(assetTypeEnum, name)
-				local parentAttachment: Attachment? = parentMeshHandle:FindFirstChild(rigAttachmentName) :: Attachment
-				local attachment: Attachment? = meshHandle:FindFirstChild(rigAttachmentName) :: Attachment
-				cframe = (cframe * (parentAttachment :: Attachment).CFrame)
-					* (attachment :: Attachment).CFrame:Inverse()
+				local parentAttachment: Attachment? = parentMeshHandle:FindFirstChild(
+					rigAttachmentName,
+					R15plusUtils.checkFlagEnabledForAllowHrd()
+				) :: Attachment
+				local attachment: Attachment? = meshHandle:FindFirstChild(
+					rigAttachmentName,
+					R15plusUtils.checkFlagEnabledForAllowHrd()
+				) :: Attachment
+				cframe = (cframe * getAttachmentCFrameInPartSpace(parentAttachment :: Attachment))
+					* getAttachmentCFrameInPartSpace(attachment :: Attachment):Inverse()
 			end
 			meshHandle.CFrame = cframe
 			if details.children then

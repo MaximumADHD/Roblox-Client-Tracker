@@ -7,8 +7,12 @@ local proto = require(script.Parent.Parent.Parent.Parent.Parent.proto)
 local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry)
 
 type _Messages = {
+	CustomPrompt: _CustomPromptMessage,
+	CustomPrompt_ParametersEntry: _CustomPrompt_ParametersEntryMessage,
+	CustomPrompt_TranslationsEntry: _CustomPrompt_TranslationsEntryMessage,
 	GetEligiblePromptsResponse: _GetEligiblePromptsResponseMessage,
 	GetEligiblePromptsResponse_TemplatesEntry: _GetEligiblePromptsResponse_TemplatesEntryMessage,
+	GetEligiblePromptsResponse_CustomPromptsEntry: _GetEligiblePromptsResponse_CustomPromptsEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -18,6 +22,87 @@ local _roblox_apppageplatform_shared_v1beta1_page_entry_content =
 	require(script.Parent.Parent.Parent.shared.v1beta1.page_entry_content)
 local _roblox_apppageplatform_shared_v1beta1_template_entry =
 	require(script.Parent.Parent.Parent.shared.v1beta1.template_entry)
+
+type _CustomPromptImpl = {
+	__index: _CustomPromptImpl,
+	new: (fields: _CustomPromptPartialFields?) -> CustomPrompt,
+	encode: (self: CustomPrompt) -> buffer,
+	decode: (input: buffer) -> CustomPrompt,
+	jsonEncode: (self: CustomPrompt) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CustomPrompt,
+	descriptor: proto.Descriptor,
+}
+
+type _CustomPromptFields = {
+	parameters: { [string]: string },
+	translations: { [string]: string },
+}
+
+type _CustomPromptPartialFields = {
+	parameters: { [string]: string }?,
+	translations: { [string]: string }?,
+}
+
+export type CustomPrompt = typeof(setmetatable({} :: _CustomPromptFields, {} :: _CustomPromptImpl))
+type _CustomPromptMessage = proto.Message<CustomPrompt, _CustomPromptPartialFields>
+
+type _CustomPrompt_ParametersEntryImpl = {
+	__index: _CustomPrompt_ParametersEntryImpl,
+	new: (fields: _CustomPrompt_ParametersEntryPartialFields?) -> CustomPrompt_ParametersEntry,
+	encode: (self: CustomPrompt_ParametersEntry) -> buffer,
+	decode: (input: buffer) -> CustomPrompt_ParametersEntry,
+	jsonEncode: (self: CustomPrompt_ParametersEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CustomPrompt_ParametersEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _CustomPrompt_ParametersEntryFields = {
+	key: string,
+	value: string,
+}
+
+type _CustomPrompt_ParametersEntryPartialFields = {
+	key: string?,
+	value: string?,
+}
+
+export type CustomPrompt_ParametersEntry = typeof(setmetatable(
+	{} :: _CustomPrompt_ParametersEntryFields,
+	{} :: _CustomPrompt_ParametersEntryImpl
+))
+type _CustomPrompt_ParametersEntryMessage = proto.Message<
+	CustomPrompt_ParametersEntry,
+	_CustomPrompt_ParametersEntryPartialFields
+>
+
+type _CustomPrompt_TranslationsEntryImpl = {
+	__index: _CustomPrompt_TranslationsEntryImpl,
+	new: (fields: _CustomPrompt_TranslationsEntryPartialFields?) -> CustomPrompt_TranslationsEntry,
+	encode: (self: CustomPrompt_TranslationsEntry) -> buffer,
+	decode: (input: buffer) -> CustomPrompt_TranslationsEntry,
+	jsonEncode: (self: CustomPrompt_TranslationsEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CustomPrompt_TranslationsEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _CustomPrompt_TranslationsEntryFields = {
+	key: string,
+	value: string,
+}
+
+type _CustomPrompt_TranslationsEntryPartialFields = {
+	key: string?,
+	value: string?,
+}
+
+export type CustomPrompt_TranslationsEntry = typeof(setmetatable(
+	{} :: _CustomPrompt_TranslationsEntryFields,
+	{} :: _CustomPrompt_TranslationsEntryImpl
+))
+type _CustomPrompt_TranslationsEntryMessage = proto.Message<
+	CustomPrompt_TranslationsEntry,
+	_CustomPrompt_TranslationsEntryPartialFields
+>
 
 type _GetEligiblePromptsResponseImpl = {
 	__index: _GetEligiblePromptsResponseImpl,
@@ -33,12 +118,14 @@ type _GetEligiblePromptsResponseFields = {
 	page_entries: { _roblox_apppageplatform_shared_v1beta1_page_entry_content.UniversalPageEntry },
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry },
+	custom_prompts: { [string]: CustomPrompt },
 }
 
 type _GetEligiblePromptsResponsePartialFields = {
 	page_entries: { _roblox_apppageplatform_shared_v1beta1_page_entry_content.UniversalPageEntry }?,
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry }?,
+	custom_prompts: { [string]: CustomPrompt }?,
 }
 
 export type GetEligiblePromptsResponse = typeof(setmetatable(
@@ -81,6 +168,437 @@ type _GetEligiblePromptsResponse_TemplatesEntryMessage = proto.Message<
 	_GetEligiblePromptsResponse_TemplatesEntryPartialFields
 >
 
+type _GetEligiblePromptsResponse_CustomPromptsEntryImpl = {
+	__index: _GetEligiblePromptsResponse_CustomPromptsEntryImpl,
+	new: (
+		fields: _GetEligiblePromptsResponse_CustomPromptsEntryPartialFields?
+	) -> GetEligiblePromptsResponse_CustomPromptsEntry,
+	encode: (self: GetEligiblePromptsResponse_CustomPromptsEntry) -> buffer,
+	decode: (input: buffer) -> GetEligiblePromptsResponse_CustomPromptsEntry,
+	jsonEncode: (self: GetEligiblePromptsResponse_CustomPromptsEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GetEligiblePromptsResponse_CustomPromptsEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _GetEligiblePromptsResponse_CustomPromptsEntryFields = {
+	key: string,
+	value: CustomPrompt?,
+}
+
+type _GetEligiblePromptsResponse_CustomPromptsEntryPartialFields = {
+	key: string?,
+	value: CustomPrompt?,
+}
+
+export type GetEligiblePromptsResponse_CustomPromptsEntry = typeof(setmetatable(
+	{} :: _GetEligiblePromptsResponse_CustomPromptsEntryFields,
+	{} :: _GetEligiblePromptsResponse_CustomPromptsEntryImpl
+))
+type _GetEligiblePromptsResponse_CustomPromptsEntryMessage = proto.Message<
+	GetEligiblePromptsResponse_CustomPromptsEntry,
+	_GetEligiblePromptsResponse_CustomPromptsEntryPartialFields
+>
+
+do
+	local _CustomPromptImpl = {}
+	_CustomPromptImpl.__index = _CustomPromptImpl
+
+	function _CustomPromptImpl.new(data: _CustomPromptPartialFields?): CustomPrompt
+		return setmetatable({
+			parameters = if data == nil or data.parameters == nil then {} else data.parameters,
+			translations = if data == nil or data.translations == nil then {} else data.translations,
+		}, _CustomPromptImpl :: _CustomPromptImpl)
+	end
+
+	function _CustomPromptImpl.encode(self: CustomPrompt): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.parameters ~= nil and next(self.parameters) ~= nil then
+			for key, value in self.parameters do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, value)
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.translations ~= nil and next(self.translations) ~= nil then
+			for key, value in self.translations do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, value)
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CustomPromptImpl.decode(input: buffer): CustomPrompt
+		local self = _CustomPromptImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.CustomPrompt_ParametersEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = ""
+
+					self.parameters[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.CustomPrompt_TranslationsEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = ""
+
+					self.translations[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CustomPromptImpl.jsonEncode(self: CustomPrompt): any
+		local output = {}
+
+		if self.parameters ~= nil and next(self.parameters) ~= nil then
+			local newOutput = {}
+			for key, value in self.parameters do
+				newOutput[key] = value
+			end
+			output.parameters = newOutput
+		end
+
+		if self.translations ~= nil and next(self.translations) ~= nil then
+			local newOutput = {}
+			for key, value in self.translations do
+				newOutput[key] = value
+			end
+			output.translations = newOutput
+		end
+
+		return output
+	end
+
+	function _CustomPromptImpl.jsonDecode(input: { [string]: any }): CustomPrompt
+		local self = _CustomPromptImpl.new()
+
+		if input.parameters ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.parameters do
+				newOutput[key] = value
+			end
+
+			self.parameters = newOutput
+		end
+
+		if input.translations ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.translations do
+				newOutput[key] = value
+			end
+
+			self.translations = newOutput
+		end
+
+		return self
+	end
+
+	_CustomPromptImpl.descriptor = {
+		name = "CustomPrompt",
+		fullName = "roblox.apppageplatform.prompts.v1beta1.CustomPrompt",
+	}
+
+	messages.CustomPrompt = _CustomPromptImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CustomPrompt)
+end
+
+do
+	local _CustomPrompt_ParametersEntryImpl = {}
+	_CustomPrompt_ParametersEntryImpl.__index = _CustomPrompt_ParametersEntryImpl
+
+	function _CustomPrompt_ParametersEntryImpl.new(
+		data: _CustomPrompt_ParametersEntryPartialFields?
+	): CustomPrompt_ParametersEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then "" else data.value,
+		}, _CustomPrompt_ParametersEntryImpl :: _CustomPrompt_ParametersEntryImpl)
+	end
+
+	function _CustomPrompt_ParametersEntryImpl.encode(self: CustomPrompt_ParametersEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.value)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CustomPrompt_ParametersEntryImpl.decode(input: buffer): CustomPrompt_ParametersEntry
+		local self = _CustomPrompt_ParametersEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CustomPrompt_ParametersEntryImpl.jsonEncode(self: CustomPrompt_ParametersEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output.value = self.value
+		end
+
+		return output
+	end
+
+	function _CustomPrompt_ParametersEntryImpl.jsonDecode(input: { [string]: any }): CustomPrompt_ParametersEntry
+		local self = _CustomPrompt_ParametersEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = input.value
+		end
+
+		return self
+	end
+
+	_CustomPrompt_ParametersEntryImpl.descriptor = {
+		name = "CustomPrompt_ParametersEntry",
+		fullName = "roblox.apppageplatform.prompts.v1beta1.ParametersEntry",
+	}
+
+	messages.CustomPrompt_ParametersEntry = _CustomPrompt_ParametersEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CustomPrompt_ParametersEntry)
+end
+
+do
+	local _CustomPrompt_TranslationsEntryImpl = {}
+	_CustomPrompt_TranslationsEntryImpl.__index = _CustomPrompt_TranslationsEntryImpl
+
+	function _CustomPrompt_TranslationsEntryImpl.new(
+		data: _CustomPrompt_TranslationsEntryPartialFields?
+	): CustomPrompt_TranslationsEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then "" else data.value,
+		}, _CustomPrompt_TranslationsEntryImpl :: _CustomPrompt_TranslationsEntryImpl)
+	end
+
+	function _CustomPrompt_TranslationsEntryImpl.encode(self: CustomPrompt_TranslationsEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.value)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CustomPrompt_TranslationsEntryImpl.decode(input: buffer): CustomPrompt_TranslationsEntry
+		local self = _CustomPrompt_TranslationsEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CustomPrompt_TranslationsEntryImpl.jsonEncode(self: CustomPrompt_TranslationsEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output.value = self.value
+		end
+
+		return output
+	end
+
+	function _CustomPrompt_TranslationsEntryImpl.jsonDecode(input: { [string]: any }): CustomPrompt_TranslationsEntry
+		local self = _CustomPrompt_TranslationsEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = input.value
+		end
+
+		return self
+	end
+
+	_CustomPrompt_TranslationsEntryImpl.descriptor = {
+		name = "CustomPrompt_TranslationsEntry",
+		fullName = "roblox.apppageplatform.prompts.v1beta1.TranslationsEntry",
+	}
+
+	messages.CustomPrompt_TranslationsEntry = _CustomPrompt_TranslationsEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CustomPrompt_TranslationsEntry)
+end
+
 do
 	local _GetEligiblePromptsResponseImpl = {}
 	_GetEligiblePromptsResponseImpl.__index = _GetEligiblePromptsResponseImpl
@@ -92,6 +610,7 @@ do
 			page_entries = if data == nil or data.page_entries == nil then {} else data.page_entries,
 			hydration_data = if data == nil or data.hydration_data == nil then nil else data.hydration_data,
 			templates = if data == nil or data.templates == nil then {} else data.templates,
+			custom_prompts = if data == nil or data.custom_prompts == nil then {} else data.custom_prompts,
 		}, _GetEligiblePromptsResponseImpl :: _GetEligiblePromptsResponseImpl)
 	end
 
@@ -123,6 +642,20 @@ do
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
 				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.custom_prompts ~= nil and next(self.custom_prompts) ~= nil then
+			for key, value in self.custom_prompts do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
 			end
 		end
@@ -172,6 +705,18 @@ do
 					self.templates[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.GetEligiblePromptsResponse_CustomPromptsEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.CustomPrompt.new()
+
+					self.custom_prompts[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
 				end
 
 				local length
@@ -217,6 +762,14 @@ do
 				newOutput[key] = value:jsonEncode()
 			end
 			output.templates = newOutput
+		end
+
+		if self.custom_prompts ~= nil and next(self.custom_prompts) ~= nil then
+			local newOutput = {}
+			for key, value in self.custom_prompts do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.customPrompts = newOutput
 		end
 
 		return output
@@ -268,6 +821,24 @@ do
 			end
 
 			self.templates = newOutput
+		end
+
+		if input.custom_prompts ~= nil then
+			local newOutput: { [string]: CustomPrompt } = {}
+			for key, value in input.custom_prompts do
+				newOutput[key] = messages.CustomPrompt.jsonDecode(value)
+			end
+
+			self.custom_prompts = newOutput
+		end
+
+		if input.customPrompts ~= nil then
+			local newOutput: { [string]: CustomPrompt } = {}
+			for key, value in input.customPrompts do
+				newOutput[key] = messages.CustomPrompt.jsonDecode(value)
+			end
+
+			self.custom_prompts = newOutput
 		end
 
 		return self
@@ -410,6 +981,134 @@ do
 	typeRegistry.default:register(messages.GetEligiblePromptsResponse_TemplatesEntry)
 end
 
+do
+	local _GetEligiblePromptsResponse_CustomPromptsEntryImpl = {}
+	_GetEligiblePromptsResponse_CustomPromptsEntryImpl.__index = _GetEligiblePromptsResponse_CustomPromptsEntryImpl
+
+	function _GetEligiblePromptsResponse_CustomPromptsEntryImpl.new(
+		data: _GetEligiblePromptsResponse_CustomPromptsEntryPartialFields?
+	): GetEligiblePromptsResponse_CustomPromptsEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _GetEligiblePromptsResponse_CustomPromptsEntryImpl :: _GetEligiblePromptsResponse_CustomPromptsEntryImpl)
+	end
+
+	function _GetEligiblePromptsResponse_CustomPromptsEntryImpl.encode(
+		self: GetEligiblePromptsResponse_CustomPromptsEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GetEligiblePromptsResponse_CustomPromptsEntryImpl.decode(
+		input: buffer
+	): GetEligiblePromptsResponse_CustomPromptsEntry
+		local self = _GetEligiblePromptsResponse_CustomPromptsEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.CustomPrompt.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GetEligiblePromptsResponse_CustomPromptsEntryImpl.jsonEncode(
+		self: GetEligiblePromptsResponse_CustomPromptsEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _GetEligiblePromptsResponse_CustomPromptsEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): GetEligiblePromptsResponse_CustomPromptsEntry
+		local self = _GetEligiblePromptsResponse_CustomPromptsEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.CustomPrompt.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_GetEligiblePromptsResponse_CustomPromptsEntryImpl.descriptor = {
+		name = "GetEligiblePromptsResponse_CustomPromptsEntry",
+		fullName = "roblox.apppageplatform.prompts.v1beta1.CustomPromptsEntry",
+	}
+
+	messages.GetEligiblePromptsResponse_CustomPromptsEntry = _GetEligiblePromptsResponse_CustomPromptsEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GetEligiblePromptsResponse_CustomPromptsEntry)
+end
+
 return {
+	CustomPrompt = messages.CustomPrompt,
 	GetEligiblePromptsResponse = messages.GetEligiblePromptsResponse,
 }

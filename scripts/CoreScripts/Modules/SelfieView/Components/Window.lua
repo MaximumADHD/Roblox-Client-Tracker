@@ -44,7 +44,7 @@ local Constants = require(script.Parent.Parent.Parent.Chrome.ChromeShared.Unibar
 local Chrome = script.Parent.Parent.Parent.Chrome
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil
-local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
+local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider

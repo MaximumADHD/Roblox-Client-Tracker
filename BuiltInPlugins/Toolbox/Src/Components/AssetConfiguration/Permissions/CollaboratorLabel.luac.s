@@ -238,13 +238,13 @@ PROTO_6:
        51 CALL                             R8 2 0
        52 JUMPIFNOT                        R6 ; [+2]
        53 MOVE                             R8 R5
-       54 JUMP                             ; [+32]
+       54 JUMP                             ; [+31]
        55 GETTABLEKS                       R9 R0 K8 ["SubjectType"]
        57 GETIMPORT                        R10 K17 [Enum.CreatorType.User]
        59 JUMPIFNOTEQ                      R9 R10 ; [+5]
        61 GETUPVAL                         R10 3
        62 GETTABLEKS                       R8 R10 K18 ["DEFAULT_USER_THUMBNAIL"]
-       64 JUMP                             ; [+22]
+       64 JUMP                             ; [+21]
        65 GETIMPORT                        R12 K20 [Enum.CreatorType.Group]
        67 JUMPIFEQ                         R9 R12 ; [+2]
        69 LOADB                            R11 0 +1
@@ -260,25 +260,24 @@ PROTO_6:
        82 CALL                             R10 2 0
        83 GETUPVAL                         R10 3
        84 GETTABLEKS                       R8 R10 K24 ["DEFAULT_GROUP_THUMBNAIL"]
-       86 JUMP                             ; [0]
-       87 GETUPVAL                         R10 1
-       88 GETTABLEKS                       R9 R10 K25 ["useMemo"]
-       90 NEWCLOSURE                       R10 P1
-       91 CAPTURE                          UPVAL U1
-       92 CAPTURE                          VAL R0
-       93 CAPTURE                          UPVAL U4
-       94 CAPTURE                          UPVAL U5
-       95 CAPTURE                          VAL R8
-       96 CAPTURE                          VAL R6
-       97 CAPTURE                          VAL R4
-       98 CAPTURE                          UPVAL U6
-       99 CAPTURE                          VAL R1
-      100 NEWTABLE                         R11 0 2
-      102 MOVE                             R12 R4
-      103 MOVE                             R13 R8
-      104 SETLIST                          R11 R12 2 [1]
-      106 CALL                             R9 2 -1
-      107 RETURN                           R9 -1
+       86 GETUPVAL                         R10 1
+       87 GETTABLEKS                       R9 R10 K25 ["useMemo"]
+       89 NEWCLOSURE                       R10 P1
+       90 CAPTURE                          UPVAL U1
+       91 CAPTURE                          VAL R0
+       92 CAPTURE                          UPVAL U4
+       93 CAPTURE                          UPVAL U5
+       94 CAPTURE                          VAL R8
+       95 CAPTURE                          VAL R6
+       96 CAPTURE                          VAL R4
+       97 CAPTURE                          UPVAL U6
+       98 CAPTURE                          VAL R1
+       99 NEWTABLE                         R11 0 2
+      101 MOVE                             R12 R4
+      102 MOVE                             R13 R8
+      103 SETLIST                          R11 R12 2 [1]
+      105 CALL                             R9 2 -1
+      106 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

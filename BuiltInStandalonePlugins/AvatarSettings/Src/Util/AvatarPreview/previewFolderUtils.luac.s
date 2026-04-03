@@ -325,7 +325,7 @@ PROTO_13:
        24 CALL                             R2 2 0
        25 GETIMPORT                        R3 K9 [workspace]
        27 GETTABLEKS                       R2 R3 K10 ["CurrentCamera"]
-       29 JUMPIF                           R2 ; [+16]
+       29 JUMPIF                           R2 ; [+17]
        30 GETIMPORT                        R3 K2 [Instance.new]
        32 LOADK                            R4 K11 ["Camera"]
        33 CALL                             R3 1 1
@@ -336,18 +336,19 @@ PROTO_13:
        40 SETTABLEKS                       R4 R3 K13 ["Archivable"]
        42 GETIMPORT                        R4 K9 [workspace]
        44 SETTABLEKS                       R4 R3 K14 ["Parent"]
-       46 SETTABLEKS                       R2 R1 K14 ["Parent"]
-       48 LOADB                            R3 0
-       49 SETTABLEKS                       R3 R1 K13 ["Archivable"]
-       51 GETUPVAL                         R3 0
-       52 CALL                             R3 0 1
-       53 JUMPIFNOT                        R3 ; [+5]
-       54 GETUPVAL                         R3 3
-       55 MOVE                             R4 R1
-       56 MOVE                             R5 R0
-       57 CALL                             R3 2 1
-       58 SETUPVAL                         R3 1
-       59 RETURN                           R1 1
+       46 MOVE                             R2 R3
+       47 SETTABLEKS                       R2 R1 K14 ["Parent"]
+       49 LOADB                            R3 0
+       50 SETTABLEKS                       R3 R1 K13 ["Archivable"]
+       52 GETUPVAL                         R3 0
+       53 CALL                             R3 0 1
+       54 JUMPIFNOT                        R3 ; [+5]
+       55 GETUPVAL                         R3 3
+       56 MOVE                             R4 R1
+       57 MOVE                             R5 R0
+       58 CALL                             R3 2 1
+       59 SETUPVAL                         R3 1
+       60 RETURN                           R1 1
 
 PROTO_14:
         0 GETUPVAL                         R2 0

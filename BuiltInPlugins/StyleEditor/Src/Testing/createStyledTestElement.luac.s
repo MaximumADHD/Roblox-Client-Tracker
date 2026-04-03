@@ -1,101 +1,109 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["current"]
-        3 JUMPIFNOT                        R0 ; [+6]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K0 ["current"]
-        7 NAMECALL                         R0 R0 K1 ["destroy"]
-        9 CALL                             R0 1 0
-       10 RETURN                           R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIF                           R0 ; [+10]
+        2 GETUPVAL                         R1 1
+        3 GETTABLEKS                       R0 R1 K0 ["current"]
+        5 JUMPIFNOT                        R0 ; [+6]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R0 R1 K0 ["current"]
+        9 NAMECALL                         R0 R0 K1 ["destroy"]
+       11 CALL                             R0 1 0
+       12 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R0 P0
         1 CAPTURE                          UPVAL U0
-        2 RETURN                           R0 1
+        2 CAPTURE                          UPVAL U1
+        3 RETURN                           R0 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["new"]
+        1 GETUPVAL                         R1 1
+        2 CALL                             R0 1 1
+        3 GETUPVAL                         R1 0
         4 GETUPVAL                         R2 2
-        5 CALL                             R1 1 -1
-        6 CALL                             R0 -1 1
-        7 GETUPVAL                         R1 0
-        8 GETUPVAL                         R2 3
-        9 GETTABLEKS                       R4 R0 K1 ["current"]
-       11 GETTABLEKS                       R3 R4 K2 ["plugin"]
-       13 GETUPVAL                         R4 4
-       14 CALL                             R2 2 -1
-       15 CALL                             R1 -1 1
+        5 GETTABLEKS                       R4 R0 K0 ["current"]
+        7 GETTABLEKS                       R3 R4 K1 ["plugin"]
+        9 GETUPVAL                         R4 3
+       10 CALL                             R2 2 -1
+       11 CALL                             R1 -1 1
+       12 GETUPVAL                         R2 4
+       13 NAMECALL                         R2 R2 K2 ["UpdateUnitTestOnly"]
+       15 CALL                             R2 1 0
        16 GETUPVAL                         R2 5
-       17 NAMECALL                         R2 R2 K3 ["UpdateUnitTestOnly"]
-       19 CALL                             R2 1 0
-       20 GETUPVAL                         R2 6
-       21 NEWCLOSURE                       R3 P0
-       22 CAPTURE                          VAL R0
-       23 NEWTABLE                         R4 0 0
-       25 CALL                             R2 2 0
-       26 GETTABLEKS                       R2 R0 K1 ["current"]
-       28 DUPTABLE                         R4 K6 [{"StyleLink", "Container"}]
-       29 GETUPVAL                         R6 7
-       30 GETTABLEKS                       R5 R6 K7 ["createElement"]
-       32 LOADK                            R6 K4 ["StyleLink"]
-       33 DUPTABLE                         R7 K9 [{"StyleSheet"}]
-       34 GETTABLEKS                       R8 R1 K1 ["current"]
-       36 SETTABLEKS                       R8 R7 K8 ["StyleSheet"]
-       38 CALL                             R5 2 1
-       39 SETTABLEKS                       R5 R4 K4 ["StyleLink"]
-       41 GETUPVAL                         R6 7
-       42 GETTABLEKS                       R5 R6 K7 ["createElement"]
-       44 LOADK                            R6 K10 ["Frame"]
-       45 DUPTABLE                         R7 K12 [{"Size"}]
-       46 GETUPVAL                         R9 8
-       47 JUMPIFNOT                        R9 ; [+6]
-       48 GETIMPORT                        R8 K15 [UDim2.fromOffset]
-       50 LOADN                            R9 188
-       51 LOADN                            R10 188
-       52 CALL                             R8 2 1
-       53 JUMP                             ; [+5]
-       54 GETIMPORT                        R8 K15 [UDim2.fromOffset]
-       56 LOADN                            R9 32
-       57 LOADN                            R10 32
-       58 CALL                             R8 2 1
-       59 SETTABLEKS                       R8 R7 K11 ["Size"]
-       61 DUPTABLE                         R8 K17 [{"Element"}]
-       62 GETUPVAL                         R10 7
-       63 GETTABLEKS                       R9 R10 K7 ["createElement"]
-       65 GETUPVAL                         R10 9
-       66 GETUPVAL                         R11 10
-       67 CALL                             R9 2 1
-       68 SETTABLEKS                       R9 R8 K16 ["Element"]
-       70 CALL                             R5 3 1
-       71 SETTABLEKS                       R5 R4 K5 ["Container"]
-       73 NAMECALL                         R2 R2 K18 ["provide"]
-       75 CALL                             R2 2 -1
-       76 RETURN                           R2 -1
+       17 NEWCLOSURE                       R3 P0
+       18 CAPTURE                          UPVAL U6
+       19 CAPTURE                          VAL R0
+       20 NEWTABLE                         R4 0 0
+       22 CALL                             R2 2 0
+       23 GETTABLEKS                       R2 R0 K0 ["current"]
+       25 DUPTABLE                         R4 K5 [{"StyleLink", "Container"}]
+       26 GETUPVAL                         R6 7
+       27 GETTABLEKS                       R5 R6 K6 ["createElement"]
+       29 LOADK                            R6 K3 ["StyleLink"]
+       30 DUPTABLE                         R7 K8 [{"StyleSheet"}]
+       31 GETTABLEKS                       R8 R1 K0 ["current"]
+       33 SETTABLEKS                       R8 R7 K7 ["StyleSheet"]
+       35 CALL                             R5 2 1
+       36 SETTABLEKS                       R5 R4 K3 ["StyleLink"]
+       38 GETUPVAL                         R6 7
+       39 GETTABLEKS                       R5 R6 K6 ["createElement"]
+       41 LOADK                            R6 K9 ["Frame"]
+       42 DUPTABLE                         R7 K11 [{"Size"}]
+       43 GETUPVAL                         R9 8
+       44 JUMPIFNOT                        R9 ; [+6]
+       45 GETIMPORT                        R8 K14 [UDim2.fromOffset]
+       47 LOADN                            R9 188
+       48 LOADN                            R10 188
+       49 CALL                             R8 2 1
+       50 JUMP                             ; [+5]
+       51 GETIMPORT                        R8 K14 [UDim2.fromOffset]
+       53 LOADN                            R9 32
+       54 LOADN                            R10 32
+       55 CALL                             R8 2 1
+       56 SETTABLEKS                       R8 R7 K10 ["Size"]
+       58 DUPTABLE                         R8 K16 [{"Element"}]
+       59 GETUPVAL                         R10 7
+       60 GETTABLEKS                       R9 R10 K6 ["createElement"]
+       62 GETUPVAL                         R10 9
+       63 GETUPVAL                         R11 10
+       64 CALL                             R9 2 1
+       65 SETTABLEKS                       R9 R8 K15 ["Element"]
+       67 CALL                             R5 3 1
+       68 SETTABLEKS                       R5 R4 K4 ["Container"]
+       70 NAMECALL                         R2 R2 K17 ["provide"]
+       72 CALL                             R2 2 -1
+       73 RETURN                           R2 -1
 
 PROTO_3:
         0 JUMPIFNOT                        R1 ; [+3]
-        1 GETTABLEKS                       R2 R1 K0 ["MockContextProps"]
+        1 GETTABLEKS                       R3 R1 K0 ["MockContextProps"]
         3 JUMP                             ; [+1]
-        4 LOADNIL                          R2
-        5 NEWCLOSURE                       R3 P0
-        6 CAPTURE                          UPVAL U0
-        7 CAPTURE                          UPVAL U1
-        8 CAPTURE                          VAL R2
-        9 CAPTURE                          UPVAL U2
-       10 CAPTURE                          UPVAL U3
-       11 CAPTURE                          UPVAL U4
-       12 CAPTURE                          UPVAL U5
-       13 CAPTURE                          UPVAL U6
-       14 CAPTURE                          UPVAL U7
-       15 CAPTURE                          VAL R0
-       16 CAPTURE                          VAL R1
-       17 GETUPVAL                         R5 6
-       18 GETTABLEKS                       R4 R5 K1 ["createElement"]
-       20 MOVE                             R5 R3
-       21 CALL                             R4 1 -1
-       22 RETURN                           R4 -1
+        4 LOADNIL                          R3
+        5 JUMPIFNOT                        R2 ; [+2]
+        6 MOVE                             R4 R2
+        7 JUMP                             ; [+5]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R4 R5 K1 ["new"]
+       11 MOVE                             R5 R3
+       12 CALL                             R4 1 1
+       13 NEWCLOSURE                       R5 P0
+       14 CAPTURE                          UPVAL U1
+       15 CAPTURE                          VAL R4
+       16 CAPTURE                          UPVAL U2
+       17 CAPTURE                          UPVAL U3
+       18 CAPTURE                          UPVAL U4
+       19 CAPTURE                          UPVAL U5
+       20 CAPTURE                          VAL R2
+       21 CAPTURE                          UPVAL U6
+       22 CAPTURE                          UPVAL U7
+       23 CAPTURE                          VAL R0
+       24 CAPTURE                          VAL R1
+       25 GETUPVAL                         R7 6
+       26 GETTABLEKS                       R6 R7 K2 ["createElement"]
+       28 MOVE                             R7 R5
+       29 CALL                             R6 1 -1
+       30 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -131,8 +139,8 @@ MAIN:
        52 GETTABLEKS                       R7 R2 K19 ["useEffect"]
        54 GETTABLEKS                       R8 R2 K20 ["useRef"]
        56 DUPCLOSURE                       R9 K21 [PROTO_3]
-       57 CAPTURE                          VAL R8
-       58 CAPTURE                          VAL R6
+       57 CAPTURE                          VAL R6
+       58 CAPTURE                          VAL R8
        59 CAPTURE                          VAL R4
        60 CAPTURE                          VAL R1
        61 CAPTURE                          VAL R0

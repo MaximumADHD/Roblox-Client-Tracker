@@ -137,6 +137,34 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["avatarAbilityRules"]
+        3 CALL                             R0 0 1
+        4 FASTCALL2K                       ASSERT R0 K1 ; [+5]
+        6 MOVE                             R2 R0
+        7 LOADK                            R3 K1 ["AvatarAbilityRules not found"]
+        8 GETIMPORT                        R1 K3 [assert]
+       10 CALL                             R1 2 0
+       11 DUPTABLE                         R1 K12 [{"CharacterControllerMode", "EnableRunning", "EnableJumping", "EnableSitting", "EnableFallingDown", "EnableGettingUp", "EnableClimbing", "EnableSwimming"}]
+       12 GETTABLEKS                       R2 R0 K4 ["CharacterControllerMode"]
+       14 SETTABLEKS                       R2 R1 K4 ["CharacterControllerMode"]
+       16 GETTABLEKS                       R2 R0 K5 ["EnableRunning"]
+       18 SETTABLEKS                       R2 R1 K5 ["EnableRunning"]
+       20 GETTABLEKS                       R2 R0 K6 ["EnableJumping"]
+       22 SETTABLEKS                       R2 R1 K6 ["EnableJumping"]
+       24 GETTABLEKS                       R2 R0 K7 ["EnableSitting"]
+       26 SETTABLEKS                       R2 R1 K7 ["EnableSitting"]
+       28 GETTABLEKS                       R2 R0 K8 ["EnableFallingDown"]
+       30 SETTABLEKS                       R2 R1 K8 ["EnableFallingDown"]
+       32 GETTABLEKS                       R2 R0 K9 ["EnableGettingUp"]
+       34 SETTABLEKS                       R2 R1 K9 ["EnableGettingUp"]
+       36 GETTABLEKS                       R2 R0 K10 ["EnableClimbing"]
+       38 SETTABLEKS                       R2 R1 K10 ["EnableClimbing"]
+       40 GETTABLEKS                       R2 R0 K11 ["EnableSwimming"]
+       42 SETTABLEKS                       R2 R1 K11 ["EnableSwimming"]
+       44 RETURN                           R1 1
+
+PROTO_5:
+        0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["avatarAnimationRules"]
         3 CALL                             R0 0 1
         4 FASTCALL2K                       ASSERT R0 K1 ; [+5]
@@ -212,7 +240,7 @@ PROTO_4:
       108 FORGLOOP                         R3 2 ; [-21]
       110 RETURN                           R1 1
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["avatarAccessoryRules"]
         3 CALL                             R0 0 1
@@ -289,7 +317,7 @@ PROTO_5:
       112 FORGLOOP                         R3 2 ; [-21]
       114 RETURN                           R1 1
 
-PROTO_6:
+PROTO_7:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["avatarClothingRules"]
         3 CALL                             R0 0 1
@@ -376,58 +404,66 @@ PROTO_6:
       124 FORGLOOP                         R3 2 ; [-21]
       126 RETURN                           R1 1
 
-PROTO_7:
+PROTO_8:
         0 DUPTABLE                         R0 K1 [{"Gravity"}]
         1 GETUPVAL                         R2 0
         2 GETTABLEKS                       R1 R2 K0 ["Gravity"]
         4 SETTABLEKS                       R1 R0 K0 ["Gravity"]
         6 RETURN                           R0 1
 
-PROTO_8:
-        0 DUPTABLE                         R0 K7 [{"AvatarRules", "AvatarBodyRules", "AvatarCollisionRules", "AvatarAnimationRules", "AvatarAccessoryRules", "AvatarClothingRules", "OtherProperties"}]
+PROTO_9:
+        0 DUPTABLE                         R0 K8 [{"AvatarRules", "AvatarBodyRules", "AvatarCollisionRules", "AvatarAbilityRules", "AvatarAnimationRules", "AvatarAccessoryRules", "AvatarClothingRules", "OtherProperties"}]
         1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K8 ["avatarRules"]
+        2 GETTABLEKS                       R2 R3 K9 ["avatarRules"]
         4 CALL                             R2 0 1
-        5 DUPTABLE                         R1 K10 [{"AvatarType"}]
-        6 GETTABLEKS                       R3 R2 K9 ["AvatarType"]
-        8 SETTABLEKS                       R3 R1 K9 ["AvatarType"]
+        5 DUPTABLE                         R1 K11 [{"AvatarType"}]
+        6 GETTABLEKS                       R3 R2 K10 ["AvatarType"]
+        8 SETTABLEKS                       R3 R1 K10 ["AvatarType"]
        10 SETTABLEKS                       R1 R0 K0 ["AvatarRules"]
        12 GETUPVAL                         R1 1
        13 CALL                             R1 0 1
        14 SETTABLEKS                       R1 R0 K1 ["AvatarBodyRules"]
        16 GETUPVAL                         R3 0
-       17 GETTABLEKS                       R2 R3 K11 ["avatarCollisionRules"]
+       17 GETTABLEKS                       R2 R3 K12 ["avatarCollisionRules"]
        19 CALL                             R2 0 1
-       20 FASTCALL2K                       ASSERT R2 K12 ; [+5]
+       20 FASTCALL2K                       ASSERT R2 K13 ; [+5]
        22 MOVE                             R4 R2
-       23 LOADK                            R5 K12 ["AvatarCollisionRules not found"]
-       24 GETIMPORT                        R3 K14 [assert]
+       23 LOADK                            R5 K13 ["AvatarCollisionRules not found"]
+       24 GETIMPORT                        R3 K15 [assert]
        26 CALL                             R3 2 0
-       27 DUPTABLE                         R1 K19 [{"CollisionMode", "HitAndTouchDetectionMode", "AvatarSettingsLegacyCollisionMode", "SingleColliderSize"}]
-       28 GETTABLEKS                       R3 R2 K15 ["CollisionMode"]
-       30 SETTABLEKS                       R3 R1 K15 ["CollisionMode"]
-       32 GETTABLEKS                       R3 R2 K16 ["HitAndTouchDetectionMode"]
-       34 SETTABLEKS                       R3 R1 K16 ["HitAndTouchDetectionMode"]
-       36 GETTABLEKS                       R3 R2 K20 ["LegacyCollisionMode"]
-       38 SETTABLEKS                       R3 R1 K17 ["AvatarSettingsLegacyCollisionMode"]
-       40 GETTABLEKS                       R3 R2 K18 ["SingleColliderSize"]
-       42 SETTABLEKS                       R3 R1 K18 ["SingleColliderSize"]
+       27 DUPTABLE                         R1 K20 [{"CollisionMode", "HitAndTouchDetectionMode", "AvatarSettingsLegacyCollisionMode", "SingleColliderSize"}]
+       28 GETTABLEKS                       R3 R2 K16 ["CollisionMode"]
+       30 SETTABLEKS                       R3 R1 K16 ["CollisionMode"]
+       32 GETTABLEKS                       R3 R2 K17 ["HitAndTouchDetectionMode"]
+       34 SETTABLEKS                       R3 R1 K17 ["HitAndTouchDetectionMode"]
+       36 GETTABLEKS                       R3 R2 K21 ["LegacyCollisionMode"]
+       38 SETTABLEKS                       R3 R1 K18 ["AvatarSettingsLegacyCollisionMode"]
+       40 GETTABLEKS                       R3 R2 K19 ["SingleColliderSize"]
+       42 SETTABLEKS                       R3 R1 K19 ["SingleColliderSize"]
        44 SETTABLEKS                       R1 R0 K2 ["AvatarCollisionRules"]
-       46 GETUPVAL                         R1 2
-       47 CALL                             R1 0 1
-       48 SETTABLEKS                       R1 R0 K3 ["AvatarAnimationRules"]
-       50 GETUPVAL                         R1 3
-       51 CALL                             R1 0 1
-       52 SETTABLEKS                       R1 R0 K4 ["AvatarAccessoryRules"]
-       54 GETUPVAL                         R1 4
-       55 CALL                             R1 0 1
-       56 SETTABLEKS                       R1 R0 K5 ["AvatarClothingRules"]
-       58 DUPTABLE                         R1 K22 [{"Gravity"}]
-       59 GETUPVAL                         R3 5
-       60 GETTABLEKS                       R2 R3 K21 ["Gravity"]
-       62 SETTABLEKS                       R2 R1 K21 ["Gravity"]
-       64 SETTABLEKS                       R1 R0 K6 ["OtherProperties"]
-       66 RETURN                           R0 1
+       46 GETUPVAL                         R2 2
+       47 CALL                             R2 0 1
+       48 JUMPIFNOT                        R2 ; [+3]
+       49 GETUPVAL                         R1 3
+       50 CALL                             R1 0 1
+       51 JUMP                             ; [+1]
+       52 LOADNIL                          R1
+       53 SETTABLEKS                       R1 R0 K3 ["AvatarAbilityRules"]
+       55 GETUPVAL                         R1 4
+       56 CALL                             R1 0 1
+       57 SETTABLEKS                       R1 R0 K4 ["AvatarAnimationRules"]
+       59 GETUPVAL                         R1 5
+       60 CALL                             R1 0 1
+       61 SETTABLEKS                       R1 R0 K5 ["AvatarAccessoryRules"]
+       63 GETUPVAL                         R1 6
+       64 CALL                             R1 0 1
+       65 SETTABLEKS                       R1 R0 K6 ["AvatarClothingRules"]
+       67 DUPTABLE                         R1 K23 [{"Gravity"}]
+       68 GETUPVAL                         R3 7
+       69 GETTABLEKS                       R2 R3 K22 ["Gravity"]
+       71 SETTABLEKS                       R2 R1 K22 ["Gravity"]
+       73 SETTABLEKS                       R1 R0 K7 ["OtherProperties"]
+       75 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -472,12 +508,21 @@ MAIN:
        59 DUPCLOSURE                       R11 K23 [PROTO_6]
        60 CAPTURE                          VAL R4
        61 DUPCLOSURE                       R12 K24 [PROTO_7]
-       62 CAPTURE                          VAL R1
+       62 CAPTURE                          VAL R4
        63 DUPCLOSURE                       R13 K25 [PROTO_8]
-       64 CAPTURE                          VAL R4
-       65 CAPTURE                          VAL R7
-       66 CAPTURE                          VAL R9
-       67 CAPTURE                          VAL R10
-       68 CAPTURE                          VAL R11
-       69 CAPTURE                          VAL R1
-       70 RETURN                           R13 1
+       64 CAPTURE                          VAL R1
+       65 GETIMPORT                        R14 K9 [require]
+       67 GETTABLEKS                       R17 R0 K10 ["Src"]
+       69 GETTABLEKS                       R16 R17 K26 ["Flags"]
+       71 GETTABLEKS                       R15 R16 K27 ["getFFlagAvatarSettingsEnableAbilities"]
+       73 CALL                             R14 1 1
+       74 DUPCLOSURE                       R15 K28 [PROTO_9]
+       75 CAPTURE                          VAL R4
+       76 CAPTURE                          VAL R7
+       77 CAPTURE                          VAL R14
+       78 CAPTURE                          VAL R9
+       79 CAPTURE                          VAL R10
+       80 CAPTURE                          VAL R11
+       81 CAPTURE                          VAL R12
+       82 CAPTURE                          VAL R1
+       83 RETURN                           R15 1

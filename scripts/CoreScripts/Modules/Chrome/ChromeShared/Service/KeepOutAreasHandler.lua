@@ -2,6 +2,9 @@ local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local React = require(CorePackages.Packages.React)
 local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
+
+local FFlagRemoveDependencyArrayAntipattern =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern
 local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
 local dependencyArray = RoactUtils.Hooks.dependencyArray
 
@@ -131,9 +134,14 @@ function KeepOutAreasHandler(props)
 		return state.displayOptions.keepOutAreas
 	end)
 
-	React.useEffect(function()
-		fireKeepOutAreasChanged(screenSize, keepOutAreas)
-	end, dependencyArray(screenSize, keepOutAreas))
+	React.useEffect(
+		function()
+			fireKeepOutAreasChanged(screenSize, keepOutAreas)
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then { screenSize :: any, keepOutAreas }
+			else dependencyArray(screenSize, keepOutAreas)
+	)
 end
 
 return KeepOutAreasHandler

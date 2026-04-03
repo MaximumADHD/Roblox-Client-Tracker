@@ -270,111 +270,111 @@ PROTO_2:
        30 RETURN                           R8 1
 
 PROTO_3:
-        0 JUMPIFNOTEQKS                    R5 K0 ["PlayerChoice"] ; [+99]
-        2 LOADB                            R6 0
-        3 GETTABLEKS                       R7 R0 K1 ["ScaleMode"]
-        5 GETUPVAL                         R9 0
-        6 GETTABLEKS                       R8 R9 K2 ["bodyScaleSetting"]
-        8 JUMPIFNOTEQ                      R7 R8 ; [+90]
-       10 LOADB                            R6 0
-       11 GETTABLEKS                       R7 R0 K3 ["AppearanceMode"]
-       13 GETUPVAL                         R9 0
-       14 GETTABLEKS                       R8 R9 K4 ["bodyAppearanceSetting"]
-       16 JUMPIFNOTEQ                      R7 R8 ; [+82]
-       18 LOADB                            R6 0
-       19 GETTABLEKS                       R7 R0 K5 ["BuildMode"]
-       21 GETUPVAL                         R9 0
-       22 GETTABLEKS                       R8 R9 K6 ["bodyBuildSetting"]
-       24 JUMPIFNOTEQ                      R7 R8 ; [+74]
-       26 LOADB                            R6 0
-       27 GETTABLEKS                       R7 R1 K7 ["CollisionMode"]
-       29 GETUPVAL                         R9 0
-       30 GETTABLEKS                       R8 R9 K8 ["collisionSetting"]
-       32 JUMPIFNOTEQ                      R7 R8 ; [+66]
-       34 LOADB                            R6 0
-       35 GETTABLEKS                       R7 R2 K9 ["AnimationPacksMode"]
-       37 GETUPVAL                         R9 0
-       38 GETTABLEKS                       R8 R9 K10 ["animationPacksSetting"]
-       40 JUMPIFNOTEQ                      R7 R8 ; [+58]
-       42 LOADB                            R6 0
-       43 GETTABLEKS                       R7 R2 K11 ["AnimationClipsMode"]
-       45 GETUPVAL                         R9 0
-       46 GETTABLEKS                       R8 R9 K12 ["animationClipsSetting"]
-       48 JUMPIFNOTEQ                      R7 R8 ; [+50]
-       50 LOADB                            R6 0
-       51 GETTABLEKS                       R7 R3 K13 ["AccessoryMode"]
-       53 GETUPVAL                         R9 0
-       54 GETTABLEKS                       R8 R9 K14 ["accessoryScaleSetting"]
-       56 JUMPIFNOTEQ                      R7 R8 ; [+42]
-       58 LOADB                            R6 0
-       59 GETTABLEKS                       R7 R3 K15 ["CustomAccessoryMode"]
-       61 GETUPVAL                         R9 0
-       62 GETTABLEKS                       R8 R9 K16 ["customAccessoriesSetting"]
-       64 JUMPIFNOTEQ                      R7 R8 ; [+34]
-       66 LOADB                            R6 0
-       67 GETTABLEKS                       R7 R3 K17 ["EnableSound"]
-       69 GETUPVAL                         R9 0
-       70 GETTABLEKS                       R8 R9 K18 ["accessoryBehaviorEnableSoundSetting"]
-       72 JUMPIFNOTEQ                      R7 R8 ; [+26]
-       74 LOADB                            R6 0
-       75 GETTABLEKS                       R7 R3 K19 ["EnableVFX"]
-       77 GETUPVAL                         R9 0
-       78 GETTABLEKS                       R8 R9 K20 ["accessoryBehaviorEnableVFXSetting"]
-       80 JUMPIFNOTEQ                      R7 R8 ; [+18]
-       82 LOADB                            R6 0
-       83 GETTABLEKS                       R7 R4 K21 ["ClothingMode"]
-       85 GETUPVAL                         R9 0
-       86 GETTABLEKS                       R8 R9 K22 ["clothingScaleSetting"]
-       88 JUMPIFNOTEQ                      R7 R8 ; [+10]
-       90 GETTABLEKS                       R7 R4 K23 ["CustomClothingMode"]
-       92 GETUPVAL                         R9 0
-       93 GETTABLEKS                       R8 R9 K24 ["customClothingSetting"]
-       95 JUMPIFEQ                         R7 R8 ; [+2]
-       97 LOADB                            R6 0 +1
-       98 LOADB                            R6 1
-       99 RETURN                           R6 1
-      100 JUMPIFNOTEQKS                    R5 K25 ["ConsistentGameplay"] ; [+59]
-      102 LOADB                            R6 0
-      103 GETTABLEKS                       R7 R0 K1 ["ScaleMode"]
-      105 GETUPVAL                         R9 1
-      106 GETTABLEKS                       R8 R9 K2 ["bodyScaleSetting"]
-      108 JUMPIFNOTEQ                      R7 R8 ; [+50]
-      110 LOADB                            R6 0
-      111 GETTABLEKS                       R7 R0 K26 ["CustomHeight"]
-      113 GETUPVAL                         R9 1
-      114 GETTABLEKS                       R8 R9 K27 ["bodyScaleCustomHeight"]
-      116 JUMPIFNOTEQ                      R7 R8 ; [+42]
-      118 LOADB                            R6 0
-      119 GETTABLEKS                       R7 R0 K3 ["AppearanceMode"]
-      121 GETUPVAL                         R9 1
-      122 GETTABLEKS                       R8 R9 K4 ["bodyAppearanceSetting"]
-      124 JUMPIFNOTEQ                      R7 R8 ; [+34]
-      126 LOADB                            R6 0
-      127 GETTABLEKS                       R7 R0 K5 ["BuildMode"]
-      129 GETUPVAL                         R9 1
-      130 GETTABLEKS                       R8 R9 K6 ["bodyBuildSetting"]
-      132 JUMPIFNOTEQ                      R7 R8 ; [+26]
-      134 LOADB                            R6 0
-      135 GETTABLEKS                       R7 R1 K7 ["CollisionMode"]
-      137 GETUPVAL                         R9 1
-      138 GETTABLEKS                       R8 R9 K8 ["collisionSetting"]
-      140 JUMPIFNOTEQ                      R7 R8 ; [+18]
-      142 LOADB                            R6 0
-      143 GETTABLEKS                       R7 R1 K28 ["SingleColliderSize"]
-      145 GETUPVAL                         R9 1
-      146 GETTABLEKS                       R8 R9 K29 ["collisionSizeSetting"]
-      148 JUMPIFNOTEQ                      R7 R8 ; [+10]
-      150 GETTABLEKS                       R7 R1 K30 ["HitAndTouchDetectionMode"]
-      152 GETUPVAL                         R9 1
-      153 GETTABLEKS                       R8 R9 K31 ["collisionHitAndTouchDetectionSetting"]
-      155 JUMPIFEQ                         R7 R8 ; [+2]
-      157 LOADB                            R6 0 +1
-      158 LOADB                            R6 1
-      159 RETURN                           R6 1
-      160 JUMPIFEQKNIL                     R5 ; [+2]
-      162 LOADB                            R6 0 +1
-      163 LOADB                            R6 1
-      164 RETURN                           R6 1
+        0 JUMPIFNOTEQKS                    R6 K0 ["PlayerChoice"] ; [+99]
+        2 LOADB                            R7 0
+        3 GETTABLEKS                       R8 R0 K1 ["ScaleMode"]
+        5 GETUPVAL                         R10 0
+        6 GETTABLEKS                       R9 R10 K2 ["bodyScaleSetting"]
+        8 JUMPIFNOTEQ                      R8 R9 ; [+90]
+       10 LOADB                            R7 0
+       11 GETTABLEKS                       R8 R0 K3 ["AppearanceMode"]
+       13 GETUPVAL                         R10 0
+       14 GETTABLEKS                       R9 R10 K4 ["bodyAppearanceSetting"]
+       16 JUMPIFNOTEQ                      R8 R9 ; [+82]
+       18 LOADB                            R7 0
+       19 GETTABLEKS                       R8 R0 K5 ["BuildMode"]
+       21 GETUPVAL                         R10 0
+       22 GETTABLEKS                       R9 R10 K6 ["bodyBuildSetting"]
+       24 JUMPIFNOTEQ                      R8 R9 ; [+74]
+       26 LOADB                            R7 0
+       27 GETTABLEKS                       R8 R1 K7 ["CollisionMode"]
+       29 GETUPVAL                         R10 0
+       30 GETTABLEKS                       R9 R10 K8 ["collisionSetting"]
+       32 JUMPIFNOTEQ                      R8 R9 ; [+66]
+       34 LOADB                            R7 0
+       35 GETTABLEKS                       R8 R3 K9 ["AnimationPacksMode"]
+       37 GETUPVAL                         R10 0
+       38 GETTABLEKS                       R9 R10 K10 ["animationPacksSetting"]
+       40 JUMPIFNOTEQ                      R8 R9 ; [+58]
+       42 LOADB                            R7 0
+       43 GETTABLEKS                       R8 R3 K11 ["AnimationClipsMode"]
+       45 GETUPVAL                         R10 0
+       46 GETTABLEKS                       R9 R10 K12 ["animationClipsSetting"]
+       48 JUMPIFNOTEQ                      R8 R9 ; [+50]
+       50 LOADB                            R7 0
+       51 GETTABLEKS                       R8 R4 K13 ["AccessoryMode"]
+       53 GETUPVAL                         R10 0
+       54 GETTABLEKS                       R9 R10 K14 ["accessoryScaleSetting"]
+       56 JUMPIFNOTEQ                      R8 R9 ; [+42]
+       58 LOADB                            R7 0
+       59 GETTABLEKS                       R8 R4 K15 ["CustomAccessoryMode"]
+       61 GETUPVAL                         R10 0
+       62 GETTABLEKS                       R9 R10 K16 ["customAccessoriesSetting"]
+       64 JUMPIFNOTEQ                      R8 R9 ; [+34]
+       66 LOADB                            R7 0
+       67 GETTABLEKS                       R8 R4 K17 ["EnableSound"]
+       69 GETUPVAL                         R10 0
+       70 GETTABLEKS                       R9 R10 K18 ["accessoryBehaviorEnableSoundSetting"]
+       72 JUMPIFNOTEQ                      R8 R9 ; [+26]
+       74 LOADB                            R7 0
+       75 GETTABLEKS                       R8 R4 K19 ["EnableVFX"]
+       77 GETUPVAL                         R10 0
+       78 GETTABLEKS                       R9 R10 K20 ["accessoryBehaviorEnableVFXSetting"]
+       80 JUMPIFNOTEQ                      R8 R9 ; [+18]
+       82 LOADB                            R7 0
+       83 GETTABLEKS                       R8 R5 K21 ["ClothingMode"]
+       85 GETUPVAL                         R10 0
+       86 GETTABLEKS                       R9 R10 K22 ["clothingScaleSetting"]
+       88 JUMPIFNOTEQ                      R8 R9 ; [+10]
+       90 GETTABLEKS                       R8 R5 K23 ["CustomClothingMode"]
+       92 GETUPVAL                         R10 0
+       93 GETTABLEKS                       R9 R10 K24 ["customClothingSetting"]
+       95 JUMPIFEQ                         R8 R9 ; [+2]
+       97 LOADB                            R7 0 +1
+       98 LOADB                            R7 1
+       99 RETURN                           R7 1
+      100 JUMPIFNOTEQKS                    R6 K25 ["ConsistentGameplay"] ; [+59]
+      102 LOADB                            R7 0
+      103 GETTABLEKS                       R8 R0 K1 ["ScaleMode"]
+      105 GETUPVAL                         R10 1
+      106 GETTABLEKS                       R9 R10 K2 ["bodyScaleSetting"]
+      108 JUMPIFNOTEQ                      R8 R9 ; [+50]
+      110 LOADB                            R7 0
+      111 GETTABLEKS                       R8 R0 K26 ["CustomHeight"]
+      113 GETUPVAL                         R10 1
+      114 GETTABLEKS                       R9 R10 K27 ["bodyScaleCustomHeight"]
+      116 JUMPIFNOTEQ                      R8 R9 ; [+42]
+      118 LOADB                            R7 0
+      119 GETTABLEKS                       R8 R0 K3 ["AppearanceMode"]
+      121 GETUPVAL                         R10 1
+      122 GETTABLEKS                       R9 R10 K4 ["bodyAppearanceSetting"]
+      124 JUMPIFNOTEQ                      R8 R9 ; [+34]
+      126 LOADB                            R7 0
+      127 GETTABLEKS                       R8 R0 K5 ["BuildMode"]
+      129 GETUPVAL                         R10 1
+      130 GETTABLEKS                       R9 R10 K6 ["bodyBuildSetting"]
+      132 JUMPIFNOTEQ                      R8 R9 ; [+26]
+      134 LOADB                            R7 0
+      135 GETTABLEKS                       R8 R1 K7 ["CollisionMode"]
+      137 GETUPVAL                         R10 1
+      138 GETTABLEKS                       R9 R10 K8 ["collisionSetting"]
+      140 JUMPIFNOTEQ                      R8 R9 ; [+18]
+      142 LOADB                            R7 0
+      143 GETTABLEKS                       R8 R1 K28 ["SingleColliderSize"]
+      145 GETUPVAL                         R10 1
+      146 GETTABLEKS                       R9 R10 K29 ["collisionSizeSetting"]
+      148 JUMPIFNOTEQ                      R8 R9 ; [+10]
+      150 GETTABLEKS                       R8 R1 K30 ["HitAndTouchDetectionMode"]
+      152 GETUPVAL                         R10 1
+      153 GETTABLEKS                       R9 R10 K31 ["collisionHitAndTouchDetectionSetting"]
+      155 JUMPIFEQ                         R8 R9 ; [+2]
+      157 LOADB                            R7 0 +1
+      158 LOADB                            R7 1
+      159 RETURN                           R7 1
+      160 JUMPIFEQKNIL                     R6 ; [+2]
+      162 LOADB                            R7 0 +1
+      163 LOADB                            R7 1
+      164 RETURN                           R7 1
 
 MAIN:
         0 PREPVARARGS                      0

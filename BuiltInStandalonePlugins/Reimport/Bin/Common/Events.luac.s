@@ -36,89 +36,6 @@ PROTO_1:
        31 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getSelectionIfOneInstance"]
-        3 CALL                             R0 0 2
-        4 JUMPIFNOT                        R1 ; [+9]
-        5 GETIMPORT                        R2 K2 [error]
-        7 LOADK                            R4 K3 ["Reimport selection error: %*"]
-        8 MOVE                             R6 R1
-        9 NAMECALL                         R4 R4 K4 ["format"]
-       11 CALL                             R4 2 1
-       12 MOVE                             R3 R4
-       13 CALL                             R2 1 0
-       14 GETUPVAL                         R3 1
-       15 GETTABLEKS                       R2 R3 K5 ["reimportInstance"]
-       17 MOVE                             R3 R0
-       18 CALL                             R2 1 0
-       19 RETURN                           R0 0
-
-PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getSelectionIfOneInstance"]
-        3 CALL                             R0 0 2
-        4 JUMPIFNOT                        R1 ; [+9]
-        5 GETIMPORT                        R2 K2 [error]
-        7 LOADK                            R4 K3 ["Reimport selection error: %*"]
-        8 MOVE                             R6 R1
-        9 NAMECALL                         R4 R4 K4 ["format"]
-       11 CALL                             R4 2 1
-       12 MOVE                             R3 R4
-       13 CALL                             R2 1 0
-       14 LOADK                            R4 K5 ["MeshPart"]
-       15 NAMECALL                         R2 R0 K6 ["IsA"]
-       17 CALL                             R2 2 1
-       18 JUMPIF                           R2 ; [+10]
-       19 GETIMPORT                        R2 K2 [error]
-       21 LOADK                            R4 K7 ["Reimport relative to this requires a MeshPart to be selected, got %*"]
-       22 GETTABLEKS                       R6 R0 K8 ["ClassName"]
-       24 NAMECALL                         R4 R4 K4 ["format"]
-       26 CALL                             R4 2 1
-       27 MOVE                             R3 R4
-       28 CALL                             R2 1 0
-       29 MOVE                             R2 R0
-       30 LOADK                            R5 K9 ["Model"]
-       31 NAMECALL                         R3 R2 K6 ["IsA"]
-       33 CALL                             R3 2 1
-       34 JUMPIFNOT                        R3 ; [+8]
-       35 GETUPVAL                         R6 1
-       36 GETTABLEKS                       R5 R6 K10 ["ATTRIBUTE_KEY"]
-       38 NAMECALL                         R3 R2 K11 ["GetAttribute"]
-       40 CALL                             R3 2 1
-       41 JUMPIFNOTEQKNIL                  R3 ; [+10]
-       43 GETTABLEKS                       R2 R2 K12 ["Parent"]
-       45 JUMPIFNOTEQKNIL                  R2 ; [+5]
-       47 GETIMPORT                        R3 K2 [error]
-       49 LOADK                            R4 K13 ["No valid reimport root found in target instance ancestry"]
-       50 CALL                             R3 1 0
-       51 JUMPBACK                         ; [-22]
-       52 GETUPVAL                         R4 2
-       53 GETTABLEKS                       R3 R4 K14 ["reimportModel"]
-       55 MOVE                             R4 R2
-       56 DUPTABLE                         R5 K16 [{"anchor"}]
-       57 SETTABLEKS                       R0 R5 K15 ["anchor"]
-       59 CALL                             R3 2 0
-       60 RETURN                           R0 0
-
-PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getSelectionIfOneInstance"]
-        3 CALL                             R0 0 2
-        4 JUMPIFNOT                        R1 ; [+9]
-        5 GETIMPORT                        R2 K2 [error]
-        7 LOADK                            R4 K3 ["Reimport configure error: %*"]
-        8 MOVE                             R6 R1
-        9 NAMECALL                         R4 R4 K4 ["format"]
-       11 CALL                             R4 2 1
-       12 MOVE                             R3 R4
-       13 CALL                             R2 1 0
-       14 GETUPVAL                         R3 1
-       15 GETTABLEKS                       R2 R3 K5 ["fromInstance"]
-       17 MOVE                             R3 R0
-       18 CALL                             R2 1 0
-       19 RETURN                           R0 0
-
-PROTO_5:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
@@ -131,7 +48,7 @@ PROTO_5:
        11 FORGLOOP                         R0 2 ; [-8]
        13 RETURN                           R0 0
 
-PROTO_6:
+PROTO_3:
         0 NEWTABLE                         R0 4 0
         2 GETUPVAL                         R3 0
         3 GETTABLEKS                       R2 R3 K0 ["REIMPORT"]
@@ -149,20 +66,19 @@ PROTO_6:
        22 MOVE                             R4 R1
        23 NAMECALL                         R2 R2 K9 ["BindToActivatedAsync"]
        25 CALL                             R2 2 1
-       26 DUPCLOSURE                       R4 K10 [PROTO_2]
-       27 CAPTURE                          UPVAL U3
-       28 CAPTURE                          UPVAL U4
+       26 GETUPVAL                         R5 3
+       27 GETTABLEKS                       R4 R5 K10 ["reimport"]
        29 NAMECALL                         R2 R2 K11 ["Connect"]
        31 CALL                             R2 2 1
-       32 SETTABLEKS                       R2 R0 K12 ["reimport"]
-       34 GETUPVAL                         R2 5
+       32 SETTABLEKS                       R2 R0 K10 ["reimport"]
+       34 GETUPVAL                         R2 4
        35 MOVE                             R3 R1
        36 NEWTABLE                         R4 0 1
-       38 LOADK                            R5 K13 ["Shift+Alt+R"]
+       38 LOADK                            R5 K12 ["Shift+Alt+R"]
        39 SETLIST                          R4 R5 1 [1]
        41 CALL                             R2 2 0
        42 GETUPVAL                         R4 0
-       43 GETTABLEKS                       R3 R4 K14 ["REIMPORT_RELATIVE_TO_THIS"]
+       43 GETTABLEKS                       R3 R4 K13 ["REIMPORT_RELATIVE_TO_THIS"]
        45 DUPTABLE                         R2 K5 [{"DataModel", "PluginId", "Category", "ItemId"}]
        46 LOADK                            R4 K6 ["Standalone"]
        47 SETTABLEKS                       R4 R2 K1 ["DataModel"]
@@ -177,42 +93,39 @@ PROTO_6:
        62 MOVE                             R5 R2
        63 NAMECALL                         R3 R3 K9 ["BindToActivatedAsync"]
        65 CALL                             R3 2 1
-       66 DUPCLOSURE                       R5 K15 [PROTO_3]
-       67 CAPTURE                          UPVAL U3
-       68 CAPTURE                          UPVAL U6
-       69 CAPTURE                          UPVAL U4
-       70 NAMECALL                         R3 R3 K11 ["Connect"]
-       72 CALL                             R3 2 1
-       73 SETTABLEKS                       R3 R0 K16 ["reimport_rel"]
-       75 GETUPVAL                         R5 0
-       76 GETTABLEKS                       R4 R5 K17 ["CONFIGURE"]
-       78 DUPTABLE                         R3 K5 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       79 LOADK                            R5 K6 ["Standalone"]
-       80 SETTABLEKS                       R5 R3 K1 ["DataModel"]
-       82 GETUPVAL                         R7 1
-       83 GETTABLEKS                       R6 R7 K0 ["REIMPORT"]
-       85 GETTABLEKS                       R5 R6 K7 ["ACTION_ID"]
-       87 SETTABLEKS                       R5 R3 K2 ["PluginId"]
-       89 LOADK                            R5 K8 ["Actions"]
-       90 SETTABLEKS                       R5 R3 K3 ["Category"]
-       92 SETTABLEKS                       R4 R3 K4 ["ItemId"]
-       94 GETUPVAL                         R4 2
-       95 MOVE                             R6 R3
-       96 NAMECALL                         R4 R4 K9 ["BindToActivatedAsync"]
-       98 CALL                             R4 2 1
-       99 DUPCLOSURE                       R6 K18 [PROTO_4]
-      100 CAPTURE                          UPVAL U3
-      101 CAPTURE                          UPVAL U7
-      102 NAMECALL                         R4 R4 K11 ["Connect"]
-      104 CALL                             R4 2 1
-      105 SETTABLEKS                       R4 R0 K19 ["configure"]
-      107 GETUPVAL                         R5 8
-      108 GETTABLEKS                       R4 R5 K20 ["Unloading"]
-      110 NEWCLOSURE                       R6 P3
-      111 CAPTURE                          VAL R0
-      112 NAMECALL                         R4 R4 K11 ["Connect"]
-      114 CALL                             R4 2 0
-      115 RETURN                           R0 0
+       66 GETUPVAL                         R6 3
+       67 GETTABLEKS                       R5 R6 K14 ["reimportRelative"]
+       69 NAMECALL                         R3 R3 K11 ["Connect"]
+       71 CALL                             R3 2 1
+       72 SETTABLEKS                       R3 R0 K15 ["reimport_rel"]
+       74 GETUPVAL                         R5 0
+       75 GETTABLEKS                       R4 R5 K16 ["CONFIGURE"]
+       77 DUPTABLE                         R3 K5 [{"DataModel", "PluginId", "Category", "ItemId"}]
+       78 LOADK                            R5 K6 ["Standalone"]
+       79 SETTABLEKS                       R5 R3 K1 ["DataModel"]
+       81 GETUPVAL                         R7 1
+       82 GETTABLEKS                       R6 R7 K0 ["REIMPORT"]
+       84 GETTABLEKS                       R5 R6 K7 ["ACTION_ID"]
+       86 SETTABLEKS                       R5 R3 K2 ["PluginId"]
+       88 LOADK                            R5 K8 ["Actions"]
+       89 SETTABLEKS                       R5 R3 K3 ["Category"]
+       91 SETTABLEKS                       R4 R3 K4 ["ItemId"]
+       93 GETUPVAL                         R4 2
+       94 MOVE                             R6 R3
+       95 NAMECALL                         R4 R4 K9 ["BindToActivatedAsync"]
+       97 CALL                             R4 2 1
+       98 GETUPVAL                         R7 3
+       99 GETTABLEKS                       R6 R7 K17 ["configure"]
+      101 NAMECALL                         R4 R4 K11 ["Connect"]
+      103 CALL                             R4 2 1
+      104 SETTABLEKS                       R4 R0 K17 ["configure"]
+      106 GETUPVAL                         R5 5
+      107 GETTABLEKS                       R4 R5 K18 ["Unloading"]
+      109 NEWCLOSURE                       R6 P0
+      110 CAPTURE                          VAL R0
+      111 NAMECALL                         R4 R4 K11 ["Connect"]
+      113 CALL                             R4 2 0
+      114 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -225,49 +138,30 @@ MAIN:
        10 NAMECALL                         R1 R1 K5 ["FindFirstAncestorWhichIsA"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K7 [require]
-       15 GETTABLEKS                       R4 R0 K8 ["Lib"]
-       17 GETTABLEKS                       R3 R4 K9 ["Reimport"]
+       15 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       17 GETTABLEKS                       R3 R4 K9 ["SharedPluginConstants"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K7 [require]
-       22 GETTABLEKS                       R6 R0 K8 ["Lib"]
-       24 GETTABLEKS                       R5 R6 K9 ["Reimport"]
-       26 GETTABLEKS                       R4 R5 K10 ["ReimportConfigs"]
-       28 CALL                             R3 1 1
-       29 GETIMPORT                        R4 K7 [require]
-       31 GETTABLEKS                       R7 R0 K8 ["Lib"]
-       33 GETTABLEKS                       R6 R7 K9 ["Reimport"]
-       35 GETTABLEKS                       R5 R6 K11 ["SelectionHelper"]
-       37 CALL                             R4 1 1
-       38 GETIMPORT                        R5 K7 [require]
-       40 GETTABLEKS                       R7 R0 K12 ["Packages"]
-       42 GETTABLEKS                       R6 R7 K13 ["SharedPluginConstants"]
-       44 CALL                             R5 1 1
-       45 GETIMPORT                        R6 K7 [require]
-       47 GETTABLEKS                       R10 R0 K14 ["Bin"]
-       49 GETTABLEKS                       R9 R10 K15 ["Common"]
-       51 GETTABLEKS                       R8 R9 K16 ["Dialogs"]
-       53 GETTABLEKS                       R7 R8 K17 ["ShowConfigureDialog"]
-       55 CALL                             R6 1 1
-       56 GETTABLEKS                       R7 R0 K18 ["Parent"]
-       58 LOADK                            R9 K19 ["Actions"]
-       59 NAMECALL                         R7 R7 K20 ["GetPluginComponent"]
-       61 CALL                             R7 2 1
-       62 GETTABLEKS                       R9 R5 K21 ["REIMPORT"]
-       64 GETTABLEKS                       R8 R9 K22 ["ACTION_EVENTS"]
-       66 NEWTABLE                         R9 1 0
-       68 DUPCLOSURE                       R10 K23 [PROTO_0]
-       69 CAPTURE                          VAL R5
-       70 DUPCLOSURE                       R11 K24 [PROTO_1]
-       71 CAPTURE                          VAL R7
-       72 DUPCLOSURE                       R12 K25 [PROTO_6]
-       73 CAPTURE                          VAL R8
-       74 CAPTURE                          VAL R5
-       75 CAPTURE                          VAL R7
-       76 CAPTURE                          VAL R4
-       77 CAPTURE                          VAL R2
-       78 CAPTURE                          VAL R11
-       79 CAPTURE                          VAL R3
-       80 CAPTURE                          VAL R6
-       81 CAPTURE                          VAL R1
-       82 SETTABLEKS                       R12 R9 K26 ["registerActions"]
-       84 RETURN                           R9 1
+       22 GETTABLEKS                       R5 R0 K10 ["Lib"]
+       24 GETTABLEKS                       R4 R5 K11 ["ActionRouter"]
+       26 CALL                             R3 1 1
+       27 GETTABLEKS                       R4 R0 K12 ["Parent"]
+       29 LOADK                            R6 K13 ["Actions"]
+       30 NAMECALL                         R4 R4 K14 ["GetPluginComponent"]
+       32 CALL                             R4 2 1
+       33 GETTABLEKS                       R6 R2 K15 ["REIMPORT"]
+       35 GETTABLEKS                       R5 R6 K16 ["ACTION_EVENTS"]
+       37 NEWTABLE                         R6 1 0
+       39 DUPCLOSURE                       R7 K17 [PROTO_0]
+       40 CAPTURE                          VAL R2
+       41 DUPCLOSURE                       R8 K18 [PROTO_1]
+       42 CAPTURE                          VAL R4
+       43 DUPCLOSURE                       R9 K19 [PROTO_3]
+       44 CAPTURE                          VAL R5
+       45 CAPTURE                          VAL R2
+       46 CAPTURE                          VAL R4
+       47 CAPTURE                          VAL R3
+       48 CAPTURE                          VAL R8
+       49 CAPTURE                          VAL R1
+       50 SETTABLEKS                       R9 R6 K20 ["registerActions"]
+       52 RETURN                           R6 1

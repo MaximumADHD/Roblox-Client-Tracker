@@ -60,6 +60,10 @@ type _Messages = {
 	CloseMarketplaceCategoryTooltip_Params: _CloseMarketplaceCategoryTooltip_ParamsMessage,
 	ResizeMarketplaceCatalog: _ResizeMarketplaceCatalogMessage,
 	ResizeMarketplaceCatalog_Params: _ResizeMarketplaceCatalog_ParamsMessage,
+	OpenChartsSortDetailAction: _OpenChartsSortDetailActionMessage,
+	OpenChartsSortDetailAction_Params: _OpenChartsSortDetailAction_ParamsMessage,
+	OpenSongDetailAction: _OpenSongDetailActionMessage,
+	OpenSongDetailAction_Params: _OpenSongDetailAction_ParamsMessage,
 	OpenMarketplaceCatalogFilters: _OpenMarketplaceCatalogFiltersMessage,
 	OpenMarketplaceCatalogFilters_Params: _OpenMarketplaceCatalogFilters_ParamsMessage,
 	Action: _ActionMessage,
@@ -1541,6 +1545,117 @@ type _ResizeMarketplaceCatalog_ParamsMessage = proto.Message<
 	_ResizeMarketplaceCatalog_ParamsPartialFields
 >
 
+type _OpenChartsSortDetailActionImpl = {
+	__index: _OpenChartsSortDetailActionImpl,
+	new: (fields: _OpenChartsSortDetailActionPartialFields?) -> OpenChartsSortDetailAction,
+	encode: (self: OpenChartsSortDetailAction) -> buffer,
+	decode: (input: buffer) -> OpenChartsSortDetailAction,
+	jsonEncode: (self: OpenChartsSortDetailAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenChartsSortDetailAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenChartsSortDetailActionFields = {
+	action_type: ActionType,
+	action_params: OpenChartsSortDetailAction_Params?,
+}
+
+type _OpenChartsSortDetailActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenChartsSortDetailAction_Params?,
+}
+
+export type OpenChartsSortDetailAction = typeof(setmetatable(
+	{} :: _OpenChartsSortDetailActionFields,
+	{} :: _OpenChartsSortDetailActionImpl
+))
+type _OpenChartsSortDetailActionMessage = proto.Message<
+	OpenChartsSortDetailAction,
+	_OpenChartsSortDetailActionPartialFields
+>
+
+type _OpenChartsSortDetailAction_ParamsImpl = {
+	__index: _OpenChartsSortDetailAction_ParamsImpl,
+	new: (fields: _OpenChartsSortDetailAction_ParamsPartialFields?) -> OpenChartsSortDetailAction_Params,
+	encode: (self: OpenChartsSortDetailAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenChartsSortDetailAction_Params,
+	jsonEncode: (self: OpenChartsSortDetailAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenChartsSortDetailAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenChartsSortDetailAction_ParamsFields = {
+	sort_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	secondary_sort_id: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+}
+
+type _OpenChartsSortDetailAction_ParamsPartialFields = {
+	sort_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	secondary_sort_id: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+}
+
+export type OpenChartsSortDetailAction_Params = typeof(setmetatable(
+	{} :: _OpenChartsSortDetailAction_ParamsFields,
+	{} :: _OpenChartsSortDetailAction_ParamsImpl
+))
+type _OpenChartsSortDetailAction_ParamsMessage = proto.Message<
+	OpenChartsSortDetailAction_Params,
+	_OpenChartsSortDetailAction_ParamsPartialFields
+>
+
+type _OpenSongDetailActionImpl = {
+	__index: _OpenSongDetailActionImpl,
+	new: (fields: _OpenSongDetailActionPartialFields?) -> OpenSongDetailAction,
+	encode: (self: OpenSongDetailAction) -> buffer,
+	decode: (input: buffer) -> OpenSongDetailAction,
+	jsonEncode: (self: OpenSongDetailAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenSongDetailAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenSongDetailActionFields = {
+	action_type: ActionType,
+	action_params: OpenSongDetailAction_Params?,
+}
+
+type _OpenSongDetailActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenSongDetailAction_Params?,
+}
+
+export type OpenSongDetailAction = typeof(setmetatable(
+	{} :: _OpenSongDetailActionFields,
+	{} :: _OpenSongDetailActionImpl
+))
+type _OpenSongDetailActionMessage = proto.Message<OpenSongDetailAction, _OpenSongDetailActionPartialFields>
+
+type _OpenSongDetailAction_ParamsImpl = {
+	__index: _OpenSongDetailAction_ParamsImpl,
+	new: (fields: _OpenSongDetailAction_ParamsPartialFields?) -> OpenSongDetailAction_Params,
+	encode: (self: OpenSongDetailAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenSongDetailAction_Params,
+	jsonEncode: (self: OpenSongDetailAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenSongDetailAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenSongDetailAction_ParamsFields = {
+	song_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenSongDetailAction_ParamsPartialFields = {
+	song_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenSongDetailAction_Params = typeof(setmetatable(
+	{} :: _OpenSongDetailAction_ParamsFields,
+	{} :: _OpenSongDetailAction_ParamsImpl
+))
+type _OpenSongDetailAction_ParamsMessage = proto.Message<
+	OpenSongDetailAction_Params,
+	_OpenSongDetailAction_ParamsPartialFields
+>
+
 type _OpenMarketplaceCatalogFiltersImpl = {
 	__index: _OpenMarketplaceCatalogFiltersImpl,
 	new: (fields: _OpenMarketplaceCatalogFiltersPartialFields?) -> OpenMarketplaceCatalogFilters,
@@ -1632,6 +1747,8 @@ type _ActionFields = {
 		| { type: "resize_marketplace_catalog", value: ResizeMarketplaceCatalog }
 		| { type: "open_marketplace_catalog_filters", value: OpenMarketplaceCatalogFilters }
 		| { type: "open_social_link_action", value: OpenSocialLinkAction }
+		| { type: "open_charts_sort_detail_action", value: OpenChartsSortDetailAction }
+		| { type: "open_song_detail_action", value: OpenSongDetailAction }
 	)?,
 }
 
@@ -1664,6 +1781,8 @@ type _ActionPartialFields = {
 		| { type: "resize_marketplace_catalog", value: ResizeMarketplaceCatalog }
 		| { type: "open_marketplace_catalog_filters", value: OpenMarketplaceCatalogFilters }
 		| { type: "open_social_link_action", value: OpenSocialLinkAction }
+		| { type: "open_charts_sort_detail_action", value: OpenChartsSortDetailAction }
+		| { type: "open_song_detail_action", value: OpenSongDetailAction }
 	)?,
 }
 
@@ -1951,6 +2070,8 @@ export type ActionType =
 	| "ACTION_TYPE_RESIZE_MARKETPLACE_CATALOG"
 	| "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS"
 	| "ACTION_TYPE_OPEN_SOCIAL_LINK"
+	| "ACTION_TYPE_OPEN_CHARTS_SORT_DETAIL"
+	| "ACTION_TYPE_OPEN_SONG_DETAIL"
 	| number -- Unknown
 
 do
@@ -9327,6 +9448,534 @@ do
 end
 
 do
+	local _OpenChartsSortDetailActionImpl = {}
+	_OpenChartsSortDetailActionImpl.__index = _OpenChartsSortDetailActionImpl
+
+	function _OpenChartsSortDetailActionImpl.new(
+		data: _OpenChartsSortDetailActionPartialFields?
+	): OpenChartsSortDetailAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenChartsSortDetailActionImpl :: _OpenChartsSortDetailActionImpl)
+	end
+
+	function _OpenChartsSortDetailActionImpl.encode(self: OpenChartsSortDetailAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenChartsSortDetailActionImpl.decode(input: buffer): OpenChartsSortDetailAction
+		local self = _OpenChartsSortDetailActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenChartsSortDetailAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenChartsSortDetailActionImpl.jsonEncode(self: OpenChartsSortDetailAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenChartsSortDetailActionImpl.jsonDecode(input: { [string]: any }): OpenChartsSortDetailAction
+		local self = _OpenChartsSortDetailActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenChartsSortDetailAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenChartsSortDetailAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenChartsSortDetailActionImpl.descriptor = {
+		name = "OpenChartsSortDetailAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenChartsSortDetailAction",
+	}
+
+	messages.OpenChartsSortDetailAction = _OpenChartsSortDetailActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenChartsSortDetailAction)
+end
+
+do
+	local _OpenChartsSortDetailAction_ParamsImpl = {}
+	_OpenChartsSortDetailAction_ParamsImpl.__index = _OpenChartsSortDetailAction_ParamsImpl
+
+	function _OpenChartsSortDetailAction_ParamsImpl.new(
+		data: _OpenChartsSortDetailAction_ParamsPartialFields?
+	): OpenChartsSortDetailAction_Params
+		return setmetatable({
+			sort_id = if data == nil or data.sort_id == nil then nil else data.sort_id,
+			secondary_sort_id = if data == nil or data.secondary_sort_id == nil then nil else data.secondary_sort_id,
+		}, _OpenChartsSortDetailAction_ParamsImpl :: _OpenChartsSortDetailAction_ParamsImpl)
+	end
+
+	function _OpenChartsSortDetailAction_ParamsImpl.encode(self: OpenChartsSortDetailAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.sort_id ~= nil then
+			local encoded = self.sort_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.secondary_sort_id ~= nil then
+			local encoded = self.secondary_sort_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenChartsSortDetailAction_ParamsImpl.decode(input: buffer): OpenChartsSortDetailAction_Params
+		local self = _OpenChartsSortDetailAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.secondary_sort_id = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenChartsSortDetailAction_ParamsImpl.jsonEncode(self: OpenChartsSortDetailAction_Params): any
+		local output = {}
+
+		if self.sort_id ~= nil then
+			output.sortId = self.sort_id:jsonEncode()
+		end
+
+		if self.secondary_sort_id ~= nil then
+			output.secondarySortId = self.secondary_sort_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenChartsSortDetailAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenChartsSortDetailAction_Params
+		local self = _OpenChartsSortDetailAction_ParamsImpl.new()
+
+		if input.sort_id ~= nil then
+			self.sort_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sort_id)
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sortId)
+		end
+
+		if input.secondary_sort_id ~= nil then
+			self.secondary_sort_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.secondary_sort_id)
+		end
+
+		if input.secondarySortId ~= nil then
+			self.secondary_sort_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.secondarySortId)
+		end
+
+		return self
+	end
+
+	_OpenChartsSortDetailAction_ParamsImpl.descriptor = {
+		name = "OpenChartsSortDetailAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenChartsSortDetailAction_Params = _OpenChartsSortDetailAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenChartsSortDetailAction_Params)
+end
+
+do
+	local _OpenSongDetailActionImpl = {}
+	_OpenSongDetailActionImpl.__index = _OpenSongDetailActionImpl
+
+	function _OpenSongDetailActionImpl.new(data: _OpenSongDetailActionPartialFields?): OpenSongDetailAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenSongDetailActionImpl :: _OpenSongDetailActionImpl)
+	end
+
+	function _OpenSongDetailActionImpl.encode(self: OpenSongDetailAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenSongDetailActionImpl.decode(input: buffer): OpenSongDetailAction
+		local self = _OpenSongDetailActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenSongDetailAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenSongDetailActionImpl.jsonEncode(self: OpenSongDetailAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenSongDetailActionImpl.jsonDecode(input: { [string]: any }): OpenSongDetailAction
+		local self = _OpenSongDetailActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenSongDetailAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenSongDetailAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenSongDetailActionImpl.descriptor = {
+		name = "OpenSongDetailAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenSongDetailAction",
+	}
+
+	messages.OpenSongDetailAction = _OpenSongDetailActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenSongDetailAction)
+end
+
+do
+	local _OpenSongDetailAction_ParamsImpl = {}
+	_OpenSongDetailAction_ParamsImpl.__index = _OpenSongDetailAction_ParamsImpl
+
+	function _OpenSongDetailAction_ParamsImpl.new(
+		data: _OpenSongDetailAction_ParamsPartialFields?
+	): OpenSongDetailAction_Params
+		return setmetatable({
+			song_id = if data == nil or data.song_id == nil then nil else data.song_id,
+		}, _OpenSongDetailAction_ParamsImpl :: _OpenSongDetailAction_ParamsImpl)
+	end
+
+	function _OpenSongDetailAction_ParamsImpl.encode(self: OpenSongDetailAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.song_id ~= nil then
+			local encoded = self.song_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenSongDetailAction_ParamsImpl.decode(input: buffer): OpenSongDetailAction_Params
+		local self = _OpenSongDetailAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.song_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenSongDetailAction_ParamsImpl.jsonEncode(self: OpenSongDetailAction_Params): any
+		local output = {}
+
+		if self.song_id ~= nil then
+			output.songId = self.song_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenSongDetailAction_ParamsImpl.jsonDecode(input: { [string]: any }): OpenSongDetailAction_Params
+		local self = _OpenSongDetailAction_ParamsImpl.new()
+
+		if input.song_id ~= nil then
+			self.song_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.song_id)
+		end
+
+		if input.songId ~= nil then
+			self.song_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.songId)
+		end
+
+		return self
+	end
+
+	_OpenSongDetailAction_ParamsImpl.descriptor = {
+		name = "OpenSongDetailAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenSongDetailAction_Params = _OpenSongDetailAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenSongDetailAction_Params)
+end
+
+do
 	local _OpenMarketplaceCatalogFiltersImpl = {}
 	_OpenMarketplaceCatalogFiltersImpl.__index = _OpenMarketplaceCatalogFiltersImpl
 
@@ -9677,6 +10326,14 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_charts_sort_detail_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 28, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_song_detail_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 29, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -9879,6 +10536,20 @@ do
 					self.kind =
 						{ type = "open_social_link_action", value = messages.OpenSocialLinkAction.decode(value) }
 					continue
+				elseif field == 28 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_charts_sort_detail_action",
+						value = messages.OpenChartsSortDetailAction.decode(value),
+					}
+					continue
+				elseif field == 29 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "open_song_detail_action", value = messages.OpenSongDetailAction.decode(value) }
+					continue
 				end
 
 				local length
@@ -9961,6 +10632,10 @@ do
 				output.openMarketplaceCatalogFilters = self.kind.value:jsonEncode()
 			elseif self.kind.type == "open_social_link_action" then
 				output.openSocialLinkAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_charts_sort_detail_action" then
+				output.openChartsSortDetailAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_song_detail_action" then
+				output.openSongDetailAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -10331,6 +11006,34 @@ do
 			self.kind = {
 				type = "open_social_link_action",
 				value = messages.OpenSocialLinkAction.jsonDecode(input.openSocialLinkAction),
+			}
+		end
+
+		if input.open_charts_sort_detail_action ~= nil then
+			self.kind = {
+				type = "open_charts_sort_detail_action",
+				value = messages.OpenChartsSortDetailAction.jsonDecode(input.open_charts_sort_detail_action),
+			}
+		end
+
+		if input.openChartsSortDetailAction ~= nil then
+			self.kind = {
+				type = "open_charts_sort_detail_action",
+				value = messages.OpenChartsSortDetailAction.jsonDecode(input.openChartsSortDetailAction),
+			}
+		end
+
+		if input.open_song_detail_action ~= nil then
+			self.kind = {
+				type = "open_song_detail_action",
+				value = messages.OpenSongDetailAction.jsonDecode(input.open_song_detail_action),
+			}
+		end
+
+		if input.openSongDetailAction ~= nil then
+			self.kind = {
+				type = "open_song_detail_action",
+				value = messages.OpenSongDetailAction.jsonDecode(input.openSongDetailAction),
 			}
 		end
 
@@ -11534,6 +12237,10 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS"
 		elseif value == 27 then
 			return "ACTION_TYPE_OPEN_SOCIAL_LINK"
+		elseif value == 28 then
+			return "ACTION_TYPE_OPEN_CHARTS_SORT_DETAIL"
+		elseif value == 29 then
+			return "ACTION_TYPE_OPEN_SONG_DETAIL"
 		else
 			return nil
 		end
@@ -11596,6 +12303,10 @@ messages.ActionType = {
 			return 26
 		elseif self == "ACTION_TYPE_OPEN_SOCIAL_LINK" then
 			return 27
+		elseif self == "ACTION_TYPE_OPEN_CHARTS_SORT_DETAIL" then
+			return 28
+		elseif self == "ACTION_TYPE_OPEN_SONG_DETAIL" then
+			return 29
 		else
 			return self
 		end
@@ -11658,6 +12369,10 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS"
 		elseif name == "ACTION_TYPE_OPEN_SOCIAL_LINK" then
 			return "ACTION_TYPE_OPEN_SOCIAL_LINK"
+		elseif name == "ACTION_TYPE_OPEN_CHARTS_SORT_DETAIL" then
+			return "ACTION_TYPE_OPEN_CHARTS_SORT_DETAIL"
+		elseif name == "ACTION_TYPE_OPEN_SONG_DETAIL" then
+			return "ACTION_TYPE_OPEN_SONG_DETAIL"
 		else
 			return nil
 		end
@@ -11718,6 +12433,10 @@ return {
 	CloseMarketplaceCategoryTooltip_Params = messages.CloseMarketplaceCategoryTooltip_Params,
 	ResizeMarketplaceCatalog = messages.ResizeMarketplaceCatalog,
 	ResizeMarketplaceCatalog_Params = messages.ResizeMarketplaceCatalog_Params,
+	OpenChartsSortDetailAction = messages.OpenChartsSortDetailAction,
+	OpenChartsSortDetailAction_Params = messages.OpenChartsSortDetailAction_Params,
+	OpenSongDetailAction = messages.OpenSongDetailAction,
+	OpenSongDetailAction_Params = messages.OpenSongDetailAction_Params,
 	OpenMarketplaceCatalogFilters = messages.OpenMarketplaceCatalogFilters,
 	OpenMarketplaceCatalogFilters_Params = messages.OpenMarketplaceCatalogFilters_Params,
 	Action = messages.Action,

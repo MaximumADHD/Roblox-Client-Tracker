@@ -38,12 +38,12 @@ PROTO_1:
        16 CALL                             R7 3 1
        17 GETUPVAL                         R9 1
        18 GETTABLEKS                       R8 R9 K6 ["NoneKey"]
-       20 JUMPIFEQ                         R7 R8 ; [+51]
+       20 JUMPIFEQ                         R7 R8 ; [+50]
        22 GETTABLEKS                       R10 R6 K5 ["assetId"]
        24 GETTABLE                         R9 R1 R10
        25 JUMPIFNOTEQKNIL                  R9 ; [+3]
        27 MOVE                             R8 R7
-       28 JUMP                             ; [+30]
+       28 JUMP                             ; [+29]
        29 NEWTABLE                         R10 0 0
        31 GETUPVAL                         R12 1
        32 GETTABLEKS                       R11 R12 K7 ["OwnKey"]
@@ -65,20 +65,19 @@ PROTO_1:
        52 GETTABLE                         R12 R10 R9
        53 JUMPIFNOTLT                      R12 R11 ; [+3]
        55 MOVE                             R8 R7
-       56 JUMP                             ; [+2]
+       56 JUMP                             ; [+1]
        57 MOVE                             R8 R9
-       58 JUMP                             ; [0]
-       59 GETUPVAL                         R11 2
-       60 GETTABLEKS                       R10 R11 K11 ["Dictionary"]
-       62 GETTABLEKS                       R9 R10 K12 ["join"]
-       64 MOVE                             R10 R1
-       65 NEWTABLE                         R11 1 0
-       67 GETTABLEKS                       R12 R6 K5 ["assetId"]
-       69 SETTABLE                         R8 R11 R12
-       70 CALL                             R9 2 1
-       71 MOVE                             R1 R9
-       72 FORGLOOP                         R2 2 [inext] ; [-66]
-       74 RETURN                           R1 1
+       58 GETUPVAL                         R11 2
+       59 GETTABLEKS                       R10 R11 K11 ["Dictionary"]
+       61 GETTABLEKS                       R9 R10 K12 ["join"]
+       63 MOVE                             R10 R1
+       64 NEWTABLE                         R11 1 0
+       66 GETTABLEKS                       R12 R6 K5 ["assetId"]
+       68 SETTABLE                         R8 R11 R12
+       69 CALL                             R9 2 1
+       70 MOVE                             R1 R9
+       71 FORGLOOP                         R2 2 [inext] ; [-65]
+       73 RETURN                           R1 1
 
 PROTO_2:
         0 GETUPVAL                         R2 0

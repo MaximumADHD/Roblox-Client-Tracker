@@ -39,7 +39,7 @@ PROTO_2:
        32 GETUPVAL                         R7 0
        33 GETTABLEKS                       R6 R7 K5 ["createElement"]
        35 GETUPVAL                         R7 2
-       36 DUPTABLE                         R8 K15 [{"leadingIcon", "label", "placeholder", "onChanged", "onReturnPressed", "size", "tags", "text", "width"}]
+       36 DUPTABLE                         R8 K15 [{"leadingIcon", "label", "placeholder", "onChanged", "onReturnPressed", "size", "text", "width", "testId"}]
        37 LOADK                            R9 K16 ["icons/common/search"]
        38 SETTABLEKS                       R9 R8 K6 ["leadingIcon"]
        40 LOADK                            R9 K3 [""]
@@ -51,14 +51,14 @@ PROTO_2:
        50 GETUPVAL                         R10 3
        51 GETTABLEKS                       R9 R10 K18 ["Medium"]
        53 SETTABLEKS                       R9 R8 K11 ["size"]
-       55 LOADK                            R9 K19 ["search-bar"]
-       56 SETTABLEKS                       R9 R8 K12 ["tags"]
-       58 SETTABLEKS                       R2 R8 K13 ["text"]
-       60 GETIMPORT                        R9 K22 [UDim.new]
-       62 LOADN                            R10 1
-       63 LOADN                            R11 0
-       64 CALL                             R9 2 1
-       65 SETTABLEKS                       R9 R8 K14 ["width"]
+       55 SETTABLEKS                       R2 R8 K12 ["text"]
+       57 GETIMPORT                        R9 K21 [UDim.new]
+       59 LOADN                            R10 1
+       60 LOADN                            R11 0
+       61 CALL                             R9 2 1
+       62 SETTABLEKS                       R9 R8 K13 ["width"]
+       64 LOADK                            R9 K22 ["search-bar"]
+       65 SETTABLEKS                       R9 R8 K14 ["testId"]
        67 CALL                             R6 2 -1
        68 RETURN                           R6 -1
 

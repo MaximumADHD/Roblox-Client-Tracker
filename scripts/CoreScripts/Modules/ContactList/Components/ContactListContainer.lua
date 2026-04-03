@@ -44,6 +44,9 @@ local Pages = require(ContactList.Enums.Pages)
 
 local TopBarConstants = require(ContactList.Parent.TopBar.Constants)
 
+local FFlagRemoveDependencyArrayAntipattern =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern
+
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer :: Player
 local currentCamera = workspace.CurrentCamera :: Camera
@@ -90,55 +93,60 @@ local function ContactListContainer()
 	end, {})
 	local currentPage = useSelector(selectCurrentPage)
 
-	React.useEffect(function()
-		local promptIrisInviteRequestedConn = SocialService.PromptIrisInviteRequested:Connect(
-			function(player: any, tag: string)
-				if localPlayer and localPlayer.UserId == player.UserId then
-					if not isSpatialMode then
-						dispatch(SetCurrentTag(tag))
-						analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
-							eventTimestampMs = os.time() * 1000,
-							startingPage = currentPage,
-							destinationPage = Pages.CallHistory,
-						})
-						dispatch(SetCurrentPage(Pages.CallHistory))
+	React.useEffect(
+		function()
+			local promptIrisInviteRequestedConn = SocialService.PromptIrisInviteRequested:Connect(
+				function(player: any, tag: string)
+					if localPlayer and localPlayer.UserId == player.UserId then
+						if not isSpatialMode then
+							dispatch(SetCurrentTag(tag))
+							analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
+								eventTimestampMs = os.time() * 1000,
+								startingPage = currentPage,
+								destinationPage = Pages.CallHistory,
+							})
+							dispatch(SetCurrentPage(Pages.CallHistory))
 
-						SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
-					else
-						dispatch(
-							OpenOrUpdateDialog(
-								RobloxTranslator:FormatByKey("Feature.Call.Error.Label.OhNo"),
-								RobloxTranslator:FormatByKey("Feature.Call.Error.Description.DeviceNotSupported"),
-								function()
-									SocialService:InvokeIrisInvitePromptClosed(localPlayer)
-								end
+							SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
+						else
+							dispatch(
+								OpenOrUpdateDialog(
+									RobloxTranslator:FormatByKey("Feature.Call.Error.Label.OhNo"),
+									RobloxTranslator:FormatByKey("Feature.Call.Error.Description.DeviceNotSupported"),
+									function()
+										SocialService:InvokeIrisInvitePromptClosed(localPlayer)
+									end
+								)
 							)
-						)
+						end
 					end
 				end
-			end
-		)
+			)
 
-		local closeEvent: any
-		closeEvent = SocialService.PhoneBookPromptClosed
-		local phoneBookPromptClosedConn = closeEvent:Connect(function(player: any)
-			if localPlayer and localPlayer.UserId == player.UserId then
-				analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
-					eventTimestampMs = os.time() * 1000,
-					startingPage = tostring(currentPage),
-					destinationPage = nil,
-				})
-				dispatch(SetCurrentPage(nil))
-				-- Increment the id so we create a new PeekView for the next open.
-				setContactListId(contactListId + 1)
-			end
-		end)
+			local closeEvent: any
+			closeEvent = SocialService.PhoneBookPromptClosed
+			local phoneBookPromptClosedConn = closeEvent:Connect(function(player: any)
+				if localPlayer and localPlayer.UserId == player.UserId then
+					analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
+						eventTimestampMs = os.time() * 1000,
+						startingPage = tostring(currentPage),
+						destinationPage = nil,
+					})
+					dispatch(SetCurrentPage(nil))
+					-- Increment the id so we create a new PeekView for the next open.
+					setContactListId(contactListId + 1)
+				end
+			end)
 
-		return function()
-			promptIrisInviteRequestedConn:Disconnect()
-			phoneBookPromptClosedConn:Disconnect()
-		end
-	end, dependencyArray(contactListId, currentPage))
+			return function()
+				promptIrisInviteRequestedConn:Disconnect()
+				phoneBookPromptClosedConn:Disconnect()
+			end
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then { contactListId :: any, currentPage }
+			else dependencyArray(contactListId, currentPage)
+	)
 
 	local dismissCallback = React.useCallback(function()
 		if not isSmallScreen and contactListContainerRef.current then
@@ -315,14 +323,23 @@ local function ContactListContainer()
 				}, currentContainer),
 			})
 		end,
-		dependencyArray(
-			contactListContainerContentHeight,
-			currentPage,
-			dismissCallback,
-			expectedPeekViewState,
-			isSmallScreen,
-			searchText
-		)
+		if FFlagRemoveDependencyArrayAntipattern
+			then {
+				contactListContainerContentHeight :: any,
+				currentPage,
+				dismissCallback,
+				expectedPeekViewState,
+				isSmallScreen,
+				searchText,
+			}
+			else dependencyArray(
+				contactListContainerContentHeight,
+				currentPage,
+				dismissCallback,
+				expectedPeekViewState,
+				isSmallScreen,
+				searchText
+			)
 	)
 
 	local children: any = {}

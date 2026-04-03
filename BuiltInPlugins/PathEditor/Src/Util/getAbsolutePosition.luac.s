@@ -73,9 +73,6 @@ PROTO_2:
        82 GETTABLEKS                       R2 R0 K4 ["Parent"]
        84 CALL                             R1 1 -1
        85 RETURN                           R1 -1
-       86 GETIMPORT                        R1 K8 [Vector2.new]
-       88 CALL                             R1 0 -1
-       89 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

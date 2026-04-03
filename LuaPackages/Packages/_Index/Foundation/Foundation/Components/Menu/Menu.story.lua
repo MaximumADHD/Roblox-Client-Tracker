@@ -6,6 +6,7 @@ local React = require(Packages.React)
 local Flags = require(Foundation.Utility.Flags)
 
 local Button = require(Foundation.Components.Button)
+local Coachmark = require(Foundation.Components.Coachmark)
 local IconButton = require(Foundation.Components.IconButton)
 local IconSize = require(Foundation.Enums.IconSize)
 local InputSize = require(Foundation.Enums.InputSize)
@@ -423,6 +424,63 @@ return {
 							print("Always open menu item activated:", id)
 						end,
 						anchorRef = ref,
+					}),
+				})
+			end,
+		},
+		{
+			name = "Coachmark on menu item",
+			story = function(props: Props)
+				local ref1 = React.useRef(nil)
+				local ref2 = React.useRef(nil)
+				local isOpen, setIsOpen = React.useState(false)
+				local coachmarkAnchorRef, setCoachmarkAnchorRef = React.useState(nil :: React.Ref<GuiObject>?)
+				local isCoachmarkOpen, setIsCoachmarkOpen = React.useState(false)
+
+				local itemsWithRefs: { MenuItem } = {
+					{ id = "option-a", text = "Option A", ref = ref1 },
+					{ id = "option-b", text = "Option B", ref = ref2 },
+				}
+
+				return React.createElement(View, {
+					Size = UDim2.new(1, 0, 0, 300),
+					tag = "row align-x-center align-y-center",
+				}, {
+					Menu = React.createElement(Menu, {
+						isOpen = isOpen,
+						items = itemsWithRefs,
+						size = props.controls.size,
+						side = props.controls.side,
+						align = props.controls.align,
+						onPressedOutside = function()
+							setIsOpen(false)
+						end,
+						onActivated = function(id)
+							-- Keep menu open so the item ref stays mounted for the coachmark anchor
+							if id == "option-a" then
+								setCoachmarkAnchorRef(ref1)
+							elseif id == "option-b" then
+								setCoachmarkAnchorRef(ref2)
+							end
+							setIsCoachmarkOpen(true)
+						end,
+					}, {
+						Button = React.createElement(Button, {
+							text = "Open Menu",
+							size = InputSize.Medium,
+							onActivated = function()
+								setIsOpen(not isOpen)
+							end,
+						}),
+					}),
+					Coachmark = React.createElement(Coachmark, {
+						title = "Anchored to this item",
+						text = "The coachmark is anchored to the menu item you clicked.",
+						isOpen = isCoachmarkOpen,
+						anchorRef = coachmarkAnchorRef,
+						onClose = function()
+							setIsCoachmarkOpen(false)
+						end,
 					}),
 				})
 			end,

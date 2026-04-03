@@ -18,6 +18,8 @@ local useSegmentedControlVariants = require(script.Parent.useSegmentedControlVar
 export type Segment = {
 	id: Types.ItemId,
 	text: string,
+	-- Ref to the segment element
+	ref: React.RefObject<GuiObject?>?,
 }
 
 type SegmentProps = Segment & {

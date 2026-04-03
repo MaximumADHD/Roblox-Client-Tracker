@@ -1055,7 +1055,7 @@ MAIN:
       365 NAMECALL                         R53 R53 K6 ["GetFastFlag"]
       367 CALL                             R53 2 1
       368 GETIMPORT                        R54 K4 [game]
-      370 LOADK                            R56 K85 ["UpsellCollabTrustedConnection"]
+      370 LOADK                            R56 K85 ["UpsellCollabTrustedConnection2"]
       371 NAMECALL                         R54 R54 K6 ["GetFastFlag"]
       373 CALL                             R54 2 1
       374 NEWCLOSURE                       R55 P0

@@ -61,63 +61,87 @@ PROTO_2:
        54 DUPTABLE                         R18 K13 [{"text", "size", "onActivated"}]
        55 LOADK                            R19 K14 ["Cancel"]
        56 SETTABLEKS                       R19 R18 K10 ["text"]
-       58 GETUPVAL                         R22 1
-       59 GETTABLEKS                       R21 R22 K15 ["Enums"]
-       61 GETTABLEKS                       R20 R21 K16 ["InputSize"]
-       63 GETTABLEKS                       R19 R20 K17 ["Small"]
-       65 SETTABLEKS                       R19 R18 K11 ["size"]
-       67 GETTABLEKS                       R19 R0 K18 ["onClose"]
-       69 SETTABLEKS                       R19 R18 K12 ["onActivated"]
-       71 CALL                             R16 2 1
-       72 GETUPVAL                         R17 0
-       73 GETUPVAL                         R19 1
-       74 GETTABLEKS                       R18 R19 K9 ["Button"]
-       76 DUPTABLE                         R19 K20 [{"text", "size", "isDisabled", "onActivated"}]
-       77 LOADK                            R20 K21 ["Save"]
-       78 SETTABLEKS                       R20 R19 K10 ["text"]
-       80 GETUPVAL                         R23 1
-       81 GETTABLEKS                       R22 R23 K15 ["Enums"]
-       83 GETTABLEKS                       R21 R22 K16 ["InputSize"]
-       85 GETTABLEKS                       R20 R21 K17 ["Small"]
-       87 SETTABLEKS                       R20 R19 K11 ["size"]
-       89 GETTABLEKS                       R21 R0 K22 ["canSave"]
-       91 NOT                              R20 R21
-       92 SETTABLEKS                       R20 R19 K19 ["isDisabled"]
-       94 NEWCLOSURE                       R20 P0
-       95 CAPTURE                          VAL R0
-       96 SETTABLEKS                       R20 R19 K12 ["onActivated"]
-       98 CALL                             R17 2 1
-       99 GETUPVAL                         R18 0
-      100 GETUPVAL                         R20 1
-      101 GETTABLEKS                       R19 R20 K9 ["Button"]
-      103 DUPTABLE                         R20 K24 [{"text", "variant", "size", "isDisabled", "onActivated"}]
-      104 LOADK                            R21 K25 ["Save and Reimport"]
-      105 SETTABLEKS                       R21 R20 K10 ["text"]
-      107 GETUPVAL                         R24 1
-      108 GETTABLEKS                       R23 R24 K15 ["Enums"]
-      110 GETTABLEKS                       R22 R23 K26 ["ButtonVariant"]
-      112 GETTABLEKS                       R21 R22 K27 ["Emphasis"]
-      114 SETTABLEKS                       R21 R20 K23 ["variant"]
-      116 GETUPVAL                         R24 1
-      117 GETTABLEKS                       R23 R24 K15 ["Enums"]
-      119 GETTABLEKS                       R22 R23 K16 ["InputSize"]
-      121 GETTABLEKS                       R21 R22 K17 ["Small"]
-      123 SETTABLEKS                       R21 R20 K11 ["size"]
-      125 GETTABLEKS                       R22 R0 K22 ["canSave"]
-      127 NOT                              R21 R22
-      128 SETTABLEKS                       R21 R20 K19 ["isDisabled"]
-      130 NEWCLOSURE                       R21 P1
-      131 CAPTURE                          VAL R0
-      132 SETTABLEKS                       R21 R20 K12 ["onActivated"]
-      134 CALL                             R18 2 -1
-      135 SETLIST                          R15 R16 -1 [1]
-      137 CALL                             R12 3 -1
-      138 SETLIST                          R10 R11 -1 [1]
-      140 CALL                             R7 3 -1
-      141 SETLIST                          R5 R6 -1 [1]
-      143 CALL                             R2 3 -1
-      144 SETLIST                          R1 R2 -1 [1]
-      146 RETURN                           R1 1
+       58 GETUPVAL                         R20 2
+       59 CALL                             R20 0 1
+       60 JUMPIFNOT                        R20 ; [+8]
+       61 GETUPVAL                         R22 1
+       62 GETTABLEKS                       R21 R22 K15 ["Enums"]
+       64 GETTABLEKS                       R20 R21 K16 ["InputSize"]
+       66 GETTABLEKS                       R19 R20 K17 ["XSmall"]
+       68 JUMP                             ; [+7]
+       69 GETUPVAL                         R22 1
+       70 GETTABLEKS                       R21 R22 K15 ["Enums"]
+       72 GETTABLEKS                       R20 R21 K16 ["InputSize"]
+       74 GETTABLEKS                       R19 R20 K18 ["Small"]
+       76 SETTABLEKS                       R19 R18 K11 ["size"]
+       78 GETTABLEKS                       R19 R0 K19 ["onClose"]
+       80 SETTABLEKS                       R19 R18 K12 ["onActivated"]
+       82 CALL                             R16 2 1
+       83 GETUPVAL                         R17 0
+       84 GETUPVAL                         R19 1
+       85 GETTABLEKS                       R18 R19 K9 ["Button"]
+       87 DUPTABLE                         R19 K21 [{"text", "size", "isDisabled", "onActivated"}]
+       88 LOADK                            R20 K22 ["Save"]
+       89 SETTABLEKS                       R20 R19 K10 ["text"]
+       91 GETUPVAL                         R21 2
+       92 CALL                             R21 0 1
+       93 JUMPIFNOT                        R21 ; [+8]
+       94 GETUPVAL                         R23 1
+       95 GETTABLEKS                       R22 R23 K15 ["Enums"]
+       97 GETTABLEKS                       R21 R22 K16 ["InputSize"]
+       99 GETTABLEKS                       R20 R21 K17 ["XSmall"]
+      101 JUMP                             ; [+7]
+      102 GETUPVAL                         R23 1
+      103 GETTABLEKS                       R22 R23 K15 ["Enums"]
+      105 GETTABLEKS                       R21 R22 K16 ["InputSize"]
+      107 GETTABLEKS                       R20 R21 K18 ["Small"]
+      109 SETTABLEKS                       R20 R19 K11 ["size"]
+      111 GETTABLEKS                       R21 R0 K23 ["canSave"]
+      113 NOT                              R20 R21
+      114 SETTABLEKS                       R20 R19 K20 ["isDisabled"]
+      116 NEWCLOSURE                       R20 P0
+      117 CAPTURE                          VAL R0
+      118 SETTABLEKS                       R20 R19 K12 ["onActivated"]
+      120 CALL                             R17 2 1
+      121 GETUPVAL                         R18 0
+      122 GETUPVAL                         R20 1
+      123 GETTABLEKS                       R19 R20 K9 ["Button"]
+      125 DUPTABLE                         R20 K25 [{"text", "variant", "size", "isDisabled", "onActivated"}]
+      126 LOADK                            R21 K26 ["Save and Reimport"]
+      127 SETTABLEKS                       R21 R20 K10 ["text"]
+      129 GETUPVAL                         R24 1
+      130 GETTABLEKS                       R23 R24 K15 ["Enums"]
+      132 GETTABLEKS                       R22 R23 K27 ["ButtonVariant"]
+      134 GETTABLEKS                       R21 R22 K28 ["Emphasis"]
+      136 SETTABLEKS                       R21 R20 K24 ["variant"]
+      138 GETUPVAL                         R22 2
+      139 CALL                             R22 0 1
+      140 JUMPIFNOT                        R22 ; [+8]
+      141 GETUPVAL                         R24 1
+      142 GETTABLEKS                       R23 R24 K15 ["Enums"]
+      144 GETTABLEKS                       R22 R23 K16 ["InputSize"]
+      146 GETTABLEKS                       R21 R22 K17 ["XSmall"]
+      148 JUMP                             ; [+7]
+      149 GETUPVAL                         R24 1
+      150 GETTABLEKS                       R23 R24 K15 ["Enums"]
+      152 GETTABLEKS                       R22 R23 K16 ["InputSize"]
+      154 GETTABLEKS                       R21 R22 K18 ["Small"]
+      156 SETTABLEKS                       R21 R20 K11 ["size"]
+      158 GETTABLEKS                       R22 R0 K23 ["canSave"]
+      160 NOT                              R21 R22
+      161 SETTABLEKS                       R21 R20 K20 ["isDisabled"]
+      163 NEWCLOSURE                       R21 P1
+      164 CAPTURE                          VAL R0
+      165 SETTABLEKS                       R21 R20 K12 ["onActivated"]
+      167 CALL                             R18 2 -1
+      168 SETLIST                          R15 R16 -1 [1]
+      170 CALL                             R12 3 -1
+      171 SETLIST                          R10 R11 -1 [1]
+      173 CALL                             R7 3 -1
+      174 SETLIST                          R5 R6 -1 [1]
+      176 CALL                             R2 3 -1
+      177 SETLIST                          R1 R2 -1 [1]
+      179 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -139,7 +163,12 @@ MAIN:
        27 GETTABLEKS                       R6 R7 K11 ["Dialogs"]
        29 GETTABLEKS                       R5 R6 K12 ["Types"]
        31 CALL                             R4 1 1
-       32 DUPCLOSURE                       R5 K13 [PROTO_2]
-       33 CAPTURE                          VAL R3
-       34 CAPTURE                          VAL R1
-       35 RETURN                           R5 1
+       32 GETIMPORT                        R5 K5 [require]
+       34 GETTABLEKS                       R7 R0 K13 ["Flags"]
+       36 GETTABLEKS                       R6 R7 K14 ["GetFFlagReimportConfigureButtonsXSmall"]
+       38 CALL                             R5 1 1
+       39 DUPCLOSURE                       R6 K15 [PROTO_2]
+       40 CAPTURE                          VAL R3
+       41 CAPTURE                          VAL R1
+       42 CAPTURE                          VAL R5
+       43 RETURN                           R6 1

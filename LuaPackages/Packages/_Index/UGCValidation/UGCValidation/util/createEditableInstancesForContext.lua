@@ -7,9 +7,13 @@ local createEditableInstancesForContext = {}
 local getFFlagUGCValidationMakeupSupport = require(root.flags.getFFlagUGCValidationMakeupSupport)
 
 local AssetService = game:GetService("AssetService")
+local UGCValidationService = game:GetService("UGCValidationService")
 
 local Types = require(root.util.Types)
 local destroyEditableInstances = require(root.util.destroyEditableInstances)
+
+local EngineFeatureCreateEditableImageOriginalSizeEnabled =
+	game:GetEngineFeature("EngineCreateEditableImageOriginalSizeEnabled")
 
 local function addEditableInstance(editableInstances, instance, key, instanceInfo, contentType)
 	local instanceMap = editableInstances.editableMeshes
@@ -29,7 +33,11 @@ local function createEditableInstanceFromId(content, contentIdMap, contentType)
 		if contentType == "EditableMesh" then
 			return AssetService:CreateEditableMeshAsync(content)
 		else
-			return (AssetService :: any):CreateEditableImageAsync(content) :: any
+			if EngineFeatureCreateEditableImageOriginalSizeEnabled then
+				return UGCValidationService:CreateEditableImageOriginalSizeAsync(content.Uri)
+			else
+				return (AssetService :: any):CreateEditableImageAsync(content) :: any
+			end
 		end
 	end)
 

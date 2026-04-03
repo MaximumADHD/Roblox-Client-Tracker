@@ -12,8 +12,6 @@ local pcallDeferred = require(root.util.pcallDeferred)
 
 local WRAP_TARGET_CAGE_REFERENCE_VALUES = require(root.WrapTargetCageUVReferenceValues)
 
-local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
-
 local Analytics = require(root.Analytics)
 
 local UGCValidationService = game:GetService("UGCValidationService")
@@ -26,10 +24,6 @@ local function validateCageUVValues(
 	local startTime = tick()
 
 	local isServer = validationContext.isServer
-	if not getEngineFeatureEngineUGCValidateBodyParts() then
-		return true
-	end
-
 	local referenceUVValues = assert(
 		WRAP_TARGET_CAGE_REFERENCE_VALUES[(wrapTarget.Parent :: Instance).Name],
 		"WrapTarget is not parented to a MeshPart"

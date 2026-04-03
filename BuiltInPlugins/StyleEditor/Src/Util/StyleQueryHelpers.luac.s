@@ -482,95 +482,97 @@ MAIN:
        29 NEWTABLE                         R4 16 0
        31 LOADK                            R5 K11 ["StyleQuery"]
        32 SETTABLEKS                       R5 R4 K12 ["ClassName"]
-       34 DUPTABLE                         R5 K15 [{"Pseudo", "Query"}]
-       35 LOADK                            R6 K13 ["Pseudo"]
-       36 SETTABLEKS                       R6 R5 K13 ["Pseudo"]
-       38 LOADK                            R6 K14 ["Query"]
-       39 SETTABLEKS                       R6 R5 K14 ["Query"]
-       41 SETTABLEKS                       R5 R4 K16 ["Type"]
-       43 DUPTABLE                         R5 K24 [{"Beginning", "End", "OptionalWhiteSpace", "WhiteSpace", "ValidNameChars", "CaptureStart", "CaptureEnd"}]
-       44 LOADK                            R6 K25 ["^"]
-       45 SETTABLEKS                       R6 R5 K17 ["Beginning"]
-       47 LOADK                            R6 K26 ["$"]
-       48 SETTABLEKS                       R6 R5 K18 ["End"]
-       50 LOADK                            R6 K27 ["%s*"]
-       51 SETTABLEKS                       R6 R5 K19 ["OptionalWhiteSpace"]
-       53 LOADK                            R6 K28 ["%s+"]
-       54 SETTABLEKS                       R6 R5 K20 ["WhiteSpace"]
-       56 LOADK                            R6 K29 ["[%w_%-%s]*"]
-       57 SETTABLEKS                       R6 R5 K21 ["ValidNameChars"]
-       59 LOADK                            R6 K30 ["("]
-       60 SETTABLEKS                       R6 R5 K22 ["CaptureStart"]
-       62 LOADK                            R6 K31 [")"]
-       63 SETTABLEKS                       R6 R5 K23 ["CaptureEnd"]
-       65 SETTABLEKS                       R5 R4 K32 ["Regex"]
-       67 GETTABLEKS                       R5 R1 K33 ["SelectorSyntax"]
-       69 GETTABLEKS                       R6 R4 K32 ["Regex"]
-       71 GETTABLEKS                       R7 R4 K12 ["ClassName"]
-       73 LOADK                            R9 K34 ["%*%*%*%*%*"]
-       74 GETTABLEKS                       R11 R5 K35 ["PseudoInstance"]
-       76 GETTABLEKS                       R12 R6 K19 ["OptionalWhiteSpace"]
-       78 MOVE                             R13 R7
-       79 GETTABLEKS                       R14 R6 K19 ["OptionalWhiteSpace"]
-       81 GETTABLEKS                       R15 R6 K18 ["End"]
-       83 NAMECALL                         R9 R9 K36 ["format"]
-       85 CALL                             R9 6 1
-       86 MOVE                             R8 R9
-       87 LOADK                            R10 K37 ["%*%*%*%*%*%*%*%*%*"]
-       88 GETTABLEKS                       R12 R5 K35 ["PseudoInstance"]
-       90 GETTABLEKS                       R13 R6 K19 ["OptionalWhiteSpace"]
-       92 MOVE                             R14 R7
-       93 GETTABLEKS                       R15 R6 K19 ["OptionalWhiteSpace"]
-       95 GETTABLEKS                       R16 R5 K38 ["Name"]
-       97 GETTABLEKS                       R17 R6 K22 ["CaptureStart"]
-       99 GETTABLEKS                       R18 R6 K21 ["ValidNameChars"]
-      101 GETTABLEKS                       R19 R6 K23 ["CaptureEnd"]
-      103 GETTABLEKS                       R20 R6 K18 ["End"]
-      105 NAMECALL                         R10 R10 K36 ["format"]
-      107 CALL                             R10 10 1
-      108 MOVE                             R9 R10
-      109 LOADK                            R11 K39 ["%*%*%*%*"]
-      110 GETTABLEKS                       R13 R5 K14 ["Query"]
-      112 GETTABLEKS                       R14 R6 K22 ["CaptureStart"]
-      114 GETTABLEKS                       R15 R6 K21 ["ValidNameChars"]
-      116 GETTABLEKS                       R16 R6 K23 ["CaptureEnd"]
-      118 NAMECALL                         R11 R11 K36 ["format"]
-      120 CALL                             R11 5 1
-      121 MOVE                             R10 R11
-      122 DUPCLOSURE                       R11 K40 [PROTO_0]
-      123 CAPTURE                          VAL R6
-      124 CAPTURE                          VAL R7
-      125 DUPCLOSURE                       R12 K41 [PROTO_1]
+       34 LOADK                            R5 K13 ["Queries"]
+       35 SETTABLEKS                       R5 R4 K14 ["FolderName"]
+       37 DUPTABLE                         R5 K17 [{"Pseudo", "Query"}]
+       38 LOADK                            R6 K15 ["Pseudo"]
+       39 SETTABLEKS                       R6 R5 K15 ["Pseudo"]
+       41 LOADK                            R6 K16 ["Query"]
+       42 SETTABLEKS                       R6 R5 K16 ["Query"]
+       44 SETTABLEKS                       R5 R4 K18 ["Type"]
+       46 DUPTABLE                         R5 K26 [{"Beginning", "End", "OptionalWhiteSpace", "WhiteSpace", "ValidNameChars", "CaptureStart", "CaptureEnd"}]
+       47 LOADK                            R6 K27 ["^"]
+       48 SETTABLEKS                       R6 R5 K19 ["Beginning"]
+       50 LOADK                            R6 K28 ["$"]
+       51 SETTABLEKS                       R6 R5 K20 ["End"]
+       53 LOADK                            R6 K29 ["%s*"]
+       54 SETTABLEKS                       R6 R5 K21 ["OptionalWhiteSpace"]
+       56 LOADK                            R6 K30 ["%s+"]
+       57 SETTABLEKS                       R6 R5 K22 ["WhiteSpace"]
+       59 LOADK                            R6 K31 ["[%w_%-%s]*"]
+       60 SETTABLEKS                       R6 R5 K23 ["ValidNameChars"]
+       62 LOADK                            R6 K32 ["("]
+       63 SETTABLEKS                       R6 R5 K24 ["CaptureStart"]
+       65 LOADK                            R6 K33 [")"]
+       66 SETTABLEKS                       R6 R5 K25 ["CaptureEnd"]
+       68 SETTABLEKS                       R5 R4 K34 ["Regex"]
+       70 GETTABLEKS                       R5 R1 K35 ["SelectorSyntax"]
+       72 GETTABLEKS                       R6 R4 K34 ["Regex"]
+       74 GETTABLEKS                       R7 R4 K12 ["ClassName"]
+       76 LOADK                            R9 K36 ["%*%*%*%*%*"]
+       77 GETTABLEKS                       R11 R5 K37 ["PseudoInstance"]
+       79 GETTABLEKS                       R12 R6 K21 ["OptionalWhiteSpace"]
+       81 MOVE                             R13 R7
+       82 GETTABLEKS                       R14 R6 K21 ["OptionalWhiteSpace"]
+       84 GETTABLEKS                       R15 R6 K20 ["End"]
+       86 NAMECALL                         R9 R9 K38 ["format"]
+       88 CALL                             R9 6 1
+       89 MOVE                             R8 R9
+       90 LOADK                            R10 K39 ["%*%*%*%*%*%*%*%*%*"]
+       91 GETTABLEKS                       R12 R5 K37 ["PseudoInstance"]
+       93 GETTABLEKS                       R13 R6 K21 ["OptionalWhiteSpace"]
+       95 MOVE                             R14 R7
+       96 GETTABLEKS                       R15 R6 K21 ["OptionalWhiteSpace"]
+       98 GETTABLEKS                       R16 R5 K40 ["Name"]
+      100 GETTABLEKS                       R17 R6 K24 ["CaptureStart"]
+      102 GETTABLEKS                       R18 R6 K23 ["ValidNameChars"]
+      104 GETTABLEKS                       R19 R6 K25 ["CaptureEnd"]
+      106 GETTABLEKS                       R20 R6 K20 ["End"]
+      108 NAMECALL                         R10 R10 K38 ["format"]
+      110 CALL                             R10 10 1
+      111 MOVE                             R9 R10
+      112 LOADK                            R11 K41 ["%*%*%*%*"]
+      113 GETTABLEKS                       R13 R5 K16 ["Query"]
+      115 GETTABLEKS                       R14 R6 K24 ["CaptureStart"]
+      117 GETTABLEKS                       R15 R6 K23 ["ValidNameChars"]
+      119 GETTABLEKS                       R16 R6 K25 ["CaptureEnd"]
+      121 NAMECALL                         R11 R11 K38 ["format"]
+      123 CALL                             R11 5 1
+      124 MOVE                             R10 R11
+      125 DUPCLOSURE                       R11 K42 [PROTO_0]
       126 CAPTURE                          VAL R6
-      127 CAPTURE                          VAL R5
-      128 DUPCLOSURE                       R13 K42 [PROTO_2]
-      129 SETTABLEKS                       R13 R4 K43 ["areSelectorsPaired"]
-      131 DUPCLOSURE                       R13 K44 [PROTO_3]
-      132 CAPTURE                          VAL R6
-      133 CAPTURE                          VAL R7
-      134 CAPTURE                          VAL R4
-      135 CAPTURE                          VAL R5
-      136 SETTABLEKS                       R13 R4 K45 ["constructSelector"]
-      138 DUPCLOSURE                       R13 K46 [PROTO_4]
-      139 CAPTURE                          VAL R8
-      140 CAPTURE                          VAL R9
-      141 CAPTURE                          VAL R4
-      142 CAPTURE                          VAL R5
-      143 SETTABLEKS                       R13 R4 K47 ["getQueryTypeFromSelector"]
-      145 DUPCLOSURE                       R13 K48 [PROTO_5]
-      146 CAPTURE                          VAL R4
-      147 CAPTURE                          VAL R10
-      148 CAPTURE                          VAL R6
-      149 CAPTURE                          VAL R5
-      150 CAPTURE                          VAL R7
-      151 CAPTURE                          VAL R9
-      152 CAPTURE                          VAL R8
-      153 SETTABLEKS                       R13 R4 K49 ["getDataFromSelector"]
-      155 DUPCLOSURE                       R13 K50 [PROTO_6]
-      156 CAPTURE                          VAL R4
-      157 SETTABLEKS                       R13 R4 K51 ["getQueryStyleRulesForPseudo"]
-      159 DUPCLOSURE                       R13 K52 [PROTO_7]
-      160 CAPTURE                          VAL R4
-      161 CAPTURE                          VAL R3
-      162 SETTABLEKS                       R13 R4 K53 ["syncQueryRuleSelectors"]
-      164 RETURN                           R4 1
+      127 CAPTURE                          VAL R7
+      128 DUPCLOSURE                       R12 K43 [PROTO_1]
+      129 CAPTURE                          VAL R6
+      130 CAPTURE                          VAL R5
+      131 DUPCLOSURE                       R13 K44 [PROTO_2]
+      132 SETTABLEKS                       R13 R4 K45 ["areSelectorsPaired"]
+      134 DUPCLOSURE                       R13 K46 [PROTO_3]
+      135 CAPTURE                          VAL R6
+      136 CAPTURE                          VAL R7
+      137 CAPTURE                          VAL R4
+      138 CAPTURE                          VAL R5
+      139 SETTABLEKS                       R13 R4 K47 ["constructSelector"]
+      141 DUPCLOSURE                       R13 K48 [PROTO_4]
+      142 CAPTURE                          VAL R8
+      143 CAPTURE                          VAL R9
+      144 CAPTURE                          VAL R4
+      145 CAPTURE                          VAL R5
+      146 SETTABLEKS                       R13 R4 K49 ["getQueryTypeFromSelector"]
+      148 DUPCLOSURE                       R13 K50 [PROTO_5]
+      149 CAPTURE                          VAL R4
+      150 CAPTURE                          VAL R10
+      151 CAPTURE                          VAL R6
+      152 CAPTURE                          VAL R5
+      153 CAPTURE                          VAL R7
+      154 CAPTURE                          VAL R9
+      155 CAPTURE                          VAL R8
+      156 SETTABLEKS                       R13 R4 K51 ["getDataFromSelector"]
+      158 DUPCLOSURE                       R13 K52 [PROTO_6]
+      159 CAPTURE                          VAL R4
+      160 SETTABLEKS                       R13 R4 K53 ["getQueryStyleRulesForPseudo"]
+      162 DUPCLOSURE                       R13 K54 [PROTO_7]
+      163 CAPTURE                          VAL R4
+      164 CAPTURE                          VAL R3
+      165 SETTABLEKS                       R13 R4 K55 ["syncQueryRuleSelectors"]
+      167 RETURN                           R4 1

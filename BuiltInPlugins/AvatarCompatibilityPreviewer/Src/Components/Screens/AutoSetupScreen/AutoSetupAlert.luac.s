@@ -27,58 +27,57 @@ PROTO_2:
         4 GETTABLEKS                       R1 R2 K1 ["type"]
         6 JUMPIFNOTEQKS                    R1 K2 ["error"] ; [+3]
         8 LOADK                            R0 K3 ["Error"]
-        9 JUMP                             ; [+38]
+        9 JUMP                             ; [+37]
        10 GETUPVAL                         R1 1
-       11 JUMPIFEQKNIL                     R1 ; [+23]
+       11 JUMPIFEQKNIL                     R1 ; [+22]
        13 GETUPVAL                         R2 1
        14 GETTABLEKS                       R1 R2 K4 ["level"]
        16 JUMPIFNOTEQKNIL                  R1 ; [+3]
        18 LOADK                            R0 K5 ["Info"]
-       19 JUMP                             ; [+28]
+       19 JUMP                             ; [+27]
        20 GETIMPORT                        R2 K8 [string.lower]
        22 MOVE                             R3 R1
        23 CALL                             R2 1 1
        24 JUMPIFNOTEQKS                    R2 K2 ["error"] ; [+3]
        26 LOADK                            R0 K3 ["Error"]
-       27 JUMP                             ; [+20]
+       27 JUMP                             ; [+19]
        28 JUMPIFNOTEQKS                    R2 K9 ["warning"] ; [+3]
        30 LOADK                            R0 K10 ["Warning"]
-       31 JUMP                             ; [+16]
+       31 JUMP                             ; [+15]
        32 LOADK                            R0 K5 ["Info"]
-       33 JUMP                             ; [+14]
-       34 JUMP                             ; [+13]
-       35 GETUPVAL                         R1 2
-       36 CALL                             R1 0 1
-       37 JUMPIF                           R1 ; [+9]
-       38 GETUPVAL                         R1 3
-       39 JUMPIFEQKNIL                     R1 ; [+7]
-       41 GETIMPORT                        R1 K13 [task.cancel]
-       43 GETUPVAL                         R2 3
-       44 CALL                             R1 1 0
-       45 GETUPVAL                         R1 4
-       46 CALL                             R1 0 0
-       47 RETURN                           R0 0
-       48 GETUPVAL                         R1 5
-       49 MOVE                             R2 R0
-       50 CALL                             R1 1 0
-       51 GETUPVAL                         R1 2
-       52 CALL                             R1 0 1
-       53 JUMPIF                           R1 ; [+18]
-       54 GETUPVAL                         R1 3
-       55 JUMPIFEQKNIL                     R1 ; [+7]
-       57 GETIMPORT                        R1 K13 [task.cancel]
-       59 GETUPVAL                         R2 3
-       60 CALL                             R1 1 0
-       61 GETUPVAL                         R1 4
-       62 CALL                             R1 0 0
-       63 JUMPIFNOTEQKS                    R0 K5 ["Info"] ; [+8]
-       65 GETUPVAL                         R1 4
-       66 GETIMPORT                        R2 K15 [task.delay]
-       68 LOADN                            R3 10
-       69 GETUPVAL                         R4 6
-       70 CALL                             R2 2 -1
-       71 CALL                             R1 -1 0
-       72 RETURN                           R0 0
+       33 JUMP                             ; [+13]
+       34 GETUPVAL                         R1 2
+       35 CALL                             R1 0 1
+       36 JUMPIF                           R1 ; [+9]
+       37 GETUPVAL                         R1 3
+       38 JUMPIFEQKNIL                     R1 ; [+7]
+       40 GETIMPORT                        R1 K13 [task.cancel]
+       42 GETUPVAL                         R2 3
+       43 CALL                             R1 1 0
+       44 GETUPVAL                         R1 4
+       45 CALL                             R1 0 0
+       46 RETURN                           R0 0
+       47 GETUPVAL                         R1 5
+       48 MOVE                             R2 R0
+       49 CALL                             R1 1 0
+       50 GETUPVAL                         R1 2
+       51 CALL                             R1 0 1
+       52 JUMPIF                           R1 ; [+18]
+       53 GETUPVAL                         R1 3
+       54 JUMPIFEQKNIL                     R1 ; [+7]
+       56 GETIMPORT                        R1 K13 [task.cancel]
+       58 GETUPVAL                         R2 3
+       59 CALL                             R1 1 0
+       60 GETUPVAL                         R1 4
+       61 CALL                             R1 0 0
+       62 JUMPIFNOTEQKS                    R0 K5 ["Info"] ; [+8]
+       64 GETUPVAL                         R1 4
+       65 GETIMPORT                        R2 K15 [task.delay]
+       67 LOADN                            R3 10
+       68 GETUPVAL                         R4 6
+       69 CALL                             R2 2 -1
+       70 CALL                             R1 -1 0
+       71 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0

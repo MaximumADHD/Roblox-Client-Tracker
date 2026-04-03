@@ -203,9 +203,6 @@ local function initializeLibrary(configs)
 			LoadableImage = lazify(function()
 				return require(script.App.Loading.LoadableImage)
 			end),
-			ShimmerPanel = lazify(function()
-				return require(script.App.Loading.ShimmerPanel)
-			end),
 			LoadingSpinner = lazify(function()
 				return require(script.App.Loading.LoadingSpinner)
 			end),

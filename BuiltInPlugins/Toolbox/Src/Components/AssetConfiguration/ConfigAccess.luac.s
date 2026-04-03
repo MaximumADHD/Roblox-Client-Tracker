@@ -7,9 +7,46 @@ PROTO_0:
         9 LOADB                            R2 0 +1
        10 LOADB                            R2 1
        11 SETTABLEKS                       R2 R0 K3 ["allowOwnerEdit"]
-       13 RETURN                           R0 0
+       13 LOADB                            R2 0
+       14 SETTABLEKS                       R2 R0 K4 ["preselectionApplied"]
+       16 RETURN                           R0 0
 
 PROTO_1:
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIF                           R1 ; [+1]
+        3 RETURN                           R0 0
+        4 GETTABLEKS                       R1 R0 K0 ["allowOwnerEdit"]
+        6 JUMPIFNOT                        R1 ; [+3]
+        7 GETTABLEKS                       R1 R0 K1 ["preselectionApplied"]
+        9 JUMPIFNOT                        R1 ; [+1]
+       10 RETURN                           R0 0
+       11 GETTABLEKS                       R2 R0 K2 ["props"]
+       13 GETTABLEKS                       R1 R2 K3 ["preselectedGroupId"]
+       15 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       17 RETURN                           R0 0
+       18 GETTABLEKS                       R2 R0 K4 ["dropdownContent"]
+       20 JUMPIF                           R2 ; [+2]
+       21 NEWTABLE                         R2 0 0
+       23 LOADNIL                          R3
+       24 LOADNIL                          R4
+       25 FORGPREP                         R2
+       26 GETTABLEKS                       R7 R6 K5 ["creatorType"]
+       28 JUMPIFNOTEQKS                    R7 K6 ["Group"] ; [+16]
+       30 GETTABLEKS                       R7 R6 K7 ["creatorId"]
+       32 JUMPIFNOTEQ                      R7 R1 ; [+12]
+       34 LOADB                            R7 1
+       35 SETTABLEKS                       R7 R0 K1 ["preselectionApplied"]
+       37 GETTABLEKS                       R8 R0 K2 ["props"]
+       39 GETTABLEKS                       R7 R8 K8 ["onDropDownSelect"]
+       41 MOVE                             R8 R5
+       42 MOVE                             R9 R6
+       43 CALL                             R7 2 0
+       44 RETURN                           R0 0
+       45 FORGLOOP                         R2 2 ; [-20]
+       47 RETURN                           R0 0
+
+PROTO_2:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 JUMPIFNOT                        R1 ; [+35]
@@ -58,7 +95,7 @@ PROTO_1:
        73 CALL                             R1 1 0
        74 RETURN                           R0 0
 
-PROTO_2:
+PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
@@ -366,7 +403,7 @@ PROTO_2:
       454 CALL                             R13 3 -1
       455 RETURN                           R13 -1
 
-PROTO_3:
+PROTO_4:
         0 MOVE                             R2 R0
         1 JUMPIF                           R2 ; [+2]
         2 NEWTABLE                         R2 0 0
@@ -422,7 +459,7 @@ PROTO_3:
        80 SETTABLEKS                       R5 R4 K11 ["allowedGroupsForUpload"]
        82 RETURN                           R4 1
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 MOVE                             R3 R0
@@ -430,7 +467,7 @@ PROTO_4:
         4 CALL                             R1 -1 0
         5 RETURN                           R0 0
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R2 0
         1 GETUPVAL                         R3 1
         2 MOVE                             R4 R0
@@ -439,7 +476,7 @@ PROTO_5:
         5 CALL                             R2 -1 0
         6 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 MOVE                             R3 R0
@@ -449,7 +486,7 @@ PROTO_6:
         7 CALL                             R1 -1 0
         8 RETURN                           R0 0
 
-PROTO_7:
+PROTO_8:
         0 DUPTABLE                         R1 K3 [{"getManageableGroups", "getAssetTypeAgents", "getAllowedGroupsForUpload"}]
         1 NEWCLOSURE                       R2 P0
         2 CAPTURE                          VAL R0
@@ -569,76 +606,84 @@ MAIN:
       166 GETTABLEKS                       R31 R32 K12 ["Flags"]
       168 GETTABLEKS                       R30 R31 K38 ["getFFlagEnableUploadingMakeup"]
       170 CALL                             R29 1 1
-      171 GETIMPORT                        R30 K40 [game]
-      173 LOADK                            R32 K41 ["IncreaseVisibleCreatorsConfigAccess"]
-      174 LOADB                            R33 0
-      175 NAMECALL                         R30 R30 K42 ["DefineFastFlag"]
-      177 CALL                             R30 3 0
-      178 GETTABLEKS                       R30 R3 K43 ["PureComponent"]
-      180 LOADK                            R32 K44 ["ConfigAccess"]
-      181 NAMECALL                         R30 R30 K45 ["extend"]
-      183 CALL                             R30 2 1
-      184 MOVE                             R32 R29
-      185 CALL                             R32 0 1
-      186 JUMPIFNOT                        R32 ; [+2]
-      187 LOADN                            R31 144
-      188 JUMP                             ; [+1]
-      189 LOADN                            R31 220
-      190 GETIMPORT                        R33 K40 [game]
-      192 LOADK                            R35 K41 ["IncreaseVisibleCreatorsConfigAccess"]
-      193 NAMECALL                         R33 R33 K46 ["GetFastFlag"]
-      195 CALL                             R33 2 1
-      196 JUMPIFNOT                        R33 ; [+2]
-      197 LOADN                            R32 6
-      198 JUMP                             ; [+1]
-      199 LOADN                            R32 5
-      200 DUPCLOSURE                       R33 K47 [PROTO_0]
-      201 CAPTURE                          VAL R10
-      202 SETTABLEKS                       R33 R30 K48 ["init"]
-      204 DUPCLOSURE                       R33 K49 [PROTO_1]
-      205 CAPTURE                          VAL R28
-      206 CAPTURE                          VAL R12
-      207 SETTABLEKS                       R33 R30 K50 ["didMount"]
-      209 DUPCLOSURE                       R33 K51 [PROTO_2]
-      210 CAPTURE                          VAL R28
-      211 CAPTURE                          VAL R12
-      212 CAPTURE                          VAL R23
-      213 CAPTURE                          VAL R11
-      214 CAPTURE                          VAL R7
-      215 CAPTURE                          VAL R2
-      216 CAPTURE                          VAL R16
-      217 CAPTURE                          VAL R6
-      218 CAPTURE                          VAL R31
-      219 CAPTURE                          VAL R15
-      220 CAPTURE                          VAL R10
-      221 CAPTURE                          VAL R9
-      222 CAPTURE                          VAL R3
-      223 CAPTURE                          VAL R17
-      224 CAPTURE                          VAL R32
-      225 SETTABLEKS                       R33 R30 K52 ["render"]
-      227 DUPCLOSURE                       R33 K53 [PROTO_3]
-      228 CAPTURE                          VAL R28
-      229 DUPCLOSURE                       R34 K54 [PROTO_7]
-      230 CAPTURE                          VAL R19
-      231 CAPTURE                          VAL R20
-      232 CAPTURE                          VAL R28
-      233 CAPTURE                          VAL R22
-      234 CAPTURE                          VAL R24
-      235 MOVE                             R35 R26
-      236 DUPTABLE                         R36 K58 [{"Stylizer", "Localization", "Network"}]
-      237 GETTABLEKS                       R37 R25 K55 ["Stylizer"]
-      239 SETTABLEKS                       R37 R36 K55 ["Stylizer"]
-      241 GETTABLEKS                       R37 R25 K56 ["Localization"]
-      243 SETTABLEKS                       R37 R36 K56 ["Localization"]
-      245 SETTABLEKS                       R27 R36 K57 ["Network"]
-      247 CALL                             R35 1 1
-      248 MOVE                             R36 R30
-      249 CALL                             R35 1 1
-      250 MOVE                             R30 R35
-      251 GETTABLEKS                       R35 R4 K59 ["connect"]
-      253 MOVE                             R36 R33
-      254 MOVE                             R37 R34
-      255 CALL                             R35 2 1
-      256 MOVE                             R36 R30
-      257 CALL                             R35 1 -1
-      258 RETURN                           R35 -1
+      171 GETIMPORT                        R30 K5 [require]
+      173 GETTABLEKS                       R33 R0 K11 ["Src"]
+      175 GETTABLEKS                       R32 R33 K12 ["Flags"]
+      177 GETTABLEKS                       R31 R32 K39 ["getFFlagToolboxAssetConfigGroupOwnership"]
+      179 CALL                             R30 1 1
+      180 GETIMPORT                        R31 K41 [game]
+      182 LOADK                            R33 K42 ["IncreaseVisibleCreatorsConfigAccess"]
+      183 LOADB                            R34 0
+      184 NAMECALL                         R31 R31 K43 ["DefineFastFlag"]
+      186 CALL                             R31 3 0
+      187 GETTABLEKS                       R31 R3 K44 ["PureComponent"]
+      189 LOADK                            R33 K45 ["ConfigAccess"]
+      190 NAMECALL                         R31 R31 K46 ["extend"]
+      192 CALL                             R31 2 1
+      193 MOVE                             R33 R29
+      194 CALL                             R33 0 1
+      195 JUMPIFNOT                        R33 ; [+2]
+      196 LOADN                            R32 144
+      197 JUMP                             ; [+1]
+      198 LOADN                            R32 220
+      199 GETIMPORT                        R34 K41 [game]
+      201 LOADK                            R36 K42 ["IncreaseVisibleCreatorsConfigAccess"]
+      202 NAMECALL                         R34 R34 K47 ["GetFastFlag"]
+      204 CALL                             R34 2 1
+      205 JUMPIFNOT                        R34 ; [+2]
+      206 LOADN                            R33 6
+      207 JUMP                             ; [+1]
+      208 LOADN                            R33 5
+      209 DUPCLOSURE                       R34 K48 [PROTO_0]
+      210 CAPTURE                          VAL R10
+      211 SETTABLEKS                       R34 R31 K49 ["init"]
+      213 DUPCLOSURE                       R34 K50 [PROTO_1]
+      214 CAPTURE                          VAL R30
+      215 SETTABLEKS                       R34 R31 K51 ["didUpdate"]
+      217 DUPCLOSURE                       R34 K52 [PROTO_2]
+      218 CAPTURE                          VAL R28
+      219 CAPTURE                          VAL R12
+      220 SETTABLEKS                       R34 R31 K53 ["didMount"]
+      222 DUPCLOSURE                       R34 K54 [PROTO_3]
+      223 CAPTURE                          VAL R28
+      224 CAPTURE                          VAL R12
+      225 CAPTURE                          VAL R23
+      226 CAPTURE                          VAL R11
+      227 CAPTURE                          VAL R7
+      228 CAPTURE                          VAL R2
+      229 CAPTURE                          VAL R16
+      230 CAPTURE                          VAL R6
+      231 CAPTURE                          VAL R32
+      232 CAPTURE                          VAL R15
+      233 CAPTURE                          VAL R10
+      234 CAPTURE                          VAL R9
+      235 CAPTURE                          VAL R3
+      236 CAPTURE                          VAL R17
+      237 CAPTURE                          VAL R33
+      238 SETTABLEKS                       R34 R31 K55 ["render"]
+      240 DUPCLOSURE                       R34 K56 [PROTO_4]
+      241 CAPTURE                          VAL R28
+      242 DUPCLOSURE                       R35 K57 [PROTO_8]
+      243 CAPTURE                          VAL R19
+      244 CAPTURE                          VAL R20
+      245 CAPTURE                          VAL R28
+      246 CAPTURE                          VAL R22
+      247 CAPTURE                          VAL R24
+      248 MOVE                             R36 R26
+      249 DUPTABLE                         R37 K61 [{"Stylizer", "Localization", "Network"}]
+      250 GETTABLEKS                       R38 R25 K58 ["Stylizer"]
+      252 SETTABLEKS                       R38 R37 K58 ["Stylizer"]
+      254 GETTABLEKS                       R38 R25 K59 ["Localization"]
+      256 SETTABLEKS                       R38 R37 K59 ["Localization"]
+      258 SETTABLEKS                       R27 R37 K60 ["Network"]
+      260 CALL                             R36 1 1
+      261 MOVE                             R37 R31
+      262 CALL                             R36 1 1
+      263 MOVE                             R31 R36
+      264 GETTABLEKS                       R36 R4 K62 ["connect"]
+      266 MOVE                             R37 R34
+      267 MOVE                             R38 R35
+      268 CALL                             R36 2 1
+      269 MOVE                             R37 R31
+      270 CALL                             R36 1 -1
+      271 RETURN                           R36 -1

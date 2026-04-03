@@ -25,6 +25,8 @@ local function useIconSize(
 			[IconSize.Small :: IconSize] = if isIconButton then tokens.Size.Size_500 else tokens.Size.Size_400,
 			[IconSize.Medium :: IconSize] = if isIconButton then tokens.Size.Size_600 else tokens.Size.Size_500,
 			[IconSize.Large :: IconSize] = if isIconButton then tokens.Size.Size_700 else tokens.Size.Size_600,
+			[IconSize.XLarge :: IconSize] = if isIconButton then tokens.Size.Size_800 else tokens.Size.Size_700,
+			[IconSize.XXLarge :: IconSize] = if isIconButton then tokens.Size.Size_900 else tokens.Size.Size_800,
 		}
 		else {
 			[IconSize.XSmall :: IconSize] = tokens.Size.Size_200,

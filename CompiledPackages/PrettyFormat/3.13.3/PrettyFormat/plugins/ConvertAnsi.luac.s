@@ -9,10 +9,10 @@ PROTO_0:
         7 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 DUPCLOSURE                       R4 K0 [PROTO_0]
-        2 CAPTURE                          UPVAL U1
-        3 NAMECALL                         R1 R0 K1 ["gsub"]
+        0 LOADK                            R3 K0 ["\x%[%d+;?5?;?%d*m"]
+        1 DUPCLOSURE                       R4 K1 [PROTO_0]
+        2 CAPTURE                          UPVAL U0
+        3 NAMECALL                         R1 R0 K2 ["gsub"]
         5 CALL                             R1 3 -1
         6 RETURN                           R1 -1
 
@@ -25,18 +25,18 @@ PROTO_2:
         6 JUMPIFNOTEQKS                    R2 K2 ["string"] ; [+9]
         8 GETUPVAL                         R2 0
         9 GETTABLEKS                       R1 R2 K3 ["toJSBoolean"]
-       11 GETUPVAL                         R4 1
-       12 NAMECALL                         R2 R0 K4 ["match"]
+       11 LOADK                            R4 K4 ["\x%[%d+;?5?;?%d*m"]
+       12 NAMECALL                         R2 R0 K5 ["match"]
        14 CALL                             R2 2 -1
        15 CALL                             R1 -1 1
        16 RETURN                           R1 1
 
 PROTO_3:
         0 MOVE                             R6 R5
-        1 GETUPVAL                         R9 0
-        2 DUPCLOSURE                       R10 K0 [PROTO_0]
-        3 CAPTURE                          UPVAL U1
-        4 NAMECALL                         R7 R0 K1 ["gsub"]
+        1 LOADK                            R9 K0 ["\x%[%d+;?5?;?%d*m"]
+        2 DUPCLOSURE                       R10 K1 [PROTO_0]
+        3 CAPTURE                          UPVAL U0
+        4 NAMECALL                         R7 R0 K2 ["gsub"]
         6 CALL                             R7 3 1
         7 MOVE                             R8 R1
         8 MOVE                             R9 R2
@@ -61,130 +61,121 @@ MAIN:
        21 GETIMPORT                        R5 K4 [require]
        23 GETTABLEKS                       R6 R1 K8 ["ChalkLua"]
        25 CALL                             R5 1 1
-       26 LOADN                            R10 27
-       27 FASTCALL1                        STRING_CHAR R10 ; [+2]
-       28 GETIMPORT                        R9 K11 [string.char]
-       30 CALL                             R9 1 1
-       31 MOVE                             R7 R9
-       32 LOADK                            R8 K12 ["%[%d+;?5?;?%d*m"]
-       33 CONCAT                           R6 R7 R8
-       34 NEWTABLE                         R7 32 0
-       36 GETTABLEKS                       R9 R5 K13 ["red"]
-       38 GETTABLEKS                       R8 R9 K14 ["close"]
-       40 LOADK                            R9 K15 ["</>"]
-       41 SETTABLE                         R9 R7 R8
-       42 GETTABLEKS                       R9 R5 K16 ["green"]
-       44 GETTABLEKS                       R8 R9 K14 ["close"]
-       46 LOADK                            R9 K15 ["</>"]
-       47 SETTABLE                         R9 R7 R8
-       48 GETTABLEKS                       R9 R5 K17 ["cyan"]
-       50 GETTABLEKS                       R8 R9 K14 ["close"]
-       52 LOADK                            R9 K15 ["</>"]
-       53 SETTABLE                         R9 R7 R8
-       54 GETTABLEKS                       R9 R5 K18 ["gray"]
-       56 GETTABLEKS                       R8 R9 K14 ["close"]
-       58 LOADK                            R9 K15 ["</>"]
-       59 SETTABLE                         R9 R7 R8
-       60 GETTABLEKS                       R9 R5 K19 ["white"]
-       62 GETTABLEKS                       R8 R9 K14 ["close"]
-       64 LOADK                            R9 K15 ["</>"]
-       65 SETTABLE                         R9 R7 R8
-       66 GETTABLEKS                       R9 R5 K20 ["yellow"]
-       68 GETTABLEKS                       R8 R9 K14 ["close"]
-       70 LOADK                            R9 K15 ["</>"]
-       71 SETTABLE                         R9 R7 R8
-       72 GETTABLEKS                       R9 R5 K21 ["bgRed"]
-       74 GETTABLEKS                       R8 R9 K14 ["close"]
-       76 LOADK                            R9 K15 ["</>"]
-       77 SETTABLE                         R9 R7 R8
-       78 GETTABLEKS                       R9 R5 K22 ["bgGreen"]
-       80 GETTABLEKS                       R8 R9 K14 ["close"]
-       82 LOADK                            R9 K15 ["</>"]
-       83 SETTABLE                         R9 R7 R8
-       84 GETTABLEKS                       R9 R5 K23 ["bgYellow"]
-       86 GETTABLEKS                       R8 R9 K14 ["close"]
-       88 LOADK                            R9 K15 ["</>"]
-       89 SETTABLE                         R9 R7 R8
-       90 GETTABLEKS                       R9 R5 K24 ["inverse"]
-       92 GETTABLEKS                       R8 R9 K14 ["close"]
-       94 LOADK                            R9 K15 ["</>"]
-       95 SETTABLE                         R9 R7 R8
-       96 GETTABLEKS                       R9 R5 K25 ["dim"]
-       98 GETTABLEKS                       R8 R9 K14 ["close"]
-      100 LOADK                            R9 K15 ["</>"]
-      101 SETTABLE                         R9 R7 R8
-      102 GETTABLEKS                       R9 R5 K26 ["bold"]
-      104 GETTABLEKS                       R8 R9 K14 ["close"]
-      106 LOADK                            R9 K15 ["</>"]
-      107 SETTABLE                         R9 R7 R8
-      108 GETTABLEKS                       R9 R5 K27 ["reset"]
-      110 GETTABLEKS                       R8 R9 K28 ["open"]
-      112 LOADK                            R9 K15 ["</>"]
-      113 SETTABLE                         R9 R7 R8
-      114 GETTABLEKS                       R9 R5 K27 ["reset"]
-      116 GETTABLEKS                       R8 R9 K14 ["close"]
-      118 LOADK                            R9 K15 ["</>"]
-      119 SETTABLE                         R9 R7 R8
-      120 GETTABLEKS                       R9 R5 K13 ["red"]
-      122 GETTABLEKS                       R8 R9 K28 ["open"]
-      124 LOADK                            R9 K29 ["<red>"]
-      125 SETTABLE                         R9 R7 R8
-      126 GETTABLEKS                       R9 R5 K16 ["green"]
-      128 GETTABLEKS                       R8 R9 K28 ["open"]
-      130 LOADK                            R9 K30 ["<green>"]
-      131 SETTABLE                         R9 R7 R8
-      132 GETTABLEKS                       R9 R5 K17 ["cyan"]
-      134 GETTABLEKS                       R8 R9 K28 ["open"]
-      136 LOADK                            R9 K31 ["<cyan>"]
-      137 SETTABLE                         R9 R7 R8
-      138 GETTABLEKS                       R9 R5 K18 ["gray"]
-      140 GETTABLEKS                       R8 R9 K28 ["open"]
-      142 LOADK                            R9 K32 ["<gray>"]
-      143 SETTABLE                         R9 R7 R8
-      144 GETTABLEKS                       R9 R5 K19 ["white"]
-      146 GETTABLEKS                       R8 R9 K28 ["open"]
-      148 LOADK                            R9 K33 ["<white>"]
-      149 SETTABLE                         R9 R7 R8
-      150 GETTABLEKS                       R9 R5 K20 ["yellow"]
-      152 GETTABLEKS                       R8 R9 K28 ["open"]
-      154 LOADK                            R9 K34 ["<yellow>"]
-      155 SETTABLE                         R9 R7 R8
-      156 GETTABLEKS                       R9 R5 K21 ["bgRed"]
-      158 GETTABLEKS                       R8 R9 K28 ["open"]
-      160 LOADK                            R9 K35 ["<bgRed>"]
-      161 SETTABLE                         R9 R7 R8
-      162 GETTABLEKS                       R9 R5 K22 ["bgGreen"]
-      164 GETTABLEKS                       R8 R9 K28 ["open"]
-      166 LOADK                            R9 K36 ["<bgGreen>"]
-      167 SETTABLE                         R9 R7 R8
-      168 GETTABLEKS                       R9 R5 K23 ["bgYellow"]
-      170 GETTABLEKS                       R8 R9 K28 ["open"]
-      172 LOADK                            R9 K37 ["<bgYellow>"]
-      173 SETTABLE                         R9 R7 R8
-      174 GETTABLEKS                       R9 R5 K24 ["inverse"]
-      176 GETTABLEKS                       R8 R9 K28 ["open"]
-      178 LOADK                            R9 K38 ["<inverse>"]
-      179 SETTABLE                         R9 R7 R8
-      180 GETTABLEKS                       R9 R5 K25 ["dim"]
-      182 GETTABLEKS                       R8 R9 K28 ["open"]
-      184 LOADK                            R9 K39 ["<dim>"]
-      185 SETTABLE                         R9 R7 R8
-      186 GETTABLEKS                       R9 R5 K26 ["bold"]
-      188 GETTABLEKS                       R8 R9 K28 ["open"]
-      190 LOADK                            R9 K40 ["<bold>"]
-      191 SETTABLE                         R9 R7 R8
-      192 DUPCLOSURE                       R8 K41 [PROTO_1]
-      193 CAPTURE                          VAL R6
-      194 CAPTURE                          VAL R7
-      195 DUPCLOSURE                       R9 K42 [PROTO_2]
-      196 CAPTURE                          VAL R3
-      197 CAPTURE                          VAL R6
-      198 DUPCLOSURE                       R10 K43 [PROTO_3]
-      199 CAPTURE                          VAL R6
-      200 CAPTURE                          VAL R7
-      201 DUPTABLE                         R11 K48 [{"test", "serialize", "ansiRegex", "toHumanReadableAnsi"}]
-      202 SETTABLEKS                       R9 R11 K44 ["test"]
-      204 SETTABLEKS                       R10 R11 K45 ["serialize"]
-      206 SETTABLEKS                       R6 R11 K46 ["ansiRegex"]
-      208 SETTABLEKS                       R8 R11 K47 ["toHumanReadableAnsi"]
-      210 RETURN                           R11 1
+       26 NEWTABLE                         R6 32 0
+       28 GETTABLEKS                       R8 R5 K9 ["red"]
+       30 GETTABLEKS                       R7 R8 K10 ["close"]
+       32 LOADK                            R8 K11 ["</>"]
+       33 SETTABLE                         R8 R6 R7
+       34 GETTABLEKS                       R8 R5 K12 ["green"]
+       36 GETTABLEKS                       R7 R8 K10 ["close"]
+       38 LOADK                            R8 K11 ["</>"]
+       39 SETTABLE                         R8 R6 R7
+       40 GETTABLEKS                       R8 R5 K13 ["cyan"]
+       42 GETTABLEKS                       R7 R8 K10 ["close"]
+       44 LOADK                            R8 K11 ["</>"]
+       45 SETTABLE                         R8 R6 R7
+       46 GETTABLEKS                       R8 R5 K14 ["gray"]
+       48 GETTABLEKS                       R7 R8 K10 ["close"]
+       50 LOADK                            R8 K11 ["</>"]
+       51 SETTABLE                         R8 R6 R7
+       52 GETTABLEKS                       R8 R5 K15 ["white"]
+       54 GETTABLEKS                       R7 R8 K10 ["close"]
+       56 LOADK                            R8 K11 ["</>"]
+       57 SETTABLE                         R8 R6 R7
+       58 GETTABLEKS                       R8 R5 K16 ["yellow"]
+       60 GETTABLEKS                       R7 R8 K10 ["close"]
+       62 LOADK                            R8 K11 ["</>"]
+       63 SETTABLE                         R8 R6 R7
+       64 GETTABLEKS                       R8 R5 K17 ["bgRed"]
+       66 GETTABLEKS                       R7 R8 K10 ["close"]
+       68 LOADK                            R8 K11 ["</>"]
+       69 SETTABLE                         R8 R6 R7
+       70 GETTABLEKS                       R8 R5 K18 ["bgGreen"]
+       72 GETTABLEKS                       R7 R8 K10 ["close"]
+       74 LOADK                            R8 K11 ["</>"]
+       75 SETTABLE                         R8 R6 R7
+       76 GETTABLEKS                       R8 R5 K19 ["bgYellow"]
+       78 GETTABLEKS                       R7 R8 K10 ["close"]
+       80 LOADK                            R8 K11 ["</>"]
+       81 SETTABLE                         R8 R6 R7
+       82 GETTABLEKS                       R8 R5 K20 ["inverse"]
+       84 GETTABLEKS                       R7 R8 K10 ["close"]
+       86 LOADK                            R8 K11 ["</>"]
+       87 SETTABLE                         R8 R6 R7
+       88 GETTABLEKS                       R8 R5 K21 ["dim"]
+       90 GETTABLEKS                       R7 R8 K10 ["close"]
+       92 LOADK                            R8 K11 ["</>"]
+       93 SETTABLE                         R8 R6 R7
+       94 GETTABLEKS                       R8 R5 K22 ["bold"]
+       96 GETTABLEKS                       R7 R8 K10 ["close"]
+       98 LOADK                            R8 K11 ["</>"]
+       99 SETTABLE                         R8 R6 R7
+      100 GETTABLEKS                       R8 R5 K23 ["reset"]
+      102 GETTABLEKS                       R7 R8 K24 ["open"]
+      104 LOADK                            R8 K11 ["</>"]
+      105 SETTABLE                         R8 R6 R7
+      106 GETTABLEKS                       R8 R5 K23 ["reset"]
+      108 GETTABLEKS                       R7 R8 K10 ["close"]
+      110 LOADK                            R8 K11 ["</>"]
+      111 SETTABLE                         R8 R6 R7
+      112 GETTABLEKS                       R8 R5 K9 ["red"]
+      114 GETTABLEKS                       R7 R8 K24 ["open"]
+      116 LOADK                            R8 K25 ["<red>"]
+      117 SETTABLE                         R8 R6 R7
+      118 GETTABLEKS                       R8 R5 K12 ["green"]
+      120 GETTABLEKS                       R7 R8 K24 ["open"]
+      122 LOADK                            R8 K26 ["<green>"]
+      123 SETTABLE                         R8 R6 R7
+      124 GETTABLEKS                       R8 R5 K13 ["cyan"]
+      126 GETTABLEKS                       R7 R8 K24 ["open"]
+      128 LOADK                            R8 K27 ["<cyan>"]
+      129 SETTABLE                         R8 R6 R7
+      130 GETTABLEKS                       R8 R5 K14 ["gray"]
+      132 GETTABLEKS                       R7 R8 K24 ["open"]
+      134 LOADK                            R8 K28 ["<gray>"]
+      135 SETTABLE                         R8 R6 R7
+      136 GETTABLEKS                       R8 R5 K15 ["white"]
+      138 GETTABLEKS                       R7 R8 K24 ["open"]
+      140 LOADK                            R8 K29 ["<white>"]
+      141 SETTABLE                         R8 R6 R7
+      142 GETTABLEKS                       R8 R5 K16 ["yellow"]
+      144 GETTABLEKS                       R7 R8 K24 ["open"]
+      146 LOADK                            R8 K30 ["<yellow>"]
+      147 SETTABLE                         R8 R6 R7
+      148 GETTABLEKS                       R8 R5 K17 ["bgRed"]
+      150 GETTABLEKS                       R7 R8 K24 ["open"]
+      152 LOADK                            R8 K31 ["<bgRed>"]
+      153 SETTABLE                         R8 R6 R7
+      154 GETTABLEKS                       R8 R5 K18 ["bgGreen"]
+      156 GETTABLEKS                       R7 R8 K24 ["open"]
+      158 LOADK                            R8 K32 ["<bgGreen>"]
+      159 SETTABLE                         R8 R6 R7
+      160 GETTABLEKS                       R8 R5 K19 ["bgYellow"]
+      162 GETTABLEKS                       R7 R8 K24 ["open"]
+      164 LOADK                            R8 K33 ["<bgYellow>"]
+      165 SETTABLE                         R8 R6 R7
+      166 GETTABLEKS                       R8 R5 K20 ["inverse"]
+      168 GETTABLEKS                       R7 R8 K24 ["open"]
+      170 LOADK                            R8 K34 ["<inverse>"]
+      171 SETTABLE                         R8 R6 R7
+      172 GETTABLEKS                       R8 R5 K21 ["dim"]
+      174 GETTABLEKS                       R7 R8 K24 ["open"]
+      176 LOADK                            R8 K35 ["<dim>"]
+      177 SETTABLE                         R8 R6 R7
+      178 GETTABLEKS                       R8 R5 K22 ["bold"]
+      180 GETTABLEKS                       R7 R8 K24 ["open"]
+      182 LOADK                            R8 K36 ["<bold>"]
+      183 SETTABLE                         R8 R6 R7
+      184 DUPCLOSURE                       R7 K37 [PROTO_1]
+      185 CAPTURE                          VAL R6
+      186 DUPCLOSURE                       R8 K38 [PROTO_2]
+      187 CAPTURE                          VAL R3
+      188 DUPCLOSURE                       R9 K39 [PROTO_3]
+      189 CAPTURE                          VAL R6
+      190 DUPTABLE                         R10 K44 [{"test", "serialize", "ansiRegex", "toHumanReadableAnsi"}]
+      191 SETTABLEKS                       R8 R10 K40 ["test"]
+      193 SETTABLEKS                       R9 R10 K41 ["serialize"]
+      195 LOADK                            R11 K45 ["\x%[%d+;?5?;?%d*m"]
+      196 SETTABLEKS                       R11 R10 K42 ["ansiRegex"]
+      198 SETTABLEKS                       R7 R10 K43 ["toHumanReadableAnsi"]
+      200 RETURN                           R10 1

@@ -54,6 +54,26 @@ local defaultProps = {
 	isChecked = false,
 }
 
+-- remove when FoundationGuiObjectInputSinkProperty is cleaned up
+local function getInputSinkAll()
+	if not Flags.FoundationGuiObjectInputSinkProperty then
+		return nil
+	end
+
+	local hasFeature, enabled = pcall(game.GetEngineFeature, game, "GuiObjectInputSink")
+	if not hasFeature or not enabled then
+		return nil
+	end
+
+	local ok, value = pcall(function()
+		return (Enum :: any).InputSink.All
+	end)
+
+	return if ok then value else nil
+end
+
+local InputSinkAll = getInputSinkAll()
+
 local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(menuItemProps, defaultProps)
 	local context = React.useContext(BaseMenuContext)
@@ -250,6 +270,7 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 					View,
 					{
 						tag = "col auto-xy stroke-standard stroke-default radius-medium",
+						InputSink = InputSinkAll,
 					},
 					React.createElement(BaseMenuContext.Provider, {
 						value = {

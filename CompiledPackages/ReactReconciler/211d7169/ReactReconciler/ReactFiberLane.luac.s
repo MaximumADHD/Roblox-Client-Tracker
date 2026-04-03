@@ -431,7 +431,7 @@ PROTO_9:
         6 GETTABLEKS                       R5 R0 K3 ["expirationTimes"]
         8 MOVE                             R6 R2
         9 LOADN                            R7 0
-       10 JUMPIFNOTLT                      R7 R6 ; [+75]
+       10 JUMPIFNOTLT                      R7 R6 ; [+74]
        12 GETUPVAL                         R7 0
        13 MOVE                             R8 R6
        14 CALL                             R7 1 1
@@ -441,7 +441,7 @@ PROTO_9:
        19 GETIMPORT                        R8 K6 [bit32.lshift]
        21 CALL                             R8 2 1
        22 GETTABLE                         R9 R5 R7
-       23 JUMPIFNOTEQKN                    R9 K7 [-1] ; [+37]
+       23 JUMPIFNOTEQKN                    R9 K7 [-1] ; [+36]
        25 FASTCALL2                        BIT32_BAND R8 R3 ; [+5]
        27 MOVE                             R11 R8
        28 MOVE                             R12 R3
@@ -453,7 +453,7 @@ PROTO_9:
        37 MOVE                             R12 R4
        38 GETIMPORT                        R10 K9 [bit32.band]
        40 CALL                             R10 2 1
-       41 JUMPIFEQKN                       R10 K10 [0] ; [+31]
+       41 JUMPIFEQKN                       R10 K10 [0] ; [+30]
        43 GETUPVAL                         R11 1
        44 MOVE                             R12 R8
        45 CALL                             R11 1 0
@@ -461,33 +461,32 @@ PROTO_9:
        47 LOADN                            R12 10
        48 JUMPIFNOTLE                      R12 R11 ; [+3]
        50 ADDK                             R10 R1 K11 [250]
-       51 JUMP                             ; [+7]
+       51 JUMP                             ; [+6]
        52 LOADN                            R12 6
        53 JUMPIFNOTLE                      R12 R11 ; [+3]
        55 ADDK                             R10 R1 K12 [5000]
-       56 JUMP                             ; [+2]
+       56 JUMP                             ; [+1]
        57 LOADN                            R10 255
-       58 JUMP                             ; [0]
-       59 SETTABLE                         R10 R5 R7
-       60 JUMP                             ; [+12]
-       61 JUMPIFNOTLE                      R9 R1 ; [+11]
-       63 GETTABLEKS                       R11 R0 K13 ["expiredLanes"]
-       65 FASTCALL2                        BIT32_BOR R11 R8 ; [+4]
-       67 MOVE                             R12 R8
-       68 GETIMPORT                        R10 K15 [bit32.bor]
-       70 CALL                             R10 2 1
-       71 SETTABLEKS                       R10 R0 K13 ["expiredLanes"]
-       73 FASTCALL1                        BIT32_BNOT R8 ; [+3]
-       74 MOVE                             R13 R8
-       75 GETIMPORT                        R12 K17 [bit32.bnot]
-       77 CALL                             R12 1 1
-       78 FASTCALL2                        BIT32_BAND R6 R12 ; [+4]
-       80 MOVE                             R11 R6
-       81 GETIMPORT                        R10 K9 [bit32.band]
-       83 CALL                             R10 2 1
-       84 MOVE                             R6 R10
-       85 JUMPBACK                         ; [-77]
-       86 RETURN                           R0 0
+       58 SETTABLE                         R10 R5 R7
+       59 JUMP                             ; [+12]
+       60 JUMPIFNOTLE                      R9 R1 ; [+11]
+       62 GETTABLEKS                       R11 R0 K13 ["expiredLanes"]
+       64 FASTCALL2                        BIT32_BOR R11 R8 ; [+4]
+       66 MOVE                             R12 R8
+       67 GETIMPORT                        R10 K15 [bit32.bor]
+       69 CALL                             R10 2 1
+       70 SETTABLEKS                       R10 R0 K13 ["expiredLanes"]
+       72 FASTCALL1                        BIT32_BNOT R8 ; [+3]
+       73 MOVE                             R13 R8
+       74 GETIMPORT                        R12 K17 [bit32.bnot]
+       76 CALL                             R12 1 1
+       77 FASTCALL2                        BIT32_BAND R6 R12 ; [+4]
+       79 MOVE                             R11 R6
+       80 GETIMPORT                        R10 K9 [bit32.band]
+       82 CALL                             R10 2 1
+       83 MOVE                             R6 R10
+       84 JUMPBACK                         ; [-76]
+       85 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R1 0

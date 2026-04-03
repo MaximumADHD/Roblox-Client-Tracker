@@ -35,6 +35,7 @@ local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlag
 local FFlagChromeDeprecateMRUs = game:DefineFastFlag("ChromeDeprecateMRUs", false)
 local FFlagVirtualCursorTopbarAlwaysVisible = SharedFlags.FFlagVirtualCursorTopbarAlwaysVisible
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagEnableChromeWindowsNotInMenu = require(Root.Flags).FFlagEnableChromeWindowsNotInMenu
 
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
 local CHROME_WINDOW_POSITION_KEY = "ChromeWindowPosition"
@@ -730,6 +731,18 @@ function ChromeService:updateMenuList()
 	if self._orderAlignment:get() == Enum.HorizontalAlignment.Left then
 		root.children = reverse(root.children)
 		reverseOrder(root.children)
+	end
+
+	if FFlagEnableChromeWindowsNotInMenu then
+		local windowIds = {}
+		for _, w in windowList do
+			windowIds[w.id] = true
+		end
+		for id, _ in self._integrations do
+			if self:isWindowOpen(id) and not windowIds[id] then
+				table.insert(windowList, windowProps(id))
+			end
+		end
 	end
 
 	-- todo: nice to have optimization, only update if we fail an equality check

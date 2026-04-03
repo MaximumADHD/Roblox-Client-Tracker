@@ -47,14 +47,27 @@ ValidationEnums.ValidationModule = {
 			- Good examples: HeadIsDynamic, CagingIsRelevant, AccurateBoundingBox, AssetVisible
 			- Bad example: DynamicHead, Tags, ValidateMeshSize
     --]]
+	-- Basic schema checks
 	ExpectedRootSchema = "ExpectedRootSchema",
 	SingleInstanceSelected = "SingleInstanceSelected",
 	NoExtraTags = "NoExtraTags",
+
+	-- Asset Quality checks
 	HeadIsDynamic = "HeadIsDynamic",
+	MeasureCageMeshDistanceHead = "MeasureCageMeshDistanceHead",
+
+	-- Facs exploits
 	NoFACSOverrideData = "NoFACSOverrideData",
 	FacsHeadConsistency = "FacsHeadConsistency",
-	BodySkinnedToSchema = "BodySkinnedToSchema",
+
+	-- Introduced for R15+ launch
+	HrdBonesFollowSchema = "HrdBonesFollowSchema",
+	HrdPropertiesSensible = "HrdPropertiesSensible",
+	BoneCFramesInBounds = "BoneCFramesInBounds",
+	JointRotationAttachmentsLimited = "JointRotationAttachmentsLimited",
+	MoveableAttachmentsExist = "MoveableAttachmentsExist",
 	FacsNotDrivingSchema = "FacsNotDrivingSchema",
+	BodySkinnedToSchema = "BodySkinnedToSchema",
 }
 finalizeEnumTable("ValidationModule")
 
@@ -62,11 +75,12 @@ finalizeEnumTable("ValidationModule")
 ValidationEnums.SharedDataMember = {
 	--[[ 
 	Enum for Data that is made and used by validation tests. Should match Types.ValidationSharedData. 
-	This exists twice as type export allows selene to run while the enum system allows code usage.
+	This is duplicated in Types.SharedData for selene to run while the enum system allows strict code usage.
 	
-	If there is a common data calculation that happens in multiple tests, especially if they are calling a util, it should be preloaded here.
-	For example, if multiple tests need to straighten out the limbs or compute the mesh scale, we should create that information only once to avoid inconsistencies.
-	On the otherhand, if a test needs to know an LC's ImportOrigin or the PBR's metalness map, it can just directly get it from the root instance
+	The primary goal of this list is to consolidate any complicated or time-consuming (>50ms) data fetching or calculation.
+	For example, if multiple tests need to straighten out the limbs or fetch the editable meshes, we should create that information only once here.
+	On the otherhand, if a test needs to know an LC's ImportOrigin or the PBR's metalness map, it can just directly get it from the root instance.
+	If multiple tests want to do a simple data re-org (eg getAllInstancesIsA), they can just use a util instead of cluttering this data list. 
 	--]]
 
 	-- ==== Guaranteed data ====

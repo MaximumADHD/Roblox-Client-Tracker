@@ -290,113 +290,111 @@ PROTO_6:
       210 CALL                             R13 1 1
       211 JUMPIF                           R13 ; [+2]
       212 LOADB                            R11 0
-      213 JUMP                             ; [+10]
+      213 JUMP                             ; [+9]
       214 JUMPIF                           R12 ; [+2]
       215 LOADB                            R11 0
-      216 JUMP                             ; [+7]
+      216 JUMP                             ; [+6]
       217 LOADB                            R11 1
-      218 JUMP                             ; [+5]
+      218 JUMP                             ; [+4]
       219 NAMECALL                         R13 R1 K5 ["isAltKeyDown"]
       221 CALL                             R13 1 1
       222 MOVE                             R11 R13
-      223 JUMP                             ; [0]
-      224 JUMPIF                           R11 ; [+81]
-      225 LOADB                            R11 0
-      226 LOADK                            R12 K35 [-∞]
-      227 GETIMPORT                        R13 K37 [pairs]
-      229 GETTABLEKS                       R14 R0 K32 ["_handlesList"]
-      231 CALL                             R13 1 3
-      232 FORGPREP_NEXT                    R13
-      233 MOVE                             R20 R6
-      234 LOADB                            R21 0
-      235 NAMECALL                         R18 R17 K38 ["hitTest"]
-      237 CALL                             R18 3 3
-      238 GETTABLEKS                       R22 R17 K39 ["getPriority"]
-      240 JUMPIFNOT                        R22 ; [+4]
-      241 NAMECALL                         R21 R17 K39 ["getPriority"]
-      243 CALL                             R21 1 1
-      244 JUMP                             ; [+1]
-      245 LOADN                            R21 0
-      246 JUMPIFNOT                        R18 ; [+57]
-      247 MOVE                             R23 R9
-      248 MOVE                             R24 R11
-      249 JUMPIFNOT                        R24 ; [+7]
-      250 MOVE                             R22 R20
-      251 JUMPIFNOT                        R22 ; [+12]
-      252 JUMPIFLT                         R19 R23 ; [+2]
-      254 LOADB                            R22 0 +1
-      255 LOADB                            R22 1
-      256 JUMP                             ; [+7]
-      257 MOVE                             R22 R20
-      258 JUMPIF                           R22 ; [+5]
-      259 JUMPIFLT                         R19 R23 ; [+2]
-      261 LOADB                            R22 0 +1
-      262 LOADB                            R22 1
-      263 JUMP                             ; [0]
-      264 JUMPIFNOT                        R22 ; [+39]
-      265 MOVE                             R23 R8
-      266 NAMECALL                         R24 R17 K40 ["shouldBiasTowardsObjects"]
-      268 CALL                             R24 1 1
-      269 JUMPIF                           R24 ; [+2]
-      270 LOADB                            R22 0
-      271 JUMP                             ; [+17]
-      272 JUMPIFNOT                        R23 ; [+5]
-      273 MOVE                             R26 R23
-      274 NAMECALL                         R24 R3 K41 ["doesContainItem"]
-      276 CALL                             R24 2 1
-      277 JUMPIF                           R24 ; [+2]
-      278 LOADB                            R22 0
-      279 JUMP                             ; [+9]
-      280 MOVE                             R26 R6
-      281 LOADB                            R27 1
-      282 NAMECALL                         R24 R17 K38 ["hitTest"]
-      284 CALL                             R24 3 1
-      285 JUMPIFEQKNIL                     R24 ; [+2]
-      287 LOADB                            R22 0 +1
-      288 LOADB                            R22 1
-      289 JUMPIF                           R22 ; [+14]
-      290 JUMPIFNOTLE                      R12 R21 ; [+13]
-      292 SETTABLEKS                       R17 R0 K33 ["_hoverHandles"]
-      294 SETTABLEKS                       R18 R0 K27 ["_hoverHandleId"]
-      296 SETTABLEKS                       R19 R0 K28 ["_hoverDistance"]
-      298 LOADNIL                          R22
-      299 SETTABLEKS                       R22 R0 K30 ["_hoverPosition"]
-      301 MOVE                             R9 R19
-      302 MOVE                             R11 R20
-      303 MOVE                             R12 R21
-      304 FORGLOOP                         R13 2 ; [-72]
-      306 GETTABLEKS                       R11 R0 K33 ["_hoverHandles"]
-      308 JUMPIFNOT                        R11 ; [+9]
-      309 GETTABLEKS                       R12 R0 K21 ["_draggerSchema"]
-      311 GETTABLEKS                       R11 R12 K42 ["setHover"]
-      313 MOVE                             R12 R1
-      314 LOADNIL                          R13
-      315 LOADNIL                          R14
-      316 CALL                             R11 3 0
-      317 JUMP                             ; [+10]
-      318 GETTABLEKS                       R12 R0 K21 ["_draggerSchema"]
-      320 GETTABLEKS                       R11 R12 K42 ["setHover"]
-      322 MOVE                             R12 R1
-      323 GETTABLEKS                       R13 R0 K3 ["_hoverSelectable"]
-      325 GETTABLEKS                       R14 R0 K25 ["_hoverItem"]
-      327 CALL                             R11 3 0
-      328 GETTABLEKS                       R11 R0 K43 ["_onHoverChanged"]
-      330 JUMPIFNOT                        R11 ; [+24]
-      331 GETTABLEKS                       R11 R0 K3 ["_hoverSelectable"]
-      333 JUMPIFEQ                         R11 R5 ; [+21]
-      335 NAMECALL                         R11 R0 K44 ["_freeHoverEscapeDetector"]
-      337 CALL                             R11 1 0
-      338 GETTABLEKS                       R11 R0 K3 ["_hoverSelectable"]
-      340 JUMPIFNOT                        R11 ; [+14]
-      341 GETTABLEKS                       R13 R0 K21 ["_draggerSchema"]
-      343 GETTABLEKS                       R12 R13 K45 ["HoverEscapeDetector"]
-      345 GETTABLEKS                       R11 R12 K18 ["new"]
-      347 MOVE                             R12 R1
-      348 GETTABLEKS                       R13 R0 K3 ["_hoverSelectable"]
-      350 GETTABLEKS                       R14 R0 K43 ["_onHoverChanged"]
-      352 CALL                             R11 3 1
-      353 SETTABLEKS                       R11 R0 K46 ["_hoverEscapeDetector"]
-      355 RETURN                           R0 0
+      223 JUMPIF                           R11 ; [+80]
+      224 LOADB                            R11 0
+      225 LOADK                            R12 K35 [-∞]
+      226 GETIMPORT                        R13 K37 [pairs]
+      228 GETTABLEKS                       R14 R0 K32 ["_handlesList"]
+      230 CALL                             R13 1 3
+      231 FORGPREP_NEXT                    R13
+      232 MOVE                             R20 R6
+      233 LOADB                            R21 0
+      234 NAMECALL                         R18 R17 K38 ["hitTest"]
+      236 CALL                             R18 3 3
+      237 GETTABLEKS                       R22 R17 K39 ["getPriority"]
+      239 JUMPIFNOT                        R22 ; [+4]
+      240 NAMECALL                         R21 R17 K39 ["getPriority"]
+      242 CALL                             R21 1 1
+      243 JUMP                             ; [+1]
+      244 LOADN                            R21 0
+      245 JUMPIFNOT                        R18 ; [+56]
+      246 MOVE                             R23 R9
+      247 MOVE                             R24 R11
+      248 JUMPIFNOT                        R24 ; [+7]
+      249 MOVE                             R22 R20
+      250 JUMPIFNOT                        R22 ; [+11]
+      251 JUMPIFLT                         R19 R23 ; [+2]
+      253 LOADB                            R22 0 +1
+      254 LOADB                            R22 1
+      255 JUMP                             ; [+6]
+      256 MOVE                             R22 R20
+      257 JUMPIF                           R22 ; [+4]
+      258 JUMPIFLT                         R19 R23 ; [+2]
+      260 LOADB                            R22 0 +1
+      261 LOADB                            R22 1
+      262 JUMPIFNOT                        R22 ; [+39]
+      263 MOVE                             R23 R8
+      264 NAMECALL                         R24 R17 K40 ["shouldBiasTowardsObjects"]
+      266 CALL                             R24 1 1
+      267 JUMPIF                           R24 ; [+2]
+      268 LOADB                            R22 0
+      269 JUMP                             ; [+17]
+      270 JUMPIFNOT                        R23 ; [+5]
+      271 MOVE                             R26 R23
+      272 NAMECALL                         R24 R3 K41 ["doesContainItem"]
+      274 CALL                             R24 2 1
+      275 JUMPIF                           R24 ; [+2]
+      276 LOADB                            R22 0
+      277 JUMP                             ; [+9]
+      278 MOVE                             R26 R6
+      279 LOADB                            R27 1
+      280 NAMECALL                         R24 R17 K38 ["hitTest"]
+      282 CALL                             R24 3 1
+      283 JUMPIFEQKNIL                     R24 ; [+2]
+      285 LOADB                            R22 0 +1
+      286 LOADB                            R22 1
+      287 JUMPIF                           R22 ; [+14]
+      288 JUMPIFNOTLE                      R12 R21 ; [+13]
+      290 SETTABLEKS                       R17 R0 K33 ["_hoverHandles"]
+      292 SETTABLEKS                       R18 R0 K27 ["_hoverHandleId"]
+      294 SETTABLEKS                       R19 R0 K28 ["_hoverDistance"]
+      296 LOADNIL                          R22
+      297 SETTABLEKS                       R22 R0 K30 ["_hoverPosition"]
+      299 MOVE                             R9 R19
+      300 MOVE                             R11 R20
+      301 MOVE                             R12 R21
+      302 FORGLOOP                         R13 2 ; [-71]
+      304 GETTABLEKS                       R11 R0 K33 ["_hoverHandles"]
+      306 JUMPIFNOT                        R11 ; [+9]
+      307 GETTABLEKS                       R12 R0 K21 ["_draggerSchema"]
+      309 GETTABLEKS                       R11 R12 K42 ["setHover"]
+      311 MOVE                             R12 R1
+      312 LOADNIL                          R13
+      313 LOADNIL                          R14
+      314 CALL                             R11 3 0
+      315 JUMP                             ; [+10]
+      316 GETTABLEKS                       R12 R0 K21 ["_draggerSchema"]
+      318 GETTABLEKS                       R11 R12 K42 ["setHover"]
+      320 MOVE                             R12 R1
+      321 GETTABLEKS                       R13 R0 K3 ["_hoverSelectable"]
+      323 GETTABLEKS                       R14 R0 K25 ["_hoverItem"]
+      325 CALL                             R11 3 0
+      326 GETTABLEKS                       R11 R0 K43 ["_onHoverChanged"]
+      328 JUMPIFNOT                        R11 ; [+24]
+      329 GETTABLEKS                       R11 R0 K3 ["_hoverSelectable"]
+      331 JUMPIFEQ                         R11 R5 ; [+21]
+      333 NAMECALL                         R11 R0 K44 ["_freeHoverEscapeDetector"]
+      335 CALL                             R11 1 0
+      336 GETTABLEKS                       R11 R0 K3 ["_hoverSelectable"]
+      338 JUMPIFNOT                        R11 ; [+14]
+      339 GETTABLEKS                       R13 R0 K21 ["_draggerSchema"]
+      341 GETTABLEKS                       R12 R13 K45 ["HoverEscapeDetector"]
+      343 GETTABLEKS                       R11 R12 K18 ["new"]
+      345 MOVE                             R12 R1
+      346 GETTABLEKS                       R13 R0 K3 ["_hoverSelectable"]
+      348 GETTABLEKS                       R14 R0 K43 ["_onHoverChanged"]
+      350 CALL                             R11 3 1
+      351 SETTABLEKS                       R11 R0 K46 ["_hoverEscapeDetector"]
+      353 RETURN                           R0 0
 
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["_hoverEscapeDetector"]

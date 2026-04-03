@@ -69,6 +69,7 @@ type _CatalogItemGroupSchema_PropsFields = {
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop?,
+	tag_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _CatalogItemGroupSchema_PropsPartialFields = {
@@ -87,6 +88,7 @@ type _CatalogItemGroupSchema_PropsPartialFields = {
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop?,
+	tag_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type CatalogItemGroupSchema_Props = typeof(setmetatable(
@@ -240,6 +242,7 @@ do
 			layout_order = if data == nil or data.layout_order == nil then nil else data.layout_order,
 			anchor_point = if data == nil or data.anchor_point == nil then nil else data.anchor_point,
 			size = if data == nil or data.size == nil then nil else data.size,
+			tag_id = if data == nil or data.tag_id == nil then nil else data.tag_id,
 		}, _CatalogItemGroupSchema_PropsImpl :: _CatalogItemGroupSchema_PropsImpl)
 	end
 
@@ -334,6 +337,12 @@ do
 		if self.size ~= nil then
 			local encoded = self.size:encode()
 			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.tag_id ~= nil then
+			local encoded = self.tag_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -438,6 +447,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop.decode(value)
 					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tag_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -523,6 +537,10 @@ do
 
 		if self.size ~= nil then
 			output.size = self.size:jsonEncode()
+		end
+
+		if self.tag_id ~= nil then
+			output.tagId = self.tag_id:jsonEncode()
 		end
 
 		return output
@@ -639,6 +657,14 @@ do
 
 		if input.size ~= nil then
 			self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop.jsonDecode(input.size)
+		end
+
+		if input.tag_id ~= nil then
+			self.tag_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tag_id)
+		end
+
+		if input.tagId ~= nil then
+			self.tag_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tagId)
 		end
 
 		return self

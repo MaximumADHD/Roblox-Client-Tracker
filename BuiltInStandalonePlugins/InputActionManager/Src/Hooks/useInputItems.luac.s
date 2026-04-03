@@ -2,102 +2,93 @@ PROTO_0:
         0 GETUPVAL                         R0 0
         1 GETIMPORT                        R1 K2 [table.clone]
         3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K3 ["getInputContexts"]
-        6 CALL                             R2 0 -1
-        7 CALL                             R1 -1 -1
-        8 CALL                             R0 -1 0
-        9 RETURN                           R0 0
+        4 GETTABLEKS                       R2 R3 K3 ["getInputItems"]
+        6 LOADNIL                          R3
+        7 LOADK                            R4 K4 ["InputContext"]
+        8 CALL                             R2 2 -1
+        9 CALL                             R1 -1 -1
+       10 CALL                             R0 -1 0
+       11 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 GETIMPORT                        R1 K2 [table.clone]
         3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K3 ["getInputActions"]
-        6 CALL                             R2 0 -1
-        7 CALL                             R1 -1 -1
-        8 CALL                             R0 -1 0
-        9 RETURN                           R0 0
+        4 GETTABLEKS                       R2 R3 K3 ["getInputItems"]
+        6 LOADNIL                          R3
+        7 LOADK                            R4 K4 ["InputAction"]
+        8 CALL                             R2 2 -1
+        9 CALL                             R1 -1 -1
+       10 CALL                             R0 -1 0
+       11 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 GETIMPORT                        R1 K2 [table.clone]
         3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K3 ["getInputBindings"]
-        6 CALL                             R2 0 -1
-        7 CALL                             R1 -1 -1
-        8 CALL                             R0 -1 0
-        9 RETURN                           R0 0
+        4 GETTABLEKS                       R2 R3 K3 ["getInputItems"]
+        6 LOADNIL                          R3
+        7 LOADK                            R4 K4 ["InputBinding"]
+        8 CALL                             R2 2 -1
+        9 CALL                             R1 -1 -1
+       10 CALL                             R0 -1 0
+       11 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["setListenersConnected"]
+        1 GETTABLEKS                       R0 R1 K0 ["requestInputItems"]
         3 LOADNIL                          R1
-        4 LOADB                            R2 0
-        5 CALL                             R0 2 0
-        6 GETUPVAL                         R0 1
-        7 JUMPIFNOT                        R0 ; [+2]
-        8 GETUPVAL                         R0 1
-        9 CALL                             R0 0 0
-       10 GETUPVAL                         R0 2
-       11 JUMPIFNOT                        R0 ; [+2]
-       12 GETUPVAL                         R0 2
-       13 CALL                             R0 0 0
-       14 GETUPVAL                         R0 3
-       15 JUMPIFNOT                        R0 ; [+2]
-       16 GETUPVAL                         R0 3
-       17 CALL                             R0 0 0
-       18 RETURN                           R0 0
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R2 K0 ["UpdateContexts"]
+        1 JUMPIFNOT                        R0 ; [+2]
+        2 GETUPVAL                         R0 0
+        3 CALL                             R0 0 0
+        4 GETUPVAL                         R0 1
+        5 JUMPIFNOT                        R0 ; [+2]
+        6 GETUPVAL                         R0 1
+        7 CALL                             R0 0 0
+        8 GETUPVAL                         R0 2
+        9 JUMPIFNOT                        R0 ; [+2]
+       10 GETUPVAL                         R0 2
+       11 CALL                             R0 0 0
+       12 RETURN                           R0 0
+
+PROTO_5:
+        0 GETUPVAL                         R0 0
+        1 LOADK                            R2 K0 ["ContextsChanged"]
         2 NEWCLOSURE                       R3 P0
         3 CAPTURE                          UPVAL U1
         4 CAPTURE                          UPVAL U2
         5 NAMECALL                         R0 R0 K1 ["OnGuestEvent"]
         7 CALL                             R0 3 2
         8 GETUPVAL                         R2 0
-        9 LOADK                            R4 K2 ["UpdateActions"]
+        9 LOADK                            R4 K2 ["ActionsChanged"]
        10 NEWCLOSURE                       R5 P1
        11 CAPTURE                          UPVAL U3
        12 CAPTURE                          UPVAL U2
        13 NAMECALL                         R2 R2 K1 ["OnGuestEvent"]
        15 CALL                             R2 3 2
        16 GETUPVAL                         R4 0
-       17 LOADK                            R6 K3 ["UpdateBindings"]
+       17 LOADK                            R6 K3 ["BindingsChanged"]
        18 NEWCLOSURE                       R7 P2
        19 CAPTURE                          UPVAL U4
        20 CAPTURE                          UPVAL U2
        21 NAMECALL                         R4 R4 K1 ["OnGuestEvent"]
        23 CALL                             R4 3 2
-       24 GETUPVAL                         R7 2
-       25 GETTABLEKS                       R6 R7 K4 ["setListenersConnected"]
-       27 LOADNIL                          R7
-       28 LOADB                            R8 1
-       29 CALL                             R6 2 0
-       30 GETUPVAL                         R6 1
-       31 GETUPVAL                         R8 2
-       32 GETTABLEKS                       R7 R8 K5 ["getInputContexts"]
-       34 CALL                             R7 0 -1
-       35 CALL                             R6 -1 0
-       36 GETUPVAL                         R6 3
-       37 GETUPVAL                         R8 2
-       38 GETTABLEKS                       R7 R8 K6 ["getInputActions"]
-       40 CALL                             R7 0 -1
-       41 CALL                             R6 -1 0
-       42 GETUPVAL                         R6 4
-       43 GETUPVAL                         R8 2
-       44 GETTABLEKS                       R7 R8 K7 ["getInputBindings"]
-       46 CALL                             R7 0 -1
-       47 CALL                             R6 -1 0
-       48 NEWCLOSURE                       R6 P3
-       49 CAPTURE                          UPVAL U2
-       50 CAPTURE                          VAL R1
-       51 CAPTURE                          VAL R3
-       52 CAPTURE                          VAL R5
-       53 RETURN                           R6 1
+       24 GETIMPORT                        R6 K6 [task.spawn]
+       26 NEWCLOSURE                       R7 P3
+       27 CAPTURE                          UPVAL U2
+       28 CALL                             R6 1 0
+       29 NEWCLOSURE                       R6 P4
+       30 CAPTURE                          VAL R1
+       31 CAPTURE                          VAL R3
+       32 CAPTURE                          VAL R5
+       33 RETURN                           R6 1
 
-PROTO_5:
+PROTO_6:
         0 NEWTABLE                         R0 0 0
         2 GETUPVAL                         R1 0
         3 LOADNIL                          R2
@@ -134,7 +125,7 @@ PROTO_5:
        47 FORGLOOP                         R1 2 ; [-42]
        49 RETURN                           R0 1
 
-PROTO_6:
+PROTO_7:
         0 NEWTABLE                         R0 0 0
         2 GETUPVAL                         R1 0
         3 LOADNIL                          R2
@@ -158,7 +149,7 @@ PROTO_6:
        28 FORGLOOP                         R1 2 ; [-23]
        30 RETURN                           R0 1
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["useContext"]
         3 GETUPVAL                         R2 1
@@ -211,7 +202,13 @@ PROTO_7:
        66 MOVE                             R13 R2
        67 SETLIST                          R11 R12 2 [1]
        69 CALL                             R9 2 1
-       70 RETURN                           R8 2
+       70 DUPTABLE                         R10 K10 [{"Items", "BindingReference", "Contexts", "Actions", "Bindings"}]
+       71 SETTABLEKS                       R8 R10 K5 ["Items"]
+       73 SETTABLEKS                       R9 R10 K6 ["BindingReference"]
+       75 SETTABLEKS                       R6 R10 K7 ["Contexts"]
+       77 SETTABLEKS                       R4 R10 K8 ["Actions"]
+       79 SETTABLEKS                       R2 R10 K9 ["Bindings"]
+       81 RETURN                           R10 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -237,7 +234,7 @@ MAIN:
        34 GETTABLEKS                       R6 R0 K6 ["Src"]
        36 GETTABLEKS                       R5 R6 K12 ["Types"]
        38 CALL                             R4 1 1
-       39 DUPCLOSURE                       R5 K13 [PROTO_7]
+       39 DUPCLOSURE                       R5 K13 [PROTO_8]
        40 CAPTURE                          VAL R3
        41 CAPTURE                          VAL R1
        42 CAPTURE                          VAL R2

@@ -9,20 +9,25 @@ PROTO_0:
        10 GETTABLEKS                       R1 R2 K1 ["increment"]
        12 CALL                             R1 0 0
        13 RETURN                           R0 0
-       14 JUMPIFNOTEQKS                    R0 K3 ["Rigid"] ; [+6]
+       14 JUMPIFNOTEQKS                    R0 K3 ["EyeLayered"] ; [+6]
        16 GETUPVAL                         R2 2
        17 GETTABLEKS                       R1 R2 K1 ["increment"]
        19 CALL                             R1 0 0
        20 RETURN                           R0 0
-       21 JUMPIFNOTEQKS                    R0 K4 ["Avatar"] ; [+6]
+       21 JUMPIFNOTEQKS                    R0 K4 ["Rigid"] ; [+6]
        23 GETUPVAL                         R2 3
        24 GETTABLEKS                       R1 R2 K1 ["increment"]
        26 CALL                             R1 0 0
        27 RETURN                           R0 0
-       28 GETUPVAL                         R2 4
-       29 GETTABLEKS                       R1 R2 K1 ["increment"]
-       31 CALL                             R1 0 0
-       32 RETURN                           R0 0
+       28 JUMPIFNOTEQKS                    R0 K5 ["Avatar"] ; [+6]
+       30 GETUPVAL                         R2 4
+       31 GETTABLEKS                       R1 R2 K1 ["increment"]
+       33 CALL                             R1 0 0
+       34 RETURN                           R0 0
+       35 GETUPVAL                         R2 5
+       36 GETTABLEKS                       R1 R2 K1 ["increment"]
+       38 CALL                             R1 0 0
+       39 RETURN                           R0 0
 
 PROTO_1:
         0 JUMPIFNOTEQKS                    R0 K0 ["Body"] ; [+6]
@@ -35,20 +40,25 @@ PROTO_1:
        10 GETTABLEKS                       R1 R2 K1 ["decrement"]
        12 CALL                             R1 0 0
        13 RETURN                           R0 0
-       14 JUMPIFNOTEQKS                    R0 K3 ["Rigid"] ; [+6]
+       14 JUMPIFNOTEQKS                    R0 K3 ["EyeLayered"] ; [+6]
        16 GETUPVAL                         R2 2
        17 GETTABLEKS                       R1 R2 K1 ["decrement"]
        19 CALL                             R1 0 0
        20 RETURN                           R0 0
-       21 JUMPIFNOTEQKS                    R0 K4 ["Avatar"] ; [+6]
+       21 JUMPIFNOTEQKS                    R0 K4 ["Rigid"] ; [+6]
        23 GETUPVAL                         R2 3
        24 GETTABLEKS                       R1 R2 K1 ["decrement"]
        26 CALL                             R1 0 0
        27 RETURN                           R0 0
-       28 GETUPVAL                         R2 4
-       29 GETTABLEKS                       R1 R2 K1 ["decrement"]
-       31 CALL                             R1 0 0
-       32 RETURN                           R0 0
+       28 JUMPIFNOTEQKS                    R0 K5 ["Avatar"] ; [+6]
+       30 GETUPVAL                         R2 4
+       31 GETTABLEKS                       R1 R2 K1 ["decrement"]
+       33 CALL                             R1 0 0
+       34 RETURN                           R0 0
+       35 GETUPVAL                         R2 5
+       36 GETTABLEKS                       R1 R2 K1 ["decrement"]
+       38 CALL                             R1 0 0
+       39 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R2 0
@@ -94,139 +104,176 @@ PROTO_2:
        42 CALL                             R10 0 1
        43 GETUPVAL                         R11 4
        44 CALL                             R11 0 1
-       45 GETUPVAL                         R13 5
-       46 GETTABLEKS                       R12 R13 K9 ["useCallback"]
-       48 NEWCLOSURE                       R13 P0
-       49 CAPTURE                          VAL R9
-       50 CAPTURE                          VAL R10
-       51 CAPTURE                          VAL R11
-       52 CAPTURE                          VAL R8
-       53 CAPTURE                          VAL R7
-       54 NEWTABLE                         R14 0 4
-       56 GETTABLEKS                       R15 R9 K10 ["increment"]
-       58 GETTABLEKS                       R16 R10 K10 ["increment"]
-       60 GETTABLEKS                       R17 R11 K10 ["increment"]
-       62 GETTABLEKS                       R18 R7 K10 ["increment"]
-       64 SETLIST                          R14 R15 4 [1]
-       66 CALL                             R12 2 1
-       67 GETUPVAL                         R14 5
-       68 GETTABLEKS                       R13 R14 K9 ["useCallback"]
-       70 NEWCLOSURE                       R14 P1
-       71 CAPTURE                          VAL R9
-       72 CAPTURE                          VAL R10
-       73 CAPTURE                          VAL R11
-       74 CAPTURE                          VAL R8
-       75 CAPTURE                          VAL R7
-       76 NEWTABLE                         R15 0 4
-       78 GETTABLEKS                       R16 R9 K11 ["decrement"]
-       80 GETTABLEKS                       R17 R10 K11 ["decrement"]
-       82 GETTABLEKS                       R18 R11 K11 ["decrement"]
-       84 GETTABLEKS                       R19 R7 K11 ["decrement"]
-       86 SETLIST                          R15 R16 4 [1]
-       88 CALL                             R13 2 1
-       89 LOADB                            R14 0
-       90 GETTABLEKS                       R15 R9 K12 ["amount"]
-       92 JUMPIFNOTEQKN                    R15 K13 [0] ; [+11]
-       94 GETTABLEKS                       R16 R10 K12 ["amount"]
-       96 GETTABLEKS                       R17 R11 K12 ["amount"]
-       98 ADD                              R15 R16 R17
-       99 LOADN                            R16 0
-      100 JUMPIFLT                         R16 R15 ; [+2]
-      102 LOADB                            R14 0 +1
-      103 LOADB                            R14 1
-      104 MOVE                             R15 R14
-      105 JUMPIFNOT                        R15 ; [+6]
-      106 GETTABLEKS                       R16 R8 K12 ["amount"]
-      108 JUMPIFEQKN                       R16 K13 [0] ; [+2]
-      110 LOADB                            R15 0 +1
-      111 LOADB                            R15 1
-      112 DUPTABLE                         R16 K16 [{"shouldCreateTemplateBody", "assetClassification"}]
-      113 SETTABLEKS                       R15 R16 K14 ["shouldCreateTemplateBody"]
-      115 DUPTABLE                         R17 K22 [{"bodyCount", "layeredCount", "rigidCount", "avatarCount", "unselectedCount"}]
-      116 GETTABLEKS                       R18 R9 K12 ["amount"]
-      118 SETTABLEKS                       R18 R17 K17 ["bodyCount"]
-      120 GETTABLEKS                       R18 R10 K12 ["amount"]
-      122 SETTABLEKS                       R18 R17 K18 ["layeredCount"]
-      124 GETTABLEKS                       R18 R11 K12 ["amount"]
-      126 SETTABLEKS                       R18 R17 K19 ["rigidCount"]
-      128 GETTABLEKS                       R18 R8 K12 ["amount"]
-      130 SETTABLEKS                       R18 R17 K20 ["avatarCount"]
-      132 GETTABLEKS                       R18 R7 K12 ["amount"]
-      134 SETTABLEKS                       R18 R17 K21 ["unselectedCount"]
-      136 SETTABLEKS                       R17 R16 K15 ["assetClassification"]
-      138 JUMPIFNOTEQKN                    R1 K23 [1] ; [+18]
-      140 DUPTABLE                         R17 K28 [{"SetupType", "AlignFrontAngle", "ClothingOnly", "EnableAdditionalHeadProcessing", "shouldCreateTemplateBody"}]
-      141 LOADK                            R18 K29 ["Platform"]
-      142 SETTABLEKS                       R18 R17 K24 ["SetupType"]
-      144 GETTABLEKS                       R18 R3 K30 ["enabled"]
-      146 SETTABLEKS                       R18 R17 K25 ["AlignFrontAngle"]
-      148 SETTABLEKS                       R14 R17 K26 ["ClothingOnly"]
-      150 GETTABLEKS                       R18 R4 K30 ["enabled"]
-      152 SETTABLEKS                       R18 R17 K27 ["EnableAdditionalHeadProcessing"]
-      154 SETTABLEKS                       R15 R17 K14 ["shouldCreateTemplateBody"]
-      156 JUMP                             ; [+35]
-      157 JUMPIFNOTEQKN                    R1 K31 [2] ; [+30]
-      159 DUPTABLE                         R17 K34 [{"SetupType", "AlignFrontAngle", "R15Plus", "DecimationOptions", "ClothingOnly", "EnableAdditionalHeadProcessing", "shouldCreateTemplateBody"}]
-      160 LOADK                            R18 K35 ["Development"]
-      161 SETTABLEKS                       R18 R17 K24 ["SetupType"]
-      163 GETTABLEKS                       R18 R3 K30 ["enabled"]
-      165 SETTABLEKS                       R18 R17 K25 ["AlignFrontAngle"]
-      167 GETTABLEKS                       R18 R5 K30 ["enabled"]
-      169 SETTABLEKS                       R18 R17 K32 ["R15Plus"]
-      171 GETTABLEKS                       R19 R6 K30 ["enabled"]
-      173 JUMPIFNOT                        R19 ; [+2]
-      174 LOADK                            R18 K36 ["EverythingEnabled"]
-      175 JUMP                             ; [+1]
-      176 LOADK                            R18 K37 ["Unspecified"]
-      177 SETTABLEKS                       R18 R17 K33 ["DecimationOptions"]
-      179 SETTABLEKS                       R14 R17 K26 ["ClothingOnly"]
-      181 GETTABLEKS                       R18 R4 K30 ["enabled"]
-      183 SETTABLEKS                       R18 R17 K27 ["EnableAdditionalHeadProcessing"]
-      185 SETTABLEKS                       R15 R17 K14 ["shouldCreateTemplateBody"]
-      187 JUMP                             ; [+4]
-      188 DUPTABLE                         R17 K38 [{"SetupType"}]
-      189 LOADK                            R18 K37 ["Unspecified"]
-      190 SETTABLEKS                       R18 R17 K24 ["SetupType"]
-      192 DUPTABLE                         R18 K45 [{"value", "set", "toggle", "options", "incrementCount", "decrementCount"}]
-      193 DUPTABLE                         R19 K51 [{"setupType", "alignFrontAngle", "enableAdditionalHeadProcessing", "customHumanoid", "reduceTriangles"}]
-      194 SETTABLEKS                       R1 R19 K46 ["setupType"]
-      196 GETTABLEKS                       R20 R3 K30 ["enabled"]
-      198 SETTABLEKS                       R20 R19 K47 ["alignFrontAngle"]
-      200 GETTABLEKS                       R20 R4 K30 ["enabled"]
-      202 SETTABLEKS                       R20 R19 K48 ["enableAdditionalHeadProcessing"]
-      204 GETTABLEKS                       R20 R5 K30 ["enabled"]
-      206 SETTABLEKS                       R20 R19 K49 ["customHumanoid"]
-      208 GETTABLEKS                       R20 R6 K30 ["enabled"]
-      210 SETTABLEKS                       R20 R19 K50 ["reduceTriangles"]
-      212 SETTABLEKS                       R19 R18 K39 ["value"]
-      214 DUPTABLE                         R19 K52 [{"setupType"}]
-      215 SETTABLEKS                       R2 R19 K46 ["setupType"]
-      217 SETTABLEKS                       R19 R18 K40 ["set"]
-      219 DUPTABLE                         R19 K53 [{"alignFrontAngle", "enableAdditionalHeadProcessing", "customHumanoid", "reduceTriangles"}]
-      220 GETTABLEKS                       R20 R3 K41 ["toggle"]
-      222 SETTABLEKS                       R20 R19 K47 ["alignFrontAngle"]
-      224 GETTABLEKS                       R20 R4 K41 ["toggle"]
-      226 SETTABLEKS                       R20 R19 K48 ["enableAdditionalHeadProcessing"]
-      228 GETTABLEKS                       R20 R5 K41 ["toggle"]
-      230 SETTABLEKS                       R20 R19 K49 ["customHumanoid"]
-      232 GETTABLEKS                       R20 R6 K41 ["toggle"]
-      234 SETTABLEKS                       R20 R19 K50 ["reduceTriangles"]
-      236 SETTABLEKS                       R19 R18 K41 ["toggle"]
-      238 DUPTABLE                         R19 K56 [{"settings", "info"}]
-      239 SETTABLEKS                       R17 R19 K54 ["settings"]
-      241 SETTABLEKS                       R16 R19 K55 ["info"]
-      243 SETTABLEKS                       R19 R18 K42 ["options"]
-      245 SETTABLEKS                       R12 R18 K43 ["incrementCount"]
-      247 SETTABLEKS                       R13 R18 K44 ["decrementCount"]
-      249 GETUPVAL                         R20 5
-      250 GETTABLEKS                       R19 R20 K57 ["createElement"]
-      252 GETUPVAL                         R21 6
-      253 GETTABLEKS                       R20 R21 K58 ["Provider"]
-      255 DUPTABLE                         R21 K59 [{"value"}]
-      256 SETTABLEKS                       R18 R21 K39 ["value"]
-      258 GETTABLEKS                       R22 R0 K60 ["children"]
-      260 CALL                             R19 3 -1
-      261 RETURN                           R19 -1
+       45 GETUPVAL                         R12 4
+       46 CALL                             R12 0 1
+       47 GETUPVAL                         R14 5
+       48 GETTABLEKS                       R13 R14 K9 ["useCallback"]
+       50 NEWCLOSURE                       R14 P0
+       51 CAPTURE                          VAL R9
+       52 CAPTURE                          VAL R10
+       53 CAPTURE                          VAL R11
+       54 CAPTURE                          VAL R12
+       55 CAPTURE                          VAL R8
+       56 CAPTURE                          VAL R7
+       57 NEWTABLE                         R15 0 5
+       59 GETTABLEKS                       R16 R9 K10 ["increment"]
+       61 GETTABLEKS                       R17 R10 K10 ["increment"]
+       63 GETTABLEKS                       R18 R11 K10 ["increment"]
+       65 GETTABLEKS                       R19 R12 K10 ["increment"]
+       67 GETTABLEKS                       R20 R7 K10 ["increment"]
+       69 SETLIST                          R15 R16 5 [1]
+       71 CALL                             R13 2 1
+       72 GETUPVAL                         R15 5
+       73 GETTABLEKS                       R14 R15 K9 ["useCallback"]
+       75 NEWCLOSURE                       R15 P1
+       76 CAPTURE                          VAL R9
+       77 CAPTURE                          VAL R10
+       78 CAPTURE                          VAL R11
+       79 CAPTURE                          VAL R12
+       80 CAPTURE                          VAL R8
+       81 CAPTURE                          VAL R7
+       82 NEWTABLE                         R16 0 5
+       84 GETTABLEKS                       R17 R9 K11 ["decrement"]
+       86 GETTABLEKS                       R18 R10 K11 ["decrement"]
+       88 GETTABLEKS                       R19 R11 K11 ["decrement"]
+       90 GETTABLEKS                       R20 R12 K11 ["decrement"]
+       92 GETTABLEKS                       R21 R7 K11 ["decrement"]
+       94 SETLIST                          R16 R17 5 [1]
+       96 CALL                             R14 2 1
+       97 LOADB                            R15 0
+       98 GETTABLEKS                       R16 R9 K12 ["amount"]
+      100 JUMPIFNOTEQKN                    R16 K13 [0] ; [+14]
+      102 GETTABLEKS                       R18 R10 K12 ["amount"]
+      104 GETTABLEKS                       R19 R11 K12 ["amount"]
+      106 ADD                              R17 R18 R19
+      107 GETTABLEKS                       R18 R12 K12 ["amount"]
+      109 ADD                              R16 R17 R18
+      110 LOADN                            R17 0
+      111 JUMPIFLT                         R17 R16 ; [+2]
+      113 LOADB                            R15 0 +1
+      114 LOADB                            R15 1
+      115 MOVE                             R16 R15
+      116 JUMPIFNOT                        R16 ; [+6]
+      117 GETTABLEKS                       R17 R8 K12 ["amount"]
+      119 JUMPIFEQKN                       R17 K13 [0] ; [+2]
+      121 LOADB                            R16 0 +1
+      122 LOADB                            R16 1
+      123 GETUPVAL                         R17 6
+      124 CALL                             R17 0 1
+      125 JUMPIFNOT                        R17 ; [+27]
+      126 LOADB                            R17 0
+      127 GETTABLEKS                       R18 R9 K12 ["amount"]
+      129 JUMPIFNOTEQKN                    R18 K13 [0] ; [+23]
+      131 LOADB                            R17 0
+      132 GETTABLEKS                       R18 R8 K12 ["amount"]
+      134 JUMPIFNOTEQKN                    R18 K13 [0] ; [+18]
+      136 LOADB                            R17 0
+      137 GETTABLEKS                       R18 R10 K12 ["amount"]
+      139 JUMPIFNOTEQKN                    R18 K13 [0] ; [+13]
+      141 LOADB                            R17 0
+      142 GETTABLEKS                       R18 R11 K12 ["amount"]
+      144 JUMPIFNOTEQKN                    R18 K13 [0] ; [+8]
+      146 GETTABLEKS                       R18 R12 K12 ["amount"]
+      148 LOADN                            R19 0
+      149 JUMPIFLT                         R19 R18 ; [+2]
+      151 LOADB                            R17 0 +1
+      152 LOADB                            R17 1
+      153 DUPTABLE                         R18 K17 [{"shouldCreateTemplateBody", "shouldProcessAttachmentPoint", "assetClassification"}]
+      154 SETTABLEKS                       R16 R18 K14 ["shouldCreateTemplateBody"]
+      156 GETUPVAL                         R20 6
+      157 CALL                             R20 0 1
+      158 JUMPIFNOT                        R20 ; [+2]
+      159 MOVE                             R19 R17
+      160 JUMP                             ; [+1]
+      161 LOADNIL                          R19
+      162 SETTABLEKS                       R19 R18 K15 ["shouldProcessAttachmentPoint"]
+      164 DUPTABLE                         R19 K24 [{"bodyCount", "layeredCount", "eyeLayeredCount", "rigidCount", "avatarCount", "unselectedCount"}]
+      165 GETTABLEKS                       R20 R9 K12 ["amount"]
+      167 SETTABLEKS                       R20 R19 K18 ["bodyCount"]
+      169 GETTABLEKS                       R20 R10 K12 ["amount"]
+      171 SETTABLEKS                       R20 R19 K19 ["layeredCount"]
+      173 GETTABLEKS                       R20 R11 K12 ["amount"]
+      175 SETTABLEKS                       R20 R19 K20 ["eyeLayeredCount"]
+      177 GETTABLEKS                       R20 R12 K12 ["amount"]
+      179 SETTABLEKS                       R20 R19 K21 ["rigidCount"]
+      181 GETTABLEKS                       R20 R8 K12 ["amount"]
+      183 SETTABLEKS                       R20 R19 K22 ["avatarCount"]
+      185 GETTABLEKS                       R20 R7 K12 ["amount"]
+      187 SETTABLEKS                       R20 R19 K23 ["unselectedCount"]
+      189 SETTABLEKS                       R19 R18 K16 ["assetClassification"]
+      191 JUMPIFNOTEQKN                    R1 K25 [1] ; [+18]
+      193 DUPTABLE                         R19 K30 [{"SetupType", "AlignFrontAngle", "ClothingOnly", "EnableAdditionalHeadProcessing", "shouldCreateTemplateBody"}]
+      194 LOADK                            R20 K31 ["Platform"]
+      195 SETTABLEKS                       R20 R19 K26 ["SetupType"]
+      197 GETTABLEKS                       R20 R3 K32 ["enabled"]
+      199 SETTABLEKS                       R20 R19 K27 ["AlignFrontAngle"]
+      201 SETTABLEKS                       R15 R19 K28 ["ClothingOnly"]
+      203 GETTABLEKS                       R20 R4 K32 ["enabled"]
+      205 SETTABLEKS                       R20 R19 K29 ["EnableAdditionalHeadProcessing"]
+      207 SETTABLEKS                       R16 R19 K14 ["shouldCreateTemplateBody"]
+      209 JUMP                             ; [+35]
+      210 JUMPIFNOTEQKN                    R1 K33 [2] ; [+30]
+      212 DUPTABLE                         R19 K36 [{"SetupType", "AlignFrontAngle", "R15Plus", "DecimationOptions", "ClothingOnly", "EnableAdditionalHeadProcessing", "shouldCreateTemplateBody"}]
+      213 LOADK                            R20 K37 ["Development"]
+      214 SETTABLEKS                       R20 R19 K26 ["SetupType"]
+      216 GETTABLEKS                       R20 R3 K32 ["enabled"]
+      218 SETTABLEKS                       R20 R19 K27 ["AlignFrontAngle"]
+      220 GETTABLEKS                       R20 R5 K32 ["enabled"]
+      222 SETTABLEKS                       R20 R19 K34 ["R15Plus"]
+      224 GETTABLEKS                       R21 R6 K32 ["enabled"]
+      226 JUMPIFNOT                        R21 ; [+2]
+      227 LOADK                            R20 K38 ["EverythingEnabled"]
+      228 JUMP                             ; [+1]
+      229 LOADK                            R20 K39 ["Unspecified"]
+      230 SETTABLEKS                       R20 R19 K35 ["DecimationOptions"]
+      232 SETTABLEKS                       R15 R19 K28 ["ClothingOnly"]
+      234 GETTABLEKS                       R20 R4 K32 ["enabled"]
+      236 SETTABLEKS                       R20 R19 K29 ["EnableAdditionalHeadProcessing"]
+      238 SETTABLEKS                       R16 R19 K14 ["shouldCreateTemplateBody"]
+      240 JUMP                             ; [+4]
+      241 DUPTABLE                         R19 K40 [{"SetupType"}]
+      242 LOADK                            R20 K39 ["Unspecified"]
+      243 SETTABLEKS                       R20 R19 K26 ["SetupType"]
+      245 DUPTABLE                         R20 K47 [{"value", "set", "toggle", "options", "incrementCount", "decrementCount"}]
+      246 DUPTABLE                         R21 K53 [{"setupType", "alignFrontAngle", "enableAdditionalHeadProcessing", "customHumanoid", "reduceTriangles"}]
+      247 SETTABLEKS                       R1 R21 K48 ["setupType"]
+      249 GETTABLEKS                       R22 R3 K32 ["enabled"]
+      251 SETTABLEKS                       R22 R21 K49 ["alignFrontAngle"]
+      253 GETTABLEKS                       R22 R4 K32 ["enabled"]
+      255 SETTABLEKS                       R22 R21 K50 ["enableAdditionalHeadProcessing"]
+      257 GETTABLEKS                       R22 R5 K32 ["enabled"]
+      259 SETTABLEKS                       R22 R21 K51 ["customHumanoid"]
+      261 GETTABLEKS                       R22 R6 K32 ["enabled"]
+      263 SETTABLEKS                       R22 R21 K52 ["reduceTriangles"]
+      265 SETTABLEKS                       R21 R20 K41 ["value"]
+      267 DUPTABLE                         R21 K54 [{"setupType"}]
+      268 SETTABLEKS                       R2 R21 K48 ["setupType"]
+      270 SETTABLEKS                       R21 R20 K42 ["set"]
+      272 DUPTABLE                         R21 K55 [{"alignFrontAngle", "enableAdditionalHeadProcessing", "customHumanoid", "reduceTriangles"}]
+      273 GETTABLEKS                       R22 R3 K43 ["toggle"]
+      275 SETTABLEKS                       R22 R21 K49 ["alignFrontAngle"]
+      277 GETTABLEKS                       R22 R4 K43 ["toggle"]
+      279 SETTABLEKS                       R22 R21 K50 ["enableAdditionalHeadProcessing"]
+      281 GETTABLEKS                       R22 R5 K43 ["toggle"]
+      283 SETTABLEKS                       R22 R21 K51 ["customHumanoid"]
+      285 GETTABLEKS                       R22 R6 K43 ["toggle"]
+      287 SETTABLEKS                       R22 R21 K52 ["reduceTriangles"]
+      289 SETTABLEKS                       R21 R20 K43 ["toggle"]
+      291 DUPTABLE                         R21 K58 [{"settings", "info"}]
+      292 SETTABLEKS                       R19 R21 K56 ["settings"]
+      294 SETTABLEKS                       R18 R21 K57 ["info"]
+      296 SETTABLEKS                       R21 R20 K44 ["options"]
+      298 SETTABLEKS                       R13 R20 K45 ["incrementCount"]
+      300 SETTABLEKS                       R14 R20 K46 ["decrementCount"]
+      302 GETUPVAL                         R22 5
+      303 GETTABLEKS                       R21 R22 K59 ["createElement"]
+      305 GETUPVAL                         R23 7
+      306 GETTABLEKS                       R22 R23 K60 ["Provider"]
+      308 DUPTABLE                         R23 K61 [{"value"}]
+      309 SETTABLEKS                       R20 R23 K41 ["value"]
+      311 GETTABLEKS                       R24 R0 K62 ["children"]
+      313 CALL                             R21 3 -1
+      314 RETURN                           R21 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -272,80 +319,88 @@ MAIN:
        70 GETTABLEKS                       R10 R11 K15 ["Hooks"]
        72 GETTABLEKS                       R9 R10 K18 ["useTogglePluginSetting"]
        74 CALL                             R8 1 1
-       75 GETIMPORT                        R9 K20 [game]
-       77 LOADK                            R11 K21 ["AvatarPreviewerDefaultHeadProcessingSetting"]
-       78 LOADB                            R12 0
-       79 NAMECALL                         R9 R9 K22 ["DefineFastFlag"]
-       81 CALL                             R9 3 1
-       82 DUPTABLE                         R10 K29 [{"value", "set", "toggle", "options", "incrementCount", "decrementCount"}]
-       83 DUPTABLE                         R11 K31 [{"setupType"}]
-       84 LOADN                            R12 0
-       85 SETTABLEKS                       R12 R11 K30 ["setupType"]
-       87 SETTABLEKS                       R11 R10 K23 ["value"]
-       89 DUPTABLE                         R11 K31 [{"setupType"}]
-       90 MOVE                             R12 R4
-       91 LOADK                            R13 K32 ["setSetupType"]
-       92 CALL                             R12 1 1
-       93 SETTABLEKS                       R12 R11 K30 ["setupType"]
-       95 SETTABLEKS                       R11 R10 K24 ["set"]
-       97 DUPTABLE                         R11 K37 [{"alignFrontAngle", "enableAdditionalHeadProcessing", "customHumanoid", "reduceTriangles"}]
-       98 MOVE                             R12 R4
-       99 LOADK                            R13 K33 ["alignFrontAngle"]
-      100 CALL                             R12 1 1
-      101 SETTABLEKS                       R12 R11 K33 ["alignFrontAngle"]
-      103 MOVE                             R12 R4
-      104 LOADK                            R13 K34 ["enableAdditionalHeadProcessing"]
-      105 CALL                             R12 1 1
-      106 SETTABLEKS                       R12 R11 K34 ["enableAdditionalHeadProcessing"]
-      108 MOVE                             R12 R4
-      109 LOADK                            R13 K38 ["toggleCustomHumanoid"]
-      110 CALL                             R12 1 1
-      111 SETTABLEKS                       R12 R11 K35 ["customHumanoid"]
-      113 MOVE                             R12 R4
-      114 LOADK                            R13 K39 ["toggleReduceTriangles"]
-      115 CALL                             R12 1 1
-      116 SETTABLEKS                       R12 R11 K36 ["reduceTriangles"]
-      118 SETTABLEKS                       R11 R10 K25 ["toggle"]
-      120 DUPTABLE                         R11 K42 [{"settings", "info"}]
-      121 DUPTABLE                         R12 K44 [{"SetupType"}]
-      122 LOADK                            R13 K45 ["Unspecified"]
-      123 SETTABLEKS                       R13 R12 K43 ["SetupType"]
-      125 SETTABLEKS                       R12 R11 K40 ["settings"]
-      127 DUPTABLE                         R12 K47 [{"assetClassification"}]
-      128 DUPTABLE                         R13 K53 [{"bodyCount", "layeredCount", "rigidCount", "avatarCount", "unselectedCount"}]
-      129 LOADN                            R14 0
-      130 SETTABLEKS                       R14 R13 K48 ["bodyCount"]
-      132 LOADN                            R14 0
-      133 SETTABLEKS                       R14 R13 K49 ["layeredCount"]
-      135 LOADN                            R14 0
-      136 SETTABLEKS                       R14 R13 K50 ["rigidCount"]
-      138 LOADN                            R14 0
-      139 SETTABLEKS                       R14 R13 K51 ["avatarCount"]
-      141 LOADN                            R14 0
-      142 SETTABLEKS                       R14 R13 K52 ["unselectedCount"]
-      144 SETTABLEKS                       R13 R12 K46 ["assetClassification"]
-      146 SETTABLEKS                       R12 R11 K41 ["info"]
-      148 SETTABLEKS                       R11 R10 K26 ["options"]
-      150 MOVE                             R11 R4
-      151 LOADK                            R12 K27 ["incrementCount"]
-      152 CALL                             R11 1 1
-      153 SETTABLEKS                       R11 R10 K27 ["incrementCount"]
-      155 MOVE                             R11 R4
-      156 LOADK                            R12 K28 ["decrementCount"]
-      157 CALL                             R11 1 1
-      158 SETTABLEKS                       R11 R10 K28 ["decrementCount"]
-      160 GETTABLEKS                       R11 R1 K54 ["createContext"]
-      162 MOVE                             R12 R10
-      163 CALL                             R11 1 1
-      164 DUPCLOSURE                       R12 K55 [PROTO_2]
-      165 CAPTURE                          VAL R5
-      166 CAPTURE                          VAL R7
-      167 CAPTURE                          VAL R8
-      168 CAPTURE                          VAL R9
-      169 CAPTURE                          VAL R6
-      170 CAPTURE                          VAL R1
-      171 CAPTURE                          VAL R11
-      172 DUPTABLE                         R13 K58 [{"Context", "Provider"}]
-      173 SETTABLEKS                       R11 R13 K56 ["Context"]
-      175 SETTABLEKS                       R12 R13 K57 ["Provider"]
-      177 RETURN                           R13 1
+       75 GETIMPORT                        R9 K5 [require]
+       77 GETTABLEKS                       R12 R0 K8 ["Src"]
+       79 GETTABLEKS                       R11 R12 K13 ["Flags"]
+       81 GETTABLEKS                       R10 R11 K19 ["getFFlagAvatarPreviewerProcessRigidOnly"]
+       83 CALL                             R9 1 1
+       84 GETIMPORT                        R10 K21 [game]
+       86 LOADK                            R12 K22 ["AvatarPreviewerDefaultHeadProcessingSetting"]
+       87 LOADB                            R13 0
+       88 NAMECALL                         R10 R10 K23 ["DefineFastFlag"]
+       90 CALL                             R10 3 1
+       91 DUPTABLE                         R11 K30 [{"value", "set", "toggle", "options", "incrementCount", "decrementCount"}]
+       92 DUPTABLE                         R12 K32 [{"setupType"}]
+       93 LOADN                            R13 0
+       94 SETTABLEKS                       R13 R12 K31 ["setupType"]
+       96 SETTABLEKS                       R12 R11 K24 ["value"]
+       98 DUPTABLE                         R12 K32 [{"setupType"}]
+       99 MOVE                             R13 R4
+      100 LOADK                            R14 K33 ["setSetupType"]
+      101 CALL                             R13 1 1
+      102 SETTABLEKS                       R13 R12 K31 ["setupType"]
+      104 SETTABLEKS                       R12 R11 K25 ["set"]
+      106 DUPTABLE                         R12 K38 [{"alignFrontAngle", "enableAdditionalHeadProcessing", "customHumanoid", "reduceTriangles"}]
+      107 MOVE                             R13 R4
+      108 LOADK                            R14 K34 ["alignFrontAngle"]
+      109 CALL                             R13 1 1
+      110 SETTABLEKS                       R13 R12 K34 ["alignFrontAngle"]
+      112 MOVE                             R13 R4
+      113 LOADK                            R14 K35 ["enableAdditionalHeadProcessing"]
+      114 CALL                             R13 1 1
+      115 SETTABLEKS                       R13 R12 K35 ["enableAdditionalHeadProcessing"]
+      117 MOVE                             R13 R4
+      118 LOADK                            R14 K39 ["toggleCustomHumanoid"]
+      119 CALL                             R13 1 1
+      120 SETTABLEKS                       R13 R12 K36 ["customHumanoid"]
+      122 MOVE                             R13 R4
+      123 LOADK                            R14 K40 ["toggleReduceTriangles"]
+      124 CALL                             R13 1 1
+      125 SETTABLEKS                       R13 R12 K37 ["reduceTriangles"]
+      127 SETTABLEKS                       R12 R11 K26 ["toggle"]
+      129 DUPTABLE                         R12 K43 [{"settings", "info"}]
+      130 DUPTABLE                         R13 K45 [{"SetupType"}]
+      131 LOADK                            R14 K46 ["Unspecified"]
+      132 SETTABLEKS                       R14 R13 K44 ["SetupType"]
+      134 SETTABLEKS                       R13 R12 K41 ["settings"]
+      136 DUPTABLE                         R13 K48 [{"assetClassification"}]
+      137 DUPTABLE                         R14 K55 [{"bodyCount", "layeredCount", "eyeLayeredCount", "rigidCount", "avatarCount", "unselectedCount"}]
+      138 LOADN                            R15 0
+      139 SETTABLEKS                       R15 R14 K49 ["bodyCount"]
+      141 LOADN                            R15 0
+      142 SETTABLEKS                       R15 R14 K50 ["layeredCount"]
+      144 LOADN                            R15 0
+      145 SETTABLEKS                       R15 R14 K51 ["eyeLayeredCount"]
+      147 LOADN                            R15 0
+      148 SETTABLEKS                       R15 R14 K52 ["rigidCount"]
+      150 LOADN                            R15 0
+      151 SETTABLEKS                       R15 R14 K53 ["avatarCount"]
+      153 LOADN                            R15 0
+      154 SETTABLEKS                       R15 R14 K54 ["unselectedCount"]
+      156 SETTABLEKS                       R14 R13 K47 ["assetClassification"]
+      158 SETTABLEKS                       R13 R12 K42 ["info"]
+      160 SETTABLEKS                       R12 R11 K27 ["options"]
+      162 MOVE                             R12 R4
+      163 LOADK                            R13 K28 ["incrementCount"]
+      164 CALL                             R12 1 1
+      165 SETTABLEKS                       R12 R11 K28 ["incrementCount"]
+      167 MOVE                             R12 R4
+      168 LOADK                            R13 K29 ["decrementCount"]
+      169 CALL                             R12 1 1
+      170 SETTABLEKS                       R12 R11 K29 ["decrementCount"]
+      172 GETTABLEKS                       R12 R1 K56 ["createContext"]
+      174 MOVE                             R13 R11
+      175 CALL                             R12 1 1
+      176 DUPCLOSURE                       R13 K57 [PROTO_2]
+      177 CAPTURE                          VAL R5
+      178 CAPTURE                          VAL R7
+      179 CAPTURE                          VAL R8
+      180 CAPTURE                          VAL R10
+      181 CAPTURE                          VAL R6
+      182 CAPTURE                          VAL R1
+      183 CAPTURE                          VAL R9
+      184 CAPTURE                          VAL R12
+      185 DUPTABLE                         R14 K60 [{"Context", "Provider"}]
+      186 SETTABLEKS                       R12 R14 K58 ["Context"]
+      188 SETTABLEKS                       R13 R14 K59 ["Provider"]
+      190 RETURN                           R14 1

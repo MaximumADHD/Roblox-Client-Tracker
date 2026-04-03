@@ -179,65 +179,62 @@ PROTO_9:
        37 NAMECALL                         R2 R0 K8 ["OnInvoke"]
        39 CALL                             R2 3 1
        40 SETTABLEKS                       R2 R1 K11 ["OnInsertItemsConnection"]
-       42 GETUPVAL                         R2 3
-       43 CALL                             R2 0 1
-       44 JUMPIFNOT                        R2 ; [+7]
-       45 LOADK                            R4 K12 ["OnSelectItems"]
-       46 GETUPVAL                         R5 4
-       47 NAMECALL                         R2 R0 K8 ["OnInvoke"]
-       49 CALL                             R2 3 1
-       50 SETTABLEKS                       R2 R1 K13 ["OnSelectItemsConnection"]
-       52 LOADK                            R4 K14 ["OnOpenBulkImport"]
-       53 GETUPVAL                         R5 5
-       54 NAMECALL                         R2 R0 K8 ["OnInvoke"]
-       56 CALL                             R2 3 1
-       57 SETTABLEKS                       R2 R1 K15 ["OnOpenBulkImportConnection"]
-       59 LOADK                            R4 K16 ["OnOpenPlace"]
-       60 DUPCLOSURE                       R5 K17 [PROTO_3]
-       61 CAPTURE                          UPVAL U6
-       62 NAMECALL                         R2 R0 K8 ["OnInvoke"]
-       64 CALL                             R2 3 1
-       65 SETTABLEKS                       R2 R1 K18 ["OnOpenPlaceConnection"]
-       67 LOADK                            R4 K19 ["OnAddPlace"]
-       68 NEWCLOSURE                       R5 P3
-       69 CAPTURE                          UPVAL U6
-       70 CAPTURE                          VAL R0
-       71 NAMECALL                         R2 R0 K8 ["OnInvoke"]
-       73 CALL                             R2 3 1
-       74 SETTABLEKS                       R2 R1 K20 ["OnAddPlaceConnection"]
-       76 LOADK                            R4 K21 ["OnRemovePlace"]
-       77 NEWCLOSURE                       R5 P4
-       78 CAPTURE                          UPVAL U6
-       79 CAPTURE                          VAL R0
-       80 NAMECALL                         R2 R0 K8 ["OnInvoke"]
-       82 CALL                             R2 3 1
-       83 SETTABLEKS                       R2 R1 K22 ["OnRemovePlaceConnection"]
-       85 LOADK                            R4 K23 ["OnRenamePlace"]
-       86 NEWCLOSURE                       R5 P5
-       87 CAPTURE                          UPVAL U6
-       88 CAPTURE                          VAL R0
-       89 NAMECALL                         R2 R0 K8 ["OnInvoke"]
-       91 CALL                             R2 3 1
-       92 SETTABLEKS                       R2 R1 K24 ["OnRenamePlaceConnection"]
-       94 LOADK                            R4 K25 ["SendAnalyticsEvent"]
-       95 DUPCLOSURE                       R5 K26 [PROTO_7]
-       96 CAPTURE                          UPVAL U7
-       97 CAPTURE                          UPVAL U8
-       98 CAPTURE                          UPVAL U9
-       99 NAMECALL                         R2 R0 K8 ["OnInvoke"]
-      101 CALL                             R2 3 1
-      102 SETTABLEKS                       R2 R1 K27 ["SendAnalyticsEventConnection"]
-      104 GETUPVAL                         R2 10
-      105 CALL                             R2 0 1
-      106 JUMPIF                           R2 ; [+10]
-      107 GETUPVAL                         R3 11
-      108 GETTABLEKS                       R2 R3 K28 ["AssetImported"]
-      110 NEWCLOSURE                       R4 P7
-      111 CAPTURE                          VAL R0
-      112 NAMECALL                         R2 R2 K5 ["Connect"]
-      114 CALL                             R2 2 1
-      115 SETTABLEKS                       R2 R1 K29 ["BulkImportImportedConnection"]
-      117 RETURN                           R1 1
+       42 LOADK                            R4 K12 ["OnSelectItems"]
+       43 GETUPVAL                         R5 3
+       44 NAMECALL                         R2 R0 K8 ["OnInvoke"]
+       46 CALL                             R2 3 1
+       47 SETTABLEKS                       R2 R1 K13 ["OnSelectItemsConnection"]
+       49 LOADK                            R4 K14 ["OnOpenBulkImport"]
+       50 GETUPVAL                         R5 4
+       51 NAMECALL                         R2 R0 K8 ["OnInvoke"]
+       53 CALL                             R2 3 1
+       54 SETTABLEKS                       R2 R1 K15 ["OnOpenBulkImportConnection"]
+       56 LOADK                            R4 K16 ["OnOpenPlace"]
+       57 DUPCLOSURE                       R5 K17 [PROTO_3]
+       58 CAPTURE                          UPVAL U5
+       59 NAMECALL                         R2 R0 K8 ["OnInvoke"]
+       61 CALL                             R2 3 1
+       62 SETTABLEKS                       R2 R1 K18 ["OnOpenPlaceConnection"]
+       64 LOADK                            R4 K19 ["OnAddPlace"]
+       65 NEWCLOSURE                       R5 P3
+       66 CAPTURE                          UPVAL U5
+       67 CAPTURE                          VAL R0
+       68 NAMECALL                         R2 R0 K8 ["OnInvoke"]
+       70 CALL                             R2 3 1
+       71 SETTABLEKS                       R2 R1 K20 ["OnAddPlaceConnection"]
+       73 LOADK                            R4 K21 ["OnRemovePlace"]
+       74 NEWCLOSURE                       R5 P4
+       75 CAPTURE                          UPVAL U5
+       76 CAPTURE                          VAL R0
+       77 NAMECALL                         R2 R0 K8 ["OnInvoke"]
+       79 CALL                             R2 3 1
+       80 SETTABLEKS                       R2 R1 K22 ["OnRemovePlaceConnection"]
+       82 LOADK                            R4 K23 ["OnRenamePlace"]
+       83 NEWCLOSURE                       R5 P5
+       84 CAPTURE                          UPVAL U5
+       85 CAPTURE                          VAL R0
+       86 NAMECALL                         R2 R0 K8 ["OnInvoke"]
+       88 CALL                             R2 3 1
+       89 SETTABLEKS                       R2 R1 K24 ["OnRenamePlaceConnection"]
+       91 LOADK                            R4 K25 ["SendAnalyticsEvent"]
+       92 DUPCLOSURE                       R5 K26 [PROTO_7]
+       93 CAPTURE                          UPVAL U6
+       94 CAPTURE                          UPVAL U7
+       95 CAPTURE                          UPVAL U8
+       96 NAMECALL                         R2 R0 K8 ["OnInvoke"]
+       98 CALL                             R2 3 1
+       99 SETTABLEKS                       R2 R1 K27 ["SendAnalyticsEventConnection"]
+      101 GETUPVAL                         R2 9
+      102 CALL                             R2 0 1
+      103 JUMPIF                           R2 ; [+10]
+      104 GETUPVAL                         R3 10
+      105 GETTABLEKS                       R2 R3 K28 ["AssetImported"]
+      107 NEWCLOSURE                       R4 P7
+      108 CAPTURE                          VAL R0
+      109 NAMECALL                         R2 R2 K5 ["Connect"]
+      111 CALL                             R2 2 1
+      112 SETTABLEKS                       R2 R1 K29 ["BulkImportImportedConnection"]
+      114 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -301,23 +298,17 @@ MAIN:
        99 GETTABLEKS                       R14 R15 K21 ["Flags"]
       101 GETTABLEKS                       R13 R14 K23 ["getEFCinUnifiedImportQueue"]
       103 CALL                             R12 1 1
-      104 GETIMPORT                        R13 K5 [require]
-      106 GETTABLEKS                       R16 R0 K8 ["Src"]
-      108 GETTABLEKS                       R15 R16 K21 ["Flags"]
-      110 GETTABLEKS                       R14 R15 K24 ["getFFlagAmrSelectAssetsInExplorer"]
-      112 CALL                             R13 1 1
-      113 DUPCLOSURE                       R14 K25 [PROTO_0]
-      114 DUPCLOSURE                       R15 K26 [PROTO_9]
-      115 CAPTURE                          VAL R11
-      116 CAPTURE                          VAL R9
-      117 CAPTURE                          VAL R7
-      118 CAPTURE                          VAL R13
-      119 CAPTURE                          VAL R10
-      120 CAPTURE                          VAL R8
-      121 CAPTURE                          VAL R3
-      122 CAPTURE                          VAL R5
-      123 CAPTURE                          VAL R14
-      124 CAPTURE                          VAL R1
-      125 CAPTURE                          VAL R12
-      126 CAPTURE                          VAL R4
-      127 RETURN                           R15 1
+      104 DUPCLOSURE                       R13 K24 [PROTO_0]
+      105 DUPCLOSURE                       R14 K25 [PROTO_9]
+      106 CAPTURE                          VAL R11
+      107 CAPTURE                          VAL R9
+      108 CAPTURE                          VAL R7
+      109 CAPTURE                          VAL R10
+      110 CAPTURE                          VAL R8
+      111 CAPTURE                          VAL R3
+      112 CAPTURE                          VAL R5
+      113 CAPTURE                          VAL R13
+      114 CAPTURE                          VAL R1
+      115 CAPTURE                          VAL R12
+      116 CAPTURE                          VAL R4
+      117 RETURN                           R14 1

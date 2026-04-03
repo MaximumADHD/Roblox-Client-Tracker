@@ -7617,7 +7617,7 @@ PROTO_97:
 
 PROTO_98:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+24]
+        1 JUMPIFNOT                        R0 ; [+23]
         2 GETUPVAL                         R0 1
         3 NAMECALL                         R0 R0 K0 ["GetMouse"]
         5 CALL                             R0 1 1
@@ -7632,13 +7632,12 @@ PROTO_98:
        16 GETUPVAL                         R2 3
        17 JUMPIFNOT                        R2 ; [+2]
        18 LOADK                            R1 K3 ["rbxasset://textures/Cursors/KeyboardMouse/ArrowFarCursor.png"]
-       19 JUMP                             ; [+4]
+       19 JUMP                             ; [+3]
        20 LOADK                            R1 K4 ["rbxasset://textures/advCursor-default.png"]
-       21 JUMP                             ; [+2]
+       21 JUMP                             ; [+1]
        22 LOADK                            R1 K5 ["rbxasset://SystemCursors/Arrow"]
-       23 JUMP                             ; [0]
-       24 SETTABLEKS                       R1 R0 K6 ["Icon"]
-       26 RETURN                           R0 0
+       23 SETTABLEKS                       R1 R0 K6 ["Icon"]
+       25 RETURN                           R0 0
 
 PROTO_99:
         0 GETUPVAL                         R1 0

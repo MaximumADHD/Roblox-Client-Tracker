@@ -15,9 +15,6 @@ local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableS
 
 local useOverlay = Foundation.Hooks.useOverlay
 
-local FFlagCoreScriptsBlockingModalUseFoundationOverlay =
-	game:DefineFastFlag("CoreScriptsBlockingModalUseFoundationOverlay", false)
-
 local BlockingModalScreen = Roact.PureComponent:extend("BlockingModalScreen")
 
 BlockingModalScreen.validateProps = t.interface({
@@ -80,6 +77,4 @@ local function BlockingModalScreenWithFoundationOverlay(props)
 	return Roact.createElement(BlockingModalScreen, forwardedProps)
 end
 
-return if FFlagCoreScriptsBlockingModalUseFoundationOverlay
-	then BlockingModalScreenWithFoundationOverlay
-	else BlockingModalScreen
+return BlockingModalScreenWithFoundationOverlay

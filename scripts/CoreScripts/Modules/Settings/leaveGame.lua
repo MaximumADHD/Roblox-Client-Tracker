@@ -14,7 +14,6 @@ local Players = game:GetService("Players")
 -------------- Flags ----------------------------------------------------------
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableGameLeftMessage = SharedFlags.FFlagEnableGameLeftMessage
-
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
 ----------- UTILITIES --------------
@@ -47,10 +46,10 @@ local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?
         PerfUtils.leavingGame()
     end
     (ReactSchedulingTracker::ReactSchedulingTracker.ReactSchedulingTracker):reportSession()
-    local CorescriptMemoryTracker = require(RobloxGui.Modules.Common.CorescriptMemoryTracker)
-    local coreScriptMemoryTracker = CorescriptMemoryTracker()
-    if coreScriptMemoryTracker then
-        coreScriptMemoryTracker:destroy()
+    local MemoryTracker = require(CorePackages.Workspace.Packages.Memory).MemoryTracker
+    local memoryTracker = MemoryTracker()
+    if memoryTracker then
+        memoryTracker:destroy()
     end
 
     GuiService.SelectedCoreObject = nil -- deselects the button and prevents spamming the popup to save in studio when using gamepad

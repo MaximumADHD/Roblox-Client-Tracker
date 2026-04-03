@@ -17,6 +17,17 @@ local CameraToggleStateController = require(script.Parent:WaitForChild("CameraTo
 local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 local CameraUI = require(script.Parent:WaitForChild("CameraUI"))
 
+local FFlagUserPlayerScriptsCameraInputNoBindables = FlagUtil.getUserFlag("UserPlayerScriptsCameraInputNoBindables")
+
+local inputContexts
+local character
+local cameraGamepadZoom
+if FFlagUserPlayerScriptsCameraInputNoBindables then
+	inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
+	character = inputContexts:WaitForChild("Character")
+	cameraGamepadZoom = character:WaitForChild("CameraGamepadZoom") :: InputAction
+end
+
 local player = Players.LocalPlayer
 
 local FFlagUserFixGamepadMaxZoom
@@ -123,7 +134,13 @@ function BaseCamera.new()
 	self.cameraFrozen = false
 	self.subjectStateChangedConn = nil
 
-	self.gamepadZoomPressConnection = nil
+	if FFlagUserPlayerScriptsCameraInputNoBindables then
+		self.gamepadZoomPressConnection = cameraGamepadZoom.Pressed:Connect(function()
+			self:GamepadZoomPress()
+		end)
+	else
+		self.gamepadZoomPressConnection = nil
+	end
 
 	-- Mouse locked formerly known as shift lock mode
 	self.mouseLockOffset = ZERO_VECTOR3
@@ -140,10 +157,14 @@ function BaseCamera:GetModuleName()
 end
 
 local function onSelectedObjectChanged()
-	if GuiService.SelectedObject then
-		CameraInput.gamepadZoomPress.Enabled = false
+	if FFlagUserPlayerScriptsCameraInputNoBindables then
+		cameraGamepadZoom.Enabled = not GuiService.SelectedObject
 	else
-		CameraInput.gamepadZoomPress.Enabled = true
+		if GuiService.SelectedObject then
+			CameraInput.gamepadZoomPress.Enabled = false
+		else
+			CameraInput.gamepadZoomPress.Enabled = true
+		end
 	end
 end
 
@@ -520,9 +541,13 @@ function BaseCamera:OnEnabledChanged()
 
 		CameraInput.setInputEnabled(true)
 
-		self.gamepadZoomPressConnection = CameraInput.gamepadZoomPress:Connect(function()
-			self:GamepadZoomPress()
-		end)
+		if FFlagUserPlayerScriptsCameraInputNoBindables then
+			cameraGamepadZoom.Enabled = true
+		else
+			self.gamepadZoomPressConnection = CameraInput.gamepadZoomPress:Connect(function()
+				self:GamepadZoomPress()
+			end)
+		end
 
 		if player.CameraMode == Enum.CameraMode.LockFirstPerson then
 			self.currentSubjectDistance = 0.5
@@ -541,9 +566,13 @@ function BaseCamera:OnEnabledChanged()
 
 		CameraInput.setInputEnabled(false)
 
-		if self.gamepadZoomPressConnection then
-			self.gamepadZoomPressConnection:Disconnect()
-			self.gamepadZoomPressConnection = nil
+		if FFlagUserPlayerScriptsCameraInputNoBindables then
+			cameraGamepadZoom.Enabled = false
+		else
+			if self.gamepadZoomPressConnection then
+				self.gamepadZoomPressConnection:Disconnect()
+				self.gamepadZoomPressConnection = nil
+			end
 		end
 		-- Clean up additional event listeners and reset a bunch of properties
 		self:Cleanup()

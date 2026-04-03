@@ -2121,60 +2121,48 @@ PROTO_48:
        80 MOVE                             R6 R2
        81 GETIMPORT                        R5 K4 [typeof]
        83 CALL                             R5 1 1
-       84 JUMPIFNOTEQKS                    R5 K5 ["string"] ; [+31]
+       84 JUMPIFNOTEQKS                    R5 K5 ["string"] ; [+17]
        86 GETIMPORT                        R5 K19 [string.gsub]
        88 MOVE                             R6 R2
-       89 LOADN                            R11 27
-       90 FASTCALL1                        STRING_CHAR R11 ; [+2]
-       91 GETIMPORT                        R10 K21 [string.char]
-       93 CALL                             R10 1 1
-       94 MOVE                             R8 R10
-       95 LOADK                            R9 K22 ["%["]
-       96 CONCAT                           R7 R8 R9
-       97 LOADN                            R12 27
-       98 FASTCALL1                        STRING_CHAR R12 ; [+2]
-       99 GETIMPORT                        R11 K21 [string.char]
-      101 CALL                             R11 1 1
-      102 MOVE                             R9 R11
-      103 LOADK                            R10 K23 ["%%["]
-      104 CONCAT                           R8 R9 R10
-      105 CALL                             R5 3 1
-      106 MOVE                             R2 R5
-      107 MOVE                             R7 R2
-      108 NAMECALL                         R5 R1 K24 ["find"]
-      110 CALL                             R5 2 1
-      111 JUMPIFNOTEQKNIL                  R5 ; [+2]
-      113 LOADB                            R4 0 +1
-      114 LOADB                            R4 1
-      115 JUMP                             ; [+5]
-      116 MOVE                             R7 R1
-      117 NAMECALL                         R5 R2 K25 ["test"]
-      119 CALL                             R5 2 1
-      120 MOVE                             R4 R5
-      121 LOADNIL                          R5
-      122 JUMPIFNOT                        R4 ; [+9]
-      123 NEWCLOSURE                       R5 P0
-      124 CAPTURE                          UPVAL U2
-      125 CAPTURE                          VAL R3
-      126 CAPTURE                          UPVAL U8
-      127 CAPTURE                          REF R2
-      128 CAPTURE                          UPVAL U9
-      129 CAPTURE                          VAL R1
-      130 CAPTURE                          UPVAL U10
-      131 JUMP                             ; [+8]
-      132 NEWCLOSURE                       R5 P1
-      133 CAPTURE                          UPVAL U11
-      134 CAPTURE                          UPVAL U2
-      135 CAPTURE                          VAL R3
-      136 CAPTURE                          UPVAL U8
-      137 CAPTURE                          REF R2
-      138 CAPTURE                          UPVAL U5
-      139 CAPTURE                          VAL R1
-      140 DUPTABLE                         R6 K28 [{"message", "pass"}]
-      141 SETTABLEKS                       R5 R6 K26 ["message"]
-      143 SETTABLEKS                       R4 R6 K27 ["pass"]
-      145 CLOSEUPVALS                      R2
-      146 RETURN                           R6 1
+       89 LOADK                            R7 K20 ["\x%["]
+       90 LOADK                            R8 K21 ["\x%%["]
+       91 CALL                             R5 3 1
+       92 MOVE                             R2 R5
+       93 MOVE                             R7 R2
+       94 NAMECALL                         R5 R1 K22 ["find"]
+       96 CALL                             R5 2 1
+       97 JUMPIFNOTEQKNIL                  R5 ; [+2]
+       99 LOADB                            R4 0 +1
+      100 LOADB                            R4 1
+      101 JUMP                             ; [+5]
+      102 MOVE                             R7 R1
+      103 NAMECALL                         R5 R2 K23 ["test"]
+      105 CALL                             R5 2 1
+      106 MOVE                             R4 R5
+      107 LOADNIL                          R5
+      108 JUMPIFNOT                        R4 ; [+9]
+      109 NEWCLOSURE                       R5 P0
+      110 CAPTURE                          UPVAL U2
+      111 CAPTURE                          VAL R3
+      112 CAPTURE                          UPVAL U8
+      113 CAPTURE                          REF R2
+      114 CAPTURE                          UPVAL U9
+      115 CAPTURE                          VAL R1
+      116 CAPTURE                          UPVAL U10
+      117 JUMP                             ; [+8]
+      118 NEWCLOSURE                       R5 P1
+      119 CAPTURE                          UPVAL U11
+      120 CAPTURE                          UPVAL U2
+      121 CAPTURE                          VAL R3
+      122 CAPTURE                          UPVAL U8
+      123 CAPTURE                          REF R2
+      124 CAPTURE                          UPVAL U5
+      125 CAPTURE                          VAL R1
+      126 DUPTABLE                         R6 K26 [{"message", "pass"}]
+      127 SETTABLEKS                       R5 R6 K24 ["message"]
+      129 SETTABLEKS                       R4 R6 K25 ["pass"]
+      131 CLOSEUPVALS                      R2
+      132 RETURN                           R6 1
 
 PROTO_49:
         0 GETUPVAL                         R4 0

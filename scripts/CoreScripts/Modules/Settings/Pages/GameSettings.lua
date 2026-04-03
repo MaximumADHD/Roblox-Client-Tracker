@@ -62,12 +62,10 @@ local cameraDevicePermissionGrantedSignal =
 local getFFlagDoNotPromptCameraPermissionsOnMount =
 	require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagAvatarChatCoreScriptSupport = SharedFlags.GetFFlagAvatarChatCoreScriptSupport()
 local GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty = SharedFlags.GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty
 local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
 local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSettings
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
-local GetFFlagEnableCrossExpVoiceVolumeIXPCheck = SharedFlags.GetFFlagEnableCrossExpVoiceVolumeIXPCheck
 local GetFFlagDebounceConnectDisconnectSelector = require(RobloxGui.Modules.Settings.Flags.GetFFlagDebounceConnectDisconnectSelector)
 local GetFIntDebounceDisconnectButtonDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceDisconnectButtonDelay)
 local FFlagMicroprofileGameSettingsFix = game:DefineFastFlag("MicroprofileGameSettingsFix", false)
@@ -99,8 +97,7 @@ local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatia
 
 local GameSettingsConstants = require(RobloxGui.Modules.Settings.Resources.GameSettingsConstants)
 
-local hasPartyVoiceVolume = GetFFlagEnableCrossExpVoiceVolumeIXPCheck()
-	and CrossExpVoiceIXPManager
+local hasPartyVoiceVolume = CrossExpVoiceIXPManager
 	and CrossExpVoiceIXPManager.getHasPartyVoiceVolume()
 
 -------------- CONSTANTS --------------
@@ -163,7 +160,7 @@ local PLAYER_NAMES_ENABLED_VALUES = {
 }
 
 local function getDefaultCameraMode()
-	local isPreferredInputTouch = UserInputService.PreferredInput == Enum.PreferredInput.Touch 	
+	local isPreferredInputTouch = UserInputService.PreferredInput == Enum.PreferredInput.Touch
 	if isPreferredInputTouch then
 		return CAMERA_MODE_VALUE_ENUM.DEFAULT_FOLLOW
 	else
@@ -750,9 +747,9 @@ local function Initialize()
 
 		local startIndex = GetPlayerNamesEnabledStartIndex()
 
-		local onLabel = if FFlagUpdateVisibilitySettingsCopy then 
+		local onLabel = if FFlagUpdateVisibilitySettingsCopy then
 			RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Show") else RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On")
-		local offLabel = if FFlagUpdateVisibilitySettingsCopy then 
+		local offLabel = if FFlagUpdateVisibilitySettingsCopy then
 			RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Hide") else RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off")
 
 		this.PlayerNamesEnabledFrame, this.playerNamesEnabledLabel, this.playerNamesEnabledMode = utility:AddNewRow(this, playerNamesEnabledLabel, "Selector", { onLabel, offLabel }, startIndex, nil, playerNamesEnabledDescription)
@@ -1346,7 +1343,7 @@ local function Initialize()
 				end
 
 				if currentSavedMode > -1 then
-					-- the algorithm relies on any enum to have value -1 of 
+					-- the algorithm relies on any enum to have value -1 of
 					-- corresponding key index in cameraEnumNames.
 					-- CameraToggle, specifically (and only) does not follow this pattern.
 					-- Temporary fix due to https://roblox.atlassian.net/browse/APPEXP-2069 being planned soon
@@ -2437,9 +2434,9 @@ local function Initialize()
 
 	local function createHapticsToggle()
 		local initialIndex = GameSettings.HapticStrength == 0 and 1 or 2
-		
+
 		local hapticsFrameText = if FFlagPSUseVibrationInsteadOfHaptics and getAppFeaturePolicies().getShouldUseVibrationInsteadOfHaptics() then locales:Format("CoreScripts.InGameMenu.Vibration") else "Haptics"
-		
+
 		this.HapticsFrame, _, this.HapticsSelector =
 			utility:AddNewRow(this, hapticsFrameText, "Selector", { "Off", "On" }, initialIndex)
 		this.HapticsFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["HapticsFrame"]
@@ -3110,13 +3107,13 @@ local function Initialize()
 			end
 			local onLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Show")
 			local offLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Hide")
-			local badgeDisplayLabel = if FFlagUpdateVisibilitySettingsCopy then 
+			local badgeDisplayLabel = if FFlagUpdateVisibilitySettingsCopy then
 				RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.MyBadges") else RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.DisplayBadges")
 			local badgeDisplayDescription = RobloxTranslator:FormatByKey("Feature.SettingsHub.Description.PeoplesNames")
 			this.badgeVisibleRow, this.badgeVisibleFrame, this.badgeVisibleSelector =
 				utility:AddNewRow(this, badgeDisplayLabel, "Selector", { offLabel, onLabel }, isInExperienceNameEnabled, nil, badgeDisplayDescription)
 			this.badgeVisibleRow.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["BadgeVisibilityFrame"]
-	
+
 			this.badgeVisibleSelector.IndexChanged:connect(function(newIndex)
 				GameSettings.BadgeVisible = newIndex == 2
 				PlayerPermissionsModule.SetPlayerInExperienceNameEnabled(LocalPlayer, newIndex == 1)
@@ -3243,7 +3240,7 @@ local function Initialize()
 				if deviceGuids[1] == "" then
 					deviceNames[1] = locales:Format("CoreScripts.InGameMenu.GameSettings.Default") .. " (" .. deviceNames[1] .. ")"
 				end
-				
+
 				this[deviceType .. "DeviceNames"] = deviceNames
 				this[deviceType .. "VCSDeviceNames"] = deviceNames
 				this[deviceType .. "VCSDeviceGuids"] = deviceGuids
@@ -3500,7 +3497,7 @@ local function Initialize()
 						and this.VoiceConnectDisconnectSelector:GetSelectedIndex() ~= 2
 					then
 						this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
-					elseif (newState == (Enum :: any).VoiceChatState.Ended 
+					elseif (newState == (Enum :: any).VoiceChatState.Ended
 						or newState == (Enum :: any).VoiceChatState.Failed
 						or newState == (Enum :: any).VoiceChatState.Idle)
 						and this.VoiceConnectDisconnectSelector:GetSelectedIndex() ~= 1
@@ -4049,7 +4046,7 @@ local function Initialize()
 			cameraPermissionGrantedListener = nil
 		end
 	end
-	if (FFlagAvatarChatCoreScriptSupport or GetFFlagSelfViewCameraSettings()) and (if isInExperienceUIVREnabled then not isSpatial() else true) then
+	if (GetFFlagSelfViewCameraSettings()) and (if isInExperienceUIVREnabled then not isSpatial() else true) then
 		local callback = function(response)
 			this.VideoOptionsEnabled = response.hasCameraPermissions
 		end
@@ -4321,7 +4318,7 @@ local function Initialize()
 		setupDeviceChangedListener()
 		this.startVolume = GameSettings.MasterVolume
 
-		if (FFlagAvatarChatCoreScriptSupport or GetFFlagSelfViewCameraSettings()) and this.VideoOptionsEnabled then
+		if (GetFFlagSelfViewCameraSettings()) and this.VideoOptionsEnabled then
 			if game:GetEngineFeature("VideoCaptureService") then
 				updateCameraDevices()
 				setupVideoCameraDeviceChangedListener()
@@ -4372,7 +4369,7 @@ local function Initialize()
 		if GetFFlagEnableCrossExpVoice() and teardownCrossExperienceVoiceListeners then
 			teardownCrossExperienceVoiceListeners()
 		end
-		if FFlagAvatarChatCoreScriptSupport or GetFFlagSelfViewCameraSettings() then
+		if GetFFlagSelfViewCameraSettings() then
 			if game:GetEngineFeature("VideoCaptureService") then
 				teardownVideoCameraDeviceChangedListener()
 			end

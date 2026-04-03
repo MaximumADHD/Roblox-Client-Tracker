@@ -384,27 +384,26 @@ PROTO_9:
       260 JUMPIFNOTEQKS                    R25 K92 ["Default"] ; [+5]
       262 GETUPVAL                         R26 8
       263 GETTABLEKS                       R24 R26 K93 ["RESET_CAM_DARK"]
-      265 JUMP                             ; [+4]
+      265 JUMP                             ; [+3]
       266 GETUPVAL                         R26 8
       267 GETTABLEKS                       R24 R26 K94 ["RESET_CAM_LIGHT"]
-      269 JUMP                             ; [0]
-      270 SETTABLEKS                       R24 R23 K88 ["Image"]
-      272 CALL                             R21 2 1
-      273 SETTABLEKS                       R21 R20 K85 ["Icon"]
-      275 GETUPVAL                         R22 1
-      276 GETTABLEKS                       R21 R22 K12 ["createElement"]
-      278 GETUPVAL                         R22 9
-      279 DUPTABLE                         R23 K95 [{"Text"}]
-      280 LOADK                            R24 K96 ["Reset Camera"]
-      281 SETTABLEKS                       R24 R23 K44 ["Text"]
-      283 CALL                             R21 2 1
-      284 SETTABLEKS                       R21 R20 K86 ["Tooltip"]
-      286 CALL                             R17 3 1
-      287 SETTABLEKS                       R17 R16 K68 ["CameraResetButton"]
-      289 CALL                             R13 3 1
-      290 SETTABLEKS                       R13 R12 K35 ["Preview"]
-      292 CALL                             R9 3 -1
-      293 RETURN                           R9 -1
+      269 SETTABLEKS                       R24 R23 K88 ["Image"]
+      271 CALL                             R21 2 1
+      272 SETTABLEKS                       R21 R20 K85 ["Icon"]
+      274 GETUPVAL                         R22 1
+      275 GETTABLEKS                       R21 R22 K12 ["createElement"]
+      277 GETUPVAL                         R22 9
+      278 DUPTABLE                         R23 K95 [{"Text"}]
+      279 LOADK                            R24 K96 ["Reset Camera"]
+      280 SETTABLEKS                       R24 R23 K44 ["Text"]
+      282 CALL                             R21 2 1
+      283 SETTABLEKS                       R21 R20 K86 ["Tooltip"]
+      285 CALL                             R17 3 1
+      286 SETTABLEKS                       R17 R16 K68 ["CameraResetButton"]
+      288 CALL                             R13 3 1
+      289 SETTABLEKS                       R13 R12 K35 ["Preview"]
+      291 CALL                             R9 3 -1
+      292 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

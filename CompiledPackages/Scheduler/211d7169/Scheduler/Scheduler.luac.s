@@ -111,72 +111,70 @@ PROTO_5:
 PROTO_6:
         0 GETUPVAL                         R2 0
         1 GETTABLEN                        R1 R2 1
-        2 JUMPIFEQKNIL                     R1 ; [+76]
+        2 JUMPIFEQKNIL                     R1 ; [+74]
         4 GETTABLEKS                       R2 R1 K0 ["callback"]
-        6 JUMPIFNOTEQKNIL                  R2 ; [+21]
+        6 JUMPIFNOTEQKNIL                  R2 ; [+20]
         8 GETUPVAL                         R2 0
         9 GETTABLEN                        R3 R2 1
-       10 JUMPIFEQKNIL                     R3 ; [+65]
+       10 JUMPIFEQKNIL                     R3 ; [+63]
        12 LENGTH                           R5 R2
        13 GETTABLE                         R4 R2 R5
        14 LENGTH                           R5 R2
        15 LOADNIL                          R6
        16 SETTABLE                         R6 R2 R5
-       17 JUMPIFEQ                         R4 R3 ; [+58]
+       17 JUMPIFEQ                         R4 R3 ; [+56]
        19 SETTABLEN                        R4 R2 1
        20 GETUPVAL                         R5 1
        21 MOVE                             R6 R2
        22 MOVE                             R7 R4
        23 LOADN                            R8 1
        24 CALL                             R5 3 0
-       25 JUMP                             ; [+50]
-       26 JUMP                             ; [+49]
-       27 JUMP                             ; [+48]
-       28 GETTABLEKS                       R2 R1 K1 ["startTime"]
-       30 JUMPIFNOTLE                      R2 R0 ; [+44]
-       32 GETUPVAL                         R2 0
-       33 GETTABLEN                        R3 R2 1
-       34 JUMPIFEQKNIL                     R3 ; [+16]
-       36 LENGTH                           R5 R2
-       37 GETTABLE                         R4 R2 R5
-       38 LENGTH                           R5 R2
-       39 LOADNIL                          R6
-       40 SETTABLE                         R6 R2 R5
-       41 JUMPIFEQ                         R4 R3 ; [+9]
-       43 SETTABLEN                        R4 R2 1
-       44 GETUPVAL                         R5 1
-       45 MOVE                             R6 R2
-       46 MOVE                             R7 R4
-       47 LOADN                            R8 1
-       48 CALL                             R5 3 0
-       49 JUMP                             ; [+1]
-       50 JUMP                             ; [0]
-       51 GETTABLEKS                       R2 R1 K2 ["expirationTime"]
-       53 SETTABLEKS                       R2 R1 K3 ["sortIndex"]
-       55 GETUPVAL                         R2 2
-       56 MOVE                             R3 R1
-       57 LENGTH                           R5 R2
-       58 ADDK                             R4 R5 K4 [1]
-       59 SETTABLE                         R3 R2 R4
-       60 GETUPVAL                         R5 3
-       61 MOVE                             R6 R2
-       62 MOVE                             R7 R3
-       63 MOVE                             R8 R4
-       64 CALL                             R5 3 0
-       65 GETUPVAL                         R2 4
-       66 JUMPIFNOT                        R2 ; [+9]
-       67 GETUPVAL                         R2 5
-       68 MOVE                             R3 R1
-       69 MOVE                             R4 R0
-       70 CALL                             R2 2 0
-       71 LOADB                            R2 1
-       72 SETTABLEKS                       R2 R1 K5 ["isQueued"]
-       74 JUMP                             ; [+1]
-       75 RETURN                           R0 0
-       76 GETUPVAL                         R2 0
-       77 GETTABLEN                        R1 R2 1
-       78 JUMPBACK                         ; [-77]
-       79 RETURN                           R0 0
+       25 JUMP                             ; [+48]
+       26 JUMP                             ; [+47]
+       27 GETTABLEKS                       R2 R1 K1 ["startTime"]
+       29 JUMPIFNOTLE                      R2 R0 ; [+43]
+       31 GETUPVAL                         R2 0
+       32 GETTABLEN                        R3 R2 1
+       33 JUMPIFEQKNIL                     R3 ; [+15]
+       35 LENGTH                           R5 R2
+       36 GETTABLE                         R4 R2 R5
+       37 LENGTH                           R5 R2
+       38 LOADNIL                          R6
+       39 SETTABLE                         R6 R2 R5
+       40 JUMPIFEQ                         R4 R3 ; [+8]
+       42 SETTABLEN                        R4 R2 1
+       43 GETUPVAL                         R5 1
+       44 MOVE                             R6 R2
+       45 MOVE                             R7 R4
+       46 LOADN                            R8 1
+       47 CALL                             R5 3 0
+       48 JUMP                             ; [0]
+       49 GETTABLEKS                       R2 R1 K2 ["expirationTime"]
+       51 SETTABLEKS                       R2 R1 K3 ["sortIndex"]
+       53 GETUPVAL                         R2 2
+       54 MOVE                             R3 R1
+       55 LENGTH                           R5 R2
+       56 ADDK                             R4 R5 K4 [1]
+       57 SETTABLE                         R3 R2 R4
+       58 GETUPVAL                         R5 3
+       59 MOVE                             R6 R2
+       60 MOVE                             R7 R3
+       61 MOVE                             R8 R4
+       62 CALL                             R5 3 0
+       63 GETUPVAL                         R2 4
+       64 JUMPIFNOT                        R2 ; [+9]
+       65 GETUPVAL                         R2 5
+       66 MOVE                             R3 R1
+       67 MOVE                             R4 R0
+       68 CALL                             R2 2 0
+       69 LOADB                            R2 1
+       70 SETTABLEKS                       R2 R1 K5 ["isQueued"]
+       72 JUMP                             ; [+1]
+       73 RETURN                           R0 0
+       74 GETUPVAL                         R2 0
+       75 GETTABLEN                        R1 R2 1
+       76 JUMPBACK                         ; [-75]
+       77 RETURN                           R0 0
 
 PROTO_7:
         0 LOADB                            R1 0
@@ -289,25 +287,25 @@ PROTO_9:
         5 GETTABLEN                        R3 R4 1
         6 SETUPVAL                         R3 1
         7 GETUPVAL                         R3 1
-        8 JUMPIFEQKNIL                     R3 ; [+125]
+        8 JUMPIFEQKNIL                     R3 ; [+123]
        10 GETUPVAL                         R3 3
        11 JUMPIFNOT                        R3 ; [+2]
        12 GETUPVAL                         R3 4
-       13 JUMPIF                           R3 ; [+120]
+       13 JUMPIF                           R3 ; [+118]
        14 GETUPVAL                         R4 1
        15 GETTABLEKS                       R3 R4 K0 ["expirationTime"]
        17 JUMPIFNOTLT                      R2 R3 ; [+5]
-       19 JUMPIFNOT                        R0 ; [+114]
+       19 JUMPIFNOT                        R0 ; [+112]
        20 GETUPVAL                         R3 5
        21 CALL                             R3 0 1
-       22 JUMPIF                           R3 ; [+111]
+       22 JUMPIF                           R3 ; [+109]
        23 GETUPVAL                         R4 1
        24 GETTABLEKS                       R3 R4 K1 ["callback"]
        26 FASTCALL1                        TYPEOF R3 ; [+3]
        27 MOVE                             R5 R3
        28 GETIMPORT                        R4 K3 [typeof]
        30 CALL                             R4 1 1
-       31 JUMPIFNOTEQKS                    R4 K4 ["function"] ; [+79]
+       31 JUMPIFNOTEQKS                    R4 K4 ["function"] ; [+78]
        33 GETUPVAL                         R4 1
        34 LOADNIL                          R5
        35 SETTABLEKS                       R5 R4 K1 ["callback"]
@@ -340,7 +338,7 @@ PROTO_9:
        69 GETUPVAL                         R7 1
        70 MOVE                             R8 R2
        71 CALL                             R6 2 0
-       72 JUMP                             ; [+34]
+       72 JUMP                             ; [+33]
        73 GETUPVAL                         R6 10
        74 JUMPIFNOT                        R6 ; [+8]
        75 GETUPVAL                         R6 11
@@ -353,63 +351,61 @@ PROTO_9:
        83 GETUPVAL                         R6 1
        84 GETUPVAL                         R8 2
        85 GETTABLEN                        R7 R8 1
-       86 JUMPIFNOTEQ                      R6 R7 ; [+20]
+       86 JUMPIFNOTEQ                      R6 R7 ; [+19]
        88 GETUPVAL                         R6 2
        89 GETTABLEN                        R7 R6 1
-       90 JUMPIFEQKNIL                     R7 ; [+16]
+       90 JUMPIFEQKNIL                     R7 ; [+15]
        92 LENGTH                           R9 R6
        93 GETTABLE                         R8 R6 R9
        94 LENGTH                           R9 R6
        95 LOADNIL                          R10
        96 SETTABLE                         R10 R6 R9
-       97 JUMPIFEQ                         R8 R7 ; [+9]
+       97 JUMPIFEQ                         R8 R7 ; [+8]
        99 SETTABLEN                        R8 R6 1
       100 GETUPVAL                         R9 12
       101 MOVE                             R10 R6
       102 MOVE                             R11 R8
       103 LOADN                            R12 1
       104 CALL                             R9 3 0
-      105 JUMP                             ; [+1]
-      106 JUMP                             ; [0]
-      107 GETUPVAL                         R6 0
-      108 MOVE                             R7 R2
-      109 CALL                             R6 1 0
-      110 JUMP                             ; [+19]
-      111 GETUPVAL                         R4 2
-      112 GETTABLEN                        R5 R4 1
-      113 JUMPIFEQKNIL                     R5 ; [+16]
-      115 LENGTH                           R7 R4
-      116 GETTABLE                         R6 R4 R7
-      117 LENGTH                           R7 R4
-      118 LOADNIL                          R8
-      119 SETTABLE                         R8 R4 R7
-      120 JUMPIFEQ                         R6 R5 ; [+9]
-      122 SETTABLEN                        R6 R4 1
-      123 GETUPVAL                         R7 12
-      124 MOVE                             R8 R4
-      125 MOVE                             R9 R6
-      126 LOADN                            R10 1
-      127 CALL                             R7 3 0
-      128 JUMP                             ; [+1]
-      129 JUMP                             ; [0]
-      130 GETUPVAL                         R5 2
-      131 GETTABLEN                        R4 R5 1
-      132 SETUPVAL                         R4 1
-      133 JUMPBACK                         ; [-127]
-      134 GETUPVAL                         R3 1
-      135 JUMPIFEQKNIL                     R3 ; [+3]
-      137 LOADB                            R3 1
-      138 RETURN                           R3 1
-      139 GETUPVAL                         R4 13
-      140 GETTABLEN                        R3 R4 1
-      141 JUMPIFEQKNIL                     R3 ; [+7]
-      143 GETUPVAL                         R4 14
-      144 GETUPVAL                         R5 15
-      145 GETTABLEKS                       R7 R3 K7 ["startTime"]
-      147 SUB                              R6 R7 R2
-      148 CALL                             R4 2 0
-      149 LOADB                            R4 0
-      150 RETURN                           R4 1
+      105 JUMP                             ; [0]
+      106 GETUPVAL                         R6 0
+      107 MOVE                             R7 R2
+      108 CALL                             R6 1 0
+      109 JUMP                             ; [+18]
+      110 GETUPVAL                         R4 2
+      111 GETTABLEN                        R5 R4 1
+      112 JUMPIFEQKNIL                     R5 ; [+15]
+      114 LENGTH                           R7 R4
+      115 GETTABLE                         R6 R4 R7
+      116 LENGTH                           R7 R4
+      117 LOADNIL                          R8
+      118 SETTABLE                         R8 R4 R7
+      119 JUMPIFEQ                         R6 R5 ; [+8]
+      121 SETTABLEN                        R6 R4 1
+      122 GETUPVAL                         R7 12
+      123 MOVE                             R8 R4
+      124 MOVE                             R9 R6
+      125 LOADN                            R10 1
+      126 CALL                             R7 3 0
+      127 JUMP                             ; [0]
+      128 GETUPVAL                         R5 2
+      129 GETTABLEN                        R4 R5 1
+      130 SETUPVAL                         R4 1
+      131 JUMPBACK                         ; [-125]
+      132 GETUPVAL                         R3 1
+      133 JUMPIFEQKNIL                     R3 ; [+3]
+      135 LOADB                            R3 1
+      136 RETURN                           R3 1
+      137 GETUPVAL                         R4 13
+      138 GETTABLEN                        R3 R4 1
+      139 JUMPIFEQKNIL                     R3 ; [+7]
+      141 GETUPVAL                         R4 14
+      142 GETUPVAL                         R5 15
+      143 GETTABLEKS                       R7 R3 K7 ["startTime"]
+      145 SUB                              R6 R7 R2
+      146 CALL                             R4 2 0
+      147 LOADB                            R4 0
+      148 RETURN                           R4 1
 
 PROTO_10:
         0 GETUPVAL                         R2 0

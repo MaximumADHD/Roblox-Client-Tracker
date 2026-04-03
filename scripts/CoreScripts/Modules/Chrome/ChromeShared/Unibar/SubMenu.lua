@@ -41,7 +41,7 @@ local MenuIconContext = if FFlagEnableConsoleExpControls
 	then require(Root.Parent.Parent.TopBar.Components.MenuIconContext)
 	else nil :: never
 local SubMenuContext = require(Root.Unibar.SubMenuContext)
-local UnibarStyle = require(script.Parent.UnibarStyle)
+local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
 
 local UserInputService = game:GetService("UserInputService")
 

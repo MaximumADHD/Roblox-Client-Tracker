@@ -107,7 +107,7 @@ MAIN:
        24 GETTABLEKS                       R6 R2 K13 ["Creator"]
        26 DUPCLOSURE                       R7 K14 [PROTO_3]
        27 SETTABLE                         R7 R3 R6
-       28 GETTABLEKS                       R6 R1 K15 ["getEnumAsList"]
+       28 GETTABLEKS                       R6 R1 K15 ["asList"]
        30 MOVE                             R7 R2
        31 CALL                             R6 1 3
        32 FORGPREP                         R6

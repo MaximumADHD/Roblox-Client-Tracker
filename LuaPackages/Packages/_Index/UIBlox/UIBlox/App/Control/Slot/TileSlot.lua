@@ -6,6 +6,7 @@ local Packages = UIBlox.Parent
 local Core = UIBlox.Core
 
 local React = require(Packages.React)
+local Foundation = require(Packages.Foundation)
 
 local ControlState = require(Core.Control.Enum.ControlState)
 local getContentStyle = require(Core.Button.getContentStyle)
@@ -14,7 +15,7 @@ local Interactable = require(Core.Control.Interactable)
 
 local useStyle = require(Core.Style.useStyle)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
-local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
+local Skeleton = Foundation.Skeleton
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local Images = require(App.ImageSet.Images)
 local IconSize = require(App.ImageSet.Enum.IconSize)
@@ -213,7 +214,7 @@ local function TileSlot(props: Props)
 					else nil,
 
 				LoadingShimmer = if isLoading
-					then React.createElement(ShimmerPanel, {
+					then React.createElement(Skeleton, {
 						Size = UDim2.fromScale(1, 1),
 					})
 					else nil,

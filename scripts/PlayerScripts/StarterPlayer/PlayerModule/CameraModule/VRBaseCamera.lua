@@ -32,6 +32,17 @@ local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 
+local FFlagUserPlayerScriptsCameraInputNoBindables = FlagUtil.getUserFlag("UserPlayerScriptsCameraInputNoBindables")
+
+local inputContexts
+local character
+local cameraGamepadReset
+if FFlagUserPlayerScriptsCameraInputNoBindables then
+	inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
+	character = inputContexts:WaitForChild("Character")
+	cameraGamepadReset = character:WaitForChild("CameraGamepadReset") :: InputAction
+end
+
 --[[ The Module ]]--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
 local VRBaseCamera = setmetatable({}, BaseCamera)
@@ -53,10 +64,17 @@ function VRBaseCamera.new()
 	self.VREdgeBlurTimer = 0
 
 	-- initialize vr specific variables
-	self.gamepadResetConnection = nil
 	self.needsReset = true
 	self.recentered = false
-	
+
+	if FFlagUserPlayerScriptsCameraInputNoBindables then
+		self.gamepadResetConnection = cameraGamepadReset.Pressed:Connect(function()
+			self:GamepadReset()
+		end)
+	else
+		self.gamepadResetConnection = nil
+	end
+
 	-- timer for step rotation
 	self:Reset()
 	
@@ -93,10 +111,14 @@ function VRBaseCamera:OnEnabledChanged()
 	BaseCamera.OnEnabledChanged(self)
 
 	if self.enabled then
-		self.gamepadResetConnection = CameraInput.gamepadReset:Connect(function()
-			self:GamepadReset()
-		end)
-		
+		if FFlagUserPlayerScriptsCameraInputNoBindables then
+			cameraGamepadReset.Enabled = true
+		else
+			self.gamepadResetConnection = CameraInput.gamepadReset:Connect(function()
+				self:GamepadReset()
+			end)
+		end
+
 		-- reset on options change
 		self.thirdPersonOptionChanged = VRService:GetPropertyChangedSignal("ThirdPersonFollowCamEnabled"):Connect(function()
 			if FFlagUserVRVehicleCamera then
@@ -136,9 +158,13 @@ function VRBaseCamera:OnEnabledChanged()
 			self.cameraHeadScaleChangedConn = nil
 		end
 
-		if self.gamepadResetConnection then
-			self.gamepadResetConnection:Disconnect()
-			self.gamepadResetConnection = nil
+		if FFlagUserPlayerScriptsCameraInputNoBindables then
+			cameraGamepadReset.Enabled = false
+		else
+			if self.gamepadResetConnection then
+				self.gamepadResetConnection:Disconnect()
+				self.gamepadResetConnection = nil
+			end
 		end
 
 		-- reset VR effects

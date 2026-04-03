@@ -332,7 +332,7 @@ PROTO_9:
         3 CALL                             R3 2 1
         4 JUMPIFNOT                        R3 ; [+3]
         5 GETTABLEKS                       R2 R0 K2 ["WorldCFrame"]
-        7 JUMP                             ; [+20]
+        7 JUMP                             ; [+19]
         8 LOADK                            R5 K3 ["Model"]
         9 NAMECALL                         R3 R0 K1 ["IsA"]
        11 CALL                             R3 2 1
@@ -341,94 +341,91 @@ PROTO_9:
        15 JUMPIFNOT                        R3 ; [+5]
        16 GETTABLEKS                       R3 R0 K4 ["PrimaryPart"]
        18 GETTABLEKS                       R2 R3 K5 ["CFrame"]
-       20 JUMP                             ; [+7]
+       20 JUMP                             ; [+6]
        21 GETIMPORT                        R2 K7 [CFrame.new]
        23 CALL                             R2 0 1
-       24 JUMP                             ; [+3]
+       24 JUMP                             ; [+2]
        25 GETTABLEKS                       R2 R0 K5 ["CFrame"]
-       27 JUMP                             ; [0]
-       28 LOADK                            R6 K0 ["Attachment"]
-       29 NAMECALL                         R4 R1 K1 ["IsA"]
-       31 CALL                             R4 2 1
-       32 JUMPIFNOT                        R4 ; [+3]
-       33 GETTABLEKS                       R3 R1 K2 ["WorldCFrame"]
-       35 JUMP                             ; [+20]
-       36 LOADK                            R6 K3 ["Model"]
-       37 NAMECALL                         R4 R1 K1 ["IsA"]
-       39 CALL                             R4 2 1
-       40 JUMPIFNOT                        R4 ; [+12]
-       41 GETTABLEKS                       R4 R1 K4 ["PrimaryPart"]
-       43 JUMPIFNOT                        R4 ; [+5]
-       44 GETTABLEKS                       R4 R1 K4 ["PrimaryPart"]
-       46 GETTABLEKS                       R3 R4 K5 ["CFrame"]
-       48 JUMP                             ; [+7]
-       49 GETIMPORT                        R3 K7 [CFrame.new]
-       51 CALL                             R3 0 1
-       52 JUMP                             ; [+3]
-       53 GETTABLEKS                       R3 R1 K5 ["CFrame"]
-       55 JUMP                             ; [0]
-       56 LOADK                            R7 K0 ["Attachment"]
-       57 NAMECALL                         R5 R1 K1 ["IsA"]
-       59 CALL                             R5 2 1
-       60 JUMPIFNOT                        R5 ; [+2]
-       61 LOADK                            R4 K8 [{0.1, 0.1, 0.1}]
-       62 JUMP                             ; [+13]
-       63 LOADK                            R7 K3 ["Model"]
-       64 NAMECALL                         R5 R1 K1 ["IsA"]
-       66 CALL                             R5 2 1
-       67 JUMPIFNOT                        R5 ; [+5]
-       68 NAMECALL                         R5 R1 K9 ["GetBoundingBox"]
-       70 CALL                             R5 1 2
-       71 MOVE                             R4 R6
-       72 JUMP                             ; [+3]
-       73 GETTABLEKS                       R4 R1 K10 ["Size"]
-       75 JUMP                             ; [0]
-       76 GETUPVAL                         R5 0
-       77 MOVE                             R6 R3
-       78 MOVE                             R7 R4
-       79 GETTABLEKS                       R8 R2 K11 ["Position"]
-       81 CALL                             R5 3 2
-       82 DIV                              R7 R6 R4
-       83 GETTABLEKS                       R10 R2 K11 ["Position"]
-       85 SUB                              R9 R10 R5
-       86 GETTABLEKS                       R8 R9 K12 ["Magnitude"]
-       88 SUBK                             R13 R8 K14 [1]
-       89 DIVK                             R12 R13 K15 [-0.8]
-       90 LOADN                            R13 0
-       91 LOADN                            R14 1
-       92 FASTCALL                         MATH_CLAMP ; [+2]
-       93 GETIMPORT                        R11 K18 [math.clamp]
-       95 CALL                             R11 3 1
-       96 MULK                             R10 R11 K14 [1]
-       97 ADDK                             R9 R10 K13 [0]
-       98 MOVE                             R10 R9
-       99 LOADN                            R13 0
-      100 LOADN                            R14 1
-      101 FASTCALL3                        MATH_CLAMP R10 R13 R14
-      103 MOVE                             R12 R10
-      104 GETIMPORT                        R11 K18 [math.clamp]
-      106 CALL                             R11 3 1
-      107 MUL                              R12 R11 R11
-      108 MULK                             R14 R11 K20 [2]
-      109 SUBRK                            R13 R19 K14 [1]
-      110 MUL                              R9 R12 R13
-      111 GETTABLEKS                       R11 R3 K21 ["Rotation"]
-      113 ADD                              R10 R11 R5
-      114 NAMECALL                         R12 R10 K22 ["Inverse"]
-      116 CALL                             R12 1 1
-      117 MUL                              R11 R12 R2
-      118 GETTABLEKS                       R13 R11 K11 ["Position"]
-      120 GETTABLEKS                       R12 R13 K12 ["Magnitude"]
-      122 DUPTABLE                         R13 K30 [{"target", "weight", "surfacePt", "surfacePtNorm", "surfaceOffset", "surfaceDist", "targetNamespace"}]
-      123 SETTABLEKS                       R1 R13 K23 ["target"]
-      125 SETTABLEKS                       R9 R13 K24 ["weight"]
-      127 SETTABLEKS                       R5 R13 K25 ["surfacePt"]
-      129 SETTABLEKS                       R7 R13 K26 ["surfacePtNorm"]
-      131 SETTABLEKS                       R11 R13 K27 ["surfaceOffset"]
-      133 SETTABLEKS                       R12 R13 K28 ["surfaceDist"]
-      135 LOADK                            R14 K31 [""]
-      136 SETTABLEKS                       R14 R13 K29 ["targetNamespace"]
-      138 RETURN                           R13 1
+       27 LOADK                            R6 K0 ["Attachment"]
+       28 NAMECALL                         R4 R1 K1 ["IsA"]
+       30 CALL                             R4 2 1
+       31 JUMPIFNOT                        R4 ; [+3]
+       32 GETTABLEKS                       R3 R1 K2 ["WorldCFrame"]
+       34 JUMP                             ; [+19]
+       35 LOADK                            R6 K3 ["Model"]
+       36 NAMECALL                         R4 R1 K1 ["IsA"]
+       38 CALL                             R4 2 1
+       39 JUMPIFNOT                        R4 ; [+12]
+       40 GETTABLEKS                       R4 R1 K4 ["PrimaryPart"]
+       42 JUMPIFNOT                        R4 ; [+5]
+       43 GETTABLEKS                       R4 R1 K4 ["PrimaryPart"]
+       45 GETTABLEKS                       R3 R4 K5 ["CFrame"]
+       47 JUMP                             ; [+6]
+       48 GETIMPORT                        R3 K7 [CFrame.new]
+       50 CALL                             R3 0 1
+       51 JUMP                             ; [+2]
+       52 GETTABLEKS                       R3 R1 K5 ["CFrame"]
+       54 LOADK                            R7 K0 ["Attachment"]
+       55 NAMECALL                         R5 R1 K1 ["IsA"]
+       57 CALL                             R5 2 1
+       58 JUMPIFNOT                        R5 ; [+2]
+       59 LOADK                            R4 K8 [{0.1, 0.1, 0.1}]
+       60 JUMP                             ; [+12]
+       61 LOADK                            R7 K3 ["Model"]
+       62 NAMECALL                         R5 R1 K1 ["IsA"]
+       64 CALL                             R5 2 1
+       65 JUMPIFNOT                        R5 ; [+5]
+       66 NAMECALL                         R5 R1 K9 ["GetBoundingBox"]
+       68 CALL                             R5 1 2
+       69 MOVE                             R4 R6
+       70 JUMP                             ; [+2]
+       71 GETTABLEKS                       R4 R1 K10 ["Size"]
+       73 GETUPVAL                         R5 0
+       74 MOVE                             R6 R3
+       75 MOVE                             R7 R4
+       76 GETTABLEKS                       R8 R2 K11 ["Position"]
+       78 CALL                             R5 3 2
+       79 DIV                              R7 R6 R4
+       80 GETTABLEKS                       R10 R2 K11 ["Position"]
+       82 SUB                              R9 R10 R5
+       83 GETTABLEKS                       R8 R9 K12 ["Magnitude"]
+       85 SUBK                             R13 R8 K14 [1]
+       86 DIVK                             R12 R13 K15 [-0.8]
+       87 LOADN                            R13 0
+       88 LOADN                            R14 1
+       89 FASTCALL                         MATH_CLAMP ; [+2]
+       90 GETIMPORT                        R11 K18 [math.clamp]
+       92 CALL                             R11 3 1
+       93 MULK                             R10 R11 K14 [1]
+       94 ADDK                             R9 R10 K13 [0]
+       95 MOVE                             R10 R9
+       96 LOADN                            R13 0
+       97 LOADN                            R14 1
+       98 FASTCALL3                        MATH_CLAMP R10 R13 R14
+      100 MOVE                             R12 R10
+      101 GETIMPORT                        R11 K18 [math.clamp]
+      103 CALL                             R11 3 1
+      104 MUL                              R12 R11 R11
+      105 MULK                             R14 R11 K20 [2]
+      106 SUBRK                            R13 R19 K14 [1]
+      107 MUL                              R9 R12 R13
+      108 GETTABLEKS                       R11 R3 K21 ["Rotation"]
+      110 ADD                              R10 R11 R5
+      111 NAMECALL                         R12 R10 K22 ["Inverse"]
+      113 CALL                             R12 1 1
+      114 MUL                              R11 R12 R2
+      115 GETTABLEKS                       R13 R11 K11 ["Position"]
+      117 GETTABLEKS                       R12 R13 K12 ["Magnitude"]
+      119 DUPTABLE                         R13 K30 [{"target", "weight", "surfacePt", "surfacePtNorm", "surfaceOffset", "surfaceDist", "targetNamespace"}]
+      120 SETTABLEKS                       R1 R13 K23 ["target"]
+      122 SETTABLEKS                       R9 R13 K24 ["weight"]
+      124 SETTABLEKS                       R5 R13 K25 ["surfacePt"]
+      126 SETTABLEKS                       R7 R13 K26 ["surfacePtNorm"]
+      128 SETTABLEKS                       R11 R13 K27 ["surfaceOffset"]
+      130 SETTABLEKS                       R12 R13 K28 ["surfaceDist"]
+      132 LOADK                            R14 K31 [""]
+      133 SETTABLEKS                       R14 R13 K29 ["targetNamespace"]
+      135 RETURN                           R13 1
 
 PROTO_10:
         0 NEWTABLE                         R2 0 0

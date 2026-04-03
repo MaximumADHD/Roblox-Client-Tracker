@@ -61,18 +61,26 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 	end)
 
 	local containerRef = React.useRef(nil :: GuiObject?)
+
+	-- Create refs for each tab (use user-provided ref if available)
+	local tabRefs = React.useMemo(function()
+		local refs = {}
+		for _, tab in props.tabs do
+			refs[tab.id] = tab.ref or React.createRef()
+		end
+		return refs
+	end, { props.tabs })
+
 	local animatedBorder = useAnimatedHighlight(
 		activeTabId,
 		(if ref then ref else containerRef) :: { current: GuiObject? },
+		tabRefs,
 		props.size,
 		props.fillBehavior
 	)
 
-	local borderPosition, borderWidth, activeTabHeight, tabRefs =
-		animatedBorder.highlightPosition,
-		animatedBorder.highlightWidth,
-		animatedBorder.activeItemHeight,
-		animatedBorder.itemRefs
+	local borderPosition, borderWidth, activeTabHeight =
+		animatedBorder.highlightPosition, animatedBorder.highlightWidth, animatedBorder.activeItemHeight
 
 	return React.createElement(View, {
 		tag = "size-full-0 auto-y clip",

@@ -15,11 +15,13 @@ local Core = UIBlox.Core
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
+local Foundation = require(Packages.Foundation)
 
-local ShimmerPanel = require(Loading.ShimmerPanel)
+local Skeleton = Foundation.Skeleton
 local DebugProps = require(Loading.Enum.DebugProps)
 local LoadingStrategy = require(Loading.Enum.LoadingStrategy)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local getClosestRadius = require(App.Loading.getClosestRadius)
 
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
@@ -119,7 +121,7 @@ function LoadableImage:init()
 	self._isMounted = false
 end
 
-function LoadableImage:renderShimmer(theme, sizeConstraint)
+function LoadableImage:renderShimmer(theme, sizeConstraint, tokens)
 	return Roact.createElement("Frame", {
 		AnchorPoint = self.props.AnchorPoint,
 		BorderSizePixel = 0,
@@ -130,9 +132,9 @@ function LoadableImage:renderShimmer(theme, sizeConstraint)
 		Size = self.props.Size,
 		ZIndex = self.props.ZIndex,
 	}, {
-		Shimmer = Roact.createElement(ShimmerPanel, {
-			Size = UDim2.new(1, 0, 1, 0),
-			cornerRadius = self.props.cornerRadius,
+		Shimmer = Roact.createElement(Skeleton, {
+			Size = UDim2.fromScale(1, 1),
+			radius = getClosestRadius(tokens.Semantic.Radius, self.props.cornerRadius),
 		}),
 		UISizeConstraint = sizeConstraint,
 		UICorner = Roact.createElement("UICorner", {
@@ -254,6 +256,7 @@ function LoadableImage:render()
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
+		local tokens = stylePalette.Tokens
 
 		if loadingFailed and renderOnFailed then
 			return renderOnFailed()
@@ -266,7 +269,7 @@ function LoadableImage:render()
 			and useShimmerAnimationWhileLoading
 			and loadingStrategy ~= LoadingStrategy.Default
 		then
-			return self:renderShimmer(theme, sizeConstraint)
+			return self:renderShimmer(theme, sizeConstraint, tokens)
 		else
 			-- Default strategy requires the Image property to be populated in order for the engine to fetch it
 			local shouldDisplayImage = loadingComplete or loadingStrategy == LoadingStrategy.Default
@@ -283,7 +286,7 @@ function LoadableImage:render()
 				and loadingStrategy == LoadingStrategy.Default
 				and loadingStarted
 			then
-				shimmer = self:renderShimmer(theme, sizeConstraint)
+				shimmer = self:renderShimmer(theme, sizeConstraint, tokens)
 			end
 
 			return Roact.createElement(ImageSetComponent.Label, {

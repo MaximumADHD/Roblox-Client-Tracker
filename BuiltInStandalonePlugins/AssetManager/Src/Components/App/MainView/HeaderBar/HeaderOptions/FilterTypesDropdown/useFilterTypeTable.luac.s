@@ -29,7 +29,7 @@ PROTO_2:
         1 GETTABLEKS                       R0 R1 K0 ["Input"]
         3 GETUPVAL                         R4 1
         4 GETTABLEKS                       R3 R4 K1 ["UiZone"]
-        6 GETTABLEKS                       R2 R3 K2 ["Filter"]
+        6 GETTABLEKS                       R2 R3 K2 ["Filters"]
         8 GETUPVAL                         R5 1
         9 GETTABLEKS                       R4 R5 K3 ["AssetInfoField"]
        11 GETTABLEKS                       R3 R4 K4 ["AssetType"]
@@ -63,7 +63,7 @@ PROTO_5:
 PROTO_6:
         0 NEWTABLE                         R2 0 0
         2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K0 ["getEnumAsSortedList"]
+        3 GETTABLEKS                       R3 R4 K0 ["asSortedList"]
         5 GETUPVAL                         R5 0
         6 GETTABLEKS                       R4 R5 K1 ["AssetType"]
         8 CALL                             R3 1 1
@@ -214,7 +214,7 @@ PROTO_9:
 PROTO_10:
         0 NEWTABLE                         R2 0 0
         2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K0 ["getEnumAsSortedList"]
+        3 GETTABLEKS                       R3 R4 K0 ["asSortedList"]
         5 GETUPVAL                         R5 0
         6 GETTABLEKS                       R4 R5 K1 ["AssetSource"]
         8 CALL                             R3 1 1
@@ -465,8 +465,9 @@ PROTO_19:
        22 CAPTURE                          VAL R3
        23 CAPTURE                          VAL R0
        24 CAPTURE                          UPVAL U3
-       25 CALL                             R8 1 0
-       26 RETURN                           R6 1
+       25 NEWTABLE                         R10 0 0
+       27 CALL                             R8 2 0
+       28 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -31,7 +31,7 @@ MAIN:
        40 NAMECALL                         R0 R0 K3 ["DefineFastInt"]
        42 CALL                             R0 3 0
        43 GETIMPORT                        R0 K1 [game]
-       45 LOADK                            R2 K9 ["PVHZeroPlaceIdCheck"]
+       45 LOADK                            R2 K9 ["PVHZeroPlaceIdCheck2"]
        46 LOADB                            R3 0
        47 NAMECALL                         R0 R0 K10 ["DefineFastFlag"]
        49 CALL                             R0 3 0
@@ -77,7 +77,7 @@ MAIN:
       111 CALL                             R1 2 1
       112 SETTABLEKS                       R1 R0 K18 ["FIntPVHFirstPageDelayMs"]
       114 GETIMPORT                        R1 K1 [game]
-      116 LOADK                            R3 K9 ["PVHZeroPlaceIdCheck"]
+      116 LOADK                            R3 K9 ["PVHZeroPlaceIdCheck2"]
       117 NAMECALL                         R1 R1 K26 ["GetFastFlag"]
       119 CALL                             R1 2 1
       120 SETTABLEKS                       R1 R0 K19 ["FFlagPVHZeroPlaceIdCheck"]

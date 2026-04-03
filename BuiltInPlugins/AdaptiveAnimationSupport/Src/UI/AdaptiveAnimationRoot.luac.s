@@ -166,26 +166,35 @@ PROTO_6:
         8 LOADK                            R4 K3 ["DigitsRigDescription"]
         9 CALL                             R3 1 1
        10 SETTABLEKS                       R1 R3 K4 ["Side"]
-       12 SETTABLEKS                       R0 R3 K5 ["Parent"]
-       14 GETIMPORT                        R5 K9 [Enum.DigitsRigDescriptionSide.Left]
-       16 JUMPIFNOTEQ                      R1 R5 ; [+4]
-       18 GETIMPORT                        R4 K12 [Enum.RigLabel.LeftWrist]
-       20 JUMP                             ; [+2]
-       21 GETIMPORT                        R4 K14 [Enum.RigLabel.RightWrist]
-       23 MOVE                             R7 R4
-       24 NAMECALL                         R5 R0 K15 ["GetJoint"]
-       26 CALL                             R5 2 1
-       27 JUMPIFNOT                        R5 ; [+12]
-       28 GETUPVAL                         R8 1
-       29 GETTABLEKS                       R7 R8 K16 ["HandAutomapper"]
-       31 GETTABLEKS                       R6 R7 K17 ["setupHand"]
-       33 MOVE                             R7 R3
-       34 MOVE                             R8 R5
-       35 MOVE                             R9 R1
-       36 GETUPVAL                         R11 1
-       37 GETTABLEKS                       R10 R11 K18 ["handRigLabels"]
-       39 CALL                             R6 4 0
-       40 RETURN                           R3 1
+       12 GETUPVAL                         R4 1
+       13 CALL                             R4 0 1
+       14 JUMPIFNOT                        R4 ; [+9]
+       15 GETIMPORT                        R5 K8 [Enum.DigitsRigDescriptionSide.Left]
+       17 JUMPIFNOTEQ                      R1 R5 ; [+3]
+       19 LOADK                            R4 K9 ["LeftHandDescription"]
+       20 JUMP                             ; [+1]
+       21 LOADK                            R4 K10 ["RightHandDescription"]
+       22 SETTABLEKS                       R4 R3 K11 ["Name"]
+       24 SETTABLEKS                       R0 R3 K12 ["Parent"]
+       26 GETIMPORT                        R5 K8 [Enum.DigitsRigDescriptionSide.Left]
+       28 JUMPIFNOTEQ                      R1 R5 ; [+4]
+       30 GETIMPORT                        R4 K15 [Enum.RigLabel.LeftWrist]
+       32 JUMP                             ; [+2]
+       33 GETIMPORT                        R4 K17 [Enum.RigLabel.RightWrist]
+       35 MOVE                             R7 R4
+       36 NAMECALL                         R5 R0 K18 ["GetJoint"]
+       38 CALL                             R5 2 1
+       39 JUMPIFNOT                        R5 ; [+12]
+       40 GETUPVAL                         R8 2
+       41 GETTABLEKS                       R7 R8 K19 ["HandAutomapper"]
+       43 GETTABLEKS                       R6 R7 K20 ["setupHand"]
+       45 MOVE                             R7 R3
+       46 MOVE                             R8 R5
+       47 MOVE                             R9 R1
+       48 GETUPVAL                         R11 2
+       49 GETTABLEKS                       R10 R11 K21 ["handRigLabels"]
+       51 CALL                             R6 4 0
+       52 RETURN                           R3 1
 
 PROTO_7:
         0 GETUPVAL                         R2 0
@@ -688,14 +697,21 @@ PROTO_27:
         5 CALL                             R0 1 0
         6 GETUPVAL                         R0 2
         7 CALL                             R0 0 1
-        8 JUMPIF                           R0 ; [+3]
+        8 JUMPIF                           R0 ; [+4]
         9 GETUPVAL                         R0 3
        10 LOADK                            R1 K0 ["preview"]
        11 CALL                             R0 1 0
-       12 GETUPVAL                         R0 4
-       13 NEWTABLE                         R1 0 0
-       15 SETTABLEKS                       R1 R0 K1 ["current"]
-       17 RETURN                           R0 0
+       12 JUMP                             ; [+6]
+       13 GETUPVAL                         R0 4
+       14 CALL                             R0 0 1
+       15 JUMPIFNOT                        R0 ; [+3]
+       16 GETUPVAL                         R0 3
+       17 LOADK                            R1 K1 ["mapping"]
+       18 CALL                             R0 1 0
+       19 GETUPVAL                         R0 5
+       20 NEWTABLE                         R1 0 0
+       22 SETTABLEKS                       R1 R0 K2 ["current"]
+       24 RETURN                           R0 0
 
 PROTO_28:
         0 GETUPVAL                         R2 0
@@ -818,7 +834,7 @@ PROTO_31:
         4 MINUS                            R4 R5
         5 NAMECALL                         R2 R0 K1 ["sub"]
         7 CALL                             R2 2 1
-        8 JUMPIFNOTEQ                      R2 R1 ; [+18]
+        8 JUMPIFNOTEQ                      R2 R1 ; [+28]
        10 GETUPVAL                         R3 1
        11 GETTABLEKS                       R2 R3 K2 ["current"]
        13 JUMPIFNOT                        R2 ; [+1]
@@ -828,12 +844,21 @@ PROTO_31:
        18 GETUPVAL                         R3 3
        19 CALL                             R2 1 0
        20 GETUPVAL                         R2 4
-       21 GETUPVAL                         R4 5
-       22 NAMECALL                         R4 R4 K5 ["getValue"]
-       24 CALL                             R4 1 1
-       25 ADDK                             R3 R4 K4 [1]
-       26 CALL                             R2 1 0
-       27 RETURN                           R0 0
+       21 CALL                             R2 0 1
+       22 JUMPIFNOT                        R2 ; [+7]
+       23 GETUPVAL                         R2 5
+       24 JUMPIFNOT                        R2 ; [+5]
+       25 GETUPVAL                         R2 5
+       26 LOADN                            R4 0
+       27 NAMECALL                         R2 R2 K4 ["StepAnimations"]
+       29 CALL                             R2 2 0
+       30 GETUPVAL                         R2 6
+       31 GETUPVAL                         R4 7
+       32 NAMECALL                         R4 R4 K6 ["getValue"]
+       34 CALL                             R4 1 1
+       35 ADDK                             R3 R4 K5 [1]
+       36 CALL                             R2 1 0
+       37 RETURN                           R0 0
 
 PROTO_32:
         0 GETUPVAL                         R0 0
@@ -845,12 +870,21 @@ PROTO_32:
         8 GETUPVAL                         R2 3
         9 CALL                             R0 2 0
        10 GETUPVAL                         R0 4
-       11 GETUPVAL                         R2 5
-       12 NAMECALL                         R2 R2 K3 ["getValue"]
-       14 CALL                             R2 1 1
-       15 ADDK                             R1 R2 K2 [1]
-       16 CALL                             R0 1 0
-       17 RETURN                           R0 0
+       11 CALL                             R0 0 1
+       12 JUMPIFNOT                        R0 ; [+7]
+       13 GETUPVAL                         R0 5
+       14 JUMPIFNOT                        R0 ; [+5]
+       15 GETUPVAL                         R0 5
+       16 LOADN                            R2 0
+       17 NAMECALL                         R0 R0 K2 ["StepAnimations"]
+       19 CALL                             R0 2 0
+       20 GETUPVAL                         R0 6
+       21 GETUPVAL                         R2 7
+       22 NAMECALL                         R2 R2 K4 ["getValue"]
+       24 CALL                             R2 1 1
+       25 ADDK                             R1 R2 K3 [1]
+       26 CALL                             R0 1 0
+       27 RETURN                           R0 0
 
 PROTO_33:
         0 GETUPVAL                         R0 0
@@ -862,48 +896,70 @@ PROTO_33:
         6 JUMPIF                           R0 ; [+1]
         7 RETURN                           R0 0
         8 GETUPVAL                         R0 3
-        9 JUMPIFEQKS                       R0 K0 ["tpose"] ; [+15]
+        9 JUMPIFEQKS                       R0 K0 ["tpose"] ; [+25]
        11 GETUPVAL                         R1 4
        12 GETTABLEKS                       R0 R1 K1 ["clearTransforms"]
        14 GETUPVAL                         R1 0
        15 GETUPVAL                         R2 1
        16 CALL                             R0 2 0
        17 GETUPVAL                         R0 5
-       18 GETUPVAL                         R2 6
-       19 NAMECALL                         R2 R2 K3 ["getValue"]
-       21 CALL                             R2 1 1
-       22 ADDK                             R1 R2 K2 [1]
-       23 CALL                             R0 1 0
-       24 RETURN                           R0 0
-       25 GETUPVAL                         R1 0
-       26 GETTABLEKS                       R0 R1 K4 ["Changed"]
-       28 NEWCLOSURE                       R2 P0
-       29 CAPTURE                          UPVAL U7
-       30 CAPTURE                          UPVAL U8
-       31 CAPTURE                          UPVAL U9
-       32 CAPTURE                          UPVAL U0
-       33 CAPTURE                          UPVAL U5
-       34 CAPTURE                          UPVAL U6
-       35 NAMECALL                         R0 R0 K5 ["Connect"]
-       37 CALL                             R0 2 1
-       38 GETUPVAL                         R2 9
-       39 GETTABLEKS                       R1 R2 K6 ["applyTposeAdjustment"]
-       41 GETUPVAL                         R2 0
-       42 CALL                             R1 1 0
-       43 GETUPVAL                         R1 5
-       44 GETUPVAL                         R3 6
-       45 NAMECALL                         R3 R3 K3 ["getValue"]
-       47 CALL                             R3 1 1
-       48 ADDK                             R2 R3 K2 [1]
-       49 CALL                             R1 1 0
-       50 NEWCLOSURE                       R1 P1
-       51 CAPTURE                          VAL R0
-       52 CAPTURE                          UPVAL U4
-       53 CAPTURE                          UPVAL U0
-       54 CAPTURE                          UPVAL U1
-       55 CAPTURE                          UPVAL U5
-       56 CAPTURE                          UPVAL U6
-       57 RETURN                           R1 1
+       18 CALL                             R0 0 1
+       19 JUMPIFNOT                        R0 ; [+7]
+       20 GETUPVAL                         R0 6
+       21 JUMPIFNOT                        R0 ; [+5]
+       22 GETUPVAL                         R0 6
+       23 LOADN                            R2 0
+       24 NAMECALL                         R0 R0 K2 ["StepAnimations"]
+       26 CALL                             R0 2 0
+       27 GETUPVAL                         R0 7
+       28 GETUPVAL                         R2 8
+       29 NAMECALL                         R2 R2 K4 ["getValue"]
+       31 CALL                             R2 1 1
+       32 ADDK                             R1 R2 K3 [1]
+       33 CALL                             R0 1 0
+       34 RETURN                           R0 0
+       35 GETUPVAL                         R1 0
+       36 GETTABLEKS                       R0 R1 K5 ["Changed"]
+       38 NEWCLOSURE                       R2 P0
+       39 CAPTURE                          UPVAL U9
+       40 CAPTURE                          UPVAL U10
+       41 CAPTURE                          UPVAL U11
+       42 CAPTURE                          UPVAL U0
+       43 CAPTURE                          UPVAL U5
+       44 CAPTURE                          UPVAL U6
+       45 CAPTURE                          UPVAL U7
+       46 CAPTURE                          UPVAL U8
+       47 NAMECALL                         R0 R0 K6 ["Connect"]
+       49 CALL                             R0 2 1
+       50 GETUPVAL                         R2 11
+       51 GETTABLEKS                       R1 R2 K7 ["applyTposeAdjustment"]
+       53 GETUPVAL                         R2 0
+       54 CALL                             R1 1 0
+       55 GETUPVAL                         R1 5
+       56 CALL                             R1 0 1
+       57 JUMPIFNOT                        R1 ; [+7]
+       58 GETUPVAL                         R1 6
+       59 JUMPIFNOT                        R1 ; [+5]
+       60 GETUPVAL                         R1 6
+       61 LOADN                            R3 0
+       62 NAMECALL                         R1 R1 K2 ["StepAnimations"]
+       64 CALL                             R1 2 0
+       65 GETUPVAL                         R1 7
+       66 GETUPVAL                         R3 8
+       67 NAMECALL                         R3 R3 K4 ["getValue"]
+       69 CALL                             R3 1 1
+       70 ADDK                             R2 R3 K3 [1]
+       71 CALL                             R1 1 0
+       72 NEWCLOSURE                       R1 P1
+       73 CAPTURE                          VAL R0
+       74 CAPTURE                          UPVAL U4
+       75 CAPTURE                          UPVAL U0
+       76 CAPTURE                          UPVAL U1
+       77 CAPTURE                          UPVAL U5
+       78 CAPTURE                          UPVAL U6
+       79 CAPTURE                          UPVAL U7
+       80 CAPTURE                          UPVAL U8
+       81 RETURN                           R1 1
 
 PROTO_34:
         0 GETUPVAL                         R0 0
@@ -2267,577 +2323,596 @@ PROTO_81:
       295 CAPTURE                          VAL R25
       296 CAPTURE                          UPVAL U10
       297 CAPTURE                          VAL R5
-      298 CAPTURE                          VAL R36
-      299 NEWTABLE                         R45 0 1
-      301 MOVE                             R46 R1
-      302 SETLIST                          R45 R46 1 [1]
-      304 CALL                             R43 2 0
-      305 GETUPVAL                         R44 1
-      306 GETTABLEKS                       R43 R44 K2 ["useEffect"]
-      308 NEWCLOSURE                       R44 P11
-      309 CAPTURE                          VAL R1
-      310 CAPTURE                          VAL R9
-      311 CAPTURE                          VAL R10
-      312 CAPTURE                          VAL R6
-      313 CAPTURE                          UPVAL U10
-      314 CAPTURE                          VAL R3
-      315 CAPTURE                          UPVAL U3
-      316 CAPTURE                          VAL R34
-      317 CAPTURE                          VAL R33
-      318 CAPTURE                          UPVAL U19
-      319 CAPTURE                          VAL R35
-      320 NEWTABLE                         R45 0 4
-      322 MOVE                             R46 R3
-      323 MOVE                             R47 R1
-      324 MOVE                             R48 R9
-      325 MOVE                             R49 R10
-      326 SETLIST                          R45 R46 4 [1]
-      328 CALL                             R43 2 0
-      329 GETUPVAL                         R44 1
-      330 GETTABLEKS                       R43 R44 K2 ["useEffect"]
-      332 NEWCLOSURE                       R44 P12
-      333 CAPTURE                          VAL R1
-      334 CAPTURE                          VAL R9
-      335 CAPTURE                          VAL R6
-      336 CAPTURE                          VAL R3
-      337 CAPTURE                          UPVAL U3
-      338 CAPTURE                          VAL R34
-      339 CAPTURE                          VAL R33
-      340 CAPTURE                          UPVAL U19
-      341 CAPTURE                          VAL R35
-      342 CAPTURE                          UPVAL U15
-      343 NEWTABLE                         R45 0 4
-      345 MOVE                             R46 R3
-      346 MOVE                             R47 R1
-      347 MOVE                             R48 R2
-      348 MOVE                             R49 R9
-      349 SETLIST                          R45 R46 4 [1]
-      351 CALL                             R43 2 0
-      352 GETUPVAL                         R44 1
-      353 GETTABLEKS                       R43 R44 K2 ["useEffect"]
-      355 NEWCLOSURE                       R44 P13
-      356 CAPTURE                          VAL R36
-      357 NEWTABLE                         R45 0 3
-      359 MOVE                             R46 R22
-      360 MOVE                             R47 R26
-      361 MOVE                             R48 R3
-      362 SETLIST                          R45 R46 3 [1]
-      364 CALL                             R43 2 0
-      365 GETUPVAL                         R44 1
-      366 GETTABLEKS                       R43 R44 K3 ["useCallback"]
-      368 NEWCLOSURE                       R44 P14
-      369 CAPTURE                          UPVAL U20
-      370 CAPTURE                          VAL R1
-      371 CAPTURE                          VAL R8
-      372 CAPTURE                          UPVAL U21
-      373 CAPTURE                          UPVAL U22
-      374 CAPTURE                          VAL R23
-      375 CAPTURE                          VAL R25
-      376 NEWTABLE                         R45 0 2
-      378 MOVE                             R46 R1
-      379 MOVE                             R47 R8
-      380 SETLIST                          R45 R46 2 [1]
-      382 CALL                             R43 2 1
-      383 GETUPVAL                         R45 1
-      384 GETTABLEKS                       R44 R45 K3 ["useCallback"]
-      386 NEWCLOSURE                       R45 P15
-      387 CAPTURE                          VAL R24
-      388 CAPTURE                          VAL R43
-      389 CAPTURE                          VAL R23
-      390 NEWTABLE                         R46 0 2
-      392 MOVE                             R47 R24
-      393 MOVE                             R48 R43
-      394 SETLIST                          R46 R47 2 [1]
-      396 CALL                             R44 2 1
-      397 GETUPVAL                         R46 1
-      398 GETTABLEKS                       R45 R46 K3 ["useCallback"]
-      400 NEWCLOSURE                       R46 P16
-      401 CAPTURE                          VAL R1
-      402 CAPTURE                          VAL R8
-      403 CAPTURE                          VAL R23
-      404 NEWTABLE                         R47 0 2
-      406 MOVE                             R48 R1
-      407 MOVE                             R49 R8
-      408 SETLIST                          R47 R48 2 [1]
-      410 CALL                             R45 2 1
-      411 GETUPVAL                         R47 1
-      412 GETTABLEKS                       R46 R47 K3 ["useCallback"]
-      414 NEWCLOSURE                       R47 P17
-      415 CAPTURE                          VAL R6
-      416 CAPTURE                          UPVAL U23
+      298 CAPTURE                          UPVAL U19
+      299 CAPTURE                          VAL R36
+      300 NEWTABLE                         R45 0 1
+      302 MOVE                             R46 R1
+      303 SETLIST                          R45 R46 1 [1]
+      305 CALL                             R43 2 0
+      306 GETUPVAL                         R44 1
+      307 GETTABLEKS                       R43 R44 K2 ["useEffect"]
+      309 NEWCLOSURE                       R44 P11
+      310 CAPTURE                          VAL R1
+      311 CAPTURE                          VAL R9
+      312 CAPTURE                          VAL R10
+      313 CAPTURE                          VAL R6
+      314 CAPTURE                          UPVAL U10
+      315 CAPTURE                          VAL R3
+      316 CAPTURE                          UPVAL U3
+      317 CAPTURE                          VAL R34
+      318 CAPTURE                          VAL R33
+      319 CAPTURE                          UPVAL U20
+      320 CAPTURE                          VAL R35
+      321 NEWTABLE                         R45 0 4
+      323 MOVE                             R46 R3
+      324 MOVE                             R47 R1
+      325 MOVE                             R48 R9
+      326 MOVE                             R49 R10
+      327 SETLIST                          R45 R46 4 [1]
+      329 CALL                             R43 2 0
+      330 GETUPVAL                         R44 1
+      331 GETTABLEKS                       R43 R44 K2 ["useEffect"]
+      333 NEWCLOSURE                       R44 P12
+      334 CAPTURE                          VAL R1
+      335 CAPTURE                          VAL R9
+      336 CAPTURE                          VAL R6
+      337 CAPTURE                          VAL R3
+      338 CAPTURE                          UPVAL U3
+      339 CAPTURE                          UPVAL U19
+      340 CAPTURE                          VAL R10
+      341 CAPTURE                          VAL R34
+      342 CAPTURE                          VAL R33
+      343 CAPTURE                          UPVAL U20
+      344 CAPTURE                          VAL R35
+      345 CAPTURE                          UPVAL U15
+      346 GETUPVAL                         R46 19
+      347 CALL                             R46 0 1
+      348 JUMPIFNOT                        R46 ; [+10]
+      349 NEWTABLE                         R45 0 5
+      351 MOVE                             R46 R3
+      352 MOVE                             R47 R1
+      353 MOVE                             R48 R2
+      354 MOVE                             R49 R9
+      355 MOVE                             R50 R10
+      356 SETLIST                          R45 R46 5 [1]
+      358 JUMP                             ; [+8]
+      359 NEWTABLE                         R45 0 4
+      361 MOVE                             R46 R3
+      362 MOVE                             R47 R1
+      363 MOVE                             R48 R2
+      364 MOVE                             R49 R9
+      365 SETLIST                          R45 R46 4 [1]
+      367 CALL                             R43 2 0
+      368 GETUPVAL                         R44 1
+      369 GETTABLEKS                       R43 R44 K2 ["useEffect"]
+      371 NEWCLOSURE                       R44 P13
+      372 CAPTURE                          VAL R36
+      373 NEWTABLE                         R45 0 3
+      375 MOVE                             R46 R22
+      376 MOVE                             R47 R26
+      377 MOVE                             R48 R3
+      378 SETLIST                          R45 R46 3 [1]
+      380 CALL                             R43 2 0
+      381 GETUPVAL                         R44 1
+      382 GETTABLEKS                       R43 R44 K3 ["useCallback"]
+      384 NEWCLOSURE                       R44 P14
+      385 CAPTURE                          UPVAL U21
+      386 CAPTURE                          VAL R1
+      387 CAPTURE                          VAL R8
+      388 CAPTURE                          UPVAL U22
+      389 CAPTURE                          UPVAL U23
+      390 CAPTURE                          VAL R23
+      391 CAPTURE                          VAL R25
+      392 NEWTABLE                         R45 0 2
+      394 MOVE                             R46 R1
+      395 MOVE                             R47 R8
+      396 SETLIST                          R45 R46 2 [1]
+      398 CALL                             R43 2 1
+      399 GETUPVAL                         R45 1
+      400 GETTABLEKS                       R44 R45 K3 ["useCallback"]
+      402 NEWCLOSURE                       R45 P15
+      403 CAPTURE                          VAL R24
+      404 CAPTURE                          VAL R43
+      405 CAPTURE                          VAL R23
+      406 NEWTABLE                         R46 0 2
+      408 MOVE                             R47 R24
+      409 MOVE                             R48 R43
+      410 SETLIST                          R46 R47 2 [1]
+      412 CALL                             R44 2 1
+      413 GETUPVAL                         R46 1
+      414 GETTABLEKS                       R45 R46 K3 ["useCallback"]
+      416 NEWCLOSURE                       R46 P16
       417 CAPTURE                          VAL R1
-      418 CAPTURE                          VAL R9
-      419 CAPTURE                          VAL R10
-      420 NEWTABLE                         R48 0 4
-      422 MOVE                             R49 R6
-      423 MOVE                             R50 R1
-      424 MOVE                             R51 R9
-      425 MOVE                             R52 R10
-      426 SETLIST                          R48 R49 4 [1]
-      428 CALL                             R46 2 1
-      429 GETUPVAL                         R48 1
-      430 GETTABLEKS                       R47 R48 K3 ["useCallback"]
-      432 NEWCLOSURE                       R48 P18
-      433 CAPTURE                          VAL R9
-      434 CAPTURE                          VAL R1
-      435 CAPTURE                          VAL R6
-      436 CAPTURE                          UPVAL U24
-      437 CAPTURE                          VAL R10
-      438 CAPTURE                          VAL R3
-      439 NEWTABLE                         R49 0 5
-      441 MOVE                             R50 R9
-      442 MOVE                             R51 R1
-      443 MOVE                             R52 R10
-      444 MOVE                             R53 R3
-      445 MOVE                             R54 R6
-      446 SETLIST                          R49 R50 5 [1]
-      448 CALL                             R47 2 1
-      449 GETUPVAL                         R48 25
-      450 MOVE                             R49 R47
-      451 GETTABLEKS                       R50 R0 K16 ["localization"]
-      453 MOVE                             R51 R9
-      454 CALL                             R48 3 4
-      455 GETUPVAL                         R53 1
-      456 GETTABLEKS                       R52 R53 K2 ["useEffect"]
-      458 NEWCLOSURE                       R53 P19
-      459 CAPTURE                          VAL R38
-      460 CAPTURE                          VAL R51
-      461 NEWTABLE                         R54 0 1
-      463 MOVE                             R55 R51
-      464 SETLIST                          R54 R55 1 [1]
-      466 CALL                             R52 2 0
-      467 GETUPVAL                         R53 1
-      468 GETTABLEKS                       R52 R53 K2 ["useEffect"]
-      470 NEWCLOSURE                       R53 P20
-      471 CAPTURE                          VAL R12
-      472 CAPTURE                          VAL R50
-      473 NEWTABLE                         R54 0 1
-      475 MOVE                             R55 R50
-      476 SETLIST                          R54 R55 1 [1]
-      478 CALL                             R52 2 0
-      479 GETUPVAL                         R53 1
-      480 GETTABLEKS                       R52 R53 K3 ["useCallback"]
-      482 NEWCLOSURE                       R53 P21
-      483 CAPTURE                          VAL R23
-      484 CAPTURE                          VAL R25
-      485 NEWTABLE                         R54 0 0
-      487 CALL                             R52 2 1
-      488 GETUPVAL                         R54 1
-      489 GETTABLEKS                       R53 R54 K3 ["useCallback"]
-      491 NEWCLOSURE                       R54 P22
-      492 CAPTURE                          VAL R24
-      493 CAPTURE                          VAL R25
-      494 CAPTURE                          VAL R1
-      495 CAPTURE                          VAL R23
-      496 NEWTABLE                         R55 0 2
-      498 MOVE                             R56 R24
-      499 MOVE                             R57 R1
-      500 SETLIST                          R55 R56 2 [1]
-      502 CALL                             R53 2 1
-      503 GETUPVAL                         R55 1
-      504 GETTABLEKS                       R54 R55 K3 ["useCallback"]
-      506 NEWCLOSURE                       R55 P23
-      507 CAPTURE                          VAL R24
-      508 CAPTURE                          VAL R25
-      509 CAPTURE                          VAL R1
-      510 CAPTURE                          VAL R23
-      511 NEWTABLE                         R56 0 2
-      513 MOVE                             R57 R24
-      514 MOVE                             R58 R1
-      515 SETLIST                          R56 R57 2 [1]
-      517 CALL                             R54 2 1
-      518 GETUPVAL                         R56 1
-      519 GETTABLEKS                       R55 R56 K3 ["useCallback"]
-      521 NEWCLOSURE                       R56 P24
-      522 CAPTURE                          VAL R1
-      523 CAPTURE                          UPVAL U26
-      524 NEWTABLE                         R57 0 1
-      526 MOVE                             R58 R1
-      527 SETLIST                          R57 R58 1 [1]
-      529 CALL                             R55 2 1
-      530 GETUPVAL                         R57 1
-      531 GETTABLEKS                       R56 R57 K3 ["useCallback"]
-      533 NEWCLOSURE                       R57 P25
-      534 CAPTURE                          VAL R1
-      535 NEWTABLE                         R58 0 1
-      537 MOVE                             R59 R1
-      538 SETLIST                          R58 R59 1 [1]
-      540 CALL                             R56 2 1
-      541 GETUPVAL                         R58 1
-      542 GETTABLEKS                       R57 R58 K3 ["useCallback"]
-      544 NEWCLOSURE                       R58 P26
-      545 CAPTURE                          VAL R14
-      546 NEWTABLE                         R59 0 1
-      548 MOVE                             R60 R14
-      549 SETLIST                          R59 R60 1 [1]
-      551 CALL                             R57 2 1
-      552 GETUPVAL                         R59 1
-      553 GETTABLEKS                       R58 R59 K3 ["useCallback"]
-      555 NEWCLOSURE                       R59 P27
-      556 CAPTURE                          VAL R15
-      557 CAPTURE                          UPVAL U22
-      558 NEWTABLE                         R60 0 1
-      560 MOVE                             R61 R15
-      561 SETLIST                          R60 R61 1 [1]
-      563 CALL                             R58 2 1
-      564 GETUPVAL                         R60 1
-      565 GETTABLEKS                       R59 R60 K17 ["useMemo"]
-      567 NEWCLOSURE                       R60 P28
-      568 CAPTURE                          UPVAL U10
-      569 CAPTURE                          VAL R3
-      570 CAPTURE                          VAL R0
-      571 CAPTURE                          UPVAL U19
-      572 CAPTURE                          VAL R9
-      573 CAPTURE                          UPVAL U3
-      574 CAPTURE                          VAL R1
-      575 CAPTURE                          UPVAL U22
-      576 CAPTURE                          VAL R23
-      577 CAPTURE                          VAL R5
-      578 CAPTURE                          VAL R26
-      579 CAPTURE                          VAL R27
-      580 CAPTURE                          VAL R46
-      581 CAPTURE                          VAL R48
-      582 CAPTURE                          VAL R38
-      583 CAPTURE                          VAL R6
-      584 NEWTABLE                         R61 0 4
-      586 MOVE                             R62 R3
-      587 JUMPIFNOT                        R26 ; [+2]
-      588 LOADK                            R63 K18 ["y"]
-      589 JUMP                             ; [+1]
-      590 LOADK                            R63 K19 ["n"]
-      591 MOVE                             R64 R1
-      592 MOVE                             R65 R48
-      593 SETLIST                          R61 R62 4 [1]
-      595 CALL                             R59 2 1
-      596 GETUPVAL                         R60 10
-      597 CALL                             R60 0 1
-      598 JUMPIF                           R60 ; [+215]
-      599 GETUPVAL                         R61 1
-      600 GETTABLEKS                       R60 R61 K20 ["createElement"]
-      602 GETUPVAL                         R62 1
-      603 GETTABLEKS                       R61 R62 K21 ["Fragment"]
-      605 LOADNIL                          R62
-      606 DUPTABLE                         R63 K28 [{"Adornments", "Toolbar", "ModeSwitcher", "Mannequin", "PreviewToolbar", "Dragger"}]
-      607 MOVE                             R64 R9
-      608 JUMPIFNOT                        R64 ; [+38]
-      609 MOVE                             R64 R1
-      610 JUMPIFNOT                        R64 ; [+36]
-      611 GETUPVAL                         R65 1
-      612 GETTABLEKS                       R64 R65 K20 ["createElement"]
-      614 GETUPVAL                         R65 27
-      615 DUPTABLE                         R66 K36 [{"rigModel", "rigDescriptor", "selectedJointInstance", "onJointClicked", "applyTposeAdjustment", "updatePositions", "DEPRECATED_isPlayingAnimation"}]
-      616 SETTABLEKS                       R9 R66 K29 ["rigModel"]
-      618 SETTABLEKS                       R1 R66 K30 ["rigDescriptor"]
-      620 SETTABLEKS                       R22 R66 K31 ["selectedJointInstance"]
-      622 JUMPIFNOTEQKS                    R3 K37 ["mapping"] ; [+3]
-      624 MOVE                             R67 R44
-      625 JUMP                             ; [+5]
-      626 JUMPIFNOTEQKS                    R3 K38 ["tpose"] ; [+3]
-      628 MOVE                             R67 R45
-      629 JUMP                             ; [+1]
-      630 LOADNIL                          R67
-      631 SETTABLEKS                       R67 R66 K32 ["onJointClicked"]
-      633 LOADB                            R67 1
-      634 JUMPIFEQKS                       R3 K39 ["preview"] ; [+5]
-      636 JUMPIFEQKS                       R3 K38 ["tpose"] ; [+2]
-      638 LOADB                            R67 0 +1
-      639 LOADB                            R67 1
-      640 SETTABLEKS                       R67 R66 K33 ["applyTposeAdjustment"]
-      642 SETTABLEKS                       R33 R66 K34 ["updatePositions"]
-      644 SETTABLEKS                       R11 R66 K35 ["DEPRECATED_isPlayingAnimation"]
-      646 CALL                             R64 2 1
-      647 SETTABLEKS                       R64 R63 K22 ["Adornments"]
-      649 LOADB                            R64 0
-      650 LENGTH                           R65 R59
-      651 LOADN                            R66 0
-      652 JUMPIFNOTLT                      R66 R65 ; [+14]
-      654 GETUPVAL                         R65 1
-      655 GETTABLEKS                       R64 R65 K20 ["createElement"]
-      657 GETUPVAL                         R66 28
-      658 GETTABLEKS                       R65 R66 K23 ["Toolbar"]
-      660 DUPTABLE                         R66 K42 [{"InitialPosition", "HorizontalItems"}]
-      661 LOADK                            R67 K43 ["Center"]
-      662 SETTABLEKS                       R67 R66 K40 ["InitialPosition"]
-      664 SETTABLEKS                       R59 R66 K41 ["HorizontalItems"]
-      666 CALL                             R64 2 1
-      667 SETTABLEKS                       R64 R63 K23 ["Toolbar"]
-      669 GETUPVAL                         R65 1
-      670 GETTABLEKS                       R64 R65 K20 ["createElement"]
-      672 GETUPVAL                         R65 29
-      673 DUPTABLE                         R66 K47 [{"visible", "mode", "onSelect", "localization"}]
-      674 JUMPIFNOTEQKS                    R3 K39 ["preview"] ; [+2]
-      676 LOADB                            R67 0 +1
-      677 LOADB                            R67 1
-      678 SETTABLEKS                       R67 R66 K44 ["visible"]
-      680 SETTABLEKS                       R3 R66 K45 ["mode"]
-      682 SETTABLEKS                       R5 R66 K46 ["onSelect"]
-      684 GETTABLEKS                       R67 R0 K16 ["localization"]
-      686 SETTABLEKS                       R67 R66 K16 ["localization"]
-      688 CALL                             R64 2 1
-      689 SETTABLEKS                       R64 R63 K24 ["ModeSwitcher"]
-      691 LOADB                            R64 0
-      692 JUMPIFNOTEQKS                    R3 K37 ["mapping"] ; [+50]
-      694 MOVE                             R64 R9
-      695 JUMPIFNOT                        R64 ; [+47]
-      696 MOVE                             R64 R1
-      697 JUMPIFNOT                        R64 ; [+45]
-      698 GETUPVAL                         R65 1
-      699 GETTABLEKS                       R64 R65 K20 ["createElement"]
-      701 GETUPVAL                         R65 30
-      702 DUPTABLE                         R66 K60 [{"model", "rigDescriptor", "selectedJoint", "armedRigLabel", "onArmJoint", "onMapJoint", "onClear", "onClose", "showMannequinImage", "localization", "detectedHrd", "hasHumanoid", "onSelectHrd", "onCreateHrd"}]
-      703 SETTABLEKS                       R9 R66 K48 ["model"]
-      705 SETTABLEKS                       R1 R66 K30 ["rigDescriptor"]
-      707 SETTABLEKS                       R22 R66 K49 ["selectedJoint"]
-      709 SETTABLEKS                       R24 R66 K50 ["armedRigLabel"]
-      711 SETTABLEKS                       R53 R66 K51 ["onArmJoint"]
-      713 SETTABLEKS                       R43 R66 K52 ["onMapJoint"]
-      715 NEWCLOSURE                       R67 P29
-      716 CAPTURE                          VAL R23
-      717 CAPTURE                          VAL R5
-      718 SETTABLEKS                       R67 R66 K53 ["onClear"]
-      720 DUPCLOSURE                       R67 K61 [PROTO_73]
-      721 SETTABLEKS                       R67 R66 K54 ["onClose"]
-      723 LOADB                            R67 1
-      724 SETTABLEKS                       R67 R66 K55 ["showMannequinImage"]
-      726 GETTABLEKS                       R67 R0 K16 ["localization"]
-      728 SETTABLEKS                       R67 R66 K16 ["localization"]
-      730 LOADNIL                          R67
-      731 SETTABLEKS                       R67 R66 K56 ["detectedHrd"]
-      733 LOADB                            R67 0
-      734 SETTABLEKS                       R67 R66 K57 ["hasHumanoid"]
-      736 DUPCLOSURE                       R67 K62 [PROTO_74]
-      737 SETTABLEKS                       R67 R66 K58 ["onSelectHrd"]
-      739 DUPCLOSURE                       R67 K63 [PROTO_75]
-      740 SETTABLEKS                       R67 R66 K59 ["onCreateHrd"]
-      742 CALL                             R64 2 1
-      743 SETTABLEKS                       R64 R63 K25 ["Mannequin"]
-      745 LOADB                            R64 0
-      746 JUMPIFNOTEQKS                    R3 K39 ["preview"] ; [+50]
-      748 MOVE                             R64 R9
-      749 JUMPIFNOT                        R64 ; [+47]
-      750 MOVE                             R64 R1
-      751 JUMPIFNOT                        R64 ; [+45]
-      752 GETUPVAL                         R65 1
-      753 GETTABLEKS                       R64 R65 K20 ["createElement"]
-      755 GETUPVAL                         R65 31
-      756 DUPTABLE                         R66 K69 [{"visible", "model", "localization", "autoAll", "resetAll", "onEdit", "stopPlayback", "onPlaybackStateChanged"}]
-      757 LOADB                            R67 1
-      758 SETTABLEKS                       R67 R66 K44 ["visible"]
-      760 SETTABLEKS                       R9 R66 K48 ["model"]
-      762 GETTABLEKS                       R67 R0 K16 ["localization"]
-      764 SETTABLEKS                       R67 R66 K16 ["localization"]
-      766 NEWCLOSURE                       R67 P33
-      767 CAPTURE                          VAL R9
-      768 CAPTURE                          UPVAL U24
-      769 CAPTURE                          VAL R1
-      770 SETTABLEKS                       R67 R66 K64 ["autoAll"]
-      772 NEWCLOSURE                       R67 P34
-      773 CAPTURE                          VAL R9
-      774 CAPTURE                          UPVAL U24
-      775 CAPTURE                          VAL R1
-      776 SETTABLEKS                       R67 R66 K65 ["resetAll"]
-      778 NEWCLOSURE                       R67 P35
-      779 CAPTURE                          VAL R38
-      780 CAPTURE                          VAL R12
-      781 CAPTURE                          VAL R5
-      782 SETTABLEKS                       R67 R66 K66 ["onEdit"]
-      784 NEWCLOSURE                       R67 P36
-      785 CAPTURE                          VAL R38
-      786 SETTABLEKS                       R67 R66 K67 ["stopPlayback"]
-      788 NEWCLOSURE                       R67 P37
-      789 CAPTURE                          VAL R12
-      790 CAPTURE                          UPVAL U3
+      418 CAPTURE                          VAL R8
+      419 CAPTURE                          VAL R23
+      420 NEWTABLE                         R47 0 2
+      422 MOVE                             R48 R1
+      423 MOVE                             R49 R8
+      424 SETLIST                          R47 R48 2 [1]
+      426 CALL                             R45 2 1
+      427 GETUPVAL                         R47 1
+      428 GETTABLEKS                       R46 R47 K3 ["useCallback"]
+      430 NEWCLOSURE                       R47 P17
+      431 CAPTURE                          VAL R6
+      432 CAPTURE                          UPVAL U24
+      433 CAPTURE                          VAL R1
+      434 CAPTURE                          VAL R9
+      435 CAPTURE                          VAL R10
+      436 NEWTABLE                         R48 0 4
+      438 MOVE                             R49 R6
+      439 MOVE                             R50 R1
+      440 MOVE                             R51 R9
+      441 MOVE                             R52 R10
+      442 SETLIST                          R48 R49 4 [1]
+      444 CALL                             R46 2 1
+      445 GETUPVAL                         R48 1
+      446 GETTABLEKS                       R47 R48 K3 ["useCallback"]
+      448 NEWCLOSURE                       R48 P18
+      449 CAPTURE                          VAL R9
+      450 CAPTURE                          VAL R1
+      451 CAPTURE                          VAL R6
+      452 CAPTURE                          UPVAL U25
+      453 CAPTURE                          VAL R10
+      454 CAPTURE                          VAL R3
+      455 NEWTABLE                         R49 0 5
+      457 MOVE                             R50 R9
+      458 MOVE                             R51 R1
+      459 MOVE                             R52 R10
+      460 MOVE                             R53 R3
+      461 MOVE                             R54 R6
+      462 SETLIST                          R49 R50 5 [1]
+      464 CALL                             R47 2 1
+      465 GETUPVAL                         R48 26
+      466 MOVE                             R49 R47
+      467 GETTABLEKS                       R50 R0 K16 ["localization"]
+      469 MOVE                             R51 R9
+      470 CALL                             R48 3 4
+      471 GETUPVAL                         R53 1
+      472 GETTABLEKS                       R52 R53 K2 ["useEffect"]
+      474 NEWCLOSURE                       R53 P19
+      475 CAPTURE                          VAL R38
+      476 CAPTURE                          VAL R51
+      477 NEWTABLE                         R54 0 1
+      479 MOVE                             R55 R51
+      480 SETLIST                          R54 R55 1 [1]
+      482 CALL                             R52 2 0
+      483 GETUPVAL                         R53 1
+      484 GETTABLEKS                       R52 R53 K2 ["useEffect"]
+      486 NEWCLOSURE                       R53 P20
+      487 CAPTURE                          VAL R12
+      488 CAPTURE                          VAL R50
+      489 NEWTABLE                         R54 0 1
+      491 MOVE                             R55 R50
+      492 SETLIST                          R54 R55 1 [1]
+      494 CALL                             R52 2 0
+      495 GETUPVAL                         R53 1
+      496 GETTABLEKS                       R52 R53 K3 ["useCallback"]
+      498 NEWCLOSURE                       R53 P21
+      499 CAPTURE                          VAL R23
+      500 CAPTURE                          VAL R25
+      501 NEWTABLE                         R54 0 0
+      503 CALL                             R52 2 1
+      504 GETUPVAL                         R54 1
+      505 GETTABLEKS                       R53 R54 K3 ["useCallback"]
+      507 NEWCLOSURE                       R54 P22
+      508 CAPTURE                          VAL R24
+      509 CAPTURE                          VAL R25
+      510 CAPTURE                          VAL R1
+      511 CAPTURE                          VAL R23
+      512 NEWTABLE                         R55 0 2
+      514 MOVE                             R56 R24
+      515 MOVE                             R57 R1
+      516 SETLIST                          R55 R56 2 [1]
+      518 CALL                             R53 2 1
+      519 GETUPVAL                         R55 1
+      520 GETTABLEKS                       R54 R55 K3 ["useCallback"]
+      522 NEWCLOSURE                       R55 P23
+      523 CAPTURE                          VAL R24
+      524 CAPTURE                          VAL R25
+      525 CAPTURE                          VAL R1
+      526 CAPTURE                          VAL R23
+      527 NEWTABLE                         R56 0 2
+      529 MOVE                             R57 R24
+      530 MOVE                             R58 R1
+      531 SETLIST                          R56 R57 2 [1]
+      533 CALL                             R54 2 1
+      534 GETUPVAL                         R56 1
+      535 GETTABLEKS                       R55 R56 K3 ["useCallback"]
+      537 NEWCLOSURE                       R56 P24
+      538 CAPTURE                          VAL R1
+      539 CAPTURE                          UPVAL U27
+      540 NEWTABLE                         R57 0 1
+      542 MOVE                             R58 R1
+      543 SETLIST                          R57 R58 1 [1]
+      545 CALL                             R55 2 1
+      546 GETUPVAL                         R57 1
+      547 GETTABLEKS                       R56 R57 K3 ["useCallback"]
+      549 NEWCLOSURE                       R57 P25
+      550 CAPTURE                          VAL R1
+      551 NEWTABLE                         R58 0 1
+      553 MOVE                             R59 R1
+      554 SETLIST                          R58 R59 1 [1]
+      556 CALL                             R56 2 1
+      557 GETUPVAL                         R58 1
+      558 GETTABLEKS                       R57 R58 K3 ["useCallback"]
+      560 NEWCLOSURE                       R58 P26
+      561 CAPTURE                          VAL R14
+      562 NEWTABLE                         R59 0 1
+      564 MOVE                             R60 R14
+      565 SETLIST                          R59 R60 1 [1]
+      567 CALL                             R57 2 1
+      568 GETUPVAL                         R59 1
+      569 GETTABLEKS                       R58 R59 K3 ["useCallback"]
+      571 NEWCLOSURE                       R59 P27
+      572 CAPTURE                          VAL R15
+      573 CAPTURE                          UPVAL U23
+      574 NEWTABLE                         R60 0 1
+      576 MOVE                             R61 R15
+      577 SETLIST                          R60 R61 1 [1]
+      579 CALL                             R58 2 1
+      580 GETUPVAL                         R60 1
+      581 GETTABLEKS                       R59 R60 K17 ["useMemo"]
+      583 NEWCLOSURE                       R60 P28
+      584 CAPTURE                          UPVAL U10
+      585 CAPTURE                          VAL R3
+      586 CAPTURE                          VAL R0
+      587 CAPTURE                          UPVAL U20
+      588 CAPTURE                          VAL R9
+      589 CAPTURE                          UPVAL U3
+      590 CAPTURE                          VAL R1
+      591 CAPTURE                          UPVAL U23
+      592 CAPTURE                          VAL R23
+      593 CAPTURE                          VAL R5
+      594 CAPTURE                          VAL R26
+      595 CAPTURE                          VAL R27
+      596 CAPTURE                          VAL R46
+      597 CAPTURE                          VAL R48
+      598 CAPTURE                          VAL R38
+      599 CAPTURE                          VAL R6
+      600 NEWTABLE                         R61 0 4
+      602 MOVE                             R62 R3
+      603 JUMPIFNOT                        R26 ; [+2]
+      604 LOADK                            R63 K18 ["y"]
+      605 JUMP                             ; [+1]
+      606 LOADK                            R63 K19 ["n"]
+      607 MOVE                             R64 R1
+      608 MOVE                             R65 R48
+      609 SETLIST                          R61 R62 4 [1]
+      611 CALL                             R59 2 1
+      612 GETUPVAL                         R60 10
+      613 CALL                             R60 0 1
+      614 JUMPIF                           R60 ; [+215]
+      615 GETUPVAL                         R61 1
+      616 GETTABLEKS                       R60 R61 K20 ["createElement"]
+      618 GETUPVAL                         R62 1
+      619 GETTABLEKS                       R61 R62 K21 ["Fragment"]
+      621 LOADNIL                          R62
+      622 DUPTABLE                         R63 K28 [{"Adornments", "Toolbar", "ModeSwitcher", "Mannequin", "PreviewToolbar", "Dragger"}]
+      623 MOVE                             R64 R9
+      624 JUMPIFNOT                        R64 ; [+38]
+      625 MOVE                             R64 R1
+      626 JUMPIFNOT                        R64 ; [+36]
+      627 GETUPVAL                         R65 1
+      628 GETTABLEKS                       R64 R65 K20 ["createElement"]
+      630 GETUPVAL                         R65 28
+      631 DUPTABLE                         R66 K36 [{"rigModel", "rigDescriptor", "selectedJointInstance", "onJointClicked", "applyTposeAdjustment", "updatePositions", "DEPRECATED_isPlayingAnimation"}]
+      632 SETTABLEKS                       R9 R66 K29 ["rigModel"]
+      634 SETTABLEKS                       R1 R66 K30 ["rigDescriptor"]
+      636 SETTABLEKS                       R22 R66 K31 ["selectedJointInstance"]
+      638 JUMPIFNOTEQKS                    R3 K37 ["mapping"] ; [+3]
+      640 MOVE                             R67 R44
+      641 JUMP                             ; [+5]
+      642 JUMPIFNOTEQKS                    R3 K38 ["tpose"] ; [+3]
+      644 MOVE                             R67 R45
+      645 JUMP                             ; [+1]
+      646 LOADNIL                          R67
+      647 SETTABLEKS                       R67 R66 K32 ["onJointClicked"]
+      649 LOADB                            R67 1
+      650 JUMPIFEQKS                       R3 K39 ["preview"] ; [+5]
+      652 JUMPIFEQKS                       R3 K38 ["tpose"] ; [+2]
+      654 LOADB                            R67 0 +1
+      655 LOADB                            R67 1
+      656 SETTABLEKS                       R67 R66 K33 ["applyTposeAdjustment"]
+      658 SETTABLEKS                       R33 R66 K34 ["updatePositions"]
+      660 SETTABLEKS                       R11 R66 K35 ["DEPRECATED_isPlayingAnimation"]
+      662 CALL                             R64 2 1
+      663 SETTABLEKS                       R64 R63 K22 ["Adornments"]
+      665 LOADB                            R64 0
+      666 LENGTH                           R65 R59
+      667 LOADN                            R66 0
+      668 JUMPIFNOTLT                      R66 R65 ; [+14]
+      670 GETUPVAL                         R65 1
+      671 GETTABLEKS                       R64 R65 K20 ["createElement"]
+      673 GETUPVAL                         R66 29
+      674 GETTABLEKS                       R65 R66 K23 ["Toolbar"]
+      676 DUPTABLE                         R66 K42 [{"InitialPosition", "HorizontalItems"}]
+      677 LOADK                            R67 K43 ["Center"]
+      678 SETTABLEKS                       R67 R66 K40 ["InitialPosition"]
+      680 SETTABLEKS                       R59 R66 K41 ["HorizontalItems"]
+      682 CALL                             R64 2 1
+      683 SETTABLEKS                       R64 R63 K23 ["Toolbar"]
+      685 GETUPVAL                         R65 1
+      686 GETTABLEKS                       R64 R65 K20 ["createElement"]
+      688 GETUPVAL                         R65 30
+      689 DUPTABLE                         R66 K47 [{"visible", "mode", "onSelect", "localization"}]
+      690 JUMPIFNOTEQKS                    R3 K39 ["preview"] ; [+2]
+      692 LOADB                            R67 0 +1
+      693 LOADB                            R67 1
+      694 SETTABLEKS                       R67 R66 K44 ["visible"]
+      696 SETTABLEKS                       R3 R66 K45 ["mode"]
+      698 SETTABLEKS                       R5 R66 K46 ["onSelect"]
+      700 GETTABLEKS                       R67 R0 K16 ["localization"]
+      702 SETTABLEKS                       R67 R66 K16 ["localization"]
+      704 CALL                             R64 2 1
+      705 SETTABLEKS                       R64 R63 K24 ["ModeSwitcher"]
+      707 LOADB                            R64 0
+      708 JUMPIFNOTEQKS                    R3 K37 ["mapping"] ; [+50]
+      710 MOVE                             R64 R9
+      711 JUMPIFNOT                        R64 ; [+47]
+      712 MOVE                             R64 R1
+      713 JUMPIFNOT                        R64 ; [+45]
+      714 GETUPVAL                         R65 1
+      715 GETTABLEKS                       R64 R65 K20 ["createElement"]
+      717 GETUPVAL                         R65 31
+      718 DUPTABLE                         R66 K60 [{"model", "rigDescriptor", "selectedJoint", "armedRigLabel", "onArmJoint", "onMapJoint", "onClear", "onClose", "showMannequinImage", "localization", "detectedHrd", "hasHumanoid", "onSelectHrd", "onCreateHrd"}]
+      719 SETTABLEKS                       R9 R66 K48 ["model"]
+      721 SETTABLEKS                       R1 R66 K30 ["rigDescriptor"]
+      723 SETTABLEKS                       R22 R66 K49 ["selectedJoint"]
+      725 SETTABLEKS                       R24 R66 K50 ["armedRigLabel"]
+      727 SETTABLEKS                       R53 R66 K51 ["onArmJoint"]
+      729 SETTABLEKS                       R43 R66 K52 ["onMapJoint"]
+      731 NEWCLOSURE                       R67 P29
+      732 CAPTURE                          VAL R23
+      733 CAPTURE                          VAL R5
+      734 SETTABLEKS                       R67 R66 K53 ["onClear"]
+      736 DUPCLOSURE                       R67 K61 [PROTO_73]
+      737 SETTABLEKS                       R67 R66 K54 ["onClose"]
+      739 LOADB                            R67 1
+      740 SETTABLEKS                       R67 R66 K55 ["showMannequinImage"]
+      742 GETTABLEKS                       R67 R0 K16 ["localization"]
+      744 SETTABLEKS                       R67 R66 K16 ["localization"]
+      746 LOADNIL                          R67
+      747 SETTABLEKS                       R67 R66 K56 ["detectedHrd"]
+      749 LOADB                            R67 0
+      750 SETTABLEKS                       R67 R66 K57 ["hasHumanoid"]
+      752 DUPCLOSURE                       R67 K62 [PROTO_74]
+      753 SETTABLEKS                       R67 R66 K58 ["onSelectHrd"]
+      755 DUPCLOSURE                       R67 K63 [PROTO_75]
+      756 SETTABLEKS                       R67 R66 K59 ["onCreateHrd"]
+      758 CALL                             R64 2 1
+      759 SETTABLEKS                       R64 R63 K25 ["Mannequin"]
+      761 LOADB                            R64 0
+      762 JUMPIFNOTEQKS                    R3 K39 ["preview"] ; [+50]
+      764 MOVE                             R64 R9
+      765 JUMPIFNOT                        R64 ; [+47]
+      766 MOVE                             R64 R1
+      767 JUMPIFNOT                        R64 ; [+45]
+      768 GETUPVAL                         R65 1
+      769 GETTABLEKS                       R64 R65 K20 ["createElement"]
+      771 GETUPVAL                         R65 32
+      772 DUPTABLE                         R66 K69 [{"visible", "model", "localization", "autoAll", "resetAll", "onEdit", "stopPlayback", "onPlaybackStateChanged"}]
+      773 LOADB                            R67 1
+      774 SETTABLEKS                       R67 R66 K44 ["visible"]
+      776 SETTABLEKS                       R9 R66 K48 ["model"]
+      778 GETTABLEKS                       R67 R0 K16 ["localization"]
+      780 SETTABLEKS                       R67 R66 K16 ["localization"]
+      782 NEWCLOSURE                       R67 P33
+      783 CAPTURE                          VAL R9
+      784 CAPTURE                          UPVAL U25
+      785 CAPTURE                          VAL R1
+      786 SETTABLEKS                       R67 R66 K64 ["autoAll"]
+      788 NEWCLOSURE                       R67 P34
+      789 CAPTURE                          VAL R9
+      790 CAPTURE                          UPVAL U25
       791 CAPTURE                          VAL R1
-      792 CAPTURE                          VAL R9
-      793 CAPTURE                          VAL R10
-      794 SETTABLEKS                       R67 R66 K68 ["onPlaybackStateChanged"]
-      796 CALL                             R64 2 1
-      797 SETTABLEKS                       R64 R63 K26 ["PreviewToolbar"]
-      799 LOADB                            R64 0
-      800 JUMPIFNOTEQKS                    R3 K38 ["tpose"] ; [+9]
-      802 MOVE                             R64 R42
-      803 JUMPIFNOT                        R64 ; [+6]
-      804 GETUPVAL                         R65 1
-      805 GETTABLEKS                       R64 R65 K20 ["createElement"]
-      807 GETUPVAL                         R65 32
-      808 MOVE                             R66 R42
-      809 CALL                             R64 2 1
-      810 SETTABLEKS                       R64 R63 K27 ["Dragger"]
-      812 CALL                             R60 3 -1
-      813 RETURN                           R60 -1
-      814 GETUPVAL                         R61 1
-      815 GETTABLEKS                       R60 R61 K20 ["createElement"]
-      817 GETUPVAL                         R62 1
-      818 GETTABLEKS                       R61 R62 K21 ["Fragment"]
-      820 LOADNIL                          R62
-      821 DUPTABLE                         R63 K72 [{"Adornments", "Toolbar", "MannequinPortal", "PreviewPlayback", "Dragger"}]
-      822 MOVE                             R64 R19
-      823 JUMPIFNOT                        R64 ; [+43]
-      824 MOVE                             R64 R9
-      825 JUMPIFNOT                        R64 ; [+41]
-      826 MOVE                             R64 R1
-      827 JUMPIFNOT                        R64 ; [+39]
-      828 GETUPVAL                         R65 1
-      829 GETTABLEKS                       R64 R65 K20 ["createElement"]
-      831 GETUPVAL                         R65 27
-      832 DUPTABLE                         R66 K76 [{"rigModel", "rigDescriptor", "selectedJointInstance", "onJointClicked", "applyTposeAdjustment", "updatePositions", "DEPRECATED_isPlayingAnimation", "overrideLabels", "onHoveredJointChanged", "mannequinHoveredJointName"}]
-      833 SETTABLEKS                       R9 R66 K29 ["rigModel"]
-      835 SETTABLEKS                       R1 R66 K30 ["rigDescriptor"]
-      837 SETTABLEKS                       R22 R66 K31 ["selectedJointInstance"]
-      839 JUMPIFNOTEQKS                    R3 K37 ["mapping"] ; [+3]
-      841 MOVE                             R67 R44
-      842 JUMP                             ; [+5]
-      843 JUMPIFNOTEQKS                    R3 K38 ["tpose"] ; [+3]
-      845 MOVE                             R67 R45
-      846 JUMP                             ; [+1]
-      847 LOADNIL                          R67
-      848 SETTABLEKS                       R67 R66 K32 ["onJointClicked"]
-      850 JUMPIFEQKS                       R3 K38 ["tpose"] ; [+2]
-      852 LOADB                            R67 0 +1
-      853 LOADB                            R67 1
-      854 SETTABLEKS                       R67 R66 K33 ["applyTposeAdjustment"]
-      856 SETTABLEKS                       R33 R66 K34 ["updatePositions"]
-      858 SETTABLEKS                       R11 R66 K35 ["DEPRECATED_isPlayingAnimation"]
-      860 SETTABLEKS                       R7 R66 K73 ["overrideLabels"]
-      862 SETTABLEKS                       R29 R66 K74 ["onHoveredJointChanged"]
-      864 SETTABLEKS                       R30 R66 K75 ["mannequinHoveredJointName"]
-      866 CALL                             R64 2 1
-      867 SETTABLEKS                       R64 R63 K22 ["Adornments"]
-      869 MOVE                             R64 R19
-      870 JUMPIFNOT                        R64 ; [+27]
-      871 MOVE                             R64 R9
-      872 JUMPIFNOT                        R64 ; [+25]
-      873 MOVE                             R64 R1
-      874 JUMPIFNOT                        R64 ; [+23]
-      875 LOADB                            R64 0
-      876 LENGTH                           R65 R59
-      877 LOADN                            R66 0
-      878 JUMPIFNOTLT                      R66 R65 ; [+19]
-      880 GETUPVAL                         R65 1
-      881 GETTABLEKS                       R64 R65 K20 ["createElement"]
-      883 GETUPVAL                         R66 28
-      884 GETTABLEKS                       R65 R66 K23 ["Toolbar"]
-      886 DUPTABLE                         R66 K78 [{"InitialPosition", "HorizontalItems", "DisplayOrder"}]
-      887 LOADK                            R67 K43 ["Center"]
-      888 SETTABLEKS                       R67 R66 K40 ["InitialPosition"]
-      890 SETTABLEKS                       R59 R66 K41 ["HorizontalItems"]
-      892 GETUPVAL                         R68 19
-      893 GETTABLEKS                       R67 R68 K79 ["DISPLAY_ORDER_TOOLBAR"]
-      895 SETTABLEKS                       R67 R66 K77 ["DisplayOrder"]
-      897 CALL                             R64 2 1
-      898 SETTABLEKS                       R64 R63 K23 ["Toolbar"]
-      900 GETUPVAL                         R65 1
-      901 GETTABLEKS                       R64 R65 K20 ["createElement"]
-      903 GETUPVAL                         R65 33
-      904 DUPTABLE                         R66 K82 [{"mannequin", "handMannequin"}]
-      905 MOVE                             R67 R19
-      906 JUMPIFNOT                        R67 ; [+64]
-      907 NOT                              R67 R6
-      908 JUMPIFNOT                        R67 ; [+62]
-      909 GETUPVAL                         R68 1
-      910 GETTABLEKS                       R67 R68 K20 ["createElement"]
-      912 GETUPVAL                         R68 30
-      913 DUPTABLE                         R69 K87 [{"model", "rigDescriptor", "selectedJoint", "armedRigLabel", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave", "showMannequinImage", "localization", "detectedHrd", "hasHumanoid", "onSelectHrd", "onCreateHrd", "onArmJoint", "onMapJoint", "onClear", "onClose", "onNavigateToHand"}]
-      914 SETTABLEKS                       R9 R69 K48 ["model"]
-      916 SETTABLEKS                       R1 R69 K30 ["rigDescriptor"]
-      918 SETTABLEKS                       R22 R69 K49 ["selectedJoint"]
-      920 SETTABLEKS                       R24 R69 K50 ["armedRigLabel"]
-      922 SETTABLEKS                       R28 R69 K83 ["counterpartHoveredJointName"]
-      924 SETTABLEKS                       R31 R69 K84 ["onDotHoverEnter"]
-      926 SETTABLEKS                       R32 R69 K85 ["onDotHoverLeave"]
-      928 JUMPIFEQKS                       R3 K37 ["mapping"] ; [+2]
-      930 LOADB                            R70 0 +1
-      931 LOADB                            R70 1
-      932 SETTABLEKS                       R70 R69 K55 ["showMannequinImage"]
-      934 GETTABLEKS                       R70 R0 K16 ["localization"]
-      936 SETTABLEKS                       R70 R69 K16 ["localization"]
-      938 JUMPIF                           R1 ; [+2]
-      939 MOVE                             R70 R14
-      940 JUMP                             ; [+1]
-      941 LOADNIL                          R70
-      942 SETTABLEKS                       R70 R69 K56 ["detectedHrd"]
-      944 JUMPIF                           R1 ; [+2]
-      945 MOVE                             R70 R16
-      946 JUMP                             ; [+1]
-      947 LOADB                            R70 0
-      948 SETTABLEKS                       R70 R69 K57 ["hasHumanoid"]
-      950 SETTABLEKS                       R57 R69 K58 ["onSelectHrd"]
-      952 SETTABLEKS                       R58 R69 K59 ["onCreateHrd"]
-      954 SETTABLEKS                       R53 R69 K51 ["onArmJoint"]
-      956 SETTABLEKS                       R43 R69 K52 ["onMapJoint"]
-      958 SETTABLEKS                       R52 R69 K53 ["onClear"]
-      960 SETTABLEKS                       R21 R69 K54 ["onClose"]
-      962 GETUPVAL                         R71 10
-      963 CALL                             R71 0 1
-      964 JUMPIFNOT                        R71 ; [+2]
-      965 MOVE                             R70 R55
-      966 JUMP                             ; [+1]
-      967 LOADNIL                          R70
-      968 SETTABLEKS                       R70 R69 K86 ["onNavigateToHand"]
-      970 CALL                             R67 2 1
-      971 SETTABLEKS                       R67 R66 K80 ["mannequin"]
-      973 MOVE                             R67 R19
-      974 JUMPIFNOT                        R67 ; [+45]
-      975 MOVE                             R67 R6
-      976 JUMPIFNOT                        R67 ; [+43]
-      977 LOADB                            R67 0
-      978 JUMPIFNOTEQKS                    R3 K37 ["mapping"] ; [+41]
-      980 MOVE                             R67 R9
-      981 JUMPIFNOT                        R67 ; [+38]
-      982 MOVE                             R67 R1
-      983 JUMPIFNOT                        R67 ; [+36]
-      984 GETUPVAL                         R68 1
-      985 GETTABLEKS                       R67 R68 K20 ["createElement"]
-      987 GETUPVAL                         R68 34
-      988 DUPTABLE                         R69 K90 [{"model", "rigDescriptor", "descriptorKind", "localization", "selectedJoint", "armedRigLabel", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave", "onNavigateToBody", "onArmJoint", "onMapJoint", "onClear", "onClose"}]
-      989 SETTABLEKS                       R9 R69 K48 ["model"]
-      991 SETTABLEKS                       R1 R69 K30 ["rigDescriptor"]
-      993 SETTABLEKS                       R2 R69 K88 ["descriptorKind"]
-      995 GETTABLEKS                       R70 R0 K16 ["localization"]
-      997 SETTABLEKS                       R70 R69 K16 ["localization"]
-      999 SETTABLEKS                       R22 R69 K49 ["selectedJoint"]
-     1001 SETTABLEKS                       R24 R69 K50 ["armedRigLabel"]
-     1003 SETTABLEKS                       R28 R69 K83 ["counterpartHoveredJointName"]
-     1005 SETTABLEKS                       R31 R69 K84 ["onDotHoverEnter"]
-     1007 SETTABLEKS                       R32 R69 K85 ["onDotHoverLeave"]
-     1009 SETTABLEKS                       R56 R69 K89 ["onNavigateToBody"]
-     1011 SETTABLEKS                       R54 R69 K51 ["onArmJoint"]
-     1013 SETTABLEKS                       R43 R69 K52 ["onMapJoint"]
-     1015 SETTABLEKS                       R52 R69 K53 ["onClear"]
-     1017 SETTABLEKS                       R21 R69 K54 ["onClose"]
-     1019 CALL                             R67 2 1
-     1020 SETTABLEKS                       R67 R66 K81 ["handMannequin"]
-     1022 CALL                             R64 2 1
-     1023 SETTABLEKS                       R64 R63 K70 ["MannequinPortal"]
-     1025 MOVE                             R64 R19
-     1026 JUMPIFNOT                        R64 ; [+16]
-     1027 MOVE                             R64 R9
-     1028 JUMPIFNOT                        R64 ; [+14]
-     1029 MOVE                             R64 R50
-     1030 JUMPIFNOT                        R64 ; [+12]
-     1031 GETUPVAL                         R65 1
-     1032 GETTABLEKS                       R64 R65 K20 ["createElement"]
-     1034 GETUPVAL                         R65 35
-     1035 DUPTABLE                         R66 K93 [{"model", "animationId", "isPlaying"}]
-     1036 SETTABLEKS                       R9 R66 K48 ["model"]
-     1038 SETTABLEKS                       R49 R66 K91 ["animationId"]
-     1040 SETTABLEKS                       R50 R66 K92 ["isPlaying"]
-     1042 CALL                             R64 2 1
-     1043 SETTABLEKS                       R64 R63 K71 ["PreviewPlayback"]
-     1045 MOVE                             R64 R19
-     1046 JUMPIFNOT                        R64 ; [+11]
-     1047 LOADB                            R64 0
-     1048 JUMPIFNOTEQKS                    R3 K38 ["tpose"] ; [+9]
-     1050 MOVE                             R64 R42
-     1051 JUMPIFNOT                        R64 ; [+6]
-     1052 GETUPVAL                         R65 1
-     1053 GETTABLEKS                       R64 R65 K20 ["createElement"]
-     1055 GETUPVAL                         R65 32
-     1056 MOVE                             R66 R42
-     1057 CALL                             R64 2 1
-     1058 SETTABLEKS                       R64 R63 K27 ["Dragger"]
-     1060 CALL                             R60 3 -1
-     1061 RETURN                           R60 -1
+      792 SETTABLEKS                       R67 R66 K65 ["resetAll"]
+      794 NEWCLOSURE                       R67 P35
+      795 CAPTURE                          VAL R38
+      796 CAPTURE                          VAL R12
+      797 CAPTURE                          VAL R5
+      798 SETTABLEKS                       R67 R66 K66 ["onEdit"]
+      800 NEWCLOSURE                       R67 P36
+      801 CAPTURE                          VAL R38
+      802 SETTABLEKS                       R67 R66 K67 ["stopPlayback"]
+      804 NEWCLOSURE                       R67 P37
+      805 CAPTURE                          VAL R12
+      806 CAPTURE                          UPVAL U3
+      807 CAPTURE                          VAL R1
+      808 CAPTURE                          VAL R9
+      809 CAPTURE                          VAL R10
+      810 SETTABLEKS                       R67 R66 K68 ["onPlaybackStateChanged"]
+      812 CALL                             R64 2 1
+      813 SETTABLEKS                       R64 R63 K26 ["PreviewToolbar"]
+      815 LOADB                            R64 0
+      816 JUMPIFNOTEQKS                    R3 K38 ["tpose"] ; [+9]
+      818 MOVE                             R64 R42
+      819 JUMPIFNOT                        R64 ; [+6]
+      820 GETUPVAL                         R65 1
+      821 GETTABLEKS                       R64 R65 K20 ["createElement"]
+      823 GETUPVAL                         R65 33
+      824 MOVE                             R66 R42
+      825 CALL                             R64 2 1
+      826 SETTABLEKS                       R64 R63 K27 ["Dragger"]
+      828 CALL                             R60 3 -1
+      829 RETURN                           R60 -1
+      830 GETUPVAL                         R61 1
+      831 GETTABLEKS                       R60 R61 K20 ["createElement"]
+      833 GETUPVAL                         R62 1
+      834 GETTABLEKS                       R61 R62 K21 ["Fragment"]
+      836 LOADNIL                          R62
+      837 DUPTABLE                         R63 K72 [{"Adornments", "Toolbar", "MannequinPortal", "PreviewPlayback", "Dragger"}]
+      838 MOVE                             R64 R19
+      839 JUMPIFNOT                        R64 ; [+43]
+      840 MOVE                             R64 R9
+      841 JUMPIFNOT                        R64 ; [+41]
+      842 MOVE                             R64 R1
+      843 JUMPIFNOT                        R64 ; [+39]
+      844 GETUPVAL                         R65 1
+      845 GETTABLEKS                       R64 R65 K20 ["createElement"]
+      847 GETUPVAL                         R65 28
+      848 DUPTABLE                         R66 K76 [{"rigModel", "rigDescriptor", "selectedJointInstance", "onJointClicked", "applyTposeAdjustment", "updatePositions", "DEPRECATED_isPlayingAnimation", "overrideLabels", "onHoveredJointChanged", "mannequinHoveredJointName"}]
+      849 SETTABLEKS                       R9 R66 K29 ["rigModel"]
+      851 SETTABLEKS                       R1 R66 K30 ["rigDescriptor"]
+      853 SETTABLEKS                       R22 R66 K31 ["selectedJointInstance"]
+      855 JUMPIFNOTEQKS                    R3 K37 ["mapping"] ; [+3]
+      857 MOVE                             R67 R44
+      858 JUMP                             ; [+5]
+      859 JUMPIFNOTEQKS                    R3 K38 ["tpose"] ; [+3]
+      861 MOVE                             R67 R45
+      862 JUMP                             ; [+1]
+      863 LOADNIL                          R67
+      864 SETTABLEKS                       R67 R66 K32 ["onJointClicked"]
+      866 JUMPIFEQKS                       R3 K38 ["tpose"] ; [+2]
+      868 LOADB                            R67 0 +1
+      869 LOADB                            R67 1
+      870 SETTABLEKS                       R67 R66 K33 ["applyTposeAdjustment"]
+      872 SETTABLEKS                       R33 R66 K34 ["updatePositions"]
+      874 SETTABLEKS                       R11 R66 K35 ["DEPRECATED_isPlayingAnimation"]
+      876 SETTABLEKS                       R7 R66 K73 ["overrideLabels"]
+      878 SETTABLEKS                       R29 R66 K74 ["onHoveredJointChanged"]
+      880 SETTABLEKS                       R30 R66 K75 ["mannequinHoveredJointName"]
+      882 CALL                             R64 2 1
+      883 SETTABLEKS                       R64 R63 K22 ["Adornments"]
+      885 MOVE                             R64 R19
+      886 JUMPIFNOT                        R64 ; [+27]
+      887 MOVE                             R64 R9
+      888 JUMPIFNOT                        R64 ; [+25]
+      889 MOVE                             R64 R1
+      890 JUMPIFNOT                        R64 ; [+23]
+      891 LOADB                            R64 0
+      892 LENGTH                           R65 R59
+      893 LOADN                            R66 0
+      894 JUMPIFNOTLT                      R66 R65 ; [+19]
+      896 GETUPVAL                         R65 1
+      897 GETTABLEKS                       R64 R65 K20 ["createElement"]
+      899 GETUPVAL                         R66 29
+      900 GETTABLEKS                       R65 R66 K23 ["Toolbar"]
+      902 DUPTABLE                         R66 K78 [{"InitialPosition", "HorizontalItems", "DisplayOrder"}]
+      903 LOADK                            R67 K43 ["Center"]
+      904 SETTABLEKS                       R67 R66 K40 ["InitialPosition"]
+      906 SETTABLEKS                       R59 R66 K41 ["HorizontalItems"]
+      908 GETUPVAL                         R68 20
+      909 GETTABLEKS                       R67 R68 K79 ["DISPLAY_ORDER_TOOLBAR"]
+      911 SETTABLEKS                       R67 R66 K77 ["DisplayOrder"]
+      913 CALL                             R64 2 1
+      914 SETTABLEKS                       R64 R63 K23 ["Toolbar"]
+      916 GETUPVAL                         R65 1
+      917 GETTABLEKS                       R64 R65 K20 ["createElement"]
+      919 GETUPVAL                         R65 34
+      920 DUPTABLE                         R66 K82 [{"mannequin", "handMannequin"}]
+      921 MOVE                             R67 R19
+      922 JUMPIFNOT                        R67 ; [+64]
+      923 NOT                              R67 R6
+      924 JUMPIFNOT                        R67 ; [+62]
+      925 GETUPVAL                         R68 1
+      926 GETTABLEKS                       R67 R68 K20 ["createElement"]
+      928 GETUPVAL                         R68 31
+      929 DUPTABLE                         R69 K87 [{"model", "rigDescriptor", "selectedJoint", "armedRigLabel", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave", "showMannequinImage", "localization", "detectedHrd", "hasHumanoid", "onSelectHrd", "onCreateHrd", "onArmJoint", "onMapJoint", "onClear", "onClose", "onNavigateToHand"}]
+      930 SETTABLEKS                       R9 R69 K48 ["model"]
+      932 SETTABLEKS                       R1 R69 K30 ["rigDescriptor"]
+      934 SETTABLEKS                       R22 R69 K49 ["selectedJoint"]
+      936 SETTABLEKS                       R24 R69 K50 ["armedRigLabel"]
+      938 SETTABLEKS                       R28 R69 K83 ["counterpartHoveredJointName"]
+      940 SETTABLEKS                       R31 R69 K84 ["onDotHoverEnter"]
+      942 SETTABLEKS                       R32 R69 K85 ["onDotHoverLeave"]
+      944 JUMPIFEQKS                       R3 K37 ["mapping"] ; [+2]
+      946 LOADB                            R70 0 +1
+      947 LOADB                            R70 1
+      948 SETTABLEKS                       R70 R69 K55 ["showMannequinImage"]
+      950 GETTABLEKS                       R70 R0 K16 ["localization"]
+      952 SETTABLEKS                       R70 R69 K16 ["localization"]
+      954 JUMPIF                           R1 ; [+2]
+      955 MOVE                             R70 R14
+      956 JUMP                             ; [+1]
+      957 LOADNIL                          R70
+      958 SETTABLEKS                       R70 R69 K56 ["detectedHrd"]
+      960 JUMPIF                           R1 ; [+2]
+      961 MOVE                             R70 R16
+      962 JUMP                             ; [+1]
+      963 LOADB                            R70 0
+      964 SETTABLEKS                       R70 R69 K57 ["hasHumanoid"]
+      966 SETTABLEKS                       R57 R69 K58 ["onSelectHrd"]
+      968 SETTABLEKS                       R58 R69 K59 ["onCreateHrd"]
+      970 SETTABLEKS                       R53 R69 K51 ["onArmJoint"]
+      972 SETTABLEKS                       R43 R69 K52 ["onMapJoint"]
+      974 SETTABLEKS                       R52 R69 K53 ["onClear"]
+      976 SETTABLEKS                       R21 R69 K54 ["onClose"]
+      978 GETUPVAL                         R71 10
+      979 CALL                             R71 0 1
+      980 JUMPIFNOT                        R71 ; [+2]
+      981 MOVE                             R70 R55
+      982 JUMP                             ; [+1]
+      983 LOADNIL                          R70
+      984 SETTABLEKS                       R70 R69 K86 ["onNavigateToHand"]
+      986 CALL                             R67 2 1
+      987 SETTABLEKS                       R67 R66 K80 ["mannequin"]
+      989 MOVE                             R67 R19
+      990 JUMPIFNOT                        R67 ; [+45]
+      991 MOVE                             R67 R6
+      992 JUMPIFNOT                        R67 ; [+43]
+      993 LOADB                            R67 0
+      994 JUMPIFNOTEQKS                    R3 K37 ["mapping"] ; [+41]
+      996 MOVE                             R67 R9
+      997 JUMPIFNOT                        R67 ; [+38]
+      998 MOVE                             R67 R1
+      999 JUMPIFNOT                        R67 ; [+36]
+     1000 GETUPVAL                         R68 1
+     1001 GETTABLEKS                       R67 R68 K20 ["createElement"]
+     1003 GETUPVAL                         R68 35
+     1004 DUPTABLE                         R69 K90 [{"model", "rigDescriptor", "descriptorKind", "localization", "selectedJoint", "armedRigLabel", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave", "onNavigateToBody", "onArmJoint", "onMapJoint", "onClear", "onClose"}]
+     1005 SETTABLEKS                       R9 R69 K48 ["model"]
+     1007 SETTABLEKS                       R1 R69 K30 ["rigDescriptor"]
+     1009 SETTABLEKS                       R2 R69 K88 ["descriptorKind"]
+     1011 GETTABLEKS                       R70 R0 K16 ["localization"]
+     1013 SETTABLEKS                       R70 R69 K16 ["localization"]
+     1015 SETTABLEKS                       R22 R69 K49 ["selectedJoint"]
+     1017 SETTABLEKS                       R24 R69 K50 ["armedRigLabel"]
+     1019 SETTABLEKS                       R28 R69 K83 ["counterpartHoveredJointName"]
+     1021 SETTABLEKS                       R31 R69 K84 ["onDotHoverEnter"]
+     1023 SETTABLEKS                       R32 R69 K85 ["onDotHoverLeave"]
+     1025 SETTABLEKS                       R56 R69 K89 ["onNavigateToBody"]
+     1027 SETTABLEKS                       R54 R69 K51 ["onArmJoint"]
+     1029 SETTABLEKS                       R43 R69 K52 ["onMapJoint"]
+     1031 SETTABLEKS                       R52 R69 K53 ["onClear"]
+     1033 SETTABLEKS                       R21 R69 K54 ["onClose"]
+     1035 CALL                             R67 2 1
+     1036 SETTABLEKS                       R67 R66 K81 ["handMannequin"]
+     1038 CALL                             R64 2 1
+     1039 SETTABLEKS                       R64 R63 K70 ["MannequinPortal"]
+     1041 MOVE                             R64 R19
+     1042 JUMPIFNOT                        R64 ; [+16]
+     1043 MOVE                             R64 R9
+     1044 JUMPIFNOT                        R64 ; [+14]
+     1045 MOVE                             R64 R50
+     1046 JUMPIFNOT                        R64 ; [+12]
+     1047 GETUPVAL                         R65 1
+     1048 GETTABLEKS                       R64 R65 K20 ["createElement"]
+     1050 GETUPVAL                         R65 36
+     1051 DUPTABLE                         R66 K93 [{"model", "animationId", "isPlaying"}]
+     1052 SETTABLEKS                       R9 R66 K48 ["model"]
+     1054 SETTABLEKS                       R49 R66 K91 ["animationId"]
+     1056 SETTABLEKS                       R50 R66 K92 ["isPlaying"]
+     1058 CALL                             R64 2 1
+     1059 SETTABLEKS                       R64 R63 K71 ["PreviewPlayback"]
+     1061 MOVE                             R64 R19
+     1062 JUMPIFNOT                        R64 ; [+16]
+     1063 LOADB                            R64 0
+     1064 JUMPIFNOTEQKS                    R3 K38 ["tpose"] ; [+14]
+     1066 MOVE                             R64 R42
+     1067 JUMPIFNOT                        R64 ; [+11]
+     1068 GETUPVAL                         R65 19
+     1069 CALL                             R65 0 1
+     1070 JUMPIFNOT                        R65 ; [+2]
+     1071 NOT                              R64 R11
+     1072 JUMPIFNOT                        R64 ; [+6]
+     1073 GETUPVAL                         R65 1
+     1074 GETTABLEKS                       R64 R65 K20 ["createElement"]
+     1076 GETUPVAL                         R65 33
+     1077 MOVE                             R66 R42
+     1078 CALL                             R64 2 1
+     1079 SETTABLEKS                       R64 R63 K27 ["Dragger"]
+     1081 CALL                             R60 3 -1
+     1082 RETURN                           R60 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -3013,75 +3088,82 @@ MAIN:
       304 CALL                             R35 1 1
       305 GETIMPORT                        R36 K5 [require]
       307 GETTABLEKS                       R39 R0 K11 ["Src"]
-      309 GETTABLEKS                       R38 R39 K23 ["Utils"]
-      311 GETTABLEKS                       R37 R38 K53 ["DigitsRigUtils"]
+      309 GETTABLEKS                       R38 R39 K49 ["Flags"]
+      311 GETTABLEKS                       R37 R38 K53 ["getFFlagAdaptiveAnimationBetaImprovements"]
       313 CALL                             R36 1 1
       314 GETIMPORT                        R37 K5 [require]
-      316 GETTABLEKS                       R39 R0 K11 ["Src"]
-      318 GETTABLEKS                       R38 R39 K54 ["PluginMode"]
-      320 CALL                             R37 1 1
-      321 DUPCLOSURE                       R38 K55 [PROTO_0]
-      322 CAPTURE                          VAL R3
-      323 DUPCLOSURE                       R39 K56 [PROTO_1]
-      324 DUPCLOSURE                       R40 K57 [PROTO_2]
-      325 DUPCLOSURE                       R41 K58 [PROTO_3]
-      326 DUPCLOSURE                       R42 K59 [PROTO_4]
-      327 CAPTURE                          VAL R2
-      328 DUPCLOSURE                       R43 K60 [PROTO_5]
-      329 DUPCLOSURE                       R44 K61 [PROTO_6]
-      330 CAPTURE                          VAL R43
-      331 CAPTURE                          VAL R2
-      332 DUPCLOSURE                       R45 K62 [PROTO_7]
-      333 CAPTURE                          VAL R1
-      334 CAPTURE                          VAL R23
-      335 CAPTURE                          VAL R20
-      336 CAPTURE                          VAL R24
-      337 CAPTURE                          VAL R21
-      338 DUPCLOSURE                       R46 K63 [PROTO_81]
-      339 CAPTURE                          VAL R25
-      340 CAPTURE                          VAL R1
-      341 CAPTURE                          VAL R37
-      342 CAPTURE                          VAL R2
-      343 CAPTURE                          VAL R30
-      344 CAPTURE                          VAL R28
-      345 CAPTURE                          VAL R26
-      346 CAPTURE                          VAL R27
-      347 CAPTURE                          VAL R29
-      348 CAPTURE                          VAL R32
-      349 CAPTURE                          VAL R35
-      350 CAPTURE                          VAL R22
-      351 CAPTURE                          VAL R4
-      352 CAPTURE                          VAL R40
-      353 CAPTURE                          VAL R3
-      354 CAPTURE                          VAL R36
-      355 CAPTURE                          VAL R34
-      356 CAPTURE                          VAL R16
-      357 CAPTURE                          VAL R33
-      358 CAPTURE                          VAL R20
-      359 CAPTURE                          VAL R41
-      360 CAPTURE                          VAL R42
-      361 CAPTURE                          VAL R14
-      362 CAPTURE                          VAL R15
-      363 CAPTURE                          VAL R9
-      364 CAPTURE                          VAL R7
-      365 CAPTURE                          VAL R44
-      366 CAPTURE                          VAL R5
-      367 CAPTURE                          VAL R11
-      368 CAPTURE                          VAL R10
-      369 CAPTURE                          VAL R12
-      370 CAPTURE                          VAL R8
-      371 CAPTURE                          VAL R18
-      372 CAPTURE                          VAL R45
-      373 CAPTURE                          VAL R13
-      374 CAPTURE                          VAL R6
-      375 DUPTABLE                         R47 K66 [{"AdaptiveAnimationRoot", "_test"}]
-      376 SETTABLEKS                       R46 R47 K64 ["AdaptiveAnimationRoot"]
-      378 DUPTABLE                         R48 K73 [{"findLabelForJoint", "computeDeprecatedCounterpartName", "clearConflictingMappings", "clearJointFromOtherDescriptors", "findExistingHandDescription", "ensureHandDescription"}]
-      379 SETTABLEKS                       R39 R48 K67 ["findLabelForJoint"]
-      381 SETTABLEKS                       R40 R48 K68 ["computeDeprecatedCounterpartName"]
-      383 SETTABLEKS                       R41 R48 K69 ["clearConflictingMappings"]
-      385 SETTABLEKS                       R42 R48 K70 ["clearJointFromOtherDescriptors"]
-      387 SETTABLEKS                       R43 R48 K71 ["findExistingHandDescription"]
-      389 SETTABLEKS                       R44 R48 K72 ["ensureHandDescription"]
-      391 SETTABLEKS                       R48 R47 K65 ["_test"]
-      393 RETURN                           R47 1
+      316 GETTABLEKS                       R40 R0 K11 ["Src"]
+      318 GETTABLEKS                       R39 R40 K23 ["Utils"]
+      320 GETTABLEKS                       R38 R39 K54 ["DigitsRigUtils"]
+      322 CALL                             R37 1 1
+      323 GETIMPORT                        R38 K5 [require]
+      325 GETTABLEKS                       R40 R0 K11 ["Src"]
+      327 GETTABLEKS                       R39 R40 K55 ["PluginMode"]
+      329 CALL                             R38 1 1
+      330 DUPCLOSURE                       R39 K56 [PROTO_0]
+      331 CAPTURE                          VAL R3
+      332 DUPCLOSURE                       R40 K57 [PROTO_1]
+      333 DUPCLOSURE                       R41 K58 [PROTO_2]
+      334 DUPCLOSURE                       R42 K59 [PROTO_3]
+      335 DUPCLOSURE                       R43 K60 [PROTO_4]
+      336 CAPTURE                          VAL R2
+      337 DUPCLOSURE                       R44 K61 [PROTO_5]
+      338 DUPCLOSURE                       R45 K62 [PROTO_6]
+      339 CAPTURE                          VAL R44
+      340 CAPTURE                          VAL R36
+      341 CAPTURE                          VAL R2
+      342 DUPCLOSURE                       R46 K63 [PROTO_7]
+      343 CAPTURE                          VAL R1
+      344 CAPTURE                          VAL R23
+      345 CAPTURE                          VAL R20
+      346 CAPTURE                          VAL R24
+      347 CAPTURE                          VAL R21
+      348 DUPCLOSURE                       R47 K64 [PROTO_81]
+      349 CAPTURE                          VAL R25
+      350 CAPTURE                          VAL R1
+      351 CAPTURE                          VAL R38
+      352 CAPTURE                          VAL R2
+      353 CAPTURE                          VAL R30
+      354 CAPTURE                          VAL R28
+      355 CAPTURE                          VAL R26
+      356 CAPTURE                          VAL R27
+      357 CAPTURE                          VAL R29
+      358 CAPTURE                          VAL R32
+      359 CAPTURE                          VAL R35
+      360 CAPTURE                          VAL R22
+      361 CAPTURE                          VAL R4
+      362 CAPTURE                          VAL R41
+      363 CAPTURE                          VAL R3
+      364 CAPTURE                          VAL R37
+      365 CAPTURE                          VAL R34
+      366 CAPTURE                          VAL R16
+      367 CAPTURE                          VAL R33
+      368 CAPTURE                          VAL R36
+      369 CAPTURE                          VAL R20
+      370 CAPTURE                          VAL R42
+      371 CAPTURE                          VAL R43
+      372 CAPTURE                          VAL R14
+      373 CAPTURE                          VAL R15
+      374 CAPTURE                          VAL R9
+      375 CAPTURE                          VAL R7
+      376 CAPTURE                          VAL R45
+      377 CAPTURE                          VAL R5
+      378 CAPTURE                          VAL R11
+      379 CAPTURE                          VAL R10
+      380 CAPTURE                          VAL R12
+      381 CAPTURE                          VAL R8
+      382 CAPTURE                          VAL R18
+      383 CAPTURE                          VAL R46
+      384 CAPTURE                          VAL R13
+      385 CAPTURE                          VAL R6
+      386 DUPTABLE                         R48 K67 [{"AdaptiveAnimationRoot", "_test"}]
+      387 SETTABLEKS                       R47 R48 K65 ["AdaptiveAnimationRoot"]
+      389 DUPTABLE                         R49 K74 [{"findLabelForJoint", "computeDeprecatedCounterpartName", "clearConflictingMappings", "clearJointFromOtherDescriptors", "findExistingHandDescription", "ensureHandDescription"}]
+      390 SETTABLEKS                       R40 R49 K68 ["findLabelForJoint"]
+      392 SETTABLEKS                       R41 R49 K69 ["computeDeprecatedCounterpartName"]
+      394 SETTABLEKS                       R42 R49 K70 ["clearConflictingMappings"]
+      396 SETTABLEKS                       R43 R49 K71 ["clearJointFromOtherDescriptors"]
+      398 SETTABLEKS                       R44 R49 K72 ["findExistingHandDescription"]
+      400 SETTABLEKS                       R45 R49 K73 ["ensureHandDescription"]
+      402 SETTABLEKS                       R49 R48 K66 ["_test"]
+      404 RETURN                           R48 1

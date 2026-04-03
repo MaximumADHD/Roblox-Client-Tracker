@@ -1,9 +1,36 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K1 [{"awaitDeferAsync"}]
-        2 GETIMPORT                        R1 K3 [require]
-        4 GETIMPORT                        R3 K5 [script]
-        6 GETTABLEKS                       R2 R3 K0 ["awaitDeferAsync"]
-        8 CALL                             R1 1 1
-        9 SETTABLEKS                       R1 R0 K0 ["awaitDeferAsync"]
-       11 RETURN                           R0 1
+        1 GETIMPORT                        R0 K1 [require]
+        3 GETIMPORT                        R2 K3 [script]
+        5 GETTABLEKS                       R1 R2 K4 ["FilterHelper"]
+        7 CALL                             R0 1 1
+        8 GETIMPORT                        R1 K1 [require]
+       10 GETIMPORT                        R3 K3 [script]
+       12 GETTABLEKS                       R2 R3 K5 ["TestHelper"]
+       14 CALL                             R1 1 1
+       15 GETIMPORT                        R2 K1 [require]
+       17 GETIMPORT                        R4 K3 [script]
+       19 GETTABLEKS                       R3 R4 K6 ["TreeHelper"]
+       21 CALL                             R2 1 1
+       22 DUPTABLE                         R3 K17 [{"awaitDeferAsync", "collapse", "createAction", "createContext", "expand", "itemExists", "itemsExist", "rename", "search", "updateStyling"}]
+       23 GETTABLEKS                       R4 R1 K7 ["awaitDeferAsync"]
+       25 SETTABLEKS                       R4 R3 K7 ["awaitDeferAsync"]
+       27 GETTABLEKS                       R4 R2 K18 ["Collapse"]
+       29 SETTABLEKS                       R4 R3 K8 ["collapse"]
+       31 GETTABLEKS                       R4 R2 K19 ["CreateAction"]
+       33 SETTABLEKS                       R4 R3 K9 ["createAction"]
+       35 GETTABLEKS                       R4 R2 K20 ["CreateContext"]
+       37 SETTABLEKS                       R4 R3 K10 ["createContext"]
+       39 GETTABLEKS                       R4 R2 K21 ["Expand"]
+       41 SETTABLEKS                       R4 R3 K11 ["expand"]
+       43 GETTABLEKS                       R4 R2 K22 ["ItemExists"]
+       45 SETTABLEKS                       R4 R3 K12 ["itemExists"]
+       47 GETTABLEKS                       R4 R2 K23 ["ItemsExist"]
+       49 SETTABLEKS                       R4 R3 K13 ["itemsExist"]
+       51 GETTABLEKS                       R4 R2 K24 ["Rename"]
+       53 SETTABLEKS                       R4 R3 K14 ["rename"]
+       55 GETTABLEKS                       R4 R0 K25 ["Search"]
+       57 SETTABLEKS                       R4 R3 K15 ["search"]
+       59 GETTABLEKS                       R4 R1 K16 ["updateStyling"]
+       61 SETTABLEKS                       R4 R3 K16 ["updateStyling"]
+       63 RETURN                           R3 1

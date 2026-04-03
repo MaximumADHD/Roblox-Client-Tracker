@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["PlayerSettingPresetValues"]
-        3 NEWTABLE                         R2 4 0
+        3 NEWTABLE                         R2 16 0
         5 GETUPVAL                         R3 1
         6 GETTABLEKS                       R4 R1 K1 ["collisionSetting"]
         8 GETUPVAL                         R5 2
@@ -38,7 +38,79 @@ PROTO_0:
        48 CALL                             R5 2 -1
        49 CALL                             R3 -1 1
        50 SETTABLEKS                       R3 R2 K12 ["collisionSizeSetting"]
-       52 RETURN                           R2 1
+       52 GETUPVAL                         R3 1
+       53 GETIMPORT                        R4 K15 [Enum.AvatarSettingsCharacterControllerMode.LegacyHumanoid]
+       55 GETUPVAL                         R5 2
+       56 MOVE                             R6 R0
+       57 GETUPVAL                         R8 3
+       58 GETTABLEKS                       R7 R8 K16 ["characterControllerModeSetting"]
+       60 CALL                             R5 2 -1
+       61 CALL                             R3 -1 1
+       62 SETTABLEKS                       R3 R2 K16 ["characterControllerModeSetting"]
+       64 GETUPVAL                         R3 1
+       65 LOADB                            R4 1
+       66 GETUPVAL                         R5 2
+       67 MOVE                             R6 R0
+       68 GETUPVAL                         R8 3
+       69 GETTABLEKS                       R7 R8 K17 ["defaultAbilitiesEnableRunningSetting"]
+       71 CALL                             R5 2 -1
+       72 CALL                             R3 -1 1
+       73 SETTABLEKS                       R3 R2 K17 ["defaultAbilitiesEnableRunningSetting"]
+       75 GETUPVAL                         R3 1
+       76 LOADB                            R4 1
+       77 GETUPVAL                         R5 2
+       78 MOVE                             R6 R0
+       79 GETUPVAL                         R8 3
+       80 GETTABLEKS                       R7 R8 K18 ["defaultAbilitiesEnableJumpingSetting"]
+       82 CALL                             R5 2 -1
+       83 CALL                             R3 -1 1
+       84 SETTABLEKS                       R3 R2 K18 ["defaultAbilitiesEnableJumpingSetting"]
+       86 GETUPVAL                         R3 1
+       87 LOADB                            R4 1
+       88 GETUPVAL                         R5 2
+       89 MOVE                             R6 R0
+       90 GETUPVAL                         R8 3
+       91 GETTABLEKS                       R7 R8 K19 ["defaultAbilitiesEnableSittingSetting"]
+       93 CALL                             R5 2 -1
+       94 CALL                             R3 -1 1
+       95 SETTABLEKS                       R3 R2 K19 ["defaultAbilitiesEnableSittingSetting"]
+       97 GETUPVAL                         R3 1
+       98 LOADB                            R4 1
+       99 GETUPVAL                         R5 2
+      100 MOVE                             R6 R0
+      101 GETUPVAL                         R8 3
+      102 GETTABLEKS                       R7 R8 K20 ["defaultAbilitiesEnableFallingDownSetting"]
+      104 CALL                             R5 2 -1
+      105 CALL                             R3 -1 1
+      106 SETTABLEKS                       R3 R2 K20 ["defaultAbilitiesEnableFallingDownSetting"]
+      108 GETUPVAL                         R3 1
+      109 LOADB                            R4 1
+      110 GETUPVAL                         R5 2
+      111 MOVE                             R6 R0
+      112 GETUPVAL                         R8 3
+      113 GETTABLEKS                       R7 R8 K21 ["defaultAbilitiesEnableGettingUpSetting"]
+      115 CALL                             R5 2 -1
+      116 CALL                             R3 -1 1
+      117 SETTABLEKS                       R3 R2 K21 ["defaultAbilitiesEnableGettingUpSetting"]
+      119 GETUPVAL                         R3 1
+      120 LOADB                            R4 1
+      121 GETUPVAL                         R5 2
+      122 MOVE                             R6 R0
+      123 GETUPVAL                         R8 3
+      124 GETTABLEKS                       R7 R8 K22 ["defaultAbilitiesEnableClimbingSetting"]
+      126 CALL                             R5 2 -1
+      127 CALL                             R3 -1 1
+      128 SETTABLEKS                       R3 R2 K22 ["defaultAbilitiesEnableClimbingSetting"]
+      130 GETUPVAL                         R3 1
+      131 LOADB                            R4 1
+      132 GETUPVAL                         R5 2
+      133 MOVE                             R6 R0
+      134 GETUPVAL                         R8 3
+      135 GETTABLEKS                       R7 R8 K23 ["defaultAbilitiesEnableSwimmingSetting"]
+      137 CALL                             R5 2 -1
+      138 CALL                             R3 -1 1
+      139 SETTABLEKS                       R3 R2 K23 ["defaultAbilitiesEnableSwimmingSetting"]
+      141 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

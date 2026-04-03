@@ -14,7 +14,7 @@ local useIsActiveParticipant = CrossExperienceVoice.Hooks.useIsActiveParticipant
 local useIsParticipantMuted = CrossExperienceVoice.Hooks.useIsParticipantMuted
 
 local Chrome = script.Parent.Parent.Parent
-local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
+local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider

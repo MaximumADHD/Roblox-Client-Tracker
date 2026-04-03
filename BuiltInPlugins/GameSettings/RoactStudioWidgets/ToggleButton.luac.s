@@ -124,32 +124,31 @@ PROTO_6:
         0 GETTABLEKS                       R2 R0 K0 ["DarkStyle"]
         2 JUMPIFEQKNIL                     R2 ; [+4]
         4 GETTABLEKS                       R1 R0 K0 ["DarkStyle"]
-        6 JUMP                             ; [+5]
+        6 JUMP                             ; [+4]
         7 GETUPVAL                         R2 0
         8 GETTABLEKS                       R1 R2 K1 ["isDarkerTheme"]
        10 CALL                             R1 0 1
-       11 JUMP                             ; [0]
-       12 GETTABLEKS                       R3 R0 K2 ["props"]
-       14 GETTABLEKS                       R2 R3 K3 ["Enabled"]
-       16 JUMPIFNOT                        R2 ; [+15]
-       17 GETTABLEKS                       R3 R0 K2 ["props"]
-       19 GETTABLEKS                       R2 R3 K4 ["IsOn"]
-       21 JUMPIFNOT                        R2 ; [+5]
-       22 JUMPIFNOT                        R1 ; [+2]
-       23 LOADK                            R2 K5 ["rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png"]
-       24 RETURN                           R2 1
-       25 LOADK                            R2 K6 ["rbxasset://textures/RoactStudioWidgets/toggle_on_light.png"]
-       26 RETURN                           R2 1
-       27 JUMPIFNOT                        R1 ; [+2]
-       28 LOADK                            R2 K7 ["rbxasset://textures/RoactStudioWidgets/toggle_off_dark.png"]
-       29 RETURN                           R2 1
-       30 LOADK                            R2 K8 ["rbxasset://textures/RoactStudioWidgets/toggle_off_light.png"]
-       31 RETURN                           R2 1
-       32 JUMPIFNOT                        R1 ; [+2]
-       33 LOADK                            R2 K9 ["rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png"]
-       34 RETURN                           R2 1
-       35 LOADK                            R2 K10 ["rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png"]
-       36 RETURN                           R2 1
+       11 GETTABLEKS                       R3 R0 K2 ["props"]
+       13 GETTABLEKS                       R2 R3 K3 ["Enabled"]
+       15 JUMPIFNOT                        R2 ; [+15]
+       16 GETTABLEKS                       R3 R0 K2 ["props"]
+       18 GETTABLEKS                       R2 R3 K4 ["IsOn"]
+       20 JUMPIFNOT                        R2 ; [+5]
+       21 JUMPIFNOT                        R1 ; [+2]
+       22 LOADK                            R2 K5 ["rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png"]
+       23 RETURN                           R2 1
+       24 LOADK                            R2 K6 ["rbxasset://textures/RoactStudioWidgets/toggle_on_light.png"]
+       25 RETURN                           R2 1
+       26 JUMPIFNOT                        R1 ; [+2]
+       27 LOADK                            R2 K7 ["rbxasset://textures/RoactStudioWidgets/toggle_off_dark.png"]
+       28 RETURN                           R2 1
+       29 LOADK                            R2 K8 ["rbxasset://textures/RoactStudioWidgets/toggle_off_light.png"]
+       30 RETURN                           R2 1
+       31 JUMPIFNOT                        R1 ; [+2]
+       32 LOADK                            R2 K9 ["rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png"]
+       33 RETURN                           R2 1
+       34 LOADK                            R2 K10 ["rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png"]
+       35 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

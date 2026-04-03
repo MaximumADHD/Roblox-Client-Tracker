@@ -107,15 +107,14 @@ PROTO_3:
        23 MOVE                             R7 R5
        24 CALL                             R6 1 1
        25 MOVE                             R4 R6
-       26 JUMP                             ; [+7]
+       26 JUMP                             ; [+6]
        27 GETUPVAL                         R7 3
        28 GETTABLEKS                       R6 R7 K5 ["getAxisAlignedBoundingBox"]
        30 MOVE                             R7 R5
        31 CALL                             R6 1 1
        32 MOVE                             R4 R6
-       33 JUMP                             ; [0]
-       34 SETTABLEKS                       R4 R2 K6 ["_bounds"]
-       36 RETURN                           R2 1
+       33 SETTABLEKS                       R4 R2 K6 ["_bounds"]
+       35 RETURN                           R2 1
 
 PROTO_4:
         0 LOADB                            R1 1

@@ -5,6 +5,8 @@ local React = require(Packages.React)
 local ReactIs = require(Packages.ReactIs)
 
 local Types = require(Foundation.Components.Types)
+
+local Flags = require(Foundation.Utility.Flags)
 local getTestIdTag = require(Foundation.Utility.getTestIdTag)
 local indexBindable = require(Foundation.Utility.indexBindable)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -14,6 +16,9 @@ type GuiObjectProps = Types.GuiObjectProps
 type CommonProps = Types.CommonProps
 type NativeCommonProps = Types.NativeCommonProps
 type SelectionGroup = Types.SelectionGroup
+
+local hasInputSink = Flags.FoundationGuiObjectInputSinkProperty
+	and (pcall(game.GetEngineFeature, game, "GuiObjectInputSink"))
 
 type ReactRefGuiObject = React.Ref<GuiObject>
 
@@ -28,6 +33,9 @@ type AppliedGuiObjectProps = {
 	BorderColor3: Bindable<Color3>?,
 	BorderMode: Bindable<Enum.BorderMode>?,
 	ClipsDescendants: Bindable<boolean>?,
+	-- TODO: update when InputSink is available in all engine builds
+	-- InputSink: Bindable<Enum.InputSink>?,
+	InputSink: Bindable<any>?,
 	Rotation: Bindable<number>?,
 	Selectable: Bindable<boolean>?,
 	SelectionImageObject: Bindable<ReactRefGuiObject>?,
@@ -40,6 +48,7 @@ type AppliedGuiObjectProps = {
 	Size: Bindable<UDim2>?,
 } & NativeCommonProps
 
+-- lute-lint-ignore(immutability) We need to mutate the baseProps table to apply the GuiObjectProps
 local function withGuiObjectProps<T>(props: GuiObjectProps & CommonProps, baseProps: T)
 	if type(baseProps) == "table" then
 		baseProps.AutoLocalize = props.AutoLocalize
@@ -54,6 +63,9 @@ local function withGuiObjectProps<T>(props: GuiObjectProps & CommonProps, basePr
 		baseProps.BorderColor3 = props.BorderColor3
 		baseProps.BorderMode = props.BorderMode
 		baseProps.ClipsDescendants = props.ClipsDescendants
+		if hasInputSink then
+			baseProps.InputSink = props.InputSink
+		end
 		baseProps.Rotation = props.Rotation
 		baseProps.SizeConstraint = props.SizeConstraint
 

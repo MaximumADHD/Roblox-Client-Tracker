@@ -72,45 +72,42 @@ PROTO_0:
 
 PROTO_1:
         0 LOADNIL                          R2
-        1 GETTABLEKS                       R3 R1 K0 ["Localization"]
-        3 LOADK                            R6 K1 ["Categories"]
-        4 LOADK                            R7 K2 ["Queries"]
-        5 NAMECALL                         R4 R3 K3 ["getText"]
-        7 CALL                             R4 3 1
-        8 GETTABLEKS                       R5 R1 K4 ["recordChange"]
-       10 DUPTABLE                         R6 K8 [{"Name", "DisplayName", "DoChange"}]
-       11 LOADK                            R7 K9 ["StyleEditor/CreateStyleQuery"]
-       12 SETTABLEKS                       R7 R6 K5 ["Name"]
-       14 LOADK                            R7 K10 ["StyleEditor - Create StyleQuery"]
-       15 SETTABLEKS                       R7 R6 K6 ["DisplayName"]
-       17 NEWCLOSURE                       R7 P0
-       18 CAPTURE                          UPVAL U0
-       19 CAPTURE                          VAL R4
-       20 CAPTURE                          REF R2
-       21 CAPTURE                          UPVAL U1
-       22 CAPTURE                          UPVAL U2
-       23 CAPTURE                          UPVAL U3
-       24 CAPTURE                          UPVAL U4
-       25 SETTABLEKS                       R7 R6 K7 ["DoChange"]
-       27 CALL                             R5 1 0
-       28 GETUPVAL                         R5 5
-       29 JUMPIFNOT                        R5 ; [+11]
-       30 GETUPVAL                         R6 6
-       31 GETTABLEKS                       R5 R6 K11 ["createItemId"]
-       33 MOVE                             R6 R2
-       34 CALL                             R5 1 1
-       35 GETUPVAL                         R8 7
-       36 MOVE                             R9 R5
-       37 CALL                             R8 1 -1
-       38 NAMECALL                         R6 R0 K12 ["dispatch"]
-       40 CALL                             R6 -1 0
-       41 CLOSEUPVALS                      R2
-       42 RETURN                           R2 1
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R3 R4 K0 ["FolderName"]
+        4 GETTABLEKS                       R4 R1 K1 ["recordChange"]
+        6 DUPTABLE                         R5 K5 [{"Name", "DisplayName", "DoChange"}]
+        7 LOADK                            R6 K6 ["StyleEditor/CreateStyleQuery"]
+        8 SETTABLEKS                       R6 R5 K2 ["Name"]
+       10 LOADK                            R6 K7 ["StyleEditor - Create StyleQuery"]
+       11 SETTABLEKS                       R6 R5 K3 ["DisplayName"]
+       13 NEWCLOSURE                       R6 P0
+       14 CAPTURE                          UPVAL U1
+       15 CAPTURE                          VAL R3
+       16 CAPTURE                          REF R2
+       17 CAPTURE                          UPVAL U2
+       18 CAPTURE                          UPVAL U3
+       19 CAPTURE                          UPVAL U4
+       20 CAPTURE                          UPVAL U0
+       21 SETTABLEKS                       R6 R5 K4 ["DoChange"]
+       23 CALL                             R4 1 0
+       24 GETUPVAL                         R4 5
+       25 JUMPIFNOT                        R4 ; [+11]
+       26 GETUPVAL                         R5 6
+       27 GETTABLEKS                       R4 R5 K8 ["createItemId"]
+       29 MOVE                             R5 R2
+       30 CALL                             R4 1 1
+       31 GETUPVAL                         R7 7
+       32 MOVE                             R8 R4
+       33 CALL                             R7 1 -1
+       34 NAMECALL                         R5 R0 K9 ["dispatch"]
+       36 CALL                             R5 -1 0
+       37 CLOSEUPVALS                      R2
+       38 RETURN                           R2 1
 
 PROTO_2:
         0 NEWCLOSURE                       R2 P0
-        1 CAPTURE                          VAL R0
-        2 CAPTURE                          UPVAL U0
+        1 CAPTURE                          UPVAL U0
+        2 CAPTURE                          VAL R0
         3 CAPTURE                          UPVAL U1
         4 CAPTURE                          UPVAL U2
         5 CAPTURE                          UPVAL U3
@@ -168,10 +165,10 @@ MAIN:
        82 GETTABLEKS                       R10 R11 K18 ["Types"]
        84 CALL                             R9 1 1
        85 DUPCLOSURE                       R10 K19 [PROTO_2]
-       86 CAPTURE                          VAL R1
-       87 CAPTURE                          VAL R4
-       88 CAPTURE                          VAL R2
-       89 CAPTURE                          VAL R3
+       86 CAPTURE                          VAL R3
+       87 CAPTURE                          VAL R1
+       88 CAPTURE                          VAL R4
+       89 CAPTURE                          VAL R2
        90 CAPTURE                          VAL R5
        91 CAPTURE                          VAL R7
        92 RETURN                           R10 1

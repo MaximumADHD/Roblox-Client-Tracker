@@ -522,34 +522,33 @@ PROTO_17:
        29 LOADN                            R8 0
        30 JUMPIFNOTLE                      R8 R5 ; [+3]
        32 MODK                             R7 R5 K7 [360]
-       33 JUMP                             ; [+4]
+       33 JUMP                             ; [+3]
        34 MINUS                            R9 R5
        35 MODK                             R8 R9 K7 [360]
        36 MINUS                            R7 R8
-       37 JUMP                             ; [0]
-       38 SETTABLEKS                       R7 R6 K8 ["Rotation"]
-       40 SETUPVAL                         R2 3
-       41 GETUPVAL                         R7 4
-       42 FASTCALL1                        MATH_ABS R7 ; [+2]
-       43 GETIMPORT                        R6 K10 [math.abs]
-       45 CALL                             R6 1 1
-       46 LOADN                            R7 90
-       47 JUMPIFNOTLT                      R7 R6 ; [+9]
-       49 GETUPVAL                         R6 6
-       50 LOADK                            R8 K8 ["Rotation"]
-       51 NAMECALL                         R6 R6 K11 ["GetStyled"]
-       53 CALL                             R6 2 1
-       54 SETUPVAL                         R6 5
-       55 LOADN                            R6 0
-       56 SETUPVAL                         R6 4
-       57 GETUPVAL                         R6 7
-       58 NAMECALL                         R6 R6 K12 ["update"]
-       60 CALL                             R6 1 0
-       61 GETUPVAL                         R6 8
-       62 MOVE                             R8 R1
-       63 NAMECALL                         R6 R6 K13 ["onRotateChanged"]
-       65 CALL                             R6 2 0
-       66 RETURN                           R0 0
+       37 SETTABLEKS                       R7 R6 K8 ["Rotation"]
+       39 SETUPVAL                         R2 3
+       40 GETUPVAL                         R7 4
+       41 FASTCALL1                        MATH_ABS R7 ; [+2]
+       42 GETIMPORT                        R6 K10 [math.abs]
+       44 CALL                             R6 1 1
+       45 LOADN                            R7 90
+       46 JUMPIFNOTLT                      R7 R6 ; [+9]
+       48 GETUPVAL                         R6 6
+       49 LOADK                            R8 K8 ["Rotation"]
+       50 NAMECALL                         R6 R6 K11 ["GetStyled"]
+       52 CALL                             R6 2 1
+       53 SETUPVAL                         R6 5
+       54 LOADN                            R6 0
+       55 SETUPVAL                         R6 4
+       56 GETUPVAL                         R6 7
+       57 NAMECALL                         R6 R6 K12 ["update"]
+       59 CALL                             R6 1 0
+       60 GETUPVAL                         R6 8
+       61 MOVE                             R8 R1
+       62 NAMECALL                         R6 R6 K13 ["onRotateChanged"]
+       64 CALL                             R6 2 0
+       65 RETURN                           R0 0
 
 PROTO_18:
         0 GETUPVAL                         R2 0

@@ -7,7 +7,7 @@ local createIndividualBodyPartSchema = require(root.util.createIndividualBodyPar
 local function createDynamicHeadMeshPartSchema(validationContext: Types.ValidationContext?)
 	local headBodyPartSchema = createIndividualBodyPartSchema(Enum.AssetType.DynamicHead, "Head", validationContext)
 
-	table.insert(headBodyPartSchema._children, {
+	table.insert((headBodyPartSchema :: any)._children, {
 		Name = { "FaceControls" },
 		ClassName = "FaceControls",
 	})

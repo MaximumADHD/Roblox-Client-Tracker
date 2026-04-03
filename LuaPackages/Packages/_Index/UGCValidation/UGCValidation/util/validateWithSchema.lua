@@ -3,6 +3,8 @@ local root = script.Parent.Parent
 
 local getFFlagUGCValidationEnableFolderStructure = require(root.flags.getFFlagUGCValidationEnableFolderStructure)
 local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
+local getFFlagUGCValidationExtendSchemaToIgnoreDescendants =
+	require(root.flags.getFFlagUGCValidationExtendSchemaToIgnoreDescendants)
 
 local function checkName(nameList, instanceName)
 	if type(nameList) == "table" then
@@ -32,12 +34,33 @@ local function validateWithSchemaHelper(schema, instance, authorizedSet)
 		return { success = false }
 	end
 
+	if getFFlagUGCValidationExtendSchemaToIgnoreDescendants() then
+		if schema._ignoreDescendants then
+			assert(
+				not schema._children,
+				"if _ignoreDescendants is true, there should be no descendants in the schema as they would be ignored anyway"
+			)
+			for _, descendant in instance:GetDescendants() do
+				authorizedSet[descendant] = true
+			end
+
+			authorizedSet[instance] = true
+			return { success = true }
+		end
+	end
+
 	-- validate children
 	if schema._children then
 		for _, childSchema in pairs(schema._children) do
 			local found = false
 			local mostRecentFailure
 			for _, child in pairs(instance:GetChildren()) do
+				if getFFlagUGCValidationExtendSchemaToIgnoreDescendants() then
+					if authorizedSet[child] then -- don't want a single Instance to fit into two different child schema spots
+						continue
+					end
+				end
+
 				local result = validateWithSchemaHelper(childSchema, child, authorizedSet)
 				if result.success then
 					found = true

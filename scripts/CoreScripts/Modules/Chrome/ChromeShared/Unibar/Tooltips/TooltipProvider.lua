@@ -4,6 +4,9 @@ local dependencyArray = require(CorePackages.Workspace.Packages.RoactUtils).Hook
 
 local TooltipContext = require(script.Parent.TooltipContext)
 
+local FFlagRemoveDependencyArrayAntipattern =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern
+
 type FtuxTooltipDismissalReason =
 	"timeout"
 	| "unibarHovered"
@@ -69,7 +72,7 @@ function TooltipProvider(props: any)
 		if tooltip and tooltip.priority and queueRef.current[tooltip.priority] then
 			queueRef.current[tooltip.priority] = nil
 		end
-	end, dependencyArray(currentTooltip))
+	end, if FFlagRemoveDependencyArrayAntipattern then { currentTooltip } else dependencyArray(currentTooltip))
 
 	processQueueRef.current = React.useCallback(function()
 		if currentTooltipRef.current or nextTooltipRef.current then
@@ -104,7 +107,7 @@ function TooltipProvider(props: any)
 				end
 			end)
 		end)
-	end, dependencyArray(currentTooltip))
+	end, if FFlagRemoveDependencyArrayAntipattern then { currentTooltip } else dependencyArray(currentTooltip))
 
 	local processQueue = function()
 		if processQueueRef.current then
@@ -137,7 +140,7 @@ function TooltipProvider(props: any)
 				return currentTooltip and currentTooltip.id == id
 			end,
 		}
-	end, dependencyArray(currentTooltip))
+	end, if FFlagRemoveDependencyArrayAntipattern then { currentTooltip } else dependencyArray(currentTooltip))
 
 	return React.createElement(TooltipContext.Provider, {
 		value = contextValue,

@@ -21,10 +21,11 @@ local useScaledValue = require(Foundation.Utility.useScaledValue)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local FFlagFoundationDateTimePickerDSTFix = Flags.FFlagFoundationDateTimePickerDSTFix
+local FFlagFoundationDateTimePickerDefaultDateFix = Flags.FoundationDateTimePickerDefaultDateFix
 
 type Props = {
 	-- Default dates
-	defaultDates: { DateTime },
+	defaultDates: { DateTime }?,
 	-- Layout order
 	LayoutOrder: number?,
 	-- Callback when the date is changed
@@ -59,7 +60,19 @@ local function Calendar(props: Props)
 
 	local isMounted = React.useRef(false)
 
-	local selectedDateTimes, setSelectedDateTimes = React.useState(props.defaultDates)
+	local defaultDates = (
+		if FFlagFoundationDateTimePickerDefaultDateFix and not props.defaultDates
+			then { DateTime.now() }
+			else props.defaultDates
+	) :: { DateTime }
+
+	if FFlagFoundationDateTimePickerDefaultDateFix then
+		React.useEffect(function()
+			props.onSelectedDateChanged(defaultDates :: { DateTime })
+		end, { defaultDates, props.defaultDates, props.onSelectedDateChanged } :: { unknown })
+	end
+
+	local selectedDateTimes, setSelectedDateTimes = React.useState(defaultDates)
 	local endDateTimeInputTextBoxRef = React.useRef(nil)
 
 	-- Immediately focus the end date input if it is shown
@@ -79,18 +92,17 @@ local function Calendar(props: Props)
 	end, { inputFocusState })
 
 	local startDateTimeInputText, setStartDateTimeInputText =
-		React.useState(DateTimeUtilities.formatLocalTime(props.defaultDates[1] :: DateTime))
-	local endDateTimeInputText, setEndDateTimeInputText = React.useState(
-		if props.defaultDates[2] then DateTimeUtilities.formatLocalTime(props.defaultDates[2] :: DateTime) else ""
-	)
+		React.useState(DateTimeUtilities.formatLocalTime(defaultDates[1] :: DateTime))
+	local endDateTimeInputText, setEndDateTimeInputText =
+		React.useState(if defaultDates[2] then DateTimeUtilities.formatLocalTime(defaultDates[2] :: DateTime) else "")
 
 	React.useEffect(function()
 		isMounted.current = true
 	end, {})
 
 	local currViewDate, setCurrViewDate = React.useState({
-		month = props.defaultDates[1]:ToLocalTime().Month,
-		year = props.defaultDates[1]:ToLocalTime().Year,
+		month = defaultDates[1]:ToLocalTime().Month,
+		year = defaultDates[1]:ToLocalTime().Year,
 	})
 
 	local localSelectedDateTimes = {}
@@ -113,7 +125,7 @@ local function Calendar(props: Props)
 					selectedDateTimes[2]
 				)
 		then
-			setStartDateTimeInputText(DateTimeUtilities.formatLocalTime(props.defaultDates[1] :: DateTime))
+			setStartDateTimeInputText(DateTimeUtilities.formatLocalTime(defaultDates[1] :: DateTime))
 		end
 	end
 
@@ -132,7 +144,7 @@ local function Calendar(props: Props)
 					selectedDateTimes[1]
 				)
 		then
-			setEndDateTimeInputText(DateTimeUtilities.formatLocalTime(props.defaultDates[2] :: DateTime))
+			setEndDateTimeInputText(DateTimeUtilities.formatLocalTime(defaultDates[2] :: DateTime))
 		end
 	end
 

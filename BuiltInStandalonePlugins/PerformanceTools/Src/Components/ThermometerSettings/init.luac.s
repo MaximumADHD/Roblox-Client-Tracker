@@ -133,29 +133,28 @@ PROTO_7:
        10 JUMPIFNOTEQKS                    R3 K4 ["number"] ; [+5]
        12 JUMPIFNOTEQ                      R2 R2 ; [+3]
        14 MOVE                             R1 R2
-       15 JUMP                             ; [+2]
+       15 JUMP                             ; [+1]
        16 LOADN                            R1 1
-       17 JUMP                             ; [0]
-       18 LOADN                            R4 1
-       19 LOADN                            R5 100
-       20 FASTCALL3                        MATH_CLAMP R1 R4 R5
-       22 MOVE                             R3 R1
-       23 GETIMPORT                        R2 K7 [math.clamp]
-       25 CALL                             R2 3 1
-       26 MOVE                             R1 R2
-       27 GETUPVAL                         R3 0
-       28 GETTABLEKS                       R2 R3 K8 ["OnSettingsUpdated"]
-       30 DUPTABLE                         R3 K10 [{"maxTotalRenderMs"}]
-       31 SETTABLEKS                       R1 R3 K9 ["maxTotalRenderMs"]
-       33 CALL                             R2 1 0
-       34 GETUPVAL                         R3 1
-       35 GETTABLEKS                       R2 R3 K11 ["setTotalRenderMsText"]
-       37 FASTCALL1                        TOSTRING R1 ; [+3]
-       38 MOVE                             R4 R1
-       39 GETIMPORT                        R3 K13 [tostring]
-       41 CALL                             R3 1 1
-       42 CALL                             R2 1 0
-       43 RETURN                           R0 0
+       17 LOADN                            R4 1
+       18 LOADN                            R5 100
+       19 FASTCALL3                        MATH_CLAMP R1 R4 R5
+       21 MOVE                             R3 R1
+       22 GETIMPORT                        R2 K7 [math.clamp]
+       24 CALL                             R2 3 1
+       25 MOVE                             R1 R2
+       26 GETUPVAL                         R3 0
+       27 GETTABLEKS                       R2 R3 K8 ["OnSettingsUpdated"]
+       29 DUPTABLE                         R3 K10 [{"maxTotalRenderMs"}]
+       30 SETTABLEKS                       R1 R3 K9 ["maxTotalRenderMs"]
+       32 CALL                             R2 1 0
+       33 GETUPVAL                         R3 1
+       34 GETTABLEKS                       R2 R3 K11 ["setTotalRenderMsText"]
+       36 FASTCALL1                        TOSTRING R1 ; [+3]
+       37 MOVE                             R4 R1
+       38 GETIMPORT                        R3 K13 [tostring]
+       40 CALL                             R3 1 1
+       41 CALL                             R2 1 0
+       42 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R2 0
@@ -176,29 +175,28 @@ PROTO_9:
        10 JUMPIFNOTEQKS                    R3 K4 ["number"] ; [+5]
        12 JUMPIFNOTEQ                      R2 R2 ; [+3]
        14 MOVE                             R1 R2
-       15 JUMP                             ; [+2]
+       15 JUMP                             ; [+1]
        16 LOADN                            R1 1
-       17 JUMP                             ; [0]
-       18 LOADN                            R4 1
-       19 LOADN                            R5 100
-       20 FASTCALL3                        MATH_CLAMP R1 R4 R5
-       22 MOVE                             R3 R1
-       23 GETIMPORT                        R2 K7 [math.clamp]
-       25 CALL                             R2 3 1
-       26 MOVE                             R1 R2
-       27 GETUPVAL                         R3 0
-       28 GETTABLEKS                       R2 R3 K8 ["OnSettingsUpdated"]
-       30 DUPTABLE                         R3 K10 [{"maxTotalTaskMs"}]
-       31 SETTABLEKS                       R1 R3 K9 ["maxTotalTaskMs"]
-       33 CALL                             R2 1 0
-       34 GETUPVAL                         R3 1
-       35 GETTABLEKS                       R2 R3 K11 ["setTotalTaskMsText"]
-       37 FASTCALL1                        TOSTRING R1 ; [+3]
-       38 MOVE                             R4 R1
-       39 GETIMPORT                        R3 K13 [tostring]
-       41 CALL                             R3 1 1
-       42 CALL                             R2 1 0
-       43 RETURN                           R0 0
+       17 LOADN                            R4 1
+       18 LOADN                            R5 100
+       19 FASTCALL3                        MATH_CLAMP R1 R4 R5
+       21 MOVE                             R3 R1
+       22 GETIMPORT                        R2 K7 [math.clamp]
+       24 CALL                             R2 3 1
+       25 MOVE                             R1 R2
+       26 GETUPVAL                         R3 0
+       27 GETTABLEKS                       R2 R3 K8 ["OnSettingsUpdated"]
+       29 DUPTABLE                         R3 K10 [{"maxTotalTaskMs"}]
+       30 SETTABLEKS                       R1 R3 K9 ["maxTotalTaskMs"]
+       32 CALL                             R2 1 0
+       33 GETUPVAL                         R3 1
+       34 GETTABLEKS                       R2 R3 K11 ["setTotalTaskMsText"]
+       36 FASTCALL1                        TOSTRING R1 ; [+3]
+       37 MOVE                             R4 R1
+       38 GETIMPORT                        R3 K13 [tostring]
+       40 CALL                             R3 1 1
+       41 CALL                             R2 1 0
+       42 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R2 0

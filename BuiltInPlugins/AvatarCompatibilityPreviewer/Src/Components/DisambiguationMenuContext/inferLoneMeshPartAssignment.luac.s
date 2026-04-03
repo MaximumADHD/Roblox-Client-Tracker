@@ -1,49 +1,125 @@
 PROTO_0:
-        0 GETIMPORT                        R3 K2 [string.lower]
-        2 GETTABLEKS                       R4 R0 K3 ["Name"]
-        4 CALL                             R3 1 1
-        5 GETIMPORT                        R4 K5 [string.find]
-        7 MOVE                             R5 R3
-        8 LOADK                            R6 K6 ["_att"]
-        9 CALL                             R4 2 1
-       10 JUMPIFNOT                        R4 ; [+2]
-       11 LOADNIL                          R4
-       12 RETURN                           R4 1
-       13 MOVE                             R4 R1
-       14 LOADNIL                          R5
-       15 LOADNIL                          R6
-       16 FORGPREP                         R4
-       17 GETIMPORT                        R10 K9 [Enum.AssetType]
-       19 GETTABLEKS                       R11 R8 K10 ["Id"]
-       21 GETTABLE                         R9 R10 R11
-       22 GETTABLE                         R10 R2 R9
-       23 JUMPIFEQKNIL                     R10 ; [+33]
-       25 GETIMPORT                        R11 K2 [string.lower]
-       27 GETUPVAL                         R13 0
-       28 GETTABLEKS                       R12 R13 K11 ["removePostfix"]
-       30 GETTABLEKS                       R13 R8 K10 ["Id"]
-       32 LOADK                            R14 K12 ["Accessory"]
-       33 CALL                             R12 2 -1
-       34 CALL                             R11 -1 1
-       35 GETIMPORT                        R12 K5 [string.find]
-       37 MOVE                             R13 R3
-       38 MOVE                             R14 R11
-       39 CALL                             R12 2 1
-       40 JUMPIFNOT                        R12 ; [+16]
-       41 MOVE                             R12 R10
-       42 LOADNIL                          R13
-       43 LOADNIL                          R14
-       44 FORGPREP                         R12
-       45 DUPTABLE                         R17 K16 [{"assetType", "meshPart", "attachmentName"}]
-       46 SETTABLEKS                       R9 R17 K13 ["assetType"]
-       48 SETTABLEKS                       R0 R17 K14 ["meshPart"]
-       50 GETTABLEKS                       R18 R16 K15 ["attachmentName"]
-       52 SETTABLEKS                       R18 R17 K15 ["attachmentName"]
-       54 RETURN                           R17 1
-       55 FORGLOOP                         R12 2 ; [-11]
-       57 FORGLOOP                         R4 2 ; [-41]
-       59 LOADNIL                          R4
-       60 RETURN                           R4 1
+        0 GETUPVAL                         R3 0
+        1 CALL                             R3 0 1
+        2 JUMPIFNOT                        R3 ; [+11]
+        3 GETIMPORT                        R3 K2 [table.find]
+        5 GETUPVAL                         R5 1
+        6 GETTABLEKS                       R4 R5 K3 ["LIMBS"]
+        8 GETTABLEKS                       R5 R0 K4 ["Name"]
+       10 CALL                             R3 2 1
+       11 JUMPIFNOT                        R3 ; [+2]
+       12 LOADNIL                          R3
+       13 RETURN                           R3 1
+       14 GETIMPORT                        R3 K7 [string.lower]
+       16 GETTABLEKS                       R4 R0 K4 ["Name"]
+       18 CALL                             R3 1 1
+       19 GETIMPORT                        R4 K8 [string.find]
+       21 MOVE                             R5 R3
+       22 LOADK                            R6 K9 ["_att"]
+       23 CALL                             R4 2 1
+       24 JUMPIFNOT                        R4 ; [+2]
+       25 LOADNIL                          R4
+       26 RETURN                           R4 1
+       27 LOADNIL                          R4
+       28 LOADNIL                          R5
+       29 GETUPVAL                         R6 0
+       30 CALL                             R6 0 1
+       31 JUMPIFNOT                        R6 ; [+15]
+       32 LOADK                            R8 K10 ["Attachment"]
+       33 NAMECALL                         R6 R0 K11 ["FindFirstChildWhichIsA"]
+       35 CALL                             R6 2 1
+       36 MOVE                             R4 R6
+       37 JUMPIFEQKNIL                     R4 ; [+8]
+       39 GETIMPORT                        R6 K7 [string.lower]
+       41 GETTABLEKS                       R7 R4 K4 ["Name"]
+       43 CALL                             R6 1 1
+       44 MOVE                             R5 R6
+       45 JUMP                             ; [+1]
+       46 LOADNIL                          R5
+       47 MOVE                             R6 R1
+       48 LOADNIL                          R7
+       49 LOADNIL                          R8
+       50 FORGPREP                         R6
+       51 GETIMPORT                        R12 K14 [Enum.AssetType]
+       53 GETTABLEKS                       R13 R10 K15 ["Id"]
+       55 GETTABLE                         R11 R12 R13
+       56 GETTABLE                         R12 R2 R11
+       57 JUMPIFEQKNIL                     R12 ; [+43]
+       59 GETIMPORT                        R13 K7 [string.lower]
+       61 GETUPVAL                         R15 2
+       62 GETTABLEKS                       R14 R15 K16 ["removePostfix"]
+       64 GETTABLEKS                       R15 R10 K15 ["Id"]
+       66 LOADK                            R16 K17 ["Accessory"]
+       67 CALL                             R14 2 -1
+       68 CALL                             R13 -1 1
+       69 GETIMPORT                        R14 K8 [string.find]
+       71 MOVE                             R15 R3
+       72 MOVE                             R16 R13
+       73 CALL                             R14 2 1
+       74 JUMPIF                           R14 ; [+10]
+       75 GETUPVAL                         R14 0
+       76 CALL                             R14 0 1
+       77 JUMPIFNOT                        R14 ; [+23]
+       78 JUMPIFNOT                        R5 ; [+22]
+       79 GETIMPORT                        R14 K8 [string.find]
+       81 MOVE                             R15 R5
+       82 MOVE                             R16 R13
+       83 CALL                             R14 2 1
+       84 JUMPIFNOT                        R14 ; [+16]
+       85 MOVE                             R14 R12
+       86 LOADNIL                          R15
+       87 LOADNIL                          R16
+       88 FORGPREP                         R14
+       89 DUPTABLE                         R19 K21 [{"assetType", "meshPart", "attachmentName"}]
+       90 SETTABLEKS                       R11 R19 K18 ["assetType"]
+       92 SETTABLEKS                       R0 R19 K19 ["meshPart"]
+       94 GETTABLEKS                       R20 R18 K20 ["attachmentName"]
+       96 SETTABLEKS                       R20 R19 K20 ["attachmentName"]
+       98 RETURN                           R19 1
+       99 FORGLOOP                         R14 2 ; [-11]
+      101 FORGLOOP                         R6 2 ; [-51]
+      103 GETUPVAL                         R6 0
+      104 CALL                             R6 0 1
+      105 JUMPIFNOT                        R6 ; [+49]
+      106 GETUPVAL                         R6 3
+      107 LOADNIL                          R7
+      108 LOADNIL                          R8
+      109 FORGPREP                         R6
+      110 GETIMPORT                        R11 K23 [Enum.AssetType.Gear]
+      112 GETUPVAL                         R13 4
+      113 GETTABLE                         R12 R13 R9
+      114 GETIMPORT                        R13 K7 [string.lower]
+      116 GETUPVAL                         R15 2
+      117 GETTABLEKS                       R14 R15 K16 ["removePostfix"]
+      119 GETTABLEKS                       R15 R10 K15 ["Id"]
+      121 LOADK                            R16 K17 ["Accessory"]
+      122 CALL                             R14 2 -1
+      123 CALL                             R13 -1 1
+      124 GETIMPORT                        R14 K8 [string.find]
+      126 MOVE                             R15 R3
+      127 MOVE                             R16 R13
+      128 CALL                             R14 2 1
+      129 JUMPIF                           R14 ; [+7]
+      130 JUMPIFNOT                        R5 ; [+22]
+      131 GETIMPORT                        R14 K8 [string.find]
+      133 MOVE                             R15 R5
+      134 MOVE                             R16 R13
+      135 CALL                             R14 2 1
+      136 JUMPIFNOT                        R14 ; [+16]
+      137 MOVE                             R14 R12
+      138 LOADNIL                          R15
+      139 LOADNIL                          R16
+      140 FORGPREP                         R14
+      141 DUPTABLE                         R19 K21 [{"assetType", "meshPart", "attachmentName"}]
+      142 SETTABLEKS                       R11 R19 K18 ["assetType"]
+      144 SETTABLEKS                       R0 R19 K19 ["meshPart"]
+      146 GETTABLEKS                       R20 R18 K20 ["attachmentName"]
+      148 SETTABLEKS                       R20 R19 K20 ["attachmentName"]
+      150 RETURN                           R19 1
+      151 FORGLOOP                         R14 2 ; [-11]
+      153 FORGLOOP                         R6 2 ; [-44]
+      155 LOADNIL                          R6
+      156 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -52,20 +128,62 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
-       13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R6 R0 K6 ["Src"]
-       18 GETTABLEKS                       R5 R6 K8 ["Components"]
-       20 GETTABLEKS                       R4 R5 K9 ["DisambiguationMenu"]
-       22 GETTABLEKS                       R3 R4 K10 ["getChoosableAssetTypes"]
-       24 CALL                             R2 1 1
-       25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K11 ["Util"]
-       31 GETTABLEKS                       R4 R5 K12 ["StringUtil"]
+        9 GETTABLEKS                       R4 R0 K6 ["Src"]
+       11 GETTABLEKS                       R3 R4 K7 ["Util"]
+       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R4 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R4 K9 ["Types"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R7 R0 K6 ["Src"]
+       27 GETTABLEKS                       R6 R7 K10 ["Components"]
+       29 GETTABLEKS                       R5 R6 K11 ["DisambiguationMenu"]
+       31 GETTABLEKS                       R4 R5 K12 ["getChoosableAssetTypes"]
        33 CALL                             R3 1 1
-       34 DUPCLOSURE                       R4 K13 [PROTO_0]
-       35 CAPTURE                          VAL R3
-       36 RETURN                           R4 1
+       34 GETIMPORT                        R4 K5 [require]
+       36 GETTABLEKS                       R7 R0 K6 ["Src"]
+       38 GETTABLEKS                       R6 R7 K7 ["Util"]
+       40 GETTABLEKS                       R5 R6 K13 ["StringUtil"]
+       42 CALL                             R4 1 1
+       43 GETIMPORT                        R5 K5 [require]
+       45 GETTABLEKS                       R8 R0 K6 ["Src"]
+       47 GETTABLEKS                       R7 R8 K14 ["Flags"]
+       49 GETTABLEKS                       R6 R7 K15 ["getFFlagAvatarPreviewerProcessRigidOnly"]
+       51 CALL                             R5 1 1
+       52 NEWTABLE                         R6 0 2
+       54 DUPTABLE                         R7 K18 [{"Id", "Label"}]
+       55 LOADK                            R8 K19 ["LeftGripAccessory"]
+       56 SETTABLEKS                       R8 R7 K16 ["Id"]
+       58 LOADK                            R8 K19 ["LeftGripAccessory"]
+       59 SETTABLEKS                       R8 R7 K17 ["Label"]
+       61 DUPTABLE                         R8 K18 [{"Id", "Label"}]
+       62 LOADK                            R9 K20 ["RightGripAccessory"]
+       63 SETTABLEKS                       R9 R8 K16 ["Id"]
+       65 LOADK                            R9 K20 ["RightGripAccessory"]
+       66 SETTABLEKS                       R9 R8 K17 ["Label"]
+       68 SETLIST                          R6 R7 2 [1]
+       70 NEWTABLE                         R7 0 2
+       72 NEWTABLE                         R8 0 1
+       74 DUPTABLE                         R9 K23 [{"attachmentName", "label"}]
+       75 LOADK                            R10 K24 ["LeftGripAttachment"]
+       76 SETTABLEKS                       R10 R9 K21 ["attachmentName"]
+       78 LOADK                            R10 K25 ["Left"]
+       79 SETTABLEKS                       R10 R9 K22 ["label"]
+       81 SETLIST                          R8 R9 1 [1]
+       83 NEWTABLE                         R9 0 1
+       85 DUPTABLE                         R10 K23 [{"attachmentName", "label"}]
+       86 LOADK                            R11 K26 ["RightGripAttachment"]
+       87 SETTABLEKS                       R11 R10 K21 ["attachmentName"]
+       89 LOADK                            R11 K27 ["Right"]
+       90 SETTABLEKS                       R11 R10 K22 ["label"]
+       92 SETLIST                          R9 R10 1 [1]
+       94 SETLIST                          R7 R8 2 [1]
+       96 DUPCLOSURE                       R8 K28 [PROTO_0]
+       97 CAPTURE                          VAL R5
+       98 CAPTURE                          VAL R1
+       99 CAPTURE                          VAL R4
+      100 CAPTURE                          VAL R6
+      101 CAPTURE                          VAL R7
+      102 RETURN                           R8 1

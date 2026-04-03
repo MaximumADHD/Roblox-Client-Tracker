@@ -1678,74 +1678,72 @@ PROTO_59:
        12 GETTABLEKS                       R5 R6 K4 ["User"]
        14 JUMPIFNOTEQ                      R4 R5 ; [+3]
        16 LOADK                            R3 K5 ["users"]
-       17 JUMP                             ; [+20]
+       17 JUMP                             ; [+19]
        18 GETUPVAL                         R7 0
        19 GETTABLEKS                       R6 R7 K3 ["ScopeType"]
        21 GETTABLEKS                       R5 R6 K6 ["Group"]
        23 JUMPIFNOTEQ                      R4 R5 ; [+3]
        25 LOADK                            R3 K7 ["groups"]
-       26 JUMP                             ; [+11]
+       26 JUMP                             ; [+10]
        27 GETUPVAL                         R7 0
        28 GETTABLEKS                       R6 R7 K3 ["ScopeType"]
        30 GETTABLEKS                       R5 R6 K8 ["Universe"]
        32 JUMPIFNOTEQ                      R4 R5 ; [+3]
        34 LOADK                            R3 K9 ["universe"]
-       35 JUMP                             ; [+2]
+       35 JUMP                             ; [+1]
        36 LOADK                            R3 K10 [""]
-       37 JUMP                             ; [0]
-       38 GETTABLEKS                       R4 R0 K11 ["RootScope"]
-       40 GETTABLEKS                       R6 R0 K0 ["ParentScope"]
-       42 GETTABLEKS                       R5 R6 K2 ["Type"]
-       44 GETUPVAL                         R8 0
-       45 GETTABLEKS                       R7 R8 K3 ["ScopeType"]
-       47 GETTABLEKS                       R6 R7 K12 ["Folder"]
-       49 JUMPIFNOTEQ                      R5 R6 ; [+38]
-       51 GETTABLEKS                       R5 R0 K0 ["ParentScope"]
-       53 GETTABLEKS                       R1 R5 K1 ["Id"]
-       55 GETTABLEKS                       R2 R4 K1 ["Id"]
-       57 GETTABLEKS                       R5 R4 K2 ["Type"]
-       59 GETUPVAL                         R8 0
-       60 GETTABLEKS                       R7 R8 K3 ["ScopeType"]
-       62 GETTABLEKS                       R6 R7 K4 ["User"]
-       64 JUMPIFNOTEQ                      R5 R6 ; [+3]
-       66 LOADK                            R3 K5 ["users"]
-       67 JUMP                             ; [+20]
-       68 GETUPVAL                         R8 0
-       69 GETTABLEKS                       R7 R8 K3 ["ScopeType"]
-       71 GETTABLEKS                       R6 R7 K6 ["Group"]
-       73 JUMPIFNOTEQ                      R5 R6 ; [+3]
-       75 LOADK                            R3 K7 ["groups"]
-       76 JUMP                             ; [+11]
-       77 GETUPVAL                         R8 0
-       78 GETTABLEKS                       R7 R8 K3 ["ScopeType"]
-       80 GETTABLEKS                       R6 R7 K8 ["Universe"]
-       82 JUMPIFNOTEQ                      R5 R6 ; [+3]
-       84 LOADK                            R3 K9 ["universe"]
-       85 JUMP                             ; [+2]
-       86 LOADK                            R3 K10 [""]
-       87 JUMP                             ; [0]
-       88 DUPTABLE                         R5 K14 [{"folderItem"}]
-       89 DUPTABLE                         R6 K16 [{"folder"}]
-       90 DUPTABLE                         R7 K19 [{"displayName", "parentFolderId"}]
-       91 GETTABLEKS                       R8 R0 K20 ["FolderName"]
-       93 SETTABLEKS                       R8 R7 K17 ["displayName"]
-       95 SETTABLEKS                       R1 R7 K18 ["parentFolderId"]
-       97 SETTABLEKS                       R7 R6 K15 ["folder"]
-       99 SETTABLEKS                       R6 R5 K13 ["folderItem"]
-      101 GETUPVAL                         R7 1
-      102 GETTABLEKS                       R6 R7 K21 ["new"]
-      104 NEWCLOSURE                       R7 P0
-      105 CAPTURE                          UPVAL U2
-      106 CAPTURE                          REF R2
-      107 CAPTURE                          REF R3
-      108 CAPTURE                          VAL R5
-      109 CAPTURE                          UPVAL U3
-      110 CAPTURE                          VAL R4
-      111 CAPTURE                          UPVAL U4
-      112 CAPTURE                          UPVAL U5
-      113 CALL                             R6 1 -1
-      114 CLOSEUPVALS                      R2
-      115 RETURN                           R6 -1
+       37 GETTABLEKS                       R4 R0 K11 ["RootScope"]
+       39 GETTABLEKS                       R6 R0 K0 ["ParentScope"]
+       41 GETTABLEKS                       R5 R6 K2 ["Type"]
+       43 GETUPVAL                         R8 0
+       44 GETTABLEKS                       R7 R8 K3 ["ScopeType"]
+       46 GETTABLEKS                       R6 R7 K12 ["Folder"]
+       48 JUMPIFNOTEQ                      R5 R6 ; [+37]
+       50 GETTABLEKS                       R5 R0 K0 ["ParentScope"]
+       52 GETTABLEKS                       R1 R5 K1 ["Id"]
+       54 GETTABLEKS                       R2 R4 K1 ["Id"]
+       56 GETTABLEKS                       R5 R4 K2 ["Type"]
+       58 GETUPVAL                         R8 0
+       59 GETTABLEKS                       R7 R8 K3 ["ScopeType"]
+       61 GETTABLEKS                       R6 R7 K4 ["User"]
+       63 JUMPIFNOTEQ                      R5 R6 ; [+3]
+       65 LOADK                            R3 K5 ["users"]
+       66 JUMP                             ; [+19]
+       67 GETUPVAL                         R8 0
+       68 GETTABLEKS                       R7 R8 K3 ["ScopeType"]
+       70 GETTABLEKS                       R6 R7 K6 ["Group"]
+       72 JUMPIFNOTEQ                      R5 R6 ; [+3]
+       74 LOADK                            R3 K7 ["groups"]
+       75 JUMP                             ; [+10]
+       76 GETUPVAL                         R8 0
+       77 GETTABLEKS                       R7 R8 K3 ["ScopeType"]
+       79 GETTABLEKS                       R6 R7 K8 ["Universe"]
+       81 JUMPIFNOTEQ                      R5 R6 ; [+3]
+       83 LOADK                            R3 K9 ["universe"]
+       84 JUMP                             ; [+1]
+       85 LOADK                            R3 K10 [""]
+       86 DUPTABLE                         R5 K14 [{"folderItem"}]
+       87 DUPTABLE                         R6 K16 [{"folder"}]
+       88 DUPTABLE                         R7 K19 [{"displayName", "parentFolderId"}]
+       89 GETTABLEKS                       R8 R0 K20 ["FolderName"]
+       91 SETTABLEKS                       R8 R7 K17 ["displayName"]
+       93 SETTABLEKS                       R1 R7 K18 ["parentFolderId"]
+       95 SETTABLEKS                       R7 R6 K15 ["folder"]
+       97 SETTABLEKS                       R6 R5 K13 ["folderItem"]
+       99 GETUPVAL                         R7 1
+      100 GETTABLEKS                       R6 R7 K21 ["new"]
+      102 NEWCLOSURE                       R7 P0
+      103 CAPTURE                          UPVAL U2
+      104 CAPTURE                          REF R2
+      105 CAPTURE                          REF R3
+      106 CAPTURE                          VAL R5
+      107 CAPTURE                          UPVAL U3
+      108 CAPTURE                          VAL R4
+      109 CAPTURE                          UPVAL U4
+      110 CAPTURE                          UPVAL U5
+      111 CALL                             R6 1 -1
+      112 CLOSEUPVALS                      R2
+      113 RETURN                           R6 -1
 
 PROTO_60:
         0 GETUPVAL                         R1 0
@@ -1896,36 +1894,35 @@ PROTO_70:
        12 GETTABLEKS                       R6 R7 K4 ["User"]
        14 JUMPIFNOTEQ                      R5 R6 ; [+3]
        16 LOADK                            R4 K5 ["users"]
-       17 JUMP                             ; [+20]
+       17 JUMP                             ; [+19]
        18 GETUPVAL                         R8 2
        19 GETTABLEKS                       R7 R8 K3 ["ScopeType"]
        21 GETTABLEKS                       R6 R7 K6 ["Group"]
        23 JUMPIFNOTEQ                      R5 R6 ; [+3]
        25 LOADK                            R4 K7 ["groups"]
-       26 JUMP                             ; [+11]
+       26 JUMP                             ; [+10]
        27 GETUPVAL                         R8 2
        28 GETTABLEKS                       R7 R8 K3 ["ScopeType"]
        30 GETTABLEKS                       R6 R7 K8 ["Universe"]
        32 JUMPIFNOTEQ                      R5 R6 ; [+3]
        34 LOADK                            R4 K9 ["universe"]
-       35 JUMP                             ; [+2]
+       35 JUMP                             ; [+1]
        36 LOADK                            R4 K10 [""]
-       37 JUMP                             ; [0]
-       38 GETUPVAL                         R5 3
-       39 CALL                             R2 3 1
-       40 NAMECALL                         R2 R2 K11 ["makeRequest"]
-       42 CALL                             R2 1 1
-       43 NEWCLOSURE                       R4 P0
-       44 CAPTURE                          VAL R0
-       45 NAMECALL                         R2 R2 K12 ["andThen"]
-       47 CALL                             R2 2 1
-       48 NEWCLOSURE                       R4 P1
-       49 CAPTURE                          UPVAL U4
-       50 CAPTURE                          UPVAL U5
-       51 CAPTURE                          VAL R1
-       52 NAMECALL                         R2 R2 K13 ["catch"]
-       54 CALL                             R2 2 0
-       55 RETURN                           R0 0
+       37 GETUPVAL                         R5 3
+       38 CALL                             R2 3 1
+       39 NAMECALL                         R2 R2 K11 ["makeRequest"]
+       41 CALL                             R2 1 1
+       42 NEWCLOSURE                       R4 P0
+       43 CAPTURE                          VAL R0
+       44 NAMECALL                         R2 R2 K12 ["andThen"]
+       46 CALL                             R2 2 1
+       47 NEWCLOSURE                       R4 P1
+       48 CAPTURE                          UPVAL U4
+       49 CAPTURE                          UPVAL U5
+       50 CAPTURE                          VAL R1
+       51 NAMECALL                         R2 R2 K13 ["catch"]
+       53 CALL                             R2 2 0
+       54 RETURN                           R0 0
 
 PROTO_71:
         0 NEWTABLE                         R4 0 0

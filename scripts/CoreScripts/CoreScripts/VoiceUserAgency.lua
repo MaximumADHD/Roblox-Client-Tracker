@@ -20,9 +20,13 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 local VoiceChatServiceManager = require(RobloxGuiModules.VoiceChat.VoiceChatServiceManager).default
 local Constants = require(RobloxGuiModules.VoiceChat.Constants)
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
+local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
+local iconMigrations = BuilderIcons.Migration
 
 local GetFFlagVoiceUserAgencyEnableIXP = require(RobloxGuiModules.Flags.GetFFlagVoiceUserAgencyEnableIXP)
 local GetFStringVoiceUserAgencyIXPLayerName = require(RobloxGuiModules.Flags.GetFStringVoiceUserAgencyIXPLayerName)
+local FFlagManuallyMigrateDeprecatedAssetUsage =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagManuallyMigrateDeprecatedIconUsage
 
 local FIntVoiceUserAgencyAlertInitTimeOffset = game:DefineFastInt("VoiceUserAgencyAlertInitTimeOffset", 5)
 local FIntVoiceUserAgencyAlertStartTimeOffset = game:DefineFastInt("VoiceUserAgencyAlertStartTimeOffset", 3)
@@ -237,7 +241,14 @@ local function showUserAgencyPrompt()
 		end
 	end)
 
-	local checkboxButtonOverlay = Create("ImageLabel")({
+	local checkboxButtonOverlay = if FFlagManuallyMigrateDeprecatedAssetUsage then
+		Create("TextLabel")({
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Text = BuilderIcons.Migration["icons/status/success_small"].name,
+			FontFace = BuilderIcons.Font[BuilderIcons.Migration["icons/status/success_small"].variant],
+		})
+	else Create("ImageLabel")({
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 		Image = Images["icons/status/success_small"].Image,

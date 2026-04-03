@@ -48,37 +48,59 @@ PROTO_2:
        20 DUPTABLE                         R6 K6 [{"ShowSeparator"}]
        21 LOADB                            R7 1
        22 SETTABLEKS                       R7 R6 K5 ["ShowSeparator"]
-       24 GETUPVAL                         R7 3
-       25 LOADK                            R8 K7 ["R15"]
-       26 LOADK                            R9 K8 ["Unassigned"]
-       27 GETTABLEKS                       R10 R0 K9 ["Filters"]
-       29 GETTABLEKS                       R11 R0 K10 ["OnFilterSelected"]
-       31 LOADK                            R13 K11 ["R15 "]
-       32 LOADK                            R16 K12 ["ScriptPane"]
-       33 LOADK                            R17 K8 ["Unassigned"]
-       34 NAMECALL                         R14 R1 K13 ["getText"]
-       36 CALL                             R14 3 1
-       37 CONCAT                           R12 R13 R14
-       38 CALL                             R7 5 1
-       39 GETUPVAL                         R8 3
-       40 LOADK                            R9 K7 ["R15"]
-       41 LOADK                            R10 K14 ["Assigned"]
-       42 GETTABLEKS                       R11 R0 K9 ["Filters"]
-       44 GETTABLEKS                       R12 R0 K10 ["OnFilterSelected"]
-       46 LOADK                            R14 K11 ["R15 "]
-       47 LOADK                            R17 K12 ["ScriptPane"]
-       48 LOADK                            R18 K14 ["Assigned"]
-       49 NAMECALL                         R15 R1 K13 ["getText"]
-       51 CALL                             R15 3 1
-       52 CONCAT                           R13 R14 R15
-       53 CALL                             R8 5 1
-       54 SETLIST                          R5 R6 3 [1]
-       56 CALL                             R3 2 1
-       57 GETUPVAL                         R4 4
-       58 MOVE                             R5 R2
-       59 MOVE                             R6 R3
-       60 CALL                             R4 2 0
-       61 RETURN                           R0 0
+       24 GETTABLEKS                       R8 R0 K7 ["Filters"]
+       26 GETTABLEKS                       R9 R0 K8 ["OnFilterSelected"]
+       28 LOADK                            R11 K9 ["R15 "]
+       29 LOADK                            R14 K10 ["ScriptPane"]
+       30 LOADK                            R15 K11 ["Unassigned"]
+       31 NAMECALL                         R12 R1 K12 ["getText"]
+       33 CALL                             R12 3 1
+       34 CONCAT                           R10 R11 R12
+       35 DUPTABLE                         R7 K17 [{"Text", "Checked", "Data", "OnItemClicked"}]
+       36 ORK                              R11 R10 K18 ["R15 Unassigned"]
+       37 SETTABLEKS                       R11 R7 K13 ["Text"]
+       39 GETTABLEKS                       R11 R8 K19 ["R15"]
+       41 JUMPIFNOT                        R11 ; [+4]
+       42 GETTABLEKS                       R12 R8 K19 ["R15"]
+       44 GETTABLEKS                       R11 R12 K11 ["Unassigned"]
+       46 SETTABLEKS                       R11 R7 K14 ["Checked"]
+       48 DUPTABLE                         R11 K22 [{"RigType", "InstanceName"}]
+       49 LOADK                            R12 K19 ["R15"]
+       50 SETTABLEKS                       R12 R11 K20 ["RigType"]
+       52 LOADK                            R12 K11 ["Unassigned"]
+       53 SETTABLEKS                       R12 R11 K21 ["InstanceName"]
+       55 SETTABLEKS                       R11 R7 K15 ["Data"]
+       57 SETTABLEKS                       R9 R7 K16 ["OnItemClicked"]
+       59 GETTABLEKS                       R9 R0 K7 ["Filters"]
+       61 GETTABLEKS                       R10 R0 K8 ["OnFilterSelected"]
+       63 LOADK                            R12 K9 ["R15 "]
+       64 LOADK                            R15 K10 ["ScriptPane"]
+       65 LOADK                            R16 K23 ["Assigned"]
+       66 NAMECALL                         R13 R1 K12 ["getText"]
+       68 CALL                             R13 3 1
+       69 CONCAT                           R11 R12 R13
+       70 DUPTABLE                         R8 K17 [{"Text", "Checked", "Data", "OnItemClicked"}]
+       71 ORK                              R12 R11 K24 ["R15 Assigned"]
+       72 SETTABLEKS                       R12 R8 K13 ["Text"]
+       74 GETTABLEKS                       R12 R9 K19 ["R15"]
+       76 JUMPIFNOT                        R12 ; [+4]
+       77 GETTABLEKS                       R13 R9 K19 ["R15"]
+       79 GETTABLEKS                       R12 R13 K23 ["Assigned"]
+       81 SETTABLEKS                       R12 R8 K14 ["Checked"]
+       83 DUPTABLE                         R12 K22 [{"RigType", "InstanceName"}]
+       84 LOADK                            R13 K19 ["R15"]
+       85 SETTABLEKS                       R13 R12 K20 ["RigType"]
+       87 LOADK                            R13 K23 ["Assigned"]
+       88 SETTABLEKS                       R13 R12 K21 ["InstanceName"]
+       90 SETTABLEKS                       R12 R8 K15 ["Data"]
+       92 SETTABLEKS                       R10 R8 K16 ["OnItemClicked"]
+       94 SETLIST                          R5 R6 3 [1]
+       96 CALL                             R3 2 1
+       97 GETUPVAL                         R4 4
+       98 MOVE                             R5 R2
+       99 MOVE                             R6 R3
+      100 CALL                             R4 2 0
+      101 RETURN                           R0 0
 
 PROTO_3:
         0 NEWCLOSURE                       R1 P0

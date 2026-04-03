@@ -12,9 +12,8 @@ local SubMenuContext = require(Chrome.ChromeShared.Unibar.SubMenuContext)
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
-
 local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
-local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
+local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
 
 local RBXAssetProto = "rbxasset://"
 

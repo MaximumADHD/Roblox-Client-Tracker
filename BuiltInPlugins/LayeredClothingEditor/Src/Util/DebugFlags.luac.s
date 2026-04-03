@@ -24,13 +24,12 @@ PROTO_1:
         7 NAMECALL                         R2 R1 K1 ["FindFirstChild"]
         9 CALL                             R2 2 1
        10 MOVE                             R0 R2
-       11 JUMPIFNOT                        R0 ; [+7]
+       11 JUMPIFNOT                        R0 ; [+6]
        12 GETTABLEKS                       R2 R1 K2 ["RunTests"]
        14 GETTABLEKS                       R0 R2 K3 ["Value"]
        16 RETURN                           R0 1
        17 LOADB                            R0 0
        18 RETURN                           R0 1
-       19 RETURN                           R0 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -42,13 +41,12 @@ PROTO_2:
         7 NAMECALL                         R2 R1 K1 ["FindFirstChild"]
         9 CALL                             R2 2 1
        10 MOVE                             R0 R2
-       11 JUMPIFNOT                        R0 ; [+7]
+       11 JUMPIFNOT                        R0 ; [+6]
        12 GETTABLEKS                       R2 R1 K2 ["RunRhodiumTests"]
        14 GETTABLEKS                       R0 R2 K3 ["Value"]
        16 RETURN                           R0 1
        17 LOADB                            R0 0
        18 RETURN                           R0 1
-       19 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -60,13 +58,12 @@ PROTO_3:
         7 NAMECALL                         R2 R1 K1 ["FindFirstChild"]
         9 CALL                             R2 2 1
        10 MOVE                             R0 R2
-       11 JUMPIFNOT                        R0 ; [+7]
+       11 JUMPIFNOT                        R0 ; [+6]
        12 GETTABLEKS                       R2 R1 K2 ["LogRoduxEvents"]
        14 GETTABLEKS                       R0 R2 K3 ["Value"]
        16 RETURN                           R0 1
        17 LOADB                            R0 0
        18 RETURN                           R0 1
-       19 RETURN                           R0 1
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -78,13 +75,12 @@ PROTO_4:
         7 NAMECALL                         R2 R1 K1 ["FindFirstChild"]
         9 CALL                             R2 2 1
        10 MOVE                             R0 R2
-       11 JUMPIFNOT                        R0 ; [+7]
+       11 JUMPIFNOT                        R0 ; [+6]
        12 GETTABLEKS                       R2 R1 K2 ["LogAnalytics"]
        14 GETTABLEKS                       R0 R2 K3 ["Value"]
        16 RETURN                           R0 1
        17 LOADB                            R0 0
        18 RETURN                           R0 1
-       19 RETURN                           R0 1
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -96,13 +92,12 @@ PROTO_5:
         7 NAMECALL                         R2 R1 K1 ["FindFirstChild"]
         9 CALL                             R2 2 1
        10 MOVE                             R0 R2
-       11 JUMPIFNOT                        R0 ; [+7]
+       11 JUMPIFNOT                        R0 ; [+6]
        12 GETTABLEKS                       R2 R1 K2 ["MockItemHasFullCage"]
        14 GETTABLEKS                       R0 R2 K3 ["Value"]
        16 RETURN                           R0 1
        17 LOADB                            R0 0
        18 RETURN                           R0 1
-       19 RETURN                           R0 1
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -114,13 +109,12 @@ PROTO_6:
         7 NAMECALL                         R2 R1 K1 ["FindFirstChild"]
         9 CALL                             R2 2 1
        10 MOVE                             R0 R2
-       11 JUMPIFNOT                        R0 ; [+7]
+       11 JUMPIFNOT                        R0 ; [+6]
        12 GETTABLEKS                       R2 R1 K2 ["UseMockCages"]
        14 GETTABLEKS                       R0 R2 K3 ["Value"]
        16 RETURN                           R0 1
        17 LOADB                            R0 0
        18 RETURN                           R0 1
-       19 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

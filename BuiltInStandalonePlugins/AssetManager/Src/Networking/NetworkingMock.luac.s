@@ -133,21 +133,21 @@ PROTO_8:
        14 GETTABLEKS                       R8 R9 K2 ["Type"]
        16 GETUPVAL                         R11 2
        17 GETTABLEKS                       R10 R11 K3 ["ScopeType"]
-       19 GETTABLEKS                       R9 R10 K4 ["Places"]
+       19 GETTABLEKS                       R9 R10 K4 ["ProjectPlaces"]
        21 JUMPIFNOTEQ                      R8 R9 ; [+14]
        23 GETUPVAL                         R10 0
-       24 GETTABLEKS                       R9 R10 K4 ["Places"]
+       24 GETTABLEKS                       R9 R10 K5 ["Places"]
        26 GETTABLEKS                       R11 R2 K1 ["ScopeInfo"]
-       28 GETTABLEKS                       R10 R11 K5 ["Id"]
+       28 GETTABLEKS                       R10 R11 K6 ["Id"]
        30 GETTABLE                         R8 R9 R10
        31 JUMPIF                           R8 ; [+2]
        32 NEWTABLE                         R8 0 0
        34 MOVE                             R7 R8
        35 JUMP                             ; [+12]
        36 GETUPVAL                         R10 0
-       37 GETTABLEKS                       R9 R10 K6 ["Assets"]
+       37 GETTABLEKS                       R9 R10 K7 ["Assets"]
        39 GETTABLEKS                       R11 R2 K1 ["ScopeInfo"]
-       41 GETTABLEKS                       R10 R11 K5 ["Id"]
+       41 GETTABLEKS                       R10 R11 K6 ["Id"]
        43 GETTABLE                         R8 R9 R10
        44 JUMPIF                           R8 ; [+2]
        45 NEWTABLE                         R8 0 0
@@ -157,13 +157,13 @@ PROTO_8:
        51 LOADNIL                          R10
        52 LOADNIL                          R11
        53 FORGPREP                         R9
-       54 GETTABLEKS                       R15 R13 K7 ["Creator"]
-       56 GETTABLEKS                       R14 R15 K8 ["Name"]
-       58 GETTABLEKS                       R15 R13 K7 ["Creator"]
+       54 GETTABLEKS                       R15 R13 K8 ["Creator"]
+       56 GETTABLEKS                       R14 R15 K9 ["Name"]
+       58 GETTABLEKS                       R15 R13 K8 ["Creator"]
        60 SETTABLE                         R15 R8 R14
        61 FORGLOOP                         R9 2 ; [-8]
        63 LOADN                            R11 1
-       64 NAMECALL                         R9 R0 K9 ["Fire"]
+       64 NAMECALL                         R9 R0 K10 ["Fire"]
        66 CALL                             R9 2 0
        67 MOVE                             R9 R1
        68 MOVE                             R10 R7
@@ -704,7 +704,7 @@ PROTO_38:
 PROTO_39:
         0 JUMPIFNOT                        R0 ; [+3]
         1 GETUPVAL                         R1 0
-        2 LOADK                            R2 K0 ["Test createFolderAsync error"]
+        2 LOADK                            R2 K0 ["Test deleteFolderAsync error"]
         3 CALL                             R1 1 0
         4 GETUPVAL                         R1 1
         5 CALL                             R1 0 0
@@ -722,7 +722,7 @@ PROTO_41:
         3 NEWCLOSURE                       R3 P0
         4 CAPTURE                          VAL R1
         5 CAPTURE                          VAL R0
-        6 SETTABLEKS                       R3 R2 K1 ["CreateFolder"]
+        6 SETTABLEKS                       R3 R2 K1 ["DeleteFolder"]
         8 RETURN                           R0 0
 
 PROTO_42:

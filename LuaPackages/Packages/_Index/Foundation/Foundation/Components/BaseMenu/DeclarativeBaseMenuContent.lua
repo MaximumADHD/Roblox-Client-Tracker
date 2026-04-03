@@ -13,7 +13,7 @@ type OnItemActivated = Types.OnItemActivated
 local BaseMenuGroup = require(script.Parent.BaseMenuGroup)
 local BaseMenuItem = require(script.Parent.BaseMenuItem)
 
-export type BaseMenuItemGroup<Item = BaseMenuItem> = {
+export type BaseMenuItemGroup<Item> = {
 	title: string?,
 	items: { Item },
 }
@@ -25,7 +25,8 @@ export type BaseMenuItem = {
 	isChecked: boolean?,
 	text: string,
 	onActivated: OnItemActivated?,
-	items: { BaseMenuItem }?,
+	items: { BaseMenuItem | BaseMenuItemGroup<BaseMenuItem> }?,
+	ref: React.Ref<GuiObject>?,
 }
 
 export type BaseMenuItems<Item = BaseMenuItem> = { Item } | { BaseMenuItemGroup<Item> }
@@ -72,6 +73,7 @@ local function DeclarativeBaseMenuContent(props: DeclarativeBaseMenuContentProps
 							onActivated = item.onActivated,
 							id = item.id,
 							testId = if item.items then "--foundation-menu-submenu-item" else "--foundation-menu-item",
+							ref = item.ref,
 						},
 						if Flags.FoundationBaseMenuSubmenuSupport and item.items
 							then React.createElement(DeclarativeBaseMenuContent, {

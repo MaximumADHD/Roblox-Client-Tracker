@@ -5,7 +5,6 @@ local React = require(Packages.React)
 local ReactIs = require(Packages.ReactIs)
 
 local Constants = require(script.Parent.constants)
-local Flags = require(Foundation.Utility.Flags)
 local Image = require(Foundation.Components.Image)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
@@ -114,7 +113,7 @@ local function ProgressGradient(props: {
 		return React.createElement("UIGradient", {
 			Transparency = TRANSPARENCY_SEQ,
 			Color = COLOR_SEQ,
-			Rotation = if ReactIs.isBinding(progress) or not Flags.FoundationProgressBindableValue
+			Rotation = if ReactIs.isBinding(progress)
 				then (progress :: React.Binding<number>):map(function(progressValue: number?)
 					return getRotationFromProgress(progressValue, side)
 				end)
@@ -242,7 +241,7 @@ local function ProgressCircle(progressProps: ProgressCircleProps & {
 				}),
 				ProgressLabel = if variants.circle.labelFont and not isIndeterminate
 					then React.createElement(Text, {
-						Text = if ReactIs.isBinding(progress) or not Flags.FoundationProgressBindableValue
+						Text = if ReactIs.isBinding(progress)
 							then (progress :: React.Binding<number>):map(getLabelFromProgress)
 							else getLabelFromProgress(progress :: number?),
 						fontStyle = variants.circle.labelFont,

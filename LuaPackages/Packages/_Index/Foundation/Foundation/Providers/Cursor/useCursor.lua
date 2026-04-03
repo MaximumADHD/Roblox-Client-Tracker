@@ -6,7 +6,6 @@ local React = require(Packages.React)
 
 local ColorMode = require(Foundation.Enums.ColorMode)
 local CursorContext = require(script.Parent.CursorContext)
-local Flags = require(Foundation.Utility.Flags)
 local KeyUtilities = require(script.Parent.KeyUtilities)
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
 local Types = require(Foundation.Components.Types)
@@ -17,12 +16,8 @@ type ColorMode = ColorMode.ColorMode
 
 local function useCursor(cursor: Types.Cursor?): React.Ref<GuiObject>?
 	local tokens = useTokens()
-	local presentationContext = if Flags.FoundationSupportPresentationContextInSelectionCursor
-		then usePresentationContext()
-		else nil :: never
-	local cursorColorMode = if Flags.FoundationSupportPresentationContextInSelectionCursor
-		then if presentationContext.colorMode then presentationContext.colorMode else ColorMode.Color
-		else nil
+	local presentationContext = usePresentationContext()
+	local cursorColorMode = if presentationContext.colorMode then presentationContext.colorMode else ColorMode.Color
 
 	local context = React.useContext(CursorContext)
 	local refCache = context.refCache
@@ -40,9 +35,7 @@ local function useCursor(cursor: Types.Cursor?): React.Ref<GuiObject>?
 		elseif cursor == nil then
 			return KeyUtilities.encodeKey(tokens, nil, nil, nil, cursorColorMode :: ColorMode)
 		end
-		return if Flags.FoundationSupportPresentationContextInSelectionCursor
-			then KeyUtilities.encodeCursorTypeKey(cursor, cursorColorMode :: ColorMode)
-			else cursor
+		return KeyUtilities.encodeCursorTypeKey(cursor, cursorColorMode :: ColorMode)
 	end, { cursor, tokens, cursorColorMode } :: { unknown })
 
 	React.useEffect(function()

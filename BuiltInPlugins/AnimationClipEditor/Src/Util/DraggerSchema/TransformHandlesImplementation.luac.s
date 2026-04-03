@@ -312,7 +312,7 @@ PROTO_6:
        31 CALL                             R8 0 1
        32 MOVE                             R5 R8
        33 MUL                              R3 R5 R4
-       34 JUMP                             ; [+27]
+       34 JUMP                             ; [+26]
        35 GETTABLEKS                       R6 R2 K1 ["Bone"]
        37 GETTABLEKS                       R7 R6 K3 ["Parent"]
        39 JUMPIFNOT                        R7 ; [+16]
@@ -332,21 +332,20 @@ PROTO_6:
        58 CALL                             R8 0 1
        59 MOVE                             R5 R8
        60 MUL                              R3 R5 R4
-       61 JUMP                             ; [0]
-       62 GETTABLEKS                       R5 R0 K10 ["_jointsToOrigBoneTransformedWorldCFrame"]
-       64 GETTABLE                         R4 R5 R2
-       65 MUL                              R4 R1 R4
-       66 MOVE                             R7 R4
-       67 NAMECALL                         R5 R3 K11 ["toObjectSpace"]
-       69 CALL                             R5 2 -1
-       70 RETURN                           R5 -1
+       61 GETTABLEKS                       R5 R0 K10 ["_jointsToOrigBoneTransformedWorldCFrame"]
+       63 GETTABLE                         R4 R5 R2
+       64 MUL                              R4 R1 R4
+       65 MOVE                             R7 R4
+       66 NAMECALL                         R5 R3 K11 ["toObjectSpace"]
+       68 CALL                             R5 2 -1
+       69 RETURN                           R5 -1
 
 PROTO_7:
         0 GETTABLEKS                       R5 R2 K0 ["Part0"]
         2 LOADK                            R7 K1 ["Bone"]
         3 NAMECALL                         R5 R5 K2 ["IsA"]
         5 CALL                             R5 2 1
-        6 JUMPIFNOT                        R5 ; [+63]
+        6 JUMPIFNOT                        R5 ; [+62]
         7 GETTABLEKS                       R6 R0 K3 ["_jointsToOrigBoneCFrame"]
         9 GETTABLE                         R5 R6 R2
        10 GETUPVAL                         R6 0
@@ -372,7 +371,7 @@ PROTO_7:
        38 CALL                             R9 0 1
        39 MOVE                             R6 R9
        40 MUL                              R4 R6 R5
-       41 JUMP                             ; [+32]
+       41 JUMP                             ; [+31]
        42 GETTABLEKS                       R7 R2 K1 ["Bone"]
        44 GETTABLEKS                       R8 R7 K4 ["Parent"]
        46 JUMPIFNOT                        R8 ; [+16]
@@ -392,29 +391,28 @@ PROTO_7:
        65 CALL                             R9 0 1
        66 MOVE                             R6 R9
        67 MUL                              R4 R6 R5
-       68 JUMP                             ; [+5]
-       69 JUMP                             ; [+4]
-       70 GETTABLEKS                       R5 R2 K0 ["Part0"]
-       72 GETTABLEKS                       R4 R5 K7 ["CFrame"]
-       74 GETTABLEKS                       R5 R2 K10 ["C0"]
-       76 MUL                              R3 R4 R5
-       77 GETTABLEKS                       R6 R2 K11 ["Part1"]
-       79 LOADK                            R8 K1 ["Bone"]
-       80 NAMECALL                         R6 R6 K2 ["IsA"]
-       82 CALL                             R6 2 1
-       83 JUMPIFNOT                        R6 ; [+4]
-       84 GETTABLEKS                       R6 R0 K12 ["_jointsToOrigBoneTransformedWorldCFrame"]
-       86 GETTABLE                         R5 R6 R2
-       87 JUMP                             ; [+3]
-       88 GETTABLEKS                       R6 R0 K13 ["_jointsToOrigPart1CFrame"]
-       90 GETTABLE                         R5 R6 R2
-       91 GETTABLEKS                       R6 R2 K14 ["C1"]
-       93 MUL                              R4 R5 R6
-       94 MUL                              R4 R1 R4
-       95 MOVE                             R7 R4
-       96 NAMECALL                         R5 R3 K15 ["toObjectSpace"]
-       98 CALL                             R5 2 -1
-       99 RETURN                           R5 -1
+       68 JUMP                             ; [+4]
+       69 GETTABLEKS                       R5 R2 K0 ["Part0"]
+       71 GETTABLEKS                       R4 R5 K7 ["CFrame"]
+       73 GETTABLEKS                       R5 R2 K10 ["C0"]
+       75 MUL                              R3 R4 R5
+       76 GETTABLEKS                       R6 R2 K11 ["Part1"]
+       78 LOADK                            R8 K1 ["Bone"]
+       79 NAMECALL                         R6 R6 K2 ["IsA"]
+       81 CALL                             R6 2 1
+       82 JUMPIFNOT                        R6 ; [+4]
+       83 GETTABLEKS                       R6 R0 K12 ["_jointsToOrigBoneTransformedWorldCFrame"]
+       85 GETTABLE                         R5 R6 R2
+       86 JUMP                             ; [+3]
+       87 GETTABLEKS                       R6 R0 K13 ["_jointsToOrigPart1CFrame"]
+       89 GETTABLE                         R5 R6 R2
+       90 GETTABLEKS                       R6 R2 K14 ["C1"]
+       92 MUL                              R4 R5 R6
+       93 MUL                              R4 R1 R4
+       94 MOVE                             R7 R4
+       95 NAMECALL                         R5 R3 K15 ["toObjectSpace"]
+       97 CALL                             R5 2 -1
+       98 RETURN                           R5 -1
 
 PROTO_8:
         0 GETTABLEKS                       R3 R0 K0 ["_draggerContext"]

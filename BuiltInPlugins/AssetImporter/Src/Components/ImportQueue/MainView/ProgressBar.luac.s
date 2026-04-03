@@ -129,7 +129,7 @@ PROTO_4:
       138 GETUPVAL                         R16 4
       139 GETTABLEKS                       R15 R16 K31 ["Text"]
       141 DUPTABLE                         R16 K44 [{"tag", "Text", "LayoutOrder"}]
-      142 LOADK                            R17 K45 ["size-full-0 auto-y content-action-emphasis text-body-small text-align-x-left text-align-y-center"]
+      142 LOADK                            R17 K45 ["size-full-0 auto-y content-emphasis text-body-small text-align-x-left text-align-y-center"]
       143 SETTABLEKS                       R17 R16 K27 ["tag"]
       145 SETTABLEKS                       R8 R16 K31 ["Text"]
       147 NAMECALL                         R17 R9 K43 ["getNextOrder"]

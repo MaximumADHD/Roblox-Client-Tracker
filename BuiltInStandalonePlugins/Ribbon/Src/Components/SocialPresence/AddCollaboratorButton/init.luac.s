@@ -65,90 +65,96 @@ PROTO_1:
        60 SETTABLEKS                       R7 R12 K6 ["Shortcuts"]
        62 SETTABLEKS                       R10 R12 K11 ["WidgetRef"]
        64 CALL                             R11 1 2
-       65 GETUPVAL                         R14 6
-       66 GETTABLEKS                       R13 R14 K13 ["createElement"]
-       68 LOADK                            R14 K14 ["TextButton"]
-       69 NEWTABLE                         R15 8 0
-       71 SETTABLEKS                       R10 R15 K15 ["ref"]
-       73 GETUPVAL                         R18 6
-       74 GETTABLEKS                       R17 R18 K16 ["Event"]
-       76 GETTABLEKS                       R16 R17 K17 ["Activated"]
-       78 NEWCLOSURE                       R17 P0
-       79 CAPTURE                          VAL R2
-       80 CAPTURE                          UPVAL U7
-       81 CAPTURE                          VAL R4
-       82 CAPTURE                          UPVAL U8
-       83 SETTABLE                         R17 R15 R16
-       84 GETUPVAL                         R18 6
-       85 GETTABLEKS                       R17 R18 K16 ["Event"]
-       87 GETTABLEKS                       R16 R17 K18 ["MouseEnter"]
-       89 SETTABLE                         R11 R15 R16
-       90 GETUPVAL                         R18 6
-       91 GETTABLEKS                       R17 R18 K16 ["Event"]
-       93 GETTABLEKS                       R16 R17 K19 ["MouseLeave"]
-       95 SETTABLE                         R12 R15 R16
-       96 GETUPVAL                         R17 6
-       97 GETTABLEKS                       R16 R17 K20 ["Tag"]
-       99 GETUPVAL                         R17 9
-      100 LOADK                            R18 K21 ["Component-AddCollaboratorButton Role-Surface X-Fit State-Default"]
-      101 GETTABLEKS                       R20 R0 K22 ["IsTeamCreateOn"]
-      103 JUMPIFNOT                        R20 ; [+2]
-      104 LOADK                            R19 K23 ["Component-RibbonButton TeamCreate"]
-      105 JUMP                             ; [+1]
-      106 LOADK                            R19 K24 ["Component-Button Primary"]
-      107 CALL                             R17 2 1
-      108 SETTABLE                         R17 R15 R16
-      109 DUPTABLE                         R16 K26 [{"StateLayer"}]
-      110 GETUPVAL                         R18 6
-      111 GETTABLEKS                       R17 R18 K13 ["createElement"]
-      113 LOADK                            R18 K27 ["Frame"]
-      114 NEWTABLE                         R19 1 0
-      116 GETUPVAL                         R21 6
-      117 GETTABLEKS                       R20 R21 K20 ["Tag"]
-      119 GETUPVAL                         R21 9
-      120 LOADK                            R22 K28 ["Role-Surface X-Fit"]
-      121 GETTABLEKS                       R24 R0 K22 ["IsTeamCreateOn"]
-      123 JUMPIF                           R24 ; [+2]
-      124 LOADK                            R23 K29 ["X-Row X-Middle X-Center Small"]
-      125 JUMP                             ; [+1]
-      126 LOADNIL                          R23
-      127 CALL                             R21 2 1
-      128 SETTABLE                         R21 R19 R20
-      129 DUPTABLE                         R20 K32 [{"ButtonIcon", "ButtonText"}]
-      130 GETUPVAL                         R22 6
-      131 GETTABLEKS                       R21 R22 K13 ["createElement"]
-      133 LOADK                            R22 K33 ["ImageLabel"]
-      134 NEWTABLE                         R23 2 0
-      136 SETTABLEKS                       R6 R23 K34 ["Image"]
-      138 GETUPVAL                         R25 6
-      139 GETTABLEKS                       R24 R25 K20 ["Tag"]
-      141 LOADK                            R25 K35 ["Role-Surface Icon-Small"]
-      142 SETTABLE                         R25 R23 R24
-      143 CALL                             R21 2 1
-      144 SETTABLEKS                       R21 R20 K30 ["ButtonIcon"]
-      146 GETTABLEKS                       R22 R0 K22 ["IsTeamCreateOn"]
-      148 JUMPIF                           R22 ; [+20]
-      149 GETUPVAL                         R22 6
-      150 GETTABLEKS                       R21 R22 K13 ["createElement"]
-      152 LOADK                            R22 K36 ["TextLabel"]
-      153 NEWTABLE                         R23 2 0
-      155 LOADK                            R26 K37 ["Plugin"]
-      156 LOADK                            R27 K38 ["SocialPresence_Collaborate"]
-      157 NAMECALL                         R24 R3 K39 ["getText"]
-      159 CALL                             R24 3 1
-      160 SETTABLEKS                       R24 R23 K7 ["Text"]
-      162 GETUPVAL                         R25 6
-      163 GETTABLEKS                       R24 R25 K20 ["Tag"]
-      165 LOADK                            R25 K40 ["Role-Surface X-Fit Small Primary"]
-      166 SETTABLE                         R25 R23 R24
-      167 CALL                             R21 2 1
-      168 JUMP                             ; [+1]
-      169 LOADNIL                          R21
-      170 SETTABLEKS                       R21 R20 K31 ["ButtonText"]
-      172 CALL                             R17 3 1
-      173 SETTABLEKS                       R17 R16 K25 ["StateLayer"]
-      175 CALL                             R13 3 -1
-      176 RETURN                           R13 -1
+       65 GETTABLEKS                       R14 R0 K13 ["IsTeamCreateOn"]
+       67 JUMPIFNOT                        R14 ; [+2]
+       68 LOADK                            R13 K14 ["Component-RibbonButton TeamCreate"]
+       69 JUMP                             ; [+6]
+       70 GETUPVAL                         R14 6
+       71 CALL                             R14 0 1
+       72 JUMPIFNOT                        R14 ; [+2]
+       73 LOADK                            R13 K15 ["Component-Button CollaborateAlternateColor"]
+       74 JUMP                             ; [+1]
+       75 LOADK                            R13 K16 ["Component-Button Primary"]
+       76 GETUPVAL                         R15 7
+       77 GETTABLEKS                       R14 R15 K17 ["createElement"]
+       79 LOADK                            R15 K18 ["TextButton"]
+       80 NEWTABLE                         R16 8 0
+       82 SETTABLEKS                       R10 R16 K19 ["ref"]
+       84 GETUPVAL                         R19 7
+       85 GETTABLEKS                       R18 R19 K20 ["Event"]
+       87 GETTABLEKS                       R17 R18 K21 ["Activated"]
+       89 NEWCLOSURE                       R18 P0
+       90 CAPTURE                          VAL R2
+       91 CAPTURE                          UPVAL U8
+       92 CAPTURE                          VAL R4
+       93 CAPTURE                          UPVAL U9
+       94 SETTABLE                         R18 R16 R17
+       95 GETUPVAL                         R19 7
+       96 GETTABLEKS                       R18 R19 K20 ["Event"]
+       98 GETTABLEKS                       R17 R18 K22 ["MouseEnter"]
+      100 SETTABLE                         R11 R16 R17
+      101 GETUPVAL                         R19 7
+      102 GETTABLEKS                       R18 R19 K20 ["Event"]
+      104 GETTABLEKS                       R17 R18 K23 ["MouseLeave"]
+      106 SETTABLE                         R12 R16 R17
+      107 GETUPVAL                         R18 7
+      108 GETTABLEKS                       R17 R18 K24 ["Tag"]
+      110 GETUPVAL                         R18 10
+      111 LOADK                            R19 K25 ["Component-AddCollaboratorButton Role-Surface X-Fit State-Default"]
+      112 MOVE                             R20 R13
+      113 CALL                             R18 2 1
+      114 SETTABLE                         R18 R16 R17
+      115 DUPTABLE                         R17 K27 [{"StateLayer"}]
+      116 GETUPVAL                         R19 7
+      117 GETTABLEKS                       R18 R19 K17 ["createElement"]
+      119 LOADK                            R19 K28 ["Frame"]
+      120 NEWTABLE                         R20 1 0
+      122 GETUPVAL                         R22 7
+      123 GETTABLEKS                       R21 R22 K24 ["Tag"]
+      125 GETUPVAL                         R22 10
+      126 LOADK                            R23 K29 ["Role-Surface X-Fit"]
+      127 GETTABLEKS                       R25 R0 K13 ["IsTeamCreateOn"]
+      129 JUMPIF                           R25 ; [+2]
+      130 LOADK                            R24 K30 ["X-Row X-Middle X-Center Small"]
+      131 JUMP                             ; [+1]
+      132 LOADNIL                          R24
+      133 CALL                             R22 2 1
+      134 SETTABLE                         R22 R20 R21
+      135 DUPTABLE                         R21 K33 [{"ButtonIcon", "ButtonText"}]
+      136 GETUPVAL                         R23 7
+      137 GETTABLEKS                       R22 R23 K17 ["createElement"]
+      139 LOADK                            R23 K34 ["ImageLabel"]
+      140 NEWTABLE                         R24 2 0
+      142 SETTABLEKS                       R6 R24 K35 ["Image"]
+      144 GETUPVAL                         R26 7
+      145 GETTABLEKS                       R25 R26 K24 ["Tag"]
+      147 LOADK                            R26 K36 ["Role-Surface Icon-Small"]
+      148 SETTABLE                         R26 R24 R25
+      149 CALL                             R22 2 1
+      150 SETTABLEKS                       R22 R21 K31 ["ButtonIcon"]
+      152 GETTABLEKS                       R23 R0 K13 ["IsTeamCreateOn"]
+      154 JUMPIF                           R23 ; [+20]
+      155 GETUPVAL                         R23 7
+      156 GETTABLEKS                       R22 R23 K17 ["createElement"]
+      158 LOADK                            R23 K37 ["TextLabel"]
+      159 NEWTABLE                         R24 2 0
+      161 LOADK                            R27 K38 ["Plugin"]
+      162 LOADK                            R28 K39 ["SocialPresence_Collaborate"]
+      163 NAMECALL                         R25 R3 K40 ["getText"]
+      165 CALL                             R25 3 1
+      166 SETTABLEKS                       R25 R24 K7 ["Text"]
+      168 GETUPVAL                         R26 7
+      169 GETTABLEKS                       R25 R26 K24 ["Tag"]
+      171 LOADK                            R26 K41 ["Role-Surface X-Fit Small Primary"]
+      172 SETTABLE                         R26 R24 R25
+      173 CALL                             R22 2 1
+      174 JUMP                             ; [+1]
+      175 LOADNIL                          R22
+      176 SETTABLEKS                       R22 R21 K32 ["ButtonText"]
+      178 CALL                             R18 3 1
+      179 SETTABLEKS                       R18 R17 K26 ["StateLayer"]
+      181 CALL                             R14 3 -1
+      182 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -166,46 +172,52 @@ MAIN:
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R4 R2 K9 ["Styling"]
        23 GETTABLEKS                       R3 R4 K10 ["joinTags"]
-       25 GETTABLEKS                       R4 R2 K11 ["ContextServices"]
-       27 GETTABLEKS                       R5 R4 K12 ["Localization"]
-       29 GETTABLEKS                       R6 R4 K13 ["Analytics"]
-       31 GETTABLEKS                       R7 R4 K14 ["Plugin"]
-       33 GETIMPORT                        R8 K5 [require]
-       35 GETTABLEKS                       R11 R0 K15 ["Src"]
-       37 GETTABLEKS                       R10 R11 K16 ["Hooks"]
-       39 GETTABLEKS                       R9 R10 K17 ["TooltipSettings"]
-       41 CALL                             R8 1 1
+       25 GETIMPORT                        R4 K5 [require]
+       27 GETTABLEKS                       R7 R0 K11 ["Src"]
+       29 GETTABLEKS                       R6 R7 K12 ["SharedFlags"]
+       31 GETTABLEKS                       R5 R6 K13 ["getFFlagCollaborateButtonAlternateColor"]
+       33 CALL                             R4 1 1
+       34 GETTABLEKS                       R5 R2 K14 ["ContextServices"]
+       36 GETTABLEKS                       R6 R5 K15 ["Localization"]
+       38 GETTABLEKS                       R7 R5 K16 ["Analytics"]
+       40 GETTABLEKS                       R8 R5 K17 ["Plugin"]
        42 GETIMPORT                        R9 K5 [require]
-       44 GETTABLEKS                       R12 R0 K15 ["Src"]
-       46 GETTABLEKS                       R11 R12 K16 ["Hooks"]
-       48 GETTABLEKS                       R10 R11 K18 ["useTooltip"]
+       44 GETTABLEKS                       R12 R0 K11 ["Src"]
+       46 GETTABLEKS                       R11 R12 K18 ["Hooks"]
+       48 GETTABLEKS                       R10 R11 K19 ["TooltipSettings"]
        50 CALL                             R9 1 1
        51 GETIMPORT                        R10 K5 [require]
-       53 GETTABLEKS                       R12 R0 K6 ["Packages"]
-       55 GETTABLEKS                       R11 R12 K19 ["StudioFoundation"]
-       57 CALL                             R10 1 1
-       58 GETTABLEKS                       R12 R10 K20 ["Util"]
-       60 GETTABLEKS                       R11 R12 K21 ["StudioUri"]
-       62 GETTABLEKS                       R13 R10 K16 ["Hooks"]
-       64 GETTABLEKS                       R12 R13 K22 ["useWidgetRef"]
-       66 DUPTABLE                         R13 K27 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       67 LOADK                            R14 K28 ["Standalone"]
-       68 SETTABLEKS                       R14 R13 K23 ["DataModel"]
-       70 LOADK                            R14 K29 ["ManageCollaborators"]
-       71 SETTABLEKS                       R14 R13 K24 ["PluginId"]
-       73 LOADK                            R14 K30 ["Actions"]
-       74 SETTABLEKS                       R14 R13 K25 ["Category"]
-       76 LOADK                            R14 K31 ["Open"]
-       77 SETTABLEKS                       R14 R13 K26 ["ItemId"]
-       79 DUPCLOSURE                       R14 K32 [PROTO_1]
-       80 CAPTURE                          VAL R7
-       81 CAPTURE                          VAL R6
-       82 CAPTURE                          VAL R5
-       83 CAPTURE                          VAL R13
-       84 CAPTURE                          VAL R12
-       85 CAPTURE                          VAL R9
-       86 CAPTURE                          VAL R1
-       87 CAPTURE                          VAL R8
-       88 CAPTURE                          VAL R11
-       89 CAPTURE                          VAL R3
-       90 RETURN                           R14 1
+       53 GETTABLEKS                       R13 R0 K11 ["Src"]
+       55 GETTABLEKS                       R12 R13 K18 ["Hooks"]
+       57 GETTABLEKS                       R11 R12 K20 ["useTooltip"]
+       59 CALL                             R10 1 1
+       60 GETIMPORT                        R11 K5 [require]
+       62 GETTABLEKS                       R13 R0 K6 ["Packages"]
+       64 GETTABLEKS                       R12 R13 K21 ["StudioFoundation"]
+       66 CALL                             R11 1 1
+       67 GETTABLEKS                       R13 R11 K22 ["Util"]
+       69 GETTABLEKS                       R12 R13 K23 ["StudioUri"]
+       71 GETTABLEKS                       R14 R11 K18 ["Hooks"]
+       73 GETTABLEKS                       R13 R14 K24 ["useWidgetRef"]
+       75 DUPTABLE                         R14 K29 [{"DataModel", "PluginId", "Category", "ItemId"}]
+       76 LOADK                            R15 K30 ["Standalone"]
+       77 SETTABLEKS                       R15 R14 K25 ["DataModel"]
+       79 LOADK                            R15 K31 ["ManageCollaborators"]
+       80 SETTABLEKS                       R15 R14 K26 ["PluginId"]
+       82 LOADK                            R15 K32 ["Actions"]
+       83 SETTABLEKS                       R15 R14 K27 ["Category"]
+       85 LOADK                            R15 K33 ["Open"]
+       86 SETTABLEKS                       R15 R14 K28 ["ItemId"]
+       88 DUPCLOSURE                       R15 K34 [PROTO_1]
+       89 CAPTURE                          VAL R8
+       90 CAPTURE                          VAL R7
+       91 CAPTURE                          VAL R6
+       92 CAPTURE                          VAL R14
+       93 CAPTURE                          VAL R13
+       94 CAPTURE                          VAL R10
+       95 CAPTURE                          VAL R4
+       96 CAPTURE                          VAL R1
+       97 CAPTURE                          VAL R9
+       98 CAPTURE                          VAL R12
+       99 CAPTURE                          VAL R3
+      100 RETURN                           R15 1

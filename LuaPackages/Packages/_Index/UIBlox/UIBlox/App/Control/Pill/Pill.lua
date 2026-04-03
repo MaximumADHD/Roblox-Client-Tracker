@@ -7,6 +7,7 @@ local Core = UIBlox.Core
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local Foundation = require(Packages.Foundation)
 
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
@@ -18,7 +19,8 @@ local getContentStyle = require(Core.Button.getContentStyle)
 
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
-local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
+local Skeleton = Foundation.Skeleton
+local Radius = Foundation.Enums.Radius
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 
 local INNER_PADDING = 12
@@ -163,9 +165,9 @@ function Pill:render()
 						MaxSize = Vector2.new(MAX_BUTTON_WIDTH, MAX_BUTTON_HEIGHT),
 					}),
 				})
-			or Roact.createElement(ShimmerPanel, {
-				Size = UDim2.new(0, pillWidth + LIST_PADDING + iconSize, 0, MAX_BUTTON_HEIGHT),
-				cornerRadius = UDim.new(1, 0),
+			or Roact.createElement(Skeleton, {
+				Size = UDim2.fromOffset(pillWidth + LIST_PADDING + iconSize, MAX_BUTTON_HEIGHT),
+				radius = Radius.Circle,
 			})
 	end)
 end

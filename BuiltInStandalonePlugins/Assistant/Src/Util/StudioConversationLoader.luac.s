@@ -485,10 +485,15 @@ PROTO_19:
        16 GETTABLEKS                       R2 R3 K6 ["PlaceId"]
        18 SETTABLEKS                       R2 R1 K3 ["placeId"]
        20 GETUPVAL                         R2 2
-       21 LOADNIL                          R3
-       22 MOVE                             R4 R1
-       23 CALL                             R2 2 0
-       24 RETURN                           R0 0
+       21 GETUPVAL                         R4 3
+       22 CALL                             R4 0 1
+       23 JUMPIFNOT                        R4 ; [+2]
+       24 LOADK                            R3 K7 ["Standalone"]
+       25 JUMP                             ; [+1]
+       26 LOADNIL                          R3
+       27 MOVE                             R4 R1
+       28 CALL                             R2 2 0
+       29 RETURN                           R0 0
 
 PROTO_20:
         0 LOADK                            R4 K0 ["DataModelSession"]
@@ -511,10 +516,15 @@ PROTO_20:
        26 GETTABLEKS                       R2 R3 K11 ["PlaceId"]
        28 SETTABLEKS                       R2 R1 K8 ["placeId"]
        30 GETUPVAL                         R2 2
-       31 LOADNIL                          R3
-       32 MOVE                             R4 R1
-       33 CALL                             R2 2 0
-       34 RETURN                           R0 0
+       31 GETUPVAL                         R4 3
+       32 CALL                             R4 0 1
+       33 JUMPIFNOT                        R4 ; [+2]
+       34 LOADK                            R3 K12 ["Standalone"]
+       35 JUMP                             ; [+1]
+       36 LOADNIL                          R3
+       37 MOVE                             R4 R1
+       38 CALL                             R2 2 0
+       39 RETURN                           R0 0
 
 PROTO_21:
         0 GETUPVAL                         R1 0
@@ -552,10 +562,15 @@ PROTO_21:
        42 LOADB                            R3 1
        43 SETTABLEKS                       R3 R2 K5 ["overwrite"]
        45 GETUPVAL                         R3 4
-       46 LOADNIL                          R4
-       47 MOVE                             R5 R2
-       48 CALL                             R3 2 0
-       49 RETURN                           R0 0
+       46 GETUPVAL                         R5 5
+       47 CALL                             R5 0 1
+       48 JUMPIFNOT                        R5 ; [+2]
+       49 LOADK                            R4 K7 ["Standalone"]
+       50 JUMP                             ; [+1]
+       51 LOADNIL                          R4
+       52 MOVE                             R5 R2
+       53 CALL                             R3 2 0
+       54 RETURN                           R0 0
 
 PROTO_22:
         0 GETUPVAL                         R0 0
@@ -637,88 +652,96 @@ PROTO_27:
         4 GETUPVAL                         R2 0
         5 NAMECALL                         R2 R2 K0 ["IsHost"]
         7 CALL                             R2 1 1
-        8 JUMPIFNOT                        R2 ; [+66]
+        8 JUMPIFNOT                        R2 ; [+74]
         9 NEWCLOSURE                       R2 P0
        10 CAPTURE                          UPVAL U1
        11 CAPTURE                          UPVAL U2
        12 CAPTURE                          UPVAL U3
-       13 GETTABLEKS                       R3 R0 K1 ["FocusedDataModelSession"]
-       15 JUMPIFNOT                        R3 ; [+24]
-       16 GETUPVAL                         R4 1
-       17 GETTABLEKS                       R5 R3 K2 ["SessionId"]
-       19 SETTABLEKS                       R5 R4 K3 ["sessionId"]
-       21 DUPTABLE                         R4 K6 [{"sessionId", "gameId", "placeId"}]
-       22 GETTABLEKS                       R5 R3 K2 ["SessionId"]
-       24 SETTABLEKS                       R5 R4 K3 ["sessionId"]
-       26 GETUPVAL                         R6 2
-       27 GETTABLEKS                       R5 R6 K7 ["GameId"]
-       29 SETTABLEKS                       R5 R4 K4 ["gameId"]
-       31 GETUPVAL                         R6 2
-       32 GETTABLEKS                       R5 R6 K8 ["PlaceId"]
-       34 SETTABLEKS                       R5 R4 K5 ["placeId"]
-       36 GETUPVAL                         R5 3
-       37 LOADNIL                          R6
-       38 MOVE                             R7 R4
-       39 CALL                             R5 2 0
-       40 GETTABLEKS                       R4 R0 K9 ["DataModelSessionStarted"]
-       42 NEWCLOSURE                       R6 P1
-       43 CAPTURE                          UPVAL U1
-       44 CAPTURE                          UPVAL U2
-       45 CAPTURE                          UPVAL U3
-       46 NAMECALL                         R4 R4 K10 ["Connect"]
-       48 CALL                             R4 2 1
-       49 GETUPVAL                         R6 2
-       50 GETTABLEKS                       R5 R6 K7 ["GameId"]
-       52 GETUPVAL                         R7 2
-       53 GETTABLEKS                       R6 R7 K8 ["PlaceId"]
-       55 GETUPVAL                         R7 4
-       56 NEWCLOSURE                       R9 P2
-       57 CAPTURE                          REF R5
-       58 CAPTURE                          REF R6
-       59 CAPTURE                          UPVAL U2
-       60 CAPTURE                          UPVAL U1
-       61 CAPTURE                          UPVAL U3
-       62 NAMECALL                         R7 R7 K10 ["Connect"]
-       64 CALL                             R7 2 1
-       65 NEWCLOSURE                       R10 P3
-       66 CAPTURE                          VAL R4
-       67 CAPTURE                          VAL R7
-       68 FASTCALL2                        TABLE_INSERT R1 R10 ; [+4]
-       70 MOVE                             R9 R1
-       71 GETIMPORT                        R8 K13 [table.insert]
-       73 CALL                             R8 2 0
-       74 CLOSEUPVALS                      R5
-       75 GETUPVAL                         R2 0
-       76 NAMECALL                         R2 R2 K14 ["IsGuest"]
-       78 CALL                             R2 1 1
-       79 JUMPIFNOT                        R2 ; [+33]
-       80 GETTABLEKS                       R2 R0 K1 ["FocusedDataModelSession"]
-       82 JUMPIFNOT                        R2 ; [+5]
-       83 GETUPVAL                         R3 1
-       84 GETTABLEKS                       R4 R2 K2 ["SessionId"]
-       86 SETTABLEKS                       R4 R3 K3 ["sessionId"]
-       88 GETTABLEKS                       R3 R0 K9 ["DataModelSessionStarted"]
-       90 NEWCLOSURE                       R5 P4
-       91 CAPTURE                          UPVAL U1
-       92 NAMECALL                         R3 R3 K10 ["Connect"]
-       94 CALL                             R3 2 1
-       95 GETTABLEKS                       R4 R0 K15 ["DataModelSessionEnded"]
-       97 NEWCLOSURE                       R6 P5
-       98 CAPTURE                          UPVAL U1
-       99 CAPTURE                          UPVAL U5
-      100 CAPTURE                          UPVAL U6
-      101 NAMECALL                         R4 R4 K10 ["Connect"]
-      103 CALL                             R4 2 1
-      104 NEWCLOSURE                       R7 P6
-      105 CAPTURE                          VAL R3
-      106 CAPTURE                          VAL R4
-      107 FASTCALL2                        TABLE_INSERT R1 R7 ; [+4]
-      109 MOVE                             R6 R1
-      110 GETIMPORT                        R5 K13 [table.insert]
-      112 CALL                             R5 2 0
-      113 NEWCLOSURE                       R2 P7
-      114 CAPTURE                          VAL R1
-      115 RETURN                           R2 1
+       13 CAPTURE                          UPVAL U4
+       14 GETTABLEKS                       R3 R0 K1 ["FocusedDataModelSession"]
+       16 JUMPIFNOT                        R3 ; [+29]
+       17 GETUPVAL                         R4 1
+       18 GETTABLEKS                       R5 R3 K2 ["SessionId"]
+       20 SETTABLEKS                       R5 R4 K3 ["sessionId"]
+       22 DUPTABLE                         R4 K6 [{"sessionId", "gameId", "placeId"}]
+       23 GETTABLEKS                       R5 R3 K2 ["SessionId"]
+       25 SETTABLEKS                       R5 R4 K3 ["sessionId"]
+       27 GETUPVAL                         R6 2
+       28 GETTABLEKS                       R5 R6 K7 ["GameId"]
+       30 SETTABLEKS                       R5 R4 K4 ["gameId"]
+       32 GETUPVAL                         R6 2
+       33 GETTABLEKS                       R5 R6 K8 ["PlaceId"]
+       35 SETTABLEKS                       R5 R4 K5 ["placeId"]
+       37 GETUPVAL                         R5 3
+       38 GETUPVAL                         R7 4
+       39 CALL                             R7 0 1
+       40 JUMPIFNOT                        R7 ; [+2]
+       41 LOADK                            R6 K9 ["Standalone"]
+       42 JUMP                             ; [+1]
+       43 LOADNIL                          R6
+       44 MOVE                             R7 R4
+       45 CALL                             R5 2 0
+       46 GETTABLEKS                       R4 R0 K10 ["DataModelSessionStarted"]
+       48 NEWCLOSURE                       R6 P1
+       49 CAPTURE                          UPVAL U1
+       50 CAPTURE                          UPVAL U2
+       51 CAPTURE                          UPVAL U3
+       52 CAPTURE                          UPVAL U4
+       53 NAMECALL                         R4 R4 K11 ["Connect"]
+       55 CALL                             R4 2 1
+       56 GETUPVAL                         R6 2
+       57 GETTABLEKS                       R5 R6 K7 ["GameId"]
+       59 GETUPVAL                         R7 2
+       60 GETTABLEKS                       R6 R7 K8 ["PlaceId"]
+       62 GETUPVAL                         R7 5
+       63 NEWCLOSURE                       R9 P2
+       64 CAPTURE                          REF R5
+       65 CAPTURE                          REF R6
+       66 CAPTURE                          UPVAL U2
+       67 CAPTURE                          UPVAL U1
+       68 CAPTURE                          UPVAL U3
+       69 CAPTURE                          UPVAL U4
+       70 NAMECALL                         R7 R7 K11 ["Connect"]
+       72 CALL                             R7 2 1
+       73 NEWCLOSURE                       R10 P3
+       74 CAPTURE                          VAL R4
+       75 CAPTURE                          VAL R7
+       76 FASTCALL2                        TABLE_INSERT R1 R10 ; [+4]
+       78 MOVE                             R9 R1
+       79 GETIMPORT                        R8 K14 [table.insert]
+       81 CALL                             R8 2 0
+       82 CLOSEUPVALS                      R5
+       83 GETUPVAL                         R2 0
+       84 NAMECALL                         R2 R2 K15 ["IsGuest"]
+       86 CALL                             R2 1 1
+       87 JUMPIFNOT                        R2 ; [+33]
+       88 GETTABLEKS                       R2 R0 K1 ["FocusedDataModelSession"]
+       90 JUMPIFNOT                        R2 ; [+5]
+       91 GETUPVAL                         R3 1
+       92 GETTABLEKS                       R4 R2 K2 ["SessionId"]
+       94 SETTABLEKS                       R4 R3 K3 ["sessionId"]
+       96 GETTABLEKS                       R3 R0 K10 ["DataModelSessionStarted"]
+       98 NEWCLOSURE                       R5 P4
+       99 CAPTURE                          UPVAL U1
+      100 NAMECALL                         R3 R3 K11 ["Connect"]
+      102 CALL                             R3 2 1
+      103 GETTABLEKS                       R4 R0 K16 ["DataModelSessionEnded"]
+      105 NEWCLOSURE                       R6 P5
+      106 CAPTURE                          UPVAL U1
+      107 CAPTURE                          UPVAL U6
+      108 CAPTURE                          UPVAL U7
+      109 NAMECALL                         R4 R4 K11 ["Connect"]
+      111 CALL                             R4 2 1
+      112 NEWCLOSURE                       R7 P6
+      113 CAPTURE                          VAL R3
+      114 CAPTURE                          VAL R4
+      115 FASTCALL2                        TABLE_INSERT R1 R7 ; [+4]
+      117 MOVE                             R6 R1
+      118 GETIMPORT                        R5 K14 [table.insert]
+      120 CALL                             R5 2 0
+      121 NEWCLOSURE                       R2 P7
+      122 CAPTURE                          VAL R1
+      123 RETURN                           R2 1
 
 PROTO_28:
         0 GETUPVAL                         R0 0
@@ -764,29 +787,30 @@ PROTO_30:
        19 CAPTURE                          VAL R1
        20 CAPTURE                          VAL R2
        21 CAPTURE                          VAL R6
-       22 CAPTURE                          VAL R5
-       23 CAPTURE                          UPVAL U0
-       24 CAPTURE                          UPVAL U1
-       25 LOADNIL                          R9
-       26 LOADK                            R12 K6 ["MultipleDocumentInterfaceInstance"]
-       27 NAMECALL                         R10 R3 K7 ["GetPropertyChangedSignal"]
-       29 CALL                             R10 2 1
-       30 NEWCLOSURE                       R12 P2
-       31 CAPTURE                          REF R9
-       32 CAPTURE                          VAL R8
-       33 CAPTURE                          VAL R3
-       34 NAMECALL                         R10 R10 K8 ["Connect"]
-       36 CALL                             R10 2 1
-       37 MOVE                             R11 R8
-       38 GETTABLEKS                       R12 R3 K6 ["MultipleDocumentInterfaceInstance"]
-       40 CALL                             R11 1 1
-       41 MOVE                             R9 R11
-       42 NEWCLOSURE                       R11 P3
-       43 CAPTURE                          VAL R7
-       44 CAPTURE                          VAL R10
-       45 CAPTURE                          REF R9
-       46 CLOSEUPVALS                      R9
-       47 RETURN                           R11 1
+       22 CAPTURE                          UPVAL U4
+       23 CAPTURE                          VAL R5
+       24 CAPTURE                          UPVAL U0
+       25 CAPTURE                          UPVAL U1
+       26 LOADNIL                          R9
+       27 LOADK                            R12 K6 ["MultipleDocumentInterfaceInstance"]
+       28 NAMECALL                         R10 R3 K7 ["GetPropertyChangedSignal"]
+       30 CALL                             R10 2 1
+       31 NEWCLOSURE                       R12 P2
+       32 CAPTURE                          REF R9
+       33 CAPTURE                          VAL R8
+       34 CAPTURE                          VAL R3
+       35 NAMECALL                         R10 R10 K8 ["Connect"]
+       37 CALL                             R10 2 1
+       38 MOVE                             R11 R8
+       39 GETTABLEKS                       R12 R3 K6 ["MultipleDocumentInterfaceInstance"]
+       41 CALL                             R11 1 1
+       42 MOVE                             R9 R11
+       43 NEWCLOSURE                       R11 P3
+       44 CAPTURE                          VAL R7
+       45 CAPTURE                          VAL R10
+       46 CAPTURE                          REF R9
+       47 CLOSEUPVALS                      R9
+       48 RETURN                           R11 1
 
 PROTO_31:
         0 GETUPVAL                         R0 0
@@ -1070,73 +1094,77 @@ MAIN:
        32 GETTABLEKS                       R6 R7 K11 ["Flags"]
        34 GETTABLEKS                       R5 R6 K12 ["FIntAssistantAutoSaveInterval"]
        36 CALL                             R4 1 1
-       37 GETTABLEKS                       R5 R1 K13 ["Serializer"]
-       39 GETTABLEKS                       R7 R1 K14 ["Utils"]
-       41 GETTABLEKS                       R6 R7 K15 ["Time"]
-       43 GETTABLEKS                       R8 R1 K16 ["Constants"]
-       45 GETTABLEKS                       R7 R8 K17 ["SCOPE_TYPES"]
-       47 GETTABLEKS                       R9 R1 K18 ["Types"]
-       49 GETTABLEKS                       R8 R9 K19 ["PersistenceOperation"]
-       51 NEWTABLE                         R9 0 0
-       53 NEWTABLE                         R10 0 0
-       55 GETTABLEKS                       R11 R3 K20 ["new"]
-       57 CALL                             R11 0 1
-       58 DUPCLOSURE                       R12 K21 [PROTO_0]
-       59 CAPTURE                          VAL R6
-       60 DUPCLOSURE                       R13 K22 [PROTO_1]
-       61 DUPCLOSURE                       R14 K23 [PROTO_3]
-       62 CAPTURE                          VAL R6
-       63 CAPTURE                          VAL R5
-       64 CAPTURE                          VAL R8
+       37 GETTABLEKS                       R7 R1 K11 ["Flags"]
+       39 GETTABLEKS                       R6 R7 K13 ["Shared"]
+       41 GETTABLEKS                       R5 R6 K14 ["FFlagAssistantDMNetworkIdentity"]
+       43 GETTABLEKS                       R6 R1 K15 ["Serializer"]
+       45 GETTABLEKS                       R8 R1 K16 ["Utils"]
+       47 GETTABLEKS                       R7 R8 K17 ["Time"]
+       49 GETTABLEKS                       R9 R1 K18 ["Constants"]
+       51 GETTABLEKS                       R8 R9 K19 ["SCOPE_TYPES"]
+       53 GETTABLEKS                       R10 R1 K20 ["Types"]
+       55 GETTABLEKS                       R9 R10 K21 ["PersistenceOperation"]
+       57 NEWTABLE                         R10 0 0
+       59 NEWTABLE                         R11 0 0
+       61 GETTABLEKS                       R12 R3 K22 ["new"]
+       63 CALL                             R12 0 1
+       64 DUPCLOSURE                       R13 K23 [PROTO_0]
        65 CAPTURE                          VAL R7
-       66 DUPCLOSURE                       R15 K24 [PROTO_7]
-       67 CAPTURE                          VAL R6
-       68 CAPTURE                          VAL R5
-       69 CAPTURE                          VAL R8
-       70 CAPTURE                          VAL R7
-       71 DUPCLOSURE                       R16 K25 [PROTO_8]
-       72 DUPCLOSURE                       R17 K26 [PROTO_10]
-       73 CAPTURE                          VAL R6
-       74 CAPTURE                          VAL R5
-       75 CAPTURE                          VAL R8
-       76 CAPTURE                          VAL R7
-       77 DUPCLOSURE                       R18 K27 [PROTO_14]
-       78 CAPTURE                          VAL R6
-       79 CAPTURE                          VAL R5
-       80 CAPTURE                          VAL R8
-       81 CAPTURE                          VAL R7
-       82 DUPCLOSURE                       R19 K28 [PROTO_16]
-       83 CAPTURE                          VAL R6
-       84 CAPTURE                          VAL R8
-       85 CAPTURE                          VAL R7
-       86 DUPCLOSURE                       R20 K29 [PROTO_17]
-       87 NEWCLOSURE                       R21 P9
-       88 CAPTURE                          REF R9
-       89 CAPTURE                          REF R10
-       90 CAPTURE                          VAL R3
-       91 CAPTURE                          VAL R11
-       92 DUPCLOSURE                       R22 K30 [PROTO_33]
-       93 CAPTURE                          VAL R4
-       94 NEWCLOSURE                       R23 P11
-       95 CAPTURE                          VAL R21
-       96 CAPTURE                          VAL R7
-       97 CAPTURE                          REF R9
-       98 CAPTURE                          VAL R11
-       99 CAPTURE                          VAL R15
-      100 CAPTURE                          VAL R22
-      101 CAPTURE                          VAL R18
-      102 CAPTURE                          VAL R14
-      103 CAPTURE                          VAL R17
-      104 CAPTURE                          VAL R19
-      105 NEWCLOSURE                       R24 P12
-      106 CAPTURE                          REF R9
-      107 CAPTURE                          REF R10
-      108 DUPTABLE                         R25 K33 [{"trackSessions", "test"}]
-      109 SETTABLEKS                       R23 R25 K31 ["trackSessions"]
-      111 DUPTABLE                         R26 K37 [{"saveConversation", "saveMessages", "clear"}]
-      112 SETTABLEKS                       R14 R26 K34 ["saveConversation"]
-      114 SETTABLEKS                       R17 R26 K35 ["saveMessages"]
-      116 SETTABLEKS                       R24 R26 K36 ["clear"]
-      118 SETTABLEKS                       R26 R25 K32 ["test"]
-      120 CLOSEUPVALS                      R9
-      121 RETURN                           R25 1
+       66 DUPCLOSURE                       R14 K24 [PROTO_1]
+       67 DUPCLOSURE                       R15 K25 [PROTO_3]
+       68 CAPTURE                          VAL R7
+       69 CAPTURE                          VAL R6
+       70 CAPTURE                          VAL R9
+       71 CAPTURE                          VAL R8
+       72 DUPCLOSURE                       R16 K26 [PROTO_7]
+       73 CAPTURE                          VAL R7
+       74 CAPTURE                          VAL R6
+       75 CAPTURE                          VAL R9
+       76 CAPTURE                          VAL R8
+       77 DUPCLOSURE                       R17 K27 [PROTO_8]
+       78 DUPCLOSURE                       R18 K28 [PROTO_10]
+       79 CAPTURE                          VAL R7
+       80 CAPTURE                          VAL R6
+       81 CAPTURE                          VAL R9
+       82 CAPTURE                          VAL R8
+       83 DUPCLOSURE                       R19 K29 [PROTO_14]
+       84 CAPTURE                          VAL R7
+       85 CAPTURE                          VAL R6
+       86 CAPTURE                          VAL R9
+       87 CAPTURE                          VAL R8
+       88 DUPCLOSURE                       R20 K30 [PROTO_16]
+       89 CAPTURE                          VAL R7
+       90 CAPTURE                          VAL R9
+       91 CAPTURE                          VAL R8
+       92 DUPCLOSURE                       R21 K31 [PROTO_17]
+       93 NEWCLOSURE                       R22 P9
+       94 CAPTURE                          REF R10
+       95 CAPTURE                          REF R11
+       96 CAPTURE                          VAL R3
+       97 CAPTURE                          VAL R12
+       98 CAPTURE                          VAL R5
+       99 DUPCLOSURE                       R23 K32 [PROTO_33]
+      100 CAPTURE                          VAL R4
+      101 NEWCLOSURE                       R24 P11
+      102 CAPTURE                          VAL R22
+      103 CAPTURE                          VAL R8
+      104 CAPTURE                          REF R10
+      105 CAPTURE                          VAL R12
+      106 CAPTURE                          VAL R16
+      107 CAPTURE                          VAL R23
+      108 CAPTURE                          VAL R19
+      109 CAPTURE                          VAL R15
+      110 CAPTURE                          VAL R18
+      111 CAPTURE                          VAL R20
+      112 NEWCLOSURE                       R25 P12
+      113 CAPTURE                          REF R10
+      114 CAPTURE                          REF R11
+      115 DUPTABLE                         R26 K35 [{"trackSessions", "test"}]
+      116 SETTABLEKS                       R24 R26 K33 ["trackSessions"]
+      118 DUPTABLE                         R27 K39 [{"saveConversation", "saveMessages", "clear"}]
+      119 SETTABLEKS                       R15 R27 K36 ["saveConversation"]
+      121 SETTABLEKS                       R18 R27 K37 ["saveMessages"]
+      123 SETTABLEKS                       R25 R27 K38 ["clear"]
+      125 SETTABLEKS                       R27 R26 K34 ["test"]
+      127 CLOSEUPVALS                      R10
+      128 RETURN                           R26 1

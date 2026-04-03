@@ -309,7 +309,7 @@ PROTO_6:
       111 GETUPVAL                         R27 5
       112 GETTABLEKS                       R26 R27 K30 ["TRACK_TYPES"]
       114 GETTABLEKS                       R25 R26 K31 ["CFrame"]
-      116 JUMPIFNOTEQ                      R24 R25 ; [+47]
+      116 JUMPIFNOTEQ                      R24 R25 ; [+46]
       118 GETUPVAL                         R24 6
       119 MOVE                             R25 R3
       120 MOVE                             R26 R17
@@ -332,44 +332,43 @@ PROTO_6:
       139 LOADN                            R43 3
       140 JUMPIFNOTLE                      R43 R42 ; [+3]
       142 LOADK                            R26 K34 [1.5707963267949]
-      143 JUMP                             ; [+13]
+      143 JUMP                             ; [+12]
       144 LOADN                            R43 255
       145 JUMPIFNOTLE                      R42 R43 ; [+3]
       147 LOADK                            R26 K35 [-1.5707963267949]
-      148 JUMP                             ; [+8]
+      148 JUMP                             ; [+7]
       149 SUBK                             R45 R42 K37 [1]
       150 DIVK                             R44 R45 K36 [2]
       151 FASTCALL1                        MATH_ACOS R44 ; [+2]
       152 GETIMPORT                        R43 K40 [math.acos]
       154 CALL                             R43 1 1
       155 MOVE                             R26 R43
-      156 JUMP                             ; [0]
-      157 FASTCALL2                        TABLE_INSERT R16 R26 ; [+4]
-      159 MOVE                             R25 R16
-      160 GETIMPORT                        R24 K23 [table.insert]
-      162 CALL                             R24 2 0
-      163 JUMP                             ; [+21]
-      164 GETTABLEKS                       R24 R23 K29 ["Type"]
-      166 GETUPVAL                         R27 5
-      167 GETTABLEKS                       R26 R27 K30 ["TRACK_TYPES"]
-      169 GETTABLEKS                       R25 R26 K41 ["Facs"]
-      171 JUMPIFNOTEQ                      R24 R25 ; [+13]
-      173 GETUPVAL                         R27 4
-      174 GETTABLEKS                       R26 R27 K24 ["getValue"]
-      176 MOVE                             R27 R23
-      177 MOVE                             R28 R15
-      178 CALL                             R26 2 1
-      179 FASTCALL2                        TABLE_INSERT R16 R26 ; [+4]
-      181 MOVE                             R25 R16
-      182 GETIMPORT                        R24 K23 [table.insert]
-      184 CALL                             R24 2 0
-      185 FORGLOOP                         R18 2 [inext] ; [-78]
-      187 SETTABLE                         R16 R10 R14
-      188 FORGLOOP                         R11 2 [inext] ; [-133]
-      190 GETUPVAL                         R11 7
-      191 MOVE                             R12 R10
-      192 CALL                             R11 1 -1
-      193 RETURN                           R11 -1
+      156 FASTCALL2                        TABLE_INSERT R16 R26 ; [+4]
+      158 MOVE                             R25 R16
+      159 GETIMPORT                        R24 K23 [table.insert]
+      161 CALL                             R24 2 0
+      162 JUMP                             ; [+21]
+      163 GETTABLEKS                       R24 R23 K29 ["Type"]
+      165 GETUPVAL                         R27 5
+      166 GETTABLEKS                       R26 R27 K30 ["TRACK_TYPES"]
+      168 GETTABLEKS                       R25 R26 K41 ["Facs"]
+      170 JUMPIFNOTEQ                      R24 R25 ; [+13]
+      172 GETUPVAL                         R27 4
+      173 GETTABLEKS                       R26 R27 K24 ["getValue"]
+      175 MOVE                             R27 R23
+      176 MOVE                             R28 R15
+      177 CALL                             R26 2 1
+      178 FASTCALL2                        TABLE_INSERT R16 R26 ; [+4]
+      180 MOVE                             R25 R16
+      181 GETIMPORT                        R24 K23 [table.insert]
+      183 CALL                             R24 2 0
+      184 FORGLOOP                         R18 2 [inext] ; [-77]
+      186 SETTABLE                         R16 R10 R14
+      187 FORGLOOP                         R11 2 [inext] ; [-132]
+      189 GETUPVAL                         R11 7
+      190 MOVE                             R12 R10
+      191 CALL                             R11 1 -1
+      192 RETURN                           R11 -1
 
 PROTO_7:
         0 GETUPVAL                         R4 0

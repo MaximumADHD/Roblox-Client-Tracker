@@ -28,6 +28,8 @@ local getUploadCategory = require(root.util.getUploadCategory)
 local RecreateSceneFromEditables = require(root.util.RecreateSceneFromEditables)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local getEngineFeatureEngineAQSJsonParsingInLua = require(root.flags.getEngineFeatureEngineAQSJsonParsingInLua)
+local R15plusUtils = require(root.util.R15plusUtils)
+local getFFlagDebugAllowHRDUploadOnBundleBackend = require(root.flags.getFFlagDebugAllowHRDUploadOnBundleBackend)
 
 local HttpService = game:GetService("HttpService")
 local TelemetryService = game:GetService("TelemetryService")
@@ -171,6 +173,9 @@ local function fetchQualityResults(sharedData: Types.SharedData, qualityTests: {
 	end
 
 	if success then
+		if getFFlagDebugUGCValidationPrintNewStructureResults() then
+			print("AQS Fetch Sucess:", sharedData.aqsSummaryData)
+		end
 		sharedData.aqsFetchMetrics.fetchStatus = kAssetQualityFetchSuccess
 	else
 		sharedData.aqsFetchMetrics.fetchFailureReason = errors
@@ -420,6 +425,10 @@ function ValidationManager.ValidateFinalizedBundle(
 	bundleTypeEnum: Enum.BundleType,
 	configs: Types.UGCValidationConsumerConfigs
 ): Types.ValidationResultData
+	if getFFlagDebugAllowHRDUploadOnBundleBackend() then
+		R15plusUtils.setIsBackendBundleUpload(configs.source == "Backend")
+	end
+
 	-- fullBodyData is a list of the body assets being published together. TODO: Adjust consumers to include accessories too, same format is fine
 	if getFFlagDebugUGCValidationPrintNewStructureResults() then
 		print(`==== {bundleTypeEnum.Name} Validation begin ====`)
@@ -449,7 +458,13 @@ function ValidationManager.ValidateFinalizedBundle(
 		consumerConfig = createConsumerConfigWithDefaults(configs),
 	}
 
-	return runValidationOnRootInstance(sharedData)
+	local result = runValidationOnRootInstance(sharedData)
+
+	if getFFlagDebugAllowHRDUploadOnBundleBackend() then
+		R15plusUtils.setIsBackendBundleUpload(false)
+	end
+
+	return result
 end
 
 return ValidationManager

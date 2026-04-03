@@ -19,7 +19,7 @@ PROTO_1:
         0 NEWTABLE                         R4 0 0
         2 GETUPVAL                         R5 0
         3 CALL                             R5 0 1
-        4 JUMPIFNOT                        R5 ; [+44]
+        4 JUMPIFNOT                        R5 ; [+52]
         5 NAMECALL                         R5 R0 K0 ["getItemsCache"]
         7 CALL                             R5 1 1
         8 NAMECALL                         R6 R1 K1 ["getCurrentScope"]
@@ -41,52 +41,65 @@ PROTO_1:
        31 JUMPIFNOTEQKNIL                  R12 ; [+2]
        33 LOADB                            R14 0 +1
        34 LOADB                            R14 1
-       35 FASTCALL1                        ASSERT R14 ; [+2]
-       36 GETIMPORT                        R13 K8 [assert]
-       38 CALL                             R13 1 0
-       39 FASTCALL2                        TABLE_INSERT R4 R12 ; [+5]
-       41 MOVE                             R14 R4
-       42 MOVE                             R15 R12
-       43 GETIMPORT                        R13 K11 [table.insert]
-       45 CALL                             R13 2 0
-       46 FORGLOOP                         R7 2 ; [-32]
-       48 RETURN                           R4 1
-       49 FASTCALL1                        TYPEOF R2 ; [+3]
-       50 MOVE                             R8 R2
-       51 GETIMPORT                        R7 K13 [typeof]
-       53 CALL                             R7 1 1
-       54 JUMPIFEQKS                       R7 K14 ["number"] ; [+2]
-       56 LOADB                            R6 0 +1
-       57 LOADB                            R6 1
-       58 FASTCALL1                        ASSERT R6 ; [+2]
-       59 GETIMPORT                        R5 K8 [assert]
-       61 CALL                             R5 1 0
-       62 NAMECALL                         R6 R0 K15 ["getItems"]
-       64 CALL                             R6 1 1
-       65 GETTABLE                         R5 R6 R2
-       66 MOVE                             R6 R3
-       67 LOADNIL                          R7
-       68 LOADNIL                          R8
-       69 FORGPREP                         R6
-       70 GETTABLE                         R11 R5 R10
-       71 GETUPVAL                         R14 1
-       72 GETTABLEKS                       R13 R14 K4 ["AssetInfoField"]
-       74 GETTABLEKS                       R12 R13 K5 ["Creator"]
-       76 JUMPIFNOTEQ                      R10 R12 ; [+3]
-       78 GETTABLEKS                       R11 R11 K6 ["Name"]
-       80 JUMPIFNOTEQKNIL                  R11 ; [+2]
-       82 LOADB                            R13 0 +1
-       83 LOADB                            R13 1
-       84 FASTCALL1                        ASSERT R13 ; [+2]
-       85 GETIMPORT                        R12 K8 [assert]
-       87 CALL                             R12 1 0
-       88 FASTCALL2                        TABLE_INSERT R4 R11 ; [+5]
-       90 MOVE                             R13 R4
-       91 MOVE                             R14 R11
-       92 GETIMPORT                        R12 K11 [table.insert]
-       94 CALL                             R12 2 0
-       95 FORGLOOP                         R6 2 ; [-26]
-       97 RETURN                           R4 1
+       35 LOADK                            R16 K7 ["Could not find field %* for asset with path %* in items cache"]
+       36 MOVE                             R18 R11
+       37 MOVE                             R19 R2
+       38 NAMECALL                         R16 R16 K8 ["format"]
+       40 CALL                             R16 3 1
+       41 MOVE                             R15 R16
+       42 FASTCALL2                        ASSERT R14 R15 ; [+3]
+       44 GETIMPORT                        R13 K10 [assert]
+       46 CALL                             R13 2 0
+       47 FASTCALL2                        TABLE_INSERT R4 R12 ; [+5]
+       49 MOVE                             R14 R4
+       50 MOVE                             R15 R12
+       51 GETIMPORT                        R13 K13 [table.insert]
+       53 CALL                             R13 2 0
+       54 FORGLOOP                         R7 2 ; [-40]
+       56 RETURN                           R4 1
+       57 FASTCALL1                        TYPEOF R2 ; [+3]
+       58 MOVE                             R8 R2
+       59 GETIMPORT                        R7 K15 [typeof]
+       61 CALL                             R7 1 1
+       62 JUMPIFEQKS                       R7 K16 ["number"] ; [+2]
+       64 LOADB                            R6 0 +1
+       65 LOADB                            R6 1
+       66 FASTCALL2K                       ASSERT R6 K17 ; [+4]
+       68 LOADK                            R7 K17 ["Expected assetId when FFlagAmrUpdatedItemsCache is false"]
+       69 GETIMPORT                        R5 K10 [assert]
+       71 CALL                             R5 2 0
+       72 NAMECALL                         R6 R0 K18 ["getItems"]
+       74 CALL                             R6 1 1
+       75 GETTABLE                         R5 R6 R2
+       76 MOVE                             R6 R3
+       77 LOADNIL                          R7
+       78 LOADNIL                          R8
+       79 FORGPREP                         R6
+       80 GETTABLE                         R11 R5 R10
+       81 GETUPVAL                         R14 1
+       82 GETTABLEKS                       R13 R14 K4 ["AssetInfoField"]
+       84 GETTABLEKS                       R12 R13 K5 ["Creator"]
+       86 JUMPIFNOTEQ                      R10 R12 ; [+3]
+       88 GETTABLEKS                       R11 R11 K6 ["Name"]
+       90 JUMPIFNOTEQKNIL                  R11 ; [+2]
+       92 LOADB                            R13 0 +1
+       93 LOADB                            R13 1
+       94 LOADK                            R15 K19 ["Could not find field %* for asset with id %* in items cache"]
+       95 MOVE                             R17 R10
+       96 MOVE                             R18 R2
+       97 NAMECALL                         R15 R15 K8 ["format"]
+       99 CALL                             R15 3 1
+      100 MOVE                             R14 R15
+      101 FASTCALL2                        ASSERT R13 R14 ; [+3]
+      103 GETIMPORT                        R12 K10 [assert]
+      105 CALL                             R12 2 0
+      106 FASTCALL2                        TABLE_INSERT R4 R11 ; [+5]
+      108 MOVE                             R13 R4
+      109 MOVE                             R14 R11
+      110 GETIMPORT                        R12 K13 [table.insert]
+      112 CALL                             R12 2 0
+      113 FORGLOOP                         R6 2 ; [-34]
+      115 RETURN                           R4 1
 
 PROTO_2:
         0 NEWTABLE                         R5 0 1

@@ -38,6 +38,8 @@ export type TabItem = {
 	isDisabled: boolean?,
 	-- Could be defined in the Tabs, since it's needed only there, but intersection types are hell with curent solver.
 	content: React.ReactNode?,
+	-- Ref to the tab item element
+	ref: React.RefObject<GuiObject?>?,
 }
 
 export type TabItemProps = TabItem & {

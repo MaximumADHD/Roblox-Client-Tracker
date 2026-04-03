@@ -46,6 +46,9 @@ local Constants = require(ContactList.Components.ContactListCommon.Constants)
 
 local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 
+local FFlagRemoveDependencyArrayAntipattern =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern
+
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer :: Player
 local localUserId: number = localPlayer and localPlayer.UserId or 0
@@ -214,11 +217,17 @@ local function FriendListContainer(props: Props)
 				end
 			end
 		end,
-		dependencyArray(
-			trimmedSearchText,
-			lastRemovedFriend,
-			if GetFFlagSuggestedCalleeBugFixEnabled() then requestSuggestedCallees else nil
-		)
+		if FFlagRemoveDependencyArrayAntipattern
+			then {
+				trimmedSearchText :: any,
+				lastRemovedFriend,
+				if GetFFlagSuggestedCalleeBugFixEnabled() then requestSuggestedCallees else nil,
+			}
+			else dependencyArray(
+				trimmedSearchText,
+				lastRemovedFriend,
+				if GetFFlagSuggestedCalleeBugFixEnabled() then requestSuggestedCallees else nil
+			)
 	)
 
 	React.useEffect(function()
@@ -229,7 +238,7 @@ local function FriendListContainer(props: Props)
 			setFriends({})
 			setNextPageCursor(nil)
 		end
-	end, dependencyArray(getFriends))
+	end, if FFlagRemoveDependencyArrayAntipattern then { getFriends } else dependencyArray(getFriends))
 
 	React.useEffect(function()
 		if status ~= RetrievalStatus.Fetching then
@@ -284,16 +293,27 @@ local function FriendListContainer(props: Props)
 				messageText = message,
 			})
 		end,
-		dependencyArray(
-			props.searchText,
-			friends,
-			getFriends,
-			localized.addFriendsLabel,
-			localized.genericErrorLabel,
-			localized.noFriendsLabel,
-			nextPageCursor,
-			status
-		)
+		if FFlagRemoveDependencyArrayAntipattern
+			then {
+				props.searchText :: any,
+				friends,
+				getFriends,
+				localized.addFriendsLabel,
+				localized.genericErrorLabel,
+				localized.noFriendsLabel,
+				nextPageCursor,
+				status,
+			}
+			else dependencyArray(
+				props.searchText,
+				friends,
+				getFriends,
+				localized.addFriendsLabel,
+				localized.genericErrorLabel,
+				localized.noFriendsLabel,
+				nextPageCursor,
+				status
+			)
 	)
 
 	local touchStarted = React.useCallback(function(touch: InputObject)
@@ -439,43 +459,67 @@ local function FriendListContainer(props: Props)
 
 			return entries
 		end,
-		dependencyArray(
-			friends,
-			nextPageCursor,
-			noFriendsText,
-			status,
-			namesFetch.data,
-			suggestedCallees,
-			trimmedSearchText,
-			localized.friendsDescription,
-			localized.friendsTitle,
-			localized.suggestedFriendsDescription,
-			localized.suggestedFriendsTitle
-		)
+		if FFlagRemoveDependencyArrayAntipattern
+			then {
+				friends :: any,
+				nextPageCursor,
+				noFriendsText,
+				status,
+				namesFetch.data,
+				suggestedCallees,
+				trimmedSearchText,
+				localized.friendsDescription,
+				localized.friendsTitle,
+				localized.suggestedFriendsDescription,
+				localized.suggestedFriendsTitle,
+			}
+			else dependencyArray(
+				friends,
+				nextPageCursor,
+				noFriendsText,
+				status,
+				namesFetch.data,
+				suggestedCallees,
+				trimmedSearchText,
+				localized.friendsDescription,
+				localized.friendsTitle,
+				localized.suggestedFriendsDescription,
+				localized.suggestedFriendsTitle
+			)
 	)
 
-	local onFetchNextPage = React.useCallback(function(f)
-		if
-			not isLoading.current
-			and status ~= RetrievalStatus.Failed
-			and nextPageCursor ~= nil
-			and f.CanvasPosition.Y >= f.AbsoluteCanvasSize.Y :: number - f.AbsoluteSize.Y :: number - 50
-		then
-			getFriends(friends, nextPageCursor)
-		end
-	end, dependencyArray(friends, getFriends, nextPageCursor, status))
+	local onFetchNextPage = React.useCallback(
+		function(f)
+			if
+				not isLoading.current
+				and status ~= RetrievalStatus.Failed
+				and nextPageCursor ~= nil
+				and f.CanvasPosition.Y >= f.AbsoluteCanvasSize.Y :: number - f.AbsoluteSize.Y :: number - 50
+			then
+				getFriends(friends, nextPageCursor)
+			end
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then { friends :: any, getFriends, nextPageCursor, status }
+			else dependencyArray(friends, getFriends, nextPageCursor, status)
+	)
 
-	React.useEffect(function()
-		-- This is used to handle the case where the number of records is less
-		-- than the height of the list. That means the list will never be
-		-- scrollable to fetch more items. This does not check if there is a
-		-- next page or if we are in a failure state. We'll check that in onFetchNextPage.
-		local totalHeight = (#children - 1) * Constants.ITEM_HEIGHT
+	React.useEffect(
+		function()
+			-- This is used to handle the case where the number of records is less
+			-- than the height of the list. That means the list will never be
+			-- scrollable to fetch more items. This does not check if there is a
+			-- next page or if we are in a failure state. We'll check that in onFetchNextPage.
+			local totalHeight = (#children - 1) * Constants.ITEM_HEIGHT
 
-		if scrollingFrameRef.current and totalHeight <= scrollingFrameRef.current.AbsoluteSize.Y then
-			onFetchNextPage(scrollingFrameRef.current)
-		end
-	end, dependencyArray(children, onFetchNextPage))
+			if scrollingFrameRef.current and totalHeight <= scrollingFrameRef.current.AbsoluteSize.Y then
+				onFetchNextPage(scrollingFrameRef.current)
+			end
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then { children :: any, onFetchNextPage }
+			else dependencyArray(children, onFetchNextPage)
+	)
 
 	return if #friends == 0 and status == RetrievalStatus.Fetching
 		then React.createElement("Frame", {

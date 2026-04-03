@@ -11,6 +11,7 @@ local Core = UIBlox.Core
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
+local Foundation = require(Packages.Foundation)
 
 local Interactable = require(Core.Control.Interactable)
 
@@ -23,7 +24,7 @@ local useCursorByType = require(App.SelectionCursor.useCursorByType)
 local CursorType = require(App.SelectionCursor.CursorType)
 local CursorKind = require(App.SelectionImage.CursorKind)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
-local ShimmerPanel = require(App.Loading.ShimmerPanel)
+local Skeleton = Foundation.Skeleton
 local IconSize = require(App.Constant.IconSize)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 
@@ -253,7 +254,7 @@ function DropdownMenuCell:render()
 			local buttonContentLayer
 			if isLoading then
 				buttonContentLayer = {
-					isLoadingShimmer = Roact.createElement(ShimmerPanel, {
+					isLoadingShimmer = Roact.createElement(Skeleton, {
 						Size = UDim2.fromScale(1, 1),
 					}),
 				}

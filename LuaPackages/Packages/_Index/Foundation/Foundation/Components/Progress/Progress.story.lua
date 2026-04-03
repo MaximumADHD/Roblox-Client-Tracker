@@ -4,7 +4,6 @@ local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local Button = require(Foundation.Components.Button)
-local Flags = require(Foundation.Utility.Flags)
 local Progress = require(Foundation.Components.Progress)
 local ProgressShape = require(Foundation.Enums.ProgressShape)
 local ProgressSize = require(Foundation.Enums.ProgressSize)
@@ -25,13 +24,7 @@ end
 local function AnimatedProgressStory()
 	-- TODO: When cleaning up FFlagFoundationProgressBindableValue, delete progressBinding and updateProgress.
 	-- This split was done to silence type solver errors
-	local progress, setProgress
-	local progressBinding, updateProgress
-	if not Flags.FoundationProgressBindableValue then
-		progress, setProgress = React.useState(0)
-	else
-		progressBinding, updateProgress = React.useBinding(0)
-	end
+	local progressBinding, updateProgress = React.useBinding(0)
 	local isAnimating, setIsAnimating = React.useState(false)
 
 	React.useEffect(function()
@@ -43,11 +36,7 @@ local function AnimatedProgressStory()
 			connection = game:GetService("RunService").Heartbeat:Connect(function()
 				local elapsed = tick() - startTime
 				local newProgress = math.min(elapsed / durationSeconds * 100, 100)
-				if Flags.FoundationProgressBindableValue then
-					updateProgress(newProgress)
-				else
-					setProgress(newProgress)
-				end
+				updateProgress(newProgress)
 
 				if newProgress >= 100 then
 					connection:Disconnect()
@@ -64,11 +53,7 @@ local function AnimatedProgressStory()
 	end, { isAnimating })
 
 	local function startAnimation()
-		if Flags.FoundationProgressBindableValue then
-			updateProgress(0)
-		else
-			setProgress(0)
-		end
+		updateProgress(0)
 		setIsAnimating(true)
 	end
 
@@ -76,25 +61,23 @@ local function AnimatedProgressStory()
 		tag = "col gap-medium auto-y size-full-0",
 	}, {
 		Title = React.createElement(Text, {
-			Text = if Flags.FoundationProgressBindableValue
-				then progressBinding:map(function(progressValue)
-					return `Progress: {math.floor(progressValue)}%`
-				end)
-				else `Progress: {math.floor(progress)}%`,
+			Text = progressBinding:map(function(progressValue)
+				return `Progress: {math.floor(progressValue)}%`
+			end),
 			tag = "size-0-0 auto-xy text-title-small content-emphasis",
 			LayoutOrder = 1,
 		}),
 
 		CircleProgress = React.createElement(Progress, {
 			shape = ProgressShape.Circle,
-			value = if Flags.FoundationProgressBindableValue then progressBinding else progress,
+			value = progressBinding,
 			size = ProgressSize.Large,
 			LayoutOrder = 2,
 		}),
 
 		BarProgress = React.createElement(Progress, {
 			shape = ProgressShape.Bar,
-			value = if Flags.FoundationProgressBindableValue then progressBinding else progress,
+			value = progressBinding,
 			size = ProgressSize.Medium,
 			LayoutOrder = 3,
 		}),

@@ -31,39 +31,38 @@ PROTO_1:
        29 GETTABLEKS                       R6 R2 K14 ["Hour"]
        31 JUMPIFNOTEQKN                    R6 K15 [0] ; [+3]
        33 LOADN                            R5 12
-       34 JUMP                             ; [+7]
+       34 JUMP                             ; [+6]
        35 LOADN                            R7 12
        36 JUMPIFNOTLT                      R7 R6 ; [+3]
        38 SUBK                             R5 R6 K16 [12]
-       39 JUMP                             ; [+2]
+       39 JUMP                             ; [+1]
        40 MOVE                             R5 R6
-       41 JUMP                             ; [0]
-       42 FASTCALL1                        TOSTRING R5 ; [+2]
-       43 GETIMPORT                        R4 K11 [tostring]
-       45 CALL                             R4 1 1
-       46 SETTABLEKS                       R4 R3 K5 ["hour"]
-       48 GETTABLEKS                       R5 R2 K14 ["Hour"]
-       50 LOADN                            R6 12
-       51 JUMPIFLE                         R6 R5 ; [+2]
-       53 LOADB                            R4 0 +1
-       54 LOADB                            R4 1
-       55 SETTABLEKS                       R4 R3 K6 ["isPm"]
-       57 GETTABLEKS                       R5 R2 K17 ["Minute"]
-       59 LOADN                            R6 10
-       60 JUMPIFNOTLT                      R5 R6 ; [+10]
-       62 LOADK                            R5 K18 ["0"]
-       63 GETTABLEKS                       R7 R2 K17 ["Minute"]
-       65 FASTCALL1                        TOSTRING R7 ; [+2]
-       66 GETIMPORT                        R6 K11 [tostring]
-       68 CALL                             R6 1 1
-       69 CONCAT                           R4 R5 R6
-       70 JUMP                             ; [+6]
-       71 GETTABLEKS                       R5 R2 K17 ["Minute"]
-       73 FASTCALL1                        TOSTRING R5 ; [+2]
-       74 GETIMPORT                        R4 K11 [tostring]
-       76 CALL                             R4 1 1
-       77 SETTABLEKS                       R4 R3 K7 ["minute"]
-       79 RETURN                           R3 1
+       41 FASTCALL1                        TOSTRING R5 ; [+2]
+       42 GETIMPORT                        R4 K11 [tostring]
+       44 CALL                             R4 1 1
+       45 SETTABLEKS                       R4 R3 K5 ["hour"]
+       47 GETTABLEKS                       R5 R2 K14 ["Hour"]
+       49 LOADN                            R6 12
+       50 JUMPIFLE                         R6 R5 ; [+2]
+       52 LOADB                            R4 0 +1
+       53 LOADB                            R4 1
+       54 SETTABLEKS                       R4 R3 K6 ["isPm"]
+       56 GETTABLEKS                       R5 R2 K17 ["Minute"]
+       58 LOADN                            R6 10
+       59 JUMPIFNOTLT                      R5 R6 ; [+10]
+       61 LOADK                            R5 K18 ["0"]
+       62 GETTABLEKS                       R7 R2 K17 ["Minute"]
+       64 FASTCALL1                        TOSTRING R7 ; [+2]
+       65 GETIMPORT                        R6 K11 [tostring]
+       67 CALL                             R6 1 1
+       68 CONCAT                           R4 R5 R6
+       69 JUMP                             ; [+6]
+       70 GETTABLEKS                       R5 R2 K17 ["Minute"]
+       72 FASTCALL1                        TOSTRING R5 ; [+2]
+       73 GETIMPORT                        R4 K11 [tostring]
+       75 CALL                             R4 1 1
+       76 SETTABLEKS                       R4 R3 K7 ["minute"]
+       78 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

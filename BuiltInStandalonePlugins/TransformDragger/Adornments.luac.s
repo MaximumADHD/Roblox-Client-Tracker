@@ -1049,9 +1049,39 @@ PROTO_23:
 
 PROTO_24:
         0 GETUPVAL                         R0 0
-        1 LOADN                            R1 14
-        2 CALL                             R0 1 0
-        3 RETURN                           R0 0
+        1 LOADB                            R1 1
+        2 SETTABLEN                        R1 R0 14
+        3 GETUPVAL                         R3 1
+        4 GETTABLEN                        R2 R3 14
+        5 GETTABLEN                        R1 R2 2
+        6 GETTABLEKS                       R0 R1 K0 ["Visible"]
+        8 JUMPIFNOT                        R0 ; [+32]
+        9 GETUPVAL                         R1 2
+       10 GETTABLEKS                       R0 R1 K1 ["getButtonState"]
+       12 GETUPVAL                         R4 2
+       13 GETTABLEKS                       R3 R4 K2 ["Enum"]
+       15 GETTABLEKS                       R2 R3 K3 ["Key"]
+       17 GETTABLEKS                       R1 R2 K4 ["MOUSE_BUTTON1"]
+       19 CALL                             R0 1 1
+       20 JUMPIFNOT                        R0 ; [+1]
+       21 RETURN                           R0 0
+       22 GETUPVAL                         R0 3
+       23 JUMPIFNOTEQKN                    R0 K5 [14] ; [+3]
+       25 LOADB                            R0 1
+       26 SETUPVAL                         R0 4
+       27 LOADN                            R0 14
+       28 GETUPVAL                         R1 3
+       29 JUMPIFNOTLE                      R1 R0 ; [+5]
+       31 GETUPVAL                         R0 3
+       32 JUMPIFEQKN                       R0 K6 [0] ; [+2]
+       34 RETURN                           R0 0
+       35 LOADB                            R0 1
+       36 SETUPVAL                         R0 5
+       37 LOADN                            R0 14
+       38 SETUPVAL                         R0 3
+       39 LOADB                            R0 1
+       40 SETUPVAL                         R0 4
+       41 RETURN                           R0 0
 
 PROTO_25:
         0 GETUPVAL                         R0 0
@@ -1352,482 +1382,487 @@ PROTO_28:
       339 LOADK                            R1 K43 [0.5]
       340 SETTABLEKS                       R1 R0 K44 ["ImageTransparency"]
       342 GETTABLEKS                       R1 R0 K45 ["MouseEnter"]
-      344 DUPCLOSURE                       R3 K46 [PROTO_24]
+      344 NEWCLOSURE                       R3 P0
       345 CAPTURE                          UPVAL U11
-      346 NAMECALL                         R1 R1 K47 ["connect"]
-      348 CALL                             R1 2 0
-      349 GETTABLEKS                       R1 R0 K48 ["MouseLeave"]
-      351 DUPCLOSURE                       R3 K49 [PROTO_25]
-      352 CAPTURE                          UPVAL U12
-      353 NAMECALL                         R1 R1 K47 ["connect"]
-      355 CALL                             R1 2 0
-      356 GETTABLEKS                       R1 R0 K50 ["InputBegan"]
-      358 NEWCLOSURE                       R3 P2
-      359 CAPTURE                          UPVAL U13
-      360 NAMECALL                         R1 R1 K47 ["connect"]
-      362 CALL                             R1 2 0
-      363 GETTABLEKS                       R1 R0 K51 ["InputEnded"]
-      365 NEWCLOSURE                       R3 P3
-      366 CAPTURE                          UPVAL U14
-      367 CAPTURE                          UPVAL U13
-      368 CAPTURE                          UPVAL U15
-      369 NAMECALL                         R1 R1 K47 ["connect"]
-      371 CALL                             R1 2 0
-      372 GETUPVAL                         R1 16
-      373 NEWTABLE                         R2 0 7
-      375 MOVE                             R3 R0
-      376 MOVE                             R4 R0
-      377 LOADN                            R5 14
-      378 NEWTABLE                         R6 0 2
-      380 GETUPVAL                         R7 17
-      381 LOADN                            R8 0
-      382 SETLIST                          R6 R7 2 [1]
-      384 NEWTABLE                         R7 0 2
-      386 GETUPVAL                         R8 10
-      387 LOADK                            R9 K43 [0.5]
-      388 SETLIST                          R7 R8 2 [1]
-      390 GETIMPORT                        R8 K20 [Vector2.new]
-      392 LOADN                            R9 1
-      393 LOADN                            R10 1
-      394 CALL                             R8 2 1
-      395 GETIMPORT                        R9 K20 [Vector2.new]
-      397 LOADN                            R10 1
-      398 LOADN                            R11 1
-      399 CALL                             R9 2 -1
-      400 SETLIST                          R2 R3 -1 [1]
-      402 SETTABLEN                        R2 R1 14
-      403 GETUPVAL                         R1 18
-      404 GETIMPORT                        R2 K29 [Instance.new]
-      406 LOADK                            R3 K52 ["LineHandleAdornment"]
-      407 GETUPVAL                         R4 9
-      408 CALL                             R2 2 1
-      409 SETTABLEN                        R2 R1 1
-      410 GETUPVAL                         R2 18
-      411 GETTABLEN                        R1 R2 1
-      412 LOADB                            R2 0
-      413 SETTABLEKS                       R2 R1 K53 ["Visible"]
-      415 GETUPVAL                         R2 18
+      346 CAPTURE                          UPVAL U12
+      347 CAPTURE                          UPVAL U13
+      348 CAPTURE                          UPVAL U14
+      349 CAPTURE                          UPVAL U15
+      350 CAPTURE                          UPVAL U16
+      351 NAMECALL                         R1 R1 K46 ["connect"]
+      353 CALL                             R1 2 0
+      354 GETTABLEKS                       R1 R0 K47 ["MouseLeave"]
+      356 DUPCLOSURE                       R3 K48 [PROTO_25]
+      357 CAPTURE                          UPVAL U17
+      358 NAMECALL                         R1 R1 K46 ["connect"]
+      360 CALL                             R1 2 0
+      361 GETTABLEKS                       R1 R0 K49 ["InputBegan"]
+      363 NEWCLOSURE                       R3 P2
+      364 CAPTURE                          UPVAL U18
+      365 NAMECALL                         R1 R1 K46 ["connect"]
+      367 CALL                             R1 2 0
+      368 GETTABLEKS                       R1 R0 K50 ["InputEnded"]
+      370 NEWCLOSURE                       R3 P3
+      371 CAPTURE                          UPVAL U14
+      372 CAPTURE                          UPVAL U18
+      373 CAPTURE                          UPVAL U19
+      374 NAMECALL                         R1 R1 K46 ["connect"]
+      376 CALL                             R1 2 0
+      377 GETUPVAL                         R1 12
+      378 NEWTABLE                         R2 0 7
+      380 MOVE                             R3 R0
+      381 MOVE                             R4 R0
+      382 LOADN                            R5 14
+      383 NEWTABLE                         R6 0 2
+      385 GETUPVAL                         R7 20
+      386 LOADN                            R8 0
+      387 SETLIST                          R6 R7 2 [1]
+      389 NEWTABLE                         R7 0 2
+      391 GETUPVAL                         R8 10
+      392 LOADK                            R9 K43 [0.5]
+      393 SETLIST                          R7 R8 2 [1]
+      395 GETIMPORT                        R8 K20 [Vector2.new]
+      397 LOADN                            R9 1
+      398 LOADN                            R10 1
+      399 CALL                             R8 2 1
+      400 GETIMPORT                        R9 K20 [Vector2.new]
+      402 LOADN                            R10 1
+      403 LOADN                            R11 1
+      404 CALL                             R9 2 -1
+      405 SETLIST                          R2 R3 -1 [1]
+      407 SETTABLEN                        R2 R1 14
+      408 GETUPVAL                         R1 21
+      409 GETIMPORT                        R2 K29 [Instance.new]
+      411 LOADK                            R3 K51 ["LineHandleAdornment"]
+      412 GETUPVAL                         R4 9
+      413 CALL                             R2 2 1
+      414 SETTABLEN                        R2 R1 1
+      415 GETUPVAL                         R2 21
       416 GETTABLEN                        R1 R2 1
-      417 GETUPVAL                         R2 7
-      418 SETTABLEKS                       R2 R1 K54 ["Color3"]
-      420 GETUPVAL                         R2 18
+      417 LOADB                            R2 0
+      418 SETTABLEKS                       R2 R1 K52 ["Visible"]
+      420 GETUPVAL                         R2 21
       421 GETTABLEN                        R1 R2 1
-      422 LOADN                            R2 3
-      423 SETTABLEKS                       R2 R1 K55 ["Thickness"]
-      425 GETUPVAL                         R2 18
+      422 GETUPVAL                         R2 7
+      423 SETTABLEKS                       R2 R1 K53 ["Color3"]
+      425 GETUPVAL                         R2 21
       426 GETTABLEN                        R1 R2 1
-      427 LOADN                            R2 5
-      428 SETTABLEKS                       R2 R1 K56 ["ZIndex"]
-      430 GETUPVAL                         R1 18
-      431 GETUPVAL                         R3 18
-      432 GETTABLEN                        R2 R3 1
-      433 NAMECALL                         R2 R2 K57 ["Clone"]
-      435 CALL                             R2 1 1
-      436 SETTABLEN                        R2 R1 2
-      437 GETUPVAL                         R2 18
-      438 GETTABLEN                        R1 R2 2
-      439 GETUPVAL                         R2 9
-      440 SETTABLEKS                       R2 R1 K58 ["Parent"]
-      442 GETUPVAL                         R2 18
+      427 LOADN                            R2 3
+      428 SETTABLEKS                       R2 R1 K54 ["Thickness"]
+      430 GETUPVAL                         R2 21
+      431 GETTABLEN                        R1 R2 1
+      432 LOADN                            R2 5
+      433 SETTABLEKS                       R2 R1 K55 ["ZIndex"]
+      435 GETUPVAL                         R1 21
+      436 GETUPVAL                         R3 21
+      437 GETTABLEN                        R2 R3 1
+      438 NAMECALL                         R2 R2 K56 ["Clone"]
+      440 CALL                             R2 1 1
+      441 SETTABLEN                        R2 R1 2
+      442 GETUPVAL                         R2 21
       443 GETTABLEN                        R1 R2 2
-      444 GETUPVAL                         R2 6
-      445 SETTABLEKS                       R2 R1 K54 ["Color3"]
-      447 GETUPVAL                         R1 18
-      448 GETUPVAL                         R3 18
-      449 GETTABLEN                        R2 R3 1
-      450 NAMECALL                         R2 R2 K57 ["Clone"]
-      452 CALL                             R2 1 1
-      453 SETTABLEN                        R2 R1 3
-      454 GETUPVAL                         R2 18
-      455 GETTABLEN                        R1 R2 3
-      456 GETUPVAL                         R2 9
-      457 SETTABLEKS                       R2 R1 K58 ["Parent"]
-      459 GETUPVAL                         R2 18
+      444 GETUPVAL                         R2 9
+      445 SETTABLEKS                       R2 R1 K57 ["Parent"]
+      447 GETUPVAL                         R2 21
+      448 GETTABLEN                        R1 R2 2
+      449 GETUPVAL                         R2 6
+      450 SETTABLEKS                       R2 R1 K53 ["Color3"]
+      452 GETUPVAL                         R1 21
+      453 GETUPVAL                         R3 21
+      454 GETTABLEN                        R2 R3 1
+      455 NAMECALL                         R2 R2 K56 ["Clone"]
+      457 CALL                             R2 1 1
+      458 SETTABLEN                        R2 R1 3
+      459 GETUPVAL                         R2 21
       460 GETTABLEN                        R1 R2 3
-      461 GETUPVAL                         R2 5
-      462 SETTABLEKS                       R2 R1 K54 ["Color3"]
-      464 GETUPVAL                         R1 19
-      465 JUMPIF                           R1 ; [+386]
-      466 GETIMPORT                        R1 K29 [Instance.new]
-      468 LOADK                            R2 K59 ["Frame"]
-      469 GETUPVAL                         R3 8
-      470 CALL                             R1 2 1
-      471 SETUPVAL                         R1 20
-      472 GETUPVAL                         R1 20
-      473 LOADB                            R2 0
-      474 SETTABLEKS                       R2 R1 K53 ["Visible"]
-      476 GETUPVAL                         R1 20
-      477 LOADK                            R2 K60 ["MeasureFrame"]
-      478 SETTABLEKS                       R2 R1 K32 ["Name"]
-      480 GETUPVAL                         R1 20
-      481 LOADK                            R2 K61 [0.45]
-      482 SETTABLEKS                       R2 R1 K36 ["BackgroundTransparency"]
-      484 GETUPVAL                         R1 20
-      485 LOADN                            R2 0
-      486 SETTABLEKS                       R2 R1 K37 ["BorderSizePixel"]
-      488 GETUPVAL                         R1 20
-      489 GETUPVAL                         R2 4
-      490 SETTABLEKS                       R2 R1 K62 ["BackgroundColor3"]
-      492 GETUPVAL                         R1 20
-      493 NAMECALL                         R1 R1 K57 ["Clone"]
-      495 CALL                             R1 1 1
-      496 SETUPVAL                         R1 21
-      497 GETUPVAL                         R1 21
-      498 GETUPVAL                         R2 8
-      499 SETTABLEKS                       R2 R1 K58 ["Parent"]
-      501 GETIMPORT                        R1 K29 [Instance.new]
-      503 LOADK                            R2 K63 ["TextLabel"]
-      504 GETUPVAL                         R3 20
-      505 CALL                             R1 2 1
-      506 SETUPVAL                         R1 22
-      507 GETUPVAL                         R1 22
-      508 LOADK                            R2 K64 ["MeasureLabel"]
-      509 SETTABLEKS                       R2 R1 K32 ["Name"]
-      511 GETUPVAL                         R1 22
-      512 GETIMPORT                        R2 K68 [Enum.Font.ArialBold]
-      514 SETTABLEKS                       R2 R1 K66 ["Font"]
-      516 GETUPVAL                         R1 22
-      517 GETIMPORT                        R2 K71 [Enum.FontSize.Size24]
-      519 SETTABLEKS                       R2 R1 K69 ["FontSize"]
-      521 GETUPVAL                         R1 22
-      522 LOADN                            R2 1
-      523 SETTABLEKS                       R2 R1 K36 ["BackgroundTransparency"]
-      525 GETUPVAL                         R1 22
-      526 LOADN                            R2 0
-      527 SETTABLEKS                       R2 R1 K37 ["BorderSizePixel"]
-      529 GETUPVAL                         R1 22
-      530 NAMECALL                         R1 R1 K57 ["Clone"]
-      532 CALL                             R1 1 1
-      533 SETUPVAL                         R1 23
-      534 GETUPVAL                         R1 23
-      535 GETUPVAL                         R2 21
-      536 SETTABLEKS                       R2 R1 K58 ["Parent"]
-      538 GETIMPORT                        R1 K29 [Instance.new]
-      540 LOADK                            R2 K63 ["TextLabel"]
-      541 GETUPVAL                         R3 20
-      542 CALL                             R1 2 1
-      543 SETUPVAL                         R1 24
-      544 GETUPVAL                         R1 24
-      545 LOADK                            R2 K72 ["UnitLabel"]
-      546 SETTABLEKS                       R2 R1 K32 ["Name"]
-      548 GETUPVAL                         R1 24
-      549 GETIMPORT                        R2 K68 [Enum.Font.ArialBold]
-      551 SETTABLEKS                       R2 R1 K66 ["Font"]
-      553 GETUPVAL                         R1 24
-      554 GETIMPORT                        R2 K74 [Enum.FontSize.Size14]
-      556 SETTABLEKS                       R2 R1 K69 ["FontSize"]
-      558 GETUPVAL                         R1 24
-      559 LOADN                            R2 1
-      560 SETTABLEKS                       R2 R1 K36 ["BackgroundTransparency"]
-      562 GETUPVAL                         R1 24
-      563 LOADN                            R2 0
-      564 SETTABLEKS                       R2 R1 K37 ["BorderSizePixel"]
-      566 GETUPVAL                         R1 24
-      567 NAMECALL                         R1 R1 K57 ["Clone"]
-      569 CALL                             R1 1 1
-      570 SETUPVAL                         R1 25
-      571 GETUPVAL                         R1 25
-      572 GETUPVAL                         R2 21
-      573 SETTABLEKS                       R2 R1 K58 ["Parent"]
-      575 GETIMPORT                        R1 K29 [Instance.new]
-      577 LOADK                            R2 K75 ["Part"]
-      578 GETIMPORT                        R4 K77 [game]
-      580 GETTABLEKS                       R3 R4 K78 ["CoreGui"]
-      582 CALL                             R1 2 1
-      583 SETUPVAL                         R1 19
-      584 GETUPVAL                         R1 19
-      585 LOADB                            R2 1
-      586 SETTABLEKS                       R2 R1 K79 ["Anchored"]
-      588 GETUPVAL                         R1 19
-      589 GETIMPORT                        R2 K5 [CFrame.new]
-      591 CALL                             R2 0 1
-      592 SETTABLEKS                       R2 R1 K3 ["CFrame"]
-      594 GETUPVAL                         R1 26
-      595 GETIMPORT                        R2 K29 [Instance.new]
-      597 LOADK                            R3 K52 ["LineHandleAdornment"]
-      598 GETUPVAL                         R4 9
-      599 CALL                             R2 2 1
-      600 SETTABLEN                        R2 R1 1
-      601 GETUPVAL                         R2 26
-      602 GETTABLEN                        R1 R2 1
-      603 LOADB                            R2 0
-      604 SETTABLEKS                       R2 R1 K53 ["Visible"]
-      606 GETUPVAL                         R2 26
+      461 GETUPVAL                         R2 9
+      462 SETTABLEKS                       R2 R1 K57 ["Parent"]
+      464 GETUPVAL                         R2 21
+      465 GETTABLEN                        R1 R2 3
+      466 GETUPVAL                         R2 5
+      467 SETTABLEKS                       R2 R1 K53 ["Color3"]
+      469 GETUPVAL                         R1 22
+      470 JUMPIF                           R1 ; [+386]
+      471 GETIMPORT                        R1 K29 [Instance.new]
+      473 LOADK                            R2 K58 ["Frame"]
+      474 GETUPVAL                         R3 8
+      475 CALL                             R1 2 1
+      476 SETUPVAL                         R1 23
+      477 GETUPVAL                         R1 23
+      478 LOADB                            R2 0
+      479 SETTABLEKS                       R2 R1 K52 ["Visible"]
+      481 GETUPVAL                         R1 23
+      482 LOADK                            R2 K59 ["MeasureFrame"]
+      483 SETTABLEKS                       R2 R1 K32 ["Name"]
+      485 GETUPVAL                         R1 23
+      486 LOADK                            R2 K60 [0.45]
+      487 SETTABLEKS                       R2 R1 K36 ["BackgroundTransparency"]
+      489 GETUPVAL                         R1 23
+      490 LOADN                            R2 0
+      491 SETTABLEKS                       R2 R1 K37 ["BorderSizePixel"]
+      493 GETUPVAL                         R1 23
+      494 GETUPVAL                         R2 4
+      495 SETTABLEKS                       R2 R1 K61 ["BackgroundColor3"]
+      497 GETUPVAL                         R1 23
+      498 NAMECALL                         R1 R1 K56 ["Clone"]
+      500 CALL                             R1 1 1
+      501 SETUPVAL                         R1 24
+      502 GETUPVAL                         R1 24
+      503 GETUPVAL                         R2 8
+      504 SETTABLEKS                       R2 R1 K57 ["Parent"]
+      506 GETIMPORT                        R1 K29 [Instance.new]
+      508 LOADK                            R2 K62 ["TextLabel"]
+      509 GETUPVAL                         R3 23
+      510 CALL                             R1 2 1
+      511 SETUPVAL                         R1 25
+      512 GETUPVAL                         R1 25
+      513 LOADK                            R2 K63 ["MeasureLabel"]
+      514 SETTABLEKS                       R2 R1 K32 ["Name"]
+      516 GETUPVAL                         R1 25
+      517 GETIMPORT                        R2 K67 [Enum.Font.ArialBold]
+      519 SETTABLEKS                       R2 R1 K65 ["Font"]
+      521 GETUPVAL                         R1 25
+      522 GETIMPORT                        R2 K70 [Enum.FontSize.Size24]
+      524 SETTABLEKS                       R2 R1 K68 ["FontSize"]
+      526 GETUPVAL                         R1 25
+      527 LOADN                            R2 1
+      528 SETTABLEKS                       R2 R1 K36 ["BackgroundTransparency"]
+      530 GETUPVAL                         R1 25
+      531 LOADN                            R2 0
+      532 SETTABLEKS                       R2 R1 K37 ["BorderSizePixel"]
+      534 GETUPVAL                         R1 25
+      535 NAMECALL                         R1 R1 K56 ["Clone"]
+      537 CALL                             R1 1 1
+      538 SETUPVAL                         R1 26
+      539 GETUPVAL                         R1 26
+      540 GETUPVAL                         R2 24
+      541 SETTABLEKS                       R2 R1 K57 ["Parent"]
+      543 GETIMPORT                        R1 K29 [Instance.new]
+      545 LOADK                            R2 K62 ["TextLabel"]
+      546 GETUPVAL                         R3 23
+      547 CALL                             R1 2 1
+      548 SETUPVAL                         R1 27
+      549 GETUPVAL                         R1 27
+      550 LOADK                            R2 K71 ["UnitLabel"]
+      551 SETTABLEKS                       R2 R1 K32 ["Name"]
+      553 GETUPVAL                         R1 27
+      554 GETIMPORT                        R2 K67 [Enum.Font.ArialBold]
+      556 SETTABLEKS                       R2 R1 K65 ["Font"]
+      558 GETUPVAL                         R1 27
+      559 GETIMPORT                        R2 K73 [Enum.FontSize.Size14]
+      561 SETTABLEKS                       R2 R1 K68 ["FontSize"]
+      563 GETUPVAL                         R1 27
+      564 LOADN                            R2 1
+      565 SETTABLEKS                       R2 R1 K36 ["BackgroundTransparency"]
+      567 GETUPVAL                         R1 27
+      568 LOADN                            R2 0
+      569 SETTABLEKS                       R2 R1 K37 ["BorderSizePixel"]
+      571 GETUPVAL                         R1 27
+      572 NAMECALL                         R1 R1 K56 ["Clone"]
+      574 CALL                             R1 1 1
+      575 SETUPVAL                         R1 28
+      576 GETUPVAL                         R1 28
+      577 GETUPVAL                         R2 24
+      578 SETTABLEKS                       R2 R1 K57 ["Parent"]
+      580 GETIMPORT                        R1 K29 [Instance.new]
+      582 LOADK                            R2 K74 ["Part"]
+      583 GETIMPORT                        R4 K76 [game]
+      585 GETTABLEKS                       R3 R4 K77 ["CoreGui"]
+      587 CALL                             R1 2 1
+      588 SETUPVAL                         R1 22
+      589 GETUPVAL                         R1 22
+      590 LOADB                            R2 1
+      591 SETTABLEKS                       R2 R1 K78 ["Anchored"]
+      593 GETUPVAL                         R1 22
+      594 GETIMPORT                        R2 K5 [CFrame.new]
+      596 CALL                             R2 0 1
+      597 SETTABLEKS                       R2 R1 K3 ["CFrame"]
+      599 GETUPVAL                         R1 29
+      600 GETIMPORT                        R2 K29 [Instance.new]
+      602 LOADK                            R3 K51 ["LineHandleAdornment"]
+      603 GETUPVAL                         R4 9
+      604 CALL                             R2 2 1
+      605 SETTABLEN                        R2 R1 1
+      606 GETUPVAL                         R2 29
       607 GETTABLEN                        R1 R2 1
-      608 GETUPVAL                         R2 10
-      609 SETTABLEKS                       R2 R1 K54 ["Color3"]
-      611 GETUPVAL                         R2 26
+      608 LOADB                            R2 0
+      609 SETTABLEKS                       R2 R1 K52 ["Visible"]
+      611 GETUPVAL                         R2 29
       612 GETTABLEN                        R1 R2 1
-      613 GETUPVAL                         R2 19
-      614 SETTABLEKS                       R2 R1 K80 ["Adornee"]
-      616 GETUPVAL                         R2 26
+      613 GETUPVAL                         R2 10
+      614 SETTABLEKS                       R2 R1 K53 ["Color3"]
+      616 GETUPVAL                         R2 29
       617 GETTABLEN                        R1 R2 1
-      618 LOADB                            R2 1
-      619 SETTABLEKS                       R2 R1 K81 ["AlwaysOnTop"]
-      621 GETUPVAL                         R2 26
+      618 GETUPVAL                         R2 22
+      619 SETTABLEKS                       R2 R1 K79 ["Adornee"]
+      621 GETUPVAL                         R2 29
       622 GETTABLEN                        R1 R2 1
-      623 LOADN                            R2 5
-      624 SETTABLEKS                       R2 R1 K56 ["ZIndex"]
-      626 GETUPVAL                         R1 26
-      627 GETUPVAL                         R3 26
-      628 GETTABLEN                        R2 R3 1
-      629 NAMECALL                         R2 R2 K57 ["Clone"]
-      631 CALL                             R2 1 1
-      632 SETTABLEN                        R2 R1 2
-      633 GETUPVAL                         R2 26
-      634 GETTABLEN                        R1 R2 2
-      635 GETUPVAL                         R2 9
-      636 SETTABLEKS                       R2 R1 K58 ["Parent"]
-      638 GETUPVAL                         R1 26
-      639 GETUPVAL                         R3 26
-      640 GETTABLEN                        R2 R3 1
-      641 NAMECALL                         R2 R2 K57 ["Clone"]
-      643 CALL                             R2 1 1
-      644 SETTABLEN                        R2 R1 3
-      645 GETUPVAL                         R2 26
-      646 GETTABLEN                        R1 R2 3
-      647 GETUPVAL                         R2 9
-      648 SETTABLEKS                       R2 R1 K58 ["Parent"]
-      650 GETUPVAL                         R1 26
-      651 GETUPVAL                         R3 26
-      652 GETTABLEN                        R2 R3 1
-      653 NAMECALL                         R2 R2 K57 ["Clone"]
-      655 CALL                             R2 1 1
-      656 SETTABLEN                        R2 R1 4
-      657 GETUPVAL                         R2 26
-      658 GETTABLEN                        R1 R2 4
-      659 GETUPVAL                         R2 9
-      660 SETTABLEKS                       R2 R1 K58 ["Parent"]
-      662 GETUPVAL                         R1 26
-      663 GETUPVAL                         R3 26
-      664 GETTABLEN                        R2 R3 1
-      665 NAMECALL                         R2 R2 K57 ["Clone"]
-      667 CALL                             R2 1 1
-      668 SETTABLEN                        R2 R1 5
-      669 GETUPVAL                         R2 26
-      670 GETTABLEN                        R1 R2 5
-      671 GETUPVAL                         R2 9
-      672 SETTABLEKS                       R2 R1 K58 ["Parent"]
-      674 GETUPVAL                         R1 26
-      675 GETUPVAL                         R3 26
-      676 GETTABLEN                        R2 R3 1
-      677 NAMECALL                         R2 R2 K57 ["Clone"]
-      679 CALL                             R2 1 1
-      680 SETTABLEN                        R2 R1 6
-      681 GETUPVAL                         R2 26
-      682 GETTABLEN                        R1 R2 6
-      683 GETUPVAL                         R2 9
-      684 SETTABLEKS                       R2 R1 K58 ["Parent"]
-      686 GETUPVAL                         R1 27
-      687 GETUPVAL                         R3 26
-      688 GETTABLEN                        R2 R3 1
-      689 NAMECALL                         R2 R2 K57 ["Clone"]
-      691 CALL                             R2 1 1
-      692 SETTABLEN                        R2 R1 1
-      693 GETUPVAL                         R2 27
-      694 GETTABLEN                        R1 R2 1
-      695 GETUPVAL                         R2 2
-      696 SETTABLEKS                       R2 R1 K54 ["Color3"]
-      698 GETUPVAL                         R2 27
+      623 LOADB                            R2 1
+      624 SETTABLEKS                       R2 R1 K80 ["AlwaysOnTop"]
+      626 GETUPVAL                         R2 29
+      627 GETTABLEN                        R1 R2 1
+      628 LOADN                            R2 5
+      629 SETTABLEKS                       R2 R1 K55 ["ZIndex"]
+      631 GETUPVAL                         R1 29
+      632 GETUPVAL                         R3 29
+      633 GETTABLEN                        R2 R3 1
+      634 NAMECALL                         R2 R2 K56 ["Clone"]
+      636 CALL                             R2 1 1
+      637 SETTABLEN                        R2 R1 2
+      638 GETUPVAL                         R2 29
+      639 GETTABLEN                        R1 R2 2
+      640 GETUPVAL                         R2 9
+      641 SETTABLEKS                       R2 R1 K57 ["Parent"]
+      643 GETUPVAL                         R1 29
+      644 GETUPVAL                         R3 29
+      645 GETTABLEN                        R2 R3 1
+      646 NAMECALL                         R2 R2 K56 ["Clone"]
+      648 CALL                             R2 1 1
+      649 SETTABLEN                        R2 R1 3
+      650 GETUPVAL                         R2 29
+      651 GETTABLEN                        R1 R2 3
+      652 GETUPVAL                         R2 9
+      653 SETTABLEKS                       R2 R1 K57 ["Parent"]
+      655 GETUPVAL                         R1 29
+      656 GETUPVAL                         R3 29
+      657 GETTABLEN                        R2 R3 1
+      658 NAMECALL                         R2 R2 K56 ["Clone"]
+      660 CALL                             R2 1 1
+      661 SETTABLEN                        R2 R1 4
+      662 GETUPVAL                         R2 29
+      663 GETTABLEN                        R1 R2 4
+      664 GETUPVAL                         R2 9
+      665 SETTABLEKS                       R2 R1 K57 ["Parent"]
+      667 GETUPVAL                         R1 29
+      668 GETUPVAL                         R3 29
+      669 GETTABLEN                        R2 R3 1
+      670 NAMECALL                         R2 R2 K56 ["Clone"]
+      672 CALL                             R2 1 1
+      673 SETTABLEN                        R2 R1 5
+      674 GETUPVAL                         R2 29
+      675 GETTABLEN                        R1 R2 5
+      676 GETUPVAL                         R2 9
+      677 SETTABLEKS                       R2 R1 K57 ["Parent"]
+      679 GETUPVAL                         R1 29
+      680 GETUPVAL                         R3 29
+      681 GETTABLEN                        R2 R3 1
+      682 NAMECALL                         R2 R2 K56 ["Clone"]
+      684 CALL                             R2 1 1
+      685 SETTABLEN                        R2 R1 6
+      686 GETUPVAL                         R2 29
+      687 GETTABLEN                        R1 R2 6
+      688 GETUPVAL                         R2 9
+      689 SETTABLEKS                       R2 R1 K57 ["Parent"]
+      691 GETUPVAL                         R1 30
+      692 GETUPVAL                         R3 29
+      693 GETTABLEN                        R2 R3 1
+      694 NAMECALL                         R2 R2 K56 ["Clone"]
+      696 CALL                             R2 1 1
+      697 SETTABLEN                        R2 R1 1
+      698 GETUPVAL                         R2 30
       699 GETTABLEN                        R1 R2 1
-      700 GETUPVAL                         R2 9
-      701 SETTABLEKS                       R2 R1 K58 ["Parent"]
-      703 GETUPVAL                         R2 27
+      700 GETUPVAL                         R2 2
+      701 SETTABLEKS                       R2 R1 K53 ["Color3"]
+      703 GETUPVAL                         R2 30
       704 GETTABLEN                        R1 R2 1
-      705 LOADN                            R2 2
-      706 SETTABLEKS                       R2 R1 K55 ["Thickness"]
-      708 GETUPVAL                         R2 27
+      705 GETUPVAL                         R2 9
+      706 SETTABLEKS                       R2 R1 K57 ["Parent"]
+      708 GETUPVAL                         R2 30
       709 GETTABLEN                        R1 R2 1
-      710 LOADK                            R2 K82 [0.6]
-      711 SETTABLEKS                       R2 R1 K83 ["Length"]
-      713 LOADN                            R3 2
-      714 LOADN                            R1 6
-      715 LOADN                            R2 1
-      716 FORNPREP                         R1
-      717 GETUPVAL                         R4 27
-      718 GETUPVAL                         R6 27
-      719 GETTABLEN                        R5 R6 1
-      720 NAMECALL                         R5 R5 K57 ["Clone"]
-      722 CALL                             R5 1 1
-      723 SETTABLE                         R5 R4 R3
-      724 GETUPVAL                         R5 27
-      725 GETTABLE                         R4 R5 R3
-      726 GETUPVAL                         R5 9
-      727 SETTABLEKS                       R5 R4 K58 ["Parent"]
-      729 FORNLOOP                         R1
-      730 GETUPVAL                         R1 28
-      731 GETIMPORT                        R2 K29 [Instance.new]
-      733 LOADK                            R3 K84 ["ConeHandleAdornment"]
-      734 GETUPVAL                         R4 9
-      735 CALL                             R2 2 1
-      736 SETTABLEN                        R2 R1 1
-      737 GETUPVAL                         R2 28
-      738 GETTABLEN                        R1 R2 1
-      739 LOADB                            R2 0
-      740 SETTABLEKS                       R2 R1 K53 ["Visible"]
-      742 GETUPVAL                         R2 28
+      710 LOADN                            R2 2
+      711 SETTABLEKS                       R2 R1 K54 ["Thickness"]
+      713 GETUPVAL                         R2 30
+      714 GETTABLEN                        R1 R2 1
+      715 LOADK                            R2 K81 [0.6]
+      716 SETTABLEKS                       R2 R1 K82 ["Length"]
+      718 LOADN                            R3 2
+      719 LOADN                            R1 6
+      720 LOADN                            R2 1
+      721 FORNPREP                         R1
+      722 GETUPVAL                         R4 30
+      723 GETUPVAL                         R6 30
+      724 GETTABLEN                        R5 R6 1
+      725 NAMECALL                         R5 R5 K56 ["Clone"]
+      727 CALL                             R5 1 1
+      728 SETTABLE                         R5 R4 R3
+      729 GETUPVAL                         R5 30
+      730 GETTABLE                         R4 R5 R3
+      731 GETUPVAL                         R5 9
+      732 SETTABLEKS                       R5 R4 K57 ["Parent"]
+      734 FORNLOOP                         R1
+      735 GETUPVAL                         R1 31
+      736 GETIMPORT                        R2 K29 [Instance.new]
+      738 LOADK                            R3 K83 ["ConeHandleAdornment"]
+      739 GETUPVAL                         R4 9
+      740 CALL                             R2 2 1
+      741 SETTABLEN                        R2 R1 1
+      742 GETUPVAL                         R2 31
       743 GETTABLEN                        R1 R2 1
-      744 GETUPVAL                         R2 10
-      745 SETTABLEKS                       R2 R1 K54 ["Color3"]
-      747 GETUPVAL                         R2 28
+      744 LOADB                            R2 0
+      745 SETTABLEKS                       R2 R1 K52 ["Visible"]
+      747 GETUPVAL                         R2 31
       748 GETTABLEN                        R1 R2 1
-      749 GETUPVAL                         R2 19
-      750 SETTABLEKS                       R2 R1 K80 ["Adornee"]
-      752 GETUPVAL                         R2 28
+      749 GETUPVAL                         R2 10
+      750 SETTABLEKS                       R2 R1 K53 ["Color3"]
+      752 GETUPVAL                         R2 31
       753 GETTABLEN                        R1 R2 1
-      754 LOADK                            R2 K43 [0.5]
-      755 SETTABLEKS                       R2 R1 K85 ["Height"]
-      757 GETUPVAL                         R2 28
+      754 GETUPVAL                         R2 22
+      755 SETTABLEKS                       R2 R1 K79 ["Adornee"]
+      757 GETUPVAL                         R2 31
       758 GETTABLEN                        R1 R2 1
-      759 LOADK                            R2 K86 [0.1]
-      760 SETTABLEKS                       R2 R1 K87 ["Radius"]
-      762 GETUPVAL                         R2 28
+      759 LOADK                            R2 K43 [0.5]
+      760 SETTABLEKS                       R2 R1 K84 ["Height"]
+      762 GETUPVAL                         R2 31
       763 GETTABLEN                        R1 R2 1
-      764 LOADB                            R2 1
-      765 SETTABLEKS                       R2 R1 K81 ["AlwaysOnTop"]
-      767 GETUPVAL                         R2 28
+      764 LOADK                            R2 K85 [0.1]
+      765 SETTABLEKS                       R2 R1 K86 ["Radius"]
+      767 GETUPVAL                         R2 31
       768 GETTABLEN                        R1 R2 1
-      769 LOADN                            R2 5
-      770 SETTABLEKS                       R2 R1 K56 ["ZIndex"]
-      772 GETUPVAL                         R1 28
-      773 GETUPVAL                         R3 28
-      774 GETTABLEN                        R2 R3 1
-      775 NAMECALL                         R2 R2 K57 ["Clone"]
-      777 CALL                             R2 1 1
-      778 SETTABLEN                        R2 R1 2
-      779 GETUPVAL                         R2 28
-      780 GETTABLEN                        R1 R2 2
-      781 GETUPVAL                         R2 9
-      782 SETTABLEKS                       R2 R1 K58 ["Parent"]
-      784 GETUPVAL                         R1 28
-      785 GETUPVAL                         R3 28
-      786 GETTABLEN                        R2 R3 1
-      787 NAMECALL                         R2 R2 K57 ["Clone"]
-      789 CALL                             R2 1 1
-      790 SETTABLEN                        R2 R1 3
-      791 GETUPVAL                         R2 28
-      792 GETTABLEN                        R1 R2 3
-      793 GETUPVAL                         R2 9
-      794 SETTABLEKS                       R2 R1 K58 ["Parent"]
-      796 GETUPVAL                         R1 28
-      797 GETUPVAL                         R3 28
-      798 GETTABLEN                        R2 R3 1
-      799 NAMECALL                         R2 R2 K57 ["Clone"]
-      801 CALL                             R2 1 1
-      802 SETTABLEN                        R2 R1 4
-      803 GETUPVAL                         R2 28
-      804 GETTABLEN                        R1 R2 4
-      805 GETUPVAL                         R2 9
-      806 SETTABLEKS                       R2 R1 K58 ["Parent"]
-      808 GETUPVAL                         R1 29
-      809 GETIMPORT                        R2 K29 [Instance.new]
-      811 LOADK                            R3 K33 ["ImageLabel"]
-      812 GETUPVAL                         R4 8
-      813 CALL                             R2 2 1
-      814 SETTABLEN                        R2 R1 1
-      815 GETUPVAL                         R2 29
-      816 GETTABLEN                        R1 R2 1
-      817 LOADB                            R2 0
-      818 SETTABLEKS                       R2 R1 K53 ["Visible"]
-      820 GETUPVAL                         R2 29
+      769 LOADB                            R2 1
+      770 SETTABLEKS                       R2 R1 K80 ["AlwaysOnTop"]
+      772 GETUPVAL                         R2 31
+      773 GETTABLEN                        R1 R2 1
+      774 LOADN                            R2 5
+      775 SETTABLEKS                       R2 R1 K55 ["ZIndex"]
+      777 GETUPVAL                         R1 31
+      778 GETUPVAL                         R3 31
+      779 GETTABLEN                        R2 R3 1
+      780 NAMECALL                         R2 R2 K56 ["Clone"]
+      782 CALL                             R2 1 1
+      783 SETTABLEN                        R2 R1 2
+      784 GETUPVAL                         R2 31
+      785 GETTABLEN                        R1 R2 2
+      786 GETUPVAL                         R2 9
+      787 SETTABLEKS                       R2 R1 K57 ["Parent"]
+      789 GETUPVAL                         R1 31
+      790 GETUPVAL                         R3 31
+      791 GETTABLEN                        R2 R3 1
+      792 NAMECALL                         R2 R2 K56 ["Clone"]
+      794 CALL                             R2 1 1
+      795 SETTABLEN                        R2 R1 3
+      796 GETUPVAL                         R2 31
+      797 GETTABLEN                        R1 R2 3
+      798 GETUPVAL                         R2 9
+      799 SETTABLEKS                       R2 R1 K57 ["Parent"]
+      801 GETUPVAL                         R1 31
+      802 GETUPVAL                         R3 31
+      803 GETTABLEN                        R2 R3 1
+      804 NAMECALL                         R2 R2 K56 ["Clone"]
+      806 CALL                             R2 1 1
+      807 SETTABLEN                        R2 R1 4
+      808 GETUPVAL                         R2 31
+      809 GETTABLEN                        R1 R2 4
+      810 GETUPVAL                         R2 9
+      811 SETTABLEKS                       R2 R1 K57 ["Parent"]
+      813 GETUPVAL                         R1 32
+      814 GETIMPORT                        R2 K29 [Instance.new]
+      816 LOADK                            R3 K33 ["ImageLabel"]
+      817 GETUPVAL                         R4 8
+      818 CALL                             R2 2 1
+      819 SETTABLEN                        R2 R1 1
+      820 GETUPVAL                         R2 32
       821 GETTABLEN                        R1 R2 1
-      822 LOADN                            R2 1
-      823 SETTABLEKS                       R2 R1 K36 ["BackgroundTransparency"]
-      825 GETUPVAL                         R2 29
+      822 LOADB                            R2 0
+      823 SETTABLEKS                       R2 R1 K52 ["Visible"]
+      825 GETUPVAL                         R2 32
       826 GETTABLEN                        R1 R2 1
-      827 LOADN                            R2 0
-      828 SETTABLEKS                       R2 R1 K37 ["BorderSizePixel"]
-      830 GETUPVAL                         R2 29
+      827 LOADN                            R2 1
+      828 SETTABLEKS                       R2 R1 K36 ["BackgroundTransparency"]
+      830 GETUPVAL                         R2 32
       831 GETTABLEN                        R1 R2 1
-      832 LOADK                            R2 K88 ["rbxasset://textures/gradient.png"]
-      833 SETTABLEKS                       R2 R1 K35 ["Image"]
-      835 LOADN                            R3 2
-      836 LOADN                            R1 8
-      837 LOADN                            R2 1
-      838 FORNPREP                         R1
-      839 GETUPVAL                         R4 29
-      840 GETUPVAL                         R6 29
-      841 GETTABLEN                        R5 R6 1
-      842 NAMECALL                         R5 R5 K57 ["Clone"]
-      844 CALL                             R5 1 1
-      845 SETTABLE                         R5 R4 R3
-      846 GETUPVAL                         R5 29
-      847 GETTABLE                         R4 R5 R3
-      848 GETUPVAL                         R5 8
-      849 SETTABLEKS                       R5 R4 K58 ["Parent"]
-      851 FORNLOOP                         R1
-      852 LOADN                            R3 1
-      853 LOADN                            R1 88
-      854 LOADN                            R2 1
-      855 FORNPREP                         R1
-      856 GETIMPORT                        R4 K29 [Instance.new]
-      858 LOADK                            R5 K52 ["LineHandleAdornment"]
-      859 GETUPVAL                         R6 9
-      860 CALL                             R4 2 1
-      861 LOADB                            R5 0
-      862 SETTABLEKS                       R5 R4 K53 ["Visible"]
-      864 GETUPVAL                         R5 19
-      865 SETTABLEKS                       R5 R4 K80 ["Adornee"]
-      867 LOADB                            R5 1
-      868 SETTABLEKS                       R5 R4 K81 ["AlwaysOnTop"]
-      870 LOADN                            R5 2
-      871 SETTABLEKS                       R5 R4 K56 ["ZIndex"]
-      873 GETUPVAL                         R5 10
-      874 SETTABLEKS                       R5 R4 K54 ["Color3"]
-      876 LOADN                            R5 2
-      877 SETTABLEKS                       R5 R4 K55 ["Thickness"]
-      879 GETUPVAL                         R6 30
-      880 FASTCALL2                        TABLE_INSERT R6 R4 ; [+4]
-      882 MOVE                             R7 R4
-      883 GETIMPORT                        R5 K91 [table.insert]
-      885 CALL                             R5 2 0
-      886 FORNLOOP                         R1
-      887 GETIMPORT                        R1 K29 [Instance.new]
-      889 LOADK                            R2 K52 ["LineHandleAdornment"]
-      890 GETUPVAL                         R3 9
-      891 CALL                             R1 2 1
-      892 LOADN                            R2 2
-      893 SETTABLEKS                       R2 R1 K83 ["Length"]
-      895 GETUPVAL                         R2 10
-      896 SETTABLEKS                       R2 R1 K54 ["Color3"]
-      898 LOADK                            R2 K2 [{0, 1, 0}]
-      899 SETTABLEKS                       R2 R1 K92 ["SizeRelativeOffset"]
-      901 GETIMPORT                        R2 K5 [CFrame.new]
-      903 LOADK                            R3 K93 [{0, -1, 0}]
-      904 LOADK                            R4 K93 [{0, -1, 0}]
-      905 CALL                             R2 2 1
-      906 SETTABLEKS                       R2 R1 K3 ["CFrame"]
-      908 LOADN                            R2 2
-      909 SETTABLEKS                       R2 R1 K55 ["Thickness"]
-      911 GETUPVAL                         R2 31
-      912 SETTABLEN                        R1 R2 1
-      913 GETUPVAL                         R2 31
-      914 NAMECALL                         R3 R1 K57 ["Clone"]
-      916 CALL                             R3 1 1
-      917 SETTABLEN                        R3 R2 2
-      918 GETUPVAL                         R3 31
-      919 GETTABLEN                        R2 R3 2
-      920 GETUPVAL                         R3 9
-      921 SETTABLEKS                       R3 R2 K58 ["Parent"]
-      923 GETUPVAL                         R2 31
-      924 NAMECALL                         R3 R1 K57 ["Clone"]
-      926 CALL                             R3 1 1
-      927 SETTABLEN                        R3 R2 3
-      928 GETUPVAL                         R3 31
-      929 GETTABLEN                        R2 R3 3
-      930 GETUPVAL                         R3 9
-      931 SETTABLEKS                       R3 R2 K58 ["Parent"]
-      933 GETUPVAL                         R2 31
-      934 NAMECALL                         R3 R1 K57 ["Clone"]
-      936 CALL                             R3 1 1
-      937 SETTABLEN                        R3 R2 4
-      938 GETUPVAL                         R3 31
-      939 GETTABLEN                        R2 R3 4
-      940 GETUPVAL                         R3 9
-      941 SETTABLEKS                       R3 R2 K58 ["Parent"]
-      943 LOADB                            R2 1
-      944 SETUPVAL                         R2 32
-      945 RETURN                           R0 0
+      832 LOADN                            R2 0
+      833 SETTABLEKS                       R2 R1 K37 ["BorderSizePixel"]
+      835 GETUPVAL                         R2 32
+      836 GETTABLEN                        R1 R2 1
+      837 LOADK                            R2 K87 ["rbxasset://textures/gradient.png"]
+      838 SETTABLEKS                       R2 R1 K35 ["Image"]
+      840 LOADN                            R3 2
+      841 LOADN                            R1 8
+      842 LOADN                            R2 1
+      843 FORNPREP                         R1
+      844 GETUPVAL                         R4 32
+      845 GETUPVAL                         R6 32
+      846 GETTABLEN                        R5 R6 1
+      847 NAMECALL                         R5 R5 K56 ["Clone"]
+      849 CALL                             R5 1 1
+      850 SETTABLE                         R5 R4 R3
+      851 GETUPVAL                         R5 32
+      852 GETTABLE                         R4 R5 R3
+      853 GETUPVAL                         R5 8
+      854 SETTABLEKS                       R5 R4 K57 ["Parent"]
+      856 FORNLOOP                         R1
+      857 LOADN                            R3 1
+      858 LOADN                            R1 88
+      859 LOADN                            R2 1
+      860 FORNPREP                         R1
+      861 GETIMPORT                        R4 K29 [Instance.new]
+      863 LOADK                            R5 K51 ["LineHandleAdornment"]
+      864 GETUPVAL                         R6 9
+      865 CALL                             R4 2 1
+      866 LOADB                            R5 0
+      867 SETTABLEKS                       R5 R4 K52 ["Visible"]
+      869 GETUPVAL                         R5 22
+      870 SETTABLEKS                       R5 R4 K79 ["Adornee"]
+      872 LOADB                            R5 1
+      873 SETTABLEKS                       R5 R4 K80 ["AlwaysOnTop"]
+      875 LOADN                            R5 2
+      876 SETTABLEKS                       R5 R4 K55 ["ZIndex"]
+      878 GETUPVAL                         R5 10
+      879 SETTABLEKS                       R5 R4 K53 ["Color3"]
+      881 LOADN                            R5 2
+      882 SETTABLEKS                       R5 R4 K54 ["Thickness"]
+      884 GETUPVAL                         R6 33
+      885 FASTCALL2                        TABLE_INSERT R6 R4 ; [+4]
+      887 MOVE                             R7 R4
+      888 GETIMPORT                        R5 K90 [table.insert]
+      890 CALL                             R5 2 0
+      891 FORNLOOP                         R1
+      892 GETIMPORT                        R1 K29 [Instance.new]
+      894 LOADK                            R2 K51 ["LineHandleAdornment"]
+      895 GETUPVAL                         R3 9
+      896 CALL                             R1 2 1
+      897 LOADN                            R2 2
+      898 SETTABLEKS                       R2 R1 K82 ["Length"]
+      900 GETUPVAL                         R2 10
+      901 SETTABLEKS                       R2 R1 K53 ["Color3"]
+      903 LOADK                            R2 K2 [{0, 1, 0}]
+      904 SETTABLEKS                       R2 R1 K91 ["SizeRelativeOffset"]
+      906 GETIMPORT                        R2 K5 [CFrame.new]
+      908 LOADK                            R3 K92 [{0, -1, 0}]
+      909 LOADK                            R4 K92 [{0, -1, 0}]
+      910 CALL                             R2 2 1
+      911 SETTABLEKS                       R2 R1 K3 ["CFrame"]
+      913 LOADN                            R2 2
+      914 SETTABLEKS                       R2 R1 K54 ["Thickness"]
+      916 GETUPVAL                         R2 34
+      917 SETTABLEN                        R1 R2 1
+      918 GETUPVAL                         R2 34
+      919 NAMECALL                         R3 R1 K56 ["Clone"]
+      921 CALL                             R3 1 1
+      922 SETTABLEN                        R3 R2 2
+      923 GETUPVAL                         R3 34
+      924 GETTABLEN                        R2 R3 2
+      925 GETUPVAL                         R3 9
+      926 SETTABLEKS                       R3 R2 K57 ["Parent"]
+      928 GETUPVAL                         R2 34
+      929 NAMECALL                         R3 R1 K56 ["Clone"]
+      931 CALL                             R3 1 1
+      932 SETTABLEN                        R3 R2 3
+      933 GETUPVAL                         R3 34
+      934 GETTABLEN                        R2 R3 3
+      935 GETUPVAL                         R3 9
+      936 SETTABLEKS                       R3 R2 K57 ["Parent"]
+      938 GETUPVAL                         R2 34
+      939 NAMECALL                         R3 R1 K56 ["Clone"]
+      941 CALL                             R3 1 1
+      942 SETTABLEN                        R3 R2 4
+      943 GETUPVAL                         R3 34
+      944 GETTABLEN                        R2 R3 4
+      945 GETUPVAL                         R3 9
+      946 SETTABLEKS                       R3 R2 K57 ["Parent"]
+      948 LOADB                            R2 1
+      949 SETUPVAL                         R2 35
+      950 RETURN                           R0 0
 
 PROTO_29:
         0 GETUPVAL                         R4 0
@@ -5945,262 +5980,265 @@ MAIN:
       228 CAPTURE                          REF R12
       229 CAPTURE                          VAL R7
       230 CAPTURE                          VAL R55
-      231 CAPTURE                          VAL R45
-      232 CAPTURE                          VAL R47
-      233 CAPTURE                          REF R43
+      231 CAPTURE                          REF R31
+      232 CAPTURE                          REF R4
+      233 CAPTURE                          VAL R1
       234 CAPTURE                          REF R30
-      235 CAPTURE                          REF R28
-      236 CAPTURE                          REF R4
-      237 CAPTURE                          VAL R58
-      238 CAPTURE                          VAL R23
-      239 CAPTURE                          REF R11
-      240 CAPTURE                          REF R13
-      241 CAPTURE                          REF R16
-      242 CAPTURE                          REF R14
-      243 CAPTURE                          REF R17
-      244 CAPTURE                          REF R15
-      245 CAPTURE                          REF R18
-      246 CAPTURE                          REF R19
-      247 CAPTURE                          REF R21
-      248 CAPTURE                          REF R20
-      249 CAPTURE                          REF R29
-      250 CAPTURE                          REF R22
-      251 CAPTURE                          REF R6
-      252 CAPTURE                          REF R9
-      253 NEWCLOSURE                       R65 P16
-      254 CAPTURE                          REF R4
-      255 CAPTURE                          REF R5
-      256 DUPCLOSURE                       R66 K48 [PROTO_30]
-      257 DUPCLOSURE                       R67 K49 [PROTO_31]
-      258 NEWCLOSURE                       R68 P19
-      259 CAPTURE                          REF R19
-      260 CAPTURE                          REF R20
-      261 NEWCLOSURE                       R69 P20
+      235 CAPTURE                          REF R44
+      236 CAPTURE                          REF R26
+      237 CAPTURE                          VAL R47
+      238 CAPTURE                          REF R43
+      239 CAPTURE                          REF R28
+      240 CAPTURE                          VAL R58
+      241 CAPTURE                          VAL R23
+      242 CAPTURE                          REF R11
+      243 CAPTURE                          REF R13
+      244 CAPTURE                          REF R16
+      245 CAPTURE                          REF R14
+      246 CAPTURE                          REF R17
+      247 CAPTURE                          REF R15
+      248 CAPTURE                          REF R18
+      249 CAPTURE                          REF R19
+      250 CAPTURE                          REF R21
+      251 CAPTURE                          REF R20
+      252 CAPTURE                          REF R29
+      253 CAPTURE                          REF R22
+      254 CAPTURE                          REF R6
+      255 CAPTURE                          REF R9
+      256 NEWCLOSURE                       R65 P16
+      257 CAPTURE                          REF R4
+      258 CAPTURE                          REF R5
+      259 DUPCLOSURE                       R66 K48 [PROTO_30]
+      260 DUPCLOSURE                       R67 K49 [PROTO_31]
+      261 NEWCLOSURE                       R68 P19
       262 CAPTURE                          REF R19
       263 CAPTURE                          REF R20
-      264 NEWCLOSURE                       R70 P21
-      265 CAPTURE                          REF R22
-      266 NEWCLOSURE                       R71 P22
-      267 CAPTURE                          REF R21
-      268 NEWCLOSURE                       R72 P23
-      269 CAPTURE                          REF R4
-      270 CAPTURE                          REF R5
-      271 NEWCLOSURE                       R73 P24
-      272 CAPTURE                          REF R6
-      273 CAPTURE                          REF R4
-      274 CAPTURE                          REF R5
-      275 CAPTURE                          REF R29
-      276 NEWCLOSURE                       R74 P25
-      277 CAPTURE                          REF R6
-      278 NEWCLOSURE                       R75 P26
-      279 CAPTURE                          REF R4
-      280 CAPTURE                          REF R5
-      281 NEWCLOSURE                       R76 P27
+      264 NEWCLOSURE                       R69 P20
+      265 CAPTURE                          REF R19
+      266 CAPTURE                          REF R20
+      267 NEWCLOSURE                       R70 P21
+      268 CAPTURE                          REF R22
+      269 NEWCLOSURE                       R71 P22
+      270 CAPTURE                          REF R21
+      271 NEWCLOSURE                       R72 P23
+      272 CAPTURE                          REF R4
+      273 CAPTURE                          REF R5
+      274 NEWCLOSURE                       R73 P24
+      275 CAPTURE                          REF R6
+      276 CAPTURE                          REF R4
+      277 CAPTURE                          REF R5
+      278 CAPTURE                          REF R29
+      279 NEWCLOSURE                       R74 P25
+      280 CAPTURE                          REF R6
+      281 NEWCLOSURE                       R75 P26
       282 CAPTURE                          REF R4
       283 CAPTURE                          REF R5
-      284 NEWCLOSURE                       R77 P28
+      284 NEWCLOSURE                       R76 P27
       285 CAPTURE                          REF R4
       286 CAPTURE                          REF R5
-      287 NEWCLOSURE                       R78 P29
+      287 NEWCLOSURE                       R77 P28
       288 CAPTURE                          REF R4
       289 CAPTURE                          REF R5
-      290 NEWCLOSURE                       R79 P30
+      290 NEWCLOSURE                       R78 P29
       291 CAPTURE                          REF R4
       292 CAPTURE                          REF R5
-      293 NEWCLOSURE                       R80 P31
+      293 NEWCLOSURE                       R79 P30
       294 CAPTURE                          REF R4
       295 CAPTURE                          REF R5
-      296 NEWTABLE                         R81 0 0
-      298 GETIMPORT                        R82 K15 [Instance.new]
-      300 LOADK                            R83 K16 ["Folder"]
-      301 MOVE                             R84 R8
-      302 CALL                             R82 2 1
-      303 LOADK                            R83 K50 ["LineGrid"]
-      304 SETTABLEKS                       R83 R82 K18 ["Name"]
-      306 DUPCLOSURE                       R83 K51 [PROTO_45]
-      307 CAPTURE                          VAL R82
-      308 CAPTURE                          VAL R3
-      309 DUPCLOSURE                       R84 K52 [PROTO_46]
-      310 CAPTURE                          VAL R81
-      311 NEWCLOSURE                       R85 P34
-      312 CAPTURE                          VAL R81
-      313 CAPTURE                          VAL R3
-      314 CAPTURE                          VAL R82
-      315 CAPTURE                          VAL R2
-      316 CAPTURE                          REF R27
-      317 CAPTURE                          VAL R58
-      318 CAPTURE                          VAL R55
-      319 NEWCLOSURE                       R86 P35
-      320 CAPTURE                          REF R29
-      321 DUPCLOSURE                       R87 K53 [PROTO_49]
-      322 CAPTURE                          VAL R86
-      323 NEWCLOSURE                       R88 P37
-      324 CAPTURE                          REF R10
-      325 CAPTURE                          REF R6
-      326 CAPTURE                          REF R24
-      327 CAPTURE                          VAL R1
-      328 CAPTURE                          VAL R82
-      329 CAPTURE                          VAL R3
-      330 CAPTURE                          REF R38
-      331 CAPTURE                          VAL R37
-      332 CAPTURE                          REF R39
-      333 CAPTURE                          REF R40
-      334 CAPTURE                          VAL R81
-      335 CAPTURE                          VAL R53
-      336 CAPTURE                          VAL R85
-      337 CAPTURE                          VAL R87
-      338 DUPCLOSURE                       R89 K54 [PROTO_51]
-      339 CAPTURE                          VAL R0
-      340 NEWCLOSURE                       R90 P39
-      341 CAPTURE                          REF R9
-      342 CAPTURE                          REF R4
-      343 CAPTURE                          VAL R1
-      344 CAPTURE                          REF R5
-      345 CAPTURE                          REF R6
-      346 CAPTURE                          REF R29
-      347 CAPTURE                          VAL R77
-      348 CAPTURE                          VAL R82
-      349 CAPTURE                          VAL R3
-      350 CAPTURE                          REF R30
-      351 CAPTURE                          REF R28
-      352 CAPTURE                          REF R32
-      353 CAPTURE                          VAL R23
-      354 CAPTURE                          VAL R89
-      355 CAPTURE                          REF R26
-      356 CAPTURE                          REF R27
-      357 CAPTURE                          VAL R2
-      358 CAPTURE                          VAL R55
-      359 CAPTURE                          VAL R56
-      360 CAPTURE                          VAL R59
-      361 CAPTURE                          VAL R88
-      362 NEWCLOSURE                       R91 P40
-      363 CAPTURE                          REF R4
-      364 CAPTURE                          REF R30
-      365 NEWCLOSURE                       R92 P41
-      366 CAPTURE                          REF R10
-      367 NEWCLOSURE                       R93 P42
-      368 CAPTURE                          REF R30
-      369 NEWCLOSURE                       R94 P43
-      370 CAPTURE                          REF R30
-      371 NEWCLOSURE                       R95 P44
-      372 CAPTURE                          VAL R34
-      373 CAPTURE                          REF R20
-      374 CAPTURE                          REF R19
-      375 CAPTURE                          VAL R33
-      376 CAPTURE                          REF R13
-      377 CAPTURE                          REF R14
-      378 CAPTURE                          REF R15
-      379 NEWCLOSURE                       R96 P45
-      380 CAPTURE                          VAL R34
-      381 CAPTURE                          REF R20
-      382 CAPTURE                          REF R19
-      383 CAPTURE                          VAL R33
-      384 CAPTURE                          REF R16
-      385 CAPTURE                          REF R17
-      386 CAPTURE                          REF R18
-      387 NEWCLOSURE                       R97 P46
-      388 CAPTURE                          REF R25
-      389 CAPTURE                          VAL R41
-      390 CAPTURE                          REF R22
-      391 CAPTURE                          VAL R33
-      392 CAPTURE                          REF R13
-      393 CAPTURE                          REF R14
-      394 CAPTURE                          REF R15
-      395 NEWCLOSURE                       R98 P47
-      396 CAPTURE                          VAL R42
-      397 CAPTURE                          REF R21
-      398 NEWCLOSURE                       R99 P48
-      399 CAPTURE                          REF R13
-      400 CAPTURE                          REF R16
-      401 CAPTURE                          REF R19
-      402 CAPTURE                          REF R20
-      403 CAPTURE                          REF R22
-      404 CAPTURE                          REF R21
-      405 CAPTURE                          VAL R35
-      406 CAPTURE                          VAL R3
-      407 CAPTURE                          REF R24
-      408 NEWCLOSURE                       R100 P49
-      409 CAPTURE                          REF R4
-      410 CAPTURE                          REF R5
-      411 CAPTURE                          VAL R77
-      412 NEWCLOSURE                       R101 P50
+      296 NEWCLOSURE                       R80 P31
+      297 CAPTURE                          REF R4
+      298 CAPTURE                          REF R5
+      299 NEWTABLE                         R81 0 0
+      301 GETIMPORT                        R82 K15 [Instance.new]
+      303 LOADK                            R83 K16 ["Folder"]
+      304 MOVE                             R84 R8
+      305 CALL                             R82 2 1
+      306 LOADK                            R83 K50 ["LineGrid"]
+      307 SETTABLEKS                       R83 R82 K18 ["Name"]
+      309 DUPCLOSURE                       R83 K51 [PROTO_45]
+      310 CAPTURE                          VAL R82
+      311 CAPTURE                          VAL R3
+      312 DUPCLOSURE                       R84 K52 [PROTO_46]
+      313 CAPTURE                          VAL R81
+      314 NEWCLOSURE                       R85 P34
+      315 CAPTURE                          VAL R81
+      316 CAPTURE                          VAL R3
+      317 CAPTURE                          VAL R82
+      318 CAPTURE                          VAL R2
+      319 CAPTURE                          REF R27
+      320 CAPTURE                          VAL R58
+      321 CAPTURE                          VAL R55
+      322 NEWCLOSURE                       R86 P35
+      323 CAPTURE                          REF R29
+      324 DUPCLOSURE                       R87 K53 [PROTO_49]
+      325 CAPTURE                          VAL R86
+      326 NEWCLOSURE                       R88 P37
+      327 CAPTURE                          REF R10
+      328 CAPTURE                          REF R6
+      329 CAPTURE                          REF R24
+      330 CAPTURE                          VAL R1
+      331 CAPTURE                          VAL R82
+      332 CAPTURE                          VAL R3
+      333 CAPTURE                          REF R38
+      334 CAPTURE                          VAL R37
+      335 CAPTURE                          REF R39
+      336 CAPTURE                          REF R40
+      337 CAPTURE                          VAL R81
+      338 CAPTURE                          VAL R53
+      339 CAPTURE                          VAL R85
+      340 CAPTURE                          VAL R87
+      341 DUPCLOSURE                       R89 K54 [PROTO_51]
+      342 CAPTURE                          VAL R0
+      343 NEWCLOSURE                       R90 P39
+      344 CAPTURE                          REF R9
+      345 CAPTURE                          REF R4
+      346 CAPTURE                          VAL R1
+      347 CAPTURE                          REF R5
+      348 CAPTURE                          REF R6
+      349 CAPTURE                          REF R29
+      350 CAPTURE                          VAL R77
+      351 CAPTURE                          VAL R82
+      352 CAPTURE                          VAL R3
+      353 CAPTURE                          REF R30
+      354 CAPTURE                          REF R28
+      355 CAPTURE                          REF R32
+      356 CAPTURE                          VAL R23
+      357 CAPTURE                          VAL R89
+      358 CAPTURE                          REF R26
+      359 CAPTURE                          REF R27
+      360 CAPTURE                          VAL R2
+      361 CAPTURE                          VAL R55
+      362 CAPTURE                          VAL R56
+      363 CAPTURE                          VAL R59
+      364 CAPTURE                          VAL R88
+      365 NEWCLOSURE                       R91 P40
+      366 CAPTURE                          REF R4
+      367 CAPTURE                          REF R30
+      368 NEWCLOSURE                       R92 P41
+      369 CAPTURE                          REF R10
+      370 NEWCLOSURE                       R93 P42
+      371 CAPTURE                          REF R30
+      372 NEWCLOSURE                       R94 P43
+      373 CAPTURE                          REF R30
+      374 NEWCLOSURE                       R95 P44
+      375 CAPTURE                          VAL R34
+      376 CAPTURE                          REF R20
+      377 CAPTURE                          REF R19
+      378 CAPTURE                          VAL R33
+      379 CAPTURE                          REF R13
+      380 CAPTURE                          REF R14
+      381 CAPTURE                          REF R15
+      382 NEWCLOSURE                       R96 P45
+      383 CAPTURE                          VAL R34
+      384 CAPTURE                          REF R20
+      385 CAPTURE                          REF R19
+      386 CAPTURE                          VAL R33
+      387 CAPTURE                          REF R16
+      388 CAPTURE                          REF R17
+      389 CAPTURE                          REF R18
+      390 NEWCLOSURE                       R97 P46
+      391 CAPTURE                          REF R25
+      392 CAPTURE                          VAL R41
+      393 CAPTURE                          REF R22
+      394 CAPTURE                          VAL R33
+      395 CAPTURE                          REF R13
+      396 CAPTURE                          REF R14
+      397 CAPTURE                          REF R15
+      398 NEWCLOSURE                       R98 P47
+      399 CAPTURE                          VAL R42
+      400 CAPTURE                          REF R21
+      401 NEWCLOSURE                       R99 P48
+      402 CAPTURE                          REF R13
+      403 CAPTURE                          REF R16
+      404 CAPTURE                          REF R19
+      405 CAPTURE                          REF R20
+      406 CAPTURE                          REF R22
+      407 CAPTURE                          REF R21
+      408 CAPTURE                          VAL R35
+      409 CAPTURE                          VAL R3
+      410 CAPTURE                          REF R24
+      411 NEWCLOSURE                       R100 P49
+      412 CAPTURE                          REF R4
       413 CAPTURE                          REF R5
-      414 NEWCLOSURE                       R102 P51
-      415 CAPTURE                          REF R28
-      416 NEWCLOSURE                       R103 P52
-      417 CAPTURE                          REF R28
-      418 CAPTURE                          REF R26
-      419 NEWCLOSURE                       R104 P53
-      420 CAPTURE                          REF R9
-      421 CAPTURE                          REF R4
-      422 CAPTURE                          REF R5
-      423 CAPTURE                          REF R6
-      424 CAPTURE                          REF R29
-      425 CAPTURE                          REF R22
-      426 CAPTURE                          REF R19
-      427 CAPTURE                          REF R21
-      428 CAPTURE                          REF R20
-      429 CAPTURE                          REF R12
-      430 CAPTURE                          VAL R23
-      431 CAPTURE                          REF R11
-      432 CAPTURE                          VAL R82
-      433 CAPTURE                          VAL R3
-      434 DUPCLOSURE                       R105 K55 [PROTO_67]
-      435 NEWCLOSURE                       R106 P55
-      436 CAPTURE                          VAL R99
-      437 CAPTURE                          REF R44
-      438 CAPTURE                          REF R30
-      439 CAPTURE                          REF R26
-      440 CAPTURE                          REF R4
-      441 CAPTURE                          REF R5
-      442 CAPTURE                          REF R31
-      443 CAPTURE                          REF R28
-      444 NEWCLOSURE                       R107 P56
-      445 CAPTURE                          REF R32
-      446 NEWCLOSURE                       R108 P57
-      447 CAPTURE                          REF R31
-      448 CAPTURE                          REF R4
-      449 CAPTURE                          VAL R1
-      450 NEWCLOSURE                       R109 P58
+      414 CAPTURE                          VAL R77
+      415 NEWCLOSURE                       R101 P50
+      416 CAPTURE                          REF R5
+      417 NEWCLOSURE                       R102 P51
+      418 CAPTURE                          REF R28
+      419 NEWCLOSURE                       R103 P52
+      420 CAPTURE                          REF R28
+      421 CAPTURE                          REF R26
+      422 NEWCLOSURE                       R104 P53
+      423 CAPTURE                          REF R9
+      424 CAPTURE                          REF R4
+      425 CAPTURE                          REF R5
+      426 CAPTURE                          REF R6
+      427 CAPTURE                          REF R29
+      428 CAPTURE                          REF R22
+      429 CAPTURE                          REF R19
+      430 CAPTURE                          REF R21
+      431 CAPTURE                          REF R20
+      432 CAPTURE                          REF R12
+      433 CAPTURE                          VAL R23
+      434 CAPTURE                          REF R11
+      435 CAPTURE                          VAL R82
+      436 CAPTURE                          VAL R3
+      437 DUPCLOSURE                       R105 K55 [PROTO_67]
+      438 NEWCLOSURE                       R106 P55
+      439 CAPTURE                          VAL R99
+      440 CAPTURE                          REF R44
+      441 CAPTURE                          REF R30
+      442 CAPTURE                          REF R26
+      443 CAPTURE                          REF R4
+      444 CAPTURE                          REF R5
+      445 CAPTURE                          REF R31
+      446 CAPTURE                          REF R28
+      447 NEWCLOSURE                       R107 P56
+      448 CAPTURE                          REF R32
+      449 NEWCLOSURE                       R108 P57
+      450 CAPTURE                          REF R31
       451 CAPTURE                          REF R4
-      452 CAPTURE                          REF R5
-      453 CAPTURE                          VAL R106
-      454 CAPTURE                          VAL R77
-      455 CAPTURE                          REF R31
-      456 CAPTURE                          REF R30
-      457 CAPTURE                          REF R44
-      458 CAPTURE                          REF R28
-      459 NEWTABLE                         R110 32 0
-      461 SETTABLEKS                       R64 R110 K56 ["initializeAdorns"]
-      463 SETTABLEKS                       R104 R110 K57 ["destroyAdorns"]
-      465 SETTABLEKS                       R76 R110 K58 ["adornInstanceWithTranslate"]
-      467 SETTABLEKS                       R78 R110 K59 ["adornInstanceWithScale"]
-      469 SETTABLEKS                       R80 R110 K60 ["adornInstanceWithRotate"]
-      471 SETTABLEKS                       R74 R110 K61 ["adornInstanceWithPlane"]
-      473 SETTABLEKS                       R90 R110 K62 ["updateAdornmentPositions"]
-      475 SETTABLEKS                       R73 R110 K63 ["setPlaneVisibility"]
-      477 SETTABLEKS                       R100 R110 K64 ["setAllAdornVisibility"]
-      479 SETTABLEKS                       R79 R110 K65 ["setRotateAdornVisibility"]
-      481 SETTABLEKS                       R75 R110 K66 ["setTranslateAdornVisibility"]
-      483 SETTABLEKS                       R77 R110 K67 ["setScaleAdornVisibility"]
-      485 SETTABLEKS                       R91 R110 K68 ["getCurrentAdornment"]
-      487 SETTABLEKS                       R95 R110 K69 ["scaleOne"]
-      489 SETTABLEKS                       R96 R110 K70 ["scaleTwo"]
-      491 SETTABLEKS                       R97 R110 K71 ["showRotate"]
-      493 SETTABLEKS                       R99 R110 K72 ["clearExtraAdorns"]
-      495 SETTABLEKS                       R47 R110 K73 ["hoverLeaveHandle"]
-      497 SETTABLEKS                       R98 R110 K74 ["drawPlaneCenter"]
-      499 SETTABLEKS                       R92 R110 K75 ["setWorkplaneAccessor"]
-      501 SETTABLEKS                       R101 R110 K76 ["resetShadow"]
-      503 SETTABLEKS                       R93 R110 K77 ["getCurrentHandle"]
-      505 SETTABLEKS                       R94 R110 K78 ["setCurrentHandle"]
-      507 SETTABLEKS                       R102 R110 K79 ["isPlaneSelectingModeOn"]
-      509 SETTABLEKS                       R103 R110 K80 ["setPlaneSelectingMode"]
-      511 SETTABLEKS                       R89 R110 K81 ["getAdornmentWorldCFrame"]
-      513 SETTABLEKS                       R105 R110 K82 ["grabHandle"]
-      515 SETTABLEKS                       R106 R110 K83 ["releaseHandle"]
-      517 SETTABLEKS                       R108 R110 K84 ["isOverPlaneSelect"]
-      519 SETTABLEKS                       R107 R110 K85 ["getYScale"]
-      521 SETTABLEKS                       R109 R110 K86 ["resetDragger"]
-      523 CLOSEUPVALS                      R4
-      524 RETURN                           R110 1
+      452 CAPTURE                          VAL R1
+      453 NEWCLOSURE                       R109 P58
+      454 CAPTURE                          REF R4
+      455 CAPTURE                          REF R5
+      456 CAPTURE                          VAL R106
+      457 CAPTURE                          VAL R77
+      458 CAPTURE                          REF R31
+      459 CAPTURE                          REF R30
+      460 CAPTURE                          REF R44
+      461 CAPTURE                          REF R28
+      462 NEWTABLE                         R110 32 0
+      464 SETTABLEKS                       R64 R110 K56 ["initializeAdorns"]
+      466 SETTABLEKS                       R104 R110 K57 ["destroyAdorns"]
+      468 SETTABLEKS                       R76 R110 K58 ["adornInstanceWithTranslate"]
+      470 SETTABLEKS                       R78 R110 K59 ["adornInstanceWithScale"]
+      472 SETTABLEKS                       R80 R110 K60 ["adornInstanceWithRotate"]
+      474 SETTABLEKS                       R74 R110 K61 ["adornInstanceWithPlane"]
+      476 SETTABLEKS                       R90 R110 K62 ["updateAdornmentPositions"]
+      478 SETTABLEKS                       R73 R110 K63 ["setPlaneVisibility"]
+      480 SETTABLEKS                       R100 R110 K64 ["setAllAdornVisibility"]
+      482 SETTABLEKS                       R79 R110 K65 ["setRotateAdornVisibility"]
+      484 SETTABLEKS                       R75 R110 K66 ["setTranslateAdornVisibility"]
+      486 SETTABLEKS                       R77 R110 K67 ["setScaleAdornVisibility"]
+      488 SETTABLEKS                       R91 R110 K68 ["getCurrentAdornment"]
+      490 SETTABLEKS                       R95 R110 K69 ["scaleOne"]
+      492 SETTABLEKS                       R96 R110 K70 ["scaleTwo"]
+      494 SETTABLEKS                       R97 R110 K71 ["showRotate"]
+      496 SETTABLEKS                       R99 R110 K72 ["clearExtraAdorns"]
+      498 SETTABLEKS                       R47 R110 K73 ["hoverLeaveHandle"]
+      500 SETTABLEKS                       R98 R110 K74 ["drawPlaneCenter"]
+      502 SETTABLEKS                       R92 R110 K75 ["setWorkplaneAccessor"]
+      504 SETTABLEKS                       R101 R110 K76 ["resetShadow"]
+      506 SETTABLEKS                       R93 R110 K77 ["getCurrentHandle"]
+      508 SETTABLEKS                       R94 R110 K78 ["setCurrentHandle"]
+      510 SETTABLEKS                       R102 R110 K79 ["isPlaneSelectingModeOn"]
+      512 SETTABLEKS                       R103 R110 K80 ["setPlaneSelectingMode"]
+      514 SETTABLEKS                       R89 R110 K81 ["getAdornmentWorldCFrame"]
+      516 SETTABLEKS                       R105 R110 K82 ["grabHandle"]
+      518 SETTABLEKS                       R106 R110 K83 ["releaseHandle"]
+      520 SETTABLEKS                       R108 R110 K84 ["isOverPlaneSelect"]
+      522 SETTABLEKS                       R107 R110 K85 ["getYScale"]
+      524 SETTABLEKS                       R109 R110 K86 ["resetDragger"]
+      526 CLOSEUPVALS                      R4
+      527 RETURN                           R110 1

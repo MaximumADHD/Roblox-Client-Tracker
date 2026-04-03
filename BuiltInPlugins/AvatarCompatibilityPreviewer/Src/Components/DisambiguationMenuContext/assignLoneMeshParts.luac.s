@@ -33,14 +33,14 @@ PROTO_1:
        10 LOADNIL                          R3
        11 FORGPREP                         R1
        12 GETTABLEKS                       R6 R5 K3 ["assetType"]
-       14 JUMPIFEQKNIL                     R6 ; [+293]
+       14 JUMPIFEQKNIL                     R6 ; [+307]
        16 GETTABLEKS                       R7 R5 K4 ["meshPart"]
        18 GETTABLEKS                       R6 R7 K5 ["Parent"]
-       20 JUMPIFEQKNIL                     R6 ; [+287]
+       20 JUMPIFEQKNIL                     R6 ; [+301]
        22 LOADK                            R9 K6 ["Humanoid"]
        23 NAMECALL                         R7 R6 K7 ["FindFirstChildWhichIsA"]
        25 CALL                             R7 2 1
-       26 JUMPIFEQKNIL                     R7 ; [+281]
+       26 JUMPIFEQKNIL                     R7 ; [+295]
        28 GETUPVAL                         R8 1
        29 MOVE                             R9 R6
        30 GETTABLEKS                       R10 R5 K8 ["attachmentName"]
@@ -53,7 +53,7 @@ PROTO_1:
        42 CALL                             R11 2 1
        43 MOVE                             R10 R11
        44 CALL                             R9 1 0
-       45 JUMP                             ; [+262]
+       45 JUMP                             ; [+276]
        46 GETUPVAL                         R11 2
        47 GETTABLEKS                       R10 R11 K13 ["ASSET_TYPE_TO_ACCESSORY_TYPE"]
        49 GETTABLEKS                       R11 R5 K3 ["assetType"]
@@ -66,7 +66,7 @@ PROTO_1:
        61 CALL                             R12 2 1
        62 MOVE                             R11 R12
        63 CALL                             R10 1 0
-       64 JUMP                             ; [+243]
+       64 JUMP                             ; [+257]
        65 GETIMPORT                        R10 K17 [Instance.new]
        67 LOADK                            R11 K18 ["Accessory"]
        68 CALL                             R10 1 1
@@ -212,18 +212,28 @@ PROTO_1:
       288 CALL                             R15 2 1
       289 SETTABLEKS                       R15 R14 K33 ["CFrame"]
       291 SETTABLEKS                       R13 R14 K5 ["Parent"]
-      293 GETUPVAL                         R16 3
-      294 GETTABLEKS                       R15 R16 K61 ["setOriginalPosition"]
-      296 MOVE                             R16 R14
-      297 GETTABLEKS                       R18 R14 K62 ["Position"]
-      299 MUL                              R17 R18 R12
-      300 CALL                             R15 2 0
-      301 GETTABLEKS                       R15 R5 K4 ["meshPart"]
-      303 NAMECALL                         R15 R15 K63 ["Destroy"]
-      305 CALL                             R15 1 0
-      306 SETTABLEKS                       R6 R10 K5 ["Parent"]
-      308 FORGLOOP                         R1 2 ; [-297]
-      310 RETURN                           R0 0
+      293 GETTABLEKS                       R15 R5 K4 ["meshPart"]
+      295 NAMECALL                         R15 R15 K61 ["Destroy"]
+      297 CALL                             R15 1 0
+      298 SETTABLEKS                       R6 R10 K5 ["Parent"]
+      300 GETUPVAL                         R15 4
+      301 CALL                             R15 0 1
+      302 JUMPIFNOT                        R15 ; [+11]
+      303 LOADK                            R17 K24 ["WrapLayer"]
+      304 NAMECALL                         R15 R13 K7 ["FindFirstChildWhichIsA"]
+      306 CALL                             R15 2 1
+      307 JUMPIFEQKNIL                     R15 ; [+6]
+      309 GETIMPORT                        R15 K62 [CFrame.new]
+      311 CALL                             R15 0 1
+      312 SETTABLEKS                       R15 R14 K33 ["CFrame"]
+      314 GETUPVAL                         R16 3
+      315 GETTABLEKS                       R15 R16 K63 ["setOriginalPosition"]
+      317 MOVE                             R16 R14
+      318 GETTABLEKS                       R18 R14 K64 ["Position"]
+      320 MUL                              R17 R18 R12
+      321 CALL                             R15 2 0
+      322 FORGLOOP                         R1 2 ; [-311]
+      324 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -237,24 +247,30 @@ MAIN:
        13 GETTABLEKS                       R2 R3 K8 ["getFFlagFixLayeredClothingAssignment"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K6 ["Src"]
-       20 GETTABLEKS                       R3 R4 K9 ["Types"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K6 ["Src"]
-       27 GETTABLEKS                       R5 R6 K10 ["Util"]
-       29 GETTABLEKS                       R4 R5 K11 ["Constants"]
+       18 GETTABLEKS                       R5 R0 K6 ["Src"]
+       20 GETTABLEKS                       R4 R5 K7 ["Flags"]
+       22 GETTABLEKS                       R3 R4 K9 ["getFFlagAvatarPreviewerLayeredAttachmentFix"]
+       24 CALL                             R2 1 1
+       25 GETIMPORT                        R3 K5 [require]
+       27 GETTABLEKS                       R5 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R5 K10 ["Types"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
        34 GETTABLEKS                       R7 R0 K6 ["Src"]
-       36 GETTABLEKS                       R6 R7 K10 ["Util"]
-       38 GETTABLEKS                       R5 R6 K12 ["HumanoidValueUtil"]
+       36 GETTABLEKS                       R6 R7 K11 ["Util"]
+       38 GETTABLEKS                       R5 R6 K12 ["Constants"]
        40 CALL                             R4 1 1
-       41 DUPCLOSURE                       R5 K13 [PROTO_0]
-       42 CAPTURE                          VAL R3
-       43 DUPCLOSURE                       R6 K14 [PROTO_1]
-       44 CAPTURE                          VAL R1
-       45 CAPTURE                          VAL R5
-       46 CAPTURE                          VAL R3
-       47 CAPTURE                          VAL R4
-       48 RETURN                           R6 1
+       41 GETIMPORT                        R5 K5 [require]
+       43 GETTABLEKS                       R8 R0 K6 ["Src"]
+       45 GETTABLEKS                       R7 R8 K11 ["Util"]
+       47 GETTABLEKS                       R6 R7 K13 ["HumanoidValueUtil"]
+       49 CALL                             R5 1 1
+       50 DUPCLOSURE                       R6 K14 [PROTO_0]
+       51 CAPTURE                          VAL R4
+       52 DUPCLOSURE                       R7 K15 [PROTO_1]
+       53 CAPTURE                          VAL R1
+       54 CAPTURE                          VAL R6
+       55 CAPTURE                          VAL R4
+       56 CAPTURE                          VAL R5
+       57 CAPTURE                          VAL R2
+       58 RETURN                           R7 1

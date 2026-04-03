@@ -112,6 +112,7 @@ type _CatalogSortDataFields = {
 	description: string,
 	card_style: CatalogSortCardStyle?,
 	card_footers: { CatalogSortCardItemFooter },
+	tag_id: string,
 }
 
 type _CatalogSortDataPartialFields = {
@@ -125,6 +126,7 @@ type _CatalogSortDataPartialFields = {
 	description: string?,
 	card_style: CatalogSortCardStyle?,
 	card_footers: { CatalogSortCardItemFooter }?,
+	tag_id: string?,
 }
 
 export type CatalogSortData = typeof(setmetatable({} :: _CatalogSortDataFields, {} :: _CatalogSortDataImpl))
@@ -468,6 +470,7 @@ do
 			description = if data == nil or data.description == nil then "" else data.description,
 			card_style = if data == nil or data.card_style == nil then nil else data.card_style,
 			card_footers = if data == nil or data.card_footers == nil then {} else data.card_footers,
+			tag_id = if data == nil or data.tag_id == nil then "" else data.tag_id,
 		}, _CatalogSortDataImpl :: _CatalogSortDataImpl)
 	end
 
@@ -530,6 +533,11 @@ do
 				output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
+		end
+
+		if self.tag_id ~= nil and self.tag_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.tag_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -600,6 +608,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(self.card_footers, messages.CatalogSortCardItemFooter.decode(value))
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tag_id = buffer.tostring(value)
 					continue
 				end
 
@@ -674,6 +687,10 @@ do
 				table.insert(newOutput, value:jsonEncode())
 			end
 			output.cardFooters = newOutput
+		end
+
+		if self.tag_id ~= nil and self.tag_id ~= "" then
+			output.tagId = self.tag_id
 		end
 
 		return output
@@ -755,6 +772,14 @@ do
 			end
 
 			self.card_footers = newOutput
+		end
+
+		if input.tag_id ~= nil then
+			self.tag_id = input.tag_id
+		end
+
+		if input.tagId ~= nil then
+			self.tag_id = input.tagId
 		end
 
 		return self

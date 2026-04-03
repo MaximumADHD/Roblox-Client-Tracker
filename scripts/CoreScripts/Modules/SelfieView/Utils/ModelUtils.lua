@@ -1,7 +1,8 @@
 --!strict
 local CollectionService = game:GetService("CollectionService")
-local FFlagSelfViewAvatarJointUpgrade = game:DefineFastFlag("SelfViewAvatarJointUpgrade", false)
 local FFlagSelfViewNeckCheck = game:DefineFastFlag("SelfViewNeckCheck", false)
+
+local FFlagSelfViewR15PlusSupport = game:DefineFastFlag("SelfViewR15PlusSupport", false)
 
 --we want to trigger UpdateClone which recreates the clone fresh as rarely as possible (performance optimization),
 --so for triggering dirty on DescendantAdded or DescendantRemoving we only trigger it for things which make a visual difference
@@ -262,14 +263,17 @@ local ALLOWLISTED_INSTANCE_TYPES = {
 	Accessory = "Accessory",
 	Animator = "Animator",
 	Attachment = "Attachment",
-	AnimationConstraint = FFlagSelfViewAvatarJointUpgrade and "AnimationConstraint" or nil,
-	BallSocketConstraint = FFlagSelfViewAvatarJointUpgrade and "BallSocketConstraint" or nil,
+	AnimationConstraint = "AnimationConstraint",
+	BallSocketConstraint = "BallSocketConstraint",
 	BodyColors = "BodyColors",
+	Bone = if FFlagSelfViewR15PlusSupport then "Bone" else nil,
 	CharacterMesh = "CharacterMesh",
 	Decal = "Decal",
+	DigitsRigDescription = if FFlagSelfViewR15PlusSupport then "DigitsRigDescription" else nil,
 	FaceControls = "FaceControls",
 	Humanoid = "Humanoid",
 	HumanoidDescription = "HumanoidDescription",
+	HumanoidRigDescription = if FFlagSelfViewR15PlusSupport then "HumanoidRigDescription" else nil,
 	MeshPart = "MeshPart",
 	Motor6D = "Motor6D",
 	NumberValue = "NumberValue",

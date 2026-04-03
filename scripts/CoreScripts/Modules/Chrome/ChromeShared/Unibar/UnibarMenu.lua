@@ -20,11 +20,10 @@ local FFlagUnibarMenuOpenSubmenu = ChromeFlags.FFlagUnibarMenuOpenSubmenu
 
 local ChromeSharedFlags = require(Root.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
-
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 local ChromeService = require(Root.Service)
-local UnibarStyle = require(Root.Unibar.UnibarStyle)
+local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
 
 local _integrations = if GetFFlagChromeCentralizedConfiguration() then nil else require(Root.Parent.Integrations)
 local SubMenu = require(Root.Unibar.SubMenu)

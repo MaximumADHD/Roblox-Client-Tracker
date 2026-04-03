@@ -43,7 +43,7 @@ PROTO_2:
        22 LOADK                            R4 K9 ["PVInstance"]
        23 NAMECALL                         R2 R2 K10 ["IsA"]
        25 CALL                             R2 2 1
-       26 JUMPIFNOT                        R2 ; [+179]
+       26 JUMPIFNOT                        R2 ; [+177]
        27 GETTABLEKS                       R2 R0 K4 ["Adornee"]
        29 NAMECALL                         R3 R0 K11 ["GetAbsolutePosition"]
        31 CALL                             R3 1 1
@@ -93,11 +93,11 @@ PROTO_2:
       104 GETIMPORT                        R8 K40 [math.abs]
       106 CALL                             R8 1 1
       107 LOADK                            R9 K41 [0.9]
-      108 JUMPIFNOTLT                      R9 R8 ; [+59]
+      108 JUMPIFNOTLT                      R9 R8 ; [+57]
       110 GETTABLEKS                       R10 R7 K42 ["X"]
       112 JUMPIFNOTEQKN                    R10 K43 [0] ; [+3]
       114 LOADK                            R9 K44 [0.1]
-      115 JUMP                             ; [+17]
+      115 JUMP                             ; [+16]
       116 FASTCALL1                        MATH_ABS R10 ; [+3]
       117 MOVE                             R12 R10
       118 GETIMPORT                        R11 K40 [math.abs]
@@ -109,67 +109,65 @@ PROTO_2:
       126 GETIMPORT                        R11 K46 [math.sign]
       128 CALL                             R11 1 1
       129 MULK                             R9 R11 K44 [0.1]
-      130 JUMP                             ; [+2]
+      130 JUMP                             ; [+1]
       131 MOVE                             R9 R10
-      132 JUMP                             ; [0]
-      133 GETTABLEKS                       R12 R7 K37 ["Y"]
-      135 FASTCALL1                        MATH_SIGN R12 ; [+2]
-      136 GETIMPORT                        R11 K46 [math.sign]
-      138 CALL                             R11 1 1
-      139 MULK                             R10 R11 K41 [0.9]
-      140 GETTABLEKS                       R12 R7 K47 ["Z"]
-      142 JUMPIFNOTEQKN                    R12 K43 [0] ; [+3]
-      144 LOADK                            R11 K44 [0.1]
-      145 JUMP                             ; [+17]
-      146 FASTCALL1                        MATH_ABS R12 ; [+3]
-      147 MOVE                             R14 R12
-      148 GETIMPORT                        R13 K40 [math.abs]
-      150 CALL                             R13 1 1
-      151 LOADK                            R14 K44 [0.1]
-      152 JUMPIFNOTLT                      R13 R14 ; [+8]
-      154 FASTCALL1                        MATH_SIGN R12 ; [+3]
-      155 MOVE                             R14 R12
-      156 GETIMPORT                        R13 K46 [math.sign]
-      158 CALL                             R13 1 1
-      159 MULK                             R11 R13 K44 [0.1]
-      160 JUMP                             ; [+2]
-      161 MOVE                             R11 R12
-      162 JUMP                             ; [0]
-      163 FASTCALL                         VECTOR ; [+2]
-      164 GETIMPORT                        R8 K49 [Vector3.new]
-      166 CALL                             R8 3 1
-      167 MOVE                             R7 R8
-      168 GETUPVAL                         R8 0
-      169 GETIMPORT                        R11 K25 [workspace]
-      171 GETTABLEKS                       R10 R11 K29 ["CurrentCamera"]
-      173 GETIMPORT                        R11 K51 [TweenInfo.new]
-      175 LOADK                            R12 K52 [0.3]
-      176 GETIMPORT                        R13 K55 [Enum.EasingStyle.Circular]
-      178 GETIMPORT                        R14 K58 [Enum.EasingDirection.InOut]
-      180 CALL                             R11 3 1
-      181 DUPTABLE                         R12 K59 [{"CFrame"}]
-      182 GETIMPORT                        R13 K61 [CFrame.lookAt]
-      184 MULK                             R15 R7 K62 [10]
-      185 ADD                              R14 R3 R15
-      186 MOVE                             R15 R3
-      187 CALL                             R13 2 1
-      188 SETTABLEKS                       R13 R12 K33 ["CFrame"]
-      190 NAMECALL                         R8 R8 K63 ["Create"]
-      192 CALL                             R8 4 1
-      193 GETTABLEKS                       R9 R8 K64 ["Completed"]
-      195 NEWCLOSURE                       R11 P0
-      196 CAPTURE                          VAL R6
-      197 CAPTURE                          VAL R1
-      198 CAPTURE                          VAL R0
-      199 NAMECALL                         R9 R9 K65 ["Once"]
-      201 CALL                             R9 2 0
-      202 NAMECALL                         R9 R8 K66 ["Play"]
-      204 CALL                             R9 1 0
-      205 RETURN                           R0 0
-      206 GETIMPORT                        R2 K68 [error]
-      208 LOADK                            R3 K69 ["Adornee type is unsupported."]
-      209 CALL                             R2 1 0
-      210 RETURN                           R0 0
+      132 GETTABLEKS                       R12 R7 K37 ["Y"]
+      134 FASTCALL1                        MATH_SIGN R12 ; [+2]
+      135 GETIMPORT                        R11 K46 [math.sign]
+      137 CALL                             R11 1 1
+      138 MULK                             R10 R11 K41 [0.9]
+      139 GETTABLEKS                       R12 R7 K47 ["Z"]
+      141 JUMPIFNOTEQKN                    R12 K43 [0] ; [+3]
+      143 LOADK                            R11 K44 [0.1]
+      144 JUMP                             ; [+16]
+      145 FASTCALL1                        MATH_ABS R12 ; [+3]
+      146 MOVE                             R14 R12
+      147 GETIMPORT                        R13 K40 [math.abs]
+      149 CALL                             R13 1 1
+      150 LOADK                            R14 K44 [0.1]
+      151 JUMPIFNOTLT                      R13 R14 ; [+8]
+      153 FASTCALL1                        MATH_SIGN R12 ; [+3]
+      154 MOVE                             R14 R12
+      155 GETIMPORT                        R13 K46 [math.sign]
+      157 CALL                             R13 1 1
+      158 MULK                             R11 R13 K44 [0.1]
+      159 JUMP                             ; [+1]
+      160 MOVE                             R11 R12
+      161 FASTCALL                         VECTOR ; [+2]
+      162 GETIMPORT                        R8 K49 [Vector3.new]
+      164 CALL                             R8 3 1
+      165 MOVE                             R7 R8
+      166 GETUPVAL                         R8 0
+      167 GETIMPORT                        R11 K25 [workspace]
+      169 GETTABLEKS                       R10 R11 K29 ["CurrentCamera"]
+      171 GETIMPORT                        R11 K51 [TweenInfo.new]
+      173 LOADK                            R12 K52 [0.3]
+      174 GETIMPORT                        R13 K55 [Enum.EasingStyle.Circular]
+      176 GETIMPORT                        R14 K58 [Enum.EasingDirection.InOut]
+      178 CALL                             R11 3 1
+      179 DUPTABLE                         R12 K59 [{"CFrame"}]
+      180 GETIMPORT                        R13 K61 [CFrame.lookAt]
+      182 MULK                             R15 R7 K62 [10]
+      183 ADD                              R14 R3 R15
+      184 MOVE                             R15 R3
+      185 CALL                             R13 2 1
+      186 SETTABLEKS                       R13 R12 K33 ["CFrame"]
+      188 NAMECALL                         R8 R8 K63 ["Create"]
+      190 CALL                             R8 4 1
+      191 GETTABLEKS                       R9 R8 K64 ["Completed"]
+      193 NEWCLOSURE                       R11 P0
+      194 CAPTURE                          VAL R6
+      195 CAPTURE                          VAL R1
+      196 CAPTURE                          VAL R0
+      197 NAMECALL                         R9 R9 K65 ["Once"]
+      199 CALL                             R9 2 0
+      200 NAMECALL                         R9 R8 K66 ["Play"]
+      202 CALL                             R9 1 0
+      203 RETURN                           R0 0
+      204 GETIMPORT                        R2 K68 [error]
+      206 LOADK                            R3 K69 ["Adornee type is unsupported."]
+      207 CALL                             R2 1 0
+      208 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

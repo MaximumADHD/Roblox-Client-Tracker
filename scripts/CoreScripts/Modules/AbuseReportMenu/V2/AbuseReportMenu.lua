@@ -24,7 +24,7 @@ export type Props = {
 	showReportTab: () -> (),
 	-- TODO: this triggers the report submit modal, can probably remove since we're using a Dialog while the menu is still open
 	showReportSentPage: (reportedPlayer: any) -> (),
-	-- TODO: can probably remove these callbacks unless we need to trigger some logic here
+	-- TODO: will need to keep these callbacks
 	registerOnReportTabHidden: (() -> ()) -> (),
 	registerOnReportTabDisplayed: (() -> ()) -> (),
 	registerOnSettingsHidden: (() -> ()) -> (),
@@ -39,6 +39,18 @@ export type Props = {
 }
 
 local function AbuseReportMenuContent(props: Props)
+	local isReportTabVisible, setIsReportTabVisible = React.useState(false)
+
+	React.useEffect(function()
+		props.registerOnReportTabHidden(function()
+			setIsReportTabVisible(false)
+		end)
+
+		props.registerOnReportTabDisplayed(function()
+			setIsReportTabVisible(true)
+		end)
+	end, { props.registerOnReportTabHidden, props.registerOnReportTabDisplayed })
+
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Position = UDim2.new(0, 0, 0, 0),
@@ -54,6 +66,7 @@ local function AbuseReportMenuContent(props: Props)
 		}, {
 			DynamicReportInExpContainer = React.createElement(DynamicReportInExpContainer, {
 				onClose = props.hideReportTab,
+				isReportTabVisible = isReportTabVisible,
 			}),
 		}),
 	})

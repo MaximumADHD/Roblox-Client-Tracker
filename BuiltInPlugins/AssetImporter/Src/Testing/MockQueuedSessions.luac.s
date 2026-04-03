@@ -199,153 +199,157 @@ MAIN:
       319 GETTABLEKS                       R6 R7 K61 ["Imported"]
       321 SETTABLEKS                       R6 R5 K35 ["state"]
       323 DUPTABLE                         R6 K66 [{"AssetIds", "ErrorMessages", "Instance", "Succeeded"}]
-      324 NEWTABLE                         R7 0 0
-      326 SETTABLEKS                       R7 R6 K62 ["AssetIds"]
-      328 NEWTABLE                         R7 0 0
-      330 SETTABLEKS                       R7 R6 K63 ["ErrorMessages"]
-      332 LOADK                            R7 K67 ["test"]
-      333 SETTABLEKS                       R7 R6 K64 ["Instance"]
-      335 LOADB                            R7 1
-      336 SETTABLEKS                       R7 R6 K65 ["Succeeded"]
-      338 SETTABLEKS                       R6 R5 K58 ["uploadResults"]
-      340 CALL                             R4 1 1
-      341 SETTABLEKS                       R4 R3 K20 ["UploadSuccessAsset"]
-      343 GETTABLEKS                       R4 R2 K29 ["new"]
-      345 DUPTABLE                         R5 K59 [{"assetName", "enabled", "filepath", "fileType", "sortOrder", "state", "uploadResults"}]
-      346 LOADK                            R6 K21 ["UploadFailedAsset"]
-      347 SETTABLEKS                       R6 R5 K30 ["assetName"]
-      349 LOADB                            R6 0
-      350 SETTABLEKS                       R6 R5 K31 ["enabled"]
-      352 LOADK                            R6 K68 ["my/path/UploadFailedAsset"]
-      353 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      355 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      357 GETTABLEKS                       R6 R7 K39 ["Scene"]
-      359 SETTABLEKS                       R6 R5 K33 ["fileType"]
-      361 LOADN                            R6 12
-      362 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      364 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      366 GETTABLEKS                       R6 R7 K61 ["Imported"]
-      368 SETTABLEKS                       R6 R5 K35 ["state"]
-      370 DUPTABLE                         R6 K66 [{"AssetIds", "ErrorMessages", "Instance", "Succeeded"}]
-      371 NEWTABLE                         R7 0 0
-      373 SETTABLEKS                       R7 R6 K62 ["AssetIds"]
-      375 NEWTABLE                         R7 1 0
-      377 LOADK                            R8 K69 ["Test Error Message"]
-      378 SETTABLEKS                       R8 R7 K70 ["Asset1"]
-      380 SETTABLEKS                       R7 R6 K63 ["ErrorMessages"]
-      382 LOADK                            R7 K67 ["test"]
-      383 SETTABLEKS                       R7 R6 K64 ["Instance"]
-      385 LOADB                            R7 0
-      386 SETTABLEKS                       R7 R6 K65 ["Succeeded"]
-      388 SETTABLEKS                       R6 R5 K58 ["uploadResults"]
-      390 CALL                             R4 1 1
-      391 SETTABLEKS                       R4 R3 K21 ["UploadFailedAsset"]
-      393 GETTABLEKS                       R4 R2 K29 ["new"]
-      395 DUPTABLE                         R5 K36 [{"assetName", "enabled", "filepath", "fileType", "sortOrder", "state"}]
-      396 LOADK                            R6 K10 ["Cube"]
-      397 SETTABLEKS                       R6 R5 K30 ["assetName"]
-      399 LOADB                            R6 1
-      400 SETTABLEKS                       R6 R5 K31 ["enabled"]
-      402 LOADK                            R6 K37 ["my/path/Cube"]
-      403 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      405 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      407 GETTABLEKS                       R6 R7 K39 ["Scene"]
-      409 SETTABLEKS                       R6 R5 K33 ["fileType"]
-      411 LOADN                            R6 13
-      412 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      414 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      416 GETTABLEKS                       R6 R7 K71 ["Parsing"]
-      418 SETTABLEKS                       R6 R5 K35 ["state"]
-      420 CALL                             R4 1 1
-      421 SETTABLEKS                       R4 R3 K22 ["ParsingAsset"]
-      423 GETTABLEKS                       R4 R2 K29 ["new"]
-      425 DUPTABLE                         R5 K36 [{"assetName", "enabled", "filepath", "fileType", "sortOrder", "state"}]
-      426 LOADK                            R6 K10 ["Cube"]
-      427 SETTABLEKS                       R6 R5 K30 ["assetName"]
-      429 LOADB                            R6 1
-      430 SETTABLEKS                       R6 R5 K31 ["enabled"]
-      432 LOADK                            R6 K37 ["my/path/Cube"]
-      433 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      435 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      437 GETTABLEKS                       R6 R7 K39 ["Scene"]
-      439 SETTABLEKS                       R6 R5 K33 ["fileType"]
-      441 LOADN                            R6 14
-      442 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      444 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      446 GETTABLEKS                       R6 R7 K72 ["Importing"]
-      448 SETTABLEKS                       R6 R5 K35 ["state"]
-      450 CALL                             R4 1 1
-      451 SETTABLEKS                       R4 R3 K23 ["ImportingAsset"]
-      453 GETTABLEKS                       R4 R2 K29 ["new"]
-      455 DUPTABLE                         R5 K36 [{"assetName", "enabled", "filepath", "fileType", "sortOrder", "state"}]
-      456 LOADK                            R6 K73 ["Audio"]
-      457 SETTABLEKS                       R6 R5 K30 ["assetName"]
-      459 LOADB                            R6 1
-      460 SETTABLEKS                       R6 R5 K31 ["enabled"]
-      462 LOADK                            R6 K74 ["my/path/Audio.mp3"]
-      463 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      465 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      467 GETTABLEKS                       R6 R7 K73 ["Audio"]
-      469 SETTABLEKS                       R6 R5 K33 ["fileType"]
-      471 LOADN                            R6 15
-      472 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      474 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      476 GETTABLEKS                       R6 R7 K41 ["Parsed"]
-      478 SETTABLEKS                       R6 R5 K35 ["state"]
-      480 CALL                             R4 1 1
-      481 SETTABLEKS                       R4 R3 K24 ["AudioAsset"]
-      483 GETTABLEKS                       R4 R2 K29 ["new"]
-      485 DUPTABLE                         R5 K36 [{"assetName", "enabled", "filepath", "fileType", "sortOrder", "state"}]
-      486 LOADK                            R6 K75 ["Video"]
-      487 SETTABLEKS                       R6 R5 K30 ["assetName"]
-      489 LOADB                            R6 1
-      490 SETTABLEKS                       R6 R5 K31 ["enabled"]
-      492 LOADK                            R6 K76 ["my/path/Video.mp4"]
-      493 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      495 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      497 GETTABLEKS                       R6 R7 K75 ["Video"]
-      499 SETTABLEKS                       R6 R5 K33 ["fileType"]
-      501 LOADN                            R6 16
-      502 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      504 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      506 GETTABLEKS                       R6 R7 K41 ["Parsed"]
-      508 SETTABLEKS                       R6 R5 K35 ["state"]
-      510 CALL                             R4 1 1
-      511 SETTABLEKS                       R4 R3 K25 ["VideoAsset"]
-      513 GETTABLEKS                       R4 R2 K29 ["new"]
-      515 DUPTABLE                         R5 K36 [{"assetName", "enabled", "filepath", "fileType", "sortOrder", "state"}]
-      516 LOADK                            R6 K77 ["Image"]
-      517 SETTABLEKS                       R6 R5 K30 ["assetName"]
-      519 LOADB                            R6 1
-      520 SETTABLEKS                       R6 R5 K31 ["enabled"]
-      522 LOADK                            R6 K78 ["my/path/Image.png"]
-      523 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      525 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      527 GETTABLEKS                       R6 R7 K77 ["Image"]
-      529 SETTABLEKS                       R6 R5 K33 ["fileType"]
-      531 LOADN                            R6 17
-      532 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      534 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      536 GETTABLEKS                       R6 R7 K41 ["Parsed"]
-      538 SETTABLEKS                       R6 R5 K35 ["state"]
-      540 CALL                             R4 1 1
-      541 SETTABLEKS                       R4 R3 K26 ["ImageAsset"]
-      543 GETTABLEKS                       R4 R2 K29 ["new"]
-      545 DUPTABLE                         R5 K36 [{"assetName", "enabled", "filepath", "fileType", "sortOrder", "state"}]
-      546 LOADK                            R6 K10 ["Cube"]
-      547 SETTABLEKS                       R6 R5 K30 ["assetName"]
-      549 LOADB                            R6 1
-      550 SETTABLEKS                       R6 R5 K31 ["enabled"]
-      552 LOADK                            R6 K79 ["Users/mysteriouslylongusername/Desktop/Roblox/supersecret.fbx"]
-      553 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      555 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      557 GETTABLEKS                       R6 R7 K39 ["Scene"]
-      559 SETTABLEKS                       R6 R5 K33 ["fileType"]
-      561 LOADN                            R6 1
-      562 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      564 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      566 GETTABLEKS                       R6 R7 K41 ["Parsed"]
-      568 SETTABLEKS                       R6 R5 K35 ["state"]
-      570 CALL                             R4 1 1
-      571 SETTABLEKS                       R4 R3 K27 ["LongFilePathTestAsset"]
-      573 RETURN                           R3 1
+      324 NEWTABLE                         R7 1 0
+      326 LOADN                            R8 57
+      327 SETTABLEKS                       R8 R7 K67 ["0"]
+      329 SETTABLEKS                       R7 R6 K62 ["AssetIds"]
+      331 NEWTABLE                         R7 0 0
+      333 SETTABLEKS                       R7 R6 K63 ["ErrorMessages"]
+      335 GETIMPORT                        R7 K68 [Instance.new]
+      337 LOADK                            R8 K69 ["Model"]
+      338 CALL                             R7 1 1
+      339 SETTABLEKS                       R7 R6 K64 ["Instance"]
+      341 LOADB                            R7 1
+      342 SETTABLEKS                       R7 R6 K65 ["Succeeded"]
+      344 SETTABLEKS                       R6 R5 K58 ["uploadResults"]
+      346 CALL                             R4 1 1
+      347 SETTABLEKS                       R4 R3 K20 ["UploadSuccessAsset"]
+      349 GETTABLEKS                       R4 R2 K29 ["new"]
+      351 DUPTABLE                         R5 K59 [{"assetName", "enabled", "filepath", "fileType", "sortOrder", "state", "uploadResults"}]
+      352 LOADK                            R6 K21 ["UploadFailedAsset"]
+      353 SETTABLEKS                       R6 R5 K30 ["assetName"]
+      355 LOADB                            R6 0
+      356 SETTABLEKS                       R6 R5 K31 ["enabled"]
+      358 LOADK                            R6 K70 ["my/path/UploadFailedAsset"]
+      359 SETTABLEKS                       R6 R5 K32 ["filepath"]
+      361 GETTABLEKS                       R7 R1 K38 ["FileType"]
+      363 GETTABLEKS                       R6 R7 K39 ["Scene"]
+      365 SETTABLEKS                       R6 R5 K33 ["fileType"]
+      367 LOADN                            R6 12
+      368 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
+      370 GETTABLEKS                       R7 R1 K40 ["SessionState"]
+      372 GETTABLEKS                       R6 R7 K61 ["Imported"]
+      374 SETTABLEKS                       R6 R5 K35 ["state"]
+      376 DUPTABLE                         R6 K66 [{"AssetIds", "ErrorMessages", "Instance", "Succeeded"}]
+      377 LOADNIL                          R7
+      378 SETTABLEKS                       R7 R6 K62 ["AssetIds"]
+      380 NEWTABLE                         R7 1 0
+      382 LOADK                            R8 K71 ["Test Error Message"]
+      383 SETTABLEKS                       R8 R7 K72 ["Asset1"]
+      385 SETTABLEKS                       R7 R6 K63 ["ErrorMessages"]
+      387 LOADNIL                          R7
+      388 SETTABLEKS                       R7 R6 K64 ["Instance"]
+      390 LOADB                            R7 0
+      391 SETTABLEKS                       R7 R6 K65 ["Succeeded"]
+      393 SETTABLEKS                       R6 R5 K58 ["uploadResults"]
+      395 CALL                             R4 1 1
+      396 SETTABLEKS                       R4 R3 K21 ["UploadFailedAsset"]
+      398 GETTABLEKS                       R4 R2 K29 ["new"]
+      400 DUPTABLE                         R5 K36 [{"assetName", "enabled", "filepath", "fileType", "sortOrder", "state"}]
+      401 LOADK                            R6 K10 ["Cube"]
+      402 SETTABLEKS                       R6 R5 K30 ["assetName"]
+      404 LOADB                            R6 1
+      405 SETTABLEKS                       R6 R5 K31 ["enabled"]
+      407 LOADK                            R6 K37 ["my/path/Cube"]
+      408 SETTABLEKS                       R6 R5 K32 ["filepath"]
+      410 GETTABLEKS                       R7 R1 K38 ["FileType"]
+      412 GETTABLEKS                       R6 R7 K39 ["Scene"]
+      414 SETTABLEKS                       R6 R5 K33 ["fileType"]
+      416 LOADN                            R6 13
+      417 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
+      419 GETTABLEKS                       R7 R1 K40 ["SessionState"]
+      421 GETTABLEKS                       R6 R7 K73 ["Parsing"]
+      423 SETTABLEKS                       R6 R5 K35 ["state"]
+      425 CALL                             R4 1 1
+      426 SETTABLEKS                       R4 R3 K22 ["ParsingAsset"]
+      428 GETTABLEKS                       R4 R2 K29 ["new"]
+      430 DUPTABLE                         R5 K36 [{"assetName", "enabled", "filepath", "fileType", "sortOrder", "state"}]
+      431 LOADK                            R6 K10 ["Cube"]
+      432 SETTABLEKS                       R6 R5 K30 ["assetName"]
+      434 LOADB                            R6 1
+      435 SETTABLEKS                       R6 R5 K31 ["enabled"]
+      437 LOADK                            R6 K37 ["my/path/Cube"]
+      438 SETTABLEKS                       R6 R5 K32 ["filepath"]
+      440 GETTABLEKS                       R7 R1 K38 ["FileType"]
+      442 GETTABLEKS                       R6 R7 K39 ["Scene"]
+      444 SETTABLEKS                       R6 R5 K33 ["fileType"]
+      446 LOADN                            R6 14
+      447 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
+      449 GETTABLEKS                       R7 R1 K40 ["SessionState"]
+      451 GETTABLEKS                       R6 R7 K74 ["Importing"]
+      453 SETTABLEKS                       R6 R5 K35 ["state"]
+      455 CALL                             R4 1 1
+      456 SETTABLEKS                       R4 R3 K23 ["ImportingAsset"]
+      458 GETTABLEKS                       R4 R2 K29 ["new"]
+      460 DUPTABLE                         R5 K36 [{"assetName", "enabled", "filepath", "fileType", "sortOrder", "state"}]
+      461 LOADK                            R6 K75 ["Audio"]
+      462 SETTABLEKS                       R6 R5 K30 ["assetName"]
+      464 LOADB                            R6 1
+      465 SETTABLEKS                       R6 R5 K31 ["enabled"]
+      467 LOADK                            R6 K76 ["my/path/Audio.mp3"]
+      468 SETTABLEKS                       R6 R5 K32 ["filepath"]
+      470 GETTABLEKS                       R7 R1 K38 ["FileType"]
+      472 GETTABLEKS                       R6 R7 K75 ["Audio"]
+      474 SETTABLEKS                       R6 R5 K33 ["fileType"]
+      476 LOADN                            R6 15
+      477 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
+      479 GETTABLEKS                       R7 R1 K40 ["SessionState"]
+      481 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+      483 SETTABLEKS                       R6 R5 K35 ["state"]
+      485 CALL                             R4 1 1
+      486 SETTABLEKS                       R4 R3 K24 ["AudioAsset"]
+      488 GETTABLEKS                       R4 R2 K29 ["new"]
+      490 DUPTABLE                         R5 K36 [{"assetName", "enabled", "filepath", "fileType", "sortOrder", "state"}]
+      491 LOADK                            R6 K77 ["Video"]
+      492 SETTABLEKS                       R6 R5 K30 ["assetName"]
+      494 LOADB                            R6 1
+      495 SETTABLEKS                       R6 R5 K31 ["enabled"]
+      497 LOADK                            R6 K78 ["my/path/Video.mp4"]
+      498 SETTABLEKS                       R6 R5 K32 ["filepath"]
+      500 GETTABLEKS                       R7 R1 K38 ["FileType"]
+      502 GETTABLEKS                       R6 R7 K77 ["Video"]
+      504 SETTABLEKS                       R6 R5 K33 ["fileType"]
+      506 LOADN                            R6 16
+      507 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
+      509 GETTABLEKS                       R7 R1 K40 ["SessionState"]
+      511 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+      513 SETTABLEKS                       R6 R5 K35 ["state"]
+      515 CALL                             R4 1 1
+      516 SETTABLEKS                       R4 R3 K25 ["VideoAsset"]
+      518 GETTABLEKS                       R4 R2 K29 ["new"]
+      520 DUPTABLE                         R5 K36 [{"assetName", "enabled", "filepath", "fileType", "sortOrder", "state"}]
+      521 LOADK                            R6 K79 ["Image"]
+      522 SETTABLEKS                       R6 R5 K30 ["assetName"]
+      524 LOADB                            R6 1
+      525 SETTABLEKS                       R6 R5 K31 ["enabled"]
+      527 LOADK                            R6 K80 ["my/path/Image.png"]
+      528 SETTABLEKS                       R6 R5 K32 ["filepath"]
+      530 GETTABLEKS                       R7 R1 K38 ["FileType"]
+      532 GETTABLEKS                       R6 R7 K79 ["Image"]
+      534 SETTABLEKS                       R6 R5 K33 ["fileType"]
+      536 LOADN                            R6 17
+      537 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
+      539 GETTABLEKS                       R7 R1 K40 ["SessionState"]
+      541 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+      543 SETTABLEKS                       R6 R5 K35 ["state"]
+      545 CALL                             R4 1 1
+      546 SETTABLEKS                       R4 R3 K26 ["ImageAsset"]
+      548 GETTABLEKS                       R4 R2 K29 ["new"]
+      550 DUPTABLE                         R5 K36 [{"assetName", "enabled", "filepath", "fileType", "sortOrder", "state"}]
+      551 LOADK                            R6 K10 ["Cube"]
+      552 SETTABLEKS                       R6 R5 K30 ["assetName"]
+      554 LOADB                            R6 1
+      555 SETTABLEKS                       R6 R5 K31 ["enabled"]
+      557 LOADK                            R6 K81 ["Users/mysteriouslylongusername/Desktop/Roblox/supersecret.fbx"]
+      558 SETTABLEKS                       R6 R5 K32 ["filepath"]
+      560 GETTABLEKS                       R7 R1 K38 ["FileType"]
+      562 GETTABLEKS                       R6 R7 K39 ["Scene"]
+      564 SETTABLEKS                       R6 R5 K33 ["fileType"]
+      566 LOADN                            R6 1
+      567 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
+      569 GETTABLEKS                       R7 R1 K40 ["SessionState"]
+      571 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+      573 SETTABLEKS                       R6 R5 K35 ["state"]
+      575 CALL                             R4 1 1
+      576 SETTABLEKS                       R4 R3 K27 ["LongFilePathTestAsset"]
+      578 RETURN                           R3 1

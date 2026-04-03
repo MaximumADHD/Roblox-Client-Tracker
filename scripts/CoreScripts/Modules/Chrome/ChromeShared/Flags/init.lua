@@ -4,4 +4,5 @@ return {
 	FFlagRemoveRespawnShortcutFromRespawnConfirmation = require(
 		script.FFlagRemoveRespawnShortcutFromRespawnConfirmation
 	),
+	FFlagEnableChromeWindowsNotInMenu = require(script.FFlagEnableChromeWindowsNotInMenu),
 }

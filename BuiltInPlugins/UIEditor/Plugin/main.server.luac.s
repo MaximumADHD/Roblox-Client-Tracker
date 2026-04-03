@@ -508,14 +508,13 @@ PROTO_12:
         4 JUMPIFEQKS                       R0 K2 ["Text Changed"] ; [+3]
         6 JUMPIFNOTEQKS                    R0 K3 ["Rotate object"] ; [+3]
         8 LOADB                            R1 1
-        9 JUMP                             ; [+2]
+        9 JUMP                             ; [+1]
        10 LOADB                            R1 0
-       11 JUMP                             ; [0]
-       12 JUMPIFNOT                        R1 ; [+4]
-       13 GETUPVAL                         R1 0
-       14 NAMECALL                         R1 R1 K4 ["updatePosition"]
-       16 CALL                             R1 1 0
-       17 RETURN                           R0 0
+       11 JUMPIFNOT                        R1 ; [+4]
+       12 GETUPVAL                         R1 0
+       13 NAMECALL                         R1 R1 K4 ["updatePosition"]
+       15 CALL                             R1 1 0
+       16 RETURN                           R0 0
 
 PROTO_13:
         0 JUMPIFEQKS                       R0 K0 ["Translate Objects (better tt needed)"] ; [+7]
@@ -523,14 +522,13 @@ PROTO_13:
         4 JUMPIFEQKS                       R0 K2 ["Text Changed"] ; [+3]
         6 JUMPIFNOTEQKS                    R0 K3 ["Rotate object"] ; [+3]
         8 LOADB                            R1 1
-        9 JUMP                             ; [+2]
+        9 JUMP                             ; [+1]
        10 LOADB                            R1 0
-       11 JUMP                             ; [0]
-       12 JUMPIFNOT                        R1 ; [+4]
-       13 GETUPVAL                         R1 0
-       14 NAMECALL                         R1 R1 K4 ["updatePosition"]
-       16 CALL                             R1 1 0
-       17 RETURN                           R0 0
+       11 JUMPIFNOT                        R1 ; [+4]
+       12 GETUPVAL                         R1 0
+       13 NAMECALL                         R1 R1 K4 ["updatePosition"]
+       15 CALL                             R1 1 0
+       16 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R0 0

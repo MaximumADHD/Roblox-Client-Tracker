@@ -1,3 +1,6 @@
+-- TEMPORARY: Uses getAttachmentCFrameInPartSpace to fix HRD bone-nested attachment CFrame interpretation.
+-- All bounds/transform calculation in this file must be refactored in the new validation system.
+
 --[[
 calculatePartCFrameFromRigAttachments
 	calculates a cframe where the y axis is from the parts rig attachment to parent to the parts rig attachment to child
@@ -27,6 +30,8 @@ local canBeNormalized = require(root.util.canBeNormalized)
 local getPartNamesInHierarchyOrder = require(root.util.getPartNamesInHierarchyOrder)
 local AssetTraversalUtils = require(root.util.AssetTraversalUtils)
 local getMeshScales = require(root.util.getMeshScales)
+local R15plusUtils = require(root.util.R15plusUtils)
+local getAttachmentCFrameInPartSpace = require(root.util.getAttachmentCFrameInPartSpace)
 
 local fullBodyAssetHierarchy = {
 	root = "LowerTorso",
@@ -88,14 +93,16 @@ local function calculatePartTransformInHierarchy(
 		assert(parentMeshHandle)
 
 		local rigAttachmentName = ConstantsInterface.getRigAttachmentToParent(nil, meshHandle.Name)
-		local parentAttachment: Attachment? = parentMeshHandle:FindFirstChild(rigAttachmentName) :: Attachment
+		local parentAttachment: Attachment? =
+			parentMeshHandle:FindFirstChild(rigAttachmentName, R15plusUtils.checkFlagEnabledForAllowHrd()) :: Attachment
 		assert(parentAttachment)
-		local attachment: Attachment? = meshHandle:FindFirstChild(rigAttachmentName) :: Attachment
+		local attachment: Attachment? =
+			meshHandle:FindFirstChild(rigAttachmentName, R15plusUtils.checkFlagEnabledForAllowHrd()) :: Attachment
 		assert(attachment)
 
-		cframe = (cframe * (parentAttachment :: Attachment).CFrame)
+		cframe = (cframe * getAttachmentCFrameInPartSpace(parentAttachment :: Attachment))
 			* animTransForPart
-			* ((attachment :: Attachment).CFrame:Inverse())
+			* (getAttachmentCFrameInPartSpace(attachment :: Attachment):Inverse())
 	else
 		cframe = animTransForPart
 	end
@@ -158,9 +165,10 @@ local function assertTypesToOrient(singleAsset: Enum.AssetType)
 end
 
 local function getAttachmentCFrame(part: MeshPart, rigAttachmentName: string, transform: CFrame): CFrame
-	local rigAttachment: Attachment? = part:FindFirstChild(rigAttachmentName) :: Attachment
+	local rigAttachment: Attachment? =
+		part:FindFirstChild(rigAttachmentName, R15plusUtils.checkFlagEnabledForAllowHrd()) :: Attachment
 	assert(rigAttachment)
-	return transform * rigAttachment.CFrame
+	return transform * getAttachmentCFrameInPartSpace(rigAttachment :: Attachment)
 end
 
 function AssetCalculator.calculatePartCFrameFromRigAttachments(

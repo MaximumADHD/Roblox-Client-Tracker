@@ -1,14 +1,30 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K4 [{"collisionSetting", "collisionHitAndTouchDetectionSetting", "collisionMethodSetting", "collisionSizeSetting"}]
-        1 GETIMPORT                        R1 K8 [Enum.AvatarSettingsCollisionMode.Default]
+        0 DUPTABLE                         R0 K12 [{"collisionSetting", "collisionHitAndTouchDetectionSetting", "collisionMethodSetting", "collisionSizeSetting", "characterControllerModeSetting", "defaultAbilitiesEnableRunningSetting", "defaultAbilitiesEnableJumpingSetting", "defaultAbilitiesEnableSittingSetting", "defaultAbilitiesEnableFallingDownSetting", "defaultAbilitiesEnableGettingUpSetting", "defaultAbilitiesEnableClimbingSetting", "defaultAbilitiesEnableSwimmingSetting"}]
+        1 GETIMPORT                        R1 K16 [Enum.AvatarSettingsCollisionMode.Default]
         3 SETTABLEKS                       R1 R0 K0 ["collisionSetting"]
-        5 GETIMPORT                        R1 K11 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseCollider]
+        5 GETIMPORT                        R1 K19 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseCollider]
         7 SETTABLEKS                       R1 R0 K1 ["collisionHitAndTouchDetectionSetting"]
-        9 GETIMPORT                        R1 K14 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
+        9 GETIMPORT                        R1 K22 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
        11 SETTABLEKS                       R1 R0 K2 ["collisionMethodSetting"]
-       13 LOADK                            R1 K15 [{0, 0, 0}]
+       13 LOADK                            R1 K23 [{0, 0, 0}]
        14 SETTABLEKS                       R1 R0 K3 ["collisionSizeSetting"]
-       16 RETURN                           R0 1
+       16 GETIMPORT                        R1 K26 [Enum.AvatarSettingsCharacterControllerMode.LegacyHumanoid]
+       18 SETTABLEKS                       R1 R0 K4 ["characterControllerModeSetting"]
+       20 LOADB                            R1 1
+       21 SETTABLEKS                       R1 R0 K5 ["defaultAbilitiesEnableRunningSetting"]
+       23 LOADB                            R1 1
+       24 SETTABLEKS                       R1 R0 K6 ["defaultAbilitiesEnableJumpingSetting"]
+       26 LOADB                            R1 1
+       27 SETTABLEKS                       R1 R0 K7 ["defaultAbilitiesEnableSittingSetting"]
+       29 LOADB                            R1 1
+       30 SETTABLEKS                       R1 R0 K8 ["defaultAbilitiesEnableFallingDownSetting"]
+       32 LOADB                            R1 1
+       33 SETTABLEKS                       R1 R0 K9 ["defaultAbilitiesEnableGettingUpSetting"]
+       35 LOADB                            R1 1
+       36 SETTABLEKS                       R1 R0 K10 ["defaultAbilitiesEnableClimbingSetting"]
+       38 LOADB                            R1 1
+       39 SETTABLEKS                       R1 R0 K11 ["defaultAbilitiesEnableSwimmingSetting"]
+       41 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

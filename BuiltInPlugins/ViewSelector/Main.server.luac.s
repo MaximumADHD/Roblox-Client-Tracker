@@ -411,65 +411,59 @@ PROTO_8:
        21 ADD                              R6 R1 R2
        22 ADD                              R5 R6 R3
        23 LOADK                            R6 K7 [1.056]
-       24 JUMPIFNOTLT                      R6 R5 ; [+30]
+       24 JUMPIFNOTLT                      R6 R5 ; [+27]
        26 GETTABLEKS                       R9 R0 K0 ["x"]
        28 LOADN                            R10 0
        29 JUMPIFNOTLE                      R10 R9 ; [+3]
        31 LOADK                            R6 K8 ["p"]
-       32 JUMP                             ; [+2]
+       32 JUMP                             ; [+1]
        33 LOADK                            R6 K9 ["n"]
-       34 JUMP                             ; [0]
-       35 GETTABLEKS                       R9 R0 K4 ["y"]
-       37 LOADN                            R10 0
-       38 JUMPIFNOTLE                      R10 R9 ; [+3]
-       40 LOADK                            R7 K8 ["p"]
-       41 JUMP                             ; [+2]
-       42 LOADK                            R7 K9 ["n"]
-       43 JUMP                             ; [0]
-       44 GETTABLEKS                       R9 R0 K5 ["z"]
-       46 LOADN                            R10 0
-       47 JUMPIFNOTLE                      R10 R9 ; [+3]
-       49 LOADK                            R8 K8 ["p"]
-       50 JUMP                             ; [+2]
-       51 LOADK                            R8 K9 ["n"]
-       52 JUMP                             ; [0]
-       53 CONCAT                           R5 R6 R8
-       54 RETURN                           R5 1
-       55 JUMPIFNOTLT                      R2 R1 ; [+15]
-       57 JUMPIFNOTLT                      R3 R1 ; [+13]
-       59 GETTABLEKS                       R8 R0 K0 ["x"]
-       61 LOADN                            R9 0
-       62 JUMPIFNOTLE                      R9 R8 ; [+3]
-       64 LOADK                            R6 K8 ["p"]
-       65 JUMP                             ; [+2]
-       66 LOADK                            R6 K9 ["n"]
-       67 JUMP                             ; [0]
-       68 LOADK                            R7 K10 ["00"]
-       69 CONCAT                           R5 R6 R7
-       70 RETURN                           R5 1
-       71 JUMPIFNOTLT                      R1 R2 ; [+16]
-       73 JUMPIFNOTLT                      R3 R2 ; [+14]
-       75 LOADK                            R6 K11 ["0"]
-       76 GETTABLEKS                       R9 R0 K4 ["y"]
-       78 LOADN                            R10 0
-       79 JUMPIFNOTLE                      R10 R9 ; [+3]
-       81 LOADK                            R7 K8 ["p"]
-       82 JUMP                             ; [+2]
-       83 LOADK                            R7 K9 ["n"]
-       84 JUMP                             ; [0]
-       85 LOADK                            R8 K11 ["0"]
-       86 CONCAT                           R5 R6 R8
-       87 RETURN                           R5 1
-       88 LOADK                            R6 K10 ["00"]
-       89 GETTABLEKS                       R8 R0 K5 ["z"]
-       91 LOADN                            R9 0
-       92 JUMPIFNOTLE                      R9 R8 ; [+3]
-       94 LOADK                            R7 K8 ["p"]
-       95 JUMP                             ; [+2]
-       96 LOADK                            R7 K9 ["n"]
-       97 JUMP                             ; [0]
-       98 CONCAT                           R5 R6 R7
-       99 RETURN                           R5 1
+       34 GETTABLEKS                       R9 R0 K4 ["y"]
+       36 LOADN                            R10 0
+       37 JUMPIFNOTLE                      R10 R9 ; [+3]
+       39 LOADK                            R7 K8 ["p"]
+       40 JUMP                             ; [+1]
+       41 LOADK                            R7 K9 ["n"]
+       42 GETTABLEKS                       R9 R0 K5 ["z"]
+       44 LOADN                            R10 0
+       45 JUMPIFNOTLE                      R10 R9 ; [+3]
+       47 LOADK                            R8 K8 ["p"]
+       48 JUMP                             ; [+1]
+       49 LOADK                            R8 K9 ["n"]
+       50 CONCAT                           R5 R6 R8
+       51 RETURN                           R5 1
+       52 JUMPIFNOTLT                      R2 R1 ; [+14]
+       54 JUMPIFNOTLT                      R3 R1 ; [+12]
+       56 GETTABLEKS                       R8 R0 K0 ["x"]
+       58 LOADN                            R9 0
+       59 JUMPIFNOTLE                      R9 R8 ; [+3]
+       61 LOADK                            R6 K8 ["p"]
+       62 JUMP                             ; [+1]
+       63 LOADK                            R6 K9 ["n"]
+       64 LOADK                            R7 K10 ["00"]
+       65 CONCAT                           R5 R6 R7
+       66 RETURN                           R5 1
+       67 JUMPIFNOTLT                      R1 R2 ; [+15]
+       69 JUMPIFNOTLT                      R3 R2 ; [+13]
+       71 LOADK                            R6 K11 ["0"]
+       72 GETTABLEKS                       R9 R0 K4 ["y"]
+       74 LOADN                            R10 0
+       75 JUMPIFNOTLE                      R10 R9 ; [+3]
+       77 LOADK                            R7 K8 ["p"]
+       78 JUMP                             ; [+1]
+       79 LOADK                            R7 K9 ["n"]
+       80 LOADK                            R8 K11 ["0"]
+       81 CONCAT                           R5 R6 R8
+       82 RETURN                           R5 1
+       83 LOADK                            R6 K10 ["00"]
+       84 GETTABLEKS                       R8 R0 K5 ["z"]
+       86 LOADN                            R9 0
+       87 JUMPIFNOTLE                      R9 R8 ; [+3]
+       89 LOADK                            R7 K8 ["p"]
+       90 JUMP                             ; [+1]
+       91 LOADK                            R7 K9 ["n"]
+       92 CONCAT                           R5 R6 R7
+       93 RETURN                           R5 1
 
 PROTO_9:
         0 GETUPVAL                         R2 0

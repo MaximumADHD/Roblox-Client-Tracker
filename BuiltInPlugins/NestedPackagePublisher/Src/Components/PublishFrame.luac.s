@@ -875,7 +875,7 @@ PROTO_25:
        50 CALL                             R2 2 0
        51 GETTABLEKS                       R3 R0 K0 ["state"]
        53 GETTABLEKS                       R2 R3 K15 ["isCancelling"]
-       55 JUMPIF                           R2 ; [+76]
+       55 JUMPIF                           R2 ; [+99]
        56 GETTABLEKS                       R3 R0 K0 ["state"]
        58 GETTABLEKS                       R2 R3 K22 ["selectedInstance"]
        60 GETIMPORT                        R3 K25 [table.find]
@@ -887,11 +887,11 @@ PROTO_25:
        68 MOVE                             R5 R2
        69 JUMPIF                           R5 ; [+2]
        70 LOADNIL                          R4
-       71 JUMP                             ; [+20]
+       71 JUMP                             ; [+19]
        72 GETTABLEKS                       R6 R5 K13 ["Parent"]
        74 JUMPIF                           R6 ; [+2]
        75 LOADNIL                          R4
-       76 JUMP                             ; [+15]
+       76 JUMP                             ; [+14]
        77 JUMPIF                           R6 ; [+2]
        78 LOADNIL                          R7
        79 JUMP                             ; [+4]
@@ -900,64 +900,84 @@ PROTO_25:
        83 CALL                             R7 2 1
        84 JUMPIFNOT                        R7 ; [+2]
        85 MOVE                             R4 R6
-       86 JUMP                             ; [+5]
+       86 JUMP                             ; [+4]
        87 GETUPVAL                         R8 2
        88 MOVE                             R9 R6
        89 CALL                             R8 1 1
        90 MOVE                             R4 R8
-       91 JUMP                             ; [0]
-       92 JUMPIFNOT                        R4 ; [+18]
-       93 GETIMPORT                        R5 K30 [string.find]
-       95 JUMPIF                           R4 ; [+2]
-       96 LOADNIL                          R7
-       97 JUMP                             ; [+4]
-       98 LOADK                            R9 K27 ["PackageLink"]
-       99 NAMECALL                         R7 R4 K28 ["FindFirstChildOfClass"]
-      101 CALL                             R7 2 1
-      102 GETTABLEKS                       R6 R7 K31 ["Status"]
-      104 GETUPVAL                         R8 0
-      105 GETTABLEKS                       R7 R8 K32 ["NewVersionString"]
-      107 CALL                             R5 2 1
-      108 JUMPIFNOT                        R5 ; [+2]
-      109 MOVE                             R2 R4
-      110 JUMPBACK                         ; [-43]
-      111 GETUPVAL                         R4 3
-      112 MOVE                             R5 R2
-      113 LOADN                            R6 0
-      114 CALL                             R4 2 1
-      115 JUMPIFNOT                        R3 ; [+9]
-      116 GETUPVAL                         R5 1
-      117 NEWTABLE                         R7 0 1
-      119 MOVE                             R8 R4
-      120 SETLIST                          R7 R8 1 [1]
-      122 NAMECALL                         R5 R5 K33 ["Add"]
-      124 CALL                             R5 2 0
-      125 GETIMPORT                        R5 K35 [warn]
-      127 GETUPVAL                         R7 0
-      128 GETTABLEKS                       R6 R7 K36 ["OperationEnded"]
-      130 CALL                             R5 1 0
-      131 JUMP                             ; [+6]
-      132 GETIMPORT                        R2 K35 [warn]
-      134 GETUPVAL                         R4 0
-      135 GETTABLEKS                       R3 R4 K37 ["OperationCancelled"]
-      137 CALL                             R2 1 0
-      138 NAMECALL                         R2 R1 K38 ["Destroy"]
-      140 CALL                             R2 1 0
-      141 DUPTABLE                         R4 K39 [{"isPublishing", "isCancelling", "canCancel", "tempContainer"}]
-      142 LOADB                            R5 0
-      143 SETTABLEKS                       R5 R4 K14 ["isPublishing"]
-      145 LOADB                            R5 0
-      146 SETTABLEKS                       R5 R4 K15 ["isCancelling"]
-      148 LOADB                            R5 0
-      149 SETTABLEKS                       R5 R4 K16 ["canCancel"]
-      151 GETUPVAL                         R6 4
-      152 GETTABLEKS                       R5 R6 K40 ["None"]
-      154 SETTABLEKS                       R5 R4 K17 ["tempContainer"]
-      156 NAMECALL                         R2 R0 K19 ["setState"]
-      158 CALL                             R2 2 0
-      159 NAMECALL                         R2 R0 K41 ["onChangeSelection"]
-      161 CALL                             R2 1 0
-      162 RETURN                           R0 0
+       91 JUMPIFNOT                        R4 ; [+18]
+       92 GETIMPORT                        R5 K30 [string.find]
+       94 JUMPIF                           R4 ; [+2]
+       95 LOADNIL                          R7
+       96 JUMP                             ; [+4]
+       97 LOADK                            R9 K27 ["PackageLink"]
+       98 NAMECALL                         R7 R4 K28 ["FindFirstChildOfClass"]
+      100 CALL                             R7 2 1
+      101 GETTABLEKS                       R6 R7 K31 ["Status"]
+      103 GETUPVAL                         R8 0
+      104 GETTABLEKS                       R7 R8 K32 ["NewVersionString"]
+      106 CALL                             R5 2 1
+      107 JUMPIFNOT                        R5 ; [+2]
+      108 MOVE                             R2 R4
+      109 JUMPBACK                         ; [-42]
+      110 MOVE                             R5 R2
+      111 JUMPIF                           R5 ; [+2]
+      112 LOADNIL                          R6
+      113 JUMP                             ; [+4]
+      114 LOADK                            R8 K27 ["PackageLink"]
+      115 NAMECALL                         R6 R5 K28 ["FindFirstChildOfClass"]
+      117 CALL                             R6 2 1
+      118 JUMPIF                           R6 ; [+2]
+      119 LOADNIL                          R4
+      120 JUMP                             ; [+17]
+      121 GETIMPORT                        R6 K34 [pcall]
+      123 LOADN                            R8 0
+      124 NEWCLOSURE                       R7 P0
+      125 CAPTURE                          UPVAL U3
+      126 CAPTURE                          VAL R5
+      127 CAPTURE                          VAL R8
+      128 CALL                             R6 1 2
+      129 JUMPIFNOT                        R6 ; [+1]
+      130 JUMPIF                           R7 ; [+6]
+      131 GETIMPORT                        R8 K36 [warn]
+      133 MOVE                             R9 R7
+      134 CALL                             R8 1 0
+      135 LOADNIL                          R4
+      136 JUMP                             ; [+1]
+      137 MOVE                             R4 R7
+      138 JUMPIFNOT                        R3 ; [+9]
+      139 GETUPVAL                         R5 1
+      140 NEWTABLE                         R7 0 1
+      142 MOVE                             R8 R4
+      143 SETLIST                          R7 R8 1 [1]
+      145 NAMECALL                         R5 R5 K37 ["Add"]
+      147 CALL                             R5 2 0
+      148 GETIMPORT                        R5 K36 [warn]
+      150 GETUPVAL                         R7 0
+      151 GETTABLEKS                       R6 R7 K38 ["OperationEnded"]
+      153 CALL                             R5 1 0
+      154 JUMP                             ; [+6]
+      155 GETIMPORT                        R2 K36 [warn]
+      157 GETUPVAL                         R4 0
+      158 GETTABLEKS                       R3 R4 K39 ["OperationCancelled"]
+      160 CALL                             R2 1 0
+      161 NAMECALL                         R2 R1 K40 ["Destroy"]
+      163 CALL                             R2 1 0
+      164 DUPTABLE                         R4 K41 [{"isPublishing", "isCancelling", "canCancel", "tempContainer"}]
+      165 LOADB                            R5 0
+      166 SETTABLEKS                       R5 R4 K14 ["isPublishing"]
+      168 LOADB                            R5 0
+      169 SETTABLEKS                       R5 R4 K15 ["isCancelling"]
+      171 LOADB                            R5 0
+      172 SETTABLEKS                       R5 R4 K16 ["canCancel"]
+      174 GETUPVAL                         R6 4
+      175 GETTABLEKS                       R5 R6 K42 ["None"]
+      177 SETTABLEKS                       R5 R4 K17 ["tempContainer"]
+      179 NAMECALL                         R2 R0 K19 ["setState"]
+      181 CALL                             R2 2 0
+      182 NAMECALL                         R2 R0 K43 ["onChangeSelection"]
+      184 CALL                             R2 1 0
+      185 RETURN                           R0 0
 
 PROTO_26:
         0 GETTABLEKS                       R2 R0 K0 ["props"]
@@ -1702,7 +1722,7 @@ MAIN:
       250 CAPTURE                          VAL R19
       251 CAPTURE                          VAL R16
       252 CAPTURE                          VAL R31
-      253 CAPTURE                          VAL R30
+      253 CAPTURE                          VAL R15
       254 CAPTURE                          VAL R1
       255 SETTABLEKS                       R34 R13 K87 ["publishSelectedPackageHierarchy"]
       257 DUPCLOSURE                       R34 K88 [PROTO_26]

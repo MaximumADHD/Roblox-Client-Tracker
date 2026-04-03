@@ -40,20 +40,60 @@ local GetStories = require(Src.Thunks.GetStories)
 local Foundation = require(Packages.Foundation)
 local FoundationProvider = Foundation.FoundationProvider
 
-function FoundationProviderAdaptor(props)
-	return React.createElement(
-		FoundationProvider,
-		Dash.join(props, {
+local FFlagStorybookEmbeddedRemoveFoundationDerives =
+	game:DefineFastFlag("StorybookEmbeddedRemoveFoundationDerives", false)
+
+local function StyleLinkWrapper(props)
+	local styleSheet = Foundation.Hooks.useStyleSheet()
+
+	React.useEffect(function()
+		if styleSheet == nil then
+			return
+		end
+
+		local derives = table.clone(props.design:GetDerives())
+		local existingIndex = table.find(derives, styleSheet)
+		if existingIndex then
+			table.remove(derives, existingIndex)
+		end
+
+		table.insert(derives, 1, styleSheet)
+		props.design:SetDerives(derives)
+	end, { props.design, styleSheet :: unknown, props.theme })
+
+	return React.createElement("Folder", nil, {
+		Children = React.createElement(React.Fragment, nil, props.children),
+		StyleLink = React.createElement("StyleLink", {
+			StyleSheet = props.design,
+		}),
+	})
+end
+
+function FoundationProviderAdapter(props)
+	if FFlagStorybookEmbeddedRemoveFoundationDerives then
+		return React.createElement(FoundationProvider, {
 			theme = props.theme,
+		}, {
+			StyleLinkWrapper = React.createElement(StyleLinkWrapper, {
+				design = props.design,
+				theme = props.theme,
+			}, props.children),
 		})
-	)
+	else
+		return React.createElement(
+			FoundationProvider,
+			Dash.join(props, {
+				theme = props.theme,
+			})
+		)
+	end
 end
 
 -- Hack to react to the theme change, we update value in the rodux store, but initially it's empty.
 -- When the ThemeSwitcher has the correct value and doesn't have Default which may map to a different theme in Foundation.
-FoundationProviderAdaptor = RoactRodux.connect(function()
+FoundationProviderAdapter = RoactRodux.connect(function()
 	return { theme = ThemeSwitcher.getThemeName() }
-end)(FoundationProviderAdaptor)
+end)(FoundationProviderAdapter)
 -- End of copy
 
 function WindowWrapper(props: { design: any })
@@ -63,13 +103,19 @@ function WindowWrapper(props: { design: any })
 		setSideBarPadding(GuiService.TopbarInset.Height)
 	end, {})
 
-	return React.createElement(FoundationProviderAdaptor, { derives = { props.design } }, {
-		React.createElement(Window, { sideBarPadding = sideBarPadding }),
-		React.createElement(ExternalEventConnection, {
-			event = GuiService:GetPropertyChangedSignal("TopbarInset"),
-			callback = onInsetChange,
-		}),
-	})
+	return React.createElement(
+		FoundationProviderAdapter,
+		if FFlagStorybookEmbeddedRemoveFoundationDerives
+			then { design = props.design }
+			else { derives = { props.design } },
+		{
+			React.createElement(Window, { sideBarPadding = sideBarPadding }),
+			React.createElement(ExternalEventConnection, {
+				event = GuiService:GetPropertyChangedSignal("TopbarInset"),
+				callback = onInsetChange,
+			}),
+		}
+	)
 end
 
 local EmbeddedStorybook = {}

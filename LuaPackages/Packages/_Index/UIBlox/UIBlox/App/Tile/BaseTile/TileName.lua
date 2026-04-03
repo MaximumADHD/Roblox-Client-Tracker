@@ -7,10 +7,11 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local Foundation = require(Packages.Foundation)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local Images = require(UIBlox.App.ImageSet.Images)
-local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
+local Skeleton = Foundation.Skeleton
 local ImageTextLabel = require(UIBlox.Core.Text.ImageTextLabel.ImageTextLabel)
 local EmojiTextLabel = require(UIBlox.Core.Text.EmojiTextLabel.EmojiTextLabel)
 local Emoji = require(UIBlox.Core.Emoji.Enum.Emoji)
@@ -146,12 +147,12 @@ function ItemTileName:render()
 				LayoutOrder = layoutOrder,
 				Size = UDim2.new(0, maxWidth, 0, maxHeight),
 			}, {
-				FirstLine = Roact.createElement(ShimmerPanel, {
+				FirstLine = Roact.createElement(Skeleton, {
 					Size = UDim2.new(1, 0, 0, textSize),
 				}),
 
-				SecondLine = Roact.createElement(ShimmerPanel, {
-					Position = UDim2.new(0, 0, 0, textSize + LINE_PADDING),
+				SecondLine = Roact.createElement(Skeleton, {
+					Position = UDim2.fromOffset(0, textSize + LINE_PADDING),
 					Size = UDim2.new(0.4, 0, 0, textSize),
 				}),
 			})

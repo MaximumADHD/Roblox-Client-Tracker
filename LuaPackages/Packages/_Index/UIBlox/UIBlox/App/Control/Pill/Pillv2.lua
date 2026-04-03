@@ -15,6 +15,7 @@ local Core = UIBlox.Core
 
 local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
+local Foundation = require(Packages.Foundation)
 
 local Images = require(App.ImageSet.Images)
 local IconSize = require(App.ImageSet.Enum.IconSize)
@@ -29,7 +30,8 @@ local getContentStyle = require(Core.Button.getContentStyle)
 
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
-local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
+local Skeleton = Foundation.Skeleton
+local Radius = Foundation.Enums.Radius
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 
 local INNER_PADDING = 12
@@ -147,10 +149,10 @@ local function Pillv2(providedProps: Props)
 	end
 
 	if props.isLoading then
-		return React.createElement(ShimmerPanel, {
+		return React.createElement(Skeleton, {
 			LayoutOrder = props.layoutOrder,
-			Size = UDim2.new(0, pillWidth, 0, BUTTON_HEIGHT),
-			cornerRadius = UDim.new(1, 0),
+			Size = UDim2.fromOffset(pillWidth, BUTTON_HEIGHT),
+			radius = Radius.Circle,
 		})
 	end
 

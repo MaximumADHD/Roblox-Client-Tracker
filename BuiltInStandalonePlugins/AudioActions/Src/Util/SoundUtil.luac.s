@@ -151,7 +151,7 @@ PROTO_8:
         9 SETTABLE                         R4 R3 R2
        10 RETURN                           R3 1
        11 GETIMPORT                        R4 K5 [Enum.RollOffMode.Inverse]
-       13 JUMPIFNOTEQ                      R0 R4 ; [+19]
+       13 JUMPIFNOTEQ                      R0 R4 ; [+18]
        15 LOADN                            R6 0
        16 LOADN                            R4 100
        17 LOADN                            R5 1
@@ -163,78 +163,74 @@ PROTO_8:
        23 ADD                              R7 R9 R10
        24 JUMPIFNOTLE                      R2 R7 ; [+3]
        26 LOADN                            R8 0
-       27 JUMP                             ; [+2]
+       27 JUMP                             ; [+1]
        28 DIV                              R8 R1 R7
-       29 JUMP                             ; [0]
-       30 SETTABLE                         R8 R3 R7
-       31 FORNLOOP                         R4
-       32 RETURN                           R3 1
-       33 GETIMPORT                        R4 K9 [Enum.RollOffMode.LinearSquare]
-       35 JUMPIFNOTEQ                      R0 R4 ; [+32]
-       37 LOADN                            R6 0
-       38 LOADN                            R4 100
-       39 LOADN                            R5 1
-       40 FORNPREP                         R4
-       41 DIVK                             R8 R6 K6 [100]
-       42 MUL                              R9 R8 R2
-       43 SUBRK                            R11 R7 K8 ["LinearSquare"]
-       44 MUL                              R10 R11 R1
-       45 ADD                              R7 R9 R10
-       46 JUMPIFNOTLE                      R2 R7 ; [+3]
-       48 LOADN                            R8 0
-       49 JUMP                             ; [+15]
-       50 JUMPIFNOTEQ                      R2 R1 ; [+3]
-       52 LOADN                            R8 0
-       53 JUMP                             ; [+11]
-       54 SUB                              R11 R7 R1
-       55 SUB                              R12 R2 R1
-       56 DIV                              R10 R11 R12
-       57 SUBRK                            R9 R7 K10 [2]
-       58 FASTCALL2K                       MATH_POW R9 K10 ; [+4]
-       60 LOADK                            R10 K10 [2]
-       61 GETIMPORT                        R8 K13 [math.pow]
-       63 CALL                             R8 2 1
-       64 JUMP                             ; [0]
-       65 SETTABLE                         R8 R3 R7
-       66 FORNLOOP                         R4
-       67 RETURN                           R3 1
-       68 GETIMPORT                        R4 K15 [Enum.RollOffMode.InverseTapered]
-       70 JUMPIFNOTEQ                      R0 R4 ; [+42]
-       72 LOADN                            R6 0
-       73 LOADN                            R4 100
-       74 LOADN                            R5 1
-       75 FORNPREP                         R4
-       76 DIVK                             R8 R6 K6 [100]
-       77 MUL                              R9 R8 R2
-       78 SUBRK                            R11 R7 K8 ["LinearSquare"]
-       79 MUL                              R10 R11 R1
-       80 ADD                              R7 R9 R10
-       81 JUMPIFNOTLE                      R2 R7 ; [+3]
-       83 LOADN                            R9 0
-       84 JUMP                             ; [+2]
-       85 DIV                              R9 R1 R7
-       86 JUMP                             ; [0]
-       87 JUMPIFNOTLE                      R2 R7 ; [+3]
-       89 LOADN                            R10 0
-       90 JUMP                             ; [+15]
-       91 JUMPIFNOTEQ                      R2 R1 ; [+3]
-       93 LOADN                            R10 0
-       94 JUMP                             ; [+11]
-       95 SUB                              R13 R7 R1
-       96 SUB                              R14 R2 R1
-       97 DIV                              R12 R13 R14
-       98 SUBRK                            R11 R7 K12 ["pow"]
-       99 FASTCALL2K                       MATH_POW R11 K10 ; [+4]
-      101 LOADK                            R12 K10 [2]
-      102 GETIMPORT                        R10 K13 [math.pow]
-      104 CALL                             R10 2 1
-      105 JUMP                             ; [0]
-      106 FASTCALL2                        MATH_MIN R9 R10 ; [+3]
-      108 GETIMPORT                        R8 K17 [math.min]
-      110 CALL                             R8 2 1
-      111 SETTABLE                         R8 R3 R7
-      112 FORNLOOP                         R4
-      113 RETURN                           R3 1
+       29 SETTABLE                         R8 R3 R7
+       30 FORNLOOP                         R4
+       31 RETURN                           R3 1
+       32 GETIMPORT                        R4 K9 [Enum.RollOffMode.LinearSquare]
+       34 JUMPIFNOTEQ                      R0 R4 ; [+31]
+       36 LOADN                            R6 0
+       37 LOADN                            R4 100
+       38 LOADN                            R5 1
+       39 FORNPREP                         R4
+       40 DIVK                             R8 R6 K6 [100]
+       41 MUL                              R9 R8 R2
+       42 SUBRK                            R11 R7 K8 ["LinearSquare"]
+       43 MUL                              R10 R11 R1
+       44 ADD                              R7 R9 R10
+       45 JUMPIFNOTLE                      R2 R7 ; [+3]
+       47 LOADN                            R8 0
+       48 JUMP                             ; [+14]
+       49 JUMPIFNOTEQ                      R2 R1 ; [+3]
+       51 LOADN                            R8 0
+       52 JUMP                             ; [+10]
+       53 SUB                              R11 R7 R1
+       54 SUB                              R12 R2 R1
+       55 DIV                              R10 R11 R12
+       56 SUBRK                            R9 R7 K10 [2]
+       57 FASTCALL2K                       MATH_POW R9 K10 ; [+4]
+       59 LOADK                            R10 K10 [2]
+       60 GETIMPORT                        R8 K13 [math.pow]
+       62 CALL                             R8 2 1
+       63 SETTABLE                         R8 R3 R7
+       64 FORNLOOP                         R4
+       65 RETURN                           R3 1
+       66 GETIMPORT                        R4 K15 [Enum.RollOffMode.InverseTapered]
+       68 JUMPIFNOTEQ                      R0 R4 ; [+40]
+       70 LOADN                            R6 0
+       71 LOADN                            R4 100
+       72 LOADN                            R5 1
+       73 FORNPREP                         R4
+       74 DIVK                             R8 R6 K6 [100]
+       75 MUL                              R9 R8 R2
+       76 SUBRK                            R11 R7 K8 ["LinearSquare"]
+       77 MUL                              R10 R11 R1
+       78 ADD                              R7 R9 R10
+       79 JUMPIFNOTLE                      R2 R7 ; [+3]
+       81 LOADN                            R9 0
+       82 JUMP                             ; [+1]
+       83 DIV                              R9 R1 R7
+       84 JUMPIFNOTLE                      R2 R7 ; [+3]
+       86 LOADN                            R10 0
+       87 JUMP                             ; [+14]
+       88 JUMPIFNOTEQ                      R2 R1 ; [+3]
+       90 LOADN                            R10 0
+       91 JUMP                             ; [+10]
+       92 SUB                              R13 R7 R1
+       93 SUB                              R14 R2 R1
+       94 DIV                              R12 R13 R14
+       95 SUBRK                            R11 R7 K12 ["pow"]
+       96 FASTCALL2K                       MATH_POW R11 K10 ; [+4]
+       98 LOADK                            R12 K10 [2]
+       99 GETIMPORT                        R10 K13 [math.pow]
+      101 CALL                             R10 2 1
+      102 FASTCALL2                        MATH_MIN R9 R10 ; [+3]
+      104 GETIMPORT                        R8 K17 [math.min]
+      106 CALL                             R8 2 1
+      107 SETTABLE                         R8 R3 R7
+      108 FORNLOOP                         R4
+      109 RETURN                           R3 1
 
 PROTO_9:
         0 GETIMPORT                        R1 K2 [Instance.new]

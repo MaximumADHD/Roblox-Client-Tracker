@@ -12,6 +12,9 @@ local dependencyArray = RoactUtils.Hooks.dependencyArray
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil
 local Constants = require(Chrome.Integrations.Party.Constants)
+
+local FFlagRemoveDependencyArrayAntipattern =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern
 local useIsVoiceFocused = CrossExperienceVoice.Hooks.useIsVoiceFocused
 local useIsVoiceConnected = CrossExperienceVoice.Hooks.useIsVoiceConnected
 
@@ -25,15 +28,20 @@ local function PartyMicBinder()
 		return nil
 	end, {})
 
-	React.useEffect(function()
-		if integration then
-			if isVoiceConnected and (isVoiceFocused or not AudioFocusManagementEnabled) then
-				integration.availability:available()
-			else
-				integration.availability:unavailable()
+	React.useEffect(
+		function()
+			if integration then
+				if isVoiceConnected and (isVoiceFocused or not AudioFocusManagementEnabled) then
+					integration.availability:available()
+				else
+					integration.availability:unavailable()
+				end
 			end
-		end
-	end, dependencyArray(isVoiceConnected, isVoiceFocused, integration))
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then { isVoiceConnected :: any, isVoiceFocused, integration }
+			else dependencyArray(isVoiceConnected, isVoiceFocused, integration)
+	)
 
 	return nil
 end

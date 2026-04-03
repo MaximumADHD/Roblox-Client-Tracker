@@ -322,239 +322,238 @@ PROTO_12:
        21 JUMPIFNOT                        R2 ; [+3]
        22 NEWCLOSURE                       R9 P0
        23 CAPTURE                          VAL R2
-       24 JUMP                             ; [+2]
+       24 JUMP                             ; [+1]
        25 GETUPVAL                         R9 0
-       26 JUMP                             ; [0]
-       27 MOVE                             R10 R9
-       28 GETTABLEKS                       R11 R5 K5 ["Y"]
-       30 CALL                             R10 1 1
-       31 GETTABLEKS                       R14 R5 K4 ["X"]
-       33 GETTABLEKS                       R15 R5 K4 ["X"]
-       35 MUL                              R13 R14 R15
-       36 GETTABLEKS                       R15 R5 K6 ["Z"]
-       38 GETTABLEKS                       R16 R5 K6 ["Z"]
-       40 MUL                              R14 R15 R16
-       41 ADD                              R12 R13 R14
-       42 FASTCALL1                        MATH_SQRT R12 ; [+2]
-       43 GETIMPORT                        R11 K12 [math.sqrt]
-       45 CALL                             R11 1 1
-       46 FASTCALL1                        MATH_ABS R10 ; [+3]
-       47 MOVE                             R14 R10
-       48 GETIMPORT                        R13 K14 [math.abs]
-       50 CALL                             R13 1 1
-       51 JUMPIFNOTLT                      R8 R13 ; [+3]
-       53 LOADN                            R12 0
-       54 JUMP                             ; [+7]
-       55 MUL                              R14 R8 R8
-       56 MUL                              R15 R10 R10
-       57 SUB                              R13 R14 R15
-       58 FASTCALL1                        MATH_SQRT R13 ; [+2]
-       59 GETIMPORT                        R12 K12 [math.sqrt]
-       61 CALL                             R12 1 1
-       62 MULK                             R13 R8 K15 [0.25]
-       63 LOADB                            R14 1
-       64 JUMPIFLT                         R12 R13 ; [+5]
-       66 JUMPIFLT                         R11 R13 ; [+2]
-       68 LOADB                            R14 0 +1
-       69 LOADB                            R14 1
-       70 JUMPIFNOT                        R14 ; [+8]
-       71 LOADN                            R12 0
-       72 GETTABLEKS                       R16 R5 K5 ["Y"]
-       74 FASTCALL1                        MATH_SIGN R16 ; [+2]
-       75 GETIMPORT                        R15 K17 [math.sign]
-       77 CALL                             R15 1 1
-       78 MUL                              R10 R15 R8
-       79 GETTABLEKS                       R17 R5 K4 ["X"]
-       81 LOADN                            R18 0
-       82 GETTABLEKS                       R19 R5 K6 ["Z"]
-       84 FASTCALL                         VECTOR ; [+2]
-       85 GETIMPORT                        R16 K20 [Vector3.new]
-       87 CALL                             R16 3 1
-       88 GETTABLEKS                       R15 R16 K21 ["Unit"]
-       90 LOADN                            R16 0
-       91 GETTABLEKS                       R19 R5 K6 ["Z"]
-       93 FASTCALL1                        MATH_SIGN R19 ; [+2]
-       94 GETIMPORT                        R18 K17 [math.sign]
-       96 CALL                             R18 1 1
-       97 MUL                              R17 R18 R12
-       98 GETTABLEKS                       R20 R5 K4 ["X"]
-      100 FASTCALL1                        MATH_SIGN R20 ; [+2]
-      101 GETIMPORT                        R19 K17 [math.sign]
-      103 CALL                             R19 1 1
-      104 MUL                              R18 R19 R12
-      105 LOADN                            R19 0
-      106 GETTABLEKS                       R21 R5 K4 ["X"]
-      108 FASTCALL1                        MATH_ABS R21 ; [+2]
-      109 GETIMPORT                        R20 K14 [math.abs]
-      111 CALL                             R20 1 1
-      112 GETTABLEKS                       R22 R5 K6 ["Z"]
-      114 FASTCALL1                        MATH_ABS R22 ; [+2]
-      115 GETIMPORT                        R21 K14 [math.abs]
-      117 CALL                             R21 1 1
-      118 JUMPIFNOTLT                      R21 R20 ; [+7]
-      120 MOVE                             R20 R18
-      121 MOVE                             R18 R16
-      122 MOVE                             R16 R20
-      123 MOVE                             R20 R19
-      124 MOVE                             R19 R17
-      125 MOVE                             R17 R20
-      126 LOADNIL                          R20
-      127 JUMPIFNOT                        R14 ; [+2]
-      128 LOADN                            R20 0
-      129 JUMP                             ; [+30]
-      130 GETTABLEKS                       R24 R15 K4 ["X"]
-      132 MUL                              R23 R16 R24
-      133 GETTABLEKS                       R25 R15 K6 ["Z"]
-      135 MUL                              R24 R17 R25
-      136 ADD                              R22 R23 R24
-      137 DIV                              R21 R22 R12
-      138 JUMPIFEQ                         R21 R21 ; [+2]
-      140 LOADN                            R21 0
-      141 LOADN                            R25 255
-      142 LOADN                            R26 1
-      143 FASTCALL3                        MATH_CLAMP R21 R25 R26
-      145 MOVE                             R24 R21
-      146 GETIMPORT                        R23 K23 [math.clamp]
-      148 CALL                             R23 3 1
-      149 FASTCALL1                        MATH_ACOS R23 ; [+2]
-      150 GETIMPORT                        R22 K25 [math.acos]
-      152 CALL                             R22 1 1
-      153 MUL                              R23 R22 R8
-      154 MOVE                             R24 R9
-      155 MOVE                             R25 R23
-      156 CALL                             R24 1 1
-      157 LOADK                            R26 K26 [1.5707963267949]
-      158 MUL                              R25 R26 R8
-      159 DIV                              R20 R24 R25
-      160 MOVE                             R22 R16
-      161 MOVE                             R23 R18
-      162 MOVE                             R24 R20
-      163 SUBRK                            R28 R27 K24 ["acos"]
-      164 MULK                             R27 R28 K26 [1.5707963267949]
-      165 FASTCALL1                        MATH_SIN R27 ; [+2]
-      166 GETIMPORT                        R26 K29 [math.sin]
-      168 CALL                             R26 1 1
-      169 MUL                              R25 R22 R26
-      170 MULK                             R28 R24 K26 [1.5707963267949]
-      171 FASTCALL1                        MATH_SIN R28 ; [+2]
-      172 GETIMPORT                        R27 K29 [math.sin]
-      174 CALL                             R27 1 1
-      175 MUL                              R26 R23 R27
-      176 ADD                              R21 R25 R26
-      177 MOVE                             R23 R17
-      178 MOVE                             R24 R19
-      179 MOVE                             R25 R20
-      180 SUBRK                            R29 R27 K25 [math.acos]
-      181 MULK                             R28 R29 K26 [1.5707963267949]
-      182 FASTCALL1                        MATH_SIN R28 ; [+2]
-      183 GETIMPORT                        R27 K29 [math.sin]
-      185 CALL                             R27 1 1
-      186 MUL                              R26 R23 R27
-      187 MULK                             R29 R25 K26 [1.5707963267949]
-      188 FASTCALL1                        MATH_SIN R29 ; [+2]
-      189 GETIMPORT                        R28 K29 [math.sin]
-      191 CALL                             R28 1 1
-      192 MUL                              R27 R24 R28
-      193 ADD                              R22 R26 R27
-      194 FASTCALL3                        VECTOR R21 R10 R22
-      196 MOVE                             R24 R21
-      197 MOVE                             R25 R10
-      198 MOVE                             R26 R22
-      199 GETIMPORT                        R23 K20 [Vector3.new]
-      201 CALL                             R23 3 1
-      202 LOADNIL                          R24
-      203 LOADNIL                          R25
-      204 MOVE                             R28 R23
-      205 NAMECALL                         R26 R4 K30 ["VectorToWorldSpace"]
-      207 CALL                             R26 2 1
-      208 GETTABLEKS                       R24 R26 K21 ["Unit"]
-      210 GETTABLEKS                       R27 R0 K1 ["CFrame"]
-      212 GETTABLEKS                       R26 R27 K31 ["YVector"]
-      214 GETUPVAL                         R27 1
-      215 CALL                             R27 0 1
-      216 JUMPIFNOT                        R27 ; [+57]
-      217 MOVE                             R30 R26
-      218 NAMECALL                         R28 R24 K32 ["Dot"]
-      220 CALL                             R28 2 1
-      221 FASTCALL1                        MATH_ABS R28 ; [+2]
-      222 GETIMPORT                        R27 K14 [math.abs]
-      224 CALL                             R27 1 1
-      225 LOADK                            R28 K33 [0.99]
-      226 JUMPIFNOTLT                      R28 R27 ; [+24]
-      228 GETTABLEKS                       R30 R0 K1 ["CFrame"]
-      230 GETTABLEKS                       R29 R30 K34 ["XVector"]
-      232 NAMECALL                         R27 R24 K35 ["Cross"]
-      234 CALL                             R27 2 1
-      235 GETTABLEKS                       R28 R27 K36 ["Magnitude"]
-      237 LOADK                            R29 K37 [1E-05]
-      238 JUMPIFNOTLT                      R28 R29 ; [+9]
-      240 GETTABLEKS                       R31 R0 K1 ["CFrame"]
-      242 GETTABLEKS                       R30 R31 K38 ["ZVector"]
-      244 NAMECALL                         R28 R24 K35 ["Cross"]
-      246 CALL                             R28 2 1
-      247 MOVE                             R27 R28
-      248 GETTABLEKS                       R25 R27 K21 ["Unit"]
-      250 JUMP                             ; [+50]
-      251 MOVE                             R29 R26
-      252 NAMECALL                         R27 R24 K35 ["Cross"]
-      254 CALL                             R27 2 1
-      255 GETTABLEKS                       R28 R27 K36 ["Magnitude"]
-      257 LOADK                            R29 K37 [1E-05]
-      258 JUMPIFNOTLT                      R28 R29 ; [+12]
-      260 LOADK                            R27 K39 [{1, 0, 0}]
-      261 GETTABLEKS                       R29 R24 K4 ["X"]
-      263 FASTCALL1                        MATH_ABS R29 ; [+2]
-      264 GETIMPORT                        R28 K14 [math.abs]
-      266 CALL                             R28 1 1
-      267 LOADK                            R29 K40 [0.9]
-      268 JUMPIFNOTLT                      R29 R28 ; [+2]
-      270 LOADK                            R27 K41 [{0, 1, 0}]
-      271 GETTABLEKS                       R25 R27 K21 ["Unit"]
-      273 JUMP                             ; [+27]
-      274 MOVE                             R30 R26
-      275 NAMECALL                         R28 R24 K32 ["Dot"]
-      277 CALL                             R28 2 1
-      278 FASTCALL1                        MATH_ABS R28 ; [+2]
-      279 GETIMPORT                        R27 K14 [math.abs]
-      281 CALL                             R27 1 1
-      282 LOADK                            R28 K33 [0.99]
-      283 JUMPIFNOTLT                      R28 R27 ; [+11]
-      285 GETTABLEKS                       R30 R0 K1 ["CFrame"]
-      287 GETTABLEKS                       R29 R30 K34 ["XVector"]
-      289 NAMECALL                         R27 R24 K35 ["Cross"]
-      291 CALL                             R27 2 1
-      292 GETTABLEKS                       R25 R27 K21 ["Unit"]
-      294 JUMP                             ; [+6]
-      295 MOVE                             R29 R26
-      296 NAMECALL                         R27 R24 K35 ["Cross"]
-      298 CALL                             R27 2 1
-      299 GETTABLEKS                       R25 R27 K21 ["Unit"]
-      301 MOVE                             R29 R23
-      302 NAMECALL                         R27 R4 K42 ["PointToWorldSpace"]
-      304 CALL                             R27 2 1
-      305 JUMPIFNOT                        R14 ; [+12]
-      306 GETUPVAL                         R28 2
-      307 MOVE                             R29 R0
-      308 MOVE                             R30 R3
-      309 GETUPVAL                         R32 3
-      310 GETTABLEKS                       R31 R32 K43 ["Polygon"]
-      312 MOVE                             R32 R27
-      313 LOADK                            R33 K44 [{0, 0, 0}]
-      314 MOVE                             R34 R24
-      315 MOVE                             R35 R25
-      316 CALL                             R28 7 -1
-      317 RETURN                           R28 -1
-      318 GETUPVAL                         R28 2
-      319 MOVE                             R29 R0
-      320 MOVE                             R30 R3
-      321 GETUPVAL                         R32 3
-      322 GETTABLEKS                       R31 R32 K45 ["Sphere"]
-      324 MOVE                             R32 R27
-      325 LOADK                            R33 K44 [{0, 0, 0}]
-      326 MOVE                             R34 R24
-      327 MOVE                             R35 R25
-      328 CALL                             R28 7 -1
-      329 RETURN                           R28 -1
+       26 MOVE                             R10 R9
+       27 GETTABLEKS                       R11 R5 K5 ["Y"]
+       29 CALL                             R10 1 1
+       30 GETTABLEKS                       R14 R5 K4 ["X"]
+       32 GETTABLEKS                       R15 R5 K4 ["X"]
+       34 MUL                              R13 R14 R15
+       35 GETTABLEKS                       R15 R5 K6 ["Z"]
+       37 GETTABLEKS                       R16 R5 K6 ["Z"]
+       39 MUL                              R14 R15 R16
+       40 ADD                              R12 R13 R14
+       41 FASTCALL1                        MATH_SQRT R12 ; [+2]
+       42 GETIMPORT                        R11 K12 [math.sqrt]
+       44 CALL                             R11 1 1
+       45 FASTCALL1                        MATH_ABS R10 ; [+3]
+       46 MOVE                             R14 R10
+       47 GETIMPORT                        R13 K14 [math.abs]
+       49 CALL                             R13 1 1
+       50 JUMPIFNOTLT                      R8 R13 ; [+3]
+       52 LOADN                            R12 0
+       53 JUMP                             ; [+7]
+       54 MUL                              R14 R8 R8
+       55 MUL                              R15 R10 R10
+       56 SUB                              R13 R14 R15
+       57 FASTCALL1                        MATH_SQRT R13 ; [+2]
+       58 GETIMPORT                        R12 K12 [math.sqrt]
+       60 CALL                             R12 1 1
+       61 MULK                             R13 R8 K15 [0.25]
+       62 LOADB                            R14 1
+       63 JUMPIFLT                         R12 R13 ; [+5]
+       65 JUMPIFLT                         R11 R13 ; [+2]
+       67 LOADB                            R14 0 +1
+       68 LOADB                            R14 1
+       69 JUMPIFNOT                        R14 ; [+8]
+       70 LOADN                            R12 0
+       71 GETTABLEKS                       R16 R5 K5 ["Y"]
+       73 FASTCALL1                        MATH_SIGN R16 ; [+2]
+       74 GETIMPORT                        R15 K17 [math.sign]
+       76 CALL                             R15 1 1
+       77 MUL                              R10 R15 R8
+       78 GETTABLEKS                       R17 R5 K4 ["X"]
+       80 LOADN                            R18 0
+       81 GETTABLEKS                       R19 R5 K6 ["Z"]
+       83 FASTCALL                         VECTOR ; [+2]
+       84 GETIMPORT                        R16 K20 [Vector3.new]
+       86 CALL                             R16 3 1
+       87 GETTABLEKS                       R15 R16 K21 ["Unit"]
+       89 LOADN                            R16 0
+       90 GETTABLEKS                       R19 R5 K6 ["Z"]
+       92 FASTCALL1                        MATH_SIGN R19 ; [+2]
+       93 GETIMPORT                        R18 K17 [math.sign]
+       95 CALL                             R18 1 1
+       96 MUL                              R17 R18 R12
+       97 GETTABLEKS                       R20 R5 K4 ["X"]
+       99 FASTCALL1                        MATH_SIGN R20 ; [+2]
+      100 GETIMPORT                        R19 K17 [math.sign]
+      102 CALL                             R19 1 1
+      103 MUL                              R18 R19 R12
+      104 LOADN                            R19 0
+      105 GETTABLEKS                       R21 R5 K4 ["X"]
+      107 FASTCALL1                        MATH_ABS R21 ; [+2]
+      108 GETIMPORT                        R20 K14 [math.abs]
+      110 CALL                             R20 1 1
+      111 GETTABLEKS                       R22 R5 K6 ["Z"]
+      113 FASTCALL1                        MATH_ABS R22 ; [+2]
+      114 GETIMPORT                        R21 K14 [math.abs]
+      116 CALL                             R21 1 1
+      117 JUMPIFNOTLT                      R21 R20 ; [+7]
+      119 MOVE                             R20 R18
+      120 MOVE                             R18 R16
+      121 MOVE                             R16 R20
+      122 MOVE                             R20 R19
+      123 MOVE                             R19 R17
+      124 MOVE                             R17 R20
+      125 LOADNIL                          R20
+      126 JUMPIFNOT                        R14 ; [+2]
+      127 LOADN                            R20 0
+      128 JUMP                             ; [+30]
+      129 GETTABLEKS                       R24 R15 K4 ["X"]
+      131 MUL                              R23 R16 R24
+      132 GETTABLEKS                       R25 R15 K6 ["Z"]
+      134 MUL                              R24 R17 R25
+      135 ADD                              R22 R23 R24
+      136 DIV                              R21 R22 R12
+      137 JUMPIFEQ                         R21 R21 ; [+2]
+      139 LOADN                            R21 0
+      140 LOADN                            R25 255
+      141 LOADN                            R26 1
+      142 FASTCALL3                        MATH_CLAMP R21 R25 R26
+      144 MOVE                             R24 R21
+      145 GETIMPORT                        R23 K23 [math.clamp]
+      147 CALL                             R23 3 1
+      148 FASTCALL1                        MATH_ACOS R23 ; [+2]
+      149 GETIMPORT                        R22 K25 [math.acos]
+      151 CALL                             R22 1 1
+      152 MUL                              R23 R22 R8
+      153 MOVE                             R24 R9
+      154 MOVE                             R25 R23
+      155 CALL                             R24 1 1
+      156 LOADK                            R26 K26 [1.5707963267949]
+      157 MUL                              R25 R26 R8
+      158 DIV                              R20 R24 R25
+      159 MOVE                             R22 R16
+      160 MOVE                             R23 R18
+      161 MOVE                             R24 R20
+      162 SUBRK                            R28 R27 K24 ["acos"]
+      163 MULK                             R27 R28 K26 [1.5707963267949]
+      164 FASTCALL1                        MATH_SIN R27 ; [+2]
+      165 GETIMPORT                        R26 K29 [math.sin]
+      167 CALL                             R26 1 1
+      168 MUL                              R25 R22 R26
+      169 MULK                             R28 R24 K26 [1.5707963267949]
+      170 FASTCALL1                        MATH_SIN R28 ; [+2]
+      171 GETIMPORT                        R27 K29 [math.sin]
+      173 CALL                             R27 1 1
+      174 MUL                              R26 R23 R27
+      175 ADD                              R21 R25 R26
+      176 MOVE                             R23 R17
+      177 MOVE                             R24 R19
+      178 MOVE                             R25 R20
+      179 SUBRK                            R29 R27 K25 [math.acos]
+      180 MULK                             R28 R29 K26 [1.5707963267949]
+      181 FASTCALL1                        MATH_SIN R28 ; [+2]
+      182 GETIMPORT                        R27 K29 [math.sin]
+      184 CALL                             R27 1 1
+      185 MUL                              R26 R23 R27
+      186 MULK                             R29 R25 K26 [1.5707963267949]
+      187 FASTCALL1                        MATH_SIN R29 ; [+2]
+      188 GETIMPORT                        R28 K29 [math.sin]
+      190 CALL                             R28 1 1
+      191 MUL                              R27 R24 R28
+      192 ADD                              R22 R26 R27
+      193 FASTCALL3                        VECTOR R21 R10 R22
+      195 MOVE                             R24 R21
+      196 MOVE                             R25 R10
+      197 MOVE                             R26 R22
+      198 GETIMPORT                        R23 K20 [Vector3.new]
+      200 CALL                             R23 3 1
+      201 LOADNIL                          R24
+      202 LOADNIL                          R25
+      203 MOVE                             R28 R23
+      204 NAMECALL                         R26 R4 K30 ["VectorToWorldSpace"]
+      206 CALL                             R26 2 1
+      207 GETTABLEKS                       R24 R26 K21 ["Unit"]
+      209 GETTABLEKS                       R27 R0 K1 ["CFrame"]
+      211 GETTABLEKS                       R26 R27 K31 ["YVector"]
+      213 GETUPVAL                         R27 1
+      214 CALL                             R27 0 1
+      215 JUMPIFNOT                        R27 ; [+57]
+      216 MOVE                             R30 R26
+      217 NAMECALL                         R28 R24 K32 ["Dot"]
+      219 CALL                             R28 2 1
+      220 FASTCALL1                        MATH_ABS R28 ; [+2]
+      221 GETIMPORT                        R27 K14 [math.abs]
+      223 CALL                             R27 1 1
+      224 LOADK                            R28 K33 [0.99]
+      225 JUMPIFNOTLT                      R28 R27 ; [+24]
+      227 GETTABLEKS                       R30 R0 K1 ["CFrame"]
+      229 GETTABLEKS                       R29 R30 K34 ["XVector"]
+      231 NAMECALL                         R27 R24 K35 ["Cross"]
+      233 CALL                             R27 2 1
+      234 GETTABLEKS                       R28 R27 K36 ["Magnitude"]
+      236 LOADK                            R29 K37 [1E-05]
+      237 JUMPIFNOTLT                      R28 R29 ; [+9]
+      239 GETTABLEKS                       R31 R0 K1 ["CFrame"]
+      241 GETTABLEKS                       R30 R31 K38 ["ZVector"]
+      243 NAMECALL                         R28 R24 K35 ["Cross"]
+      245 CALL                             R28 2 1
+      246 MOVE                             R27 R28
+      247 GETTABLEKS                       R25 R27 K21 ["Unit"]
+      249 JUMP                             ; [+50]
+      250 MOVE                             R29 R26
+      251 NAMECALL                         R27 R24 K35 ["Cross"]
+      253 CALL                             R27 2 1
+      254 GETTABLEKS                       R28 R27 K36 ["Magnitude"]
+      256 LOADK                            R29 K37 [1E-05]
+      257 JUMPIFNOTLT                      R28 R29 ; [+12]
+      259 LOADK                            R27 K39 [{1, 0, 0}]
+      260 GETTABLEKS                       R29 R24 K4 ["X"]
+      262 FASTCALL1                        MATH_ABS R29 ; [+2]
+      263 GETIMPORT                        R28 K14 [math.abs]
+      265 CALL                             R28 1 1
+      266 LOADK                            R29 K40 [0.9]
+      267 JUMPIFNOTLT                      R29 R28 ; [+2]
+      269 LOADK                            R27 K41 [{0, 1, 0}]
+      270 GETTABLEKS                       R25 R27 K21 ["Unit"]
+      272 JUMP                             ; [+27]
+      273 MOVE                             R30 R26
+      274 NAMECALL                         R28 R24 K32 ["Dot"]
+      276 CALL                             R28 2 1
+      277 FASTCALL1                        MATH_ABS R28 ; [+2]
+      278 GETIMPORT                        R27 K14 [math.abs]
+      280 CALL                             R27 1 1
+      281 LOADK                            R28 K33 [0.99]
+      282 JUMPIFNOTLT                      R28 R27 ; [+11]
+      284 GETTABLEKS                       R30 R0 K1 ["CFrame"]
+      286 GETTABLEKS                       R29 R30 K34 ["XVector"]
+      288 NAMECALL                         R27 R24 K35 ["Cross"]
+      290 CALL                             R27 2 1
+      291 GETTABLEKS                       R25 R27 K21 ["Unit"]
+      293 JUMP                             ; [+6]
+      294 MOVE                             R29 R26
+      295 NAMECALL                         R27 R24 K35 ["Cross"]
+      297 CALL                             R27 2 1
+      298 GETTABLEKS                       R25 R27 K21 ["Unit"]
+      300 MOVE                             R29 R23
+      301 NAMECALL                         R27 R4 K42 ["PointToWorldSpace"]
+      303 CALL                             R27 2 1
+      304 JUMPIFNOT                        R14 ; [+12]
+      305 GETUPVAL                         R28 2
+      306 MOVE                             R29 R0
+      307 MOVE                             R30 R3
+      308 GETUPVAL                         R32 3
+      309 GETTABLEKS                       R31 R32 K43 ["Polygon"]
+      311 MOVE                             R32 R27
+      312 LOADK                            R33 K44 [{0, 0, 0}]
+      313 MOVE                             R34 R24
+      314 MOVE                             R35 R25
+      315 CALL                             R28 7 -1
+      316 RETURN                           R28 -1
+      317 GETUPVAL                         R28 2
+      318 MOVE                             R29 R0
+      319 MOVE                             R30 R3
+      320 GETUPVAL                         R32 3
+      321 GETTABLEKS                       R31 R32 K45 ["Sphere"]
+      323 MOVE                             R32 R27
+      324 LOADK                            R33 K44 [{0, 0, 0}]
+      325 MOVE                             R34 R24
+      326 MOVE                             R35 R25
+      327 CALL                             R28 7 -1
+      328 RETURN                           R28 -1
 
 PROTO_13:
         0 GETTABLEKS                       R3 R1 K0 ["Position"]
@@ -757,81 +756,80 @@ PROTO_13:
       265 JUMPIFNOT                        R2 ; [+3]
       266 NEWCLOSURE                       R17 P0
       267 CAPTURE                          VAL R2
-      268 JUMP                             ; [+2]
+      268 JUMP                             ; [+1]
       269 GETUPVAL                         R17 3
-      270 JUMP                             ; [0]
-      271 MOVE                             R18 R17
-      272 MOVE                             R19 R16
-      273 CALL                             R18 1 1
-      274 LOADK                            R21 K27 [1.5707963267949]
-      275 MUL                              R20 R21 R9
-      276 DIV                              R19 R18 R20
-      277 MOVE                             R21 R11
-      278 MOVE                             R22 R13
-      279 SUBRK                            R26 R28 K19 [Vector3.new]
-      280 MULK                             R25 R26 K27 [1.5707963267949]
-      281 FASTCALL1                        MATH_SIN R25 ; [+2]
-      282 GETIMPORT                        R24 K30 [math.sin]
-      284 CALL                             R24 1 1
-      285 MUL                              R23 R21 R24
-      286 MULK                             R26 R19 K27 [1.5707963267949]
-      287 FASTCALL1                        MATH_SIN R26 ; [+2]
-      288 GETIMPORT                        R25 K30 [math.sin]
-      290 CALL                             R25 1 1
-      291 MUL                              R24 R22 R25
-      292 ADD                              R20 R23 R24
-      293 MOVE                             R22 R12
-      294 MOVE                             R23 R14
-      295 SUBRK                            R27 R28 K19 [Vector3.new]
-      296 MULK                             R26 R27 K27 [1.5707963267949]
-      297 FASTCALL1                        MATH_SIN R26 ; [+2]
-      298 GETIMPORT                        R25 K30 [math.sin]
-      300 CALL                             R25 1 1
-      301 MUL                              R24 R22 R25
-      302 MULK                             R27 R19 K27 [1.5707963267949]
-      303 FASTCALL1                        MATH_SIN R27 ; [+2]
-      304 GETIMPORT                        R26 K30 [math.sin]
-      306 CALL                             R26 1 1
-      307 MUL                              R25 R23 R26
-      308 ADD                              R21 R24 R25
-      309 LOADN                            R25 0
-      310 FASTCALL3                        VECTOR R25 R20 R21
-      312 MOVE                             R26 R20
-      313 MOVE                             R27 R21
-      314 GETIMPORT                        R24 K19 [Vector3.new]
-      316 CALL                             R24 3 1
-      317 NAMECALL                         R22 R5 K31 ["VectorToWorldSpace"]
-      319 CALL                             R22 2 1
-      320 GETTABLEKS                       R4 R22 K32 ["Unit"]
-      322 GETTABLEKS                       R27 R6 K11 ["X"]
-      324 FASTCALL1                        MATH_SIGN R27 ; [+2]
-      325 GETIMPORT                        R26 K16 [math.sign]
-      327 CALL                             R26 1 1
-      328 MUL                              R25 R10 R26
-      329 FASTCALL3                        VECTOR R25 R20 R21
-      331 MOVE                             R26 R20
-      332 MOVE                             R27 R21
-      333 GETIMPORT                        R24 K19 [Vector3.new]
-      335 CALL                             R24 3 1
-      336 NAMECALL                         R22 R5 K21 ["PointToWorldSpace"]
-      338 CALL                             R22 2 1
-      339 LOADN                            R24 0
-      340 LOADN                            R25 0
-      341 GETTABLEKS                       R26 R7 K11 ["X"]
-      343 FASTCALL                         VECTOR ; [+2]
-      344 GETIMPORT                        R23 K19 [Vector3.new]
-      346 CALL                             R23 3 1
-      347 GETUPVAL                         R24 0
-      348 MOVE                             R25 R0
-      349 MOVE                             R26 R3
-      350 GETUPVAL                         R28 1
-      351 GETTABLEKS                       R27 R28 K33 ["Cylinder"]
-      353 MOVE                             R28 R22
-      354 MOVE                             R29 R23
-      355 MOVE                             R30 R4
-      356 GETTABLEKS                       R31 R5 K34 ["XVector"]
-      358 CALL                             R24 7 -1
-      359 RETURN                           R24 -1
+      270 MOVE                             R18 R17
+      271 MOVE                             R19 R16
+      272 CALL                             R18 1 1
+      273 LOADK                            R21 K27 [1.5707963267949]
+      274 MUL                              R20 R21 R9
+      275 DIV                              R19 R18 R20
+      276 MOVE                             R21 R11
+      277 MOVE                             R22 R13
+      278 SUBRK                            R26 R28 K19 [Vector3.new]
+      279 MULK                             R25 R26 K27 [1.5707963267949]
+      280 FASTCALL1                        MATH_SIN R25 ; [+2]
+      281 GETIMPORT                        R24 K30 [math.sin]
+      283 CALL                             R24 1 1
+      284 MUL                              R23 R21 R24
+      285 MULK                             R26 R19 K27 [1.5707963267949]
+      286 FASTCALL1                        MATH_SIN R26 ; [+2]
+      287 GETIMPORT                        R25 K30 [math.sin]
+      289 CALL                             R25 1 1
+      290 MUL                              R24 R22 R25
+      291 ADD                              R20 R23 R24
+      292 MOVE                             R22 R12
+      293 MOVE                             R23 R14
+      294 SUBRK                            R27 R28 K19 [Vector3.new]
+      295 MULK                             R26 R27 K27 [1.5707963267949]
+      296 FASTCALL1                        MATH_SIN R26 ; [+2]
+      297 GETIMPORT                        R25 K30 [math.sin]
+      299 CALL                             R25 1 1
+      300 MUL                              R24 R22 R25
+      301 MULK                             R27 R19 K27 [1.5707963267949]
+      302 FASTCALL1                        MATH_SIN R27 ; [+2]
+      303 GETIMPORT                        R26 K30 [math.sin]
+      305 CALL                             R26 1 1
+      306 MUL                              R25 R23 R26
+      307 ADD                              R21 R24 R25
+      308 LOADN                            R25 0
+      309 FASTCALL3                        VECTOR R25 R20 R21
+      311 MOVE                             R26 R20
+      312 MOVE                             R27 R21
+      313 GETIMPORT                        R24 K19 [Vector3.new]
+      315 CALL                             R24 3 1
+      316 NAMECALL                         R22 R5 K31 ["VectorToWorldSpace"]
+      318 CALL                             R22 2 1
+      319 GETTABLEKS                       R4 R22 K32 ["Unit"]
+      321 GETTABLEKS                       R27 R6 K11 ["X"]
+      323 FASTCALL1                        MATH_SIGN R27 ; [+2]
+      324 GETIMPORT                        R26 K16 [math.sign]
+      326 CALL                             R26 1 1
+      327 MUL                              R25 R10 R26
+      328 FASTCALL3                        VECTOR R25 R20 R21
+      330 MOVE                             R26 R20
+      331 MOVE                             R27 R21
+      332 GETIMPORT                        R24 K19 [Vector3.new]
+      334 CALL                             R24 3 1
+      335 NAMECALL                         R22 R5 K21 ["PointToWorldSpace"]
+      337 CALL                             R22 2 1
+      338 LOADN                            R24 0
+      339 LOADN                            R25 0
+      340 GETTABLEKS                       R26 R7 K11 ["X"]
+      342 FASTCALL                         VECTOR ; [+2]
+      343 GETIMPORT                        R23 K19 [Vector3.new]
+      345 CALL                             R23 3 1
+      346 GETUPVAL                         R24 0
+      347 MOVE                             R25 R0
+      348 MOVE                             R26 R3
+      349 GETUPVAL                         R28 1
+      350 GETTABLEKS                       R27 R28 K33 ["Cylinder"]
+      352 MOVE                             R28 R22
+      353 MOVE                             R29 R23
+      354 MOVE                             R30 R4
+      355 GETTABLEKS                       R31 R5 K34 ["XVector"]
+      357 CALL                             R24 7 -1
+      358 RETURN                           R24 -1
 
 PROTO_14:
         0 MOVE                             R6 R0
@@ -1926,7 +1924,7 @@ PROTO_28:
       230 JUMPIFNOTLT                      R19 R20 ; [+4]
       232 MOVE                             R15 R17
       233 LOADK                            R16 K33 ["grid"]
-      234 JUMP                             ; [+29]
+      234 JUMP                             ; [+28]
       235 FASTCALL1                        MATH_ABS R17 ; [+3]
       236 MOVE                             R20 R17
       237 GETIMPORT                        R19 K27 [math.abs]
@@ -1938,99 +1936,97 @@ PROTO_28:
       245 JUMPIFNOTLT                      R19 R20 ; [+4]
       247 MOVE                             R15 R17
       248 LOADK                            R16 K33 ["grid"]
-      249 JUMP                             ; [+14]
+      249 JUMP                             ; [+13]
       250 MOVE                             R15 R18
       251 LOADK                            R16 K34 ["soft"]
-      252 JUMP                             ; [+11]
+      252 JUMP                             ; [+10]
       253 JUMPIFNOT                        R17 ; [+3]
       254 MOVE                             R15 R17
       255 LOADK                            R16 K33 ["grid"]
-      256 JUMP                             ; [+7]
+      256 JUMP                             ; [+6]
       257 JUMPIFNOT                        R18 ; [+3]
       258 MOVE                             R15 R18
       259 LOADK                            R16 K34 ["soft"]
-      260 JUMP                             ; [+3]
+      260 JUMP                             ; [+2]
       261 LOADN                            R15 0
       262 LOADK                            R16 K35 ["none"]
-      263 JUMP                             ; [0]
-      264 MOVE                             R19 R10
-      265 MOVE                             R20 R12
-      266 JUMPIFNOT                        R19 ; [+40]
-      267 JUMPIFNOT                        R20 ; [+39]
-      268 FASTCALL1                        MATH_ABS R19 ; [+3]
-      269 MOVE                             R24 R19
-      270 GETIMPORT                        R23 K27 [math.abs]
-      272 CALL                             R23 1 1
-      273 FASTCALL1                        MATH_ABS R20 ; [+3]
-      274 MOVE                             R25 R20
-      275 GETIMPORT                        R24 K27 [math.abs]
-      277 CALL                             R24 1 1
-      278 SUB                              R22 R23 R24
-      279 FASTCALL1                        MATH_ABS R22 ; [+2]
-      280 GETIMPORT                        R21 K27 [math.abs]
-      282 CALL                             R21 1 1
-      283 LOADK                            R22 K32 [0.01]
-      284 JUMPIFNOTLT                      R21 R22 ; [+4]
-      286 MOVE                             R17 R19
-      287 LOADK                            R18 K33 ["grid"]
-      288 JUMP                             ; [+29]
-      289 FASTCALL1                        MATH_ABS R19 ; [+3]
-      290 MOVE                             R22 R19
-      291 GETIMPORT                        R21 K27 [math.abs]
-      293 CALL                             R21 1 1
-      294 FASTCALL1                        MATH_ABS R20 ; [+3]
-      295 MOVE                             R23 R20
-      296 GETIMPORT                        R22 K27 [math.abs]
-      298 CALL                             R22 1 1
-      299 JUMPIFNOTLT                      R21 R22 ; [+4]
-      301 MOVE                             R17 R19
-      302 LOADK                            R18 K33 ["grid"]
-      303 JUMP                             ; [+14]
-      304 MOVE                             R17 R20
-      305 LOADK                            R18 K34 ["soft"]
-      306 JUMP                             ; [+11]
-      307 JUMPIFNOT                        R19 ; [+3]
-      308 MOVE                             R17 R19
-      309 LOADK                            R18 K33 ["grid"]
-      310 JUMP                             ; [+7]
-      311 JUMPIFNOT                        R20 ; [+3]
-      312 MOVE                             R17 R20
-      313 LOADK                            R18 K34 ["soft"]
-      314 JUMP                             ; [+3]
-      315 LOADN                            R17 0
-      316 LOADK                            R18 K35 ["none"]
-      317 JUMP                             ; [0]
-      318 NEWTABLE                         R19 0 0
-      320 JUMPIFNOTEQKS                    R16 K34 ["soft"] ; [+8]
-      322 FASTCALL2                        TABLE_INSERT R19 R13 ; [+5]
-      324 MOVE                             R21 R19
-      325 MOVE                             R22 R13
-      326 GETIMPORT                        R20 K38 [table.insert]
-      328 CALL                             R20 2 0
-      329 JUMPIFNOTEQKS                    R18 K34 ["soft"] ; [+8]
-      331 FASTCALL2                        TABLE_INSERT R19 R14 ; [+5]
-      333 MOVE                             R21 R19
-      334 MOVE                             R22 R14
-      335 GETIMPORT                        R20 K38 [table.insert]
-      337 CALL                             R20 2 0
-      338 MOVE                             R20 R19
-      339 LOADNIL                          R21
-      340 LOADNIL                          R22
-      341 FORGPREP                         R20
-      342 GETTABLEKS                       R27 R24 K28 ["a"]
-      344 GETTABLEKS                       R28 R24 K29 ["b"]
-      346 NAMECALL                         R25 R0 K39 ["PointToWorldSpace"]
-      348 CALL                             R25 3 2
-      349 SETTABLEKS                       R25 R24 K28 ["a"]
-      351 SETTABLEKS                       R26 R24 K29 ["b"]
-      353 FORGLOOP                         R20 2 ; [-12]
-      355 GETIMPORT                        R20 K40 [CFrame.new]
-      357 MOVE                             R21 R15
-      358 LOADN                            R22 0
-      359 MOVE                             R23 R17
-      360 CALL                             R20 3 1
-      361 MOVE                             R21 R19
-      362 RETURN                           R20 2
+      263 MOVE                             R19 R10
+      264 MOVE                             R20 R12
+      265 JUMPIFNOT                        R19 ; [+40]
+      266 JUMPIFNOT                        R20 ; [+39]
+      267 FASTCALL1                        MATH_ABS R19 ; [+3]
+      268 MOVE                             R24 R19
+      269 GETIMPORT                        R23 K27 [math.abs]
+      271 CALL                             R23 1 1
+      272 FASTCALL1                        MATH_ABS R20 ; [+3]
+      273 MOVE                             R25 R20
+      274 GETIMPORT                        R24 K27 [math.abs]
+      276 CALL                             R24 1 1
+      277 SUB                              R22 R23 R24
+      278 FASTCALL1                        MATH_ABS R22 ; [+2]
+      279 GETIMPORT                        R21 K27 [math.abs]
+      281 CALL                             R21 1 1
+      282 LOADK                            R22 K32 [0.01]
+      283 JUMPIFNOTLT                      R21 R22 ; [+4]
+      285 MOVE                             R17 R19
+      286 LOADK                            R18 K33 ["grid"]
+      287 JUMP                             ; [+28]
+      288 FASTCALL1                        MATH_ABS R19 ; [+3]
+      289 MOVE                             R22 R19
+      290 GETIMPORT                        R21 K27 [math.abs]
+      292 CALL                             R21 1 1
+      293 FASTCALL1                        MATH_ABS R20 ; [+3]
+      294 MOVE                             R23 R20
+      295 GETIMPORT                        R22 K27 [math.abs]
+      297 CALL                             R22 1 1
+      298 JUMPIFNOTLT                      R21 R22 ; [+4]
+      300 MOVE                             R17 R19
+      301 LOADK                            R18 K33 ["grid"]
+      302 JUMP                             ; [+13]
+      303 MOVE                             R17 R20
+      304 LOADK                            R18 K34 ["soft"]
+      305 JUMP                             ; [+10]
+      306 JUMPIFNOT                        R19 ; [+3]
+      307 MOVE                             R17 R19
+      308 LOADK                            R18 K33 ["grid"]
+      309 JUMP                             ; [+6]
+      310 JUMPIFNOT                        R20 ; [+3]
+      311 MOVE                             R17 R20
+      312 LOADK                            R18 K34 ["soft"]
+      313 JUMP                             ; [+2]
+      314 LOADN                            R17 0
+      315 LOADK                            R18 K35 ["none"]
+      316 NEWTABLE                         R19 0 0
+      318 JUMPIFNOTEQKS                    R16 K34 ["soft"] ; [+8]
+      320 FASTCALL2                        TABLE_INSERT R19 R13 ; [+5]
+      322 MOVE                             R21 R19
+      323 MOVE                             R22 R13
+      324 GETIMPORT                        R20 K38 [table.insert]
+      326 CALL                             R20 2 0
+      327 JUMPIFNOTEQKS                    R18 K34 ["soft"] ; [+8]
+      329 FASTCALL2                        TABLE_INSERT R19 R14 ; [+5]
+      331 MOVE                             R21 R19
+      332 MOVE                             R22 R14
+      333 GETIMPORT                        R20 K38 [table.insert]
+      335 CALL                             R20 2 0
+      336 MOVE                             R20 R19
+      337 LOADNIL                          R21
+      338 LOADNIL                          R22
+      339 FORGPREP                         R20
+      340 GETTABLEKS                       R27 R24 K28 ["a"]
+      342 GETTABLEKS                       R28 R24 K29 ["b"]
+      344 NAMECALL                         R25 R0 K39 ["PointToWorldSpace"]
+      346 CALL                             R25 3 2
+      347 SETTABLEKS                       R25 R24 K28 ["a"]
+      349 SETTABLEKS                       R26 R24 K29 ["b"]
+      351 FORGLOOP                         R20 2 ; [-12]
+      353 GETIMPORT                        R20 K40 [CFrame.new]
+      355 MOVE                             R21 R15
+      356 LOADN                            R22 0
+      357 MOVE                             R23 R17
+      358 CALL                             R20 3 1
+      359 MOVE                             R21 R19
+      360 RETURN                           R20 2
 
 PROTO_29:
         0 GETUPVAL                         R15 0

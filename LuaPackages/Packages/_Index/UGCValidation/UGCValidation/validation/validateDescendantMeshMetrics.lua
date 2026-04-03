@@ -28,7 +28,6 @@ local floatEquals = require(root.util.floatEquals)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
 
 local getFFlagUGCValidateCoplanarTriTestBody = require(root.flags.getFFlagUGCValidateCoplanarTriTestBody)
-local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getFIntUGCValidateTriangleLimitTolerance = require(root.flags.getFIntUGCValidateTriangleLimitTolerance)
 local getEngineUGCValidateRelativeSkinningTransfer = require(root.flags.getEngineUGCValidateRelativeSkinningTransfer)
 
@@ -48,10 +47,6 @@ local function validateIsSkinned(
 			)
 			return false, { `Missing skinning data for {obj.Name}.MeshId. You need to skin your model.` }
 		end
-	end
-
-	if not getEngineFeatureEngineUGCValidateBodyParts() then
-		return true
 	end
 
 	local retrievedMeshData, testsPassed = pcall(function()

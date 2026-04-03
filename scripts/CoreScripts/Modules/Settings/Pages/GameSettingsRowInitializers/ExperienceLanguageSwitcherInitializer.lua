@@ -18,6 +18,8 @@ local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).Core
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
+local FFlagUgcLocaleFromGameJoinEnabled = game:GetEngineFeature("UgcLocaleFromGameJoinEnabled")
+
 return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
   ------------------------------------------------------
   ------------------
@@ -233,11 +235,13 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
 
       -- Perform call to game engine to set the locale to match the
       -- dropdown selection in the UI
-      if initialLocaleIndex == 1 then
-        LocalPlayer:SetExperienceSettingsLocaleId(experienceSourceLocaleCode)
-      else
-        local newLocaleCode = localeNameToLocaleCodeMapping[localeOptions[initialLocaleIndex]]
-        LocalPlayer:SetExperienceSettingsLocaleId(newLocaleCode)
+      if not FFlagUgcLocaleFromGameJoinEnabled then
+        if initialLocaleIndex == 1 then
+          LocalPlayer:SetExperienceSettingsLocaleId(experienceSourceLocaleCode)
+        else
+          local newLocaleCode = localeNameToLocaleCodeMapping[localeOptions[initialLocaleIndex]]
+          LocalPlayer:SetExperienceSettingsLocaleId(newLocaleCode)
+        end
       end
 
       -- stores current locale

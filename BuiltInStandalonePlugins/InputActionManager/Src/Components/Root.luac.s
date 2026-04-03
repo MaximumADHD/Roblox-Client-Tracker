@@ -1,67 +1,55 @@
 PROTO_0:
-        0 GETIMPORT                        R1 K1 [print]
-        2 LOADK                            R3 K2 ["Searching For: "]
-        3 MOVE                             R4 R0
-        4 CONCAT                           R2 R3 R4
-        5 CALL                             R1 1 0
-        6 RETURN                           R0 0
-
-PROTO_1:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["updateSize"]
         3 GETTABLEKS                       R2 R0 K1 ["AbsoluteSize"]
         5 CALL                             R1 1 0
         6 RETURN                           R0 0
 
-PROTO_2:
+PROTO_1:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["createNextOrder"]
         3 CALL                             R1 0 1
         4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["useCallback"]
-        7 DUPCLOSURE                       R3 K2 [PROTO_0]
-        8 NEWTABLE                         R4 0 0
-       10 CALL                             R2 2 1
-       11 GETUPVAL                         R4 1
-       12 GETTABLEKS                       R3 R4 K3 ["createElement"]
-       14 GETUPVAL                         R4 2
-       15 DUPTABLE                         R5 K6 [{"tag", "onAbsoluteSizeChanged"}]
-       16 LOADK                            R6 K7 ["size-full-full col align-y-top bg-surface-200 search-root"]
-       17 SETTABLEKS                       R6 R5 K4 ["tag"]
-       19 NEWCLOSURE                       R6 P1
-       20 CAPTURE                          VAL R0
-       21 SETTABLEKS                       R6 R5 K5 ["onAbsoluteSizeChanged"]
-       23 DUPTABLE                         R6 K10 [{"SearchContainer", "InputTree"}]
-       24 GETUPVAL                         R8 1
-       25 GETTABLEKS                       R7 R8 K3 ["createElement"]
-       27 GETUPVAL                         R8 2
-       28 DUPTABLE                         R9 K12 [{"LayoutOrder", "tag"}]
-       29 MOVE                             R10 R1
-       30 CALL                             R10 0 1
-       31 SETTABLEKS                       R10 R9 K11 ["LayoutOrder"]
-       33 LOADK                            R10 K13 ["size-full-0 auto-y padding-medium"]
-       34 SETTABLEKS                       R10 R9 K4 ["tag"]
-       36 DUPTABLE                         R10 K15 [{"SearchBar"}]
-       37 GETUPVAL                         R12 1
-       38 GETTABLEKS                       R11 R12 K3 ["createElement"]
-       40 GETUPVAL                         R12 3
-       41 DUPTABLE                         R13 K17 [{"onSearchActivated"}]
-       42 SETTABLEKS                       R2 R13 K16 ["onSearchActivated"]
-       44 CALL                             R11 2 1
-       45 SETTABLEKS                       R11 R10 K14 ["SearchBar"]
-       47 CALL                             R7 3 1
-       48 SETTABLEKS                       R7 R6 K8 ["SearchContainer"]
-       50 GETUPVAL                         R8 1
-       51 GETTABLEKS                       R7 R8 K3 ["createElement"]
-       53 GETUPVAL                         R8 4
-       54 DUPTABLE                         R9 K18 [{"LayoutOrder"}]
-       55 MOVE                             R10 R1
-       56 CALL                             R10 0 1
-       57 SETTABLEKS                       R10 R9 K11 ["LayoutOrder"]
-       59 CALL                             R7 2 1
-       60 SETTABLEKS                       R7 R6 K9 ["InputTree"]
-       62 CALL                             R3 3 -1
-       63 RETURN                           R3 -1
+        5 GETTABLEKS                       R2 R3 K1 ["createElement"]
+        7 GETUPVAL                         R3 2
+        8 DUPTABLE                         R4 K4 [{"tag", "onAbsoluteSizeChanged"}]
+        9 LOADK                            R5 K5 ["size-full-full col align-y-top bg-surface-200 search-root"]
+       10 SETTABLEKS                       R5 R4 K2 ["tag"]
+       12 NEWCLOSURE                       R5 P0
+       13 CAPTURE                          VAL R0
+       14 SETTABLEKS                       R5 R4 K3 ["onAbsoluteSizeChanged"]
+       16 DUPTABLE                         R5 K8 [{"SearchContainer", "InputTree"}]
+       17 GETUPVAL                         R7 1
+       18 GETTABLEKS                       R6 R7 K1 ["createElement"]
+       20 GETUPVAL                         R7 2
+       21 DUPTABLE                         R8 K10 [{"LayoutOrder", "tag"}]
+       22 MOVE                             R9 R1
+       23 CALL                             R9 0 1
+       24 SETTABLEKS                       R9 R8 K9 ["LayoutOrder"]
+       26 LOADK                            R9 K11 ["size-full-0 auto-y padding-small"]
+       27 SETTABLEKS                       R9 R8 K2 ["tag"]
+       29 DUPTABLE                         R9 K13 [{"SearchBar"}]
+       30 GETUPVAL                         R11 1
+       31 GETTABLEKS                       R10 R11 K1 ["createElement"]
+       33 GETUPVAL                         R11 3
+       34 DUPTABLE                         R12 K15 [{"onSearchActivated"}]
+       35 GETTABLEKS                       R13 R0 K14 ["onSearchActivated"]
+       37 SETTABLEKS                       R13 R12 K14 ["onSearchActivated"]
+       39 CALL                             R10 2 1
+       40 SETTABLEKS                       R10 R9 K12 ["SearchBar"]
+       42 CALL                             R6 3 1
+       43 SETTABLEKS                       R6 R5 K6 ["SearchContainer"]
+       45 GETUPVAL                         R7 1
+       46 GETTABLEKS                       R6 R7 K1 ["createElement"]
+       48 GETUPVAL                         R7 4
+       49 DUPTABLE                         R8 K16 [{"LayoutOrder"}]
+       50 MOVE                             R9 R1
+       51 CALL                             R9 0 1
+       52 SETTABLEKS                       R9 R8 K9 ["LayoutOrder"]
+       54 CALL                             R6 2 1
+       55 SETTABLEKS                       R6 R5 K7 ["InputTree"]
+       57 CALL                             R2 3 -1
+       58 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -90,7 +78,7 @@ MAIN:
        39 GETIMPORT                        R7 K5 [require]
        41 GETTABLEKS                       R8 R5 K14 ["Search"]
        43 CALL                             R7 1 1
-       44 DUPCLOSURE                       R8 K15 [PROTO_2]
+       44 DUPCLOSURE                       R8 K15 [PROTO_1]
        45 CAPTURE                          VAL R2
        46 CAPTURE                          VAL R1
        47 CAPTURE                          VAL R4

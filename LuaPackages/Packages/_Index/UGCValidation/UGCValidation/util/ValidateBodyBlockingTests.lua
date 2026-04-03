@@ -12,6 +12,7 @@ local Types = require(util.Types)
 local floatEquals = require(util.floatEquals)
 local getExpectedPartSize = require(util.getExpectedPartSize)
 local FailureReasonsAccumulator = require(util.FailureReasonsAccumulator)
+local R15plusUtils = require(root.util.R15plusUtils)
 
 local ValidateBodyBlockingTests = {}
 
@@ -49,6 +50,16 @@ function ValidateBodyBlockingTests.validateInternal(
 	if not success then
 		if reportFailure then
 			Analytics.reportFailure(Analytics.ErrorType.validateBodyBlockingTests_ZeroMeshSize, nil, validationContext)
+		end
+	end
+
+	if R15plusUtils.checkFlagEnabledForAllowHrd() then
+		local boneSchema = R15plusUtils.getAvatarBoneSchema(meshHandle.Name)
+		local attWhiteList = R15plusUtils.getNameWhitelistOfClassInSchema(boneSchema, "Attachment")
+		for attName, val in attWhiteList do
+			if val and not meshHandle:FindFirstChild(attName, true) then
+				reasonsAccumulator:updateReasons(false, { `Missing Required attachment {attName}` })
+			end
 		end
 	end
 	return reasonsAccumulator:getFinalResults()

@@ -159,23 +159,22 @@ PROTO_6:
        19 GETUPVAL                         R3 4
        20 NAMECALL                         R1 R1 K2 ["andThen"]
        22 CALL                             R1 2 1
-       23 JUMP                             ; [+6]
+       23 JUMP                             ; [+5]
        24 GETUPVAL                         R2 5
        25 GETTABLEKS                       R1 R2 K3 ["resolve"]
        27 MOVE                             R2 R0
        28 CALL                             R1 1 1
-       29 JUMP                             ; [0]
-       30 NEWCLOSURE                       R3 P1
-       31 CAPTURE                          UPVAL U3
-       32 CAPTURE                          UPVAL U1
-       33 CAPTURE                          UPVAL U0
-       34 CAPTURE                          UPVAL U6
-       35 CAPTURE                          UPVAL U7
-       36 CAPTURE                          UPVAL U8
-       37 CAPTURE                          UPVAL U9
-       38 NAMECALL                         R1 R1 K2 ["andThen"]
-       40 CALL                             R1 2 -1
-       41 RETURN                           R1 -1
+       29 NEWCLOSURE                       R3 P1
+       30 CAPTURE                          UPVAL U3
+       31 CAPTURE                          UPVAL U1
+       32 CAPTURE                          UPVAL U0
+       33 CAPTURE                          UPVAL U6
+       34 CAPTURE                          UPVAL U7
+       35 CAPTURE                          UPVAL U8
+       36 CAPTURE                          UPVAL U9
+       37 NAMECALL                         R1 R1 K2 ["andThen"]
+       39 CALL                             R1 2 -1
+       40 RETURN                           R1 -1
 
 PROTO_7:
         0 GETUPVAL                         R1 0

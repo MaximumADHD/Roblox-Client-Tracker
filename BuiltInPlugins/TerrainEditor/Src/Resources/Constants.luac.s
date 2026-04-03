@@ -1,56 +1,69 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K26 [{"AspectRatioThreshold", "GridLineWidth", "IsDebuggingSavedSettings", "MaxScaleFactor", "MaximumOccupancy", "MinimumOccupancy", "MinimumSmooth", "RayLength", "TerrainCacheMaxRadius", "TerrainCacheMultiplier", "TerrainCacheUpdateThreshold", "VoxelResolution", "MaxRegion", "MaxBuildRegion", "MaxMaterialListSize", "MaxImportVolume", "RegionNormalization", "RegionNormalizationMinVolume", "BrushNormalization", "BrushNormalizationMinVolume", "PlacementSnap", "SpikeThreshold", "MinWindowWidth", "MouseMoveThreshold", "MaxNoiseValue", "MinNoiseValue"}]
-        2 LOADK                            R1 K27 [0.1]
-        3 SETTABLEKS                       R1 R0 K0 ["AspectRatioThreshold"]
-        5 LOADN                            R1 20
-        6 SETTABLEKS                       R1 R0 K1 ["GridLineWidth"]
-        8 LOADB                            R1 0
-        9 SETTABLEKS                       R1 R0 K2 ["IsDebuggingSavedSettings"]
-       11 LOADN                            R1 2
-       12 SETTABLEKS                       R1 R0 K3 ["MaxScaleFactor"]
-       14 LOADN                            R1 1
-       15 SETTABLEKS                       R1 R0 K4 ["MaximumOccupancy"]
-       17 LOADK                            R1 K28 [0.00390625]
-       18 SETTABLEKS                       R1 R0 K5 ["MinimumOccupancy"]
-       20 LOADK                            R1 K29 [0.0625]
-       21 SETTABLEKS                       R1 R0 K6 ["MinimumSmooth"]
-       23 LOADN                            R1 16
-       24 SETTABLEKS                       R1 R0 K7 ["RayLength"]
-       26 LOADN                            R1 244
-       27 SETTABLEKS                       R1 R0 K8 ["TerrainCacheMaxRadius"]
-       29 LOADN                            R1 5
-       30 SETTABLEKS                       R1 R0 K9 ["TerrainCacheMultiplier"]
-       32 LOADK                            R1 K30 [0.9]
-       33 SETTABLEKS                       R1 R0 K10 ["TerrainCacheUpdateThreshold"]
-       35 LOADN                            R1 4
-       36 SETTABLEKS                       R1 R0 K11 ["VoxelResolution"]
-       38 LOADN                            R1 0
-       39 SETTABLEKS                       R1 R0 K12 ["MaxRegion"]
-       41 LOADN                            R1 0
-       42 SETTABLEKS                       R1 R0 K13 ["MaxBuildRegion"]
-       44 LOADN                            R1 5
-       45 SETTABLEKS                       R1 R0 K14 ["MaxMaterialListSize"]
-       47 LOADK                            R1 K31 [274877906944]
-       48 SETTABLEKS                       R1 R0 K15 ["MaxImportVolume"]
-       50 LOADN                            R1 0
-       51 SETTABLEKS                       R1 R0 K16 ["RegionNormalization"]
-       53 LOADK                            R1 K32 [262144]
-       54 SETTABLEKS                       R1 R0 K17 ["RegionNormalizationMinVolume"]
-       56 LOADN                            R1 64
-       57 SETTABLEKS                       R1 R0 K18 ["BrushNormalization"]
-       59 LOADN                            R1 216
-       60 SETTABLEKS                       R1 R0 K19 ["BrushNormalizationMinVolume"]
-       62 LOADN                            R1 6
-       63 SETTABLEKS                       R1 R0 K20 ["PlacementSnap"]
-       65 LOADN                            R1 16
-       66 SETTABLEKS                       R1 R0 K21 ["SpikeThreshold"]
-       68 LOADN                            R1 74
-       69 SETTABLEKS                       R1 R0 K22 ["MinWindowWidth"]
-       71 LOADN                            R1 20
-       72 SETTABLEKS                       R1 R0 K23 ["MouseMoveThreshold"]
-       74 LOADK                            R1 K33 [65535]
-       75 SETTABLEKS                       R1 R0 K24 ["MaxNoiseValue"]
-       77 LOADK                            R1 K34 [-65536]
-       78 SETTABLEKS                       R1 R0 K25 ["MinNoiseValue"]
-       80 RETURN                           R0 1
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R4 R0 K5 ["Src"]
+       13 GETTABLEKS                       R3 R4 K6 ["Flags"]
+       15 GETTABLEKS                       R2 R3 K7 ["getFIntTerrainEditorMaxImportVolumeMegaVoxels"]
+       17 CALL                             R1 1 1
+       18 DUPTABLE                         R2 K34 [{"AspectRatioThreshold", "GridLineWidth", "IsDebuggingSavedSettings", "MaxScaleFactor", "MaximumOccupancy", "MinimumOccupancy", "MinimumSmooth", "RayLength", "TerrainCacheMaxRadius", "TerrainCacheMultiplier", "TerrainCacheUpdateThreshold", "VoxelResolution", "MaxRegion", "MaxBuildRegion", "MaxMaterialListSize", "MaxImportVolume", "RegionNormalization", "RegionNormalizationMinVolume", "BrushNormalization", "BrushNormalizationMinVolume", "PlacementSnap", "SpikeThreshold", "MinWindowWidth", "MouseMoveThreshold", "MaxNoiseValue", "MinNoiseValue"}]
+       19 LOADK                            R3 K35 [0.1]
+       20 SETTABLEKS                       R3 R2 K8 ["AspectRatioThreshold"]
+       22 LOADN                            R3 20
+       23 SETTABLEKS                       R3 R2 K9 ["GridLineWidth"]
+       25 LOADB                            R3 0
+       26 SETTABLEKS                       R3 R2 K10 ["IsDebuggingSavedSettings"]
+       28 LOADN                            R3 2
+       29 SETTABLEKS                       R3 R2 K11 ["MaxScaleFactor"]
+       31 LOADN                            R3 1
+       32 SETTABLEKS                       R3 R2 K12 ["MaximumOccupancy"]
+       34 LOADK                            R3 K36 [0.00390625]
+       35 SETTABLEKS                       R3 R2 K13 ["MinimumOccupancy"]
+       37 LOADK                            R3 K37 [0.0625]
+       38 SETTABLEKS                       R3 R2 K14 ["MinimumSmooth"]
+       40 LOADN                            R3 16
+       41 SETTABLEKS                       R3 R2 K15 ["RayLength"]
+       43 LOADN                            R3 244
+       44 SETTABLEKS                       R3 R2 K16 ["TerrainCacheMaxRadius"]
+       46 LOADN                            R3 5
+       47 SETTABLEKS                       R3 R2 K17 ["TerrainCacheMultiplier"]
+       49 LOADK                            R3 K38 [0.9]
+       50 SETTABLEKS                       R3 R2 K18 ["TerrainCacheUpdateThreshold"]
+       52 LOADN                            R3 4
+       53 SETTABLEKS                       R3 R2 K19 ["VoxelResolution"]
+       55 LOADN                            R3 0
+       56 SETTABLEKS                       R3 R2 K20 ["MaxRegion"]
+       58 LOADN                            R3 0
+       59 SETTABLEKS                       R3 R2 K21 ["MaxBuildRegion"]
+       61 LOADN                            R3 5
+       62 SETTABLEKS                       R3 R2 K22 ["MaxMaterialListSize"]
+       64 MOVE                             R6 R1
+       65 CALL                             R6 0 1
+       66 MULK                             R5 R6 K39 [1024]
+       67 MULK                             R4 R5 K39 [1024]
+       68 MULK                             R3 R4 K39 [1024]
+       69 SETTABLEKS                       R3 R2 K23 ["MaxImportVolume"]
+       71 LOADN                            R3 0
+       72 SETTABLEKS                       R3 R2 K24 ["RegionNormalization"]
+       74 LOADK                            R3 K40 [262144]
+       75 SETTABLEKS                       R3 R2 K25 ["RegionNormalizationMinVolume"]
+       77 LOADN                            R3 64
+       78 SETTABLEKS                       R3 R2 K26 ["BrushNormalization"]
+       80 LOADN                            R3 216
+       81 SETTABLEKS                       R3 R2 K27 ["BrushNormalizationMinVolume"]
+       83 LOADN                            R3 6
+       84 SETTABLEKS                       R3 R2 K28 ["PlacementSnap"]
+       86 LOADN                            R3 16
+       87 SETTABLEKS                       R3 R2 K29 ["SpikeThreshold"]
+       89 LOADN                            R3 74
+       90 SETTABLEKS                       R3 R2 K30 ["MinWindowWidth"]
+       92 LOADN                            R3 20
+       93 SETTABLEKS                       R3 R2 K31 ["MouseMoveThreshold"]
+       95 LOADK                            R3 K41 [65535]
+       96 SETTABLEKS                       R3 R2 K32 ["MaxNoiseValue"]
+       98 LOADK                            R3 K42 [-65536]
+       99 SETTABLEKS                       R3 R2 K33 ["MinNoiseValue"]
+      101 RETURN                           R2 1

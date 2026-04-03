@@ -65,7 +65,7 @@ PROTO_4:
        51 GETTABLEKS                       R6 R8 K9 ["Model"]
        53 NEWTABLE                         R8 0 0
        55 GETUPVAL                         R10 5
-       56 GETTABLEKS                       R9 R10 K11 ["getEnumAsSortedList"]
+       56 GETTABLEKS                       R9 R10 K11 ["asSortedList"]
        58 GETUPVAL                         R12 5
        59 GETTABLEKS                       R10 R12 K3 ["AssetType"]
        61 CALL                             R9 1 3

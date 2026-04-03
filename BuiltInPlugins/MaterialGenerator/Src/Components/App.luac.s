@@ -215,12 +215,11 @@ PROTO_3:
        96 GETTABLEKS                       R20 R6 K27 ["editorSize"]
        98 SETTABLEKS                       R20 R19 K24 ["Size"]
       100 CALL                             R17 2 1
-      101 JUMP                             ; [+2]
+      101 JUMP                             ; [+1]
       102 LOADNIL                          R17
-      103 JUMP                             ; [0]
-      104 SETTABLEKS                       R17 R16 K21 ["Editor"]
-      106 CALL                             R13 3 -1
-      107 RETURN                           R13 -1
+      103 SETTABLEKS                       R17 R16 K21 ["Editor"]
+      105 CALL                             R13 3 -1
+      106 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0

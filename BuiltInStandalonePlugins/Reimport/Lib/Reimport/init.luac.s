@@ -50,17 +50,26 @@ PROTO_2:
        28 SETTABLEKS                       R0 R2 K9 ["message"]
        30 SETLIST                          R1 R2 1 [1]
        32 MOVE                             R0 R1
-       33 GETIMPORT                        R1 K12 [require]
-       35 GETUPVAL                         R6 3
-       36 GETTABLEKS                       R5 R6 K13 ["Bin"]
-       38 GETTABLEKS                       R4 R5 K14 ["Common"]
-       40 GETTABLEKS                       R3 R4 K15 ["Dialogs"]
-       42 GETTABLEKS                       R2 R3 K16 ["ShowErrorDialog"]
-       44 CALL                             R1 1 1
-       45 GETTABLEKS                       R2 R1 K17 ["fromErrors"]
-       47 MOVE                             R3 R0
-       48 CALL                             R2 1 0
-       49 RETURN                           R0 0
+       33 GETUPVAL                         R1 3
+       34 CALL                             R1 0 1
+       35 JUMPIFNOT                        R1 ; [+9]
+       36 GETUPVAL                         R3 4
+       37 GETTABLEKS                       R2 R3 K11 ["errors"]
+       39 GETTABLEKS                       R1 R2 K12 ["show"]
+       41 MOVE                             R2 R0
+       42 GETUPVAL                         R3 0
+       43 CALL                             R1 2 0
+       44 RETURN                           R0 0
+       45 GETIMPORT                        R1 K14 [require]
+       47 GETUPVAL                         R5 5
+       48 GETTABLEKS                       R4 R5 K15 ["Lib"]
+       50 GETTABLEKS                       R3 R4 K16 ["DialogRegistry"]
+       52 GETTABLEKS                       R2 R3 K17 ["ShowErrorDialog"]
+       54 CALL                             R1 1 1
+       55 GETTABLEKS                       R2 R1 K18 ["fromErrors"]
+       57 MOVE                             R3 R0
+       58 CALL                             R2 1 0
+       59 RETURN                           R0 0
 
 PROTO_3:
         0 GETIMPORT                        R1 K1 [warn]
@@ -97,15 +106,17 @@ PROTO_5:
         9 CAPTURE                          UPVAL U0
        10 CAPTURE                          UPVAL U1
        11 CAPTURE                          UPVAL U2
-       12 SETTABLEKS                       R2 R1 K1 ["error"]
-       14 DUPCLOSURE                       R2 K5 [PROTO_3]
-       15 SETTABLEKS                       R2 R1 K2 ["warning"]
-       17 NEWCLOSURE                       R2 P3
-       18 CAPTURE                          VAL R0
-       19 CAPTURE                          UPVAL U0
-       20 CAPTURE                          UPVAL U1
-       21 SETTABLEKS                       R2 R1 K3 ["progress"]
-       23 RETURN                           R1 1
+       12 CAPTURE                          UPVAL U3
+       13 CAPTURE                          UPVAL U4
+       14 SETTABLEKS                       R2 R1 K1 ["error"]
+       16 DUPCLOSURE                       R2 K5 [PROTO_3]
+       17 SETTABLEKS                       R2 R1 K2 ["warning"]
+       19 NEWCLOSURE                       R2 P3
+       20 CAPTURE                          VAL R0
+       21 CAPTURE                          UPVAL U0
+       22 CAPTURE                          UPVAL U1
+       23 SETTABLEKS                       R2 R1 K3 ["progress"]
+       25 RETURN                           R1 1
 
 PROTO_6:
         0 GETUPVAL                         R2 0
@@ -207,34 +218,44 @@ MAIN:
        34 GETTABLEKS                       R5 R6 K12 ["SharedPluginConstants"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETIMPORT                        R7 K1 [script]
-       41 GETTABLEKS                       R6 R7 K13 ["Types"]
+       39 GETTABLEKS                       R7 R0 K6 ["Lib"]
+       41 GETTABLEKS                       R6 R7 K13 ["DialogRegistry"]
        43 CALL                             R5 1 1
-       44 GETTABLEKS                       R6 R1 K14 ["new"]
-       46 GETTABLEKS                       R8 R4 K15 ["REIMPORT"]
-       48 GETTABLEKS                       R7 R8 K16 ["CPC_ID"]
+       44 GETIMPORT                        R6 K5 [require]
+       46 GETIMPORT                        R8 K1 [script]
+       48 GETTABLEKS                       R7 R8 K14 ["Types"]
        50 CALL                             R6 1 1
-       51 NEWTABLE                         R7 4 0
-       53 DUPCLOSURE                       R8 K17 [PROTO_0]
-       54 CAPTURE                          VAL R6
-       55 CAPTURE                          VAL R4
-       56 DUPCLOSURE                       R9 K18 [PROTO_5]
-       57 CAPTURE                          VAL R6
-       58 CAPTURE                          VAL R4
-       59 CAPTURE                          VAL R0
-       60 DUPCLOSURE                       R10 K19 [PROTO_6]
-       61 CAPTURE                          VAL R9
-       62 CAPTURE                          VAL R2
-       63 SETTABLEKS                       R10 R7 K20 ["reimportModel"]
-       65 DUPCLOSURE                       R10 K21 [PROTO_7]
-       66 CAPTURE                          VAL R9
-       67 CAPTURE                          VAL R3
-       68 SETTABLEKS                       R10 R7 K22 ["reimportSurfaceAppearance"]
-       70 DUPCLOSURE                       R10 K23 [PROTO_8]
-       71 CAPTURE                          VAL R9
-       72 CAPTURE                          VAL R3
-       73 SETTABLEKS                       R10 R7 K24 ["reimportDecal"]
-       75 DUPCLOSURE                       R10 K25 [PROTO_9]
-       76 CAPTURE                          VAL R7
-       77 SETTABLEKS                       R10 R7 K26 ["reimportInstance"]
-       79 RETURN                           R7 1
+       51 GETTABLEKS                       R7 R1 K15 ["new"]
+       53 GETTABLEKS                       R9 R4 K16 ["REIMPORT"]
+       55 GETTABLEKS                       R8 R9 K17 ["CPC_ID"]
+       57 CALL                             R7 1 1
+       58 GETIMPORT                        R8 K5 [require]
+       60 GETTABLEKS                       R10 R0 K18 ["Flags"]
+       62 GETTABLEKS                       R9 R10 K19 ["GetFFlagReimportErrorConfigButton"]
+       64 CALL                             R8 1 1
+       65 NEWTABLE                         R9 4 0
+       67 DUPCLOSURE                       R10 K20 [PROTO_0]
+       68 CAPTURE                          VAL R7
+       69 CAPTURE                          VAL R4
+       70 DUPCLOSURE                       R11 K21 [PROTO_5]
+       71 CAPTURE                          VAL R7
+       72 CAPTURE                          VAL R4
+       73 CAPTURE                          VAL R8
+       74 CAPTURE                          VAL R5
+       75 CAPTURE                          VAL R0
+       76 DUPCLOSURE                       R12 K22 [PROTO_6]
+       77 CAPTURE                          VAL R11
+       78 CAPTURE                          VAL R2
+       79 SETTABLEKS                       R12 R9 K23 ["reimportModel"]
+       81 DUPCLOSURE                       R12 K24 [PROTO_7]
+       82 CAPTURE                          VAL R11
+       83 CAPTURE                          VAL R3
+       84 SETTABLEKS                       R12 R9 K25 ["reimportSurfaceAppearance"]
+       86 DUPCLOSURE                       R12 K26 [PROTO_8]
+       87 CAPTURE                          VAL R11
+       88 CAPTURE                          VAL R3
+       89 SETTABLEKS                       R12 R9 K27 ["reimportDecal"]
+       91 DUPCLOSURE                       R12 K28 [PROTO_9]
+       92 CAPTURE                          VAL R9
+       93 SETTABLEKS                       R12 R9 K29 ["reimportInstance"]
+       95 RETURN                           R9 1

@@ -69,40 +69,33 @@ PROTO_5:
         0 GETTABLEKS                       R3 R0 K0 ["_store"]
         2 NAMECALL                         R3 R3 K1 ["getState"]
         4 CALL                             R3 1 1
-        5 GETTABLEKS                       R2 R3 K2 ["Sessions"]
-        7 GETTABLEKS                       R1 R2 K3 ["uploading"]
-        9 JUMPIFNOT                        R1 ; [+1]
-       10 RETURN                           R0 0
-       11 GETTABLEKS                       R3 R0 K0 ["_store"]
-       13 NAMECALL                         R3 R3 K1 ["getState"]
-       15 CALL                             R3 1 1
-       16 GETTABLEKS                       R2 R3 K4 ["Dialogs"]
-       18 GETTABLEKS                       R1 R2 K5 ["showPreview"]
-       20 JUMPIFNOT                        R1 ; [+7]
-       21 GETTABLEKS                       R1 R0 K0 ["_store"]
-       23 GETUPVAL                         R3 0
-       24 CALL                             R3 0 -1
-       25 NAMECALL                         R1 R1 K6 ["dispatch"]
-       27 CALL                             R1 -1 0
-       28 NAMECALL                         R1 R0 K7 ["_getSessionQueue"]
-       30 CALL                             R1 1 3
-       31 FORGPREP                         R1
-       32 MOVE                             R8 R5
-       33 NAMECALL                         R6 R0 K8 ["destroyItem"]
-       35 CALL                             R6 2 0
-       36 FORGLOOP                         R1 2 ; [-5]
-       38 GETTABLEKS                       R1 R0 K0 ["_store"]
-       40 GETUPVAL                         R3 1
-       41 CALL                             R3 0 -1
-       42 NAMECALL                         R1 R1 K6 ["dispatch"]
-       44 CALL                             R1 -1 0
-       45 GETTABLEKS                       R1 R0 K0 ["_store"]
-       47 GETUPVAL                         R3 2
-       48 LOADB                            R4 0
-       49 CALL                             R3 1 -1
-       50 NAMECALL                         R1 R1 K6 ["dispatch"]
-       52 CALL                             R1 -1 0
-       53 RETURN                           R0 0
+        5 GETTABLEKS                       R2 R3 K2 ["Dialogs"]
+        7 GETTABLEKS                       R1 R2 K3 ["showPreview"]
+        9 JUMPIFNOT                        R1 ; [+7]
+       10 GETTABLEKS                       R1 R0 K0 ["_store"]
+       12 GETUPVAL                         R3 0
+       13 CALL                             R3 0 -1
+       14 NAMECALL                         R1 R1 K4 ["dispatch"]
+       16 CALL                             R1 -1 0
+       17 NAMECALL                         R1 R0 K5 ["_getSessionQueue"]
+       19 CALL                             R1 1 3
+       20 FORGPREP                         R1
+       21 MOVE                             R8 R5
+       22 NAMECALL                         R6 R0 K6 ["destroyItem"]
+       24 CALL                             R6 2 0
+       25 FORGLOOP                         R1 2 ; [-5]
+       27 GETTABLEKS                       R1 R0 K0 ["_store"]
+       29 GETUPVAL                         R3 1
+       30 CALL                             R3 0 -1
+       31 NAMECALL                         R1 R1 K4 ["dispatch"]
+       33 CALL                             R1 -1 0
+       34 GETTABLEKS                       R1 R0 K0 ["_store"]
+       36 GETUPVAL                         R3 2
+       37 LOADB                            R4 0
+       38 CALL                             R3 1 -1
+       39 NAMECALL                         R1 R1 K4 ["dispatch"]
+       41 CALL                             R1 -1 0
+       42 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["_store"]
@@ -178,6 +171,78 @@ PROTO_10:
         9 RETURN                           R0 0
 
 PROTO_11:
+        0 GETTABLEKS                       R3 R1 K0 ["uploadResults"]
+        2 JUMPIFNOT                        R3 ; [+4]
+        3 GETTABLEKS                       R4 R1 K0 ["uploadResults"]
+        5 GETTABLEKS                       R3 R4 K1 ["AssetIds"]
+        7 FASTCALL2K                       ASSERT R3 K2 ; [+4]
+        9 LOADK                            R4 K2 ["AssetId not available"]
+       10 GETIMPORT                        R2 K4 [assert]
+       12 CALL                             R2 2 0
+       13 GETTABLEKS                       R2 R1 K5 ["fileType"]
+       15 GETUPVAL                         R5 0
+       16 GETTABLEKS                       R4 R5 K6 ["FileType"]
+       18 GETTABLEKS                       R3 R4 K7 ["Scene"]
+       20 JUMPIFNOTEQ                      R2 R3 ; [+16]
+       22 GETUPVAL                         R2 1
+       23 GETTABLEKS                       R7 R1 K0 ["uploadResults"]
+       25 GETTABLEKS                       R6 R7 K1 ["AssetIds"]
+       27 GETTABLEKS                       R5 R6 K8 ["0"]
+       29 FASTCALL1                        TOSTRING R5 ; [+2]
+       30 GETIMPORT                        R4 K10 [tostring]
+       32 CALL                             R4 1 1
+       33 NAMECALL                         R2 R2 K11 ["CopyToClipboard"]
+       35 CALL                             R2 2 0
+       36 RETURN                           R0 0
+       37 GETUPVAL                         R2 1
+       38 GETTABLEKS                       R7 R1 K0 ["uploadResults"]
+       40 GETTABLEKS                       R6 R7 K1 ["AssetIds"]
+       42 GETTABLEKS                       R7 R1 K12 ["assetName"]
+       44 GETTABLE                         R5 R6 R7
+       45 FASTCALL1                        TOSTRING R5 ; [+2]
+       46 GETIMPORT                        R4 K10 [tostring]
+       48 CALL                             R4 1 1
+       49 NAMECALL                         R2 R2 K11 ["CopyToClipboard"]
+       51 CALL                             R2 2 0
+       52 RETURN                           R0 0
+
+PROTO_12:
+        0 GETTABLEKS                       R3 R1 K0 ["uploadResults"]
+        2 JUMPIFNOT                        R3 ; [+4]
+        3 GETTABLEKS                       R4 R1 K0 ["uploadResults"]
+        5 GETTABLEKS                       R3 R4 K1 ["Instance"]
+        7 FASTCALL2K                       ASSERT R3 K2 ; [+4]
+        9 LOADK                            R4 K2 ["No instance available to find"]
+       10 GETIMPORT                        R2 K4 [assert]
+       12 CALL                             R2 2 0
+       13 GETTABLEKS                       R3 R1 K0 ["uploadResults"]
+       15 GETTABLEKS                       R2 R3 K1 ["Instance"]
+       17 GETUPVAL                         R3 0
+       18 NEWTABLE                         R5 0 1
+       20 MOVE                             R6 R2
+       21 SETLIST                          R5 R6 1 [1]
+       23 NAMECALL                         R3 R3 K5 ["Set"]
+       25 CALL                             R3 2 0
+       26 LOADK                            R5 K6 ["Model"]
+       27 NAMECALL                         R3 R2 K7 ["IsA"]
+       29 CALL                             R3 2 1
+       30 JUMPIFNOT                        R3 ; [+22]
+       31 GETIMPORT                        R5 K9 [game]
+       33 GETTABLEKS                       R4 R5 K10 ["Workspace"]
+       35 GETTABLEKS                       R3 R4 K11 ["CurrentCamera"]
+       37 JUMPIFNOT                        R3 ; [+15]
+       38 GETIMPORT                        R5 K9 [game]
+       40 GETTABLEKS                       R4 R5 K10 ["Workspace"]
+       42 GETTABLEKS                       R3 R4 K11 ["CurrentCamera"]
+       44 NAMECALL                         R5 R2 K12 ["GetPivot"]
+       46 CALL                             R5 1 1
+       47 NAMECALL                         R6 R2 K13 ["GetExtentsSize"]
+       49 CALL                             R6 1 -1
+       50 NAMECALL                         R3 R3 K14 ["ZoomToExtents"]
+       52 CALL                             R3 -1 0
+       53 RETURN                           R0 0
+
+PROTO_13:
         0 JUMPIF                           R2 ; [+4]
         1 NAMECALL                         R3 R0 K0 ["_getSessionQueue"]
         3 CALL                             R3 1 1
@@ -240,98 +305,116 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
-       13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Dash"]
-       20 CALL                             R2 1 1
-       21 GETTABLEKS                       R3 R1 K9 ["ContextServices"]
-       23 GETTABLEKS                       R4 R3 K10 ["ContextItem"]
-       25 GETTABLEKS                       R6 R1 K11 ["Util"]
-       27 GETTABLEKS                       R5 R6 K12 ["levenshteinDistance"]
-       29 GETTABLEKS                       R6 R2 K13 ["values"]
-       31 GETTABLEKS                       R8 R0 K14 ["Src"]
-       33 GETTABLEKS                       R7 R8 K15 ["Actions"]
-       35 GETIMPORT                        R8 K5 [require]
-       37 GETTABLEKS                       R9 R7 K16 ["ResetQueue"]
-       39 CALL                             R8 1 1
-       40 GETIMPORT                        R9 K5 [require]
-       42 GETTABLEKS                       R10 R7 K17 ["ResetState"]
-       44 CALL                             R9 1 1
-       45 GETIMPORT                        R10 K5 [require]
-       47 GETTABLEKS                       R11 R7 K18 ["SetParsing"]
-       49 CALL                             R10 1 1
-       50 GETIMPORT                        R11 K5 [require]
-       52 GETTABLEKS                       R12 R7 K19 ["SetShowPreview"]
-       54 CALL                             R11 1 1
-       55 GETIMPORT                        R12 K5 [require]
-       57 GETTABLEKS                       R13 R7 K20 ["ClearQueue"]
-       59 CALL                             R12 1 1
-       60 GETIMPORT                        R13 K5 [require]
-       62 GETTABLEKS                       R14 R7 K21 ["RemoveQueueItem"]
-       64 CALL                             R13 1 1
-       65 GETIMPORT                        R14 K5 [require]
-       67 GETTABLEKS                       R17 R0 K14 ["Src"]
-       69 GETTABLEKS                       R16 R17 K22 ["Types"]
-       71 GETTABLEKS                       R15 R16 K23 ["QueuedSession"]
-       73 CALL                             R14 1 1
-       74 GETTABLEKS                       R16 R0 K14 ["Src"]
-       76 GETTABLEKS                       R15 R16 K24 ["Thunks"]
-       78 GETIMPORT                        R16 K5 [require]
-       80 GETTABLEKS                       R17 R15 K25 ["ClosePreview"]
-       82 CALL                             R16 1 1
-       83 GETIMPORT                        R17 K5 [require]
-       85 GETTABLEKS                       R18 R15 K26 ["UpdateQueueItem"]
-       87 CALL                             R17 1 1
-       88 GETIMPORT                        R18 K5 [require]
-       90 GETTABLEKS                       R20 R0 K14 ["Src"]
-       92 GETTABLEKS                       R19 R20 K22 ["Types"]
-       94 CALL                             R18 1 1
-       95 LOADK                            R21 K27 ["QueueController"]
-       96 NAMECALL                         R19 R4 K28 ["extend"]
-       98 CALL                             R19 2 1
-       99 DUPCLOSURE                       R20 K29 [PROTO_0]
-      100 CAPTURE                          VAL R19
-      101 SETTABLEKS                       R20 R19 K30 ["new"]
-      103 DUPCLOSURE                       R20 K31 [PROTO_1]
-      104 CAPTURE                          VAL R9
-      105 CAPTURE                          VAL R8
-      106 SETTABLEKS                       R20 R19 K32 ["destroy"]
-      108 DUPCLOSURE                       R20 K33 [PROTO_2]
-      109 CAPTURE                          VAL R18
-      110 CAPTURE                          VAL R13
-      111 CAPTURE                          VAL R10
-      112 SETTABLEKS                       R20 R19 K34 ["stopImportQueueParse"]
-      114 DUPCLOSURE                       R20 K35 [PROTO_3]
-      115 SETTABLEKS                       R20 R19 K36 ["_getSessionQueue"]
-      117 DUPCLOSURE                       R20 K37 [PROTO_4]
-      118 SETTABLEKS                       R20 R19 K38 ["destroyItem"]
-      120 DUPCLOSURE                       R20 K39 [PROTO_5]
-      121 CAPTURE                          VAL R16
-      122 CAPTURE                          VAL R12
-      123 CAPTURE                          VAL R11
-      124 SETTABLEKS                       R20 R19 K40 ["removeAllQueuedFiles"]
-      126 DUPCLOSURE                       R20 K41 [PROTO_6]
+        9 GETTABLEKS                       R4 R0 K6 ["Src"]
+       11 GETTABLEKS                       R3 R4 K7 ["Utility"]
+       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R2 R1 K9 ["GetService"]
+       18 LOADK                            R3 K10 ["Selection"]
+       19 CALL                             R2 1 1
+       20 GETTABLEKS                       R3 R1 K9 ["GetService"]
+       22 LOADK                            R4 K11 ["StudioService"]
+       23 CALL                             R3 1 1
+       24 GETIMPORT                        R4 K5 [require]
+       26 GETTABLEKS                       R6 R0 K12 ["Packages"]
+       28 GETTABLEKS                       R5 R6 K13 ["Framework"]
+       30 CALL                             R4 1 1
+       31 GETIMPORT                        R5 K5 [require]
+       33 GETTABLEKS                       R7 R0 K12 ["Packages"]
+       35 GETTABLEKS                       R6 R7 K14 ["Dash"]
+       37 CALL                             R5 1 1
+       38 GETTABLEKS                       R6 R4 K15 ["ContextServices"]
+       40 GETTABLEKS                       R7 R6 K16 ["ContextItem"]
+       42 GETTABLEKS                       R9 R4 K17 ["Util"]
+       44 GETTABLEKS                       R8 R9 K18 ["levenshteinDistance"]
+       46 GETTABLEKS                       R9 R5 K19 ["values"]
+       48 GETTABLEKS                       R11 R0 K6 ["Src"]
+       50 GETTABLEKS                       R10 R11 K20 ["Actions"]
+       52 GETIMPORT                        R11 K5 [require]
+       54 GETTABLEKS                       R12 R10 K21 ["ResetQueue"]
+       56 CALL                             R11 1 1
+       57 GETIMPORT                        R12 K5 [require]
+       59 GETTABLEKS                       R13 R10 K22 ["ResetState"]
+       61 CALL                             R12 1 1
+       62 GETIMPORT                        R13 K5 [require]
+       64 GETTABLEKS                       R14 R10 K23 ["SetParsing"]
+       66 CALL                             R13 1 1
+       67 GETIMPORT                        R14 K5 [require]
+       69 GETTABLEKS                       R15 R10 K24 ["SetShowPreview"]
+       71 CALL                             R14 1 1
+       72 GETIMPORT                        R15 K5 [require]
+       74 GETTABLEKS                       R16 R10 K25 ["ClearQueue"]
+       76 CALL                             R15 1 1
+       77 GETIMPORT                        R16 K5 [require]
+       79 GETTABLEKS                       R17 R10 K26 ["RemoveQueueItem"]
+       81 CALL                             R16 1 1
+       82 GETIMPORT                        R17 K5 [require]
+       84 GETTABLEKS                       R20 R0 K6 ["Src"]
+       86 GETTABLEKS                       R19 R20 K27 ["Types"]
+       88 GETTABLEKS                       R18 R19 K28 ["QueuedSession"]
+       90 CALL                             R17 1 1
+       91 GETTABLEKS                       R19 R0 K6 ["Src"]
+       93 GETTABLEKS                       R18 R19 K29 ["Thunks"]
+       95 GETIMPORT                        R19 K5 [require]
+       97 GETTABLEKS                       R20 R18 K30 ["ClosePreview"]
+       99 CALL                             R19 1 1
+      100 GETIMPORT                        R20 K5 [require]
+      102 GETTABLEKS                       R21 R18 K31 ["UpdateQueueItem"]
+      104 CALL                             R20 1 1
+      105 GETIMPORT                        R21 K5 [require]
+      107 GETTABLEKS                       R23 R0 K6 ["Src"]
+      109 GETTABLEKS                       R22 R23 K27 ["Types"]
+      111 CALL                             R21 1 1
+      112 LOADK                            R24 K32 ["QueueController"]
+      113 NAMECALL                         R22 R7 K33 ["extend"]
+      115 CALL                             R22 2 1
+      116 DUPCLOSURE                       R23 K34 [PROTO_0]
+      117 CAPTURE                          VAL R22
+      118 SETTABLEKS                       R23 R22 K35 ["new"]
+      120 DUPCLOSURE                       R23 K36 [PROTO_1]
+      121 CAPTURE                          VAL R12
+      122 CAPTURE                          VAL R11
+      123 SETTABLEKS                       R23 R22 K37 ["destroy"]
+      125 DUPCLOSURE                       R23 K38 [PROTO_2]
+      126 CAPTURE                          VAL R21
       127 CAPTURE                          VAL R16
-      128 SETTABLEKS                       R20 R19 K42 ["removeErroredQueuedFiles"]
-      130 DUPCLOSURE                       R20 K43 [PROTO_7]
-      131 CAPTURE                          VAL R16
-      132 SETTABLEKS                       R20 R19 K44 ["removeUploadedQueuedFiles"]
-      134 DUPCLOSURE                       R20 K45 [PROTO_8]
-      135 CAPTURE                          VAL R18
-      136 SETTABLEKS                       R20 R19 K46 ["applySettingstoAll"]
-      138 DUPCLOSURE                       R20 K47 [PROTO_9]
-      139 CAPTURE                          VAL R17
-      140 CAPTURE                          VAL R18
-      141 SETTABLEKS                       R20 R19 K48 ["changeCreatorId"]
-      143 DUPCLOSURE                       R20 K49 [PROTO_10]
-      144 CAPTURE                          VAL R13
-      145 SETTABLEKS                       R20 R19 K50 ["removeSelectedQueuedFile"]
-      147 DUPCLOSURE                       R20 K51 [PROTO_11]
-      148 CAPTURE                          VAL R6
-      149 CAPTURE                          VAL R14
-      150 CAPTURE                          VAL R5
-      151 SETTABLEKS                       R20 R19 K52 ["getFilteredRows"]
-      153 RETURN                           R19 1
+      128 CAPTURE                          VAL R13
+      129 SETTABLEKS                       R23 R22 K39 ["stopImportQueueParse"]
+      131 DUPCLOSURE                       R23 K40 [PROTO_3]
+      132 SETTABLEKS                       R23 R22 K41 ["_getSessionQueue"]
+      134 DUPCLOSURE                       R23 K42 [PROTO_4]
+      135 SETTABLEKS                       R23 R22 K43 ["destroyItem"]
+      137 DUPCLOSURE                       R23 K44 [PROTO_5]
+      138 CAPTURE                          VAL R19
+      139 CAPTURE                          VAL R15
+      140 CAPTURE                          VAL R14
+      141 SETTABLEKS                       R23 R22 K45 ["removeAllQueuedFiles"]
+      143 DUPCLOSURE                       R23 K46 [PROTO_6]
+      144 CAPTURE                          VAL R19
+      145 SETTABLEKS                       R23 R22 K47 ["removeErroredQueuedFiles"]
+      147 DUPCLOSURE                       R23 K48 [PROTO_7]
+      148 CAPTURE                          VAL R19
+      149 SETTABLEKS                       R23 R22 K49 ["removeUploadedQueuedFiles"]
+      151 DUPCLOSURE                       R23 K50 [PROTO_8]
+      152 CAPTURE                          VAL R21
+      153 SETTABLEKS                       R23 R22 K51 ["applySettingstoAll"]
+      155 DUPCLOSURE                       R23 K52 [PROTO_9]
+      156 CAPTURE                          VAL R20
+      157 CAPTURE                          VAL R21
+      158 SETTABLEKS                       R23 R22 K53 ["changeCreatorId"]
+      160 DUPCLOSURE                       R23 K54 [PROTO_10]
+      161 CAPTURE                          VAL R16
+      162 SETTABLEKS                       R23 R22 K55 ["removeSelectedQueuedFile"]
+      164 DUPCLOSURE                       R23 K56 [PROTO_11]
+      165 CAPTURE                          VAL R21
+      166 CAPTURE                          VAL R3
+      167 SETTABLEKS                       R23 R22 K57 ["copyAssetId"]
+      169 DUPCLOSURE                       R23 K58 [PROTO_12]
+      170 CAPTURE                          VAL R2
+      171 SETTABLEKS                       R23 R22 K59 ["findInWorkspace"]
+      173 DUPCLOSURE                       R23 K60 [PROTO_13]
+      174 CAPTURE                          VAL R9
+      175 CAPTURE                          VAL R17
+      176 CAPTURE                          VAL R8
+      177 SETTABLEKS                       R23 R22 K61 ["getFilteredRows"]
+      179 RETURN                           R22 1

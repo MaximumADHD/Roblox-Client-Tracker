@@ -180,8 +180,8 @@ PROTO_4:
       171 CALL                             R9 1 1
       172 MOVE                             R8 R9
       173 LOADK                            R9 K0 [""]
-      174 JUMPIFEQKNIL                     R8 ; [+18]
-      176 JUMPIFEQKS                       R8 K0 [""] ; [+16]
+      174 JUMPIFEQKNIL                     R8 ; [+17]
+      176 JUMPIFEQKS                       R8 K0 [""] ; [+15]
       178 MOVE                             R10 R8
       179 GETUPVAL                         R11 5
       180 JUMPIFNOT                        R11 ; [+5]
@@ -189,21 +189,20 @@ PROTO_4:
       182 LOADK                            R12 K14 ["    in "]
       183 MOVE                             R13 R10
       184 CONCAT                           R9 R11 R13
-      185 JUMP                             ; [+7]
+      185 JUMP                             ; [+6]
       186 GETUPVAL                         R11 6
       187 MOVE                             R12 R10
       188 LOADNIL                          R13
       189 LOADNIL                          R14
       190 CALL                             R11 3 1
       191 MOVE                             R9 R11
-      192 JUMP                             ; [0]
-      193 GETIMPORT                        R11 K2 [_G]
-      195 GETTABLEKS                       R10 R11 K3 ["__DEV__"]
-      197 JUMPIFNOT                        R10 ; [+2]
-      198 GETUPVAL                         R10 1
-      199 SETTABLE                         R9 R10 R0
-      200 CLOSEUPVALS                      R2
-      201 RETURN                           R9 1
+      192 GETIMPORT                        R11 K2 [_G]
+      194 GETTABLEKS                       R10 R11 K3 ["__DEV__"]
+      196 JUMPIFNOT                        R10 ; [+2]
+      197 GETUPVAL                         R10 1
+      198 SETTABLE                         R9 R10 R0
+      199 CLOSEUPVALS                      R2
+      200 RETURN                           R9 1
 
 PROTO_5:
         0 LOADK                            R3 K0 [""]

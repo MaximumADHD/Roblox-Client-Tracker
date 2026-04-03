@@ -354,6 +354,48 @@ PROTO_8:
         0 LOADK                            R3 K0 ["StyleRule"]
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 1
+        4 JUMPIFNOT                        R1 ; [+32]
+        5 LOADK                            R3 K2 ["StyleCategory"]
+        6 NAMECALL                         R1 R0 K3 ["GetAttribute"]
+        8 CALL                             R1 2 1
+        9 JUMPIF                           R1 ; [+6]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R1 R2 K4 ["getSelectorCategory"]
+       13 GETTABLEKS                       R2 R0 K5 ["Selector"]
+       15 CALL                             R1 1 1
+       16 GETUPVAL                         R3 1
+       17 GETTABLE                         R2 R3 R1
+       18 JUMPIF                           R2 ; [+10]
+       19 GETUPVAL                         R2 1
+       20 NEWTABLE                         R3 0 0
+       22 SETTABLE                         R3 R2 R1
+       23 GETUPVAL                         R3 2
+       24 FASTCALL2                        TABLE_INSERT R3 R1 ; [+3]
+       26 MOVE                             R4 R1
+       27 GETUPVAL                         R2 3
+       28 CALL                             R2 2 0
+       29 GETUPVAL                         R4 1
+       30 GETTABLE                         R3 R4 R1
+       31 FASTCALL2                        TABLE_INSERT R3 R0 ; [+3]
+       33 MOVE                             R4 R0
+       34 GETUPVAL                         R2 3
+       35 CALL                             R2 2 0
+       36 RETURN                           R0 0
+       37 LOADK                            R3 K6 ["Folder"]
+       38 NAMECALL                         R1 R0 K1 ["IsA"]
+       40 CALL                             R1 2 1
+       41 JUMPIFNOT                        R1 ; [+6]
+       42 GETUPVAL                         R2 4
+       43 FASTCALL2                        TABLE_INSERT R2 R0 ; [+3]
+       45 MOVE                             R3 R0
+       46 GETUPVAL                         R1 3
+       47 CALL                             R1 2 0
+       48 RETURN                           R0 0
+
+PROTO_9:
+        0 LOADK                            R3 K0 ["StyleRule"]
+        1 NAMECALL                         R1 R0 K1 ["IsA"]
+        3 CALL                             R1 2 1
         4 JUMPIFNOT                        R1 ; [+31]
         5 LOADK                            R3 K2 ["StyleCategory"]
         6 NAMECALL                         R1 R0 K3 ["GetAttribute"]
@@ -382,7 +424,7 @@ PROTO_8:
        35 CALL                             R2 2 0
        36 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["SelectorSchema"]
         3 GETTABLEKS                       R2 R0 K1 ["Selector"]
@@ -432,7 +474,7 @@ PROTO_9:
        62 SETTABLEKS                       R3 R2 K8 ["Children"]
        64 RETURN                           R2 1
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R1
         2 LENGTH                           R3 R2
@@ -496,7 +538,7 @@ PROTO_10:
        79 SETTABLEKS                       R4 R3 K3 ["Children"]
        81 RETURN                           R3 1
 
-PROTO_11:
+PROTO_12:
         0 JUMPIFNOTEQKNIL                  R0 ; [+4]
         2 NEWTABLE                         R2 0 0
         4 RETURN                           R2 1
@@ -516,46 +558,96 @@ PROTO_11:
        28 LOADK                            R5 K1 ["Tags"]
        29 LOADK                            R6 K2 ["Components"]
        30 SETLIST                          R3 R4 3 [1]
-       32 GETUPVAL                         R4 0
-       33 JUMPIFNOT                        R4 ; [+8]
-       34 LOADN                            R6 3
-       35 LOADK                            R7 K3 ["Queries"]
-       36 FASTCALL3                        TABLE_INSERT R3 R6 R7
-       38 MOVE                             R5 R3
-       39 GETIMPORT                        R4 K6 [table.insert]
-       41 CALL                             R4 3 0
-       42 GETUPVAL                         R4 1
-       43 GETUPVAL                         R6 2
-       44 GETTABLEKS                       R5 R6 K7 ["getOrderedStyleRules"]
-       46 MOVE                             R6 R0
-       47 CALL                             R5 1 1
-       48 NEWCLOSURE                       R6 P0
-       49 CAPTURE                          UPVAL U3
-       50 CAPTURE                          VAL R2
-       51 CAPTURE                          VAL R3
-       52 CAPTURE                          UPVAL U4
-       53 CALL                             R4 2 0
-       54 GETUPVAL                         R4 5
-       55 MOVE                             R5 R3
-       56 NEWCLOSURE                       R6 P1
-       57 CAPTURE                          VAL R2
-       58 CAPTURE                          UPVAL U6
-       59 CAPTURE                          VAL R0
-       60 CAPTURE                          UPVAL U7
-       61 CAPTURE                          UPVAL U8
-       62 CAPTURE                          UPVAL U0
-       63 CAPTURE                          UPVAL U9
-       64 CAPTURE                          UPVAL U10
-       65 CAPTURE                          UPVAL U11
-       66 CAPTURE                          UPVAL U12
-       67 CAPTURE                          UPVAL U13
-       68 CAPTURE                          UPVAL U14
-       69 CAPTURE                          VAL R1
-       70 CAPTURE                          UPVAL U15
-       71 CALL                             R4 2 1
-       72 RETURN                           R4 1
+       32 NEWTABLE                         R4 0 0
+       34 GETUPVAL                         R5 0
+       35 JUMPIFNOT                        R5 ; [+8]
+       36 LOADN                            R7 3
+       37 LOADK                            R8 K3 ["Queries"]
+       38 FASTCALL3                        TABLE_INSERT R3 R7 R8
+       40 MOVE                             R6 R3
+       41 GETIMPORT                        R5 K6 [table.insert]
+       43 CALL                             R5 3 0
+       44 GETUPVAL                         R5 0
+       45 JUMPIFNOT                        R5 ; [+14]
+       46 GETUPVAL                         R5 1
+       47 GETUPVAL                         R7 2
+       48 GETTABLEKS                       R6 R7 K7 ["getOrderedStyleRulesAndFolders"]
+       50 MOVE                             R7 R0
+       51 CALL                             R6 1 1
+       52 NEWCLOSURE                       R7 P0
+       53 CAPTURE                          UPVAL U3
+       54 CAPTURE                          VAL R2
+       55 CAPTURE                          VAL R3
+       56 CAPTURE                          UPVAL U4
+       57 CAPTURE                          VAL R4
+       58 CALL                             R5 2 0
+       59 JUMP                             ; [+12]
+       60 GETUPVAL                         R5 1
+       61 GETUPVAL                         R7 2
+       62 GETTABLEKS                       R6 R7 K8 ["getOrderedStyleRules"]
+       64 MOVE                             R7 R0
+       65 CALL                             R6 1 1
+       66 NEWCLOSURE                       R7 P1
+       67 CAPTURE                          UPVAL U3
+       68 CAPTURE                          VAL R2
+       69 CAPTURE                          VAL R3
+       70 CAPTURE                          UPVAL U4
+       71 CALL                             R5 2 0
+       72 GETUPVAL                         R5 5
+       73 MOVE                             R6 R3
+       74 NEWCLOSURE                       R7 P2
+       75 CAPTURE                          VAL R2
+       76 CAPTURE                          UPVAL U6
+       77 CAPTURE                          VAL R0
+       78 CAPTURE                          UPVAL U7
+       79 CAPTURE                          UPVAL U8
+       80 CAPTURE                          UPVAL U0
+       81 CAPTURE                          UPVAL U9
+       82 CAPTURE                          UPVAL U10
+       83 CAPTURE                          UPVAL U11
+       84 CAPTURE                          UPVAL U12
+       85 CAPTURE                          UPVAL U13
+       86 CAPTURE                          UPVAL U14
+       87 CAPTURE                          VAL R1
+       88 CAPTURE                          UPVAL U15
+       89 CALL                             R5 2 1
+       90 GETUPVAL                         R6 0
+       91 JUMPIFNOT                        R6 ; [+46]
+       92 MOVE                             R6 R4
+       93 LOADNIL                          R7
+       94 LOADNIL                          R8
+       95 FORGPREP                         R6
+       96 DUPTABLE                         R13 K13 [{"Id", "Instance", "Name", "Children"}]
+       97 GETUPVAL                         R15 6
+       98 GETTABLEKS                       R14 R15 K14 ["createItemId"]
+      100 MOVE                             R15 R10
+      101 CALL                             R14 1 1
+      102 SETTABLEKS                       R14 R13 K9 ["Id"]
+      104 SETTABLEKS                       R10 R13 K10 ["Instance"]
+      106 DUPTABLE                         R14 K18 [{"Actions", "Schema", "Value"}]
+      107 GETUPVAL                         R16 7
+      108 GETTABLEKS                       R15 R16 K19 ["MoreAction"]
+      110 SETTABLEKS                       R15 R14 K15 ["Actions"]
+      112 GETUPVAL                         R16 11
+      113 GETTABLEKS                       R15 R16 K20 ["FolderSchema"]
+      115 SETTABLEKS                       R15 R14 K16 ["Schema"]
+      117 GETTABLEKS                       R15 R10 K11 ["Name"]
+      119 SETTABLEKS                       R15 R14 K17 ["Value"]
+      121 SETTABLEKS                       R14 R13 K11 ["Name"]
+      123 GETUPVAL                         R14 13
+      124 MOVE                             R15 R10
+      125 NEWTABLE                         R16 0 0
+      127 MOVE                             R17 R1
+      128 CALL                             R14 3 1
+      129 SETTABLEKS                       R14 R13 K12 ["Children"]
+      131 FASTCALL2                        TABLE_INSERT R5 R13 ; [+3]
+      133 MOVE                             R12 R5
+      134 GETUPVAL                         R11 4
+      135 CALL                             R11 2 0
+      136 FORGLOOP                         R6 2 ; [-41]
+      138 RETURN                           R5 1
 
-PROTO_12:
+PROTO_13:
         0 DUPTABLE                         R2 K4 [{"Name", "Id", "Children", "Instance"}]
         1 DUPTABLE                         R3 K8 [{"Actions", "Schema", "Value"}]
         2 GETUPVAL                         R5 0
@@ -581,7 +673,7 @@ PROTO_12:
        33 SETTABLEKS                       R1 R2 K3 ["Instance"]
        35 RETURN                           R2 1
 
-PROTO_13:
+PROTO_14:
         0 GETTABLEKS                       R3 R0 K0 ["Name"]
         2 OR                               R2 R3 R0
         3 DUPTABLE                         R3 K4 [{"Name", "Id", "Instance", "Children"}]
@@ -620,7 +712,7 @@ PROTO_13:
        47 SETTABLEKS                       R4 R3 K3 ["Children"]
        49 RETURN                           R3 1
 
-PROTO_14:
+PROTO_15:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 NEWCLOSURE                       R4 P0
@@ -633,7 +725,7 @@ PROTO_14:
         9 CALL                             R2 2 1
        10 RETURN                           R2 1
 
-PROTO_15:
+PROTO_16:
         0 LOADK                            R3 K0 ["StyleCategory"]
         1 NAMECALL                         R1 R0 K1 ["GetAttribute"]
         3 CALL                             R1 2 1
@@ -713,7 +805,7 @@ PROTO_15:
        91 CALL                             R3 2 0
        92 RETURN                           R0 0
 
-PROTO_16:
+PROTO_17:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["StyleSheetSchema"]
         3 GETTABLEKS                       R2 R0 K1 ["Name"]
@@ -748,7 +840,7 @@ PROTO_16:
        45 SETTABLEKS                       R0 R2 K7 ["Instance"]
        47 RETURN                           R2 1
 
-PROTO_17:
+PROTO_18:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R1
         2 LOADNIL                          R3
@@ -809,7 +901,7 @@ PROTO_17:
        72 SETTABLEKS                       R3 R5 K6 ["Children"]
        74 RETURN                           R5 1
 
-PROTO_18:
+PROTO_19:
         0 DUPTABLE                         R2 K2 [{"StyleSheets", "Tokens"}]
         1 NEWTABLE                         R3 0 0
         3 SETTABLEKS                       R3 R2 K0 ["StyleSheets"]
@@ -867,7 +959,7 @@ PROTO_18:
        71 CALL                             R6 2 1
        72 RETURN                           R6 1
 
-PROTO_19:
+PROTO_20:
         0 LOADK                            R3 K0 ["StyleCategory"]
         1 NAMECALL                         R1 R0 K1 ["GetAttribute"]
         3 CALL                             R1 2 1
@@ -947,7 +1039,7 @@ PROTO_19:
        91 CALL                             R3 2 0
        92 RETURN                           R0 0
 
-PROTO_20:
+PROTO_21:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R2 R0 K0 ["GetDescendants"]
         3 CALL                             R2 1 1
@@ -961,7 +1053,7 @@ PROTO_20:
        11 CALL                             R1 2 0
        12 RETURN                           R0 0
 
-PROTO_21:
+PROTO_22:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["StyleSheetSchema"]
         3 GETTABLEKS                       R2 R0 K1 ["Name"]
@@ -996,7 +1088,7 @@ PROTO_21:
        45 SETTABLEKS                       R0 R2 K7 ["Instance"]
        47 RETURN                           R2 1
 
-PROTO_22:
+PROTO_23:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R1
         2 LOADNIL                          R3
@@ -1057,7 +1149,7 @@ PROTO_22:
        72 SETTABLEKS                       R3 R5 K6 ["Children"]
        74 RETURN                           R5 1
 
-PROTO_23:
+PROTO_24:
         0 JUMPIF                           R0 ; [+6]
         1 NEWTABLE                         R2 0 1
         3 GETUPVAL                         R3 0
@@ -1260,7 +1352,7 @@ MAIN:
       217 CAPTURE                          VAL R26
       218 CAPTURE                          VAL R11
       219 CAPTURE                          VAL R4
-      220 DUPCLOSURE                       R30 K56 [PROTO_11]
+      220 DUPCLOSURE                       R30 K56 [PROTO_12]
       221 CAPTURE                          VAL R4
       222 CAPTURE                          VAL R16
       223 CAPTURE                          VAL R12
@@ -1278,14 +1370,14 @@ MAIN:
       235 CAPTURE                          VAL R26
       236 CAPTURE                          VAL R28
       237 SETTABLEKS                       R30 R24 K57 ["getStyleRules"]
-      239 DUPCLOSURE                       R30 K58 [PROTO_14]
+      239 DUPCLOSURE                       R30 K58 [PROTO_15]
       240 CAPTURE                          VAL R15
       241 CAPTURE                          VAL R7
       242 CAPTURE                          VAL R8
       243 CAPTURE                          VAL R13
       244 CAPTURE                          VAL R24
       245 SETTABLEKS                       R30 R24 K59 ["getThemes"]
-      247 DUPCLOSURE                       R30 K60 [PROTO_18]
+      247 DUPCLOSURE                       R30 K60 [PROTO_19]
       248 CAPTURE                          VAL R9
       249 CAPTURE                          VAL R16
       250 CAPTURE                          VAL R19
@@ -1300,7 +1392,7 @@ MAIN:
       259 CAPTURE                          VAL R13
       260 CAPTURE                          VAL R22
       261 SETTABLEKS                       R30 R24 K61 ["buildTree"]
-      263 DUPCLOSURE                       R30 K62 [PROTO_23]
+      263 DUPCLOSURE                       R30 K62 [PROTO_24]
       264 CAPTURE                          VAL R0
       265 CAPTURE                          VAL R9
       266 CAPTURE                          VAL R16

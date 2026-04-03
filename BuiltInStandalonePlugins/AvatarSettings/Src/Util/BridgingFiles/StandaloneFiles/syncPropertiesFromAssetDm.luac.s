@@ -668,6 +668,56 @@ PROTO_6:
         5 LOADK                            R5 K1 ["Expected settings to be present in AvatarSettingsContext"]
         6 GETIMPORT                        R3 K3 [assert]
         8 CALL                             R3 2 0
+        9 GETTABLEKS                       R3 R2 K4 ["movementSettings"]
+       11 GETTABLEKS                       R5 R3 K5 ["characterControllerModeSetting"]
+       13 GETTABLEKS                       R4 R5 K6 ["set"]
+       15 GETTABLEKS                       R5 R1 K7 ["CharacterControllerMode"]
+       17 LOADB                            R6 1
+       18 CALL                             R4 2 0
+       19 GETTABLEKS                       R5 R3 K8 ["defaultAbilitiesEnableRunningSetting"]
+       21 GETTABLEKS                       R4 R5 K6 ["set"]
+       23 GETTABLEKS                       R5 R1 K9 ["EnableRunning"]
+       25 LOADB                            R6 1
+       26 CALL                             R4 2 0
+       27 GETTABLEKS                       R5 R3 K10 ["defaultAbilitiesEnableJumpingSetting"]
+       29 GETTABLEKS                       R4 R5 K6 ["set"]
+       31 GETTABLEKS                       R5 R1 K11 ["EnableJumping"]
+       33 LOADB                            R6 1
+       34 CALL                             R4 2 0
+       35 GETTABLEKS                       R5 R3 K12 ["defaultAbilitiesEnableSittingSetting"]
+       37 GETTABLEKS                       R4 R5 K6 ["set"]
+       39 GETTABLEKS                       R5 R1 K13 ["EnableSitting"]
+       41 LOADB                            R6 1
+       42 CALL                             R4 2 0
+       43 GETTABLEKS                       R5 R3 K14 ["defaultAbilitiesEnableFallingDownSetting"]
+       45 GETTABLEKS                       R4 R5 K6 ["set"]
+       47 GETTABLEKS                       R5 R1 K15 ["EnableFallingDown"]
+       49 LOADB                            R6 1
+       50 CALL                             R4 2 0
+       51 GETTABLEKS                       R5 R3 K16 ["defaultAbilitiesEnableGettingUpSetting"]
+       53 GETTABLEKS                       R4 R5 K6 ["set"]
+       55 GETTABLEKS                       R5 R1 K17 ["EnableGettingUp"]
+       57 LOADB                            R6 1
+       58 CALL                             R4 2 0
+       59 GETTABLEKS                       R5 R3 K18 ["defaultAbilitiesEnableClimbingSetting"]
+       61 GETTABLEKS                       R4 R5 K6 ["set"]
+       63 GETTABLEKS                       R5 R1 K19 ["EnableClimbing"]
+       65 LOADB                            R6 1
+       66 CALL                             R4 2 0
+       67 GETTABLEKS                       R5 R3 K20 ["defaultAbilitiesEnableSwimmingSetting"]
+       69 GETTABLEKS                       R4 R5 K6 ["set"]
+       71 GETTABLEKS                       R5 R1 K21 ["EnableSwimming"]
+       73 LOADB                            R6 1
+       74 CALL                             R4 2 0
+       75 RETURN                           R0 0
+
+PROTO_7:
+        0 GETTABLEKS                       R2 R0 K0 ["settings"]
+        2 FASTCALL2K                       ASSERT R2 K1 ; [+5]
+        4 MOVE                             R4 R2
+        5 LOADK                            R5 K1 ["Expected settings to be present in AvatarSettingsContext"]
+        6 GETIMPORT                        R3 K3 [assert]
+        8 CALL                             R3 2 0
         9 GETTABLEKS                       R4 R2 K4 ["workspaceGravity"]
        11 GETTABLEKS                       R3 R4 K5 ["set"]
        13 GETTABLEKS                       R5 R1 K6 ["OtherProperties"]
@@ -700,7 +750,13 @@ PROTO_6:
        51 MOVE                             R4 R0
        52 GETTABLEKS                       R5 R1 K16 ["AvatarClothingRules"]
        54 CALL                             R3 2 0
-       55 RETURN                           R0 0
+       55 GETTABLEKS                       R3 R1 K17 ["AvatarAbilityRules"]
+       57 JUMPIFNOT                        R3 ; [+5]
+       58 GETUPVAL                         R3 5
+       59 MOVE                             R4 R0
+       60 GETTABLEKS                       R5 R1 K17 ["AvatarAbilityRules"]
+       62 CALL                             R3 2 0
+       63 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -731,9 +787,11 @@ MAIN:
        40 DUPCLOSURE                       R8 K17 [PROTO_4]
        41 DUPCLOSURE                       R9 K18 [PROTO_5]
        42 DUPCLOSURE                       R10 K19 [PROTO_6]
-       43 CAPTURE                          VAL R5
-       44 CAPTURE                          VAL R6
-       45 CAPTURE                          VAL R7
-       46 CAPTURE                          VAL R8
-       47 CAPTURE                          VAL R9
-       48 RETURN                           R10 1
+       43 DUPCLOSURE                       R11 K20 [PROTO_7]
+       44 CAPTURE                          VAL R5
+       45 CAPTURE                          VAL R6
+       46 CAPTURE                          VAL R7
+       47 CAPTURE                          VAL R8
+       48 CAPTURE                          VAL R9
+       49 CAPTURE                          VAL R10
+       50 RETURN                           R11 1

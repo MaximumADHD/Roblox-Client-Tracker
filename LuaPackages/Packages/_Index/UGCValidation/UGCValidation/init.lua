@@ -30,6 +30,7 @@ local ValidationManager = require(root.validationSystem.ValidationManager)
 local getFFlagUGCValidationEnableFolderStructure = require(root.flags.getFFlagUGCValidationEnableFolderStructure)
 local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
 local LegacyValidationAdapter = require(root.util.LegacyValidationAdapter)
+local SplitHumanoidRigDescriptionForUpload = require(root.util.SplitHumanoidRigDescriptionForUpload)
 
 local UGCValidation = {}
 
@@ -39,6 +40,7 @@ UGCValidation.ValidateFinalizedBundle = ValidationManager.ValidateFinalizedBundl
 UGCValidation.combineResultsIntoLegacy = LegacyValidationAdapter.combineResultsIntoLegacy
 UGCValidation.isFolderStructureEnabled = getFFlagUGCValidationEnableFolderStructure
 UGCValidation.isEntrypointMergingEnabled = getFFlagUGCValidationCombineEntrypointResults
+UGCValidation.SplitHrdInUpload = SplitHumanoidRigDescriptionForUpload.fixUploadInstance
 
 -- Old endpoints that we need to remove:
 

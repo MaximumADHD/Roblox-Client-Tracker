@@ -55,80 +55,130 @@ PROTO_1:
        47 JUMPIFNOTEQKNIL                  R10 ; [+2]
        49 LOADB                            R9 0 +1
        50 LOADB                            R9 1
-       51 LOADB                            R10 0
-       52 LENGTH                           R11 R1
-       53 GETUPVAL                         R13 1
-       54 GETTABLEKS                       R12 R13 K6 ["NAME_CHARACTER_LIMIT"]
-       56 JUMPIFNOTLE                      R11 R12 ; [+10]
-       58 FASTCALL1                        TOSTRING R1 ; [+3]
-       59 MOVE                             R12 R1
-       60 GETIMPORT                        R11 K8 [tostring]
-       62 CALL                             R11 1 1
-       63 JUMPIFNOTEQKS                    R11 K9 [""] ; [+2]
-       65 LOADB                            R10 0 +1
-       66 LOADB                            R10 1
-       67 LENGTH                           R12 R2
-       68 GETUPVAL                         R14 1
-       69 GETTABLEKS                       R13 R14 K10 ["DESCRIPTION_CHARACTER_LIMIT"]
-       71 JUMPIFLE                         R12 R13 ; [+2]
-       73 LOADB                            R11 0 +1
-       74 LOADB                            R11 1
-       75 GETUPVAL                         R13 2
-       76 GETTABLEKS                       R12 R13 K11 ["isCatalogAsset"]
-       78 MOVE                             R13 R5
-       79 CALL                             R12 1 1
-       80 JUMPIF                           R12 ; [+6]
-       81 GETUPVAL                         R13 2
-       82 GETTABLEKS                       R12 R13 K12 ["isUGCBundleType"]
-       84 MOVE                             R13 R5
-       85 CALL                             R12 1 1
-       86 JUMPIFNOT                        R12 ; [+12]
-       87 MOVE                             R12 R11
-       88 JUMPIFNOT                        R12 ; [+9]
-       89 FASTCALL1                        TOSTRING R2 ; [+3]
-       90 MOVE                             R14 R2
-       91 GETIMPORT                        R13 K8 [tostring]
-       93 CALL                             R13 1 1
-       94 JUMPIFNOTEQKS                    R13 K9 [""] ; [+2]
-       96 LOADB                            R12 0 +1
-       97 LOADB                            R12 1
-       98 MOVE                             R11 R12
-       99 MOVE                             R12 R10
-      100 JUMPIFNOT                        R12 ; [+9]
-      101 MOVE                             R12 R11
-      102 JUMPIFNOT                        R12 ; [+7]
-      103 GETUPVAL                         R13 3
-      104 GETTABLEKS                       R12 R13 K13 ["isValidAssetMedia"]
-      106 MOVE                             R13 R6
-      107 CALL                             R12 1 1
-      108 JUMPIFNOT                        R12 ; [+1]
-      109 MOVE                             R12 R8
-      110 GETUPVAL                         R15 1
-      111 GETTABLEKS                       R14 R15 K14 ["FLOW_TYPE"]
-      113 GETTABLEKS                       R13 R14 K15 ["UPLOAD_FLOW"]
-      115 JUMPIFNOTEQ                      R4 R13 ; [+24]
-      117 JUMPIFNOTEQKNIL                  R5 ; [+3]
-      119 LOADB                            R12 0
-      120 RETURN                           R12 1
-      121 GETUPVAL                         R14 2
-      122 GETTABLEKS                       R13 R14 K11 ["isCatalogAsset"]
-      124 MOVE                             R14 R5
-      125 CALL                             R13 1 1
-      126 JUMPIF                           R13 ; [+6]
-      127 GETUPVAL                         R14 2
-      128 GETTABLEKS                       R13 R14 K12 ["isUGCBundleType"]
-      130 MOVE                             R14 R5
-      131 CALL                             R13 1 1
-      132 JUMPIFNOT                        R13 ; [+6]
-      133 MOVE                             R13 R12
-      134 JUMPIFNOT                        R13 ; [+3]
-      135 MOVE                             R13 R7
-      136 JUMPIF                           R13 ; [+1]
-      137 GETUPVAL                         R13 4
-      138 MOVE                             R12 R13
-      139 RETURN                           R12 1
-      140 AND                              R13 R12 R9
-      141 RETURN                           R13 1
+       51 LOADB                            R10 1
+       52 LOADB                            R11 1
+       53 GETUPVAL                         R12 1
+       54 CALL                             R12 0 1
+       55 JUMPIFNOT                        R12 ; [+56]
+       56 FASTCALL1                        TOSTRING R1 ; [+3]
+       57 MOVE                             R13 R1
+       58 GETIMPORT                        R12 K7 [tostring]
+       60 CALL                             R12 1 1
+       61 FASTCALL1                        TOSTRING R2 ; [+3]
+       62 MOVE                             R14 R2
+       63 GETIMPORT                        R13 K7 [tostring]
+       65 CALL                             R13 1 1
+       66 LOADB                            R14 0
+       67 GETIMPORT                        R15 K10 [utf8.len]
+       69 MOVE                             R16 R12
+       70 CALL                             R15 1 1
+       71 GETUPVAL                         R17 2
+       72 GETTABLEKS                       R16 R17 K11 ["NAME_CHARACTER_LIMIT"]
+       74 JUMPIFNOTLE                      R15 R16 ; [+5]
+       76 JUMPIFNOTEQKS                    R12 K12 [""] ; [+2]
+       78 LOADB                            R14 0 +1
+       79 LOADB                            R14 1
+       80 MOVE                             R10 R14
+       81 GETIMPORT                        R14 K10 [utf8.len]
+       83 MOVE                             R15 R13
+       84 CALL                             R14 1 1
+       85 GETUPVAL                         R16 2
+       86 GETTABLEKS                       R15 R16 K13 ["DESCRIPTION_CHARACTER_LIMIT"]
+       88 JUMPIFLE                         R14 R15 ; [+2]
+       90 LOADB                            R11 0 +1
+       91 LOADB                            R11 1
+       92 GETUPVAL                         R15 3
+       93 GETTABLEKS                       R14 R15 K14 ["isCatalogAsset"]
+       95 MOVE                             R15 R5
+       96 CALL                             R14 1 1
+       97 JUMPIF                           R14 ; [+6]
+       98 GETUPVAL                         R15 3
+       99 GETTABLEKS                       R14 R15 K15 ["isUGCBundleType"]
+      101 MOVE                             R15 R5
+      102 CALL                             R14 1 1
+      103 JUMPIFNOT                        R14 ; [+57]
+      104 MOVE                             R14 R11
+      105 JUMPIFNOT                        R14 ; [+4]
+      106 JUMPIFNOTEQKS                    R13 K12 [""] ; [+2]
+      108 LOADB                            R14 0 +1
+      109 LOADB                            R14 1
+      110 MOVE                             R11 R14
+      111 JUMP                             ; [+49]
+      112 LOADB                            R12 0
+      113 LENGTH                           R13 R1
+      114 GETUPVAL                         R15 2
+      115 GETTABLEKS                       R14 R15 K11 ["NAME_CHARACTER_LIMIT"]
+      117 JUMPIFNOTLE                      R13 R14 ; [+10]
+      119 FASTCALL1                        TOSTRING R1 ; [+3]
+      120 MOVE                             R14 R1
+      121 GETIMPORT                        R13 K7 [tostring]
+      123 CALL                             R13 1 1
+      124 JUMPIFNOTEQKS                    R13 K12 [""] ; [+2]
+      126 LOADB                            R12 0 +1
+      127 LOADB                            R12 1
+      128 MOVE                             R10 R12
+      129 LENGTH                           R12 R2
+      130 GETUPVAL                         R14 2
+      131 GETTABLEKS                       R13 R14 K13 ["DESCRIPTION_CHARACTER_LIMIT"]
+      133 JUMPIFLE                         R12 R13 ; [+2]
+      135 LOADB                            R11 0 +1
+      136 LOADB                            R11 1
+      137 GETUPVAL                         R13 3
+      138 GETTABLEKS                       R12 R13 K14 ["isCatalogAsset"]
+      140 MOVE                             R13 R5
+      141 CALL                             R12 1 1
+      142 JUMPIF                           R12 ; [+6]
+      143 GETUPVAL                         R13 3
+      144 GETTABLEKS                       R12 R13 K15 ["isUGCBundleType"]
+      146 MOVE                             R13 R5
+      147 CALL                             R12 1 1
+      148 JUMPIFNOT                        R12 ; [+12]
+      149 MOVE                             R12 R11
+      150 JUMPIFNOT                        R12 ; [+9]
+      151 FASTCALL1                        TOSTRING R2 ; [+3]
+      152 MOVE                             R14 R2
+      153 GETIMPORT                        R13 K7 [tostring]
+      155 CALL                             R13 1 1
+      156 JUMPIFNOTEQKS                    R13 K12 [""] ; [+2]
+      158 LOADB                            R12 0 +1
+      159 LOADB                            R12 1
+      160 MOVE                             R11 R12
+      161 MOVE                             R12 R10
+      162 JUMPIFNOT                        R12 ; [+9]
+      163 MOVE                             R12 R11
+      164 JUMPIFNOT                        R12 ; [+7]
+      165 GETUPVAL                         R13 4
+      166 GETTABLEKS                       R12 R13 K16 ["isValidAssetMedia"]
+      168 MOVE                             R13 R6
+      169 CALL                             R12 1 1
+      170 JUMPIFNOT                        R12 ; [+1]
+      171 MOVE                             R12 R8
+      172 GETUPVAL                         R15 2
+      173 GETTABLEKS                       R14 R15 K17 ["FLOW_TYPE"]
+      175 GETTABLEKS                       R13 R14 K18 ["UPLOAD_FLOW"]
+      177 JUMPIFNOTEQ                      R4 R13 ; [+24]
+      179 JUMPIFNOTEQKNIL                  R5 ; [+3]
+      181 LOADB                            R12 0
+      182 RETURN                           R12 1
+      183 GETUPVAL                         R14 3
+      184 GETTABLEKS                       R13 R14 K14 ["isCatalogAsset"]
+      186 MOVE                             R14 R5
+      187 CALL                             R13 1 1
+      188 JUMPIF                           R13 ; [+6]
+      189 GETUPVAL                         R14 3
+      190 GETTABLEKS                       R13 R14 K15 ["isUGCBundleType"]
+      192 MOVE                             R14 R5
+      193 CALL                             R13 1 1
+      194 JUMPIFNOT                        R13 ; [+6]
+      195 MOVE                             R13 R12
+      196 JUMPIFNOT                        R13 ; [+3]
+      197 MOVE                             R13 R7
+      198 JUMPIF                           R13 ; [+1]
+      199 GETUPVAL                         R13 5
+      200 MOVE                             R12 R13
+      201 RETURN                           R12 1
+      202 AND                              R13 R12 R9
+      203 RETURN                           R13 1
 
 PROTO_2:
         0 JUMPIFNOTEQKS                    R0 K0 ["SafetyStatus"] ; [+3]
@@ -255,24 +305,30 @@ MAIN:
        63 LOADK                            R11 K17 ["DisableUGCBodyUploadValidation1"]
        64 NAMECALL                         R9 R9 K18 ["GetFastFlag"]
        66 CALL                             R9 2 1
-       67 NEWTABLE                         R10 8 0
-       69 DUPCLOSURE                       R11 K19 [PROTO_0]
-       70 CAPTURE                          VAL R4
-       71 SETTABLEKS                       R11 R10 K20 ["isValidAssetMedia"]
-       73 DUPCLOSURE                       R11 K21 [PROTO_1]
-       74 CAPTURE                          VAL R6
-       75 CAPTURE                          VAL R4
-       76 CAPTURE                          VAL R5
-       77 CAPTURE                          VAL R10
-       78 CAPTURE                          VAL R9
-       79 SETTABLEKS                       R11 R10 K22 ["checkCanSave"]
-       81 DUPCLOSURE                       R11 K23 [PROTO_2]
-       82 SETTABLEKS                       R11 R10 K24 ["isRestrictionAppealable"]
-       84 DUPCLOSURE                       R11 K25 [PROTO_3]
+       67 GETIMPORT                        R10 K7 [require]
+       69 GETTABLEKS                       R13 R0 K3 ["Src"]
+       71 GETTABLEKS                       R12 R13 K19 ["Flags"]
+       73 GETTABLEKS                       R11 R12 K20 ["getFFlagToolboxFixDescriptionCharCnt"]
+       75 CALL                             R10 1 1
+       76 NEWTABLE                         R11 8 0
+       78 DUPCLOSURE                       R12 K21 [PROTO_0]
+       79 CAPTURE                          VAL R4
+       80 SETTABLEKS                       R12 R11 K22 ["isValidAssetMedia"]
+       82 DUPCLOSURE                       R12 K23 [PROTO_1]
+       83 CAPTURE                          VAL R6
+       84 CAPTURE                          VAL R10
        85 CAPTURE                          VAL R4
-       86 SETTABLEKS                       R11 R10 K26 ["getDisplayTextForRestriction"]
-       88 DUPCLOSURE                       R11 K27 [PROTO_4]
-       89 CAPTURE                          VAL R3
-       90 CAPTURE                          VAL R4
-       91 SETTABLEKS                       R11 R10 K28 ["getRestrictionThatAppliesToAsset"]
-       93 RETURN                           R10 1
+       86 CAPTURE                          VAL R5
+       87 CAPTURE                          VAL R11
+       88 CAPTURE                          VAL R9
+       89 SETTABLEKS                       R12 R11 K24 ["checkCanSave"]
+       91 DUPCLOSURE                       R12 K25 [PROTO_2]
+       92 SETTABLEKS                       R12 R11 K26 ["isRestrictionAppealable"]
+       94 DUPCLOSURE                       R12 K27 [PROTO_3]
+       95 CAPTURE                          VAL R4
+       96 SETTABLEKS                       R12 R11 K28 ["getDisplayTextForRestriction"]
+       98 DUPCLOSURE                       R12 K29 [PROTO_4]
+       99 CAPTURE                          VAL R3
+      100 CAPTURE                          VAL R4
+      101 SETTABLEKS                       R12 R11 K30 ["getRestrictionThatAppliesToAsset"]
+      103 RETURN                           R11 1

@@ -38,6 +38,9 @@ local Pages = require(ContactList.Enums.Pages)
 
 local useStartCallCallback = require(ContactList.Hooks.useStartCallCallback)
 
+local FFlagRemoveDependencyArrayAntipattern =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern
+
 local PADDING_IN_BETWEEN = 12
 local PROFILE_SIZE = 68
 local DETAIL_CONTEXT_HEIGHT = 16
@@ -208,18 +211,23 @@ local function CallHistoryItem(props: Props)
 	}
 	local startCall = useStartCallCallback(tag, otherParticipantId, combinedName, props.dismissCallback, analyticsInfo)
 
-	local openOrUpdateCFM = React.useCallback(function()
-		analytics.fireEvent(EventNamesEnum.PhoneBookPlayerMenuOpened, {
-			eventTimestampMs = os.time() * 1000,
-			friendUserId = otherParticipantId,
-			searchQueryString = nil,
-			itemListIndex = props.layoutOrder,
-			isSuggestedUser = false,
-			page = Pages.CallHistory,
-		})
+	local openOrUpdateCFM = React.useCallback(
+		function()
+			analytics.fireEvent(EventNamesEnum.PhoneBookPlayerMenuOpened, {
+				eventTimestampMs = os.time() * 1000,
+				friendUserId = otherParticipantId,
+				searchQueryString = nil,
+				itemListIndex = props.layoutOrder,
+				isSuggestedUser = false,
+				page = Pages.CallHistory,
+			})
 
-		dispatch(OpenOrUpdateCFM(otherParticipant))
-	end, dependencyArray(otherParticipantId, props.layoutOrder))
+			dispatch(OpenOrUpdateCFM(otherParticipant))
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then { otherParticipantId :: any, props.layoutOrder }
+			else dependencyArray(otherParticipantId, props.layoutOrder)
+	)
 
 	local image = getStandardSizeAvatarHeadShotRbxthumb(tostring(otherParticipantId))
 

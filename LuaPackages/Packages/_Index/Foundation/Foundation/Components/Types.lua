@@ -172,6 +172,9 @@ export type BaseGuiObjectProps = {
 	BorderColor3: Bindable<Color3>?,
 	BorderMode: Bindable<Enum.BorderMode>?,
 	ClipsDescendants: Bindable<boolean>?,
+	-- TODO: update when InputSink is available in all engine builds
+	-- InputSink: Bindable<Enum.InputSink>?,
+	InputSink: Bindable<any>?,
 	Rotation: Bindable<number>?,
 	Size: Bindable<UDim2?>,
 	SizeConstraint: Bindable<Enum.SizeConstraint>?,

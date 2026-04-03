@@ -63,18 +63,20 @@ MAIN:
        40 LOADK                            R8 K20 ["glb"]
        41 SETLIST                          R4 R5 4 [1]
        43 SETTABLEKS                       R4 R3 K21 ["Scene"]
-       45 NEWTABLE                         R4 0 2
+       45 NEWTABLE                         R4 0 4
        47 LOADK                            R5 K22 ["ogg"]
        48 LOADK                            R6 K23 ["mp3"]
-       49 SETLIST                          R4 R5 2 [1]
-       51 SETTABLEKS                       R4 R3 K24 ["Audio"]
-       53 NEWTABLE                         R4 0 2
-       55 LOADK                            R5 K25 ["mp4"]
-       56 LOADK                            R6 K26 ["mov"]
-       57 SETLIST                          R4 R5 2 [1]
-       59 SETTABLEKS                       R4 R3 K27 ["Video"]
-       61 DUPCLOSURE                       R4 K28 [PROTO_0]
-       62 CAPTURE                          VAL R3
-       63 CAPTURE                          VAL R1
-       64 CAPTURE                          VAL R2
-       65 RETURN                           R4 1
+       49 LOADK                            R7 K24 ["wav"]
+       50 LOADK                            R8 K25 ["flac"]
+       51 SETLIST                          R4 R5 4 [1]
+       53 SETTABLEKS                       R4 R3 K26 ["Audio"]
+       55 NEWTABLE                         R4 0 2
+       57 LOADK                            R5 K27 ["mp4"]
+       58 LOADK                            R6 K28 ["mov"]
+       59 SETLIST                          R4 R5 2 [1]
+       61 SETTABLEKS                       R4 R3 K29 ["Video"]
+       63 DUPCLOSURE                       R4 K30 [PROTO_0]
+       64 CAPTURE                          VAL R3
+       65 CAPTURE                          VAL R1
+       66 CAPTURE                          VAL R2
+       67 RETURN                           R4 1

@@ -2,7 +2,6 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local ColorMode = require(Foundation.Enums.ColorMode)
-local Flags = require(Foundation.Utility.Flags)
 local React = require(Packages.React)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 type ColorMode = ColorMode.ColorMode
@@ -19,9 +18,7 @@ type Props = {
 
 local CursorComponent = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 	local tokens = useTokens()
-	local colorIndex = if Flags.FoundationSupportPresentationContextInSelectionCursor
-		then props.colorMode
-		else ColorMode.Color
+	local colorIndex = props.colorMode
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,

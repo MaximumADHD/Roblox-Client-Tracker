@@ -302,7 +302,7 @@ PROTO_12:
        39 GETTABLEKS                       R8 R0 K12 ["_lastAxesToScale"]
        41 JUMPIFNOTEQ                      R5 R8 ; [+3]
        43 LOADB                            R7 1
-       44 JUMP                             ; [+24]
+       44 JUMP                             ; [+23]
        45 JUMPIFNOT                        R5 ; [+19]
        46 JUMPIFNOT                        R8 ; [+18]
        47 GETTABLEKS                       R9 R5 K13 ["X"]
@@ -315,18 +315,17 @@ PROTO_12:
        61 GETTABLEKS                       R10 R8 K15 ["Z"]
        63 JUMPIFEQ                         R9 R10 ; [+3]
        65 LOADB                            R7 0
-       66 JUMP                             ; [+2]
+       66 JUMP                             ; [+1]
        67 LOADB                            R7 1
-       68 JUMP                             ; [0]
-       69 NOT                              R6 R7
-       70 GETTABLEKS                       R8 R0 K16 ["_lastResizeFromCenter"]
-       72 JUMPIFNOTEQ                      R4 R8 ; [+2]
-       74 LOADB                            R7 0 +1
-       75 LOADB                            R7 1
-       76 SETTABLEKS                       R5 R0 K12 ["_lastAxesToScale"]
-       78 SETTABLEKS                       R4 R0 K16 ["_lastResizeFromCenter"]
-       80 OR                               R8 R6 R7
-       81 RETURN                           R8 1
+       68 NOT                              R6 R7
+       69 GETTABLEKS                       R8 R0 K16 ["_lastResizeFromCenter"]
+       71 JUMPIFNOTEQ                      R4 R8 ; [+2]
+       73 LOADB                            R7 0 +1
+       74 LOADB                            R7 1
+       75 SETTABLEKS                       R5 R0 K12 ["_lastAxesToScale"]
+       77 SETTABLEKS                       R4 R0 K16 ["_lastResizeFromCenter"]
+       79 OR                               R8 R6 R7
+       80 RETURN                           R8 1
 
 PROTO_13:
         0 NAMECALL                         R1 R0 K0 ["_updateExtrudeMode"]

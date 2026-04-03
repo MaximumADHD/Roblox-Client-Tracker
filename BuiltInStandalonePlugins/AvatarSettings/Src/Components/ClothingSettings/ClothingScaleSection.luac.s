@@ -59,185 +59,174 @@ PROTO_4:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["use"]
         3 CALL                             R1 1 1
-        4 GETUPVAL                         R3 1
-        5 CALL                             R3 0 1
-        6 JUMPIFNOT                        R3 ; [+5]
-        7 GETUPVAL                         R2 2
-        8 NAMECALL                         R2 R2 K0 ["use"]
-       10 CALL                             R2 1 1
-       11 JUMP                             ; [+1]
-       12 LOADNIL                          R2
-       13 GETUPVAL                         R3 3
-       14 CALL                             R3 0 1
-       15 GETUPVAL                         R5 4
-       16 GETTABLEKS                       R4 R5 K1 ["useContext"]
-       18 GETUPVAL                         R5 5
-       19 CALL                             R4 1 1
-       20 GETTABLEKS                       R7 R4 K2 ["settings"]
-       22 JUMPIFNOTEQKNIL                  R7 ; [+2]
-       24 LOADB                            R6 0 +1
-       25 LOADB                            R6 1
-       26 FASTCALL2K                       ASSERT R6 K3 ; [+4]
-       28 LOADK                            R7 K3 ["Settings must not be nil in AvatarSettingsContext"]
-       29 GETIMPORT                        R5 K5 [assert]
-       31 CALL                             R5 2 0
-       32 NEWTABLE                         R5 0 2
-       34 DUPTABLE                         R6 K8 [{"Id", "Label"}]
-       35 GETIMPORT                        R7 K12 [Enum.AvatarSettingsClothingMode.PlayerChoice]
-       37 SETTABLEKS                       R7 R6 K6 ["Id"]
-       39 LOADK                            R9 K13 ["ClothingSettings"]
-       40 LOADK                            R10 K14 ["ClothingScaleSectionPlayerChoiceButtonText"]
-       41 NAMECALL                         R7 R1 K15 ["getText"]
-       43 CALL                             R7 3 1
-       44 SETTABLEKS                       R7 R6 K7 ["Label"]
-       46 DUPTABLE                         R7 K8 [{"Id", "Label"}]
-       47 GETIMPORT                        R8 K17 [Enum.AvatarSettingsClothingMode.CustomLimit]
-       49 SETTABLEKS                       R8 R7 K6 ["Id"]
-       51 LOADK                            R10 K13 ["ClothingSettings"]
-       52 LOADK                            R11 K18 ["ClothingScaleSectionCustomLimitButtonText"]
-       53 NAMECALL                         R8 R1 K15 ["getText"]
-       55 CALL                             R8 3 1
-       56 SETTABLEKS                       R8 R7 K7 ["Label"]
-       58 SETLIST                          R5 R6 2 [1]
-       60 GETTABLEKS                       R7 R4 K2 ["settings"]
-       62 GETTABLEKS                       R6 R7 K19 ["clothingSettings"]
-       64 GETTABLEKS                       R8 R6 K20 ["clothingScaleSetting"]
-       66 GETTABLEKS                       R7 R8 K21 ["value"]
-       68 GETIMPORT                        R8 K24 [UDim.new]
-       70 LOADN                            R9 0
-       71 GETUPVAL                         R11 6
-       72 GETTABLEKS                       R10 R11 K25 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
-       74 CALL                             R8 2 1
-       75 GETIMPORT                        R10 K17 [Enum.AvatarSettingsClothingMode.CustomLimit]
-       77 JUMPIFEQ                         R7 R10 ; [+2]
-       79 LOADB                            R9 0 +1
-       80 LOADB                            R9 1
-       81 GETUPVAL                         R10 7
-       82 NAMECALL                         R10 R10 K0 ["use"]
-       84 CALL                             R10 1 1
-       85 NAMECALL                         R10 R10 K26 ["get"]
-       87 CALL                             R10 1 1
-       88 GETUPVAL                         R12 4
-       89 GETTABLEKS                       R11 R12 K27 ["useEffect"]
-       91 NEWCLOSURE                       R12 P0
-       92 CAPTURE                          VAL R7
-       93 CAPTURE                          VAL R10
-       94 CAPTURE                          UPVAL U8
-       95 NEWTABLE                         R13 0 2
-       97 MOVE                             R14 R7
-       98 GETTABLEKS                       R18 R4 K2 ["settings"]
-      100 GETTABLEKS                       R17 R18 K19 ["clothingSettings"]
-      102 GETTABLEKS                       R16 R17 K28 ["clothingScaleLimitBoundsSetting"]
-      104 GETTABLEKS                       R15 R16 K21 ["value"]
-      106 SETLIST                          R13 R14 2 [1]
-      108 CALL                             R11 2 0
-      109 GETUPVAL                         R12 4
-      110 GETTABLEKS                       R11 R12 K27 ["useEffect"]
-      112 NEWCLOSURE                       R12 P1
-      113 CAPTURE                          VAL R10
-      114 CAPTURE                          UPVAL U8
-      115 NEWTABLE                         R13 0 0
-      117 CALL                             R11 2 0
-      118 GETUPVAL                         R11 9
-      119 GETUPVAL                         R12 10
-      120 DUPTABLE                         R13 K32 [{"text", "layoutOrder", "showWarning"}]
-      121 LOADK                            R16 K13 ["ClothingSettings"]
-      122 LOADK                            R17 K33 ["ClothingScaleSection"]
-      123 NAMECALL                         R14 R1 K15 ["getText"]
-      125 CALL                             R14 3 1
-      126 SETTABLEKS                       R14 R13 K29 ["text"]
-      128 GETTABLEKS                       R14 R0 K30 ["layoutOrder"]
-      130 SETTABLEKS                       R14 R13 K30 ["layoutOrder"]
-      132 LOADB                            R14 1
-      133 SETTABLEKS                       R14 R13 K31 ["showWarning"]
-      135 DUPTABLE                         R14 K37 [{"UIListLayout", "ClothingScaleModeSelector", "LimitBoundsTitleFrame"}]
-      136 GETUPVAL                         R15 9
-      137 LOADK                            R16 K34 ["UIListLayout"]
-      138 DUPTABLE                         R17 K39 [{"Padding"}]
-      139 GETIMPORT                        R18 K24 [UDim.new]
-      141 LOADN                            R19 0
-      142 LOADN                            R20 12
-      143 CALL                             R18 2 1
-      144 SETTABLEKS                       R18 R17 K38 ["Padding"]
-      146 CALL                             R15 2 1
-      147 SETTABLEKS                       R15 R14 K34 ["UIListLayout"]
-      149 GETUPVAL                         R15 9
-      150 GETUPVAL                         R16 11
-      151 DUPTABLE                         R17 K44 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
-      152 MOVE                             R18 R3
-      153 CALL                             R18 0 1
-      154 SETTABLEKS                       R18 R17 K30 ["layoutOrder"]
-      156 SETTABLEKS                       R5 R17 K40 ["items"]
-      158 SETTABLEKS                       R7 R17 K41 ["selected"]
-      160 GETUPVAL                         R19 1
-      161 CALL                             R19 0 1
-      162 JUMPIFNOT                        R19 ; [+5]
-      163 NEWCLOSURE                       R18 P2
-      164 CAPTURE                          VAL R7
-      165 CAPTURE                          VAL R2
-      166 CAPTURE                          VAL R6
-      167 JUMP                             ; [+4]
-      168 GETTABLEKS                       R19 R6 K20 ["clothingScaleSetting"]
-      170 GETTABLEKS                       R18 R19 K45 ["set"]
-      172 SETTABLEKS                       R18 R17 K42 ["onItemActivated"]
-      174 LOADK                            R20 K13 ["ClothingSettings"]
-      175 GETIMPORT                        R22 K12 [Enum.AvatarSettingsClothingMode.PlayerChoice]
-      177 JUMPIFNOTEQ                      R7 R22 ; [+3]
-      179 LOADK                            R21 K46 ["ClothingScaleSectionPlayerChoiceSubText"]
-      180 JUMP                             ; [+1]
-      181 LOADK                            R21 K47 ["ClothingScaleSectionCustomLimitSubText"]
-      182 NAMECALL                         R18 R1 K15 ["getText"]
-      184 CALL                             R18 3 1
-      185 SETTABLEKS                       R18 R17 K43 ["subText"]
-      187 CALL                             R15 2 1
-      188 SETTABLEKS                       R15 R14 K35 ["ClothingScaleModeSelector"]
-      190 MOVE                             R15 R9
-      191 JUMPIFNOT                        R15 ; [+61]
-      192 GETUPVAL                         R15 9
-      193 GETUPVAL                         R16 12
-      194 DUPTABLE                         R17 K51 [{"layoutOrder", "separation", "textLabelTags", "minTextLabelWidth", "text"}]
-      195 MOVE                             R18 R3
-      196 CALL                             R18 0 1
-      197 SETTABLEKS                       R18 R17 K30 ["layoutOrder"]
-      199 GETIMPORT                        R18 K24 [UDim.new]
-      201 LOADN                            R19 0
-      202 LOADN                            R20 4
-      203 CALL                             R18 2 1
-      204 SETTABLEKS                       R18 R17 K48 ["separation"]
-      206 LOADK                            R18 K52 ["AvatarSettings-LeftTextPrimary"]
-      207 SETTABLEKS                       R18 R17 K49 ["textLabelTags"]
-      209 SETTABLEKS                       R8 R17 K50 ["minTextLabelWidth"]
-      211 LOADK                            R20 K13 ["ClothingSettings"]
-      212 LOADK                            R21 K53 ["ClothingScaleSectionLimitBounds"]
-      213 NAMECALL                         R18 R1 K15 ["getText"]
-      215 CALL                             R18 3 1
-      216 SETTABLEKS                       R18 R17 K29 ["text"]
-      218 DUPTABLE                         R18 K55 [{"Input"}]
-      219 GETUPVAL                         R19 9
-      220 GETUPVAL                         R20 13
-      221 DUPTABLE                         R21 K57 [{"layoutOrder", "value", "setValue", "text"}]
-      222 MOVE                             R22 R3
-      223 CALL                             R22 0 1
-      224 SETTABLEKS                       R22 R21 K30 ["layoutOrder"]
-      226 GETTABLEKS                       R23 R6 K28 ["clothingScaleLimitBoundsSetting"]
-      228 GETTABLEKS                       R22 R23 K21 ["value"]
-      230 SETTABLEKS                       R22 R21 K21 ["value"]
-      232 GETTABLEKS                       R25 R4 K2 ["settings"]
-      234 GETTABLEKS                       R24 R25 K19 ["clothingSettings"]
-      236 GETTABLEKS                       R23 R24 K28 ["clothingScaleLimitBoundsSetting"]
-      238 GETTABLEKS                       R22 R23 K45 ["set"]
-      240 SETTABLEKS                       R22 R21 K56 ["setValue"]
-      242 LOADK                            R24 K58 ["General"]
-      243 LOADK                            R25 K59 ["PaddingAroundAvatar"]
-      244 NAMECALL                         R22 R1 K15 ["getText"]
-      246 CALL                             R22 3 1
-      247 SETTABLEKS                       R22 R21 K29 ["text"]
-      249 CALL                             R19 2 1
-      250 SETTABLEKS                       R19 R18 K54 ["Input"]
-      252 CALL                             R15 3 1
-      253 SETTABLEKS                       R15 R14 K36 ["LimitBoundsTitleFrame"]
-      255 CALL                             R11 3 -1
-      256 RETURN                           R11 -1
+        4 GETUPVAL                         R2 1
+        5 NAMECALL                         R2 R2 K0 ["use"]
+        7 CALL                             R2 1 1
+        8 GETUPVAL                         R3 2
+        9 CALL                             R3 0 1
+       10 GETUPVAL                         R5 3
+       11 GETTABLEKS                       R4 R5 K1 ["useContext"]
+       13 GETUPVAL                         R5 4
+       14 CALL                             R4 1 1
+       15 GETTABLEKS                       R7 R4 K2 ["settings"]
+       17 JUMPIFNOTEQKNIL                  R7 ; [+2]
+       19 LOADB                            R6 0 +1
+       20 LOADB                            R6 1
+       21 FASTCALL2K                       ASSERT R6 K3 ; [+4]
+       23 LOADK                            R7 K3 ["Settings must not be nil in AvatarSettingsContext"]
+       24 GETIMPORT                        R5 K5 [assert]
+       26 CALL                             R5 2 0
+       27 NEWTABLE                         R5 0 2
+       29 DUPTABLE                         R6 K8 [{"Id", "Label"}]
+       30 GETIMPORT                        R7 K12 [Enum.AvatarSettingsClothingMode.PlayerChoice]
+       32 SETTABLEKS                       R7 R6 K6 ["Id"]
+       34 LOADK                            R9 K13 ["ClothingSettings"]
+       35 LOADK                            R10 K14 ["ClothingScaleSectionPlayerChoiceButtonText"]
+       36 NAMECALL                         R7 R1 K15 ["getText"]
+       38 CALL                             R7 3 1
+       39 SETTABLEKS                       R7 R6 K7 ["Label"]
+       41 DUPTABLE                         R7 K8 [{"Id", "Label"}]
+       42 GETIMPORT                        R8 K17 [Enum.AvatarSettingsClothingMode.CustomLimit]
+       44 SETTABLEKS                       R8 R7 K6 ["Id"]
+       46 LOADK                            R10 K13 ["ClothingSettings"]
+       47 LOADK                            R11 K18 ["ClothingScaleSectionCustomLimitButtonText"]
+       48 NAMECALL                         R8 R1 K15 ["getText"]
+       50 CALL                             R8 3 1
+       51 SETTABLEKS                       R8 R7 K7 ["Label"]
+       53 SETLIST                          R5 R6 2 [1]
+       55 GETTABLEKS                       R7 R4 K2 ["settings"]
+       57 GETTABLEKS                       R6 R7 K19 ["clothingSettings"]
+       59 GETTABLEKS                       R8 R6 K20 ["clothingScaleSetting"]
+       61 GETTABLEKS                       R7 R8 K21 ["value"]
+       63 GETIMPORT                        R8 K24 [UDim.new]
+       65 LOADN                            R9 0
+       66 GETUPVAL                         R11 5
+       67 GETTABLEKS                       R10 R11 K25 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
+       69 CALL                             R8 2 1
+       70 GETIMPORT                        R10 K17 [Enum.AvatarSettingsClothingMode.CustomLimit]
+       72 JUMPIFEQ                         R7 R10 ; [+2]
+       74 LOADB                            R9 0 +1
+       75 LOADB                            R9 1
+       76 GETUPVAL                         R10 6
+       77 NAMECALL                         R10 R10 K0 ["use"]
+       79 CALL                             R10 1 1
+       80 NAMECALL                         R10 R10 K26 ["get"]
+       82 CALL                             R10 1 1
+       83 GETUPVAL                         R12 3
+       84 GETTABLEKS                       R11 R12 K27 ["useEffect"]
+       86 NEWCLOSURE                       R12 P0
+       87 CAPTURE                          VAL R7
+       88 CAPTURE                          VAL R10
+       89 CAPTURE                          UPVAL U7
+       90 NEWTABLE                         R13 0 2
+       92 MOVE                             R14 R7
+       93 GETTABLEKS                       R18 R4 K2 ["settings"]
+       95 GETTABLEKS                       R17 R18 K19 ["clothingSettings"]
+       97 GETTABLEKS                       R16 R17 K28 ["clothingScaleLimitBoundsSetting"]
+       99 GETTABLEKS                       R15 R16 K21 ["value"]
+      101 SETLIST                          R13 R14 2 [1]
+      103 CALL                             R11 2 0
+      104 GETUPVAL                         R12 3
+      105 GETTABLEKS                       R11 R12 K27 ["useEffect"]
+      107 NEWCLOSURE                       R12 P1
+      108 CAPTURE                          VAL R10
+      109 CAPTURE                          UPVAL U7
+      110 NEWTABLE                         R13 0 0
+      112 CALL                             R11 2 0
+      113 GETUPVAL                         R11 8
+      114 GETUPVAL                         R12 9
+      115 DUPTABLE                         R13 K32 [{"text", "layoutOrder", "showWarning"}]
+      116 LOADK                            R16 K13 ["ClothingSettings"]
+      117 LOADK                            R17 K33 ["ClothingScaleSection"]
+      118 NAMECALL                         R14 R1 K15 ["getText"]
+      120 CALL                             R14 3 1
+      121 SETTABLEKS                       R14 R13 K29 ["text"]
+      123 GETTABLEKS                       R14 R0 K30 ["layoutOrder"]
+      125 SETTABLEKS                       R14 R13 K30 ["layoutOrder"]
+      127 LOADB                            R14 1
+      128 SETTABLEKS                       R14 R13 K31 ["showWarning"]
+      130 DUPTABLE                         R14 K37 [{"UIListLayout", "ClothingScaleModeSelector", "LimitBoundsTitleFrame"}]
+      131 GETUPVAL                         R15 8
+      132 LOADK                            R16 K34 ["UIListLayout"]
+      133 DUPTABLE                         R17 K39 [{"Padding"}]
+      134 GETIMPORT                        R18 K24 [UDim.new]
+      136 LOADN                            R19 0
+      137 LOADN                            R20 12
+      138 CALL                             R18 2 1
+      139 SETTABLEKS                       R18 R17 K38 ["Padding"]
+      141 CALL                             R15 2 1
+      142 SETTABLEKS                       R15 R14 K34 ["UIListLayout"]
+      144 GETUPVAL                         R15 8
+      145 GETUPVAL                         R16 10
+      146 DUPTABLE                         R17 K44 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
+      147 MOVE                             R18 R3
+      148 CALL                             R18 0 1
+      149 SETTABLEKS                       R18 R17 K30 ["layoutOrder"]
+      151 SETTABLEKS                       R5 R17 K40 ["items"]
+      153 SETTABLEKS                       R7 R17 K41 ["selected"]
+      155 NEWCLOSURE                       R18 P2
+      156 CAPTURE                          VAL R7
+      157 CAPTURE                          VAL R2
+      158 CAPTURE                          VAL R6
+      159 SETTABLEKS                       R18 R17 K42 ["onItemActivated"]
+      161 LOADK                            R20 K13 ["ClothingSettings"]
+      162 GETIMPORT                        R22 K12 [Enum.AvatarSettingsClothingMode.PlayerChoice]
+      164 JUMPIFNOTEQ                      R7 R22 ; [+3]
+      166 LOADK                            R21 K45 ["ClothingScaleSectionPlayerChoiceSubText"]
+      167 JUMP                             ; [+1]
+      168 LOADK                            R21 K46 ["ClothingScaleSectionCustomLimitSubText"]
+      169 NAMECALL                         R18 R1 K15 ["getText"]
+      171 CALL                             R18 3 1
+      172 SETTABLEKS                       R18 R17 K43 ["subText"]
+      174 CALL                             R15 2 1
+      175 SETTABLEKS                       R15 R14 K35 ["ClothingScaleModeSelector"]
+      177 MOVE                             R15 R9
+      178 JUMPIFNOT                        R15 ; [+61]
+      179 GETUPVAL                         R15 8
+      180 GETUPVAL                         R16 11
+      181 DUPTABLE                         R17 K50 [{"layoutOrder", "separation", "textLabelTags", "minTextLabelWidth", "text"}]
+      182 MOVE                             R18 R3
+      183 CALL                             R18 0 1
+      184 SETTABLEKS                       R18 R17 K30 ["layoutOrder"]
+      186 GETIMPORT                        R18 K24 [UDim.new]
+      188 LOADN                            R19 0
+      189 LOADN                            R20 4
+      190 CALL                             R18 2 1
+      191 SETTABLEKS                       R18 R17 K47 ["separation"]
+      193 LOADK                            R18 K51 ["AvatarSettings-LeftTextPrimary"]
+      194 SETTABLEKS                       R18 R17 K48 ["textLabelTags"]
+      196 SETTABLEKS                       R8 R17 K49 ["minTextLabelWidth"]
+      198 LOADK                            R20 K13 ["ClothingSettings"]
+      199 LOADK                            R21 K52 ["ClothingScaleSectionLimitBounds"]
+      200 NAMECALL                         R18 R1 K15 ["getText"]
+      202 CALL                             R18 3 1
+      203 SETTABLEKS                       R18 R17 K29 ["text"]
+      205 DUPTABLE                         R18 K54 [{"Input"}]
+      206 GETUPVAL                         R19 8
+      207 GETUPVAL                         R20 12
+      208 DUPTABLE                         R21 K56 [{"layoutOrder", "value", "setValue", "text"}]
+      209 MOVE                             R22 R3
+      210 CALL                             R22 0 1
+      211 SETTABLEKS                       R22 R21 K30 ["layoutOrder"]
+      213 GETTABLEKS                       R23 R6 K28 ["clothingScaleLimitBoundsSetting"]
+      215 GETTABLEKS                       R22 R23 K21 ["value"]
+      217 SETTABLEKS                       R22 R21 K21 ["value"]
+      219 GETTABLEKS                       R25 R4 K2 ["settings"]
+      221 GETTABLEKS                       R24 R25 K19 ["clothingSettings"]
+      223 GETTABLEKS                       R23 R24 K28 ["clothingScaleLimitBoundsSetting"]
+      225 GETTABLEKS                       R22 R23 K57 ["set"]
+      227 SETTABLEKS                       R22 R21 K55 ["setValue"]
+      229 LOADK                            R24 K58 ["General"]
+      230 LOADK                            R25 K59 ["PaddingAroundAvatar"]
+      231 NAMECALL                         R22 R1 K15 ["getText"]
+      233 CALL                             R22 3 1
+      234 SETTABLEKS                       R22 R21 K29 ["text"]
+      236 CALL                             R19 2 1
+      237 SETTABLEKS                       R19 R18 K53 ["Input"]
+      239 CALL                             R15 3 1
+      240 SETTABLEKS                       R15 R14 K36 ["LimitBoundsTitleFrame"]
+      242 CALL                             R11 3 -1
+      243 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -302,26 +291,20 @@ MAIN:
       105 GETTABLEKS                       R16 R17 K24 ["Telemetry"]
       107 GETTABLEKS                       R15 R16 K25 ["TelemetryContext"]
       109 CALL                             R14 1 1
-      110 GETIMPORT                        R15 K5 [require]
-      112 GETTABLEKS                       R18 R0 K6 ["Src"]
-      114 GETTABLEKS                       R17 R18 K26 ["Flags"]
-      116 GETTABLEKS                       R16 R17 K27 ["getFFlagAddTelemetry"]
-      118 CALL                             R15 1 1
-      119 GETTABLEKS                       R16 R7 K28 ["createNextOrder"]
-      121 GETTABLEKS                       R17 R6 K29 ["createElement"]
-      123 DUPCLOSURE                       R18 K30 [PROTO_4]
-      124 CAPTURE                          VAL R12
-      125 CAPTURE                          VAL R15
-      126 CAPTURE                          VAL R14
-      127 CAPTURE                          VAL R16
-      128 CAPTURE                          VAL R6
-      129 CAPTURE                          VAL R1
-      130 CAPTURE                          VAL R2
-      131 CAPTURE                          VAL R13
-      132 CAPTURE                          VAL R10
-      133 CAPTURE                          VAL R17
-      134 CAPTURE                          VAL R3
-      135 CAPTURE                          VAL R5
-      136 CAPTURE                          VAL R8
-      137 CAPTURE                          VAL R9
-      138 RETURN                           R18 1
+      110 GETTABLEKS                       R15 R7 K26 ["createNextOrder"]
+      112 GETTABLEKS                       R16 R6 K27 ["createElement"]
+      114 DUPCLOSURE                       R17 K28 [PROTO_4]
+      115 CAPTURE                          VAL R12
+      116 CAPTURE                          VAL R14
+      117 CAPTURE                          VAL R15
+      118 CAPTURE                          VAL R6
+      119 CAPTURE                          VAL R1
+      120 CAPTURE                          VAL R2
+      121 CAPTURE                          VAL R13
+      122 CAPTURE                          VAL R10
+      123 CAPTURE                          VAL R16
+      124 CAPTURE                          VAL R3
+      125 CAPTURE                          VAL R5
+      126 CAPTURE                          VAL R8
+      127 CAPTURE                          VAL R9
+      128 RETURN                           R17 1

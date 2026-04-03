@@ -12,129 +12,114 @@ MAIN:
        16 GETTABLEKS                       R2 R3 K9 ["createStyleRule"]
        18 GETTABLEKS                       R4 R1 K8 ["Styling"]
        20 GETTABLEKS                       R3 R4 K10 ["createStyleSheet"]
-       22 NEWTABLE                         R4 0 6
+       22 NEWTABLE                         R4 0 5
        24 MOVE                             R5 R2
-       25 LOADK                            R6 K11 [".search-root"]
-       26 NEWTABLE                         R7 0 0
-       28 NEWTABLE                         R8 0 1
-       30 MOVE                             R9 R2
-       31 LOADK                            R10 K12 [">> UICorner"]
-       32 DUPTABLE                         R11 K14 [{"CornerRadius"}]
-       33 GETIMPORT                        R12 K17 [UDim.new]
-       35 LOADN                            R13 1
-       36 LOADN                            R14 0
-       37 CALL                             R12 2 1
-       38 SETTABLEKS                       R12 R11 K13 ["CornerRadius"]
-       40 CALL                             R9 2 -1
-       41 SETLIST                          R8 R9 -1 [1]
-       43 CALL                             R5 3 1
-       44 MOVE                             R6 R2
-       45 LOADK                            R7 K18 [".columns-tree"]
-       46 DUPTABLE                         R8 K20 [{"Size"}]
-       47 LOADK                            R9 K21 ["$TreeSize"]
-       48 SETTABLEKS                       R9 R8 K19 ["Size"]
-       50 CALL                             R6 2 1
-       51 MOVE                             R7 R2
-       52 LOADK                            R8 K22 [".columns-fill"]
-       53 DUPTABLE                         R9 K20 [{"Size"}]
-       54 LOADK                            R10 K23 ["$TableSize"]
-       55 SETTABLEKS                       R10 R9 K19 ["Size"]
-       57 CALL                             R7 2 1
-       58 MOVE                             R8 R2
-       59 LOADK                            R9 K24 [".columns-flex"]
-       60 NEWTABLE                         R10 0 0
-       62 NEWTABLE                         R11 0 1
-       64 MOVE                             R12 R2
-       65 LOADK                            R13 K25 ["::UIListLayout"]
-       66 DUPTABLE                         R14 K29 [{"FillDirection", "HorizontalFlex", "SortOrder"}]
-       67 GETIMPORT                        R15 K32 [Enum.FillDirection.Horizontal]
-       69 SETTABLEKS                       R15 R14 K26 ["FillDirection"]
-       71 GETIMPORT                        R15 K35 [Enum.UIFlexAlignment.Fill]
-       73 SETTABLEKS                       R15 R14 K27 ["HorizontalFlex"]
-       75 GETIMPORT                        R15 K37 [Enum.SortOrder.LayoutOrder]
-       77 SETTABLEKS                       R15 R14 K28 ["SortOrder"]
+       25 LOADK                            R6 K11 [".columns-tree"]
+       26 DUPTABLE                         R7 K13 [{"Size"}]
+       27 LOADK                            R8 K14 ["$TreeSize"]
+       28 SETTABLEKS                       R8 R7 K12 ["Size"]
+       30 CALL                             R5 2 1
+       31 MOVE                             R6 R2
+       32 LOADK                            R7 K15 [".columns-fill"]
+       33 DUPTABLE                         R8 K13 [{"Size"}]
+       34 LOADK                            R9 K16 ["$TableSize"]
+       35 SETTABLEKS                       R9 R8 K12 ["Size"]
+       37 CALL                             R6 2 1
+       38 MOVE                             R7 R2
+       39 LOADK                            R8 K17 [".columns-flex"]
+       40 NEWTABLE                         R9 0 0
+       42 NEWTABLE                         R10 0 1
+       44 MOVE                             R11 R2
+       45 LOADK                            R12 K18 ["::UIListLayout"]
+       46 DUPTABLE                         R13 K22 [{"FillDirection", "HorizontalFlex", "SortOrder"}]
+       47 GETIMPORT                        R14 K25 [Enum.FillDirection.Horizontal]
+       49 SETTABLEKS                       R14 R13 K19 ["FillDirection"]
+       51 GETIMPORT                        R14 K28 [Enum.UIFlexAlignment.Fill]
+       53 SETTABLEKS                       R14 R13 K20 ["HorizontalFlex"]
+       55 GETIMPORT                        R14 K30 [Enum.SortOrder.LayoutOrder]
+       57 SETTABLEKS                       R14 R13 K21 ["SortOrder"]
+       59 CALL                             R11 2 -1
+       60 SETLIST                          R10 R11 -1 [1]
+       62 CALL                             R7 3 1
+       63 MOVE                             R8 R2
+       64 LOADK                            R9 K31 [".columns-input"]
+       65 NEWTABLE                         R10 0 0
+       67 NEWTABLE                         R11 0 1
+       69 MOVE                             R12 R2
+       70 LOADK                            R13 K32 ["::UISizeConstraint"]
+       71 DUPTABLE                         R14 K34 [{"MinSize"}]
+       72 GETIMPORT                        R15 K37 [Vector2.new]
+       74 LOADN                            R16 200
+       75 LOADN                            R17 0
+       76 CALL                             R15 2 1
+       77 SETTABLEKS                       R15 R14 K33 ["MinSize"]
        79 CALL                             R12 2 -1
        80 SETLIST                          R11 R12 -1 [1]
        82 CALL                             R8 3 1
        83 MOVE                             R9 R2
-       84 LOADK                            R10 K38 [".columns-input"]
-       85 NEWTABLE                         R11 0 0
-       87 NEWTABLE                         R12 0 1
-       89 MOVE                             R13 R2
-       90 LOADK                            R14 K39 ["::UISizeConstraint"]
-       91 DUPTABLE                         R15 K41 [{"MinSize"}]
-       92 GETIMPORT                        R16 K43 [Vector2.new]
-       94 LOADN                            R17 200
-       95 LOADN                            R18 0
-       96 CALL                             R16 2 1
-       97 SETTABLEKS                       R16 R15 K40 ["MinSize"]
-       99 CALL                             R13 2 -1
-      100 SETLIST                          R12 R13 -1 [1]
-      102 CALL                             R9 3 1
-      103 MOVE                             R10 R2
-      104 LOADK                            R11 K44 [".tree-row"]
-      105 DUPTABLE                         R12 K20 [{"Size"}]
-      106 LOADK                            R13 K45 ["$RowSize"]
-      107 SETTABLEKS                       R13 R12 K19 ["Size"]
-      109 NEWTABLE                         R13 0 3
-      111 MOVE                             R14 R2
-      112 LOADK                            R15 K46 [">> .label"]
-      113 DUPTABLE                         R16 K48 [{"TextTruncate"}]
-      114 GETIMPORT                        R17 K50 [Enum.TextTruncate.AtEnd]
-      116 SETTABLEKS                       R17 R16 K47 ["TextTruncate"]
-      118 CALL                             R14 2 1
-      119 MOVE                             R15 R2
-      120 LOADK                            R16 K51 [">> .spacer"]
-      121 DUPTABLE                         R17 K20 [{"Size"}]
-      122 LOADK                            R18 K52 ["$SpacerSize"]
-      123 SETTABLEKS                       R18 R17 K19 ["Size"]
-      125 CALL                             R15 2 1
-      126 MOVE                             R16 R2
-      127 LOADK                            R17 K53 [">> .icon"]
-      128 DUPTABLE                         R18 K20 [{"Size"}]
-      129 LOADK                            R19 K54 ["$IconSize"]
-      130 SETTABLEKS                       R19 R18 K19 ["Size"]
-      132 CALL                             R16 2 -1
-      133 SETLIST                          R13 R14 -1 [1]
-      135 CALL                             R10 3 -1
-      136 SETLIST                          R4 R5 -1 [1]
-      138 DUPTABLE                         R5 K60 [{"IconSize", "RowSize", "SpacerSize", "TreeSize", "TableSize"}]
-      139 GETIMPORT                        R6 K63 [UDim2.fromOffset]
-      141 LOADN                            R7 16
-      142 LOADN                            R8 16
-      143 CALL                             R6 2 1
-      144 SETTABLEKS                       R6 R5 K55 ["IconSize"]
-      146 GETIMPORT                        R6 K64 [UDim2.new]
-      148 LOADN                            R7 1
-      149 LOADN                            R8 0
-      150 LOADN                            R9 0
-      151 LOADN                            R10 40
-      152 CALL                             R6 4 1
-      153 SETTABLEKS                       R6 R5 K56 ["RowSize"]
-      155 GETIMPORT                        R6 K64 [UDim2.new]
-      157 LOADN                            R7 0
-      158 LOADN                            R8 32
-      159 LOADN                            R9 1
-      160 LOADN                            R10 0
-      161 CALL                             R6 4 1
-      162 SETTABLEKS                       R6 R5 K57 ["SpacerSize"]
-      164 GETIMPORT                        R6 K64 [UDim2.new]
-      166 LOADN                            R7 0
-      167 LOADN                            R8 200
-      168 LOADN                            R9 1
-      169 LOADN                            R10 0
-      170 CALL                             R6 4 1
-      171 SETTABLEKS                       R6 R5 K58 ["TreeSize"]
-      173 GETIMPORT                        R6 K64 [UDim2.new]
-      175 LOADN                            R7 1
-      176 LOADN                            R8 56
-      177 LOADN                            R9 1
-      178 LOADN                            R10 0
-      179 CALL                             R6 4 1
-      180 SETTABLEKS                       R6 R5 K59 ["TableSize"]
-      182 MOVE                             R6 R3
-      183 LOADK                            R7 K2 ["InputActionManager"]
-      184 MOVE                             R8 R4
-      185 MOVE                             R9 R5
-      186 CALL                             R6 3 -1
-      187 RETURN                           R6 -1
+       84 LOADK                            R10 K38 [".tree-row"]
+       85 DUPTABLE                         R11 K13 [{"Size"}]
+       86 LOADK                            R12 K39 ["$RowSize"]
+       87 SETTABLEKS                       R12 R11 K12 ["Size"]
+       89 NEWTABLE                         R12 0 3
+       91 MOVE                             R13 R2
+       92 LOADK                            R14 K40 [">> .label"]
+       93 DUPTABLE                         R15 K42 [{"TextTruncate"}]
+       94 GETIMPORT                        R16 K44 [Enum.TextTruncate.AtEnd]
+       96 SETTABLEKS                       R16 R15 K41 ["TextTruncate"]
+       98 CALL                             R13 2 1
+       99 MOVE                             R14 R2
+      100 LOADK                            R15 K45 [">> .spacer"]
+      101 DUPTABLE                         R16 K13 [{"Size"}]
+      102 LOADK                            R17 K46 ["$SpacerSize"]
+      103 SETTABLEKS                       R17 R16 K12 ["Size"]
+      105 CALL                             R14 2 1
+      106 MOVE                             R15 R2
+      107 LOADK                            R16 K47 [">> .icon"]
+      108 DUPTABLE                         R17 K13 [{"Size"}]
+      109 LOADK                            R18 K48 ["$IconSize"]
+      110 SETTABLEKS                       R18 R17 K12 ["Size"]
+      112 CALL                             R15 2 -1
+      113 SETLIST                          R12 R13 -1 [1]
+      115 CALL                             R9 3 -1
+      116 SETLIST                          R4 R5 -1 [1]
+      118 DUPTABLE                         R5 K54 [{"IconSize", "RowSize", "SpacerSize", "TreeSize", "TableSize"}]
+      119 GETIMPORT                        R6 K57 [UDim2.fromOffset]
+      121 LOADN                            R7 16
+      122 LOADN                            R8 16
+      123 CALL                             R6 2 1
+      124 SETTABLEKS                       R6 R5 K49 ["IconSize"]
+      126 GETIMPORT                        R6 K58 [UDim2.new]
+      128 LOADN                            R7 1
+      129 LOADN                            R8 0
+      130 LOADN                            R9 0
+      131 LOADN                            R10 40
+      132 CALL                             R6 4 1
+      133 SETTABLEKS                       R6 R5 K50 ["RowSize"]
+      135 GETIMPORT                        R6 K58 [UDim2.new]
+      137 LOADN                            R7 0
+      138 LOADN                            R8 32
+      139 LOADN                            R9 1
+      140 LOADN                            R10 0
+      141 CALL                             R6 4 1
+      142 SETTABLEKS                       R6 R5 K51 ["SpacerSize"]
+      144 GETIMPORT                        R6 K58 [UDim2.new]
+      146 LOADN                            R7 0
+      147 LOADN                            R8 200
+      148 LOADN                            R9 1
+      149 LOADN                            R10 0
+      150 CALL                             R6 4 1
+      151 SETTABLEKS                       R6 R5 K52 ["TreeSize"]
+      153 GETIMPORT                        R6 K58 [UDim2.new]
+      155 LOADN                            R7 1
+      156 LOADN                            R8 56
+      157 LOADN                            R9 1
+      158 LOADN                            R10 0
+      159 CALL                             R6 4 1
+      160 SETTABLEKS                       R6 R5 K53 ["TableSize"]
+      162 MOVE                             R6 R3
+      163 LOADK                            R7 K2 ["InputActionManager"]
+      164 MOVE                             R8 R4
+      165 MOVE                             R9 R5
+      166 CALL                             R6 3 -1
+      167 RETURN                           R6 -1

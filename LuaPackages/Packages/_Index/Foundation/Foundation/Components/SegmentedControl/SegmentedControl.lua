@@ -45,15 +45,25 @@ local function SegmentedControl(segmentedControlProps: SegmentedControlProps, re
 
 	local containerRef
 	local overlayData
-	local overlayHeight, segmentRefs, overlayPosition, overlayWidth
+	local overlayHeight, overlayPosition, overlayWidth
 	local hiddenContainerSize, setHiddenContainerSize
 	local onContainerSizeChange
 	local computeSegmentYInset
 	local onAbsoluteSizeChanged
 	containerRef = React.useRef(nil :: Types.ItemId?)
-	overlayData = useAnimatedHighlight(props.value, (ref or containerRef) :: { current: GuiObject? })
-	overlayHeight, segmentRefs, overlayPosition, overlayWidth =
-		overlayData.activeItemHeight, overlayData.itemRefs, overlayData.highlightPosition, overlayData.highlightWidth
+
+	-- Create refs for each segment (use user-provided ref if available)
+	local segmentRefs = React.useMemo(function()
+		local refs = {}
+		for _, segment in props.segments do
+			refs[segment.id] = segment.ref or React.createRef()
+		end
+		return refs
+	end, { props.segments })
+
+	overlayData = useAnimatedHighlight(props.value, (ref or containerRef) :: { current: GuiObject? }, segmentRefs)
+	overlayHeight, overlayPosition, overlayWidth =
+		overlayData.activeItemHeight, overlayData.highlightPosition, overlayData.highlightWidth
 	hiddenContainerSize, setHiddenContainerSize = React.useBinding(Vector2.new(0, 0))
 
 	onContainerSizeChange = React.useCallback(function(frame: GuiObject)

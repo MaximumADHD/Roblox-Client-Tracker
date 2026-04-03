@@ -34,7 +34,7 @@ local Constants = require(Root.Unibar.Constants)
 local ChromeService = require(Root.Service)
 local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
 local ChromeTypes = require(Root.Service.Types)
-local UnibarStyle = require(Root.Unibar.UnibarStyle)
+local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
 
 local useObservableValue = require(Root.Hooks.useObservableValue)
 local useNotificationCount = require(Root.Hooks.useNotificationCount)

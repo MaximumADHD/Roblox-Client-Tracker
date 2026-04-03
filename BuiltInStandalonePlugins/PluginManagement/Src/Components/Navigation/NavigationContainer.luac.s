@@ -105,31 +105,31 @@ MAIN:
        75 DUPCLOSURE                       R11 K20 [PROTO_3]
        76 CAPTURE                          VAL R1
        77 CAPTURE                          VAL R4
-       78 NEWCLOSURE                       R10 P2
+       78 DUPCLOSURE                       R10 K21 [PROTO_1]
        79 CAPTURE                          VAL R2
        80 CAPTURE                          VAL R1
        81 CAPTURE                          VAL R3
        82 CAPTURE                          VAL R11
        83 SETTABLE                         R10 R8 R9
        84 GETTABLEKS                       R10 R6 K18 ["APP_PAGE"]
-       86 GETTABLEKS                       R9 R10 K21 ["Detail"]
-       88 DUPCLOSURE                       R11 K22 [PROTO_4]
+       86 GETTABLEKS                       R9 R10 K22 ["Detail"]
+       88 DUPCLOSURE                       R11 K23 [PROTO_4]
        89 CAPTURE                          VAL R1
        90 CAPTURE                          VAL R5
-       91 NEWCLOSURE                       R10 P2
+       91 DUPCLOSURE                       R10 K21 [PROTO_1]
        92 CAPTURE                          VAL R2
        93 CAPTURE                          VAL R1
        94 CAPTURE                          VAL R3
        95 CAPTURE                          VAL R11
        96 SETTABLE                         R10 R8 R9
-       97 GETTABLEKS                       R9 R2 K23 ["createStackNavigator"]
-       99 DUPTABLE                         R10 K26 [{"routes", "initialRouteName"}]
-      100 SETTABLEKS                       R8 R10 K24 ["routes"]
+       97 GETTABLEKS                       R9 R2 K24 ["createStackNavigator"]
+       99 DUPTABLE                         R10 K27 [{"routes", "initialRouteName"}]
+      100 SETTABLEKS                       R8 R10 K25 ["routes"]
       102 GETTABLEKS                       R12 R6 K18 ["APP_PAGE"]
       104 GETTABLEKS                       R11 R12 K19 ["Main"]
-      106 SETTABLEKS                       R11 R10 K25 ["initialRouteName"]
+      106 SETTABLEKS                       R11 R10 K26 ["initialRouteName"]
       108 CALL                             R9 1 1
-      109 GETTABLEKS                       R10 R2 K27 ["createAppContainer"]
+      109 GETTABLEKS                       R10 R2 K28 ["createAppContainer"]
       111 MOVE                             R11 R9
       112 CALL                             R10 1 -1
       113 RETURN                           R10 -1

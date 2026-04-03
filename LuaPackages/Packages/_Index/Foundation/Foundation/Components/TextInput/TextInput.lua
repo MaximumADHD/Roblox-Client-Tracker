@@ -19,7 +19,6 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
-local Flags = require(Foundation.Utility.Flags)
 local getInputTextSize = require(Foundation.Utility.getInputTextSize)
 
 local ControlState = require(Foundation.Enums.ControlState)
@@ -43,28 +42,18 @@ export type TextInputProps = {
 
 local defaultProps = {
 	size = InputSize.Large,
-	width = if Flags.FoundationTextInputTokenBasedWidth then nil else UDim.new(0, 400),
 	testId = "--foundation-text-input",
 }
 
 local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObject>?)
-	-- TODO: Delete this BLOCK with FFlagFoundationTextInputTokenBasedWidth cleanup
-	-- We're required to set this here because defaultProps is only set on module-require, causes issues in Storybook
-	if Flags.FoundationTextInputTokenBasedWidth then
-		defaultProps.width = nil
-	else
-		defaultProps.width = UDim.new(0, 400)
-	end
-
 	local props = withDefaults(textInputProps, defaultProps)
-
 	local tokens = useTokens()
-	local variantProps = useTextInputVariants(tokens, props.size :: InputSize)
+	local variantProps = useTextInputVariants(tokens, props.size)
 
 	return React.createElement(
 		InputField,
 		withCommonProps(props, {
-			width = if not Flags.FoundationTextInputTokenBasedWidth or props.width then props.width :: UDim? else nil,
+			width = props.width,
 			ref = ref,
 			label = props.label,
 			size = getInputTextSize(props.size),

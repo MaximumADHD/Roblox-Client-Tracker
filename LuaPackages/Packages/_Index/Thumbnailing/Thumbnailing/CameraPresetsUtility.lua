@@ -7,9 +7,6 @@ local CFrameUtility = require(script.Parent.CFrameUtility)
 local CharacterUtility = require(script.Parent.CharacterUtility)
 local MannequinUtility = require(script.Parent.MannequinUtility)
 
---[[ Flags ]]
-local UseFaceFrontRotationForEmote = game:DefineFastFlag("UseFaceFrontRotationForEmote", false)
-
 local FIntCameraPresetHeadshotExtentScaleHundredths =
 	game:DefineFastInt("CameraPresetHeadshotExtentScaleHundredths", 130)
 
@@ -90,11 +87,9 @@ CameraPresetsUtility.GetFullBodyCameraCFrame = function(
 	local characterAuxiliaryUpVector = characterPivotToAuxiliaryCFrame.UpVector
 
 	local characterHeadRotationX, characterHeadRotationY, characterHeadRotationZ
-	if UseFaceFrontRotationForEmote then
-		characterHeadRotationX, characterHeadRotationY, characterHeadRotationZ = (
-			character:FindFirstChild("Head") :: BasePart
-		).CFrame:ToEulerAnglesXYZ()
-	end
+	characterHeadRotationX, characterHeadRotationY, characterHeadRotationZ = (
+		character:FindFirstChild("Head") :: BasePart
+	).CFrame:ToEulerAnglesXYZ()
 
 	if isFallbackEmoteApplied then
 		-- Rotate the character to the right by degrees to meet the default emote head facing
@@ -124,7 +119,7 @@ CameraPresetsUtility.GetFullBodyCameraCFrame = function(
 		- characterPivotToAuxiliaryCFrame.Position
 		+ goldPositionWorldSpace
 
-	if UseFaceFrontRotationForEmote and not isFallbackEmoteApplied then
+	if not isFallbackEmoteApplied then
 		local headPivotTo =
 			CFrame.fromEulerAnglesXYZ(characterHeadRotationX, characterHeadRotationY, characterHeadRotationZ)
 		characterGoldenRatioPivotTo = headPivotTo - headPivotTo.Position + goldPositionWorldSpace

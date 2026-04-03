@@ -54,15 +54,25 @@ PROTO_6:
         0 MOVE                             R1 R0
         1 JUMPIFNOT                        R1 ; [+2]
         2 GETTABLEKS                       R1 R0 K0 ["_selectionItem"]
-        4 JUMPIFNOT                        R1 ; [+3]
-        5 GETTABLEKS                       R2 R1 K1 ["_bone"]
-        7 JUMPIF                           R2 ; [+1]
-        8 LOADNIL                          R2
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K2 ["new"]
-       12 MOVE                             R4 R2
-       13 CALL                             R3 1 -1
-       14 RETURN                           R3 -1
+        4 GETUPVAL                         R3 0
+        5 CALL                             R3 0 1
+        6 JUMPIFNOT                        R3 ; [+9]
+        7 JUMPIFNOT                        R1 ; [+6]
+        8 GETTABLEKS                       R2 R1 K1 ["joint"]
+       10 JUMPIF                           R2 ; [+10]
+       11 GETTABLEKS                       R2 R1 K2 ["_bone"]
+       13 JUMPIF                           R2 ; [+7]
+       14 LOADNIL                          R2
+       15 JUMP                             ; [+5]
+       16 JUMPIFNOT                        R1 ; [+3]
+       17 GETTABLEKS                       R2 R1 K2 ["_bone"]
+       19 JUMPIF                           R2 ; [+1]
+       20 LOADNIL                          R2
+       21 GETUPVAL                         R4 1
+       22 GETTABLEKS                       R3 R4 K3 ["new"]
+       24 MOVE                             R4 R2
+       25 CALL                             R3 1 -1
+       26 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -76,23 +86,29 @@ MAIN:
        13 GETTABLEKS                       R4 R1 K8 ["Utility"]
        15 GETTABLEKS                       R3 R4 K9 ["Signal"]
        17 CALL                             R2 1 1
-       18 NEWTABLE                         R3 8 0
-       20 SETTABLEKS                       R3 R3 K10 ["__index"]
-       22 DUPCLOSURE                       R4 K11 [PROTO_0]
-       23 SETTABLEKS                       R4 R3 K12 ["__len"]
-       25 DUPCLOSURE                       R4 K13 [PROTO_1]
-       26 CAPTURE                          VAL R2
-       27 CAPTURE                          VAL R3
-       28 SETTABLEKS                       R4 R3 K14 ["new"]
-       30 DUPCLOSURE                       R4 K15 [PROTO_2]
-       31 SETTABLEKS                       R4 R3 K16 ["get"]
-       33 DUPCLOSURE                       R4 K17 [PROTO_3]
-       34 SETTABLEKS                       R4 R3 K18 ["Get"]
-       36 DUPCLOSURE                       R4 K19 [PROTO_4]
-       37 SETTABLEKS                       R4 R3 K20 ["set"]
-       39 DUPCLOSURE                       R4 K21 [PROTO_5]
-       40 SETTABLEKS                       R4 R3 K22 ["Set"]
-       42 DUPCLOSURE                       R4 K23 [PROTO_6]
-       43 CAPTURE                          VAL R3
-       44 SETTABLEKS                       R4 R3 K24 ["fromSelectionInfo"]
-       46 RETURN                           R3 1
+       18 GETIMPORT                        R3 K7 [require]
+       20 GETTABLEKS                       R6 R0 K10 ["Src"]
+       22 GETTABLEKS                       R5 R6 K11 ["Flags"]
+       24 GETTABLEKS                       R4 R5 K12 ["getFFlagAdaptiveAnimationBetaImprovements"]
+       26 CALL                             R3 1 1
+       27 NEWTABLE                         R4 8 0
+       29 SETTABLEKS                       R4 R4 K13 ["__index"]
+       31 DUPCLOSURE                       R5 K14 [PROTO_0]
+       32 SETTABLEKS                       R5 R4 K15 ["__len"]
+       34 DUPCLOSURE                       R5 K16 [PROTO_1]
+       35 CAPTURE                          VAL R2
+       36 CAPTURE                          VAL R4
+       37 SETTABLEKS                       R5 R4 K17 ["new"]
+       39 DUPCLOSURE                       R5 K18 [PROTO_2]
+       40 SETTABLEKS                       R5 R4 K19 ["get"]
+       42 DUPCLOSURE                       R5 K20 [PROTO_3]
+       43 SETTABLEKS                       R5 R4 K21 ["Get"]
+       45 DUPCLOSURE                       R5 K22 [PROTO_4]
+       46 SETTABLEKS                       R5 R4 K23 ["set"]
+       48 DUPCLOSURE                       R5 K24 [PROTO_5]
+       49 SETTABLEKS                       R5 R4 K25 ["Set"]
+       51 DUPCLOSURE                       R5 K26 [PROTO_6]
+       52 CAPTURE                          VAL R3
+       53 CAPTURE                          VAL R4
+       54 SETTABLEKS                       R5 R4 K27 ["fromSelectionInfo"]
+       56 RETURN                           R4 1

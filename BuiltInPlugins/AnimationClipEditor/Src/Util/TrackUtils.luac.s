@@ -1092,7 +1092,7 @@ PROTO_35:
         8 GETUPVAL                         R10 0
         9 GETTABLEKS                       R9 R10 K3 ["TRACK_TYPES"]
        11 GETTABLEKS                       R8 R9 K4 ["CFrame"]
-       13 JUMPIFNOTEQ                      R4 R8 ; [+70]
+       13 JUMPIFNOTEQ                      R4 R8 ; [+67]
        15 GETTABLEKS                       R8 R1 K5 ["Position"]
        17 MOVE                             R11 R5
        18 NAMECALL                         R9 R1 K6 ["ToEulerAngles"]
@@ -1103,213 +1103,203 @@ PROTO_35:
        25 CALL                             R12 1 1
        26 JUMPIFNOTEQKN                    R12 K10 [0] ; [+3]
        28 LOADN                            R9 0
-       29 JUMP                             ; [+2]
+       29 JUMP                             ; [+1]
        30 MOVE                             R9 R12
-       31 JUMP                             ; [0]
-       32 FASTCALL1                        MATH_DEG R10 ; [+3]
-       33 MOVE                             R13 R10
-       34 GETIMPORT                        R12 K9 [math.deg]
-       36 CALL                             R12 1 1
-       37 JUMPIFNOTEQKN                    R12 K10 [0] ; [+3]
-       39 LOADN                            R10 0
-       40 JUMP                             ; [+2]
-       41 MOVE                             R10 R12
-       42 JUMP                             ; [0]
-       43 FASTCALL1                        MATH_DEG R11 ; [+3]
-       44 MOVE                             R13 R11
-       45 GETIMPORT                        R12 K9 [math.deg]
-       47 CALL                             R12 1 1
-       48 JUMPIFNOTEQKN                    R12 K10 [0] ; [+3]
-       50 LOADN                            R11 0
-       51 JUMP                             ; [+2]
-       52 MOVE                             R11 R12
-       53 JUMP                             ; [0]
-       54 DUPTABLE                         R12 K12 [{"Position", "Rotation"}]
-       55 MOVE                             R13 R7
-       56 GETTABLEKS                       R14 R8 K13 ["X"]
-       58 GETTABLEKS                       R15 R8 K14 ["Y"]
-       60 GETTABLEKS                       R16 R8 K15 ["Z"]
-       62 GETUPVAL                         R19 0
-       63 GETTABLEKS                       R18 R19 K3 ["TRACK_TYPES"]
-       65 GETTABLEKS                       R17 R18 K16 ["Number"]
-       67 CALL                             R13 4 1
-       68 SETTABLEKS                       R13 R12 K5 ["Position"]
-       70 MOVE                             R13 R7
-       71 MOVE                             R14 R9
-       72 MOVE                             R15 R10
-       73 MOVE                             R16 R11
-       74 GETUPVAL                         R19 0
-       75 GETTABLEKS                       R18 R19 K3 ["TRACK_TYPES"]
-       77 GETTABLEKS                       R17 R18 K17 ["Angle"]
-       79 CALL                             R13 4 1
-       80 SETTABLEKS                       R13 R12 K11 ["Rotation"]
-       82 MOVE                             R6 R12
-       83 RETURN                           R6 1
-       84 GETUPVAL                         R10 0
-       85 GETTABLEKS                       R9 R10 K3 ["TRACK_TYPES"]
-       87 GETTABLEKS                       R8 R9 K5 ["Position"]
-       89 JUMPIFNOTEQ                      R4 R8 ; [+16]
-       91 MOVE                             R8 R7
-       92 GETTABLEKS                       R9 R1 K13 ["X"]
-       94 GETTABLEKS                       R10 R1 K14 ["Y"]
-       96 GETTABLEKS                       R11 R1 K15 ["Z"]
-       98 GETUPVAL                         R14 0
-       99 GETTABLEKS                       R13 R14 K3 ["TRACK_TYPES"]
-      101 GETTABLEKS                       R12 R13 K16 ["Number"]
-      103 CALL                             R8 4 1
-      104 MOVE                             R6 R8
-      105 RETURN                           R6 1
-      106 GETUPVAL                         R10 0
-      107 GETTABLEKS                       R9 R10 K3 ["TRACK_TYPES"]
-      109 GETTABLEKS                       R8 R9 K18 ["EulerAngles"]
-      111 JUMPIFNOTEQ                      R4 R8 ; [+46]
-      113 MOVE                             R8 R7
-      114 GETTABLEKS                       R11 R1 K13 ["X"]
-      116 FASTCALL1                        MATH_DEG R11 ; [+2]
-      117 GETIMPORT                        R10 K9 [math.deg]
-      119 CALL                             R10 1 1
-      120 JUMPIFNOTEQKN                    R10 K10 [0] ; [+3]
-      122 LOADN                            R9 0
-      123 JUMP                             ; [+2]
-      124 MOVE                             R9 R10
-      125 JUMP                             ; [0]
-      126 GETTABLEKS                       R12 R1 K14 ["Y"]
-      128 FASTCALL1                        MATH_DEG R12 ; [+2]
-      129 GETIMPORT                        R11 K9 [math.deg]
-      131 CALL                             R11 1 1
-      132 JUMPIFNOTEQKN                    R11 K10 [0] ; [+3]
-      134 LOADN                            R10 0
-      135 JUMP                             ; [+2]
-      136 MOVE                             R10 R11
-      137 JUMP                             ; [0]
-      138 GETTABLEKS                       R13 R1 K15 ["Z"]
-      140 FASTCALL1                        MATH_DEG R13 ; [+2]
-      141 GETIMPORT                        R12 K9 [math.deg]
-      143 CALL                             R12 1 1
-      144 JUMPIFNOTEQKN                    R12 K10 [0] ; [+3]
-      146 LOADN                            R11 0
-      147 JUMP                             ; [+2]
-      148 MOVE                             R11 R12
-      149 JUMP                             ; [0]
-      150 GETUPVAL                         R14 0
-      151 GETTABLEKS                       R13 R14 K3 ["TRACK_TYPES"]
-      153 GETTABLEKS                       R12 R13 K17 ["Angle"]
-      155 CALL                             R8 4 1
-      156 MOVE                             R6 R8
-      157 RETURN                           R6 1
-      158 GETUPVAL                         R10 0
-      159 GETTABLEKS                       R9 R10 K3 ["TRACK_TYPES"]
-      161 GETTABLEKS                       R8 R9 K19 ["Quaternion"]
-      163 JUMPIFNOTEQ                      R4 R8 ; [+47]
-      165 MOVE                             R10 R5
-      166 NAMECALL                         R8 R1 K6 ["ToEulerAngles"]
-      168 CALL                             R8 2 3
-      169 MOVE                             R11 R7
-      170 FASTCALL1                        MATH_DEG R8 ; [+3]
-      171 MOVE                             R14 R8
-      172 GETIMPORT                        R13 K9 [math.deg]
-      174 CALL                             R13 1 1
-      175 JUMPIFNOTEQKN                    R13 K10 [0] ; [+3]
-      177 LOADN                            R12 0
-      178 JUMP                             ; [+2]
-      179 MOVE                             R12 R13
-      180 JUMP                             ; [0]
-      181 FASTCALL1                        MATH_DEG R9 ; [+3]
-      182 MOVE                             R15 R9
-      183 GETIMPORT                        R14 K9 [math.deg]
-      185 CALL                             R14 1 1
-      186 JUMPIFNOTEQKN                    R14 K10 [0] ; [+3]
-      188 LOADN                            R13 0
-      189 JUMP                             ; [+2]
-      190 MOVE                             R13 R14
-      191 JUMP                             ; [0]
-      192 FASTCALL1                        MATH_DEG R10 ; [+3]
-      193 MOVE                             R16 R10
-      194 GETIMPORT                        R15 K9 [math.deg]
-      196 CALL                             R15 1 1
-      197 JUMPIFNOTEQKN                    R15 K10 [0] ; [+3]
-      199 LOADN                            R14 0
-      200 JUMP                             ; [+2]
-      201 MOVE                             R14 R15
-      202 JUMP                             ; [0]
-      203 GETUPVAL                         R17 0
-      204 GETTABLEKS                       R16 R17 K3 ["TRACK_TYPES"]
-      206 GETTABLEKS                       R15 R16 K17 ["Angle"]
-      208 CALL                             R11 4 1
-      209 MOVE                             R6 R11
-      210 RETURN                           R6 1
-      211 GETUPVAL                         R10 0
-      212 GETTABLEKS                       R9 R10 K3 ["TRACK_TYPES"]
-      214 GETTABLEKS                       R8 R9 K20 ["Facs"]
-      216 JUMPIFNOTEQ                      R4 R8 ; [+31]
-      218 NEWTABLE                         R8 0 1
-      220 DUPTABLE                         R9 K24 [{"Name", "Key", "Value", "Type"}]
-      221 LOADK                            R10 K25 ["V"]
-      222 SETTABLEKS                       R10 R9 K21 ["Name"]
-      224 LOADK                            R10 K23 ["Value"]
-      225 SETTABLEKS                       R10 R9 K22 ["Key"]
-      227 LOADN                            R12 0
-      228 LOADN                            R13 1
-      229 FASTCALL3                        MATH_CLAMP R1 R12 R13
-      231 MOVE                             R11 R1
-      232 GETIMPORT                        R10 K27 [math.clamp]
-      234 CALL                             R10 3 1
-      235 SETTABLEKS                       R10 R9 K23 ["Value"]
-      237 GETUPVAL                         R12 0
-      238 GETTABLEKS                       R11 R12 K3 ["TRACK_TYPES"]
-      240 GETTABLEKS                       R10 R11 K20 ["Facs"]
-      242 SETTABLEKS                       R10 R9 K0 ["Type"]
-      244 SETLIST                          R8 R9 1 [1]
-      246 MOVE                             R6 R8
-      247 RETURN                           R6 1
-      248 GETUPVAL                         R10 0
-      249 GETTABLEKS                       R9 R10 K3 ["TRACK_TYPES"]
-      251 GETTABLEKS                       R8 R9 K17 ["Angle"]
-      253 JUMPIFNOTEQ                      R4 R8 ; [+32]
-      255 NEWTABLE                         R8 0 1
-      257 DUPTABLE                         R9 K24 [{"Name", "Key", "Value", "Type"}]
-      258 SETTABLEKS                       R2 R9 K21 ["Name"]
-      260 SETTABLEKS                       R2 R9 K22 ["Key"]
-      262 FASTCALL1                        MATH_DEG R1 ; [+3]
-      263 MOVE                             R12 R1
-      264 GETIMPORT                        R11 K9 [math.deg]
-      266 CALL                             R11 1 1
-      267 JUMPIFNOTEQKN                    R11 K10 [0] ; [+3]
-      269 LOADN                            R10 0
-      270 JUMP                             ; [+2]
-      271 MOVE                             R10 R11
-      272 JUMP                             ; [0]
-      273 SETTABLEKS                       R10 R9 K23 ["Value"]
-      275 GETUPVAL                         R12 0
-      276 GETTABLEKS                       R11 R12 K3 ["TRACK_TYPES"]
-      278 GETTABLEKS                       R10 R11 K17 ["Angle"]
-      280 SETTABLEKS                       R10 R9 K0 ["Type"]
-      282 SETLIST                          R8 R9 1 [1]
-      284 MOVE                             R6 R8
-      285 RETURN                           R6 1
-      286 NEWTABLE                         R8 0 1
-      288 DUPTABLE                         R9 K24 [{"Name", "Key", "Value", "Type"}]
-      289 GETUPVAL                         R11 1
-      290 CALL                             R11 0 1
-      291 JUMPIFNOT                        R11 ; [+9]
-      292 LOADN                            R12 1
-      293 LOADN                            R13 1
-      294 FASTCALL3                        STRING_SUB R2 R12 R13
-      296 MOVE                             R11 R2
-      297 GETIMPORT                        R10 K30 [string.sub]
-      299 CALL                             R10 3 1
-      300 JUMP                             ; [+1]
-      301 MOVE                             R10 R2
-      302 SETTABLEKS                       R10 R9 K21 ["Name"]
-      304 SETTABLEKS                       R2 R9 K22 ["Key"]
-      306 SETTABLEKS                       R1 R9 K23 ["Value"]
-      308 GETUPVAL                         R12 0
-      309 GETTABLEKS                       R11 R12 K3 ["TRACK_TYPES"]
-      311 GETTABLEKS                       R10 R11 K16 ["Number"]
-      313 SETTABLEKS                       R10 R9 K0 ["Type"]
-      315 SETLIST                          R8 R9 1 [1]
-      317 MOVE                             R6 R8
-      318 RETURN                           R6 1
+       31 FASTCALL1                        MATH_DEG R10 ; [+3]
+       32 MOVE                             R13 R10
+       33 GETIMPORT                        R12 K9 [math.deg]
+       35 CALL                             R12 1 1
+       36 JUMPIFNOTEQKN                    R12 K10 [0] ; [+3]
+       38 LOADN                            R10 0
+       39 JUMP                             ; [+1]
+       40 MOVE                             R10 R12
+       41 FASTCALL1                        MATH_DEG R11 ; [+3]
+       42 MOVE                             R13 R11
+       43 GETIMPORT                        R12 K9 [math.deg]
+       45 CALL                             R12 1 1
+       46 JUMPIFNOTEQKN                    R12 K10 [0] ; [+3]
+       48 LOADN                            R11 0
+       49 JUMP                             ; [+1]
+       50 MOVE                             R11 R12
+       51 DUPTABLE                         R12 K12 [{"Position", "Rotation"}]
+       52 MOVE                             R13 R7
+       53 GETTABLEKS                       R14 R8 K13 ["X"]
+       55 GETTABLEKS                       R15 R8 K14 ["Y"]
+       57 GETTABLEKS                       R16 R8 K15 ["Z"]
+       59 GETUPVAL                         R19 0
+       60 GETTABLEKS                       R18 R19 K3 ["TRACK_TYPES"]
+       62 GETTABLEKS                       R17 R18 K16 ["Number"]
+       64 CALL                             R13 4 1
+       65 SETTABLEKS                       R13 R12 K5 ["Position"]
+       67 MOVE                             R13 R7
+       68 MOVE                             R14 R9
+       69 MOVE                             R15 R10
+       70 MOVE                             R16 R11
+       71 GETUPVAL                         R19 0
+       72 GETTABLEKS                       R18 R19 K3 ["TRACK_TYPES"]
+       74 GETTABLEKS                       R17 R18 K17 ["Angle"]
+       76 CALL                             R13 4 1
+       77 SETTABLEKS                       R13 R12 K11 ["Rotation"]
+       79 MOVE                             R6 R12
+       80 RETURN                           R6 1
+       81 GETUPVAL                         R10 0
+       82 GETTABLEKS                       R9 R10 K3 ["TRACK_TYPES"]
+       84 GETTABLEKS                       R8 R9 K5 ["Position"]
+       86 JUMPIFNOTEQ                      R4 R8 ; [+16]
+       88 MOVE                             R8 R7
+       89 GETTABLEKS                       R9 R1 K13 ["X"]
+       91 GETTABLEKS                       R10 R1 K14 ["Y"]
+       93 GETTABLEKS                       R11 R1 K15 ["Z"]
+       95 GETUPVAL                         R14 0
+       96 GETTABLEKS                       R13 R14 K3 ["TRACK_TYPES"]
+       98 GETTABLEKS                       R12 R13 K16 ["Number"]
+      100 CALL                             R8 4 1
+      101 MOVE                             R6 R8
+      102 RETURN                           R6 1
+      103 GETUPVAL                         R10 0
+      104 GETTABLEKS                       R9 R10 K3 ["TRACK_TYPES"]
+      106 GETTABLEKS                       R8 R9 K18 ["EulerAngles"]
+      108 JUMPIFNOTEQ                      R4 R8 ; [+43]
+      110 MOVE                             R8 R7
+      111 GETTABLEKS                       R11 R1 K13 ["X"]
+      113 FASTCALL1                        MATH_DEG R11 ; [+2]
+      114 GETIMPORT                        R10 K9 [math.deg]
+      116 CALL                             R10 1 1
+      117 JUMPIFNOTEQKN                    R10 K10 [0] ; [+3]
+      119 LOADN                            R9 0
+      120 JUMP                             ; [+1]
+      121 MOVE                             R9 R10
+      122 GETTABLEKS                       R12 R1 K14 ["Y"]
+      124 FASTCALL1                        MATH_DEG R12 ; [+2]
+      125 GETIMPORT                        R11 K9 [math.deg]
+      127 CALL                             R11 1 1
+      128 JUMPIFNOTEQKN                    R11 K10 [0] ; [+3]
+      130 LOADN                            R10 0
+      131 JUMP                             ; [+1]
+      132 MOVE                             R10 R11
+      133 GETTABLEKS                       R13 R1 K15 ["Z"]
+      135 FASTCALL1                        MATH_DEG R13 ; [+2]
+      136 GETIMPORT                        R12 K9 [math.deg]
+      138 CALL                             R12 1 1
+      139 JUMPIFNOTEQKN                    R12 K10 [0] ; [+3]
+      141 LOADN                            R11 0
+      142 JUMP                             ; [+1]
+      143 MOVE                             R11 R12
+      144 GETUPVAL                         R14 0
+      145 GETTABLEKS                       R13 R14 K3 ["TRACK_TYPES"]
+      147 GETTABLEKS                       R12 R13 K17 ["Angle"]
+      149 CALL                             R8 4 1
+      150 MOVE                             R6 R8
+      151 RETURN                           R6 1
+      152 GETUPVAL                         R10 0
+      153 GETTABLEKS                       R9 R10 K3 ["TRACK_TYPES"]
+      155 GETTABLEKS                       R8 R9 K19 ["Quaternion"]
+      157 JUMPIFNOTEQ                      R4 R8 ; [+44]
+      159 MOVE                             R10 R5
+      160 NAMECALL                         R8 R1 K6 ["ToEulerAngles"]
+      162 CALL                             R8 2 3
+      163 MOVE                             R11 R7
+      164 FASTCALL1                        MATH_DEG R8 ; [+3]
+      165 MOVE                             R14 R8
+      166 GETIMPORT                        R13 K9 [math.deg]
+      168 CALL                             R13 1 1
+      169 JUMPIFNOTEQKN                    R13 K10 [0] ; [+3]
+      171 LOADN                            R12 0
+      172 JUMP                             ; [+1]
+      173 MOVE                             R12 R13
+      174 FASTCALL1                        MATH_DEG R9 ; [+3]
+      175 MOVE                             R15 R9
+      176 GETIMPORT                        R14 K9 [math.deg]
+      178 CALL                             R14 1 1
+      179 JUMPIFNOTEQKN                    R14 K10 [0] ; [+3]
+      181 LOADN                            R13 0
+      182 JUMP                             ; [+1]
+      183 MOVE                             R13 R14
+      184 FASTCALL1                        MATH_DEG R10 ; [+3]
+      185 MOVE                             R16 R10
+      186 GETIMPORT                        R15 K9 [math.deg]
+      188 CALL                             R15 1 1
+      189 JUMPIFNOTEQKN                    R15 K10 [0] ; [+3]
+      191 LOADN                            R14 0
+      192 JUMP                             ; [+1]
+      193 MOVE                             R14 R15
+      194 GETUPVAL                         R17 0
+      195 GETTABLEKS                       R16 R17 K3 ["TRACK_TYPES"]
+      197 GETTABLEKS                       R15 R16 K17 ["Angle"]
+      199 CALL                             R11 4 1
+      200 MOVE                             R6 R11
+      201 RETURN                           R6 1
+      202 GETUPVAL                         R10 0
+      203 GETTABLEKS                       R9 R10 K3 ["TRACK_TYPES"]
+      205 GETTABLEKS                       R8 R9 K20 ["Facs"]
+      207 JUMPIFNOTEQ                      R4 R8 ; [+31]
+      209 NEWTABLE                         R8 0 1
+      211 DUPTABLE                         R9 K24 [{"Name", "Key", "Value", "Type"}]
+      212 LOADK                            R10 K25 ["V"]
+      213 SETTABLEKS                       R10 R9 K21 ["Name"]
+      215 LOADK                            R10 K23 ["Value"]
+      216 SETTABLEKS                       R10 R9 K22 ["Key"]
+      218 LOADN                            R12 0
+      219 LOADN                            R13 1
+      220 FASTCALL3                        MATH_CLAMP R1 R12 R13
+      222 MOVE                             R11 R1
+      223 GETIMPORT                        R10 K27 [math.clamp]
+      225 CALL                             R10 3 1
+      226 SETTABLEKS                       R10 R9 K23 ["Value"]
+      228 GETUPVAL                         R12 0
+      229 GETTABLEKS                       R11 R12 K3 ["TRACK_TYPES"]
+      231 GETTABLEKS                       R10 R11 K20 ["Facs"]
+      233 SETTABLEKS                       R10 R9 K0 ["Type"]
+      235 SETLIST                          R8 R9 1 [1]
+      237 MOVE                             R6 R8
+      238 RETURN                           R6 1
+      239 GETUPVAL                         R10 0
+      240 GETTABLEKS                       R9 R10 K3 ["TRACK_TYPES"]
+      242 GETTABLEKS                       R8 R9 K17 ["Angle"]
+      244 JUMPIFNOTEQ                      R4 R8 ; [+31]
+      246 NEWTABLE                         R8 0 1
+      248 DUPTABLE                         R9 K24 [{"Name", "Key", "Value", "Type"}]
+      249 SETTABLEKS                       R2 R9 K21 ["Name"]
+      251 SETTABLEKS                       R2 R9 K22 ["Key"]
+      253 FASTCALL1                        MATH_DEG R1 ; [+3]
+      254 MOVE                             R12 R1
+      255 GETIMPORT                        R11 K9 [math.deg]
+      257 CALL                             R11 1 1
+      258 JUMPIFNOTEQKN                    R11 K10 [0] ; [+3]
+      260 LOADN                            R10 0
+      261 JUMP                             ; [+1]
+      262 MOVE                             R10 R11
+      263 SETTABLEKS                       R10 R9 K23 ["Value"]
+      265 GETUPVAL                         R12 0
+      266 GETTABLEKS                       R11 R12 K3 ["TRACK_TYPES"]
+      268 GETTABLEKS                       R10 R11 K17 ["Angle"]
+      270 SETTABLEKS                       R10 R9 K0 ["Type"]
+      272 SETLIST                          R8 R9 1 [1]
+      274 MOVE                             R6 R8
+      275 RETURN                           R6 1
+      276 NEWTABLE                         R8 0 1
+      278 DUPTABLE                         R9 K24 [{"Name", "Key", "Value", "Type"}]
+      279 GETUPVAL                         R11 1
+      280 CALL                             R11 0 1
+      281 JUMPIFNOT                        R11 ; [+9]
+      282 LOADN                            R12 1
+      283 LOADN                            R13 1
+      284 FASTCALL3                        STRING_SUB R2 R12 R13
+      286 MOVE                             R11 R2
+      287 GETIMPORT                        R10 K30 [string.sub]
+      289 CALL                             R10 3 1
+      290 JUMP                             ; [+1]
+      291 MOVE                             R10 R2
+      292 SETTABLEKS                       R10 R9 K21 ["Name"]
+      294 SETTABLEKS                       R2 R9 K22 ["Key"]
+      296 SETTABLEKS                       R1 R9 K23 ["Value"]
+      298 GETUPVAL                         R12 0
+      299 GETTABLEKS                       R11 R12 K3 ["TRACK_TYPES"]
+      301 GETTABLEKS                       R10 R11 K16 ["Number"]
+      303 SETTABLEKS                       R10 R9 K0 ["Type"]
+      305 SETLIST                          R8 R9 1 [1]
+      307 MOVE                             R6 R8
+      308 RETURN                           R6 1
 
 PROTO_36:
         0 GETTABLEKS                       R3 R0 K0 ["Type"]

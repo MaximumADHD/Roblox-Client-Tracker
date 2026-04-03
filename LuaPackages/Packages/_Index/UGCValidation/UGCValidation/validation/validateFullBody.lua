@@ -24,6 +24,8 @@ local createDynamicHeadMeshPartSchema = require(root.util.createDynamicHeadMeshP
 local createLimbsAndTorsoSchema = require(root.util.createLimbsAndTorsoSchema)
 local resetPhysicsData = require(root.util.resetPhysicsData)
 local ParseContentIds = require(root.util.ParseContentIds)
+local R15plusUtils = require(root.util.R15plusUtils)
+local getFFlagDebugAllowHRDUploadOnBundleBackend = require(root.flags.getFFlagDebugAllowHRDUploadOnBundleBackend)
 
 local function getInstance(instances: { Instance }, name: string): Instance?
 	for _, inst in instances do
@@ -196,6 +198,9 @@ local function validateFullBody(validationContext: Types.ValidationContext): (bo
 	assert(validationContext.fullBodyData ~= nil, "fullBodyData required in validationContext for validateFullBody")
 	local fullBodyData = validationContext.fullBodyData :: Types.FullBodyData
 	local requireAllFolders = validationContext.requireAllFolders
+	if getFFlagDebugAllowHRDUploadOnBundleBackend() then
+		R15plusUtils.setIsBackendBundleUpload(validationContext.isBackendBundleUpload == true)
+	end
 
 	local requiredTopLevelFolders: { string } = {
 		Constants.FOLDER_NAMES.R15ArtistIntent,
@@ -207,11 +212,17 @@ local function validateFullBody(validationContext: Types.ValidationContext): (bo
 
 	local success, reasons = validateInstanceHierarchy(fullBodyData, requiredTopLevelFolders, validationContext)
 	if not success then
+		if getFFlagDebugAllowHRDUploadOnBundleBackend() then
+			R15plusUtils.setIsBackendBundleUpload(false)
+		end
 		return false, reasons
 	end
 
 	success, reasons = resetAllPhysicsData(validationContext)
 	if not success then
+		if getFFlagDebugAllowHRDUploadOnBundleBackend() then
+			R15plusUtils.setIsBackendBundleUpload(false)
+		end
 		return false, reasons
 	end
 
@@ -225,6 +236,9 @@ local function validateFullBody(validationContext: Types.ValidationContext): (bo
 		if not ValidateBodyBlockingTests.validateAll(allBodyParts, validationContext) then
 			Analytics.reportFailure(Analytics.ErrorType.validateFullBody_ZeroMeshSize, nil, validationContext)
 			-- don't need more detailed error, as this is a check which has been done for each individual asset
+			if getFFlagDebugAllowHRDUploadOnBundleBackend() then
+				R15plusUtils.setIsBackendBundleUpload(false)
+			end
 			return false,
 				{
 					"Unable to run full body validation due to previous errors detected while processing individual body parts.",
@@ -238,6 +252,11 @@ local function validateFullBody(validationContext: Types.ValidationContext): (bo
 			reasonsAccumulator:updateReasons(ValidateLegsSeparation.validateFullBody(allBodyParts, validationContext))
 		end
 	end
+
+	if getFFlagDebugAllowHRDUploadOnBundleBackend() then
+		R15plusUtils.setIsBackendBundleUpload(false)
+	end
+
 	return reasonsAccumulator:getFinalResults()
 end
 

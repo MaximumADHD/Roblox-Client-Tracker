@@ -19,19 +19,16 @@ PROTO_0:
        25 GETTABLEKS                       R17 R0 K10 ["Y"]
        27 GETTABLEKS                       R18 R0 K11 ["Z"]
        29 GETTABLEKS                       R19 R14 K9 ["X"]
-       31 LOADK                            R21 K5 [{0, 1, 0}]
-       32 GETTABLEKS                       R20 R21 K9 ["X"]
-       34 GETTABLEKS                       R21 R13 K9 ["X"]
-       36 GETTABLEKS                       R22 R14 K10 ["Y"]
-       38 LOADK                            R24 K5 [{0, 1, 0}]
-       39 GETTABLEKS                       R23 R24 K10 ["Y"]
-       41 GETTABLEKS                       R24 R13 K10 ["Y"]
-       43 GETTABLEKS                       R25 R14 K11 ["Z"]
-       45 LOADK                            R27 K5 [{0, 1, 0}]
-       46 GETTABLEKS                       R26 R27 K11 ["Z"]
-       48 GETTABLEKS                       R27 R13 K11 ["Z"]
-       50 CALL                             R15 12 -1
-       51 RETURN                           R15 -1
+       31 LOADN                            R20 0
+       32 GETTABLEKS                       R21 R13 K9 ["X"]
+       34 GETTABLEKS                       R22 R14 K10 ["Y"]
+       36 LOADN                            R23 1
+       37 GETTABLEKS                       R24 R13 K10 ["Y"]
+       39 GETTABLEKS                       R25 R14 K11 ["Z"]
+       41 LOADN                            R26 0
+       42 GETTABLEKS                       R27 R13 K11 ["Z"]
+       44 CALL                             R15 12 -1
+       45 RETURN                           R15 -1
 
 MAIN:
         0 PREPVARARGS                      0

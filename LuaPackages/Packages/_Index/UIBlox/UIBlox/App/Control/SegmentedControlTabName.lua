@@ -8,6 +8,7 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
+local Foundation = require(Packages.Foundation)
 
 local Interactable = require(Core.Control.Interactable)
 
@@ -16,7 +17,7 @@ local getContentStyle = require(Core.Button.getContentStyle)
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
-local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
+local Skeleton = Foundation.Skeleton
 local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
 local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
@@ -129,8 +130,8 @@ function SegmentedControlTabName:render()
 		local buttonContentLayer
 		if isLoading then
 			buttonContentLayer = {
-				isLoadingShimmer = Roact.createElement(ShimmerPanel, {
-					Size = UDim2.new(1, 0, 1, 0),
+				isLoadingShimmer = Roact.createElement(Skeleton, {
+					Size = UDim2.fromScale(1, 1),
 				}),
 			}
 		else

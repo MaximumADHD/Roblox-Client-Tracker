@@ -5,12 +5,13 @@ local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
+local Foundation = require(Packages.Foundation)
 
 local ImagesTypes = require(App.ImageSet.ImagesTypes)
 local StyleTypes = require(App.Style.StyleTypes)
 
 local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
-local ShimmerPanel = require(App.Loading.ShimmerPanel)
+local Skeleton = Foundation.Skeleton
 
 local useStyle = require(UIBlox.Core.Style.useStyle)
 
@@ -184,7 +185,7 @@ local function NameItem(props: InnerItemProps)
 			Padding = UDim.new(0, iconLabelSpacing),
 		}),
 		Shimmer = if isLoading
-			then React.createElement(ShimmerPanel, {
+			then React.createElement(Skeleton, {
 				Size = UDim2.new(1, 0, 0, shimmerHeight),
 			})
 			else nil,
