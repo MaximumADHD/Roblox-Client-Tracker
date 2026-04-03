@@ -441,8 +441,7 @@ function MakeGroup(id, name, category, numtimers, isgpu, total, average, max, co
 }
 
 function MakeTimer(id, name, group, color, colordark, average, max, min, exclaverage, exclmax, callaverage, callcount, total, meta, metaagg, metamax) {
-    // TODO: on removal of flag MicroprofilerLabelSubstitution, delete property namelabel
-    var timer = { "id": id, "name": name, "namelabel": name.startsWith("$"), "color": color, "colordark": colordark, "timercolor": color, "textcolor": InvertColor(color), "group": group, "average": average, "max": max, "min": min, "exclaverage": exclaverage, "exclmax": exclmax, "callaverage": callaverage, "callcount": callcount, "total": total, "meta": meta, "textcolorindex": InvertColorIndex(color), "metaagg": metaagg, "metamax": metamax, "worst": 0, "worststart": 0, "worstend": 0 };
+    var timer = { "id": id, "name": name, "color": color, "colordark": colordark, "timercolor": color, "textcolor": InvertColor(color), "group": group, "average": average, "max": max, "min": min, "exclaverage": exclaverage, "exclmax": exclmax, "callaverage": callaverage, "callcount": callcount, "total": total, "meta": meta, "textcolorindex": InvertColorIndex(color), "metaagg": metaagg, "metamax": metamax, "worst": 0, "worststart": 0, "worstend": 0 };
     return timer;
 }
 
@@ -521,16 +520,12 @@ function InitDataVars() {
 }
 
 function InitViewerVars() {
-    window.FFlagMicroprofilerLabelSubstitution = EnabledFastFlags.includes("MicroprofilerLabelSubstitution");
-    window.FFlagMicroprofilerThreadSearch = EnabledFastFlags.includes("MicroprofilerThreadSearch");
     window.FFlagMicroprofilerPerFrameCpuSpeed = EnabledFastFlags.includes("MicroprofilerPerFrameCpuSpeed");
     window.FFlagMicroProfilerNetworkPlugin = EnabledFastFlags.includes("MicroProfilerNetworkPlugin");
 
     // Part 1
-    if (FFlagMicroprofilerThreadSearch) {
-        window.GroupInfoPerFrame = [];
-        window.TimerInfoPerFrame = [];
-    }
+    window.GroupInfoPerFrame = [];
+    window.TimerInfoPerFrame = [];
     window.CanvasDetailedView = document.getElementById('DetailedView');
     window.CanvasHistory = document.getElementById('History');
     window.CanvasNetworkHistory = document.getElementById('NetworkHistory');
@@ -632,10 +627,6 @@ function InitViewerVars() {
     window.nHoverFrame = -1;
     window.nHoverTokenIndex = -1;
     window.nHoverTokenLogIndex = -1;
-    if (!FFlagMicroprofilerThreadSearch) {
-        window.nHoverCounter = 0;
-        window.nHoverCounterDelta = 8;
-    }
     window.nHoverTokenNext = -1;
     window.nHoverTokenLogIndexNext = -1;
     window.nHoverTokenIndexNext = -1;
@@ -647,9 +638,7 @@ function InitViewerVars() {
     window.SortColumnOrderFlip = 0;
     window.SortColumnMouseOver = null;
     window.SortColumnMouseOverNext = null;
-    if (FFlagMicroprofilerThreadSearch) {
-        window.StartTime = Date.now();
-    }
+    window.StartTime = Date.now();
 
     // Part 2
     window.RangeCpu = RangeInit();
@@ -705,9 +694,6 @@ function InitViewerVars() {
     window.g_TypeArray;
     window.g_TimeArray;
     window.g_IndexArray;
-    if (!FFlagMicroprofilerLabelSubstitution) {
-        window.g_LabelArray;
-    }
     window.g_XtraArray; // Events
     window.LodData = new Array();
     window.NumLodSplits = 10;
@@ -2082,287 +2068,109 @@ function GatherHoverLabels(TimerIndex, StartIndex, nLog, nFrameLast) {
 }
 
 function CalculateTimers(GroupInfo, TimerInfo, nFrame) {
-    if (FFlagMicroprofilerThreadSearch) {
-        if (!nFrame || nFrame < 0)
-            nFrame = 0;
-        if (nFrame > Frames.length)
-            nFrame = Frames.length;
+    if (!nFrame || nFrame < 0)
+        nFrame = 0;
+    if (nFrame > Frames.length)
+        nFrame = Frames.length;
 
-        // init
-        for (const group of GroupInfo) {
-            group.Sum = 0;
-            group.ExclusiveSum = 0;
-        }
-        for (const timer of TimerInfo) {
-            timer.CallCount = 0;
-            timer.Sum = 0;
-            timer.ExclusiveSum = 0;
-            timer.Max = -1;
-            timer.worst = -1;
-            timer.worststart = -1;
-            timer.worstend = -1;
-            timer.worstthread = -1;
-        }
+    // init
+    for (const group of GroupInfo) {
+        group.Sum = 0;
+        group.ExclusiveSum = 0;
+    }
+    for (const timer of TimerInfo) {
+        timer.CallCount = 0;
+        timer.Sum = 0;
+        timer.ExclusiveSum = 0;
+        timer.Max = -1;
+        timer.worst = -1;
+        timer.worststart = -1;
+        timer.worstend = -1;
+        timer.worstthread = -1;
+    }
 
-        // Remove this frame from the global framecount
-        if (AggregateInfo.EmptyFrames[nFrame]) {
-            return;
-        }
+    // Remove this frame from the global framecount
+    if (AggregateInfo.EmptyFrames[nFrame]) {
+        return;
+    }
 
-        const nNumLogs = Frames[0].ts.length;
-        const fr = Frames[nFrame];
-        for (let nLog = 0; nLog < nNumLogs; nLog++) {
-            const Stack = Array(20);
-            const StackChild = Array(20);
-            const GroupPos = Array(GroupInfo.length).fill(0);
-            const ts = fr.ts[nLog];
-            const ti = fr.ti[nLog];
-            const tt = fr.tt[nLog];
-            const count = ts.length;
-            const frameOverflow = OverflowAllowance(nLog, fr);
-            let StackPos = 0;
-            let discardLast = 0;
-            for (let j = 0; j < count; j++) {
-                const type = tt[j];
-                const index = ti[j];
-                const time = ts[j];
-                if (type === 1) //enter
-                {
-                    // We do not want to include markers that are from the ring buffer wrap around
-                    // They can and will confuse the issue completely. We filter them out
-                    // by checking if the marker is past the next frame. If the marker is
-                    // skip it!
-                    discardLast = 0;
-                    if (time >= frameOverflow) {
-                        discardLast = 1;
-                        continue;
-                    }
-                    //push
-                    Stack[StackPos] = time;
-                    StackPos++;
-                    StackChild[StackPos] = 0;
+    const nNumLogs = Frames[0].ts.length;
+    const fr = Frames[nFrame];
+    for (let nLog = 0; nLog < nNumLogs; nLog++) {
+        const Stack = Array(20);
+        const StackChild = Array(20);
+        const GroupPos = Array(GroupInfo.length).fill(0);
+        const ts = fr.ts[nLog];
+        const ti = fr.ti[nLog];
+        const tt = fr.tt[nLog];
+        const count = ts.length;
+        const frameOverflow = OverflowAllowance(nLog, fr);
+        let StackPos = 0;
+        let discardLast = 0;
+        for (let j = 0; j < count; j++) {
+            const type = tt[j];
+            const index = ti[j];
+            const time = ts[j];
+            if (type === 1) //enter
+            {
+                // We do not want to include markers that are from the ring buffer wrap around
+                // They can and will confuse the issue completely. We filter them out
+                // by checking if the marker is past the next frame. If the marker is
+                // skip it!
+                discardLast = 0;
+                if (time >= frameOverflow) {
+                    discardLast = 1;
+                    continue;
+                }
+                //push
+                Stack[StackPos] = time;
+                StackPos++;
+                StackChild[StackPos] = 0;
 
-                    const groupid = window.TimerInfo[index].group;
-                    GroupPos[groupid]++;
-                } else if (type === 0) // leave
-                {
-                    // Did we throw out the last start marker or this
-                    // marker is way out of range?
-                    if (discardLast || time >= frameOverflow) {
-                        continue;
-                    }
-                    let TimeDelta, TimeDeltaExclusive, TimeStart;
-                    if (StackPos > 0) {
-                        StackPos--;
-                        TimeStart = Stack[StackPos];
-                        TimeDelta = time - Stack[StackPos];
-                        TimeDeltaExclusive = TimeDelta - StackChild[StackPos + 1];
-                        StackChild[StackPos] += TimeDelta;
-                    } else {
-                        TimeStart = fr.framestart;
-                        TimeDelta = time - fr.framestart;
-                        TimeDeltaExclusive = TimeDelta;
-                    }
-
-                    TimerInfo[index].CallCount++;
-                    TimerInfo[index].Sum += TimeDelta;
-                    TimerInfo[index].ExclusiveSum += TimeDeltaExclusive;
-                    if (TimeDelta > TimerInfo[index].Max) {
-                        TimerInfo[index].Max = TimeDelta;
-                        TimerInfo[index].worst = TimeDelta;
-                        TimerInfo[index].worststart = TimeStart;
-                        TimerInfo[index].worstend = time;
-                        TimerInfo[index].worstthread = nLog;
-                    }
-
-                    const groupid = window.TimerInfo[index].group;
-                    if (GroupPos[groupid] > 0) {
-                        GroupPos[groupid]--;
-                    }
-                    if (GroupPos[groupid] === 0) {
-                        GroupInfo[groupid].Sum += TimeDelta;
-                    }
-                    GroupInfo[groupid].ExclusiveSum += TimeDeltaExclusive;
+                const groupid = window.TimerInfo[index].group;
+                GroupPos[groupid]++;
+            } else if (type === 0) // leave
+            {
+                // Did we throw out the last start marker or this
+                // marker is way out of range?
+                if (discardLast || time >= frameOverflow) {
+                    continue;
+                }
+                let TimeDelta, TimeDeltaExclusive, TimeStart;
+                if (StackPos > 0) {
+                    StackPos--;
+                    TimeStart = Stack[StackPos];
+                    TimeDelta = time - Stack[StackPos];
+                    TimeDeltaExclusive = TimeDelta - StackChild[StackPos + 1];
+                    StackChild[StackPos] += TimeDelta;
                 } else {
-                    //meta
+                    TimeStart = fr.framestart;
+                    TimeDelta = time - fr.framestart;
+                    TimeDeltaExclusive = TimeDelta;
                 }
-            }
-        }
 
-    } else { // fast flag off, use old code
-        let [GroupInfo, TimerInfo, nFrameFirst, nFrameLast, nToken, nGroup] = arguments; // old param names
-
-        if (!nFrameFirst || nFrameFirst < 0)
-            nFrameFirst = 0;
-        if (!nFrameLast || nFrameLast > Frames.length)
-            nFrameLast = Frames.length;
-        var FrameCount = nFrameLast - nFrameFirst;
-        if (0 == FrameCount)
-            return;
-        for (var j = 0; j < GroupInfo.length; j++) {
-            GroupInfo[j].Sum = 0;
-            GroupInfo[j].FrameMax = 0;
-        }
-        for (var j = 0; j < TimerInfo.length; j++) {
-            TimerInfo[j].CallCount = 0;
-            TimerInfo[j].Sum = 0;
-            TimerInfo[j].ExclusiveSum = 0;
-            TimerInfo[j].Max = 0;
-            TimerInfo[j].FrameMax = 0;
-            TimerInfo[j].ExclusiveFrameMax = 0;
-            TimerInfo[j].MaxCallCount = 0;
-            TimerInfo[j].MaxCallCountFrame = 0;
-        }
-
-        var nNumLogs = Frames[0].ts.length;
-        var StackPosArray = Array(nNumLogs);
-        var StackArray = Array(nNumLogs);
-        var StackChildArray = Array(nNumLogs);
-        var GroupPosArray = Array(nNumLogs);
-        for (var i = 0; i < nNumLogs; ++i) {
-            StackPosArray[i] = 0;
-            StackArray[i] = Array(20);
-            StackChildArray[i] = Array(20);
-            GroupPosArray[i] = Array(GroupInfo.length);
-
-            var GroupPos = GroupPosArray[i];
-            for (var j = 0; j < GroupInfo.length; j++) {
-                GroupPos[j] = 0;
-            }
-        }
-
-        for (var i = nFrameFirst; i < nFrameLast; i++) {
-            // Remove this frame from the global framecount
-            if (FrameCount > 1 && AggregateInfo.EmptyFrames[i]) {
-                FrameCount -= 1;
-                continue;
-            }
-            for (var j = 0; j < GroupInfo.length; j++) {
-                GroupInfo[j].FrameSum = 0;
-            }
-            for (var j = 0; j < TimerInfo.length; j++) {
-                TimerInfo[j].FrameSum = 0;
-                TimerInfo[j].ExclusiveFrameSum = 0;
-                TimerInfo[j].FrameCallCount = 0;
-            }
-
-            var fr = Frames[i];
-            for (nLog = 0; nLog < nNumLogs; nLog++) {
-                var StackPos = StackPosArray[nLog];
-                var Stack = StackArray[nLog];
-                var StackChild = StackChildArray[nLog];
-                var GroupPos = GroupPosArray[nLog];
-                var ts = fr.ts[nLog];
-                var ti = fr.ti[nLog];
-                var tt = fr.tt[nLog];
-                var count = ts.length;
-                var frameOverflow = OverflowAllowance(nLog, fr);
-                var discardLast = 0;
-                for (j = 0; j < count; j++) {
-                    var type = tt[j];
-                    var index = ti[j];
-                    var time = ts[j];
-                    if (type == 1) //enter
-                    {
-                        // We do not want to include markers that are from the ring buffer wrap around
-                        // They can and will confuse the issue completely. We filter them out
-                        // by checking if the marker is past the next frame. If the marker is
-                        // skip it!
-                        discardLast = 0;
-                        if (time >= frameOverflow) {
-                            discardLast = 1;
-                            continue;
-                        }
-                        //push
-                        Stack[StackPos] = time;
-                        StackPos++;
-                        StackChild[StackPos] = 0;
-
-                        var groupid = TimerInfo[index].group;
-                        GroupPos[groupid]++;
-                    }
-                    else if (type == 0) // leave
-                    {
-                        // Did we throw out the last start marker or this
-                        // marker is way out of range?
-                        if (discardLast || time >= frameOverflow) {
-                            continue;
-                        }
-                        var TimeDelta, TimeDeltaExclusive, TimeStart;
-                        if (StackPos > 0) {
-                            StackPos--;
-                            TimeStart = Stack[StackPos];
-                            TimeDelta = time - Stack[StackPos];
-                            TimeDeltaExclusive = TimeDelta - StackChild[StackPos + 1];
-                            StackChild[StackPos] += TimeDelta;
-                        }
-                        else {
-                            TimeStart = Frames[nFrameFirst].framestart;
-                            TimeDelta = time - Frames[nFrameFirst].framestart;
-                            TimeDeltaExclusive = TimeDelta;
-                        }
-
-                        if (nToken < 0 || nToken == index) {
-                            TimerInfo[index].CallCount++;
-                            TimerInfo[index].FrameSum += TimeDelta;
-                            TimerInfo[index].ExclusiveFrameSum += TimeDeltaExclusive;
-                            TimerInfo[index].Sum += TimeDelta;
-                            TimerInfo[index].ExclusiveSum += TimeDeltaExclusive;
-                            if (TimeDelta > TimerInfo[index].Max) {
-                                TimerInfo[index].Max = TimeDelta;
-                                TimerInfo[index].worst = TimeDelta;
-                                TimerInfo[index].worststart = TimeStart;
-                                TimerInfo[index].worstend = time;
-                                TimerInfo[index].worstthread = nLog;
-                            }
-                        }
-                        // This is cleared each frame.
-                        // We want this across all tokens
-                        TimerInfo[index].FrameCallCount += 1;
-
-                        var groupid = TimerInfo[index].group;
-                        if (nGroup < 0 || nGroup == groupid) {
-                            if (GroupPos[groupid] > 0) {
-                                GroupPos[groupid]--;
-                            }
-                            if (GroupPos[groupid] == 0) {
-                                GroupInfo[groupid].Sum += TimeDelta;
-                                GroupInfo[groupid].FrameSum += TimeDelta;
-                            }
-                        }
-                    }
-                    else {
-                        //meta
-                    }
+                TimerInfo[index].CallCount++;
+                TimerInfo[index].Sum += TimeDelta;
+                TimerInfo[index].ExclusiveSum += TimeDeltaExclusive;
+                if (TimeDelta > TimerInfo[index].Max) {
+                    TimerInfo[index].Max = TimeDelta;
+                    TimerInfo[index].worst = TimeDelta;
+                    TimerInfo[index].worststart = TimeStart;
+                    TimerInfo[index].worstend = time;
+                    TimerInfo[index].worstthread = nLog;
                 }
-                StackPosArray[nLog] = StackPos;
-            }
-            for (var j = 0; j < GroupInfo.length; j++) {
-                if (GroupInfo[j].FrameSum > GroupInfo[j].FrameMax) {
-                    GroupInfo[j].FrameMax = GroupInfo[j].FrameSum;
-                }
-            }
-            for (var j = 0; j < TimerInfo.length; j++) {
-                if (TimerInfo[j].FrameSum > TimerInfo[j].FrameMax) {
-                    TimerInfo[j].FrameMax = TimerInfo[j].FrameSum;
-                }
-                if (TimerInfo[j].ExclusiveFrameSum > TimerInfo[j].ExclusiveFrameMax) {
-                    TimerInfo[j].ExclusiveFrameMax = TimerInfo[j].ExclusiveFrameSum;
-                }
-                if (TimerInfo[j].FrameCallCount > TimerInfo[j].MaxCallCount) {
-                    TimerInfo[j].MaxCallCount = TimerInfo[j].FrameCallCount;
-                    TimerInfo[j].MaxCallCountFrame = i;
-                }
-            }
-        }
 
-        for (var j = 0; j < GroupInfo.length; j++) {
-            GroupInfo[j].FrameAverage = (GroupInfo[j].Sum / FrameCount);
-        }
-        for (var j = 0; j < TimerInfo.length; j++) {
-            TimerInfo[j].CallAverage = (TimerInfo[j].Sum / TimerInfo[j].CallCount);
-            TimerInfo[j].FrameAverage = (TimerInfo[j].Sum / FrameCount);
-            TimerInfo[j].ExclusiveFrameAverage = (TimerInfo[j].ExclusiveSum / FrameCount);
+                const groupid = window.TimerInfo[index].group;
+                if (GroupPos[groupid] > 0) {
+                    GroupPos[groupid]--;
+                }
+                if (GroupPos[groupid] === 0) {
+                    GroupInfo[groupid].Sum += TimeDelta;
+                }
+                GroupInfo[groupid].ExclusiveSum += TimeDeltaExclusive;
+            } else {
+                //meta
+            }
         }
     }
 }
@@ -2374,228 +2182,151 @@ function PreprocessTimerSubstitutions(timerPredicate, newTimerNameFunc) {
         if (!globalThis.g_cliMode)
             console.log(...args);
     }
-    if (FFlagMicroprofilerLabelSubstitution) {
-        ProfileEnter('PreprocessTimerSubstitutions');
-        const nTimersWhenStarted = TimerInfo.length;
-        const newTimers = {};
-        // keys are the ids of timers that may be substituted, values are the number of subs made
-        const subsPerID = Object.fromEntries(TimerInfo.filter(timerPredicate).map(t => [t.id, 0]));
-        for (let nLog = 0; nLog < Frames[0].tt.length; nLog++) {
-            let discardLast = false;
-            const newTimerStack = [];
-            for (let i = 0; i < Frames.length; i++) {
-                const frame = Frames[i];
-                const frameDiscard = OverflowAllowance(nLog, frame);
-                const [tt, ts, ti, tl] = [frame.tt[nLog], frame.ts[nLog], frame.ti[nLog], frame.tl[nLog]];
-                for (let xx = 0; xx < tt.length; xx++) {
-                    // discard markers that are from the ring buffer wrap around
-                    if ((tt[xx] === 4) ? discardLast : (tt[xx] < EventBaseId && ts[xx] > frameDiscard)) {
-                        discardLast = true;
-                        continue;
-                    }
-                    discardLast = false;
-                    // ENTER SCOPE
-                    if (tt[xx] === 1 && subsPerID[ti[xx]] !== undefined) {
-                        // get label from next log entry
-                        const label = (xx + 1 < tt.length && tt[xx + 1] === 3) ? tl[ti[xx + 1]] : "UNLABELED_CUSTOM_TIMER";
-                        // get new timer name
-                        const oldTimer = TimerInfo[ti[xx]];
-                        const newTimerName = newTimerNameFunc(oldTimer.group.name, oldTimer.name, label);
-                        // make a new timer iff it doesn't exist already
-                        let newTimer = newTimers[newTimerName];
-                        if (!newTimer) {
-                            newTimer = { ...oldTimer, name: newTimerName, id: TimerInfo.length };
-                            newTimers[newTimerName] = newTimer;
-                            subsPerID[ti[xx]]++;
-                            TimerInfo.push(newTimer);
-                        }
-                        // replace timer index
-                        ti[xx] = newTimer.id;
-                        newTimerStack.push(newTimer.id);
-                    }
-                    // EXIT SCOPE
-                    else if (tt[xx] === 0 && subsPerID[ti[xx]] && newTimerStack.length > 0) {
-                        ti[xx] = newTimerStack.pop();
-                    }
-                } // for xx (log entries)
-            } // for i (frames)
-        } // for nLog
-        for (const [id, nSubs] of Object.entries(subsPerID)) {
-            const timer = TimerInfo[id];
-            if (nSubs > 0) {
-                LogNonCli(`Substitutions made for ${timer.name}: ${nSubs}`);
-                GroupInfo[timer.group].numtimers += nSubs;
-            }
-        }
-        const nTimersWhenFinished = TimerInfo.length;
-        const nTimersAdded = nTimersWhenFinished - nTimersWhenStarted;
-        if (nTimersAdded > 0) {
-            LogNonCli(`Total timer count increased from ${nTimersWhenStarted} to ${nTimersWhenFinished} (+${nTimersAdded})`);
-        } else {
-            LogNonCli(`No substitutions were made. Total timer count is still ${nTimersWhenStarted} (+0)`);
-        }
-        ProfileLeave();
-    } else {
-        // old names of params
-        const SubstituteGroup = timerPredicate;
-        const SubstituteTimer = newTimerNameFunc;
-
-        // old version of the function
-        var SubIndex = TimerInfo.findIndex((element) => (element.name == SubstituteTimer && GroupInfo[element.group].name == SubstituteGroup));
-        if (SubIndex == -1)
-            return;
-        if (!TimerInfo[SubIndex].namelabel)
-            return;
-        ProfileEnter('PreprocessTimerSubstitutions');
-        var SubstituteName = TimerInfo[SubIndex].name.slice(1) + '_';
-        var TimerInfoStartLength = TimerInfo.length;
-        var ReferenceTimer = Object.assign({}, TimerInfo[SubIndex]);
-        var NewTimers = [];
-        var nNumLogs = Frames[0].ts.length;
-        for (nLog = 0; nLog < nNumLogs; nLog++) {
-            var Discard = 0;
-            var NewTimerIndex = -1;
-            var NewTimerStack = Array();
-            for (var i = 0; i < Frames.length; i++) {
-                var Frame_ = Frames[i];
-                var FrameDiscard = OverflowAllowance(nLog, Frame_);
-                var tt = Frame_.tt[nLog];
-                var ts = Frame_.ts[nLog];
-                var ti = Frame_.ti[nLog];
-                var tl = Frame_.tl[nLog];
-                var len = tt.length;
-                for (var xx = 0; xx < len; ++xx) {
-                    var Skip = (tt[xx] == 4) ? DiscardLast : (tt[xx] < EventBaseId && ts[xx] > FrameDiscard);
-                    if (Skip) {
-                        Discard++;
-                        DiscardLast = 1;
-                    }
-                    else {
-                        DiscardLast = 0;
-
-                        // Use label after the region instead of the region name for some regions
-                        if (xx + 1 < len && tt[xx] == 1 && tt[xx + 1] == 3 && ti[xx] == SubIndex) {
-                            // ENTER
-                            var Label = tl[ti[xx + 1]];
-                            var NewName = SubstituteName + Label;
-                            NewTimerIndex = NewTimers.findIndex((element) => (element == NewName));
-                            if (NewTimerIndex == -1) {
-                                NewTimerIndex = NewTimers.length;
-                                NewTimers.push(NewName);
-                                var finalIndex = TimerInfo.length;
-                                TimerInfo[finalIndex] = Object.assign({}, ReferenceTimer);
-                                TimerInfo[finalIndex].name = NewName;
-                                TimerInfo[finalIndex].id = finalIndex;
-                                TimerInfo[finalIndex].namelabel = 0;
-                            }
-
-                            NewTimerIndex += TimerInfoStartLength;
-                            Frame_.ti[nLog][xx] = NewTimerIndex;
-                            NewTimerStack.push(NewTimerIndex);
-                        }
-                        else if (tt[xx] == 0 && ti[xx] == SubIndex && NewTimerStack.length > 0) {
-                            // EXIT
-                            Frame_.ti[nLog][xx] = NewTimerStack.pop();
-                        }
-                    }
+    ProfileEnter('PreprocessTimerSubstitutions');
+    const nTimersWhenStarted = TimerInfo.length;
+    const newTimers = {};
+    // keys are the ids of timers that may be substituted, values are the number of subs made
+    const subsPerID = Object.fromEntries(TimerInfo.filter(timerPredicate).map(t => [t.id, 0]));
+    for (let nLog = 0; nLog < Frames[0].tt.length; nLog++) {
+        let discardLast = false;
+        const newTimerStack = [];
+        for (let i = 0; i < Frames.length; i++) {
+            const frame = Frames[i];
+            const frameDiscard = OverflowAllowance(nLog, frame);
+            const [tt, ts, ti, tl] = [frame.tt[nLog], frame.ts[nLog], frame.ti[nLog], frame.tl[nLog]];
+            for (let xx = 0; xx < tt.length; xx++) {
+                // discard markers that are from the ring buffer wrap around
+                if ((tt[xx] === 4) ? discardLast : (tt[xx] < EventBaseId && ts[xx] > frameDiscard)) {
+                    discardLast = true;
+                    continue;
                 }
-            }
+                discardLast = false;
+                // ENTER SCOPE
+                if (tt[xx] === 1 && subsPerID[ti[xx]] !== undefined) {
+                    // get label from next log entry
+                    const label = (xx + 1 < tt.length && tt[xx + 1] === 3) ? tl[ti[xx + 1]] : "UNLABELED_CUSTOM_TIMER";
+                    // get new timer name
+                    const oldTimer = TimerInfo[ti[xx]];
+                    const newTimerName = newTimerNameFunc(oldTimer.group.name, oldTimer.name, label);
+                    // make a new timer iff it doesn't exist already
+                    let newTimer = newTimers[newTimerName];
+                    if (!newTimer) {
+                        newTimer = { ...oldTimer, name: newTimerName, id: TimerInfo.length };
+                        newTimers[newTimerName] = newTimer;
+                        subsPerID[ti[xx]]++;
+                        TimerInfo.push(newTimer);
+                    }
+                    // replace timer index
+                    ti[xx] = newTimer.id;
+                    newTimerStack.push(newTimer.id);
+                }
+                // EXIT SCOPE
+                else if (tt[xx] === 0 && subsPerID[ti[xx]] && newTimerStack.length > 0) {
+                    ti[xx] = newTimerStack.pop();
+                }
+            } // for xx (log entries)
+        } // for i (frames)
+    } // for nLog
+    for (const [id, nSubs] of Object.entries(subsPerID)) {
+        const timer = TimerInfo[id];
+        if (nSubs > 0) {
+            LogNonCli(`Substitutions made for ${timer.name}: ${nSubs}`);
+            GroupInfo[timer.group].numtimers += nSubs;
         }
-        var GroupNum = ReferenceTimer.group;
-        GroupInfo[GroupNum].numtimers += NewTimers.length;
-        LogNonCli('Substitution for ' + SubstituteTimer + ' increased timer count by ' + NewTimers.length + ' to ' + TimerInfo.length);
-        ProfileLeave();
     }
+    const nTimersWhenFinished = TimerInfo.length;
+    const nTimersAdded = nTimersWhenFinished - nTimersWhenStarted;
+    if (nTimersAdded > 0) {
+        LogNonCli(`Total timer count increased from ${nTimersWhenStarted} to ${nTimersWhenFinished} (+${nTimersAdded})`);
+    } else {
+        LogNonCli(`No substitutions were made. Total timer count is still ${nTimersWhenStarted} (+0)`);
+    }
+    ProfileLeave();
 }
 
 function PreprocessCalculateAllTimers() {
     ProfileEnter("PreprocessCalculateAllTimers");
-    if (FFlagMicroprofilerThreadSearch) {
-        // calculate stats within a given frame for all timers and groups
-        for (let i = 0; i < Frames.length; i++) {
-            const currGroupInfo = new Array(GroupInfo.length);
-            const currTimerInfo = new Array(TimerInfo.length);
-            for (let j = 0; j < GroupInfo.length; j++)
-                currGroupInfo[j] = {}; // note: there are extra fields in a Group that are not copied to the per-frame info
-            for (let j = 0; j < TimerInfo.length; j++)
-                currTimerInfo[j] = {}; // note: there are extra fields in a Timer that are not copied to the per-frame info
-            CalculateTimers(currGroupInfo, currTimerInfo, i);
-            GroupInfoPerFrame.push(currGroupInfo);
-            TimerInfoPerFrame.push(currTimerInfo);
-        }
+    // calculate stats within a given frame for all timers and groups
+    for (let i = 0; i < Frames.length; i++) {
+        const currGroupInfo = new Array(GroupInfo.length);
+        const currTimerInfo = new Array(TimerInfo.length);
+        for (let j = 0; j < GroupInfo.length; j++)
+            currGroupInfo[j] = {}; // note: there are extra fields in a Group that are not copied to the per-frame info
+        for (let j = 0; j < TimerInfo.length; j++)
+            currTimerInfo[j] = {}; // note: there are extra fields in a Timer that are not copied to the per-frame info
+        CalculateTimers(currGroupInfo, currTimerInfo, i);
+        GroupInfoPerFrame.push(currGroupInfo);
+        TimerInfoPerFrame.push(currTimerInfo);
+    }
 
-        // aggregate timer stats across frames
-        for (let i = 0; i < TimerInfo.length; i++) {
-            const timer = TimerInfo[i];
-            let [CallCount,    MaxCallCount,    MaxCallCountFrame]    = [0, -1, -1];
-            let [Sum,          MaxSum,          MaxSumFrame]          = [0, -1, -1];
-            let [ExclusiveSum, MaxExclusiveSum, MaxExclusiveSumFrame] = [0, -1, -1];
-            let [Max, MaxFrame, worst, worststart, worstend, worstthread] = [-1, -1, -1, -1, -1, -1];
+    // aggregate timer stats across frames
+    for (let i = 0; i < TimerInfo.length; i++) {
+        const timer = TimerInfo[i];
+        let [CallCount,    MaxCallCount,    MaxCallCountFrame]    = [0, -1, -1];
+        let [Sum,          MaxSum,          MaxSumFrame]          = [0, -1, -1];
+        let [ExclusiveSum, MaxExclusiveSum, MaxExclusiveSumFrame] = [0, -1, -1];
+        let [Max, MaxFrame, worst, worststart, worstend, worstthread] = [-1, -1, -1, -1, -1, -1];
 
-            for (let j = 0; j < Frames.length; j++) {
-                const frameTimer = TimerInfoPerFrame[j][i];
-                CallCount += frameTimer.CallCount;
-                Sum += frameTimer.Sum;
-                ExclusiveSum += frameTimer.ExclusiveSum;
-                if (frameTimer.CallCount > MaxCallCount) {
-                    MaxCallCount = frameTimer.CallCount;
-                    MaxCallCountFrame = j;
-                }
-                if (frameTimer.Sum > MaxSum) {
-                    MaxSum = frameTimer.Sum;
-                    MaxSumFrame = j;
-                }
-                if (frameTimer.ExclusiveSum > MaxExclusiveSum) {
-                    MaxExclusiveSum = frameTimer.ExclusiveSum;
-                    MaxExclusiveSumFrame = j;
-                }
-                if (frameTimer.Max > Max) {
-                    ({Max, worst, worststart, worstend, worstthread} = frameTimer);
-                    MaxFrame = j;
-                }
+        for (let j = 0; j < Frames.length; j++) {
+            const frameTimer = TimerInfoPerFrame[j][i];
+            CallCount += frameTimer.CallCount;
+            Sum += frameTimer.Sum;
+            ExclusiveSum += frameTimer.ExclusiveSum;
+            if (frameTimer.CallCount > MaxCallCount) {
+                MaxCallCount = frameTimer.CallCount;
+                MaxCallCountFrame = j;
             }
-
-            Object.assign(timer, {CallCount,    MaxCallCount,    MaxCallCountFrame});
-            Object.assign(timer, {Sum,          MaxSum,          MaxSumFrame});
-            Object.assign(timer, {ExclusiveSum, MaxExclusiveSum, MaxExclusiveSumFrame});
-            Object.assign(timer, {Max, MaxFrame, worst, worststart, worstend, worstthread});
-            timer.CallAverage = Sum / CallCount;
-            timer.ExclusiveAverage = ExclusiveSum / CallCount;
-            timer.CallCountFrameAverage = CallCount / Frames.length;
-            timer.FrameAverage = Sum / Frames.length;
-            timer.ExclusiveFrameAverage = ExclusiveSum / Frames.length;
-        }
-
-        // aggregate group stats across frames
-        for (let i = 0; i < GroupInfo.length; i++) {
-            const group = GroupInfo[i];
-            let [Sum, ExclusiveSum] = [0, 0];
-            let [MaxSum, MaxExclusiveSum] = [-1, -1];
-            let [MaxSumFrame, MaxExclusiveSumFrame] = [-1, -1];
-
-            for (let j = 0; j < Frames.length; j++) {
-                const frameGroup = GroupInfoPerFrame[j][i];
-                Sum += frameGroup.Sum;
-                ExclusiveSum += frameGroup.ExclusiveSum;
-                if (frameGroup.Sum > MaxSum) {
-                    MaxSum = frameGroup.Sum;
-                    MaxSumFrame = j;
-                }
-                if (frameGroup.ExclusiveSum > MaxExclusiveSum) {
-                    MaxExclusiveSum = frameGroup.ExclusiveSum;
-                    MaxExclusiveSumFrame = j;
-                }
+            if (frameTimer.Sum > MaxSum) {
+                MaxSum = frameTimer.Sum;
+                MaxSumFrame = j;
             }
-
-            Object.assign(group, {Sum, ExclusiveSum});
-            Object.assign(group, {MaxSum, MaxExclusiveSum});
-            Object.assign(group, {MaxSumFrame, MaxExclusiveSumFrame});
-            group.FrameAverage = Sum / Frames.length;
-            group.ExclusiveFrameAverage = ExclusiveSum / Frames.length;
+            if (frameTimer.ExclusiveSum > MaxExclusiveSum) {
+                MaxExclusiveSum = frameTimer.ExclusiveSum;
+                MaxExclusiveSumFrame = j;
+            }
+            if (frameTimer.Max > Max) {
+                ({Max, worst, worststart, worstend, worstthread} = frameTimer);
+                MaxFrame = j;
+            }
         }
 
-    } else { // fast flag off, use old code
-        CalculateTimers(GroupInfo, TimerInfo, 0, Frames.length, -1, -1);
+        Object.assign(timer, {CallCount,    MaxCallCount,    MaxCallCountFrame});
+        Object.assign(timer, {Sum,          MaxSum,          MaxSumFrame});
+        Object.assign(timer, {ExclusiveSum, MaxExclusiveSum, MaxExclusiveSumFrame});
+        Object.assign(timer, {Max, MaxFrame, worst, worststart, worstend, worstthread});
+        timer.CallAverage = Sum / CallCount;
+        timer.ExclusiveAverage = ExclusiveSum / CallCount;
+        timer.CallCountFrameAverage = CallCount / Frames.length;
+        timer.FrameAverage = Sum / Frames.length;
+        timer.ExclusiveFrameAverage = ExclusiveSum / Frames.length;
+    }
+
+    // aggregate group stats across frames
+    for (let i = 0; i < GroupInfo.length; i++) {
+        const group = GroupInfo[i];
+        let [Sum, ExclusiveSum] = [0, 0];
+        let [MaxSum, MaxExclusiveSum] = [-1, -1];
+        let [MaxSumFrame, MaxExclusiveSumFrame] = [-1, -1];
+
+        for (let j = 0; j < Frames.length; j++) {
+            const frameGroup = GroupInfoPerFrame[j][i];
+            Sum += frameGroup.Sum;
+            ExclusiveSum += frameGroup.ExclusiveSum;
+            if (frameGroup.Sum > MaxSum) {
+                MaxSum = frameGroup.Sum;
+                MaxSumFrame = j;
+            }
+            if (frameGroup.ExclusiveSum > MaxExclusiveSum) {
+                MaxExclusiveSum = frameGroup.ExclusiveSum;
+                MaxExclusiveSumFrame = j;
+            }
+        }
+
+        Object.assign(group, {Sum, ExclusiveSum});
+        Object.assign(group, {MaxSum, MaxExclusiveSum});
+        Object.assign(group, {MaxSumFrame, MaxExclusiveSumFrame});
+        group.FrameAverage = Sum / Frames.length;
+        group.ExclusiveFrameAverage = ExclusiveSum / Frames.length;
     }
     ProfileLeave();
 }
@@ -3446,16 +3177,8 @@ function DrawHoverToolTip() {
         }
         else {
             let FrameGroup, FrameTimer;
-            if (FFlagMicroprofilerThreadSearch) {
-                FrameGroup = GroupInfoPerFrame[nHoverFrame][Timer.group];
-                FrameTimer = TimerInfoPerFrame[nHoverFrame][nHoverToken];
-            } else {
-                var FrameGroupInfo = CloneArray(GroupInfo);
-                var FrameTimerInfo = CloneArray(TimerInfo);
-                CalculateTimers(FrameGroupInfo, FrameTimerInfo, nHoverFrame, nHoverFrame + 1, nHoverToken, Timer.group);
-                FrameGroup = FrameGroupInfo[Timer.group];
-                FrameTimer = FrameTimerInfo[nHoverToken];
-            }
+            FrameGroup = GroupInfoPerFrame[nHoverFrame][Timer.group];
+            FrameTimer = TimerInfoPerFrame[nHoverFrame][nHoverToken];
 
             StringArray.push("Timer:");
             StringArray.push(Timer.name);
@@ -3470,11 +3193,7 @@ function DrawHoverToolTip() {
             StringArray.push("Average:");
             StringArray.push(Timer.FrameAverage.toFixed(3) + "ms");
             StringArray.push("Max:");
-            if (FFlagMicroprofilerThreadSearch) {
-                StringArray.push(Timer.MaxSum.toFixed(3) + "ms @" + Timer.MaxSumFrame);
-            } else {
-                StringArray.push(Timer.FrameMax.toFixed(3) + "ms");
-            }
+            StringArray.push(Timer.MaxSum.toFixed(3) + "ms @" + Timer.MaxSumFrame);
 
             StringArray.push("");
             StringArray.push("");
@@ -3484,15 +3203,9 @@ function DrawHoverToolTip() {
             StringArray.push("Call Count In Frame:");
             StringArray.push(FrameTimer.CallCount);
             StringArray.push("Call Count Average:");
-            if (FFlagMicroprofilerThreadSearch) {
-                StringArray.push(Timer.CallCountFrameAverage.toFixed(3));
-                StringArray.push("Call Count Max:");
-                StringArray.push(Timer.MaxCallCount + " @" + Timer.MaxCallCountFrame);
-            } else {
-                StringArray.push((Timer.CallCount / AggregateInfo.TotalFrames()).toFixed(2));
-                StringArray.push("Call Count Max:");
-                StringArray.push(TimerInfo[nHoverToken].MaxCallCount + " @" + TimerInfo[nHoverToken].MaxCallCountFrame);
-            }
+            StringArray.push(Timer.CallCountFrameAverage.toFixed(3));
+            StringArray.push("Call Count Max:");
+            StringArray.push(Timer.MaxCallCount + " @" + Timer.MaxCallCountFrame);
 
             StringArray.push("");
             StringArray.push("");
@@ -3502,11 +3215,7 @@ function DrawHoverToolTip() {
             StringArray.push("Exclusive Average:");
             StringArray.push(Timer.ExclusiveFrameAverage.toFixed(3) + "ms");
             StringArray.push("Exclusive Max:");
-            if (FFlagMicroprofilerThreadSearch) {
-                StringArray.push(Timer.MaxExclusiveSum.toFixed(3) + "ms @" + Timer.MaxExclusiveSumFrame);
-            } else {
-                StringArray.push(Timer.ExclusiveFrameMax.toFixed(3) + "ms");
-            }
+            StringArray.push(Timer.MaxExclusiveSum.toFixed(3) + "ms @" + Timer.MaxExclusiveSumFrame);
 
             StringArray.push("");
             StringArray.push("");
@@ -3518,37 +3227,21 @@ function DrawHoverToolTip() {
             StringArray.push("Frame Average:");
             StringArray.push(Group.FrameAverage.toFixed(3) + "ms");
             StringArray.push("Frame Max:");
-            if (FFlagMicroprofilerThreadSearch) {
-                StringArray.push(Group.MaxSum.toFixed(3) + "ms @" + Group.MaxSumFrame);
-                StringArray.push("Exclusive Frame Time:");
-                StringArray.push(Group.ExclusiveSum.toFixed(3) + "ms");
-                StringArray.push("Exclusive Frame Average:");
-                StringArray.push(Group.ExclusiveFrameAverage.toFixed(3) + "ms");
-                StringArray.push("Exclusive Frame Max:");
-                StringArray.push(Group.MaxExclusiveSum.toFixed(3) + "ms @" + Group.MaxExclusiveSumFrame);
+            StringArray.push(Group.MaxSum.toFixed(3) + "ms @" + Group.MaxSumFrame);
+            StringArray.push("Exclusive Frame Time:");
+            StringArray.push(Group.ExclusiveSum.toFixed(3) + "ms");
+            StringArray.push("Exclusive Frame Average:");
+            StringArray.push(Group.ExclusiveFrameAverage.toFixed(3) + "ms");
+            StringArray.push("Exclusive Frame Max:");
+            StringArray.push(Group.MaxExclusiveSum.toFixed(3) + "ms @" + Group.MaxExclusiveSumFrame);
 
-                const HoverMeta = GatherHoverMetaCounters(nHoverToken, nHoverTokenIndex, nHoverTokenLogIndex, nHoverFrame);
-                if (HoverMeta != null && Object.keys(HoverMeta).length > 0) {
-                    StringArray.push("");
-                    StringArray.push("");
-                    for (const [index, value] of Object.entries(HoverMeta)) {
-                        StringArray.push("" + index);
-                        StringArray.push("" + value);
-                    }
-                }
-            } else {
-                StringArray.push(Group.FrameMax.toFixed(3) + "ms");
-
-                const HoverMeta = GatherHoverMetaCounters(nHoverToken, nHoverTokenIndex, nHoverTokenLogIndex, nHoverFrame);
-                let HeaderMeta = 0;
-                for (const index in HoverMeta) {
-                    if (0 == HeaderMeta) {
-                        HeaderMeta = 1;
-                        StringArray.push("");
-                        StringArray.push("");
-                    }
+            const HoverMeta = GatherHoverMetaCounters(nHoverToken, nHoverTokenIndex, nHoverTokenLogIndex, nHoverFrame);
+            if (HoverMeta != null && Object.keys(HoverMeta).length > 0) {
+                StringArray.push("");
+                StringArray.push("");
+                for (const [index, value] of Object.entries(HoverMeta)) {
                     StringArray.push("" + index);
-                    StringArray.push("" + HoverMeta[index]);
+                    StringArray.push("" + value);
                 }
             }
 
@@ -3587,13 +3280,7 @@ function DrawHoverToolTip() {
             let minVal;
             let maxVal;
             for (let i = 0; i < Frames.length; ++i) {
-                let FrameTime;
-                if (FFlagMicroprofilerThreadSearch) {
-                    FrameTime = TimerInfoPerFrame[i][nHoverToken];
-                } else {
-                    CalculateTimers(FrameGroupInfo, FrameTimerInfo, i, i + 1, nHoverToken, Timer.group);
-                    FrameTime = FrameTimerInfo[nHoverToken];
-                }
+                const FrameTime = TimerInfoPerFrame[i][nHoverToken];
                 frameVals.push(FrameTime.Sum);
                 if (i === 0) {
                     minVal = FrameTime.Sum;
@@ -4699,24 +4386,9 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
     nHoverTokenIndexNext = -1;
 
     let nHoverColor;
-    if (FFlagMicroprofilerThreadSearch) {
-        const color = 64 * Math.sin(2 * Math.PI * (Date.now() - window.StartTime)/1000 * 0.5) + 127; // 0.5Hz
-        const colorHex = Math.round(color).toString(16);
-        nHoverColor = '#' + colorHex + colorHex + colorHex;
-    } else {
-        nHoverCounter += nHoverCounterDelta;
-        if (nHoverCounter >= 255) {
-            nHoverCounter = 255;
-            nHoverCounterDelta = -nHoverCounterDelta;
-        }
-        if (nHoverCounter < 128) {
-            nHoverCounter = 128;
-            nHoverCounterDelta = -nHoverCounterDelta;
-        }
-        var nHoverHigh = nHoverCounter.toString(16);
-        var nHoverLow = (127 + 255 - nHoverCounter).toString(16);
-        nHoverColor = '#' + nHoverHigh + nHoverHigh + nHoverHigh;
-    }
+    const color = 64 * Math.sin(2 * Math.PI * (Date.now() - window.StartTime)/1000 * 0.5) + 127; // 0.5Hz
+    const colorHex = Math.round(color).toString(16);
+    nHoverColor = '#' + colorHex + colorHex + colorHex;
 
     context.fillStyle = 'black';
     context.font = Font;
@@ -4851,9 +4523,6 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                 var TypeArray = g_TypeArray[nLog];
                 var TimeArray = g_TimeArray[nLog];
                 var IndexArray = g_IndexArray[nLog];
-                if (!FFlagMicroprofilerLabelSubstitution) {
-                    var LabelArray = g_LabelArray[nLog];
-                }
                 var XtraArray = g_XtraArray[nLog];
                 var GlobalArray = Lod.GlobalArray[nLog];
 
@@ -4928,11 +4597,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                                     if (XText + WText > nWidth) {
                                         WText = nWidth - XText;
                                     }
-                                    if (FFlagMicroprofilerLabelSubstitution) {
-                                        var Name = TimerInfo[index].name;
-                                    } else {
-                                        var Name = LabelArray[globstart] ? LabelArray[globstart] : TimerInfo[index].name;
-                                    }
+                                    var Name = TimerInfo[index].name;
                                     var BarTextLen = Math.floor((WText - 2) / FontWidth);
                                     var TimeText = TimeToMsString(timeend - timestart);
                                     var TimeTextLen = TimeText.length;
@@ -5585,198 +5250,116 @@ function ZoomToHighlight(NoGpu) {
 }
 
 function MoveToNext(direction) { //1 forward, -1 backwards
-    if (FFlagMicroprofilerThreadSearch) {
-        // next and previous scope instance determined by start time of the scope
-        direction = direction > 0 ? 1 : -1; // just in case, since this is used in math later
-        const forward = direction === 1;
-        const start = (arr) => forward ? 0 : (arr.length - 1);
-        let fTimeBegin, nSelectedIndex;
-        const numLogs = Frames[0].ts.length;
+    // next and previous scope instance determined by start time of the scope
+    direction = direction > 0 ? 1 : -1; // just in case, since this is used in math later
+    const forward = direction === 1;
+    const start = (arr) => forward ? 0 : (arr.length - 1);
+    let fTimeBegin, nSelectedIndex;
+    const numLogs = Frames[0].ts.length;
 
-        if (nHoverToken !== -1 && nHoverTokenLogIndex !== -1) {
-            fTimeBegin = RangeCpu.Begin;
-            nSelectedIndex = nHoverToken;
-        } else if (RangeValid(RangeSelect)) {
-            fTimeBegin = RangeSelect.Begin;
-            nSelectedIndex = RangeSelect.Index;
-        } else {
-            return;
-        }
-        if (nLog < 0) {
-            return;
-        }
+    if (nHoverToken !== -1 && nHoverTokenLogIndex !== -1) {
+        fTimeBegin = RangeCpu.Begin;
+        nSelectedIndex = nHoverToken;
+    } else if (RangeValid(RangeSelect)) {
+        fTimeBegin = RangeSelect.Begin;
+        nSelectedIndex = RangeSelect.Index;
+    } else {
+        return;
+    }
+    if (nLog < 0) {
+        return;
+    }
 
-        // seek to the frame of selected log entry
-        let nFrame;
-        for (nFrame = start(Frames); nFrame in Frames; nFrame += direction) { // each frame
-            const frame = Frames[nFrame];
-            if (frame.framestart <= fTimeBegin && fTimeBegin <= frame.frameend)
-                break;
-        }
-        if (!(nFrame in Frames))
-            return; // can't find current entry for some reason, bail out
+    // seek to the frame of selected log entry
+    let nFrame;
+    for (nFrame = start(Frames); nFrame in Frames; nFrame += direction) { // each frame
+        const frame = Frames[nFrame];
+        if (frame.framestart <= fTimeBegin && fTimeBegin <= frame.frameend)
+            break;
+    }
+    if (!(nFrame in Frames))
+        return; // can't find current entry for some reason, bail out
 
-        // seek just past the start timestamp in each log
-        let xx = new Array(numLogs);
+    // seek just past the start timestamp in each log
+    let xx = new Array(numLogs);
+    for (let i = 0; i < numLogs; ++i) { // each log
+        const ts = Frames[nFrame].ts[i];
+        const tt = Frames[nFrame].tt[i];
+        let j;
+        for (j = start(ts); j in ts; j += direction) { // each log entry (timestamp)
+            if (tt[j] === 0 || tt[j] === 1) { // begin or end scope, so that ts[j] is valid
+                if (forward && ts[j] > fTimeBegin)
+                    break;
+                if (!forward && ts[j] < fTimeBegin)
+                    break;
+            }
+        }
+        xx[i] = j; // either a candidate or out of range
+    }
+
+    // find next instance of selected index in each thread
+    let found = false;
+    for (; !found && nFrame in Frames; nFrame += direction) { // each frame
         for (let i = 0; i < numLogs; ++i) { // each log
-            const ts = Frames[nFrame].ts[i];
+            const ti = Frames[nFrame].ti[i];
             const tt = Frames[nFrame].tt[i];
             let j;
-            for (j = start(ts); j in ts; j += direction) { // each log entry (timestamp)
-                if (tt[j] === 0 || tt[j] === 1) { // begin or end scope, so that ts[j] is valid
-                    if (forward && ts[j] > fTimeBegin)
-                        break;
-                    if (!forward && ts[j] < fTimeBegin)
-                        break;
+            for (j = xx[i]; j in ti; j += direction) { // each log entry (timer index)
+                if (ti[j] === nSelectedIndex && tt[j] === 1) {
+                    found = true;
+                    break;
                 }
             }
             xx[i] = j; // either a candidate or out of range
         }
+        if (!found && nFrame + direction in Frames)
+            xx = Frames[nFrame + direction].ti.map(start);
+    }
+    if (!found)
+        return; // no next log entry exists, bail out
+    nFrame -= direction; // back up to the frame with the found instance
 
-        // find next instance of selected index in each thread
-        let found = false;
-        for (; !found && nFrame in Frames; nFrame += direction) { // each frame
-            for (let i = 0; i < numLogs; ++i) { // each log
-                const ti = Frames[nFrame].ti[i];
-                const tt = Frames[nFrame].tt[i];
-                let j;
-                for (j = xx[i]; j in ti; j += direction) { // each log entry (timer index)
-                    if (ti[j] === nSelectedIndex && tt[j] === 1) {
-                        found = true;
-                        break;
-                    }
-                }
-                xx[i] = j; // either a candidate or out of range
-            }
-            if (!found && nFrame + direction in Frames)
-                xx = Frames[nFrame + direction].ti.map(start);
+    // compare across threads to find the earliest match
+    const frame = Frames[nFrame];
+    let best = {time: forward ? Number.MAX_VALUE : Number.MIN_VALUE, nLog: -1, xx: -1};
+    for (let i = 0; i < numLogs; ++i) { // each log
+        const ts = frame.ts[i];
+        const ti = frame.ti[i];
+        if (xx[i] in ti) { // not out of range => is candidate
+            if (forward && ts[xx[i]] < best.time || !forward && ts[xx[i]] > best.time) // new best
+                best = {time: ts[xx[i]], nLog: i, xx: xx[i]};
         }
-        if (!found)
-            return; // no next log entry exists, bail out
-        nFrame -= direction; // back up to the frame with the found instance
+    }
 
-        // compare across threads to find the earliest match
-        const frame = Frames[nFrame];
-        let best = {time: forward ? Number.MAX_VALUE : Number.MIN_VALUE, nLog: -1, xx: -1};
-        for (let i = 0; i < numLogs; ++i) { // each log
-            const ts = frame.ts[i];
-            const ti = frame.ti[i];
-            if (xx[i] in ti) { // not out of range => is candidate
-                if (forward && ts[xx[i]] < best.time || !forward && ts[xx[i]] > best.time) // new best
-                    best = {time: ts[xx[i]], nLog: i, xx: xx[i]};
-            }
-        }
-
-        RangeSelect.Begin = best.time;
-        RangeSelect.End = frame.frameend;
-        RangeSelect.Thread = best.nLog;
-        RangeSelect.Index = nSelectedIndex;
-        // need end time to finish updating RangeSelect (if it exists, else keep frameend)
-        const ts = frame.ts[best.nLog];
-        const ti = frame.ti[best.nLog];
-        const tt = frame.tt[best.nLog];
-        let subScopes = 0;
-        for (let i = best.xx + 1; i < ti.length; ++i) { // each log entry (timer index)
-            if (ti[i] === nSelectedIndex) {
-                const type = tt[i];
-                if (type === 1) { // enter subscope
-                    ++subScopes;
-                } else if (type === 0 && subScopes > 0) { // leave subscope
-                    --subScopes;
-                } else if (type === 0) { // leave target scope
-                    RangeSelect.End = ts[i];
-                    break;
-                }
-            }
-        }
-
-        MoveTo(
-            RangeSelect.Begin,
-            RangeSelect.End,
-            ThreadY[RangeSelect.Thread] + nOffsetY,
-            ThreadY[RangeSelect.Thread + 1] + nOffsetY,
-        );
-
-    } else { // fast flag off, old behavior
-
-        var fTimeBegin, fTimeEnd, nLog;
-        var Index = nHoverToken;
-
-        if (nHoverToken != -1 && nHoverTokenLogIndex != -1) {
-            fTimeBegin = RangeCpu.Begin;
-            fTimeEnd = RangeCpu.End;
-            nLog = nHoverTokenLogIndex;
-        }
-        else if (RangeValid(RangeSelect)) {
-            fTimeBegin = RangeSelect.Begin;
-            fTimeEnd = RangeSelect.End;
-            nLog = RangeSelect.Thread;
-            Index = RangeSelect.Index;
-        }
-        else {
-            return;
-        }
-        if (nLog < 0) {
-            return;
-        }
-        var Forward = direction && direction < 0 ? 0 : 1;
-        var bFound = false;
-        var nStackPos = 0;
-        var fResultTimeBegin, fResultTimeEnd;
-        var TypeBegin = Forward ? 1 : 0;
-        var TypeEnd = Forward ? 0 : 1;
-        var SearchTimeBegin = Forward ? fTimeBegin : fTimeEnd;
-
-        var istart = Forward ? 0 : Frames.length - 1;
-        var iend = Forward ? Frames.length : -1;
-        var idelta = Forward ? 1 : -1;
-        for (var i = istart; i != iend; i += idelta) {
-            var fr = Frames[i];
-            var ts = fr.ts[nLog];
-            var ti = fr.ti[nLog];
-            var tt = fr.tt[nLog];
-            var jstart = Forward ? 0 : ts.length - 1;
-            var jend = Forward ? ts.length : -1;
-            var jdelta = Forward ? 1 : -1;
-            for (var j = jstart; j != jend; j += jdelta) {
-                if (!bFound) {
-                    if (tt[j] == TypeBegin && Index == ti[j]) {
-                        if (SearchTimeBegin == ts[j]) {
-                            bFound = true;
-                        }
-                    }
-                }
-                else {
-                    if (Index == ti[j]) {
-                        var type = tt[j];
-                        if (type == TypeBegin) {
-                            if (0 == nStackPos) {
-                                fResultTimeBegin = ts[j];
-                            }
-                            nStackPos++;
-                        }
-                        else if (type == TypeEnd && nStackPos) {
-                            nStackPos--;
-                            if (0 == nStackPos) {
-                                fResultTimeEnd = ts[j];
-                                if (0 == Forward) {
-                                    var Tmp = fResultTimeBegin;
-                                    fResultTimeBegin = fResultTimeEnd;
-                                    fResultTimeEnd = Tmp;
-                                }
-                                RangeSelect.Begin = fResultTimeBegin;
-                                RangeSelect.End = fResultTimeEnd;
-                                RangeSelect.Thread = nLog;
-                                RangeSelect.Index = Index;
-                                MoveTo(fResultTimeBegin, fResultTimeEnd);
-                                return;
-                            }
-                        }
-                    }
-                }
+    RangeSelect.Begin = best.time;
+    RangeSelect.End = frame.frameend;
+    RangeSelect.Thread = best.nLog;
+    RangeSelect.Index = nSelectedIndex;
+    // need end time to finish updating RangeSelect (if it exists, else keep frameend)
+    const ts = frame.ts[best.nLog];
+    const ti = frame.ti[best.nLog];
+    const tt = frame.tt[best.nLog];
+    let subScopes = 0;
+    for (let i = best.xx + 1; i < ti.length; ++i) { // each log entry (timer index)
+        if (ti[i] === nSelectedIndex) {
+            const type = tt[i];
+            if (type === 1) { // enter subscope
+                ++subScopes;
+            } else if (type === 0 && subScopes > 0) { // leave subscope
+                --subScopes;
+            } else if (type === 0) { // leave target scope
+                RangeSelect.End = ts[i];
+                break;
             }
         }
     }
+
+    MoveTo(
+        RangeSelect.Begin,
+        RangeSelect.End,
+        ThreadY[RangeSelect.Thread] + nOffsetY,
+        ThreadY[RangeSelect.Thread + 1] + nOffsetY,
+    );
 }
 
 function MoveTo(fMoveBegin, fMoveEnd, YTop, YBottom) {
@@ -6536,14 +6119,6 @@ function ClickMenuButton(elId) {
 }
 
 function KeyUp(evt) {
-    if (!FFlagMicroprofilerThreadSearch) {
-        if (evt.keyCode == 39) {
-            MoveToNext(1);
-        }
-        if (evt.keyCode == 37) {
-            MoveToNext(-1);
-        }
-    }
     if (evt.keyCode == 17) {
         KeyCtrlDown = 0;
         MouseDragKeyUp();
@@ -6657,13 +6232,11 @@ function FilterUpdate() {
 }
 
 function KeyDown(evt) {
-    if (FFlagMicroprofilerThreadSearch) {
-        if (evt.keyCode === 39) {
-            MoveToNext(1);
-        }
-        if (evt.keyCode === 37) {
-            MoveToNext(-1);
-        }
+    if (evt.keyCode === 39) {
+        MoveToNext(1);
+    }
+    if (evt.keyCode === 37) {
+        MoveToNext(-1);
     }
     if (evt.keyCode === 17) {
         KeyCtrlDown = 1;
@@ -7030,9 +6603,6 @@ function PreprocessGlobalArray() {
     g_TypeArray = new Array(nNumLogs);
     g_TimeArray = new Array(nNumLogs);
     g_IndexArray = new Array(nNumLogs);
-    if (!FFlagMicroprofilerLabelSubstitution) {
-        g_LabelArray = new Array(nNumLogs);
-    }
     g_XtraArray = new Array(nNumLogs); // Events
 
     var StackPos = 0;
@@ -7052,9 +6622,6 @@ function PreprocessGlobalArray() {
         var TypeArray = new Array();
         var TimeArray = new Array();
         var IndexArray = new Array();
-        if (!FFlagMicroprofilerLabelSubstitution) {
-            var LabelArray = new Array();
-        }
         var XtraArray = new Array();
 
         for (var i = 0; i < Frames.length; i++) {
@@ -7065,9 +6632,6 @@ function PreprocessGlobalArray() {
             var ts = Frame_.ts[nLog];
             var ti = Frame_.ti[nLog];
             var tx = Frame_.tx[nLog];
-            if (!FFlagMicroprofilerLabelSubstitution) {
-                var tl = Frame_.tl[nLog];
-            }
             var len = tt.length;
             var DiscardLast = 0;
             for (var xx = 0; xx < len; ++xx) {
@@ -7084,16 +6648,6 @@ function PreprocessGlobalArray() {
                     IndexArray.push(ti[xx]);
                     if (tx[xx] != undefined)
                         XtraArray[TypeArray.length - 1] = tx[xx];
-
-                    if (!FFlagMicroprofilerLabelSubstitution) {
-                        // Use label after the region instead of the region name for some regions
-                        var Label = null;
-                        if (xx + 1 < len && tt[xx] == 1 && tt[xx + 1] == 3 && TimerInfo[ti[xx]].namelabel) {
-                            Label = tl[ti[xx + 1]];
-                        }
-
-                        LabelArray.push(Label);
-                    }
                 }
             }
             Frame_.LogEnd[nLog] = TimeArray.length;
@@ -7102,9 +6656,6 @@ function PreprocessGlobalArray() {
         g_TypeArray[nLog] = TypeArray;
         g_TimeArray[nLog] = TimeArray;
         g_IndexArray[nLog] = IndexArray;
-        if (!FFlagMicroprofilerLabelSubstitution) {
-            g_LabelArray[nLog] = LabelArray;
-        }
         g_XtraArray[nLog] = XtraArray;
 
         if (Discard) {
@@ -7196,17 +6747,10 @@ function PreprocessMeta() {
 }
 
 function PreprocessMinimal() {
-    if (FFlagMicroprofilerLabelSubstitution) {
-        PreprocessTimerSubstitutions(
-            timer => timer.name.startsWith("$"),
-            (groupName, oldTimerName, label) => oldTimerName.slice(1) + "_" + label,
-        );
-    } else {
-        PreprocessTimerSubstitutions('Script', '$Script');
-        PreprocessTimerSubstitutions('LuaBridge', '$namecall');
-        PreprocessTimerSubstitutions('LuaBridge', '$index');
-        PreprocessTimerSubstitutions('LuaBridge', '$newindex');
-    }
+    PreprocessTimerSubstitutions(
+        timer => timer.name.startsWith("$"),
+        (groupName, oldTimerName, label) => oldTimerName.slice(1) + "_" + label,
+    );
     PreprocessCalculateAllTimers();
 }
 

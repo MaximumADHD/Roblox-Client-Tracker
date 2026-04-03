@@ -1,0 +1,1 @@
+With R15plus, attachments that used to exist under the meshpart may exist in the bone tree. This validation ensures they still exist somewhere in the upload and only once.

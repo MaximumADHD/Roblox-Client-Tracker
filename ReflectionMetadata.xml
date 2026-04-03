@@ -6504,6 +6504,13 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">ProceduralModel</string>
+        <string name="ExplorerOrder">100</string>
+        <string name="PreferredParent">PVInstance</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">Model</string>
         <string name="ExplorerOrder">100</string>
         <string name="ExplorerImageIndex">2</string>
@@ -8948,6 +8955,13 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">GeneratedFolder</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">77</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">WorldModel</string>
         <bool name="Insertable">true</bool>
         <string name="ClassCategory">World</string>
@@ -9125,7 +9139,6 @@
             <string name="Name">EvaluationThrottled</string>
             <string name="Description">Returns true if animation evaluation for the Animator is throttled.</string>
             <string name="PropertyOrder">1001</string>
-            <bool name="FFlag">AnimatorIsThrottledPropertyEnabled</bool>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

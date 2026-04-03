@@ -1,0 +1,2 @@
+This validation checks that all Bone instances, which may now be uploaded for R15+, are within part bounds.
+In the future, we may want to expand this check to cover standard attachments, and centralize an acceptable quadrants hierarchy. 

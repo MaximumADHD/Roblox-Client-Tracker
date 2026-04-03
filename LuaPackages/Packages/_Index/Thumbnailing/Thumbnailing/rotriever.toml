@@ -1,6 +1,6 @@
 [package]
 name = "Thumbnailing"
-version = "0.5.3"
+version = "0.5.5"
 readme = "README.md"
 content_root = "src"
 files = ["*"]

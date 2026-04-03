@@ -509,5 +509,11 @@ type GetAdAvailabilityNowForUniverseResult = {
     ExperimentVariantData: string?,
 }
 
+type VirtualInputPointerAction = {
+    Wheel: number?,
+    Pan: Vector2?,
+    Pinch: number?,
+}
+
 
 -- SECTION END: Reflection Adjacent
