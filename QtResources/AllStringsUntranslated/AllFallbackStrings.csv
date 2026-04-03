@@ -6063,6 +6063,8 @@ Studio.BetaFeatures.PlaceVersionHistoryDescription,The description for the Place
 Studio.BetaFeatures.PlaceVersionHistoryTitle,The title for the Place Version History plugin beta feature.,Detailed Place Version History,Detailed Place Version History
 Studio.BetaFeatures.PreferredTextSizeSettingDescription,,Enables a text size setting in the in-game menu and app-shell device preferences page that scales text according to a user's selection.,Enables a text size setting in the in-game menu and app-shell device preferences page that scales text according to a user's selection.
 Studio.BetaFeatures.PreferredTextSizeSettingTitle,,Preferred Text Size Setting,Preferred Text Size Setting
+Studio.BetaFeatures.ProceduralModelTitle,"Name of a beta feature enabling the creation of ""Procedural Objects"" in Studio, these objects can generate Instances based on input parameters at edit time.",Edit-Time Procedural Objects,Edit-Time Procedural Objects
+Studio.BetaFeatures.ProceduralObjectsDescription,"Description of the ""Edit time procedural objects"" beta feature.",Adds a new ProceduralModel Instance type which generates child contents according to a developer written ModuleScript using Attributes as input parameters.,Adds a new ProceduralModel Instance type which generates child contents according to a developer written ModuleScript using Attributes as input parameters.
 Studio.BetaFeatures.ProximityPromptDescription,,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.
 Studio.BetaFeatures.ProximityPromptIndicatorsDescription,"Describes a new Indicator feature for Proximity Prompts
 
@@ -6123,6 +6125,8 @@ Studio.BetaFeatures.StudioNotifications,,Notification Overhaul,Notification Over
 Studio.BetaFeatures.StudioNotificationsDescription,,Improves UI and expands functionality of Studio Notifications,Improves UI and expands functionality of Studio Notifications
 Studio.BetaFeatures.StudioPreferredTextSizeSettingDescription,A description for a studio setting that allows you to adjust the text size sacaling,Enables a text size setting in Studio settings that scales text in Studio and Studio plugins according to a user's selection.,Enables a text size setting in Studio settings that scales text in Studio and Studio plugins according to a user's selection.
 Studio.BetaFeatures.StudioPreferredTextSizeSettingTitle,the title of a setting that allows a user to adjust text size in studio,Studio Preferred Text Size Setting,Studio Preferred Text Size Setting
+Studio.BetaFeatures.StyleQueryDescription,Describes what the new instance does related to styling UI properties based on different parameters.,The new StyleQuery instance enables conditional styling based on parent sizing properties or device/user settings.,The new StyleQuery instance enables conditional styling based on parent sizing properties or device/user settings.
+Studio.BetaFeatures.StyleQueryTitle,Name of the new StyleQuery instance.,StyleQuery,StyleQuery
 Studio.BetaFeatures.SurfaceAppearanceTintingDescription,,SurfaceAppearance Tinting allows you to multiply a Color property with your SurfaceAppearance’s ColorMap to create color variations.,SurfaceAppearance Tinting allows you to multiply a Color property with your SurfaceAppearance’s ColorMap to create color variations.
 Studio.BetaFeatures.SurfaceAppearanceTintingTitle,,SurfaceAppearance Tinting,SurfaceAppearance Tinting
 Studio.BetaFeatures.SurfaceJoinChangesDescription,,"Remove the 'Surface' Join Mode, all surfaces create ManualWelds.","Remove the 'Surface' Join Mode, all surfaces create ManualWelds."
@@ -7218,6 +7222,7 @@ Studio.ReactDevTools.StartPage.Title,Title of the DevTools start page. Appears a
 Studio.Reimport.Actions.Configure,open configure dialog for reimport,Configure...,Configure...
 Studio.Reimport.Actions.Reimport,reimport action,Reimport,Reimport
 Studio.Reimport.Actions.ReimportRelativeToThis,reimport relative option for mesh parts,Reimport relative to this,Reimport relative to this
+Studio.Reimport.Tooltips.Configure,"This tooltip is used as the description for the Reimport > Configure tool in searches, and shows up when hovering over the tool.",Configure reimport settings,Configure reimport settings
 Studio.Ribbon.Action.AddTab,"Text appearing in a dropdown option that, when clicked, adds a new tab to the Ribbon. The dropdown is a dropdown of all the tabs in the Ribbon, so there is already an established context of tabs here, hence why the source text is just ""Add"".",Add,Add
 Studio.Ribbon.Action.CancelUpdate,Button text to cancel a pending update.,Cancel update,Cancel update
 Studio.Ribbon.Action.CollapseToolbar,"Action that when checked, will detach the Studio toolbar - Ribbon -  into a floating menu",Collapse toolbar,Collapse toolbar

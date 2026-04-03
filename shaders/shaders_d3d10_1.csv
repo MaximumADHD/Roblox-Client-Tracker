@@ -169,6 +169,7 @@ DefaultUnifiedGridVS_40000016,Vertex
 DefaultUnifiedGridVS_40001000,Vertex
 DefaultUnifiedGridVS_40001002,Vertex
 DefaultUnifiedGridVS_40001006,Vertex
+DefaultUnifiedGridVS_40001010,Vertex
 DefaultUnifiedGridVS_40001012,Vertex
 DefaultUnifiedGridVS_40001016,Vertex
 DefaultUnifiedGridVS_40100001,Vertex
@@ -185,6 +186,10 @@ DefaultUnifiedGridVS_44000006,Vertex
 DefaultUnifiedGridVS_44000016,Vertex
 DefaultUnifiedGridVS_44001006,Vertex
 DefaultUnifiedGridVS_44001016,Vertex
+DefaultUnifiedGridVS_80000000,Vertex
+DefaultUnifiedGridVS_80100001,Vertex
+DefaultUnifiedGridVS_80108001,Vertex
+DefaultUnifiedGridVS_80300000,Vertex
 DefaultUnifiedModelLodFS,Fragment
 DefaultUnifiedModelLodVS,Vertex
 DefaultUnifiedWangFallbackFS,Fragment
@@ -362,9 +367,6 @@ TrailVS,Vertex
 TrailVSLight,Vertex
 TrailVSQuad,Vertex
 TrailVSQuadLight,Vertex
-UIFogFSSDBox,Fragment
 UIFogVS,Vertex
-UIFS,Fragment
-UIFSMdrSDBox,Fragment
 UIVS,Vertex
 UpSampleTentFS,Fragment

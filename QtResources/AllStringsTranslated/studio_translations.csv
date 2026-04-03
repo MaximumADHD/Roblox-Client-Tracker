@@ -9420,6 +9420,7 @@ Studio.AssetManager.OpenUse.MultipleAssets,,,{count} assets have been made Open 
 Studio.AssetManager.QuickShare.FailedToGrant,,,Failed to update permissions.,Failed to update permissions.
 Studio.AssetManager.QuickShare.CollaboratorPlaceholder.FriendsRename,,,Search for a friend or group,Search for a friend or group
 Studio.AssetManager.QuickShare.CollaboratorsHintDescription.FriendsRename,,,Give your friends and groups access to this asset,Give your friends and groups access to this asset
+Studio.AssetManager.QuickShare.BackBut,,,Back,Back
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10311,6 +10312,10 @@ Studio.AssetImporter.Statuses.ScaleUnitNotStudWarning2,,,"The previous Stud-to-m
 Studio.AssetImporter.ImportQueue.FindInWorkspace,,,Find in Workspace,Find in Workspace
 Studio.AssetImporter.ImportQueue.CopyAssetId,,,Copy AssetId,Copy AssetId
 Studio.AssetImporter.PropertiesTooltip.PreferredUploadId,,,The user or group who will own the asset after upload,The user or group who will own the asset after upload
+Studio.AssetImporter.Statuses.IncorrectPhysicalConstraintWarning,,,This rig will not work as intended with Motor6Ds.,This rig will not work as intended with Motor6Ds.
+Studio.AssetImporter.Properties.PhysicalConstraintType,,,Constraint Type,Constraint Type
+Studio.AssetImporter.EnumItem.AnimationConstraint,,,Joint Upgrade (AnimationConstraint),Joint Upgrade (AnimationConstraint)
+Studio.AssetImporter.EnumItem.Motor6D,,,Legacy (Motor6D),Legacy (Motor6D)
 Studio.MaterialManager.Plugin.Name,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Button,,,Material Manager,Material Manager
@@ -10846,13 +10851,15 @@ Studio.ManageCollaborators.Description.CopyingLinkWillEnableTeamCreate,,,Copying
 Studio.ManageCollaborators.Subtitle.SearchCollaborators,,,Search Collaborators,Search Collaborators
 Studio.ManageCollaborators.UpsellBanner.CTA,,,Get Started,Get Started
 Studio.ManageCollaborators.UpsellBanner.description,,,"To keep collaborating with others, we need you to age check before early 2026.","To keep collaborating with others, we need you to age check before early 2026."
-Studio.ManageCollaborators.UpsellDialog.title,,,One more step to collaborate with others outside your age group,One more step to collaborate with others outside your age group
-Studio.ManageCollaborators.UpsellDialog.description,,,"To use Studio collaboration with others outside of your age group, establish Trusted Connections or get parental consent.","To use Studio collaboration with others outside of your age group, establish Trusted Connections or get parental consent."
-Studio.ManageCollaborators.UpsellBanner.nextStepDescription,,,There’s one more step if you want to work with people older than your age group,There’s one more step if you want to work with people older than your age group
+Studio.ManageCollaborators.UpsellDialog.title,,,One more step to collaborate with others who aren't in similar age groups,One more step to collaborate with others who aren't in similar age groups
+Studio.ManageCollaborators.UpsellDialog.description,,,"To use Studio collaboration with others who aren't in similar age groups, establish Trusted Connections or get parental consent.","To use Studio collaboration with others who aren't in similar age groups, establish Trusted Connections or get parental consent."
+Studio.ManageCollaborators.UpsellBanner.nextStepDescription,,,There's one more step to work with people who aren't in similar age groups,There's one more step to work with people who aren't in similar age groups
 Studio.ManageCollaborators.UpsellDialog.ParentalConsentButton,,,Get consent,Get consent
 Studio.ManageCollaborators.UpsellDialog.TrustedConnectionsButton,,,Establish Trusted Connections,Establish Trusted Connections
+Studio.ManageCollaborators.UpsellBanner.RecheckAge,,,Let's recheck your age.,Let's recheck your age.
+Studio.ManageCollaborators.UpsellBanner.AgeCheckNotValid,,,Your age check is no longer valid.,Your age check is no longer valid.
 Studio.ManageCollaborators.UpsellDialog.TrustedFriendsButton,,,Establish trusted friends,Establish trusted friends
-Studio.ManageCollaborators.UpsellDialog.description.TFRename,,,"To use Studio collaboration with others outside of your age group, establish trusted friends or get parental consent.","To use Studio collaboration with others outside of your age group, establish trusted friends or get parental consent."
+Studio.ManageCollaborators.UpsellDialog.description.TFRename,,,"To use Studio collaboration with others who aren't in similar age groups, establish trusted friends or get parental consent.","To use Studio collaboration with others who aren't in similar age groups, establish trusted friends or get parental consent."
 Studio.DeviceEmulator.Plugin.Name,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Button,,,Toggle,Toggle
@@ -12277,7 +12284,7 @@ Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ErrorAtLeastOneItemRequir
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ErrorMakeupItems,,,At least three Makeup items required,At least three Makeup items required
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ErrorCreationLimitReached,,,Creation limit reached,Creation limit reached
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.WarningsFound,,,{count} warnings found,{count} warnings found
-Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ErrorMakeupItemsOwnership,,,You can only create a Makeup Look using items that you created,You can only create a Makeup Look using items that you created
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ErrorMakeupItemsOwnership,,,You can only create a makeup look as the same creator of the items. Items from other creators have been deselected,You can only create a makeup look as the same creator of the items. Items from other creators have been deselected
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.SeeDetails,,,See details,See details
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Warnings,,,{count} warnings,{count} warnings
 Studio.AvatarCompatibilityPreviewer.AddItems.AddContentFromLabel,,,Add content from,Add content from
@@ -12292,7 +12299,7 @@ Studio.AvatarCompatibilityPreviewer.MarketplaceImport.PressEnterToLoadAssetIDs,,
 Studio.AvatarCompatibilityPreviewer.SubmitDialog.SelectAssetsToSaveToRoblox,,,Select assets to save to Roblox,Select assets to save to Roblox
 Studio.AvatarCompatibilityPreviewer.SubmitDialog.Continue,,,Continue,Continue
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.MinimumMakeupItems,,,At least 3 makeup items must be selected,At least 3 makeup items must be selected
-Studio.AvatarCompatibilityPreviewer.LookComposerDialog.MakeupLookDifferentCreator,,,You can only create a Makeup Look using items that you created,You can only create a Makeup Look using items that you created
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.MakeupLookDifferentCreator,,,You can only create a makeup look as the same creator of the items. Items from other creators have been deselected,You can only create a makeup look as the same creator of the items. Items from other creators have been deselected
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.UnexpectedErrorLookPreview,,,"Something unexpected went wrong with the look preview request, please try again later or file a bug report.","Something unexpected went wrong with the look preview request, please try again later or file a bug report."
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.UnexpectedErrorLookValidation,,,"Something unexpected went wrong with the look validation request, please try again later or file a bug report.","Something unexpected went wrong with the look validation request, please try again later or file a bug report."
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.UnexpectedErrorLookCreation,,,"Something unexpected went wrong with the look creation request, please try again later or file a bug report.","Something unexpected went wrong with the look creation request, please try again later or file a bug report."
@@ -12304,6 +12311,7 @@ Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Body,,,Body,Body
 Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Layered,,,Layered,Layered
 Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Rigid,,,Rigid,Rigid
 Studio.AvatarCompatibilityPreviewer.Categories.body_face,,,Body,Body
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.TooltipItemCreatorMismatch,,,The creator of this item needs to match the creator of the makeup look,The creator of this item needs to match the creator of the makeup look
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -13762,8 +13770,8 @@ Studio.StartPage.Plugin.UnratedExperiencesBanner.Title,,,You have unrated experi
 Studio.StartPage.Plugin.UnratedExperiencesBanner.Description,,,Every public experience must have a content maturity label to be playable.,Every public experience must have a content maturity label to be playable.
 Studio.StartPage.Plugin.UnratedExperiencesBanner.PolicyDetailsAction,,,See policy details,See policy details
 Studio.StartPage.Plugin.UnratedExperiencesBanner.ViewExperiencesAction,,,View unrated experiences,View unrated experiences
-Studio.StartPage.EstablishTrustBanner.Title,,,There's one more step if you want to work with people older than your age group,There's one more step if you want to work with people older than your age group
-Studio.StartPage.EstablishTrustBanner.Body,,,You'll need to add them as Trusted Connections or get permissions from your parent.,You'll need to add them as Trusted Connections or get permissions from your parent.
+Studio.StartPage.EstablishTrustBanner.Title,,,There's one more step to work with people who aren't in similar age groups,There's one more step to work with people who aren't in similar age groups
+Studio.StartPage.EstablishTrustBanner.Body,,,"Add them as trusted connections or, if you're under 16, you can also ask a parent for permission.","Add them as trusted connections or, if you're under 16, you can also ask a parent for permission."
 Studio.StartPage.EstablishTrustDialog.Title,,,Choose how to continue,Choose how to continue
 Studio.StartPage.EstablishTrustDialog.Body,,,"To use Studio collaboration with people older than your age group, add them as Trusted Connections or get permission from your parent.","To use Studio collaboration with people older than your age group, add them as Trusted Connections or get permission from your parent."
 Studio.StartPage.EstablishTrustDialog.PrimaryButton,,,Add Trusted Connections,Add Trusted Connections
@@ -13773,6 +13781,10 @@ Studio.StartPage.EstablishTrustDialog.Body.TFRename,,,"To use Studio collaborati
 Studio.StartPage.EstablishTrustDialog.PrimaryButton.TFRename,,,Add trusted friends,Add trusted friends
 Studio.StartPage.Plugin.TrustedFriendsGateDialog.PrimaryAction,,,Become trusted friends,Become trusted friends
 Studio.StartPage.Plugin.TrustedFriendsGateDialog.Title,,,Establish trusted friends,Establish trusted friends
+Studio.StartPage.Plugin.PlaceSafetyBlockedDialog.Description,,,We found content in this Experience that breaks the rules of our Terms of Use. The owner needs to send an appeal to unlock this place.,We found content in this Experience that breaks the rules of our Terms of Use. The owner needs to send an appeal to unlock this place.
+Studio.StartPage.Plugin.PlaceSafetyBlockedDialog.Title,,,This Experience is locked,This Experience is locked
+Studio.StartPage.Plugin.PlaceSafetyBlockedDialog.PrimaryAction,,,OK,OK
+Studio.StartPage.Plugin.PlaceSafetyBlockedDialog.SecondaryAction,,,View Terms of Use,View Terms of Use
 Studio.ConstraintTool.Plugin.Name,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Toolbar,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Button,,,Create,Create
@@ -13849,7 +13861,7 @@ Studio.Assistant.CodeSafety.AnalyticsService,,,"Warning: the above code appears 
 Studio.Assistant.ToolConfirmation.Accept,,,Accept,Accept
 Studio.Assistant.ToolConfirmation.Reject,,,Reject,Reject
 Studio.Assistant.ToolConfirmation.AlwaysAccept,,,Always accept {toolName} in this session,Always accept {toolName} in this session
-Studio.Assistant.Tools.MeshGen,,,Mesh Gen,Mesh Gen
+Studio.Assistant.Tools.MeshGen,,,Generate Mesh,Generate Mesh
 Studio.Assistant.Tools.MultiEditUpdated,,,Edit Script,Edit Script
 Studio.Assistant.Tools.ScreenCapture,,,Screen Capture,Screen Capture
 Studio.Assistant.InstanceChip.Deleted,,,{name} (Deleted),{name} (Deleted)
@@ -13921,6 +13933,10 @@ Studio.Assistant.GameTree.Listed,,,Listed {params},Listed {params}
 Studio.Assistant.GrepSearch.Grepped,,,Grepped '{query}',Grepped '{query}'
 Studio.Assistant.FileSearch.Searched,,,Searched '{keywords}',Searched '{keywords}'
 Studio.Assistant.Summarized.AndMore,,,... and {count:int} more,... and {count:int} more
+Studio.Assistant.Skill.Called,,,Called skill: {name},Called skill: {name}
+Studio.Assistant.Skill.Calling,,,Calling skill: {name},Calling skill: {name}
+Studio.Assistant.Skill.Generating,,,Loading skill...,Loading skill...
+Studio.Assistant.QuestionAnswer.Submit,,,Submit,Submit
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -14212,7 +14228,7 @@ Studio.AvatarSettings.UnsavedChangesDialog.Retry,,,Retry,Retry
 Studio.AvatarSettings.ShortTitle,,,Settings,Settings
 Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSection,,,Abilities,Abilities
 Studio.AvatarSettings.MovementSettings.AbilitiesSectionLegacyHumanoidButtonText,,,Legacy Humanoid,Legacy Humanoid
-Studio.AvatarSettings.MovementSettings.AbilitiesSectionLuaCharControllerButtonText,,,Lua Character Controller,Lua Character Controller
+Studio.AvatarSettings.MovementSettings.AbilitiesSectionLuaCharControllerButtonText,,,Character Controller Library,Character Controller Library
 Studio.AvatarSettings.MovementSettings.AbilitiesSectionControllerModeLegacySubText,,,Use the legacy Humanoid for movement.,Use the legacy Humanoid for movement.
 Studio.AvatarSettings.MovementSettings.AbilitiesSectionControllerModeLuaSubText,,,Choose abilities you turn on at runtime.,Choose abilities you turn on at runtime.
 Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableRunning,,,Running,Running
@@ -14619,7 +14635,7 @@ Studio.LiveSync.ResumeSyncConflictsDetected,,,Studio did not resume syncing %1 s
 Studio.LiveSync.SelectSyncingRoot,,,Go to Synced Root Instance,Go to Synced Root Instance
 Studio.LiveSync.SelectSyncingRootTooltip,,,Selects the root of the syncing hierarchy for the chosen instance,Selects the root of the syncing hierarchy for the chosen instance
 Studio.LiveSync.ErrorPathOverlaps,,,"Can't sync ""%1"" because it overlaps with an existing syncing hierarchy.","Can't sync ""%1"" because it overlaps with an existing syncing hierarchy."
-Studio.LiveSync.ErrorNestedSyncRoot,,,Can't sync %1 to disk: Unable to sync a folder that already contains another actively synced folder,Can't sync %1 to disk: Unable to sync a folder that already contains another actively synced folder
+Studio.LiveSync.ErrorNestedSyncRoot,,,Can't sync %1 to disk: Unable to sync an instance that already contains another actively synced instance,Can't sync %1 to disk: Unable to sync an instance that already contains another actively synced instance
 Studio.LiveSync.ErrorDuringSync,,,Can't sync %1 to disk: Error during sync,Can't sync %1 to disk: Error during sync
 Studio.LiveSync.ErrorInvalidName,,,Can't sync %1 to disk: Instance has invalid name,Can't sync %1 to disk: Instance has invalid name
 Studio.LiveSync.ErrorInvalidRoot,,,Can't sync %1 to disk: Root types don't match,Can't sync %1 to disk: Root types don't match
@@ -15129,3 +15145,32 @@ Studio.TeamCreateCollaborators.MainView.ViewDetailsButton,,,Learn more,Learn mor
 Studio.TeamCreateCollaborators.MainView.CopiedToClipboard,,,Copied to clipboard,Copied to clipboard
 Studio.TeamCreateCollaborators.MainView.Title.TFRename,,,Get a shareable link to add trusted friends,Get a shareable link to add trusted friends
 Studio.TeamCreateCollaborators.TrustedFriendWidget.MutualFriends,,,{count:int} mutual friends,{count:int} mutual friends
+Studio.AssetPicker.OptionMenu.Layout,,,Display,Display
+Studio.AssetPicker.OptionMenu.Sort,,,Sort by,Sort by
+Studio.AssetPicker.OptionMenuItem.List,,,List,List
+Studio.AssetPicker.OptionMenuItem.Grid,,,Thumbnails,Thumbnails
+Studio.AssetPicker.ScopeMenuItem.OpenAssetManager,,,Open Asset Manager...,Open Asset Manager...
+Studio.AssetPicker.ScopeMenuItem.Universe,,,In this experience,In this experience
+Studio.AssetPicker.ScopeMenuItem.User,,,{user}'s Inventory,{user}'s Inventory
+Studio.AssetPicker.ImportButton.Import,,,Import,Import
+Studio.AssetPicker.NewButton.New,,,New {assetType},New {assetType}
+Studio.AssetPicker.AssetList.Today,,,Today,Today
+Studio.AssetPicker.AssetList.Yesterday,,,Yesterday,Yesterday
+Studio.AssetPicker.DisplayName.User,,,User,User
+Studio.AssetPicker.SearchBar.PlaceholderText,,,name or asset ID,name or asset ID
+Studio.AssetPicker.AssetAccess.ShareFailed,,,Failed to grant universe access to {assetType} with assetId {assetId},Failed to grant universe access to {assetType} with assetId {assetId}
+Studio.DialogPlugin.ScriptSyncConflictDialog.KeepStudioDescription,,,Changes to files if you keep the Studio version,Changes to files if you keep the Studio version
+Studio.DialogPlugin.ScriptSyncConflictDialog.KeepDiskDescription,,,Changes to instances if you keep the Disk version,Changes to instances if you keep the Disk version
+Studio.DialogPlugin.ScriptSyncConflictDialog.Title,,,Instances in Studio don't match files on disk. Choose a version to keep,Instances in Studio don't match files on disk. Choose a version to keep
+Studio.DialogPlugin.ScriptSyncConflictDialog.KeepStudioButton,,,Keep Studio version,Keep Studio version
+Studio.DialogPlugin.ScriptSyncConflictDialog.KeepDiskButton,,,Keep Disk version,Keep Disk version
+Studio.DialogPlugin.ScriptSyncConflictDialog.CancelButton,,,Cancel,Cancel
+Studio.DialogPlugin.ScriptSyncConflictDialog.SelectStudioButton,,,Studio version,Studio version
+Studio.DialogPlugin.ScriptSyncConflictDialog.SelectDiskButton,,,Disk version,Disk version
+Studio.DialogPlugin.ScriptSyncConflictDialog.FileNounSingular,,,file,file
+Studio.DialogPlugin.ScriptSyncConflictDialog.FileNounPlural,,,files,files
+Studio.DialogPlugin.ScriptSyncConflictDialog.InstanceNounSingular,,,instance,instance
+Studio.DialogPlugin.ScriptSyncConflictDialog.InstanceNounPlural,,,instances,instances
+Studio.DialogPlugin.ScriptSyncConflictDialog.AddTitle,,,Add {count:int} {noun},Add {count:int} {noun}
+Studio.DialogPlugin.ScriptSyncConflictDialog.ModifyTitle,,,Modify {count:int} {noun},Modify {count:int} {noun}
+Studio.DialogPlugin.ScriptSyncConflictDialog.DeleteTitle,,,Delete {count:int} {noun},Delete {count:int} {noun}
