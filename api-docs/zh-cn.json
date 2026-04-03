@@ -24353,7 +24353,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer": {
-    "documentation": "<code>WrapTextureTransfer</code> 允许父级 <code>Decal</code> 根据其 <code>WrapTarget</code> 的外壳包裹在父级 <code>MeshPart</code> 周围。",
+    "documentation": "<code>WrapTextureTransfer</code> 允许父级 <code>Decal</code> 根据其 <code>WrapTarget</code> 的笼框缠绕在父级 <code>MeshPart</code> 周围。",
     "keys": {
       "ReferenceCageMeshContent": "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent",
       "UVMaxBound": "@roblox/globaltype/WrapTextureTransfer.UVMaxBound",
@@ -24363,17 +24363,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent": {
-    "documentation": "用于修剪和验证目标外壳的可选参考网格。",
+    "documentation": "用于修剪和验证目标笼框的可选参考网格。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#ReferenceCageMeshContent",
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.UVMaxBound": {
-    "documentation": "决定传输中要包括的 UV 空间的最大边界。",
+    "documentation": "确定包含在转移中的 UV 空间的最大边界。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMaxBound",
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.UVMinBound": {
-    "documentation": "决定传输中要包括的 UV 空间的最小边界。",
+    "documentation": "确定包含在转移中的 UV 空间的最小边界。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMinBound",
     "code_sample": ""
   },
@@ -26328,7 +26328,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace": {
-    "documentation": "<strong>工作区</strong> 包含渲染到三维世界中的3D对象。未从其继承的对象将无法被渲染或与世界进行物理交互。",
+    "documentation": "<strong>工作区</strong> 存放了渲染到 3D 世界中的 3D 对象。 不从它派生的对象将不会被渲染或与世界物理交互。",
     "keys": {
       "AirDensity": "@roblox/globaltype/Workspace.AirDensity",
       "AirTurbulenceIntensity": "@roblox/globaltype/Workspace.AirTurbulenceIntensity",
@@ -26390,17 +26390,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirDensity": {
-    "documentation": "地面高度的空气密度，用于空气动力学力模型。",
+    "documentation": "地面水平的空气密度，用于气动力模型。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirDensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirTurbulenceIntensity": {
-    "documentation": "控制风速场中存在的湍流强度，影响空气动力学力模型。",
+    "documentation": "控制风速场中存在的湍流强度，影响气动力模型。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirTurbulenceIntensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AllowThirdPartySales": {
-    "documentation": "确定其他用户创建的资产是否可以在游戏中出售。",
+    "documentation": "确定其他用户创建的资产是否可以在游戏中被出售。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AllowThirdPartySales",
     "code_sample": ""
   },
@@ -26415,22 +26415,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ClientAnimatorThrottling": {
-    "documentation": "指定本地客户端的动画节流模式。",
+    "documentation": "指定本地客户端的动画限制模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ClientAnimatorThrottling",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.CurrentCamera": {
-    "documentation": "本地玩家正在使用的 <code>Camera</code> 对象。",
+    "documentation": "本地玩家使用的 <code>Camera</code> 对象。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#CurrentCamera",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.DistributedGameTime": {
-    "documentation": "游戏已运行的时间，以秒为单位。",
+    "documentation": "游戏运行的时间，以秒为单位。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#DistributedGameTime",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FallenPartsDestroyHeight": {
-    "documentation": "确定掉落的 <code>BaseParts</code> 和它们的祖先 <code>Models</code> 从 <code>Workspace</code> 中移除的高度。",
+    "documentation": "确定何时从 <code>Workspace</code> 中移除下落的 <code>BaseParts</code> 及其祖先 <code>Models</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FallenPartsDestroyHeight",
     "code_sample": ""
   },
@@ -26440,17 +26440,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FilteringEnabled": {
-    "documentation": "<strong>Deprecated:</strong> <br>确定从客户端进行的更改是否会复制到服务器。",
+    "documentation": "<strong>Deprecated:</strong> <br>确定客户端所做的更改是否会复制到服务器。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FilteringEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FluidForces": {
-    "documentation": "确定物理引擎是否对其 <code>EnableFluidForces</code> 属性为真而计算空气动力学力。",
+    "documentation": "确定物理引擎是否计算 <code>BaseParts</code> 上的气动力，这些 <code>EnableFluidForces</code> 属性为真。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FluidForces",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GlobalWind": {
-    "documentation": "指定用于动画地形草、动态云和粒子的全局风矢量。",
+    "documentation": "指定动画草地、动态云和粒子的全局风向量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#GlobalWind",
     "code_sample": ""
   },
@@ -26460,7 +26460,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.IKControlConstraintSupport": {
-    "documentation": "启用对 IKControls 的约束支持。如果禁用，IKControls 会忽略物理约束。",
+    "documentation": "启用对 IKControls 的约束支持。如果禁用，IKControls 将忽略物理约束。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#IKControlConstraintSupport",
     "code_sample": ""
   },
@@ -26470,7 +26470,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.InterpolationThrottling": {
-    "documentation": "<strong>Deprecated:</strong> 此属性不应用于新工作。",
+    "documentation": "<strong>Deprecated:</strong> 此属性不应用于新项目。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#InterpolationThrottling",
     "code_sample": ""
   },
@@ -26485,7 +26485,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories": {
-    "documentation": "设置是否应将角色的头部和配饰下载为 MeshParts。",
+    "documentation": "设置角色头部和配饰是否应作为 MeshParts 下载。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MeshPartHeadsAndAccessories",
     "code_sample": ""
   },
@@ -26495,12 +26495,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MoverConstraintRootBehavior": {
-    "documentation": "控制在使用任何移动约束时选择组件根部件的逻辑。",
+    "documentation": "控制在使用任何移动约束时选择装配根部件的逻辑。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MoverConstraintRootBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.NextGenerationReplication": {
-    "documentation": "当为 <code>true</code> 时，启用替代复制系统，以改变和 改善底层属性的复制方式。",
+    "documentation": "当 <code>true</code> 时，启用替代复制系统，改变和改善属性在底层的复制方式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#NextGenerationReplication",
     "code_sample": ""
   },
@@ -26515,7 +26515,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PhysicsSteppingMethod": {
-    "documentation": "设置求解器如何向前推进物理模拟的时间。",
+    "documentation": "设置求解器如何向前推进物理仿真。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PhysicsSteppingMethod",
     "code_sample": ""
   },
@@ -26565,37 +26565,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingEnabled": {
-    "documentation": "是否启用该地点的内容流媒体。",
+    "documentation": "是否针对该位置启用内容流媒体。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingIntegrityMode": {
-    "documentation": "确定是否启用 StreamingIntegrityMode。",
+    "documentation": "确定 StreamingIntegrityMode 是否处于活动状态。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingIntegrityMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingMinRadius": {
-    "documentation": "内容将以高优先级流式传输给玩家的最小距离。",
+    "documentation": "内容将以高优先级流媒体传输给玩家的最小距离。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingMinRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingTargetRadius": {
-    "documentation": "内容将流式传输给玩家的最大距离。",
+    "documentation": "内容将被流媒体传输给玩家的最大距离。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingTargetRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamOutBehavior": {
-    "documentation": "配置引擎决定何时从玩家处流式传输内容。",
+    "documentation": "配置引擎决定何时将内容流式传输给玩家的方式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamOutBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Terrain": {
-    "documentation": "引用父级为 <code>Workspace</code> 的 <code>Terrain</code> 对象。",
+    "documentation": "对 <code>Workspace</code> 的 <code>Terrain</code> 对象的引用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Terrain",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
-    "documentation": "确定设定为不碰撞的不同组中的 <code>parts</code> 是否会忽略碰撞和接触事件。",
+    "documentation": "确定不同组中设置为不碰撞的 <code>parts</code> 是否将忽略碰撞和触摸事件。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
     "code_sample": ""
   },
@@ -26605,7 +26605,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseFixedSimulation": {
-    "documentation": "当为 <code>true</code> 时，启用 <code>RunService:BindToSimulation()</code>，该方法以固定频率调用 一个函数，更新物理时间步进逻辑，并使 <code>time()</code> 函数返回固定的步进帧时间。",
+    "documentation": "当 <code>true</code> 时，启用 <code>RunService:BindToSimulation()</code>，该方法以固定频率调用一个函数，更新物理步骤逻辑，并使 <code>time()</code> 函数返回固定步骤帧时间。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseFixedSimulation",
     "code_sample": ""
   },
@@ -26615,13 +26615,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/0": {
-    "documentation": "<strong>工作区</strong> 包含渲染到三维世界中的3D对象。未从其继承的对象将无法被渲染或与世界进行物理交互。"
+    "documentation": "<strong>工作区</strong> 存放了渲染到 3D 世界中的 3D 对象。 不从它派生的对象将不会被渲染或与世界物理交互。"
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/1": {
-    "documentation": "要打破关节的 <code>BaseParts</code> 数组。"
+    "documentation": "要打断关节的 <code>BaseParts</code> 数组。"
   },
   "@roblox/globaltype/Workspace.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>遍历给定的所有 <code>BaseParts</code>，打破与这些部分相连的任何关节。",
+    "documentation": "<strong>Deprecated:</strong> <br>检查给定的所有 <code>BaseParts</code>，打断与这些部件连接的任何关节。",
     "params": [
       {
         "name": "self",
@@ -26637,13 +26637,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
-    "documentation": "<strong>工作区</strong> 包含渲染到三维世界中的3D对象。未从其继承的对象将无法被渲染或与世界进行物理交互。"
+    "documentation": "<strong>工作区</strong> 存放了渲染到 3D 世界中的 3D 对象。 不从它派生的对象将不会被渲染或与世界物理交互。"
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/return/0": {
-    "documentation": "清醒部分的数量。"
+    "documentation": "唤醒部件的数量。"
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts": {
-    "documentation": "返回由于最近受到物理影响而被视为物理活动的 <code>BaseParts</code> 的数量。",
+    "documentation": "返回由于最近受到物理影响而被视为物理活跃的 <code>BaseParts</code> 的数量。",
     "params": [
       {
         "name": "self",
@@ -26657,13 +26657,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/param/0": {
-    "documentation": "<strong>工作区</strong> 包含渲染到三维世界中的3D对象。未从其继承的对象将无法被渲染或与世界进行物理交互。"
+    "documentation": "<strong>工作区</strong> 存放了渲染到 3D 世界中的 3D 对象。 不从它派生的对象将不会被渲染或与世界物理交互。"
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/return/0": {
-    "documentation": "物理仿真当前被限制的实时百分比。"
+    "documentation": "当前物理仿真被限制到的真实时间的百分比。"
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling": {
-    "documentation": "返回一个介于 0 到 100 之间的整数，表示物理仿真当前被限制的实时百分比。",
+    "documentation": "返回一个整数，介于 0 到 100 之间，表示物理仿真当前被限制到的真实时间的百分比。",
     "params": [
       {
         "name": "self",
@@ -26677,13 +26677,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/param/0": {
-    "documentation": "<strong>工作区</strong> 包含渲染到三维世界中的3D对象。未从其继承的对象将无法被渲染或与世界进行物理交互。"
+    "documentation": "<strong>工作区</strong> 存放了渲染到 3D 世界中的 3D 对象。 不从它派生的对象将不会被渲染或与世界物理交互。"
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/return/0": {
-    "documentation": "返回物理当前模拟的帧数每秒。"
+    "documentation": "返回物理当前正在以每秒多少帧进行仿真。"
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS": {
-    "documentation": "返回物理当前模拟的帧数每秒。",
+    "documentation": "返回物理当前正在以每秒多少帧进行仿真。",
     "params": [
       {
         "name": "self",
@@ -26697,13 +26697,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nwhile task.wait(1) do\n\tif workspace:GetRealPhysicsFPS() > 65 then\n\t\tplayer:Kick()\n\tend\nend"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/param/0": {
-    "documentation": "<strong>工作区</strong> 包含渲染到三维世界中的3D对象。未从其继承的对象将无法被渲染或与世界进行物理交互。"
+    "documentation": "<strong>工作区</strong> 存放了渲染到 3D 世界中的 3D 对象。 不从它派生的对象将不会被渲染或与世界物理交互。"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/return/0": {
-    "documentation": "服务器上估计的 Unix 时间戳。"
+    "documentation": "服务器上的估计 Unix 时间戳。"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow": {
-    "documentation": "返回服务器的 Unix 时间（秒）。",
+    "documentation": "返回服务器的 Unix 时间（单位：秒）。",
     "params": [
       {
         "name": "self",
@@ -26717,16 +26717,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/0": {
-    "documentation": "<strong>工作区</strong> 包含渲染到三维世界中的3D对象。未从其继承的对象将无法被渲染或与世界进行物理交互。"
+    "documentation": "<strong>工作区</strong> 存放了渲染到 3D 世界中的 3D 对象。 不从它派生的对象将不会被渲染或与世界物理交互。"
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/1": {
-    "documentation": "一个要创建关节的 <code>BaseParts</code> 数组。"
+    "documentation": "要创建关节的 <code>BaseParts</code> 数组。"
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/2": {
-    "documentation": "要使用的 <code>JointCreationMode</code>。传入 <code>Enum.JointCreationMode.All</code> 或 <code>Enum.JointCreationMode.Surface</code> 具有相同的行为，相当于始终连接。"
+    "documentation": "要使用的 <code>JointCreationMode</code>。传入 <code>Enum.JointCreationMode.All</code> 或 <code>Enum.JointCreationMode.Surface</code> 有相同的行为，即相当于加入始终连接。"
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders": {
-    "documentation": "在指定的 <code>Parts</code> 之间以及任何接触的部件之间创建关节，具体取决于部件的表面和指定的关节创建模式。",
+    "documentation": "根据部件的表面和指定的关节创建模式，在指定的 <code>Parts</code> 之间创建关节以及任何接触的部件。",
     "params": [
       {
         "name": "self",
@@ -26746,13 +26746,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/0": {
-    "documentation": "<strong>工作区</strong> 包含渲染到三维世界中的3D对象。未从其继承的对象将无法被渲染或与世界进行物理交互。"
+    "documentation": "<strong>工作区</strong> 存放了渲染到 3D 世界中的 3D 对象。 不从它派生的对象将不会被渲染或与世界物理交互。"
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/1": {
-    "documentation": "一个要创建关节的 <code>parts</code> 数组。"
+    "documentation": "要创建关节的 <code>parts</code> 数组。"
   },
   "@roblox/globaltype/Workspace.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>查找给定的所有 <code>BaseParts</code>。如果任何部件的侧面具有可以创建关节的 <code>SurfaceType</code>，则将与任何相邻部件创建关节。",
+    "documentation": "<strong>Deprecated:</strong> <br>检查给定的所有 <code>BaseParts</code>。如果任何部件的侧面有一个可创建关节的 <code>SurfaceType</code>，它将与任何相邻部件创建关节。",
     "params": [
       {
         "name": "self",
@@ -26768,10 +26768,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/param/0": {
-    "documentation": "<strong>工作区</strong> 包含渲染到三维世界中的3D对象。未从其继承的对象将无法被渲染或与世界进行物理交互。"
+    "documentation": "<strong>工作区</strong> 存放了渲染到 3D 世界中的 3D 对象。 不从它派生的对象将不会被渲染或与世界物理交互。"
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/return/0": {
-    "documentation": "如果启用 PGS 求解器，则为真。"
+    "documentation": "如果启用了 PGS 求解器，则为真。"
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled": {
     "documentation": "如果游戏启用了 PGS 物理求解器，则返回 <code>true</code>。",
@@ -26788,13 +26788,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/0": {
-    "documentation": "<strong>工作区</strong> 包含渲染到三维世界中的3D对象。未从其继承的对象将无法被渲染或与世界进行物理交互。"
+    "documentation": "<strong>工作区</strong> 存放了渲染到 3D 世界中的 3D 对象。 不从它派生的对象将不会被渲染或与世界物理交互。"
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/1": {
-    "documentation": "一个要断开关节的 <code>BaseParts</code> 数组。"
+    "documentation": "要打断关节的 <code>BaseParts</code> 数组。"
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders": {
-    "documentation": "解除指定 <code>BaseParts</code> 和其他 <code>BaseParts</code> 之间的所有关节。",
+    "documentation": "打断指定的 <code>BaseParts</code> 和其他 <code>BaseParts</code> 之间的所有关节。",
     "params": [
       {
         "name": "self",
@@ -26810,10 +26810,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ZoomToExtents/param/0": {
-    "documentation": "<strong>工作区</strong> 包含渲染到三维世界中的3D对象。未从其继承的对象将无法被渲染或与世界进行物理交互。"
+    "documentation": "<strong>工作区</strong> 存放了渲染到 3D 世界中的 3D 对象。 不从它派生的对象将不会被渲染或与世界物理交互。"
   },
   "@roblox/globaltype/Workspace.ZoomToExtents": {
-    "documentation": "定位并缩放 <code>Workspace.CurrentCamera</code> 以显示当前在 <code>Workspace</code> 中的 <code>BaseParts</code> 的范围。",
+    "documentation": "定位和缩放 <code>Workspace.CurrentCamera</code>，以显示当前在 <code>Workspace</code> 中的 <code>BaseParts</code> 的范围。",
     "params": [
       {
         "name": "self",
@@ -31053,7 +31053,6 @@
     "keys": {
       "BalanceMaxTorque": "@roblox/globaltype/AirController.BalanceMaxTorque",
       "BalanceSpeed": "@roblox/globaltype/AirController.BalanceSpeed",
-      "LinearImpulse": "@roblox/globaltype/AirController.LinearImpulse",
       "MaintainAngularMomentum": "@roblox/globaltype/AirController.MaintainAngularMomentum",
       "MaintainLinearMomentum": "@roblox/globaltype/AirController.MaintainLinearMomentum",
       "MoveMaxForce": "@roblox/globaltype/AirController.MoveMaxForce",
@@ -31073,11 +31072,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#BalanceSpeed",
     "code_sample": ""
   },
-  "@roblox/globaltype/AirController.LinearImpulse": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#LinearImpulse",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AirController.MaintainAngularMomentum": {
     "documentation": "确定在输入停止时角动量是否被保留。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#MaintainAngularMomentum",
@@ -31089,12 +31083,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AirController.MoveMaxForce": {
-    "documentation": "可以施加在 <code>ControllerManager.RootPart</code> 上的最大力量，以在 <code>ControllerManager.MovingDirection</code> 中移动。",
+    "documentation": "可以施加在 <code>ControllerManager.RootPart</code> 上以在 <code>ControllerManager.MovingDirection</code> 中移动的最大力。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#MoveMaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AirController.TurnMaxTorque": {
-    "documentation": "可以施加在 <code>ControllerManager.RootPart</code> 上的最大扭矩，以朝向 <code>ControllerManager.FacingDirection</code> 进行转向。",
+    "documentation": "可以施加在 <code>ControllerManager.RootPart</code> 上以朝向 <code>ControllerManager.FacingDirection</code> 转向的最大扭矩。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#TurnMaxTorque",
     "code_sample": ""
   },
@@ -31135,7 +31129,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.AllowInsertFreeModels": {
-    "documentation": "<strong>Deprecated:</strong> 此项尚未发布。请勿在新工作中使用它。<br>指示是否可以将\"免费模型\"插入到游戏中。",
+    "documentation": "<strong>Deprecated:</strong> 该项从未发布。请勿在新工作中使用它。<br>指示是否可以将\"免费模型\"插入到游戏中。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InsertService#AllowInsertFreeModels",
     "code_sample": ""
   },
@@ -31146,7 +31140,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.ApproveAssetId": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用。请勿在新工作中使用它。",
+    "documentation": "<strong>Deprecated:</strong> 该项已被弃用。请勿在新工作中使用它。",
     "params": [
       {
         "name": "self",
@@ -31168,7 +31162,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.ApproveAssetVersionId": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用。请勿在新工作中使用它。",
+    "documentation": "<strong>Deprecated:</strong> 该项已被弃用。请勿在新工作中使用它。",
     "params": [
       {
         "name": "self",
@@ -31199,7 +31193,7 @@
     "documentation": "新的 <code>MeshPart</code> 实例。"
   },
   "@roblox/globaltype/InsertService.CreateMeshPartAsync": {
-    "documentation": "创建具有指定保真度值的新 <code>MeshPart</code>。",
+    "documentation": "创建一个具有指定保真度值的新 <code>MeshPart</code>。",
     "params": [
       {
         "name": "self",
@@ -31231,7 +31225,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetBaseCategories": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用。请勿在新工作中使用它。",
+    "documentation": "<strong>Deprecated:</strong> 该项已被弃用。请勿在新工作中使用它。",
     "params": [
       {
         "name": "self",
@@ -31251,7 +31245,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetBaseSets": {
-    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">套件已被移除</a> 自 Roblox。<br>返回一个字典数组，包含有关各种 Roblox 认证套件的信息。",
+    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">集合已被移除</a> 自 Roblox。<br>返回一个包含有关各种 Roblox 审核集的信息的字典数组。",
     "params": [
       {
         "name": "self",
@@ -31274,7 +31268,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetCollection": {
-    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">套件已被移除</a> 自 Roblox。<br>返回指定类别中最近上传的模型。",
+    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">集合已被移除</a> 自 Roblox。<br>返回指定类别中最新上传的模型。",
     "params": [
       {
         "name": "self",
@@ -31295,16 +31289,16 @@
     "documentation": "用于从 Roblox 网站插入资产。"
   },
   "@roblox/globaltype/InsertService.GetFreeDecals/param/1": {
-    "documentation": "用于在目录中搜索免费贴花的字符串。"
+    "documentation": "用于在目录中搜索免费贴图的字符串。"
   },
   "@roblox/globaltype/InsertService.GetFreeDecals/param/2": {
-    "documentation": "要返回的目录中的页面编号。"
+    "documentation": "目录中要返回的页码。"
   },
   "@roblox/globaltype/InsertService.GetFreeDecals/return/0": {
-    "documentation": "一个单独的表（返回的免费贴花）被包裹在一个表中。"
+    "documentation": "一个单独的表（返回的免费贴图）封装在一个表中。"
   },
   "@roblox/globaltype/InsertService.GetFreeDecals": {
-    "documentation": "<strong>Deprecated:</strong> <br>从目录中检索免费的贴花列表。",
+    "documentation": "<strong>Deprecated:</strong> <br>从目录中检索免费贴图列表。",
     "params": [
       {
         "name": "self",
@@ -31329,16 +31323,16 @@
     "documentation": "用于从 Roblox 网站插入资产。"
   },
   "@roblox/globaltype/InsertService.GetFreeDecalsAsync/param/1": {
-    "documentation": "用于在目录中搜索免费贴花的字符串。"
+    "documentation": "用于在目录中搜索免费贴图的字符串。"
   },
   "@roblox/globaltype/InsertService.GetFreeDecalsAsync/param/2": {
-    "documentation": "要返回的目录中的页面编号。"
+    "documentation": "目录中要返回的页码。"
   },
   "@roblox/globaltype/InsertService.GetFreeDecalsAsync/return/0": {
-    "documentation": "一个单独的表（返回的免费贴花）被包裹在一个表中。"
+    "documentation": "一个单独的表（返回的免费贴图）封装在一个表中。"
   },
   "@roblox/globaltype/InsertService.GetFreeDecalsAsync": {
-    "documentation": "从目录中检索免费的贴花列表。",
+    "documentation": "从目录中检索免费贴图列表。",
     "params": [
       {
         "name": "self",
@@ -31366,13 +31360,13 @@
     "documentation": "用于在目录中搜索免费模型的字符串。"
   },
   "@roblox/globaltype/InsertService.GetFreeModels/param/2": {
-    "documentation": "要返回的目录中的页面编号。"
+    "documentation": "目录中要返回的页码。"
   },
   "@roblox/globaltype/InsertService.GetFreeModels/return/0": {
-    "documentation": "一个单独的表（返回的免费模型）被包裹在一个表中。"
+    "documentation": "一个单独的表（返回的免费模型）封装在一个表中。"
   },
   "@roblox/globaltype/InsertService.GetFreeModels": {
-    "documentation": "<strong>Deprecated:</strong> <br>从目录中检索免费的模型列表。",
+    "documentation": "<strong>Deprecated:</strong> <br>从目录中检索免费模型列表。",
     "params": [
       {
         "name": "self",
@@ -31397,16 +31391,16 @@
     "documentation": "用于从 Roblox 网站插入资产。"
   },
   "@roblox/globaltype/InsertService.GetFreeModelsAsync/param/1": {
-    "documentation": "用于在目录中搜索免费贴花的字符串。"
+    "documentation": "用于在目录中搜索免费贴图的字符串。"
   },
   "@roblox/globaltype/InsertService.GetFreeModelsAsync/param/2": {
-    "documentation": "要返回的目录中的页面编号。"
+    "documentation": "目录中要返回的页码。"
   },
   "@roblox/globaltype/InsertService.GetFreeModelsAsync/return/0": {
-    "documentation": "一个单独的表（返回的免费模型）被包裹在一个表中。"
+    "documentation": "一个单独的表（返回的免费模型）封装在一个表中。"
   },
   "@roblox/globaltype/InsertService.GetFreeModelsAsync": {
-    "documentation": "从目录中检索免费的模型列表。",
+    "documentation": "从目录中检索免费模型列表。",
     "params": [
       {
         "name": "self",
@@ -31437,7 +31431,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetLatestAssetVersionAsync": {
-    "documentation": "返回最近由地点创建者创建的资产的最新 AssetVersionId。可以与 <code>InsertService:LoadAssetVersion()</code> 结合使用，以加载模型的最新版本，即使它在游戏运行时更新。",
+    "documentation": "返回由场所创建者创建的资产的最新 AssetVersionId。可以与 <code>InsertService:LoadAssetVersion()</code> 结合使用，加载模型的最新版本，即使在游戏运行时被更新。",
     "params": [
       {
         "name": "self",
@@ -31464,7 +31458,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetUserCategories": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用。请勿在新工作中使用它。",
+    "documentation": "<strong>Deprecated:</strong> 该项已被弃用。请勿在新工作中使用它。",
     "params": [
       {
         "name": "self",
@@ -31491,7 +31485,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetUserSets": {
-    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">套件已被移除</a> 自 Roblox。<br>返回一个字典数组，包含有关用户拥有的套件的信息。",
+    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">集合已被移除</a> 自 Roblox。<br>返回一个包含用户拥有的集合信息的字典数组。",
     "params": [
       {
         "name": "self",
@@ -31515,7 +31509,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.Insert": {
-    "documentation": "<strong>Deprecated:</strong> 此函数已被 <code>InsertService:LoadAsset()</code> 取代，应在所有新工作中使用。<br>将 <code>Instance</code> 插入到 <code>Workspace</code> 中。",
+    "documentation": "<strong>Deprecated:</strong> 此函数已被 <code>InsertService:LoadAsset()</code> 取代，应该在所有新工作中使用。<br>将 <code>Instance</code> 插入到 <code>Workspace</code> 中。",
     "params": [
       {
         "name": "self",
@@ -31534,13 +31528,13 @@
     "documentation": "用于从 Roblox 网站插入资产。"
   },
   "@roblox/globaltype/InsertService.LoadAsset/param/1": {
-    "documentation": "要加载的资产的资产 ID。"
+    "documentation": "正在加载的资产的资产 ID。"
   },
   "@roblox/globaltype/InsertService.LoadAsset/return/0": {
-    "documentation": "加载的资产的实例。"
+    "documentation": "加载资产的实例。"
   },
   "@roblox/globaltype/InsertService.LoadAsset": {
-    "documentation": "返回包含资产的 <code>Model</code>。",
+    "documentation": "返回一个包含资产的 <code>Model</code>。",
     "params": [
       {
         "name": "self",
@@ -31567,7 +31561,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.loadAsset": {
-    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>InsertService:LoadAsset()</code> 的已弃用变体，应该使用它。",
+    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>InsertService:LoadAsset()</code> 的弃用变体，应该使用该函数。",
     "params": [
       {
         "name": "self",
@@ -31594,7 +31588,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.LoadAssetVersion": {
-    "documentation": "返回插入到 <code>InsertService</code> 中的模型，其中包含给定 assetVersionId 的资产。",
+    "documentation": "返回插入到 <code>InsertService</code> 的模型，包含具有给定 assetVersionId 的资产。",
     "params": [
       {
         "name": "self",
@@ -45034,7 +45028,6 @@
   "@roblox/globaltype/SwimController": {
     "documentation": "",
     "keys": {
-      "AccelerationTime": "@roblox/globaltype/SwimController.AccelerationTime",
       "PitchMaxTorque": "@roblox/globaltype/SwimController.PitchMaxTorque",
       "PitchSpeedFactor": "@roblox/globaltype/SwimController.PitchSpeedFactor",
       "RollMaxTorque": "@roblox/globaltype/SwimController.RollMaxTorque",
@@ -45043,28 +45036,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController",
     "code_sample": ""
   },
-  "@roblox/globaltype/SwimController.AccelerationTime": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#AccelerationTime",
-    "code_sample": ""
-  },
   "@roblox/globaltype/SwimController.PitchMaxTorque": {
     "documentation": "用于旋转到所需俯仰的最大扭矩。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#PitchMaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/SwimController.PitchSpeedFactor": {
-    "documentation": "乘以 <code>ControllerManager.BaseTurnSpeed</code> 来确定最大俯仰角速度。",
+    "documentation": "与 <code>ControllerManager.BaseTurnSpeed</code> 相乘，以确定最大俯仰角速度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#PitchSpeedFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/SwimController.RollMaxTorque": {
-    "documentation": "用于旋转到所需翻滚的最大扭矩。",
+    "documentation": "应用于旋转到所需翻滚的最大扭矩。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#RollMaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/SwimController.RollSpeedFactor": {
-    "documentation": "乘以 <code>ControllerManager.BaseTurnSpeed</code> 来确定最大翻滚角速度。",
+    "documentation": "与 <code>ControllerManager.BaseTurnSpeed</code> 相乘，以确定最大翻滚角速度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#RollSpeedFactor",
     "code_sample": ""
   },
@@ -45974,7 +45962,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HttpRbxApiService": {
-    "documentation": "一个内部服务，其功能对开发者不可用。",
+    "documentation": "一个开发者无法使用的内部服务。",
     "keys": {
       "RequestLimitedAsync": "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync"
     },
@@ -45982,7 +45970,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/0": {
-    "documentation": "一个内部服务，其功能对开发者不可用。"
+    "documentation": "一个开发者无法使用的内部服务。"
   },
   "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/1": {
     "documentation": ""
@@ -46243,87 +46231,87 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AccountAge": {
-    "documentation": "描述玩家的账户年龄（以天为单位）。",
+    "documentation": "描述玩家账户的年龄（以天为单位）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#AccountAge",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AutoJumpEnabled": {
-    "documentation": "确定使用移动设备的玩家的角色是否会在碰到障碍物时自动跳跃。",
+    "documentation": "确定使用移动设备的玩家角色是否会在碰到障碍物时自动跳跃。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#AutoJumpEnabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- 更新按钮文本\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"自动跳跃已开启\"\n\telse\n\t\tbutton.Text = \"自动跳跃已关闭\"\n\tend\n\t-- 如果玩家有角色，反映该属性\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- 切换自动跳跃\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- 更新其他所有内容\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/Player.CameraMaxZoomDistance": {
-    "documentation": "允许玩家的相机缩放的最大距离。",
+    "documentation": "允许玩家的摄像机最大缩放距离。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMaxZoomDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CameraMinZoomDistance": {
-    "documentation": "允许玩家的相机缩放的最小距离。",
+    "documentation": "允许玩家的摄像机最小缩放距离。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMinZoomDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CameraMode": {
-    "documentation": "将相机模式更改为第一人称或第三人称。",
+    "documentation": "将摄像机模式更改为第一人称或第三人称。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMode",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- 设置玩家的相机模式为第一人称\nplayer.CameraMode = Enum.CameraMode.LockFirstPerson"
   },
   "@roblox/globaltype/Player.CanLoadCharacterAppearance": {
-    "documentation": "决定玩家在生成时角色的外观是否会被加载。若为 <code>false</code>，则玩家将以默认外观生成。",
+    "documentation": "确定玩家重生时角色的外观是否会被加载。如果为 <code>false</code>，玩家将以默认外观重生。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CanLoadCharacterAppearance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Character": {
-    "documentation": "由玩家控制的一个 <code>Model</code>，包含 <code>Humanoid</code>、身体部位、脚本和其他对象。",
+    "documentation": "由玩家控制的 <code>Model</code>，包含 <code>Humanoid</code>、肢体、脚本和其他对象。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Character",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearance": {
-    "documentation": "<strong>Deprecated:</strong> 此项已被弃用。不要用于新工作。<br>包含角色外观、衣物和装备的资产的 URL。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用。请勿在新工作中使用它。<br>包含角色外观、服装和装备的资产的 URL。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearanceId": {
-    "documentation": "确定用于玩家的 <code>Character</code> 的角色外观的账户的用户 ID。",
+    "documentation": "确定用于玩家的 <code>Character</code> 的角色外观的账户用户 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearanceId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataComplexity": {
-    "documentation": "<strong>Deprecated:</strong> 此项已被弃用，因为它可能曾用于现在已过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据用于新工作。<br>当前在玩家的缓存中存储的数据总量。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能用于现已过时的数据持久性方法。请使用 <code>DataStoreService</code> 来保存和加载玩家数据以进行新工作。<br>当前正在玩家缓存中存储的总数据量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataComplexity",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataReady": {
-    "documentation": "<strong>Deprecated:</strong> 此项已被弃用，因为它可能曾用于现在已过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据用于新工作。<br>指示玩家的数据何时可用于加载。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能用于现已过时的数据持久性方法。请使用 <code>DataStoreService</code> 来保存和加载玩家数据以进行新工作。<br>指示玩家的数据何时可用于加载。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataReady",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevCameraOcclusionMode": {
-    "documentation": "设置默认相机如何处理相机和玩家之间的对象。",
+    "documentation": "设置默认摄像机如何处理摄像机与玩家之间的物体。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevCameraOcclusionMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevComputerCameraMode": {
-    "documentation": "决定玩家在使用鼠标和键盘设备时相机的移动模式。",
+    "documentation": "确定玩家使用鼠标和键盘的设备时的摄像机移动模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevComputerCameraMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevComputerMovementMode": {
-    "documentation": "决定玩家在使用鼠标和键盘设备时角色的移动模式。",
+    "documentation": "确定玩家使用鼠标和键盘的设备时的角色移动模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevComputerMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevEnableMouseLock": {
-    "documentation": "决定玩家是否可以切换鼠标锁定。",
+    "documentation": "确定玩家是否可以切换鼠标锁定。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevEnableMouseLock",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchCameraMode": {
-    "documentation": "决定玩家在使用触摸设备时的相机移动模式。",
+    "documentation": "确定玩家使用触摸设备时的摄像机移动模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchCameraMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchMovementMode": {
-    "documentation": "决定玩家在使用触摸设备时角色的移动模式。",
+    "documentation": "确定玩家使用触摸设备时的角色移动模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchMovementMode",
     "code_sample": ""
   },
@@ -46333,12 +46321,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.FollowUserId": {
-    "documentation": "描述被玩家跟随进入体验的账户的用户 ID。",
+    "documentation": "描述玩家跟随进入体验的用户的用户 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#FollowUserId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.Parent = player:WaitForChild(\"PlayerGui\")\n\nlocal function onPlayerAdded(newPlayer)\n\tif newPlayer.FollowUserId == player.UserId then\n\t\tlocal textLabel = Instance.new(\"TextLabel\")\n\t\ttextLabel.Parent = screenGui\n\t\ttextLabel.Text = \"你被 \" .. newPlayer.Name .. \" 跟随到这个游戏！\"\n\t\ttask.delay(3, function()\n\t\t\tif textLabel then\n\t\t\t\ttextLabel:Destroy()\n\t\t\tend\n\t\tend)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GameplayPaused": {
-    "documentation": "玩家客户端游戏是否当前处于暂停状态。",
+    "documentation": "当前玩家客户端游戏玩法是否暂停。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GameplayPaused",
     "code_sample": ""
   },
@@ -46348,7 +46336,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HealthDisplayDistance": {
-    "documentation": "设置该玩家将看到其他玩家生命值条的距离。",
+    "documentation": "设置此玩家将看到其他玩家的生命值条的距离。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HealthDisplayDistance",
     "code_sample": ""
   },
@@ -46363,7 +46351,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nif player.MembershipType == Enum.MembershipType.Premium then\n\t-- 对Premium会员采取某些行动\nend"
   },
   "@roblox/globaltype/Player.NameDisplayDistance": {
-    "documentation": "设置该玩家将看到其他玩家姓名的距离。",
+    "documentation": "设置此玩家将看到其他玩家名称的距离。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#NameDisplayDistance",
     "code_sample": ""
   },
@@ -46373,17 +46361,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.PartyId": {
-    "documentation": "属于 <code>Player</code> 的派对的唯一标识符。",
+    "documentation": "一个唯一标识 <code>Player</code> 属于的派对的标识符。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#PartyId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"玩家在一个派对中，ID: \" .. partyId)\n\telse\n\t\tprint(\"玩家不在派对中\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"玩家加入了派对，ID: \" .. player.PartyId)\n\t\telse\n\t\t\tprint(\"玩家离开了派对\")\n\t\tend\n\tend)\nend)"
   },
   "@roblox/globaltype/Player.ReplicationFocus": {
-    "documentation": "设置围绕哪个部件集中复制。",
+    "documentation": "设置围绕其进行复制的部件。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#ReplicationFocus",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RespawnLocation": {
-    "documentation": "如果设置，玩家将在给定的 <code>SpawnLocation</code> 处重生。",
+    "documentation": "如果设置，则玩家将在给定的 <code>SpawnLocation</code> 处重生。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#RespawnLocation",
     "code_sample": ""
   },
@@ -46393,12 +46381,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Team": {
-    "documentation": "确定与玩家相关联的 <code>Team</code>。",
+    "documentation": "确定玩家关联的 <code>Team</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Team",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.TeamColor": {
-    "documentation": "根据该团队的 <code>Team.TeamColor</code> 决定与玩家相关联的 <code>Team</code>。",
+    "documentation": "确定玩家与该团队的 <code>Team.TeamColor</code> 关联的 <code>Team</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#TeamColor",
     "code_sample": ""
   },
@@ -46413,7 +46401,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(player.UserId)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.userId": {
-    "documentation": "<strong>Deprecated:</strong> 此属性是 <code>Player.UserId</code> 的弃用变体，应使用此属性。",
+    "documentation": "<strong>Deprecated:</strong> 此属性是 <code>Player.UserId</code> 的已弃用变体，应该使用该变体。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#userId",
     "code_sample": ""
   },
@@ -46421,10 +46409,10 @@
     "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/1": {
-    "documentation": "要用作新的复制聚焦的 <code>BasePart</code>。"
+    "documentation": "要用作新复制焦点的 <code>BasePart</code>。"
   },
   "@roblox/globaltype/Player.AddReplicationFocus": {
-    "documentation": "为玩家添加一个额外的复制聚焦。",
+    "documentation": "为玩家添加额外的复制焦点。",
     "params": [
       {
         "name": "self",
@@ -46458,13 +46446,13 @@
     "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/param/1": {
-    "documentation": "正在测量玩家距离的起始位置。"
+    "documentation": "在此基础上测量玩家的距离的起始位置。"
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/return/0": {
-    "documentation": "玩家与位置之间的距离，以 studs 为单位。"
+    "documentation": "玩家与该位置之间的距离（以 studs 为单位）。"
   },
   "@roblox/globaltype/Player.DistanceFromCharacter": {
-    "documentation": "返回角色的头部与给定 <code>Vector3</code> 之间的距离，如果玩家没有角色则返回 <code>0</code>。",
+    "documentation": "返回角色的头部与给定的 <code>Vector3</code> 之间的距离，如果玩家没有角色，则返回 <code>0</code>。",
     "params": [
       {
         "name": "self",
@@ -46488,10 +46476,10 @@
     "documentation": "要返回的在线连接的最大数量。"
   },
   "@roblox/globaltype/Player.GetFriendsOnline/return/0": {
-    "documentation": "在线连接的字典（见描述中的表格）。"
+    "documentation": "在线连接的字典（请参见上表）。"
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>GetFriendsOnlineAsync()</code> 替代。<br>返回在线连接的字典。使用资产 ID 返回资产的产品信息。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>GetFriendsOnlineAsync()</code> 取代。<br>返回在线连接的字典。返回通过其资产 ID 的资产产品信息。",
     "params": [
       {
         "name": "self",
@@ -46515,7 +46503,7 @@
     "documentation": "要返回的在线连接的最大数量。"
   },
   "@roblox/globaltype/Player.GetFriendsOnlineAsync/return/0": {
-    "documentation": "在线连接的字典（见描述中的表格）。"
+    "documentation": "在线连接的字典（请参见上表）。"
   },
   "@roblox/globaltype/Player.GetFriendsOnlineAsync": {
     "documentation": "返回在线连接的字典。",
@@ -46539,10 +46527,10 @@
     "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.GetJoinData/return/0": {
-    "documentation": "包含 PlaceId 和 UserId 值的字典（见描述中表格）。"
+    "documentation": "返回一个包含 PlaceId 和 UserId 值的字典（见描述中的表格）。"
   },
   "@roblox/globaltype/Player.GetJoinData": {
-    "documentation": "返回描述玩家如何加入体验的信息字典。",
+    "documentation": "返回一个包含描述玩家如何加入体验的信息的字典。",
     "params": [
       {
         "name": "self",
@@ -46562,7 +46550,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.GetMouse": {
-    "documentation": "返回客户端正在使用的鼠标。",
+    "documentation": "返回客户端使用的鼠标。",
     "params": [
       {
         "name": "self",
@@ -46582,7 +46570,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.GetNetworkPing": {
-    "documentation": "返回回程、隔离的网络延迟（以秒为单位）。",
+    "documentation": "返回往返的、独立的网络延迟（以秒为单位）。",
     "params": [
       {
         "name": "self",
@@ -46602,10 +46590,10 @@
     "documentation": "指定组的 <code>groupId</code>。"
   },
   "@roblox/globaltype/Player.GetRankInGroup/return/0": {
-    "documentation": "玩家在该组中的等级。"
+    "documentation": "玩家在组中的排名。"
   },
   "@roblox/globaltype/Player.GetRankInGroup": {
-    "documentation": "<strong>Deprecated:</strong> <br>返回玩家在该组中的等级，以整数形式表示。",
+    "documentation": "<strong>Deprecated:</strong> <br>返回玩家在组中的排名（以整数形式）。",
     "params": [
       {
         "name": "self",
@@ -46629,10 +46617,10 @@
     "documentation": "指定组的 <code>groupId</code>。"
   },
   "@roblox/globaltype/Player.GetRankInGroupAsync/return/0": {
-    "documentation": "玩家在该组中的等级。"
+    "documentation": "玩家在组中的排名。"
   },
   "@roblox/globaltype/Player.GetRankInGroupAsync": {
-    "documentation": "返回玩家在该组中的等级，以整数形式表示。",
+    "documentation": "返回玩家在组中的排名（以整数形式）。",
     "params": [
       {
         "name": "self",
@@ -46656,10 +46644,10 @@
     "documentation": "指定组的组 ID。"
   },
   "@roblox/globaltype/Player.GetRoleInGroup/return/0": {
-    "documentation": "在指定组中的角色，或如果玩家不是成员则返回 <code>Guest</code>。"
+    "documentation": "玩家在指定组中的角色，或如果玩家不是成员，则返回 <code>Guest</code>。"
   },
   "@roblox/globaltype/Player.GetRoleInGroup": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>GetRoleInGroup()</code> 替代。<br>返回玩家在该组中的角色，以字符串形式表示，如果玩家不在该组中，则返回 <code>Guest</code>。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>GetRoleInGroup()</code> 取代。<br>返回玩家在组中的角色，或如果玩家不是组的成员，则返回 <code>Guest</code>。",
     "params": [
       {
         "name": "self",
@@ -46683,10 +46671,10 @@
     "documentation": "指定组的组 ID。"
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/return/0": {
-    "documentation": "在指定组中的角色，或如果玩家不是成员则返回 <code>Guest</code>。"
+    "documentation": "玩家在指定组中的角色，或如果玩家不是成员，则返回 <code>Guest</code>。"
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync": {
-    "documentation": "返回玩家在该组中的角色，以字符串形式表示，如果玩家不在该组中，则返回 <code>Guest</code>。",
+    "documentation": "返回玩家在组中的角色，或如果玩家不是组的成员，则返回 <code>Guest</code>。",
     "params": [
       {
         "name": "self",
@@ -46707,10 +46695,10 @@
     "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/return/0": {
-    "documentation": "一个布尔值，指示玩家的角色外观是否已加载。"
+    "documentation": "一个布尔值，指示玩家角色的外观是否已加载。"
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded": {
-    "documentation": "返回玩家的角色外观是否已加载。",
+    "documentation": "返回玩家角色的外观是否加载。",
     "params": [
       {
         "name": "self",
@@ -46733,7 +46721,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.IsBestFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> 此功能已过时，因为 \"好朋友\" 功能已移除。请使用 <code>Player:IsFriendsWithAsync()</code>。<br>返回玩家是否与指定用户连接。",
+    "documentation": "<strong>Deprecated:</strong> 此功能已过时，因为\"最好的朋友\"功能已被移除。请改用 <code>Player:IsFriendsWithAsync()</code>。<br>返回玩家与指定用户是否是连接关系。",
     "params": [
       {
         "name": "self",
@@ -46757,10 +46745,10 @@
     "documentation": "指定玩家的 <code>Player.UserId</code>。"
   },
   "@roblox/globaltype/Player.IsFriendsWith/return/0": {
-    "documentation": "一个布尔值，指示玩家是否是指定用户的连接。"
+    "documentation": "一个布尔值，指示玩家是否是指定用户的连接关系。"
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>Player:IsFriendsWithAsync()</code> 方法替代，应在新工作中使用。<br>检查玩家是否是与给定 <code>Player.UserId</code> 的用户连接。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>Player:IsFriendsWithAsync()</code> 方法取代，后者应在新工作中使用。<br>检查玩家是否与具有给定 <code>Player.UserId</code> 的用户是连接关系。",
     "params": [
       {
         "name": "self",
@@ -46811,10 +46799,10 @@
     "documentation": "指定玩家的 <code>Player.UserId</code>。"
   },
   "@roblox/globaltype/Player.IsFriendsWithAsync/return/0": {
-    "documentation": "一个布尔值，指示玩家是否是指定用户的连接。"
+    "documentation": "一个布尔值，指示玩家是否是指定用户的连接关系。"
   },
   "@roblox/globaltype/Player.IsFriendsWithAsync": {
-    "documentation": "检查玩家是否是指定 <code>Player.UserId</code> 用户的连接。",
+    "documentation": "检查玩家是否是具有给定 <code>Player.UserId</code> 的用户的连接关系。",
     "params": [
       {
         "name": "self",
@@ -46841,7 +46829,7 @@
     "documentation": "一个布尔值，指示玩家是否在指定组中。"
   },
   "@roblox/globaltype/Player.IsInGroup": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>IsInGroupAsync()</code> 替代。<br>检查玩家是否是具有给定 ID 的组的成员。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>IsInGroupAsync()</code> 取代。<br>检查玩家是否是具有给定 ID 的组的成员。",
     "params": [
       {
         "name": "self",
@@ -46889,10 +46877,10 @@
     "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.IsVerified/return/0": {
-    "documentation": "一个布尔值，指示玩家是否已通过验证。"
+    "documentation": "一个布尔值，指示玩家是否已验证。"
   },
   "@roblox/globaltype/Player.IsVerified": {
-    "documentation": "返回玩家是否与具体的、真实世界的信号进行验证。",
+    "documentation": "返回玩家的验证状态，是否具有明确的、真实世界的信号。",
     "params": [
       {
         "name": "self",
@@ -46909,10 +46897,10 @@
     "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.Kick/param/1": {
-    "documentation": "踢出时显示给用户的消息。"
+    "documentation": "在踢出用户时显示的消息。"
   },
   "@roblox/globaltype/Player.Kick": {
-    "documentation": "强制从体验中断开连接玩家，可选择提供消息。",
+    "documentation": "强制将玩家从体验中断开连接， optionally 提供消息。",
     "params": [
       {
         "name": "self",
@@ -46937,7 +46925,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 此项已被弃用，因为它可能曾用于现在已过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据用于新工作。<br>返回先前使用 <code>Player:SaveBoolean()</code> 保存到该玩家的相同键的布尔值。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能用于现已过时的数据持久性方法。请使用 <code>DataStoreService</code> 来保存和加载玩家数据以进行新工作。<br>返回先前使用 <code>Player:SaveBoolean()</code> 保存到玩家的相同键的布尔值。",
     "params": [
       {
         "name": "self",
@@ -46964,7 +46952,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 此弃用函数是 <code>Player:LoadBoolean()</code> 的变体，该函数也已弃用。两者都不应在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Player:LoadBoolean()</code> 的变体，也已弃用。两个函数都不应在新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -46985,7 +46973,7 @@
     "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.LoadCharacter": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>LoadCharacterAsync()</code> 替代。<br>为玩家创建一个新角色，并移除旧角色。同时清空玩家的 <code>Backpack</code> 和 <code>PlayerGui</code>。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>LoadCharacterAsync()</code> 取代。<br>为玩家创建一个新角色，删除旧角色。同时清除玩家的 <code>Backpack</code> 和 <code>PlayerGui</code>。",
     "params": [
       {
         "name": "self",
@@ -47000,10 +46988,10 @@
     "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/1": {
-    "documentation": "正在加载的资产的实例，可以使用 <code>InsertService:LoadAsset()</code> 函数获取。"
+    "documentation": "正在加载的资产实例，可以通过 <code>InsertService:LoadAsset()</code> 函数获取。"
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance": {
-    "documentation": "<strong>Deprecated:</strong> <br>根据实例的类，将给定实例放置在玩家的角色、头部或 StarterGear 中。",
+    "documentation": "<strong>Deprecated:</strong> <br>根据实例的类将给定实例放置在玩家的角色、头部或 StarterGear 中。",
     "params": [
       {
         "name": "self",
@@ -47022,7 +47010,7 @@
     "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.LoadCharacterAsync": {
-    "documentation": "为玩家创建一个新角色，删除旧角色。同时清空玩家的 <code>Backpack</code> 和 <code>PlayerGui</code>。",
+    "documentation": "为玩家创建一个新角色，移除旧角色。同时清除玩家的 <code>Backpack</code> 和 <code>PlayerGui</code>。",
     "params": [
       {
         "name": "self",
@@ -47037,13 +47025,13 @@
     "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/1": {
-    "documentation": "一个包含身体部件/颜色、身体缩放、配件、衣物及动画等特征的 <code>HumanoidDescription</code>， 将装备到加载的角色上。"
+    "documentation": "包含身体部位/颜色、身体缩放、配饰、服装和动画等特征的 <code>HumanoidDescription</code>，将装备到加载的角色上。"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/2": {
     "documentation": "资产类型验证模式。"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>LoadCharacterWithHumanoidDescriptionAsync()</code> 替代。<br>生成一个玩家角色，装备传入的 <code>HumanoidDescription</code> 中的所有内容。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>LoadCharacterWithHumanoidDescriptionAsync()</code> 取代。<br>根据传入的 <code>HumanoidDescription</code> 生成一个玩家角色，装备所有物品。",
     "params": [
       {
         "name": "self",
@@ -47066,13 +47054,13 @@
     "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/1": {
-    "documentation": "一个包含身体部件/颜色、身体缩放、配件、衣物及动画等特征的 <code>HumanoidDescription</code>， 将装备到加载的角色上。"
+    "documentation": "包含身体部位/颜色、身体缩放、配饰、服装和动画等特征的 <code>HumanoidDescription</code>，将装备到加载的角色上。"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/2": {
     "documentation": "资产类型验证模式。"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync": {
-    "documentation": "生成一个玩家角色，装备传入的 <code>HumanoidDescription</code> 中的所有内容。",
+    "documentation": "根据传入的 <code>HumanoidDescription</code> 生成一个玩家角色，装备所有物品。",
     "params": [
       {
         "name": "self",
@@ -47101,7 +47089,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadInstance": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能曾用于现在过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据，用于新的工作。<br>返回先前使用 <code>Player:SaveInstance()</code> 保存到玩家的实例， 具有相同的键。",
+    "documentation": "<strong>Deprecated:</strong> 此项目已被弃用，因为它可能用于现在已过时的数据持久化方法。请在新工作中使用 <code>DataStoreService</code> 保存和加载玩家数据。<br>返回之前使用 <code>Player:SaveInstance()</code> 保存到玩家的实例，使用相同的键。",
     "params": [
       {
         "name": "self",
@@ -47128,7 +47116,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadInstance": {
-    "documentation": "<strong>Deprecated:</strong> 此弃用的函数是 <code>Player:LoadInstance()</code> 的变体， 该函数也已弃用。这两个函数都不应在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Player:LoadInstance()</code> 的变体，该函数也已弃用。新的工作中不应使用任何一个函数。",
     "params": [
       {
         "name": "self",
@@ -47155,7 +47143,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadNumber": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能曾用于现在过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据，用于新的工作。<br>返回先前保存到玩家的数字值。",
+    "documentation": "<strong>Deprecated:</strong> 此项目已被弃用，因为它可能用于现在已过时的数据持久化方法。请在新工作中使用 <code>DataStoreService</code> 保存和加载玩家数据。<br>返回之前保存到玩家的数字值。",
     "params": [
       {
         "name": "self",
@@ -47182,7 +47170,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadNumber": {
-    "documentation": "<strong>Deprecated:</strong> 此弃用的函数是 <code>Player:LoadNumber()</code> 的变体， 该函数也已弃用。这两个函数都不应在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Player:LoadNumber()</code> 的变体，该函数也已弃用。新的工作中不应使用任何一个函数。",
     "params": [
       {
         "name": "self",
@@ -47209,7 +47197,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadString": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能曾用于现在过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据，用于新的工作。<br>返回先前保存到玩家的字符串值。",
+    "documentation": "<strong>Deprecated:</strong> 此项目已被弃用，因为它可能用于现在已过时的数据持久化方法。请在新工作中使用 <code>DataStoreService</code> 保存和加载玩家数据。<br>返回之前保存到玩家的字符串值。",
     "params": [
       {
         "name": "self",
@@ -47236,7 +47224,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadString": {
-    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:LoadString()</code> 的弃用变体， 该函数也已弃用。这两个函数都不应在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:LoadString()</code> 的弃用变体，该函数也已弃用。新的工作中不应使用任何一个函数。",
     "params": [
       {
         "name": "self",
@@ -47263,7 +47251,7 @@
     "documentation": "一个布尔值，指示玩家是否应该相对于玩家的相机移动。"
   },
   "@roblox/globaltype/Player.Move": {
-    "documentation": "使玩家的角色在给定方向上行走，直到被停止或被玩家（使用他们的控制）中断。",
+    "documentation": "使玩家的角色沿给定方向行走，直到停止，或被玩家（通过使用他们的控制）打断。",
     "params": [
       {
         "name": "self",
@@ -47286,10 +47274,10 @@
     "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/1": {
-    "documentation": "要移除作为复制焦点的 <code>BasePart</code>。"
+    "documentation": "要移除的 <code>BasePart</code> 作为复制焦点。"
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus": {
-    "documentation": "移除之前添加的复制焦点。",
+    "documentation": "移除先前添加的复制焦点。",
     "params": [
       {
         "name": "self",
@@ -47311,10 +47299,10 @@
     "documentation": "请求流媒体的世界位置。"
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/2": {
-    "documentation": "请求的可选超时，即引擎尝试在放弃请求之前流媒体 <code>position</code> 参数周围区域的最大持续时间。 如果没有指定值，则超时有效期为无限。然而，如果客户端内存不足， 引擎会放弃所有流媒体请求，即使这些请求仍在超时持续时间内。"
+    "documentation": "请求的可选超时，即引擎在放弃请求之前尝试围绕 <code>position</code> 参数流媒体传输区域的最大持续时间。如果不指定值，则超时实际上是无限的。但是，如果客户端内存不足，引擎会放弃所有流媒体请求，即使在超时持续时间内。"
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync": {
-    "documentation": "请求服务器在指定位置附近为玩家流媒体。",
+    "documentation": "请求服务器在指定位置附近进行流媒体传输。",
     "params": [
       {
         "name": "self",
@@ -47343,7 +47331,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能曾用于现在过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据，用于新的工作。<br>用于保存一个布尔值，该值可以在稍后使用 <code>Player:LoadBoolean()</code> 再次加载。",
+    "documentation": "<strong>Deprecated:</strong> 此项目已被弃用，因为它可能用于现在已过时的数据持久化方法。请在新工作中使用 <code>DataStoreService</code> 保存和加载玩家数据。<br>用于保存布尔值，稍后可以使用 <code>Player:LoadBoolean()</code> 重新加载该值。",
     "params": [
       {
         "name": "self",
@@ -47372,7 +47360,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveBoolean()</code> 的弃用变体， 该函数也已弃用。这两个函数都不应在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveBoolean()</code> 的弃用变体，该函数也已弃用。新的工作中不应使用任何一个函数。",
     "params": [
       {
         "name": "self",
@@ -47401,7 +47389,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveInstance": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能曾用于现在过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据，用于新的工作。<br>保存一个实例，该实例可以在稍后再次加载。",
+    "documentation": "<strong>Deprecated:</strong> 此项目已被弃用，因为它可能用于现在已过时的数据持久化方法。请在新工作中使用 <code>DataStoreService</code> 保存和加载玩家数据。<br>保存一个可以在稍后时间重新加载的实例。",
     "params": [
       {
         "name": "self",
@@ -47430,7 +47418,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveInstance": {
-    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveInstance()</code> 的弃用变体， 该函数也已弃用。这两个函数都不应在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveInstance()</code> 的弃用变体，该函数也已弃用。新的工作中不应使用任何一个函数。",
     "params": [
       {
         "name": "self",
@@ -47459,7 +47447,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveNumber": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能曾用于现在过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据，用于新的工作。<br>保存一个数字值，该值可以在稍后使用。",
+    "documentation": "<strong>Deprecated:</strong> 此项目已被弃用，因为它可能用于现在已过时的数据持久化方法。请在新工作中使用 <code>DataStoreService</code> 保存和加载玩家数据。<br>保存一个可以在稍后时间重新加载的数字值。",
     "params": [
       {
         "name": "self",
@@ -47488,7 +47476,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveNumber": {
-    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveNumber()</code> 的弃用变体， 该函数也已弃用。这两个函数都不应在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveNumber()</code> 的弃用变体，该函数也已弃用。新的工作中不应使用任何一个函数。",
     "params": [
       {
         "name": "self",
@@ -47517,7 +47505,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveString": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能曾用于现在过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据，用于新的工作。<br>保存一个字符串值，该值可以在稍后再次加载。",
+    "documentation": "<strong>Deprecated:</strong> 此项目已被弃用，因为它可能用于现在已过时的数据持久化方法。请在新工作中使用 <code>DataStoreService</code> 保存和加载玩家数据。<br>保存一个可以在稍后时间重新加载的字符串值。",
     "params": [
       {
         "name": "self",
@@ -47546,7 +47534,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveString": {
-    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveString()</code> 的弃用变体， 该函数也已弃用。这两个函数都不应在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveString()</code> 的弃用变体，该函数也已弃用。新的工作中不应使用任何一个函数。",
     "params": [
       {
         "name": "self",
@@ -47569,7 +47557,7 @@
     "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.SetAccountAge/param/1": {
-    "documentation": "账户的年龄（天）。"
+    "documentation": "账户的年龄（以天为单位）。"
   },
   "@roblox/globaltype/Player.SetAccountAge": {
     "documentation": "设置玩家的 <code>AccountAge</code>。",
@@ -47591,10 +47579,10 @@
     "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/1": {
-    "documentation": "一个布尔值，指示玩家是否看到过滤聊天。"
+    "documentation": "一个布尔值，指示玩家是否看到过滤过的聊天。"
   },
   "@roblox/globaltype/Player.SetSuperSafeChat": {
-    "documentation": "设置玩家是否看到过滤聊天，而不是正常聊天。",
+    "documentation": "设置玩家是否看到过滤过的聊天，而不是正常聊天。",
     "params": [
       {
         "name": "self",
@@ -47616,7 +47604,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.WaitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能曾用于现在过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据，用于新的工作。<br>用于暂停脚本，直到玩家的数据可以操作，或者在未获取玩家的数据 时经过一定时间。",
+    "documentation": "<strong>Deprecated:</strong> 此项目已被弃用，因为它可能用于现在已过时的数据持久化方法。请在新工作中使用 <code>DataStoreService</code> 保存和加载玩家数据。<br>用于暂停脚本，直到玩家的数据可用进行操作，或在经过一段时间未获取玩家数据后。",
     "params": [
       {
         "name": "self",
@@ -47636,7 +47624,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.waitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:WaitForDataReady()</code> 的弃用变体， 该函数也已弃用。这两个函数都不应在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:WaitForDataReady()</code> 的弃用变体，该函数也已弃用。新的工作中不应使用任何一个函数。",
     "params": [
       {
         "name": "self",
@@ -47815,7 +47803,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.CharacterAppearanceLoaded": {
-    "documentation": "当 <code>Character</code> 的完整外观被插入时触发。",
+    "documentation": "当 <code>Character</code> 的完整外观已被插入时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Player.CharacterAppearanceLoaded.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.CharacterAppearanceLoaded.ConnectParallel",
@@ -48079,7 +48067,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Idled": {
-    "documentation": "此事件大约在引擎将玩家分类为闲置后的两分钟触发。时间是自那一时刻起经过的秒数。",
+    "documentation": "在引擎将玩家标记为闲置后，大约两分钟后触发。时间是自那时起经过的秒数。",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Idled.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Idled.ConnectParallel",
@@ -48167,7 +48155,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.OnTeleport": {
-    "documentation": "当玩家的传送状态改变时触发。",
+    "documentation": "当玩家的传送状态变化时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Player.OnTeleport.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.OnTeleport.ConnectParallel",
@@ -60057,7 +60045,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.AllowInsertFreeAssets": {
-    "documentation": "控制 <code>AssetService:LoadAssetAsync()</code> 是否可以加载不属于体验创建者的资产。",
+    "documentation": "控制 <code>AssetService:LoadAssetAsync()</code> 是否可以加载不属于体验创作者的资产。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#AllowInsertFreeAssets",
     "code_sample": ""
   },
@@ -60065,13 +60053,13 @@
     "documentation": "一个非复制的服务，处理与 Roblox 网络 API 相关的资产查询。"
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync/param/1": {
-    "documentation": "一个将被修改以包含层表示的 <code>Decal</code> 实例。此实例上的任何现有贴图将被清除。"
+    "documentation": "将被修改以包含图层表示的 <code>Decal</code> 实例。此实例上的任何现有图层将被清除。"
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync/param/2": {
-    "documentation": "一个字典表数组，将 PBR 名称映射到 <code>Content</code> ID。"
+    "documentation": "一个字典表数组，将 PBR 名称映射到 <code>Content</code> IDs。"
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync": {
-    "documentation": "修改现有的 <code>Decal</code> 以包含通过按提供的顺序在 <code>layers</code> 数组中分层的 PBR 纹理的组合。 纹理根据颜色图的 alpha 值进行分层。",
+    "documentation": "修改现有的 <code>Decal</code> 以包含通过按顺序叠加提供的纹理创建的复合 PBR 纹理。 纹理根据颜色图的 alpha 值分层。",
     "params": [
       {
         "name": "self",
@@ -60094,19 +60082,19 @@
     "documentation": "一个非复制的服务，处理与 Roblox 网络 API 相关的资产查询。"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/1": {
-    "documentation": "要作为资产创建的对象。"
+    "documentation": "作为资产要创建的对象。"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/2": {
-    "documentation": "当前支持的类型有： <ul> <li><code>AssetType.Model</code> - 将 <code>object</code> 作为任何有效的 <code>Instance</code> 根。</li> <li><code>AssetType.Plugin</code> – 将 <code>object</code> 作为任何有效的 <code>Instance</code> 根。</li> <li><code>AssetType.Mesh</code> – 将 <code>object</code> 作为任何有效的 <code>EditableMesh</code> 根。</li> <li><code>AssetType.Image</code> - 将 <code>object</code> 作为任何有效的 <code>EditableImage</code> 根。</li> </ul>"
+    "documentation": "目前支持的类型有： <ul> <li><code>AssetType.Model</code> – 其 <code>object</code> 为任何有效的 <code>Instance</code> 根。</li> <li><code>AssetType.Plugin</code> – 其 <code>object</code> 为任何有效的 <code>Instance</code> 根。</li> <li><code>AssetType.Mesh</code> – 其 <code>object</code> 为任何有效的 <code>EditableMesh</code> 根。</li> <li><code>AssetType.Image</code> – 其 <code>object</code> 为任何有效的 <code>EditableImage</code> 根。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/3": {
-    "documentation": "包含资产元数据的选项表： <ul> <li><code>Name</code> – 作为字符串的资产名称。默认为 <code>[object.Name]</code>。</li> <li><code>Description</code> – 作为字符串的资产描述。默认为 <code>\"通过 AssetService:CreateAssetAsync 创建\"</code>。</li> <li><code>CreatorId</code> – 作为数字的资产创建者 ID。默认为插件上下文中登录的 Roblox Studio 用户。对于开放云 Luau 执行上下文是必需的。</li> <li><code>CreatorType</code> – <code>AssetCreatorType</code>，指示资产创建者的类型。插件上下文中的默认值为 <code>AssetCreatorType.User</code>。对于开放云 Luau 执行上下文是必需的。</li> <li><code>IsPackage</code> – 布尔值，仅适用于 <code>AssetType.Model</code> 类型。默认为 <code>true</code>。</li> </ul>"
+    "documentation": "包含资产元数据的选项表： <ul> <li><code>Name</code> – 资产的名称，字符串形式。默认为 <code>[object.Name]</code>。</li> <li><code>Description</code> – 资产的描述，字符串形式。默认为 <code>\"Created with AssetService:CreateAssetAsync\"</code>。</li> <li><code>CreatorId</code> – 资产创作者的 ID，数字形式。默认为 Plugin 上下文的登录 Roblox Studio 用户。对于 Open Cloud Luau 执行上下文是必需的。</li> <li><code>CreatorType</code> – <code>AssetCreatorType</code>，指示资产创作者的类型。在 Plugin 上下文中默认为 <code>AssetCreatorType.User</code>。对于 Open Cloud Luau 执行上下文是必需的。</li> <li><code>IsPackage</code> – 布尔值，仅适用于 <code>AssetType.Model</code> 类型。默认为 <code>true</code>。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/return/0": {
-    "documentation": "如果成功，返回 <code>CreateAssetResult</code> 和资产 ID 对。"
+    "documentation": "如果成功，则为 <code>CreateAssetResult</code> 和资产 ID 的配对。"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync": {
-    "documentation": "从给定对象上传一个新资产到 Roblox。",
+    "documentation": "从给定对象上传新资产到 Roblox。",
     "params": [
       {
         "name": "self",
@@ -60135,19 +60123,19 @@
     "documentation": "一个非复制的服务，处理与 Roblox 网络 API 相关的资产查询。"
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/1": {
-    "documentation": "要作为资产创建的对象。"
+    "documentation": "作为资产要创建的对象。"
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/2": {
-    "documentation": "当前支持的类型有： <ul> <li><code>AssetType.Model</code> - 将 <code>object</code> 作为任何有效的 <code>Instance</code> 根。</li> <li><code>AssetType.Plugin</code> - 将 <code>object</code> 作为任何有效的 <code>Instance</code> 根。</li> <li><code>AssetType.Mesh</code> – 将 <code>object</code> 作为任何有效的 <code>EditableMesh</code> 根。</li> <li><code>AssetType.Image</code> - 将 <code>object</code> 作为任何有效的 <code>EditableImage</code> 根。</li> </ul>"
+    "documentation": "目前支持的类型有： <ul> <li><code>AssetType.Model</code> – 其 <code>object</code> 为任何有效的 <code>Instance</code> 根。</li> <li><code>AssetType.Plugin</code> – 其 <code>object</code> 为任何有效的 <code>Instance</code> 根。</li> <li><code>AssetType.Mesh</code> – 其 <code>object</code> 为任何有效的 <code>EditableMesh</code> 根。</li> <li><code>AssetType.Image</code> – 其 <code>object</code> 为任何有效的 <code>EditableImage</code> 根。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/3": {
     "documentation": "新版本资产的 ID。"
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/4": {
-    "documentation": "包含资产元数据的选项表： <ul> <li><code>Name</code> – 一个 <code>string</code>。资产名称。默认值为 object.Name。</li> <li><code>Description</code> – 一个 <code>string</code>。资产描述。默认值：   \"通过 AssetService:CreateAssetAsync 创建\"。</li> <li><code>CreatorId</code> – 一个 <code>number</code>。资产创建者的 ID。默认值：用于插件上下文的登录 Roblox Studio 用户。对于开放云 Luau 执行上下文是必需的。</li> <li><code>CreatorType</code> – 一个 <code>AssetCreatorType</code>。资产创建者的类型。默认值：插件上下文中的 <code>AssetCreatorType.User</code>。对于开放云 Luau 执行上下文是必需的。</li> <li><code>IsPackage</code> – 一个 <code>bool</code>。仅适用于 <code>AssetType.Model</code> 类型。默认值：true。</li> </ul>"
+    "documentation": "包含资产元数据的选项表： <ul> <li><code>Name</code> – 一个 <code>string</code>。资产名称。默认：object.Name。</li> <li><code>Description</code> – 一个 <code>string</code>。资产描述。默认：\"Created with AssetService:CreateAssetAsync\"。</li> <li><code>CreatorId</code> – 一个 <code>number</code>。资产创作者的 ID。默认：登录的 Roblox Studio 用户用于 Plugin 上下文。对于 Open Cloud Luau 执行上下文是必需的。</li> <li><code>CreatorType</code> – 一个 <code>AssetCreatorType</code>。资产创作者的类型。默认：<code>AssetCreatorType.User</code> 在 Plugin 上下文中。对于 Open Cloud Luau 执行上下文是必需的。</li> <li><code>IsPackage</code> – 一个 <code>bool</code>。仅适用于 <code>AssetType.Model</code> 类型。默认：true。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/return/0": {
-    "documentation": "如果成功，返回 <code>CreateAssetResult</code> 和资产版本号对。"
+    "documentation": "如果成功，则为 <code>CreateAssetResult</code> 和资产版本号的配对。"
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync": {
     "documentation": "从给定对象上传现有资产的新版本。",
@@ -60210,16 +60198,16 @@
     "documentation": "一个非复制的服务，处理与 Roblox 网络 API 相关的资产查询。"
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/1": {
-    "documentation": "对存储在外部或作为地点内对象的资产内容的引用，包装一个支持的 <code>ContentSourceType</code> 值的单一值。"
+    "documentation": "对外部存储或在地点内作为对象存储的资产内容的引用，封装一个支持的 <code>ContentSourceType</code> 值的单个值。"
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/2": {
-    "documentation": "包含为创建的 <code>EditableImage</code> 提供的选项的表。当前没有可用选项，因为通过 <code>Size</code> 调整大小不被支持。"
+    "documentation": "包含为创建的 <code>EditableImage</code> 提供的选项的表。由于不支持通过 <code>Size</code> 改变大小，因此当前没有可用选项。"
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/return/0": {
-    "documentation": "一个新的 <code>EditableImage</code>，包含提供的图像。"
+    "documentation": "包含提供图像的新的 <code>EditableImage</code>。"
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync": {
-    "documentation": "创建一个新的 <code>EditableImage</code> 对象，使用给定的图像填充。",
+    "documentation": "创建一个新的 <code>EditableImage</code> 对象，填充给定图像。",
     "params": [
       {
         "name": "self",
@@ -60244,7 +60232,7 @@
     "documentation": "一个非复制的服务，处理与 Roblox 网络 API 相关的资产查询。"
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/param/1": {
-    "documentation": "包含为创建的 <code>EditableMesh</code> 提供的选项的表。当前没有可用选项，因为 <code>FixedSize</code> 总是为 empty editable meshes 而 <code>false</code>。"
+    "documentation": "包含为创建的 <code>EditableMesh</code> 提供的选项的表。由于空可编辑网格的 <code>FixedSize</code> 将始终为 <code>false</code>，因此当前没有可用选项。"
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/return/0": {
     "documentation": ""
@@ -60271,16 +60259,16 @@
     "documentation": "一个非复制的服务，处理与 Roblox 网络 API 相关的资产查询。"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/1": {
-    "documentation": "对存储在外部或作为地点内对象的资产内容的引用，包装一个支持的 <code>ContentSourceType</code> 值的单一值。"
+    "documentation": "对外部存储或在地点内作为对象存储的资产内容的引用，封装一个支持的 <code>ContentSourceType</code> 值的单个值。"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/2": {
-    "documentation": "包含方法控制的选项表： <ul> <li><code>FixedSize</code> – 一个 <code>bool</code>。默认值为 <code>true</code>，返回的 <code>EditableMesh</code> 不允许您添加或删除顶点，只能修改它们的值。如果需要更改网格拓扑的能力，则设置为 <code>false</code>，代价是使用更多内存。</li> </ul>"
+    "documentation": "包含方法控制的选项表： <ul> <li><code>FixedSize</code> – 一个 <code>bool</code>。默认值为 <code>true</code>，返回的 <code>EditableMesh</code> 不允许添加或删除顶点，只能修改其值。如果需要更改网格拓扑的能力，请将其设置为 <code>false</code>，但这将消耗更多内存。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/return/0": {
     "documentation": "新的 <code>EditableMesh</code> 实例。"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync": {
-    "documentation": "返回从现有网格内容 ID 创建的新的 <code>EditableMesh</code> 对象。",
+    "documentation": "从现有网格内容 ID 创建一个新的 <code>EditableMesh</code> 对象。",
     "params": [
       {
         "name": "self",
@@ -60305,16 +60293,16 @@
     "documentation": "一个非复制的服务，处理与 Roblox 网络 API 相关的资产查询。"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/1": {
-    "documentation": "对存储在外部或作为地点内对象的资产内容的引用，包装一个支持的 <code>ContentSourceType</code> 值的单一值。"
+    "documentation": "对外部存储或在地点内作为对象存储的资产内容的引用，封装一个支持的 <code>ContentSourceType</code> 值的单个值。"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/2": {
-    "documentation": "包含一个或多个参数控制的选项表： <ul> <li><code>CollisionFidelity</code> – 在生成部件中的 <code>CollisionFidelity</code> 的值。如果选项缺失或 <code>options</code> 表为 <code>nil</code>，则默认为 <code>CollisionFidelity.Default</code>。</li> <li><code>RenderFidelity</code> – 在生成部件中的 <code>RenderFidelity</code> 的值。如果选项缺失或 <code>options</code> 表为 <code>nil</code>，则默认为 <code>RenderFidelity.Automatic</code>。</li> <li><code>FluidFidelity</code> – 在生成部件中的 <code>FluidFidelity</code> 的值。如果选项缺失或 <code>options</code> 表为 <code>nil</code>，则默认为 <code>FluidFidelity.Automatic</code>。</li> </ul>"
+    "documentation": "包含一个或多个方法控制的选项的选项表： <ul> <li><code>CollisionFidelity</code> – 所得部分中 <code>CollisionFidelity</code> 的值。如果选项缺失或 <code>options</code> 表为 <code>nil</code>，则默认为 <code>CollisionFidelity.Default</code>。</li> <li><code>RenderFidelity</code> – 所得部分中 <code>RenderFidelity</code> 的值。如果选项缺失或 <code>options</code> 表为 <code>nil</code>，则默认为 <code>RenderFidelity.Automatic</code>。</li> <li><code>FluidFidelity</code> – 所得部分中 <code>FluidFidelity</code> 的值。如果选项缺失或 <code>options</code> 表为 <code>nil</code>，则默认为 <code>FluidFidelity.Automatic</code>。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync": {
-    "documentation": "创建一个具有指定网格 ID 和可选的保真度值表的新 <code>MeshPart</code>。",
+    "documentation": "创建一个新的 <code>MeshPart</code>，具有指定的网格 ID 和可选的忠实度值表。",
     "params": [
       {
         "name": "self",
@@ -60348,10 +60336,10 @@
     "documentation": "新地点的描述。"
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/return/0": {
-    "documentation": "<code>PlaceId</code> 新地点。"
+    "documentation": "<code>PlaceId</code> 新地点的 ID。"
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync": {
-    "documentation": "通过给定的 <code>templatePlaceID</code> 克隆地点。",
+    "documentation": "通过给定的 <code>templatePlaceID</code> 克隆一个地点。",
     "params": [
       {
         "name": "self",
@@ -60395,7 +60383,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync": {
-    "documentation": "通过给定的 <code>templatePlaceID</code> 克隆地点，并将其放入给定玩家的库存中。",
+    "documentation": "通过给定的 <code>templatePlaceID</code> 克隆一个地点并将其放入给定玩家的库存中。",
     "params": [
       {
         "name": "self",
@@ -60428,13 +60416,13 @@
     "documentation": "一个非复制的服务，处理与 Roblox 网络 API 相关的资产查询。"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "包含以下键值对的字典： <ul> <li><code>ColorMap</code> — 一个包含颜色图的 <code>Content</code> 对象。默认为 <code>nil</code>。</li> <li><code>MetalnessMap</code> — 一个包含金属度图的 <code>Content</code> 对象。如果存在多个通道，则仅使用红色通道。默认为 <code>nil</code>。</li> <li><code>NormalMap</code> — 一个包含法线图的 <code>Content</code> 对象。默认为 <code>nil</code>。</li> <li><code>RoughnessMap</code> — 一个包含粗糙度图的 <code>Content</code> 对象。如果存在多个通道，则仅使用红色通道。默认为 <code>nil</code>。</li> <li><code>EmissiveMask</code> — 一个包含发光面具的 <code>Content</code> 对象。如果存在多个通道，则仅使用红色通道。默认为 <code>nil</code>。</li> </ul>"
+    "documentation": "包含以下键值对的字典： <ul> <li><code>ColorMap</code> — 一个包含颜色图的 <code>Content</code> 对象。默认为 <code>nil</code>。</li> <li><code>MetalnessMap</code> — 一个包含金属度图的 <code>Content</code> 对象。如果存在多个通道，则仅使用红色通道。默认为 <code>nil</code>。</li> <li><code>NormalMap</code> — 一个包含法线图的 <code>Content</code> 对象。默认为 <code>nil</code>。</li> <li><code>RoughnessMap</code> — 一个包含粗糙度图的 <code>Content</code> 对象。如果存在多个通道，则仅使用红色通道。默认为 <code>nil</code>。</li> <li><code>EmissiveMask</code> — 一个包含发光掩码的 <code>Content</code> 对象。如果存在多个通道，则仅使用红色通道。默认为 <code>nil</code>。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "包含来自 <code>content</code> 参数的给定地图的新的 <code>SurfaceAppearance</code> 实例。"
+    "documentation": "一个新的 <code>SurfaceAppearance</code> 实例，包含来自 <code>content</code> 参数的给定图。"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
-    "documentation": "使用提供的内容地图创建一个新的 <code>SurfaceAppearance</code> 对象。",
+    "documentation": "使用提供的内容图创建新的 <code>SurfaceAppearance</code> 对象。",
     "params": [
       {
         "name": "self",
@@ -60512,7 +60500,7 @@
     "documentation": "要检索元数据的资产或内容 ID 数组。最大批量大小为 30。"
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/return/0": {
-    "documentation": "与请求顺序相同的字典表数组，其中每个字典包含其资产/内容的以下元数据： <ul> <li> <code>AssetId</code>（字符串） </li> <li> <code>Title</code>（字符串） </li> <li> <code>Artist</code>（字符串） </li> <li> <code>Duration</code>（数字）以秒为单位 </li> <li> <code>AudioType</code>（<code>AudioSubType</code>） </li> </ul> 请注意，如果检索其中任何请求资产的元数据时发生错误，例如资产 ID 不存在，它的字典表仍会包含在返回的数组中，但仅包含 <code>AssetId</code> 字段以供参考。此外，如果给定资产的 <code>AudioType</code> 无法确定（可能因为它是私有音频），则生成的字典将不包含 <code>AudioType</code> 条目。"
+    "documentation": "与请求中的顺序相同的字典表数组，每个字典包含其资产/内容的以下元数据： <ul> <li> <code>AssetId</code> (字符串) </li> <li> <code>Title</code> (字符串) </li> <li> <code>Artist</code> (字符串) </li> <li> <code>Duration</code> (数字) 以秒为单位 </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> 请注意，如果在提取任何请求资产的元数据时出现错误，例如资产 ID 不存在，则其字典表仍会包含在返回的数组中，但仅包含 <code>AssetId</code> 字段供参考。此外，如果无法确定给定资产的 <code>AudioType</code>（或许因为它是私人音频），结果字典将不包含 <code>AudioType</code> 条目。"
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync": {
     "documentation": "提供有关特定音频源的相关元数据。",
@@ -60536,13 +60524,13 @@
     "documentation": "一个非复制的服务，处理与 Roblox 网络 API 相关的资产查询。"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/param/1": {
-    "documentation": "指定包的 ID。"
+    "documentation": "指定捆绑包的 ID。"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/return/0": {
-    "documentation": "包含有关指定包的详细信息的字典，包括以下键值对： <ul> <li> <code>Id</code> — 包 ID（与传递的 <code>bundleId</code> 参数相同） </li> <li> <code>Name</code> — 包名称 </li> <li> <code>Description</code> — 包描述 </li> <li> <code>BundleType</code> — 表示 <code>BundleType</code> 的字符串，例如 <code>\"BodyParts\"</code> 或 <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — 包中的物品数组，每个物品的详细信息通过以下键表示： </li> <li> <code>Id</code> — 物品 ID </li> <li> <code>Name</code> — 物品名称 </li> <li> <code>Type</code> — 物品类型，例如 <code>\"Asset\"</code>。 </li> </ul>"
+    "documentation": "包含关于指定捆绑包详细信息的字典，包含以下键值对： <ul> <li> <code>Id</code> — 捆绑包 ID（与传递的 <code>bundleId</code> 参数相同） </li> <li> <code>Name</code> — 捆绑包名称 </li> <li> <code>Description</code> — 捆绑包描述 </li> <li> <code>BundleType</code> — 表示 <code>BundleType</code> 的字符串，例如 <code>\"BodyParts\"</code> 或 <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — 捆绑包中包含的项目数组，每个项目通过以下键表示其详细信息： </li> <li> <code>Id</code> — 项 ID </li> <li> <code>Name</code> — 项名称 </li> <li> <code>Type</code> — 项类型，例如 <code>\"Asset\"</code>。 </li> </ul>"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync": {
-    "documentation": "返回指定包内容的详细信息。",
+    "documentation": "返回指定捆绑包内容的详细信息。",
     "params": [
       {
         "name": "self",
@@ -60569,7 +60557,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID": {
-    "documentation": "<strong>Deprecated:</strong> 此项已被弃用，不再正常工作。请勿在新工作中使用它。<br>返回创建 creationID 资产的帐户的 UserId。",
+    "documentation": "<strong>Deprecated:</strong> 此项目已被弃用，不再正常工作。请勿在新工作中使用它。<br>返回创建了 creationID 资产的帐户的 UserId。",
     "params": [
       {
         "name": "self",
@@ -60593,7 +60581,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync": {
-    "documentation": "返回一个 <code>StandardPages</code> 对象，其中包含当前体验中的地点的名称和 <code>PlaceId</code>。",
+    "documentation": "返回一个包含当前体验中地方名称和 <code>PlaceId</code> 的 <code>StandardPages</code> 对象。",
     "params": [
       {
         "name": "self",
@@ -60610,13 +60598,13 @@
     "documentation": "一个非复制的服务，处理与 Roblox 网络 API 相关的资产查询。"
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync/param/1": {
-    "documentation": "正在加载的资产的 ID 号。"
+    "documentation": "正在加载的资产的资产 ID 号。"
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync/return/0": {
-    "documentation": "一个包含加载资产的 <code>Model</code> 实例。"
+    "documentation": "包含加载资产的 <code>Model</code> 实例。"
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync": {
-    "documentation": "根据其资产 ID 加载一个 <code>Model</code> 实例。这是 <code>InsertService:LoadAsset()</code> 的现代替代方案，并支持加载第三方资产。",
+    "documentation": "根据其资产 ID 加载 <code>Model</code> 实例。这是 <code>InsertService:LoadAsset()</code> 的现代替代方案，并支持加载第三方资产。",
     "params": [
       {
         "name": "self",
@@ -60637,19 +60625,19 @@
     "documentation": "一个非复制的服务，处理与 Roblox 网络 API 相关的资产查询。"
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/1": {
-    "documentation": "提交资产创建的用户。"
+    "documentation": "提交资产创建请求的用户。"
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/2": {
     "documentation": "要创建的资产。目前不能包含脚本或嵌套非公共资产。"
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/3": {
-    "documentation": "资产类型。当前只能是 <code>AssetType.Model</code>。"
+    "documentation": "资产类型。目前只能为 <code>AssetType.Model</code>。"
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/return/0": {
-    "documentation": "如果成功，返回 <code>PromptCreateAssetResult</code> 和资产 ID 对。"
+    "documentation": "如果成功，则为 <code>PromptCreateAssetResult</code> 和资产 ID 的配对。"
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync": {
-    "documentation": "通过提示发布对话框允许用户在体验中创建资产。",
+    "documentation": "通过提示发布对话框来允许用户在体验中创建资产。",
     "params": [
       {
         "name": "self",
@@ -60712,7 +60700,7 @@
     "documentation": "一个非复制的服务，处理与 Roblox 网络 API 相关的资产查询。"
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "可选字典，包括 <code>SaveWithoutPublish</code>，一个布尔值，指示是否保存时有发布或没有发布，以及 <code>PlaceId</code>，要保存的目的地地点 ID。一个示例用法可能是：AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})。如果未提供 PlaceId，则默认行为将保存覆盖调用 SavePlaceAsync 的当前原始地点。如果未提供 SaveWithoutPublish，则默认行为为 SaveWithoutPublish=false。"
+    "documentation": "可选字典，包括 <code>SaveWithoutPublish</code>，一个布尔值，指示是否保存时不发布，以及 <code>PlaceId</code>，要保存的目标地点 ID。示例用法为：AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})。如果未提供 PlaceId，默认行为将覆盖当前原始地点，该地点正在调用 SavePlaceAsync。如果未提供 SaveWithoutPublish，默认行为为 SaveWithoutPublish=false。"
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "保存当前地点的状态。",
@@ -60740,7 +60728,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.SearchAudio": {
-    "documentation": "<strong>Deprecated:</strong> <br>根据各种搜索标准查找音频资产。",
+    "documentation": "<strong>Deprecated:</strong> <br>根据多种搜索条件查找音频资产。",
     "params": [
       {
         "name": "self",
@@ -60767,7 +60755,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync": {
-    "documentation": "根据各种搜索标准查找音频资产。",
+    "documentation": "根据多种搜索条件查找音频资产。",
     "params": [
       {
         "name": "self",
@@ -62229,7 +62217,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Selection": {
-    "documentation": "Selection 服务控制在 Roblox Studio 中选定的 <code>Instances</code>。",
+    "documentation": "选择服务控制在 Roblox Studio 中选择的 <code>Instances</code>。",
     "keys": {
       "SelectionThickness": "@roblox/globaltype/Selection.SelectionThickness",
       "Add": "@roblox/globaltype/Selection.Add",
@@ -62246,7 +62234,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Selection.Add/param/0": {
-    "documentation": "Selection 服务控制在 Roblox Studio 中选定的 <code>Instances</code>。"
+    "documentation": "选择服务控制在 Roblox Studio 中选择的 <code>Instances</code>。"
   },
   "@roblox/globaltype/Selection.Add/param/1": {
     "documentation": ""
@@ -62268,13 +62256,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Selection.Get/param/0": {
-    "documentation": "Selection 服务控制在 Roblox Studio 中选定的 <code>Instances</code>。"
+    "documentation": "选择服务控制在 Roblox Studio 中选择的 <code>Instances</code>。"
   },
   "@roblox/globaltype/Selection.Get/return/0": {
-    "documentation": "当前选定的 <code>Instances</code> 数组。"
+    "documentation": "当前选择的 <code>Instances</code> 的数组。"
   },
   "@roblox/globaltype/Selection.Get": {
-    "documentation": "返回在 Roblox Studio 中当前选定的 <code>Instances</code> 的数组。",
+    "documentation": "返回在 Roblox Studio 中当前选择的 <code>Instances</code> 的数组。",
     "params": [
       {
         "name": "self",
@@ -62288,7 +62276,7 @@
     "code_sample": "local Selection = game:GetService(\"Selection\")\n\nfor _, object in pairs(Selection:Get()) do\n\tif object:IsA(\"BasePart\") then\n\t\tobject.CFrame = object.CFrame * CFrame.Angles(0, math.pi / 2, 0)\n\tend\nend"
   },
   "@roblox/globaltype/Selection.Remove/param/0": {
-    "documentation": "Selection 服务控制在 Roblox Studio 中选定的 <code>Instances</code>。"
+    "documentation": "选择服务控制在 Roblox Studio 中选择的 <code>Instances</code>。"
   },
   "@roblox/globaltype/Selection.Remove/param/1": {
     "documentation": ""
@@ -62310,13 +62298,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Selection.Set/param/0": {
-    "documentation": "Selection 服务控制在 Roblox Studio 中选定的 <code>Instances</code>。"
+    "documentation": "选择服务控制在 Roblox Studio 中选择的 <code>Instances</code>。"
   },
   "@roblox/globaltype/Selection.Set/param/1": {
-    "documentation": "要将当前选择设置为的 <code>Instances</code> 数组。"
+    "documentation": "要设置为当前选择的 <code>Instances</code> 数组。"
   },
   "@roblox/globaltype/Selection.Set": {
-    "documentation": "将 Roblox Studio 中当前选定的对象设置为给定数组中的 <code>Instances</code>。",
+    "documentation": "将当前在 Roblox Studio 中选择的对象设置为给定数组中的 <code>Instances</code>。",
     "params": [
       {
         "name": "self",
@@ -62409,7 +62397,7 @@
     "returns": []
   },
   "@roblox/globaltype/Selection.SelectionChanged": {
-    "documentation": "当在 Roblox Studio 中选定的 <code>Instances</code> 更改时触发。",
+    "documentation": "当在 Roblox Studio 中选择的 <code>Instances</code> 发生更改时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Selection.SelectionChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Selection.SelectionChanged.ConnectParallel",
@@ -75932,7 +75920,6 @@
   "@roblox/globaltype/GroundController": {
     "documentation": "",
     "keys": {
-      "AccelerationLean": "@roblox/globaltype/GroundController.AccelerationLean",
       "AccelerationTime": "@roblox/globaltype/GroundController.AccelerationTime",
       "BalanceMaxTorque": "@roblox/globaltype/GroundController.BalanceMaxTorque",
       "BalanceSpeed": "@roblox/globaltype/GroundController.BalanceSpeed",
@@ -75940,30 +75927,23 @@
       "Friction": "@roblox/globaltype/GroundController.Friction",
       "FrictionWeight": "@roblox/globaltype/GroundController.FrictionWeight",
       "GroundOffset": "@roblox/globaltype/GroundController.GroundOffset",
-      "StandForce": "@roblox/globaltype/GroundController.StandForce",
-      "StandSpeed": "@roblox/globaltype/GroundController.StandSpeed",
       "TurnSpeedFactor": "@roblox/globaltype/GroundController.TurnSpeedFactor"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController",
     "code_sample": ""
   },
-  "@roblox/globaltype/GroundController.AccelerationLean": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#AccelerationLean",
-    "code_sample": ""
-  },
   "@roblox/globaltype/GroundController.AccelerationTime": {
-    "documentation": "到达所需速度的预计时间。",
+    "documentation": "达到所需速度的预计时间。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#AccelerationTime",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.BalanceMaxTorque": {
-    "documentation": "保持 <code>ControllerManager.RootPart</code> 垂直对齐所使用的最大扭矩。",
+    "documentation": "用于保持 <code>ControllerManager.RootPart</code> 垂直对齐的最大扭矩。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#BalanceMaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.BalanceSpeed": {
-    "documentation": "用于使 <code>ControllerManager.RootPart</code> 垂直对齐的最大角速度。",
+    "documentation": "用于将 <code>ControllerManager.RootPart</code> 对齐为垂直的最大角速度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#BalanceSpeed",
     "code_sample": ""
   },
@@ -75978,23 +75958,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.FrictionWeight": {
-    "documentation": "角色的摩擦在与地面摩擦的比重。",
+    "documentation": "角色的摩擦与地面摩擦之间的权重。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#FrictionWeight",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.GroundOffset": {
-    "documentation": "保持 <code>ControllerManager.RootPart</code> 在地面上方的目标距离。",
+    "documentation": "保持 <code>ControllerManager.RootPart</code> 的目标距离。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#GroundOffset",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GroundController.StandForce": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#StandForce",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GroundController.StandSpeed": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#StandSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.TurnSpeedFactor": {
@@ -76942,7 +76912,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PackageLink.AutoUpdate": {
-    "documentation": "当此属性设置为 true 时，与给定 <code>PackageLink</code> 关联的包会自动更新到最新版本。",
+    "documentation": "当该属性设置为 true 时，与给定 <code>PackageLink</code> 关联的包会自动更新为最新版本。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PackageLink#AutoUpdate",
     "code_sample": ""
   },
@@ -76962,7 +76932,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PackageLink.PackageId": {
-    "documentation": "此包对应的资产 ID。",
+    "documentation": "此包对应资产的 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PackageLink#PackageId",
     "code_sample": ""
   },
@@ -76982,7 +76952,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PackageLink.VersionNumber": {
-    "documentation": "指特定包的修订版。",
+    "documentation": "指特定包的一个修订版。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PackageLink#VersionNumber",
     "code_sample": ""
   },
@@ -77063,6 +77033,7 @@
       "FireInGameEconomyEvent": "@roblox/globaltype/AnalyticsService.FireInGameEconomyEvent",
       "FireLogEvent": "@roblox/globaltype/AnalyticsService.FireLogEvent",
       "FirePlayerProgressionEvent": "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent",
+      "GetPlayerSegmentsAsync": "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync",
       "LogCustomEvent": "@roblox/globaltype/AnalyticsService.LogCustomEvent",
       "LogEconomyEvent": "@roblox/globaltype/AnalyticsService.LogEconomyEvent",
       "LogFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent",
@@ -77323,6 +77294,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FirePlayerProgressionEvent",
     "code_sample": ""
   },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/0": {
+    "documentation": "允许您跟踪用户如何与您的体验互动的方法集合。"
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/1": {
+    "documentation": "应该返回细分桶的玩家。"
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/return/0": {
+    "documentation": "包含当前体验的粗略玩家细分桶的字典。"
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync": {
+    "documentation": "返回当前体验的粗略玩家细分桶。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#GetPlayerSegmentsAsync",
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal AnalyticsService = game:GetService(\"AnalyticsService\")\n\nlocal function configurePlayerExperience(player)\n\tlocal segments = AnalyticsService:GetPlayerSegmentsAsync(player)\n\n\tif not segments.HasData then\n\t\treturn\n\tend\n\n\tif segments.WhenUserFirstPlayed == Enum.WhenUserFirstPlayed.Days0To30 then\n\t\tprint(\"为\", player.Name, \"显示额外的入职内容\")\n\tend\n\n\tif segments.ActivePayerStatus == Enum.ActivePayerStatus.Top15Percent then\n\t\tprint(\"向\", player.Name, \"显示高价值优惠\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(configurePlayerExperience)"
+  },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/0": {
     "documentation": "允许您跟踪用户如何与您的体验互动的方法集合。"
   },
@@ -77333,13 +77331,13 @@
     "documentation": "自定义事件的名称。"
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/3": {
-    "documentation": "将用于聚合的事件值。"
+    "documentation": "将在聚合中使用的事件值。"
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/4": {
-    "documentation": "可选的自定义字段字典，将在 Roblox 提供的图表中提供分解。仅有 <code>AnalyticsCustomFieldKeys</code> 提供的特定键将用于这些分解。在每个体验中限制为 8,000 个唯一值组合。"
+    "documentation": "将提供 Roblox 提供的图表中的分解的自定义字段的可选字典。仅特定键，由 <code>AnalyticsCustomFieldKeys</code> 提供，将用于这些分解。每个体验限制为 8,000 种独特值的组合。"
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent": {
-    "documentation": "记录一个事件，用于跟踪用户在体验中的自定义指标。",
+    "documentation": "记录一次用于跟踪用户在体验中的自定义指标的事件。",
     "params": [
       {
         "name": "self",
@@ -77373,28 +77371,28 @@
     "documentation": "触发事件的用户。"
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/2": {
-    "documentation": "应使用 <code>AnalyticsEconomyFlowType</code> 指定货币的流向。"
+    "documentation": "应使用 <code>AnalyticsEconomyFlowType</code> 指定货币流动的方向。"
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/3": {
-    "documentation": "添加或删除的货币名称，例如 <code>\"gold\"</code>、<code>\"gems\"</code> 或 <code>\"energy\"</code>。每个体验限制为 5 种唯一货币类型。"
+    "documentation": "被添加或移除的货币名称，例如 <code>\"gold\"</code>、<code>\"gems\"</code> 或 <code>\"energy\"</code>。每个体验限制为 5 种独特货币类型。"
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/4": {
-    "documentation": "添加或删除的货币数量。此值应始终为正。"
+    "documentation": "被添加或移除的货币数量。此值应始终为正。"
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/5": {
-    "documentation": "在添加或删除货币后的用户余额。此值应始终大于或等于 <code>0</code>。"
+    "documentation": "货币添加或移除后的用户余额。此值应始终大于或等于 <code>0</code>。"
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/6": {
-    "documentation": "发生的事务类型。虽然你可以使用任何事务类型，但建议使用来自 <code>AnalyticsEconomyTransactionType</code> 的提供类型，如 <code>\"IAP\"</code> 或 <code>\"ContextualPurchase\"</code>，以便从 Roblox 工具和图表中获得未来的见解。 由于此字段类型为字符串，您需要传递枚举的 <code>Name</code> 值。例如 <code>Enum.AnalyticsEconomyTransactionType.IAP.Name</code>。 每个体验限制为 20 种唯一类型。"
+    "documentation": "发生的交易类型。虽然您可以使用任何交易类型，但建议使用 <code>AnalyticsEconomyTransactionType</code> 提供的类型，如 <code>\"IAP\"</code> 或 <code>\"ContextualPurchase\"</code>，以启用未来从 Roblox 工具和图表中的洞察。 因为此字段类型是字符串，所以您需要传递枚举的 <code>Name</code> 值。例如 <code>Enum.AnalyticsEconomyTransactionType.IAP.Name</code>。 每个体验限制为 20 种独特类型。"
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/7": {
-    "documentation": "可选，正在购买的物品或捆绑的 SKU。这是所购物品的唯一标识符。每个体验限制为 100 个唯一 SKU。"
+    "documentation": "可选的 SKU，用于购买的物品或包。这是正在购买的物品的唯一标识符。每个体验限制为 100 种独特 SKU。"
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/8": {
-    "documentation": "可选的自定义字段字典，将在 Roblox 提供的图表中提供分解。仅有 <code>AnalyticsCustomFieldKeys</code> 提供的特定键将用于这些分解。在每个体验中限制为 8,000 个唯一值组合。"
+    "documentation": "将提供 Roblox 提供的图表中的分解的可选自定义字段字典。仅特定键，由 <code>AnalyticsCustomFieldKeys</code> 提供，将用于这些分解。每个体验限制为 8,000 种独特值的组合。"
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent": {
-    "documentation": "记录一个事件，用于跟踪与体验相关的玩家行为。",
+    "documentation": "记录一次用于跟踪与体验相关的玩家操作的事件。",
     "params": [
       {
         "name": "self",
@@ -77444,22 +77442,22 @@
     "documentation": "触发事件的用户。"
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/2": {
-    "documentation": "漏斗的名称。此名称在漏斗的所有步骤中应相同。每个体验限制为 10 个唯一漏斗。"
+    "documentation": "漏斗的名称。所有步骤应相同。每个体验限制为 10 个独特的漏斗。"
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/3": {
-    "documentation": "可选的漏斗会话唯一标识符。此名称在漏斗的所有步骤中应相同。 请注意，此字段仅在 <strong>定期</strong>漏斗中必需，例如购买流漏斗或物品升级漏斗。如果您没有自然的漏斗会话标识符，建议使用 <code>HttpService:GenerateGUID()</code>。"
+    "documentation": "可选的漏斗会话的唯一标识符。所有步骤应相同。 请注意，此字段仅在 <strong>重复</strong> 漏斗中是必要的，例如购买流程漏斗或物品升级漏斗。如果您没有自然的漏斗会话标识符，建议使用 <code>HttpService:GenerateGUID()</code>。"
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/4": {
-    "documentation": "漏斗中的步骤编号。此编号在漏斗中的每个步骤中应唯一。所有漏斗从步骤 1 开始。限制为步骤 1-100。 在相同漏斗会话中相同用户的重复步骤，或者当 <code>funnelSessionId</code> 为 <code>nil</code> 时将被忽略。 请注意，如果跳过任何步骤，则中间步骤将被视为完成。"
+    "documentation": "漏斗中的步骤编号。每个步骤应唯一。所有漏斗从第 1 步开始。限制为步骤 1-100。 同一用户在同一漏斗会话中的重复步骤，或者 <code>funnelSessionId</code> 为 <code>nil</code> 时将被忽略。 请注意，跳过任何步骤时，中间步骤将被视为完成。"
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/5": {
-    "documentation": "可选的漏斗中步骤的名称。此字段仅用于 Roblox 提供的图表中的显示用途。"
+    "documentation": "可选的步骤名称，此字段仅用于 Roblox 提供的图表中的显示目的。"
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/6": {
-    "documentation": "可选的自定义字段字典，将在 Roblox 提供的图表中提供分解。仅有 <code>AnalyticsCustomFieldKeys</code> 提供的特定键将用于这些分解。在每个体验中限制为 8,000 个唯一值组合。"
+    "documentation": "将提供 Roblox 提供的图表中的分解的可选自定义字段字典。仅特定键，由 <code>AnalyticsCustomFieldKeys</code> 提供，将用于这些分解。每个体验限制为 8,000 种独特值的组合。"
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent": {
-    "documentation": "记录一个事件，用于跟踪用户在预定漏斗中逐步操作的情况。",
+    "documentation": "记录一次用于跟踪用户按照预先计划的漏斗进行操作的事件。",
     "params": [
       {
         "name": "self",
@@ -77501,16 +77499,16 @@
     "documentation": "触发事件的用户。"
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/2": {
-    "documentation": "漏斗中的步骤编号。此编号在漏斗中的每个步骤中应唯一。所有漏斗从步骤 1 开始。限制为步骤 1-100。 请注意，如果跳过任何步骤，则中间步骤将被视为完成。"
+    "documentation": "漏斗中的步骤编号。每个步骤应唯一。所有漏斗从第 1 步开始。限制为步骤 1-100。 请注意，如果跳过任何步骤，中间步骤将被视为完成。"
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/3": {
-    "documentation": "可选的漏斗中步骤的名称。此字段仅用于 Roblox 提供的图表中的显示用途。"
+    "documentation": "可选的步骤名称，此字段仅用于 Roblox 提供的图表中的显示目的。"
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/4": {
-    "documentation": "可选的自定义字段字典，将在 Roblox 提供的图表中提供分解。仅有 <code>AnalyticsCustomFieldKeys</code> 提供的特定键将用于这些分解。在每个体验中限制为 8,000 个唯一值组合。"
+    "documentation": "将提供 Roblox 提供的图表中的分解的可选自定义字段字典。仅特定键，由 <code>AnalyticsCustomFieldKeys</code> 提供，将用于这些分解。每个体验限制为 8,000 种独特值的组合。"
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent": {
-    "documentation": "记录一个事件，用于跟踪用户在入职漏斗中逐步操作的情况。",
+    "documentation": "记录一次用于跟踪用户按照入驻漏斗进行操作的事件。",
     "params": [
       {
         "name": "self",
@@ -77556,7 +77554,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent": {
-    "documentation": "记录一个事件，当用户完成关卡尝试时。",
+    "documentation": "记录一次用户完成关卡尝试的事件。",
     "params": [
       {
         "name": "self",
@@ -77609,7 +77607,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent": {
-    "documentation": "记录一个事件，当用户开始、完成或失败一个关卡尝试时。",
+    "documentation": "记录一次用户开始、完成或失败关卡尝试的事件。",
     "params": [
       {
         "name": "self",
@@ -77663,7 +77661,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent": {
-    "documentation": "记录一个事件，当用户失败一个关卡尝试时。",
+    "documentation": "记录一次用户失败关卡尝试的事件。",
     "params": [
       {
         "name": "self",
@@ -77713,7 +77711,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent": {
-    "documentation": "记录一个事件，当用户开始一个关卡尝试时。",
+    "documentation": "记录一次用户开始关卡尝试的事件。",
     "params": [
       {
         "name": "self",
@@ -79881,10 +79879,10 @@
   "@roblox/globaltype/TextBox.Font": {
     "documentation": "确定用于渲染文本的字体。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Font",
-    "code_sample": "local textLabel = script.Parent\n\nwhile true do\n\t-- 遍历所有不同的字体\n\tfor _, font in pairs(Enum.Font:GetEnumItems()) do\n\t\ttextLabel.Font = font\n\t\ttextLabel.Text = font.Name\n\t\ttask.wait(1)\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.FontFace": {
-    "documentation": "确定用于渲染文本的字体。",
+    "documentation": "确定用于渲染文本的字体样式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#FontFace",
     "code_sample": ""
   },
@@ -79899,12 +79897,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.MaxVisibleGraphemes": {
-    "documentation": "该 <code>TextBox</code> 可以显示的最大字符数。",
+    "documentation": "<code>TextBox</code> 可以显示的最大字素数。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#MaxVisibleGraphemes",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.MultiLine": {
-    "documentation": "设置为 <code>true</code> 时，<code>TextBox</code> 内的文本可以换行。这还允许玩家使用回车键换行。",
+    "documentation": "设置为 <code>true</code> 时，<code>TextBox</code> 内的文本能够换行。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#MultiLine",
     "code_sample": ""
   },
@@ -79919,37 +79917,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.PlaceholderColor3": {
-    "documentation": "设置在 <code>TextBox</code> 中尚未输入文本时使用的文本颜色。",
+    "documentation": "设置未在 <code>TextBox</code> 中输入文本时显示的文本颜色。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#PlaceholderColor3",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.PlaceholderText": {
-    "documentation": "设置在 <code>TextBox</code> 中尚未输入文本时显示的文本。",
+    "documentation": "设置未在 <code>TextBox</code> 中输入文本时显示的文本内容。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#PlaceholderText",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.RichText": {
-    "documentation": "确定 <code>TextBox</code> 是否使用富文本格式渲染 <code>TextBox.Text</code> 字符串。",
+    "documentation": "确定 <code>TextBox</code> 是否使用富文本格式渲染 <code>Text</code> 字符串。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#RichText",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.SelectionStart": {
-    "documentation": "确定文本选择的起始位置，如果没有文本被选中则为 -1。",
+    "documentation": "确定文本选择的起始位置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#SelectionStart",
     "code_sample": "local textBox = script.Parent\n\nlocal function showSelection()\n\tif textBox.CursorPosition == -1 or textBox.SelectionStart == -1 then\n\t\tprint(\"没有选择\")\n\telse\n\t\tlocal selectedText = string.sub(\n\t\t\ttextBox.Text,\n\t\t\tmath.min(textBox.CursorPosition, textBox.SelectionStart),\n\t\t\tmath.max(textBox.CursorPosition, textBox.SelectionStart)\n\t\t)\n\t\tprint('选择内容是:\"', selectedText, '\"')\n\tend\nend\n\ntextBox:GetPropertyChangedSignal(\"CursorPosition\"):Connect(showSelection)\ntextBox:GetPropertyChangedSignal(\"SelectionStart\"):Connect(showSelection)"
   },
   "@roblox/globaltype/TextBox.ShowNativeInput": {
-    "documentation": "如果设置为 true，则使用平台原生输入，而不是 Roblox 的内置键盘。",
+    "documentation": "设置为 <code>true</code> 时，使用平台原生输入，而不是 Roblox 的内置键盘。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#ShowNativeInput",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.Text": {
-    "documentation": "确定 UI 元素渲染的字符串。",
+    "documentation": "确定 <code>TextBox</code> 元素渲染的字符串。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Text",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextBounds": {
-    "documentation": "UI 元素文本的大小（以偏移量为单位）。",
+    "documentation": "<code>TextBox</code> 元素文本的大小，单位为偏移量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextBounds",
     "code_sample": ""
   },
@@ -79959,7 +79957,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextColor3": {
-    "documentation": "确定渲染文本的颜色。",
+    "documentation": "确定非占位符渲染文本的颜色。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextColor3",
     "code_sample": "local textBox = script.Parent\n\nlocal function hasVowels(str)\n\treturn str:lower():find(\"[aeiou]\")\nend\n\nlocal function onTextChanged()\n\tlocal text = textBox.Text\n\t-- 检查元音\n\tif hasVowels(text) then\n\t\ttextBox.TextColor3 = Color3.new(0, 0, 0) -- 黑色\n\telse\n\t\ttextBox.TextColor3 = Color3.new(1, 0, 0) -- 红色\n\tend\nend\n\ntextBox:GetPropertyChangedSignal(\"Text\"):Connect(onTextChanged)"
   },
@@ -79974,19 +79972,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextFits": {
-    "documentation": "文本是否适合 TextBox 的约束条件。",
+    "documentation": "文本是否符合 <code>TextBox</code> 的约束。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextFits",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextScaled": {
-    "documentation": "更改文本是否被调整大小以适配渲染它的 GUI 对象。",
+    "documentation": "更改文本是否调整大小以适应 <code>TextBox</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextScaled",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextSize": {
     "documentation": "确定文本的行高（以偏移量为单位）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextSize",
-    "code_sample": "local textLabel = script.Parent\n\ntextLabel.Text = \"轰轰！\"\n\nwhile true do\n\tfor size = 5, 100, 5 do\n\t\ttextLabel.TextSize = size\n\t\ttextLabel.TextTransparency = size / 100\n\t\ttask.wait()\n\tend\n\ttask.wait(1)\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextStrokeColor3": {
     "documentation": "确定文本描边（轮廓）的颜色。",
@@ -80004,7 +80002,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextTruncate": {
-    "documentation": "控制在此 TextBox 中显示的文本的截断。",
+    "documentation": "控制在 <code>TextBox</code> 中显示文本的截断。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextTruncate",
     "code_sample": ""
   },
@@ -80014,25 +80012,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextWrapped": {
-    "documentation": "确定文本是否在 <code>GuiObject</code> 元素空间内换行，截断多余文本。",
+    "documentation": "确定文本是否在 <code>TextBox</code> 元素空间内换行，截断多余的文本。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextWrapped",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextXAlignment": {
     "documentation": "确定渲染文本的水平对齐方式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextXAlignment",
-    "code_sample": "-- 将此粘贴到 TextLabel/TextButton/TextBox 内的 LocalScript 中\nlocal textLabel = script.Parent\n\nlocal function setAlignment(xAlign, yAlign)\n\ttextLabel.TextXAlignment = xAlign\n\ttextLabel.TextYAlignment = yAlign\n\ttextLabel.Text = xAlign.Name .. \" + \" .. yAlign.Name\nend\n\nwhile true do\n\t-- 遍历 TextXAlignment 和 TextYAlignment 枚举项\n\tfor _, yAlign in pairs(Enum.TextYAlignment:GetEnumItems()) do\n\t\tfor _, xAlign in pairs(Enum.TextXAlignment:GetEnumItems()) do\n\t\t\tsetAlignment(xAlign, yAlign)\n\t\t\ttask.wait(1)\n\t\tend\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextYAlignment": {
     "documentation": "确定渲染文本的垂直对齐方式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextYAlignment",
-    "code_sample": "-- 将此粘贴到 TextLabel/TextButton/TextBox 内的 LocalScript 中\nlocal textLabel = script.Parent\n\nlocal function setAlignment(xAlign, yAlign)\n\ttextLabel.TextXAlignment = xAlign\n\ttextLabel.TextYAlignment = yAlign\n\ttextLabel.Text = xAlign.Name .. \" + \" .. yAlign.Name\nend\n\nwhile true do\n\t-- 遍历 TextXAlignment 和 TextYAlignment 枚举项\n\tfor _, yAlign in pairs(Enum.TextYAlignment:GetEnumItems()) do\n\t\tfor _, xAlign in pairs(Enum.TextXAlignment:GetEnumItems()) do\n\t\t\tsetAlignment(xAlign, yAlign)\n\t\t\ttask.wait(1)\n\t\tend\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.CaptureFocus/param/0": {
     "documentation": "一个 2D 用户界面元素，用于显示玩家可编辑的文本。"
   },
   "@roblox/globaltype/TextBox.CaptureFocus": {
-    "documentation": "强制客户端聚焦于 TextBox。",
+    "documentation": "强制客户端聚焦到 <code>TextBox</code>。",
     "params": [
       {
         "name": "self",
@@ -80041,7 +80039,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#CaptureFocus",
-    "code_sample": ""
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal textBox = script.Parent\n\nlocal input = UserInputService.InputBegan:Connect(function(input, processed)\n\tif input.KeyCode == Enum.KeyCode.Q then\n\t\ttextBox:CaptureFocus()\n\tend\nend)"
   },
   "@roblox/globaltype/TextBox.IsFocused/param/0": {
     "documentation": "一个 2D 用户界面元素，用于显示玩家可编辑的文本。"
@@ -80083,7 +80081,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#ReleaseFocus",
-    "code_sample": "local textBox = script.Parent\n\nlocal function onFocused()\n\ttask.wait(5)\n\ttextBox:ReleaseFocus()\nend\n\ntextBox.Focused:Connect(onFocused)"
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal textBox = script.Parent\n\nlocal input = UserInputService.InputBegan:Connect(function(input, processed)\n\tif input.KeyCode == Enum.KeyCode.Escape and textBox.IsFocused then\n\t\ttextBox:ReleaseFocus()\n\tend\nend)"
   },
   "@roblox/globaltype/TextBox.Focused.Connect/param/0": {
     "documentation": "一个在特定事件发生时运行连接的函数的对象。"
@@ -80163,7 +80161,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextBox.Focused": {
-    "documentation": "当 <code>TextBox</code> 获得焦点时触发。",
+    "documentation": "<code>TextBox</code> 获得焦点时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/TextBox.Focused.Connect",
       "ConnectParallel": "@roblox/globaltype/TextBox.Focused.ConnectParallel",
@@ -80171,7 +80169,7 @@
       "Wait": "@roblox/globaltype/TextBox.Focused.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Focused",
-    "code_sample": "local textBox = script.Parent\n\nlocal function onFocused()\n\tprint(\"获得焦点\")\nend\n\ntextBox.Focused:Connect(onFocused)"
+    "code_sample": "local textBox = script.Parent\n\ntextBox.Focused:Connect(function()\n\tprint(\"聚焦！\")\nend)\n\ntextBox.FocusLost:Connect(function()\n\tprint(\"失去焦点！\")\nend)"
   },
   "@roblox/globaltype/TextBox.FocusLost.Connect/param/0": {
     "documentation": "一个在特定事件发生时运行连接的函数的对象。"
@@ -80251,7 +80249,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextBox.FocusLost": {
-    "documentation": "当客户端让其焦点离开 <code>TextBox</code> 时触发。",
+    "documentation": "<code>TextBox</code> 失去焦点时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/TextBox.FocusLost.Connect",
       "ConnectParallel": "@roblox/globaltype/TextBox.FocusLost.ConnectParallel",
@@ -80259,7 +80257,7 @@
       "Wait": "@roblox/globaltype/TextBox.FocusLost.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#FocusLost",
-    "code_sample": "local gui = script.Parent\nlocal textBox = gui.TextBox\n\nlocal function focusLost(enterPressed)\n\tif enterPressed then\n\t\tprint(\"焦点因按下回车键而丢失！\")\n\telse\n\t\tprint(\"焦点在没有按下回车的情况下丢失\")\n\tend\nend\n\ntextBox.FocusLost:Connect(focusLost)"
+    "code_sample": "local textBox = script.Parent\n\ntextBox.Focused:Connect(function()\n\tprint(\"聚焦！\")\nend)\n\ntextBox.FocusLost:Connect(function()\n\tprint(\"失去焦点！\")\nend)"
   },
   "@roblox/globaltype/TextBox.ReturnPressedFromOnScreenKeyboard.Connect/param/0": {
     "documentation": "一个在特定事件发生时运行连接的函数的对象。"
@@ -84537,7 +84535,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TaskScheduler": {
-    "documentation": "任务调度器功能的设置集合。",
+    "documentation": "任务调度程序功能的设置集合。",
     "keys": {
       "SchedulerDutyCycle": "@roblox/globaltype/TaskScheduler.SchedulerDutyCycle",
       "SchedulerRate": "@roblox/globaltype/TaskScheduler.SchedulerRate",
@@ -84548,17 +84546,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TaskScheduler.SchedulerDutyCycle": {
-    "documentation": "平均时间除以占空比的平均间隔。",
+    "documentation": "平均时间除以工作周期的平均间隔。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TaskScheduler#SchedulerDutyCycle",
     "code_sample": ""
   },
   "@roblox/globaltype/TaskScheduler.SchedulerRate": {
-    "documentation": "任务调度器的当前平均速率。",
+    "documentation": "任务调度程序的当前平均速率。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TaskScheduler#SchedulerRate",
     "code_sample": ""
   },
   "@roblox/globaltype/TaskScheduler.ThreadPoolConfig": {
-    "documentation": "任务调度器的指定线程池配置。",
+    "documentation": "任务调度程序的指定线程池配置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TaskScheduler#ThreadPoolConfig",
     "code_sample": ""
   },
@@ -118667,6 +118665,68 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreatorType",
     "code_sample": ""
   },
+  "@roblox/enum/CreateContentResult.Success": {
+    "documentation": "Success.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.PermissionDenied": {
+    "documentation": "The user does not have the required permissions to perform this operation.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#PermissionDenied",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.UploadFailed": {
+    "documentation": "Asset failed to upload.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#UploadFailed",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.StorageLimitExceeded": {
+    "documentation": "The storage budget limit for <code>DataModel</code>-scoped content was exceeded.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#StorageLimitExceeded",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.Unknown": {
+    "documentation": "An unknown error occurred.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.CreateContentResult": {
+    "documentation": "",
+    "keys": {
+      "Success": "@roblox/enum/CreateContentResult.Success",
+      "PermissionDenied": "@roblox/enum/CreateContentResult.PermissionDenied",
+      "UploadFailed": "@roblox/enum/CreateContentResult.UploadFailed",
+      "StorageLimitExceeded": "@roblox/enum/CreateContentResult.StorageLimitExceeded",
+      "Unknown": "@roblox/enum/CreateContentResult.Unknown"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult",
+    "code_sample": ""
+  },
   "@roblox/enum/ActionOnStopSync.AlwaysAsk": {
     "documentation": "",
     "keys": {
@@ -134495,7 +134555,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AutomaticSize.X": {
-    "documentation": "自动调整元素的X轴大小以适应子内容。",
+    "documentation": "自动调整元素在 <strong>X</strong> 轴上的大小，以适应子内容。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -134505,7 +134565,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AutomaticSize.Y": {
-    "documentation": "自动调整元素的Y轴大小以适应子内容。如果启用了TextWrapped，文本对象仅会沿Y轴调整大小。",
+    "documentation": "自动调整元素在 <strong>Y</strong> 轴上的大小，以适应子内容。 仅当 <code>TextWrapped</code> 属性启用时，文本对象才会在 <strong>Y</strong> 轴上自动调整大小。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -134515,7 +134575,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AutomaticSize.XY": {
-    "documentation": "自动调整元素的X轴和Y轴大小以适应子内容。",
+    "documentation": "自动调整元素在 <strong>X</strong> 和 <strong>Y</strong> 轴上的大小，以适应子内容。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

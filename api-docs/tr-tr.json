@@ -24353,7 +24353,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer": {
-    "documentation": "<code>WrapTextureTransfer</code>, üstteki <code>Decal</code>'in, altındaki <code>WrapTarget</code>'ın kafesi temel alınarak üsto <code>MeshPart</code>'ın etrafına sarılmasını sağlar.",
+    "documentation": "<code>WrapTextureTransfer</code>, bir <code>Decal</code>'ın <code>WrapTarget</code>'ının kafesi temelinde annesinin <code>MeshPart</code>'ının etrafında sarılmasına olanak tanır.",
     "keys": {
       "ReferenceCageMeshContent": "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent",
       "UVMaxBound": "@roblox/globaltype/WrapTextureTransfer.UVMaxBound",
@@ -24363,17 +24363,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent": {
-    "documentation": "Hedef kafesi budamak ve doğrulamak için kullanılan isteğe bağlı bir referans ağ.",
+    "documentation": "Hedef kafesi budamak ve doğrulamak için kullanılan isteğe bağlı bir referans mesh.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#ReferenceCageMeshContent",
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.UVMaxBound": {
-    "documentation": "Aktarıma dahil edilecek UV alanının maksimum sınırını belirler.",
+    "documentation": "Transferde dahil edilecek UV alanının maksimum sınırını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMaxBound",
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.UVMinBound": {
-    "documentation": "Aktarıma dahil edilecek UV alanının minimum sınırını belirler.",
+    "documentation": "Transferde dahil edilecek UV alanının minimum sınırını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMinBound",
     "code_sample": ""
   },
@@ -31053,7 +31053,6 @@
     "keys": {
       "BalanceMaxTorque": "@roblox/globaltype/AirController.BalanceMaxTorque",
       "BalanceSpeed": "@roblox/globaltype/AirController.BalanceSpeed",
-      "LinearImpulse": "@roblox/globaltype/AirController.LinearImpulse",
       "MaintainAngularMomentum": "@roblox/globaltype/AirController.MaintainAngularMomentum",
       "MaintainLinearMomentum": "@roblox/globaltype/AirController.MaintainLinearMomentum",
       "MoveMaxForce": "@roblox/globaltype/AirController.MoveMaxForce",
@@ -31073,28 +31072,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#BalanceSpeed",
     "code_sample": ""
   },
-  "@roblox/globaltype/AirController.LinearImpulse": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#LinearImpulse",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AirController.MaintainAngularMomentum": {
-    "documentation": "Giriş durduğunda açısal momentumun korunup korunmayacağını belirler.",
+    "documentation": "Girişin durduğunda açısal momentumun korunup korunmadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#MaintainAngularMomentum",
     "code_sample": ""
   },
   "@roblox/globaltype/AirController.MaintainLinearMomentum": {
-    "documentation": "Giriş durduğunda lineer momentumun korunup korunmayacağını belirler.",
+    "documentation": "Girişin durduğunda doğrusal momentumun korunup korunmadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#MaintainLinearMomentum",
     "code_sample": ""
   },
   "@roblox/globaltype/AirController.MoveMaxForce": {
-    "documentation": "<code>ControllerManager.RootPart</code> üzerinde <code>ControllerManager.MovingDirection</code> ile hareket etmek için uygulanabilecek maksimum kuvvet.",
+    "documentation": "<code>ControllerManager.RootPart</code> üzerinde <code>ControllerManager.MovingDirection</code> yönünde hareket etmek için uygulanabilecek maksimum kuvvet.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#MoveMaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AirController.TurnMaxTorque": {
-    "documentation": "<code>ControllerManager.RootPart</code> üzerinde <code>ControllerManager.FacingDirection</code>'a doğru dönebilmek için uygulanabilecek maksimum tork.",
+    "documentation": "<code>ControllerManager.RootPart</code> üzerinde <code>ControllerManager.FacingDirection</code> yönünde dönmek için uygulanabilecek maksimum tork.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#TurnMaxTorque",
     "code_sample": ""
   },
@@ -31135,7 +31129,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.AllowInsertFreeModels": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe hiç yayınlanmamıştır. Yeni çalışmalarda kullanmayın.<br>''Ücretsiz Modeller''in oyuna eklenip eklenemeyeceğini gösterir.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe asla yayımlanmadı. Yeni projelerde kullanmayın.<br>''Ücretsiz Modellerin'' oyuna eklenip eklenemeyeceğini belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InsertService#AllowInsertFreeModels",
     "code_sample": ""
   },
@@ -31146,7 +31140,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.ApproveAssetId": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanımdan kaldırılmıştır. Yeni çalışmalarda kullanmayın.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır. Yeni projelerde kullanmayın.",
     "params": [
       {
         "name": "self",
@@ -31168,7 +31162,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.ApproveAssetVersionId": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanımdan kaldırılmıştır. Yeni çalışmalarda kullanmayın.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır. Yeni projelerde kullanmayın.",
     "params": [
       {
         "name": "self",
@@ -31190,16 +31184,16 @@
     "documentation": "Mesh varlık ID'si."
   },
   "@roblox/globaltype/InsertService.CreateMeshPartAsync/param/2": {
-    "documentation": "<code>MeshPart.CollisionFidelity</code>'yi ayarlayın."
+    "documentation": "<code>MeshPart.CollisionFidelity</code> ayarla."
   },
   "@roblox/globaltype/InsertService.CreateMeshPartAsync/param/3": {
-    "documentation": "<code>MeshPart.RenderFidelity</code>'yi ayarlayın."
+    "documentation": "<code>MeshPart.RenderFidelity</code> ayarla."
   },
   "@roblox/globaltype/InsertService.CreateMeshPartAsync/return/0": {
     "documentation": "Yeni <code>MeshPart</code> örneği."
   },
   "@roblox/globaltype/InsertService.CreateMeshPartAsync": {
-    "documentation": "Belirtilen sadakat değerleriyle yeni bir <code>MeshPart</code> oluşturur.",
+    "documentation": "Belirtilen sadakat değerleri ile yeni bir <code>MeshPart</code> oluşturur.",
     "params": [
       {
         "name": "self",
@@ -31231,7 +31225,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetBaseCategories": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanımdan kaldırılmıştır. Yeni çalışmalarda kullanmayın.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır. Yeni projelerde kullanmayın.",
     "params": [
       {
         "name": "self",
@@ -31251,7 +31245,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetBaseSets": {
-    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">Setler kaldırıldı</a> Roblox'tan.<br>Çeşitli Roblox onaylı setler hakkında bilgi içeren bir sözlük dizisini döndürür.",
+    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">Setler kaldırıldı</a> Roblox'tan.<br>Çeşitli Roblox onaylı setler hakkında bilgi içeren bir sözlük dizisi döner.",
     "params": [
       {
         "name": "self",
@@ -31274,7 +31268,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetCollection": {
-    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">Setler kaldırıldı</a> Roblox'tan.<br>Belirtilen kategoriye ilişkin en son yüklenen modelleri döndürür.",
+    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">Setler kaldırıldı</a> Roblox'tan.<br>Belirtilen kategoride en son yüklenen modelleri döner.",
     "params": [
       {
         "name": "self",
@@ -31295,16 +31289,16 @@
     "documentation": "Roblox web sitesinden varlık eklemek için kullanılır."
   },
   "@roblox/globaltype/InsertService.GetFreeDecals/param/1": {
-    "documentation": "Katalogda ücretsiz desenleri aramak için kullanılan dize."
+    "documentation": "Katalogda ücretsiz çıkartmaları aramak için kullanılan dize."
   },
   "@roblox/globaltype/InsertService.GetFreeDecals/param/2": {
-    "documentation": "Dönmesi gereken Katalogdaki sayfa numarası."
+    "documentation": "Dönülecek Katalog sayfa numarası."
   },
   "@roblox/globaltype/InsertService.GetFreeDecals/return/0": {
-    "documentation": "Bir tabloya sarılmış (dönen ücretsiz desenlerin) tek bir tablo."
+    "documentation": "Bir tabloya sarılmış tek bir tablo (dönülen ücretsiz çıkartmalar)."
   },
   "@roblox/globaltype/InsertService.GetFreeDecals": {
-    "documentation": "<strong>Deprecated:</strong> <br>Katalogdan ücretsiz Desenlerin bir listesini alır.",
+    "documentation": "<strong>Deprecated:</strong> <br>Katalogdan ücretsiz çıkartmaların bir listesini alır.",
     "params": [
       {
         "name": "self",
@@ -31329,16 +31323,16 @@
     "documentation": "Roblox web sitesinden varlık eklemek için kullanılır."
   },
   "@roblox/globaltype/InsertService.GetFreeDecalsAsync/param/1": {
-    "documentation": "Katalogda ücretsiz desenleri aramak için kullanılan dize."
+    "documentation": "Katalogda ücretsiz çıkartmaları aramak için kullanılan dize."
   },
   "@roblox/globaltype/InsertService.GetFreeDecalsAsync/param/2": {
-    "documentation": "Dönmesi gereken Katalogdaki sayfa numarası."
+    "documentation": "Dönülecek Katalog sayfa numarası."
   },
   "@roblox/globaltype/InsertService.GetFreeDecalsAsync/return/0": {
-    "documentation": "Bir tablo (dönülen ücretsiz dekorlar) içinde yer alan tek bir tablo."
+    "documentation": "Bir tabloya sarılmış tek bir tablo (dönülen ücretsiz çıkartmalar)."
   },
   "@roblox/globaltype/InsertService.GetFreeDecalsAsync": {
-    "documentation": "Katalogdan ücretsiz Dekorlar listesini alır.",
+    "documentation": "Katalogdan ücretsiz çıkartmaların bir listesini alır.",
     "params": [
       {
         "name": "self",
@@ -31366,13 +31360,13 @@
     "documentation": "Katalogda ücretsiz modelleri aramak için kullanılan dize."
   },
   "@roblox/globaltype/InsertService.GetFreeModels/param/2": {
-    "documentation": "Dönülecek Katalogda sayfa numarası."
+    "documentation": "Dönülecek Katalog sayfa numarası."
   },
   "@roblox/globaltype/InsertService.GetFreeModels/return/0": {
-    "documentation": "Bir tablo (dönülen ücretsiz modeller) içinde yer alan tek bir tablo."
+    "documentation": "Bir tabloya sarılmış tek bir tablo (dönülen ücretsiz modeller)."
   },
   "@roblox/globaltype/InsertService.GetFreeModels": {
-    "documentation": "<strong>Deprecated:</strong> <br>Katalogdan Ücretsiz Modeller listesini alır.",
+    "documentation": "<strong>Deprecated:</strong> <br>Katalogdan Ücretsiz Modellerin bir listesini alır.",
     "params": [
       {
         "name": "self",
@@ -31397,16 +31391,16 @@
     "documentation": "Roblox web sitesinden varlık eklemek için kullanılır."
   },
   "@roblox/globaltype/InsertService.GetFreeModelsAsync/param/1": {
-    "documentation": "Katalogda ücretsiz dekorları aramak için kullanılan dizedir."
+    "documentation": "Katalogda ücretsiz çıkartmaları aramak için kullanılan dize."
   },
   "@roblox/globaltype/InsertService.GetFreeModelsAsync/param/2": {
-    "documentation": "Dönülecek Katalogda sayfa numarası."
+    "documentation": "Dönülecek Katalog sayfa numarası."
   },
   "@roblox/globaltype/InsertService.GetFreeModelsAsync/return/0": {
-    "documentation": "Bir tablo (dönülen ücretsiz modeller) içinde yer alan tek bir tablo."
+    "documentation": "Bir tabloya sarılmış tek bir tablo (dönülen ücretsiz modeller)."
   },
   "@roblox/globaltype/InsertService.GetFreeModelsAsync": {
-    "documentation": "Katalogdan Ücretsiz Modeller listesini alır.",
+    "documentation": "Katalogdan Ücretsiz Modellerin bir listesini alır.",
     "params": [
       {
         "name": "self",
@@ -31437,7 +31431,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetLatestAssetVersionAsync": {
-    "documentation": "Yer oluşturucu tarafından oluşturulan varlıkların en son AssetVersionId'sini döner. Oyun çalışırken güncellense bile, bir modelin en son sürümünü yüklemek için <code>InsertService:LoadAssetVersion()</code> ile birlikte kullanılabilir.",
+    "documentation": "Yer yaratıcısı tarafından oluşturulan varlıklar için varlığın en son AssetVersionId'sini döner. Modelin en son versiyonunu yüklemek için <code>InsertService:LoadAssetVersion()</code> ile birlikte kullanılabilir; oyun çalışırken güncellenirse bile.",
     "params": [
       {
         "name": "self",
@@ -31464,7 +31458,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetUserCategories": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır. Yeni işler için kullanmayın.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır. Yeni projelerde kullanmayın.",
     "params": [
       {
         "name": "self",
@@ -31491,7 +31485,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetUserSets": {
-    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">Setler kaldırılmıştır</a> Roblox'tan.<br>Kullanıcı tarafından sahip olunan setler hakkında bilgi içeren bir sözlük dizisi döner.",
+    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">Setler kaldırıldı</a> Roblox'tan.<br>Kullanıcı tarafından sahip olunan setler hakkında bilgi içeren bir sözlük dizisi döner.",
     "params": [
       {
         "name": "self",
@@ -31515,7 +31509,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.Insert": {
-    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>InsertService:LoadAsset()</code> ile yer değiştirilmiştir. Yeni işler için bunun yerine kullanılmalıdır.<br><code>Instance</code>'ı <code>Workspace</code>'e ekler.",
+    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>InsertService:LoadAsset()</code> ile değiştirilmiştir; bu yüzden tüm yeni projelerde kullanılmalıdır.<br><code>Instance</code>'ı <code>Workspace</code> içine ekler.",
     "params": [
       {
         "name": "self",
@@ -31534,7 +31528,7 @@
     "documentation": "Roblox web sitesinden varlık eklemek için kullanılır."
   },
   "@roblox/globaltype/InsertService.LoadAsset/param/1": {
-    "documentation": "Yüklenen varlığın asset ID'si."
+    "documentation": "Yüklenilen varlığın varlık ID'si."
   },
   "@roblox/globaltype/InsertService.LoadAsset/return/0": {
     "documentation": "Yüklenen varlığın bir örneği."
@@ -31567,7 +31561,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.loadAsset": {
-    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>InsertService:LoadAsset()</code>'ın kullanım dışı olan bir varyantıdır, bu da bunun yerine kullanılmalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>InsertService:LoadAsset()</code>'ın kullanım dışı bir değişkenidir; bunun yerine kullanılmalıdır.",
     "params": [
       {
         "name": "self",
@@ -31594,7 +31588,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.LoadAssetVersion": {
-    "documentation": "<code>InsertService</code> içine, verilen assetVersionId ile varlığı içeren bir model döner.",
+    "documentation": "Verilen assetVersionId ile varlığı içeren <code>InsertService</code> içine eklenmiş bir modeli döner.",
     "params": [
       {
         "name": "self",
@@ -45034,7 +45028,6 @@
   "@roblox/globaltype/SwimController": {
     "documentation": "",
     "keys": {
-      "AccelerationTime": "@roblox/globaltype/SwimController.AccelerationTime",
       "PitchMaxTorque": "@roblox/globaltype/SwimController.PitchMaxTorque",
       "PitchSpeedFactor": "@roblox/globaltype/SwimController.PitchSpeedFactor",
       "RollMaxTorque": "@roblox/globaltype/SwimController.RollMaxTorque",
@@ -45043,28 +45036,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController",
     "code_sample": ""
   },
-  "@roblox/globaltype/SwimController.AccelerationTime": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#AccelerationTime",
-    "code_sample": ""
-  },
   "@roblox/globaltype/SwimController.PitchMaxTorque": {
-    "documentation": "İstenilen açıyı döndürmek için kullanılan maksimum tork.",
+    "documentation": "İstenilen tonlamaya döndürmek için kullanılan maksimum tork.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#PitchMaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/SwimController.PitchSpeedFactor": {
-    "documentation": "<code>ControllerManager.BaseTurnSpeed</code> ile çarpılarak maksimum açısal hızın belirlenmesi için kullanılır.",
+    "documentation": "<code>ControllerManager.BaseTurnSpeed</code> ile çarpılarak tonlama için maksimum açısal hız belirlenir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#PitchSpeedFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/SwimController.RollMaxTorque": {
-    "documentation": "İstenilen ruloya dönmek için uygulanan maksimum tork.",
+    "documentation": "İstenilen roll'e döndürmek için uygulanan maksimum tork.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#RollMaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/SwimController.RollSpeedFactor": {
-    "documentation": "<code>ControllerManager.BaseTurnSpeed</code> ile çarpılarak maksimum açısal hızın belirlenmesi için kullanılır.",
+    "documentation": "<code>ControllerManager.BaseTurnSpeed</code> ile çarpılarak roll için maksimum açısal hız belirlenir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#RollSpeedFactor",
     "code_sample": ""
   },
@@ -45974,7 +45962,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HttpRbxApiService": {
-    "documentation": "Geliştiricilere sunulmayan işlevselliğe sahip bir dahili hizmet.",
+    "documentation": "Geliştiriciler için mevcut olmayan bir işlevselliğe sahip dahili bir hizmet.",
     "keys": {
       "RequestLimitedAsync": "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync"
     },
@@ -45982,7 +45970,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/0": {
-    "documentation": "Geliştiricilere sunulmayan işlevselliğe sahip bir dahili hizmet."
+    "documentation": "Geliştiriciler için mevcut olmayan bir işlevselliğe sahip dahili bir hizmet."
   },
   "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/1": {
     "documentation": ""
@@ -60026,7 +60014,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n\tlocal player = Players:GetPlayerFromCharacter(character)\n\tlocal tool = Instance.new(\"Tool\")\n\tlocal backpack = player:FindFirstChildOfClass(\"Backpack\")\n\ttool.Parent = backpack\nend\n\nlocal function onPlayerAdded(player)\n\tif player.Character then\n\t\tonCharacterAdded(player.Character)\n\tend\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/AssetService": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir.",
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir.",
     "keys": {
       "AllowInsertFreeAssets": "@roblox/globaltype/AssetService.AllowInsertFreeAssets",
       "ComposeDecalAsync": "@roblox/globaltype/AssetService.ComposeDecalAsync",
@@ -60057,21 +60045,21 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.AllowInsertFreeAssets": {
-    "documentation": "<code>AssetService:LoadAssetAsync()</code>'in deneyim yaratıcısına ait olmayan varlıkları yükleyip yüklemeyeceğini kontrol eder.",
+    "documentation": "<code>AssetService:LoadAssetAsync()</code> metodunun deneyim yaratıcısına ait olmayan varlıkları yükleyip yükleyemeyeceğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#AllowInsertFreeAssets",
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync/param/1": {
-    "documentation": "Katmanların bir temsilini içerecek şekilde değiştirilecek bir <code>Decal</code> örneği. Bu örnekte mevcut haritalar temizlenecektir."
+    "documentation": "Katmanların bir temsiliyle güncellenecek olan <code>Decal</code> örneği. Bu örnekteki mevcut haritalar temizlenecektir."
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync/param/2": {
-    "documentation": "PBR adlarını <code>Content</code> kimliklerine eşleyen sözlük tabloları dizisi."
+    "documentation": "PBR adlarını <code>Content</code> ID'lerine eşleyen sözlük tablosu dizisi."
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync": {
-    "documentation": "Verilen katmanlar dizisinde sağlanan dokuları sıralayarak oluşturulan bileşim PBR dokuları içerecek şekilde mevcut <code>Decal</code>'ı değiştirir.",
+    "documentation": "Verilen katmanları sırasıyla katmanlayarak oluşturulan bir PBR dokularını içerecek şekilde mevcut bir <code>Decal</code> öğesini modifiye eder.",
     "params": [
       {
         "name": "self",
@@ -60091,19 +60079,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/1": {
-    "documentation": "Varlık olarak oluşturulacak nesne."
+    "documentation": "Bir varlık olarak oluşturulacak nesne."
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/2": {
-    "documentation": "Şu anda desteklenen türler şunlardır: <ul> <li><code>AssetType.Model</code> – <code>object</code> herhangi bir geçerli <code>Instance</code> kökü.</li> <li><code>AssetType.Plugin</code> – <code>object</code> herhangi bir geçerli   <code>Instance</code> kökü.</li> <li><code>AssetType.Mesh</code> – <code>object</code> herhangi bir geçerli   <code>EditableMesh</code> kökü.</li> <li><code>AssetType.Image</code> – <code>object</code> herhangi bir geçerli   <code>EditableImage</code> kökü.</li> </ul>"
+    "documentation": "Şu anda desteklenen türler: <ul> <li><code>AssetType.Model</code> – <code>object</code> herhangi geçerli bir <code>Instance</code> kökü ile.</li> <li><code>AssetType.Plugin</code> – <code>object</code> herhangi geçerli bir <code>Instance</code> kökü ile.</li> <li><code>AssetType.Mesh</code> – <code>object</code> herhangi geçerli bir <code>EditableMesh</code> kökü ile.</li> <li><code>AssetType.Image</code> – <code>object</code> herhangi geçerli bir <code>EditableImage</code> kökü ile.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/3": {
-    "documentation": "Varlık meta verilerini içeren seçenekler tablosu: <ul> <li><code>Name</code> – Bir dize olarak varlığın adı. Varsayılan olarak <code>[object.Name]</code>.</li> <li><code>Description</code> – Bir dize olarak varlığın açıklaması. Varsayılan olarak   <code>\"AssetService:CreateAssetAsync ile Oluşturuldu\"</code>.</li> <li><code>CreatorId</code> – Bir sayı olarak varlık yaratıcısının kimliği. Varsayılan olarak,   Eklenti bağlamı için giriş yapan Roblox Studio kullanıcısıdır. Açık   Cloud Luau İcra bağlamı için gereklidir.</li> <li><code>CreatorType</code> – Varlık yaratıcısı türünü belirten <code>AssetCreatorType</code>. Varsayılan olarak   Eklenti bağlamında <code>AssetCreatorType.User</code>'dir. Açık Cloud Luau İcra bağlamı için gereklidir.</li> <li><code>IsPackage</code> – Boolean değeri, yalnızca <code>AssetType.Model</code> türü için geçerlidir. Varsayılan olarak <code>true</code>.</li> </ul>"
+    "documentation": "Varlık meta verilerini içeren seçenekler tablosu: <ul> <li><code>Name</code> – Bir <code>string</code>. Varsayılan olarak <code>[object.Name]</code> olarak ayarlanır.</li> <li><code>Description</code> – Bir <code>string</code>. Varsayılan olarak <code>\"AssetService:CreateAssetAsync ile oluşturuldu\"</code> olarak ayarlanır.</li> <li><code>CreatorId</code> – Bir <code>number</code>. Varlık yaratıcısının ID'si. Plugin bağlamında, oturum açmış Roblox Studio kullanıcısına varsayılan olarak ayarlanır. Açık Bulut Luau İşleme bağlamı için gereklidir.</li> <li><code>CreatorType</code> – Varlık yaratıcısının türünü gösteren <code>AssetCreatorType</code>. Plugin bağlamında varsayılan olarak <code>AssetCreatorType.User</code> olarak ayarlanır. Açık Bulut Luau İşleme bağlamı için gereklidir.</li> <li><code>IsPackage</code> – Boolean değer; yalnızca <code>AssetType.Model</code> türüne uygulanabilir. Varsayılan değeri <code>true</code>'dur.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/return/0": {
-    "documentation": "Başarılıysa <code>CreateAssetResult</code> ve varlık kimliği çifti."
+    "documentation": "Başarılı olursa <code>CreateAssetResult</code> ve varlık ID çifti."
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync": {
     "documentation": "Verilen nesneden Roblox'a yeni bir varlık yükler.",
@@ -60132,22 +60120,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/1": {
-    "documentation": "Varlık olarak oluşturulacak nesne."
+    "documentation": "Bir varlık olarak oluşturulacak nesne."
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/2": {
-    "documentation": "Şu anda desteklenen türler şunlardır: <ul> <li><code>AssetType.Model</code> – <code>object</code> herhangi bir geçerli <code>Instance</code>   kökü.</li> <li><code>AssetType.Plugin</code> – <code>object</code> herhangi bir geçerli   <code>Instance</code> kökü.</li> <li><code>AssetType.Mesh</code> – <code>object</code> herhangi bir geçerli   <code>EditableMesh</code> kökü.</li> <li><code>AssetType.Image</code> – <code>object</code> herhangi bir geçerli   <code>EditableImage</code> kökü.</li> </ul>"
+    "documentation": "Şu anda desteklenen türler: <ul> <li><code>AssetType.Model</code> – <code>object</code> herhangi geçerli bir <code>Instance</code> kökü ile.</li> <li><code>AssetType.Plugin</code> – <code>object</code> herhangi geçerli bir <code>Instance</code> kökü ile.</li> <li><code>AssetType.Mesh</code> – <code>object</code> herhangi geçerli bir <code>EditableMesh</code> kökü ile.</li> <li><code>AssetType.Image</code> – <code>object</code> herhangi geçerli bir <code>EditableImage</code> kökü ile.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/3": {
-    "documentation": "Yeni sürüm için varlıkların kimliği."
+    "documentation": "Yeni sürüm için varlık ID'si."
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/4": {
-    "documentation": "Varlık meta verilerini içeren seçenekler tablosu: <ul> <li><code>Name</code> – Bir <code>string</code>. Varlığın adı. Varsayılan: object.Name.</li> <li><code>Description</code> – Bir <code>string</code>. Varlığın açıklaması. Varsayılan:   \"AssetService:CreateAssetAsync ile Oluşturuldu\".</li> <li><code>CreatorId</code> – Bir <code>number</code>. Varlık yaratıcısının kimliği. Varsayılan: Giriş   yapan Roblox Studio kullanıcısıdır. Açık Cloud Luau İcra bağlamı için gereklidir.</li> <li><code>CreatorType</code> – Bir <code>AssetCreatorType</code>. Varlık yaratıcısı türü.   Varsayılan: Eklenti bağlamında <code>AssetCreatorType.User</code>. Açık   Cloud Luau İcra bağlamı için gereklidir.</li> <li><code>IsPackage</code> – Bir <code>bool</code>. Yalnızca   <code>AssetType.Model</code> türü için geçerlidir. Varsayılan: true.</li> </ul>"
+    "documentation": "Varlık meta verilerini içeren seçenekler tablosu: <ul> <li><code>Name</code> – Bir <code>string</code>. Varlığın adı. Varsayılan: object.Name.</li> <li><code>Description</code> – Bir <code>string</code>. Varlığın açıklaması. Varsayılan:   \"AssetService:CreateAssetAsync ile oluşturuldu\".</li> <li><code>CreatorId</code> – Bir <code>number</code>. Varlık yaratıcısının ID'si. Varsayılan: Plugin bağlamında oturum açmış Roblox Studio kullanıcısıdır. Açık Bulut Luau İşleme bağlamı için gereklidir.</li> <li><code>CreatorType</code> – Bir <code>AssetCreatorType</code>. Varlık yaratıcısının türü.   Varsayılan: Plugin bağlamında <code>AssetCreatorType.User</code>'dır. Açık Bulut Luau İşleme bağlamı için gereklidir.</li> <li><code>IsPackage</code> – Bir <code>bool</code>. Yalnızca <code>AssetType.Model</code> türüne uygulanabilir. Varsayılan: true.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/return/0": {
-    "documentation": "Başarılıysa <code>CreateAssetResult</code> ve varlık sürüm numarası çifti."
+    "documentation": "Başarılı olursa <code>CreateAssetResult</code> ve varlık sürüm numarası çifti."
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync": {
     "documentation": "Verilen nesneden mevcut bir varlık için yeni bir sürüm yükler.",
@@ -60180,10 +60168,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/1": {
-    "documentation": "Yöntem için kontrolleri içeren seçenekler tablosu: <ul> <li><code>Size</code> – Görüntünün istenen genişliğini ve yüksekliğini belirtir.</li> </ul>"
+    "documentation": "Yöntem için kontrol içeren seçenekler tablosu: <ul> <li><code>Size</code> – Görüntünün istenen genişliğini ve yüksekliğini belirten bir <code>Vector2</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/return/0": {
     "documentation": ""
@@ -60207,16 +60195,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/1": {
-    "documentation": "Yerli veya dışarıdan depolanmış varlık içeriğine referans, desteklenen <code>ContentSourceType</code> detaylarından birinin tek bir değerini saran."
+    "documentation": "Yerli olarak saklanan veya yer içindeki bir nesne olarak tutulan varlık içeriğine referans, desteklenen <code>ContentSourceType</code> değerlerinden birinin tek değerini sarmalar."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/2": {
-    "documentation": "Oluşturulan <code>EditableImage</code> için seçenekler içeren tablo. Şu anda yeniden boyutlandırma amacıyla <code>Size</code> desteklenmiyor."
+    "documentation": "Oluşturulan <code>EditableImage</code> için seçenekleri içeren tablo. Şu anda yeniden boyutlandırma desteklenmediğinden şu anda seçenek mevcut değil."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/return/0": {
-    "documentation": "Sağlanan görüntüyü içeren yeni bir <code>EditableImage</code>."
+    "documentation": "Verilen görüntüyü içeren yeni bir <code>EditableImage</code>."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync": {
     "documentation": "Verilen görüntü ile doldurulmuş yeni bir <code>EditableImage</code> nesnesi oluşturur.",
@@ -60241,10 +60229,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/param/1": {
-    "documentation": "Oluşturulan <code>EditableMesh</code> için seçenekler içeren tablo. Şu anda, boş düzenlenebilir meshler için <code>FixedSize</code> her zaman <code>false</code> olacak."
+    "documentation": "Oluşturulan <code>EditableMesh</code> için seçenekleri içeren tablo. Şu anda seçenek mevcut değil, çünkü <code>FixedSize</code> boş düzenlenebilir meshler için her zaman <code>false</code> olacaktır."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/return/0": {
     "documentation": ""
@@ -60268,19 +60256,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/1": {
-    "documentation": "Yerli veya dışarıdan depolanmış varlık içeriğine referans, desteklenen <code>ContentSourceType</code> detaylarından birinin tek bir değerini saran."
+    "documentation": "Yerli olarak saklanan veya yer içindeki bir nesne olarak tutulan varlık içeriğine referans, desteklenen <code>ContentSourceType</code> değerlerinden birinin tek değerini sarmalar."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/2": {
-    "documentation": "Yöntem için kontrolleri içeren seçenekler tablosu: <ul> <li><code>FixedSize</code> – Bir <code>bool</code>. Varsayılan değeri <code>true</code>'dur ve döndürülen   <code>EditableMesh</code>, köşeleri ekleyip çıkarma işlemlerine izin vermez,   yalnızca değerlerini değiştirebilirsiniz. Daha fazla bellek kullanmak pahasına,   mesh topolojisini değiştirme yeteneğine ihtiyaç varsa <code>false</code> olarak ayarlayın.</li> </ul>"
+    "documentation": "Yöntem için kontrol içeren seçenekler tablosu: <ul> <li><code>FixedSize</code> – Bir <code>bool</code>. Varsayılan değeri <code>true</code>'dur ve döndürülen <code>EditableMesh</code>, kenarları eklemenize veya çıkarmanıza izin vermez, yalnızca değerlerini değiştirmenize izin verir. Mesh topolojisini değiştirme yeteneği gerekiyorsa, daha fazla bellek kullanma maliyetiyle <code>false</code> olarak ayarlayın.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/return/0": {
     "documentation": "Yeni <code>EditableMesh</code> örneği."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync": {
-    "documentation": "Mevcut bir doku içerik kimliğinden oluşturulmuş yeni bir <code>EditableMesh</code> nesnesi döner.",
+    "documentation": "Mevcut bir doku içerik ID'sinden oluşturulmuş yeni bir <code>EditableMesh</code> nesnesi döner.",
     "params": [
       {
         "name": "self",
@@ -60302,19 +60290,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/1": {
-    "documentation": "Yerli veya dışarıdan depolanmış varlık içeriğine referans, desteklenen <code>ContentSourceType</code> detaylarından birinin tek bir değerini saran."
+    "documentation": "Yerli olarak saklanan veya yer içindeki bir nesne olarak tutulan varlık içeriğine referans, desteklenen <code>ContentSourceType</code> değerlerinden birinin tek değerini sarmalar."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/2": {
-    "documentation": "Yöntem için bir veya daha fazla kontrol içeren seçenekler tablosu: <ul> <li><code>CollisionFidelity</code> – Sonuç parçasındaki <code>CollisionFidelity</code> değeri. Varsayılan, eğer seçenek yoksa veya <code>options</code> tablosu <code>nil</code>'se <code>CollisionFidelity.Default</code>'dir.</li> <li><code>RenderFidelity</code> – Sonuç parçasındaki <code>RenderFidelity</code> değeri. Varsayılan, eğer seçenek yoksa veya <code>options</code> tablosu <code>nil</code>'se <code>RenderFidelity.Automatic</code>'dır.</li> <li><code>FluidFidelity</code> – Sonuç parçasındaki <code>FluidFidelity</code> değeri.   Varsayılan, eğer seçenek yoksa veya <code>options</code> tablosu <code>nil</code>'se <code>FluidFidelity.Automatic</code>'tır.</li> </ul>"
+    "documentation": "Yöntem için bir veya daha fazla kontrol içeren seçenekler tablosu: <ul> <li><code>CollisionFidelity</code> – Sonuçtaki parçadaki <code>CollisionFidelity</code> değeridir. Eğer seçenek yoksa varsayılan olarak <code>CollisionFidelity.Default</code> olarak ayarlanır.</li> <li><code>RenderFidelity</code> – Sonuçtaki parçadaki <code>RenderFidelity</code> değeridir. Eğer seçenek yoksa varsayılan olarak <code>RenderFidelity.Automatic</code> olarak ayarlanır.</li> <li><code>FluidFidelity</code> – Sonuçtaki parçadaki <code>FluidFidelity</code> değeridir. Eğer seçenek yoksa varsayılan olarak <code>FluidFidelity.Automatic</code> olarak ayarlanır.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync": {
-    "documentation": "Belirtilen bir doku kimliği ve isteğe bağlı bir sadakat değerleri tablosu ile yeni bir <code>MeshPart</code> oluşturur.",
+    "documentation": "Belirtilen bir doku ID'si ve isteğe bağlı bir uygunluk değerleri tablosuyla yeni bir <code>MeshPart</code> oluşturur.",
     "params": [
       {
         "name": "self",
@@ -60336,13 +60324,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/1": {
     "documentation": "Yeni yerin adı."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/2": {
-    "documentation": "<code>PlaceId</code> kopyalanacak yerin."
+    "documentation": "<code>PlaceId</code> klonlanacak yerin."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/3": {
     "documentation": "Yeni yerin açıklaması."
@@ -60351,7 +60339,7 @@
     "documentation": "Yeni yerin <code>PlaceId</code>'si."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync": {
-    "documentation": "Verilen <code>templatePlaceID</code>'yi kullanarak bir yeri kopyalar.",
+    "documentation": "Verilen <code>templatePlaceID</code> ile bir yeri klonlar.",
     "params": [
       {
         "name": "self",
@@ -60377,7 +60365,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/1": {
     "documentation": ""
@@ -60395,7 +60383,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync": {
-    "documentation": "Verilen <code>templatePlaceID</code> ile bir yeri kopyalayarak belirtilen oyuncunun envanterine koyar.",
+    "documentation": "Verilen <code>templatePlaceID</code> ile bir yeri klonlar ve bu klonu verilen oyuncunun envanterine koyar.",
     "params": [
       {
         "name": "self",
@@ -60425,10 +60413,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "Aşağıdaki anahtar-değer çiftlerini içeren sözlük: <ul> <li><code>ColorMap</code> — Renk haritasını içeren bir <code>Content</code> nesnesi. Varsayılan <code>nil</code>.</li> <li><code>MetalnessMap</code> — Metalik haritayı içeren bir <code>Content</code> nesnesi. Birden fazla kanal mevcutsa, yalnızca kırmızı   kanal kullanılır. Varsayılan <code>nil</code>.</li> <li><code>NormalMap</code> — Normal haritayı içeren bir <code>Content</code> nesnesi. Varsayılan <code>nil</code>.</li> <li><code>RoughnessMap</code> — Pürüzlülük haritasını içeren bir <code>Content</code> nesnesi. Birden fazla kanal mevcutsa, yalnızca kırmızı   kanal kullanılır. Varsayılan <code>nil</code>.</li> <li><code>EmissiveMask</code> — Emisif maskeyi içeren bir <code>Content</code> nesnesi. Birden fazla kanal mevcutsa, yalnızca kırmızı   kanal kullanılır. Varsayılan <code>nil</code>.</li> </ul>"
+    "documentation": "Aşağıdaki anahtar-değer çiftlerini içeren sözlük: <ul> <li><code>ColorMap</code> — Renk haritasını içeren <code>Content</code> nesnesi. Varsayılan değer <code>nil</code>'dir.</li> <li><code>MetalnessMap</code> — Metalik haritayı içeren <code>Content</code> nesnesi. Birden fazla kanal varsa yalnızca kırmızı kanal kullanılır. Varsayılan değer <code>nil</code>'dir.</li> <li><code>NormalMap</code> — Normal haritayı içeren <code>Content</code> nesnesi. Varsayılan değer <code>nil</code>'dir.</li> <li><code>RoughnessMap</code> — Pürüzlülük haritasını içeren <code>Content</code> nesnesi. Birden fazla kanal varsa yalnızca kırmızı kanal kullanılır. Varsayılan değer <code>nil</code>'dir.</li> <li><code>EmissiveMask</code> — Emisif maskeyi içeren <code>Content</code> nesnesi. Birden fazla kanal varsa yalnızca kırmızı kanal kullanılır. Varsayılan değer <code>nil</code>'dir.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
     "documentation": "Verilen haritalara sahip yeni bir <code>SurfaceAppearance</code> örneği."
@@ -60452,16 +60440,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage/return/0": {
-    "documentation": "Belirtilen pakette bulunan varlık kimlikleri."
+    "documentation": "Belirtilen pakette bulunan varlık ID'leri."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage": {
-    "documentation": "<strong>Deprecated:</strong> <br>Belirtilen pakette bulunan varlık kimliklerinin bir dizisini döner.",
+    "documentation": "<strong>Deprecated:</strong> <br>Belirtilen pakette bulunan varlık ID'lerini döner.",
     "params": [
       {
         "name": "self",
@@ -60479,16 +60467,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync/return/0": {
-    "documentation": "Belirtilen pakette bulunan varlık kimlikleri."
+    "documentation": "Belirtilen pakette bulunan varlık ID'leri."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync": {
-    "documentation": "Belirtilen pakette bulunan varlık kimliklerinin bir dizisini döner.",
+    "documentation": "Belirtilen pakette bulunan varlık ID'lerini döner.",
     "params": [
       {
         "name": "self",
@@ -60506,16 +60494,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/param/1": {
-    "documentation": "Meta verileri almak için varlık veya içerik kimlikleri dizisi. Maks batch boyutu 30."
+    "documentation": "Meta verilerini almak için, dizi varlık veya içerik ID'leri. Maksimum grup boyutu 30'dur."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/return/0": {
-    "documentation": "Hangi varlık/ içerik için her bir dizinin kendisine ait olan meta verileri içeren diziler: <ul> <li> <code>AssetId</code> (dize) </li> <li> <code>Title</code> (dize) </li> <li> <code>Artist</code> (dize) </li> <li> <code>Duration</code> (saniye) sayısı </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> Bir hata oluşursa, istenilen varlıkların herhangi birinde, örneğin varlık kimliği mevcut değilse, sözlük tablosu dönecektir ancak yalnızca başvuru amaçlı <code>AssetId</code> alanını içerecektir. Ayrıca, eğer verilen bir varlık için <code>AudioType</code> belirlenemiyorsa (belki özel bir müzik olduğu için), sonuçta oluşan sözlük <code>AudioType</code> girişi içermez."
+    "documentation": "İsteğe bağlı verilerin aynı sırayla döndürülmesi için dizi. Her sözlük, varlığa/içeriğe ait aşağıdaki meta verileri içermektedir: <ul> <li> <code>AssetId</code> (string) </li> <li> <code>Title</code> (string) </li> <li> <code>Artist</code> (string) </li> <li> <code>Duration</code> (number) saniye cinsinden </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> Eğer istenen varlıkların herhangi biri için meta verileri alınırken bir hata oluşursa, örneğin varlık ID'si yoksa, o zaman sözlük tablosu yalnızca referans amaçlı <code>AssetId</code> alanını içerir. Ayrıca, belirli bir varlık için <code>AudioType</code> belirlenemiyorsa (belki de özel bir ses olduğundan), dönen sözlükte <code>AudioType</code> girişi yer almayacaktır."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync": {
-    "documentation": "Belirli bir ses kaynağı hakkında ilgili meta veriler sağlar.",
+    "documentation": "Belirli bir ses kaynağı hakkında ilgili meta verileri sağlar.",
     "params": [
       {
         "name": "self",
@@ -60533,16 +60521,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/param/1": {
-    "documentation": "Belirtilen paketin kimliği."
+    "documentation": "Belirtilen paket ID'si."
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/return/0": {
-    "documentation": "Aşağıdaki anahtar-değer çiftleri ile belirtilen paket hakkında ayrıntıları içeren sözlük: <ul> <li> <code>Id</code> — Paket kimliği (geçilen <code>bundleId</code> argümanı ile aynı) </li> <li> <code>Name</code> — Paket adı </li> <li> <code>Description</code> — Paket açıklaması </li> <li> <code>BundleType</code> — <code>BundleType</code>'ı temsil eden bir dize; örneğin   <code>\"BodyParts\"</code> veya <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — Paket içindeki öğelerin dizisi, her bir öğeye ayrı   olarak aşağıdaki anahtarlarla temsil edilen ayrıntılar: </li> <li> <code>Id</code> — Öğenin kimliği </li> <li> <code>Name</code> — Öğenin adı </li> <li> <code>Type</code> — \"Varlık\" gibi öğe türü. </li> </ul>"
+    "documentation": "Belirtilen paketin ayrıntılarını içeren anahtar-değer çiftlerini içeren sözlük: <ul> <li> <code>Id</code> — Paket ID'si (geçerli <code>bundleId</code> argümanı ile aynı) </li> <li> <code>Name</code> — Paket adı </li> <li> <code>Description</code> — Paket açıklaması </li> <li> <code>BundleType</code> — <code>BundleType</code>'ı temsil eden bir dize, örneğin <code>\"BodyParts\"</code> veya <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — Her biri aşağıdaki anahtarlar aracılığıyla temsil edilen paket içindeki öğelerin dizisi: </li> <li> <code>Id</code> — Öğenin ID'si </li> <li> <code>Name</code> — Öğenin adı </li> <li> <code>Type</code> — <code>\"Asset\"</code> gibi öğe türü. </li> </ul>"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync": {
-    "documentation": "Belirtilen paket içeriğinin ayrıntılarını döner.",
+    "documentation": "Belirtilen paketin içeriklerinin ayrıntılarını döner.",
     "params": [
       {
         "name": "self",
@@ -60560,7 +60548,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID/param/1": {
     "documentation": ""
@@ -60569,7 +60557,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışı ve artık doğru çalışmıyor. Yeni çalışmalar için kullanmayın.<br>OluşturmaID varlığını oluşturan hesabın Kullanıcı ID'sini döner.",
+    "documentation": "<strong>Deprecated:</strong> Bu öge geçerli değildir ve artık düzgün çalışmamaktadır. Yeni çalışmalar için kullanmayın.<br>Oluşturulan creationID varlığını oluşturan hesabın UserId'sini döner.",
     "params": [
       {
         "name": "self",
@@ -60587,13 +60575,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync": {
-    "documentation": "Mevcut deneyim içindeki yerlerin isimlerini ve <code>PlaceId</code>'lerini içeren bir <code>StandardPages</code> nesnesi döner.",
+    "documentation": "Mevcut deneyim içindeki yerlerin adı ve <code>PlaceId</code>'lerini içeren bir <code>StandardPages</code> nesnesi döner.",
     "params": [
       {
         "name": "self",
@@ -60607,16 +60595,16 @@
     "code_sample": "local AssetService = game:GetService(\"AssetService\")\n\nlocal placePages = AssetService:GetGamePlacesAsync()\n\nwhile true do\n\tfor _, place in placePages:GetCurrentPage() do\n\t\tprint(\"Ad:\", place.Name)\n\t\tprint(\"PlaceId:\", place.PlaceId)\n\tend\n\tif placePages.IsFinished then\n\t\tbreak\n\tend\n\tplacePages:AdvanceToNextPageAsync()\nend"
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync/param/1": {
-    "documentation": "Yüklenen varlığın varlık ID numarası."
+    "documentation": "Yüklenmekte olan varlığın varlık ID numarası."
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync/return/0": {
     "documentation": "Yüklenen varlığı içeren bir <code>Model</code> örneği."
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync": {
-    "documentation": "Varlık ID'si verildiğinde bir <code>Model</code> örneğini yükler. Bu, <code>InsertService:LoadAsset()</code> için modern bir alternatiftir ve üçüncü taraf varlıkların yüklenmesini destekler.",
+    "documentation": "Verilen varlık ID'sine göre bir <code>Model</code> örneğini yükler. Bu, <code>InsertService:LoadAsset()</code> metodunun modern bir alternatifidir ve üçüncü taraf varlıkları yüklemeyi destekler.",
     "params": [
       {
         "name": "self",
@@ -60634,22 +60622,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/1": {
-    "documentation": "Varlık oluşturma aşamasını sunan kullanıcı."
+    "documentation": "Varlık oluşturma işlemini yapan kullanıcı."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/2": {
-    "documentation": "Oluşturulacak varlık. Şu anda betikleri içeremez veya özel olmayan varlıkları yerleştiremez."
+    "documentation": "Oluşturulacak varlık. Şu anda scriptleri içeremez veya kamuya açık olmayan varlıkları kapsayamaz."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/3": {
-    "documentation": "Varlık türü. Şu anda yalnızca <code>AssetType.Model</code> olabilir."
+    "documentation": "Varlık tipi. Şu anda yalnızca <code>AssetType.Model</code> olabilir."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/return/0": {
-    "documentation": "Başarılıysa <code>PromptCreateAssetResult</code> ve varlık ID çifti."
+    "documentation": "Başarılı olursa <code>PromptCreateAssetResult</code> ve varlık ID çifti."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync": {
-    "documentation": "Kullanıcıların varlık oluşturmasını sağlamak için bir yayın penceresi açar.",
+    "documentation": "Kullanıcılara bir yayın iletişimiyle deneyim içinde varlık oluşturmalarına izin verir.",
     "params": [
       {
         "name": "self",
@@ -60675,7 +60663,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/param/1": {
     "documentation": ""
@@ -60709,13 +60697,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "Opsiyonel bir sözlük, <code>SaveWithoutPublish</code> adıyla geçen yayımlama durumunu belirtmeye yarayan bir boolean ve kaydedilecek hedef yerin ID'sini saklar. Örnek kullanım: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Eğer PlaceId sağlanmazsa, varsayılan davranış, SavePlaceAsync'ı çağıran şu anda mevcut orijinal yeri kaydetmektir. If SaveWithoutPublish sağlanmazsa, varsayılan davranış SaveWithoutPublish=false olarak ayarlanır."
+    "documentation": "Yayınlamadan kaydetmek isteyeceğinizi belirten <code>SaveWithoutPublish</code> boolean değerini içeren isteğe bağlı bir sözlük. <code>PlaceId</code>, kaydedileceği yerin hedef ID'sidir. Bir kullanım örneği şöyle olur: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). <code>PlaceId</code> verilmezse, varsayılan davranış, <code>SavePlaceAsync</code>'ı çağıran mevcut orijinal yeri kaydedecektir. <code>SaveWithoutPublish</code> verilmezse, varsayılan davranış <code>SaveWithoutPublish=false</code>'dır."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
-    "documentation": "Mevcut yerin durumunu kaydeder.",
+    "documentation": "Geçerli yerin durumunu kaydeder.",
     "params": [
       {
         "name": "self",
@@ -60731,7 +60719,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.SearchAudio/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.SearchAudio/param/1": {
     "documentation": ""
@@ -60740,7 +60728,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.SearchAudio": {
-    "documentation": "<strong>Deprecated:</strong> <br>Çeşitli arama kriterleri ile uyumlu ses varlıklarını bulur.",
+    "documentation": "<strong>Deprecated:</strong> <br>Çeşitli arama kriterlerini karşılayan ses varlıklarını bulur.",
     "params": [
       {
         "name": "self",
@@ -60758,7 +60746,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync/param/0": {
-    "documentation": "Roblox web API's varlıklarla ilgili sorguları yöneten, kopyalanmayan bir hizmettir."
+    "documentation": "Roblox web API's varlıkla ilgili sorguları yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync/param/1": {
     "documentation": ""
@@ -60767,7 +60755,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync": {
-    "documentation": "Çeşitli arama kriterlerine uyan ses varlıklarını bulur.",
+    "documentation": "Çeşitli arama kriterlerini karşılayan ses varlıklarını bulur.",
     "params": [
       {
         "name": "self",
@@ -75932,7 +75920,6 @@
   "@roblox/globaltype/GroundController": {
     "documentation": "",
     "keys": {
-      "AccelerationLean": "@roblox/globaltype/GroundController.AccelerationLean",
       "AccelerationTime": "@roblox/globaltype/GroundController.AccelerationTime",
       "BalanceMaxTorque": "@roblox/globaltype/GroundController.BalanceMaxTorque",
       "BalanceSpeed": "@roblox/globaltype/GroundController.BalanceSpeed",
@@ -75940,20 +75927,13 @@
       "Friction": "@roblox/globaltype/GroundController.Friction",
       "FrictionWeight": "@roblox/globaltype/GroundController.FrictionWeight",
       "GroundOffset": "@roblox/globaltype/GroundController.GroundOffset",
-      "StandForce": "@roblox/globaltype/GroundController.StandForce",
-      "StandSpeed": "@roblox/globaltype/GroundController.StandSpeed",
       "TurnSpeedFactor": "@roblox/globaltype/GroundController.TurnSpeedFactor"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController",
     "code_sample": ""
   },
-  "@roblox/globaltype/GroundController.AccelerationLean": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#AccelerationLean",
-    "code_sample": ""
-  },
   "@roblox/globaltype/GroundController.AccelerationTime": {
-    "documentation": "İstenilen hıza ulaşmak için gerekli tahmini süre.",
+    "documentation": "Hedef hıza ulaşmak için tahmini gereken süre.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#AccelerationTime",
     "code_sample": ""
   },
@@ -75968,33 +75948,23 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.DecelerationTime": {
-    "documentation": "Tam hızdan tam durmaya ulaşmak için gereken tahmini süre.",
+    "documentation": "Tam hızdan tamamen durmaya ulaşmak için tahmini gereken süre.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#DecelerationTime",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.Friction": {
-    "documentation": "Karakterin yerdeki sürtünme katsayısı.",
+    "documentation": "Karakterin zemin üzerindeki sürtünme katsayısı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#Friction",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.FrictionWeight": {
-    "documentation": "Karakterin sürtünmesinin yer zemin sürtünmesine oranı.",
+    "documentation": "Karakterin sürtünmesinin zemin sürtünmesine karşı ne kadar ağırlıklandırıldığı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#FrictionWeight",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.GroundOffset": {
-    "documentation": "<code>ControllerManager.RootPart</code>'ı tutmak için zemin üzerinde hedef mesafe.",
+    "documentation": "<code>ControllerManager.RootPart</code>'ı tutmak için yerden yukarıdaki hedef mesafe.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#GroundOffset",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GroundController.StandForce": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#StandForce",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GroundController.StandSpeed": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#StandSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.TurnSpeedFactor": {
@@ -76926,7 +76896,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PackageLink": {
-    "documentation": "<code>DataModel</code> örneğini bulut içinde karşılık gelen bir varlığa bağlar.",
+    "documentation": "Bir <code>DataModel</code> örneğini bulutta ilgili bir varlığa bağlar.",
     "keys": {
       "AutoUpdate": "@roblox/globaltype/PackageLink.AutoUpdate",
       "Creator": "@roblox/globaltype/PackageLink.Creator",
@@ -76942,7 +76912,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PackageLink.AutoUpdate": {
-    "documentation": "Bu özellik true olarak ayarlandığında, verilen <code>PackageLink</code> bileşeni ile ilişkili paket otomatik olarak en son sürüme güncellenir.",
+    "documentation": "Bu özellik true olarak ayarlandığında, verilen <code>PackageLink</code> ile ilişkili paket otomatik olarak en son sürüme güncellenir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PackageLink#AutoUpdate",
     "code_sample": ""
   },
@@ -76962,12 +76932,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PackageLink.PackageId": {
-    "documentation": "Bu paketle ilişkili varlığın ID'si.",
+    "documentation": "Bu paketin ilgili olduğu varlığın ID'si.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PackageLink#PackageId",
     "code_sample": ""
   },
   "@roblox/globaltype/PackageLink.PermissionLevel": {
-    "documentation": "Mevcut Stüdyo kullanıcısı için paket izni.",
+    "documentation": "Mevcut Studio kullanıcısı için paket izni.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PackageLink#PermissionLevel",
     "code_sample": ""
   },
@@ -76982,7 +76952,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PackageLink.VersionNumber": {
-    "documentation": "Belirli bir paketin revizyonuna atıfta bulunur.",
+    "documentation": "Belirli bir paketinin bir revizyonunu belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PackageLink#VersionNumber",
     "code_sample": ""
   },
@@ -77063,6 +77033,7 @@
       "FireInGameEconomyEvent": "@roblox/globaltype/AnalyticsService.FireInGameEconomyEvent",
       "FireLogEvent": "@roblox/globaltype/AnalyticsService.FireLogEvent",
       "FirePlayerProgressionEvent": "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent",
+      "GetPlayerSegmentsAsync": "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync",
       "LogCustomEvent": "@roblox/globaltype/AnalyticsService.LogCustomEvent",
       "LogEconomyEvent": "@roblox/globaltype/AnalyticsService.LogEconomyEvent",
       "LogFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent",
@@ -77323,6 +77294,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FirePlayerProgressionEvent",
     "code_sample": ""
   },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/0": {
+    "documentation": "Kullanıcıların deneyimlerinizle nasıl etkileşimde bulunduğunu takip etmenizi sağlayan yöntemler topluluğu."
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/1": {
+    "documentation": "Segment bucket'larının döndürülmesi gereken oyuncu."
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/return/0": {
+    "documentation": "Geçerli deneyim için kaba oyuncu segment bucket'larını içeren bir sözlük."
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync": {
+    "documentation": "Geçerli deneyim için kaba oyuncu segment bucket'larını döndürür.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#GetPlayerSegmentsAsync",
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal AnalyticsService = game:GetService(\"AnalyticsService\")\n\nlocal function configurePlayerExperience(player)\n\tlocal segments = AnalyticsService:GetPlayerSegmentsAsync(player)\n\n\tif not segments.HasData then\n\t\treturn\n\tend\n\n\tif segments.WhenUserFirstPlayed == Enum.WhenUserFirstPlayed.Days0To30 then\n\t\tprint(\"Ekstra oryantasyon göster\", player.Name)\n\tend\n\n\tif segments.ActivePayerStatus == Enum.ActivePayerStatus.Top15Percent then\n\t\tprint(\"Yüksek değerli teklifi göster\", player.Name)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(configurePlayerExperience)"
+  },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/0": {
     "documentation": "Kullanıcıların deneyimlerinizle nasıl etkileşimde bulunduğunu takip etmenizi sağlayan yöntemler topluluğu."
   },
@@ -77333,13 +77331,13 @@
     "documentation": "Özel etkinliğin adı."
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/3": {
-    "documentation": "Toplamada kullanılacak etkinliğin değeri."
+    "documentation": "Toplamada kullanılacak olan etkinlik değeri."
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/4": {
-    "documentation": "Roblox tarafından sağlanan grafiklerde ayrıntı sağlayacak özel alanların isteğe bağlı sözlüğü. Yalnızca <code>AnalyticsCustomFieldKeys</code> tarafından sağlanan belirli anahtarlar bu ayrıntılar için kullanılacaktır. Her deneyimde üç özel alanda 8,000'den fazla benzersiz değer kombinasyonuna sınırlıdır."
+    "documentation": "Roblox tarafından sağlanan grafiklerde kesim sağlar. Bu kesimler için yalnızca belirli anahtarlar, <code>AnalyticsCustomFieldKeys</code> tarafından sağlananlar kullanılacaktır. Her deneyimde üç özel alan arasında 8,000 benzersiz değer kombinasyonu ile sınırlıdır."
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent": {
-    "documentation": "Bir deneyimde bir kullanıcının özel metriklerini takip etmek için kullanılan bir etkinliği kaydeder.",
+    "documentation": "Deneyimde bir kullanıcının özel metrilerini takip etmek için bir olayı kaydeder.",
     "params": [
       {
         "name": "self",
@@ -77373,28 +77371,28 @@
     "documentation": "Etkinliği tetikleyen kullanıcı."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/2": {
-    "documentation": "Para biriminin akış yönünü belirtmelidir <code>AnalyticsEconomyFlowType</code> kullanarak."
+    "documentation": "Paranın akış yönünü belirtmelidir <code>AnalyticsEconomyFlowType</code> kullanarak."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/3": {
-    "documentation": "Ekleme veya çıkarma işlemi yapılan para biriminin adı, örneğin <code>\"altın\"</code>, <code>\"mücevher\"</code> veya <code>\"enerji\"</code>. Her deneyimde 5 benzersiz para birimi türü ile sınırlıdır."
+    "documentation": "Ekleme veya çıkarma yapılan para biriminin adı, örneğin <code>\"gold\"</code>, <code>\"gems\"</code> veya <code>\"energy\"</code>. Her deneyimde 5 benzersiz para birimi türü ile sınırlıdır."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/4": {
-    "documentation": "Eklenen veya çıkarılan para miktarı. Bu değer her zaman pozitif olmalıdır."
+    "documentation": "Ekleme veya çıkarma yapılan para miktarı. Bu değer her zaman pozitif olmalıdır."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/5": {
-    "documentation": "Para birimi eklendikten veya kaldırıldıktan sonraki kullanıcının bakiyesi. Bu değer her zaman <code>0</code> veya daha büyük olmalıdır."
+    "documentation": "Para eklendikten veya çıkarıldıktan sonraki kullanıcının bakiyesi. Bu değer her zaman <code>0</code>'dan büyük veya eşit olmalıdır."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/6": {
-    "documentation": "Gerçekleşen işlemin türü. Herhangi bir işlem türünü kullanmanızda özgürsünüz, ancak <code>AnalyticsEconomyTransactionType</code> ile sağlanan türlerin kullanılmasını öneririz. Örneğin <code>\"IAP\"</code> veya <code>\"ContextualPurchase\"</code> gibi, gelecekte Roblox araçları ve grafiklerinden içgörü sağlanmasını sağlamak için. Bu alan tipi bir dize olduğundan, enum'un <code>Name</code> değerini geçirmeniz gerekecek. Örneğin <code>Enum.AnalyticsEconomyTransactionType.IAP.Name</code>. Her deneyimde 20 benzersiz türle sınırlıdır."
+    "documentation": "Gerçekleşen işlemin tipi. İstediğiniz herhangi bir işlem tipini kullanabilirsiniz, ancak gelecekte Roblox araçları ve grafiklerinden içgörüler almak için <code>AnalyticsEconomyTransactionType</code> tarafından sağlanan tipleri kullanmanız önerilir. Bu alan tipi bir string olduğu için, enum'un <code>Name</code> değerini geçmeniz gerekecek. Örneğin, <code>Enum.AnalyticsEconomyTransactionType.IAP.Name</code>. Her deneyimde 20 benzersiz tür ile sınırlıdır."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/7": {
-    "documentation": "Aşağıda satın alınan öğelerin veya paketlerin isteğe bağlı SKU'su. Bu, satın alınan öğe için benzersiz bir tanımlayıcıdır. Her deneyimde 100 benzersiz SKU ile sınırlıdır."
+    "documentation": "Satın alınan öğenin veya paketin isteğe bağlı SKU'su. Bu satın alınan öğe için benzersiz bir tanımlayıcıdır. Her deneyimde 100 benzersiz SKU ile sınırlıdır."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/8": {
-    "documentation": "Roblox tarafından sağlanan grafiklerde ayrıntı sağlayacak özel alanların isteğe bağlı sözlüğü. Yalnızca <code>AnalyticsCustomFieldKeys</code> tarafından sağlanan belirli anahtarlar bu ayrıntılar için kullanılacaktır. Her deneyimde üç özel alanda 8,000'den fazla benzersiz değer kombinasyonuna sınırlıdır."
+    "documentation": "Roblox tarafından sağlanan grafiklerde kesim sağlar. Bu kesimler için yalnızca belirli anahtarlar, <code>AnalyticsCustomFieldKeys</code> tarafından sağlananlar kullanılacaktır. Her deneyimde üç özel alan arasında 8,000 benzersiz değer kombinasyonu ile sınırlıdır."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent": {
-    "documentation": "Bir deneyimde oyuncu eylemlerini takip etmek için kullanılan bir etkinliği kaydeder.",
+    "documentation": "Deneyimle ilgili oyuncu eylemlerini takip etmek için bir olayı kaydeder.",
     "params": [
       {
         "name": "self",
@@ -77447,19 +77445,19 @@
     "documentation": "Huninin adı. Bu, huninin tüm adımları için aynı olmalıdır. Her deneyimde 10 benzersiz huni ile sınırlıdır."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/3": {
-    "documentation": "İsteğe bağlı, huni oturumu için benzersiz bir tanımlayıcı. Bu, huninin tüm adımları için aynı olmalıdır. Bu alan yalnızca <strong>tekrarlanan</strong> huniler için gereklidir. Örneğin, bir satın alma akışı hunisi veya bir öğe yükseltme hunisi. Doğal bir huni oturumu tanımlayıcınız yoksa, <code>HttpService:GenerateGUID()</code> kullanmanızı öneririz."
+    "documentation": "Huninin oturumuna isteğe bağlı benzersiz bir tanımlayıcı. Bu, huninin tüm adımları için aynı olmalıdır. Bu alan yalnızca <strong>tekrarlanan</strong> huniler için gereklidir. Örneğin, bir satın alma akışı hunisi veya bir öğe yükseltme hunisi. Doğal bir huni oturumu tanımlayıcınız yoksa, <code>HttpService:GenerateGUID()</code> kullanmanız önerilir."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/4": {
-    "documentation": "Hunideki adım numarası. Bu, huninin her adımı için benzersiz olmalıdır. Tüm huniler 1. adımda başlar. Adımlar 1-100 ile sınırlıdır. Aynı kullanıcı tarafından aynı huni oturumunda tekrarlanan adımlar, veya <code>funnelSessionId</code> <code>nil</code> olduğunda göz ardı edilecektir. Herhangi bir adım atlandığında, ara adımlar tamamlanmış olarak kabul edilecektir."
+    "documentation": "Hunideki adım numarası. Bu, hunide her adım için benzersiz olmalıdır. Tüm huniler adım 1'de başlar. 1-100 adımlarla sınırlıdır. Aynı kullanıcı tarafından aynı huni oturumunda tekrar eden adımlar veya <code>funnelSessionId</code> <code>nil</code> olduğunda göz ardı edilecektir. Herhangi bir adım atlandığında, ara adımlar tamamlanmış olarak kabul edilir."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/5": {
-    "documentation": "İsteğe bağlı, hunideki adımın adı. Bu alan yalnızca Roblox tarafından sağlanan grafiklerde görüntüleme amaçlı olarak kullanılmaktadır."
+    "documentation": "Hunide isteğe bağlı aşama adı. Bu alan yalnızca Roblox tarafından sağlanan grafiklerde görüntülemek amacıyla kullanılır."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/6": {
-    "documentation": "Roblox tarafından sağlanan grafiklerde ayrıntı sağlayacak özel alanların isteğe bağlı sözlüğü. Yalnızca <code>AnalyticsCustomFieldKeys</code> tarafından sağlanan belirli anahtarlar bu ayrıntılar için kullanılacaktır. Her deneyimde üç özel alanda 8,000'den fazla benzersiz değer kombinasyonuna sınırlıdır."
+    "documentation": "Roblox tarafından sağlanan grafiklerde kesim sağlar. Bu kesimler için yalnızca belirli anahtarlar, <code>AnalyticsCustomFieldKeys</code> tarafından sağlananlar kullanılacaktır. Her deneyimde üç özel alan arasında 8,000 benzersiz değer kombinasyonu ile sınırlıdır."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent": {
-    "documentation": "Önceden planlanmış bir huniden geçen kullanıcı eylemlerini takip etmek için kullanılan bir etkinliği kaydeder.",
+    "documentation": "Önceden planlanmış bir huniden geçerken kullanıcı eylemlerini takip etmek için bir olayı kaydeder.",
     "params": [
       {
         "name": "self",
@@ -77498,19 +77496,19 @@
     "documentation": "Kullanıcıların deneyimlerinizle nasıl etkileşimde bulunduğunu takip etmenizi sağlayan yöntemler topluluğu."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/1": {
-    "documentation": "Etkinliği tetikleyen kullanıcı."
+    "documentation": "Olayı tetikleyen kullanıcı."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/2": {
-    "documentation": "Hunideki adım numarası. Bu, huninin her adımı için benzersiz olmalıdır. Tüm huniler 1. adımda başlar. Adımlar 1-100 ile sınırlıdır. Herhangi bir adım atlandığında, ara adımlar tamamlanmış olarak kabul edilecektir."
+    "documentation": "Hunideki adım numarası. Bu, hunide her adım için benzersiz olmalıdır. Tüm huniler adım 1'de başlar. 1-100 adımlarla sınırlıdır. Herhangi bir adım atlandığında, ara adımlar tamamlanmış olarak kabul edilir."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/3": {
-    "documentation": "İsteğe bağlı, hunideki adımın adı. Bu alan yalnızca Roblox tarafından sağlanan grafiklerde görüntüleme amaçlı olarak kullanılmaktadır."
+    "documentation": "Hunide isteğe bağlı aşama adı. Bu alan yalnızca Roblox tarafından sağlanan grafiklerde görüntülemek amacıyla kullanılır."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/4": {
-    "documentation": "Roblox tarafından sağlanan grafiklerde ayrıntı sağlayacak özel alanların isteğe bağlı sözlüğü. Yalnızca <code>AnalyticsCustomFieldKeys</code> tarafından sağlanan belirli anahtarlar bu ayrıntılar için kullanılacaktır. Her deneyimde üç özel alanda 8,000'den fazla benzersiz değer kombinasyonuna sınırlıdır."
+    "documentation": "Roblox tarafından sağlanan grafiklerde kesim sağlar. Bu kesimler için yalnızca belirli anahtarlar, <code>AnalyticsCustomFieldKeys</code> tarafından sağlananlar kullanılacaktır. Her deneyimde üç özel alan arasında 8,000 benzersiz değer kombinasyonu ile sınırlıdır."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent": {
-    "documentation": "Bir kullanıcıyı bir onboarding hunisinde takip etmek için kullanılan bir etkinliği kaydeder.",
+    "documentation": "Onboarding hunisi boyunca kullanıcı eylemlerini takip etmek için bir olayı kaydeder.",
     "params": [
       {
         "name": "self",
@@ -77556,7 +77554,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent": {
-    "documentation": "Bir kullanıcının bir seviye denemesini tamamladığında kaydedilen bir etkinliği kaydeder.",
+    "documentation": "Bir kullanıcının bir seviyeyi tamamlama anında bir olayı kaydeder.",
     "params": [
       {
         "name": "self",
@@ -77591,7 +77589,7 @@
     "documentation": "Kullanıcıların deneyimlerinizle nasıl etkileşimde bulunduğunu takip etmenizi sağlayan yöntemler topluluğu."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/1": {
-    "documentation": "Etkinliği tetikleyen oyuncu."
+    "documentation": "Olayı tetikleyen oyuncu."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/2": {
     "documentation": ""
@@ -77609,7 +77607,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent": {
-    "documentation": "Bir kullanıcının bir seviye denemesine başladığında, tamamladığında veya başarısız olduğunda kaydedilen bir etkinliği kaydeder.",
+    "documentation": "Bir kullanıcının bir seviye denemesi başlatma, tamamlama veya başarısız olma anında bir olayı kaydeder.",
     "params": [
       {
         "name": "self",
@@ -77648,7 +77646,7 @@
     "documentation": "Kullanıcıların deneyimlerinizle nasıl etkileşimde bulunduğunu takip etmenizi sağlayan yöntemler topluluğu."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/1": {
-    "documentation": "Etkinliği tetikleyen kullanıcı."
+    "documentation": "Olayı tetikleyen kullanıcı."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/2": {
     "documentation": ""
@@ -77663,7 +77661,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent": {
-    "documentation": "Bir kullanıcının bir seviye denemesini başaramadığında kayıt edilen bir etkinliği kaydeder.",
+    "documentation": "Bir kullanıcının seviye denemesi başarısız olduğunda bir olayı kaydeder.",
     "params": [
       {
         "name": "self",
@@ -77698,7 +77696,7 @@
     "documentation": "Kullanıcıların deneyimlerinizle nasıl etkileşimde bulunduğunu takip etmenizi sağlayan yöntemler topluluğu."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/1": {
-    "documentation": "Etkinliği tetikleyen oyuncu."
+    "documentation": "Olayı tetikleyen oyuncu."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/2": {
     "documentation": ""
@@ -77713,7 +77711,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent": {
-    "documentation": "Bir kullanıcının bir seviye denemesine başladığında kaydedilen bir etkinliği kaydeder.",
+    "documentation": "Bir kullanıcının seviye denemesi başlatıldığında bir olayı kaydeder.",
     "params": [
       {
         "name": "self",
@@ -79881,30 +79879,30 @@
   "@roblox/globaltype/TextBox.Font": {
     "documentation": "Metni göstermek için kullanılan fontu belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Font",
-    "code_sample": "local textLabel = script.Parent\n\nwhile true do\n\t-- Tüm farklı yazı tipleri üzerinde yinele\n\tfor _, font in pairs(Enum.Font:GetEnumItems()) do\n\t\ttextLabel.Font = font\n\t\ttextLabel.Text = font.Name\n\t\ttask.wait(1)\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.FontFace": {
-    "documentation": "Metni göstermek için kullanılan fontu belirler.",
+    "documentation": "Metni render etmek için kullanılan font yüzünü belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#FontFace",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.FontSize": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, yeni çalışmalarda kullanılacak <code>TextBox.TextSize</code> ile değiştirilmiştir.<br>Bir <code>TextBox</code> nesnesinin font boyutunu belirler.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe, yeni çalışmalarda kullanılacak <code>TextBox.TextSize</code> ile değiştirilmiştir.<br><code>TextBox</code> nesnesinin font boyutunu belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#FontSize",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.LineHeight": {
-    "documentation": "<code>TextBox</code> içindeki metinler arasındaki boşluğu ölçekler.",
+    "documentation": "TextBox içindeki metin satırları arasındaki boşluğu ölçeklendirir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#LineHeight",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.MaxVisibleGraphemes": {
-    "documentation": "<code>TextBox</code>'ın gösterebileceği maksimum graphem sayısını belirler.",
+    "documentation": "<code>TextBox</code>'un gösterebileceği maksimum graphem sayısını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#MaxVisibleGraphemes",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.MultiLine": {
-    "documentation": "<code>true</code> olarak ayarlandığında, bir <code>TextBox</code> içerisindeki metin birden fazla satıra geçebilir. Bu, oyuncuların enter tuşunu kullanarak yeni bir satıra geçmelerini de sağlar.",
+    "documentation": "<code>true</code> olarak ayarlandığında, bir <code>TextBox</code> içindeki metin birden fazla satıra geçebilir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#MultiLine",
     "code_sample": ""
   },
@@ -79919,37 +79917,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.PlaceholderColor3": {
-    "documentation": "Henüz <code>TextBox</code> içine metin girilmediğinde kullanılan metin rengini ayarlar.",
+    "documentation": "Metin girilmediğinde kullanılan metin rengi ayarlanır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#PlaceholderColor3",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.PlaceholderText": {
-    "documentation": "Henüz <code>TextBox</code> içine metin girilmediğinde gösterilecek metni ayarlar.",
+    "documentation": "Metin girilmediğinde gösterilen metni ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#PlaceholderText",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.RichText": {
-    "documentation": "<code>TextBox</code>, <code>TextBox.Text</code> dizesini zengin metin formatlamasıyla gösterip göstermeyeceğini belirler.",
+    "documentation": "<code>TextBox</code>'un <code>Text</code> dizesini zengin metin formatıyla render edip etmeyeceğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#RichText",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.SelectionStart": {
-    "documentation": "Bir metin seçiminin başlangıç pozisyonunu belirler, veya hiçbir metin seçilmediyse -1 değerini alır.",
+    "documentation": "Bir metin seçiminin başlangıç konumunu belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#SelectionStart",
     "code_sample": "local textBox = script.Parent\n\nlocal function showSelection()\n\tif textBox.CursorPosition == -1 or textBox.SelectionStart == -1 then\n\t\tprint(\"Seçim yok\")\n\telse\n\t\tlocal selectedText = string.sub(\n\t\t\ttextBox.Text,\n\t\t\tmath.min(textBox.CursorPosition, textBox.SelectionStart),\n\t\t\tmath.max(textBox.CursorPosition, textBox.SelectionStart)\n\t\t)\n\t\tprint('Seçim şudur:\"', selectedText, '\"')\n\tend\nend\n\ntextBox:GetPropertyChangedSignal(\"CursorPosition\"):Connect(showSelection)\ntextBox:GetPropertyChangedSignal(\"SelectionStart\"):Connect(showSelection)"
   },
   "@roblox/globaltype/TextBox.ShowNativeInput": {
-    "documentation": "Doğru olarak ayarlandığında, platforma özgü girdi kullanılır, Roblox'un yerleşik klavyesi yerine.",
+    "documentation": "<code>true</code> olarak ayarlandığında, platforma özgü giriş kullanılır Roblox'ın yerleşik klavyesi yerine.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#ShowNativeInput",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.Text": {
-    "documentation": "UI öğesi tarafından gösterilen dizgiyi belirler.",
+    "documentation": "<code>TextBox</code> elemanının render ettiği dizeyi belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Text",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextBounds": {
-    "documentation": "Bir UI öğesinin metin boyutunu ofset cinsinden gösterir.",
+    "documentation": "<code>TextBox</code> elemanının metninin ofset cinsinden boyutunu belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextBounds",
     "code_sample": ""
   },
@@ -79959,7 +79957,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextColor3": {
-    "documentation": "Render edilen metnin rengini belirler.",
+    "documentation": "Yer tutucu olmayan render edilen metnin rengini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextColor3",
     "code_sample": "local textBox = script.Parent\n\nlocal function hasVowels(str)\n\treturn str:lower():find(\"[aeiou]\")\nend\n\nlocal function onTextChanged()\n\tlocal text = textBox.Text\n\t-- Sesli harfleri kontrol et\n\tif hasVowels(text) then\n\t\ttextBox.TextColor3 = Color3.new(0, 0, 0) -- Siyah\n\telse\n\t\ttextBox.TextColor3 = Color3.new(1, 0, 0) -- Kırmızı\n\tend\nend\n\ntextBox:GetPropertyChangedSignal(\"Text\"):Connect(onTextChanged)"
   },
@@ -79974,19 +79972,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextFits": {
-    "documentation": "Metnin TextBox'un sınırları içinde sığıp sığmadığını belirler.",
+    "documentation": "<code>TextBox</code> kısıtlamaları içinde metin uyum sağlıyor mu?",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextFits",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextScaled": {
-    "documentation": "Metnin, render edildiği GUI nesnesine sığacak şekilde yeniden boyutlandırılıp yeniden boyutlandırılmayacağını değiştirir.",
+    "documentation": "Metnin <code>TextBox</code> içinde sığması için yeniden boyutlandırılıp boyutlandırılamayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextScaled",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextSize": {
     "documentation": "Metnin ofset cinsinden satır yüksekliğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextSize",
-    "code_sample": "local textLabel = script.Parent\n\ntextLabel.Text = \"Kaboom!\"\n\nwhile true do\n\tfor size = 5, 100, 5 do\n\t\ttextLabel.TextSize = size\n\t\ttextLabel.TextTransparency = size / 100\n\t\ttask.wait()\n\tend\n\ttask.wait(1)\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextStrokeColor3": {
     "documentation": "Metin stroke (kontur) rengini belirler.",
@@ -79999,12 +79997,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextTransparency": {
-    "documentation": "Render edilmiş metnin saydamlığını belirler.",
+    "documentation": "Render edilen metnin şeffaflığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextTransparency",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextTruncate": {
-    "documentation": "Bu TextBox'da görüntülenen metnin kesilmesini kontrol eder.",
+    "documentation": "Displayed metnin kesilmesini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextTruncate",
     "code_sample": ""
   },
@@ -80014,25 +80012,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextWrapped": {
-    "documentation": "<code>GuiObject</code> alanı içinde metinlerin birden fazla satıra taşınıp taşınmadığını belirler ve fazla metni keser.",
+    "documentation": "<code>TextBox</code> elemanının alanı içinde metnin birden fazla satıra geçip geçmeyeceğini belirler, fazla metni keser.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextWrapped",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextXAlignment": {
     "documentation": "Render edilen metnin yatay hizalamasını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextXAlignment",
-    "code_sample": "-- Bunu bir TextLabel/TextButton/TextBox içinde bir LocalScript'e yapıştırın\nlocal textLabel = script.Parent\n\nlocal function setAlignment(xAlign, yAlign)\n\ttextLabel.TextXAlignment = xAlign\n\ttextLabel.TextYAlignment = yAlign\n\ttextLabel.Text = xAlign.Name .. \" + \" .. yAlign.Name\nend\n\nwhile true do\n\t-- Hem TextXAlignment hem de TextYAlignment enum öğeleri üzerinde döngü yapın\n\tfor _, yAlign in pairs(Enum.TextYAlignment:GetEnumItems()) do\n\t\tfor _, xAlign in pairs(Enum.TextXAlignment:GetEnumItems()) do\n\t\t\tsetAlignment(xAlign, yAlign)\n\t\t\ttask.wait(1)\n\t\tend\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextYAlignment": {
     "documentation": "Render edilen metnin dikey hizalamasını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextYAlignment",
-    "code_sample": "-- Bunu bir TextLabel/TextButton/TextBox içinde bir LocalScript'e yapıştırın\nlocal textLabel = script.Parent\n\nlocal function setAlignment(xAlign, yAlign)\n\ttextLabel.TextXAlignment = xAlign\n\ttextLabel.TextYAlignment = yAlign\n\ttextLabel.Text = xAlign.Name .. \" + \" .. yAlign.Name\nend\n\nwhile true do\n\t-- Hem TextXAlignment hem de TextYAlignment enum öğeleri üzerinde döngü yapın\n\tfor _, yAlign in pairs(Enum.TextYAlignment:GetEnumItems()) do\n\t\tfor _, xAlign in pairs(Enum.TextXAlignment:GetEnumItems()) do\n\t\t\tsetAlignment(xAlign, yAlign)\n\t\t\ttask.wait(1)\n\t\tend\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.CaptureFocus/param/0": {
     "documentation": "Oyuncunun düzenleyebileceği metni gösteren 2D bir kullanıcı arayüzü öğesi."
   },
   "@roblox/globaltype/TextBox.CaptureFocus": {
-    "documentation": "İstemciyi TextBox'a odaklamaya zorlar.",
+    "documentation": "<code>TextBox</code>'a odaklanmasını zorlar.",
     "params": [
       {
         "name": "self",
@@ -80041,7 +80039,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#CaptureFocus",
-    "code_sample": ""
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal textBox = script.Parent\n\nlocal input = UserInputService.InputBegan:Connect(function(input, processed)\n\tif input.KeyCode == Enum.KeyCode.Q then\n\t\ttextBox:CaptureFocus()\n\tend\nend)"
   },
   "@roblox/globaltype/TextBox.IsFocused/param/0": {
     "documentation": "Oyuncunun düzenleyebileceği metni gösteren 2D bir kullanıcı arayüzü öğesi."
@@ -80083,7 +80081,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#ReleaseFocus",
-    "code_sample": "local textBox = script.Parent\n\nlocal function onFocused()\n\ttask.wait(5)\n\ttextBox:ReleaseFocus()\nend\n\ntextBox.Focused:Connect(onFocused)"
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal textBox = script.Parent\n\nlocal input = UserInputService.InputBegan:Connect(function(input, processed)\n\tif input.KeyCode == Enum.KeyCode.Escape and textBox.IsFocused then\n\t\ttextBox:ReleaseFocus()\n\tend\nend)"
   },
   "@roblox/globaltype/TextBox.Focused.Connect/param/0": {
     "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
@@ -80171,7 +80169,7 @@
       "Wait": "@roblox/globaltype/TextBox.Focused.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Focused",
-    "code_sample": "local textBox = script.Parent\n\nlocal function onFocused()\n\tprint(\"Odaklandım\")\nend\n\ntextBox.Focused:Connect(onFocused)"
+    "code_sample": "local textBox = script.Parent\n\ntextBox.Focused:Connect(function()\n\tprint(\"Odaklandı!\")\nend)\n\ntextBox.FocusLost:Connect(function()\n\tprint(\"Odak kaybedildi!\")\nend)"
   },
   "@roblox/globaltype/TextBox.FocusLost.Connect/param/0": {
     "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
@@ -80251,7 +80249,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextBox.FocusLost": {
-    "documentation": "İstemcinin <code>TextBox</code> üzerinde odaklarını kaybettiğinde tetiklenir.",
+    "documentation": "<code>TextBox</code> odak kaybettiğinde tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/TextBox.FocusLost.Connect",
       "ConnectParallel": "@roblox/globaltype/TextBox.FocusLost.ConnectParallel",
@@ -80259,7 +80257,7 @@
       "Wait": "@roblox/globaltype/TextBox.FocusLost.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#FocusLost",
-    "code_sample": "local gui = script.Parent\nlocal textBox = gui.TextBox\n\nlocal function focusLost(enterPressed)\n\tif enterPressed then\n\t\tprint(\"Enter'a basıldığı için odak kaybedildi!\")\n\telse\n\t\tprint(\"Enter'a basılmadan odak kaybedildi\")\n\tend\nend\n\ntextBox.FocusLost:Connect(focusLost)"
+    "code_sample": "local textBox = script.Parent\n\ntextBox.Focused:Connect(function()\n\tprint(\"Odaklandı!\")\nend)\n\ntextBox.FocusLost:Connect(function()\n\tprint(\"Odak kaybedildi!\")\nend)"
   },
   "@roblox/globaltype/TextBox.ReturnPressedFromOnScreenKeyboard.Connect/param/0": {
     "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
@@ -84537,7 +84535,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TaskScheduler": {
-    "documentation": "<em>Görev Zamanlayıcısı</em> özelliği için ayarların bir koleksiyonu.",
+    "documentation": "<em>Görev Zamanlayıcısı</em> özelliği için ayarların derlemesi.",
     "keys": {
       "SchedulerDutyCycle": "@roblox/globaltype/TaskScheduler.SchedulerDutyCycle",
       "SchedulerRate": "@roblox/globaltype/TaskScheduler.SchedulerRate",
@@ -84548,7 +84546,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TaskScheduler.SchedulerDutyCycle": {
-    "documentation": "Görev döngüsünün ortalama aralığına bölünmüş ortalama süre.",
+    "documentation": "Görev döngüsünün ortalama aralığına bölünen ortalama süre.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TaskScheduler#SchedulerDutyCycle",
     "code_sample": ""
   },
@@ -118667,6 +118665,68 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreatorType",
     "code_sample": ""
   },
+  "@roblox/enum/CreateContentResult.Success": {
+    "documentation": "Success.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.PermissionDenied": {
+    "documentation": "The user does not have the required permissions to perform this operation.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#PermissionDenied",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.UploadFailed": {
+    "documentation": "Asset failed to upload.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#UploadFailed",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.StorageLimitExceeded": {
+    "documentation": "The storage budget limit for <code>DataModel</code>-scoped content was exceeded.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#StorageLimitExceeded",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.Unknown": {
+    "documentation": "An unknown error occurred.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.CreateContentResult": {
+    "documentation": "",
+    "keys": {
+      "Success": "@roblox/enum/CreateContentResult.Success",
+      "PermissionDenied": "@roblox/enum/CreateContentResult.PermissionDenied",
+      "UploadFailed": "@roblox/enum/CreateContentResult.UploadFailed",
+      "StorageLimitExceeded": "@roblox/enum/CreateContentResult.StorageLimitExceeded",
+      "Unknown": "@roblox/enum/CreateContentResult.Unknown"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult",
+    "code_sample": ""
+  },
   "@roblox/enum/ActionOnStopSync.AlwaysAsk": {
     "documentation": "",
     "keys": {
@@ -134495,7 +134555,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AutomaticSize.X": {
-    "documentation": "Öğenin X ekseninde çocuk içeriklerini karşılamak için otomatik boyutlandırılması.",
+    "documentation": "Öğe, alt içeriklere uyacak şekilde <strong>X</strong> ekseninde otomatik olarak yeniden boyutlandırılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -134505,7 +134565,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AutomaticSize.Y": {
-    "documentation": "Öğenin Y ekseninde çocuk içeriklerini karşılamak için otomatik boyutlandırılması. Metin Nesneleri yalnızca TextWrapped etkinleştirildiğinde Y ekseninde yeniden boyutlandırılacaktır.",
+    "documentation": "Öğe, alt içeriklere uyacak şekilde <strong>Y</strong> ekseninde otomatik olarak yeniden boyutlandırılır. Metin nesneleri, yalnızca <code>TextWrapped</code> özelliği etkinleştirildiğinde <strong>Y</strong> ekseninde yeniden boyutlandırılacaktır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -134515,7 +134575,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AutomaticSize.XY": {
-    "documentation": "Öğenin X ve Y eksenlerinde çocuk içeriklerini karşılamak için otomatik boyutlandırılması.",
+    "documentation": "Öğe, alt içeriklere uyacak şekilde <strong>X</strong> ve <strong>Y</strong> eksenlerinde otomatik olarak yeniden boyutlandırılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

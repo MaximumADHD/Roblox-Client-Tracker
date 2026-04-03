@@ -24353,7 +24353,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer": {
-    "documentation": "<code>WrapTextureTransfer</code>는 부모 <code>Decal</code>이 자신의 부모 <code>MeshPart</code> 주위에 <code>WrapTarget</code>의 케이지에 따라 랩핑될 수 있도록 합니다.",
+    "documentation": "<code>WrapTextureTransfer</code>는 부모 <code>Decal</code>이 자신의 부모 <code>MeshPart</code> 주위에  <code>WrapTarget</code>의 케이지를 기반으로 감겨지도록 합니다.",
     "keys": {
       "ReferenceCageMeshContent": "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent",
       "UVMaxBound": "@roblox/globaltype/WrapTextureTransfer.UVMaxBound",
@@ -24363,7 +24363,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent": {
-    "documentation": "대상 케이지의 잘라내기 및 검증에 사용되는 선택적 참조 메시입니다.",
+    "documentation": "대상 케이지를 가지치기하고 검증하는 데 사용되는 선택적 참조 메쉬입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#ReferenceCageMeshContent",
     "code_sample": ""
   },
@@ -26328,7 +26328,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다.",
+    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 이로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다.",
     "keys": {
       "AirDensity": "@roblox/globaltype/Workspace.AirDensity",
       "AirTurbulenceIntensity": "@roblox/globaltype/Workspace.AirTurbulenceIntensity",
@@ -26390,17 +26390,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirDensity": {
-    "documentation": "공기 밀도 (지면 수준)로, 공기 역학적 힘 모델에 사용됩니다.",
+    "documentation": "공기 밀도, 공기 역학적 힘 모델에서 사용됩니다. 지면 수준의 밀도입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirDensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirTurbulenceIntensity": {
-    "documentation": "바람 속도 필드에 존재하는 난기류의 강도를 제어하며, 공기역학적 힘 모델에 영향을 미칩니다.",
+    "documentation": "바람 속도 필드에 존재하는 난기류의 세기를 제어하며, 이는 공기 역학적 힘 모델에 영향을 미칩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirTurbulenceIntensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AllowThirdPartySales": {
-    "documentation": "다른 사용자가 생성한 자산이 게임에서 판매 가능한지 여부를 결정합니다.",
+    "documentation": "다른 사용자가 만든 자산이 게임에서 판매될 수 있는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AllowThirdPartySales",
     "code_sample": ""
   },
@@ -26415,22 +26415,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ClientAnimatorThrottling": {
-    "documentation": "로컬 클라이언트를 위한 애니메이션 스로틀링 모드를 지정합니다.",
+    "documentation": "로컬 클라이언트의 애니메이션 스로틀링 모드를 지정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ClientAnimatorThrottling",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.CurrentCamera": {
-    "documentation": "로컬 플레이어가 사용하는 <code>Camera</code> 객체입니다.",
+    "documentation": "로컬 플레이어가 사용하는 <code>Camera</code> 객체.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#CurrentCamera",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.DistributedGameTime": {
-    "documentation": "게임이 실행된 시간(초 단위)입니다.",
+    "documentation": "게임이 실행된 시간(초)을 나타냅니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#DistributedGameTime",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FallenPartsDestroyHeight": {
-    "documentation": "<code>BaseParts</code>와 그 조상인 <code>Models</code>가 <code>Workspace</code>에서 제거되는 높이를 결정합니다.",
+    "documentation": "떨어지는 <code>BaseParts</code>와 그 조상 <code>Models</code>가 <code>Workspace</code>에서 제거되는 높이를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FallenPartsDestroyHeight",
     "code_sample": ""
   },
@@ -26440,17 +26440,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FilteringEnabled": {
-    "documentation": "<strong>Deprecated:</strong> <br>클라이언트에서 시행된 변경 사항이 서버에 복제될지 여부를 결정합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>클라이언트에서 이루어진 변경 사항이 서버에 복제되는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FilteringEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FluidForces": {
-    "documentation": "물리 엔진이 <code>BaseParts</code>에서 공기 역학적 힘을 계산하는지 여부를 결정합니다. <code>EnableFluidForces</code> 속성이 true인 경우에 해당합니다.",
+    "documentation": "물리 엔진이 <code>BaseParts</code>의 물리 특성을 계산하는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FluidForces",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GlobalWind": {
-    "documentation": "애니메이션 지형 풀잎, 동적 구름 및 입자를 위한 전역 바람 벡터를 지정합니다.",
+    "documentation": "동적인 구름과 입자, 애니메이션된 지형 풀을 위한 전역 바람 벡터를 지정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#GlobalWind",
     "code_sample": ""
   },
@@ -26460,7 +26460,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.IKControlConstraintSupport": {
-    "documentation": "IKControls에 대한 제약 조건의 지원을 활성화합니다. 비활성화된 경우, IKControls는 물리적 제약 조건을 무시합니다.",
+    "documentation": "IKControls에 대한 제약 조건의 지원을 활성화합니다. 비활성화되면, IKControls는 물리 제약을 무시합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#IKControlConstraintSupport",
     "code_sample": ""
   },
@@ -26470,7 +26470,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.InterpolationThrottling": {
-    "documentation": "<strong>Deprecated:</strong> 이 속성은 새로운 작업에 사용되어서는 안 됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 속성은 새로운 작업에 사용해서는 안 됩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#InterpolationThrottling",
     "code_sample": ""
   },
@@ -26485,7 +26485,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories": {
-    "documentation": "캐릭터의 머리와 액세서리를 <code>MeshParts</code>로 다운로드할지를 설정합니다.",
+    "documentation": "캐릭터 머리와 액세서리가 MeshParts로 다운로드되어야 하는지 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MeshPartHeadsAndAccessories",
     "code_sample": ""
   },
@@ -26495,12 +26495,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MoverConstraintRootBehavior": {
-    "documentation": "이동 제약 조건을 사용할 때 조립 루트 부품을 선택하는 데 사용되는 논리를 제어합니다.",
+    "documentation": "이동 제약을 사용할 때 조립 루트 부품을 선택하는 데 사용되는 논리를 제어합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MoverConstraintRootBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.NextGenerationReplication": {
-    "documentation": "<code>true</code>일 때, 속성의 복제를 변경하고 개선하는 대체 복제 시스템을 활성화합니다.",
+    "documentation": "true인 경우 내부 복제 시스템을 활성화하여 속석의 복제 방법을 변경하고 개선합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#NextGenerationReplication",
     "code_sample": ""
   },
@@ -26515,7 +26515,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PhysicsSteppingMethod": {
-    "documentation": "해석기가 물리 시뮬레이션을 시간적으로 전진시키는 방식을 설정합니다.",
+    "documentation": "해결사가 물리 시뮬레이션을 시간에 따라 앞으로 진행하는 방법을 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PhysicsSteppingMethod",
     "code_sample": ""
   },
@@ -26525,7 +26525,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PlayerScriptsUseInputActionSystem": {
-    "documentation": "내장된 <code>Player</code> 스크립트의 내부 동작을 제어합니다.",
+    "documentation": "내장 <code>Player</code> 스크립트의 내부 동작을 제어합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PlayerScriptsUseInputActionSystem",
     "code_sample": ""
   },
@@ -26560,12 +26560,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.SignalBehavior": {
-    "documentation": "엔진이 이벤트 핸들러를 다시 시작하는 시점을 구성합니다.",
+    "documentation": "엔진이 이벤트 핸들러를 재개하는 시점을 구성합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#SignalBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingEnabled": {
-    "documentation": "장소에 대해 콘텐츠 스트리밍이 활성화되었는지 여부.",
+    "documentation": "장소에 대한 콘텐츠 스트리밍이 활성화되어 있는지 여부입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingEnabled",
     "code_sample": ""
   },
@@ -26575,27 +26575,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingMinRadius": {
-    "documentation": "콘텐츠가 높은 우선 순위로 스트리밍될 최소 거리.",
+    "documentation": "우선적으로 높은 우선 순위를 가진 콘텐츠가 플레이어에게 스트리밍되는 최소 거리.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingMinRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingTargetRadius": {
-    "documentation": "콘텐츠가 플레이어에게 스트리밍될 최대 거리.",
+    "documentation": "플레이어에게 콘텐츠가 스트리밍되는 최대 거리.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingTargetRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamOutBehavior": {
-    "documentation": "엔진이 언제 콘텐츠를 플레이어에게서 스트리밍할지를 결정하는 방법을 구성합니다.",
+    "documentation": "플레이어에게 콘텐츠를 스트리밍해야 할 시점을 엔진이 결정하는 방법을 구성합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamOutBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Terrain": {
-    "documentation": "<code>Workspace</code>에 부모로 속하는 <code>Terrain</code> 객체에 대한 참조입니다.",
+    "documentation": "<code>Workspace</code>에 부모로 추가된 <code>Terrain</code> 객체에 대한 참조입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Terrain",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
-    "documentation": "충돌하지 않도록 설정된 서로 다른 그룹의 <code>parts</code>가 충돌 및 터치 이벤트를 무시할지를 결정합니다.",
+    "documentation": "서로 다른 그룹에 설정된 <code>parts</code>가 충돌과 터치 이벤트를 무시하는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
     "code_sample": ""
   },
@@ -26605,7 +26605,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseFixedSimulation": {
-    "documentation": "<code>true</code>일 때, 고정 빈도로 함수를 호출하고 물리 스텝 논리를 업데이트하며 <code>time()</code> 함수가 고정 스텝 프레임 시간을 반환하도록 하는 <code>RunService:BindToSimulation()</code>을 활성화합니다.",
+    "documentation": "true인 경우, <code>RunService:BindToSimulation()</code>을 활성화하여 특정 주기로 함수를 호출하고 물리 단계 논리를 업데이트하며 <code>time()</code> 함수가 고정 단계 프레임 시간을 반환하게 합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseFixedSimulation",
     "code_sample": ""
   },
@@ -26615,13 +26615,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 이로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/1": {
-    "documentation": "조인트를 단절할 <code>BaseParts</code>의 배열입니다."
+    "documentation": "조인트를 끊을 <code>BaseParts</code>의 배열."
   },
   "@roblox/globaltype/Workspace.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>지정된 모든 <code>BaseParts</code>를 통해 이동하여 이들에 연결된 모든 조인트를 단절합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>지정된 모든 <code>BaseParts</code>를 순회하며 이 부품들과 연결된 조인트를 끊습니다.",
     "params": [
       {
         "name": "self",
@@ -26637,13 +26637,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 이로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/return/0": {
-    "documentation": "깨워진 부품의 수입니다."
+    "documentation": "각성된 부품의 수입니다."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts": {
-    "documentation": "<code>BaseParts</code> 중 물리적으로 활성으로 간주되는 수를 반환합니다, 최근에 물리적 영향 아래에 있었기 때문입니다.",
+    "documentation": "물리적으로 활성으로 간주되는 <code>BaseParts</code>의 수를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -26657,13 +26657,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 이로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/return/0": {
-    "documentation": "현재 물리 시뮬레이션이 제한되고 있는 실제 시간 비율입니다."
+    "documentation": "현재 물리 시뮬레이션이 스로틀링되고 있는 비율입니다."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling": {
-    "documentation": "물리 시뮬레이션이 현재 제한되고 있는 실제 시간 비율을 나타내는 0에서 100 사이의 정수를 반환합니다.",
+    "documentation": "물리 시뮬레이션이 현재 스로틀링되고 있는 비율을 나타내는 0에서 100 사이의 정수를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -26677,13 +26677,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 이로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/return/0": {
-    "documentation": "현재 물리가 시뮬레이션되고 있는 초당 프레임 수를 반환합니다."
+    "documentation": "물리가 현재 시뮬레이션되고 있는 초당 프레임 수를 반환합니다."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS": {
-    "documentation": "현재 물리가 시뮬레이션되고 있는 초당 프레임 수를 반환합니다.",
+    "documentation": "물리가 현재 초당 몇 프레임으로 시뮬레이션되고 있는지 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -26697,13 +26697,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nwhile task.wait(1) do\n\tif workspace:GetRealPhysicsFPS() > 65 then\n\t\tplayer:Kick()\n\tend\nend"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 이로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/return/0": {
-    "documentation": "서버의 추정 Unix 타임스탬프입니다."
+    "documentation": "서버의 추정 유닉스 타임스탬프."
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow": {
-    "documentation": "서버의 Unix 시간을 초 단위로 반환합니다.",
+    "documentation": "서버의 유닉스 시간을 초 단위로 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -26717,16 +26717,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 이로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/1": {
-    "documentation": "조인트를 만들 부품의 <code>BaseParts</code> 배열입니다."
+    "documentation": "조인트를 만들 <code>BaseParts</code>의 배열."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/2": {
-    "documentation": "사용될 <code>JointCreationMode</code>입니다. <code>Enum.JointCreationMode.All</code> 또는 <code>Enum.JointCreationMode.Surface</code>를 전달하면 Join Always와 동일한 동작을 합니다."
+    "documentation": "사용할 <code>JointCreationMode</code>. <code>Enum.JointCreationMode.All</code> 또는 <code>Enum.JointCreationMode.Surface</code>를 전달하면 Join Always로 동일한 동작을 합니다."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders": {
-    "documentation": "지정된 <code>Parts</code>와 맞닿은 부품에 따라 제어면과 지정된 조인트 생성 모드에 따라 조인트를 생성합니다.",
+    "documentation": "지정된 <code>Parts</code>와 그 접촉 부품 간의 조인트를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -26746,13 +26746,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 이로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/1": {
-    "documentation": "조인트를 만들어야 할 <code>parts</code> 배열입니다."
+    "documentation": "조인트를 만들 <code>parts</code>의 배열."
   },
   "@roblox/globaltype/Workspace.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>제공된 모든 <code>BaseParts</code>를 순회합니다. 어떤 부품의 면에 조인트를 생성할 수 있는 <code>SurfaceType</code>이 있는 경우, 인접한 부품과 조인트를 생성합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>주어진 모든 <code>BaseParts</code>를 순회하고, 조인트를 만들 수 있는 <code>SurfaceType</code>를 가진 부품의 면이 있으면 인접한 부품과 조인트를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -26768,13 +26768,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 이로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/return/0": {
     "documentation": "PGS 솔버가 활성화되어 있으면 true입니다."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled": {
-    "documentation": "게임에 PGS 물리 솔버가 활성화되어 있으면 <code>true</code>를 반환합니다.",
+    "documentation": "게임에 PGS 물리 Solver가 활성화되어 있으면 <code>true</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -26788,13 +26788,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 이로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/1": {
-    "documentation": "조인트를 끊어야 할 <code>BaseParts</code> 배열입니다."
+    "documentation": "조인트를 끊을 <code>BaseParts</code>의 배열."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders": {
-    "documentation": "지정된 <code>BaseParts</code>와 기타 <code>BaseParts</code> 간의 모든 조인트를 끊습니다.",
+    "documentation": "지정된 <code>BaseParts</code>와 다른 <code>BaseParts</code> 간의 모든 조인트를 끊습니다.",
     "params": [
       {
         "name": "self",
@@ -26810,10 +26810,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ZoomToExtents/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 이로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.ZoomToExtents": {
-    "documentation": "<code>Workspace.CurrentCamera</code>의 위치와 줌을 조정하여 현재 <code>Workspace</code>에 있는 <code>BaseParts</code>의 범위를 보여줍니다.",
+    "documentation": "<code>Workspace.CurrentCamera</code>의 위치와 줌을 설정하여 현재 <code>Workspace</code>에 있는 <code>BaseParts</code>의 범위를 표시합니다.",
     "params": [
       {
         "name": "self",
@@ -26902,7 +26902,7 @@
     "returns": []
   },
   "@roblox/globaltype/Workspace.PersistentLoaded": {
-    "documentation": "지속적인 모델이 지정된 플레이어에게 전송될 때 발생합니다.",
+    "documentation": "지속적인 모델이 특정 플레이어에게 전송될 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Workspace.PersistentLoaded.Connect",
       "ConnectParallel": "@roblox/globaltype/Workspace.PersistentLoaded.ConnectParallel",
@@ -31053,7 +31053,6 @@
     "keys": {
       "BalanceMaxTorque": "@roblox/globaltype/AirController.BalanceMaxTorque",
       "BalanceSpeed": "@roblox/globaltype/AirController.BalanceSpeed",
-      "LinearImpulse": "@roblox/globaltype/AirController.LinearImpulse",
       "MaintainAngularMomentum": "@roblox/globaltype/AirController.MaintainAngularMomentum",
       "MaintainLinearMomentum": "@roblox/globaltype/AirController.MaintainLinearMomentum",
       "MoveMaxForce": "@roblox/globaltype/AirController.MoveMaxForce",
@@ -31073,23 +31072,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#BalanceSpeed",
     "code_sample": ""
   },
-  "@roblox/globaltype/AirController.LinearImpulse": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#LinearImpulse",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AirController.MaintainAngularMomentum": {
-    "documentation": "입력이 중지되었을 때 각 운동량이 보존되는지를 결정합니다.",
+    "documentation": "입력이 중지되었을 때 각 운동량이 보존되는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#MaintainAngularMomentum",
     "code_sample": ""
   },
   "@roblox/globaltype/AirController.MaintainLinearMomentum": {
-    "documentation": "입력이 중지되었을 때 선형 운동량이 보존되는지를 결정합니다.",
+    "documentation": "입력이 중지되었을 때 선형 운동량이 보존되는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#MaintainLinearMomentum",
     "code_sample": ""
   },
   "@roblox/globaltype/AirController.MoveMaxForce": {
-    "documentation": "<code>ControllerManager.RootPart</code>에서 <code>ControllerManager.MovingDirection</code>으로 이동하기 위해 적용할 수 있는 최대 힘입니다.",
+    "documentation": "<code>ControllerManager.RootPart</code>에서 이동하기 위해 적용할 수 있는 최대 힘입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#MoveMaxForce",
     "code_sample": ""
   },
@@ -31104,7 +31098,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다.",
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다.",
     "keys": {
       "AllowClientInsertModels": "@roblox/globaltype/InsertService.AllowClientInsertModels",
       "AllowInsertFreeModels": "@roblox/globaltype/InsertService.AllowInsertFreeModels",
@@ -31135,18 +31129,18 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.AllowInsertFreeModels": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 결코 출시되지 않았습니다. 새로운 작업에서 사용하지 마세요.<br>''무료 모델''을 게임에 삽입할 수 있는지를 나타냅니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 결코 릴리스되지 않았습니다. 새 작업에 사용하지 마세요.<br>'Free Models'를 게임에 삽입할 수 있는지 여부를 나타냅니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InsertService#AllowInsertFreeModels",
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.ApproveAssetId/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.ApproveAssetId/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.ApproveAssetId": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 새로운 작업에서 사용하지 마세요.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 deprecated입니다. 새 작업에 사용하지 마세요.",
     "params": [
       {
         "name": "self",
@@ -31162,13 +31156,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.ApproveAssetVersionId/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.ApproveAssetVersionId/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.ApproveAssetVersionId": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 새로운 작업에서 사용하지 마세요.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 deprecated입니다. 새 작업에 사용하지 마세요.",
     "params": [
       {
         "name": "self",
@@ -31184,7 +31178,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.CreateMeshPartAsync/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.CreateMeshPartAsync/param/1": {
     "documentation": "메시 자산 ID."
@@ -31196,10 +31190,10 @@
     "documentation": "<code>MeshPart.RenderFidelity</code>를 설정합니다."
   },
   "@roblox/globaltype/InsertService.CreateMeshPartAsync/return/0": {
-    "documentation": "새 <code>MeshPart</code> 인스턴스."
+    "documentation": "새로운 <code>MeshPart</code> 인스턴스."
   },
   "@roblox/globaltype/InsertService.CreateMeshPartAsync": {
-    "documentation": "지정된 충실도 값으로 새 <code>MeshPart</code>를 생성합니다.",
+    "documentation": "지정된 충실도 값을 가진 새로운 <code>MeshPart</code>를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -31225,13 +31219,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.GetBaseCategories/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.GetBaseCategories/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetBaseCategories": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 새로운 작업에서 사용하지 마세요.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 deprecated입니다. 새 작업에 사용하지 마세요.",
     "params": [
       {
         "name": "self",
@@ -31245,13 +31239,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.GetBaseSets/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.GetBaseSets/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetBaseSets": {
-    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">세트가 제거되었습니다</a> 로블록스에서.<br>다양한 로블록스 승인 세트에 대한 정보를 포함하는 사전 배열을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">세트가 제거되었습니다</a>.<br>다양한 Roblox 승인 세트에 대한 정보를 포함하는 사전 배열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -31265,7 +31259,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.GetCollection/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.GetCollection/param/1": {
     "documentation": ""
@@ -31274,7 +31268,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetCollection": {
-    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">세트가 제거되었습니다</a> 로블록스에서.<br>지정된 카테고리에서 가장 최근에 업로드된 모델을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">세트가 제거되었습니다</a>.<br>지정된 범주에서 가장 최근에 업로드된 모델을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -31292,19 +31286,19 @@
     "code_sample": "local InsertService = game:GetService(\"InsertService\")\n\nlocal set = InsertService:GetBaseSets()[1]\nlocal list = InsertService:GetCollection(set[\"CategoryId\"])\n\nprint(list)"
   },
   "@roblox/globaltype/InsertService.GetFreeDecals/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.GetFreeDecals/param/1": {
-    "documentation": "카탈로그에서 무료 디칼을 검색하는 데 사용되는 문자열."
+    "documentation": "카탈로그에서 무료 데칼을 검색하는 데 사용되는 문자열입니다."
   },
   "@roblox/globaltype/InsertService.GetFreeDecals/param/2": {
-    "documentation": "반환할 카탈로그의 페이지 번호."
+    "documentation": "반환할 카탈로그의 페이지 번호입니다."
   },
   "@roblox/globaltype/InsertService.GetFreeDecals/return/0": {
-    "documentation": "테이블로 감싸진 단일 테이블 (반환된 무료 디칼)."
+    "documentation": "테이블에 감싸인 단일 테이블(반환된 무료 데칼)."
   },
   "@roblox/globaltype/InsertService.GetFreeDecals": {
-    "documentation": "<strong>Deprecated:</strong> <br>카탈로그에서 무료 디칼 목록을 가져옵니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>카탈로그에서 무료 데칼 목록을 검색합니다.",
     "params": [
       {
         "name": "self",
@@ -31326,19 +31320,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.GetFreeDecalsAsync/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.GetFreeDecalsAsync/param/1": {
-    "documentation": "카탈로그에서 무료 디칼을 검색하는 데 사용되는 문자열."
+    "documentation": "카탈로그에서 무료 데칼을 검색하는 데 사용되는 문자열입니다."
   },
   "@roblox/globaltype/InsertService.GetFreeDecalsAsync/param/2": {
-    "documentation": "반환할 카탈로그의 페이지 번호."
+    "documentation": "반환할 카탈로그의 페이지 번호입니다."
   },
   "@roblox/globaltype/InsertService.GetFreeDecalsAsync/return/0": {
-    "documentation": "테이블로 감싸진 단일 테이블 (반환된 무료 디칼)."
+    "documentation": "테이블에 감싸인 단일 테이블(반환된 무료 데칼)."
   },
   "@roblox/globaltype/InsertService.GetFreeDecalsAsync": {
-    "documentation": "카탈로그에서 무료 디칼 목록을 가져옵니다.",
+    "documentation": "카탈로그에서 무료 데칼 목록을 검색합니다.",
     "params": [
       {
         "name": "self",
@@ -31360,19 +31354,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.GetFreeModels/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.GetFreeModels/param/1": {
-    "documentation": "카탈로그에서 무료 모델을 검색하는 데 사용되는 문자열."
+    "documentation": "카탈로그에서 무료 모델을 검색하는 데 사용되는 문자열입니다."
   },
   "@roblox/globaltype/InsertService.GetFreeModels/param/2": {
-    "documentation": "반환할 카탈로그의 페이지 번호."
+    "documentation": "반환할 카탈로그의 페이지 번호입니다."
   },
   "@roblox/globaltype/InsertService.GetFreeModels/return/0": {
-    "documentation": "테이블로 감싸진 단일 테이블 (반환된 무료 모델)."
+    "documentation": "테이블에 감싸인 단일 테이블(반환된 무료 모델)."
   },
   "@roblox/globaltype/InsertService.GetFreeModels": {
-    "documentation": "<strong>Deprecated:</strong> <br>카탈로그에서 무료 모델 목록을 가져옵니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>카탈로그에서 무료 모델 목록을 검색합니다.",
     "params": [
       {
         "name": "self",
@@ -31394,19 +31388,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.GetFreeModelsAsync/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.GetFreeModelsAsync/param/1": {
-    "documentation": "카탈로그에서 무료 디칼을 검색하는 데 사용되는 문자열."
+    "documentation": "카탈로그에서 무료 데칼을 검색하는 데 사용되는 문자열입니다."
   },
   "@roblox/globaltype/InsertService.GetFreeModelsAsync/param/2": {
-    "documentation": "반환할 카탈로그의 페이지 번호."
+    "documentation": "반환할 카탈로그의 페이지 번호입니다."
   },
   "@roblox/globaltype/InsertService.GetFreeModelsAsync/return/0": {
-    "documentation": "테이블로 감싸진 단일 테이블 (반환된 무료 모델)."
+    "documentation": "테이블에 감싸인 단일 테이블(반환된 무료 모델)."
   },
   "@roblox/globaltype/InsertService.GetFreeModelsAsync": {
-    "documentation": "카탈로그에서 무료 모델 목록을 가져옵니다.",
+    "documentation": "카탈로그에서 무료 모델 목록을 검색합니다.",
     "params": [
       {
         "name": "self",
@@ -31428,7 +31422,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.GetLatestAssetVersionAsync/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.GetLatestAssetVersionAsync/param/1": {
     "documentation": ""
@@ -31437,7 +31431,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetLatestAssetVersionAsync": {
-    "documentation": "플레이스 제작자가 생성한 자산의 최신 AssetVersionId를 반환합니다. 이는 <code>InsertService:LoadAssetVersion()</code>와 결합하여 모델의 최신 버전을 로드하는 데 사용할 수 있습니다. 게임이 실행 중일 때 업데이트되더라도 가능합니다.",
+    "documentation": "장소 제작자가 만든 자산의 최신 AssetVersionId를 반환합니다. 이는 <code>InsertService:LoadAssetVersion()</code>와 결합하여, 게임이 실행 중일 때 모델의 최신 버전을 로드하는 데 사용할 수 있습니다.",
     "params": [
       {
         "name": "self",
@@ -31455,7 +31449,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.GetUserCategories/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.GetUserCategories/param/1": {
     "documentation": ""
@@ -31464,7 +31458,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetUserCategories": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 새로운 작업에서 사용하지 마세요.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 deprecated입니다. 새 작업에 사용하지 마세요.",
     "params": [
       {
         "name": "self",
@@ -31482,7 +31476,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.GetUserSets/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.GetUserSets/param/1": {
     "documentation": ""
@@ -31491,7 +31485,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.GetUserSets": {
-    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">세트가 제거되었습니다</a> 로블록스에서.<br>사용자가 소유한 세트에 대한 정보를 포함하는 사전 배열을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> <a href=\"https://devforum.roblox.com/t/sunsetting-sets/189402\">세트가 제거되었습니다</a>.<br>사용자가 소유한 세트에 대한 정보를 포함하는 사전 배열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -31509,13 +31503,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.Insert/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.Insert/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.Insert": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>InsertService:LoadAsset()</code>에 의해 대체되었으며, 모든 새로운 작업에서 사용해야 합니다.<br><code>Instance</code>를 <code>Workspace</code>에 삽입합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>InsertService:LoadAsset()</code>로 대체되었습니다. 모든 새로운 작업에서 사용해야 합니다.<br><code>Instance</code>를 <code>Workspace</code>에 삽입합니다.",
     "params": [
       {
         "name": "self",
@@ -31531,10 +31525,10 @@
     "code_sample": "local InsertService = game:GetService(\"InsertService\")\n\nlocal ASSET_ID = 123456789\n\nlocal instance = InsertService:LoadAsset(ASSET_ID)\n\nif instance then\n\t-- 인스턴스를 삽입합니다.\n\tInsertService:Insert(instance)\nend"
   },
   "@roblox/globaltype/InsertService.LoadAsset/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.LoadAsset/param/1": {
-    "documentation": "로드 중인 자산의 자산 ID입니다."
+    "documentation": "로드되는 자산의 자산 ID입니다."
   },
   "@roblox/globaltype/InsertService.LoadAsset/return/0": {
     "documentation": "로드된 자산의 인스턴스입니다."
@@ -31558,7 +31552,7 @@
     "code_sample": "local InsertService = game:GetService(\"InsertService\")\n\nlocal ASSET_ID = 82353\n\nlocal asset = InsertService:LoadAsset(ASSET_ID)\n\nasset.Parent = workspace"
   },
   "@roblox/globaltype/InsertService.loadAsset/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.loadAsset/param/1": {
     "documentation": ""
@@ -31567,7 +31561,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.loadAsset": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>InsertService:LoadAsset()</code>의 더 이상 사용되지 않는 변형입니다. 대신 사용해야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>InsertService:LoadAsset()</code>의 deprecated 변형입니다. 대신 사용해야 합니다.",
     "params": [
       {
         "name": "self",
@@ -31585,7 +31579,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.LoadAssetVersion/param/0": {
-    "documentation": "로블록스 웹사이트에서 자산을 삽입하는 데 사용됩니다."
+    "documentation": "Roblox 웹사이트에서 자산을 삽입하는 데 사용됩니다."
   },
   "@roblox/globaltype/InsertService.LoadAssetVersion/param/1": {
     "documentation": ""
@@ -31594,7 +31588,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InsertService.LoadAssetVersion": {
-    "documentation": "주어진 assetVersionId가 있는 자산을 포함하는 <code>InsertService</code>에 삽입된 모델을 반환합니다.",
+    "documentation": "주어진 assetVersionId의 자산을 포함하는 <code>InsertService</code>에 삽입된 모델을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -45034,7 +45028,6 @@
   "@roblox/globaltype/SwimController": {
     "documentation": "",
     "keys": {
-      "AccelerationTime": "@roblox/globaltype/SwimController.AccelerationTime",
       "PitchMaxTorque": "@roblox/globaltype/SwimController.PitchMaxTorque",
       "PitchSpeedFactor": "@roblox/globaltype/SwimController.PitchSpeedFactor",
       "RollMaxTorque": "@roblox/globaltype/SwimController.RollMaxTorque",
@@ -45043,28 +45036,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController",
     "code_sample": ""
   },
-  "@roblox/globaltype/SwimController.AccelerationTime": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#AccelerationTime",
-    "code_sample": ""
-  },
   "@roblox/globaltype/SwimController.PitchMaxTorque": {
-    "documentation": "원하는 피치를 회전하는 데 사용되는 최대 토크.",
+    "documentation": "원하는 피치를 회전시키기 위해 사용되는 최대 토크입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#PitchMaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/SwimController.PitchSpeedFactor": {
-    "documentation": "<code>ControllerManager.BaseTurnSpeed</code>에 곱하여 피치에 대한 최대 각속도를 결정합니다.",
+    "documentation": "<code>ControllerManager.BaseTurnSpeed</code>와 곱하여 피치를 위한 최대 각속도를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#PitchSpeedFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/SwimController.RollMaxTorque": {
-    "documentation": "원하는 롤로 회전하는 데 적용되는 최대 토크.",
+    "documentation": "원하는 롤을 회전시키기 위해 적용되는 최대 토크입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#RollMaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/SwimController.RollSpeedFactor": {
-    "documentation": "<code>ControllerManager.BaseTurnSpeed</code>에 곱하여 롤에 대한 최대 각속도를 결정합니다.",
+    "documentation": "<code>ControllerManager.BaseTurnSpeed</code>와 곱하여 롤을 위한 최대 각속도를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#RollSpeedFactor",
     "code_sample": ""
   },
@@ -45974,7 +45962,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HttpRbxApiService": {
-    "documentation": "개발자에게 제공되지 않는 기능을 가진 내부 서비스입니다.",
+    "documentation": "개발자에게는 사용할 수 없는 기능을 가진 내부 서비스입니다.",
     "keys": {
       "RequestLimitedAsync": "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync"
     },
@@ -45982,7 +45970,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/0": {
-    "documentation": "개발자에게 제공되지 않는 기능을 가진 내부 서비스입니다."
+    "documentation": "개발자에게는 사용할 수 없는 기능을 가진 내부 서비스입니다."
   },
   "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/1": {
     "documentation": ""
@@ -46152,7 +46140,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다.",
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다.",
     "keys": {
       "AccountAge": "@roblox/globaltype/Player.AccountAge",
       "AutoJumpEnabled": "@roblox/globaltype/Player.AutoJumpEnabled",
@@ -46248,17 +46236,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AutoJumpEnabled": {
-    "documentation": "모바일 장치를 사용하는 플레이어의 캐릭터가 장애물에 부딪혔을 때 자동으로 점프할지 여부를 결정합니다.",
+    "documentation": "모바일 장치를 사용하는 플레이어의 캐릭터가 장애물에 부딪힐 때 자동으로 점프할지를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#AutoJumpEnabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- 버튼 텍스트 업데이트\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"자동 점프가 켜졌습니다\"\n\telse\n\t\tbutton.Text = \"자동 점프가 꺼졌습니다\"\n\tend\n\t-- 플레이어의 캐릭터에 속성을 반영합니다. 캐릭터가 있는 경우\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- 자동 점프 전환\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- 모든 것 업데이트\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/Player.CameraMaxZoomDistance": {
-    "documentation": "플레이어의 카메라가 줌 아웃할 수 있는 최대 거리입니다.",
+    "documentation": "플레이어의 카메라가 허용되는 최대 줌 아웃 거리입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMaxZoomDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CameraMinZoomDistance": {
-    "documentation": "플레이어의 카메라가 줌 인할 수 있는 최소 거리입니다.",
+    "documentation": "플레이어의 카메라가 허용되는 최소 줌 인 거리입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMinZoomDistance",
     "code_sample": ""
   },
@@ -46268,32 +46256,32 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMode = Enum.CameraMode.LockFirstPerson"
   },
   "@roblox/globaltype/Player.CanLoadCharacterAppearance": {
-    "documentation": "플레이어가 스폰할 때 캐릭터의 외형을 로드할지 여부를 결정합니다. <code>false</code>일 경우, 플레이어는 기본 외형으로 스폰됩니다.",
+    "documentation": "플레이어가 스폰될 때 캐릭터의 외모가 로드될지를 결정합니다. <code>false</code>인 경우, 플레이어는 기본 외모로 스폰됩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CanLoadCharacterAppearance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Character": {
-    "documentation": "플레이어가 조종하는 <code>Model</code>로, <code>Humanoid</code>, 신체 부위, 스크립트 및 기타 객체가 포함되어 있습니다.",
+    "documentation": "플레이어가 제어하는 <code>Model</code>로 <code>Humanoid</code>, 신체 조각, 스크립트 및 기타 객체를 포함합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Character",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearance": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 새로운 작업에서는 사용하지 마십시오.<br>캐릭터의 외형, 의상 및 장비를 포함한 자산의 URL입니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 새로운 작업에 사용하지 마십시오.<br>캐릭터의 외모, 의류 및 장비가 포함된 자산의 URL입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearanceId": {
-    "documentation": "플레이어의 <code>Character</code>에 사용되는 캐릭터 외형의 계정의 사용자 ID를 결정합니다.",
+    "documentation": "플레이어의 <code>Character</code>에 사용되는 캐릭터 외모의 계정의 사용자 ID입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearanceId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataComplexity": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 이는 이제 구식 데이터 지속성 방법에 사용되었을 수 있습니다. 새로운 작업에는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하십시오.<br>현재 플레이어의 캐시에서 저장된 데이터의 총량입니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 이제는 지원되지 않는 데이터 지속성 방법에 사용되었을 수 있습니다. 새로운 작업에 대해 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>현재 플레이어의 캐시에 저장된 총 데이터 양입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataComplexity",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataReady": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 이는 이제 구식 데이터 지속성 방법에 사용되었을 수 있습니다. 새로운 작업에는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하십시오.<br>플레이어의 데이터를 로드할 수 있는 시점을 나타냅니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 이제는 지원되지 않는 데이터 지속성 방법에 사용되었을 수 있습니다. 새로운 작업에 대해 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>플레이어 데이터가 로드 가능한 시점을 표시합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataReady",
     "code_sample": ""
   },
@@ -46303,27 +46291,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevComputerCameraMode": {
-    "documentation": "마우스와 키보드를 사용하는 장치를 사용할 때 플레이어의 카메라 움직임 모드를 결정합니다.",
+    "documentation": "마우스와 키보드를 사용하는 장치에서 플레이어의 카메라 이동 모드를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevComputerCameraMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevComputerMovementMode": {
-    "documentation": "마우스와 키보드를 사용하는 장치를 사용할 때 플레이어의 캐릭터 이동 모드를 결정합니다.",
+    "documentation": "마우스와 키보드를 사용하는 장치에서 플레이어의 캐릭터 이동 모드를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevComputerMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevEnableMouseLock": {
-    "documentation": "플레이어가 마우스 잠금을 전환할 수 있는지 여부를 결정합니다.",
+    "documentation": "플레이어가 마우스 잠금을 전환할 수 있는지를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevEnableMouseLock",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchCameraMode": {
-    "documentation": "터치 기능이 있는 장치를 사용할 때 플레이어의 카메라 이동 모드를 결정합니다.",
+    "documentation": "터치 지원 장치에서 플레이어의 카메라 이동 모드를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchCameraMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchMovementMode": {
-    "documentation": "터치 기능이 있는 장치를 사용할 때 플레이어의 캐릭터 이동 모드를 결정합니다.",
+    "documentation": "터치 지원 장치에서 플레이어의 캐릭터 이동 모드를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchMovementMode",
     "code_sample": ""
   },
@@ -46333,27 +46321,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.FollowUserId": {
-    "documentation": "플레이어가 경험에 따라 따라간 사용자의 사용자 ID를 설명합니다.",
+    "documentation": "플레이어가 경험으로 따라간 사용자의 사용자 ID를 설명합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#FollowUserId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.Parent = player:WaitForChild(\"PlayerGui\")\n\nlocal function onPlayerAdded(newPlayer)\n\tif newPlayer.FollowUserId == player.UserId then\n\t\tlocal textLabel = Instance.new(\"TextLabel\")\n\t\ttextLabel.Parent = screenGui\n\t\ttextLabel.Text = \"당신은 이 게임에 \" .. newPlayer.Name .. \"에 의해 팔로우되었습니다!\"\n\t\ttask.delay(3, function()\n\t\t\tif textLabel then\n\t\t\t\ttextLabel:Destroy()\n\t\t\tend\n\t\tend)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GameplayPaused": {
-    "documentation": "플레이어의 클라이언트 측 게임 플레이가 현재 일시 중지되었는지 여부입니다.",
+    "documentation": "현재 플레이어 클라이언트의 게임 플레이가 일시 정지되었는지를 나타냅니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GameplayPaused",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HasVerifiedBadge": {
-    "documentation": "플레이어가 <strong>확인됨</strong> 배지가 있는지 여부를 나타냅니다.",
+    "documentation": "플레이어가 <strong>검증됨</strong> 배지를 갖고 있는지 여부를 나타냅니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HasVerifiedBadge",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HealthDisplayDistance": {
-    "documentation": "이 플레이어가 다른 플레이어의 건강 바를 볼 수 있는 거리입니다.",
+    "documentation": "이 플레이어가 다른 플레이어의 체력바를 볼 수 있는 거리를 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HealthDisplayDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LocaleId": {
-    "documentation": "이 속성은 로컬 플레이어가 자신의 Roblox 계정에 설정한 로케일 ID를 보여줍니다.",
+    "documentation": "이 속성은 로컬 플레이어가 자신의 Roblox 계정에 설정한 지역 ID입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LocaleId",
     "code_sample": ""
   },
@@ -46363,12 +46351,12 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nif player.MembershipType == Enum.MembershipType.Premium then\n\t-- 프리미엄 회원을 위한 특정 작업을 수행합니다\nend"
   },
   "@roblox/globaltype/Player.NameDisplayDistance": {
-    "documentation": "이 플레이어가 다른 플레이어의 이름을 볼 수 있는 거리입니다.",
+    "documentation": "이 플레이어가 다른 플레이어의 이름을 볼 수 있는 거리를 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#NameDisplayDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Neutral": {
-    "documentation": "플레이어가 특정 팀에 있는지 여부를 결정합니다.",
+    "documentation": "플레이어가 특정 팀에 속하는지를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Neutral",
     "code_sample": ""
   },
@@ -46378,12 +46366,12 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"플레이어는 ID가 있는 파티에 있습니다: \" .. partyId)\n\telse\n\t\tprint(\"플레이어는 파티에 없습니다\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"플레이어가 ID가 있는 파티에 가입했습니다: \" .. player.PartyId)\n\t\telse\n\t\t\tprint(\"플레이어가 파티를 떠났습니다\")\n\t\tend\n\tend)\nend)"
   },
   "@roblox/globaltype/Player.ReplicationFocus": {
-    "documentation": "복제를 집중할 부품을 설정합니다.",
+    "documentation": "복제를 주변으로 집중할 파트를 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#ReplicationFocus",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RespawnLocation": {
-    "documentation": "설정된 경우 플레이어는 주어진 <code>SpawnLocation</code>에서 리스폰됩니다.",
+    "documentation": "설정하면 플레이어는 주어진 <code>SpawnLocation</code>에서 리스폰됩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#RespawnLocation",
     "code_sample": ""
   },
@@ -46393,12 +46381,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Team": {
-    "documentation": "플레이어와 연관된 <code>Team</code>을 결정합니다.",
+    "documentation": "플레이어가 소속된 <code>Team</code>을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Team",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.TeamColor": {
-    "documentation": "플레이어가 그 팀의 <code>Team.TeamColor</code>에 따라 연관된 <code>Team</code>을 결정합니다.",
+    "documentation": "플레이어가 소속된 <code>Team</code>과 해당 팀의 <code>Team.TeamColor</code>에 따라 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#TeamColor",
     "code_sample": ""
   },
@@ -46408,23 +46396,23 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.UserId": {
-    "documentation": "모든 사용자 계정에 할당된 고유한 정수 식별자입니다.",
+    "documentation": "모든 사용자 계정에 할당된 고유 식별 정수입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#UserId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(player.UserId)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.userId": {
-    "documentation": "<strong>Deprecated:</strong> 이 속성은 <code>Player.UserId</code>의 구식 변형으로, 대신 사용해야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 속성은 더 이상 사용되지 않는 <code>Player.UserId</code>의 이전 형식이며, 대신 사용해야 합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#userId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/1": {
-    "documentation": "새로운 복제 집중점으로 사용할 <code>BasePart</code>입니다."
+    "documentation": "새 복제 기준으로 사용할 <code>BasePart</code>입니다."
   },
   "@roblox/globaltype/Player.AddReplicationFocus": {
-    "documentation": "플레이어를 위한 추가 복제 집중점을 추가합니다.",
+    "documentation": "플레이어의 추가 복제 기준을 추가합니다.",
     "params": [
       {
         "name": "self",
@@ -46440,10 +46428,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.ClearCharacterAppearance/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.ClearCharacterAppearance": {
-    "documentation": "플레이어의 <code>Character</code>에서 모든 액세서리 및 기타 캐릭터 외형 객체를 제거합니다.",
+    "documentation": "플레이어의 <code>Character</code>에서 모든 액세서리 및 기타 외관 객체를 제거합니다.",
     "params": [
       {
         "name": "self",
@@ -46455,16 +46443,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal function onChildRemoved(child)\n\tprint(child.ClassName, \"이 캐릭터에서 삭제되었습니다\")\nend\n\ncharacter.ChildRemoved:Connect(onChildRemoved)\n\nplayer:ClearCharacterAppearance()\n--> BodyColors 캐릭터에서 삭제됨\n--> ShirtGraphic 캐릭터에서 삭제됨\n--> Shirt 캐릭터에서 삭제됨\n--> Pants 캐릭터에서 삭제됨\n--> CharacterMesh 캐릭터에서 삭제됨\n--> Hat 캐릭터에서 삭제됨\n--> Shirt 캐릭터에서 삭제됨"
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/param/1": {
-    "documentation": "플레이어의 거리 측정 시 기준점입니다."
+    "documentation": "플레이어와의 거리를 측정하는 위치입니다."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/return/0": {
-    "documentation": "플레이어와 위치 간의 거리(스튜드 단위)입니다."
+    "documentation": "플레이어와 위치 간의 스텟으로 된 거리입니다."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter": {
-    "documentation": "캐릭터의 머리와 주어진 <code>Vector3</code> 간의 거리를 반환하며, 플레이어가 캐릭터가 없는 경우 <code>0</code>을 반환합니다.",
+    "documentation": "캐릭터의 머리와 주어진 <code>Vector3</code> 간의 거리를 반환합니다. 혹은 플레이어가 캐릭터가 없으면 <code>0</code>을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -46482,16 +46470,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nfor _, player in pairs(Players:GetPlayers()) do\n\tprint(player:DistanceFromCharacter(Vector3.new(0, 0, 0)))\nend"
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/1": {
     "documentation": "반환할 최대 온라인 연결 수입니다."
   },
   "@roblox/globaltype/Player.GetFriendsOnline/return/0": {
-    "documentation": "온라인 연결의 딕셔너리입니다(위 표를 참조하세요)."
+    "documentation": "온라인 연결의 사전(dictionary)(위의 표 참조)입니다."
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>GetFriendsOnlineAsync()</code>로 대체되었습니다.<br>온라인 연결의 사전을 반환합니다. 자산의 자산 ID를 사용하여 자산의 제품 정보 을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>GetFriendsOnlineAsync()</code>로 대체되었습니다.<br>온라인 연결의 사전(dictionary)을 반환합니다. 자산의 자산 ID를 사용한 상품 정보를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -46509,16 +46497,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"온라인 플레이어를 가져오는 데 실패했습니다: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetFriendsOnlineAsync/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.GetFriendsOnlineAsync/param/1": {
     "documentation": "반환할 최대 온라인 연결 수입니다."
   },
   "@roblox/globaltype/Player.GetFriendsOnlineAsync/return/0": {
-    "documentation": "온라인 연결의 딕셔너리입니다(위 표를 참조하세요)."
+    "documentation": "온라인 연결의 사전(dictionary)(위의 표 참조)입니다."
   },
   "@roblox/globaltype/Player.GetFriendsOnlineAsync": {
-    "documentation": "온라인 연결의 사전을 반환합니다.",
+    "documentation": "온라인 연결의 사전(dictionary)을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -46536,13 +46524,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"온라인 플레이어를 가져오는 데 실패했습니다: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetJoinData/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.GetJoinData/return/0": {
-    "documentation": "장소 ID 및 사용자 ID 값을 포함하는 딕셔너리입니다(설명에 있는 표를 참조하십시오)."
+    "documentation": "PlaceId 및 UserId 값을 포함하는 사전입니다(설명에서 표 참조)."
   },
   "@roblox/globaltype/Player.GetJoinData": {
-    "documentation": "플레이어가 경험에 어떻게 조인하는지 설명하는 정보를 포함한 딕셔너리를 반환합니다.",
+    "documentation": "플레이어가 경험에 참가하는 방법에 대해 설명하는 정보를 포함하는 사전을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -46556,13 +46544,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetMouse/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.GetMouse/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.GetMouse": {
-    "documentation": "클라이언트에서 사용 중인 마우스를 반환합니다.",
+    "documentation": "클라이언트에서 사용되는 마우스를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -46576,13 +46564,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetNetworkPing/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.GetNetworkPing/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.GetNetworkPing": {
-    "documentation": "초단위로 왕복, 고립된 네트워크 지연 시간을 반환합니다.",
+    "documentation": "왕복, 격리된 네트워크 지연 시간을 초 단위로 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -46596,16 +46584,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/1": {
     "documentation": "지정된 그룹의 <code>groupId</code>입니다."
   },
   "@roblox/globaltype/Player.GetRankInGroup/return/0": {
-    "documentation": "그룹 내에서의 플레이어의 순위입니다."
+    "documentation": "그룹에서 플레이어의 계급입니다."
   },
   "@roblox/globaltype/Player.GetRankInGroup": {
-    "documentation": "<strong>Deprecated:</strong> <br>플레이어의 그룹 내에서의 순위를 정수로 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>그룹에서 플레이어의 계급을 정수로 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -46623,16 +46611,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroupAsync(2) == 255 then\n\t\tprint(\"플레이어는 그룹의 소유자입니다, 'LOL'!\")\n\telse\n\t\tprint(\"플레이어는 그룹의 소유자가 아닙니다, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRankInGroupAsync/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.GetRankInGroupAsync/param/1": {
     "documentation": "지정된 그룹의 <code>groupId</code>입니다."
   },
   "@roblox/globaltype/Player.GetRankInGroupAsync/return/0": {
-    "documentation": "그룹 내에서의 플레이어의 순위입니다."
+    "documentation": "그룹에서 플레이어의 계급입니다."
   },
   "@roblox/globaltype/Player.GetRankInGroupAsync": {
-    "documentation": "플레이어의 그룹 내에서의 순위를 정수로 반환합니다.",
+    "documentation": "그룹에서 플레이어의 계급을 정수로 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -46650,16 +46638,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroupAsync(2) == 255 then\n\t\tprint(\"플레이어는 그룹의 소유자입니다, 'LOL'!\")\n\telse\n\t\tprint(\"플레이어는 그룹의 소유자가 아닙니다, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/1": {
     "documentation": "지정된 그룹의 그룹 ID입니다."
   },
   "@roblox/globaltype/Player.GetRoleInGroup/return/0": {
-    "documentation": "지정된 그룹 내에서의 플레이어의 역할 또는 플레이어가 일원이 아닐 경우 <code>Guest</code>입니다."
+    "documentation": "지정된 그룹에서 플레이어의 역할 또는 플레이어가 멤버가 아닐 경우 <code>Guest</code>입니다."
   },
   "@roblox/globaltype/Player.GetRoleInGroup": {
-    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>GetRoleInGroup()</code>로 대체되었습니다.<br>플레이어의 그룹 내에서의 역할을 문자열로 반환하거나, 그룹의 일원이 아닐 경우 <code>Guest</code>를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>GetRoleInGroup()</code>로 대체되었습니다.<br>플레이어의 그룹에서의 역할을 문자열로 반환하며, 그룹의 일부가 아닌 경우 <code>Guest</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -46677,16 +46665,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"플레이어는 그룹 'LOL'에서 '\", player:GetRoleInGroupAsync(2), \"'으로 순위가 매겨졌습니다!\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/param/1": {
     "documentation": "지정된 그룹의 그룹 ID입니다."
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/return/0": {
-    "documentation": "지정된 그룹 내에서의 플레이어의 역할 또는 플레이어가 일원이 아닐 경우 <code>Guest</code>입니다."
+    "documentation": "지정된 그룹에서 플레이어의 역할 또는 플레이어가 멤버가 아닐 경우 <code>Guest</code>입니다."
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync": {
-    "documentation": "플레이어의 그룹 내에서의 역할을 문자열로 반환하거나, 그룹의 일원이 아닐 경우 <code>Guest</code>를 반환합니다.",
+    "documentation": "플레이어의 그룹에서의 역할을 문자열로 반환하며, 그룹의 일부가 아닌 경우 <code>Guest</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -46704,13 +46692,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"플레이어는 그룹 'LOL'에서 '\", player:GetRoleInGroupAsync(2), \"'으로 순위가 매겨졌습니다!\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/return/0": {
-    "documentation": "플레이어의 캐릭터 외형이 로드되었는지 여부를 나타내는 불리언입니다."
+    "documentation": "플레이어의 캐릭터 외모가 로드되었는지를 나타내는 불리언입니다."
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded": {
-    "documentation": "플레이어의 캐릭터 외형이 로드되었는지 여부를 반환합니다.",
+    "documentation": "플레이어의 캐릭터 외모가 로드되었는지를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -46724,7 +46712,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tlocal loaded = player:HasAppearanceLoaded()\n\tprint(loaded)\n\n\twhile not loaded do\n\t\tloaded = player:HasAppearanceLoaded()\n\t\tprint(loaded)\n\t\ttask.wait()\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.IsBestFriendsWith/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.IsBestFriendsWith/param/1": {
     "documentation": ""
@@ -46733,7 +46721,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.IsBestFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 \"가장 친한 친구\" 기능이 제거되었기 때문에 구식입니다. 대신 <code>Player:IsFriendsWithAsync()</code>를 사용하십시오.<br>플레이어가 지정된 사용자와 연결되어 있는지 여부를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 \"가장 친한 친구\" 기능이 제거되었기 때문에 구식입니다. 대신 <code>Player:IsFriendsWithAsync()</code>를 사용하십시오.<br>플레이어가 지정된 사용자와 친구인지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -46751,16 +46739,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/1": {
     "documentation": "지정된 플레이어의 <code>Player.UserId</code>입니다."
   },
   "@roblox/globaltype/Player.IsFriendsWith/return/0": {
-    "documentation": "지정된 사용자와 플레이어가 연결되어 있는지 여부를 나타내는 불리언입니다."
+    "documentation": "지정된 사용자의 연결 여부를 나타내는 불리언입니다."
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>Player:IsFriendsWithAsync()</code> 메서드로 대체되어야 하며, 새로운 작업을 위해 사용해야 합니다.<br>지정된 <code>Player.UserId</code>를 가진 사용자와 플레이어가 연결되어 있는지 확인합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 새로운 작업에 대해 <code>Player:IsFriendsWithAsync()</code> 메서드로 대체되었습니다.<br>지정된 <code>Player.UserId</code>를 가진 사용자의 연결인지 여부를 확인합니다.",
     "params": [
       {
         "name": "self",
@@ -46778,7 +46766,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.isFriendsWith/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.isFriendsWith/param/1": {
     "documentation": ""
@@ -46787,7 +46775,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.isFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> 이 메서드는 새로운 작업에서 사용해야 하는 <code>Player:IsFriendsWithAsync()</code> 메서드로 대체되었습니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 새로운 작업에 대해 <code>Player:IsFriendsWithAsync()</code> 메서드로 대체되었습니다.",
     "params": [
       {
         "name": "self",
@@ -46805,16 +46793,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsFriendsWithAsync/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.IsFriendsWithAsync/param/1": {
-    "documentation": "지정된 플레이어의 <code>Player.UserId</code>."
+    "documentation": "지정된 플레이어의 <code>Player.UserId</code>입니다."
   },
   "@roblox/globaltype/Player.IsFriendsWithAsync/return/0": {
-    "documentation": "지정된 사용자의 연결인지 여부를 나타내는 불리언 값."
+    "documentation": "지정된 사용자의 연결 여부를 나타내는 불리언입니다."
   },
   "@roblox/globaltype/Player.IsFriendsWithAsync": {
-    "documentation": "주어진 <code>Player.UserId</code>로 사용자의 연결인지 여부를 확인합니다.",
+    "documentation": "지정된 <code>Player.UserId</code>를 가진 사용자의 연결인지 여부를 확인합니다.",
     "params": [
       {
         "name": "self",
@@ -46832,16 +46820,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsInGroup/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.IsInGroup/param/1": {
     "documentation": "지정된 그룹의 그룹 ID입니다."
   },
   "@roblox/globaltype/Player.IsInGroup/return/0": {
-    "documentation": "지정된 그룹에 플레이어가 속해 있는지 여부를 나타내는 불리언입니다."
+    "documentation": "지정된 그룹에 있는 플레이어인지 여부를 나타내는 불리언입니다."
   },
   "@roblox/globaltype/Player.IsInGroup": {
-    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>IsInGroupAsync()</code>로 대체되었습니다.<br>지정된 ID를 가진 그룹의 멤버인지 확인합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 새로운 작업에 대해 <code>IsInGroupAsync()</code>로 대체되었습니다.<br>지정된 ID를 가진 그룹의 멤버인지 확인합니다.",
     "params": [
       {
         "name": "self",
@@ -46859,13 +46847,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsInGroupAsync/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.IsInGroupAsync/param/1": {
     "documentation": "지정된 그룹의 그룹 ID입니다."
   },
   "@roblox/globaltype/Player.IsInGroupAsync/return/0": {
-    "documentation": "지정된 그룹에 플레이어가 속해 있는지 여부를 나타내는 불리언입니다."
+    "documentation": "지정된 그룹에 있는 플레이어인지 여부를 나타내는 불리언입니다."
   },
   "@roblox/globaltype/Player.IsInGroupAsync": {
     "documentation": "지정된 ID를 가진 그룹의 멤버인지 확인합니다.",
@@ -46886,13 +46874,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsVerified/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.IsVerified/return/0": {
-    "documentation": "플레이어가 확인되었는지를 나타내는 불리언입니다."
+    "documentation": "플레이어가 검증되었는지를 나타내는 불리언입니다."
   },
   "@roblox/globaltype/Player.IsVerified": {
-    "documentation": "플레이어가 신뢰할 수 있는 현실적인 신호로 확인되었는지를 반환합니다.",
+    "documentation": "플레이어가 실질적이고 현실 세계의 신호로 검증되었는지를 확인합니다.",
     "params": [
       {
         "name": "self",
@@ -46906,13 +46894,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(player:IsVerified())\nend\n\nfor _, player in pairs(Players:GetPlayers()) do\n\tonPlayerAdded(player)\nend\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.Kick/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.Kick/param/1": {
-    "documentation": "유저가 끌려나올 때 보여줄 메시지입니다."
+    "documentation": "사용자를 퇴장 시킬 때 보여줄 메시지입니다."
   },
   "@roblox/globaltype/Player.Kick": {
-    "documentation": "플레이어를 경험에서 강제로 연결을 끊고, 선택적으로 메시지를 제공합니다.",
+    "documentation": "플레이어를 경험에서 강제로 연결 해제하며, 선택적으로 메시지를 제공합니다.",
     "params": [
       {
         "name": "self",
@@ -46928,7 +46916,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadBoolean/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.LoadBoolean/param/1": {
     "documentation": ""
@@ -46937,7 +46925,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 이제는 구식 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>플레이어에게 저장된 불리언 값을 반환합니다. 키는 <code>Player:SaveBoolean()</code>와 동일합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 이제 사용되지 않는 데이터 지속성 방법에 사용되었을 수 있습니다. 새로운 작업을 위해 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>동일한 키로 <code>Player:SaveBoolean()</code>에 의해 이전에 저장된 불리언 값을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -46955,7 +46943,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadBoolean/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.loadBoolean/param/1": {
     "documentation": ""
@@ -46964,7 +46952,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 <code>Player:LoadBoolean()</code>의 변형입니다. 두 함수 모두 새 작업에서는 사용하지 않아야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 <code>Player:LoadBoolean()</code>의 변형이며, 이 또한 deprecated되었습니다. 새로운 작업에서는 두 함수 모두 사용하지 말아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -46982,10 +46970,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadCharacter/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.LoadCharacter": {
-    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>LoadCharacterAsync()</code>로 대체되었습니다.<br>플레이어를 위해 새로운 캐릭터를 생성하고, 이전 캐릭터를 제거합니다. 또한 플레이어의 <code>Backpack</code> 및 <code>PlayerGui</code>를 지웁니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>LoadCharacterAsync()</code>에 의해 대체되었습니다.<br>플레이어의 새로운 캐릭터를 생성하고 기존 캐릭터를 제거합니다. 또한 플레이어의 <code>Backpack</code>과 <code>PlayerGui</code>를 초기화합니다.",
     "params": [
       {
         "name": "self",
@@ -46997,10 +46985,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/1": {
-    "documentation": "로드 중인 자산의 인스턴스로, <code>InsertService:LoadAsset()</code> 함수를 사용하여 얻을 수 있습니다."
+    "documentation": "로드되는 자산의 인스턴스로, <code>InsertService:LoadAsset()</code> 함수를 사용하여 얻을 수 있습니다."
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance": {
     "documentation": "<strong>Deprecated:</strong> <br>주어진 인스턴스를 플레이어의 캐릭터, 머리 또는 인스턴스의 클래스에 따라 StarterGear에 배치합니다.",
@@ -47019,10 +47007,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal InsertService = game:GetService(\"InsertService\")\n\nlocal function onPlayerAdded(player)\n\tlocal function onChatted(message)\n\t\tlocal assetId = message:match(\"id=(%d+)\")\n\t\tif assetId then\n\t\t\tlocal model = InsertService:LoadAsset(assetId)\n\t\t\tfor _, child in pairs(model:GetChildren()) do\n\t\t\t\tplayer:LoadCharacterAppearance(child)\n\t\t\tend\n\t\tend\n\tend\n\n\tplayer.Chatted:Connect(onChatted)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterAsync/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.LoadCharacterAsync": {
-    "documentation": "플레이어를 위해 새로운 캐릭터를 생성하고, 기존 캐릭터를 제거합니다. 또한 플레이어의 <code>Backpack</code> 및 <code>PlayerGui</code>를 지웁니다.",
+    "documentation": "플레이어의 새로운 캐릭터를 생성하고 기존 캐릭터를 제거합니다. 또한 플레이어의 <code>Backpack</code>과 <code>PlayerGui</code>를 초기화합니다.",
     "params": [
       {
         "name": "self",
@@ -47034,16 +47022,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/1": {
-    "documentation": "신체 부위/색상, 신체 크기 조정, 액세서리, 의류 및 애니메이션과 같은 특성을 포함하는 <code>HumanoidDescription</code>으로, 로드된 캐릭터에 장착됩니다."
+    "documentation": "신체 부위/색상, 신체 비율, 액세서리, 의류 및 애니메이션과 같은 특성을 포함하는 <code>HumanoidDescription</code>입니다. 이 특성이 로드된 캐릭터에 장착됩니다."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/2": {
-    "documentation": "자산 유형 확인 모드."
+    "documentation": "자산 유형 확인 모드입니다."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
-    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>LoadCharacterWithHumanoidDescriptionAsync()</code>로 대체되었습니다.<br>주어진 <code>HumanoidDescription</code>에 모든 장비가 장착된 플레이어 캐릭터를 생성합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>LoadCharacterWithHumanoidDescriptionAsync()</code>에 의해 대체되었습니다.<br>주어진 <code>HumanoidDescription</code>에서 모든 것을 장착한 플레이어 캐릭터를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -47063,16 +47051,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/1": {
-    "documentation": "신체 부위/색상, 신체 크기 조정, 액세서리, 의류 및 애니메이션과 같은 특성을 포함하는 <code>HumanoidDescription</code>으로, 로드된 캐릭터에 장착됩니다."
+    "documentation": "신체 부위/색상, 신체 비율, 액세서리, 의류 및 애니메이션과 같은 특성을 포함하는 <code>HumanoidDescription</code>입니다. 이 특성이 로드된 캐릭터에 장착됩니다."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/2": {
-    "documentation": "자산 유형 확인 모드."
+    "documentation": "자산 유형 확인 모드입니다."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync": {
-    "documentation": "주어진 <code>HumanoidDescription</code>에 모든 장비가 장착된 플레이어 캐릭터를 생성합니다.",
+    "documentation": "주어진 <code>HumanoidDescription</code>에서 모든 것을 장착한 플레이어 캐릭터를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -47092,7 +47080,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadInstance/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.LoadInstance/param/1": {
     "documentation": ""
@@ -47101,7 +47089,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadInstance": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 이제는 구식 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>플레이어에게 저장된 인스턴스를 반환하며, 키는 <code>Player:SaveInstance()</code>와 동일합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 이제 사용되지 않는 데이터 지속성 방법에 사용되었을 수 있습니다. 새로운 작업을 위해 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>동일한 키로 <code>Player:SaveInstance()</code>에 의해 이전에 저장된 인스턴스를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -47119,7 +47107,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tlocal model = player:LoadInstance(\"모델\")\n\t\tmodel.Parent = workspace\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.loadInstance/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.loadInstance/param/1": {
     "documentation": ""
@@ -47128,7 +47116,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadInstance": {
-    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 <code>Player:LoadInstance()</code>의 변형입니다. 두 함수 모두 새 작업에서는 사용하지 않아야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 <code>Player:LoadInstance()</code>의 변형이며, 이 또한 deprecated되었습니다. 새로운 작업에서는 두 함수 모두 사용하지 말아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -47146,7 +47134,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadNumber/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.LoadNumber/param/1": {
     "documentation": ""
@@ -47155,7 +47143,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadNumber": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 이제는 구식 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>플레이어에게 저장된 숫자 값을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 이제 사용되지 않는 데이터 지속성 방법에 사용되었을 수 있습니다. 새로운 작업을 위해 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>플레이어에게 이전에 저장된 숫자 값을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -47173,7 +47161,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tprint(player:LoadNumber(\"TotalPlays\"))\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.loadNumber/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.loadNumber/param/1": {
     "documentation": ""
@@ -47182,7 +47170,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadNumber": {
-    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 <code>Player:LoadNumber()</code>의 변형입니다. 두 함수 모두 새 작업에서는 사용하지 않아야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 <code>Player:LoadNumber()</code>의 변형이며, 이 또한 deprecated되었습니다. 새로운 작업에서는 두 함수 모두 사용하지 말아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -47200,7 +47188,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadString/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.LoadString/param/1": {
     "documentation": ""
@@ -47209,7 +47197,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadString": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 이제는 구식 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>플레이어에게 저장된 문자열 값을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 이제 사용되지 않는 데이터 지속성 방법에 사용되었을 수 있습니다. 새로운 작업을 위해 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>플레이어에게 이전에 저장된 문자열 값을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -47227,7 +47215,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tprint(Player:LoadString(\"TheirName\"))\n\tend\nend)"
   },
   "@roblox/globaltype/Player.loadString/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.loadString/param/1": {
     "documentation": ""
@@ -47236,7 +47224,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadString": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:LoadString()</code>의 deprecated 변형입니다. 두 함수 모두 새 작업에서는 사용하지 않아야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:LoadString()</code>의 deprecated 변형이며, 이 또한 deprecated되었습니다. 새로운 작업에서는 두 함수 모두 사용하지 말아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -47254,16 +47242,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Move/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.Move/param/1": {
-    "documentation": "플레이어가 이동해야 하는 Vector3 방향입니다."
+    "documentation": "플레이어가 이동해야 할 Vector3 방향입니다."
   },
   "@roblox/globaltype/Player.Move/param/2": {
-    "documentation": "플레이어가 자신의 카메라에 대해 상대적으로 이동해야 하는지 여부를 나타내는 불리언입니다."
+    "documentation": "플레이어가 자신의 카메라에 상대적으로 이동하는지를 나타내는 불리언입니다."
   },
   "@roblox/globaltype/Player.Move": {
-    "documentation": "플레이어의 캐릭터가 주어진 방향으로 멈추거나 플레이어(제어 장치를 사용하여)에 의해 중단될 때까지 걷게 합니다.",
+    "documentation": "플레이어의 캐릭터가 주어진 방향으로 걸어가도록 하며, 멈추거나 플레이어가 제어를 통해 방해할 때까지 계속됩니다.",
     "params": [
       {
         "name": "self",
@@ -47283,13 +47271,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal localPlayer = Players.LocalPlayer\n\n-- 플레이어의 캐릭터와 휴머노이드가 존재해야 합니다 :Move()를 호출하기 전까지 기다립니다.\nlocal character = localPlayer.Character or localPlayer.CharacterAdded:Wait()\ncharacter:WaitForChild(\"Humanoid\")\n\n-- 플레이어는 실행 시점의 카메라 위치에서 50 스터드 떨어질 때까지 이동합니다.\nlocalPlayer:Move(Vector3.new(0, 0, -50), true)"
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/1": {
     "documentation": "복제 초점으로 제거할 <code>BasePart</code>입니다."
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus": {
-    "documentation": "이전에 추가된 복제 초점을 제거합니다.",
+    "documentation": "이전의 복제 초점을 제거합니다.",
     "params": [
       {
         "name": "self",
@@ -47305,16 +47293,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/1": {
-    "documentation": "스트리밍을 요청하는 월드 위치입니다."
+    "documentation": "스트리밍이 요청된 월드 위치입니다."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/2": {
-    "documentation": "요청의 선택적 시간 초과, 요청을 중단하기 전에 <code>position</code> 매개변수 주위의 영역을 스트리밍하려고 시도하는 최대 기간입니다. 값을 지정하지 않으면 시간 초과가 사실상 무한합니다. 그러나 클라이언트의 메모리가 부족한 경우, 엔진은 시간 초과 기간 내에 진행 중인 모든 스트리밍 요청을 포기합니다."
+    "documentation": "요청의 선택적 시간 제한으로, <code>position</code> 매개변수 주변의 지역을 스트리밍하기 위해 엔진이 시도하는 최대 지속 시간입니다. 값을 지정하지 않으면, 시간 제한은 사실상 무한합니다. 그러나 클라이언트가 메모리가 부족한 경우, 엔진은 모든 스트리밍 요청(시간 제한 지속 시간 내에서도)을 포기합니다."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync": {
-    "documentation": "서버에 특정 위치 주위의 스트리밍을 요청합니다.",
+    "documentation": "서버에 특정 위치 주변에서 플레이어에게 스트리밍을 요청합니다.",
     "params": [
       {
         "name": "self",
@@ -47334,7 +47322,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SaveBoolean/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.SaveBoolean/param/1": {
     "documentation": ""
@@ -47343,7 +47331,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 이제는 구식 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>나중에 <code>Player:LoadBoolean()</code>를 사용하여 다시 로드할 수 있는 불리언 값을 저장합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 이제 사용되지 않는 데이터 지속성 방법에 사용되었을 수 있습니다. 새로운 작업을 위해 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>나중에 <code>Player:LoadBoolean()</code>를 사용하여 다시 로드할 수 있는 불리언 값을 저장합니다.",
     "params": [
       {
         "name": "self",
@@ -47363,7 +47351,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tPlayer:SaveBoolean(\"HasPlayed\", true)\n\tend\nend)"
   },
   "@roblox/globaltype/Player.saveBoolean/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.saveBoolean/param/1": {
     "documentation": ""
@@ -47372,7 +47360,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveBoolean()</code>의 deprecated 변형입니다. 두 함수 모두 새 작업에서는 사용하지 않아야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveBoolean()</code>의 deprecated 변형이며, 이 또한 deprecated되었습니다. 새로운 작업에서는 두 함수 모두 사용하지 말아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -47392,7 +47380,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SaveInstance/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.SaveInstance/param/1": {
     "documentation": ""
@@ -47401,7 +47389,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveInstance": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 이제는 구식 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>나중에 로드할 수 있는 인스턴스를 저장합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 이제 사용되지 않는 데이터 지속성 방법에 사용되었을 수 있습니다. 새로운 작업을 위해 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>나중에 다시 로드할 수 있는 인스턴스를 저장합니다.",
     "params": [
       {
         "name": "self",
@@ -47421,7 +47409,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tPlayer:WaitForDataReady()\n\tPlayer:SaveInstance(\"Model\", game.Workspace.Model)\nend)"
   },
   "@roblox/globaltype/Player.saveInstance/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.saveInstance/param/1": {
     "documentation": ""
@@ -47430,7 +47418,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveInstance": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveInstance()</code>의 deprecated 변형입니다. 두 함수 모두 새 작업에서는 사용하지 않아야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveInstance()</code>의 deprecated 변형이며, 이 또한 deprecated되었습니다. 새로운 작업에서는 두 함수 모두 사용하지 말아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -47450,7 +47438,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SaveNumber/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.SaveNumber/param/1": {
     "documentation": ""
@@ -47459,7 +47447,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveNumber": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 이제는 구식 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>나중에 로드할 수 있는 숫자 값을 저장합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 이제 사용되지 않는 데이터 지속성 방법에 사용되었을 수 있습니다. 새로운 작업을 위해 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>나중에 다시 로드할 수 있는 숫자 값을 저장합니다.",
     "params": [
       {
         "name": "self",
@@ -47479,7 +47467,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tlocal OldValue = Player:SaveNumber(\"TotalPlays\")\n\t\tPlayer:SaveNumber(\"TotalPlays\", OldValue + 1)\n\tend\nend)"
   },
   "@roblox/globaltype/Player.saveNumber/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.saveNumber/param/1": {
     "documentation": ""
@@ -47488,7 +47476,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveNumber": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveNumber()</code>의 deprecated 변형입니다. 두 함수 모두 새 작업에서는 사용하지 않아야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveNumber()</code>의 deprecated 변형이며, 이 또한 deprecated되었습니다. 새로운 작업에서는 두 함수 모두 사용하지 말아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -47508,7 +47496,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SaveString/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.SaveString/param/1": {
     "documentation": ""
@@ -47517,7 +47505,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveString": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 이제는 구식 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>나중에 로드할 수 있는 문자열 값을 저장합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 이제 사용되지 않는 데이터 지속성 방법에 사용되었을 수 있습니다. 새로운 작업을 위해 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>나중에 다시 로드할 수 있는 문자열 값을 저장합니다.",
     "params": [
       {
         "name": "self",
@@ -47537,7 +47525,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tplayer:SaveString(\"TheirName\", player.Name)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.saveString/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.saveString/param/1": {
     "documentation": ""
@@ -47546,7 +47534,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveString": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveString()</code>의 deprecated 변형입니다. 두 함수 모두 새 작업에서는 사용하지 않아야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveString()</code>의 deprecated 변형이며, 이 또한 deprecated되었습니다. 새로운 작업에서는 두 함수 모두 사용하지 말아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -47566,10 +47554,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SetAccountAge/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.SetAccountAge/param/1": {
-    "documentation": "계정의 나이(일수)입니다."
+    "documentation": "계정의 나이를 일수로 나타냅니다."
   },
   "@roblox/globaltype/Player.SetAccountAge": {
     "documentation": "플레이어의 <code>AccountAge</code>를 설정합니다.",
@@ -47588,13 +47576,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/1": {
-    "documentation": "플레이어가 필터링된 채팅을 볼 수 있는지 여부를 나타내는 불리언입니다."
+    "documentation": "플레이어가 필터링된 채팅을 보는지를 나타내는 불리언입니다."
   },
   "@roblox/globaltype/Player.SetSuperSafeChat": {
-    "documentation": "플레이어가 일반 채팅 대신 필터링된 채팅을 볼 수 있는지 여부를 설정합니다.",
+    "documentation": "플레이어가 정상적인 채팅 대신 필터링된 채팅을 보도록 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -47610,13 +47598,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.WaitForDataReady/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.WaitForDataReady/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.WaitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 이제는 구식 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>플레이어의 데이터가 조작할 수 있을 때까지 또는 특정 시간이 경과할 때까지 스크립트를 일시 정지합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 이제 사용되지 않는 데이터 지속성 방법에 사용되었을 수 있습니다. 새로운 작업을 위해 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드하세요.<br>플레이어의 데이터가 조작할 수 있을 때까지 스크립트를 일시 중지하거나, 플레이어의 데이터를 가져오지 않고 일정 시간이 경과할 때까지 일시 중지하는 데 사용됩니다.",
     "params": [
       {
         "name": "self",
@@ -47630,13 +47618,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.waitForDataReady/param/0": {
-    "documentation": "경험에 현재 연결된 클라이언트를 나타내는 객체입니다."
+    "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.waitForDataReady/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.waitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:WaitForDataReady()</code>의 deprecated 변형입니다. 두 함수 모두 새 작업에서는 사용하지 않아야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:WaitForDataReady()</code>의 deprecated 변형이며, 이 또한 deprecated되었습니다. 새로운 작업에서는 두 함수 모두 사용하지 말아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -47991,7 +47979,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Chatted": {
-    "documentation": "플레이어가 Roblox가 제공하는 채팅 바에서 대화할 때 발생합니다.",
+    "documentation": "사용자가 Roblox의 제공된 채팅 바를 통해 채팅할 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Chatted.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Chatted.ConnectParallel",
@@ -48079,7 +48067,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Idled": {
-    "documentation": "플레이어가 유휴 상태로 분류된 후 약 2분 후에 발생합니다. 시간은 해당 시점 이후 경과한 초의 수입니다.",
+    "documentation": "엔진이 플레이어를 유휴 상태로 분류한 후 약 2분 후에 발생합니다. 시간은 그 시점 이후 경과한 초입니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Idled.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Idled.ConnectParallel",
@@ -60057,7 +60045,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.AllowInsertFreeAssets": {
-    "documentation": "<code>AssetService:LoadAssetAsync()</code>가 경험 생성자가 소유하지 않은 자산을 로드할 수 있는지 여부를 제어합니다.",
+    "documentation": "<code>AssetService:LoadAssetAsync()</code>가 경험 제작자가 소유하지 않은 자산을 로드할 수 있는지를 제어합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#AllowInsertFreeAssets",
     "code_sample": ""
   },
@@ -60065,13 +60053,13 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync/param/1": {
-    "documentation": "층의 표현을 포함하도록 수정될 <code>Decal</code> 인스턴스입니다. 이 인스턴스의 기존 맵은 지워집니다."
+    "documentation": "레이어의 표현을 포함하도록 수정될 <code>Decal</code> 인스턴스입니다. 이 인스턴스에 기존 맵은 모두 지워집니다."
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync/param/2": {
-    "documentation": "PBR 이름을 <code>Content</code> ID에 매핑하는 사전 테이블의 배열입니다."
+    "documentation": "PBR 이름을 <code>Content</code> ID에 매핑하는 사전 테이블 배열입니다."
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync": {
-    "documentation": "제공된 텍스처를 <code>layers</code> 배열에 제공된 순서로 층 쌓아 복합 PBR 텍스처를 포함하도록 기존 <code>Decal</code>을 수정합니다.",
+    "documentation": "주어진 텍스처를 <code>layers</code> 배열에서 제공된 순서에 따라 레이어링하여 만든 복합 PBR 텍스처를 포함하도록 기존의 <code>Decal</code>을 수정합니다.",
     "params": [
       {
         "name": "self",
@@ -60097,13 +60085,13 @@
     "documentation": "자산으로 생성될 객체입니다."
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/2": {
-    "documentation": "현재 지원되는 유형은: <ul> <li><code>AssetType.Model</code> – <code>object</code>가 유효한 <code>Instance</code> 루트인 경우.</li> <li><code>AssetType.Plugin</code> – <code>object</code>가 유효한 <code>Instance</code> 루트인 경우.</li> <li><code>AssetType.Mesh</code> – <code>object</code>가 유효한 <code>EditableMesh</code> 루트인 경우.</li> <li><code>AssetType.Image</code> – <code>object</code>가 유효한 <code>EditableImage</code> 루트인 경우.</li> </ul>"
+    "documentation": "현재 지원되는 유형은 다음과 같습니다: <ul> <li><code>AssetType.Model</code> – <code>object</code>를 유효한 <code>Instance</code> 루트로 사용합니다.</li> <li><code>AssetType.Plugin</code> – <code>object</code>를 유효한 <code>Instance</code> 루트로 사용합니다.</li> <li><code>AssetType.Mesh</code> – <code>object</code>를 유효한 <code>EditableMesh</code> 루트로 사용합니다.</li> <li><code>AssetType.Image</code> – <code>object</code>를 유효한 <code>EditableImage</code> 루트로 사용합니다.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/3": {
-    "documentation": "자산 메타데이터를 포함하는 옵션 테이블: <ul> <li><code>Name</code> – 자산의 이름으로 문자열입니다. 기본값은 <code>[object.Name]</code></li> <li><code>Description</code> – 자산의 설명으로 문자열입니다. 기본값은 <code>\"AssetService:CreateAssetAsync로 생성됨\"</code></li> <li><code>CreatorId</code> – 자산 생성자의 ID로 숫자입니다. 기본값은 플러그인 컨텍스트의 로그인된 Roblox Studio 사용자입니다. Open Cloud Luau Execution 컨텍스트에서 필요합니다.</li> <li><code>CreatorType</code> – 자산 생성자 유형을 나타내는 <code>AssetCreatorType</code>입니다. 기본값은 플러그인 컨텍스트의 <code>AssetCreatorType.User</code>입니다. Open Cloud Luau Execution 컨텍스트에서 필요합니다.</li> <li><code>IsPackage</code> – 불리언 값으로 <code>AssetType.Model</code> 유형에만 적용됩니다. 기본값은 <code>true</code>입니다.</li> </ul>"
+    "documentation": "자산 메타데이터를 포함하는 옵션 테이블입니다: <ul> <li><code>Name</code> – 문자열로 자산의 이름입니다. 기본값은 <code>[object.Name]</code></li> <li><code>Description</code> – 문자열로 자산의 설명입니다. 기본값은 <code>\"AssetService:CreateAssetAsync로 생성됨\"</code></li> <li><code>CreatorId</code> – 숫자로 자산 제작자의 ID입니다. 기본값은 플러그인 컨텍스트에서 로그인한 Roblox Studio 사용자입니다. Open Cloud Luau 실행 컨텍스트에서는 필수입니다.</li> <li><code>CreatorType</code> – 자산 제작자 유형을 나타내는 <code>AssetCreatorType</code>입니다. 플러그인 컨텍스트에서는 기본값이 <code>AssetCreatorType.User</code>입니다. Open Cloud Luau 실행 컨텍스트에서는 필수입니다.</li> <li><code>IsPackage</code> – 부울 값, <code>AssetType.Model</code> 유형에만 적용됩니다. 기본값은 <code>true</code>입니다.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/return/0": {
-    "documentation": "성공하면 <code>CreateAssetResult</code> 및 자산 ID 쌍입니다."
+    "documentation": "성공한 경우 <code>CreateAssetResult</code>와 자산 ID 쌍입니다."
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync": {
     "documentation": "주어진 객체에서 Roblox에 새 자산을 업로드합니다.",
@@ -60138,19 +60126,19 @@
     "documentation": "자산으로 생성될 객체입니다."
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/2": {
-    "documentation": "현재 지원되는 유형은: <ul> <li><code>AssetType.Model</code> – <code>object</code>가 유효한 <code>Instance</code> 루트인 경우.</li> <li><code>AssetType.Plugin</code> – <code>object</code>가 유효한 <code>Instance</code> 루트인 경우.</li> <li><code>AssetType.Mesh</code> – <code>object</code>가 유효한 <code>EditableMesh</code> 루트인 경우.</li> <li><code>AssetType.Image</code> – <code>object</code>가 유효한 <code>EditableImage</code> 루트인 경우.</li> </ul>"
+    "documentation": "현재 지원되는 유형은 다음과 같습니다: <ul> <li><code>AssetType.Model</code> – <code>object</code>를 유효한 <code>Instance</code> 루트로 사용합니다.</li> <li><code>AssetType.Plugin</code> – <code>object</code>를 유효한 <code>Instance</code> 루트로 사용합니다.</li> <li><code>AssetType.Mesh</code> – <code>object</code>를 유효한 <code>EditableMesh</code> 루트로 사용합니다.</li> <li><code>AssetType.Image</code> – <code>object</code>를 유효한 <code>EditableImage</code> 루트로 사용합니다.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/3": {
     "documentation": "새 버전을 위한 자산 ID입니다."
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/4": {
-    "documentation": "자산 메타데이터를 포함하는 옵션 테이블: <ul> <li><code>Name</code> – <code>string</code>. 자산의 이름입니다. 기본값: object.Name.</li> <li><code>Description</code> – <code>string</code>. 자산의 설명입니다. 기본값:   \"AssetService:CreateAssetAsync로 생성됨\".</li> <li><code>CreatorId</code> – <code>number</code>. 자산 생성자의 ID입니다. 기본값: 플러그인 컨텍스트의 로그인된 Roblox Studio 사용자입니다. Open Cloud Luau Execution 컨텍스트에서 필요합니다.</li> <li><code>CreatorType</code> – <code>AssetCreatorType</code>. 자산 생성자 유형입니다.   기본값: 플러그인 컨텍스트의 <code>AssetCreatorType.User</code>입니다. Open Cloud Luau Execution 컨텍스트에서 필요합니다.</li> <li><code>IsPackage</code> – <code>bool</code>. <code>AssetType.Model</code> 유형에만 적용됩니다. 기본값: true.</li> </ul>"
+    "documentation": "자산 메타데이터를 포함하는 옵션 테이블입니다: <ul> <li><code>Name</code> – <code>string</code>. 자산의 이름입니다. 기본값: object.Name.</li> <li><code>Description</code> – <code>string</code>. 자산의 설명입니다. 기본값:   \"AssetService:CreateAssetAsync로 생성됨\".</li> <li><code>CreatorId</code> – <code>number</code>. 자산 제작자의 ID입니다. 기본값: 로그인한 Roblox Studio 사용자입니다(플러그인 컨텍스트). Open Cloud Luau 실행 컨텍스트에서는 필수입니다.</li> <li><code>CreatorType</code> – <code>AssetCreatorType</code>. 자산 제작자 유형입니다.   기본값: 플러그인 컨텍스트에서 <code>AssetCreatorType.User</code>입니다. Open Cloud Luau 실행 컨텍스트에서는 필수입니다.</li> <li><code>IsPackage</code> – <code>bool</code>. <code>AssetType.Model</code> 유형에만 적용됩니다. 기본값: true.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/return/0": {
-    "documentation": "성공하면 <code>CreateAssetResult</code> 및 자산 버전 번호 쌍입니다."
+    "documentation": "성공한 경우 <code>CreateAssetResult</code>와 자산 버전 번호 쌍입니다."
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync": {
-    "documentation": "주어진 객체에서 기존 자산에 대한 새 버전을 업로드합니다.",
+    "documentation": "주어진 객체에서 기존 자산의 새 버전을 업로드합니다.",
     "params": [
       {
         "name": "self",
@@ -60183,7 +60171,7 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/1": {
-    "documentation": "메서드의 제어를 포함하는 옵션 테이블: <ul> <li><code>Size</code> – 이미지의 원하는 너비와 높이를 지정하는 <code>Vector2</code>입니다.</li> </ul>"
+    "documentation": "메서드의 제어를 포함하는 옵션 테이블입니다: <ul> <li><code>Size</code> – 이미지의 원하는 너비와 높이를 지정하는 <code>Vector2</code>입니다.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/return/0": {
     "documentation": ""
@@ -60210,13 +60198,13 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/1": {
-    "documentation": "외부에 저장된 자산 콘텐츠에 대한 참조로, 지원되는 <code>ContentSourceType</code> 값 중 하나의 단일 값을 감쌉니다."
+    "documentation": "자산 콘텐츠를 외부에 저장하거나 장소 내의 객체로 참조한 것으로, 지원되는 <code>ContentSourceType</code> 값 중 하나의 단일 값을 래핑합니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/2": {
-    "documentation": "생성된 <code>EditableImage</code>를 위한 옵션 테이블입니다. 현재 크기 조정이 지원되지 않으므로 사용 가능한 옵션은 없습니다."
+    "documentation": "생성된 <code>EditableImage</code>에 대한 옵션을 포함하는 테이블입니다. 현재 <code>Size</code>를 통한 크기 조정은 지원되지 않으므로 사용할 수 있는 옵션이 없습니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/return/0": {
-    "documentation": "제공된 이미지를 포함하는 새 <code>EditableImage</code>입니다."
+    "documentation": "주어진 이미지를 포함하는 새 <code>EditableImage</code>입니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync": {
     "documentation": "주어진 이미지로 채워진 새 <code>EditableImage</code> 객체를 생성합니다.",
@@ -60244,13 +60232,13 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/param/1": {
-    "documentation": "생성된 <code>EditableMesh</code>를 위한 옵션 테이블입니다. 현재 빈 편집 가능한 메쉬에 대해 <code>FixedSize</code>가 항상 <code>false</code>가 되므로 사용 가능한 옵션은 없습니다."
+    "documentation": "생성된 <code>EditableMesh</code>에 대한 옵션을 포함하는 테이블입니다. 빈 편집 가능한 메쉬의 경우 <code>FixedSize</code>는 항상 <code>false</code>가 되므로 사용할 수 있는 옵션이 없습니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh": {
-    "documentation": "새로운 비어 있는 <code>EditableMesh</code>를 생성합니다.",
+    "documentation": "새로운 빈 <code>EditableMesh</code>를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -60271,16 +60259,16 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/1": {
-    "documentation": "외부에 저장된 자산 콘텐츠에 대한 참조로, 지원되는 <code>ContentSourceType</code> 값 중 하나의 단일 값을 감쌉니다."
+    "documentation": "자산 콘텐츠를 외부에 저장하거나 장소 내 객체로 참조한 것으로, 지원되는 <code>ContentSourceType</code> 값 중 하나의 단일 값을 래핑합니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/2": {
-    "documentation": "메서드의 제어를 포함하는 옵션 테이블: <ul> <li><code>FixedSize</code> – <code>bool</code>. 기본값은 <code>true</code>이며, 반환된 <code>EditableMesh</code>는 정점을 추가하거나 제거할 수 없습니다.   값만 수정할 수 있습니다. 메시 토폴로지를 변경할 수 있는 기능이 필요한 경우 <code>false</code>로 설정하세요.</li> </ul>"
+    "documentation": "메서드의 제어를 포함하는 옵션 테이블입니다: <ul> <li><code>FixedSize</code> – <code>bool</code>. 기본값은 <code>true</code>이며, 반환된 <code>EditableMesh</code>는 정점을 추가하거나 제거할 수 없고, 값만 수정할 수 있습니다. 메시 위상을 변경할 수 있는 능력이 필요한 경우, 더 많은 메모리를 사용하는 대가로 <code>false</code>로 설정합니다.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/return/0": {
     "documentation": "새로운 <code>EditableMesh</code> 인스턴스입니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync": {
-    "documentation": "기존 메시 콘텐츠 ID로 생성된 새 <code>EditableMesh</code> 객체를 반환합니다.",
+    "documentation": "기존 메시 콘텐츠 ID에서 생성된 새 <code>EditableMesh</code> 객체를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -60305,16 +60293,16 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/1": {
-    "documentation": "외부에 저장된 자산 콘텐츠에 대한 참조로, 지원되는 <code>ContentSourceType</code> 값 중 하나의 단일 값을 감쌉니다."
+    "documentation": "자산 콘텐츠를 외부에 저장하거나 장소 내의 객체로 참조한 것으로, 지원되는 <code>ContentSourceType</code> 값 중 하나의 단일 값을 래핑합니다."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/2": {
-    "documentation": "메서드의 제어를 포함하는 옵션 테이블: <ul> <li><code>CollisionFidelity</code> – 결과 부분의 <code>CollisionFidelity</code> 값입니다. 이 옵션이 없거나 <code>options</code> 테이블이 <code>nil</code>인 경우 기본값은 <code>CollisionFidelity.Default</code>입니다.</li> <li><code>RenderFidelity</code> – 결과 부분의 <code>RenderFidelity</code> 값입니다. 이 옵션이 없거나 <code>options</code> 테이블이 <code>nil</code>인 경우 기본값은 <code>RenderFidelity.Automatic</code>입니다.</li> <li><code>FluidFidelity</code> – 결과 부분의 <code>FluidFidelity</code> 값입니다. 이 옵션이 없거나 <code>options</code> 테이블이 <code>nil</code>인 경우 기본값은 <code>FluidFidelity.Automatic</code>입니다.</li> </ul>"
+    "documentation": "메서드에 대한 하나 이상의 제어를 포함하는 옵션 테이블입니다: <ul> <li><code>CollisionFidelity</code> – 결과 부분에서 <code>CollisionFidelity</code>의 값입니다. 이 옵션이 없거나 <code>options</code> 테이블이 <code>nil</code>인 경우 기본값은 <code>CollisionFidelity.Default</code>입니다.</li> <li><code>RenderFidelity</code> – 결과 부분에서 <code>RenderFidelity</code>의 값입니다. 이 옵션이 없거나 <code>options</code> 테이블이 <code>nil</code>인 경우 기본값은 <code>RenderFidelity.Automatic</code>입니다.</li> <li><code>FluidFidelity</code> – 결과 부분에서 <code>FluidFidelity</code>의 값입니다. 이 옵션이 없거나 <code>options</code> 테이블이 <code>nil</code>인 경우 기본값은 <code>FluidFidelity.Automatic</code>입니다.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync": {
-    "documentation": "지정된 메시 ID와 선택적 신뢰도 값 테이블로 새로운 <code>MeshPart</code>를 생성합니다.",
+    "documentation": "지정된 메시 ID와 선택적 충실도 값을 포함한 새 <code>MeshPart</code>를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -60339,19 +60327,19 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/1": {
-    "documentation": "새 장소의 이름입니다."
+    "documentation": "새로운 장소의 이름입니다."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/2": {
-    "documentation": "<code>PlaceId</code> 복제할 장소입니다."
+    "documentation": "클론할 장소의 <code>PlaceId</code>입니다."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/3": {
-    "documentation": "새 장소의 설명입니다."
+    "documentation": "새로운 장소의 설명입니다."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/return/0": {
     "documentation": "새 장소의 <code>PlaceId</code>입니다."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync": {
-    "documentation": "주어진 <code>templatePlaceID</code>를 통해 장소를 복제합니다.",
+    "documentation": "주어진 <code>templatePlaceID</code>를 통해 장소를 클론합니다.",
     "params": [
       {
         "name": "self",
@@ -60395,7 +60383,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync": {
-    "documentation": "주어진 <code>templatePlaceID</code>를 통해 장소를 복제하고, 이를 주어진 플레이어의 인벤토리에 담습니다.",
+    "documentation": "주어진 <code>templatePlaceID</code>를 통해 장소를 클론하고 주어진 플레이어의 인벤토리에 넣습니다.",
     "params": [
       {
         "name": "self",
@@ -60428,13 +60416,13 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "다음 키-값 쌍을 포함하는 사전: <ul> <li><code>ColorMap</code> — 색상 맵을 포함하는 <code>Content</code> 객체입니다. 기본값은 <code>nil</code></li> <li><code>MetalnessMap</code> — 금속성 맵을 포함하는 <code>Content</code> 객체입니다. 채널이 하나 이상 있을 경우, 연속적으로 빨간색만 사용됩니다. 기본값은 <code>nil</code></li> <li><code>NormalMap</code> — 노말 맵을 포함하는 <code>Content</code> 객체입니다. 기본값은 <code>nil</code></li> <li><code>RoughnessMap</code> — 거칠기 맵을 포함하는 <code>Content</code> 객체입니다. 채널이 하나 이상 있을 경우, 연속적으로 빨간색만 사용됩니다. 기본값은 <code>nil</code></li> <li><code>EmissiveMask</code> — 발광 마스크를 포함하는 <code>Content</code> 객체입니다. 채널이 하나 이상 있을 경우, 연속적으로 빨간색만 사용됩니다. 기본값은 <code>nil</code>입니다.</li> </ul>"
+    "documentation": "다음 키-값 쌍을 포함하는 사전입니다: <ul> <li><code>ColorMap</code> — 색상 맵을 포함하는 <code>Content</code> 객체입니다. 기본값은 <code>nil</code></li> <li><code>MetalnessMap</code> — 금속성 맵을 포함하는 <code>Content</code> 객체입니다. 여러 채널이 있는 경우, 빨간 채널만 사용됩니다. 기본값은 <code>nil</code></li> <li><code>NormalMap</code> — 노말 맵을 포함하는 <code>Content</code> 객체입니다. 기본값은 <code>nil</code></li> <li><code>RoughnessMap</code> — 거칠기 맵을 포함하는 <code>Content</code> 객체입니다. 여러 채널이 있는 경우, 빨간 채널만 사용됩니다. 기본값은 <code>nil</code></li> <li><code>EmissiveMask</code> — 방출 마스크를 포함하는 <code>Content</code> 객체입니다. 여러 채널이 있는 경우, 빨간 채널만 사용됩니다. 기본값은 <code>nil</code>입니다.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "주어진 맵을 포함한 새로운 <code>SurfaceAppearance</code> 인스턴스입니다."
+    "documentation": "주어진 맵을 가진 새 <code>SurfaceAppearance</code> 인스턴스입니다."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
-    "documentation": "제공된 콘텐츠 맵을 사용하여 새로운 <code>SurfaceAppearance</code> 객체를 생성합니다.",
+    "documentation": "제공된 콘텐츠 맵을 사용하여 새 <code>SurfaceAppearance</code> 객체를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -60509,10 +60497,10 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/param/1": {
-    "documentation": "메타데이터를 검색할 자산 또는 콘텐츠 ID 배열입니다. 최대 일괄 크기는 30입니다."
+    "documentation": "메타데이터를 검색할 자산 또는 콘텐츠 ID의 배열입니다. 최대 배치 크기는 30입니다."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/return/0": {
-    "documentation": "요청과 동일한 순서의 사전 테이블 배열로, 각 사전에는 자산/콘텐츠에 대한 다음 메타데이터가 포함되어 있습니다: <ul> <li> <code>AssetId</code> (문자열) </li> <li> <code>Title</code> (문자열) </li> <li> <code>Artist</code> (문자열) </li> <li> <code>Duration</code> (초 단위의 숫자) </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> 요청한 자산의 메타데이터를 가져오는 중 오류가 발생할 경우, 예를 들어 자산 ID가 존재하지 않는 경우, 해당 사전 테이블은 반환된 배열에 포함되지만 참조 목적의 <code>AssetId</code> 필드만 포함됩니다. 또한, 주어진 자산에서 <code>AudioType</code>을 결정할 수 없는 경우(아마도 그것이 비공식 오디오일 경우), 결과 사전에는 <code>AudioType</code> 항목이 포함되지 않습니다."
+    "documentation": "요청 순서와 같은 순서로 각 자산/콘텐츠에 대한 메타데이터가 포함된 사전 테이블 배열입니다: <ul> <li> <code>AssetId</code> (문자열) </li> <li> <code>Title</code> (문자열) </li> <li> <code>Artist</code> (문자열) </li> <li> <code>Duration</code> (초 단위 숫자) </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> 요청한 자산에 대한 메타데이터를 가져오는 동안 오류가 발생하면 예를 들어 자산 ID가 존재하지 않는 경우, 해당 사전 테이블은 여전히 반환된 배열에 포함되지만 참조 목적을 위해 <code>AssetId</code> 필드만 포함됩니다. 또한, 주어진 자산에 대한 <code>AudioType</code>을 결정할 수 없는 경우(아마도 개인 오디오 때문임), 결과 사전에는 <code>AudioType</code> 항목이 포함되지 않을 것입니다."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync": {
     "documentation": "특정 오디오 소스에 대한 관련 메타데이터를 제공합니다.",
@@ -60539,10 +60527,10 @@
     "documentation": "지정된 번들의 ID입니다."
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/return/0": {
-    "documentation": "지정된 번들에 대한 세부정보를 포함하는 다음 키-값 쌍을 포함하는 사전입니다: <ul> <li> <code>Id</code> — 번들 ID(전달된 <code>bundleId</code> 인수와 동일) </li> <li> <code>Name</code> — 번들 이름 </li> <li> <code>Description</code> — 번들 설명 </li> <li> <code>BundleType</code> — <code>BundleType</code>을 나타내는 문자열, 예를 들어 <code>\"BodyParts\"</code> 또는 <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — 번들의 항목 배열로, 각각은 다음 키를 통해 세부정보를 나타냅니다: </li> <li> <code>Id</code> — 항목 ID </li> <li> <code>Name</code> — 항목 이름 </li> <li> <code>Type</code> — <code>\"Asset\"</code>와 같은 항목 유형. </li> </ul>"
+    "documentation": "지정된 번들에 대한 세부 정보를 포함하는 다음 키-값 쌍이 포함된 사전입니다: <ul> <li> <code>Id</code> — 번들 ID(전달된 <code>bundleId</code> 인수와 동일) </li> <li> <code>Name</code> — 번들 이름 </li> <li> <code>Description</code> — 번들 설명 </li> <li> <code>BundleType</code> — 예를 들어 <code>\"BodyParts\"</code> 또는 <code>\"DynamicHead\"</code>를 나타내는 문자열 형식의 <code>BundleType</code> </li> <li> <code>Items</code> — 번들 내의 항목 배열로, 각 항목은 다음 키를 통해 세부 사항이 표시됩니다: </li> <li> <code>Id</code> — 항목 ID </li> <li> <code>Name</code> — 항목 이름 </li> <li> <code>Type</code> — 항목 유형(예: <code>\"Asset\"</code>) </li> </ul>"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync": {
-    "documentation": "지정된 번들의 내용에 대한 세부정보를 반환합니다.",
+    "documentation": "지정된 번들의 내용에 대한 세부 정보를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -60569,7 +60557,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 사용 중지되었으며 더 이상 올바르게 작동하지 않습니다. 새로운 작업에 대해 사용하지 마십시오.<br>생성ID 자산을 생성한 계정의 UserId를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 사용 중단되었으며 더 이상 올바르게 기능하지 않습니다. 새 작업에 사용하지 마십시오.<br>creationID 자산을 생성한 계정의 UserId를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -60593,7 +60581,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync": {
-    "documentation": "현재 경험 내의 장소 이름과 <code>PlaceId</code>를 포함하는 <code>StandardPages</code> 객체를 반환합니다.",
+    "documentation": "현재 경험 내의 장소의 이름과 <code>PlaceId</code>를 포함하는 <code>StandardPages</code> 객체를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -60610,13 +60598,13 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync/param/1": {
-    "documentation": "로드할 자산의 자산 ID 번호입니다."
+    "documentation": "로드되는 자산의 자산 ID 번호입니다."
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync/return/0": {
     "documentation": "로드된 자산을 포함하는 <code>Model</code> 인스턴스입니다."
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync": {
-    "documentation": "자산 ID가 주어졌을 때 <code>Model</code> 인스턴스를 로드합니다. 이는 <code>InsertService:LoadAsset()</code>의 현대적 대체입니다. 제3자 자산의 로드를 지원합니다.",
+    "documentation": "자산 ID가 주어진 <code>Model</code> 인스턴스를 로드합니다. 이는 <code>InsertService:LoadAsset()</code>의 현대적인 대체입니다.",
     "params": [
       {
         "name": "self",
@@ -60646,7 +60634,7 @@
     "documentation": "자산 유형입니다. 현재 <code>AssetType.Model</code>만 가능합니다."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/return/0": {
-    "documentation": "성공 시 <code>PromptCreateAssetResult</code> 및 자산 ID 쌍입니다."
+    "documentation": "성공 시 <code>PromptCreateAssetResult</code>와 자산 ID 쌍입니다."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync": {
     "documentation": "사용자에게 게시 대화 상자를 표시하여 경험 내 자산 생성을 허용합니다.",
@@ -60712,7 +60700,7 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "게시와 함께 저장할지 여부를 나타내는 불리언 값인 <code>SaveWithoutPublish</code> 및 저장할 대상 장소 ID인 <code>PlaceId</code>가 포함된 선택적 사전입니다. 사용 예: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). PlaceId가 제공되지 않으면 기본 동작은 SavePlaceAsync를 호출하는 현재 원본 장소를 덮어 저장합니다. SaveWithoutPublish가 제공되지 않으면 기본 동작은 SaveWithoutPublish=false입니다."
+    "documentation": "<code>SaveWithoutPublish</code>를 포함하는 선택적 사전으로, 게시할지 여부를 나타내는 부울과 저장할 대상 장소 ID인 <code>PlaceId</code>를 포함합니다. 사용 예시는: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). PlaceId가 제공되지 않으면 기본 동작은 SavePlaceAsync를 호출하는 원래 장소에 저장됩니다. SaveWithoutPublish가 제공되지 않으면 기본 동작은 SaveWithoutPublish=false입니다."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "현재 장소의 상태를 저장합니다.",
@@ -62313,10 +62301,10 @@
     "documentation": "Selection 서비스는 Roblox Studio에서 선택된 <code>Instances</code>를 제어합니다."
   },
   "@roblox/globaltype/Selection.Set/param/1": {
-    "documentation": "<code>Instances</code> 배열로 현재 선택을 설정합니다."
+    "documentation": "현재 선택을 설정할 <code>Instances</code>의 배열입니다."
   },
   "@roblox/globaltype/Selection.Set": {
-    "documentation": "주어진 배열에 있는 <code>Instances</code>로 Roblox Studio에서 현재 선택된 객체를 설정합니다.",
+    "documentation": "지정된 배열의 <code>Instances</code>로 Roblox Studio에서 현재 선택된 객체를 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -75932,7 +75920,6 @@
   "@roblox/globaltype/GroundController": {
     "documentation": "",
     "keys": {
-      "AccelerationLean": "@roblox/globaltype/GroundController.AccelerationLean",
       "AccelerationTime": "@roblox/globaltype/GroundController.AccelerationTime",
       "BalanceMaxTorque": "@roblox/globaltype/GroundController.BalanceMaxTorque",
       "BalanceSpeed": "@roblox/globaltype/GroundController.BalanceSpeed",
@@ -75940,20 +75927,13 @@
       "Friction": "@roblox/globaltype/GroundController.Friction",
       "FrictionWeight": "@roblox/globaltype/GroundController.FrictionWeight",
       "GroundOffset": "@roblox/globaltype/GroundController.GroundOffset",
-      "StandForce": "@roblox/globaltype/GroundController.StandForce",
-      "StandSpeed": "@roblox/globaltype/GroundController.StandSpeed",
       "TurnSpeedFactor": "@roblox/globaltype/GroundController.TurnSpeedFactor"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController",
     "code_sample": ""
   },
-  "@roblox/globaltype/GroundController.AccelerationLean": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#AccelerationLean",
-    "code_sample": ""
-  },
   "@roblox/globaltype/GroundController.AccelerationTime": {
-    "documentation": "원하는 속도에 도달하는 데 걸리는 예상 시간입니다.",
+    "documentation": "목표 속도에 도달하는 데 소요되는 예상 시간.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#AccelerationTime",
     "code_sample": ""
   },
@@ -75968,7 +75948,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.DecelerationTime": {
-    "documentation": "최고 속도에서 완전히 멈추는 데 걸리는 예상 시간입니다.",
+    "documentation": "최고 속도에서 완전히 정지하는 데 소요되는 예상 시간.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#DecelerationTime",
     "code_sample": ""
   },
@@ -75978,23 +75958,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.FrictionWeight": {
-    "documentation": "캐릭터의 마찰이 지면 마찰과 비교되는 양입니다.",
+    "documentation": "캐릭터의 마찰이 지면 마찰에 대한 비율입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#FrictionWeight",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.GroundOffset": {
-    "documentation": "<code>ControllerManager.RootPart</code>를 유지할 목표 높이입니다.",
+    "documentation": "<code>ControllerManager.RootPart</code>를 유지할 목표 지면 높이입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#GroundOffset",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GroundController.StandForce": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#StandForce",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GroundController.StandSpeed": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#StandSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.TurnSpeedFactor": {
@@ -76926,7 +76896,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PackageLink": {
-    "documentation": "<code>DataModel</code> 인스턴스를 클라우드의 해당 자산에 연결합니다.",
+    "documentation": "클라우드의 해당 자산에 <code>DataModel</code> 인스턴스를 연결합니다.",
     "keys": {
       "AutoUpdate": "@roblox/globaltype/PackageLink.AutoUpdate",
       "Creator": "@roblox/globaltype/PackageLink.Creator",
@@ -76942,7 +76912,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PackageLink.AutoUpdate": {
-    "documentation": "이 속성이 true로 설정되면, 주어진 <code>PackageLink</code>과 연결된 패키지가 자동으로 최신 버전으로 업데이트됩니다.",
+    "documentation": "이 속성이 true로 설정되면, 주어진 <code>PackageLink</code>와 연결된 패키지가 자동으로 최신 버전으로 업데이트됩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PackageLink#AutoUpdate",
     "code_sample": ""
   },
@@ -76967,7 +76937,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PackageLink.PermissionLevel": {
-    "documentation": "현재 스튜디오 사용자에 대한 패키지 권한입니다.",
+    "documentation": "현재 스튜디오 사용자의 패키지 권한입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PackageLink#PermissionLevel",
     "code_sample": ""
   },
@@ -77063,6 +77033,7 @@
       "FireInGameEconomyEvent": "@roblox/globaltype/AnalyticsService.FireInGameEconomyEvent",
       "FireLogEvent": "@roblox/globaltype/AnalyticsService.FireLogEvent",
       "FirePlayerProgressionEvent": "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent",
+      "GetPlayerSegmentsAsync": "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync",
       "LogCustomEvent": "@roblox/globaltype/AnalyticsService.LogCustomEvent",
       "LogEconomyEvent": "@roblox/globaltype/AnalyticsService.LogEconomyEvent",
       "LogFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent",
@@ -77323,6 +77294,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FirePlayerProgressionEvent",
     "code_sample": ""
   },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/0": {
+    "documentation": "사용자가 당신의 경험과 상호작용하는 방식을 추적할 수 있는 메서드 모음입니다."
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/1": {
+    "documentation": "세그먼트 버켓을 반환해야 하는 플레이어입니다."
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/return/0": {
+    "documentation": "현재 경험을 위한 대략적인 플레이어 세그먼트 버켓이 포함된 사전입니다."
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync": {
+    "documentation": "현재 경험을 위한 대략적인 플레이어 세그먼트 버켓을 반환합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#GetPlayerSegmentsAsync",
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal AnalyticsService = game:GetService(\"AnalyticsService\")\n\nlocal function configurePlayerExperience(player)\n\tlocal segments = AnalyticsService:GetPlayerSegmentsAsync(player)\n\n\tif not segments.HasData then\n\t\treturn\n\tend\n\n\tif segments.WhenUserFirstPlayed == Enum.WhenUserFirstPlayed.Days0To30 then\n\t\tprint(\"추가 온보딩을 표시합니다:\", player.Name)\n\tend\n\n\tif segments.ActivePayerStatus == Enum.ActivePayerStatus.Top15Percent then\n\t\tprint(\"고급 제안을 표시합니다:\", player.Name)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(configurePlayerExperience)"
+  },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/0": {
     "documentation": "사용자가 당신의 경험과 상호작용하는 방식을 추적할 수 있는 메서드 모음입니다."
   },
@@ -77330,16 +77328,16 @@
     "documentation": "이벤트를 발생시킨 사용자입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/2": {
-    "documentation": "사용자 정의 이벤트의 이름입니다."
+    "documentation": "맞춤 이벤트의 이름입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/3": {
     "documentation": "집계에 사용될 이벤트의 값입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/4": {
-    "documentation": "선택 사항. Roblox에서 제공하는 차트에서 분석할 수 있는 사용자 정의 필드의 사전입니다. 이 분석에는 <code>AnalyticsCustomFieldKeys</code>에서 제공하는 특정 키만 사용됩니다. 각 경험 당 세 개의 사용자 정의 필드에서 8,000개의 고유한 조합으로 제한됩니다."
+    "documentation": "Roblox에서 제공하는 차트에서 구분을 제공할 맞춤 필드의 선택적 사전입니다. <code>AnalyticsCustomFieldKeys</code>에서 제공하는 특정 키만 이 구분에 사용됩니다. 경험당 3개의 맞춤 필드에서 8,000개의 고유한 값 조합으로 제한됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent": {
-    "documentation": "경험에서 사용자 맞춤 메트릭을 추적하는 로그 이벤트입니다.",
+    "documentation": "경험 내에서 사용자의 맞춤 메트릭을 추적하는 데 사용되는 이벤트를 기록합니다.",
     "params": [
       {
         "name": "self",
@@ -77373,10 +77371,10 @@
     "documentation": "이벤트를 발생시킨 사용자입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/2": {
-    "documentation": "통화의 흐름 방향을 <code>AnalyticsEconomyFlowType</code>를 사용하여 지정해야 합니다."
+    "documentation": "통화가 흐르는 방향을 <code>AnalyticsEconomyFlowType</code>를 사용하여 지정해야 합니다."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/3": {
-    "documentation": "추가되거나 제거되는 통화의 이름입니다. 예: <code>\"gold\"</code>, <code>\"gems\"</code>, 또는 <code>\"energy\"</code>. 각 경험 당 5개의 고유 통화 유형으로 제한됩니다."
+    "documentation": "추가하거나 제거되는 통화의 이름입니다. 예: <code>\"gold\"</code>, <code>\"gems\"</code>, 또는 <code>\"energy\"</code>. 경험당 5개의 고유한 통화 유형으로 제한됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/4": {
     "documentation": "추가되거나 제거되는 통화의 양입니다. 이 값은 항상 양수여야 합니다."
@@ -77385,16 +77383,16 @@
     "documentation": "통화가 추가되거나 제거된 후 사용자의 잔액입니다. 이 값은 항상 <code>0</code>보다 크거나 같아야 합니다."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/6": {
-    "documentation": "발생한 거래의 유형입니다. 거래 유형은 자유롭게 사용할 수 있지만, Roblox 도구 및 차트에서 향후 인사이트를 활성화하기 위해 <code>AnalyticsEconomyTransactionType</code>에서 제공하는 유형을 사용하는 것이 좋습니다. <code>\"IAP\"</code> 또는 <code>\"ContextualPurchase\"</code>와 같은 유형입니다. 이 필드 유형은 문자열이므로, 열거형의 <code>Name</code> 값을 전달해야 합니다. 예를 들어, <code>Enum.AnalyticsEconomyTransactionType.IAP.Name</code>와 같습니다. 각 경험 당 20개의 고유한 유형으로 제한됩니다."
+    "documentation": "발생한 거래의 유형입니다. 원하는 거래 유형을 사용할 수 있지만, Roblox 도구 및 차트에서 미래 통찰력을 가능하게 하려면 <code>AnalyticsEconomyTransactionType</code>에서 제공되는 <code>\"IAP\"</code> 또는 <code>\"ContextualPurchase\"</code>와 같은 제공된 유형을 사용하는 것이 좋습니다. 이 필드 유형이 문자열이기 때문에, 열거형의 <code>Name</code> 값을 전달해야 합니다. 예: <code>Enum.AnalyticsEconomyTransactionType.IAP.Name</code>. 경험당 20개의 고유한 유형으로 제한됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/7": {
-    "documentation": "선택 사항. 구매되는 아이템 또는 번들의 SKU입니다. 이는 구매되는 아이템에 대한 고유 식별자입니다. 각 경험 당 100개의 고유 SKU로 제한됩니다."
+    "documentation": "구매되는 항목이나 번들의 선택적 SKU입니다. 이는 구매되는 항목의 고유 식별자입니다. 경험당 100개의 고유한 SKU로 제한됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/8": {
-    "documentation": "선택 사항. Roblox에서 제공하는 차트에서 분석할 수 있는 사용자 정의 필드의 사전입니다. 이 분석에는 <code>AnalyticsCustomFieldKeys</code>에서 제공하는 특정 키만 사용됩니다. 각 경험 당 세 개의 사용자 정의 필드에서 8,000개의 고유한 조합으로 제한됩니다."
+    "documentation": "Roblox에서 제공하는 차트에서 구분을 제공할 맞춤 필드의 선택적 사전입니다. <code>AnalyticsCustomFieldKeys</code>에서 제공하는 특정 키만 이 구분에 사용됩니다. 경험당 3개의 맞춤 필드에서 8,000개의 고유한 값 조합으로 제한됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent": {
-    "documentation": "경험과 관련된 플레이어 행동을 추적하는 로그 이벤트입니다.",
+    "documentation": "경험 내에서 플레이어 행동을 추적하는 데 사용되는 이벤트를 기록합니다.",
     "params": [
       {
         "name": "self",
@@ -77444,22 +77442,22 @@
     "documentation": "이벤트를 발생시킨 사용자입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/2": {
-    "documentation": "퍼널의 이름입니다. 이것은 퍼널의 모든 단계에서 동일해야 합니다. 각 경험 당 10개의 고유 퍼널로 제한됩니다."
+    "documentation": "깔때기의 이름입니다. 이 이름은 깔때기의 모든 단계에서 동일해야 합니다. 경험당 10개의 고유한 깔때기로 제한됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/3": {
-    "documentation": "선택 사항. 퍼널 세션의 고유 식별자입니다. 이것은 퍼널의 모든 단계에서 동일해야 합니다. 이 필드는 <strong>반복</strong> 퍼널에만 필요합니다. 예를 들어, 구매 흐름 퍼널이나 아이템 업그레이드 퍼널입니다. 자연스러운 퍼널 세션 식별자가 없는 경우 <code>HttpService:GenerateGUID()</code>를 사용하는 것이 좋습니다."
+    "documentation": "깔때기 세션의 선택적 고유 식별자입니다. 이 이름은 깔때기의 모든 단계에서 동일해야 합니다. 이 필드는 <strong>재발하는</strong> 깔때기(예: 구매 흐름 깔때기 또는 항목 업그레이드 깔때기)에만 필요합니다. 자연스러운 깔때기 세션 식별자가 없다면 <code>HttpService:GenerateGUID()</code>를 사용하는 것이 좋습니다."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/4": {
-    "documentation": "퍼널의 단계 번호입니다. 각 단계에서 고유해야 합니다. 모든 퍼널은 1단계에서 시작합니다. 1-100 단계로 제한됩니다. 같은 퍼널 세션 내에서 같은 사용자가 반복하는 단계나 <code>funnelSessionId</code>가 <code>nil</code>인 경우는 무시됩니다. 단계가 건너뛰어지면 중간 단계는 완료된 것으로 간주됩니다."
+    "documentation": "깔때기에서의 단계 번호입니다. 이 번호는 깔때기의 각 단계에서 고유해야 합니다. 모든 깔때기는 단계 1에서 시작합니다. 단계 1-100으로 제한됩니다. 같은 깔때기 세션에서 같은 사용자가 반복적으로 수행한 단계 또는 <code>funnelSessionId</code>가 <code>nil</code>일 경우 무시됩니다. 단계가 건너뛰어지면 중간 단계는 완료된 것으로 간주됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/5": {
-    "documentation": "선택 사항. 퍼널의 단계 이름입니다. 이 필드는 Roblox가 제공하는 차트에서 표시 목적으로만 사용됩니다."
+    "documentation": "깔때기에서의 선택적 단계 이름입니다. 이 필드는 Roblox에서 제공하는 차트에서 표시 목적으로만 사용됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/6": {
-    "documentation": "선택 사항. Roblox가 제공하는 차트에서 분석할 수 있는 사용자 정의 필드의 사전입니다. 이 분석에는 <code>AnalyticsCustomFieldKeys</code>에서 제공하는 특정 키만 사용됩니다. 각 경험 당 세 개의 사용자 정의 필드에서 8,000개의 고유한 조합으로 제한됩니다."
+    "documentation": "Roblox에서 제공하는 차트에서 구분을 제공할 맞춤 필드의 선택적 사전입니다. <code>AnalyticsCustomFieldKeys</code>에서 제공하는 특정 키만 이 구분에 사용됩니다. 경험당 3개의 맞춤 필드에서 8,000개의 고유한 값 조합으로 제한됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent": {
-    "documentation": "사전 계획된 퍼널을 통과하는 사용자 행동을 추적하는 로그 이벤트입니다.",
+    "documentation": "사전 계획된 깔때기를 통해 진행하는 사용자 행동을 추적하는 데 사용되는 이벤트를 기록합니다.",
     "params": [
       {
         "name": "self",
@@ -77498,19 +77496,19 @@
     "documentation": "사용자가 당신의 경험과 상호작용하는 방식을 추적할 수 있는 메서드 모음입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/1": {
-    "documentation": "이벤트를 발생시킨 사용자입니다."
+    "documentation": "이벤트를 트리거한 사용자입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/2": {
-    "documentation": "퍼널의 단계 번호입니다. 각 단계에서 고유해야 합니다. 모든 퍼널은 1단계에서 시작합니다. 1-100 단계로 제한됩니다. 단계가 건너뛰어지면 중간 단계는 완료된 것으로 간주됩니다."
+    "documentation": "깔때기에서의 단계 번호입니다. 이 번호는 깔때기의 각 단계에서 고유해야 합니다. 모든 깔때기는 단계 1에서 시작합니다. 단계 1-100으로 제한됩니다. 단계가 건너뛰어지면 중간 단계는 완료된 것으로 간주됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/3": {
-    "documentation": "선택 사항. 퍼널의 단계 이름입니다. 이 필드는 Roblox에서 제공하는 차트에서 표시 목적으로만 사용됩니다."
+    "documentation": "깔때기에서의 선택적 단계 이름입니다. 이 필드는 Roblox에서 제공하는 차트에서 표시 목적으로만 사용됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/4": {
-    "documentation": "선택 사항. Roblox에서 제공하는 차트에서 분석할 수 있는 사용자 정의 필드의 사전입니다. 이 분석에는 <code>AnalyticsCustomFieldKeys</code>에서 제공하는 특정 키만 사용됩니다. 각 경험 당 세 개의 사용자 정의 필드에서 8,000개의 고유한 조합으로 제한됩니다."
+    "documentation": "Roblox에서 제공하는 차트에서 구분을 제공할 맞춤 필드의 선택적 사전입니다. <code>AnalyticsCustomFieldKeys</code>에서 제공하는 특정 키만 이 구분에 사용됩니다. 경험당 3개의 맞춤 필드에서 8,000개의 고유한 값 조합으로 제한됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent": {
-    "documentation": "온보딩 퍼널을 통과하는 사용자 행동을 추적하는 로그 이벤트입니다.",
+    "documentation": "온보딩 깔때기를 통해 진행하는 사용자 행동을 추적하는 데 사용되는 이벤트를 기록합니다.",
     "params": [
       {
         "name": "self",
@@ -77556,7 +77554,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent": {
-    "documentation": "사용자가 레벨 시도를 완료했을 때의 이벤트를 기록합니다.",
+    "documentation": "사용자가 레벨 시도를 완료했을 때 이벤트를 기록합니다.",
     "params": [
       {
         "name": "self",
@@ -77591,7 +77589,7 @@
     "documentation": "사용자가 당신의 경험과 상호작용하는 방식을 추적할 수 있는 메서드 모음입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/1": {
-    "documentation": "이벤트를 발생시킨 플레이어입니다."
+    "documentation": "이벤트를 트리거한 플레이어입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/2": {
     "documentation": ""
@@ -77609,7 +77607,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent": {
-    "documentation": "사용자가 레벨 시도를 시작, 완료 또는 실패했을 때의 이벤트를 기록합니다.",
+    "documentation": "사용자가 레벨 시도를 시작, 완료 또는 실패했을 때 이벤트를 기록합니다.",
     "params": [
       {
         "name": "self",
@@ -77648,7 +77646,7 @@
     "documentation": "사용자가 당신의 경험과 상호작용하는 방식을 추적할 수 있는 메서드 모음입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/1": {
-    "documentation": "이벤트를 발생시킨 사용자입니다."
+    "documentation": "이벤트를 트리거한 사용자입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/2": {
     "documentation": ""
@@ -77663,7 +77661,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent": {
-    "documentation": "사용자가 레벨 시도를 실패했을 때의 이벤트를 기록합니다.",
+    "documentation": "사용자가 레벨 시도에 실패했을 때 이벤트를 기록합니다.",
     "params": [
       {
         "name": "self",
@@ -77698,7 +77696,7 @@
     "documentation": "사용자가 당신의 경험과 상호작용하는 방식을 추적할 수 있는 메서드 모음입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/1": {
-    "documentation": "이벤트를 발생시킨 플레이어입니다."
+    "documentation": "이벤트를 트리거한 플레이어입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/2": {
     "documentation": ""
@@ -77713,7 +77711,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent": {
-    "documentation": "사용자가 레벨 시도를 시작했을 때의 이벤트를 기록합니다.",
+    "documentation": "사용자가 레벨 시도를 시작했을 때 이벤트를 기록합니다.",
     "params": [
       {
         "name": "self",
@@ -79881,10 +79879,10 @@
   "@roblox/globaltype/TextBox.Font": {
     "documentation": "텍스트를 렌더링하는 데 사용되는 글꼴을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Font",
-    "code_sample": "local textLabel = script.Parent\n\nwhile true do\n\t-- 모든 다른 폰트를 반복합니다\n\tfor _, font in pairs(Enum.Font:GetEnumItems()) do\n\t\ttextLabel.Font = font\n\t\ttextLabel.Text = font.Name\n\t\ttask.wait(1)\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.FontFace": {
-    "documentation": "텍스트 렌더링에 사용되는 글꼴을 결정합니다.",
+    "documentation": "텍스트 렌더링에 사용되는 글꼴 스타일을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#FontFace",
     "code_sample": ""
   },
@@ -79894,17 +79892,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.LineHeight": {
-    "documentation": "<code>TextBox</code> 내의 텍스트 줄 사이의 간격을 조정합니다.",
+    "documentation": "<code>TextBox</code>에서 텍스트 줄 사이의 간격을 조절합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#LineHeight",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.MaxVisibleGraphemes": {
-    "documentation": "<code>TextBox</code>가 표시할 수 있는 최대 그래프 제무수형의 수입니다.",
+    "documentation": "<code>TextBox</code>가 표시할 수 있는 최대 그래프의 개수.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#MaxVisibleGraphemes",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.MultiLine": {
-    "documentation": "<code>true</code>로 설정하면, <code>TextBox</code> 내의 텍스트가 여러 줄로 이동할 수 있습니다. 이는 또한 플레이어가 엔터 키를 사용하여 새 줄로 이동하도록 허용합니다.",
+    "documentation": "<code>true</code>로 설정되면 <code>TextBox</code> 내 텍스트가 여러 줄로 이동할 수 있습니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#MultiLine",
     "code_sample": ""
   },
@@ -79919,37 +79917,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.PlaceholderColor3": {
-    "documentation": "아직 텍스트가 입력되지 않았을 때 사용되는 텍스트 색상을 설정합니다.",
+    "documentation": "<code>TextBox</code>에 텍스트가 입력되지 않았을 때 사용되는 텍스트 색상을 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#PlaceholderColor3",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.PlaceholderText": {
-    "documentation": "아직 텍스트가 입력되지 않았을 때 표시되는 텍스트를 설정합니다.",
+    "documentation": "<code>TextBox</code>에 텍스트가 입력되지 않았을 때 표시되는 텍스트를 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#PlaceholderText",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.RichText": {
-    "documentation": "<code>TextBox</code>가 리치 텍스트 형식을 사용하여 <code>TextBox.Text</code> 문자열을 렌더링할지 여부를 결정합니다.",
+    "documentation": "<code>TextBox</code>가 <code>Text</code> 문자열을 리치 텍스트 형식으로 렌더링하는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#RichText",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.SelectionStart": {
-    "documentation": "텍스트 선택의 시작 위치를 결정하며, 선택된 텍스트가 없는 경우 -1입니다.",
+    "documentation": "텍스트 선택의 시작 위치를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#SelectionStart",
     "code_sample": "local textBox = script.Parent\n\nlocal function showSelection()\n\tif textBox.CursorPosition == -1 or textBox.SelectionStart == -1 then\n\t\tprint(\"선택 없음\")\n\telse\n\t\tlocal selectedText = string.sub(\n\t\t\ttextBox.Text,\n\t\t\tmath.min(textBox.CursorPosition, textBox.SelectionStart),\n\t\t\tmath.max(textBox.CursorPosition, textBox.SelectionStart)\n\t\t)\n\t\tprint('선택된 내용은:\"', selectedText, '\"입니다')\n\tend\nend\n\ntextBox:GetPropertyChangedSignal(\"CursorPosition\"):Connect(showSelection)\ntextBox:GetPropertyChangedSignal(\"SelectionStart\"):Connect(showSelection)"
   },
   "@roblox/globaltype/TextBox.ShowNativeInput": {
-    "documentation": "플랫폼에 고유한 입력이 Roblox의 내장 키보드 대신 사용됩니다.",
+    "documentation": "<code>true</code>로 설정되면 플랫폼의 기본 입력 방법이 사용됩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#ShowNativeInput",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.Text": {
-    "documentation": "UI 요소에 의해 렌더링되는 문자열을 결정합니다.",
+    "documentation": "<code>TextBox</code> 요소에 의해 렌더링되는 문자열을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Text",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextBounds": {
-    "documentation": "UI 요소의 텍스트 크기를 오프셋으로 결정합니다.",
+    "documentation": "<code>TextBox</code> 요소의 텍스트 크기를 오프셋으로 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextBounds",
     "code_sample": ""
   },
@@ -79959,7 +79957,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextColor3": {
-    "documentation": "렌더링된 텍스트의 색상을 결정합니다.",
+    "documentation": "플레이스홀더가 아닌 렌더링된 텍스트의 색상을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextColor3",
     "code_sample": "local textBox = script.Parent\n\nlocal function hasVowels(str)\n\treturn str:lower():find(\"[aeiou]\")\nend\n\nlocal function onTextChanged()\n\tlocal text = textBox.Text\n\t-- 모음 체크\n\tif hasVowels(text) then\n\t\ttextBox.TextColor3 = Color3.new(0, 0, 0) -- 검정색\n\telse\n\t\ttextBox.TextColor3 = Color3.new(1, 0, 0) -- 빨간색\n\tend\nend\n\ntextBox:GetPropertyChangedSignal(\"Text\"):Connect(onTextChanged)"
   },
@@ -79974,19 +79972,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextFits": {
-    "documentation": "텍스트가 텍스트 박스의 제약 내에 들어맞는지 여부입니다.",
+    "documentation": "<code>TextBox</code>의 제약 조건 내에 텍스트가 적합한지를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextFits",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextScaled": {
-    "documentation": "텍스트가 렌더링하는 GUI 객체에 맞게 크기가 조정되는지 여부를 변경합니다.",
+    "documentation": "<code>TextBox</code> 내에서 텍스트가 크기를 조정하여 적합하도록 변경합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextScaled",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextSize": {
     "documentation": "텍스트의 줄 높이를 오프셋으로 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextSize",
-    "code_sample": "local textLabel = script.Parent\n\ntextLabel.Text = \"쿵!\"\n\nwhile true do\n\tfor size = 5, 100, 5 do\n\t\ttextLabel.TextSize = size\n\t\ttextLabel.TextTransparency = size / 100\n\t\ttask.wait()\n\tend\n\ttask.wait(1)\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextStrokeColor3": {
     "documentation": "텍스트의 스트로크(윤곽선)의 색상을 결정합니다.",
@@ -80004,7 +80002,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextTruncate": {
-    "documentation": "이 TextBox에 표시된 텍스트의 잘림을 제어합니다.",
+    "documentation": "<code>TextBox</code>에 표시된 텍스트의 잘림을 제어합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextTruncate",
     "code_sample": ""
   },
@@ -80014,25 +80012,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextWrapped": {
-    "documentation": "<code>GuiObject</code> 요소 공간 내에서 텍스트가 여러 줄로 줄 바꿈되는지 결정하며, 과잉 텍스트는 잘립니다.",
+    "documentation": "텍스트가 <code>TextBox</code> 요소 공간 내에서 여러 줄로 감싸지며 초과 텍스트가 잘리는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextWrapped",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextXAlignment": {
     "documentation": "렌더링된 텍스트의 수평 정렬을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextXAlignment",
-    "code_sample": "-- 이 코드를 TextLabel/TextButton/TextBox 안의 LocalScript에 붙여넣으세요\nlocal textLabel = script.Parent\n\nlocal function setAlignment(xAlign, yAlign)\n\ttextLabel.TextXAlignment = xAlign\n\ttextLabel.TextYAlignment = yAlign\n\ttextLabel.Text = xAlign.Name .. \" + \" .. yAlign.Name\nend\n\nwhile true do\n\t-- TextXAlignment 및 TextYAlignment 열거형 항목을 모두 반복합니다\n\tfor _, yAlign in pairs(Enum.TextYAlignment:GetEnumItems()) do\n\t\tfor _, xAlign in pairs(Enum.TextXAlignment:GetEnumItems()) do\n\t\t\tsetAlignment(xAlign, yAlign)\n\t\t\ttask.wait(1)\n\t\tend\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextYAlignment": {
     "documentation": "렌더링된 텍스트의 수직 정렬을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextYAlignment",
-    "code_sample": "-- 이 코드를 TextLabel/TextButton/TextBox 안의 LocalScript에 붙여넣으세요\nlocal textLabel = script.Parent\n\nlocal function setAlignment(xAlign, yAlign)\n\ttextLabel.TextXAlignment = xAlign\n\ttextLabel.TextYAlignment = yAlign\n\ttextLabel.Text = xAlign.Name .. \" + \" .. yAlign.Name\nend\n\nwhile true do\n\t-- TextXAlignment 및 TextYAlignment 열거형 항목을 모두 반복합니다\n\tfor _, yAlign in pairs(Enum.TextYAlignment:GetEnumItems()) do\n\t\tfor _, xAlign in pairs(Enum.TextXAlignment:GetEnumItems()) do\n\t\t\tsetAlignment(xAlign, yAlign)\n\t\t\ttask.wait(1)\n\t\tend\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.CaptureFocus/param/0": {
     "documentation": "플레이어가 편집할 수 있는 텍스트를 표시하는 2D 사용자 인터페이스 요소입니다."
   },
   "@roblox/globaltype/TextBox.CaptureFocus": {
-    "documentation": "클라이언트가 TextBox에 포커스를 주도록 강제합니다.",
+    "documentation": "<code>TextBox</code>에 포커스를 강제로 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -80041,7 +80039,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#CaptureFocus",
-    "code_sample": ""
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal textBox = script.Parent\n\nlocal input = UserInputService.InputBegan:Connect(function(input, processed)\n\tif input.KeyCode == Enum.KeyCode.Q then\n\t\ttextBox:CaptureFocus()\n\tend\nend)"
   },
   "@roblox/globaltype/TextBox.IsFocused/param/0": {
     "documentation": "플레이어가 편집할 수 있는 텍스트를 표시하는 2D 사용자 인터페이스 요소입니다."
@@ -80083,7 +80081,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#ReleaseFocus",
-    "code_sample": "local textBox = script.Parent\n\nlocal function onFocused()\n\ttask.wait(5)\n\ttextBox:ReleaseFocus()\nend\n\ntextBox.Focused:Connect(onFocused)"
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal textBox = script.Parent\n\nlocal input = UserInputService.InputBegan:Connect(function(input, processed)\n\tif input.KeyCode == Enum.KeyCode.Escape and textBox.IsFocused then\n\t\ttextBox:ReleaseFocus()\n\tend\nend)"
   },
   "@roblox/globaltype/TextBox.Focused.Connect/param/0": {
     "documentation": "특정 발생 시 연결된 함수를 실행하는 객체입니다."
@@ -80163,7 +80161,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextBox.Focused": {
-    "documentation": "<code>TextBox</code>가 포커스를 얻게 되면 발생합니다.",
+    "documentation": "<code>TextBox</code>가 포커스를 얻을 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/TextBox.Focused.Connect",
       "ConnectParallel": "@roblox/globaltype/TextBox.Focused.ConnectParallel",
@@ -80171,7 +80169,7 @@
       "Wait": "@roblox/globaltype/TextBox.Focused.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Focused",
-    "code_sample": "local textBox = script.Parent\n\nlocal function onFocused()\n\tprint(\"포커스를 받았습니다\")\nend\n\ntextBox.Focused:Connect(onFocused)"
+    "code_sample": "local textBox = script.Parent\n\ntextBox.Focused:Connect(function()\n\tprint(\"포커스가 맞춰졌습니다!\")\nend)\n\ntextBox.FocusLost:Connect(function()\n\tprint(\"포커스가 잃었습니다!\")\nend)"
   },
   "@roblox/globaltype/TextBox.FocusLost.Connect/param/0": {
     "documentation": "특정 발생 시 연결된 함수를 실행하는 객체입니다."
@@ -80251,7 +80249,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextBox.FocusLost": {
-    "documentation": "클라이언트가 <code>TextBox</code>의 포커스를 잃게 될 때 발생합니다.",
+    "documentation": "<code>TextBox</code>가 포커스를 잃을 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/TextBox.FocusLost.Connect",
       "ConnectParallel": "@roblox/globaltype/TextBox.FocusLost.ConnectParallel",
@@ -80259,7 +80257,7 @@
       "Wait": "@roblox/globaltype/TextBox.FocusLost.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#FocusLost",
-    "code_sample": "local gui = script.Parent\nlocal textBox = gui.TextBox\n\nlocal function focusLost(enterPressed)\n\tif enterPressed then\n\t\tprint(\"포커스가 잃어버렸습니다. Enter가 눌렸기 때문입니다!\")\n\telse\n\t\tprint(\"Enter가 눌리지 않고 포커스를 잃었습니다\")\n\tend\nend\n\ntextBox.FocusLost:Connect(focusLost)"
+    "code_sample": "local textBox = script.Parent\n\ntextBox.Focused:Connect(function()\n\tprint(\"포커스가 맞춰졌습니다!\")\nend)\n\ntextBox.FocusLost:Connect(function()\n\tprint(\"포커스가 잃었습니다!\")\nend)"
   },
   "@roblox/globaltype/TextBox.ReturnPressedFromOnScreenKeyboard.Connect/param/0": {
     "documentation": "특정 발생 시 연결된 함수를 실행하는 객체입니다."
@@ -84548,7 +84546,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TaskScheduler.SchedulerDutyCycle": {
-    "documentation": "주기적 사이클의 평균 간격으로 나누어진 평균 시간입니다.",
+    "documentation": "의무 주기의 평균 간격으로 나눈 평균 시간입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TaskScheduler#SchedulerDutyCycle",
     "code_sample": ""
   },
@@ -84563,7 +84561,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TaskScheduler.ThreadPoolSize": {
-    "documentation": "현재 스레드 풀의 크기입니다.",
+    "documentation": "스레드 풀의 현재 크기입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TaskScheduler#ThreadPoolSize",
     "code_sample": ""
   },
@@ -118667,6 +118665,68 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreatorType",
     "code_sample": ""
   },
+  "@roblox/enum/CreateContentResult.Success": {
+    "documentation": "Success.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.PermissionDenied": {
+    "documentation": "The user does not have the required permissions to perform this operation.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#PermissionDenied",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.UploadFailed": {
+    "documentation": "Asset failed to upload.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#UploadFailed",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.StorageLimitExceeded": {
+    "documentation": "The storage budget limit for <code>DataModel</code>-scoped content was exceeded.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#StorageLimitExceeded",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.Unknown": {
+    "documentation": "An unknown error occurred.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.CreateContentResult": {
+    "documentation": "",
+    "keys": {
+      "Success": "@roblox/enum/CreateContentResult.Success",
+      "PermissionDenied": "@roblox/enum/CreateContentResult.PermissionDenied",
+      "UploadFailed": "@roblox/enum/CreateContentResult.UploadFailed",
+      "StorageLimitExceeded": "@roblox/enum/CreateContentResult.StorageLimitExceeded",
+      "Unknown": "@roblox/enum/CreateContentResult.Unknown"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult",
+    "code_sample": ""
+  },
   "@roblox/enum/ActionOnStopSync.AlwaysAsk": {
     "documentation": "",
     "keys": {
@@ -134495,7 +134555,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AutomaticSize.X": {
-    "documentation": "자식 콘텐츠에 맞춰 X축을 따라 요소를 자동으로 크기 조정합니다.",
+    "documentation": "자식 내용에 맞게 요소를 <strong>X</strong> 축을 따라 자동으로 크기 조정합니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -134505,7 +134565,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AutomaticSize.Y": {
-    "documentation": "자식 콘텐츠에 맞춰 Y축을 따라 요소를 자동으로 크기 조정합니다. 텍스트 객체는 TextWrapped가 활성화된 경우에만 Y축을 따라 크기 조정됩니다.",
+    "documentation": "자식 내용에 맞게 요소를 <strong>Y</strong> 축을 따라 자동으로 크기 조정합니다. 텍스트 객체는 <code>TextWrapped</code> 속성이 활성화되어 있는 경우에만 <strong>Y</strong> 축을 따라 크기가 조정됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -134515,7 +134575,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AutomaticSize.XY": {
-    "documentation": "자식 콘텐츠에 맞춰 X 및 Y축을 따라 요소를 자동으로 크기 조정합니다.",
+    "documentation": "자식 내용에 맞게 요소를 <strong>X</strong> 및 <strong>Y</strong> 축을 따라 자동으로 크기 조정합니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

@@ -17061,7 +17061,7 @@
     "documentation": "The list of IDs of the badges to check ownership of. Maximum length of 10."
   },
   "@roblox/globaltype/BadgeService.CheckUserBadgesAsync/return/0": {
-    "documentation": "The list of badge IDs the given user owns out of the provided badge IDs. Empty if none of the provided badges are owned by the given user. Not guaranteed to be in the same order as the input list."
+    "documentation": "The list of badge IDs the given user owns out of the provided badge IDs. Empty if none of the provided badges are owned by the given user. Not guaranteed to be in the same order as the input list. Some badge IDs may be omitted if the user with the target <code>userId</code> has not recently been in the server and the badge IDs are not associated with the requesting experience."
   },
   "@roblox/globaltype/BadgeService.CheckUserBadgesAsync": {
     "documentation": "Checks a list of badge IDs against a <code>UserId</code> and returns a list of badge IDs that the player owns.",
@@ -28309,7 +28309,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.StaticFacialAnimation": {
-    "documentation": "",
+    "documentation": "When <code>true</code>, disables facial animations on a Dynamic Head, displaying a static mood pose instead. Defaults to <code>false</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#StaticFacialAnimation",
     "code_sample": ""
   },
@@ -60020,6 +60020,7 @@
       "ComposeDecalAsync": "@roblox/globaltype/AssetService.ComposeDecalAsync",
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
+      "CreateDataModelContentAsync": "@roblox/globaltype/AssetService.CreateDataModelContentAsync",
       "CreateEditableImage": "@roblox/globaltype/AssetService.CreateEditableImage",
       "CreateEditableImageAsync": "@roblox/globaltype/AssetService.CreateEditableImageAsync",
       "CreateEditableMesh": "@roblox/globaltype/AssetService.CreateEditableMesh",
@@ -60165,6 +60166,40 @@
       "@roblox/globaltype/AssetService.CreateAssetVersionAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateAssetVersionAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AssetService.CreateDataModelContentAsync/param/0": {
+    "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API."
+  },
+  "@roblox/globaltype/AssetService.CreateDataModelContentAsync/param/1": {
+    "documentation": "Reference to the input content. Currently, this only supports <code>Content</code> wrapping a <code>EditableMesh</code> or <code>EditableImage</code>."
+  },
+  "@roblox/globaltype/AssetService.CreateDataModelContentAsync/param/2": {
+    "documentation": "Optional dictionary containing configuration controls for the created <code>DataModel</code> content. Currently no controls are surfaced and this parameter exists for future functionality."
+  },
+  "@roblox/globaltype/AssetService.CreateDataModelContentAsync/return/0": {
+    "documentation": "A tuple containing an <code>CreateContentResult</code> indicating the success or failure of the request, and the resulting <code>DataModel</code>-scoped <code>Opaque</code> <code>Content</code>."
+  },
+  "@roblox/globaltype/AssetService.CreateDataModelContentAsync": {
+    "documentation": "Creates ephemeral, <code>DataModel</code>-scoped content from the provided content input.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.CreateDataModelContentAsync/param/0"
+      },
+      {
+        "name": "content",
+        "documentation": "@roblox/globaltype/AssetService.CreateDataModelContentAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/AssetService.CreateDataModelContentAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.CreateDataModelContentAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateDataModelContentAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/0": {
@@ -60527,7 +60562,7 @@
     "documentation": "The ID of the specified bundle."
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/return/0": {
-    "documentation": "Dictionary with the following key-value pairs containing details about the specified bundle: <ul> <li> <code>Id</code> — Bundle ID (same as passed <code>bundleId</code> argument) </li> <li> <code>Name</code> — Bundle name </li> <li> <code>Description</code> — Bundle description </li> <li> <code>BundleType</code> — String representing the <code>BundleType</code>, for   example <code>\"BodyParts\"</code> or <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — Array of items in the bundle, each with details   represented through the following keys: </li> <li> <code>Id</code> — Item ID </li> <li> <code>Name</code> — Item name </li> <li> <code>Type</code> — Item type such as <code>\"Asset\"</code> . </li> </ul>"
+    "documentation": "Dictionary with the following key-value pairs containing details about the specified bundle: <ul> <li> <code>Id</code> — Bundle ID (same as passed <code>bundleId</code> argument) </li> <li> <code>Name</code> — Bundle name </li> <li> <code>Description</code> — Bundle description </li> <li> <code>BundleType</code> — String representing the <code>BundleType</code>, for   example <code>\"BodyParts\"</code> or <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — Array of items in the bundle, each with details   represented through the following keys: </li> <li> <code>Id</code> — Item ID </li> <li> <code>Name</code> — Item name </li> <li> <code>Type</code> — Item type such as <code>\"Asset\"</code> </li> <li> <code>AssetType</code> — String representing the <code>AvatarAssetType</code> </li> <li> <code>SupportsHeadShapes</code> — Whether the asset supports head shape     swapping. Only present if <code>AssetType</code> is <code>\"DynamicHead\"</code>. </li> </ul>"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync": {
     "documentation": "Returns details of the contents of specified bundle.",
@@ -62414,7 +62449,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MakeupDescription": {
-    "documentation": "",
+    "documentation": "Describes the appearance of a makeup item for the <code>HumanoidDescription</code>.",
     "keys": {
       "AssetId": "@roblox/globaltype/MakeupDescription.AssetId",
       "Instance": "@roblox/globaltype/MakeupDescription.Instance",
@@ -62426,33 +62461,33 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MakeupDescription.AssetId": {
-    "documentation": "",
+    "documentation": "The asset ID that should be applied when applying this <code>MakeupDescription</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MakeupDescription#AssetId",
     "code_sample": ""
   },
   "@roblox/globaltype/MakeupDescription.Instance": {
-    "documentation": "",
+    "documentation": "A reference to the <code>Instance</code> that should be used when applying this <code>MakeupDescription</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MakeupDescription#Instance",
     "code_sample": ""
   },
   "@roblox/globaltype/MakeupDescription.MakeupType": {
-    "documentation": "",
+    "documentation": "The <code>MakeupType</code> of the makeup item referred to by this description.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MakeupDescription#MakeupType",
     "code_sample": ""
   },
   "@roblox/globaltype/MakeupDescription.Order": {
-    "documentation": "",
+    "documentation": "The layering sort order for the makeup item.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MakeupDescription#Order",
     "code_sample": ""
   },
   "@roblox/globaltype/MakeupDescription.GetAppliedInstance/param/0": {
-    "documentation": ""
+    "documentation": "Describes the appearance of a makeup item for the <code>HumanoidDescription</code>."
   },
   "@roblox/globaltype/MakeupDescription.GetAppliedInstance/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MakeupDescription.GetAppliedInstance": {
-    "documentation": "",
+    "documentation": "Returns the applied makeup <code>Instance</code>.",
     "params": [
       {
         "name": "self",
@@ -86116,6 +86151,7 @@
       "GetBatchItemDetailsAsync": "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync",
       "GetFavorite": "@roblox/globaltype/AvatarEditorService.GetFavorite",
       "GetFavoriteAsync": "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync",
+      "GetHeadShapesAsync": "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync",
       "GetInventory": "@roblox/globaltype/AvatarEditorService.GetInventory",
       "GetInventoryAsync": "@roblox/globaltype/AvatarEditorService.GetInventoryAsync",
       "GetItemDetails": "@roblox/globaltype/AvatarEditorService.GetItemDetails",
@@ -86226,13 +86262,13 @@
     "documentation": "A service to support developer Avatar Editors."
   },
   "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync/param/1": {
-    "documentation": ""
+    "documentation": "The <code>HumanoidDescription</code> to conform."
   },
   "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync/return/0": {
-    "documentation": ""
+    "documentation": "A new <code>HumanoidDescription</code> that conforms to the platform Avatar rules."
   },
   "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync": {
-    "documentation": "",
+    "documentation": "Returns a copy of the given <code>HumanoidDescription</code> that conforms to the platform Avatar rules.",
     "params": [
       {
         "name": "self",
@@ -86450,6 +86486,26 @@
       "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetFavoriteAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync/param/0": {
+    "documentation": "A service to support developer Avatar Editors."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync/return/0": {
+    "documentation": "An array of strings, each identifying a head shape owned by <code>Players.LocalPlayer</code>. Possible values include: <code>\"RobloxClassic\"</code>, <code>\"Blockhead\"</code>, <code>\"Cheeks\"</code>, <code>\"Chiseled\"</code>, <code>\"CoolThing\"</code>, <code>\"EraserHead\"</code>, <code>\"FatHead\"</code>, <code>\"FlatTop\"</code>, <code>\"GoldenKorbloxGeneral\"</code>, <code>\"GoldenMrRobot\"</code>, <code>\"KnightOfChivalry\"</code>, <code>\"KnightOfCourage\"</code>, <code>\"ManHead\"</code>, <code>\"MercilessNinja\"</code>, <code>\"Narrow\"</code>, <code>\"Paragon\"</code>, <code>\"Peabrain\"</code>, <code>\"Perfection\"</code>, <code>\"Roll\"</code>, <code>\"Roundy\"</code>, <code>\"RoxBox\"</code>, <code>\"TheEngineer\"</code>, <code>\"Trim\"</code>, <code>\"WomanHead\"</code>."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync": {
+    "documentation": "Returns an array of head shape names that the <code>Players.LocalPlayer</code> owns.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetHeadShapesAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetInventory/param/0": {
@@ -90531,7 +90587,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.IsPlaying": {
-    "documentation": "Denotes whether this <code>AudioPlayer</code> is currently playing.",
+    "documentation": "Denotes whether this <code>AudioPlayer</code> is currently playing or planning to play.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsPlaying",
     "code_sample": ""
   },
@@ -90679,20 +90735,38 @@
   "@roblox/globaltype/AudioPlayer.Play/param/0": {
     "documentation": "Used to play audio assets."
   },
+  "@roblox/globaltype/AudioPlayer.Play/param/1": {
+    "documentation": "A specific time, based on <code>GetMixerTime</code>, that this <code>AudioPlayer</code> should begin playing at."
+  },
+  "@roblox/globaltype/AudioPlayer.Play/return/0": {
+    "documentation": "If <code>atTime</code> was provided, a unique ID, which can be passed to <code>Cancel()</code>."
+  },
   "@roblox/globaltype/AudioPlayer.Play": {
     "documentation": "Plays the <code>AudioPlayer</code> from wherever its <code>TimePosition</code> is.",
     "params": [
       {
         "name": "self",
         "documentation": "@roblox/globaltype/AudioPlayer.Play/param/0"
+      },
+      {
+        "name": "atTime",
+        "documentation": "@roblox/globaltype/AudioPlayer.Play/param/1"
       }
     ],
-    "returns": [],
+    "returns": [
+      "@roblox/globaltype/AudioPlayer.Play/return/0"
+    ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#Play",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.Stop/param/0": {
     "documentation": "Used to play audio assets."
+  },
+  "@roblox/globaltype/AudioPlayer.Stop/param/1": {
+    "documentation": "A specific time, based on <code>GetMixerTime</code>, that this <code>AudioPlayer</code> should stop playing at."
+  },
+  "@roblox/globaltype/AudioPlayer.Stop/return/0": {
+    "documentation": "If <code>atTime</code> was provided, a unique ID, which can be passed to <code>Cancel()</code>."
   },
   "@roblox/globaltype/AudioPlayer.Stop": {
     "documentation": "Stops the <code>AudioPlayer</code> wherever its <code>TimePosition</code> is.",
@@ -90700,9 +90774,15 @@
       {
         "name": "self",
         "documentation": "@roblox/globaltype/AudioPlayer.Stop/param/0"
+      },
+      {
+        "name": "atTime",
+        "documentation": "@roblox/globaltype/AudioPlayer.Stop/param/1"
       }
     ],
-    "returns": [],
+    "returns": [
+      "@roblox/globaltype/AudioPlayer.Stop/return/0"
+    ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#Stop",
     "code_sample": ""
   },
@@ -94810,26 +94890,12 @@
   "@roblox/globaltype/AnimationConstraint": {
     "documentation": "Aligns two <code>BaseParts</code> with an animate-able kinematic or force-based joint.",
     "keys": {
-      "C0": "@roblox/globaltype/AnimationConstraint.C0",
-      "C1": "@roblox/globaltype/AnimationConstraint.C1",
       "IsKinematic": "@roblox/globaltype/AnimationConstraint.IsKinematic",
       "MaxForce": "@roblox/globaltype/AnimationConstraint.MaxForce",
       "MaxTorque": "@roblox/globaltype/AnimationConstraint.MaxTorque",
-      "Part0": "@roblox/globaltype/AnimationConstraint.Part0",
-      "Part1": "@roblox/globaltype/AnimationConstraint.Part1",
       "Transform": "@roblox/globaltype/AnimationConstraint.Transform"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AnimationConstraint.C0": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#C0",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AnimationConstraint.C1": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#C1",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.IsKinematic": {
@@ -94845,16 +94911,6 @@
   "@roblox/globaltype/AnimationConstraint.MaxTorque": {
     "documentation": "Maximum torque the constraint can apply to reach its goal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxTorque",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AnimationConstraint.Part0": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#Part0",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AnimationConstraint.Part1": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#Part1",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.Transform": {
@@ -118663,6 +118719,68 @@
       "Group": "@roblox/enum/CreatorType.Group"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreatorType",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.Success": {
+    "documentation": "Success.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.PermissionDenied": {
+    "documentation": "The user does not have the required permissions to perform this operation.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#PermissionDenied",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.UploadFailed": {
+    "documentation": "Asset failed to upload.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#UploadFailed",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.StorageLimitExceeded": {
+    "documentation": "The storage budget limit for <code>DataModel</code>-scoped content was exceeded.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#StorageLimitExceeded",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.Unknown": {
+    "documentation": "An unknown error occurred.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.CreateContentResult": {
+    "documentation": "",
+    "keys": {
+      "Success": "@roblox/enum/CreateContentResult.Success",
+      "PermissionDenied": "@roblox/enum/CreateContentResult.PermissionDenied",
+      "UploadFailed": "@roblox/enum/CreateContentResult.UploadFailed",
+      "StorageLimitExceeded": "@roblox/enum/CreateContentResult.StorageLimitExceeded",
+      "Unknown": "@roblox/enum/CreateContentResult.Unknown"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult",
     "code_sample": ""
   },
   "@roblox/enum/ActionOnStopSync.AlwaysAsk": {

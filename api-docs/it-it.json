@@ -31053,7 +31053,6 @@
     "keys": {
       "BalanceMaxTorque": "@roblox/globaltype/AirController.BalanceMaxTorque",
       "BalanceSpeed": "@roblox/globaltype/AirController.BalanceSpeed",
-      "LinearImpulse": "@roblox/globaltype/AirController.LinearImpulse",
       "MaintainAngularMomentum": "@roblox/globaltype/AirController.MaintainAngularMomentum",
       "MaintainLinearMomentum": "@roblox/globaltype/AirController.MaintainLinearMomentum",
       "MoveMaxForce": "@roblox/globaltype/AirController.MoveMaxForce",
@@ -31073,11 +31072,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#BalanceSpeed",
     "code_sample": ""
   },
-  "@roblox/globaltype/AirController.LinearImpulse": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#LinearImpulse",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AirController.MaintainAngularMomentum": {
     "documentation": "Determina se il momento angolare è preservato quando l'input è fermo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#MaintainAngularMomentum",
@@ -31089,12 +31083,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AirController.MoveMaxForce": {
-    "documentation": "La forza massima che può essere applicata su <code>ControllerManager.RootPart</code> per muoversi nella <code>ControllerManager.MovingDirection</code>.",
+    "documentation": "La forza massima che può essere applicata sul <code>ControllerManager.RootPart</code> per muoversi nella <code>ControllerManager.MovingDirection</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#MoveMaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AirController.TurnMaxTorque": {
-    "documentation": "La coppia massima che può essere applicata su <code>ControllerManager.RootPart</code> per girare verso la <code>ControllerManager.FacingDirection</code>.",
+    "documentation": "Il momento massimo che può essere applicato sul <code>ControllerManager.RootPart</code> per girare verso il <code>ControllerManager.FacingDirection</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AirController#TurnMaxTorque",
     "code_sample": ""
   },
@@ -45034,18 +45028,12 @@
   "@roblox/globaltype/SwimController": {
     "documentation": "",
     "keys": {
-      "AccelerationTime": "@roblox/globaltype/SwimController.AccelerationTime",
       "PitchMaxTorque": "@roblox/globaltype/SwimController.PitchMaxTorque",
       "PitchSpeedFactor": "@roblox/globaltype/SwimController.PitchSpeedFactor",
       "RollMaxTorque": "@roblox/globaltype/SwimController.RollMaxTorque",
       "RollSpeedFactor": "@roblox/globaltype/SwimController.RollSpeedFactor"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/SwimController.AccelerationTime": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#AccelerationTime",
     "code_sample": ""
   },
   "@roblox/globaltype/SwimController.PitchMaxTorque": {
@@ -45059,12 +45047,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SwimController.RollMaxTorque": {
-    "documentation": "La coppia massima applicata per ruotare al rotolo desiderato.",
+    "documentation": "La coppia massima applicata per ruotare al roll desiderato.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#RollMaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/SwimController.RollSpeedFactor": {
-    "documentation": "Moltiplicato per <code>ControllerManager.BaseTurnSpeed</code> per determinare la velocità angolare massima per il rotolo.",
+    "documentation": "Moltiplicato per <code>ControllerManager.BaseTurnSpeed</code> per determinare la velocità angolare massima per il roll.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SwimController#RollSpeedFactor",
     "code_sample": ""
   },
@@ -75932,7 +75920,6 @@
   "@roblox/globaltype/GroundController": {
     "documentation": "",
     "keys": {
-      "AccelerationLean": "@roblox/globaltype/GroundController.AccelerationLean",
       "AccelerationTime": "@roblox/globaltype/GroundController.AccelerationTime",
       "BalanceMaxTorque": "@roblox/globaltype/GroundController.BalanceMaxTorque",
       "BalanceSpeed": "@roblox/globaltype/GroundController.BalanceSpeed",
@@ -75940,16 +75927,9 @@
       "Friction": "@roblox/globaltype/GroundController.Friction",
       "FrictionWeight": "@roblox/globaltype/GroundController.FrictionWeight",
       "GroundOffset": "@roblox/globaltype/GroundController.GroundOffset",
-      "StandForce": "@roblox/globaltype/GroundController.StandForce",
-      "StandSpeed": "@roblox/globaltype/GroundController.StandSpeed",
       "TurnSpeedFactor": "@roblox/globaltype/GroundController.TurnSpeedFactor"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GroundController.AccelerationLean": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#AccelerationLean",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.AccelerationTime": {
@@ -75958,17 +75938,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.BalanceMaxTorque": {
-    "documentation": "La coppia massima utilizzata per mantenere il <code>ControllerManager.RootPart</code> allineato verticalmente.",
+    "documentation": "Il massimo torque usato per mantenere il <code>ControllerManager.RootPart</code> in posizione verticale.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#BalanceMaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.BalanceSpeed": {
-    "documentation": "La velocità angolare massima utilizzata per allineare il <code>ControllerManager.RootPart</code> verticalmente.",
+    "documentation": "La massima velocità angolare utilizzata per allineare il <code>ControllerManager.RootPart</code> in posizione verticale.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#BalanceSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.DecelerationTime": {
-    "documentation": "Tempo stimato necessario per fermarsi completamente dalla velocità massima.",
+    "documentation": "Tempo stimato per raggiungere una fermata completa da velocità massima.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#DecelerationTime",
     "code_sample": ""
   },
@@ -75978,23 +75958,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.FrictionWeight": {
-    "documentation": "Quantità con cui l'attrito del personaggio è pesato rispetto all'attrito del terreno.",
+    "documentation": "Quantità di attrito del personaggio ponderata rispetto all'attrito del terreno.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#FrictionWeight",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.GroundOffset": {
     "documentation": "La distanza target sopra il terreno per mantenere il <code>ControllerManager.RootPart</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#GroundOffset",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GroundController.StandForce": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#StandForce",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GroundController.StandSpeed": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroundController#StandSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/GroundController.TurnSpeedFactor": {
@@ -77063,6 +77033,7 @@
       "FireInGameEconomyEvent": "@roblox/globaltype/AnalyticsService.FireInGameEconomyEvent",
       "FireLogEvent": "@roblox/globaltype/AnalyticsService.FireLogEvent",
       "FirePlayerProgressionEvent": "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent",
+      "GetPlayerSegmentsAsync": "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync",
       "LogCustomEvent": "@roblox/globaltype/AnalyticsService.LogCustomEvent",
       "LogEconomyEvent": "@roblox/globaltype/AnalyticsService.LogEconomyEvent",
       "LogFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent",
@@ -77323,6 +77294,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FirePlayerProgressionEvent",
     "code_sample": ""
   },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/0": {
+    "documentation": "Collezione di metodi che ti consente di monitorare come gli utenti interagiscono con le tue esperienze."
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/1": {
+    "documentation": "Il giocatore i cui bucket di segmento devono essere restituiti."
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/return/0": {
+    "documentation": "Un dizionario contenente bucket di segmento grezzi per il giocatore per l'esperienza corrente."
+  },
+  "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync": {
+    "documentation": "Restituisce i bucket di segmento giocatore grezzi per l'esperienza corrente.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AnalyticsService.GetPlayerSegmentsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#GetPlayerSegmentsAsync",
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal AnalyticsService = game:GetService(\"AnalyticsService\")\n\nlocal function configurePlayerExperience(player)\n\tlocal segments = AnalyticsService:GetPlayerSegmentsAsync(player)\n\n\tif not segments.HasData then\n\t\treturn\n\tend\n\n\tif segments.WhenUserFirstPlayed == Enum.WhenUserFirstPlayed.Days0To30 then\n\t\tprint(\"Mostra onboarding aggiuntivo per\", player.Name)\n\tend\n\n\tif segments.ActivePayerStatus == Enum.ActivePayerStatus.Top15Percent then\n\t\tprint(\"Mostra offerta di alto valore a\", player.Name)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(configurePlayerExperience)"
+  },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/0": {
     "documentation": "Collezione di metodi che ti consente di monitorare come gli utenti interagiscono con le tue esperienze."
   },
@@ -77336,7 +77334,7 @@
     "documentation": "Il valore dell'evento che sarà utilizzato nell'aggregazione."
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent/param/4": {
-    "documentation": "Dizionario personalizzato opzionale di campi che forniranno ripartizioni nei grafici forniti da Roblox. Solo chiavi specifiche, fornite da <code>AnalyticsCustomFieldKeys</code>, verranno utilizzate per queste ripartizioni. Limitato a 8.000 combinazioni uniche di valori sulle tre campi personalizzati per esperienza."
+    "documentation": "Dizionario opzionale di campi personalizzati che forniranno suddivisioni nei grafici forniti da Roblox. Solo chiavi specifiche, fornite da <code>AnalyticsCustomFieldKeys</code>, saranno utilizzate per queste suddivisioni. Limitato a 8.000 combinazioni uniche di valori attraverso i tre campi personalizzati per esperienza."
   },
   "@roblox/globaltype/AnalyticsService.LogCustomEvent": {
     "documentation": "Registra un evento utilizzato per tracciare metriche personalizzate di un utente nell'esperienza.",
@@ -77373,28 +77371,28 @@
     "documentation": "L'utente che ha attivato l'evento."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/2": {
-    "documentation": "Deve specificare la direzione in cui la valuta sta fluendo usando <code>AnalyticsEconomyFlowType</code>."
+    "documentation": "Deve specificare la direzione in cui fluisce la valuta utilizzando <code>AnalyticsEconomyFlowType</code>."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/3": {
-    "documentation": "Il nome della valuta che viene aggiunta o rimossa, per esempio <code>\"oro\"</code>, <code>\"gemme\"</code>, o <code>\"energia\"</code>. Limitato a 5 tipi di valuta unici per esperienza."
+    "documentation": "Il nome della valuta che viene aggiunta o rimossa, ad esempio <code>\"oro\"</code>, <code>\"gemme\"</code> o <code>\"energia\"</code>. Limitato a 5 tipi unici di valuta per esperienza."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/4": {
-    "documentation": "L'ammontare della valuta che viene aggiunta o rimossa. Questo valore dovrebbe sempre essere positivo."
+    "documentation": "L'importo della valuta che viene aggiunto o rimosso. Questo valore dovrebbe essere sempre positivo."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/5": {
     "documentation": "Il saldo dell'utente dopo che la valuta è stata aggiunta o rimossa. Questo valore dovrebbe essere sempre maggiore o uguale a <code>0</code>."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/6": {
-    "documentation": "Il tipo di transazione che è avvenuta. Sebbene tu sia libero di utilizzare qualsiasi tipo di transazione, è consigliato usare i tipi forniti da <code>AnalyticsEconomyTransactionType</code> come <code>\"IAP\"</code> o <code>\"ContextualPurchase\"</code> per abilitare future intuizioni dagli strumenti e dai grafici di Roblox. Poiché questo tipo di campo è una stringa, dovrai passare il valore <code>Name</code> dell'enumerazione. Ad esempio <code>Enum.AnalyticsEconomyTransactionType.IAP.Name</code>. Limitato a 20 tipi unici per esperienza."
+    "documentation": "Il tipo di transazione che è avvenuta. Anche se sei libero di utilizzare qualsiasi tipo di transazione, è consigliato utilizzare i tipi forniti da <code>AnalyticsEconomyTransactionType</code> come <code>\"IAP\"</code> o <code>\"AcquistoContestuale\"</code> per abilitare future analisi dagli strumenti e grafici di Roblox. Poiché questo campo è di tipo stringa, dovrai passare il valore <code>Nome</code> dell'enum. Ad esempio <code>Enum.AnalyticsEconomyTransactionType.IAP.Name</code>. Limitato a 20 tipi unici per esperienza."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/7": {
-    "documentation": "SKU opzionale dell'oggetto o bundle in acquisto. Questo è un identificatore unico per l'oggetto acquistato. Limitato a 100 SKU unici per esperienza."
+    "documentation": "SKU opzionale dell'oggetto o bundle in fase di acquisto. Questo è un identificatore unico per l'oggetto in fase di acquisto. Limitato a 100 SKU unici per esperienza."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/8": {
-    "documentation": "Dizionario opzionale di campi personalizzati che forniranno ripartizioni nei grafici forniti da Roblox. Solo chiavi specifiche, fornite da <code>AnalyticsCustomFieldKeys</code>, verranno utilizzate per queste ripartizioni. Limitato a 8.000 combinazioni uniche di valori sulle tre campi personalizzati per esperienza."
+    "documentation": "Dizionario opzionale di campi personalizzati che forniranno suddivisioni nei grafici forniti da Roblox. Solo chiavi specifiche, fornite da <code>AnalyticsCustomFieldKeys</code>, saranno utilizzate per queste suddivisioni. Limitato a 8.000 combinazioni uniche di valori attraverso i tre campi personalizzati per esperienza."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent": {
-    "documentation": "Registra un evento utilizzato per tracciare azioni dei giocatori relative all'esperienza.",
+    "documentation": "Registra un evento utilizzato per tracciare le azioni dei giocatori relative all'esperienza.",
     "params": [
       {
         "name": "self",
@@ -77444,22 +77442,22 @@
     "documentation": "L'utente che ha attivato l'evento."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/2": {
-    "documentation": "Il nome del funnel. Questo dovrebbe essere lo stesso per tutti i passi nel funnel. Limitato a 10 funnel unici per esperienza."
+    "documentation": "Il nome del funnel. Questo dovrebbe essere lo stesso per tutti i passaggi nel funnel. Limitato a 10 funnel unici per esperienza."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/3": {
-    "documentation": "Identificatore unico opzionale per la sessione del funnel. Questo dovrebbe essere lo stesso per tutti i passi nel funnel. Nota che questo campo è necessario solo per i funnel <strong>ricorrenti</strong>, ad esempio un funnel di acquisto o un funnel di aggiornamento dell'oggetto. Se non hai un essenziale identificatore della sessione del funnel, è consigliato utilizzare <code>HttpService:GenerateGUID()</code>."
+    "documentation": "Identificatore unico opzionale per la sessione del funnel. Questo dovrebbe essere lo stesso per tutti i passaggi nel funnel. Nota che questo campo è necessario solo per i funnel <strong>ricorrenti</strong>, ad esempio un funnel di flusso di acquisto o un funnel di aggiornamento dell'oggetto. Se non hai un identificatore di sessione del funnel naturale, è consigliato utilizzare <code>HttpService:GenerateGUID()</code>."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/4": {
-    "documentation": "Il numero del passo nel funnel. Questo dovrebbe essere unico per ogni passo nel funnel. Tutti i funnel iniziano al passo 1. Limitato ai passi 1-100. Passi ripetuti dallo stesso utente nella stessa sessione del funnel, o quando <code>funnelSessionId</code> è <code>nil</code> saranno ignorati. Nota che se qualche passo viene saltato, i passi intermedi saranno considerati completati."
+    "documentation": "Il numero del passo nel funnel. Questo dovrebbe essere unico per ciascun passo nel funnel. Tutti i funnel iniziano al passo 1. Limitato ai passi 1-100. I passi ripetuti dallo stesso utente nella stessa sessione del funnel, o quando <code>funnelSessionId</code> è <code>nil</code> verranno ignorati. Nota che se alcuni passi vengono saltati, i passi intermedi saranno considerati completati."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/5": {
     "documentation": "Nome opzionale del passo nel funnel. Questo campo è utilizzato solo per scopi di visualizzazione nei grafici forniti da Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent/param/6": {
-    "documentation": "Dizionario opzionale di campi personalizzati che forniranno ripartizioni nei grafici forniti da Roblox. Solo chiavi specifiche, fornite da <code>AnalyticsCustomFieldKeys</code>, verranno utilizzate per queste ripartizioni. Limitato a 8.000 combinazioni uniche di valori sulle tre campi personalizzati per esperienza."
+    "documentation": "Dizionario opzionale di campi personalizzati che forniranno suddivisioni nei grafici forniti da Roblox. Solo chiavi specifiche, fornite da <code>AnalyticsCustomFieldKeys</code>, saranno utilizzate per queste suddivisioni. Limitato a 8.000 combinazioni uniche di valori attraverso i tre campi personalizzati per esperienza."
   },
   "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent": {
-    "documentation": "Registra un evento utilizzato per tracciare azioni degli utenti che attraversano un funnel pre-programmato.",
+    "documentation": "Registra un evento utilizzato per tracciare le azioni degli utenti che attraversano un funnel pre-pianificato.",
     "params": [
       {
         "name": "self",
@@ -77501,16 +77499,16 @@
     "documentation": "L'utente che ha attivato l'evento."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/2": {
-    "documentation": "Il numero del passo nel funnel. Questo dovrebbe essere unico per ogni passo nel funnel. Tutti i funnel iniziano al passo 1. Limitato ai passi 1-100. Nota che se qualche passo viene saltato, i passi intermedi saranno considerati completati."
+    "documentation": "Il numero del passo nel funnel. Questo dovrebbe essere unico per ciascun passo nel funnel. Tutti i funnel iniziano al passo 1. Limitato ai passi 1-100. Nota che se alcuni passi vengono saltati, i passi intermedi saranno considerati completati."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/3": {
     "documentation": "Nome opzionale del passo nel funnel. Questo campo è utilizzato solo per scopi di visualizzazione nei grafici forniti da Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/4": {
-    "documentation": "Dizionario opzionale di campi personalizzati che forniranno ripartizioni nei grafici forniti da Roblox. Solo chiavi specifiche, fornite da <code>AnalyticsCustomFieldKeys</code>, verranno utilizzate per queste ripartizioni. Limitato a 8.000 combinazioni uniche di valori sulle tre campi personalizzati per esperienza."
+    "documentation": "Dizionario opzionale di campi personalizzati che forniranno suddivisioni nei grafici forniti da Roblox. Solo chiavi specifiche, fornite da <code>AnalyticsCustomFieldKeys</code>, saranno utilizzate per queste suddivisioni. Limitato a 8.000 combinazioni uniche di valori attraverso i tre campi personalizzati per esperienza."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent": {
-    "documentation": "Registra un evento utilizzato per tracciare azioni degli utenti che attraversano un funnel di onboarding.",
+    "documentation": "Registra un evento utilizzato per tracciare le azioni degli utenti che attraversano un funnel di onboarding.",
     "params": [
       {
         "name": "self",
@@ -79881,20 +79879,20 @@
   "@roblox/globaltype/TextBox.Font": {
     "documentation": "Determina il font utilizzato per rendere il testo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Font",
-    "code_sample": "local textLabel = script.Parent\n\nwhile true do\n\t-- Itera su tutti i diversi font\n\tfor _, font in pairs(Enum.Font:GetEnumItems()) do\n\t\ttextLabel.Font = font\n\t\ttextLabel.Text = font.Name\n\t\ttask.wait(1)\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.FontFace": {
-    "documentation": "Determina il font utilizzato per rendere il testo.",
+    "documentation": "Determina il tipo di carattere utilizzato per renderizzare il testo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#FontFace",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.FontSize": {
-    "documentation": "<strong>Deprecated:</strong> Questo elemento è stato superato da <code>TextBox.TextSize</code>, che dovrebbe essere utilizzato in tutto il nuovo lavoro.<br>Determina la dimensione del font di un oggetto <code>TextBox</code>.",
+    "documentation": "<strong>Deprecated:</strong> Questo elemento è stato superato da <code>TextBox.TextSize</code>, che dovrebbe essere utilizzato in tutto il nuovo lavoro.<br>Determina la dimensione del carattere di un oggetto <code>TextBox</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#FontSize",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.LineHeight": {
-    "documentation": "Scala la spaziatura tra le righe di testo nel <code>TextBox</code>.",
+    "documentation": "Scala lo spazio tra le righe di testo nel <code>TextBox</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#LineHeight",
     "code_sample": ""
   },
@@ -79904,7 +79902,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.MultiLine": {
-    "documentation": "Quando impostato su <code>true</code>, il testo all'interno di un <code>TextBox</code> può muoversi su più righe. Questo abilita anche i giocatori a utilizzare il tasto enter per passare a una nuova riga.",
+    "documentation": "Se impostato su <code>true</code>, il testo all'interno di un <code>TextBox</code> può muoversi su più righe.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#MultiLine",
     "code_sample": ""
   },
@@ -79919,37 +79917,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.PlaceholderColor3": {
-    "documentation": "Imposta il colore del testo che viene utilizzato quando non è stato ancora inserito alcun testo nel <code>TextBox</code>.",
+    "documentation": "Imposta il colore del testo da utilizzare quando non è stato inserito alcun testo nel <code>TextBox</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#PlaceholderColor3",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.PlaceholderText": {
-    "documentation": "Imposta il testo che viene visualizzato quando non è stato ancora inserito alcun testo nel <code>TextBox</code>.",
+    "documentation": "Imposta il testo che viene visualizzato quando non è stato inserito alcun testo nel <code>TextBox</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#PlaceholderText",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.RichText": {
-    "documentation": "Determina se il <code>TextBox</code> rende la stringa <code>TextBox.Text</code> utilizzando il formato di testo arricchito.",
+    "documentation": "Determina se il <code>TextBox</code> renderizza la stringa <code>Text</code> utilizzando la formattazione del testo ricco.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#RichText",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.SelectionStart": {
-    "documentation": "Determina la posizione iniziale di una selezione di testo, o -1 se non è stato selezionato alcun testo.",
+    "documentation": "Determina la posizione iniziale di una selezione di testo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#SelectionStart",
     "code_sample": "local textBox = script.Parent\n\nlocal function showSelection()\n\tif textBox.CursorPosition == -1 or textBox.SelectionStart == -1 then\n\t\tprint(\"Nessuna selezione\")\n\telse\n\t\tlocal selectedText = string.sub(\n\t\t\ttextBox.Text,\n\t\t\tmath.min(textBox.CursorPosition, textBox.SelectionStart),\n\t\t\tmath.max(textBox.CursorPosition, textBox.SelectionStart)\n\t\t)\n\t\tprint('La selezione è: \"', selectedText, '\"')\n\tend\nend\n\ntextBox:GetPropertyChangedSignal(\"CursorPosition\"):Connect(showSelection)\ntextBox:GetPropertyChangedSignal(\"SelectionStart\"):Connect(showSelection)"
   },
   "@roblox/globaltype/TextBox.ShowNativeInput": {
-    "documentation": "Se impostato su true, viene utilizzato l'input nativo della piattaforma invece della tastiera integrata di Roblox.",
+    "documentation": "Se impostato su <code>true</code>, si utilizza l'input nativo della piattaforma anziché quellaˢ keyboard integrata di Roblox.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#ShowNativeInput",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.Text": {
-    "documentation": "Determina la stringa renderizzata dall'elemento dell'interfaccia utente.",
+    "documentation": "Determina la stringa renderizzata dall'elemento <code>TextBox</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Text",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextBounds": {
-    "documentation": "La dimensione del testo di un elemento dell'interfaccia utente in offset.",
+    "documentation": "La dimensione del testo di un elemento <code>TextBox</code> in offset.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextBounds",
     "code_sample": ""
   },
@@ -79959,7 +79957,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextColor3": {
-    "documentation": "Determina il colore del testo renderizzato.",
+    "documentation": "Determina il colore del testo renderizzato che non è segnaposto.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextColor3",
     "code_sample": "local textBox = script.Parent\n\nlocal function hasVowels(str)\n\treturn str:lower():find(\"[aeiou]\")\nend\n\nlocal function onTextChanged()\n\tlocal text = textBox.Text\n\t-- Controlla le vocali\n\tif hasVowels(text) then\n\t\ttextBox.TextColor3 = Color3.new(0, 0, 0) -- Nero\n\telse\n\t\ttextBox.TextColor3 = Color3.new(1, 0, 0) -- Rosso\n\tend\nend\n\ntextBox:GetPropertyChangedSignal(\"Text\"):Connect(onTextChanged)"
   },
@@ -79974,19 +79972,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextFits": {
-    "documentation": "Se il testo si adatta all'interno dei vincoli del TextBox.",
+    "documentation": "Se il testo si adatta ai vincoli del <code>TextBox</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextFits",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextScaled": {
-    "documentation": "Cambia se il testo viene ridimensionato per adattarsi all'oggetto GUI che lo rende.",
+    "documentation": "Cambia se il testo viene ridimensionato per adattarsi all'interno del <code>TextBox</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextScaled",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextSize": {
     "documentation": "Determina l'altezza della linea del testo in offset.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextSize",
-    "code_sample": "local textLabel = script.Parent\n\ntextLabel.Text = \"Kaboom!\"\n\nwhile true do\n\tfor size = 5, 100, 5 do\n\t\ttextLabel.TextSize = size\n\t\ttextLabel.TextTransparency = size / 100\n\t\ttask.wait()\n\tend\n\ttask.wait(1)\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextStrokeColor3": {
     "documentation": "Determina il colore del contorno del testo (outline).",
@@ -80004,7 +80002,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextTruncate": {
-    "documentation": "Controlla la troncatura del testo visualizzato in questo TextBox.",
+    "documentation": "Controlla la troncatura del testo visualizzato nel <code>TextBox</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextTruncate",
     "code_sample": ""
   },
@@ -80014,7 +80012,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextWrapped": {
-    "documentation": "Determina se il testo va a capo su più righe all'interno dello spazio dell'elemento <code>GuiObject</code>, troncando il testo in eccesso.",
+    "documentation": "Determina se il testo si avvolge su più righe all'interno dello spazio dell'elemento <code>TextBox</code>, troncando il testo in eccesso.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextWrapped",
     "code_sample": ""
   },
@@ -80032,7 +80030,7 @@
     "documentation": "Un elemento dell'interfaccia utente 2D che visualizza testo modificabile dal giocatore."
   },
   "@roblox/globaltype/TextBox.CaptureFocus": {
-    "documentation": "Costringe il client a focalizzarsi sul TextBox.",
+    "documentation": "Costringe il client a focalizzarsi sul <code>TextBox</code>.",
     "params": [
       {
         "name": "self",
@@ -80041,7 +80039,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#CaptureFocus",
-    "code_sample": ""
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal textBox = script.Parent\n\nlocal input = UserInputService.InputBegan:Connect(function(input, processed)\n\tif input.KeyCode == Enum.KeyCode.Q then\n\t\ttextBox:CaptureFocus()\n\tend\nend)"
   },
   "@roblox/globaltype/TextBox.IsFocused/param/0": {
     "documentation": "Un elemento dell'interfaccia utente 2D che visualizza testo modificabile dal giocatore."
@@ -80083,7 +80081,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#ReleaseFocus",
-    "code_sample": "local textBox = script.Parent\n\nlocal function onFocused()\n\ttask.wait(5)\n\ttextBox:ReleaseFocus()\nend\n\ntextBox.Focused:Connect(onFocused)"
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal textBox = script.Parent\n\nlocal input = UserInputService.InputBegan:Connect(function(input, processed)\n\tif input.KeyCode == Enum.KeyCode.Escape and textBox.IsFocused then\n\t\ttextBox:ReleaseFocus()\n\tend\nend)"
   },
   "@roblox/globaltype/TextBox.Focused.Connect/param/0": {
     "documentation": "Un oggetto che esegue funzioni connesse al verificarsi di un evento specifico."
@@ -80163,7 +80161,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextBox.Focused": {
-    "documentation": "Si attiva quando il <code>TextBox</code> ottiene il fuoco.",
+    "documentation": "Si attiva quando il <code>TextBox</code> ottiene il focus.",
     "keys": {
       "Connect": "@roblox/globaltype/TextBox.Focused.Connect",
       "ConnectParallel": "@roblox/globaltype/TextBox.Focused.ConnectParallel",
@@ -80171,7 +80169,7 @@
       "Wait": "@roblox/globaltype/TextBox.Focused.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Focused",
-    "code_sample": "local textBox = script.Parent\n\nlocal function onFocused()\n\tprint(\"A fuoco\")\nend\n\ntextBox.Focused:Connect(onFocused)"
+    "code_sample": "local textBox = script.Parent\n\ntextBox.Focused:Connect(function()\n\tprint(\"Focalizzato!\")\nend)\n\ntextBox.FocusLost:Connect(function()\n\tprint(\"Focus perso!\")\nend)"
   },
   "@roblox/globaltype/TextBox.FocusLost.Connect/param/0": {
     "documentation": "Un oggetto che esegue funzioni connesse al verificarsi di un evento specifico."
@@ -80251,7 +80249,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextBox.FocusLost": {
-    "documentation": "Si attiva quando il client lascia il fuoco dal <code>TextBox</code>.",
+    "documentation": "Si attiva quando il <code>TextBox</code> perde il focus.",
     "keys": {
       "Connect": "@roblox/globaltype/TextBox.FocusLost.Connect",
       "ConnectParallel": "@roblox/globaltype/TextBox.FocusLost.ConnectParallel",
@@ -80259,7 +80257,7 @@
       "Wait": "@roblox/globaltype/TextBox.FocusLost.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#FocusLost",
-    "code_sample": "local gui = script.Parent\nlocal textBox = gui.TextBox\n\nlocal function focusLost(enterPressed)\n\tif enterPressed then\n\t\tprint(\"Il focus è stato perso perché è stato premuto invio!\")\n\telse\n\t\tprint(\"Il focus è stato perso senza che fosse premuto invio\")\n\tend\nend\n\ntextBox.FocusLost:Connect(focusLost)"
+    "code_sample": "local textBox = script.Parent\n\ntextBox.Focused:Connect(function()\n\tprint(\"Focalizzato!\")\nend)\n\ntextBox.FocusLost:Connect(function()\n\tprint(\"Focus perso!\")\nend)"
   },
   "@roblox/globaltype/TextBox.ReturnPressedFromOnScreenKeyboard.Connect/param/0": {
     "documentation": "Un oggetto che esegue funzioni connesse al verificarsi di un evento specifico."
@@ -118667,6 +118665,68 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreatorType",
     "code_sample": ""
   },
+  "@roblox/enum/CreateContentResult.Success": {
+    "documentation": "Success.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.PermissionDenied": {
+    "documentation": "The user does not have the required permissions to perform this operation.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#PermissionDenied",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.UploadFailed": {
+    "documentation": "Asset failed to upload.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#UploadFailed",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.StorageLimitExceeded": {
+    "documentation": "The storage budget limit for <code>DataModel</code>-scoped content was exceeded.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#StorageLimitExceeded",
+    "code_sample": ""
+  },
+  "@roblox/enum/CreateContentResult.Unknown": {
+    "documentation": "An unknown error occurred.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.CreateContentResult": {
+    "documentation": "",
+    "keys": {
+      "Success": "@roblox/enum/CreateContentResult.Success",
+      "PermissionDenied": "@roblox/enum/CreateContentResult.PermissionDenied",
+      "UploadFailed": "@roblox/enum/CreateContentResult.UploadFailed",
+      "StorageLimitExceeded": "@roblox/enum/CreateContentResult.StorageLimitExceeded",
+      "Unknown": "@roblox/enum/CreateContentResult.Unknown"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CreateContentResult",
+    "code_sample": ""
+  },
   "@roblox/enum/ActionOnStopSync.AlwaysAsk": {
     "documentation": "",
     "keys": {
@@ -134495,7 +134555,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AutomaticSize.X": {
-    "documentation": "Ridimensiona automaticamente l'elemento lungo l'asse X per adattarsi ai contenuti dei figli.",
+    "documentation": "Ridimensiona automaticamente l'elemento lungo l'asse <strong>X</strong> per adattarsi ai contenuti figli.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -134505,7 +134565,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AutomaticSize.Y": {
-    "documentation": "Ridimensiona automaticamente l'elemento lungo l'asse Y per adattarsi ai contenuti dei figli. Gli oggetti di testo si ridimensioneranno solo lungo l'asse Y se <code>TextWrapped</code> è abilitato.",
+    "documentation": "Ridimensiona automaticamente l'elemento lungo l'asse <strong>Y</strong> per adattarsi ai contenuti figli. Gli oggetti di testo si ridimensioneranno solo lungo l'asse <strong>Y</strong> se la loro proprietà <code>TextWrapped</code> è attivata.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -134515,7 +134575,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AutomaticSize.XY": {
-    "documentation": "Ridimensiona automaticamente l'elemento lungo gli assi X e Y per adattarsi ai contenuti dei figli.",
+    "documentation": "Ridimensiona automaticamente l'elemento lungo gli assi <strong>X</strong> e <strong>Y</strong> per adattarsi ai contenuti figli.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
