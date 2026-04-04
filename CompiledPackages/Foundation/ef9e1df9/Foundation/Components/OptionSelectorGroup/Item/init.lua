@@ -1,5 +1,0 @@
-local OptionSelectorGroupItem = require(script.OptionSelectorGroupItem)
-
-export type OptionSelectorGroupItemProps = OptionSelectorGroupItem.OptionSelectorGroupItemProps
-
-return OptionSelectorGroupItem
