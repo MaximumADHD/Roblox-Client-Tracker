@@ -9084,6 +9084,7 @@
 [C++] FFlagFixLocaleIdNotSetInAppStorageIssue
 [C++] FFlagFixLocalizationTableRapidJsonFailures2
 [C++] FFlagFixMacCommandToolClick
+[C++] FFlagFixMakeupCharacterAppearanceLoaded
 [C++] FFlagFixManualModeReportingFRMTunable
 [C++] FFlagFixMaterialGeneratorUploadingMaps
 [C++] FFlagFixMeshLoadingHang
@@ -9104,6 +9105,7 @@
 [C++] FFlagFixPopMouseIcon
 [C++] FFlagFixRedundantAllocationInAnimator
 [C++] FFlagFixRemindMeButtonStall
+[C++] FFlagFixRequireHang
 [Lua] FFlagFixSafetyBubbleWidth
 [C++] FFlagFixScalingValueRename
 [C++] FFlagFixScreenScaleAlwaysBeingOne
