@@ -43,7 +43,7 @@ local function OverflowButton(
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			tag = `bg-surface-0 size-0-full auto-x col align-y-center {props.tag}`,
+			tag = `col align-y-center size-0-full auto-x bg-surface-0 {props.tag}`,
 		}),
 		{
 			UIGradient = React.createElement("UIGradient", {
@@ -121,7 +121,7 @@ local function OverflowScrollContainer(props: OverflowScrollContainerProps)
 		moveScrollByPixels(SCROLL_STEP)
 	end, { moveScrollByPixels })
 
-	return React.createElement(View, withCommonProps(props, { tag = "auto-y size-full-0" }), {
+	return React.createElement(View, withCommonProps(props, { tag = "size-full-0 auto-y" }), {
 		Scroll = React.createElement(ScrollView, {
 			LayoutOrder = 1,
 			tag = "size-full",
@@ -161,7 +161,7 @@ local function OverflowScrollContainer(props: OverflowScrollContainerProps)
 			Visible = isEndOverflowVisible,
 			onActivated = onOverflowEndActivated,
 			gradient = END_GRADIENT,
-			tag = "padding-left-small anchor-top-right",
+			tag = "anchor-top-right padding-left-small",
 			icon = "chevron-large-right",
 			testId = `{props.testId}--overflow-end`,
 		}),

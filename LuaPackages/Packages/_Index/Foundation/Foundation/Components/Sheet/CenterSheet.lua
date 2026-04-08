@@ -242,7 +242,7 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 				["bg-surface-100 stroke-default stroke-standard radius-large"] = true,
 				["size-full-0 auto-y"] = props.centerSheetHeight == nil,
 			}
-			else "bg-surface-100 stroke-default stroke-standard radius-large size-full-0 auto-y",
+			else "size-full-0 auto-y stroke-standard stroke-default radius-large bg-surface-100",
 		testId = props.testId,
 	}, {
 		Content = React.createElement(
@@ -255,7 +255,7 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 						return if value then UDim2.new(1, 0, 0, value) else nil
 					end)
 					else nil,
-				tag = "size-full-0 auto-y col items-center clip",
+				tag = "col items-center size-full-0 auto-y clip",
 			},
 			React.createElement(SheetContext.Provider, {
 				value = contextValue,
@@ -309,7 +309,7 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 							Position = bottomPosition:map(function(value: number)
 								return UDim2.new(0.5, 0, 0.5, value)
 							end),
-							tag = "size-full col align-y-center padding-medium anchor-center-center",
+							tag = "col align-y-center anchor-center-center size-full padding-medium",
 							testId = `{props.testId}--center-sheet-container`,
 							GroupTransparency = if animating
 								then bottomPosition:map(function(value: number)

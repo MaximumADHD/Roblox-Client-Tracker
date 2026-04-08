@@ -50,7 +50,7 @@ return {
 			story = function(props)
 				return React.createElement(
 					View,
-					{ tag = "auto-xy row gap-xlarge" },
+					{ tag = "row gap-xlarge auto-xy" },
 					Dash.map(ChipSize, function(value, key)
 						return React.createElement(Story, {
 							key = key,
@@ -74,7 +74,7 @@ return {
 			story = function(props)
 				return React.createElement(
 					View,
-					{ tag = "auto-xy row gap-xlarge" },
+					{ tag = "row gap-xlarge auto-xy" },
 					Dash.map(ChipVariant, function(value, key)
 						return React.createElement(Story, {
 							key = key,
@@ -127,7 +127,7 @@ return {
 				local tokens = useTokens()
 				return React.createElement(
 					View,
-					{ tag = "bg-surface-300 auto-xy padding-large" },
+					{ tag = "auto-xy padding-large bg-surface-300" },
 					React.createElement(
 						BackgroundStyleContext.Provider,
 						{ value = tokens.Color.Surface.Surface_300 },

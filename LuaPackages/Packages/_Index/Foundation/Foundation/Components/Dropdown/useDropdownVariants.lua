@@ -42,27 +42,27 @@ local function variantsFactory(tokens: Tokens)
 		container = {
 			tag = "row flex-x-between align-y-center stroke-standard stroke-position-inner",
 		},
-		text = { tag = "auto-xy text-truncate-split shrink" },
+		text = { tag = "shrink auto-xy text-truncate-split" },
 	}
 
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = {
-			container = { tag = "radius-small padding-small gap-xxsmall size-full-600" },
+			container = { tag = "gap-xxsmall size-full-600 padding-small radius-small" },
 			text = { tag = "text-body-small" },
 			arrow = { size = if Flags.FoundationDropdownControlIconFix then IconSize.XSmall else InputSize.Small },
 		},
 		[InputSize.Small] = {
-			container = { tag = "radius-medium padding-medium gap-xxsmall size-full-800" },
+			container = { tag = "gap-xxsmall size-full-800 padding-medium radius-medium" },
 			text = { tag = "text-body-small" },
 			arrow = { size = if Flags.FoundationDropdownControlIconFix then IconSize.Small else InputSize.Small },
 		},
 		[InputSize.Medium] = {
-			container = { tag = "radius-medium padding-medium size-full-1000" },
+			container = { tag = "size-full-1000 padding-medium radius-medium" },
 			text = { tag = "text-body-medium" },
 			arrow = { size = if Flags.FoundationDropdownControlIconFix then IconSize.Medium else InputSize.Medium },
 		},
 		[InputSize.Large] = {
-			container = { tag = "radius-medium padding-medium size-full-1200" },
+			container = { tag = "size-full-1200 padding-medium radius-medium" },
 			text = { tag = "text-body-large" },
 			arrow = { size = if Flags.FoundationDropdownControlIconFix then IconSize.Large else InputSize.Large },
 		},

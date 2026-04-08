@@ -55,13 +55,13 @@ end
 local function variantsFactory(tokens: Tokens)
 	local common = {
 		container = {
-			tag = "size-full-0 auto-y row padding-y-large padding-x-medium gap-medium",
+			tag = "row gap-medium size-full-0 auto-y padding-x-medium padding-y-large",
 		},
 		title = {
-			tag = "text-align-x-left text-wrap auto-xy text-title-medium padding-y-xxsmall",
+			tag = "auto-xy padding-y-xxsmall text-title-medium text-wrap text-align-x-left",
 		},
 		description = {
-			tag = "text-align-x-left text-wrap auto-xy text-body-medium text-wrap",
+			tag = "auto-xy text-body-medium text-wrap text-align-x-left",
 		},
 	}
 

@@ -138,7 +138,7 @@ local function ExperienceTileV3(props: Props)
 	local contentTextLineCount: number = setDefault(props.contentTextLineCount, Constants.DEFAULT_TEXT_LINE_COUNT)
 
 	local renderTopContent = React.useCallback(function(isHoverContent: boolean): React.ReactElement?
-		isHoverContent = isHoverContent and not style.Settings.ReducedMotion
+		isHoverContent = isHoverContent and not (style.Settings :: any).ReducedMotion
 		local finalAspetRatioMode: AspectRatioMode =
 			getFinalAspectRatioMode(props.thumbnailAspectRatioOverride, isHoverContent)
 		local finalAspetRatio = getAspectRatio(finalAspetRatioMode)

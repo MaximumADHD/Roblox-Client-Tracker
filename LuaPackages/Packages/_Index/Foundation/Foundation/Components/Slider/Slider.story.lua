@@ -99,7 +99,7 @@ return {
 				end, { isPlaying })
 
 				return React.createElement(View, {
-					tag = "size-full-0 auto-y col gap-small",
+					tag = "col gap-small size-full-0 auto-y",
 				}, {
 					Slider = React.createElement(Slider, {
 						value = value,
@@ -139,7 +139,7 @@ return {
 				end)
 
 				return React.createElement(View, {
-					tag = "auto-y size-full-0 radius-circle stroke-standard stroke-emphasis",
+					tag = "size-full-0 auto-y stroke-standard stroke-emphasis radius-circle",
 					backgroundStyle = tokens.Color.Extended.White.White_100,
 				}, {
 					Gradient = React.createElement("UIGradient", {
@@ -197,7 +197,7 @@ return {
 				end
 
 				return React.createElement(View, {
-					tag = "size-full-3000 row align-y-center",
+					tag = "row align-y-center size-full-3000",
 				}, sliders)
 			end,
 		},

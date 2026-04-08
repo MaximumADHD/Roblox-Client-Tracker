@@ -2,19 +2,21 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
+local Flags = require(Foundation.Utility.Flags)
 local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
+local useScreen = require(Foundation.Providers.Overlay.useScreen)
 
 local function useScreenHeight()
-	local overlay = useOverlay()
-	local height, setHeight = React.useState(overlay and overlay.AbsoluteSize.Y or 0)
+	local screen = if Flags.FoundationOverlayKeyboardAwarenessHardened then useScreen() else useOverlay()
+	local height, setHeight = React.useState(screen and screen.AbsoluteSize.Y or 0)
 
 	React.useLayoutEffect(function()
 		local connection
 
-		if overlay then
-			setHeight(overlay.AbsoluteSize.Y)
-			connection = overlay:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
-				setHeight(overlay.AbsoluteSize.Y)
+		if screen then
+			setHeight(screen.AbsoluteSize.Y)
+			connection = screen:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+				setHeight(screen.AbsoluteSize.Y)
 			end)
 		end
 
@@ -23,7 +25,7 @@ local function useScreenHeight()
 				connection:Disconnect()
 			end
 		end
-	end, { overlay })
+	end, { screen })
 
 	return height
 end

@@ -9,6 +9,7 @@ local BottomSheet = require(script.Parent.BottomSheet)
 local CenterSheet = require(script.Parent.CenterSheet)
 local SideSheet = require(script.Parent.SideSheet)
 local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
+local useScreen = require(Foundation.Providers.Overlay.useScreen)
 local GuiService = require(Foundation.Utility.Wrappers).Services.GuiService
 local DialogSize = require(Foundation.Enums.DialogSize)
 local withDefaults = require(Foundation.Utility.withDefaults)
@@ -26,10 +27,10 @@ local function Sheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>): React.R
 	local props = withDefaults(sheetProps, defaultProps)
 	local isOpen, setIsOpen = React.useState(if props.isOpen == nil then true else props.isOpen)
 	local sheetRef = React.useRef(nil :: SheetRef?)
-	local overlay = useOverlay()
+	local screen = if Flags.FoundationOverlayKeyboardAwarenessHardened then useScreen() else useOverlay()
 
 	local isLandscape, setIsLandscape =
-		React.useState(if overlay then overlay.AbsoluteSize.X > overlay.AbsoluteSize.Y else true)
+		React.useState(if screen then screen.AbsoluteSize.X > screen.AbsoluteSize.Y else true)
 	local displaySize, setDisplaySize = React.useState(GuiService.ViewportDisplaySize)
 
 	React.useImperativeHandle(props.sheetRef, function()
@@ -56,10 +57,10 @@ local function Sheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>): React.R
 
 	React.useLayoutEffect(function()
 		local connection
-		if overlay then
-			setIsLandscape(overlay.AbsoluteSize.X > overlay.AbsoluteSize.Y)
-			connection = overlay:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
-				setIsLandscape(overlay.AbsoluteSize.X > overlay.AbsoluteSize.Y)
+		if screen then
+			setIsLandscape(screen.AbsoluteSize.X > screen.AbsoluteSize.Y)
+			connection = screen:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+				setIsLandscape(screen.AbsoluteSize.X > screen.AbsoluteSize.Y)
 			end)
 		end
 
@@ -68,7 +69,7 @@ local function Sheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>): React.R
 				connection:Disconnect()
 			end
 		end
-	end, { overlay })
+	end, { screen })
 
 	if not isOpen then
 		return nil

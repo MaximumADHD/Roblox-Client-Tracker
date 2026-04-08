@@ -6,6 +6,7 @@ local StyleRule = require(StyleSheetRoot.StyleRule)
 local Types = require(StyleSheetRoot.Rules.Types)
 
 local Device = require(Foundation.Enums.Device)
+local Flags = require(Foundation.Utility.Flags)
 local Theme = require(Foundation.Enums.Theme)
 local scaleValue = require(Foundation.Utility.scaleValue)
 
@@ -47,7 +48,7 @@ local function updateRuleAttributes(
 	scale: number?
 )
 	attributes = attributes or {}
-	scale = scale or 1
+	scale = if Flags.FoundationDisableTokenScaling then 1 else scale or 1
 
 	for _, attribute in attributes :: { StyleAttribute<unknown> } do
 		if attributesCache[attribute.name] ~= scale then

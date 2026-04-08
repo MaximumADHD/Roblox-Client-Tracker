@@ -26,8 +26,8 @@ type SegmentedControlVariantProps = {
 
 local function variantsFactory(tokens: Tokens)
 	local common = {
-		container = { tag = "auto-xy align-y-center row bg-surface-300" },
-		segment = { tag = "auto-xy row size-0-full align-y-center" },
+		container = { tag = "row align-y-center auto-xy bg-surface-300" },
+		segment = { tag = "row align-y-center size-0-full auto-xy" },
 		text = { tag = "auto-x text-truncate-end content-emphasis" },
 		divider = { tag = "row" },
 	}

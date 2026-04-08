@@ -42,7 +42,7 @@ local function CalendarDay(props: Props)
 			mode = if props.isSelected then StateLayerMode.Inverse else StateLayerMode.Default,
 		},
 		Text = if props.isSelectable then props.Text else `<s>{props.Text}</s>`,
-		tag = "text-align-x-center text-align-y-center text-title-small auto-xy",
+		tag = "auto-xy text-title-small text-align-x-center text-align-y-center",
 		testId = props.testId,
 	})
 end

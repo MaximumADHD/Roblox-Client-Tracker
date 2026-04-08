@@ -375,7 +375,7 @@ return {
 						end,
 					}, {
 						Card = React.createElement(View, {
-							tag = "bg-surface-100 padding-large auto-xy radius-medium stroke-neutral col gap-medium",
+							tag = "col gap-medium auto-xy padding-large stroke-neutral radius-medium bg-surface-100",
 							onActivated = function()
 								setIsOpen2(not isOpen2)
 							end,

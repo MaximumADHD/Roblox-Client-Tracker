@@ -18,7 +18,7 @@ local function ImageGridItem(props: {
 	local isVisible = props.isVisible
 
 	return React.createElement(View, {
-		tag = "size-3000-0 auto-y col align-x-center align-y-center gap-small bg-surface-100 radius-medium padding-medium",
+		tag = "col align-x-center align-y-center gap-small size-3000-0 auto-y padding-medium radius-medium bg-surface-100",
 		Visible = isVisible,
 	}, {
 		ImageContainer = React.createElement(Image, {
@@ -28,13 +28,13 @@ local function ImageGridItem(props: {
 		}),
 
 		Label = React.createElement(Text, {
-			tag = "auto-xy size-full-0 content-default text-caption-large text-wrap",
+			tag = "size-full-0 auto-xy text-caption-large text-wrap content-default",
 			Text = imageName:match("([^/]+)$") or imageName, -- Extract just the filename
 			LayoutOrder = 2,
 		}),
 
 		FullPath = React.createElement(Text, {
-			tag = "auto-xy size-full-0 content-default text-caption-small text-wrap",
+			tag = "size-full-0 auto-xy text-caption-small text-wrap content-default",
 			Text = imageName,
 			LayoutOrder = 3,
 		}),
@@ -90,7 +90,7 @@ local function createStoryForSection(sectionName, imageList)
 			end
 
 			return React.createElement(View, {
-				tag = "auto-y size-full-0 row wrap gap-xlarge",
+				tag = "row wrap gap-xlarge size-full-0 auto-y",
 			}, gridItems)
 		end,
 	}

@@ -25,7 +25,9 @@ local Popover = require(Foundation.Components.Popover)
 type PopoverAnchorProps = Popover.PopoverAnchorProps
 
 export type TooltipProps = {
+	-- A title for the tooltip. To omit, set it to an empty string.
 	title: string,
+	-- Body text for the tooltip.
 	text: string?,
 	-- Shortcut associated with the action owning the tooltip
 	shortcut: { Enum.KeyCode }?,
@@ -117,37 +119,42 @@ local function Tooltip(tooltipProps: TooltipProps)
 			React.createElement(View, {
 				tag = {
 					["col gap-xsmall auto-xy"] = true,
-					["padding-y-small padding-x-medium"] = props.text ~= nil,
-					["padding-y-xsmall padding-x-small"] = props.text == nil,
+					["padding-x-medium padding-y-small"] = props.text ~= nil,
+					["padding-x-small padding-y-xsmall"] = props.text == nil,
 				},
 				sizeConstraint = {
 					MaxSize = Vector2.new(maxXSize, math.huge),
 				},
 			}, {
-				Header = React.createElement(
-					View,
-					{ LayoutOrder = 1, tag = "row gap-small size-full-0 auto-y flex-between" },
-					{
-						Title = React.createElement(Text, {
-							LayoutOrder = 1,
-							Text = props.title,
-							tag = "auto-xy text-title-small content-inverse-emphasis text-truncate-end shrink",
-						}),
-						Shortcut = if props.shortcut
-							then React.createElement(Text, {
-								LayoutOrder = 2,
-								Text = shortcutText,
-								tag = "auto-xy text-body-small content-inverse-muted",
-								testId = `{props.testId}--shortcut`,
-							})
-							else nil,
-					}
-				),
+				Header = if props.title ~= "" or props.shortcut
+					then React.createElement(
+						View,
+						{ LayoutOrder = 1, tag = "row flex-between gap-small size-full-0 auto-y" },
+						{
+							Title = if props.title ~= ""
+								then React.createElement(Text, {
+									LayoutOrder = 1,
+									Text = props.title,
+									tag = "shrink auto-xy text-title-small text-truncate-end content-inverse-emphasis",
+									testId = `{props.testId}--title`,
+								})
+								else nil,
+							Shortcut = if props.shortcut
+								then React.createElement(Text, {
+									LayoutOrder = 2,
+									Text = shortcutText,
+									tag = "auto-xy text-body-small content-inverse-muted",
+									testId = `{props.testId}--shortcut`,
+								})
+								else nil,
+						}
+					)
+					else nil,
 				Text = if props.text and props.text ~= ""
 					then React.createElement(Text, {
 						LayoutOrder = 2,
 						Text = props.text,
-						tag = "auto-xy text-wrap text-align-x-left text-body-small content-inverse-default",
+						tag = "auto-xy text-body-small text-wrap text-align-x-left content-inverse-default",
 						testId = `{props.testId}--text`,
 					})
 					else nil,

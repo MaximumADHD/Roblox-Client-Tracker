@@ -1,14 +1,25 @@
---!nocheck
-local dependencies = require(script.Parent.dependencies)
-local _Types = dependencies.SchemaPackage.Types
+local TokenDefaults = require(script.Parent.TokenDefaults)
 
-export type ComponentTokens = _Types.ComponentType
-export type SemanticTokens = _Types.SemanticType
-export type GlobalTokens = _Types.GlobalType
+export type ColorToken = {
+	Color3: Color3,
+	Transparency: number,
+}
+
+export type TypographyToken = {
+	Font: Enum.Font,
+	FontSize: number,
+	LineHeight: number,
+	LetterSpacing: number,
+}
+
+export type GlobalTokens = typeof(TokenDefaults.Global)
+export type SemanticTokens = typeof(TokenDefaults.Semantic)
+export type ComponentTokens = typeof(TokenDefaults.Component)
 
 export type Tokens = {
 	Global: GlobalTokens,
 	Semantic: SemanticTokens,
 	Component: ComponentTokens,
 }
+
 return {}

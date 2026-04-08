@@ -50,7 +50,7 @@ return {
 							Popover.Anchor,
 							nil,
 							React.createElement(View, {
-								tag = "bg-surface-100 padding-large auto-xy radius-medium stroke-neutral col gap-large",
+								tag = "col gap-large auto-xy padding-large stroke-neutral radius-medium bg-surface-100",
 							}, {
 								Text = React.createElement(Text, {
 									Text = "I am a card",
@@ -74,7 +74,7 @@ return {
 								radius = props.controls.radius,
 							},
 							React.createElement(View, {
-								tag = "col gap-small padding-medium auto-xy",
+								tag = "col gap-small auto-xy padding-medium",
 							}, {
 								Title = React.createElement(Text, {
 									Text = "Tooltip Title",
@@ -105,7 +105,7 @@ return {
 							Popover.Anchor,
 							nil,
 							React.createElement(View, {
-								tag = "bg-surface-100 padding-large auto-xy radius-medium stroke-neutral col gap-large",
+								tag = "col gap-large auto-xy padding-large stroke-neutral radius-medium bg-surface-100",
 							}, {
 								Text = React.createElement(Text, {
 									Text = "I am a card",
@@ -130,7 +130,7 @@ return {
 								end,
 							},
 							React.createElement(View, {
-								tag = "col gap-small padding-medium auto-xy",
+								tag = "col gap-small auto-xy padding-medium",
 							}, {
 								Title = React.createElement(Text, {
 									Text = "Click outside example",
@@ -180,7 +180,7 @@ return {
 								end,
 							},
 							React.createElement(View, {
-								tag = "col gap-small padding-medium auto-xy",
+								tag = "col gap-small auto-xy padding-medium",
 							}, {
 								Title = React.createElement(Text, {
 									Text = "Anchor Reference Example",
@@ -203,7 +203,7 @@ return {
 				local inputText, setInputText = React.useState("")
 
 				return React.createElement(View, {
-					tag = "col align-x-center align-y-center size-full-0 auto-y gap-large",
+					tag = "col align-x-center align-y-center gap-large size-full-0 auto-y",
 				}, {
 					Instructions = React.createElement(Text, {
 						Text = "Focus the input field to test keyboard-aware positioning",
@@ -259,7 +259,7 @@ return {
 								end,
 							},
 							React.createElement(View, {
-								tag = "col gap-small padding-medium auto-xy",
+								tag = "col gap-small auto-xy padding-medium",
 								Size = UDim2.fromOffset(300, 0),
 							}, {
 								Title = React.createElement(Text, {
@@ -272,7 +272,7 @@ return {
 								}),
 								CurrentText = React.createElement(Text, {
 									Text = `Current input: "{inputText}"`,
-									tag = "auto-xy text-body-small content-subtle",
+									tag = "auto-xy text-body-small",
 								}),
 							})
 						),
@@ -328,7 +328,7 @@ return {
 								-- hasArrow has no effect on the virtualRef anchors, and is always false
 							},
 							React.createElement(View, {
-								tag = "col gap-small padding-medium auto-xy",
+								tag = "col gap-small auto-xy padding-medium",
 							}, {
 								Title = React.createElement(Text, {
 									Text = "Can't close unless you are in the area",
@@ -372,7 +372,7 @@ return {
 				}, {
 					Text = React.createElement(Text, {
 						Text = "Right-click on this area to open the context menu.",
-						tag = "text-align-x-center size-full-full",
+						tag = "size-full-full text-align-x-center",
 					}),
 					Popover = React.createElement(Popover.Root, {
 						isOpen = open,
@@ -389,7 +389,7 @@ return {
 								end,
 							},
 							React.createElement(View, {
-								tag = "col gap-small padding-medium auto-xy",
+								tag = "col gap-small auto-xy padding-medium",
 							}, {
 								Text1 = React.createElement(Text, {
 									Text = "Context Menu",

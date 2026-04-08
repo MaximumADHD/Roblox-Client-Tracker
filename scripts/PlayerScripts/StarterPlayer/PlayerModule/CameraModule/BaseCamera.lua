@@ -18,6 +18,7 @@ local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 local CameraUI = require(script.Parent:WaitForChild("CameraUI"))
 
 local FFlagUserPlayerScriptsCameraInputNoBindables = FlagUtil.getUserFlag("UserPlayerScriptsCameraInputNoBindables")
+local FFlagUserPlayerScriptsCameraRotationUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsCameraRotationUsesIAS")
 
 local inputContexts
 local character
@@ -206,18 +207,6 @@ function BaseCamera:GetHumanoidRootPart(): BasePart
 		end
 	end
 	return self.humanoidRootPart
-end
-
-function BaseCamera:GetBodyPartToFollow(humanoid: Humanoid, isDead: boolean) -- BasePart
-	-- If the humanoid is dead, prefer the head part if one still exists as a sibling of the humanoid
-	if humanoid:GetState() == Enum.HumanoidStateType.Dead then
-		local character = humanoid.Parent
-		if character and character:IsA("Model") then
-			return character:FindFirstChild("Head") or humanoid.RootPart
-		end
-	end
-
-	return humanoid.RootPart
 end
 
 function BaseCamera:GetSubjectCFrame(): CFrame
@@ -423,21 +412,21 @@ function BaseCamera:GetSubjectPosition(): Vector3?
 					heightOffset = ZERO_VECTOR3
 				end
 
-				result = bodyPartToFollow.CFrame.p + bodyPartToFollow.CFrame:vectorToWorldSpace(heightOffset + cameraOffset)
+				result = bodyPartToFollow.CFrame.Position + bodyPartToFollow.CFrame:vectorToWorldSpace(heightOffset + cameraOffset)
 			end
 
 		elseif cameraSubject:IsA("VehicleSeat") then
 			local offset = SEAT_OFFSET
-			result = cameraSubject.CFrame.p + cameraSubject.CFrame:vectorToWorldSpace(offset)
+			result = cameraSubject.CFrame.Position + cameraSubject.CFrame:vectorToWorldSpace(offset)
 		elseif cameraSubject:IsA("SkateboardPlatform") then
-			result = cameraSubject.CFrame.p + SEAT_OFFSET
+			result = cameraSubject.CFrame.Position + SEAT_OFFSET
 		elseif cameraSubject:IsA("BasePart") then
-			result = cameraSubject.CFrame.p
+			result = cameraSubject.CFrame.Position
 		elseif cameraSubject:IsA("Model") then
 			if cameraSubject.PrimaryPart then
-				result = cameraSubject:GetPrimaryPartCFrame().p
+				result = cameraSubject:GetPrimaryPartCFrame().Position
 			else
-				result = cameraSubject:GetModelCFrame().p
+				result = cameraSubject:GetModelCFrame().Position
 			end
 		end
 	else
@@ -618,7 +607,9 @@ function BaseCamera:UpdateMouseBehavior()
 		else
 			CameraUtils.restoreRotationType()
 
-			local rotationActivated = CameraInput.getRotationActivated()
+			local rotationActivated = if FFlagUserPlayerScriptsCameraRotationUsesIAS
+				then CameraInput.getPanActivated()
+				else CameraInput.getRotationActivated()
 			if rotationActivated then
 				CameraUtils.setMouseBehaviorOverride(Enum.MouseBehavior.LockCurrentPosition)
 			else
@@ -727,7 +718,7 @@ end
 function BaseCamera:GetMeasuredDistanceToFocus(): number?
 	local camera = game.Workspace.CurrentCamera
 	if camera then
-		return (camera.CoordinateFrame.p - camera.Focus.p).magnitude
+		return (camera.CoordinateFrame.Position - camera.Focus.Position).magnitude
 	end
 	return nil
 end
@@ -753,7 +744,7 @@ end
 
 function BaseCamera:CalculateNewLookVectorVRFromArg(rotateInput: Vector2): Vector3
 	local subjectPosition: Vector3 = self:GetSubjectPosition()
-	local vecToSubject: Vector3 = (subjectPosition - (game.Workspace.CurrentCamera :: Camera).CFrame.p)
+	local vecToSubject: Vector3 = (subjectPosition - (game.Workspace.CurrentCamera :: Camera).CFrame.Position)
 	local currLookVector: Vector3 = (vecToSubject * X1_Y0_Z1).unit
 	local vrRotateInput: Vector2 = Vector2.new(rotateInput.X, 0)
 	local startCFrame: CFrame = CFrame.new(ZERO_VECTOR3, currLookVector)
@@ -778,20 +769,6 @@ function BaseCamera:GetHumanoid(): Humanoid?
 	end
 	return nil
 end
-
-function BaseCamera:GetHumanoidPartToFollow(humanoid: Humanoid, humanoidStateType: Enum.HumanoidStateType) -- BasePart
-	if humanoidStateType == Enum.HumanoidStateType.Dead then
-		local character = humanoid.Parent
-		if character then
-			return character:FindFirstChild("Head") or humanoid.Torso
-		else
-			return humanoid.Torso
-		end
-	else
-		return humanoid.Torso
-	end
-end
-
 
 function BaseCamera:OnNewCameraSubject()
 	if self.subjectStateChangedConn then

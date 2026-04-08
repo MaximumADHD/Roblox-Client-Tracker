@@ -49,10 +49,10 @@ local variantsMap = function(tokens: Tokens)
 
 	local common = {
 		container = {
-			tag = "row align-y-center align-x-center clip",
+			tag = "row align-x-center align-y-center clip",
 		},
 		text = {
-			tag = "size-0-full auto-x text-truncate-end shrink",
+			tag = "shrink size-0-full auto-x text-truncate-end",
 		},
 	}
 

@@ -23,7 +23,7 @@ local function Story(props)
 	end
 
 	return React.createElement(View, {
-		tag = "col gap-large auto-xy padding-xlarge size-3000",
+		tag = "col gap-large size-3000 auto-xy padding-xlarge",
 	}, {
 		InternalInput = React.createElement(InternalInput, {
 			isChecked = isChecked,
@@ -36,13 +36,13 @@ local function Story(props)
 			},
 			customVariantProps = if Flags.FoundationToggleVisualUpdate
 				then {
-					tag = "row gap-small align-x-center align-y-center",
+					tag = "row align-x-center align-y-center gap-small",
 					size = UDim2.fromOffset(200, 50),
 					cursorRadius = UDim.new(0, 8),
 					colors = { checkedStyle = tokens.Color.System[controls.checkedStyle] },
 				}
 				else {
-					tag = "row gap-small align-x-center align-y-center",
+					tag = "row align-x-center align-y-center gap-small",
 					size = UDim2.fromOffset(200, 50),
 					cursorRadius = UDim.new(0, 8),
 					checkedStyle = tokens.Color.System[controls.checkedStyle],

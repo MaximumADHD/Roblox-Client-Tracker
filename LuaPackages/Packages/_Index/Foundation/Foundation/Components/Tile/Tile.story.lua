@@ -271,7 +271,7 @@ return {
 				local tileNoButtonOffset = (titleLines + footerTextLines) * textSizeOffset
 
 				return React.createElement(View, {
-					tag = "auto-xy gap-large padding-small row",
+					tag = "row gap-large auto-xy padding-small",
 				}, {
 					Tile = React.createElement(Tile.Root, {
 						isContained = true,
@@ -533,7 +533,7 @@ return {
 				end
 
 				return React.createElement(View, {
-					tag = "auto-xy gap-large row",
+					tag = "row gap-large auto-xy",
 				}, {
 					PlayerTile = React.createElement(Tile.Root, {
 						FillDirection = Enum.FillDirection.Vertical,
@@ -557,7 +557,7 @@ return {
 						}, {
 							PlayerTileButtons = React.createElement(View, {
 								ZIndex = 2,
-								tag = "auto-y size-full-0 row gap-small align-x-right align-y-bottom anchor-bottom-right position-bottom-right",
+								tag = "row align-x-right align-y-bottom gap-small position-bottom-right anchor-bottom-right size-full-0 auto-y",
 							}, Dash.map(buttons, renderButton)),
 						}),
 						TileContent = React.createElement(Tile.Content, {
@@ -575,7 +575,7 @@ return {
 							}),
 							TileFooter = React.createElement(Tile.Footer, {}, {
 								RelevancyInfo = React.createElement(View, {
-									tag = "row gap-xsmall auto-y size-full-0",
+									tag = "row gap-xsmall size-full-0 auto-y",
 								}, {
 									Icon = React.createElement(Icon, {
 										name = relevancyInfo.icon,
@@ -607,7 +607,7 @@ return {
 						}, {
 							-- Could be icon but it's a custom size
 							React.createElement(Image, {
-								tag = "position-bottom-right anchor-center-center size-700-700 bg-system-success stroke-emphasis radius-circle",
+								tag = "position-bottom-right anchor-center-center size-700-700 stroke-emphasis radius-circle bg-system-success",
 								Image = "icons/placeholder/placeholderOff",
 							}),
 						}),
@@ -637,7 +637,7 @@ return {
 				local tokens = useTokens()
 
 				return React.createElement(View, {
-					tag = "auto-xy gap-large row",
+					tag = "row gap-large auto-xy",
 				}, {
 					MarketplaceTile = React.createElement(Tile.Root, {
 						FillDirection = Enum.FillDirection.Horizontal,

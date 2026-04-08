@@ -4,6 +4,7 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
 
+local Flags = require(Foundation.Utility.Flags)
 local FoundationProvider = require(Foundation.Providers.Foundation)
 local PreferencesProvider = require(Foundation.Providers.Preferences.PreferencesProvider)
 local Theme = require(Foundation.Enums.Theme)
@@ -68,6 +69,7 @@ type StoryProps = {
 	theme: Theme,
 	platform: Platform,
 	settings: Preferences,
+	plugin: Plugin,
 }
 
 local function StoryMiddleware(story)
@@ -93,6 +95,7 @@ local function StoryMiddleware(story)
 				preferences = storyProps.settings,
 				scale = storyProps.settings and storyProps.settings.scale,
 				overlayGui = overlay,
+				plugin = if Flags.FoundationPopoverPluginSupport then storyProps.plugin else nil,
 			}, {
 				Child = React.createElement(story, storyProps),
 				StyleLink = React.createElement(StyleLinkPortal, if overlay then { overlay = overlay } else nil),

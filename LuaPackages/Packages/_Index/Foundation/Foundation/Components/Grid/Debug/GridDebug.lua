@@ -103,11 +103,11 @@ local function GridDebug(gridDebugProps: GridDebugProps)
 			MaxSize = Vector2.new(maxWidth, math.huge),
 		}),
 		GridDebugSizeLabel = React.createElement(Text, {
-			tag = "text-label-small position-top-center anchor-top-center auto-xy bg-over-media-300 padding-xxsmall text-truncate-end",
+			tag = "position-top-center anchor-top-center auto-xy padding-xxsmall text-label-small text-truncate-end bg-over-media-300",
 			Text = `breakpoint: {responsive.config.breakpoint.shortNames[breakpoint]}, width: {absoluteSize.X}, columns: {metrics.full.colCount}, maxWidth: {maxWidth}, margin: {metrics.margin}, gapWidth: {metrics.gutterWidth}`,
 		}),
 		GridDebug = React.createElement(View, {
-			tag = "size-full-full row",
+			tag = "row size-full-full",
 			backgroundStyle = {
 				Color3 = tokens.Color.System.Emphasis.Color3,
 				Transparency = props.debugTransparency,
@@ -122,7 +122,7 @@ local function GridDebug(gridDebugProps: GridDebugProps)
 				LayoutOrder = 0,
 			}),
 			Columns = React.createElement(View, {
-				tag = "size-0-full row fill flex-x-evenly",
+				tag = "row flex-x-evenly fill size-0-full",
 				backgroundStyle = {
 					Color3 = tokens.Color.System.Emphasis.Color3,
 					Transparency = props.debugTransparency,

@@ -77,7 +77,7 @@ return {
 				local transparency = props.controls.transparency
 
 				return React.createElement(View, {
-					tag = "auto-xy row gap-large",
+					tag = "row gap-large auto-xy",
 				}, {
 					Basic = React.createElement(Story, {
 						GroupTransparency = transparency,

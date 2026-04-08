@@ -22,11 +22,7 @@ local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 local RootedConnection = require(InGameMenu.Components.Connection.RootedConnection)
 
-local FFlagUIBloxUseFoundationButton =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseFoundationButton()
-
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
-local ControlState = UIBlox.Core.Control.Enum.ControlState
 
 local CONTAINER_WIDTH = 304
 local TEXT_PADDING_TOP = 10
@@ -41,10 +37,6 @@ LoadingFriendsError.validateProps = t.strictInterface({
 
 function LoadingFriendsError:init()
 	self.buttonRef = Roact.createRef()
-
-	self.state = {
-		buttonIsInitialized = if FFlagUIBloxUseFoundationButton then true else false,
-	}
 end
 
 function LoadingFriendsError:render()
@@ -105,7 +97,7 @@ function LoadingFriendsError:render()
 				RootedConnection = Roact.createElement(RootedConnection, {
 					render = function(isRooted)
 						return Roact.createElement(FocusHandler, {
-							isFocused = props.canCaptureFocus and self.state.buttonIsInitialized and isRooted,
+							isFocused = props.canCaptureFocus and isRooted,
 
 							didFocus = function()
 								GuiService.SelectedCoreObject = self.buttonRef:getValue()
@@ -119,16 +111,6 @@ function LoadingFriendsError:render()
 										icon = Assets.Images.RetryIcon,
 										onActivated = props.onRetry,
 										buttonRef = self.buttonRef,
-										onStateChanged = function(_, newState)
-											if
-												not self.state.buttonIsInitialized
-												and newState ~= ControlState.Initialize
-											then
-												self:setState({
-													buttonIsInitialized = true,
-												})
-											end
-										end,
 									})
 								or nil,
 						})

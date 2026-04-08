@@ -9,7 +9,10 @@ type InputSize = InputSize.InputSize
 
 return React.createContext({
 	hasDivider = false,
+	isContained = false,
 	isInset = false,
+	hasMargin = false,
+	lastLayoutOrder = 0,
 	size = InputSize.Medium :: InputSize,
 	testId = "",
 })

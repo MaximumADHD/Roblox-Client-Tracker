@@ -59,6 +59,11 @@ type _VerticalFeedSchema_PropsFields = {
 	horizontal_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.HorizontalAlignmentProp?,
 	horizontal_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	gap_between_feed_items: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	impressions_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	selection_behavior_left: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.SelectionBehaviorProp?,
+	selection_behavior_right: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.SelectionBehaviorProp?,
+	on_refresh: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	sticky_items: _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentListProp?,
 }
 
 type _VerticalFeedSchema_PropsPartialFields = {
@@ -70,6 +75,11 @@ type _VerticalFeedSchema_PropsPartialFields = {
 	horizontal_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.HorizontalAlignmentProp?,
 	horizontal_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	gap_between_feed_items: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	impressions_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	selection_behavior_left: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.SelectionBehaviorProp?,
+	selection_behavior_right: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.SelectionBehaviorProp?,
+	on_refresh: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	sticky_items: _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentListProp?,
 }
 
 export type VerticalFeedSchema_Props = typeof(setmetatable(
@@ -215,6 +225,15 @@ do
 			gap_between_feed_items = if data == nil or data.gap_between_feed_items == nil
 				then nil
 				else data.gap_between_feed_items,
+			impressions_tag = if data == nil or data.impressions_tag == nil then nil else data.impressions_tag,
+			selection_behavior_left = if data == nil or data.selection_behavior_left == nil
+				then nil
+				else data.selection_behavior_left,
+			selection_behavior_right = if data == nil or data.selection_behavior_right == nil
+				then nil
+				else data.selection_behavior_right,
+			on_refresh = if data == nil or data.on_refresh == nil then nil else data.on_refresh,
+			sticky_items = if data == nil or data.sticky_items == nil then nil else data.sticky_items,
 		}, _VerticalFeedSchema_PropsImpl :: _VerticalFeedSchema_PropsImpl)
 	end
 
@@ -267,6 +286,36 @@ do
 		if self.gap_between_feed_items ~= nil then
 			local encoded = self.gap_between_feed_items:encode()
 			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.impressions_tag ~= nil then
+			local encoded = self.impressions_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.selection_behavior_left ~= nil then
+			local encoded = self.selection_behavior_left:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.selection_behavior_right ~= nil then
+			local encoded = self.selection_behavior_right:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_refresh ~= nil then
+			local encoded = self.on_refresh:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.sticky_items ~= nil then
+			local encoded = self.sticky_items:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -332,6 +381,34 @@ do
 					self.gap_between_feed_items =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
 					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.impressions_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selection_behavior_left =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.SelectionBehaviorProp.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selection_behavior_right =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.SelectionBehaviorProp.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_refresh = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sticky_items =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentListProp.decode(value)
+					continue
 				end
 
 				local length
@@ -389,6 +466,26 @@ do
 
 		if self.gap_between_feed_items ~= nil then
 			output.gapBetweenFeedItems = self.gap_between_feed_items:jsonEncode()
+		end
+
+		if self.impressions_tag ~= nil then
+			output.impressionsTag = self.impressions_tag:jsonEncode()
+		end
+
+		if self.selection_behavior_left ~= nil then
+			output.selectionBehaviorLeft = self.selection_behavior_left:jsonEncode()
+		end
+
+		if self.selection_behavior_right ~= nil then
+			output.selectionBehaviorRight = self.selection_behavior_right:jsonEncode()
+		end
+
+		if self.on_refresh ~= nil then
+			output.onRefresh = self.on_refresh:jsonEncode()
+		end
+
+		if self.sticky_items ~= nil then
+			output.stickyItems = self.sticky_items:jsonEncode()
 		end
 
 		return output
@@ -481,6 +578,62 @@ do
 		if input.gapBetweenFeedItems ~= nil then
 			self.gap_between_feed_items =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.gapBetweenFeedItems)
+		end
+
+		if input.impressions_tag ~= nil then
+			self.impressions_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.impressions_tag)
+		end
+
+		if input.impressionsTag ~= nil then
+			self.impressions_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.impressionsTag)
+		end
+
+		if input.selection_behavior_left ~= nil then
+			self.selection_behavior_left =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.SelectionBehaviorProp.jsonDecode(
+					input.selection_behavior_left
+				)
+		end
+
+		if input.selectionBehaviorLeft ~= nil then
+			self.selection_behavior_left =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.SelectionBehaviorProp.jsonDecode(
+					input.selectionBehaviorLeft
+				)
+		end
+
+		if input.selection_behavior_right ~= nil then
+			self.selection_behavior_right =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.SelectionBehaviorProp.jsonDecode(
+					input.selection_behavior_right
+				)
+		end
+
+		if input.selectionBehaviorRight ~= nil then
+			self.selection_behavior_right =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.SelectionBehaviorProp.jsonDecode(
+					input.selectionBehaviorRight
+				)
+		end
+
+		if input.on_refresh ~= nil then
+			self.on_refresh = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.on_refresh)
+		end
+
+		if input.onRefresh ~= nil then
+			self.on_refresh = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onRefresh)
+		end
+
+		if input.sticky_items ~= nil then
+			self.sticky_items =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentListProp.jsonDecode(input.sticky_items)
+		end
+
+		if input.stickyItems ~= nil then
+			self.sticky_items =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentListProp.jsonDecode(input.stickyItems)
 		end
 
 		return self

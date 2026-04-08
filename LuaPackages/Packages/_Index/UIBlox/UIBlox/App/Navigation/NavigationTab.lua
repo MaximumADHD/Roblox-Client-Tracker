@@ -148,7 +148,7 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 	end
 
 	-- contents
-	local contents
+	local contents: React.ReactElement?
 	local cornerRadius
 	if props.layout == NavigationTabLayout.Stacked then
 		cornerRadius = UDim.new(0, tokens.Semantic.Radius.Medium)

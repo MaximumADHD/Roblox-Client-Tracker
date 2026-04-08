@@ -119,7 +119,7 @@ local function TileHeader(tileHeaderProps: TileHeaderProps)
 			FillDirection = Enum.FillDirection.Vertical,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		},
-		tag = "auto-y size-full-0 gap-xxsmall",
+		tag = "gap-xxsmall size-full-0 auto-y",
 		testId = `{tileContext.testId}--header`,
 	}, {
 		Title = title,

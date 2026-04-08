@@ -58,7 +58,7 @@ local function Story(props)
 			LayoutOrder = 2,
 			Text = text,
 			textStyle = tokens.Color.System.Alert,
-			tag = "auto-y size-full-0 text-wrap text-align-x-left",
+			tag = "size-full-0 auto-y text-wrap text-align-x-left",
 		}),
 
 		FocusButton = React.createElement(Button, {

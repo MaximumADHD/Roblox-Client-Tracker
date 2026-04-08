@@ -27,7 +27,7 @@ type BadgeVariantProps = {
 function variantsFactory(tokens: Tokens)
 	local common = {
 		container = {
-			tag = "radius-circle row align-y-center align-x-center gap-xsmall",
+			tag = "row align-x-center align-y-center gap-xsmall radius-circle",
 		},
 		text = {
 			tag = {

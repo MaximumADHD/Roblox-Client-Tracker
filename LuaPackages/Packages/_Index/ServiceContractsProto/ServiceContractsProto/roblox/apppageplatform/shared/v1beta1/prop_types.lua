@@ -82,6 +82,7 @@ type _Messages =
 		LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataMessage,
 		LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueMessage,
 		LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryMessage,
+		NestedComponentListProp: _NestedComponentListPropMessage,
 		IconProp: _IconPropMessage,
 		IconProp_ConditionalOption: _IconProp_ConditionalOptionMessage,
 		IconProp_ConditionalOptions: _IconProp_ConditionalOptionsMessage,
@@ -2297,6 +2298,40 @@ type _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryMessag
 	LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry,
 	_LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryPartialFields
 >
+
+type _NestedComponentListPropImpl = {
+	__index: _NestedComponentListPropImpl,
+	new: (fields: _NestedComponentListPropPartialFields?) -> NestedComponentListProp,
+	encode: (self: NestedComponentListProp) -> buffer,
+	decode: (input: buffer) -> NestedComponentListProp,
+	jsonEncode: (self: NestedComponentListProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> NestedComponentListProp,
+	descriptor: proto.Descriptor,
+}
+
+type _NestedComponentListPropFields = {
+	kind: (
+		{ type: "array_map", value: LazyNestedComponentListProp_TemplateData }
+		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
+		| { type: "conditional", value: LazyNestedComponentListProp_ConditionalOptions }
+		| { type: "ordered_template_data", value: LazyNestedComponentListProp_OrderedTemplateData }
+	)?,
+}
+
+type _NestedComponentListPropPartialFields = {
+	kind: (
+		{ type: "array_map", value: LazyNestedComponentListProp_TemplateData }
+		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
+		| { type: "conditional", value: LazyNestedComponentListProp_ConditionalOptions }
+		| { type: "ordered_template_data", value: LazyNestedComponentListProp_OrderedTemplateData }
+	)?,
+}
+
+export type NestedComponentListProp = typeof(setmetatable(
+	{} :: _NestedComponentListPropFields,
+	{} :: _NestedComponentListPropImpl
+))
+type _NestedComponentListPropMessage = proto.Message<NestedComponentListProp, _NestedComponentListPropPartialFields>
 
 type _IconPropImpl = {
 	__index: _IconPropImpl,
@@ -13001,6 +13036,198 @@ do
 end
 
 do
+	local _NestedComponentListPropImpl = {}
+	_NestedComponentListPropImpl.__index = _NestedComponentListPropImpl
+
+	function _NestedComponentListPropImpl.new(data: _NestedComponentListPropPartialFields?): NestedComponentListProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _NestedComponentListPropImpl :: _NestedComponentListPropImpl)
+	end
+
+	function _NestedComponentListPropImpl.encode(self: NestedComponentListProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "array_map" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "item_list" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "ordered_template_data" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _NestedComponentListPropImpl.decode(input: buffer): NestedComponentListProp
+		local self = _NestedComponentListPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "array_map", value = messages.LazyNestedComponentListProp_TemplateData.decode(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "item_list",
+						value = messages.LazyNestedComponentListProp_TemplateDataList.decode(value),
+					}
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "conditional",
+						value = messages.LazyNestedComponentListProp_ConditionalOptions.decode(value),
+					}
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "ordered_template_data",
+						value = messages.LazyNestedComponentListProp_OrderedTemplateData.decode(value),
+					}
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _NestedComponentListPropImpl.jsonEncode(self: NestedComponentListProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "array_map" then
+				output.arrayMap = self.kind.value:jsonEncode()
+			elseif self.kind.type == "item_list" then
+				output.itemList = self.kind.value:jsonEncode()
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "ordered_template_data" then
+				output.orderedTemplateData = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _NestedComponentListPropImpl.jsonDecode(input: { [string]: any }): NestedComponentListProp
+		local self = _NestedComponentListPropImpl.new()
+
+		if input.array_map ~= nil then
+			self.kind = {
+				type = "array_map",
+				value = messages.LazyNestedComponentListProp_TemplateData.jsonDecode(input.array_map),
+			}
+		end
+
+		if input.arrayMap ~= nil then
+			self.kind = {
+				type = "array_map",
+				value = messages.LazyNestedComponentListProp_TemplateData.jsonDecode(input.arrayMap),
+			}
+		end
+
+		if input.item_list ~= nil then
+			self.kind = {
+				type = "item_list",
+				value = messages.LazyNestedComponentListProp_TemplateDataList.jsonDecode(input.item_list),
+			}
+		end
+
+		if input.itemList ~= nil then
+			self.kind = {
+				type = "item_list",
+				value = messages.LazyNestedComponentListProp_TemplateDataList.jsonDecode(input.itemList),
+			}
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.LazyNestedComponentListProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		if input.ordered_template_data ~= nil then
+			self.kind = {
+				type = "ordered_template_data",
+				value = messages.LazyNestedComponentListProp_OrderedTemplateData.jsonDecode(
+					input.ordered_template_data
+				),
+			}
+		end
+
+		if input.orderedTemplateData ~= nil then
+			self.kind = {
+				type = "ordered_template_data",
+				value = messages.LazyNestedComponentListProp_OrderedTemplateData.jsonDecode(input.orderedTemplateData),
+			}
+		end
+
+		return self
+	end
+
+	_NestedComponentListPropImpl.descriptor = {
+		name = "NestedComponentListProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.NestedComponentListProp",
+	}
+
+	messages.NestedComponentListProp = _NestedComponentListPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.NestedComponentListProp)
+end
+
+do
 	local _IconPropImpl = {}
 	_IconPropImpl.__index = _IconPropImpl
 
@@ -15910,6 +16137,7 @@ return {
 	LazyNestedComponentListProp_OrderedTemplateData = messages.LazyNestedComponentListProp_OrderedTemplateData,
 	LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData = messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData,
 	LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue = messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue,
+	NestedComponentListProp = messages.NestedComponentListProp,
 	IconProp = messages.IconProp,
 	IconProp_ConditionalOption = messages.IconProp_ConditionalOption,
 	IconProp_ConditionalOptions = messages.IconProp_ConditionalOptions,

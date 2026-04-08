@@ -2,15 +2,19 @@ local Foundation = script:FindFirstAncestor("Foundation")
 
 local Flags = require(Foundation.Utility.Flags)
 local Wrappers = require(Foundation.Utility.Wrappers)
+local getMainGui = require(Foundation.Utility.getMainGui)
 
 local GuiService = Wrappers.Services.GuiService
 local CoreGui = Wrappers.Services.CoreGui
 local RunService = Wrappers.Services.RunService
 local Players = Wrappers.Services.Players
 
-local PlayerGui = if Players.LocalPlayer and RunService:IsRunning()
-	then Players.LocalPlayer:WaitForChild("PlayerGui", 3)
-	else nil
+local PlayerGui
+if not Flags.FoundationUseMainGuiUtility then
+	PlayerGui = if Players.LocalPlayer and RunService:IsRunning()
+		then Players.LocalPlayer:WaitForChild("PlayerGui", 3)
+		else nil
+end
 
 local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 
@@ -28,7 +32,9 @@ local function getHardwareSafeAreaInsets(): HardwareInsets
 			bottom = noneInsets.Max.Y - deviceInsets.Max.Y,
 		}
 	else
-		local mainGui = if isPluginSecurity() then CoreGui else PlayerGui
+		local mainGui = if Flags.FoundationUseMainGuiUtility
+			then getMainGui()
+			else if isPluginSecurity() then CoreGui else PlayerGui
 
 		local fullscreenGui = Instance.new("ScreenGui")
 		fullscreenGui.Name = "_FullscreenTestGui"

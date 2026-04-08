@@ -427,7 +427,7 @@ function ClickToMoveDisplay.CreatePathDisplay(wayPoints, originalEndWaypoint)
 			RunService:UnbindFromRenderStep(reiszeTrailDotsUpdateName)
 			return
 		end
-		local cameraPos = Workspace.CurrentCamera.CFrame.p
+		local cameraPos = Workspace.CurrentCamera.CFrame.Position
 		for i = 1, #trailDots do
 			local trailDotImage: ImageHandleAdornment = trailDots[i].DisplayModel:FindFirstChild("TrailDotImage")
 			if trailDotImage then

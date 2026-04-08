@@ -389,7 +389,7 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			tag = "row gap-small auto-xy align-y-center",
+			tag = "row align-y-center gap-small auto-xy",
 		}),
 		{
 			ModeDropdown = if #dropdownOptions > 1

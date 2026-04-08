@@ -32,27 +32,27 @@ type TabVariantProps = {
 local function variantsFactory(tokens: Tokens)
 	local common = {
 		text = { tag = "auto-x" },
-		content = { tag = "align-x-center align-y-center row gap-small" },
+		content = { tag = "row align-x-center align-y-center gap-small" },
 	}
 
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = {
-			text = { tag = "text-label-small size-0-400" },
+			text = { tag = "size-0-400 text-label-small" },
 			content = { tag = "padding-y-small" },
 			icon = { size = IconSize.XSmall },
 		},
 		[InputSize.Small] = {
-			text = { tag = "text-label-medium size-0-600" },
+			text = { tag = "size-0-600 text-label-medium" },
 			content = { tag = "padding-y-small" },
 			icon = { size = IconSize.Medium },
 		},
 		[InputSize.Medium] = {
-			text = { tag = "text-label-medium size-0-600" },
+			text = { tag = "size-0-600 text-label-medium" },
 			content = { tag = "padding-y-medium" },
 			icon = { size = IconSize.Medium },
 		},
 		[InputSize.Large] = {
-			text = { tag = "text-label-medium size-0-600" },
+			text = { tag = "size-0-600 text-label-medium" },
 			content = { tag = "padding-y-xlarge" },
 			icon = { size = IconSize.Medium },
 		},
@@ -67,7 +67,7 @@ local function variantsFactory(tokens: Tokens)
 
 	local isFill: { [boolean]: VariantProps } = {
 		[false] = { container = { tag = "auto-xy" }, content = { tag = "size-0-0 auto-xy" } },
-		[true] = { container = { tag = "auto-xy grow" }, content = { tag = "size-full-0 auto-y" } },
+		[true] = { container = { tag = "grow auto-xy" }, content = { tag = "size-full-0 auto-y" } },
 	}
 
 	return { common = common, sizes = sizes, isFill = isFill, paddings = paddings }

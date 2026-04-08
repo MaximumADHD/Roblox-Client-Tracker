@@ -180,7 +180,7 @@ local function OptionSelectorGroupItem(
 				Size = containerSize,
 			}, {
 				IconRow = React.createElement(View, {
-					tag = "size-full-0 auto-y row gap-small align-y-center",
+					tag = "row align-y-center gap-small size-full-0 auto-y",
 					LayoutOrder = 1,
 				}, {
 					Icon = if props.icon

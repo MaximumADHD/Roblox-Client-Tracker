@@ -20,7 +20,7 @@ local function TileActions(props: TileActionsProps)
 	return React.createElement(View, {
 		Visible = props.Visible,
 		LayoutOrder = 3,
-		tag = "auto-y size-full-0 shrink",
+		tag = "shrink size-full-0 auto-y",
 		testId = `{tileContext.testId}--actions`,
 	}, props.children)
 end

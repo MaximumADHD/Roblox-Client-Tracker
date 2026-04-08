@@ -46,9 +46,9 @@ local function variantsFactory(tokens: Tokens)
 		itemInner = {
 			tag = "col gap-xsmall size-full-0 auto-y",
 		},
-		label = { tag = "auto-xy fill" },
-		metadata = { tag = "auto-xy shrink" },
-		description = { tag = "auto-xy grow" },
+		label = { tag = "fill auto-xy" },
+		metadata = { tag = "shrink auto-xy" },
+		description = { tag = "grow auto-xy" },
 	}
 
 	local sizes: { [InputSize]: VariantProps } = {

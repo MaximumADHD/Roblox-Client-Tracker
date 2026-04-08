@@ -4,7 +4,9 @@ local IconVariant = require(script.IconVariant)
 export type IconVariant = IconVariant.IconVariant
 local Font = require(script.Font)
 local Migration = require(script.Migration)
-local getBuilderIconForKeycode = require(script.getKeycodeBuilderIcon)
+local builderIconPlatformUtils = require(script.builderIconPlatformUtils)
+local getBuilderIconForKeycode = builderIconPlatformUtils.getBuilderIconForKeycode
+local getBuilderIconForCurrentPlatform = builderIconPlatformUtils.getBuilderIconForCurrentPlatform
 
 return {
 	Icon = Icon,
@@ -12,4 +14,5 @@ return {
 	Font = Font,
 	Migration = Migration,
 	getBuilderIconForKeycode = getBuilderIconForKeycode,
+	getBuilderIconForCurrentPlatform = getBuilderIconForCurrentPlatform,
 }

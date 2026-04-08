@@ -527,12 +527,12 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 							-- Needed to sink the onActivated event to the backdrop
 							onActivated = Dash.noop,
 							testId = props.testId,
-							tag = "bg-surface-100 radius-large col items-center clip padding-top-small",
+							tag = "col items-center padding-top-small radius-large clip bg-surface-100",
 						}, {
 							Gripper = React.createElement(View, {
 								ZIndex = 3,
 								backgroundStyle = tokens.Color.Content.Muted,
-								tag = "padding-y-small size-1000-100 radius-small align-y-center",
+								tag = "align-y-center size-1000-100 padding-y-small radius-small",
 								testId = `{props.testId}--gripper`,
 							}, {
 								TouchTarget = React.createElement(View, {

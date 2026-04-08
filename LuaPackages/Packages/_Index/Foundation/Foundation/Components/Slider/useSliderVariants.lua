@@ -37,7 +37,7 @@ type SliderVariantProps = {
 
 local function variantsFactory(tokens: Tokens)
 	local common = {
-		bar = { tag = "anchor-center-center position-center-center size-full-100 radius-small" },
+		bar = { tag = "position-center-center anchor-center-center size-full-100 radius-small" },
 		fill = { tag = "radius-small" },
 	}
 

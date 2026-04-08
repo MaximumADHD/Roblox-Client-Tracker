@@ -45,10 +45,10 @@ type AvatarVariantProps = {
 local function variantsFactory(tokens: Tokens)
 	local common = {
 		container = { tag = "radius-circle" },
-		avatar = { tag = "radius-circle size-full" },
+		avatar = { tag = "size-full radius-circle" },
 		indicatorBackplate = {
 			ZIndex = 2,
-			tag = "bg-surface-0 anchor-bottom-right radius-circle auto-xy position-bottom-right",
+			tag = "position-bottom-right anchor-bottom-right auto-xy radius-circle bg-surface-0",
 			padding = UDim2.fromOffset(3, 3),
 		},
 	}

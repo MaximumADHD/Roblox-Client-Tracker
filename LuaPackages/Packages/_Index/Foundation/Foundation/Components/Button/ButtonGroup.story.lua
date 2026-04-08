@@ -14,7 +14,7 @@ type FillBehavior = FillBehavior.FillBehavior
 local function BasicStory(props)
 	return React.createElement(View, {
 		tag = {
-			["row gap-small wrap auto-y size-full-0"] = true,
+			["row wrap gap-small size-full-0 auto-y"] = true,
 			["fill-x"] = props.fillBehavior == FillBehavior.Fill,
 		},
 	}, {
@@ -50,7 +50,7 @@ local function EqualWidthsStory()
 	return React.createElement(
 		View,
 		{
-			tag = "row gap-small auto-y size-full-0 fill-x",
+			tag = "row gap-small size-full-0 auto-y",
 		},
 		Dash.map(buttonProps, function(props)
 			return React.createElement(Button, {

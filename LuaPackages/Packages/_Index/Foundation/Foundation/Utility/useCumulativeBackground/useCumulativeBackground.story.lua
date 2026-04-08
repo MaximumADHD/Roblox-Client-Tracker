@@ -28,7 +28,7 @@ return {
 
 				return React.createElement(
 					View,
-					{ tag = "auto-xy col gap-large" },
+					{ tag = "col gap-large auto-xy" },
 					React.createElement(Checkbox, {
 						label = "Use cumulative background",
 						isChecked = useCumulative,
@@ -42,7 +42,7 @@ return {
 					React.createElement(
 						View,
 						{
-							tag = "auto-xy col gap-medium",
+							tag = "col gap-medium auto-xy",
 						},
 						React.createElement(
 							Text,
@@ -50,7 +50,7 @@ return {
 						),
 						React.createElement(
 							View,
-							{ LayoutOrder = 2, tag = "size-2600-0 auto-y row gap-large" },
+							{ LayoutOrder = 2, tag = "row gap-large size-2600-0 auto-y" },
 							React.createElement(InputLabel, {
 								Text = "Transparency",
 								size = InputSize.Medium,
@@ -64,7 +64,7 @@ return {
 						),
 						React.createElement(
 							View,
-							{ LayoutOrder = 3, tag = "size-2600-0 auto-y row gap-large" },
+							{ LayoutOrder = 3, tag = "row gap-large size-2600-0 auto-y" },
 							React.createElement(InputLabel, {
 								Text = "Hue",
 								size = InputSize.Medium,
@@ -78,7 +78,7 @@ return {
 						),
 						React.createElement(
 							View,
-							{ LayoutOrder = 4, tag = "size-2600-0 auto-y row gap-large" },
+							{ LayoutOrder = 4, tag = "row gap-large size-2600-0 auto-y" },
 							React.createElement(InputLabel, {
 								Text = "Saturation",
 								size = InputSize.Medium,
@@ -112,13 +112,13 @@ return {
 							{
 								Size = UDim2.fromOffset(200, 200),
 								backgroundStyle = baseBg,
-								tag = "padding-large col align-x-center align-y-center",
+								tag = "col align-x-center align-y-center padding-large",
 							},
 							React.createElement(
 								View,
 								{
 									backgroundStyle = elementBg,
-									tag = "size-2000 col align-x-center align-y-center",
+									tag = "col align-x-center align-y-center size-2000",
 								},
 								React.createElement(View, {
 									backgroundStyle = if useCumulative then cumulativeBacgrkound else elementBg,

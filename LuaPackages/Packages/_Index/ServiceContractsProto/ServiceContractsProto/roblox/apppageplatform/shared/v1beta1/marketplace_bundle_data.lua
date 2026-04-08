@@ -23,10 +23,20 @@ type _MarketplaceBundleDataImpl = {
 
 type _MarketplaceBundleDataFields = {
 	id: string,
+	name: string,
+	creator_name: string,
+	creator_has_verified_badge: boolean,
+	bundle_type: string,
+	price: number,
 }
 
 type _MarketplaceBundleDataPartialFields = {
 	id: string?,
+	name: string?,
+	creator_name: string?,
+	creator_has_verified_badge: boolean?,
+	bundle_type: string?,
+	price: number?,
 }
 
 export type MarketplaceBundleData = typeof(setmetatable(
@@ -42,6 +52,13 @@ do
 	function _MarketplaceBundleDataImpl.new(data: _MarketplaceBundleDataPartialFields?): MarketplaceBundleData
 		return setmetatable({
 			id = if data == nil or data.id == nil then "" else data.id,
+			name = if data == nil or data.name == nil then "" else data.name,
+			creator_name = if data == nil or data.creator_name == nil then "" else data.creator_name,
+			creator_has_verified_badge = if data == nil or data.creator_has_verified_badge == nil
+				then false
+				else data.creator_has_verified_badge,
+			bundle_type = if data == nil or data.bundle_type == nil then "" else data.bundle_type,
+			price = if data == nil or data.price == nil then 0 else data.price,
 		}, _MarketplaceBundleDataImpl :: _MarketplaceBundleDataImpl)
 	end
 
@@ -52,6 +69,31 @@ do
 		if self.id ~= nil and self.id ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.id)
+		end
+
+		if self.name ~= nil and self.name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.name)
+		end
+
+		if self.creator_name ~= nil and self.creator_name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creator_name)
+		end
+
+		if self.creator_has_verified_badge then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.creator_has_verified_badge then 1 else 0)
+		end
+
+		if self.bundle_type ~= nil and self.bundle_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.bundle_type)
+		end
+
+		if self.price ~= nil and self.price ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.price)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -68,7 +110,17 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				-- No fields
+				if field == 4 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.creator_has_verified_badge = value ~= 0
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.price = value
+					continue
+				end
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -77,6 +129,21 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.name = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_name = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.bundle_type = buffer.tostring(value)
 					continue
 				end
 
@@ -109,6 +176,26 @@ do
 			output.id = self.id
 		end
 
+		if self.name ~= nil and self.name ~= "" then
+			output.name = self.name
+		end
+
+		if self.creator_name ~= nil and self.creator_name ~= "" then
+			output.creatorName = self.creator_name
+		end
+
+		if self.creator_has_verified_badge then
+			output.creatorHasVerifiedBadge = self.creator_has_verified_badge
+		end
+
+		if self.bundle_type ~= nil and self.bundle_type ~= "" then
+			output.bundleType = self.bundle_type
+		end
+
+		if self.price ~= nil and self.price ~= 0 then
+			output.price = self.price
+		end
+
 		return output
 	end
 
@@ -117,6 +204,38 @@ do
 
 		if input.id ~= nil then
 			self.id = input.id
+		end
+
+		if input.name ~= nil then
+			self.name = input.name
+		end
+
+		if input.creator_name ~= nil then
+			self.creator_name = input.creator_name
+		end
+
+		if input.creatorName ~= nil then
+			self.creator_name = input.creatorName
+		end
+
+		if input.creator_has_verified_badge ~= nil then
+			self.creator_has_verified_badge = input.creator_has_verified_badge
+		end
+
+		if input.creatorHasVerifiedBadge ~= nil then
+			self.creator_has_verified_badge = input.creatorHasVerifiedBadge
+		end
+
+		if input.bundle_type ~= nil then
+			self.bundle_type = input.bundle_type
+		end
+
+		if input.bundleType ~= nil then
+			self.bundle_type = input.bundleType
+		end
+
+		if input.price ~= nil then
+			self.price = input.price
 		end
 
 		return self

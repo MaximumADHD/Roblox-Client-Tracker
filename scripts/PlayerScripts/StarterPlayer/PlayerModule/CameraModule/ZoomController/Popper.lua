@@ -361,7 +361,7 @@ end
 local function queryViewport(focus, dist)
 	debug.profilebegin("queryViewport")
 
-	local fP =  focus.p
+	local fP =  focus.Position
 	local fX =  focus.rightVector
 	local fY =  focus.upVector
 	local fZ = -focus.lookVector
@@ -404,7 +404,7 @@ end
 local function testPromotion(focus, dist, focusExtrapolation)
 	debug.profilebegin("testPromotion")
 
-	local fP = focus.p
+	local fP = focus.Position
 	local fX = focus.rightVector
 	local fY = focus.upVector
 	local fZ = -focus.lookVector
@@ -423,7 +423,7 @@ local function testPromotion(focus, dist, focusExtrapolation)
 		for dt = 0, min(SAMPLE_MAX_T, focusExtrapolation.rotVelocity.magnitude + maxDist/combinedSpeed), SAMPLE_DT do
 			local cfDt = focusExtrapolation.extrapolate(dt) -- Extrapolated CFrame at time dt
 
-			if queryPoint(cfDt.p, -cfDt.lookVector, dist) >= dist then
+			if queryPoint(cfDt.Position, -cfDt.lookVector, dist) >= dist then
 				return false
 			end
 		end

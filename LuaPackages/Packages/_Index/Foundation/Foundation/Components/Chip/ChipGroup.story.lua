@@ -16,7 +16,7 @@ return {
 		local value, setValue = React.useState(chip1Text)
 
 		return React.createElement(View, {
-			tag = "row gap-small wrap auto-y size-full-0",
+			tag = "row wrap gap-small size-full-0 auto-y",
 		}, {
 			Chip1 = React.createElement(Chip, {
 				icon = "icons/common/robux",

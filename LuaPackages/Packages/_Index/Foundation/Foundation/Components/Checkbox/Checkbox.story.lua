@@ -64,7 +64,7 @@ local function CustomSelectionStory(props)
 		onActivated = function()
 			setIsChecked(not isChecked)
 		end,
-		tag = "auto-y col align-x-center align-y-center gap-medium padding-large radius-medium bg-surface-100 stroke-muted",
+		tag = "col align-x-center align-y-center gap-medium auto-y padding-large stroke-muted radius-medium bg-surface-100",
 		Size = UDim2.fromOffset(300, 120),
 	}, {
 		Checkbox = React.createElement(Checkbox, {
@@ -81,7 +81,7 @@ local function CustomSelectionStory(props)
 		}),
 		Description = React.createElement(Text, {
 			Text = "Get notified when someone mentions you or sends you a message",
-			tag = "text-body-small content-muted auto-y size-full-0 text-wrap",
+			tag = "size-full-0 auto-y text-body-small text-wrap content-muted",
 			LayoutOrder = 2,
 		}),
 	})
@@ -100,7 +100,7 @@ local function IndeterminateStory(props)
 	local label: string = controls.label
 
 	return React.createElement(View, {
-		tag = "col auto-xy size-3000-0 gap-medium",
+		tag = "col gap-medium size-3000-0 auto-xy",
 	}, {
 		Aggregation = React.createElement(Checkbox, {
 			LayoutOrder = 1,
@@ -156,7 +156,7 @@ local function UncontrolledStory(props)
 	local controls = props.controls
 
 	return React.createElement(View, {
-		tag = "col auto-xy size-3000-0",
+		tag = "col size-3000-0 auto-xy",
 	}, {
 		React.createElement(Checkbox, {
 			isDisabled = controls.isDisabled,

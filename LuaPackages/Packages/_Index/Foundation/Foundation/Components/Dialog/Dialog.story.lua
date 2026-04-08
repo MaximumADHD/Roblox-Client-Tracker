@@ -11,6 +11,7 @@ local DialogSize = require(Foundation.Enums.DialogSize)
 local Flags = require(Foundation.Utility.Flags)
 local Image = require(Foundation.Components.Image)
 local InputSize = require(Foundation.Enums.InputSize)
+local List = require(Foundation.Components.List)
 local Orientation = require(Foundation.Enums.Orientation)
 local RadioGroup = require(Foundation.Components.RadioGroup)
 local Text = require(Foundation.Components.Text)
@@ -114,7 +115,7 @@ function CustomMedia(props: {
 	aspectRatio: number?,
 })
 	return React.createElement(View, {
-		tag = `auto-y size-full-0 row align-x-center {if Flags.FoundationDialogBodyUpdate
+		tag = `row align-x-center size-full-0 auto-y {if Flags.FoundationDialogBodyUpdate
 			then "padding-top-large"
 			else ""}`,
 	}, {
@@ -297,10 +298,10 @@ return {
 				end)
 
 				local CustomContent = React.createElement(View, {
-					tag = "auto-y size-full-0 col gap-xxlarge",
+					tag = "col gap-xxlarge size-full-0 auto-y",
 				}, {
 					Text = React.createElement(Text, {
-						tag = "text-body-large text-wrap text-align-x-left text-align-y-top auto-y size-full-0",
+						tag = "size-full-0 auto-y text-body-large text-wrap text-align-x-left text-align-y-top",
 						Text = "Some text",
 						LayoutOrder = 2,
 					}),
@@ -335,6 +336,36 @@ return {
 			end,
 		},
 		{
+			name = "Scrollable List Content",
+			story = function(props: StoryProps)
+				local ITEM_COUNT = 15
+
+				local listItems = Dash.map(table.create(ITEM_COUNT, true), function(_: boolean, i: number)
+					return React.createElement(List.Item, {
+						key = tostring(i),
+						title = `Option {i}`,
+						description = "Description for this option",
+						onActivated = function()
+							print(`Option {i} activated`)
+						end,
+						LayoutOrder = i,
+					})
+				end)
+
+				return React.createElement(Story, props, {
+					DialogTitle = React.createElement(Dialog.Title, {
+						text = props.controls.title,
+					}),
+					DialogContent = React.createElement(Dialog.Content, {
+						LayoutOrder = 2,
+						Selectable = props.controls.selectableContent,
+					}, {
+						ItemList = React.createElement(List.Root, nil, listItems),
+					}),
+				})
+			end,
+		},
+		{
 			name = "Embedded Media",
 			story = function(props: StoryProps)
 				local mediaSize = UDim2.new(
@@ -345,7 +376,7 @@ return {
 				)
 
 				local CustomContent = React.createElement(View, {
-					tag = "auto-y size-full-0 col gap-xlarge",
+					tag = "col gap-xlarge size-full-0 auto-y",
 				}, {
 					DialogMedia = React.createElement(CustomMedia, {
 						media = props.controls.media :: string,

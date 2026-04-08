@@ -22,15 +22,19 @@ type _MediaAssetDataImpl = {
 }
 
 type _MediaAssetDataFields = {
-	asset_id: number,
+	image_id: string,
 	asset_type_id: number,
 	video_hash: string,
+	video_id: string,
+	video_title: string,
 }
 
 type _MediaAssetDataPartialFields = {
-	asset_id: number?,
+	image_id: string?,
 	asset_type_id: number?,
 	video_hash: string?,
+	video_id: string?,
+	video_title: string?,
 }
 
 export type MediaAssetData = typeof(setmetatable({} :: _MediaAssetDataFields, {} :: _MediaAssetDataImpl))
@@ -42,9 +46,11 @@ do
 
 	function _MediaAssetDataImpl.new(data: _MediaAssetDataPartialFields?): MediaAssetData
 		return setmetatable({
-			asset_id = if data == nil or data.asset_id == nil then 0 else data.asset_id,
+			image_id = if data == nil or data.image_id == nil then "" else data.image_id,
 			asset_type_id = if data == nil or data.asset_type_id == nil then 0 else data.asset_type_id,
 			video_hash = if data == nil or data.video_hash == nil then "" else data.video_hash,
+			video_id = if data == nil or data.video_id == nil then "" else data.video_id,
+			video_title = if data == nil or data.video_title == nil then "" else data.video_title,
 		}, _MediaAssetDataImpl :: _MediaAssetDataImpl)
 	end
 
@@ -52,9 +58,9 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.asset_id ~= nil and self.asset_id ~= 0 then
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
-			output, cursor = proto.writeVarInt(output, cursor, self.asset_id)
+		if self.image_id ~= nil and self.image_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.image_id)
 		end
 
 		if self.asset_type_id ~= nil and self.asset_type_id ~= 0 then
@@ -65,6 +71,16 @@ do
 		if self.video_hash ~= nil and self.video_hash ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.video_hash)
+		end
+
+		if self.video_id ~= nil and self.video_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.video_id)
+		end
+
+		if self.video_title ~= nil and self.video_title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.video_title)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -81,12 +97,7 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				if field == 1 then
-					local value
-					value, cursor = proto.readVarIntI64(input, cursor)
-					self.asset_id = value
-					continue
-				elseif field == 2 then
+				if field == 2 then
 					local value
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.asset_type_id = value
@@ -96,10 +107,25 @@ do
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
 			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 3 then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_id = buffer.tostring(value)
+					continue
+				elseif field == 3 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.video_hash = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.video_id = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.video_title = buffer.tostring(value)
 					continue
 				end
 
@@ -128,8 +154,8 @@ do
 	function _MediaAssetDataImpl.jsonEncode(self: MediaAssetData): any
 		local output = {}
 
-		if self.asset_id ~= nil and self.asset_id ~= 0 then
-			output.assetId = self.asset_id
+		if self.image_id ~= nil and self.image_id ~= "" then
+			output.imageId = self.image_id
 		end
 
 		if self.asset_type_id ~= nil and self.asset_type_id ~= 0 then
@@ -140,18 +166,26 @@ do
 			output.videoHash = self.video_hash
 		end
 
+		if self.video_id ~= nil and self.video_id ~= "" then
+			output.videoId = self.video_id
+		end
+
+		if self.video_title ~= nil and self.video_title ~= "" then
+			output.videoTitle = self.video_title
+		end
+
 		return output
 	end
 
 	function _MediaAssetDataImpl.jsonDecode(input: { [string]: any }): MediaAssetData
 		local self = _MediaAssetDataImpl.new()
 
-		if input.asset_id ~= nil then
-			self.asset_id = input.asset_id
+		if input.image_id ~= nil then
+			self.image_id = input.image_id
 		end
 
-		if input.assetId ~= nil then
-			self.asset_id = input.assetId
+		if input.imageId ~= nil then
+			self.image_id = input.imageId
 		end
 
 		if input.asset_type_id ~= nil then
@@ -168,6 +202,22 @@ do
 
 		if input.videoHash ~= nil then
 			self.video_hash = input.videoHash
+		end
+
+		if input.video_id ~= nil then
+			self.video_id = input.video_id
+		end
+
+		if input.videoId ~= nil then
+			self.video_id = input.videoId
+		end
+
+		if input.video_title ~= nil then
+			self.video_title = input.video_title
+		end
+
+		if input.videoTitle ~= nil then
+			self.video_title = input.videoTitle
 		end
 
 		return self

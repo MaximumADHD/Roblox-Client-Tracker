@@ -115,7 +115,7 @@ local function SystemBanner(systemBannerProps: SystemBannerProps, ref: React.Ref
 	local actionsContainer = if not Flags.FoundationSystemBannerUseSharedAlertActions and actions
 		then React.createElement(View, {
 			tag = {
-				["auto-xy row gap-small"] = true,
+				["row gap-small auto-xy"] = true,
 				["align-x-left"] = shouldWrapActions,
 				["align-x-right"] = not shouldWrapActions,
 			},
@@ -149,7 +149,7 @@ local function SystemBanner(systemBannerProps: SystemBannerProps, ref: React.Ref
 			Content = React.createElement(View, {
 				LayoutOrder = 2,
 				tag = {
-					["auto-xy fill"] = true,
+					["fill auto-xy"] = true,
 					["col"] = shouldWrapActions,
 					["row"] = not shouldWrapActions,
 				},
@@ -157,7 +157,7 @@ local function SystemBanner(systemBannerProps: SystemBannerProps, ref: React.Ref
 			}, {
 				Text = React.createElement(View, {
 					LayoutOrder = 2,
-					tag = "auto-xy col",
+					tag = "col auto-xy",
 				}, {
 					Title = React.createElement(Text, {
 						Text = props.title,

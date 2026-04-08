@@ -31,9 +31,18 @@ OverlayScreenGui.ResetOnSpawn = false
 OverlayScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 OverlayScreenGui.Parent = CoreGui
 
+local MomentsCreationFlowScreenGui = Instance.new("ScreenGui")
+MomentsCreationFlowScreenGui.DisplayOrder = CapturesInExperience.Constants.CreationFlowDisplayOrder
+MomentsCreationFlowScreenGui.Name = "MomentsCreationFlow"
+MomentsCreationFlowScreenGui.ResetOnSpawn = false
+MomentsCreationFlowScreenGui.ScreenInsets = Enum.ScreenInsets.None
+MomentsCreationFlowScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+MomentsCreationFlowScreenGui.Parent = CoreGui
+
 CapturesApp.mountCaptureManager(CaptureManagerScreenGui)
 CapturesApp.mountCarousel(CarouselScreenGui)
 CapturesApp.mountCoreUI(RobloxGui, ChromeEnabled())
 CapturesApp.mountCaptureOverlay(OverlayScreenGui)
+CapturesApp.mountMomentsCreationFlow(MomentsCreationFlowScreenGui)
 
 return CapturesApp

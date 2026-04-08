@@ -27,7 +27,7 @@ return {
 				local tokens = useTokens()
 
 				return React.createElement(View, {
-					tag = "row gap-medium auto-xy size-0-0 align-y-center padding-medium radius-medium",
+					tag = "row align-y-center gap-medium size-0-0 auto-xy padding-medium radius-medium",
 					backgroundStyle = if variant == CloseAffordanceVariant.OverMedia
 						then tokens.Color.Extended.White.White_100
 						elseif colorMode then tokens[colorMode].Surface.Surface_100

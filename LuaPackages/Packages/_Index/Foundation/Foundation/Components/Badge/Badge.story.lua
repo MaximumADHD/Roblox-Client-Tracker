@@ -116,14 +116,14 @@ return {
 				local Badge = if props.controls.updateBadgeDesign then Badge_NEW else Badge_DEPRECATED
 				return React.createElement(
 					View,
-					{ tag = "row wrap auto-xy gap-xxlarge" },
+					{ tag = "row wrap gap-xxlarge auto-xy" },
 					Dash.map(nonDeprecatedVariants, function(variant)
 						return React.createElement(
 							View,
-							{ tag = "col gap-small auto-xy align-x-center" },
+							{ tag = "col align-x-center gap-small auto-xy" },
 							React.createElement(
 								Text,
-								{ tag = "auto-xy text-align-x-center text-caption-small", Text = variant }
+								{ tag = "auto-xy text-caption-small text-align-x-center", Text = variant }
 							),
 							React.createElement(Badge, {
 								text = props.controls.text,
@@ -143,14 +143,14 @@ return {
 				local Badge = if props.controls.updateBadgeDesign then Badge_NEW else Badge_DEPRECATED
 				return React.createElement(
 					View,
-					{ tag = "row wrap auto-xy gap-xxlarge" },
+					{ tag = "row wrap gap-xxlarge auto-xy" },
 					Dash.map({ BadgeVariant.Primary :: BadgeVariant, BadgeVariant.Secondary }, function(variant)
 						return React.createElement(
 							View,
-							{ tag = "col gap-small auto-xy align-x-center" },
+							{ tag = "col align-x-center gap-small auto-xy" },
 							React.createElement(
 								Text,
-								{ tag = "auto-xy text-align-x-center text-caption-small", Text = variant }
+								{ tag = "auto-xy text-caption-small text-align-x-center", Text = variant }
 							),
 							React.createElement(Badge, {
 								text = props.controls.text,

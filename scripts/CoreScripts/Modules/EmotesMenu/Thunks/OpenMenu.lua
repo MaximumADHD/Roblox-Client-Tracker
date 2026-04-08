@@ -13,7 +13,9 @@ local CoreScriptModules = EmotesMenu.Parent
 local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
 
 local Analytics = require(EmotesMenu.Analytics)
-local Backpack = require(CoreScriptModules.BackpackScript)
+local FFlagEnableNewBackpack = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableNewBackpack
+local Features = if FFlagEnableNewBackpack then require(CorePackages.Workspace.Packages.System).Features else nil
+local Backpack = if not FFlagEnableNewBackpack then require(CoreScriptModules.BackpackScript) else nil
 local ShowMenu = require(Actions.ShowMenu)
 
 local EmotesAnalytics = Analytics.new():withEventStream(EventStream.new(AnalyticsService))
@@ -28,13 +30,21 @@ local function OpenMenu(emoteName)
 			end
 		end
 
-		if Backpack.IsOpen then
-			Backpack.OpenClose()
-		end
+		if FFlagEnableNewBackpack then
+			Features.setVisibility(Features.FeatureName.Backpack, false)
 
-		-- If user is interacting with the backpack it can stay open
-		if Backpack.IsOpen then
-			return
+			if Features.getVisibility(Features.FeatureName.Backpack) then
+				return
+			end
+		else
+			if Backpack.IsOpen then
+				Backpack.OpenClose()
+			end
+
+			-- If user is interacting with the backpack it can stay open
+			if Backpack.IsOpen then
+				return
+			end
 		end
 
 		EmotesAnalytics:onMenuOpened()

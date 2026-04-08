@@ -45,10 +45,9 @@ type _UniverseDataFields = {
 	game_minimum_age: number,
 	game_age_display_name: string,
 	content_maturity: string,
+	is_officially_licensed: boolean,
 	refund_policy_text: string,
 	refund_article_id: string,
-	refund_link: string,
-	license_description: string,
 }
 
 type _UniverseDataPartialFields = {
@@ -75,10 +74,9 @@ type _UniverseDataPartialFields = {
 	game_minimum_age: number?,
 	game_age_display_name: string?,
 	content_maturity: string?,
+	is_officially_licensed: boolean?,
 	refund_policy_text: string?,
 	refund_article_id: string?,
-	refund_link: string?,
-	license_description: string?,
 }
 
 export type UniverseData = typeof(setmetatable({} :: _UniverseDataFields, {} :: _UniverseDataImpl))
@@ -123,12 +121,11 @@ do
 				then ""
 				else data.game_age_display_name,
 			content_maturity = if data == nil or data.content_maturity == nil then "" else data.content_maturity,
+			is_officially_licensed = if data == nil or data.is_officially_licensed == nil
+				then false
+				else data.is_officially_licensed,
 			refund_policy_text = if data == nil or data.refund_policy_text == nil then "" else data.refund_policy_text,
 			refund_article_id = if data == nil or data.refund_article_id == nil then "" else data.refund_article_id,
-			refund_link = if data == nil or data.refund_link == nil then "" else data.refund_link,
-			license_description = if data == nil or data.license_description == nil
-				then ""
-				else data.license_description,
 		}, _UniverseDataImpl :: _UniverseDataImpl)
 	end
 
@@ -251,24 +248,19 @@ do
 			output, cursor = proto.writeString(output, cursor, self.content_maturity)
 		end
 
+		if self.is_officially_licensed then
+			output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_officially_licensed then 1 else 0)
+		end
+
 		if self.refund_policy_text ~= nil and self.refund_policy_text ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeTag(output, cursor, 25, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.refund_policy_text)
 		end
 
 		if self.refund_article_id ~= nil and self.refund_article_id ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 25, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.refund_article_id)
-		end
-
-		if self.refund_link ~= nil and self.refund_link ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.refund_link)
-		end
-
-		if self.license_description ~= nil and self.license_description ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.license_description)
+			output, cursor = proto.writeString(output, cursor, self.refund_article_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -345,6 +337,11 @@ do
 					value, cursor = proto.readVarIntI32(input, cursor)
 					self.game_minimum_age = value
 					continue
+				elseif field == 24 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_officially_licensed = value ~= 0
+					continue
 				end
 
 				local _
@@ -405,25 +402,15 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.content_maturity = buffer.tostring(value)
 					continue
-				elseif field == 24 then
+				elseif field == 25 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.refund_policy_text = buffer.tostring(value)
 					continue
-				elseif field == 25 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.refund_article_id = buffer.tostring(value)
-					continue
 				elseif field == 26 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.refund_link = buffer.tostring(value)
-					continue
-				elseif field == 27 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.license_description = buffer.tostring(value)
+					self.refund_article_id = buffer.tostring(value)
 					continue
 				end
 
@@ -544,20 +531,16 @@ do
 			output.contentMaturity = self.content_maturity
 		end
 
+		if self.is_officially_licensed then
+			output.isOfficiallyLicensed = self.is_officially_licensed
+		end
+
 		if self.refund_policy_text ~= nil and self.refund_policy_text ~= "" then
 			output.refundPolicyText = self.refund_policy_text
 		end
 
 		if self.refund_article_id ~= nil and self.refund_article_id ~= "" then
 			output.refundArticleId = self.refund_article_id
-		end
-
-		if self.refund_link ~= nil and self.refund_link ~= "" then
-			output.refundLink = self.refund_link
-		end
-
-		if self.license_description ~= nil and self.license_description ~= "" then
-			output.licenseDescription = self.license_description
 		end
 
 		return output
@@ -738,6 +721,14 @@ do
 			self.content_maturity = input.contentMaturity
 		end
 
+		if input.is_officially_licensed ~= nil then
+			self.is_officially_licensed = input.is_officially_licensed
+		end
+
+		if input.isOfficiallyLicensed ~= nil then
+			self.is_officially_licensed = input.isOfficiallyLicensed
+		end
+
 		if input.refund_policy_text ~= nil then
 			self.refund_policy_text = input.refund_policy_text
 		end
@@ -752,22 +743,6 @@ do
 
 		if input.refundArticleId ~= nil then
 			self.refund_article_id = input.refundArticleId
-		end
-
-		if input.refund_link ~= nil then
-			self.refund_link = input.refund_link
-		end
-
-		if input.refundLink ~= nil then
-			self.refund_link = input.refundLink
-		end
-
-		if input.license_description ~= nil then
-			self.license_description = input.license_description
-		end
-
-		if input.licenseDescription ~= nil then
-			self.license_description = input.licenseDescription
 		end
 
 		return self

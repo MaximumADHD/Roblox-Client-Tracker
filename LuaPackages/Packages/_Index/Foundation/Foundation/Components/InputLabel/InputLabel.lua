@@ -81,7 +81,7 @@ local function InputLabel(inputLabelProps: InputLabelProps, ref: React.Ref<GuiOb
 			stateLayer = { affordance = StateLayerAffordance.None },
 			textStyle = props.textStyle,
 			tag = {
-				["size-0 auto-xy content-default text-align-x-left text-align-y-top text-wrap"] = true,
+				["size-0 auto-xy text-wrap text-align-x-left text-align-y-top content-default"] = true,
 				["text-title-small"] = props.size == InputLabelSize.Small,
 				["text-title-medium"] = props.size == InputLabelSize.Medium,
 				["text-title-large"] = props.size == InputLabelSize.Large,

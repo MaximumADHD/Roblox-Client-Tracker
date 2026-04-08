@@ -1,12 +1,12 @@
 -- TODO: Cleanup with FFlagUseBindingForUnreadChat
 
-local Root = script:FindFirstAncestor("ChromeShared")
-
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
-local Types = require(Root.Service.Types)
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 
-return function(integration: Types.IntegrationProps?): number
+type IntegrationProps = ChromePackage.IntegrationProps
+
+return function(integration: IntegrationProps?): number
 	if integration and integration.notification then
 		local notification = integration.notification
 

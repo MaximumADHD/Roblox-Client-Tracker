@@ -36,7 +36,9 @@ local Popover = require(Foundation.Components.Popover)
 type PopoverAnchorProps = Popover.PopoverAnchorProps
 
 export type CoachmarkProps = {
+	-- A title for the coachmark. To omit, set it to an empty string.
 	title: string,
+	-- Body text for the coachmark.
 	text: string?,
 	-- Media displayed at the top of the coachmark
 	media: ReactNode?,
@@ -107,7 +109,7 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 			buttons["CoachmarkButton" .. i] = React.createElement(Button, buttonProps :: any)
 		end
 		return buttons
-	end, { props.actions })
+	end, { props.actions, props.testId } :: { unknown })
 
 	return React.createElement(Popover.Root, {
 		isOpen = props.isOpen,
@@ -139,7 +141,7 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 				PresentationContext.Provider,
 				{ value = { colorMode = ColorMode.Inverse } },
 				React.createElement(View, {
-					tag = "col auto-xy gap-medium padding-bottom-medium",
+					tag = "col gap-medium auto-xy padding-bottom-medium",
 					sizeConstraint = {
 						MaxSize = Vector2.new(maxXSize, math.huge),
 					},
@@ -164,29 +166,31 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 						else nil,
 					ContentSection = React.createElement(View, {
 						LayoutOrder = 2,
-						tag = "col gap-xsmall auto-xy padding-top-medium padding-x-medium padding-bottom-xsmall",
+						tag = "col gap-xsmall auto-xy padding-x-medium padding-bottom-xsmall padding-top-medium",
 					}, {
 						StepIndicator = if props.steps
 							then React.createElement(Text, {
 								LayoutOrder = 1,
 								Text = stepsText(props.steps.current, props.steps.total),
-								tag = "auto-xy text-label-small text-align-x-left content-inverse-default text-truncate-end",
+								tag = "auto-xy text-label-small text-align-x-left text-truncate-end content-inverse-default",
 								sizeConstraint = textSizeConstraint,
 								testId = `{props.testId}--step-indicator`,
 							})
 							else nil,
-						Header = React.createElement(Text, {
-							LayoutOrder = 2,
-							Text = props.title,
-							tag = "auto-xy text-title-large text-align-x-left content-inverse-emphasis text-truncate-split",
-							sizeConstraint = textSizeConstraint,
-							testId = `{props.testId}--header`,
-						}),
+						Header = if props.title ~= ""
+							then React.createElement(Text, {
+								LayoutOrder = 2,
+								Text = props.title,
+								tag = "auto-xy text-title-large text-align-x-left text-truncate-split content-inverse-emphasis",
+								sizeConstraint = textSizeConstraint,
+								testId = `{props.testId}--header`,
+							})
+							else nil,
 						Text = if props.text and props.text ~= ""
 							then React.createElement(Text, {
 								LayoutOrder = 3,
 								Text = props.text,
-								tag = "size-full-0 auto-y text-wrap text-align-x-left text-body-medium content-inverse-default",
+								tag = "size-full-0 auto-y text-body-medium text-wrap text-align-x-left content-inverse-default",
 								testId = `{props.testId}--text`,
 							})
 							else nil,
@@ -194,7 +198,7 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 					Actions = if props.actions and #props.actions > 0
 						then React.createElement(View, {
 							LayoutOrder = 3,
-							tag = "row gap-small auto-y padding-x-medium size-full-0",
+							tag = "row gap-small size-full-0 auto-y padding-x-medium",
 						}, coachmarkButtons)
 						else nil,
 				})

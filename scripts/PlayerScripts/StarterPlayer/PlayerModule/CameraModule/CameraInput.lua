@@ -19,9 +19,19 @@ local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPSSinkUnknownTouchEvents = FlagUtil.getUserFlag("UserPSSinkUnknownTouchEvents")
 local FFlagUserPSTextboxResetCameraInput = FlagUtil.getUserFlag("UserPSTextboxResetCameraInput")
+local FFlagUserPlayerScriptsCameraRotationUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsCameraRotationUsesIAS")
 local FFlagUserPlayerScriptsCameraInputNoBindables = FlagUtil.getUserFlag("UserPlayerScriptsCameraInputNoBindables")
 
+local cameraRotationMouseDeltaBinding = if FFlagUserPlayerScriptsCameraRotationUsesIAS
+	then cameraRotation:WaitForChild("MouseDeltaBinding") :: InputBinding
+	else nil
+
+local cameraRotationPointerPanBinding = if FFlagUserPlayerScriptsCameraRotationUsesIAS
+	then cameraRotation:WaitForChild("TrackpadPanBinding") :: InputBinding
+	else nil
+
 local cameraToggle = nil
+local cameraPanActive = nil
 local cameraGamepadZoom = nil
 local cameraGamepadReset = nil
 if FFlagUserPlayerScriptsCameraInputNoBindables then
@@ -29,6 +39,9 @@ if FFlagUserPlayerScriptsCameraInputNoBindables then
 else
 	cameraGamepadZoom = character:WaitForChild("CameraGamepadZoom") :: InputAction
 	cameraGamepadReset = character:WaitForChild("CameraGamepadReset") :: InputAction
+end
+if FFlagUserPlayerScriptsCameraRotationUsesIAS then
+	cameraPanActive = character:WaitForChild("CameraPanActive") :: InputAction
 end
 
 local player = Players.LocalPlayer
@@ -76,6 +89,17 @@ end
 
 UserGameSettings:GetPropertyChangedSignal("GamepadCameraSensitivity"):Connect(updateGamepadCameraSensitivity)
 updateGamepadCameraSensitivity() -- initialize the sensitivity on script load
+
+if FFlagUserPlayerScriptsCameraRotationUsesIAS then
+	local function updateMouseCameraSensitivity()
+		local sensitivity = UserGameSettings.MouseSensitivity
+		cameraRotationMouseDeltaBinding.Scale = sensitivity
+		cameraRotationPointerPanBinding.Scale = sensitivity
+	end
+
+	UserGameSettings:GetPropertyChangedSignal("MouseSensitivity"):Connect(updateMouseCameraSensitivity)
+	updateMouseCameraSensitivity() -- initialize the sensitivity on script load
+end
 
 -- Adjust the touch sensitivity so that sensitivity is reduced when swiping up
 -- or down, but stays the same when swiping towards the middle of the screen
@@ -174,19 +198,30 @@ do
 		return panInputCount > 0 or cameraRotation:GetState().Magnitude > 0
 	end
 
+    -- getPanActivated is only used for updating mouse lock behavior. Separating from getRotationActivated, which is used for vehicle camera auto reset.
+	function CameraInput.getPanActivated(): boolean
+		return panInputCount > 0
+	end
+
 	function CameraInput.getRotation(dt, disableKeyboardRotation: boolean?): Vector2
 		local inversionVector = Vector2.new(1, UserGameSettings:GetCameraYInvertValue())
 
-		local kMouse = mouseState.Movement
-		local kTouch = adjustTouchPitchSensitivity(touchState.Move)
+		if FFlagUserPlayerScriptsCameraRotationUsesIAS then
+			local kTouch = adjustTouchPitchSensitivity(touchState.Move)
+			local result = kTouch * ROTATION_SPEED_TOUCH + cameraRotation:GetState() * dt
+			return result * inversionVector
+		else
+			local kMouse = mouseState.Movement
+			local kTouch = adjustTouchPitchSensitivity(touchState.Move)
 
-		local result = kMouse * ROTATION_SPEED_MOUSE + kTouch * ROTATION_SPEED_TOUCH + cameraRotation:GetState() * dt
-		if FFlagUserPlayerScriptsCameraInputNoBindables then
-			local kPointerAction = mouseState.Pan
-			result = result + kPointerAction * ROTATION_SPEED_POINTERACTION
+			local result = kMouse * ROTATION_SPEED_MOUSE + kTouch * ROTATION_SPEED_TOUCH + cameraRotation:GetState() * dt
+			if FFlagUserPlayerScriptsCameraInputNoBindables then
+				local kPointerAction = mouseState.Pan
+				result = result + kPointerAction * ROTATION_SPEED_POINTERACTION
+			end
+
+			return result * inversionVector
 		end
-
-		return result * inversionVector
 	end
 
 	function CameraInput.getZoomDelta(dt: number?): number
@@ -194,9 +229,15 @@ do
 		if dt then
 			zoomState *= dt
 		end
-		local kMouse = -mouseState.Wheel + mouseState.Pinch
-		local kTouch = -touchState.Pinch
-		return zoomState + kMouse * ZOOM_SPEED_MOUSE + kTouch * ZOOM_SPEED_TOUCH
+
+		if FFlagUserPlayerScriptsCameraRotationUsesIAS then
+			local kTouch = -touchState.Pinch
+			return zoomState + kTouch * ZOOM_SPEED_TOUCH
+		else
+			local kMouse = -mouseState.Wheel + mouseState.Pinch
+			local kTouch = -touchState.Pinch
+			return zoomState + kMouse * ZOOM_SPEED_MOUSE + kTouch * ZOOM_SPEED_TOUCH
+		end
 	end
 
 	do
@@ -325,6 +366,7 @@ do
 		end
 
 		local function pointerAction(wheel, pan, pinch, gpe)
+			assert(not FFlagUserPlayerScriptsCameraRotationUsesIAS)
 			if not gpe then
 				mouseState.Wheel = wheel
 				mouseState.Pan = pan
@@ -336,7 +378,7 @@ do
 			if input.UserInputType == Enum.UserInputType.Touch then
 				touchBegan(input, sunk)
 
-			elseif input.UserInputType == Enum.UserInputType.MouseButton2 and not sunk then
+			elseif not FFlagUserPlayerScriptsCameraRotationUsesIAS and input.UserInputType == Enum.UserInputType.MouseButton2 and not sunk then
 				incPanInputCount()
 			end
 		end
@@ -345,7 +387,7 @@ do
 			if input.UserInputType == Enum.UserInputType.Touch then
 				touchChanged(input, sunk)
 
-			elseif input.UserInputType == Enum.UserInputType.MouseMovement then
+			elseif not FFlagUserPlayerScriptsCameraRotationUsesIAS and input.UserInputType == Enum.UserInputType.MouseMovement then
 				mouseMovement(input)
 			end
 		end
@@ -354,11 +396,15 @@ do
 			if input.UserInputType == Enum.UserInputType.Touch then
 				touchEnded(input, sunk)
 
-			elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
+			elseif not FFlagUserPlayerScriptsCameraRotationUsesIAS and input.UserInputType == Enum.UserInputType.MouseButton2 then
 				decPanInputCount()
 			end
 		end
 
+		if FFlagUserPlayerScriptsCameraRotationUsesIAS then
+			cameraPanActive.Pressed:Connect(incPanInputCount)
+			cameraPanActive.Released:Connect(decPanInputCount)
+		end
 		if not FFlagUserPlayerScriptsCameraInputNoBindables then
 			cameraGamepadZoom.Pressed:Connect(function()
 				gamepadZoomPressBindable:Fire()
@@ -384,6 +430,9 @@ do
 				cameraZoom.Enabled = true
 				cameraRotation.Enabled = true
 
+				if FFlagUserPlayerScriptsCameraRotationUsesIAS then
+					cameraPanActive.Enabled = true
+				end
 				if not FFlagUserPlayerScriptsCameraInputNoBindables then
 					if VRService.VREnabled then
 						cameraGamepadReset.Enabled = true
@@ -395,13 +444,18 @@ do
 				table.insert(connectionList, UserInputService.InputBegan:Connect(inputBegan))
 				table.insert(connectionList, UserInputService.InputChanged:Connect(inputChanged))
 				table.insert(connectionList, UserInputService.InputEnded:Connect(inputEnded))
-				table.insert(connectionList, UserInputService.PointerAction:Connect(pointerAction))
+				if not FFlagUserPlayerScriptsCameraRotationUsesIAS then
+					table.insert(connectionList, UserInputService.PointerAction:Connect(pointerAction))
+				end
 				table.insert(connectionList, GuiService.MenuOpened:Connect(resetTouchState))
 
 			else -- disable
 				cameraZoom.Enabled = false
 				cameraRotation.Enabled = false
 
+				if FFlagUserPlayerScriptsCameraRotationUsesIAS then
+					cameraPanActive.Enabled = false
+				end
 				if not FFlagUserPlayerScriptsCameraInputNoBindables then
 					cameraGamepadZoom.Enabled = false
 
@@ -422,13 +476,17 @@ do
 		end
 
 		function CameraInput.resetInputForFrameEnd()
-			mouseState.Movement = Vector2.new()
+			if not FFlagUserPlayerScriptsCameraRotationUsesIAS then
+				mouseState.Movement = Vector2.new()
+			end
 			touchState.Move = Vector2.new()
 			touchState.Pinch = 0
 
-			mouseState.Wheel = 0 -- PointerAction
-			mouseState.Pan = Vector2.new() -- PointerAction
-			mouseState.Pinch = 0 -- PointerAction
+			if not FFlagUserPlayerScriptsCameraRotationUsesIAS then
+				mouseState.Wheel = 0 -- PointerAction
+				mouseState.Pan = Vector2.new() -- PointerAction
+				mouseState.Pinch = 0 -- PointerAction
+			end
 		end
 
 		UserInputService.WindowFocused:Connect(resetInputDevices)

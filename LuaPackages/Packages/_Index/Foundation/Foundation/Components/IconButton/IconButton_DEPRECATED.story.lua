@@ -27,7 +27,7 @@ return {
 	story = function(props)
 		return React.createElement(
 			View,
-			{ tag = "row gap-medium auto-y size-full-0 align-y-center" },
+			{ tag = "row align-y-center gap-medium size-full-0 auto-y" },
 			Dash.map(iconSizes, function(size)
 				return Story({
 					controls = {

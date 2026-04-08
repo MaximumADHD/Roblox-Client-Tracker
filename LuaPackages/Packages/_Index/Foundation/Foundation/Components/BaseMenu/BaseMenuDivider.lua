@@ -17,7 +17,7 @@ local function BaseMenuDivider(props: { LayoutOrder: number })
 			testId = "--foundation-menu-divider-item",
 		},
 		React.createElement(View, {
-			tag = "size-0-full grow",
+			tag = "grow size-0-full",
 			backgroundStyle = tokens.Color.Stroke.Default,
 		})
 	)

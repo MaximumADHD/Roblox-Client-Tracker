@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 local makeConfigurable = require(script.Core.Config.makeConfigurable)
 local UIBloxDefaultConfig = require(script.UIBloxDefaultConfig)
 
@@ -570,4 +570,8 @@ local function initializeLibrary(configs)
 	return UIBlox
 end
 
-return makeConfigurable(initializeLibrary, "UIBlox", UIBloxDefaultConfig)
+return makeConfigurable(
+	initializeLibrary,
+	"UIBlox",
+	UIBloxDefaultConfig
+) :: typeof(initializeLibrary(UIBloxDefaultConfig))

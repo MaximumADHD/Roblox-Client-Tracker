@@ -40,7 +40,7 @@ local function AssetStory()
 					center = Rect.new(11, 11, 12, 12),
 				},
 				backgroundStyle = tokens.Color.Extended.White.White_0,
-				tag = "size-2800-800 col align-x-center align-y-center",
+				tag = "col align-x-center align-y-center size-2800-800",
 			},
 			React.createElement(Text, {
 				Text = "Slice Center",
@@ -92,7 +92,7 @@ local function ImageSliceWithChildren()
 		ScaleType = Enum.ScaleType.Slice,
 	}, {
 		DialogueSpeechBubbleInner = React.createElement(View, {
-			tag = "auto-xy gap-large",
+			tag = "gap-large auto-xy",
 			padding = {
 				top = UDim.new(0, 30),
 				bottom = UDim.new(0, 40),
@@ -105,14 +105,14 @@ local function ImageSliceWithChildren()
 				LayoutOrder = 1,
 			}, {
 				Outer = React.createElement(Image, {
-					tag = "anchor-center-center position-center-center",
+					tag = "position-center-center anchor-center-center",
 					Image = "component_assets/circle_36",
 					Size = UDim2.fromOffset(60, 60),
 					imageStyle = tokens.Color.None,
 					ZIndex = 0,
 				}),
 				Inner = React.createElement(Image, {
-					tag = "anchor-center-center position-center-center",
+					tag = "position-center-center anchor-center-center",
 					Image = "component_assets/circle_36",
 					Size = UDim2.fromOffset(60, 60),
 					scale = 1,
@@ -120,7 +120,7 @@ local function ImageSliceWithChildren()
 					ZIndex = 1,
 				}),
 				SpeakerIcon = React.createElement(Image, {
-					tag = "anchor-center-center position-center-center",
+					tag = "position-center-center anchor-center-center",
 					Image = "icons/controls/speaker",
 					Size = UDim2.fromOffset(32, 32),
 					imageStyle = tokens.Color.Extended.Gray.Gray_300,

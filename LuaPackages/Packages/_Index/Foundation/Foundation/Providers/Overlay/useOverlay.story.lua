@@ -67,7 +67,7 @@ local function OverlayConsumer()
 	local isMounted, setIsMounted = React.useState(false)
 
 	return React.createElement(View, {
-		tag = "row gap-medium size-full-1500 auto-x align-y-center items-center",
+		tag = "row align-y-center items-center gap-medium size-full-1500 auto-x",
 	}, {
 		Text = if isMounted
 			then React.createElement(OverlayRenderer)
@@ -77,7 +77,7 @@ local function OverlayConsumer()
 				LayoutOrder = 2,
 			}),
 		Button = React.createElement(Button, {
-			tag = "auto-y size-full-0 text-wrap text-align-x-left",
+			tag = "size-full-0 auto-y text-wrap text-align-x-left",
 			text = isMounted and "Unmount Overlay" or "Mount Overlay",
 			LayoutOrder = 1,
 			onActivated = function()
@@ -99,7 +99,7 @@ return {
 				local text = `Overlay Name: {name}`
 
 				return React.createElement(Text, {
-					tag = "auto-y align-x-center size-full-0 text-wrap",
+					tag = "align-x-center size-full-0 auto-y text-wrap",
 					Text = text,
 				})
 			end,
@@ -140,7 +140,7 @@ return {
 				local overlayConsumers: { React.ReactNode } = {
 					React.createElement(Text, {
 						key = "OverlayCount",
-						tag = "auto-y size-full-0 text-wrap text-align-x-left margin-bottom-medium",
+						tag = "size-full-0 auto-y margin-bottom-medium text-wrap text-align-x-left",
 						Text = `Initial FoundationOverlay Count: {#initialOverlays}\nCurrent FoundationOverlay Count: {#currentOverlays}`,
 					}),
 				}

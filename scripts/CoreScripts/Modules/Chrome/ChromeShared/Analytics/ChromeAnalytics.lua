@@ -13,7 +13,8 @@ local Cryo = require(CorePackages.Packages.Cryo)
 
 local ChromeService = require(Root.Service)
 local Constants = require(Root.Unibar.Constants)
-local Types = require(Root.Service.Types)
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
 
 local Tracker = require(Root.Analytics.Tracker)
@@ -40,44 +41,47 @@ local DRAG_STATUS = {
 	DRAGGED = 2,
 }
 
+type ActivateProps = ChromePackage.ActivateProps
+type IntegrationId = ChromePackage.IntegrationId
+
 export type ChromeAnalytics = {
 	__index: ChromeAnalytics,
 	default: ChromeAnalytics,
 	new: () -> ChromeAnalytics,
 
 	setScreenSize: (ChromeAnalytics, screenSize: Vector2) -> nil,
-	setWindowDefaultPosition: (ChromeAnalytics, integrationId: Types.IntegrationId, windowPosition: Vector2) -> nil,
+	setWindowDefaultPosition: (ChromeAnalytics, integrationId: IntegrationId, windowPosition: Vector2) -> nil,
 
-	onIconActivated: (ChromeAnalytics, integrationId: Types.IntegrationId, props: Types.ActivateProps?) -> nil,
-	onIconTouchBegan: (ChromeAnalytics, integrationId: Types.IntegrationId) -> nil,
-	onIconDrag: (ChromeAnalytics, integrationId: Types.IntegrationId) -> nil,
+	onIconActivated: (ChromeAnalytics, integrationId: IntegrationId, props: ActivateProps?) -> nil,
+	onIconTouchBegan: (ChromeAnalytics, integrationId: IntegrationId) -> nil,
+	onIconDrag: (ChromeAnalytics, integrationId: IntegrationId) -> nil,
 	onIconTouchEnded: (
 		ChromeAnalytics,
-		integrationId: Types.IntegrationId,
+		integrationId: IntegrationId,
 		windowPosition: Vector2,
 		willReposition: boolean
 	) -> nil,
-	onWindowOpened: (ChromeAnalytics, integrationId: Types.IntegrationId) -> nil,
-	onWindowClosed: (ChromeAnalytics, integrationId: Types.IntegrationId) -> nil,
-	onWindowTouchBegan: (ChromeAnalytics, integrationId: Types.IntegrationId, windowPosition: Vector2) -> nil,
-	onWindowDrag: (ChromeAnalytics, integrationId: Types.IntegrationId, windowPosition: Vector3) -> nil,
+	onWindowOpened: (ChromeAnalytics, integrationId: IntegrationId) -> nil,
+	onWindowClosed: (ChromeAnalytics, integrationId: IntegrationId) -> nil,
+	onWindowTouchBegan: (ChromeAnalytics, integrationId: IntegrationId, windowPosition: Vector2) -> nil,
+	onWindowDrag: (ChromeAnalytics, integrationId: IntegrationId, windowPosition: Vector3) -> nil,
 	onWindowTouchEnded: (
 		ChromeAnalytics,
-		integrationId: Types.IntegrationId,
+		integrationId: IntegrationId,
 		windowPosition: Vector2,
 		willReposition: boolean
 	) -> nil,
-	onWindowResize: (ChromeAnalytics, integrationId: Types.IntegrationId, currentWindowSize: UDim2) -> nil,
+	onWindowResize: (ChromeAnalytics, integrationId: IntegrationId, currentWindowSize: UDim2) -> nil,
 
 	_target: string,
 	_context: string,
 	_defaultProps: any,
 	_tracker: Tracker.Tracker,
 	_sendEvent: (eventName: string, props: any) -> nil,
-	_observeIntegration: (integrationId: Types.IntegrationId) -> nil,
-	_resetWindowTrackers: (integrationId: Types.IntegrationId) -> nil,
-	_defaultWindowTrackers: (integrationId: Types.IntegrationId) -> nil,
-	_setWindowLastPosition: (integrationId: Types.IntegrationId, position: Vector2) -> nil,
+	_observeIntegration: (integrationId: IntegrationId) -> nil,
+	_resetWindowTrackers: (integrationId: IntegrationId) -> nil,
+	_defaultWindowTrackers: (integrationId: IntegrationId) -> nil,
+	_setWindowLastPosition: (integrationId: IntegrationId, position: Vector2) -> nil,
 	_calculateWindowAbsolutePosition: (startingPosition: UDim2, windowSize: UDim2) -> Vector2,
 }
 
@@ -102,15 +106,15 @@ local function getDynamicEventProps()
 	return props
 end
 
-local function getTrackerName(prefix: string, integrationId: Types.IntegrationId)
+local function getTrackerName(prefix: string, integrationId: IntegrationId)
 	return prefix .. integrationId
 end
 
-local function getIntegration(integrationId: Types.IntegrationId)
+local function getIntegration(integrationId: IntegrationId)
 	return ChromeService:integrations()[integrationId]
 end
 
-local function getInteractionSource(integrationId: Types.IntegrationId)
+local function getInteractionSource(integrationId: IntegrationId)
 	if ChromeService:withinCurrentSubmenu(integrationId) then
 		return ChromeService:currentSubMenu():get()
 	end
@@ -142,7 +146,7 @@ function ChromeAnalytics.new(): ChromeAnalytics
 		self._defaultProps.playsessionid = AnalyticsService:GetPlaySessionId()
 	end
 
-	self._observeIntegration = function(integrationId: Types.IntegrationId)
+	self._observeIntegration = function(integrationId: IntegrationId)
 		local integration = getIntegration(integrationId)
 		if integration then
 			if integration.windowSize then
@@ -174,7 +178,7 @@ function ChromeAnalytics.new(): ChromeAnalytics
 		end
 	end
 
-	self._resetWindowTrackers = function(integrationId: Types.IntegrationId)
+	self._resetWindowTrackers = function(integrationId: IntegrationId)
 		self._tracker:reset(getTrackerName(TRACKER_NAME_WINDOW_DEFAULT_POSITION_PREFIX, integrationId))
 		self._tracker:reset(getTrackerName(TRACKER_NAME_WINDOW_LAST_POSITION_PREFIX, integrationId))
 		self._tracker:reset(getTrackerName(TRACKER_NAME_WINDOW_SIZE_PREFIX, integrationId))
@@ -182,7 +186,7 @@ function ChromeAnalytics.new(): ChromeAnalytics
 		self._tracker:reset(getTrackerName(TRACKER_NAME_WINDOW_STATUS, integrationId))
 	end
 
-	self._defaultWindowTrackers = function(integrationId: Types.IntegrationId)
+	self._defaultWindowTrackers = function(integrationId: IntegrationId)
 		self._resetWindowTrackers(integrationId)
 		self._tracker:startTime(getTrackerName(TRACKER_NAME_WINDOW_TIME, integrationId))
 		self._tracker:set(getTrackerName(TRACKER_NAME_WINDOW_STATUS, integrationId), STATUS.ACTIVE)
@@ -202,7 +206,7 @@ function ChromeAnalytics.new(): ChromeAnalytics
 		)
 	end
 
-	self._setWindowLastPosition = function(integrationId: Types.IntegrationId, position: Vector2)
+	self._setWindowLastPosition = function(integrationId: IntegrationId, position: Vector2)
 		self._tracker:set(getTrackerName(TRACKER_NAME_WINDOW_LAST_POSITION_PREFIX, integrationId), position)
 	end
 
@@ -214,20 +218,19 @@ function ChromeAnalytics.new(): ChromeAnalytics
 		self._observeIntegration(integration.id)
 	end
 
-	ChromeService:onIntegrationRegistered():connect(function(integrationId: Types.IntegrationId)
+	ChromeService:onIntegrationRegistered():connect(function(integrationId: IntegrationId)
 		self._observeIntegration(integrationId)
 	end)
 
-	ChromeService:onIntegrationActivated()
-		:connect(function(integrationId: Types.IntegrationId, props: Types.ActivateProps?)
-			if FFlagIntegrationsChromeShortcutTelemetry then
-				self:onIconActivated(integrationId, props)
-			else
-				self:onIconActivated(integrationId)
-			end
-		end)
+	ChromeService:onIntegrationActivated():connect(function(integrationId: IntegrationId, props: ActivateProps?)
+		if FFlagIntegrationsChromeShortcutTelemetry then
+			self:onIconActivated(integrationId, props)
+		else
+			self:onIconActivated(integrationId)
+		end
+	end)
 
-	ChromeService:onIntegrationStatusChanged():connect(function(integrationId: Types.IntegrationId, status: number)
+	ChromeService:onIntegrationStatusChanged():connect(function(integrationId: IntegrationId, status: number)
 		local integration = getIntegration(integrationId)
 		if integration and integration.components.Window then
 			if status == ChromeService.IntegrationStatus.Window then
@@ -247,7 +250,7 @@ function ChromeAnalytics:setScreenSize(screenSize: Vector2)
 	return nil
 end
 
-function ChromeAnalytics:onIconActivated(integrationId: Types.IntegrationId, props: Types.ActivateProps?)
+function ChromeAnalytics:onIconActivated(integrationId: IntegrationId, props: ActivateProps?)
 	local integration = getIntegration(integrationId)
 
 	if integration then
@@ -272,12 +275,12 @@ function ChromeAnalytics:onIconActivated(integrationId: Types.IntegrationId, pro
 	return nil
 end
 
-function ChromeAnalytics:onIconTouchBegan(integrationId: Types.IntegrationId)
+function ChromeAnalytics:onIconTouchBegan(integrationId: IntegrationId)
 	self._tracker:set(getTrackerName(TRACKER_NAME_ICON_DRAG_STATUS, integrationId), DRAG_STATUS.STARTED)
 	return nil
 end
 
-function ChromeAnalytics:onIconDrag(integrationId: Types.IntegrationId)
+function ChromeAnalytics:onIconDrag(integrationId: IntegrationId)
 	local trackerName = getTrackerName(TRACKER_NAME_ICON_DRAG_STATUS, integrationId)
 	local dragStatus = self._tracker:get(trackerName)
 	if dragStatus == DRAG_STATUS.STARTED then
@@ -291,7 +294,7 @@ function ChromeAnalytics:onIconDrag(integrationId: Types.IntegrationId)
 end
 
 function ChromeAnalytics:onIconTouchEnded(
-	integrationId: Types.IntegrationId,
+	integrationId: IntegrationId,
 	windowPosition: Vector2,
 	willReposition: boolean
 )
@@ -317,7 +320,7 @@ function ChromeAnalytics:onIconTouchEnded(
 	return nil
 end
 
-function ChromeAnalytics:onWindowOpened(integrationId: Types.IntegrationId)
+function ChromeAnalytics:onWindowOpened(integrationId: IntegrationId)
 	local integration = getIntegration(integrationId)
 	local windowStatus = self._tracker:get(getTrackerName(TRACKER_NAME_WINDOW_STATUS, integrationId))
 
@@ -343,7 +346,7 @@ function ChromeAnalytics:onWindowOpened(integrationId: Types.IntegrationId)
 	return nil
 end
 
-function ChromeAnalytics:onWindowClosed(integrationId: Types.IntegrationId)
+function ChromeAnalytics:onWindowClosed(integrationId: IntegrationId)
 	local windowStatus = self._tracker:get(getTrackerName(TRACKER_NAME_WINDOW_STATUS, integrationId))
 	if windowStatus == STATUS.ACTIVE then
 		self._sendEvent(Constants.ANALYTICS.WINDOW_CLOSED, {
@@ -356,7 +359,7 @@ function ChromeAnalytics:onWindowClosed(integrationId: Types.IntegrationId)
 end
 
 -- Drag start does not result in firing the analytics event, since the drag start is
-function ChromeAnalytics:onWindowTouchBegan(integrationId: Types.IntegrationId, windowPosition: Vector2)
+function ChromeAnalytics:onWindowTouchBegan(integrationId: IntegrationId, windowPosition: Vector2)
 	local integration = getIntegration(integrationId)
 	if integration and integration.windowSize then
 		self._tracker:set(getTrackerName(TRACKER_NAME_WINDOW_DRAG_STATUS, integrationId), DRAG_STATUS.STARTED)
@@ -364,7 +367,7 @@ function ChromeAnalytics:onWindowTouchBegan(integrationId: Types.IntegrationId, 
 	return nil
 end
 
-function ChromeAnalytics:onWindowDrag(integrationId: Types.IntegrationId, windowPosition: Vector3)
+function ChromeAnalytics:onWindowDrag(integrationId: IntegrationId, windowPosition: Vector3)
 	local windowTrackerName = getTrackerName(TRACKER_NAME_WINDOW_DRAG_STATUS, integrationId)
 	local dragStatus = self._tracker:get(windowTrackerName)
 	local integration = getIntegration(integrationId)
@@ -398,7 +401,7 @@ function ChromeAnalytics:onWindowDrag(integrationId: Types.IntegrationId, window
 end
 
 function ChromeAnalytics:onWindowTouchEnded(
-	integrationId: Types.IntegrationId,
+	integrationId: IntegrationId,
 	windowPosition: Vector2,
 	willReposition: boolean
 )
@@ -429,13 +432,13 @@ function ChromeAnalytics:onWindowTouchEnded(
 	return nil
 end
 
-function ChromeAnalytics:setWindowDefaultPosition(integrationId: Types.IntegrationId, position: Vector2)
+function ChromeAnalytics:setWindowDefaultPosition(integrationId: IntegrationId, position: Vector2)
 	self._tracker:set(getTrackerName(TRACKER_NAME_WINDOW_DEFAULT_POSITION_PREFIX, integrationId), position)
 	self._setWindowLastPosition(integrationId, position)
 	return nil
 end
 
-function ChromeAnalytics:onWindowResize(integrationId: Types.IntegrationId, currentWindowSize: UDim2)
+function ChromeAnalytics:onWindowResize(integrationId: IntegrationId, currentWindowSize: UDim2)
 	local integration = getIntegration(integrationId)
 	if integration and integration.windowSize then
 		local sizeTrackerName = getTrackerName(TRACKER_NAME_WINDOW_SIZE_PREFIX, integrationId)

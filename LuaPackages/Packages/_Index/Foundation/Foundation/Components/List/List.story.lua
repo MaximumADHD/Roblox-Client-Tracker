@@ -16,14 +16,58 @@ local StatusIndicator = require(Foundation.Components.StatusIndicator)
 local StatusIndicatorVariant = require(Foundation.Enums.StatusIndicatorVariant)
 local View = require(Foundation.Components.View)
 
+local DIVIDER_OPTIONS = {
+	None = false :: boolean | { isInset: boolean },
+	Inset = { isInset = true } :: boolean | { isInset: boolean },
+	Full = { isInset = false } :: boolean | { isInset: boolean },
+}
+
+type ContainedOption = true | { isContained: false, hasMargin: boolean? }
+local CONTAINED_OPTIONS = {
+	Contained = true :: ContainedOption,
+	["Full Width"] = { isContained = false :: false, hasMargin = false } :: ContainedOption,
+	["Has Margin"] = { isContained = false :: false, hasMargin = true } :: ContainedOption,
+}
+
+local function StoryInParentContainer(props)
+	return React.createElement(View, {
+		tag = "col size-full-0 auto-y bg-surface-100",
+	}, {
+		List = React.createElement(List.Root, {
+			hasDivider = DIVIDER_OPTIONS[props.controls.hasDivider],
+			isContained = CONTAINED_OPTIONS[props.controls.isContained],
+			size = props.controls.size,
+		}, {
+			ItemA = React.createElement(List.Item, {
+				title = "Phone number",
+				description = "***-***-883",
+				onActivated = function() end,
+				LayoutOrder = 1,
+			}),
+			ItemB = React.createElement(List.Item, {
+				title = "Language",
+				description = "English",
+				onActivated = function() end,
+				LayoutOrder = 2,
+			}),
+			ItemC = React.createElement(List.Item, {
+				title = "Email address",
+				description = "rob*******@gmail.com",
+				onActivated = function() end,
+				LayoutOrder = 3,
+			}),
+		}),
+	})
+end
+
 local function StorySettings(props)
 	local chatEnabled, setChatEnabled = React.useState(false)
 	local locationEnabled, setLocationEnabled = React.useState(false)
 	local languageId, setLanguageId = React.useState("en")
 
 	return React.createElement(List.Root, {
-		hasDivider = props.controls.hasDivider,
-		isInset = props.controls.isInset,
+		hasDivider = DIVIDER_OPTIONS[props.controls.hasDivider],
+		isContained = CONTAINED_OPTIONS[props.controls.isContained],
 		size = props.controls.size,
 	}, {
 		PhoneNumber = React.createElement(List.Item, {
@@ -126,8 +170,8 @@ local function StoryGames(props)
 		tag = "col gap-medium size-full-0 auto-y",
 	}, {
 		SettingsSection = React.createElement(List.Root, {
-			hasDivider = props.controls.hasDivider,
-			isInset = props.controls.isInset,
+			hasDivider = DIVIDER_OPTIONS[props.controls.hasDivider],
+			isContained = CONTAINED_OPTIONS[props.controls.isContained],
 			size = props.controls.size,
 		}, {
 			AutoChatTranslation = React.createElement(List.Item, {
@@ -239,11 +283,15 @@ return {
 	summary = "List",
 	stories = {
 		{
+			name = "In Parent Container",
+			story = StoryInParentContainer,
+		} :: any,
+		{
 			name = "Base",
 			story = function(props)
 				return React.createElement(List.Root, {
-					hasDivider = props.controls.hasDivider,
-					isInset = props.controls.isInset,
+					hasDivider = DIVIDER_OPTIONS[props.controls.hasDivider],
+					isContained = CONTAINED_OPTIONS[props.controls.isContained],
 					size = props.controls.size,
 				}, {
 					MediaItem = React.createElement(List.Item, {
@@ -294,8 +342,8 @@ return {
 		} :: any,
 	},
 	controls = {
-		hasDivider = true,
-		isInset = true,
+		hasDivider = Dash.keys(DIVIDER_OPTIONS),
+		isContained = Dash.keys(CONTAINED_OPTIONS),
 		size = Dash.values(InputSize),
 	},
 }

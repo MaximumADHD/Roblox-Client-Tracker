@@ -22,7 +22,7 @@ return {
 		local url = getRbxThumb(props.controls.type, props.controls.id, props.controls.size)
 
 		return React.createElement(View, {
-			tag = "col gap-medium align-x-center auto-xy padding-large bg-surface-100",
+			tag = "col align-x-center gap-medium auto-xy padding-large bg-surface-100",
 		}, {
 			Image = React.createElement(Image, {
 				tag = "bg-shift-100",

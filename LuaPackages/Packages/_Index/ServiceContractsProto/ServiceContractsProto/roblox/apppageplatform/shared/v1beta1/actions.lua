@@ -66,6 +66,8 @@ type _Messages = {
 	OpenSongDetailAction_Params: _OpenSongDetailAction_ParamsMessage,
 	OpenMarketplaceCatalogFilters: _OpenMarketplaceCatalogFiltersMessage,
 	OpenMarketplaceCatalogFilters_Params: _OpenMarketplaceCatalogFilters_ParamsMessage,
+	RefreshFromApiAction: _RefreshFromApiActionMessage,
+	RefreshFromApiAction_Params: _RefreshFromApiAction_ParamsMessage,
 	Action: _ActionMessage,
 	ActionProp: _ActionPropMessage,
 	ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -170,10 +172,12 @@ type _LinkAction_ParamsImpl = {
 
 type _LinkAction_ParamsFields = {
 	url: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	title_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _LinkAction_ParamsPartialFields = {
 	url: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	title_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type LinkAction_Params = typeof(setmetatable({} :: _LinkAction_ParamsFields, {} :: _LinkAction_ParamsImpl))
@@ -1708,6 +1712,61 @@ type _OpenMarketplaceCatalogFilters_ParamsMessage = proto.Message<
 	_OpenMarketplaceCatalogFilters_ParamsPartialFields
 >
 
+type _RefreshFromApiActionImpl = {
+	__index: _RefreshFromApiActionImpl,
+	new: (fields: _RefreshFromApiActionPartialFields?) -> RefreshFromApiAction,
+	encode: (self: RefreshFromApiAction) -> buffer,
+	decode: (input: buffer) -> RefreshFromApiAction,
+	jsonEncode: (self: RefreshFromApiAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RefreshFromApiAction,
+	descriptor: proto.Descriptor,
+}
+
+type _RefreshFromApiActionFields = {
+	action_type: ActionType,
+	action_params: RefreshFromApiAction_Params?,
+}
+
+type _RefreshFromApiActionPartialFields = {
+	action_type: ActionType?,
+	action_params: RefreshFromApiAction_Params?,
+}
+
+export type RefreshFromApiAction = typeof(setmetatable(
+	{} :: _RefreshFromApiActionFields,
+	{} :: _RefreshFromApiActionImpl
+))
+type _RefreshFromApiActionMessage = proto.Message<RefreshFromApiAction, _RefreshFromApiActionPartialFields>
+
+type _RefreshFromApiAction_ParamsImpl = {
+	__index: _RefreshFromApiAction_ParamsImpl,
+	new: (fields: _RefreshFromApiAction_ParamsPartialFields?) -> RefreshFromApiAction_Params,
+	encode: (self: RefreshFromApiAction_Params) -> buffer,
+	decode: (input: buffer) -> RefreshFromApiAction_Params,
+	jsonEncode: (self: RefreshFromApiAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RefreshFromApiAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _RefreshFromApiAction_ParamsFields = {
+	surface_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	config_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _RefreshFromApiAction_ParamsPartialFields = {
+	surface_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	config_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type RefreshFromApiAction_Params = typeof(setmetatable(
+	{} :: _RefreshFromApiAction_ParamsFields,
+	{} :: _RefreshFromApiAction_ParamsImpl
+))
+type _RefreshFromApiAction_ParamsMessage = proto.Message<
+	RefreshFromApiAction_Params,
+	_RefreshFromApiAction_ParamsPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -1749,6 +1808,7 @@ type _ActionFields = {
 		| { type: "open_social_link_action", value: OpenSocialLinkAction }
 		| { type: "open_charts_sort_detail_action", value: OpenChartsSortDetailAction }
 		| { type: "open_song_detail_action", value: OpenSongDetailAction }
+		| { type: "refresh_from_api_action", value: RefreshFromApiAction }
 	)?,
 }
 
@@ -1783,6 +1843,7 @@ type _ActionPartialFields = {
 		| { type: "open_social_link_action", value: OpenSocialLinkAction }
 		| { type: "open_charts_sort_detail_action", value: OpenChartsSortDetailAction }
 		| { type: "open_song_detail_action", value: OpenSongDetailAction }
+		| { type: "refresh_from_api_action", value: RefreshFromApiAction }
 	)?,
 }
 
@@ -2072,6 +2133,7 @@ export type ActionType =
 	| "ACTION_TYPE_OPEN_SOCIAL_LINK"
 	| "ACTION_TYPE_OPEN_CHARTS_SORT_DETAIL"
 	| "ACTION_TYPE_OPEN_SONG_DETAIL"
+	| "ACTION_TYPE_REFRESH_FROM_API"
 	| number -- Unknown
 
 do
@@ -2476,6 +2538,7 @@ do
 	function _LinkAction_ParamsImpl.new(data: _LinkAction_ParamsPartialFields?): LinkAction_Params
 		return setmetatable({
 			url = if data == nil or data.url == nil then nil else data.url,
+			title_key = if data == nil or data.title_key == nil then nil else data.title_key,
 		}, _LinkAction_ParamsImpl :: _LinkAction_ParamsImpl)
 	end
 
@@ -2486,6 +2549,12 @@ do
 		if self.url ~= nil then
 			local encoded = self.url:encode()
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.title_key ~= nil then
+			local encoded = self.title_key:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -2512,6 +2581,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.url = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -2544,6 +2618,10 @@ do
 			output.url = self.url:jsonEncode()
 		end
 
+		if self.title_key ~= nil then
+			output.titleKey = self.title_key:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -2552,6 +2630,14 @@ do
 
 		if input.url ~= nil then
 			self.url = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.url)
+		end
+
+		if input.title_key ~= nil then
+			self.title_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.title_key)
+		end
+
+		if input.titleKey ~= nil then
+			self.title_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.titleKey)
 		end
 
 		return self
@@ -10204,6 +10290,280 @@ do
 end
 
 do
+	local _RefreshFromApiActionImpl = {}
+	_RefreshFromApiActionImpl.__index = _RefreshFromApiActionImpl
+
+	function _RefreshFromApiActionImpl.new(data: _RefreshFromApiActionPartialFields?): RefreshFromApiAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _RefreshFromApiActionImpl :: _RefreshFromApiActionImpl)
+	end
+
+	function _RefreshFromApiActionImpl.encode(self: RefreshFromApiAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RefreshFromApiActionImpl.decode(input: buffer): RefreshFromApiAction
+		local self = _RefreshFromApiActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.RefreshFromApiAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RefreshFromApiActionImpl.jsonEncode(self: RefreshFromApiAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RefreshFromApiActionImpl.jsonDecode(input: { [string]: any }): RefreshFromApiAction
+		local self = _RefreshFromApiActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.RefreshFromApiAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.RefreshFromApiAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_RefreshFromApiActionImpl.descriptor = {
+		name = "RefreshFromApiAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RefreshFromApiAction",
+	}
+
+	messages.RefreshFromApiAction = _RefreshFromApiActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RefreshFromApiAction)
+end
+
+do
+	local _RefreshFromApiAction_ParamsImpl = {}
+	_RefreshFromApiAction_ParamsImpl.__index = _RefreshFromApiAction_ParamsImpl
+
+	function _RefreshFromApiAction_ParamsImpl.new(
+		data: _RefreshFromApiAction_ParamsPartialFields?
+	): RefreshFromApiAction_Params
+		return setmetatable({
+			surface_key = if data == nil or data.surface_key == nil then nil else data.surface_key,
+			config_key = if data == nil or data.config_key == nil then nil else data.config_key,
+		}, _RefreshFromApiAction_ParamsImpl :: _RefreshFromApiAction_ParamsImpl)
+	end
+
+	function _RefreshFromApiAction_ParamsImpl.encode(self: RefreshFromApiAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.surface_key ~= nil then
+			local encoded = self.surface_key:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.config_key ~= nil then
+			local encoded = self.config_key:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RefreshFromApiAction_ParamsImpl.decode(input: buffer): RefreshFromApiAction_Params
+		local self = _RefreshFromApiAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.surface_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.config_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RefreshFromApiAction_ParamsImpl.jsonEncode(self: RefreshFromApiAction_Params): any
+		local output = {}
+
+		if self.surface_key ~= nil then
+			output.surfaceKey = self.surface_key:jsonEncode()
+		end
+
+		if self.config_key ~= nil then
+			output.configKey = self.config_key:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RefreshFromApiAction_ParamsImpl.jsonDecode(input: { [string]: any }): RefreshFromApiAction_Params
+		local self = _RefreshFromApiAction_ParamsImpl.new()
+
+		if input.surface_key ~= nil then
+			self.surface_key =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.surface_key)
+		end
+
+		if input.surfaceKey ~= nil then
+			self.surface_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.surfaceKey)
+		end
+
+		if input.config_key ~= nil then
+			self.config_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.config_key)
+		end
+
+		if input.configKey ~= nil then
+			self.config_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.configKey)
+		end
+
+		return self
+	end
+
+	_RefreshFromApiAction_ParamsImpl.descriptor = {
+		name = "RefreshFromApiAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.RefreshFromApiAction_Params = _RefreshFromApiAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RefreshFromApiAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -10333,6 +10693,10 @@ do
 			elseif self.kind.type == "open_song_detail_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 29, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "refresh_from_api_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 30, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -10550,6 +10914,12 @@ do
 					self.kind =
 						{ type = "open_song_detail_action", value = messages.OpenSongDetailAction.decode(value) }
 					continue
+				elseif field == 30 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "refresh_from_api_action", value = messages.RefreshFromApiAction.decode(value) }
+					continue
 				end
 
 				local length
@@ -10636,6 +11006,8 @@ do
 				output.openChartsSortDetailAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "open_song_detail_action" then
 				output.openSongDetailAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "refresh_from_api_action" then
+				output.refreshFromApiAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -11034,6 +11406,20 @@ do
 			self.kind = {
 				type = "open_song_detail_action",
 				value = messages.OpenSongDetailAction.jsonDecode(input.openSongDetailAction),
+			}
+		end
+
+		if input.refresh_from_api_action ~= nil then
+			self.kind = {
+				type = "refresh_from_api_action",
+				value = messages.RefreshFromApiAction.jsonDecode(input.refresh_from_api_action),
+			}
+		end
+
+		if input.refreshFromApiAction ~= nil then
+			self.kind = {
+				type = "refresh_from_api_action",
+				value = messages.RefreshFromApiAction.jsonDecode(input.refreshFromApiAction),
 			}
 		end
 
@@ -12241,6 +12627,8 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_CHARTS_SORT_DETAIL"
 		elseif value == 29 then
 			return "ACTION_TYPE_OPEN_SONG_DETAIL"
+		elseif value == 30 then
+			return "ACTION_TYPE_REFRESH_FROM_API"
 		else
 			return nil
 		end
@@ -12307,6 +12695,8 @@ messages.ActionType = {
 			return 28
 		elseif self == "ACTION_TYPE_OPEN_SONG_DETAIL" then
 			return 29
+		elseif self == "ACTION_TYPE_REFRESH_FROM_API" then
+			return 30
 		else
 			return self
 		end
@@ -12373,6 +12763,8 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_CHARTS_SORT_DETAIL"
 		elseif name == "ACTION_TYPE_OPEN_SONG_DETAIL" then
 			return "ACTION_TYPE_OPEN_SONG_DETAIL"
+		elseif name == "ACTION_TYPE_REFRESH_FROM_API" then
+			return "ACTION_TYPE_REFRESH_FROM_API"
 		else
 			return nil
 		end
@@ -12439,6 +12831,8 @@ return {
 	OpenSongDetailAction_Params = messages.OpenSongDetailAction_Params,
 	OpenMarketplaceCatalogFilters = messages.OpenMarketplaceCatalogFilters,
 	OpenMarketplaceCatalogFilters_Params = messages.OpenMarketplaceCatalogFilters_Params,
+	RefreshFromApiAction = messages.RefreshFromApiAction,
+	RefreshFromApiAction_Params = messages.RefreshFromApiAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

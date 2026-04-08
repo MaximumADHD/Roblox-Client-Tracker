@@ -36,7 +36,7 @@ return {
 						},
 						React.createElement(
 							View,
-							{ tag = "auto-xy bg-surface-100 radius-medium" },
+							{ tag = "auto-xy radius-medium bg-surface-100" },
 							React.createElement(Icon, {
 								name = "icons/controls/voice/microphone_off_light",
 								size = IconSize.Medium,
@@ -59,7 +59,7 @@ return {
 					},
 					React.createElement(
 						View,
-						{ tag = "auto-xy bg-surface-100 radius-medium" },
+						{ tag = "auto-xy radius-medium bg-surface-100" },
 						React.createElement(Icon, {
 							name = "icons/controls/voice/microphone_off_light",
 							size = IconSize.Medium,
@@ -88,7 +88,7 @@ return {
 						},
 						React.createElement(
 							View,
-							{ tag = "auto-xy bg-surface-100 radius-medium" },
+							{ tag = "auto-xy radius-medium bg-surface-100" },
 							React.createElement(Icon, {
 								name = "icons/controls/voice/microphone_off_light",
 								size = IconSize.Medium,

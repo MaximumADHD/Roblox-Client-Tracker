@@ -25,7 +25,7 @@ local INGAME_SELFVIEW_CURSOR_OVERRIDE_KEY = Symbol.named("SelfieViewCursorOverri
 local debounce = require(Root.Utility.debounce)
 local ChromeService = require(Root.Service)
 local Constants = require(Root.Unibar.Constants)
-local ChromeTypes = require(Root.Service.Types)
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
 local shouldRejectMultiTouch = require(Root.Utility.shouldRejectMultiTouch)
 
@@ -44,8 +44,10 @@ local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTok
 
 local useWindowSize = require(Root.Hooks.useWindowSize)
 
+type IntegrationComponentProps = ChromePackage.IntegrationComponentProps
+
 export type WindowHostProps = {
-	integration: ChromeTypes.IntegrationComponentProps,
+	integration: IntegrationComponentProps,
 	position: UDim2?,
 }
 

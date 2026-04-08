@@ -16,7 +16,7 @@ local function TileFooter(props: TileFooterProps)
 
 	return React.createElement(View, {
 		LayoutOrder = 2,
-		tag = "size-full-0 auto-y shrink",
+		tag = "shrink size-full-0 auto-y",
 		testId = `{tileContext.testId}--footer`,
 	}, props.children)
 end

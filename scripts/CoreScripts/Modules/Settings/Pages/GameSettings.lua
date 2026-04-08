@@ -86,7 +86,6 @@ local FFlagVoiceChatSelectorReconnectFocus = game:DefineFastFlag("VoiceChatSelec
 local FFlagMicroProfilerReadOnlyInformationLabel = game:DefineFastFlag("MicroProfilerReadOnlyInformationLabel", false)
 local FFlagEnableModerateChatRemoteEvent = SharedFlags.FFlagEnableModerateChatRemoteEvent
 local FFlagModerateChatAnalytics = game:DefineFastFlag("ModerateChatAnalytics", false)
-local FFlagPSUseVibrationInsteadOfHaptics = game:DefineFastFlag("PSUseVibrationInsteadOfHaptics", false)
 local FFlagVoiceSelectorAvailableAfterFae = game:DefineFastFlag("VoiceSelectorAvailableAfterFae", false)
 local FFlagDifferentiateVoiceSelectorSystemAndUser = game:DefineFastFlag("DifferentiateVoiceSelectorSystemAndUser", false)
 
@@ -2435,7 +2434,7 @@ local function Initialize()
 	local function createHapticsToggle()
 		local initialIndex = GameSettings.HapticStrength == 0 and 1 or 2
 
-		local hapticsFrameText = if FFlagPSUseVibrationInsteadOfHaptics and getAppFeaturePolicies().getShouldUseVibrationInsteadOfHaptics() then locales:Format("CoreScripts.InGameMenu.Vibration") else "Haptics"
+		local hapticsFrameText = if getAppFeaturePolicies().getShouldUseVibrationInsteadOfHaptics() then locales:Format("CoreScripts.InGameMenu.Vibration") else "Haptics"
 
 		this.HapticsFrame, _, this.HapticsSelector =
 			utility:AddNewRow(this, hapticsFrameText, "Selector", { "Off", "On" }, initialIndex)

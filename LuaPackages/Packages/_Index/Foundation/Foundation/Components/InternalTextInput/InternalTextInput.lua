@@ -624,7 +624,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 				layout = scrollViewLayout,
 				onCanvasPositionChanged = if isScrollable then onScrollCanvasPositionChanged else nil,
 				scrollingFrameRef = if isScrollable then onScrollingFrameMount else nil,
-				tag = "size-full fill clip",
+				tag = "fill size-full clip",
 			}, {
 				TextBox = if not isTouchFocused
 					then React.createElement(TextBox, {

@@ -10,15 +10,15 @@ local function SideBySideStory(props)
 	local inputText = props.controls.inputText
 
 	return React.createElement(View, {
-		tag = "size-full-0 col gap-small",
+		tag = "col gap-small size-full-0",
 	}, {
 		React.createElement(Text, {
-			tag = "size-full-0 auto-y text-align-x-left text-wrap",
+			tag = "size-full-0 auto-y text-wrap text-align-x-left",
 			Text = `<b>Unescaped</b><br/>{inputText}`,
 			RichText = true,
 		}),
 		React.createElement(Text, {
-			tag = "size-full-0 auto-y text-align-x-left text-wrap",
+			tag = "size-full-0 auto-y text-wrap text-align-x-left",
 			Text = `<b>Escaped</b><br/>{escapeRichText(inputText)}`,
 			RichText = true,
 		}),
@@ -197,7 +197,7 @@ return {
 			name = "Raw input",
 			story = function(props)
 				return React.createElement(Text, {
-					tag = "size-full-0 auto-y text-align-x-left text-wrap",
+					tag = "size-full-0 auto-y text-wrap text-align-x-left",
 					Text = `Raw input: {props.controls.inputText}`,
 				})
 			end,

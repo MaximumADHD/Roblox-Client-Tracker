@@ -34,6 +34,7 @@ export type FontStyle = Types.FontStyle
 export type Tokens = Tokens.Tokens
 
 -- Enums and their types
+local AccessoryType = require(script.Enums.AccessoryType)
 local AlertSeverity = require(script.Enums.AlertSeverity)
 local AlertVariant = require(script.Enums.AlertVariant)
 local AvatarGroupType = require(script.Enums.AvatarGroupType)
@@ -58,7 +59,9 @@ local InputLabelSize = require(script.Enums.InputLabelSize)
 local InputPlacement = require(script.Enums.InputPlacement)
 local InputSize = require(script.Enums.InputSize)
 local InputVariant = require(script.Enums.InputVariant)
+local ListItemInputType = require(script.Enums.ListItemInputType)
 local NumberInputControlsVariant = require(script.Enums.NumberInputControlsVariant)
+local OnChangeCallbackReason = require(script.Enums.OnChangeCallbackReason)
 local OnCloseCallbackReason = require(script.Enums.OnCloseCallbackReason)
 local Orientation = require(script.Enums.Orientation)
 local PopoverAlign = require(script.Enums.PopoverAlign)
@@ -77,6 +80,7 @@ local ThumbnailType = require(script.Enums.ThumbnailType)
 local UserPresence = require(script.Enums.UserPresence)
 local Visibility = require(script.Enums.Visibility)
 
+export type AccessoryType = AccessoryType.AccessoryType
 export type AlertSeverity = AlertSeverity.AlertSeverity
 export type AlertVariant = AlertVariant.AlertVariant
 export type AvatarGroupType = AvatarGroupType.AvatarGroupType
@@ -101,7 +105,9 @@ export type InputLabelSize = InputLabelSize.InputLabelSize
 export type InputPlacement = InputPlacement.InputPlacement
 export type InputSize = InputSize.InputSize
 export type InputVariant = InputVariant.InputVariant
+export type ListItemInputType = ListItemInputType.ListItemInputType
 export type NumberInputControlsVariant = NumberInputControlsVariant.NumberInputControlsVariant
+export type OnChangeCallbackReason = OnChangeCallbackReason.OnChangeCallbackReason
 export type OnCloseCallbackReason = OnCloseCallbackReason.OnCloseCallbackReason
 export type Orientation = Orientation.Orientation
 export type PopoverAlign = PopoverAlign.PopoverAlign
@@ -203,6 +209,11 @@ export type KeyLabelProps = KeyLabel.KeyLabelProps
 
 local Knob = require(script.Components.Knob)
 export type KnobProps = Knob.KnobProps
+
+local List = require(script.Components.List)
+export type ListProps = List.ListProps
+export type ListItemProps = List.ListItemProps
+export type ListAccessoryProps = List.ListAccessoryProps
 
 local Loading = require(script.Components.Loading)
 export type LoadingProps = Loading.LoadingProps
@@ -314,6 +325,7 @@ local Foundation = strict({
 	InputLabel = InputLabel,
 	KeyLabel = KeyLabel,
 	Knob = Knob,
+	List = List,
 	Loading = Loading,
 	Menu = Menu,
 	NumberInput = NumberInput,
@@ -373,6 +385,7 @@ local Foundation = strict({
 
 	-- Enums
 	Enums = {
+		AccessoryType = AccessoryType,
 		AlertSeverity = AlertSeverity,
 		AlertVariant = AlertVariant,
 		AvatarGroupType = AvatarGroupType,
@@ -403,7 +416,9 @@ local Foundation = strict({
 		InputVariant = InputVariant,
 		InputPlacement = InputPlacement,
 		InputLabelSize = InputLabelSize,
+		ListItemInputType = ListItemInputType,
 		NumberInputControlsVariant = NumberInputControlsVariant,
+		OnChangeCallbackReason = OnChangeCallbackReason,
 		OnCloseCallbackReason = OnCloseCallbackReason,
 		Orientation = Orientation,
 		PopoverAlign = PopoverAlign,
@@ -432,6 +447,7 @@ local Foundation = strict({
 		blendColors = require(script.Utility.blendColors),
 		composeStyleVariant = require(script.Utility.composeStyleVariant),
 		getBuilderIconForKeycode = require(script.Utility.getBuilderIconForKeycode),
+		getBuilderIconForCurrentPlatform = require(script.Utility.getBuilderIconForCurrentPlatform),
 		getGridMetrics = require(script.Utility.getGridMetrics),
 		getRbxThumb = require(script.Utility.getRbxThumb),
 		getIconRichText = require(script.Utility.getIconRichText),

@@ -13,7 +13,6 @@ local RunService = game:GetService("RunService")
 
 local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
-local EventBus = CommonUtils.get("EventBus")
 local PlayerModuleEventBus = CommonUtils.get("PlayerModuleEventBus")
 local FFlagUserDisableForceLocalHumanoidPrediction = FlagUtil.getUserFlag("UserDisableForceLocalHumanoidPrediction")
 local FFlagUserPlayerScriptsClickToMoveUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClickToMoveUsesIAS")

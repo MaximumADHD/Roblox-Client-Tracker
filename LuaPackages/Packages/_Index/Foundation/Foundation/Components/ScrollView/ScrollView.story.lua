@@ -74,14 +74,14 @@ local function StoryScrollViewWithTags(props)
 	local items: { [string]: React.ReactNode } = {}
 	for i = 1, 10 do
 		items[`Item{i}`] = React.createElement(Text, {
-			tag = "bg-shift-100 radius-medium size-3000-2000 content-muted",
+			tag = "size-3000-2000 radius-medium bg-shift-100 content-muted",
 			Text = `Item {i}`,
 			LayoutOrder = i,
 		})
 	end
 
 	return React.createElement(View, {
-		tag = "col gap-large auto-y size-full-0",
+		tag = "col gap-large size-full-0 auto-y",
 	}, {
 		ScrollView = React.createElement(ScrollView, {
 			tag = tag,
@@ -96,7 +96,7 @@ local function StoryScrollViewWithTags(props)
 			LayoutOrder = 1,
 		}, items),
 		TagInfo = React.createElement(Text, {
-			tag = "text-label-small content-default size-full-200",
+			tag = "size-full-200 text-label-small content-default",
 			Text = `tag = {tag}`,
 			LayoutOrder = 2,
 		}),

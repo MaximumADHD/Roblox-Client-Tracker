@@ -485,9 +485,7 @@ function ControlModule:calculateRawMoveVector(humanoid: Humanoid, cameraRelative
 	local cameraCFrame = camera.CFrame
 
 	if VRService.VREnabled and humanoid.RootPart then
-		local vrFrame = VRService:GetUserCFrame(Enum.UserCFrame.Head)
-
-		vrFrame = self:GetEstimatedVRTorsoFrame()
+		local vrFrame = self:GetEstimatedVRTorsoFrame()
 
 		-- movement relative to VR frustum
 		local cameraDelta = camera.Focus.Position - cameraCFrame.Position

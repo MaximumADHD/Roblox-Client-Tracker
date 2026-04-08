@@ -18,7 +18,9 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
-local BackpackModule = require(RobloxGui.Modules.BackpackScript)
+local FFlagEnableNewBackpack = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableNewBackpack
+local Features: any = if FFlagEnableNewBackpack then require(CorePackages.Workspace.Packages.System).Features else nil
+local BackpackModule: any = if not FFlagEnableNewBackpack then require(RobloxGui.Modules.BackpackScript) else nil
 local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
 local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
 
@@ -150,26 +152,45 @@ EmotesMenuMaster.MenuVisibilityChanged.Event:Connect(function()
 	updateEmoteAvailability()
 end)
 
-local backpackVisibility = MappedSignal.new(BackpackModule.StateChanged.Event, function()
-	return BackpackModule.IsOpen
-end)
+local backpackVisibility: any = if not FFlagEnableNewBackpack
+	then MappedSignal.new(BackpackModule.StateChanged.Event, function()
+		return BackpackModule.IsOpen
+	end)
+	else nil
 local backpack = ChromeService:register({
 	id = "backpack",
 	label = "CoreScripts.TopBar.Inventory",
 	activated = function(self)
-		if BackpackModule.IsOpen then
-			BackpackModule:OpenClose()
+		if FFlagEnableNewBackpack then
+			if Features.getVisibility(Features.FeatureName.Backpack) then
+				Features.toggleVisibility(Features.FeatureName.Backpack)
+			else
+				if (isInExperienceUIVREnabled and isSpatial()) and not InExperienceUIVRIXP:isMovePanelToCenter() then
+					Features.toggleVisibility(Features.FeatureName.Backpack)
+				else
+					ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+						Features.toggleVisibility(Features.FeatureName.Backpack)
+					end)
+				end
+			end
 		else
-			if (isInExperienceUIVREnabled and isSpatial()) and not InExperienceUIVRIXP:isMovePanelToCenter() then
+			if BackpackModule.IsOpen then
 				BackpackModule:OpenClose()
 			else
-				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+				if (isInExperienceUIVREnabled and isSpatial()) and not InExperienceUIVRIXP:isMovePanelToCenter() then
 					BackpackModule:OpenClose()
-				end)
+				else
+					ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+						BackpackModule:OpenClose()
+					end)
+				end
 			end
 		end
 	end,
 	isActivated = function()
+		if FFlagEnableNewBackpack then
+			return Features.getVisibility(Features.FeatureName.Backpack)
+		end
 		return backpackVisibility:get()
 	end,
 	components = {

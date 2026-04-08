@@ -7,6 +7,7 @@ local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
 local t = require(CorePackages.Packages.t)
 
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
@@ -20,11 +21,14 @@ local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagEnableBlackbirdCheckDev = SharedFlags.FFlagEnableBlackbirdCheckDev
+local FFlagEnableBlackbirdCheck = SharedFlags.FFlagEnableBlackbirdCheck
+local FFlagHidePremiumIconography = SharedFlags.FFlagHidePremiumIconography
 
 local PlayerList = Components.Parent
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
+local FFlagPlayerListFoundationSubscriptionIcon =
+	PlayerListPackage.Flags.FFlagPlayerListFoundationSubscriptionIcon
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
@@ -77,16 +81,29 @@ local function getIconImage(layoutValues, player, iconInfo, relationship)
 		return layoutValues.FollowingIcon
 	end
 
-	if FFlagEnableBlackbirdCheckDev
-		and game:GetEngineFeature("ReadHasRobloxSubscriptionLua")
-		and player.HasRobloxSubscription
-	then
-		return layoutValues.SubscriptionIcon
-	end
+	local isPremium = player.MembershipType == Enum.MembershipType.Premium
 
-	local membershipIcon = layoutValues.MembershipIcons[player.MembershipType]
-	if membershipIcon then
-		return membershipIcon
+	if FFlagEnableBlackbirdCheck then
+		local isRobloxSubscriber = game:GetEngineFeature("ReadHasRobloxSubscriptionLua")
+			and player.HasRobloxSubscription
+
+		if isRobloxSubscriber then
+			return layoutValues.SubscriptionIcon
+		end
+
+		if not FFlagHidePremiumIconography and isPremium then
+			local membershipIcon = layoutValues.MembershipIcons[player.MembershipType]
+			if membershipIcon then
+				return membershipIcon
+			end
+		end
+	else
+		if isPremium then
+			local membershipIcon = layoutValues.MembershipIcons[player.MembershipType]
+			if membershipIcon then
+				return membershipIcon
+			end
+		end
 	end
 
 	return "" :: any
@@ -118,30 +135,51 @@ function PlayerIcon:render()
 				}),
 			})
 		elseif self.props.isSmallTouchDevice then
+			local iconImage = getIconImage(
+				layoutValues,
+				self.props.player,
+				self.props.playerIconInfo,
+				self.props.playerRelationship
+			)
+
+			if FFlagPlayerListFoundationSubscriptionIcon and typeof(iconImage) == "table" and iconImage.isFoundationIcon then
+				return Roact.createElement(Foundation.Icon, {
+					name = iconImage.name,
+					size = Foundation.Enums.IconSize.Medium,
+					AnchorPoint = Vector2.new(0, 0.5),
+					Position = UDim2.new(0, layoutValues.PlayerNamePaddingXMobile, 0.5, 0),
+				}) :: any
+			end
+
 			return Roact.createElement(ImageSetLabel, {
 				AnchorPoint = Vector2.new(0, 0.5),
 				Position = UDim2.new(0, layoutValues.PlayerNamePaddingXMobile, 0.5, 0),
 				Size = layoutValues.PlayerIconSizeMobile,
 				BackgroundTransparency = 1,
-				Image = getIconImage(
-					layoutValues,
-					self.props.player,
-					self.props.playerIconInfo,
-					self.props.playerRelationship
-				),
+				Image = iconImage,
 				BorderSizePixel = 0,
 			})
 		else
+			local iconImage = getIconImage(
+				layoutValues,
+				self.props.player,
+				self.props.playerIconInfo,
+				self.props.playerRelationship
+			)
+
+			if FFlagPlayerListFoundationSubscriptionIcon and typeof(iconImage) == "table" and iconImage.isFoundationIcon then
+				return Roact.createElement(Foundation.Icon, {
+					name = iconImage.name,
+					size = Foundation.Enums.IconSize.Small,
+					LayoutOrder = self.props.layoutOrder,
+				}) :: any
+			end
+
 			return Roact.createElement(ImageSetLabel, {
 				LayoutOrder = self.props.layoutOrder,
 				Size = layoutValues.PlayerIconSize,
 				BackgroundTransparency = 1,
-				Image = getIconImage(
-					layoutValues,
-					self.props.player,
-					self.props.playerIconInfo,
-					self.props.playerRelationship
-				),
+				Image = iconImage,
 				BorderSizePixel = 0,
 			})
 		end

@@ -72,13 +72,13 @@ local function DialogActions(dialogActionsProps: DialogActionsProps)
 	local verticalOrientation = props.orientation == Orientation.Vertical and isSmall
 
 	return React.createElement(View, {
-		tag = "col auto-y size-full-0",
+		tag = "col size-full-0 auto-y",
 		LayoutOrder = props.LayoutOrder,
 		testId = `{dialogContext.testId}--actions`,
 	}, {
 		ActionsContainer = React.createElement(View, {
 			tag = {
-				["auto-y size-full-0 gap-small"] = true,
+				["gap-small size-full-0 auto-y"] = true,
 				["row wrap"] = horizontalOrientation,
 				["col flex-x-fill"] = verticalOrientation,
 			},

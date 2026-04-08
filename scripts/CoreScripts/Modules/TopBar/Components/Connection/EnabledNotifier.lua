@@ -15,7 +15,8 @@ end
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
-local BackpackModule = require(RobloxGui.Modules.BackpackScript)
+local FFlagEnableNewBackpack = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableNewBackpack
+local BackpackModule = if not FFlagEnableNewBackpack then require(RobloxGui.Modules.BackpackScript) else nil
 local EmotesModule = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 
@@ -28,7 +29,9 @@ EnabledNotifier.validateProps = t.strictInterface({
 function EnabledNotifier:notifyEnabled()
 	PlayerListMaster:SetTopBarEnabled(self.props.topBarEnabled)
 	ChatSelector:TopbarEnabledChanged(self.props.topBarEnabled)
-	BackpackModule:TopbarEnabledChanged(self.props.topBarEnabled)
+	if not FFlagEnableNewBackpack and BackpackModule then
+		BackpackModule:TopbarEnabledChanged(self.props.topBarEnabled)
+	end
 	EmotesModule:setTopBarEnabled(self.props.topBarEnabled)
 end
 

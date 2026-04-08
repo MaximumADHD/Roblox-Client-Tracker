@@ -21,13 +21,13 @@ local function HorizontalStory()
 	end
 
 	return React.createElement(View, {
-		tag = "size-full-2000 col gap-xxlarge align-y-center bg-surface-0 padding-large",
+		tag = "col align-y-center gap-xxlarge size-full-2000 padding-large bg-surface-0",
 	}, children)
 end
 
 local function VerticalStory()
 	return React.createElement(View, {
-		tag = "size-full-2000 row align-x-center align-y-center bg-surface-0 padding-large gap-large",
+		tag = "row align-x-center align-y-center gap-large size-full-2000 padding-large bg-surface-0",
 	}, {
 		Divider = React.createElement(Divider, {
 			orientation = Orientation.Vertical,

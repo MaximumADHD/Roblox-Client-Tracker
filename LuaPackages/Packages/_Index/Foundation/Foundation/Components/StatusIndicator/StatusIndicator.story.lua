@@ -23,7 +23,7 @@ return {
 				return React.createElement(
 					View,
 					{
-						tag = "size-full-0 auto-y row align-x-left align-y-center gap-xxlarge",
+						tag = "row align-x-left align-y-center gap-xxlarge size-full-0 auto-y",
 					},
 					Dash.map(StatusIndicatorVariant, function(variant)
 						if
@@ -33,10 +33,10 @@ return {
 							return React.createElement(React.Fragment)
 						end
 						return React.createElement(View, {
-							tag = "size-0-0 auto-xy col align-x-center gap-small",
+							tag = "col align-x-center gap-small size-0-0 auto-xy",
 						}, {
 							Label = React.createElement(Text, {
-								tag = "auto-xy text-align-x-center text-caption-small",
+								tag = "auto-xy text-caption-small text-align-x-center",
 								Text = variant,
 							}),
 							Indicator = React.createElement(StatusIndicator, {
@@ -54,7 +54,7 @@ return {
 				return React.createElement(
 					View,
 					{
-						tag = "size-full-0 auto-y row align-x-left align-y-center gap-xxlarge",
+						tag = "row align-x-left align-y-center gap-xxlarge size-full-0 auto-y",
 					},
 					Dash.map({
 						StatusIndicatorVariant.Standard :: StatusIndicatorVariant,
@@ -72,10 +72,10 @@ return {
 							return {}
 						end
 						return React.createElement(View, {
-							tag = "size-0-0 auto-xy col align-x-center gap-small",
+							tag = "col align-x-center gap-small size-0-0 auto-xy",
 						}, {
 							Label = React.createElement(Text, {
-								tag = "auto-xy text-align-x-center text-caption-small",
+								tag = "auto-xy text-caption-small text-align-x-center",
 								Text = variant,
 							}),
 							Indicator = React.createElement(StatusIndicator, {

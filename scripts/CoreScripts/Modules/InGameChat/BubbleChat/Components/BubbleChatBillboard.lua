@@ -20,13 +20,10 @@ local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local Otter = require(CorePackages.Packages.Otter)
-local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
-local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 
 local BubbleChatList = require(script.Parent.BubbleChatList)
 local ChatBubbleDistant = require(script.Parent.ChatBubbleDistant)
 local VoiceBubble = require(script.Parent.VoiceBubble)
-local ControlsBubble = require(script.Parent.ControlsBubble)
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicator)
 local Types = require(script.Parent.Parent.Types)
 local Constants = require(script.Parent.Parent.Constants)
@@ -38,9 +35,6 @@ local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local GetFFlagMicConnectingToast = require(RobloxGui.Modules.Flags.GetFFlagMicConnectingToast)
 local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatInexistantAdorneeFix)
-local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
-local FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService =
-	require(RobloxGui.Modules.Flags.FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService)
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 
 local FIntBubbleVoiceTimeoutMillis = game:DefineFastInt("BubbleVoiceTimeoutMillis", 1000)
@@ -54,7 +48,6 @@ local FFlagEasierUnmutingHideIfMuted = game:DefineFastFlag("EasierUnmutingHideIf
 local FIntEasierUnmutingDisplayDistance = game:DefineFastInt("EasierUnmutingDisplayDistance", 20)
 local FStringEasierUnmutingIXPLayerName = game:DefineFastString("EasierUnmutingIXPLayerName", "Voice.UserAgency")
 local FStringEasierUnmutingIXPLayerValue = game:DefineFastString("EasierUnmutingIXPLayerValue", "VoiceUserAgencyEnabled")
-local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 
 local BubbleChatBillboard = Roact.PureComponent:extend("BubbleChatBillboard")
 
@@ -62,11 +55,6 @@ local SPRING_CONFIG = {
 	dampingRatio = 1,
 	frequency = 4,
 }
-
-local ControlsBubbleV2
-if FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService then
-	ControlsBubbleV2 = require(script.Parent.ControlsBubbleV2)
-end
 
 BubbleChatBillboard.validateProps = t.strictInterface({
 	userId = t.string,
@@ -109,11 +97,7 @@ end
 
 function BubbleChatBillboard:init()
 	local selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
-	local selfViewEnabled = if FFlagAvatarChatCoreScriptSupport
-		then StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(
-			Enum.CoreGuiType.SelfView
-		)
-		else nil
+	local selfViewEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
 
 	self:setState({
 		adornee = nil,
@@ -315,15 +299,6 @@ function BubbleChatBillboard:didMount()
 	local initialOffset = self:getVerticalOffset(adornee)
 	self.offsetGoal = initialOffset
 	self.offsetMotor:setGoal(Otter.instant(initialOffset))
-
-	if FFlagAvatarChatCoreScriptSupport then
-		if getFFlagDoNotPromptCameraPermissionsOnMount() then
-			self:getMicPermission()
-			self:getCameraPermissionWithoutRequest()
-		else
-			self:getPermissions()
-		end
-	end
 
 	-- When the character respawns, we need to update the adornee
 	local player
@@ -544,55 +519,11 @@ function BubbleChatBillboard:getAdorneeInstance(adornee)
 	end
 end
 
---[[
-	Check that the user's device has given Roblox camera permission.
-]]
-function BubbleChatBillboard:getPermissions()
-	local callback = function(response)
-		self:setState({
-			hasCameraPermissions = response.hasCameraPermissions,
-			hasMicPermissions = response.hasMicPermissions,
-		})
-	end
-	return getCamMicPermissions(callback, nil, nil, "BubbleChatBillboard.getPermissions")
-end
-
---[[
-	Check if Roblox has permissions for mic access only.
-]]
-function BubbleChatBillboard:getMicPermission()
-	local callback = function(response)
-		self:setState({
-			hasMicPermissions = response.hasMicPermissions,
-		})
-	end
-	getCamMicPermissions(callback, { PermissionsProtocol.Permissions.MICROPHONE_ACCESS :: string }, nil, "BubbleChatBillboard.getMicPermission")
-end
-
---[[
-	Check if Roblox has permissions for camera access only without requesting.
-]]
-function BubbleChatBillboard:getCameraPermissionWithoutRequest()
-	local callback = function(response)
-		self:setState({
-			hasCameraPermissions = response.hasCameraPermissions,
-		})
-	end
-	getCamMicPermissions(callback, { PermissionsProtocol.Permissions.CAMERA_ACCESS :: string }, true)
-end
-
-function BubbleChatBillboard:setCameraPermissionStateFromControl(hasCameraPermissions: boolean)
-	self:setState({
-		hasCameraPermissions = hasCameraPermissions
-	})
-end
-
 function BubbleChatBillboard:getRenderVoiceAndCameraBubble()
 	-- If voice isn't enabled, never render buttons
 	if
 		not self.props.voiceEnabled
 		and not FFlagDebugAllowControlButtonsNoVoiceChat
-		and not FFlagAvatarChatCoreScriptSupport
 	then
 		return false
 	end
@@ -657,64 +588,23 @@ function BubbleChatBillboard:render()
 	local active = nil
 	local showVoiceIndicator = self.props.voiceEnabled and not self.state.voiceTimedOut
 
-	-- Self View hides the local user's bubble chat billboard.
-	if FFlagAvatarChatCoreScriptSupport and isLocalPlayer then
-		showVoiceIndicator = showVoiceIndicator and not self.state.selfViewOpen
-	end
-
 	-- Hide local user's voice indicator on VR or if Chrome Enabled
 	if (VRService.VREnabled or ChromeEnabled()) and isLocalPlayer then
 		showVoiceIndicator = false
 	end
 
-	if FFlagAvatarChatCoreScriptSupport then
-		if self:getRenderVoiceAndCameraBubble() then
-			local voiceAndCameraBubbleSettings = {
-				chatSettings = chatSettings,
-				isInsideMaximizeDistance = self.state.isInsideMaximizeDistance,
-				LayoutOrder = 2,
-				isLocalPlayer = isLocalPlayer,
-				hasCameraPermissions = self.state.hasCameraPermissions,
-				hasMicPermissions = self.state.hasMicPermissions,
-				userId = self.props.userId,
-				voiceEnabled = self.props.voiceEnabled,
-				setCameraPermissionStateFromControl = function(hasCameraPermissions: boolean)
-					if getFFlagDoNotPromptCameraPermissionsOnMount() then
-						self:setCameraPermissionStateFromControl(hasCameraPermissions)
-					end
-				end,
-				isShowingDueToEasierUnmuting = self:isShowingDueToEasierUnmuting()
-			}
-
-			children.VoiceAndCameraBubble = (
-				FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService
-				and Roact.createElement(ControlsBubbleV2, voiceAndCameraBubbleSettings)
-			) or Roact.createElement(ControlsBubble, voiceAndCameraBubbleSettings)
-
-			children.listLayout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				VerticalAlignment = Enum.VerticalAlignment.Bottom,
-				Padding = UDim.new(0, 8),
-			})
-			children.padding = Roact.createElement("UIPadding", {
-				PaddingBottom = UDim.new(0, 8),
-			})
-		end
-	else
-		-- If neither bubble chat nor voice is on, this whole component shouldn't be rendered.
-		if
-			showVoiceIndicator
-			and (not self.props.bubbleChatEnabled or not self.props.messageIds or #self.props.messageIds == 0)
-		then
-			-- Render the VoiceBubble if neither of the other two should render.
-			children.VoiceBubble = Roact.createElement(VoiceBubble, {
-				chatSettings = chatSettings,
-				renderInsert = self.renderInsert,
-				insertSize = self.insertSize,
-				isDistant = not self.state.isInsideMaximizeDistance,
-			})
-		end
+	-- If neither bubble chat nor voice is on, this whole component shouldn't be rendered.
+	if
+		showVoiceIndicator
+		and (not self.props.bubbleChatEnabled or not self.props.messageIds or #self.props.messageIds == 0)
+	then
+		-- Render the VoiceBubble if neither of the other two should render.
+		children.VoiceBubble = Roact.createElement(VoiceBubble, {
+			chatSettings = chatSettings,
+			renderInsert = self.renderInsert,
+			insertSize = self.insertSize,
+			isDistant = not self.state.isInsideMaximizeDistance,
+		})
 	end
 
 	if self.state.hasMessage then
@@ -724,7 +614,7 @@ function BubbleChatBillboard:render()
 				isVisible = self.state.isInsideMaximizeDistance,
 				onLastBubbleFadeOut = self.onLastBubbleFadeOut,
 				chatSettings = chatSettings,
-				renderFirstInsert = if not FFlagAvatarChatCoreScriptSupport and showVoiceIndicator
+				renderFirstInsert = if showVoiceIndicator
 					then self.renderInsert
 					else nil,
 				insertSize = self.insertSize,
@@ -742,9 +632,6 @@ function BubbleChatBillboard:render()
 	end
 
 	active = showVoiceIndicator
-	if FFlagAvatarChatCoreScriptSupport then
-		active = self:getRenderVoiceAndCameraBubble()
-	end
 
 	-- For other players, increase vertical offset by 1 to prevent overlaps with the name display
 	-- For the local player, increase Z offset to prevent the character from overlapping his bubbles when jumping/emoting

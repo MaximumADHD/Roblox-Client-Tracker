@@ -23,16 +23,16 @@ return {
 				local tokens = useTokens()
 				return React.createElement(
 					View,
-					{ tag = "auto-xy col gap-medium" },
+					{ tag = "col gap-medium auto-xy" },
 					Dash.map(UserPresence, function(userPresence: UserPresence)
-						return React.createElement(View, { tag = "auto-xy col gap-large" }, {
+						return React.createElement(View, { tag = "col gap-large auto-xy" }, {
 							Header = React.createElement(Text, {
 								Text = tostring(userPresence),
-								tag = "text-caption-medium content-default align-x-left auto-xy size-0-0",
+								tag = "align-x-left size-0-0 auto-xy text-caption-medium content-default",
 							}),
 							Avatars = React.createElement(
 								View,
-								{ tag = "auto-xy row gap-xxlarge" },
+								{ tag = "row gap-xxlarge auto-xy" },
 								Dash.map({
 									InputSize.XSmall :: InputSize,
 									InputSize.Small,

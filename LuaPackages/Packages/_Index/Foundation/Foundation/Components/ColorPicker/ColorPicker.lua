@@ -166,10 +166,10 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 			props,
 			if Flags.FoundationColorPickerDesignUpdate
 				then {
-					tag = "col gap-small auto-y padding-small size-full-0",
+					tag = "col gap-small size-full-0 auto-y padding-small",
 				}
 				else {
-					tag = "col gap-medium auto-xy align-x-center",
+					tag = "col align-x-center gap-medium auto-xy",
 				}
 		),
 		{

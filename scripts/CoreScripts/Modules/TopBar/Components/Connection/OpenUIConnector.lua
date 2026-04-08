@@ -23,7 +23,9 @@ local SetEmotesEnabled = require(TopBar.Actions.SetEmotesEnabled)
 local EventConnection = require(TopBar.Parent.Common.EventConnection)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local BackpackModule = require(RobloxGui.Modules.BackpackScript)
+local FFlagEnableNewBackpack = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableNewBackpack
+local BackpackModule: any = if not FFlagEnableNewBackpack then require(RobloxGui.Modules.BackpackScript) else nil
+local Features: any = if FFlagEnableNewBackpack then require(CorePackages.Workspace.Packages.System).Features else nil
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 
@@ -40,9 +42,23 @@ OpenUIConnector.validateProps = t.strictInterface({
 function OpenUIConnector:didMount()
 	self.props.setLeaderboardOpen(PlayerListMaster:GetSetVisible())
 
-	self.props.setBackpackOpen(BackpackModule.IsOpen)
+	if FFlagEnableNewBackpack then
+		self.props.setBackpackOpen(Features.getVisibility(Features.FeatureName.Backpack))
+		self.disposeBackpackListener = Features.onVisibilityChanged(Features.FeatureName.Backpack, function(visible)
+			self.props.setBackpackOpen(visible)
+		end)
+	else
+		self.props.setBackpackOpen(BackpackModule.IsOpen)
+	end
 	self.props.setEmotesOpen(EmotesMenuMaster:isOpen())
 	self.props.setEmotesEnabled(EmotesMenuMaster.MenuIsVisible)
+end
+
+function OpenUIConnector:willUnmount()
+	if self.disposeBackpackListener then
+		self.disposeBackpackListener()
+		self.disposeBackpackListener = nil
+	end
 end
 
 function OpenUIConnector:render()
@@ -56,12 +72,12 @@ function OpenUIConnector:render()
 			end,
 		}),
 
-		BackpackOpenChangedConnection = Roact.createElement(EventConnection, {
+		BackpackOpenChangedConnection = if not FFlagEnableNewBackpack then Roact.createElement(EventConnection, {
 			event = BackpackModule.StateChanged.Event,
 			callback = function(open)
 				self.props.setBackpackOpen(open)
 			end,
-		}),
+		}) else nil,
 
 		EmotesOpenChangedConnection = Roact.createElement(EventConnection, {
 			event = EmotesMenuMaster.EmotesMenuToggled.Event,

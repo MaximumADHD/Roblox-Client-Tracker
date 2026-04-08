@@ -86,18 +86,18 @@ local function Snackbar(snackbarProps: SnackbarProps, ref: React.Ref<GuiObject>?
 					MaxSize = Vector2.new(scaledMaxWidth, math.huge),
 				},
 			tag = {
-				["align-y-center padding-y-xsmall radius-medium row align-y-center gap-large bg-system-contrast"] = true,
+				["row align-y-center gap-large padding-y-xsmall radius-medium bg-system-contrast"] = true,
 				["padding-left-large"] = not hasIconOrButton,
 				["padding-left-medium"] = hasIconOrButton,
-				["padding-right-large auto-xy"] = not hasButton,
-				["padding-right-small auto-y"] = hasButton,
+				["auto-xy padding-right-large"] = not hasButton,
+				["auto-y padding-right-small"] = hasButton,
 			},
 			ref = ref,
 		}),
 		React.createElement(PresentationContext.Provider, { value = IS_INVERSE }, {
 			Content = React.createElement(View, {
 				LayoutOrder = 1,
-				tag = "auto-xy align-y-center padding-y-small row fill gap-small",
+				tag = "row align-y-center fill gap-small auto-xy padding-y-small",
 				testId = `{props.testId}--content`,
 			}, {
 				Icon = if hasIcon
@@ -118,7 +118,7 @@ local function Snackbar(snackbarProps: SnackbarProps, ref: React.Ref<GuiObject>?
 						MinSize = Vector2.new(0, 0),
 						MaxSize = Vector2.new(math.huge, maxTitleHeight),
 					},
-					tag = "auto-xy fill text-align-x-left text-caption-large content-inverse-emphasis text-truncate-split text-wrap",
+					tag = "fill auto-xy text-caption-large text-wrap text-align-x-left text-truncate-split content-inverse-emphasis",
 					testId = `{props.testId}--title`,
 				}),
 			}),
@@ -126,7 +126,7 @@ local function Snackbar(snackbarProps: SnackbarProps, ref: React.Ref<GuiObject>?
 			Buttons = if hasButton
 				then React.createElement(View, {
 					LayoutOrder = 2,
-					tag = "auto-xy align-y-center row gap-xsmall",
+					tag = "row align-y-center gap-xsmall auto-xy",
 					testId = `{props.testId}--buttons`,
 				}, {
 					Action = if hasAction
@@ -137,7 +137,7 @@ local function Snackbar(snackbarProps: SnackbarProps, ref: React.Ref<GuiObject>?
 								mode = StateLayerMode.Inverse,
 							},
 							Text = action.text,
-							tag = "auto-xy padding-small radius-medium text-label-medium content-inverse-link",
+							tag = "auto-xy padding-small text-label-medium radius-medium content-inverse-link",
 							testId = `{props.testId}--action`,
 						})
 						else nil,

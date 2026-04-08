@@ -8,7 +8,6 @@ local module = {}
 --////////////////////////////// Include
 --//////////////////////////////////////
 local Chat = game:GetService("Chat")
-local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
 local clientChatModules = Chat:WaitForChild("ClientChatModules")
 local modulesFolder = script.Parent
 local moduleChannelsTab = require(modulesFolder:WaitForChild("ChannelsTab"))
@@ -115,18 +114,10 @@ function methods:CreateGuiObjects(targetParent)
 	local outPos = LeaveConfirmationFrame.Position
 	LeaveConfirmationButtonYes.MouseButton1Click:connect(function()
 		MessageSender:SendMessage(string.format("/leave %s", LeaveTarget.Value), nil)
-		if featureDeprecateOldGuiObjectProperties then
-			LeaveConfirmationFrame:TweenPositionInternal(outPos, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.2, true)
-		else
-			LeaveConfirmationFrame:TweenPosition(outPos, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.2, true)
-		end
+		LeaveConfirmationFrame:TweenPosition(outPos, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.2, true)
 	end)
 	LeaveConfirmationButtonNo.MouseButton1Click:connect(function()
-		if featureDeprecateOldGuiObjectProperties then
-			LeaveConfirmationFrame:TweenPositionInternal(outPos, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.2, true)
-		else
-			LeaveConfirmationFrame:TweenPosition(outPos, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.2, true)
-		end
+		LeaveConfirmationFrame:TweenPosition(outPos, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.2, true)
 	end)
 
 
@@ -225,11 +216,7 @@ function methods:AddChannelTab(channelName)
 		tab.NameTag.MouseButton2Click:connect(function()
 			self.LeaveConfirmationNotice.Text = string.format("Leave channel %s?", tab.ChannelName)
 			self.LeaveConfirmationFrame.LeaveTarget.Value = tab.ChannelName
-			if featureDeprecateOldGuiObjectProperties then
-				self.LeaveConfirmationFrame:TweenPositionInternal(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
-			else
-				self.LeaveConfirmationFrame:TweenPosition(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
-			end
+			self.LeaveConfirmationFrame:TweenPosition(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
 		end)
 	end
 
@@ -313,11 +300,7 @@ function methods:ScrollChannelsFrame(dir)
 
 	self:WaitUntilParentedCorrectly()
 
-	if featureDeprecateOldGuiObjectProperties then
-		self.GuiObjects.ScrollerFrame:TweenPositionInternal(endPos, Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, tweenTime, true, UnlockFunc)
-	else
-		self.GuiObjects.ScrollerFrame:TweenPosition(endPos, Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, tweenTime, true, UnlockFunc)
-	end
+	self.GuiObjects.ScrollerFrame:TweenPosition(endPos, Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, tweenTime, true, UnlockFunc)
 end
 
 function methods:FadeOutBackground(duration)

@@ -13,7 +13,8 @@ local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
 local Signal = SignalLib.Signal
-local FocusUtils = require(CorePackages.Workspace.Packages.Chrome).FocusUtils
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+local FocusUtils = ChromePackage.FocusUtils
 local FocusOnChromeSignal = FocusUtils.FocusOnChromeSignal
 local FocusOffChromeSignal = FocusUtils.FocusOffChromeSignal
 local utils = require(Root.Service.ChromeUtils)
@@ -23,10 +24,8 @@ local WindowSizeSignal = require(Root.Service.WindowSizeSignal)
 local ObservableValue = utils.ObservableValue
 local NotifySignal = utils.NotifySignal
 local AvailabilitySignal = utils.AvailabilitySignal
-local Types = require(Root.Service.Types)
 local Constants = require(Root.Unibar.Constants)
 local ShortcutService = require(Root.Service.ShortcutService)
-local openSideSheet
 
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local isInExperienceUIVREnabled =
@@ -35,15 +34,37 @@ local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlag
 local FFlagChromeDeprecateMRUs = game:DefineFastFlag("ChromeDeprecateMRUs", false)
 local FFlagVirtualCursorTopbarAlwaysVisible = SharedFlags.FFlagVirtualCursorTopbarAlwaysVisible
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagRequireSideSheetPackage = SharedFlags.FFlagRequireSideSheetPackage
 local FFlagEnableChromeWindowsNotInMenu = require(Root.Flags).FFlagEnableChromeWindowsNotInMenu
 
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
 local CHROME_WINDOW_POSITION_KEY = "ChromeWindowPosition"
 local CHROME_WINDOW_STATE_KEY = "ChromeWindowStatus"
 
-if FFlagEnableSideSheet then
-	openSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet).openSideSheet
+local toggleSideSheet
+local registerVerticalIntegrations
+if FFlagRequireSideSheetPackage then
+	toggleSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet).toggleSideSheet
+	registerVerticalIntegrations =
+		require(CorePackages.Workspace.Packages.InExperienceSideSheet).registerVerticalIntegrations
 end
+
+type ActivateProps = ChromePackage.ActivateProps
+type IntegrationComponentProps = ChromePackage.IntegrationComponentProps
+type IntegrationId = ChromePackage.IntegrationId
+type IntegrationIdList = ChromePackage.IntegrationIdList
+type IntegrationList = ChromePackage.IntegrationList
+type IntegrationProps = ChromePackage.IntegrationProps
+type IntegrationRegisterProps = ChromePackage.IntegrationRegisterProps
+type MenuConfig = ChromePackage.MenuConfig
+type MenuList = ChromePackage.MenuList
+type ShortcutBarId = ChromePackage.ShortcutBarId
+type ShortcutBarItems = ChromePackage.ShortcutBarItems
+type ShortcutBarProps = ChromePackage.ShortcutBarProps
+type ShortcutId = ChromePackage.ShortcutId
+type ShortcutOverrideId = ChromePackage.ShortcutOverrideId
+type ShortcutRegisterProps = ChromePackage.ShortcutRegisterProps
+type WindowList = ChromePackage.WindowList
 
 -- todo: Consider how ChromeService could support multiple UI at the same time, not only the Unibar
 --       Does there need to be another layer "IntegrationsService" that ChromeService can pull from?
@@ -57,17 +78,17 @@ ChromeService.IntegrationStatus = { None = 0, Icon = 1, Window = 2 }
 export type UnibarLayoutInfo = Rect
 
 export type ObservableSubMenu = utils.ObservableValue<string?>
-export type ObservableMenuList = utils.ObservableValue<Types.MenuList>
-export type ObservableIntegration = utils.ObservableValue<Types.IntegrationComponentProps | nil>
-export type ObservableIntegrationList = utils.ObservableValue<Types.IntegrationList>
+export type ObservableMenuList = utils.ObservableValue<MenuList>
+export type ObservableIntegration = utils.ObservableValue<IntegrationComponentProps | nil>
+export type ObservableIntegrationList = utils.ObservableValue<IntegrationList>
 export type ObservableIntegrationId = utils.ObservableValue<string?>
 export type ObservableMenuLayout = utils.ObservableValue<UnibarLayoutInfo>
 export type ObservableInFocusNav = utils.ObservableValue<boolean>
 export type ObservableShowTopBar = utils.ObservableValue<boolean>
 
-export type ObservableWindowList = utils.ObservableValue<Types.WindowList>
+export type ObservableWindowList = utils.ObservableValue<WindowList>
 
-export type ObservableShortcutBar = utils.ObservableValue<Types.ShortcutBarId?>
+export type ObservableShortcutBar = utils.ObservableValue<ShortcutBarId?>
 
 export type ObservableDragConnection = utils.ObservableValue<{ current: RBXScriptConnection? }?>
 type DragConnectionObjectType = any
@@ -83,7 +104,7 @@ export type ChromeService = {
 	AvailabilitySignal: { [string]: number },
 
 	new: () -> ChromeService,
-	toggleSubMenu: (ChromeService, subMenuId: Types.IntegrationId) -> (),
+	toggleSubMenu: (ChromeService, subMenuId: IntegrationId) -> (),
 	currentSubMenu: (ChromeService) -> ObservableSubMenu,
 	showTopBar: (ChromeService) -> boolean,
 	getTopBarVisibiity: (ChromeService) -> ObservableShowTopBar,
@@ -97,37 +118,34 @@ export type ChromeService = {
 	setMenuAbsoluteSize: (ChromeService, open: Vector2) -> (),
 	menuList: (ChromeService) -> ObservableMenuList,
 	windowList: (ChromeService) -> ObservableWindowList,
-	updateLocalization: (ChromeService, component: Types.IntegrationRegisterProps) -> Types.IntegrationRegisterProps,
-	dragConnection: (ChromeService, componentId: Types.IntegrationId) -> { current: RBXScriptConnection? }?,
-	register: (ChromeService, Types.IntegrationRegisterProps) -> Types.IntegrationProps,
+	updateLocalization: (ChromeService, component: IntegrationRegisterProps) -> IntegrationRegisterProps,
+	dragConnection: (ChromeService, componentId: IntegrationId) -> { current: RBXScriptConnection? }?,
+	register: (ChromeService, IntegrationRegisterProps) -> IntegrationProps,
 	updateMenuList: (ChromeService) -> (),
-	availabilityChanged: (ChromeService, Types.IntegrationProps) -> (),
-	subMenuNotifications: (ChromeService, subMenuId: Types.IntegrationId) -> utils.NotifySignal,
+	availabilityChanged: (ChromeService, IntegrationProps) -> (),
+	subMenuNotifications: (ChromeService, subMenuId: IntegrationId) -> utils.NotifySignal,
 	totalNotifications: (ChromeService) -> utils.NotifySignal,
 	notificationIndicator: (ChromeService) -> ObservableIntegration,
 	updateNotificationTotals: (ChromeService) -> (),
 	configureReset: (ChromeService) -> (),
-	configureMenu: (ChromeService, menuConfig: Types.MenuConfig) -> (),
-	configureSubMenu: (ChromeService, parent: Types.IntegrationId, menuConfig: Types.IntegrationIdList) -> (),
+	configureMenu: (ChromeService, menuConfig: MenuConfig) -> (),
+	configureSubMenu: (ChromeService, parent: IntegrationId, menuConfig: IntegrationIdList) -> (),
 	gesture: (
 		ChromeService,
-		componentId: Types.IntegrationId,
+		componentId: IntegrationId,
 		connection: { current: RBXScriptConnection? }?,
 		inputObject: InputObject?
 	) -> (),
-	withinCurrentTopLevelMenu: (
-		ChromeService,
-		componentId: Types.IntegrationId
-	) -> (Types.IntegrationComponentProps?, number),
-	withinCurrentSubmenu: (ChromeService, componentId: Types.IntegrationId) -> boolean,
+	withinCurrentTopLevelMenu: (ChromeService, componentId: IntegrationId) -> (IntegrationComponentProps?, number),
+	withinCurrentSubmenu: (ChromeService, componentId: IntegrationId) -> boolean,
 	storeChromeInteracted: (ChromeService) -> (),
-	activate: (ChromeService, componentId: Types.IntegrationId, props: Types.ActivateProps?) -> (),
-	toggleWindow: (ChromeService, componentId: Types.IntegrationId) -> (),
-	isWindowOpen: (ChromeService, componentId: Types.IntegrationId) -> boolean,
+	activate: (ChromeService, componentId: IntegrationId, props: ActivateProps?) -> (),
+	toggleWindow: (ChromeService, componentId: IntegrationId) -> (),
+	isWindowOpen: (ChromeService, componentId: IntegrationId) -> boolean,
 	updateWindowSizeSignals: (ChromeService) -> (),
-	getWindowStatusFromStore: (ChromeService, componentId: Types.IntegrationId) -> boolean?,
-	getWindowPositionFromStore: (ChromeService, componentId: Types.IntegrationId) -> UDim2?,
-	windowPosition: (ChromeService, componentId: Types.IntegrationId) -> UDim2?,
+	getWindowStatusFromStore: (ChromeService, componentId: IntegrationId) -> boolean?,
+	getWindowPositionFromStore: (ChromeService, componentId: IntegrationId) -> UDim2?,
+	windowPosition: (ChromeService, componentId: IntegrationId) -> UDim2?,
 	updateScreenSize: (
 		ChromeService,
 		screenSize: Vector2,
@@ -135,20 +153,20 @@ export type ChromeService = {
 		isPortrait: boolean,
 		isTinyPortrait: boolean
 	) -> (),
-	updateWindowPosition: (ChromeService, componentId: Types.IntegrationId, position: UDim2) -> (),
-	createIconProps: (ChromeService, Types.IntegrationId, number?, boolean?) -> Types.IntegrationComponentProps,
+	updateWindowPosition: (ChromeService, componentId: IntegrationId, position: UDim2) -> (),
+	createIconProps: (ChromeService, IntegrationId, number?, boolean?) -> IntegrationComponentProps,
 	orderAlignment: (ChromeService) -> ObservableAlignment,
 	configureOrderAlignment: (ChromeService, alignment: Enum.HorizontalAlignment) -> (),
 
-	registerShortcut: (ChromeService, shortcutProps: Types.ShortcutRegisterProps) -> (),
-	activateShortcut: (ChromeService, shortcutId: Types.ShortcutId) -> (),
-	configureShortcutBar: (ChromeService, shortcutBarId: Types.ShortcutBarId, config: Types.ShortcutBarProps) -> (),
-	setShortcutBar: (ChromeService, shortcutBarId: Types.ShortcutBarId?) -> (),
+	registerShortcut: (ChromeService, shortcutProps: ShortcutRegisterProps) -> (),
+	activateShortcut: (ChromeService, shortcutId: ShortcutId) -> (),
+	configureShortcutBar: (ChromeService, shortcutBarId: ShortcutBarId, config: ShortcutBarProps) -> (),
+	setShortcutBar: (ChromeService, shortcutBarId: ShortcutBarId?) -> (),
 	getCurrentShortcutBar: (ChromeService) -> ObservableShortcutBar,
-	getShortcutsFromBar: (ChromeService, shortcutBarId: Types.ShortcutBarId?) -> Types.ShortcutBarItems,
-	getCurrentShortcuts: (ChromeService) -> Types.ShortcutBarItems,
+	getShortcutsFromBar: (ChromeService, shortcutBarId: ShortcutBarId?) -> ShortcutBarItems,
+	getCurrentShortcuts: (ChromeService) -> ShortcutBarItems,
 	onShortcutBarChanged: (ChromeService) -> SignalLib.Signal,
-	setHideShortcutBar: (ChromeService, sourceName: Types.ShortcutOverrideId, hidden: boolean?) -> (),
+	setHideShortcutBar: (ChromeService, sourceName: ShortcutOverrideId, hidden: boolean?) -> (),
 	getHideShortcutBar: (ChromeService) -> boolean,
 
 	_currentShortcutBar: ObservableShortcutBar,
@@ -162,10 +180,10 @@ export type ChromeService = {
 	onIntegrationActivated: (ChromeService) -> SignalLib.Signal,
 	onIntegrationStatusChanged: (ChromeService) -> SignalLib.Signal,
 	onIntegrationHovered: (ChromeService) -> SignalLib.Signal,
-	integrations: (ChromeService) -> Types.IntegrationList,
+	integrations: (ChromeService) -> IntegrationList,
 
-	setSelected: (ChromeService, Types.IntegrationId?) -> (),
-	selectedItem: (ChromeService, Types.IntegrationId?) -> ObservableIntegrationId,
+	setSelected: (ChromeService, IntegrationId?) -> (),
+	selectedItem: (ChromeService, IntegrationId?) -> ObservableIntegrationId,
 	repairSelected: (ChromeService) -> (),
 	setSelectedByOffset: (ChromeService, number) -> (),
 
@@ -175,15 +193,15 @@ export type ChromeService = {
 	_currentSubMenu: ObservableSubMenu,
 	_topBarVisibility: ObservableShowTopBar,
 
-	_integrations: Types.IntegrationList,
-	_integrationsConnections: { [Types.IntegrationId]: { SignalLib.SignalHandle } },
-	_integrationsStatus: { [Types.IntegrationId]: number },
-	_menuConfig: Types.MenuConfig,
-	_subMenuConfig: { [Types.IntegrationId]: Types.IntegrationIdList },
-	_subMenuNotifications: { [Types.IntegrationId]: utils.NotifySignal },
+	_integrations: IntegrationList,
+	_integrationsConnections: { [IntegrationId]: { SignalLib.SignalHandle } },
+	_integrationsStatus: { [IntegrationId]: number },
+	_menuConfig: MenuConfig,
+	_subMenuConfig: { [IntegrationId]: IntegrationIdList },
+	_subMenuNotifications: { [IntegrationId]: utils.NotifySignal },
 	_menuList: ObservableMenuList,
-	_dragConnection: { [Types.IntegrationId]: DragConnectionObjectType },
-	_windowPositions: { [Types.IntegrationId]: UDim2? },
+	_dragConnection: { [IntegrationId]: DragConnectionObjectType },
+	_windowPositions: { [IntegrationId]: UDim2? },
 	_windowList: ObservableWindowList,
 	_totalNotifications: utils.NotifySignal,
 	_mostRecentlyUsedAndPinnedLimit: number,
@@ -199,7 +217,7 @@ export type ChromeService = {
 
 	_localization: any,
 	_localizedLabelKeys: {
-		[Types.IntegrationId]: { label: string?, secondaryActionLabel: string? },
+		[IntegrationId]: { label: string?, secondaryActionLabel: string? },
 	},
 	_selectedItem: ObservableIntegrationId,
 	_selectedItemIdx: number,
@@ -232,10 +250,10 @@ function ChromeService.new(): ChromeService
 	self._currentSubMenu = utils.ObservableValue.new(nil)
 	self._selectedItem = utils.ObservableValue.new(nil)
 	self._selectedItemIdx = 0
-	self._integrations = {} :: Types.IntegrationList
+	self._integrations = {} :: IntegrationList
 	self._integrationsConnections = {}
 	self._integrationsStatus = {} -- Icon/Window
-	self._menuConfig = {} :: Types.MenuConfig
+	self._menuConfig = {} :: MenuConfig
 	self._subMenuConfig = {}
 	self._subMenuNotifications = {}
 	self._menuList = ObservableValue.new({})
@@ -278,11 +296,11 @@ function ChromeService.new(): ChromeService
 	end, true)
 
 	if FFlagEnableConsoleExpControls then
-		self._shortcutService.onShortcutBarChanged:connect(function(shortcutBarId: Types.ShortcutBarId)
+		self._shortcutService.onShortcutBarChanged:connect(function(shortcutBarId: ShortcutBarId)
 			service._currentShortcutBar:set(shortcutBarId)
 		end)
 	end
-	FocusOnChromeSignal:connect(function(integrationIdToFocus: Types.IntegrationId?)
+	FocusOnChromeSignal:connect(function(integrationIdToFocus: IntegrationId?)
 		-- initial focus on submenu integration not supported
 		if integrationIdToFocus and not self._subMenuConfig["nine_dot"][integrationIdToFocus] then
 			service:setSelected(integrationIdToFocus)
@@ -355,9 +373,9 @@ function ChromeService:notificationIndicator()
 	return self._notificationIndicator
 end
 
-function ChromeService:toggleSubMenu(subMenuId: Types.IntegrationId)
-	if FFlagEnableSideSheet then
-		openSideSheet()
+function ChromeService:toggleSubMenu(subMenuId: IntegrationId)
+	if FFlagEnableSideSheet and toggleSideSheet then
+		toggleSideSheet(true)
 		return
 	end
 
@@ -408,7 +426,7 @@ function ChromeService:disableFocusNav()
 	end
 end
 
-function ChromeService:toggleWindow(componentId: Types.IntegrationId)
+function ChromeService:toggleWindow(componentId: IntegrationId)
 	local window = self._integrations[componentId].components.Window
 	if window then
 		if
@@ -434,7 +452,7 @@ function ChromeService:toggleWindow(componentId: Types.IntegrationId)
 	self:updateMenuList()
 end
 
-function ChromeService:isWindowOpen(componentId: Types.IntegrationId)
+function ChromeService:isWindowOpen(componentId: IntegrationId)
 	local window = self._integrations[componentId].components.Window
 	return window and self._integrationsStatus[componentId] == ChromeService.IntegrationStatus.Window
 end
@@ -446,7 +464,7 @@ function ChromeService:windowList()
 	return self._windowList
 end
 
-function ChromeService:dragConnection(componentId: Types.IntegrationId)
+function ChromeService:dragConnection(componentId: IntegrationId)
 	if self._integrations[componentId] then
 		return self._dragConnection[componentId]
 	else
@@ -454,7 +472,7 @@ function ChromeService:dragConnection(componentId: Types.IntegrationId)
 	end
 end
 
-function ChromeService:updateLocalization(component: Types.IntegrationRegisterProps)
+function ChromeService:updateLocalization(component: IntegrationRegisterProps)
 	local localizedLabel: string = ""
 	local localizedSecondaryAction: string = ""
 	self._localizedLabelKeys[component.id] = {}
@@ -489,12 +507,12 @@ function ChromeService:updateLocalization(component: Types.IntegrationRegisterPr
 		component.secondaryAction.label = localizedSecondaryAction
 	end
 
-	return component :: Types.IntegrationRegisterProps
+	return component :: IntegrationRegisterProps
 end
 
 -- Register an integration to be shown within Chrome UIs
 -- The Chrome service will monitor any changes to integration availability and notifications
-function ChromeService:register(component: Types.IntegrationRegisterProps): Types.IntegrationProps
+function ChromeService:register(component: IntegrationRegisterProps): IntegrationProps
 	if self._integrations[component.id] then
 		warn(string.format(component.id .. "already registered", debug.traceback()))
 		for _, conn in self._integrationsConnections[component.id] do
@@ -524,7 +542,7 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 
 	if component.availability then
 		conns[#conns + 1] = component.availability:connect(function()
-			self:availabilityChanged(component :: Types.IntegrationProps)
+			self:availabilityChanged(component :: IntegrationProps)
 		end)
 	end
 
@@ -559,7 +577,7 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 
 	component = self:updateLocalization(component)
 
-	local populatedComponent = component :: Types.IntegrationProps
+	local populatedComponent = component :: IntegrationProps
 	self._integrations[component.id] = populatedComponent
 
 	if FFlagEnableConsoleExpControls and component.selected then
@@ -576,7 +594,7 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 	return populatedComponent
 end
 
-function ChromeService:createIconProps(id: Types.IntegrationId, order: number?): Types.IntegrationComponentProps
+function ChromeService:createIconProps(id: IntegrationId, order: number?): IntegrationComponentProps
 	local iconOrder = order or 0
 	if self._integrations[id] then
 		return {
@@ -618,12 +636,12 @@ function ChromeService:updateMenuList()
 	local divId = 0 -- Unique ID for divider elements
 	local order = 0 -- A general order that items are adding to the menu. Can be used to control LayoutOrder
 
-	local function iconProps(id): Types.IntegrationComponentProps
+	local function iconProps(id): IntegrationComponentProps
 		order += 1
 		return self:createIconProps(id, order)
 	end
 
-	local function windowProps(id): Types.IntegrationComponentProps
+	local function windowProps(id): IntegrationComponentProps
 		order += 1
 		if self._integrations[id] then
 			return {
@@ -645,7 +663,7 @@ function ChromeService:updateMenuList()
 		end
 	end
 
-	local function divider(id): Types.IntegrationComponentProps
+	local function divider(id): IntegrationComponentProps
 		divId += 1
 		order += 1
 		return {
@@ -658,7 +676,7 @@ function ChromeService:updateMenuList()
 		}
 	end
 
-	local function valid(id: Types.IntegrationId)
+	local function valid(id: IntegrationId)
 		-- Only display available items
 		local integration = self._integrations[id]
 		if integration then
@@ -669,11 +687,7 @@ function ChromeService:updateMenuList()
 		end
 	end
 
-	local function collectMenu(
-		items: Types.MenuConfig | Types.MenuList | Types.IntegrationIdList,
-		parent: any,
-		windowList: Types.WindowList
-	)
+	local function collectMenu(items: MenuConfig | MenuList | IntegrationIdList, parent: any, windowList: WindowList)
 		local validIconCount = 0
 		for k, v in pairs(items) do
 			if type(v) == "table" then
@@ -751,12 +765,12 @@ function ChromeService:updateMenuList()
 	self:repairSelected()
 end
 
-function ChromeService:availabilityChanged(component: Types.IntegrationProps)
+function ChromeService:availabilityChanged(component: IntegrationProps)
 	self:updateNotificationTotals()
 	self:updateMenuList()
 end
 
-function ChromeService:subMenuNotifications(subMenuId: Types.IntegrationId)
+function ChromeService:subMenuNotifications(subMenuId: IntegrationId)
 	if not self._subMenuNotifications[subMenuId] then
 		self._subMenuNotifications[subMenuId] = NotifySignal.new(true)
 	end
@@ -838,13 +852,16 @@ function ChromeService:configureReset()
 	self:updateMenuList()
 end
 
-function ChromeService:configureMenu(menuConfig: Types.MenuConfig)
+function ChromeService:configureMenu(menuConfig: MenuConfig)
 	self._menuConfig = menuConfig
 	self:updateNotificationTotals()
 	self:updateMenuList()
 end
 
-function ChromeService:configureSubMenu(parent: Types.IntegrationId, menuConfig: Types.IntegrationIdList)
+function ChromeService:configureSubMenu(parent: IntegrationId, menuConfig: IntegrationIdList)
+	if FFlagEnableSideSheet and registerVerticalIntegrations then
+		registerVerticalIntegrations(menuConfig, self._integrations)
+	end
 	self._subMenuConfig[parent] = menuConfig
 	if not self._subMenuNotifications[parent] then
 		self._subMenuNotifications[parent] = NotifySignal.new(true)
@@ -854,7 +871,7 @@ function ChromeService:configureSubMenu(parent: Types.IntegrationId, menuConfig:
 end
 
 if FFlagEnableConsoleExpControls then
-	function ChromeService:registerShortcut(shortcutProps: Types.ShortcutRegisterProps)
+	function ChromeService:registerShortcut(shortcutProps: ShortcutRegisterProps)
 		self._shortcutService:registerShortcut(shortcutProps)
 		local shortcut = self._shortcutService:getShortcut(shortcutProps.id)
 		if shortcut.integration and self._integrations[shortcut.integration] then
@@ -876,7 +893,7 @@ if FFlagEnableConsoleExpControls then
 		end
 	end
 
-	function ChromeService:activateShortcut(shortcutId: Types.ShortcutId)
+	function ChromeService:activateShortcut(shortcutId: ShortcutId)
 		local shortcut = self._shortcutService:getShortcut(shortcutId)
 		if shortcut.integration then
 			if shortcut.activated then
@@ -896,11 +913,11 @@ if FFlagEnableConsoleExpControls then
 		end
 	end
 
-	function ChromeService:configureShortcutBar(shortcutBarId: Types.ShortcutBarId, config: Types.ShortcutBarProps)
+	function ChromeService:configureShortcutBar(shortcutBarId: ShortcutBarId, config: ShortcutBarProps)
 		self._shortcutService:configureShortcutBar(shortcutBarId, config)
 	end
 
-	function ChromeService:setShortcutBar(shortcutBarId: Types.ShortcutBarId?)
+	function ChromeService:setShortcutBar(shortcutBarId: ShortcutBarId?)
 		self._shortcutService:setShortcutBar(shortcutBarId)
 	end
 
@@ -908,7 +925,7 @@ if FFlagEnableConsoleExpControls then
 		return self._currentShortcutBar
 	end
 
-	function ChromeService:getShortcutsFromBar(shortcutBarId: Types.ShortcutBarId?)
+	function ChromeService:getShortcutsFromBar(shortcutBarId: ShortcutBarId?)
 		return self._shortcutService:getShortcutsFromBar(shortcutBarId, self._integrations)
 	end
 
@@ -928,7 +945,7 @@ if FFlagEnableConsoleExpControls then
 		return self._triggerMenuIcon
 	end
 
-	function ChromeService:setHideShortcutBar(sourceName: Types.ShortcutOverrideId, hidden: boolean?)
+	function ChromeService:setHideShortcutBar(sourceName: ShortcutOverrideId, hidden: boolean?)
 		self._shortcutService:setHideShortcutBar(sourceName, hidden)
 	end
 
@@ -956,7 +973,7 @@ if isInExperienceUIVREnabled then
 end
 
 function ChromeService:gesture(
-	componentId: Types.IntegrationId,
+	componentId: IntegrationId,
 	connection: { current: RBXScriptConnection? }?,
 	inputObject: InputObject?
 )
@@ -968,7 +985,7 @@ function ChromeService:gesture(
 	end
 end
 
-function ChromeService:withinCurrentTopLevelMenu(componentId: Types.IntegrationId)
+function ChromeService:withinCurrentTopLevelMenu(componentId: IntegrationId)
 	local menuItems = self._menuList:get()
 	for i, item in menuItems do
 		if item.id == componentId then
@@ -978,7 +995,7 @@ function ChromeService:withinCurrentTopLevelMenu(componentId: Types.IntegrationI
 	return nil, 0
 end
 
-function ChromeService:withinCurrentSubmenu(componentId: Types.IntegrationId)
+function ChromeService:withinCurrentSubmenu(componentId: IntegrationId)
 	local currentSubMenu = self._currentSubMenu:get()
 	if not currentSubMenu then
 		return false
@@ -1007,11 +1024,11 @@ function ChromeService:withinCurrentSubmenu(componentId: Types.IntegrationId)
 	return false
 end
 
-function ChromeService:windowPosition(componentId: Types.IntegrationId)
+function ChromeService:windowPosition(componentId: IntegrationId)
 	return self._windowPositions[componentId]
 end
 
-function ChromeService:updateWindowPosition(componentId: Types.IntegrationId, position: UDim2)
+function ChromeService:updateWindowPosition(componentId: IntegrationId, position: UDim2)
 	if LocalStore.isEnabled() then
 		if self._integrations[componentId] and self._integrations[componentId].persistWindowState then
 			local windowStore = LocalStore.loadForLocalPlayer(CHROME_WINDOW_POSITION_KEY) or {}
@@ -1024,7 +1041,7 @@ function ChromeService:updateWindowPosition(componentId: Types.IntegrationId, po
 	self._windowPositions[componentId] = position
 end
 
-function ChromeService:getWindowStatusFromStore(componentId: Types.IntegrationId)
+function ChromeService:getWindowStatusFromStore(componentId: IntegrationId)
 	if LocalStore.isEnabled() then
 		local storeStates = LocalStore.loadForLocalPlayer(CHROME_WINDOW_STATE_KEY) or {}
 		local windowState = storeStates[componentId] or false
@@ -1034,7 +1051,7 @@ function ChromeService:getWindowStatusFromStore(componentId: Types.IntegrationId
 	return nil
 end
 
-function ChromeService:getWindowPositionFromStore(componentId: Types.IntegrationId)
+function ChromeService:getWindowPositionFromStore(componentId: IntegrationId)
 	if LocalStore.isEnabled() then
 		local storePositions = LocalStore.loadForLocalPlayer(CHROME_WINDOW_POSITION_KEY) or {}
 		local pos = storePositions[componentId] or nil
@@ -1045,7 +1062,7 @@ function ChromeService:getWindowPositionFromStore(componentId: Types.Integration
 	return nil
 end
 
-function ChromeService:activate(componentId: Types.IntegrationId, props: Types.ActivateProps?)
+function ChromeService:activate(componentId: IntegrationId, props: ActivateProps?)
 	local errorMessage
 	-- todo: Consider if we need to auto-close the sub-menus when items are selected
 	if self._integrations[componentId] then
@@ -1093,7 +1110,7 @@ function ChromeService:selectedItem()
 	return self._selectedItem
 end
 
-function ChromeService:setSelected(componentId: Types.IntegrationId?)
+function ChromeService:setSelected(componentId: IntegrationId?)
 	local item, idx = self:withinCurrentTopLevelMenu(componentId or "")
 	if not item then
 		return

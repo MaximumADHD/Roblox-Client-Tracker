@@ -34,14 +34,14 @@ local Foundation = require(CorePackages.Packages.Foundation)
 local useCursor = Foundation.Hooks.useCursor
 
 local ChromeService = require(Root.Service)
-local ChromeTypes = require(Root.Service.Types)
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local ViewportUtil = require(Root.Service.ViewportUtil)
 local Constants = require(Root.Unibar.Constants)
 local MenuIconContext = if FFlagEnableConsoleExpControls
 	then require(Root.Parent.Parent.TopBar.Components.MenuIconContext)
 	else nil :: never
 local SubMenuContext = require(Root.Unibar.SubMenuContext)
-local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
+local UnibarStyle = ChromePackage.UnibarStyle
 
 local UserInputService = game:GetService("UserInputService")
 
@@ -72,14 +72,16 @@ local AnimationStatus = { Closed = 0, Open = 1 }
 local lastItemList = {}
 local lastSubMenu = nil
 
+type IntegrationComponentProps = ChromePackage.IntegrationComponentProps
+
 type Table = { [any]: any }
 
 export type SubMenuProps = {
-	items: { [number]: ChromeTypes.IntegrationComponentProps },
+	items: { [number]: IntegrationComponentProps },
 	menuTransition: any?,
 }
 
-function MenuRow(props: ChromeTypes.IntegrationComponentProps)
+function MenuRow(props: IntegrationComponentProps)
 	local style = useStyle()
 	local unibarStyle
 	local theme = style.Theme

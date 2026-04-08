@@ -28,40 +28,40 @@ type AccordionItemVariantProps = {
 local getVariants = function(tokens: Tokens)
 	local common = {
 		container = {
-			tag = "col align-x-center flex-y-between size-full-0 auto-y",
+			tag = "col flex-y-between align-x-center size-full-0 auto-y",
 			stateLayer = { affordance = StateLayerAffordance.None },
 		},
-		header = { tag = "row align-y-center flex-x-between" },
+		header = { tag = "row flex-x-between align-y-center" },
 		content = { tag = "size-full-0 auto-y padding-top-xsmall" },
 		icon = { style = tokens.Color.Content.Emphasis },
-		text = { tag = "content-emphasis auto-y grow text-align-x-left text-truncate-end" },
+		text = { tag = "grow auto-y text-align-x-left text-truncate-end content-emphasis" },
 	}
 
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = {
 			container = { tag = "radius-small" },
-			header = { tag = "size-full-600 gap-small" },
+			header = { tag = "gap-small size-full-600" },
 			content = { tag = "padding-bottom-small" },
 			icon = { size = IconSize.XSmall :: IconSize },
 			text = { tag = "text-title-small" },
 		},
 		[InputSize.Small] = {
 			container = { tag = "radius-medium" },
-			header = { tag = "size-full-800 gap-small" },
+			header = { tag = "gap-small size-full-800" },
 			content = { tag = "padding-bottom-large" },
 			icon = { size = IconSize.Small :: IconSize },
 			text = { tag = "text-title-small" },
 		},
 		[InputSize.Medium] = {
 			container = { tag = "radius-medium" },
-			header = { tag = "size-full-1000 gap-small" },
+			header = { tag = "gap-small size-full-1000" },
 			content = { tag = "padding-bottom-xlarge" },
 			icon = { size = IconSize.Medium :: IconSize },
 			text = { tag = "text-title-medium" },
 		},
 		[InputSize.Large] = {
 			container = { tag = "radius-medium" },
-			header = { tag = "size-full-1200 gap-small" },
+			header = { tag = "gap-small size-full-1200" },
 			content = { tag = "padding-bottom-xlarge" },
 			icon = { size = IconSize.Large :: IconSize },
 			text = { tag = "text-title-large" },

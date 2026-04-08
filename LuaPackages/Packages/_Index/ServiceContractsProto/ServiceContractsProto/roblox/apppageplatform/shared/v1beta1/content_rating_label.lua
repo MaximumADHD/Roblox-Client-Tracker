@@ -53,7 +53,7 @@ type _ContentRatingLabelSchema_PropsImpl = {
 }
 
 type _ContentRatingLabelSchema_PropsFields = {
-	rating: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	image: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	display_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
 	width: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
@@ -62,7 +62,7 @@ type _ContentRatingLabelSchema_PropsFields = {
 }
 
 type _ContentRatingLabelSchema_PropsPartialFields = {
-	rating: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	image: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	display_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
 	width: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
@@ -206,7 +206,7 @@ do
 		data: _ContentRatingLabelSchema_PropsPartialFields?
 	): ContentRatingLabelSchema_Props
 		return setmetatable({
-			rating = if data == nil or data.rating == nil then nil else data.rating,
+			image = if data == nil or data.image == nil then nil else data.image,
 			display_text = if data == nil or data.display_text == nil then nil else data.display_text,
 			font_style = if data == nil or data.font_style == nil then nil else data.font_style,
 			width = if data == nil or data.width == nil then nil else data.width,
@@ -219,8 +219,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.rating ~= nil then
-			local encoded = self.rating:encode()
+		if self.image ~= nil then
+			local encoded = self.image:encode()
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
@@ -277,7 +277,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.rating = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					self.image = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				elseif field == 2 then
 					local value
@@ -331,8 +331,8 @@ do
 	function _ContentRatingLabelSchema_PropsImpl.jsonEncode(self: ContentRatingLabelSchema_Props): any
 		local output = {}
 
-		if self.rating ~= nil then
-			output.rating = self.rating:jsonEncode()
+		if self.image ~= nil then
+			output.image = self.image:jsonEncode()
 		end
 
 		if self.display_text ~= nil then
@@ -361,8 +361,8 @@ do
 	function _ContentRatingLabelSchema_PropsImpl.jsonDecode(input: { [string]: any }): ContentRatingLabelSchema_Props
 		local self = _ContentRatingLabelSchema_PropsImpl.new()
 
-		if input.rating ~= nil then
-			self.rating = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.rating)
+		if input.image ~= nil then
+			self.image = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.image)
 		end
 
 		if input.display_text ~= nil then

@@ -92,7 +92,7 @@ function variantsFactory(tokens: Tokens)
 
 	local hasValue: { [boolean]: any } = {
 		[false] = { container = { tag = "size-200-200" } },
-		[true] = { container = { tag = "size-400-400 auto-x row align-y-center align-x-center padding-xsmall" } },
+		[true] = { container = { tag = "row align-x-center align-y-center size-400-400 auto-x padding-xsmall" } },
 	}
 
 	return { common = common, variants = variants, hasValue = hasValue }

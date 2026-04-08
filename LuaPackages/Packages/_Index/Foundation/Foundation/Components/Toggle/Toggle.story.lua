@@ -16,7 +16,7 @@ local function BasicStory(props)
 	local isChecked, setIsChecked = React.useState(false)
 
 	return React.createElement(View, {
-		tag = "col auto-xy size-3000-0",
+		tag = "col size-3000-0 auto-xy",
 	}, {
 		React.createElement(Toggle, {
 			isChecked = isChecked,
@@ -48,16 +48,16 @@ local function CustomSelectionStory()
 		return React.createElement(View, {
 			cursor = cursor,
 			onActivated = onToggle,
-			tag = "col padding-large radius-medium gap-medium bg-surface-100 stroke-muted",
+			tag = "col gap-medium padding-large stroke-muted radius-medium bg-surface-100",
 			Size = UDim2.fromOffset(320, 100),
 		}, {
 			TextContainer = React.createElement(View, {
-				tag = "auto-y size-full-0 row gap-small flex-x-between",
+				tag = "row flex-x-between gap-small size-full-0 auto-y",
 				LayoutOrder = 1,
 			}, {
 				Label = React.createElement(Text, {
 					Text = label,
-					tag = "text-body-medium content-emphasis auto-xy",
+					tag = "auto-xy text-body-medium content-emphasis",
 					LayoutOrder = 1,
 				}),
 				Toggle = React.createElement(Toggle, {
@@ -71,14 +71,14 @@ local function CustomSelectionStory()
 			}),
 			Description = React.createElement(Text, {
 				Text = description,
-				tag = "text-body-small content-muted auto-xy text-wrap",
+				tag = "auto-xy text-body-small text-wrap content-muted",
 				LayoutOrder = 2,
 			}),
 		})
 	end
 
 	return React.createElement(View, {
-		tag = "auto-xy col gap-large",
+		tag = "col gap-large auto-xy",
 	}, {
 		NotificationsCard = createToggleCard(
 			"Push Notifications",
@@ -98,7 +98,7 @@ local function UncontrolledStory(props)
 	local controls = props.controls
 
 	return React.createElement(View, {
-		tag = "col auto-xy size-3000-0",
+		tag = "col size-3000-0 auto-xy",
 	}, {
 		React.createElement(Toggle, {
 			isDisabled = controls.isDisabled,

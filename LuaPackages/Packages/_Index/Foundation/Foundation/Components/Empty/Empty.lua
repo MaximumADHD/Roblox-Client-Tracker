@@ -50,7 +50,7 @@ local function Empty(emptyProps: EmptyProps, ref: React.Ref<GuiObject>?)
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			tag = "auto-xy size-full col align-y-center align-x-center gap-small",
+			tag = "col align-x-center align-y-center gap-small size-full auto-xy",
 			ref = ref,
 		}),
 		{
@@ -63,7 +63,7 @@ local function Empty(emptyProps: EmptyProps, ref: React.Ref<GuiObject>?)
 			Text = React.createElement(Text, {
 				Text = props.text,
 				LayoutOrder = 2,
-				tag = "size-full-0 auto-y text-body-large content-default text-wrap text-align-x-center",
+				tag = "size-full-0 auto-y text-body-large text-wrap text-align-x-center content-default",
 				testId = `{props.testId}--text`,
 			}),
 			Button = if props.button and props.button.onActivated

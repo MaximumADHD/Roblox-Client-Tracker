@@ -25,11 +25,7 @@ local RootedConnection = require(InGameMenu.Components.Connection.RootedConnecti
 
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 
-local FFlagUIBloxUseFoundationButton =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseFoundationButton()
-
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
-local ControlState = UIBlox.Core.Control.Enum.ControlState
 
 local CONTAINER_WIDTH = 304
 local TEXT_PADDING_TOP = 4
@@ -44,10 +40,6 @@ AddFriendsNow.validateProps = t.strictInterface({
 
 function AddFriendsNow:init()
 	self.buttonRef = Roact.createRef()
-
-	self.state = {
-		buttonIsInitialized = if FFlagUIBloxUseFoundationButton then true else false,
-	}
 end
 
 function AddFriendsNow:render()
@@ -109,7 +101,7 @@ function AddFriendsNow:render()
 				RootedConnection = Roact.createElement(RootedConnection, {
 					render = function(isRooted)
 						return Roact.createElement(FocusHandler, {
-							isFocused = props.canCaptureFocus and self.state.buttonIsInitialized and isRooted,
+							isFocused = props.canCaptureFocus and isRooted,
 
 							didFocus = function()
 								GuiService.SelectedCoreObject = self.buttonRef:getValue()
@@ -123,16 +115,6 @@ function AddFriendsNow:render()
 										text = localized.makeFriendsNow,
 										onActivated = props.switchToPlayers,
 										buttonRef = self.buttonRef,
-										onStateChanged = function(_, newState)
-											if
-												not self.state.buttonIsInitialized
-												and newState ~= ControlState.Initialize
-											then
-												self:setState({
-													buttonIsInitialized = true,
-												})
-											end
-										end,
 									})
 								or nil,
 						})

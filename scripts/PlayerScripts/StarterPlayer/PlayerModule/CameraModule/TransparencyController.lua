@@ -180,7 +180,7 @@ function TransparencyController:Update(dt)
 
 	if currentCamera and self.enabled then
 		-- calculate goal transparency based on distance
-		local distance = (currentCamera.Focus.p - currentCamera.CoordinateFrame.p).magnitude
+		local distance = (currentCamera.Focus.Position - currentCamera.CoordinateFrame.Position).magnitude
 		local transparency = (distance<2) and (1.0-(distance-0.5)/1.5) or 0 -- (7 - distance) / 5
 		if transparency < 0.5 then -- too far, don't control transparency
 			transparency = 0

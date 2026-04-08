@@ -57,17 +57,17 @@ local function Story(props)
 				}),
 				Text = React.createElement(View, {
 					LayoutOrder = 2,
-					tag = "col gap-xsmall fill auto-xy",
+					tag = "col fill gap-xsmall auto-xy",
 				}, {
 					Title = React.createElement(Text, {
 						LayoutOrder = 1,
 						Text = "Sheet Title",
-						tag = "text-title-large content-emphasis auto-xy text-truncate-split",
+						tag = "auto-xy text-title-large text-truncate-split content-emphasis",
 					}),
 					Subtitle = React.createElement(Text, {
 						LayoutOrder = 2,
 						Text = "Subtitle or description goes here",
-						tag = "text-body-small content-default auto-xy text-truncate-split",
+						tag = "auto-xy text-body-small text-truncate-split content-default",
 					}),
 				}),
 				Notification = React.createElement(IconButton, {
@@ -80,76 +80,76 @@ local function Story(props)
 			Content = React.createElement(Sheet.Content, nil, {
 				Carousel = React.createElement(View, {
 					LayoutOrder = 2,
-					tag = "size-full-full auto-y radius-medium bg-shift-200 aspect-16-9",
+					tag = "size-full-full auto-y aspect-16-9 radius-medium bg-shift-200",
 				}),
 				Attributes = React.createElement(View, {
-					tag = "row gap-medium auto-y size-full-0 items-center flex-fill",
+					tag = "row flex-fill items-center gap-medium size-full-0 auto-y",
 					LayoutOrder = 3,
 				}, {
 					Rating = React.createElement(View, {
 						LayoutOrder = 1,
-						tag = "col gap-small align-x-center auto-xy",
+						tag = "col align-x-center gap-small auto-xy",
 					}, {
 						Label = React.createElement(Text, {
 							LayoutOrder = 1,
 							Text = "Rating",
-							tag = "text-body-small content-default auto-xy",
+							tag = "auto-xy text-body-small content-default",
 						}),
 						Value = React.createElement(Text, {
 							LayoutOrder = 2,
 							Text = "94%",
-							tag = "text-title-medium content-emphasis auto-xy",
+							tag = "auto-xy text-title-medium content-emphasis",
 						}),
 					}),
 					Active = React.createElement(View, {
 						LayoutOrder = 3,
-						tag = "col gap-small align-x-center auto-xy",
+						tag = "col align-x-center gap-small auto-xy",
 					}, {
 						Label = React.createElement(Text, {
 							LayoutOrder = 1,
 							Text = "Active",
-							tag = "text-body-small content-default auto-xy",
+							tag = "auto-xy text-body-small content-default",
 						}),
 						Value = React.createElement(Text, {
 							LayoutOrder = 2,
 							Text = "1.2K",
-							tag = "text-title-medium content-emphasis auto-xy",
+							tag = "auto-xy text-title-medium content-emphasis",
 						}),
 					}),
 					Age = React.createElement(View, {
 						LayoutOrder = 5,
-						tag = "col gap-small align-x-center auto-xy",
+						tag = "col align-x-center gap-small auto-xy",
 					}, {
 						Label = React.createElement(Text, {
 							LayoutOrder = 1,
 							Text = "Age",
-							tag = "text-body-small content-default auto-xy",
+							tag = "auto-xy text-body-small content-default",
 						}),
 						Value = React.createElement(Text, {
 							LayoutOrder = 2,
 							Text = "13+",
-							tag = "text-title-medium content-emphasis auto-xy",
+							tag = "auto-xy text-title-medium content-emphasis",
 						}),
 					}),
 					Maturity = React.createElement(View, {
 						LayoutOrder = 7,
-						tag = "col gap-small align-x-center auto-xy",
+						tag = "col align-x-center gap-small auto-xy",
 					}, {
 						Label = React.createElement(Text, {
 							LayoutOrder = 1,
 							Text = "Maturity",
-							tag = "text-body-small content-default auto-xy",
+							tag = "auto-xy text-body-small content-default",
 						}),
 						Value = React.createElement(Text, {
 							LayoutOrder = 2,
 							Text = "Everyone",
-							tag = "text-title-medium content-emphasis auto-xy",
+							tag = "auto-xy text-title-medium content-emphasis",
 						}),
 					}),
 				}),
 				Rating = React.createElement(View, {
 					LayoutOrder = 4,
-					tag = "row radius-medium size-full-0 auto-y gap-small align-y-center bg-shift-200 padding-small",
+					tag = "row align-y-center gap-small size-full-0 auto-y padding-small radius-medium bg-shift-200",
 				}, {
 					Icon = React.createElement(Icon, {
 						LayoutOrder = 1,
@@ -163,12 +163,12 @@ local function Story(props)
 						Value = React.createElement(Text, {
 							LayoutOrder = 1,
 							Text = "94%",
-							tag = "text-body-medium content-emphasis auto-xy",
+							tag = "auto-xy text-body-medium content-emphasis",
 						}),
 						Label = React.createElement(Text, {
 							LayoutOrder = 2,
 							Text = "100 VOTES",
-							tag = "text-body-small content-default auto-xy",
+							tag = "auto-xy text-body-small content-default",
 						}),
 					}),
 					Up = React.createElement(IconButton, {
@@ -187,47 +187,47 @@ local function Story(props)
 				Description = React.createElement(Text, {
 					LayoutOrder = 5,
 					Text = "This is some example content inside of a sheet. Sheets can be used to display additional information or actions related to the current context without navigating away from the current screen.",
-					tag = "text-body-medium content-default auto-xy size-full-0 text-align-x-left text-align-y-top text-wrap",
+					tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
 				}),
 				Description2 = React.createElement(Text, {
 					LayoutOrder = 6,
 					Text = "Sheets can be dismissed by swiping down or tapping outside of the sheet area.",
-					tag = "text-body-medium content-default auto-xy size-full-0 text-align-x-left text-align-y-top text-wrap",
+					tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
 				}),
 				Description3 = React.createElement(Text, {
 					LayoutOrder = 7,
 					Text = "This sheet is fully responsive and will adapt to different screen sizes and orientations.",
-					tag = "text-body-medium content-default auto-xy size-full-0 text-align-x-left text-align-y-top text-wrap",
+					tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
 				}),
 				Description4 = React.createElement(Text, {
 					LayoutOrder = 8,
 					Text = "You can add as much content as you need inside the sheet, and it will scroll if the content exceeds the available space.",
-					tag = "text-body-medium content-default auto-xy size-full-0 text-align-x-left text-align-y-top text-wrap",
+					tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
 				}),
 				Description5 = React.createElement(Text, {
 					LayoutOrder = 9,
 					Text = "Sheets are a great way to provide additional context and actions without overwhelming the user with too much information at once.",
-					tag = "text-body-medium content-default auto-xy size-full-0 text-align-x-left text-align-y-top text-wrap",
+					tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
 				}),
 				Description6 = React.createElement(Text, {
 					LayoutOrder = 10,
 					Text = "This is the last piece of example content inside the sheet. You can customize the appearance and behavior of the sheet to fit your specific use case.",
-					tag = "text-body-medium content-default auto-xy size-full-0 text-align-x-left text-align-y-top text-wrap",
+					tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
 				}),
 				Description7 = React.createElement(Text, {
 					LayoutOrder = 11,
 					Text = "Thank you for checking out this example of a sheet component in Roblox using the Foundation library!",
-					tag = "text-body-medium content-default auto-xy size-full-0 text-align-x-left text-align-y-top text-wrap",
+					tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
 				}),
 				Description8 = React.createElement(Text, {
 					LayoutOrder = 12,
 					Text = "Feel free to reach out if you have any questions or need further assistance.",
-					tag = "text-body-medium content-default auto-xy size-full-0 text-align-x-left text-align-y-top text-wrap",
+					tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
 				}),
 				Description9 = React.createElement(Text, {
 					LayoutOrder = 13,
 					Text = "Happy developing!",
-					tag = "text-body-medium content-default auto-xy size-full-0 text-align-x-left text-align-y-top text-wrap",
+					tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
 				}),
 			}),
 			Actions = React.createElement(Sheet.Actions, nil, {
@@ -287,22 +287,22 @@ local function StoryManual(props)
 				Content = React.createElement(Sheet.Content, nil, {
 					Image = React.createElement(View, {
 						LayoutOrder = 1,
-						tag = "size-full-full auto-y radius-medium bg-shift-200 aspect-16-9",
+						tag = "size-full-full auto-y aspect-16-9 radius-medium bg-shift-200",
 					}),
 					Description = React.createElement(Text, {
 						LayoutOrder = 2,
 						Text = "This is some example content inside of a sheet. Sheets can be used to display additional information or actions related to the current context without navigating away from the current screen.",
-						tag = "text-body-medium content-default auto-xy size-full-0 text-align-x-left text-align-y-top text-wrap",
+						tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
 					}),
 					Description2 = React.createElement(Text, {
 						LayoutOrder = 3,
 						Text = "Sheets can be dismissed by swiping down or tapping outside of the sheet area.",
-						tag = "text-body-medium content-default auto-xy size-full-0 text-align-x-left text-align-y-top text-wrap",
+						tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
 					}),
 					Description3 = React.createElement(Text, {
 						LayoutOrder = 4,
 						Text = "This sheet is fully responsive and will adapt to different screen sizes and orientations.",
-						tag = "text-body-medium content-default auto-xy size-full-0 text-align-x-left text-align-y-top text-wrap",
+						tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
 					}),
 				}),
 			})
@@ -312,7 +312,7 @@ end
 
 local function AccountItem(props)
 	return React.createElement(View, {
-		tag = "row gap-medium size-full-0 auto-y items-center",
+		tag = "row items-center gap-medium size-full-0 auto-y",
 	}, {
 		Avatar = React.createElement(Avatar, {
 			size = InputSize.Large,
@@ -320,17 +320,17 @@ local function AccountItem(props)
 		}),
 		Info = React.createElement(View, {
 			LayoutOrder = 2,
-			tag = "col gap-xsmall fill auto-xy",
+			tag = "col fill gap-xsmall auto-xy",
 		}, {
 			Username = React.createElement(Text, {
 				LayoutOrder = 1,
 				Text = `User #{props.index}`,
-				tag = "text-body-medium content-emphasis auto-xy text-truncate-split",
+				tag = "auto-xy text-body-medium text-truncate-split content-emphasis",
 			}),
 			UserId = React.createElement(Text, {
 				LayoutOrder = 2,
 				Text = `@user{props.index}`,
-				tag = "text-body-small content-default auto-xy text-truncate-split",
+				tag = "auto-xy text-body-small text-truncate-split content-default",
 			}),
 		}),
 	})

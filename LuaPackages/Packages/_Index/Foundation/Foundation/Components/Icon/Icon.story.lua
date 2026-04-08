@@ -16,7 +16,7 @@ local function Story(props)
 	return React.createElement(
 		View,
 		{
-			tag = "row gap-xxlarge auto-xy align-y-center",
+			tag = "row align-y-center gap-xxlarge auto-xy",
 		},
 		Dash.map(sizes, function(size, index)
 			return React.createElement(Icon, {

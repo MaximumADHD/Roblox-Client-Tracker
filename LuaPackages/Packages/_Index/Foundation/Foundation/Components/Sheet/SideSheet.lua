@@ -224,7 +224,7 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 					selection = SheetTypes.nonSelectable,
 					selectionGroup = SheetTypes.isolatedSelectionGroup,
 					tag = {
-						["bg-surface-100 stroke-default stroke-standard"] = true,
+						["stroke-standard stroke-default bg-surface-100"] = true,
 						["radius-large"] = not isSmallDisplay,
 					},
 					testId = props.testId,
@@ -232,7 +232,7 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 					Content = React.createElement(
 						View,
 						{
-							tag = "size-full-full col items-center clip",
+							tag = "col items-center size-full-full clip",
 						},
 						React.createElement(SheetContext.Provider, {
 							value = contextValue,

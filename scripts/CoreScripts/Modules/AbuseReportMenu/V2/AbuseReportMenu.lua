@@ -18,6 +18,13 @@ local DynamicReportInExpContainer = GenericAbuseReporting.UXFlows.DynamicReportI
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 
+local inExpChatMessagesLoader = require(script.Parent.inExpChatMessagesLoader)
+local inExpVoiceUsersLoader = require(script.Parent.inExpVoiceUsersLoader)
+
+-- if game:DefineFastFlag("DebugAbuseReportSeedFakeMessages", false) then
+-- 	require(script.Parent.seedFakeChatMessages)()
+-- end
+
 export type Props = {
 	-- TODO: investigate whether we really need hide and show report tab callbacks
 	hideReportTab: () -> (),
@@ -67,6 +74,8 @@ local function AbuseReportMenuContent(props: Props)
 			DynamicReportInExpContainer = React.createElement(DynamicReportInExpContainer, {
 				onClose = props.hideReportTab,
 				isReportTabVisible = isReportTabVisible,
+				inExpChatMessagesLoader = inExpChatMessagesLoader,
+				inExpVoiceUsersLoader = inExpVoiceUsersLoader,
 			}),
 		}),
 	})

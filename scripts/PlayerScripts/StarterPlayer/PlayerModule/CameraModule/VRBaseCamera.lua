@@ -280,7 +280,7 @@ function VRBaseCamera:StartVREdgeBlur(player)
 		RunService.RenderStepped:Connect(function(step)
 			local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
 
-			local vrCF = (workspace.CurrentCamera :: Camera).CFrame * (CFrame.new(userHeadCF.p * (workspace.CurrentCamera :: Camera).HeadScale) * (userHeadCF - userHeadCF.p))
+			local vrCF = (workspace.CurrentCamera :: Camera).CFrame * (CFrame.new(userHeadCF.Position * (workspace.CurrentCamera :: Camera).HeadScale) * (userHeadCF - userHeadCF.Position))
 			blurPart.CFrame = (vrCF * CFrame.Angles(0, math.rad(180), 0)) + vrCF.LookVector * (1.05 * (workspace.CurrentCamera :: Camera).HeadScale)
 			blurPart.Size = basePartSize * (workspace.CurrentCamera :: Camera).HeadScale
 		end)
@@ -294,7 +294,7 @@ function VRBaseCamera:StartVREdgeBlur(player)
 
 	if not VRBlur then
 		if not VRScreen then
-			VRScreen = Instance.new("SurfaceGui") or Instance.new("ScreenGui")
+			VRScreen = Instance.new("SurfaceGui")
 		end
 
 		VRScreen.Name = "VRBlurScreen"
@@ -400,7 +400,7 @@ function VRBaseCamera:GetSubjectPosition(): Vector3?
 			end
 		elseif cameraSubject:IsA("VehicleSeat") then
 			local offset = VR_SEAT_OFFSET
-			result = cameraSubject.CFrame.p + cameraSubject.CFrame:vectorToWorldSpace(offset)
+			result = cameraSubject.CFrame.Position + cameraSubject.CFrame:vectorToWorldSpace(offset)
 		end
 	else
 		return nil

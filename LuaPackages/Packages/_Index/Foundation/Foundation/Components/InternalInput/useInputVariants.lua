@@ -28,7 +28,7 @@ local function variantsFactory(tokens: Tokens)
 	local strokeThickness = math.ceil(tokens.Stroke.Standard)
 	local common = {
 		container = {
-			tag = "row auto-xy align-x-left align-y-center",
+			tag = "row align-x-left align-y-center auto-xy",
 			padding = UDim.new(0, strokeThickness),
 		},
 		input = { stroke = { thickness = strokeThickness } },

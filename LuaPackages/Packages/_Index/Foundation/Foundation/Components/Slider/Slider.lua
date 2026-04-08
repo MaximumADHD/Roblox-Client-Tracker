@@ -290,7 +290,7 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 				}, {
 					Knob = if props.knob
 						then React.createElement(View, {
-							tag = "auto-xy size-0-0",
+							tag = "size-0-0 auto-xy",
 							AnchorPoint = knobAnchorPoint,
 							Position = knobPosition,
 							Visible = isKnobVisible,

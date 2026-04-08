@@ -55,7 +55,7 @@ local function PopoverComponent(props: PopoverComponentProps)
 				side = PopoverSide.Top,
 			},
 			React.createElement(View, {
-				tag = "col gap-small padding-medium auto-xy",
+				tag = "col gap-small auto-xy padding-medium",
 			}, {
 				Title = React.createElement(Text, {
 					Text = props.title,
@@ -111,7 +111,7 @@ return {
 				end
 
 				return React.createElement(View, {
-					tag = "col auto-xy gap-medium",
+					tag = "col gap-medium auto-xy",
 				}, {
 					Popover1 = React.createElement(Popover.Root, {
 						isOpen = isPopover1Open,
@@ -132,7 +132,7 @@ return {
 								side = PopoverSide.Right,
 							},
 							React.createElement(View, {
-								tag = "col gap-small padding-medium auto-xy",
+								tag = "col gap-small auto-xy padding-medium",
 							}, {
 								Title = React.createElement(Text, {
 									Text = "First Popover",
@@ -161,7 +161,7 @@ return {
 											side = PopoverSide.Right,
 										},
 										React.createElement(View, {
-											tag = "col gap-small padding-medium auto-xy",
+											tag = "col gap-small auto-xy padding-medium",
 										}, {
 											Title = React.createElement(Text, {
 												Text = "Second Popover",
@@ -190,7 +190,7 @@ return {
 														side = PopoverSide.Right,
 													},
 													React.createElement(View, {
-														tag = "col gap-small padding-medium auto-xy",
+														tag = "col gap-small auto-xy padding-medium",
 													}, {
 														Title = React.createElement(Text, {
 															Text = "Final Popover",
@@ -254,7 +254,7 @@ return {
 								side = PopoverSide.Left,
 							},
 							React.createElement(View, {
-								tag = "col gap-small padding-medium auto-xy",
+								tag = "col gap-small auto-xy padding-medium",
 							}, {
 								Title = React.createElement(Text, {
 									Text = "Left content",
@@ -287,7 +287,7 @@ return {
 								side = PopoverSide.Right,
 							},
 							React.createElement(View, {
-								tag = "col gap-small padding-medium auto-xy",
+								tag = "col gap-small auto-xy padding-medium",
 							}, {
 								Title = React.createElement(Text, {
 									Text = "Middle content",
@@ -320,7 +320,7 @@ return {
 								side = PopoverSide.Left,
 							},
 							React.createElement(View, {
-								tag = "col gap-small padding-medium auto-xy",
+								tag = "col gap-small auto-xy padding-medium",
 							}, {
 								Title = React.createElement(Text, {
 									Text = "Right content",
@@ -407,7 +407,7 @@ return {
 							}),
 							Content = React.createElement(Sheet.Content, nil, {
 								Layout = React.createElement(View, {
-									tag = "row auto-xy gap-medium",
+									tag = "row gap-medium auto-xy",
 								}, {
 									Sheet1Popover = React.createElement(PopoverComponent, {
 										isOpen = isSheet1PopoverOpen,
@@ -438,7 +438,7 @@ return {
 									}),
 									Content = React.createElement(Sheet.Content, nil, {
 										Layout = React.createElement(View, {
-											tag = "row auto-xy gap-medium",
+											tag = "row gap-medium auto-xy",
 										}, {
 											Sheet2Popover = React.createElement(PopoverComponent, {
 												isOpen = isSheet2PopoverOpen,
@@ -469,7 +469,7 @@ return {
 											}),
 											Content = React.createElement(Sheet.Content, nil, {
 												Layout = React.createElement(View, {
-													tag = "row auto-xy gap-medium align-y-center",
+													tag = "row align-y-center gap-medium auto-xy",
 												}, {
 													Sheet3Popover = React.createElement(PopoverComponent, {
 														isOpen = isSheet3PopoverOpen,
@@ -561,7 +561,7 @@ return {
 							}),
 							DialogContent = React.createElement(Dialog.Content, nil, {
 								Layout = React.createElement(View, {
-									tag = "row auto-xy gap-medium",
+									tag = "row gap-medium auto-xy",
 								}, {
 									Dialog1Popover = React.createElement(PopoverComponent, {
 										isOpen = isDialog1PopoverOpen,
@@ -589,7 +589,7 @@ return {
 									}),
 									DialogContent = React.createElement(Dialog.Content, nil, {
 										Layout = React.createElement(View, {
-											tag = "row auto-xy gap-medium",
+											tag = "row gap-medium auto-xy",
 										}, {
 											Dialog2Popover = React.createElement(PopoverComponent, {
 												isOpen = isDialog2PopoverOpen,
@@ -617,7 +617,7 @@ return {
 											}),
 											DialogContent = React.createElement(Dialog.Content, nil, {
 												Layout = React.createElement(View, {
-													tag = "row auto-xy gap-medium wrap",
+													tag = "row wrap gap-medium auto-xy",
 												}, {
 													Dialog3Popover = React.createElement(PopoverComponent, {
 														isOpen = isDialog3PopoverOpen,

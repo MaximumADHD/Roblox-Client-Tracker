@@ -336,7 +336,7 @@ local function BrickColorPicker(brickColorPickerProps: BrickColorPickerProps)
 			}),
 			{
 				ColorGrid = React.createElement(View, {
-					tag = "size-full position-top-left anchor-top-left",
+					tag = "position-top-left anchor-top-left size-full",
 					onActivated = onGridActivated,
 					stateLayer = {
 						affordance = StateLayerAffordance.None,
@@ -349,7 +349,7 @@ local function BrickColorPicker(brickColorPickerProps: BrickColorPickerProps)
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			tag = "col align-x-center gap-small auto-y size-full-0",
+			tag = "col align-x-center gap-small size-full-0 auto-y",
 		}),
 		{
 			ColorGrid = React.createElement(View, {

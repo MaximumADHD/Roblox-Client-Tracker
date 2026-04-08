@@ -73,6 +73,8 @@ local FFlagPlayerFeedbackPromptEnabled = game:GetEngineFeature("PlayerFeedbackEn
 local FFlagLuaAppInExperienceDetailsPrompt =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppInExperienceDetailsPrompt
 local FFlagEnableSystemScrim = game:DefineFastFlag("EnableSystemScrim", false)
+local FFlagEnableCoreUISystem = game:DefineFastFlag("EnableCoreUISystem", false)
+local FFlagEnableNewBackpack = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableNewBackpack
 local FFlagEnableCorescriptsProfiler = game:DefineFastFlag("EnableCorescriptsProfiler", false)
 local FFlagCoreScriptsProfilerTelemetryContext = game:DefineFastFlag("CoreScriptsProfilerTelemetryContext", false)
 local FFlagLuaAppEnableEnhancedVideoScripts = game:DefineFastFlag("LuaAppEnableEnhancedVideoScripts3", false)
@@ -81,6 +83,10 @@ local FFlagSelfieFrontendConsoleDesktop = game:DefineFastFlag("SelfieFrontendCon
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
 UIBlox.init(uiBloxConfig)
+
+if FFlagEnableCoreUISystem then
+	require(CorePackages.Workspace.Packages.System)
+end
 
 local InExperienceTopBar = require(CorePackages.Workspace.Packages.InExperienceTopBar)
 local FFlagTopBarRefactor = InExperienceTopBar.Flags.FFlagTopBarRefactor
@@ -331,7 +337,11 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/FriendPlayerPrompt", RobloxGui)
 ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarContextMenu", RobloxGui)
 
 -- Backpack!
-coroutine.wrap(safeRequire)(RobloxGui.Modules.BackpackScript)
+if FFlagEnableNewBackpack then
+	require(CorePackages.Workspace.Packages.Backpack)
+else
+	coroutine.wrap(safeRequire)(RobloxGui.Modules.BackpackScript)
+end
 
 -- Keyboard Navigation :)
 coroutine.wrap(safeRequire)(RobloxGui.Modules.KeyboardUINavigation)
@@ -591,10 +601,16 @@ task.delay(ReactSchedulingDelaySeconds, function()
 	(ReactSchedulingTracker::ReactSchedulingTracker.ReactSchedulingTracker):start()
 end)
 
-local MemoryTracker = require(CorePackages.Workspace.Packages.Memory).MemoryTracker
-local memoryTracker = MemoryTracker(FStringReactSchedulingContext)
-if memoryTracker then
-    memoryTracker:start()
+local FFlagEnableMemoryTrackerUnification =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableMemoryTrackerUnification
+if FFlagEnableMemoryTrackerUnification then
+	require(CorePackages.Workspace.Packages.Memory).start(true, FStringReactSchedulingContext)
+else
+	local MemoryTracker = require(CorePackages.Workspace.Packages.Memory).MemoryTracker
+	local memoryTracker = MemoryTracker(FStringReactSchedulingContext)
+	if memoryTracker then
+		memoryTracker:start()
+	end
 end
 
 if game:GetEngineFeature("RecordingServicePlaybackApiLua") then

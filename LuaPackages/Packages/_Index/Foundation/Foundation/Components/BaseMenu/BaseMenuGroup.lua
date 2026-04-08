@@ -31,7 +31,7 @@ local function BaseMenuGroup(props: BaseMenuGroupProps)
 			else nil,
 		Group = React.createElement(View, {
 			LayoutOrder = groupIndex * 2,
-			tag = `auto-y size-full-0 col gap-xxsmall {SIZE_TO_PADDING[context.size]}`,
+			tag = `col gap-xxsmall size-full-0 auto-y {SIZE_TO_PADDING[context.size]}`,
 		}, {
 			Title = if props.title
 				then React.createElement(BaseMenuTitleItem, { text = props.title, size = context.size })

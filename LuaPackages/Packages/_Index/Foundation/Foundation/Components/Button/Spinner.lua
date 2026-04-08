@@ -30,7 +30,7 @@ local function IconSpinner(props: InternalSpinnerProps)
 		Image = "icons/status/loading_large",
 		imageStyle = props.style,
 		Rotation = rotation,
-		tag = "anchor-center-center position-center-center size-full-full",
+		tag = "position-center-center anchor-center-center size-full-full",
 		testId = props.testId,
 	}, {
 		UIScale = React.createElement("UIScale", {
@@ -59,7 +59,7 @@ local function Path2DSpinner(props: InternalSpinnerProps)
 	end, {})
 
 	return React.createElement(View, {
-		tag = "anchor-center-center position-center-center size-full",
+		tag = "position-center-center anchor-center-center size-full",
 		Rotation = rotation,
 		testId = props.testId,
 	}, {

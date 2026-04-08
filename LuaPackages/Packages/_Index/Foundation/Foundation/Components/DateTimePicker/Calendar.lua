@@ -355,7 +355,7 @@ local function Calendar(props: Props)
 						key = weekday,
 						LayoutOrder = index,
 						Text = weekday,
-						tag = "text-align-x-center text-align-y-center text-body-small",
+						tag = "text-body-small text-align-x-center text-align-y-center",
 					})
 				)
 
@@ -519,7 +519,7 @@ local function Calendar(props: Props)
 	}, {
 		CalendarHeader = React.createElement(View, {
 			LayoutOrder = 1,
-			tag = "row size-full-0 auto-y gap-small align-y-center padding-y-small",
+			tag = "row align-y-center gap-small size-full-0 auto-y padding-y-small",
 		}, {
 			PreviousMonthButton = React.createElement(IconButton, {
 				LayoutOrder = 1,
@@ -533,13 +533,13 @@ local function Calendar(props: Props)
 			MonthText = React.createElement(Text, {
 				LayoutOrder = 2,
 				Text = DateTimeUtilities.monthMap[currViewDate.month],
-				tag = "grow text-align-x-right auto-xy",
+				tag = "grow auto-xy text-align-x-right",
 				testId = `{props.testId}--month-text`,
 			}),
 			YearText = React.createElement(Text, {
 				LayoutOrder = 3,
 				Text = tostring(currViewDate.year),
-				tag = "grow text-align-x-left auto-xy",
+				tag = "grow auto-xy text-align-x-left",
 				testId = `{props.testId}--year-text`,
 			}),
 			NextMonthButton = React.createElement(IconButton, {
@@ -564,7 +564,7 @@ local function Calendar(props: Props)
 		CalendarInputContainer = if props.showStartDateTimeCalendarInput
 			then React.createElement(View, {
 				LayoutOrder = 3,
-				tag = "flex-x-fill size-full-0 auto-y row gap-small align-y-center",
+				tag = "row flex-x-fill align-y-center gap-small size-full-0 auto-y",
 				testId = `{props.testId}--input`,
 			}, {
 				StartDateTime = React.createElement(TextInput, {

@@ -34,6 +34,9 @@ type _Messages = {
 	HorizontalAlignmentProp: _HorizontalAlignmentPropMessage,
 	HorizontalAlignmentProp_ConditionalOption: _HorizontalAlignmentProp_ConditionalOptionMessage,
 	HorizontalAlignmentProp_ConditionalOptions: _HorizontalAlignmentProp_ConditionalOptionsMessage,
+	SelectionBehaviorProp: _SelectionBehaviorPropMessage,
+	SelectionBehaviorProp_ConditionalOption: _SelectionBehaviorProp_ConditionalOptionMessage,
+	SelectionBehaviorProp_ConditionalOptions: _SelectionBehaviorProp_ConditionalOptionsMessage,
 	VerticalAlignmentProp: _VerticalAlignmentPropMessage,
 	VerticalAlignmentProp_ConditionalOption: _VerticalAlignmentProp_ConditionalOptionMessage,
 	VerticalAlignmentProp_ConditionalOptions: _VerticalAlignmentProp_ConditionalOptionsMessage,
@@ -47,6 +50,7 @@ type _Messages = {
 	SizeConstraint: _SizeConstraintMessage,
 	HorizontalAlignment: _HorizontalAlignmentMessage,
 	VerticalAlignment: _VerticalAlignmentMessage,
+	SelectionBehavior: _SelectionBehaviorMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -824,6 +828,94 @@ type _HorizontalAlignmentProp_ConditionalOptionsMessage = proto.Message<
 	_HorizontalAlignmentProp_ConditionalOptionsPartialFields
 >
 
+type _SelectionBehaviorPropImpl = {
+	__index: _SelectionBehaviorPropImpl,
+	new: (fields: _SelectionBehaviorPropPartialFields?) -> SelectionBehaviorProp,
+	encode: (self: SelectionBehaviorProp) -> buffer,
+	decode: (input: buffer) -> SelectionBehaviorProp,
+	jsonEncode: (self: SelectionBehaviorProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SelectionBehaviorProp,
+	descriptor: proto.Descriptor,
+}
+
+type _SelectionBehaviorPropFields = {
+	kind: (
+		{ type: "literal", value: SelectionBehavior }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: SelectionBehaviorProp_ConditionalOptions }
+	)?,
+}
+
+type _SelectionBehaviorPropPartialFields = {
+	kind: (
+		{ type: "literal", value: SelectionBehavior }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: SelectionBehaviorProp_ConditionalOptions }
+	)?,
+}
+
+export type SelectionBehaviorProp = typeof(setmetatable(
+	{} :: _SelectionBehaviorPropFields,
+	{} :: _SelectionBehaviorPropImpl
+))
+type _SelectionBehaviorPropMessage = proto.Message<SelectionBehaviorProp, _SelectionBehaviorPropPartialFields>
+
+type _SelectionBehaviorProp_ConditionalOptionImpl = {
+	__index: _SelectionBehaviorProp_ConditionalOptionImpl,
+	new: (fields: _SelectionBehaviorProp_ConditionalOptionPartialFields?) -> SelectionBehaviorProp_ConditionalOption,
+	encode: (self: SelectionBehaviorProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> SelectionBehaviorProp_ConditionalOption,
+	jsonEncode: (self: SelectionBehaviorProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SelectionBehaviorProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _SelectionBehaviorProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: SelectionBehavior } | { type: "binding_path", value: string })?,
+}
+
+type _SelectionBehaviorProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: SelectionBehavior } | { type: "binding_path", value: string })?,
+}
+
+export type SelectionBehaviorProp_ConditionalOption = typeof(setmetatable(
+	{} :: _SelectionBehaviorProp_ConditionalOptionFields,
+	{} :: _SelectionBehaviorProp_ConditionalOptionImpl
+))
+type _SelectionBehaviorProp_ConditionalOptionMessage = proto.Message<
+	SelectionBehaviorProp_ConditionalOption,
+	_SelectionBehaviorProp_ConditionalOptionPartialFields
+>
+
+type _SelectionBehaviorProp_ConditionalOptionsImpl = {
+	__index: _SelectionBehaviorProp_ConditionalOptionsImpl,
+	new: (fields: _SelectionBehaviorProp_ConditionalOptionsPartialFields?) -> SelectionBehaviorProp_ConditionalOptions,
+	encode: (self: SelectionBehaviorProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> SelectionBehaviorProp_ConditionalOptions,
+	jsonEncode: (self: SelectionBehaviorProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SelectionBehaviorProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _SelectionBehaviorProp_ConditionalOptionsFields = {
+	options: { SelectionBehaviorProp_ConditionalOption },
+}
+
+type _SelectionBehaviorProp_ConditionalOptionsPartialFields = {
+	options: { SelectionBehaviorProp_ConditionalOption }?,
+}
+
+export type SelectionBehaviorProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _SelectionBehaviorProp_ConditionalOptionsFields,
+	{} :: _SelectionBehaviorProp_ConditionalOptionsImpl
+))
+type _SelectionBehaviorProp_ConditionalOptionsMessage = proto.Message<
+	SelectionBehaviorProp_ConditionalOptions,
+	_SelectionBehaviorProp_ConditionalOptionsPartialFields
+>
+
 type _VerticalAlignmentPropImpl = {
 	__index: _VerticalAlignmentPropImpl,
 	new: (fields: _VerticalAlignmentPropPartialFields?) -> VerticalAlignmentProp,
@@ -990,6 +1082,13 @@ export type VerticalAlignment =
 	| "VERTICAL_ALIGNMENT_TOP"
 	| "VERTICAL_ALIGNMENT_CENTER"
 	| "VERTICAL_ALIGNMENT_BOTTOM"
+	| number -- Unknown
+
+type _SelectionBehaviorMessage = proto.Enum<SelectionBehavior>
+export type SelectionBehavior =
+	"SELECTION_BEHAVIOR_INVALID"
+	| "SELECTION_BEHAVIOR_ESCAPE"
+	| "SELECTION_BEHAVIOR_STOP"
 	| number -- Unknown
 
 do
@@ -4754,6 +4853,431 @@ do
 end
 
 do
+	local _SelectionBehaviorPropImpl = {}
+	_SelectionBehaviorPropImpl.__index = _SelectionBehaviorPropImpl
+
+	function _SelectionBehaviorPropImpl.new(data: _SelectionBehaviorPropPartialFields?): SelectionBehaviorProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _SelectionBehaviorPropImpl :: _SelectionBehaviorPropImpl)
+	end
+
+	function _SelectionBehaviorPropImpl.encode(self: SelectionBehaviorProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+				output, cursor =
+					proto.writeVarInt(output, cursor, messages.SelectionBehavior.toNumber(self.kind.value :: any))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SelectionBehaviorPropImpl.decode(input: buffer): SelectionBehaviorProp
+		local self = _SelectionBehaviorPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = (messages.SelectionBehavior.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]],
+					}
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "conditional",
+						value = messages.SelectionBehaviorProp_ConditionalOptions.decode(value),
+					}
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SelectionBehaviorPropImpl.jsonEncode(self: SelectionBehaviorProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = if typeof(self.kind.value) == "number"
+					then self.kind.value
+					else messages.SelectionBehavior.toNumber(self.kind.value :: any)
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _SelectionBehaviorPropImpl.jsonDecode(input: { [string]: any }): SelectionBehaviorProp
+		local self = _SelectionBehaviorPropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = if typeof(input.literal) == "number"
+					then (messages.SelectionBehavior.fromNumber(input.literal) or input.literal)
+					else (messages.SelectionBehavior.fromName(input.literal) or input.literal),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.SelectionBehaviorProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		return self
+	end
+
+	_SelectionBehaviorPropImpl.descriptor = {
+		name = "SelectionBehaviorProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SelectionBehaviorProp",
+	}
+
+	messages.SelectionBehaviorProp = _SelectionBehaviorPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SelectionBehaviorProp)
+end
+
+do
+	local _SelectionBehaviorProp_ConditionalOptionImpl = {}
+	_SelectionBehaviorProp_ConditionalOptionImpl.__index = _SelectionBehaviorProp_ConditionalOptionImpl
+
+	function _SelectionBehaviorProp_ConditionalOptionImpl.new(
+		data: _SelectionBehaviorProp_ConditionalOptionPartialFields?
+	): SelectionBehaviorProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _SelectionBehaviorProp_ConditionalOptionImpl :: _SelectionBehaviorProp_ConditionalOptionImpl)
+	end
+
+	function _SelectionBehaviorProp_ConditionalOptionImpl.encode(self: SelectionBehaviorProp_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+				output, cursor =
+					proto.writeVarInt(output, cursor, messages.SelectionBehavior.toNumber(self.kind.value :: any))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SelectionBehaviorProp_ConditionalOptionImpl.decode(input: buffer): SelectionBehaviorProp_ConditionalOption
+		local self = _SelectionBehaviorProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = (messages.SelectionBehavior.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]],
+					}
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SelectionBehaviorProp_ConditionalOptionImpl.jsonEncode(self: SelectionBehaviorProp_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = if typeof(self.kind.value) == "number"
+					then self.kind.value
+					else messages.SelectionBehavior.toNumber(self.kind.value :: any)
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _SelectionBehaviorProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): SelectionBehaviorProp_ConditionalOption
+		local self = _SelectionBehaviorProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = if typeof(input.literal) == "number"
+					then (messages.SelectionBehavior.fromNumber(input.literal) or input.literal)
+					else (messages.SelectionBehavior.fromName(input.literal) or input.literal),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_SelectionBehaviorProp_ConditionalOptionImpl.descriptor = {
+		name = "SelectionBehaviorProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.SelectionBehaviorProp_ConditionalOption = _SelectionBehaviorProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SelectionBehaviorProp_ConditionalOption)
+end
+
+do
+	local _SelectionBehaviorProp_ConditionalOptionsImpl = {}
+	_SelectionBehaviorProp_ConditionalOptionsImpl.__index = _SelectionBehaviorProp_ConditionalOptionsImpl
+
+	function _SelectionBehaviorProp_ConditionalOptionsImpl.new(
+		data: _SelectionBehaviorProp_ConditionalOptionsPartialFields?
+	): SelectionBehaviorProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _SelectionBehaviorProp_ConditionalOptionsImpl :: _SelectionBehaviorProp_ConditionalOptionsImpl)
+	end
+
+	function _SelectionBehaviorProp_ConditionalOptionsImpl.encode(
+		self: SelectionBehaviorProp_ConditionalOptions
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SelectionBehaviorProp_ConditionalOptionsImpl.decode(
+		input: buffer
+	): SelectionBehaviorProp_ConditionalOptions
+		local self = _SelectionBehaviorProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.SelectionBehaviorProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SelectionBehaviorProp_ConditionalOptionsImpl.jsonEncode(
+		self: SelectionBehaviorProp_ConditionalOptions
+	): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _SelectionBehaviorProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): SelectionBehaviorProp_ConditionalOptions
+		local self = _SelectionBehaviorProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { SelectionBehaviorProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.SelectionBehaviorProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_SelectionBehaviorProp_ConditionalOptionsImpl.descriptor = {
+		name = "SelectionBehaviorProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.SelectionBehaviorProp_ConditionalOptions = _SelectionBehaviorProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SelectionBehaviorProp_ConditionalOptions)
+end
+
+do
 	local _VerticalAlignmentPropImpl = {}
 	_VerticalAlignmentPropImpl.__index = _VerticalAlignmentPropImpl
 
@@ -5642,6 +6166,44 @@ messages.VerticalAlignment = {
 	end,
 }
 
+messages.SelectionBehavior = {
+	fromNumber = function(value: number): SelectionBehavior?
+		if value == 0 then
+			return "SELECTION_BEHAVIOR_INVALID"
+		elseif value == 1 then
+			return "SELECTION_BEHAVIOR_ESCAPE"
+		elseif value == 2 then
+			return "SELECTION_BEHAVIOR_STOP"
+		else
+			return nil
+		end
+	end,
+
+	toNumber = function(self: SelectionBehavior): number
+		if self == "SELECTION_BEHAVIOR_INVALID" then
+			return 0
+		elseif self == "SELECTION_BEHAVIOR_ESCAPE" then
+			return 1
+		elseif self == "SELECTION_BEHAVIOR_STOP" then
+			return 2
+		else
+			return self
+		end
+	end,
+
+	fromName = function(name: string): SelectionBehavior?
+		if name == "SELECTION_BEHAVIOR_INVALID" then
+			return "SELECTION_BEHAVIOR_INVALID"
+		elseif name == "SELECTION_BEHAVIOR_ESCAPE" then
+			return "SELECTION_BEHAVIOR_ESCAPE"
+		elseif name == "SELECTION_BEHAVIOR_STOP" then
+			return "SELECTION_BEHAVIOR_STOP"
+		else
+			return nil
+		end
+	end,
+}
+
 return {
 	AutomaticSizeProp = messages.AutomaticSizeProp,
 	AutomaticSizeProp_ConditionalOption = messages.AutomaticSizeProp_ConditionalOption,
@@ -5670,6 +6232,9 @@ return {
 	HorizontalAlignmentProp = messages.HorizontalAlignmentProp,
 	HorizontalAlignmentProp_ConditionalOption = messages.HorizontalAlignmentProp_ConditionalOption,
 	HorizontalAlignmentProp_ConditionalOptions = messages.HorizontalAlignmentProp_ConditionalOptions,
+	SelectionBehaviorProp = messages.SelectionBehaviorProp,
+	SelectionBehaviorProp_ConditionalOption = messages.SelectionBehaviorProp_ConditionalOption,
+	SelectionBehaviorProp_ConditionalOptions = messages.SelectionBehaviorProp_ConditionalOptions,
 	VerticalAlignmentProp = messages.VerticalAlignmentProp,
 	VerticalAlignmentProp_ConditionalOption = messages.VerticalAlignmentProp_ConditionalOption,
 	VerticalAlignmentProp_ConditionalOptions = messages.VerticalAlignmentProp_ConditionalOptions,
@@ -5683,4 +6248,5 @@ return {
 	SizeConstraint = messages.SizeConstraint,
 	HorizontalAlignment = messages.HorizontalAlignment,
 	VerticalAlignment = messages.VerticalAlignment,
+	SelectionBehavior = messages.SelectionBehavior,
 }

@@ -20,7 +20,7 @@ return {
 		else
 			return React.createElement(Text, {
 				Text = `No BuilderIcon associated with: {props.controls.keycode}`,
-				tag = "text-align-x-left size-full-0 auto-y",
+				tag = "size-full-0 auto-y text-align-x-left",
 			})
 		end
 	end,

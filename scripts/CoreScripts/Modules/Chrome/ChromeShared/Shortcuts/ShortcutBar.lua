@@ -9,7 +9,7 @@ local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local ShortcutBar = UIBlox.App.Navigation.ShortcutBar
-local Types = require(Root.Service.Types)
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local Constants = require(Root.Unibar.Constants)
 local ViewportUtil = require(Root.Service.ViewportUtil)
 local useObservableValue = require(Root.Hooks.useObservableValue)
@@ -20,8 +20,9 @@ local ChromeService = require(Root.Service)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
-local FFlagDisableGamepadConnectorInVR =
-	require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagDisableGamepadConnectorInVR
+local FFlagDisableGamepadConnectorInVR = ChromePackage.Flags.FFlagDisableGamepadConnectorInVR
+
+type ShortcutProps = ChromePackage.ShortcutProps
 
 function ChromeShortcutBar(props)
 	local shortcuts, setShortcuts = React.useState({})
@@ -36,7 +37,7 @@ function ChromeShortcutBar(props)
 		if shortcutBarWidth.current > screenSize.X then
 			local removeIndex = 1
 			for i, s in shortcuts do
-				local shortcut = s :: Types.ShortcutProps
+				local shortcut = s :: ShortcutProps
 				local index = i :: number
 				if shortcut.displayPriority <= shortcuts[removeIndex].displayPriority then
 					removeIndex = index
@@ -85,10 +86,10 @@ function ChromeShortcutBar(props)
 		end
 	end, {})
 
-	local shortcutList = (if #trimmedShortcuts > 0 then trimmedShortcuts else shortcuts) :: { Types.ShortcutProps }
+	local shortcutList = (if #trimmedShortcuts > 0 then trimmedShortcuts else shortcuts) :: { ShortcutProps }
 	local shortcutItems = {}
 	for _, s in shortcutList do
-		local shortcut = s :: Types.ShortcutProps
+		local shortcut = s :: ShortcutProps
 		if not shortcut.label then
 			continue
 		end

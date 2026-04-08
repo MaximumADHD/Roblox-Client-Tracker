@@ -143,7 +143,7 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 	end
 	local bodyFont
 	if UIBloxConfig.enableTooltipV2BodyFontFix then
-		bodyFont = font.BodySmall
+		bodyFont = (font :: any).BodySmall
 	else
 		bodyFont = font.CaptionBody
 	end
@@ -251,7 +251,7 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 	local defaultBackgroundStyle = theme.BackgroundUIDefault
 	local backgroundColor = props.backgroundColor or defaultBackgroundStyle.Color
 	local backgroundTransparency = (props.backgroundTransparency or defaultBackgroundStyle.Transparency)
-		* settings.PreferredTransparency
+		* (settings :: any).PreferredTransparency
 
 	return React.createElement("CanvasGroup", {
 		GroupTransparency = props.transparency,

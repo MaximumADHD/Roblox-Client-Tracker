@@ -65,7 +65,7 @@ local function ColorPreview(props: ColorPreviewProps)
 	local swatchTransparency = if props.alpha then (1 - props.alpha) else 0
 
 	return React.createElement(View, {
-		tag = "row gap-medium auto-y size-full-0",
+		tag = "row gap-medium size-full-0 auto-y",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		ColorSwatch = React.createElement(View, {
@@ -95,7 +95,7 @@ local function ColorPreview(props: ColorPreviewProps)
 		}),
 
 		ColorInfo = React.createElement(View, {
-			tag = "col gap-xsmall auto-y flex-grow",
+			tag = "col grow gap-xsmall auto-y",
 			layout = {
 				FillDirection = Enum.FillDirection.Vertical,
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -106,7 +106,7 @@ local function ColorPreview(props: ColorPreviewProps)
 				fontStyle = tokens.Typography.BodyLarge,
 				textStyle = tokens.Color.Content.Emphasis,
 				TextXAlignment = Enum.TextXAlignment.Left,
-				tag = "auto-y size-full-0",
+				tag = "size-full-0 auto-y",
 			}),
 
 			HexAlphaLabel = if colorHexWithAlpha and props.showAlpha
@@ -115,7 +115,7 @@ local function ColorPreview(props: ColorPreviewProps)
 					fontStyle = tokens.Typography.CaptionLarge,
 					textStyle = tokens.Color.Content.Default,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					tag = "auto-y size-full-0",
+					tag = "size-full-0 auto-y",
 				})
 				else React.createElement(React.Fragment),
 
@@ -124,7 +124,7 @@ local function ColorPreview(props: ColorPreviewProps)
 				fontStyle = tokens.Typography.CaptionLarge,
 				textStyle = tokens.Color.Content.Default,
 				TextXAlignment = Enum.TextXAlignment.Left,
-				tag = "auto-y size-full-0",
+				tag = "size-full-0 auto-y",
 			}),
 
 			RGBALabel = if rgbaText and props.showAlpha
@@ -133,7 +133,7 @@ local function ColorPreview(props: ColorPreviewProps)
 					fontStyle = tokens.Typography.CaptionLarge,
 					textStyle = tokens.Color.Content.Default,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					tag = "auto-y size-full-0",
+					tag = "size-full-0 auto-y",
 				})
 				else React.createElement(React.Fragment),
 		}),
@@ -230,7 +230,7 @@ return {
 							Popover.Anchor,
 							nil,
 							React.createElement(View, {
-								tag = "row gap-medium align-y-center auto-xy",
+								tag = "row align-y-center gap-medium auto-xy",
 							}, {
 								ColorSwatchButton = React.createElement(Interactable, {
 									onActivated = function()
@@ -244,7 +244,7 @@ return {
 									AutomaticSize = Enum.AutomaticSize.XY,
 								}, {
 									ButtonContainer = React.createElement(View, {
-										tag = "row gap-small align-y-center padding-small radius-small stroke-neutral auto-xy",
+										tag = "row align-y-center gap-small auto-xy padding-small stroke-neutral radius-small",
 										backgroundStyle = tokens.Color.Surface.Surface_100,
 									}, {
 										ColorSwatch = React.createElement(View, {
@@ -294,7 +294,7 @@ return {
 								end,
 							},
 							React.createElement(View, {
-								tag = "col padding-medium gap-medium",
+								tag = "col gap-medium padding-medium",
 								Size = UDim2.fromOffset(300, 300),
 							}, {
 								Picker = React.createElement(ColorPicker, {
@@ -310,7 +310,7 @@ return {
 								}),
 
 								Actions = React.createElement(View, {
-									tag = "row gap-small auto-y size-full-0 margin-top-medium align-x-right",
+									tag = "row align-x-right gap-small size-full-0 auto-y margin-top-medium",
 									LayoutOrder = 2,
 								}, {
 									CancelButton = React.createElement(Interactable, {
@@ -323,7 +323,7 @@ return {
 										AutomaticSize = Enum.AutomaticSize.XY,
 									}, {
 										ButtonContainer = React.createElement(View, {
-											tag = "padding-small radius-small auto-xy",
+											tag = "auto-xy padding-small radius-small",
 											backgroundStyle = tokens.Color.Surface.Surface_100,
 											stroke = {
 												Color = tokens.Color.System.Neutral.Color3,
@@ -348,7 +348,7 @@ return {
 										AutomaticSize = Enum.AutomaticSize.XY,
 									}, {
 										ButtonContainer = React.createElement(View, {
-											tag = "padding-small radius-small auto-xy",
+											tag = "auto-xy padding-small radius-small",
 											backgroundStyle = tokens.Color.Surface.Surface_100,
 											stroke = {
 												Color = tokens.Color.System.Neutral.Color3,
@@ -478,7 +478,7 @@ return {
 						textStyle = tokens.Color.Content.Default,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextWrapped = true,
-						tag = "auto-y size-full-0",
+						tag = "size-full-0 auto-y",
 					}),
 
 					PreviewContainer = React.createElement(ColorPreview, {

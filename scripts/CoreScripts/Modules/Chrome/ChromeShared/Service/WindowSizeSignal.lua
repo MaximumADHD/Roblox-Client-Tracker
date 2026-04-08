@@ -4,11 +4,15 @@ local CorePackages = game:GetService("CorePackages")
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+
 local ViewportUtil = require(Root.Service.ViewportUtil)
 local Constants = require(Root.Unibar.Constants)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagChromeWindowSignalConstraintsToggle = SharedFlags.FFlagChromeWindowSignalConstraintsToggle
+
+export type WindowSizeSignal = ChromePackage.WindowSizeSignal
 
 -- returned constrained window size for mobile devices depending on if portrait or landscape
 local function getConstrainedWindowSize(width: number, height: number, ignoreConstraints: boolean?): UDim2
@@ -32,16 +36,6 @@ local function getConstrainedWindowSize(width: number, height: number, ignoreCon
 
 	return UDim2.new(0, newWidth, 0, newHeight)
 end
-
-export type WindowSizeSignal = {
-	new: (number?, number?) -> WindowSizeSignal,
-	connect: (WindowSizeSignal, SignalLib.SignalCallback) -> SignalLib.SignalHandle,
-	requestSize: (WindowSizeSignal, number, number) -> (),
-	toggleIsLarge: (WindowSizeSignal) -> (),
-	get: (WindowSizeSignal) -> UDim2,
-	getIsLarge: (WindowSizeSignal) -> boolean,
-	updateConstraints: (WindowSizeSignal) -> (),
-}
 
 local WindowSizeSignal = {}
 WindowSizeSignal.__index = WindowSizeSignal

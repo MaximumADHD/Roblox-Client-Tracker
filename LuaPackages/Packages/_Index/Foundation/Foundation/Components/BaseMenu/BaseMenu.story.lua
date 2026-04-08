@@ -167,7 +167,7 @@ return {
 			story = function()
 				return React.createElement(
 					View,
-					{ tag = "row gap-xxlarge size-full-0 auto-y wrap" },
+					{ tag = "row wrap gap-xxlarge size-full-0 auto-y" },
 					Dash.map(InputSize, function(size)
 						return React.createElement(BaseMenu.Root, {
 							size = size,

@@ -87,11 +87,11 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 	}, {
 		Tabs = React.createElement(
 			View,
-			withCommonProps(props, { ref = ref or containerRef, tag = "auto-y size-full-0 col" }),
+			withCommonProps(props, { ref = ref or containerRef, tag = "col size-full-0 auto-y" }),
 			{
 				Wrapper = React.createElement(
 					View,
-					{ LayoutOrder = 1, tag = "auto-y size-full-0", testId = `{props.testId}--wrapper` },
+					{ LayoutOrder = 1, tag = "size-full-0 auto-y", testId = `{props.testId}--wrapper` },
 					{
 						ScrollContainer = React.createElement(OverflowScrollContainer, {
 							LayoutOrder = 1,
@@ -102,7 +102,7 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 								View,
 								{
 									tag = {
-										["row auto-xy flex-y-fill"] = true,
+										["row flex-y-fill auto-xy"] = true,
 										["gap-large"] = not isFill,
 										["size-full-0"] = isFill,
 									},
@@ -139,7 +139,7 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 				Content = if activeTab and activeTab.content
 					then React.createElement(View, {
 						LayoutOrder = 2,
-						tag = "auto-y size-full-0",
+						tag = "size-full-0 auto-y",
 						testId = `{props.testId}--content`,
 					}, activeTab.content)
 					else nil,

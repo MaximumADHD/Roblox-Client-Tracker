@@ -17,8 +17,6 @@ local EventConnection = ReactUtils.EventConnection
 
 local Modules = CoreGui.RobloxGui.Modules
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
-local FFlagAvatarChatCoreScriptSupport =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local cameraDevicePermissionGrantedSignal =
 	require(CoreGui.RobloxGui.Modules.Settings.cameraDevicePermissionGrantedSignal)
 local getFFlagDoNotPromptCameraPermissionsOnMount =
@@ -58,9 +56,8 @@ function FlashingDot:init()
 		local newVisible = isUsingMic or isUsingCamera
 
 		local updatedVisibility = self.state.Visible ~= newVisible
-		local updatedMutedStatus = FFlagAvatarChatCoreScriptSupport and self.state.isUsingMic ~= isUsingMic
 
-		if updatedVisibility or updatedMutedStatus then
+		if updatedVisibility then
 			self:setState({
 				Visible = newVisible,
 				isUsingMic = isUsingMic,
@@ -105,20 +102,7 @@ function FlashingDot:willUnmount()
 end
 
 function FlashingDot:render()
-	local image
 	local imageSize = UDim2.fromOffset(4, 4)
-	if FFlagAvatarChatCoreScriptSupport then
-		local isUsingCamera = FaceAnimatorService.VideoAnimationEnabled and VideoCaptureService.Active
-		if getFFlagDoNotPromptCameraPermissionsOnMount() then
-			isUsingCamera = FaceAnimatorService:IsStarted() and FaceAnimatorService.VideoAnimationEnabled
-		end
-		if self.state.isUsingMic then
-			image = FLASHING_DOT
-		elseif isUsingCamera then
-			image = GREEN_DOT
-			imageSize = UDim2.fromOffset(12, 12)
-		end
-	end
 
 	return Roact.createElement("Frame", {
 		AnchorPoint = Vector2.new(1, 0),
@@ -131,10 +115,8 @@ function FlashingDot:render()
 	}, {
 		FlashingDot = Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
-			AnchorPoint = if FFlagAvatarChatCoreScriptSupport then Vector2.new(0.5, 0.5) else nil,
-			Position = if FFlagAvatarChatCoreScriptSupport then UDim2.fromScale(0.5, 0.5) else nil,
 			Size = imageSize,
-			Image = if FFlagAvatarChatCoreScriptSupport then image else FLASHING_DOT,
+			Image = FLASHING_DOT,
 			ImageTransparency = self.transparencyBinding,
 			LayoutOrder = 2,
 		}),

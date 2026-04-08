@@ -19,7 +19,7 @@ local function DefaultStory(props)
 			Size = pulse:map(function(size: number)
 				return UDim2.fromOffset(size * 50, size * 50)
 			end),
-			tag = "anchor-center-center position-center-center",
+			tag = "position-center-center anchor-center-center",
 		}),
 	})
 end

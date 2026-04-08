@@ -167,7 +167,7 @@ local function ColorSlider(colorSliderProps: ColorSliderProps)
 		return React.createElement(
 			View,
 			withCommonProps(props, {
-				tag = "auto-y size-full-0 radius-circle stroke-standard stroke-emphasis",
+				tag = "size-full-0 auto-y stroke-standard stroke-emphasis radius-circle",
 				backgroundStyle = tokens.Color.Extended.White.White_100,
 			}),
 			{

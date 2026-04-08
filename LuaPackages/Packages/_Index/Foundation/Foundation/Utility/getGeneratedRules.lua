@@ -1,6 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
 local Device = require(Foundation.Enums.Device)
+local Flags = require(Foundation.Utility.Flags)
 local StyleTagFormat = require(Foundation.Enums.StyleTagFormat)
 local Theme = require(Foundation.Enums.Theme)
 
@@ -48,7 +49,7 @@ local function getGeneratedRules(theme: Theme, device: Device): any
 		themeRules = requirePaths[StyleTagFormat.Static]["Light" :: Theme]()
 	end
 
-	if device == Device.Console then
+	if device == Device.Console and not Flags.FoundationDisableTokenScaling then
 		sizeRules = requirePaths[format]["Console" :: Device]()
 	else
 		sizeRules = requirePaths[format]["Desktop" :: Device]()

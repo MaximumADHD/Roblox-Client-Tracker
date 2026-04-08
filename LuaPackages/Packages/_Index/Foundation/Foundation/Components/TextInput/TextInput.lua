@@ -81,7 +81,7 @@ local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObjec
 					leadingElement = if props.leadingIcon
 						then React.createElement(
 							View,
-							{ tag = "size-0-full auto-x row align-y-center" },
+							{ tag = "row align-y-center size-0-full auto-x" },
 							React.createElement(Icon, {
 								name = props.leadingIcon,
 								style = variantProps.icon.style,
@@ -92,7 +92,7 @@ local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObjec
 					trailingElement = if props.iconTrailing
 						then React.createElement(
 							View,
-							{ tag = "size-0-full auto-x row align-y-center" },
+							{ tag = "row align-y-center size-0-full auto-x" },
 							if type(props.iconTrailing) == "table" and props.iconTrailing.onActivated
 								then React.createElement(IconButton, {
 									onActivated = props.iconTrailing.onActivated,

@@ -58,7 +58,7 @@ local function AnimatedProgressStory()
 	end
 
 	return React.createElement(View, {
-		tag = "col gap-medium auto-y size-full-0",
+		tag = "col gap-medium size-full-0 auto-y",
 	}, {
 		Title = React.createElement(Text, {
 			Text = progressBinding:map(function(progressValue)
@@ -97,15 +97,15 @@ local function SizeVariationsStory(props)
 	return React.createElement(
 		View,
 		{
-			tag = "col gap-large auto-y size-full-0",
+			tag = "col gap-large size-full-0 auto-y",
 		},
 		Dash.map(ProgressSize, function(size)
 			return React.createElement(View, {
-				tag = "row gap-medium align-y-center size-full-0 auto-y",
+				tag = "row align-y-center gap-medium size-full-0 auto-y",
 			}, {
 				Label = React.createElement(Text, {
 					Text = `{size}:`,
-					tag = "size-1500-0 text-align-x-right auto-y text-body-small content-default",
+					tag = "size-1500-0 auto-y text-body-small text-align-x-right content-default",
 					LayoutOrder = 1,
 				}),
 
@@ -132,7 +132,7 @@ end
 
 local function IndeterminateStory()
 	return React.createElement(View, {
-		tag = "col gap-medium auto-y size-full-0",
+		tag = "col gap-medium size-full-0 auto-y",
 	}, {
 		CircleIndeterminate = React.createElement(Progress, {
 			shape = ProgressShape.Circle,

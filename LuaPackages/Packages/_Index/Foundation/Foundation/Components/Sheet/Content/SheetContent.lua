@@ -127,12 +127,12 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 			onAbsoluteCanvasSizeChanged = updateScrollState,
 			onAbsoluteWindowSizeChanged = updateScrollState,
 			testId = `{testId}--content`,
-			tag = "size-full-0 auto-y fill",
+			tag = "fill size-full-0 auto-y",
 			ref = ref,
 		},
 		React.createElement(View, {
 			onAbsoluteSizeChanged = updateScrollViewCanvasSize,
-			tag = "col size-full-0 auto-y padding-x-medium gap-medium align-x-center",
+			tag = "col align-x-center gap-medium size-full-0 auto-y padding-x-medium",
 		}, props.children)
 	)
 end

@@ -32,7 +32,9 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = RobloxGui.Modules
 local TopBar = Modules.TopBar
 local TenFootInterface = require(Modules.TenFootInterface)
-local BackpackModule = require(Modules.BackpackScript)
+local FFlagEnableNewBackpack = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableNewBackpack
+local Features = if FFlagEnableNewBackpack then require(CorePackages.Workspace.Packages.System).Features else nil
+local BackpackModule = if not FFlagEnableNewBackpack then require(Modules.BackpackScript) else nil
 local EmotesModule = require(Modules.EmotesMenu.EmotesMenuMaster)
 local ChatModule = require(Modules.ChatSelector)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
@@ -411,7 +413,11 @@ function GamepadMenu.toggleEmotesMenu()
 end
 
 function GamepadMenu.toggleBackpack()
-	BackpackModule:OpenClose()
+	if FFlagEnableNewBackpack then
+		Features.toggleVisibility(Features.FeatureName.Backpack)
+	else
+		BackpackModule:OpenClose()
+	end
 end
 
 function GamepadMenu.leaveGame()

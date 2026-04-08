@@ -61,7 +61,7 @@ local function AvatarOverflow(props: {
 		withCommonProps(props, {
 			Size = props.Size,
 			backgroundStyle = backgroundStyle,
-			tag = "radius-circle row align-x-center align-y-center",
+			tag = "row align-x-center align-y-center radius-circle",
 		}),
 		if isEllipsed
 			then React.createElement(Icon, {
@@ -71,7 +71,7 @@ local function AvatarOverflow(props: {
 			})
 			else React.createElement(
 				Text,
-				{ Text = `+{props.count}`, tag = `text-align-x-center auto-xy {textTag}`, textStyle = contentStyle }
+				{ Text = `+{props.count}`, tag = `auto-xy text-align-x-center {textTag}`, textStyle = contentStyle }
 			)
 	)
 end

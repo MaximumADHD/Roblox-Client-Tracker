@@ -219,13 +219,13 @@ function Invisicam:CharacterOutlineBehavior(castPoints)
 	local torsoRight = self.torsoPart.CFrame.rightVector.unit
 
 	-- Torso cross of points for interior coverage
-	castPoints[#castPoints + 1] = self.torsoPart.CFrame.p
-	castPoints[#castPoints + 1] = self.torsoPart.CFrame.p + torsoUp
-	castPoints[#castPoints + 1] = self.torsoPart.CFrame.p - torsoUp
-	castPoints[#castPoints + 1] = self.torsoPart.CFrame.p + torsoRight
-	castPoints[#castPoints + 1] = self.torsoPart.CFrame.p - torsoRight
+	castPoints[#castPoints + 1] = self.torsoPart.CFrame.Position
+	castPoints[#castPoints + 1] = self.torsoPart.CFrame.Position + torsoUp
+	castPoints[#castPoints + 1] = self.torsoPart.CFrame.Position - torsoUp
+	castPoints[#castPoints + 1] = self.torsoPart.CFrame.Position + torsoRight
+	castPoints[#castPoints + 1] = self.torsoPart.CFrame.Position - torsoRight
 	if self.headPart then
-		castPoints[#castPoints + 1] = self.headPart.CFrame.p
+		castPoints[#castPoints + 1] = self.headPart.CFrame.Position
 	end
 
 	local cframe = CFrame.new(ZERO_VECTOR3,Vector3.new(self.camera.CoordinateFrame.lookVector.X,0,self.camera.CoordinateFrame.lookVector.Z))
@@ -272,16 +272,16 @@ function Invisicam:SmartCircleBehavior(castPoints)
 	-- SMART_CIRCLE mode includes rays to head and 5 to the torso.
 	-- Hands, arms, legs and feet are not included since they
 	-- are not canCollide and can therefore go inside of parts
-	castPoints[#castPoints + 1] = self.torsoPart.CFrame.p
-	castPoints[#castPoints + 1] = self.torsoPart.CFrame.p + torsoUp
-	castPoints[#castPoints + 1] = self.torsoPart.CFrame.p - torsoUp
-	castPoints[#castPoints + 1] = self.torsoPart.CFrame.p + torsoRight
-	castPoints[#castPoints + 1] = self.torsoPart.CFrame.p - torsoRight
+	castPoints[#castPoints + 1] = self.torsoPart.CFrame.Position
+	castPoints[#castPoints + 1] = self.torsoPart.CFrame.Position + torsoUp
+	castPoints[#castPoints + 1] = self.torsoPart.CFrame.Position - torsoUp
+	castPoints[#castPoints + 1] = self.torsoPart.CFrame.Position + torsoRight
+	castPoints[#castPoints + 1] = self.torsoPart.CFrame.Position - torsoRight
 	if self.headPart then
-		castPoints[#castPoints + 1] = self.headPart.CFrame.p
+		castPoints[#castPoints + 1] = self.headPart.CFrame.Position
 	end
 
-	local cameraOrientation = self.camera.CFrame - self.camera.CFrame.p
+	local cameraOrientation = self.camera.CFrame - self.camera.CFrame.Position
 	local torsoPoint = Vector3.new(0,0.5,0) + (self.torsoPart and self.torsoPart.Position or self.humanoidRootPart.Position)
 	local radius = 2.5
 
@@ -299,7 +299,7 @@ function Invisicam:SmartCircleBehavior(castPoints)
 		local circlePoint = torsoPoint + cameraOrientation * offset
 
 		-- Vector from camera to point on the circle being tested
-		local vp = circlePoint - self.camera.CFrame.p
+		local vp = circlePoint - self.camera.CFrame.Position
 
 		
 		if FFlagUserRaycastUpdateAPI then
@@ -319,7 +319,7 @@ function Invisicam:SmartCircleBehavior(castPoints)
 				local v1 = (perp:Cross(normal)).unit
 
 				-- Vector from camera to offset hit
-				local vprime = (hprime - self.camera.CFrame.p).unit
+				local vprime = (hprime - self.camera.CFrame.Position).unit
 
 				-- This dot product checks to see if the vector along the hit surface would hit the correct
 				-- side of the invisicam cone, or if it would cross the camera look vector and hit the wrong side
@@ -364,7 +364,7 @@ function Invisicam:SmartCircleBehavior(castPoints)
 				local v1 = (perp:Cross(hitNormal)).unit
 
 				-- Vector from camera to offset hit
-				local vprime = (hprime - self.camera.CFrame.p).unit
+				local vprime = (hprime - self.camera.CFrame.Position).unit
 
 				-- This dot product checks to see if the vector along the hit surface would hit the correct
 				-- side of the invisicam cone, or if it would cross the camera look vector and hit the wrong side
@@ -555,8 +555,8 @@ function Invisicam:Update(dt: number, desiredCameraCFrame: CFrame, desiredCamera
 
 		-- This first call uses head and torso rays to find out how many parts are stacked up
 		-- for the purpose of calculating required per-part transparency
-		local headPoint = self.headPart and self.headPart.CFrame.p or castPoints[1]
-		local torsoPoint = self.torsoPart and self.torsoPart.CFrame.p or castPoints[2]
+		local headPoint = self.headPart and self.headPart.CFrame.Position or castPoints[1]
+		local torsoPoint = self.torsoPart and self.torsoPart.CFrame.Position or castPoints[2]
 		hitParts = self.camera:GetPartsObscuringTarget({headPoint, torsoPoint}, ignoreList)
 
 		-- Count how many things the sample rays passed through, including decals. This should only

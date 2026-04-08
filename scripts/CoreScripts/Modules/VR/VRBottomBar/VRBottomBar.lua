@@ -75,7 +75,11 @@ local VRBottomBarAnalytics = require(script.Parent.VRBottomBarAnalytics)
 local VRBottomBarType = require(script.Parent.VRBottomBarType)
 
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
-local BackpackScript = require(RobloxGui.Modules.BackpackScript)
+local FFlagEnableNewBackpack = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableNewBackpack
+local Features = if FFlagEnableNewBackpack then require(CorePackages.Workspace.Packages.System).Features else nil
+local BackpackScript = if FFlagEnableNewBackpack
+	then require(CorePackages.Workspace.Packages.Backpack)
+	else require(RobloxGui.Modules.BackpackScript)
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local StarterPlayer = game:GetService("StarterPlayer")
 
@@ -184,22 +188,37 @@ local BackpackIcon = {
 	iconOn = "rbxasset://textures/ui/MenuBar/icon__backpack.png",
 	iconOff = "rbxasset://textures/ui/MenuBar/icon__backpack.png",
 	onActivated = function()
-		if not VRHub.ShowTopBar then
-			-- Expand UI and open backpack
-			VRHub:SetShowTopBar(true)
-			if not BackpackScript.IsOpen then
-				BackpackScript.OpenClose()
+		if FFlagEnableNewBackpack then
+			if not VRHub.ShowTopBar then
+				VRHub:SetShowTopBar(true)
+				Features.setVisibility(Features.FeatureName.Backpack, true)
+			else
+				Features.toggleVisibility(Features.FeatureName.Backpack)
+			end
+			if FFlagFixVRBottomBarAnalytics then
+				VRBottomBarAnalytics.sendEventToTelemetryV2({
+					integrationId = VRBottomBarType.ButtomName.Inventory,
+					isToggleOn = Features.getVisibility(Features.FeatureName.Backpack),
+					source = VRBottomBarType.Source.MoreSubMenu
+				})
 			end
 		else
-			BackpackScript.OpenClose()
-		end
-		if FFlagFixVRBottomBarAnalytics then
-			local isToggleOn = BackpackScript.IsOpen
-			VRBottomBarAnalytics.sendEventToTelemetryV2({
-				integrationId = VRBottomBarType.ButtomName.Inventory,
-				isToggleOn = isToggleOn,
-				source = VRBottomBarType.Source.MoreSubMenu
-			})
+			if not VRHub.ShowTopBar then
+				VRHub:SetShowTopBar(true)
+				if not BackpackScript.IsOpen then
+					BackpackScript.OpenClose()
+				end
+			else
+				BackpackScript.OpenClose()
+			end
+			if FFlagFixVRBottomBarAnalytics then
+				local isToggleOn = BackpackScript.IsOpen
+				VRBottomBarAnalytics.sendEventToTelemetryV2({
+					integrationId = VRBottomBarType.ButtomName.Inventory,
+					isToggleOn = isToggleOn,
+					source = VRBottomBarType.Source.MoreSubMenu
+				})
+			end
 		end
 		AnalyticsService:ReportCounter("VR-BottomBar-Backpack")
 	end,

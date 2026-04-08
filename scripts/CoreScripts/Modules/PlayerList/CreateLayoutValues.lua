@@ -7,11 +7,15 @@ local Images = UIBlox.App.ImageSet.Images
 
 local SCREEN_SIDE_PADDING = 4
 
+local Foundation = require(CorePackages.Packages.Foundation)
+
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local TopBarAppConstants = require(script.Parent.Parent.TopBar.Constants)
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
+local FFlagPlayerListFoundationSubscriptionIcon =
+	PlayerListPackage.Flags.FFlagPlayerListFoundationSubscriptionIcon
 
 if FFlagUseNewPlayerList then
 	local CreateLayoutValues = PlayerListPackage.Common.CreateLayoutValues
@@ -202,8 +206,14 @@ else
 			[Enum.MembershipType.Premium] = Images["icons/status/premium_small"],
 		}
 
-		-- TODO(SUBS-4332): replace with actual subscription badge asset
-		LayoutValues.SubscriptionIcon = Images["icons/menu/gem_small"]
+		if FFlagPlayerListFoundationSubscriptionIcon then
+			LayoutValues.SubscriptionIcon = {
+				isFoundationIcon = true,
+				name = Foundation.Enums.IconName.RobloxPlus,
+			}
+		else
+			LayoutValues.SubscriptionIcon = Images["icons/menu/gem_small"]
+		end
 
 		LayoutValues.CustomPlayerIcons = { -- Admins with special icons
 			[7210880] = "rbxassetid://134032333", -- Jeditkacheff

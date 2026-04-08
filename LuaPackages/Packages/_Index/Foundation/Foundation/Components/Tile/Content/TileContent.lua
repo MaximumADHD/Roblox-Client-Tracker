@@ -24,7 +24,7 @@ local function TileContent(tileContentProps: TileContentProps)
 	local tileContext = useTile()
 
 	return React.createElement(View, {
-		tag = "size-full col gap-small align-y-top",
+		tag = "col align-y-top gap-small size-full",
 		flexItem = {
 			FlexMode = Enum.UIFlexMode.Shrink,
 		},

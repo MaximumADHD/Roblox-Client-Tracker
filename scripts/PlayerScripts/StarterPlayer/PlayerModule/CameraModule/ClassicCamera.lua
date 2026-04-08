@@ -166,7 +166,7 @@ function ClassicCamera:Update(dt)
 
 				elseif self.isFollowCamera and not (isInFirstPerson or userRecentlyPannedCamera) then
 					-- Logic that was unique to the old FollowCamera module
-					local lastVec = -(self.lastCameraTransform.p - subjectPosition)
+					local lastVec = -(self.lastCameraTransform.Position - subjectPosition)
 
 					local y = Util.GetAngleBetweenXZVectors(lastVec, self:GetCameraLookVector())
 
@@ -187,7 +187,7 @@ function ClassicCamera:Update(dt)
 		if not self.isFollowCamera then
 			newCameraFocus = CFrame.new(subjectPosition)
 
-			local cameraFocusP = newCameraFocus.p
+			local cameraFocusP = newCameraFocus.Position
 			local newLookVector = self:CalculateNewLookVectorFromArg(overrideCameraLookVector, rotateInput)
 			
 			if FFlagUserFixCameraFPError then
@@ -201,9 +201,9 @@ function ClassicCamera:Update(dt)
 			newCameraFocus = CFrame.new(subjectPosition)
 
 			if FFlagUserFixCameraFPError then
-				newCameraCFrame = CFrame.lookAlong(newCameraFocus.p - (zoom * newLookVector), newLookVector)
+				newCameraCFrame = CFrame.lookAlong(newCameraFocus.Position - (zoom * newLookVector), newLookVector)
 			else
-				newCameraCFrame = CFrame.new(newCameraFocus.p - (zoom * newLookVector), newCameraFocus.p) + Vector3.new(0, cameraHeight, 0)
+				newCameraCFrame = CFrame.new(newCameraFocus.Position - (zoom * newLookVector), newCameraFocus.Position) + Vector3.new(0, cameraHeight, 0)
 			end
 		end
 

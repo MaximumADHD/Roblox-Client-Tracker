@@ -51,7 +51,7 @@ local function CircularProgressBar(circularProgressBarProps: CircularProgressBar
 				Image = React.createElement(Image, {
 					Image = "rbxasset://textures/ui/Controls/RadialFill.png",
 					Size = UDim2.fromScale(2, 1),
-					tag = "content-emphasis position-top-left",
+					tag = "position-top-left content-emphasis",
 					testId = `{props.testId}--left-gradient`,
 				}, {
 					Gradient = React.createElement("UIGradient", {
@@ -65,7 +65,7 @@ local function CircularProgressBar(circularProgressBarProps: CircularProgressBar
 			}),
 			RightGradient = React.createElement(View, {
 				Size = UDim2.fromScale(0.5, 1),
-				tag = "clip position-top-center",
+				tag = "position-top-center clip",
 			}, {
 				Image = React.createElement(Image, {
 					Image = "rbxasset://textures/ui/Controls/RadialFill.png",

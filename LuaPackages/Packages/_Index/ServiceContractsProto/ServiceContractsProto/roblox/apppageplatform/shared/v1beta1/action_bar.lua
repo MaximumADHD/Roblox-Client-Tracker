@@ -54,6 +54,9 @@ type _ActionBarSchema_PropsFields = {
 	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	footer: _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp?,
+	row_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	wrapper_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _ActionBarSchema_PropsPartialFields = {
@@ -62,6 +65,9 @@ type _ActionBarSchema_PropsPartialFields = {
 	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	footer: _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp?,
+	row_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	wrapper_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type ActionBarSchema_Props = typeof(setmetatable(
@@ -200,6 +206,9 @@ do
 			anchor_point = if data == nil or data.anchor_point == nil then nil else data.anchor_point,
 			position = if data == nil or data.position == nil then nil else data.position,
 			size = if data == nil or data.size == nil then nil else data.size,
+			footer = if data == nil or data.footer == nil then nil else data.footer,
+			row_tag = if data == nil or data.row_tag == nil then nil else data.row_tag,
+			wrapper_tag = if data == nil or data.wrapper_tag == nil then nil else data.wrapper_tag,
 		}, _ActionBarSchema_PropsImpl :: _ActionBarSchema_PropsImpl)
 	end
 
@@ -234,6 +243,24 @@ do
 		if self.size ~= nil then
 			local encoded = self.size:encode()
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.footer ~= nil then
+			local encoded = self.footer:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.row_tag ~= nil then
+			local encoded = self.row_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.wrapper_tag ~= nil then
+			local encoded = self.wrapper_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -282,6 +309,21 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.decode(value)
 					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.footer = _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.row_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.wrapper_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -329,6 +371,18 @@ do
 			output.size = self.size:jsonEncode()
 		end
 
+		if self.footer ~= nil then
+			output.footer = self.footer:jsonEncode()
+		end
+
+		if self.row_tag ~= nil then
+			output.rowTag = self.row_tag:jsonEncode()
+		end
+
+		if self.wrapper_tag ~= nil then
+			output.wrapperTag = self.wrapper_tag:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -366,6 +420,27 @@ do
 
 		if input.size ~= nil then
 			self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.jsonDecode(input.size)
+		end
+
+		if input.footer ~= nil then
+			self.footer = _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp.jsonDecode(input.footer)
+		end
+
+		if input.row_tag ~= nil then
+			self.row_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.row_tag)
+		end
+
+		if input.rowTag ~= nil then
+			self.row_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.rowTag)
+		end
+
+		if input.wrapper_tag ~= nil then
+			self.wrapper_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.wrapper_tag)
+		end
+
+		if input.wrapperTag ~= nil then
+			self.wrapper_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.wrapperTag)
 		end
 
 		return self

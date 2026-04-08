@@ -5,26 +5,21 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
+
+export type AvailabilitySignal = ChromePackage.AvailabilitySignal
+export type NotifyData = ChromePackage.NotifyData
+export type NotifySignal = ChromePackage.NotifySignal
+export type ObservableValue<T> = ChromePackage.ObservableValue<T>
+export type MappedSignal<T> = ChromePackage.MappedSignal<T>
 
 local AvailabilitySignalState = {
 	Unavailable = 0,
 	Loading = 1,
 	Available = 2,
 	Pinned = 3,
-}
-
-export type AvailabilitySignal = {
-	new: (initialAvailability: number) -> AvailabilitySignal,
-	connect: (AvailabilitySignal, SignalLib.SignalCallback) -> SignalLib.SignalHandle,
-	set: (AvailabilitySignal, number) -> (),
-	get: (AvailabilitySignal) -> number,
-	available: (AvailabilitySignal) -> (),
-	loading: (AvailabilitySignal) -> (),
-	unavailable: (AvailabilitySignal) -> (),
-	pinned: (AvailabilitySignal) -> (),
-	forceUnavailable: (AvailabilitySignal) -> (),
-	unforceUnavailable: (AvailabilitySignal) -> (),
 }
 
 local AvailabilitySignal = {}
@@ -96,20 +91,6 @@ function AvailabilitySignal:unforceUnavailable()
 	end
 end
 
-export type NotifyData = { [string]: any? }
-
-export type NotifySignal = {
-	new: (excludeFromTotalCounts: boolean?) -> NotifySignal,
-	connect: (NotifySignal, SignalLib.SignalCallback) -> SignalLib.SignalHandle,
-	set: (NotifySignal, number) -> (),
-	get: (NotifySignal) -> NotifyData,
-	clear: (NotifySignal) -> (),
-	fireCount: (NotifySignal, number) -> (),
-	setExcludeFromTotalCounts: (NotifySignal, boolean) -> (),
-	excludeFromTotalCounts: (NotifySignal) -> boolean,
-	isEmpty: (NotifySignal) -> boolean,
-}
-
 local NotifySignal = {}
 NotifySignal.__index = NotifySignal
 
@@ -158,15 +139,6 @@ function NotifySignal:isEmpty()
 end
 
 -- Generic Observable Value
-
-export type ObservableValue<T> = {
-	new: (T) -> ObservableValue<T>,
-	connect: (ObservableValue<T>, SignalLib.SignalCallback, callCallback: boolean?) -> SignalLib.SignalHandle,
-	set: (ObservableValue<T>, T) -> (),
-	setMomentary: (ObservableValue<T>, T, number, T) -> (),
-	get: (ObservableValue<T>) -> T,
-	signal: (ObservableValue<T>) -> SignalLib.Signal,
-}
 
 local ObservableValue = {}
 ObservableValue.__index = ObservableValue
@@ -241,12 +213,6 @@ end)
 
 --]]
 type AnyFunc = (any?) -> ()
-
-export type MappedSignal<T> = {
-	new: (SignalLib.Signal, () -> T, AnyFunc?) -> MappedSignal<T>,
-	connect: (MappedSignal<T>, SignalLib.SignalCallback) -> SignalLib.SignalHandle,
-	get: (MappedSignal<T>) -> T,
-}
 
 local MappedSignal = {}
 MappedSignal.__index = MappedSignal

@@ -111,18 +111,10 @@ RemoteFunction_GetServerVersion.OnServerInvoke = getServerVersion
 if GetFFlagDisplayServerChannel() then
 	RemoteFunction_GetServerChannel.OnServerInvoke = getServerChannel
 end
-
-local FFlagEnableTenFootInterfaceCheckForLegacyChat =
-	game:DefineFastFlag("EnableTenFootInterfaceCheckForLegacyChat", false)
 local function shouldLoadLuaChat()
-	if FFlagEnableTenFootInterfaceCheckForLegacyChat then
 		return game:GetService("Chat").LoadDefaultChat
 			and game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService
 			and (not game:GetService("GuiService"):IsTenFootInterface())
-	else
-		return game:GetService("Chat").LoadDefaultChat
-			and game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService
-	end
 end
 
 if shouldLoadLuaChat() then

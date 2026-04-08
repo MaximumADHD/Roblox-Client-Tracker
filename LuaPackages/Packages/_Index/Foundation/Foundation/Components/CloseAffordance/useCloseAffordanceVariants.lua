@@ -48,7 +48,7 @@ type CloseAffordanceVariantProps = {
 local variantsMap = function(tokens: Tokens)
 	local common = {
 		container = {
-			tag = "auto-xy row align-y-center align-x-center clip",
+			tag = "row align-x-center align-y-center auto-xy clip",
 		},
 	}
 

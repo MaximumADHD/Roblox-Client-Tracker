@@ -91,7 +91,7 @@ local function CustomSelectionStory(props)
 
 	local function createSelectionCard(value: string, imageName: string, label: string)
 		return React.createElement(View, {
-			tag = "auto-xy col gap-small align-x-center padding-medium",
+			tag = "col align-x-center gap-small auto-xy padding-medium",
 		}, {
 			ImageContainer = React.createElement(View, {
 				cursor = cursor,
@@ -99,7 +99,7 @@ local function CustomSelectionStory(props)
 					setSelectedValue(value)
 					print("Selected card:", value)
 				end,
-				tag = "radius-medium bg-surface-100 size-2000-2000",
+				tag = "size-2000-2000 radius-medium bg-surface-100",
 			}, {
 				Image = React.createElement(Image, {
 					Image = imageName,
@@ -122,7 +122,7 @@ local function CustomSelectionStory(props)
 		Selectable = false,
 	}, {
 		Container = React.createElement(View, {
-			tag = "auto-xy row gap-large wrap",
+			tag = "row wrap gap-large auto-xy",
 		}, {
 			CardA = createSelectionCard("A", "icons/graphic/success_xlarge", "Success"),
 			CardB = createSelectionCard("B", "icons/graphic/error_xlarge", "Error"),

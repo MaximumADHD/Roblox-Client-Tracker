@@ -28,7 +28,7 @@ return function(iconSizeEnum: number, style: StyleTypes.AppStyle?)
 		elseif iconSizeEnum == IconSize.XXLarge then
 			return style.Tokens.Semantic.Icon.Size.XxLarge
 		else
-			return nil
+			return nil :: any
 		end
 	else
 		return IconSizeMap[iconSizeEnum]

@@ -31,7 +31,7 @@ local function content(omitDynamicContent: boolean?)
 	}, {
 		Text = React.createElement(Text, {
 			Text = "Our flagship product combines cutting-edge technology with sleek design.",
-			tag = "padding-y-small text-body-medium text-wrap auto-xy text-align-x-left text-align-y-center",
+			tag = "auto-xy padding-y-small text-body-medium text-wrap text-align-x-left text-align-y-center",
 		}),
 		Button = if not omitDynamicContent
 			then React.createElement(Button, {

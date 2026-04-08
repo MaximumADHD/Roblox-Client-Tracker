@@ -22,7 +22,7 @@ export type Props = {
 local CursorComponent = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 	local style = useStyle()
 	local tokens = style.Tokens.Component.SelectionCursor
-	local reducedMotion = style.Settings.ReducedMotion
+	local reducedMotion = (style.Settings :: any).ReducedMotion
 	local colorSequence = ColorSequence.new({
 		ColorSequenceKeypoint.new(0, tokens.Gradient.Start.Color3),
 		ColorSequenceKeypoint.new(1, tokens.Gradient.End.Color3),

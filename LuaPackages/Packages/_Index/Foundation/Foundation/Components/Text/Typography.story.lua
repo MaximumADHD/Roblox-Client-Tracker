@@ -21,7 +21,7 @@ local function Story(props)
 	local trueLineHeight = typography.LineHeight * NominalScale
 	local desiredLineSize = trueTextSize * trueLineHeight
 	return React.createElement(View, {
-		tag = "auto-y size-full-0 col",
+		tag = "col size-full-0 auto-y",
 		layout = {
 			FillDirection = Enum.FillDirection.Vertical,
 			Padding = UDim.new(0, tokens.Margin.Medium),
@@ -29,11 +29,11 @@ local function Story(props)
 	}, {
 		Metadata = React.createElement(View, {
 			LayoutOrder = 1,
-			tag = "flex-between row auto-y size-full-0",
+			tag = "row flex-between size-full-0 auto-y",
 		}, {
 			Title = React.createElement(Text, {
 				Text = `Typography.{typographyName}`,
-				tag = "content-default text-label-large auto-xy",
+				tag = "auto-xy text-label-large content-default",
 			}),
 			Size = React.createElement(Text, {
 				Text = string.format(
@@ -42,7 +42,7 @@ local function Story(props)
 					trueLineHeight,
 					math.round(desiredLineSize)
 				),
-				tag = "content-default text-label-large auto-xy",
+				tag = "auto-xy text-label-large content-default",
 			}),
 		}),
 		Inline = React.createElement(View, {
@@ -51,12 +51,12 @@ local function Story(props)
 		}, {
 			Title = React.createElement(Text, {
 				Text = "Inline",
-				tag = "content-emphasis text-caption-large auto-xy",
+				tag = "auto-xy text-caption-large content-emphasis",
 			}),
 			Paragraph = React.createElement(Text, {
 				Text = props.controls.inline,
 				fontStyle = typography,
-				tag = "content-emphasis text-truncate-end auto-xy text-align-x-left",
+				tag = "auto-xy text-align-x-left text-truncate-end content-emphasis",
 			}),
 		}),
 		MultiLine = React.createElement(View, {
@@ -65,12 +65,12 @@ local function Story(props)
 		}, {
 			Title = React.createElement(Text, {
 				Text = "Multi-line",
-				tag = "content-emphasis text-caption-large auto-xy",
+				tag = "auto-xy text-caption-large content-emphasis",
 			}),
 			Paragraph = React.createElement(Text, {
 				Text = props.controls.multiline,
 				fontStyle = typography,
-				tag = "content-emphasis auto-xy text-wrap text-align-x-left",
+				tag = "auto-xy text-wrap text-align-x-left content-emphasis",
 			}),
 		}),
 	})

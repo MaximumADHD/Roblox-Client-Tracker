@@ -42,7 +42,7 @@ local function Child(props: ChildProps)
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
-			tag = "size-full-2000 text-wrap text-label-small position-center-center anchor-center-center",
+			tag = "position-center-center anchor-center-center size-full-2000 text-label-small text-wrap",
 			Text = `{props.name} {props.tag:gsub("%-col%-", ":")}`,
 		}),
 	}, props.children)
@@ -68,7 +68,7 @@ local function ChildCell(props: ChildCellProps)
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
-			tag = "size-full-2000 text-wrap text-label-small position-center-center anchor-center-center",
+			tag = "position-center-center anchor-center-center size-full-2000 text-label-small text-wrap",
 			Text = `{props.name} {getGridSizeTag(props.size):gsub("%-col%-", ":")}`,
 		}),
 	}, props.children)
@@ -224,14 +224,14 @@ return {
 						table.insert(
 							items,
 							React.createElement(View, {
-								tag = `xs-col-1 sm-col-2 md-col-3 lg-col-4 xl-col-6 size-full-full aspect-2-1  margin-bottom-large`,
+								tag = `lg-col-4 md-col-3 sm-col-2 xl-col-6 xs-col-1 size-full-full aspect-2-1 margin-bottom-large`,
 								LayoutOrder = props.LayoutOrder,
 							}, {
 								Frame = React.createElement(View, {
 									tag = "size-full-full bg-action-emphasis",
 								}, {
 									Label = React.createElement(Text, {
-										tag = "size-full-full text-wrap text-label-small position-center-center anchor-center-center",
+										tag = "position-center-center anchor-center-center size-full-full text-label-small text-wrap",
 										Text = `{i}`,
 									}),
 								}),
@@ -368,7 +368,7 @@ return {
 			name = "Template",
 			story = function(props)
 				return React.createElement(View, {
-					tag = "size-full-3000 row auto-y",
+					tag = "row size-full-3000 auto-y",
 				}, {
 					Left = React.createElement(View, {
 						tag = "col flex-y-fill items-stretch auto-y",

@@ -32,7 +32,9 @@ local Reducers = EmotesModules.Reducers
 local Thunks = EmotesModules.Thunks
 local Utility = EmotesModules.Utility
 
-local Backpack = require(CoreScriptModules.BackpackScript)
+local FFlagEnableNewBackpack = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableNewBackpack
+local Features = if FFlagEnableNewBackpack then require(CorePackages.Workspace.Packages.System).Features else nil
+local Backpack = if not FFlagEnableNewBackpack then require(CoreScriptModules.BackpackScript) else nil
 local Chat = require(CoreScriptModules.ChatSelector)
 local TenFootInterface = require(CoreScriptModules.TenFootInterface)
 local TopBarConstant = require(CoreScriptModules.TopBar.Constants)
@@ -93,15 +95,27 @@ function EmotesMenuMaster:setTopBarEnabled(isEnabled)
 end
 
 function EmotesMenuMaster:_connectCoreGuiListeners()
-	Backpack.StateChanged.Event:Connect(function(isBackpackOpen)
-		if not isBackpackOpen then
-			return
-		end
+	if FFlagEnableNewBackpack then
+		Features.onVisibilityChanged(Features.FeatureName.Backpack, function(visible)
+			if not visible then
+				return
+			end
 
-		if self:isOpen() then
-			self:close()
-		end
-	end)
+			if self:isOpen() then
+				self:close()
+			end
+		end)
+	else
+		Backpack.StateChanged.Event:Connect(function(isBackpackOpen)
+			if not isBackpackOpen then
+				return
+			end
+
+			if self:isOpen() then
+				self:close()
+			end
+		end)
+	end
 
 	Chat.VisibilityStateChanged:connect(function(isChatVisible)
 		if not isChatVisible then

@@ -468,7 +468,7 @@ function VRVehicleCamera:UpdateComfortCamera(dt)
 			focus = self.lastCameraFocus
 
 			-- new cf result
-			local cameraFocusP = focus.p
+			local cameraFocusP = focus.Position
 			local cameraLookVector = self:GetCameraLookVector()
 			cameraLookVector = Vector3.new(cameraLookVector.X, 0, cameraLookVector.Z).Unit
 			local newLookVector = self:CalculateNewLookVectorFromArg(cameraLookVector, Vector2.new(0, 0))

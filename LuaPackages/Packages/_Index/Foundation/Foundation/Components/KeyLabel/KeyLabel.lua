@@ -101,7 +101,7 @@ local function KeyLabel(keyLabelProps: KeyLabelProps, ref: React.Ref<GuiObject>?
 					then React.createElement(Text, {
 						Text = keyVisual.key,
 						textStyle = if inputObject then tokens.Color.Content.Emphasis else tokens.Color.Content.Muted,
-						tag = "text-body-medium auto-xy size-full-full text-align-x-center",
+						tag = "size-full-full auto-xy text-body-medium text-align-x-center",
 					})
 					else nil,
 			}),

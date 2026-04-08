@@ -10,17 +10,23 @@ local locales = Localization.new(LocalizationService.RobloxLocaleId)
 
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 
-local Types = require(Root.Service.Types)
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 
 local Signal = AppCommonLib.Signal
 local AvailabilitySignal = ChromeUtils.AvailabilitySignal
 local AvailabilitySignalState = ChromeUtils.AvailabilitySignalState
 
-type ShortcutId = Types.ShortcutId
-type ShortcutBarId = Types.ShortcutBarId
-type ShortcutIdList = Types.ShortcutIdList
-type ShortcutBarList = Types.ShortcutBarList
-type ShortcutList = Types.ShortcutList
+type ShortcutId = ChromePackage.ShortcutId
+type ShortcutBarId = ChromePackage.ShortcutBarId
+type ShortcutIdList = ChromePackage.ShortcutIdList
+type ShortcutBarList = ChromePackage.ShortcutBarList
+type ShortcutList = ChromePackage.ShortcutList
+type IntegrationList = ChromePackage.IntegrationList
+type ShortcutBarItems = ChromePackage.ShortcutBarItems
+type ShortcutBarProps = ChromePackage.ShortcutBarProps
+type ShortcutOverrideId = ChromePackage.ShortcutOverrideId
+type ShortcutProps = ChromePackage.ShortcutProps
+type ShortcutRegisterProps = ChromePackage.ShortcutRegisterProps
 
 local ShortcutService = {} :: ShortcutService
 ShortcutService.__index = ShortcutService
@@ -30,20 +36,20 @@ export type ShortcutService = {
 
 	new: () -> ShortcutService,
 
-	registerShortcut: (ShortcutService, shortcutProps: Types.ShortcutRegisterProps) -> (),
+	registerShortcut: (ShortcutService, shortcutProps: ShortcutRegisterProps) -> (),
 	activateShortcut: (ShortcutService, shortcutId: ShortcutId) -> Enum.ContextActionResult?,
-	shortcutChanged: (ShortcutService, shortcut: Types.ShortcutProps) -> (),
+	shortcutChanged: (ShortcutService, shortcut: ShortcutProps) -> (),
 	updateShortcutBar: (ShortcutService, shortcutBarId: ShortcutBarId?) -> (),
 
-	configureShortcutBar: (ShortcutService, shortcutBarId: ShortcutBarId, config: Types.ShortcutBarProps) -> (),
+	configureShortcutBar: (ShortcutService, shortcutBarId: ShortcutBarId, config: ShortcutBarProps) -> (),
 	setShortcutBar: (ShortcutService, shortcutBarId: ShortcutBarId?) -> (),
-	getShortcut: (ShortcutService, shortcutId: ShortcutId) -> Types.ShortcutProps,
-	shortcuts: (ShortcutService) -> Types.ShortcutList,
+	getShortcut: (ShortcutService, shortcutId: ShortcutId) -> ShortcutProps,
+	shortcuts: (ShortcutService) -> ShortcutList,
 	getShortcutsFromBar: (
 		ShortcutService,
 		shortcutBarId: ShortcutBarId?,
-		integrationList: Types.IntegrationList
-	) -> Types.ShortcutBarItems,
+		integrationList: IntegrationList
+	) -> ShortcutBarItems,
 	getCurrentShortcutBar: (ShortcutService) -> ShortcutBarId?,
 	setHideShortcutBar: (ShortcutService, sourceName: string, hidden: boolean?) -> (),
 	getHideShortcutBar: (ShortcutService) -> boolean,
@@ -62,7 +68,7 @@ export type ShortcutService = {
 	_shortcuts: ShortcutList,
 	_shortcutBarList: ShortcutBarList,
 	_currentShortcutBar: ShortcutBarId?,
-	_shortcutBarHiddenOverrides: { [Types.ShortcutOverrideId]: boolean? },
+	_shortcutBarHiddenOverrides: { [ShortcutOverrideId]: boolean? },
 	_shortcutBarHidden: boolean,
 	_boundShortcuts: {},
 }
@@ -96,12 +102,12 @@ function ShortcutService.new(): ShortcutService
 	return (setmetatable(self, ShortcutService) :: any) :: ShortcutService
 end
 
-function ShortcutService:registerShortcut(shortcut: Types.ShortcutRegisterProps)
+function ShortcutService:registerShortcut(shortcut: ShortcutRegisterProps)
 	if self._shortcuts[shortcut.id] then
 		warn(string.format("shortcut " .. shortcut.id .. " already registered", debug.traceback()))
 	end
 
-	local newShortcut = shortcut :: Types.ShortcutProps
+	local newShortcut = shortcut :: ShortcutProps
 	if shortcut.label then
 		newShortcut.label = locales:Format(shortcut.label)
 	end
@@ -130,7 +136,7 @@ function ShortcutService:activateShortcut(shortcutId: ShortcutId)
 	return nil
 end
 
-function ShortcutService:shortcutChanged(shortcut: Types.ShortcutProps)
+function ShortcutService:shortcutChanged(shortcut: ShortcutProps)
 	self:updateShortcutBar(self:getCurrentShortcutBar())
 end
 
@@ -149,7 +155,7 @@ function ShortcutService:updateShortcutBar(shortcutBarId: ShortcutBarId?)
 	end
 end
 
-function ShortcutService:configureShortcutBar(shortcutBarId: ShortcutBarId, config: Types.ShortcutBarProps)
+function ShortcutService:configureShortcutBar(shortcutBarId: ShortcutBarId, config: ShortcutBarProps)
 	self._shortcutBarList[shortcutBarId] = config
 end
 
@@ -159,7 +165,7 @@ function ShortcutService:setShortcutBar(shortcutBarId: ShortcutBarId?)
 	end
 end
 
-function ShortcutService:setHideShortcutBar(sourceName: Types.ShortcutOverrideId, hidden: boolean?)
+function ShortcutService:setHideShortcutBar(sourceName: ShortcutOverrideId, hidden: boolean?)
 	if self._shortcutBarHiddenOverrides[sourceName] ~= hidden then
 		if hidden then
 			self._shortcutBarHiddenOverrides[sourceName] = hidden
@@ -188,11 +194,11 @@ function ShortcutService:getShortcut(shortcutId: ShortcutId)
 	return self._shortcuts[shortcutId]
 end
 
-function ShortcutService:getShortcutsFromBar(shortcutBarId: ShortcutBarId?, integrationList: Types.IntegrationList)
+function ShortcutService:getShortcutsFromBar(shortcutBarId: ShortcutBarId?, integrationList: IntegrationList)
 	if not shortcutBarId then
 		return {}
 	end
-	local activeShortcuts: Types.ShortcutBarItems = {}
+	local activeShortcuts: ShortcutBarItems = {}
 
 	for k, shortcutId in self._shortcutBarList[shortcutBarId] do
 		if not self._shortcuts[shortcutId] then

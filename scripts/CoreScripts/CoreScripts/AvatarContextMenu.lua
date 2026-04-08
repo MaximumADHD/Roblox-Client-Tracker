@@ -65,7 +65,9 @@ local ContextMenuUtil = require(AvatarMenuModules.ContextMenuUtil)
 local SelectedCharacterIndicator = require(AvatarMenuModules.SelectedCharacterIndicator)
 local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 
-local Backpack = require(CoreGuiModules.BackpackScript)
+local FFlagEnableNewBackpack = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableNewBackpack
+local Features = if FFlagEnableNewBackpack then require(CorePackages.Workspace.Packages.System).Features else nil
+local Backpack = if not FFlagEnableNewBackpack then require(CoreGuiModules.BackpackScript) else nil
 local EmotesMenuMaster = require(CoreGuiModules.EmotesMenu.EmotesMenuMaster)
 
 local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
@@ -215,8 +217,12 @@ local function CloseOtherOpenCoreGui()
 		EmotesMenuMaster:close()
 	end
 
-	if Backpack.IsOpen then
-		Backpack.OpenClose()
+	if FFlagEnableNewBackpack then
+		Features.setVisibility(Features.FeatureName.Backpack, false)
+	else
+		if Backpack.IsOpen then
+			Backpack.OpenClose()
+		end
 	end
 end
 
@@ -427,11 +433,19 @@ LocalPlayer.FriendStatusChanged:Connect(function(player, friendStatus)
 	end
 end)
 
-Backpack.StateChanged.Event:Connect(function(isBackpackOpen)
-	if isBackpackOpen and ContextMenuOpen then
-		CloseContextMenu()
-	end
-end)
+if FFlagEnableNewBackpack then
+	Features.onVisibilityChanged(Features.FeatureName.Backpack, function(visible)
+		if visible and ContextMenuOpen then
+			CloseContextMenu()
+		end
+	end)
+else
+	Backpack.StateChanged.Event:Connect(function(isBackpackOpen)
+		if isBackpackOpen and ContextMenuOpen then
+			CloseContextMenu()
+		end
+	end)
+end
 
 EmotesMenuMaster.EmotesMenuToggled.Event:Connect(function(isEmotesOpen)
 	if isEmotesOpen and ContextMenuOpen then

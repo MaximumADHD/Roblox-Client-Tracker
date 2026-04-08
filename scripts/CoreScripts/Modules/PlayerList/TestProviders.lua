@@ -4,6 +4,7 @@ local Roact = require(CorePackages.Packages.Roact)
 local Rodux = require(CorePackages.Packages.Rodux)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
 
 local PlayerList = script.Parent
 local Reducers = PlayerList.Reducers
@@ -73,15 +74,19 @@ local function TestProviders(props: any)
 			LayoutValuesProvider_DEPRECATED = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = props.layoutValues or CreateLayoutValues(false),
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {}, 
-					if FFlagUseNewPlayerList and LayoutValuesContext 
-						then {
-							LayoutValuesProvider = Roact.createElement(LayoutValuesContext.Provider, {
-								value = props.layoutValues or CreateLayoutValues(false),
-							}, props.children)
-						} 
-						else props.children
-				),
+				ThemeProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {}, {
+					FoundationProvider = Roact.createElement(Foundation.FoundationProvider, {
+						theme = Foundation.Enums.Theme.Dark,
+					},
+						if FFlagUseNewPlayerList and LayoutValuesContext
+							then {
+								LayoutValuesProvider = Roact.createElement(LayoutValuesContext.Provider, {
+									value = props.layoutValues or CreateLayoutValues(false),
+								}, props.children),
+							}
+							else props.children
+					),
+				}),
 			}),
 		}),
 	})

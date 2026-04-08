@@ -158,10 +158,10 @@ local function BlendingVisualization(props)
 	for key, imageData in images do
 		local resultTransparency = string.format("%.2f", imageData.resultTransparency)
 		children[key] = React.createElement(View, {
-			tag = "row auto-xy gap-large",
+			tag = "row gap-large auto-xy",
 		}, {
 			Container = React.createElement(View, {
-				tag = "auto-xy size-0-0",
+				tag = "size-0-0 auto-xy",
 			}, {
 				-- Background rectangle
 				Background = if not controls.showEditableImage
@@ -207,7 +207,7 @@ local function BlendingVisualization(props)
 					Position = UDim2.fromOffset(tokens.Size.Size_1400, tokens.Size.Size_1400),
 				}),
 				Details = React.createElement(Text, {
-					tag = "auto-y size-2800-0 wraps text-caption-small",
+					tag = "size-2800-0 auto-y text-caption-small text-wrap",
 					Position = UDim2.fromOffset(0, tokens.Size.Size_2800 + tokens.Gap.Large),
 					Text = `Background: #{tostring(imageData.backgroundStyle.Color3:ToHex())}, {controls.backgroundTransparency}`
 						.. `\nOverlay: #{tostring(imageData.overlayStyle.Color3:ToHex())}, {controls.overlayTransparency}`
@@ -218,7 +218,7 @@ local function BlendingVisualization(props)
 	end
 
 	return React.createElement(View, {
-		tag = "row flex wrap size-full-0 auto-y gap-xlarge",
+		tag = "row wrap gap-xlarge size-full-0 auto-y",
 	}, children)
 end
 

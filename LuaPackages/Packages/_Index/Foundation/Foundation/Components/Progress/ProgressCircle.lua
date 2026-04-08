@@ -158,7 +158,7 @@ local function ProgressCircle(progressProps: ProgressCircleProps & {
 						Image = React.createElement(Image, {
 							Image = "rbxasset://textures/ui/Controls/RadialFill.png",
 							Size = UDim2.fromScale(2, 1),
-							tag = "content-emphasis position-top-left",
+							tag = "position-top-left content-emphasis",
 						}, {
 							Gradient = React.createElement(ProgressGradient, {
 								side = Enum.HorizontalAlignment.Left,
@@ -171,7 +171,7 @@ local function ProgressCircle(progressProps: ProgressCircleProps & {
 					}),
 					RightGradient = React.createElement(View, {
 						Size = UDim2.fromScale(0.5, 1),
-						tag = "clip position-top-center",
+						tag = "position-top-center clip",
 						testId = `{props.testId}--right-gradient`,
 					}, {
 						Image = React.createElement(Image, {
@@ -208,7 +208,7 @@ local function ProgressCircle(progressProps: ProgressCircleProps & {
 					Image = React.createElement(Image, {
 						Image = "rbxasset://textures/ui/Controls/RadialFill.png",
 						Size = UDim2.fromScale(2, 1),
-						tag = "content-emphasis position-top-left",
+						tag = "position-top-left content-emphasis",
 					}, {
 						Gradient = React.createElement(ProgressGradient, {
 							side = Enum.HorizontalAlignment.Left,
@@ -221,7 +221,7 @@ local function ProgressCircle(progressProps: ProgressCircleProps & {
 				}),
 				RightGradient = React.createElement(View, {
 					Size = UDim2.fromScale(0.5, 1),
-					tag = "clip position-top-center",
+					tag = "position-top-center clip",
 					testId = `{props.testId}--right-gradient`,
 				}, {
 					Image = React.createElement(Image, {
@@ -245,7 +245,7 @@ local function ProgressCircle(progressProps: ProgressCircleProps & {
 							then (progress :: React.Binding<number>):map(getLabelFromProgress)
 							else getLabelFromProgress(progress :: number?),
 						fontStyle = variants.circle.labelFont,
-						tag = "anchor-center-center position-center-center",
+						tag = "position-center-center anchor-center-center",
 						testId = `{props.testId}--label`,
 					})
 					else nil,

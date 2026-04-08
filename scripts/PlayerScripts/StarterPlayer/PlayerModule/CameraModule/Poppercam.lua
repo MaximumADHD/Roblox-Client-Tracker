@@ -45,7 +45,7 @@ local TransformExtrapolator = {} do
 		local currentPos = currentCFrame.Position
 		local currentRot = extractRotation(currentCFrame)
 
-		local lastPos = lastCFrame.p
+		local lastPos = lastCFrame.Position
 		local lastRot = extractRotation(lastCFrame)
 
 		-- Estimate velocities from the delta between now and the last frame
@@ -93,14 +93,14 @@ end
 function Poppercam:Update(renderDt, desiredCameraCFrame, desiredCameraFocus, cameraController)
 	local rotatedFocus = nil
 	if FFlagUserFixCameraFPError then
-		rotatedFocus = CFrame.lookAlong(desiredCameraFocus.p, -desiredCameraCFrame.LookVector)*CFrame.new(
+		rotatedFocus = CFrame.lookAlong(desiredCameraFocus.Position, -desiredCameraCFrame.LookVector)*CFrame.new(
 			0, 0, 0,
 			-1, 0, 0,
 			0, 1, 0,
 			0, 0, -1
 		)
 	else
-		rotatedFocus = CFrame.new(desiredCameraFocus.p, desiredCameraCFrame.p)*CFrame.new(
+		rotatedFocus = CFrame.new(desiredCameraFocus.Position, desiredCameraCFrame.Position)*CFrame.new(
 			0, 0, 0,
 			-1, 0, 0,
 			0, 1, 0,

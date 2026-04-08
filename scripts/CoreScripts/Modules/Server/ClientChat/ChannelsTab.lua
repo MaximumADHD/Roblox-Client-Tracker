@@ -12,8 +12,6 @@ local modulesFolder = script.Parent
 local ChatSettings = require(clientChatModules:WaitForChild("ChatSettings"))
 local CurveUtil = require(modulesFolder:WaitForChild("CurveUtil"))
 
-local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
-
 --////////////////////////////// Methods
 --//////////////////////////////////////
 local methods = {}
@@ -162,11 +160,7 @@ function methods:UpdateMessagePostedInChannel(ignoreActive)
 	local easingStyle = Enum.EasingStyle.Quad
 
 	label.Position = UDim2.new(0, 0, -0.15, 0)
-	if featureDeprecateOldGuiObjectProperties then
-		label:TweenPositionInternal(UDim2.new(0, 0, 0, 0), easingDirection, easingStyle, tweenTime, true)
-	else
-		label:TweenPosition(UDim2.new(0, 0, 0, 0), easingDirection, easingStyle, tweenTime, true)
-	end
+	label:TweenPosition(UDim2.new(0, 0, 0, 0), easingDirection, easingStyle, tweenTime, true)
 
 end
 

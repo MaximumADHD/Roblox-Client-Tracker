@@ -88,7 +88,7 @@ local function Toast(toastProps: ToastProps, ref: React.Ref<GuiObject>?)
 				Selectable = false,
 				SelectionImageObject = cursor,
 			},
-			tag = "auto-y padding-medium radius-medium row gap-small bg-over-media-0",
+			tag = "row gap-small auto-y padding-medium radius-medium bg-over-media-0",
 			ref = ref,
 		}),
 		{
@@ -103,7 +103,7 @@ local function Toast(toastProps: ToastProps, ref: React.Ref<GuiObject>?)
 			Content = React.createElement(View, {
 				LayoutOrder = 2,
 				tag = {
-					["auto-y fill self-center"] = true,
+					["fill self-center auto-y"] = true,
 					["col gap-xxsmall"] = (hasTitle or hasBody) :: boolean,
 				},
 				testId = `{props.testId}--content`,
@@ -112,7 +112,7 @@ local function Toast(toastProps: ToastProps, ref: React.Ref<GuiObject>?)
 					then React.createElement(Text, {
 						LayoutOrder = 1,
 						Text = props.title,
-						tag = "auto-y size-full-0 text-align-x-left text-title-small content-emphasis text-truncate-end",
+						tag = "size-full-0 auto-y text-title-small text-align-x-left text-truncate-end content-emphasis",
 						testId = `{props.testId}--header`,
 					})
 					else nil,
@@ -121,7 +121,7 @@ local function Toast(toastProps: ToastProps, ref: React.Ref<GuiObject>?)
 					then React.createElement(Text, {
 						LayoutOrder = 2,
 						Text = props.text,
-						tag = "auto-y size-full-0 text-wrap text-align-x-left text-body-small content-default",
+						tag = "size-full-0 auto-y text-body-small text-wrap text-align-x-left content-default",
 						testId = `{props.testId}--body`,
 					})
 					else nil,
@@ -130,7 +130,7 @@ local function Toast(toastProps: ToastProps, ref: React.Ref<GuiObject>?)
 					then React.createElement(View, {
 						LayoutOrder = 3,
 						tag = {
-							["auto-y row gap-small size-full-0"] = true,
+							["row gap-small size-full-0 auto-y"] = true,
 							["padding-top-small"] = (hasTitle or hasBody) :: boolean,
 						},
 						testId = `{props.testId}--actions`,

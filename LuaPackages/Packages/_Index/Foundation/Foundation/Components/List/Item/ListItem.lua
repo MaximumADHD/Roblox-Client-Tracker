@@ -21,27 +21,31 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 
 local useListItemVariants = require(script.Parent.useListItemVariants)
 
-local Accessory = require(script.Parent.Parent.Accessory)
-local useAccessoryVariants = require(script.Parent.Parent.useAccessoryVariants)
+local ListAccessory = require(script.Parent.ListAccessory)
+local useListAccessoryVariants = require(script.Parent.useListAccessoryVariants)
 
 local useList = require(script.Parent.Parent.useList)
 
-type Accessory = Accessory.ListAccessory
 type InputSize = InputSize.InputSize
+type ListAccessory = ListAccessory.ListAccessory
 type ListItemInputType = ListItemInputType.ListItemInputType
 
 local RADIO_VALUE = "radio"
 
 export type ListItemProps = {
-	leading: string? | Accessory,
+	-- The leading accessory, can be a string for an icon name or a ListAccessory config object.
+	leading: string? | ListAccessory,
+	-- The trailing accessory, which allows for any custom component.
 	trailing: React.ReactNode?,
 	title: string? | {
 		title: string?,
 		metadata: string?,
 	},
 	description: string?,
+	-- onActivated will render an activated state for the ListItem. It can be a function or an object to specify inputType and isChecked for controlled Checkbox, Toggle, or Radio inputs.
 	onActivated: (() -> () | {
 		onActivated: () -> (),
+		-- The type of input for the ListItem, can be Checkbox, Toggle, or Radio, or Chevron if not provided.
 		inputType: ListItemInputType?,
 		isChecked: boolean?,
 	})?,
@@ -57,7 +61,7 @@ local function ListItem(listItemProps: ListItemProps, ref: React.Ref<GuiObject>?
 	local tokens = useTokens()
 
 	local variantProps = useListItemVariants(tokens, size)
-	local accessoryVariants = useAccessoryVariants(tokens, size, "Icon")
+	local accessoryVariants = useListAccessoryVariants(tokens, size, "Icon")
 
 	local isConfigTable = typeof(props.onActivated) == "table" and (props.onActivated :: any).onActivated ~= nil
 
@@ -117,128 +121,149 @@ local function ListItem(listItemProps: ListItemProps, ref: React.Ref<GuiObject>?
 		LayoutOrder = props.LayoutOrder,
 		ref = ref,
 	}, {
-		ListItemContainer = React.createElement(View, {
+		HoverWrapper = React.createElement(View, {
+			padding = if listContext.isContained
+				then tokens.Padding.Small
+				else {
+					left = UDim.new(0, if listContext.hasMargin then tokens.Padding.Small else -tokens.Padding.Small),
+					right = UDim.new(0, if listContext.hasMargin then tokens.Padding.Small else -tokens.Padding.Small),
+				},
 			tag = "size-full-0 auto-y padding-y-xsmall",
+			LayoutOrder = 1,
 		}, {
-			ListItem = React.createElement(View, {
+			ListItemContainer = React.createElement(View, {
 				onActivated = onActivated,
-				testId = props.testId,
 				tag = {
-					["row align-y-center gap-medium size-full-0 auto-y padding-y-medium radius-medium"] = true,
-					["padding-x-large"] = listContext.isInset,
+					["size-full-0 auto-y radius-medium"] = true,
+					["margin-x-small"] = listContext.hasMargin,
+					["padding-x-small"] = not listContext.hasMargin,
 				},
 			}, {
-				LeadingContainer = if props.leading
-					then React.createElement(Accessory, {
-						config = props.leading,
-						size = size,
-						testId = `{props.testId}--leading-accessory`,
-						LayoutOrder = 0,
-					})
-					else nil,
-				Content = React.createElement(View, {
-					tag = "row flex-between align-x-center align-y-center fill gap-medium auto-y",
-					LayoutOrder = 1,
+				ListItem = React.createElement(View, {
+					testId = props.testId,
+					tag = "row align-y-center gap-medium size-full-0 auto-y padding-y-small radius-medium",
 				}, {
-					TextContainer = React.createElement(View, {
-						tag = "col fill gap-small auto-y padding-y-xsmall",
-						LayoutOrder = 1,
-					}, {
-						TitleContainer = if title
-							then React.createElement(View, {
-								tag = "col gap-xsmall auto-xy",
-								LayoutOrder = 0,
-							}, {
-								Title = if title
-									then React.createElement(Text, {
-										Text = escapeRichText(title),
-										RichText = true,
-										tag = variantProps.title.tag,
-										LayoutOrder = 0,
-									})
-									else nil,
-								Metadata = if metadata
-									then React.createElement(Text, {
-										Text = metadata,
-										RichText = true,
-										tag = variantProps.metadata.tag,
-										LayoutOrder = 1,
-									})
-									else nil,
-							})
-							else nil,
-						Description = props.description and React.createElement(Text, {
-							Text = props.description,
-							RichText = true,
-							tag = variantProps.description.tag,
-							LayoutOrder = 1,
-						}),
-					}),
-					TrailingContainer = if props.trailing
-						then React.createElement(View, {
-							tag = "align-x-center align-y-center auto-xy",
-							LayoutOrder = 2,
-						}, props.trailing)
-						else nil,
-					ActivatedIconContainer = if props.onActivated
-						then React.createElement(View, {
-							tag = "align-x-center align-y-center auto-xy",
-							LayoutOrder = 3,
-						}, {
-							ActivatedIcon = if inputType == nil
-								then React.createElement(Icon, {
-									name = BuilderIcons.Icon.ChevronLargeRight,
-									size = variantProps.icon.size,
-									testId = `{props.testId}--activated-icon`,
-								})
-								elseif inputType == ListItemInputType.Radio then React.createElement(
-									RadioGroup.Root,
-									{
-										value = if isChecked then RADIO_VALUE else "",
-										onValueChanged = onInputTypeActivated,
-										Selectable = false,
-									},
-									React.createElement(RadioGroup.Item, {
-										value = RADIO_VALUE,
-										label = "",
-										size = size,
-									})
-								)
-								else React.createElement(
-									if inputType == ListItemInputType.Checkbox then Checkbox else Toggle,
-									{
-										label = "",
-										onActivated = onInputTypeActivated,
-										isChecked = isChecked,
-										size = size,
-										Selectable = false,
-									}
-								),
+					LeadingContainer = if props.leading
+						then React.createElement(ListAccessory, {
+							config = props.leading,
+							size = size,
+							testId = `{props.testId}--leading-accessory`,
+							LayoutOrder = 0,
 						})
 						else nil,
+					Content = React.createElement(View, {
+						tag = "row flex-between align-x-center align-y-center fill gap-medium auto-y",
+						LayoutOrder = 1,
+					}, {
+						TextContainer = React.createElement(View, {
+							tag = "col fill gap-small auto-y padding-y-xsmall",
+							LayoutOrder = 1,
+						}, {
+							TitleContainer = if title
+								then React.createElement(View, {
+									tag = "col gap-xsmall auto-xy",
+									LayoutOrder = 0,
+								}, {
+									Title = if title
+										then React.createElement(Text, {
+											Text = escapeRichText(title),
+											RichText = true,
+											tag = variantProps.title.tag,
+											LayoutOrder = 0,
+										})
+										else nil,
+									Metadata = if metadata
+										then React.createElement(Text, {
+											Text = metadata,
+											RichText = true,
+											tag = variantProps.metadata.tag,
+											LayoutOrder = 1,
+										})
+										else nil,
+								})
+								else nil,
+							Description = props.description and React.createElement(Text, {
+								Text = props.description,
+								RichText = true,
+								tag = variantProps.description.tag,
+								LayoutOrder = 1,
+							}),
+						}),
+						TrailingContainer = if props.trailing
+							then React.createElement(View, {
+								tag = "align-x-center align-y-center auto-xy",
+								LayoutOrder = 2,
+							}, props.trailing)
+							else nil,
+						ActivatedIconContainer = if props.onActivated
+							then React.createElement(View, {
+								tag = "align-x-center align-y-center auto-xy",
+								LayoutOrder = 3,
+							}, {
+								ActivatedIcon = if inputType == nil
+									then React.createElement(Icon, {
+										name = BuilderIcons.Icon.ChevronLargeRight,
+										size = variantProps.icon.size,
+										testId = `{props.testId}--activated-icon`,
+									})
+									elseif inputType == ListItemInputType.Radio then React.createElement(
+										RadioGroup.Root,
+										{
+											value = if isChecked then RADIO_VALUE else "",
+											onValueChanged = onInputTypeActivated,
+											Selectable = false,
+										},
+										React.createElement(RadioGroup.Item, {
+											value = RADIO_VALUE,
+											label = "",
+											size = size,
+										})
+									)
+									else React.createElement(
+										if inputType == ListItemInputType.Checkbox then Checkbox else Toggle,
+										{
+											label = "",
+											onActivated = onInputTypeActivated,
+											isChecked = isChecked,
+											size = size,
+											Selectable = false,
+										}
+									),
+							})
+							else nil,
+					}),
 				}),
 			}),
 		}),
-		Divider = if listContext.hasDivider
-			then React.createElement(View, {
-				tag = {
-					["row gap-medium size-full-0 auto-y"] = true,
-					["padding-x-large"] = listContext.isInset,
-				},
-				LayoutOrder = 2,
-			}, {
-				-- We use a spacer here to apply padding to the Divider, as the Divider itself is set to size-full-0
-				LeadingSpacer = if props.leading
-					then React.createElement(View, {
-						Size = UDim2.fromOffset(accessoryVariants.container.Size.X.Offset, 0),
+		-- Divider: right always reaches edge when isContained; left inset to TextContainer when isInset
+		-- Hide divider on the last item
+		Divider = if listContext.hasDivider and props.LayoutOrder ~= listContext.lastLayoutOrder
+			then if listContext.isInset
+				then React.createElement(View, {
+					tag = "row size-full-0 auto-y",
+					LayoutOrder = 2,
+				}, {
+					-- Spacer to offset divider to where TextContainer starts
+					LeadingSpacer = React.createElement(View, {
+						Size = UDim2.fromOffset(
+							(if listContext.hasMargin then tokens.Padding.Small + tokens.Margin.Small else 0)
+								+ (
+									if props.leading
+										then accessoryVariants.container.Size.X.Offset + tokens.Gap.Medium
+										else 0
+								),
+							0
+						),
 						LayoutOrder = 0,
-					})
-					else nil,
-				DividerLine = React.createElement(View, {
-					tag = "fill auto-y",
-					LayoutOrder = 1,
-				}, React.createElement(Divider)),
-			})
+					}),
+					DividerLine = React.createElement(View, {
+						tag = "fill auto-y",
+						LayoutOrder = 1,
+					}, React.createElement(Divider)),
+				})
+				else React.createElement(Divider, {
+					LayoutOrder = 2,
+				})
 			else nil,
 	})
 end

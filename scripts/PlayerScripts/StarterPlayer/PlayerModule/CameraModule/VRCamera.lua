@@ -135,7 +135,7 @@ function VRCamera:UpdateFirstPersonTransform(timeDelta, newCameraCFrame, newCame
 		self:StartVREdgeBlur(player)
 	end
 	-- straight view, not angled down
-	local cameraFocusP = newCameraFocus.p
+	local cameraFocusP = newCameraFocus.Position
 	local cameraLookVector = self:GetCameraLookVector()
 	cameraLookVector = Vector3.new(cameraLookVector.X, 0, cameraLookVector.Z).Unit
 

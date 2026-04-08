@@ -31,11 +31,6 @@ function LegacyCamera:GetModuleName()
 	return "LegacyCamera"
 end
 
---[[ Functions overridden from BaseCamera ]]--
-function LegacyCamera:SetCameraToSubjectDistance(desiredSubjectDistance)
-	return BaseCamera.SetCameraToSubjectDistance(self,desiredSubjectDistance)
-end
-
 function LegacyCamera:Update(dt: number): (CFrame?, CFrame?)
 
 	-- Cannot update until cameraType has been set
@@ -62,7 +57,7 @@ function LegacyCamera:Update(dt: number): (CFrame?, CFrame?)
 			local newLookVector = self:CalculateNewLookVectorFromArg(nil, rotateInput)
 
 			newCameraFocus = camera.Focus -- Fixed camera does not change focus
-			newCameraCFrame = CFrame.new(camera.CFrame.p, camera.CFrame.p + (distanceToSubject * newLookVector))
+			newCameraCFrame = CFrame.new(camera.CFrame.Position, camera.CFrame.Position + (distanceToSubject * newLookVector))
 		end
 
 	elseif self.cameraType == Enum.CameraType.Attach then
@@ -72,21 +67,21 @@ function LegacyCamera:Update(dt: number): (CFrame?, CFrame?)
 
 		cameraPitch = math.clamp(cameraPitch - rotateInput.Y, -PITCH_LIMIT, PITCH_LIMIT)
 
-		newCameraFocus = CFrame.new(subjectCFrame.p)*CFrame.fromEulerAnglesYXZ(cameraPitch, subjectYaw, 0)
+		newCameraFocus = CFrame.new(subjectCFrame.Position)*CFrame.fromEulerAnglesYXZ(cameraPitch, subjectYaw, 0)
 		newCameraCFrame = newCameraFocus*CFrame.new(0, 0, self:StepZoom(dt))
 
 	elseif self.cameraType == Enum.CameraType.Watch then
 		if subjectPosition and player and camera then
 			local cameraLook = nil
 
-			if subjectPosition == camera.CFrame.p then
+			if subjectPosition == camera.CFrame.Position then
 				warn("Camera cannot watch subject in same position as itself")
 				return camera.CFrame, camera.Focus
 			end
 
 			local humanoid = self:GetHumanoid()
 			if humanoid and humanoid.RootPart then
-				local diffVector = subjectPosition - camera.CFrame.p
+				local diffVector = subjectPosition - camera.CFrame.Position
 				cameraLook = diffVector.unit
 
 				if self.lastDistanceToSubject and self.lastDistanceToSubject == self:GetCameraToSubjectDistance() then

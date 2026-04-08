@@ -41,7 +41,7 @@ local function RadioGroup(radioGroupProps: RadioGroupProps, ref: React.Ref<GuiOb
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			tag = "auto-xy col gap-medium",
+			tag = "col gap-medium auto-xy",
 			ref = ref,
 		}),
 		{

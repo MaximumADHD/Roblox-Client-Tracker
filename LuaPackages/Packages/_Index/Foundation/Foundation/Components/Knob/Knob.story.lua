@@ -27,7 +27,7 @@ local function Story(props: StoryProps)
 	return React.createElement(
 		View,
 		{
-			tag = "row gap-medium auto-y size-full-0 align-y-center",
+			tag = "row align-y-center gap-medium size-full-0 auto-y",
 		},
 		Dash.map(
 			{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
@@ -58,7 +58,7 @@ local stories = {
 				return React.createElement(
 					View,
 					{
-						tag = "gap-medium auto-xy align-y-center padding-medium radius-medium",
+						tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
 						backgroundStyle = if isInverse then tokens.Inverse.Surface.Surface_0 else nil,
 					},
 					React.createElement(
@@ -77,7 +77,7 @@ local stories = {
 				return React.createElement(
 					View,
 					{
-						tag = "gap-medium auto-xy align-y-center padding-medium radius-medium",
+						tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
 					},
 					React.createElement(
 						Story,
@@ -102,7 +102,7 @@ local stories = {
 					View,
 					{
 						backgroundStyle = if isInverse then tokens.Inverse.Surface.Surface_0 else nil,
-						tag = "gap-medium auto-xy align-y-center padding-medium radius-medium",
+						tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
 					},
 					React.createElement(
 						PresentationContext.Provider,
@@ -127,7 +127,7 @@ local stories = {
 				return React.createElement(
 					View,
 					{
-						tag = "gap-medium auto-xy align-y-center padding-medium radius-medium",
+						tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
 					},
 					React.createElement(Story, {
 						style = tokens.Color.None,
@@ -157,7 +157,7 @@ if Flags.FoundationToggleVisualUpdate then
 				View,
 				{
 					backgroundStyle = if isInverse then nil else tokens.Inverse.Surface.Surface_0,
-					tag = "gap-medium auto-xy align-y-center padding-medium radius-medium",
+					tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
 				},
 				React.createElement(
 					PresentationContext.Provider,

@@ -8,11 +8,16 @@ local CoreGui = Wrappers.Services.CoreGui
 local RunService = Wrappers.Services.RunService
 local Players = Wrappers.Services.Players
 
-local PlayerGui = if Players.LocalPlayer and RunService:IsRunning()
-	then Players.LocalPlayer:WaitForChild("PlayerGui", 3)
-	else nil
-
 local Flags = require(Foundation.Utility.Flags)
+
+local PlayerGui
+if not Flags.FoundationUseMainGuiUtility then
+	PlayerGui = if Players.LocalPlayer and RunService:IsRunning()
+		then Players.LocalPlayer:WaitForChild("PlayerGui", 3)
+		else nil
+end
+
+local getMainGui = require(Foundation.Utility.getMainGui)
 local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useStyleSheet = require(Foundation.Providers.Style.StyleSheetContext).useStyleSheet
@@ -33,13 +38,20 @@ local defaultProps = {
 	DisplayOrder = Constants.MAX_LAYOUT_ORDER - 1,
 }
 
-local mainGui = if isPluginSecurity() then CoreGui else PlayerGui
+local mainGui = if Flags.FoundationUseMainGuiUtility
+	then getMainGui()
+	else if isPluginSecurity() then CoreGui else PlayerGui
 
 local function OverlayProvider(overlayProps: Props)
 	local props = if Flags.FoundationOverlayDisplayOrder then withDefaults(overlayProps, defaultProps) else overlayProps
 	local overlay: GuiBase2d?, setOverlay = React.useState(props.gui)
 	local shouldMountOverlay, setShouldMountOverlay = React.useState(false)
-	local safeAreaSize = if Flags.FoundationOverlayKeyboardAwareness then useKeyboardAwareSize(overlay) else nil
+	local screen = if Flags.FoundationOverlayKeyboardAwarenessHardened and not props.gui
+		then overlay and overlay.Parent :: GuiBase2d?
+		else nil
+	local safeAreaSize = if Flags.FoundationOverlayKeyboardAwareness
+		then useKeyboardAwareSize(if Flags.FoundationOverlayKeyboardAwarenessHardened then screen else overlay)
+		else nil
 	local styleSheet = useStyleSheet()
 
 	local requestOverlay = React.useCallback(function()
@@ -50,11 +62,16 @@ local function OverlayProvider(overlayProps: Props)
 
 	local shouldRender = props.gui == nil and mainGui ~= nil and shouldMountOverlay
 	local overlayInstance = if props.gui ~= nil then props.gui else overlay
+	local screenInstance
+	if Flags.FoundationOverlayKeyboardAwarenessHardened then
+		screenInstance = if props.gui ~= nil then props.gui else screen
+	end
 
 	return React.createElement(OverlayContext.Provider, {
 		value = {
 			requestOverlay = requestOverlay,
 			instance = overlayInstance,
+			screen = screenInstance,
 		},
 	}, {
 		FoundationOverlay = if shouldRender

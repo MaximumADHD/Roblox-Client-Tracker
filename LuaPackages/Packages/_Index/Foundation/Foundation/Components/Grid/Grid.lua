@@ -63,7 +63,7 @@ local function Grid(gridProps: GridProps, ref: React.Ref<GuiObject>?)
 				}),
 			}),
 			GridAlignment = React.createElement(View, {
-				tag = `size-full-0 auto-y col flex-x-fill {alignTag}`,
+				tag = `col flex-x-fill size-full-0 auto-y {alignTag}`,
 			}, {
 				GridStyleSheet = React.createElement(GridStyleSheet, {
 					breakpoint = breakpoint :: Breakpoint,

@@ -37,7 +37,7 @@ local stories = Dash.map(BUTTON_VARIANTS, function(variant)
 			Flags.FoundationUsePath2DSpinner = controls.usePath2DSpinner
 
 			return React.createElement(View, {
-				tag = "row gap-medium auto-xy size-0 align-y-center padding-medium radius-medium",
+				tag = "row align-y-center gap-medium size-0 auto-xy padding-medium radius-medium",
 				backgroundStyle = if variant == ButtonVariant.OverMedia
 					then tokens.Color.Extended.White.White_100
 					elseif colorMode then tokens[colorMode].Surface.Surface_100

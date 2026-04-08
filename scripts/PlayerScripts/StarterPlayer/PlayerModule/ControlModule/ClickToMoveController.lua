@@ -420,7 +420,7 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 			this.stopTraverseFunc = nil
 		end
 
-		this.OriginPoint = this.Humanoid.RootPart.CFrame.p
+		this.OriginPoint = this.Humanoid.RootPart.CFrame.Position
 
 		this.pathResult:ComputeAsync(this.OriginPoint, this.TargetPoint)
 		this.pointList = this.pathResult:GetWaypoints()
@@ -717,8 +717,6 @@ function ClickToMove.new(playerData)
 		self = setmetatable({} , ClickToMove)
 	end
 
-	self.fingerTouches = {}
-	self.numUnsunkTouches = 0
 	-- PC simulation
 	self.mouse2DownTime = tick()
 	self.mouse2DownPos = Vector2.new()
@@ -726,7 +724,6 @@ function ClickToMove.new(playerData)
 
 	self.tapConn = nil
 	self.inputBeganConn = nil
-	self.inputChangedConn = nil
 	self.inputEndedConn = nil
 	self.humanoidDiedConn = nil
 	self.characterChildAddedConn = nil
@@ -935,7 +932,6 @@ end
 function ClickToMove:DisconnectEvents()
 	DisconnectEvent(self.tapConn)
 	DisconnectEvent(self.inputBeganConn)
-	DisconnectEvent(self.inputChangedConn)
 	DisconnectEvent(self.inputEndedConn)
 	DisconnectEvent(self.humanoidDiedConn)
 	DisconnectEvent(self.characterChildAddedConn)
@@ -948,29 +944,6 @@ function ClickToMove:DisconnectEvents()
 		DisconnectEvent(self.clickPressedConn)
 		DisconnectEvent(self.clickReleasedConn)
 	end
-end
-
-function ClickToMove:OnTouchBegan(input, processed)
-	if self.fingerTouches[input] == nil and not processed then
-		self.numUnsunkTouches = self.numUnsunkTouches + 1
-	end
-	self.fingerTouches[input] = processed
-end
-
-function ClickToMove:OnTouchChanged(input, processed)
-	if self.fingerTouches[input] == nil then
-		self.fingerTouches[input] = processed
-		if not processed then
-			self.numUnsunkTouches = self.numUnsunkTouches + 1
-		end
-	end
-end
-
-function ClickToMove:OnTouchEnded(input, processed)
-	if self.fingerTouches[input] ~= nil and self.fingerTouches[input] == false then
-		self.numUnsunkTouches = self.numUnsunkTouches - 1
-	end
-	self.fingerTouches[input] = nil
 end
 
 function ClickToMove:OnPreferredInputChanged()
@@ -1023,11 +996,7 @@ function ClickToMove:OnCharacterAdded(character)
 
 
 	self.inputBeganConn = UserInputService.InputBegan:Connect(function(input, processed)
-		if input.UserInputType == Enum.UserInputType.Touch then
-			self:OnTouchBegan(input, processed)
-		end
-
-		if not FFlagUserPlayerScriptsClickToMoveUsesIAS then 
+		if not FFlagUserPlayerScriptsClickToMoveUsesIAS then
 			if input.UserInputType == Enum.UserInputType.MouseButton2 then
 				self.mouse2DownTime = tick()
 				self.mouse2DownPos = input.Position
@@ -1035,17 +1004,7 @@ function ClickToMove:OnCharacterAdded(character)
 		end
 	end)
 
-	self.inputChangedConn = UserInputService.InputChanged:Connect(function(input, processed)
-		if input.UserInputType == Enum.UserInputType.Touch then
-			self:OnTouchChanged(input, processed)
-		end
-	end)
-
 	self.inputEndedConn = UserInputService.InputEnded:Connect(function(input, processed)
-		if input.UserInputType == Enum.UserInputType.Touch then
-			self:OnTouchEnded(input, processed)
-		end
-
 		if not FFlagUserPlayerScriptsClickToMoveUsesIAS then
 			if input.UserInputType == Enum.UserInputType.MouseButton2 then
 				self.mouse2UpTime = tick()

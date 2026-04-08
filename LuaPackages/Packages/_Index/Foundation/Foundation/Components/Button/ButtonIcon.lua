@@ -63,7 +63,7 @@ local function ButtonIcon(props: ButtonIconProps): React.Node
 					else BuilderIcons.IconVariant.Regular],
 				FontSize = variantProps.icon.size.Y.Offset,
 			},
-			tag = "anchor-center-center position-center-center",
+			tag = "position-center-center anchor-center-center",
 			Size = variantProps.icon.size,
 			textStyle = React.joinBindings({
 				disabledTransparencyBinding,
@@ -86,7 +86,7 @@ local function ButtonIcon(props: ButtonIconProps): React.Node
 		})
 	else
 		return React.createElement(Image, {
-			tag = "anchor-center-center position-center-center",
+			tag = "position-center-center anchor-center-center",
 			Image = props.icon,
 			Size = if intrinsicIconSize
 				then UDim2.fromOffset(intrinsicIconSize.X, intrinsicIconSize.Y)

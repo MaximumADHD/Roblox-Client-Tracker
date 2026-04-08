@@ -162,13 +162,13 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 							else iconVariant or BuilderIcons.IconVariant.Regular],
 						FontSize = iconSize.Y.Offset,
 					},
-					tag = "anchor-center-center position-center-center",
+					tag = "position-center-center anchor-center-center",
 					Size = iconSize,
 					textStyle = variantProps.content.style,
 					testId = `{props.testId}--icon`,
 				})
 				else React.createElement(Image, {
-					tag = "anchor-center-center position-center-center",
+					tag = "position-center-center anchor-center-center",
 					Image = iconName,
 					Size = if intrinsicIconSize
 						then UDim2.fromOffset(intrinsicIconSize.X, intrinsicIconSize.Y)

@@ -123,19 +123,19 @@ local function TokenSubsection(props: {
 	end
 
 	return React.createElement(View, {
-		tag = "size-full-0 auto-y col gap-small",
+		tag = "col gap-small size-full-0 auto-y",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		SubHeader = React.createElement(Text, {
 			Text = props.subcategory,
-			tag = "size-full-0 auto-y text-title-medium text-align-x-left padding-top-medium",
+			tag = "size-full-0 auto-y padding-top-medium text-title-medium text-align-x-left",
 			LayoutOrder = 1,
 		}),
 
 		TokensList = React.createElement(
 			View,
 			{
-				tag = "size-full-0 auto-y col gap-small",
+				tag = "col gap-small size-full-0 auto-y",
 				LayoutOrder = 2,
 			},
 			Dash.map(filteredTokens, function(token, index)
@@ -233,7 +233,7 @@ local function TokenSection(props: {
 
 	-- Render the common structure with header and children
 	return React.createElement(View, {
-		tag = "size-full-0 auto-y col gap-medium",
+		tag = "col gap-medium size-full-0 auto-y",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Header = React.createElement(Text, {
@@ -242,7 +242,7 @@ local function TokenSection(props: {
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
-			tag = "size-full-0 auto-y col gap-small",
+			tag = "col gap-small size-full-0 auto-y",
 			LayoutOrder = 2,
 		}, children),
 	})
@@ -279,7 +279,7 @@ local function TokensStory(props: StoryProps)
 	return React.createElement(
 		View,
 		{
-			tag = "size-full-0 auto-y col gap-xlarge",
+			tag = "col gap-xlarge size-full-0 auto-y",
 		},
 		(function()
 			-- Use the predefined order for official categories

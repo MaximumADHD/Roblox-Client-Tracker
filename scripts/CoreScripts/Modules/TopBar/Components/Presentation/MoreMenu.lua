@@ -46,7 +46,9 @@ local TenFootInterface = require(Modules.TenFootInterface)
 local VRHub = require(CorePackages.Workspace.Packages.VrCommon).VRHub
 
 local EmotesMenuMaster = require(Modules.EmotesMenu.EmotesMenuMaster)
-local BackpackModule = require(Modules.BackpackScript)
+local FFlagEnableNewBackpack = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableNewBackpack
+local Features: any = if FFlagEnableNewBackpack then require(CorePackages.Workspace.Packages.System).Features else nil
+local BackpackModule: any = if not FFlagEnableNewBackpack then require(Modules.BackpackScript) else nil
 local ChatSelector = require(Modules.ChatSelector)
 local PlayerListMaster = require(Modules.PlayerList.PlayerListManager)
 
@@ -248,10 +250,18 @@ function MoreMenu:renderWithStyle(style)
 			icon = backpackIcon,
 			text = RobloxTranslator:FormatByKey("CoreScripts.TopBar.Inventory"),
 			onActivated = function()
-				BackpackModule:OpenClose()
-				self.props.setMoreMenuOpen(false)
-				if self.analytics then
-					self.analytics:onInventoryActivated(BackpackModule.IsOpen)
+				if FFlagEnableNewBackpack then
+					Features.toggleVisibility(Features.FeatureName.Backpack)
+					self.props.setMoreMenuOpen(false)
+					if self.analytics then
+						self.analytics:onInventoryActivated(Features.getVisibility(Features.FeatureName.Backpack))
+					end
+				else
+					BackpackModule:OpenClose()
+					self.props.setMoreMenuOpen(false)
+					if self.analytics then
+						self.analytics:onInventoryActivated(BackpackModule.IsOpen)
+					end
 				end
 			end,
 		})

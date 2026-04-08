@@ -24,8 +24,8 @@ local function variantsFactory(tokens: Tokens)
 	}
 
 	local common = {
-		chip = { tag = "row auto-x align-y-center align-x-center clip radius-circle" },
-		text = { tag = "auto-x size-0-full shrink text-truncate-end" },
+		chip = { tag = "row align-x-center align-y-center auto-x radius-circle clip" },
+		text = { tag = "shrink size-0-full auto-x text-truncate-end" },
 	}
 
 	local sizes: { [ChipSize]: VariantProps } = {

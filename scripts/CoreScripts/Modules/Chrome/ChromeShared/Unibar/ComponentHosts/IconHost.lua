@@ -33,8 +33,8 @@ local Constants = require(Root.Unibar.Constants)
 
 local ChromeService = require(Root.Service)
 local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
-local ChromeTypes = require(Root.Service.Types)
-local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+local UnibarStyle = ChromePackage.UnibarStyle
 
 local useObservableValue = require(Root.Hooks.useObservableValue)
 local useNotificationCount = require(Root.Hooks.useNotificationCount)
@@ -82,13 +82,16 @@ local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 local FFlagUseBindingForUnreadChat = game:DefineFastFlag("UseBindingForUnreadChat", false)
 
+type IntegrationComponentProps = ChromePackage.IntegrationComponentProps
+type IntegrationId = ChromePackage.IntegrationId
+
 type TooltipState = {
 	displaying: boolean,
 	time: number,
 }
 
 -- module scoped variable
-local GroupTooltipState: { [ChromeTypes.IntegrationId]: TooltipState } = {}
+local GroupTooltipState: { [IntegrationId]: TooltipState } = {}
 
 function areTooltipsDisplaying()
 	-- True if another IconHost is displaying tooltip or very recently displayed a tooltip
@@ -102,7 +105,7 @@ function areTooltipsDisplaying()
 	return false
 end
 
-function logTooltipState(id: ChromeTypes.IntegrationId, displaying: boolean)
+function logTooltipState(id: IntegrationId, displaying: boolean)
 	-- Log the time and displaying state when displaying state changes
 	if not GroupTooltipState[id] or GroupTooltipState[id].displaying ~= displaying then
 		GroupTooltipState[id] = {
@@ -113,7 +116,7 @@ function logTooltipState(id: ChromeTypes.IntegrationId, displaying: boolean)
 end
 
 export type IconHostProps = {
-	integration: ChromeTypes.IntegrationComponentProps,
+	integration: IntegrationComponentProps,
 	toggleTransition: any?,
 	position: React.Binding<UDim2> | UDim2 | nil,
 	visible: React.Binding<boolean> | boolean | nil,
@@ -237,7 +240,7 @@ function NotificationBadge(props: IconHostProps): any?
 end
 
 type NotificationIndicatorProps = {
-	integration: ChromeTypes.IntegrationComponentProps,
+	integration: IntegrationComponentProps,
 	setIconVisible: (boolean) -> (),
 }
 function NotificationIndicator(props: NotificationIndicatorProps)
@@ -286,7 +289,7 @@ end
 
 type TooltipButtonProps = {
 	setHovered: (boolean) -> (),
-	integration: ChromeTypes.IntegrationComponentProps,
+	integration: IntegrationComponentProps,
 	isCurrentlyOpenSubMenu: React.Binding<boolean?>,
 }
 function TooltipButton(props: TooltipButtonProps)

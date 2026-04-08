@@ -237,7 +237,7 @@ local function DateTimePicker(dateTimePickerProps: DateTimePickerProps)
 			selection = props.selection,
 			selectionGroup = props.selectionGroup,
 		}, isOpen and React.createElement(View, {
-			tag = "padding-large col stroke-default radius-medium auto-xy",
+			tag = "col auto-xy padding-large stroke-default radius-medium",
 		}, {
 			Calendar = React.createElement(Calendar, {
 				defaultDates = calendarDates :: { DateTime },
@@ -251,7 +251,7 @@ local function DateTimePicker(dateTimePickerProps: DateTimePickerProps)
 			}),
 			BottomBar = React.createElement(View, {
 				LayoutOrder = 2,
-				tag = "row size-full-0 auto-y flex-fill gap-small padding-top-large",
+				tag = "row flex-fill gap-small size-full-0 auto-y padding-top-large",
 			}, {
 				ApplyButton = React.createElement(Button, {
 					isDisabled = isApplyButtonDisabled(),

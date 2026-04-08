@@ -59,11 +59,11 @@ local function variantsFactory(tokens: Tokens)
 	local common = {
 		knob = {
 			tag = if Flags.FoundationToggleVisualUpdate
-				then "auto-xy radius-circle anchor-center-center position-center-center"
-				else "radius-circle anchor-center-center position-center-center",
+				then "position-center-center anchor-center-center auto-xy radius-circle"
+				else "position-center-center anchor-center-center radius-circle",
 		},
 		knobShadow = {
-			tag = "anchor-center-center position-center-center",
+			tag = "position-center-center anchor-center-center",
 		},
 	}
 

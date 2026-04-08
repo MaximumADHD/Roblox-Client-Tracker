@@ -44,15 +44,15 @@ local function SheetHeader(props: SheetHeaderProps, ref: React.Ref<GuiObject>?)
 
 	return React.createElement(View, {
 		ZIndex = 2,
-		tag = "size-full-0 auto-y col",
+		tag = "col size-full-0 auto-y",
 		testId = `{testId}--header`,
 		ref = ref,
 	}, {
 		Content = React.createElement(View, {
 			LayoutOrder = 1,
 			tag = {
-				["auto-y row gap-small items-center"] = true,
-				["size-full-1400 margin-left-small padding-y-small padding-right-medium align-y-center"] = Flags.FoundationSheetHeaderSmallerPadding,
+				["row items-center gap-small auto-y"] = true,
+				["align-y-center size-full-1400 margin-left-small padding-y-small padding-right-medium"] = Flags.FoundationSheetHeaderSmallerPadding,
 				["size-full-0 margin-x-small margin-bottom-small"] = not Flags.FoundationSheetHeaderSmallerPadding,
 				["padding-top-small"] = not Flags.FoundationSheetHeaderSmallerPadding and isBottomSheet,
 				["margin-top-small"] = not Flags.FoundationSheetHeaderSmallerPadding and not isBottomSheet,
@@ -60,7 +60,7 @@ local function SheetHeader(props: SheetHeaderProps, ref: React.Ref<GuiObject>?)
 		}, {
 			SubContent = React.createElement(View, {
 				LayoutOrder = 1,
-				tag = "size-full-0 auto-y row gap-small items-center shrink",
+				tag = "row items-center shrink gap-small size-full-0 auto-y",
 			}, props.children),
 			CloseAffordance = if hasCloseAffordance
 				then React.createElement(CloseAffordance, {
