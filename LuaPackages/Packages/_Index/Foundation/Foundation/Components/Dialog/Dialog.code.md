@@ -15,6 +15,7 @@ If your application has its own modal window management system, you can render D
 ## Sizing Behavior
 
 The Dialog component supports 3 fixed sizes:
+
 - `DialogSize.Small` (320px wide)
 - `DialogSize.Medium` (480px wide)
 - `DialogSize.Large` (640px wide)
@@ -26,6 +27,7 @@ The dialog's height is automatically determined by its content.
 ## Close Behavior
 
 The `onClose` callback is called when the dialog should be closed. It receives a `reason` parameter of type `OnCloseCallbackReason` that indicates how the dialog was closed:
+
 - `OnCloseCallbackReason.BackdropClick`: User clicked the backdrop (overlay) behind the dialog
 
 This allows you to handle different close scenarios appropriately, such as showing a confirmation prompt when closing via backdrop click.
@@ -37,20 +39,23 @@ The Dialog.Actions component handles the layout and behavior of action buttons i
 ### Orientation Behavior
 
 The orientation of action buttons is determined by two factors:
+
 1. The `orientation` prop (defaults to `Orientation.Horizontal`)
 2. The dialog's size
 
 The following rules apply:
+
 - For `DialogSize.Medium` and `DialogSize.Large`, actions are always arranged horizontally (row layout with wrapping)
 - For `DialogSize.Small`:
-  - If `orientation = Orientation.Horizontal`, actions are arranged horizontally
-  - If `orientation = Orientation.Vertical`, actions are arranged vertically with full width
+    - If `orientation = Orientation.Horizontal`, actions are arranged horizontally
+    - If `orientation = Orientation.Vertical`, actions are arranged vertically with full width
 
 This responsive behavior ensures optimal button layout across different dialog sizes and screen widths.
 
 ### Action Button Properties
 
 Each action in the `actions` array can have the following properties:
+
 - `text`: The button text
 - `variant`: Button style variant (e.g., ButtonVariant.Standard, ButtonVariant.Emphasis)
 - `icon`: Optional icon to display
@@ -66,6 +71,7 @@ You can provide a descriptive label below the action buttons using the `label` p
 ## Usage
 
 ### Comprehensive Example
+
 ```luau
 local Foundation = require(Packages.Foundation)
 local Dialog = Foundation.Dialog
@@ -117,6 +123,7 @@ return React.createElement(Dialog.Root, {
 ```
 
 ### Confirm Dialog Example
+
 ```luau
 local Foundation = require(Packages.Foundation)
 local Dialog = Foundation.Dialog

@@ -8,12 +8,11 @@
 
 ## Overview
 
-Style tags help consolidate your styling into a single place, separating it from business logic in props and shortening the amount of code you need to write. They are inspired by the [Tailwind CSS](https://tailwindcss.com/){ target="_blank" } utility-first approach to styling.
+Style tags help consolidate your styling into a single place, separating it from business logic in props and shortening the amount of code you need to write. They are inspired by the [Tailwind CSS](https://tailwindcss.com/){ target="\_blank" } utility-first approach to styling.
 
 - **Foundation Tokens:** Style Tags are powered by [Foundation tokens](../tokens/) to maintain a consistent and cohesive look across surfaces, while working within defined constraints.
 - **Colocate Styles:** Organize your styles in one place—separate from, but located within the same file as your business logic—for clarity and maintainability.
 - **Predictable Tags:** Utility tags are clear, explicit, and atomic, eliminating the guesswork of what styles apply to components like `checkbox`.
-
 
 ---
 
@@ -49,9 +48,7 @@ React.createElement("Frame", {
 
     A styling polyfill has been added to Foundation while the Engine UI team works on improving the Styling Engine's performance. This polyfill does not support `useStyleTags`. While the polyfill is in place, you will need to use [[View]], [[Image]], and [[Text]] components to apply style tags.
 
-
 A good rule of thumb is if you are using the `tag` prop on Foundation components, you don't need to wrap the tags in `useStyleTags`, but otherwise you do.
-
 
 ### VSCode Intellisense
 
@@ -63,11 +60,9 @@ If you're using VSCode, you can get intellisense for the available tags and hove
 
 You should be using the [Luau Language Server](https://marketplace.visualstudio.com/items?itemName=JohnnyMorganz.luau-lsp), as this extension requires the Luau textmate grammar to work.
 
-
 ### Example
 
 If you wanted to create a vertical list of centered elements with a gap between them and a rounded corner, you would write that traditionally like this:
-
 
 ```luau
 React.createElement("Frame", {

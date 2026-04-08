@@ -5,9 +5,10 @@ category: Inputs
 ## Overview
 
 !!! note "Work In Progress Component"
-	`ColorPicker` is currently WIP and requires the `FoundationColorPickerComponent` feature flag to be enabled. The API may change in future releases.
 
-`ColorPicker` is an interactive color selection component that allows users to pick colors using multiple input methods. It combines a saturation/value picker, hue slider, optional alpha slider, and text inputs that support RGB, RGBA, HSV, and Hex color formats.
+    `ColorPicker` is currently WIP and requires the `FoundationColorPickerComponent` feature flag to be enabled. The API may change in future releases.
+
+    `ColorPicker` is an interactive color selection component that allows users to pick colors using multiple input methods. It combines a saturation/value picker, hue slider, optional alpha slider, and text inputs that support RGB, RGBA, HSV, and Hex color formats.
 
 ---
 
@@ -99,7 +100,7 @@ end
 ## Features
 
 - **Visual Color Selection**: Saturation/Value picker for intuitive color selection
-- **Hue Control**: Dedicated hue slider for precise hue adjustment  
+- **Hue Control**: Dedicated hue slider for precise hue adjustment
 - **Alpha Control**: Optional alpha slider for transparency selection
 - **Multiple Input Formats**: Text inputs supporting RGB, RGBA, HSV, and Hex formats
 - **Format Switching**: Dropdown to switch between different color input modes
@@ -114,7 +115,7 @@ end
 The text input section supports four different color formats:
 
 - **RGB**: Red, Green, Blue values (0-255)
-- **RGBA**: RGB + Alpha values (0-255 for RGB, 0-1 for Alpha)  
+- **RGBA**: RGB + Alpha values (0-255 for RGB, 0-1 for Alpha)
 - **HSV**: Hue (0-360), Saturation (0-100%), Value (0-100%)
 - **Hex**: Hexadecimal color codes (#RRGGBB)
 

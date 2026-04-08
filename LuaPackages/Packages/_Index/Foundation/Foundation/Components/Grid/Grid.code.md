@@ -7,6 +7,7 @@ category: Layout
 `Grid` provides a responsive, column-based layout system built on StyleSheet-driven sizing and breakpoint-aware configuration. It automatically adapts to container width using breakpoints, similar to container queries in CSS.
 
 The Grid system consists of:
+
 - `Grid.Root`: Container that measures width and applies responsive layout
 - `Grid.Cell`: Items that declare column spans via responsive size props
 - `Grid.Debug`: Visual debugging overlay for development
@@ -16,8 +17,9 @@ Grid uses container-relative breakpoints rather than global screen size, meaning
 ## Responsive Behavior
 
 Grid automatically determines the active breakpoint based on the container width:
+
 - **XSmall (xs)**: 360px - 3 columns
-- **Small (sm)**: 600px - 6 columns  
+- **Small (sm)**: 600px - 6 columns
 - **Medium (md)**: 1140px - 12 columns
 - **Large (lg)**: 1520px - 12 columns
 - **XLarge (xl)**: 1920px - 12 columns
@@ -40,6 +42,7 @@ size = 6
 **Responsive maps are strongly recommended** as they ensure your layout adapts properly across all screen sizes. Each key uses breakpoint short names (`xs`, `sm`, `md`, `lg`, `xl`, `xxl`).
 
 When using responsive maps:
+
 - Size `0` hides the element at that breakpoint
 - Missing breakpoint keys fall back to the total column count for that breakpoint (full width)
 - Sizes are automatically clamped between 0 and the maximum columns for the breakpoint
@@ -47,9 +50,11 @@ When using responsive maps:
 ## Layout Behavior
 
 ### Wrapped Layout (default)
+
 When `Wraps = true` (default), Grid uses `UIFlexAlignment.SpaceBetween` for horizontal spacing. This avoids unwanted vertical padding but means incomplete rows will have large gaps between cells. For best results, ensure rows use all available columns or add invisible spacer cells.
 
 ### Non-Wrapped Layout
+
 When `Wraps = false`, Grid uses regular `UIListLayout.Padding` equal to the gutter width for consistent horizontal spacing without wrapping.
 
 ---
@@ -116,16 +121,17 @@ local View = Foundation.View
 
 return React.createElement(Grid.Root, {}, {
     -- Responsive tags using breakpoint short names
-    Left = React.createElement(View, { 
-        tag = "xs-col-3 sm-col-3 md-col-6 lg-col-6 xl-col-6" 
+    Left = React.createElement(View, {
+        tag = "xs-col-3 sm-col-3 md-col-6 lg-col-6 xl-col-6"
     }),
-    Right = React.createElement(View, { 
-        tag = "xs-col-3 sm-col-3 md-col-6 lg-col-6 xl-col-6" 
+    Right = React.createElement(View, {
+        tag = "xs-col-3 sm-col-3 md-col-6 lg-col-6 xl-col-6"
     }),
 })
 ```
 
 **Short-name tags are preferred** as they make responsive behavior explicit. Available tags:
+
 - `xs-col-{N}`, `sm-col-{N}`, `md-col-{N}`, `lg-col-{N}`, `xl-col-{N}`, `xxl-col-{N}`
 - Use `{breakpoint}-col-0` to hide elements at specific breakpoints
 
@@ -145,11 +151,11 @@ Root = React.createElement(Grid.Root, {}, {
 })
 
 -- Or using tags directly:
-MainContent = React.createElement(View, { 
-    tag = "xs-col-3 sm-col-6 md-col-12 lg-col-12 xl-col-12" 
+MainContent = React.createElement(View, {
+    tag = "xs-col-3 sm-col-6 md-col-12 lg-col-12 xl-col-12"
 })
-PromoSection = React.createElement(View, { 
-    tag = "xs-col-0 sm-col-0 md-col-12 lg-col-12 xl-col-12" 
+PromoSection = React.createElement(View, {
+    tag = "xs-col-0 sm-col-0 md-col-12 lg-col-12 xl-col-12"
 })
 ```
 
@@ -196,12 +202,14 @@ local metrics = getGridMetrics(responsiveConfig, breakpoint, containerWidth, siz
 ```
 
 **Parameters:**
+
 - `responsiveConfig`: Grid and breakpoint configuration (from `useResponsive().config`)
 - `breakpoint`: Active breakpoint (from `useBreakpoint()`)
 - `containerWidth`: Available width in pixels
 - `size` (optional): Column span as number or responsive map
 
 **Returns:**
+
 - `cellSize`: `UDim2` for the specified size
 - `cellWidth`: Pixel width for the specified size
 - `colWidth`: Width of a single column
@@ -224,11 +232,11 @@ local function CustomTwoColumn(props)
     local responsive = useResponsive()
     local measureRef, setMeasureRef = React.useState(nil)
     local breakpoint, size = useBreakpoint(measureRef)
-    
+
     -- Calculate metrics for 4 and 8 column spans
     local leftMetrics = getGridMetrics(responsive.config, breakpoint, size.X, 4)
     local rightMetrics = getGridMetrics(responsive.config, breakpoint, size.X, 8)
-    
+
     return React.createElement("Frame", {
         ref = setMeasureRef,
         Size = UDim2.new(1, 0, 0, 200),
@@ -253,14 +261,14 @@ local function ResponsiveCustom(props)
     local responsive = useResponsive()
     local measureRef, setMeasureRef = React.useState(nil)
     local breakpoint, size = useBreakpoint(measureRef)
-    
+
     -- Define responsive spans
     local leftSize = { xs = 3, sm = 2, md = 3, lg = 3, xl = 3 }
     local rightSize = { xs = 3, sm = 4, md = 9, lg = 9, xl = 9 }
-    
+
     local leftMetrics = getGridMetrics(responsive.config, breakpoint, size.X, leftSize)
     local rightMetrics = getGridMetrics(responsive.config, breakpoint, size.X, rightSize)
-    
+
     return React.createElement("Frame", {
         ref = setMeasureRef,
         Size = UDim2.new(1, 0, 0, 200),
@@ -277,25 +285,30 @@ Use `getGridMetrics` when you need precise grid calculations for custom componen
 ## Known Limitations
 
 ### Single Active Breakpoint
+
 The grid only applies styles for the currently active breakpoint. Unlike CSS media queries where multiple rules can be active simultaneously, Foundation's StyleSheet system activates only one breakpoint's rules at a time based on the container width.
 
 ### Incomplete Row Spacing
+
 When using wrapped layouts (default), incomplete rows will have large gaps between cells due to `UIFlexAlignment.SpaceBetween` spacing. Ensure rows use all available columns or add invisible spacer cells to fill remaining column space.
 
 ### Fractional Pixel Handling
+
 Cell widths use `math.floor` to avoid fractional pixels, which means the sum of cells might be a few pixels short of the theoretical total. Visual alignment is maintained through gutters and flex spacing.
 
 ### Container Width Constraints
+
 Very narrow containers (width ≤ total gutter width) will collapse cells to zero width. The maximum container width is capped at `BreakpointConfig.widths[XLarge]` (1920px by default).
 
 ### Conflicting Column Tags
+
 Using both the `size` prop and column style tags `md-col-6` in the `tag` prop is not supported. The style tags will conflict with the tags generated by the `size` prop, resulting in undefined behavior. Use either the `size` prop OR manual column tags, not both.
 
 ## Future Improvements & Vision
 
 ### Performance: Bindings for Grid Metrics
 
-Currently, `Grid`'s marign and layout spacing are  configured form `gridMetrics` and driven by `absoluteSize` changes. This means that when the size of a Grid changes, the entire Grid component may re-render, which can be expensive for large or complex layouts. A future improvement would be to make `absoluteSize` a binding, and have `gridMetrics` map from it as a binding as well. This would allow only the necessary parts of the UI to update in response to size changes, improving performance and responsiveness.
+Currently, `Grid`'s marign and layout spacing are configured form `gridMetrics` and driven by `absoluteSize` changes. This means that when the size of a Grid changes, the entire Grid component may re-render, which can be expensive for large or complex layouts. A future improvement would be to make `absoluteSize` a binding, and have `gridMetrics` map from it as a binding as well. This would allow only the necessary parts of the UI to update in response to size changes, improving performance and responsiveness.
 
 ### Decoupling Stylesheets from React
 

@@ -11,8 +11,7 @@ category: Inputs
 ## Usage
 
 `InternalTextInput` takes full width of the parent component, the height is static.
-You can provide any element as `leadingElement` or `trailingElement`. The input will take the rest space without any paddings by default. 
-
+You can provide any element as `leadingElement` or `trailingElement`. The input will take the rest space without any paddings by default.
 
 ```luau
 local Foundation = require(Packages.Foundation)

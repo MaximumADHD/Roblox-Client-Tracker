@@ -10,16 +10,16 @@ There are six badge variants defined in [[BadgeVariant]]: `Neutral`, `Contrast`,
 
 Text and icon content type can be added any of the badges
 
-* If icon is nil then it will be a text-only badge
-* If text is nil then it will be an icon-only badge
-* If text and icon are nil it will be a (small, empty state) blank badge
-* Otherwise, it will be an icon and text badge
+- If icon is nil then it will be a text-only badge
+- If text is nil then it will be an icon-only badge
+- If text and icon are nil it will be a (small, empty state) blank badge
+- Otherwise, it will be an icon and text badge
 
 ---
 
 ## Usage
 
-`Badge`s will grow to fit their text. Badge text does *not* wrap to multiple lines.
+`Badge`s will grow to fit their text. Badge text does _not_ wrap to multiple lines.
 
 `Badge` text has `RichText` enabled by default to support custom colorization of the `text` prop.
 

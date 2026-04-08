@@ -29,7 +29,6 @@ return React.createElement(Icon, {
 
 To browse legacy icons available for use through this component, visit [[Images]]. When possible use the new Builder Icons, as they are true vector graphics.
 
-
 ```luau
 local Foundation = require(Packages.Foundation)
 local Icon = Foundation.Icon

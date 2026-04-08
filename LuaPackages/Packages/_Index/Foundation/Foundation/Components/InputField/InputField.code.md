@@ -4,7 +4,7 @@ category: Display
 
 ## Overview
 
-InputField is a flexible input wrapper component that supports label, hint text, 
+InputField is a flexible input wrapper component that supports label, hint text,
 and various input states such as error, disabled, and required.
 
 ---
@@ -15,9 +15,8 @@ and various input states such as error, disabled, and required.
 
 The `isRequired` property should only be used on the inputs that fall in the minority. For example, if most inputs are required, only put `isRequired = false,` on the optional inputs, and `isRequired` as `nil` for the required inputs.
 
-The `input` property take a function rendering a component which receives a ref as the only prop. 
+The `input` property take a function rendering a component which receives a ref as the only prop.
 The ref should be passed to a component and should have `focus: () -> ()` and `hover: (state: boolean) -> ()` method implemented through `React.useImperativeHandle`. See `InternalTextInput` as an example
-
 
 ```luau
 local Foundation = require(Packages.Foundation)

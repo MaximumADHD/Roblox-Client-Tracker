@@ -33,7 +33,7 @@ local function MyImage()
 end
 ```
 
-<!-- 
+<!--
 ## Reference
 
 You can use the copy button next to each image name to copy the full image path to your clipboard. This is passed to [[Image]]'s `Image` property or [[Icon]]'s `name` property. -->

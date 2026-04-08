@@ -6,9 +6,9 @@ category: Display
 
 `Toast` is an interactive user interface element incorporating multiple optional components such as:
 
-* Image
-* Text (Body and Header)
-* Actions (Up to two)
+- Image
+- Text (Body and Header)
+- Actions (Up to two)
 
 If any of the fields are not provided then the corresponding components will not display.
 

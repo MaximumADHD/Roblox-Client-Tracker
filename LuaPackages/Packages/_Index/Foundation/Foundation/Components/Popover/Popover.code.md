@@ -17,6 +17,7 @@ A `Popover` is a surface that displays content relative to an anchor element. Th
 Anchor could be an element, reference to the element, or a virtual reference (useful for context menus and tooltips following the mouse)
 
 Anchor as an element:
+
 ```luau
 local Foundation = require(Packages.Foundation)
 local Popover = Foundation.Popover
@@ -66,8 +67,8 @@ If the popover is not open, no `AbsolutePosition`s or `AbsoluteSize`s will be re
 Calculating the position of the popover has three steps:
 
 1. Check whether the anchor is on the screen.
-   1. If the anchor is not on the screen, the popover will not be shown and the calculation exits early.
+    1. If the anchor is not on the screen, the popover will not be shown and the calculation exits early.
 2. Calculate which side the popover should be placed on.
-   1. If the popover does not have space on the desired side, but the opposite side has space, it will switch sides.
+    1. If the popover does not have space on the desired side, but the opposite side has space, it will switch sides.
 3. Calculate the position of the popover.
-   1. With the final side and alignment, calculate the position of the popover relative to the anchor. The position will be clamped to the screen.
+    1. With the final side and alignment, calculate the position of the popover relative to the anchor. The position will be clamped to the screen.

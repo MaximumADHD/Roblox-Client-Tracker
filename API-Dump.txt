@@ -248,7 +248,7 @@ Class AdService : Instance [NotCreatable] [Service]
 	Function AdService:GetAdAvailabilityNowAsync(adFormat: Enum.AdFormat) -> { [string]: any } {🚧Monetization} [Yields]
 	Function AdService:GetCampaignEligibilityAsync(campaignId: string, player: Player? = nil) -> { [string]: any } {🚧Monetization} [Yields]
 	Function AdService:RegisterAdOpportunityAsync(instance: Instance, placementId: number?) -> () {🚧Monetization} [Yields]
-	Function AdService:RegisterDisclosureButton(disclosureButton: GuiButton, immersiveBrandedAdId: string) -> () {🚧Monetization}
+	Function AdService:RegisterDisclosureButton(disclosureButton: GuiButton, adIntegrationPlacementId: string) -> () {🚧Monetization}
 	Function AdService:ShowRewardedVideoAdAsync(player: Player, reward: AdReward, placementId: number?) -> Enum.ShowAdResult {🚧Monetization + UI} [Yields]
 	Function AdService:UnregisterAdOpportunity(instance: Instance) -> () {🚧Monetization}
 	Function AdService:GetAdAvailabilityNowForUniverseAsync(adFormat: Enum.AdFormat, universeId: number, isUniversalAppDM: boolean) -> { [string]: any } {🚧Monetization} {🔒RobloxScript} [Yields]
@@ -2753,8 +2753,6 @@ Class FeatureRestrictionManager : Instance [NotCreatable] [Service]
 	Event FeatureRestrictionManager.ShowFeatureInterventionDetailsV2(featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector, isGameJoin: boolean) {🔒RobloxScript}
 	Event FeatureRestrictionManager.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {🔒RobloxScript}
 	Event FeatureRestrictionManager.UpdateClientFeatureTimeout(acknowledgeable: boolean, permanent: boolean, startTime: number, duration: number, featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {🔒RobloxEngine} [Hidden]
-	Event FeatureRestrictionManager.UpdateExperienceChatTimeout(startTime: number, duration: number) {🔒RobloxEngine} [Hidden]
-	Event FeatureRestrictionManager.UpdateFeatureTimeout(userId: number, acknowledgeable: boolean, permanent: boolean, startTime: number, duration: number, featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {🔒RobloxEngine} [Hidden]
 Class File : Instance [NotCreatable] [NotReplicated]
 	Property File.Size: number {🚧AssetRead} {🔒Plugin} [Hidden] [ReadOnly]
 	Function File:GetBinaryContents() -> string {🚧AssetRead} {🔒Plugin}
@@ -2822,6 +2820,7 @@ Class GamepadService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property GamepadService.GamepadCursorEnabled: boolean {🚧Input} {✏️RobloxScript}
 	Function GamepadService:DisableGamepadCursor() -> () {🚧Input}
 	Function GamepadService:EnableGamepadCursor(guiObject: Instance) -> () {🚧Input}
+	Function GamepadService:AutoSelectGui() -> () {🚧Input} {🔒RobloxScript}
 	Function GamepadService:GetGamepadCursorPosition() -> Vector2 {🚧Input} {🔒RobloxScript}
 	Function GamepadService:SetGamepadCursorPosition(position: Vector2) -> () {🚧Input} {🔒RobloxScript}
 	Event GamepadService.GamepadThumbstick1Changed(event: Vector2) {🚧Input} {🔒RobloxScript}
@@ -3758,6 +3757,7 @@ Class Humanoid : Instance
 	Event Humanoid.ServerApplyDescription(status: boolean) {🚧AvatarAppearance} {🔒RobloxEngine} [Hidden]
 	Event Humanoid.ServerBreakJoints() {🚧AvatarAppearance} {🔒RobloxEngine} [Hidden]
 	Event Humanoid.ServerEquipTool(tool: Tool) {🚧AvatarAppearance} {🔒RobloxEngine} [Hidden]
+	Event Humanoid.ServerResetCharacter() {🚧AvatarAppearance} {🔒RobloxEngine} [Hidden]
 	Event Humanoid.StatusAdded(status: Enum.Status) {🚧AvatarAppearance} [Deprecated]
 	Event Humanoid.StatusRemoved(status: Enum.Status) {🚧AvatarAppearance} [Deprecated]
 Class HumanoidDescription : Instance
@@ -4321,6 +4321,7 @@ Class LodDataEntity : Instance {🔒RobloxEngine} [NotCreatable]
 	Property LodDataEntity.EntityPosition: CFrame [Hidden] [NotScriptable]
 	Property LodDataEntity.EntityScale: Vector3 [Hidden] [NotScriptable]
 	Property LodDataEntity.EntitySource: Instance? [Hidden] [NotScriptable]
+	Property LodDataEntity.EntityVisible: boolean {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property LodDataEntity.IsSlimEnabled: boolean [Hidden] [NotScriptable]
 	Property LodDataEntity.SlimAnimationSource: SlimAnimationDataEntity? [Hidden] [NotScriptable]
 	Property LodDataEntity.SlimReplicationTimestampSec: number [Hidden] [NotScriptable]
@@ -4330,13 +4331,18 @@ Class LogReporterService : Instance {🔒RobloxScript} [NotCreatable] [Service] 
 	Function LogReporterService:ReportMultipleLogs(fingerprint: string, uuid: string, desc: string, attributes: { [string]: any }, annotations: { [string]: any }, numLogs: number) -> boolean {🔒RobloxScript}
 Class LogService : Instance [NotCreatable] [Service]
 	Function LogService:ClearOutput() -> () {🚧Logging}
+	Function LogService:Error(message: string, context: { [string]: any }? = nil) -> () {🚧Logging} [CustomLuaState]
 	Function LogService:GetLogHistory() -> { any } {🚧Logging}
+	Function LogService:Info(message: string, context: { [string]: any }? = nil) -> () {🚧Logging} [CustomLuaState]
+	Function LogService:Log(messageType: Enum.MessageType, message: string, context: { [string]: any }? = nil) -> () {🚧Logging} [CustomLuaState]
+	Function LogService:Output(message: string, context: { [string]: any }? = nil) -> () {🚧Logging} [CustomLuaState]
+	Function LogService:Warn(message: string, context: { [string]: any }? = nil) -> () {🚧Logging} [CustomLuaState]
 	Function LogService:ExecuteScript(source: string) -> () {🚧Logging} {🔒RobloxScript}
 	Function LogService:GetHttpResultHistory() -> { any } {🚧Logging} {🔒RobloxScript}
 	Function LogService:RequestHttpResultApproved() -> () {🚧Logging} {🔒RobloxScript}
 	Function LogService:RequestServerHttpResult() -> () {🚧Logging} {🔒RobloxScript}
 	Function LogService:RequestServerOutput() -> () {🚧Logging} {🔒RobloxScript}
-	Event LogService.MessageOut(message: string, messageType: Enum.MessageType) {🚧Logging}
+	Event LogService.MessageOut(message: string, messageType: Enum.MessageType, context: { [string]: any }) {🚧Logging}
 	Event LogService.HttpResultOut(httpResult: { [string]: any }) {🚧Logging} {🔒RobloxScript}
 	Event LogService.OnHttpResultApproved(isApproved: boolean) {🚧Logging} {🔒RobloxScript}
 	Event LogService.RequestHttpResultApprovedSignal(requestingPlayer: Instance) {🚧Logging} {🔒RobloxEngine} [Hidden]
@@ -4491,7 +4497,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.NativePurchaseFinished(player: Instance, productId: string, wasPurchased: boolean) {🔒RobloxScript}
 	Event MarketplaceService.NativePurchaseFinishedWithLocalPlayer(productId: string, wasPurchased: boolean) {🔒RobloxScript}
 	Event MarketplaceService.PrepareCollectiblesPurchaseRequested(player: Instance, assetId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number) {🔒RobloxScript}
-	Event MarketplaceService.PromptBulkPurchaseRequested(player: Instance, displayData: { any }, orderRequest: { [string]: any }, purchaserRobuxBalance: number, orderTotalRobux: number, options: { [string]: any }) {🔒RobloxScript}
+	Event MarketplaceService.PromptBulkPurchaseRequested(player: Instance, displayData: { any }, orderRequest: { [string]: any }, purchaserRobuxBalance: number, orderTotalRobux: number, options: { [string]: any }, discountInformation: { [string]: any }) {🔒RobloxScript}
 	Event MarketplaceService.PromptBundlePurchaseRequested(player: Instance, bundleId: number) {🔒RobloxScript}
 	Event MarketplaceService.PromptCancelSubscriptionRequested(subscriptionId: string) {🔒RobloxScript}
 	Event MarketplaceService.PromptCollectibleBundlePurchaseRequested(player: Instance, bundleId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number, idempotencyKey: string, purchaseAuthToken: string) {🔒RobloxScript}
@@ -4777,6 +4783,7 @@ Class NotificationService : Instance [NotCreatable] [Service]
 	Function NotificationService:ScheduleNotification(userId: number, alertId: number, alertMsg: string, minutesToFire: number) -> () {🚧Players} {🔒LocalUser}
 	Function NotificationService:ActionEnabled(actionType: Enum.AppShellActionType) -> () {🚧Players} {🔒RobloxScript}
 	Function NotificationService:ActionTaken(actionType: Enum.AppShellActionType) -> () {🚧Players} {🔒RobloxScript}
+	Function NotificationService:SubscribeToRccEventNamespace(eventNamespace: string) -> () {🚧Players} {🔒RobloxScript}
 	Function NotificationService:SwitchedToAppShellFeature(appShellFeature: Enum.AppShellFeature) -> () {🚧Players} {🔒RobloxScript}
 	Event NotificationService.Roblox17sConnectionChanged(connectionName: string, connectionState: Enum.ConnectionState, namespaceSequenceNumbers: string) {🚧Players}
 	Event NotificationService.Roblox17sEventReceived(eventData: { [any]: any }) {🚧Players}
@@ -6573,7 +6580,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function DataModel:DefineFastInt(name: string, defaultValue: number) -> number {🔒RobloxScript}
 	Function DataModel:DefineFastString(name: string, defaultValue: string) -> string {🔒RobloxScript}
 	Function DataModel:GetMessage() -> string [Deprecated]
-	Function DataModel:GetObjectsAllOrNone(url: string, binaryFormatOnly: boolean? = false) -> { Instance } {🔒RobloxScript}
+	Function DataModel:GetObjectsAllOrNone(url: string) -> { Instance } {🔒RobloxScript}
 	Function DataModel:GetObjectsAsync(url: string) -> { Instance } {🔒RobloxScript} [Yields]
 	Function DataModel:GetObjectsList(urls: { any }) -> { any } {🔒RobloxScript}
 	Function DataModel:GetPlaySessionId() -> string {🔒RobloxScript}
@@ -7439,6 +7446,7 @@ Class SurfaceAppearance : Instance
 	Property SurfaceAppearance.EmissiveTint: Color3 {🚧Basic}
 	Property SurfaceAppearance.MetalnessMap: string {🚧Basic} {🔒Plugin}
 	Property SurfaceAppearance.NormalMap: string {🚧Basic} {🔒Plugin}
+	Property SurfaceAppearance.ResampleMode: Enum.ResamplerMode {🚧Basic}
 	Property SurfaceAppearance.RoughnessMap: string {🚧Basic} {🔒Plugin}
 	Property SurfaceAppearance.ColorMapContent: Content {🚧Basic} {✏️Plugin} [Hidden]
 	Property SurfaceAppearance.MetalnessMapContent: Content {🚧Basic} {✏️Plugin} [Hidden]
@@ -7736,8 +7744,8 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function TextChatService:CanUsersDirectChatAsync(requesterUserId: number, userIds: { any }) -> { any } {🚧Chat} [Yields]
 	Function TextChatService:DisplayBubble(partOrCharacter: Instance, message: string) -> () {🚧Chat}
 	Function TextChatService:GetChatGroupsAsync(players: { Instance }) -> { any } {🚧Chat} [Yields]
-	Function TextChatService:AllocateUniverseChatChannelAsync(context: string) -> boolean {🚧Chat} {🔒RobloxScript} [Yields]
 	Function TextChatService:CanUsersWhisperAsync(fromUserId: number, toUserId: number) -> boolean {🚧Chat} {🔒RobloxScript} [Yields]
+	Function TextChatService:HasAllocatedUniverseChatContext(context: string) -> boolean {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendEnableChatButtonClicked() -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendEnableChatButtonShown() -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendExpChatLoadSuccess(loadingLatency: number) -> () {🚧Chat} {🔒RobloxScript}
@@ -7753,9 +7761,13 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Event TextChatService.ClientToServerMessageReplicateSignalV3(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, verified: boolean, isEscapedFlagEnabled: boolean) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ClientToServerUniverseChatMessageSignalV1(text: string, metadata: string, messageId: string, userId: number, verified: boolean) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.OnIncomingMessageEvent(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
+	Event TextChatService.SendingUniverseChatMessage(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
+	Event TextChatService.ServerToClientChatActionReplicateSignal(chatActionMessage: TextChatMessage) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ServerToClientMessageReplicateSignal(text: string, prefixText: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, timestamp: number, status: Enum.TextChatMessageStatus) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ServerToClientMessageReplicateSignalV2(data: { [string]: any }) {🚧Chat} {🔒RobloxEngine} [Hidden]
+	Event TextChatService.ServerToClientUniverseChatChannelAllocatedSignalV1(context: string) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ServerToClientUniverseChatMessageSignalV1(data: { [string]: any }) {🚧Chat} {🔒RobloxEngine} [Hidden]
+	Event TextChatService.UniverseChatChannelAllocated(context: string) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.UniverseChatMessageReceived(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.UpdateChatTimeout(userId: number, startTime: number, duration: number) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.UserMessageIntentSent(userIntentMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}

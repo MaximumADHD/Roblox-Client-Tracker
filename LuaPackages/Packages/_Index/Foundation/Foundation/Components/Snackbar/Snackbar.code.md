@@ -6,10 +6,10 @@ category: Display
 
 [[Snackbar]] is an interactive user interface element incorporating multiple components such as:
 
-* Text (Title)
-* Icon (Optional)
-* Action (Optional)
-* Close Affordance (Optional)
+- Text (Title)
+- Icon (Optional)
+- Action (Optional)
+- Close Affordance (Optional)
 
 If any of the optional fields are not provided then the corresponding components will not display.
 

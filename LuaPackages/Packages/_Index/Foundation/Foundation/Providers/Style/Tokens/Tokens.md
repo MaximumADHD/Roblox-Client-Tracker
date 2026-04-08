@@ -31,5 +31,4 @@ end
 
     You'll want to use [[Style Tags]] instead of using tokens directly whenever possible. Style tags are a more convenient way to apply the same tokens you see here.
 
-
 ---

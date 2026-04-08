@@ -8,7 +8,7 @@ version = "0.1.0"
 registry_index = { url = "https://apis.simulprod.com/rotriever-registry", protocol = "zip" }
 
 [dependencies]
-ServiceContractsProto = "1.0.628+20260324"
+ServiceContractsProto = "1.0.721+20260331"
 Rodux = "1.0"
 RoactRodux = "0.2"
 RoactAppExperiment = "0.4.1"
@@ -19,10 +19,10 @@ LazyRequire = "0.1.4"
 llama = "1.0.0"
 LuaSocialLibrariesDeps = "1.8.1"
 AvatarExperienceDeps = "0.0.1"
-UIBlox = "0.2.238"
-Foundation = "1.77.0"
+UIBlox = "0.2.239"
+Foundation = "1.79.0"
 FoundationCloudAssets = "0.4.4"
-FoundationImages = "1.34.1"
+FoundationImages = "1.35.0"
 Thumbnailing = "0.5.5"
 Otter = "1.3.7"
 ReactOtter = "1.3.7"
@@ -78,6 +78,8 @@ SignalsExperimental = "0.6.0"
 Motion = "0.0.7"
 BuilderIcons = "0.1.28"
 InlineLayout = { version = "0.0.2" }
+MomentsCreationFlow = "0.1.9"
+
 
 # The following packages were ported from AppTempCommon
 Result = { version = "0.1.0", package = "lua-result" }

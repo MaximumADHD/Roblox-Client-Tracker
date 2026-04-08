@@ -35,4 +35,3 @@ return React.createElement(RadioGroup.Root, {
     }),
 })
 ```
-

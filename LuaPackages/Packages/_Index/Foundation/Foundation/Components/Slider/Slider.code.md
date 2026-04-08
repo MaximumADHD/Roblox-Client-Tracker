@@ -137,12 +137,12 @@ local function VolumeControl()
 	return React.createElement(Slider, {
 		value = volume,
 		onValueChanged = onVolumeChanged,
-		
+
 		-- Volume levels from 0 (mute) to 10 (max)
 		range = NumberRange.new(0, 10),
 		-- Snap to whole number volume levels
 		step = 1,
-		
+
 		size = InputSize.Medium,
 		knobVisibility = Visibility.Auto,
 		variant = SliderVariant.Standard,

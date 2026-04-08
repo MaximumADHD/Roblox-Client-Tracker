@@ -6,12 +6,12 @@ category: Layout
 
 A `Tile` is a surface that displays content and actions on a single topic. The `Tile` component is composed of several subcomponents to handle various use cases:
 
-* [Tile](#root): a surface-level container for grouping related components.
-* [TileMedia](#media): a component for displaying images and additional media next to the [TileContent](#content).
-* [TileContent](#content): the wrapper for the `Tile`'s main content.
-* [TileHeader](#header): a component for the `Tile` header, to be used as part of [TileContent](#content).
-* [TileFooter](#footer): a wrapper for the `Tile` footer, to be used as part of [TileContent](#content).
-* [TileActions](#actions): an optional wrapper that groups a set of actions, to be used as a child of [TileContent](#content).
+- [Tile](#root): a surface-level container for grouping related components.
+- [TileMedia](#media): a component for displaying images and additional media next to the [TileContent](#content).
+- [TileContent](#content): the wrapper for the `Tile`'s main content.
+- [TileHeader](#header): a component for the `Tile` header, to be used as part of [TileContent](#content).
+- [TileFooter](#footer): a wrapper for the `Tile` footer, to be used as part of [TileContent](#content).
+- [TileActions](#actions): an optional wrapper that groups a set of actions, to be used as a child of [TileContent](#content).
 
 ---
 
@@ -75,4 +75,3 @@ local function Component()
 	})
 end
 ```
-

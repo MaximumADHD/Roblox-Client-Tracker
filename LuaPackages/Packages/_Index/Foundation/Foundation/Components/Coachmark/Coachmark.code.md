@@ -21,9 +21,9 @@ type ActionProps = {
 ## Usage
 
 Wrap the element you want to trigger the coachmark on with the Coachmark component. By default, the coachmark will appear to the
- right of the anchor element.
+right of the anchor element.
 
-Click the anchor element to toggle the coachmark open and closed. 
+Click the anchor element to toggle the coachmark open and closed.
 
 ### Basic Coachmark
 

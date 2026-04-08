@@ -10,9 +10,9 @@ category: Display
 
 ## Usage
 
-`InputLabel` supports an optional `RichText` prop. 
+`InputLabel` supports an optional `RichText` prop.
 
-`InputLabel` also supports `onActivated` and `onHover` callbacks, which are used alongside an input button like a `RadioGroupItem`. 
+`InputLabel` also supports `onActivated` and `onHover` callbacks, which are used alongside an input button like a `RadioGroupItem`.
 
 ```luau
 local Foundation = require(Packages.Foundation)

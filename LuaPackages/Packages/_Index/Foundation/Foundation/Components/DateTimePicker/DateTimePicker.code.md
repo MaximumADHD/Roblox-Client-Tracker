@@ -3,15 +3,17 @@ category: Inputs
 ---
 
 ## Overview
+
 `DateTimePicker` is a stylized interactive, clickable calendar element.
 
 There are 3 variant types defined in [[DateTimePickerVariant]]
 
-* Single
-* SingleWithTime
-* Dual
+- Single
+- SingleWithTime
+- Dual
 
 ## Usage
+
 ```luau
 local Foundation = require(Packages.Foundation)
 local DateTimePicker = Foundation.DateTimePicker

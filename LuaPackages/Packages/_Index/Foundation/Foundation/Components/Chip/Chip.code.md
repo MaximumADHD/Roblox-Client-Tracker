@@ -12,7 +12,7 @@ category: Actions
 
 ## Usage
 
-`Chip`s will grow to fit their text until they reach their parents' boundaries, in which case they will not exceed that width. Chip text does *not* wrap to multiple lines.
+`Chip`s will grow to fit their text until they reach their parents' boundaries, in which case they will not exceed that width. Chip text does _not_ wrap to multiple lines.
 
 ```luau
 local Foundation = require(Packages.Foundation)
@@ -28,7 +28,8 @@ return React.createElement(Chip, {
 ...
 ```
 
-`Chip` with an `AvatarGroup` looks like this. 
+`Chip` with an `AvatarGroup` looks like this.
+
 ```luau
 local Foundation = require(Packages.Foundation)
 local Chip = Foundation.Chip

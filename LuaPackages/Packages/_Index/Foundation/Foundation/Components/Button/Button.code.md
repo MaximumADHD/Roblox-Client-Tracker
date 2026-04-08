@@ -8,22 +8,23 @@ category: Actions
 
 There are 6 basic button types defined in [[ButtonVariant]]
 
-* Emphasis
-* SubEmphasis
-* Standard
-* Subtle
-* Alert
-* Text
-* Link
+- Emphasis
+- SubEmphasis
+- Standard
+- Subtle
+- Alert
+- Text
+- Link
 
 Text and icon content type can be added any of the buttons
 
-* If icon is nil then it will be a text only button
-* If text is nil then it will be a icon only button
-* If text and icon are nil it will be a blank button
-* Otherwise, it will be a icon and text button
+- If icon is nil then it will be a text only button
+- If text is nil then it will be a icon only button
+- If text and icon are nil it will be a blank button
+- Otherwise, it will be a icon and text button
 
 By default, icons are placed at the start of the button and text at the end. For the following exempt icons, however, we force placement at the end of a button:
+
 - [`BuilderIcons.ArrowUpRightFromSquare`](https://icons.foundation.roblox.com/?s=arrow-up-right-from-square)
 
 ---
@@ -34,7 +35,7 @@ A `Button` should be used with a standard size defined in [[InputSize]] (`Large`
 
 Each standard size will apply the corresponding font style, padding, border radius and button height.
 
-`Button`s will grow to fit their text until they reach their parents boundaries, in which case they will not exceed that width. Button text does *not* wrap to multiple lines.
+`Button`s will grow to fit their text until they reach their parents boundaries, in which case they will not exceed that width. Button text does _not_ wrap to multiple lines.
 
 ```luau
 local Foundation = require(Packages.Foundation)
