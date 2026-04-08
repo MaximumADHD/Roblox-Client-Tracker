@@ -130957,6 +130957,35 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptPublishAssetResult",
     "code_sample": ""
   },
+  "@roblox/enum/PhysicalConstraintType.AnimationConstraint": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PhysicalConstraintType#AnimationConstraint",
+    "code_sample": ""
+  },
+  "@roblox/enum/PhysicalConstraintType.Motor6D": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PhysicalConstraintType#Motor6D",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PhysicalConstraintType": {
+    "documentation": "",
+    "keys": {
+      "AnimationConstraint": "@roblox/enum/PhysicalConstraintType.AnimationConstraint",
+      "Motor6D": "@roblox/enum/PhysicalConstraintType.Motor6D"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PhysicalConstraintType",
+    "code_sample": ""
+  },
   "@roblox/enum/ModerationStatus.ReviewedApproved": {
     "documentation": "",
     "keys": {

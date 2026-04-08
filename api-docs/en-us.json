@@ -26372,7 +26372,6 @@
       "StreamOutBehavior": "@roblox/globaltype/Workspace.StreamOutBehavior",
       "Terrain": "@roblox/globaltype/Workspace.Terrain",
       "TouchesUseCollisionGroups": "@roblox/globaltype/Workspace.TouchesUseCollisionGroups",
-      "TouchEventsUseCollisionGroups": "@roblox/globaltype/Workspace.TouchEventsUseCollisionGroups",
       "UseFixedSimulation": "@roblox/globaltype/Workspace.UseFixedSimulation",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
@@ -26490,7 +26489,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ModelStreamingBehavior": {
-    "documentation": "",
+    "documentation": "Controls how <code>Models</code> are replicated in experiences when instance streaming is enabled.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ModelStreamingBehavior",
     "code_sample": ""
   },
@@ -26570,7 +26569,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingIntegrityMode": {
-    "documentation": "Determines whether StreamingIntegrityMode is active.",
+    "documentation": "Determines whether streaming integrity mode is active.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingIntegrityMode",
     "code_sample": ""
   },
@@ -26585,7 +26584,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamOutBehavior": {
-    "documentation": "Configures how the engine decides when to Stream content away from players.",
+    "documentation": "Configures how the engine decides when to stream content away from players.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamOutBehavior",
     "code_sample": ""
   },
@@ -26597,11 +26596,6 @@
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
     "documentation": "Determines whether <code>parts</code> in different groups set to not collide will ignore collisions and touch events.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Workspace.TouchEventsUseCollisionGroups": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchEventsUseCollisionGroups",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseFixedSimulation": {
@@ -56057,6 +56051,7 @@
       "RolloffScale": "@roblox/globaltype/SoundService.RolloffScale",
       "VolumetricAudio": "@roblox/globaltype/SoundService.VolumetricAudio",
       "GetListener": "@roblox/globaltype/SoundService.GetListener",
+      "GetMixerTime": "@roblox/globaltype/SoundService.GetMixerTime",
       "OpenAttenuationCurveEditor": "@roblox/globaltype/SoundService.OpenAttenuationCurveEditor",
       "OpenDirectionalCurveEditor": "@roblox/globaltype/SoundService.OpenDirectionalCurveEditor",
       "PlayLocalSound": "@roblox/globaltype/SoundService.PlayLocalSound",
@@ -56128,6 +56123,26 @@
       "@roblox/globaltype/SoundService.GetListener/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#GetListener",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/SoundService.GetMixerTime/param/0": {
+    "documentation": "A service that determines various aspects of how the audio engine works. Most of its properties affect how <code>Sounds</code> play in the experience."
+  },
+  "@roblox/globaltype/SoundService.GetMixerTime/return/0": {
+    "documentation": "The number of seconds since the audio engine began mixing. This value is stable, sample-accurate, and monotonically-increasing – intended to be used for scheduling audible changes at precise times."
+  },
+  "@roblox/globaltype/SoundService.GetMixerTime": {
+    "documentation": "Returns the number of seconds since the audio engine began mixing.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SoundService.GetMixerTime/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/SoundService.GetMixerTime/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#GetMixerTime",
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.OpenAttenuationCurveEditor/param/0": {
@@ -76842,94 +76857,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiButton#MouseButton2Up",
     "code_sample": ""
   },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Connect/param/0": {
-    "documentation": "An object that runs connected functions upon a specific occurrence."
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Connect/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Connect": {
-    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/GuiButton.SecondaryActivated.Connect/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/GuiButton.SecondaryActivated.Connect/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.ConnectParallel/param/0": {
-    "documentation": "An object that runs connected functions upon a specific occurrence."
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.ConnectParallel/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.ConnectParallel": {
-    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/GuiButton.SecondaryActivated.ConnectParallel/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/GuiButton.SecondaryActivated.ConnectParallel/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Once/param/0": {
-    "documentation": "An object that runs connected functions upon a specific occurrence."
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Once/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Once": {
-    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/GuiButton.SecondaryActivated.Once/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/GuiButton.SecondaryActivated.Once/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Wait/param/0": {
-    "documentation": "An object that runs connected functions upon a specific occurrence."
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Wait": {
-    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/GuiButton.SecondaryActivated.Wait/param/0"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated": {
-    "documentation": "Fires when a right-click is detected on desktop, long press detected on mobile, or triangle / Y activated in UI navigation mode on console. This function is not available yet.",
-    "keys": {
-      "Connect": "@roblox/globaltype/GuiButton.SecondaryActivated.Connect",
-      "ConnectParallel": "@roblox/globaltype/GuiButton.SecondaryActivated.ConnectParallel",
-      "Once": "@roblox/globaltype/GuiButton.SecondaryActivated.Once",
-      "Wait": "@roblox/globaltype/GuiButton.SecondaryActivated.Wait"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiButton#SecondaryActivated",
-    "code_sample": ""
-  },
   "@roblox/globaltype/PackageLink": {
     "documentation": "Links a <code>DataModel</code> instance to a corresponding asset in the cloud.",
     "keys": {
@@ -90551,6 +90478,7 @@
       "TimeLength": "@roblox/globaltype/AudioPlayer.TimeLength",
       "TimePosition": "@roblox/globaltype/AudioPlayer.TimePosition",
       "Volume": "@roblox/globaltype/AudioPlayer.Volume",
+      "Cancel": "@roblox/globaltype/AudioPlayer.Cancel",
       "GetConnectedWires": "@roblox/globaltype/AudioPlayer.GetConnectedWires",
       "GetInputPins": "@roblox/globaltype/AudioPlayer.GetInputPins",
       "GetOutputPins": "@roblox/globaltype/AudioPlayer.GetOutputPins",
@@ -90629,6 +90557,33 @@
   "@roblox/globaltype/AudioPlayer.Volume": {
     "documentation": "Controls how loudly the asset will be played.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#Volume",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioPlayer.Cancel/param/0": {
+    "documentation": "Used to play audio assets."
+  },
+  "@roblox/globaltype/AudioPlayer.Cancel/param/1": {
+    "documentation": "The unique-ID of a pre-planned <code>Play</code> or <code>Stop</code> command."
+  },
+  "@roblox/globaltype/AudioPlayer.Cancel/return/0": {
+    "documentation": "Whether the cancellation was successful. Returns false if the action has already occurred, or otherwise does not exist."
+  },
+  "@roblox/globaltype/AudioPlayer.Cancel": {
+    "documentation": "Attempts to cancel a pre-planned future <code>Play</code> or <code>Stop</code> command.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioPlayer.Cancel/param/0"
+      },
+      {
+        "name": "actionId",
+        "documentation": "@roblox/globaltype/AudioPlayer.Cancel/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AudioPlayer.Cancel/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#Cancel",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/param/0": {
@@ -92310,7 +92265,7 @@
     "documentation": "The <code>Player</code> to be presented the prompt."
   },
   "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/param/2": {
-    "documentation": "<code>DataModel.UniverseId</code> of the experience to be presented to the <code>Player</code>"
+    "documentation": "<code>DataModel.UniverseId</code> of the experience to be presented to the <code>Player</code>."
   },
   "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/return/0": {
     "documentation": "<code>PromptExperienceDetailsResult</code>"
@@ -103136,7 +103091,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StreamingPauseMode.Default": {
-    "documentation": "<strong>Deprecated:</strong> <br>Default behavior (currently no change to gameplay).",
+    "documentation": "<strong>Deprecated:</strong> <br>Default behavior (subject to change).",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -103166,7 +103121,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.StreamingPauseMode": {
-    "documentation": "Determines how a Players client should handle not having enough content streamed in to continue playing properly.",
+    "documentation": "Determines how a client should handle not having enough content streamed in to continue playing properly.",
     "keys": {
       "Default": "@roblox/enum/StreamingPauseMode.Default",
       "Disabled": "@roblox/enum/StreamingPauseMode.Disabled",
@@ -104644,7 +104599,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StreamingIntegrityMode.Default": {
-    "documentation": "Default behavior (currently equivalent to <strong>Disabled</strong>).",
+    "documentation": "Default behavior (subject to change).",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118635,7 +118590,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StreamOutBehavior.Default": {
-    "documentation": "Currently equivalent to LowMemory. This will eventually change to Opportunistic.",
+    "documentation": "Default behavior (subject to change).",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118655,7 +118610,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StreamOutBehavior.Opportunistic": {
-    "documentation": "Stream out content that is significantly outside of the current StreamingRadius.",
+    "documentation": "Stream out content that is significantly outside of the current <code>Workspace.StreamingTargetRadius</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118665,7 +118620,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.StreamOutBehavior": {
-    "documentation": "Determines how content is streamed away from Players.",
+    "documentation": "Determines how content is streamed out from <code>Player</code> clients.",
     "keys": {
       "Default": "@roblox/enum/StreamOutBehavior.Default",
       "LowMemory": "@roblox/enum/StreamOutBehavior.LowMemory",
@@ -128877,7 +128832,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelStreamingBehavior.Default": {
-    "documentation": "Engine determines best behavior. Currently equivalent to <strong>Legacy</strong>.",
+    "documentation": "Default behavior (subject to change).",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -128897,7 +128852,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelStreamingBehavior.Improved": {
-    "documentation": "Models are never sent during player join. Models that are \"non-spatial\" (containing no <code>BasePart</code> descendants) are sent soon after join, but before the <code>Workspace.PersistentLoaded</code> event fires. Models that are \"spatial\" (containing <code>BasePart</code> descendants) are sent when any <code>BasePart</code> descendant needs to be streamed to a client, and may stream out when all <code>BasePart</code> descendants are eligible to stream out.",
+    "documentation": "Models are never sent during player join. See <a href=\"../../../workspace/streaming/index.md#model-streaming-controls\">model streaming controls</a> for detailed behavioral notes.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131048,6 +131003,35 @@
       "UnknownFailure": "@roblox/enum/PromptPublishAssetResult.UnknownFailure"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptPublishAssetResult",
+    "code_sample": ""
+  },
+  "@roblox/enum/PhysicalConstraintType.AnimationConstraint": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PhysicalConstraintType#AnimationConstraint",
+    "code_sample": ""
+  },
+  "@roblox/enum/PhysicalConstraintType.Motor6D": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PhysicalConstraintType#Motor6D",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PhysicalConstraintType": {
+    "documentation": "",
+    "keys": {
+      "AnimationConstraint": "@roblox/enum/PhysicalConstraintType.AnimationConstraint",
+      "Motor6D": "@roblox/enum/PhysicalConstraintType.Motor6D"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PhysicalConstraintType",
     "code_sample": ""
   },
   "@roblox/enum/ModerationStatus.ReviewedApproved": {
@@ -136172,7 +136156,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelStreamingMode.Default": {
-    "documentation": "Engine determines best behavior. Currently equivalent to <strong>Nonatomic</strong>.",
+    "documentation": "Default behavior (subject to change).",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136202,7 +136186,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelStreamingMode.PersistentPerPlayer": {
-    "documentation": "Behaves as a persistent model for players that have been added using <code>Model:AddPersistentPlayer()</code>. For other players, behavior is the same as <strong>Atomic</strong>. You can revert a model from player persistence via <code>Model:RemovePersistentPlayer()</code>.",
+    "documentation": "Behaves as a persistent model for players that have been added using <code>Model:AddPersistentPlayer()</code>. For other players, behavior is the same as <code>Atomic</code>. You can revert a model from player persistence via <code>Model:RemovePersistentPlayer()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
