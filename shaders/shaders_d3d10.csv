@@ -51,7 +51,6 @@ DefaultMaterialVariantDitheredDetileDepthFS,Fragment
 DefaultModelLodFS,Fragment
 DefaultModelLodVS,Vertex
 DefaultShadowFS,Fragment
-DefaultSurfaceAppearanceDitheredDepthFS,Fragment
 DefaultUnifiedGlassTintFS,Fragment
 DefaultUnifiedGridVS_00000800,Vertex
 DefaultUnifiedGridVS_00000802,Vertex
@@ -184,9 +183,12 @@ DefaultUnifiedGridVS_44000016,Vertex
 DefaultUnifiedGridVS_44001006,Vertex
 DefaultUnifiedGridVS_44001016,Vertex
 DefaultUnifiedGridVS_80000000,Vertex
+DefaultUnifiedGridVS_80000002,Vertex
+DefaultUnifiedGridVS_80000006,Vertex
 DefaultUnifiedGridVS_80100001,Vertex
 DefaultUnifiedGridVS_80108001,Vertex
 DefaultUnifiedGridVS_80300000,Vertex
+DefaultUnifiedGridVS_80308000,Vertex
 DefaultUnifiedModelLodFS,Fragment
 DefaultUnifiedModelLodVS,Vertex
 DefaultUnifiedWangFallbackFS,Fragment
@@ -208,7 +210,6 @@ GenTileBorderRadialFS,Fragment
 GrassHQVSWindDepth,Vertex
 GrassVSDepth,Vertex
 HighlightInPlaceFS_00000000,Fragment
-HighlightPostprocessAlphaTestFS_00000000,Fragment
 HighlightPostprocessFS_00000000,Fragment
 HighlightStudioSelectionAlphaTestFS_00000000,Fragment
 HighlightStudioSelectionFS_00000000,Fragment

@@ -1,19 +1,28 @@
 Key,Context,Source,en-us
 Studio.Actions.ConnectionIndicator,,Connection Status,Connection Status
+Studio.Actions.Submenu.CopyAs,Title of a submenu that contains more ways to copy the current selection,Copy As,Copy As
 Studio.Actions.TBD,,TBD,TBD
 Studio.Actions.Title.Assistant,"Button that opens Studio Assistant - an AI helper that accelerates content creation by helping you get started, supplementing your skills, and assisting with ongoing development",AI Assistant,AI Assistant
+Studio.Actions.Title.AudioPlayerEditor,Name for the action that opens the AudioPlayerEditor plugin,AudioPlayerEditor,AudioPlayerEditor
+Studio.Actions.Title.CopyPath,"Title of an action that when triggered, copies the paths of all instances in the selection to the clipboard",Copy Path,Copy Path
+Studio.Actions.Title.CopyUniqueId,"Title of an action that when triggered, copies the unique IDs of all instances in the selection to the clipboard",Copy Unique ID,Copy Unique ID
 Studio.Actions.Title.Diagnostics,Action to view diagnostic information of your game,Performance Diagnostics,Performance Diagnostics
 Studio.Actions.Title.ExperienceSettings,"The title for the ""Experience Settings"" window, the way that Creators configure their experience's settings in Studio",Experience Settings,Experience Settings
 Studio.Actions.Title.LogoutMenu,Label for the logout menu in Studio,Current User,Current User
 Studio.Actions.Title.MicroProfiler,The MicroProfiler is a performance optimization and troubleshooting tool available in Roblox Studio and the Roblox client. It provides detailed timing information for task scheduler tasks called tags.,MicroProfiler,MicroProfiler
+Studio.Actions.Title.SLIM,The title for an action that toggles SLIM debug features - SLIM is an acronym and untranslatable.,SLIM,SLIM
 Studio.Actions.Title.SceneMonitor,Scene Monitor,Scene Monitor,Scene Monitor
 Studio.Actions.Title.VerifyAge,"This string will be displayed as an menu item in the account dropdown menu, prompting the user to click on the item, which will redirect them to the web to start the age verification process.",Age check needed,Age check needed
 Studio.Actions.Tooltip.Assistant,"Tooltip for button that opens Studio Assistant - an AI helper that accelerates content creation by helping you get started, supplementing your skills, and assisting with ongoing development",Chat with Studio Assistant to get help and accelerate creation,Chat with Studio Assistant to get help and accelerate creation
+Studio.Actions.Tooltip.AudioPlayerEditor,Tooltip for the action that opens the AudioPlayerEditor plugin,AudioPlayerEditor,AudioPlayerEditor
 Studio.Actions.Tooltip.ConnectionIndicator,"Tooltip for the button for connection status, which shows the status of your connection to the Team Create server",This shows the status of your connection to the Team Create server,This shows the status of your connection to the Team Create server
+Studio.Actions.Tooltip.CopyPath,"Tooltip of an action that when triggered, copies the paths of all instances in the selection to the clipboard",Copy the paths of instances in the selection,Copy the paths of instances in the selection
+Studio.Actions.Tooltip.CopyUniqueId,"Tooltip of an action that when triggered, copies the unique IDs of all instances in the selection to the clipboard",Copy the unique IDs of instances in the selection,Copy the unique IDs of instances in the selection
 Studio.Actions.Tooltip.ExperienceSettings,"The tooltip for the button that opens the ""Experience Settings"" window - the window that allows Creators to configure their Experience's settings in Studio.",Update settings related to current experience,Update settings related to current experience
 Studio.Actions.Tooltip.LiveCollaborators,Tooltip for the Social Presence widget in Studio about the current users who are active in the open place,Team members actively creating in this place,Team members actively creating in this place
 Studio.Actions.Tooltip.LogoutMenu,This is the tooltip for the logout menu. The %1 is not supposed to be localized as it's the variable placeholder for the username,You are logged in as %1,You are logged in as %1
 Studio.Actions.Tooltip.MicroProfiler,Tooltip for the MicroProfiler - a performance optimization and troubleshooting tool available in Roblox Studio and the Roblox client. It provides detailed timing information for task scheduler tasks called tags.,Performance optimization and troubleshooting tool that provides detailed timing information for task scheduler tasks,Performance optimization and troubleshooting tool that provides detailed timing information for task scheduler tasks
+Studio.Actions.Tooltip.SLIM,The description of a button that toggles the SLIM (untranslatable acronym for a piece of rendering technology) debug information for models in the current roblox experience,Toggle the visuals of models that are SLIM,Toggle the visuals of models that are SLIM
 Studio.Actions.Tooltip.SceneMonitor,View triangle and draw call counts for the current camera view,View triangle and draw call counts for the current camera view,View triangle and draw call counts for the current camera view
 Studio.Actions.Tooltip.Share,Tooltip for the share button in Studio for users to get a link to the current experience,Get the public link for this experience,Get the public link for this experience
 Studio.App.Actions.AudioDiscovery,Name of the action to display the Audio Discovery plugin,Audio Discovery,Audio Discovery
@@ -2511,6 +2520,7 @@ Studio.App.Property.NumberColor,,Number Color,Number Color
 Studio.App.Property.OnlyPlayAudioFromWindowInFocus,,Only Play Audio from Window in Focus,Only Play Audio from Window in Focus
 Studio.App.Property.OpenCertManagerDialog,,Trusted Certs,Trusted Certs
 Studio.App.Property.OpenCertManagerDialogButton,,Manage,Manage
+Studio.App.Property.OpenDestinationAfterPublishAs,"When enabled, Studio opens the destination place after publishing to a new slot",Open Destination After Publish As,Open Destination After Publish As
 Studio.App.Property.OperatorColor,,Operator Color,Operator Color
 Studio.App.Property.OsIs64Bit,,Os Is 64 Bit,Os Is 64 Bit
 Studio.App.Property.OsPlatform,,Os Platform,Os Platform
@@ -3257,7 +3267,7 @@ Studio.App.Ribbon.Beta.Accessory.Tooltip,,Edit and review cage mesh for clothing
 Studio.App.Ribbon.Beta.Align,Align the selected parts and models,Align,Align
 Studio.App.Ribbon.Beta.Analysis,View active errors and warnings in scripts,Analysis,Analysis
 Studio.App.Ribbon.Beta.Analysis.Tooltip,,View active errors and warnings in scripts,View active errors and warnings in scripts
-Studio.App.Ribbon.Beta.Animation,"Create, preview, and publish animation clips",Animation,Animation
+Studio.App.Ribbon.Beta.Animation,"Create, preview, and publish animation clips",Clip Editor,Clip Editor
 Studio.App.Ribbon.Beta.Character,Choose from a selection of pre-made animation rigs to create,Character,Character
 Studio.App.Ribbon.Beta.Character.Tooltip,,Choose from a selection of pre-made animation rigs to create,Choose from a selection of pre-made animation rigs to create
 Studio.App.Ribbon.Beta.Command,Run commands in the Studio IDE,Command,Command
@@ -3576,7 +3586,7 @@ Studio.App.RobloxRibbonMainWindow.AngularVelocityTooltip,,Create angular velocit
 Studio.App.RobloxRibbonMainWindow.AnimationConstraint,The title of a button for the Engine feature 'Animation Constraints',Animation Constraint,Animation Constraint
 Studio.App.RobloxRibbonMainWindow.AnimationEditor,,Animation Editor,Animation Editor
 Studio.App.RobloxRibbonMainWindow.AnimationEditorTooltip,,"Create, preview, and publish animation clips","Create, preview, and publish animation clips"
-Studio.App.RobloxRibbonMainWindow.AnimationGraphEditor,string rename - RobloxRibbonMainWindow.CompositorDebugger,Anim Graph,Anim Graph
+Studio.App.RobloxRibbonMainWindow.AnimationGraphEditor,string rename - RobloxRibbonMainWindow.CompositorDebugger,Graph Editor,Graph Editor
 Studio.App.RobloxRibbonMainWindow.AnimationGraphEditorTooltip,string rename from RobloxRibbonMainWindow.CompositorDebuggerTooltip - ribbon tooltip,"Create, preview and publish animation graphs","Create, preview and publish animation graphs"
 Studio.App.RobloxRibbonMainWindow.AssetIdOfTexture,,Specifies the asset id of the texture to display,Specifies the asset id of the texture to display
 Studio.App.RobloxRibbonMainWindow.AttachAHingeToAPart,,Attach a hinge to a part,Attach a hinge to a part
@@ -6061,6 +6071,8 @@ Studio.BetaFeatures.PlaceAnnotationsDescription,,"Enable place comments for Team
 Studio.BetaFeatures.PlaceAnnotationsTitle,,Place Comments,Place Comments
 Studio.BetaFeatures.PlaceVersionHistoryDescription,The description for the Place Version History beta feature.,"Enable the new Place Version History with a revamped UI and new functionality. Adds new metadata to each Place version including: collaborators, save type, and custom notes. Tag your Place versions and then use the new search and filters to find them later.","Enable the new Place Version History with a revamped UI and new functionality. Adds new metadata to each Place version including: collaborators, save type, and custom notes. Tag your Place versions and then use the new search and filters to find them later."
 Studio.BetaFeatures.PlaceVersionHistoryTitle,The title for the Place Version History plugin beta feature.,Detailed Place Version History,Detailed Place Version History
+Studio.BetaFeatures.PlaytestSubagentDescription,Description for the Playtest Subagent beta feature that enables automated AI playtesting in Studio Assistant.,Assistant subagent for automated playtesting.,Assistant subagent for automated playtesting.
+Studio.BetaFeatures.PlaytestSubagentTitle,Title for the AI-powered Playtest Subagent beta feature in Studio Assistant.,Playtest Agent,Playtest Agent
 Studio.BetaFeatures.PreferredTextSizeSettingDescription,,Enables a text size setting in the in-game menu and app-shell device preferences page that scales text according to a user's selection.,Enables a text size setting in the in-game menu and app-shell device preferences page that scales text according to a user's selection.
 Studio.BetaFeatures.PreferredTextSizeSettingTitle,,Preferred Text Size Setting,Preferred Text Size Setting
 Studio.BetaFeatures.ProceduralModelTitle,"Name of a beta feature enabling the creation of ""Procedural Objects"" in Studio, these objects can generate Instances based on input parameters at edit time.",Edit-Time Procedural Objects,Edit-Time Procedural Objects
@@ -6461,12 +6473,40 @@ Studio.Debugger.Watch.ValueColumnTooltip,,The current value of a variable,The cu
 Studio.Debugger.Watch.VariablesTab,,Variables,Variables
 Studio.Debugger.Watch.WatchesTab,,My Watches,My Watches
 Studio.Debugger.Watch.WindowName,,Watch,Watch
+Studio.DeviceEmulator.EmulatorMainWidget.AmazonFireHD102023,Amazon Fire HD 10 (2023) device name,Amazon Fire HD 10 (2023),Amazon Fire HD 10 (2023)
 Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheld,Generic handheld emulation device name,Generic Handheld,Generic Handheld
-Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheldHD1080,Name for the generic handheld emulator device with resolution 720p,Generic Handheld HD 1080,Generic Handheld HD 1080
+Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheldHD1080,Name for the generic handheld emulator device with resolution 1080p,Generic Handheld HD 1080,Generic Handheld HD 1080
 Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheldHD720,Name for the generic handheld emulator device with resolution 720p,Generic Handheld HD 720,Generic Handheld HD 720
 Studio.DeviceEmulator.EmulatorMainWidget.HandheldSectionName,Section name for handheld emulated devices,Handheld,Handheld
+Studio.DeviceEmulator.EmulatorMainWidget.IPad10thGeneration,iPad 10th Generation device name,iPad 10th Generation,iPad 10th Generation
+Studio.DeviceEmulator.EmulatorMainWidget.IPad8thGeneration,iPad 8th Generation device name,iPad 8th Generation,iPad 8th Generation
+Studio.DeviceEmulator.EmulatorMainWidget.IPad9thGeneration,iPad 9th Generation device name,iPad 9th Generation,iPad 9th Generation
+Studio.DeviceEmulator.EmulatorMainWidget.IPadA16,iPad A16 device name,iPad A16,iPad A16
+Studio.DeviceEmulator.EmulatorMainWidget.IPadAir15thGeneration,iPad Air 15th Generation device name,iPad Air 15th Generation,iPad Air 15th Generation
+Studio.DeviceEmulator.EmulatorMainWidget.IPadAir5thGeneration,iPad Air 5th Generation device name,iPad Air 5th Generation,iPad Air 5th Generation
+Studio.DeviceEmulator.EmulatorMainWidget.IPadProM411Inch,iPad Pro M4 (11in) device name,iPad Pro M4 (11in),iPad Pro M4 (11in)
+Studio.DeviceEmulator.EmulatorMainWidget.IPadProM513Inch,iPad Pro M5 (13in) device name,iPad Pro M5 (13in),iPad Pro M5 (13in)
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone11,iPhone 11 device name,iPhone 11,iPhone 11
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone13,iPhone 13 device name,iPhone 13,iPhone 13
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone13Pro,iPhone 13 Pro device name,iPhone 13 Pro,iPhone 13 Pro
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone13ProMax,iPhone 13 Pro Max device name,iPhone 13 Pro Max,iPhone 13 Pro Max
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone14,iPhone 14 device name,iPhone 14,iPhone 14
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone16,iPhone 16 device name,iPhone 16,iPhone 16
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone16Pro,iPhone 16 Pro device name,iPhone 16 Pro,iPhone 16 Pro
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone16ProMax,iPhone 16 Pro Max device name,iPhone 16 Pro Max,iPhone 16 Pro Max
+Studio.DeviceEmulator.EmulatorMainWidget.IPhone17Pro,iPhone 17 Pro device name,iPhone 17 Pro,iPhone 17 Pro
+Studio.DeviceEmulator.EmulatorMainWidget.IPhoneXR,iPhone XR device name,iPhone XR,iPhone XR
 Studio.DeviceEmulator.EmulatorMainWidget.MultiTouchShortcutButton,"Lists two shortcuts to enable pinching, rotating, and panning multi touch gestures on touch devices",While playtesting:<br><b>Pinch + rotate: </b>%1 + Drag<br><b>Two-finger pan: </b>%2 + Shift + Drag,While playtesting:<br><b>Pinch + rotate: </b>%1 + Drag<br><b>Two-finger pan: </b>%2 + Shift + Drag
 Studio.DeviceEmulator.EmulatorMainWidget.ROGXboxAlly,Name of the ROG Xbox Ally device,ROG Xbox Ally,ROG Xbox Ally
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyA06,Samsung Galaxy A06 device name,Samsung Galaxy A06,Samsung Galaxy A06
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyA16,Samsung Galaxy A16 device name,Samsung Galaxy A16,Samsung Galaxy A16
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyS22Ultra,Samsung Galaxy S22 Ultra device name,Samsung Galaxy S22 Ultra,Samsung Galaxy S22 Ultra
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyS25Ultra,Samsung Galaxy S25 Ultra device name,Samsung Galaxy S25 Ultra,Samsung Galaxy S25 Ultra
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyTabA8,Samsung Galaxy Tab A8 device name,Samsung Galaxy Tab A8,Samsung Galaxy Tab A8
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyTabA9,Samsung Galaxy Tab A9 device name,Samsung Galaxy Tab A9,Samsung Galaxy Tab A9
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyTabA9Plus,Samsung Galaxy Tab A9+ device name,Samsung Galaxy Tab A9+,Samsung Galaxy Tab A9+
+Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyTabS11,Samsung Galaxy Tab S11 device name,Samsung Galaxy Tab S11,Samsung Galaxy Tab S11
+Studio.DeviceEmulator.EmulatorMainWidget.XiaomiRedmiPadSE,Xiaomi Redmi Pad SE device name,Xiaomi Redmi Pad SE,Xiaomi Redmi Pad SE
 Studio.DeviceEmulator.GraphicsQuality.AutoGraphicsQualityLabel,,Automatic Graphics Quality,Automatic Graphics Quality
 Studio.DeviceEmulator.GraphicsQuality.GraphicsQualityLabel,,Graphics Quality,Graphics Quality
 Studio.DeviceEmulator.MultiTouchPane.MultiTouchPaneCheckboxLabel,,Enable,Enable
@@ -6688,6 +6728,7 @@ Studio.GlobalWind.Plugin.Button,,Toggle,Toggle
 Studio.GlobalWind.Plugin.Description,,Toggles the Template plugin window.,Toggles the Template plugin window.
 Studio.GlobalWind.Plugin.Name,,GlobalWind,GlobalWind
 Studio.GlobalWind.Plugin.Toolbar,,GlobalWind,GlobalWind
+Studio.IndividuallyRoundedCorners.CornerRadiusWarning,"Shows under the CornerRadius property when one of TopLeftRadius, TopRightRadius, BottomRightRadius, or BottomLeftRadius don't match the value shown in CornerRadius.",Overridden by some or all Individual Corners,Overridden by some or all Individual Corners
 Studio.LayeredClothingEditor.Actions.Redo,,Redo,Redo
 Studio.LayeredClothingEditor.Actions.SelectLattice,,Select Lattice,Select Lattice
 Studio.LayeredClothingEditor.Actions.ToggleTransform,,Toggle Transform,Toggle Transform
@@ -6847,7 +6888,7 @@ Studio.LiveSync.ErrorInPreviousSync,"Cannot automatically resume syncing the scr
 Studio.LiveSync.ErrorInstanceAlreadySyncing,Cannot start sync on an instance that is already syncing,Can't start sync on %1: Instance is already syncing,Can't start sync on %1: Instance is already syncing
 Studio.LiveSync.ErrorInvalidName,Error message shown when a file with an invalid name is encountered during sync,Can't sync %1 to disk: Instance has invalid name,Can't sync %1 to disk: Instance has invalid name
 Studio.LiveSync.ErrorInvalidRoot,Error message shown when an invalid root type is encountered during sync,Can't sync %1 to disk: Root types don't match,Can't sync %1 to disk: Root types don't match
-Studio.LiveSync.ErrorNestedSyncRoot,User is trying to sync a hierarchy that already contains another syncing hierarchy,Can't sync %1 to disk: Unable to sync a folder that already contains another actively synced folder,Can't sync %1 to disk: Unable to sync a folder that already contains another actively synced folder
+Studio.LiveSync.ErrorNestedSyncRoot,User is trying to sync a hierarchy that already contains another syncing hierarchy,Can't sync %1 to disk: Unable to sync an instance that already contains another actively synced instance,Can't sync %1 to disk: Unable to sync an instance that already contains another actively synced instance
 Studio.LiveSync.ErrorPathOverlaps,Log output error displayed when a folder is chosen for start sync that overlaps with an existing syncing hierarchy,"Can't sync ""%1"" because it overlaps with an existing syncing hierarchy.","Can't sync ""%1"" because it overlaps with an existing syncing hierarchy."
 Studio.LiveSync.ErrorPathOverlapsWithAncestor,Cannot use the provided path to sync because its ancestor is already syncing,Can't sync with %1 because its ancestor %2 is already being synced,Can't sync with %1 because its ancestor %2 is already being synced
 Studio.LiveSync.ErrorPathOverlapsWithDescendant,Can't sync the provided path because it overlaps with a descendant path that is already being sync,Can't sync with %1 because its descendant %2 is already being synced,Can't sync with %1 because its descendant %2 is already being synced
@@ -6896,6 +6937,7 @@ Studio.LiveSync.SymlinkNotSupportedError,Error message shown when a symlink is e
 Studio.LiveSync.SyncFolderBestExperience,"Title for upsell dialog, indicating to the user to sync a folder for the best experience",Sync a folder for the best experience,Sync a folder for the best experience
 Studio.LiveSync.SyncSelectedInstancesTo,The context menu text shown for the action StartSyncSelectedInstancesTo for File Sync,Sync Selected Instances to…,Sync Selected Instances to…
 Studio.LiveSync.SyncSelectedInstancesToTooltip,The informational tooltip shown for the action StartSyncSelectedInstancesTo for File Sync,Start syncing a multi-selection of Folders and/or Scripts with a directory on disk,Start syncing a multi-selection of Folders and/or Scripts with a directory on disk
+Studio.LiveSync.SyncTo,"Menu title for the FileSync action, which allows the user to sync an instance to the file system.",Sync to...,Sync to...
 Studio.LiveSync.SyncToDirectory,The context menu text shown for the action StartSyncToDirectory for File Sync,Sync with Directory…,Sync with Directory…
 Studio.LiveSync.SyncToDirectoryTooltip,The informational tooltip shown for the action StartSyncToDirectory for File Sync,Start syncing a Folder or a Script with children to a directory on disk,Start syncing a Folder or a Script with children to a directory on disk
 Studio.LiveSync.SyncToExistingFile,The context menu text shown for the action StartSyncToExistingFile for File Sync,Sync with Existing File…,Sync with Existing File…
@@ -6903,6 +6945,7 @@ Studio.LiveSync.SyncToExistingFileTooltip,The informational tooltip shown for th
 Studio.LiveSync.SyncToFile,Confirmation button for syncing to a file,Sync to file,Sync to file
 Studio.LiveSync.SyncToNewFile,The context menu text shown for the action StartSyncToNewFile for File Sync,Sync with New File…,Sync with New File…
 Studio.LiveSync.SyncToNewFileTooltip,The informational tooltip shown for the action StartSyncToNewFile for File Sync,"Start syncing a Script, LocalScript or ModuleScript with a new file on disk","Start syncing a Script, LocalScript or ModuleScript with a new file on disk"
+Studio.LiveSync.SyncToTooltip,"SyncTo action tooltip, explaining what happens if you press the Sync To button for FileSync","Start syncing a Script, Folder, or Service to a location on disk","Start syncing a Script, Folder, or Service to a location on disk"
 Studio.LiveSync.Upsell,Explanation of opening in external editor for a non-syncing script,"To edit this script externally, it needs to sync to a file. For easier management, sync a parent Folder by selecting <b>Script Sync > Sync with directory</b> in the right-click menu","To edit this script externally, it needs to sync to a file. For easier management, sync a parent Folder by selecting <b>Script Sync > Sync with directory</b> in the right-click menu"
 Studio.LiveSync.WarningAddedImcompatibleInstance,Warning message shown when an added instance is ignored because its type is incompatible.,Instance '%1' is incompatible and will not be synced.,Instance '%1' is incompatible and will not be synced.
 Studio.LiveSync.WarningHierarchyBecomeIgnored,Warning message when an instance and its children are no longer synced because their parent instance has an incompatible type.,Syncing stopped for '%1' and its descendants: Parent instance '%2' has an incompatible type.,Syncing stopped for '%1' and its descendants: Parent instance '%2' has an incompatible type.
@@ -7098,13 +7141,16 @@ Studio.NativeDialog.Yes,Affirmative word,Yes,Yes
 Studio.NetworkSettings.Property.EnableNetworkEmulation,"When devs check this check box, it will enable functionality to mimic poor network conditions like packet loss and network latency",Enable Network Emulation,Enable Network Emulation
 Studio.NetworkSettings.Property.InboundNetworkMaxDelay,"This setting will add a delay to inbound (received) network packets. It is the maximum amount of delay, a separate setting will specify the minimum. It accepts values between 0 and 2000, and the setting is in milliseconds.",Max Inbound Delay (0-2000ms),Max Inbound Delay (0-2000ms)
 Studio.NetworkSettings.Property.InboundNetworkMinDelay,"This setting will add a delay to inbound (received) network packets. It is the minimum amount of delay, a separate setting will specify the maximum. It accepts values between 0 and 2000, and the setting is in milliseconds.",Min Inbound Delay (0-2000ms),Min Inbound Delay (0-2000ms)
-Studio.NetworkSettings.Property.InboundPacketLoss,"This setting sets a percent chance that inbound (received) network packets will be dropped, mimicking packet loss. The accepted range is 0 to 10 percent.",Inbound Packet Loss (0-10%),Inbound Packet Loss (0-10%)
+Studio.NetworkSettings.Property.InboundPacketLoss,"This setting sets a percent chance that inbound (received) network packets will be dropped, mimicking packet loss. The accepted range is 0 to 0.5 percent.",Inbound Packet Loss (0-0.5%),Inbound Packet Loss (0-0.5%)
 Studio.NetworkSettings.Property.OutboundNetworkMaxDelay,"This setting will add a delay to outbound (sent) network packets. It is the maximum amount of delay, a separate setting will specify the minimum. It accepts values between 0 and 2000, and the setting is in milliseconds.",Max Outbound Delay (0-2000ms),Max Outbound Delay (0-2000ms)
 Studio.NetworkSettings.Property.OutboundNetworkMinDelay,"This setting will add a delay to outbound (sent) network packets. It is the minimum amount of delay, a separate setting will specify the maximum. It accepts values between 0 and 2000, and the setting is in milliseconds.",Min Outbound Delay (0-2000ms),Min Outbound Delay (0-2000ms)
-Studio.NetworkSettings.Property.OutboundPacketLoss,"This setting sets a percent chance that outbound (sent) network packets will be dropped, mimicking packet loss. The accepted range is 0 to 10 percent.",Outbound Packet Loss (0-10%),Outbound Packet Loss (0-10%)
+Studio.NetworkSettings.Property.OutboundPacketLoss,"This setting sets a percent chance that outbound (sent) network packets will be dropped, mimicking packet loss. The accepted range is 0 to 0.5 percent.",Outbound Packet Loss (0-0.5%),Outbound Packet Loss (0-0.5%)
 Studio.NetworkSettings.SettingsCategory.NetworkEmulation,A collection of settings to mimic poor network conditions like packet loss and network latency,Network Emulation,Network Emulation
+Studio.PackageManagement.Errors.ProceduralModelInPackage,An error that occurs when the user tries to publish a package with a ProceduralModel instance in it. We're working on enabling this soon though!,Error: Cannot publish a package that contains a ProceduralModel yet. We're still working out the edge cases on this!,Error: Cannot publish a package that contains a ProceduralModel yet. We're still working out the edge cases on this!
 Studio.PackageManagement.MenuEntry.Permissions,,Permissions,Permissions
 Studio.PackageManagement.Meta.PluginName,,Package Configuration,Package Configuration
+Studio.PackageManagement.Property.EnableModificationWarningSetting,A setting that allows users to enable/disable the Package Modification Warning popup dialog,Enable Package Modification Warnings,Enable Package Modification Warnings
+Studio.PackageManagement.SettingsCategory,The name of the category in the settings page for packages,Packages,Packages
 Studio.PackageManagement.UpdateModified.MultipleConfirm,Confirm button for dialog when a package update is going to overwrite local changes.,Overwrite & Update All,Overwrite & Update All
 Studio.PackageManagement.UpdateModified.SingleConfirm,Confirm button for dialog when a package update is going to overwrite local changes,Overwrite & Update,Overwrite & Update
 Studio.ParticleSystem.Tooltip.FlipbookLayout.IncompatibleTexture,"Particle flipbooks require a texture size that is an exact multiple of the layout size. For example, if your layout is 4x4, your texture must be a size that can be perfectly divided by that grid, such as 64x64 or 128x128.",The texture size must be an exact multiple of the flipbook layout size.,The texture size must be an exact multiple of the flipbook layout size.
@@ -7198,6 +7244,10 @@ Studio.PublishPlace.Button.Close,Button to close,Close,Close
 Studio.PublishPlace.Button.Manage,"Button to open a web page that displays user's ""eligibility""",View eligibility,View eligibility
 Studio.PublishPlace.Error.PublishEligibilityDescription,Shown when the user cannot publish their place due to eligibility checks.,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.
 Studio.PublishPlace.Error.PublishEligibilityTitle,Shown when the user cannot publish their place to a universe,Unable to publish this experience,Unable to publish this experience
+Studio.PublishPlace.Link.ViewErrorReports,Shown as a hyperlink to open a webpage,→ View error reports,→ View error reports
+Studio.PublishPlace.Link.ViewExperienceSettings,Shown as a hyperlink for user to open a webpage,→ View experience settings,→ View experience settings
+Studio.PublishPlace.Link.ViewUsageMetrics,Shown as a hyperlink to open a webpage,→ View usage metrics,→ View usage metrics
+Studio.PublishPlace.Message.NextStepsOnCreatorHub,Shown after the user publishes to Roblox. The following items are hyperlinks.,Next steps on Creator Hub:,Next steps on Creator Hub:
 Studio.PublishPlace.Toast.AddNotes,Shown as a hyperlink on a toast after the user publish their game to Roblox,Add notes,Add notes
 Studio.PublishPlace.Toast.ChangesPublished,Shown on a toast after the game is published to Roblox,Changes published.,Changes published.
 Studio.PublishPlace.Toast.ViewQuestionnaireLink,Shown as a hyperlink to open a web page,View questionnaire,View questionnaire
@@ -7481,7 +7531,7 @@ Studio.RobloxPropertiesWidget.Category.Goals,,Goals,Goals
 Studio.RobloxPropertiesWidget.Category.Haptic,Category Haptic,Haptic,Haptic
 Studio.RobloxPropertiesWidget.Category.Hinge,,Hinge,Hinge
 Studio.RobloxPropertiesWidget.Category.Image,,Image,Image
-Studio.RobloxPropertiesWidget.Category.IndividualCorners,Specification for each of the corners of the parent GuiObject,Individual Corners,Individual Corners
+Studio.RobloxPropertiesWidget.Category.IndividualCorners,"Property category consisting of properties configuring one of four corners, e.g. TopLeftRadius, TopRightRadius, etc.",Individual Corners,Individual Corners
 Studio.RobloxPropertiesWidget.Category.Input,,Input,Input
 Studio.RobloxPropertiesWidget.Category.Interactions,,Interactions,Interactions
 Studio.RobloxPropertiesWidget.Category.Internal,,Internal,Internal

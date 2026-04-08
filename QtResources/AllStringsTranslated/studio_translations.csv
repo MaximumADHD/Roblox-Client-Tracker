@@ -9421,6 +9421,9 @@ Studio.AssetManager.QuickShare.FailedToGrant,,,Failed to update permissions.,Fai
 Studio.AssetManager.QuickShare.CollaboratorPlaceholder.FriendsRename,,,Search for a friend or group,Search for a friend or group
 Studio.AssetManager.QuickShare.CollaboratorsHintDescription.FriendsRename,,,Give your friends and groups access to this asset,Give your friends and groups access to this asset
 Studio.AssetManager.QuickShare.BackBut,,,Back,Back
+Studio.AssetManager.Section,,,See All,See All
+Studio.AssetManager.Section.SeeAll,,,See All,See All
+Studio.AssetManager.Section.SeeLess,,,See Less,See Less
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -9538,6 +9541,7 @@ Studio.AlignmentTool.Callout.Description,,,"Choose Min, Center or Max mode with 
 Studio.PivotEditor.Notification.NoSelection,,,No objects selected,No objects selected
 Studio.PivotEditor.Notification.MultipleSelection,,,Multiple objects selected,Multiple objects selected
 Studio.PivotEditor.Notification.InvalidTarget,,,Object does not have a pivot,Object does not have a pivot
+Studio.PivotEditor.Notification.ProceduralModel,,,ProceduralModel pivots are not editable,ProceduralModel pivots are not editable
 Studio.DeveloperInspector.Plugin.Name,,,Developer Inspector,Developer Inspector
 Studio.DeveloperInspector.Plugin.Toolbar,,,Developer Inspector,Developer Inspector
 Studio.DeveloperInspector.Plugin.Button,,,Inspect,Inspect
@@ -12312,6 +12316,7 @@ Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Layered,,,Layered,Layered
 Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Rigid,,,Rigid,Rigid
 Studio.AvatarCompatibilityPreviewer.Categories.body_face,,,Body,Body
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.TooltipItemCreatorMismatch,,,The creator of this item needs to match the creator of the makeup look,The creator of this item needs to match the creator of the makeup look
+Studio.AvatarCompatibilityPreviewer.CatalogItemButton.CopyAssetId,,,Copy Asset ID,Copy Asset ID
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -13937,6 +13942,38 @@ Studio.Assistant.Skill.Called,,,Called skill: {name},Called skill: {name}
 Studio.Assistant.Skill.Calling,,,Calling skill: {name},Calling skill: {name}
 Studio.Assistant.Skill.Generating,,,Loading skill...,Loading skill...
 Studio.Assistant.QuestionAnswer.Submit,,,Submit,Submit
+Studio.Assistant.FeedbackView.TitlePositive,,,Give positive feedback,Give positive feedback
+Studio.Assistant.FeedbackView.TitleNegative,,,Your feedback helps us improve,Your feedback helps us improve
+Studio.Assistant.FeedbackView.CategoryPlaceholder,,,Select a category,Select a category
+Studio.Assistant.FeedbackView.CategoryLabel,,,What type of issue are you experiencing?,What type of issue are you experiencing?
+Studio.Assistant.FeedbackView.TextAreaLabel,,,Additional feedback (optional),Additional feedback (optional)
+Studio.Assistant.FeedbackView.TextAreaPlaceholder,,,Tell us more about your experience...,Tell us more about your experience...
+Studio.Assistant.FeedbackView.Submit,,,Submit,Submit
+Studio.Assistant.FeedbackView.CategoryCodeErrors,,,Luau code errors,Luau code errors
+Studio.Assistant.FeedbackView.CategoryIncorrectAPIs,,,Incorrect Roblox APIs,Incorrect Roblox APIs
+Studio.Assistant.FeedbackView.CategorySpatialError,,,Spatial error,Spatial error
+Studio.Assistant.FeedbackView.CategoryLowQuality3D,,,Low quality 3D generation,Low quality 3D generation
+Studio.Assistant.FeedbackView.CategoryBadPlanning,,,Failed to follow the multi-step plan,Failed to follow the multi-step plan
+Studio.Assistant.FeedbackView.CategoryBadCoding,,,Solution is laggy or poorly optimized,Solution is laggy or poorly optimized
+Studio.Assistant.FeedbackView.CategoryIgnoredInstructions,,,Instruction was ignored or missed,Instruction was ignored or missed
+Studio.Assistant.FeedbackView.CategoryUnsafeContent,,,Inappropriate or unsafe content,Inappropriate or unsafe content
+Studio.Assistant.FeedbackView.Close,,,Close,Close
+Studio.Assistant.FeedbackView.CategoryOther,,,Other,Other
+Studio.Assistant.PrimitiveGen,,,Primitive Generator,Primitive Generator
+Studio.Assistant.Tool.WaitJobFinished,,,Wait for async task,Wait for async task
+Studio.Assistant.Tool.PrimitiveGen,,,Primitive Generator,Primitive Generator
+Studio.Assistant.HttpGet.Pending,,,Fetching URL...,Fetching URL...
+Studio.Assistant.HttpGet.Fetching,,,Fetching {url}...,Fetching {url}...
+Studio.Assistant.HttpGet.Fetched,,,Fetched {url},Fetched {url}
+Studio.Assistant.HttpGet.Failed,,,Failed to fetch {url},Failed to fetch {url}
+Studio.Assistant.PrimitiveGen.MaxConcurrentJobsError,,,{activeCount} jobs are already running (max {maxConcurrentJobs}),{activeCount} jobs are already running (max {maxConcurrentJobs})
+Studio.Assistant.PrimitiveGen.DefaultDisplayName,,,Primitive Object,Primitive Object
+Studio.Assistant.PrimitiveGen.StageDownloadingScript,,,Downloading Script,Downloading Script
+Studio.Assistant.PrimitiveGen.StageInserting,,,Inserting,Inserting
+Studio.Assistant.PrimitiveGen.StageResolvingDependencies,,,Resolving Dependencies,Resolving Dependencies
+Studio.Assistant.PrimitiveGen.StageSubmitting,,,Submitting,Submitting
+Studio.Assistant.Tools.PrimitiveGen,,,Primitive Gen,Primitive Gen
+Studio.Assistant.Tools.WaitJobFinished,,,Wait Job Finished,Wait Job Finished
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -14592,8 +14629,12 @@ Studio.BetaFeatures.AvatarAbilitiesTitle,,,AvatarAbilities Character Controller 
 Studio.BetaFeatures.AvatarAbilitiesDescription,,,"A Luau-native character controller system — an extensible alternative to the Humanoid state machine, built on ControllerManager physics.","A Luau-native character controller system — an extensible alternative to the Humanoid state machine, built on ControllerManager physics."
 Studio.BetaFeatures.SolidModelingOnMeshes,,,Solid Modeling On Meshes,Solid Modeling On Meshes
 Studio.BetaFeatures.SolidModelingOnMeshesDescription,,,"Adds MeshPart support for both Studio and in-experience CSG tools, and introduces new APIs for simplified in-experience destruction.","Adds MeshPart support for both Studio and in-experience CSG tools, and introduces new APIs for simplified in-experience destruction."
+Studio.BetaFeatures.RuntimeContentTitle,,,Editable Mesh/Image to static content conversion API,Editable Mesh/Image to static content conversion API
+Studio.BetaFeatures.RuntimeContentDescription,,,"EditableMesh and EditableImage objects can be converted into static, unpublished content that exists and replicates within the Data Model session using the new CreateDataModelContentAsync API","EditableMesh and EditableImage objects can be converted into static, unpublished content that exists and replicates within the Data Model session using the new CreateDataModelContentAsync API"
 Studio.BetaFeatures.StyleQueryTitle,,,StyleQuery,StyleQuery
 Studio.BetaFeatures.StyleQueryDescription,,,The new StyleQuery instance enables conditional styling based on parent sizing properties or device/user settings.,The new StyleQuery instance enables conditional styling based on parent sizing properties or device/user settings.
+Studio.BetaFeatures.ProceduralModelTitle,,,Edit-Time Procedural Objects,Edit-Time Procedural Objects
+Studio.BetaFeatures.ProceduralObjectsDescription,,,Adds a new ProceduralModel Instance type which generates child contents according to a developer written ModuleScript using Attributes as input parameters.,Adds a new ProceduralModel Instance type which generates child contents according to a developer written ModuleScript using Attributes as input parameters.
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -14702,8 +14743,8 @@ Studio.PlaceVersionHistory.Action.Publish,,,Publish,Publish
 Studio.PlaceVersionHistory.Title.ErrorCharLimit,,,You have exceeded the character limit,You have exceeded the character limit
 Studio.PlaceVersionHistory.Title.ErrorLineLimit,,,You have exceeded the line limit,You have exceeded the line limit
 Studio.PlaceVersionHistory.Title.ErrorTextModeration,,,This text does not meet community standards. Please edit and retry.,This text does not meet community standards. Please edit and retry.
-Studio.PlaceVersionHistory.Label.VersionName,,,Version Name,Version Name
-Studio.PlaceVersionHistory.Label.VersionNotes,,,Version Notes,Version Notes
+Studio.PlaceVersionHistory.Label.VersionName,,,Version title,Version title
+Studio.PlaceVersionHistory.Label.VersionNotes,,,Version details,Version details
 Studio.PlaceVersionHistory.Menu.EditVersionNotes,,,Edit version notes,Edit version notes
 Studio.PlaceVersionHistory.Menu.OpenLocalCopy,,,Open local copy,Open local copy
 Studio.PlaceVersionHistory.Label.VersionsPerPage,,,Versions per page,Versions per page
@@ -14716,6 +14757,8 @@ Studio.PlaceVersionHistory.Description.MigrationInProgress,,,We have started mov
 Studio.PlaceVersionHistory.Label.ResetPlace,,,Back to current place,Back to current place
 Studio.PlaceVersionHistory.Label.PreviouslyPublished,,,Previously Published,Previously Published
 Studio.PlaceVersionHistory.Title.AddVersionNotes,,,Add version notes,Add version notes
+Studio.PlaceVersionHistory.Label.VersionNamePlaceholder,,,Describe what changed in this version,Describe what changed in this version
+Studio.PlaceVersionHistory.Label.VersionNotesPlaceholder,,,Add more information about the changes,Add more information about the changes
 Studio.PerformanceTools.SceneBudgetThermometer.Plugin.Toolbar,,,Performance Tools,Performance Tools
 Studio.PerformanceTools.SceneBudgetThermometer.Name,,,Scene Budget Thermometer,Scene Budget Thermometer
 Studio.PerformanceTools.SceneBudgetThermometer.Button,,,Scene Budget Thermometer,Scene Budget Thermometer
@@ -15059,6 +15102,10 @@ Studio.PublishPlace.Toast.ViewQuestionnaireLink,,,View questionnaire,View questi
 Studio.PublishPlace.Toast.ViewQuestionnaireMessage,,,Changes published. Take the questionnaire to make your experience playable.,Changes published. Take the questionnaire to make your experience playable.
 Studio.PublishPlace.Toast.ChangesPublished,,,Changes published.,Changes published.
 Studio.PublishPlace.Toast.AddNotes,,,Add notes,Add notes
+Studio.PublishPlace.Message.NextStepsOnCreatorHub,,,Next steps on Creator Hub:,Next steps on Creator Hub:
+Studio.PublishPlace.Link.ViewExperienceSettings,,,→ View experience settings,→ View experience settings
+Studio.PublishPlace.Link.ViewUsageMetrics,,,→ View usage metrics,→ View usage metrics
+Studio.PublishPlace.Link.ViewErrorReports,,,→ View error reports,→ View error reports
 Studio.ReactDevTools.Plugin.Name,,,React DevTools,React DevTools
 Studio.ReactDevTools.Plugin.Description,,,Use React DevTools to debug and profile your React Luau applications.,Use React DevTools to debug and profile your React Luau applications.
 Studio.ReactDevTools.Plugin.Button,,,DevTools,DevTools

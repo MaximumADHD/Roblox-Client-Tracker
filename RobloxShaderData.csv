@@ -71,7 +71,6 @@ DefaultMaterialVariantDitheredDetileDepthFS,Fragment,✔,✔,✔,✔,✔
 DefaultModelLodFS,Fragment,✔,✔,✔,✔,✔
 DefaultModelLodVS,Vertex,✔,✔,✔,✔,✔
 DefaultShadowFS,Fragment,✔,✔,✔,✔,✔
-DefaultSurfaceAppearanceDitheredDepthFS,Fragment,✔,✔,✔,✔,✔
 DefaultUnifiedGlassTintFS,Fragment,✔,✔,✔,✔,✔
 DefaultUnifiedGridFS_00000800,Fragment,❌,❌,❌,✔,❌
 DefaultUnifiedGridFS_10000000,Fragment,❌,❌,❌,✔,❌
@@ -208,9 +207,12 @@ DefaultUnifiedGridVS_44000016,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_44001006,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_44001016,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_80000000,Vertex,✔,✔,✔,❌,✔
+DefaultUnifiedGridVS_80000002,Vertex,✔,✔,✔,❌,✔
+DefaultUnifiedGridVS_80000006,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_80100001,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_80108001,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_80300000,Vertex,✔,✔,✔,❌,✔
+DefaultUnifiedGridVS_80308000,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedModelLodFS,Fragment,✔,✔,✔,✔,✔
 DefaultUnifiedModelLodVS,Vertex,✔,✔,✔,✔,✔
 DefaultUnifiedPlasticReflectionVS_00000800,Vertex,❌,❌,❌,✔,❌
@@ -242,12 +244,14 @@ DefaultUnifiedPlasticReflectionVS_10000016,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10000400,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10000402,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10000406,Vertex,❌,❌,❌,✔,❌
+DefaultUnifiedPlasticReflectionVS_10000410,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10001000,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10001002,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10001006,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10001010,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10001012,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10001016,Vertex,❌,❌,❌,✔,❌
+DefaultUnifiedPlasticReflectionVS_10001400,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10001402,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10001406,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_10100001,Vertex,❌,❌,❌,✔,❌
@@ -263,6 +267,7 @@ DefaultUnifiedPlasticReflectionVS_14000016,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_14000406,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_14001006,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_14001016,Vertex,❌,❌,❌,✔,❌
+DefaultUnifiedPlasticReflectionVS_14001406,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedWangFallbackFS,Fragment,✔,✔,✔,✔,✔
 DepthResolveMax2FS,Fragment,❌,✔,✔,✔,✔
 DepthResolveMax4FS,Fragment,❌,✔,✔,✔,✔
@@ -307,7 +312,6 @@ HbaoCompositFS,Fragment,❌,❌,✔,❌,✔
 HBAODepthDownFS,Fragment,❌,❌,✔,❌,✔
 HbaoFS,Fragment,❌,❌,✔,❌,✔
 HighlightInPlaceFS_00000000,Fragment,✔,✔,✔,✔,✔
-HighlightPostprocessAlphaTestFS_00000000,Fragment,✔,✔,✔,✔,✔
 HighlightPostprocessFS_00000000,Fragment,✔,✔,✔,✔,✔
 HighlightStudioSelectionAlphaTestFS_00000000,Fragment,✔,✔,✔,✔,✔
 HighlightStudioSelectionFS_00000000,Fragment,✔,✔,✔,✔,✔
