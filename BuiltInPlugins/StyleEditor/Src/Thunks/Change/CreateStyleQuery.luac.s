@@ -1,74 +1,100 @@
 PROTO_0:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 NAMECALL                         R0 R0 K0 ["FindFirstChild"]
-        4 CALL                             R0 2 1
-        5 LOADNIL                          R1
-        6 JUMPIFNOT                        R0 ; [+7]
-        7 LOADK                            R4 K1 ["Folder"]
-        8 NAMECALL                         R2 R0 K2 ["IsA"]
-       10 CALL                             R2 2 1
-       11 JUMPIFNOT                        R2 ; [+2]
-       12 MOVE                             R1 R0
-       13 JUMP                             ; [+12]
-       14 GETIMPORT                        R2 K5 [Instance.new]
-       16 LOADK                            R3 K1 ["Folder"]
-       17 CALL                             R2 1 1
-       18 MOVE                             R1 R2
-       19 GETUPVAL                         R2 1
-       20 SETTABLEKS                       R2 R1 K6 ["Name"]
-       22 GETUPVAL                         R2 0
-       23 SETTABLEKS                       R2 R1 K7 ["Parent"]
-       25 SETUPVAL                         R1 2
-       26 GETUPVAL                         R3 3
-       27 GETTABLEKS                       R2 R3 K8 ["getAvailablePseudoSelector"]
-       29 GETUPVAL                         R3 0
-       30 LOADK                            R4 K9 ["StyleQuery"]
+        0 LOADNIL                          R0
+        1 LOADNIL                          R1
+        2 GETUPVAL                         R2 0
+        3 LOADK                            R4 K0 ["Folder"]
+        4 NAMECALL                         R2 R2 K1 ["IsA"]
+        6 CALL                             R2 2 1
+        7 JUMPIFNOT                        R2 ; [+18]
+        8 GETUPVAL                         R0 0
+        9 GETUPVAL                         R2 0
+       10 LOADK                            R4 K2 ["StyleRule"]
+       11 NAMECALL                         R2 R2 K3 ["FindFirstAncestorWhichIsA"]
+       13 CALL                             R2 2 1
+       14 MOVE                             R1 R2
+       15 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       17 LOADB                            R3 0 +1
+       18 LOADB                            R3 1
+       19 FASTCALL2K                       ASSERT R3 K4 ; [+4]
+       21 LOADK                            R4 K4 ["Folder that can create StyleQuery StyleRule should have a StyleRule ancestor"]
+       22 GETIMPORT                        R2 K6 [assert]
+       24 CALL                             R2 2 0
+       25 JUMP                             ; [+26]
+       26 GETUPVAL                         R1 0
+       27 GETUPVAL                         R2 0
+       28 GETUPVAL                         R4 1
+       29 NAMECALL                         R2 R2 K7 ["FindFirstChild"]
        31 CALL                             R2 2 1
-       32 GETIMPORT                        R3 K5 [Instance.new]
-       34 LOADK                            R4 K10 ["StyleRule"]
-       35 CALL                             R3 1 1
-       36 SETTABLEKS                       R2 R3 K11 ["Selector"]
-       38 SETTABLEKS                       R2 R3 K6 ["Name"]
-       40 GETUPVAL                         R5 4
-       41 GETTABLEKS                       R4 R5 K12 ["calculatePriority"]
-       43 GETUPVAL                         R5 0
-       44 MOVE                             R6 R2
-       45 CALL                             R4 2 1
-       46 SETTABLEKS                       R4 R3 K13 ["Priority"]
-       48 SETTABLEKS                       R1 R3 K7 ["Parent"]
-       50 GETIMPORT                        R4 K16 [string.match]
-       52 MOVE                             R5 R2
-       53 LOADK                            R6 K17 ["#(.*)"]
-       54 CALL                             R4 2 1
-       55 LOADK                            R6 K18 ["%*%*"]
-       56 GETUPVAL                         R10 5
-       57 GETTABLEKS                       R9 R10 K19 ["SelectorSyntax"]
-       59 GETTABLEKS                       R8 R9 K20 ["Query"]
-       61 MOVE                             R9 R4
-       62 JUMPIF                           R9 ; [+3]
-       63 GETUPVAL                         R10 6
-       64 GETTABLEKS                       R9 R10 K21 ["ClassName"]
-       66 NAMECALL                         R6 R6 K22 ["format"]
-       68 CALL                             R6 3 1
-       69 MOVE                             R5 R6
-       70 GETIMPORT                        R6 K5 [Instance.new]
-       72 LOADK                            R7 K10 ["StyleRule"]
-       73 CALL                             R6 1 1
-       74 SETTABLEKS                       R5 R6 K11 ["Selector"]
-       76 SETTABLEKS                       R5 R6 K6 ["Name"]
-       78 GETUPVAL                         R8 4
-       79 GETTABLEKS                       R7 R8 K12 ["calculatePriority"]
-       81 GETUPVAL                         R8 0
-       82 MOVE                             R9 R5
-       83 CALL                             R7 2 1
-       84 SETTABLEKS                       R7 R6 K13 ["Priority"]
-       86 SETTABLEKS                       R1 R6 K7 ["Parent"]
-       88 GETUPVAL                         R7 2
-       89 JUMPIF                           R7 ; [+1]
-       90 SETUPVAL                         R3 2
-       91 GETIMPORT                        R7 K26 [Enum.FinishRecordingOperation.Commit]
-       93 RETURN                           R7 1
+       32 JUMPIFNOT                        R2 ; [+7]
+       33 LOADK                            R5 K0 ["Folder"]
+       34 NAMECALL                         R3 R2 K1 ["IsA"]
+       36 CALL                             R3 2 1
+       37 JUMPIFNOT                        R3 ; [+2]
+       38 MOVE                             R0 R2
+       39 JUMP                             ; [+12]
+       40 GETIMPORT                        R3 K10 [Instance.new]
+       42 LOADK                            R4 K0 ["Folder"]
+       43 CALL                             R3 1 1
+       44 MOVE                             R0 R3
+       45 GETUPVAL                         R3 1
+       46 SETTABLEKS                       R3 R0 K11 ["Name"]
+       48 GETUPVAL                         R3 0
+       49 SETTABLEKS                       R3 R0 K12 ["Parent"]
+       51 SETUPVAL                         R0 2
+       52 GETUPVAL                         R3 3
+       53 GETTABLEKS                       R2 R3 K13 ["getAvailablePseudoSelector"]
+       55 MOVE                             R3 R1
+       56 LOADK                            R4 K14 ["StyleQuery"]
+       57 CALL                             R2 2 1
+       58 GETIMPORT                        R3 K10 [Instance.new]
+       60 LOADK                            R4 K2 ["StyleRule"]
+       61 CALL                             R3 1 1
+       62 SETTABLEKS                       R2 R3 K15 ["Selector"]
+       64 SETTABLEKS                       R2 R3 K11 ["Name"]
+       66 GETUPVAL                         R5 4
+       67 GETTABLEKS                       R4 R5 K16 ["calculatePriority"]
+       69 MOVE                             R5 R1
+       70 MOVE                             R6 R2
+       71 CALL                             R4 2 1
+       72 SETTABLEKS                       R4 R3 K17 ["Priority"]
+       74 SETTABLEKS                       R0 R3 K12 ["Parent"]
+       76 GETIMPORT                        R4 K20 [string.match]
+       78 MOVE                             R5 R2
+       79 LOADK                            R6 K21 ["#(.*)"]
+       80 CALL                             R4 2 1
+       81 LOADK                            R6 K22 ["%*%*"]
+       82 GETUPVAL                         R10 5
+       83 GETTABLEKS                       R9 R10 K23 ["SelectorSyntax"]
+       85 GETTABLEKS                       R8 R9 K24 ["Query"]
+       87 MOVE                             R9 R4
+       88 JUMPIF                           R9 ; [+3]
+       89 GETUPVAL                         R10 6
+       90 GETTABLEKS                       R9 R10 K25 ["ClassName"]
+       92 NAMECALL                         R6 R6 K26 ["format"]
+       94 CALL                             R6 3 1
+       95 MOVE                             R5 R6
+       96 GETIMPORT                        R6 K10 [Instance.new]
+       98 LOADK                            R7 K2 ["StyleRule"]
+       99 CALL                             R6 1 1
+      100 SETTABLEKS                       R5 R6 K15 ["Selector"]
+      102 SETTABLEKS                       R5 R6 K11 ["Name"]
+      104 GETUPVAL                         R7 7
+      105 JUMPIFNOT                        R7 ; [+5]
+      106 GETTABLEKS                       R7 R3 K17 ["Priority"]
+      108 SETTABLEKS                       R7 R6 K17 ["Priority"]
+      110 JUMP                             ; [+8]
+      111 GETUPVAL                         R8 4
+      112 GETTABLEKS                       R7 R8 K16 ["calculatePriority"]
+      114 MOVE                             R8 R1
+      115 MOVE                             R9 R5
+      116 CALL                             R7 2 1
+      117 SETTABLEKS                       R7 R6 K17 ["Priority"]
+      119 SETTABLEKS                       R0 R6 K12 ["Parent"]
+      121 GETUPVAL                         R7 2
+      122 JUMPIF                           R7 ; [+1]
+      123 SETUPVAL                         R3 2
+      124 GETIMPORT                        R7 K30 [Enum.FinishRecordingOperation.Commit]
+      126 RETURN                           R7 1
 
 PROTO_1:
         0 LOADNIL                          R2
@@ -88,21 +114,22 @@ PROTO_1:
        18 CAPTURE                          UPVAL U3
        19 CAPTURE                          UPVAL U4
        20 CAPTURE                          UPVAL U0
-       21 SETTABLEKS                       R6 R5 K4 ["DoChange"]
-       23 CALL                             R4 1 0
-       24 GETUPVAL                         R4 5
-       25 JUMPIFNOT                        R4 ; [+11]
-       26 GETUPVAL                         R5 6
-       27 GETTABLEKS                       R4 R5 K8 ["createItemId"]
-       29 MOVE                             R5 R2
-       30 CALL                             R4 1 1
-       31 GETUPVAL                         R7 7
-       32 MOVE                             R8 R4
-       33 CALL                             R7 1 -1
-       34 NAMECALL                         R5 R0 K9 ["dispatch"]
-       36 CALL                             R5 -1 0
-       37 CLOSEUPVALS                      R2
-       38 RETURN                           R2 1
+       21 CAPTURE                          UPVAL U5
+       22 SETTABLEKS                       R6 R5 K4 ["DoChange"]
+       24 CALL                             R4 1 0
+       25 GETUPVAL                         R4 6
+       26 JUMPIFNOT                        R4 ; [+11]
+       27 GETUPVAL                         R5 7
+       28 GETTABLEKS                       R4 R5 K8 ["createItemId"]
+       30 MOVE                             R5 R2
+       31 CALL                             R4 1 1
+       32 GETUPVAL                         R7 8
+       33 MOVE                             R8 R4
+       34 CALL                             R7 1 -1
+       35 NAMECALL                         R5 R0 K9 ["dispatch"]
+       37 CALL                             R5 -1 0
+       38 CLOSEUPVALS                      R2
+       39 RETURN                           R2 1
 
 PROTO_2:
         0 NEWCLOSURE                       R2 P0
@@ -111,10 +138,11 @@ PROTO_2:
         3 CAPTURE                          UPVAL U1
         4 CAPTURE                          UPVAL U2
         5 CAPTURE                          UPVAL U3
-        6 CAPTURE                          VAL R1
-        7 CAPTURE                          UPVAL U4
+        6 CAPTURE                          UPVAL U4
+        7 CAPTURE                          VAL R1
         8 CAPTURE                          UPVAL U5
-        9 RETURN                           R2 1
+        9 CAPTURE                          UPVAL U6
+       10 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -164,11 +192,18 @@ MAIN:
        80 GETTABLEKS                       R11 R12 K17 ["Thunks"]
        82 GETTABLEKS                       R10 R11 K18 ["Types"]
        84 CALL                             R9 1 1
-       85 DUPCLOSURE                       R10 K19 [PROTO_2]
-       86 CAPTURE                          VAL R3
-       87 CAPTURE                          VAL R1
-       88 CAPTURE                          VAL R4
-       89 CAPTURE                          VAL R2
-       90 CAPTURE                          VAL R5
-       91 CAPTURE                          VAL R7
-       92 RETURN                           R10 1
+       85 GETIMPORT                        R10 K4 [require]
+       87 GETTABLEKS                       R13 R0 K5 ["Src"]
+       89 GETTABLEKS                       R12 R13 K19 ["Flags"]
+       91 GETTABLEKS                       R11 R12 K20 ["getFFlagStyleQuery"]
+       93 CALL                             R10 1 1
+       94 CALL                             R10 0 1
+       95 DUPCLOSURE                       R11 K21 [PROTO_2]
+       96 CAPTURE                          VAL R3
+       97 CAPTURE                          VAL R1
+       98 CAPTURE                          VAL R4
+       99 CAPTURE                          VAL R2
+      100 CAPTURE                          VAL R10
+      101 CAPTURE                          VAL R5
+      102 CAPTURE                          VAL R7
+      103 RETURN                           R11 1

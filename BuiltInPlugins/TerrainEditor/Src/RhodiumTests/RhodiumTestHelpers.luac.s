@@ -80,19 +80,15 @@ PROTO_2:
        42 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R2 K1 [{"cycles"}]
-        1 LOADN                            R3 1
-        2 SETTABLEKS                       R3 R2 K0 ["cycles"]
-        4 SETTABLEKS                       R2 R1 K2 ["_options"]
-        6 GETTABLEKS                       R2 R0 K3 ["Move"]
-        8 NAMECALL                         R2 R2 K4 ["Fire"]
-       10 CALL                             R2 1 0
-       11 DUPTABLE                         R4 K1 [{"cycles"}]
-       12 LOADN                            R5 1
-       13 SETTABLEKS                       R5 R4 K0 ["cycles"]
-       15 NAMECALL                         R2 R1 K5 ["startOperation"]
-       17 CALL                             R2 2 0
-       18 RETURN                           R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["Move"]
+        2 NAMECALL                         R2 R2 K1 ["Fire"]
+        4 CALL                             R2 1 0
+        5 DUPTABLE                         R4 K3 [{"cycles"}]
+        6 LOADN                            R5 1
+        7 SETTABLEKS                       R5 R4 K2 ["cycles"]
+        9 NAMECALL                         R2 R1 K4 ["startOperation"]
+       11 CALL                             R2 2 0
+       12 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -100,7 +96,7 @@ PROTO_4:
         3 LOADNIL                          R1
         4 SETTABLEKS                       R1 R0 K1 ["_budget"]
         6 GETIMPORT                        R0 K3 [wait]
-        8 LOADN                            R1 1
+        8 LOADK                            R1 K4 [0.1]
         9 CALL                             R0 1 0
        10 RETURN                           R0 0
 

@@ -28,6 +28,7 @@ local Object = LuauPolyfill.Object
 local getThemeFromName = require(Style.Themes.getThemeFromName)
 local getFontFromName = require(Style.Fonts.getFontFromName)
 local Constants = require(Style.Constants)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local StyleTypes = require(script.Parent.StyleTypes)
 local TokenPackage = require(script.Parent.Tokens)
 local StyleContext = require(UIBlox.Core.Style.StyleContext)
@@ -39,7 +40,9 @@ local getFoundationTokens = TokenPackage.getFoundationTokens
 local TokensMappers = TokenPackage.Mappers
 
 type AppStyle = StyleTypes.AppStyle
+type BaseTokens = StyleTypes.BaseTokens
 type Tokens = StyleTypes.Tokens
+type RbxDesignFoundationsV2Tokens = StyleTypes.RbxDesignFoundationsV2Tokens
 type ThemeName = Constants.ThemeName
 type FontName = Constants.FontName
 type DeviceType = Constants.DeviceType
@@ -81,17 +84,19 @@ local function AppStyleProvider(props: Props)
 	local style: StyleProps = Object.assign({}, defaultStyle, props.style)
 	local themeName, setThemeName = React.useState(style.themeName)
 	local scale = style.settings and style.settings.scale
-	local tokens: Tokens = getTokens(style.deviceType, themeName, scale) :: Tokens
+	local baseTokens: BaseTokens = getTokens(style.deviceType, themeName, scale)
 	local textSizeOffset, setTextSizeOffset = React.useState(0)
 	local theme = getThemeFromName(themeName)
 	local foundationProviderPresent = useTokens().Config ~= nil
 
-	local foundationTokens = getFoundationTokens(style.deviceType, themeName)
-	tokens = TokensMappers.mapColorTokensToFoundation(tokens, foundationTokens)
+	local foundationTokens: RbxDesignFoundationsV2Tokens = getFoundationTokens(style.deviceType, themeName)
+	baseTokens = TokensMappers.mapColorTokensToFoundation(baseTokens, foundationTokens)
 	theme = TokensMappers.mapThemeToFoundation(theme, foundationTokens)
+	assert(validateTokens(baseTokens), "Invalid tokens!")
+	local tokens: Tokens = if UIBloxConfig.enableFoundationTokenMapping
+		then TokensMappers.addFoundationFlatKeys(baseTokens, foundationTokens)
+		else baseTokens :: any
 
-	-- TODO: Add additional validation for tokens here to make it safe. We can remove the call after design token stuff is fully stable.
-	assert(validateTokens(tokens), "Invalid tokens!")
 	local appStyle: AppStyle = {
 		Font = getFontFromName(style.fontName, tokens),
 		Theme = theme,

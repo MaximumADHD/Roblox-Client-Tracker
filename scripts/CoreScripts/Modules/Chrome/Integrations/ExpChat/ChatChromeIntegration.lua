@@ -25,6 +25,9 @@ local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatia
 local ChatIconVisibleSignals = require(script.Parent.ChatIconVisibleSignals).default
 local SignalsRoblox = require(CorePackages.Packages.SignalsRoblox)
 
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
+
 local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false)
 
@@ -142,6 +145,7 @@ end
 chatChromeIntegration = ChromeService:register({
 	id = "chat",
 	label = "CoreScripts.TopBar.Chat",
+	sideSheetPlacement = SideSheetPlacement.Unibar,
 	activated = function(self)
 		if chatVisibility then
 			ChatSelector:SetVisible(false)

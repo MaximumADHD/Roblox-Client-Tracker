@@ -84,7 +84,7 @@ MAIN:
        38 CALL                             R4 1 1
        39 GETTABLEKS                       R7 R1 K13 ["Flags"]
        41 GETTABLEKS                       R6 R7 K14 ["Shared"]
-       43 GETTABLEKS                       R5 R6 K15 ["FFlagAssistantMultipleChatSupport"]
+       43 GETTABLEKS                       R5 R6 K15 ["FFlagAssistantMultipleChatPersistence"]
        45 GETTABLEKS                       R6 R2 K16 ["createElement"]
        47 DUPCLOSURE                       R7 K17 [PROTO_0]
        48 CAPTURE                          VAL R4

@@ -1,0 +1,70 @@
+PROTO_0:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R2 R3 K1 ["View"]
+        6 DUPTABLE                         R3 K5 [{"tag", "Size", "LayoutOrder"}]
+        7 LOADK                            R4 K6 ["row auto-y flex-between align-y-center gap-xsmall items-stretch"]
+        8 SETTABLEKS                       R4 R3 K2 ["tag"]
+       10 GETIMPORT                        R4 K9 [UDim2.new]
+       12 LOADN                            R5 0
+       13 GETUPVAL                         R7 2
+       14 GETTABLEKS                       R6 R7 K10 ["PROPERTY_WIDTH"]
+       16 LOADN                            R7 0
+       17 LOADN                            R8 0
+       18 CALL                             R4 4 1
+       19 SETTABLEKS                       R4 R3 K3 ["Size"]
+       21 LOADN                            R4 2
+       22 SETTABLEKS                       R4 R3 K4 ["LayoutOrder"]
+       24 DUPTABLE                         R4 K13 [{"Input", "RevertOverrideButton"}]
+       25 GETTABLEKS                       R5 R0 K14 ["children"]
+       27 SETTABLEKS                       R5 R4 K11 ["Input"]
+       29 GETTABLEKS                       R6 R0 K15 ["IsParameterOverridden"]
+       31 JUMPIFNOT                        R6 ; [+28]
+       32 GETUPVAL                         R6 0
+       33 GETTABLEKS                       R5 R6 K0 ["createElement"]
+       35 GETUPVAL                         R7 1
+       36 GETTABLEKS                       R6 R7 K16 ["IconButton"]
+       38 DUPTABLE                         R7 K20 [{"LayoutOrder", "size", "icon", "onActivated"}]
+       39 LOADN                            R8 3
+       40 SETTABLEKS                       R8 R7 K4 ["LayoutOrder"]
+       42 GETUPVAL                         R11 1
+       43 GETTABLEKS                       R10 R11 K21 ["Enums"]
+       45 GETTABLEKS                       R9 R10 K22 ["InputSize"]
+       47 GETTABLEKS                       R8 R9 K23 ["XSmall"]
+       49 SETTABLEKS                       R8 R7 K17 ["size"]
+       51 LOADK                            R8 K24 ["icons/actions/edit/undo"]
+       52 SETTABLEKS                       R8 R7 K18 ["icon"]
+       54 GETTABLEKS                       R8 R0 K25 ["OnParameterOverrideRevert"]
+       56 SETTABLEKS                       R8 R7 K19 ["onActivated"]
+       58 CALL                             R5 2 1
+       59 JUMP                             ; [+1]
+       60 LOADNIL                          R5
+       61 SETTABLEKS                       R5 R4 K12 ["RevertOverrideButton"]
+       63 CALL                             R1 3 -1
+       64 RETURN                           R1 -1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AnimationEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Parent"]
+       11 GETTABLEKS                       R2 R3 K7 ["Foundation"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETIMPORT                        R5 K1 [script]
+       18 GETTABLEKS                       R4 R5 K6 ["Parent"]
+       20 GETTABLEKS                       R3 R4 K8 ["PropertyConstants"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R5 R0 K6 ["Parent"]
+       27 GETTABLEKS                       R4 R5 K9 ["React"]
+       29 CALL                             R3 1 1
+       30 DUPCLOSURE                       R4 K10 [PROTO_0]
+       31 CAPTURE                          VAL R3
+       32 CAPTURE                          VAL R1
+       33 CAPTURE                          VAL R2
+       34 RETURN                           R4 1

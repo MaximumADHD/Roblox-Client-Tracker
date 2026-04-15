@@ -62,21 +62,21 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R1 0
-        1 MOVE                             R2 R0
-        2 CALL                             R1 1 0
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K0 ["disable"]
-        6 CALL                             R1 0 0
-        7 RETURN                           R0 0
+        1 GETUPVAL                         R3 1
+        2 GETUPVAL                         R4 2
+        3 MOVE                             R5 R0
+        4 NAMECALL                         R1 R1 K0 ["Fire"]
+        6 CALL                             R1 4 0
+        7 GETUPVAL                         R2 3
+        8 GETTABLEKS                       R1 R2 K1 ["disable"]
+       10 CALL                             R1 0 0
+       11 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R0 0
-        1 LOADNIL                          R1
-        2 CALL                             R0 1 0
-        3 GETUPVAL                         R1 1
-        4 GETTABLEKS                       R0 R1 K0 ["disable"]
-        6 CALL                             R0 0 0
-        7 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["disable"]
+        3 CALL                             R0 0 0
+        4 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -97,6 +97,24 @@ PROTO_8:
         7 RETURN                           R0 0
 
 PROTO_9:
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 CALL                             R1 1 0
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R1 R2 K0 ["disable"]
+        6 CALL                             R1 0 0
+        7 RETURN                           R0 0
+
+PROTO_10:
+        0 GETUPVAL                         R0 0
+        1 LOADNIL                          R1
+        2 CALL                             R0 1 0
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R0 R1 K0 ["disable"]
+        6 CALL                             R0 0 0
+        7 RETURN                           R0 0
+
+PROTO_11:
         0 GETIMPORT                        R1 K2 [Instance.new]
         2 LOADK                            R2 K3 ["BindableEvent"]
         3 CALL                             R1 1 1
@@ -162,64 +180,90 @@ PROTO_9:
        82 SETTABLEKS                       R16 R15 K12 ["value"]
        84 DUPTABLE                         R16 K21 [{"EditDialog", "SaveDialog", "PublishDialog"}]
        85 GETTABLEKS                       R17 R8 K22 ["enabled"]
-       87 JUMPIFNOT                        R17 ; [+23]
-       88 GETUPVAL                         R18 0
-       89 GETTABLEKS                       R17 R18 K10 ["createElement"]
-       91 GETUPVAL                         R18 5
-       92 DUPTABLE                         R19 K28 [{"placeId", "version", "notes", "onAccept", "onReject"}]
-       93 SETTABLEKS                       R2 R19 K23 ["placeId"]
-       95 SETTABLEKS                       R4 R19 K24 ["version"]
-       97 SETTABLEKS                       R6 R19 K25 ["notes"]
-       99 NEWCLOSURE                       R20 P3
-      100 CAPTURE                          VAL R1
-      101 CAPTURE                          VAL R2
-      102 CAPTURE                          VAL R4
-      103 CAPTURE                          VAL R8
-      104 SETTABLEKS                       R20 R19 K26 ["onAccept"]
-      106 NEWCLOSURE                       R20 P4
-      107 CAPTURE                          VAL R8
-      108 SETTABLEKS                       R20 R19 K27 ["onReject"]
-      110 CALL                             R17 2 1
-      111 SETTABLEKS                       R17 R16 K18 ["EditDialog"]
-      113 GETTABLEKS                       R17 R9 K22 ["enabled"]
-      115 JUMPIFNOT                        R17 ; [+19]
-      116 GETUPVAL                         R18 0
-      117 GETTABLEKS                       R17 R18 K10 ["createElement"]
-      119 GETUPVAL                         R18 6
-      120 DUPTABLE                         R19 K30 [{"variant", "onAccept", "onReject"}]
-      121 LOADK                            R20 K31 ["Save"]
-      122 SETTABLEKS                       R20 R19 K29 ["variant"]
-      124 NEWCLOSURE                       R20 P5
-      125 CAPTURE                          VAL R11
-      126 CAPTURE                          VAL R9
-      127 SETTABLEKS                       R20 R19 K26 ["onAccept"]
-      129 NEWCLOSURE                       R20 P6
-      130 CAPTURE                          VAL R11
-      131 CAPTURE                          VAL R9
-      132 SETTABLEKS                       R20 R19 K27 ["onReject"]
-      134 CALL                             R17 2 1
-      135 SETTABLEKS                       R17 R16 K19 ["SaveDialog"]
-      137 GETTABLEKS                       R17 R10 K22 ["enabled"]
-      139 JUMPIFNOT                        R17 ; [+19]
-      140 GETUPVAL                         R18 0
-      141 GETTABLEKS                       R17 R18 K10 ["createElement"]
-      143 GETUPVAL                         R18 6
-      144 DUPTABLE                         R19 K30 [{"variant", "onAccept", "onReject"}]
-      145 LOADK                            R20 K32 ["Publish"]
-      146 SETTABLEKS                       R20 R19 K29 ["variant"]
-      148 NEWCLOSURE                       R20 P7
-      149 CAPTURE                          VAL R11
-      150 CAPTURE                          VAL R10
-      151 SETTABLEKS                       R20 R19 K26 ["onAccept"]
-      153 NEWCLOSURE                       R20 P8
-      154 CAPTURE                          VAL R11
-      155 CAPTURE                          VAL R10
-      156 SETTABLEKS                       R20 R19 K27 ["onReject"]
-      158 CALL                             R17 2 1
-      159 SETTABLEKS                       R17 R16 K20 ["PublishDialog"]
-      161 GETTABLEKS                       R17 R0 K33 ["children"]
-      163 CALL                             R13 4 -1
-      164 RETURN                           R13 -1
+       87 JUMPIFNOT                        R17 ; [+57]
+       88 GETUPVAL                         R19 3
+       89 GETTABLEKS                       R18 R19 K23 ["FFlagPluginQWidgetModalFocusKeyboard"]
+       91 JUMPIFNOT                        R18 ; [+30]
+       92 GETUPVAL                         R18 0
+       93 GETTABLEKS                       R17 R18 K10 ["createElement"]
+       95 GETUPVAL                         R18 5
+       96 DUPTABLE                         R19 K30 [{"placeId", "version", "notes", "variant", "onAccept", "onReject"}]
+       97 SETTABLEKS                       R2 R19 K24 ["placeId"]
+       99 SETTABLEKS                       R4 R19 K25 ["version"]
+      101 SETTABLEKS                       R6 R19 K26 ["notes"]
+      103 JUMPIFNOT                        R6 ; [+2]
+      104 LOADK                            R20 K31 ["Edit"]
+      105 JUMP                             ; [+1]
+      106 LOADK                            R20 K32 ["Add"]
+      107 SETTABLEKS                       R20 R19 K27 ["variant"]
+      109 NEWCLOSURE                       R20 P3
+      110 CAPTURE                          VAL R1
+      111 CAPTURE                          VAL R2
+      112 CAPTURE                          VAL R4
+      113 CAPTURE                          VAL R8
+      114 SETTABLEKS                       R20 R19 K28 ["onAccept"]
+      116 NEWCLOSURE                       R20 P4
+      117 CAPTURE                          VAL R8
+      118 SETTABLEKS                       R20 R19 K29 ["onReject"]
+      120 CALL                             R17 2 1
+      121 JUMP                             ; [+23]
+      122 GETUPVAL                         R18 0
+      123 GETTABLEKS                       R17 R18 K10 ["createElement"]
+      125 GETUPVAL                         R18 6
+      126 DUPTABLE                         R19 K33 [{"placeId", "version", "notes", "onAccept", "onReject"}]
+      127 SETTABLEKS                       R2 R19 K24 ["placeId"]
+      129 SETTABLEKS                       R4 R19 K25 ["version"]
+      131 SETTABLEKS                       R6 R19 K26 ["notes"]
+      133 NEWCLOSURE                       R20 P5
+      134 CAPTURE                          VAL R1
+      135 CAPTURE                          VAL R2
+      136 CAPTURE                          VAL R4
+      137 CAPTURE                          VAL R8
+      138 SETTABLEKS                       R20 R19 K28 ["onAccept"]
+      140 NEWCLOSURE                       R20 P6
+      141 CAPTURE                          VAL R8
+      142 SETTABLEKS                       R20 R19 K29 ["onReject"]
+      144 CALL                             R17 2 1
+      145 SETTABLEKS                       R17 R16 K18 ["EditDialog"]
+      147 GETTABLEKS                       R17 R9 K22 ["enabled"]
+      149 JUMPIFNOT                        R17 ; [+19]
+      150 GETUPVAL                         R18 0
+      151 GETTABLEKS                       R17 R18 K10 ["createElement"]
+      153 GETUPVAL                         R18 5
+      154 DUPTABLE                         R19 K34 [{"variant", "onAccept", "onReject"}]
+      155 LOADK                            R20 K35 ["Save"]
+      156 SETTABLEKS                       R20 R19 K27 ["variant"]
+      158 NEWCLOSURE                       R20 P7
+      159 CAPTURE                          VAL R11
+      160 CAPTURE                          VAL R9
+      161 SETTABLEKS                       R20 R19 K28 ["onAccept"]
+      163 NEWCLOSURE                       R20 P8
+      164 CAPTURE                          VAL R11
+      165 CAPTURE                          VAL R9
+      166 SETTABLEKS                       R20 R19 K29 ["onReject"]
+      168 CALL                             R17 2 1
+      169 SETTABLEKS                       R17 R16 K19 ["SaveDialog"]
+      171 GETTABLEKS                       R17 R10 K22 ["enabled"]
+      173 JUMPIFNOT                        R17 ; [+19]
+      174 GETUPVAL                         R18 0
+      175 GETTABLEKS                       R17 R18 K10 ["createElement"]
+      177 GETUPVAL                         R18 5
+      178 DUPTABLE                         R19 K34 [{"variant", "onAccept", "onReject"}]
+      179 LOADK                            R20 K36 ["Publish"]
+      180 SETTABLEKS                       R20 R19 K27 ["variant"]
+      182 NEWCLOSURE                       R20 P9
+      183 CAPTURE                          VAL R11
+      184 CAPTURE                          VAL R10
+      185 SETTABLEKS                       R20 R19 K28 ["onAccept"]
+      187 NEWCLOSURE                       R20 P10
+      188 CAPTURE                          VAL R11
+      189 CAPTURE                          VAL R10
+      190 SETTABLEKS                       R20 R19 K29 ["onReject"]
+      192 CALL                             R17 2 1
+      193 SETTABLEKS                       R17 R16 K20 ["PublishDialog"]
+      195 GETTABLEKS                       R17 R0 K37 ["children"]
+      197 CALL                             R13 4 -1
+      198 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -262,12 +306,12 @@ MAIN:
        64 GETTABLEKS                       R14 R0 K12 ["Src"]
        66 GETTABLEKS                       R13 R14 K21 ["Types"]
        68 CALL                             R12 1 1
-       69 DUPCLOSURE                       R13 K22 [PROTO_9]
+       69 DUPCLOSURE                       R13 K22 [PROTO_11]
        70 CAPTURE                          VAL R2
        71 CAPTURE                          VAL R7
        72 CAPTURE                          VAL R8
        73 CAPTURE                          VAL R1
        74 CAPTURE                          VAL R5
-       75 CAPTURE                          VAL R11
-       76 CAPTURE                          VAL R10
+       75 CAPTURE                          VAL R10
+       76 CAPTURE                          VAL R11
        77 RETURN                           R13 1

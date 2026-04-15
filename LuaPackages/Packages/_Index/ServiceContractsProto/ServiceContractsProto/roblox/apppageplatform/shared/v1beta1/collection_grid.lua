@@ -70,6 +70,8 @@ type _CollectionGridSchema_PropsFields = {
 	title_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	threshold_rows_from_bottom: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	on_reached_threshold_from_end: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _CollectionGridSchema_PropsPartialFields = {
@@ -90,6 +92,8 @@ type _CollectionGridSchema_PropsPartialFields = {
 	title_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	threshold_rows_from_bottom: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	on_reached_threshold_from_end: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type CollectionGridSchema_Props = typeof(setmetatable(
@@ -266,6 +270,12 @@ do
 			on_reached_threshold_from_end = if data == nil or data.on_reached_threshold_from_end == nil
 				then nil
 				else data.on_reached_threshold_from_end,
+			impression_event_name = if data == nil or data.impression_event_name == nil
+				then nil
+				else data.impression_event_name,
+			skip_item_impressions_log = if data == nil or data.skip_item_impressions_log == nil
+				then nil
+				else data.skip_item_impressions_log,
 		}, _CollectionGridSchema_PropsImpl :: _CollectionGridSchema_PropsImpl)
 	end
 
@@ -372,6 +382,18 @@ do
 		if self.on_reached_threshold_from_end ~= nil then
 			local encoded = self.on_reached_threshold_from_end:encode()
 			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.impression_event_name ~= nil then
+			local encoded = self.impression_event_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.skip_item_impressions_log ~= nil then
+			local encoded = self.skip_item_impressions_log:encode()
+			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -490,6 +512,18 @@ do
 					self.on_reached_threshold_from_end =
 						_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
 					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.impression_event_name =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.skip_item_impressions_log =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
 				end
 
 				local length
@@ -583,6 +617,14 @@ do
 
 		if self.on_reached_threshold_from_end ~= nil then
 			output.onReachedThresholdFromEnd = self.on_reached_threshold_from_end:jsonEncode()
+		end
+
+		if self.impression_event_name ~= nil then
+			output.impressionEventName = self.impression_event_name:jsonEncode()
+		end
+
+		if self.skip_item_impressions_log ~= nil then
+			output.skipItemImpressionsLog = self.skip_item_impressions_log:jsonEncode()
 		end
 
 		return output
@@ -748,6 +790,26 @@ do
 		if input.onReachedThresholdFromEnd ~= nil then
 			self.on_reached_threshold_from_end =
 				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onReachedThresholdFromEnd)
+		end
+
+		if input.impression_event_name ~= nil then
+			self.impression_event_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.impression_event_name)
+		end
+
+		if input.impressionEventName ~= nil then
+			self.impression_event_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.impressionEventName)
+		end
+
+		if input.skip_item_impressions_log ~= nil then
+			self.skip_item_impressions_log =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skip_item_impressions_log)
+		end
+
+		if input.skipItemImpressionsLog ~= nil then
+			self.skip_item_impressions_log =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skipItemImpressionsLog)
 		end
 
 		return self

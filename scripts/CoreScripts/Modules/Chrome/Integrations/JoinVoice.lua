@@ -39,6 +39,9 @@ local FFlagEnableChromeJoinVoiceTooltip = game:DefineFastFlag("EnableChromeJoinV
 local ChromeService = require(Chrome.Service)
 local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
 
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
+
 local isPrivateVoiceFocused = false
 local wasJoinVoiceSeenInThisPlaySession = false
 local lastKnownIntegrationAvailability: number = ChromeService.AvailabilitySignal.Unavailable
@@ -61,6 +64,7 @@ joinVoice = ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Unavailable,
 	id = "join_voice",
 	label = "CoreScripts.TopBar.JoinVoice",
+	sideSheetPlacement = SideSheetPlacement.Unibar,
 	activated = function()
 		local SettingsHub = if GetFFlagIntegratePhoneUpsellJoinVoice()
 			then require(RobloxGui.Modules.Settings.SettingsHub)

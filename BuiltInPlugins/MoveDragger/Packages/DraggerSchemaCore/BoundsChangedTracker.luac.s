@@ -10,23 +10,25 @@ PROTO_1:
         5 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R3 K4 [{"_handler", "_installed", "_partToEntry", "_attachmentToEntry"}]
+        0 DUPTABLE                         R3 K5 [{"_handler", "_installed", "_partToEntry", "_proceduralModelToEntry", "_attachmentToEntry"}]
         1 SETTABLEKS                       R1 R3 K0 ["_handler"]
         3 LOADB                            R4 0
         4 SETTABLEKS                       R4 R3 K1 ["_installed"]
         6 NEWTABLE                         R4 0 0
         8 SETTABLEKS                       R4 R3 K2 ["_partToEntry"]
        10 NEWTABLE                         R4 0 0
-       12 SETTABLEKS                       R4 R3 K3 ["_attachmentToEntry"]
-       14 GETUPVAL                         R4 0
-       15 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
-       17 GETIMPORT                        R2 K6 [setmetatable]
-       19 CALL                             R2 2 1
-       20 NEWCLOSURE                       R3 P0
-       21 CAPTURE                          VAL R1
-       22 CAPTURE                          VAL R2
-       23 SETTABLEKS                       R3 R2 K7 ["_basisPivotChangedTrampoline"]
-       25 RETURN                           R2 1
+       12 SETTABLEKS                       R4 R3 K3 ["_proceduralModelToEntry"]
+       14 NEWTABLE                         R4 0 0
+       16 SETTABLEKS                       R4 R3 K4 ["_attachmentToEntry"]
+       18 GETUPVAL                         R4 0
+       19 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
+       21 GETIMPORT                        R2 K7 [setmetatable]
+       23 CALL                             R2 2 1
+       24 NEWCLOSURE                       R3 P0
+       25 CAPTURE                          VAL R1
+       26 CAPTURE                          VAL R2
+       27 SETTABLEKS                       R3 R2 K8 ["_basisPivotChangedTrampoline"]
+       29 RETURN                           R2 1
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["CFrameChangedSignal"]
@@ -93,6 +95,20 @@ PROTO_6:
        15 RETURN                           R0 0
 
 PROTO_7:
+        0 GETTABLEKS                       R1 R0 K0 ["SizeChangedSignal"]
+        2 GETTABLEKS                       R3 R0 K1 ["Trampoline"]
+        4 NAMECALL                         R1 R1 K2 ["Connect"]
+        6 CALL                             R1 2 1
+        7 SETTABLEKS                       R1 R0 K3 ["SizeChangedConnection"]
+        9 RETURN                           R0 0
+
+PROTO_8:
+        0 GETTABLEKS                       R1 R0 K0 ["SizeChangedConnection"]
+        2 NAMECALL                         R1 R1 K1 ["Disconnect"]
+        4 CALL                             R1 1 0
+        5 RETURN                           R0 0
+
+PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["_basisPivotChangedSignal"]
         2 GETTABLEKS                       R3 R0 K1 ["_basisPivotChangedTrampoline"]
         4 NAMECALL                         R1 R1 K2 ["Connect"]
@@ -100,13 +116,13 @@ PROTO_7:
         7 SETTABLEKS                       R1 R0 K3 ["_basisPivotChangedConnection"]
         9 RETURN                           R0 0
 
-PROTO_8:
+PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["_basisPivotChangedConnection"]
         2 NAMECALL                         R1 R1 K1 ["Disconnect"]
         4 CALL                             R1 1 0
         5 RETURN                           R0 0
 
-PROTO_9:
+PROTO_11:
         0 GETTABLEKS                       R3 R0 K0 ["_installed"]
         2 NOT                              R2 R3
         3 FASTCALL1                        ASSERT R2 ; [+2]
@@ -155,13 +171,25 @@ PROTO_9:
        74 CALL                             R6 2 1
        75 SETTABLEKS                       R6 R5 K16 ["CameraCFrameChangedConnection"]
        77 FORGLOOP                         R1 2 ; [-24]
-       79 GETTABLEKS                       R1 R0 K17 ["_basisObject"]
-       81 JUMPIFNOT                        R1 ; [+3]
-       82 NAMECALL                         R1 R0 K18 ["_hookupBasisConnection"]
-       84 CALL                             R1 1 0
-       85 RETURN                           R0 0
+       79 GETUPVAL                         R1 1
+       80 JUMPIFNOT                        R1 ; [+16]
+       81 GETTABLEKS                       R1 R0 K17 ["_proceduralModelToEntry"]
+       83 LOADNIL                          R2
+       84 LOADNIL                          R3
+       85 FORGPREP                         R1
+       86 GETTABLEKS                       R6 R5 K12 ["SizeChangedSignal"]
+       88 GETTABLEKS                       R8 R5 K7 ["Trampoline"]
+       90 NAMECALL                         R6 R6 K8 ["Connect"]
+       92 CALL                             R6 2 1
+       93 SETTABLEKS                       R6 R5 K13 ["SizeChangedConnection"]
+       95 FORGLOOP                         R1 2 ; [-10]
+       97 GETTABLEKS                       R1 R0 K18 ["_basisObject"]
+       99 JUMPIFNOT                        R1 ; [+3]
+      100 NAMECALL                         R1 R0 K19 ["_hookupBasisConnection"]
+      102 CALL                             R1 1 0
+      103 RETURN                           R0 0
 
-PROTO_10:
+PROTO_12:
         0 GETTABLEKS                       R2 R0 K0 ["_installed"]
         2 FASTCALL1                        ASSERT R2 ; [+2]
         3 GETIMPORT                        R1 K2 [assert]
@@ -199,13 +227,23 @@ PROTO_10:
        53 NAMECALL                         R6 R6 K7 ["Disconnect"]
        55 CALL                             R6 1 0
        56 FORGLOOP                         R1 2 ; [-16]
-       58 GETTABLEKS                       R1 R0 K12 ["_basisObject"]
-       60 JUMPIFNOT                        R1 ; [+3]
-       61 NAMECALL                         R1 R0 K13 ["_disconnectBasisConnection"]
-       63 CALL                             R1 1 0
-       64 RETURN                           R0 0
+       58 GETUPVAL                         R1 1
+       59 JUMPIFNOT                        R1 ; [+12]
+       60 GETTABLEKS                       R1 R0 K12 ["_proceduralModelToEntry"]
+       62 LOADNIL                          R2
+       63 LOADNIL                          R3
+       64 FORGPREP                         R1
+       65 GETTABLEKS                       R6 R5 K9 ["SizeChangedConnection"]
+       67 NAMECALL                         R6 R6 K7 ["Disconnect"]
+       69 CALL                             R6 1 0
+       70 FORGLOOP                         R1 2 ; [-6]
+       72 GETTABLEKS                       R1 R0 K13 ["_basisObject"]
+       74 JUMPIFNOT                        R1 ; [+3]
+       75 NAMECALL                         R1 R0 K14 ["_disconnectBasisConnection"]
+       77 CALL                             R1 1 0
+       78 RETURN                           R0 0
 
-PROTO_11:
+PROTO_13:
         0 NAMECALL                         R4 R1 K0 ["getAllAttachments"]
         2 CALL                             R4 1 -1
         3 NAMECALL                         R2 R0 K1 ["_setAttachments"]
@@ -218,15 +256,21 @@ PROTO_11:
        14 CALL                             R4 1 -1
        15 NAMECALL                         R2 R0 K5 ["_setBasisObject"]
        17 CALL                             R2 -1 0
-       18 RETURN                           R0 0
+       18 GETUPVAL                         R2 0
+       19 JUMPIFNOT                        R2 ; [+6]
+       20 NAMECALL                         R4 R1 K6 ["getProceduralModels"]
+       22 CALL                             R4 1 -1
+       23 NAMECALL                         R2 R0 K7 ["_setProceduralModels"]
+       25 CALL                             R2 -1 0
+       26 RETURN                           R0 0
 
-PROTO_12:
+PROTO_14:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["_setParts"]
         3 CALL                             R2 2 0
         4 RETURN                           R0 0
 
-PROTO_13:
+PROTO_15:
         0 GETTABLEKS                       R2 R0 K0 ["_basisObject"]
         2 JUMPIFEQ                         R2 R1 ; [+58]
         4 GETTABLEKS                       R2 R0 K1 ["_installed"]
@@ -271,14 +315,14 @@ PROTO_13:
        60 CALL                             R2 1 0
        61 RETURN                           R0 0
 
-PROTO_14:
+PROTO_16:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["_handler"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_15:
+PROTO_17:
         0 NEWTABLE                         R2 0 0
         2 GETIMPORT                        R3 K1 [ipairs]
         4 MOVE                             R4 R1
@@ -355,14 +399,68 @@ PROTO_15:
       104 SETTABLEKS                       R2 R0 K2 ["_attachmentToEntry"]
       106 RETURN                           R0 0
 
-PROTO_16:
+PROTO_18:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["_handler"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_17:
+PROTO_19:
+        0 NEWTABLE                         R2 0 0
+        2 MOVE                             R3 R1
+        3 LOADNIL                          R4
+        4 LOADNIL                          R5
+        5 FORGPREP                         R3
+        6 GETTABLEKS                       R9 R0 K0 ["_proceduralModelToEntry"]
+        8 GETTABLE                         R8 R9 R7
+        9 GETTABLEKS                       R9 R0 K0 ["_proceduralModelToEntry"]
+       11 LOADNIL                          R10
+       12 SETTABLE                         R10 R9 R7
+       13 JUMPIF                           R8 ; [+26]
+       14 DUPTABLE                         R9 K3 [{"SizeChangedSignal", "Trampoline"}]
+       15 LOADK                            R12 K4 ["Size"]
+       16 NAMECALL                         R10 R7 K5 ["GetPropertyChangedSignal"]
+       18 CALL                             R10 2 1
+       19 SETTABLEKS                       R10 R9 K1 ["SizeChangedSignal"]
+       21 NEWCLOSURE                       R10 P0
+       22 CAPTURE                          VAL R0
+       23 CAPTURE                          VAL R7
+       24 SETTABLEKS                       R10 R9 K2 ["Trampoline"]
+       26 MOVE                             R8 R9
+       27 GETTABLEKS                       R9 R0 K6 ["_installed"]
+       29 JUMPIFNOT                        R9 ; [+10]
+       30 MOVE                             R9 R8
+       31 GETTABLEKS                       R10 R9 K1 ["SizeChangedSignal"]
+       33 GETTABLEKS                       R12 R9 K2 ["Trampoline"]
+       35 NAMECALL                         R10 R10 K7 ["Connect"]
+       37 CALL                             R10 2 1
+       38 SETTABLEKS                       R10 R9 K8 ["SizeChangedConnection"]
+       40 SETTABLE                         R8 R2 R7
+       41 FORGLOOP                         R3 2 ; [-36]
+       43 GETTABLEKS                       R3 R0 K6 ["_installed"]
+       45 JUMPIFNOT                        R3 ; [+14]
+       46 GETTABLEKS                       R3 R0 K0 ["_proceduralModelToEntry"]
+       48 LOADNIL                          R4
+       49 LOADNIL                          R5
+       50 FORGPREP                         R3
+       51 GETTABLE                         R8 R2 R6
+       52 JUMPIF                           R8 ; [+5]
+       53 GETTABLEKS                       R8 R7 K8 ["SizeChangedConnection"]
+       55 NAMECALL                         R8 R8 K9 ["Disconnect"]
+       57 CALL                             R8 1 0
+       58 FORGLOOP                         R3 2 ; [-8]
+       60 SETTABLEKS                       R2 R0 K0 ["_proceduralModelToEntry"]
+       62 RETURN                           R0 0
+
+PROTO_20:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["_handler"]
+        3 GETUPVAL                         R1 1
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
+
+PROTO_21:
         0 NEWTABLE                         R2 0 0
         2 GETIMPORT                        R3 K1 [ipairs]
         4 MOVE                             R4 R1
@@ -462,36 +560,49 @@ MAIN:
        14 CALL                             R3 2 1
        15 DUPCLOSURE                       R4 K8 [PROTO_0]
        16 CAPTURE                          VAL R3
-       17 NEWTABLE                         R5 16 0
-       19 SETTABLEKS                       R5 R5 K9 ["__index"]
-       21 DUPCLOSURE                       R6 K10 [PROTO_2]
-       22 CAPTURE                          VAL R5
-       23 SETTABLEKS                       R6 R5 K11 ["new"]
-       25 DUPCLOSURE                       R6 K12 [PROTO_3]
-       26 DUPCLOSURE                       R7 K13 [PROTO_4]
-       27 DUPCLOSURE                       R8 K14 [PROTO_5]
-       28 CAPTURE                          VAL R3
-       29 DUPCLOSURE                       R9 K15 [PROTO_6]
-       30 CAPTURE                          VAL R3
-       31 DUPCLOSURE                       R10 K16 [PROTO_7]
-       32 SETTABLEKS                       R10 R5 K17 ["_hookupBasisConnection"]
-       34 DUPCLOSURE                       R10 K18 [PROTO_8]
-       35 SETTABLEKS                       R10 R5 K19 ["_disconnectBasisConnection"]
-       37 DUPCLOSURE                       R10 K20 [PROTO_9]
-       38 CAPTURE                          VAL R3
-       39 SETTABLEKS                       R10 R5 K21 ["install"]
-       41 DUPCLOSURE                       R10 K22 [PROTO_10]
-       42 CAPTURE                          VAL R3
-       43 SETTABLEKS                       R10 R5 K23 ["uninstall"]
-       45 DUPCLOSURE                       R10 K24 [PROTO_11]
-       46 SETTABLEKS                       R10 R5 K25 ["setSelection"]
-       48 DUPCLOSURE                       R10 K26 [PROTO_12]
-       49 SETTABLEKS                       R10 R5 K27 ["setParts"]
-       51 DUPCLOSURE                       R10 K28 [PROTO_13]
-       52 SETTABLEKS                       R10 R5 K29 ["_setBasisObject"]
-       54 DUPCLOSURE                       R10 K30 [PROTO_15]
-       55 CAPTURE                          VAL R3
-       56 SETTABLEKS                       R10 R5 K31 ["_setAttachments"]
-       58 DUPCLOSURE                       R10 K32 [PROTO_17]
-       59 SETTABLEKS                       R10 R5 K33 ["_setParts"]
-       61 RETURN                           R5 1
+       17 GETIMPORT                        R5 K10 [require]
+       19 GETTABLEKS                       R7 R2 K11 ["Flags"]
+       21 GETTABLEKS                       R6 R7 K12 ["getFFlagDraggerEditProcModels"]
+       23 CALL                             R5 1 1
+       24 MOVE                             R6 R5
+       25 CALL                             R6 0 1
+       26 NEWTABLE                         R7 16 0
+       28 SETTABLEKS                       R7 R7 K13 ["__index"]
+       30 DUPCLOSURE                       R8 K14 [PROTO_2]
+       31 CAPTURE                          VAL R7
+       32 SETTABLEKS                       R8 R7 K15 ["new"]
+       34 DUPCLOSURE                       R8 K16 [PROTO_3]
+       35 DUPCLOSURE                       R9 K17 [PROTO_4]
+       36 DUPCLOSURE                       R10 K18 [PROTO_5]
+       37 CAPTURE                          VAL R3
+       38 DUPCLOSURE                       R11 K19 [PROTO_6]
+       39 CAPTURE                          VAL R3
+       40 DUPCLOSURE                       R12 K20 [PROTO_7]
+       41 DUPCLOSURE                       R13 K21 [PROTO_8]
+       42 DUPCLOSURE                       R14 K22 [PROTO_9]
+       43 SETTABLEKS                       R14 R7 K23 ["_hookupBasisConnection"]
+       45 DUPCLOSURE                       R14 K24 [PROTO_10]
+       46 SETTABLEKS                       R14 R7 K25 ["_disconnectBasisConnection"]
+       48 DUPCLOSURE                       R14 K26 [PROTO_11]
+       49 CAPTURE                          VAL R3
+       50 CAPTURE                          VAL R6
+       51 SETTABLEKS                       R14 R7 K27 ["install"]
+       53 DUPCLOSURE                       R14 K28 [PROTO_12]
+       54 CAPTURE                          VAL R3
+       55 CAPTURE                          VAL R6
+       56 SETTABLEKS                       R14 R7 K29 ["uninstall"]
+       58 DUPCLOSURE                       R14 K30 [PROTO_13]
+       59 CAPTURE                          VAL R6
+       60 SETTABLEKS                       R14 R7 K31 ["setSelection"]
+       62 DUPCLOSURE                       R14 K32 [PROTO_14]
+       63 SETTABLEKS                       R14 R7 K33 ["setParts"]
+       65 DUPCLOSURE                       R14 K34 [PROTO_15]
+       66 SETTABLEKS                       R14 R7 K35 ["_setBasisObject"]
+       68 DUPCLOSURE                       R14 K36 [PROTO_17]
+       69 CAPTURE                          VAL R3
+       70 SETTABLEKS                       R14 R7 K37 ["_setAttachments"]
+       72 DUPCLOSURE                       R14 K38 [PROTO_19]
+       73 SETTABLEKS                       R14 R7 K39 ["_setProceduralModels"]
+       75 DUPCLOSURE                       R14 K40 [PROTO_21]
+       76 SETTABLEKS                       R14 R7 K41 ["_setParts"]
+       78 RETURN                           R7 1

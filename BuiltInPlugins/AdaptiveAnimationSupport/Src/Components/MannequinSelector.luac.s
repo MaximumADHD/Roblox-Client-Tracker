@@ -4,7 +4,7 @@ PROTO_0:
         3 GETTABLEKS                       R1 R2 K1 ["properties"]
         5 GETTABLEKS                       R0 R1 K2 ["observeInstance"]
         7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K3 ["rigDescriptor"]
+        8 GETTABLEKS                       R1 R2 K3 ["DEPRECATED_rigDescriptor"]
        10 GETUPVAL                         R4 1
        11 GETTABLEKS                       R3 R4 K4 ["jointLabel"]
        13 GETTABLEKS                       R2 R3 K5 ["Name"]
@@ -63,203 +63,211 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
-        2 GETUPVAL                         R3 1
-        3 GETTABLEKS                       R2 R3 K0 ["useMemo"]
-        5 NEWCLOSURE                       R3 P0
-        6 CAPTURE                          UPVAL U2
-        7 CAPTURE                          VAL R0
-        8 NEWTABLE                         R4 0 2
-       10 GETTABLEKS                       R5 R0 K1 ["rigDescriptor"]
-       12 GETTABLEKS                       R6 R0 K2 ["jointLabel"]
-       14 SETLIST                          R4 R5 2 [1]
-       16 CALL                             R2 2 1
-       17 GETUPVAL                         R4 3
-       18 GETTABLEKS                       R3 R4 K3 ["useSignalState"]
-       20 MOVE                             R4 R2
-       21 CALL                             R3 1 1
-       22 LOADB                            R4 1
-       23 GETTABLEKS                       R5 R0 K4 ["armedRigLabel"]
-       25 GETTABLEKS                       R6 R0 K2 ["jointLabel"]
-       27 JUMPIFEQ                         R5 R6 ; [+10]
-       29 LOADB                            R4 0
-       30 JUMPIFEQKNIL                     R3 ; [+7]
-       32 GETTABLEKS                       R5 R0 K5 ["selectedJoint"]
-       34 JUMPIFEQ                         R5 R3 ; [+2]
-       36 LOADB                            R4 0 +1
-       37 LOADB                            R4 1
-       38 LOADB                            R5 0
-       39 JUMPIFEQKNIL                     R3 ; [+14]
-       41 LOADB                            R5 0
-       42 GETTABLEKS                       R6 R0 K6 ["counterpartHoveredJointName"]
-       44 JUMPIFEQKNIL                     R6 ; [+9]
-       46 GETTABLEKS                       R6 R3 K7 ["Name"]
-       48 GETTABLEKS                       R7 R0 K6 ["counterpartHoveredJointName"]
-       50 JUMPIFEQ                         R6 R7 ; [+2]
-       52 LOADB                            R5 0 +1
-       53 LOADB                            R5 1
-       54 GETUPVAL                         R7 1
-       55 GETTABLEKS                       R6 R7 K8 ["useState"]
-       57 LOADB                            R7 0
-       58 CALL                             R6 1 2
-       59 OR                               R8 R5 R6
-       60 JUMPIFNOT                        R4 ; [+9]
-       61 GETTABLEKS                       R12 R1 K9 ["Color"]
-       63 GETTABLEKS                       R11 R12 K10 ["Extended"]
-       65 GETTABLEKS                       R10 R11 K11 ["Blue"]
-       67 GETTABLEKS                       R9 R10 K12 ["Blue_600"]
-       69 JUMP                             ; [+40]
-       70 JUMPIFNOT                        R8 ; [+20]
-       71 JUMPIFEQKNIL                     R3 ; [+10]
-       73 GETTABLEKS                       R12 R1 K9 ["Color"]
-       75 GETTABLEKS                       R11 R12 K10 ["Extended"]
-       77 GETTABLEKS                       R10 R11 K13 ["Orange"]
-       79 GETTABLEKS                       R9 R10 K14 ["Orange_600"]
-       81 JUMP                             ; [+28]
-       82 GETTABLEKS                       R12 R1 K9 ["Color"]
-       84 GETTABLEKS                       R11 R12 K10 ["Extended"]
-       86 GETTABLEKS                       R10 R11 K15 ["Gray"]
-       88 GETTABLEKS                       R9 R10 K16 ["Gray_500"]
-       90 JUMP                             ; [+19]
-       91 JUMPIFEQKNIL                     R3 ; [+10]
-       93 GETTABLEKS                       R12 R1 K9 ["Color"]
-       95 GETTABLEKS                       R11 R12 K10 ["Extended"]
-       97 GETTABLEKS                       R10 R11 K13 ["Orange"]
-       99 GETTABLEKS                       R9 R10 K17 ["Orange_800"]
-      101 JUMP                             ; [+8]
-      102 GETTABLEKS                       R12 R1 K9 ["Color"]
-      104 GETTABLEKS                       R11 R12 K10 ["Extended"]
-      106 GETTABLEKS                       R10 R11 K15 ["Gray"]
-      108 GETTABLEKS                       R9 R10 K18 ["Gray_600"]
-      110 GETIMPORT                        R10 K21 [table.clone]
-      112 MOVE                             R11 R9
-      113 CALL                             R10 1 1
-      114 LOADK                            R11 K22 [0.3]
-      115 SETTABLEKS                       R11 R10 K23 ["Transparency"]
-      117 GETTABLEKS                       R12 R0 K24 ["optional"]
-      119 JUMPIFNOT                        R12 ; [+11]
-      120 JUMPIF                           R4 ; [+10]
-      121 JUMPIF                           R8 ; [+9]
-      122 GETTABLEKS                       R14 R1 K9 ["Color"]
-      124 GETTABLEKS                       R13 R14 K10 ["Extended"]
-      126 GETTABLEKS                       R12 R13 K15 ["Gray"]
-      128 GETTABLEKS                       R11 R12 K16 ["Gray_500"]
-      130 JUMP                             ; [+1]
-      131 MOVE                             R11 R10
-      132 GETUPVAL                         R13 1
-      133 GETTABLEKS                       R12 R13 K25 ["useCallback"]
-      135 NEWCLOSURE                       R13 P1
-      136 CAPTURE                          VAL R0
-      137 NEWTABLE                         R14 0 5
-      139 GETTABLEKS                       R15 R0 K2 ["jointLabel"]
-      141 GETTABLEKS                       R16 R0 K5 ["selectedJoint"]
-      143 GETTABLEKS                       R17 R0 K4 ["armedRigLabel"]
-      145 GETTABLEKS                       R18 R0 K26 ["onMapJoint"]
-      147 GETTABLEKS                       R19 R0 K27 ["onArmJoint"]
-      149 SETLIST                          R14 R15 5 [1]
-      151 CALL                             R12 2 1
-      152 GETUPVAL                         R14 1
-      153 GETTABLEKS                       R13 R14 K28 ["createElement"]
-      155 GETUPVAL                         R15 4
-      156 GETTABLEKS                       R14 R15 K29 ["View"]
-      158 DUPTABLE                         R15 K35 [{"tag", "Position", "onActivated", "onStateChanged", "stateLayer"}]
-      159 LOADK                            R16 K36 ["auto-xy anchor-center-center"]
-      160 SETTABLEKS                       R16 R15 K30 ["tag"]
-      162 GETIMPORT                        R16 K39 [UDim2.fromScale]
-      164 GETTABLEKS                       R19 R0 K41 ["position"]
-      166 GETTABLEKS                       R18 R19 K42 ["X"]
-      168 DIVK                             R17 R18 K40 [189]
-      169 GETTABLEKS                       R20 R0 K41 ["position"]
-      171 GETTABLEKS                       R19 R20 K44 ["Y"]
-      173 DIVK                             R18 R19 K43 [383]
-      174 CALL                             R16 2 1
-      175 SETTABLEKS                       R16 R15 K31 ["Position"]
-      177 SETTABLEKS                       R12 R15 K32 ["onActivated"]
-      179 GETUPVAL                         R17 1
-      180 GETTABLEKS                       R16 R17 K25 ["useCallback"]
-      182 NEWCLOSURE                       R17 P2
-      183 CAPTURE                          VAL R7
-      184 CAPTURE                          VAL R3
-      185 CAPTURE                          VAL R0
-      186 NEWTABLE                         R18 0 3
-      188 MOVE                             R19 R3
-      189 GETTABLEKS                       R20 R0 K45 ["onDotHoverEnter"]
-      191 GETTABLEKS                       R21 R0 K46 ["onDotHoverLeave"]
-      193 SETLIST                          R18 R19 3 [1]
-      195 CALL                             R16 2 1
-      196 SETTABLEKS                       R16 R15 K33 ["onStateChanged"]
-      198 DUPTABLE                         R16 K48 [{"affordance"}]
-      199 GETUPVAL                         R20 4
-      200 GETTABLEKS                       R19 R20 K49 ["Enums"]
-      202 GETTABLEKS                       R18 R19 K50 ["StateLayerAffordance"]
-      204 GETTABLEKS                       R17 R18 K51 ["None"]
-      206 SETTABLEKS                       R17 R16 K47 ["affordance"]
-      208 SETTABLEKS                       R16 R15 K34 ["stateLayer"]
-      210 DUPTABLE                         R16 K53 [{"Tooltip"}]
-      211 GETUPVAL                         R18 1
-      212 GETTABLEKS                       R17 R18 K28 ["createElement"]
-      214 GETUPVAL                         R19 4
-      215 GETTABLEKS                       R18 R19 K52 ["Tooltip"]
-      217 DUPTABLE                         R19 K57 [{"title", "align", "side"}]
-      218 GETTABLEKS                       R21 R0 K2 ["jointLabel"]
-      220 GETTABLEKS                       R20 R21 K7 ["Name"]
-      222 SETTABLEKS                       R20 R19 K54 ["title"]
-      224 GETUPVAL                         R23 4
-      225 GETTABLEKS                       R22 R23 K49 ["Enums"]
-      227 GETTABLEKS                       R21 R22 K58 ["PopoverAlign"]
-      229 GETTABLEKS                       R20 R21 K59 ["Center"]
-      231 SETTABLEKS                       R20 R19 K55 ["align"]
-      233 GETUPVAL                         R23 4
-      234 GETTABLEKS                       R22 R23 K49 ["Enums"]
-      236 GETTABLEKS                       R21 R22 K60 ["PopoverSide"]
-      238 GETTABLEKS                       R20 R21 K61 ["Top"]
-      240 SETTABLEKS                       R20 R19 K56 ["side"]
-      242 GETUPVAL                         R21 1
-      243 GETTABLEKS                       R20 R21 K28 ["createElement"]
-      245 GETUPVAL                         R22 4
-      246 GETTABLEKS                       R21 R22 K29 ["View"]
-      248 DUPTABLE                         R22 K65 [{"Size", "backgroundStyle", "stroke"}]
-      249 JUMPIFNOT                        R8 ; [+8]
-      250 GETIMPORT                        R23 K67 [UDim2.new]
-      252 LOADN                            R24 0
-      253 LOADN                            R25 14
-      254 LOADN                            R26 0
-      255 LOADN                            R27 14
-      256 CALL                             R23 4 1
-      257 JUMP                             ; [+7]
-      258 GETIMPORT                        R23 K67 [UDim2.new]
-      260 LOADN                            R24 0
-      261 LOADN                            R25 10
-      262 LOADN                            R26 0
-      263 LOADN                            R27 10
-      264 CALL                             R23 4 1
-      265 SETTABLEKS                       R23 R22 K62 ["Size"]
-      267 SETTABLEKS                       R11 R22 K63 ["backgroundStyle"]
-      269 DUPTABLE                         R23 K69 [{"Color", "Thickness"}]
-      270 GETTABLEKS                       R24 R10 K70 ["Color3"]
-      272 SETTABLEKS                       R24 R23 K9 ["Color"]
-      274 JUMPIFNOT                        R8 ; [+2]
-      275 LOADN                            R24 2
-      276 JUMP                             ; [+1]
-      277 LOADN                            R24 1
-      278 SETTABLEKS                       R24 R23 K68 ["Thickness"]
-      280 SETTABLEKS                       R23 R22 K64 ["stroke"]
-      282 DUPTABLE                         R23 K72 [{"UICorner"}]
-      283 GETUPVAL                         R25 1
-      284 GETTABLEKS                       R24 R25 K28 ["createElement"]
-      286 LOADK                            R25 K71 ["UICorner"]
-      287 DUPTABLE                         R26 K74 [{"CornerRadius"}]
-      288 GETIMPORT                        R27 K76 [UDim.new]
-      290 LOADN                            R28 0
-      291 LOADN                            R29 15
-      292 CALL                             R27 2 1
-      293 SETTABLEKS                       R27 R26 K73 ["CornerRadius"]
-      295 CALL                             R24 2 1
-      296 SETTABLEKS                       R24 R23 K71 ["UICorner"]
-      298 CALL                             R20 3 -1
-      299 CALL                             R17 -1 1
-      300 SETTABLEKS                       R17 R16 K52 ["Tooltip"]
-      302 CALL                             R13 3 -1
-      303 RETURN                           R13 -1
+        2 LOADNIL                          R2
+        3 GETUPVAL                         R3 1
+        4 CALL                             R3 0 1
+        5 JUMPIFNOT                        R3 ; [+3]
+        6 GETTABLEKS                       R2 R0 K0 ["mappedJoint"]
+        8 JUMP                             ; [+21]
+        9 GETUPVAL                         R4 2
+       10 GETTABLEKS                       R3 R4 K1 ["useMemo"]
+       12 NEWCLOSURE                       R4 P0
+       13 CAPTURE                          UPVAL U3
+       14 CAPTURE                          VAL R0
+       15 NEWTABLE                         R5 0 2
+       17 GETTABLEKS                       R6 R0 K2 ["DEPRECATED_rigDescriptor"]
+       19 GETTABLEKS                       R7 R0 K3 ["jointLabel"]
+       21 SETLIST                          R5 R6 2 [1]
+       23 CALL                             R3 2 1
+       24 GETUPVAL                         R5 4
+       25 GETTABLEKS                       R4 R5 K4 ["useSignalState"]
+       27 MOVE                             R5 R3
+       28 CALL                             R4 1 1
+       29 MOVE                             R2 R4
+       30 LOADB                            R3 1
+       31 GETTABLEKS                       R4 R0 K5 ["armedRigLabel"]
+       33 GETTABLEKS                       R5 R0 K3 ["jointLabel"]
+       35 JUMPIFEQ                         R4 R5 ; [+10]
+       37 LOADB                            R3 0
+       38 JUMPIFEQKNIL                     R2 ; [+7]
+       40 GETTABLEKS                       R4 R0 K6 ["selectedJoint"]
+       42 JUMPIFEQ                         R4 R2 ; [+2]
+       44 LOADB                            R3 0 +1
+       45 LOADB                            R3 1
+       46 LOADB                            R4 0
+       47 JUMPIFEQKNIL                     R2 ; [+14]
+       49 LOADB                            R4 0
+       50 GETTABLEKS                       R5 R0 K7 ["counterpartHoveredJointName"]
+       52 JUMPIFEQKNIL                     R5 ; [+9]
+       54 GETTABLEKS                       R5 R2 K8 ["Name"]
+       56 GETTABLEKS                       R6 R0 K7 ["counterpartHoveredJointName"]
+       58 JUMPIFEQ                         R5 R6 ; [+2]
+       60 LOADB                            R4 0 +1
+       61 LOADB                            R4 1
+       62 GETUPVAL                         R6 2
+       63 GETTABLEKS                       R5 R6 K9 ["useState"]
+       65 LOADB                            R6 0
+       66 CALL                             R5 1 2
+       67 OR                               R7 R4 R5
+       68 JUMPIFNOT                        R3 ; [+9]
+       69 GETTABLEKS                       R11 R1 K10 ["Color"]
+       71 GETTABLEKS                       R10 R11 K11 ["Extended"]
+       73 GETTABLEKS                       R9 R10 K12 ["Blue"]
+       75 GETTABLEKS                       R8 R9 K13 ["Blue_600"]
+       77 JUMP                             ; [+40]
+       78 JUMPIFNOT                        R7 ; [+20]
+       79 JUMPIFEQKNIL                     R2 ; [+10]
+       81 GETTABLEKS                       R11 R1 K10 ["Color"]
+       83 GETTABLEKS                       R10 R11 K11 ["Extended"]
+       85 GETTABLEKS                       R9 R10 K14 ["Orange"]
+       87 GETTABLEKS                       R8 R9 K15 ["Orange_600"]
+       89 JUMP                             ; [+28]
+       90 GETTABLEKS                       R11 R1 K10 ["Color"]
+       92 GETTABLEKS                       R10 R11 K11 ["Extended"]
+       94 GETTABLEKS                       R9 R10 K16 ["Gray"]
+       96 GETTABLEKS                       R8 R9 K17 ["Gray_500"]
+       98 JUMP                             ; [+19]
+       99 JUMPIFEQKNIL                     R2 ; [+10]
+      101 GETTABLEKS                       R11 R1 K10 ["Color"]
+      103 GETTABLEKS                       R10 R11 K11 ["Extended"]
+      105 GETTABLEKS                       R9 R10 K14 ["Orange"]
+      107 GETTABLEKS                       R8 R9 K18 ["Orange_800"]
+      109 JUMP                             ; [+8]
+      110 GETTABLEKS                       R11 R1 K10 ["Color"]
+      112 GETTABLEKS                       R10 R11 K11 ["Extended"]
+      114 GETTABLEKS                       R9 R10 K16 ["Gray"]
+      116 GETTABLEKS                       R8 R9 K19 ["Gray_600"]
+      118 GETIMPORT                        R9 K22 [table.clone]
+      120 MOVE                             R10 R8
+      121 CALL                             R9 1 1
+      122 LOADK                            R10 K23 [0.3]
+      123 SETTABLEKS                       R10 R9 K24 ["Transparency"]
+      125 GETTABLEKS                       R11 R0 K25 ["optional"]
+      127 JUMPIFNOT                        R11 ; [+11]
+      128 JUMPIF                           R3 ; [+10]
+      129 JUMPIF                           R7 ; [+9]
+      130 GETTABLEKS                       R13 R1 K10 ["Color"]
+      132 GETTABLEKS                       R12 R13 K11 ["Extended"]
+      134 GETTABLEKS                       R11 R12 K16 ["Gray"]
+      136 GETTABLEKS                       R10 R11 K17 ["Gray_500"]
+      138 JUMP                             ; [+1]
+      139 MOVE                             R10 R9
+      140 GETUPVAL                         R12 2
+      141 GETTABLEKS                       R11 R12 K26 ["useCallback"]
+      143 NEWCLOSURE                       R12 P1
+      144 CAPTURE                          VAL R0
+      145 NEWTABLE                         R13 0 5
+      147 GETTABLEKS                       R14 R0 K3 ["jointLabel"]
+      149 GETTABLEKS                       R15 R0 K6 ["selectedJoint"]
+      151 GETTABLEKS                       R16 R0 K5 ["armedRigLabel"]
+      153 GETTABLEKS                       R17 R0 K27 ["onMapJoint"]
+      155 GETTABLEKS                       R18 R0 K28 ["onArmJoint"]
+      157 SETLIST                          R13 R14 5 [1]
+      159 CALL                             R11 2 1
+      160 GETUPVAL                         R13 2
+      161 GETTABLEKS                       R12 R13 K29 ["createElement"]
+      163 GETUPVAL                         R14 5
+      164 GETTABLEKS                       R13 R14 K30 ["View"]
+      166 DUPTABLE                         R14 K36 [{"tag", "Position", "onActivated", "onStateChanged", "stateLayer"}]
+      167 LOADK                            R15 K37 ["auto-xy anchor-center-center"]
+      168 SETTABLEKS                       R15 R14 K31 ["tag"]
+      170 GETIMPORT                        R15 K40 [UDim2.fromScale]
+      172 GETTABLEKS                       R18 R0 K42 ["position"]
+      174 GETTABLEKS                       R17 R18 K43 ["X"]
+      176 DIVK                             R16 R17 K41 [189]
+      177 GETTABLEKS                       R19 R0 K42 ["position"]
+      179 GETTABLEKS                       R18 R19 K45 ["Y"]
+      181 DIVK                             R17 R18 K44 [383]
+      182 CALL                             R15 2 1
+      183 SETTABLEKS                       R15 R14 K32 ["Position"]
+      185 SETTABLEKS                       R11 R14 K33 ["onActivated"]
+      187 GETUPVAL                         R16 2
+      188 GETTABLEKS                       R15 R16 K26 ["useCallback"]
+      190 NEWCLOSURE                       R16 P2
+      191 CAPTURE                          VAL R6
+      192 CAPTURE                          REF R2
+      193 CAPTURE                          VAL R0
+      194 NEWTABLE                         R17 0 3
+      196 MOVE                             R18 R2
+      197 GETTABLEKS                       R19 R0 K46 ["onDotHoverEnter"]
+      199 GETTABLEKS                       R20 R0 K47 ["onDotHoverLeave"]
+      201 SETLIST                          R17 R18 3 [1]
+      203 CALL                             R15 2 1
+      204 SETTABLEKS                       R15 R14 K34 ["onStateChanged"]
+      206 DUPTABLE                         R15 K49 [{"affordance"}]
+      207 GETUPVAL                         R19 5
+      208 GETTABLEKS                       R18 R19 K50 ["Enums"]
+      210 GETTABLEKS                       R17 R18 K51 ["StateLayerAffordance"]
+      212 GETTABLEKS                       R16 R17 K52 ["None"]
+      214 SETTABLEKS                       R16 R15 K48 ["affordance"]
+      216 SETTABLEKS                       R15 R14 K35 ["stateLayer"]
+      218 DUPTABLE                         R15 K54 [{"Tooltip"}]
+      219 GETUPVAL                         R17 2
+      220 GETTABLEKS                       R16 R17 K29 ["createElement"]
+      222 GETUPVAL                         R18 5
+      223 GETTABLEKS                       R17 R18 K53 ["Tooltip"]
+      225 DUPTABLE                         R18 K58 [{"title", "align", "side"}]
+      226 GETTABLEKS                       R20 R0 K3 ["jointLabel"]
+      228 GETTABLEKS                       R19 R20 K8 ["Name"]
+      230 SETTABLEKS                       R19 R18 K55 ["title"]
+      232 GETUPVAL                         R22 5
+      233 GETTABLEKS                       R21 R22 K50 ["Enums"]
+      235 GETTABLEKS                       R20 R21 K59 ["PopoverAlign"]
+      237 GETTABLEKS                       R19 R20 K60 ["Center"]
+      239 SETTABLEKS                       R19 R18 K56 ["align"]
+      241 GETUPVAL                         R22 5
+      242 GETTABLEKS                       R21 R22 K50 ["Enums"]
+      244 GETTABLEKS                       R20 R21 K61 ["PopoverSide"]
+      246 GETTABLEKS                       R19 R20 K62 ["Top"]
+      248 SETTABLEKS                       R19 R18 K57 ["side"]
+      250 GETUPVAL                         R20 2
+      251 GETTABLEKS                       R19 R20 K29 ["createElement"]
+      253 GETUPVAL                         R21 5
+      254 GETTABLEKS                       R20 R21 K30 ["View"]
+      256 DUPTABLE                         R21 K66 [{"Size", "backgroundStyle", "stroke"}]
+      257 JUMPIFNOT                        R7 ; [+8]
+      258 GETIMPORT                        R22 K68 [UDim2.new]
+      260 LOADN                            R23 0
+      261 LOADN                            R24 14
+      262 LOADN                            R25 0
+      263 LOADN                            R26 14
+      264 CALL                             R22 4 1
+      265 JUMP                             ; [+7]
+      266 GETIMPORT                        R22 K68 [UDim2.new]
+      268 LOADN                            R23 0
+      269 LOADN                            R24 10
+      270 LOADN                            R25 0
+      271 LOADN                            R26 10
+      272 CALL                             R22 4 1
+      273 SETTABLEKS                       R22 R21 K63 ["Size"]
+      275 SETTABLEKS                       R10 R21 K64 ["backgroundStyle"]
+      277 DUPTABLE                         R22 K70 [{"Color", "Thickness"}]
+      278 GETTABLEKS                       R23 R9 K71 ["Color3"]
+      280 SETTABLEKS                       R23 R22 K10 ["Color"]
+      282 JUMPIFNOT                        R7 ; [+2]
+      283 LOADN                            R23 2
+      284 JUMP                             ; [+1]
+      285 LOADN                            R23 1
+      286 SETTABLEKS                       R23 R22 K69 ["Thickness"]
+      288 SETTABLEKS                       R22 R21 K65 ["stroke"]
+      290 DUPTABLE                         R22 K73 [{"UICorner"}]
+      291 GETUPVAL                         R24 2
+      292 GETTABLEKS                       R23 R24 K29 ["createElement"]
+      294 LOADK                            R24 K72 ["UICorner"]
+      295 DUPTABLE                         R25 K75 [{"CornerRadius"}]
+      296 GETIMPORT                        R26 K77 [UDim.new]
+      298 LOADN                            R27 0
+      299 LOADN                            R28 15
+      300 CALL                             R26 2 1
+      301 SETTABLEKS                       R26 R25 K74 ["CornerRadius"]
+      303 CALL                             R23 2 1
+      304 SETTABLEKS                       R23 R22 K72 ["UICorner"]
+      306 CALL                             R19 3 -1
+      307 CALL                             R16 -1 1
+      308 SETTABLEKS                       R16 R15 K53 ["Tooltip"]
+      310 CALL                             R12 3 -1
+      311 CLOSEUPVALS                      R2
+      312 RETURN                           R12 -1
 
 PROTO_4:
         0 GETUPVAL                         R3 0
@@ -267,7 +275,7 @@ PROTO_4:
         3 GETTABLEKS                       R1 R2 K1 ["properties"]
         5 GETTABLEKS                       R0 R1 K2 ["observeInstance"]
         7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K3 ["rigDescriptor"]
+        8 GETTABLEKS                       R1 R2 K3 ["DEPRECATED_rigDescriptor"]
        10 GETUPVAL                         R3 2
        11 GETTABLEKS                       R2 R3 K4 ["Name"]
        13 CALL                             R0 2 -1
@@ -309,161 +317,168 @@ PROTO_7:
         8 GETTABLEKS                       R2 R3 K1 ["useState"]
        10 LOADB                            R3 0
        11 CALL                             R2 1 2
-       12 GETTABLEKS                       R5 R0 K2 ["side"]
-       14 JUMPIFNOTEQKS                    R5 K3 ["right"] ; [+4]
-       16 GETIMPORT                        R4 K7 [Enum.RigLabel.RightWrist]
-       18 JUMP                             ; [+2]
-       19 GETIMPORT                        R4 K9 [Enum.RigLabel.LeftWrist]
-       21 GETUPVAL                         R6 1
-       22 GETTABLEKS                       R5 R6 K10 ["useMemo"]
-       24 NEWCLOSURE                       R6 P0
-       25 CAPTURE                          UPVAL U2
-       26 CAPTURE                          VAL R0
-       27 CAPTURE                          VAL R4
-       28 NEWTABLE                         R7 0 2
-       30 GETTABLEKS                       R8 R0 K11 ["rigDescriptor"]
-       32 MOVE                             R9 R4
-       33 SETLIST                          R7 R8 2 [1]
-       35 CALL                             R5 2 1
-       36 GETUPVAL                         R7 3
-       37 GETTABLEKS                       R6 R7 K12 ["useSignalState"]
-       39 MOVE                             R7 R5
-       40 CALL                             R6 1 1
-       41 JUMPIFNOTEQKNIL                  R6 ; [+2]
-       43 LOADB                            R7 0 +1
-       44 LOADB                            R7 1
-       45 JUMPIF                           R7 ; [+9]
-       46 GETTABLEKS                       R11 R1 K13 ["Color"]
-       48 GETTABLEKS                       R10 R11 K14 ["Extended"]
-       50 GETTABLEKS                       R9 R10 K15 ["Gray"]
-       52 GETTABLEKS                       R8 R9 K16 ["Gray_600"]
-       54 JUMP                             ; [+18]
-       55 JUMPIFNOT                        R2 ; [+9]
-       56 GETTABLEKS                       R11 R1 K13 ["Color"]
-       58 GETTABLEKS                       R10 R11 K14 ["Extended"]
-       60 GETTABLEKS                       R9 R10 K17 ["Orange"]
-       62 GETTABLEKS                       R8 R9 K18 ["Orange_600"]
-       64 JUMP                             ; [+8]
-       65 GETTABLEKS                       R11 R1 K13 ["Color"]
-       67 GETTABLEKS                       R10 R11 K14 ["Extended"]
-       69 GETTABLEKS                       R9 R10 K17 ["Orange"]
-       71 GETTABLEKS                       R8 R9 K19 ["Orange_800"]
-       73 GETIMPORT                        R9 K22 [table.clone]
-       75 MOVE                             R10 R8
-       76 CALL                             R9 1 1
-       77 LOADK                            R10 K23 [0.3]
-       78 SETTABLEKS                       R10 R9 K24 ["Transparency"]
-       80 GETUPVAL                         R11 1
-       81 GETTABLEKS                       R10 R11 K25 ["useCallback"]
-       83 NEWCLOSURE                       R11 P1
-       84 CAPTURE                          VAL R7
-       85 CAPTURE                          VAL R0
-       86 NEWTABLE                         R12 0 3
-       88 MOVE                             R13 R7
-       89 GETTABLEKS                       R14 R0 K2 ["side"]
-       91 GETTABLEKS                       R15 R0 K0 ["onNavigateToHand"]
-       93 SETLIST                          R12 R13 3 [1]
-       95 CALL                             R10 2 1
-       96 GETUPVAL                         R12 1
-       97 GETTABLEKS                       R11 R12 K26 ["createElement"]
-       99 GETUPVAL                         R13 4
-      100 GETTABLEKS                       R12 R13 K27 ["View"]
-      102 DUPTABLE                         R13 K33 [{"tag", "Position", "onActivated", "onStateChanged", "stateLayer"}]
-      103 LOADK                            R14 K34 ["auto-xy anchor-center-center"]
-      104 SETTABLEKS                       R14 R13 K28 ["tag"]
-      106 GETIMPORT                        R14 K37 [UDim2.fromScale]
-      108 GETTABLEKS                       R17 R0 K39 ["position"]
-      110 GETTABLEKS                       R16 R17 K40 ["X"]
-      112 DIVK                             R15 R16 K38 [189]
-      113 GETTABLEKS                       R18 R0 K39 ["position"]
-      115 GETTABLEKS                       R17 R18 K42 ["Y"]
-      117 DIVK                             R16 R17 K41 [383]
-      118 CALL                             R14 2 1
-      119 SETTABLEKS                       R14 R13 K29 ["Position"]
-      121 SETTABLEKS                       R10 R13 K30 ["onActivated"]
-      123 GETUPVAL                         R15 1
-      124 GETTABLEKS                       R14 R15 K25 ["useCallback"]
-      126 NEWCLOSURE                       R15 P2
-      127 CAPTURE                          VAL R3
-      128 NEWTABLE                         R16 0 0
-      130 CALL                             R14 2 1
-      131 SETTABLEKS                       R14 R13 K31 ["onStateChanged"]
-      133 DUPTABLE                         R14 K44 [{"affordance"}]
-      134 GETUPVAL                         R18 4
-      135 GETTABLEKS                       R17 R18 K45 ["Enums"]
-      137 GETTABLEKS                       R16 R17 K46 ["StateLayerAffordance"]
-      139 GETTABLEKS                       R15 R16 K47 ["None"]
-      141 SETTABLEKS                       R15 R14 K43 ["affordance"]
-      143 SETTABLEKS                       R14 R13 K32 ["stateLayer"]
-      145 DUPTABLE                         R14 K49 [{"Tooltip"}]
-      146 GETUPVAL                         R16 1
-      147 GETTABLEKS                       R15 R16 K26 ["createElement"]
-      149 GETUPVAL                         R17 4
-      150 GETTABLEKS                       R16 R17 K48 ["Tooltip"]
-      152 DUPTABLE                         R17 K52 [{"title", "align", "side"}]
-      153 GETTABLEKS                       R19 R0 K2 ["side"]
-      155 JUMPIFNOTEQKS                    R19 K3 ["right"] ; [+3]
-      157 LOADK                            R18 K53 ["Right Hand"]
-      158 JUMP                             ; [+1]
-      159 LOADK                            R18 K54 ["Left Hand"]
-      160 SETTABLEKS                       R18 R17 K50 ["title"]
-      162 GETUPVAL                         R21 4
-      163 GETTABLEKS                       R20 R21 K45 ["Enums"]
-      165 GETTABLEKS                       R19 R20 K55 ["PopoverAlign"]
-      167 GETTABLEKS                       R18 R19 K56 ["Center"]
-      169 SETTABLEKS                       R18 R17 K51 ["align"]
-      171 GETUPVAL                         R21 4
-      172 GETTABLEKS                       R20 R21 K45 ["Enums"]
-      174 GETTABLEKS                       R19 R20 K57 ["PopoverSide"]
-      176 GETTABLEKS                       R18 R19 K58 ["Top"]
-      178 SETTABLEKS                       R18 R17 K2 ["side"]
-      180 GETUPVAL                         R19 1
-      181 GETTABLEKS                       R18 R19 K26 ["createElement"]
-      183 GETUPVAL                         R20 4
-      184 GETTABLEKS                       R19 R20 K27 ["View"]
-      186 DUPTABLE                         R20 K62 [{"Size", "backgroundStyle", "stroke"}]
-      187 JUMPIFNOT                        R2 ; [+8]
-      188 GETIMPORT                        R21 K64 [UDim2.new]
-      190 LOADN                            R22 0
-      191 LOADN                            R23 14
-      192 LOADN                            R24 0
-      193 LOADN                            R25 14
-      194 CALL                             R21 4 1
-      195 JUMP                             ; [+7]
-      196 GETIMPORT                        R21 K64 [UDim2.new]
-      198 LOADN                            R22 0
-      199 LOADN                            R23 10
-      200 LOADN                            R24 0
-      201 LOADN                            R25 10
-      202 CALL                             R21 4 1
-      203 SETTABLEKS                       R21 R20 K59 ["Size"]
-      205 SETTABLEKS                       R8 R20 K60 ["backgroundStyle"]
-      207 DUPTABLE                         R21 K66 [{"Color", "Thickness"}]
-      208 GETTABLEKS                       R22 R9 K67 ["Color3"]
-      210 SETTABLEKS                       R22 R21 K13 ["Color"]
-      212 JUMPIFNOT                        R2 ; [+2]
-      213 LOADN                            R22 2
-      214 JUMP                             ; [+1]
-      215 LOADN                            R22 1
-      216 SETTABLEKS                       R22 R21 K65 ["Thickness"]
-      218 SETTABLEKS                       R21 R20 K61 ["stroke"]
-      220 DUPTABLE                         R21 K69 [{"UICorner"}]
-      221 GETUPVAL                         R23 1
-      222 GETTABLEKS                       R22 R23 K26 ["createElement"]
-      224 LOADK                            R23 K68 ["UICorner"]
-      225 DUPTABLE                         R24 K71 [{"CornerRadius"}]
-      226 GETIMPORT                        R25 K73 [UDim.new]
-      228 LOADN                            R26 0
-      229 LOADN                            R27 15
-      230 CALL                             R25 2 1
-      231 SETTABLEKS                       R25 R24 K70 ["CornerRadius"]
-      233 CALL                             R22 2 1
-      234 SETTABLEKS                       R22 R21 K68 ["UICorner"]
-      236 CALL                             R18 3 -1
-      237 CALL                             R15 -1 1
-      238 SETTABLEKS                       R15 R14 K48 ["Tooltip"]
-      240 CALL                             R11 3 -1
-      241 RETURN                           R11 -1
+       12 LOADNIL                          R4
+       13 GETUPVAL                         R5 2
+       14 CALL                             R5 0 1
+       15 JUMPIFNOT                        R5 ; [+3]
+       16 GETTABLEKS                       R4 R0 K2 ["isMapped"]
+       18 JUMP                             ; [+34]
+       19 GETTABLEKS                       R6 R0 K3 ["side"]
+       21 JUMPIFNOTEQKS                    R6 K4 ["right"] ; [+4]
+       23 GETIMPORT                        R5 K8 [Enum.RigLabel.RightWrist]
+       25 JUMP                             ; [+2]
+       26 GETIMPORT                        R5 K10 [Enum.RigLabel.LeftWrist]
+       28 GETUPVAL                         R7 1
+       29 GETTABLEKS                       R6 R7 K11 ["useMemo"]
+       31 NEWCLOSURE                       R7 P0
+       32 CAPTURE                          UPVAL U3
+       33 CAPTURE                          VAL R0
+       34 CAPTURE                          VAL R5
+       35 NEWTABLE                         R8 0 2
+       37 GETTABLEKS                       R9 R0 K12 ["DEPRECATED_rigDescriptor"]
+       39 GETTABLEKS                       R10 R0 K3 ["side"]
+       41 SETLIST                          R8 R9 2 [1]
+       43 CALL                             R6 2 1
+       44 GETUPVAL                         R8 4
+       45 GETTABLEKS                       R7 R8 K13 ["useSignalState"]
+       47 MOVE                             R8 R6
+       48 CALL                             R7 1 1
+       49 JUMPIFNOTEQKNIL                  R7 ; [+2]
+       51 LOADB                            R4 0 +1
+       52 LOADB                            R4 1
+       53 JUMPIF                           R4 ; [+9]
+       54 GETTABLEKS                       R8 R1 K14 ["Color"]
+       56 GETTABLEKS                       R7 R8 K15 ["Extended"]
+       58 GETTABLEKS                       R6 R7 K16 ["Gray"]
+       60 GETTABLEKS                       R5 R6 K17 ["Gray_600"]
+       62 JUMP                             ; [+18]
+       63 JUMPIFNOT                        R2 ; [+9]
+       64 GETTABLEKS                       R8 R1 K14 ["Color"]
+       66 GETTABLEKS                       R7 R8 K15 ["Extended"]
+       68 GETTABLEKS                       R6 R7 K18 ["Orange"]
+       70 GETTABLEKS                       R5 R6 K19 ["Orange_600"]
+       72 JUMP                             ; [+8]
+       73 GETTABLEKS                       R8 R1 K14 ["Color"]
+       75 GETTABLEKS                       R7 R8 K15 ["Extended"]
+       77 GETTABLEKS                       R6 R7 K18 ["Orange"]
+       79 GETTABLEKS                       R5 R6 K20 ["Orange_800"]
+       81 GETIMPORT                        R6 K23 [table.clone]
+       83 MOVE                             R7 R5
+       84 CALL                             R6 1 1
+       85 LOADK                            R7 K24 [0.3]
+       86 SETTABLEKS                       R7 R6 K25 ["Transparency"]
+       88 GETUPVAL                         R8 1
+       89 GETTABLEKS                       R7 R8 K26 ["useCallback"]
+       91 NEWCLOSURE                       R8 P1
+       92 CAPTURE                          REF R4
+       93 CAPTURE                          VAL R0
+       94 NEWTABLE                         R9 0 3
+       96 MOVE                             R10 R4
+       97 GETTABLEKS                       R11 R0 K3 ["side"]
+       99 GETTABLEKS                       R12 R0 K0 ["onNavigateToHand"]
+      101 SETLIST                          R9 R10 3 [1]
+      103 CALL                             R7 2 1
+      104 GETUPVAL                         R9 1
+      105 GETTABLEKS                       R8 R9 K27 ["createElement"]
+      107 GETUPVAL                         R10 5
+      108 GETTABLEKS                       R9 R10 K28 ["View"]
+      110 DUPTABLE                         R10 K34 [{"tag", "Position", "onActivated", "onStateChanged", "stateLayer"}]
+      111 LOADK                            R11 K35 ["auto-xy anchor-center-center"]
+      112 SETTABLEKS                       R11 R10 K29 ["tag"]
+      114 GETIMPORT                        R11 K38 [UDim2.fromScale]
+      116 GETTABLEKS                       R14 R0 K40 ["position"]
+      118 GETTABLEKS                       R13 R14 K41 ["X"]
+      120 DIVK                             R12 R13 K39 [189]
+      121 GETTABLEKS                       R15 R0 K40 ["position"]
+      123 GETTABLEKS                       R14 R15 K43 ["Y"]
+      125 DIVK                             R13 R14 K42 [383]
+      126 CALL                             R11 2 1
+      127 SETTABLEKS                       R11 R10 K30 ["Position"]
+      129 SETTABLEKS                       R7 R10 K31 ["onActivated"]
+      131 GETUPVAL                         R12 1
+      132 GETTABLEKS                       R11 R12 K26 ["useCallback"]
+      134 NEWCLOSURE                       R12 P2
+      135 CAPTURE                          VAL R3
+      136 NEWTABLE                         R13 0 0
+      138 CALL                             R11 2 1
+      139 SETTABLEKS                       R11 R10 K32 ["onStateChanged"]
+      141 DUPTABLE                         R11 K45 [{"affordance"}]
+      142 GETUPVAL                         R15 5
+      143 GETTABLEKS                       R14 R15 K46 ["Enums"]
+      145 GETTABLEKS                       R13 R14 K47 ["StateLayerAffordance"]
+      147 GETTABLEKS                       R12 R13 K48 ["None"]
+      149 SETTABLEKS                       R12 R11 K44 ["affordance"]
+      151 SETTABLEKS                       R11 R10 K33 ["stateLayer"]
+      153 DUPTABLE                         R11 K50 [{"Tooltip"}]
+      154 GETUPVAL                         R13 1
+      155 GETTABLEKS                       R12 R13 K27 ["createElement"]
+      157 GETUPVAL                         R14 5
+      158 GETTABLEKS                       R13 R14 K49 ["Tooltip"]
+      160 DUPTABLE                         R14 K53 [{"title", "align", "side"}]
+      161 GETTABLEKS                       R16 R0 K3 ["side"]
+      163 JUMPIFNOTEQKS                    R16 K4 ["right"] ; [+3]
+      165 LOADK                            R15 K54 ["Right Hand"]
+      166 JUMP                             ; [+1]
+      167 LOADK                            R15 K55 ["Left Hand"]
+      168 SETTABLEKS                       R15 R14 K51 ["title"]
+      170 GETUPVAL                         R18 5
+      171 GETTABLEKS                       R17 R18 K46 ["Enums"]
+      173 GETTABLEKS                       R16 R17 K56 ["PopoverAlign"]
+      175 GETTABLEKS                       R15 R16 K57 ["Center"]
+      177 SETTABLEKS                       R15 R14 K52 ["align"]
+      179 GETUPVAL                         R18 5
+      180 GETTABLEKS                       R17 R18 K46 ["Enums"]
+      182 GETTABLEKS                       R16 R17 K58 ["PopoverSide"]
+      184 GETTABLEKS                       R15 R16 K59 ["Top"]
+      186 SETTABLEKS                       R15 R14 K3 ["side"]
+      188 GETUPVAL                         R16 1
+      189 GETTABLEKS                       R15 R16 K27 ["createElement"]
+      191 GETUPVAL                         R17 5
+      192 GETTABLEKS                       R16 R17 K28 ["View"]
+      194 DUPTABLE                         R17 K63 [{"Size", "backgroundStyle", "stroke"}]
+      195 JUMPIFNOT                        R2 ; [+8]
+      196 GETIMPORT                        R18 K65 [UDim2.new]
+      198 LOADN                            R19 0
+      199 LOADN                            R20 14
+      200 LOADN                            R21 0
+      201 LOADN                            R22 14
+      202 CALL                             R18 4 1
+      203 JUMP                             ; [+7]
+      204 GETIMPORT                        R18 K65 [UDim2.new]
+      206 LOADN                            R19 0
+      207 LOADN                            R20 10
+      208 LOADN                            R21 0
+      209 LOADN                            R22 10
+      210 CALL                             R18 4 1
+      211 SETTABLEKS                       R18 R17 K60 ["Size"]
+      213 SETTABLEKS                       R5 R17 K61 ["backgroundStyle"]
+      215 DUPTABLE                         R18 K67 [{"Color", "Thickness"}]
+      216 GETTABLEKS                       R19 R6 K68 ["Color3"]
+      218 SETTABLEKS                       R19 R18 K14 ["Color"]
+      220 JUMPIFNOT                        R2 ; [+2]
+      221 LOADN                            R19 2
+      222 JUMP                             ; [+1]
+      223 LOADN                            R19 1
+      224 SETTABLEKS                       R19 R18 K66 ["Thickness"]
+      226 SETTABLEKS                       R18 R17 K62 ["stroke"]
+      228 DUPTABLE                         R18 K70 [{"UICorner"}]
+      229 GETUPVAL                         R20 1
+      230 GETTABLEKS                       R19 R20 K27 ["createElement"]
+      232 LOADK                            R20 K69 ["UICorner"]
+      233 DUPTABLE                         R21 K72 [{"CornerRadius"}]
+      234 GETIMPORT                        R22 K74 [UDim.new]
+      236 LOADN                            R23 0
+      237 LOADN                            R24 15
+      238 CALL                             R22 2 1
+      239 SETTABLEKS                       R22 R21 K71 ["CornerRadius"]
+      241 CALL                             R19 2 1
+      242 SETTABLEKS                       R19 R18 K69 ["UICorner"]
+      244 CALL                             R15 3 -1
+      245 CALL                             R12 -1 1
+      246 SETTABLEKS                       R12 R11 K49 ["Tooltip"]
+      248 CALL                             R8 3 -1
+      249 CLOSEUPVALS                      R4
+      250 RETURN                           R8 -1
 
 PROTO_8:
         0 GETUPVAL                         R1 0
@@ -473,874 +488,975 @@ PROTO_8:
 
 PROTO_9:
         0 GETUPVAL                         R0 0
+        1 CALL                             R0 0 1
+        2 JUMPIFNOT                        R0 ; [+2]
+        3 GETUPVAL                         R0 1
+        4 JUMPIF                           R0 ; [+3]
+        5 NEWTABLE                         R0 0 0
+        7 RETURN                           R0 1
+        8 NEWTABLE                         R0 0 0
+       10 GETUPVAL                         R1 1
+       11 LOADNIL                          R2
+       12 LOADNIL                          R3
+       13 FORGPREP                         R1
+       14 SETTABLE                         R4 R0 R5
+       15 FORGLOOP                         R1 2 ; [-2]
+       17 RETURN                           R0 1
+
+PROTO_10:
+        0 GETUPVAL                         R0 0
         1 JUMPIF                           R0 ; [+2]
         2 LOADNIL                          R0
         3 RETURN                           R0 1
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R0 R1 K0 ["rigDescriptor"]
-        7 DUPTABLE                         R1 K25 [{"HeadBase", "Neck", "RightClavicle", "RightShoulder", "RightElbow", "RightWrist", "RightHip", "RightKnee", "RightAnkle", "RightToeBase", "LeftClavicle", "LeftShoulder", "LeftElbow", "LeftWrist", "LeftHip", "LeftKnee", "LeftAnkle", "LeftToeBase", "Chest", "Root", "Waist", "Spine", "RightHandDot", "LeftHandDot"}]
-        8 GETUPVAL                         R3 2
-        9 GETTABLEKS                       R2 R3 K26 ["createElement"]
-       11 GETUPVAL                         R3 3
-       12 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-       13 GETIMPORT                        R5 K40 [Enum.RigLabel.HeadBase]
-       15 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-       17 GETIMPORT                        R5 K43 [Vector2.new]
-       19 LOADN                            R6 96
-       20 LOADN                            R7 40
-       21 CALL                             R5 2 1
-       22 SETTABLEKS                       R5 R4 K28 ["position"]
-       24 LOADB                            R5 1
-       25 SETTABLEKS                       R5 R4 K29 ["optional"]
-       27 GETUPVAL                         R6 1
-       28 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-       30 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-       32 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-       34 GETUPVAL                         R6 1
-       35 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-       37 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-       39 GETUPVAL                         R6 1
-       40 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-       42 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-       44 GETUPVAL                         R6 1
-       45 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-       47 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-       49 GETUPVAL                         R6 1
-       50 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-       52 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-       54 GETUPVAL                         R6 1
-       55 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-       57 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-       59 GETUPVAL                         R6 1
-       60 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-       62 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-       64 CALL                             R2 2 1
-       65 SETTABLEKS                       R2 R1 K1 ["HeadBase"]
-       67 GETUPVAL                         R3 2
-       68 GETTABLEKS                       R2 R3 K26 ["createElement"]
-       70 GETUPVAL                         R3 3
-       71 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-       72 GETIMPORT                        R5 K44 [Enum.RigLabel.Neck]
-       74 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-       76 GETIMPORT                        R5 K43 [Vector2.new]
-       78 LOADN                            R6 96
-       79 LOADN                            R7 68
-       80 CALL                             R5 2 1
-       81 SETTABLEKS                       R5 R4 K28 ["position"]
-       83 LOADB                            R5 0
-       84 SETTABLEKS                       R5 R4 K29 ["optional"]
-       86 GETUPVAL                         R6 1
-       87 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-       89 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-       91 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-       93 GETUPVAL                         R6 1
-       94 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-       96 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-       98 GETUPVAL                         R6 1
-       99 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      101 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      103 GETUPVAL                         R6 1
-      104 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      106 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      108 GETUPVAL                         R6 1
-      109 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      111 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      113 GETUPVAL                         R6 1
-      114 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-      116 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-      118 GETUPVAL                         R6 1
-      119 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-      121 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-      123 CALL                             R2 2 1
-      124 SETTABLEKS                       R2 R1 K2 ["Neck"]
-      126 GETUPVAL                         R3 2
-      127 GETTABLEKS                       R2 R3 K26 ["createElement"]
-      129 GETUPVAL                         R3 3
-      130 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-      131 GETIMPORT                        R5 K45 [Enum.RigLabel.RightClavicle]
-      133 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-      135 GETIMPORT                        R5 K43 [Vector2.new]
-      137 LOADN                            R6 82
-      138 LOADN                            R7 80
-      139 CALL                             R5 2 1
-      140 SETTABLEKS                       R5 R4 K28 ["position"]
-      142 LOADB                            R5 1
-      143 SETTABLEKS                       R5 R4 K29 ["optional"]
-      145 GETUPVAL                         R6 1
-      146 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-      148 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-      150 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-      152 GETUPVAL                         R6 1
-      153 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-      155 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-      157 GETUPVAL                         R6 1
-      158 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      160 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      162 GETUPVAL                         R6 1
-      163 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      165 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      167 GETUPVAL                         R6 1
-      168 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      170 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      172 GETUPVAL                         R6 1
-      173 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-      175 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-      177 GETUPVAL                         R6 1
-      178 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-      180 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-      182 CALL                             R2 2 1
-      183 SETTABLEKS                       R2 R1 K3 ["RightClavicle"]
-      185 GETUPVAL                         R3 2
-      186 GETTABLEKS                       R2 R3 K26 ["createElement"]
-      188 GETUPVAL                         R3 3
-      189 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-      190 GETIMPORT                        R5 K46 [Enum.RigLabel.RightShoulder]
-      192 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-      194 GETIMPORT                        R5 K43 [Vector2.new]
-      196 LOADN                            R6 58
-      197 LOADN                            R7 84
-      198 CALL                             R5 2 1
-      199 SETTABLEKS                       R5 R4 K28 ["position"]
-      201 LOADB                            R5 0
-      202 SETTABLEKS                       R5 R4 K29 ["optional"]
-      204 GETUPVAL                         R6 1
-      205 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-      207 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-      209 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-      211 GETUPVAL                         R6 1
-      212 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-      214 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-      216 GETUPVAL                         R6 1
-      217 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      219 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      221 GETUPVAL                         R6 1
-      222 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      224 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      226 GETUPVAL                         R6 1
-      227 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      229 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      231 GETUPVAL                         R6 1
-      232 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-      234 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-      236 GETUPVAL                         R6 1
-      237 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-      239 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-      241 CALL                             R2 2 1
-      242 SETTABLEKS                       R2 R1 K4 ["RightShoulder"]
-      244 GETUPVAL                         R3 2
-      245 GETTABLEKS                       R2 R3 K26 ["createElement"]
-      247 GETUPVAL                         R3 3
-      248 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-      249 GETIMPORT                        R5 K47 [Enum.RigLabel.RightElbow]
-      251 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-      253 GETIMPORT                        R5 K43 [Vector2.new]
-      255 LOADN                            R6 48
-      256 LOADN                            R7 132
-      257 CALL                             R5 2 1
-      258 SETTABLEKS                       R5 R4 K28 ["position"]
-      260 LOADB                            R5 0
-      261 SETTABLEKS                       R5 R4 K29 ["optional"]
-      263 GETUPVAL                         R6 1
-      264 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-      266 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-      268 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-      270 GETUPVAL                         R6 1
-      271 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-      273 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-      275 GETUPVAL                         R6 1
-      276 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      278 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      280 GETUPVAL                         R6 1
-      281 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      283 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      285 GETUPVAL                         R6 1
-      286 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      288 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      290 GETUPVAL                         R6 1
-      291 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-      293 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-      295 GETUPVAL                         R6 1
-      296 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-      298 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-      300 CALL                             R2 2 1
-      301 SETTABLEKS                       R2 R1 K5 ["RightElbow"]
-      303 GETUPVAL                         R3 2
-      304 GETTABLEKS                       R2 R3 K26 ["createElement"]
-      306 GETUPVAL                         R3 3
-      307 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-      308 GETIMPORT                        R5 K48 [Enum.RigLabel.RightWrist]
-      310 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-      312 GETIMPORT                        R5 K43 [Vector2.new]
-      314 LOADN                            R6 36
-      315 LOADN                            R7 178
-      316 CALL                             R5 2 1
-      317 SETTABLEKS                       R5 R4 K28 ["position"]
-      319 LOADB                            R5 0
-      320 SETTABLEKS                       R5 R4 K29 ["optional"]
-      322 GETUPVAL                         R6 1
-      323 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-      325 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-      327 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-      329 GETUPVAL                         R6 1
-      330 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-      332 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-      334 GETUPVAL                         R6 1
-      335 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      337 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      339 GETUPVAL                         R6 1
-      340 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      342 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      344 GETUPVAL                         R6 1
-      345 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      347 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      349 GETUPVAL                         R6 1
-      350 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-      352 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-      354 GETUPVAL                         R6 1
-      355 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-      357 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-      359 CALL                             R2 2 1
-      360 SETTABLEKS                       R2 R1 K6 ["RightWrist"]
-      362 GETUPVAL                         R3 2
-      363 GETTABLEKS                       R2 R3 K26 ["createElement"]
-      365 GETUPVAL                         R3 3
-      366 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-      367 GETIMPORT                        R5 K49 [Enum.RigLabel.RightHip]
-      369 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-      371 GETIMPORT                        R5 K43 [Vector2.new]
-      373 LOADN                            R6 74
-      374 LOADN                            R7 181
-      375 CALL                             R5 2 1
-      376 SETTABLEKS                       R5 R4 K28 ["position"]
-      378 LOADB                            R5 0
-      379 SETTABLEKS                       R5 R4 K29 ["optional"]
-      381 GETUPVAL                         R6 1
-      382 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-      384 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-      386 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-      388 GETUPVAL                         R6 1
-      389 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-      391 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-      393 GETUPVAL                         R6 1
-      394 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      396 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      398 GETUPVAL                         R6 1
-      399 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      401 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      403 GETUPVAL                         R6 1
-      404 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      406 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      408 GETUPVAL                         R6 1
-      409 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-      411 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-      413 GETUPVAL                         R6 1
-      414 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-      416 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-      418 CALL                             R2 2 1
-      419 SETTABLEKS                       R2 R1 K7 ["RightHip"]
-      421 GETUPVAL                         R3 2
-      422 GETTABLEKS                       R2 R3 K26 ["createElement"]
-      424 GETUPVAL                         R3 3
-      425 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-      426 GETIMPORT                        R5 K50 [Enum.RigLabel.RightKnee]
-      428 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-      430 GETIMPORT                        R5 K43 [Vector2.new]
-      432 LOADN                            R6 68
-      433 LOADN                            R7 255
-      434 CALL                             R5 2 1
-      435 SETTABLEKS                       R5 R4 K28 ["position"]
-      437 LOADB                            R5 0
-      438 SETTABLEKS                       R5 R4 K29 ["optional"]
-      440 GETUPVAL                         R6 1
-      441 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-      443 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-      445 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-      447 GETUPVAL                         R6 1
-      448 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-      450 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-      452 GETUPVAL                         R6 1
-      453 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      455 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      457 GETUPVAL                         R6 1
-      458 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      460 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      462 GETUPVAL                         R6 1
-      463 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      465 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      467 GETUPVAL                         R6 1
-      468 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-      470 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-      472 GETUPVAL                         R6 1
-      473 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-      475 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-      477 CALL                             R2 2 1
-      478 SETTABLEKS                       R2 R1 K8 ["RightKnee"]
-      480 GETUPVAL                         R3 2
-      481 GETTABLEKS                       R2 R3 K26 ["createElement"]
-      483 GETUPVAL                         R3 3
-      484 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-      485 GETIMPORT                        R5 K51 [Enum.RigLabel.RightAnkle]
-      487 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-      489 GETIMPORT                        R5 K43 [Vector2.new]
-      491 LOADN                            R6 62
-      492 LOADN                            R7 68
-      493 CALL                             R5 2 1
-      494 SETTABLEKS                       R5 R4 K28 ["position"]
-      496 LOADB                            R5 0
-      497 SETTABLEKS                       R5 R4 K29 ["optional"]
-      499 GETUPVAL                         R6 1
-      500 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-      502 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-      504 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-      506 GETUPVAL                         R6 1
-      507 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-      509 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-      511 GETUPVAL                         R6 1
-      512 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      514 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      516 GETUPVAL                         R6 1
-      517 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      519 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      521 GETUPVAL                         R6 1
-      522 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      524 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      526 GETUPVAL                         R6 1
-      527 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-      529 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-      531 GETUPVAL                         R6 1
-      532 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-      534 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-      536 CALL                             R2 2 1
-      537 SETTABLEKS                       R2 R1 K9 ["RightAnkle"]
-      539 GETUPVAL                         R3 2
-      540 GETTABLEKS                       R2 R3 K26 ["createElement"]
-      542 GETUPVAL                         R3 3
-      543 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-      544 GETUPVAL                         R5 4
-      545 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-      547 GETIMPORT                        R5 K43 [Vector2.new]
-      549 LOADN                            R6 55
-      550 LOADN                            R7 85
-      551 CALL                             R5 2 1
-      552 SETTABLEKS                       R5 R4 K28 ["position"]
-      554 LOADB                            R5 1
-      555 SETTABLEKS                       R5 R4 K29 ["optional"]
-      557 GETUPVAL                         R6 1
-      558 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-      560 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-      562 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-      564 GETUPVAL                         R6 1
-      565 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-      567 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-      569 GETUPVAL                         R6 1
-      570 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      572 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      574 GETUPVAL                         R6 1
-      575 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      577 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      579 GETUPVAL                         R6 1
-      580 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      582 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      584 GETUPVAL                         R6 1
-      585 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-      587 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-      589 GETUPVAL                         R6 1
-      590 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-      592 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-      594 CALL                             R2 2 1
-      595 SETTABLEKS                       R2 R1 K10 ["RightToeBase"]
-      597 GETUPVAL                         R3 2
-      598 GETTABLEKS                       R2 R3 K26 ["createElement"]
-      600 GETUPVAL                         R3 3
-      601 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-      602 GETIMPORT                        R5 K52 [Enum.RigLabel.LeftClavicle]
-      604 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-      606 GETIMPORT                        R5 K43 [Vector2.new]
-      608 LOADN                            R6 110
-      609 LOADN                            R7 80
-      610 CALL                             R5 2 1
-      611 SETTABLEKS                       R5 R4 K28 ["position"]
-      613 LOADB                            R5 1
-      614 SETTABLEKS                       R5 R4 K29 ["optional"]
-      616 GETUPVAL                         R6 1
-      617 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-      619 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-      621 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-      623 GETUPVAL                         R6 1
-      624 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-      626 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-      628 GETUPVAL                         R6 1
-      629 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      631 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      633 GETUPVAL                         R6 1
-      634 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      636 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      638 GETUPVAL                         R6 1
-      639 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      641 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      643 GETUPVAL                         R6 1
-      644 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-      646 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-      648 GETUPVAL                         R6 1
-      649 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-      651 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-      653 CALL                             R2 2 1
-      654 SETTABLEKS                       R2 R1 K11 ["LeftClavicle"]
-      656 GETUPVAL                         R3 2
-      657 GETTABLEKS                       R2 R3 K26 ["createElement"]
-      659 GETUPVAL                         R3 3
-      660 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-      661 GETIMPORT                        R5 K53 [Enum.RigLabel.LeftShoulder]
-      663 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-      665 GETIMPORT                        R5 K43 [Vector2.new]
-      667 LOADN                            R6 133
-      668 LOADN                            R7 84
-      669 CALL                             R5 2 1
-      670 SETTABLEKS                       R5 R4 K28 ["position"]
-      672 LOADB                            R5 0
-      673 SETTABLEKS                       R5 R4 K29 ["optional"]
-      675 GETUPVAL                         R6 1
-      676 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-      678 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-      680 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-      682 GETUPVAL                         R6 1
-      683 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-      685 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-      687 GETUPVAL                         R6 1
-      688 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      690 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      692 GETUPVAL                         R6 1
-      693 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      695 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      697 GETUPVAL                         R6 1
-      698 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      700 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      702 GETUPVAL                         R6 1
-      703 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-      705 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-      707 GETUPVAL                         R6 1
-      708 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-      710 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-      712 CALL                             R2 2 1
-      713 SETTABLEKS                       R2 R1 K12 ["LeftShoulder"]
-      715 GETUPVAL                         R3 2
-      716 GETTABLEKS                       R2 R3 K26 ["createElement"]
-      718 GETUPVAL                         R3 3
-      719 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-      720 GETIMPORT                        R5 K54 [Enum.RigLabel.LeftElbow]
-      722 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-      724 GETIMPORT                        R5 K43 [Vector2.new]
-      726 LOADN                            R6 144
-      727 LOADN                            R7 132
-      728 CALL                             R5 2 1
-      729 SETTABLEKS                       R5 R4 K28 ["position"]
-      731 LOADB                            R5 0
-      732 SETTABLEKS                       R5 R4 K29 ["optional"]
-      734 GETUPVAL                         R6 1
-      735 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-      737 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-      739 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-      741 GETUPVAL                         R6 1
-      742 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-      744 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-      746 GETUPVAL                         R6 1
-      747 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      749 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      751 GETUPVAL                         R6 1
-      752 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      754 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      756 GETUPVAL                         R6 1
-      757 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      759 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      761 GETUPVAL                         R6 1
-      762 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-      764 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-      766 GETUPVAL                         R6 1
-      767 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-      769 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-      771 CALL                             R2 2 1
-      772 SETTABLEKS                       R2 R1 K13 ["LeftElbow"]
-      774 GETUPVAL                         R3 2
-      775 GETTABLEKS                       R2 R3 K26 ["createElement"]
-      777 GETUPVAL                         R3 3
-      778 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-      779 GETIMPORT                        R5 K55 [Enum.RigLabel.LeftWrist]
-      781 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-      783 GETIMPORT                        R5 K43 [Vector2.new]
-      785 LOADN                            R6 154
-      786 LOADN                            R7 177
-      787 CALL                             R5 2 1
-      788 SETTABLEKS                       R5 R4 K28 ["position"]
-      790 LOADB                            R5 0
-      791 SETTABLEKS                       R5 R4 K29 ["optional"]
-      793 GETUPVAL                         R6 1
-      794 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-      796 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-      798 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-      800 GETUPVAL                         R6 1
-      801 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-      803 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-      805 GETUPVAL                         R6 1
-      806 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      808 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      810 GETUPVAL                         R6 1
-      811 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      813 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      815 GETUPVAL                         R6 1
-      816 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      818 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      820 GETUPVAL                         R6 1
-      821 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-      823 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-      825 GETUPVAL                         R6 1
-      826 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-      828 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-      830 CALL                             R2 2 1
-      831 SETTABLEKS                       R2 R1 K14 ["LeftWrist"]
-      833 GETUPVAL                         R3 2
-      834 GETTABLEKS                       R2 R3 K26 ["createElement"]
-      836 GETUPVAL                         R3 3
-      837 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-      838 GETIMPORT                        R5 K56 [Enum.RigLabel.LeftHip]
-      840 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-      842 GETIMPORT                        R5 K43 [Vector2.new]
-      844 LOADN                            R6 116
-      845 LOADN                            R7 181
-      846 CALL                             R5 2 1
-      847 SETTABLEKS                       R5 R4 K28 ["position"]
-      849 LOADB                            R5 0
-      850 SETTABLEKS                       R5 R4 K29 ["optional"]
-      852 GETUPVAL                         R6 1
-      853 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-      855 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-      857 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-      859 GETUPVAL                         R6 1
-      860 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-      862 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-      864 GETUPVAL                         R6 1
-      865 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      867 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      869 GETUPVAL                         R6 1
-      870 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      872 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      874 GETUPVAL                         R6 1
-      875 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      877 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      879 GETUPVAL                         R6 1
-      880 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-      882 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-      884 GETUPVAL                         R6 1
-      885 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-      887 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-      889 CALL                             R2 2 1
-      890 SETTABLEKS                       R2 R1 K15 ["LeftHip"]
-      892 GETUPVAL                         R3 2
-      893 GETTABLEKS                       R2 R3 K26 ["createElement"]
-      895 GETUPVAL                         R3 3
-      896 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-      897 GETIMPORT                        R5 K57 [Enum.RigLabel.LeftKnee]
-      899 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-      901 GETIMPORT                        R5 K43 [Vector2.new]
-      903 LOADN                            R6 122
-      904 LOADN                            R7 255
-      905 CALL                             R5 2 1
-      906 SETTABLEKS                       R5 R4 K28 ["position"]
-      908 LOADB                            R5 0
-      909 SETTABLEKS                       R5 R4 K29 ["optional"]
-      911 GETUPVAL                         R6 1
-      912 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-      914 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-      916 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-      918 GETUPVAL                         R6 1
-      919 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-      921 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-      923 GETUPVAL                         R6 1
-      924 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      926 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      928 GETUPVAL                         R6 1
-      929 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      931 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      933 GETUPVAL                         R6 1
-      934 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      936 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      938 GETUPVAL                         R6 1
-      939 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-      941 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-      943 GETUPVAL                         R6 1
-      944 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-      946 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-      948 CALL                             R2 2 1
-      949 SETTABLEKS                       R2 R1 K16 ["LeftKnee"]
-      951 GETUPVAL                         R3 2
-      952 GETTABLEKS                       R2 R3 K26 ["createElement"]
-      954 GETUPVAL                         R3 3
-      955 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-      956 GETIMPORT                        R5 K58 [Enum.RigLabel.LeftAnkle]
-      958 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-      960 GETIMPORT                        R5 K43 [Vector2.new]
-      962 LOADN                            R6 128
-      963 LOADN                            R7 68
-      964 CALL                             R5 2 1
-      965 SETTABLEKS                       R5 R4 K28 ["position"]
-      967 LOADB                            R5 0
-      968 SETTABLEKS                       R5 R4 K29 ["optional"]
-      970 GETUPVAL                         R6 1
-      971 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-      973 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-      975 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-      977 GETUPVAL                         R6 1
-      978 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-      980 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-      982 GETUPVAL                         R6 1
-      983 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-      985 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-      987 GETUPVAL                         R6 1
-      988 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-      990 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-      992 GETUPVAL                         R6 1
-      993 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-      995 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-      997 GETUPVAL                         R6 1
-      998 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-     1000 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-     1002 GETUPVAL                         R6 1
-     1003 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-     1005 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-     1007 CALL                             R2 2 1
-     1008 SETTABLEKS                       R2 R1 K17 ["LeftAnkle"]
-     1010 GETUPVAL                         R3 2
-     1011 GETTABLEKS                       R2 R3 K26 ["createElement"]
-     1013 GETUPVAL                         R3 3
-     1014 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-     1015 GETUPVAL                         R5 5
-     1016 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-     1018 GETIMPORT                        R5 K43 [Vector2.new]
-     1020 LOADN                            R6 134
-     1021 LOADN                            R7 85
-     1022 CALL                             R5 2 1
-     1023 SETTABLEKS                       R5 R4 K28 ["position"]
-     1025 LOADB                            R5 1
-     1026 SETTABLEKS                       R5 R4 K29 ["optional"]
-     1028 GETUPVAL                         R6 1
-     1029 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-     1031 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-     1033 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-     1035 GETUPVAL                         R6 1
-     1036 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-     1038 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-     1040 GETUPVAL                         R6 1
-     1041 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-     1043 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-     1045 GETUPVAL                         R6 1
-     1046 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-     1048 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-     1050 GETUPVAL                         R6 1
-     1051 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-     1053 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-     1055 GETUPVAL                         R6 1
-     1056 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-     1058 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-     1060 GETUPVAL                         R6 1
-     1061 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-     1063 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-     1065 CALL                             R2 2 1
-     1066 SETTABLEKS                       R2 R1 K18 ["LeftToeBase"]
-     1068 GETUPVAL                         R3 2
-     1069 GETTABLEKS                       R2 R3 K26 ["createElement"]
-     1071 GETUPVAL                         R3 3
-     1072 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-     1073 GETIMPORT                        R5 K59 [Enum.RigLabel.Chest]
-     1075 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-     1077 GETIMPORT                        R5 K43 [Vector2.new]
-     1079 LOADN                            R6 96
-     1080 LOADN                            R7 98
-     1081 CALL                             R5 2 1
-     1082 SETTABLEKS                       R5 R4 K28 ["position"]
-     1084 LOADB                            R5 1
-     1085 SETTABLEKS                       R5 R4 K29 ["optional"]
-     1087 GETUPVAL                         R6 1
-     1088 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-     1090 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-     1092 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-     1094 GETUPVAL                         R6 1
-     1095 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-     1097 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-     1099 GETUPVAL                         R6 1
-     1100 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-     1102 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-     1104 GETUPVAL                         R6 1
-     1105 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-     1107 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-     1109 GETUPVAL                         R6 1
-     1110 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-     1112 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-     1114 GETUPVAL                         R6 1
-     1115 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-     1117 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-     1119 GETUPVAL                         R6 1
-     1120 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-     1122 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-     1124 CALL                             R2 2 1
-     1125 SETTABLEKS                       R2 R1 K19 ["Chest"]
-     1127 GETUPVAL                         R3 2
-     1128 GETTABLEKS                       R2 R3 K26 ["createElement"]
-     1130 GETUPVAL                         R3 3
-     1131 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-     1132 GETIMPORT                        R5 K60 [Enum.RigLabel.Root]
-     1134 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-     1136 GETIMPORT                        R5 K43 [Vector2.new]
-     1138 LOADN                            R6 96
-     1139 LOADN                            R7 180
-     1140 CALL                             R5 2 1
-     1141 SETTABLEKS                       R5 R4 K28 ["position"]
-     1143 LOADB                            R5 0
-     1144 SETTABLEKS                       R5 R4 K29 ["optional"]
-     1146 GETUPVAL                         R6 1
-     1147 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-     1149 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-     1151 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-     1153 GETUPVAL                         R6 1
-     1154 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-     1156 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-     1158 GETUPVAL                         R6 1
-     1159 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-     1161 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-     1163 GETUPVAL                         R6 1
-     1164 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-     1166 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-     1168 GETUPVAL                         R6 1
-     1169 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-     1171 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-     1173 GETUPVAL                         R6 1
-     1174 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-     1176 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-     1178 GETUPVAL                         R6 1
-     1179 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-     1181 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-     1183 CALL                             R2 2 1
-     1184 SETTABLEKS                       R2 R1 K20 ["Root"]
-     1186 GETUPVAL                         R3 2
-     1187 GETTABLEKS                       R2 R3 K26 ["createElement"]
-     1189 GETUPVAL                         R3 3
-     1190 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-     1191 GETIMPORT                        R5 K61 [Enum.RigLabel.Waist]
-     1193 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-     1195 GETIMPORT                        R5 K43 [Vector2.new]
-     1197 LOADN                            R6 96
-     1198 LOADN                            R7 144
-     1199 CALL                             R5 2 1
-     1200 SETTABLEKS                       R5 R4 K28 ["position"]
-     1202 LOADB                            R5 0
-     1203 SETTABLEKS                       R5 R4 K29 ["optional"]
-     1205 GETUPVAL                         R6 1
-     1206 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-     1208 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-     1210 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-     1212 GETUPVAL                         R6 1
-     1213 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-     1215 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-     1217 GETUPVAL                         R6 1
-     1218 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-     1220 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-     1222 GETUPVAL                         R6 1
-     1223 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-     1225 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-     1227 GETUPVAL                         R6 1
-     1228 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-     1230 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-     1232 GETUPVAL                         R6 1
-     1233 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-     1235 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-     1237 GETUPVAL                         R6 1
-     1238 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-     1240 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-     1242 CALL                             R2 2 1
-     1243 SETTABLEKS                       R2 R1 K21 ["Waist"]
-     1245 GETUPVAL                         R3 6
-     1246 JUMPIFNOT                        R3 ; [+65]
-     1247 GETUPVAL                         R3 2
-     1248 GETTABLEKS                       R2 R3 K26 ["createElement"]
-     1250 GETUPVAL                         R3 3
-     1251 DUPTABLE                         R4 K37 [{"jointLabel", "position", "optional", "selectedJoint", "rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
-     1252 GETUPVAL                         R5 6
-     1253 SETTABLEKS                       R5 R4 K27 ["jointLabel"]
-     1255 GETUPVAL                         R6 7
-     1256 JUMPIFNOT                        R6 ; [+6]
-     1257 GETIMPORT                        R5 K43 [Vector2.new]
-     1259 LOADN                            R6 96
-     1260 LOADN                            R7 121
-     1261 CALL                             R5 2 1
-     1262 JUMP                             ; [+5]
-     1263 GETIMPORT                        R5 K43 [Vector2.new]
-     1265 LOADN                            R6 96
-     1266 LOADN                            R7 166
-     1267 CALL                             R5 2 1
-     1268 SETTABLEKS                       R5 R4 K28 ["position"]
-     1270 LOADB                            R5 1
-     1271 SETTABLEKS                       R5 R4 K29 ["optional"]
-     1273 GETUPVAL                         R6 1
-     1274 GETTABLEKS                       R5 R6 K30 ["selectedJoint"]
-     1276 SETTABLEKS                       R5 R4 K30 ["selectedJoint"]
-     1278 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-     1280 GETUPVAL                         R6 1
-     1281 GETTABLEKS                       R5 R6 K31 ["armedRigLabel"]
-     1283 SETTABLEKS                       R5 R4 K31 ["armedRigLabel"]
-     1285 GETUPVAL                         R6 1
-     1286 GETTABLEKS                       R5 R6 K32 ["onArmJoint"]
-     1288 SETTABLEKS                       R5 R4 K32 ["onArmJoint"]
-     1290 GETUPVAL                         R6 1
-     1291 GETTABLEKS                       R5 R6 K33 ["onMapJoint"]
-     1293 SETTABLEKS                       R5 R4 K33 ["onMapJoint"]
-     1295 GETUPVAL                         R6 1
-     1296 GETTABLEKS                       R5 R6 K34 ["counterpartHoveredJointName"]
-     1298 SETTABLEKS                       R5 R4 K34 ["counterpartHoveredJointName"]
-     1300 GETUPVAL                         R6 1
-     1301 GETTABLEKS                       R5 R6 K35 ["onDotHoverEnter"]
-     1303 SETTABLEKS                       R5 R4 K35 ["onDotHoverEnter"]
-     1305 GETUPVAL                         R6 1
-     1306 GETTABLEKS                       R5 R6 K36 ["onDotHoverLeave"]
-     1308 SETTABLEKS                       R5 R4 K36 ["onDotHoverLeave"]
-     1310 CALL                             R2 2 1
-     1311 JUMPIF                           R2 ; [+1]
-     1312 LOADNIL                          R2
-     1313 SETTABLEKS                       R2 R1 K22 ["Spine"]
-     1315 GETUPVAL                         R3 2
-     1316 GETTABLEKS                       R2 R3 K26 ["createElement"]
-     1318 GETUPVAL                         R3 8
-     1319 DUPTABLE                         R4 K64 [{"position", "side", "rigDescriptor", "onNavigateToHand"}]
-     1320 GETIMPORT                        R5 K43 [Vector2.new]
-     1322 LOADN                            R6 19
-     1323 LOADN                            R7 198
-     1324 CALL                             R5 2 1
-     1325 SETTABLEKS                       R5 R4 K28 ["position"]
-     1327 LOADK                            R5 K65 ["right"]
-     1328 SETTABLEKS                       R5 R4 K62 ["side"]
-     1330 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-     1332 GETUPVAL                         R6 1
-     1333 GETTABLEKS                       R5 R6 K63 ["onNavigateToHand"]
-     1335 SETTABLEKS                       R5 R4 K63 ["onNavigateToHand"]
-     1337 CALL                             R2 2 1
-     1338 SETTABLEKS                       R2 R1 K23 ["RightHandDot"]
-     1340 GETUPVAL                         R3 2
-     1341 GETTABLEKS                       R2 R3 K26 ["createElement"]
-     1343 GETUPVAL                         R3 8
-     1344 DUPTABLE                         R4 K64 [{"position", "side", "rigDescriptor", "onNavigateToHand"}]
-     1345 GETIMPORT                        R5 K43 [Vector2.new]
-     1347 LOADN                            R6 171
-     1348 LOADN                            R7 197
-     1349 CALL                             R5 2 1
-     1350 SETTABLEKS                       R5 R4 K28 ["position"]
-     1352 LOADK                            R5 K66 ["left"]
-     1353 SETTABLEKS                       R5 R4 K62 ["side"]
-     1355 SETTABLEKS                       R0 R4 K0 ["rigDescriptor"]
-     1357 GETUPVAL                         R6 1
-     1358 GETTABLEKS                       R5 R6 K63 ["onNavigateToHand"]
-     1360 SETTABLEKS                       R5 R4 K63 ["onNavigateToHand"]
-     1362 CALL                             R2 2 1
-     1363 SETTABLEKS                       R2 R1 K24 ["LeftHandDot"]
-     1365 RETURN                           R1 1
+        4 GETUPVAL                         R0 1
+        5 GETUPVAL                         R2 2
+        6 CALL                             R2 0 1
+        7 JUMPIF                           R2 ; [+4]
+        8 GETUPVAL                         R2 3
+        9 GETTABLEKS                       R1 R2 K0 ["rigDescriptor"]
+       11 JUMP                             ; [+1]
+       12 LOADNIL                          R1
+       13 DUPTABLE                         R2 K25 [{"HeadBase", "Neck", "RightClavicle", "RightShoulder", "RightElbow", "RightWrist", "RightHip", "RightKnee", "RightAnkle", "RightToeBase", "LeftClavicle", "LeftShoulder", "LeftElbow", "LeftWrist", "LeftHip", "LeftKnee", "LeftAnkle", "LeftToeBase", "Chest", "Root", "Waist", "Spine", "RightHandDot", "LeftHandDot"}]
+       14 GETUPVAL                         R4 4
+       15 GETTABLEKS                       R3 R4 K26 ["createElement"]
+       17 GETUPVAL                         R4 5
+       18 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+       19 GETIMPORT                        R6 K42 [Enum.RigLabel.HeadBase]
+       21 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+       23 GETIMPORT                        R6 K45 [Vector2.new]
+       25 LOADN                            R7 96
+       26 LOADN                            R8 40
+       27 CALL                             R6 2 1
+       28 SETTABLEKS                       R6 R5 K28 ["position"]
+       30 LOADB                            R6 1
+       31 SETTABLEKS                       R6 R5 K29 ["optional"]
+       33 GETUPVAL                         R7 3
+       34 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+       36 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+       38 GETIMPORT                        R7 K42 [Enum.RigLabel.HeadBase]
+       40 GETTABLE                         R6 R0 R7
+       41 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+       43 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+       45 GETUPVAL                         R7 3
+       46 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+       48 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+       50 GETUPVAL                         R7 3
+       51 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+       53 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+       55 GETUPVAL                         R7 3
+       56 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+       58 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+       60 GETUPVAL                         R7 3
+       61 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+       63 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+       65 GETUPVAL                         R7 3
+       66 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+       68 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+       70 GETUPVAL                         R7 3
+       71 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+       73 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+       75 CALL                             R3 2 1
+       76 SETTABLEKS                       R3 R2 K1 ["HeadBase"]
+       78 GETUPVAL                         R4 4
+       79 GETTABLEKS                       R3 R4 K26 ["createElement"]
+       81 GETUPVAL                         R4 5
+       82 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+       83 GETIMPORT                        R6 K46 [Enum.RigLabel.Neck]
+       85 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+       87 GETIMPORT                        R6 K45 [Vector2.new]
+       89 LOADN                            R7 96
+       90 LOADN                            R8 68
+       91 CALL                             R6 2 1
+       92 SETTABLEKS                       R6 R5 K28 ["position"]
+       94 LOADB                            R6 0
+       95 SETTABLEKS                       R6 R5 K29 ["optional"]
+       97 GETUPVAL                         R7 3
+       98 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+      100 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+      102 GETIMPORT                        R7 K46 [Enum.RigLabel.Neck]
+      104 GETTABLE                         R6 R0 R7
+      105 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+      107 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+      109 GETUPVAL                         R7 3
+      110 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+      112 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+      114 GETUPVAL                         R7 3
+      115 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+      117 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+      119 GETUPVAL                         R7 3
+      120 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+      122 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+      124 GETUPVAL                         R7 3
+      125 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+      127 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+      129 GETUPVAL                         R7 3
+      130 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+      132 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+      134 GETUPVAL                         R7 3
+      135 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+      137 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+      139 CALL                             R3 2 1
+      140 SETTABLEKS                       R3 R2 K2 ["Neck"]
+      142 GETUPVAL                         R4 4
+      143 GETTABLEKS                       R3 R4 K26 ["createElement"]
+      145 GETUPVAL                         R4 5
+      146 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+      147 GETIMPORT                        R6 K47 [Enum.RigLabel.RightClavicle]
+      149 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+      151 GETIMPORT                        R6 K45 [Vector2.new]
+      153 LOADN                            R7 82
+      154 LOADN                            R8 80
+      155 CALL                             R6 2 1
+      156 SETTABLEKS                       R6 R5 K28 ["position"]
+      158 LOADB                            R6 1
+      159 SETTABLEKS                       R6 R5 K29 ["optional"]
+      161 GETUPVAL                         R7 3
+      162 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+      164 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+      166 GETIMPORT                        R7 K47 [Enum.RigLabel.RightClavicle]
+      168 GETTABLE                         R6 R0 R7
+      169 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+      171 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+      173 GETUPVAL                         R7 3
+      174 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+      176 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+      178 GETUPVAL                         R7 3
+      179 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+      181 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+      183 GETUPVAL                         R7 3
+      184 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+      186 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+      188 GETUPVAL                         R7 3
+      189 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+      191 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+      193 GETUPVAL                         R7 3
+      194 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+      196 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+      198 GETUPVAL                         R7 3
+      199 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+      201 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+      203 CALL                             R3 2 1
+      204 SETTABLEKS                       R3 R2 K3 ["RightClavicle"]
+      206 GETUPVAL                         R4 4
+      207 GETTABLEKS                       R3 R4 K26 ["createElement"]
+      209 GETUPVAL                         R4 5
+      210 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+      211 GETIMPORT                        R6 K48 [Enum.RigLabel.RightShoulder]
+      213 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+      215 GETIMPORT                        R6 K45 [Vector2.new]
+      217 LOADN                            R7 58
+      218 LOADN                            R8 84
+      219 CALL                             R6 2 1
+      220 SETTABLEKS                       R6 R5 K28 ["position"]
+      222 LOADB                            R6 0
+      223 SETTABLEKS                       R6 R5 K29 ["optional"]
+      225 GETUPVAL                         R7 3
+      226 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+      228 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+      230 GETIMPORT                        R7 K48 [Enum.RigLabel.RightShoulder]
+      232 GETTABLE                         R6 R0 R7
+      233 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+      235 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+      237 GETUPVAL                         R7 3
+      238 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+      240 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+      242 GETUPVAL                         R7 3
+      243 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+      245 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+      247 GETUPVAL                         R7 3
+      248 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+      250 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+      252 GETUPVAL                         R7 3
+      253 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+      255 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+      257 GETUPVAL                         R7 3
+      258 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+      260 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+      262 GETUPVAL                         R7 3
+      263 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+      265 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+      267 CALL                             R3 2 1
+      268 SETTABLEKS                       R3 R2 K4 ["RightShoulder"]
+      270 GETUPVAL                         R4 4
+      271 GETTABLEKS                       R3 R4 K26 ["createElement"]
+      273 GETUPVAL                         R4 5
+      274 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+      275 GETIMPORT                        R6 K49 [Enum.RigLabel.RightElbow]
+      277 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+      279 GETIMPORT                        R6 K45 [Vector2.new]
+      281 LOADN                            R7 48
+      282 LOADN                            R8 132
+      283 CALL                             R6 2 1
+      284 SETTABLEKS                       R6 R5 K28 ["position"]
+      286 LOADB                            R6 0
+      287 SETTABLEKS                       R6 R5 K29 ["optional"]
+      289 GETUPVAL                         R7 3
+      290 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+      292 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+      294 GETIMPORT                        R7 K49 [Enum.RigLabel.RightElbow]
+      296 GETTABLE                         R6 R0 R7
+      297 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+      299 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+      301 GETUPVAL                         R7 3
+      302 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+      304 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+      306 GETUPVAL                         R7 3
+      307 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+      309 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+      311 GETUPVAL                         R7 3
+      312 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+      314 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+      316 GETUPVAL                         R7 3
+      317 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+      319 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+      321 GETUPVAL                         R7 3
+      322 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+      324 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+      326 GETUPVAL                         R7 3
+      327 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+      329 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+      331 CALL                             R3 2 1
+      332 SETTABLEKS                       R3 R2 K5 ["RightElbow"]
+      334 GETUPVAL                         R4 4
+      335 GETTABLEKS                       R3 R4 K26 ["createElement"]
+      337 GETUPVAL                         R4 5
+      338 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+      339 GETIMPORT                        R6 K50 [Enum.RigLabel.RightWrist]
+      341 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+      343 GETIMPORT                        R6 K45 [Vector2.new]
+      345 LOADN                            R7 36
+      346 LOADN                            R8 178
+      347 CALL                             R6 2 1
+      348 SETTABLEKS                       R6 R5 K28 ["position"]
+      350 LOADB                            R6 0
+      351 SETTABLEKS                       R6 R5 K29 ["optional"]
+      353 GETUPVAL                         R7 3
+      354 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+      356 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+      358 GETIMPORT                        R7 K50 [Enum.RigLabel.RightWrist]
+      360 GETTABLE                         R6 R0 R7
+      361 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+      363 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+      365 GETUPVAL                         R7 3
+      366 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+      368 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+      370 GETUPVAL                         R7 3
+      371 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+      373 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+      375 GETUPVAL                         R7 3
+      376 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+      378 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+      380 GETUPVAL                         R7 3
+      381 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+      383 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+      385 GETUPVAL                         R7 3
+      386 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+      388 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+      390 GETUPVAL                         R7 3
+      391 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+      393 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+      395 CALL                             R3 2 1
+      396 SETTABLEKS                       R3 R2 K6 ["RightWrist"]
+      398 GETUPVAL                         R4 4
+      399 GETTABLEKS                       R3 R4 K26 ["createElement"]
+      401 GETUPVAL                         R4 5
+      402 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+      403 GETIMPORT                        R6 K51 [Enum.RigLabel.RightHip]
+      405 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+      407 GETIMPORT                        R6 K45 [Vector2.new]
+      409 LOADN                            R7 74
+      410 LOADN                            R8 181
+      411 CALL                             R6 2 1
+      412 SETTABLEKS                       R6 R5 K28 ["position"]
+      414 LOADB                            R6 0
+      415 SETTABLEKS                       R6 R5 K29 ["optional"]
+      417 GETUPVAL                         R7 3
+      418 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+      420 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+      422 GETIMPORT                        R7 K51 [Enum.RigLabel.RightHip]
+      424 GETTABLE                         R6 R0 R7
+      425 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+      427 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+      429 GETUPVAL                         R7 3
+      430 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+      432 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+      434 GETUPVAL                         R7 3
+      435 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+      437 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+      439 GETUPVAL                         R7 3
+      440 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+      442 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+      444 GETUPVAL                         R7 3
+      445 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+      447 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+      449 GETUPVAL                         R7 3
+      450 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+      452 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+      454 GETUPVAL                         R7 3
+      455 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+      457 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+      459 CALL                             R3 2 1
+      460 SETTABLEKS                       R3 R2 K7 ["RightHip"]
+      462 GETUPVAL                         R4 4
+      463 GETTABLEKS                       R3 R4 K26 ["createElement"]
+      465 GETUPVAL                         R4 5
+      466 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+      467 GETIMPORT                        R6 K52 [Enum.RigLabel.RightKnee]
+      469 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+      471 GETIMPORT                        R6 K45 [Vector2.new]
+      473 LOADN                            R7 68
+      474 LOADN                            R8 255
+      475 CALL                             R6 2 1
+      476 SETTABLEKS                       R6 R5 K28 ["position"]
+      478 LOADB                            R6 0
+      479 SETTABLEKS                       R6 R5 K29 ["optional"]
+      481 GETUPVAL                         R7 3
+      482 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+      484 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+      486 GETIMPORT                        R7 K52 [Enum.RigLabel.RightKnee]
+      488 GETTABLE                         R6 R0 R7
+      489 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+      491 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+      493 GETUPVAL                         R7 3
+      494 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+      496 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+      498 GETUPVAL                         R7 3
+      499 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+      501 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+      503 GETUPVAL                         R7 3
+      504 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+      506 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+      508 GETUPVAL                         R7 3
+      509 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+      511 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+      513 GETUPVAL                         R7 3
+      514 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+      516 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+      518 GETUPVAL                         R7 3
+      519 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+      521 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+      523 CALL                             R3 2 1
+      524 SETTABLEKS                       R3 R2 K8 ["RightKnee"]
+      526 GETUPVAL                         R4 4
+      527 GETTABLEKS                       R3 R4 K26 ["createElement"]
+      529 GETUPVAL                         R4 5
+      530 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+      531 GETIMPORT                        R6 K53 [Enum.RigLabel.RightAnkle]
+      533 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+      535 GETIMPORT                        R6 K45 [Vector2.new]
+      537 LOADN                            R7 62
+      538 LOADN                            R8 68
+      539 CALL                             R6 2 1
+      540 SETTABLEKS                       R6 R5 K28 ["position"]
+      542 LOADB                            R6 0
+      543 SETTABLEKS                       R6 R5 K29 ["optional"]
+      545 GETUPVAL                         R7 3
+      546 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+      548 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+      550 GETIMPORT                        R7 K53 [Enum.RigLabel.RightAnkle]
+      552 GETTABLE                         R6 R0 R7
+      553 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+      555 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+      557 GETUPVAL                         R7 3
+      558 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+      560 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+      562 GETUPVAL                         R7 3
+      563 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+      565 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+      567 GETUPVAL                         R7 3
+      568 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+      570 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+      572 GETUPVAL                         R7 3
+      573 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+      575 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+      577 GETUPVAL                         R7 3
+      578 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+      580 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+      582 GETUPVAL                         R7 3
+      583 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+      585 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+      587 CALL                             R3 2 1
+      588 SETTABLEKS                       R3 R2 K9 ["RightAnkle"]
+      590 GETUPVAL                         R4 4
+      591 GETTABLEKS                       R3 R4 K26 ["createElement"]
+      593 GETUPVAL                         R4 5
+      594 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+      595 GETUPVAL                         R6 6
+      596 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+      598 GETIMPORT                        R6 K45 [Vector2.new]
+      600 LOADN                            R7 55
+      601 LOADN                            R8 85
+      602 CALL                             R6 2 1
+      603 SETTABLEKS                       R6 R5 K28 ["position"]
+      605 LOADB                            R6 1
+      606 SETTABLEKS                       R6 R5 K29 ["optional"]
+      608 GETUPVAL                         R7 3
+      609 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+      611 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+      613 GETUPVAL                         R7 6
+      614 GETTABLE                         R6 R0 R7
+      615 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+      617 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+      619 GETUPVAL                         R7 3
+      620 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+      622 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+      624 GETUPVAL                         R7 3
+      625 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+      627 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+      629 GETUPVAL                         R7 3
+      630 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+      632 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+      634 GETUPVAL                         R7 3
+      635 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+      637 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+      639 GETUPVAL                         R7 3
+      640 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+      642 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+      644 GETUPVAL                         R7 3
+      645 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+      647 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+      649 CALL                             R3 2 1
+      650 SETTABLEKS                       R3 R2 K10 ["RightToeBase"]
+      652 GETUPVAL                         R4 4
+      653 GETTABLEKS                       R3 R4 K26 ["createElement"]
+      655 GETUPVAL                         R4 5
+      656 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+      657 GETIMPORT                        R6 K54 [Enum.RigLabel.LeftClavicle]
+      659 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+      661 GETIMPORT                        R6 K45 [Vector2.new]
+      663 LOADN                            R7 110
+      664 LOADN                            R8 80
+      665 CALL                             R6 2 1
+      666 SETTABLEKS                       R6 R5 K28 ["position"]
+      668 LOADB                            R6 1
+      669 SETTABLEKS                       R6 R5 K29 ["optional"]
+      671 GETUPVAL                         R7 3
+      672 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+      674 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+      676 GETIMPORT                        R7 K54 [Enum.RigLabel.LeftClavicle]
+      678 GETTABLE                         R6 R0 R7
+      679 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+      681 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+      683 GETUPVAL                         R7 3
+      684 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+      686 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+      688 GETUPVAL                         R7 3
+      689 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+      691 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+      693 GETUPVAL                         R7 3
+      694 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+      696 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+      698 GETUPVAL                         R7 3
+      699 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+      701 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+      703 GETUPVAL                         R7 3
+      704 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+      706 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+      708 GETUPVAL                         R7 3
+      709 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+      711 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+      713 CALL                             R3 2 1
+      714 SETTABLEKS                       R3 R2 K11 ["LeftClavicle"]
+      716 GETUPVAL                         R4 4
+      717 GETTABLEKS                       R3 R4 K26 ["createElement"]
+      719 GETUPVAL                         R4 5
+      720 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+      721 GETIMPORT                        R6 K55 [Enum.RigLabel.LeftShoulder]
+      723 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+      725 GETIMPORT                        R6 K45 [Vector2.new]
+      727 LOADN                            R7 133
+      728 LOADN                            R8 84
+      729 CALL                             R6 2 1
+      730 SETTABLEKS                       R6 R5 K28 ["position"]
+      732 LOADB                            R6 0
+      733 SETTABLEKS                       R6 R5 K29 ["optional"]
+      735 GETUPVAL                         R7 3
+      736 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+      738 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+      740 GETIMPORT                        R7 K55 [Enum.RigLabel.LeftShoulder]
+      742 GETTABLE                         R6 R0 R7
+      743 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+      745 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+      747 GETUPVAL                         R7 3
+      748 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+      750 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+      752 GETUPVAL                         R7 3
+      753 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+      755 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+      757 GETUPVAL                         R7 3
+      758 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+      760 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+      762 GETUPVAL                         R7 3
+      763 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+      765 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+      767 GETUPVAL                         R7 3
+      768 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+      770 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+      772 GETUPVAL                         R7 3
+      773 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+      775 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+      777 CALL                             R3 2 1
+      778 SETTABLEKS                       R3 R2 K12 ["LeftShoulder"]
+      780 GETUPVAL                         R4 4
+      781 GETTABLEKS                       R3 R4 K26 ["createElement"]
+      783 GETUPVAL                         R4 5
+      784 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+      785 GETIMPORT                        R6 K56 [Enum.RigLabel.LeftElbow]
+      787 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+      789 GETIMPORT                        R6 K45 [Vector2.new]
+      791 LOADN                            R7 144
+      792 LOADN                            R8 132
+      793 CALL                             R6 2 1
+      794 SETTABLEKS                       R6 R5 K28 ["position"]
+      796 LOADB                            R6 0
+      797 SETTABLEKS                       R6 R5 K29 ["optional"]
+      799 GETUPVAL                         R7 3
+      800 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+      802 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+      804 GETIMPORT                        R7 K56 [Enum.RigLabel.LeftElbow]
+      806 GETTABLE                         R6 R0 R7
+      807 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+      809 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+      811 GETUPVAL                         R7 3
+      812 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+      814 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+      816 GETUPVAL                         R7 3
+      817 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+      819 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+      821 GETUPVAL                         R7 3
+      822 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+      824 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+      826 GETUPVAL                         R7 3
+      827 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+      829 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+      831 GETUPVAL                         R7 3
+      832 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+      834 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+      836 GETUPVAL                         R7 3
+      837 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+      839 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+      841 CALL                             R3 2 1
+      842 SETTABLEKS                       R3 R2 K13 ["LeftElbow"]
+      844 GETUPVAL                         R4 4
+      845 GETTABLEKS                       R3 R4 K26 ["createElement"]
+      847 GETUPVAL                         R4 5
+      848 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+      849 GETIMPORT                        R6 K57 [Enum.RigLabel.LeftWrist]
+      851 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+      853 GETIMPORT                        R6 K45 [Vector2.new]
+      855 LOADN                            R7 154
+      856 LOADN                            R8 177
+      857 CALL                             R6 2 1
+      858 SETTABLEKS                       R6 R5 K28 ["position"]
+      860 LOADB                            R6 0
+      861 SETTABLEKS                       R6 R5 K29 ["optional"]
+      863 GETUPVAL                         R7 3
+      864 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+      866 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+      868 GETIMPORT                        R7 K57 [Enum.RigLabel.LeftWrist]
+      870 GETTABLE                         R6 R0 R7
+      871 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+      873 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+      875 GETUPVAL                         R7 3
+      876 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+      878 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+      880 GETUPVAL                         R7 3
+      881 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+      883 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+      885 GETUPVAL                         R7 3
+      886 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+      888 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+      890 GETUPVAL                         R7 3
+      891 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+      893 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+      895 GETUPVAL                         R7 3
+      896 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+      898 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+      900 GETUPVAL                         R7 3
+      901 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+      903 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+      905 CALL                             R3 2 1
+      906 SETTABLEKS                       R3 R2 K14 ["LeftWrist"]
+      908 GETUPVAL                         R4 4
+      909 GETTABLEKS                       R3 R4 K26 ["createElement"]
+      911 GETUPVAL                         R4 5
+      912 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+      913 GETIMPORT                        R6 K58 [Enum.RigLabel.LeftHip]
+      915 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+      917 GETIMPORT                        R6 K45 [Vector2.new]
+      919 LOADN                            R7 116
+      920 LOADN                            R8 181
+      921 CALL                             R6 2 1
+      922 SETTABLEKS                       R6 R5 K28 ["position"]
+      924 LOADB                            R6 0
+      925 SETTABLEKS                       R6 R5 K29 ["optional"]
+      927 GETUPVAL                         R7 3
+      928 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+      930 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+      932 GETIMPORT                        R7 K58 [Enum.RigLabel.LeftHip]
+      934 GETTABLE                         R6 R0 R7
+      935 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+      937 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+      939 GETUPVAL                         R7 3
+      940 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+      942 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+      944 GETUPVAL                         R7 3
+      945 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+      947 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+      949 GETUPVAL                         R7 3
+      950 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+      952 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+      954 GETUPVAL                         R7 3
+      955 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+      957 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+      959 GETUPVAL                         R7 3
+      960 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+      962 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+      964 GETUPVAL                         R7 3
+      965 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+      967 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+      969 CALL                             R3 2 1
+      970 SETTABLEKS                       R3 R2 K15 ["LeftHip"]
+      972 GETUPVAL                         R4 4
+      973 GETTABLEKS                       R3 R4 K26 ["createElement"]
+      975 GETUPVAL                         R4 5
+      976 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+      977 GETIMPORT                        R6 K59 [Enum.RigLabel.LeftKnee]
+      979 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+      981 GETIMPORT                        R6 K45 [Vector2.new]
+      983 LOADN                            R7 122
+      984 LOADN                            R8 255
+      985 CALL                             R6 2 1
+      986 SETTABLEKS                       R6 R5 K28 ["position"]
+      988 LOADB                            R6 0
+      989 SETTABLEKS                       R6 R5 K29 ["optional"]
+      991 GETUPVAL                         R7 3
+      992 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+      994 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+      996 GETIMPORT                        R7 K59 [Enum.RigLabel.LeftKnee]
+      998 GETTABLE                         R6 R0 R7
+      999 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+     1001 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+     1003 GETUPVAL                         R7 3
+     1004 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+     1006 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+     1008 GETUPVAL                         R7 3
+     1009 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+     1011 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+     1013 GETUPVAL                         R7 3
+     1014 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+     1016 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+     1018 GETUPVAL                         R7 3
+     1019 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+     1021 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+     1023 GETUPVAL                         R7 3
+     1024 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+     1026 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+     1028 GETUPVAL                         R7 3
+     1029 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+     1031 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+     1033 CALL                             R3 2 1
+     1034 SETTABLEKS                       R3 R2 K16 ["LeftKnee"]
+     1036 GETUPVAL                         R4 4
+     1037 GETTABLEKS                       R3 R4 K26 ["createElement"]
+     1039 GETUPVAL                         R4 5
+     1040 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+     1041 GETIMPORT                        R6 K60 [Enum.RigLabel.LeftAnkle]
+     1043 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+     1045 GETIMPORT                        R6 K45 [Vector2.new]
+     1047 LOADN                            R7 128
+     1048 LOADN                            R8 68
+     1049 CALL                             R6 2 1
+     1050 SETTABLEKS                       R6 R5 K28 ["position"]
+     1052 LOADB                            R6 0
+     1053 SETTABLEKS                       R6 R5 K29 ["optional"]
+     1055 GETUPVAL                         R7 3
+     1056 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+     1058 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+     1060 GETIMPORT                        R7 K60 [Enum.RigLabel.LeftAnkle]
+     1062 GETTABLE                         R6 R0 R7
+     1063 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+     1065 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+     1067 GETUPVAL                         R7 3
+     1068 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+     1070 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+     1072 GETUPVAL                         R7 3
+     1073 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+     1075 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+     1077 GETUPVAL                         R7 3
+     1078 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+     1080 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+     1082 GETUPVAL                         R7 3
+     1083 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+     1085 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+     1087 GETUPVAL                         R7 3
+     1088 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+     1090 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+     1092 GETUPVAL                         R7 3
+     1093 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+     1095 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+     1097 CALL                             R3 2 1
+     1098 SETTABLEKS                       R3 R2 K17 ["LeftAnkle"]
+     1100 GETUPVAL                         R4 4
+     1101 GETTABLEKS                       R3 R4 K26 ["createElement"]
+     1103 GETUPVAL                         R4 5
+     1104 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+     1105 GETUPVAL                         R6 7
+     1106 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+     1108 GETIMPORT                        R6 K45 [Vector2.new]
+     1110 LOADN                            R7 134
+     1111 LOADN                            R8 85
+     1112 CALL                             R6 2 1
+     1113 SETTABLEKS                       R6 R5 K28 ["position"]
+     1115 LOADB                            R6 1
+     1116 SETTABLEKS                       R6 R5 K29 ["optional"]
+     1118 GETUPVAL                         R7 3
+     1119 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+     1121 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+     1123 GETUPVAL                         R7 7
+     1124 GETTABLE                         R6 R0 R7
+     1125 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+     1127 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+     1129 GETUPVAL                         R7 3
+     1130 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+     1132 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+     1134 GETUPVAL                         R7 3
+     1135 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+     1137 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+     1139 GETUPVAL                         R7 3
+     1140 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+     1142 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+     1144 GETUPVAL                         R7 3
+     1145 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+     1147 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+     1149 GETUPVAL                         R7 3
+     1150 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+     1152 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+     1154 GETUPVAL                         R7 3
+     1155 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+     1157 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+     1159 CALL                             R3 2 1
+     1160 SETTABLEKS                       R3 R2 K18 ["LeftToeBase"]
+     1162 GETUPVAL                         R4 4
+     1163 GETTABLEKS                       R3 R4 K26 ["createElement"]
+     1165 GETUPVAL                         R4 5
+     1166 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+     1167 GETIMPORT                        R6 K61 [Enum.RigLabel.Chest]
+     1169 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+     1171 GETIMPORT                        R6 K45 [Vector2.new]
+     1173 LOADN                            R7 96
+     1174 LOADN                            R8 98
+     1175 CALL                             R6 2 1
+     1176 SETTABLEKS                       R6 R5 K28 ["position"]
+     1178 LOADB                            R6 1
+     1179 SETTABLEKS                       R6 R5 K29 ["optional"]
+     1181 GETUPVAL                         R7 3
+     1182 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+     1184 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+     1186 GETIMPORT                        R7 K61 [Enum.RigLabel.Chest]
+     1188 GETTABLE                         R6 R0 R7
+     1189 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+     1191 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+     1193 GETUPVAL                         R7 3
+     1194 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+     1196 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+     1198 GETUPVAL                         R7 3
+     1199 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+     1201 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+     1203 GETUPVAL                         R7 3
+     1204 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+     1206 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+     1208 GETUPVAL                         R7 3
+     1209 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+     1211 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+     1213 GETUPVAL                         R7 3
+     1214 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+     1216 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+     1218 GETUPVAL                         R7 3
+     1219 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+     1221 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+     1223 CALL                             R3 2 1
+     1224 SETTABLEKS                       R3 R2 K19 ["Chest"]
+     1226 GETUPVAL                         R4 4
+     1227 GETTABLEKS                       R3 R4 K26 ["createElement"]
+     1229 GETUPVAL                         R4 5
+     1230 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+     1231 GETIMPORT                        R6 K62 [Enum.RigLabel.Root]
+     1233 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+     1235 GETIMPORT                        R6 K45 [Vector2.new]
+     1237 LOADN                            R7 96
+     1238 LOADN                            R8 180
+     1239 CALL                             R6 2 1
+     1240 SETTABLEKS                       R6 R5 K28 ["position"]
+     1242 LOADB                            R6 0
+     1243 SETTABLEKS                       R6 R5 K29 ["optional"]
+     1245 GETUPVAL                         R7 3
+     1246 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+     1248 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+     1250 GETIMPORT                        R7 K62 [Enum.RigLabel.Root]
+     1252 GETTABLE                         R6 R0 R7
+     1253 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+     1255 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+     1257 GETUPVAL                         R7 3
+     1258 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+     1260 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+     1262 GETUPVAL                         R7 3
+     1263 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+     1265 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+     1267 GETUPVAL                         R7 3
+     1268 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+     1270 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+     1272 GETUPVAL                         R7 3
+     1273 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+     1275 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+     1277 GETUPVAL                         R7 3
+     1278 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+     1280 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+     1282 GETUPVAL                         R7 3
+     1283 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+     1285 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+     1287 CALL                             R3 2 1
+     1288 SETTABLEKS                       R3 R2 K20 ["Root"]
+     1290 GETUPVAL                         R4 4
+     1291 GETTABLEKS                       R3 R4 K26 ["createElement"]
+     1293 GETUPVAL                         R4 5
+     1294 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+     1295 GETIMPORT                        R6 K63 [Enum.RigLabel.Waist]
+     1297 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+     1299 GETIMPORT                        R6 K45 [Vector2.new]
+     1301 LOADN                            R7 96
+     1302 LOADN                            R8 144
+     1303 CALL                             R6 2 1
+     1304 SETTABLEKS                       R6 R5 K28 ["position"]
+     1306 LOADB                            R6 0
+     1307 SETTABLEKS                       R6 R5 K29 ["optional"]
+     1309 GETUPVAL                         R7 3
+     1310 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+     1312 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+     1314 GETIMPORT                        R7 K63 [Enum.RigLabel.Waist]
+     1316 GETTABLE                         R6 R0 R7
+     1317 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+     1319 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+     1321 GETUPVAL                         R7 3
+     1322 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+     1324 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+     1326 GETUPVAL                         R7 3
+     1327 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+     1329 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+     1331 GETUPVAL                         R7 3
+     1332 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+     1334 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+     1336 GETUPVAL                         R7 3
+     1337 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+     1339 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+     1341 GETUPVAL                         R7 3
+     1342 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+     1344 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+     1346 GETUPVAL                         R7 3
+     1347 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+     1349 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+     1351 CALL                             R3 2 1
+     1352 SETTABLEKS                       R3 R2 K21 ["Waist"]
+     1354 GETUPVAL                         R4 8
+     1355 JUMPIFNOT                        R4 ; [+69]
+     1356 GETUPVAL                         R4 4
+     1357 GETTABLEKS                       R3 R4 K26 ["createElement"]
+     1359 GETUPVAL                         R4 5
+     1360 DUPTABLE                         R5 K39 [{"jointLabel", "position", "optional", "selectedJoint", "mappedJoint", "DEPRECATED_rigDescriptor", "armedRigLabel", "onArmJoint", "onMapJoint", "counterpartHoveredJointName", "onDotHoverEnter", "onDotHoverLeave"}]
+     1361 GETUPVAL                         R6 8
+     1362 SETTABLEKS                       R6 R5 K27 ["jointLabel"]
+     1364 GETUPVAL                         R7 9
+     1365 JUMPIFNOT                        R7 ; [+6]
+     1366 GETIMPORT                        R6 K45 [Vector2.new]
+     1368 LOADN                            R7 96
+     1369 LOADN                            R8 121
+     1370 CALL                             R6 2 1
+     1371 JUMP                             ; [+5]
+     1372 GETIMPORT                        R6 K45 [Vector2.new]
+     1374 LOADN                            R7 96
+     1375 LOADN                            R8 166
+     1376 CALL                             R6 2 1
+     1377 SETTABLEKS                       R6 R5 K28 ["position"]
+     1379 LOADB                            R6 1
+     1380 SETTABLEKS                       R6 R5 K29 ["optional"]
+     1382 GETUPVAL                         R7 3
+     1383 GETTABLEKS                       R6 R7 K30 ["selectedJoint"]
+     1385 SETTABLEKS                       R6 R5 K30 ["selectedJoint"]
+     1387 GETUPVAL                         R7 8
+     1388 GETTABLE                         R6 R0 R7
+     1389 SETTABLEKS                       R6 R5 K31 ["mappedJoint"]
+     1391 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+     1393 GETUPVAL                         R7 3
+     1394 GETTABLEKS                       R6 R7 K33 ["armedRigLabel"]
+     1396 SETTABLEKS                       R6 R5 K33 ["armedRigLabel"]
+     1398 GETUPVAL                         R7 3
+     1399 GETTABLEKS                       R6 R7 K34 ["onArmJoint"]
+     1401 SETTABLEKS                       R6 R5 K34 ["onArmJoint"]
+     1403 GETUPVAL                         R7 3
+     1404 GETTABLEKS                       R6 R7 K35 ["onMapJoint"]
+     1406 SETTABLEKS                       R6 R5 K35 ["onMapJoint"]
+     1408 GETUPVAL                         R7 3
+     1409 GETTABLEKS                       R6 R7 K36 ["counterpartHoveredJointName"]
+     1411 SETTABLEKS                       R6 R5 K36 ["counterpartHoveredJointName"]
+     1413 GETUPVAL                         R7 3
+     1414 GETTABLEKS                       R6 R7 K37 ["onDotHoverEnter"]
+     1416 SETTABLEKS                       R6 R5 K37 ["onDotHoverEnter"]
+     1418 GETUPVAL                         R7 3
+     1419 GETTABLEKS                       R6 R7 K38 ["onDotHoverLeave"]
+     1421 SETTABLEKS                       R6 R5 K38 ["onDotHoverLeave"]
+     1423 CALL                             R3 2 1
+     1424 JUMPIF                           R3 ; [+1]
+     1425 LOADNIL                          R3
+     1426 SETTABLEKS                       R3 R2 K22 ["Spine"]
+     1428 GETUPVAL                         R4 4
+     1429 GETTABLEKS                       R3 R4 K26 ["createElement"]
+     1431 GETUPVAL                         R4 10
+     1432 DUPTABLE                         R5 K67 [{"position", "side", "isMapped", "DEPRECATED_rigDescriptor", "onNavigateToHand"}]
+     1433 GETIMPORT                        R6 K45 [Vector2.new]
+     1435 LOADN                            R7 19
+     1436 LOADN                            R8 198
+     1437 CALL                             R6 2 1
+     1438 SETTABLEKS                       R6 R5 K28 ["position"]
+     1440 LOADK                            R6 K68 ["right"]
+     1441 SETTABLEKS                       R6 R5 K64 ["side"]
+     1443 GETIMPORT                        R8 K50 [Enum.RigLabel.RightWrist]
+     1445 GETTABLE                         R7 R0 R8
+     1446 JUMPIFNOTEQKNIL                  R7 ; [+2]
+     1448 LOADB                            R6 0 +1
+     1449 LOADB                            R6 1
+     1450 SETTABLEKS                       R6 R5 K65 ["isMapped"]
+     1452 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+     1454 GETUPVAL                         R7 3
+     1455 GETTABLEKS                       R6 R7 K66 ["onNavigateToHand"]
+     1457 SETTABLEKS                       R6 R5 K66 ["onNavigateToHand"]
+     1459 CALL                             R3 2 1
+     1460 SETTABLEKS                       R3 R2 K23 ["RightHandDot"]
+     1462 GETUPVAL                         R4 4
+     1463 GETTABLEKS                       R3 R4 K26 ["createElement"]
+     1465 GETUPVAL                         R4 10
+     1466 DUPTABLE                         R5 K67 [{"position", "side", "isMapped", "DEPRECATED_rigDescriptor", "onNavigateToHand"}]
+     1467 GETIMPORT                        R6 K45 [Vector2.new]
+     1469 LOADN                            R7 171
+     1470 LOADN                            R8 197
+     1471 CALL                             R6 2 1
+     1472 SETTABLEKS                       R6 R5 K28 ["position"]
+     1474 LOADK                            R6 K69 ["left"]
+     1475 SETTABLEKS                       R6 R5 K64 ["side"]
+     1477 GETIMPORT                        R8 K57 [Enum.RigLabel.LeftWrist]
+     1479 GETTABLE                         R7 R0 R8
+     1480 JUMPIFNOTEQKNIL                  R7 ; [+2]
+     1482 LOADB                            R6 0 +1
+     1483 LOADB                            R6 1
+     1484 SETTABLEKS                       R6 R5 K65 ["isMapped"]
+     1486 SETTABLEKS                       R1 R5 K32 ["DEPRECATED_rigDescriptor"]
+     1488 GETUPVAL                         R7 3
+     1489 GETTABLEKS                       R6 R7 K66 ["onNavigateToHand"]
+     1491 SETTABLEKS                       R6 R5 K66 ["onNavigateToHand"]
+     1493 CALL                             R3 2 1
+     1494 SETTABLEKS                       R3 R2 K24 ["LeftHandDot"]
+     1496 RETURN                           R2 1
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["useState"]
         3 LOADNIL                          R2
@@ -1363,361 +1479,387 @@ PROTO_10:
        28 MOVE                             R5 R4
        29 JUMPIFNOT                        R5 ; [+2]
        30 GETTABLEKS                       R5 R0 K5 ["showMannequinImage"]
-       32 GETUPVAL                         R7 0
-       33 GETTABLEKS                       R6 R7 K6 ["useMemo"]
-       35 NEWCLOSURE                       R7 P1
-       36 CAPTURE                          VAL R5
-       37 CAPTURE                          VAL R0
-       38 CAPTURE                          UPVAL U0
-       39 CAPTURE                          UPVAL U1
-       40 CAPTURE                          UPVAL U2
-       41 CAPTURE                          UPVAL U3
-       42 CAPTURE                          UPVAL U4
-       43 CAPTURE                          UPVAL U5
-       44 CAPTURE                          UPVAL U6
-       45 NEWTABLE                         R8 0 10
-       47 MOVE                             R9 R5
-       48 GETTABLEKS                       R10 R0 K3 ["rigDescriptor"]
-       50 GETTABLEKS                       R11 R0 K7 ["armedRigLabel"]
-       52 GETTABLEKS                       R12 R0 K8 ["selectedJoint"]
-       54 GETTABLEKS                       R13 R0 K9 ["counterpartHoveredJointName"]
-       56 GETTABLEKS                       R14 R0 K10 ["onArmJoint"]
-       58 GETTABLEKS                       R15 R0 K11 ["onMapJoint"]
-       60 GETTABLEKS                       R16 R0 K12 ["onDotHoverEnter"]
-       62 GETTABLEKS                       R17 R0 K13 ["onDotHoverLeave"]
-       64 GETTABLEKS                       R18 R0 K14 ["onNavigateToHand"]
-       66 SETLIST                          R8 R9 10 [1]
-       68 CALL                             R6 2 1
-       69 GETUPVAL                         R7 7
-       70 CALL                             R7 0 1
-       71 JUMPIF                           R7 ; [+114]
-       72 JUMPIF                           R5 ; [+2]
-       73 LOADNIL                          R7
-       74 RETURN                           R7 1
-       75 GETUPVAL                         R8 8
-       76 GETTABLEKS                       R7 R8 K15 ["createPortal"]
-       78 GETUPVAL                         R9 0
-       79 GETTABLEKS                       R8 R9 K16 ["createElement"]
-       81 LOADK                            R9 K17 ["ScreenGui"]
-       82 DUPTABLE                         R10 K22 [{"Archivable", "DisplayOrder", "ZIndexBehavior", "ref"}]
-       83 LOADB                            R11 0
-       84 SETTABLEKS                       R11 R10 K18 ["Archivable"]
-       86 GETUPVAL                         R12 9
-       87 GETTABLEKS                       R11 R12 K23 ["DISPLAY_ORDER_MANNEQUIN"]
-       89 SETTABLEKS                       R11 R10 K19 ["DisplayOrder"]
-       91 GETIMPORT                        R11 K26 [Enum.ZIndexBehavior.Sibling]
-       93 SETTABLEKS                       R11 R10 K20 ["ZIndexBehavior"]
-       95 SETTABLEKS                       R2 R10 K21 ["ref"]
-       97 MOVE                             R11 R1
-       98 JUMPIFNOT                        R11 ; [+82]
-       99 GETUPVAL                         R12 0
-      100 GETTABLEKS                       R11 R12 K16 ["createElement"]
-      102 GETUPVAL                         R14 10
-      103 GETTABLEKS                       R13 R14 K27 ["Components"]
-      105 GETTABLEKS                       R12 R13 K28 ["FoundationProviderAdapter"]
-      107 DUPTABLE                         R13 K30 [{"overlayGui"}]
-      108 SETTABLEKS                       R1 R13 K29 ["overlayGui"]
-      110 DUPTABLE                         R14 K32 [{"Image"}]
-      111 GETUPVAL                         R16 0
-      112 GETTABLEKS                       R15 R16 K16 ["createElement"]
-      114 GETUPVAL                         R17 11
-      115 GETTABLEKS                       R16 R17 K31 ["Image"]
-      117 DUPTABLE                         R17 K39 [{"Image", "aspectRatio", "tag", "Position", "sizeConstraint", "onActivated", "stateLayer"}]
-      118 GETUPVAL                         R19 9
-      119 GETTABLEKS                       R18 R19 K40 ["MANNEQUIN"]
-      121 SETTABLEKS                       R18 R17 K31 ["Image"]
-      123 LOADK                            R18 K41 [0.493472584856397]
-      124 SETTABLEKS                       R18 R17 K33 ["aspectRatio"]
-      126 LOADK                            R18 K42 ["anchor-top-right bg-over-media-300 size-full"]
-      127 SETTABLEKS                       R18 R17 K34 ["tag"]
-      129 GETIMPORT                        R18 K45 [UDim2.new]
-      131 LOADN                            R19 1
-      132 LOADN                            R20 240
-      133 LOADN                            R21 0
-      134 LOADN                            R22 18
-      135 CALL                             R18 4 1
-      136 SETTABLEKS                       R18 R17 K35 ["Position"]
-      138 DUPTABLE                         R18 K47 [{"MaxSize"}]
-      139 GETIMPORT                        R19 K49 [Vector2.new]
-      141 LOADN                            R20 14
-      142 LOADN                            R21 144
-      143 CALL                             R19 2 1
-      144 SETTABLEKS                       R19 R18 K46 ["MaxSize"]
-      146 SETTABLEKS                       R18 R17 K36 ["sizeConstraint"]
-      148 SETTABLEKS                       R3 R17 K37 ["onActivated"]
-      150 DUPTABLE                         R18 K51 [{"affordance"}]
-      151 GETUPVAL                         R22 11
-      152 GETTABLEKS                       R21 R22 K52 ["Enums"]
-      154 GETTABLEKS                       R20 R21 K53 ["StateLayerAffordance"]
-      156 GETTABLEKS                       R19 R20 K54 ["None"]
-      158 SETTABLEKS                       R19 R18 K50 ["affordance"]
-      160 SETTABLEKS                       R18 R17 K38 ["stateLayer"]
-      162 DUPTABLE                         R18 K56 [{"Dots"}]
-      163 GETUPVAL                         R20 0
-      164 GETTABLEKS                       R19 R20 K16 ["createElement"]
-      166 GETUPVAL                         R21 11
-      167 GETTABLEKS                       R20 R21 K57 ["View"]
-      169 DUPTABLE                         R21 K58 [{"tag"}]
-      170 LOADK                            R22 K59 ["size-full"]
-      171 SETTABLEKS                       R22 R21 K34 ["tag"]
-      173 MOVE                             R22 R6
-      174 CALL                             R19 3 1
-      175 SETTABLEKS                       R19 R18 K55 ["Dots"]
-      177 CALL                             R15 3 1
-      178 SETTABLEKS                       R15 R14 K31 ["Image"]
-      180 CALL                             R11 3 1
-      181 CALL                             R8 3 1
-      182 GETUPVAL                         R9 12
-      183 LOADK                            R10 K60 ["MannequinPanel"]
-      184 CALL                             R7 3 -1
-      185 RETURN                           R7 -1
-      186 LOADNIL                          R7
-      187 JUMPIF                           R4 ; [+233]
-      188 LOADNIL                          R8
-      189 LOADNIL                          R9
-      190 LOADNIL                          R10
-      191 GETTABLEKS                       R11 R0 K61 ["detectedHrd"]
-      193 JUMPIFNOT                        R11 ; [+19]
-      194 GETTABLEKS                       R11 R0 K62 ["localization"]
-      196 LOADK                            R13 K63 ["Mannequin"]
-      197 LOADK                            R14 K64 ["HrdDetected"]
-      198 NAMECALL                         R11 R11 K65 ["getText"]
-      200 CALL                             R11 3 1
-      201 MOVE                             R8 R11
-      202 GETTABLEKS                       R11 R0 K62 ["localization"]
-      204 LOADK                            R13 K63 ["Mannequin"]
-      205 LOADK                            R14 K66 ["SelectHrd"]
-      206 NAMECALL                         R11 R11 K65 ["getText"]
-      208 CALL                             R11 3 1
-      209 MOVE                             R9 R11
-      210 GETTABLEKS                       R10 R0 K67 ["onSelectHrd"]
-      212 JUMP                             ; [+32]
-      213 GETTABLEKS                       R11 R0 K68 ["hasHumanoid"]
-      215 JUMPIFNOT                        R11 ; [+19]
-      216 GETTABLEKS                       R11 R0 K62 ["localization"]
-      218 LOADK                            R13 K63 ["Mannequin"]
-      219 LOADK                            R14 K69 ["NoHrd"]
-      220 NAMECALL                         R11 R11 K65 ["getText"]
-      222 CALL                             R11 3 1
-      223 MOVE                             R8 R11
-      224 GETTABLEKS                       R11 R0 K62 ["localization"]
-      226 LOADK                            R13 K63 ["Mannequin"]
-      227 LOADK                            R14 K70 ["CreateHrd"]
-      228 NAMECALL                         R11 R11 K65 ["getText"]
-      230 CALL                             R11 3 1
-      231 MOVE                             R9 R11
-      232 GETTABLEKS                       R10 R0 K71 ["onCreateHrd"]
-      234 JUMP                             ; [+10]
-      235 GETTABLEKS                       R11 R0 K62 ["localization"]
-      237 LOADK                            R13 K63 ["Mannequin"]
-      238 LOADK                            R14 K72 ["SelectHRDPlaceholder"]
-      239 NAMECALL                         R11 R11 K65 ["getText"]
-      241 CALL                             R11 3 1
-      242 MOVE                             R8 R11
-      243 LOADNIL                          R9
-      244 LOADNIL                          R10
-      245 GETUPVAL                         R12 0
-      246 GETTABLEKS                       R11 R12 K16 ["createElement"]
-      248 GETUPVAL                         R13 11
-      249 GETTABLEKS                       R12 R13 K57 ["View"]
-      251 DUPTABLE                         R13 K74 [{"tag", "Size"}]
-      252 LOADK                            R14 K75 ["col align-x-center align-y-center gap-small"]
-      253 SETTABLEKS                       R14 R13 K34 ["tag"]
-      255 GETIMPORT                        R14 K45 [UDim2.new]
-      257 LOADN                            R15 1
-      258 LOADN                            R16 0
-      259 LOADN                            R17 1
-      260 LOADN                            R18 0
-      261 CALL                             R14 4 1
-      262 SETTABLEKS                       R14 R13 K73 ["Size"]
-      264 DUPTABLE                         R14 K79 [{"Padding", "Placeholder", "Button"}]
-      265 GETUPVAL                         R16 0
-      266 GETTABLEKS                       R15 R16 K16 ["createElement"]
-      268 LOADK                            R16 K80 ["UIPadding"]
-      269 DUPTABLE                         R17 K83 [{"PaddingLeft", "PaddingRight"}]
-      270 GETIMPORT                        R18 K85 [UDim.new]
-      272 LOADN                            R19 0
-      273 LOADN                            R20 12
-      274 CALL                             R18 2 1
-      275 SETTABLEKS                       R18 R17 K81 ["PaddingLeft"]
-      277 GETIMPORT                        R18 K85 [UDim.new]
-      279 LOADN                            R19 0
-      280 LOADN                            R20 12
-      281 CALL                             R18 2 1
-      282 SETTABLEKS                       R18 R17 K82 ["PaddingRight"]
-      284 CALL                             R15 2 1
-      285 SETTABLEKS                       R15 R14 K76 ["Padding"]
-      287 GETUPVAL                         R16 0
-      288 GETTABLEKS                       R15 R16 K16 ["createElement"]
-      290 GETUPVAL                         R17 11
-      291 GETTABLEKS                       R16 R17 K86 ["Text"]
-      293 DUPTABLE                         R17 K89 [{"LayoutOrder", "tag", "Size", "AutomaticSize", "Text"}]
-      294 LOADN                            R18 1
-      295 SETTABLEKS                       R18 R17 K87 ["LayoutOrder"]
-      297 LOADK                            R18 K90 ["text-caption-small text-center"]
-      298 SETTABLEKS                       R18 R17 K34 ["tag"]
-      300 GETIMPORT                        R18 K45 [UDim2.new]
-      302 LOADN                            R19 1
-      303 LOADN                            R20 0
-      304 LOADN                            R21 0
-      305 LOADN                            R22 0
-      306 CALL                             R18 4 1
-      307 SETTABLEKS                       R18 R17 K73 ["Size"]
-      309 GETIMPORT                        R18 K92 [Enum.AutomaticSize.Y]
-      311 SETTABLEKS                       R18 R17 K88 ["AutomaticSize"]
-      313 SETTABLEKS                       R8 R17 K86 ["Text"]
-      315 CALL                             R15 2 1
-      316 SETTABLEKS                       R15 R14 K77 ["Placeholder"]
-      318 JUMPIFNOT                        R10 ; [+96]
-      319 GETUPVAL                         R16 0
-      320 GETTABLEKS                       R15 R16 K16 ["createElement"]
-      322 GETUPVAL                         R17 11
-      323 GETTABLEKS                       R16 R17 K57 ["View"]
-      325 DUPTABLE                         R17 K93 [{"LayoutOrder", "tag", "onActivated", "stateLayer"}]
-      326 LOADN                            R18 2
-      327 SETTABLEKS                       R18 R17 K87 ["LayoutOrder"]
-      329 LOADK                            R18 K94 ["auto-xy bg-surface-200"]
-      330 SETTABLEKS                       R18 R17 K34 ["tag"]
-      332 SETTABLEKS                       R10 R17 K37 ["onActivated"]
-      334 DUPTABLE                         R18 K51 [{"affordance"}]
-      335 GETUPVAL                         R22 11
-      336 GETTABLEKS                       R21 R22 K52 ["Enums"]
-      338 GETTABLEKS                       R20 R21 K53 ["StateLayerAffordance"]
-      340 GETTABLEKS                       R19 R20 K95 ["Background"]
-      342 SETTABLEKS                       R19 R18 K50 ["affordance"]
-      344 SETTABLEKS                       R18 R17 K38 ["stateLayer"]
-      346 DUPTABLE                         R18 K97 [{"Corner", "Padding", "Text"}]
-      347 GETUPVAL                         R20 0
-      348 GETTABLEKS                       R19 R20 K16 ["createElement"]
-      350 LOADK                            R20 K98 ["UICorner"]
-      351 DUPTABLE                         R21 K100 [{"CornerRadius"}]
-      352 GETIMPORT                        R22 K85 [UDim.new]
-      354 LOADN                            R23 0
-      355 LOADN                            R24 4
-      356 CALL                             R22 2 1
-      357 SETTABLEKS                       R22 R21 K99 ["CornerRadius"]
-      359 CALL                             R19 2 1
-      360 SETTABLEKS                       R19 R18 K96 ["Corner"]
-      362 GETUPVAL                         R20 0
-      363 GETTABLEKS                       R19 R20 K16 ["createElement"]
-      365 LOADK                            R20 K80 ["UIPadding"]
-      366 DUPTABLE                         R21 K103 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-      367 GETIMPORT                        R22 K85 [UDim.new]
-      369 LOADN                            R23 0
-      370 LOADN                            R24 12
-      371 CALL                             R22 2 1
-      372 SETTABLEKS                       R22 R21 K81 ["PaddingLeft"]
-      374 GETIMPORT                        R22 K85 [UDim.new]
-      376 LOADN                            R23 0
-      377 LOADN                            R24 12
-      378 CALL                             R22 2 1
-      379 SETTABLEKS                       R22 R21 K82 ["PaddingRight"]
-      381 GETIMPORT                        R22 K85 [UDim.new]
-      383 LOADN                            R23 0
-      384 LOADN                            R24 5
-      385 CALL                             R22 2 1
-      386 SETTABLEKS                       R22 R21 K101 ["PaddingTop"]
-      388 GETIMPORT                        R22 K85 [UDim.new]
-      390 LOADN                            R23 0
-      391 LOADN                            R24 5
-      392 CALL                             R22 2 1
-      393 SETTABLEKS                       R22 R21 K102 ["PaddingBottom"]
-      395 CALL                             R19 2 1
-      396 SETTABLEKS                       R19 R18 K76 ["Padding"]
-      398 GETUPVAL                         R20 0
-      399 GETTABLEKS                       R19 R20 K16 ["createElement"]
-      401 GETUPVAL                         R21 11
-      402 GETTABLEKS                       R20 R21 K86 ["Text"]
-      404 DUPTABLE                         R21 K104 [{"tag", "Text"}]
-      405 LOADK                            R22 K105 ["text-caption-small auto-xy"]
-      406 SETTABLEKS                       R22 R21 K34 ["tag"]
-      408 SETTABLEKS                       R9 R21 K86 ["Text"]
-      410 CALL                             R19 2 1
-      411 SETTABLEKS                       R19 R18 K86 ["Text"]
-      413 CALL                             R15 3 1
-      414 JUMPIF                           R15 ; [+1]
-      415 LOADNIL                          R15
-      416 SETTABLEKS                       R15 R14 K78 ["Button"]
-      418 CALL                             R11 3 1
-      419 MOVE                             R7 R11
-      420 JUMP                             ; [+79]
-      421 JUMPIFNOT                        R5 ; [+77]
-      422 GETUPVAL                         R9 0
-      423 GETTABLEKS                       R8 R9 K16 ["createElement"]
-      425 GETUPVAL                         R10 11
-      426 GETTABLEKS                       R9 R10 K31 ["Image"]
-      428 DUPTABLE                         R10 K107 [{"Image", "aspectRatio", "Position", "AnchorPoint", "Size", "onActivated", "stateLayer"}]
-      429 GETUPVAL                         R12 9
-      430 GETTABLEKS                       R11 R12 K40 ["MANNEQUIN"]
-      432 SETTABLEKS                       R11 R10 K31 ["Image"]
-      434 DUPTABLE                         R11 K110 [{"AspectRatio", "DominantAxis"}]
-      435 LOADK                            R12 K41 [0.493472584856397]
-      436 SETTABLEKS                       R12 R11 K108 ["AspectRatio"]
-      438 GETIMPORT                        R12 K112 [Enum.DominantAxis.Height]
-      440 SETTABLEKS                       R12 R11 K109 ["DominantAxis"]
-      442 SETTABLEKS                       R11 R10 K33 ["aspectRatio"]
-      444 GETIMPORT                        R11 K114 [UDim2.fromScale]
-      446 LOADK                            R12 K115 [0.5]
-      447 LOADK                            R13 K115 [0.5]
-      448 CALL                             R11 2 1
-      449 SETTABLEKS                       R11 R10 K35 ["Position"]
-      451 GETIMPORT                        R11 K49 [Vector2.new]
-      453 LOADK                            R12 K115 [0.5]
-      454 LOADK                            R13 K115 [0.5]
-      455 CALL                             R11 2 1
-      456 SETTABLEKS                       R11 R10 K106 ["AnchorPoint"]
-      458 GETIMPORT                        R11 K45 [UDim2.new]
-      460 LOADN                            R12 1
-      461 LOADN                            R13 0
-      462 LOADN                            R14 1
-      463 LOADN                            R15 0
-      464 CALL                             R11 4 1
-      465 SETTABLEKS                       R11 R10 K73 ["Size"]
-      467 SETTABLEKS                       R3 R10 K37 ["onActivated"]
-      469 DUPTABLE                         R11 K51 [{"affordance"}]
-      470 GETUPVAL                         R15 11
-      471 GETTABLEKS                       R14 R15 K52 ["Enums"]
-      473 GETTABLEKS                       R13 R14 K53 ["StateLayerAffordance"]
-      475 GETTABLEKS                       R12 R13 K54 ["None"]
-      477 SETTABLEKS                       R12 R11 K50 ["affordance"]
-      479 SETTABLEKS                       R11 R10 K38 ["stateLayer"]
-      481 DUPTABLE                         R11 K56 [{"Dots"}]
-      482 GETUPVAL                         R13 0
-      483 GETTABLEKS                       R12 R13 K16 ["createElement"]
-      485 GETUPVAL                         R14 11
-      486 GETTABLEKS                       R13 R14 K57 ["View"]
-      488 DUPTABLE                         R14 K58 [{"tag"}]
-      489 LOADK                            R15 K59 ["size-full"]
-      490 SETTABLEKS                       R15 R14 K34 ["tag"]
-      492 MOVE                             R15 R6
-      493 CALL                             R12 3 1
-      494 SETTABLEKS                       R12 R11 K55 ["Dots"]
-      496 CALL                             R8 3 1
-      497 MOVE                             R7 R8
-      498 JUMP                             ; [+1]
-      499 LOADNIL                          R7
-      500 GETUPVAL                         R9 0
-      501 GETTABLEKS                       R8 R9 K16 ["createElement"]
-      503 GETUPVAL                         R9 13
-      504 DUPTABLE                         R10 K120 [{"title", "bodyVisible", "onClose", "content"}]
-      505 GETTABLEKS                       R11 R0 K62 ["localization"]
-      507 LOADK                            R13 K63 ["Mannequin"]
-      508 LOADK                            R14 K121 ["Title"]
-      509 NAMECALL                         R11 R11 K65 ["getText"]
-      511 CALL                             R11 3 1
-      512 SETTABLEKS                       R11 R10 K116 ["title"]
-      514 JUMPIFNOT                        R4 ; [+2]
-      515 MOVE                             R11 R5
-      516 JUMP                             ; [+1]
-      517 LOADNIL                          R11
-      518 SETTABLEKS                       R11 R10 K117 ["bodyVisible"]
-      520 GETTABLEKS                       R11 R0 K118 ["onClose"]
-      522 SETTABLEKS                       R11 R10 K118 ["onClose"]
-      524 DUPTABLE                         R11 K123 [{"Inner"}]
-      525 SETTABLEKS                       R7 R11 K122 ["Inner"]
-      527 SETTABLEKS                       R11 R10 K119 ["content"]
-      529 CALL                             R8 2 -1
-      530 RETURN                           R8 -1
+       32 GETUPVAL                         R7 1
+       33 CALL                             R7 0 1
+       34 JUMPIFNOT                        R7 ; [+7]
+       35 GETUPVAL                         R7 2
+       36 GETTABLEKS                       R8 R0 K3 ["rigDescriptor"]
+       38 CALL                             R7 1 1
+       39 GETTABLEKS                       R6 R7 K6 ["labelMap"]
+       41 JUMP                             ; [+1]
+       42 LOADNIL                          R6
+       43 GETUPVAL                         R8 0
+       44 GETTABLEKS                       R7 R8 K7 ["useMemo"]
+       46 NEWCLOSURE                       R8 P1
+       47 CAPTURE                          UPVAL U1
+       48 CAPTURE                          VAL R6
+       49 NEWTABLE                         R9 0 1
+       51 MOVE                             R10 R6
+       52 SETLIST                          R9 R10 1 [1]
+       54 CALL                             R7 2 1
+       55 GETUPVAL                         R9 0
+       56 GETTABLEKS                       R8 R9 K7 ["useMemo"]
+       58 NEWCLOSURE                       R9 P2
+       59 CAPTURE                          VAL R5
+       60 CAPTURE                          VAL R7
+       61 CAPTURE                          UPVAL U1
+       62 CAPTURE                          VAL R0
+       63 CAPTURE                          UPVAL U0
+       64 CAPTURE                          UPVAL U3
+       65 CAPTURE                          UPVAL U4
+       66 CAPTURE                          UPVAL U5
+       67 CAPTURE                          UPVAL U6
+       68 CAPTURE                          UPVAL U7
+       69 CAPTURE                          UPVAL U8
+       70 NEWTABLE                         R10 0 11
+       72 MOVE                             R11 R5
+       73 MOVE                             R12 R7
+       74 GETTABLEKS                       R13 R0 K3 ["rigDescriptor"]
+       76 GETTABLEKS                       R14 R0 K8 ["armedRigLabel"]
+       78 GETTABLEKS                       R15 R0 K9 ["selectedJoint"]
+       80 GETTABLEKS                       R16 R0 K10 ["counterpartHoveredJointName"]
+       82 GETTABLEKS                       R17 R0 K11 ["onArmJoint"]
+       84 GETTABLEKS                       R18 R0 K12 ["onMapJoint"]
+       86 GETTABLEKS                       R19 R0 K13 ["onDotHoverEnter"]
+       88 GETTABLEKS                       R20 R0 K14 ["onDotHoverLeave"]
+       90 GETTABLEKS                       R21 R0 K15 ["onNavigateToHand"]
+       92 SETLIST                          R10 R11 11 [1]
+       94 CALL                             R8 2 1
+       95 GETUPVAL                         R9 9
+       96 CALL                             R9 0 1
+       97 JUMPIF                           R9 ; [+115]
+       98 JUMPIF                           R5 ; [+2]
+       99 LOADNIL                          R9
+      100 RETURN                           R9 1
+      101 GETUPVAL                         R10 10
+      102 GETTABLEKS                       R9 R10 K16 ["createPortal"]
+      104 GETUPVAL                         R11 0
+      105 GETTABLEKS                       R10 R11 K17 ["createElement"]
+      107 LOADK                            R11 K18 ["ScreenGui"]
+      108 DUPTABLE                         R12 K23 [{"Archivable", "DisplayOrder", "ZIndexBehavior", "ref"}]
+      109 LOADB                            R13 0
+      110 SETTABLEKS                       R13 R12 K19 ["Archivable"]
+      112 GETUPVAL                         R14 11
+      113 GETTABLEKS                       R13 R14 K24 ["DISPLAY_ORDER_MANNEQUIN"]
+      115 SETTABLEKS                       R13 R12 K20 ["DisplayOrder"]
+      117 GETIMPORT                        R13 K27 [Enum.ZIndexBehavior.Sibling]
+      119 SETTABLEKS                       R13 R12 K21 ["ZIndexBehavior"]
+      121 SETTABLEKS                       R2 R12 K22 ["ref"]
+      123 MOVE                             R13 R1
+      124 JUMPIFNOT                        R13 ; [+83]
+      125 GETUPVAL                         R14 0
+      126 GETTABLEKS                       R13 R14 K17 ["createElement"]
+      128 GETUPVAL                         R16 12
+      129 GETTABLEKS                       R15 R16 K28 ["Components"]
+      131 GETTABLEKS                       R14 R15 K29 ["FoundationProviderAdapter"]
+      133 DUPTABLE                         R15 K31 [{"overlayGui"}]
+      134 SETTABLEKS                       R1 R15 K30 ["overlayGui"]
+      136 DUPTABLE                         R16 K33 [{"Image"}]
+      137 GETUPVAL                         R18 0
+      138 GETTABLEKS                       R17 R18 K17 ["createElement"]
+      140 GETUPVAL                         R19 13
+      141 GETTABLEKS                       R18 R19 K32 ["Image"]
+      143 DUPTABLE                         R19 K40 [{"Image", "aspectRatio", "tag", "Position", "sizeConstraint", "onActivated", "stateLayer"}]
+      144 GETUPVAL                         R21 11
+      145 GETTABLEKS                       R20 R21 K41 ["MANNEQUIN"]
+      147 SETTABLEKS                       R20 R19 K32 ["Image"]
+      149 LOADK                            R20 K42 [0.493472584856397]
+      150 SETTABLEKS                       R20 R19 K34 ["aspectRatio"]
+      152 LOADK                            R20 K43 ["anchor-top-right bg-over-media-300 size-full"]
+      153 SETTABLEKS                       R20 R19 K35 ["tag"]
+      155 GETIMPORT                        R20 K46 [UDim2.new]
+      157 LOADN                            R21 1
+      158 LOADN                            R22 240
+      159 LOADN                            R23 0
+      160 LOADN                            R24 18
+      161 CALL                             R20 4 1
+      162 SETTABLEKS                       R20 R19 K36 ["Position"]
+      164 DUPTABLE                         R20 K48 [{"MaxSize"}]
+      165 GETIMPORT                        R21 K50 [Vector2.new]
+      167 LOADN                            R22 14
+      168 LOADN                            R23 144
+      169 CALL                             R21 2 1
+      170 SETTABLEKS                       R21 R20 K47 ["MaxSize"]
+      172 SETTABLEKS                       R20 R19 K37 ["sizeConstraint"]
+      174 SETTABLEKS                       R3 R19 K38 ["onActivated"]
+      176 DUPTABLE                         R20 K52 [{"affordance"}]
+      177 GETUPVAL                         R24 13
+      178 GETTABLEKS                       R23 R24 K53 ["Enums"]
+      180 GETTABLEKS                       R22 R23 K54 ["StateLayerAffordance"]
+      182 GETTABLEKS                       R21 R22 K55 ["None"]
+      184 SETTABLEKS                       R21 R20 K51 ["affordance"]
+      186 SETTABLEKS                       R20 R19 K39 ["stateLayer"]
+      188 NEWTABLE                         R20 1 0
+      190 GETUPVAL                         R22 0
+      191 GETTABLEKS                       R21 R22 K17 ["createElement"]
+      193 GETUPVAL                         R23 13
+      194 GETTABLEKS                       R22 R23 K56 ["View"]
+      196 DUPTABLE                         R23 K57 [{"tag"}]
+      197 LOADK                            R24 K58 ["size-full"]
+      198 SETTABLEKS                       R24 R23 K35 ["tag"]
+      200 MOVE                             R24 R8
+      201 CALL                             R21 3 1
+      202 SETTABLEKS                       R21 R20 K59 ["Dots"]
+      204 CALL                             R17 3 1
+      205 SETTABLEKS                       R17 R16 K32 ["Image"]
+      207 CALL                             R13 3 1
+      208 CALL                             R10 3 1
+      209 GETUPVAL                         R11 14
+      210 LOADK                            R12 K60 ["MannequinPanel"]
+      211 CALL                             R9 3 -1
+      212 RETURN                           R9 -1
+      213 LOADNIL                          R9
+      214 JUMPIF                           R4 ; [+239]
+      215 LOADNIL                          R10
+      216 LOADNIL                          R11
+      217 LOADNIL                          R12
+      218 GETTABLEKS                       R13 R0 K61 ["detectedHrd"]
+      220 JUMPIFNOT                        R13 ; [+19]
+      221 GETTABLEKS                       R13 R0 K62 ["localization"]
+      223 LOADK                            R15 K63 ["Mannequin"]
+      224 LOADK                            R16 K64 ["HrdDetected"]
+      225 NAMECALL                         R13 R13 K65 ["getText"]
+      227 CALL                             R13 3 1
+      228 MOVE                             R10 R13
+      229 GETTABLEKS                       R13 R0 K62 ["localization"]
+      231 LOADK                            R15 K63 ["Mannequin"]
+      232 LOADK                            R16 K66 ["SelectHrd"]
+      233 NAMECALL                         R13 R13 K65 ["getText"]
+      235 CALL                             R13 3 1
+      236 MOVE                             R11 R13
+      237 GETTABLEKS                       R12 R0 K67 ["onSelectHrd"]
+      239 JUMP                             ; [+38]
+      240 GETUPVAL                         R14 1
+      241 CALL                             R14 0 1
+      242 JUMPIFNOT                        R14 ; [+3]
+      243 GETTABLEKS                       R13 R0 K68 ["hasModel"]
+      245 JUMP                             ; [+2]
+      246 GETTABLEKS                       R13 R0 K69 ["DEPRECATED_hasHumanoid"]
+      248 JUMPIFNOT                        R13 ; [+19]
+      249 GETTABLEKS                       R13 R0 K62 ["localization"]
+      251 LOADK                            R15 K63 ["Mannequin"]
+      252 LOADK                            R16 K70 ["NoHrd"]
+      253 NAMECALL                         R13 R13 K65 ["getText"]
+      255 CALL                             R13 3 1
+      256 MOVE                             R10 R13
+      257 GETTABLEKS                       R13 R0 K62 ["localization"]
+      259 LOADK                            R15 K63 ["Mannequin"]
+      260 LOADK                            R16 K71 ["CreateHrd"]
+      261 NAMECALL                         R13 R13 K65 ["getText"]
+      263 CALL                             R13 3 1
+      264 MOVE                             R11 R13
+      265 GETTABLEKS                       R12 R0 K72 ["onCreateHrd"]
+      267 JUMP                             ; [+10]
+      268 GETTABLEKS                       R13 R0 K62 ["localization"]
+      270 LOADK                            R15 K63 ["Mannequin"]
+      271 LOADK                            R16 K73 ["SelectHRDPlaceholder"]
+      272 NAMECALL                         R13 R13 K65 ["getText"]
+      274 CALL                             R13 3 1
+      275 MOVE                             R10 R13
+      276 LOADNIL                          R11
+      277 LOADNIL                          R12
+      278 GETUPVAL                         R14 0
+      279 GETTABLEKS                       R13 R14 K17 ["createElement"]
+      281 GETUPVAL                         R15 13
+      282 GETTABLEKS                       R14 R15 K56 ["View"]
+      284 DUPTABLE                         R15 K75 [{"tag", "Size"}]
+      285 LOADK                            R16 K76 ["col align-x-center align-y-center gap-small"]
+      286 SETTABLEKS                       R16 R15 K35 ["tag"]
+      288 GETIMPORT                        R16 K46 [UDim2.new]
+      290 LOADN                            R17 1
+      291 LOADN                            R18 0
+      292 LOADN                            R19 1
+      293 LOADN                            R20 0
+      294 CALL                             R16 4 1
+      295 SETTABLEKS                       R16 R15 K74 ["Size"]
+      297 DUPTABLE                         R16 K80 [{"Padding", "Placeholder", "Button"}]
+      298 GETUPVAL                         R18 0
+      299 GETTABLEKS                       R17 R18 K17 ["createElement"]
+      301 LOADK                            R18 K81 ["UIPadding"]
+      302 DUPTABLE                         R19 K84 [{"PaddingLeft", "PaddingRight"}]
+      303 GETIMPORT                        R20 K86 [UDim.new]
+      305 LOADN                            R21 0
+      306 LOADN                            R22 12
+      307 CALL                             R20 2 1
+      308 SETTABLEKS                       R20 R19 K82 ["PaddingLeft"]
+      310 GETIMPORT                        R20 K86 [UDim.new]
+      312 LOADN                            R21 0
+      313 LOADN                            R22 12
+      314 CALL                             R20 2 1
+      315 SETTABLEKS                       R20 R19 K83 ["PaddingRight"]
+      317 CALL                             R17 2 1
+      318 SETTABLEKS                       R17 R16 K77 ["Padding"]
+      320 GETUPVAL                         R18 0
+      321 GETTABLEKS                       R17 R18 K17 ["createElement"]
+      323 GETUPVAL                         R19 13
+      324 GETTABLEKS                       R18 R19 K87 ["Text"]
+      326 DUPTABLE                         R19 K90 [{"LayoutOrder", "tag", "Size", "AutomaticSize", "Text"}]
+      327 LOADN                            R20 1
+      328 SETTABLEKS                       R20 R19 K88 ["LayoutOrder"]
+      330 LOADK                            R20 K91 ["text-caption-small text-center"]
+      331 SETTABLEKS                       R20 R19 K35 ["tag"]
+      333 GETIMPORT                        R20 K46 [UDim2.new]
+      335 LOADN                            R21 1
+      336 LOADN                            R22 0
+      337 LOADN                            R23 0
+      338 LOADN                            R24 0
+      339 CALL                             R20 4 1
+      340 SETTABLEKS                       R20 R19 K74 ["Size"]
+      342 GETIMPORT                        R20 K93 [Enum.AutomaticSize.Y]
+      344 SETTABLEKS                       R20 R19 K89 ["AutomaticSize"]
+      346 SETTABLEKS                       R10 R19 K87 ["Text"]
+      348 CALL                             R17 2 1
+      349 SETTABLEKS                       R17 R16 K78 ["Placeholder"]
+      351 JUMPIFNOT                        R12 ; [+96]
+      352 GETUPVAL                         R18 0
+      353 GETTABLEKS                       R17 R18 K17 ["createElement"]
+      355 GETUPVAL                         R19 13
+      356 GETTABLEKS                       R18 R19 K56 ["View"]
+      358 DUPTABLE                         R19 K94 [{"LayoutOrder", "tag", "onActivated", "stateLayer"}]
+      359 LOADN                            R20 2
+      360 SETTABLEKS                       R20 R19 K88 ["LayoutOrder"]
+      362 LOADK                            R20 K95 ["auto-xy bg-surface-200"]
+      363 SETTABLEKS                       R20 R19 K35 ["tag"]
+      365 SETTABLEKS                       R12 R19 K38 ["onActivated"]
+      367 DUPTABLE                         R20 K52 [{"affordance"}]
+      368 GETUPVAL                         R24 13
+      369 GETTABLEKS                       R23 R24 K53 ["Enums"]
+      371 GETTABLEKS                       R22 R23 K54 ["StateLayerAffordance"]
+      373 GETTABLEKS                       R21 R22 K96 ["Background"]
+      375 SETTABLEKS                       R21 R20 K51 ["affordance"]
+      377 SETTABLEKS                       R20 R19 K39 ["stateLayer"]
+      379 DUPTABLE                         R20 K98 [{"Corner", "Padding", "Text"}]
+      380 GETUPVAL                         R22 0
+      381 GETTABLEKS                       R21 R22 K17 ["createElement"]
+      383 LOADK                            R22 K99 ["UICorner"]
+      384 DUPTABLE                         R23 K101 [{"CornerRadius"}]
+      385 GETIMPORT                        R24 K86 [UDim.new]
+      387 LOADN                            R25 0
+      388 LOADN                            R26 4
+      389 CALL                             R24 2 1
+      390 SETTABLEKS                       R24 R23 K100 ["CornerRadius"]
+      392 CALL                             R21 2 1
+      393 SETTABLEKS                       R21 R20 K97 ["Corner"]
+      395 GETUPVAL                         R22 0
+      396 GETTABLEKS                       R21 R22 K17 ["createElement"]
+      398 LOADK                            R22 K81 ["UIPadding"]
+      399 DUPTABLE                         R23 K104 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+      400 GETIMPORT                        R24 K86 [UDim.new]
+      402 LOADN                            R25 0
+      403 LOADN                            R26 12
+      404 CALL                             R24 2 1
+      405 SETTABLEKS                       R24 R23 K82 ["PaddingLeft"]
+      407 GETIMPORT                        R24 K86 [UDim.new]
+      409 LOADN                            R25 0
+      410 LOADN                            R26 12
+      411 CALL                             R24 2 1
+      412 SETTABLEKS                       R24 R23 K83 ["PaddingRight"]
+      414 GETIMPORT                        R24 K86 [UDim.new]
+      416 LOADN                            R25 0
+      417 LOADN                            R26 5
+      418 CALL                             R24 2 1
+      419 SETTABLEKS                       R24 R23 K102 ["PaddingTop"]
+      421 GETIMPORT                        R24 K86 [UDim.new]
+      423 LOADN                            R25 0
+      424 LOADN                            R26 5
+      425 CALL                             R24 2 1
+      426 SETTABLEKS                       R24 R23 K103 ["PaddingBottom"]
+      428 CALL                             R21 2 1
+      429 SETTABLEKS                       R21 R20 K77 ["Padding"]
+      431 GETUPVAL                         R22 0
+      432 GETTABLEKS                       R21 R22 K17 ["createElement"]
+      434 GETUPVAL                         R23 13
+      435 GETTABLEKS                       R22 R23 K87 ["Text"]
+      437 DUPTABLE                         R23 K105 [{"tag", "Text"}]
+      438 LOADK                            R24 K106 ["text-caption-small auto-xy"]
+      439 SETTABLEKS                       R24 R23 K35 ["tag"]
+      441 SETTABLEKS                       R11 R23 K87 ["Text"]
+      443 CALL                             R21 2 1
+      444 SETTABLEKS                       R21 R20 K87 ["Text"]
+      446 CALL                             R17 3 1
+      447 JUMPIF                           R17 ; [+1]
+      448 LOADNIL                          R17
+      449 SETTABLEKS                       R17 R16 K79 ["Button"]
+      451 CALL                             R13 3 1
+      452 MOVE                             R9 R13
+      453 JUMP                             ; [+80]
+      454 JUMPIFNOT                        R5 ; [+78]
+      455 GETUPVAL                         R11 0
+      456 GETTABLEKS                       R10 R11 K17 ["createElement"]
+      458 GETUPVAL                         R12 13
+      459 GETTABLEKS                       R11 R12 K32 ["Image"]
+      461 DUPTABLE                         R12 K108 [{"Image", "aspectRatio", "Position", "AnchorPoint", "Size", "onActivated", "stateLayer"}]
+      462 GETUPVAL                         R14 11
+      463 GETTABLEKS                       R13 R14 K41 ["MANNEQUIN"]
+      465 SETTABLEKS                       R13 R12 K32 ["Image"]
+      467 DUPTABLE                         R13 K111 [{"AspectRatio", "DominantAxis"}]
+      468 LOADK                            R14 K42 [0.493472584856397]
+      469 SETTABLEKS                       R14 R13 K109 ["AspectRatio"]
+      471 GETIMPORT                        R14 K113 [Enum.DominantAxis.Height]
+      473 SETTABLEKS                       R14 R13 K110 ["DominantAxis"]
+      475 SETTABLEKS                       R13 R12 K34 ["aspectRatio"]
+      477 GETIMPORT                        R13 K115 [UDim2.fromScale]
+      479 LOADK                            R14 K116 [0.5]
+      480 LOADK                            R15 K116 [0.5]
+      481 CALL                             R13 2 1
+      482 SETTABLEKS                       R13 R12 K36 ["Position"]
+      484 GETIMPORT                        R13 K50 [Vector2.new]
+      486 LOADK                            R14 K116 [0.5]
+      487 LOADK                            R15 K116 [0.5]
+      488 CALL                             R13 2 1
+      489 SETTABLEKS                       R13 R12 K107 ["AnchorPoint"]
+      491 GETIMPORT                        R13 K46 [UDim2.new]
+      493 LOADN                            R14 1
+      494 LOADN                            R15 0
+      495 LOADN                            R16 1
+      496 LOADN                            R17 0
+      497 CALL                             R13 4 1
+      498 SETTABLEKS                       R13 R12 K74 ["Size"]
+      500 SETTABLEKS                       R3 R12 K38 ["onActivated"]
+      502 DUPTABLE                         R13 K52 [{"affordance"}]
+      503 GETUPVAL                         R17 13
+      504 GETTABLEKS                       R16 R17 K53 ["Enums"]
+      506 GETTABLEKS                       R15 R16 K54 ["StateLayerAffordance"]
+      508 GETTABLEKS                       R14 R15 K55 ["None"]
+      510 SETTABLEKS                       R14 R13 K51 ["affordance"]
+      512 SETTABLEKS                       R13 R12 K39 ["stateLayer"]
+      514 NEWTABLE                         R13 1 0
+      516 GETUPVAL                         R15 0
+      517 GETTABLEKS                       R14 R15 K17 ["createElement"]
+      519 GETUPVAL                         R16 13
+      520 GETTABLEKS                       R15 R16 K56 ["View"]
+      522 DUPTABLE                         R16 K57 [{"tag"}]
+      523 LOADK                            R17 K58 ["size-full"]
+      524 SETTABLEKS                       R17 R16 K35 ["tag"]
+      526 MOVE                             R17 R8
+      527 CALL                             R14 3 1
+      528 SETTABLEKS                       R14 R13 K59 ["Dots"]
+      530 CALL                             R10 3 1
+      531 MOVE                             R9 R10
+      532 JUMP                             ; [+1]
+      533 LOADNIL                          R9
+      534 GETUPVAL                         R11 0
+      535 GETTABLEKS                       R10 R11 K17 ["createElement"]
+      537 GETUPVAL                         R11 15
+      538 DUPTABLE                         R12 K121 [{"title", "bodyVisible", "onClose", "content"}]
+      539 GETTABLEKS                       R13 R0 K62 ["localization"]
+      541 LOADK                            R15 K63 ["Mannequin"]
+      542 LOADK                            R16 K122 ["Title"]
+      543 NAMECALL                         R13 R13 K65 ["getText"]
+      545 CALL                             R13 3 1
+      546 SETTABLEKS                       R13 R12 K117 ["title"]
+      548 JUMPIFNOT                        R4 ; [+2]
+      549 MOVE                             R13 R5
+      550 JUMP                             ; [+1]
+      551 LOADB                            R13 1
+      552 SETTABLEKS                       R13 R12 K118 ["bodyVisible"]
+      554 GETTABLEKS                       R13 R0 K119 ["onClose"]
+      556 SETTABLEKS                       R13 R12 K119 ["onClose"]
+      558 DUPTABLE                         R13 K124 [{"Inner"}]
+      559 SETTABLEKS                       R9 R13 K123 ["Inner"]
+      561 SETTABLEKS                       R13 R12 K120 ["content"]
+      563 CALL                             R10 2 -1
+      564 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1770,50 +1912,65 @@ MAIN:
        82 GETTABLEKS                       R12 R13 K21 ["AdaptiveAnimationTools"]
        84 CALL                             R11 1 1
        85 GETIMPORT                        R12 K5 [require]
-       87 GETTABLEKS                       R15 R0 K8 ["Src"]
-       89 GETTABLEKS                       R14 R15 K22 ["Flags"]
-       91 GETTABLEKS                       R13 R14 K23 ["getFFlagAdaptiveAnimationHandRig"]
-       93 CALL                             R12 1 1
-       94 GETIMPORT                        R13 K25 [game]
-       96 LOADK                            R15 K26 ["CoreGui"]
-       97 NAMECALL                         R13 R13 K27 ["GetService"]
-       99 CALL                             R13 2 1
-      100 GETTABLEKS                       R14 R11 K28 ["hasSpine"]
-      102 GETTABLEKS                       R15 R11 K29 ["hasPelvis"]
-      104 JUMPIFNOT                        R14 ; [+3]
-      105 GETTABLEKS                       R16 R11 K30 ["spineLabel"]
-      107 JUMP                             ; [+5]
-      108 JUMPIFNOT                        R15 ; [+3]
-      109 GETIMPORT                        R16 K34 [Enum.RigLabel.Pelvis]
-      111 JUMP                             ; [+1]
-      112 LOADNIL                          R16
-      113 GETTABLEKS                       R17 R11 K35 ["LeftToeBase"]
-      115 GETTABLEKS                       R18 R11 K36 ["RightToeBase"]
-      117 DUPCLOSURE                       R19 K37 [PROTO_3]
-      118 CAPTURE                          VAL R9
-      119 CAPTURE                          VAL R5
-      120 CAPTURE                          VAL R1
-      121 CAPTURE                          VAL R7
-      122 CAPTURE                          VAL R3
-      123 DUPCLOSURE                       R20 K38 [PROTO_7]
-      124 CAPTURE                          VAL R9
-      125 CAPTURE                          VAL R5
-      126 CAPTURE                          VAL R1
-      127 CAPTURE                          VAL R7
-      128 CAPTURE                          VAL R3
-      129 DUPCLOSURE                       R21 K39 [PROTO_10]
-      130 CAPTURE                          VAL R5
-      131 CAPTURE                          VAL R19
-      132 CAPTURE                          VAL R18
-      133 CAPTURE                          VAL R17
-      134 CAPTURE                          VAL R16
-      135 CAPTURE                          VAL R14
-      136 CAPTURE                          VAL R20
-      137 CAPTURE                          VAL R12
-      138 CAPTURE                          VAL R6
-      139 CAPTURE                          VAL R2
-      140 CAPTURE                          VAL R8
-      141 CAPTURE                          VAL R3
-      142 CAPTURE                          VAL R13
-      143 CAPTURE                          VAL R4
-      144 RETURN                           R21 1
+       87 GETTABLEKS                       R16 R0 K8 ["Src"]
+       89 GETTABLEKS                       R15 R16 K12 ["Components"]
+       91 GETTABLEKS                       R14 R15 K18 ["Hooks"]
+       93 GETTABLEKS                       R13 R14 K22 ["useMappedInstances"]
+       95 CALL                             R12 1 1
+       96 GETIMPORT                        R13 K5 [require]
+       98 GETTABLEKS                       R16 R0 K8 ["Src"]
+      100 GETTABLEKS                       R15 R16 K23 ["Flags"]
+      102 GETTABLEKS                       R14 R15 K24 ["getFFlagAdaptiveAnimationHandRig"]
+      104 CALL                             R13 1 1
+      105 GETIMPORT                        R14 K5 [require]
+      107 GETTABLEKS                       R17 R0 K8 ["Src"]
+      109 GETTABLEKS                       R16 R17 K23 ["Flags"]
+      111 GETTABLEKS                       R15 R16 K25 ["getFFlagAdaptiveAnimationMannequinFix"]
+      113 CALL                             R14 1 1
+      114 GETIMPORT                        R15 K27 [game]
+      116 LOADK                            R17 K28 ["CoreGui"]
+      117 NAMECALL                         R15 R15 K29 ["GetService"]
+      119 CALL                             R15 2 1
+      120 GETTABLEKS                       R16 R11 K30 ["hasSpine"]
+      122 GETTABLEKS                       R17 R11 K31 ["hasPelvis"]
+      124 JUMPIFNOT                        R16 ; [+3]
+      125 GETTABLEKS                       R18 R11 K32 ["spineLabel"]
+      127 JUMP                             ; [+5]
+      128 JUMPIFNOT                        R17 ; [+3]
+      129 GETIMPORT                        R18 K36 [Enum.RigLabel.Pelvis]
+      131 JUMP                             ; [+1]
+      132 LOADNIL                          R18
+      133 GETTABLEKS                       R19 R11 K37 ["LeftToeBase"]
+      135 GETTABLEKS                       R20 R11 K38 ["RightToeBase"]
+      137 DUPCLOSURE                       R21 K39 [PROTO_3]
+      138 CAPTURE                          VAL R9
+      139 CAPTURE                          VAL R14
+      140 CAPTURE                          VAL R5
+      141 CAPTURE                          VAL R1
+      142 CAPTURE                          VAL R7
+      143 CAPTURE                          VAL R3
+      144 DUPCLOSURE                       R22 K40 [PROTO_7]
+      145 CAPTURE                          VAL R9
+      146 CAPTURE                          VAL R5
+      147 CAPTURE                          VAL R14
+      148 CAPTURE                          VAL R1
+      149 CAPTURE                          VAL R7
+      150 CAPTURE                          VAL R3
+      151 DUPCLOSURE                       R23 K41 [PROTO_11]
+      152 CAPTURE                          VAL R5
+      153 CAPTURE                          VAL R14
+      154 CAPTURE                          VAL R12
+      155 CAPTURE                          VAL R21
+      156 CAPTURE                          VAL R20
+      157 CAPTURE                          VAL R19
+      158 CAPTURE                          VAL R18
+      159 CAPTURE                          VAL R16
+      160 CAPTURE                          VAL R22
+      161 CAPTURE                          VAL R13
+      162 CAPTURE                          VAL R6
+      163 CAPTURE                          VAL R2
+      164 CAPTURE                          VAL R8
+      165 CAPTURE                          VAL R3
+      166 CAPTURE                          VAL R15
+      167 CAPTURE                          VAL R4
+      168 RETURN                           R23 1

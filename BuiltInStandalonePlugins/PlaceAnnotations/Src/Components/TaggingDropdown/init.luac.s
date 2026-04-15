@@ -853,23 +853,19 @@ PROTO_26:
        58 RETURN                           R0 0
 
 PROTO_27:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["fflagCOLLAB9434FixEscCursorAndTagInput"]
-        3 JUMPIF                           R0 ; [+1]
-        4 RETURN                           R0 0
-        5 GETUPVAL                         R0 1
-        6 JUMPIFNOT                        R0 ; [+14]
-        7 GETUPVAL                         R1 1
-        8 GETTABLEKS                       R0 R1 K1 ["current"]
-       10 JUMPIFNOT                        R0 ; [+10]
-       11 GETUPVAL                         R2 1
-       12 GETTABLEKS                       R1 R2 K1 ["current"]
-       14 GETTABLEKS                       R0 R1 K2 ["Text"]
-       16 JUMPIFNOTEQKS                    R0 K3 [""] ; [+4]
-       18 GETUPVAL                         R0 2
-       19 LOADK                            R1 K3 [""]
-       20 CALL                             R0 1 0
-       21 RETURN                           R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+14]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R0 R1 K0 ["current"]
+        5 JUMPIFNOT                        R0 ; [+10]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R1 R2 K0 ["current"]
+        9 GETTABLEKS                       R0 R1 K1 ["Text"]
+       11 JUMPIFNOTEQKS                    R0 K2 [""] ; [+4]
+       13 GETUPVAL                         R0 1
+       14 LOADK                            R1 K2 [""]
+       15 CALL                             R0 1 0
+       16 RETURN                           R0 0
 
 PROTO_28:
         0 GETUPVAL                         R3 0
@@ -1210,41 +1206,40 @@ PROTO_28:
       423 GETUPVAL                         R44 4
       424 GETTABLEKS                       R43 R44 K17 ["useEffect"]
       426 NEWCLOSURE                       R44 P23
-      427 CAPTURE                          UPVAL U10
-      428 CAPTURE                          VAL R18
-      429 CAPTURE                          VAL R20
-      430 NEWTABLE                         R45 0 1
-      432 GETTABLEKS                       R46 R18 K18 ["current"]
-      434 JUMPIFNOT                        R46 ; [+4]
-      435 GETTABLEKS                       R47 R18 K18 ["current"]
-      437 GETTABLEKS                       R46 R47 K8 ["Text"]
-      439 SETLIST                          R45 R46 1 [1]
-      441 CALL                             R43 2 0
-      442 JUMPIFNOT                        R27 ; [+31]
-      443 LENGTH                           R44 R30
-      444 LOADN                            R45 0
-      445 JUMPIFNOTLT                      R45 R44 ; [+28]
-      447 GETUPVAL                         R44 11
-      448 GETTABLEKS                       R43 R44 K52 ["createPortal"]
-      450 GETUPVAL                         R45 4
-      451 GETTABLEKS                       R44 R45 K20 ["createElement"]
-      453 LOADK                            R45 K53 ["CanvasGroup"]
-      454 NEWTABLE                         R46 4 0
-      456 SETTABLEKS                       R23 R46 K54 ["Position"]
-      458 SETTABLEKS                       R25 R46 K38 ["Size"]
-      460 GETTABLEKS                       R47 R1 K55 ["AutomaticSize"]
-      462 SETTABLEKS                       R47 R46 K55 ["AutomaticSize"]
-      464 GETUPVAL                         R48 4
-      465 GETTABLEKS                       R47 R48 K27 ["Tag"]
-      467 LOADK                            R48 K56 ["Component-TaggingDropdown X-Column"]
-      468 SETTABLE                         R48 R46 R47
-      469 MOVE                             R47 R33
-      470 CALL                             R44 3 1
-      471 MOVE                             R45 R2
-      472 CALL                             R43 2 1
-      473 RETURN                           R43 1
-      474 LOADNIL                          R43
-      475 RETURN                           R43 1
+      427 CAPTURE                          VAL R18
+      428 CAPTURE                          VAL R20
+      429 NEWTABLE                         R45 0 1
+      431 GETTABLEKS                       R46 R18 K18 ["current"]
+      433 JUMPIFNOT                        R46 ; [+4]
+      434 GETTABLEKS                       R47 R18 K18 ["current"]
+      436 GETTABLEKS                       R46 R47 K8 ["Text"]
+      438 SETLIST                          R45 R46 1 [1]
+      440 CALL                             R43 2 0
+      441 JUMPIFNOT                        R27 ; [+31]
+      442 LENGTH                           R44 R30
+      443 LOADN                            R45 0
+      444 JUMPIFNOTLT                      R45 R44 ; [+28]
+      446 GETUPVAL                         R44 10
+      447 GETTABLEKS                       R43 R44 K52 ["createPortal"]
+      449 GETUPVAL                         R45 4
+      450 GETTABLEKS                       R44 R45 K20 ["createElement"]
+      452 LOADK                            R45 K53 ["CanvasGroup"]
+      453 NEWTABLE                         R46 4 0
+      455 SETTABLEKS                       R23 R46 K54 ["Position"]
+      457 SETTABLEKS                       R25 R46 K38 ["Size"]
+      459 GETTABLEKS                       R47 R1 K55 ["AutomaticSize"]
+      461 SETTABLEKS                       R47 R46 K55 ["AutomaticSize"]
+      463 GETUPVAL                         R48 4
+      464 GETTABLEKS                       R47 R48 K27 ["Tag"]
+      466 LOADK                            R48 K56 ["Component-TaggingDropdown X-Column"]
+      467 SETTABLE                         R48 R46 R47
+      468 MOVE                             R47 R33
+      469 CALL                             R44 3 1
+      470 MOVE                             R45 R2
+      471 CALL                             R43 2 1
+      472 RETURN                           R43 1
+      473 LOADNIL                          R43
+      474 RETURN                           R43 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1299,33 +1294,27 @@ MAIN:
        85 GETTABLEKS                       R13 R3 K24 ["Styling"]
        87 GETTABLEKS                       R12 R13 K25 ["joinTags"]
        89 GETIMPORT                        R13 K5 [require]
-       91 GETTABLEKS                       R16 R0 K26 ["Bin"]
-       93 GETTABLEKS                       R15 R16 K27 ["Common"]
-       95 GETTABLEKS                       R14 R15 K28 ["defineLuaFlags"]
-       97 CALL                             R13 1 1
-       98 GETIMPORT                        R14 K5 [require]
-      100 GETTABLEKS                       R16 R0 K13 ["Src"]
-      102 GETTABLEKS                       R15 R16 K29 ["Types"]
-      104 CALL                             R14 1 1
-      105 DUPTABLE                         R15 K32 [{"Size", "AutomaticSize"}]
-      106 GETIMPORT                        R16 K35 [UDim2.fromOffset]
-      108 LOADN                            R17 128
-      109 LOADN                            R18 0
-      110 CALL                             R16 2 1
-      111 SETTABLEKS                       R16 R15 K30 ["Size"]
-      113 GETIMPORT                        R16 K38 [Enum.AutomaticSize.Y]
-      115 SETTABLEKS                       R16 R15 K31 ["AutomaticSize"]
-      117 DUPCLOSURE                       R16 K39 [PROTO_28]
-      118 CAPTURE                          VAL R4
-      119 CAPTURE                          VAL R15
-      120 CAPTURE                          VAL R6
-      121 CAPTURE                          VAL R8
-      122 CAPTURE                          VAL R1
-      123 CAPTURE                          VAL R9
-      124 CAPTURE                          VAL R10
-      125 CAPTURE                          VAL R7
-      126 CAPTURE                          VAL R12
-      127 CAPTURE                          VAL R11
-      128 CAPTURE                          VAL R13
-      129 CAPTURE                          VAL R2
-      130 RETURN                           R16 1
+       91 GETTABLEKS                       R15 R0 K13 ["Src"]
+       93 GETTABLEKS                       R14 R15 K26 ["Types"]
+       95 CALL                             R13 1 1
+       96 DUPTABLE                         R14 K29 [{"Size", "AutomaticSize"}]
+       97 GETIMPORT                        R15 K32 [UDim2.fromOffset]
+       99 LOADN                            R16 128
+      100 LOADN                            R17 0
+      101 CALL                             R15 2 1
+      102 SETTABLEKS                       R15 R14 K27 ["Size"]
+      104 GETIMPORT                        R15 K35 [Enum.AutomaticSize.Y]
+      106 SETTABLEKS                       R15 R14 K28 ["AutomaticSize"]
+      108 DUPCLOSURE                       R15 K36 [PROTO_28]
+      109 CAPTURE                          VAL R4
+      110 CAPTURE                          VAL R14
+      111 CAPTURE                          VAL R6
+      112 CAPTURE                          VAL R8
+      113 CAPTURE                          VAL R1
+      114 CAPTURE                          VAL R9
+      115 CAPTURE                          VAL R10
+      116 CAPTURE                          VAL R7
+      117 CAPTURE                          VAL R12
+      118 CAPTURE                          VAL R11
+      119 CAPTURE                          VAL R2
+      120 RETURN                           R15 1

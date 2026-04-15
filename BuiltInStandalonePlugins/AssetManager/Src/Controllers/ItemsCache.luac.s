@@ -856,113 +856,118 @@ PROTO_32:
         8 RETURN                           R2 -1
 
 PROTO_33:
-        0 GETTABLEKS                       R5 R0 K0 ["_indexMap"]
-        2 GETTABLE                         R4 R5 R1
-        3 JUMPIF                           R4 ; [+4]
-        4 NEWTABLE                         R5 0 0
-        6 LOADN                            R6 0
-        7 RETURN                           R5 2
-        8 NEWTABLE                         R5 0 0
-       10 GETTABLEKS                       R6 R4 K1 ["PathIndexMap"]
-       12 NEWTABLE                         R7 0 0
-       14 MOVE                             R8 R6
-       15 LOADNIL                          R9
-       16 LOADNIL                          R10
-       17 FORGPREP                         R8
-       18 GETTABLEKS                       R15 R0 K2 ["_dataArrays"]
-       20 GETUPVAL                         R18 0
-       21 GETTABLEKS                       R17 R18 K3 ["AssetInfoField"]
-       23 GETTABLEKS                       R16 R17 K4 ["AssetType"]
-       25 GETTABLE                         R14 R15 R16
-       26 GETTABLE                         R13 R14 R12
-       27 GETUPVAL                         R16 0
-       28 GETTABLEKS                       R15 R16 K4 ["AssetType"]
-       30 GETTABLEKS                       R14 R15 K5 ["Folder"]
-       32 JUMPIFNOTEQ                      R13 R14 ; [+8]
-       34 FASTCALL2                        TABLE_INSERT R7 R11 ; [+5]
-       36 MOVE                             R14 R7
-       37 MOVE                             R15 R11
-       38 GETIMPORT                        R13 K8 [table.insert]
-       40 CALL                             R13 2 0
-       41 FORGLOOP                         R8 2 ; [-24]
-       43 GETIMPORT                        R8 K10 [table.sort]
-       45 MOVE                             R9 R7
-       46 NEWCLOSURE                       R10 P0
-       47 CAPTURE                          VAL R0
-       48 CAPTURE                          VAL R1
-       49 CALL                             R8 2 0
-       50 GETTABLEKS                       R9 R3 K11 ["FolderCount"]
-       52 JUMPIFNOT                        R9 ; [+9]
-       53 GETTABLEKS                       R9 R3 K11 ["FolderCount"]
-       55 LENGTH                           R10 R7
-       56 FASTCALL2                        MATH_MIN R9 R10 ; [+3]
-       58 GETIMPORT                        R8 K14 [math.min]
-       60 CALL                             R8 2 1
-       61 JUMP                             ; [+1]
-       62 LENGTH                           R8 R7
-       63 LOADN                            R9 0
-       64 JUMPIFNOTLT                      R9 R8 ; [+35]
-       66 NEWTABLE                         R9 0 0
-       68 LOADN                            R12 1
-       69 MOVE                             R10 R8
-       70 LOADN                            R11 1
-       71 FORNPREP                         R10
-       72 GETTABLE                         R15 R7 R12
-       73 FASTCALL2                        TABLE_INSERT R9 R15 ; [+4]
-       75 MOVE                             R14 R9
-       76 GETIMPORT                        R13 K8 [table.insert]
-       78 CALL                             R13 2 0
-       79 FORNLOOP                         R10
-       80 GETIMPORT                        R10 K16 [next]
-       82 MOVE                             R11 R2
-       83 CALL                             R10 1 1
-       84 JUMPIFEQKNIL                     R10 ; [+9]
-       86 GETIMPORT                        R10 K10 [table.sort]
-       88 MOVE                             R11 R9
-       89 NEWCLOSURE                       R12 P1
-       90 CAPTURE                          VAL R0
-       91 CAPTURE                          VAL R1
-       92 CAPTURE                          VAL R2
-       93 CALL                             R10 2 0
-       94 GETUPVAL                         R11 1
-       95 GETTABLEKS                       R10 R11 K17 ["append"]
-       97 MOVE                             R11 R5
-       98 MOVE                             R12 R9
-       99 CALL                             R10 2 0
-      100 NEWTABLE                         R9 0 0
-      102 MOVE                             R10 R6
-      103 LOADNIL                          R11
-      104 LOADNIL                          R12
-      105 FORGPREP                         R10
-      106 GETTABLEKS                       R17 R0 K2 ["_dataArrays"]
-      108 GETUPVAL                         R20 0
-      109 GETTABLEKS                       R19 R20 K3 ["AssetInfoField"]
-      111 GETTABLEKS                       R18 R19 K4 ["AssetType"]
-      113 GETTABLE                         R16 R17 R18
-      114 GETTABLE                         R15 R16 R14
-      115 GETTABLEKS                       R16 R3 K4 ["AssetType"]
-      117 JUMPIFNOTEQ                      R15 R16 ; [+8]
-      119 FASTCALL2                        TABLE_INSERT R9 R13 ; [+5]
-      121 MOVE                             R16 R9
-      122 MOVE                             R17 R13
-      123 GETIMPORT                        R15 K8 [table.insert]
-      125 CALL                             R15 2 0
-      126 FORGLOOP                         R10 2 ; [-21]
-      128 GETIMPORT                        R10 K10 [table.sort]
-      130 MOVE                             R11 R9
-      131 NEWCLOSURE                       R12 P2
-      132 CAPTURE                          VAL R0
-      133 CAPTURE                          VAL R1
-      134 CAPTURE                          VAL R2
-      135 CALL                             R10 2 0
-      136 GETUPVAL                         R11 1
-      137 GETTABLEKS                       R10 R11 K17 ["append"]
-      139 MOVE                             R11 R5
-      140 MOVE                             R12 R9
-      141 CALL                             R10 2 0
-      142 MOVE                             R10 R5
-      143 MOVE                             R11 R8
-      144 RETURN                           R10 2
+        0 GETTABLEKS                       R6 R0 K0 ["_indexMap"]
+        2 GETTABLE                         R5 R6 R1
+        3 JUMPIF                           R5 ; [+4]
+        4 NEWTABLE                         R6 0 0
+        6 LOADN                            R7 0
+        7 RETURN                           R6 2
+        8 NEWTABLE                         R6 0 0
+       10 GETTABLEKS                       R7 R5 K1 ["PathIndexMap"]
+       12 GETTABLEKS                       R9 R0 K2 ["_dataArrays"]
+       14 GETUPVAL                         R12 0
+       15 GETTABLEKS                       R11 R12 K3 ["AssetInfoField"]
+       17 GETTABLEKS                       R10 R11 K4 ["AssetType"]
+       19 GETTABLE                         R8 R9 R10
+       20 NEWTABLE                         R9 0 0
+       22 MOVE                             R10 R7
+       23 LOADNIL                          R11
+       24 LOADNIL                          R12
+       25 FORGPREP                         R10
+       26 GETTABLE                         R15 R8 R14
+       27 GETUPVAL                         R18 0
+       28 GETTABLEKS                       R17 R18 K4 ["AssetType"]
+       30 GETTABLEKS                       R16 R17 K5 ["Folder"]
+       32 JUMPIFNOTEQ                      R15 R16 ; [+14]
+       34 MOVE                             R17 R14
+       35 MOVE                             R18 R2
+       36 NAMECALL                         R15 R0 K6 ["_passesFilters"]
+       38 CALL                             R15 3 1
+       39 JUMPIFNOT                        R15 ; [+7]
+       40 FASTCALL2                        TABLE_INSERT R9 R13 ; [+5]
+       42 MOVE                             R16 R9
+       43 MOVE                             R17 R13
+       44 GETIMPORT                        R15 K9 [table.insert]
+       46 CALL                             R15 2 0
+       47 FORGLOOP                         R10 2 ; [-22]
+       49 GETIMPORT                        R10 K11 [table.sort]
+       51 MOVE                             R11 R9
+       52 NEWCLOSURE                       R12 P0
+       53 CAPTURE                          VAL R0
+       54 CAPTURE                          VAL R1
+       55 CALL                             R10 2 0
+       56 GETTABLEKS                       R11 R4 K12 ["FolderCount"]
+       58 JUMPIFNOT                        R11 ; [+9]
+       59 GETTABLEKS                       R11 R4 K12 ["FolderCount"]
+       61 LENGTH                           R12 R9
+       62 FASTCALL2                        MATH_MIN R11 R12 ; [+3]
+       64 GETIMPORT                        R10 K15 [math.min]
+       66 CALL                             R10 2 1
+       67 JUMP                             ; [+1]
+       68 LENGTH                           R10 R9
+       69 LOADN                            R11 0
+       70 JUMPIFNOTLT                      R11 R10 ; [+35]
+       72 NEWTABLE                         R11 0 0
+       74 LOADN                            R14 1
+       75 MOVE                             R12 R10
+       76 LOADN                            R13 1
+       77 FORNPREP                         R12
+       78 GETTABLE                         R17 R9 R14
+       79 FASTCALL2                        TABLE_INSERT R11 R17 ; [+4]
+       81 MOVE                             R16 R11
+       82 GETIMPORT                        R15 K9 [table.insert]
+       84 CALL                             R15 2 0
+       85 FORNLOOP                         R12
+       86 GETIMPORT                        R12 K17 [next]
+       88 MOVE                             R13 R3
+       89 CALL                             R12 1 1
+       90 JUMPIFEQKNIL                     R12 ; [+9]
+       92 GETIMPORT                        R12 K11 [table.sort]
+       94 MOVE                             R13 R11
+       95 NEWCLOSURE                       R14 P1
+       96 CAPTURE                          VAL R0
+       97 CAPTURE                          VAL R1
+       98 CAPTURE                          VAL R3
+       99 CALL                             R12 2 0
+      100 GETUPVAL                         R13 1
+      101 GETTABLEKS                       R12 R13 K18 ["append"]
+      103 MOVE                             R13 R6
+      104 MOVE                             R14 R11
+      105 CALL                             R12 2 0
+      106 NEWTABLE                         R11 0 0
+      108 MOVE                             R12 R7
+      109 LOADNIL                          R13
+      110 LOADNIL                          R14
+      111 FORGPREP                         R12
+      112 GETTABLE                         R17 R8 R16
+      113 GETTABLEKS                       R18 R4 K4 ["AssetType"]
+      115 JUMPIFNOTEQ                      R17 R18 ; [+14]
+      117 MOVE                             R19 R16
+      118 MOVE                             R20 R2
+      119 NAMECALL                         R17 R0 K6 ["_passesFilters"]
+      121 CALL                             R17 3 1
+      122 JUMPIFNOT                        R17 ; [+7]
+      123 FASTCALL2                        TABLE_INSERT R11 R15 ; [+5]
+      125 MOVE                             R18 R11
+      126 MOVE                             R19 R15
+      127 GETIMPORT                        R17 K9 [table.insert]
+      129 CALL                             R17 2 0
+      130 FORGLOOP                         R12 2 ; [-19]
+      132 GETIMPORT                        R12 K11 [table.sort]
+      134 MOVE                             R13 R11
+      135 NEWCLOSURE                       R14 P2
+      136 CAPTURE                          VAL R0
+      137 CAPTURE                          VAL R1
+      138 CAPTURE                          VAL R3
+      139 CALL                             R12 2 0
+      140 GETUPVAL                         R13 1
+      141 GETTABLEKS                       R12 R13 K18 ["append"]
+      143 MOVE                             R13 R6
+      144 MOVE                             R14 R11
+      145 CALL                             R12 2 0
+      146 MOVE                             R12 R6
+      147 MOVE                             R13 R10
+      148 RETURN                           R12 2
 
 MAIN:
         0 PREPVARARGS                      0

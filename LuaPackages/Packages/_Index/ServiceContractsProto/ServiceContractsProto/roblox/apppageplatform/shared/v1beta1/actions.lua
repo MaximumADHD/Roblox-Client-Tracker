@@ -68,6 +68,16 @@ type _Messages = {
 	OpenMarketplaceCatalogFilters_Params: _OpenMarketplaceCatalogFilters_ParamsMessage,
 	RefreshFromApiAction: _RefreshFromApiActionMessage,
 	RefreshFromApiAction_Params: _RefreshFromApiAction_ParamsMessage,
+	RsvpToEventAction: _RsvpToEventActionMessage,
+	RsvpToEventAction_Params: _RsvpToEventAction_ParamsMessage,
+	ApplyChartsFilterAction: _ApplyChartsFilterActionMessage,
+	ApplyChartsFilterAction_Params: _ApplyChartsFilterAction_ParamsMessage,
+	AnalyticsEventAction: _AnalyticsEventActionMessage,
+	AnalyticsEventAction_Params: _AnalyticsEventAction_ParamsMessage,
+	CustomAnalyticsEventAction: _CustomAnalyticsEventActionMessage,
+	CustomAnalyticsEventAction_Params: _CustomAnalyticsEventAction_ParamsMessage,
+	OpenSocialLinkProfileAction: _OpenSocialLinkProfileActionMessage,
+	OpenSocialLinkProfileAction_Params: _OpenSocialLinkProfileAction_ParamsMessage,
 	Action: _ActionMessage,
 	ActionProp: _ActionPropMessage,
 	ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -1767,6 +1777,287 @@ type _RefreshFromApiAction_ParamsMessage = proto.Message<
 	_RefreshFromApiAction_ParamsPartialFields
 >
 
+type _RsvpToEventActionImpl = {
+	__index: _RsvpToEventActionImpl,
+	new: (fields: _RsvpToEventActionPartialFields?) -> RsvpToEventAction,
+	encode: (self: RsvpToEventAction) -> buffer,
+	decode: (input: buffer) -> RsvpToEventAction,
+	jsonEncode: (self: RsvpToEventAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RsvpToEventAction,
+	descriptor: proto.Descriptor,
+}
+
+type _RsvpToEventActionFields = {
+	action_type: ActionType,
+	action_params: RsvpToEventAction_Params?,
+}
+
+type _RsvpToEventActionPartialFields = {
+	action_type: ActionType?,
+	action_params: RsvpToEventAction_Params?,
+}
+
+export type RsvpToEventAction = typeof(setmetatable({} :: _RsvpToEventActionFields, {} :: _RsvpToEventActionImpl))
+type _RsvpToEventActionMessage = proto.Message<RsvpToEventAction, _RsvpToEventActionPartialFields>
+
+type _RsvpToEventAction_ParamsImpl = {
+	__index: _RsvpToEventAction_ParamsImpl,
+	new: (fields: _RsvpToEventAction_ParamsPartialFields?) -> RsvpToEventAction_Params,
+	encode: (self: RsvpToEventAction_Params) -> buffer,
+	decode: (input: buffer) -> RsvpToEventAction_Params,
+	jsonEncode: (self: RsvpToEventAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RsvpToEventAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _RsvpToEventAction_ParamsFields = {
+	event_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	user_rsvp: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+}
+
+type _RsvpToEventAction_ParamsPartialFields = {
+	event_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	user_rsvp: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+}
+
+export type RsvpToEventAction_Params = typeof(setmetatable(
+	{} :: _RsvpToEventAction_ParamsFields,
+	{} :: _RsvpToEventAction_ParamsImpl
+))
+type _RsvpToEventAction_ParamsMessage = proto.Message<RsvpToEventAction_Params, _RsvpToEventAction_ParamsPartialFields>
+
+type _ApplyChartsFilterActionImpl = {
+	__index: _ApplyChartsFilterActionImpl,
+	new: (fields: _ApplyChartsFilterActionPartialFields?) -> ApplyChartsFilterAction,
+	encode: (self: ApplyChartsFilterAction) -> buffer,
+	decode: (input: buffer) -> ApplyChartsFilterAction,
+	jsonEncode: (self: ApplyChartsFilterAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ApplyChartsFilterAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ApplyChartsFilterActionFields = {
+	action_type: ActionType,
+	action_params: ApplyChartsFilterAction_Params?,
+}
+
+type _ApplyChartsFilterActionPartialFields = {
+	action_type: ActionType?,
+	action_params: ApplyChartsFilterAction_Params?,
+}
+
+export type ApplyChartsFilterAction = typeof(setmetatable(
+	{} :: _ApplyChartsFilterActionFields,
+	{} :: _ApplyChartsFilterActionImpl
+))
+type _ApplyChartsFilterActionMessage = proto.Message<ApplyChartsFilterAction, _ApplyChartsFilterActionPartialFields>
+
+type _ApplyChartsFilterAction_ParamsImpl = {
+	__index: _ApplyChartsFilterAction_ParamsImpl,
+	new: (fields: _ApplyChartsFilterAction_ParamsPartialFields?) -> ApplyChartsFilterAction_Params,
+	encode: (self: ApplyChartsFilterAction_Params) -> buffer,
+	decode: (input: buffer) -> ApplyChartsFilterAction_Params,
+	jsonEncode: (self: ApplyChartsFilterAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ApplyChartsFilterAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ApplyChartsFilterAction_ParamsFields = {
+	session_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _ApplyChartsFilterAction_ParamsPartialFields = {
+	session_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type ApplyChartsFilterAction_Params = typeof(setmetatable(
+	{} :: _ApplyChartsFilterAction_ParamsFields,
+	{} :: _ApplyChartsFilterAction_ParamsImpl
+))
+type _ApplyChartsFilterAction_ParamsMessage = proto.Message<
+	ApplyChartsFilterAction_Params,
+	_ApplyChartsFilterAction_ParamsPartialFields
+>
+
+type _AnalyticsEventActionImpl = {
+	__index: _AnalyticsEventActionImpl,
+	new: (fields: _AnalyticsEventActionPartialFields?) -> AnalyticsEventAction,
+	encode: (self: AnalyticsEventAction) -> buffer,
+	decode: (input: buffer) -> AnalyticsEventAction,
+	jsonEncode: (self: AnalyticsEventAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AnalyticsEventAction,
+	descriptor: proto.Descriptor,
+}
+
+type _AnalyticsEventActionFields = {
+	action_type: ActionType,
+	action_params: AnalyticsEventAction_Params?,
+}
+
+type _AnalyticsEventActionPartialFields = {
+	action_type: ActionType?,
+	action_params: AnalyticsEventAction_Params?,
+}
+
+export type AnalyticsEventAction = typeof(setmetatable(
+	{} :: _AnalyticsEventActionFields,
+	{} :: _AnalyticsEventActionImpl
+))
+type _AnalyticsEventActionMessage = proto.Message<AnalyticsEventAction, _AnalyticsEventActionPartialFields>
+
+type _AnalyticsEventAction_ParamsImpl = {
+	__index: _AnalyticsEventAction_ParamsImpl,
+	new: (fields: _AnalyticsEventAction_ParamsPartialFields?) -> AnalyticsEventAction_Params,
+	encode: (self: AnalyticsEventAction_Params) -> buffer,
+	decode: (input: buffer) -> AnalyticsEventAction_Params,
+	jsonEncode: (self: AnalyticsEventAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AnalyticsEventAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _AnalyticsEventAction_ParamsFields = {
+	event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	event_fields: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+}
+
+type _AnalyticsEventAction_ParamsPartialFields = {
+	event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	event_fields: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+}
+
+export type AnalyticsEventAction_Params = typeof(setmetatable(
+	{} :: _AnalyticsEventAction_ParamsFields,
+	{} :: _AnalyticsEventAction_ParamsImpl
+))
+type _AnalyticsEventAction_ParamsMessage = proto.Message<
+	AnalyticsEventAction_Params,
+	_AnalyticsEventAction_ParamsPartialFields
+>
+
+type _CustomAnalyticsEventActionImpl = {
+	__index: _CustomAnalyticsEventActionImpl,
+	new: (fields: _CustomAnalyticsEventActionPartialFields?) -> CustomAnalyticsEventAction,
+	encode: (self: CustomAnalyticsEventAction) -> buffer,
+	decode: (input: buffer) -> CustomAnalyticsEventAction,
+	jsonEncode: (self: CustomAnalyticsEventAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CustomAnalyticsEventAction,
+	descriptor: proto.Descriptor,
+}
+
+type _CustomAnalyticsEventActionFields = {
+	action_type: ActionType,
+	action_params: CustomAnalyticsEventAction_Params?,
+}
+
+type _CustomAnalyticsEventActionPartialFields = {
+	action_type: ActionType?,
+	action_params: CustomAnalyticsEventAction_Params?,
+}
+
+export type CustomAnalyticsEventAction = typeof(setmetatable(
+	{} :: _CustomAnalyticsEventActionFields,
+	{} :: _CustomAnalyticsEventActionImpl
+))
+type _CustomAnalyticsEventActionMessage = proto.Message<
+	CustomAnalyticsEventAction,
+	_CustomAnalyticsEventActionPartialFields
+>
+
+type _CustomAnalyticsEventAction_ParamsImpl = {
+	__index: _CustomAnalyticsEventAction_ParamsImpl,
+	new: (fields: _CustomAnalyticsEventAction_ParamsPartialFields?) -> CustomAnalyticsEventAction_Params,
+	encode: (self: CustomAnalyticsEventAction_Params) -> buffer,
+	decode: (input: buffer) -> CustomAnalyticsEventAction_Params,
+	jsonEncode: (self: CustomAnalyticsEventAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CustomAnalyticsEventAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _CustomAnalyticsEventAction_ParamsFields = {
+	event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	event_fields: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+}
+
+type _CustomAnalyticsEventAction_ParamsPartialFields = {
+	event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	event_fields: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+}
+
+export type CustomAnalyticsEventAction_Params = typeof(setmetatable(
+	{} :: _CustomAnalyticsEventAction_ParamsFields,
+	{} :: _CustomAnalyticsEventAction_ParamsImpl
+))
+type _CustomAnalyticsEventAction_ParamsMessage = proto.Message<
+	CustomAnalyticsEventAction_Params,
+	_CustomAnalyticsEventAction_ParamsPartialFields
+>
+
+type _OpenSocialLinkProfileActionImpl = {
+	__index: _OpenSocialLinkProfileActionImpl,
+	new: (fields: _OpenSocialLinkProfileActionPartialFields?) -> OpenSocialLinkProfileAction,
+	encode: (self: OpenSocialLinkProfileAction) -> buffer,
+	decode: (input: buffer) -> OpenSocialLinkProfileAction,
+	jsonEncode: (self: OpenSocialLinkProfileAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenSocialLinkProfileAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenSocialLinkProfileActionFields = {
+	action_type: ActionType,
+	action_params: OpenSocialLinkProfileAction_Params?,
+}
+
+type _OpenSocialLinkProfileActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenSocialLinkProfileAction_Params?,
+}
+
+export type OpenSocialLinkProfileAction = typeof(setmetatable(
+	{} :: _OpenSocialLinkProfileActionFields,
+	{} :: _OpenSocialLinkProfileActionImpl
+))
+type _OpenSocialLinkProfileActionMessage = proto.Message<
+	OpenSocialLinkProfileAction,
+	_OpenSocialLinkProfileActionPartialFields
+>
+
+type _OpenSocialLinkProfileAction_ParamsImpl = {
+	__index: _OpenSocialLinkProfileAction_ParamsImpl,
+	new: (fields: _OpenSocialLinkProfileAction_ParamsPartialFields?) -> OpenSocialLinkProfileAction_Params,
+	encode: (self: OpenSocialLinkProfileAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenSocialLinkProfileAction_Params,
+	jsonEncode: (self: OpenSocialLinkProfileAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenSocialLinkProfileAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenSocialLinkProfileAction_ParamsFields = {
+	profile_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	profile_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	social_link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	social_link_url: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	social_link_display_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenSocialLinkProfileAction_ParamsPartialFields = {
+	profile_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	profile_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	social_link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	social_link_url: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	social_link_display_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenSocialLinkProfileAction_Params = typeof(setmetatable(
+	{} :: _OpenSocialLinkProfileAction_ParamsFields,
+	{} :: _OpenSocialLinkProfileAction_ParamsImpl
+))
+type _OpenSocialLinkProfileAction_ParamsMessage = proto.Message<
+	OpenSocialLinkProfileAction_Params,
+	_OpenSocialLinkProfileAction_ParamsPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -1809,6 +2100,11 @@ type _ActionFields = {
 		| { type: "open_charts_sort_detail_action", value: OpenChartsSortDetailAction }
 		| { type: "open_song_detail_action", value: OpenSongDetailAction }
 		| { type: "refresh_from_api_action", value: RefreshFromApiAction }
+		| { type: "rsvp_to_event_action", value: RsvpToEventAction }
+		| { type: "apply_charts_filter_action", value: ApplyChartsFilterAction }
+		| { type: "analytics_event_action", value: AnalyticsEventAction }
+		| { type: "custom_analytics_event_action", value: CustomAnalyticsEventAction }
+		| { type: "open_social_link_profile_action", value: OpenSocialLinkProfileAction }
 	)?,
 }
 
@@ -1844,6 +2140,11 @@ type _ActionPartialFields = {
 		| { type: "open_charts_sort_detail_action", value: OpenChartsSortDetailAction }
 		| { type: "open_song_detail_action", value: OpenSongDetailAction }
 		| { type: "refresh_from_api_action", value: RefreshFromApiAction }
+		| { type: "rsvp_to_event_action", value: RsvpToEventAction }
+		| { type: "apply_charts_filter_action", value: ApplyChartsFilterAction }
+		| { type: "analytics_event_action", value: AnalyticsEventAction }
+		| { type: "custom_analytics_event_action", value: CustomAnalyticsEventAction }
+		| { type: "open_social_link_profile_action", value: OpenSocialLinkProfileAction }
 	)?,
 }
 
@@ -1883,12 +2184,12 @@ type _ActionProp_ConditionalOptionImpl = {
 
 type _ActionProp_ConditionalOptionFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	value: Action?,
+	kind: { type: "value", value: Action }?,
 }
 
 type _ActionProp_ConditionalOptionPartialFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	value: Action?,
+	kind: { type: "value", value: Action }?,
 }
 
 export type ActionProp_ConditionalOption = typeof(setmetatable(
@@ -1966,12 +2267,12 @@ type _FocusNavActionsProp_ConditionalOptionImpl = {
 
 type _FocusNavActionsProp_ConditionalOptionFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	value: FocusNavActionsProp?,
+	kind: { type: "value", value: FocusNavActionsProp_FocusNavData }?,
 }
 
 type _FocusNavActionsProp_ConditionalOptionPartialFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	value: FocusNavActionsProp?,
+	kind: { type: "value", value: FocusNavActionsProp_FocusNavData }?,
 }
 
 export type FocusNavActionsProp_ConditionalOption = typeof(setmetatable(
@@ -2134,6 +2435,11 @@ export type ActionType =
 	| "ACTION_TYPE_OPEN_CHARTS_SORT_DETAIL"
 	| "ACTION_TYPE_OPEN_SONG_DETAIL"
 	| "ACTION_TYPE_REFRESH_FROM_API"
+	| "ACTION_TYPE_RSVP_TO_EVENT"
+	| "ACTION_TYPE_APPLY_CHARTS_FILTER"
+	| "ACTION_TYPE_ANALYTICS_EVENT"
+	| "ACTION_TYPE_CUSTOM_ANALYTICS_EVENT"
+	| "ACTION_TYPE_OPEN_SOCIAL_LINK_PROFILE"
 	| number -- Unknown
 
 do
@@ -10564,6 +10870,1460 @@ do
 end
 
 do
+	local _RsvpToEventActionImpl = {}
+	_RsvpToEventActionImpl.__index = _RsvpToEventActionImpl
+
+	function _RsvpToEventActionImpl.new(data: _RsvpToEventActionPartialFields?): RsvpToEventAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _RsvpToEventActionImpl :: _RsvpToEventActionImpl)
+	end
+
+	function _RsvpToEventActionImpl.encode(self: RsvpToEventAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RsvpToEventActionImpl.decode(input: buffer): RsvpToEventAction
+		local self = _RsvpToEventActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.RsvpToEventAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RsvpToEventActionImpl.jsonEncode(self: RsvpToEventAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RsvpToEventActionImpl.jsonDecode(input: { [string]: any }): RsvpToEventAction
+		local self = _RsvpToEventActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.RsvpToEventAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.RsvpToEventAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_RsvpToEventActionImpl.descriptor = {
+		name = "RsvpToEventAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RsvpToEventAction",
+	}
+
+	messages.RsvpToEventAction = _RsvpToEventActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RsvpToEventAction)
+end
+
+do
+	local _RsvpToEventAction_ParamsImpl = {}
+	_RsvpToEventAction_ParamsImpl.__index = _RsvpToEventAction_ParamsImpl
+
+	function _RsvpToEventAction_ParamsImpl.new(data: _RsvpToEventAction_ParamsPartialFields?): RsvpToEventAction_Params
+		return setmetatable({
+			event_id = if data == nil or data.event_id == nil then nil else data.event_id,
+			user_rsvp = if data == nil or data.user_rsvp == nil then nil else data.user_rsvp,
+		}, _RsvpToEventAction_ParamsImpl :: _RsvpToEventAction_ParamsImpl)
+	end
+
+	function _RsvpToEventAction_ParamsImpl.encode(self: RsvpToEventAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.event_id ~= nil then
+			local encoded = self.event_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.user_rsvp ~= nil then
+			local encoded = self.user_rsvp:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RsvpToEventAction_ParamsImpl.decode(input: buffer): RsvpToEventAction_Params
+		local self = _RsvpToEventAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.user_rsvp = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RsvpToEventAction_ParamsImpl.jsonEncode(self: RsvpToEventAction_Params): any
+		local output = {}
+
+		if self.event_id ~= nil then
+			output.eventId = self.event_id:jsonEncode()
+		end
+
+		if self.user_rsvp ~= nil then
+			output.userRsvp = self.user_rsvp:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RsvpToEventAction_ParamsImpl.jsonDecode(input: { [string]: any }): RsvpToEventAction_Params
+		local self = _RsvpToEventAction_ParamsImpl.new()
+
+		if input.event_id ~= nil then
+			self.event_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.event_id)
+		end
+
+		if input.eventId ~= nil then
+			self.event_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.eventId)
+		end
+
+		if input.user_rsvp ~= nil then
+			self.user_rsvp = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.user_rsvp)
+		end
+
+		if input.userRsvp ~= nil then
+			self.user_rsvp = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.userRsvp)
+		end
+
+		return self
+	end
+
+	_RsvpToEventAction_ParamsImpl.descriptor = {
+		name = "RsvpToEventAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.RsvpToEventAction_Params = _RsvpToEventAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RsvpToEventAction_Params)
+end
+
+do
+	local _ApplyChartsFilterActionImpl = {}
+	_ApplyChartsFilterActionImpl.__index = _ApplyChartsFilterActionImpl
+
+	function _ApplyChartsFilterActionImpl.new(data: _ApplyChartsFilterActionPartialFields?): ApplyChartsFilterAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ApplyChartsFilterActionImpl :: _ApplyChartsFilterActionImpl)
+	end
+
+	function _ApplyChartsFilterActionImpl.encode(self: ApplyChartsFilterAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ApplyChartsFilterActionImpl.decode(input: buffer): ApplyChartsFilterAction
+		local self = _ApplyChartsFilterActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ApplyChartsFilterAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ApplyChartsFilterActionImpl.jsonEncode(self: ApplyChartsFilterAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ApplyChartsFilterActionImpl.jsonDecode(input: { [string]: any }): ApplyChartsFilterAction
+		local self = _ApplyChartsFilterActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ApplyChartsFilterAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ApplyChartsFilterAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ApplyChartsFilterActionImpl.descriptor = {
+		name = "ApplyChartsFilterAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ApplyChartsFilterAction",
+	}
+
+	messages.ApplyChartsFilterAction = _ApplyChartsFilterActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ApplyChartsFilterAction)
+end
+
+do
+	local _ApplyChartsFilterAction_ParamsImpl = {}
+	_ApplyChartsFilterAction_ParamsImpl.__index = _ApplyChartsFilterAction_ParamsImpl
+
+	function _ApplyChartsFilterAction_ParamsImpl.new(
+		data: _ApplyChartsFilterAction_ParamsPartialFields?
+	): ApplyChartsFilterAction_Params
+		return setmetatable({
+			session_id = if data == nil or data.session_id == nil then nil else data.session_id,
+		}, _ApplyChartsFilterAction_ParamsImpl :: _ApplyChartsFilterAction_ParamsImpl)
+	end
+
+	function _ApplyChartsFilterAction_ParamsImpl.encode(self: ApplyChartsFilterAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.session_id ~= nil then
+			local encoded = self.session_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ApplyChartsFilterAction_ParamsImpl.decode(input: buffer): ApplyChartsFilterAction_Params
+		local self = _ApplyChartsFilterAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.session_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ApplyChartsFilterAction_ParamsImpl.jsonEncode(self: ApplyChartsFilterAction_Params): any
+		local output = {}
+
+		if self.session_id ~= nil then
+			output.sessionId = self.session_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ApplyChartsFilterAction_ParamsImpl.jsonDecode(input: { [string]: any }): ApplyChartsFilterAction_Params
+		local self = _ApplyChartsFilterAction_ParamsImpl.new()
+
+		if input.session_id ~= nil then
+			self.session_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.session_id)
+		end
+
+		if input.sessionId ~= nil then
+			self.session_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sessionId)
+		end
+
+		return self
+	end
+
+	_ApplyChartsFilterAction_ParamsImpl.descriptor = {
+		name = "ApplyChartsFilterAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ApplyChartsFilterAction_Params = _ApplyChartsFilterAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ApplyChartsFilterAction_Params)
+end
+
+do
+	local _AnalyticsEventActionImpl = {}
+	_AnalyticsEventActionImpl.__index = _AnalyticsEventActionImpl
+
+	function _AnalyticsEventActionImpl.new(data: _AnalyticsEventActionPartialFields?): AnalyticsEventAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _AnalyticsEventActionImpl :: _AnalyticsEventActionImpl)
+	end
+
+	function _AnalyticsEventActionImpl.encode(self: AnalyticsEventAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AnalyticsEventActionImpl.decode(input: buffer): AnalyticsEventAction
+		local self = _AnalyticsEventActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.AnalyticsEventAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AnalyticsEventActionImpl.jsonEncode(self: AnalyticsEventAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _AnalyticsEventActionImpl.jsonDecode(input: { [string]: any }): AnalyticsEventAction
+		local self = _AnalyticsEventActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.AnalyticsEventAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.AnalyticsEventAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_AnalyticsEventActionImpl.descriptor = {
+		name = "AnalyticsEventAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.AnalyticsEventAction",
+	}
+
+	messages.AnalyticsEventAction = _AnalyticsEventActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AnalyticsEventAction)
+end
+
+do
+	local _AnalyticsEventAction_ParamsImpl = {}
+	_AnalyticsEventAction_ParamsImpl.__index = _AnalyticsEventAction_ParamsImpl
+
+	function _AnalyticsEventAction_ParamsImpl.new(
+		data: _AnalyticsEventAction_ParamsPartialFields?
+	): AnalyticsEventAction_Params
+		return setmetatable({
+			event_name = if data == nil or data.event_name == nil then nil else data.event_name,
+			event_fields = if data == nil or data.event_fields == nil then nil else data.event_fields,
+		}, _AnalyticsEventAction_ParamsImpl :: _AnalyticsEventAction_ParamsImpl)
+	end
+
+	function _AnalyticsEventAction_ParamsImpl.encode(self: AnalyticsEventAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.event_name ~= nil then
+			local encoded = self.event_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.event_fields ~= nil then
+			local encoded = self.event_fields:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AnalyticsEventAction_ParamsImpl.decode(input: buffer): AnalyticsEventAction_Params
+		local self = _AnalyticsEventAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_fields = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AnalyticsEventAction_ParamsImpl.jsonEncode(self: AnalyticsEventAction_Params): any
+		local output = {}
+
+		if self.event_name ~= nil then
+			output.eventName = self.event_name:jsonEncode()
+		end
+
+		if self.event_fields ~= nil then
+			output.eventFields = self.event_fields:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _AnalyticsEventAction_ParamsImpl.jsonDecode(input: { [string]: any }): AnalyticsEventAction_Params
+		local self = _AnalyticsEventAction_ParamsImpl.new()
+
+		if input.event_name ~= nil then
+			self.event_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.event_name)
+		end
+
+		if input.eventName ~= nil then
+			self.event_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.eventName)
+		end
+
+		if input.event_fields ~= nil then
+			self.event_fields =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.event_fields)
+		end
+
+		if input.eventFields ~= nil then
+			self.event_fields =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.eventFields)
+		end
+
+		return self
+	end
+
+	_AnalyticsEventAction_ParamsImpl.descriptor = {
+		name = "AnalyticsEventAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.AnalyticsEventAction_Params = _AnalyticsEventAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AnalyticsEventAction_Params)
+end
+
+do
+	local _CustomAnalyticsEventActionImpl = {}
+	_CustomAnalyticsEventActionImpl.__index = _CustomAnalyticsEventActionImpl
+
+	function _CustomAnalyticsEventActionImpl.new(
+		data: _CustomAnalyticsEventActionPartialFields?
+	): CustomAnalyticsEventAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _CustomAnalyticsEventActionImpl :: _CustomAnalyticsEventActionImpl)
+	end
+
+	function _CustomAnalyticsEventActionImpl.encode(self: CustomAnalyticsEventAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CustomAnalyticsEventActionImpl.decode(input: buffer): CustomAnalyticsEventAction
+		local self = _CustomAnalyticsEventActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.CustomAnalyticsEventAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CustomAnalyticsEventActionImpl.jsonEncode(self: CustomAnalyticsEventAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _CustomAnalyticsEventActionImpl.jsonDecode(input: { [string]: any }): CustomAnalyticsEventAction
+		local self = _CustomAnalyticsEventActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.CustomAnalyticsEventAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.CustomAnalyticsEventAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_CustomAnalyticsEventActionImpl.descriptor = {
+		name = "CustomAnalyticsEventAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.CustomAnalyticsEventAction",
+	}
+
+	messages.CustomAnalyticsEventAction = _CustomAnalyticsEventActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CustomAnalyticsEventAction)
+end
+
+do
+	local _CustomAnalyticsEventAction_ParamsImpl = {}
+	_CustomAnalyticsEventAction_ParamsImpl.__index = _CustomAnalyticsEventAction_ParamsImpl
+
+	function _CustomAnalyticsEventAction_ParamsImpl.new(
+		data: _CustomAnalyticsEventAction_ParamsPartialFields?
+	): CustomAnalyticsEventAction_Params
+		return setmetatable({
+			event_name = if data == nil or data.event_name == nil then nil else data.event_name,
+			event_fields = if data == nil or data.event_fields == nil then nil else data.event_fields,
+		}, _CustomAnalyticsEventAction_ParamsImpl :: _CustomAnalyticsEventAction_ParamsImpl)
+	end
+
+	function _CustomAnalyticsEventAction_ParamsImpl.encode(self: CustomAnalyticsEventAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.event_name ~= nil then
+			local encoded = self.event_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.event_fields ~= nil then
+			local encoded = self.event_fields:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CustomAnalyticsEventAction_ParamsImpl.decode(input: buffer): CustomAnalyticsEventAction_Params
+		local self = _CustomAnalyticsEventAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_fields = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CustomAnalyticsEventAction_ParamsImpl.jsonEncode(self: CustomAnalyticsEventAction_Params): any
+		local output = {}
+
+		if self.event_name ~= nil then
+			output.eventName = self.event_name:jsonEncode()
+		end
+
+		if self.event_fields ~= nil then
+			output.eventFields = self.event_fields:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _CustomAnalyticsEventAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): CustomAnalyticsEventAction_Params
+		local self = _CustomAnalyticsEventAction_ParamsImpl.new()
+
+		if input.event_name ~= nil then
+			self.event_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.event_name)
+		end
+
+		if input.eventName ~= nil then
+			self.event_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.eventName)
+		end
+
+		if input.event_fields ~= nil then
+			self.event_fields =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.event_fields)
+		end
+
+		if input.eventFields ~= nil then
+			self.event_fields =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.eventFields)
+		end
+
+		return self
+	end
+
+	_CustomAnalyticsEventAction_ParamsImpl.descriptor = {
+		name = "CustomAnalyticsEventAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.CustomAnalyticsEventAction_Params = _CustomAnalyticsEventAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CustomAnalyticsEventAction_Params)
+end
+
+do
+	local _OpenSocialLinkProfileActionImpl = {}
+	_OpenSocialLinkProfileActionImpl.__index = _OpenSocialLinkProfileActionImpl
+
+	function _OpenSocialLinkProfileActionImpl.new(
+		data: _OpenSocialLinkProfileActionPartialFields?
+	): OpenSocialLinkProfileAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenSocialLinkProfileActionImpl :: _OpenSocialLinkProfileActionImpl)
+	end
+
+	function _OpenSocialLinkProfileActionImpl.encode(self: OpenSocialLinkProfileAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenSocialLinkProfileActionImpl.decode(input: buffer): OpenSocialLinkProfileAction
+		local self = _OpenSocialLinkProfileActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenSocialLinkProfileAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenSocialLinkProfileActionImpl.jsonEncode(self: OpenSocialLinkProfileAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenSocialLinkProfileActionImpl.jsonDecode(input: { [string]: any }): OpenSocialLinkProfileAction
+		local self = _OpenSocialLinkProfileActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenSocialLinkProfileAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenSocialLinkProfileAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenSocialLinkProfileActionImpl.descriptor = {
+		name = "OpenSocialLinkProfileAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenSocialLinkProfileAction",
+	}
+
+	messages.OpenSocialLinkProfileAction = _OpenSocialLinkProfileActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenSocialLinkProfileAction)
+end
+
+do
+	local _OpenSocialLinkProfileAction_ParamsImpl = {}
+	_OpenSocialLinkProfileAction_ParamsImpl.__index = _OpenSocialLinkProfileAction_ParamsImpl
+
+	function _OpenSocialLinkProfileAction_ParamsImpl.new(
+		data: _OpenSocialLinkProfileAction_ParamsPartialFields?
+	): OpenSocialLinkProfileAction_Params
+		return setmetatable({
+			profile_id = if data == nil or data.profile_id == nil then nil else data.profile_id,
+			profile_type = if data == nil or data.profile_type == nil then nil else data.profile_type,
+			source = if data == nil or data.source == nil then nil else data.source,
+			social_link_type = if data == nil or data.social_link_type == nil then nil else data.social_link_type,
+			social_link_url = if data == nil or data.social_link_url == nil then nil else data.social_link_url,
+			social_link_display_type = if data == nil or data.social_link_display_type == nil
+				then nil
+				else data.social_link_display_type,
+		}, _OpenSocialLinkProfileAction_ParamsImpl :: _OpenSocialLinkProfileAction_ParamsImpl)
+	end
+
+	function _OpenSocialLinkProfileAction_ParamsImpl.encode(self: OpenSocialLinkProfileAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.profile_id ~= nil then
+			local encoded = self.profile_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.profile_type ~= nil then
+			local encoded = self.profile_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.source ~= nil then
+			local encoded = self.source:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.social_link_type ~= nil then
+			local encoded = self.social_link_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.social_link_url ~= nil then
+			local encoded = self.social_link_url:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.social_link_display_type ~= nil then
+			local encoded = self.social_link_display_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenSocialLinkProfileAction_ParamsImpl.decode(input: buffer): OpenSocialLinkProfileAction_Params
+		local self = _OpenSocialLinkProfileAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.profile_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.profile_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.social_link_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.social_link_url = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.social_link_display_type =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenSocialLinkProfileAction_ParamsImpl.jsonEncode(self: OpenSocialLinkProfileAction_Params): any
+		local output = {}
+
+		if self.profile_id ~= nil then
+			output.profileId = self.profile_id:jsonEncode()
+		end
+
+		if self.profile_type ~= nil then
+			output.profileType = self.profile_type:jsonEncode()
+		end
+
+		if self.source ~= nil then
+			output.source = self.source:jsonEncode()
+		end
+
+		if self.social_link_type ~= nil then
+			output.socialLinkType = self.social_link_type:jsonEncode()
+		end
+
+		if self.social_link_url ~= nil then
+			output.socialLinkUrl = self.social_link_url:jsonEncode()
+		end
+
+		if self.social_link_display_type ~= nil then
+			output.socialLinkDisplayType = self.social_link_display_type:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenSocialLinkProfileAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenSocialLinkProfileAction_Params
+		local self = _OpenSocialLinkProfileAction_ParamsImpl.new()
+
+		if input.profile_id ~= nil then
+			self.profile_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.profile_id)
+		end
+
+		if input.profileId ~= nil then
+			self.profile_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.profileId)
+		end
+
+		if input.profile_type ~= nil then
+			self.profile_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.profile_type)
+		end
+
+		if input.profileType ~= nil then
+			self.profile_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.profileType)
+		end
+
+		if input.source ~= nil then
+			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
+		end
+
+		if input.social_link_type ~= nil then
+			self.social_link_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.social_link_type)
+		end
+
+		if input.socialLinkType ~= nil then
+			self.social_link_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.socialLinkType)
+		end
+
+		if input.social_link_url ~= nil then
+			self.social_link_url =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.social_link_url)
+		end
+
+		if input.socialLinkUrl ~= nil then
+			self.social_link_url =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.socialLinkUrl)
+		end
+
+		if input.social_link_display_type ~= nil then
+			self.social_link_display_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.social_link_display_type)
+		end
+
+		if input.socialLinkDisplayType ~= nil then
+			self.social_link_display_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.socialLinkDisplayType)
+		end
+
+		return self
+	end
+
+	_OpenSocialLinkProfileAction_ParamsImpl.descriptor = {
+		name = "OpenSocialLinkProfileAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenSocialLinkProfileAction_Params = _OpenSocialLinkProfileAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenSocialLinkProfileAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -10697,6 +12457,26 @@ do
 			elseif self.kind.type == "refresh_from_api_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 30, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "rsvp_to_event_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 31, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "apply_charts_filter_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 32, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "analytics_event_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 33, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "custom_analytics_event_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 34, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_social_link_profile_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 35, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -10920,6 +12700,38 @@ do
 					self.kind =
 						{ type = "refresh_from_api_action", value = messages.RefreshFromApiAction.decode(value) }
 					continue
+				elseif field == 31 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "rsvp_to_event_action", value = messages.RsvpToEventAction.decode(value) }
+					continue
+				elseif field == 32 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "apply_charts_filter_action", value = messages.ApplyChartsFilterAction.decode(value) }
+					continue
+				elseif field == 33 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "analytics_event_action", value = messages.AnalyticsEventAction.decode(value) }
+					continue
+				elseif field == 34 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "custom_analytics_event_action",
+						value = messages.CustomAnalyticsEventAction.decode(value),
+					}
+					continue
+				elseif field == 35 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_social_link_profile_action",
+						value = messages.OpenSocialLinkProfileAction.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -11008,6 +12820,16 @@ do
 				output.openSongDetailAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "refresh_from_api_action" then
 				output.refreshFromApiAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "rsvp_to_event_action" then
+				output.rsvpToEventAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "apply_charts_filter_action" then
+				output.applyChartsFilterAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "analytics_event_action" then
+				output.analyticsEventAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "custom_analytics_event_action" then
+				output.customAnalyticsEventAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_social_link_profile_action" then
+				output.openSocialLinkProfileAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -11423,6 +13245,76 @@ do
 			}
 		end
 
+		if input.rsvp_to_event_action ~= nil then
+			self.kind = {
+				type = "rsvp_to_event_action",
+				value = messages.RsvpToEventAction.jsonDecode(input.rsvp_to_event_action),
+			}
+		end
+
+		if input.rsvpToEventAction ~= nil then
+			self.kind = {
+				type = "rsvp_to_event_action",
+				value = messages.RsvpToEventAction.jsonDecode(input.rsvpToEventAction),
+			}
+		end
+
+		if input.apply_charts_filter_action ~= nil then
+			self.kind = {
+				type = "apply_charts_filter_action",
+				value = messages.ApplyChartsFilterAction.jsonDecode(input.apply_charts_filter_action),
+			}
+		end
+
+		if input.applyChartsFilterAction ~= nil then
+			self.kind = {
+				type = "apply_charts_filter_action",
+				value = messages.ApplyChartsFilterAction.jsonDecode(input.applyChartsFilterAction),
+			}
+		end
+
+		if input.analytics_event_action ~= nil then
+			self.kind = {
+				type = "analytics_event_action",
+				value = messages.AnalyticsEventAction.jsonDecode(input.analytics_event_action),
+			}
+		end
+
+		if input.analyticsEventAction ~= nil then
+			self.kind = {
+				type = "analytics_event_action",
+				value = messages.AnalyticsEventAction.jsonDecode(input.analyticsEventAction),
+			}
+		end
+
+		if input.custom_analytics_event_action ~= nil then
+			self.kind = {
+				type = "custom_analytics_event_action",
+				value = messages.CustomAnalyticsEventAction.jsonDecode(input.custom_analytics_event_action),
+			}
+		end
+
+		if input.customAnalyticsEventAction ~= nil then
+			self.kind = {
+				type = "custom_analytics_event_action",
+				value = messages.CustomAnalyticsEventAction.jsonDecode(input.customAnalyticsEventAction),
+			}
+		end
+
+		if input.open_social_link_profile_action ~= nil then
+			self.kind = {
+				type = "open_social_link_profile_action",
+				value = messages.OpenSocialLinkProfileAction.jsonDecode(input.open_social_link_profile_action),
+			}
+		end
+
+		if input.openSocialLinkProfileAction ~= nil then
+			self.kind = {
+				type = "open_social_link_profile_action",
+				value = messages.OpenSocialLinkProfileAction.jsonDecode(input.openSocialLinkProfileAction),
+			}
+		end
+
 		return self
 	end
 
@@ -11563,7 +13455,7 @@ do
 	): ActionProp_ConditionalOption
 		return setmetatable({
 			condition = if data == nil or data.condition == nil then nil else data.condition,
-			value = if data == nil or data.value == nil then nil else data.value,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
 		}, _ActionProp_ConditionalOptionImpl :: _ActionProp_ConditionalOptionImpl)
 	end
 
@@ -11577,10 +13469,12 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.value ~= nil then
-			local encoded = self.value:encode()
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		if self.kind ~= nil then
+			if self.kind.type == "value" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -11607,10 +13501,10 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
 					continue
-				elseif field == 2 then
+				elseif field == 3 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.value = messages.Action.decode(value)
+					self.kind = { type = "value", value = messages.Action.decode(value) }
 					continue
 				end
 
@@ -11643,8 +13537,10 @@ do
 			output.condition = self.condition:jsonEncode()
 		end
 
-		if self.value ~= nil then
-			output.value = self.value:jsonEncode()
+		if self.kind ~= nil then
+			if self.kind.type == "value" then
+				output.value = self.kind.value:jsonEncode()
+			end
 		end
 
 		return output
@@ -11659,7 +13555,7 @@ do
 		end
 
 		if input.value ~= nil then
-			self.value = messages.Action.jsonDecode(input.value)
+			self.kind = { type = "value", value = messages.Action.jsonDecode(input.value) }
 		end
 
 		return self
@@ -11916,7 +13812,7 @@ do
 	): FocusNavActionsProp_ConditionalOption
 		return setmetatable({
 			condition = if data == nil or data.condition == nil then nil else data.condition,
-			value = if data == nil or data.value == nil then nil else data.value,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
 		}, _FocusNavActionsProp_ConditionalOptionImpl :: _FocusNavActionsProp_ConditionalOptionImpl)
 	end
 
@@ -11930,10 +13826,12 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.value ~= nil then
-			local encoded = self.value:encode()
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		if self.kind ~= nil then
+			if self.kind.type == "value" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -11960,10 +13858,10 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
 					continue
-				elseif field == 2 then
+				elseif field == 3 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.value = messages.FocusNavActionsProp.decode(value)
+					self.kind = { type = "value", value = messages.FocusNavActionsProp_FocusNavData.decode(value) }
 					continue
 				end
 
@@ -11996,8 +13894,10 @@ do
 			output.condition = self.condition:jsonEncode()
 		end
 
-		if self.value ~= nil then
-			output.value = self.value:jsonEncode()
+		if self.kind ~= nil then
+			if self.kind.type == "value" then
+				output.value = self.kind.value:jsonEncode()
+			end
 		end
 
 		return output
@@ -12014,7 +13914,7 @@ do
 		end
 
 		if input.value ~= nil then
-			self.value = messages.FocusNavActionsProp.jsonDecode(input.value)
+			self.kind = { type = "value", value = messages.FocusNavActionsProp_FocusNavData.jsonDecode(input.value) }
 		end
 
 		return self
@@ -12629,6 +14529,16 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_SONG_DETAIL"
 		elseif value == 30 then
 			return "ACTION_TYPE_REFRESH_FROM_API"
+		elseif value == 31 then
+			return "ACTION_TYPE_RSVP_TO_EVENT"
+		elseif value == 32 then
+			return "ACTION_TYPE_APPLY_CHARTS_FILTER"
+		elseif value == 33 then
+			return "ACTION_TYPE_ANALYTICS_EVENT"
+		elseif value == 34 then
+			return "ACTION_TYPE_CUSTOM_ANALYTICS_EVENT"
+		elseif value == 35 then
+			return "ACTION_TYPE_OPEN_SOCIAL_LINK_PROFILE"
 		else
 			return nil
 		end
@@ -12697,6 +14607,16 @@ messages.ActionType = {
 			return 29
 		elseif self == "ACTION_TYPE_REFRESH_FROM_API" then
 			return 30
+		elseif self == "ACTION_TYPE_RSVP_TO_EVENT" then
+			return 31
+		elseif self == "ACTION_TYPE_APPLY_CHARTS_FILTER" then
+			return 32
+		elseif self == "ACTION_TYPE_ANALYTICS_EVENT" then
+			return 33
+		elseif self == "ACTION_TYPE_CUSTOM_ANALYTICS_EVENT" then
+			return 34
+		elseif self == "ACTION_TYPE_OPEN_SOCIAL_LINK_PROFILE" then
+			return 35
 		else
 			return self
 		end
@@ -12765,6 +14685,16 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_SONG_DETAIL"
 		elseif name == "ACTION_TYPE_REFRESH_FROM_API" then
 			return "ACTION_TYPE_REFRESH_FROM_API"
+		elseif name == "ACTION_TYPE_RSVP_TO_EVENT" then
+			return "ACTION_TYPE_RSVP_TO_EVENT"
+		elseif name == "ACTION_TYPE_APPLY_CHARTS_FILTER" then
+			return "ACTION_TYPE_APPLY_CHARTS_FILTER"
+		elseif name == "ACTION_TYPE_ANALYTICS_EVENT" then
+			return "ACTION_TYPE_ANALYTICS_EVENT"
+		elseif name == "ACTION_TYPE_CUSTOM_ANALYTICS_EVENT" then
+			return "ACTION_TYPE_CUSTOM_ANALYTICS_EVENT"
+		elseif name == "ACTION_TYPE_OPEN_SOCIAL_LINK_PROFILE" then
+			return "ACTION_TYPE_OPEN_SOCIAL_LINK_PROFILE"
 		else
 			return nil
 		end
@@ -12833,6 +14763,16 @@ return {
 	OpenMarketplaceCatalogFilters_Params = messages.OpenMarketplaceCatalogFilters_Params,
 	RefreshFromApiAction = messages.RefreshFromApiAction,
 	RefreshFromApiAction_Params = messages.RefreshFromApiAction_Params,
+	RsvpToEventAction = messages.RsvpToEventAction,
+	RsvpToEventAction_Params = messages.RsvpToEventAction_Params,
+	ApplyChartsFilterAction = messages.ApplyChartsFilterAction,
+	ApplyChartsFilterAction_Params = messages.ApplyChartsFilterAction_Params,
+	AnalyticsEventAction = messages.AnalyticsEventAction,
+	AnalyticsEventAction_Params = messages.AnalyticsEventAction_Params,
+	CustomAnalyticsEventAction = messages.CustomAnalyticsEventAction,
+	CustomAnalyticsEventAction_Params = messages.CustomAnalyticsEventAction_Params,
+	OpenSocialLinkProfileAction = messages.OpenSocialLinkProfileAction,
+	OpenSocialLinkProfileAction_Params = messages.OpenSocialLinkProfileAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

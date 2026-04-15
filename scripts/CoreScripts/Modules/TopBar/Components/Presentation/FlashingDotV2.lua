@@ -19,8 +19,6 @@ local Modules = CoreGui.RobloxGui.Modules
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
 local cameraDevicePermissionGrantedSignal =
 	require(CoreGui.RobloxGui.Modules.Settings.cameraDevicePermissionGrantedSignal)
-local getFFlagDoNotPromptCameraPermissionsOnMount =
-	require(CoreGui.RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 
 local ANIMATION_SPEED = 3
 local FLASHING_DOT = "rbxasset://textures/AnimationEditor/FaceCaptureUI/FlashingDot.png"
@@ -46,13 +44,7 @@ function FlashingDot:init()
 
 	self.checkNewVisibility = function()
 		local isUsingMic = VoiceChatServiceManager.localMuted ~= nil and not VoiceChatServiceManager.localMuted
-		-- @TODO: Remove VideoCaptureService.Active when FaceAnimatorService.VideoAnimationEnabled gives correct values for voice-enabled experiences
-		-- Note that we have to add VideoCaptureService.Active here because FaceAnimatorService.VideoAnimationEnabled returns true for voice-enabled experiences
-		local isUsingCamera = FaceAnimatorService.VideoAnimationEnabled and VideoCaptureService.Active
-		if getFFlagDoNotPromptCameraPermissionsOnMount() then
-			-- FaceAnimatorService.VideoAnimationEnabled is giving correct values now
-			isUsingCamera = FaceAnimatorService:IsStarted() and FaceAnimatorService.VideoAnimationEnabled
-		end
+		local isUsingCamera = FaceAnimatorService:IsStarted() and FaceAnimatorService.VideoAnimationEnabled
 		local newVisible = isUsingMic or isUsingCamera
 
 		local updatedVisibility = self.state.Visible ~= newVisible
@@ -76,19 +68,17 @@ function FlashingDot:init()
 		self.prevSinTime = newSinTime
 	end
 
-	if getFFlagDoNotPromptCameraPermissionsOnMount() then
-		self.teardownCameraPermissionGrantedListener = function()
-			-- Garbage collection
-			if self.cameraPermissionGrantedListener then
-				self.cameraPermissionGrantedListener:disconnect()
-				self.cameraPermissionGrantedListener = nil
-			end
+	self.teardownCameraPermissionGrantedListener = function()
+		-- Garbage collection
+		if self.cameraPermissionGrantedListener then
+			self.cameraPermissionGrantedListener:disconnect()
+			self.cameraPermissionGrantedListener = nil
 		end
-
-		self.cameraPermissionGrantedListener = cameraDevicePermissionGrantedSignal:connect(function()
-			self.checkNewVisibility()
-		end)
 	end
+
+	self.cameraPermissionGrantedListener = cameraDevicePermissionGrantedSignal:connect(function()
+		self.checkNewVisibility()
+	end)
 end
 
 function FlashingDot:didMount()

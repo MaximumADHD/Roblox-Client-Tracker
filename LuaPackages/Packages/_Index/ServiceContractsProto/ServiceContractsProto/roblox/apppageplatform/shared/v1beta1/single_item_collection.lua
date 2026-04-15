@@ -60,6 +60,8 @@ type _SingleItemCollectionSchema_PropsFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	item: _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp?,
+	impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _SingleItemCollectionSchema_PropsPartialFields = {
@@ -68,6 +70,8 @@ type _SingleItemCollectionSchema_PropsPartialFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	item: _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp?,
+	impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type SingleItemCollectionSchema_Props = typeof(setmetatable(
@@ -213,6 +217,12 @@ do
 			position = if data == nil or data.position == nil then nil else data.position,
 			size = if data == nil or data.size == nil then nil else data.size,
 			item = if data == nil or data.item == nil then nil else data.item,
+			impression_event_name = if data == nil or data.impression_event_name == nil
+				then nil
+				else data.impression_event_name,
+			skip_item_impressions_log = if data == nil or data.skip_item_impressions_log == nil
+				then nil
+				else data.skip_item_impressions_log,
 		}, _SingleItemCollectionSchema_PropsImpl :: _SingleItemCollectionSchema_PropsImpl)
 	end
 
@@ -247,6 +257,18 @@ do
 		if self.item ~= nil then
 			local encoded = self.item:encode()
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.impression_event_name ~= nil then
+			local encoded = self.impression_event_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.skip_item_impressions_log ~= nil then
+			local encoded = self.skip_item_impressions_log:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -293,6 +315,18 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.item = _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.impression_event_name =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.skip_item_impressions_log =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				end
 
@@ -341,6 +375,14 @@ do
 			output.item = self.item:jsonEncode()
 		end
 
+		if self.impression_event_name ~= nil then
+			output.impressionEventName = self.impression_event_name:jsonEncode()
+		end
+
+		if self.skip_item_impressions_log ~= nil then
+			output.skipItemImpressionsLog = self.skip_item_impressions_log:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -379,6 +421,26 @@ do
 
 		if input.item ~= nil then
 			self.item = _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentProp.jsonDecode(input.item)
+		end
+
+		if input.impression_event_name ~= nil then
+			self.impression_event_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.impression_event_name)
+		end
+
+		if input.impressionEventName ~= nil then
+			self.impression_event_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.impressionEventName)
+		end
+
+		if input.skip_item_impressions_log ~= nil then
+			self.skip_item_impressions_log =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skip_item_impressions_log)
+		end
+
+		if input.skipItemImpressionsLog ~= nil then
+			self.skip_item_impressions_log =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skipItemImpressionsLog)
 		end
 
 		return self

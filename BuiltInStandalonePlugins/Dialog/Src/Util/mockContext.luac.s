@@ -41,49 +41,51 @@ PROTO_2:
        24 SETTABLEKS                       R3 R4 K5 ["onStyleSheetChange"]
        26 SETUPVAL                         R4 1
        27 GETUPVAL                         R2 4
-       28 DUPTABLE                         R3 K10 [{"Design", "Plugin"}]
+       28 DUPTABLE                         R3 K11 [{"Design", "Localization", "Plugin"}]
        29 GETUPVAL                         R5 5
-       30 GETTABLEKS                       R4 R5 K11 ["new"]
+       30 GETTABLEKS                       R4 R5 K12 ["new"]
        32 GETUPVAL                         R6 1
        33 GETTABLEKS                       R5 R6 K4 ["design"]
        35 CALL                             R4 1 1
        36 SETTABLEKS                       R4 R3 K9 ["Design"]
-       38 GETUPVAL                         R5 6
-       39 GETTABLEKS                       R4 R5 K11 ["new"]
-       41 GETUPVAL                         R6 7
-       42 GETTABLEKS                       R5 R6 K11 ["new"]
-       44 CALL                             R5 0 -1
-       45 CALL                             R4 -1 1
-       46 SETTABLEKS                       R4 R3 K0 ["Plugin"]
-       48 DUPTABLE                         R4 K13 [{"ContextStack"}]
-       49 GETUPVAL                         R5 8
-       50 GETUPVAL                         R7 9
-       51 GETTABLEKS                       R6 R7 K12 ["ContextStack"]
-       53 DUPTABLE                         R7 K15 [{"providers"}]
-       54 NEWTABLE                         R8 0 1
-       56 GETUPVAL                         R9 8
-       57 GETUPVAL                         R10 10
-       58 DUPTABLE                         R11 K17 [{"onStyleSheetChange", "overlayGui"}]
-       59 GETUPVAL                         R13 1
-       60 GETTABLEKS                       R12 R13 K5 ["onStyleSheetChange"]
-       62 SETTABLEKS                       R12 R11 K5 ["onStyleSheetChange"]
-       64 GETUPVAL                         R13 11
-       65 GETTABLEKS                       R12 R13 K18 ["Parent"]
-       67 SETTABLEKS                       R12 R11 K16 ["overlayGui"]
-       69 CALL                             R9 2 -1
-       70 SETLIST                          R8 R9 -1 [1]
-       72 SETTABLEKS                       R8 R7 K14 ["providers"]
-       74 DUPTABLE                         R8 K20 [{"Children"}]
-       75 GETUPVAL                         R9 8
-       76 GETUPVAL                         R10 12
-       77 LOADNIL                          R11
-       78 MOVE                             R12 R0
-       79 CALL                             R9 3 1
-       80 SETTABLEKS                       R9 R8 K19 ["Children"]
-       82 CALL                             R5 3 1
-       83 SETTABLEKS                       R5 R4 K12 ["ContextStack"]
-       85 CALL                             R2 2 -1
-       86 RETURN                           R2 -1
+       38 GETUPVAL                         R4 6
+       39 SETTABLEKS                       R4 R3 K10 ["Localization"]
+       41 GETUPVAL                         R5 7
+       42 GETTABLEKS                       R4 R5 K12 ["new"]
+       44 GETUPVAL                         R6 8
+       45 GETTABLEKS                       R5 R6 K12 ["new"]
+       47 CALL                             R5 0 -1
+       48 CALL                             R4 -1 1
+       49 SETTABLEKS                       R4 R3 K0 ["Plugin"]
+       51 DUPTABLE                         R4 K14 [{"ContextStack"}]
+       52 GETUPVAL                         R5 9
+       53 GETUPVAL                         R7 10
+       54 GETTABLEKS                       R6 R7 K13 ["ContextStack"]
+       56 DUPTABLE                         R7 K16 [{"providers"}]
+       57 NEWTABLE                         R8 0 1
+       59 GETUPVAL                         R9 9
+       60 GETUPVAL                         R10 11
+       61 DUPTABLE                         R11 K18 [{"onStyleSheetChange", "overlayGui"}]
+       62 GETUPVAL                         R13 1
+       63 GETTABLEKS                       R12 R13 K5 ["onStyleSheetChange"]
+       65 SETTABLEKS                       R12 R11 K5 ["onStyleSheetChange"]
+       67 GETUPVAL                         R13 12
+       68 GETTABLEKS                       R12 R13 K19 ["Parent"]
+       70 SETTABLEKS                       R12 R11 K17 ["overlayGui"]
+       72 CALL                             R9 2 -1
+       73 SETLIST                          R8 R9 -1 [1]
+       75 SETTABLEKS                       R8 R7 K15 ["providers"]
+       77 DUPTABLE                         R8 K21 [{"Children"}]
+       78 GETUPVAL                         R9 9
+       79 GETUPVAL                         R10 13
+       80 LOADNIL                          R11
+       81 MOVE                             R12 R0
+       82 CALL                             R9 3 1
+       83 SETTABLEKS                       R9 R8 K20 ["Children"]
+       85 CALL                             R5 3 1
+       86 SETTABLEKS                       R5 R4 K13 ["ContextStack"]
+       88 CALL                             R2 2 -1
+       89 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -99,56 +101,76 @@ MAIN:
        15 GETTABLEKS                       R4 R0 K10 ["Packages"]
        17 GETTABLEKS                       R3 R4 K11 ["Framework"]
        19 CALL                             R2 1 1
-       20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R0 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["React"]
-       26 CALL                             R3 1 1
-       27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R7 R0 K10 ["Packages"]
-       31 GETTABLEKS                       R6 R7 K13 ["Dev"]
-       33 GETTABLEKS                       R5 R6 K14 ["ReactTestingLibrary"]
-       35 CALL                             R4 1 1
-       36 GETIMPORT                        R5 K9 [require]
-       38 GETTABLEKS                       R7 R0 K10 ["Packages"]
-       40 GETTABLEKS                       R6 R7 K15 ["ReactUtils"]
-       42 CALL                             R5 1 1
+       20 GETTABLEKS                       R6 R0 K12 ["Src"]
+       22 GETTABLEKS                       R5 R6 K13 ["Resources"]
+       24 GETTABLEKS                       R4 R5 K14 ["Localization"]
+       26 GETTABLEKS                       R3 R4 K15 ["LocalizedStrings"]
+       28 GETIMPORT                        R4 K9 [require]
+       30 GETTABLEKS                       R6 R0 K10 ["Packages"]
+       32 GETTABLEKS                       R5 R6 K16 ["React"]
+       34 CALL                             R4 1 1
+       35 GETTABLEKS                       R8 R0 K12 ["Src"]
+       37 GETTABLEKS                       R7 R8 K13 ["Resources"]
+       39 GETTABLEKS                       R6 R7 K14 ["Localization"]
+       41 GETTABLEKS                       R5 R6 K17 ["SourceStrings"]
        43 GETIMPORT                        R6 K9 [require]
-       45 GETTABLEKS                       R8 R0 K10 ["Packages"]
-       47 GETTABLEKS                       R7 R8 K16 ["StudioFoundation"]
-       49 CALL                             R6 1 1
-       50 GETTABLEKS                       R8 R2 K17 ["ContextServices"]
-       52 GETTABLEKS                       R7 R8 K18 ["Design"]
-       54 GETTABLEKS                       R9 R6 K19 ["Components"]
-       56 GETTABLEKS                       R8 R9 K20 ["FoundationProviderAdapter"]
-       58 GETTABLEKS                       R11 R2 K21 ["TestHelpers"]
-       60 GETTABLEKS                       R10 R11 K22 ["Instances"]
-       62 GETTABLEKS                       R9 R10 K23 ["MockPlugin"]
-       64 GETTABLEKS                       R11 R2 K17 ["ContextServices"]
-       66 GETTABLEKS                       R10 R11 K24 ["Plugin"]
-       68 GETTABLEKS                       R11 R4 K25 ["document"]
-       70 GETTABLEKS                       R12 R3 K26 ["createElement"]
-       72 GETTABLEKS                       R14 R2 K17 ["ContextServices"]
-       74 GETTABLEKS                       R13 R14 K27 ["provide"]
-       76 GETTABLEKS                       R15 R2 K28 ["Styling"]
-       78 GETTABLEKS                       R14 R15 K29 ["registerPluginStyles"]
-       80 LOADNIL                          R15
-       81 DUPCLOSURE                       R16 K30 [PROTO_1]
-       82 CAPTURE                          VAL R3
-       83 CAPTURE                          VAL R1
-       84 CAPTURE                          VAL R12
-       85 NEWCLOSURE                       R17 P1
-       86 CAPTURE                          VAL R0
-       87 CAPTURE                          REF R15
-       88 CAPTURE                          VAL R6
-       89 CAPTURE                          VAL R14
-       90 CAPTURE                          VAL R13
-       91 CAPTURE                          VAL R7
-       92 CAPTURE                          VAL R10
-       93 CAPTURE                          VAL R9
-       94 CAPTURE                          VAL R12
-       95 CAPTURE                          VAL R5
-       96 CAPTURE                          VAL R8
-       97 CAPTURE                          VAL R11
-       98 CAPTURE                          VAL R16
-       99 CLOSEUPVALS                      R15
-      100 RETURN                           R17 1
+       45 GETTABLEKS                       R9 R0 K10 ["Packages"]
+       47 GETTABLEKS                       R8 R9 K18 ["Dev"]
+       49 GETTABLEKS                       R7 R8 K19 ["ReactTestingLibrary"]
+       51 CALL                             R6 1 1
+       52 GETIMPORT                        R7 K9 [require]
+       54 GETTABLEKS                       R9 R0 K10 ["Packages"]
+       56 GETTABLEKS                       R8 R9 K20 ["ReactUtils"]
+       58 CALL                             R7 1 1
+       59 GETIMPORT                        R8 K9 [require]
+       61 GETTABLEKS                       R10 R0 K10 ["Packages"]
+       63 GETTABLEKS                       R9 R10 K21 ["StudioFoundation"]
+       65 CALL                             R8 1 1
+       66 GETTABLEKS                       R10 R2 K22 ["ContextServices"]
+       68 GETTABLEKS                       R9 R10 K23 ["Design"]
+       70 GETTABLEKS                       R11 R2 K22 ["ContextServices"]
+       72 GETTABLEKS                       R10 R11 K14 ["Localization"]
+       74 GETTABLEKS                       R12 R8 K24 ["Components"]
+       76 GETTABLEKS                       R11 R12 K25 ["FoundationProviderAdapter"]
+       78 GETTABLEKS                       R14 R2 K26 ["TestHelpers"]
+       80 GETTABLEKS                       R13 R14 K27 ["Instances"]
+       82 GETTABLEKS                       R12 R13 K28 ["MockPlugin"]
+       84 GETTABLEKS                       R14 R2 K22 ["ContextServices"]
+       86 GETTABLEKS                       R13 R14 K29 ["Plugin"]
+       88 GETTABLEKS                       R14 R6 K30 ["document"]
+       90 GETTABLEKS                       R15 R4 K31 ["createElement"]
+       92 GETTABLEKS                       R17 R2 K22 ["ContextServices"]
+       94 GETTABLEKS                       R16 R17 K32 ["provide"]
+       96 GETTABLEKS                       R18 R2 K33 ["Styling"]
+       98 GETTABLEKS                       R17 R18 K34 ["registerPluginStyles"]
+      100 LOADNIL                          R18
+      101 GETTABLEKS                       R19 R10 K35 ["new"]
+      103 DUPTABLE                         R20 K40 [{"stringResourceTable", "translationResourceTable", "pluginName", "overrideLocaleId"}]
+      104 SETTABLEKS                       R5 R20 K36 ["stringResourceTable"]
+      106 SETTABLEKS                       R3 R20 K37 ["translationResourceTable"]
+      108 LOADK                            R21 K41 ["DialogPlugin"]
+      109 SETTABLEKS                       R21 R20 K38 ["pluginName"]
+      111 LOADK                            R21 K42 ["en-US"]
+      112 SETTABLEKS                       R21 R20 K39 ["overrideLocaleId"]
+      114 CALL                             R19 1 1
+      115 DUPCLOSURE                       R20 K43 [PROTO_1]
+      116 CAPTURE                          VAL R4
+      117 CAPTURE                          VAL R1
+      118 CAPTURE                          VAL R15
+      119 NEWCLOSURE                       R21 P1
+      120 CAPTURE                          VAL R0
+      121 CAPTURE                          REF R18
+      122 CAPTURE                          VAL R8
+      123 CAPTURE                          VAL R17
+      124 CAPTURE                          VAL R16
+      125 CAPTURE                          VAL R9
+      126 CAPTURE                          VAL R19
+      127 CAPTURE                          VAL R13
+      128 CAPTURE                          VAL R12
+      129 CAPTURE                          VAL R15
+      130 CAPTURE                          VAL R7
+      131 CAPTURE                          VAL R11
+      132 CAPTURE                          VAL R14
+      133 CAPTURE                          VAL R20
+      134 CLOSEUPVALS                      R18
+      135 RETURN                           R21 1

@@ -34,13 +34,8 @@ local MicrophoneDevicePermissionsLogging =
 local Promise = require(CorePackages.Packages.Promise)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local TrackerMenu = require(RobloxGui.Modules.Tracker.TrackerMenu)
-local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
-
 local GetFFlagAvatarChatServiceEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
-local getFFlagDoNotPromptCameraPermissionsOnMount =
-	require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local getFFlagEnableAnalyticsForCameraDevicePermissions =
 	require(RobloxGui.Modules.Flags.getFFlagEnableAnalyticsForCameraDevicePermissions)
 local GetFFlagJoinWithoutMicPermissions =
@@ -261,14 +256,6 @@ local function requestPermissions(
 						didAuthorize = hasMicPermissions :: boolean,
 						uiContext = context :: string,
 					})
-				end
-
-				-- Remove with AVBURST-12354 once the C++ side fixes this.
-				if checkingCamera and not hasCameraPermissions then
-					if not getFFlagDoNotPromptCameraPermissionsOnMount() then
-						-- We will be firing the prompt as well in the component that requests it. This extra toast is unncessary.
-						TrackerMenu:showPrompt(TrackerPromptType.VideoNoPermission)
-					end
 				end
 
 				callback(response)

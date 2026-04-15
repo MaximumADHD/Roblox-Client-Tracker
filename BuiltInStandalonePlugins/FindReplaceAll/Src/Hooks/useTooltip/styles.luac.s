@@ -10,154 +10,129 @@ MAIN:
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["defineFlags"]
+       18 GETTABLEKS                       R4 R5 K9 ["Resources"]
+       20 GETTABLEKS                       R3 R4 K10 ["StyleConstants"]
        22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Resources"]
-       29 GETTABLEKS                       R4 R5 K12 ["StyleConstants"]
-       31 CALL                             R3 1 1
-       32 GETTABLEKS                       R5 R1 K13 ["Styling"]
-       34 GETTABLEKS                       R4 R5 K14 ["createStyleRule"]
-       36 MOVE                             R5 R4
-       37 LOADK                            R6 K15 [".Component-useTooltip"]
-       38 NEWTABLE                         R7 0 0
-       40 NEWTABLE                         R8 0 7
-       42 MOVE                             R9 R4
-       43 LOADK                            R10 K16 [".Role-Tooltip"]
-       44 DUPTABLE                         R11 K21 [{"BackgroundColor3", "BorderColor3", "BorderMode", "BorderSizePixel"}]
-       45 LOADK                            R12 K22 ["$SemanticColorSurface300Inverse"]
-       46 SETTABLEKS                       R12 R11 K17 ["BackgroundColor3"]
-       48 LOADK                            R12 K23 ["$SemanticColorDivider"]
-       49 SETTABLEKS                       R12 R11 K18 ["BorderColor3"]
-       51 GETIMPORT                        R12 K26 [Enum.BorderMode.Inset]
-       53 SETTABLEKS                       R12 R11 K19 ["BorderMode"]
-       55 LOADN                            R12 2
-       56 SETTABLEKS                       R12 R11 K20 ["BorderSizePixel"]
-       58 CALL                             R9 2 1
-       59 MOVE                             R10 R4
-       60 LOADK                            R11 K27 [">> .Role-Surface"]
-       61 DUPTABLE                         R12 K29 [{"BackgroundTransparency", "BorderSizePixel"}]
-       62 LOADN                            R13 1
-       63 SETTABLEKS                       R13 R12 K28 ["BackgroundTransparency"]
-       65 LOADN                            R13 0
-       66 SETTABLEKS                       R13 R12 K20 ["BorderSizePixel"]
-       68 CALL                             R10 2 1
-       69 MOVE                             R11 R4
-       70 LOADK                            R12 K30 [">> .Text-Label"]
-       71 DUPTABLE                         R13 K34 [{"Font", "TextColor3", "TextSize", "BorderSizePixel", "BackgroundTransparency"}]
-       72 GETTABLEKS                       R15 R2 K35 ["getFFlagFindReplaceAllUseBuilderFont"]
-       74 CALL                             R15 0 1
-       75 JUMPIFNOT                        R15 ; [+3]
-       76 GETIMPORT                        R14 K37 [Enum.Font.SourceSans]
-       78 JUMP                             ; [+2]
-       79 GETTABLEKS                       R14 R3 K38 ["defaultFont"]
-       81 SETTABLEKS                       R14 R13 K31 ["Font"]
-       83 LOADK                            R14 K39 ["$SemanticColorContentStandardInverse"]
-       84 SETTABLEKS                       R14 R13 K32 ["TextColor3"]
-       86 GETTABLEKS                       R15 R2 K35 ["getFFlagFindReplaceAllUseBuilderFont"]
-       88 CALL                             R15 0 1
-       89 JUMPIFNOT                        R15 ; [+5]
-       90 LOADN                            R15 12
-       91 GETTABLEKS                       R16 R3 K40 ["defaultFontScale"]
-       93 MUL                              R14 R15 R16
-       94 JUMP                             ; [+1]
-       95 LOADK                            R14 K41 [17.598]
-       96 SETTABLEKS                       R14 R13 K33 ["TextSize"]
-       98 LOADN                            R14 0
-       99 SETTABLEKS                       R14 R13 K20 ["BorderSizePixel"]
-      101 LOADN                            R14 1
-      102 SETTABLEKS                       R14 R13 K28 ["BackgroundTransparency"]
-      104 CALL                             R11 2 1
-      105 MOVE                             R12 R4
-      106 LOADK                            R13 K42 [">> .Text-Title"]
-      107 DUPTABLE                         R14 K34 [{"Font", "TextColor3", "TextSize", "BorderSizePixel", "BackgroundTransparency"}]
-      108 GETTABLEKS                       R16 R2 K35 ["getFFlagFindReplaceAllUseBuilderFont"]
-      110 CALL                             R16 0 1
-      111 JUMPIFNOT                        R16 ; [+3]
-      112 GETIMPORT                        R15 K44 [Enum.Font.SourceSansBold]
-      114 JUMP                             ; [+2]
-      115 GETTABLEKS                       R15 R3 K45 ["defaultFontBold"]
-      117 SETTABLEKS                       R15 R14 K31 ["Font"]
-      119 LOADK                            R15 K39 ["$SemanticColorContentStandardInverse"]
-      120 SETTABLEKS                       R15 R14 K32 ["TextColor3"]
-      122 GETTABLEKS                       R16 R2 K35 ["getFFlagFindReplaceAllUseBuilderFont"]
-      124 CALL                             R16 0 1
-      125 JUMPIFNOT                        R16 ; [+5]
-      126 LOADN                            R16 12
-      127 GETTABLEKS                       R17 R3 K40 ["defaultFontScale"]
-      129 MUL                              R15 R16 R17
-      130 JUMP                             ; [+1]
-      131 LOADK                            R15 K41 [17.598]
-      132 SETTABLEKS                       R15 R14 K33 ["TextSize"]
-      134 LOADN                            R15 0
-      135 SETTABLEKS                       R15 R14 K20 ["BorderSizePixel"]
-      137 LOADN                            R15 1
-      138 SETTABLEKS                       R15 R14 K28 ["BackgroundTransparency"]
-      140 CALL                             R12 2 1
-      141 MOVE                             R13 R4
-      142 LOADK                            R14 K46 [">> .TooltipTextBounds"]
-      143 DUPTABLE                         R15 K49 [{"TextWrapped", "TextXAlignment"}]
-      144 LOADB                            R16 1
-      145 SETTABLEKS                       R16 R15 K47 ["TextWrapped"]
-      147 GETIMPORT                        R16 K51 [Enum.TextXAlignment.Left]
-      149 SETTABLEKS                       R16 R15 K48 ["TextXAlignment"]
-      151 NEWTABLE                         R16 0 1
-      153 MOVE                             R17 R4
-      154 LOADK                            R18 K52 ["::UISizeConstraint"]
-      155 DUPTABLE                         R19 K54 [{"MaxSize"}]
-      156 GETIMPORT                        R20 K57 [Vector2.new]
-      158 LOADN                            R21 144
-      159 LOADK                            R22 K58 [∞]
-      160 CALL                             R20 2 1
-      161 SETTABLEKS                       R20 R19 K53 ["MaxSize"]
-      163 CALL                             R17 2 -1
-      164 SETLIST                          R16 R17 -1 [1]
-      166 CALL                             R13 3 1
-      167 MOVE                             R14 R4
-      168 LOADK                            R15 K59 [">> .X-PadTooltip ::UIPadding"]
-      169 DUPTABLE                         R16 K64 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-      170 GETIMPORT                        R17 K66 [UDim.new]
-      172 LOADN                            R18 0
-      173 LOADN                            R19 6
-      174 CALL                             R17 2 1
-      175 SETTABLEKS                       R17 R16 K60 ["PaddingLeft"]
-      177 GETIMPORT                        R17 K66 [UDim.new]
-      179 LOADN                            R18 0
-      180 LOADN                            R19 6
-      181 CALL                             R17 2 1
-      182 SETTABLEKS                       R17 R16 K61 ["PaddingRight"]
-      184 GETIMPORT                        R17 K66 [UDim.new]
-      186 LOADN                            R18 0
-      187 LOADN                            R19 4
-      188 CALL                             R17 2 1
-      189 SETTABLEKS                       R17 R16 K62 ["PaddingTop"]
-      191 GETIMPORT                        R17 K66 [UDim.new]
-      193 LOADN                            R18 0
-      194 LOADN                            R19 4
-      195 CALL                             R17 2 1
-      196 SETTABLEKS                       R17 R16 K63 ["PaddingBottom"]
-      198 CALL                             R14 2 1
-      199 MOVE                             R15 R4
-      200 LOADK                            R16 K67 [">> .X-RowSpace50"]
-      201 NEWTABLE                         R17 0 0
-      203 NEWTABLE                         R18 0 1
-      205 MOVE                             R19 R4
-      206 LOADK                            R20 K68 ["::UIListLayout"]
-      207 DUPTABLE                         R21 K72 [{"FillDirection", "Padding", "SortOrder"}]
-      208 GETIMPORT                        R22 K74 [Enum.FillDirection.Horizontal]
-      210 SETTABLEKS                       R22 R21 K69 ["FillDirection"]
-      212 GETIMPORT                        R22 K66 [UDim.new]
-      214 LOADN                            R23 0
-      215 LOADN                            R24 4
-      216 CALL                             R22 2 1
-      217 SETTABLEKS                       R22 R21 K70 ["Padding"]
-      219 GETIMPORT                        R22 K76 [Enum.SortOrder.LayoutOrder]
-      221 SETTABLEKS                       R22 R21 K71 ["SortOrder"]
-      223 CALL                             R19 2 -1
-      224 SETLIST                          R18 R19 -1 [1]
-      226 CALL                             R15 3 -1
-      227 SETLIST                          R8 R9 -1 [1]
-      229 CALL                             R5 3 -1
-      230 RETURN                           R5 -1
+       23 GETTABLEKS                       R4 R1 K11 ["Styling"]
+       25 GETTABLEKS                       R3 R4 K12 ["createStyleRule"]
+       27 MOVE                             R4 R3
+       28 LOADK                            R5 K13 [".Component-useTooltip"]
+       29 NEWTABLE                         R6 0 0
+       31 NEWTABLE                         R7 0 7
+       33 MOVE                             R8 R3
+       34 LOADK                            R9 K14 [".Role-Tooltip"]
+       35 DUPTABLE                         R10 K19 [{"BackgroundColor3", "BorderColor3", "BorderMode", "BorderSizePixel"}]
+       36 LOADK                            R11 K20 ["$SemanticColorSurface300Inverse"]
+       37 SETTABLEKS                       R11 R10 K15 ["BackgroundColor3"]
+       39 LOADK                            R11 K21 ["$SemanticColorDivider"]
+       40 SETTABLEKS                       R11 R10 K16 ["BorderColor3"]
+       42 GETIMPORT                        R11 K24 [Enum.BorderMode.Inset]
+       44 SETTABLEKS                       R11 R10 K17 ["BorderMode"]
+       46 LOADN                            R11 2
+       47 SETTABLEKS                       R11 R10 K18 ["BorderSizePixel"]
+       49 CALL                             R8 2 1
+       50 MOVE                             R9 R3
+       51 LOADK                            R10 K25 [">> .Role-Surface"]
+       52 DUPTABLE                         R11 K27 [{"BackgroundTransparency", "BorderSizePixel"}]
+       53 LOADN                            R12 1
+       54 SETTABLEKS                       R12 R11 K26 ["BackgroundTransparency"]
+       56 LOADN                            R12 0
+       57 SETTABLEKS                       R12 R11 K18 ["BorderSizePixel"]
+       59 CALL                             R9 2 1
+       60 MOVE                             R10 R3
+       61 LOADK                            R11 K28 [">> .Text-Label"]
+       62 DUPTABLE                         R12 K32 [{"Font", "TextColor3", "TextSize", "BorderSizePixel", "BackgroundTransparency"}]
+       63 GETIMPORT                        R13 K34 [Enum.Font.SourceSans]
+       65 SETTABLEKS                       R13 R12 K29 ["Font"]
+       67 LOADK                            R13 K35 ["$SemanticColorContentStandardInverse"]
+       68 SETTABLEKS                       R13 R12 K30 ["TextColor3"]
+       70 LOADN                            R14 12
+       71 GETTABLEKS                       R15 R2 K36 ["defaultFontScale"]
+       73 MUL                              R13 R14 R15
+       74 SETTABLEKS                       R13 R12 K31 ["TextSize"]
+       76 LOADN                            R13 0
+       77 SETTABLEKS                       R13 R12 K18 ["BorderSizePixel"]
+       79 LOADN                            R13 1
+       80 SETTABLEKS                       R13 R12 K26 ["BackgroundTransparency"]
+       82 CALL                             R10 2 1
+       83 MOVE                             R11 R3
+       84 LOADK                            R12 K37 [">> .Text-Title"]
+       85 DUPTABLE                         R13 K32 [{"Font", "TextColor3", "TextSize", "BorderSizePixel", "BackgroundTransparency"}]
+       86 GETIMPORT                        R14 K39 [Enum.Font.SourceSansBold]
+       88 SETTABLEKS                       R14 R13 K29 ["Font"]
+       90 LOADK                            R14 K35 ["$SemanticColorContentStandardInverse"]
+       91 SETTABLEKS                       R14 R13 K30 ["TextColor3"]
+       93 LOADN                            R15 12
+       94 GETTABLEKS                       R16 R2 K36 ["defaultFontScale"]
+       96 MUL                              R14 R15 R16
+       97 SETTABLEKS                       R14 R13 K31 ["TextSize"]
+       99 LOADN                            R14 0
+      100 SETTABLEKS                       R14 R13 K18 ["BorderSizePixel"]
+      102 LOADN                            R14 1
+      103 SETTABLEKS                       R14 R13 K26 ["BackgroundTransparency"]
+      105 CALL                             R11 2 1
+      106 MOVE                             R12 R3
+      107 LOADK                            R13 K40 [">> .TooltipTextBounds"]
+      108 DUPTABLE                         R14 K43 [{"TextWrapped", "TextXAlignment"}]
+      109 LOADB                            R15 1
+      110 SETTABLEKS                       R15 R14 K41 ["TextWrapped"]
+      112 GETIMPORT                        R15 K45 [Enum.TextXAlignment.Left]
+      114 SETTABLEKS                       R15 R14 K42 ["TextXAlignment"]
+      116 NEWTABLE                         R15 0 1
+      118 MOVE                             R16 R3
+      119 LOADK                            R17 K46 ["::UISizeConstraint"]
+      120 DUPTABLE                         R18 K48 [{"MaxSize"}]
+      121 GETIMPORT                        R19 K51 [Vector2.new]
+      123 LOADN                            R20 144
+      124 LOADK                            R21 K52 [∞]
+      125 CALL                             R19 2 1
+      126 SETTABLEKS                       R19 R18 K47 ["MaxSize"]
+      128 CALL                             R16 2 -1
+      129 SETLIST                          R15 R16 -1 [1]
+      131 CALL                             R12 3 1
+      132 MOVE                             R13 R3
+      133 LOADK                            R14 K53 [">> .X-PadTooltip ::UIPadding"]
+      134 DUPTABLE                         R15 K58 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+      135 GETIMPORT                        R16 K60 [UDim.new]
+      137 LOADN                            R17 0
+      138 LOADN                            R18 6
+      139 CALL                             R16 2 1
+      140 SETTABLEKS                       R16 R15 K54 ["PaddingLeft"]
+      142 GETIMPORT                        R16 K60 [UDim.new]
+      144 LOADN                            R17 0
+      145 LOADN                            R18 6
+      146 CALL                             R16 2 1
+      147 SETTABLEKS                       R16 R15 K55 ["PaddingRight"]
+      149 GETIMPORT                        R16 K60 [UDim.new]
+      151 LOADN                            R17 0
+      152 LOADN                            R18 4
+      153 CALL                             R16 2 1
+      154 SETTABLEKS                       R16 R15 K56 ["PaddingTop"]
+      156 GETIMPORT                        R16 K60 [UDim.new]
+      158 LOADN                            R17 0
+      159 LOADN                            R18 4
+      160 CALL                             R16 2 1
+      161 SETTABLEKS                       R16 R15 K57 ["PaddingBottom"]
+      163 CALL                             R13 2 1
+      164 MOVE                             R14 R3
+      165 LOADK                            R15 K61 [">> .X-RowSpace50"]
+      166 NEWTABLE                         R16 0 0
+      168 NEWTABLE                         R17 0 1
+      170 MOVE                             R18 R3
+      171 LOADK                            R19 K62 ["::UIListLayout"]
+      172 DUPTABLE                         R20 K66 [{"FillDirection", "Padding", "SortOrder"}]
+      173 GETIMPORT                        R21 K68 [Enum.FillDirection.Horizontal]
+      175 SETTABLEKS                       R21 R20 K63 ["FillDirection"]
+      177 GETIMPORT                        R21 K60 [UDim.new]
+      179 LOADN                            R22 0
+      180 LOADN                            R23 4
+      181 CALL                             R21 2 1
+      182 SETTABLEKS                       R21 R20 K64 ["Padding"]
+      184 GETIMPORT                        R21 K70 [Enum.SortOrder.LayoutOrder]
+      186 SETTABLEKS                       R21 R20 K65 ["SortOrder"]
+      188 CALL                             R18 2 -1
+      189 SETLIST                          R17 R18 -1 [1]
+      191 CALL                             R14 3 -1
+      192 SETLIST                          R7 R8 -1 [1]
+      194 CALL                             R4 3 -1
+      195 RETURN                           R4 -1

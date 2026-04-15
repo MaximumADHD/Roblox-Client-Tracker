@@ -103,52 +103,54 @@ PROTO_2:
        19 GETTABLEKS                       R6 R7 K6 ["description"]
        21 GETUPVAL                         R8 1
        22 GETTABLEKS                       R7 R8 K1 ["dialogLookType"]
-       24 CALL                             R0 7 1
-       25 GETTABLEKS                       R1 R0 K7 ["success"]
-       27 JUMPIFNOT                        R1 ; [+13]
-       28 GETUPVAL                         R1 2
-       29 GETTABLEKS                       R2 R0 K8 ["lookId"]
-       31 CALL                             R1 1 0
-       32 GETUPVAL                         R1 3
-       33 LOADK                            R2 K9 ["Success"]
+       24 GETUPVAL                         R9 1
+       25 GETTABLEKS                       R8 R9 K7 ["bodyScale"]
+       27 CALL                             R0 8 1
+       28 GETTABLEKS                       R1 R0 K8 ["success"]
+       30 JUMPIFNOT                        R1 ; [+13]
+       31 GETUPVAL                         R1 2
+       32 GETTABLEKS                       R2 R0 K9 ["lookId"]
        34 CALL                             R1 1 0
-       35 GETUPVAL                         R1 4
-       36 LOADK                            R3 K10 ["marketplaceLookCreationSuccess"]
-       37 NAMECALL                         R1 R1 K11 ["report"]
-       39 CALL                             R1 2 0
-       40 RETURN                           R0 0
-       41 LOADNIL                          R1
-       42 GETTABLEKS                       R3 R0 K12 ["errorMessages"]
-       44 LENGTH                           R2 R3
-       45 LOADN                            R3 0
-       46 JUMPIFNOTLT                      R3 R2 ; [+24]
-       48 GETTABLEKS                       R4 R0 K12 ["errorMessages"]
-       50 GETTABLEN                        R3 R4 1
-       51 GETTABLEKS                       R2 R3 K13 ["isLocalized"]
-       53 JUMPIFNOT                        R2 ; [+6]
-       54 GETTABLEKS                       R3 R0 K12 ["errorMessages"]
-       56 GETTABLEN                        R2 R3 1
-       57 GETTABLEKS                       R1 R2 K14 ["message"]
-       59 JUMP                             ; [+11]
-       60 GETUPVAL                         R2 5
-       61 LOADK                            R4 K15 ["LookComposerDialog"]
-       62 GETTABLEKS                       R7 R0 K12 ["errorMessages"]
-       64 GETTABLEN                        R6 R7 1
-       65 GETTABLEKS                       R5 R6 K14 ["message"]
-       67 NAMECALL                         R2 R2 K16 ["getText"]
-       69 CALL                             R2 3 1
-       70 MOVE                             R1 R2
-       71 GETUPVAL                         R2 6
-       72 MOVE                             R3 R1
-       73 CALL                             R2 1 0
-       74 GETUPVAL                         R2 3
-       75 LOADK                            R3 K17 ["Failure"]
+       35 GETUPVAL                         R1 3
+       36 LOADK                            R2 K10 ["Success"]
+       37 CALL                             R1 1 0
+       38 GETUPVAL                         R1 4
+       39 LOADK                            R3 K11 ["marketplaceLookCreationSuccess"]
+       40 NAMECALL                         R1 R1 K12 ["report"]
+       42 CALL                             R1 2 0
+       43 RETURN                           R0 0
+       44 LOADNIL                          R1
+       45 GETTABLEKS                       R3 R0 K13 ["errorMessages"]
+       47 LENGTH                           R2 R3
+       48 LOADN                            R3 0
+       49 JUMPIFNOTLT                      R3 R2 ; [+24]
+       51 GETTABLEKS                       R4 R0 K13 ["errorMessages"]
+       53 GETTABLEN                        R3 R4 1
+       54 GETTABLEKS                       R2 R3 K14 ["isLocalized"]
+       56 JUMPIFNOT                        R2 ; [+6]
+       57 GETTABLEKS                       R3 R0 K13 ["errorMessages"]
+       59 GETTABLEN                        R2 R3 1
+       60 GETTABLEKS                       R1 R2 K15 ["message"]
+       62 JUMP                             ; [+11]
+       63 GETUPVAL                         R2 5
+       64 LOADK                            R4 K16 ["LookComposerDialog"]
+       65 GETTABLEKS                       R7 R0 K13 ["errorMessages"]
+       67 GETTABLEN                        R6 R7 1
+       68 GETTABLEKS                       R5 R6 K15 ["message"]
+       70 NAMECALL                         R2 R2 K17 ["getText"]
+       72 CALL                             R2 3 1
+       73 MOVE                             R1 R2
+       74 GETUPVAL                         R2 6
+       75 MOVE                             R3 R1
        76 CALL                             R2 1 0
-       77 GETUPVAL                         R2 4
-       78 LOADK                            R4 K18 ["marketplaceLookCreationError"]
-       79 NAMECALL                         R2 R2 K11 ["report"]
-       81 CALL                             R2 2 0
-       82 RETURN                           R0 0
+       77 GETUPVAL                         R2 3
+       78 LOADK                            R3 K18 ["Failure"]
+       79 CALL                             R2 1 0
+       80 GETUPVAL                         R2 4
+       81 LOADK                            R4 K19 ["marketplaceLookCreationError"]
+       82 NAMECALL                         R2 R2 K12 ["report"]
+       84 CALL                             R2 2 0
+       85 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0

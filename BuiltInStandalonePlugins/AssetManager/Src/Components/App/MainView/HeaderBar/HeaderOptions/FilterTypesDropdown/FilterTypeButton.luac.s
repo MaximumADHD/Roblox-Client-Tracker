@@ -60,7 +60,7 @@ PROTO_0:
        86 SETTABLEKS                       R9 R8 K3 ["LayoutOrder"]
        88 GETTABLEKS                       R9 R0 K25 ["Text"]
        90 SETTABLEKS                       R9 R8 K25 ["Text"]
-       92 LOADK                            R9 K27 ["auto-xy text-caption-medium text-align-x-left text-truncate-split content-emphasis"]
+       92 LOADK                            R9 K27 ["fill auto-y text-caption-medium text-align-x-left text-truncate-split content-emphasis"]
        93 SETTABLEKS                       R9 R8 K5 ["tag"]
        95 CALL                             R6 2 1
        96 SETTABLEKS                       R6 R5 K12 ["Label"]

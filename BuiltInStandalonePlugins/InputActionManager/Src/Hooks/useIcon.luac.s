@@ -1,6 +1,6 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getIcon"]
+        1 GETTABLEKS                       R0 R1 K0 ["getIconAsync"]
         3 LOADNIL                          R1
         4 GETUPVAL                         R2 1
         5 CALL                             R0 2 -1

@@ -55,6 +55,18 @@ type _ButtonSchema_PropsFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	width: _roblox_apppageplatform_shared_v1beta1_prop_types.UDimProp?,
+	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	icon: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	cursor_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	size: _roblox_apppageplatform_shared_v1beta1_prop_types.InputSizeProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	is_disabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	is_loading: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	selectable: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	visible: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	input_delay: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 }
 
 type _ButtonSchema_PropsPartialFields = {
@@ -63,6 +75,18 @@ type _ButtonSchema_PropsPartialFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	width: _roblox_apppageplatform_shared_v1beta1_prop_types.UDimProp?,
+	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	icon: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	cursor_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	size: _roblox_apppageplatform_shared_v1beta1_prop_types.InputSizeProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	is_disabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	is_loading: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	selectable: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	visible: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	input_delay: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 }
 
 export type ButtonSchema_Props = typeof(setmetatable({} :: _ButtonSchema_PropsFields, {} :: _ButtonSchema_PropsImpl))
@@ -198,6 +222,18 @@ do
 			position = if data == nil or data.position == nil then nil else data.position,
 			on_activated = if data == nil or data.on_activated == nil then nil else data.on_activated,
 			width = if data == nil or data.width == nil then nil else data.width,
+			text = if data == nil or data.text == nil then nil else data.text,
+			icon = if data == nil or data.icon == nil then nil else data.icon,
+			variant = if data == nil or data.variant == nil then nil else data.variant,
+			cursor_type = if data == nil or data.cursor_type == nil then nil else data.cursor_type,
+			size = if data == nil or data.size == nil then nil else data.size,
+			tag = if data == nil or data.tag == nil then nil else data.tag,
+			is_disabled = if data == nil or data.is_disabled == nil then nil else data.is_disabled,
+			is_loading = if data == nil or data.is_loading == nil then nil else data.is_loading,
+			selectable = if data == nil or data.selectable == nil then nil else data.selectable,
+			visible = if data == nil or data.visible == nil then nil else data.visible,
+			z_index = if data == nil or data.z_index == nil then nil else data.z_index,
+			input_delay = if data == nil or data.input_delay == nil then nil else data.input_delay,
 		}, _ButtonSchema_PropsImpl :: _ButtonSchema_PropsImpl)
 	end
 
@@ -232,6 +268,78 @@ do
 		if self.width ~= nil then
 			local encoded = self.width:encode()
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text ~= nil then
+			local encoded = self.text:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.icon ~= nil then
+			local encoded = self.icon:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.variant ~= nil then
+			local encoded = self.variant:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.cursor_type ~= nil then
+			local encoded = self.cursor_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.size ~= nil then
+			local encoded = self.size:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.tag ~= nil then
+			local encoded = self.tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.is_disabled ~= nil then
+			local encoded = self.is_disabled:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.is_loading ~= nil then
+			local encoded = self.is_loading:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.selectable ~= nil then
+			local encoded = self.selectable:encode()
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.visible ~= nil then
+			local encoded = self.visible:encode()
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.z_index ~= nil then
+			local encoded = self.z_index:encode()
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.input_delay ~= nil then
+			local encoded = self.input_delay:encode()
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -278,6 +386,66 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.width = _roblox_apppageplatform_shared_v1beta1_prop_types.UDimProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.icon = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.variant = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cursor_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.InputSizeProp.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.is_disabled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.is_loading = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selectable = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.visible = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.input_delay = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
 					continue
 				end
 
@@ -326,6 +494,54 @@ do
 			output.width = self.width:jsonEncode()
 		end
 
+		if self.text ~= nil then
+			output.text = self.text:jsonEncode()
+		end
+
+		if self.icon ~= nil then
+			output.icon = self.icon:jsonEncode()
+		end
+
+		if self.variant ~= nil then
+			output.variant = self.variant:jsonEncode()
+		end
+
+		if self.cursor_type ~= nil then
+			output.cursorType = self.cursor_type:jsonEncode()
+		end
+
+		if self.size ~= nil then
+			output.size = self.size:jsonEncode()
+		end
+
+		if self.tag ~= nil then
+			output.tag = self.tag:jsonEncode()
+		end
+
+		if self.is_disabled ~= nil then
+			output.isDisabled = self.is_disabled:jsonEncode()
+		end
+
+		if self.is_loading ~= nil then
+			output.isLoading = self.is_loading:jsonEncode()
+		end
+
+		if self.selectable ~= nil then
+			output.selectable = self.selectable:jsonEncode()
+		end
+
+		if self.visible ~= nil then
+			output.visible = self.visible:jsonEncode()
+		end
+
+		if self.z_index ~= nil then
+			output.zIndex = self.z_index:jsonEncode()
+		end
+
+		if self.input_delay ~= nil then
+			output.inputDelay = self.input_delay:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -366,6 +582,75 @@ do
 
 		if input.width ~= nil then
 			self.width = _roblox_apppageplatform_shared_v1beta1_prop_types.UDimProp.jsonDecode(input.width)
+		end
+
+		if input.text ~= nil then
+			self.text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.text)
+		end
+
+		if input.icon ~= nil then
+			self.icon = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.icon)
+		end
+
+		if input.variant ~= nil then
+			self.variant = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.variant)
+		end
+
+		if input.cursor_type ~= nil then
+			self.cursor_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.cursor_type)
+		end
+
+		if input.cursorType ~= nil then
+			self.cursor_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.cursorType)
+		end
+
+		if input.size ~= nil then
+			self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.InputSizeProp.jsonDecode(input.size)
+		end
+
+		if input.tag ~= nil then
+			self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tag)
+		end
+
+		if input.is_disabled ~= nil then
+			self.is_disabled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.is_disabled)
+		end
+
+		if input.isDisabled ~= nil then
+			self.is_disabled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isDisabled)
+		end
+
+		if input.is_loading ~= nil then
+			self.is_loading = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.is_loading)
+		end
+
+		if input.isLoading ~= nil then
+			self.is_loading = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isLoading)
+		end
+
+		if input.selectable ~= nil then
+			self.selectable = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.selectable)
+		end
+
+		if input.visible ~= nil then
+			self.visible = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.visible)
+		end
+
+		if input.z_index ~= nil then
+			self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.z_index)
+		end
+
+		if input.zIndex ~= nil then
+			self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.zIndex)
+		end
+
+		if input.input_delay ~= nil then
+			self.input_delay = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.input_delay)
+		end
+
+		if input.inputDelay ~= nil then
+			self.input_delay = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.inputDelay)
 		end
 
 		return self

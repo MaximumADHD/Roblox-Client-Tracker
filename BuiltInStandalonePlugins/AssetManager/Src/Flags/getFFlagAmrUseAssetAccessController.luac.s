@@ -1,29 +1,34 @@
 PROTO_0:
-        0 GETIMPORT                        R0 K1 [game]
-        2 LOADK                            R2 K2 ["AmrUseAssetAccessController2"]
-        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
-        5 CALL                             R0 2 1
-        6 JUMPIF                           R0 ; [+2]
-        7 GETUPVAL                         R0 0
-        8 CALL                             R0 0 1
-        9 RETURN                           R0 1
+        0 GETUPVAL                         R0 0
+        1 LOADK                            R1 K0 ["AmrUseAssetAccessController2"]
+        2 CALL                             R0 1 1
+        3 JUMPIF                           R0 ; [+2]
+        4 GETUPVAL                         R0 1
+        5 CALL                             R0 0 1
+        6 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [script]
-        3 LOADK                            R2 K2 ["AssetManager"]
-        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
-        6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFFlagDebugTestAssetDependencyGrantEventEnabled"]
-       15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K10 [game]
-       18 LOADK                            R4 K11 ["AmrUseAssetAccessController2"]
-       19 LOADB                            R5 0
-       20 NAMECALL                         R2 R2 K12 ["DefineFastFlag"]
-       22 CALL                             R2 3 0
-       23 DUPCLOSURE                       R2 K13 [PROTO_0]
-       24 CAPTURE                          VAL R1
-       25 RETURN                           R2 1
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["AmrUseAssetAccessController2"]
+        4 LOADB                            R3 0
+        5 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
+        7 CALL                             R0 3 0
+        8 GETIMPORT                        R0 K5 [script]
+       10 LOADK                            R2 K6 ["AssetManager"]
+       11 NAMECALL                         R0 R0 K7 ["FindFirstAncestor"]
+       13 CALL                             R0 2 1
+       14 GETIMPORT                        R1 K9 [require]
+       16 GETTABLEKS                       R4 R0 K10 ["Bin"]
+       18 GETTABLEKS                       R3 R4 K11 ["Common"]
+       20 GETTABLEKS                       R2 R3 K12 ["safeGetFastFlag"]
+       22 CALL                             R1 1 1
+       23 GETIMPORT                        R2 K9 [require]
+       25 GETTABLEKS                       R5 R0 K13 ["Src"]
+       27 GETTABLEKS                       R4 R5 K14 ["Flags"]
+       29 GETTABLEKS                       R3 R4 K15 ["getFFlagDebugTestAssetDependencyGrantEventEnabled"]
+       31 CALL                             R2 1 1
+       32 DUPCLOSURE                       R3 K16 [PROTO_0]
+       33 CAPTURE                          VAL R1
+       34 CAPTURE                          VAL R2
+       35 RETURN                           R3 1

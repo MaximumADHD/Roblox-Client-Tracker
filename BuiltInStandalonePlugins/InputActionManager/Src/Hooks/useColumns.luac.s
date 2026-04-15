@@ -5,15 +5,23 @@ PROTO_0:
         3 RETURN                           R0 0
 
 PROTO_1:
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
+
+PROTO_2:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["sizeChanged"]
+        1 GETTABLEKS                       R0 R1 K0 ["sizeChangedSignal"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          UPVAL U1
         5 NAMECALL                         R0 R0 K1 ["Connect"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        7 CALL                             R0 2 1
+        8 NEWCLOSURE                       R1 P1
+        9 CAPTURE                          VAL R0
+       10 RETURN                           R1 1
 
-PROTO_2:
+PROTO_3:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["X"]
         3 SUBK                             R1 R0 K1 [200]
@@ -25,7 +33,7 @@ PROTO_2:
        11 CALL                             R3 2 1
        12 RETURN                           R3 1
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["useContext"]
         3 GETUPVAL                         R2 1
@@ -45,17 +53,19 @@ PROTO_3:
        23 NEWCLOSURE                       R4 P0
        24 CAPTURE                          VAL R0
        25 CAPTURE                          VAL R2
-       26 NEWTABLE                         R5 0 0
-       28 CALL                             R3 2 0
-       29 GETUPVAL                         R4 0
-       30 GETTABLEKS                       R3 R4 K8 ["useMemo"]
-       32 NEWCLOSURE                       R4 P1
-       33 CAPTURE                          VAL R1
-       34 NEWTABLE                         R5 0 1
-       36 MOVE                             R6 R1
-       37 SETLIST                          R5 R6 1 [1]
-       39 CALL                             R3 2 1
-       40 RETURN                           R3 1
+       26 NEWTABLE                         R5 0 1
+       28 GETTABLEKS                       R6 R0 K8 ["sizeChangedSignal"]
+       30 SETLIST                          R5 R6 1 [1]
+       32 CALL                             R3 2 0
+       33 GETUPVAL                         R4 0
+       34 GETTABLEKS                       R3 R4 K9 ["useMemo"]
+       36 NEWCLOSURE                       R4 P1
+       37 CAPTURE                          VAL R1
+       38 NEWTABLE                         R5 0 1
+       40 MOVE                             R6 R1
+       41 SETLIST                          R5 R6 1 [1]
+       43 CALL                             R3 2 1
+       44 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -72,7 +82,7 @@ MAIN:
        18 GETTABLEKS                       R4 R5 K9 ["Contexts"]
        20 GETTABLEKS                       R3 R4 K10 ["PluginConfiguration"]
        22 CALL                             R2 1 1
-       23 DUPCLOSURE                       R3 K11 [PROTO_3]
+       23 DUPCLOSURE                       R3 K11 [PROTO_4]
        24 CAPTURE                          VAL R1
        25 CAPTURE                          VAL R2
        26 RETURN                           R3 1

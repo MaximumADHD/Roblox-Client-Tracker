@@ -45,11 +45,12 @@ PROTO_0:
        72 GETUPVAL                         R3 3
        73 GETUPVAL                         R5 4
        74 GETUPVAL                         R6 5
-       75 MOVE                             R7 R2
-       76 CALL                             R5 2 -1
-       77 NAMECALL                         R3 R3 K17 ["dispatch"]
-       79 CALL                             R3 -1 0
-       80 RETURN                           R0 0
+       75 GETUPVAL                         R7 6
+       76 MOVE                             R8 R2
+       77 CALL                             R5 3 -1
+       78 NAMECALL                         R3 R3 K17 ["dispatch"]
+       80 CALL                             R3 -1 0
+       81 RETURN                           R0 0
 
 PROTO_1:
         0 RETURN                           R0 0
@@ -58,7 +59,7 @@ PROTO_2:
         0 GETUPVAL                         R2 0
         1 LENGTH                           R1 R2
         2 LOADN                            R2 50
-        3 JUMPIFNOTLT                      R2 R1 ; [+49]
+        3 JUMPIFNOTLT                      R2 R1 ; [+51]
         5 NEWTABLE                         R1 0 0
         7 GETUPVAL                         R5 0
         8 LENGTH                           R4 R5
@@ -76,56 +77,60 @@ PROTO_2:
        23 MOVE                             R7 R4
        24 CALL                             R5 2 0
        25 LENGTH                           R5 R1
-       26 JUMPIFNOTEQKN                    R5 K5 [50] ; [+12]
+       26 JUMPIFNOTEQKN                    R5 K5 [50] ; [+13]
        28 GETUPVAL                         R7 1
        29 GETUPVAL                         R8 2
        30 GETUPVAL                         R9 3
-       31 MOVE                             R10 R1
-       32 GETUPVAL                         R11 4
-       33 CALL                             R7 4 -1
-       34 NAMECALL                         R5 R0 K6 ["dispatch"]
-       36 CALL                             R5 -1 0
-       37 NEWTABLE                         R1 0 0
-       39 FORNLOOP                         R2
-       40 LENGTH                           R2 R1
-       41 LOADN                            R3 0
-       42 JUMPIFNOTLT                      R3 R2 ; [+10]
-       44 GETUPVAL                         R4 1
-       45 GETUPVAL                         R5 2
-       46 GETUPVAL                         R6 3
-       47 MOVE                             R7 R1
-       48 GETUPVAL                         R8 4
-       49 CALL                             R4 4 -1
-       50 NAMECALL                         R2 R0 K6 ["dispatch"]
-       52 CALL                             R2 -1 0
-       53 GETUPVAL                         R4 2
-       54 GETTABLEKS                       R3 R4 K7 ["Develop"]
-       56 GETTABLEKS                       R2 R3 K8 ["v1"]
-       58 GETTABLEKS                       R1 R2 K9 ["Plugins"]
-       60 GETUPVAL                         R2 0
-       61 CALL                             R1 1 1
-       62 NEWCLOSURE                       R3 P0
-       63 CAPTURE                          UPVAL U5
-       64 CAPTURE                          UPVAL U4
-       65 CAPTURE                          UPVAL U0
-       66 CAPTURE                          VAL R0
-       67 CAPTURE                          UPVAL U6
-       68 CAPTURE                          UPVAL U3
-       69 DUPCLOSURE                       R4 K10 [PROTO_1]
-       70 NAMECALL                         R1 R1 K11 ["andThen"]
-       72 CALL                             R1 3 -1
-       73 RETURN                           R1 -1
+       31 GETUPVAL                         R10 4
+       32 MOVE                             R11 R1
+       33 GETUPVAL                         R12 5
+       34 CALL                             R7 5 -1
+       35 NAMECALL                         R5 R0 K6 ["dispatch"]
+       37 CALL                             R5 -1 0
+       38 NEWTABLE                         R1 0 0
+       40 FORNLOOP                         R2
+       41 LENGTH                           R2 R1
+       42 LOADN                            R3 0
+       43 JUMPIFNOTLT                      R3 R2 ; [+11]
+       45 GETUPVAL                         R4 1
+       46 GETUPVAL                         R5 2
+       47 GETUPVAL                         R6 3
+       48 GETUPVAL                         R7 4
+       49 MOVE                             R8 R1
+       50 GETUPVAL                         R9 5
+       51 CALL                             R4 5 -1
+       52 NAMECALL                         R2 R0 K6 ["dispatch"]
+       54 CALL                             R2 -1 0
+       55 GETUPVAL                         R4 3
+       56 GETTABLEKS                       R3 R4 K7 ["Develop"]
+       58 GETTABLEKS                       R2 R3 K8 ["v1"]
+       60 GETTABLEKS                       R1 R2 K9 ["Plugins"]
+       62 GETUPVAL                         R2 0
+       63 CALL                             R1 1 1
+       64 NEWCLOSURE                       R3 P0
+       65 CAPTURE                          UPVAL U6
+       66 CAPTURE                          UPVAL U5
+       67 CAPTURE                          UPVAL U0
+       68 CAPTURE                          VAL R0
+       69 CAPTURE                          UPVAL U7
+       70 CAPTURE                          UPVAL U2
+       71 CAPTURE                          UPVAL U4
+       72 DUPCLOSURE                       R4 K10 [PROTO_1]
+       73 NAMECALL                         R1 R1 K11 ["andThen"]
+       75 CALL                             R1 3 -1
+       76 RETURN                           R1 -1
 
 PROTO_3:
-        0 NEWCLOSURE                       R4 P0
-        1 CAPTURE                          VAL R2
+        0 NEWCLOSURE                       R5 P0
+        1 CAPTURE                          VAL R3
         2 CAPTURE                          UPVAL U0
         3 CAPTURE                          VAL R0
         4 CAPTURE                          VAL R1
-        5 CAPTURE                          VAL R3
-        6 CAPTURE                          UPVAL U1
-        7 CAPTURE                          UPVAL U2
-        8 RETURN                           R4 1
+        5 CAPTURE                          VAL R2
+        6 CAPTURE                          VAL R4
+        7 CAPTURE                          UPVAL U1
+        8 CAPTURE                          UPVAL U2
+        9 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0

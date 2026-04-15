@@ -19,6 +19,9 @@ local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
 
 local ChromeFocusUtils = require(CorePackages.Workspace.Packages.Chrome).FocusUtils
 
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
+
 local FFlagAppChatInExpUseUnibarNotification = game:DefineFastFlag("AppChatInExpUseUnibarNotification", false)
 local FFlagConnectIntegrationCheckForDirectionalInput =
 	game:DefineFastFlag("ConnectIntegrationCheckForDirectionalInput", false)
@@ -34,6 +37,7 @@ return function(id: string, initialAvailability: number)
 	local isSquadIndicatorEnabled = id == "connect_unibar" and GetFFlagIsSquadEnabled()
 	local integration = ChromeService:register({
 		id = id,
+		sideSheetPlacement = if id == "connect_unibar" then SideSheetPlacement.Unibar else SideSheetPlacement.Vertical,
 		label = if GetFFlagAppChatRebrandStringUpdates() and GetFFlagIsSquadEnabled()
 			then "Feature.Squads.Label.Party" -- translated in some languages
 			else "Feature.Chat.Label.RobloxChat", -- intentionally not translated, temp string before Party launch

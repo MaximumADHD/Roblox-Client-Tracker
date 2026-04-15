@@ -11,10 +11,22 @@ PROTO_0:
        12 MOVE                             R3 R4
        13 CALL                             R2 1 0
        14 GETUPVAL                         R3 1
-       15 GETTABLEKS                       R2 R3 K5 ["reimportInstance"]
+       15 GETTABLEKS                       R2 R3 K5 ["getConfigFromInstance"]
        17 MOVE                             R3 R0
-       18 CALL                             R2 1 0
-       19 RETURN                           R0 0
+       18 CALL                             R2 1 2
+       19 GETUPVAL                         R4 2
+       20 CALL                             R4 0 1
+       21 JUMPIFNOT                        R4 ; [+6]
+       22 JUMPIF                           R3 ; [+5]
+       23 GETUPVAL                         R5 3
+       24 GETTABLEKS                       R4 R5 K6 ["configure"]
+       26 CALL                             R4 0 0
+       27 RETURN                           R0 0
+       28 GETUPVAL                         R5 4
+       29 GETTABLEKS                       R4 R5 K7 ["reimportInstance"]
+       31 MOVE                             R5 R0
+       32 CALL                             R4 1 0
+       33 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -133,20 +145,27 @@ MAIN:
        68 GETTABLEKS                       R8 R0 K13 ["Flags"]
        70 GETTABLEKS                       R7 R8 K14 ["GetFFlagReimportErrorConfigButton"]
        72 CALL                             R6 1 1
-       73 NEWTABLE                         R7 4 0
-       75 DUPCLOSURE                       R8 K15 [PROTO_0]
-       76 CAPTURE                          VAL R3
-       77 CAPTURE                          VAL R1
-       78 SETTABLEKS                       R8 R7 K16 ["reimport"]
-       80 DUPCLOSURE                       R8 K17 [PROTO_1]
-       81 CAPTURE                          VAL R3
-       82 CAPTURE                          VAL R2
-       83 CAPTURE                          VAL R1
-       84 SETTABLEKS                       R8 R7 K18 ["reimportRelative"]
-       86 DUPCLOSURE                       R8 K19 [PROTO_2]
-       87 CAPTURE                          VAL R3
-       88 CAPTURE                          VAL R6
-       89 CAPTURE                          VAL R5
-       90 CAPTURE                          VAL R4
-       91 SETTABLEKS                       R8 R7 K20 ["configure"]
-       93 RETURN                           R7 1
+       73 GETIMPORT                        R7 K5 [require]
+       75 GETTABLEKS                       R9 R0 K13 ["Flags"]
+       77 GETTABLEKS                       R8 R9 K15 ["GetFFlagConfigureOnFirstReimport"]
+       79 CALL                             R7 1 1
+       80 NEWTABLE                         R8 4 0
+       82 DUPCLOSURE                       R9 K16 [PROTO_0]
+       83 CAPTURE                          VAL R3
+       84 CAPTURE                          VAL R2
+       85 CAPTURE                          VAL R7
+       86 CAPTURE                          VAL R8
+       87 CAPTURE                          VAL R1
+       88 SETTABLEKS                       R9 R8 K17 ["reimport"]
+       90 DUPCLOSURE                       R9 K18 [PROTO_1]
+       91 CAPTURE                          VAL R3
+       92 CAPTURE                          VAL R2
+       93 CAPTURE                          VAL R1
+       94 SETTABLEKS                       R9 R8 K19 ["reimportRelative"]
+       96 DUPCLOSURE                       R9 K20 [PROTO_2]
+       97 CAPTURE                          VAL R3
+       98 CAPTURE                          VAL R6
+       99 CAPTURE                          VAL R5
+      100 CAPTURE                          VAL R4
+      101 SETTABLEKS                       R9 R8 K21 ["configure"]
+      103 RETURN                           R8 1

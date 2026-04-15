@@ -24,10 +24,22 @@ PROTO_1:
        22 FASTCALL                         TABLE_INSERT ; [+2]
        23 GETIMPORT                        R1 K4 [table.insert]
        25 CALL                             R1 -1 0
-       26 NEWCLOSURE                       R1 P0
-       27 CAPTURE                          UPVAL U4
-       28 CAPTURE                          VAL R0
-       29 RETURN                           R1 1
+       26 GETUPVAL                         R1 4
+       27 CALL                             R1 0 1
+       28 JUMPIFNOT                        R1 ; [+12]
+       29 MOVE                             R2 R0
+       30 GETUPVAL                         R4 2
+       31 GETTABLEKS                       R3 R4 K6 ["OnExpansionChanged"]
+       33 GETUPVAL                         R5 5
+       34 NAMECALL                         R3 R3 K1 ["Connect"]
+       36 CALL                             R3 2 -1
+       37 FASTCALL                         TABLE_INSERT ; [+2]
+       38 GETIMPORT                        R1 K4 [table.insert]
+       40 CALL                             R1 -1 0
+       41 NEWCLOSURE                       R1 P0
+       42 CAPTURE                          UPVAL U6
+       43 CAPTURE                          VAL R0
+       44 RETURN                           R1 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -56,12 +68,14 @@ PROTO_2:
        29 CAPTURE                          VAL R1
        30 CAPTURE                          VAL R7
        31 CAPTURE                          UPVAL U4
-       32 NEWTABLE                         R10 0 0
-       34 CALL                             R8 2 0
-       35 DUPTABLE                         R8 K7 [{"Items", "Expansion"}]
-       36 SETTABLEKS                       R6 R8 K5 ["Items"]
-       38 SETTABLEKS                       R4 R8 K6 ["Expansion"]
-       40 RETURN                           R8 1
+       32 CAPTURE                          VAL R5
+       33 CAPTURE                          UPVAL U5
+       34 NEWTABLE                         R10 0 0
+       36 CALL                             R8 2 0
+       37 DUPTABLE                         R8 K7 [{"Items", "Expansion"}]
+       38 SETTABLEKS                       R6 R8 K5 ["Items"]
+       40 SETTABLEKS                       R4 R8 K6 ["Expansion"]
+       42 RETURN                           R8 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -94,10 +108,16 @@ MAIN:
        47 GETTABLEKS                       R9 R10 K15 ["Util"]
        49 GETTABLEKS                       R8 R9 K16 ["cleanConnections"]
        51 CALL                             R7 1 1
-       52 DUPCLOSURE                       R8 K17 [PROTO_2]
-       53 CAPTURE                          VAL R6
-       54 CAPTURE                          VAL R5
-       55 CAPTURE                          VAL R3
-       56 CAPTURE                          VAL R4
-       57 CAPTURE                          VAL R7
-       58 RETURN                           R8 1
+       52 GETIMPORT                        R8 K5 [require]
+       54 GETTABLEKS                       R11 R0 K8 ["Src"]
+       56 GETTABLEKS                       R10 R11 K17 ["Flags"]
+       58 GETTABLEKS                       R9 R10 K18 ["getFFlagAmrOrganizationFoundation"]
+       60 CALL                             R8 1 1
+       61 DUPCLOSURE                       R9 K19 [PROTO_2]
+       62 CAPTURE                          VAL R6
+       63 CAPTURE                          VAL R5
+       64 CAPTURE                          VAL R3
+       65 CAPTURE                          VAL R4
+       66 CAPTURE                          VAL R8
+       67 CAPTURE                          VAL R7
+       68 RETURN                           R9 1

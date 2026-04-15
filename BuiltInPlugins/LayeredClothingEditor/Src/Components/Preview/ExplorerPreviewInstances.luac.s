@@ -453,33 +453,27 @@ PROTO_13:
        42 LOADB                            R13 1
        43 SETTABLEKS                       R13 R12 K15 ["Archivable"]
        45 DUPTABLE                         R13 K17 [{"PreviewSelector"}]
-       46 GETUPVAL                         R15 1
-       47 CALL                             R15 0 1
-       48 JUMPIFNOT                        R15 ; [+1]
-       49 JUMPIFNOT                        R2 ; [+26]
-       50 GETUPVAL                         R15 0
-       51 GETTABLEKS                       R14 R15 K7 ["createElement"]
-       53 GETUPVAL                         R15 2
-       54 DUPTABLE                         R16 K22 [{"IsSelectedInstanceValid", "IsEquipped", "OnValidSelection", "TooltipText"}]
-       55 GETTABLEKS                       R17 R0 K23 ["isSelectedInstanceValid"]
-       57 SETTABLEKS                       R17 R16 K18 ["IsSelectedInstanceValid"]
-       59 GETTABLEKS                       R17 R0 K24 ["isEquipped"]
-       61 SETTABLEKS                       R17 R16 K19 ["IsEquipped"]
-       63 GETTABLEKS                       R17 R0 K25 ["onValidSelection"]
-       65 SETTABLEKS                       R17 R16 K20 ["OnValidSelection"]
-       67 LOADK                            R19 K26 ["Preview"]
-       68 LOADK                            R20 K27 ["Tooltip"]
-       69 NAMECALL                         R17 R3 K28 ["getText"]
-       71 CALL                             R17 3 1
-       72 SETTABLEKS                       R17 R16 K21 ["TooltipText"]
-       74 CALL                             R14 2 1
-       75 JUMP                             ; [+1]
-       76 LOADNIL                          R14
-       77 SETTABLEKS                       R14 R13 K16 ["PreviewSelector"]
-       79 CALL                             R10 3 1
-       80 SETTABLE                         R10 R9 R5
-       81 CALL                             R6 3 -1
-       82 RETURN                           R6 -1
+       46 GETUPVAL                         R15 0
+       47 GETTABLEKS                       R14 R15 K7 ["createElement"]
+       49 GETUPVAL                         R15 1
+       50 DUPTABLE                         R16 K22 [{"IsSelectedInstanceValid", "IsEquipped", "OnValidSelection", "TooltipText"}]
+       51 GETTABLEKS                       R17 R0 K23 ["isSelectedInstanceValid"]
+       53 SETTABLEKS                       R17 R16 K18 ["IsSelectedInstanceValid"]
+       55 GETTABLEKS                       R17 R0 K24 ["isEquipped"]
+       57 SETTABLEKS                       R17 R16 K19 ["IsEquipped"]
+       59 GETTABLEKS                       R17 R0 K25 ["onValidSelection"]
+       61 SETTABLEKS                       R17 R16 K20 ["OnValidSelection"]
+       63 LOADK                            R19 K26 ["Preview"]
+       64 LOADK                            R20 K27 ["Tooltip"]
+       65 NAMECALL                         R17 R3 K28 ["getText"]
+       67 CALL                             R17 3 1
+       68 SETTABLEKS                       R17 R16 K21 ["TooltipText"]
+       70 CALL                             R14 2 1
+       71 SETTABLEKS                       R14 R13 K16 ["PreviewSelector"]
+       73 CALL                             R10 3 1
+       74 SETTABLE                         R10 R9 R5
+       75 CALL                             R6 3 -1
+       76 RETURN                           R6 -1
 
 PROTO_14:
         0 GETTABLEKS                       R3 R1 K0 ["SelectedAssets"]
@@ -530,29 +524,22 @@ PROTO_14:
 PROTO_15:
         0 GETTABLEKS                       R2 R0 K0 ["previewStatus"]
         2 GETTABLEKS                       R3 R0 K1 ["selectItem"]
-        4 DUPTABLE                         R4 K10 [{"AttachmentPoint", "AccessoryTypeInfo", "ItemSize", "MeshScale", "SelectedAssets", "EditingCage", "UserAddedAssets", "WorkspacePreviewSelectionEnabled"}]
-        5 GETTABLEKS                       R5 R3 K11 ["attachmentPoint"]
+        4 DUPTABLE                         R4 K9 [{"AttachmentPoint", "AccessoryTypeInfo", "ItemSize", "MeshScale", "SelectedAssets", "EditingCage", "UserAddedAssets"}]
+        5 GETTABLEKS                       R5 R3 K10 ["attachmentPoint"]
         7 SETTABLEKS                       R5 R4 K2 ["AttachmentPoint"]
-        9 GETTABLEKS                       R5 R3 K12 ["accessoryTypeInfo"]
+        9 GETTABLEKS                       R5 R3 K11 ["accessoryTypeInfo"]
        11 SETTABLEKS                       R5 R4 K3 ["AccessoryTypeInfo"]
-       13 GETTABLEKS                       R5 R3 K13 ["size"]
+       13 GETTABLEKS                       R5 R3 K12 ["size"]
        15 SETTABLEKS                       R5 R4 K4 ["ItemSize"]
-       17 GETTABLEKS                       R5 R3 K14 ["meshScale"]
+       17 GETTABLEKS                       R5 R3 K13 ["meshScale"]
        19 SETTABLEKS                       R5 R4 K5 ["MeshScale"]
-       21 GETTABLEKS                       R5 R2 K15 ["selectedAssets"]
+       21 GETTABLEKS                       R5 R2 K14 ["selectedAssets"]
        23 SETTABLEKS                       R5 R4 K6 ["SelectedAssets"]
-       25 GETTABLEKS                       R5 R3 K16 ["editingCage"]
+       25 GETTABLEKS                       R5 R3 K15 ["editingCage"]
        27 SETTABLEKS                       R5 R4 K7 ["EditingCage"]
-       29 GETTABLEKS                       R5 R2 K17 ["userAddedAssets"]
+       29 GETTABLEKS                       R5 R2 K16 ["userAddedAssets"]
        31 SETTABLEKS                       R5 R4 K8 ["UserAddedAssets"]
-       33 GETUPVAL                         R6 0
-       34 CALL                             R6 0 1
-       35 JUMPIFNOT                        R6 ; [+3]
-       36 GETTABLEKS                       R5 R2 K18 ["workspacePreviewSelectionEnabled"]
-       38 JUMP                             ; [+1]
-       39 LOADNIL                          R5
-       40 SETTABLEKS                       R5 R4 K9 ["WorkspacePreviewSelectionEnabled"]
-       42 RETURN                           R4 1
+       33 RETURN                           R4 1
 
 PROTO_16:
         0 GETUPVAL                         R2 0
@@ -681,70 +668,66 @@ MAIN:
       145 MOVE                             R28 R26
       146 GETIMPORT                        R29 K5 [script]
       148 CALL                             R27 2 0
-      149 GETTABLEKS                       R28 R5 K43 ["Flags"]
-      151 GETTABLEKS                       R27 R28 K44 ["GetFFlagAFTSelectHandleOnly"]
-      153 DUPCLOSURE                       R28 K45 [PROTO_0]
-      154 CAPTURE                          VAL R9
-      155 CAPTURE                          VAL R7
-      156 DUPCLOSURE                       R29 K46 [PROTO_1]
-      157 CAPTURE                          VAL R24
-      158 DUPCLOSURE                       R30 K47 [PROTO_3]
-      159 CAPTURE                          VAL R28
-      160 CAPTURE                          VAL R29
-      161 DUPCLOSURE                       R31 K48 [PROTO_4]
-      162 CAPTURE                          VAL R25
-      163 CAPTURE                          VAL R24
-      164 DUPCLOSURE                       R32 K49 [PROTO_5]
-      165 DUPCLOSURE                       R33 K50 [PROTO_6]
-      166 CAPTURE                          VAL R10
-      167 CAPTURE                          VAL R9
-      168 DUPCLOSURE                       R34 K51 [PROTO_11]
-      169 CAPTURE                          VAL R2
-      170 CAPTURE                          VAL R24
-      171 CAPTURE                          VAL R10
-      172 CAPTURE                          VAL R9
-      173 CAPTURE                          VAL R32
-      174 CAPTURE                          VAL R3
-      175 CAPTURE                          VAL R31
-      176 SETTABLEKS                       R34 R26 K52 ["init"]
-      178 DUPCLOSURE                       R34 K53 [PROTO_12]
-      179 CAPTURE                          VAL R0
-      180 CAPTURE                          VAL R24
-      181 SETTABLEKS                       R34 R26 K54 ["getOrCreatePreviewFolder"]
-      183 DUPCLOSURE                       R34 K55 [PROTO_13]
-      184 CAPTURE                          VAL R2
-      185 CAPTURE                          VAL R27
-      186 CAPTURE                          VAL R11
-      187 SETTABLEKS                       R34 R26 K56 ["render"]
-      189 DUPCLOSURE                       R34 K57 [PROTO_14]
-      190 CAPTURE                          VAL R9
-      191 CAPTURE                          VAL R28
-      192 CAPTURE                          VAL R29
-      193 SETTABLEKS                       R34 R26 K58 ["didUpdate"]
-      195 DUPCLOSURE                       R34 K59 [PROTO_15]
-      196 CAPTURE                          VAL R27
-      197 DUPCLOSURE                       R35 K60 [PROTO_19]
-      198 CAPTURE                          VAL R17
-      199 CAPTURE                          VAL R18
-      200 CAPTURE                          VAL R16
-      201 MOVE                             R36 R21
-      202 DUPTABLE                         R37 K63 [{"Analytics", "EditingItemContext", "PreviewContext", "AssetServiceWrapper", "Localization", "StudioServiceWrapper"}]
-      203 GETTABLEKS                       R38 R20 K61 ["Analytics"]
-      205 SETTABLEKS                       R38 R37 K61 ["Analytics"]
-      207 SETTABLEKS                       R12 R37 K23 ["EditingItemContext"]
-      209 SETTABLEKS                       R13 R37 K24 ["PreviewContext"]
-      211 SETTABLEKS                       R14 R37 K25 ["AssetServiceWrapper"]
-      213 GETTABLEKS                       R38 R20 K62 ["Localization"]
-      215 SETTABLEKS                       R38 R37 K62 ["Localization"]
-      217 SETTABLEKS                       R15 R37 K26 ["StudioServiceWrapper"]
-      219 CALL                             R36 1 1
-      220 MOVE                             R37 R26
-      221 CALL                             R36 1 1
-      222 MOVE                             R26 R36
-      223 GETTABLEKS                       R36 R4 K64 ["connect"]
-      225 MOVE                             R37 R34
-      226 MOVE                             R38 R35
-      227 CALL                             R36 2 1
-      228 MOVE                             R37 R26
-      229 CALL                             R36 1 -1
-      230 RETURN                           R36 -1
+      149 DUPCLOSURE                       R27 K43 [PROTO_0]
+      150 CAPTURE                          VAL R9
+      151 CAPTURE                          VAL R7
+      152 DUPCLOSURE                       R28 K44 [PROTO_1]
+      153 CAPTURE                          VAL R24
+      154 DUPCLOSURE                       R29 K45 [PROTO_3]
+      155 CAPTURE                          VAL R27
+      156 CAPTURE                          VAL R28
+      157 DUPCLOSURE                       R30 K46 [PROTO_4]
+      158 CAPTURE                          VAL R25
+      159 CAPTURE                          VAL R24
+      160 DUPCLOSURE                       R31 K47 [PROTO_5]
+      161 DUPCLOSURE                       R32 K48 [PROTO_6]
+      162 CAPTURE                          VAL R10
+      163 CAPTURE                          VAL R9
+      164 DUPCLOSURE                       R33 K49 [PROTO_11]
+      165 CAPTURE                          VAL R2
+      166 CAPTURE                          VAL R24
+      167 CAPTURE                          VAL R10
+      168 CAPTURE                          VAL R9
+      169 CAPTURE                          VAL R31
+      170 CAPTURE                          VAL R3
+      171 CAPTURE                          VAL R30
+      172 SETTABLEKS                       R33 R26 K50 ["init"]
+      174 DUPCLOSURE                       R33 K51 [PROTO_12]
+      175 CAPTURE                          VAL R0
+      176 CAPTURE                          VAL R24
+      177 SETTABLEKS                       R33 R26 K52 ["getOrCreatePreviewFolder"]
+      179 DUPCLOSURE                       R33 K53 [PROTO_13]
+      180 CAPTURE                          VAL R2
+      181 CAPTURE                          VAL R11
+      182 SETTABLEKS                       R33 R26 K54 ["render"]
+      184 DUPCLOSURE                       R33 K55 [PROTO_14]
+      185 CAPTURE                          VAL R9
+      186 CAPTURE                          VAL R27
+      187 CAPTURE                          VAL R28
+      188 SETTABLEKS                       R33 R26 K56 ["didUpdate"]
+      190 DUPCLOSURE                       R33 K57 [PROTO_15]
+      191 DUPCLOSURE                       R34 K58 [PROTO_19]
+      192 CAPTURE                          VAL R17
+      193 CAPTURE                          VAL R18
+      194 CAPTURE                          VAL R16
+      195 MOVE                             R35 R21
+      196 DUPTABLE                         R36 K61 [{"Analytics", "EditingItemContext", "PreviewContext", "AssetServiceWrapper", "Localization", "StudioServiceWrapper"}]
+      197 GETTABLEKS                       R37 R20 K59 ["Analytics"]
+      199 SETTABLEKS                       R37 R36 K59 ["Analytics"]
+      201 SETTABLEKS                       R12 R36 K23 ["EditingItemContext"]
+      203 SETTABLEKS                       R13 R36 K24 ["PreviewContext"]
+      205 SETTABLEKS                       R14 R36 K25 ["AssetServiceWrapper"]
+      207 GETTABLEKS                       R37 R20 K60 ["Localization"]
+      209 SETTABLEKS                       R37 R36 K60 ["Localization"]
+      211 SETTABLEKS                       R15 R36 K26 ["StudioServiceWrapper"]
+      213 CALL                             R35 1 1
+      214 MOVE                             R36 R26
+      215 CALL                             R35 1 1
+      216 MOVE                             R26 R35
+      217 GETTABLEKS                       R35 R4 K62 ["connect"]
+      219 MOVE                             R36 R33
+      220 MOVE                             R37 R34
+      221 CALL                             R35 2 1
+      222 MOVE                             R36 R26
+      223 CALL                             R35 1 -1
+      224 RETURN                           R35 -1

@@ -2,7 +2,10 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local PlayersService = game:GetService("Players")
 
+local Foundation = require(CorePackages.Packages.Foundation)
 local RobloxGui = CoreGui.RobloxGui
+
+local AccessoryType = Foundation.Enums.AccessoryType
 
 local Promise = require(CorePackages.Packages.Promise)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
@@ -26,6 +29,10 @@ return {
 
 				if player and not isLocalPlayer then
 					table.insert(voiceUsers, {
+						leading = {
+							type = AccessoryType.Avatar,
+							userId = player.UserId,
+						},
 						id = tostring(player.UserId),
 						label = player.DisplayName,
 						description = "@" .. player.Name,

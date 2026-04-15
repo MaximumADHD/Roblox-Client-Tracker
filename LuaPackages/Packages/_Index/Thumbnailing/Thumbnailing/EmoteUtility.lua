@@ -12,7 +12,7 @@ local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local FStringEmoteUtilityFallbackKeyframeSequenceAssetId =
 	game:DefineFastString("EmoteUtilityFallbackKeyframeSequenceAssetId", "10921261056")
 local FFlagEmoteUtilityDefaultMoodFromCharacter = game:DefineFastFlag("EmoteUtilityDefaultMoodFromCharacter", false)
-local FFlagEmoteUtilitySupportAJU = game:DefineFastFlag("EmoteUtilitySupportAJU", false)
+local FFlagEmoteUtilitySupportAJU = game:DefineFastFlag("EmoteUtilitySupportAJU2", false)
 
 local module = {}
 
@@ -697,7 +697,26 @@ local function applyCFrame(part0: BasePart, part1: BasePart, joint: AnimatableJo
 		local attach1 = (joint :: AnimationConstraint).Attachment1 :: Attachment
 		part1.CFrame = part0.CFrame * getAttachmentCFrame(attach0) * poseCFrame * getAttachmentCFrame(attach1):Inverse()
 	elseif joint:IsA("Motor6D") then
-		(joint :: Motor6D).C1 = (joint :: Motor6D).C1 * poseCFrame:Inverse()
+		local c0 = (joint :: Motor6D).C0
+		local c1 = (joint :: Motor6D).C1
+		part1.Anchored = true
+		part1.CFrame = part0.CFrame * c0 * poseCFrame * c1:Inverse()
+	end
+end
+
+local function getJointPose(joint: AnimatableJoint): CFrame
+	if joint:IsA("AnimationConstraint") then
+		return (joint :: AnimationConstraint).Transform
+	elseif joint:IsA("Motor6D") then
+		local motor = joint :: Motor6D
+		local pose = motor.Transform
+		if motor.CurrentAngle ~= 0 then
+			pose = pose * CFrame.Angles(0, 0, motor.CurrentAngle)
+		end
+		return pose
+	else
+		error("Unsupported joint type:" .. joint.ClassName)
+		return CFrame.new()
 	end
 end
 
@@ -709,7 +728,7 @@ module.ForceAnimationToStep = function(character: Model)
 	if FFlagEmoteUtilitySupportAJU then
 		local partsToProcess = { character:FindFirstChild("HumanoidRootPart") :: BasePart }
 		local visited: { [BasePart]: boolean } = {}
-		local jointQueue: { { part0: BasePart, part1: BasePart, joint: Instance } } = {}
+		local jointQueue: { { part0: BasePart, part1: BasePart, joint: AnimatableJoint } } = {}
 
 		while #partsToProcess > 0 do
 			local currentPart = table.remove(partsToProcess, 1) :: BasePart
@@ -719,8 +738,11 @@ module.ForceAnimationToStep = function(character: Model)
 			visited[currentPart] = true
 
 			for _, joint in currentPart:GetJoints() do
-				local part0, part1 = getJointParts(joint)
+				if not joint:IsA("Motor6D") and not joint:IsA("AnimationConstraint") then
+					continue
+				end
 
+				local part0, part1 = getJointParts(joint)
 				if part0 == currentPart and part1 and not visited[part1 :: BasePart] then
 					table.insert(jointQueue, { part0 = currentPart, part1 = part1 :: BasePart, joint = joint })
 					table.insert(partsToProcess, part1 :: BasePart)
@@ -739,7 +761,7 @@ module.ForceAnimationToStep = function(character: Model)
 		for _, entry in jointQueue do
 			local joint = entry.joint
 			if joint:IsA("Motor6D") or joint:IsA("AnimationConstraint") then
-				local poseCFrame: CFrame = (joint :: any).Transform
+				local poseCFrame: CFrame = getJointPose(joint)
 				applyCFrame(entry.part0, entry.part1, joint :: AnimatableJoint, poseCFrame)
 			end
 		end

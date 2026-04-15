@@ -72,6 +72,9 @@ type _CollectionCarouselSchema_PropsFields = {
 	num_items_to_render_off_screen: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	items: _roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp?,
 	item_height_mode: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	enable_hover_overflow: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _CollectionCarouselSchema_PropsPartialFields = {
@@ -94,6 +97,9 @@ type _CollectionCarouselSchema_PropsPartialFields = {
 	num_items_to_render_off_screen: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	items: _roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp?,
 	item_height_mode: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	enable_hover_overflow: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type CollectionCarouselSchema_Props = typeof(setmetatable(
@@ -270,6 +276,15 @@ do
 				else data.num_items_to_render_off_screen,
 			items = if data == nil or data.items == nil then nil else data.items,
 			item_height_mode = if data == nil or data.item_height_mode == nil then nil else data.item_height_mode,
+			impression_event_name = if data == nil or data.impression_event_name == nil
+				then nil
+				else data.impression_event_name,
+			skip_item_impressions_log = if data == nil or data.skip_item_impressions_log == nil
+				then nil
+				else data.skip_item_impressions_log,
+			enable_hover_overflow = if data == nil or data.enable_hover_overflow == nil
+				then nil
+				else data.enable_hover_overflow,
 		}, _CollectionCarouselSchema_PropsImpl :: _CollectionCarouselSchema_PropsImpl)
 	end
 
@@ -388,6 +403,24 @@ do
 		if self.item_height_mode ~= nil then
 			local encoded = self.item_height_mode:encode()
 			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.impression_event_name ~= nil then
+			local encoded = self.impression_event_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.skip_item_impressions_log ~= nil then
+			local encoded = self.skip_item_impressions_log:encode()
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.enable_hover_overflow ~= nil then
+			local encoded = self.enable_hover_overflow:encode()
+			output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -516,6 +549,24 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.item_height_mode = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.impression_event_name =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.skip_item_impressions_log =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 22 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.enable_hover_overflow =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
 				end
 
 				local length
@@ -617,6 +668,18 @@ do
 
 		if self.item_height_mode ~= nil then
 			output.itemHeightMode = self.item_height_mode:jsonEncode()
+		end
+
+		if self.impression_event_name ~= nil then
+			output.impressionEventName = self.impression_event_name:jsonEncode()
+		end
+
+		if self.skip_item_impressions_log ~= nil then
+			output.skipItemImpressionsLog = self.skip_item_impressions_log:jsonEncode()
+		end
+
+		if self.enable_hover_overflow ~= nil then
+			output.enableHoverOverflow = self.enable_hover_overflow:jsonEncode()
 		end
 
 		return output
@@ -806,6 +869,36 @@ do
 		if input.itemHeightMode ~= nil then
 			self.item_height_mode =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.itemHeightMode)
+		end
+
+		if input.impression_event_name ~= nil then
+			self.impression_event_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.impression_event_name)
+		end
+
+		if input.impressionEventName ~= nil then
+			self.impression_event_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.impressionEventName)
+		end
+
+		if input.skip_item_impressions_log ~= nil then
+			self.skip_item_impressions_log =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skip_item_impressions_log)
+		end
+
+		if input.skipItemImpressionsLog ~= nil then
+			self.skip_item_impressions_log =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skipItemImpressionsLog)
+		end
+
+		if input.enable_hover_overflow ~= nil then
+			self.enable_hover_overflow =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.enable_hover_overflow)
+		end
+
+		if input.enableHoverOverflow ~= nil then
+			self.enable_hover_overflow =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.enableHoverOverflow)
 		end
 
 		return self

@@ -16,6 +16,7 @@ local Packages = FoundationImages.Parent
 local BuilderIcons = require(Packages.BuilderIcons)
 local Flags = require(FoundationImages.Flags)
 local deprecatedUIBloxIcons = BuilderIcons.Migration["uiblox"]
+local whitelistedIconDeprecations = require(FoundationImages.whitelistedIconAssets)
 
 local function getPackagePath(): string?
 	local packageRoot = FoundationImages
@@ -48,7 +49,11 @@ local packagePath = getPackagePath()
 local Images = {}
 
 for key, value in sourceData do
-	if Flags.FoundationImagesRemoveDeprecatedIconAssets and deprecatedUIBloxIcons[key] then
+	if
+		Flags.FoundationImagesRemoveDeprecatedIconAssets
+		and whitelistedIconDeprecations[key] == nil
+		and deprecatedUIBloxIcons[key]
+	then
 		-- intentionally omit deprecated assets from images table to mock their removal
 		continue
 	end

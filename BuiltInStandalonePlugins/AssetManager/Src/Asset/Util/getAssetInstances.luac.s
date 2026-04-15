@@ -378,85 +378,75 @@ MAIN:
        74 GETTABLEKS                       R12 R13 K7 ["Flags"]
        76 GETTABLEKS                       R11 R12 K21 ["getFFlagAmrFixInsertInPlaySolo"]
        78 CALL                             R10 1 1
-       79 GETIMPORT                        R11 K5 [require]
-       81 GETTABLEKS                       R14 R0 K6 ["Src"]
-       83 GETTABLEKS                       R13 R14 K7 ["Flags"]
-       85 GETTABLEKS                       R12 R13 K22 ["getFFlagAmrInsertAnimationInstance"]
-       87 CALL                             R11 1 1
-       88 DUPCLOSURE                       R12 K23 [PROTO_0]
-       89 DUPCLOSURE                       R13 K24 [PROTO_2]
-       90 CAPTURE                          VAL R8
-       91 DUPCLOSURE                       R14 K25 [PROTO_3]
-       92 CAPTURE                          VAL R4
-       93 NEWTABLE                         R15 0 0
-       95 GETTABLEKS                       R16 R7 K26 ["asList"]
-       97 GETTABLEKS                       R17 R7 K27 ["AssetType"]
-       99 CALL                             R16 1 3
-      100 FORGPREP                         R16
-      101 SETTABLE                         R14 R15 R20
-      102 FORGLOOP                         R16 2 ; [-2]
-      104 MOVE                             R16 R9
-      105 CALL                             R16 0 1
-      106 JUMPIFNOT                        R16 ; [+6]
-      107 GETTABLEKS                       R17 R7 K27 ["AssetType"]
-      109 GETTABLEKS                       R16 R17 K28 ["Folder"]
-      111 DUPCLOSURE                       R17 K29 [PROTO_4]
-      112 SETTABLE                         R17 R15 R16
-      113 GETTABLEKS                       R17 R7 K27 ["AssetType"]
-      115 GETTABLEKS                       R16 R17 K30 ["Model"]
-      117 DUPCLOSURE                       R17 K31 [PROTO_5]
-      118 CAPTURE                          VAL R4
-      119 CAPTURE                          VAL R10
-      120 CAPTURE                          VAL R8
-      121 SETTABLE                         R17 R15 R16
-      122 GETTABLEKS                       R17 R7 K27 ["AssetType"]
-      124 GETTABLEKS                       R16 R17 K32 ["MeshPart"]
-      126 DUPCLOSURE                       R17 K33 [PROTO_6]
-      127 CAPTURE                          VAL R15
-      128 CAPTURE                          VAL R7
-      129 SETTABLE                         R17 R15 R16
-      130 GETTABLEKS                       R17 R7 K27 ["AssetType"]
-      132 GETTABLEKS                       R16 R17 K34 ["Mesh"]
-      134 DUPCLOSURE                       R17 K35 [PROTO_7]
-      135 CAPTURE                          VAL R3
-      136 SETTABLE                         R17 R15 R16
-      137 GETTABLEKS                       R17 R7 K27 ["AssetType"]
-      139 GETTABLEKS                       R16 R17 K36 ["Image"]
-      141 DUPCLOSURE                       R17 K37 [PROTO_8]
-      142 SETTABLE                         R17 R15 R16
-      143 GETTABLEKS                       R17 R7 K27 ["AssetType"]
-      145 GETTABLEKS                       R16 R17 K38 ["Audio"]
-      147 DUPCLOSURE                       R17 K39 [PROTO_9]
-      148 CAPTURE                          VAL R5
-      149 CAPTURE                          VAL R1
-      150 CAPTURE                          VAL R8
-      151 CAPTURE                          VAL R6
-      152 SETTABLE                         R17 R15 R16
-      153 GETTABLEKS                       R17 R7 K27 ["AssetType"]
-      155 GETTABLEKS                       R16 R17 K40 ["Video"]
-      157 DUPCLOSURE                       R17 K41 [PROTO_10]
-      158 CAPTURE                          VAL R8
-      159 SETTABLE                         R17 R15 R16
-      160 GETTABLEKS                       R17 R7 K27 ["AssetType"]
-      162 GETTABLEKS                       R16 R17 K42 ["Animation"]
-      164 MOVE                             R18 R11
-      165 CALL                             R18 0 1
-      166 JUMPIFNOT                        R18 ; [+3]
-      167 DUPCLOSURE                       R17 K43 [PROTO_11]
-      168 CAPTURE                          VAL R14
-      169 JUMP                             ; [+1]
-      170 MOVE                             R17 R14
-      171 SETTABLE                         R17 R15 R16
-      172 GETTABLEKS                       R17 R7 K27 ["AssetType"]
-      174 GETTABLEKS                       R16 R17 K44 ["Plugin"]
-      176 DUPCLOSURE                       R17 K45 [PROTO_12]
-      177 SETTABLE                         R17 R15 R16
-      178 GETTABLEKS                       R17 R7 K27 ["AssetType"]
-      180 GETTABLEKS                       R16 R17 K46 ["FontFamily"]
-      182 DUPCLOSURE                       R17 K47 [PROTO_13]
-      183 SETTABLE                         R17 R15 R16
-      184 GETTABLEKS                       R17 R7 K27 ["AssetType"]
-      186 GETTABLEKS                       R16 R17 K48 ["Place"]
-      188 DUPCLOSURE                       R17 K49 [PROTO_14]
-      189 SETTABLE                         R17 R15 R16
-      190 RETURN                           R15 1
+       79 DUPCLOSURE                       R11 K22 [PROTO_0]
+       80 DUPCLOSURE                       R12 K23 [PROTO_2]
+       81 CAPTURE                          VAL R8
+       82 DUPCLOSURE                       R13 K24 [PROTO_3]
+       83 CAPTURE                          VAL R4
+       84 NEWTABLE                         R14 0 0
+       86 GETTABLEKS                       R15 R7 K25 ["asList"]
+       88 GETTABLEKS                       R16 R7 K26 ["AssetType"]
+       90 CALL                             R15 1 3
+       91 FORGPREP                         R15
+       92 SETTABLE                         R13 R14 R19
+       93 FORGLOOP                         R15 2 ; [-2]
+       95 MOVE                             R15 R9
+       96 CALL                             R15 0 1
+       97 JUMPIFNOT                        R15 ; [+6]
+       98 GETTABLEKS                       R16 R7 K26 ["AssetType"]
+      100 GETTABLEKS                       R15 R16 K27 ["Folder"]
+      102 DUPCLOSURE                       R16 K28 [PROTO_4]
+      103 SETTABLE                         R16 R14 R15
+      104 GETTABLEKS                       R16 R7 K26 ["AssetType"]
+      106 GETTABLEKS                       R15 R16 K29 ["Model"]
+      108 DUPCLOSURE                       R16 K30 [PROTO_5]
+      109 CAPTURE                          VAL R4
+      110 CAPTURE                          VAL R10
+      111 CAPTURE                          VAL R8
+      112 SETTABLE                         R16 R14 R15
+      113 GETTABLEKS                       R16 R7 K26 ["AssetType"]
+      115 GETTABLEKS                       R15 R16 K31 ["MeshPart"]
+      117 DUPCLOSURE                       R16 K32 [PROTO_6]
+      118 CAPTURE                          VAL R14
+      119 CAPTURE                          VAL R7
+      120 SETTABLE                         R16 R14 R15
+      121 GETTABLEKS                       R16 R7 K26 ["AssetType"]
+      123 GETTABLEKS                       R15 R16 K33 ["Mesh"]
+      125 DUPCLOSURE                       R16 K34 [PROTO_7]
+      126 CAPTURE                          VAL R3
+      127 SETTABLE                         R16 R14 R15
+      128 GETTABLEKS                       R16 R7 K26 ["AssetType"]
+      130 GETTABLEKS                       R15 R16 K35 ["Image"]
+      132 DUPCLOSURE                       R16 K36 [PROTO_8]
+      133 SETTABLE                         R16 R14 R15
+      134 GETTABLEKS                       R16 R7 K26 ["AssetType"]
+      136 GETTABLEKS                       R15 R16 K37 ["Audio"]
+      138 DUPCLOSURE                       R16 K38 [PROTO_9]
+      139 CAPTURE                          VAL R5
+      140 CAPTURE                          VAL R1
+      141 CAPTURE                          VAL R8
+      142 CAPTURE                          VAL R6
+      143 SETTABLE                         R16 R14 R15
+      144 GETTABLEKS                       R16 R7 K26 ["AssetType"]
+      146 GETTABLEKS                       R15 R16 K39 ["Video"]
+      148 DUPCLOSURE                       R16 K40 [PROTO_10]
+      149 CAPTURE                          VAL R8
+      150 SETTABLE                         R16 R14 R15
+      151 GETTABLEKS                       R16 R7 K26 ["AssetType"]
+      153 GETTABLEKS                       R15 R16 K41 ["Animation"]
+      155 DUPCLOSURE                       R16 K42 [PROTO_11]
+      156 CAPTURE                          VAL R13
+      157 SETTABLE                         R16 R14 R15
+      158 GETTABLEKS                       R16 R7 K26 ["AssetType"]
+      160 GETTABLEKS                       R15 R16 K43 ["Plugin"]
+      162 DUPCLOSURE                       R16 K44 [PROTO_12]
+      163 SETTABLE                         R16 R14 R15
+      164 GETTABLEKS                       R16 R7 K26 ["AssetType"]
+      166 GETTABLEKS                       R15 R16 K45 ["FontFamily"]
+      168 DUPCLOSURE                       R16 K46 [PROTO_13]
+      169 SETTABLE                         R16 R14 R15
+      170 GETTABLEKS                       R16 R7 K26 ["AssetType"]
+      172 GETTABLEKS                       R15 R16 K47 ["Place"]
+      174 DUPCLOSURE                       R16 K48 [PROTO_14]
+      175 SETTABLE                         R16 R14 R15
+      176 RETURN                           R14 1

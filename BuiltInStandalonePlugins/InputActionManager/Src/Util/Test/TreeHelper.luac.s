@@ -8,7 +8,7 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
-        2 LOADK                            R5 K0 ["tree-node-expand-button-%*"]
+        2 LOADK                            R5 K0 ["expand-%*"]
         3 MOVE                             R7 R1
         4 NAMECALL                         R5 R5 K1 ["format"]
         6 CALL                             R5 2 1
@@ -65,6 +65,23 @@ PROTO_5:
         4 RETURN                           R0 0
 
 PROTO_6:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["keyDown"]
+        3 GETUPVAL                         R1 1
+        4 DUPTABLE                         R2 K2 [{"key"}]
+        5 GETIMPORT                        R3 K6 [Enum.KeyCode.Return]
+        7 SETTABLEKS                       R3 R2 K1 ["key"]
+        9 CALL                             R0 2 0
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R0 R1 K7 ["keyUp"]
+       13 GETUPVAL                         R1 2
+       14 DUPTABLE                         R2 K2 [{"key"}]
+       15 GETIMPORT                        R3 K6 [Enum.KeyCode.Return]
+       17 SETTABLEKS                       R3 R2 K1 ["key"]
+       19 CALL                             R0 2 0
+       20 RETURN                           R0 0
+
+PROTO_7:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R0
         2 LOADK                            R6 K0 ["node-%*"]
@@ -86,7 +103,7 @@ PROTO_6:
        22 CALL                             R4 0 0
        23 GETUPVAL                         R4 0
        24 MOVE                             R5 R0
-       25 LOADK                            R7 K6 ["tree-node-rename-input-%*--internal-text-input--textbox"]
+       25 LOADK                            R7 K6 ["rename-%*--internal-text-input--textbox"]
        26 MOVE                             R9 R1
        27 NAMECALL                         R7 R7 K1 ["format"]
        29 CALL                             R7 2 1
@@ -110,48 +127,57 @@ PROTO_6:
        50 CALL                             R5 1 0
        51 GETUPVAL                         R5 2
        52 CALL                             R5 0 0
-       53 GETUPVAL                         R6 1
-       54 GETTABLEKS                       R5 R6 K8 ["keyDown"]
-       56 MOVE                             R6 R4
-       57 DUPTABLE                         R7 K10 [{"key"}]
-       58 GETIMPORT                        R8 K14 [Enum.KeyCode.Return]
-       60 SETTABLEKS                       R8 R7 K9 ["key"]
-       62 CALL                             R5 2 0
-       63 GETUPVAL                         R6 1
-       64 GETTABLEKS                       R5 R6 K15 ["keyUp"]
-       66 MOVE                             R6 R0
-       67 DUPTABLE                         R7 K10 [{"key"}]
-       68 GETIMPORT                        R8 K14 [Enum.KeyCode.Return]
-       70 SETTABLEKS                       R8 R7 K9 ["key"]
-       72 CALL                             R5 2 0
-       73 GETUPVAL                         R5 2
-       74 CALL                             R5 0 0
-       75 RETURN                           R0 0
+       53 GETUPVAL                         R5 3
+       54 NEWCLOSURE                       R6 P1
+       55 CAPTURE                          UPVAL U1
+       56 CAPTURE                          VAL R4
+       57 CAPTURE                          VAL R0
+       58 CALL                             R5 1 0
+       59 GETUPVAL                         R5 2
+       60 CALL                             R5 0 0
+       61 RETURN                           R0 0
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["mouseEnter"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["click"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 SETTABLEKS                       R1 R0 K0 ["Text"]
         4 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["keyDown"]
+        3 GETUPVAL                         R1 1
+        4 DUPTABLE                         R2 K2 [{"key"}]
+        5 GETIMPORT                        R3 K6 [Enum.KeyCode.Return]
+        7 SETTABLEKS                       R3 R2 K1 ["key"]
+        9 CALL                             R0 2 0
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R0 R1 K7 ["keyUp"]
+       13 GETUPVAL                         R1 2
+       14 DUPTABLE                         R2 K2 [{"key"}]
+       15 GETIMPORT                        R3 K6 [Enum.KeyCode.Return]
+       17 SETTABLEKS                       R3 R2 K1 ["key"]
+       19 CALL                             R0 2 0
+       20 RETURN                           R0 0
+
+PROTO_12:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
-        2 LOADK                            R4 K0 ["tree-header"]
+        2 LOADK                            R4 K0 ["header"]
         3 CALL                             R2 2 1
         4 FASTCALL2K                       ASSERT R2 K1 ; [+5]
         6 MOVE                             R4 R2
@@ -167,7 +193,7 @@ PROTO_10:
        17 CALL                             R3 0 0
        18 GETUPVAL                         R3 0
        19 MOVE                             R4 R0
-       20 LOADK                            R5 K4 ["tree-header-add-button"]
+       20 LOADK                            R5 K4 ["header-add"]
        21 CALL                             R3 2 1
        22 FASTCALL2K                       ASSERT R3 K5 ; [+5]
        24 MOVE                             R5 R3
@@ -183,7 +209,7 @@ PROTO_10:
        35 CALL                             R4 0 0
        36 GETUPVAL                         R4 0
        37 MOVE                             R5 R0
-       38 LOADK                            R6 K6 ["tree-node-rename-input-InputContext--internal-text-input--textbox"]
+       38 LOADK                            R6 K6 ["rename-InputContext--internal-text-input--textbox"]
        39 CALL                             R4 2 1
        40 FASTCALL2K                       ASSERT R4 K7 ; [+5]
        42 MOVE                             R6 R4
@@ -197,45 +223,54 @@ PROTO_10:
        51 CALL                             R5 1 0
        52 GETUPVAL                         R5 3
        53 CALL                             R5 0 0
-       54 GETUPVAL                         R6 2
-       55 GETTABLEKS                       R5 R6 K8 ["keyDown"]
-       57 MOVE                             R6 R4
-       58 DUPTABLE                         R7 K10 [{"key"}]
-       59 GETIMPORT                        R8 K14 [Enum.KeyCode.Return]
-       61 SETTABLEKS                       R8 R7 K9 ["key"]
-       63 CALL                             R5 2 0
-       64 GETUPVAL                         R6 2
-       65 GETTABLEKS                       R5 R6 K15 ["keyUp"]
-       67 MOVE                             R6 R0
-       68 DUPTABLE                         R7 K10 [{"key"}]
-       69 GETIMPORT                        R8 K14 [Enum.KeyCode.Return]
-       71 SETTABLEKS                       R8 R7 K9 ["key"]
-       73 CALL                             R5 2 0
-       74 GETUPVAL                         R5 3
-       75 CALL                             R5 0 0
-       76 RETURN                           R0 0
+       54 GETUPVAL                         R5 1
+       55 NEWCLOSURE                       R6 P3
+       56 CAPTURE                          UPVAL U2
+       57 CAPTURE                          VAL R4
+       58 CAPTURE                          VAL R0
+       59 CALL                             R5 1 0
+       60 GETUPVAL                         R5 3
+       61 CALL                             R5 0 0
+       62 RETURN                           R0 0
 
-PROTO_11:
+PROTO_13:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["mouseEnter"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_12:
+PROTO_14:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["click"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_13:
+PROTO_15:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 SETTABLEKS                       R1 R0 K0 ["Text"]
         4 RETURN                           R0 0
 
-PROTO_14:
+PROTO_16:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["keyDown"]
+        3 GETUPVAL                         R1 1
+        4 DUPTABLE                         R2 K2 [{"key"}]
+        5 GETIMPORT                        R3 K6 [Enum.KeyCode.Return]
+        7 SETTABLEKS                       R3 R2 K1 ["key"]
+        9 CALL                             R0 2 0
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R0 R1 K7 ["keyUp"]
+       13 GETUPVAL                         R1 2
+       14 DUPTABLE                         R2 K2 [{"key"}]
+       15 GETIMPORT                        R3 K6 [Enum.KeyCode.Return]
+       17 SETTABLEKS                       R3 R2 K1 ["key"]
+       19 CALL                             R0 2 0
+       20 RETURN                           R0 0
+
+PROTO_17:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R0
         2 LOADK                            R6 K0 ["node-%*"]
@@ -262,7 +297,7 @@ PROTO_14:
        27 CALL                             R4 0 0
        28 GETUPVAL                         R4 0
        29 MOVE                             R5 R0
-       30 LOADK                            R7 K5 ["tree-node-add-button-%*"]
+       30 LOADK                            R7 K5 ["add-%*"]
        31 MOVE                             R9 R1
        32 NAMECALL                         R7 R7 K1 ["format"]
        34 CALL                             R7 2 1
@@ -286,7 +321,7 @@ PROTO_14:
        55 CALL                             R5 0 0
        56 GETUPVAL                         R5 0
        57 MOVE                             R6 R0
-       58 LOADK                            R7 K7 ["tree-node-rename-input-InputAction--internal-text-input--textbox"]
+       58 LOADK                            R7 K7 ["rename-InputAction--internal-text-input--textbox"]
        59 CALL                             R5 2 1
        60 FASTCALL2K                       ASSERT R5 K8 ; [+5]
        62 MOVE                             R7 R5
@@ -300,23 +335,15 @@ PROTO_14:
        71 CALL                             R6 1 0
        72 GETUPVAL                         R6 3
        73 CALL                             R6 0 0
-       74 GETUPVAL                         R7 2
-       75 GETTABLEKS                       R6 R7 K9 ["keyDown"]
-       77 MOVE                             R7 R5
-       78 DUPTABLE                         R8 K11 [{"key"}]
-       79 GETIMPORT                        R9 K15 [Enum.KeyCode.Return]
-       81 SETTABLEKS                       R9 R8 K10 ["key"]
-       83 CALL                             R6 2 0
-       84 GETUPVAL                         R7 2
-       85 GETTABLEKS                       R6 R7 K16 ["keyUp"]
-       87 MOVE                             R7 R0
-       88 DUPTABLE                         R8 K11 [{"key"}]
-       89 GETIMPORT                        R9 K15 [Enum.KeyCode.Return]
-       91 SETTABLEKS                       R9 R8 K10 ["key"]
-       93 CALL                             R6 2 0
-       94 GETUPVAL                         R6 3
-       95 CALL                             R6 0 0
-       96 RETURN                           R0 0
+       74 GETUPVAL                         R6 1
+       75 NEWCLOSURE                       R7 P3
+       76 CAPTURE                          UPVAL U2
+       77 CAPTURE                          VAL R5
+       78 CAPTURE                          VAL R0
+       79 CALL                             R6 1 0
+       80 GETUPVAL                         R6 3
+       81 CALL                             R6 0 0
+       82 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -359,19 +386,19 @@ MAIN:
        59 DUPCLOSURE                       R10 K23 [PROTO_4]
        60 CAPTURE                          VAL R9
        61 SETTABLEKS                       R10 R9 K24 ["ItemsExist"]
-       63 DUPCLOSURE                       R10 K25 [PROTO_6]
+       63 DUPCLOSURE                       R10 K25 [PROTO_7]
        64 CAPTURE                          VAL R6
        65 CAPTURE                          VAL R8
        66 CAPTURE                          VAL R4
        67 CAPTURE                          VAL R5
        68 SETTABLEKS                       R10 R9 K26 ["Rename"]
-       70 DUPCLOSURE                       R10 K27 [PROTO_10]
+       70 DUPCLOSURE                       R10 K27 [PROTO_12]
        71 CAPTURE                          VAL R6
        72 CAPTURE                          VAL R5
        73 CAPTURE                          VAL R8
        74 CAPTURE                          VAL R4
        75 SETTABLEKS                       R10 R9 K28 ["CreateContext"]
-       77 DUPCLOSURE                       R10 K29 [PROTO_14]
+       77 DUPCLOSURE                       R10 K29 [PROTO_17]
        78 CAPTURE                          VAL R6
        79 CAPTURE                          VAL R5
        80 CAPTURE                          VAL R8

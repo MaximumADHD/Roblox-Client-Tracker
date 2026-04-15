@@ -26,6 +26,7 @@ type _SocialLinkDataFields = {
 	title: string,
 	url: string,
 	type: string,
+	community_id: number,
 }
 
 type _SocialLinkDataPartialFields = {
@@ -33,6 +34,7 @@ type _SocialLinkDataPartialFields = {
 	title: string?,
 	url: string?,
 	type: string?,
+	community_id: number?,
 }
 
 export type SocialLinkData = typeof(setmetatable({} :: _SocialLinkDataFields, {} :: _SocialLinkDataImpl))
@@ -48,6 +50,7 @@ do
 			title = if data == nil or data.title == nil then "" else data.title,
 			url = if data == nil or data.url == nil then "" else data.url,
 			type = if data == nil or data.type == nil then "" else data.type,
+			community_id = if data == nil or data.community_id == nil then 0 else data.community_id,
 		}, _SocialLinkDataImpl :: _SocialLinkDataImpl)
 	end
 
@@ -75,6 +78,11 @@ do
 			output, cursor = proto.writeString(output, cursor, self.type)
 		end
 
+		if self.community_id ~= nil and self.community_id ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.community_id)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -93,6 +101,11 @@ do
 					local value
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.id = value
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.community_id = value
 					continue
 				end
 
@@ -157,6 +170,10 @@ do
 			output.type = self.type
 		end
 
+		if self.community_id ~= nil and self.community_id ~= 0 then
+			output.communityId = self.community_id
+		end
+
 		return output
 	end
 
@@ -177,6 +194,14 @@ do
 
 		if input.type ~= nil then
 			self.type = input.type
+		end
+
+		if input.community_id ~= nil then
+			self.community_id = input.community_id
+		end
+
+		if input.communityId ~= nil then
+			self.community_id = input.communityId
 		end
 
 		return self

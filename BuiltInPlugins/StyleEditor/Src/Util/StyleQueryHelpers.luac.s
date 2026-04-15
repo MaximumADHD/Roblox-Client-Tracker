@@ -351,6 +351,65 @@ PROTO_6:
         5 CALL                             R1 1 1
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R3 R4 K2 ["Type"]
+        9 GETTABLEKS                       R2 R3 K3 ["Query"]
+       11 JUMPIFEQ                         R1 R2 ; [+3]
+       13 LOADNIL                          R2
+       14 RETURN                           R2 1
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R2 R3 K4 ["getDataFromSelector"]
+       18 GETTABLEKS                       R3 R0 K1 ["Selector"]
+       20 MOVE                             R4 R1
+       21 CALL                             R2 2 1
+       22 JUMPIF                           R2 ; [+2]
+       23 LOADNIL                          R3
+       24 RETURN                           R3 1
+       25 LOADK                            R5 K5 ["StyleBase"]
+       26 NAMECALL                         R3 R0 K6 ["FindFirstAncestorWhichIsA"]
+       28 CALL                             R3 2 1
+       29 JUMPIF                           R3 ; [+2]
+       30 LOADNIL                          R4
+       31 RETURN                           R4 1
+       32 NAMECALL                         R4 R3 K7 ["GetStyleRules"]
+       34 CALL                             R4 1 3
+       35 FORGPREP                         R4
+       36 LOADK                            R12 K8 ["StyleRule"]
+       37 NAMECALL                         R10 R8 K9 ["IsA"]
+       39 CALL                             R10 2 -1
+       40 FASTCALL                         ASSERT ; [+2]
+       41 GETIMPORT                        R9 K11 [assert]
+       43 CALL                             R9 -1 0
+       44 GETUPVAL                         R10 0
+       45 GETTABLEKS                       R9 R10 K0 ["getQueryTypeFromSelector"]
+       47 GETTABLEKS                       R10 R8 K1 ["Selector"]
+       49 CALL                             R9 1 1
+       50 GETUPVAL                         R12 0
+       51 GETTABLEKS                       R11 R12 K2 ["Type"]
+       53 GETTABLEKS                       R10 R11 K12 ["Pseudo"]
+       55 JUMPIFNOTEQ                      R9 R10 ; [+17]
+       57 GETUPVAL                         R11 0
+       58 GETTABLEKS                       R10 R11 K4 ["getDataFromSelector"]
+       60 GETTABLEKS                       R11 R8 K1 ["Selector"]
+       62 MOVE                             R12 R9
+       63 CALL                             R10 2 1
+       64 JUMPIFNOT                        R10 ; [+8]
+       65 GETUPVAL                         R12 0
+       66 GETTABLEKS                       R11 R12 K13 ["areSelectorsPaired"]
+       68 MOVE                             R12 R2
+       69 MOVE                             R13 R10
+       70 CALL                             R11 2 1
+       71 JUMPIFNOT                        R11 ; [+1]
+       72 RETURN                           R8 1
+       73 FORGLOOP                         R4 2 ; [-38]
+       75 LOADNIL                          R4
+       76 RETURN                           R4 1
+
+PROTO_7:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["getQueryTypeFromSelector"]
+        3 GETTABLEKS                       R2 R0 K1 ["Selector"]
+        5 CALL                             R1 1 1
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R3 R4 K2 ["Type"]
         9 GETTABLEKS                       R2 R3 K3 ["Pseudo"]
        11 JUMPIFEQ                         R1 R2 ; [+4]
        13 NEWTABLE                         R2 0 0
@@ -407,7 +466,7 @@ PROTO_6:
        85 FORGLOOP                         R5 2 ; [-45]
        87 RETURN                           R4 1
 
-PROTO_7:
+PROTO_8:
         0 LOADK                            R6 K0 ["StyleBase"]
         1 NAMECALL                         R4 R0 K1 ["FindFirstAncestorWhichIsA"]
         3 CALL                             R4 2 1
@@ -570,9 +629,12 @@ MAIN:
       156 SETTABLEKS                       R13 R4 K51 ["getDataFromSelector"]
       158 DUPCLOSURE                       R13 K52 [PROTO_6]
       159 CAPTURE                          VAL R4
-      160 SETTABLEKS                       R13 R4 K53 ["getQueryStyleRulesForPseudo"]
+      160 SETTABLEKS                       R13 R4 K53 ["getPseudoRuleForQuery"]
       162 DUPCLOSURE                       R13 K54 [PROTO_7]
       163 CAPTURE                          VAL R4
-      164 CAPTURE                          VAL R3
-      165 SETTABLEKS                       R13 R4 K55 ["syncQueryRuleSelectors"]
-      167 RETURN                           R4 1
+      164 SETTABLEKS                       R13 R4 K55 ["getQueryStyleRulesForPseudo"]
+      166 DUPCLOSURE                       R13 K56 [PROTO_8]
+      167 CAPTURE                          VAL R4
+      168 CAPTURE                          VAL R3
+      169 SETTABLEKS                       R13 R4 K57 ["syncQueryRuleSelectors"]
+      171 RETURN                           R4 1

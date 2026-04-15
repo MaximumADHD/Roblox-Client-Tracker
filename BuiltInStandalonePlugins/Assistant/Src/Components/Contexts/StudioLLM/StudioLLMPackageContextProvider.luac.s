@@ -35,15 +35,9 @@ PROTO_1:
        31 GETTABLEKS                       R1 R2 K11 ["getSystemMessage"]
        33 CALL                             R1 0 1
        34 SETTABLEKS                       R1 R0 K5 ["systemMessage"]
-       36 GETUPVAL                         R2 5
-       37 CALL                             R2 0 1
-       38 JUMPIFNOT                        R2 ; [+4]
-       39 GETUPVAL                         R2 6
-       40 GETTABLEKS                       R1 R2 K12 ["getSystemReminders"]
-       42 JUMPIF                           R1 ; [+1]
-       43 LOADNIL                          R1
-       44 SETTABLEKS                       R1 R0 K6 ["systemRemindersGetter"]
-       46 RETURN                           R0 1
+       36 GETUPVAL                         R1 5
+       37 SETTABLEKS                       R1 R0 K6 ["systemRemindersGetter"]
+       39 RETURN                           R0 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -51,81 +45,96 @@ PROTO_2:
         3 CALL                             R1 1 1
         4 NAMECALL                         R1 R1 K1 ["get"]
         6 CALL                             R1 1 1
-        7 GETUPVAL                         R2 1
-        8 CALL                             R2 0 1
-        9 JUMPIFNOT                        R2 ; [+41]
-       10 GETUPVAL                         R3 2
-       11 GETTABLEKS                       R2 R3 K2 ["useMemo"]
-       13 DUPCLOSURE                       R3 K3 [PROTO_0]
-       14 CAPTURE                          UPVAL U3
-       15 NEWTABLE                         R4 0 0
-       17 CALL                             R2 2 1
-       18 GETUPVAL                         R4 2
-       19 GETTABLEKS                       R3 R4 K2 ["useMemo"]
-       21 NEWCLOSURE                       R4 P1
-       22 CAPTURE                          UPVAL U4
-       23 CAPTURE                          VAL R1
-       24 CAPTURE                          VAL R2
-       25 CAPTURE                          UPVAL U5
-       26 CAPTURE                          UPVAL U6
-       27 CAPTURE                          UPVAL U7
-       28 CAPTURE                          UPVAL U8
-       29 NEWTABLE                         R5 0 2
-       31 MOVE                             R6 R2
-       32 MOVE                             R7 R1
-       33 SETLIST                          R5 R6 2 [1]
-       35 CALL                             R3 2 1
-       36 GETUPVAL                         R4 9
-       37 GETUPVAL                         R8 3
-       38 GETTABLEKS                       R7 R8 K4 ["Components"]
-       40 GETTABLEKS                       R6 R7 K5 ["Contexts"]
-       42 GETTABLEKS                       R5 R6 K6 ["LLMPackageContextProvider"]
-       44 DUPTABLE                         R6 K8 [{"studioProvider"}]
-       45 SETTABLEKS                       R3 R6 K7 ["studioProvider"]
-       47 GETTABLEKS                       R7 R0 K9 ["children"]
-       49 CALL                             R4 3 -1
-       50 RETURN                           R4 -1
-       51 GETUPVAL                         R6 3
-       52 GETTABLEKS                       R5 R6 K4 ["Components"]
-       54 GETTABLEKS                       R4 R5 K10 ["DefaultLLMProvider"]
-       56 GETTABLEKS                       R3 R4 K11 ["LLMProcessEvent"]
-       58 GETTABLEKS                       R2 R3 K12 ["createProcessEventHandler"]
-       60 CALL                             R2 0 3
-       61 GETUPVAL                         R5 9
-       62 GETUPVAL                         R9 3
-       63 GETTABLEKS                       R8 R9 K4 ["Components"]
-       65 GETTABLEKS                       R7 R8 K5 ["Contexts"]
-       67 GETTABLEKS                       R6 R7 K6 ["LLMPackageContextProvider"]
-       69 DUPTABLE                         R7 K8 [{"studioProvider"}]
-       70 DUPTABLE                         R8 K20 [{"requestHandler", "processEvent", "createLLMSession", "cancelSession", "formatTools", "systemMessage", "systemRemindersGetter"}]
-       71 GETUPVAL                         R10 4
-       72 GETTABLEKS                       R9 R10 K21 ["createRequestHandler"]
-       74 GETIMPORT                        R10 K23 [game]
-       76 MOVE                             R11 R1
-       77 CALL                             R9 2 1
-       78 SETTABLEKS                       R9 R8 K13 ["requestHandler"]
-       80 SETTABLEKS                       R2 R8 K14 ["processEvent"]
-       82 SETTABLEKS                       R3 R8 K15 ["createLLMSession"]
-       84 SETTABLEKS                       R4 R8 K16 ["cancelSession"]
-       86 GETUPVAL                         R10 5
-       87 GETTABLEKS                       R9 R10 K17 ["formatTools"]
-       89 SETTABLEKS                       R9 R8 K17 ["formatTools"]
-       91 GETUPVAL                         R10 6
-       92 GETTABLEKS                       R9 R10 K24 ["getSystemMessage"]
-       94 CALL                             R9 0 1
-       95 SETTABLEKS                       R9 R8 K18 ["systemMessage"]
-       97 GETUPVAL                         R10 7
-       98 CALL                             R10 0 1
-       99 JUMPIFNOT                        R10 ; [+4]
-      100 GETUPVAL                         R10 8
-      101 GETTABLEKS                       R9 R10 K25 ["getSystemReminders"]
-      103 JUMPIF                           R9 ; [+1]
-      104 LOADNIL                          R9
-      105 SETTABLEKS                       R9 R8 K19 ["systemRemindersGetter"]
-      107 SETTABLEKS                       R8 R7 K7 ["studioProvider"]
-      109 GETTABLEKS                       R8 R0 K9 ["children"]
-      111 CALL                             R5 3 -1
-      112 RETURN                           R5 -1
+        7 LOADNIL                          R2
+        8 GETUPVAL                         R3 1
+        9 CALL                             R3 0 1
+       10 JUMPIFNOT                        R3 ; [+6]
+       11 GETUPVAL                         R4 2
+       12 GETTABLEKS                       R3 R4 K2 ["useGetSystemReminders"]
+       14 CALL                             R3 0 1
+       15 MOVE                             R2 R3
+       16 JUMP                             ; [+12]
+       17 GETUPVAL                         R4 3
+       18 CALL                             R4 0 1
+       19 JUMPIF                           R4 ; [+3]
+       20 GETUPVAL                         R4 4
+       21 CALL                             R4 0 1
+       22 JUMPIFNOT                        R4 ; [+4]
+       23 GETUPVAL                         R4 2
+       24 GETTABLEKS                       R3 R4 K3 ["getSystemReminders"]
+       26 JUMPIF                           R3 ; [+1]
+       27 LOADNIL                          R3
+       28 MOVE                             R2 R3
+       29 GETUPVAL                         R3 5
+       30 CALL                             R3 0 1
+       31 JUMPIFNOT                        R3 ; [+42]
+       32 GETUPVAL                         R4 6
+       33 GETTABLEKS                       R3 R4 K4 ["useMemo"]
+       35 DUPCLOSURE                       R4 K5 [PROTO_0]
+       36 CAPTURE                          UPVAL U7
+       37 NEWTABLE                         R5 0 0
+       39 CALL                             R3 2 1
+       40 GETUPVAL                         R5 6
+       41 GETTABLEKS                       R4 R5 K4 ["useMemo"]
+       43 NEWCLOSURE                       R5 P1
+       44 CAPTURE                          UPVAL U8
+       45 CAPTURE                          VAL R1
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          UPVAL U9
+       48 CAPTURE                          UPVAL U10
+       49 CAPTURE                          REF R2
+       50 NEWTABLE                         R6 0 3
+       52 MOVE                             R7 R3
+       53 MOVE                             R8 R1
+       54 MOVE                             R9 R2
+       55 SETLIST                          R6 R7 3 [1]
+       57 CALL                             R4 2 1
+       58 GETUPVAL                         R5 11
+       59 GETUPVAL                         R9 7
+       60 GETTABLEKS                       R8 R9 K6 ["Components"]
+       62 GETTABLEKS                       R7 R8 K7 ["Contexts"]
+       64 GETTABLEKS                       R6 R7 K8 ["LLMPackageContextProvider"]
+       66 DUPTABLE                         R7 K10 [{"studioProvider"}]
+       67 SETTABLEKS                       R4 R7 K9 ["studioProvider"]
+       69 GETTABLEKS                       R8 R0 K11 ["children"]
+       71 CALL                             R5 3 -1
+       72 CLOSEUPVALS                      R2
+       73 RETURN                           R5 -1
+       74 GETUPVAL                         R7 7
+       75 GETTABLEKS                       R6 R7 K6 ["Components"]
+       77 GETTABLEKS                       R5 R6 K12 ["DefaultLLMProvider"]
+       79 GETTABLEKS                       R4 R5 K13 ["LLMProcessEvent"]
+       81 GETTABLEKS                       R3 R4 K14 ["createProcessEventHandler"]
+       83 CALL                             R3 0 3
+       84 GETUPVAL                         R6 11
+       85 GETUPVAL                         R10 7
+       86 GETTABLEKS                       R9 R10 K6 ["Components"]
+       88 GETTABLEKS                       R8 R9 K7 ["Contexts"]
+       90 GETTABLEKS                       R7 R8 K8 ["LLMPackageContextProvider"]
+       92 DUPTABLE                         R8 K10 [{"studioProvider"}]
+       93 DUPTABLE                         R9 K22 [{"requestHandler", "processEvent", "createLLMSession", "cancelSession", "formatTools", "systemMessage", "systemRemindersGetter"}]
+       94 GETUPVAL                         R11 8
+       95 GETTABLEKS                       R10 R11 K23 ["createRequestHandler"]
+       97 GETIMPORT                        R11 K25 [game]
+       99 MOVE                             R12 R1
+      100 CALL                             R10 2 1
+      101 SETTABLEKS                       R10 R9 K15 ["requestHandler"]
+      103 SETTABLEKS                       R3 R9 K16 ["processEvent"]
+      105 SETTABLEKS                       R4 R9 K17 ["createLLMSession"]
+      107 SETTABLEKS                       R5 R9 K18 ["cancelSession"]
+      109 GETUPVAL                         R11 9
+      110 GETTABLEKS                       R10 R11 K19 ["formatTools"]
+      112 SETTABLEKS                       R10 R9 K19 ["formatTools"]
+      114 GETUPVAL                         R11 10
+      115 GETTABLEKS                       R10 R11 K26 ["getSystemMessage"]
+      117 CALL                             R10 0 1
+      118 SETTABLEKS                       R10 R9 K20 ["systemMessage"]
+      120 SETTABLEKS                       R2 R9 K21 ["systemRemindersGetter"]
+      122 SETTABLEKS                       R9 R8 K9 ["studioProvider"]
+      124 GETTABLEKS                       R9 R0 K11 ["children"]
+      126 CALL                             R6 3 -1
+      127 CLOSEUPVALS                      R2
+      128 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -151,34 +160,42 @@ MAIN:
        34 GETTABLEKS                       R7 R1 K10 ["Flags"]
        36 GETTABLEKS                       R6 R7 K11 ["Shared"]
        38 GETTABLEKS                       R5 R6 K13 ["FFlagAssistantTestModeSystemReminder"]
-       40 GETTABLEKS                       R9 R0 K14 ["Src"]
-       42 GETTABLEKS                       R8 R9 K15 ["Components"]
-       44 GETTABLEKS                       R7 R8 K16 ["Contexts"]
-       46 GETTABLEKS                       R6 R7 K17 ["StudioLLM"]
-       48 GETIMPORT                        R7 K5 [require]
-       50 GETTABLEKS                       R8 R6 K18 ["StudioLLMRequest"]
-       52 CALL                             R7 1 1
-       53 GETIMPORT                        R8 K5 [require]
-       55 GETTABLEKS                       R9 R6 K19 ["StudioLLMSystemMessage"]
-       57 CALL                             R8 1 1
-       58 GETIMPORT                        R9 K5 [require]
-       60 GETTABLEKS                       R10 R6 K20 ["StudioLLMSystemReminder"]
-       62 CALL                             R9 1 1
-       63 GETTABLEKS                       R10 R2 K21 ["ContextServices"]
-       65 GETTABLEKS                       R11 R10 K22 ["Plugin"]
-       67 GETTABLEKS                       R14 R1 K15 ["Components"]
-       69 GETTABLEKS                       R13 R14 K23 ["Claude"]
-       71 GETTABLEKS                       R12 R13 K24 ["ClaudeLLMToolFormat"]
-       73 GETTABLEKS                       R13 R3 K25 ["createElement"]
-       75 DUPCLOSURE                       R14 K26 [PROTO_2]
-       76 CAPTURE                          VAL R11
-       77 CAPTURE                          VAL R4
-       78 CAPTURE                          VAL R3
-       79 CAPTURE                          VAL R1
-       80 CAPTURE                          VAL R7
-       81 CAPTURE                          VAL R12
-       82 CAPTURE                          VAL R8
-       83 CAPTURE                          VAL R5
-       84 CAPTURE                          VAL R9
-       85 CAPTURE                          VAL R13
-       86 RETURN                           R14 1
+       40 GETTABLEKS                       R8 R1 K10 ["Flags"]
+       42 GETTABLEKS                       R7 R8 K11 ["Shared"]
+       44 GETTABLEKS                       R6 R7 K14 ["FFlagAssistantAgentModeSystemReminder"]
+       46 GETTABLEKS                       R9 R1 K10 ["Flags"]
+       48 GETTABLEKS                       R8 R9 K11 ["Shared"]
+       50 GETTABLEKS                       R7 R8 K15 ["FFlagAssistantSystemReminderRefactor"]
+       52 GETTABLEKS                       R11 R0 K16 ["Src"]
+       54 GETTABLEKS                       R10 R11 K17 ["Components"]
+       56 GETTABLEKS                       R9 R10 K18 ["Contexts"]
+       58 GETTABLEKS                       R8 R9 K19 ["StudioLLM"]
+       60 GETIMPORT                        R9 K5 [require]
+       62 GETTABLEKS                       R10 R8 K20 ["StudioLLMRequest"]
+       64 CALL                             R9 1 1
+       65 GETIMPORT                        R10 K5 [require]
+       67 GETTABLEKS                       R11 R8 K21 ["StudioLLMSystemMessage"]
+       69 CALL                             R10 1 1
+       70 GETIMPORT                        R11 K5 [require]
+       72 GETTABLEKS                       R12 R8 K22 ["StudioLLMSystemReminder"]
+       74 CALL                             R11 1 1
+       75 GETTABLEKS                       R12 R2 K23 ["ContextServices"]
+       77 GETTABLEKS                       R13 R12 K24 ["Plugin"]
+       79 GETTABLEKS                       R16 R1 K17 ["Components"]
+       81 GETTABLEKS                       R15 R16 K25 ["Claude"]
+       83 GETTABLEKS                       R14 R15 K26 ["ClaudeLLMToolFormat"]
+       85 GETTABLEKS                       R15 R3 K27 ["createElement"]
+       87 DUPCLOSURE                       R16 K28 [PROTO_2]
+       88 CAPTURE                          VAL R13
+       89 CAPTURE                          VAL R7
+       90 CAPTURE                          VAL R11
+       91 CAPTURE                          VAL R5
+       92 CAPTURE                          VAL R6
+       93 CAPTURE                          VAL R4
+       94 CAPTURE                          VAL R3
+       95 CAPTURE                          VAL R1
+       96 CAPTURE                          VAL R9
+       97 CAPTURE                          VAL R14
+       98 CAPTURE                          VAL R10
+       99 CAPTURE                          VAL R15
+      100 RETURN                           R16 1

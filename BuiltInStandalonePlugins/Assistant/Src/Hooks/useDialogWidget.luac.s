@@ -174,7 +174,7 @@ PROTO_11:
         0 GETUPVAL                         R4 0
         1 CALL                             R4 0 1
         2 FASTCALL2K                       ASSERT R4 K0 ; [+4]
-        4 LOADK                            R5 K0 ["useFocusWidget should only be used when FFlagAssistantMultipleChatSupport is enabled"]
+        4 LOADK                            R5 K0 ["useFocusWidget should only be used when FFlagAssistantMultipleChatPersistence is enabled"]
         5 GETIMPORT                        R3 K2 [assert]
         7 CALL                             R3 2 0
         8 GETUPVAL                         R4 1
@@ -620,7 +620,7 @@ MAIN:
        53 CALL                             R7 1 1
        54 GETTABLEKS                       R10 R3 K17 ["Flags"]
        56 GETTABLEKS                       R9 R10 K18 ["Shared"]
-       58 GETTABLEKS                       R8 R9 K19 ["FFlagAssistantMultipleChatSupport"]
+       58 GETTABLEKS                       R8 R9 K19 ["FFlagAssistantMultipleChatPersistence"]
        60 GETTABLEKS                       R9 R5 K20 ["ContextServices"]
        62 GETTABLEKS                       R10 R9 K21 ["Design"]
        64 GETTABLEKS                       R12 R5 K20 ["ContextServices"]

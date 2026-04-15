@@ -75,52 +75,27 @@ PROTO_2:
         3 RETURN                           R2 1
 
 PROTO_3:
-        0 DUPTABLE                         R1 K10 [{"assetId", "assetType", "created", "creatorType", "name", "creatorTargetId", "status", "description", "updated", "priceConfiguration"}]
-        1 SETTABLEKS                       R0 R1 K0 ["assetId"]
-        3 LOADK                            R2 K11 ["Models"]
-        4 SETTABLEKS                       R2 R1 K1 ["assetType"]
-        6 LOADK                            R2 K12 ["2019-08-09T21:41:51.97Z"]
-        7 SETTABLEKS                       R2 R1 K2 ["created"]
-        9 LOADK                            R2 K13 ["User"]
-       10 SETTABLEKS                       R2 R1 K3 ["creatorType"]
-       12 LOADK                            R3 K14 ["Dummy"]
-       13 MOVE                             R4 R0
-       14 CONCAT                           R2 R3 R4
-       15 SETTABLEKS                       R2 R1 K4 ["name"]
-       17 LOADK                            R2 K15 [1010101]
-       18 SETTABLEKS                       R2 R1 K5 ["creatorTargetId"]
-       20 LOADK                            R2 K16 ["Free"]
-       21 SETTABLEKS                       R2 R1 K6 ["status"]
-       23 LOADK                            R2 K17 ["mocked asset item"]
-       24 SETTABLEKS                       R2 R1 K7 ["description"]
-       26 LOADK                            R2 K18 ["2021-05-06T19:56:54.437Z"]
-       27 SETTABLEKS                       R2 R1 K8 ["updated"]
-       29 NEWTABLE                         R2 0 0
-       31 SETTABLEKS                       R2 R1 K9 ["priceConfiguration"]
-       33 RETURN                           R1 1
-
-PROTO_4:
         0 DUPTABLE                         R1 K2 [{"id", "itemType"}]
         1 SETTABLEKS                       R0 R1 K0 ["id"]
         3 LOADK                            R2 K3 ["Asset"]
         4 SETTABLEKS                       R2 R1 K1 ["itemType"]
         6 RETURN                           R1 1
 
-PROTO_5:
+PROTO_4:
         0 DUPTABLE                         R2 K2 [{"id", "itemType"}]
         1 SETTABLEKS                       R1 R2 K0 ["id"]
         3 LOADK                            R3 K3 ["Asset"]
         4 SETTABLEKS                       R3 R2 K1 ["itemType"]
         6 RETURN                           R2 1
 
-PROTO_6:
+PROTO_5:
         0 DUPTABLE                         R1 K2 [{"assetId", "name"}]
         1 SETTABLEKS                       R0 R1 K0 ["assetId"]
         3 LOADK                            R2 K3 ["Dummy"]
         4 SETTABLEKS                       R2 R1 K1 ["name"]
         6 RETURN                           R1 1
 
-PROTO_7:
+PROTO_6:
         0 GETIMPORT                        R2 K1 [ipairs]
         2 GETIMPORT                        R4 K3 [game]
         4 GETTABLEKS                       R3 R4 K4 ["CoreGui"]
@@ -161,7 +136,7 @@ PROTO_7:
        60 SETTABLEKS                       R5 R4 K6 ["Name"]
        62 RETURN                           R2 1
 
-PROTO_8:
+PROTO_7:
         0 DUPTABLE                         R2 K1 [{"responseBody"}]
         1 DUPTABLE                         R3 K3 [{"TotalResults"}]
         2 GETTABLEKS                       R4 R0 K4 ["assetCount"]
@@ -185,7 +160,7 @@ PROTO_8:
        27 CALL                             R4 1 -1
        28 RETURN                           R4 -1
 
-PROTO_9:
+PROTO_8:
         0 DUPTABLE                         R3 K1 [{"responseBody"}]
         1 DUPTABLE                         R4 K3 [{"TotalResults"}]
         2 LOADN                            R5 11
@@ -278,7 +253,7 @@ PROTO_9:
       129 CALL                             R5 1 -1
       130 RETURN                           R5 -1
 
-PROTO_10:
+PROTO_9:
         0 GETTABLEKS                       R2 R1 K0 ["categoryName"]
         2 GETTABLEKS                       R3 R1 K1 ["sortType"]
         4 GETUPVAL                         R4 0
@@ -311,7 +286,7 @@ PROTO_10:
        42 CALL                             R6 1 -1
        43 RETURN                           R6 -1
 
-PROTO_11:
+PROTO_10:
         0 NEWTABLE                         R2 0 0
         2 GETIMPORT                        R3 K1 [ipairs]
         4 MOVE                             R4 R1
@@ -335,7 +310,7 @@ PROTO_11:
        29 CALL                             R3 1 -1
        30 RETURN                           R3 -1
 
-PROTO_12:
+PROTO_11:
         0 NEWTABLE                         R2 0 0
         2 GETIMPORT                        R3 K1 [ipairs]
         4 MOVE                             R4 R1
@@ -359,7 +334,7 @@ PROTO_12:
        28 CALL                             R3 1 -1
        29 RETURN                           R3 -1
 
-PROTO_13:
+PROTO_12:
         0 DUPTABLE                         R2 K1 [{"responseBody"}]
         1 DUPTABLE                         R3 K4 [{"totalResults", "results"}]
         2 GETTABLEKS                       R4 R0 K5 ["assetCount"]
@@ -387,7 +362,7 @@ PROTO_13:
        37 CALL                             R4 1 -1
        38 RETURN                           R4 -1
 
-PROTO_14:
+PROTO_13:
         0 DUPTABLE                         R0 K1 [{"responseBody"}]
         1 NEWTABLE                         R1 0 0
         3 SETTABLEKS                       R1 R0 K0 ["responseBody"]
@@ -410,35 +385,17 @@ PROTO_14:
        27 CALL                             R2 1 -1
        28 RETURN                           R2 -1
 
+PROTO_14:
+        0 GETUPVAL                         R2 0
+        1 CALL                             R2 0 -1
+        2 RETURN                           R2 -1
+
 PROTO_15:
         0 GETUPVAL                         R2 0
         1 CALL                             R2 0 -1
         2 RETURN                           R2 -1
 
 PROTO_16:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 -1
-        2 RETURN                           R2 -1
-
-PROTO_17:
-        0 NEWTABLE                         R2 0 0
-        2 LOADN                            R5 1
-        3 LENGTH                           R3 R1
-        4 LOADN                            R4 1
-        5 FORNPREP                         R3
-        6 GETUPVAL                         R6 0
-        7 MOVE                             R7 R5
-        8 CALL                             R6 1 1
-        9 SETTABLE                         R6 R2 R5
-       10 FORNLOOP                         R3
-       11 GETUPVAL                         R4 1
-       12 GETTABLEKS                       R3 R4 K0 ["resolve"]
-       14 DUPTABLE                         R4 K2 [{"responseBody"}]
-       15 SETTABLEKS                       R2 R4 K1 ["responseBody"]
-       17 CALL                             R3 1 -1
-       18 RETURN                           R3 -1
-
-PROTO_18:
         0 DUPTABLE                         R3 K1 [{"responseBody"}]
         1 DUPTABLE                         R4 K4 [{"id", "name"}]
         2 LOADK                            R5 K5 ["1010101"]
@@ -452,21 +409,21 @@ PROTO_18:
        14 CALL                             R4 1 -1
        15 RETURN                           R4 -1
 
-PROTO_19:
+PROTO_17:
         0 GETUPVAL                         R5 0
         1 GETTABLEKS                       R4 R5 K0 ["resolve"]
         3 NEWTABLE                         R5 0 0
         5 CALL                             R4 1 -1
         6 RETURN                           R4 -1
 
-PROTO_20:
+PROTO_18:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["resolve"]
         3 NEWTABLE                         R4 0 0
         5 CALL                             R3 1 -1
         6 RETURN                           R3 -1
 
-PROTO_21:
+PROTO_19:
         0 GETUPVAL                         R5 0
         1 GETTABLEKS                       R4 R5 K0 ["resolve"]
         3 DUPTABLE                         R5 K2 [{"responseBody"}]
@@ -481,7 +438,7 @@ PROTO_21:
        16 CALL                             R4 1 -1
        17 RETURN                           R4 -1
 
-PROTO_22:
+PROTO_20:
         0 DUPTABLE                         R3 K1 [{"userVote"}]
         1 LOADB                            R4 1
         2 SETTABLEKS                       R4 R3 K0 ["userVote"]
@@ -491,7 +448,7 @@ PROTO_22:
         8 CALL                             R4 1 -1
         9 RETURN                           R4 -1
 
-PROTO_23:
+PROTO_21:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["resolve"]
         3 DUPTABLE                         R3 K4 [{"model", "success", "message"}]
@@ -516,7 +473,7 @@ PROTO_23:
        31 CALL                             R2 1 -1
        32 RETURN                           R2 -1
 
-PROTO_24:
+PROTO_22:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["resolve"]
         3 DUPTABLE                         R3 K4 [{"model", "success", "message"}]
@@ -541,28 +498,28 @@ PROTO_24:
        31 CALL                             R2 1 -1
        32 RETURN                           R2 -1
 
+PROTO_23:
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        3 NEWTABLE                         R4 0 0
+        5 CALL                             R3 1 -1
+        6 RETURN                           R3 -1
+
+PROTO_24:
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        3 NEWTABLE                         R4 0 0
+        5 CALL                             R3 1 -1
+        6 RETURN                           R3 -1
+
 PROTO_25:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
-        3 NEWTABLE                         R4 0 0
-        5 CALL                             R3 1 -1
-        6 RETURN                           R3 -1
-
-PROTO_26:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
-        3 NEWTABLE                         R4 0 0
-        5 CALL                             R3 1 -1
-        6 RETURN                           R3 -1
-
-PROTO_27:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["resolve"]
         3 NEWTABLE                         R3 0 0
         5 CALL                             R2 1 -1
         6 RETURN                           R2 -1
 
-PROTO_28:
+PROTO_26:
         0 DUPTABLE                         R1 K1 [{"responseBody"}]
         1 DUPTABLE                         R2 K3 [{"groups"}]
         2 NEWTABLE                         R3 0 0
@@ -574,21 +531,21 @@ PROTO_28:
        12 CALL                             R2 1 -1
        13 RETURN                           R2 -1
 
-PROTO_29:
+PROTO_27:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["resolve"]
         3 NEWTABLE                         R4 0 0
         5 CALL                             R3 1 -1
         6 RETURN                           R3 -1
 
-PROTO_30:
+PROTO_28:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["resolve"]
         3 LOADB                            R4 1
         4 CALL                             R3 1 -1
         5 RETURN                           R3 -1
 
-PROTO_31:
+PROTO_29:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
@@ -599,7 +556,7 @@ PROTO_31:
        10 CALL                             R2 1 -1
        11 RETURN                           R2 -1
 
-PROTO_32:
+PROTO_30:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
@@ -608,7 +565,7 @@ PROTO_32:
         7 CALL                             R2 1 -1
         8 RETURN                           R2 -1
 
-PROTO_33:
+PROTO_31:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["resolve"]
         3 DUPTABLE                         R4 K2 [{"responseBody"}]
@@ -619,14 +576,14 @@ PROTO_33:
        10 CALL                             R3 1 -1
        11 RETURN                           R3 -1
 
-PROTO_34:
+PROTO_32:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["resolve"]
         3 NEWTABLE                         R2 0 0
         5 CALL                             R1 1 -1
         6 RETURN                           R1 -1
 
-PROTO_35:
+PROTO_33:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["resolve"]
         3 DUPTABLE                         R2 K2 [{"responseBody"}]
@@ -639,6 +596,20 @@ PROTO_35:
        13 CALL                             R1 1 -1
        14 RETURN                           R1 -1
 
+PROTO_34:
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        3 NEWTABLE                         R4 0 0
+        5 CALL                             R3 1 -1
+        6 RETURN                           R3 -1
+
+PROTO_35:
+        0 GETUPVAL                         R9 0
+        1 GETTABLEKS                       R8 R9 K0 ["resolve"]
+        3 NEWTABLE                         R9 0 0
+        5 CALL                             R8 1 -1
+        6 RETURN                           R8 -1
+
 PROTO_36:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["resolve"]
@@ -647,27 +618,13 @@ PROTO_36:
         6 RETURN                           R3 -1
 
 PROTO_37:
-        0 GETUPVAL                         R9 0
-        1 GETTABLEKS                       R8 R9 K0 ["resolve"]
-        3 NEWTABLE                         R9 0 0
-        5 CALL                             R8 1 -1
-        6 RETURN                           R8 -1
-
-PROTO_38:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
-        3 NEWTABLE                         R4 0 0
-        5 CALL                             R3 1 -1
-        6 RETURN                           R3 -1
-
-PROTO_39:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["resolve"]
         3 NEWTABLE                         R2 0 0
         5 CALL                             R1 1 -1
         6 RETURN                           R1 -1
 
-PROTO_40:
+PROTO_38:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
@@ -686,7 +643,7 @@ PROTO_40:
        22 CALL                             R2 1 -1
        23 RETURN                           R2 -1
 
-PROTO_41:
+PROTO_39:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["resolve"]
         3 DUPTABLE                         R2 K2 [{"responseBody"}]
@@ -697,7 +654,7 @@ PROTO_41:
        10 CALL                             R1 1 -1
        11 RETURN                           R1 -1
 
-PROTO_42:
+PROTO_40:
         0 GETIMPORT                        R2 K3 [Enum.AssetType.Audio]
         2 JUMPIFNOTEQ                      R1 R2 ; [+177]
         4 GETUPVAL                         R3 0
@@ -829,7 +786,7 @@ PROTO_42:
       195 CALL                             R2 1 -1
       196 RETURN                           R2 -1
 
-PROTO_43:
+PROTO_41:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
@@ -842,7 +799,7 @@ PROTO_43:
        13 CALL                             R2 1 -1
        14 RETURN                           R2 -1
 
-PROTO_44:
+PROTO_42:
         0 JUMPIFNOT                        R1 ; [+18]
         1 GETUPVAL                         R5 0
         2 GETTABLEKS                       R4 R5 K0 ["resolve"]
@@ -866,7 +823,7 @@ PROTO_44:
        29 CALL                             R4 1 -1
        30 RETURN                           R4 -1
 
-PROTO_45:
+PROTO_43:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
@@ -885,7 +842,7 @@ PROTO_45:
        22 CALL                             R2 1 -1
        23 RETURN                           R2 -1
 
-PROTO_46:
+PROTO_44:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["resolve"]
         3 DUPTABLE                         R4 K2 [{"responseCode"}]
@@ -894,7 +851,7 @@ PROTO_46:
         7 CALL                             R3 1 -1
         8 RETURN                           R3 -1
 
-PROTO_47:
+PROTO_45:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["resolve"]
         3 DUPTABLE                         R2 K2 [{"responseBody"}]
@@ -906,7 +863,7 @@ PROTO_47:
        12 CALL                             R1 1 -1
        13 RETURN                           R1 -1
 
-PROTO_48:
+PROTO_46:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["resolve"]
         3 DUPTABLE                         R4 K2 [{"responseBody"}]
@@ -917,7 +874,7 @@ PROTO_48:
        10 CALL                             R3 1 -1
        11 RETURN                           R3 -1
 
-PROTO_49:
+PROTO_47:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["resolve"]
         3 DUPTABLE                         R4 K2 [{"responseBody"}]
@@ -926,11 +883,11 @@ PROTO_49:
         7 CALL                             R3 1 -1
         8 RETURN                           R3 -1
 
-PROTO_50:
+PROTO_48:
         0 LOADB                            R2 0
         1 RETURN                           R2 1
 
-PROTO_51:
+PROTO_49:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["resolve"]
         3 DUPTABLE                         R2 K2 [{"responseBody"}]
@@ -945,7 +902,7 @@ PROTO_51:
        16 CALL                             R1 1 -1
        17 RETURN                           R1 -1
 
-PROTO_52:
+PROTO_50:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
@@ -958,7 +915,7 @@ PROTO_52:
        13 CALL                             R2 1 -1
        14 RETURN                           R2 -1
 
-PROTO_53:
+PROTO_51:
         0 DUPTABLE                         R2 K1 [{"data"}]
         1 NEWTABLE                         R3 0 1
         3 DUPTABLE                         R4 K8 [{"assetId", "name", "description", "assetType", "created", "updated"}]
@@ -986,7 +943,7 @@ PROTO_53:
        36 CALL                             R3 1 -1
        37 RETURN                           R3 -1
 
-PROTO_54:
+PROTO_52:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["resolve"]
         3 DUPTABLE                         R4 K2 [{"responseBody"}]
@@ -1012,7 +969,7 @@ PROTO_54:
        33 CALL                             R3 1 -1
        34 RETURN                           R3 -1
 
-PROTO_55:
+PROTO_53:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
@@ -1089,162 +1046,157 @@ MAIN:
        84 SETTABLEKS                       R11 R9 K26 ["fakeAssetFactory"]
        86 DUPCLOSURE                       R11 K27 [PROTO_3]
        87 DUPCLOSURE                       R12 K28 [PROTO_4]
-       88 DUPCLOSURE                       R13 K29 [PROTO_5]
-       89 SETTABLEKS                       R13 R9 K30 ["fakeToolboxItemFactory"]
+       88 SETTABLEKS                       R12 R9 K29 ["fakeToolboxItemFactory"]
+       90 DUPCLOSURE                       R12 K30 [PROTO_5]
        91 DUPCLOSURE                       R13 K31 [PROTO_6]
        92 DUPCLOSURE                       R14 K32 [PROTO_7]
-       93 DUPCLOSURE                       R15 K33 [PROTO_8]
-       94 CAPTURE                          VAL R10
-       95 CAPTURE                          VAL R3
-       96 SETTABLEKS                       R15 R9 K34 ["getAssets"]
-       98 DUPCLOSURE                       R15 K35 [PROTO_9]
-       99 CAPTURE                          VAL R3
-      100 SETTABLEKS                       R15 R9 K36 ["postAssetCheckPermissions"]
-      102 DUPCLOSURE                       R15 K37 [PROTO_10]
-      103 CAPTURE                          VAL R14
-      104 CAPTURE                          VAL R3
-      105 SETTABLEKS                       R15 R9 K38 ["getToolboxItems"]
-      107 DUPCLOSURE                       R15 K39 [PROTO_11]
-      108 CAPTURE                          VAL R10
-      109 CAPTURE                          VAL R3
-      110 SETTABLEKS                       R15 R9 K40 ["getItemDetails"]
-      112 DUPCLOSURE                       R15 K41 [PROTO_12]
-      113 CAPTURE                          VAL R10
-      114 CAPTURE                          VAL R3
-      115 SETTABLEKS                       R15 R9 K42 ["getItemDetailsAssetIds"]
-      117 DUPCLOSURE                       R15 K43 [PROTO_13]
-      118 CAPTURE                          VAL R3
-      119 SETTABLEKS                       R15 R9 K44 ["getDevelopAsset"]
-      121 DUPCLOSURE                       R15 K45 [PROTO_14]
-      122 CAPTURE                          VAL R3
-      123 DUPCLOSURE                       R16 K46 [PROTO_15]
-      124 CAPTURE                          VAL R15
-      125 SETTABLEKS                       R16 R9 K47 ["getAssetCreations"]
-      127 DUPCLOSURE                       R16 K48 [PROTO_16]
-      128 CAPTURE                          VAL R15
-      129 SETTABLEKS                       R16 R9 K49 ["getAssetGroupCreations"]
-      131 DUPCLOSURE                       R16 K50 [PROTO_17]
-      132 CAPTURE                          VAL R11
-      133 CAPTURE                          VAL R3
-      134 SETTABLEKS                       R16 R9 K51 ["getAssetCreationDetails"]
-      136 DUPCLOSURE                       R16 K52 [PROTO_18]
-      137 CAPTURE                          VAL R3
-      138 SETTABLEKS                       R16 R9 K53 ["getCreatorInfo"]
-      140 DUPCLOSURE                       R16 K54 [PROTO_19]
-      141 CAPTURE                          VAL R3
-      142 SETTABLEKS                       R16 R9 K55 ["configureSales"]
-      144 DUPCLOSURE                       R16 K56 [PROTO_20]
-      145 CAPTURE                          VAL R3
-      146 SETTABLEKS                       R16 R9 K57 ["updateSales"]
-      148 DUPCLOSURE                       R16 K58 [PROTO_21]
-      149 CAPTURE                          VAL R3
-      150 SETTABLEKS                       R16 R9 K59 ["resolveAssets"]
-      152 DUPCLOSURE                       R16 K60 [PROTO_22]
-      153 CAPTURE                          VAL R3
-      154 SETTABLEKS                       R16 R9 K61 ["getVote"]
-      156 DUPCLOSURE                       R16 K62 [PROTO_23]
-      157 CAPTURE                          VAL R3
-      158 SETTABLEKS                       R16 R9 K63 ["postVote"]
-      160 DUPCLOSURE                       R16 K64 [PROTO_24]
-      161 CAPTURE                          VAL R3
-      162 SETTABLEKS                       R16 R9 K65 ["postUnvote"]
-      164 DUPCLOSURE                       R16 K66 [PROTO_25]
-      165 CAPTURE                          VAL R3
-      166 SETTABLEKS                       R16 R9 K67 ["postFavorite"]
-      168 DUPCLOSURE                       R16 K68 [PROTO_26]
-      169 CAPTURE                          VAL R3
-      170 SETTABLEKS                       R16 R9 K69 ["deleteFavorite"]
-      172 DUPCLOSURE                       R16 K70 [PROTO_27]
-      173 CAPTURE                          VAL R3
-      174 SETTABLEKS                       R16 R9 K71 ["postInsertAsset"]
-      176 DUPCLOSURE                       R16 K72 [PROTO_28]
-      177 CAPTURE                          VAL R3
-      178 SETTABLEKS                       R16 R9 K73 ["getManageableGroups"]
-      180 DUPCLOSURE                       R16 K74 [PROTO_29]
-      181 CAPTURE                          VAL R3
-      182 SETTABLEKS                       R16 R9 K75 ["getUsers"]
-      184 DUPCLOSURE                       R16 K76 [PROTO_30]
-      185 CAPTURE                          VAL R3
-      186 SETTABLEKS                       R16 R9 K77 ["getHasEditPermissionForAsset"]
-      188 DUPCLOSURE                       R16 K78 [PROTO_31]
-      189 CAPTURE                          VAL R3
-      190 SETTABLEKS                       R16 R9 K79 ["getRobuxBalance"]
-      192 DUPCLOSURE                       R16 K80 [PROTO_32]
-      193 CAPTURE                          VAL R3
-      194 SETTABLEKS                       R16 R9 K81 ["getFavoriteCounts"]
-      196 DUPCLOSURE                       R16 K82 [PROTO_33]
-      197 CAPTURE                          VAL R3
-      198 SETTABLEKS                       R16 R9 K83 ["getSave"]
-      200 DUPCLOSURE                       R16 K84 [PROTO_34]
-      201 CAPTURE                          VAL R3
-      202 SETTABLEKS                       R16 R9 K85 ["getAllowedItemTypes"]
-      204 MOVE                             R16 R5
-      205 CALL                             R16 0 1
-      206 JUMPIFNOT                        R16 ; [+4]
-      207 DUPCLOSURE                       R16 K86 [PROTO_35]
-      208 CAPTURE                          VAL R3
-      209 SETTABLEKS                       R16 R9 K87 ["getUploadPermissionStatus"]
-      211 DUPCLOSURE                       R16 K88 [PROTO_36]
-      212 CAPTURE                          VAL R3
-      213 SETTABLEKS                       R16 R9 K89 ["uploadCatalogItem"]
-      215 DUPCLOSURE                       R16 K90 [PROTO_37]
-      216 CAPTURE                          VAL R3
-      217 SETTABLEKS                       R16 R9 K91 ["uploadCatalogItemFormat"]
-      219 DUPCLOSURE                       R16 K92 [PROTO_38]
-      220 CAPTURE                          VAL R3
-      221 SETTABLEKS                       R16 R9 K93 ["getCreatorMarketplaceQuotas"]
-      223 DUPCLOSURE                       R16 K94 [PROTO_39]
-      224 CAPTURE                          VAL R3
-      225 SETTABLEKS                       R16 R9 K95 ["getPublishingRequirements"]
-      227 DUPCLOSURE                       R16 K96 [PROTO_40]
-      228 CAPTURE                          VAL R3
-      229 SETTABLEKS                       R16 R9 K97 ["getThumbnailStatus"]
-      231 DUPCLOSURE                       R16 K98 [PROTO_41]
-      232 CAPTURE                          VAL R3
-      233 SETTABLEKS                       R16 R9 K99 ["getIsVerifiedCreator"]
-      235 DUPCLOSURE                       R16 K100 [PROTO_42]
-      236 CAPTURE                          VAL R3
-      237 SETTABLEKS                       R16 R9 K101 ["getHomeConfiguration"]
-      239 DUPCLOSURE                       R16 K102 [PROTO_43]
-      240 CAPTURE                          VAL R3
-      241 SETTABLEKS                       R16 R9 K103 ["getUniverseInfo"]
-      243 DUPCLOSURE                       R16 K104 [PROTO_44]
-      244 CAPTURE                          VAL R3
-      245 CAPTURE                          VAL R8
-      246 SETTABLEKS                       R16 R9 K105 ["purchaseAsset"]
-      248 DUPCLOSURE                       R16 K106 [PROTO_45]
-      249 CAPTURE                          VAL R3
-      250 SETTABLEKS                       R16 R9 K107 ["getDefaultCreateBundleDataSharing"]
-      252 DUPCLOSURE                       R16 K108 [PROTO_46]
-      253 CAPTURE                          VAL R3
-      254 SETTABLEKS                       R16 R9 K109 ["postCreateBundleDataSharing"]
-      256 DUPCLOSURE                       R16 K110 [PROTO_47]
-      257 CAPTURE                          VAL R3
-      258 CAPTURE                          VAL R6
-      259 SETTABLEKS                       R16 R9 K111 ["getPurchaserStatus"]
-      261 DUPCLOSURE                       R16 K112 [PROTO_48]
-      262 CAPTURE                          VAL R3
-      263 CAPTURE                          VAL R7
-      264 SETTABLEKS                       R16 R9 K113 ["getFiatProduct"]
-      266 DUPCLOSURE                       R16 K114 [PROTO_49]
-      267 CAPTURE                          VAL R3
-      268 SETTABLEKS                       R16 R9 K115 ["getIsOwnedByUser"]
-      270 DUPCLOSURE                       R16 K116 [PROTO_50]
-      271 SETTABLEKS                       R16 R9 K117 ["getIsAssetOpenForUse"]
-      273 DUPCLOSURE                       R16 K118 [PROTO_51]
-      274 CAPTURE                          VAL R3
-      275 SETTABLEKS                       R16 R9 K119 ["getPluginInfo"]
-      277 DUPCLOSURE                       R16 K120 [PROTO_52]
-      278 CAPTURE                          VAL R3
-      279 SETTABLEKS                       R16 R9 K121 ["getItemUploadFee"]
-      281 DUPCLOSURE                       R16 K122 [PROTO_53]
-      282 CAPTURE                          VAL R3
-      283 CAPTURE                          VAL R1
-      284 SETTABLEKS                       R16 R9 K123 ["getDevelopAssetMetadata"]
-      286 DUPCLOSURE                       R16 K124 [PROTO_54]
-      287 CAPTURE                          VAL R3
-      288 SETTABLEKS                       R16 R9 K125 ["getItem"]
-      290 DUPCLOSURE                       R16 K126 [PROTO_55]
-      291 CAPTURE                          VAL R3
-      292 SETTABLEKS                       R16 R9 K127 ["getAssetPermissions"]
-      294 RETURN                           R9 1
+       93 CAPTURE                          VAL R10
+       94 CAPTURE                          VAL R3
+       95 SETTABLEKS                       R14 R9 K33 ["getAssets"]
+       97 DUPCLOSURE                       R14 K34 [PROTO_8]
+       98 CAPTURE                          VAL R3
+       99 SETTABLEKS                       R14 R9 K35 ["postAssetCheckPermissions"]
+      101 DUPCLOSURE                       R14 K36 [PROTO_9]
+      102 CAPTURE                          VAL R13
+      103 CAPTURE                          VAL R3
+      104 SETTABLEKS                       R14 R9 K37 ["getToolboxItems"]
+      106 DUPCLOSURE                       R14 K38 [PROTO_10]
+      107 CAPTURE                          VAL R10
+      108 CAPTURE                          VAL R3
+      109 SETTABLEKS                       R14 R9 K39 ["getItemDetails"]
+      111 DUPCLOSURE                       R14 K40 [PROTO_11]
+      112 CAPTURE                          VAL R10
+      113 CAPTURE                          VAL R3
+      114 SETTABLEKS                       R14 R9 K41 ["getItemDetailsAssetIds"]
+      116 DUPCLOSURE                       R14 K42 [PROTO_12]
+      117 CAPTURE                          VAL R3
+      118 SETTABLEKS                       R14 R9 K43 ["getDevelopAsset"]
+      120 DUPCLOSURE                       R14 K44 [PROTO_13]
+      121 CAPTURE                          VAL R3
+      122 DUPCLOSURE                       R15 K45 [PROTO_14]
+      123 CAPTURE                          VAL R14
+      124 SETTABLEKS                       R15 R9 K46 ["getAssetCreations"]
+      126 DUPCLOSURE                       R15 K47 [PROTO_15]
+      127 CAPTURE                          VAL R14
+      128 SETTABLEKS                       R15 R9 K48 ["getAssetGroupCreations"]
+      130 DUPCLOSURE                       R15 K49 [PROTO_16]
+      131 CAPTURE                          VAL R3
+      132 SETTABLEKS                       R15 R9 K50 ["getCreatorInfo"]
+      134 DUPCLOSURE                       R15 K51 [PROTO_17]
+      135 CAPTURE                          VAL R3
+      136 SETTABLEKS                       R15 R9 K52 ["configureSales"]
+      138 DUPCLOSURE                       R15 K53 [PROTO_18]
+      139 CAPTURE                          VAL R3
+      140 SETTABLEKS                       R15 R9 K54 ["updateSales"]
+      142 DUPCLOSURE                       R15 K55 [PROTO_19]
+      143 CAPTURE                          VAL R3
+      144 SETTABLEKS                       R15 R9 K56 ["resolveAssets"]
+      146 DUPCLOSURE                       R15 K57 [PROTO_20]
+      147 CAPTURE                          VAL R3
+      148 SETTABLEKS                       R15 R9 K58 ["getVote"]
+      150 DUPCLOSURE                       R15 K59 [PROTO_21]
+      151 CAPTURE                          VAL R3
+      152 SETTABLEKS                       R15 R9 K60 ["postVote"]
+      154 DUPCLOSURE                       R15 K61 [PROTO_22]
+      155 CAPTURE                          VAL R3
+      156 SETTABLEKS                       R15 R9 K62 ["postUnvote"]
+      158 DUPCLOSURE                       R15 K63 [PROTO_23]
+      159 CAPTURE                          VAL R3
+      160 SETTABLEKS                       R15 R9 K64 ["postFavorite"]
+      162 DUPCLOSURE                       R15 K65 [PROTO_24]
+      163 CAPTURE                          VAL R3
+      164 SETTABLEKS                       R15 R9 K66 ["deleteFavorite"]
+      166 DUPCLOSURE                       R15 K67 [PROTO_25]
+      167 CAPTURE                          VAL R3
+      168 SETTABLEKS                       R15 R9 K68 ["postInsertAsset"]
+      170 DUPCLOSURE                       R15 K69 [PROTO_26]
+      171 CAPTURE                          VAL R3
+      172 SETTABLEKS                       R15 R9 K70 ["getManageableGroups"]
+      174 DUPCLOSURE                       R15 K71 [PROTO_27]
+      175 CAPTURE                          VAL R3
+      176 SETTABLEKS                       R15 R9 K72 ["getUsers"]
+      178 DUPCLOSURE                       R15 K73 [PROTO_28]
+      179 CAPTURE                          VAL R3
+      180 SETTABLEKS                       R15 R9 K74 ["getHasEditPermissionForAsset"]
+      182 DUPCLOSURE                       R15 K75 [PROTO_29]
+      183 CAPTURE                          VAL R3
+      184 SETTABLEKS                       R15 R9 K76 ["getRobuxBalance"]
+      186 DUPCLOSURE                       R15 K77 [PROTO_30]
+      187 CAPTURE                          VAL R3
+      188 SETTABLEKS                       R15 R9 K78 ["getFavoriteCounts"]
+      190 DUPCLOSURE                       R15 K79 [PROTO_31]
+      191 CAPTURE                          VAL R3
+      192 SETTABLEKS                       R15 R9 K80 ["getSave"]
+      194 DUPCLOSURE                       R15 K81 [PROTO_32]
+      195 CAPTURE                          VAL R3
+      196 SETTABLEKS                       R15 R9 K82 ["getAllowedItemTypes"]
+      198 MOVE                             R15 R5
+      199 CALL                             R15 0 1
+      200 JUMPIFNOT                        R15 ; [+4]
+      201 DUPCLOSURE                       R15 K83 [PROTO_33]
+      202 CAPTURE                          VAL R3
+      203 SETTABLEKS                       R15 R9 K84 ["getUploadPermissionStatus"]
+      205 DUPCLOSURE                       R15 K85 [PROTO_34]
+      206 CAPTURE                          VAL R3
+      207 SETTABLEKS                       R15 R9 K86 ["uploadCatalogItem"]
+      209 DUPCLOSURE                       R15 K87 [PROTO_35]
+      210 CAPTURE                          VAL R3
+      211 SETTABLEKS                       R15 R9 K88 ["uploadCatalogItemFormat"]
+      213 DUPCLOSURE                       R15 K89 [PROTO_36]
+      214 CAPTURE                          VAL R3
+      215 SETTABLEKS                       R15 R9 K90 ["getCreatorMarketplaceQuotas"]
+      217 DUPCLOSURE                       R15 K91 [PROTO_37]
+      218 CAPTURE                          VAL R3
+      219 SETTABLEKS                       R15 R9 K92 ["getPublishingRequirements"]
+      221 DUPCLOSURE                       R15 K93 [PROTO_38]
+      222 CAPTURE                          VAL R3
+      223 SETTABLEKS                       R15 R9 K94 ["getThumbnailStatus"]
+      225 DUPCLOSURE                       R15 K95 [PROTO_39]
+      226 CAPTURE                          VAL R3
+      227 SETTABLEKS                       R15 R9 K96 ["getIsVerifiedCreator"]
+      229 DUPCLOSURE                       R15 K97 [PROTO_40]
+      230 CAPTURE                          VAL R3
+      231 SETTABLEKS                       R15 R9 K98 ["getHomeConfiguration"]
+      233 DUPCLOSURE                       R15 K99 [PROTO_41]
+      234 CAPTURE                          VAL R3
+      235 SETTABLEKS                       R15 R9 K100 ["getUniverseInfo"]
+      237 DUPCLOSURE                       R15 K101 [PROTO_42]
+      238 CAPTURE                          VAL R3
+      239 CAPTURE                          VAL R8
+      240 SETTABLEKS                       R15 R9 K102 ["purchaseAsset"]
+      242 DUPCLOSURE                       R15 K103 [PROTO_43]
+      243 CAPTURE                          VAL R3
+      244 SETTABLEKS                       R15 R9 K104 ["getDefaultCreateBundleDataSharing"]
+      246 DUPCLOSURE                       R15 K105 [PROTO_44]
+      247 CAPTURE                          VAL R3
+      248 SETTABLEKS                       R15 R9 K106 ["postCreateBundleDataSharing"]
+      250 DUPCLOSURE                       R15 K107 [PROTO_45]
+      251 CAPTURE                          VAL R3
+      252 CAPTURE                          VAL R6
+      253 SETTABLEKS                       R15 R9 K108 ["getPurchaserStatus"]
+      255 DUPCLOSURE                       R15 K109 [PROTO_46]
+      256 CAPTURE                          VAL R3
+      257 CAPTURE                          VAL R7
+      258 SETTABLEKS                       R15 R9 K110 ["getFiatProduct"]
+      260 DUPCLOSURE                       R15 K111 [PROTO_47]
+      261 CAPTURE                          VAL R3
+      262 SETTABLEKS                       R15 R9 K112 ["getIsOwnedByUser"]
+      264 DUPCLOSURE                       R15 K113 [PROTO_48]
+      265 SETTABLEKS                       R15 R9 K114 ["getIsAssetOpenForUse"]
+      267 DUPCLOSURE                       R15 K115 [PROTO_49]
+      268 CAPTURE                          VAL R3
+      269 SETTABLEKS                       R15 R9 K116 ["getPluginInfo"]
+      271 DUPCLOSURE                       R15 K117 [PROTO_50]
+      272 CAPTURE                          VAL R3
+      273 SETTABLEKS                       R15 R9 K118 ["getItemUploadFee"]
+      275 DUPCLOSURE                       R15 K119 [PROTO_51]
+      276 CAPTURE                          VAL R3
+      277 CAPTURE                          VAL R1
+      278 SETTABLEKS                       R15 R9 K120 ["getDevelopAssetMetadata"]
+      280 DUPCLOSURE                       R15 K121 [PROTO_52]
+      281 CAPTURE                          VAL R3
+      282 SETTABLEKS                       R15 R9 K122 ["getItem"]
+      284 DUPCLOSURE                       R15 K123 [PROTO_53]
+      285 CAPTURE                          VAL R3
+      286 SETTABLEKS                       R15 R9 K124 ["getAssetPermissions"]
+      288 RETURN                           R9 1

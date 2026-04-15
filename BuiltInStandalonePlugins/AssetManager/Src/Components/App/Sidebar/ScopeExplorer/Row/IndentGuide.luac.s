@@ -10,7 +10,7 @@ PROTO_0:
        13 LOADN                            R5 0
        14 GETTABLEKS                       R7 R0 K11 ["Depth"]
        16 GETUPVAL                         R9 2
-       17 GETTABLEKS                       R8 R9 K12 ["AMR_ICON_WIDTH_XSMALL"]
+       17 GETTABLEKS                       R8 R9 K12 ["IconWidthXSmall"]
        19 MUL                              R6 R7 R8
        20 LOADN                            R7 1
        21 LOADN                            R8 0
@@ -28,7 +28,7 @@ PROTO_0:
        40 GETIMPORT                        R4 K10 [UDim2.new]
        42 LOADN                            R5 0
        43 GETUPVAL                         R7 2
-       44 GETTABLEKS                       R6 R7 K12 ["AMR_ICON_WIDTH_XSMALL"]
+       44 GETTABLEKS                       R6 R7 K12 ["IconWidthXSmall"]
        46 LOADN                            R7 1
        47 LOADN                            R8 0
        48 CALL                             R4 4 1

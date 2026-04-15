@@ -4,6 +4,7 @@ local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 
 local Chrome = require(CorePackages.Workspace.Packages.Chrome)
+local SideSheetPlacement = Chrome.Enums.SideSheetPlacement
 local Foundation = require(CorePackages.Packages.Foundation)
 local React = require(CorePackages.Packages.React)
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
@@ -43,6 +44,7 @@ end
 return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "music_entrypoint",
+	sideSheetPlacement = SideSheetPlacement.Vertical,
 	draggable = true,
 	cachePosition = true,
 	windowSize = windowSize,

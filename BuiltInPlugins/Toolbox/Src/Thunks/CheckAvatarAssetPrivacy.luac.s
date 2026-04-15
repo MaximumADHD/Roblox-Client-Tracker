@@ -99,65 +99,62 @@ PROTO_5:
        39 GETTABLEKS                       R4 R5 K13 ["contentProvider"]
        41 CALL                             R2 2 1
        42 NEWTABLE                         R3 0 0
-       44 GETUPVAL                         R4 4
-       45 CALL                             R4 0 1
-       46 JUMPIFNOT                        R4 ; [+52]
-       47 NEWTABLE                         R4 0 0
-       49 MOVE                             R5 R2
-       50 LOADNIL                          R6
-       51 LOADNIL                          R7
-       52 FORGPREP                         R5
-       53 MOVE                             R11 R4
-       54 GETUPVAL                         R12 5
-       55 MOVE                             R14 R9
-       56 NAMECALL                         R12 R12 K14 ["getAsset"]
-       58 CALL                             R12 2 1
-       59 NEWCLOSURE                       R14 P0
-       60 CAPTURE                          UPVAL U6
-       61 CAPTURE                          UPVAL U3
-       62 CAPTURE                          VAL R3
-       63 CAPTURE                          VAL R9
-       64 NAMECALL                         R12 R12 K15 ["andThen"]
-       66 CALL                             R12 2 1
-       67 DUPCLOSURE                       R14 K16 [PROTO_2]
-       68 NAMECALL                         R12 R12 K17 ["catch"]
-       70 CALL                             R12 2 -1
-       71 FASTCALL                         TABLE_INSERT ; [+2]
-       72 GETIMPORT                        R10 K20 [table.insert]
-       74 CALL                             R10 -1 0
-       75 FORGLOOP                         R5 2 ; [-23]
-       77 GETUPVAL                         R6 7
-       78 GETTABLEKS                       R5 R6 K21 ["all"]
-       80 MOVE                             R6 R4
-       81 CALL                             R5 1 1
-       82 NAMECALL                         R5 R5 K22 ["await"]
-       84 CALL                             R5 1 0
-       85 LENGTH                           R5 R3
-       86 JUMPIFNOTEQKN                    R5 K23 [0] ; [+11]
-       88 GETUPVAL                         R7 8
-       89 NEWTABLE                         R8 0 0
-       91 LOADB                            R9 1
-       92 CALL                             R7 2 -1
-       93 NAMECALL                         R5 R0 K0 ["dispatch"]
-       95 CALL                             R5 -1 0
-       96 CLOSEUPVALS                      R2
-       97 RETURN                           R0 0
-       98 MOVE                             R2 R3
-       99 GETUPVAL                         R4 5
-      100 MOVE                             R6 R2
-      101 NAMECALL                         R4 R4 K24 ["getAvatarAssetsPrivacy"]
-      103 CALL                             R4 2 1
-      104 NEWCLOSURE                       R6 P2
-      105 CAPTURE                          REF R2
+       44 NEWTABLE                         R4 0 0
+       46 MOVE                             R5 R2
+       47 LOADNIL                          R6
+       48 LOADNIL                          R7
+       49 FORGPREP                         R5
+       50 MOVE                             R11 R4
+       51 GETUPVAL                         R12 4
+       52 MOVE                             R14 R9
+       53 NAMECALL                         R12 R12 K14 ["getAsset"]
+       55 CALL                             R12 2 1
+       56 NEWCLOSURE                       R14 P0
+       57 CAPTURE                          UPVAL U5
+       58 CAPTURE                          UPVAL U3
+       59 CAPTURE                          VAL R3
+       60 CAPTURE                          VAL R9
+       61 NAMECALL                         R12 R12 K15 ["andThen"]
+       63 CALL                             R12 2 1
+       64 DUPCLOSURE                       R14 K16 [PROTO_2]
+       65 NAMECALL                         R12 R12 K17 ["catch"]
+       67 CALL                             R12 2 -1
+       68 FASTCALL                         TABLE_INSERT ; [+2]
+       69 GETIMPORT                        R10 K20 [table.insert]
+       71 CALL                             R10 -1 0
+       72 FORGLOOP                         R5 2 ; [-23]
+       74 GETUPVAL                         R6 6
+       75 GETTABLEKS                       R5 R6 K21 ["all"]
+       77 MOVE                             R6 R4
+       78 CALL                             R5 1 1
+       79 NAMECALL                         R5 R5 K22 ["await"]
+       81 CALL                             R5 1 0
+       82 LENGTH                           R5 R3
+       83 JUMPIFNOTEQKN                    R5 K23 [0] ; [+11]
+       85 GETUPVAL                         R7 7
+       86 NEWTABLE                         R8 0 0
+       88 LOADB                            R9 1
+       89 CALL                             R7 2 -1
+       90 NAMECALL                         R5 R0 K0 ["dispatch"]
+       92 CALL                             R5 -1 0
+       93 CLOSEUPVALS                      R2
+       94 RETURN                           R0 0
+       95 MOVE                             R2 R3
+       96 GETUPVAL                         R5 4
+       97 MOVE                             R7 R2
+       98 NAMECALL                         R5 R5 K24 ["getAvatarAssetsPrivacy"]
+      100 CALL                             R5 2 1
+      101 NEWCLOSURE                       R7 P2
+      102 CAPTURE                          REF R2
+      103 CAPTURE                          VAL R0
+      104 CAPTURE                          UPVAL U7
+      105 NEWCLOSURE                       R8 P3
       106 CAPTURE                          VAL R0
-      107 CAPTURE                          UPVAL U8
-      108 NEWCLOSURE                       R7 P3
-      109 CAPTURE                          VAL R0
-      110 CAPTURE                          UPVAL U8
-      111 NAMECALL                         R4 R4 K15 ["andThen"]
-      113 CALL                             R4 3 -1
-      114 CLOSEUPVALS                      R2
-      115 RETURN                           R4 -1
+      107 CAPTURE                          UPVAL U7
+      108 NAMECALL                         R5 R5 K15 ["andThen"]
+      110 CALL                             R5 3 -1
+      111 CLOSEUPVALS                      R2
+      112 RETURN                           R5 -1
 
 PROTO_6:
         0 NEWCLOSURE                       R3 P0
@@ -165,12 +162,11 @@ PROTO_6:
         2 CAPTURE                          VAL R2
         3 CAPTURE                          VAL R1
         4 CAPTURE                          UPVAL U1
-        5 CAPTURE                          UPVAL U2
-        6 CAPTURE                          VAL R0
+        5 CAPTURE                          VAL R0
+        6 CAPTURE                          UPVAL U2
         7 CAPTURE                          UPVAL U3
         8 CAPTURE                          UPVAL U4
-        9 CAPTURE                          UPVAL U5
-       10 RETURN                           R3 1
+        9 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -194,25 +190,19 @@ MAIN:
        31 GETTABLEKS                       R4 R5 K11 ["AssetConfigUtil"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R7 R0 K6 ["Src"]
-       38 GETTABLEKS                       R6 R7 K12 ["Flags"]
-       40 GETTABLEKS                       R5 R6 K13 ["getFFlagPrivacyCheckAssetType"]
-       42 CALL                             R4 1 1
-       43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R7 R0 K14 ["Packages"]
-       47 GETTABLEKS                       R6 R7 K15 ["Framework"]
-       49 CALL                             R5 1 1
-       50 GETTABLEKS                       R7 R5 K10 ["Util"]
-       52 GETTABLEKS                       R6 R7 K16 ["Promise"]
-       54 GETIMPORT                        R7 K18 [game]
-       56 LOADK                            R9 K19 ["HttpService"]
-       57 NAMECALL                         R7 R7 K20 ["GetService"]
-       59 CALL                             R7 2 1
-       60 DUPCLOSURE                       R8 K21 [PROTO_6]
-       61 CAPTURE                          VAL R1
-       62 CAPTURE                          VAL R3
-       63 CAPTURE                          VAL R4
-       64 CAPTURE                          VAL R7
-       65 CAPTURE                          VAL R6
-       66 CAPTURE                          VAL R2
-       67 RETURN                           R8 1
+       36 GETTABLEKS                       R6 R0 K12 ["Packages"]
+       38 GETTABLEKS                       R5 R6 K13 ["Framework"]
+       40 CALL                             R4 1 1
+       41 GETTABLEKS                       R6 R4 K10 ["Util"]
+       43 GETTABLEKS                       R5 R6 K14 ["Promise"]
+       45 GETIMPORT                        R6 K16 [game]
+       47 LOADK                            R8 K17 ["HttpService"]
+       48 NAMECALL                         R6 R6 K18 ["GetService"]
+       50 CALL                             R6 2 1
+       51 DUPCLOSURE                       R7 K19 [PROTO_6]
+       52 CAPTURE                          VAL R1
+       53 CAPTURE                          VAL R3
+       54 CAPTURE                          VAL R6
+       55 CAPTURE                          VAL R5
+       56 CAPTURE                          VAL R2
+       57 RETURN                           R7 1

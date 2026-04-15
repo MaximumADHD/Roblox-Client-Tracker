@@ -211,73 +211,80 @@ PROTO_6:
       124 GETUPVAL                         R17 5
       125 GETUPVAL                         R19 6
       126 GETTABLEKS                       R18 R19 K21 ["View"]
-      128 DUPTABLE                         R19 K23 [{"tag", "LayoutOrder", "onStateChanged"}]
-      129 LOADK                            R20 K24 ["size-400-full align-x-center"]
+      128 DUPTABLE                         R19 K24 [{"tag", "LayoutOrder", "onStateChanged", "stateLayer"}]
+      129 LOADK                            R20 K25 ["size-400-full align-x-center"]
       130 SETTABLEKS                       R20 R19 K9 ["tag"]
       132 NAMECALL                         R20 R6 K14 ["getNextOrder"]
       134 CALL                             R20 1 1
       135 SETTABLEKS                       R20 R19 K10 ["LayoutOrder"]
       137 SETTABLEKS                       R3 R19 K22 ["onStateChanged"]
-      139 DUPTABLE                         R20 K27 [{"Divider", "Drag"}]
-      140 GETUPVAL                         R21 5
-      141 GETUPVAL                         R23 6
-      142 GETTABLEKS                       R22 R23 K25 ["Divider"]
-      144 DUPTABLE                         R23 K29 [{"orientation"}]
-      145 GETUPVAL                         R27 6
-      146 GETTABLEKS                       R26 R27 K30 ["Enums"]
-      148 GETTABLEKS                       R25 R26 K31 ["Orientation"]
-      150 GETTABLEKS                       R24 R25 K32 ["Vertical"]
-      152 SETTABLEKS                       R24 R23 K28 ["orientation"]
-      154 CALL                             R21 2 1
-      155 SETTABLEKS                       R21 R20 K25 ["Divider"]
-      157 GETUPVAL                         R21 5
-      158 LOADK                            R22 K33 ["UIDragDetector"]
-      159 NEWTABLE                         R23 8 0
-      161 GETIMPORT                        R24 K35 [Vector2.new]
-      163 LOADN                            R25 1
-      164 LOADN                            R26 0
-      165 CALL                             R24 2 1
-      166 SETTABLEKS                       R24 R23 K36 ["DragAxis"]
-      168 GETIMPORT                        R24 K40 [Enum.UIDragDetectorDragStyle.TranslateLine]
-      170 SETTABLEKS                       R24 R23 K41 ["DragStyle"]
-      172 GETIMPORT                        R24 K44 [Enum.UIDragDetectorResponseStyle.CustomScale]
-      174 SETTABLEKS                       R24 R23 K45 ["ResponseStyle"]
-      176 GETUPVAL                         R26 2
-      177 GETTABLEKS                       R25 R26 K46 ["Event"]
-      179 GETTABLEKS                       R24 R25 K47 ["DragStart"]
-      181 SETTABLE                         R15 R23 R24
-      182 GETUPVAL                         R26 2
-      183 GETTABLEKS                       R25 R26 K46 ["Event"]
-      185 GETTABLEKS                       R24 R25 K48 ["DragContinue"]
-      187 SETTABLE                         R15 R23 R24
+      139 DUPTABLE                         R20 K27 [{"affordance"}]
+      140 GETUPVAL                         R24 6
+      141 GETTABLEKS                       R23 R24 K28 ["Enums"]
+      143 GETTABLEKS                       R22 R23 K29 ["StateLayerAffordance"]
+      145 GETTABLEKS                       R21 R22 K30 ["None"]
+      147 SETTABLEKS                       R21 R20 K26 ["affordance"]
+      149 SETTABLEKS                       R20 R19 K23 ["stateLayer"]
+      151 DUPTABLE                         R20 K33 [{"Divider", "Drag"}]
+      152 GETUPVAL                         R21 5
+      153 GETUPVAL                         R23 6
+      154 GETTABLEKS                       R22 R23 K31 ["Divider"]
+      156 DUPTABLE                         R23 K35 [{"orientation"}]
+      157 GETUPVAL                         R27 6
+      158 GETTABLEKS                       R26 R27 K28 ["Enums"]
+      160 GETTABLEKS                       R25 R26 K36 ["Orientation"]
+      162 GETTABLEKS                       R24 R25 K37 ["Vertical"]
+      164 SETTABLEKS                       R24 R23 K34 ["orientation"]
+      166 CALL                             R21 2 1
+      167 SETTABLEKS                       R21 R20 K31 ["Divider"]
+      169 GETUPVAL                         R21 5
+      170 LOADK                            R22 K38 ["UIDragDetector"]
+      171 NEWTABLE                         R23 8 0
+      173 GETIMPORT                        R24 K40 [Vector2.new]
+      175 LOADN                            R25 1
+      176 LOADN                            R26 0
+      177 CALL                             R24 2 1
+      178 SETTABLEKS                       R24 R23 K41 ["DragAxis"]
+      180 GETIMPORT                        R24 K45 [Enum.UIDragDetectorDragStyle.TranslateLine]
+      182 SETTABLEKS                       R24 R23 K46 ["DragStyle"]
+      184 GETIMPORT                        R24 K49 [Enum.UIDragDetectorResponseStyle.CustomScale]
+      186 SETTABLEKS                       R24 R23 K50 ["ResponseStyle"]
       188 GETUPVAL                         R26 2
-      189 GETTABLEKS                       R25 R26 K46 ["Event"]
-      191 GETTABLEKS                       R24 R25 K49 ["DragEnd"]
-      193 SETTABLE                         R16 R23 R24
-      194 CALL                             R21 2 1
-      195 SETTABLEKS                       R21 R20 K26 ["Drag"]
-      197 CALL                             R17 3 1
-      198 FASTCALL2                        TABLE_INSERT R5 R17 ; [+5]
-      200 MOVE                             R19 R5
-      201 MOVE                             R20 R17
-      202 GETIMPORT                        R18 K19 [table.insert]
-      204 CALL                             R18 2 0
-      205 CLOSEUPVALS                      R14
-      206 FORGLOOP                         R7 2 ; [-171]
-      208 GETIMPORT                        R7 K51 [table.remove]
-      210 MOVE                             R8 R5
-      211 CALL                             R7 1 0
-      212 GETUPVAL                         R7 5
-      213 GETUPVAL                         R9 6
-      214 GETTABLEKS                       R8 R9 K21 ["View"]
-      216 DUPTABLE                         R9 K52 [{"tag", "LayoutOrder"}]
-      217 LOADK                            R10 K53 ["row size-full-600 align-y-center padding-y-xsmall"]
-      218 SETTABLEKS                       R10 R9 K9 ["tag"]
-      220 GETTABLEKS                       R10 R0 K10 ["LayoutOrder"]
-      222 SETTABLEKS                       R10 R9 K10 ["LayoutOrder"]
-      224 MOVE                             R10 R5
-      225 CALL                             R7 3 -1
-      226 RETURN                           R7 -1
+      189 GETTABLEKS                       R25 R26 K51 ["Event"]
+      191 GETTABLEKS                       R24 R25 K52 ["DragStart"]
+      193 SETTABLE                         R15 R23 R24
+      194 GETUPVAL                         R26 2
+      195 GETTABLEKS                       R25 R26 K51 ["Event"]
+      197 GETTABLEKS                       R24 R25 K53 ["DragContinue"]
+      199 SETTABLE                         R15 R23 R24
+      200 GETUPVAL                         R26 2
+      201 GETTABLEKS                       R25 R26 K51 ["Event"]
+      203 GETTABLEKS                       R24 R25 K54 ["DragEnd"]
+      205 SETTABLE                         R16 R23 R24
+      206 CALL                             R21 2 1
+      207 SETTABLEKS                       R21 R20 K32 ["Drag"]
+      209 CALL                             R17 3 1
+      210 FASTCALL2                        TABLE_INSERT R5 R17 ; [+5]
+      212 MOVE                             R19 R5
+      213 MOVE                             R20 R17
+      214 GETIMPORT                        R18 K19 [table.insert]
+      216 CALL                             R18 2 0
+      217 CLOSEUPVALS                      R14
+      218 FORGLOOP                         R7 2 ; [-183]
+      220 GETIMPORT                        R7 K56 [table.remove]
+      222 MOVE                             R8 R5
+      223 CALL                             R7 1 0
+      224 GETUPVAL                         R7 5
+      225 GETUPVAL                         R9 6
+      226 GETTABLEKS                       R8 R9 K21 ["View"]
+      228 DUPTABLE                         R9 K57 [{"tag", "LayoutOrder"}]
+      229 LOADK                            R10 K58 ["row size-full-600 align-y-center padding-y-xsmall"]
+      230 SETTABLEKS                       R10 R9 K9 ["tag"]
+      232 GETTABLEKS                       R10 R0 K10 ["LayoutOrder"]
+      234 SETTABLEKS                       R10 R9 K10 ["LayoutOrder"]
+      236 MOVE                             R10 R5
+      237 CALL                             R7 3 -1
+      238 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

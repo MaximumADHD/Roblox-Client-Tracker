@@ -22,39 +22,47 @@ PROTO_1:
         4 GETUPVAL                         R3 1
         5 GETUPVAL                         R5 2
         6 GETTABLEKS                       R4 R5 K1 ["Checkbox"]
-        8 DUPTABLE                         R5 K8 [{"label", "isChecked", "isIndeterminate", "onActivated", "size", "testId"}]
-        9 LOADK                            R6 K9 [""]
+        8 DUPTABLE                         R5 K9 [{"label", "isChecked", "isDisabled", "isIndeterminate", "onActivated", "size", "testId"}]
+        9 LOADK                            R6 K10 [""]
        10 SETTABLEKS                       R6 R5 K2 ["label"]
-       12 GETTABLEKS                       R6 R2 K10 ["enabled"]
+       12 GETTABLEKS                       R6 R2 K11 ["enabled"]
        14 SETTABLEKS                       R6 R5 K3 ["isChecked"]
-       16 LOADB                            R6 1
-       17 GETTABLEKS                       R7 R2 K11 ["state"]
-       19 GETUPVAL                         R10 3
-       20 GETTABLEKS                       R9 R10 K12 ["SessionState"]
-       22 GETTABLEKS                       R8 R9 K13 ["Parsing"]
-       24 JUMPIFEQ                         R7 R8 ; [+12]
-       26 GETTABLEKS                       R7 R2 K11 ["state"]
-       28 GETUPVAL                         R10 3
-       29 GETTABLEKS                       R9 R10 K12 ["SessionState"]
-       31 GETTABLEKS                       R8 R9 K14 ["Importing"]
-       33 JUMPIFEQ                         R7 R8 ; [+2]
-       35 LOADB                            R6 0 +1
-       36 LOADB                            R6 1
-       37 SETTABLEKS                       R6 R5 K4 ["isIndeterminate"]
-       39 NEWCLOSURE                       R6 P0
-       40 CAPTURE                          VAL R1
-       41 CAPTURE                          UPVAL U4
-       42 CAPTURE                          VAL R2
-       43 CAPTURE                          UPVAL U3
-       44 SETTABLEKS                       R6 R5 K5 ["onActivated"]
-       46 GETUPVAL                         R8 5
-       47 GETTABLEKS                       R7 R8 K15 ["InputSize"]
-       49 GETTABLEKS                       R6 R7 K16 ["XSmall"]
-       51 SETTABLEKS                       R6 R5 K6 ["size"]
-       53 LOADK                            R6 K17 ["asset-row-checkbox"]
-       54 SETTABLEKS                       R6 R5 K7 ["testId"]
-       56 CALL                             R3 2 -1
-       57 RETURN                           R3 -1
+       16 GETTABLEKS                       R7 R2 K12 ["state"]
+       18 GETUPVAL                         R10 3
+       19 GETTABLEKS                       R9 R10 K13 ["SessionState"]
+       21 GETTABLEKS                       R8 R9 K14 ["Invalid"]
+       23 JUMPIFEQ                         R7 R8 ; [+2]
+       25 LOADB                            R6 0 +1
+       26 LOADB                            R6 1
+       27 SETTABLEKS                       R6 R5 K4 ["isDisabled"]
+       29 LOADB                            R6 1
+       30 GETTABLEKS                       R7 R2 K12 ["state"]
+       32 GETUPVAL                         R10 3
+       33 GETTABLEKS                       R9 R10 K13 ["SessionState"]
+       35 GETTABLEKS                       R8 R9 K15 ["Parsing"]
+       37 JUMPIFEQ                         R7 R8 ; [+12]
+       39 GETTABLEKS                       R7 R2 K12 ["state"]
+       41 GETUPVAL                         R10 3
+       42 GETTABLEKS                       R9 R10 K13 ["SessionState"]
+       44 GETTABLEKS                       R8 R9 K16 ["Importing"]
+       46 JUMPIFEQ                         R7 R8 ; [+2]
+       48 LOADB                            R6 0 +1
+       49 LOADB                            R6 1
+       50 SETTABLEKS                       R6 R5 K5 ["isIndeterminate"]
+       52 NEWCLOSURE                       R6 P0
+       53 CAPTURE                          VAL R1
+       54 CAPTURE                          UPVAL U4
+       55 CAPTURE                          VAL R2
+       56 CAPTURE                          UPVAL U3
+       57 SETTABLEKS                       R6 R5 K6 ["onActivated"]
+       59 GETUPVAL                         R8 5
+       60 GETTABLEKS                       R7 R8 K17 ["InputSize"]
+       62 GETTABLEKS                       R6 R7 K18 ["XSmall"]
+       64 SETTABLEKS                       R6 R5 K7 ["size"]
+       66 LOADK                            R6 K19 ["asset-row-checkbox"]
+       67 SETTABLEKS                       R6 R5 K8 ["testId"]
+       69 CALL                             R3 2 -1
+       70 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

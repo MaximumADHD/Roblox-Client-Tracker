@@ -80,6 +80,8 @@ local FFlagCoreScriptsProfilerTelemetryContext = game:DefineFastFlag("CoreScript
 local FFlagLuaAppEnableEnhancedVideoScripts = game:DefineFastFlag("LuaAppEnableEnhancedVideoScripts3", false)
 local FFlagLuaAppEnableInExperienceClickoutScripts = game:DefineFastFlag("LuaAppEnableInExperienceClickoutScripts", false)
 local FFlagSelfieFrontendConsoleDesktop = game:DefineFastFlag("SelfieFrontendConsoleDesktop2", false) and game:GetEngineFeature("EnableSelfieQRCode")
+local GetEngineFeatureEnablePromptRobuxTransfer =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetEngineFeatureEnablePromptRobuxTransfer
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
 UIBlox.init(uiBloxConfig)
@@ -149,31 +151,11 @@ if ChromeEnabled then
 	ExperienceChat.GlobalFlags.ChromeEnabled = true
 end
 
-local getFFlagDoNotPromptCameraPermissionsOnMount =
-	require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
-if getFFlagDoNotPromptCameraPermissionsOnMount() then
-	local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
-	ExperienceChat.GlobalFlags.DoNotPromptCameraPermissionsOnMount = true
-end
-
 local GetFFlagJoinWithoutMicPermissions =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagJoinWithoutMicPermissions
 if GetFFlagJoinWithoutMicPermissions() then
 	local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat) :: any
 	ExperienceChat.GlobalFlags.JoinWithoutMicPermissions = true
-end
-
-local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
-if getFFlagEnableAlwaysAvailableCamera() then
-	local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
-	ExperienceChat.GlobalFlags.EnableAlwaysAvailableCamera = true
-end
-
-local getFFlagRenderVoiceBubbleAfterAsyncInit = require(RobloxGui.Modules.Flags.getFFlagRenderVoiceBubbleAfterAsyncInit)
-if getFFlagRenderVoiceBubbleAfterAsyncInit() then
-	local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
-	local GlobalFlags = ExperienceChat.GlobalFlags :: any
-	GlobalFlags.RenderVoiceBubbleAfterAsyncInit = true
 end
 
 local GetFFlagShowLikelySpeakingBubbles =
@@ -547,6 +529,10 @@ end
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/BulkPurchaseApp", RobloxGui)
 
+if GetEngineFeatureEnablePromptRobuxTransfer() then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/InExperienceTransferApp", RobloxGui)
+end
+
 if AudioFocusManagementEnabled then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceAudioFocusBinder", RobloxGui)
 end
@@ -601,13 +587,14 @@ task.delay(ReactSchedulingDelaySeconds, function()
 	(ReactSchedulingTracker::ReactSchedulingTracker.ReactSchedulingTracker):start()
 end)
 
+local Memory = require(CorePackages.Workspace.Packages.Memory)
 local FFlagEnableMemoryTrackerUnification =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableMemoryTrackerUnification
 if FFlagEnableMemoryTrackerUnification then
-	require(CorePackages.Workspace.Packages.Memory).start(true, FStringReactSchedulingContext)
+	Memory.start(true, FStringReactSchedulingContext, Memory.MemoryScope.InExperience)
 else
-	local MemoryTracker = require(CorePackages.Workspace.Packages.Memory).MemoryTracker
-	local memoryTracker = MemoryTracker(FStringReactSchedulingContext)
+	local createMemoryTracker = Memory.MemoryTracker
+	local memoryTracker = createMemoryTracker(FStringReactSchedulingContext, Memory.MemoryScope.InExperience)
 	if memoryTracker then
 		memoryTracker:start()
 	end

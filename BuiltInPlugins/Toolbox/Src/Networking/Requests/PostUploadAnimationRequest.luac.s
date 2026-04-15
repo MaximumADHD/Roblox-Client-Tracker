@@ -1,69 +1,66 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+37]
-        3 GETTABLEKS                       R1 R0 K0 ["code"]
-        5 JUMPIFEQKNIL                     R1 ; [+34]
-        7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K1 ["shouldDebugWarnings"]
-       10 CALL                             R1 0 1
-       11 JUMPIFNOT                        R1 ; [+4]
-       12 GETIMPORT                        R1 K3 [warn]
-       14 LOADK                            R2 K4 ["Recieved error code from PostUploadAnimation"]
-       15 CALL                             R1 1 0
-       16 GETUPVAL                         R1 2
-       17 GETUPVAL                         R3 3
-       18 LOADB                            R4 0
-       19 CALL                             R3 1 -1
-       20 NAMECALL                         R1 R1 K5 ["dispatch"]
-       22 CALL                             R1 -1 0
-       23 GETUPVAL                         R1 2
-       24 GETUPVAL                         R3 4
-       25 GETTABLEKS                       R5 R0 K7 ["message"]
-       27 ORK                              R4 R5 K6 ["Upload failed with unknown error"]
-       28 CALL                             R3 1 -1
-       29 NAMECALL                         R1 R1 K5 ["dispatch"]
-       31 CALL                             R1 -1 0
-       32 GETUPVAL                         R2 5
-       33 GETTABLEKS                       R1 R2 K8 ["incrementUploadAssetFailure"]
-       35 GETUPVAL                         R3 6
-       36 GETTABLEKS                       R2 R3 K9 ["assetType"]
-       38 CALL                             R1 1 0
-       39 RETURN                           R0 0
-       40 GETUPVAL                         R1 2
-       41 GETUPVAL                         R3 7
-       42 GETTABLEKS                       R4 R0 K10 ["assetId"]
-       44 CALL                             R3 1 -1
-       45 NAMECALL                         R1 R1 K5 ["dispatch"]
-       47 CALL                             R1 -1 0
-       48 GETUPVAL                         R1 2
-       49 GETUPVAL                         R3 8
-       50 GETUPVAL                         R6 9
-       51 GETTABLEKS                       R5 R6 K11 ["SCREENS"]
-       53 GETTABLEKS                       R4 R5 K12 ["UPLOADING_ASSET"]
-       55 CALL                             R3 1 -1
-       56 NAMECALL                         R1 R1 K5 ["dispatch"]
-       58 CALL                             R1 -1 0
-       59 GETUPVAL                         R2 5
-       60 GETTABLEKS                       R1 R2 K13 ["incrementUploadAssetSuccess"]
-       62 GETUPVAL                         R3 6
-       63 GETTABLEKS                       R2 R3 K9 ["assetType"]
-       65 CALL                             R1 1 0
-       66 GETUPVAL                         R1 2
-       67 GETUPVAL                         R3 3
-       68 LOADB                            R4 1
-       69 CALL                             R3 1 -1
-       70 NAMECALL                         R1 R1 K5 ["dispatch"]
-       72 CALL                             R1 -1 0
-       73 GETUPVAL                         R2 2
-       74 NAMECALL                         R2 R2 K14 ["getState"]
-       76 CALL                             R2 1 1
-       77 GETTABLEKS                       R1 R2 K15 ["deleteLocal"]
-       79 GETUPVAL                         R2 10
-       80 GETTABLEKS                       R3 R0 K10 ["assetId"]
-       82 MOVE                             R4 R1
-       83 CALL                             R2 2 0
-       84 RETURN                           R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["code"]
+        2 JUMPIFEQKNIL                     R1 ; [+34]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R1 R2 K1 ["shouldDebugWarnings"]
+        7 CALL                             R1 0 1
+        8 JUMPIFNOT                        R1 ; [+4]
+        9 GETIMPORT                        R1 K3 [warn]
+       11 LOADK                            R2 K4 ["Recieved error code from PostUploadAnimation"]
+       12 CALL                             R1 1 0
+       13 GETUPVAL                         R1 1
+       14 GETUPVAL                         R3 2
+       15 LOADB                            R4 0
+       16 CALL                             R3 1 -1
+       17 NAMECALL                         R1 R1 K5 ["dispatch"]
+       19 CALL                             R1 -1 0
+       20 GETUPVAL                         R1 1
+       21 GETUPVAL                         R3 3
+       22 GETTABLEKS                       R5 R0 K7 ["message"]
+       24 ORK                              R4 R5 K6 ["Upload failed with unknown error"]
+       25 CALL                             R3 1 -1
+       26 NAMECALL                         R1 R1 K5 ["dispatch"]
+       28 CALL                             R1 -1 0
+       29 GETUPVAL                         R2 4
+       30 GETTABLEKS                       R1 R2 K8 ["incrementUploadAssetFailure"]
+       32 GETUPVAL                         R3 5
+       33 GETTABLEKS                       R2 R3 K9 ["assetType"]
+       35 CALL                             R1 1 0
+       36 RETURN                           R0 0
+       37 GETUPVAL                         R1 1
+       38 GETUPVAL                         R3 6
+       39 GETTABLEKS                       R4 R0 K10 ["assetId"]
+       41 CALL                             R3 1 -1
+       42 NAMECALL                         R1 R1 K5 ["dispatch"]
+       44 CALL                             R1 -1 0
+       45 GETUPVAL                         R1 1
+       46 GETUPVAL                         R3 7
+       47 GETUPVAL                         R6 8
+       48 GETTABLEKS                       R5 R6 K11 ["SCREENS"]
+       50 GETTABLEKS                       R4 R5 K12 ["UPLOADING_ASSET"]
+       52 CALL                             R3 1 -1
+       53 NAMECALL                         R1 R1 K5 ["dispatch"]
+       55 CALL                             R1 -1 0
+       56 GETUPVAL                         R2 4
+       57 GETTABLEKS                       R1 R2 K13 ["incrementUploadAssetSuccess"]
+       59 GETUPVAL                         R3 5
+       60 GETTABLEKS                       R2 R3 K9 ["assetType"]
+       62 CALL                             R1 1 0
+       63 GETUPVAL                         R1 1
+       64 GETUPVAL                         R3 2
+       65 LOADB                            R4 1
+       66 CALL                             R3 1 -1
+       67 NAMECALL                         R1 R1 K5 ["dispatch"]
+       69 CALL                             R1 -1 0
+       70 GETUPVAL                         R2 1
+       71 NAMECALL                         R2 R2 K14 ["getState"]
+       73 CALL                             R2 1 1
+       74 GETTABLEKS                       R1 R2 K15 ["deleteLocal"]
+       76 GETUPVAL                         R2 9
+       77 GETTABLEKS                       R3 R0 K10 ["assetId"]
+       79 MOVE                             R4 R1
+       80 CALL                             R2 2 0
+       81 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -135,28 +132,18 @@ PROTO_3:
        13 GETTABLEKS                       R6 R7 K4 ["userId"]
        15 GETUPVAL                         R8 0
        16 GETTABLEKS                       R7 R8 K5 ["groupId"]
-       18 GETUPVAL                         R9 1
-       19 CALL                             R9 0 1
-       20 JUMPIFNOT                        R9 ; [+4]
-       21 GETUPVAL                         R9 0
-       22 GETTABLEKS                       R8 R9 K6 ["assetTypeEnum"]
-       24 JUMPIF                           R8 ; [+1]
-       25 LOADNIL                          R8
-       26 GETUPVAL                         R10 1
-       27 CALL                             R10 0 1
-       28 JUMPIFNOT                        R10 ; [+4]
-       29 GETUPVAL                         R10 0
-       30 GETTABLEKS                       R9 R10 K7 ["expectedPrice"]
-       32 JUMPIF                           R9 ; [+1]
-       33 LOADNIL                          R9
-       34 MOVE                             R10 R0
-       35 NAMECALL                         R1 R1 K8 ["postUploadAnimation"]
-       37 CALL                             R1 9 1
-       38 GETUPVAL                         R3 2
-       39 GETUPVAL                         R4 3
-       40 NAMECALL                         R1 R1 K9 ["andThen"]
-       42 CALL                             R1 3 -1
-       43 RETURN                           R1 -1
+       18 GETUPVAL                         R9 0
+       19 GETTABLEKS                       R8 R9 K6 ["assetTypeEnum"]
+       21 GETUPVAL                         R10 0
+       22 GETTABLEKS                       R9 R10 K7 ["expectedPrice"]
+       24 MOVE                             R10 R0
+       25 NAMECALL                         R1 R1 K8 ["postUploadAnimation"]
+       27 CALL                             R1 9 1
+       28 GETUPVAL                         R3 1
+       29 GETUPVAL                         R4 2
+       30 NAMECALL                         R1 R1 K9 ["andThen"]
+       32 CALL                             R1 3 -1
+       33 RETURN                           R1 -1
 
 PROTO_4:
         0 GETUPVAL                         R4 0
@@ -168,44 +155,42 @@ PROTO_4:
         9 CALL                             R2 -1 0
        10 NEWCLOSURE                       R2 P0
        11 CAPTURE                          UPVAL U2
-       12 CAPTURE                          UPVAL U3
-       13 CAPTURE                          VAL R0
+       12 CAPTURE                          VAL R0
+       13 CAPTURE                          UPVAL U3
        14 CAPTURE                          UPVAL U4
        15 CAPTURE                          UPVAL U5
        16 CAPTURE                          UPVAL U6
        17 CAPTURE                          UPVAL U7
-       18 CAPTURE                          UPVAL U8
-       19 CAPTURE                          UPVAL U0
-       20 CAPTURE                          UPVAL U1
-       21 CAPTURE                          UPVAL U9
-       22 NEWCLOSURE                       R3 P1
-       23 CAPTURE                          UPVAL U3
-       24 CAPTURE                          VAL R0
+       18 CAPTURE                          UPVAL U0
+       19 CAPTURE                          UPVAL U1
+       20 CAPTURE                          UPVAL U8
+       21 NEWCLOSURE                       R3 P1
+       22 CAPTURE                          UPVAL U2
+       23 CAPTURE                          VAL R0
+       24 CAPTURE                          UPVAL U3
        25 CAPTURE                          UPVAL U4
        26 CAPTURE                          UPVAL U5
        27 CAPTURE                          UPVAL U6
-       28 CAPTURE                          UPVAL U7
-       29 NEWCLOSURE                       R4 P2
-       30 CAPTURE                          UPVAL U3
-       31 CAPTURE                          VAL R0
+       28 NEWCLOSURE                       R4 P2
+       29 CAPTURE                          UPVAL U2
+       30 CAPTURE                          VAL R0
+       31 CAPTURE                          UPVAL U3
        32 CAPTURE                          UPVAL U4
        33 CAPTURE                          UPVAL U5
        34 CAPTURE                          UPVAL U6
-       35 CAPTURE                          UPVAL U7
-       36 GETUPVAL                         R5 10
-       37 GETUPVAL                         R7 7
-       38 GETTABLEKS                       R6 R7 K3 ["instance"]
-       40 GETTABLEKS                       R7 R1 K4 ["StudioAssetService"]
-       42 CALL                             R5 2 1
-       43 NEWCLOSURE                       R7 P3
-       44 CAPTURE                          UPVAL U7
-       45 CAPTURE                          UPVAL U2
-       46 CAPTURE                          VAL R2
-       47 CAPTURE                          VAL R4
-       48 MOVE                             R8 R3
-       49 NAMECALL                         R5 R5 K5 ["andThen"]
-       51 CALL                             R5 3 -1
-       52 RETURN                           R5 -1
+       35 GETUPVAL                         R5 9
+       36 GETUPVAL                         R7 6
+       37 GETTABLEKS                       R6 R7 K3 ["instance"]
+       39 GETTABLEKS                       R7 R1 K4 ["StudioAssetService"]
+       41 CALL                             R5 2 1
+       42 NEWCLOSURE                       R7 P3
+       43 CAPTURE                          UPVAL U6
+       44 CAPTURE                          VAL R2
+       45 CAPTURE                          VAL R4
+       46 MOVE                             R8 R3
+       47 NAMECALL                         R5 R5 K5 ["andThen"]
+       49 CALL                             R5 3 -1
+       50 RETURN                           R5 -1
 
 PROTO_5:
         0 NEWCLOSURE                       R1 P0
@@ -215,12 +200,11 @@ PROTO_5:
         4 CAPTURE                          UPVAL U3
         5 CAPTURE                          UPVAL U4
         6 CAPTURE                          UPVAL U5
-        7 CAPTURE                          UPVAL U6
-        8 CAPTURE                          VAL R0
+        7 CAPTURE                          VAL R0
+        8 CAPTURE                          UPVAL U6
         9 CAPTURE                          UPVAL U7
        10 CAPTURE                          UPVAL U8
-       11 CAPTURE                          UPVAL U9
-       12 RETURN                           R1 1
+       11 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -261,20 +245,14 @@ MAIN:
        61 GETIMPORT                        R11 K6 [require]
        63 GETTABLEKS                       R12 R7 K16 ["SetAssetId"]
        65 CALL                             R11 1 1
-       66 GETIMPORT                        R12 K6 [require]
-       68 GETTABLEKS                       R15 R0 K3 ["Src"]
-       70 GETTABLEKS                       R14 R15 K17 ["Flags"]
-       72 GETTABLEKS                       R13 R14 K18 ["getFFlagEnableUploadingEmote"]
-       74 CALL                             R12 1 1
-       75 DUPCLOSURE                       R13 K19 [PROTO_5]
-       76 CAPTURE                          VAL R9
-       77 CAPTURE                          VAL R3
-       78 CAPTURE                          VAL R12
-       79 CAPTURE                          VAL R2
-       80 CAPTURE                          VAL R10
-       81 CAPTURE                          VAL R8
-       82 CAPTURE                          VAL R5
-       83 CAPTURE                          VAL R11
-       84 CAPTURE                          VAL R6
-       85 CAPTURE                          VAL R4
-       86 RETURN                           R13 1
+       66 DUPCLOSURE                       R12 K17 [PROTO_5]
+       67 CAPTURE                          VAL R9
+       68 CAPTURE                          VAL R3
+       69 CAPTURE                          VAL R2
+       70 CAPTURE                          VAL R10
+       71 CAPTURE                          VAL R8
+       72 CAPTURE                          VAL R5
+       73 CAPTURE                          VAL R11
+       74 CAPTURE                          VAL R6
+       75 CAPTURE                          VAL R4
+       76 RETURN                           R12 1

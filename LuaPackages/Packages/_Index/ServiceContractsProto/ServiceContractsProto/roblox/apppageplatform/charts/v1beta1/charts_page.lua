@@ -10,9 +10,11 @@ type _Messages = {
 	GetChartsPageRequest: _GetChartsPageRequestMessage,
 	GetChartsPageResponse: _GetChartsPageResponseMessage,
 	GetChartsPageResponse_TemplatesEntry: _GetChartsPageResponse_TemplatesEntryMessage,
+	GetChartsPageResponse_LocalizedLiteralsEntry: _GetChartsPageResponse_LocalizedLiteralsEntryMessage,
 	GetChartsSortDetailRequest: _GetChartsSortDetailRequestMessage,
 	GetChartsSortDetailResponse: _GetChartsSortDetailResponseMessage,
 	GetChartsSortDetailResponse_TemplatesEntry: _GetChartsSortDetailResponse_TemplatesEntryMessage,
+	GetChartsSortDetailResponse_LocalizedLiteralsEntry: _GetChartsSortDetailResponse_LocalizedLiteralsEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -73,12 +75,14 @@ type _GetChartsPageResponseFields = {
 	page_entries: { _roblox_apppageplatform_shared_v1beta1_page_entry_content.UniversalPageEntry },
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry },
+	localized_literals: { [string]: string },
 }
 
 type _GetChartsPageResponsePartialFields = {
 	page_entries: { _roblox_apppageplatform_shared_v1beta1_page_entry_content.UniversalPageEntry }?,
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry }?,
+	localized_literals: { [string]: string }?,
 }
 
 export type GetChartsPageResponse = typeof(setmetatable(
@@ -114,6 +118,37 @@ export type GetChartsPageResponse_TemplatesEntry = typeof(setmetatable(
 type _GetChartsPageResponse_TemplatesEntryMessage = proto.Message<
 	GetChartsPageResponse_TemplatesEntry,
 	_GetChartsPageResponse_TemplatesEntryPartialFields
+>
+
+type _GetChartsPageResponse_LocalizedLiteralsEntryImpl = {
+	__index: _GetChartsPageResponse_LocalizedLiteralsEntryImpl,
+	new: (
+		fields: _GetChartsPageResponse_LocalizedLiteralsEntryPartialFields?
+	) -> GetChartsPageResponse_LocalizedLiteralsEntry,
+	encode: (self: GetChartsPageResponse_LocalizedLiteralsEntry) -> buffer,
+	decode: (input: buffer) -> GetChartsPageResponse_LocalizedLiteralsEntry,
+	jsonEncode: (self: GetChartsPageResponse_LocalizedLiteralsEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GetChartsPageResponse_LocalizedLiteralsEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _GetChartsPageResponse_LocalizedLiteralsEntryFields = {
+	key: string,
+	value: string,
+}
+
+type _GetChartsPageResponse_LocalizedLiteralsEntryPartialFields = {
+	key: string?,
+	value: string?,
+}
+
+export type GetChartsPageResponse_LocalizedLiteralsEntry = typeof(setmetatable(
+	{} :: _GetChartsPageResponse_LocalizedLiteralsEntryFields,
+	{} :: _GetChartsPageResponse_LocalizedLiteralsEntryImpl
+))
+type _GetChartsPageResponse_LocalizedLiteralsEntryMessage = proto.Message<
+	GetChartsPageResponse_LocalizedLiteralsEntry,
+	_GetChartsPageResponse_LocalizedLiteralsEntryPartialFields
 >
 
 type _GetChartsSortDetailRequestImpl = {
@@ -166,6 +201,7 @@ type _GetChartsSortDetailResponseFields = {
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry },
 	next_content_page_token: string,
+	localized_literals: { [string]: string },
 }
 
 type _GetChartsSortDetailResponsePartialFields = {
@@ -173,6 +209,7 @@ type _GetChartsSortDetailResponsePartialFields = {
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry }?,
 	next_content_page_token: string?,
+	localized_literals: { [string]: string }?,
 }
 
 export type GetChartsSortDetailResponse = typeof(setmetatable(
@@ -213,6 +250,37 @@ export type GetChartsSortDetailResponse_TemplatesEntry = typeof(setmetatable(
 type _GetChartsSortDetailResponse_TemplatesEntryMessage = proto.Message<
 	GetChartsSortDetailResponse_TemplatesEntry,
 	_GetChartsSortDetailResponse_TemplatesEntryPartialFields
+>
+
+type _GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl = {
+	__index: _GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl,
+	new: (
+		fields: _GetChartsSortDetailResponse_LocalizedLiteralsEntryPartialFields?
+	) -> GetChartsSortDetailResponse_LocalizedLiteralsEntry,
+	encode: (self: GetChartsSortDetailResponse_LocalizedLiteralsEntry) -> buffer,
+	decode: (input: buffer) -> GetChartsSortDetailResponse_LocalizedLiteralsEntry,
+	jsonEncode: (self: GetChartsSortDetailResponse_LocalizedLiteralsEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GetChartsSortDetailResponse_LocalizedLiteralsEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _GetChartsSortDetailResponse_LocalizedLiteralsEntryFields = {
+	key: string,
+	value: string,
+}
+
+type _GetChartsSortDetailResponse_LocalizedLiteralsEntryPartialFields = {
+	key: string?,
+	value: string?,
+}
+
+export type GetChartsSortDetailResponse_LocalizedLiteralsEntry = typeof(setmetatable(
+	{} :: _GetChartsSortDetailResponse_LocalizedLiteralsEntryFields,
+	{} :: _GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl
+))
+type _GetChartsSortDetailResponse_LocalizedLiteralsEntryMessage = proto.Message<
+	GetChartsSortDetailResponse_LocalizedLiteralsEntry,
+	_GetChartsSortDetailResponse_LocalizedLiteralsEntryPartialFields
 >
 
 do
@@ -457,6 +525,7 @@ do
 			page_entries = if data == nil or data.page_entries == nil then {} else data.page_entries,
 			hydration_data = if data == nil or data.hydration_data == nil then nil else data.hydration_data,
 			templates = if data == nil or data.templates == nil then {} else data.templates,
+			localized_literals = if data == nil or data.localized_literals == nil then {} else data.localized_literals,
 		}, _GetChartsPageResponseImpl :: _GetChartsPageResponseImpl)
 	end
 
@@ -488,6 +557,19 @@ do
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
 				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.localized_literals ~= nil and next(self.localized_literals) ~= nil then
+			for key, value in self.localized_literals do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, value)
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
 			end
 		end
@@ -537,6 +619,18 @@ do
 					self.templates[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.GetChartsPageResponse_LocalizedLiteralsEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = ""
+
+					self.localized_literals[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
 				end
 
 				local length
@@ -582,6 +676,14 @@ do
 				newOutput[key] = value:jsonEncode()
 			end
 			output.templates = newOutput
+		end
+
+		if self.localized_literals ~= nil and next(self.localized_literals) ~= nil then
+			local newOutput = {}
+			for key, value in self.localized_literals do
+				newOutput[key] = value
+			end
+			output.localizedLiterals = newOutput
 		end
 
 		return output
@@ -633,6 +735,24 @@ do
 			end
 
 			self.templates = newOutput
+		end
+
+		if input.localized_literals ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.localized_literals do
+				newOutput[key] = value
+			end
+
+			self.localized_literals = newOutput
+		end
+
+		if input.localizedLiterals ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.localizedLiterals do
+				newOutput[key] = value
+			end
+
+			self.localized_literals = newOutput
 		end
 
 		return self
@@ -767,6 +887,132 @@ do
 	messages.GetChartsPageResponse_TemplatesEntry = _GetChartsPageResponse_TemplatesEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.GetChartsPageResponse_TemplatesEntry)
+end
+
+do
+	local _GetChartsPageResponse_LocalizedLiteralsEntryImpl = {}
+	_GetChartsPageResponse_LocalizedLiteralsEntryImpl.__index = _GetChartsPageResponse_LocalizedLiteralsEntryImpl
+
+	function _GetChartsPageResponse_LocalizedLiteralsEntryImpl.new(
+		data: _GetChartsPageResponse_LocalizedLiteralsEntryPartialFields?
+	): GetChartsPageResponse_LocalizedLiteralsEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then "" else data.value,
+		}, _GetChartsPageResponse_LocalizedLiteralsEntryImpl :: _GetChartsPageResponse_LocalizedLiteralsEntryImpl)
+	end
+
+	function _GetChartsPageResponse_LocalizedLiteralsEntryImpl.encode(
+		self: GetChartsPageResponse_LocalizedLiteralsEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.value)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GetChartsPageResponse_LocalizedLiteralsEntryImpl.decode(
+		input: buffer
+	): GetChartsPageResponse_LocalizedLiteralsEntry
+		local self = _GetChartsPageResponse_LocalizedLiteralsEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GetChartsPageResponse_LocalizedLiteralsEntryImpl.jsonEncode(
+		self: GetChartsPageResponse_LocalizedLiteralsEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output.value = self.value
+		end
+
+		return output
+	end
+
+	function _GetChartsPageResponse_LocalizedLiteralsEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): GetChartsPageResponse_LocalizedLiteralsEntry
+		local self = _GetChartsPageResponse_LocalizedLiteralsEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = input.value
+		end
+
+		return self
+	end
+
+	_GetChartsPageResponse_LocalizedLiteralsEntryImpl.descriptor = {
+		name = "GetChartsPageResponse_LocalizedLiteralsEntry",
+		fullName = "roblox.apppageplatform.charts.v1beta1.LocalizedLiteralsEntry",
+	}
+
+	messages.GetChartsPageResponse_LocalizedLiteralsEntry = _GetChartsPageResponse_LocalizedLiteralsEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GetChartsPageResponse_LocalizedLiteralsEntry)
 end
 
 do
@@ -970,6 +1216,7 @@ do
 			next_content_page_token = if data == nil or data.next_content_page_token == nil
 				then ""
 				else data.next_content_page_token,
+			localized_literals = if data == nil or data.localized_literals == nil then {} else data.localized_literals,
 		}, _GetChartsSortDetailResponseImpl :: _GetChartsSortDetailResponseImpl)
 	end
 
@@ -1008,6 +1255,19 @@ do
 		if self.next_content_page_token ~= nil and self.next_content_page_token ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.next_content_page_token)
+		end
+
+		if self.localized_literals ~= nil and next(self.localized_literals) ~= nil then
+			for key, value in self.localized_literals do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, value)
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -1060,6 +1320,18 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.next_content_page_token = buffer.tostring(value)
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.GetChartsSortDetailResponse_LocalizedLiteralsEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = ""
+
+					self.localized_literals[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
 				end
 
 				local length
@@ -1109,6 +1381,14 @@ do
 
 		if self.next_content_page_token ~= nil and self.next_content_page_token ~= "" then
 			output.nextContentPageToken = self.next_content_page_token
+		end
+
+		if self.localized_literals ~= nil and next(self.localized_literals) ~= nil then
+			local newOutput = {}
+			for key, value in self.localized_literals do
+				newOutput[key] = value
+			end
+			output.localizedLiterals = newOutput
 		end
 
 		return output
@@ -1168,6 +1448,24 @@ do
 
 		if input.nextContentPageToken ~= nil then
 			self.next_content_page_token = input.nextContentPageToken
+		end
+
+		if input.localized_literals ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.localized_literals do
+				newOutput[key] = value
+			end
+
+			self.localized_literals = newOutput
+		end
+
+		if input.localizedLiterals ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.localizedLiterals do
+				newOutput[key] = value
+			end
+
+			self.localized_literals = newOutput
 		end
 
 		return self
@@ -1308,6 +1606,137 @@ do
 	messages.GetChartsSortDetailResponse_TemplatesEntry = _GetChartsSortDetailResponse_TemplatesEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.GetChartsSortDetailResponse_TemplatesEntry)
+end
+
+do
+	local _GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl = {}
+	_GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl.__index =
+		_GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl
+
+	function _GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl.new(
+		data: _GetChartsSortDetailResponse_LocalizedLiteralsEntryPartialFields?
+	): GetChartsSortDetailResponse_LocalizedLiteralsEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then "" else data.value,
+			},
+			_GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl :: _GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl
+		)
+	end
+
+	function _GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl.encode(
+		self: GetChartsSortDetailResponse_LocalizedLiteralsEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.value)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl.decode(
+		input: buffer
+	): GetChartsSortDetailResponse_LocalizedLiteralsEntry
+		local self = _GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl.jsonEncode(
+		self: GetChartsSortDetailResponse_LocalizedLiteralsEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output.value = self.value
+		end
+
+		return output
+	end
+
+	function _GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): GetChartsSortDetailResponse_LocalizedLiteralsEntry
+		local self = _GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = input.value
+		end
+
+		return self
+	end
+
+	_GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl.descriptor = {
+		name = "GetChartsSortDetailResponse_LocalizedLiteralsEntry",
+		fullName = "roblox.apppageplatform.charts.v1beta1.LocalizedLiteralsEntry",
+	}
+
+	messages.GetChartsSortDetailResponse_LocalizedLiteralsEntry =
+		_GetChartsSortDetailResponse_LocalizedLiteralsEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GetChartsSortDetailResponse_LocalizedLiteralsEntry)
 end
 
 return {

@@ -168,64 +168,61 @@ PROTO_0:
       222 NAMECALL                         R3 R0 K6 ["getText"]
       224 CALL                             R3 3 1
       225 SETTABLE                         R3 R1 R2
-      226 GETUPVAL                         R2 0
-      227 CALL                             R2 0 1
-      228 JUMPIFNOT                        R2 ; [+8]
-      229 GETIMPORT                        R2 K88 [Enum.AssetType.EmoteAnimation]
-      231 LOADK                            R5 K4 ["General"]
-      232 LOADK                            R6 K89 ["AssetTypeEmoteAnimation"]
-      233 NAMECALL                         R3 R0 K6 ["getText"]
-      235 CALL                             R3 3 1
-      236 SETTABLE                         R3 R1 R2
-      237 GETIMPORT                        R2 K91 [Enum.AssetType.Torso]
-      239 LOADK                            R5 K4 ["General"]
-      240 LOADK                            R6 K92 ["AssetTypeTorso"]
-      241 NAMECALL                         R3 R0 K6 ["getText"]
-      243 CALL                             R3 3 1
-      244 SETTABLE                         R3 R1 R2
-      245 GETIMPORT                        R2 K94 [Enum.AssetType.RightArm]
-      247 LOADK                            R5 K4 ["General"]
-      248 LOADK                            R6 K95 ["AssetTypeRightArm"]
-      249 NAMECALL                         R3 R0 K6 ["getText"]
-      251 CALL                             R3 3 1
-      252 SETTABLE                         R3 R1 R2
-      253 GETIMPORT                        R2 K97 [Enum.AssetType.LeftArm]
-      255 LOADK                            R5 K4 ["General"]
-      256 LOADK                            R6 K98 ["AssetTypeLeftArm"]
-      257 NAMECALL                         R3 R0 K6 ["getText"]
-      259 CALL                             R3 3 1
-      260 SETTABLE                         R3 R1 R2
-      261 GETIMPORT                        R2 K100 [Enum.AssetType.LeftLeg]
-      263 LOADK                            R5 K4 ["General"]
-      264 LOADK                            R6 K101 ["AssetTypeLeftLeg"]
-      265 NAMECALL                         R3 R0 K6 ["getText"]
-      267 CALL                             R3 3 1
-      268 SETTABLE                         R3 R1 R2
-      269 GETIMPORT                        R2 K103 [Enum.AssetType.RightLeg]
-      271 LOADK                            R5 K4 ["General"]
-      272 LOADK                            R6 K104 ["AssetTypeRightLeg"]
-      273 NAMECALL                         R3 R0 K6 ["getText"]
-      275 CALL                             R3 3 1
-      276 SETTABLE                         R3 R1 R2
-      277 GETIMPORT                        R2 K106 [Enum.AssetType.DynamicHead]
-      279 LOADK                            R5 K4 ["General"]
-      280 LOADK                            R6 K107 ["AssetTypeDynamicHead"]
-      281 NAMECALL                         R3 R0 K6 ["getText"]
-      283 CALL                             R3 3 1
-      284 SETTABLE                         R3 R1 R2
-      285 GETIMPORT                        R2 K109 [Enum.AssetType.EyebrowAccessory]
-      287 LOADK                            R5 K4 ["General"]
-      288 LOADK                            R6 K110 ["AssetTypeEyebrowAccessory"]
-      289 NAMECALL                         R3 R0 K6 ["getText"]
-      291 CALL                             R3 3 1
-      292 SETTABLE                         R3 R1 R2
-      293 GETIMPORT                        R2 K112 [Enum.AssetType.EyelashAccessory]
-      295 LOADK                            R5 K4 ["General"]
-      296 LOADK                            R6 K113 ["AssetTypeEyelashAccessory"]
-      297 NAMECALL                         R3 R0 K6 ["getText"]
-      299 CALL                             R3 3 1
-      300 SETTABLE                         R3 R1 R2
-      301 RETURN                           R1 1
+      226 GETIMPORT                        R2 K88 [Enum.AssetType.EmoteAnimation]
+      228 LOADK                            R5 K4 ["General"]
+      229 LOADK                            R6 K89 ["AssetTypeEmoteAnimation"]
+      230 NAMECALL                         R3 R0 K6 ["getText"]
+      232 CALL                             R3 3 1
+      233 SETTABLE                         R3 R1 R2
+      234 GETIMPORT                        R2 K91 [Enum.AssetType.Torso]
+      236 LOADK                            R5 K4 ["General"]
+      237 LOADK                            R6 K92 ["AssetTypeTorso"]
+      238 NAMECALL                         R3 R0 K6 ["getText"]
+      240 CALL                             R3 3 1
+      241 SETTABLE                         R3 R1 R2
+      242 GETIMPORT                        R2 K94 [Enum.AssetType.RightArm]
+      244 LOADK                            R5 K4 ["General"]
+      245 LOADK                            R6 K95 ["AssetTypeRightArm"]
+      246 NAMECALL                         R3 R0 K6 ["getText"]
+      248 CALL                             R3 3 1
+      249 SETTABLE                         R3 R1 R2
+      250 GETIMPORT                        R2 K97 [Enum.AssetType.LeftArm]
+      252 LOADK                            R5 K4 ["General"]
+      253 LOADK                            R6 K98 ["AssetTypeLeftArm"]
+      254 NAMECALL                         R3 R0 K6 ["getText"]
+      256 CALL                             R3 3 1
+      257 SETTABLE                         R3 R1 R2
+      258 GETIMPORT                        R2 K100 [Enum.AssetType.LeftLeg]
+      260 LOADK                            R5 K4 ["General"]
+      261 LOADK                            R6 K101 ["AssetTypeLeftLeg"]
+      262 NAMECALL                         R3 R0 K6 ["getText"]
+      264 CALL                             R3 3 1
+      265 SETTABLE                         R3 R1 R2
+      266 GETIMPORT                        R2 K103 [Enum.AssetType.RightLeg]
+      268 LOADK                            R5 K4 ["General"]
+      269 LOADK                            R6 K104 ["AssetTypeRightLeg"]
+      270 NAMECALL                         R3 R0 K6 ["getText"]
+      272 CALL                             R3 3 1
+      273 SETTABLE                         R3 R1 R2
+      274 GETIMPORT                        R2 K106 [Enum.AssetType.DynamicHead]
+      276 LOADK                            R5 K4 ["General"]
+      277 LOADK                            R6 K107 ["AssetTypeDynamicHead"]
+      278 NAMECALL                         R3 R0 K6 ["getText"]
+      280 CALL                             R3 3 1
+      281 SETTABLE                         R3 R1 R2
+      282 GETIMPORT                        R2 K109 [Enum.AssetType.EyebrowAccessory]
+      284 LOADK                            R5 K4 ["General"]
+      285 LOADK                            R6 K110 ["AssetTypeEyebrowAccessory"]
+      286 NAMECALL                         R3 R0 K6 ["getText"]
+      288 CALL                             R3 3 1
+      289 SETTABLE                         R3 R1 R2
+      290 GETIMPORT                        R2 K112 [Enum.AssetType.EyelashAccessory]
+      292 LOADK                            R5 K4 ["General"]
+      293 LOADK                            R6 K113 ["AssetTypeEyelashAccessory"]
+      294 NAMECALL                         R3 R0 K6 ["getText"]
+      296 CALL                             R3 3 1
+      297 SETTABLE                         R3 R1 R2
+      298 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -236,13 +233,7 @@ MAIN:
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R4 R0 K6 ["Src"]
        11 GETTABLEKS                       R3 R4 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFFlagEnableUploadingEmote"]
+       13 GETTABLEKS                       R2 R3 K8 ["getFFlagEnableUploadingMakeup"]
        15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Flags"]
-       22 GETTABLEKS                       R3 R4 K9 ["getFFlagEnableUploadingMakeup"]
-       24 CALL                             R2 1 1
-       25 DUPCLOSURE                       R3 K10 [PROTO_0]
-       26 CAPTURE                          VAL R1
-       27 RETURN                           R3 1
+       16 DUPCLOSURE                       R2 K9 [PROTO_0]
+       17 RETURN                           R2 1

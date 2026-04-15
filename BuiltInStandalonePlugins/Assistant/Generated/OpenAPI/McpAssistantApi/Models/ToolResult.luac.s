@@ -75,30 +75,29 @@ PROTO_0:
       104 GETIMPORT                        R3 K6 [table.insert]
       106 CALL                             R3 2 0
       107 GETTABLEKS                       R3 R0 K14 ["isError"]
-      109 JUMPIFEQKNIL                     R3 ; [+15]
-      111 GETIMPORT                        R3 K17 [boolean.fromResponse]
-      113 GETTABLEKS                       R4 R0 K14 ["isError"]
-      115 MOVE                             R5 R1
-      116 LOADK                            R7 K18 ["%*\"isError\" > "]
-      117 MOVE                             R9 R2
-      118 NAMECALL                         R7 R7 K4 ["format"]
-      120 CALL                             R7 2 1
-      121 MOVE                             R6 R7
-      122 CALL                             R3 3 1
-      123 SETTABLEKS                       R3 R0 K14 ["isError"]
-      125 RETURN                           R0 1
+      109 JUMPIFEQKNIL                     R3 ; [+27]
+      111 GETTABLEKS                       R4 R0 K14 ["isError"]
+      113 FASTCALL1                        TYPEOF R4 ; [+2]
+      114 GETIMPORT                        R3 K1 [typeof]
+      116 CALL                             R3 1 1
+      117 JUMPIFEQKS                       R3 K15 ["boolean"] ; [+19]
+      119 LOADK                            R6 K16 ["%*\"isError\" > Expected boolean, got %*"]
+      120 MOVE                             R8 R2
+      121 GETTABLEKS                       R10 R0 K14 ["isError"]
+      123 FASTCALL1                        TYPEOF R10 ; [+2]
+      124 GETIMPORT                        R9 K1 [typeof]
+      126 CALL                             R9 1 1
+      127 NAMECALL                         R6 R6 K4 ["format"]
+      129 CALL                             R6 3 1
+      130 MOVE                             R5 R6
+      131 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+      133 MOVE                             R4 R1
+      134 GETIMPORT                        R3 K6 [table.insert]
+      136 CALL                             R3 2 0
+      137 RETURN                           R0 1
 
 PROTO_1:
-        0 GETIMPORT                        R1 K2 [table.clone]
-        2 MOVE                             R2 R0
-        3 CALL                             R1 1 1
-        4 GETTABLEKS                       R2 R1 K3 ["isError"]
-        6 JUMPIFEQKNIL                     R2 ; [+8]
-        8 GETIMPORT                        R2 K6 [boolean.toRequest]
-       10 GETTABLEKS                       R3 R1 K3 ["isError"]
-       12 CALL                             R2 1 1
-       13 SETTABLEKS                       R2 R1 K3 ["isError"]
-       15 RETURN                           R1 1
+        0 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

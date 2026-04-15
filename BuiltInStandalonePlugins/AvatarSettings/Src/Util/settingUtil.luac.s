@@ -24,45 +24,18 @@ PROTO_1:
        21 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 MOVE                             R3 R0
-        2 CALL                             R2 1 0
-        3 GETUPVAL                         R2 1
-        4 JUMPIFNOT                        R2 ; [+13]
-        5 JUMPIF                           R1 ; [+12]
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K0 ["plugin"]
-        9 GETUPVAL                         R6 1
-       10 GETTABLEKS                       R5 R6 K1 ["settingInvokeKeys"]
-       12 GETTABLEKS                       R4 R5 K2 ["fromPlugin"]
-       14 MOVE                             R5 R0
-       15 NAMECALL                         R2 R2 K3 ["Invoke"]
-       17 CALL                             R2 3 0
-       18 RETURN                           R0 0
-
-PROTO_3:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["useState"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 2
-        5 GETUPVAL                         R4 1
-        6 CALL                             R4 0 1
-        7 JUMPIFNOT                        R4 ; [+11]
-        8 NEWTABLE                         R4 2 0
-       10 NEWCLOSURE                       R5 P0
-       11 CAPTURE                          VAL R3
-       12 CAPTURE                          VAL R4
-       13 CAPTURE                          VAL R1
-       14 SETTABLEKS                       R2 R4 K1 ["value"]
-       16 SETTABLEKS                       R5 R4 K2 ["set"]
-       18 RETURN                           R4 1
-       19 NEWCLOSURE                       R4 P1
-       20 CAPTURE                          VAL R3
-       21 CAPTURE                          VAL R1
-       22 DUPTABLE                         R5 K3 [{"value", "set"}]
-       23 SETTABLEKS                       R2 R5 K1 ["value"]
-       25 SETTABLEKS                       R4 R5 K2 ["set"]
-       27 RETURN                           R5 1
+        5 NEWTABLE                         R4 2 0
+        7 NEWCLOSURE                       R5 P0
+        8 CAPTURE                          VAL R3
+        9 CAPTURE                          VAL R4
+       10 CAPTURE                          VAL R1
+       11 SETTABLEKS                       R2 R4 K1 ["value"]
+       13 SETTABLEKS                       R5 R4 K2 ["set"]
+       15 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -81,19 +54,13 @@ MAIN:
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
        25 GETTABLEKS                       R6 R0 K6 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Flags"]
-       29 GETTABLEKS                       R4 R5 K12 ["getFFlagAvatarSettingsStaleStateFix"]
+       27 GETTABLEKS                       R5 R6 K7 ["Util"]
+       29 GETTABLEKS                       R4 R5 K11 ["InvokeKeys"]
        31 CALL                             R3 1 1
-       32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K6 ["Src"]
-       36 GETTABLEKS                       R6 R7 K7 ["Util"]
-       38 GETTABLEKS                       R5 R6 K13 ["InvokeKeys"]
-       40 CALL                             R4 1 1
-       41 NEWTABLE                         R5 2 0
-       43 DUPCLOSURE                       R6 K14 [PROTO_0]
-       44 SETTABLEKS                       R6 R5 K15 ["createInvokeArgs"]
-       46 DUPCLOSURE                       R6 K16 [PROTO_3]
-       47 CAPTURE                          VAL R2
-       48 CAPTURE                          VAL R3
-       49 SETTABLEKS                       R6 R5 K17 ["useSetting"]
-       51 RETURN                           R5 1
+       32 NEWTABLE                         R4 2 0
+       34 DUPCLOSURE                       R5 K12 [PROTO_0]
+       35 SETTABLEKS                       R5 R4 K13 ["createInvokeArgs"]
+       37 DUPCLOSURE                       R5 K14 [PROTO_2]
+       38 CAPTURE                          VAL R2
+       39 SETTABLEKS                       R5 R4 K15 ["useSetting"]
+       41 RETURN                           R4 1

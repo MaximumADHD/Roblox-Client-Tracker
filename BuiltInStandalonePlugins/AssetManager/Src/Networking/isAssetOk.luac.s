@@ -1,19 +1,29 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["assetItem"]
-        2 GETTABLEKS                       R1 R2 K1 ["asset"]
-        4 MOVE                             R2 R1
-        5 JUMPIFNOT                        R2 ; [+15]
-        6 GETTABLEKS                       R3 R1 K2 ["creationContext"]
-        8 GETTABLEKS                       R2 R3 K3 ["creator"]
-       10 JUMPIFNOT                        R2 ; [+10]
-       11 GETTABLEKS                       R2 R1 K4 ["createTime"]
-       13 JUMPIFNOT                        R2 ; [+7]
-       14 GETTABLEKS                       R2 R1 K5 ["updateTime"]
-       16 JUMPIFNOT                        R2 ; [+4]
-       17 GETUPVAL                         R2 0
-       18 GETTABLEKS                       R3 R1 K6 ["assetType"]
-       20 CALL                             R2 1 1
-       21 RETURN                           R2 1
+        0 GETTABLEKS                       R1 R0 K0 ["assetItem"]
+        2 JUMPIF                           R1 ; [+2]
+        3 LOADB                            R1 0
+        4 RETURN                           R1 1
+        5 GETTABLEKS                       R2 R0 K0 ["assetItem"]
+        7 GETTABLEKS                       R1 R2 K1 ["asset"]
+        9 LOADB                            R2 0
+       10 JUMPIFEQKNIL                     R1 ; [+26]
+       12 LOADB                            R2 0
+       13 GETTABLEKS                       R4 R1 K2 ["creationContext"]
+       15 GETTABLEKS                       R3 R4 K3 ["creator"]
+       17 JUMPIFEQKNIL                     R3 ; [+19]
+       19 LOADB                            R2 0
+       20 GETTABLEKS                       R3 R1 K4 ["createTime"]
+       22 JUMPIFEQKNIL                     R3 ; [+14]
+       24 LOADB                            R2 0
+       25 GETTABLEKS                       R3 R1 K5 ["updateTime"]
+       27 JUMPIFEQKNIL                     R3 ; [+9]
+       29 GETUPVAL                         R3 0
+       30 GETTABLEKS                       R4 R1 K6 ["assetType"]
+       32 CALL                             R3 1 1
+       33 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       35 LOADB                            R2 0 +1
+       36 LOADB                            R2 1
+       37 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

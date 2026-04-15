@@ -599,6 +599,8 @@ function module.setupAnimation(character)
 
 			animTrack = animator:LoadAnimation(anim)
 
+			-- Set the Priority and Looped properties explicitly for them to be authoritative/predictable
+			animTrack.Looped = if toolAnimName == "toolnone" then true else false
 			animTrack.Priority = if toolAnimName == "toolnone" then Enum.AnimationPriority.Idle else Enum.AnimationPriority.Action
 			debugPrint("playing new tool animation: ", toolAnimName, " with id ", newAnimId, " with transition time ", animState.queuedTransitionTime, " and priority ", animTrack.Priority)
 			animTrack:Play(transitionTime)
@@ -693,11 +695,20 @@ function module.setupAnimation(character)
 			debugPrint("[AnimRepl][Lua] LoadAnimation: name=", newAnimName, " id=", newAnimId, " pose=", queuedPose)
 
 			animTrack = animator:LoadAnimation(anim)
-			animTrack.Priority = Enum.AnimationPriority.Core
 
-			local loopingOverride = DEFAULT_EMOTE_LOOPING_OVERRIDES[newAnimName]
-			if queuedAnimIsEmote and loopingOverride then
-				animTrack.Looped = loopingOverride.looping
+			-- Set the Priority and Looped properties explicitly for them to be authoritative/predictable
+			animTrack.Priority = Enum.AnimationPriority.Core
+			if queuedAnimIsEmote then
+				local loopingOverride = DEFAULT_EMOTE_LOOPING_OVERRIDES[newAnimName]
+				if loopingOverride then
+					animTrack.Looped = loopingOverride.looping
+				else
+					animTrack.Looped = false
+				end
+			else
+				-- All non-emote animations are Looped by default since they correspond to a
+				-- humanoid state that may exist for an indefinite amount of time.
+				animTrack.Looped = true
 			end
 
 			debugPrint("[AnimRepl][Lua] Play: name=", newAnimName, " id=", newAnimId, " transitionTime=", animState.queuedTransitionTime, " speed=", animTrack.Speed)
@@ -717,7 +728,9 @@ function module.setupAnimation(character)
 				local runAnim = animTable["run"][runIdx].anim
 				debugPrint("[AnimRepl][Lua] LoadAnimation (run blend): id=", runAnim.AnimationId)
 				runTrack = animator:LoadAnimation(runAnim)
+				-- Set the Priority and Looped properties explicitly for them to be authoritative/predictable
 				runTrack.Priority = Enum.AnimationPriority.Core
+				runTrack.Looped = true
 
 				debugPrint("[AnimRepl][Lua] Play (run blend): id=", runAnim.AnimationId, " transitionTime=", animState.queuedTransitionTime)
 				runTrack:Play(animState.queuedTransitionTime)

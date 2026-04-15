@@ -82,7 +82,7 @@ PROTO_2:
        82 SETTABLEKS                       R6 R14 K21 ["onStateChanged"]
        84 LOADK                            R15 K24 ["columns-tree row align-y-center padding-left-small padding-right-small"]
        85 SETTABLEKS                       R15 R14 K8 ["tag"]
-       87 LOADK                            R15 K25 ["tree-header"]
+       87 LOADK                            R15 K25 ["header"]
        88 SETTABLEKS                       R15 R14 K22 ["testId"]
        90 DUPTABLE                         R15 K28 [{"TreeLabel", "AddContextButton"}]
        91 GETUPVAL                         R17 1
@@ -122,7 +122,7 @@ PROTO_2:
       137 GETTABLEKS                       R24 R25 K40 ["IconSize"]
       139 GETTABLEKS                       R23 R24 K41 ["Small"]
       141 SETTABLEKS                       R23 R22 K36 ["size"]
-      143 LOADK                            R23 K42 ["tree-header-add-button"]
+      143 LOADK                            R23 K42 ["header-add"]
       144 SETTABLEKS                       R23 R22 K22 ["testId"]
       146 CALL                             R20 2 1
       147 SETTABLEKS                       R20 R19 K32 ["IconButton"]

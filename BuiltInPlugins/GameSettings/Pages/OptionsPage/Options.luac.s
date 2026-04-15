@@ -610,110 +610,94 @@ MAIN:
       123 GETTABLEKS                       R23 R24 K31 ["KeyProvider"]
       125 CALL                             R22 1 1
       126 GETIMPORT                        R23 K33 [game]
-      128 LOADK                            R25 K34 ["SpatialVoiceChatLink"]
-      129 LOADK                            R26 K35 ["https://create.roblox.com/docs/chat/spatial-voice"]
-      130 NAMECALL                         R23 R23 K36 ["DefineFastString"]
-      132 CALL                             R23 3 1
-      133 GETIMPORT                        R24 K33 [game]
-      135 LOADK                            R26 K37 ["EnableRestartServersRedirectInGameSettings"]
-      136 NAMECALL                         R24 R24 K38 ["GetFastFlag"]
-      138 CALL                             R24 2 1
-      139 GETIMPORT                        R25 K33 [game]
-      141 LOADK                            R27 K39 ["GuiService"]
-      142 NAMECALL                         R25 R25 K40 ["GetService"]
-      144 CALL                             R25 2 1
-      145 GETIMPORT                        R26 K33 [game]
-      147 LOADK                            R28 K41 ["SoundService"]
-      148 NAMECALL                         R26 R26 K40 ["GetService"]
-      150 CALL                             R26 2 1
-      151 GETTABLEKS                       R27 R22 K42 ["getVoiceChatEnabledKeyName"]
-      153 MOVE                             R28 R27
+      128 LOADK                            R25 K34 ["EnableRestartServersRedirectInGameSettings"]
+      129 NAMECALL                         R23 R23 K35 ["GetFastFlag"]
+      131 CALL                             R23 2 1
+      132 GETIMPORT                        R24 K33 [game]
+      134 LOADK                            R26 K36 ["GuiService"]
+      135 NAMECALL                         R24 R24 K37 ["GetService"]
+      137 CALL                             R24 2 1
+      138 GETTABLEKS                       R25 R22 K38 ["getScriptCollaborationEnabledOnServerKeyName"]
+      140 MOVE                             R26 R25
+      141 CALL                             R26 0 1
+      142 GETTABLEKS                       R27 R22 K39 ["getTeamCreateEnabledKeyName"]
+      144 CALL                             R27 0 1
+      145 GETIMPORT                        R28 K4 [require]
+      147 GETTABLEKS                       R31 R1 K12 ["Src"]
+      149 GETTABLEKS                       R30 R31 K40 ["Flags"]
+      151 GETTABLEKS                       R29 R30 K41 ["getFFlagGameSettingsGameToExperience"]
+      153 CALL                             R28 1 1
       154 CALL                             R28 0 1
-      155 GETTABLEKS                       R29 R22 K43 ["getScriptCollaborationEnabledOnServerKeyName"]
-      157 MOVE                             R30 R29
-      158 CALL                             R30 0 1
-      159 GETTABLEKS                       R31 R22 K44 ["getTeamCreateEnabledKeyName"]
-      161 CALL                             R31 0 1
-      162 GETIMPORT                        R32 K33 [game]
-      164 LOADK                            R34 K45 ["MoveSpatialVoice"]
-      165 NAMECALL                         R32 R32 K38 ["GetFastFlag"]
-      167 CALL                             R32 2 1
-      168 GETIMPORT                        R33 K4 [require]
-      170 GETTABLEKS                       R36 R1 K12 ["Src"]
-      172 GETTABLEKS                       R35 R36 K46 ["Flags"]
-      174 GETTABLEKS                       R34 R35 K47 ["getFFlagGameSettingsGameToExperience"]
-      176 CALL                             R33 1 1
-      177 CALL                             R33 0 1
-      178 GETIMPORT                        R34 K33 [game]
-      180 LOADK                            R36 K48 ["GameSettingsRenameOptions"]
-      181 NAMECALL                         R34 R34 K38 ["GetFastFlag"]
-      183 CALL                             R34 2 0
-      184 GETIMPORT                        R35 K33 [game]
-      186 LOADK                            R37 K48 ["GameSettingsRenameOptions"]
-      187 NAMECALL                         R35 R35 K38 ["GetFastFlag"]
-      189 CALL                             R35 2 1
-      190 JUMPIFNOT                        R35 ; [+2]
-      191 LOADK                            R34 K49 ["Other"]
-      192 JUMP                             ; [+4]
-      193 GETIMPORT                        R35 K1 [script]
-      195 GETTABLEKS                       R34 R35 K50 ["Name"]
-      197 DUPCLOSURE                       R35 K51 [PROTO_3]
-      198 CAPTURE                          VAL R30
-      199 CAPTURE                          VAL R31
-      200 DUPCLOSURE                       R36 K52 [PROTO_5]
-      201 DUPCLOSURE                       R37 K53 [PROTO_6]
-      202 DUPCLOSURE                       R38 K54 [PROTO_8]
-      203 CAPTURE                          VAL R21
-      204 GETTABLEKS                       R39 R3 K55 ["PureComponent"]
-      206 GETIMPORT                        R42 K1 [script]
-      208 GETTABLEKS                       R41 R42 K50 ["Name"]
-      210 NAMECALL                         R39 R39 K56 ["extend"]
-      212 CALL                             R39 2 1
-      213 DUPCLOSURE                       R40 K57 [PROTO_13]
-      214 CAPTURE                          VAL R11
-      215 CAPTURE                          VAL R12
-      216 CAPTURE                          VAL R3
-      217 CAPTURE                          VAL R8
-      218 CAPTURE                          VAL R24
-      219 CAPTURE                          VAL R17
-      220 CAPTURE                          VAL R16
-      221 CAPTURE                          VAL R25
-      222 CAPTURE                          VAL R14
-      223 CAPTURE                          VAL R18
-      224 CAPTURE                          VAL R15
-      225 CAPTURE                          VAL R2
-      226 CAPTURE                          VAL R33
-      227 CAPTURE                          VAL R19
-      228 CAPTURE                          VAL R35
-      229 CAPTURE                          VAL R36
-      230 CAPTURE                          VAL R34
-      231 SETTABLEKS                       R40 R39 K58 ["render"]
-      233 MOVE                             R40 R7
-      234 DUPTABLE                         R41 K61 [{"Stylizer", "Localization", "Dialog"}]
-      235 GETTABLEKS                       R42 R6 K59 ["Stylizer"]
-      237 SETTABLEKS                       R42 R41 K59 ["Stylizer"]
-      239 GETTABLEKS                       R42 R6 K60 ["Localization"]
-      241 SETTABLEKS                       R42 R41 K60 ["Localization"]
-      243 SETTABLEKS                       R9 R41 K15 ["Dialog"]
-      245 CALL                             R40 1 1
-      246 MOVE                             R41 R39
-      247 CALL                             R40 1 1
-      248 MOVE                             R39 R40
-      249 GETIMPORT                        R40 K4 [require]
-      251 GETTABLEKS                       R43 R1 K12 ["Src"]
-      253 GETTABLEKS                       R42 R43 K62 ["Networking"]
-      255 GETTABLEKS                       R41 R42 K63 ["settingFromState"]
-      257 CALL                             R40 1 1
-      258 GETTABLEKS                       R41 R4 K64 ["connect"]
-      260 DUPCLOSURE                       R42 K65 [PROTO_15]
-      261 CAPTURE                          VAL R40
-      262 CAPTURE                          VAL R37
-      263 DUPCLOSURE                       R43 K66 [PROTO_18]
-      264 CAPTURE                          VAL R20
-      265 CAPTURE                          VAL R21
-      266 CALL                             R41 2 1
-      267 MOVE                             R42 R39
-      268 CALL                             R41 1 1
-      269 MOVE                             R39 R41
-      270 SETTABLEKS                       R34 R39 K67 ["LocalizationId"]
-      272 RETURN                           R39 1
+      155 GETIMPORT                        R29 K33 [game]
+      157 LOADK                            R31 K42 ["GameSettingsRenameOptions"]
+      158 NAMECALL                         R29 R29 K35 ["GetFastFlag"]
+      160 CALL                             R29 2 0
+      161 GETIMPORT                        R30 K33 [game]
+      163 LOADK                            R32 K42 ["GameSettingsRenameOptions"]
+      164 NAMECALL                         R30 R30 K35 ["GetFastFlag"]
+      166 CALL                             R30 2 1
+      167 JUMPIFNOT                        R30 ; [+2]
+      168 LOADK                            R29 K43 ["Other"]
+      169 JUMP                             ; [+4]
+      170 GETIMPORT                        R30 K1 [script]
+      172 GETTABLEKS                       R29 R30 K44 ["Name"]
+      174 DUPCLOSURE                       R30 K45 [PROTO_3]
+      175 CAPTURE                          VAL R26
+      176 CAPTURE                          VAL R27
+      177 DUPCLOSURE                       R31 K46 [PROTO_5]
+      178 DUPCLOSURE                       R32 K47 [PROTO_6]
+      179 DUPCLOSURE                       R33 K48 [PROTO_8]
+      180 CAPTURE                          VAL R21
+      181 GETTABLEKS                       R34 R3 K49 ["PureComponent"]
+      183 GETIMPORT                        R37 K1 [script]
+      185 GETTABLEKS                       R36 R37 K44 ["Name"]
+      187 NAMECALL                         R34 R34 K50 ["extend"]
+      189 CALL                             R34 2 1
+      190 DUPCLOSURE                       R35 K51 [PROTO_13]
+      191 CAPTURE                          VAL R11
+      192 CAPTURE                          VAL R12
+      193 CAPTURE                          VAL R3
+      194 CAPTURE                          VAL R8
+      195 CAPTURE                          VAL R23
+      196 CAPTURE                          VAL R17
+      197 CAPTURE                          VAL R16
+      198 CAPTURE                          VAL R24
+      199 CAPTURE                          VAL R14
+      200 CAPTURE                          VAL R18
+      201 CAPTURE                          VAL R15
+      202 CAPTURE                          VAL R2
+      203 CAPTURE                          VAL R28
+      204 CAPTURE                          VAL R19
+      205 CAPTURE                          VAL R30
+      206 CAPTURE                          VAL R31
+      207 CAPTURE                          VAL R29
+      208 SETTABLEKS                       R35 R34 K52 ["render"]
+      210 MOVE                             R35 R7
+      211 DUPTABLE                         R36 K55 [{"Stylizer", "Localization", "Dialog"}]
+      212 GETTABLEKS                       R37 R6 K53 ["Stylizer"]
+      214 SETTABLEKS                       R37 R36 K53 ["Stylizer"]
+      216 GETTABLEKS                       R37 R6 K54 ["Localization"]
+      218 SETTABLEKS                       R37 R36 K54 ["Localization"]
+      220 SETTABLEKS                       R9 R36 K15 ["Dialog"]
+      222 CALL                             R35 1 1
+      223 MOVE                             R36 R34
+      224 CALL                             R35 1 1
+      225 MOVE                             R34 R35
+      226 GETIMPORT                        R35 K4 [require]
+      228 GETTABLEKS                       R38 R1 K12 ["Src"]
+      230 GETTABLEKS                       R37 R38 K56 ["Networking"]
+      232 GETTABLEKS                       R36 R37 K57 ["settingFromState"]
+      234 CALL                             R35 1 1
+      235 GETTABLEKS                       R36 R4 K58 ["connect"]
+      237 DUPCLOSURE                       R37 K59 [PROTO_15]
+      238 CAPTURE                          VAL R35
+      239 CAPTURE                          VAL R32
+      240 DUPCLOSURE                       R38 K60 [PROTO_18]
+      241 CAPTURE                          VAL R20
+      242 CAPTURE                          VAL R21
+      243 CALL                             R36 2 1
+      244 MOVE                             R37 R34
+      245 CALL                             R36 1 1
+      246 MOVE                             R34 R36
+      247 SETTABLEKS                       R29 R34 K61 ["LocalizationId"]
+      249 RETURN                           R34 1

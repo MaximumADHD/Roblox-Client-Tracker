@@ -15,83 +15,6 @@ PROTO_1:
         3 GETTABLEKS                       R1 R0 K1 ["EditingItemContext"]
         5 NAMECALL                         R1 R1 K2 ["getItem"]
         7 CALL                             R1 1 1
-        8 GETUPVAL                         R2 1
-        9 NAMECALL                         R2 R2 K3 ["Get"]
-       11 CALL                             R2 1 1
-       12 MOVE                             R3 R2
-       13 LOADNIL                          R4
-       14 LOADNIL                          R5
-       15 FORGPREP                         R3
-       16 JUMPIFNOTEQ                      R7 R1 ; [+3]
-       18 LOADB                            R8 1
-       19 RETURN                           R8 1
-       20 FORGLOOP                         R3 2 ; [-5]
-       22 LOADB                            R3 0
-       23 RETURN                           R3 1
-
-PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["placeAndScaleItem"]
-        3 CALL                             R0 0 0
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K1 ["selectMeshPart"]
-        7 CALL                             R0 0 0
-        8 RETURN                           R0 0
-
-PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K1 ["editingItemIsSelected"]
-        6 CALL                             R1 0 1
-        7 JUMPIF                           R1 ; [+31]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K2 ["active"]
-       11 JUMPIFNOT                        R2 ; [+27]
-       12 GETUPVAL                         R2 0
-       13 NAMECALL                         R2 R2 K3 ["deactivate"]
-       15 CALL                             R2 1 0
-       16 GETUPVAL                         R2 1
-       17 NAMECALL                         R2 R2 K4 ["ResetWaypoints"]
-       19 CALL                             R2 1 0
-       20 GETTABLEKS                       R2 R0 K5 ["SetControlsPanelBlockerMessage"]
-       22 GETTABLEKS                       R3 R0 K6 ["Localization"]
-       24 LOADK                            R5 K7 ["Editor"]
-       25 LOADK                            R6 K8 ["ResumeEditingRigid"]
-       26 NAMECALL                         R3 R3 K9 ["getText"]
-       28 CALL                             R3 3 -1
-       29 CALL                             R2 -1 0
-       30 GETTABLEKS                       R2 R0 K10 ["SetControlsPanelBlockerActivity"]
-       32 LOADB                            R3 1
-       33 CALL                             R2 1 0
-       34 GETTABLEKS                       R2 R0 K11 ["SetWorkspacePreviewSelectionEnabled"]
-       36 LOADB                            R3 0
-       37 CALL                             R2 1 0
-       38 RETURN                           R0 0
-       39 JUMPIFNOT                        R1 ; [+20]
-       40 GETUPVAL                         R3 0
-       41 GETTABLEKS                       R2 R3 K2 ["active"]
-       43 JUMPIF                           R2 ; [+16]
-       44 GETUPVAL                         R2 0
-       45 NAMECALL                         R2 R2 K12 ["activate"]
-       47 CALL                             R2 1 0
-       48 GETUPVAL                         R2 1
-       49 NAMECALL                         R2 R2 K4 ["ResetWaypoints"]
-       51 CALL                             R2 1 0
-       52 GETTABLEKS                       R2 R0 K10 ["SetControlsPanelBlockerActivity"]
-       54 LOADB                            R3 0
-       55 CALL                             R2 1 0
-       56 GETTABLEKS                       R2 R0 K11 ["SetWorkspacePreviewSelectionEnabled"]
-       58 LOADB                            R3 1
-       59 CALL                             R2 1 0
-       60 RETURN                           R0 0
-
-PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
-        3 GETTABLEKS                       R1 R0 K1 ["EditingItemContext"]
-        5 NAMECALL                         R1 R1 K2 ["getItem"]
-        7 CALL                             R1 1 1
         8 JUMPIF                           R1 ; [+1]
         9 RETURN                           R0 0
        10 GETUPVAL                         R2 1
@@ -102,7 +25,7 @@ PROTO_4:
        18 CALL                             R2 2 0
        19 RETURN                           R0 0
 
-PROTO_5:
+PROTO_2:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["props"]
         3 GETTABLEKS                       R0 R1 K1 ["Analytics"]
@@ -125,7 +48,7 @@ PROTO_5:
        28 CALL                             R1 0 0
        29 RETURN                           R0 0
 
-PROTO_6:
+PROTO_3:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["props"]
         3 GETUPVAL                         R2 0
@@ -192,7 +115,7 @@ PROTO_6:
        93 CALL                             R7 -1 0
        94 RETURN                           R0 0
 
-PROTO_7:
+PROTO_4:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["props"]
         3 GETTABLEKS                       R0 R1 K1 ["EditingItemContext"]
@@ -201,161 +124,102 @@ PROTO_7:
         8 GETUPVAL                         R3 0
         9 GETTABLEKS                       R2 R3 K0 ["props"]
        11 GETTABLEKS                       R1 R2 K3 ["AccessoryTypeInfo"]
-       13 GETUPVAL                         R2 1
-       14 CALL                             R2 0 1
-       15 JUMPIFNOT                        R2 ; [+55]
-       16 GETUPVAL                         R3 0
-       17 GETTABLEKS                       R2 R3 K4 ["CFrameChanged"]
-       19 JUMPIFNOT                        R2 ; [+10]
-       20 GETUPVAL                         R3 0
-       21 GETTABLEKS                       R2 R3 K4 ["CFrameChanged"]
-       23 NAMECALL                         R2 R2 K5 ["Disconnect"]
-       25 CALL                             R2 1 0
-       26 GETUPVAL                         R2 0
-       27 LOADNIL                          R3
-       28 SETTABLEKS                       R3 R2 K4 ["CFrameChanged"]
-       30 GETUPVAL                         R3 0
-       31 GETTABLEKS                       R2 R3 K6 ["SizeChanged"]
-       33 JUMPIFNOT                        R2 ; [+10]
-       34 GETUPVAL                         R3 0
-       35 GETTABLEKS                       R2 R3 K6 ["SizeChanged"]
-       37 NAMECALL                         R2 R2 K5 ["Disconnect"]
-       39 CALL                             R2 1 0
-       40 GETUPVAL                         R2 0
-       41 LOADNIL                          R3
-       42 SETTABLEKS                       R3 R2 K6 ["SizeChanged"]
-       44 JUMPIF                           R0 ; [+1]
-       45 RETURN                           R0 0
-       46 GETTABLEKS                       R4 R1 K7 ["Name"]
-       48 NAMECALL                         R2 R0 K8 ["FindFirstChild"]
-       50 CALL                             R2 2 1
-       51 JUMPIF                           R2 ; [+1]
-       52 RETURN                           R0 0
-       53 GETUPVAL                         R2 2
-       54 GETTABLEKS                       R4 R0 K9 ["Parent"]
-       56 GETTABLEKS                       R5 R1 K7 ["Name"]
-       58 NAMECALL                         R2 R2 K10 ["findAvatarAttachmentByName"]
-       60 CALL                             R2 3 1
-       61 JUMPIF                           R2 ; [+1]
-       62 RETURN                           R0 0
-       63 GETUPVAL                         R3 0
-       64 DUPTABLE                         R5 K12 [{"matchingAttachment"}]
-       65 SETTABLEKS                       R2 R5 K11 ["matchingAttachment"]
-       67 NAMECALL                         R3 R3 K13 ["setState"]
-       69 CALL                             R3 2 0
-       70 JUMP                             ; [+60]
-       71 JUMPIF                           R0 ; [+29]
-       72 GETUPVAL                         R3 0
-       73 GETTABLEKS                       R2 R3 K4 ["CFrameChanged"]
-       75 JUMPIFNOT                        R2 ; [+10]
-       76 GETUPVAL                         R3 0
-       77 GETTABLEKS                       R2 R3 K4 ["CFrameChanged"]
-       79 NAMECALL                         R2 R2 K5 ["Disconnect"]
-       81 CALL                             R2 1 0
-       82 GETUPVAL                         R2 0
-       83 LOADNIL                          R3
-       84 SETTABLEKS                       R3 R2 K4 ["CFrameChanged"]
-       86 GETUPVAL                         R3 0
-       87 GETTABLEKS                       R2 R3 K6 ["SizeChanged"]
-       89 JUMPIFNOT                        R2 ; [+10]
-       90 GETUPVAL                         R3 0
-       91 GETTABLEKS                       R2 R3 K6 ["SizeChanged"]
-       93 NAMECALL                         R2 R2 K5 ["Disconnect"]
-       95 CALL                             R2 1 0
-       96 GETUPVAL                         R2 0
-       97 LOADNIL                          R3
-       98 SETTABLEKS                       R3 R2 K6 ["SizeChanged"]
-      100 RETURN                           R0 0
-      101 GETTABLEKS                       R4 R1 K7 ["Name"]
-      103 NAMECALL                         R2 R0 K8 ["FindFirstChild"]
-      105 CALL                             R2 2 1
-      106 LOADK                            R5 K14 ["Weld"]
-      107 NAMECALL                         R3 R0 K15 ["FindFirstChildWhichIsA"]
-      109 CALL                             R3 2 1
-      110 JUMPIFNOT                        R2 ; [+1]
-      111 JUMPIF                           R3 ; [+1]
-      112 RETURN                           R0 0
-      113 GETTABLEKS                       R4 R3 K16 ["Part1"]
-      115 JUMPIF                           R4 ; [+1]
-      116 RETURN                           R0 0
-      117 GETTABLEKS                       R7 R2 K7 ["Name"]
-      119 NAMECALL                         R5 R4 K8 ["FindFirstChild"]
-      121 CALL                             R5 2 1
-      122 JUMPIF                           R5 ; [+1]
-      123 RETURN                           R0 0
-      124 GETUPVAL                         R6 0
-      125 DUPTABLE                         R8 K12 [{"matchingAttachment"}]
-      126 SETTABLEKS                       R5 R8 K11 ["matchingAttachment"]
-      128 NAMECALL                         R6 R6 K13 ["setState"]
-      130 CALL                             R6 2 0
-      131 GETUPVAL                         R2 0
-      132 LOADK                            R5 K17 ["CFrame"]
-      133 NAMECALL                         R3 R0 K18 ["GetPropertyChangedSignal"]
-      135 CALL                             R3 2 1
-      136 GETUPVAL                         R6 0
-      137 GETTABLEKS                       R5 R6 K19 ["adjustItem"]
-      139 NAMECALL                         R3 R3 K20 ["Connect"]
-      141 CALL                             R3 2 1
-      142 SETTABLEKS                       R3 R2 K4 ["CFrameChanged"]
-      144 GETUPVAL                         R2 0
-      145 LOADK                            R5 K21 ["Size"]
-      146 NAMECALL                         R3 R0 K18 ["GetPropertyChangedSignal"]
-      148 CALL                             R3 2 1
-      149 GETUPVAL                         R6 0
-      150 GETTABLEKS                       R5 R6 K19 ["adjustItem"]
-      152 NAMECALL                         R3 R3 K20 ["Connect"]
-      154 CALL                             R3 2 1
-      155 SETTABLEKS                       R3 R2 K6 ["SizeChanged"]
-      157 GETUPVAL                         R2 3
-      158 NEWTABLE                         R4 0 1
-      160 MOVE                             R5 R0
-      161 SETLIST                          R4 R5 1 [1]
-      163 NAMECALL                         R2 R2 K22 ["Set"]
-      165 CALL                             R2 2 0
-      166 RETURN                           R0 0
+       13 JUMPIF                           R0 ; [+29]
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R2 R3 K4 ["CFrameChanged"]
+       17 JUMPIFNOT                        R2 ; [+10]
+       18 GETUPVAL                         R3 0
+       19 GETTABLEKS                       R2 R3 K4 ["CFrameChanged"]
+       21 NAMECALL                         R2 R2 K5 ["Disconnect"]
+       23 CALL                             R2 1 0
+       24 GETUPVAL                         R2 0
+       25 LOADNIL                          R3
+       26 SETTABLEKS                       R3 R2 K4 ["CFrameChanged"]
+       28 GETUPVAL                         R3 0
+       29 GETTABLEKS                       R2 R3 K6 ["SizeChanged"]
+       31 JUMPIFNOT                        R2 ; [+10]
+       32 GETUPVAL                         R3 0
+       33 GETTABLEKS                       R2 R3 K6 ["SizeChanged"]
+       35 NAMECALL                         R2 R2 K5 ["Disconnect"]
+       37 CALL                             R2 1 0
+       38 GETUPVAL                         R2 0
+       39 LOADNIL                          R3
+       40 SETTABLEKS                       R3 R2 K6 ["SizeChanged"]
+       42 RETURN                           R0 0
+       43 GETTABLEKS                       R4 R1 K7 ["Name"]
+       45 NAMECALL                         R2 R0 K8 ["FindFirstChild"]
+       47 CALL                             R2 2 1
+       48 LOADK                            R5 K9 ["Weld"]
+       49 NAMECALL                         R3 R0 K10 ["FindFirstChildWhichIsA"]
+       51 CALL                             R3 2 1
+       52 JUMPIFNOT                        R2 ; [+1]
+       53 JUMPIF                           R3 ; [+1]
+       54 RETURN                           R0 0
+       55 GETTABLEKS                       R4 R3 K11 ["Part1"]
+       57 JUMPIF                           R4 ; [+1]
+       58 RETURN                           R0 0
+       59 GETTABLEKS                       R7 R2 K7 ["Name"]
+       61 NAMECALL                         R5 R4 K8 ["FindFirstChild"]
+       63 CALL                             R5 2 1
+       64 JUMPIF                           R5 ; [+1]
+       65 RETURN                           R0 0
+       66 GETUPVAL                         R6 0
+       67 DUPTABLE                         R8 K13 [{"matchingAttachment"}]
+       68 SETTABLEKS                       R5 R8 K12 ["matchingAttachment"]
+       70 NAMECALL                         R6 R6 K14 ["setState"]
+       72 CALL                             R6 2 0
+       73 GETUPVAL                         R6 0
+       74 LOADK                            R9 K15 ["CFrame"]
+       75 NAMECALL                         R7 R0 K16 ["GetPropertyChangedSignal"]
+       77 CALL                             R7 2 1
+       78 GETUPVAL                         R10 0
+       79 GETTABLEKS                       R9 R10 K17 ["adjustItem"]
+       81 NAMECALL                         R7 R7 K18 ["Connect"]
+       83 CALL                             R7 2 1
+       84 SETTABLEKS                       R7 R6 K4 ["CFrameChanged"]
+       86 GETUPVAL                         R6 0
+       87 LOADK                            R9 K19 ["Size"]
+       88 NAMECALL                         R7 R0 K16 ["GetPropertyChangedSignal"]
+       90 CALL                             R7 2 1
+       91 GETUPVAL                         R10 0
+       92 GETTABLEKS                       R9 R10 K17 ["adjustItem"]
+       94 NAMECALL                         R7 R7 K18 ["Connect"]
+       96 CALL                             R7 2 1
+       97 SETTABLEKS                       R7 R6 K6 ["SizeChanged"]
+       99 GETUPVAL                         R6 1
+      100 NEWTABLE                         R8 0 1
+      102 MOVE                             R9 R0
+      103 SETLIST                          R8 R9 1 [1]
+      105 NAMECALL                         R6 R6 K20 ["Set"]
+      107 CALL                             R6 2 0
+      108 RETURN                           R0 0
 
-PROTO_8:
+PROTO_5:
         0 DUPTABLE                         R1 K1 [{"matchingAttachment"}]
         1 LOADNIL                          R2
         2 SETTABLEKS                       R2 R1 K0 ["matchingAttachment"]
         4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 GETUPVAL                         R1 0
-        7 CALL                             R1 0 1
-        8 JUMPIFNOT                        R1 ; [+14]
-        9 NEWCLOSURE                       R1 P0
-       10 CAPTURE                          VAL R0
-       11 CAPTURE                          UPVAL U1
-       12 SETTABLEKS                       R1 R0 K3 ["editingItemIsSelected"]
-       14 NEWCLOSURE                       R1 P1
-       15 CAPTURE                          VAL R0
-       16 SETTABLEKS                       R1 R0 K4 ["onUndoRedo"]
-       18 NEWCLOSURE                       R1 P2
-       19 CAPTURE                          VAL R0
-       20 CAPTURE                          UPVAL U2
-       21 SETTABLEKS                       R1 R0 K5 ["onSelectionChanged"]
+        6 NEWCLOSURE                       R1 P0
+        7 CAPTURE                          VAL R0
+        8 CAPTURE                          UPVAL U0
+        9 SETTABLEKS                       R1 R0 K3 ["selectMeshPart"]
+       11 NEWCLOSURE                       R1 P1
+       12 CAPTURE                          VAL R0
+       13 CAPTURE                          UPVAL U1
+       14 CAPTURE                          UPVAL U2
+       15 SETTABLEKS                       R1 R0 K4 ["adjustItem"]
+       17 NEWCLOSURE                       R1 P2
+       18 CAPTURE                          VAL R0
+       19 CAPTURE                          UPVAL U3
+       20 CAPTURE                          UPVAL U4
+       21 SETTABLEKS                       R1 R0 K5 ["placeAndScaleItem"]
        23 NEWCLOSURE                       R1 P3
        24 CAPTURE                          VAL R0
-       25 CAPTURE                          UPVAL U1
-       26 SETTABLEKS                       R1 R0 K6 ["selectMeshPart"]
-       28 NEWCLOSURE                       R1 P4
-       29 CAPTURE                          VAL R0
-       30 CAPTURE                          UPVAL U3
-       31 CAPTURE                          UPVAL U4
-       32 SETTABLEKS                       R1 R0 K7 ["adjustItem"]
-       34 NEWCLOSURE                       R1 P5
-       35 CAPTURE                          VAL R0
-       36 CAPTURE                          UPVAL U5
-       37 CAPTURE                          UPVAL U6
-       38 SETTABLEKS                       R1 R0 K8 ["placeAndScaleItem"]
-       40 NEWCLOSURE                       R1 P6
-       41 CAPTURE                          VAL R0
-       42 CAPTURE                          UPVAL U0
-       43 CAPTURE                          UPVAL U6
-       44 CAPTURE                          UPVAL U1
-       45 SETTABLEKS                       R1 R0 K9 ["onEditingItemChanged"]
-       47 RETURN                           R0 0
+       25 CAPTURE                          UPVAL U0
+       26 SETTABLEKS                       R1 R0 K6 ["onEditingItemChanged"]
+       28 RETURN                           R0 0
 
-PROTO_9:
+PROTO_6:
         0 LOADB                            R1 1
         1 SETTABLEKS                       R1 R0 K0 ["active"]
         3 GETTABLEKS                       R1 R0 K1 ["onEditingItemChanged"]
@@ -374,13 +238,13 @@ PROTO_9:
        24 SETTABLEKS                       R1 R0 K5 ["OnUndo"]
        26 RETURN                           R0 0
 
-PROTO_10:
+PROTO_7:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["onEditingItemChanged"]
         3 CALL                             R1 0 0
         4 RETURN                           R0 0
 
-PROTO_11:
+PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["EditingItemContext"]
         4 NAMECALL                         R2 R2 K2 ["getEditingItemChangedSignal"]
@@ -390,69 +254,42 @@ PROTO_11:
         9 NAMECALL                         R2 R2 K3 ["Connect"]
        11 CALL                             R2 2 1
        12 SETTABLEKS                       R2 R0 K4 ["EditingItemChanged"]
-       14 GETUPVAL                         R2 0
-       15 CALL                             R2 0 1
-       16 JUMPIFNOT                        R2 ; [+4]
-       17 NAMECALL                         R2 R0 K5 ["activate"]
-       19 CALL                             R2 1 0
-       20 JUMP                             ; [+23]
-       21 GETTABLEKS                       R2 R0 K6 ["onEditingItemChanged"]
-       23 CALL                             R2 0 0
-       24 GETUPVAL                         R3 1
-       25 GETTABLEKS                       R2 R3 K7 ["OnRedo"]
-       27 GETTABLEKS                       R4 R0 K8 ["placeAndScaleItem"]
-       29 NAMECALL                         R2 R2 K3 ["Connect"]
-       31 CALL                             R2 2 1
-       32 SETTABLEKS                       R2 R0 K7 ["OnRedo"]
-       34 GETUPVAL                         R3 1
-       35 GETTABLEKS                       R2 R3 K9 ["OnUndo"]
-       37 GETTABLEKS                       R4 R0 K8 ["placeAndScaleItem"]
-       39 NAMECALL                         R2 R2 K3 ["Connect"]
-       41 CALL                             R2 2 1
-       42 SETTABLEKS                       R2 R0 K9 ["OnUndo"]
-       44 GETTABLEKS                       R2 R1 K10 ["Signals"]
-       46 GETUPVAL                         R6 2
-       47 GETTABLEKS                       R5 R6 K11 ["SIGNAL_KEYS"]
-       49 GETTABLEKS                       R4 R5 K12 ["PluginWindowFocused"]
-       51 NAMECALL                         R2 R2 K13 ["get"]
-       53 CALL                             R2 2 1
-       54 GETTABLEKS                       R4 R0 K14 ["selectMeshPart"]
-       56 NAMECALL                         R2 R2 K3 ["Connect"]
-       58 CALL                             R2 2 1
-       59 SETTABLEKS                       R2 R0 K15 ["OnPluginWindowFocusedHandle"]
-       61 GETUPVAL                         R2 0
-       62 CALL                             R2 0 1
-       63 JUMPIFNOT                        R2 ; [+10]
-       64 GETUPVAL                         R3 3
-       65 GETTABLEKS                       R2 R3 K16 ["SelectionChanged"]
-       67 GETTABLEKS                       R4 R0 K17 ["onSelectionChanged"]
-       69 NAMECALL                         R2 R2 K3 ["Connect"]
-       71 CALL                             R2 2 1
-       72 SETTABLEKS                       R2 R0 K18 ["SelectionChangedHandle"]
-       74 RETURN                           R0 0
+       14 GETTABLEKS                       R2 R0 K5 ["onEditingItemChanged"]
+       16 CALL                             R2 0 0
+       17 GETUPVAL                         R3 0
+       18 GETTABLEKS                       R2 R3 K6 ["OnRedo"]
+       20 GETTABLEKS                       R4 R0 K7 ["placeAndScaleItem"]
+       22 NAMECALL                         R2 R2 K3 ["Connect"]
+       24 CALL                             R2 2 1
+       25 SETTABLEKS                       R2 R0 K6 ["OnRedo"]
+       27 GETUPVAL                         R3 0
+       28 GETTABLEKS                       R2 R3 K8 ["OnUndo"]
+       30 GETTABLEKS                       R4 R0 K7 ["placeAndScaleItem"]
+       32 NAMECALL                         R2 R2 K3 ["Connect"]
+       34 CALL                             R2 2 1
+       35 SETTABLEKS                       R2 R0 K8 ["OnUndo"]
+       37 GETTABLEKS                       R2 R1 K9 ["Signals"]
+       39 GETUPVAL                         R6 1
+       40 GETTABLEKS                       R5 R6 K10 ["SIGNAL_KEYS"]
+       42 GETTABLEKS                       R4 R5 K11 ["PluginWindowFocused"]
+       44 NAMECALL                         R2 R2 K12 ["get"]
+       46 CALL                             R2 2 1
+       47 GETTABLEKS                       R4 R0 K13 ["selectMeshPart"]
+       49 NAMECALL                         R2 R2 K3 ["Connect"]
+       51 CALL                             R2 2 1
+       52 SETTABLEKS                       R2 R0 K14 ["OnPluginWindowFocusedHandle"]
+       54 RETURN                           R0 0
 
-PROTO_12:
+PROTO_9:
         0 GETTABLEKS                       R4 R0 K0 ["state"]
         2 GETTABLEKS                       R3 R4 K1 ["matchingAttachment"]
         4 GETTABLEKS                       R4 R2 K1 ["matchingAttachment"]
         6 JUMPIFEQ                         R3 R4 ; [+4]
         8 GETTABLEKS                       R3 R0 K2 ["placeAndScaleItem"]
        10 CALL                             R3 0 0
-       11 GETUPVAL                         R3 0
-       12 CALL                             R3 0 1
-       13 JUMPIFNOT                        R3 ; [+16]
-       14 GETTABLEKS                       R4 R0 K3 ["props"]
-       16 GETTABLEKS                       R3 R4 K4 ["IsControlsPanelBlockerActive"]
-       18 GETTABLEKS                       R4 R1 K4 ["IsControlsPanelBlockerActive"]
-       20 JUMPIFEQ                         R3 R4 ; [+9]
-       22 GETTABLEKS                       R4 R0 K3 ["props"]
-       24 GETTABLEKS                       R3 R4 K4 ["IsControlsPanelBlockerActive"]
-       26 JUMPIF                           R3 ; [+3]
-       27 GETTABLEKS                       R3 R0 K5 ["selectMeshPart"]
-       29 CALL                             R3 0 0
-       30 RETURN                           R0 0
+       11 RETURN                           R0 0
 
-PROTO_13:
+PROTO_10:
         0 NEWTABLE                         R6 0 0
         2 GETIMPORT                        R7 K1 [ipairs]
         4 GETUPVAL                         R10 0
@@ -502,7 +339,7 @@ PROTO_13:
        65 FORGLOOP                         R7 2 [inext] ; [-57]
        67 RETURN                           R6 1
 
-PROTO_14:
+PROTO_11:
         0 GETTABLEKS                       R5 R0 K0 ["props"]
         2 GETTABLEKS                       R6 R5 K1 ["Stylizer"]
         4 GETTABLEKS                       R8 R5 K2 ["InBounds"]
@@ -536,7 +373,7 @@ PROTO_14:
        45 CALL                             R9 3 -1
        46 RETURN                           R9 -1
 
-PROTO_15:
+PROTO_12:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["AccessoryTypeInfo"]
@@ -577,7 +414,7 @@ PROTO_15:
        54 CALL                             R10 3 -1
        55 RETURN                           R10 -1
 
-PROTO_16:
+PROTO_13:
         0 LOADB                            R1 0
         1 SETTABLEKS                       R1 R0 K0 ["active"]
         3 GETTABLEKS                       R1 R0 K1 ["CFrameChanged"]
@@ -610,7 +447,7 @@ PROTO_16:
        45 SETTABLEKS                       R1 R0 K5 ["OnUndo"]
        47 RETURN                           R0 0
 
-PROTO_17:
+PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["EditingItemChanged"]
         2 JUMPIFNOT                        R1 ; [+8]
         3 GETTABLEKS                       R1 R0 K0 ["EditingItemChanged"]
@@ -618,125 +455,78 @@ PROTO_17:
         7 CALL                             R1 1 0
         8 LOADNIL                          R1
         9 SETTABLEKS                       R1 R0 K0 ["EditingItemChanged"]
-       11 GETUPVAL                         R1 0
-       12 CALL                             R1 0 1
-       13 JUMPIFNOT                        R1 ; [+4]
-       14 NAMECALL                         R1 R0 K2 ["deactivate"]
-       16 CALL                             R1 1 0
-       17 JUMP                             ; [+44]
-       18 GETTABLEKS                       R1 R0 K3 ["CFrameChanged"]
-       20 JUMPIFNOT                        R1 ; [+8]
-       21 GETTABLEKS                       R1 R0 K3 ["CFrameChanged"]
-       23 NAMECALL                         R1 R1 K1 ["Disconnect"]
-       25 CALL                             R1 1 0
-       26 LOADNIL                          R1
-       27 SETTABLEKS                       R1 R0 K3 ["CFrameChanged"]
-       29 GETTABLEKS                       R1 R0 K4 ["SizeChanged"]
-       31 JUMPIFNOT                        R1 ; [+8]
-       32 GETTABLEKS                       R1 R0 K4 ["SizeChanged"]
-       34 NAMECALL                         R1 R1 K1 ["Disconnect"]
-       36 CALL                             R1 1 0
-       37 LOADNIL                          R1
-       38 SETTABLEKS                       R1 R0 K4 ["SizeChanged"]
-       40 GETTABLEKS                       R1 R0 K5 ["OnRedo"]
-       42 JUMPIFNOT                        R1 ; [+8]
-       43 GETTABLEKS                       R1 R0 K5 ["OnRedo"]
-       45 NAMECALL                         R1 R1 K1 ["Disconnect"]
-       47 CALL                             R1 1 0
-       48 LOADNIL                          R1
-       49 SETTABLEKS                       R1 R0 K5 ["OnRedo"]
-       51 GETTABLEKS                       R1 R0 K6 ["OnUndo"]
-       53 JUMPIFNOT                        R1 ; [+8]
-       54 GETTABLEKS                       R1 R0 K6 ["OnUndo"]
-       56 NAMECALL                         R1 R1 K1 ["Disconnect"]
-       58 CALL                             R1 1 0
-       59 LOADNIL                          R1
-       60 SETTABLEKS                       R1 R0 K6 ["OnUndo"]
-       62 GETTABLEKS                       R1 R0 K7 ["OnPluginWindowFocusedHandle"]
-       64 JUMPIFNOT                        R1 ; [+8]
-       65 GETTABLEKS                       R1 R0 K7 ["OnPluginWindowFocusedHandle"]
-       67 NAMECALL                         R1 R1 K1 ["Disconnect"]
-       69 CALL                             R1 1 0
-       70 LOADNIL                          R1
-       71 SETTABLEKS                       R1 R0 K7 ["OnPluginWindowFocusedHandle"]
-       73 GETUPVAL                         R1 0
-       74 CALL                             R1 0 1
-       75 JUMPIFNOT                        R1 ; [+11]
-       76 GETTABLEKS                       R1 R0 K8 ["SelectionChangedHandle"]
-       78 JUMPIFNOT                        R1 ; [+8]
-       79 GETTABLEKS                       R1 R0 K8 ["SelectionChangedHandle"]
-       81 NAMECALL                         R1 R1 K1 ["Disconnect"]
-       83 CALL                             R1 1 0
-       84 LOADNIL                          R1
-       85 SETTABLEKS                       R1 R0 K8 ["SelectionChangedHandle"]
-       87 RETURN                           R0 0
+       11 GETTABLEKS                       R1 R0 K2 ["CFrameChanged"]
+       13 JUMPIFNOT                        R1 ; [+8]
+       14 GETTABLEKS                       R1 R0 K2 ["CFrameChanged"]
+       16 NAMECALL                         R1 R1 K1 ["Disconnect"]
+       18 CALL                             R1 1 0
+       19 LOADNIL                          R1
+       20 SETTABLEKS                       R1 R0 K2 ["CFrameChanged"]
+       22 GETTABLEKS                       R1 R0 K3 ["SizeChanged"]
+       24 JUMPIFNOT                        R1 ; [+8]
+       25 GETTABLEKS                       R1 R0 K3 ["SizeChanged"]
+       27 NAMECALL                         R1 R1 K1 ["Disconnect"]
+       29 CALL                             R1 1 0
+       30 LOADNIL                          R1
+       31 SETTABLEKS                       R1 R0 K3 ["SizeChanged"]
+       33 GETTABLEKS                       R1 R0 K4 ["OnRedo"]
+       35 JUMPIFNOT                        R1 ; [+8]
+       36 GETTABLEKS                       R1 R0 K4 ["OnRedo"]
+       38 NAMECALL                         R1 R1 K1 ["Disconnect"]
+       40 CALL                             R1 1 0
+       41 LOADNIL                          R1
+       42 SETTABLEKS                       R1 R0 K4 ["OnRedo"]
+       44 GETTABLEKS                       R1 R0 K5 ["OnUndo"]
+       46 JUMPIFNOT                        R1 ; [+8]
+       47 GETTABLEKS                       R1 R0 K5 ["OnUndo"]
+       49 NAMECALL                         R1 R1 K1 ["Disconnect"]
+       51 CALL                             R1 1 0
+       52 LOADNIL                          R1
+       53 SETTABLEKS                       R1 R0 K5 ["OnUndo"]
+       55 GETTABLEKS                       R1 R0 K6 ["OnPluginWindowFocusedHandle"]
+       57 JUMPIFNOT                        R1 ; [+8]
+       58 GETTABLEKS                       R1 R0 K6 ["OnPluginWindowFocusedHandle"]
+       60 NAMECALL                         R1 R1 K1 ["Disconnect"]
+       62 CALL                             R1 1 0
+       63 LOADNIL                          R1
+       64 SETTABLEKS                       R1 R0 K6 ["OnPluginWindowFocusedHandle"]
+       66 RETURN                           R0 0
 
-PROTO_18:
+PROTO_15:
         0 GETTABLEKS                       R2 R0 K0 ["selectItem"]
         2 GETTABLEKS                       R3 R0 K1 ["controlsPanelBlocker"]
-        4 DUPTABLE                         R4 K5 [{"AccessoryTypeInfo", "InBounds", "IsControlsPanelBlockerActive"}]
-        5 GETTABLEKS                       R5 R2 K6 ["accessoryTypeInfo"]
+        4 DUPTABLE                         R4 K4 [{"AccessoryTypeInfo", "InBounds"}]
+        5 GETTABLEKS                       R5 R2 K5 ["accessoryTypeInfo"]
         7 SETTABLEKS                       R5 R4 K2 ["AccessoryTypeInfo"]
-        9 GETTABLEKS                       R5 R2 K7 ["inBounds"]
+        9 GETTABLEKS                       R5 R2 K6 ["inBounds"]
        11 SETTABLEKS                       R5 R4 K3 ["InBounds"]
-       13 GETUPVAL                         R6 0
-       14 CALL                             R6 0 1
-       15 JUMPIFNOT                        R6 ; [+3]
-       16 GETTABLEKS                       R5 R3 K8 ["isActive"]
-       18 JUMP                             ; [+1]
-       19 LOADNIL                          R5
-       20 SETTABLEKS                       R5 R4 K4 ["IsControlsPanelBlockerActive"]
-       22 RETURN                           R4 1
+       13 RETURN                           R4 1
+
+PROTO_16:
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R2 1
+        2 MOVE                             R3 R0
+        3 CALL                             R2 1 -1
+        4 CALL                             R1 -1 0
+        5 RETURN                           R0 0
+
+PROTO_17:
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R2 1
+        2 MOVE                             R3 R0
+        3 CALL                             R2 1 -1
+        4 CALL                             R1 -1 0
+        5 RETURN                           R0 0
+
+PROTO_18:
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R2 1
+        2 MOVE                             R3 R0
+        3 CALL                             R2 1 -1
+        4 CALL                             R1 -1 0
+        5 RETURN                           R0 0
 
 PROTO_19:
-        0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R2 1
-        2 MOVE                             R3 R0
-        3 CALL                             R2 1 -1
-        4 CALL                             R1 -1 0
-        5 RETURN                           R0 0
-
-PROTO_20:
-        0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R2 1
-        2 MOVE                             R3 R0
-        3 CALL                             R2 1 -1
-        4 CALL                             R1 -1 0
-        5 RETURN                           R0 0
-
-PROTO_21:
-        0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R2 1
-        2 MOVE                             R3 R0
-        3 CALL                             R2 1 -1
-        4 CALL                             R1 -1 0
-        5 RETURN                           R0 0
-
-PROTO_22:
-        0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R2 1
-        2 MOVE                             R3 R0
-        3 CALL                             R2 1 -1
-        4 CALL                             R1 -1 0
-        5 RETURN                           R0 0
-
-PROTO_23:
-        0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R2 1
-        2 MOVE                             R3 R0
-        3 CALL                             R2 1 -1
-        4 CALL                             R1 -1 0
-        5 RETURN                           R0 0
-
-PROTO_24:
-        0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R2 1
-        2 MOVE                             R3 R0
-        3 CALL                             R2 1 -1
-        4 CALL                             R1 -1 0
-        5 RETURN                           R0 0
-
-PROTO_25:
         0 GETUPVAL                         R2 0
         1 GETUPVAL                         R3 1
         2 MOVE                             R4 R0
@@ -745,52 +535,25 @@ PROTO_25:
         5 CALL                             R2 -1 0
         6 RETURN                           R0 0
 
-PROTO_26:
-        0 DUPTABLE                         R1 K7 [{"SetControlsPanelBlockerActivity", "SetControlsPanelBlockerMessage", "SetWorkspacePreviewSelectionEnabled", "SetAttachmentPoint", "SetItemSize", "SetMeshScale", "VerifyBounds"}]
-        1 GETUPVAL                         R3 0
-        2 CALL                             R3 0 1
-        3 JUMPIFNOT                        R3 ; [+4]
-        4 NEWCLOSURE                       R2 P0
-        5 CAPTURE                          VAL R0
-        6 CAPTURE                          UPVAL U1
-        7 JUMP                             ; [+1]
-        8 LOADNIL                          R2
-        9 SETTABLEKS                       R2 R1 K0 ["SetControlsPanelBlockerActivity"]
-       11 GETUPVAL                         R3 0
-       12 CALL                             R3 0 1
-       13 JUMPIFNOT                        R3 ; [+4]
-       14 NEWCLOSURE                       R2 P1
-       15 CAPTURE                          VAL R0
-       16 CAPTURE                          UPVAL U2
-       17 JUMP                             ; [+1]
-       18 LOADNIL                          R2
-       19 SETTABLEKS                       R2 R1 K1 ["SetControlsPanelBlockerMessage"]
-       21 GETUPVAL                         R3 0
-       22 CALL                             R3 0 1
-       23 JUMPIFNOT                        R3 ; [+4]
-       24 NEWCLOSURE                       R2 P2
-       25 CAPTURE                          VAL R0
-       26 CAPTURE                          UPVAL U3
-       27 JUMP                             ; [+1]
-       28 LOADNIL                          R2
-       29 SETTABLEKS                       R2 R1 K2 ["SetWorkspacePreviewSelectionEnabled"]
-       31 NEWCLOSURE                       R2 P3
-       32 CAPTURE                          VAL R0
-       33 CAPTURE                          UPVAL U4
-       34 SETTABLEKS                       R2 R1 K3 ["SetAttachmentPoint"]
-       36 NEWCLOSURE                       R2 P4
-       37 CAPTURE                          VAL R0
-       38 CAPTURE                          UPVAL U5
-       39 SETTABLEKS                       R2 R1 K4 ["SetItemSize"]
-       41 NEWCLOSURE                       R2 P5
-       42 CAPTURE                          VAL R0
-       43 CAPTURE                          UPVAL U6
-       44 SETTABLEKS                       R2 R1 K5 ["SetMeshScale"]
-       46 NEWCLOSURE                       R2 P6
-       47 CAPTURE                          VAL R0
-       48 CAPTURE                          UPVAL U7
-       49 SETTABLEKS                       R2 R1 K6 ["VerifyBounds"]
-       51 RETURN                           R1 1
+PROTO_20:
+        0 DUPTABLE                         R1 K4 [{"SetAttachmentPoint", "SetItemSize", "SetMeshScale", "VerifyBounds"}]
+        1 NEWCLOSURE                       R2 P0
+        2 CAPTURE                          VAL R0
+        3 CAPTURE                          UPVAL U0
+        4 SETTABLEKS                       R2 R1 K0 ["SetAttachmentPoint"]
+        6 NEWCLOSURE                       R2 P1
+        7 CAPTURE                          VAL R0
+        8 CAPTURE                          UPVAL U1
+        9 SETTABLEKS                       R2 R1 K1 ["SetItemSize"]
+       11 NEWCLOSURE                       R2 P2
+       12 CAPTURE                          VAL R0
+       13 CAPTURE                          UPVAL U2
+       14 SETTABLEKS                       R2 R1 K2 ["SetMeshScale"]
+       16 NEWCLOSURE                       R2 P3
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          UPVAL U3
+       19 SETTABLEKS                       R2 R1 K3 ["VerifyBounds"]
+       21 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -882,85 +645,65 @@ MAIN:
       153 CALL                             R22 1 1
       154 GETTABLEKS                       R23 R22 K35 ["ContextServices"]
       156 GETTABLEKS                       R24 R23 K36 ["withContext"]
-      158 GETTABLEKS                       R26 R6 K37 ["Flags"]
-      160 GETTABLEKS                       R25 R26 K38 ["GetFFlagAFTSelectHandleOnly"]
-      162 GETTABLEKS                       R26 R4 K39 ["PureComponent"]
-      164 LOADK                            R28 K40 ["MeshPartTool"]
-      165 NAMECALL                         R26 R26 K41 ["extend"]
-      167 CALL                             R26 2 1
-      168 DUPCLOSURE                       R27 K42 [PROTO_0]
-      169 SETTABLEKS                       R27 R26 K43 ["getHandleAttachment"]
-      171 DUPCLOSURE                       R27 K44 [PROTO_8]
-      172 CAPTURE                          VAL R25
-      173 CAPTURE                          VAL R1
-      174 CAPTURE                          VAL R2
-      175 CAPTURE                          VAL R21
-      176 CAPTURE                          VAL R20
-      177 CAPTURE                          VAL R10
-      178 CAPTURE                          VAL R9
-      179 SETTABLEKS                       R27 R26 K45 ["init"]
-      181 DUPCLOSURE                       R27 K46 [PROTO_9]
-      182 CAPTURE                          VAL R2
-      183 SETTABLEKS                       R27 R26 K47 ["activate"]
-      185 DUPCLOSURE                       R27 K48 [PROTO_11]
-      186 CAPTURE                          VAL R25
-      187 CAPTURE                          VAL R2
-      188 CAPTURE                          VAL R20
-      189 CAPTURE                          VAL R1
-      190 SETTABLEKS                       R27 R26 K49 ["didMount"]
-      192 DUPCLOSURE                       R27 K50 [PROTO_12]
-      193 CAPTURE                          VAL R25
-      194 SETTABLEKS                       R27 R26 K51 ["didUpdate"]
-      196 DUPCLOSURE                       R27 K52 [PROTO_13]
-      197 CAPTURE                          VAL R8
-      198 CAPTURE                          VAL R4
-      199 SETTABLEKS                       R27 R26 K53 ["renderLinks"]
-      201 DUPCLOSURE                       R27 K54 [PROTO_14]
-      202 CAPTURE                          VAL R4
-      203 SETTABLEKS                       R27 R26 K55 ["renderBorderedBox"]
-      205 DUPCLOSURE                       R27 K56 [PROTO_15]
-      206 CAPTURE                          VAL R4
-      207 CAPTURE                          VAL R0
-      208 SETTABLEKS                       R27 R26 K57 ["render"]
-      210 DUPCLOSURE                       R27 K58 [PROTO_16]
-      211 SETTABLEKS                       R27 R26 K59 ["deactivate"]
-      213 DUPCLOSURE                       R27 K60 [PROTO_17]
-      214 CAPTURE                          VAL R25
-      215 SETTABLEKS                       R27 R26 K61 ["willUnmount"]
-      217 MOVE                             R27 R24
-      218 DUPTABLE                         R28 K65 [{"Analytics", "Stylizer", "Localization", "EditingItemContext", "Signals"}]
-      219 GETTABLEKS                       R29 R23 K62 ["Analytics"]
-      221 SETTABLEKS                       R29 R28 K62 ["Analytics"]
-      223 GETTABLEKS                       R29 R23 K63 ["Stylizer"]
-      225 SETTABLEKS                       R29 R28 K63 ["Stylizer"]
-      227 MOVE                             R30 R25
-      228 CALL                             R30 0 1
-      229 JUMPIFNOT                        R30 ; [+3]
-      230 GETTABLEKS                       R29 R23 K64 ["Localization"]
-      232 JUMP                             ; [+1]
-      233 LOADNIL                          R29
-      234 SETTABLEKS                       R29 R28 K64 ["Localization"]
-      236 SETTABLEKS                       R18 R28 K31 ["EditingItemContext"]
-      238 SETTABLEKS                       R19 R28 K32 ["Signals"]
-      240 CALL                             R27 1 1
-      241 MOVE                             R28 R26
-      242 CALL                             R27 1 1
-      243 MOVE                             R26 R27
-      244 DUPCLOSURE                       R27 K66 [PROTO_18]
-      245 CAPTURE                          VAL R25
-      246 DUPCLOSURE                       R28 K67 [PROTO_26]
-      247 CAPTURE                          VAL R25
-      248 CAPTURE                          VAL R15
-      249 CAPTURE                          VAL R16
-      250 CAPTURE                          VAL R17
-      251 CAPTURE                          VAL R11
-      252 CAPTURE                          VAL R12
-      253 CAPTURE                          VAL R13
-      254 CAPTURE                          VAL R14
-      255 GETTABLEKS                       R29 R5 K68 ["connect"]
-      257 MOVE                             R30 R27
-      258 MOVE                             R31 R28
-      259 CALL                             R29 2 1
-      260 MOVE                             R30 R26
-      261 CALL                             R29 1 -1
-      262 RETURN                           R29 -1
+      158 GETTABLEKS                       R25 R4 K37 ["PureComponent"]
+      160 LOADK                            R27 K38 ["MeshPartTool"]
+      161 NAMECALL                         R25 R25 K39 ["extend"]
+      163 CALL                             R25 2 1
+      164 DUPCLOSURE                       R26 K40 [PROTO_0]
+      165 SETTABLEKS                       R26 R25 K41 ["getHandleAttachment"]
+      167 DUPCLOSURE                       R26 K42 [PROTO_5]
+      168 CAPTURE                          VAL R1
+      169 CAPTURE                          VAL R21
+      170 CAPTURE                          VAL R20
+      171 CAPTURE                          VAL R10
+      172 CAPTURE                          VAL R9
+      173 SETTABLEKS                       R26 R25 K43 ["init"]
+      175 DUPCLOSURE                       R26 K44 [PROTO_6]
+      176 CAPTURE                          VAL R2
+      177 SETTABLEKS                       R26 R25 K45 ["activate"]
+      179 DUPCLOSURE                       R26 K46 [PROTO_8]
+      180 CAPTURE                          VAL R2
+      181 CAPTURE                          VAL R20
+      182 SETTABLEKS                       R26 R25 K47 ["didMount"]
+      184 DUPCLOSURE                       R26 K48 [PROTO_9]
+      185 SETTABLEKS                       R26 R25 K49 ["didUpdate"]
+      187 DUPCLOSURE                       R26 K50 [PROTO_10]
+      188 CAPTURE                          VAL R8
+      189 CAPTURE                          VAL R4
+      190 SETTABLEKS                       R26 R25 K51 ["renderLinks"]
+      192 DUPCLOSURE                       R26 K52 [PROTO_11]
+      193 CAPTURE                          VAL R4
+      194 SETTABLEKS                       R26 R25 K53 ["renderBorderedBox"]
+      196 DUPCLOSURE                       R26 K54 [PROTO_12]
+      197 CAPTURE                          VAL R4
+      198 CAPTURE                          VAL R0
+      199 SETTABLEKS                       R26 R25 K55 ["render"]
+      201 DUPCLOSURE                       R26 K56 [PROTO_13]
+      202 SETTABLEKS                       R26 R25 K57 ["deactivate"]
+      204 DUPCLOSURE                       R26 K58 [PROTO_14]
+      205 SETTABLEKS                       R26 R25 K59 ["willUnmount"]
+      207 MOVE                             R26 R24
+      208 DUPTABLE                         R27 K62 [{"Analytics", "Stylizer", "EditingItemContext", "Signals"}]
+      209 GETTABLEKS                       R28 R23 K60 ["Analytics"]
+      211 SETTABLEKS                       R28 R27 K60 ["Analytics"]
+      213 GETTABLEKS                       R28 R23 K61 ["Stylizer"]
+      215 SETTABLEKS                       R28 R27 K61 ["Stylizer"]
+      217 SETTABLEKS                       R18 R27 K31 ["EditingItemContext"]
+      219 SETTABLEKS                       R19 R27 K32 ["Signals"]
+      221 CALL                             R26 1 1
+      222 MOVE                             R27 R25
+      223 CALL                             R26 1 1
+      224 MOVE                             R25 R26
+      225 DUPCLOSURE                       R26 K63 [PROTO_15]
+      226 DUPCLOSURE                       R27 K64 [PROTO_20]
+      227 CAPTURE                          VAL R11
+      228 CAPTURE                          VAL R12
+      229 CAPTURE                          VAL R13
+      230 CAPTURE                          VAL R14
+      231 GETTABLEKS                       R28 R5 K65 ["connect"]
+      233 MOVE                             R29 R26
+      234 MOVE                             R30 R27
+      235 CALL                             R28 2 1
+      236 MOVE                             R29 R25
+      237 CALL                             R28 1 -1
+      238 RETURN                           R28 -1

@@ -16,6 +16,9 @@ local Signal = AppCommonLib.Signal
 local AvailabilitySignal = ChromeUtils.AvailabilitySignal
 local AvailabilitySignalState = ChromeUtils.AvailabilitySignalState
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagGamepadIconSupportCheck = SharedFlags.FFlagGamepadIconSupportCheck
+
 type ShortcutId = ChromePackage.ShortcutId
 type ShortcutBarId = ChromePackage.ShortcutBarId
 type ShortcutIdList = ChromePackage.ShortcutIdList
@@ -207,7 +210,14 @@ function ShortcutService:getShortcutsFromBar(shortcutBarId: ShortcutBarId?, inte
 		end
 
 		local shortcut = self._shortcuts[shortcutId]
-		if shortcut.availability:get() == AvailabilitySignalState.Unavailable then
+
+		if
+			shortcut.availability:get() == AvailabilitySignalState.Unavailable
+			or (
+				FFlagGamepadIconSupportCheck
+				and not UserInputService:GamepadSupports(UserInputService:GetLastInputType(), shortcut.keyCode)
+			)
+		then
 			continue
 		end
 		table.insert(activeShortcuts, shortcut)

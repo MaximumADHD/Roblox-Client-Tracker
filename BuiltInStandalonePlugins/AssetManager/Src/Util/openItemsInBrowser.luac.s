@@ -12,58 +12,6 @@ PROTO_1:
         1 LOADNIL                          R4
         2 LOADNIL                          R5
         3 FORGPREP                         R3
-        4 NAMECALL                         R10 R2 K0 ["getItems"]
-        6 CALL                             R10 1 1
-        7 GETTABLE                         R9 R10 R7
-        8 GETTABLEKS                       R8 R9 K1 ["AssetType"]
-       10 GETUPVAL                         R11 0
-       11 GETTABLEKS                       R10 R11 K1 ["AssetType"]
-       13 GETTABLEKS                       R9 R10 K2 ["Place"]
-       15 JUMPIFNOTEQ                      R8 R9 ; [+45]
-       17 NAMECALL                         R8 R1 K3 ["getCurrentScope"]
-       19 CALL                             R8 1 1
-       20 LOADB                            R10 1
-       21 GETTABLEKS                       R11 R8 K4 ["Type"]
-       23 GETUPVAL                         R14 0
-       24 GETTABLEKS                       R13 R14 K5 ["ScopeType"]
-       26 GETTABLEKS                       R12 R13 K6 ["ProjectPlaces"]
-       28 JUMPIFEQ                         R11 R12 ; [+12]
-       30 GETTABLEKS                       R11 R8 K4 ["Type"]
-       32 GETUPVAL                         R14 0
-       33 GETTABLEKS                       R13 R14 K5 ["ScopeType"]
-       35 GETTABLEKS                       R12 R13 K7 ["Universe"]
-       37 JUMPIFEQ                         R11 R12 ; [+2]
-       39 LOADB                            R10 0 +1
-       40 LOADB                            R10 1
-       41 FASTCALL2K                       ASSERT R10 K8 ; [+4]
-       43 LOADK                            R11 K8 ["Not browsing universe for this place"]
-       44 GETIMPORT                        R9 K10 [assert]
-       46 CALL                             R9 2 0
-       47 GETUPVAL                         R9 1
-       48 GETTABLEKS                       R12 R8 K11 ["Id"]
-       50 LOADK                            R13 K12 ["https://create.roblox.com/dashboard/creations/experiences/%*/places/%*/configure"]
-       51 MOVE                             R15 R12
-       52 MOVE                             R16 R7
-       53 NAMECALL                         R13 R13 K13 ["format"]
-       55 CALL                             R13 3 1
-       56 MOVE                             R11 R13
-       57 NAMECALL                         R9 R9 K14 ["openLink"]
-       59 CALL                             R9 2 0
-       60 JUMP                             ; [+7]
-       61 GETUPVAL                         R8 2
-       62 GETUPVAL                         R10 3
-       63 MOVE                             R11 R7
-       64 CALL                             R10 1 -1
-       65 NAMECALL                         R8 R8 K15 ["OpenBrowserWindow"]
-       67 CALL                             R8 -1 0
-       68 FORGLOOP                         R3 2 ; [-65]
-       70 RETURN                           R0 0
-
-PROTO_2:
-        0 MOVE                             R3 R0
-        1 LOADNIL                          R4
-        2 LOADNIL                          R5
-        3 FORGPREP                         R3
         4 GETTABLE                         R8 R1 R6
         5 GETUPVAL                         R11 0
         6 GETTABLEKS                       R10 R11 K0 ["AssetType"]
@@ -132,26 +80,10 @@ MAIN:
        36 GETTABLEKS                       R5 R3 K11 ["GetService"]
        38 LOADK                            R6 K13 ["StartPageService"]
        39 CALL                             R5 1 1
-       40 GETIMPORT                        R6 K5 [require]
-       42 GETTABLEKS                       R9 R0 K6 ["Src"]
-       44 GETTABLEKS                       R8 R9 K14 ["Flags"]
-       46 GETTABLEKS                       R7 R8 K15 ["getFFlagAmrUpdatedItemsCache"]
-       48 CALL                             R6 1 1
-       49 DUPCLOSURE                       R7 K16 [PROTO_0]
-       50 DUPCLOSURE                       R8 K17 [PROTO_1]
-       51 CAPTURE                          VAL R1
-       52 CAPTURE                          VAL R5
-       53 CAPTURE                          VAL R4
-       54 CAPTURE                          VAL R2
-       55 DUPCLOSURE                       R9 K18 [PROTO_2]
-       56 CAPTURE                          VAL R1
-       57 CAPTURE                          VAL R5
-       58 CAPTURE                          VAL R4
-       59 CAPTURE                          VAL R2
-       60 MOVE                             R11 R6
-       61 CALL                             R11 0 1
-       62 JUMPIFNOT                        R11 ; [+2]
-       63 MOVE                             R10 R9
-       64 RETURN                           R10 1
-       65 MOVE                             R10 R8
-       66 RETURN                           R10 1
+       40 DUPCLOSURE                       R6 K14 [PROTO_0]
+       41 DUPCLOSURE                       R7 K15 [PROTO_1]
+       42 CAPTURE                          VAL R1
+       43 CAPTURE                          VAL R5
+       44 CAPTURE                          VAL R4
+       45 CAPTURE                          VAL R2
+       46 RETURN                           R7 1

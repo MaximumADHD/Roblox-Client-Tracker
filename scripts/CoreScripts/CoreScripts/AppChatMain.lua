@@ -27,10 +27,25 @@ local PlayerListManager = require(RobloxGui.Modules.PlayerList.PlayerListManager
 
 local TopBarConstants = require(RobloxGui.Modules.TopBar.Constants)
 local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
+local SSUIMetaLua = game:GetEngineFeature("SSUIMetaLua")
 
 local TopBarTopMargin = TopBarConstants.ApplyDisplayScale(TopBarConstants.TopBarTopMargin)
 
 InExperienceAppChatModal.default:initialize(TopBarTopMargin, SettingsHub, ViewportUtil, ChatSelector, PlayerListManager)
+
+-- Notify SafetyService when party chat window visibility changes
+if SSUIMetaLua then
+	pcall(function()
+		local SafetyService = game:GetService("SafetyService")
+		InExperienceAppChatModal.default.visibilitySignal.Event:Connect(function(visible)
+			if visible then
+				SafetyService:ReportPartyChatWindowOpen()
+			else
+				SafetyService:ReportPartyChatWindowClose()
+			end
+		end)
+	end)
+end
 
 local updateAppChatUnreadMessagesCount = function(newCount)
 	InExperienceAppChatModal:setUnreadCount(newCount)

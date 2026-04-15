@@ -13,6 +13,7 @@ local EngineFeaturePlayerViewRemoteEventSupport = game:GetEngineFeature("PlayerV
 local newTrackerStreamAnimation: TrackerStreamAnimation? = nil
 local cloneStreamTrack: AnimationStreamTrack? = nil
 local FFlagDebugSelfViewPerfBenchmark = game:DefineFastFlag("DebugSelfViewPerfBenchmark", false)
+local FFlagSelfViewFixAnimTrackLeaks = game:DefineFastFlag("SelfViewFixAnimTrackLeaks", false)
 local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
 
 local EngineFeatureEnableFacsDisableOverride = game:GetEngineFeature("EnableFacsDisableOverride2")
@@ -46,7 +47,7 @@ local trackStoppedConnections = {}
 local partsOrgTransparency = {}
 
 local cloneAnimator: Animator? = nil
-local cloneAnimationTracks = {}
+local cloneAnimationTracks: { [string]: AnimationTrack? } = {}
 local orgAnimationTracks = {}
 local cachedHeadColor: Color3? = nil
 local cachedHeadSize: Vector3? = nil
@@ -145,6 +146,18 @@ local function clearClone()
 	clearObserver(Observer.AnimationPlayed)
 	clearObserver(Observer.AnimationPlayedCoreScript)
 
+	if FFlagSelfViewFixAnimTrackLeaks then
+		for _, track in cloneAnimationTracks do
+			if track then
+				track:Stop(0)
+			end
+		end
+		if cloneStreamTrack then
+			cloneStreamTrack:Stop(0)
+			cloneStreamTrack = nil
+		end
+	end
+
 	cloneAnimator = nil
 	cloneAnimationTracks = {}
 	-- clear objects
@@ -161,6 +174,9 @@ local function syncTrack(animator: Animator, track: AnimationTrack)
 	if track.Animation and track.Animation:IsA("Animation") then
 		--regular animation sync handled further below
 	elseif track.Animation and track.Animation:IsA("TrackerStreamAnimation") then
+		if FFlagSelfViewFixAnimTrackLeaks and cloneStreamTrack then
+			cloneStreamTrack:Stop(0)
+		end
 		newTrackerStreamAnimation = Instance.new("TrackerStreamAnimation")
 		assert(newTrackerStreamAnimation ~= nil)
 		if game:GetEngineFeature("UseNewLoadStreamAnimationAPI") then
@@ -787,7 +803,7 @@ function startRenderStepped(player: Player)
 										cloneAnimationTracks[anim.AnimationId] = cloneAnimator:LoadAnimation(anim)
 									end
 									local cloneAnimationTrack = cloneAnimationTracks[anim.AnimationId] --cloneAnimator:LoadAnimation(anim)
-
+									assert(cloneAnimationTrack ~= nil)
 									cloneAnimationTrack:Play()
 									cloneAnimationTrack.TimePosition = value.TimePosition
 									cloneAnimationTrack.Priority = value.Priority
@@ -804,8 +820,9 @@ function startRenderStepped(player: Player)
 							anim = track.Animation
 							if anim then
 								if not orgAnimationTracks[anim.AnimationId] then
-									if cloneAnimationTracks[anim.AnimationId] ~= nil then
-										cloneAnimationTracks[anim.AnimationId]:Stop(0)
+									local cloneAnimationTrack = cloneAnimationTracks[anim.AnimationId]
+									if cloneAnimationTrack ~= nil then
+										cloneAnimationTrack:Stop(0)
 									end
 									cloneAnimationTracks[anim.AnimationId] = nil
 								end

@@ -2,7 +2,7 @@ PROTO_0:
         0 DUPTABLE                         R4 K3 [{"Title", "Size", "Type"}]
         1 SETTABLEKS                       R1 R4 K0 ["Title"]
         3 GETUPVAL                         R6 0
-        4 GETTABLEKS                       R5 R6 K4 ["AMR_CONFIRM_DIALOG_SIZE"]
+        4 GETTABLEKS                       R5 R6 K4 ["ConfirmDialogSize"]
         6 SETTABLEKS                       R5 R4 K1 ["Size"]
         8 GETUPVAL                         R7 1
         9 GETTABLEKS                       R6 R7 K5 ["DialogType"]

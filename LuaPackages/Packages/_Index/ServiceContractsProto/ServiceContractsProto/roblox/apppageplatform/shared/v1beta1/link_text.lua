@@ -60,8 +60,8 @@ type _LinkTextSchema_PropsFields = {
 	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	rich_text: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
-	text_color: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
-	text_wrap: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	text_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	text_wrapped: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp?,
 	text_direction: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
@@ -82,8 +82,8 @@ type _LinkTextSchema_PropsPartialFields = {
 	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	rich_text: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
-	text_color: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
-	text_wrap: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	text_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	text_wrapped: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp?,
 	text_direction: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
@@ -234,8 +234,8 @@ do
 			text = if data == nil or data.text == nil then nil else data.text,
 			rich_text = if data == nil or data.rich_text == nil then nil else data.rich_text,
 			font_style = if data == nil or data.font_style == nil then nil else data.font_style,
-			text_color = if data == nil or data.text_color == nil then nil else data.text_color,
-			text_wrap = if data == nil or data.text_wrap == nil then nil else data.text_wrap,
+			text_style = if data == nil or data.text_style == nil then nil else data.text_style,
+			text_wrapped = if data == nil or data.text_wrapped == nil then nil else data.text_wrapped,
 			text_truncate = if data == nil or data.text_truncate == nil then nil else data.text_truncate,
 			text_direction = if data == nil or data.text_direction == nil then nil else data.text_direction,
 			text_x_alignment = if data == nil or data.text_x_alignment == nil then nil else data.text_x_alignment,
@@ -305,14 +305,14 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.text_color ~= nil then
-			local encoded = self.text_color:encode()
+		if self.text_style ~= nil then
+			local encoded = self.text_style:encode()
 			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.text_wrap ~= nil then
-			local encoded = self.text_wrap:encode()
+		if self.text_wrapped ~= nil then
+			local encoded = self.text_wrapped:encode()
 			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
@@ -432,12 +432,12 @@ do
 				elseif field == 10 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.text_color = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.decode(value)
+					self.text_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
 					continue
 				elseif field == 11 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.text_wrap = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					self.text_wrapped = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				elseif field == 12 then
 					local value
@@ -546,12 +546,12 @@ do
 			output.fontStyle = self.font_style:jsonEncode()
 		end
 
-		if self.text_color ~= nil then
-			output.textColor = self.text_color:jsonEncode()
+		if self.text_style ~= nil then
+			output.textStyle = self.text_style:jsonEncode()
 		end
 
-		if self.text_wrap ~= nil then
-			output.textWrap = self.text_wrap:jsonEncode()
+		if self.text_wrapped ~= nil then
+			output.textWrapped = self.text_wrapped:jsonEncode()
 		end
 
 		if self.text_truncate ~= nil then
@@ -661,20 +661,23 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.jsonDecode(input.fontStyle)
 		end
 
-		if input.text_color ~= nil then
-			self.text_color = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.text_color)
+		if input.text_style ~= nil then
+			self.text_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.text_style)
 		end
 
-		if input.textColor ~= nil then
-			self.text_color = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.textColor)
+		if input.textStyle ~= nil then
+			self.text_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.textStyle)
 		end
 
-		if input.text_wrap ~= nil then
-			self.text_wrap = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.text_wrap)
+		if input.text_wrapped ~= nil then
+			self.text_wrapped =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.text_wrapped)
 		end
 
-		if input.textWrap ~= nil then
-			self.text_wrap = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.textWrap)
+		if input.textWrapped ~= nil then
+			self.text_wrapped = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.textWrapped)
 		end
 
 		if input.text_truncate ~= nil then

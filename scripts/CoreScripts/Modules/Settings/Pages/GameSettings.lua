@@ -59,8 +59,6 @@ local isVoiceFocused = require(CorePackages.Workspace.Packages.CrossExperience).
 local observeIsVoiceFocused = require(CorePackages.Workspace.Packages.CrossExperience).Utils.observeIsVoiceFocused
 local cameraDevicePermissionGrantedSignal =
 	require(CoreGui.RobloxGui.Modules.Settings.cameraDevicePermissionGrantedSignal)
-local getFFlagDoNotPromptCameraPermissionsOnMount =
-	require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty = SharedFlags.GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty
 local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
@@ -68,7 +66,7 @@ local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSetting
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
 local GetFFlagDebounceConnectDisconnectSelector = require(RobloxGui.Modules.Settings.Flags.GetFFlagDebounceConnectDisconnectSelector)
 local GetFIntDebounceDisconnectButtonDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceDisconnectButtonDelay)
-local FFlagMicroprofileGameSettingsFix = game:DefineFastFlag("MicroprofileGameSettingsFix", false)
+local isTouchDevice = UserInputService.TouchEnabled
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice = SharedFlags.GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatClientRewriteMasterLua
 local GetFFlagVoiceChatClientRewriteDisableVCSDevice = SharedFlags.GetFFlagVoiceChatClientRewriteDisableVCSDevice
@@ -977,7 +975,7 @@ local function Initialize()
 		-- todo replace this with TextX and TextYAlignment to centerlise the text
 		this.InformationFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 
-		if FFlagMicroprofileGameSettingsFix then
+		if isTouchDevice then
 			this.InformationText = Create("TextLabel")({
 				Name = "InformationLabel",
 				Text = "Information Loading",
@@ -4050,28 +4048,24 @@ local function Initialize()
 			this.VideoOptionsEnabled = response.hasCameraPermissions
 		end
 
-		if getFFlagDoNotPromptCameraPermissionsOnMount() then
-			if isCamEnabledForUserAndPlace() then
-				-- Only render video options setting if it's enabled + eligible for user and enabled for place
-				local shouldNotRequestPerms = true
-				getCamMicPermissions(
-					callback,
-					{ PermissionsProtocol.Permissions.CAMERA_ACCESS :: string },
-					shouldNotRequestPerms
-				)
+		if isCamEnabledForUserAndPlace() then
+			-- Only render video options setting if it's enabled + eligible for user and enabled for place
+			local shouldNotRequestPerms = true
+			getCamMicPermissions(
+				callback,
+				{ PermissionsProtocol.Permissions.CAMERA_ACCESS :: string },
+				shouldNotRequestPerms
+			)
 
-				if cameraPermissionGrantedListener then
-					cameraPermissionGrantedListener:disconnect()
-				end
-				cameraPermissionGrantedListener = cameraDevicePermissionGrantedSignal:connect(function()
-					-- Once we hear the granted signal, we'll show the Camera Device Game setting
-					this.VideoOptionsEnabled = true
-					updateCameraDevices()
-					setupVideoCameraDeviceChangedListener()
-				end)
+			if cameraPermissionGrantedListener then
+				cameraPermissionGrantedListener:disconnect()
 			end
-		else
-			getCamMicPermissions(callback, nil, nil, "GameSettings.createDeviceOptions")
+			cameraPermissionGrantedListener = cameraDevicePermissionGrantedSignal:connect(function()
+				-- Once we hear the granted signal, we'll show the Camera Device Game setting
+				this.VideoOptionsEnabled = true
+				updateCameraDevices()
+				setupVideoCameraDeviceChangedListener()
+			end)
 		end
 	end
 
@@ -4373,9 +4367,7 @@ local function Initialize()
 				teardownVideoCameraDeviceChangedListener()
 			end
 
-			if getFFlagDoNotPromptCameraPermissionsOnMount() then
-				teardownCameraPermissionGrantedListener()
-			end
+			teardownCameraPermissionGrantedListener()
 		end
 
 		-- Check volume settings.

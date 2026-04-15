@@ -1,20 +1,20 @@
 PROTO_0:
-        0 GETIMPORT                        R0 K1 [time]
+        0 GETIMPORT                        R0 K2 [os.time]
         2 CALL                             R0 0 1
         3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K2 ["current"]
-        6 GETTABLEKS                       R1 R2 K3 ["IsLoaded"]
+        4 GETTABLEKS                       R2 R3 K3 ["current"]
+        6 GETTABLEKS                       R1 R2 K4 ["IsLoaded"]
         8 JUMPIF                           R1 ; [+11]
-        9 GETIMPORT                        R2 K1 [time]
+        9 GETIMPORT                        R2 K2 [os.time]
        11 CALL                             R2 0 1
        12 SUB                              R1 R2 R0
        13 LOADN                            R2 1
        14 JUMPIFNOTLT                      R1 R2 ; [+5]
-       16 GETIMPORT                        R1 K6 [task.wait]
+       16 GETIMPORT                        R1 K7 [task.wait]
        18 CALL                             R1 0 0
        19 JUMPBACK                         ; [-17]
        20 GETUPVAL                         R2 1
-       21 GETTABLEKS                       R1 R2 K7 ["OnShown"]
+       21 GETTABLEKS                       R1 R2 K8 ["OnShown"]
        23 CALL                             R1 0 0
        24 RETURN                           R0 0
 

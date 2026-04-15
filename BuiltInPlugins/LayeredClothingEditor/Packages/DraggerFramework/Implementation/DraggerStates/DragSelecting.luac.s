@@ -92,10 +92,13 @@ PROTO_6:
         0 RETURN                           R0 0
 
 PROTO_7:
-        0 GETIMPORT                        R1 K1 [error]
-        2 LOADK                            R2 K2 ["Mouse should already be down while drag selecting."]
-        3 CALL                             R1 1 0
-        4 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIF                           R1 ; [+4]
+        3 GETIMPORT                        R1 K1 [error]
+        5 LOADK                            R2 K2 ["Mouse should already be down while drag selecting."]
+        6 CALL                             R1 1 0
+        7 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["_hasMovedMouse"]
@@ -176,38 +179,43 @@ MAIN:
        39 GETTABLEKS                       R8 R0 K10 ["Utility"]
        41 GETTABLEKS                       R7 R8 K12 ["StandardCursor"]
        43 CALL                             R6 1 1
-       44 NEWTABLE                         R7 16 0
-       46 SETTABLEKS                       R7 R7 K13 ["__index"]
-       48 DUPCLOSURE                       R8 K14 [PROTO_1]
-       49 CAPTURE                          VAL R5
-       50 CAPTURE                          VAL R7
-       51 SETTABLEKS                       R8 R7 K15 ["new"]
-       53 DUPCLOSURE                       R8 K16 [PROTO_2]
-       54 SETTABLEKS                       R8 R7 K17 ["enter"]
-       56 DUPCLOSURE                       R8 K18 [PROTO_3]
-       57 SETTABLEKS                       R8 R7 K19 ["leave"]
-       59 DUPCLOSURE                       R8 K20 [PROTO_4]
-       60 SETTABLEKS                       R8 R7 K21 ["_init"]
-       62 DUPCLOSURE                       R8 K22 [PROTO_5]
-       63 CAPTURE                          VAL R6
-       64 CAPTURE                          VAL R2
-       65 CAPTURE                          VAL R3
-       66 SETTABLEKS                       R8 R7 K23 ["render"]
-       68 DUPCLOSURE                       R8 K24 [PROTO_6]
-       69 SETTABLEKS                       R8 R7 K25 ["processSelectionChanged"]
-       71 DUPCLOSURE                       R8 K26 [PROTO_7]
-       72 SETTABLEKS                       R8 R7 K27 ["processMouseDown"]
-       74 DUPCLOSURE                       R8 K28 [PROTO_8]
-       75 SETTABLEKS                       R8 R7 K29 ["processViewChanged"]
-       77 DUPCLOSURE                       R8 K30 [PROTO_9]
-       78 CAPTURE                          VAL R4
-       79 SETTABLEKS                       R8 R7 K31 ["processMouseUp"]
-       81 DUPCLOSURE                       R8 K32 [PROTO_10]
-       82 SETTABLEKS                       R8 R7 K33 ["processMouseEnter"]
-       84 DUPCLOSURE                       R8 K34 [PROTO_11]
-       85 SETTABLEKS                       R8 R7 K35 ["processMouseLeave"]
-       87 DUPCLOSURE                       R8 K36 [PROTO_12]
-       88 SETTABLEKS                       R8 R7 K37 ["processKeyDown"]
-       90 DUPCLOSURE                       R8 K38 [PROTO_13]
-       91 SETTABLEKS                       R8 R7 K39 ["processKeyUp"]
-       93 RETURN                           R7 1
+       44 GETIMPORT                        R7 K4 [require]
+       46 GETTABLEKS                       R9 R0 K13 ["Flags"]
+       48 GETTABLEKS                       R8 R9 K14 ["getFFlagNextGenDraggers"]
+       50 CALL                             R7 1 1
+       51 NEWTABLE                         R8 16 0
+       53 SETTABLEKS                       R8 R8 K15 ["__index"]
+       55 DUPCLOSURE                       R9 K16 [PROTO_1]
+       56 CAPTURE                          VAL R5
+       57 CAPTURE                          VAL R8
+       58 SETTABLEKS                       R9 R8 K17 ["new"]
+       60 DUPCLOSURE                       R9 K18 [PROTO_2]
+       61 SETTABLEKS                       R9 R8 K19 ["enter"]
+       63 DUPCLOSURE                       R9 K20 [PROTO_3]
+       64 SETTABLEKS                       R9 R8 K21 ["leave"]
+       66 DUPCLOSURE                       R9 K22 [PROTO_4]
+       67 SETTABLEKS                       R9 R8 K23 ["_init"]
+       69 DUPCLOSURE                       R9 K24 [PROTO_5]
+       70 CAPTURE                          VAL R6
+       71 CAPTURE                          VAL R2
+       72 CAPTURE                          VAL R3
+       73 SETTABLEKS                       R9 R8 K25 ["render"]
+       75 DUPCLOSURE                       R9 K26 [PROTO_6]
+       76 SETTABLEKS                       R9 R8 K27 ["processSelectionChanged"]
+       78 DUPCLOSURE                       R9 K28 [PROTO_7]
+       79 CAPTURE                          VAL R7
+       80 SETTABLEKS                       R9 R8 K29 ["processMouseDown"]
+       82 DUPCLOSURE                       R9 K30 [PROTO_8]
+       83 SETTABLEKS                       R9 R8 K31 ["processViewChanged"]
+       85 DUPCLOSURE                       R9 K32 [PROTO_9]
+       86 CAPTURE                          VAL R4
+       87 SETTABLEKS                       R9 R8 K33 ["processMouseUp"]
+       89 DUPCLOSURE                       R9 K34 [PROTO_10]
+       90 SETTABLEKS                       R9 R8 K35 ["processMouseEnter"]
+       92 DUPCLOSURE                       R9 K36 [PROTO_11]
+       93 SETTABLEKS                       R9 R8 K37 ["processMouseLeave"]
+       95 DUPCLOSURE                       R9 K38 [PROTO_12]
+       96 SETTABLEKS                       R9 R8 K39 ["processKeyDown"]
+       98 DUPCLOSURE                       R9 K40 [PROTO_13]
+       99 SETTABLEKS                       R9 R8 K41 ["processKeyUp"]
+      101 RETURN                           R8 1

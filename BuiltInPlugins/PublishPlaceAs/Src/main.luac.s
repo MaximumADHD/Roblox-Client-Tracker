@@ -12,15 +12,20 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+5]
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R0 R1 K0 ["unmount"]
-        5 GETUPVAL                         R1 0
-        6 CALL                             R0 1 0
-        7 GETUPVAL                         R0 2
-        8 LOADB                            R1 0
-        9 SETTABLEKS                       R1 R0 K1 ["Enabled"]
-       11 RETURN                           R0 0
+        1 JUMPIFNOT                        R0 ; [+4]
+        2 GETUPVAL                         R0 1
+        3 NAMECALL                         R0 R0 K0 ["SaveOrPublishPlaceToRobloxIsCanceled"]
+        5 CALL                             R0 1 0
+        6 GETUPVAL                         R0 2
+        7 JUMPIFNOT                        R0 ; [+5]
+        8 GETUPVAL                         R1 3
+        9 GETTABLEKS                       R0 R1 K1 ["unmount"]
+       11 GETUPVAL                         R1 2
+       12 CALL                             R0 1 0
+       13 GETUPVAL                         R0 4
+       14 LOADB                            R1 0
+       15 SETTABLEKS                       R1 R0 K2 ["Enabled"]
+       17 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -71,10 +76,12 @@ PROTO_2:
        62 NEWCLOSURE                       R3 P0
        63 CAPTURE                          UPVAL U5
        64 CAPTURE                          UPVAL U6
-       65 CAPTURE                          UPVAL U1
-       66 NAMECALL                         R1 R1 K20 ["BindToClose"]
-       68 CALL                             R1 2 0
-       69 RETURN                           R0 0
+       65 CAPTURE                          UPVAL U7
+       66 CAPTURE                          UPVAL U8
+       67 CAPTURE                          UPVAL U1
+       68 NAMECALL                         R1 R1 K20 ["BindToClose"]
+       70 CALL                             R1 2 0
+       71 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R4 0
@@ -328,67 +335,69 @@ PROTO_8:
       138 CAPTURE                          VAL R0
       139 CAPTURE                          UPVAL U0
       140 CAPTURE                          VAL R16
-      141 CAPTURE                          REF R17
-      142 CAPTURE                          VAL R3
-      143 GETIMPORT                        R22 K4 [require]
-      145 GETTABLEKS                       R25 R2 K10 ["Src"]
-      147 GETTABLEKS                       R24 R25 K33 ["Util"]
-      149 GETTABLEKS                       R23 R24 K34 ["CalloutController"]
-      151 CALL                             R22 1 1
-      152 GETTABLEKS                       R23 R22 K25 ["new"]
-      154 CALL                             R23 0 1
-      155 GETUPVAL                         R24 1
-      156 JUMPIF                           R24 ; [+23]
-      157 LOADK                            R26 K35 ["TcToggleCallout"]
-      158 LOADK                            R27 K36 ["Title"]
-      159 NAMECALL                         R24 R16 K37 ["getText"]
-      161 CALL                             R24 3 1
-      162 LOADK                            R27 K35 ["TcToggleCallout"]
-      163 LOADK                            R28 K38 ["Description"]
-      164 NAMECALL                         R25 R16 K37 ["getText"]
-      166 CALL                             R25 3 1
-      167 GETIMPORT                        R26 K40 [game]
-      169 LOADK                            R28 K41 ["TeamCreateLink"]
-      170 NAMECALL                         R26 R26 K42 ["GetFastString"]
-      172 CALL                             R26 2 1
-      173 LOADK                            R29 K43 ["PublishPlaceAsTeamCreateToggleCallout"]
-      174 MOVE                             R30 R24
-      175 MOVE                             R31 R25
-      176 MOVE                             R32 R26
-      177 NAMECALL                         R27 R23 K44 ["defineCallout"]
-      179 CALL                             R27 5 0
-      180 NEWCLOSURE                       R24 P2
-      181 CAPTURE                          VAL R3
-      182 CAPTURE                          VAL R7
-      183 CAPTURE                          REF R18
-      184 CAPTURE                          VAL R16
-      185 CAPTURE                          VAL R0
-      186 CAPTURE                          VAL R15
-      187 CAPTURE                          VAL R12
-      188 CAPTURE                          VAL R23
-      189 CAPTURE                          VAL R8
-      190 CAPTURE                          VAL R20
-      191 CAPTURE                          VAL R11
-      192 CAPTURE                          UPVAL U2
-      193 CAPTURE                          REF R17
-      194 NEWCLOSURE                       R25 P3
-      195 CAPTURE                          VAL R0
-      196 CAPTURE                          VAL R2
-      197 CAPTURE                          VAL R21
-      198 CAPTURE                          VAL R1
-      199 CAPTURE                          REF R18
-      200 CAPTURE                          UPVAL U2
-      201 CAPTURE                          VAL R16
-      202 CAPTURE                          VAL R24
-      203 CAPTURE                          VAL R15
-      204 CAPTURE                          VAL R19
-      205 CAPTURE                          UPVAL U3
-      206 CAPTURE                          REF R17
-      207 CAPTURE                          VAL R3
-      208 MOVE                             R26 R25
-      209 CALL                             R26 0 0
-      210 CLOSEUPVALS                      R17
-      211 RETURN                           R0 0
+      141 CAPTURE                          UPVAL U1
+      142 CAPTURE                          UPVAL U2
+      143 CAPTURE                          REF R17
+      144 CAPTURE                          VAL R3
+      145 GETIMPORT                        R22 K4 [require]
+      147 GETTABLEKS                       R25 R2 K10 ["Src"]
+      149 GETTABLEKS                       R24 R25 K33 ["Util"]
+      151 GETTABLEKS                       R23 R24 K34 ["CalloutController"]
+      153 CALL                             R22 1 1
+      154 GETTABLEKS                       R23 R22 K25 ["new"]
+      156 CALL                             R23 0 1
+      157 GETUPVAL                         R24 3
+      158 JUMPIF                           R24 ; [+23]
+      159 LOADK                            R26 K35 ["TcToggleCallout"]
+      160 LOADK                            R27 K36 ["Title"]
+      161 NAMECALL                         R24 R16 K37 ["getText"]
+      163 CALL                             R24 3 1
+      164 LOADK                            R27 K35 ["TcToggleCallout"]
+      165 LOADK                            R28 K38 ["Description"]
+      166 NAMECALL                         R25 R16 K37 ["getText"]
+      168 CALL                             R25 3 1
+      169 GETIMPORT                        R26 K40 [game]
+      171 LOADK                            R28 K41 ["TeamCreateLink"]
+      172 NAMECALL                         R26 R26 K42 ["GetFastString"]
+      174 CALL                             R26 2 1
+      175 LOADK                            R29 K43 ["PublishPlaceAsTeamCreateToggleCallout"]
+      176 MOVE                             R30 R24
+      177 MOVE                             R31 R25
+      178 MOVE                             R32 R26
+      179 NAMECALL                         R27 R23 K44 ["defineCallout"]
+      181 CALL                             R27 5 0
+      182 NEWCLOSURE                       R24 P2
+      183 CAPTURE                          VAL R3
+      184 CAPTURE                          VAL R7
+      185 CAPTURE                          REF R18
+      186 CAPTURE                          VAL R16
+      187 CAPTURE                          VAL R0
+      188 CAPTURE                          VAL R15
+      189 CAPTURE                          VAL R12
+      190 CAPTURE                          VAL R23
+      191 CAPTURE                          VAL R8
+      192 CAPTURE                          VAL R20
+      193 CAPTURE                          VAL R11
+      194 CAPTURE                          UPVAL U4
+      195 CAPTURE                          REF R17
+      196 NEWCLOSURE                       R25 P3
+      197 CAPTURE                          VAL R0
+      198 CAPTURE                          VAL R2
+      199 CAPTURE                          VAL R21
+      200 CAPTURE                          VAL R1
+      201 CAPTURE                          REF R18
+      202 CAPTURE                          UPVAL U4
+      203 CAPTURE                          VAL R16
+      204 CAPTURE                          VAL R24
+      205 CAPTURE                          VAL R15
+      206 CAPTURE                          VAL R19
+      207 CAPTURE                          UPVAL U2
+      208 CAPTURE                          REF R17
+      209 CAPTURE                          VAL R3
+      210 MOVE                             R26 R25
+      211 CALL                             R26 0 0
+      212 CLOSEUPVALS                      R17
+      213 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -413,9 +422,16 @@ MAIN:
        31 GETTABLEKS                       R5 R6 K14 ["getFFlagPublishPlaceAsGameToExperience"]
        33 CALL                             R4 1 1
        34 CALL                             R4 0 1
-       35 DUPCLOSURE                       R5 K15 [PROTO_8]
-       36 CAPTURE                          VAL R2
-       37 CAPTURE                          VAL R3
-       38 CAPTURE                          VAL R4
-       39 CAPTURE                          VAL R1
-       40 RETURN                           R5 1
+       35 GETIMPORT                        R5 K11 [require]
+       37 GETTABLEKS                       R8 R0 K12 ["Src"]
+       39 GETTABLEKS                       R7 R8 K13 ["Flags"]
+       41 GETTABLEKS                       R6 R7 K15 ["getFFlagSTUDIOPLAT42559FixSaveDialogXClose"]
+       43 CALL                             R5 1 1
+       44 CALL                             R5 0 1
+       45 DUPCLOSURE                       R6 K16 [PROTO_8]
+       46 CAPTURE                          VAL R2
+       47 CAPTURE                          VAL R5
+       48 CAPTURE                          VAL R1
+       49 CAPTURE                          VAL R3
+       50 CAPTURE                          VAL R4
+       51 RETURN                           R6 1

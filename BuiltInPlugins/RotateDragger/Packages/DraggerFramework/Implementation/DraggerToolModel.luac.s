@@ -1210,170 +1210,175 @@ MAIN:
       145 GETTABLEKS                       R20 R15 K41 ["PendingDraggingParts"]
       147 CALL                             R19 1 1
       148 SETTABLE                         R19 R17 R18
-      149 GETTABLEKS                       R18 R14 K42 ["PendingSelectNext"]
+      149 GETTABLEKS                       R18 R14 K42 ["PendingDraggingHandle"]
       151 GETIMPORT                        R19 K8 [require]
-      153 GETTABLEKS                       R20 R15 K42 ["PendingSelectNext"]
+      153 GETTABLEKS                       R20 R15 K42 ["PendingDraggingHandle"]
       155 CALL                             R19 1 1
       156 SETTABLE                         R19 R17 R18
-      157 GETTABLEKS                       R18 R14 K43 ["DraggingHandle"]
+      157 GETTABLEKS                       R18 R14 K43 ["PendingSelectNext"]
       159 GETIMPORT                        R19 K8 [require]
-      161 GETTABLEKS                       R20 R15 K43 ["DraggingHandle"]
+      161 GETTABLEKS                       R20 R15 K43 ["PendingSelectNext"]
       163 CALL                             R19 1 1
       164 SETTABLE                         R19 R17 R18
-      165 GETTABLEKS                       R18 R14 K44 ["DraggingParts"]
+      165 GETTABLEKS                       R18 R14 K44 ["DraggingHandle"]
       167 GETIMPORT                        R19 K8 [require]
-      169 GETTABLEKS                       R20 R15 K44 ["DraggingParts"]
+      169 GETTABLEKS                       R20 R15 K44 ["DraggingHandle"]
       171 CALL                             R19 1 1
       172 SETTABLE                         R19 R17 R18
-      173 GETTABLEKS                       R18 R14 K45 ["DragSelecting"]
+      173 GETTABLEKS                       R18 R14 K45 ["DraggingParts"]
       175 GETIMPORT                        R19 K8 [require]
-      177 GETTABLEKS                       R20 R15 K45 ["DragSelecting"]
+      177 GETTABLEKS                       R20 R15 K45 ["DraggingParts"]
       179 CALL                             R19 1 1
       180 SETTABLE                         R19 R17 R18
-      181 CALL                             R16 1 1
-      182 DUPTABLE                         R17 K53 [{"AllowDragSelect", "AllowFreeformDrag", "ShowLocalSpaceIndicator", "WasAutoSelected", "HandlesList", "ShowPivotIndicator", "ShowDragSelect"}]
-      183 LOADB                            R18 1
-      184 SETTABLEKS                       R18 R17 K46 ["AllowDragSelect"]
-      186 LOADB                            R18 1
-      187 SETTABLEKS                       R18 R17 K47 ["AllowFreeformDrag"]
-      189 LOADB                            R18 0
-      190 SETTABLEKS                       R18 R17 K48 ["ShowLocalSpaceIndicator"]
-      192 LOADB                            R18 0
-      193 SETTABLEKS                       R18 R17 K49 ["WasAutoSelected"]
-      195 NEWTABLE                         R18 0 0
-      197 SETTABLEKS                       R18 R17 K50 ["HandlesList"]
-      199 LOADB                            R18 0
-      200 SETTABLEKS                       R18 R17 K51 ["ShowPivotIndicator"]
-      202 LOADB                            R18 1
-      203 SETTABLEKS                       R18 R17 K52 ["ShowDragSelect"]
-      205 DUPTABLE                         R18 K55 [{"AnalyticsName"}]
-      206 LOADB                            R19 1
-      207 SETTABLEKS                       R19 R18 K54 ["AnalyticsName"]
-      209 DUPCLOSURE                       R19 K56 [PROTO_0]
-      210 CAPTURE                          VAL R17
-      211 CAPTURE                          VAL R18
-      212 CAPTURE                          VAL R10
-      213 CAPTURE                          VAL R4
-      214 CAPTURE                          VAL R13
-      215 SETTABLEKS                       R19 R13 K57 ["new"]
-      217 DUPCLOSURE                       R19 K58 [PROTO_1]
-      218 SETTABLEKS                       R19 R13 K59 ["setMouseCursor"]
-      220 DUPCLOSURE                       R19 K60 [PROTO_2]
-      221 CAPTURE                          VAL R16
-      222 SETTABLEKS                       R19 R13 K61 ["transitionToState"]
-      224 DUPCLOSURE                       R19 K62 [PROTO_3]
-      225 CAPTURE                          VAL R3
-      226 SETTABLEKS                       R19 R13 K63 ["render"]
-      228 DUPCLOSURE                       R19 K64 [PROTO_4]
-      229 CAPTURE                          VAL R14
-      230 SETTABLEKS                       R19 R13 K65 ["update"]
-      232 DUPCLOSURE                       R19 K66 [PROTO_5]
-      233 SETTABLEKS                       R19 R13 K67 ["getSelectionWrapper"]
-      235 DUPCLOSURE                       R19 K68 [PROTO_6]
-      236 SETTABLEKS                       R19 R13 K69 ["getAnalyticsName"]
-      238 DUPCLOSURE                       R19 K70 [PROTO_7]
-      239 SETTABLEKS                       R19 R13 K71 ["wasAutoSelected"]
-      241 DUPCLOSURE                       R19 K72 [PROTO_8]
-      242 SETTABLEKS                       R19 R13 K73 ["getSchema"]
-      244 DUPCLOSURE                       R19 K74 [PROTO_9]
-      245 CAPTURE                          VAL R10
-      246 SETTABLEKS                       R19 R13 K75 ["getHandlesList"]
-      248 DUPCLOSURE                       R19 K76 [PROTO_10]
-      249 SETTABLEKS                       R19 R13 K77 ["doesAllowDragSelect"]
-      251 DUPCLOSURE                       R19 K78 [PROTO_11]
-      252 SETTABLEKS                       R19 R13 K79 ["doesAllowFreeformDrag"]
-      254 DUPCLOSURE                       R19 K80 [PROTO_12]
-      255 SETTABLEKS                       R19 R13 K81 ["shouldShowDragSelect"]
-      257 DUPCLOSURE                       R19 K82 [PROTO_13]
-      258 SETTABLEKS                       R19 R13 K83 ["shouldShowLocalSpaceIndicator"]
-      260 DUPCLOSURE                       R19 K84 [PROTO_14]
-      261 SETTABLEKS                       R19 R13 K85 ["shouldShowSelectionDot"]
-      263 DUPCLOSURE                       R19 K86 [PROTO_15]
-      264 SETTABLEKS                       R19 R13 K87 ["shouldUseCollisionTransparency"]
-      266 DUPCLOSURE                       R19 K88 [PROTO_16]
-      267 SETTABLEKS                       R19 R13 K89 ["shouldAlignDraggedObjects"]
-      269 DUPCLOSURE                       R19 K90 [PROTO_17]
-      270 CAPTURE                          VAL R6
-      271 SETTABLEKS                       R19 R13 K91 ["selectNextSelectables"]
-      273 DUPCLOSURE                       R19 K92 [PROTO_18]
-      274 CAPTURE                          VAL R7
-      275 SETTABLEKS                       R19 R13 K93 ["classifySelectionPivot"]
-      277 DUPCLOSURE                       R19 K94 [PROTO_21]
-      278 CAPTURE                          VAL R14
-      279 CAPTURE                          VAL R16
-      280 CAPTURE                          VAL R5
-      281 CAPTURE                          VAL R10
-      282 SETTABLEKS                       R19 R13 K95 ["_processSelected"]
-      284 DUPCLOSURE                       R19 K96 [PROTO_22]
-      285 CAPTURE                          VAL R11
-      286 SETTABLEKS                       R19 R13 K97 ["_processDeselected"]
-      288 DUPCLOSURE                       R19 K98 [PROTO_23]
-      289 SETTABLEKS                       R19 R13 K99 ["isSelected"]
-      291 MOVE                             R19 R10
-      292 CALL                             R19 0 1
-      293 JUMPIFNOT                        R19 ; [+3]
-      294 DUPCLOSURE                       R19 K100 [PROTO_24]
-      295 SETTABLEKS                       R19 R13 K101 ["_updateEnabledHandlesList"]
-      297 DUPCLOSURE                       R19 K102 [PROTO_25]
-      298 CAPTURE                          VAL R10
-      299 CAPTURE                          VAL R11
-      300 SETTABLEKS                       R19 R13 K103 ["_processSelectionChanged"]
-      302 DUPCLOSURE                       R19 K104 [PROTO_26]
-      303 SETTABLEKS                       R19 R13 K105 ["_processKeyDown"]
-      305 DUPCLOSURE                       R19 K106 [PROTO_27]
-      306 SETTABLEKS                       R19 R13 K107 ["_processKeyUp"]
-      308 DUPCLOSURE                       R19 K108 [PROTO_28]
-      309 SETTABLEKS                       R19 R13 K109 ["_processMouseDown"]
-      311 DUPCLOSURE                       R19 K110 [PROTO_29]
-      312 SETTABLEKS                       R19 R13 K111 ["_processMouseUp"]
-      314 DUPCLOSURE                       R19 K112 [PROTO_30]
-      315 SETTABLEKS                       R19 R13 K113 ["_processViewChanged"]
-      317 DUPCLOSURE                       R19 K114 [PROTO_31]
-      318 CAPTURE                          VAL R10
-      319 SETTABLEKS                       R19 R13 K115 ["_updateHandles"]
-      321 DUPCLOSURE                       R19 K116 [PROTO_32]
-      322 SETTABLEKS                       R19 R13 K117 ["_updateSelectionInfo"]
-      324 DUPCLOSURE                       R19 K118 [PROTO_33]
-      325 CAPTURE                          VAL R14
-      326 SETTABLEKS                       R19 R13 K119 ["_updatePivotIndicatorVisibility"]
-      328 DUPCLOSURE                       R19 K120 [PROTO_34]
-      329 CAPTURE                          VAL R12
-      330 CAPTURE                          VAL R11
-      331 CAPTURE                          VAL R14
-      332 SETTABLEKS                       R19 R13 K121 ["_processToolboxInitiatedFreeformSelectionDrag"]
-      334 DUPCLOSURE                       R19 K122 [PROTO_36]
-      335 CAPTURE                          VAL R0
-      336 CAPTURE                          VAL R14
-      337 SETTABLEKS                       R19 R13 K123 ["_processToolboxInitiatedFaceDrag"]
-      339 DUPCLOSURE                       R19 K124 [PROTO_37]
-      340 SETTABLEKS                       R19 R13 K125 ["_processMouseEnter"]
-      342 DUPCLOSURE                       R19 K126 [PROTO_38]
-      343 SETTABLEKS                       R19 R13 K127 ["_processMouseLeave"]
-      345 DUPCLOSURE                       R19 K128 [PROTO_39]
-      346 SETTABLEKS                       R19 R13 K129 ["_scheduleRender"]
-      348 DUPCLOSURE                       R19 K130 [PROTO_40]
-      349 SETTABLEKS                       R19 R13 K131 ["_isSummoned"]
-      351 DUPCLOSURE                       R19 K132 [PROTO_41]
-      352 SETTABLEKS                       R19 R13 K133 ["_beginSummon"]
-      354 DUPCLOSURE                       R19 K134 [PROTO_42]
-      355 SETTABLEKS                       R19 R13 K135 ["_endSummon"]
-      357 DUPCLOSURE                       R19 K136 [PROTO_43]
-      358 SETTABLEKS                       R19 R13 K137 ["shouldShowPivotIndicator"]
-      360 DUPCLOSURE                       R19 K138 [PROTO_44]
-      361 SETTABLEKS                       R19 R13 K139 ["_analyticsSessionBegin"]
-      363 DUPCLOSURE                       R19 K140 [PROTO_45]
-      364 SETTABLEKS                       R19 R13 K141 ["_analyticsSendSession"]
-      366 DUPCLOSURE                       R19 K142 [PROTO_46]
-      367 SETTABLEKS                       R19 R13 K143 ["_analyticsSendClick"]
-      369 DUPCLOSURE                       R19 K144 [PROTO_47]
-      370 SETTABLEKS                       R19 R13 K145 ["_analyticsSendSelectionCycle"]
-      372 DUPCLOSURE                       R19 K146 [PROTO_48]
-      373 SETTABLEKS                       R19 R13 K147 ["_analyticsRecordFreeformDragBegin"]
-      375 DUPCLOSURE                       R19 K148 [PROTO_49]
-      376 CAPTURE                          VAL R9
-      377 SETTABLEKS                       R19 R13 K149 ["_analyticsSendHandleDragged"]
-      379 DUPCLOSURE                       R19 K150 [PROTO_50]
-      380 SETTABLEKS                       R19 R13 K151 ["_analyticsSendBoxSelect"]
-      382 DUPCLOSURE                       R19 K152 [PROTO_51]
-      383 SETTABLEKS                       R19 R13 K153 ["_analyticsSendFaceInstanceSelected"]
-      385 RETURN                           R13 1
+      181 GETTABLEKS                       R18 R14 K46 ["DragSelecting"]
+      183 GETIMPORT                        R19 K8 [require]
+      185 GETTABLEKS                       R20 R15 K46 ["DragSelecting"]
+      187 CALL                             R19 1 1
+      188 SETTABLE                         R19 R17 R18
+      189 CALL                             R16 1 1
+      190 DUPTABLE                         R17 K54 [{"AllowDragSelect", "AllowFreeformDrag", "ShowLocalSpaceIndicator", "WasAutoSelected", "HandlesList", "ShowPivotIndicator", "ShowDragSelect"}]
+      191 LOADB                            R18 1
+      192 SETTABLEKS                       R18 R17 K47 ["AllowDragSelect"]
+      194 LOADB                            R18 1
+      195 SETTABLEKS                       R18 R17 K48 ["AllowFreeformDrag"]
+      197 LOADB                            R18 0
+      198 SETTABLEKS                       R18 R17 K49 ["ShowLocalSpaceIndicator"]
+      200 LOADB                            R18 0
+      201 SETTABLEKS                       R18 R17 K50 ["WasAutoSelected"]
+      203 NEWTABLE                         R18 0 0
+      205 SETTABLEKS                       R18 R17 K51 ["HandlesList"]
+      207 LOADB                            R18 0
+      208 SETTABLEKS                       R18 R17 K52 ["ShowPivotIndicator"]
+      210 LOADB                            R18 1
+      211 SETTABLEKS                       R18 R17 K53 ["ShowDragSelect"]
+      213 DUPTABLE                         R18 K56 [{"AnalyticsName"}]
+      214 LOADB                            R19 1
+      215 SETTABLEKS                       R19 R18 K55 ["AnalyticsName"]
+      217 DUPCLOSURE                       R19 K57 [PROTO_0]
+      218 CAPTURE                          VAL R17
+      219 CAPTURE                          VAL R18
+      220 CAPTURE                          VAL R10
+      221 CAPTURE                          VAL R4
+      222 CAPTURE                          VAL R13
+      223 SETTABLEKS                       R19 R13 K58 ["new"]
+      225 DUPCLOSURE                       R19 K59 [PROTO_1]
+      226 SETTABLEKS                       R19 R13 K60 ["setMouseCursor"]
+      228 DUPCLOSURE                       R19 K61 [PROTO_2]
+      229 CAPTURE                          VAL R16
+      230 SETTABLEKS                       R19 R13 K62 ["transitionToState"]
+      232 DUPCLOSURE                       R19 K63 [PROTO_3]
+      233 CAPTURE                          VAL R3
+      234 SETTABLEKS                       R19 R13 K64 ["render"]
+      236 DUPCLOSURE                       R19 K65 [PROTO_4]
+      237 CAPTURE                          VAL R14
+      238 SETTABLEKS                       R19 R13 K66 ["update"]
+      240 DUPCLOSURE                       R19 K67 [PROTO_5]
+      241 SETTABLEKS                       R19 R13 K68 ["getSelectionWrapper"]
+      243 DUPCLOSURE                       R19 K69 [PROTO_6]
+      244 SETTABLEKS                       R19 R13 K70 ["getAnalyticsName"]
+      246 DUPCLOSURE                       R19 K71 [PROTO_7]
+      247 SETTABLEKS                       R19 R13 K72 ["wasAutoSelected"]
+      249 DUPCLOSURE                       R19 K73 [PROTO_8]
+      250 SETTABLEKS                       R19 R13 K74 ["getSchema"]
+      252 DUPCLOSURE                       R19 K75 [PROTO_9]
+      253 CAPTURE                          VAL R10
+      254 SETTABLEKS                       R19 R13 K76 ["getHandlesList"]
+      256 DUPCLOSURE                       R19 K77 [PROTO_10]
+      257 SETTABLEKS                       R19 R13 K78 ["doesAllowDragSelect"]
+      259 DUPCLOSURE                       R19 K79 [PROTO_11]
+      260 SETTABLEKS                       R19 R13 K80 ["doesAllowFreeformDrag"]
+      262 DUPCLOSURE                       R19 K81 [PROTO_12]
+      263 SETTABLEKS                       R19 R13 K82 ["shouldShowDragSelect"]
+      265 DUPCLOSURE                       R19 K83 [PROTO_13]
+      266 SETTABLEKS                       R19 R13 K84 ["shouldShowLocalSpaceIndicator"]
+      268 DUPCLOSURE                       R19 K85 [PROTO_14]
+      269 SETTABLEKS                       R19 R13 K86 ["shouldShowSelectionDot"]
+      271 DUPCLOSURE                       R19 K87 [PROTO_15]
+      272 SETTABLEKS                       R19 R13 K88 ["shouldUseCollisionTransparency"]
+      274 DUPCLOSURE                       R19 K89 [PROTO_16]
+      275 SETTABLEKS                       R19 R13 K90 ["shouldAlignDraggedObjects"]
+      277 DUPCLOSURE                       R19 K91 [PROTO_17]
+      278 CAPTURE                          VAL R6
+      279 SETTABLEKS                       R19 R13 K92 ["selectNextSelectables"]
+      281 DUPCLOSURE                       R19 K93 [PROTO_18]
+      282 CAPTURE                          VAL R7
+      283 SETTABLEKS                       R19 R13 K94 ["classifySelectionPivot"]
+      285 DUPCLOSURE                       R19 K95 [PROTO_21]
+      286 CAPTURE                          VAL R14
+      287 CAPTURE                          VAL R16
+      288 CAPTURE                          VAL R5
+      289 CAPTURE                          VAL R10
+      290 SETTABLEKS                       R19 R13 K96 ["_processSelected"]
+      292 DUPCLOSURE                       R19 K97 [PROTO_22]
+      293 CAPTURE                          VAL R11
+      294 SETTABLEKS                       R19 R13 K98 ["_processDeselected"]
+      296 DUPCLOSURE                       R19 K99 [PROTO_23]
+      297 SETTABLEKS                       R19 R13 K100 ["isSelected"]
+      299 MOVE                             R19 R10
+      300 CALL                             R19 0 1
+      301 JUMPIFNOT                        R19 ; [+3]
+      302 DUPCLOSURE                       R19 K101 [PROTO_24]
+      303 SETTABLEKS                       R19 R13 K102 ["_updateEnabledHandlesList"]
+      305 DUPCLOSURE                       R19 K103 [PROTO_25]
+      306 CAPTURE                          VAL R10
+      307 CAPTURE                          VAL R11
+      308 SETTABLEKS                       R19 R13 K104 ["_processSelectionChanged"]
+      310 DUPCLOSURE                       R19 K105 [PROTO_26]
+      311 SETTABLEKS                       R19 R13 K106 ["_processKeyDown"]
+      313 DUPCLOSURE                       R19 K107 [PROTO_27]
+      314 SETTABLEKS                       R19 R13 K108 ["_processKeyUp"]
+      316 DUPCLOSURE                       R19 K109 [PROTO_28]
+      317 SETTABLEKS                       R19 R13 K110 ["_processMouseDown"]
+      319 DUPCLOSURE                       R19 K111 [PROTO_29]
+      320 SETTABLEKS                       R19 R13 K112 ["_processMouseUp"]
+      322 DUPCLOSURE                       R19 K113 [PROTO_30]
+      323 SETTABLEKS                       R19 R13 K114 ["_processViewChanged"]
+      325 DUPCLOSURE                       R19 K115 [PROTO_31]
+      326 CAPTURE                          VAL R10
+      327 SETTABLEKS                       R19 R13 K116 ["_updateHandles"]
+      329 DUPCLOSURE                       R19 K117 [PROTO_32]
+      330 SETTABLEKS                       R19 R13 K118 ["_updateSelectionInfo"]
+      332 DUPCLOSURE                       R19 K119 [PROTO_33]
+      333 CAPTURE                          VAL R14
+      334 SETTABLEKS                       R19 R13 K120 ["_updatePivotIndicatorVisibility"]
+      336 DUPCLOSURE                       R19 K121 [PROTO_34]
+      337 CAPTURE                          VAL R12
+      338 CAPTURE                          VAL R11
+      339 CAPTURE                          VAL R14
+      340 SETTABLEKS                       R19 R13 K122 ["_processToolboxInitiatedFreeformSelectionDrag"]
+      342 DUPCLOSURE                       R19 K123 [PROTO_36]
+      343 CAPTURE                          VAL R0
+      344 CAPTURE                          VAL R14
+      345 SETTABLEKS                       R19 R13 K124 ["_processToolboxInitiatedFaceDrag"]
+      347 DUPCLOSURE                       R19 K125 [PROTO_37]
+      348 SETTABLEKS                       R19 R13 K126 ["_processMouseEnter"]
+      350 DUPCLOSURE                       R19 K127 [PROTO_38]
+      351 SETTABLEKS                       R19 R13 K128 ["_processMouseLeave"]
+      353 DUPCLOSURE                       R19 K129 [PROTO_39]
+      354 SETTABLEKS                       R19 R13 K130 ["_scheduleRender"]
+      356 DUPCLOSURE                       R19 K131 [PROTO_40]
+      357 SETTABLEKS                       R19 R13 K132 ["_isSummoned"]
+      359 DUPCLOSURE                       R19 K133 [PROTO_41]
+      360 SETTABLEKS                       R19 R13 K134 ["_beginSummon"]
+      362 DUPCLOSURE                       R19 K135 [PROTO_42]
+      363 SETTABLEKS                       R19 R13 K136 ["_endSummon"]
+      365 DUPCLOSURE                       R19 K137 [PROTO_43]
+      366 SETTABLEKS                       R19 R13 K138 ["shouldShowPivotIndicator"]
+      368 DUPCLOSURE                       R19 K139 [PROTO_44]
+      369 SETTABLEKS                       R19 R13 K140 ["_analyticsSessionBegin"]
+      371 DUPCLOSURE                       R19 K141 [PROTO_45]
+      372 SETTABLEKS                       R19 R13 K142 ["_analyticsSendSession"]
+      374 DUPCLOSURE                       R19 K143 [PROTO_46]
+      375 SETTABLEKS                       R19 R13 K144 ["_analyticsSendClick"]
+      377 DUPCLOSURE                       R19 K145 [PROTO_47]
+      378 SETTABLEKS                       R19 R13 K146 ["_analyticsSendSelectionCycle"]
+      380 DUPCLOSURE                       R19 K147 [PROTO_48]
+      381 SETTABLEKS                       R19 R13 K148 ["_analyticsRecordFreeformDragBegin"]
+      383 DUPCLOSURE                       R19 K149 [PROTO_49]
+      384 CAPTURE                          VAL R9
+      385 SETTABLEKS                       R19 R13 K150 ["_analyticsSendHandleDragged"]
+      387 DUPCLOSURE                       R19 K151 [PROTO_50]
+      388 SETTABLEKS                       R19 R13 K152 ["_analyticsSendBoxSelect"]
+      390 DUPCLOSURE                       R19 K153 [PROTO_51]
+      391 SETTABLEKS                       R19 R13 K154 ["_analyticsSendFaceInstanceSelected"]
+      393 RETURN                           R13 1

@@ -5,6 +5,9 @@ local Players = game:GetService("Players")
 local CrossExperienceVoice = require(CorePackages.Workspace.Packages.CrossExperienceVoice)
 local GetFFlagEnableCrossExpVoice = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExpVoice
 
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
+
 local ChromeService = require(Chrome.Service)
 local PartyMicIcon = require(Chrome.Integrations.Party.PartyMicIcon)
 local Constants = require(Chrome.Integrations.Party.Constants)
@@ -33,6 +36,7 @@ if GetFFlagEnableCrossExpVoice() then
 	integration = ChromeService:register({
 		id = Constants.TOGGLE_MIC_INTEGRATION_ID,
 		label = "CoreScripts.TopBar.ToggleMic",
+		sideSheetPlacement = SideSheetPlacement.Unibar,
 		activated = function()
 			local userId = Players and Players.LocalPlayer and Players.LocalPlayer.UserId or -1
 			if userId ~= -1 and isVoiceConnected and isLocalPlayerMuted ~= nil then

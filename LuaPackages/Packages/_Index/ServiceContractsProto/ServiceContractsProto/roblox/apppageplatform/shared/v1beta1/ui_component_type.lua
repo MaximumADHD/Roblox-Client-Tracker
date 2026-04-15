@@ -57,6 +57,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_MEDIA_GALLERY"
 	| "UI_COMPONENT_TYPE_CONTENT_ROW"
 	| "UI_COMPONENT_TYPE_LINK_TEXT"
+	| "UI_COMPONENT_TYPE_COACHMARK"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -64,7 +65,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_CATALOG_ITEM_GROUP"
 	| "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL"
 	| "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU"
-	| "UI_COMPONENT_TYPE_GAME_FILTER_CAROUSEL"
+	| "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL"
 	| "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 	| number -- Unknown
 
@@ -158,6 +159,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_CONTENT_ROW"
 		elseif value == 234 then
 			return "UI_COMPONENT_TYPE_LINK_TEXT"
+		elseif value == 235 then
+			return "UI_COMPONENT_TYPE_COACHMARK"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -173,7 +176,7 @@ messages.UiComponentType = {
 		elseif value == 603 then
 			return "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU"
 		elseif value == 700 then
-			return "UI_COMPONENT_TYPE_GAME_FILTER_CAROUSEL"
+			return "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL"
 		elseif value == 9999 then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else
@@ -270,6 +273,8 @@ messages.UiComponentType = {
 			return 233
 		elseif self == "UI_COMPONENT_TYPE_LINK_TEXT" then
 			return 234
+		elseif self == "UI_COMPONENT_TYPE_COACHMARK" then
+			return 235
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -284,7 +289,7 @@ messages.UiComponentType = {
 			return 602
 		elseif self == "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU" then
 			return 603
-		elseif self == "UI_COMPONENT_TYPE_GAME_FILTER_CAROUSEL" then
+		elseif self == "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL" then
 			return 700
 		elseif self == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return 9999
@@ -382,6 +387,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_CONTENT_ROW"
 		elseif name == "UI_COMPONENT_TYPE_LINK_TEXT" then
 			return "UI_COMPONENT_TYPE_LINK_TEXT"
+		elseif name == "UI_COMPONENT_TYPE_COACHMARK" then
+			return "UI_COMPONENT_TYPE_COACHMARK"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -396,8 +403,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL"
 		elseif name == "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU" then
 			return "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU"
-		elseif name == "UI_COMPONENT_TYPE_GAME_FILTER_CAROUSEL" then
-			return "UI_COMPONENT_TYPE_GAME_FILTER_CAROUSEL"
+		elseif name == "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL" then
+			return "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL"
 		elseif name == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else

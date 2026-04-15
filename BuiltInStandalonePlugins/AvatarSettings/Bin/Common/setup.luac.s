@@ -129,40 +129,30 @@ PROTO_9:
        56 GETUPVAL                         R4 4
        57 NAMECALL                         R4 R4 K10 ["Disconnect"]
        59 CALL                             R4 1 0
-       60 GETUPVAL                         R4 5
-       61 CALL                             R4 0 1
-       62 JUMPIF                           R4 ; [+4]
-       63 GETUPVAL                         R4 6
-       64 GETUPVAL                         R5 3
-       65 MOVE                             R6 R0
-       66 CALL                             R4 2 0
-       67 GETTABLEKS                       R4 R2 K11 ["CurrentDataModelType"]
-       69 GETIMPORT                        R5 K15 [Enum.StudioDataModelType.Edit]
-       71 JUMPIFEQ                         R4 R5 ; [+2]
-       73 LOADB                            R3 0 +1
-       74 LOADB                            R3 1
-       75 GETTABLEKS                       R4 R0 K16 ["mainButton"]
-       77 SETTABLEKS                       R3 R4 K17 ["Enabled"]
-       79 GETUPVAL                         R4 3
-       80 LOADK                            R6 K3 ["DmChanged"]
-       81 GETTABLEKS                       R7 R2 K11 ["CurrentDataModelType"]
-       83 NAMECALL                         R4 R4 K18 ["Invoke"]
-       85 CALL                             R4 3 0
-       86 GETTABLEKS                       R4 R0 K19 ["pluginLoader"]
-       88 NAMECALL                         R4 R4 K20 ["waitForUserInteraction"]
-       90 CALL                             R4 1 1
-       91 JUMPIF                           R4 ; [+2]
-       92 CLOSEUPVALS                      R2
-       93 RETURN                           R0 0
-       94 GETUPVAL                         R5 5
-       95 CALL                             R5 0 1
-       96 JUMPIFNOT                        R5 ; [+4]
-       97 GETUPVAL                         R5 6
-       98 GETUPVAL                         R6 3
-       99 MOVE                             R7 R0
-      100 CALL                             R5 2 0
-      101 CLOSEUPVALS                      R2
-      102 RETURN                           R0 0
+       60 GETTABLEKS                       R4 R2 K11 ["CurrentDataModelType"]
+       62 GETIMPORT                        R5 K15 [Enum.StudioDataModelType.Edit]
+       64 JUMPIFEQ                         R4 R5 ; [+2]
+       66 LOADB                            R3 0 +1
+       67 LOADB                            R3 1
+       68 GETTABLEKS                       R4 R0 K16 ["mainButton"]
+       70 SETTABLEKS                       R3 R4 K17 ["Enabled"]
+       72 GETUPVAL                         R4 3
+       73 LOADK                            R6 K3 ["DmChanged"]
+       74 GETTABLEKS                       R7 R2 K11 ["CurrentDataModelType"]
+       76 NAMECALL                         R4 R4 K18 ["Invoke"]
+       78 CALL                             R4 3 0
+       79 GETTABLEKS                       R4 R0 K19 ["pluginLoader"]
+       81 NAMECALL                         R4 R4 K20 ["waitForUserInteraction"]
+       83 CALL                             R4 1 1
+       84 JUMPIF                           R4 ; [+2]
+       85 CLOSEUPVALS                      R2
+       86 RETURN                           R0 0
+       87 GETUPVAL                         R5 5
+       88 GETUPVAL                         R6 3
+       89 MOVE                             R7 R0
+       90 CALL                             R5 2 0
+       91 CLOSEUPVALS                      R2
+       92 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R0 0
@@ -224,26 +214,25 @@ PROTO_11:
        72 CAPTURE                          VAL R3
        73 CAPTURE                          VAL R0
        74 CAPTURE                          REF R4
-       75 CAPTURE                          UPVAL U4
-       76 CAPTURE                          VAL R1
-       77 LOADK                            R9 K36 ["PlaceManager"]
-       78 NAMECALL                         R7 R0 K37 ["GetPluginComponent"]
-       80 CALL                             R7 2 1
-       81 GETTABLEKS                       R8 R7 K38 ["PlaceDocPanelShown"]
-       83 MOVE                             R10 R6
-       84 NAMECALL                         R8 R8 K39 ["Connect"]
-       86 CALL                             R8 2 1
-       87 MOVE                             R4 R8
-       88 GETIMPORT                        R8 K41 [pcall]
-       90 NEWCLOSURE                       R9 P5
-       91 CAPTURE                          VAL R7
-       92 CALL                             R8 1 2
-       93 JUMPIFNOT                        R8 ; [+3]
-       94 JUMPIFNOT                        R9 ; [+2]
-       95 MOVE                             R10 R6
-       96 CALL                             R10 0 0
-       97 CLOSEUPVALS                      R4
-       98 RETURN                           R0 0
+       75 CAPTURE                          VAL R1
+       76 LOADK                            R9 K36 ["PlaceManager"]
+       77 NAMECALL                         R7 R0 K37 ["GetPluginComponent"]
+       79 CALL                             R7 2 1
+       80 GETTABLEKS                       R8 R7 K38 ["PlaceDocPanelShown"]
+       82 MOVE                             R10 R6
+       83 NAMECALL                         R8 R8 K39 ["Connect"]
+       85 CALL                             R8 2 1
+       86 MOVE                             R4 R8
+       87 GETIMPORT                        R8 K41 [pcall]
+       89 NEWCLOSURE                       R9 P5
+       90 CAPTURE                          VAL R7
+       91 CALL                             R8 1 2
+       92 JUMPIFNOT                        R8 ; [+3]
+       93 JUMPIFNOT                        R9 ; [+2]
+       94 MOVE                             R10 R6
+       95 CALL                             R10 0 0
+       96 CLOSEUPVALS                      R4
+       97 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -264,15 +253,9 @@ MAIN:
        26 GETTABLEKS                       R6 R7 K10 ["Resources"]
        28 GETTABLEKS                       R5 R6 K11 ["Localization"]
        30 GETTABLEKS                       R4 R5 K13 ["LocalizedStrings"]
-       32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R8 R0 K9 ["Src"]
-       36 GETTABLEKS                       R7 R8 K14 ["Flags"]
-       38 GETTABLEKS                       R6 R7 K15 ["getFFlagAvatarSettingsFixMainOrdering"]
-       40 CALL                             R5 1 1
-       41 DUPCLOSURE                       R6 K16 [PROTO_11]
-       42 CAPTURE                          VAL R0
-       43 CAPTURE                          VAL R4
-       44 CAPTURE                          VAL R3
-       45 CAPTURE                          VAL R2
-       46 CAPTURE                          VAL R5
-       47 RETURN                           R6 1
+       32 DUPCLOSURE                       R5 K14 [PROTO_11]
+       33 CAPTURE                          VAL R0
+       34 CAPTURE                          VAL R4
+       35 CAPTURE                          VAL R3
+       36 CAPTURE                          VAL R2
+       37 RETURN                           R5 1

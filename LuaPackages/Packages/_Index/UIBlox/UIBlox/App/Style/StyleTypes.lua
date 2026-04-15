@@ -8,7 +8,10 @@ export type ThemeItem = {
 	Transparency: number,
 }
 
+export type BaseTokens = TokenTypes.BaseTokens
 export type Tokens = TokenTypes.Tokens
+export type FoundationTokens = TokenTypes.FoundationTokens
+export type RbxDesignFoundationsV2Tokens = TokenTypes.RbxDesignFoundationsV2Tokens
 export type ComponentTokens = TokenTypes.ComponentTokens
 export type GlobalTokens = TokenTypes.GlobalTokens
 export type SemanticTokens = TokenTypes.SemanticTokens

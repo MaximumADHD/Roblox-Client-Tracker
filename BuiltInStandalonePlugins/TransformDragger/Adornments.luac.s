@@ -725,10 +725,11 @@ PROTO_14:
        24 RETURN                           R6 1
 
 PROTO_15:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R1 1
-        2 CALL                             R0 1 0
-        3 RETURN                           R0 0
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["NextGenDraggersEnabledFeature"]
+        3 NAMECALL                         R0 R0 K3 ["GetEngineFeature"]
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
 
 PROTO_16:
         0 GETUPVAL                         R0 0
@@ -750,7 +751,7 @@ PROTO_18:
 
 PROTO_19:
         0 GETUPVAL                         R0 0
-        1 LOADN                            R1 1
+        1 GETUPVAL                         R1 1
         2 CALL                             R0 1 0
         3 RETURN                           R0 0
 
@@ -762,7 +763,7 @@ PROTO_20:
 
 PROTO_21:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R1 1
+        1 LOADN                            R1 1
         2 CALL                             R0 1 0
         3 RETURN                           R0 0
 
@@ -773,6 +774,12 @@ PROTO_22:
         3 RETURN                           R0 0
 
 PROTO_23:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 CALL                             R0 1 0
+        3 RETURN                           R0 0
+
+PROTO_24:
         0 JUMPIFNOTEQKNIL                  R7 ; [+5]
         2 GETIMPORT                        R9 K2 [CFrame.new]
         4 CALL                             R9 0 1
@@ -953,12 +960,12 @@ PROTO_23:
       252 SETTABLEKS                       R14 R13 K10 ["AlwaysOnTop"]
       254 MOVE                             R10 R13
       255 GETTABLEKS                       R11 R10 K14 ["MouseEnter"]
-      257 DUPCLOSURE                       R13 K25 [PROTO_19]
+      257 DUPCLOSURE                       R13 K25 [PROTO_20]
       258 CAPTURE                          UPVAL U2
       259 NAMECALL                         R11 R11 K15 ["connect"]
       261 CALL                             R11 2 0
       262 GETTABLEKS                       R11 R10 K16 ["MouseLeave"]
-      264 DUPCLOSURE                       R13 K26 [PROTO_20]
+      264 DUPCLOSURE                       R13 K26 [PROTO_21]
       265 CAPTURE                          UPVAL U3
       266 NAMECALL                         R11 R11 K15 ["connect"]
       268 CALL                             R11 2 0
@@ -1047,7 +1054,7 @@ PROTO_23:
       384 SETTABLE                         R12 R11 R1
       385 RETURN                           R0 0
 
-PROTO_24:
+PROTO_25:
         0 GETUPVAL                         R0 0
         1 LOADB                            R1 1
         2 SETTABLEN                        R1 R0 14
@@ -1083,13 +1090,13 @@ PROTO_24:
        40 SETUPVAL                         R0 4
        41 RETURN                           R0 0
 
-PROTO_25:
+PROTO_26:
         0 GETUPVAL                         R0 0
         1 LOADN                            R1 14
         2 CALL                             R0 1 0
         3 RETURN                           R0 0
 
-PROTO_26:
+PROTO_27:
         0 GETTABLEKS                       R1 R0 K0 ["UserInputType"]
         2 GETIMPORT                        R2 K3 [Enum.UserInputType.MouseButton1]
         4 JUMPIFNOTEQ                      R1 R2 ; [+3]
@@ -1097,7 +1104,7 @@ PROTO_26:
         7 SETUPVAL                         R1 0
         8 RETURN                           R0 0
 
-PROTO_27:
+PROTO_28:
         0 GETTABLEKS                       R1 R0 K0 ["UserInputType"]
         2 GETIMPORT                        R2 K3 [Enum.UserInputType.MouseButton1]
         4 JUMPIFNOTEQ                      R1 R2 ; [+11]
@@ -1112,7 +1119,7 @@ PROTO_27:
        15 SETUPVAL                         R1 1
        16 RETURN                           R0 0
 
-PROTO_28:
+PROTO_29:
         0 GETUPVAL                         R0 0
         1 LOADN                            R1 2
         2 LOADN                            R2 1
@@ -1392,7 +1399,7 @@ PROTO_28:
       351 NAMECALL                         R1 R1 K46 ["connect"]
       353 CALL                             R1 2 0
       354 GETTABLEKS                       R1 R0 K47 ["MouseLeave"]
-      356 DUPCLOSURE                       R3 K48 [PROTO_25]
+      356 DUPCLOSURE                       R3 K48 [PROTO_26]
       357 CAPTURE                          UPVAL U17
       358 NAMECALL                         R1 R1 K46 ["connect"]
       360 CALL                             R1 2 0
@@ -1864,7 +1871,7 @@ PROTO_28:
       949 SETUPVAL                         R2 35
       950 RETURN                           R0 0
 
-PROTO_29:
+PROTO_30:
         0 GETUPVAL                         R4 0
         1 GETTABLE                         R3 R4 R0
         2 GETTABLEN                        R2 R3 1
@@ -1881,7 +1888,7 @@ PROTO_29:
        15 SETTABLEKS                       R1 R2 K0 ["Visible"]
        17 RETURN                           R0 0
 
-PROTO_30:
+PROTO_31:
         0 JUMPIFNOT                        R1 ; [+11]
         1 GETIMPORT                        R2 K2 [UDim2.new]
         3 LOADN                            R3 0
@@ -1892,7 +1899,7 @@ PROTO_30:
        10 SETTABLEKS                       R2 R0 K5 ["Position"]
        12 RETURN                           R0 0
 
-PROTO_31:
+PROTO_32:
         0 JUMPIFNOT                        R2 ; [+11]
         1 GETIMPORT                        R3 K2 [UDim2.new]
         3 LOADN                            R4 0
@@ -1904,7 +1911,7 @@ PROTO_31:
        12 SETTABLEKS                       R1 R0 K6 ["Visible"]
        14 RETURN                           R0 0
 
-PROTO_32:
+PROTO_33:
         0 GETUPVAL                         R2 0
         1 GETTABLEN                        R1 R2 1
         2 SETTABLEKS                       R0 R1 K0 ["Visible"]
@@ -1922,7 +1929,7 @@ PROTO_32:
        18 SETTABLEKS                       R0 R1 K0 ["Visible"]
        20 RETURN                           R0 0
 
-PROTO_33:
+PROTO_34:
         0 GETUPVAL                         R2 0
         1 GETTABLEN                        R1 R2 4
         2 SETTABLEKS                       R0 R1 K0 ["Visible"]
@@ -1940,7 +1947,7 @@ PROTO_33:
        18 SETTABLEKS                       R0 R1 K0 ["Visible"]
        20 RETURN                           R0 0
 
-PROTO_34:
+PROTO_35:
         0 GETIMPORT                        R1 K1 [ipairs]
         2 GETUPVAL                         R2 0
         3 CALL                             R1 1 3
@@ -1949,7 +1956,7 @@ PROTO_34:
         7 FORGLOOP                         R1 2 [inext] ; [-3]
         9 RETURN                           R0 0
 
-PROTO_35:
+PROTO_36:
         0 GETUPVAL                         R2 0
         1 GETTABLEN                        R1 R2 1
         2 SETTABLEKS                       R0 R1 K0 ["Visible"]
@@ -1970,7 +1977,7 @@ PROTO_35:
        22 SETTABLEKS                       R0 R1 K0 ["Visible"]
        24 RETURN                           R0 0
 
-PROTO_36:
+PROTO_37:
         0 GETUPVAL                         R4 0
         1 GETTABLE                         R3 R4 R0
         2 GETTABLEN                        R2 R3 1
@@ -1987,7 +1994,7 @@ PROTO_36:
        15 SETTABLEKS                       R1 R2 K0 ["Adornee"]
        17 RETURN                           R0 0
 
-PROTO_37:
+PROTO_38:
         0 GETIMPORT                        R1 K1 [ipairs]
         2 GETUPVAL                         R2 0
         3 CALL                             R1 1 3
@@ -2019,7 +2026,7 @@ PROTO_37:
        35 FORNLOOP                         R1
        36 RETURN                           R0 0
 
-PROTO_38:
+PROTO_39:
         0 GETIMPORT                        R1 K1 [ipairs]
         2 GETUPVAL                         R2 0
         3 CALL                             R1 1 3
@@ -2028,7 +2035,7 @@ PROTO_38:
         7 FORGLOOP                         R1 2 [inext] ; [-3]
         9 RETURN                           R0 0
 
-PROTO_39:
+PROTO_40:
         0 GETUPVAL                         R3 0
         1 GETTABLEN                        R2 R3 1
         2 GETTABLEN                        R1 R2 1
@@ -2045,7 +2052,7 @@ PROTO_39:
        15 SETTABLEKS                       R0 R1 K0 ["Visible"]
        17 RETURN                           R0 0
 
-PROTO_40:
+PROTO_41:
         0 GETUPVAL                         R3 0
         1 GETTABLEN                        R2 R3 1
         2 GETTABLEN                        R1 R2 1
@@ -2062,7 +2069,7 @@ PROTO_40:
        15 SETTABLEKS                       R0 R1 K0 ["Adornee"]
        17 RETURN                           R0 0
 
-PROTO_41:
+PROTO_42:
         0 GETUPVAL                         R3 0
         1 GETTABLEN                        R2 R3 2
         2 GETTABLEN                        R1 R2 1
@@ -2191,7 +2198,7 @@ PROTO_41:
       151 SETTABLEKS                       R0 R1 K0 ["Visible"]
       153 RETURN                           R0 0
 
-PROTO_42:
+PROTO_43:
         0 GETUPVAL                         R3 0
         1 GETTABLEN                        R2 R3 2
         2 GETTABLEN                        R1 R2 1
@@ -2320,7 +2327,7 @@ PROTO_42:
       151 SETTABLEKS                       R0 R1 K0 ["Adornee"]
       153 RETURN                           R0 0
 
-PROTO_43:
+PROTO_44:
         0 GETUPVAL                         R3 0
         1 GETTABLEN                        R2 R3 11
         2 GETTABLEN                        R1 R2 1
@@ -2365,7 +2372,7 @@ PROTO_43:
        49 SETTABLEKS                       R0 R1 K0 ["Visible"]
        51 RETURN                           R0 0
 
-PROTO_44:
+PROTO_45:
         0 GETUPVAL                         R3 0
         1 GETTABLEN                        R2 R3 11
         2 GETTABLEN                        R1 R2 1
@@ -2410,7 +2417,7 @@ PROTO_44:
        49 SETTABLEKS                       R0 R1 K0 ["Adornee"]
        51 RETURN                           R0 0
 
-PROTO_45:
+PROTO_46:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["GetChildren"]
         3 CALL                             R0 1 1
@@ -2423,7 +2430,7 @@ PROTO_45:
        12 CALL                             R1 2 0
        13 RETURN                           R0 0
 
-PROTO_46:
+PROTO_47:
         0 JUMPIFNOT                        R4 ; [+16]
         1 NEWTABLE                         R5 0 5
         3 MOVE                             R6 R0
@@ -2439,7 +2446,7 @@ PROTO_46:
        16 CALL                             R6 2 0
        17 RETURN                           R0 0
 
-PROTO_47:
+PROTO_48:
         0 GETUPVAL                         R1 0
         1 LENGTH                           R0 R1
         2 GETUPVAL                         R1 1
@@ -2511,7 +2518,7 @@ PROTO_47:
        87 FORNLOOP                         R2
        88 RETURN                           R0 0
 
-PROTO_48:
+PROTO_49:
         0 SUB                              R5 R2 R1
         1 GETTABLEKS                       R4 R5 K1 ["magnitude"]
         3 ADDK                             R3 R4 K0 [1]
@@ -2558,7 +2565,7 @@ PROTO_48:
        58 SETTABLEKS                       R6 R5 K16 ["Visible"]
        60 RETURN                           R0 0
 
-PROTO_49:
+PROTO_50:
         0 GETIMPORT                        R3 K1 [game]
         2 GETTABLEKS                       R2 R3 K2 ["Workspace"]
         4 GETTABLEKS                       R1 R2 K3 ["CurrentCamera"]
@@ -2749,7 +2756,7 @@ PROTO_49:
       237 CALL                             R29 3 0
       238 RETURN                           R0 0
 
-PROTO_50:
+PROTO_51:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 2
         2 GETUPVAL                         R4 1
@@ -3279,7 +3286,7 @@ PROTO_50:
       689 CALL                             R16 1 0
       690 RETURN                           R0 0
 
-PROTO_51:
+PROTO_52:
         0 JUMPIFNOT                        R0 ; [+40]
         1 GETTABLEKS                       R1 R0 K0 ["Adornee"]
         3 JUMPIFNOT                        R1 ; [+37]
@@ -3314,7 +3321,7 @@ PROTO_51:
        43 CALL                             R1 0 -1
        44 RETURN                           R1 -1
 
-PROTO_52:
+PROTO_53:
         0 GETUPVAL                         R0 0
         1 JUMPIF                           R0 ; [+1]
         2 RETURN                           R0 0
@@ -4996,25 +5003,25 @@ PROTO_52:
      2105 CALL                             R11 0 0
      2106 RETURN                           R0 0
 
-PROTO_53:
+PROTO_54:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 GETTABLE                         R0 R1 R2
         3 RETURN                           R0 1
 
-PROTO_54:
+PROTO_55:
         0 SETUPVAL                         R0 0
         1 RETURN                           R0 0
 
-PROTO_55:
+PROTO_56:
         0 GETUPVAL                         R0 0
         1 RETURN                           R0 1
 
-PROTO_56:
+PROTO_57:
         0 SETUPVAL                         R0 0
         1 RETURN                           R0 0
 
-PROTO_57:
+PROTO_58:
         0 GETUPVAL                         R3 0
         1 GETUPVAL                         R5 1
         2 GETTABLEN                        R4 R5 1
@@ -5084,7 +5091,7 @@ PROTO_57:
        81 SETTABLEKS                       R7 R5 K5 ["Visible"]
        83 RETURN                           R0 0
 
-PROTO_58:
+PROTO_59:
         0 GETUPVAL                         R3 0
         1 GETUPVAL                         R5 1
         2 GETTABLEN                        R4 R5 3
@@ -5154,7 +5161,7 @@ PROTO_58:
        81 SETTABLEKS                       R7 R5 K5 ["Visible"]
        83 RETURN                           R0 0
 
-PROTO_59:
+PROTO_60:
         0 GETTABLEKS                       R7 R0 K0 ["p"]
         2 SUB                              R6 R7 R3
         3 GETTABLEKS                       R5 R6 K1 ["magnitude"]
@@ -5241,7 +5248,7 @@ PROTO_59:
       108 SETTABLEKS                       R7 R5 K8 ["Visible"]
       110 RETURN                           R0 0
 
-PROTO_60:
+PROTO_61:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 0
@@ -5271,7 +5278,7 @@ PROTO_60:
        31 SETTABLEKS                       R2 R1 K0 ["Visible"]
        33 RETURN                           R0 0
 
-PROTO_61:
+PROTO_62:
         0 GETUPVAL                         R0 0
         1 LOADB                            R1 0
         2 SETTABLEKS                       R1 R0 K0 ["Visible"]
@@ -5363,7 +5370,7 @@ PROTO_61:
       112 SETUPVAL                         R0 8
       113 RETURN                           R0 0
 
-PROTO_62:
+PROTO_63:
         0 GETUPVAL                         R3 0
         1 GETTABLEN                        R2 R3 11
         2 GETTABLEN                        R1 R2 1
@@ -5425,7 +5432,7 @@ PROTO_62:
        70 CALL                             R1 1 0
        71 RETURN                           R0 0
 
-PROTO_63:
+PROTO_64:
         0 GETUPVAL                         R2 0
         1 GETTABLE                         R1 R2 R0
         2 JUMPIFNOT                        R1 ; [+15]
@@ -5443,16 +5450,16 @@ PROTO_63:
        16 SETTABLEKS                       R2 R1 K4 ["Transparency"]
        18 RETURN                           R0 0
 
-PROTO_64:
+PROTO_65:
         0 GETUPVAL                         R0 0
         1 RETURN                           R0 1
 
-PROTO_65:
+PROTO_66:
         0 SETUPVAL                         R0 0
         1 SETUPVAL                         R0 1
         2 RETURN                           R0 0
 
-PROTO_66:
+PROTO_67:
         0 LOADB                            R0 0
         1 SETUPVAL                         R0 0
         2 GETIMPORT                        R0 K1 [pairs]
@@ -5562,10 +5569,10 @@ PROTO_66:
       147 CALL                             R1 2 0
       148 RETURN                           R0 0
 
-PROTO_67:
+PROTO_68:
         0 RETURN                           R0 0
 
-PROTO_68:
+PROTO_69:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 0
         2 GETUPVAL                         R0 1
@@ -5630,11 +5637,11 @@ PROTO_68:
        71 SETUPVAL                         R0 3
        72 RETURN                           R0 0
 
-PROTO_69:
+PROTO_70:
         0 GETUPVAL                         R0 0
         1 RETURN                           R0 1
 
-PROTO_70:
+PROTO_71:
         0 GETUPVAL                         R1 0
         1 GETTABLEN                        R0 R1 14
         2 JUMPIF                           R0 ; [+2]
@@ -5671,7 +5678,7 @@ PROTO_70:
        48 LOADB                            R6 1
        49 RETURN                           R6 1
 
-PROTO_71:
+PROTO_72:
         0 LOADN                            R2 1
         1 LOADN                            R0 13
         2 LOADN                            R1 1
@@ -5943,302 +5950,327 @@ MAIN:
       186 LOADK                            R60 K37 [0.72156862745098]
       187 LOADK                            R61 K37 [0.72156862745098]
       188 CALL                             R58 3 1
-      189 GETIMPORT                        R59 K27 [Color3.new]
-      191 LOADN                            R60 0
-      192 LOADK                            R61 K38 [0.635294117647059]
-      193 LOADN                            R62 1
-      194 CALL                             R59 3 1
-      195 GETIMPORT                        R60 K27 [Color3.new]
-      197 LOADK                            R61 K39 [0.247058823529412]
-      198 LOADK                            R62 K40 [0.776470588235294]
-      199 LOADK                            R63 K41 [0.474509803921569]
-      200 CALL                             R60 3 1
-      201 GETIMPORT                        R61 K27 [Color3.new]
-      203 LOADK                            R62 K42 [0.886274509803922]
-      204 LOADK                            R63 K43 [0.137254901960784]
-      205 LOADK                            R64 K32 [0.101960784313725]
-      206 CALL                             R61 3 1
-      207 GETIMPORT                        R63 K46 [BrickColor.Red]
-      209 CALL                             R63 0 1
-      210 GETTABLEKS                       R62 R63 K47 ["Color"]
-      212 NEWCLOSURE                       R63 P14
-      213 CAPTURE                          VAL R7
-      214 CAPTURE                          VAL R55
-      215 CAPTURE                          VAL R45
-      216 CAPTURE                          VAL R47
-      217 CAPTURE                          REF R4
-      218 CAPTURE                          REF R5
-      219 NEWCLOSURE                       R64 P15
-      220 CAPTURE                          VAL R63
-      221 CAPTURE                          VAL R62
-      222 CAPTURE                          VAL R57
-      223 CAPTURE                          VAL R54
-      224 CAPTURE                          VAL R56
-      225 CAPTURE                          VAL R59
-      226 CAPTURE                          VAL R60
-      227 CAPTURE                          VAL R61
-      228 CAPTURE                          REF R12
-      229 CAPTURE                          VAL R7
-      230 CAPTURE                          VAL R55
-      231 CAPTURE                          REF R31
-      232 CAPTURE                          REF R4
-      233 CAPTURE                          VAL R1
-      234 CAPTURE                          REF R30
-      235 CAPTURE                          REF R44
-      236 CAPTURE                          REF R26
-      237 CAPTURE                          VAL R47
-      238 CAPTURE                          REF R43
-      239 CAPTURE                          REF R28
-      240 CAPTURE                          VAL R58
-      241 CAPTURE                          VAL R23
-      242 CAPTURE                          REF R11
-      243 CAPTURE                          REF R13
-      244 CAPTURE                          REF R16
-      245 CAPTURE                          REF R14
-      246 CAPTURE                          REF R17
-      247 CAPTURE                          REF R15
-      248 CAPTURE                          REF R18
-      249 CAPTURE                          REF R19
-      250 CAPTURE                          REF R21
-      251 CAPTURE                          REF R20
-      252 CAPTURE                          REF R29
-      253 CAPTURE                          REF R22
-      254 CAPTURE                          REF R6
-      255 CAPTURE                          REF R9
-      256 NEWCLOSURE                       R65 P16
-      257 CAPTURE                          REF R4
-      258 CAPTURE                          REF R5
-      259 DUPCLOSURE                       R66 K48 [PROTO_30]
-      260 DUPCLOSURE                       R67 K49 [PROTO_31]
-      261 NEWCLOSURE                       R68 P19
-      262 CAPTURE                          REF R19
-      263 CAPTURE                          REF R20
-      264 NEWCLOSURE                       R69 P20
-      265 CAPTURE                          REF R19
-      266 CAPTURE                          REF R20
-      267 NEWCLOSURE                       R70 P21
-      268 CAPTURE                          REF R22
-      269 NEWCLOSURE                       R71 P22
-      270 CAPTURE                          REF R21
-      271 NEWCLOSURE                       R72 P23
-      272 CAPTURE                          REF R4
-      273 CAPTURE                          REF R5
-      274 NEWCLOSURE                       R73 P24
-      275 CAPTURE                          REF R6
-      276 CAPTURE                          REF R4
-      277 CAPTURE                          REF R5
-      278 CAPTURE                          REF R29
-      279 NEWCLOSURE                       R74 P25
-      280 CAPTURE                          REF R6
-      281 NEWCLOSURE                       R75 P26
-      282 CAPTURE                          REF R4
-      283 CAPTURE                          REF R5
-      284 NEWCLOSURE                       R76 P27
-      285 CAPTURE                          REF R4
-      286 CAPTURE                          REF R5
-      287 NEWCLOSURE                       R77 P28
-      288 CAPTURE                          REF R4
-      289 CAPTURE                          REF R5
-      290 NEWCLOSURE                       R78 P29
-      291 CAPTURE                          REF R4
-      292 CAPTURE                          REF R5
-      293 NEWCLOSURE                       R79 P30
-      294 CAPTURE                          REF R4
-      295 CAPTURE                          REF R5
-      296 NEWCLOSURE                       R80 P31
-      297 CAPTURE                          REF R4
-      298 CAPTURE                          REF R5
-      299 NEWTABLE                         R81 0 0
-      301 GETIMPORT                        R82 K15 [Instance.new]
-      303 LOADK                            R83 K16 ["Folder"]
-      304 MOVE                             R84 R8
-      305 CALL                             R82 2 1
-      306 LOADK                            R83 K50 ["LineGrid"]
-      307 SETTABLEKS                       R83 R82 K18 ["Name"]
-      309 DUPCLOSURE                       R83 K51 [PROTO_45]
-      310 CAPTURE                          VAL R82
-      311 CAPTURE                          VAL R3
-      312 DUPCLOSURE                       R84 K52 [PROTO_46]
-      313 CAPTURE                          VAL R81
-      314 NEWCLOSURE                       R85 P34
-      315 CAPTURE                          VAL R81
-      316 CAPTURE                          VAL R3
-      317 CAPTURE                          VAL R82
-      318 CAPTURE                          VAL R2
-      319 CAPTURE                          REF R27
-      320 CAPTURE                          VAL R58
-      321 CAPTURE                          VAL R55
-      322 NEWCLOSURE                       R86 P35
-      323 CAPTURE                          REF R29
-      324 DUPCLOSURE                       R87 K53 [PROTO_49]
-      325 CAPTURE                          VAL R86
-      326 NEWCLOSURE                       R88 P37
-      327 CAPTURE                          REF R10
-      328 CAPTURE                          REF R6
-      329 CAPTURE                          REF R24
-      330 CAPTURE                          VAL R1
-      331 CAPTURE                          VAL R82
-      332 CAPTURE                          VAL R3
-      333 CAPTURE                          REF R38
-      334 CAPTURE                          VAL R37
-      335 CAPTURE                          REF R39
-      336 CAPTURE                          REF R40
-      337 CAPTURE                          VAL R81
-      338 CAPTURE                          VAL R53
-      339 CAPTURE                          VAL R85
-      340 CAPTURE                          VAL R87
-      341 DUPCLOSURE                       R89 K54 [PROTO_51]
-      342 CAPTURE                          VAL R0
-      343 NEWCLOSURE                       R90 P39
-      344 CAPTURE                          REF R9
-      345 CAPTURE                          REF R4
-      346 CAPTURE                          VAL R1
-      347 CAPTURE                          REF R5
-      348 CAPTURE                          REF R6
-      349 CAPTURE                          REF R29
-      350 CAPTURE                          VAL R77
-      351 CAPTURE                          VAL R82
-      352 CAPTURE                          VAL R3
-      353 CAPTURE                          REF R30
-      354 CAPTURE                          REF R28
-      355 CAPTURE                          REF R32
-      356 CAPTURE                          VAL R23
-      357 CAPTURE                          VAL R89
-      358 CAPTURE                          REF R26
-      359 CAPTURE                          REF R27
-      360 CAPTURE                          VAL R2
-      361 CAPTURE                          VAL R55
-      362 CAPTURE                          VAL R56
-      363 CAPTURE                          VAL R59
-      364 CAPTURE                          VAL R88
-      365 NEWCLOSURE                       R91 P40
-      366 CAPTURE                          REF R4
-      367 CAPTURE                          REF R30
-      368 NEWCLOSURE                       R92 P41
-      369 CAPTURE                          REF R10
-      370 NEWCLOSURE                       R93 P42
-      371 CAPTURE                          REF R30
-      372 NEWCLOSURE                       R94 P43
-      373 CAPTURE                          REF R30
-      374 NEWCLOSURE                       R95 P44
-      375 CAPTURE                          VAL R34
-      376 CAPTURE                          REF R20
-      377 CAPTURE                          REF R19
-      378 CAPTURE                          VAL R33
-      379 CAPTURE                          REF R13
-      380 CAPTURE                          REF R14
-      381 CAPTURE                          REF R15
-      382 NEWCLOSURE                       R96 P45
-      383 CAPTURE                          VAL R34
-      384 CAPTURE                          REF R20
-      385 CAPTURE                          REF R19
-      386 CAPTURE                          VAL R33
-      387 CAPTURE                          REF R16
-      388 CAPTURE                          REF R17
-      389 CAPTURE                          REF R18
-      390 NEWCLOSURE                       R97 P46
-      391 CAPTURE                          REF R25
-      392 CAPTURE                          VAL R41
-      393 CAPTURE                          REF R22
-      394 CAPTURE                          VAL R33
-      395 CAPTURE                          REF R13
-      396 CAPTURE                          REF R14
-      397 CAPTURE                          REF R15
-      398 NEWCLOSURE                       R98 P47
-      399 CAPTURE                          VAL R42
-      400 CAPTURE                          REF R21
-      401 NEWCLOSURE                       R99 P48
-      402 CAPTURE                          REF R13
-      403 CAPTURE                          REF R16
-      404 CAPTURE                          REF R19
-      405 CAPTURE                          REF R20
-      406 CAPTURE                          REF R22
-      407 CAPTURE                          REF R21
-      408 CAPTURE                          VAL R35
-      409 CAPTURE                          VAL R3
-      410 CAPTURE                          REF R24
-      411 NEWCLOSURE                       R100 P49
-      412 CAPTURE                          REF R4
-      413 CAPTURE                          REF R5
-      414 CAPTURE                          VAL R77
-      415 NEWCLOSURE                       R101 P50
-      416 CAPTURE                          REF R5
-      417 NEWCLOSURE                       R102 P51
-      418 CAPTURE                          REF R28
-      419 NEWCLOSURE                       R103 P52
-      420 CAPTURE                          REF R28
-      421 CAPTURE                          REF R26
-      422 NEWCLOSURE                       R104 P53
-      423 CAPTURE                          REF R9
-      424 CAPTURE                          REF R4
-      425 CAPTURE                          REF R5
-      426 CAPTURE                          REF R6
-      427 CAPTURE                          REF R29
-      428 CAPTURE                          REF R22
-      429 CAPTURE                          REF R19
+      189 DUPCLOSURE                       R59 K38 [PROTO_15]
+      190 LOADNIL                          R60
+      191 LOADNIL                          R61
+      192 LOADNIL                          R62
+      193 GETIMPORT                        R63 K10 [game]
+      195 LOADK                            R65 K39 ["NextGenDraggersEnabledFeature"]
+      196 NAMECALL                         R63 R63 K40 ["GetEngineFeature"]
+      198 CALL                             R63 2 1
+      199 JUMPIFNOT                        R63 ; [+16]
+      200 GETIMPORT                        R63 K42 [Color3.fromHex]
+      202 LOADK                            R64 K43 ["#E23D3D"]
+      203 CALL                             R63 1 1
+      204 MOVE                             R60 R63
+      205 GETIMPORT                        R63 K42 [Color3.fromHex]
+      207 LOADK                            R64 K44 ["#7EED42"]
+      208 CALL                             R63 1 1
+      209 MOVE                             R61 R63
+      210 GETIMPORT                        R63 K42 [Color3.fromHex]
+      212 LOADK                            R64 K45 ["#219AEC"]
+      213 CALL                             R63 1 1
+      214 MOVE                             R62 R63
+      215 JUMP                             ; [+21]
+      216 GETIMPORT                        R63 K27 [Color3.new]
+      218 LOADN                            R64 0
+      219 LOADK                            R65 K46 [0.635294117647059]
+      220 LOADN                            R66 1
+      221 CALL                             R63 3 1
+      222 MOVE                             R62 R63
+      223 GETIMPORT                        R63 K27 [Color3.new]
+      225 LOADK                            R64 K47 [0.247058823529412]
+      226 LOADK                            R65 K48 [0.776470588235294]
+      227 LOADK                            R66 K49 [0.474509803921569]
+      228 CALL                             R63 3 1
+      229 MOVE                             R61 R63
+      230 GETIMPORT                        R63 K27 [Color3.new]
+      232 LOADK                            R64 K50 [0.886274509803922]
+      233 LOADK                            R65 K51 [0.137254901960784]
+      234 LOADK                            R66 K32 [0.101960784313725]
+      235 CALL                             R63 3 1
+      236 MOVE                             R60 R63
+      237 GETIMPORT                        R64 K54 [BrickColor.Red]
+      239 CALL                             R64 0 1
+      240 GETTABLEKS                       R63 R64 K55 ["Color"]
+      242 NEWCLOSURE                       R64 P15
+      243 CAPTURE                          VAL R7
+      244 CAPTURE                          VAL R55
+      245 CAPTURE                          VAL R45
+      246 CAPTURE                          VAL R47
+      247 CAPTURE                          REF R4
+      248 CAPTURE                          REF R5
+      249 NEWCLOSURE                       R65 P16
+      250 CAPTURE                          VAL R64
+      251 CAPTURE                          VAL R63
+      252 CAPTURE                          VAL R57
+      253 CAPTURE                          VAL R54
+      254 CAPTURE                          VAL R56
+      255 CAPTURE                          REF R62
+      256 CAPTURE                          REF R61
+      257 CAPTURE                          REF R60
+      258 CAPTURE                          REF R12
+      259 CAPTURE                          VAL R7
+      260 CAPTURE                          VAL R55
+      261 CAPTURE                          REF R31
+      262 CAPTURE                          REF R4
+      263 CAPTURE                          VAL R1
+      264 CAPTURE                          REF R30
+      265 CAPTURE                          REF R44
+      266 CAPTURE                          REF R26
+      267 CAPTURE                          VAL R47
+      268 CAPTURE                          REF R43
+      269 CAPTURE                          REF R28
+      270 CAPTURE                          VAL R58
+      271 CAPTURE                          VAL R23
+      272 CAPTURE                          REF R11
+      273 CAPTURE                          REF R13
+      274 CAPTURE                          REF R16
+      275 CAPTURE                          REF R14
+      276 CAPTURE                          REF R17
+      277 CAPTURE                          REF R15
+      278 CAPTURE                          REF R18
+      279 CAPTURE                          REF R19
+      280 CAPTURE                          REF R21
+      281 CAPTURE                          REF R20
+      282 CAPTURE                          REF R29
+      283 CAPTURE                          REF R22
+      284 CAPTURE                          REF R6
+      285 CAPTURE                          REF R9
+      286 NEWCLOSURE                       R66 P17
+      287 CAPTURE                          REF R4
+      288 CAPTURE                          REF R5
+      289 DUPCLOSURE                       R67 K56 [PROTO_31]
+      290 DUPCLOSURE                       R68 K57 [PROTO_32]
+      291 NEWCLOSURE                       R69 P20
+      292 CAPTURE                          REF R19
+      293 CAPTURE                          REF R20
+      294 NEWCLOSURE                       R70 P21
+      295 CAPTURE                          REF R19
+      296 CAPTURE                          REF R20
+      297 NEWCLOSURE                       R71 P22
+      298 CAPTURE                          REF R22
+      299 NEWCLOSURE                       R72 P23
+      300 CAPTURE                          REF R21
+      301 NEWCLOSURE                       R73 P24
+      302 CAPTURE                          REF R4
+      303 CAPTURE                          REF R5
+      304 NEWCLOSURE                       R74 P25
+      305 CAPTURE                          REF R6
+      306 CAPTURE                          REF R4
+      307 CAPTURE                          REF R5
+      308 CAPTURE                          REF R29
+      309 NEWCLOSURE                       R75 P26
+      310 CAPTURE                          REF R6
+      311 NEWCLOSURE                       R76 P27
+      312 CAPTURE                          REF R4
+      313 CAPTURE                          REF R5
+      314 NEWCLOSURE                       R77 P28
+      315 CAPTURE                          REF R4
+      316 CAPTURE                          REF R5
+      317 NEWCLOSURE                       R78 P29
+      318 CAPTURE                          REF R4
+      319 CAPTURE                          REF R5
+      320 NEWCLOSURE                       R79 P30
+      321 CAPTURE                          REF R4
+      322 CAPTURE                          REF R5
+      323 NEWCLOSURE                       R80 P31
+      324 CAPTURE                          REF R4
+      325 CAPTURE                          REF R5
+      326 NEWCLOSURE                       R81 P32
+      327 CAPTURE                          REF R4
+      328 CAPTURE                          REF R5
+      329 NEWTABLE                         R82 0 0
+      331 GETIMPORT                        R83 K15 [Instance.new]
+      333 LOADK                            R84 K16 ["Folder"]
+      334 MOVE                             R85 R8
+      335 CALL                             R83 2 1
+      336 LOADK                            R84 K58 ["LineGrid"]
+      337 SETTABLEKS                       R84 R83 K18 ["Name"]
+      339 DUPCLOSURE                       R84 K59 [PROTO_46]
+      340 CAPTURE                          VAL R83
+      341 CAPTURE                          VAL R3
+      342 DUPCLOSURE                       R85 K60 [PROTO_47]
+      343 CAPTURE                          VAL R82
+      344 NEWCLOSURE                       R86 P35
+      345 CAPTURE                          VAL R82
+      346 CAPTURE                          VAL R3
+      347 CAPTURE                          VAL R83
+      348 CAPTURE                          VAL R2
+      349 CAPTURE                          REF R27
+      350 CAPTURE                          VAL R58
+      351 CAPTURE                          VAL R55
+      352 NEWCLOSURE                       R87 P36
+      353 CAPTURE                          REF R29
+      354 DUPCLOSURE                       R88 K61 [PROTO_50]
+      355 CAPTURE                          VAL R87
+      356 NEWCLOSURE                       R89 P38
+      357 CAPTURE                          REF R10
+      358 CAPTURE                          REF R6
+      359 CAPTURE                          REF R24
+      360 CAPTURE                          VAL R1
+      361 CAPTURE                          VAL R83
+      362 CAPTURE                          VAL R3
+      363 CAPTURE                          REF R38
+      364 CAPTURE                          VAL R37
+      365 CAPTURE                          REF R39
+      366 CAPTURE                          REF R40
+      367 CAPTURE                          VAL R82
+      368 CAPTURE                          VAL R53
+      369 CAPTURE                          VAL R86
+      370 CAPTURE                          VAL R88
+      371 DUPCLOSURE                       R90 K62 [PROTO_52]
+      372 CAPTURE                          VAL R0
+      373 NEWCLOSURE                       R91 P40
+      374 CAPTURE                          REF R9
+      375 CAPTURE                          REF R4
+      376 CAPTURE                          VAL R1
+      377 CAPTURE                          REF R5
+      378 CAPTURE                          REF R6
+      379 CAPTURE                          REF R29
+      380 CAPTURE                          VAL R78
+      381 CAPTURE                          VAL R83
+      382 CAPTURE                          VAL R3
+      383 CAPTURE                          REF R30
+      384 CAPTURE                          REF R28
+      385 CAPTURE                          REF R32
+      386 CAPTURE                          VAL R23
+      387 CAPTURE                          VAL R90
+      388 CAPTURE                          REF R26
+      389 CAPTURE                          REF R27
+      390 CAPTURE                          VAL R2
+      391 CAPTURE                          VAL R55
+      392 CAPTURE                          VAL R56
+      393 CAPTURE                          REF R62
+      394 CAPTURE                          VAL R89
+      395 NEWCLOSURE                       R92 P41
+      396 CAPTURE                          REF R4
+      397 CAPTURE                          REF R30
+      398 NEWCLOSURE                       R93 P42
+      399 CAPTURE                          REF R10
+      400 NEWCLOSURE                       R94 P43
+      401 CAPTURE                          REF R30
+      402 NEWCLOSURE                       R95 P44
+      403 CAPTURE                          REF R30
+      404 NEWCLOSURE                       R96 P45
+      405 CAPTURE                          VAL R34
+      406 CAPTURE                          REF R20
+      407 CAPTURE                          REF R19
+      408 CAPTURE                          VAL R33
+      409 CAPTURE                          REF R13
+      410 CAPTURE                          REF R14
+      411 CAPTURE                          REF R15
+      412 NEWCLOSURE                       R97 P46
+      413 CAPTURE                          VAL R34
+      414 CAPTURE                          REF R20
+      415 CAPTURE                          REF R19
+      416 CAPTURE                          VAL R33
+      417 CAPTURE                          REF R16
+      418 CAPTURE                          REF R17
+      419 CAPTURE                          REF R18
+      420 NEWCLOSURE                       R98 P47
+      421 CAPTURE                          REF R25
+      422 CAPTURE                          VAL R41
+      423 CAPTURE                          REF R22
+      424 CAPTURE                          VAL R33
+      425 CAPTURE                          REF R13
+      426 CAPTURE                          REF R14
+      427 CAPTURE                          REF R15
+      428 NEWCLOSURE                       R99 P48
+      429 CAPTURE                          VAL R42
       430 CAPTURE                          REF R21
-      431 CAPTURE                          REF R20
-      432 CAPTURE                          REF R12
-      433 CAPTURE                          VAL R23
-      434 CAPTURE                          REF R11
-      435 CAPTURE                          VAL R82
-      436 CAPTURE                          VAL R3
-      437 DUPCLOSURE                       R105 K55 [PROTO_67]
-      438 NEWCLOSURE                       R106 P55
-      439 CAPTURE                          VAL R99
-      440 CAPTURE                          REF R44
-      441 CAPTURE                          REF R30
-      442 CAPTURE                          REF R26
-      443 CAPTURE                          REF R4
-      444 CAPTURE                          REF R5
-      445 CAPTURE                          REF R31
-      446 CAPTURE                          REF R28
-      447 NEWCLOSURE                       R107 P56
-      448 CAPTURE                          REF R32
-      449 NEWCLOSURE                       R108 P57
-      450 CAPTURE                          REF R31
-      451 CAPTURE                          REF R4
-      452 CAPTURE                          VAL R1
-      453 NEWCLOSURE                       R109 P58
+      431 NEWCLOSURE                       R100 P49
+      432 CAPTURE                          REF R13
+      433 CAPTURE                          REF R16
+      434 CAPTURE                          REF R19
+      435 CAPTURE                          REF R20
+      436 CAPTURE                          REF R22
+      437 CAPTURE                          REF R21
+      438 CAPTURE                          VAL R35
+      439 CAPTURE                          VAL R3
+      440 CAPTURE                          REF R24
+      441 NEWCLOSURE                       R101 P50
+      442 CAPTURE                          REF R4
+      443 CAPTURE                          REF R5
+      444 CAPTURE                          VAL R78
+      445 NEWCLOSURE                       R102 P51
+      446 CAPTURE                          REF R5
+      447 NEWCLOSURE                       R103 P52
+      448 CAPTURE                          REF R28
+      449 NEWCLOSURE                       R104 P53
+      450 CAPTURE                          REF R28
+      451 CAPTURE                          REF R26
+      452 NEWCLOSURE                       R105 P54
+      453 CAPTURE                          REF R9
       454 CAPTURE                          REF R4
       455 CAPTURE                          REF R5
-      456 CAPTURE                          VAL R106
-      457 CAPTURE                          VAL R77
-      458 CAPTURE                          REF R31
-      459 CAPTURE                          REF R30
-      460 CAPTURE                          REF R44
-      461 CAPTURE                          REF R28
-      462 NEWTABLE                         R110 32 0
-      464 SETTABLEKS                       R64 R110 K56 ["initializeAdorns"]
-      466 SETTABLEKS                       R104 R110 K57 ["destroyAdorns"]
-      468 SETTABLEKS                       R76 R110 K58 ["adornInstanceWithTranslate"]
-      470 SETTABLEKS                       R78 R110 K59 ["adornInstanceWithScale"]
-      472 SETTABLEKS                       R80 R110 K60 ["adornInstanceWithRotate"]
-      474 SETTABLEKS                       R74 R110 K61 ["adornInstanceWithPlane"]
-      476 SETTABLEKS                       R90 R110 K62 ["updateAdornmentPositions"]
-      478 SETTABLEKS                       R73 R110 K63 ["setPlaneVisibility"]
-      480 SETTABLEKS                       R100 R110 K64 ["setAllAdornVisibility"]
-      482 SETTABLEKS                       R79 R110 K65 ["setRotateAdornVisibility"]
-      484 SETTABLEKS                       R75 R110 K66 ["setTranslateAdornVisibility"]
-      486 SETTABLEKS                       R77 R110 K67 ["setScaleAdornVisibility"]
-      488 SETTABLEKS                       R91 R110 K68 ["getCurrentAdornment"]
-      490 SETTABLEKS                       R95 R110 K69 ["scaleOne"]
-      492 SETTABLEKS                       R96 R110 K70 ["scaleTwo"]
-      494 SETTABLEKS                       R97 R110 K71 ["showRotate"]
-      496 SETTABLEKS                       R99 R110 K72 ["clearExtraAdorns"]
-      498 SETTABLEKS                       R47 R110 K73 ["hoverLeaveHandle"]
-      500 SETTABLEKS                       R98 R110 K74 ["drawPlaneCenter"]
-      502 SETTABLEKS                       R92 R110 K75 ["setWorkplaneAccessor"]
-      504 SETTABLEKS                       R101 R110 K76 ["resetShadow"]
-      506 SETTABLEKS                       R93 R110 K77 ["getCurrentHandle"]
-      508 SETTABLEKS                       R94 R110 K78 ["setCurrentHandle"]
-      510 SETTABLEKS                       R102 R110 K79 ["isPlaneSelectingModeOn"]
-      512 SETTABLEKS                       R103 R110 K80 ["setPlaneSelectingMode"]
-      514 SETTABLEKS                       R89 R110 K81 ["getAdornmentWorldCFrame"]
-      516 SETTABLEKS                       R105 R110 K82 ["grabHandle"]
-      518 SETTABLEKS                       R106 R110 K83 ["releaseHandle"]
-      520 SETTABLEKS                       R108 R110 K84 ["isOverPlaneSelect"]
-      522 SETTABLEKS                       R107 R110 K85 ["getYScale"]
-      524 SETTABLEKS                       R109 R110 K86 ["resetDragger"]
-      526 CLOSEUPVALS                      R4
-      527 RETURN                           R110 1
+      456 CAPTURE                          REF R6
+      457 CAPTURE                          REF R29
+      458 CAPTURE                          REF R22
+      459 CAPTURE                          REF R19
+      460 CAPTURE                          REF R21
+      461 CAPTURE                          REF R20
+      462 CAPTURE                          REF R12
+      463 CAPTURE                          VAL R23
+      464 CAPTURE                          REF R11
+      465 CAPTURE                          VAL R83
+      466 CAPTURE                          VAL R3
+      467 DUPCLOSURE                       R106 K63 [PROTO_68]
+      468 NEWCLOSURE                       R107 P56
+      469 CAPTURE                          VAL R100
+      470 CAPTURE                          REF R44
+      471 CAPTURE                          REF R30
+      472 CAPTURE                          REF R26
+      473 CAPTURE                          REF R4
+      474 CAPTURE                          REF R5
+      475 CAPTURE                          REF R31
+      476 CAPTURE                          REF R28
+      477 NEWCLOSURE                       R108 P57
+      478 CAPTURE                          REF R32
+      479 NEWCLOSURE                       R109 P58
+      480 CAPTURE                          REF R31
+      481 CAPTURE                          REF R4
+      482 CAPTURE                          VAL R1
+      483 NEWCLOSURE                       R110 P59
+      484 CAPTURE                          REF R4
+      485 CAPTURE                          REF R5
+      486 CAPTURE                          VAL R107
+      487 CAPTURE                          VAL R78
+      488 CAPTURE                          REF R31
+      489 CAPTURE                          REF R30
+      490 CAPTURE                          REF R44
+      491 CAPTURE                          REF R28
+      492 NEWTABLE                         R111 32 0
+      494 SETTABLEKS                       R65 R111 K64 ["initializeAdorns"]
+      496 SETTABLEKS                       R105 R111 K65 ["destroyAdorns"]
+      498 SETTABLEKS                       R77 R111 K66 ["adornInstanceWithTranslate"]
+      500 SETTABLEKS                       R79 R111 K67 ["adornInstanceWithScale"]
+      502 SETTABLEKS                       R81 R111 K68 ["adornInstanceWithRotate"]
+      504 SETTABLEKS                       R75 R111 K69 ["adornInstanceWithPlane"]
+      506 SETTABLEKS                       R91 R111 K70 ["updateAdornmentPositions"]
+      508 SETTABLEKS                       R74 R111 K71 ["setPlaneVisibility"]
+      510 SETTABLEKS                       R101 R111 K72 ["setAllAdornVisibility"]
+      512 SETTABLEKS                       R80 R111 K73 ["setRotateAdornVisibility"]
+      514 SETTABLEKS                       R76 R111 K74 ["setTranslateAdornVisibility"]
+      516 SETTABLEKS                       R78 R111 K75 ["setScaleAdornVisibility"]
+      518 SETTABLEKS                       R92 R111 K76 ["getCurrentAdornment"]
+      520 SETTABLEKS                       R96 R111 K77 ["scaleOne"]
+      522 SETTABLEKS                       R97 R111 K78 ["scaleTwo"]
+      524 SETTABLEKS                       R98 R111 K79 ["showRotate"]
+      526 SETTABLEKS                       R100 R111 K80 ["clearExtraAdorns"]
+      528 SETTABLEKS                       R47 R111 K81 ["hoverLeaveHandle"]
+      530 SETTABLEKS                       R99 R111 K82 ["drawPlaneCenter"]
+      532 SETTABLEKS                       R93 R111 K83 ["setWorkplaneAccessor"]
+      534 SETTABLEKS                       R102 R111 K84 ["resetShadow"]
+      536 SETTABLEKS                       R94 R111 K85 ["getCurrentHandle"]
+      538 SETTABLEKS                       R95 R111 K86 ["setCurrentHandle"]
+      540 SETTABLEKS                       R103 R111 K87 ["isPlaneSelectingModeOn"]
+      542 SETTABLEKS                       R104 R111 K88 ["setPlaneSelectingMode"]
+      544 SETTABLEKS                       R90 R111 K89 ["getAdornmentWorldCFrame"]
+      546 SETTABLEKS                       R106 R111 K90 ["grabHandle"]
+      548 SETTABLEKS                       R107 R111 K91 ["releaseHandle"]
+      550 SETTABLEKS                       R109 R111 K92 ["isOverPlaneSelect"]
+      552 SETTABLEKS                       R108 R111 K93 ["getYScale"]
+      554 SETTABLEKS                       R110 R111 K94 ["resetDragger"]
+      556 CLOSEUPVALS                      R4
+      557 RETURN                           R111 1

@@ -20,6 +20,8 @@ type _Messages =
 		ArrayOfCatalogCategoryMenuItemProp_ConditionalOption: _ArrayOfCatalogCategoryMenuItemProp_ConditionalOptionMessage,
 		ArrayOfCatalogCategoryMenuItemProp_ConditionalOptions: _ArrayOfCatalogCategoryMenuItemProp_ConditionalOptionsMessage,
 		ArrayOfCatalogCategoryMenuItemProp_ArrayOfCatalogCategoryMenuItem: _ArrayOfCatalogCategoryMenuItemProp_ArrayOfCatalogCategoryMenuItemMessage,
+		ArrayOfCatalogCategoryMenuItemProp_ArrayMap: _ArrayOfCatalogCategoryMenuItemProp_ArrayMapMessage,
+		ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems: _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsMessage,
 		ArrayOfCatalogCategoryMenuTooltipInfoProp: _ArrayOfCatalogCategoryMenuTooltipInfoPropMessage,
 		ArrayOfCatalogCategoryMenuTooltipInfoProp_ConditionalOption: _ArrayOfCatalogCategoryMenuTooltipInfoProp_ConditionalOptionMessage,
 		ArrayOfCatalogCategoryMenuTooltipInfoProp_ConditionalOptions: _ArrayOfCatalogCategoryMenuTooltipInfoProp_ConditionalOptionsMessage,
@@ -35,6 +37,8 @@ local messages: _Messages = {} :: _Messages
 
 local _roblox_apppageplatform_shared_v1beta1_actions = require(script.Parent.actions)
 local _roblox_apppageplatform_shared_v1beta1_component_shared = require(script.Parent.component_shared)
+local _roblox_apppageplatform_shared_v1beta1_hydration_data_spec = require(script.Parent.hydration_data_spec)
+local _roblox_apppageplatform_shared_v1beta1_page_entry_content = require(script.Parent.page_entry_content)
 local _roblox_apppageplatform_shared_v1beta1_prop_condition = require(script.Parent.prop_condition)
 local _roblox_apppageplatform_shared_v1beta1_prop_types = require(script.Parent.prop_types)
 
@@ -307,6 +311,7 @@ type _ArrayOfCatalogCategoryMenuItemPropFields = {
 		{ type: "literal", value: ArrayOfCatalogCategoryMenuItemProp_ArrayOfCatalogCategoryMenuItem }
 		| { type: "binding_path", value: string }
 		| { type: "conditional", value: ArrayOfCatalogCategoryMenuItemProp_ConditionalOptions }
+		| { type: "array_map", value: ArrayOfCatalogCategoryMenuItemProp_ArrayMap }
 	)?,
 }
 
@@ -315,6 +320,7 @@ type _ArrayOfCatalogCategoryMenuItemPropPartialFields = {
 		{ type: "literal", value: ArrayOfCatalogCategoryMenuItemProp_ArrayOfCatalogCategoryMenuItem }
 		| { type: "binding_path", value: string }
 		| { type: "conditional", value: ArrayOfCatalogCategoryMenuItemProp_ConditionalOptions }
+		| { type: "array_map", value: ArrayOfCatalogCategoryMenuItemProp_ArrayMap }
 	)?,
 }
 
@@ -420,6 +426,76 @@ export type ArrayOfCatalogCategoryMenuItemProp_ArrayOfCatalogCategoryMenuItem = 
 type _ArrayOfCatalogCategoryMenuItemProp_ArrayOfCatalogCategoryMenuItemMessage = proto.Message<
 	ArrayOfCatalogCategoryMenuItemProp_ArrayOfCatalogCategoryMenuItem,
 	_ArrayOfCatalogCategoryMenuItemProp_ArrayOfCatalogCategoryMenuItemPartialFields
+>
+
+type _ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl = {
+	__index: _ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl,
+	new: (
+		fields: _ArrayOfCatalogCategoryMenuItemProp_ArrayMapPartialFields?
+	) -> ArrayOfCatalogCategoryMenuItemProp_ArrayMap,
+	encode: (self: ArrayOfCatalogCategoryMenuItemProp_ArrayMap) -> buffer,
+	decode: (input: buffer) -> ArrayOfCatalogCategoryMenuItemProp_ArrayMap,
+	jsonEncode: (self: ArrayOfCatalogCategoryMenuItemProp_ArrayMap) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfCatalogCategoryMenuItemProp_ArrayMap,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfCatalogCategoryMenuItemProp_ArrayMapFields = {
+	kind: (
+		{ type: "binding_path", value: string }
+		| { type: "literal", value: ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems }
+	)?,
+	item_hydration_specs: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec },
+	field_map: CatalogCategoryMenuItem?,
+}
+
+type _ArrayOfCatalogCategoryMenuItemProp_ArrayMapPartialFields = {
+	kind: (
+		{ type: "binding_path", value: string }
+		| { type: "literal", value: ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems }
+	)?,
+	item_hydration_specs: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec }?,
+	field_map: CatalogCategoryMenuItem?,
+}
+
+export type ArrayOfCatalogCategoryMenuItemProp_ArrayMap = typeof(setmetatable(
+	{} :: _ArrayOfCatalogCategoryMenuItemProp_ArrayMapFields,
+	{} :: _ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl
+))
+type _ArrayOfCatalogCategoryMenuItemProp_ArrayMapMessage = proto.Message<
+	ArrayOfCatalogCategoryMenuItemProp_ArrayMap,
+	_ArrayOfCatalogCategoryMenuItemProp_ArrayMapPartialFields
+>
+
+type _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl = {
+	__index: _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl,
+	new: (
+		fields: _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsPartialFields?
+	) -> ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems,
+	encode: (self: ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems) -> buffer,
+	decode: (input: buffer) -> ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems,
+	jsonEncode: (self: ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsFields =
+	{
+		items: { _roblox_apppageplatform_shared_v1beta1_page_entry_content.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem },
+	}
+
+type _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsPartialFields =
+	{
+		items: { _roblox_apppageplatform_shared_v1beta1_page_entry_content.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem }?,
+	}
+
+export type ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems = typeof(setmetatable(
+	{} :: _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsFields,
+	{} :: _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl
+))
+type _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsMessage = proto.Message<
+	ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems,
+	_ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsPartialFields
 >
 
 type _ArrayOfCatalogCategoryMenuTooltipInfoPropImpl = {
@@ -2049,6 +2125,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "array_map" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -2094,6 +2174,14 @@ do
 						value = messages.ArrayOfCatalogCategoryMenuItemProp_ConditionalOptions.decode(value),
 					}
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "array_map",
+						value = messages.ArrayOfCatalogCategoryMenuItemProp_ArrayMap.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -2128,6 +2216,8 @@ do
 				output.bindingPath = self.kind.value
 			elseif self.kind.type == "conditional" then
 				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "array_map" then
+				output.arrayMap = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -2160,6 +2250,20 @@ do
 			self.kind = {
 				type = "conditional",
 				value = messages.ArrayOfCatalogCategoryMenuItemProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		if input.array_map ~= nil then
+			self.kind = {
+				type = "array_map",
+				value = messages.ArrayOfCatalogCategoryMenuItemProp_ArrayMap.jsonDecode(input.array_map),
+			}
+		end
+
+		if input.arrayMap ~= nil then
+			self.kind = {
+				type = "array_map",
+				value = messages.ArrayOfCatalogCategoryMenuItemProp_ArrayMap.jsonDecode(input.arrayMap),
 			}
 		end
 
@@ -2591,6 +2695,352 @@ do
 		_ArrayOfCatalogCategoryMenuItemProp_ArrayOfCatalogCategoryMenuItemImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.ArrayOfCatalogCategoryMenuItemProp_ArrayOfCatalogCategoryMenuItem)
+end
+
+do
+	local _ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl = {}
+	_ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl.__index = _ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl
+
+	function _ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl.new(
+		data: _ArrayOfCatalogCategoryMenuItemProp_ArrayMapPartialFields?
+	): ArrayOfCatalogCategoryMenuItemProp_ArrayMap
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+			item_hydration_specs = if data == nil or data.item_hydration_specs == nil
+				then {}
+				else data.item_hydration_specs,
+			field_map = if data == nil or data.field_map == nil then nil else data.field_map,
+		}, _ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl :: _ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl)
+	end
+
+	function _ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl.encode(
+		self: ArrayOfCatalogCategoryMenuItemProp_ArrayMap
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.item_hydration_specs ~= nil and #self.item_hydration_specs > 0 then
+			for _, value in self.item_hydration_specs do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.field_map ~= nil then
+			local encoded = self.field_map:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl.decode(
+		input: buffer
+	): ArrayOfCatalogCategoryMenuItemProp_ArrayMap
+		local self = _ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = messages.ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems.decode(value),
+					}
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.item_hydration_specs,
+						_roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec.decode(value)
+					)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.field_map = messages.CatalogCategoryMenuItem.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl.jsonEncode(
+		self: ArrayOfCatalogCategoryMenuItemProp_ArrayMap
+	): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			end
+		end
+
+		if self.item_hydration_specs ~= nil and #self.item_hydration_specs > 0 then
+			local newOutput = {}
+			for _, value in self.item_hydration_specs do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.itemHydrationSpecs = newOutput
+		end
+
+		if self.field_map ~= nil then
+			output.fieldMap = self.field_map:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl.jsonDecode(
+		input: { [string]: any }
+	): ArrayOfCatalogCategoryMenuItemProp_ArrayMap
+		local self = _ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl.new()
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = messages.ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems.jsonDecode(input.literal),
+			}
+		end
+
+		if input.item_hydration_specs ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec } = {}
+			for _, value in input.item_hydration_specs do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec.jsonDecode(value)
+				)
+			end
+
+			self.item_hydration_specs = newOutput
+		end
+
+		if input.itemHydrationSpecs ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec } = {}
+			for _, value in input.itemHydrationSpecs do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec.jsonDecode(value)
+				)
+			end
+
+			self.item_hydration_specs = newOutput
+		end
+
+		if input.field_map ~= nil then
+			self.field_map = messages.CatalogCategoryMenuItem.jsonDecode(input.field_map)
+		end
+
+		if input.fieldMap ~= nil then
+			self.field_map = messages.CatalogCategoryMenuItem.jsonDecode(input.fieldMap)
+		end
+
+		return self
+	end
+
+	_ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl.descriptor = {
+		name = "ArrayOfCatalogCategoryMenuItemProp_ArrayMap",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ArrayMap",
+	}
+
+	messages.ArrayOfCatalogCategoryMenuItemProp_ArrayMap = _ArrayOfCatalogCategoryMenuItemProp_ArrayMapImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfCatalogCategoryMenuItemProp_ArrayMap)
+end
+
+do
+	local _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl = {}
+	_ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl.__index =
+		_ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl
+
+	function _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl.new(
+		data: _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsPartialFields?
+	): ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems
+		return setmetatable(
+			{
+				items = if data == nil or data.items == nil then {} else data.items,
+			},
+			_ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl :: _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl
+		)
+	end
+
+	function _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl.encode(
+		self: ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.items ~= nil and #self.items > 0 then
+			for _, value in self.items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl.decode(
+		input: buffer
+	): ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems
+		local self = _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.items,
+						_roblox_apppageplatform_shared_v1beta1_page_entry_content.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem.decode(
+							value
+						)
+					)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl.jsonEncode(
+		self: ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems
+	): any
+		local output = {}
+
+		if self.items ~= nil and #self.items > 0 then
+			local newOutput = {}
+			for _, value in self.items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.items = newOutput
+		end
+
+		return output
+	end
+
+	function _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl.jsonDecode(
+		input: { [string]: any }
+	): ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems
+		local self = _ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl.new()
+
+		if input.items ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_page_entry_content.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem } =
+				{}
+			for _, value in input.items do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_page_entry_content.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem.jsonDecode(
+						value
+					)
+				)
+			end
+
+			self.items = newOutput
+		end
+
+		return self
+	end
+
+	_ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl.descriptor = {
+		name = "ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems",
+		fullName = "roblox.apppageplatform.shared.v1beta1.LiteralItems",
+	}
+
+	messages.ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems =
+		_ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItemsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems)
 end
 
 do
@@ -4215,6 +4665,8 @@ return {
 	ArrayOfCatalogCategoryMenuItemProp_ConditionalOption = messages.ArrayOfCatalogCategoryMenuItemProp_ConditionalOption,
 	ArrayOfCatalogCategoryMenuItemProp_ConditionalOptions = messages.ArrayOfCatalogCategoryMenuItemProp_ConditionalOptions,
 	ArrayOfCatalogCategoryMenuItemProp_ArrayOfCatalogCategoryMenuItem = messages.ArrayOfCatalogCategoryMenuItemProp_ArrayOfCatalogCategoryMenuItem,
+	ArrayOfCatalogCategoryMenuItemProp_ArrayMap = messages.ArrayOfCatalogCategoryMenuItemProp_ArrayMap,
+	ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems = messages.ArrayOfCatalogCategoryMenuItemProp_ArrayMap_LiteralItems,
 	ArrayOfCatalogCategoryMenuTooltipInfoProp = messages.ArrayOfCatalogCategoryMenuTooltipInfoProp,
 	ArrayOfCatalogCategoryMenuTooltipInfoProp_ConditionalOption = messages.ArrayOfCatalogCategoryMenuTooltipInfoProp_ConditionalOption,
 	ArrayOfCatalogCategoryMenuTooltipInfoProp_ConditionalOptions = messages.ArrayOfCatalogCategoryMenuTooltipInfoProp_ConditionalOptions,

@@ -1,32 +1,54 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["View"]
-        4 DUPTABLE                         R3 K2 [{"tag"}]
-        5 LOADK                            R4 K3 ["size-full col align-y-top"]
-        6 SETTABLEKS                       R4 R3 K1 ["tag"]
-        8 DUPTABLE                         R4 K7 [{"Controls", "AssetList", "Progress"}]
-        9 GETUPVAL                         R5 0
-       10 GETUPVAL                         R6 2
-       11 CALL                             R5 1 1
-       12 SETTABLEKS                       R5 R4 K4 ["Controls"]
-       14 GETUPVAL                         R5 0
-       15 GETUPVAL                         R7 1
-       16 GETTABLEKS                       R6 R7 K0 ["View"]
-       18 DUPTABLE                         R7 K2 [{"tag"}]
-       19 LOADK                            R8 K8 ["size-full-0 fill padding-bottom-xsmall"]
-       20 SETTABLEKS                       R8 R7 K1 ["tag"]
-       22 GETUPVAL                         R8 0
-       23 GETUPVAL                         R9 3
-       24 CALL                             R8 1 -1
-       25 CALL                             R5 -1 1
-       26 SETTABLEKS                       R5 R4 K5 ["AssetList"]
-       28 GETUPVAL                         R5 0
-       29 GETUPVAL                         R6 4
-       30 CALL                             R5 1 1
-       31 SETTABLEKS                       R5 R4 K6 ["Progress"]
-       33 CALL                             R1 3 -1
-       34 RETURN                           R1 -1
+        0 GETTABLEKS                       R2 R0 K0 ["AbsoluteSize"]
+        2 GETIMPORT                        R3 K3 [Vector2.new]
+        4 LOADN                            R4 0
+        5 LOADN                            R5 10
+        6 CALL                             R3 2 1
+        7 SUB                              R1 R2 R3
+        8 GETUPVAL                         R2 0
+        9 SETTABLEKS                       R1 R2 K4 ["mainViewAbsSize"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R2 R3 K5 ["onMainViewAbsSizeChanged"]
+       14 MOVE                             R4 R1
+       15 NAMECALL                         R2 R2 K6 ["Fire"]
+       17 CALL                             R2 2 0
+       18 RETURN                           R0 0
+
+PROTO_1:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["use"]
+        3 CALL                             R1 0 1
+        4 GETUPVAL                         R2 1
+        5 GETUPVAL                         R4 2
+        6 GETTABLEKS                       R3 R4 K1 ["View"]
+        8 DUPTABLE                         R4 K4 [{"tag", "onAbsoluteSizeChanged"}]
+        9 LOADK                            R5 K5 ["size-full col align-y-top"]
+       10 SETTABLEKS                       R5 R4 K2 ["tag"]
+       12 NEWCLOSURE                       R5 P0
+       13 CAPTURE                          VAL R1
+       14 SETTABLEKS                       R5 R4 K3 ["onAbsoluteSizeChanged"]
+       16 DUPTABLE                         R5 K9 [{"Controls", "AssetList", "Progress"}]
+       17 GETUPVAL                         R6 1
+       18 GETUPVAL                         R7 3
+       19 CALL                             R6 1 1
+       20 SETTABLEKS                       R6 R5 K6 ["Controls"]
+       22 GETUPVAL                         R6 1
+       23 GETUPVAL                         R8 2
+       24 GETTABLEKS                       R7 R8 K1 ["View"]
+       26 DUPTABLE                         R8 K10 [{"tag"}]
+       27 LOADK                            R9 K11 ["size-full-0 fill padding-bottom-xsmall"]
+       28 SETTABLEKS                       R9 R8 K2 ["tag"]
+       30 GETUPVAL                         R9 1
+       31 GETUPVAL                         R10 4
+       32 CALL                             R9 1 -1
+       33 CALL                             R6 -1 1
+       34 SETTABLEKS                       R6 R5 K7 ["AssetList"]
+       36 GETUPVAL                         R6 1
+       37 GETUPVAL                         R7 5
+       38 CALL                             R6 1 1
+       39 SETTABLEKS                       R6 R5 K8 ["Progress"]
+       41 CALL                             R2 3 -1
+       42 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -44,21 +66,27 @@ MAIN:
        20 GETTABLEKS                       R4 R5 K9 ["Foundation"]
        22 CALL                             R3 1 1
        23 GETIMPORT                        R4 K5 [require]
-       25 GETIMPORT                        R6 K1 [script]
-       27 GETTABLEKS                       R5 R6 K10 ["AssetTable"]
-       29 CALL                             R4 1 1
-       30 GETIMPORT                        R5 K5 [require]
-       32 GETIMPORT                        R7 K1 [script]
-       34 GETTABLEKS                       R6 R7 K11 ["ControlPanel"]
-       36 CALL                             R5 1 1
-       37 GETIMPORT                        R6 K5 [require]
-       39 GETIMPORT                        R8 K1 [script]
-       41 GETTABLEKS                       R7 R8 K12 ["ProgressBar"]
-       43 CALL                             R6 1 1
-       44 DUPCLOSURE                       R7 K13 [PROTO_0]
-       45 CAPTURE                          VAL R2
-       46 CAPTURE                          VAL R3
-       47 CAPTURE                          VAL R5
-       48 CAPTURE                          VAL R4
-       49 CAPTURE                          VAL R6
-       50 RETURN                           R7 1
+       25 GETTABLEKS                       R7 R0 K10 ["Src"]
+       27 GETTABLEKS                       R6 R7 K11 ["Controllers"]
+       29 GETTABLEKS                       R5 R6 K12 ["QueueController"]
+       31 CALL                             R4 1 1
+       32 GETIMPORT                        R5 K5 [require]
+       34 GETIMPORT                        R7 K1 [script]
+       36 GETTABLEKS                       R6 R7 K13 ["AssetTable"]
+       38 CALL                             R5 1 1
+       39 GETIMPORT                        R6 K5 [require]
+       41 GETIMPORT                        R8 K1 [script]
+       43 GETTABLEKS                       R7 R8 K14 ["ControlPanel"]
+       45 CALL                             R6 1 1
+       46 GETIMPORT                        R7 K5 [require]
+       48 GETIMPORT                        R9 K1 [script]
+       50 GETTABLEKS                       R8 R9 K15 ["ProgressBar"]
+       52 CALL                             R7 1 1
+       53 DUPCLOSURE                       R8 K16 [PROTO_1]
+       54 CAPTURE                          VAL R4
+       55 CAPTURE                          VAL R2
+       56 CAPTURE                          VAL R3
+       57 CAPTURE                          VAL R6
+       58 CAPTURE                          VAL R5
+       59 CAPTURE                          VAL R7
+       60 RETURN                           R8 1

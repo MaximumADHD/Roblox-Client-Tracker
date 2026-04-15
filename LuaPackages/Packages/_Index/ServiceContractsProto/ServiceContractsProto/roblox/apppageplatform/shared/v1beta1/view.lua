@@ -13,6 +13,7 @@ type _Messages = {
 local messages: _Messages = {} :: _Messages
 
 local _roblox_apppageplatform_shared_v1beta1_prop_types = require(script.Parent.prop_types)
+local _roblox_apppageplatform_shared_v1beta1_prop_types_engine = require(script.Parent.prop_types_engine)
 local _roblox_apppageplatform_shared_v1beta1_actions = require(script.Parent.actions)
 local _roblox_apppageplatform_shared_v1beta1_component_shared = require(script.Parent.component_shared)
 
@@ -56,6 +57,24 @@ type _ViewSchema_PropsFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	on_secondary_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	visible: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	is_disabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	selectable: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	selection_group: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	rotation: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	scale: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	group_transparency: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.UDimProp?,
+	cursor_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	aspect_ratio: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	size_constraint: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.SizeConstraintProp?,
+	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp?,
+	padding: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	children: _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentListProp?,
 }
 
 type _ViewSchema_PropsPartialFields = {
@@ -65,6 +84,24 @@ type _ViewSchema_PropsPartialFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	on_secondary_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	visible: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	is_disabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	selectable: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	selection_group: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	rotation: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	scale: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	group_transparency: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.UDimProp?,
+	cursor_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	aspect_ratio: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	size_constraint: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.SizeConstraintProp?,
+	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp?,
+	padding: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	children: _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentListProp?,
 }
 
 export type ViewSchema_Props = typeof(setmetatable({} :: _ViewSchema_PropsFields, {} :: _ViewSchema_PropsImpl))
@@ -201,6 +238,26 @@ do
 			position = if data == nil or data.position == nil then nil else data.position,
 			size = if data == nil or data.size == nil then nil else data.size,
 			on_activated = if data == nil or data.on_activated == nil then nil else data.on_activated,
+			on_secondary_activated = if data == nil or data.on_secondary_activated == nil
+				then nil
+				else data.on_secondary_activated,
+			tag = if data == nil or data.tag == nil then nil else data.tag,
+			visible = if data == nil or data.visible == nil then nil else data.visible,
+			is_disabled = if data == nil or data.is_disabled == nil then nil else data.is_disabled,
+			selectable = if data == nil or data.selectable == nil then nil else data.selectable,
+			selection_group = if data == nil or data.selection_group == nil then nil else data.selection_group,
+			rotation = if data == nil or data.rotation == nil then nil else data.rotation,
+			scale = if data == nil or data.scale == nil then nil else data.scale,
+			group_transparency = if data == nil or data.group_transparency == nil then nil else data.group_transparency,
+			background_style = if data == nil or data.background_style == nil then nil else data.background_style,
+			corner_radius = if data == nil or data.corner_radius == nil then nil else data.corner_radius,
+			cursor_type = if data == nil or data.cursor_type == nil then nil else data.cursor_type,
+			aspect_ratio = if data == nil or data.aspect_ratio == nil then nil else data.aspect_ratio,
+			size_constraint = if data == nil or data.size_constraint == nil then nil else data.size_constraint,
+			automatic_size = if data == nil or data.automatic_size == nil then nil else data.automatic_size,
+			padding = if data == nil or data.padding == nil then nil else data.padding,
+			z_index = if data == nil or data.z_index == nil then nil else data.z_index,
+			children = if data == nil or data.children == nil then nil else data.children,
 		}, _ViewSchema_PropsImpl :: _ViewSchema_PropsImpl)
 	end
 
@@ -241,6 +298,114 @@ do
 		if self.on_activated ~= nil then
 			local encoded = self.on_activated:encode()
 			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_secondary_activated ~= nil then
+			local encoded = self.on_secondary_activated:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.tag ~= nil then
+			local encoded = self.tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.visible ~= nil then
+			local encoded = self.visible:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.is_disabled ~= nil then
+			local encoded = self.is_disabled:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.selectable ~= nil then
+			local encoded = self.selectable:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.selection_group ~= nil then
+			local encoded = self.selection_group:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.rotation ~= nil then
+			local encoded = self.rotation:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.scale ~= nil then
+			local encoded = self.scale:encode()
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.group_transparency ~= nil then
+			local encoded = self.group_transparency:encode()
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.background_style ~= nil then
+			local encoded = self.background_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.corner_radius ~= nil then
+			local encoded = self.corner_radius:encode()
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.cursor_type ~= nil then
+			local encoded = self.cursor_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.aspect_ratio ~= nil then
+			local encoded = self.aspect_ratio:encode()
+			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.size_constraint ~= nil then
+			local encoded = self.size_constraint:encode()
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.automatic_size ~= nil then
+			local encoded = self.automatic_size:encode()
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.padding ~= nil then
+			local encoded = self.padding:encode()
+			output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.z_index ~= nil then
+			local encoded = self.z_index:encode()
+			output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.children ~= nil then
+			local encoded = self.children:encode()
+			output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -293,6 +458,101 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
 					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_secondary_activated =
+						_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.visible = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.is_disabled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selectable = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selection_group = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.rotation = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.scale = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.group_transparency = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.background_style =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.corner_radius = _roblox_apppageplatform_shared_v1beta1_prop_types.UDimProp.decode(value)
+					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cursor_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.aspect_ratio = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.size_constraint =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.SizeConstraintProp.decode(value)
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.automatic_size =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp.decode(value)
+					continue
+				elseif field == 22 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.padding = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.decode(value)
+					continue
+				elseif field == 23 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 24 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.children =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentListProp.decode(value)
+					continue
 				end
 
 				local length
@@ -342,6 +602,78 @@ do
 
 		if self.on_activated ~= nil then
 			output.onActivated = self.on_activated:jsonEncode()
+		end
+
+		if self.on_secondary_activated ~= nil then
+			output.onSecondaryActivated = self.on_secondary_activated:jsonEncode()
+		end
+
+		if self.tag ~= nil then
+			output.tag = self.tag:jsonEncode()
+		end
+
+		if self.visible ~= nil then
+			output.visible = self.visible:jsonEncode()
+		end
+
+		if self.is_disabled ~= nil then
+			output.isDisabled = self.is_disabled:jsonEncode()
+		end
+
+		if self.selectable ~= nil then
+			output.selectable = self.selectable:jsonEncode()
+		end
+
+		if self.selection_group ~= nil then
+			output.selectionGroup = self.selection_group:jsonEncode()
+		end
+
+		if self.rotation ~= nil then
+			output.rotation = self.rotation:jsonEncode()
+		end
+
+		if self.scale ~= nil then
+			output.scale = self.scale:jsonEncode()
+		end
+
+		if self.group_transparency ~= nil then
+			output.groupTransparency = self.group_transparency:jsonEncode()
+		end
+
+		if self.background_style ~= nil then
+			output.backgroundStyle = self.background_style:jsonEncode()
+		end
+
+		if self.corner_radius ~= nil then
+			output.cornerRadius = self.corner_radius:jsonEncode()
+		end
+
+		if self.cursor_type ~= nil then
+			output.cursorType = self.cursor_type:jsonEncode()
+		end
+
+		if self.aspect_ratio ~= nil then
+			output.aspectRatio = self.aspect_ratio:jsonEncode()
+		end
+
+		if self.size_constraint ~= nil then
+			output.sizeConstraint = self.size_constraint:jsonEncode()
+		end
+
+		if self.automatic_size ~= nil then
+			output.automaticSize = self.automatic_size:jsonEncode()
+		end
+
+		if self.padding ~= nil then
+			output.padding = self.padding:jsonEncode()
+		end
+
+		if self.z_index ~= nil then
+			output.zIndex = self.z_index:jsonEncode()
+		end
+
+		if self.children ~= nil then
+			output.children = self.children:jsonEncode()
 		end
 
 		return output
@@ -394,6 +726,146 @@ do
 
 		if input.onActivated ~= nil then
 			self.on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onActivated)
+		end
+
+		if input.on_secondary_activated ~= nil then
+			self.on_secondary_activated =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.on_secondary_activated)
+		end
+
+		if input.onSecondaryActivated ~= nil then
+			self.on_secondary_activated =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onSecondaryActivated)
+		end
+
+		if input.tag ~= nil then
+			self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tag)
+		end
+
+		if input.visible ~= nil then
+			self.visible = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.visible)
+		end
+
+		if input.is_disabled ~= nil then
+			self.is_disabled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.is_disabled)
+		end
+
+		if input.isDisabled ~= nil then
+			self.is_disabled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isDisabled)
+		end
+
+		if input.selectable ~= nil then
+			self.selectable = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.selectable)
+		end
+
+		if input.selection_group ~= nil then
+			self.selection_group =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.selection_group)
+		end
+
+		if input.selectionGroup ~= nil then
+			self.selection_group =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.selectionGroup)
+		end
+
+		if input.rotation ~= nil then
+			self.rotation = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.rotation)
+		end
+
+		if input.scale ~= nil then
+			self.scale = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.scale)
+		end
+
+		if input.group_transparency ~= nil then
+			self.group_transparency =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.group_transparency)
+		end
+
+		if input.groupTransparency ~= nil then
+			self.group_transparency =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.groupTransparency)
+		end
+
+		if input.background_style ~= nil then
+			self.background_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.background_style)
+		end
+
+		if input.backgroundStyle ~= nil then
+			self.background_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.backgroundStyle)
+		end
+
+		if input.corner_radius ~= nil then
+			self.corner_radius =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.UDimProp.jsonDecode(input.corner_radius)
+		end
+
+		if input.cornerRadius ~= nil then
+			self.corner_radius =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.UDimProp.jsonDecode(input.cornerRadius)
+		end
+
+		if input.cursor_type ~= nil then
+			self.cursor_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.cursor_type)
+		end
+
+		if input.cursorType ~= nil then
+			self.cursor_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.cursorType)
+		end
+
+		if input.aspect_ratio ~= nil then
+			self.aspect_ratio =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.aspect_ratio)
+		end
+
+		if input.aspectRatio ~= nil then
+			self.aspect_ratio =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.aspectRatio)
+		end
+
+		if input.size_constraint ~= nil then
+			self.size_constraint =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.SizeConstraintProp.jsonDecode(
+					input.size_constraint
+				)
+		end
+
+		if input.sizeConstraint ~= nil then
+			self.size_constraint =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.SizeConstraintProp.jsonDecode(
+					input.sizeConstraint
+				)
+		end
+
+		if input.automatic_size ~= nil then
+			self.automatic_size = _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp.jsonDecode(
+				input.automatic_size
+			)
+		end
+
+		if input.automaticSize ~= nil then
+			self.automatic_size = _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp.jsonDecode(
+				input.automaticSize
+			)
+		end
+
+		if input.padding ~= nil then
+			self.padding = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.padding)
+		end
+
+		if input.z_index ~= nil then
+			self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.z_index)
+		end
+
+		if input.zIndex ~= nil then
+			self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.zIndex)
+		end
+
+		if input.children ~= nil then
+			self.children =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentListProp.jsonDecode(input.children)
 		end
 
 		return self

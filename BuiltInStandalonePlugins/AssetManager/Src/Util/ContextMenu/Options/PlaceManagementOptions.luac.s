@@ -203,23 +203,16 @@ PROTO_10:
        14 GETTABLEKS                       R5 R6 K4 ["Place"]
        16 NAMECALL                         R3 R3 K5 ["getSingleItemSelected"]
        18 CALL                             R3 2 1
-       19 JUMPIFEQKNIL                     R3 ; [+20]
+       19 JUMPIFEQKNIL                     R3 ; [+12]
        21 GETTABLEKS                       R4 R1 K6 ["PluginController"]
        23 GETTABLEKS                       R5 R1 K7 ["Localization"]
        25 GETTABLEKS                       R6 R3 K8 ["AssetId"]
        27 GETUPVAL                         R7 1
-       28 CALL                             R7 0 1
-       29 JUMPIFNOT                        R7 ; [+6]
-       30 GETUPVAL                         R7 2
-       31 MOVE                             R8 R4
-       32 MOVE                             R9 R5
-       33 MOVE                             R10 R6
-       34 CALL                             R7 3 0
-       35 RETURN                           R0 0
-       36 MOVE                             R9 R6
-       37 NAMECALL                         R7 R4 K9 ["DEPRECATED_stageRemovePlace"]
-       39 CALL                             R7 2 0
-       40 RETURN                           R0 0
+       28 MOVE                             R8 R4
+       29 MOVE                             R9 R5
+       30 MOVE                             R10 R6
+       31 CALL                             R7 3 0
+       32 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R6 0
@@ -269,78 +262,72 @@ MAIN:
        38 GETTABLEKS                       R6 R7 K13 ["Flags"]
        40 GETTABLEKS                       R5 R6 K14 ["getFFlagAmrRefactorEditNameInput"]
        42 CALL                             R4 1 1
-       43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R8 R0 K6 ["Src"]
-       47 GETTABLEKS                       R7 R8 K13 ["Flags"]
-       49 GETTABLEKS                       R6 R7 K15 ["getFFlagAmrUseDialogComponent"]
-       51 CALL                             R5 1 1
-       52 DUPCLOSURE                       R6 K16 [PROTO_0]
-       53 CAPTURE                          VAL R2
-       54 DUPCLOSURE                       R7 K17 [PROTO_1]
-       55 CAPTURE                          VAL R1
-       56 DUPTABLE                         R8 K22 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       57 LOADK                            R9 K23 ["ContextMenu"]
-       58 SETTABLEKS                       R9 R8 K18 ["TextKey"]
-       60 LOADK                            R9 K24 ["AddNewPlace"]
-       61 SETTABLEKS                       R9 R8 K19 ["TextSubKey"]
-       63 DUPCLOSURE                       R9 K25 [PROTO_2]
-       64 SETTABLEKS                       R9 R8 K20 ["OnItemClicked"]
-       66 DUPCLOSURE                       R9 K26 [PROTO_3]
-       67 CAPTURE                          VAL R1
-       68 SETTABLEKS                       R9 R8 K21 ["ShouldRender"]
-       70 DUPTABLE                         R9 K22 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       71 LOADK                            R10 K23 ["ContextMenu"]
-       72 SETTABLEKS                       R10 R9 K18 ["TextKey"]
-       74 LOADK                            R10 K27 ["OpenFolder"]
-       75 SETTABLEKS                       R10 R9 K19 ["TextSubKey"]
-       77 DUPCLOSURE                       R10 K28 [PROTO_4]
-       78 CAPTURE                          VAL R1
-       79 SETTABLEKS                       R10 R9 K20 ["OnItemClicked"]
-       81 DUPCLOSURE                       R10 K29 [PROTO_5]
-       82 CAPTURE                          VAL R1
-       83 SETTABLEKS                       R10 R9 K21 ["ShouldRender"]
-       85 DUPTABLE                         R10 K22 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       86 LOADK                            R11 K23 ["ContextMenu"]
-       87 SETTABLEKS                       R11 R10 K18 ["TextKey"]
-       89 LOADK                            R11 K30 ["Rename"]
-       90 SETTABLEKS                       R11 R10 K19 ["TextSubKey"]
-       92 DUPCLOSURE                       R11 K31 [PROTO_6]
-       93 CAPTURE                          VAL R1
-       94 CAPTURE                          VAL R4
-       95 SETTABLEKS                       R11 R10 K20 ["OnItemClicked"]
-       97 DUPCLOSURE                       R11 K32 [PROTO_7]
-       98 CAPTURE                          VAL R1
-       99 SETTABLEKS                       R11 R10 K21 ["ShouldRender"]
-      101 DUPTABLE                         R11 K22 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-      102 LOADK                            R12 K23 ["ContextMenu"]
-      103 SETTABLEKS                       R12 R11 K18 ["TextKey"]
-      105 LOADK                            R12 K33 ["ViewPlaceHistory"]
-      106 SETTABLEKS                       R12 R11 K19 ["TextSubKey"]
-      108 DUPCLOSURE                       R12 K34 [PROTO_8]
-      109 CAPTURE                          VAL R1
-      110 CAPTURE                          VAL R6
-      111 SETTABLEKS                       R12 R11 K20 ["OnItemClicked"]
-      113 DUPCLOSURE                       R12 K35 [PROTO_9]
-      114 CAPTURE                          VAL R1
-      115 SETTABLEKS                       R12 R11 K21 ["ShouldRender"]
-      117 DUPTABLE                         R12 K22 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-      118 LOADK                            R13 K23 ["ContextMenu"]
-      119 SETTABLEKS                       R13 R12 K18 ["TextKey"]
-      121 LOADK                            R13 K36 ["RemoveFromExperience"]
-      122 SETTABLEKS                       R13 R12 K19 ["TextSubKey"]
-      124 DUPCLOSURE                       R13 K37 [PROTO_10]
-      125 CAPTURE                          VAL R1
-      126 CAPTURE                          VAL R5
-      127 CAPTURE                          VAL R3
-      128 SETTABLEKS                       R13 R12 K20 ["OnItemClicked"]
-      130 DUPCLOSURE                       R13 K38 [PROTO_11]
-      131 CAPTURE                          VAL R1
-      132 SETTABLEKS                       R13 R12 K21 ["ShouldRender"]
-      134 NEWTABLE                         R13 0 5
-      136 MOVE                             R14 R9
-      137 MOVE                             R15 R10
-      138 MOVE                             R16 R11
-      139 MOVE                             R17 R12
-      140 MOVE                             R18 R8
-      141 SETLIST                          R13 R14 5 [1]
-      143 RETURN                           R13 1
+       43 DUPCLOSURE                       R5 K15 [PROTO_0]
+       44 CAPTURE                          VAL R2
+       45 DUPCLOSURE                       R6 K16 [PROTO_1]
+       46 CAPTURE                          VAL R1
+       47 DUPTABLE                         R7 K21 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
+       48 LOADK                            R8 K22 ["ContextMenu"]
+       49 SETTABLEKS                       R8 R7 K17 ["TextKey"]
+       51 LOADK                            R8 K23 ["AddNewPlace"]
+       52 SETTABLEKS                       R8 R7 K18 ["TextSubKey"]
+       54 DUPCLOSURE                       R8 K24 [PROTO_2]
+       55 SETTABLEKS                       R8 R7 K19 ["OnItemClicked"]
+       57 DUPCLOSURE                       R8 K25 [PROTO_3]
+       58 CAPTURE                          VAL R1
+       59 SETTABLEKS                       R8 R7 K20 ["ShouldRender"]
+       61 DUPTABLE                         R8 K21 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
+       62 LOADK                            R9 K22 ["ContextMenu"]
+       63 SETTABLEKS                       R9 R8 K17 ["TextKey"]
+       65 LOADK                            R9 K26 ["OpenFolder"]
+       66 SETTABLEKS                       R9 R8 K18 ["TextSubKey"]
+       68 DUPCLOSURE                       R9 K27 [PROTO_4]
+       69 CAPTURE                          VAL R1
+       70 SETTABLEKS                       R9 R8 K19 ["OnItemClicked"]
+       72 DUPCLOSURE                       R9 K28 [PROTO_5]
+       73 CAPTURE                          VAL R1
+       74 SETTABLEKS                       R9 R8 K20 ["ShouldRender"]
+       76 DUPTABLE                         R9 K21 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
+       77 LOADK                            R10 K22 ["ContextMenu"]
+       78 SETTABLEKS                       R10 R9 K17 ["TextKey"]
+       80 LOADK                            R10 K29 ["Rename"]
+       81 SETTABLEKS                       R10 R9 K18 ["TextSubKey"]
+       83 DUPCLOSURE                       R10 K30 [PROTO_6]
+       84 CAPTURE                          VAL R1
+       85 CAPTURE                          VAL R4
+       86 SETTABLEKS                       R10 R9 K19 ["OnItemClicked"]
+       88 DUPCLOSURE                       R10 K31 [PROTO_7]
+       89 CAPTURE                          VAL R1
+       90 SETTABLEKS                       R10 R9 K20 ["ShouldRender"]
+       92 DUPTABLE                         R10 K21 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
+       93 LOADK                            R11 K22 ["ContextMenu"]
+       94 SETTABLEKS                       R11 R10 K17 ["TextKey"]
+       96 LOADK                            R11 K32 ["ViewPlaceHistory"]
+       97 SETTABLEKS                       R11 R10 K18 ["TextSubKey"]
+       99 DUPCLOSURE                       R11 K33 [PROTO_8]
+      100 CAPTURE                          VAL R1
+      101 CAPTURE                          VAL R5
+      102 SETTABLEKS                       R11 R10 K19 ["OnItemClicked"]
+      104 DUPCLOSURE                       R11 K34 [PROTO_9]
+      105 CAPTURE                          VAL R1
+      106 SETTABLEKS                       R11 R10 K20 ["ShouldRender"]
+      108 DUPTABLE                         R11 K21 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
+      109 LOADK                            R12 K22 ["ContextMenu"]
+      110 SETTABLEKS                       R12 R11 K17 ["TextKey"]
+      112 LOADK                            R12 K35 ["RemoveFromExperience"]
+      113 SETTABLEKS                       R12 R11 K18 ["TextSubKey"]
+      115 DUPCLOSURE                       R12 K36 [PROTO_10]
+      116 CAPTURE                          VAL R1
+      117 CAPTURE                          VAL R3
+      118 SETTABLEKS                       R12 R11 K19 ["OnItemClicked"]
+      120 DUPCLOSURE                       R12 K37 [PROTO_11]
+      121 CAPTURE                          VAL R1
+      122 SETTABLEKS                       R12 R11 K20 ["ShouldRender"]
+      124 NEWTABLE                         R12 0 5
+      126 MOVE                             R13 R8
+      127 MOVE                             R14 R9
+      128 MOVE                             R15 R10
+      129 MOVE                             R16 R11
+      130 MOVE                             R17 R7
+      131 SETLIST                          R12 R13 5 [1]
+      133 RETURN                           R12 1

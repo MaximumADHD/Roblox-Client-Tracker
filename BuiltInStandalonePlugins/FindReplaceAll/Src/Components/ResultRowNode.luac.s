@@ -522,62 +522,57 @@ PROTO_12:
       380 SETTABLEKS                       R28 R27 K15 ["ref"]
       382 GETUPVAL                         R29 1
       383 GETTABLEKS                       R28 R29 K27 ["Tag"]
-      385 GETUPVAL                         R30 14
-      386 CALL                             R30 0 1
-      387 JUMPIFNOT                        R30 ; [+2]
-      388 LOADK                            R29 K74 ["FindReplaceAll-PadLeftS FindReplaceAll-FillX FindReplaceAll-PadRight FindReplaceAll-Text-Size-12 FindReplaceAll-Content-Default data-testid=ResultRowNode-ScriptNameOrMatchingLine"]
-      389 JUMP                             ; [+1]
-      390 LOADK                            R29 K75 ["FindReplaceAll-PadLeftS FindReplaceAll-FillX FindReplaceAll-PadRight FindReplaceAll-Text-Size-14 FindReplaceAll-Content-Default data-testid=ResultRowNode-ScriptNameOrMatchingLine"]
-      391 SETTABLE                         R29 R27 R28
-      392 CALL                             R25 2 1
-      393 SETTABLEKS                       R25 R24 K51 ["ScriptNameOrMatchingLine"]
-      395 GETUPVAL                         R25 10
-      396 LOADK                            R26 K57 ["TextLabel"]
-      397 NEWTABLE                         R27 16 0
-      399 GETIMPORT                        R28 K77 [Enum.AutomaticSize.XY]
-      401 SETTABLEKS                       R28 R27 K58 ["AutomaticSize"]
-      403 GETIMPORT                        R28 K61 [UDim2.new]
-      405 LOADN                            R29 0
-      406 LOADN                            R30 0
-      407 LOADN                            R31 0
-      408 GETUPVAL                         R34 12
-      409 GETTABLEKS                       R33 R34 K78 ["resultRowHeight"]
-      411 GETUPVAL                         R35 12
-      412 GETTABLEKS                       R34 R35 K79 ["circleOffset"]
-      414 SUB                              R32 R33 R34
-      415 CALL                             R28 4 1
-      416 SETTABLEKS                       R28 R27 K19 ["Size"]
-      418 LOADB                            R28 1
-      419 SETTABLEKS                       R28 R27 K63 ["ClipsDescendants"]
-      421 MOVE                             R28 R1
-      422 CALL                             R28 0 1
-      423 SETTABLEKS                       R28 R27 K32 ["LayoutOrder"]
-      425 GETIMPORT                        R28 K81 [Enum.TextXAlignment.Center]
-      427 SETTABLEKS                       R28 R27 K67 ["TextXAlignment"]
-      429 GETTABLEKS                       R28 R5 K11 ["getBinding"]
-      431 CALL                             R28 0 1
-      432 DUPCLOSURE                       R30 K82 [PROTO_10]
-      433 NAMECALL                         R28 R28 K13 ["map"]
-      435 CALL                             R28 2 1
-      436 SETTABLEKS                       R28 R27 K14 ["Visible"]
-      438 GETTABLEKS                       R28 R5 K11 ["getBinding"]
-      440 CALL                             R28 0 1
-      441 DUPCLOSURE                       R30 K83 [PROTO_11]
-      442 NAMECALL                         R28 R28 K13 ["map"]
-      444 CALL                             R28 2 1
-      445 SETTABLEKS                       R28 R27 K71 ["Text"]
-      447 LOADN                            R28 1
-      448 SETTABLEKS                       R28 R27 K20 ["ZIndex"]
-      450 GETUPVAL                         R29 1
-      451 GETTABLEKS                       R28 R29 K27 ["Tag"]
-      453 LOADK                            R29 K84 ["FindReplaceAll-ResultRowNode-Pill FindReplaceAll-SidePadM FindReplaceAll-Text-Size-12 data-testid=ResultRowNode-Pill"]
-      454 SETTABLE                         R29 R27 R28
-      455 CALL                             R25 2 1
-      456 SETTABLEKS                       R25 R24 K52 ["NumOfMatches"]
-      458 CALL                             R21 3 1
-      459 SETTABLEKS                       R21 R20 K30 ["Contents"]
-      461 CALL                             R17 3 -1
-      462 RETURN                           R17 -1
+      385 LOADK                            R29 K74 ["FindReplaceAll-PadLeftS FindReplaceAll-FillX FindReplaceAll-PadRight FindReplaceAll-Text-Size-12 FindReplaceAll-Content-Default data-testid=ResultRowNode-ScriptNameOrMatchingLine"]
+      386 SETTABLE                         R29 R27 R28
+      387 CALL                             R25 2 1
+      388 SETTABLEKS                       R25 R24 K51 ["ScriptNameOrMatchingLine"]
+      390 GETUPVAL                         R25 10
+      391 LOADK                            R26 K57 ["TextLabel"]
+      392 NEWTABLE                         R27 16 0
+      394 GETIMPORT                        R28 K76 [Enum.AutomaticSize.XY]
+      396 SETTABLEKS                       R28 R27 K58 ["AutomaticSize"]
+      398 GETIMPORT                        R28 K61 [UDim2.new]
+      400 LOADN                            R29 0
+      401 LOADN                            R30 0
+      402 LOADN                            R31 0
+      403 GETUPVAL                         R34 12
+      404 GETTABLEKS                       R33 R34 K77 ["resultRowHeight"]
+      406 GETUPVAL                         R35 12
+      407 GETTABLEKS                       R34 R35 K78 ["circleOffset"]
+      409 SUB                              R32 R33 R34
+      410 CALL                             R28 4 1
+      411 SETTABLEKS                       R28 R27 K19 ["Size"]
+      413 LOADB                            R28 1
+      414 SETTABLEKS                       R28 R27 K63 ["ClipsDescendants"]
+      416 MOVE                             R28 R1
+      417 CALL                             R28 0 1
+      418 SETTABLEKS                       R28 R27 K32 ["LayoutOrder"]
+      420 GETIMPORT                        R28 K80 [Enum.TextXAlignment.Center]
+      422 SETTABLEKS                       R28 R27 K67 ["TextXAlignment"]
+      424 GETTABLEKS                       R28 R5 K11 ["getBinding"]
+      426 CALL                             R28 0 1
+      427 DUPCLOSURE                       R30 K81 [PROTO_10]
+      428 NAMECALL                         R28 R28 K13 ["map"]
+      430 CALL                             R28 2 1
+      431 SETTABLEKS                       R28 R27 K14 ["Visible"]
+      433 GETTABLEKS                       R28 R5 K11 ["getBinding"]
+      435 CALL                             R28 0 1
+      436 DUPCLOSURE                       R30 K82 [PROTO_11]
+      437 NAMECALL                         R28 R28 K13 ["map"]
+      439 CALL                             R28 2 1
+      440 SETTABLEKS                       R28 R27 K71 ["Text"]
+      442 LOADN                            R28 1
+      443 SETTABLEKS                       R28 R27 K20 ["ZIndex"]
+      445 GETUPVAL                         R29 1
+      446 GETTABLEKS                       R28 R29 K27 ["Tag"]
+      448 LOADK                            R29 K83 ["FindReplaceAll-ResultRowNode-Pill FindReplaceAll-SidePadM FindReplaceAll-Text-Size-12 data-testid=ResultRowNode-Pill"]
+      449 SETTABLE                         R29 R27 R28
+      450 CALL                             R25 2 1
+      451 SETTABLEKS                       R25 R24 K52 ["NumOfMatches"]
+      453 CALL                             R21 3 1
+      454 SETTABLEKS                       R21 R20 K30 ["Contents"]
+      456 CALL                             R17 3 -1
+      457 RETURN                           R17 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -650,32 +645,25 @@ MAIN:
       117 GETTABLEKS                       R17 R18 K18 ["Hooks"]
       119 GETTABLEKS                       R16 R17 K28 ["useTooltip"]
       121 CALL                             R15 1 1
-      122 GETIMPORT                        R16 K5 [require]
-      124 GETTABLEKS                       R19 R0 K10 ["Src"]
-      126 GETTABLEKS                       R18 R19 K13 ["Util"]
-      128 GETTABLEKS                       R17 R18 K29 ["defineFlags"]
-      130 CALL                             R16 1 1
-      131 GETTABLEKS                       R17 R16 K30 ["getFFlagFindReplaceAllUseBuilderFont"]
-      133 GETTABLEKS                       R18 R1 K31 ["createElement"]
-      135 GETIMPORT                        R19 K5 [require]
-      137 GETTABLEKS                       R21 R0 K10 ["Src"]
-      139 GETTABLEKS                       R20 R21 K32 ["Types"]
-      141 CALL                             R19 1 1
-      142 DUPCLOSURE                       R20 K33 [PROTO_0]
-      143 DUPCLOSURE                       R21 K34 [PROTO_12]
-      144 CAPTURE                          VAL R3
-      145 CAPTURE                          VAL R1
-      146 CAPTURE                          VAL R10
-      147 CAPTURE                          VAL R9
-      148 CAPTURE                          VAL R12
-      149 CAPTURE                          VAL R8
-      150 CAPTURE                          VAL R15
-      151 CAPTURE                          VAL R14
-      152 CAPTURE                          VAL R7
-      153 CAPTURE                          VAL R4
-      154 CAPTURE                          VAL R18
-      155 CAPTURE                          VAL R5
-      156 CAPTURE                          VAL R6
-      157 CAPTURE                          VAL R11
-      158 CAPTURE                          VAL R17
-      159 RETURN                           R21 1
+      122 GETTABLEKS                       R16 R1 K29 ["createElement"]
+      124 GETIMPORT                        R17 K5 [require]
+      126 GETTABLEKS                       R19 R0 K10 ["Src"]
+      128 GETTABLEKS                       R18 R19 K30 ["Types"]
+      130 CALL                             R17 1 1
+      131 DUPCLOSURE                       R18 K31 [PROTO_0]
+      132 DUPCLOSURE                       R19 K32 [PROTO_12]
+      133 CAPTURE                          VAL R3
+      134 CAPTURE                          VAL R1
+      135 CAPTURE                          VAL R10
+      136 CAPTURE                          VAL R9
+      137 CAPTURE                          VAL R12
+      138 CAPTURE                          VAL R8
+      139 CAPTURE                          VAL R15
+      140 CAPTURE                          VAL R14
+      141 CAPTURE                          VAL R7
+      142 CAPTURE                          VAL R4
+      143 CAPTURE                          VAL R16
+      144 CAPTURE                          VAL R5
+      145 CAPTURE                          VAL R6
+      146 CAPTURE                          VAL R11
+      147 RETURN                           R19 1

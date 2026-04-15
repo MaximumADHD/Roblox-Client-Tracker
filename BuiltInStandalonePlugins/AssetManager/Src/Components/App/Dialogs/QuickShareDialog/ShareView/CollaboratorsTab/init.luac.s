@@ -147,12 +147,12 @@ PROTO_3:
        94 GETIMPORT                        R7 K30 [UDim.new]
        96 LOADN                            R8 0
        97 GETUPVAL                         R11 4
-       98 GETTABLEKS                       R10 R11 K31 ["AMR_QUICKSHARE_PERMISSIONS_DROPDOWN_SIZE"]
+       98 GETTABLEKS                       R10 R11 K31 ["QuickSharePermissionsDropdownSize"]
       100 GETTABLEKS                       R9 R10 K32 ["X"]
       102 CALL                             R7 2 1
       103 SETTABLEKS                       R7 R6 K19 ["width"]
       105 GETUPVAL                         R9 4
-      106 GETTABLEKS                       R8 R9 K31 ["AMR_QUICKSHARE_PERMISSIONS_DROPDOWN_SIZE"]
+      106 GETTABLEKS                       R8 R9 K31 ["QuickSharePermissionsDropdownSize"]
       108 GETTABLEKS                       R7 R8 K33 ["Y"]
       110 SETTABLEKS                       R7 R6 K20 ["maxHeight"]
       112 CALL                             R4 2 -1

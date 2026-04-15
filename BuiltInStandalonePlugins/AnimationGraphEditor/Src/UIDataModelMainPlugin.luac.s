@@ -577,7 +577,7 @@ PROTO_28:
       213 GETUPVAL                         R19 6
       214 GETTABLEKS                       R18 R19 K50 ["ContextStack"]
       216 DUPTABLE                         R19 K53 [{"providers"}]
-      217 NEWTABLE                         R20 0 26
+      217 NEWTABLE                         R20 0 27
       219 GETUPVAL                         R22 2
       220 GETTABLEKS                       R21 R22 K15 ["createElement"]
       222 GETUPVAL                         R24 4
@@ -624,157 +624,167 @@ PROTO_28:
       286 CALL                             R25 1 1
       287 GETUPVAL                         R27 2
       288 GETTABLEKS                       R26 R27 K15 ["createElement"]
-      290 GETUPVAL                         R28 0
-      291 GETTABLEKS                       R27 R28 K74 ["UIDataModelContexts"]
-      293 CALL                             R26 1 1
-      294 GETUPVAL                         R28 2
-      295 GETTABLEKS                       R27 R28 K15 ["createElement"]
-      297 GETUPVAL                         R30 0
-      298 GETTABLEKS                       R29 R30 K75 ["AssetAccessContext"]
-      300 GETTABLEKS                       R28 R29 K73 ["UIDataModelProvider"]
-      302 CALL                             R27 1 1
-      303 GETUPVAL                         R29 2
-      304 GETTABLEKS                       R28 R29 K15 ["createElement"]
-      306 GETUPVAL                         R31 0
-      307 GETTABLEKS                       R30 R31 K76 ["GameContext"]
-      309 GETTABLEKS                       R29 R30 K73 ["UIDataModelProvider"]
-      311 CALL                             R28 1 1
-      312 GETUPVAL                         R30 2
-      313 GETTABLEKS                       R29 R30 K15 ["createElement"]
-      315 GETUPVAL                         R32 0
-      316 GETTABLEKS                       R31 R32 K77 ["GraphDebugDataContext"]
-      318 GETTABLEKS                       R30 R31 K73 ["UIDataModelProvider"]
-      320 CALL                             R29 1 1
-      321 GETUPVAL                         R31 2
-      322 GETTABLEKS                       R30 R31 K15 ["createElement"]
-      324 GETUPVAL                         R33 0
-      325 GETTABLEKS                       R32 R33 K78 ["GraphPlayedContext"]
-      327 GETTABLEKS                       R31 R32 K73 ["UIDataModelProvider"]
-      329 CALL                             R30 1 1
-      330 GETUPVAL                         R32 2
-      331 GETTABLEKS                       R31 R32 K15 ["createElement"]
-      333 GETUPVAL                         R34 0
-      334 GETTABLEKS                       R33 R34 K79 ["PopupContext"]
-      336 GETTABLEKS                       R32 R33 K80 ["StudioProvider"]
-      338 CALL                             R31 1 1
-      339 GETUPVAL                         R33 2
-      340 GETTABLEKS                       R32 R33 K15 ["createElement"]
-      342 GETUPVAL                         R35 0
-      343 GETTABLEKS                       R34 R35 K81 ["PlayStateContext"]
-      345 GETTABLEKS                       R33 R34 K73 ["UIDataModelProvider"]
-      347 DUPTABLE                         R34 K83 [{"isOpen"}]
-      348 GETTABLEKS                       R36 R2 K20 ["enabledState"]
-      350 GETTABLEKS                       R35 R36 K21 ["enabled"]
-      352 SETTABLEKS                       R35 R34 K82 ["isOpen"]
-      354 CALL                             R32 2 1
+      290 GETUPVAL                         R29 0
+      291 GETTABLEKS                       R28 R29 K74 ["VisibleContext"]
+      293 GETTABLEKS                       R27 R28 K73 ["UIDataModelProvider"]
+      295 DUPTABLE                         R28 K76 [{"isOpen"}]
+      296 GETTABLEKS                       R30 R2 K20 ["enabledState"]
+      298 GETTABLEKS                       R29 R30 K21 ["enabled"]
+      300 SETTABLEKS                       R29 R28 K75 ["isOpen"]
+      302 CALL                             R26 2 1
+      303 GETUPVAL                         R28 2
+      304 GETTABLEKS                       R27 R28 K15 ["createElement"]
+      306 GETUPVAL                         R29 0
+      307 GETTABLEKS                       R28 R29 K77 ["UIDataModelContexts"]
+      309 CALL                             R27 1 1
+      310 GETUPVAL                         R29 2
+      311 GETTABLEKS                       R28 R29 K15 ["createElement"]
+      313 GETUPVAL                         R31 0
+      314 GETTABLEKS                       R30 R31 K78 ["AssetAccessContext"]
+      316 GETTABLEKS                       R29 R30 K73 ["UIDataModelProvider"]
+      318 CALL                             R28 1 1
+      319 GETUPVAL                         R30 2
+      320 GETTABLEKS                       R29 R30 K15 ["createElement"]
+      322 GETUPVAL                         R32 0
+      323 GETTABLEKS                       R31 R32 K79 ["GameContext"]
+      325 GETTABLEKS                       R30 R31 K73 ["UIDataModelProvider"]
+      327 CALL                             R29 1 1
+      328 GETUPVAL                         R31 2
+      329 GETTABLEKS                       R30 R31 K15 ["createElement"]
+      331 GETUPVAL                         R33 0
+      332 GETTABLEKS                       R32 R33 K80 ["GraphDebugDataContext"]
+      334 GETTABLEKS                       R31 R32 K73 ["UIDataModelProvider"]
+      336 CALL                             R30 1 1
+      337 GETUPVAL                         R32 2
+      338 GETTABLEKS                       R31 R32 K15 ["createElement"]
+      340 GETUPVAL                         R34 0
+      341 GETTABLEKS                       R33 R34 K81 ["GraphPlayedContext"]
+      343 GETTABLEKS                       R32 R33 K73 ["UIDataModelProvider"]
+      345 CALL                             R31 1 1
+      346 GETUPVAL                         R33 2
+      347 GETTABLEKS                       R32 R33 K15 ["createElement"]
+      349 GETUPVAL                         R35 0
+      350 GETTABLEKS                       R34 R35 K82 ["PopupContext"]
+      352 GETTABLEKS                       R33 R34 K83 ["StudioProvider"]
+      354 CALL                             R32 1 1
       355 GETUPVAL                         R34 2
       356 GETTABLEKS                       R33 R34 K15 ["createElement"]
       358 GETUPVAL                         R36 0
-      359 GETTABLEKS                       R35 R36 K84 ["MaskEditorContext"]
+      359 GETTABLEKS                       R35 R36 K84 ["PlayStateContext"]
       361 GETTABLEKS                       R34 R35 K73 ["UIDataModelProvider"]
-      363 CALL                             R33 1 1
-      364 GETUPVAL                         R35 2
-      365 GETTABLEKS                       R34 R35 K15 ["createElement"]
-      367 GETUPVAL                         R37 0
-      368 GETTABLEKS                       R36 R37 K85 ["NativeGraphContext"]
-      370 GETTABLEKS                       R35 R36 K73 ["UIDataModelProvider"]
-      372 CALL                             R34 1 1
-      373 GETUPVAL                         R36 2
-      374 GETTABLEKS                       R35 R36 K15 ["createElement"]
-      376 GETUPVAL                         R38 0
-      377 GETTABLEKS                       R37 R38 K86 ["AnimationParameterContext"]
-      379 GETTABLEKS                       R36 R37 K73 ["UIDataModelProvider"]
-      381 CALL                             R35 1 1
-      382 GETUPVAL                         R37 2
-      383 GETTABLEKS                       R36 R37 K15 ["createElement"]
-      385 GETUPVAL                         R39 0
-      386 GETTABLEKS                       R38 R39 K87 ["ParameterOverrideContext"]
-      388 GETTABLEKS                       R37 R38 K73 ["UIDataModelProvider"]
-      390 CALL                             R36 1 1
-      391 SETLIST                          R20 R21 16 [1]
-      393 GETUPVAL                         R22 2
-      394 GETTABLEKS                       R21 R22 K15 ["createElement"]
-      396 GETUPVAL                         R24 0
-      397 GETTABLEKS                       R23 R24 K88 ["RigListContext"]
-      399 GETTABLEKS                       R22 R23 K73 ["UIDataModelProvider"]
-      401 CALL                             R21 1 1
-      402 GETUPVAL                         R23 2
-      403 GETTABLEKS                       R22 R23 K15 ["createElement"]
-      405 GETUPVAL                         R25 0
-      406 GETTABLEKS                       R24 R25 K89 ["CreateGraphContext"]
-      408 GETTABLEKS                       R23 R24 K73 ["UIDataModelProvider"]
-      410 CALL                             R22 1 1
-      411 GETUPVAL                         R24 2
-      412 GETTABLEKS                       R23 R24 K15 ["createElement"]
-      414 GETUPVAL                         R26 0
-      415 GETTABLEKS                       R25 R26 K90 ["CreateScriptContext"]
-      417 GETTABLEKS                       R24 R25 K73 ["UIDataModelProvider"]
-      419 DUPTABLE                         R25 K91 [{"plugin"}]
-      420 GETTABLEKS                       R26 R0 K4 ["Plugin"]
-      422 SETTABLEKS                       R26 R25 K65 ["plugin"]
-      424 CALL                             R23 2 1
-      425 GETUPVAL                         R25 2
-      426 GETTABLEKS                       R24 R25 K15 ["createElement"]
-      428 GETUPVAL                         R27 0
-      429 GETTABLEKS                       R26 R27 K92 ["GraphDropdownContext"]
-      431 GETTABLEKS                       R25 R26 K73 ["UIDataModelProvider"]
-      433 CALL                             R24 1 1
-      434 GETUPVAL                         R26 2
-      435 GETTABLEKS                       R25 R26 K15 ["createElement"]
-      437 GETUPVAL                         R28 0
-      438 GETTABLEKS                       R27 R28 K93 ["GraphDirtyStateContext"]
-      440 GETTABLEKS                       R26 R27 K73 ["UIDataModelProvider"]
-      442 CALL                             R25 1 1
-      443 GETUPVAL                         R27 2
-      444 GETTABLEKS                       R26 R27 K15 ["createElement"]
-      446 GETUPVAL                         R29 0
-      447 GETTABLEKS                       R28 R29 K94 ["ViewportRectContext"]
-      449 GETTABLEKS                       R27 R28 K60 ["Provider"]
-      451 CALL                             R26 1 1
-      452 GETUPVAL                         R28 2
-      453 GETTABLEKS                       R27 R28 K15 ["createElement"]
-      455 GETUPVAL                         R30 0
-      456 GETTABLEKS                       R29 R30 K95 ["MenuItemsContext"]
-      458 GETTABLEKS                       R28 R29 K60 ["Provider"]
-      460 CALL                             R27 1 1
-      461 GETUPVAL                         R29 2
-      462 GETTABLEKS                       R28 R29 K15 ["createElement"]
-      464 GETUPVAL                         R31 0
-      465 GETTABLEKS                       R30 R31 K96 ["InsertNodeContext"]
-      467 GETTABLEKS                       R29 R30 K60 ["Provider"]
-      469 CALL                             R28 1 1
-      470 GETUPVAL                         R30 2
-      471 GETTABLEKS                       R29 R30 K15 ["createElement"]
-      473 GETUPVAL                         R32 0
-      474 GETTABLEKS                       R31 R32 K97 ["CompositorConnectionContext"]
-      476 GETTABLEKS                       R30 R31 K60 ["Provider"]
-      478 CALL                             R29 1 1
-      479 GETUPVAL                         R31 2
-      480 GETTABLEKS                       R30 R31 K15 ["createElement"]
-      482 GETUPVAL                         R33 9
-      483 GETTABLEKS                       R32 R33 K98 ["AssetPickerProvider"]
-      485 GETTABLEKS                       R31 R32 K80 ["StudioProvider"]
-      487 DUPTABLE                         R32 K100 [{"plugin", "theme", "studioService"}]
-      488 GETTABLEKS                       R33 R0 K4 ["Plugin"]
-      490 SETTABLEKS                       R33 R32 K65 ["plugin"]
-      492 SETTABLEKS                       R1 R32 K70 ["theme"]
-      494 GETUPVAL                         R33 10
-      495 SETTABLEKS                       R33 R32 K99 ["studioService"]
-      497 CALL                             R30 2 -1
-      498 SETLIST                          R20 R21 -1 [17]
-      500 SETTABLEKS                       R20 R19 K52 ["providers"]
-      502 DUPTABLE                         R20 K102 [{"MainView"}]
-      503 GETUPVAL                         R22 2
-      504 GETTABLEKS                       R21 R22 K15 ["createElement"]
-      506 GETUPVAL                         R22 11
-      507 CALL                             R21 1 1
-      508 SETTABLEKS                       R21 R20 K101 ["MainView"]
-      510 CALL                             R17 3 1
-      511 SETTABLEKS                       R17 R16 K50 ["ContextStack"]
-      513 CALL                             R13 3 1
-      514 SETTABLEKS                       R13 R12 K13 ["MainWidget"]
-      516 CALL                             R10 2 -1
-      517 RETURN                           R10 -1
+      363 DUPTABLE                         R35 K76 [{"isOpen"}]
+      364 GETTABLEKS                       R37 R2 K20 ["enabledState"]
+      366 GETTABLEKS                       R36 R37 K21 ["enabled"]
+      368 SETTABLEKS                       R36 R35 K75 ["isOpen"]
+      370 CALL                             R33 2 1
+      371 GETUPVAL                         R35 2
+      372 GETTABLEKS                       R34 R35 K15 ["createElement"]
+      374 GETUPVAL                         R37 0
+      375 GETTABLEKS                       R36 R37 K85 ["MaskEditorContext"]
+      377 GETTABLEKS                       R35 R36 K73 ["UIDataModelProvider"]
+      379 CALL                             R34 1 1
+      380 GETUPVAL                         R36 2
+      381 GETTABLEKS                       R35 R36 K15 ["createElement"]
+      383 GETUPVAL                         R38 0
+      384 GETTABLEKS                       R37 R38 K86 ["NativeGraphContext"]
+      386 GETTABLEKS                       R36 R37 K73 ["UIDataModelProvider"]
+      388 CALL                             R35 1 1
+      389 GETUPVAL                         R37 2
+      390 GETTABLEKS                       R36 R37 K15 ["createElement"]
+      392 GETUPVAL                         R39 0
+      393 GETTABLEKS                       R38 R39 K87 ["AnimationParameterContext"]
+      395 GETTABLEKS                       R37 R38 K73 ["UIDataModelProvider"]
+      397 CALL                             R36 1 1
+      398 SETLIST                          R20 R21 16 [1]
+      400 GETUPVAL                         R22 2
+      401 GETTABLEKS                       R21 R22 K15 ["createElement"]
+      403 GETUPVAL                         R24 0
+      404 GETTABLEKS                       R23 R24 K88 ["ParameterOverrideContext"]
+      406 GETTABLEKS                       R22 R23 K73 ["UIDataModelProvider"]
+      408 CALL                             R21 1 1
+      409 GETUPVAL                         R23 2
+      410 GETTABLEKS                       R22 R23 K15 ["createElement"]
+      412 GETUPVAL                         R25 0
+      413 GETTABLEKS                       R24 R25 K89 ["RigListContext"]
+      415 GETTABLEKS                       R23 R24 K73 ["UIDataModelProvider"]
+      417 CALL                             R22 1 1
+      418 GETUPVAL                         R24 2
+      419 GETTABLEKS                       R23 R24 K15 ["createElement"]
+      421 GETUPVAL                         R26 0
+      422 GETTABLEKS                       R25 R26 K90 ["CreateGraphContext"]
+      424 GETTABLEKS                       R24 R25 K73 ["UIDataModelProvider"]
+      426 CALL                             R23 1 1
+      427 GETUPVAL                         R25 2
+      428 GETTABLEKS                       R24 R25 K15 ["createElement"]
+      430 GETUPVAL                         R27 0
+      431 GETTABLEKS                       R26 R27 K91 ["CreateScriptContext"]
+      433 GETTABLEKS                       R25 R26 K73 ["UIDataModelProvider"]
+      435 DUPTABLE                         R26 K92 [{"plugin"}]
+      436 GETTABLEKS                       R27 R0 K4 ["Plugin"]
+      438 SETTABLEKS                       R27 R26 K65 ["plugin"]
+      440 CALL                             R24 2 1
+      441 GETUPVAL                         R26 2
+      442 GETTABLEKS                       R25 R26 K15 ["createElement"]
+      444 GETUPVAL                         R28 0
+      445 GETTABLEKS                       R27 R28 K93 ["GraphDropdownContext"]
+      447 GETTABLEKS                       R26 R27 K73 ["UIDataModelProvider"]
+      449 CALL                             R25 1 1
+      450 GETUPVAL                         R27 2
+      451 GETTABLEKS                       R26 R27 K15 ["createElement"]
+      453 GETUPVAL                         R29 0
+      454 GETTABLEKS                       R28 R29 K94 ["GraphDirtyStateContext"]
+      456 GETTABLEKS                       R27 R28 K73 ["UIDataModelProvider"]
+      458 CALL                             R26 1 1
+      459 GETUPVAL                         R28 2
+      460 GETTABLEKS                       R27 R28 K15 ["createElement"]
+      462 GETUPVAL                         R30 0
+      463 GETTABLEKS                       R29 R30 K95 ["ViewportRectContext"]
+      465 GETTABLEKS                       R28 R29 K60 ["Provider"]
+      467 CALL                             R27 1 1
+      468 GETUPVAL                         R29 2
+      469 GETTABLEKS                       R28 R29 K15 ["createElement"]
+      471 GETUPVAL                         R31 0
+      472 GETTABLEKS                       R30 R31 K96 ["MenuItemsContext"]
+      474 GETTABLEKS                       R29 R30 K60 ["Provider"]
+      476 CALL                             R28 1 1
+      477 GETUPVAL                         R30 2
+      478 GETTABLEKS                       R29 R30 K15 ["createElement"]
+      480 GETUPVAL                         R32 0
+      481 GETTABLEKS                       R31 R32 K97 ["InsertNodeContext"]
+      483 GETTABLEKS                       R30 R31 K60 ["Provider"]
+      485 CALL                             R29 1 1
+      486 GETUPVAL                         R31 2
+      487 GETTABLEKS                       R30 R31 K15 ["createElement"]
+      489 GETUPVAL                         R33 0
+      490 GETTABLEKS                       R32 R33 K98 ["CompositorConnectionContext"]
+      492 GETTABLEKS                       R31 R32 K60 ["Provider"]
+      494 CALL                             R30 1 1
+      495 GETUPVAL                         R32 2
+      496 GETTABLEKS                       R31 R32 K15 ["createElement"]
+      498 GETUPVAL                         R34 9
+      499 GETTABLEKS                       R33 R34 K99 ["AssetPickerProvider"]
+      501 GETTABLEKS                       R32 R33 K83 ["StudioProvider"]
+      503 DUPTABLE                         R33 K101 [{"plugin", "theme", "studioService"}]
+      504 GETTABLEKS                       R34 R0 K4 ["Plugin"]
+      506 SETTABLEKS                       R34 R33 K65 ["plugin"]
+      508 SETTABLEKS                       R1 R33 K70 ["theme"]
+      510 GETUPVAL                         R34 10
+      511 SETTABLEKS                       R34 R33 K100 ["studioService"]
+      513 CALL                             R31 2 -1
+      514 SETLIST                          R20 R21 -1 [17]
+      516 SETTABLEKS                       R20 R19 K52 ["providers"]
+      518 DUPTABLE                         R20 K103 [{"MainView"}]
+      519 GETUPVAL                         R22 2
+      520 GETTABLEKS                       R21 R22 K15 ["createElement"]
+      522 GETUPVAL                         R22 11
+      523 CALL                             R21 1 1
+      524 SETTABLEKS                       R21 R20 K102 ["MainView"]
+      526 CALL                             R17 3 1
+      527 SETTABLEKS                       R17 R16 K50 ["ContextStack"]
+      529 CALL                             R13 3 1
+      530 SETTABLEKS                       R13 R12 K13 ["MainWidget"]
+      532 CALL                             R10 2 -1
+      533 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

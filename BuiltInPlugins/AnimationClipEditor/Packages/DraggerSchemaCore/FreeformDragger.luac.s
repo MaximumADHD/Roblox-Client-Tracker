@@ -116,25 +116,54 @@ PROTO_4:
        60 RETURN                           R0 0
 
 PROTO_5:
-        0 GETIMPORT                        R2 K2 [table.create]
-        2 LENGTH                           R4 R1
-        3 ADDK                             R3 R4 K3 [1]
-        4 CALL                             R2 1 1
-        5 GETIMPORT                        R3 K5 [ipairs]
-        7 MOVE                             R4 R1
-        8 CALL                             R3 1 3
-        9 FORGPREP_INEXT                   R3
-       10 SETTABLE                         R7 R2 R6
-       11 FORGLOOP                         R3 2 [inext] ; [-2]
-       13 MOVE                             R4 R2
-       14 GETTABLEKS                       R5 R0 K6 ["_partMover"]
-       16 NAMECALL                         R5 R5 K7 ["getIgnorePart"]
-       18 CALL                             R5 1 -1
-       19 FASTCALL                         TABLE_INSERT ; [+2]
-       20 GETIMPORT                        R3 K9 [table.insert]
-       22 CALL                             R3 -1 0
-       23 SETTABLEKS                       R2 R0 K10 ["_raycastFilter"]
-       25 RETURN                           R0 0
+        0 LOADNIL                          R4
+        1 GETUPVAL                         R5 0
+        2 CALL                             R5 0 1
+        3 JUMPIFNOT                        R5 ; [+29]
+        4 GETIMPORT                        R5 K2 [table.create]
+        6 LENGTH                           R8 R1
+        7 LENGTH                           R9 R3
+        8 ADD                              R7 R8 R9
+        9 ADDK                             R6 R7 K3 [1]
+       10 CALL                             R5 1 1
+       11 MOVE                             R4 R5
+       12 MOVE                             R5 R1
+       13 LOADNIL                          R6
+       14 LOADNIL                          R7
+       15 FORGPREP                         R5
+       16 SETTABLE                         R9 R4 R8
+       17 FORGLOOP                         R5 2 ; [-2]
+       19 MOVE                             R5 R3
+       20 LOADNIL                          R6
+       21 LOADNIL                          R7
+       22 FORGPREP                         R5
+       23 FASTCALL2                        TABLE_INSERT R4 R9 ; [+5]
+       25 MOVE                             R11 R4
+       26 MOVE                             R12 R9
+       27 GETIMPORT                        R10 K5 [table.insert]
+       29 CALL                             R10 2 0
+       30 FORGLOOP                         R5 2 ; [-8]
+       32 JUMP                             ; [+14]
+       33 GETIMPORT                        R5 K2 [table.create]
+       35 LENGTH                           R7 R1
+       36 ADDK                             R6 R7 K3 [1]
+       37 CALL                             R5 1 1
+       38 MOVE                             R4 R5
+       39 GETIMPORT                        R5 K7 [ipairs]
+       41 MOVE                             R6 R1
+       42 CALL                             R5 1 3
+       43 FORGPREP_INEXT                   R5
+       44 SETTABLE                         R9 R4 R8
+       45 FORGLOOP                         R5 2 [inext] ; [-2]
+       47 MOVE                             R6 R4
+       48 GETTABLEKS                       R7 R0 K8 ["_partMover"]
+       50 NAMECALL                         R7 R7 K9 ["getIgnorePart"]
+       52 CALL                             R7 1 -1
+       53 FASTCALL                         TABLE_INSERT ; [+2]
+       54 GETIMPORT                        R5 K5 [table.insert]
+       56 CALL                             R5 -1 0
+       57 SETTABLEKS                       R4 R0 K10 ["_raycastFilter"]
+       59 RETURN                           R0 0
 
 PROTO_6:
         0 JUMPIFNOT                        R2 ; [+32]
@@ -1150,99 +1179,104 @@ MAIN:
        75 CALL                             R12 1 1
        76 GETIMPORT                        R13 K9 [require]
        78 GETTABLEKS                       R15 R3 K20 ["Flags"]
-       80 GETTABLEKS                       R14 R15 K22 ["getFFlagDraggerBetterAlignOrientationFalse"]
+       80 GETTABLEKS                       R14 R15 K22 ["getFFlagDraggerEditProcModels"]
        82 CALL                             R13 1 1
        83 GETIMPORT                        R14 K9 [require]
-       85 GETTABLEKS                       R16 R3 K11 ["Utility"]
-       87 GETTABLEKS                       R15 R16 K23 ["CursorGroupName"]
+       85 GETTABLEKS                       R16 R3 K20 ["Flags"]
+       87 GETTABLEKS                       R15 R16 K23 ["getFFlagDraggerBetterAlignOrientationFalse"]
        89 CALL                             R14 1 1
-       90 DUPTABLE                         R15 K29 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-       91 LOADK                            R16 K30 ["SBT_DraggerFreeformDragCompleted"]
-       92 SETTABLEKS                       R16 R15 K24 ["eventName"]
-       94 NEWTABLE                         R16 0 3
-       96 LOADN                            R17 232
-       97 LOADN                            R18 10
-       98 LOADN                            R19 14
-       99 SETLIST                          R16 R17 3 [1]
-      101 SETTABLEKS                       R16 R15 K25 ["lastUpdated"]
-      103 LOADK                            R16 K31 ["The user successfully dragged the selection via freeform drag."]
-      104 SETTABLEKS                       R16 R15 K26 ["description"]
-      106 LOADK                            R16 K32 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
-      107 SETTABLEKS                       R16 R15 K27 ["links"]
-      109 NEWTABLE                         R16 0 1
-      111 LOADK                            R17 K33 ["RobloxTelemetryCounter"]
-      112 SETLIST                          R16 R17 1 [1]
-      114 SETTABLEKS                       R16 R15 K28 ["backends"]
-      116 NEWTABLE                         R16 32 0
-      118 SETTABLEKS                       R16 R16 K34 ["__index"]
-      120 DUPCLOSURE                       R17 K35 [PROTO_0]
-      121 DUPCLOSURE                       R18 K36 [PROTO_2]
-      122 CAPTURE                          VAL R6
-      123 CAPTURE                          VAL R7
-      124 CAPTURE                          VAL R16
-      125 CAPTURE                          VAL R12
-      126 CAPTURE                          VAL R10
-      127 SETTABLEKS                       R18 R16 K37 ["new"]
-      129 DUPCLOSURE                       R18 K38 [PROTO_3]
-      130 SETTABLEKS                       R18 R16 K39 ["_init"]
-      132 DUPCLOSURE                       R18 K40 [PROTO_4]
-      133 SETTABLEKS                       R18 R16 K41 ["_initMovers"]
-      135 DUPCLOSURE                       R18 K42 [PROTO_5]
-      136 SETTABLEKS                       R18 R16 K43 ["_initIgnoreList"]
-      138 DUPCLOSURE                       R18 K44 [PROTO_6]
-      139 SETTABLEKS                       R18 R16 K45 ["_animationCallback"]
-      141 DUPCLOSURE                       R18 K46 [PROTO_7]
-      142 SETTABLEKS                       R18 R16 K47 ["_beginAnimation"]
-      144 DUPCLOSURE                       R18 K48 [PROTO_8]
-      145 SETTABLEKS                       R18 R16 K49 ["canHoldOrientation"]
-      147 DUPCLOSURE                       R18 K50 [PROTO_9]
-      148 SETTABLEKS                       R18 R16 K51 ["_renderSurfaceJoints"]
-      150 DUPCLOSURE                       R18 K52 [PROTO_10]
-      151 CAPTURE                          VAL R4
-      152 CAPTURE                          VAL R9
-      153 CAPTURE                          VAL R8
-      154 SETTABLEKS                       R18 R16 K53 ["_renderSnapTarget"]
-      156 DUPCLOSURE                       R18 K54 [PROTO_11]
-      157 CAPTURE                          VAL R4
-      158 SETTABLEKS                       R18 R16 K55 ["_renderSnapRelation"]
-      160 DUPCLOSURE                       R18 K56 [PROTO_12]
-      161 CAPTURE                          VAL R4
-      162 SETTABLEKS                       R18 R16 K57 ["_renderSnap"]
-      164 DUPCLOSURE                       R18 K58 [PROTO_13]
-      165 CAPTURE                          VAL R12
-      166 CAPTURE                          VAL R4
-      167 SETTABLEKS                       R18 R16 K59 ["render"]
-      169 DUPCLOSURE                       R18 K60 [PROTO_14]
-      170 SETTABLEKS                       R18 R16 K61 ["_shouldAlignDraggedObjects"]
-      172 DUPCLOSURE                       R18 K62 [PROTO_15]
-      173 CAPTURE                          VAL R5
-      174 CAPTURE                          VAL R12
-      175 SETTABLEKS                       R18 R16 K63 ["rotate"]
-      177 DUPCLOSURE                       R18 K64 [PROTO_16]
-      178 DUPCLOSURE                       R19 K65 [PROTO_17]
-      179 CAPTURE                          VAL R18
-      180 DUPCLOSURE                       R20 K66 [PROTO_19]
-      181 CAPTURE                          VAL R12
-      182 CAPTURE                          VAL R5
-      183 CAPTURE                          VAL R13
-      184 CAPTURE                          VAL R19
-      185 SETTABLEKS                       R20 R16 K67 ["_updateGeometric"]
-      187 DUPCLOSURE                       R20 K68 [PROTO_20]
-      188 CAPTURE                          VAL R12
-      189 CAPTURE                          VAL R5
-      190 SETTABLEKS                       R20 R16 K69 ["_updatePhysical"]
-      192 DUPCLOSURE                       R20 K70 [PROTO_21]
-      193 SETTABLEKS                       R20 R16 K71 ["update"]
-      195 DUPCLOSURE                       R20 K72 [PROTO_23]
+       90 GETIMPORT                        R15 K9 [require]
+       92 GETTABLEKS                       R17 R3 K11 ["Utility"]
+       94 GETTABLEKS                       R16 R17 K24 ["CursorGroupName"]
+       96 CALL                             R15 1 1
+       97 DUPTABLE                         R16 K30 [{"eventName", "lastUpdated", "description", "links", "backends"}]
+       98 LOADK                            R17 K31 ["SBT_DraggerFreeformDragCompleted"]
+       99 SETTABLEKS                       R17 R16 K25 ["eventName"]
+      101 NEWTABLE                         R17 0 3
+      103 LOADN                            R18 232
+      104 LOADN                            R19 10
+      105 LOADN                            R20 14
+      106 SETLIST                          R17 R18 3 [1]
+      108 SETTABLEKS                       R17 R16 K26 ["lastUpdated"]
+      110 LOADK                            R17 K32 ["The user successfully dragged the selection via freeform drag."]
+      111 SETTABLEKS                       R17 R16 K27 ["description"]
+      113 LOADK                            R17 K33 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
+      114 SETTABLEKS                       R17 R16 K28 ["links"]
+      116 NEWTABLE                         R17 0 1
+      118 LOADK                            R18 K34 ["RobloxTelemetryCounter"]
+      119 SETLIST                          R17 R18 1 [1]
+      121 SETTABLEKS                       R17 R16 K29 ["backends"]
+      123 NEWTABLE                         R17 32 0
+      125 SETTABLEKS                       R17 R17 K35 ["__index"]
+      127 DUPCLOSURE                       R18 K36 [PROTO_0]
+      128 DUPCLOSURE                       R19 K37 [PROTO_2]
+      129 CAPTURE                          VAL R6
+      130 CAPTURE                          VAL R7
+      131 CAPTURE                          VAL R17
+      132 CAPTURE                          VAL R12
+      133 CAPTURE                          VAL R10
+      134 SETTABLEKS                       R19 R17 K38 ["new"]
+      136 DUPCLOSURE                       R19 K39 [PROTO_3]
+      137 SETTABLEKS                       R19 R17 K40 ["_init"]
+      139 DUPCLOSURE                       R19 K41 [PROTO_4]
+      140 SETTABLEKS                       R19 R17 K42 ["_initMovers"]
+      142 DUPCLOSURE                       R19 K43 [PROTO_5]
+      143 CAPTURE                          VAL R13
+      144 SETTABLEKS                       R19 R17 K44 ["_initIgnoreList"]
+      146 DUPCLOSURE                       R19 K45 [PROTO_6]
+      147 SETTABLEKS                       R19 R17 K46 ["_animationCallback"]
+      149 DUPCLOSURE                       R19 K47 [PROTO_7]
+      150 SETTABLEKS                       R19 R17 K48 ["_beginAnimation"]
+      152 DUPCLOSURE                       R19 K49 [PROTO_8]
+      153 SETTABLEKS                       R19 R17 K50 ["canHoldOrientation"]
+      155 DUPCLOSURE                       R19 K51 [PROTO_9]
+      156 SETTABLEKS                       R19 R17 K52 ["_renderSurfaceJoints"]
+      158 DUPCLOSURE                       R19 K53 [PROTO_10]
+      159 CAPTURE                          VAL R4
+      160 CAPTURE                          VAL R9
+      161 CAPTURE                          VAL R8
+      162 SETTABLEKS                       R19 R17 K54 ["_renderSnapTarget"]
+      164 DUPCLOSURE                       R19 K55 [PROTO_11]
+      165 CAPTURE                          VAL R4
+      166 SETTABLEKS                       R19 R17 K56 ["_renderSnapRelation"]
+      168 DUPCLOSURE                       R19 K57 [PROTO_12]
+      169 CAPTURE                          VAL R4
+      170 SETTABLEKS                       R19 R17 K58 ["_renderSnap"]
+      172 DUPCLOSURE                       R19 K59 [PROTO_13]
+      173 CAPTURE                          VAL R12
+      174 CAPTURE                          VAL R4
+      175 SETTABLEKS                       R19 R17 K60 ["render"]
+      177 DUPCLOSURE                       R19 K61 [PROTO_14]
+      178 SETTABLEKS                       R19 R17 K62 ["_shouldAlignDraggedObjects"]
+      180 DUPCLOSURE                       R19 K63 [PROTO_15]
+      181 CAPTURE                          VAL R5
+      182 CAPTURE                          VAL R12
+      183 SETTABLEKS                       R19 R17 K64 ["rotate"]
+      185 DUPCLOSURE                       R19 K65 [PROTO_16]
+      186 DUPCLOSURE                       R20 K66 [PROTO_17]
+      187 CAPTURE                          VAL R19
+      188 DUPCLOSURE                       R21 K67 [PROTO_19]
+      189 CAPTURE                          VAL R12
+      190 CAPTURE                          VAL R5
+      191 CAPTURE                          VAL R14
+      192 CAPTURE                          VAL R20
+      193 SETTABLEKS                       R21 R17 K68 ["_updateGeometric"]
+      195 DUPCLOSURE                       R21 K69 [PROTO_20]
       196 CAPTURE                          VAL R12
-      197 CAPTURE                          VAL R14
-      198 CAPTURE                          VAL R0
-      199 SETTABLEKS                       R20 R16 K73 ["destroy"]
-      201 DUPCLOSURE                       R20 K74 [PROTO_24]
-      202 SETTABLEKS                       R20 R16 K75 ["_analyticsRecordFreeformDragBegin"]
-      204 DUPCLOSURE                       R20 K76 [PROTO_25]
-      205 SETTABLEKS                       R20 R16 K77 ["_analyticsRecordFreeformDragUpdate"]
-      207 DUPCLOSURE                       R20 K78 [PROTO_26]
-      208 CAPTURE                          VAL R15
-      209 SETTABLEKS                       R20 R16 K79 ["_analyticsSendFreeformDragged"]
-      211 RETURN                           R16 1
+      197 CAPTURE                          VAL R5
+      198 SETTABLEKS                       R21 R17 K70 ["_updatePhysical"]
+      200 DUPCLOSURE                       R21 K71 [PROTO_21]
+      201 SETTABLEKS                       R21 R17 K72 ["update"]
+      203 DUPCLOSURE                       R21 K73 [PROTO_23]
+      204 CAPTURE                          VAL R12
+      205 CAPTURE                          VAL R15
+      206 CAPTURE                          VAL R0
+      207 SETTABLEKS                       R21 R17 K74 ["destroy"]
+      209 DUPCLOSURE                       R21 K75 [PROTO_24]
+      210 SETTABLEKS                       R21 R17 K76 ["_analyticsRecordFreeformDragBegin"]
+      212 DUPCLOSURE                       R21 K77 [PROTO_25]
+      213 SETTABLEKS                       R21 R17 K78 ["_analyticsRecordFreeformDragUpdate"]
+      215 DUPCLOSURE                       R21 K79 [PROTO_26]
+      216 CAPTURE                          VAL R16
+      217 SETTABLEKS                       R21 R17 K80 ["_analyticsSendFreeformDragged"]
+      219 RETURN                           R17 1

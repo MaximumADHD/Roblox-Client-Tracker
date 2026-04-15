@@ -1161,7 +1161,7 @@ PROTO_36:
       456 GETTABLEKS                       R39 R40 K10 ["createElement"]
       458 GETUPVAL                         R40 41
       459 DUPTABLE                         R41 K55 [{"tag", "LayoutOrder"}]
-      460 LOADK                            R42 K56 ["padding-x-xxlarge padding-top-large auto-y size-full-0"]
+      460 LOADK                            R42 K56 ["padding-top-xxsmall auto-y size-full-0"]
       461 SETTABLEKS                       R42 R41 K53 ["tag"]
       463 MOVE                             R42 R22
       464 CALL                             R42 0 1

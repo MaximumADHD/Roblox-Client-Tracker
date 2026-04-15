@@ -1,118 +1,104 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 NEWTABLE                         R0 64 0
-        3 LOADN                            R1 8
-        4 SETTABLEKS                       R1 R0 K0 ["AMR_LOADING_BAR_THICKNESS"]
-        6 LOADN                            R1 5
-        7 SETTABLEKS                       R1 R0 K1 ["AMR_PADDING_SMALL"]
-        9 LOADN                            R1 10
-       10 SETTABLEKS                       R1 R0 K2 ["AMR_PADDING"]
-       12 LOADN                            R1 15
-       13 SETTABLEKS                       R1 R0 K3 ["AMR_PADDING_LARGE"]
-       15 LOADN                            R1 20
-       16 SETTABLEKS                       R1 R0 K4 ["AMR_PADDING_XLARGE"]
-       18 LOADN                            R1 12
-       19 SETTABLEKS                       R1 R0 K5 ["AMR_ICON_WIDTH_XSMALL"]
-       21 LOADN                            R1 14
-       22 SETTABLEKS                       R1 R0 K6 ["AMR_ICON_WIDTH_SMALL"]
-       24 LOADN                            R1 16
-       25 SETTABLEKS                       R1 R0 K7 ["AMR_ICON_WIDTH"]
-       27 LOADN                            R1 20
-       28 SETTABLEKS                       R1 R0 K8 ["AMR_ICON_WIDTH_XLARGE"]
-       30 LOADN                            R1 28
-       31 SETTABLEKS                       R1 R0 K9 ["AMR_SIDEBAR_TOGGLE_PADDING"]
-       33 LOADN                            R1 50
-       34 SETTABLEKS                       R1 R0 K10 ["AMR_ITEMROW_DEFAULT_HEIGHT"]
-       36 LOADN                            R1 45
-       37 SETTABLEKS                       R1 R0 K11 ["AMR_SHIMMER_ROTATION"]
-       39 LOADN                            R1 20
-       40 SETTABLEKS                       R1 R0 K12 ["AMR_LIST_THUMBNAIL_SIZE"]
-       42 LOADK                            R1 K13 [0.75]
-       43 SETTABLEKS                       R1 R0 K14 ["AMR_GRID_THUMBNAIL_SCALE"]
-       45 LOADN                            R1 4
-       46 SETTABLEKS                       R1 R0 K15 ["AMR_GRID_THUMBNAIL_OFFSET"]
-       48 LOADN                            R1 42
-       49 SETTABLEKS                       R1 R0 K16 ["AMR_TOPBAR_HEIGHT"]
-       51 LOADN                            R1 24
-       52 SETTABLEKS                       R1 R0 K17 ["AMR_EXPLORERROW_HEIGHT"]
-       54 LOADN                            R1 25
-       55 SETTABLEKS                       R1 R0 K18 ["AMR_HEADERROW_HEIGHT"]
-       57 GETIMPORT                        R1 K21 [UDim2.fromOffset]
-       59 LOADN                            R2 25
-       60 LOADN                            R3 25
-       61 CALL                             R1 2 1
-       62 SETTABLEKS                       R1 R0 K22 ["AMR_HEADERBUTTON_SIZE"]
-       64 LOADN                            R1 30
-       65 SETTABLEKS                       R1 R0 K23 ["AMR_CELLDATA_HEIGHT"]
-       67 LOADN                            R1 20
-       68 SETTABLEKS                       R1 R0 K24 ["BASE_WIDTH"]
-       70 LOADN                            R1 40
-       71 SETTABLEKS                       R1 R0 K25 ["HEIGHT"]
-       73 LOADN                            R1 35
-       74 SETTABLEKS                       R1 R0 K26 ["THUMBNAIL_CONTAINER_SIZE"]
-       76 LOADN                            R1 60
-       77 SETTABLEKS                       R1 R0 K27 ["AMR_GRIDCELL_HEIGHT_MIN"]
-       79 LOADN                            R1 200
-       80 SETTABLEKS                       R1 R0 K28 ["AMR_GRIDCELL_HEIGHT_MAX"]
-       82 GETIMPORT                        R1 K21 [UDim2.fromOffset]
-       84 LOADN                            R2 10
-       85 LOADN                            R3 10
-       86 CALL                             R1 2 1
-       87 SETTABLEKS                       R1 R0 K29 ["AMR_GRIDCELL_PADDING"]
-       89 LOADN                            R1 200
-       90 SETTABLEKS                       R1 R0 K30 ["AMR_SORTOPTIONS_WIDTH"]
-       92 LOADN                            R1 250
-       93 SETTABLEKS                       R1 R0 K31 ["AMR_FILTERTYPES_WIDTH"]
-       95 LOADN                            R1 64
-       96 SETTABLEKS                       R1 R0 K32 ["AMR_FILTERTYPES_HEIGHT"]
-       98 GETIMPORT                        R1 K35 [Vector2.new]
-      100 LOADK                            R2 K36 [0.5]
-      101 LOADK                            R3 K36 [0.5]
+        1 DUPTABLE                         R0 K32 [{"LoadingBarHeight", "SectionHeaderHeight", "PaddingSmall", "Padding", "PaddingLarge", "IconWidthXSmall", "IconWidth", "IconWidthXLarge", "SidebarTogglePadding", "ItemRowHeight", "ShimmerRotation", "ListThumbnailSize", "GridThumbnailScale", "GridThumbnailOffset", "TopBarHeight", "ExplorerRowHeight", "HeaderRowHeight", "CellDataHeight", "BaseWidth", "ThumbnailContainerSize", "GridCellHeightMin", "GridCellHeightMax", "GridCellPadding", "SortOptionsWidth", "FilterTypesWidth", "FilterTypesHeight", "AnchorCenter", "PositionCenter", "QuickShareDialogSize", "QuickShareDropdownSize", "QuickSharePermissionsDropdownSize", "ConfirmDialogSize"}]
+        2 LOADN                            R1 8
+        3 SETTABLEKS                       R1 R0 K0 ["LoadingBarHeight"]
+        5 LOADN                            R1 33
+        6 SETTABLEKS                       R1 R0 K1 ["SectionHeaderHeight"]
+        8 LOADN                            R1 5
+        9 SETTABLEKS                       R1 R0 K2 ["PaddingSmall"]
+       11 LOADN                            R1 10
+       12 SETTABLEKS                       R1 R0 K3 ["Padding"]
+       14 LOADN                            R1 15
+       15 SETTABLEKS                       R1 R0 K4 ["PaddingLarge"]
+       17 LOADN                            R1 12
+       18 SETTABLEKS                       R1 R0 K5 ["IconWidthXSmall"]
+       20 LOADN                            R1 16
+       21 SETTABLEKS                       R1 R0 K6 ["IconWidth"]
+       23 LOADN                            R1 20
+       24 SETTABLEKS                       R1 R0 K7 ["IconWidthXLarge"]
+       26 LOADN                            R1 28
+       27 SETTABLEKS                       R1 R0 K8 ["SidebarTogglePadding"]
+       29 LOADN                            R1 50
+       30 SETTABLEKS                       R1 R0 K9 ["ItemRowHeight"]
+       32 LOADN                            R1 45
+       33 SETTABLEKS                       R1 R0 K10 ["ShimmerRotation"]
+       35 LOADN                            R1 20
+       36 SETTABLEKS                       R1 R0 K11 ["ListThumbnailSize"]
+       38 LOADK                            R1 K33 [0.75]
+       39 SETTABLEKS                       R1 R0 K12 ["GridThumbnailScale"]
+       41 LOADN                            R1 4
+       42 SETTABLEKS                       R1 R0 K13 ["GridThumbnailOffset"]
+       44 LOADN                            R1 42
+       45 SETTABLEKS                       R1 R0 K14 ["TopBarHeight"]
+       47 LOADN                            R1 24
+       48 SETTABLEKS                       R1 R0 K15 ["ExplorerRowHeight"]
+       50 LOADN                            R1 25
+       51 SETTABLEKS                       R1 R0 K16 ["HeaderRowHeight"]
+       53 LOADN                            R1 30
+       54 SETTABLEKS                       R1 R0 K17 ["CellDataHeight"]
+       56 LOADN                            R1 20
+       57 SETTABLEKS                       R1 R0 K18 ["BaseWidth"]
+       59 LOADN                            R1 35
+       60 SETTABLEKS                       R1 R0 K19 ["ThumbnailContainerSize"]
+       62 LOADN                            R1 60
+       63 SETTABLEKS                       R1 R0 K20 ["GridCellHeightMin"]
+       65 LOADN                            R1 200
+       66 SETTABLEKS                       R1 R0 K21 ["GridCellHeightMax"]
+       68 GETIMPORT                        R1 K36 [UDim2.fromOffset]
+       70 LOADN                            R2 10
+       71 LOADN                            R3 10
+       72 CALL                             R1 2 1
+       73 SETTABLEKS                       R1 R0 K22 ["GridCellPadding"]
+       75 LOADN                            R1 200
+       76 SETTABLEKS                       R1 R0 K23 ["SortOptionsWidth"]
+       78 LOADN                            R1 250
+       79 SETTABLEKS                       R1 R0 K24 ["FilterTypesWidth"]
+       81 LOADN                            R1 64
+       82 SETTABLEKS                       R1 R0 K25 ["FilterTypesHeight"]
+       84 GETIMPORT                        R1 K39 [Vector2.new]
+       86 LOADK                            R2 K40 [0.5]
+       87 LOADK                            R3 K40 [0.5]
+       88 CALL                             R1 2 1
+       89 SETTABLEKS                       R1 R0 K26 ["AnchorCenter"]
+       91 GETIMPORT                        R1 K42 [UDim2.fromScale]
+       93 LOADK                            R2 K40 [0.5]
+       94 LOADK                            R3 K40 [0.5]
+       95 CALL                             R1 2 1
+       96 SETTABLEKS                       R1 R0 K27 ["PositionCenter"]
+       98 GETIMPORT                        R1 K39 [Vector2.new]
+      100 LOADN                            R2 128
+      101 LOADN                            R3 104
       102 CALL                             R1 2 1
-      103 SETTABLEKS                       R1 R0 K37 ["AMR_ANCHOR_CENTER"]
-      105 GETIMPORT                        R1 K39 [UDim2.fromScale]
-      107 LOADK                            R2 K36 [0.5]
-      108 LOADK                            R3 K36 [0.5]
+      103 SETTABLEKS                       R1 R0 K28 ["QuickShareDialogSize"]
+      105 GETIMPORT                        R1 K36 [UDim2.fromOffset]
+      107 LOADN                            R2 96
+      108 LOADN                            R3 125
       109 CALL                             R1 2 1
-      110 SETTABLEKS                       R1 R0 K40 ["AMR_POSITION_CENTER"]
-      112 GETIMPORT                        R1 K35 [Vector2.new]
-      114 LOADN                            R2 128
-      115 LOADN                            R3 104
+      110 SETTABLEKS                       R1 R0 K29 ["QuickShareDropdownSize"]
+      112 GETIMPORT                        R1 K39 [Vector2.new]
+      114 LOADN                            R2 100
+      115 LOADN                            R3 200
       116 CALL                             R1 2 1
-      117 SETTABLEKS                       R1 R0 K41 ["AMR_QUICKSHARE_DIALOG_SIZE"]
-      119 GETIMPORT                        R1 K21 [UDim2.fromOffset]
-      121 LOADN                            R2 96
-      122 LOADN                            R3 125
+      117 SETTABLEKS                       R1 R0 K30 ["QuickSharePermissionsDropdownSize"]
+      119 GETIMPORT                        R1 K39 [Vector2.new]
+      121 LOADN                            R2 159
+      122 LOADN                            R3 100
       123 CALL                             R1 2 1
-      124 SETTABLEKS                       R1 R0 K42 ["AMR_QUICKSHARE_DROPDOWN_SIZE"]
-      126 GETIMPORT                        R1 K35 [Vector2.new]
-      128 LOADN                            R2 100
-      129 LOADN                            R3 200
-      130 CALL                             R1 2 1
-      131 SETTABLEKS                       R1 R0 K43 ["AMR_QUICKSHARE_PERMISSIONS_DROPDOWN_SIZE"]
-      133 GETIMPORT                        R1 K35 [Vector2.new]
-      135 LOADN                            R2 159
-      136 LOADN                            R3 100
-      137 CALL                             R1 2 1
-      138 SETTABLEKS                       R1 R0 K44 ["AMR_CONFIRM_DIALOG_SIZE"]
-      140 GETIMPORT                        R1 K21 [UDim2.fromOffset]
-      142 GETTABLEKS                       R2 R0 K5 ["AMR_ICON_WIDTH_XSMALL"]
-      144 GETTABLEKS                       R3 R0 K5 ["AMR_ICON_WIDTH_XSMALL"]
-      146 CALL                             R1 2 1
-      147 SETTABLEKS                       R1 R0 K45 ["AMR_ICON_SIZE_XSMALL"]
-      149 GETIMPORT                        R1 K21 [UDim2.fromOffset]
-      151 GETTABLEKS                       R2 R0 K6 ["AMR_ICON_WIDTH_SMALL"]
-      153 GETTABLEKS                       R3 R0 K6 ["AMR_ICON_WIDTH_SMALL"]
-      155 CALL                             R1 2 1
-      156 SETTABLEKS                       R1 R0 K46 ["AMR_ICON_SIZE_SMALL"]
-      158 GETIMPORT                        R1 K21 [UDim2.fromOffset]
-      160 GETTABLEKS                       R2 R0 K7 ["AMR_ICON_WIDTH"]
-      162 GETTABLEKS                       R3 R0 K7 ["AMR_ICON_WIDTH"]
-      164 CALL                             R1 2 1
-      165 SETTABLEKS                       R1 R0 K47 ["AMR_ICON_SIZE"]
-      167 GETIMPORT                        R1 K21 [UDim2.fromOffset]
-      169 GETTABLEKS                       R2 R0 K8 ["AMR_ICON_WIDTH_XLARGE"]
-      171 GETTABLEKS                       R3 R0 K8 ["AMR_ICON_WIDTH_XLARGE"]
-      173 CALL                             R1 2 1
-      174 SETTABLEKS                       R1 R0 K48 ["AMR_ICON_SIZE_XLARGE"]
-      176 RETURN                           R0 1
+      124 SETTABLEKS                       R1 R0 K31 ["ConfirmDialogSize"]
+      126 GETIMPORT                        R1 K36 [UDim2.fromOffset]
+      128 GETTABLEKS                       R2 R0 K5 ["IconWidthXSmall"]
+      130 GETTABLEKS                       R3 R0 K5 ["IconWidthXSmall"]
+      132 CALL                             R1 2 1
+      133 SETTABLEKS                       R1 R0 K43 ["IconSizeXSmall"]
+      135 GETIMPORT                        R1 K36 [UDim2.fromOffset]
+      137 GETTABLEKS                       R2 R0 K6 ["IconWidth"]
+      139 GETTABLEKS                       R3 R0 K6 ["IconWidth"]
+      141 CALL                             R1 2 1
+      142 SETTABLEKS                       R1 R0 K44 ["IconSize"]
+      144 GETIMPORT                        R1 K36 [UDim2.fromOffset]
+      146 GETTABLEKS                       R2 R0 K7 ["IconWidthXLarge"]
+      148 GETTABLEKS                       R3 R0 K7 ["IconWidthXLarge"]
+      150 CALL                             R1 2 1
+      151 SETTABLEKS                       R1 R0 K45 ["IconSizeXLarge"]
+      153 RETURN                           R0 1

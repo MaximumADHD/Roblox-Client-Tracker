@@ -22,6 +22,9 @@ local topBarHeight = TopBarConstants.ApplyDisplayScale(TopBarConstants.TopBarHei
 local SelfieViewModule = Chrome.Parent.SelfieView
 local GetFFlagChromeSelfViewIgnoreCoreGui = require(Chrome.Flags.GetFFlagChromeSelfViewIgnoreCoreGui)
 
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
+
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
@@ -57,6 +60,7 @@ local selfieViewChromeIntegration = ChromeService:register({
 	id = ID,
 	-- TODO: update localizations
 	label = LABEL,
+	sideSheetPlacement = SideSheetPlacement.Vertical,
 	-- We haven't decided if we're going to allow hotkeys yet
 	-- Relevant ticket: https://roblox.atlassian.net/browse/APPEXP-817
 	-- hotkeyCodes = { Enum.KeyCode.LeftControl, Enum.KeyCode.LeftAlt, Enum.KeyCode.T },

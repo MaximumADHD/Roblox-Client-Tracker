@@ -8,6 +8,7 @@ local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typ
 
 type _Messages =
 	{
+		TranslationRef: _TranslationRefMessage,
 		StringFormat: _StringFormatMessage,
 		StringFormat_FormatArg: _StringFormat_FormatArgMessage,
 		StringFormat_ArgsEntry: _StringFormat_ArgsEntryMessage,
@@ -110,6 +111,31 @@ local messages: _Messages = {} :: _Messages
 local _google_protobuf_struct = require(script.Parent.Parent.Parent.Parent.Parent.google.protobuf.struct)
 local _roblox_apppageplatform_shared_v1beta1_prop_condition = require(script.Parent.prop_condition)
 
+type _TranslationRefImpl = {
+	__index: _TranslationRefImpl,
+	new: (fields: _TranslationRefPartialFields?) -> TranslationRef,
+	encode: (self: TranslationRef) -> buffer,
+	decode: (input: buffer) -> TranslationRef,
+	jsonEncode: (self: TranslationRef) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> TranslationRef,
+	descriptor: proto.Descriptor,
+}
+
+type _TranslationRefFields = {
+	namespace: string,
+	key: string,
+	map_key: string,
+}
+
+type _TranslationRefPartialFields = {
+	namespace: string?,
+	key: string?,
+	map_key: string?,
+}
+
+export type TranslationRef = typeof(setmetatable({} :: _TranslationRefFields, {} :: _TranslationRefImpl))
+type _TranslationRefMessage = proto.Message<TranslationRef, _TranslationRefPartialFields>
+
 type _StringFormatImpl = {
 	__index: _StringFormatImpl,
 	new: (fields: _StringFormatPartialFields?) -> StringFormat,
@@ -123,11 +149,13 @@ type _StringFormatImpl = {
 type _StringFormatFields = {
 	str: string,
 	args: { [string]: StringFormat_FormatArg },
+	str_translation: TranslationRef?,
 }
 
 type _StringFormatPartialFields = {
 	str: string?,
 	args: { [string]: StringFormat_FormatArg }?,
+	str_translation: TranslationRef?,
 }
 
 export type StringFormat = typeof(setmetatable({} :: _StringFormatFields, {} :: _StringFormatImpl))
@@ -200,6 +228,7 @@ type _StringPropFields = {
 		| { type: "token", value: string }
 		| { type: "format", value: StringFormat }
 		| { type: "conditional", value: StringProp_ConditionalOptions }
+		| { type: "translation", value: TranslationRef }
 	)?,
 }
 
@@ -210,6 +239,7 @@ type _StringPropPartialFields = {
 		| { type: "token", value: string }
 		| { type: "format", value: StringFormat }
 		| { type: "conditional", value: StringProp_ConditionalOptions }
+		| { type: "translation", value: TranslationRef }
 	)?,
 }
 
@@ -2943,6 +2973,145 @@ type _UiScaledUDim2Prop_ConditionalOptionsMessage = proto.Message<
 >
 
 do
+	local _TranslationRefImpl = {}
+	_TranslationRefImpl.__index = _TranslationRefImpl
+
+	function _TranslationRefImpl.new(data: _TranslationRefPartialFields?): TranslationRef
+		return setmetatable({
+			namespace = if data == nil or data.namespace == nil then "" else data.namespace,
+			key = if data == nil or data.key == nil then "" else data.key,
+			map_key = if data == nil or data.map_key == nil then "" else data.map_key,
+		}, _TranslationRefImpl :: _TranslationRefImpl)
+	end
+
+	function _TranslationRefImpl.encode(self: TranslationRef): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.namespace ~= nil and self.namespace ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.namespace)
+		end
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.map_key ~= nil and self.map_key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.map_key)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _TranslationRefImpl.decode(input: buffer): TranslationRef
+		local self = _TranslationRefImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.namespace = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.map_key = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _TranslationRefImpl.jsonEncode(self: TranslationRef): any
+		local output = {}
+
+		if self.namespace ~= nil and self.namespace ~= "" then
+			output.namespace = self.namespace
+		end
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.map_key ~= nil and self.map_key ~= "" then
+			output.mapKey = self.map_key
+		end
+
+		return output
+	end
+
+	function _TranslationRefImpl.jsonDecode(input: { [string]: any }): TranslationRef
+		local self = _TranslationRefImpl.new()
+
+		if input.namespace ~= nil then
+			self.namespace = input.namespace
+		end
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.map_key ~= nil then
+			self.map_key = input.map_key
+		end
+
+		if input.mapKey ~= nil then
+			self.map_key = input.mapKey
+		end
+
+		return self
+	end
+
+	_TranslationRefImpl.descriptor = {
+		name = "TranslationRef",
+		fullName = "roblox.apppageplatform.shared.v1beta1.TranslationRef",
+	}
+
+	messages.TranslationRef = _TranslationRefImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.TranslationRef)
+end
+
+do
 	local _StringFormatImpl = {}
 	_StringFormatImpl.__index = _StringFormatImpl
 
@@ -2950,6 +3119,7 @@ do
 		return setmetatable({
 			str = if data == nil or data.str == nil then "" else data.str,
 			args = if data == nil or data.args == nil then {} else data.args,
+			str_translation = if data == nil or data.str_translation == nil then nil else data.str_translation,
 		}, _StringFormatImpl :: _StringFormatImpl)
 	end
 
@@ -2974,6 +3144,12 @@ do
 				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
 			end
+		end
+
+		if self.str_translation ~= nil then
+			local encoded = self.str_translation:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -3011,6 +3187,11 @@ do
 
 					self.args[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.str_translation = messages.TranslationRef.decode(value)
 					continue
 				end
 
@@ -3051,6 +3232,10 @@ do
 			output.args = newOutput
 		end
 
+		if self.str_translation ~= nil then
+			output.strTranslation = self.str_translation:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -3068,6 +3253,14 @@ do
 			end
 
 			self.args = newOutput
+		end
+
+		if input.str_translation ~= nil then
+			self.str_translation = messages.TranslationRef.jsonDecode(input.str_translation)
+		end
+
+		if input.strTranslation ~= nil then
+			self.str_translation = messages.TranslationRef.jsonDecode(input.strTranslation)
 		end
 
 		return self
@@ -3351,6 +3544,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "translation" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -3398,6 +3595,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "conditional", value = messages.StringProp_ConditionalOptions.decode(value) }
 					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "translation", value = messages.TranslationRef.decode(value) }
+					continue
 				end
 
 				local length
@@ -3436,6 +3638,8 @@ do
 				output.format = self.kind.value:jsonEncode()
 			elseif self.kind.type == "conditional" then
 				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "translation" then
+				output.translation = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -3468,6 +3672,10 @@ do
 		if input.conditional ~= nil then
 			self.kind =
 				{ type = "conditional", value = messages.StringProp_ConditionalOptions.jsonDecode(input.conditional) }
+		end
+
+		if input.translation ~= nil then
+			self.kind = { type = "translation", value = messages.TranslationRef.jsonDecode(input.translation) }
 		end
 
 		return self
@@ -16067,6 +16275,7 @@ do
 end
 
 return {
+	TranslationRef = messages.TranslationRef,
 	StringFormat = messages.StringFormat,
 	StringFormat_FormatArg = messages.StringFormat_FormatArg,
 	StringProp = messages.StringProp,

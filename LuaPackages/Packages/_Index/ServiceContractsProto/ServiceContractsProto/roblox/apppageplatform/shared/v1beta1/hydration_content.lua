@@ -26,11 +26,15 @@ type _Messages = {
 	HydrationContent_AgeRecommendationEntry: _HydrationContent_AgeRecommendationEntryMessage,
 	HydrationContent_UniverseUserFollowEntry: _HydrationContent_UniverseUserFollowEntryMessage,
 	HydrationContent_UniverseUserVoteEntry: _HydrationContent_UniverseUserVoteEntryMessage,
+	HydrationContent_UserEntry: _HydrationContent_UserEntryMessage,
+	HydrationContent_UniverseUserFavoriteEntry: _HydrationContent_UniverseUserFavoriteEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
 local _roblox_apppageplatform_shared_v1beta1_badge_data = require(script.Parent.badge_data)
 local _roblox_apppageplatform_shared_v1beta1_universe_data = require(script.Parent.universe_data)
+local _roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data =
+	require(script.Parent.universe_user_favorite_data)
 local _roblox_apppageplatform_shared_v1beta1_universe_user_follow_data =
 	require(script.Parent.universe_user_follow_data)
 local _roblox_apppageplatform_shared_v1beta1_universe_user_vote_data = require(script.Parent.universe_user_vote_data)
@@ -49,6 +53,7 @@ local _roblox_apppageplatform_shared_v1beta1_catalog_sort_data = require(script.
 local _roblox_apppageplatform_shared_v1beta1_developer_product_data = require(script.Parent.developer_product_data)
 local _roblox_apppageplatform_shared_v1beta1_subscription_data = require(script.Parent.subscription_data)
 local _roblox_apppageplatform_shared_v1beta1_age_recommendation_data = require(script.Parent.age_recommendation_data)
+local _roblox_apppageplatform_shared_v1beta1_user_data = require(script.Parent.user_data)
 
 type _HydrationContentImpl = {
 	__index: _HydrationContentImpl,
@@ -87,6 +92,10 @@ type _HydrationContentFields = {
 		[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_follow_data.UniverseUserFollowData,
 	},
 	universe_user_vote: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_data.UniverseUserVoteData },
+	user: { [string]: _roblox_apppageplatform_shared_v1beta1_user_data.UserData },
+	universe_user_favorite: {
+		[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data.UniverseUserFavoriteData,
+	},
 }
 
 type _HydrationContentPartialFields = {
@@ -116,6 +125,10 @@ type _HydrationContentPartialFields = {
 		[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_follow_data.UniverseUserFollowData,
 	}?,
 	universe_user_vote: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_data.UniverseUserVoteData }?,
+	user: { [string]: _roblox_apppageplatform_shared_v1beta1_user_data.UserData }?,
+	universe_user_favorite: {
+		[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data.UniverseUserFavoriteData,
+	}?,
 }
 
 export type HydrationContent = typeof(setmetatable({} :: _HydrationContentFields, {} :: _HydrationContentImpl))
@@ -645,6 +658,66 @@ type _HydrationContent_UniverseUserVoteEntryMessage = proto.Message<
 	_HydrationContent_UniverseUserVoteEntryPartialFields
 >
 
+type _HydrationContent_UserEntryImpl = {
+	__index: _HydrationContent_UserEntryImpl,
+	new: (fields: _HydrationContent_UserEntryPartialFields?) -> HydrationContent_UserEntry,
+	encode: (self: HydrationContent_UserEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_UserEntry,
+	jsonEncode: (self: HydrationContent_UserEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_UserEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_UserEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_user_data.UserData?,
+}
+
+type _HydrationContent_UserEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_user_data.UserData?,
+}
+
+export type HydrationContent_UserEntry = typeof(setmetatable(
+	{} :: _HydrationContent_UserEntryFields,
+	{} :: _HydrationContent_UserEntryImpl
+))
+type _HydrationContent_UserEntryMessage = proto.Message<
+	HydrationContent_UserEntry,
+	_HydrationContent_UserEntryPartialFields
+>
+
+type _HydrationContent_UniverseUserFavoriteEntryImpl = {
+	__index: _HydrationContent_UniverseUserFavoriteEntryImpl,
+	new: (
+		fields: _HydrationContent_UniverseUserFavoriteEntryPartialFields?
+	) -> HydrationContent_UniverseUserFavoriteEntry,
+	encode: (self: HydrationContent_UniverseUserFavoriteEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_UniverseUserFavoriteEntry,
+	jsonEncode: (self: HydrationContent_UniverseUserFavoriteEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_UniverseUserFavoriteEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_UniverseUserFavoriteEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data.UniverseUserFavoriteData?,
+}
+
+type _HydrationContent_UniverseUserFavoriteEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data.UniverseUserFavoriteData?,
+}
+
+export type HydrationContent_UniverseUserFavoriteEntry = typeof(setmetatable(
+	{} :: _HydrationContent_UniverseUserFavoriteEntryFields,
+	{} :: _HydrationContent_UniverseUserFavoriteEntryImpl
+))
+type _HydrationContent_UniverseUserFavoriteEntryMessage = proto.Message<
+	HydrationContent_UniverseUserFavoriteEntry,
+	_HydrationContent_UniverseUserFavoriteEntryPartialFields
+>
+
 do
 	local _HydrationContentImpl = {}
 	_HydrationContentImpl.__index = _HydrationContentImpl
@@ -673,6 +746,10 @@ do
 				then {}
 				else data.universe_user_follow,
 			universe_user_vote = if data == nil or data.universe_user_vote == nil then {} else data.universe_user_vote,
+			user = if data == nil or data.user == nil then {} else data.user,
+			universe_user_favorite = if data == nil or data.universe_user_favorite == nil
+				then {}
+				else data.universe_user_favorite,
 		}, _HydrationContentImpl :: _HydrationContentImpl)
 	end
 
@@ -932,6 +1009,34 @@ do
 			end
 		end
 
+		if self.user ~= nil and next(self.user) ~= nil then
+			for key, value in self.user do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.universe_user_favorite ~= nil and next(self.universe_user_favorite) ~= nil then
+			for key, value in self.universe_user_favorite do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -1175,6 +1280,31 @@ do
 					self.universe_user_vote[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_UserEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = _roblox_apppageplatform_shared_v1beta1_user_data.UserData.new()
+
+					self.user[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_UniverseUserFavoriteEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data.UniverseUserFavoriteData.new()
+
+					self.universe_user_favorite[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
 				end
 
 				local length
@@ -1344,6 +1474,22 @@ do
 				newOutput[key] = value:jsonEncode()
 			end
 			output.universeUserVote = newOutput
+		end
+
+		if self.user ~= nil and next(self.user) ~= nil then
+			local newOutput = {}
+			for key, value in self.user do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.user = newOutput
+		end
+
+		if self.universe_user_favorite ~= nil and next(self.universe_user_favorite) ~= nil then
+			local newOutput = {}
+			for key, value in self.universe_user_favorite do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.universeUserFavorite = newOutput
 		end
 
 		return output
@@ -1684,6 +1830,41 @@ do
 			end
 
 			self.universe_user_vote = newOutput
+		end
+
+		if input.user ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_user_data.UserData } = {}
+			for key, value in input.user do
+				newOutput[key] = _roblox_apppageplatform_shared_v1beta1_user_data.UserData.jsonDecode(value)
+			end
+
+			self.user = newOutput
+		end
+
+		if input.universe_user_favorite ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data.UniverseUserFavoriteData } =
+				{}
+			for key, value in input.universe_user_favorite do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data.UniverseUserFavoriteData.jsonDecode(
+						value
+					)
+			end
+
+			self.universe_user_favorite = newOutput
+		end
+
+		if input.universeUserFavorite ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data.UniverseUserFavoriteData } =
+				{}
+			for key, value in input.universeUserFavorite do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data.UniverseUserFavoriteData.jsonDecode(
+						value
+					)
+			end
+
+			self.universe_user_favorite = newOutput
 		end
 
 		return self
@@ -3919,6 +4100,258 @@ do
 	messages.HydrationContent_UniverseUserVoteEntry = _HydrationContent_UniverseUserVoteEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.HydrationContent_UniverseUserVoteEntry)
+end
+
+do
+	local _HydrationContent_UserEntryImpl = {}
+	_HydrationContent_UserEntryImpl.__index = _HydrationContent_UserEntryImpl
+
+	function _HydrationContent_UserEntryImpl.new(
+		data: _HydrationContent_UserEntryPartialFields?
+	): HydrationContent_UserEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_UserEntryImpl :: _HydrationContent_UserEntryImpl)
+	end
+
+	function _HydrationContent_UserEntryImpl.encode(self: HydrationContent_UserEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_UserEntryImpl.decode(input: buffer): HydrationContent_UserEntry
+		local self = _HydrationContent_UserEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = _roblox_apppageplatform_shared_v1beta1_user_data.UserData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_UserEntryImpl.jsonEncode(self: HydrationContent_UserEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_UserEntryImpl.jsonDecode(input: { [string]: any }): HydrationContent_UserEntry
+		local self = _HydrationContent_UserEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_user_data.UserData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_HydrationContent_UserEntryImpl.descriptor = {
+		name = "HydrationContent_UserEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UserEntry",
+	}
+
+	messages.HydrationContent_UserEntry = _HydrationContent_UserEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_UserEntry)
+end
+
+do
+	local _HydrationContent_UniverseUserFavoriteEntryImpl = {}
+	_HydrationContent_UniverseUserFavoriteEntryImpl.__index = _HydrationContent_UniverseUserFavoriteEntryImpl
+
+	function _HydrationContent_UniverseUserFavoriteEntryImpl.new(
+		data: _HydrationContent_UniverseUserFavoriteEntryPartialFields?
+	): HydrationContent_UniverseUserFavoriteEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_UniverseUserFavoriteEntryImpl :: _HydrationContent_UniverseUserFavoriteEntryImpl)
+	end
+
+	function _HydrationContent_UniverseUserFavoriteEntryImpl.encode(
+		self: HydrationContent_UniverseUserFavoriteEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_UniverseUserFavoriteEntryImpl.decode(
+		input: buffer
+	): HydrationContent_UniverseUserFavoriteEntry
+		local self = _HydrationContent_UniverseUserFavoriteEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data.UniverseUserFavoriteData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_UniverseUserFavoriteEntryImpl.jsonEncode(
+		self: HydrationContent_UniverseUserFavoriteEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_UniverseUserFavoriteEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_UniverseUserFavoriteEntry
+		local self = _HydrationContent_UniverseUserFavoriteEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data.UniverseUserFavoriteData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_UniverseUserFavoriteEntryImpl.descriptor = {
+		name = "HydrationContent_UniverseUserFavoriteEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UniverseUserFavoriteEntry",
+	}
+
+	messages.HydrationContent_UniverseUserFavoriteEntry = _HydrationContent_UniverseUserFavoriteEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_UniverseUserFavoriteEntry)
 end
 
 return {

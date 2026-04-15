@@ -68,6 +68,8 @@ type _TextSchema_PropsFields = {
 	text_scaled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	text_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	text_wrapped: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _TextSchema_PropsPartialFields = {
@@ -89,6 +91,8 @@ type _TextSchema_PropsPartialFields = {
 	text_scaled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	text_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	text_wrapped: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type TextSchema_Props = typeof(setmetatable({} :: _TextSchema_PropsFields, {} :: _TextSchema_PropsImpl))
@@ -237,6 +241,8 @@ do
 			text_scaled = if data == nil or data.text_scaled == nil then nil else data.text_scaled,
 			automatic_size = if data == nil or data.automatic_size == nil then nil else data.automatic_size,
 			tag = if data == nil or data.tag == nil then nil else data.tag,
+			text_style = if data == nil or data.text_style == nil then nil else data.text_style,
+			text_wrapped = if data == nil or data.text_wrapped == nil then nil else data.text_wrapped,
 		}, _TextSchema_PropsImpl :: _TextSchema_PropsImpl)
 	end
 
@@ -352,6 +358,18 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.text_style ~= nil then
+			local encoded = self.text_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_wrapped ~= nil then
+			local encoded = self.text_wrapped:encode()
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -461,6 +479,16 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
+					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_wrapped = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
 				end
 
 				local length
@@ -558,6 +586,14 @@ do
 
 		if self.tag ~= nil then
 			output.tag = self.tag:jsonEncode()
+		end
+
+		if self.text_style ~= nil then
+			output.textStyle = self.text_style:jsonEncode()
+		end
+
+		if self.text_wrapped ~= nil then
+			output.textWrapped = self.text_wrapped:jsonEncode()
 		end
 
 		return output
@@ -710,6 +746,25 @@ do
 
 		if input.tag ~= nil then
 			self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tag)
+		end
+
+		if input.text_style ~= nil then
+			self.text_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.text_style)
+		end
+
+		if input.textStyle ~= nil then
+			self.text_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.textStyle)
+		end
+
+		if input.text_wrapped ~= nil then
+			self.text_wrapped =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.text_wrapped)
+		end
+
+		if input.textWrapped ~= nil then
+			self.text_wrapped = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.textWrapped)
 		end
 
 		return self

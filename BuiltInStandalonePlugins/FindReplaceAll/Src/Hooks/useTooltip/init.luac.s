@@ -294,7 +294,7 @@ PROTO_4:
       198 CALL                             R13 3 1
       199 SETTABLEKS                       R13 R12 K24 ["TitleFrame"]
       201 GETTABLEKS                       R14 R0 K1 ["Text"]
-      203 JUMPIFNOT                        R14 ; [+31]
+      203 JUMPIFNOT                        R14 ; [+26]
       204 GETUPVAL                         R14 3
       205 GETTABLEKS                       R13 R14 K3 ["createElement"]
       207 LOADK                            R14 K29 ["TextLabel"]
@@ -309,98 +309,87 @@ PROTO_4:
       221 SETTABLEKS                       R16 R15 K36 ["RichText"]
       223 GETUPVAL                         R17 3
       224 GETTABLEKS                       R16 R17 K8 ["Tag"]
-      226 GETUPVAL                         R18 4
-      227 CALL                             R18 0 1
-      228 JUMPIFNOT                        R18 ; [+2]
-      229 LOADK                            R17 K37 ["Text-Label X-Fit TooltipTextBounds FindReplaceAll-Text-Size-12"]
-      230 JUMP                             ; [+1]
-      231 LOADK                            R17 K38 ["Text-Label X-Fit TooltipTextBounds"]
-      232 SETTABLE                         R17 R15 R16
-      233 CALL                             R13 2 1
-      234 JUMP                             ; [+1]
-      235 LOADNIL                          R13
-      236 SETTABLEKS                       R13 R12 K1 ["Text"]
-      238 CALL                             R9 3 1
-      239 SETTABLEKS                       R9 R8 K14 ["Content"]
-      241 CALL                             R5 3 1
-      242 GETUPVAL                         R7 3
-      243 GETTABLEKS                       R6 R7 K3 ["createElement"]
-      245 LOADK                            R7 K4 ["Frame"]
-      246 NEWTABLE                         R8 1 0
-      248 GETUPVAL                         R10 3
-      249 GETTABLEKS                       R9 R10 K8 ["Tag"]
-      251 LOADK                            R10 K39 ["Component-useTooltip Role-Tooltip X-Fill"]
-      252 SETTABLE                         R10 R8 R9
-      253 DUPTABLE                         R9 K42 [{"Wrapper", "StyleLink"}]
-      254 SETTABLEKS                       R5 R9 K40 ["Wrapper"]
-      256 GETUPVAL                         R11 3
-      257 GETTABLEKS                       R10 R11 K3 ["createElement"]
-      259 LOADK                            R11 K41 ["StyleLink"]
-      260 DUPTABLE                         R12 K44 [{"StyleSheet"}]
-      261 GETTABLEKS                       R13 R0 K45 ["Design"]
-      263 SETTABLEKS                       R13 R12 K43 ["StyleSheet"]
-      265 CALL                             R10 2 1
-      266 SETTABLEKS                       R10 R9 K41 ["StyleLink"]
-      268 CALL                             R6 3 -1
-      269 RETURN                           R6 -1
+      226 LOADK                            R17 K37 ["Text-Label X-Fit TooltipTextBounds FindReplaceAll-Text-Size-12"]
+      227 SETTABLE                         R17 R15 R16
+      228 CALL                             R13 2 1
+      229 JUMP                             ; [+1]
+      230 LOADNIL                          R13
+      231 SETTABLEKS                       R13 R12 K1 ["Text"]
+      233 CALL                             R9 3 1
+      234 SETTABLEKS                       R9 R8 K14 ["Content"]
+      236 CALL                             R5 3 1
+      237 GETUPVAL                         R7 3
+      238 GETTABLEKS                       R6 R7 K3 ["createElement"]
+      240 LOADK                            R7 K4 ["Frame"]
+      241 NEWTABLE                         R8 1 0
+      243 GETUPVAL                         R10 3
+      244 GETTABLEKS                       R9 R10 K8 ["Tag"]
+      246 LOADK                            R10 K38 ["Component-useTooltip Role-Tooltip X-Fill"]
+      247 SETTABLE                         R10 R8 R9
+      248 DUPTABLE                         R9 K41 [{"Wrapper", "StyleLink"}]
+      249 SETTABLEKS                       R5 R9 K39 ["Wrapper"]
+      251 GETUPVAL                         R11 3
+      252 GETTABLEKS                       R10 R11 K3 ["createElement"]
+      254 LOADK                            R11 K40 ["StyleLink"]
+      255 DUPTABLE                         R12 K43 [{"StyleSheet"}]
+      256 GETTABLEKS                       R13 R0 K44 ["Design"]
+      258 SETTABLEKS                       R13 R12 K42 ["StyleSheet"]
+      260 CALL                             R10 2 1
+      261 SETTABLEKS                       R10 R9 K40 ["StyleLink"]
+      263 CALL                             R6 3 -1
+      264 RETURN                           R6 -1
 
 PROTO_5:
         0 GETUPVAL                         R1 0
-        1 JUMPIFNOT                        R1 ; [+6]
-        2 GETUPVAL                         R1 1
-        3 JUMPIFNOT                        R1 ; [+4]
-        4 GETIMPORT                        R1 K2 [task.wait]
-        6 CALL                             R1 0 0
-        7 JUMPBACK                         ; [-6]
-        8 GETUPVAL                         R1 2
-        9 JUMPIFNOT                        R1 ; [+2]
-       10 GETUPVAL                         R1 2
-       11 RETURN                           R1 1
-       12 GETUPVAL                         R1 0
-       13 JUMPIFNOT                        R1 ; [+2]
-       14 LOADB                            R1 1
-       15 SETUPVAL                         R1 1
-       16 LOADK                            R3 K3 ["Tooltip"]
-       17 DUPTABLE                         R4 K11 [{"Id", "InitialEnabled", "MinSize", "Modal", "Tooltip", "Resizable", "Size", "Title"}]
-       18 LOADK                            R5 K3 ["Tooltip"]
-       19 SETTABLEKS                       R5 R4 K4 ["Id"]
-       21 LOADB                            R5 0
-       22 SETTABLEKS                       R5 R4 K5 ["InitialEnabled"]
-       24 GETIMPORT                        R5 K14 [Vector2.new]
-       26 LOADN                            R6 50
-       27 LOADN                            R7 50
-       28 CALL                             R5 2 1
-       29 SETTABLEKS                       R5 R4 K6 ["MinSize"]
-       31 LOADB                            R5 0
-       32 SETTABLEKS                       R5 R4 K7 ["Modal"]
-       34 LOADB                            R5 1
-       35 SETTABLEKS                       R5 R4 K3 ["Tooltip"]
-       37 LOADB                            R5 1
-       38 SETTABLEKS                       R5 R4 K8 ["Resizable"]
-       40 GETIMPORT                        R5 K14 [Vector2.new]
-       42 LOADN                            R6 220
-       43 LOADN                            R7 224
-       44 CALL                             R5 2 1
-       45 SETTABLEKS                       R5 R4 K9 ["Size"]
-       47 LOADK                            R5 K3 ["Tooltip"]
-       48 SETTABLEKS                       R5 R4 K10 ["Title"]
-       50 NAMECALL                         R1 R0 K15 ["CreateQWidgetPluginGui"]
-       52 CALL                             R1 3 1
-       53 SETUPVAL                         R1 2
-       54 GETUPVAL                         R1 2
-       55 GETIMPORT                        R2 K19 [Enum.ZIndexBehavior.Sibling]
-       57 SETTABLEKS                       R2 R1 K17 ["ZIndexBehavior"]
-       59 GETUPVAL                         R2 4
-       60 GETTABLEKS                       R1 R2 K20 ["createRoot"]
-       62 GETUPVAL                         R2 2
-       63 CALL                             R1 1 1
-       64 SETUPVAL                         R1 3
-       65 GETUPVAL                         R1 0
-       66 JUMPIFNOT                        R1 ; [+2]
-       67 LOADB                            R1 0
-       68 SETUPVAL                         R1 1
-       69 GETUPVAL                         R1 2
-       70 RETURN                           R1 1
+        1 JUMPIFNOT                        R1 ; [+4]
+        2 GETIMPORT                        R1 K2 [task.wait]
+        4 CALL                             R1 0 0
+        5 JUMPBACK                         ; [-6]
+        6 GETUPVAL                         R1 1
+        7 JUMPIFNOT                        R1 ; [+2]
+        8 GETUPVAL                         R1 1
+        9 RETURN                           R1 1
+       10 LOADB                            R1 1
+       11 SETUPVAL                         R1 0
+       12 LOADK                            R3 K3 ["Tooltip"]
+       13 DUPTABLE                         R4 K11 [{"Id", "InitialEnabled", "MinSize", "Modal", "Tooltip", "Resizable", "Size", "Title"}]
+       14 LOADK                            R5 K3 ["Tooltip"]
+       15 SETTABLEKS                       R5 R4 K4 ["Id"]
+       17 LOADB                            R5 0
+       18 SETTABLEKS                       R5 R4 K5 ["InitialEnabled"]
+       20 GETIMPORT                        R5 K14 [Vector2.new]
+       22 LOADN                            R6 50
+       23 LOADN                            R7 50
+       24 CALL                             R5 2 1
+       25 SETTABLEKS                       R5 R4 K6 ["MinSize"]
+       27 LOADB                            R5 0
+       28 SETTABLEKS                       R5 R4 K7 ["Modal"]
+       30 LOADB                            R5 1
+       31 SETTABLEKS                       R5 R4 K3 ["Tooltip"]
+       33 LOADB                            R5 1
+       34 SETTABLEKS                       R5 R4 K8 ["Resizable"]
+       36 GETIMPORT                        R5 K14 [Vector2.new]
+       38 LOADN                            R6 220
+       39 LOADN                            R7 224
+       40 CALL                             R5 2 1
+       41 SETTABLEKS                       R5 R4 K9 ["Size"]
+       43 LOADK                            R5 K3 ["Tooltip"]
+       44 SETTABLEKS                       R5 R4 K10 ["Title"]
+       46 NAMECALL                         R1 R0 K15 ["CreateQWidgetPluginGui"]
+       48 CALL                             R1 3 1
+       49 SETUPVAL                         R1 1
+       50 GETUPVAL                         R1 1
+       51 GETIMPORT                        R2 K19 [Enum.ZIndexBehavior.Sibling]
+       53 SETTABLEKS                       R2 R1 K17 ["ZIndexBehavior"]
+       55 GETUPVAL                         R2 3
+       56 GETTABLEKS                       R1 R2 K20 ["createRoot"]
+       58 GETUPVAL                         R2 1
+       59 CALL                             R1 1 1
+       60 SETUPVAL                         R1 2
+       61 LOADB                            R1 0
+       62 SETUPVAL                         R1 0
+       63 GETUPVAL                         R1 1
+       64 RETURN                           R1 1
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -736,54 +725,41 @@ MAIN:
        55 GETIMPORT                        R16 K1 [script]
        57 GETTABLEKS                       R15 R16 K20 ["TooltipSettings"]
        59 CALL                             R14 1 1
-       60 GETIMPORT                        R15 K22 [game]
-       62 LOADK                            R17 K23 ["DevFrameworkTooltipErrorFix"]
-       63 LOADB                            R18 0
-       64 NAMECALL                         R15 R15 K24 ["DefineFastFlag"]
-       66 CALL                             R15 3 1
-       67 GETIMPORT                        R16 K5 [require]
-       69 GETTABLEKS                       R19 R0 K25 ["Src"]
-       71 GETTABLEKS                       R18 R19 K18 ["Util"]
-       73 GETTABLEKS                       R17 R18 K26 ["defineFlags"]
-       75 CALL                             R16 1 1
-       76 GETTABLEKS                       R17 R16 K27 ["getFFlagFindReplaceAllUseBuilderFont"]
-       78 DUPCLOSURE                       R18 K28 [PROTO_0]
-       79 DUPCLOSURE                       R19 K29 [PROTO_1]
-       80 DUPCLOSURE                       R20 K30 [PROTO_4]
-       81 CAPTURE                          VAL R8
-       82 CAPTURE                          VAL R13
-       83 CAPTURE                          VAL R7
-       84 CAPTURE                          VAL R2
-       85 CAPTURE                          VAL R17
-       86 LOADNIL                          R21
-       87 LOADNIL                          R22
-       88 LOADB                            R23 0
-       89 NEWCLOSURE                       R24 P3
-       90 CAPTURE                          VAL R15
-       91 CAPTURE                          REF R23
-       92 CAPTURE                          REF R21
-       93 CAPTURE                          REF R22
-       94 CAPTURE                          VAL R3
-       95 NEWCLOSURE                       R25 P4
-       96 CAPTURE                          VAL R24
-       97 CAPTURE                          VAL R5
-       98 CAPTURE                          REF R22
-       99 CAPTURE                          VAL R2
-      100 CAPTURE                          VAL R20
-      101 CAPTURE                          VAL R14
-      102 NEWCLOSURE                       R26 P5
-      103 CAPTURE                          VAL R14
-      104 CAPTURE                          VAL R24
-      105 CAPTURE                          REF R22
-      106 NEWCLOSURE                       R27 P6
-      107 CAPTURE                          VAL R11
-      108 CAPTURE                          VAL R10
-      109 CAPTURE                          VAL R8
-      110 CAPTURE                          VAL R6
-      111 CAPTURE                          VAL R14
-      112 CAPTURE                          VAL R5
-      113 CAPTURE                          VAL R25
-      114 CAPTURE                          VAL R24
-      115 CAPTURE                          REF R22
-      116 CLOSEUPVALS                      R21
-      117 RETURN                           R27 1
+       60 DUPCLOSURE                       R15 K21 [PROTO_0]
+       61 DUPCLOSURE                       R16 K22 [PROTO_1]
+       62 DUPCLOSURE                       R17 K23 [PROTO_4]
+       63 CAPTURE                          VAL R8
+       64 CAPTURE                          VAL R13
+       65 CAPTURE                          VAL R7
+       66 CAPTURE                          VAL R2
+       67 LOADNIL                          R18
+       68 LOADNIL                          R19
+       69 LOADB                            R20 0
+       70 NEWCLOSURE                       R21 P3
+       71 CAPTURE                          REF R20
+       72 CAPTURE                          REF R18
+       73 CAPTURE                          REF R19
+       74 CAPTURE                          VAL R3
+       75 NEWCLOSURE                       R22 P4
+       76 CAPTURE                          VAL R21
+       77 CAPTURE                          VAL R5
+       78 CAPTURE                          REF R19
+       79 CAPTURE                          VAL R2
+       80 CAPTURE                          VAL R17
+       81 CAPTURE                          VAL R14
+       82 NEWCLOSURE                       R23 P5
+       83 CAPTURE                          VAL R14
+       84 CAPTURE                          VAL R21
+       85 CAPTURE                          REF R19
+       86 NEWCLOSURE                       R24 P6
+       87 CAPTURE                          VAL R11
+       88 CAPTURE                          VAL R10
+       89 CAPTURE                          VAL R8
+       90 CAPTURE                          VAL R6
+       91 CAPTURE                          VAL R14
+       92 CAPTURE                          VAL R5
+       93 CAPTURE                          VAL R22
+       94 CAPTURE                          VAL R21
+       95 CAPTURE                          REF R19
+       96 CLOSEUPVALS                      R18
+       97 RETURN                           R24 1

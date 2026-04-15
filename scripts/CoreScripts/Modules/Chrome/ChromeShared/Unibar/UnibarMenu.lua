@@ -20,6 +20,7 @@ local FFlagUnibarMenuOpenSubmenu = ChromeFlags.FFlagUnibarMenuOpenSubmenu
 
 local ChromeSharedFlags = require(Root.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
+local FFlagFixSpatialSubMenuSizing = ChromeSharedFlags.FFlagFixSpatialSubMenuSizing
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 local ChromeService = require(Root.Service)
@@ -784,8 +785,11 @@ local function SubMenuWrapper(props)
 		local currentSubMenu = useObservableValue(ChromeService:currentSubMenu())
 		SubMenuVisibilitySignal:set(currentSubMenu ~= nil)
 	end
-	local renderFunc = React.useCallback(function()
-		return React.createElement(SubMenu, { subMenuHostRef = props.subMenuHostRef }) :: any
+	local renderFunc = React.useCallback(function(panelSize: Vector2)
+		return React.createElement(SubMenu, {
+			subMenuHostRef = props.subMenuHostRef,
+			panelSize = if FFlagFixSpatialSubMenuSizing then panelSize else nil,
+		}) :: any
 	end, {
 		props.subMenuHostRef,
 	})

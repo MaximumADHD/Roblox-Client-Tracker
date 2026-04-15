@@ -89,322 +89,314 @@ MAIN:
        32 LOADK                            R8 K12 ["IsAssetCommentDisabled"]
        33 NAMECALL                         R6 R6 K13 ["GetFastFlag"]
        35 CALL                             R6 2 1
-       36 GETIMPORT                        R7 K6 [require]
-       38 GETTABLEKS                       R10 R0 K3 ["Src"]
-       40 GETTABLEKS                       R9 R10 K14 ["Flags"]
-       42 GETTABLEKS                       R8 R9 K15 ["getFFlagEnableUploadingShoes"]
-       44 CALL                             R7 1 1
-       45 MOVE                             R8 R2
-       46 NEWTABLE                         R9 0 11
-       48 LOADK                            R10 K16 ["SHOW_SALES_TAB"]
-       49 LOADK                            R11 K17 ["SHOW_VERSIONS_TAB"]
-       50 LOADK                            R12 K18 ["SHOW_OWNERSHIP"]
-       51 LOADK                            R13 K19 ["SHOW_GENRE"]
-       52 LOADK                            R14 K20 ["SHOW_COPY"]
-       53 LOADK                            R15 K21 ["SHOW_COMMENT"]
-       54 LOADK                            R16 K22 ["SHOW_ASSET_TYPE"]
-       55 LOADK                            R17 K23 ["SHOW_OVERRIDE_BUTTON"]
-       56 LOADK                            R18 K24 ["SHOW_SALE"]
-       57 LOADK                            R19 K25 ["SHOW_PRICE"]
-       58 LOADK                            R20 K26 ["SHOW_PERMISSIONS_TAB"]
-       59 SETLIST                          R9 R10 11 [1]
-       61 CALL                             R8 1 1
-       62 SETTABLEKS                       R8 R5 K27 ["keys"]
-       64 DUPTABLE                         R8 K30 [{"Marketplace", "Catalog"}]
-       65 NEWTABLE                         R9 0 0
-       67 SETTABLEKS                       R9 R8 K28 ["Marketplace"]
-       69 NEWTABLE                         R9 0 0
-       71 SETTABLEKS                       R9 R8 K29 ["Catalog"]
-       73 GETTABLEKS                       R9 R5 K27 ["keys"]
-       75 NEWTABLE                         R10 4 0
-       77 GETTABLEKS                       R12 R3 K31 ["FLOW_TYPE"]
-       79 GETTABLEKS                       R11 R12 K32 ["DOWNLOAD_FLOW"]
-       81 NEWTABLE                         R12 2 0
-       83 GETTABLEKS                       R13 R8 K28 ["Marketplace"]
-       85 NEWTABLE                         R14 8 0
-       87 GETTABLEKS                       R15 R9 K21 ["SHOW_COMMENT"]
-       89 LOADB                            R16 0
-       90 SETTABLE                         R16 R14 R15
-       91 GETTABLEKS                       R15 R9 K20 ["SHOW_COPY"]
-       93 LOADB                            R16 0
-       94 SETTABLE                         R16 R14 R15
-       95 GETTABLEKS                       R15 R9 K19 ["SHOW_GENRE"]
-       97 LOADB                            R16 0
-       98 SETTABLE                         R16 R14 R15
-       99 GETTABLEKS                       R15 R9 K23 ["SHOW_OVERRIDE_BUTTON"]
-      101 LOADB                            R16 0
-      102 SETTABLE                         R16 R14 R15
-      103 GETTABLEKS                       R15 R9 K18 ["SHOW_OWNERSHIP"]
-      105 LOADB                            R16 0
-      106 SETTABLE                         R16 R14 R15
-      107 GETTABLEKS                       R15 R9 K25 ["SHOW_PRICE"]
-      109 LOADB                            R16 0
-      110 SETTABLE                         R16 R14 R15
-      111 GETTABLEKS                       R15 R9 K24 ["SHOW_SALE"]
-      113 LOADB                            R16 0
-      114 SETTABLE                         R16 R14 R15
-      115 GETTABLEKS                       R15 R9 K17 ["SHOW_VERSIONS_TAB"]
-      117 LOADB                            R16 0
-      118 SETTABLE                         R16 R14 R15
-      119 SETTABLE                         R14 R12 R13
-      120 GETTABLEKS                       R13 R8 K29 ["Catalog"]
-      122 NEWTABLE                         R14 8 0
-      124 GETTABLEKS                       R15 R9 K21 ["SHOW_COMMENT"]
-      126 LOADB                            R16 0
-      127 SETTABLE                         R16 R14 R15
-      128 GETTABLEKS                       R15 R9 K20 ["SHOW_COPY"]
-      130 LOADB                            R16 0
-      131 SETTABLE                         R16 R14 R15
-      132 GETTABLEKS                       R15 R9 K19 ["SHOW_GENRE"]
-      134 LOADB                            R16 0
-      135 SETTABLE                         R16 R14 R15
-      136 GETTABLEKS                       R15 R9 K23 ["SHOW_OVERRIDE_BUTTON"]
-      138 LOADB                            R16 0
-      139 SETTABLE                         R16 R14 R15
-      140 GETTABLEKS                       R15 R9 K18 ["SHOW_OWNERSHIP"]
-      142 LOADB                            R16 0
-      143 SETTABLE                         R16 R14 R15
-      144 GETTABLEKS                       R15 R9 K25 ["SHOW_PRICE"]
-      146 LOADB                            R16 0
-      147 SETTABLE                         R16 R14 R15
-      148 GETTABLEKS                       R15 R9 K24 ["SHOW_SALE"]
-      150 LOADB                            R16 0
-      151 SETTABLE                         R16 R14 R15
-      152 GETTABLEKS                       R15 R9 K17 ["SHOW_VERSIONS_TAB"]
-      154 LOADB                            R16 0
-      155 SETTABLE                         R16 R14 R15
-      156 SETTABLE                         R14 R12 R13
-      157 SETTABLE                         R12 R10 R11
-      158 GETTABLEKS                       R12 R3 K31 ["FLOW_TYPE"]
-      160 GETTABLEKS                       R11 R12 K33 ["EDIT_FLOW"]
-      162 NEWTABLE                         R12 2 0
-      164 GETTABLEKS                       R13 R8 K28 ["Marketplace"]
-      166 NEWTABLE                         R14 8 0
-      168 GETTABLEKS                       R15 R9 K21 ["SHOW_COMMENT"]
-      170 NOT                              R16 R6
-      171 SETTABLE                         R16 R14 R15
-      172 GETTABLEKS                       R15 R9 K20 ["SHOW_COPY"]
-      174 LOADB                            R16 1
-      175 SETTABLE                         R16 R14 R15
-      176 GETTABLEKS                       R15 R9 K19 ["SHOW_GENRE"]
-      178 LOADB                            R16 1
-      179 SETTABLE                         R16 R14 R15
-      180 GETTABLEKS                       R15 R9 K18 ["SHOW_OWNERSHIP"]
-      182 LOADB                            R16 1
-      183 SETTABLE                         R16 R14 R15
-      184 GETTABLEKS                       R15 R9 K25 ["SHOW_PRICE"]
-      186 LOADB                            R16 0
-      187 SETTABLE                         R16 R14 R15
-      188 GETTABLEKS                       R15 R9 K24 ["SHOW_SALE"]
-      190 LOADB                            R16 0
-      191 SETTABLE                         R16 R14 R15
-      192 GETTABLEKS                       R15 R9 K17 ["SHOW_VERSIONS_TAB"]
-      194 LOADB                            R16 1
-      195 SETTABLE                         R16 R14 R15
-      196 SETTABLE                         R14 R12 R13
-      197 GETTABLEKS                       R13 R8 K29 ["Catalog"]
-      199 NEWTABLE                         R14 4 0
-      201 GETTABLEKS                       R15 R9 K22 ["SHOW_ASSET_TYPE"]
-      203 LOADB                            R16 1
-      204 SETTABLE                         R16 R14 R15
-      205 GETTABLEKS                       R15 R9 K18 ["SHOW_OWNERSHIP"]
-      207 LOADB                            R16 1
-      208 SETTABLE                         R16 R14 R15
-      209 GETTABLEKS                       R15 R9 K16 ["SHOW_SALES_TAB"]
-      211 LOADB                            R16 1
-      212 SETTABLE                         R16 R14 R15
-      213 SETTABLE                         R14 R12 R13
-      214 SETTABLE                         R12 R10 R11
-      215 GETTABLEKS                       R12 R3 K31 ["FLOW_TYPE"]
-      217 GETTABLEKS                       R11 R12 K34 ["UPLOAD_FLOW"]
-      219 NEWTABLE                         R12 2 0
-      221 GETTABLEKS                       R13 R8 K28 ["Marketplace"]
-      223 NEWTABLE                         R14 8 0
-      225 GETTABLEKS                       R15 R9 K21 ["SHOW_COMMENT"]
-      227 NOT                              R16 R6
-      228 SETTABLE                         R16 R14 R15
-      229 GETTABLEKS                       R15 R9 K20 ["SHOW_COPY"]
-      231 LOADB                            R16 1
-      232 SETTABLE                         R16 R14 R15
-      233 GETTABLEKS                       R15 R9 K19 ["SHOW_GENRE"]
-      235 LOADB                            R16 1
-      236 SETTABLE                         R16 R14 R15
-      237 GETTABLEKS                       R15 R9 K23 ["SHOW_OVERRIDE_BUTTON"]
-      239 LOADB                            R16 1
-      240 SETTABLE                         R16 R14 R15
-      241 GETTABLEKS                       R15 R9 K18 ["SHOW_OWNERSHIP"]
-      243 LOADB                            R16 1
-      244 SETTABLE                         R16 R14 R15
-      245 GETTABLEKS                       R15 R9 K25 ["SHOW_PRICE"]
-      247 LOADB                            R16 0
-      248 SETTABLE                         R16 R14 R15
-      249 GETTABLEKS                       R15 R9 K24 ["SHOW_SALE"]
-      251 LOADB                            R16 0
-      252 SETTABLE                         R16 R14 R15
-      253 GETTABLEKS                       R15 R9 K17 ["SHOW_VERSIONS_TAB"]
-      255 LOADB                            R16 0
-      256 SETTABLE                         R16 R14 R15
-      257 SETTABLE                         R14 R12 R13
-      258 GETTABLEKS                       R13 R8 K29 ["Catalog"]
-      260 NEWTABLE                         R14 2 0
-      262 GETTABLEKS                       R15 R9 K22 ["SHOW_ASSET_TYPE"]
-      264 LOADB                            R16 1
-      265 SETTABLE                         R16 R14 R15
-      266 GETTABLEKS                       R15 R9 K18 ["SHOW_OWNERSHIP"]
-      268 LOADB                            R16 1
-      269 SETTABLE                         R16 R14 R15
-      270 SETTABLE                         R14 R12 R13
-      271 SETTABLE                         R12 R10 R11
-      272 NEWTABLE                         R11 4 0
-      274 GETIMPORT                        R12 K38 [Enum.AssetType.Plugin]
-      276 NEWTABLE                         R13 2 0
-      278 GETTABLEKS                       R15 R3 K31 ["FLOW_TYPE"]
-      280 GETTABLEKS                       R14 R15 K34 ["UPLOAD_FLOW"]
-      282 NEWTABLE                         R15 8 0
-      284 GETTABLEKS                       R16 R9 K22 ["SHOW_ASSET_TYPE"]
-      286 LOADB                            R17 1
-      287 SETTABLE                         R17 R15 R16
-      288 GETTABLEKS                       R16 R9 K21 ["SHOW_COMMENT"]
-      290 LOADB                            R17 0
-      291 SETTABLE                         R17 R15 R16
-      292 GETTABLEKS                       R16 R9 K20 ["SHOW_COPY"]
-      294 LOADB                            R17 1
-      295 SETTABLE                         R17 R15 R16
-      296 GETTABLEKS                       R16 R9 K19 ["SHOW_GENRE"]
-      298 LOADB                            R17 0
-      299 SETTABLE                         R17 R15 R16
-      300 GETTABLEKS                       R16 R9 K23 ["SHOW_OVERRIDE_BUTTON"]
-      302 LOADB                            R17 1
-      303 SETTABLE                         R17 R15 R16
-      304 GETTABLEKS                       R16 R9 K25 ["SHOW_PRICE"]
-      306 LOADB                            R17 0
-      307 SETTABLE                         R17 R15 R16
-      308 SETTABLE                         R15 R13 R14
-      309 GETTABLEKS                       R15 R3 K31 ["FLOW_TYPE"]
-      311 GETTABLEKS                       R14 R15 K33 ["EDIT_FLOW"]
-      313 NEWTABLE                         R15 8 0
-      315 GETTABLEKS                       R16 R9 K22 ["SHOW_ASSET_TYPE"]
-      317 LOADB                            R17 1
-      318 SETTABLE                         R17 R15 R16
-      319 GETTABLEKS                       R16 R9 K21 ["SHOW_COMMENT"]
-      321 LOADB                            R17 0
-      322 SETTABLE                         R17 R15 R16
-      323 GETTABLEKS                       R16 R9 K20 ["SHOW_COPY"]
-      325 LOADB                            R17 1
-      326 SETTABLE                         R17 R15 R16
-      327 GETTABLEKS                       R16 R9 K19 ["SHOW_GENRE"]
-      329 LOADB                            R17 0
-      330 SETTABLE                         R17 R15 R16
-      331 GETTABLEKS                       R16 R9 K18 ["SHOW_OWNERSHIP"]
-      333 LOADB                            R17 1
-      334 SETTABLE                         R17 R15 R16
-      335 GETTABLEKS                       R16 R9 K25 ["SHOW_PRICE"]
-      337 LOADB                            R17 0
-      338 SETTABLE                         R17 R15 R16
-      339 GETTABLEKS                       R16 R9 K24 ["SHOW_SALE"]
-      341 LOADB                            R17 0
-      342 SETTABLE                         R17 R15 R16
-      343 GETTABLEKS                       R16 R9 K17 ["SHOW_VERSIONS_TAB"]
-      345 LOADB                            R17 1
-      346 SETTABLE                         R17 R15 R16
-      347 SETTABLE                         R15 R13 R14
-      348 SETTABLE                         R13 R11 R12
-      349 GETIMPORT                        R12 K40 [Enum.AssetType.Model]
-      351 NEWTABLE                         R13 1 0
-      353 GETTABLEKS                       R15 R3 K31 ["FLOW_TYPE"]
-      355 GETTABLEKS                       R14 R15 K34 ["UPLOAD_FLOW"]
-      357 NEWTABLE                         R15 1 0
-      359 GETTABLEKS                       R16 R9 K23 ["SHOW_OVERRIDE_BUTTON"]
-      361 LOADB                            R17 1
-      362 SETTABLE                         R17 R15 R16
-      363 SETTABLE                         R15 R13 R14
-      364 SETTABLE                         R13 R11 R12
-      365 GETIMPORT                        R12 K42 [Enum.AssetType.Animation]
-      367 NEWTABLE                         R13 1 0
-      369 GETTABLEKS                       R15 R3 K31 ["FLOW_TYPE"]
-      371 GETTABLEKS                       R14 R15 K34 ["UPLOAD_FLOW"]
-      373 NEWTABLE                         R15 16 0
-      375 GETTABLEKS                       R16 R9 K23 ["SHOW_OVERRIDE_BUTTON"]
-      377 LOADB                            R17 1
-      378 SETTABLE                         R17 R15 R16
-      379 GETTABLEKS                       R16 R9 K21 ["SHOW_COMMENT"]
-      381 LOADB                            R17 0
-      382 SETTABLE                         R17 R15 R16
-      383 GETTABLEKS                       R16 R9 K20 ["SHOW_COPY"]
-      385 LOADB                            R17 0
-      386 SETTABLE                         R17 R15 R16
-      387 GETTABLEKS                       R16 R9 K19 ["SHOW_GENRE"]
-      389 LOADB                            R17 0
-      390 SETTABLE                         R17 R15 R16
-      391 GETTABLEKS                       R16 R9 K18 ["SHOW_OWNERSHIP"]
-      393 LOADB                            R17 1
-      394 SETTABLE                         R17 R15 R16
-      395 GETTABLEKS                       R16 R9 K25 ["SHOW_PRICE"]
-      397 LOADB                            R17 0
-      398 SETTABLE                         R17 R15 R16
-      399 GETTABLEKS                       R16 R9 K24 ["SHOW_SALE"]
-      401 LOADB                            R17 0
-      402 SETTABLE                         R17 R15 R16
-      403 GETTABLEKS                       R16 R9 K17 ["SHOW_VERSIONS_TAB"]
-      405 LOADB                            R17 0
-      406 SETTABLE                         R17 R15 R16
-      407 GETTABLEKS                       R16 R9 K16 ["SHOW_SALES_TAB"]
-      409 LOADB                            R17 0
-      410 SETTABLE                         R17 R15 R16
-      411 SETTABLE                         R15 R13 R14
-      412 SETTABLE                         R13 R11 R12
-      413 GETTABLEKS                       R13 R3 K43 ["UGCBundleTypes"]
-      415 GETTABLEKS                       R12 R13 K44 ["Body"]
-      417 NEWTABLE                         R13 1 0
-      419 GETTABLEKS                       R15 R3 K31 ["FLOW_TYPE"]
-      421 GETTABLEKS                       R14 R15 K34 ["UPLOAD_FLOW"]
-      423 NEWTABLE                         R15 2 0
-      425 GETTABLEKS                       R16 R9 K22 ["SHOW_ASSET_TYPE"]
-      427 LOADB                            R17 0
-      428 SETTABLE                         R17 R15 R16
-      429 GETTABLEKS                       R16 R9 K18 ["SHOW_OWNERSHIP"]
-      431 LOADB                            R17 0
-      432 SETTABLE                         R17 R15 R16
-      433 SETTABLE                         R15 R13 R14
-      434 SETTABLE                         R13 R11 R12
-      435 GETTABLEKS                       R13 R3 K43 ["UGCBundleTypes"]
-      437 GETTABLEKS                       R12 R13 K45 ["DynamicHead"]
-      439 NEWTABLE                         R13 1 0
-      441 GETTABLEKS                       R15 R3 K31 ["FLOW_TYPE"]
-      443 GETTABLEKS                       R14 R15 K34 ["UPLOAD_FLOW"]
-      445 NEWTABLE                         R15 2 0
-      447 GETTABLEKS                       R16 R9 K22 ["SHOW_ASSET_TYPE"]
-      449 LOADB                            R17 0
-      450 SETTABLE                         R17 R15 R16
-      451 GETTABLEKS                       R16 R9 K18 ["SHOW_OWNERSHIP"]
-      453 LOADB                            R17 0
-      454 SETTABLE                         R17 R15 R16
-      455 SETTABLE                         R15 R13 R14
-      456 SETTABLE                         R13 R11 R12
-      457 MOVE                             R12 R7
-      458 CALL                             R12 0 1
-      459 JUMPIFNOT                        R12 ; [+22]
-      460 GETTABLEKS                       R13 R3 K43 ["UGCBundleTypes"]
-      462 GETTABLEKS                       R12 R13 K46 ["Shoes"]
-      464 NEWTABLE                         R13 1 0
-      466 GETTABLEKS                       R15 R3 K31 ["FLOW_TYPE"]
-      468 GETTABLEKS                       R14 R15 K34 ["UPLOAD_FLOW"]
-      470 NEWTABLE                         R15 2 0
-      472 GETTABLEKS                       R16 R9 K22 ["SHOW_ASSET_TYPE"]
-      474 LOADB                            R17 0
-      475 SETTABLE                         R17 R15 R16
-      476 GETTABLEKS                       R16 R9 K18 ["SHOW_OWNERSHIP"]
-      478 LOADB                            R17 0
-      479 SETTABLE                         R17 R15 R16
-      480 SETTABLE                         R15 R13 R14
-      481 SETTABLE                         R13 R11 R12
-      482 DUPCLOSURE                       R12 K47 [PROTO_0]
-      483 CAPTURE                          VAL R4
-      484 CAPTURE                          VAL R8
-      485 DUPCLOSURE                       R13 K48 [PROTO_1]
-      486 CAPTURE                          VAL R4
-      487 CAPTURE                          VAL R8
-      488 CAPTURE                          VAL R10
-      489 CAPTURE                          VAL R11
-      490 SETTABLEKS                       R13 R5 K49 ["queryParam"]
-      492 RETURN                           R5 1
+       36 MOVE                             R7 R2
+       37 NEWTABLE                         R8 0 11
+       39 LOADK                            R9 K14 ["SHOW_SALES_TAB"]
+       40 LOADK                            R10 K15 ["SHOW_VERSIONS_TAB"]
+       41 LOADK                            R11 K16 ["SHOW_OWNERSHIP"]
+       42 LOADK                            R12 K17 ["SHOW_GENRE"]
+       43 LOADK                            R13 K18 ["SHOW_COPY"]
+       44 LOADK                            R14 K19 ["SHOW_COMMENT"]
+       45 LOADK                            R15 K20 ["SHOW_ASSET_TYPE"]
+       46 LOADK                            R16 K21 ["SHOW_OVERRIDE_BUTTON"]
+       47 LOADK                            R17 K22 ["SHOW_SALE"]
+       48 LOADK                            R18 K23 ["SHOW_PRICE"]
+       49 LOADK                            R19 K24 ["SHOW_PERMISSIONS_TAB"]
+       50 SETLIST                          R8 R9 11 [1]
+       52 CALL                             R7 1 1
+       53 SETTABLEKS                       R7 R5 K25 ["keys"]
+       55 DUPTABLE                         R7 K28 [{"Marketplace", "Catalog"}]
+       56 NEWTABLE                         R8 0 0
+       58 SETTABLEKS                       R8 R7 K26 ["Marketplace"]
+       60 NEWTABLE                         R8 0 0
+       62 SETTABLEKS                       R8 R7 K27 ["Catalog"]
+       64 GETTABLEKS                       R8 R5 K25 ["keys"]
+       66 NEWTABLE                         R9 4 0
+       68 GETTABLEKS                       R11 R3 K29 ["FLOW_TYPE"]
+       70 GETTABLEKS                       R10 R11 K30 ["DOWNLOAD_FLOW"]
+       72 NEWTABLE                         R11 2 0
+       74 GETTABLEKS                       R12 R7 K26 ["Marketplace"]
+       76 NEWTABLE                         R13 8 0
+       78 GETTABLEKS                       R14 R8 K19 ["SHOW_COMMENT"]
+       80 LOADB                            R15 0
+       81 SETTABLE                         R15 R13 R14
+       82 GETTABLEKS                       R14 R8 K18 ["SHOW_COPY"]
+       84 LOADB                            R15 0
+       85 SETTABLE                         R15 R13 R14
+       86 GETTABLEKS                       R14 R8 K17 ["SHOW_GENRE"]
+       88 LOADB                            R15 0
+       89 SETTABLE                         R15 R13 R14
+       90 GETTABLEKS                       R14 R8 K21 ["SHOW_OVERRIDE_BUTTON"]
+       92 LOADB                            R15 0
+       93 SETTABLE                         R15 R13 R14
+       94 GETTABLEKS                       R14 R8 K16 ["SHOW_OWNERSHIP"]
+       96 LOADB                            R15 0
+       97 SETTABLE                         R15 R13 R14
+       98 GETTABLEKS                       R14 R8 K23 ["SHOW_PRICE"]
+      100 LOADB                            R15 0
+      101 SETTABLE                         R15 R13 R14
+      102 GETTABLEKS                       R14 R8 K22 ["SHOW_SALE"]
+      104 LOADB                            R15 0
+      105 SETTABLE                         R15 R13 R14
+      106 GETTABLEKS                       R14 R8 K15 ["SHOW_VERSIONS_TAB"]
+      108 LOADB                            R15 0
+      109 SETTABLE                         R15 R13 R14
+      110 SETTABLE                         R13 R11 R12
+      111 GETTABLEKS                       R12 R7 K27 ["Catalog"]
+      113 NEWTABLE                         R13 8 0
+      115 GETTABLEKS                       R14 R8 K19 ["SHOW_COMMENT"]
+      117 LOADB                            R15 0
+      118 SETTABLE                         R15 R13 R14
+      119 GETTABLEKS                       R14 R8 K18 ["SHOW_COPY"]
+      121 LOADB                            R15 0
+      122 SETTABLE                         R15 R13 R14
+      123 GETTABLEKS                       R14 R8 K17 ["SHOW_GENRE"]
+      125 LOADB                            R15 0
+      126 SETTABLE                         R15 R13 R14
+      127 GETTABLEKS                       R14 R8 K21 ["SHOW_OVERRIDE_BUTTON"]
+      129 LOADB                            R15 0
+      130 SETTABLE                         R15 R13 R14
+      131 GETTABLEKS                       R14 R8 K16 ["SHOW_OWNERSHIP"]
+      133 LOADB                            R15 0
+      134 SETTABLE                         R15 R13 R14
+      135 GETTABLEKS                       R14 R8 K23 ["SHOW_PRICE"]
+      137 LOADB                            R15 0
+      138 SETTABLE                         R15 R13 R14
+      139 GETTABLEKS                       R14 R8 K22 ["SHOW_SALE"]
+      141 LOADB                            R15 0
+      142 SETTABLE                         R15 R13 R14
+      143 GETTABLEKS                       R14 R8 K15 ["SHOW_VERSIONS_TAB"]
+      145 LOADB                            R15 0
+      146 SETTABLE                         R15 R13 R14
+      147 SETTABLE                         R13 R11 R12
+      148 SETTABLE                         R11 R9 R10
+      149 GETTABLEKS                       R11 R3 K29 ["FLOW_TYPE"]
+      151 GETTABLEKS                       R10 R11 K31 ["EDIT_FLOW"]
+      153 NEWTABLE                         R11 2 0
+      155 GETTABLEKS                       R12 R7 K26 ["Marketplace"]
+      157 NEWTABLE                         R13 8 0
+      159 GETTABLEKS                       R14 R8 K19 ["SHOW_COMMENT"]
+      161 NOT                              R15 R6
+      162 SETTABLE                         R15 R13 R14
+      163 GETTABLEKS                       R14 R8 K18 ["SHOW_COPY"]
+      165 LOADB                            R15 1
+      166 SETTABLE                         R15 R13 R14
+      167 GETTABLEKS                       R14 R8 K17 ["SHOW_GENRE"]
+      169 LOADB                            R15 1
+      170 SETTABLE                         R15 R13 R14
+      171 GETTABLEKS                       R14 R8 K16 ["SHOW_OWNERSHIP"]
+      173 LOADB                            R15 1
+      174 SETTABLE                         R15 R13 R14
+      175 GETTABLEKS                       R14 R8 K23 ["SHOW_PRICE"]
+      177 LOADB                            R15 0
+      178 SETTABLE                         R15 R13 R14
+      179 GETTABLEKS                       R14 R8 K22 ["SHOW_SALE"]
+      181 LOADB                            R15 0
+      182 SETTABLE                         R15 R13 R14
+      183 GETTABLEKS                       R14 R8 K15 ["SHOW_VERSIONS_TAB"]
+      185 LOADB                            R15 1
+      186 SETTABLE                         R15 R13 R14
+      187 SETTABLE                         R13 R11 R12
+      188 GETTABLEKS                       R12 R7 K27 ["Catalog"]
+      190 NEWTABLE                         R13 4 0
+      192 GETTABLEKS                       R14 R8 K20 ["SHOW_ASSET_TYPE"]
+      194 LOADB                            R15 1
+      195 SETTABLE                         R15 R13 R14
+      196 GETTABLEKS                       R14 R8 K16 ["SHOW_OWNERSHIP"]
+      198 LOADB                            R15 1
+      199 SETTABLE                         R15 R13 R14
+      200 GETTABLEKS                       R14 R8 K14 ["SHOW_SALES_TAB"]
+      202 LOADB                            R15 1
+      203 SETTABLE                         R15 R13 R14
+      204 SETTABLE                         R13 R11 R12
+      205 SETTABLE                         R11 R9 R10
+      206 GETTABLEKS                       R11 R3 K29 ["FLOW_TYPE"]
+      208 GETTABLEKS                       R10 R11 K32 ["UPLOAD_FLOW"]
+      210 NEWTABLE                         R11 2 0
+      212 GETTABLEKS                       R12 R7 K26 ["Marketplace"]
+      214 NEWTABLE                         R13 8 0
+      216 GETTABLEKS                       R14 R8 K19 ["SHOW_COMMENT"]
+      218 NOT                              R15 R6
+      219 SETTABLE                         R15 R13 R14
+      220 GETTABLEKS                       R14 R8 K18 ["SHOW_COPY"]
+      222 LOADB                            R15 1
+      223 SETTABLE                         R15 R13 R14
+      224 GETTABLEKS                       R14 R8 K17 ["SHOW_GENRE"]
+      226 LOADB                            R15 1
+      227 SETTABLE                         R15 R13 R14
+      228 GETTABLEKS                       R14 R8 K21 ["SHOW_OVERRIDE_BUTTON"]
+      230 LOADB                            R15 1
+      231 SETTABLE                         R15 R13 R14
+      232 GETTABLEKS                       R14 R8 K16 ["SHOW_OWNERSHIP"]
+      234 LOADB                            R15 1
+      235 SETTABLE                         R15 R13 R14
+      236 GETTABLEKS                       R14 R8 K23 ["SHOW_PRICE"]
+      238 LOADB                            R15 0
+      239 SETTABLE                         R15 R13 R14
+      240 GETTABLEKS                       R14 R8 K22 ["SHOW_SALE"]
+      242 LOADB                            R15 0
+      243 SETTABLE                         R15 R13 R14
+      244 GETTABLEKS                       R14 R8 K15 ["SHOW_VERSIONS_TAB"]
+      246 LOADB                            R15 0
+      247 SETTABLE                         R15 R13 R14
+      248 SETTABLE                         R13 R11 R12
+      249 GETTABLEKS                       R12 R7 K27 ["Catalog"]
+      251 NEWTABLE                         R13 2 0
+      253 GETTABLEKS                       R14 R8 K20 ["SHOW_ASSET_TYPE"]
+      255 LOADB                            R15 1
+      256 SETTABLE                         R15 R13 R14
+      257 GETTABLEKS                       R14 R8 K16 ["SHOW_OWNERSHIP"]
+      259 LOADB                            R15 1
+      260 SETTABLE                         R15 R13 R14
+      261 SETTABLE                         R13 R11 R12
+      262 SETTABLE                         R11 R9 R10
+      263 NEWTABLE                         R10 4 0
+      265 GETIMPORT                        R11 K36 [Enum.AssetType.Plugin]
+      267 NEWTABLE                         R12 2 0
+      269 GETTABLEKS                       R14 R3 K29 ["FLOW_TYPE"]
+      271 GETTABLEKS                       R13 R14 K32 ["UPLOAD_FLOW"]
+      273 NEWTABLE                         R14 8 0
+      275 GETTABLEKS                       R15 R8 K20 ["SHOW_ASSET_TYPE"]
+      277 LOADB                            R16 1
+      278 SETTABLE                         R16 R14 R15
+      279 GETTABLEKS                       R15 R8 K19 ["SHOW_COMMENT"]
+      281 LOADB                            R16 0
+      282 SETTABLE                         R16 R14 R15
+      283 GETTABLEKS                       R15 R8 K18 ["SHOW_COPY"]
+      285 LOADB                            R16 1
+      286 SETTABLE                         R16 R14 R15
+      287 GETTABLEKS                       R15 R8 K17 ["SHOW_GENRE"]
+      289 LOADB                            R16 0
+      290 SETTABLE                         R16 R14 R15
+      291 GETTABLEKS                       R15 R8 K21 ["SHOW_OVERRIDE_BUTTON"]
+      293 LOADB                            R16 1
+      294 SETTABLE                         R16 R14 R15
+      295 GETTABLEKS                       R15 R8 K23 ["SHOW_PRICE"]
+      297 LOADB                            R16 0
+      298 SETTABLE                         R16 R14 R15
+      299 SETTABLE                         R14 R12 R13
+      300 GETTABLEKS                       R14 R3 K29 ["FLOW_TYPE"]
+      302 GETTABLEKS                       R13 R14 K31 ["EDIT_FLOW"]
+      304 NEWTABLE                         R14 8 0
+      306 GETTABLEKS                       R15 R8 K20 ["SHOW_ASSET_TYPE"]
+      308 LOADB                            R16 1
+      309 SETTABLE                         R16 R14 R15
+      310 GETTABLEKS                       R15 R8 K19 ["SHOW_COMMENT"]
+      312 LOADB                            R16 0
+      313 SETTABLE                         R16 R14 R15
+      314 GETTABLEKS                       R15 R8 K18 ["SHOW_COPY"]
+      316 LOADB                            R16 1
+      317 SETTABLE                         R16 R14 R15
+      318 GETTABLEKS                       R15 R8 K17 ["SHOW_GENRE"]
+      320 LOADB                            R16 0
+      321 SETTABLE                         R16 R14 R15
+      322 GETTABLEKS                       R15 R8 K16 ["SHOW_OWNERSHIP"]
+      324 LOADB                            R16 1
+      325 SETTABLE                         R16 R14 R15
+      326 GETTABLEKS                       R15 R8 K23 ["SHOW_PRICE"]
+      328 LOADB                            R16 0
+      329 SETTABLE                         R16 R14 R15
+      330 GETTABLEKS                       R15 R8 K22 ["SHOW_SALE"]
+      332 LOADB                            R16 0
+      333 SETTABLE                         R16 R14 R15
+      334 GETTABLEKS                       R15 R8 K15 ["SHOW_VERSIONS_TAB"]
+      336 LOADB                            R16 1
+      337 SETTABLE                         R16 R14 R15
+      338 SETTABLE                         R14 R12 R13
+      339 SETTABLE                         R12 R10 R11
+      340 GETIMPORT                        R11 K38 [Enum.AssetType.Model]
+      342 NEWTABLE                         R12 1 0
+      344 GETTABLEKS                       R14 R3 K29 ["FLOW_TYPE"]
+      346 GETTABLEKS                       R13 R14 K32 ["UPLOAD_FLOW"]
+      348 NEWTABLE                         R14 1 0
+      350 GETTABLEKS                       R15 R8 K21 ["SHOW_OVERRIDE_BUTTON"]
+      352 LOADB                            R16 1
+      353 SETTABLE                         R16 R14 R15
+      354 SETTABLE                         R14 R12 R13
+      355 SETTABLE                         R12 R10 R11
+      356 GETIMPORT                        R11 K40 [Enum.AssetType.Animation]
+      358 NEWTABLE                         R12 1 0
+      360 GETTABLEKS                       R14 R3 K29 ["FLOW_TYPE"]
+      362 GETTABLEKS                       R13 R14 K32 ["UPLOAD_FLOW"]
+      364 NEWTABLE                         R14 16 0
+      366 GETTABLEKS                       R15 R8 K21 ["SHOW_OVERRIDE_BUTTON"]
+      368 LOADB                            R16 1
+      369 SETTABLE                         R16 R14 R15
+      370 GETTABLEKS                       R15 R8 K19 ["SHOW_COMMENT"]
+      372 LOADB                            R16 0
+      373 SETTABLE                         R16 R14 R15
+      374 GETTABLEKS                       R15 R8 K18 ["SHOW_COPY"]
+      376 LOADB                            R16 0
+      377 SETTABLE                         R16 R14 R15
+      378 GETTABLEKS                       R15 R8 K17 ["SHOW_GENRE"]
+      380 LOADB                            R16 0
+      381 SETTABLE                         R16 R14 R15
+      382 GETTABLEKS                       R15 R8 K16 ["SHOW_OWNERSHIP"]
+      384 LOADB                            R16 1
+      385 SETTABLE                         R16 R14 R15
+      386 GETTABLEKS                       R15 R8 K23 ["SHOW_PRICE"]
+      388 LOADB                            R16 0
+      389 SETTABLE                         R16 R14 R15
+      390 GETTABLEKS                       R15 R8 K22 ["SHOW_SALE"]
+      392 LOADB                            R16 0
+      393 SETTABLE                         R16 R14 R15
+      394 GETTABLEKS                       R15 R8 K15 ["SHOW_VERSIONS_TAB"]
+      396 LOADB                            R16 0
+      397 SETTABLE                         R16 R14 R15
+      398 GETTABLEKS                       R15 R8 K14 ["SHOW_SALES_TAB"]
+      400 LOADB                            R16 0
+      401 SETTABLE                         R16 R14 R15
+      402 SETTABLE                         R14 R12 R13
+      403 SETTABLE                         R12 R10 R11
+      404 GETTABLEKS                       R12 R3 K41 ["UGCBundleTypes"]
+      406 GETTABLEKS                       R11 R12 K42 ["Body"]
+      408 NEWTABLE                         R12 1 0
+      410 GETTABLEKS                       R14 R3 K29 ["FLOW_TYPE"]
+      412 GETTABLEKS                       R13 R14 K32 ["UPLOAD_FLOW"]
+      414 NEWTABLE                         R14 2 0
+      416 GETTABLEKS                       R15 R8 K20 ["SHOW_ASSET_TYPE"]
+      418 LOADB                            R16 0
+      419 SETTABLE                         R16 R14 R15
+      420 GETTABLEKS                       R15 R8 K16 ["SHOW_OWNERSHIP"]
+      422 LOADB                            R16 0
+      423 SETTABLE                         R16 R14 R15
+      424 SETTABLE                         R14 R12 R13
+      425 SETTABLE                         R12 R10 R11
+      426 GETTABLEKS                       R12 R3 K41 ["UGCBundleTypes"]
+      428 GETTABLEKS                       R11 R12 K43 ["DynamicHead"]
+      430 NEWTABLE                         R12 1 0
+      432 GETTABLEKS                       R14 R3 K29 ["FLOW_TYPE"]
+      434 GETTABLEKS                       R13 R14 K32 ["UPLOAD_FLOW"]
+      436 NEWTABLE                         R14 2 0
+      438 GETTABLEKS                       R15 R8 K20 ["SHOW_ASSET_TYPE"]
+      440 LOADB                            R16 0
+      441 SETTABLE                         R16 R14 R15
+      442 GETTABLEKS                       R15 R8 K16 ["SHOW_OWNERSHIP"]
+      444 LOADB                            R16 0
+      445 SETTABLE                         R16 R14 R15
+      446 SETTABLE                         R14 R12 R13
+      447 SETTABLE                         R12 R10 R11
+      448 GETTABLEKS                       R12 R3 K41 ["UGCBundleTypes"]
+      450 GETTABLEKS                       R11 R12 K44 ["Shoes"]
+      452 NEWTABLE                         R12 1 0
+      454 GETTABLEKS                       R14 R3 K29 ["FLOW_TYPE"]
+      456 GETTABLEKS                       R13 R14 K32 ["UPLOAD_FLOW"]
+      458 NEWTABLE                         R14 2 0
+      460 GETTABLEKS                       R15 R8 K20 ["SHOW_ASSET_TYPE"]
+      462 LOADB                            R16 0
+      463 SETTABLE                         R16 R14 R15
+      464 GETTABLEKS                       R15 R8 K16 ["SHOW_OWNERSHIP"]
+      466 LOADB                            R16 0
+      467 SETTABLE                         R16 R14 R15
+      468 SETTABLE                         R14 R12 R13
+      469 SETTABLE                         R12 R10 R11
+      470 DUPCLOSURE                       R11 K45 [PROTO_0]
+      471 CAPTURE                          VAL R4
+      472 CAPTURE                          VAL R7
+      473 DUPCLOSURE                       R12 K46 [PROTO_1]
+      474 CAPTURE                          VAL R4
+      475 CAPTURE                          VAL R7
+      476 CAPTURE                          VAL R9
+      477 CAPTURE                          VAL R10
+      478 SETTABLEKS                       R12 R5 K47 ["queryParam"]
+      480 RETURN                           R5 1

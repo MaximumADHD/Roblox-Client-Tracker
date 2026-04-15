@@ -36,7 +36,7 @@ local function getPlatformScale(deviceType: DeviceType, scaleFactor: number?)
 end
 
 return {
-	getTokens = function(deviceType: DeviceType, themeName: ThemeName | string, scaleFactor: number?): Types.Tokens
+	getTokens = function(deviceType: DeviceType, themeName: ThemeName | string, scaleFactor: number?): Types.BaseTokens
 		local tokenGenerators = GetTokenGenerators(themeName) or GetTokenGenerators(Constants.DefaultThemeName)
 		local scale = getPlatformScale(deviceType, scaleFactor)
 
@@ -44,21 +44,25 @@ return {
 			Global = require(tokenGenerators.Global)(scale),
 			Semantic = require(tokenGenerators.Semantic)(scale),
 			Component = require(tokenGenerators.Component)(scale),
-		} :: Types.Tokens
+		} :: Types.BaseTokens
 	end,
-	validateTokens = t.strictInterface({
+	validateTokens = t.interface({
 		Global = t.strictInterface(Validators.Global),
 		Semantic = t.strictInterface(Validators.Semantic),
 		Component = t.strictInterface(Validators.Component),
 	}),
 	Types = Types,
-	getFoundationTokens = function(deviceType: DeviceType, themeName: ThemeName | string, scaleFactor: number?)
+	getFoundationTokens = function(
+		deviceType: DeviceType,
+		themeName: ThemeName | string,
+		scaleFactor: number?
+	): Types.RbxDesignFoundationsV2Tokens
 		local foundationTokens = GetFoundationTokens(themeName) or GetFoundationTokens(Constants.DefaultThemeName)
 		local scale = getPlatformScale(deviceType, scaleFactor)
 
 		return foundationTokens(scale)
 	end,
-	getFoundationTokensDefaultScale = function(themeName: ThemeName | string)
+	getFoundationTokensDefaultScale = function(themeName: ThemeName | string): Types.RbxDesignFoundationsV2Tokens
 		local foundationTokens = GetFoundationTokens(themeName) or GetFoundationTokens(Constants.DefaultThemeName)
 		return foundationTokens(1)
 	end,

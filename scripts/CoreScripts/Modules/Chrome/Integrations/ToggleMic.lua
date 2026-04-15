@@ -15,6 +15,9 @@ local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement"
 local FFlagEnableChromeAudioFocusManagement = game:DefineFastFlag("EnableChromeAudioFocusManagement", false)
 local EnableChromeAudioFocusManagement = AudioFocusManagementEnabled and FFlagEnableChromeAudioFocusManagement
 
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
+
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 local ChromeService = require(Chrome.Service)
@@ -52,6 +55,7 @@ muteSelf = ChromeService:register({
 	--initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "toggle_mic_mute",
 	label = "CoreScripts.TopBar.ToggleMic",
+	sideSheetPlacement = SideSheetPlacement.Unibar,
 	activated = toggleMic,
 	components = {
 		Icon = function(props)

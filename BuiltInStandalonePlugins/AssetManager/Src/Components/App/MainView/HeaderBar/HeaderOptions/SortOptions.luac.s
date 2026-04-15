@@ -101,7 +101,7 @@ PROTO_7:
        41 GETIMPORT                        R9 K17 [UDim.new]
        43 LOADN                            R10 0
        44 GETUPVAL                         R12 5
-       45 GETTABLEKS                       R11 R12 K18 ["AMR_SORTOPTIONS_WIDTH"]
+       45 GETTABLEKS                       R11 R12 K18 ["SortOptionsWidth"]
        47 CALL                             R9 2 1
        48 SETTABLEKS                       R9 R8 K8 ["width"]
        50 NEWCLOSURE                       R9 P0

@@ -78,6 +78,8 @@ type _Messages =
 		UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem: _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemMessage,
 		SearchResultsFeedInputData: _SearchResultsFeedInputDataMessage,
 		SearchResultsFeedInputData_EntryMapEntry: _SearchResultsFeedInputData_EntryMapEntryMessage,
+		UserListInputData: _UserListInputDataMessage,
+		UserListInputData_UserItem: _UserListInputData_UserItemMessage,
 		CatalogItemListInputData: _CatalogItemListInputDataMessage,
 		CatalogItemListInputData_CatalogItem: _CatalogItemListInputData_CatalogItemMessage,
 		PageEntryFormat: _PageEntryFormatMessage,
@@ -167,6 +169,7 @@ type _PageEntryInputDataFields = {
 		| { type: "tooltip", value: TooltipInputData }
 		| { type: "coachmark", value: CoachmarkInputData }
 		| { type: "catalog_item_list", value: CatalogItemListInputData }
+		| { type: "user_list", value: UserListInputData }
 		| { type: "experience_content_rating_label", value: ExperienceContentRatingLabelInputData }
 		| { type: "experience_refund_policy", value: ExperienceRefundPolicyInputData }
 		| { type: "experience_details_feed", value: ExperienceDetailsFeedInputData }
@@ -215,6 +218,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "tooltip", value: TooltipInputData }
 		| { type: "coachmark", value: CoachmarkInputData }
 		| { type: "catalog_item_list", value: CatalogItemListInputData }
+		| { type: "user_list", value: UserListInputData }
 		| { type: "experience_content_rating_label", value: ExperienceContentRatingLabelInputData }
 		| { type: "experience_refund_policy", value: ExperienceRefundPolicyInputData }
 		| { type: "experience_details_feed", value: ExperienceDetailsFeedInputData }
@@ -986,12 +990,14 @@ type _ExperienceCarouselInputData_UniverseItemFields = {
 	universe_id: string,
 	is_sponsored: boolean,
 	roblox_component: string,
+	native_ad_data: string,
 }
 
 type _ExperienceCarouselInputData_UniverseItemPartialFields = {
 	universe_id: string?,
 	is_sponsored: boolean?,
 	roblox_component: string?,
+	native_ad_data: string?,
 }
 
 export type ExperienceCarouselInputData_UniverseItem = typeof(setmetatable(
@@ -1732,12 +1738,14 @@ type _ChartsFeedInputDataFields = {
 	entry_map: { [string]: FeedEntry },
 	entry_order: { string },
 	next_page_token: string,
+	sticky_filter_pills: FilterPillsInputData?,
 }
 
 type _ChartsFeedInputDataPartialFields = {
 	entry_map: { [string]: FeedEntry }?,
 	entry_order: { string }?,
 	next_page_token: string?,
+	sticky_filter_pills: FilterPillsInputData?,
 }
 
 export type ChartsFeedInputData = typeof(setmetatable({} :: _ChartsFeedInputDataFields, {} :: _ChartsFeedInputDataImpl))
@@ -1784,10 +1792,16 @@ type _FilterPillsInputDataImpl = {
 
 type _FilterPillsInputDataFields = {
 	filter_groups: { FilterPillsInputData_FilterGroup },
+	sort_id: string,
+	secondary_sort_id: number,
+	title: string,
 }
 
 type _FilterPillsInputDataPartialFields = {
 	filter_groups: { FilterPillsInputData_FilterGroup }?,
+	sort_id: string?,
+	secondary_sort_id: number?,
+	title: string?,
 }
 
 export type FilterPillsInputData = typeof(setmetatable(
@@ -1812,6 +1826,8 @@ type _FilterPillsInputData_FilterGroupFields = {
 	options: { FilterPillsInputData_FilterOption },
 	default_option_id: string,
 	selected_option_id: string,
+	filter_type: string,
+	inactive_option_ids: { string },
 }
 
 type _FilterPillsInputData_FilterGroupPartialFields = {
@@ -1820,6 +1836,8 @@ type _FilterPillsInputData_FilterGroupPartialFields = {
 	options: { FilterPillsInputData_FilterOption }?,
 	default_option_id: string?,
 	selected_option_id: string?,
+	filter_type: string?,
+	inactive_option_ids: { string }?,
 }
 
 export type FilterPillsInputData_FilterGroup = typeof(setmetatable(
@@ -1844,11 +1862,13 @@ type _FilterPillsInputData_FilterOptionImpl = {
 type _FilterPillsInputData_FilterOptionFields = {
 	option_id: string,
 	display_name: string,
+	option_context_tag: string,
 }
 
 type _FilterPillsInputData_FilterOptionPartialFields = {
 	option_id: string?,
 	display_name: string?,
+	option_context_tag: string?,
 }
 
 export type FilterPillsInputData_FilterOption = typeof(setmetatable(
@@ -2186,6 +2206,58 @@ export type SearchResultsFeedInputData_EntryMapEntry = typeof(setmetatable(
 type _SearchResultsFeedInputData_EntryMapEntryMessage = proto.Message<
 	SearchResultsFeedInputData_EntryMapEntry,
 	_SearchResultsFeedInputData_EntryMapEntryPartialFields
+>
+
+type _UserListInputDataImpl = {
+	__index: _UserListInputDataImpl,
+	new: (fields: _UserListInputDataPartialFields?) -> UserListInputData,
+	encode: (self: UserListInputData) -> buffer,
+	decode: (input: buffer) -> UserListInputData,
+	jsonEncode: (self: UserListInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UserListInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _UserListInputDataFields = {
+	title: string,
+	user_items: { UserListInputData_UserItem },
+	max_visible_rows: number,
+}
+
+type _UserListInputDataPartialFields = {
+	title: string?,
+	user_items: { UserListInputData_UserItem }?,
+	max_visible_rows: number?,
+}
+
+export type UserListInputData = typeof(setmetatable({} :: _UserListInputDataFields, {} :: _UserListInputDataImpl))
+type _UserListInputDataMessage = proto.Message<UserListInputData, _UserListInputDataPartialFields>
+
+type _UserListInputData_UserItemImpl = {
+	__index: _UserListInputData_UserItemImpl,
+	new: (fields: _UserListInputData_UserItemPartialFields?) -> UserListInputData_UserItem,
+	encode: (self: UserListInputData_UserItem) -> buffer,
+	decode: (input: buffer) -> UserListInputData_UserItem,
+	jsonEncode: (self: UserListInputData_UserItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UserListInputData_UserItem,
+	descriptor: proto.Descriptor,
+}
+
+type _UserListInputData_UserItemFields = {
+	user_id: string,
+}
+
+type _UserListInputData_UserItemPartialFields = {
+	user_id: string?,
+}
+
+export type UserListInputData_UserItem = typeof(setmetatable(
+	{} :: _UserListInputData_UserItemFields,
+	{} :: _UserListInputData_UserItemImpl
+))
+type _UserListInputData_UserItemMessage = proto.Message<
+	UserListInputData_UserItem,
+	_UserListInputData_UserItemPartialFields
 >
 
 type _CatalogItemListInputDataImpl = {
@@ -2606,6 +2678,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "user_list" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "experience_content_rating_label" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 30, proto.wireTypes.lengthDelimited)
@@ -2842,6 +2918,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "catalog_item_list", value = messages.CatalogItemListInputData.decode(value) }
 					continue
+				elseif field == 27 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "user_list", value = messages.UserListInputData.decode(value) }
+					continue
 				elseif field == 30 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -3052,6 +3133,8 @@ do
 				output.coachmark = self.kind.value:jsonEncode()
 			elseif self.kind.type == "catalog_item_list" then
 				output.catalogItemList = self.kind.value:jsonEncode()
+			elseif self.kind.type == "user_list" then
+				output.userList = self.kind.value:jsonEncode()
 			elseif self.kind.type == "experience_content_rating_label" then
 				output.experienceContentRatingLabel = self.kind.value:jsonEncode()
 			elseif self.kind.type == "experience_refund_policy" then
@@ -3337,6 +3420,14 @@ do
 				type = "catalog_item_list",
 				value = messages.CatalogItemListInputData.jsonDecode(input.catalogItemList),
 			}
+		end
+
+		if input.user_list ~= nil then
+			self.kind = { type = "user_list", value = messages.UserListInputData.jsonDecode(input.user_list) }
+		end
+
+		if input.userList ~= nil then
+			self.kind = { type = "user_list", value = messages.UserListInputData.jsonDecode(input.userList) }
 		end
 
 		if input.experience_content_rating_label ~= nil then
@@ -7125,6 +7216,7 @@ do
 			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
 			is_sponsored = if data == nil or data.is_sponsored == nil then false else data.is_sponsored,
 			roblox_component = if data == nil or data.roblox_component == nil then "" else data.roblox_component,
+			native_ad_data = if data == nil or data.native_ad_data == nil then "" else data.native_ad_data,
 		}, _ExperienceCarouselInputData_UniverseItemImpl :: _ExperienceCarouselInputData_UniverseItemImpl)
 	end
 
@@ -7147,6 +7239,11 @@ do
 		if self.roblox_component ~= nil and self.roblox_component ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.roblox_component)
+		end
+
+		if self.native_ad_data ~= nil and self.native_ad_data ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.native_ad_data)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -7184,6 +7281,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.roblox_component = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.native_ad_data = buffer.tostring(value)
 					continue
 				end
 
@@ -7226,6 +7328,10 @@ do
 			output.robloxComponent = self.roblox_component
 		end
 
+		if self.native_ad_data ~= nil and self.native_ad_data ~= "" then
+			output.nativeAdData = self.native_ad_data
+		end
+
 		return output
 	end
 
@@ -7256,6 +7362,14 @@ do
 
 		if input.robloxComponent ~= nil then
 			self.roblox_component = input.robloxComponent
+		end
+
+		if input.native_ad_data ~= nil then
+			self.native_ad_data = input.native_ad_data
+		end
+
+		if input.nativeAdData ~= nil then
+			self.native_ad_data = input.nativeAdData
 		end
 
 		return self
@@ -10961,6 +11075,9 @@ do
 			entry_map = if data == nil or data.entry_map == nil then {} else data.entry_map,
 			entry_order = if data == nil or data.entry_order == nil then {} else data.entry_order,
 			next_page_token = if data == nil or data.next_page_token == nil then "" else data.next_page_token,
+			sticky_filter_pills = if data == nil or data.sticky_filter_pills == nil
+				then nil
+				else data.sticky_filter_pills,
 		}, _ChartsFeedInputDataImpl :: _ChartsFeedInputDataImpl)
 	end
 
@@ -10992,6 +11109,12 @@ do
 		if self.next_page_token ~= nil and self.next_page_token ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.next_page_token)
+		end
+
+		if self.sticky_filter_pills ~= nil then
+			local encoded = self.sticky_filter_pills:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -11034,6 +11157,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.next_page_token = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sticky_filter_pills = messages.FilterPillsInputData.decode(value)
 					continue
 				end
 
@@ -11080,6 +11208,10 @@ do
 
 		if self.next_page_token ~= nil and self.next_page_token ~= "" then
 			output.nextPageToken = self.next_page_token
+		end
+
+		if self.sticky_filter_pills ~= nil then
+			output.stickyFilterPills = self.sticky_filter_pills:jsonEncode()
 		end
 
 		return output
@@ -11130,6 +11262,14 @@ do
 
 		if input.nextPageToken ~= nil then
 			self.next_page_token = input.nextPageToken
+		end
+
+		if input.sticky_filter_pills ~= nil then
+			self.sticky_filter_pills = messages.FilterPillsInputData.jsonDecode(input.sticky_filter_pills)
+		end
+
+		if input.stickyFilterPills ~= nil then
+			self.sticky_filter_pills = messages.FilterPillsInputData.jsonDecode(input.stickyFilterPills)
 		end
 
 		return self
@@ -11273,6 +11413,9 @@ do
 	function _FilterPillsInputDataImpl.new(data: _FilterPillsInputDataPartialFields?): FilterPillsInputData
 		return setmetatable({
 			filter_groups = if data == nil or data.filter_groups == nil then {} else data.filter_groups,
+			sort_id = if data == nil or data.sort_id == nil then "" else data.sort_id,
+			secondary_sort_id = if data == nil or data.secondary_sort_id == nil then 0 else data.secondary_sort_id,
+			title = if data == nil or data.title == nil then "" else data.title,
 		}, _FilterPillsInputDataImpl :: _FilterPillsInputDataImpl)
 	end
 
@@ -11286,6 +11429,21 @@ do
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
+		end
+
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sort_id)
+		end
+
+		if self.secondary_sort_id ~= nil and self.secondary_sort_id ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.secondary_sort_id)
+		end
+
+		if self.title ~= nil and self.title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -11302,7 +11460,12 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				-- No fields
+				if field == 3 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.secondary_sort_id = value
+					continue
+				end
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -11311,6 +11474,16 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(self.filter_groups, messages.FilterPillsInputData_FilterGroup.decode(value))
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
 					continue
 				end
 
@@ -11347,6 +11520,18 @@ do
 			output.filterGroups = newOutput
 		end
 
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output.sortId = self.sort_id
+		end
+
+		if self.secondary_sort_id ~= nil and self.secondary_sort_id ~= 0 then
+			output.secondarySortId = self.secondary_sort_id
+		end
+
+		if self.title ~= nil and self.title ~= "" then
+			output.title = self.title
+		end
+
 		return output
 	end
 
@@ -11369,6 +11554,26 @@ do
 			end
 
 			self.filter_groups = newOutput
+		end
+
+		if input.sort_id ~= nil then
+			self.sort_id = input.sort_id
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = input.sortId
+		end
+
+		if input.secondary_sort_id ~= nil then
+			self.secondary_sort_id = input.secondary_sort_id
+		end
+
+		if input.secondarySortId ~= nil then
+			self.secondary_sort_id = input.secondarySortId
+		end
+
+		if input.title ~= nil then
+			self.title = input.title
 		end
 
 		return self
@@ -11397,6 +11602,10 @@ do
 			options = if data == nil or data.options == nil then {} else data.options,
 			default_option_id = if data == nil or data.default_option_id == nil then "" else data.default_option_id,
 			selected_option_id = if data == nil or data.selected_option_id == nil then "" else data.selected_option_id,
+			filter_type = if data == nil or data.filter_type == nil then "" else data.filter_type,
+			inactive_option_ids = if data == nil or data.inactive_option_ids == nil
+				then {}
+				else data.inactive_option_ids,
 		}, _FilterPillsInputData_FilterGroupImpl :: _FilterPillsInputData_FilterGroupImpl)
 	end
 
@@ -11430,6 +11639,18 @@ do
 		if self.selected_option_id ~= nil and self.selected_option_id ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.selected_option_id)
+		end
+
+		if self.filter_type ~= nil and self.filter_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.filter_type)
+		end
+
+		if self.inactive_option_ids ~= nil and #self.inactive_option_ids > 0 then
+			for _, value in self.inactive_option_ids do
+				output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -11475,6 +11696,16 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.selected_option_id = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.filter_type = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.inactive_option_ids, buffer.tostring(value))
 					continue
 				end
 
@@ -11527,6 +11758,18 @@ do
 			output.selectedOptionId = self.selected_option_id
 		end
 
+		if self.filter_type ~= nil and self.filter_type ~= "" then
+			output.filterType = self.filter_type
+		end
+
+		if self.inactive_option_ids ~= nil and #self.inactive_option_ids > 0 then
+			local newOutput = {}
+			for _, value in self.inactive_option_ids do
+				table.insert(newOutput, value)
+			end
+			output.inactiveOptionIds = newOutput
+		end
+
 		return output
 	end
 
@@ -11576,6 +11819,32 @@ do
 			self.selected_option_id = input.selectedOptionId
 		end
 
+		if input.filter_type ~= nil then
+			self.filter_type = input.filter_type
+		end
+
+		if input.filterType ~= nil then
+			self.filter_type = input.filterType
+		end
+
+		if input.inactive_option_ids ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.inactive_option_ids do
+				table.insert(newOutput, value)
+			end
+
+			self.inactive_option_ids = newOutput
+		end
+
+		if input.inactiveOptionIds ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.inactiveOptionIds do
+				table.insert(newOutput, value)
+			end
+
+			self.inactive_option_ids = newOutput
+		end
+
 		return self
 	end
 
@@ -11599,6 +11868,7 @@ do
 		return setmetatable({
 			option_id = if data == nil or data.option_id == nil then "" else data.option_id,
 			display_name = if data == nil or data.display_name == nil then "" else data.display_name,
+			option_context_tag = if data == nil or data.option_context_tag == nil then "" else data.option_context_tag,
 		}, _FilterPillsInputData_FilterOptionImpl :: _FilterPillsInputData_FilterOptionImpl)
 	end
 
@@ -11614,6 +11884,11 @@ do
 		if self.display_name ~= nil and self.display_name ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.display_name)
+		end
+
+		if self.option_context_tag ~= nil and self.option_context_tag ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.option_context_tag)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -11644,6 +11919,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.display_name = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.option_context_tag = buffer.tostring(value)
 					continue
 				end
 
@@ -11680,6 +11960,10 @@ do
 			output.displayName = self.display_name
 		end
 
+		if self.option_context_tag ~= nil and self.option_context_tag ~= "" then
+			output.optionContextTag = self.option_context_tag
+		end
+
 		return output
 	end
 
@@ -11702,6 +11986,14 @@ do
 
 		if input.displayName ~= nil then
 			self.display_name = input.displayName
+		end
+
+		if input.option_context_tag ~= nil then
+			self.option_context_tag = input.option_context_tag
+		end
+
+		if input.optionContextTag ~= nil then
+			self.option_context_tag = input.optionContextTag
 		end
 
 		return self
@@ -13329,6 +13621,269 @@ do
 end
 
 do
+	local _UserListInputDataImpl = {}
+	_UserListInputDataImpl.__index = _UserListInputDataImpl
+
+	function _UserListInputDataImpl.new(data: _UserListInputDataPartialFields?): UserListInputData
+		return setmetatable({
+			title = if data == nil or data.title == nil then "" else data.title,
+			user_items = if data == nil or data.user_items == nil then {} else data.user_items,
+			max_visible_rows = if data == nil or data.max_visible_rows == nil then 0 else data.max_visible_rows,
+		}, _UserListInputDataImpl :: _UserListInputDataImpl)
+	end
+
+	function _UserListInputDataImpl.encode(self: UserListInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.title ~= nil and self.title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.user_items ~= nil and #self.user_items > 0 then
+			for _, value in self.user_items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.max_visible_rows ~= nil and self.max_visible_rows ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.max_visible_rows)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UserListInputDataImpl.decode(input: buffer): UserListInputData
+		local self = _UserListInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 3 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.max_visible_rows = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.user_items, messages.UserListInputData_UserItem.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UserListInputDataImpl.jsonEncode(self: UserListInputData): any
+		local output = {}
+
+		if self.title ~= nil and self.title ~= "" then
+			output.title = self.title
+		end
+
+		if self.user_items ~= nil and #self.user_items > 0 then
+			local newOutput = {}
+			for _, value in self.user_items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.userItems = newOutput
+		end
+
+		if self.max_visible_rows ~= nil and self.max_visible_rows ~= 0 then
+			output.maxVisibleRows = self.max_visible_rows
+		end
+
+		return output
+	end
+
+	function _UserListInputDataImpl.jsonDecode(input: { [string]: any }): UserListInputData
+		local self = _UserListInputDataImpl.new()
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.user_items ~= nil then
+			local newOutput: { UserListInputData_UserItem } = {}
+			for _, value in input.user_items do
+				table.insert(newOutput, messages.UserListInputData_UserItem.jsonDecode(value))
+			end
+
+			self.user_items = newOutput
+		end
+
+		if input.userItems ~= nil then
+			local newOutput: { UserListInputData_UserItem } = {}
+			for _, value in input.userItems do
+				table.insert(newOutput, messages.UserListInputData_UserItem.jsonDecode(value))
+			end
+
+			self.user_items = newOutput
+		end
+
+		if input.max_visible_rows ~= nil then
+			self.max_visible_rows = input.max_visible_rows
+		end
+
+		if input.maxVisibleRows ~= nil then
+			self.max_visible_rows = input.maxVisibleRows
+		end
+
+		return self
+	end
+
+	_UserListInputDataImpl.descriptor = {
+		name = "UserListInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UserListInputData",
+	}
+
+	messages.UserListInputData = _UserListInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UserListInputData)
+end
+
+do
+	local _UserListInputData_UserItemImpl = {}
+	_UserListInputData_UserItemImpl.__index = _UserListInputData_UserItemImpl
+
+	function _UserListInputData_UserItemImpl.new(
+		data: _UserListInputData_UserItemPartialFields?
+	): UserListInputData_UserItem
+		return setmetatable({
+			user_id = if data == nil or data.user_id == nil then "" else data.user_id,
+		}, _UserListInputData_UserItemImpl :: _UserListInputData_UserItemImpl)
+	end
+
+	function _UserListInputData_UserItemImpl.encode(self: UserListInputData_UserItem): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.user_id ~= nil and self.user_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.user_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UserListInputData_UserItemImpl.decode(input: buffer): UserListInputData_UserItem
+		local self = _UserListInputData_UserItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.user_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UserListInputData_UserItemImpl.jsonEncode(self: UserListInputData_UserItem): any
+		local output = {}
+
+		if self.user_id ~= nil and self.user_id ~= "" then
+			output.userId = self.user_id
+		end
+
+		return output
+	end
+
+	function _UserListInputData_UserItemImpl.jsonDecode(input: { [string]: any }): UserListInputData_UserItem
+		local self = _UserListInputData_UserItemImpl.new()
+
+		if input.user_id ~= nil then
+			self.user_id = input.user_id
+		end
+
+		if input.userId ~= nil then
+			self.user_id = input.userId
+		end
+
+		return self
+	end
+
+	_UserListInputData_UserItemImpl.descriptor = {
+		name = "UserListInputData_UserItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UserItem",
+	}
+
+	messages.UserListInputData_UserItem = _UserListInputData_UserItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UserListInputData_UserItem)
+end
+
+do
 	local _CatalogItemListInputDataImpl = {}
 	_CatalogItemListInputDataImpl.__index = _CatalogItemListInputDataImpl
 
@@ -13704,6 +14259,8 @@ return {
 	UAMarketplaceCatalogCategoryMenuInputData = messages.UAMarketplaceCatalogCategoryMenuInputData,
 	UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem = messages.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem,
 	SearchResultsFeedInputData = messages.SearchResultsFeedInputData,
+	UserListInputData = messages.UserListInputData,
+	UserListInputData_UserItem = messages.UserListInputData_UserItem,
 	CatalogItemListInputData = messages.CatalogItemListInputData,
 	CatalogItemListInputData_CatalogItem = messages.CatalogItemListInputData_CatalogItem,
 	PageEntryFormat = messages.PageEntryFormat,

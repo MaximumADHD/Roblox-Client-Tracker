@@ -61,68 +61,88 @@ PROTO_3:
        36 LOADB                            R9 1
        37 SETTABLEKS                       R9 R0 K10 ["_moving"]
        39 SETTABLEKS                       R2 R0 K13 ["_originalCFrameMap"]
-       41 LENGTH                           R9 R1
-       42 JUMPIFNOTEQKN                    R9 K14 [0] ; [+6]
-       44 NEWTABLE                         R9 0 0
-       46 SETTABLEKS                       R9 R0 K15 ["_parts"]
-       48 RETURN                           R0 0
-       49 MOVE                             R11 R1
-       50 NAMECALL                         R9 R0 K16 ["_initPartSet"]
-       52 CALL                             R9 2 0
-       53 MOVE                             R9 R4
-       54 JUMPIF                           R9 ; [+4]
-       55 FASTCALL                         VECTOR ; [+2]
-       56 GETIMPORT                        R9 K19 [Vector3.new]
-       58 CALL                             R9 0 1
-       59 SETTABLEKS                       R9 R0 K20 ["_customCenter"]
-       61 MOVE                             R11 R1
-       62 MOVE                             R12 R3
-       63 MOVE                             R13 R7
-       64 NAMECALL                         R9 R0 K21 ["_prepareJoints"]
-       66 CALL                             R9 4 0
-       67 LOADB                            R9 0
-       68 SETTABLEKS                       R9 R0 K22 ["_hasSetupGeometryTracking"]
-       70 JUMPIFNOT                        R7 ; [+18]
-       71 MOVE                             R11 R1
-       72 MOVE                             R12 R7
-       73 NEWTABLE                         R14 0 0
-       75 GETIMPORT                        R15 K24 [pairs]
-       77 MOVE                             R16 R5
-       78 CALL                             R15 1 3
-       79 FORGPREP_NEXT                    R15
-       80 LOADB                            R20 1
-       81 SETTABLE                         R20 R14 R19
-       82 FORGLOOP                         R15 2 ; [-3]
-       84 MOVE                             R13 R14
-       85 NAMECALL                         R9 R0 K25 ["_setupRootMappingMove"]
-       87 CALL                             R9 4 0
-       88 JUMP                             ; [+16]
-       89 MOVE                             R11 R1
-       90 NEWTABLE                         R13 0 0
-       92 GETIMPORT                        R14 K24 [pairs]
-       94 MOVE                             R15 R5
-       95 CALL                             R14 1 3
-       96 FORGPREP_NEXT                    R14
-       97 LOADB                            R19 1
-       98 SETTABLE                         R19 R13 R18
-       99 FORGLOOP                         R14 2 ; [-3]
-      101 MOVE                             R12 R13
-      102 NAMECALL                         R9 R0 K26 ["_setupBulkMove"]
-      104 CALL                             R9 3 0
-      105 NEWTABLE                         R9 0 0
-      107 GETIMPORT                        R10 K4 [ipairs]
-      109 MOVE                             R11 R6
-      110 CALL                             R10 1 3
-      111 FORGPREP_INEXT                   R10
-      112 NAMECALL                         R15 R14 K27 ["GetPivot"]
-      114 CALL                             R15 1 1
-      115 SETTABLE                         R15 R9 R14
-      116 FORGLOOP                         R10 2 [inext] ; [-5]
-      118 SETTABLEKS                       R9 R0 K28 ["_originalModelPivotMap"]
-      120 SETTABLEKS                       R1 R0 K15 ["_parts"]
-      122 LOADB                            R10 0
-      123 SETTABLEKS                       R10 R0 K29 ["_hasMovementWelds"]
-      125 RETURN                           R0 0
+       41 GETUPVAL                         R9 1
+       42 JUMPIFNOT                        R9 ; [+24]
+       43 LOADN                            R9 0
+       44 MOVE                             R10 R6
+       45 LOADNIL                          R11
+       46 LOADNIL                          R12
+       47 FORGPREP                         R10
+       48 LOADK                            R17 K14 ["ProceduralModel"]
+       49 NAMECALL                         R15 R14 K15 ["IsA"]
+       51 CALL                             R15 2 1
+       52 JUMPIFNOT                        R15 ; [+1]
+       53 ADDK                             R9 R9 K16 [1]
+       54 FORGLOOP                         R10 2 ; [-7]
+       56 LENGTH                           R10 R1
+       57 JUMPIFNOTEQKN                    R10 K17 [0] ; [+17]
+       59 JUMPIFNOTEQKN                    R9 K17 [0] ; [+15]
+       61 NEWTABLE                         R10 0 0
+       63 SETTABLEKS                       R10 R0 K18 ["_parts"]
+       65 RETURN                           R0 0
+       66 JUMP                             ; [+8]
+       67 LENGTH                           R9 R1
+       68 JUMPIFNOTEQKN                    R9 K17 [0] ; [+6]
+       70 NEWTABLE                         R9 0 0
+       72 SETTABLEKS                       R9 R0 K18 ["_parts"]
+       74 RETURN                           R0 0
+       75 MOVE                             R11 R1
+       76 NAMECALL                         R9 R0 K19 ["_initPartSet"]
+       78 CALL                             R9 2 0
+       79 MOVE                             R9 R4
+       80 JUMPIF                           R9 ; [+4]
+       81 FASTCALL                         VECTOR ; [+2]
+       82 GETIMPORT                        R9 K22 [Vector3.new]
+       84 CALL                             R9 0 1
+       85 SETTABLEKS                       R9 R0 K23 ["_customCenter"]
+       87 MOVE                             R11 R1
+       88 MOVE                             R12 R3
+       89 MOVE                             R13 R7
+       90 NAMECALL                         R9 R0 K24 ["_prepareJoints"]
+       92 CALL                             R9 4 0
+       93 LOADB                            R9 0
+       94 SETTABLEKS                       R9 R0 K25 ["_hasSetupGeometryTracking"]
+       96 JUMPIFNOT                        R7 ; [+18]
+       97 MOVE                             R11 R1
+       98 MOVE                             R12 R7
+       99 NEWTABLE                         R14 0 0
+      101 GETIMPORT                        R15 K27 [pairs]
+      103 MOVE                             R16 R5
+      104 CALL                             R15 1 3
+      105 FORGPREP_NEXT                    R15
+      106 LOADB                            R20 1
+      107 SETTABLE                         R20 R14 R19
+      108 FORGLOOP                         R15 2 ; [-3]
+      110 MOVE                             R13 R14
+      111 NAMECALL                         R9 R0 K28 ["_setupRootMappingMove"]
+      113 CALL                             R9 4 0
+      114 JUMP                             ; [+16]
+      115 MOVE                             R11 R1
+      116 NEWTABLE                         R13 0 0
+      118 GETIMPORT                        R14 K27 [pairs]
+      120 MOVE                             R15 R5
+      121 CALL                             R14 1 3
+      122 FORGPREP_NEXT                    R14
+      123 LOADB                            R19 1
+      124 SETTABLE                         R19 R13 R18
+      125 FORGLOOP                         R14 2 ; [-3]
+      127 MOVE                             R12 R13
+      128 NAMECALL                         R9 R0 K29 ["_setupBulkMove"]
+      130 CALL                             R9 3 0
+      131 NEWTABLE                         R9 0 0
+      133 GETIMPORT                        R10 K4 [ipairs]
+      135 MOVE                             R11 R6
+      136 CALL                             R10 1 3
+      137 FORGPREP_INEXT                   R10
+      138 NAMECALL                         R15 R14 K30 ["GetPivot"]
+      140 CALL                             R15 1 1
+      141 SETTABLE                         R15 R9 R14
+      142 FORGLOOP                         R10 2 [inext] ; [-5]
+      144 SETTABLEKS                       R9 R0 K31 ["_originalModelPivotMap"]
+      146 SETTABLEKS                       R1 R0 K18 ["_parts"]
+      148 LOADB                            R10 0
+      149 SETTABLEKS                       R10 R0 K32 ["_hasMovementWelds"]
+      151 RETURN                           R0 0
 
 PROTO_4:
         0 NEWTABLE                         R4 0 0
@@ -826,7 +846,12 @@ PROTO_23:
       150 JUMPIFNOT                        R1 ; [+3]
       151 LOADNIL                          R1
       152 SETTABLEKS                       R1 R0 K31 ["_pivotToMapping"]
-      154 RETURN                           R0 0
+      154 GETUPVAL                         R1 0
+      155 CALL                             R1 0 1
+      156 JUMPIFNOT                        R1 ; [+3]
+      157 LOADNIL                          R1
+      158 SETTABLEKS                       R1 R0 K32 ["_originalModelPivotMap"]
+      160 RETURN                           R0 0
 
 PROTO_24:
         0 RETURN                           R0 0
@@ -876,82 +901,94 @@ MAIN:
        15 GETTABLEKS                       R3 R4 K7 ["Parent"]
        17 GETTABLEKS                       R2 R3 K7 ["Parent"]
        19 GETIMPORT                        R3 K9 [require]
-       21 GETTABLEKS                       R5 R2 K10 ["Utility"]
-       23 GETTABLEKS                       R4 R5 K11 ["getGeometry"]
+       21 GETTABLEKS                       R5 R2 K10 ["Flags"]
+       23 GETTABLEKS                       R4 R5 K11 ["getFFlagDraggerEditProcModels"]
        25 CALL                             R3 1 1
        26 GETIMPORT                        R4 K9 [require]
-       28 GETTABLEKS                       R6 R2 K10 ["Utility"]
-       30 GETTABLEKS                       R5 R6 K12 ["JointPairs"]
+       28 GETTABLEKS                       R6 R2 K10 ["Flags"]
+       30 GETTABLEKS                       R5 R6 K12 ["getFFlagDraggerFixAttachmentModelDoubleMovement"]
        32 CALL                             R4 1 1
        33 GETIMPORT                        R5 K9 [require]
-       35 GETTABLEKS                       R7 R2 K10 ["Utility"]
-       37 GETTABLEKS                       R6 R7 K13 ["JointUtil"]
+       35 GETTABLEKS                       R7 R2 K13 ["Utility"]
+       37 GETTABLEKS                       R6 R7 K14 ["getGeometry"]
        39 CALL                             R5 1 1
        40 GETIMPORT                        R6 K9 [require]
-       42 GETTABLEKS                       R8 R2 K10 ["Utility"]
-       44 GETTABLEKS                       R7 R8 K14 ["fixSlightlyOffgridOrientation"]
+       42 GETTABLEKS                       R8 R2 K13 ["Utility"]
+       44 GETTABLEKS                       R7 R8 K15 ["JointPairs"]
        46 CALL                             R6 1 1
-       47 DUPCLOSURE                       R7 K15 [PROTO_0]
-       48 NEWTABLE                         R8 32 0
-       50 SETTABLEKS                       R8 R8 K16 ["__index"]
-       52 DUPCLOSURE                       R9 K17 [PROTO_1]
-       53 CAPTURE                          VAL R8
-       54 SETTABLEKS                       R9 R8 K18 ["new"]
-       56 DUPCLOSURE                       R9 K19 [PROTO_2]
-       57 SETTABLEKS                       R9 R8 K20 ["getIgnorePart"]
-       59 DUPCLOSURE                       R9 K21 [PROTO_3]
-       60 CAPTURE                          VAL R0
-       61 SETTABLEKS                       R9 R8 K22 ["setDragged"]
-       63 DUPCLOSURE                       R9 K23 [PROTO_4]
-       64 SETTABLEKS                       R9 R8 K24 ["_setupRootMappingMove"]
-       66 DUPCLOSURE                       R9 K25 [PROTO_5]
-       67 CAPTURE                          VAL R1
-       68 SETTABLEKS                       R9 R8 K26 ["_setupBulkMove"]
-       70 DUPCLOSURE                       R9 K27 [PROTO_6]
-       71 SETTABLEKS                       R9 R8 K28 ["_initPartSet"]
-       73 DUPCLOSURE                       R9 K29 [PROTO_7]
-       74 SETTABLEKS                       R9 R8 K30 ["_setupGeometryTracking"]
-       76 DUPCLOSURE                       R9 K31 [PROTO_8]
-       77 SETTABLEKS                       R9 R8 K32 ["_ensureGeometryTrackingHasBeenSetup"]
-       79 DUPCLOSURE                       R9 K33 [PROTO_9]
-       80 SETTABLEKS                       R9 R8 K34 ["_createMainPart"]
-       82 DUPCLOSURE                       R9 K35 [PROTO_10]
-       83 CAPTURE                          VAL R1
-       84 CAPTURE                          VAL R0
-       85 SETTABLEKS                       R9 R8 K36 ["_setupMainPart"]
-       87 DUPCLOSURE                       R9 K37 [PROTO_11]
-       88 CAPTURE                          VAL R5
-       89 SETTABLEKS                       R9 R8 K38 ["_prepareJoints"]
-       91 DUPCLOSURE                       R9 K39 [PROTO_12]
-       92 SETTABLEKS                       R9 R8 K40 ["_installMovementWelds"]
-       94 DUPCLOSURE                       R9 K41 [PROTO_14]
-       95 CAPTURE                          VAL R4
-       96 CAPTURE                          VAL R1
-       97 SETTABLEKS                       R9 R8 K42 ["computeJointPairs"]
-       99 DUPCLOSURE                       R9 K43 [PROTO_15]
-      100 SETTABLEKS                       R9 R8 K44 ["_transformModelPivots"]
-      102 DUPCLOSURE                       R9 K45 [PROTO_16]
-      103 CAPTURE                          VAL R0
-      104 CAPTURE                          VAL R6
-      105 SETTABLEKS                       R9 R8 K46 ["_transformToImpl"]
-      107 DUPCLOSURE                       R9 K47 [PROTO_17]
-      108 SETTABLEKS                       R9 R8 K48 ["transformTo"]
-      110 DUPCLOSURE                       R9 K49 [PROTO_19]
-      111 CAPTURE                          VAL R0
-      112 SETTABLEKS                       R9 R8 K50 ["transformToWithIk"]
-      114 DUPCLOSURE                       R9 K51 [PROTO_20]
-      115 SETTABLEKS                       R9 R8 K52 ["moveToWithIk"]
-      117 DUPCLOSURE                       R9 K53 [PROTO_21]
-      118 SETTABLEKS                       R9 R8 K54 ["rotateToWithIk"]
-      120 DUPCLOSURE                       R9 K55 [PROTO_22]
-      121 CAPTURE                          VAL R0
-      122 SETTABLEKS                       R9 R8 K56 ["isIntersectingOthers"]
-      124 DUPCLOSURE                       R9 K57 [PROTO_23]
-      125 SETTABLEKS                       R9 R8 K58 ["commit"]
-      127 DUPCLOSURE                       R9 K59 [PROTO_24]
-      128 DUPCLOSURE                       R10 K60 [PROTO_25]
-      129 CAPTURE                          VAL R3
-      130 SETTABLEKS                       R10 R8 K61 ["_getGeometry"]
-      132 DUPCLOSURE                       R10 K62 [PROTO_26]
-      133 SETTABLEKS                       R10 R8 K63 ["_flushNonDraggedGeometryCache"]
-      135 RETURN                           R8 1
+       47 GETIMPORT                        R7 K9 [require]
+       49 GETTABLEKS                       R9 R2 K13 ["Utility"]
+       51 GETTABLEKS                       R8 R9 K16 ["JointUtil"]
+       53 CALL                             R7 1 1
+       54 GETIMPORT                        R8 K9 [require]
+       56 GETTABLEKS                       R10 R2 K13 ["Utility"]
+       58 GETTABLEKS                       R9 R10 K17 ["fixSlightlyOffgridOrientation"]
+       60 CALL                             R8 1 1
+       61 MOVE                             R9 R3
+       62 CALL                             R9 0 1
+       63 DUPCLOSURE                       R10 K18 [PROTO_0]
+       64 NEWTABLE                         R11 32 0
+       66 SETTABLEKS                       R11 R11 K19 ["__index"]
+       68 DUPCLOSURE                       R12 K20 [PROTO_1]
+       69 CAPTURE                          VAL R11
+       70 SETTABLEKS                       R12 R11 K21 ["new"]
+       72 DUPCLOSURE                       R12 K22 [PROTO_2]
+       73 SETTABLEKS                       R12 R11 K23 ["getIgnorePart"]
+       75 DUPCLOSURE                       R12 K24 [PROTO_3]
+       76 CAPTURE                          VAL R0
+       77 CAPTURE                          VAL R9
+       78 SETTABLEKS                       R12 R11 K25 ["setDragged"]
+       80 DUPCLOSURE                       R12 K26 [PROTO_4]
+       81 SETTABLEKS                       R12 R11 K27 ["_setupRootMappingMove"]
+       83 DUPCLOSURE                       R12 K28 [PROTO_5]
+       84 CAPTURE                          VAL R1
+       85 SETTABLEKS                       R12 R11 K29 ["_setupBulkMove"]
+       87 DUPCLOSURE                       R12 K30 [PROTO_6]
+       88 SETTABLEKS                       R12 R11 K31 ["_initPartSet"]
+       90 DUPCLOSURE                       R12 K32 [PROTO_7]
+       91 SETTABLEKS                       R12 R11 K33 ["_setupGeometryTracking"]
+       93 DUPCLOSURE                       R12 K34 [PROTO_8]
+       94 SETTABLEKS                       R12 R11 K35 ["_ensureGeometryTrackingHasBeenSetup"]
+       96 DUPCLOSURE                       R12 K36 [PROTO_9]
+       97 SETTABLEKS                       R12 R11 K37 ["_createMainPart"]
+       99 DUPCLOSURE                       R12 K38 [PROTO_10]
+      100 CAPTURE                          VAL R1
+      101 CAPTURE                          VAL R0
+      102 SETTABLEKS                       R12 R11 K39 ["_setupMainPart"]
+      104 DUPCLOSURE                       R12 K40 [PROTO_11]
+      105 CAPTURE                          VAL R7
+      106 SETTABLEKS                       R12 R11 K41 ["_prepareJoints"]
+      108 DUPCLOSURE                       R12 K42 [PROTO_12]
+      109 SETTABLEKS                       R12 R11 K43 ["_installMovementWelds"]
+      111 DUPCLOSURE                       R12 K44 [PROTO_14]
+      112 CAPTURE                          VAL R6
+      113 CAPTURE                          VAL R1
+      114 SETTABLEKS                       R12 R11 K45 ["computeJointPairs"]
+      116 DUPCLOSURE                       R12 K46 [PROTO_15]
+      117 SETTABLEKS                       R12 R11 K47 ["_transformModelPivots"]
+      119 DUPCLOSURE                       R12 K48 [PROTO_16]
+      120 CAPTURE                          VAL R0
+      121 CAPTURE                          VAL R8
+      122 SETTABLEKS                       R12 R11 K49 ["_transformToImpl"]
+      124 DUPCLOSURE                       R12 K50 [PROTO_17]
+      125 SETTABLEKS                       R12 R11 K51 ["transformTo"]
+      127 DUPCLOSURE                       R12 K52 [PROTO_19]
+      128 CAPTURE                          VAL R0
+      129 SETTABLEKS                       R12 R11 K53 ["transformToWithIk"]
+      131 DUPCLOSURE                       R12 K54 [PROTO_20]
+      132 SETTABLEKS                       R12 R11 K55 ["moveToWithIk"]
+      134 DUPCLOSURE                       R12 K56 [PROTO_21]
+      135 SETTABLEKS                       R12 R11 K57 ["rotateToWithIk"]
+      137 DUPCLOSURE                       R12 K58 [PROTO_22]
+      138 CAPTURE                          VAL R0
+      139 SETTABLEKS                       R12 R11 K59 ["isIntersectingOthers"]
+      141 DUPCLOSURE                       R12 K60 [PROTO_23]
+      142 CAPTURE                          VAL R4
+      143 SETTABLEKS                       R12 R11 K61 ["commit"]
+      145 DUPCLOSURE                       R12 K62 [PROTO_24]
+      146 DUPCLOSURE                       R13 K63 [PROTO_25]
+      147 CAPTURE                          VAL R5
+      148 SETTABLEKS                       R13 R11 K64 ["_getGeometry"]
+      150 DUPCLOSURE                       R13 K65 [PROTO_26]
+      151 SETTABLEKS                       R13 R11 K66 ["_flushNonDraggedGeometryCache"]
+      153 RETURN                           R11 1

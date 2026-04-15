@@ -304,6 +304,8 @@ type _OverflowMenuSchema_PropsFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	button_icon_background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
+	button_is_circular: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	button_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _OverflowMenuSchema_PropsPartialFields = {
@@ -319,6 +321,8 @@ type _OverflowMenuSchema_PropsPartialFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	button_icon_background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
+	button_is_circular: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	button_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type OverflowMenuSchema_Props = typeof(setmetatable(
@@ -1604,6 +1608,8 @@ do
 			button_icon_background_style = if data == nil or data.button_icon_background_style == nil
 				then nil
 				else data.button_icon_background_style,
+			button_is_circular = if data == nil or data.button_is_circular == nil then nil else data.button_is_circular,
+			button_tag = if data == nil or data.button_tag == nil then nil else data.button_tag,
 		}, _OverflowMenuSchema_PropsImpl :: _OverflowMenuSchema_PropsImpl)
 	end
 
@@ -1680,6 +1686,18 @@ do
 		if self.button_icon_background_style ~= nil then
 			local encoded = self.button_icon_background_style:encode()
 			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.button_is_circular ~= nil then
+			local encoded = self.button_is_circular:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.button_tag ~= nil then
+			local encoded = self.button_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -1763,6 +1781,16 @@ do
 					self.button_icon_background_style =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.decode(value)
 					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.button_is_circular = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.button_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -1836,6 +1864,14 @@ do
 
 		if self.button_icon_background_style ~= nil then
 			output.buttonIconBackgroundStyle = self.button_icon_background_style:jsonEncode()
+		end
+
+		if self.button_is_circular ~= nil then
+			output.buttonIsCircular = self.button_is_circular:jsonEncode()
+		end
+
+		if self.button_tag ~= nil then
+			output.buttonTag = self.button_tag:jsonEncode()
 		end
 
 		return output
@@ -1945,6 +1981,24 @@ do
 		if input.buttonIconBackgroundStyle ~= nil then
 			self.button_icon_background_style =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.buttonIconBackgroundStyle)
+		end
+
+		if input.button_is_circular ~= nil then
+			self.button_is_circular =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.button_is_circular)
+		end
+
+		if input.buttonIsCircular ~= nil then
+			self.button_is_circular =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.buttonIsCircular)
+		end
+
+		if input.button_tag ~= nil then
+			self.button_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.button_tag)
+		end
+
+		if input.buttonTag ~= nil then
+			self.button_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.buttonTag)
 		end
 
 		return self

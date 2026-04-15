@@ -6,11 +6,13 @@
 local proto = require(script.Parent.Parent.Parent.Parent.Parent.proto)
 local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry)
 
-type _Messages = {
-	ExperienceEventDetailsPageRequest: _ExperienceEventDetailsPageRequestMessage,
-	ExperienceEventDetailsPageResponse: _ExperienceEventDetailsPageResponseMessage,
-	ExperienceEventDetailsPageResponse_TemplatesEntry: _ExperienceEventDetailsPageResponse_TemplatesEntryMessage,
-}
+type _Messages =
+	{
+		ExperienceEventDetailsPageRequest: _ExperienceEventDetailsPageRequestMessage,
+		ExperienceEventDetailsPageResponse: _ExperienceEventDetailsPageResponseMessage,
+		ExperienceEventDetailsPageResponse_TemplatesEntry: _ExperienceEventDetailsPageResponse_TemplatesEntryMessage,
+		ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry: _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryMessage,
+	}
 local messages: _Messages = {} :: _Messages
 
 local _roblox_apppageplatform_shared_v1beta1_hydration_content =
@@ -63,12 +65,14 @@ type _ExperienceEventDetailsPageResponseFields = {
 	page_entries: { _roblox_apppageplatform_shared_v1beta1_page_entry_content.UniversalPageEntry },
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry },
+	localized_literals: { [string]: string },
 }
 
 type _ExperienceEventDetailsPageResponsePartialFields = {
 	page_entries: { _roblox_apppageplatform_shared_v1beta1_page_entry_content.UniversalPageEntry }?,
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry }?,
+	localized_literals: { [string]: string }?,
 }
 
 export type ExperienceEventDetailsPageResponse = typeof(setmetatable(
@@ -109,6 +113,37 @@ export type ExperienceEventDetailsPageResponse_TemplatesEntry = typeof(setmetata
 type _ExperienceEventDetailsPageResponse_TemplatesEntryMessage = proto.Message<
 	ExperienceEventDetailsPageResponse_TemplatesEntry,
 	_ExperienceEventDetailsPageResponse_TemplatesEntryPartialFields
+>
+
+type _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl = {
+	__index: _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl,
+	new: (
+		fields: _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryPartialFields?
+	) -> ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry,
+	encode: (self: ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry) -> buffer,
+	decode: (input: buffer) -> ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry,
+	jsonEncode: (self: ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryFields = {
+	key: string,
+	value: string,
+}
+
+type _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryPartialFields = {
+	key: string?,
+	value: string?,
+}
+
+export type ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry = typeof(setmetatable(
+	{} :: _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryFields,
+	{} :: _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl
+))
+type _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryMessage = proto.Message<
+	ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry,
+	_ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryPartialFields
 >
 
 do
@@ -250,6 +285,7 @@ do
 			page_entries = if data == nil or data.page_entries == nil then {} else data.page_entries,
 			hydration_data = if data == nil or data.hydration_data == nil then nil else data.hydration_data,
 			templates = if data == nil or data.templates == nil then {} else data.templates,
+			localized_literals = if data == nil or data.localized_literals == nil then {} else data.localized_literals,
 		}, _ExperienceEventDetailsPageResponseImpl :: _ExperienceEventDetailsPageResponseImpl)
 	end
 
@@ -281,6 +317,19 @@ do
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
 				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.localized_literals ~= nil and next(self.localized_literals) ~= nil then
+			for key, value in self.localized_literals do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, value)
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
 			end
 		end
@@ -330,6 +379,18 @@ do
 					self.templates[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = ""
+
+					self.localized_literals[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
 				end
 
 				local length
@@ -375,6 +436,14 @@ do
 				newOutput[key] = value:jsonEncode()
 			end
 			output.templates = newOutput
+		end
+
+		if self.localized_literals ~= nil and next(self.localized_literals) ~= nil then
+			local newOutput = {}
+			for key, value in self.localized_literals do
+				newOutput[key] = value
+			end
+			output.localizedLiterals = newOutput
 		end
 
 		return output
@@ -428,6 +497,24 @@ do
 			end
 
 			self.templates = newOutput
+		end
+
+		if input.localized_literals ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.localized_literals do
+				newOutput[key] = value
+			end
+
+			self.localized_literals = newOutput
+		end
+
+		if input.localizedLiterals ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.localizedLiterals do
+				newOutput[key] = value
+			end
+
+			self.localized_literals = newOutput
 		end
 
 		return self
@@ -573,6 +660,137 @@ do
 		_ExperienceEventDetailsPageResponse_TemplatesEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.ExperienceEventDetailsPageResponse_TemplatesEntry)
+end
+
+do
+	local _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl = {}
+	_ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl.__index =
+		_ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl
+
+	function _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl.new(
+		data: _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryPartialFields?
+	): ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then "" else data.value,
+			},
+			_ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl :: _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl
+		)
+	end
+
+	function _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl.encode(
+		self: ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.value)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl.decode(
+		input: buffer
+	): ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry
+		local self = _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl.jsonEncode(
+		self: ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output.value = self.value
+		end
+
+		return output
+	end
+
+	function _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry
+		local self = _ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = input.value
+		end
+
+		return self
+	end
+
+	_ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl.descriptor = {
+		name = "ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry",
+		fullName = "roblox.apppageplatform.experienceevents.v1beta1.LocalizedLiteralsEntry",
+	}
+
+	messages.ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry =
+		_ExperienceEventDetailsPageResponse_LocalizedLiteralsEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceEventDetailsPageResponse_LocalizedLiteralsEntry)
 end
 
 return {

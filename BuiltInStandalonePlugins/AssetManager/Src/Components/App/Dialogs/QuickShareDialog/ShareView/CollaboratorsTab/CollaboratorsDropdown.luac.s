@@ -95,7 +95,7 @@ PROTO_6:
         4 GETTABLEKS                       R1 R2 K1 ["ScrollView"]
         6 DUPTABLE                         R2 K6 [{"Size", "tag", "layout", "scroll"}]
         7 GETUPVAL                         R4 2
-        8 GETTABLEKS                       R3 R4 K7 ["AMR_QUICKSHARE_DROPDOWN_SIZE"]
+        8 GETTABLEKS                       R3 R4 K7 ["QuickShareDropdownSize"]
        10 SETTABLEKS                       R3 R2 K2 ["Size"]
        12 LOADK                            R3 K8 ["padding-xsmall radius-medium stroke-default"]
        13 SETTABLEKS                       R3 R2 K3 ["tag"]

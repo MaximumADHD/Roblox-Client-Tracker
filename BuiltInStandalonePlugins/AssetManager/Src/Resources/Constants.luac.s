@@ -73,32 +73,40 @@ MAIN:
       113 CALL                             R7 2 1
       114 SETTABLEKS                       R7 R6 K36 ["Uid"]
       116 SETTABLEKS                       R6 R5 K40 ["RecentUploads"]
-      118 MOVE                             R6 R4
-      119 CALL                             R6 0 1
-      120 SETTABLEKS                       R6 R5 K41 ["RecentMax"]
-      122 MOVE                             R6 R3
-      123 CALL                             R6 0 1
-      124 SETTABLEKS                       R6 R5 K42 ["ItemFetchMax"]
-      126 NEWTABLE                         R6 16 0
-      128 LOADB                            R7 1
-      129 SETTABLEKS                       R7 R6 K43 ["\\"]
-      131 LOADB                            R7 1
-      132 SETTABLEKS                       R7 R6 K44 ["/"]
-      134 LOADB                            R7 1
-      135 SETTABLEKS                       R7 R6 K45 [":"]
-      137 LOADB                            R7 1
-      138 SETTABLEKS                       R7 R6 K46 ["*"]
-      140 LOADB                            R7 1
-      141 SETTABLEKS                       R7 R6 K47 ["?"]
-      143 LOADB                            R7 1
-      144 SETTABLEKS                       R7 R6 K48 ["\""]
-      146 LOADB                            R7 1
-      147 SETTABLEKS                       R7 R6 K49 ["<"]
-      149 LOADB                            R7 1
-      150 SETTABLEKS                       R7 R6 K50 [">"]
-      152 LOADB                            R7 1
-      153 SETTABLEKS                       R7 R6 K51 ["|"]
-      155 SETTABLEKS                       R6 R5 K52 ["FolderForbiddenChars"]
-      157 LOADN                            R6 3
-      158 SETTABLEKS                       R6 R5 K53 ["SearchFoldersResultCountDefault"]
-      160 RETURN                           R5 1
+      118 LOADN                            R6 0
+      119 SETTABLEKS                       R6 R5 K41 ["NewFolderId"]
+      121 MOVE                             R6 R2
+      122 GETTABLEKS                       R8 R1 K39 ["ScopeType"]
+      124 GETTABLEKS                       R7 R8 K42 ["Folder"]
+      126 GETTABLEKS                       R8 R5 K41 ["NewFolderId"]
+      128 CALL                             R6 2 1
+      129 SETTABLEKS                       R6 R5 K43 ["NewFolderUid"]
+      131 MOVE                             R6 R4
+      132 CALL                             R6 0 1
+      133 SETTABLEKS                       R6 R5 K44 ["RecentMax"]
+      135 MOVE                             R6 R3
+      136 CALL                             R6 0 1
+      137 SETTABLEKS                       R6 R5 K45 ["ItemFetchMax"]
+      139 NEWTABLE                         R6 16 0
+      141 LOADB                            R7 1
+      142 SETTABLEKS                       R7 R6 K46 ["\\"]
+      144 LOADB                            R7 1
+      145 SETTABLEKS                       R7 R6 K47 ["/"]
+      147 LOADB                            R7 1
+      148 SETTABLEKS                       R7 R6 K48 [":"]
+      150 LOADB                            R7 1
+      151 SETTABLEKS                       R7 R6 K49 ["*"]
+      153 LOADB                            R7 1
+      154 SETTABLEKS                       R7 R6 K50 ["?"]
+      156 LOADB                            R7 1
+      157 SETTABLEKS                       R7 R6 K51 ["\""]
+      159 LOADB                            R7 1
+      160 SETTABLEKS                       R7 R6 K52 ["<"]
+      162 LOADB                            R7 1
+      163 SETTABLEKS                       R7 R6 K53 [">"]
+      165 LOADB                            R7 1
+      166 SETTABLEKS                       R7 R6 K54 ["|"]
+      168 SETTABLEKS                       R6 R5 K55 ["FolderForbiddenChars"]
+      170 LOADN                            R6 3
+      171 SETTABLEKS                       R6 R5 K56 ["SearchFoldersResultCountDefault"]
+      173 RETURN                           R5 1

@@ -550,111 +550,106 @@ MAIN:
       128 NAMECALL                         R18 R18 K33 ["DefineFastString"]
       130 CALL                             R18 3 1
       131 GETIMPORT                        R19 K26 [game]
-      133 LOADK                            R21 K36 ["SpatialVoiceChatLink"]
-      134 LOADK                            R22 K37 ["https://create.roblox.com/docs/chat/spatial-voice"]
+      133 LOADK                            R21 K36 ["ChatGroupApiLink1"]
+      134 LOADK                            R22 K37 ["https://help.roblox.com/hc/articles/115004647846-Roblox-Terms-of-Use"]
       135 NAMECALL                         R19 R19 K33 ["DefineFastString"]
       137 CALL                             R19 3 1
       138 GETIMPORT                        R20 K26 [game]
-      140 LOADK                            R22 K38 ["ChatGroupApiLink1"]
-      141 LOADK                            R23 K39 ["https://help.roblox.com/hc/articles/115004647846-Roblox-Terms-of-Use"]
+      140 LOADK                            R22 K38 ["ChatGroupApiLink2"]
+      141 LOADK                            R23 K39 ["https://help.roblox.com/hc/articles/203313410-Roblox-Community-Standards"]
       142 NAMECALL                         R20 R20 K33 ["DefineFastString"]
       144 CALL                             R20 3 1
       145 GETIMPORT                        R21 K26 [game]
-      147 LOADK                            R23 K40 ["ChatGroupApiLink2"]
-      148 LOADK                            R24 K41 ["https://help.roblox.com/hc/articles/203313410-Roblox-Community-Standards"]
+      147 LOADK                            R23 K40 ["ChatGroupApiLink3"]
+      148 LOADK                            R24 K41 [""]
       149 NAMECALL                         R21 R21 K33 ["DefineFastString"]
       151 CALL                             R21 3 1
-      152 GETIMPORT                        R22 K26 [game]
-      154 LOADK                            R24 K42 ["ChatGroupApiLink3"]
-      155 LOADK                            R25 K43 [""]
-      156 NAMECALL                         R22 R22 K33 ["DefineFastString"]
-      158 CALL                             R22 3 1
-      159 GETTABLEKS                       R23 R14 K44 ["getAvatarChatAudioEnabledKeyName"]
-      161 MOVE                             R24 R23
-      162 CALL                             R24 0 1
-      163 GETTABLEKS                       R25 R14 K45 ["getAvatarChatVideoEnabledKeyName"]
-      165 MOVE                             R26 R25
-      166 CALL                             R26 0 1
-      167 LOADNIL                          R27
-      168 LOADNIL                          R28
-      169 MOVE                             R29 R5
-      170 CALL                             R29 0 1
-      171 JUMPIFNOT                        R29 ; [+5]
-      172 GETTABLEKS                       R27 R14 K46 ["getChatGroupApiEnabledKeyName"]
-      174 MOVE                             R29 R27
-      175 CALL                             R29 0 1
-      176 MOVE                             R28 R29
-      177 GETIMPORT                        R30 K1 [script]
-      179 GETTABLEKS                       R29 R30 K47 ["Name"]
-      181 NEWCLOSURE                       R30 P0
-      182 CAPTURE                          VAL R24
-      183 CAPTURE                          VAL R26
+      152 GETTABLEKS                       R22 R14 K42 ["getAvatarChatAudioEnabledKeyName"]
+      154 MOVE                             R23 R22
+      155 CALL                             R23 0 1
+      156 GETTABLEKS                       R24 R14 K43 ["getAvatarChatVideoEnabledKeyName"]
+      158 MOVE                             R25 R24
+      159 CALL                             R25 0 1
+      160 LOADNIL                          R26
+      161 LOADNIL                          R27
+      162 MOVE                             R28 R5
+      163 CALL                             R28 0 1
+      164 JUMPIFNOT                        R28 ; [+5]
+      165 GETTABLEKS                       R26 R14 K44 ["getChatGroupApiEnabledKeyName"]
+      167 MOVE                             R28 R26
+      168 CALL                             R28 0 1
+      169 MOVE                             R27 R28
+      170 GETIMPORT                        R29 K1 [script]
+      172 GETTABLEKS                       R28 R29 K45 ["Name"]
+      174 NEWCLOSURE                       R29 P0
+      175 CAPTURE                          VAL R23
+      176 CAPTURE                          VAL R25
+      177 CAPTURE                          VAL R5
+      178 CAPTURE                          REF R27
+      179 DUPCLOSURE                       R30 K46 [PROTO_3]
+      180 CAPTURE                          VAL R5
+      181 NEWCLOSURE                       R31 P2
+      182 CAPTURE                          VAL R23
+      183 CAPTURE                          VAL R25
       184 CAPTURE                          VAL R5
-      185 CAPTURE                          REF R28
-      186 DUPCLOSURE                       R31 K48 [PROTO_3]
-      187 CAPTURE                          VAL R5
-      188 NEWCLOSURE                       R32 P2
-      189 CAPTURE                          VAL R24
-      190 CAPTURE                          VAL R26
-      191 CAPTURE                          VAL R5
-      192 CAPTURE                          REF R28
-      193 NEWCLOSURE                       R33 P3
-      194 CAPTURE                          VAL R24
-      195 CAPTURE                          VAL R26
-      196 CAPTURE                          VAL R5
-      197 CAPTURE                          REF R28
-      198 GETTABLEKS                       R34 R1 K49 ["PureComponent"]
-      200 GETIMPORT                        R37 K1 [script]
-      202 GETTABLEKS                       R36 R37 K47 ["Name"]
-      204 NAMECALL                         R34 R34 K50 ["extend"]
-      206 CALL                             R34 2 1
-      207 DUPCLOSURE                       R35 K51 [PROTO_15]
-      208 CAPTURE                          VAL R11
-      209 CAPTURE                          VAL R16
-      210 CAPTURE                          VAL R15
-      211 CAPTURE                          VAL R17
-      212 CAPTURE                          VAL R18
-      213 CAPTURE                          VAL R5
-      214 CAPTURE                          VAL R20
-      215 CAPTURE                          VAL R21
-      216 CAPTURE                          VAL R22
-      217 CAPTURE                          VAL R1
-      218 CAPTURE                          VAL R8
-      219 CAPTURE                          VAL R12
-      220 CAPTURE                          VAL R30
-      221 CAPTURE                          VAL R31
-      222 CAPTURE                          VAL R29
-      223 SETTABLEKS                       R35 R34 K52 ["render"]
-      225 MOVE                             R35 R7
-      226 DUPTABLE                         R36 K55 [{"Stylizer", "Localization", "Dialog"}]
-      227 JUMPIFNOT                        R4 ; [+2]
-      228 LOADNIL                          R37
-      229 JUMP                             ; [+2]
-      230 GETTABLEKS                       R37 R6 K53 ["Stylizer"]
-      232 SETTABLEKS                       R37 R36 K53 ["Stylizer"]
-      234 GETTABLEKS                       R37 R6 K54 ["Localization"]
-      236 SETTABLEKS                       R37 R36 K54 ["Localization"]
-      238 SETTABLEKS                       R9 R36 K17 ["Dialog"]
-      240 CALL                             R35 1 1
-      241 MOVE                             R36 R34
-      242 CALL                             R35 1 1
-      243 MOVE                             R34 R35
-      244 GETIMPORT                        R35 K4 [require]
-      246 GETTABLEKS                       R38 R0 K9 ["Src"]
-      248 GETTABLEKS                       R37 R38 K56 ["Networking"]
-      250 GETTABLEKS                       R36 R37 K57 ["settingFromState"]
-      252 CALL                             R35 1 1
-      253 GETTABLEKS                       R36 R2 K58 ["connect"]
-      255 DUPCLOSURE                       R37 K59 [PROTO_17]
-      256 CAPTURE                          VAL R35
-      257 CAPTURE                          VAL R32
-      258 DUPCLOSURE                       R38 K60 [PROTO_20]
-      259 CAPTURE                          VAL R13
-      260 CAPTURE                          VAL R33
-      261 CALL                             R36 2 1
-      262 MOVE                             R37 R34
-      263 CALL                             R36 1 1
-      264 MOVE                             R34 R36
-      265 SETTABLEKS                       R29 R34 K61 ["LocalizationId"]
-      267 CLOSEUPVALS                      R28
-      268 RETURN                           R34 1
+      185 CAPTURE                          REF R27
+      186 NEWCLOSURE                       R32 P3
+      187 CAPTURE                          VAL R23
+      188 CAPTURE                          VAL R25
+      189 CAPTURE                          VAL R5
+      190 CAPTURE                          REF R27
+      191 GETTABLEKS                       R33 R1 K47 ["PureComponent"]
+      193 GETIMPORT                        R36 K1 [script]
+      195 GETTABLEKS                       R35 R36 K45 ["Name"]
+      197 NAMECALL                         R33 R33 K48 ["extend"]
+      199 CALL                             R33 2 1
+      200 DUPCLOSURE                       R34 K49 [PROTO_15]
+      201 CAPTURE                          VAL R11
+      202 CAPTURE                          VAL R16
+      203 CAPTURE                          VAL R15
+      204 CAPTURE                          VAL R17
+      205 CAPTURE                          VAL R18
+      206 CAPTURE                          VAL R5
+      207 CAPTURE                          VAL R19
+      208 CAPTURE                          VAL R20
+      209 CAPTURE                          VAL R21
+      210 CAPTURE                          VAL R1
+      211 CAPTURE                          VAL R8
+      212 CAPTURE                          VAL R12
+      213 CAPTURE                          VAL R29
+      214 CAPTURE                          VAL R30
+      215 CAPTURE                          VAL R28
+      216 SETTABLEKS                       R34 R33 K50 ["render"]
+      218 MOVE                             R34 R7
+      219 DUPTABLE                         R35 K53 [{"Stylizer", "Localization", "Dialog"}]
+      220 JUMPIFNOT                        R4 ; [+2]
+      221 LOADNIL                          R36
+      222 JUMP                             ; [+2]
+      223 GETTABLEKS                       R36 R6 K51 ["Stylizer"]
+      225 SETTABLEKS                       R36 R35 K51 ["Stylizer"]
+      227 GETTABLEKS                       R36 R6 K52 ["Localization"]
+      229 SETTABLEKS                       R36 R35 K52 ["Localization"]
+      231 SETTABLEKS                       R9 R35 K17 ["Dialog"]
+      233 CALL                             R34 1 1
+      234 MOVE                             R35 R33
+      235 CALL                             R34 1 1
+      236 MOVE                             R33 R34
+      237 GETIMPORT                        R34 K4 [require]
+      239 GETTABLEKS                       R37 R0 K9 ["Src"]
+      241 GETTABLEKS                       R36 R37 K54 ["Networking"]
+      243 GETTABLEKS                       R35 R36 K55 ["settingFromState"]
+      245 CALL                             R34 1 1
+      246 GETTABLEKS                       R35 R2 K56 ["connect"]
+      248 DUPCLOSURE                       R36 K57 [PROTO_17]
+      249 CAPTURE                          VAL R34
+      250 CAPTURE                          VAL R31
+      251 DUPCLOSURE                       R37 K58 [PROTO_20]
+      252 CAPTURE                          VAL R13
+      253 CAPTURE                          VAL R32
+      254 CALL                             R35 2 1
+      255 MOVE                             R36 R33
+      256 CALL                             R35 1 1
+      257 MOVE                             R33 R35
+      258 SETTABLEKS                       R28 R33 K59 ["LocalizationId"]
+      260 CLOSEUPVALS                      R27
+      261 RETURN                           R33 1

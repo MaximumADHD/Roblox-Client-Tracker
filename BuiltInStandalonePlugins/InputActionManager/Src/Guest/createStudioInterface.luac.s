@@ -11,9 +11,9 @@ PROTO_1:
         2 CAPTURE                          UPVAL U0
         3 NAMECALL                         R1 R0 K2 ["OnHostInvokeAsync"]
         5 CALL                             R1 3 2
-        6 DUPTABLE                         R3 K5 [{"destroy", "getIcon"}]
+        6 DUPTABLE                         R3 K5 [{"destroy", "getIconAsync"}]
         7 SETTABLEKS                       R2 R3 K3 ["destroy"]
-        9 SETTABLEKS                       R1 R3 K4 ["getIcon"]
+        9 SETTABLEKS                       R1 R3 K4 ["getIconAsync"]
        11 RETURN                           R3 1
 
 MAIN:

@@ -173,7 +173,7 @@ PROTO_9:
       133 GETUPVAL                         R32 10
       134 GETTABLEKS                       R31 R32 K15 ["View"]
       136 DUPTABLE                         R32 K38 [{"tag", "isDisabled", "onActivated", "LayoutOrder"}]
-      137 LOADK                            R33 K39 ["auto-xy padding-xsmall data-testid=open-file-button"]
+      137 LOADK                            R33 K39 ["auto-xy padding-xsmall radius-small data-testid=open-file-button"]
       138 SETTABLEKS                       R33 R32 K16 ["tag"]
       140 MOVE                             R33 R4
       141 JUMPIF                           R33 ; [+3]
@@ -216,7 +216,7 @@ PROTO_9:
       192 GETUPVAL                         R32 10
       193 GETTABLEKS                       R31 R32 K15 ["View"]
       195 DUPTABLE                         R32 K38 [{"tag", "isDisabled", "onActivated", "LayoutOrder"}]
-      196 LOADK                            R33 K49 ["auto-xy padding-xsmall data-testid=cleanup-view-button"]
+      196 LOADK                            R33 K49 ["auto-xy padding-xsmall radius-small data-testid=cleanup-view-button"]
       197 SETTABLEKS                       R33 R32 K16 ["tag"]
       199 MOVE                             R33 R4
       200 JUMPIF                           R33 ; [+3]

@@ -5,7 +5,7 @@ PROTO_0:
         5 CALL                             R0 2 1
         6 JUMPIFNOT                        R0 ; [+6]
         7 GETIMPORT                        R0 K1 [game]
-        9 LOADK                            R2 K4 ["LuaStartPageTCAgeGatingCheck2"]
+        9 LOADK                            R2 K4 ["LuaStartPageTCAgeGatingCheck3"]
        10 NAMECALL                         R0 R0 K5 ["GetFastFlag"]
        12 CALL                             R0 2 1
        13 RETURN                           R0 1
@@ -13,7 +13,7 @@ PROTO_0:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["LuaStartPageTCAgeGatingCheck2"]
+        3 LOADK                            R2 K2 ["LuaStartPageTCAgeGatingCheck3"]
         4 LOADB                            R3 0
         5 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
         7 CALL                             R0 3 0

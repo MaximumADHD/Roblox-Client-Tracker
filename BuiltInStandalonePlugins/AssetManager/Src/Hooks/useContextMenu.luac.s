@@ -14,49 +14,42 @@ PROTO_0:
        14 LOADNIL                          R7
        15 LOADNIL                          R8
        16 FORGPREP                         R6
-       17 GETTABLEKS                       R11 R10 K1 ["ShouldRender"]
-       19 JUMPIFEQKNIL                     R11 ; [+8]
-       21 GETTABLEKS                       R11 R10 K1 ["ShouldRender"]
-       23 GETUPVAL                         R12 2
-       24 GETUPVAL                         R13 3
-       25 GETUPVAL                         R14 4
-       26 CALL                             R11 3 1
-       27 JUMPIFNOT                        R11 ; [+13]
-       28 GETUPVAL                         R11 5
-       29 MOVE                             R12 R10
-       30 GETUPVAL                         R13 2
-       31 GETUPVAL                         R14 3
-       32 GETUPVAL                         R15 4
-       33 CALL                             R11 4 1
-       34 FASTCALL2                        TABLE_INSERT R0 R11 ; [+5]
-       36 MOVE                             R13 R0
-       37 MOVE                             R14 R11
-       38 GETIMPORT                        R12 K4 [table.insert]
-       40 CALL                             R12 2 0
-       41 FORGLOOP                         R6 2 ; [-25]
-       43 LENGTH                           R7 R0
-       44 GETTABLE                         R6 R0 R7
-       45 JUMPIFNOT                        R6 ; [+10]
-       46 LENGTH                           R8 R0
-       47 GETTABLE                         R7 R0 R8
-       48 GETTABLEKS                       R6 R7 K5 ["ShowSeparator"]
-       50 JUMPIFNOT                        R6 ; [+5]
-       51 GETIMPORT                        R6 K7 [table.remove]
-       53 MOVE                             R7 R0
-       54 LENGTH                           R8 R0
-       55 CALL                             R6 2 0
-       56 FORGLOOP                         R1 2 ; [-51]
-       58 GETUPVAL                         R1 6
-       59 CALL                             R1 0 1
-       60 JUMPIF                           R1 ; [+9]
-       61 GETUPVAL                         R1 7
-       62 GETUPVAL                         R3 3
-       63 GETTABLEKS                       R2 R3 K8 ["PluginController"]
-       65 NAMECALL                         R2 R2 K9 ["getPlugin"]
-       67 CALL                             R2 1 1
-       68 MOVE                             R3 R0
-       69 CALL                             R1 2 0
-       70 RETURN                           R0 0
+       17 GETUPVAL                         R11 2
+       18 MOVE                             R12 R10
+       19 GETUPVAL                         R13 3
+       20 GETUPVAL                         R14 4
+       21 GETUPVAL                         R15 5
+       22 CALL                             R11 4 1
+       23 JUMPIFEQKNIL                     R11 ; [+8]
+       25 FASTCALL2                        TABLE_INSERT R0 R11 ; [+5]
+       27 MOVE                             R13 R0
+       28 MOVE                             R14 R11
+       29 GETIMPORT                        R12 K3 [table.insert]
+       31 CALL                             R12 2 0
+       32 FORGLOOP                         R6 2 ; [-16]
+       34 LENGTH                           R7 R0
+       35 GETTABLE                         R6 R0 R7
+       36 JUMPIFNOT                        R6 ; [+10]
+       37 LENGTH                           R8 R0
+       38 GETTABLE                         R7 R0 R8
+       39 GETTABLEKS                       R6 R7 K4 ["ShowSeparator"]
+       41 JUMPIFNOT                        R6 ; [+5]
+       42 GETIMPORT                        R6 K6 [table.remove]
+       44 MOVE                             R7 R0
+       45 LENGTH                           R8 R0
+       46 CALL                             R6 2 0
+       47 FORGLOOP                         R1 2 ; [-42]
+       49 GETUPVAL                         R1 6
+       50 CALL                             R1 0 1
+       51 JUMPIF                           R1 ; [+9]
+       52 GETUPVAL                         R1 7
+       53 GETUPVAL                         R3 4
+       54 GETTABLEKS                       R2 R3 K7 ["PluginController"]
+       56 NAMECALL                         R2 R2 K8 ["getPlugin"]
+       58 CALL                             R2 1 1
+       59 MOVE                             R3 R0
+       60 CALL                             R1 2 0
+       61 RETURN                           R0 0
 
 PROTO_1:
         0 DUPTABLE                         R2 K7 [{"ItemsController", "SearchController", "ExplorerController", "PluginController", "LayoutController", "Networking", "Localization"}]
@@ -93,10 +86,10 @@ PROTO_1:
        46 NEWCLOSURE                       R4 P0
        47 CAPTURE                          UPVAL U8
        48 CAPTURE                          UPVAL U9
-       49 CAPTURE                          VAL R0
-       50 CAPTURE                          VAL R2
-       51 CAPTURE                          VAL R1
-       52 CAPTURE                          UPVAL U10
+       49 CAPTURE                          UPVAL U10
+       50 CAPTURE                          VAL R0
+       51 CAPTURE                          VAL R2
+       52 CAPTURE                          VAL R1
        53 CAPTURE                          UPVAL U11
        54 CAPTURE                          UPVAL U12
        55 NEWTABLE                         R5 0 2

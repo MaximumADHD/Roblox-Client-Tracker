@@ -2,10 +2,10 @@ PROTO_0:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K9 [{"LayoutOrder", "id", "name", "creator", "creatorHasVerifiedBadge", "price", "rowState", "onRowStateChanged"}]
+        4 DUPTABLE                         R3 K10 [{"LayoutOrder", "id", "name", "creator", "creatorHasVerifiedBadge", "price", "rowState", "onRowStateChanged", "rowType"}]
         5 GETTABLEKS                       R4 R0 K1 ["LayoutOrder"]
         7 SETTABLEKS                       R4 R3 K1 ["LayoutOrder"]
-        9 GETTABLEKS                       R4 R0 K10 ["bundleId"]
+        9 GETTABLEKS                       R4 R0 K11 ["bundleId"]
        11 SETTABLEKS                       R4 R3 K2 ["id"]
        13 GETTABLEKS                       R4 R0 K3 ["name"]
        15 SETTABLEKS                       R4 R3 K3 ["name"]
@@ -19,8 +19,10 @@ PROTO_0:
        31 SETTABLEKS                       R4 R3 K7 ["rowState"]
        33 GETTABLEKS                       R4 R0 K8 ["onRowStateChanged"]
        35 SETTABLEKS                       R4 R3 K8 ["onRowStateChanged"]
-       37 CALL                             R1 2 -1
-       38 RETURN                           R1 -1
+       37 LOADK                            R4 K12 ["Bundle"]
+       38 SETTABLEKS                       R4 R3 K9 ["rowType"]
+       40 CALL                             R1 2 -1
+       41 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

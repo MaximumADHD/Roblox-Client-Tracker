@@ -15,6 +15,7 @@ local FFlagUnibarMenuOpenSubmenu = ChromeFlags.FFlagUnibarMenuOpenSubmenu
 
 local ChromeSharedFlags = require(Root.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
+local FFlagFixSpatialSubMenuSizing = ChromeSharedFlags.FFlagFixSpatialSubMenuSizing
 
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
@@ -79,6 +80,7 @@ type Table = { [any]: any }
 export type SubMenuProps = {
 	items: { [number]: IntegrationComponentProps },
 	menuTransition: any?,
+	panelSize: Vector2?,
 }
 
 function MenuRow(props: IntegrationComponentProps)
@@ -187,6 +189,7 @@ function MenuRow(props: IntegrationComponentProps)
 	local heightScale = if isInExperienceUIVREnabled and not InExperienceUIVRIXP:isSpatialUIScalingFixEnabled()
 		then UIManager.getInstance():getAdditionalCameraScaleIfNeeded()
 		else 1
+
 	return React.createElement(Interactable, {
 		Size = UDim2.new(1, 0, 0, rowHeight * heightScale),
 		BorderSizePixel = 0,
@@ -319,10 +322,19 @@ function SubMenu(props: SubMenuProps)
 
 	local topBuffer = topbarInsetHeight + iconCellWidth
 	local canvasSize = if props and props.items then rowHeight * #props.items else 0
-	local minSize = math.min(screenSize.Y - topBuffer, canvasSize)
+	local heightScale = if isInExperienceUIVREnabled and not InExperienceUIVRIXP:isSpatialUIScalingFixEnabled()
+		then UIManager.getInstance():getAdditionalCameraScaleIfNeeded()
+		else 1
+	local contentHeight = canvasSize * heightScale
+	local spatialViewportHeight = if props.panelSize then props.panelSize.Y else contentHeight
+	local isSpatialSubMenu = isInExperienceUIVREnabled and isSpatial()
+	local useSpatialSizing = FFlagFixSpatialSubMenuSizing and isSpatialSubMenu
+	local minSize = if useSpatialSizing
+		then math.min(contentHeight, spatialViewportHeight)
+		else math.min(screenSize.Y - topBuffer, canvasSize)
 
 	-- scroll affordance: if submenu does not fully fit, shrink height to half of last integration that partially fits
-	if screenSize.Y - topBuffer < canvasSize then
+	if not useSpatialSizing and screenSize.Y - topBuffer < canvasSize then
 		local numberItemsFullyFit = math.floor((screenSize.Y - topBuffer) / rowHeight)
 		if (rowHeight * numberItemsFullyFit) + scrollOffset <= (screenSize.Y - topBuffer) then
 			minSize = rowHeight * numberItemsFullyFit + scrollOffset
@@ -359,21 +371,23 @@ function SubMenu(props: SubMenuProps)
 	local leftAlign = useMappedObservableValue(ChromeService:orderAlignment(), isLeft)
 
 	local preferredTransparency = style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency
-	local heightScale = if isInExperienceUIVREnabled and not InExperienceUIVRIXP:isSpatialUIScalingFixEnabled()
-		then UIManager.getInstance():getAdditionalCameraScaleIfNeeded()
-		else 1
 	local anchorPoint
-	if isInExperienceUIVREnabled and isSpatial() then
+	if isSpatialSubMenu then
 		anchorPoint = Vector2.new(0, 1)
 	else
 		anchorPoint = if leftAlign then Vector2.zero else Vector2.new(1, 0)
 	end
 	return React.createElement("Frame", {
-		Size = if isInExperienceUIVREnabled and isSpatial()
-			then UDim2.new(1, 0, 0, canvasSize * heightScale)
+		Size = if isSpatialSubMenu
+			then UDim2.new(
+				1,
+				0,
+				0,
+				if useSpatialSizing then math.min(contentHeight, spatialViewportHeight) else contentHeight
+			)
 			else UDim2.new(0, iconCellWidth * 4 + unibarLeftMargin + unibarEndPadding * 2, 0, 0),
 		AnchorPoint = anchorPoint,
-		Position = if isInExperienceUIVREnabled and isSpatial()
+		Position = if isSpatialSubMenu
 			then UDim2.new(0, 0, 1, 0)
 			else UDim2.new(0, -topbarInsetHeight - 2 + unibarLeftMargin, 0, 0),
 		BackgroundColor3 = theme.BackgroundUIContrast.Color,
@@ -382,7 +396,7 @@ function SubMenu(props: SubMenuProps)
 				return preferredTransparency + (1 - preferredTransparency) * (1 - v)
 			end)
 			else preferredTransparency,
-		AutomaticSize = if isInExperienceUIVREnabled and isSpatial() then nil else Enum.AutomaticSize.Y,
+		AutomaticSize = if isSpatialSubMenu then nil else Enum.AutomaticSize.Y,
 		ref = menuRef,
 		SelectionGroup = if FFlagEnableConsoleExpControls then true else nil,
 		SelectionBehaviorDown = if FFlagEnableConsoleExpControls then Enum.SelectionBehavior.Stop else nil,
@@ -392,7 +406,7 @@ function SubMenu(props: SubMenuProps)
 		}),
 		ScrollingFrame = React.createElement(VerticalScrollView, {
 			size = UDim2.new(1, 0, 1, 0),
-			canvasSizeY = UDim.new(0, canvasSize),
+			canvasSizeY = UDim.new(0, if useSpatialSizing then contentHeight else canvasSize),
 			selectable = false,
 			scrollBarType = ScrollBarType.Compact,
 		}, rows),
@@ -401,6 +415,7 @@ end
 
 export type SubMenuHostProps = {
 	subMenuHostRef: any,
+	panelSize: Vector2?,
 }
 
 return function(props: SubMenuHostProps) -- SubMenuHost
@@ -495,11 +510,13 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 		children[currentSubMenu] = React.createElement(SubMenu, {
 			items = subMenuItems,
 			menuTransition = menuTransition,
+			panelSize = if FFlagFixSpatialSubMenuSizing then props.panelSize else nil,
 		})
 	elseif #lastItemList > 0 then
 		children[lastSubMenu] = React.createElement(SubMenu, {
 			items = lastItemList,
 			menuTransition = menuTransition,
+			panelSize = if FFlagFixSpatialSubMenuSizing then props.panelSize else nil,
 		})
 	end
 

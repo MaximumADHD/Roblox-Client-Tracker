@@ -309,9 +309,9 @@ PROTO_6:
       279 SETTABLEKS                       R25 R24 K67 ["step"]
       281 GETIMPORT                        R25 K74 [NumberRange.new]
       283 GETUPVAL                         R27 8
-      284 GETTABLEKS                       R26 R27 K75 ["AMR_GRIDCELL_HEIGHT_MIN"]
+      284 GETTABLEKS                       R26 R27 K75 ["GridCellHeightMin"]
       286 GETUPVAL                         R28 8
-      287 GETTABLEKS                       R27 R28 K76 ["AMR_GRIDCELL_HEIGHT_MAX"]
+      287 GETTABLEKS                       R27 R28 K76 ["GridCellHeightMax"]
       289 CALL                             R25 2 1
       290 SETTABLEKS                       R25 R24 K68 ["range"]
       292 NEWCLOSURE                       R25 P3

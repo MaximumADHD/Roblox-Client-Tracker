@@ -58,4 +58,7 @@ return {
 
 	-- Disable token scaling so scale is always 1
 	disableTokenScaling = false,
+
+	-- Enable mapping V2 foundation tokens into the style token pipeline
+	enableFoundationTokenMapping = false,
 }

@@ -148,6 +148,7 @@ local Flags = {
 	GetFFlagPackagifySettingsShowSignal = SharedFlags.GetFFlagPackagifySettingsShowSignal,
 	FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls,
 	FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons,
+	FFlagIEMFocusNavSupportNewButtons = SettingsFlags.FFlagIEMFocusNavSupportNewButtons,
 	FFlagIEMResumeButtonPressBugfix = SharedFlags.FFlagIEMResumeButtonPressBugfix,
 	FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode,
 	FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant,
@@ -412,6 +413,9 @@ local function CreateSettingsHub()
 		this.addMenuKeyBindings = nil
 		this.removeMenuKeyBindings = nil
 	end
+	if Flags.FFlagIEMFocusNavSupportNewButtons then
+		this.ResumeMenuButton = nil
+	end
 	this.hasMicPermissions = false
 	if Flags.GetFFlagEnableLeaveGameUpsellEntrypoint() then
 		this.checkedUpsell = false
@@ -460,6 +464,9 @@ local function CreateSettingsHub()
 
 		if this["ResumeButton"] then
 			pageToSwitchTo.PageNextSelectionDown = this["ResumeButton"]
+		elseif Flags.FFlagIEMFocusNavSupportNewButtons and Flags.FIntRelocateMobileMenuButtonsVariant == 2
+			and this.ResumeMenuButton then
+			pageToSwitchTo.PageNextSelectionDown = this.ResumeMenuButton
 		end
 
 		for _, selectable in pageToSwitchTo.LastSelectableObjects do
@@ -471,6 +478,13 @@ local function CreateSettingsHub()
 			if LeaveGameButton then
 				LeaveGameButton.NextSelectionUp = selectable
 			end
+			if Flags.FFlagIEMFocusNavSupportNewButtons and Flags.FIntRelocateMobileMenuButtonsVariant == 2 then
+				for _, child in this.BottomButtonFrame:GetDescendants() do
+					if child:IsA("GuiObject") and child.Selectable then
+						child.NextSelectionUp = selectable
+					end
+				end
+			end
 		end
 		if #pageToSwitchTo.LastSelectableObjects < 1 then
 			this.BottomButtonFrame.SelectionBehaviorUp = Enum.SelectionBehavior.Stop
@@ -478,6 +492,13 @@ local function CreateSettingsHub()
 			local LeaveGameButton = this["LeaveGameButton"]
 			if LeaveGameButton then
 				LeaveGameButton.NextSelectionUp = nil
+			end
+			if Flags.FFlagIEMFocusNavSupportNewButtons and Flags.FIntRelocateMobileMenuButtonsVariant == 2 then
+				for _, child in this.BottomButtonFrame:GetDescendants() do
+					if child:IsA("GuiObject") and child.Selectable then
+						child.NextSelectionUp = nil
+					end
+				end
 			end
 		end
 	end
@@ -947,9 +968,12 @@ local function CreateSettingsHub()
 				getVisibility = function()
 					return this.GetVisibility()
 				end,
-				getCanRespawn = experienceControlStore.getCanRespawn,
-				currentPageChangeSignal = if SettingsFlags.FFlagAddTraversalHistoryReactMenuButtons then this.CurrentPageSignal else nil,
-			}))
+			getCanRespawn = experienceControlStore.getCanRespawn,
+			currentPageChangeSignal = if SettingsFlags.FFlagAddTraversalHistoryReactMenuButtons then this.CurrentPageSignal else nil,
+			setResumeMenuButton = if Flags.FFlagIEMFocusNavSupportNewButtons then function(button: GuiObject?)
+				this.ResumeMenuButton = button
+			end else nil,
+		}))
 		end
 		else nil :: never
 

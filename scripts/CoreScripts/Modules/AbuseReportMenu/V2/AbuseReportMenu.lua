@@ -34,7 +34,7 @@ export type Props = {
 	-- TODO: will need to keep these callbacks
 	registerOnReportTabHidden: (() -> ()) -> (),
 	registerOnReportTabDisplayed: (() -> ()) -> (),
-	registerOnSettingsHidden: (() -> ()) -> (),
+	registerOnSettingsHidden: (() -> ()) -> (), -- IGM closed
 	-- TODO: wire this up to support entering report menu from leaderboard
 	registerSetNextPlayerToReport: ((player: Player) -> ()) -> (),
 	-- TODO: probably can remove this since we know when the menu width is changing
@@ -73,6 +73,7 @@ local function AbuseReportMenuContent(props: Props)
 		}, {
 			DynamicReportInExpContainer = React.createElement(DynamicReportInExpContainer, {
 				onClose = props.hideReportTab,
+				registerOnInGameMenuClosed = props.registerOnSettingsHidden,
 				isReportTabVisible = isReportTabVisible,
 				inExpChatMessagesLoader = inExpChatMessagesLoader,
 				inExpVoiceUsersLoader = inExpVoiceUsersLoader,

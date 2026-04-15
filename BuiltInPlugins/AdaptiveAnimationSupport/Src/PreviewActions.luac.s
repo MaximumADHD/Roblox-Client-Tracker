@@ -49,15 +49,20 @@ PROTO_2:
        10 MOVE                             R4 R0
        11 CALL                             R2 2 0
        12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K2 ["clearSize"]
+       13 GETTABLEKS                       R2 R3 K2 ["clearTransforms"]
        15 MOVE                             R3 R1
        16 MOVE                             R4 R0
        17 CALL                             R2 2 0
-       18 GETUPVAL                         R3 1
-       19 GETTABLEKS                       R2 R3 K3 ["addTPoseWaypoint"]
-       21 LOADK                            R3 K4 ["Reset All"]
-       22 CALL                             R2 1 0
-       23 RETURN                           R0 0
+       18 GETUPVAL                         R3 0
+       19 GETTABLEKS                       R2 R3 K3 ["clearSize"]
+       21 MOVE                             R3 R1
+       22 MOVE                             R4 R0
+       23 CALL                             R2 2 0
+       24 GETUPVAL                         R3 1
+       25 GETTABLEKS                       R2 R3 K4 ["addTPoseWaypoint"]
+       27 LOADK                            R3 K5 ["Reset All"]
+       28 CALL                             R2 1 0
+       29 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R5 0

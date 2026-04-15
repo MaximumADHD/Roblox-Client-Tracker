@@ -64,6 +64,7 @@ local FIntAbuseReportTabClearCapturedScreenshotOnCloseFixDelay =
 	game:DefineFastInt("AbuseReportTabClearCapturedScreenshotOnCloseFixDelay", 500)
 local FFlagMigrateAllOsaMessagingToCentralService =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagMigrateAllOsaMessagingToCentralService
+local FFlagIEMReportScrollingFix = game:DefineFastFlag("IEMReportScrollingFix", false)
 
 local isShowSelectInSceneReportMenu = require(root.Utility.isShowSelectInSceneReportMenu)
 
@@ -300,7 +301,7 @@ local AbuseReportMenuNew = function(props: Props)
 				Size = UDim2.new(1, 0, 0, 0),
 				AutomaticSize = Enum.AutomaticSize.Y,
 			},
-			isIsolated = true,
+			isIsolated = if FFlagIEMReportScrollingFix then nil else true,
 			isAutoFocusRoot = true,
 		}, {
 			-- placeholder frame added to attach our modal selector and screenshot dialog

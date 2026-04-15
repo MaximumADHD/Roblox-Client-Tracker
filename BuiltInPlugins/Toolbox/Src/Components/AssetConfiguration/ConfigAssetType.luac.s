@@ -1410,412 +1410,411 @@ PROTO_44:
       122 CALL                             R26 3 2
       123 MOVE                             R24 R26
       124 MOVE                             R25 R27
-      125 LOADNIL                          R26
-      126 GETUPVAL                         R27 5
-      127 CALL                             R27 0 1
-      128 JUMPIFNOT                        R27 ; [+6]
-      129 LOADK                            R29 K17 ["AssetConfig"]
-      130 LOADK                            R30 K33 ["EmoteAnimationWarning"]
-      131 NAMECALL                         R27 R3 K19 ["getText"]
-      133 CALL                             R27 3 1
-      134 MOVE                             R26 R27
-      135 GETUPVAL                         R27 6
-      136 JUMPIFNOT                        R27 ; [+9]
-      137 GETTABLEKS                       R27 R2 K34 ["displayAssetSelection"]
-      139 JUMPIFNOTEQKNIL                  R27 ; [+6]
-      141 NEWCLOSURE                       R29 P0
-      142 CAPTURE                          VAL R11
-      143 NAMECALL                         R27 R0 K35 ["setState"]
-      145 CALL                             R27 2 0
-      146 GETUPVAL                         R28 6
-      147 JUMPIFNOT                        R28 ; [+3]
-      148 GETTABLEKS                       R27 R2 K34 ["displayAssetSelection"]
-      150 JUMP                             ; [+1]
-      151 NOT                              R27 R11
-      152 GETUPVAL                         R29 7
-      153 GETTABLEKS                       R28 R29 K36 ["createElement"]
-      155 GETUPVAL                         R29 8
-      156 DUPTABLE                         R30 K46 [{"AutomaticSize", "BackgroundColor3", "BackgroundTransparency", "HorizontalAlignment", "Layout", "LayoutOrder", "Padding", "Spacing", "VerticalAlignment"}]
-      157 GETIMPORT                        R31 K48 [Enum.AutomaticSize.XY]
-      159 SETTABLEKS                       R31 R30 K37 ["AutomaticSize"]
-      161 GETTABLEKS                       R32 R4 K49 ["typeSelection"]
-      163 GETTABLEKS                       R31 R32 K50 ["background"]
-      165 SETTABLEKS                       R31 R30 K38 ["BackgroundColor3"]
-      167 LOADN                            R31 1
-      168 SETTABLEKS                       R31 R30 K39 ["BackgroundTransparency"]
-      170 GETIMPORT                        R31 K52 [Enum.HorizontalAlignment.Left]
-      172 SETTABLEKS                       R31 R30 K40 ["HorizontalAlignment"]
-      174 GETIMPORT                        R31 K55 [Enum.FillDirection.Vertical]
-      176 SETTABLEKS                       R31 R30 K41 ["Layout"]
-      178 GETTABLEKS                       R31 R1 K42 ["LayoutOrder"]
-      180 SETTABLEKS                       R31 R30 K42 ["LayoutOrder"]
-      182 DUPTABLE                         R31 K57 [{"Bottom"}]
-      183 LOADN                            R32 32
-      184 SETTABLEKS                       R32 R31 K56 ["Bottom"]
-      186 SETTABLEKS                       R31 R30 K43 ["Padding"]
-      188 LOADN                            R31 30
-      189 SETTABLEKS                       R31 R30 K44 ["Spacing"]
-      191 GETIMPORT                        R31 K59 [Enum.VerticalAlignment.Top]
-      193 SETTABLEKS                       R31 R30 K45 ["VerticalAlignment"]
-      195 DUPTABLE                         R31 K63 [{"ValidationErrorMessageBox", "ContentTypeRadioButtons", "AssetCategoryDropDown", "EmoteAnimationWarning"}]
-      196 JUMPIFNOT                        R23 ; [+64]
-      197 GETUPVAL                         R33 7
-      198 GETTABLEKS                       R32 R33 K36 ["createElement"]
-      200 GETUPVAL                         R33 9
-      201 DUPTABLE                         R34 K74 [{"buttons", "Icon", "InformativeText", "onButtonClicked", "onClose", "Text", "Title", "isScrollable", "messageBoxHeight", "isResizable"}]
-      202 NEWTABLE                         R35 0 1
-      204 DUPTABLE                         R36 K78 [{"Text", "Font", "TextSize", "action"}]
-      205 SETTABLEKS                       R13 R36 K69 ["Text"]
-      207 GETTABLEKS                       R37 R4 K75 ["Font"]
-      209 SETTABLEKS                       R37 R36 K75 ["Font"]
-      211 GETTABLEKS                       R37 R4 K76 ["TextSize"]
-      213 SETTABLEKS                       R37 R36 K76 ["TextSize"]
-      215 LOADK                            R37 K79 ["yes"]
-      216 SETTABLEKS                       R37 R36 K77 ["action"]
-      218 SETLIST                          R35 R36 1 [1]
-      220 SETTABLEKS                       R35 R34 K64 ["buttons"]
-      222 LOADK                            R35 K80 ["rbxasset://textures/ui/ErrorIcon.png"]
-      223 SETTABLEKS                       R35 R34 K65 ["Icon"]
-      225 NAMECALL                         R35 R0 K81 ["getAvatarItemCategoryErrors"]
-      227 CALL                             R35 1 1
-      228 SETTABLEKS                       R35 R34 K66 ["InformativeText"]
-      230 GETTABLEKS                       R35 R0 K82 ["onValidationErrorMessageBoxClosed"]
-      232 SETTABLEKS                       R35 R34 K67 ["onButtonClicked"]
-      234 GETTABLEKS                       R35 R0 K82 ["onValidationErrorMessageBoxClosed"]
-      236 SETTABLEKS                       R35 R34 K68 ["onClose"]
-      238 NAMECALL                         R35 R0 K83 ["getAvatarItemCategoryErrorsPrimaryText"]
-      240 CALL                             R35 1 1
-      241 SETTABLEKS                       R35 R34 K69 ["Text"]
-      243 SETTABLEKS                       R12 R34 K70 ["Title"]
-      245 LOADB                            R35 1
-      246 SETTABLEKS                       R35 R34 K71 ["isScrollable"]
-      248 LOADN                            R35 244
-      249 SETTABLEKS                       R35 R34 K72 ["messageBoxHeight"]
-      251 GETUPVAL                         R36 10
-      252 CALL                             R36 0 1
-      253 JUMPIFNOT                        R36 ; [+2]
-      254 LOADB                            R35 1
-      255 JUMP                             ; [+1]
-      256 LOADNIL                          R35
-      257 SETTABLEKS                       R35 R34 K73 ["isResizable"]
-      259 CALL                             R32 2 1
-      260 JUMP                             ; [+1]
-      261 LOADNIL                          R32
-      262 SETTABLEKS                       R32 R31 K60 ["ValidationErrorMessageBox"]
-      264 JUMPIFNOT                        R27 ; [+50]
-      265 GETUPVAL                         R33 11
-      266 GETTABLEKS                       R32 R33 K36 ["createElement"]
-      268 GETUPVAL                         R33 12
-      269 DUPTABLE                         R34 K96 [{"layoutOrder", "contentTypeTitle", "currentSelectedRadioButtonKey", "onRadioButtonClicked", "radioButtonDevelopmentItemText", "radioButtonAvatarItemText", "warningMessageText", "warningMessageLinkMap", "isModel", "modelPublishWarningText", "insufficientRobuxWarningText", "theme"}]
-      270 NAMECALL                         R35 R5 K97 ["getNextOrder"]
-      272 CALL                             R35 1 1
-      273 SETTABLEKS                       R35 R34 K84 ["layoutOrder"]
-      275 SETTABLEKS                       R14 R34 K85 ["contentTypeTitle"]
-      277 GETTABLEKS                       R35 R2 K86 ["currentSelectedRadioButtonKey"]
-      279 SETTABLEKS                       R35 R34 K86 ["currentSelectedRadioButtonKey"]
-      281 GETTABLEKS                       R35 R0 K87 ["onRadioButtonClicked"]
-      283 SETTABLEKS                       R35 R34 K87 ["onRadioButtonClicked"]
-      285 GETUPVAL                         R36 13
-      286 CALL                             R36 0 1
-      287 JUMPIFNOT                        R36 ; [+2]
-      288 LOADNIL                          R35
-      289 JUMP                             ; [+1]
-      290 MOVE                             R35 R15
-      291 SETTABLEKS                       R35 R34 K88 ["radioButtonDevelopmentItemText"]
-      293 GETUPVAL                         R36 13
-      294 CALL                             R36 0 1
-      295 JUMPIFNOT                        R36 ; [+2]
-      296 LOADNIL                          R35
-      297 JUMP                             ; [+1]
-      298 MOVE                             R35 R16
-      299 SETTABLEKS                       R35 R34 K89 ["radioButtonAvatarItemText"]
-      301 SETTABLEKS                       R24 R34 K90 ["warningMessageText"]
-      303 SETTABLEKS                       R25 R34 K91 ["warningMessageLinkMap"]
-      305 SETTABLEKS                       R10 R34 K92 ["isModel"]
-      307 SETTABLEKS                       R18 R34 K93 ["modelPublishWarningText"]
-      309 SETTABLEKS                       R22 R34 K94 ["insufficientRobuxWarningText"]
-      311 SETTABLEKS                       R4 R34 K95 ["theme"]
-      313 CALL                             R32 2 1
-      314 JUMP                             ; [+1]
-      315 LOADNIL                          R32
-      316 SETTABLEKS                       R32 R31 K61 ["ContentTypeRadioButtons"]
-      318 JUMPIFNOT                        R27 ; [+266]
-      319 GETUPVAL                         R33 7
-      320 GETTABLEKS                       R32 R33 K36 ["createElement"]
-      322 GETUPVAL                         R33 14
-      323 DUPTABLE                         R34 K98 [{"AutomaticSize", "LayoutOrder", "Title"}]
-      324 GETIMPORT                        R35 K48 [Enum.AutomaticSize.XY]
-      326 SETTABLEKS                       R35 R34 K37 ["AutomaticSize"]
-      328 NAMECALL                         R35 R5 K97 ["getNextOrder"]
-      330 CALL                             R35 1 1
-      331 SETTABLEKS                       R35 R34 K42 ["LayoutOrder"]
-      333 SETTABLEKS                       R17 R34 K70 ["Title"]
-      335 DUPTABLE                         R35 K103 [{"Dropdown", "ValidationResult", "ErrorIconButton", "ErrorMessageTextButton"}]
-      336 GETUPVAL                         R37 13
-      337 CALL                             R37 0 1
-      338 JUMPIFNOT                        R37 ; [+38]
-      339 GETUPVAL                         R37 11
-      340 GETTABLEKS                       R36 R37 K36 ["createElement"]
-      342 GETUPVAL                         R37 15
-      343 DUPTABLE                         R38 K110 [{"LayoutOrder", "items", "selectedDropDownIndex", "onItemClicked", "placeholder", "isDisabled", "width"}]
-      344 LOADN                            R39 1
-      345 SETTABLEKS                       R39 R38 K42 ["LayoutOrder"]
-      347 MOVE                             R41 R3
-      348 NAMECALL                         R39 R0 K111 ["getDropdownItems"]
-      350 CALL                             R39 2 1
-      351 SETTABLEKS                       R39 R38 K104 ["items"]
-      353 NAMECALL                         R39 R0 K112 ["getAssetCategoryIndex"]
-      355 CALL                             R39 1 1
-      356 SETTABLEKS                       R39 R38 K105 ["selectedDropDownIndex"]
-      358 GETTABLEKS                       R39 R0 K113 ["setAssetCategoryIndex"]
-      360 SETTABLEKS                       R39 R38 K106 ["onItemClicked"]
-      362 LOADK                            R41 K99 ["Dropdown"]
-      363 LOADK                            R42 K114 ["ChooseOne"]
-      364 NAMECALL                         R39 R3 K19 ["getText"]
-      366 CALL                             R39 3 1
-      367 SETTABLEKS                       R39 R38 K107 ["placeholder"]
-      369 LOADB                            R39 0
-      370 SETTABLEKS                       R39 R38 K108 ["isDisabled"]
-      372 LOADN                            R39 144
-      373 SETTABLEKS                       R39 R38 K109 ["width"]
-      375 CALL                             R36 2 1
-      376 JUMP                             ; [+39]
-      377 GETUPVAL                         R37 7
-      378 GETTABLEKS                       R36 R37 K36 ["createElement"]
-      380 GETUPVAL                         R37 16
-      381 DUPTABLE                         R38 K119 [{"fontSize", "items", "onItemClicked", "rowHeight", "selectedDropDownIndex", "Size", "visibleDropDownCount"}]
-      382 LOADN                            R39 20
-      383 SETTABLEKS                       R39 R38 K115 ["fontSize"]
-      385 MOVE                             R41 R3
-      386 NAMECALL                         R39 R0 K111 ["getDropdownItems"]
-      388 CALL                             R39 2 1
-      389 SETTABLEKS                       R39 R38 K104 ["items"]
-      391 GETTABLEKS                       R39 R0 K113 ["setAssetCategoryIndex"]
-      393 SETTABLEKS                       R39 R38 K106 ["onItemClicked"]
-      395 LOADN                            R39 24
-      396 SETTABLEKS                       R39 R38 K116 ["rowHeight"]
-      398 NAMECALL                         R39 R0 K112 ["getAssetCategoryIndex"]
-      400 CALL                             R39 1 1
-      401 SETTABLEKS                       R39 R38 K105 ["selectedDropDownIndex"]
-      403 GETIMPORT                        R39 K121 [UDim2.new]
-      405 LOADN                            R40 0
-      406 LOADN                            R41 144
-      407 LOADN                            R42 0
-      408 LOADN                            R43 40
-      409 CALL                             R39 4 1
-      410 SETTABLEKS                       R39 R38 K117 ["Size"]
-      412 LOADN                            R39 6
-      413 SETTABLEKS                       R39 R38 K118 ["visibleDropDownCount"]
-      415 CALL                             R36 2 1
-      416 SETTABLEKS                       R36 R35 K99 ["Dropdown"]
-      418 JUMPIF                           R6 ; [+44]
-      419 GETUPVAL                         R37 7
-      420 GETTABLEKS                       R36 R37 K36 ["createElement"]
-      422 GETUPVAL                         R37 17
-      423 DUPTABLE                         R38 K127 [{"AutomaticSize", "Position", "Text", "TextColor", "TextWrapped", "TextXAlignment", "TextYAlignment"}]
-      424 GETIMPORT                        R39 K48 [Enum.AutomaticSize.XY]
-      426 SETTABLEKS                       R39 R38 K37 ["AutomaticSize"]
-      428 GETIMPORT                        R39 K121 [UDim2.new]
-      430 LOADN                            R40 0
-      431 ADDK                             R42 R7 K129 [400]
-      432 ADDK                             R41 R42 K128 [16]
-      433 LOADN                            R42 0
-      434 SUBRK                            R44 R131 K8 ["FONT_SIZE_TITLE"]
-      435 DIVK                             R43 R44 K130 [2]
-      436 CALL                             R39 4 1
-      437 SETTABLEKS                       R39 R38 K122 ["Position"]
-      439 NAMECALL                         R39 R0 K132 ["getValidationStatusMessage"]
-      441 CALL                             R39 1 1
-      442 SETTABLEKS                       R39 R38 K69 ["Text"]
-      444 MOVE                             R41 R4
-      445 NAMECALL                         R39 R0 K133 ["getValidationStatusColor"]
-      447 CALL                             R39 2 1
-      448 SETTABLEKS                       R39 R38 K123 ["TextColor"]
-      450 LOADB                            R39 1
-      451 SETTABLEKS                       R39 R38 K124 ["TextWrapped"]
-      453 GETIMPORT                        R39 K134 [Enum.TextXAlignment.Left]
-      455 SETTABLEKS                       R39 R38 K125 ["TextXAlignment"]
-      457 GETIMPORT                        R39 K136 [Enum.TextYAlignment.Center]
-      459 SETTABLEKS                       R39 R38 K126 ["TextYAlignment"]
-      461 CALL                             R36 2 1
-      462 JUMP                             ; [+1]
-      463 LOADNIL                          R36
-      464 SETTABLEKS                       R36 R35 K100 ["ValidationResult"]
-      466 JUMPIFNOT                        R6 ; [+47]
-      467 GETUPVAL                         R37 7
-      468 GETTABLEKS                       R36 R37 K36 ["createElement"]
-      470 LOADK                            R37 K137 ["ImageButton"]
-      471 NEWTABLE                         R38 8 0
-      473 LOADB                            R39 0
-      474 SETTABLEKS                       R39 R38 K138 ["AutoButtonColor"]
-      476 LOADN                            R39 1
-      477 SETTABLEKS                       R39 R38 K39 ["BackgroundTransparency"]
-      479 LOADK                            R39 K80 ["rbxasset://textures/ui/ErrorIcon.png"]
-      480 SETTABLEKS                       R39 R38 K139 ["Image"]
-      482 MOVE                             R41 R4
-      483 NAMECALL                         R39 R0 K133 ["getValidationStatusColor"]
-      485 CALL                             R39 2 1
-      486 SETTABLEKS                       R39 R38 K140 ["ImageColor3"]
-      488 GETIMPORT                        R39 K121 [UDim2.new]
-      490 LOADN                            R40 0
-      491 LOADN                            R41 152
-      492 LOADN                            R42 0
-      493 LOADN                            R43 8
-      494 CALL                             R39 4 1
-      495 SETTABLEKS                       R39 R38 K122 ["Position"]
-      497 GETIMPORT                        R39 K142 [UDim2.fromOffset]
-      499 LOADN                            R40 24
-      500 LOADN                            R41 24
-      501 CALL                             R39 2 1
-      502 SETTABLEKS                       R39 R38 K117 ["Size"]
-      504 GETUPVAL                         R41 7
-      505 GETTABLEKS                       R40 R41 K143 ["Event"]
-      507 GETTABLEKS                       R39 R40 K144 ["Activated"]
-      509 GETTABLEKS                       R40 R0 K145 ["openValidationErrorMessageBox"]
-      511 SETTABLE                         R40 R38 R39
-      512 CALL                             R36 2 1
-      513 JUMP                             ; [+1]
-      514 LOADNIL                          R36
-      515 SETTABLEKS                       R36 R35 K101 ["ErrorIconButton"]
-      517 JUMPIFNOT                        R6 ; [+62]
-      518 GETUPVAL                         R37 7
-      519 GETTABLEKS                       R36 R37 K36 ["createElement"]
-      521 LOADK                            R37 K146 ["TextButton"]
-      522 NEWTABLE                         R38 16 0
-      524 GETIMPORT                        R39 K48 [Enum.AutomaticSize.XY]
-      526 SETTABLEKS                       R39 R38 K37 ["AutomaticSize"]
-      528 LOADN                            R39 1
-      529 SETTABLEKS                       R39 R38 K39 ["BackgroundTransparency"]
-      531 GETTABLEKS                       R39 R4 K75 ["Font"]
-      533 SETTABLEKS                       R39 R38 K75 ["Font"]
-      535 GETIMPORT                        R39 K121 [UDim2.new]
-      537 LOADN                            R40 0
-      538 ADDK                             R42 R7 K129 [400]
-      539 ADDK                             R41 R42 K128 [16]
-      540 LOADN                            R42 0
-      541 SUBRK                            R44 R131 K8 ["FONT_SIZE_TITLE"]
-      542 DIVK                             R43 R44 K130 [2]
-      543 CALL                             R39 4 1
-      544 SETTABLEKS                       R39 R38 K122 ["Position"]
-      546 NAMECALL                         R39 R0 K132 ["getValidationStatusMessage"]
-      548 CALL                             R39 1 1
-      549 SETTABLEKS                       R39 R38 K69 ["Text"]
-      551 MOVE                             R41 R4
-      552 NAMECALL                         R39 R0 K133 ["getValidationStatusColor"]
-      554 CALL                             R39 2 1
-      555 SETTABLEKS                       R39 R38 K147 ["TextColor3"]
-      557 GETUPVAL                         R40 2
-      558 GETTABLEKS                       R39 R40 K8 ["FONT_SIZE_TITLE"]
-      560 SETTABLEKS                       R39 R38 K76 ["TextSize"]
-      562 GETIMPORT                        R39 K134 [Enum.TextXAlignment.Left]
-      564 SETTABLEKS                       R39 R38 K125 ["TextXAlignment"]
-      566 GETIMPORT                        R39 K136 [Enum.TextYAlignment.Center]
-      568 SETTABLEKS                       R39 R38 K126 ["TextYAlignment"]
-      570 GETUPVAL                         R41 7
-      571 GETTABLEKS                       R40 R41 K143 ["Event"]
-      573 GETTABLEKS                       R39 R40 K144 ["Activated"]
-      575 GETTABLEKS                       R40 R0 K145 ["openValidationErrorMessageBox"]
-      577 SETTABLE                         R40 R38 R39
-      578 CALL                             R36 2 1
-      579 JUMP                             ; [+1]
-      580 LOADNIL                          R36
-      581 SETTABLEKS                       R36 R35 K102 ["ErrorMessageTextButton"]
-      583 CALL                             R32 3 1
-      584 JUMP                             ; [+1]
-      585 LOADNIL                          R32
-      586 SETTABLEKS                       R32 R31 K62 ["AssetCategoryDropDown"]
-      588 GETUPVAL                         R33 5
-      589 CALL                             R33 0 1
-      590 JUMPIFNOT                        R33 ; [+132]
-      591 GETIMPORT                        R33 K149 [Enum.AssetType.EmoteAnimation]
-      593 JUMPIFNOTEQ                      R9 R33 ; [+129]
-      595 GETUPVAL                         R33 7
-      596 GETTABLEKS                       R32 R33 K36 ["createElement"]
-      598 GETUPVAL                         R33 8
-      599 DUPTABLE                         R34 K150 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Size", "Spacing", "VerticalAlignment"}]
-      600 GETIMPORT                        R35 K152 [Enum.AutomaticSize.Y]
-      602 SETTABLEKS                       R35 R34 K37 ["AutomaticSize"]
-      604 GETIMPORT                        R35 K52 [Enum.HorizontalAlignment.Left]
-      606 SETTABLEKS                       R35 R34 K40 ["HorizontalAlignment"]
-      608 GETIMPORT                        R35 K154 [Enum.FillDirection.Horizontal]
-      610 SETTABLEKS                       R35 R34 K41 ["Layout"]
-      612 NAMECALL                         R35 R5 K97 ["getNextOrder"]
-      614 CALL                             R35 1 1
-      615 SETTABLEKS                       R35 R34 K42 ["LayoutOrder"]
-      617 GETIMPORT                        R35 K156 [UDim2.fromScale]
-      619 LOADN                            R36 1
-      620 LOADN                            R37 0
-      621 CALL                             R35 2 1
-      622 SETTABLEKS                       R35 R34 K117 ["Size"]
-      624 LOADN                            R35 8
-      625 SETTABLEKS                       R35 R34 K44 ["Spacing"]
-      627 GETIMPORT                        R35 K59 [Enum.VerticalAlignment.Top]
-      629 SETTABLEKS                       R35 R34 K45 ["VerticalAlignment"]
-      631 DUPTABLE                         R35 K158 [{"Icon", "UGCWarningText"}]
-      632 GETUPVAL                         R37 7
-      633 GETTABLEKS                       R36 R37 K36 ["createElement"]
-      635 LOADK                            R37 K159 ["ImageLabel"]
-      636 DUPTABLE                         R38 K160 [{"BackgroundTransparency", "Image", "ImageColor3", "LayoutOrder", "Size"}]
-      637 LOADN                            R39 1
-      638 SETTABLEKS                       R39 R38 K39 ["BackgroundTransparency"]
-      640 GETUPVAL                         R40 18
-      641 GETTABLEKS                       R39 R40 K161 ["WARNING_ICON"]
-      643 SETTABLEKS                       R39 R38 K139 ["Image"]
-      645 GETTABLEKS                       R40 R4 K162 ["assetConfig"]
-      647 GETTABLEKS                       R39 R40 K163 ["warningColor"]
-      649 SETTABLEKS                       R39 R38 K140 ["ImageColor3"]
+      125 LOADK                            R28 K17 ["AssetConfig"]
+      126 LOADK                            R29 K33 ["EmoteAnimationWarning"]
+      127 NAMECALL                         R26 R3 K19 ["getText"]
+      129 CALL                             R26 3 1
+      130 GETUPVAL                         R27 5
+      131 JUMPIFNOT                        R27 ; [+9]
+      132 GETTABLEKS                       R27 R2 K34 ["displayAssetSelection"]
+      134 JUMPIFNOTEQKNIL                  R27 ; [+6]
+      136 NEWCLOSURE                       R29 P0
+      137 CAPTURE                          VAL R11
+      138 NAMECALL                         R27 R0 K35 ["setState"]
+      140 CALL                             R27 2 0
+      141 GETUPVAL                         R28 5
+      142 JUMPIFNOT                        R28 ; [+3]
+      143 GETTABLEKS                       R27 R2 K34 ["displayAssetSelection"]
+      145 JUMP                             ; [+1]
+      146 NOT                              R27 R11
+      147 GETUPVAL                         R29 6
+      148 GETTABLEKS                       R28 R29 K36 ["createElement"]
+      150 GETUPVAL                         R29 7
+      151 DUPTABLE                         R30 K46 [{"AutomaticSize", "BackgroundColor3", "BackgroundTransparency", "HorizontalAlignment", "Layout", "LayoutOrder", "Padding", "Spacing", "VerticalAlignment"}]
+      152 GETIMPORT                        R31 K48 [Enum.AutomaticSize.XY]
+      154 SETTABLEKS                       R31 R30 K37 ["AutomaticSize"]
+      156 GETTABLEKS                       R32 R4 K49 ["typeSelection"]
+      158 GETTABLEKS                       R31 R32 K50 ["background"]
+      160 SETTABLEKS                       R31 R30 K38 ["BackgroundColor3"]
+      162 LOADN                            R31 1
+      163 SETTABLEKS                       R31 R30 K39 ["BackgroundTransparency"]
+      165 GETIMPORT                        R31 K52 [Enum.HorizontalAlignment.Left]
+      167 SETTABLEKS                       R31 R30 K40 ["HorizontalAlignment"]
+      169 GETIMPORT                        R31 K55 [Enum.FillDirection.Vertical]
+      171 SETTABLEKS                       R31 R30 K41 ["Layout"]
+      173 GETTABLEKS                       R31 R1 K42 ["LayoutOrder"]
+      175 SETTABLEKS                       R31 R30 K42 ["LayoutOrder"]
+      177 DUPTABLE                         R31 K57 [{"Bottom"}]
+      178 LOADN                            R32 32
+      179 SETTABLEKS                       R32 R31 K56 ["Bottom"]
+      181 SETTABLEKS                       R31 R30 K43 ["Padding"]
+      183 LOADN                            R31 30
+      184 SETTABLEKS                       R31 R30 K44 ["Spacing"]
+      186 GETIMPORT                        R31 K59 [Enum.VerticalAlignment.Top]
+      188 SETTABLEKS                       R31 R30 K45 ["VerticalAlignment"]
+      190 DUPTABLE                         R31 K63 [{"ValidationErrorMessageBox", "ContentTypeRadioButtons", "AssetCategoryDropDown", "EmoteAnimationWarning"}]
+      191 JUMPIFNOT                        R23 ; [+59]
+      192 GETUPVAL                         R33 6
+      193 GETTABLEKS                       R32 R33 K36 ["createElement"]
+      195 GETUPVAL                         R33 8
+      196 DUPTABLE                         R34 K74 [{"buttons", "Icon", "InformativeText", "onButtonClicked", "onClose", "Text", "Title", "isScrollable", "messageBoxHeight", "isResizable"}]
+      197 NEWTABLE                         R35 0 1
+      199 DUPTABLE                         R36 K78 [{"Text", "Font", "TextSize", "action"}]
+      200 SETTABLEKS                       R13 R36 K69 ["Text"]
+      202 GETTABLEKS                       R37 R4 K75 ["Font"]
+      204 SETTABLEKS                       R37 R36 K75 ["Font"]
+      206 GETTABLEKS                       R37 R4 K76 ["TextSize"]
+      208 SETTABLEKS                       R37 R36 K76 ["TextSize"]
+      210 LOADK                            R37 K79 ["yes"]
+      211 SETTABLEKS                       R37 R36 K77 ["action"]
+      213 SETLIST                          R35 R36 1 [1]
+      215 SETTABLEKS                       R35 R34 K64 ["buttons"]
+      217 LOADK                            R35 K80 ["rbxasset://textures/ui/ErrorIcon.png"]
+      218 SETTABLEKS                       R35 R34 K65 ["Icon"]
+      220 NAMECALL                         R35 R0 K81 ["getAvatarItemCategoryErrors"]
+      222 CALL                             R35 1 1
+      223 SETTABLEKS                       R35 R34 K66 ["InformativeText"]
+      225 GETTABLEKS                       R35 R0 K82 ["onValidationErrorMessageBoxClosed"]
+      227 SETTABLEKS                       R35 R34 K67 ["onButtonClicked"]
+      229 GETTABLEKS                       R35 R0 K82 ["onValidationErrorMessageBoxClosed"]
+      231 SETTABLEKS                       R35 R34 K68 ["onClose"]
+      233 NAMECALL                         R35 R0 K83 ["getAvatarItemCategoryErrorsPrimaryText"]
+      235 CALL                             R35 1 1
+      236 SETTABLEKS                       R35 R34 K69 ["Text"]
+      238 SETTABLEKS                       R12 R34 K70 ["Title"]
+      240 LOADB                            R35 1
+      241 SETTABLEKS                       R35 R34 K71 ["isScrollable"]
+      243 LOADN                            R35 244
+      244 SETTABLEKS                       R35 R34 K72 ["messageBoxHeight"]
+      246 LOADB                            R35 1
+      247 SETTABLEKS                       R35 R34 K73 ["isResizable"]
+      249 CALL                             R32 2 1
+      250 JUMP                             ; [+1]
+      251 LOADNIL                          R32
+      252 SETTABLEKS                       R32 R31 K60 ["ValidationErrorMessageBox"]
+      254 JUMPIFNOT                        R27 ; [+50]
+      255 GETUPVAL                         R33 9
+      256 GETTABLEKS                       R32 R33 K36 ["createElement"]
+      258 GETUPVAL                         R33 10
+      259 DUPTABLE                         R34 K96 [{"layoutOrder", "contentTypeTitle", "currentSelectedRadioButtonKey", "onRadioButtonClicked", "radioButtonDevelopmentItemText", "radioButtonAvatarItemText", "warningMessageText", "warningMessageLinkMap", "isModel", "modelPublishWarningText", "insufficientRobuxWarningText", "theme"}]
+      260 NAMECALL                         R35 R5 K97 ["getNextOrder"]
+      262 CALL                             R35 1 1
+      263 SETTABLEKS                       R35 R34 K84 ["layoutOrder"]
+      265 SETTABLEKS                       R14 R34 K85 ["contentTypeTitle"]
+      267 GETTABLEKS                       R35 R2 K86 ["currentSelectedRadioButtonKey"]
+      269 SETTABLEKS                       R35 R34 K86 ["currentSelectedRadioButtonKey"]
+      271 GETTABLEKS                       R35 R0 K87 ["onRadioButtonClicked"]
+      273 SETTABLEKS                       R35 R34 K87 ["onRadioButtonClicked"]
+      275 GETUPVAL                         R36 11
+      276 CALL                             R36 0 1
+      277 JUMPIFNOT                        R36 ; [+2]
+      278 LOADNIL                          R35
+      279 JUMP                             ; [+1]
+      280 MOVE                             R35 R15
+      281 SETTABLEKS                       R35 R34 K88 ["radioButtonDevelopmentItemText"]
+      283 GETUPVAL                         R36 11
+      284 CALL                             R36 0 1
+      285 JUMPIFNOT                        R36 ; [+2]
+      286 LOADNIL                          R35
+      287 JUMP                             ; [+1]
+      288 MOVE                             R35 R16
+      289 SETTABLEKS                       R35 R34 K89 ["radioButtonAvatarItemText"]
+      291 SETTABLEKS                       R24 R34 K90 ["warningMessageText"]
+      293 SETTABLEKS                       R25 R34 K91 ["warningMessageLinkMap"]
+      295 SETTABLEKS                       R10 R34 K92 ["isModel"]
+      297 SETTABLEKS                       R18 R34 K93 ["modelPublishWarningText"]
+      299 SETTABLEKS                       R22 R34 K94 ["insufficientRobuxWarningText"]
+      301 SETTABLEKS                       R4 R34 K95 ["theme"]
+      303 CALL                             R32 2 1
+      304 JUMP                             ; [+1]
+      305 LOADNIL                          R32
+      306 SETTABLEKS                       R32 R31 K61 ["ContentTypeRadioButtons"]
+      308 JUMPIFNOT                        R27 ; [+293]
+      309 GETUPVAL                         R33 11
+      310 CALL                             R33 0 1
+      311 JUMPIFNOT                        R33 ; [+65]
+      312 GETUPVAL                         R33 9
+      313 GETTABLEKS                       R32 R33 K36 ["createElement"]
+      315 GETUPVAL                         R33 12
+      316 DUPTABLE                         R34 K98 [{"LayoutOrder", "Title"}]
+      317 NAMECALL                         R35 R5 K97 ["getNextOrder"]
+      319 CALL                             R35 1 1
+      320 SETTABLEKS                       R35 R34 K42 ["LayoutOrder"]
+      322 SETTABLEKS                       R17 R34 K70 ["Title"]
+      324 DUPTABLE                         R35 K100 [{"AssetCategoryRow"}]
+      325 GETUPVAL                         R37 9
+      326 GETTABLEKS                       R36 R37 K36 ["createElement"]
+      328 GETUPVAL                         R37 13
+      329 DUPTABLE                         R38 K110 [{"dropdownItems", "selectedDropDownIndex", "onItemClicked", "placeholder", "dropdownWidth", "showError", "validationStatusMessage", "validationStatusColor", "onErrorClicked"}]
+      330 MOVE                             R41 R3
+      331 NAMECALL                         R39 R0 K111 ["getDropdownItems"]
+      333 CALL                             R39 2 1
+      334 SETTABLEKS                       R39 R38 K101 ["dropdownItems"]
+      336 NAMECALL                         R39 R0 K112 ["getAssetCategoryIndex"]
+      338 CALL                             R39 1 1
+      339 SETTABLEKS                       R39 R38 K102 ["selectedDropDownIndex"]
+      341 GETTABLEKS                       R39 R0 K113 ["setAssetCategoryIndex"]
+      343 SETTABLEKS                       R39 R38 K103 ["onItemClicked"]
+      345 LOADK                            R41 K114 ["Dropdown"]
+      346 LOADK                            R42 K115 ["ChooseOne"]
+      347 NAMECALL                         R39 R3 K19 ["getText"]
+      349 CALL                             R39 3 1
+      350 SETTABLEKS                       R39 R38 K104 ["placeholder"]
+      352 LOADN                            R39 144
+      353 SETTABLEKS                       R39 R38 K105 ["dropdownWidth"]
+      355 SETTABLEKS                       R6 R38 K106 ["showError"]
+      357 NAMECALL                         R39 R0 K116 ["getValidationStatusMessage"]
+      359 CALL                             R39 1 1
+      360 SETTABLEKS                       R39 R38 K107 ["validationStatusMessage"]
+      362 MOVE                             R41 R4
+      363 NAMECALL                         R39 R0 K117 ["getValidationStatusColor"]
+      365 CALL                             R39 2 1
+      366 SETTABLEKS                       R39 R38 K108 ["validationStatusColor"]
+      368 GETTABLEKS                       R39 R0 K118 ["openValidationErrorMessageBox"]
+      370 SETTABLEKS                       R39 R38 K109 ["onErrorClicked"]
+      372 CALL                             R36 2 1
+      373 SETTABLEKS                       R36 R35 K99 ["AssetCategoryRow"]
+      375 CALL                             R32 3 1
+      376 JUMP                             ; [+226]
+      377 GETUPVAL                         R33 6
+      378 GETTABLEKS                       R32 R33 K36 ["createElement"]
+      380 GETUPVAL                         R33 12
+      381 DUPTABLE                         R34 K119 [{"AutomaticSize", "LayoutOrder", "Title"}]
+      382 GETIMPORT                        R35 K48 [Enum.AutomaticSize.XY]
+      384 SETTABLEKS                       R35 R34 K37 ["AutomaticSize"]
+      386 NAMECALL                         R35 R5 K97 ["getNextOrder"]
+      388 CALL                             R35 1 1
+      389 SETTABLEKS                       R35 R34 K42 ["LayoutOrder"]
+      391 SETTABLEKS                       R17 R34 K70 ["Title"]
+      393 DUPTABLE                         R35 K123 [{"Dropdown", "ValidationResult", "ErrorIconButton", "ErrorMessageTextButton"}]
+      394 GETUPVAL                         R37 6
+      395 GETTABLEKS                       R36 R37 K36 ["createElement"]
+      397 GETUPVAL                         R37 14
+      398 DUPTABLE                         R38 K129 [{"fontSize", "items", "onItemClicked", "rowHeight", "selectedDropDownIndex", "Size", "visibleDropDownCount"}]
+      399 LOADN                            R39 20
+      400 SETTABLEKS                       R39 R38 K124 ["fontSize"]
+      402 MOVE                             R41 R3
+      403 NAMECALL                         R39 R0 K111 ["getDropdownItems"]
+      405 CALL                             R39 2 1
+      406 SETTABLEKS                       R39 R38 K125 ["items"]
+      408 GETTABLEKS                       R39 R0 K113 ["setAssetCategoryIndex"]
+      410 SETTABLEKS                       R39 R38 K103 ["onItemClicked"]
+      412 LOADN                            R39 24
+      413 SETTABLEKS                       R39 R38 K126 ["rowHeight"]
+      415 NAMECALL                         R39 R0 K112 ["getAssetCategoryIndex"]
+      417 CALL                             R39 1 1
+      418 SETTABLEKS                       R39 R38 K102 ["selectedDropDownIndex"]
+      420 GETIMPORT                        R39 K131 [UDim2.new]
+      422 LOADN                            R40 0
+      423 LOADN                            R41 144
+      424 LOADN                            R42 0
+      425 LOADN                            R43 40
+      426 CALL                             R39 4 1
+      427 SETTABLEKS                       R39 R38 K127 ["Size"]
+      429 LOADN                            R39 6
+      430 SETTABLEKS                       R39 R38 K128 ["visibleDropDownCount"]
+      432 CALL                             R36 2 1
+      433 SETTABLEKS                       R36 R35 K114 ["Dropdown"]
+      435 JUMPIF                           R6 ; [+44]
+      436 GETUPVAL                         R37 6
+      437 GETTABLEKS                       R36 R37 K36 ["createElement"]
+      439 GETUPVAL                         R37 15
+      440 DUPTABLE                         R38 K137 [{"AutomaticSize", "Position", "Text", "TextColor", "TextWrapped", "TextXAlignment", "TextYAlignment"}]
+      441 GETIMPORT                        R39 K48 [Enum.AutomaticSize.XY]
+      443 SETTABLEKS                       R39 R38 K37 ["AutomaticSize"]
+      445 GETIMPORT                        R39 K131 [UDim2.new]
+      447 LOADN                            R40 0
+      448 ADDK                             R42 R7 K139 [400]
+      449 ADDK                             R41 R42 K138 [16]
+      450 LOADN                            R42 0
+      451 SUBRK                            R44 R141 K8 ["FONT_SIZE_TITLE"]
+      452 DIVK                             R43 R44 K140 [2]
+      453 CALL                             R39 4 1
+      454 SETTABLEKS                       R39 R38 K132 ["Position"]
+      456 NAMECALL                         R39 R0 K116 ["getValidationStatusMessage"]
+      458 CALL                             R39 1 1
+      459 SETTABLEKS                       R39 R38 K69 ["Text"]
+      461 MOVE                             R41 R4
+      462 NAMECALL                         R39 R0 K117 ["getValidationStatusColor"]
+      464 CALL                             R39 2 1
+      465 SETTABLEKS                       R39 R38 K133 ["TextColor"]
+      467 LOADB                            R39 1
+      468 SETTABLEKS                       R39 R38 K134 ["TextWrapped"]
+      470 GETIMPORT                        R39 K142 [Enum.TextXAlignment.Left]
+      472 SETTABLEKS                       R39 R38 K135 ["TextXAlignment"]
+      474 GETIMPORT                        R39 K144 [Enum.TextYAlignment.Center]
+      476 SETTABLEKS                       R39 R38 K136 ["TextYAlignment"]
+      478 CALL                             R36 2 1
+      479 JUMP                             ; [+1]
+      480 LOADNIL                          R36
+      481 SETTABLEKS                       R36 R35 K120 ["ValidationResult"]
+      483 JUMPIFNOT                        R6 ; [+47]
+      484 GETUPVAL                         R37 6
+      485 GETTABLEKS                       R36 R37 K36 ["createElement"]
+      487 LOADK                            R37 K145 ["ImageButton"]
+      488 NEWTABLE                         R38 8 0
+      490 LOADB                            R39 0
+      491 SETTABLEKS                       R39 R38 K146 ["AutoButtonColor"]
+      493 LOADN                            R39 1
+      494 SETTABLEKS                       R39 R38 K39 ["BackgroundTransparency"]
+      496 LOADK                            R39 K80 ["rbxasset://textures/ui/ErrorIcon.png"]
+      497 SETTABLEKS                       R39 R38 K147 ["Image"]
+      499 MOVE                             R41 R4
+      500 NAMECALL                         R39 R0 K117 ["getValidationStatusColor"]
+      502 CALL                             R39 2 1
+      503 SETTABLEKS                       R39 R38 K148 ["ImageColor3"]
+      505 GETIMPORT                        R39 K131 [UDim2.new]
+      507 LOADN                            R40 0
+      508 LOADN                            R41 152
+      509 LOADN                            R42 0
+      510 LOADN                            R43 8
+      511 CALL                             R39 4 1
+      512 SETTABLEKS                       R39 R38 K132 ["Position"]
+      514 GETIMPORT                        R39 K150 [UDim2.fromOffset]
+      516 LOADN                            R40 24
+      517 LOADN                            R41 24
+      518 CALL                             R39 2 1
+      519 SETTABLEKS                       R39 R38 K127 ["Size"]
+      521 GETUPVAL                         R41 6
+      522 GETTABLEKS                       R40 R41 K151 ["Event"]
+      524 GETTABLEKS                       R39 R40 K152 ["Activated"]
+      526 GETTABLEKS                       R40 R0 K118 ["openValidationErrorMessageBox"]
+      528 SETTABLE                         R40 R38 R39
+      529 CALL                             R36 2 1
+      530 JUMP                             ; [+1]
+      531 LOADNIL                          R36
+      532 SETTABLEKS                       R36 R35 K121 ["ErrorIconButton"]
+      534 JUMPIFNOT                        R6 ; [+62]
+      535 GETUPVAL                         R37 6
+      536 GETTABLEKS                       R36 R37 K36 ["createElement"]
+      538 LOADK                            R37 K153 ["TextButton"]
+      539 NEWTABLE                         R38 16 0
+      541 GETIMPORT                        R39 K48 [Enum.AutomaticSize.XY]
+      543 SETTABLEKS                       R39 R38 K37 ["AutomaticSize"]
+      545 LOADN                            R39 1
+      546 SETTABLEKS                       R39 R38 K39 ["BackgroundTransparency"]
+      548 GETTABLEKS                       R39 R4 K75 ["Font"]
+      550 SETTABLEKS                       R39 R38 K75 ["Font"]
+      552 GETIMPORT                        R39 K131 [UDim2.new]
+      554 LOADN                            R40 0
+      555 ADDK                             R42 R7 K139 [400]
+      556 ADDK                             R41 R42 K138 [16]
+      557 LOADN                            R42 0
+      558 SUBRK                            R44 R141 K8 ["FONT_SIZE_TITLE"]
+      559 DIVK                             R43 R44 K140 [2]
+      560 CALL                             R39 4 1
+      561 SETTABLEKS                       R39 R38 K132 ["Position"]
+      563 NAMECALL                         R39 R0 K116 ["getValidationStatusMessage"]
+      565 CALL                             R39 1 1
+      566 SETTABLEKS                       R39 R38 K69 ["Text"]
+      568 MOVE                             R41 R4
+      569 NAMECALL                         R39 R0 K117 ["getValidationStatusColor"]
+      571 CALL                             R39 2 1
+      572 SETTABLEKS                       R39 R38 K154 ["TextColor3"]
+      574 GETUPVAL                         R40 2
+      575 GETTABLEKS                       R39 R40 K8 ["FONT_SIZE_TITLE"]
+      577 SETTABLEKS                       R39 R38 K76 ["TextSize"]
+      579 GETIMPORT                        R39 K142 [Enum.TextXAlignment.Left]
+      581 SETTABLEKS                       R39 R38 K135 ["TextXAlignment"]
+      583 GETIMPORT                        R39 K144 [Enum.TextYAlignment.Center]
+      585 SETTABLEKS                       R39 R38 K136 ["TextYAlignment"]
+      587 GETUPVAL                         R41 6
+      588 GETTABLEKS                       R40 R41 K151 ["Event"]
+      590 GETTABLEKS                       R39 R40 K152 ["Activated"]
+      592 GETTABLEKS                       R40 R0 K118 ["openValidationErrorMessageBox"]
+      594 SETTABLE                         R40 R38 R39
+      595 CALL                             R36 2 1
+      596 JUMP                             ; [+1]
+      597 LOADNIL                          R36
+      598 SETTABLEKS                       R36 R35 K122 ["ErrorMessageTextButton"]
+      600 CALL                             R32 3 1
+      601 JUMP                             ; [+1]
+      602 LOADNIL                          R32
+      603 SETTABLEKS                       R32 R31 K62 ["AssetCategoryDropDown"]
+      605 GETIMPORT                        R33 K156 [Enum.AssetType.EmoteAnimation]
+      607 JUMPIFNOTEQ                      R9 R33 ; [+124]
+      609 GETUPVAL                         R33 6
+      610 GETTABLEKS                       R32 R33 K36 ["createElement"]
+      612 GETUPVAL                         R33 7
+      613 DUPTABLE                         R34 K157 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Size", "Spacing", "VerticalAlignment"}]
+      614 GETIMPORT                        R35 K159 [Enum.AutomaticSize.Y]
+      616 SETTABLEKS                       R35 R34 K37 ["AutomaticSize"]
+      618 GETIMPORT                        R35 K52 [Enum.HorizontalAlignment.Left]
+      620 SETTABLEKS                       R35 R34 K40 ["HorizontalAlignment"]
+      622 GETIMPORT                        R35 K161 [Enum.FillDirection.Horizontal]
+      624 SETTABLEKS                       R35 R34 K41 ["Layout"]
+      626 NAMECALL                         R35 R5 K97 ["getNextOrder"]
+      628 CALL                             R35 1 1
+      629 SETTABLEKS                       R35 R34 K42 ["LayoutOrder"]
+      631 GETIMPORT                        R35 K163 [UDim2.fromScale]
+      633 LOADN                            R36 1
+      634 LOADN                            R37 0
+      635 CALL                             R35 2 1
+      636 SETTABLEKS                       R35 R34 K127 ["Size"]
+      638 LOADN                            R35 8
+      639 SETTABLEKS                       R35 R34 K44 ["Spacing"]
+      641 GETIMPORT                        R35 K59 [Enum.VerticalAlignment.Top]
+      643 SETTABLEKS                       R35 R34 K45 ["VerticalAlignment"]
+      645 DUPTABLE                         R35 K165 [{"Icon", "UGCWarningText"}]
+      646 GETUPVAL                         R37 6
+      647 GETTABLEKS                       R36 R37 K36 ["createElement"]
+      649 LOADK                            R37 K166 ["ImageLabel"]
+      650 DUPTABLE                         R38 K167 [{"BackgroundTransparency", "Image", "ImageColor3", "LayoutOrder", "Size"}]
       651 LOADN                            R39 1
-      652 SETTABLEKS                       R39 R38 K42 ["LayoutOrder"]
-      654 GETIMPORT                        R39 K142 [UDim2.fromOffset]
-      656 LOADN                            R40 24
-      657 LOADN                            R41 24
-      658 CALL                             R39 2 1
-      659 SETTABLEKS                       R39 R38 K117 ["Size"]
-      661 CALL                             R36 2 1
-      662 SETTABLEKS                       R36 R35 K65 ["Icon"]
-      664 GETUPVAL                         R37 7
-      665 GETTABLEKS                       R36 R37 K36 ["createElement"]
-      667 LOADK                            R37 K164 ["TextLabel"]
-      668 DUPTABLE                         R38 K165 [{"AutomaticSize", "BackgroundTransparency", "Font", "LayoutOrder", "Size", "Text", "TextColor3", "TextSize", "TextWrapped", "TextXAlignment", "TextYAlignment"}]
-      669 GETIMPORT                        R39 K152 [Enum.AutomaticSize.Y]
-      671 SETTABLEKS                       R39 R38 K37 ["AutomaticSize"]
-      673 LOADN                            R39 1
-      674 SETTABLEKS                       R39 R38 K39 ["BackgroundTransparency"]
-      676 GETUPVAL                         R40 2
-      677 GETTABLEKS                       R39 R40 K166 ["FONT"]
-      679 SETTABLEKS                       R39 R38 K75 ["Font"]
-      681 LOADN                            R39 2
-      682 SETTABLEKS                       R39 R38 K42 ["LayoutOrder"]
-      684 GETIMPORT                        R39 K121 [UDim2.new]
-      686 LOADN                            R40 1
-      687 GETUPVAL                         R42 19
-      688 CALL                             R42 0 1
-      689 JUMPIFNOT                        R42 ; [+2]
-      690 LOADN                            R41 224
-      691 JUMP                             ; [+1]
-      692 LOADN                            R41 0
-      693 CALL                             R39 2 1
-      694 SETTABLEKS                       R39 R38 K117 ["Size"]
-      696 SETTABLEKS                       R26 R38 K69 ["Text"]
-      698 GETTABLEKS                       R40 R4 K162 ["assetConfig"]
-      700 GETTABLEKS                       R39 R40 K163 ["warningColor"]
-      702 SETTABLEKS                       R39 R38 K147 ["TextColor3"]
-      704 LOADN                            R39 24
-      705 SETTABLEKS                       R39 R38 K76 ["TextSize"]
-      707 LOADB                            R39 1
-      708 SETTABLEKS                       R39 R38 K124 ["TextWrapped"]
-      710 GETIMPORT                        R39 K134 [Enum.TextXAlignment.Left]
-      712 SETTABLEKS                       R39 R38 K125 ["TextXAlignment"]
-      714 GETIMPORT                        R39 K136 [Enum.TextYAlignment.Center]
-      716 SETTABLEKS                       R39 R38 K126 ["TextYAlignment"]
-      718 CALL                             R36 2 1
-      719 SETTABLEKS                       R36 R35 K157 ["UGCWarningText"]
-      721 CALL                             R32 3 1
-      722 JUMP                             ; [+1]
-      723 LOADNIL                          R32
-      724 SETTABLEKS                       R32 R31 K33 ["EmoteAnimationWarning"]
-      726 CALL                             R28 3 -1
-      727 RETURN                           R28 -1
+      652 SETTABLEKS                       R39 R38 K39 ["BackgroundTransparency"]
+      654 GETUPVAL                         R40 16
+      655 GETTABLEKS                       R39 R40 K168 ["WARNING_ICON"]
+      657 SETTABLEKS                       R39 R38 K147 ["Image"]
+      659 GETTABLEKS                       R40 R4 K169 ["assetConfig"]
+      661 GETTABLEKS                       R39 R40 K170 ["warningColor"]
+      663 SETTABLEKS                       R39 R38 K148 ["ImageColor3"]
+      665 LOADN                            R39 1
+      666 SETTABLEKS                       R39 R38 K42 ["LayoutOrder"]
+      668 GETIMPORT                        R39 K150 [UDim2.fromOffset]
+      670 LOADN                            R40 24
+      671 LOADN                            R41 24
+      672 CALL                             R39 2 1
+      673 SETTABLEKS                       R39 R38 K127 ["Size"]
+      675 CALL                             R36 2 1
+      676 SETTABLEKS                       R36 R35 K65 ["Icon"]
+      678 GETUPVAL                         R37 6
+      679 GETTABLEKS                       R36 R37 K36 ["createElement"]
+      681 LOADK                            R37 K171 ["TextLabel"]
+      682 DUPTABLE                         R38 K172 [{"AutomaticSize", "BackgroundTransparency", "Font", "LayoutOrder", "Size", "Text", "TextColor3", "TextSize", "TextWrapped", "TextXAlignment", "TextYAlignment"}]
+      683 GETIMPORT                        R39 K159 [Enum.AutomaticSize.Y]
+      685 SETTABLEKS                       R39 R38 K37 ["AutomaticSize"]
+      687 LOADN                            R39 1
+      688 SETTABLEKS                       R39 R38 K39 ["BackgroundTransparency"]
+      690 GETUPVAL                         R40 2
+      691 GETTABLEKS                       R39 R40 K173 ["FONT"]
+      693 SETTABLEKS                       R39 R38 K75 ["Font"]
+      695 LOADN                            R39 2
+      696 SETTABLEKS                       R39 R38 K42 ["LayoutOrder"]
+      698 GETIMPORT                        R39 K131 [UDim2.new]
+      700 LOADN                            R40 1
+      701 LOADN                            R41 224
+      702 CALL                             R39 2 1
+      703 SETTABLEKS                       R39 R38 K127 ["Size"]
+      705 SETTABLEKS                       R26 R38 K69 ["Text"]
+      707 GETTABLEKS                       R40 R4 K169 ["assetConfig"]
+      709 GETTABLEKS                       R39 R40 K170 ["warningColor"]
+      711 SETTABLEKS                       R39 R38 K154 ["TextColor3"]
+      713 LOADN                            R39 24
+      714 SETTABLEKS                       R39 R38 K76 ["TextSize"]
+      716 LOADB                            R39 1
+      717 SETTABLEKS                       R39 R38 K134 ["TextWrapped"]
+      719 GETIMPORT                        R39 K142 [Enum.TextXAlignment.Left]
+      721 SETTABLEKS                       R39 R38 K135 ["TextXAlignment"]
+      723 GETIMPORT                        R39 K144 [Enum.TextYAlignment.Center]
+      725 SETTABLEKS                       R39 R38 K136 ["TextYAlignment"]
+      727 CALL                             R36 2 1
+      728 SETTABLEKS                       R36 R35 K164 ["UGCWarningText"]
+      730 CALL                             R32 3 1
+      731 JUMP                             ; [+1]
+      732 LOADNIL                          R32
+      733 SETTABLEKS                       R32 R31 K33 ["EmoteAnimationWarning"]
+      735 CALL                             R28 3 -1
+      736 RETURN                           R28 -1
 
 PROTO_45:
         0 MOVE                             R1 R0
@@ -1974,271 +1973,246 @@ MAIN:
       179 GETTABLEKS                       R33 R34 K41 ["Components"]
       181 GETTABLEKS                       R32 R33 K45 ["AssetConfiguration"]
       183 GETIMPORT                        R33 K10 [require]
-      185 GETTABLEKS                       R34 R32 K46 ["AssetConfigDropdown"]
+      185 GETTABLEKS                       R34 R32 K46 ["AssetCategoryRow"]
       187 CALL                             R33 1 1
       188 GETIMPORT                        R34 K10 [require]
-      190 GETTABLEKS                       R35 R32 K47 ["ConfigSectionWrapper"]
+      190 GETTABLEKS                       R35 R32 K47 ["AssetConfigDropdown"]
       192 CALL                             R34 1 1
       193 GETIMPORT                        R35 K10 [require]
-      195 GETTABLEKS                       R36 R32 K48 ["ContentTypeRadioButtons"]
+      195 GETTABLEKS                       R36 R32 K48 ["ConfigSectionWrapper"]
       197 CALL                             R35 1 1
       198 GETIMPORT                        R36 K10 [require]
-      200 GETTABLEKS                       R39 R0 K20 ["Src"]
-      202 GETTABLEKS                       R38 R39 K49 ["Flags"]
-      204 GETTABLEKS                       R37 R38 K50 ["getFFlagToolboxAssetConfigFoundationMigration"]
-      206 CALL                             R36 1 1
-      207 GETIMPORT                        R37 K10 [require]
-      209 GETTABLEKS                       R38 R32 K51 ["UGCBundleValidation"]
+      200 GETTABLEKS                       R37 R32 K49 ["ContentTypeRadioButtons"]
+      202 CALL                             R36 1 1
+      203 GETIMPORT                        R37 K10 [require]
+      205 GETTABLEKS                       R40 R0 K20 ["Src"]
+      207 GETTABLEKS                       R39 R40 K50 ["Flags"]
+      209 GETTABLEKS                       R38 R39 K51 ["getFFlagToolboxAssetConfigFoundationMigration"]
       211 CALL                             R37 1 1
       212 GETIMPORT                        R38 K10 [require]
-      214 GETTABLEKS                       R39 R32 K52 ["ValidationStatus"]
+      214 GETTABLEKS                       R39 R32 K52 ["UGCBundleValidation"]
       216 CALL                             R38 1 1
       217 GETIMPORT                        R39 K10 [require]
-      219 GETTABLEKS                       R40 R13 K53 ["AssetConfigConstants"]
+      219 GETTABLEKS                       R40 R32 K53 ["ValidationStatus"]
       221 CALL                             R39 1 1
       222 GETIMPORT                        R40 K10 [require]
-      224 GETTABLEKS                       R41 R32 K54 ["DataConsentToggle"]
+      224 GETTABLEKS                       R41 R13 K54 ["AssetConfigConstants"]
       226 CALL                             R40 1 1
-      227 GETIMPORT                        R41 K5 [game]
-      229 LOADK                            R43 K55 ["BodyFirstInAssetsCategory"]
-      230 LOADB                            R44 0
-      231 NAMECALL                         R41 R41 K56 ["DefineFastFlag"]
-      233 CALL                             R41 3 0
-      234 GETIMPORT                        R41 K5 [game]
-      236 LOADK                            R43 K57 ["DisableSubmitButtonForValidationInInit"]
-      237 LOADB                            R44 0
-      238 NAMECALL                         R41 R41 K56 ["DefineFastFlag"]
-      240 CALL                             R41 3 1
-      241 GETIMPORT                        R42 K10 [require]
-      243 GETTABLEKS                       R44 R13 K29 ["SharedFlags"]
-      245 GETTABLEKS                       R43 R44 K58 ["getFFlagEnableUGCUploadFlowAnalytics"]
-      247 CALL                             R42 1 1
-      248 GETIMPORT                        R43 K10 [require]
-      250 GETTABLEKS                       R45 R13 K29 ["SharedFlags"]
-      252 GETTABLEKS                       R44 R45 K59 ["getFFlagEnableUGCBundleUploadBodyScale"]
-      254 CALL                             R43 1 1
-      255 GETIMPORT                        R44 K10 [require]
-      257 GETTABLEKS                       R47 R0 K20 ["Src"]
-      259 GETTABLEKS                       R46 R47 K49 ["Flags"]
-      261 GETTABLEKS                       R45 R46 K60 ["getFFlagRequireBodyColorsForBodyUpload"]
-      263 CALL                             R44 1 1
-      264 GETIMPORT                        R45 K10 [require]
-      266 GETTABLEKS                       R47 R13 K29 ["SharedFlags"]
-      268 GETTABLEKS                       R46 R47 K61 ["getFFlagEnableUGCForAllChecks"]
-      270 CALL                             R45 1 1
-      271 GETIMPORT                        R46 K10 [require]
-      273 GETTABLEKS                       R49 R0 K20 ["Src"]
-      275 GETTABLEKS                       R48 R49 K49 ["Flags"]
-      277 GETTABLEKS                       R47 R48 K62 ["getFFlagEnableUploadingShoes"]
-      279 CALL                             R46 1 1
-      280 GETIMPORT                        R47 K10 [require]
-      282 GETTABLEKS                       R50 R0 K20 ["Src"]
-      284 GETTABLEKS                       R49 R50 K49 ["Flags"]
-      286 GETTABLEKS                       R48 R49 K63 ["getFFlagToolboxErrorMessageBoxResizable"]
-      288 CALL                             R47 1 1
-      289 GETIMPORT                        R48 K10 [require]
-      291 GETTABLEKS                       R51 R0 K20 ["Src"]
-      293 GETTABLEKS                       R50 R51 K49 ["Flags"]
-      295 GETTABLEKS                       R49 R50 K64 ["getFFlagFixEmoteWarningSize"]
-      297 CALL                             R48 1 1
-      298 GETIMPORT                        R49 K10 [require]
-      300 GETTABLEKS                       R52 R0 K20 ["Src"]
-      302 GETTABLEKS                       R51 R52 K49 ["Flags"]
-      304 GETTABLEKS                       R50 R51 K65 ["getFStringAssetsToBypassValidation"]
-      306 CALL                             R49 1 1
-      307 GETIMPORT                        R50 K10 [require]
-      309 GETTABLEKS                       R53 R0 K20 ["Src"]
-      311 GETTABLEKS                       R52 R53 K49 ["Flags"]
-      313 GETTABLEKS                       R51 R52 K66 ["getFFlagAssetBypassValidation"]
-      315 CALL                             R50 1 1
-      316 GETIMPORT                        R51 K5 [game]
-      318 LOADK                            R53 K67 ["ToolboxConfigAssetTypeAgeIDVerificationLink"]
-      319 LOADK                            R54 K68 ["https://en.help.roblox.com/hc/en-us/articles/4407282410644-Age-ID-Verification"]
-      320 NAMECALL                         R51 R51 K69 ["DefineFastString"]
-      322 CALL                             R51 3 1
-      323 GETIMPORT                        R52 K5 [game]
-      325 LOADK                            R54 K70 ["ToolboxConfigAssetTypePremiumLink"]
-      326 LOADK                            R55 K71 ["https://www.roblox.com/premium/membership"]
-      327 NAMECALL                         R52 R52 K69 ["DefineFastString"]
-      329 CALL                             R52 3 1
-      330 GETIMPORT                        R53 K5 [game]
-      332 LOADK                            R55 K72 ["ToolboxFixUGCBundleValidationCryoThingy1"]
-      333 LOADB                            R56 0
-      334 NAMECALL                         R53 R53 K56 ["DefineFastFlag"]
-      336 CALL                             R53 3 1
-      337 GETIMPORT                        R54 K5 [game]
-      339 LOADK                            R56 K73 ["ToolboxShowAnimationAssetSelection"]
-      340 LOADB                            R57 0
-      341 NAMECALL                         R54 R54 K56 ["DefineFastFlag"]
-      343 CALL                             R54 3 1
-      344 GETIMPORT                        R55 K5 [game]
-      346 LOADK                            R57 K74 ["ToolboxRemoveRestrictedAssetWarning2"]
-      347 NAMECALL                         R55 R55 K75 ["GetFastFlag"]
-      349 CALL                             R55 2 1
-      350 GETIMPORT                        R56 K10 [require]
-      352 GETTABLEKS                       R59 R0 K20 ["Src"]
-      354 GETTABLEKS                       R58 R59 K49 ["Flags"]
-      356 GETTABLEKS                       R57 R58 K76 ["getFFlagEnableUploadingEmote"]
-      358 CALL                             R56 1 1
-      359 GETTABLEKS                       R57 R6 K77 ["PureComponent"]
-      361 LOADK                            R59 K78 ["ConfigAssetType"]
-      362 NAMECALL                         R57 R57 K79 ["extend"]
-      364 CALL                             R57 2 1
-      365 MOVE                             R59 R45
-      366 CALL                             R59 0 1
-      367 JUMPIFNOT                        R59 ; [+2]
-      368 LOADN                            R58 10
-      369 JUMP                             ; [+1]
-      370 LOADN                            R58 0
-      371 MOVE                             R60 R45
-      372 CALL                             R60 0 1
-      373 JUMPIFNOT                        R60 ; [+2]
-      374 LOADN                            R59 72
-      375 JUMP                             ; [+1]
-      376 LOADN                            R59 24
-      377 NEWTABLE                         R60 0 0
-      379 GETIMPORT                        R61 K5 [game]
-      381 LOADK                            R63 K55 ["BodyFirstInAssetsCategory"]
-      382 NAMECALL                         R61 R61 K75 ["GetFastFlag"]
-      384 CALL                             R61 2 1
-      385 JUMPIFNOT                        R61 ; [+22]
-      386 NEWTABLE                         R61 0 3
-      388 GETTABLEKS                       R63 R39 K80 ["UGCBundleTypes"]
-      390 GETTABLEKS                       R62 R63 K81 ["Body"]
-      392 GETTABLEKS                       R64 R39 K80 ["UGCBundleTypes"]
-      394 GETTABLEKS                       R63 R64 K82 ["DynamicHead"]
-      396 MOVE                             R65 R46
-      397 CALL                             R65 0 1
-      398 JUMPIFNOT                        R65 ; [+5]
-      399 GETTABLEKS                       R65 R39 K80 ["UGCBundleTypes"]
-      401 GETTABLEKS                       R64 R65 K83 ["Shoes"]
-      403 JUMP                             ; [+1]
-      404 LOADNIL                          R64
-      405 SETLIST                          R61 R62 3 [1]
-      407 MOVE                             R60 R61
-      408 DUPCLOSURE                       R61 K84 [PROTO_0]
-      409 CAPTURE                          VAL R15
-      410 DUPCLOSURE                       R62 K85 [PROTO_14]
-      411 CAPTURE                          VAL R42
-      412 CAPTURE                          VAL R15
-      413 CAPTURE                          VAL R18
-      414 CAPTURE                          VAL R39
-      415 CAPTURE                          VAL R14
-      416 CAPTURE                          VAL R41
-      417 SETTABLEKS                       R62 R57 K86 ["init"]
-      419 DUPCLOSURE                       R62 K87 [PROTO_15]
-      420 SETTABLEKS                       R62 R57 K88 ["getAvatarItemCategoryErrorsPrimaryText"]
-      422 DUPCLOSURE                       R62 K89 [PROTO_16]
-      423 SETTABLEKS                       R62 R57 K90 ["getAvatarItemCategoryErrors"]
-      425 DUPCLOSURE                       R62 K91 [PROTO_17]
-      426 SETTABLEKS                       R62 R57 K92 ["selectedRadioButtonKeyFor"]
-      428 DUPCLOSURE                       R62 K93 [PROTO_18]
-      429 SETTABLEKS                       R62 R57 K94 ["isAvatarItemCategorySelected"]
-      431 DUPCLOSURE                       R62 K95 [PROTO_22]
-      432 CAPTURE                          VAL R3
-      433 CAPTURE                          VAL R45
-      434 CAPTURE                          VAL R15
-      435 CAPTURE                          VAL R39
-      436 SETTABLEKS                       R62 R57 K96 ["onAssetTypeChanged"]
-      438 DUPCLOSURE                       R62 K97 [PROTO_24]
-      439 CAPTURE                          VAL R39
-      440 CAPTURE                          VAL R3
-      441 SETTABLEKS                       R62 R57 K98 ["resetValidation"]
-      443 DUPCLOSURE                       R62 K99 [PROTO_25]
-      444 SETTABLEKS                       R62 R57 K100 ["cancelValidationTasks"]
-      446 DUPCLOSURE                       R62 K101 [PROTO_26]
-      447 SETTABLEKS                       R62 R57 K102 ["getErrorMessageWithCount"]
-      449 DUPCLOSURE                       R62 K103 [PROTO_27]
-      450 CAPTURE                          VAL R39
-      451 SETTABLEKS                       R62 R57 K104 ["getValidationStatusMessage"]
-      453 DUPCLOSURE                       R62 K105 [PROTO_28]
-      454 CAPTURE                          VAL R39
-      455 SETTABLEKS                       R62 R57 K106 ["getValidationStatusColor"]
-      457 DUPCLOSURE                       R62 K107 [PROTO_29]
-      458 SETTABLEKS                       R62 R57 K108 ["getAssetCategoryIndex"]
-      460 NEWCLOSURE                       R62 P13
-      461 CAPTURE                          VAL R15
-      462 CAPTURE                          REF R60
-      463 CAPTURE                          VAL R21
-      464 CAPTURE                          VAL R22
-      465 SETTABLEKS                       R62 R57 K109 ["getDropdownItemsFor"]
-      467 DUPCLOSURE                       R62 K110 [PROTO_32]
-      468 SETTABLEKS                       R62 R57 K111 ["getDropdownItems"]
-      470 DUPCLOSURE                       R62 K112 [PROTO_33]
-      471 CAPTURE                          VAL R15
-      472 CAPTURE                          VAL R23
-      473 CAPTURE                          VAL R6
-      474 CAPTURE                          VAL R26
-      475 CAPTURE                          VAL R17
-      476 CAPTURE                          VAL R22
-      477 SETTABLEKS                       R62 R57 K113 ["getMissingOptionalPartsMessage"]
-      479 DUPCLOSURE                       R62 K114 [PROTO_34]
-      480 CAPTURE                          VAL R15
-      481 CAPTURE                          VAL R23
-      482 CAPTURE                          VAL R6
-      483 CAPTURE                          VAL R26
-      484 CAPTURE                          VAL R17
-      485 SETTABLEKS                       R62 R57 K115 ["getUnknownMeshPartMessage"]
-      487 MOVE                             R62 R45
-      488 CALL                             R62 0 1
-      489 JUMPIFNOT                        R62 ; [+7]
-      490 DUPCLOSURE                       R62 K116 [PROTO_37]
-      491 CAPTURE                          VAL R1
-      492 CAPTURE                          VAL R51
-      493 CAPTURE                          VAL R52
-      494 CAPTURE                          VAL R55
-      495 SETTABLEKS                       R62 R57 K117 ["getUgcRestrictionsWarningText"]
-      497 DUPCLOSURE                       R62 K118 [PROTO_41]
-      498 CAPTURE                          VAL R39
-      499 CAPTURE                          VAL R15
-      500 CAPTURE                          VAL R16
-      501 CAPTURE                          VAL R50
-      502 CAPTURE                          VAL R49
-      503 CAPTURE                          VAL R9
-      504 SETTABLEKS                       R62 R57 K119 ["didUpdate"]
-      506 DUPCLOSURE                       R62 K120 [PROTO_42]
-      507 SETTABLEKS                       R62 R57 K121 ["willUnmount"]
-      509 DUPCLOSURE                       R62 K122 [PROTO_44]
-      510 CAPTURE                          VAL R23
-      511 CAPTURE                          VAL R39
-      512 CAPTURE                          VAL R17
-      513 CAPTURE                          VAL R45
-      514 CAPTURE                          VAL R55
-      515 CAPTURE                          VAL R56
-      516 CAPTURE                          VAL R54
-      517 CAPTURE                          VAL R6
-      518 CAPTURE                          VAL R25
-      519 CAPTURE                          VAL R30
-      520 CAPTURE                          VAL R47
-      521 CAPTURE                          VAL R5
-      522 CAPTURE                          VAL R35
-      523 CAPTURE                          VAL R36
-      524 CAPTURE                          VAL R34
-      525 CAPTURE                          VAL R33
-      526 CAPTURE                          VAL R29
-      527 CAPTURE                          VAL R26
-      528 CAPTURE                          VAL R19
-      529 CAPTURE                          VAL R48
-      530 SETTABLEKS                       R62 R57 K123 ["render"]
-      532 DUPCLOSURE                       R62 K124 [PROTO_45]
-      533 DUPCLOSURE                       R63 K125 [PROTO_48]
-      534 CAPTURE                          VAL R27
-      535 CAPTURE                          VAL R28
-      536 MOVE                             R64 R11
-      537 DUPTABLE                         R65 K127 [{"Stylizer", "Localization"}]
-      538 GETTABLEKS                       R66 R10 K126 ["Stylizer"]
-      540 SETTABLEKS                       R66 R65 K126 ["Stylizer"]
-      542 GETTABLEKS                       R66 R10 K32 ["Localization"]
-      544 SETTABLEKS                       R66 R65 K32 ["Localization"]
-      546 CALL                             R64 1 1
-      547 MOVE                             R65 R57
-      548 CALL                             R64 1 1
-      549 MOVE                             R57 R64
-      550 GETTABLEKS                       R64 R7 K128 ["connect"]
-      552 MOVE                             R65 R62
-      553 MOVE                             R66 R63
-      554 CALL                             R64 2 1
-      555 MOVE                             R65 R57
-      556 CALL                             R64 1 -1
-      557 CLOSEUPVALS                      R60
-      558 RETURN                           R64 -1
+      227 GETIMPORT                        R41 K10 [require]
+      229 GETTABLEKS                       R42 R32 K55 ["DataConsentToggle"]
+      231 CALL                             R41 1 1
+      232 GETIMPORT                        R42 K5 [game]
+      234 LOADK                            R44 K56 ["BodyFirstInAssetsCategory"]
+      235 LOADB                            R45 0
+      236 NAMECALL                         R42 R42 K57 ["DefineFastFlag"]
+      238 CALL                             R42 3 0
+      239 GETIMPORT                        R42 K5 [game]
+      241 LOADK                            R44 K58 ["DisableSubmitButtonForValidationInInit"]
+      242 LOADB                            R45 0
+      243 NAMECALL                         R42 R42 K57 ["DefineFastFlag"]
+      245 CALL                             R42 3 1
+      246 GETIMPORT                        R43 K10 [require]
+      248 GETTABLEKS                       R45 R13 K29 ["SharedFlags"]
+      250 GETTABLEKS                       R44 R45 K59 ["getFFlagEnableUGCUploadFlowAnalytics"]
+      252 CALL                             R43 1 1
+      253 GETIMPORT                        R44 K10 [require]
+      255 GETTABLEKS                       R46 R13 K29 ["SharedFlags"]
+      257 GETTABLEKS                       R45 R46 K60 ["getFFlagEnableUGCBundleUploadBodyScale"]
+      259 CALL                             R44 1 1
+      260 GETIMPORT                        R45 K10 [require]
+      262 GETTABLEKS                       R48 R0 K20 ["Src"]
+      264 GETTABLEKS                       R47 R48 K50 ["Flags"]
+      266 GETTABLEKS                       R46 R47 K61 ["getFFlagRequireBodyColorsForBodyUpload"]
+      268 CALL                             R45 1 1
+      269 GETIMPORT                        R46 K10 [require]
+      271 GETTABLEKS                       R48 R13 K29 ["SharedFlags"]
+      273 GETTABLEKS                       R47 R48 K62 ["getFFlagEnableUGCForAllChecks"]
+      275 CALL                             R46 1 1
+      276 GETIMPORT                        R47 K10 [require]
+      278 GETTABLEKS                       R50 R0 K20 ["Src"]
+      280 GETTABLEKS                       R49 R50 K50 ["Flags"]
+      282 GETTABLEKS                       R48 R49 K63 ["getFStringAssetsToBypassValidation"]
+      284 CALL                             R47 1 1
+      285 GETIMPORT                        R48 K10 [require]
+      287 GETTABLEKS                       R51 R0 K20 ["Src"]
+      289 GETTABLEKS                       R50 R51 K50 ["Flags"]
+      291 GETTABLEKS                       R49 R50 K64 ["getFFlagAssetBypassValidation"]
+      293 CALL                             R48 1 1
+      294 GETIMPORT                        R49 K5 [game]
+      296 LOADK                            R51 K65 ["ToolboxConfigAssetTypeAgeIDVerificationLink"]
+      297 LOADK                            R52 K66 ["https://en.help.roblox.com/hc/en-us/articles/4407282410644-Age-ID-Verification"]
+      298 NAMECALL                         R49 R49 K67 ["DefineFastString"]
+      300 CALL                             R49 3 1
+      301 GETIMPORT                        R50 K5 [game]
+      303 LOADK                            R52 K68 ["ToolboxConfigAssetTypePremiumLink"]
+      304 LOADK                            R53 K69 ["https://www.roblox.com/premium/membership"]
+      305 NAMECALL                         R50 R50 K67 ["DefineFastString"]
+      307 CALL                             R50 3 1
+      308 GETIMPORT                        R51 K5 [game]
+      310 LOADK                            R53 K70 ["ToolboxFixUGCBundleValidationCryoThingy1"]
+      311 LOADB                            R54 0
+      312 NAMECALL                         R51 R51 K57 ["DefineFastFlag"]
+      314 CALL                             R51 3 1
+      315 GETIMPORT                        R52 K5 [game]
+      317 LOADK                            R54 K71 ["ToolboxShowAnimationAssetSelection"]
+      318 LOADB                            R55 0
+      319 NAMECALL                         R52 R52 K57 ["DefineFastFlag"]
+      321 CALL                             R52 3 1
+      322 GETIMPORT                        R53 K5 [game]
+      324 LOADK                            R55 K72 ["ToolboxRemoveRestrictedAssetWarning2"]
+      325 NAMECALL                         R53 R53 K73 ["GetFastFlag"]
+      327 CALL                             R53 2 1
+      328 GETTABLEKS                       R54 R6 K74 ["PureComponent"]
+      330 LOADK                            R56 K75 ["ConfigAssetType"]
+      331 NAMECALL                         R54 R54 K76 ["extend"]
+      333 CALL                             R54 2 1
+      334 MOVE                             R56 R46
+      335 CALL                             R56 0 1
+      336 JUMPIFNOT                        R56 ; [+2]
+      337 LOADN                            R55 10
+      338 JUMP                             ; [+1]
+      339 LOADN                            R55 0
+      340 MOVE                             R57 R46
+      341 CALL                             R57 0 1
+      342 JUMPIFNOT                        R57 ; [+2]
+      343 LOADN                            R56 72
+      344 JUMP                             ; [+1]
+      345 LOADN                            R56 24
+      346 NEWTABLE                         R57 0 0
+      348 GETIMPORT                        R58 K5 [game]
+      350 LOADK                            R60 K56 ["BodyFirstInAssetsCategory"]
+      351 NAMECALL                         R58 R58 K73 ["GetFastFlag"]
+      353 CALL                             R58 2 1
+      354 JUMPIFNOT                        R58 ; [+17]
+      355 NEWTABLE                         R58 0 3
+      357 GETTABLEKS                       R60 R40 K77 ["UGCBundleTypes"]
+      359 GETTABLEKS                       R59 R60 K78 ["Body"]
+      361 GETTABLEKS                       R61 R40 K77 ["UGCBundleTypes"]
+      363 GETTABLEKS                       R60 R61 K79 ["DynamicHead"]
+      365 GETTABLEKS                       R62 R40 K77 ["UGCBundleTypes"]
+      367 GETTABLEKS                       R61 R62 K80 ["Shoes"]
+      369 SETLIST                          R58 R59 3 [1]
+      371 MOVE                             R57 R58
+      372 DUPCLOSURE                       R58 K81 [PROTO_0]
+      373 CAPTURE                          VAL R15
+      374 DUPCLOSURE                       R59 K82 [PROTO_14]
+      375 CAPTURE                          VAL R43
+      376 CAPTURE                          VAL R15
+      377 CAPTURE                          VAL R18
+      378 CAPTURE                          VAL R40
+      379 CAPTURE                          VAL R14
+      380 CAPTURE                          VAL R42
+      381 SETTABLEKS                       R59 R54 K83 ["init"]
+      383 DUPCLOSURE                       R59 K84 [PROTO_15]
+      384 SETTABLEKS                       R59 R54 K85 ["getAvatarItemCategoryErrorsPrimaryText"]
+      386 DUPCLOSURE                       R59 K86 [PROTO_16]
+      387 SETTABLEKS                       R59 R54 K87 ["getAvatarItemCategoryErrors"]
+      389 DUPCLOSURE                       R59 K88 [PROTO_17]
+      390 SETTABLEKS                       R59 R54 K89 ["selectedRadioButtonKeyFor"]
+      392 DUPCLOSURE                       R59 K90 [PROTO_18]
+      393 SETTABLEKS                       R59 R54 K91 ["isAvatarItemCategorySelected"]
+      395 DUPCLOSURE                       R59 K92 [PROTO_22]
+      396 CAPTURE                          VAL R3
+      397 CAPTURE                          VAL R46
+      398 CAPTURE                          VAL R15
+      399 CAPTURE                          VAL R40
+      400 SETTABLEKS                       R59 R54 K93 ["onAssetTypeChanged"]
+      402 DUPCLOSURE                       R59 K94 [PROTO_24]
+      403 CAPTURE                          VAL R40
+      404 CAPTURE                          VAL R3
+      405 SETTABLEKS                       R59 R54 K95 ["resetValidation"]
+      407 DUPCLOSURE                       R59 K96 [PROTO_25]
+      408 SETTABLEKS                       R59 R54 K97 ["cancelValidationTasks"]
+      410 DUPCLOSURE                       R59 K98 [PROTO_26]
+      411 SETTABLEKS                       R59 R54 K99 ["getErrorMessageWithCount"]
+      413 DUPCLOSURE                       R59 K100 [PROTO_27]
+      414 CAPTURE                          VAL R40
+      415 SETTABLEKS                       R59 R54 K101 ["getValidationStatusMessage"]
+      417 DUPCLOSURE                       R59 K102 [PROTO_28]
+      418 CAPTURE                          VAL R40
+      419 SETTABLEKS                       R59 R54 K103 ["getValidationStatusColor"]
+      421 DUPCLOSURE                       R59 K104 [PROTO_29]
+      422 SETTABLEKS                       R59 R54 K105 ["getAssetCategoryIndex"]
+      424 NEWCLOSURE                       R59 P13
+      425 CAPTURE                          VAL R15
+      426 CAPTURE                          REF R57
+      427 CAPTURE                          VAL R21
+      428 CAPTURE                          VAL R22
+      429 SETTABLEKS                       R59 R54 K106 ["getDropdownItemsFor"]
+      431 DUPCLOSURE                       R59 K107 [PROTO_32]
+      432 SETTABLEKS                       R59 R54 K108 ["getDropdownItems"]
+      434 DUPCLOSURE                       R59 K109 [PROTO_33]
+      435 CAPTURE                          VAL R15
+      436 CAPTURE                          VAL R23
+      437 CAPTURE                          VAL R6
+      438 CAPTURE                          VAL R26
+      439 CAPTURE                          VAL R17
+      440 CAPTURE                          VAL R22
+      441 SETTABLEKS                       R59 R54 K110 ["getMissingOptionalPartsMessage"]
+      443 DUPCLOSURE                       R59 K111 [PROTO_34]
+      444 CAPTURE                          VAL R15
+      445 CAPTURE                          VAL R23
+      446 CAPTURE                          VAL R6
+      447 CAPTURE                          VAL R26
+      448 CAPTURE                          VAL R17
+      449 SETTABLEKS                       R59 R54 K112 ["getUnknownMeshPartMessage"]
+      451 MOVE                             R59 R46
+      452 CALL                             R59 0 1
+      453 JUMPIFNOT                        R59 ; [+7]
+      454 DUPCLOSURE                       R59 K113 [PROTO_37]
+      455 CAPTURE                          VAL R1
+      456 CAPTURE                          VAL R49
+      457 CAPTURE                          VAL R50
+      458 CAPTURE                          VAL R53
+      459 SETTABLEKS                       R59 R54 K114 ["getUgcRestrictionsWarningText"]
+      461 DUPCLOSURE                       R59 K115 [PROTO_41]
+      462 CAPTURE                          VAL R40
+      463 CAPTURE                          VAL R15
+      464 CAPTURE                          VAL R16
+      465 CAPTURE                          VAL R48
+      466 CAPTURE                          VAL R47
+      467 CAPTURE                          VAL R9
+      468 SETTABLEKS                       R59 R54 K116 ["didUpdate"]
+      470 DUPCLOSURE                       R59 K117 [PROTO_42]
+      471 SETTABLEKS                       R59 R54 K118 ["willUnmount"]
+      473 DUPCLOSURE                       R59 K119 [PROTO_44]
+      474 CAPTURE                          VAL R23
+      475 CAPTURE                          VAL R40
+      476 CAPTURE                          VAL R17
+      477 CAPTURE                          VAL R46
+      478 CAPTURE                          VAL R53
+      479 CAPTURE                          VAL R52
+      480 CAPTURE                          VAL R6
+      481 CAPTURE                          VAL R25
+      482 CAPTURE                          VAL R30
+      483 CAPTURE                          VAL R5
+      484 CAPTURE                          VAL R36
+      485 CAPTURE                          VAL R37
+      486 CAPTURE                          VAL R35
+      487 CAPTURE                          VAL R33
+      488 CAPTURE                          VAL R29
+      489 CAPTURE                          VAL R26
+      490 CAPTURE                          VAL R19
+      491 SETTABLEKS                       R59 R54 K120 ["render"]
+      493 DUPCLOSURE                       R59 K121 [PROTO_45]
+      494 DUPCLOSURE                       R60 K122 [PROTO_48]
+      495 CAPTURE                          VAL R27
+      496 CAPTURE                          VAL R28
+      497 MOVE                             R61 R11
+      498 DUPTABLE                         R62 K124 [{"Stylizer", "Localization"}]
+      499 GETTABLEKS                       R63 R10 K123 ["Stylizer"]
+      501 SETTABLEKS                       R63 R62 K123 ["Stylizer"]
+      503 GETTABLEKS                       R63 R10 K32 ["Localization"]
+      505 SETTABLEKS                       R63 R62 K32 ["Localization"]
+      507 CALL                             R61 1 1
+      508 MOVE                             R62 R54
+      509 CALL                             R61 1 1
+      510 MOVE                             R54 R61
+      511 GETTABLEKS                       R61 R7 K125 ["connect"]
+      513 MOVE                             R62 R59
+      514 MOVE                             R63 R60
+      515 CALL                             R61 2 1
+      516 MOVE                             R62 R54
+      517 CALL                             R61 1 -1
+      518 CLOSEUPVALS                      R57
+      519 RETURN                           R61 -1

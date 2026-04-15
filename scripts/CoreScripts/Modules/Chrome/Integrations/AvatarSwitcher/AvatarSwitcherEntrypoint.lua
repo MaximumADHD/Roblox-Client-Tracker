@@ -15,6 +15,9 @@ local AvatarSwitcherChromeWrapper = require(Chrome.Integrations.AvatarSwitcher.A
 local AvatarSwitcherIcon = require(Chrome.Integrations.AvatarSwitcher.AvatarSwitcherIcon)
 local Url = require(CorePackages.Workspace.Packages.Http).Url
 
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
+
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagChromeWindowSignalConstraintsToggle = SharedFlags.FFlagChromeWindowSignalConstraintsToggle
 local FFlagRemoveAvatarSwitcherIfUnsupported = SharedFlags.FFlagRemoveAvatarSwitcherIfUnsupported
@@ -64,6 +67,7 @@ local integration = ChromeService:register({
 		else ChromeService.AvailabilitySignal.Available,
 	id = Constants.AVATAR_SWITCHER_ID,
 	label = "Feature.AvatarSwitcher.Heading.SwitchAvatar",
+	sideSheetPlacement = SideSheetPlacement.Vertical,
 	activated = function(self)
 		ChromeService:toggleWindow(Constants.AVATAR_SWITCHER_ID)
 	end,

@@ -172,7 +172,7 @@ PROTO_10:
        97 GETUPVAL                         R10 4
        98 GETTABLEKS                       R9 R10 K11 ["ContextStack"]
       100 DUPTABLE                         R10 K15 [{"providers"}]
-      101 NEWTABLE                         R11 0 18
+      101 NEWTABLE                         R11 0 21
       103 GETUPVAL                         R13 0
       104 GETTABLEKS                       R12 R13 K13 ["createElement"]
       106 GETUPVAL                         R16 3
@@ -184,122 +184,146 @@ PROTO_10:
       116 CALL                             R12 2 1
       117 GETUPVAL                         R14 0
       118 GETTABLEKS                       R13 R14 K13 ["createElement"]
-      120 GETUPVAL                         R16 5
-      121 GETTABLEKS                       R15 R16 K21 ["InstanceRegistryContext"]
-      123 GETTABLEKS                       R14 R15 K18 ["Provider"]
-      125 CALL                             R13 1 1
-      126 GETUPVAL                         R15 0
-      127 GETTABLEKS                       R14 R15 K13 ["createElement"]
-      129 GETUPVAL                         R17 5
-      130 GETTABLEKS                       R16 R17 K22 ["NetworkingContext"]
-      132 GETTABLEKS                       R15 R16 K23 ["EditableDataModelProvider"]
-      134 CALL                             R14 1 1
-      135 GETUPVAL                         R16 0
-      136 GETTABLEKS                       R15 R16 K13 ["createElement"]
-      138 GETUPVAL                         R17 5
-      139 GETTABLEKS                       R16 R17 K24 ["EditableDataModelContexts"]
-      141 CALL                             R15 1 1
-      142 GETUPVAL                         R17 0
-      143 GETTABLEKS                       R16 R17 K13 ["createElement"]
-      145 GETUPVAL                         R19 5
-      146 GETTABLEKS                       R18 R19 K25 ["NativeGraphContext"]
-      148 GETTABLEKS                       R17 R18 K23 ["EditableDataModelProvider"]
-      150 CALL                             R16 1 1
-      151 GETUPVAL                         R18 0
-      152 GETTABLEKS                       R17 R18 K13 ["createElement"]
-      154 GETUPVAL                         R20 5
-      155 GETTABLEKS                       R19 R20 K26 ["RigListContext"]
-      157 GETTABLEKS                       R18 R19 K23 ["EditableDataModelProvider"]
-      159 CALL                             R17 1 1
-      160 GETUPVAL                         R19 0
-      161 GETTABLEKS                       R18 R19 K13 ["createElement"]
-      163 GETUPVAL                         R21 5
-      164 GETTABLEKS                       R20 R21 K27 ["CreateGraphContext"]
-      166 GETTABLEKS                       R19 R20 K23 ["EditableDataModelProvider"]
-      168 CALL                             R18 1 1
-      169 GETUPVAL                         R20 0
-      170 GETTABLEKS                       R19 R20 K13 ["createElement"]
-      172 GETUPVAL                         R22 5
-      173 GETTABLEKS                       R21 R22 K28 ["AnimationParameterContext"]
-      175 GETTABLEKS                       R20 R21 K23 ["EditableDataModelProvider"]
-      177 CALL                             R19 1 1
-      178 GETUPVAL                         R21 0
-      179 GETTABLEKS                       R20 R21 K13 ["createElement"]
-      181 GETUPVAL                         R23 5
-      182 GETTABLEKS                       R22 R23 K29 ["GraphDebugDataContext"]
-      184 GETTABLEKS                       R21 R22 K23 ["EditableDataModelProvider"]
-      186 CALL                             R20 1 1
-      187 GETUPVAL                         R22 0
-      188 GETTABLEKS                       R21 R22 K13 ["createElement"]
-      190 GETUPVAL                         R24 5
-      191 GETTABLEKS                       R23 R24 K30 ["PlayStateContext"]
-      193 GETTABLEKS                       R22 R23 K23 ["EditableDataModelProvider"]
-      195 CALL                             R21 1 1
-      196 GETUPVAL                         R23 0
-      197 GETTABLEKS                       R22 R23 K13 ["createElement"]
-      199 GETUPVAL                         R25 5
-      200 GETTABLEKS                       R24 R25 K31 ["AssetAccessContext"]
-      202 GETTABLEKS                       R23 R24 K23 ["EditableDataModelProvider"]
-      204 DUPTABLE                         R24 K33 [{"shareAccessToAssetsAsync"}]
-      205 SETTABLEKS                       R4 R24 K32 ["shareAccessToAssetsAsync"]
-      207 CALL                             R22 2 1
-      208 GETUPVAL                         R24 0
-      209 GETTABLEKS                       R23 R24 K13 ["createElement"]
-      211 GETUPVAL                         R26 5
-      212 GETTABLEKS                       R25 R26 K34 ["GameContext"]
-      214 GETTABLEKS                       R24 R25 K23 ["EditableDataModelProvider"]
-      216 CALL                             R23 1 1
-      217 GETUPVAL                         R25 0
-      218 GETTABLEKS                       R24 R25 K13 ["createElement"]
-      220 GETUPVAL                         R27 5
-      221 GETTABLEKS                       R26 R27 K35 ["ParameterOverrideContext"]
-      223 GETTABLEKS                       R25 R26 K23 ["EditableDataModelProvider"]
-      225 CALL                             R24 1 1
-      226 GETUPVAL                         R26 0
-      227 GETTABLEKS                       R25 R26 K13 ["createElement"]
-      229 GETUPVAL                         R28 5
-      230 GETTABLEKS                       R27 R28 K36 ["GraphDropdownContext"]
-      232 GETTABLEKS                       R26 R27 K23 ["EditableDataModelProvider"]
-      234 CALL                             R25 1 1
-      235 GETUPVAL                         R27 0
-      236 GETTABLEKS                       R26 R27 K13 ["createElement"]
-      238 GETUPVAL                         R29 5
-      239 GETTABLEKS                       R28 R29 K37 ["CreateScriptContext"]
-      241 GETTABLEKS                       R27 R28 K23 ["EditableDataModelProvider"]
-      243 DUPTABLE                         R28 K39 [{"plugin"}]
-      244 GETTABLEKS                       R29 R0 K5 ["Plugin"]
-      246 SETTABLEKS                       R29 R28 K38 ["plugin"]
-      248 CALL                             R26 2 1
-      249 GETUPVAL                         R28 0
-      250 GETTABLEKS                       R27 R28 K13 ["createElement"]
-      252 GETUPVAL                         R30 5
-      253 GETTABLEKS                       R29 R30 K40 ["PublishWarningContext"]
-      255 GETTABLEKS                       R28 R29 K41 ["StudioProvider"]
-      257 DUPTABLE                         R29 K39 [{"plugin"}]
-      258 GETTABLEKS                       R30 R0 K5 ["Plugin"]
-      260 SETTABLEKS                       R30 R29 K38 ["plugin"]
-      262 CALL                             R27 2 1
-      263 SETLIST                          R11 R12 16 [1]
-      265 GETUPVAL                         R13 0
-      266 GETTABLEKS                       R12 R13 K13 ["createElement"]
-      268 GETUPVAL                         R15 5
-      269 GETTABLEKS                       R14 R15 K42 ["GraphDirtyStateContext"]
-      271 GETTABLEKS                       R13 R14 K23 ["EditableDataModelProvider"]
-      273 CALL                             R12 1 1
-      274 GETUPVAL                         R14 0
-      275 GETTABLEKS                       R13 R14 K13 ["createElement"]
-      277 GETUPVAL                         R16 5
-      278 GETTABLEKS                       R15 R16 K43 ["MaskEditorContext"]
-      280 GETTABLEKS                       R14 R15 K23 ["EditableDataModelProvider"]
-      282 DUPTABLE                         R15 K45 [{"startPickingInstanceAsync"}]
-      283 SETTABLEKS                       R3 R15 K44 ["startPickingInstanceAsync"]
-      285 CALL                             R13 2 -1
-      286 SETLIST                          R11 R12 -1 [17]
-      288 SETTABLEKS                       R11 R10 K14 ["providers"]
-      290 CALL                             R8 2 1
-      291 SETTABLEKS                       R8 R7 K11 ["ContextStack"]
-      293 CALL                             R5 2 -1
-      294 RETURN                           R5 -1
+      120 GETUPVAL                         R15 5
+      121 GETTABLEKS                       R14 R15 K21 ["AnalyticsTelemetryServiceProvider"]
+      123 CALL                             R13 1 1
+      124 GETUPVAL                         R15 0
+      125 GETTABLEKS                       R14 R15 K13 ["createElement"]
+      127 GETUPVAL                         R16 5
+      128 GETTABLEKS                       R15 R16 K22 ["AddExtraFields"]
+      130 DUPTABLE                         R16 K24 [{"extraFields"}]
+      131 DUPTABLE                         R17 K26 [{"source"}]
+      132 LOADK                            R18 K27 ["AnimationGraphEditor"]
+      133 SETTABLEKS                       R18 R17 K25 ["source"]
+      135 SETTABLEKS                       R17 R16 K23 ["extraFields"]
+      137 CALL                             R14 2 1
+      138 GETUPVAL                         R16 0
+      139 GETTABLEKS                       R15 R16 K13 ["createElement"]
+      141 GETUPVAL                         R18 6
+      142 GETTABLEKS                       R17 R18 K28 ["InstanceRegistryContext"]
+      144 GETTABLEKS                       R16 R17 K18 ["Provider"]
+      146 CALL                             R15 1 1
+      147 GETUPVAL                         R17 0
+      148 GETTABLEKS                       R16 R17 K13 ["createElement"]
+      150 GETUPVAL                         R19 6
+      151 GETTABLEKS                       R18 R19 K29 ["NetworkingContext"]
+      153 GETTABLEKS                       R17 R18 K30 ["EditableDataModelProvider"]
+      155 CALL                             R16 1 1
+      156 GETUPVAL                         R18 0
+      157 GETTABLEKS                       R17 R18 K13 ["createElement"]
+      159 GETUPVAL                         R20 6
+      160 GETTABLEKS                       R19 R20 K31 ["VisibleContext"]
+      162 GETTABLEKS                       R18 R19 K30 ["EditableDataModelProvider"]
+      164 CALL                             R17 1 1
+      165 GETUPVAL                         R19 0
+      166 GETTABLEKS                       R18 R19 K13 ["createElement"]
+      168 GETUPVAL                         R20 6
+      169 GETTABLEKS                       R19 R20 K32 ["EditableDataModelContexts"]
+      171 DUPTABLE                         R20 K34 [{"plugin"}]
+      172 GETTABLEKS                       R21 R0 K5 ["Plugin"]
+      174 SETTABLEKS                       R21 R20 K33 ["plugin"]
+      176 CALL                             R18 2 1
+      177 GETUPVAL                         R20 0
+      178 GETTABLEKS                       R19 R20 K13 ["createElement"]
+      180 GETUPVAL                         R22 6
+      181 GETTABLEKS                       R21 R22 K35 ["NativeGraphContext"]
+      183 GETTABLEKS                       R20 R21 K30 ["EditableDataModelProvider"]
+      185 CALL                             R19 1 1
+      186 GETUPVAL                         R21 0
+      187 GETTABLEKS                       R20 R21 K13 ["createElement"]
+      189 GETUPVAL                         R23 6
+      190 GETTABLEKS                       R22 R23 K36 ["RigListContext"]
+      192 GETTABLEKS                       R21 R22 K30 ["EditableDataModelProvider"]
+      194 CALL                             R20 1 1
+      195 GETUPVAL                         R22 0
+      196 GETTABLEKS                       R21 R22 K13 ["createElement"]
+      198 GETUPVAL                         R24 6
+      199 GETTABLEKS                       R23 R24 K37 ["CreateGraphContext"]
+      201 GETTABLEKS                       R22 R23 K30 ["EditableDataModelProvider"]
+      203 CALL                             R21 1 1
+      204 GETUPVAL                         R23 0
+      205 GETTABLEKS                       R22 R23 K13 ["createElement"]
+      207 GETUPVAL                         R25 6
+      208 GETTABLEKS                       R24 R25 K38 ["AnimationParameterContext"]
+      210 GETTABLEKS                       R23 R24 K30 ["EditableDataModelProvider"]
+      212 CALL                             R22 1 1
+      213 GETUPVAL                         R24 0
+      214 GETTABLEKS                       R23 R24 K13 ["createElement"]
+      216 GETUPVAL                         R26 6
+      217 GETTABLEKS                       R25 R26 K39 ["GraphDebugDataContext"]
+      219 GETTABLEKS                       R24 R25 K30 ["EditableDataModelProvider"]
+      221 CALL                             R23 1 1
+      222 GETUPVAL                         R25 0
+      223 GETTABLEKS                       R24 R25 K13 ["createElement"]
+      225 GETUPVAL                         R27 6
+      226 GETTABLEKS                       R26 R27 K40 ["PlayStateContext"]
+      228 GETTABLEKS                       R25 R26 K30 ["EditableDataModelProvider"]
+      230 CALL                             R24 1 1
+      231 GETUPVAL                         R26 0
+      232 GETTABLEKS                       R25 R26 K13 ["createElement"]
+      234 GETUPVAL                         R28 6
+      235 GETTABLEKS                       R27 R28 K41 ["AssetAccessContext"]
+      237 GETTABLEKS                       R26 R27 K30 ["EditableDataModelProvider"]
+      239 DUPTABLE                         R27 K43 [{"shareAccessToAssetsAsync"}]
+      240 SETTABLEKS                       R4 R27 K42 ["shareAccessToAssetsAsync"]
+      242 CALL                             R25 2 1
+      243 GETUPVAL                         R27 0
+      244 GETTABLEKS                       R26 R27 K13 ["createElement"]
+      246 GETUPVAL                         R29 6
+      247 GETTABLEKS                       R28 R29 K44 ["GameContext"]
+      249 GETTABLEKS                       R27 R28 K30 ["EditableDataModelProvider"]
+      251 CALL                             R26 1 1
+      252 GETUPVAL                         R28 0
+      253 GETTABLEKS                       R27 R28 K13 ["createElement"]
+      255 GETUPVAL                         R30 6
+      256 GETTABLEKS                       R29 R30 K45 ["ParameterOverrideContext"]
+      258 GETTABLEKS                       R28 R29 K30 ["EditableDataModelProvider"]
+      260 CALL                             R27 1 1
+      261 SETLIST                          R11 R12 16 [1]
+      263 GETUPVAL                         R13 0
+      264 GETTABLEKS                       R12 R13 K13 ["createElement"]
+      266 GETUPVAL                         R15 6
+      267 GETTABLEKS                       R14 R15 K46 ["GraphDropdownContext"]
+      269 GETTABLEKS                       R13 R14 K30 ["EditableDataModelProvider"]
+      271 CALL                             R12 1 1
+      272 GETUPVAL                         R14 0
+      273 GETTABLEKS                       R13 R14 K13 ["createElement"]
+      275 GETUPVAL                         R16 6
+      276 GETTABLEKS                       R15 R16 K47 ["CreateScriptContext"]
+      278 GETTABLEKS                       R14 R15 K30 ["EditableDataModelProvider"]
+      280 DUPTABLE                         R15 K34 [{"plugin"}]
+      281 GETTABLEKS                       R16 R0 K5 ["Plugin"]
+      283 SETTABLEKS                       R16 R15 K33 ["plugin"]
+      285 CALL                             R13 2 1
+      286 GETUPVAL                         R15 0
+      287 GETTABLEKS                       R14 R15 K13 ["createElement"]
+      289 GETUPVAL                         R17 6
+      290 GETTABLEKS                       R16 R17 K48 ["PublishWarningContext"]
+      292 GETTABLEKS                       R15 R16 K49 ["StudioProvider"]
+      294 DUPTABLE                         R16 K34 [{"plugin"}]
+      295 GETTABLEKS                       R17 R0 K5 ["Plugin"]
+      297 SETTABLEKS                       R17 R16 K33 ["plugin"]
+      299 CALL                             R14 2 1
+      300 GETUPVAL                         R16 0
+      301 GETTABLEKS                       R15 R16 K13 ["createElement"]
+      303 GETUPVAL                         R18 6
+      304 GETTABLEKS                       R17 R18 K50 ["GraphDirtyStateContext"]
+      306 GETTABLEKS                       R16 R17 K30 ["EditableDataModelProvider"]
+      308 CALL                             R15 1 1
+      309 GETUPVAL                         R17 0
+      310 GETTABLEKS                       R16 R17 K13 ["createElement"]
+      312 GETUPVAL                         R19 6
+      313 GETTABLEKS                       R18 R19 K51 ["MaskEditorContext"]
+      315 GETTABLEKS                       R17 R18 K30 ["EditableDataModelProvider"]
+      317 DUPTABLE                         R18 K53 [{"startPickingInstanceAsync"}]
+      318 SETTABLEKS                       R3 R18 K52 ["startPickingInstanceAsync"]
+      320 CALL                             R16 2 -1
+      321 SETLIST                          R11 R12 -1 [17]
+      323 SETTABLEKS                       R11 R10 K14 ["providers"]
+      325 CALL                             R8 2 1
+      326 SETTABLEKS                       R8 R7 K11 ["ContextStack"]
+      328 CALL                             R5 2 -1
+      329 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -309,29 +333,34 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["AnimationEditor"]
+       11 GETTABLEKS                       R2 R3 K7 ["Analytics"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       18 GETTABLEKS                       R3 R4 K8 ["AnimationEditor"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
        23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["React"]
+       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
        30 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K10 ["ReactUtils"]
+       32 GETTABLEKS                       R5 R6 K10 ["React"]
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K5 [require]
        37 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       39 GETTABLEKS                       R6 R7 K11 ["StudioFoundation"]
+       39 GETTABLEKS                       R6 R7 K11 ["ReactUtils"]
        41 CALL                             R5 1 1
-       42 DUPCLOSURE                       R6 K12 [PROTO_10]
-       43 CAPTURE                          VAL R3
-       44 CAPTURE                          VAL R2
-       45 CAPTURE                          VAL R0
-       46 CAPTURE                          VAL R5
-       47 CAPTURE                          VAL R4
-       48 CAPTURE                          VAL R1
-       49 RETURN                           R6 1
+       42 GETIMPORT                        R6 K5 [require]
+       44 GETTABLEKS                       R8 R0 K6 ["Packages"]
+       46 GETTABLEKS                       R7 R8 K12 ["StudioFoundation"]
+       48 CALL                             R6 1 1
+       49 DUPCLOSURE                       R7 K13 [PROTO_10]
+       50 CAPTURE                          VAL R4
+       51 CAPTURE                          VAL R3
+       52 CAPTURE                          VAL R0
+       53 CAPTURE                          VAL R6
+       54 CAPTURE                          VAL R5
+       55 CAPTURE                          VAL R1
+       56 CAPTURE                          VAL R2
+       57 RETURN                           R7 1

@@ -10,7 +10,6 @@ local MemStorageService = game:GetService("MemStorageService")
 
 local GetFFlagAvatarChatServiceEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
-local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
 local getFFlagUseCameraDevicesListener = require(RobloxGui.Modules.Flags.getFFlagUseCameraDevicesListener)
 local cameraDevicesHelper = require(RobloxGui.Modules.Settings.cameraDevicesHelper)
 
@@ -94,19 +93,15 @@ local isCamEnabledForUserAndPlace = function(): boolean
 		end
 	end
 
-	if getFFlagEnableAlwaysAvailableCamera() then
-		-- If user does not have a eligible camera device, cam cannot be enabled
-		local cameraDevices
-		if getFFlagUseCameraDevicesListener() then
-			cameraDevices = cameraDevicesHelper.GetDevices()
-		else
-			cameraDevices = VideoCaptureService:GetCameraDevices()
-		end
-		local eligibleCameraDeviceConnected = not Cryo.isEmpty(cameraDevices)
-		return placeCamEnabled and userCamEligible and userCamEnabled and eligibleCameraDeviceConnected
+	-- If user does not have a eligible camera device, cam cannot be enabled
+	local cameraDevices
+	if getFFlagUseCameraDevicesListener() then
+		cameraDevices = cameraDevicesHelper.GetDevices()
+	else
+		cameraDevices = VideoCaptureService:GetCameraDevices()
 	end
-
-	return placeCamEnabled and userCamEligible and userCamEnabled
+	local eligibleCameraDeviceConnected = not Cryo.isEmpty(cameraDevices)
+	return placeCamEnabled and userCamEligible and userCamEnabled and eligibleCameraDeviceConnected
 end
 
 return isCamEnabledForUserAndPlace

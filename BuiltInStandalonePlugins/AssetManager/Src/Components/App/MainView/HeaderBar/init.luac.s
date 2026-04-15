@@ -23,7 +23,7 @@ PROTO_0:
        31 GETTABLEKS                       R9 R0 K7 ["Image"]
        33 SETTABLEKS                       R9 R8 K7 ["Image"]
        35 GETUPVAL                         R10 3
-       36 GETTABLEKS                       R9 R10 K13 ["AMR_ICON_SIZE_XLARGE"]
+       36 GETTABLEKS                       R9 R10 K13 ["IconSizeXLarge"]
        38 SETTABLEKS                       R9 R8 K10 ["Size"]
        40 LOADK                            R9 K14 ["radius-circle"]
        41 SETTABLEKS                       R9 R8 K4 ["tag"]

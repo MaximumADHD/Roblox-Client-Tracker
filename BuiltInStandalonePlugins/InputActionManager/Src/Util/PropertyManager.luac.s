@@ -187,117 +187,165 @@ PROTO_6:
        18 RETURN                           R1 1
 
 PROTO_7:
-        0 JUMPIFNOTEQKS                    R2 K0 ["Name"] ; [+6]
-        2 GETTABLEKS                       R3 R0 K1 ["name"]
-        4 SETTABLEKS                       R3 R1 K0 ["Name"]
-        6 JUMP                             ; [+23]
-        7 JUMPIFNOTEQKS                    R2 K2 ["Enabled"] ; [+6]
-        9 GETTABLEKS                       R3 R0 K3 ["enabled"]
-       11 SETTABLEKS                       R3 R1 K2 ["Enabled"]
-       13 JUMP                             ; [+16]
-       14 JUMPIFNOTEQKS                    R2 K4 ["Priority"] ; [+6]
-       16 GETTABLEKS                       R3 R0 K5 ["priority"]
-       18 SETTABLEKS                       R3 R1 K4 ["Priority"]
-       20 JUMP                             ; [+9]
-       21 JUMPIFNOTEQKS                    R2 K6 ["Sink"] ; [+6]
-       23 GETTABLEKS                       R3 R0 K7 ["sink"]
-       25 SETTABLEKS                       R3 R1 K6 ["Sink"]
-       27 JUMP                             ; [+2]
-       28 LOADB                            R3 0
-       29 RETURN                           R3 1
-       30 LOADB                            R3 1
-       31 RETURN                           R3 1
+        0 GETTABLEKS                       R3 R0 K0 ["name"]
+        2 JUMPIFEQKNIL                     R3 ; [+8]
+        4 JUMPIFNOTEQKS                    R2 K1 ["Name"] ; [+6]
+        6 GETTABLEKS                       R3 R0 K0 ["name"]
+        8 SETTABLEKS                       R3 R1 K1 ["Name"]
+       10 JUMP                             ; [+35]
+       11 GETTABLEKS                       R3 R0 K2 ["enabled"]
+       13 JUMPIFEQKNIL                     R3 ; [+8]
+       15 JUMPIFNOTEQKS                    R2 K3 ["Enabled"] ; [+6]
+       17 GETTABLEKS                       R3 R0 K2 ["enabled"]
+       19 SETTABLEKS                       R3 R1 K3 ["Enabled"]
+       21 JUMP                             ; [+24]
+       22 GETTABLEKS                       R3 R0 K4 ["priority"]
+       24 JUMPIFEQKNIL                     R3 ; [+8]
+       26 JUMPIFNOTEQKS                    R2 K5 ["Priority"] ; [+6]
+       28 GETTABLEKS                       R3 R0 K4 ["priority"]
+       30 SETTABLEKS                       R3 R1 K5 ["Priority"]
+       32 JUMP                             ; [+13]
+       33 GETTABLEKS                       R3 R0 K6 ["sink"]
+       35 JUMPIFEQKNIL                     R3 ; [+8]
+       37 JUMPIFNOTEQKS                    R2 K7 ["Sink"] ; [+6]
+       39 GETTABLEKS                       R3 R0 K6 ["sink"]
+       41 SETTABLEKS                       R3 R1 K7 ["Sink"]
+       43 JUMP                             ; [+2]
+       44 LOADB                            R3 0
+       45 RETURN                           R3 1
+       46 LOADB                            R3 1
+       47 RETURN                           R3 1
 
 PROTO_8:
-        0 JUMPIFNOTEQKS                    R2 K0 ["Name"] ; [+6]
-        2 GETTABLEKS                       R3 R0 K1 ["name"]
-        4 SETTABLEKS                       R3 R1 K0 ["Name"]
-        6 JUMP                             ; [+16]
-        7 JUMPIFNOTEQKS                    R2 K2 ["Enabled"] ; [+6]
-        9 GETTABLEKS                       R3 R0 K3 ["enabled"]
-       11 SETTABLEKS                       R3 R1 K2 ["Enabled"]
-       13 JUMP                             ; [+9]
-       14 JUMPIFNOTEQKS                    R2 K4 ["Type"] ; [+6]
-       16 GETTABLEKS                       R3 R0 K5 ["type"]
-       18 SETTABLEKS                       R3 R1 K4 ["Type"]
-       20 JUMP                             ; [+2]
-       21 LOADB                            R3 0
-       22 RETURN                           R3 1
-       23 LOADB                            R3 1
-       24 RETURN                           R3 1
+        0 GETTABLEKS                       R3 R0 K0 ["name"]
+        2 JUMPIFEQKNIL                     R3 ; [+8]
+        4 JUMPIFNOTEQKS                    R2 K1 ["Name"] ; [+6]
+        6 GETTABLEKS                       R3 R0 K0 ["name"]
+        8 SETTABLEKS                       R3 R1 K1 ["Name"]
+       10 JUMP                             ; [+24]
+       11 GETTABLEKS                       R3 R0 K2 ["enabled"]
+       13 JUMPIFEQKNIL                     R3 ; [+8]
+       15 JUMPIFNOTEQKS                    R2 K3 ["Enabled"] ; [+6]
+       17 GETTABLEKS                       R3 R0 K2 ["enabled"]
+       19 SETTABLEKS                       R3 R1 K3 ["Enabled"]
+       21 JUMP                             ; [+13]
+       22 GETTABLEKS                       R3 R0 K4 ["type"]
+       24 JUMPIFEQKNIL                     R3 ; [+8]
+       26 JUMPIFNOTEQKS                    R2 K5 ["Type"] ; [+6]
+       28 GETTABLEKS                       R3 R0 K4 ["type"]
+       30 SETTABLEKS                       R3 R1 K5 ["Type"]
+       32 JUMP                             ; [+2]
+       33 LOADB                            R3 0
+       34 RETURN                           R3 1
+       35 LOADB                            R3 1
+       36 RETURN                           R3 1
 
 PROTO_9:
-        0 JUMPIFNOTEQKS                    R2 K0 ["Name"] ; [+6]
-        2 GETTABLEKS                       R3 R0 K1 ["name"]
-        4 SETTABLEKS                       R3 R1 K0 ["Name"]
-        6 JUMP                             ; [+111]
-        7 JUMPIFNOTEQKS                    R2 K2 ["Backward"] ; [+6]
-        9 GETTABLEKS                       R3 R0 K3 ["backward"]
-       11 SETTABLEKS                       R3 R1 K2 ["Backward"]
-       13 JUMP                             ; [+104]
-       14 JUMPIFNOTEQKS                    R2 K4 ["Down"] ; [+6]
-       16 GETTABLEKS                       R3 R0 K5 ["down"]
-       18 SETTABLEKS                       R3 R1 K4 ["Down"]
-       20 JUMP                             ; [+97]
-       21 JUMPIFNOTEQKS                    R2 K6 ["Forward"] ; [+6]
-       23 GETTABLEKS                       R3 R0 K7 ["forward"]
-       25 SETTABLEKS                       R3 R1 K6 ["Forward"]
-       27 JUMP                             ; [+90]
-       28 JUMPIFNOTEQKS                    R2 K8 ["KeyCode"] ; [+6]
-       30 GETTABLEKS                       R3 R0 K9 ["keyCode"]
-       32 SETTABLEKS                       R3 R1 K8 ["KeyCode"]
-       34 JUMP                             ; [+83]
-       35 JUMPIFNOTEQKS                    R2 K10 ["Left"] ; [+6]
-       37 GETTABLEKS                       R3 R0 K11 ["left"]
-       39 SETTABLEKS                       R3 R1 K10 ["Left"]
-       41 JUMP                             ; [+76]
-       42 JUMPIFNOTEQKS                    R2 K12 ["PressedThreshold"] ; [+6]
-       44 GETTABLEKS                       R3 R0 K13 ["pressedThreshold"]
-       46 SETTABLEKS                       R3 R1 K12 ["PressedThreshold"]
-       48 JUMP                             ; [+69]
-       49 JUMPIFNOTEQKS                    R2 K14 ["PrimaryModifier"] ; [+6]
-       51 GETTABLEKS                       R3 R0 K15 ["primaryModifier"]
-       53 SETTABLEKS                       R3 R1 K14 ["PrimaryModifier"]
-       55 JUMP                             ; [+62]
-       56 JUMPIFNOTEQKS                    R2 K16 ["ReleasedThreshold"] ; [+6]
-       58 GETTABLEKS                       R3 R0 K17 ["releasedThreshold"]
-       60 SETTABLEKS                       R3 R1 K16 ["ReleasedThreshold"]
-       62 JUMP                             ; [+55]
-       63 JUMPIFNOTEQKS                    R2 K18 ["ResponseCurve"] ; [+6]
-       65 GETTABLEKS                       R3 R0 K19 ["responseCurve"]
-       67 SETTABLEKS                       R3 R1 K18 ["ResponseCurve"]
-       69 JUMP                             ; [+48]
-       70 JUMPIFNOTEQKS                    R2 K20 ["Right"] ; [+6]
-       72 GETTABLEKS                       R3 R0 K21 ["right"]
-       74 SETTABLEKS                       R3 R1 K20 ["Right"]
-       76 JUMP                             ; [+41]
-       77 JUMPIFNOTEQKS                    R2 K22 ["Scale"] ; [+6]
-       79 GETTABLEKS                       R3 R0 K23 ["scale"]
-       81 SETTABLEKS                       R3 R1 K22 ["Scale"]
-       83 JUMP                             ; [+34]
-       84 JUMPIFNOTEQKS                    R2 K24 ["SecondaryModifier"] ; [+6]
-       86 GETTABLEKS                       R3 R0 K25 ["secondaryModifier"]
-       88 SETTABLEKS                       R3 R1 K24 ["SecondaryModifier"]
-       90 JUMP                             ; [+27]
-       91 JUMPIFNOTEQKS                    R2 K26 ["UIButton"] ; [+3]
-       93 LOADB                            R3 0
-       94 RETURN                           R3 1
-       95 JUMPIFNOTEQKS                    R2 K27 ["Up"] ; [+6]
-       97 GETTABLEKS                       R3 R0 K28 ["up"]
-       99 SETTABLEKS                       R3 R1 K27 ["Up"]
-      101 JUMP                             ; [+16]
-      102 JUMPIFNOTEQKS                    R2 K29 ["Vector2Scale"] ; [+6]
-      104 GETTABLEKS                       R3 R0 K30 ["vector2Scale"]
-      106 SETTABLEKS                       R3 R1 K29 ["Vector2Scale"]
-      108 JUMP                             ; [+9]
-      109 JUMPIFNOTEQKS                    R2 K31 ["Vector3Scale"] ; [+6]
-      111 GETTABLEKS                       R3 R0 K32 ["vector3Scale"]
-      113 SETTABLEKS                       R3 R1 K31 ["Vector3Scale"]
-      115 JUMP                             ; [+2]
-      116 LOADB                            R3 0
-      117 RETURN                           R3 1
-      118 LOADB                            R3 1
-      119 RETURN                           R3 1
+        0 GETTABLEKS                       R3 R0 K0 ["name"]
+        2 JUMPIFEQKNIL                     R3 ; [+8]
+        4 JUMPIFNOTEQKS                    R2 K1 ["Name"] ; [+6]
+        6 GETTABLEKS                       R3 R0 K0 ["name"]
+        8 SETTABLEKS                       R3 R1 K1 ["Name"]
+       10 JUMP                             ; [+175]
+       11 GETTABLEKS                       R3 R0 K2 ["backward"]
+       13 JUMPIFEQKNIL                     R3 ; [+8]
+       15 JUMPIFNOTEQKS                    R2 K3 ["Backward"] ; [+6]
+       17 GETTABLEKS                       R3 R0 K2 ["backward"]
+       19 SETTABLEKS                       R3 R1 K3 ["Backward"]
+       21 JUMP                             ; [+164]
+       22 GETTABLEKS                       R3 R0 K4 ["down"]
+       24 JUMPIFEQKNIL                     R3 ; [+8]
+       26 JUMPIFNOTEQKS                    R2 K5 ["Down"] ; [+6]
+       28 GETTABLEKS                       R3 R0 K4 ["down"]
+       30 SETTABLEKS                       R3 R1 K5 ["Down"]
+       32 JUMP                             ; [+153]
+       33 GETTABLEKS                       R3 R0 K6 ["forward"]
+       35 JUMPIFEQKNIL                     R3 ; [+8]
+       37 JUMPIFNOTEQKS                    R2 K7 ["Forward"] ; [+6]
+       39 GETTABLEKS                       R3 R0 K6 ["forward"]
+       41 SETTABLEKS                       R3 R1 K7 ["Forward"]
+       43 JUMP                             ; [+142]
+       44 GETTABLEKS                       R3 R0 K8 ["keyCode"]
+       46 JUMPIFEQKNIL                     R3 ; [+8]
+       48 JUMPIFNOTEQKS                    R2 K9 ["KeyCode"] ; [+6]
+       50 GETTABLEKS                       R3 R0 K8 ["keyCode"]
+       52 SETTABLEKS                       R3 R1 K9 ["KeyCode"]
+       54 JUMP                             ; [+131]
+       55 GETTABLEKS                       R3 R0 K10 ["left"]
+       57 JUMPIFEQKNIL                     R3 ; [+8]
+       59 JUMPIFNOTEQKS                    R2 K11 ["Left"] ; [+6]
+       61 GETTABLEKS                       R3 R0 K10 ["left"]
+       63 SETTABLEKS                       R3 R1 K11 ["Left"]
+       65 JUMP                             ; [+120]
+       66 GETTABLEKS                       R3 R0 K12 ["pressedThreshold"]
+       68 JUMPIFEQKNIL                     R3 ; [+8]
+       70 JUMPIFNOTEQKS                    R2 K13 ["PressedThreshold"] ; [+6]
+       72 GETTABLEKS                       R3 R0 K12 ["pressedThreshold"]
+       74 SETTABLEKS                       R3 R1 K13 ["PressedThreshold"]
+       76 JUMP                             ; [+109]
+       77 GETTABLEKS                       R3 R0 K14 ["primaryModifier"]
+       79 JUMPIFEQKNIL                     R3 ; [+8]
+       81 JUMPIFNOTEQKS                    R2 K15 ["PrimaryModifier"] ; [+6]
+       83 GETTABLEKS                       R3 R0 K14 ["primaryModifier"]
+       85 SETTABLEKS                       R3 R1 K15 ["PrimaryModifier"]
+       87 JUMP                             ; [+98]
+       88 GETTABLEKS                       R3 R0 K16 ["releasedThreshold"]
+       90 JUMPIFEQKNIL                     R3 ; [+8]
+       92 JUMPIFNOTEQKS                    R2 K17 ["ReleasedThreshold"] ; [+6]
+       94 GETTABLEKS                       R3 R0 K16 ["releasedThreshold"]
+       96 SETTABLEKS                       R3 R1 K17 ["ReleasedThreshold"]
+       98 JUMP                             ; [+87]
+       99 GETTABLEKS                       R3 R0 K18 ["responseCurve"]
+      101 JUMPIFEQKNIL                     R3 ; [+8]
+      103 JUMPIFNOTEQKS                    R2 K19 ["ResponseCurve"] ; [+6]
+      105 GETTABLEKS                       R3 R0 K18 ["responseCurve"]
+      107 SETTABLEKS                       R3 R1 K19 ["ResponseCurve"]
+      109 JUMP                             ; [+76]
+      110 GETTABLEKS                       R3 R0 K20 ["right"]
+      112 JUMPIFEQKNIL                     R3 ; [+8]
+      114 JUMPIFNOTEQKS                    R2 K21 ["Right"] ; [+6]
+      116 GETTABLEKS                       R3 R0 K20 ["right"]
+      118 SETTABLEKS                       R3 R1 K21 ["Right"]
+      120 JUMP                             ; [+65]
+      121 GETTABLEKS                       R3 R0 K22 ["scale"]
+      123 JUMPIFEQKNIL                     R3 ; [+8]
+      125 JUMPIFNOTEQKS                    R2 K23 ["Scale"] ; [+6]
+      127 GETTABLEKS                       R3 R0 K22 ["scale"]
+      129 SETTABLEKS                       R3 R1 K23 ["Scale"]
+      131 JUMP                             ; [+54]
+      132 GETTABLEKS                       R3 R0 K24 ["secondaryModifier"]
+      134 JUMPIFEQKNIL                     R3 ; [+8]
+      136 JUMPIFNOTEQKS                    R2 K25 ["SecondaryModifier"] ; [+6]
+      138 GETTABLEKS                       R3 R0 K24 ["secondaryModifier"]
+      140 SETTABLEKS                       R3 R1 K25 ["SecondaryModifier"]
+      142 JUMP                             ; [+43]
+      143 GETTABLEKS                       R3 R0 K26 ["uiButton"]
+      145 JUMPIFEQKNIL                     R3 ; [+5]
+      147 JUMPIFNOTEQKS                    R2 K27 ["UIButton"] ; [+3]
+      149 LOADB                            R3 0
+      150 RETURN                           R3 1
+      151 GETTABLEKS                       R3 R0 K28 ["up"]
+      153 JUMPIFEQKNIL                     R3 ; [+8]
+      155 JUMPIFNOTEQKS                    R2 K29 ["Up"] ; [+6]
+      157 GETTABLEKS                       R3 R0 K28 ["up"]
+      159 SETTABLEKS                       R3 R1 K29 ["Up"]
+      161 JUMP                             ; [+24]
+      162 GETTABLEKS                       R3 R0 K30 ["vector2Scale"]
+      164 JUMPIFEQKNIL                     R3 ; [+8]
+      166 JUMPIFNOTEQKS                    R2 K31 ["Vector2Scale"] ; [+6]
+      168 GETTABLEKS                       R3 R0 K30 ["vector2Scale"]
+      170 SETTABLEKS                       R3 R1 K31 ["Vector2Scale"]
+      172 JUMP                             ; [+13]
+      173 GETTABLEKS                       R3 R0 K32 ["vector3Scale"]
+      175 JUMPIFEQKNIL                     R3 ; [+8]
+      177 JUMPIFNOTEQKS                    R2 K33 ["Vector3Scale"] ; [+6]
+      179 GETTABLEKS                       R3 R0 K32 ["vector3Scale"]
+      181 SETTABLEKS                       R3 R1 K33 ["Vector3Scale"]
+      183 JUMP                             ; [+2]
+      184 LOADB                            R3 0
+      185 RETURN                           R3 1
+      186 LOADB                            R3 1
+      187 RETURN                           R3 1
 
 PROTO_10:
         0 GETUPVAL                         R2 0
@@ -341,6 +389,42 @@ PROTO_12:
        11 FORGLOOP                         R2 2 ; [-8]
        13 RETURN                           R0 0
 
+PROTO_13:
+        0 GETIMPORT                        R0 K2 [Instance.new]
+        2 LOADK                            R1 K3 ["InputContext"]
+        3 CALL                             R0 1 1
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R1 R2 K4 ["serializeContext"]
+        7 MOVE                             R2 R0
+        8 CALL                             R1 1 1
+        9 NAMECALL                         R2 R0 K5 ["Destroy"]
+       11 CALL                             R2 1 0
+       12 RETURN                           R1 1
+
+PROTO_14:
+        0 GETIMPORT                        R0 K2 [Instance.new]
+        2 LOADK                            R1 K3 ["InputAction"]
+        3 CALL                             R0 1 1
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R1 R2 K4 ["serializeAction"]
+        7 MOVE                             R2 R0
+        8 CALL                             R1 1 1
+        9 NAMECALL                         R2 R0 K5 ["Destroy"]
+       11 CALL                             R2 1 0
+       12 RETURN                           R1 1
+
+PROTO_15:
+        0 GETIMPORT                        R0 K2 [Instance.new]
+        2 LOADK                            R1 K3 ["InputBinding"]
+        3 CALL                             R0 1 1
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R1 R2 K4 ["serializeBinding"]
+        7 MOVE                             R2 R0
+        8 CALL                             R1 1 1
+        9 NAMECALL                         R2 R0 K5 ["Destroy"]
+       11 CALL                             R2 1 0
+       12 RETURN                           R1 1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -351,7 +435,7 @@ MAIN:
         9 GETTABLEKS                       R3 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R3 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 NEWTABLE                         R2 16 0
+       14 NEWTABLE                         R2 32 0
        16 NEWTABLE                         R3 0 4
        18 LOADK                            R4 K8 ["Name"]
        19 LOADK                            R5 K9 ["Enabled"]
@@ -420,7 +504,16 @@ MAIN:
        99 CAPTURE                          VAL R5
       100 CAPTURE                          VAL R2
       101 SETTABLEKS                       R7 R2 K53 ["deserializeBinding"]
-      103 SETTABLEKS                       R3 R2 K54 ["CONTEXT_PROPERTIES"]
-      105 SETTABLEKS                       R4 R2 K55 ["ACTION_PROPERTIES"]
-      107 SETTABLEKS                       R5 R2 K56 ["BINDING_PROPERTIES"]
-      109 RETURN                           R2 1
+      103 DUPCLOSURE                       R7 K54 [PROTO_13]
+      104 CAPTURE                          VAL R2
+      105 SETTABLEKS                       R7 R2 K55 ["createDefaultContext"]
+      107 DUPCLOSURE                       R7 K56 [PROTO_14]
+      108 CAPTURE                          VAL R2
+      109 SETTABLEKS                       R7 R2 K57 ["createDefaultAction"]
+      111 DUPCLOSURE                       R7 K58 [PROTO_15]
+      112 CAPTURE                          VAL R2
+      113 SETTABLEKS                       R7 R2 K59 ["createDefaultBinding"]
+      115 SETTABLEKS                       R3 R2 K60 ["CONTEXT_PROPERTIES"]
+      117 SETTABLEKS                       R4 R2 K61 ["ACTION_PROPERTIES"]
+      119 SETTABLEKS                       R5 R2 K62 ["BINDING_PROPERTIES"]
+      121 RETURN                           R2 1

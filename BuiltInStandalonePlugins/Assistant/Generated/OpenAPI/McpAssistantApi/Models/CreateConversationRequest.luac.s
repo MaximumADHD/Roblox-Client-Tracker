@@ -19,154 +19,166 @@ PROTO_0:
        23 CALL                             R3 2 0
        24 RETURN                           R0 1
        25 GETTABLEKS                       R3 R0 K7 ["threadId"]
-       27 JUMPIFEQKNIL                     R3 ; [+15]
-       29 GETIMPORT                        R3 K10 [string.fromResponse]
-       31 GETTABLEKS                       R4 R0 K7 ["threadId"]
-       33 MOVE                             R5 R1
-       34 LOADK                            R7 K11 ["%*\"threadId\" > "]
-       35 MOVE                             R9 R2
-       36 NAMECALL                         R7 R7 K4 ["format"]
-       38 CALL                             R7 2 1
-       39 MOVE                             R6 R7
-       40 CALL                             R3 3 1
-       41 SETTABLEKS                       R3 R0 K7 ["threadId"]
-       43 GETTABLEKS                       R4 R0 K12 ["requestId"]
-       45 FASTCALL1                        TYPEOF R4 ; [+2]
-       46 GETIMPORT                        R3 K1 [typeof]
-       48 CALL                             R3 1 1
-       49 JUMPIFEQKS                       R3 K8 ["string"] ; [+19]
-       51 LOADK                            R6 K13 ["%*\"requestId\" > Expected string, got %*"]
-       52 MOVE                             R8 R2
-       53 GETTABLEKS                       R10 R0 K12 ["requestId"]
-       55 FASTCALL1                        TYPEOF R10 ; [+2]
-       56 GETIMPORT                        R9 K1 [typeof]
-       58 CALL                             R9 1 1
-       59 NAMECALL                         R6 R6 K4 ["format"]
-       61 CALL                             R6 3 1
-       62 MOVE                             R5 R6
-       63 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
-       65 MOVE                             R4 R1
-       66 GETIMPORT                        R3 K6 [table.insert]
-       68 CALL                             R3 2 0
-       69 GETTABLEKS                       R3 R0 K14 ["messageId"]
-       71 JUMPIFEQKNIL                     R3 ; [+15]
-       73 GETIMPORT                        R3 K10 [string.fromResponse]
-       75 GETTABLEKS                       R4 R0 K14 ["messageId"]
-       77 MOVE                             R5 R1
-       78 LOADK                            R7 K15 ["%*\"messageId\" > "]
-       79 MOVE                             R9 R2
-       80 NAMECALL                         R7 R7 K4 ["format"]
-       82 CALL                             R7 2 1
-       83 MOVE                             R6 R7
-       84 CALL                             R3 3 1
-       85 SETTABLEKS                       R3 R0 K14 ["messageId"]
-       87 GETUPVAL                         R4 0
-       88 GETTABLEKS                       R3 R4 K9 ["fromResponse"]
-       90 GETTABLEKS                       R4 R0 K16 ["conversation"]
-       92 MOVE                             R5 R1
-       93 LOADK                            R7 K17 ["%*\"conversation\" > "]
-       94 MOVE                             R9 R2
-       95 NAMECALL                         R7 R7 K4 ["format"]
-       97 CALL                             R7 2 1
-       98 MOVE                             R6 R7
-       99 CALL                             R3 3 1
-      100 SETTABLEKS                       R3 R0 K16 ["conversation"]
-      102 GETTABLEKS                       R3 R0 K18 ["firstMessage"]
-      104 JUMPIFEQKNIL                     R3 ; [+15]
-      106 GETIMPORT                        R3 K20 [boolean.fromResponse]
-      108 GETTABLEKS                       R4 R0 K18 ["firstMessage"]
-      110 MOVE                             R5 R1
-      111 LOADK                            R7 K21 ["%*\"firstMessage\" > "]
-      112 MOVE                             R9 R2
-      113 NAMECALL                         R7 R7 K4 ["format"]
-      115 CALL                             R7 2 1
-      116 MOVE                             R6 R7
-      117 CALL                             R3 3 1
-      118 SETTABLEKS                       R3 R0 K18 ["firstMessage"]
-      120 GETTABLEKS                       R3 R0 K22 ["useAgenticMode"]
-      122 JUMPIFEQKNIL                     R3 ; [+15]
-      124 GETIMPORT                        R3 K20 [boolean.fromResponse]
-      126 GETTABLEKS                       R4 R0 K22 ["useAgenticMode"]
-      128 MOVE                             R5 R1
-      129 LOADK                            R7 K23 ["%*\"useAgenticMode\" > "]
-      130 MOVE                             R9 R2
-      131 NAMECALL                         R7 R7 K4 ["format"]
-      133 CALL                             R7 2 1
-      134 MOVE                             R6 R7
-      135 CALL                             R3 3 1
-      136 SETTABLEKS                       R3 R0 K22 ["useAgenticMode"]
-      138 GETTABLEKS                       R3 R0 K24 ["isDebugMode"]
-      140 JUMPIFEQKNIL                     R3 ; [+15]
-      142 GETIMPORT                        R3 K20 [boolean.fromResponse]
-      144 GETTABLEKS                       R4 R0 K24 ["isDebugMode"]
-      146 MOVE                             R5 R1
-      147 LOADK                            R7 K25 ["%*\"isDebugMode\" > "]
-      148 MOVE                             R9 R2
-      149 NAMECALL                         R7 R7 K4 ["format"]
-      151 CALL                             R7 2 1
-      152 MOVE                             R6 R7
-      153 CALL                             R3 3 1
-      154 SETTABLEKS                       R3 R0 K24 ["isDebugMode"]
-      156 GETTABLEKS                       R3 R0 K26 ["assistantMode"]
-      158 JUMPIFEQKNIL                     R3 ; [+15]
-      160 GETIMPORT                        R3 K10 [string.fromResponse]
-      162 GETTABLEKS                       R4 R0 K26 ["assistantMode"]
-      164 MOVE                             R5 R1
-      165 LOADK                            R7 K27 ["%*\"assistantMode\" > "]
-      166 MOVE                             R9 R2
-      167 NAMECALL                         R7 R7 K4 ["format"]
-      169 CALL                             R7 2 1
-      170 MOVE                             R6 R7
-      171 CALL                             R3 3 1
-      172 SETTABLEKS                       R3 R0 K26 ["assistantMode"]
-      174 RETURN                           R0 1
+       27 JUMPIFEQKNIL                     R3 ; [+27]
+       29 GETTABLEKS                       R4 R0 K7 ["threadId"]
+       31 FASTCALL1                        TYPEOF R4 ; [+2]
+       32 GETIMPORT                        R3 K1 [typeof]
+       34 CALL                             R3 1 1
+       35 JUMPIFEQKS                       R3 K8 ["string"] ; [+19]
+       37 LOADK                            R6 K9 ["%*\"threadId\" > Expected string, got %*"]
+       38 MOVE                             R8 R2
+       39 GETTABLEKS                       R10 R0 K7 ["threadId"]
+       41 FASTCALL1                        TYPEOF R10 ; [+2]
+       42 GETIMPORT                        R9 K1 [typeof]
+       44 CALL                             R9 1 1
+       45 NAMECALL                         R6 R6 K4 ["format"]
+       47 CALL                             R6 3 1
+       48 MOVE                             R5 R6
+       49 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+       51 MOVE                             R4 R1
+       52 GETIMPORT                        R3 K6 [table.insert]
+       54 CALL                             R3 2 0
+       55 GETTABLEKS                       R4 R0 K10 ["requestId"]
+       57 FASTCALL1                        TYPEOF R4 ; [+2]
+       58 GETIMPORT                        R3 K1 [typeof]
+       60 CALL                             R3 1 1
+       61 JUMPIFEQKS                       R3 K8 ["string"] ; [+19]
+       63 LOADK                            R6 K11 ["%*\"requestId\" > Expected string, got %*"]
+       64 MOVE                             R8 R2
+       65 GETTABLEKS                       R10 R0 K10 ["requestId"]
+       67 FASTCALL1                        TYPEOF R10 ; [+2]
+       68 GETIMPORT                        R9 K1 [typeof]
+       70 CALL                             R9 1 1
+       71 NAMECALL                         R6 R6 K4 ["format"]
+       73 CALL                             R6 3 1
+       74 MOVE                             R5 R6
+       75 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+       77 MOVE                             R4 R1
+       78 GETIMPORT                        R3 K6 [table.insert]
+       80 CALL                             R3 2 0
+       81 GETTABLEKS                       R3 R0 K12 ["messageId"]
+       83 JUMPIFEQKNIL                     R3 ; [+27]
+       85 GETTABLEKS                       R4 R0 K12 ["messageId"]
+       87 FASTCALL1                        TYPEOF R4 ; [+2]
+       88 GETIMPORT                        R3 K1 [typeof]
+       90 CALL                             R3 1 1
+       91 JUMPIFEQKS                       R3 K8 ["string"] ; [+19]
+       93 LOADK                            R6 K13 ["%*\"messageId\" > Expected string, got %*"]
+       94 MOVE                             R8 R2
+       95 GETTABLEKS                       R10 R0 K12 ["messageId"]
+       97 FASTCALL1                        TYPEOF R10 ; [+2]
+       98 GETIMPORT                        R9 K1 [typeof]
+      100 CALL                             R9 1 1
+      101 NAMECALL                         R6 R6 K4 ["format"]
+      103 CALL                             R6 3 1
+      104 MOVE                             R5 R6
+      105 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+      107 MOVE                             R4 R1
+      108 GETIMPORT                        R3 K6 [table.insert]
+      110 CALL                             R3 2 0
+      111 GETUPVAL                         R4 0
+      112 GETTABLEKS                       R3 R4 K14 ["fromResponse"]
+      114 GETTABLEKS                       R4 R0 K15 ["conversation"]
+      116 MOVE                             R5 R1
+      117 LOADK                            R7 K16 ["%*\"conversation\" > "]
+      118 MOVE                             R9 R2
+      119 NAMECALL                         R7 R7 K4 ["format"]
+      121 CALL                             R7 2 1
+      122 MOVE                             R6 R7
+      123 CALL                             R3 3 1
+      124 SETTABLEKS                       R3 R0 K15 ["conversation"]
+      126 GETTABLEKS                       R3 R0 K17 ["firstMessage"]
+      128 JUMPIFEQKNIL                     R3 ; [+27]
+      130 GETTABLEKS                       R4 R0 K17 ["firstMessage"]
+      132 FASTCALL1                        TYPEOF R4 ; [+2]
+      133 GETIMPORT                        R3 K1 [typeof]
+      135 CALL                             R3 1 1
+      136 JUMPIFEQKS                       R3 K18 ["boolean"] ; [+19]
+      138 LOADK                            R6 K19 ["%*\"firstMessage\" > Expected boolean, got %*"]
+      139 MOVE                             R8 R2
+      140 GETTABLEKS                       R10 R0 K17 ["firstMessage"]
+      142 FASTCALL1                        TYPEOF R10 ; [+2]
+      143 GETIMPORT                        R9 K1 [typeof]
+      145 CALL                             R9 1 1
+      146 NAMECALL                         R6 R6 K4 ["format"]
+      148 CALL                             R6 3 1
+      149 MOVE                             R5 R6
+      150 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+      152 MOVE                             R4 R1
+      153 GETIMPORT                        R3 K6 [table.insert]
+      155 CALL                             R3 2 0
+      156 GETTABLEKS                       R3 R0 K20 ["useAgenticMode"]
+      158 JUMPIFEQKNIL                     R3 ; [+27]
+      160 GETTABLEKS                       R4 R0 K20 ["useAgenticMode"]
+      162 FASTCALL1                        TYPEOF R4 ; [+2]
+      163 GETIMPORT                        R3 K1 [typeof]
+      165 CALL                             R3 1 1
+      166 JUMPIFEQKS                       R3 K18 ["boolean"] ; [+19]
+      168 LOADK                            R6 K21 ["%*\"useAgenticMode\" > Expected boolean, got %*"]
+      169 MOVE                             R8 R2
+      170 GETTABLEKS                       R10 R0 K20 ["useAgenticMode"]
+      172 FASTCALL1                        TYPEOF R10 ; [+2]
+      173 GETIMPORT                        R9 K1 [typeof]
+      175 CALL                             R9 1 1
+      176 NAMECALL                         R6 R6 K4 ["format"]
+      178 CALL                             R6 3 1
+      179 MOVE                             R5 R6
+      180 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+      182 MOVE                             R4 R1
+      183 GETIMPORT                        R3 K6 [table.insert]
+      185 CALL                             R3 2 0
+      186 GETTABLEKS                       R3 R0 K22 ["isDebugMode"]
+      188 JUMPIFEQKNIL                     R3 ; [+27]
+      190 GETTABLEKS                       R4 R0 K22 ["isDebugMode"]
+      192 FASTCALL1                        TYPEOF R4 ; [+2]
+      193 GETIMPORT                        R3 K1 [typeof]
+      195 CALL                             R3 1 1
+      196 JUMPIFEQKS                       R3 K18 ["boolean"] ; [+19]
+      198 LOADK                            R6 K23 ["%*\"isDebugMode\" > Expected boolean, got %*"]
+      199 MOVE                             R8 R2
+      200 GETTABLEKS                       R10 R0 K22 ["isDebugMode"]
+      202 FASTCALL1                        TYPEOF R10 ; [+2]
+      203 GETIMPORT                        R9 K1 [typeof]
+      205 CALL                             R9 1 1
+      206 NAMECALL                         R6 R6 K4 ["format"]
+      208 CALL                             R6 3 1
+      209 MOVE                             R5 R6
+      210 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+      212 MOVE                             R4 R1
+      213 GETIMPORT                        R3 K6 [table.insert]
+      215 CALL                             R3 2 0
+      216 GETTABLEKS                       R3 R0 K24 ["assistantMode"]
+      218 JUMPIFEQKNIL                     R3 ; [+27]
+      220 GETTABLEKS                       R4 R0 K24 ["assistantMode"]
+      222 FASTCALL1                        TYPEOF R4 ; [+2]
+      223 GETIMPORT                        R3 K1 [typeof]
+      225 CALL                             R3 1 1
+      226 JUMPIFEQKS                       R3 K8 ["string"] ; [+19]
+      228 LOADK                            R6 K25 ["%*\"assistantMode\" > Expected string, got %*"]
+      229 MOVE                             R8 R2
+      230 GETTABLEKS                       R10 R0 K24 ["assistantMode"]
+      232 FASTCALL1                        TYPEOF R10 ; [+2]
+      233 GETIMPORT                        R9 K1 [typeof]
+      235 CALL                             R9 1 1
+      236 NAMECALL                         R6 R6 K4 ["format"]
+      238 CALL                             R6 3 1
+      239 MOVE                             R5 R6
+      240 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+      242 MOVE                             R4 R1
+      243 GETIMPORT                        R3 K6 [table.insert]
+      245 CALL                             R3 2 0
+      246 RETURN                           R0 1
 
 PROTO_1:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 MOVE                             R2 R0
         3 CALL                             R1 1 1
-        4 GETTABLEKS                       R2 R1 K3 ["threadId"]
-        6 JUMPIFEQKNIL                     R2 ; [+8]
-        8 GETIMPORT                        R2 K6 [string.toRequest]
-       10 GETTABLEKS                       R3 R1 K3 ["threadId"]
-       12 CALL                             R2 1 1
-       13 SETTABLEKS                       R2 R1 K3 ["threadId"]
-       15 GETTABLEKS                       R2 R1 K7 ["messageId"]
-       17 JUMPIFEQKNIL                     R2 ; [+8]
-       19 GETIMPORT                        R2 K6 [string.toRequest]
-       21 GETTABLEKS                       R3 R1 K7 ["messageId"]
-       23 CALL                             R2 1 1
-       24 SETTABLEKS                       R2 R1 K7 ["messageId"]
-       26 GETUPVAL                         R3 0
-       27 GETTABLEKS                       R2 R3 K5 ["toRequest"]
-       29 GETTABLEKS                       R3 R1 K8 ["conversation"]
-       31 CALL                             R2 1 1
-       32 SETTABLEKS                       R2 R1 K8 ["conversation"]
-       34 GETTABLEKS                       R2 R1 K9 ["firstMessage"]
-       36 JUMPIFEQKNIL                     R2 ; [+8]
-       38 GETIMPORT                        R2 K11 [boolean.toRequest]
-       40 GETTABLEKS                       R3 R1 K9 ["firstMessage"]
-       42 CALL                             R2 1 1
-       43 SETTABLEKS                       R2 R1 K9 ["firstMessage"]
-       45 GETTABLEKS                       R2 R1 K12 ["useAgenticMode"]
-       47 JUMPIFEQKNIL                     R2 ; [+8]
-       49 GETIMPORT                        R2 K11 [boolean.toRequest]
-       51 GETTABLEKS                       R3 R1 K12 ["useAgenticMode"]
-       53 CALL                             R2 1 1
-       54 SETTABLEKS                       R2 R1 K12 ["useAgenticMode"]
-       56 GETTABLEKS                       R2 R1 K13 ["isDebugMode"]
-       58 JUMPIFEQKNIL                     R2 ; [+8]
-       60 GETIMPORT                        R2 K11 [boolean.toRequest]
-       62 GETTABLEKS                       R3 R1 K13 ["isDebugMode"]
-       64 CALL                             R2 1 1
-       65 SETTABLEKS                       R2 R1 K13 ["isDebugMode"]
-       67 GETTABLEKS                       R2 R1 K14 ["assistantMode"]
-       69 JUMPIFEQKNIL                     R2 ; [+8]
-       71 GETIMPORT                        R2 K6 [string.toRequest]
-       73 GETTABLEKS                       R3 R1 K14 ["assistantMode"]
-       75 CALL                             R2 1 1
-       76 SETTABLEKS                       R2 R1 K14 ["assistantMode"]
-       78 RETURN                           R1 1
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R2 R3 K3 ["toRequest"]
+        7 GETTABLEKS                       R3 R1 K4 ["conversation"]
+        9 CALL                             R2 1 1
+       10 SETTABLEKS                       R2 R1 K4 ["conversation"]
+       12 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -10,6 +10,9 @@ local RespawnUtils = require(Chrome.Integrations.RespawnUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
 
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
+
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local CommonFtuxTooltip = require(Chrome.Integrations.CommonFtuxTooltip)
 local AvatarSwitcherFtuxTooltip = require(Chrome.Integrations.AvatarSwitcher.AvatarSwitcherFtuxTooltip)
@@ -73,6 +76,7 @@ end)
 local leaderboard = ChromeService:register({
 	id = "leaderboard",
 	label = "CoreScripts.TopBar.Leaderboard",
+	sideSheetPlacement = SideSheetPlacement.Vertical,
 	activated = function(self)
 		if not isInExperienceUIVREnabled and VRService.VREnabled then
 			local InGameMenu = require(RobloxGui.Modules.InGameMenu)
@@ -108,6 +112,7 @@ end)
 local emotes = ChromeService:register({
 	id = "emotes",
 	label = "CoreScripts.TopBar.Emotes",
+	sideSheetPlacement = SideSheetPlacement.Vertical,
 	activated = function(self)
 		if EmotesMenuMaster:isOpen() then
 			EmotesMenuMaster:close()
@@ -160,6 +165,7 @@ local backpackVisibility: any = if not FFlagEnableNewBackpack
 local backpack = ChromeService:register({
 	id = "backpack",
 	label = "CoreScripts.TopBar.Inventory",
+	sideSheetPlacement = SideSheetPlacement.Vertical,
 	activated = function(self)
 		if FFlagEnableNewBackpack then
 			if Features.getVisibility(Features.FeatureName.Backpack) then
@@ -208,6 +214,7 @@ ChromeUtils.setCoreGuiAvailability(backpack, Enum.CoreGuiType.Backpack)
 local respawn = ChromeService:register({
 	id = "respawn",
 	label = "CoreScripts.InGameMenu.QuickActions.Respawn",
+	sideSheetPlacement = SideSheetPlacement.Vertical,
 	activated = function(self)
 		RespawnUtils.respawnPage()
 	end,
@@ -348,6 +355,7 @@ return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Pinned,
 	id = "nine_dot",
 	label = "CoreScripts.TopBar.MoreMenu",
+	sideSheetPlacement = SideSheetPlacement.None,
 	isActivated = if FFlagFixIntegrationActivated
 		then function()
 			return submenuVisibility:get()

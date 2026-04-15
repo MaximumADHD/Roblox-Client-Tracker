@@ -116,54 +116,61 @@ PROTO_7:
        16 GETTABLEKS                       R8 R7 K6 ["PivotOffset"]
        18 GETIMPORT                        R9 K9 [CFrame.new]
        20 CALL                             R9 0 1
-       21 JUMPIFEQ                         R8 R9 ; [+50]
+       21 JUMPIFEQ                         R8 R9 ; [+58]
        23 GETIMPORT                        R8 K9 [CFrame.new]
        25 CALL                             R8 0 1
        26 SETTABLEKS                       R8 R7 K6 ["PivotOffset"]
        28 LOADB                            R1 1
-       29 JUMP                             ; [+42]
+       29 JUMP                             ; [+50]
        30 LOADK                            R10 K10 ["Model"]
        31 NAMECALL                         R8 R7 K4 ["IsA"]
        33 CALL                             R8 2 1
-       34 JUMPIFNOT                        R8 ; [+37]
-       35 ADDK                             R2 R2 K5 [1]
-       36 GETTABLEKS                       R8 R7 K11 ["PrimaryPart"]
-       38 JUMPIFNOT                        R8 ; [+21]
-       39 GETTABLEKS                       R9 R7 K11 ["PrimaryPart"]
-       41 GETTABLEKS                       R8 R9 K6 ["PivotOffset"]
-       43 GETIMPORT                        R9 K13 [CFrame.identity]
-       45 JUMPIFEQ                         R8 R9 ; [+26]
-       47 GETTABLEKS                       R8 R7 K11 ["PrimaryPart"]
-       49 GETIMPORT                        R9 K13 [CFrame.identity]
-       51 SETTABLEKS                       R9 R8 K6 ["PivotOffset"]
-       53 NAMECALL                         R8 R7 K14 ["GetPivot"]
-       55 CALL                             R8 1 1
-       56 SETTABLEKS                       R8 R7 K15 ["WorldPivot"]
-       58 LOADB                            R1 1
-       59 JUMP                             ; [+12]
-       60 GETUPVAL                         R8 1
-       61 MOVE                             R9 R7
-       62 CALL                             R8 1 1
-       63 GETTABLEKS                       R9 R7 K15 ["WorldPivot"]
-       65 JUMPIFEQ                         R8 R9 ; [+6]
-       67 GETUPVAL                         R9 2
-       68 MOVE                             R10 R7
-       69 MOVE                             R11 R8
-       70 CALL                             R9 2 0
-       71 LOADB                            R1 1
-       72 FORGLOOP                         R3 2 [inext] ; [-63]
-       74 JUMPIFNOT                        R1 ; [+5]
-       75 GETUPVAL                         R3 3
-       76 LOADK                            R5 K16 ["Clear Pivot"]
-       77 NAMECALL                         R3 R3 K17 ["SetWaypoint"]
-       79 CALL                             R3 2 0
-       80 GETUPVAL                         R3 4
-       81 LOADK                            R5 K18 ["clearPivot"]
-       82 DUPTABLE                         R6 K20 [{"objectCount"}]
-       83 SETTABLEKS                       R2 R6 K19 ["objectCount"]
-       85 NAMECALL                         R3 R3 K21 ["sendEvent"]
-       87 CALL                             R3 3 0
-       88 RETURN                           R0 0
+       34 JUMPIFNOT                        R8 ; [+45]
+       35 GETUPVAL                         R8 1
+       36 CALL                             R8 0 1
+       37 JUMPIFNOT                        R8 ; [+5]
+       38 LOADK                            R10 K11 ["ProceduralModel"]
+       39 NAMECALL                         R8 R7 K4 ["IsA"]
+       41 CALL                             R8 2 1
+       42 JUMPIF                           R8 ; [+37]
+       43 ADDK                             R2 R2 K5 [1]
+       44 GETTABLEKS                       R8 R7 K12 ["PrimaryPart"]
+       46 JUMPIFNOT                        R8 ; [+21]
+       47 GETTABLEKS                       R9 R7 K12 ["PrimaryPart"]
+       49 GETTABLEKS                       R8 R9 K6 ["PivotOffset"]
+       51 GETIMPORT                        R9 K14 [CFrame.identity]
+       53 JUMPIFEQ                         R8 R9 ; [+26]
+       55 GETTABLEKS                       R8 R7 K12 ["PrimaryPart"]
+       57 GETIMPORT                        R9 K14 [CFrame.identity]
+       59 SETTABLEKS                       R9 R8 K6 ["PivotOffset"]
+       61 NAMECALL                         R8 R7 K15 ["GetPivot"]
+       63 CALL                             R8 1 1
+       64 SETTABLEKS                       R8 R7 K16 ["WorldPivot"]
+       66 LOADB                            R1 1
+       67 JUMP                             ; [+12]
+       68 GETUPVAL                         R8 2
+       69 MOVE                             R9 R7
+       70 CALL                             R8 1 1
+       71 GETTABLEKS                       R9 R7 K16 ["WorldPivot"]
+       73 JUMPIFEQ                         R8 R9 ; [+6]
+       75 GETUPVAL                         R9 3
+       76 MOVE                             R10 R7
+       77 MOVE                             R11 R8
+       78 CALL                             R9 2 0
+       79 LOADB                            R1 1
+       80 FORGLOOP                         R3 2 [inext] ; [-71]
+       82 JUMPIFNOT                        R1 ; [+5]
+       83 GETUPVAL                         R3 4
+       84 LOADK                            R5 K17 ["Clear Pivot"]
+       85 NAMECALL                         R3 R3 K18 ["SetWaypoint"]
+       87 CALL                             R3 2 0
+       88 GETUPVAL                         R3 5
+       89 LOADK                            R5 K19 ["clearPivot"]
+       90 DUPTABLE                         R6 K21 [{"objectCount"}]
+       91 SETTABLEKS                       R2 R6 K20 ["objectCount"]
+       93 NAMECALL                         R3 R3 K22 ["sendEvent"]
+       95 CALL                             R3 3 0
+       96 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 0
@@ -306,40 +313,47 @@ MAIN:
        93 GETTABLEKS                       R17 R18 K29 ["Flags"]
        95 GETTABLEKS                       R16 R17 K30 ["getFFlagImprovePluginSpeedPivotEditor"]
        97 CALL                             R15 1 1
-       98 DUPCLOSURE                       R16 K31 [PROTO_1]
-       99 CAPTURE                          VAL R15
-      100 SETTABLEKS                       R16 R14 K32 ["init"]
-      102 DUPCLOSURE                       R16 K33 [PROTO_3]
-      103 SETTABLEKS                       R16 R14 K34 ["didMount"]
-      105 DUPCLOSURE                       R16 K35 [PROTO_4]
-      106 SETTABLEKS                       R16 R14 K36 ["willUnmount"]
-      108 DUPCLOSURE                       R16 K37 [PROTO_5]
-      109 SETTABLEKS                       R16 R14 K38 ["willUpdate"]
-      111 MOVE                             R16 R15
-      112 CALL                             R16 0 1
-      113 JUMPIFNOT                        R16 ; [+3]
-      114 DUPCLOSURE                       R16 K39 [PROTO_6]
-      115 SETTABLEKS                       R16 R14 K40 ["didUpdate"]
-      117 DUPCLOSURE                       R16 K41 [PROTO_7]
-      118 CAPTURE                          VAL R0
-      119 CAPTURE                          VAL R13
-      120 CAPTURE                          VAL R12
-      121 CAPTURE                          VAL R1
-      122 CAPTURE                          VAL R10
-      123 SETTABLEKS                       R16 R14 K42 ["_onClearPivot"]
-      125 DUPCLOSURE                       R16 K43 [PROTO_10]
-      126 CAPTURE                          VAL R4
-      127 CAPTURE                          VAL R9
-      128 CAPTURE                          VAL R15
-      129 CAPTURE                          VAL R8
-      130 CAPTURE                          VAL R11
-      131 SETTABLEKS                       R16 R14 K44 ["render"]
-      133 MOVE                             R16 R6
-      134 DUPTABLE                         R17 K46 [{"Plugin"}]
-      135 GETTABLEKS                       R18 R5 K45 ["Plugin"]
-      137 SETTABLEKS                       R18 R17 K45 ["Plugin"]
-      139 CALL                             R16 1 1
-      140 MOVE                             R17 R14
-      141 CALL                             R16 1 1
-      142 MOVE                             R14 R16
-      143 RETURN                           R14 1
+       98 GETIMPORT                        R16 K9 [require]
+      100 GETTABLEKS                       R20 R2 K10 ["Packages"]
+      102 GETTABLEKS                       R19 R20 K18 ["DraggerFramework"]
+      104 GETTABLEKS                       R18 R19 K29 ["Flags"]
+      106 GETTABLEKS                       R17 R18 K31 ["getFFlagDraggerEditProcModels"]
+      108 CALL                             R16 1 1
+      109 DUPCLOSURE                       R17 K32 [PROTO_1]
+      110 CAPTURE                          VAL R15
+      111 SETTABLEKS                       R17 R14 K33 ["init"]
+      113 DUPCLOSURE                       R17 K34 [PROTO_3]
+      114 SETTABLEKS                       R17 R14 K35 ["didMount"]
+      116 DUPCLOSURE                       R17 K36 [PROTO_4]
+      117 SETTABLEKS                       R17 R14 K37 ["willUnmount"]
+      119 DUPCLOSURE                       R17 K38 [PROTO_5]
+      120 SETTABLEKS                       R17 R14 K39 ["willUpdate"]
+      122 MOVE                             R17 R15
+      123 CALL                             R17 0 1
+      124 JUMPIFNOT                        R17 ; [+3]
+      125 DUPCLOSURE                       R17 K40 [PROTO_6]
+      126 SETTABLEKS                       R17 R14 K41 ["didUpdate"]
+      128 DUPCLOSURE                       R17 K42 [PROTO_7]
+      129 CAPTURE                          VAL R0
+      130 CAPTURE                          VAL R16
+      131 CAPTURE                          VAL R13
+      132 CAPTURE                          VAL R12
+      133 CAPTURE                          VAL R1
+      134 CAPTURE                          VAL R10
+      135 SETTABLEKS                       R17 R14 K43 ["_onClearPivot"]
+      137 DUPCLOSURE                       R17 K44 [PROTO_10]
+      138 CAPTURE                          VAL R4
+      139 CAPTURE                          VAL R9
+      140 CAPTURE                          VAL R15
+      141 CAPTURE                          VAL R8
+      142 CAPTURE                          VAL R11
+      143 SETTABLEKS                       R17 R14 K45 ["render"]
+      145 MOVE                             R17 R6
+      146 DUPTABLE                         R18 K47 [{"Plugin"}]
+      147 GETTABLEKS                       R19 R5 K46 ["Plugin"]
+      149 SETTABLEKS                       R19 R18 K46 ["Plugin"]
+      151 CALL                             R17 1 1
+      152 MOVE                             R18 R14
+      153 CALL                             R17 1 1
+      154 MOVE                             R14 R17
+      155 RETURN                           R14 1

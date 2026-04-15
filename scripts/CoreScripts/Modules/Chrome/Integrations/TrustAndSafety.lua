@@ -9,6 +9,9 @@ local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
+
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 
@@ -34,6 +37,7 @@ return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "trust_and_safety",
 	label = "CoreScripts.InGameMenu.QuickActions.Report",
+	sideSheetPlacement = SideSheetPlacement.Vertical,
 	activated = function(self)
 		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 		if SettingsHub:GetVisibility() then

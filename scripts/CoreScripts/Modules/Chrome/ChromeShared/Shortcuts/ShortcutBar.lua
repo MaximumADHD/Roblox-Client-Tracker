@@ -2,6 +2,7 @@ local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local UserInputService = game:GetService("UserInputService")
 local GamepadConnector = require(Root.Parent.Parent.TopBar.Components.GamepadConnector)
 
 local React = require(CorePackages.Packages.React)
@@ -21,6 +22,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local FFlagDisableGamepadConnectorInVR = ChromePackage.Flags.FFlagDisableGamepadConnectorInVR
+local FFlagGamepadIconSupportCheck = SharedFlags.FFlagGamepadIconSupportCheck
 
 type ShortcutProps = ChromePackage.ShortcutProps
 
@@ -56,11 +58,19 @@ function ChromeShortcutBar(props)
 	end, { screenSize })
 
 	React.useEffect(function()
-		ChromeService:onShortcutBarChanged():connect(function()
+		local function updateShortcuts()
+			if FFlagGamepadIconSupportCheck and not GamepadConnector:getGamepadActive():get() then
+				return
+			end
 			local s = ChromeService:getCurrentShortcuts()
 			setShortcuts(s)
 			setTrimmedShortcuts({})
-		end)
+		end
+
+		ChromeService:onShortcutBarChanged():connect(updateShortcuts)
+		if FFlagGamepadIconSupportCheck then
+			UserInputService.LastInputTypeChanged:Connect(updateShortcuts)
+		end
 
 		if not FFlagDisableGamepadConnectorInVR or not isSpatial() then
 			local showTopBar = GamepadConnector:getShowTopBar()

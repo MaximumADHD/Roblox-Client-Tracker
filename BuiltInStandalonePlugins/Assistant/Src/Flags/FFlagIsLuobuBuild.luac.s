@@ -6,18 +6,17 @@ PROTO_0:
         6 CALL                             R0 3 0
         7 RETURN                           R0 0
 
+PROTO_1:
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["IsLuobuBuild"]
+        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
+
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["FastSetting"]
-        9 CALL                             R0 1 1
-       10 GETIMPORT                        R1 K7 [pcall]
-       12 DUPCLOSURE                       R2 K8 [PROTO_0]
-       13 CALL                             R1 1 0
-       14 GETTABLEKS                       R1 R0 K9 ["createFFlag"]
-       16 LOADK                            R2 K10 ["IsLuobuBuild"]
-       17 LOADB                            R3 0
-       18 CALL                             R1 2 -1
-       19 RETURN                           R1 -1
+        1 GETIMPORT                        R0 K1 [pcall]
+        3 DUPCLOSURE                       R1 K2 [PROTO_0]
+        4 CALL                             R0 1 0
+        5 DUPCLOSURE                       R0 K3 [PROTO_1]
+        6 RETURN                           R0 1

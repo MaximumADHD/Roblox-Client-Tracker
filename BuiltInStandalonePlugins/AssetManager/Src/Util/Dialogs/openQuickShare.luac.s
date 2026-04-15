@@ -6,7 +6,7 @@ PROTO_0:
         5 CALL                             R7 3 1
         6 SETTABLEKS                       R7 R6 K0 ["Title"]
         8 GETUPVAL                         R8 0
-        9 GETTABLEKS                       R7 R8 K7 ["AMR_QUICKSHARE_DIALOG_SIZE"]
+        9 GETTABLEKS                       R7 R8 K7 ["QuickShareDialogSize"]
        11 SETTABLEKS                       R7 R6 K1 ["Size"]
        13 GETUPVAL                         R9 1
        14 GETTABLEKS                       R8 R9 K8 ["DialogType"]

@@ -16,7 +16,7 @@ PROTO_1:
         5 CALL                             R4 3 1
         6 SETTABLEKS                       R4 R3 K0 ["Title"]
         8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K7 ["AMR_CONFIRM_DIALOG_SIZE"]
+        9 GETTABLEKS                       R4 R5 K7 ["ConfirmDialogSize"]
        11 SETTABLEKS                       R4 R3 K1 ["Size"]
        13 GETUPVAL                         R6 1
        14 GETTABLEKS                       R5 R6 K8 ["DialogType"]

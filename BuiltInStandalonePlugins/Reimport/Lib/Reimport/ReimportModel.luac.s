@@ -317,105 +317,129 @@ PROTO_7:
        19 CALL                             R7 1 0
        20 CLOSEUPVALS                      R4
        21 RETURN                           R0 0
-       22 GETUPVAL                         R8 0
-       23 GETTABLEKS                       R7 R8 K4 ["getOrCreateReimportConfig"]
-       25 MOVE                             R8 R0
-       26 DUPCLOSURE                       R9 K5 [PROTO_3]
-       27 CAPTURE                          UPVAL U1
-       28 CALL                             R7 2 2
-       29 GETTABLEKS                       R9 R8 K6 ["filepath"]
-       31 JUMPIFEQKNIL                     R9 ; [+5]
-       33 GETTABLEKS                       R9 R8 K6 ["filepath"]
-       35 JUMPIFNOTEQKS                    R9 K7 [""] ; [+10]
-       37 GETTABLEKS                       R9 R1 K8 ["warning"]
-       39 LOADK                            R10 K9 ["No file selected for reimport"]
-       40 CALL                             R9 1 0
-       41 GETTABLEKS                       R9 R1 K10 ["success"]
-       43 CALL                             R9 0 0
-       44 CLOSEUPVALS                      R4
-       45 RETURN                           R0 0
-       46 MULK                             R10 R5 K11 [0.6]
-       47 ADD                              R9 R4 R10
-       48 GETTABLEKS                       R10 R1 K12 ["progress"]
-       50 MOVE                             R11 R9
-       51 CALL                             R10 1 0
-       52 GETUPVAL                         R9 1
-       53 GETTABLEKS                       R11 R8 K6 ["filepath"]
-       55 NAMECALL                         R9 R9 K13 ["StartSessionWithPathAsync"]
-       57 CALL                             R9 2 1
-       58 JUMPIF                           R9 ; [+6]
-       59 GETTABLEKS                       R10 R1 K2 ["error"]
-       61 LOADK                            R11 K14 ["Failed to start import session"]
-       62 CALL                             R10 1 0
-       63 CLOSEUPVALS                      R4
-       64 RETURN                           R0 0
-       65 NAMECALL                         R10 R9 K15 ["GetImportTree"]
-       67 CALL                             R10 1 1
-       68 JUMPIFNOTEQKNIL                  R10 ; [+7]
-       70 GETTABLEKS                       R10 R1 K2 ["error"]
-       72 LOADK                            R11 K16 ["Import tree is nil"]
-       73 CALL                             R10 1 0
+       22 LOADNIL                          R7
+       23 LOADNIL                          R8
+       24 GETUPVAL                         R9 0
+       25 CALL                             R9 0 1
+       26 JUMPIFNOT                        R9 ; [+23]
+       27 GETUPVAL                         R10 1
+       28 GETTABLEKS                       R9 R10 K4 ["getConfigFromInstance"]
+       30 MOVE                             R10 R0
+       31 CALL                             R9 1 2
+       32 MOVE                             R7 R9
+       33 MOVE                             R8 R10
+       34 JUMPIFNOT                        R8 ; [+8]
+       35 GETTABLEKS                       R9 R8 K5 ["filepath"]
+       37 JUMPIFEQKNIL                     R9 ; [+5]
+       39 GETTABLEKS                       R9 R8 K5 ["filepath"]
+       41 JUMPIFNOTEQKS                    R9 K6 [""] ; [+34]
+       43 GETTABLEKS                       R9 R1 K2 ["error"]
+       45 LOADK                            R10 K7 ["No reimport config found for selection"]
+       46 CALL                             R9 1 0
+       47 CLOSEUPVALS                      R4
+       48 RETURN                           R0 0
+       49 JUMP                             ; [+26]
+       50 GETUPVAL                         R10 1
+       51 GETTABLEKS                       R9 R10 K8 ["getOrCreateReimportConfig"]
+       53 MOVE                             R10 R0
+       54 DUPCLOSURE                       R11 K9 [PROTO_3]
+       55 CAPTURE                          UPVAL U2
+       56 CALL                             R9 2 2
+       57 MOVE                             R7 R9
+       58 MOVE                             R8 R10
+       59 GETTABLEKS                       R9 R8 K5 ["filepath"]
+       61 JUMPIFEQKNIL                     R9 ; [+5]
+       63 GETTABLEKS                       R9 R8 K5 ["filepath"]
+       65 JUMPIFNOTEQKS                    R9 K6 [""] ; [+10]
+       67 GETTABLEKS                       R9 R1 K10 ["warning"]
+       69 LOADK                            R10 K11 ["No file selected for reimport"]
+       70 CALL                             R9 1 0
+       71 GETTABLEKS                       R9 R1 K12 ["success"]
+       73 CALL                             R9 0 0
        74 CLOSEUPVALS                      R4
        75 RETURN                           R0 0
-       76 ADDK                             R4 R4 K17 [0.1]
-       77 MULK                             R11 R5 K11 [0.6]
-       78 ADD                              R10 R4 R11
-       79 GETTABLEKS                       R11 R1 K12 ["progress"]
-       81 MOVE                             R12 R10
-       82 CALL                             R11 1 0
-       83 GETTABLEKS                       R10 R9 K18 ["UploadProgress"]
-       85 NEWCLOSURE                       R12 P2
-       86 CAPTURE                          REF R5
-       87 CAPTURE                          REF R4
-       88 CAPTURE                          VAL R1
-       89 NAMECALL                         R10 R10 K19 ["Connect"]
-       91 CALL                             R10 2 0
-       92 GETTABLEKS                       R10 R9 K20 ["UploadComplete"]
-       94 NEWCLOSURE                       R12 P3
-       95 CAPTURE                          REF R5
-       96 CAPTURE                          REF R4
-       97 CAPTURE                          VAL R1
-       98 CAPTURE                          UPVAL U2
-       99 CAPTURE                          VAL R3
-      100 CAPTURE                          UPVAL U3
-      101 CAPTURE                          VAL R0
-      102 CAPTURE                          REF R7
-      103 CAPTURE                          UPVAL U0
-      104 CAPTURE                          VAL R8
-      105 CAPTURE                          UPVAL U4
-      106 CAPTURE                          UPVAL U5
-      107 NAMECALL                         R10 R10 K19 ["Connect"]
-      109 CALL                             R10 2 0
-      110 NAMECALL                         R10 R9 K15 ["GetImportTree"]
-      112 CALL                             R10 1 1
-      113 LOADB                            R11 0
-      114 SETTABLEKS                       R11 R10 K21 ["AddModelToInventory"]
-      116 GETUPVAL                         R11 6
-      117 CALL                             R11 0 1
-      118 JUMPIFNOT                        R11 ; [+8]
-      119 GETTABLEKS                       R11 R8 K22 ["creatorId"]
-      121 JUMPIFEQKNIL                     R11 ; [+5]
-      123 GETTABLEKS                       R11 R8 K22 ["creatorId"]
-      125 SETTABLEKS                       R11 R10 K23 ["PreferredUploadId"]
-      127 GETTABLEKS                       R11 R8 K24 ["preset"]
-      129 JUMPIFEQKNIL                     R11 ; [+11]
-      131 GETUPVAL                         R11 1
-      132 GETTABLEKS                       R13 R8 K24 ["preset"]
-      134 NAMECALL                         R11 R11 K25 ["GetPreset"]
-      136 CALL                             R11 2 1
-      137 MOVE                             R14 R11
-      138 NAMECALL                         R12 R9 K26 ["ApplyPreset"]
-      140 CALL                             R12 2 0
-      141 NAMECALL                         R11 R9 K27 ["Upload"]
-      143 CALL                             R11 1 0
-      144 ADDK                             R4 R4 K17 [0.1]
-      145 MULK                             R12 R5 K11 [0.6]
-      146 ADD                              R11 R4 R12
-      147 GETTABLEKS                       R12 R1 K12 ["progress"]
-      149 MOVE                             R13 R11
-      150 CALL                             R12 1 0
-      151 CLOSEUPVALS                      R4
-      152 RETURN                           R0 0
+       76 MULK                             R10 R5 K13 [0.6]
+       77 ADD                              R9 R4 R10
+       78 GETTABLEKS                       R10 R1 K14 ["progress"]
+       80 MOVE                             R11 R9
+       81 CALL                             R10 1 0
+       82 GETUPVAL                         R9 2
+       83 GETTABLEKS                       R11 R8 K5 ["filepath"]
+       85 NAMECALL                         R9 R9 K15 ["StartSessionWithPathAsync"]
+       87 CALL                             R9 2 1
+       88 JUMPIF                           R9 ; [+6]
+       89 GETTABLEKS                       R10 R1 K2 ["error"]
+       91 LOADK                            R11 K16 ["Failed to start import session"]
+       92 CALL                             R10 1 0
+       93 CLOSEUPVALS                      R4
+       94 RETURN                           R0 0
+       95 NAMECALL                         R10 R9 K17 ["GetImportTree"]
+       97 CALL                             R10 1 1
+       98 JUMPIFNOTEQKNIL                  R10 ; [+7]
+      100 GETTABLEKS                       R10 R1 K2 ["error"]
+      102 LOADK                            R11 K18 ["Import tree is nil"]
+      103 CALL                             R10 1 0
+      104 CLOSEUPVALS                      R4
+      105 RETURN                           R0 0
+      106 ADDK                             R4 R4 K19 [0.1]
+      107 MULK                             R11 R5 K13 [0.6]
+      108 ADD                              R10 R4 R11
+      109 GETTABLEKS                       R11 R1 K14 ["progress"]
+      111 MOVE                             R12 R10
+      112 CALL                             R11 1 0
+      113 GETTABLEKS                       R10 R9 K20 ["UploadProgress"]
+      115 NEWCLOSURE                       R12 P2
+      116 CAPTURE                          REF R5
+      117 CAPTURE                          REF R4
+      118 CAPTURE                          VAL R1
+      119 NAMECALL                         R10 R10 K21 ["Connect"]
+      121 CALL                             R10 2 0
+      122 GETTABLEKS                       R10 R9 K22 ["UploadComplete"]
+      124 NEWCLOSURE                       R12 P3
+      125 CAPTURE                          REF R5
+      126 CAPTURE                          REF R4
+      127 CAPTURE                          VAL R1
+      128 CAPTURE                          UPVAL U3
+      129 CAPTURE                          VAL R3
+      130 CAPTURE                          UPVAL U4
+      131 CAPTURE                          VAL R0
+      132 CAPTURE                          REF R7
+      133 CAPTURE                          UPVAL U1
+      134 CAPTURE                          REF R8
+      135 CAPTURE                          UPVAL U5
+      136 CAPTURE                          UPVAL U6
+      137 NAMECALL                         R10 R10 K21 ["Connect"]
+      139 CALL                             R10 2 0
+      140 NAMECALL                         R10 R9 K17 ["GetImportTree"]
+      142 CALL                             R10 1 1
+      143 LOADB                            R11 0
+      144 SETTABLEKS                       R11 R10 K23 ["AddModelToInventory"]
+      146 GETUPVAL                         R11 7
+      147 CALL                             R11 0 1
+      148 JUMPIFNOT                        R11 ; [+8]
+      149 GETTABLEKS                       R11 R8 K24 ["creatorId"]
+      151 JUMPIFEQKNIL                     R11 ; [+5]
+      153 GETTABLEKS                       R11 R8 K24 ["creatorId"]
+      155 SETTABLEKS                       R11 R10 K25 ["PreferredUploadId"]
+      157 GETTABLEKS                       R11 R8 K26 ["preset"]
+      159 JUMPIFEQKNIL                     R11 ; [+11]
+      161 GETUPVAL                         R11 2
+      162 GETTABLEKS                       R13 R8 K26 ["preset"]
+      164 NAMECALL                         R11 R11 K27 ["GetPreset"]
+      166 CALL                             R11 2 1
+      167 MOVE                             R14 R11
+      168 NAMECALL                         R12 R9 K28 ["ApplyPreset"]
+      170 CALL                             R12 2 0
+      171 NAMECALL                         R11 R9 K29 ["Upload"]
+      173 CALL                             R11 1 0
+      174 ADDK                             R4 R4 K19 [0.1]
+      175 MULK                             R12 R5 K13 [0.6]
+      176 ADD                              R11 R4 R12
+      177 GETTABLEKS                       R12 R1 K14 ["progress"]
+      179 MOVE                             R13 R11
+      180 CALL                             R12 1 0
+      181 CLOSEUPVALS                      R4
+      182 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -457,23 +481,28 @@ MAIN:
        63 GETTABLEKS                       R8 R9 K17 ["GetFFlagEnableGroupUpload"]
        65 CALL                             R7 1 1
        66 GETIMPORT                        R8 K5 [require]
-       68 GETIMPORT                        R11 K1 [script]
-       70 GETTABLEKS                       R10 R11 K18 ["Parent"]
-       72 GETTABLEKS                       R9 R10 K19 ["Types"]
-       74 CALL                             R8 1 1
-       75 DUPCLOSURE                       R9 K20 [PROTO_0]
-       76 NEWTABLE                         R10 2 0
-       78 DUPCLOSURE                       R11 K21 [PROTO_1]
-       79 CAPTURE                          VAL R9
-       80 CAPTURE                          VAL R5
-       81 SETTABLEKS                       R11 R10 K22 ["doReimportApply"]
-       83 DUPCLOSURE                       R11 K23 [PROTO_7]
-       84 CAPTURE                          VAL R4
-       85 CAPTURE                          VAL R2
-       86 CAPTURE                          VAL R3
-       87 CAPTURE                          VAL R10
-       88 CAPTURE                          VAL R6
-       89 CAPTURE                          VAL R1
-       90 CAPTURE                          VAL R7
-       91 SETTABLEKS                       R11 R10 K24 ["reimport"]
-       93 RETURN                           R10 1
+       68 GETTABLEKS                       R10 R0 K16 ["Flags"]
+       70 GETTABLEKS                       R9 R10 K18 ["GetFFlagConfigureOnFirstReimport"]
+       72 CALL                             R8 1 1
+       73 GETIMPORT                        R9 K5 [require]
+       75 GETIMPORT                        R12 K1 [script]
+       77 GETTABLEKS                       R11 R12 K19 ["Parent"]
+       79 GETTABLEKS                       R10 R11 K20 ["Types"]
+       81 CALL                             R9 1 1
+       82 DUPCLOSURE                       R10 K21 [PROTO_0]
+       83 NEWTABLE                         R11 2 0
+       85 DUPCLOSURE                       R12 K22 [PROTO_1]
+       86 CAPTURE                          VAL R10
+       87 CAPTURE                          VAL R5
+       88 SETTABLEKS                       R12 R11 K23 ["doReimportApply"]
+       90 DUPCLOSURE                       R12 K24 [PROTO_7]
+       91 CAPTURE                          VAL R8
+       92 CAPTURE                          VAL R4
+       93 CAPTURE                          VAL R2
+       94 CAPTURE                          VAL R3
+       95 CAPTURE                          VAL R11
+       96 CAPTURE                          VAL R6
+       97 CAPTURE                          VAL R1
+       98 CAPTURE                          VAL R7
+       99 SETTABLEKS                       R12 R11 K25 ["reimport"]
+      101 RETURN                           R11 1

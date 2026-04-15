@@ -1,0 +1,3855 @@
+codeÙlocal color = SO.getAttribute("color", Color3.new(1, 0, 0))
+local height = SO.getAttribute("smartHeight", 10)
+local part = Instance.new("Part")
+part.Size = Vector3.new(4, 4, 4)
+part.Color = color
+part.Anchored = true
+Ê¦-- local GP = workspace:FindFirstChild("GeometryPrimitives") or require(script.Parent.GeometryPrimitives)
+-- local CSG = workspace:FindFirstChild("ConstructiveSolidGeometry") or require(script.Parent.ConstructiveSolidGeometry)
+-- local SO = workspace:FindFirstChild("SmartObject") or require(script.Parent.SmartObject)
+-- local MU = workspace:FindFirstChild("MathUtils") or require(script.Parent.MathUtils)
+
+local raceCar = GP.model("RedRaceCar", nil)
+
+-- ===========================================
+-- Semantic Attributes & Materials
+-- ===========================================
+local primaryColor = SO.getAttribute(raceCar, "PrimaryColor", Color3.fromRGB(220, 20, 30)) -- Vibrant Racing Red
+local carbonColor = SO.getAttribute(raceCar, "CarbonColor", Color3.fromRGB(30, 30, 35))    -- Matte Dark Grey/Carbon
+local tireColor = SO.getAttribute(raceCar, "TireColor", Color3.fromRGB(20, 20, 20))
+local rimColor = SO.getAttribute(raceCar, "RimColor", Color3.fromRGB(15, 15, 15))
+local glassColor = SO.getAttribute(raceCar, "GlassColor", Color3.fromRGB(30, 40, 50))
+local decalWhite = SO.getAttribute(raceCar, "DecalColor", Color3.fromRGB(245, 245, 245))
+
+local matMetal = "Metal"
+local matPlastic = "SmoothPlastic"
+local matGlass = "Glass"
+local matNeon = "Neon"
+
+-- ===========================================
+-- Core Layout Variables
+-- ===========================================
+local carLength = SO.getAttribute(raceCar, "CarLength", 17.0)
+local carWidth = SO.getAttribute(raceCar, "CarWidth", 7.6)
+local wheelRadius = SO.getAttribute(raceCar, "WheelRadius", 1.25)
+local wheelWidthF = 1.0
+local wheelWidthR = 1.2
+
+local halfW = carWidth / 2
+local groundClearance = 0.15
+local floorY = groundClearance + 0.1
+
+-- Z-Axis (Front is -Z)
+local noseZ = -8.0
+local frontWingZ = -8.5
+local frontWheelZ = -5.5
+local cockpitZStart = -2.5
+local cockpitZEnd = 1.0
+local engineIntakeZ = 1.5
+local rearWheelZ = 5.5
+local tailZ = 7.5
+local rearWingZ = 8.0
+
+-- Track widths (center of wheels)
+local trackF = halfW - wheelWidthF/2 - 0.1
+local trackR = halfW - wheelWidthR/2 - 0.1
+
+-- Heights
+local noseTopY = floorY + 0.8
+local cockpitTopY = floorY + 2.2
+local intakeTopY = floorY + 3.0
+local sidepodTopY = floorY + 1.2
+local fenderTopY = floorY + wheelRadius * 2 + 0.2
+local wingY = floorY + 3.2
+
+-- ===========================================
+-- Hierarchical Models
+-- ===========================================
+local chassis = GP.model("Chassis", raceCar)
+local body = GP.model("Body", raceCar)
+local aero = GP.model("Aero", raceCar)
+local suspension = GP.model("Suspension", raceCar)
+local wheels = GP.model("Wheels", raceCar)
+local decals = GP.model("Decals", raceCar)
+
+-- ===========================================
+-- Undertray & Floor
+-- ===========================================
+-- Main carbon fiber floor
+local floorPanel = GP.axisAlignedBlockFromCorners("Undertray",
+    Vector3.new(-halfW + 0.2, groundClearance, frontWingZ),
+    Vector3.new(halfW - 0.2, floorY, tailZ + 0.5),
+    carbonColor, matPlastic, chassis)
+
+-- Front Wing Main Plane
+GP.axisAlignedBlockFromCorners("FrontWingPlane",
+    Vector3.new(-halfW, groundClearance, frontWingZ),
+    Vector3.new(halfW, floorY + 0.05, noseZ + 0.5),
+    carbonColor, matPlastic, aero)
+
+-- Front Wing Endplates
+GP.axisAlignedBlockFromCorners("FrontWingEndplateL",
+    Vector3.new(-halfW - 0.05, groundClearance, frontWingZ - 0.2),
+    Vector3.new(-halfW + 0.05, floorY + 0.6, frontWingZ + 1.5),
+    carbonColor, matPlastic, aero)
+GP.axisAlignedBlockFromCorners("FrontWingEndplateR",
+    Vector3.new(halfW - 0.05, groundClearance, frontWingZ - 0.2),
+    Vector3.new(halfW + 0.05, floorY + 0.6, frontWingZ + 1.5),
+    carbonColor, matPlastic, aero)
+
+-- ===========================================
+-- Main Fuselage & Nose
+-- ===========================================
+-- Nose Cone (Tapered)
+local noseBaseW = 1.6
+local noseTipW = 0.6
+GP.quadFromFourPoints("NoseTop",
+    Vector3.new(-noseTipW/2, noseTopY - 0.4, noseZ),
+    Vector3.new(noseTipW/2, noseTopY - 0.4, noseZ),
+    Vector3.new(noseBaseW/2, noseTopY, cockpitZStart),
+    Vector3.new(-noseBaseW/2, noseTopY, cockpitZStart),
+    0.6, Vector3.new(0, -1, 0), primaryColor, matPlastic, body)
+
+GP.quadFromFourPoints("NoseSideL",
+    Vector3.new(-noseTipW/2, noseTopY - 0.4, noseZ),
+    Vector3.new(-noseTipW/2, floorY + 0.1, noseZ),
+    Vector3.new(-noseBaseW/2, floorY + 0.1, cockpitZStart),
+    Vector3.new(-noseBaseW/2, noseTopY, cockpitZStart),
+    0.1, Vector3.new(-1, 0, 0), primaryColor, matPlastic, body)
+
+GP.quadFromFourPoints("NoseSideR",
+    Vector3.new(noseTipW/2, noseTopY - 0.4, noseZ),
+    Vector3.new(noseBaseW/2, noseTopY, cockpitZStart),
+    Vector3.new(noseBaseW/2, floorY + 0.1, cockpitZStart),
+    Vector3.new(noseTipW/2, floorY + 0.1, noseZ),
+    0.1, Vector3.new(1, 0, 0), primaryColor, matPlastic, body)
+
+-- Cockpit Tub & Engine Cover
+GP.quadFromFourPoints("CockpitTubTop",
+    Vector3.new(-noseBaseW/2, noseTopY, cockpitZStart),
+    Vector3.new(noseBaseW/2, noseTopY, cockpitZStart),
+    Vector3.new(noseBaseW/2, noseTopY + 0.2, cockpitZEnd),
+    Vector3.new(-noseBaseW/2, noseTopY + 0.2, cockpitZEnd),
+    noseTopY - floorY, Vector3.new(0, -1, 0), primaryColor, matPlastic, body)
+
+-- Air Intake / Shark Fin
+GP.pyramid("AirIntake",
+    Vector3.new(-0.8, noseTopY + 0.2, engineIntakeZ - 0.5),
+    Vector3.new(0.8, noseTopY + 0.2, engineIntakeZ + 2.0),
+    Vector3.new(0, intakeTopY, engineIntakeZ + 0.5),
+    primaryColor, matPlastic, body)
+-- Scoop hole
+local intakeHole = GP.cylinder("IntakeHole", Vector3.new(0, intakeTopY - 0.3, engineIntakeZ + 0.5), Vector3.new(0, intakeTopY - 0.3, engineIntakeZ - 1.0), 0.3, carbonColor, matPlastic, body)
+-- Shark fin to rear
+GP.quadFromFourPoints("SharkFin",
+    Vector3.new(-0.05, noseTopY + 0.2, engineIntakeZ + 1.0),
+    Vector3.new(0.05, noseTopY + 0.2, engineIntakeZ + 1.0),
+    Vector3.new(0.05, wingY - 0.2, rearWingZ - 0.5),
+    Vector3.new(-0.05, wingY - 0.2, rearWingZ - 0.5),
+    0.1, Vector3.new(-1, 0, 0), primaryColor, matPlastic, body)
+
+-- Engine Cover tapering to back
+GP.quadFromFourPoints("EngineCover",
+    Vector3.new(-noseBaseW/2, noseTopY + 0.2, cockpitZEnd),
+    Vector3.new(noseBaseW/2, noseTopY + 0.2, cockpitZEnd),
+    Vector3.new(1.0, floorY + 0.6, tailZ),
+    Vector3.new(-1.0, floorY + 0.6, tailZ),
+    0.6, Vector3.new(0, -1, 0), primaryColor, matPlastic, body)
+
+-- ===========================================
+-- Sidepods
+-- ===========================================
+local spStartZ = cockpitZStart + 0.5
+local spBulgeZ = engineIntakeZ
+local spEndX = halfW - 0.2
+
+-- Left Sidepod
+GP.quadFromFourPoints("SidepodTopL",
+    Vector3.new(-noseBaseW/2, noseTopY, spStartZ),
+    Vector3.new(-spEndX, sidepodTopY, spBulgeZ),
+    Vector3.new(-spEndX + 0.5, sidepodTopY - 0.2, rearWheelZ - 1.5),
+    Vector3.new(-1.2, floorY + 0.6, rearWheelZ - 0.5),
+    sidepodTopY - floorY, Vector3.new(0, -1, 0), primaryColor, matPlastic, body)
+-- Left Intake Cutout
+GP.axisAlignedBlockFromCorners("SidepodIntakeL",
+    Vector3.new(-noseBaseW/2 - 0.1, floorY + 0.2, spStartZ - 0.5),
+    Vector3.new(-spEndX + 0.5, sidepodTopY - 0.1, spStartZ + 1.0),
+    carbonColor, matPlastic, body)
+
+-- Right Sidepod
+GP.quadFromFourPoints("SidepodTopR",
+    Vector3.new(noseBaseW/2, noseTopY, spStartZ),
+    Vector3.new(spEndX, sidepodTopY, spBulgeZ),
+    Vector3.new(spEndX - 0.5, sidepodTopY - 0.2, rearWheelZ - 1.5),
+    Vector3.new(1.2, floorY + 0.6, rearWheelZ - 0.5),
+    sidepodTopY - floorY, Vector3.new(0, -1, 0), primaryColor, matPlastic, body)
+-- Right Intake Cutout
+GP.axisAlignedBlockFromCorners("SidepodIntakeR",
+    Vector3.new(noseBaseW/2 + 0.1, floorY + 0.2, spStartZ - 0.5),
+    Vector3.new(spEndX - 0.5, sidepodTopY - 0.1, spStartZ + 1.0),
+    carbonColor, matPlastic, body)
+
+-- Carbon aero skirts on sides
+GP.axisAlignedBlockFromCorners("SideSkirtL", Vector3.new(-halfW + 0.1, floorY, spStartZ), Vector3.new(-halfW + 0.4, floorY + 0.3, rearWheelZ - 1.5), carbonColor, matPlastic, aero)
+GP.axisAlignedBlockFromCorners("SideSkirtR", Vector3.new(halfW - 0.4, floorY, spStartZ), Vector3.new(halfW - 0.1, floorY + 0.3, rearWheelZ - 1.5), carbonColor, matPlastic, aero)
+
+-- ===========================================
+-- Fenders (Wheel Covers)
+-- ===========================================
+local function createFender(name, x, z, width, isRear)
+    local fModel = GP.model(name, body)
+    local xSign = x > 0 and 1 or -1
+    local fRadius = wheelRadius + 0.15
+    local fWidth = width + 0.2
+    local cx = x
+    
+    -- Main Arch
+    local outer = GP.cylinder(name.."Outer", Vector3.new(cx - fWidth/2, floorY + wheelRadius, z), Vector3.new(cx + fWidth/2, floorY + wheelRadius, z), fRadius + 0.1, primaryColor, matPlastic, fModel)
+    local inner = GP.cylinder(name.."Inner", Vector3.new(cx - fWidth/2 - 0.1, floorY + wheelRadius, z), Vector3.new(cx + fWidth/2 + 0.1, floorY + wheelRadius, z), fRadius, carbonColor, matPlastic, fModel)
+    local arch = CSG.subtract(name.."Arch", outer, {inner})
+    
+    -- Cut bottom off arch
+    local cutBox = GP.axisAlignedBlockFromCorners(name.."CutBot", Vector3.new(cx - 2, groundClearance - 1, z - 2), Vector3.new(cx + 2, floorY, z + 2), carbonColor, matPlastic, fModel)
+    arch = CSG.subtract(name.."FinalArch", arch, {cutBox})
+    
+    -- Aerodynamic tail on fender
+    if not isRear then
+        GP.quadFromFourPoints(name.."Tail",
+            Vector3.new(cx - fWidth/2, floorY + fRadius, z),
+            Vector3.new(cx + fWidth/2, floorY + fRadius, z),
+            Vector3.new(cx + fWidth/2 - 0.1*xSign, floorY + 0.2, z + fRadius * 1.5),
+            Vector3.new(cx - fWidth/2 - 0.1*xSign, floorY + 0.2, z + fRadius * 1.5),
+            0.1, Vector3.new(0, -1, 0), primaryColor, matPlastic, fModel)
+    else
+        -- Rear fender blends into tail
+        GP.quadFromFourPoints(name.."Tail",
+            Vector3.new(cx - fWidth/2, floorY + fRadius, z),
+            Vector3.new(cx + fWidth/2, floorY + fRadius, z),
+            Vector3.new(cx + fWidth/2, floorY + 0.5, tailZ),
+            Vector3.new(cx - fWidth/2, floorY + 0.5, tailZ),
+            0.1, Vector3.new(0, -1, 0), primaryColor, matPlastic, fModel)
+    end
+end
+
+createFender("FrontFenderL", -trackF, frontWheelZ, wheelWidthF, false)
+createFender("FrontFenderR", trackF, frontWheelZ, wheelWidthF, false)
+createFender("RearFenderL", -trackR, rearWheelZ, wheelWidthR, true)
+createFender("RearFenderR", trackR, rearWheelZ, wheelWidthR, true)
+
+-- ===========================================
+-- Suspension Arms (connecting front fenders to nose)
+-- ===========================================
+GP.strutFromTwoPoints("SuspFrontTopL", Vector3.new(-noseBaseW/2 + 0.1, noseTopY - 0.2, frontWheelZ), Vector3.new(-trackF + 0.5, floorY + wheelRadius + 0.2, frontWheelZ), 0.15, 0.05, carbonColor, matMetal, suspension)
+GP.strutFromTwoPoints("SuspFrontBotL", Vector3.new(-noseBaseW/2 + 0.1, floorY + 0.2, frontWheelZ), Vector3.new(-trackF + 0.5, floorY + wheelRadius - 0.2, frontWheelZ), 0.15, 0.05, carbonColor, matMetal, suspension)
+GP.strutFromTwoPoints("SuspFrontDiagL", Vector3.new(-noseBaseW/2 + 0.1, noseTopY - 0.2, frontWheelZ - 0.5), Vector3.new(-trackF + 0.5, floorY + wheelRadius, frontWheelZ), 0.15, 0.05, carbonColor, matMetal, suspension)
+
+GP.strutFromTwoPoints("SuspFrontTopR", Vector3.new(noseBaseW/2 - 0.1, noseTopY - 0.2, frontWheelZ), Vector3.new(trackF - 0.5, floorY + wheelRadius + 0.2, frontWheelZ), 0.15, 0.05, carbonColor, matMetal, suspension)
+GP.strutFromTwoPoints("SuspFrontBotR", Vector3.new(noseBaseW/2 - 0.1, floorY + 0.2, frontWheelZ), Vector3.new(trackF - 0.5, floorY + wheelRadius - 0.2, frontWheelZ), 0.15, 0.05, carbonColor, matMetal, suspension)
+GP.strutFromTwoPoints("SuspFrontDiagR", Vector3.new(noseBaseW/2 - 0.1, noseTopY - 0.2, frontWheelZ - 0.5), Vector3.new(trackF - 0.5, floorY + wheelRadius, frontWheelZ), 0.15, 0.05, carbonColor, matMetal, suspension)
+
+-- ===========================================
+-- Cockpit & Halo
+-- ===========================================
+-- Windscreen / Cockpit glass
+GP.quadFromFourPoints("Windscreen",
+    Vector3.new(-noseBaseW/2 + 0.1, noseTopY + 0.05, cockpitZStart + 0.5),
+    Vector3.new(noseBaseW/2 - 0.1, noseTopY + 0.05, cockpitZStart + 0.5),
+    Vector3.new(0.6, cockpitTopY, cockpitZEnd - 0.5),
+    Vector3.new(-0.6, cockpitTopY, cockpitZEnd - 0.5),
+    0.05, Vector3.new(0, 1, 0), glassColor, matGlass, body, 0.6)
+
+-- Halo Structure
+local halo = GP.model("Halo", body)
+local haloY = cockpitTopY + 0.2
+local haloZCenter = cockpitZEnd - 1.0
+-- Central strut
+GP.strutFromTwoPoints("HaloCenterStrut", Vector3.new(0, noseTopY + 0.1, cockpitZStart + 0.8), Vector3.new(0, haloY, haloZCenter), 0.15, 0.08, carbonColor, matMetal, halo)
+-- Halo Ring (approximated with struts)
+GP.strutFromTwoPoints("HaloRingL1", Vector3.new(0, haloY, haloZCenter), Vector3.new(-0.8, haloY, haloZCenter + 0.5), 0.15, 0.08, carbonColor, matMetal, halo)
+GP.strutFromTwoPoints("HaloRingL2", Vector3.new(-0.8, haloY, haloZCenter + 0.5), Vector3.new(-0.8, haloY - 0.2, cockpitZEnd), 0.15, 0.08, carbonColor, matMetal, halo)
+GP.strutFromTwoPoints("HaloRingR1", Vector3.new(0, haloY, haloZCenter), Vector3.new(0.8, haloY, haloZCenter + 0.5), 0.15, 0.08, carbonColor, matMetal, halo)
+GP.strutFromTwoPoints("HaloRingR2", Vector3.new(0.8, haloY, haloZCenter + 0.5), Vector3.new(0.8, haloY - 0.2, cockpitZEnd), 0.15, 0.08, carbonColor, matMetal, halo)
+
+-- ===========================================
+-- Rear Wing
+-- ===========================================
+local wingW = carWidth - 0.4
+local wingChord = 1.0
+
+-- Main Plane
+GP.quadFromFourPoints("RearWingMain",
+    Vector3.new(-wingW/2, wingY, rearWingZ),
+    Vector3.new(wingW/2, wingY, rearWingZ),
+    Vector3.new(wingW/2, wingY + 0.3, rearWingZ + wingChord),
+    Vector3.new(-wingW/2, wingY + 0.3, rearWingZ + wingChord),
+    0.05, Vector3.new(0, 1, 0), carbonColor, matPlastic, aero)
+
+-- Endplates
+GP.quadFromFourPoints("RearWingEPL",
+    Vector3.new(-wingW/2, wingY - 0.8, rearWingZ - 0.2),
+    Vector3.new(-wingW/2, wingY - 0.8, rearWingZ + wingChord + 0.2),
+    Vector3.new(-wingW/2, wingY + 0.5, rearWingZ + wingChord + 0.2),
+    Vector3.new(-wingW/2, wingY + 0.5, rearWingZ - 0.2),
+    0.05, Vector3.new(1, 0, 0), carbonColor, matPlastic, aero)
+
+GP.quadFromFourPoints("RearWingEPR",
+    Vector3.new(wingW/2, wingY - 0.8, rearWingZ - 0.2),
+    Vector3.new(wingW/2, wingY - 0.8, rearWingZ + wingChord + 0.2),
+    Vector3.new(wingW/2, wingY + 0.5, rearWingZ + wingChord + 0.2),
+    Vector3.new(wingW/2, wingY + 0.5, rearWingZ - 0.2),
+    0.05, Vector3.new(-1, 0, 0), carbonColor, matPlastic, aero)
+
+-- Swan neck supports
+GP.strutFromTwoPoints("SwanNeckL", Vector3.new(-0.8, floorY + 0.8, tailZ - 0.5), Vector3.new(-0.8, wingY + 0.3, rearWingZ + wingChord * 0.5), 0.1, 0.4, carbonColor, matMetal, aero)
+GP.strutFromTwoPoints("SwanNeckR", Vector3.new(0.8, floorY + 0.8, tailZ - 0.5), Vector3.new(0.8, wingY + 0.3, rearWingZ + wingChord * 0.5), 0.1, 0.4, carbonColor, matMetal, aero)
+
+-- ===========================================
+-- Wheels
+-- ===========================================
+local function makeWheel(name, x, z, width)
+    local wModel = GP.model(name, wheels)
+    local xSign = x > 0 and 1 or -1
+    local p1 = Vector3.new(x - width/2, floorY + wheelRadius, z)
+    local p2 = Vector3.new(x + width/2, floorY + wheelRadius, z)
+    
+    -- Tire
+    GP.cylinder("Tire", p1, p2, wheelRadius, tireColor, matPlastic, wModel)
+    
+    -- Rim
+    local pOut = xSign > 0 and p2 or p1
+    local rimInset = pOut - Vector3.new(xSign * 0.2, 0, 0)
+    GP.cylinder("Rim", rimInset, pOut + Vector3.new(xSign*0.01, 0, 0), wheelRadius * 0.7, rimColor, matMetal, wModel)
+    
+    -- Spokes (6-spoke design)
+    local hub = rimInset - Vector3.new(xSign * 0.1, 0, 0)
+    GP.cylinder("Hub", hub, rimInset, wheelRadius * 0.2, carbonColor, matMetal, wModel)
+    MU.radialArray(pOut, wheelRadius * 0.65, 6, Vector3.new(xSign, 0, 0), function(pos, i)
+        GP.strutFromTwoPoints("Spoke"..i, hub, pos, 0.1, 0.05, rimColor, matMetal, wModel)
+    end)
+    
+    -- Tire branding (Pirelli style white ring)
+    GP.hollowCylinder("TireBrand", pOut + Vector3.new(xSign*0.02, 0, 0), pOut + Vector3.new(xSign*0.03, 0, 0), wheelRadius - 0.1, 0.05, decalWhite, matPlastic, wModel)
+end
+
+makeWheel("WheelFL", -trackF, frontWheelZ, wheelWidthF)
+makeWheel("WheelFR", trackF, frontWheelZ, wheelWidthF)
+makeWheel("WheelRL", -trackR, rearWheelZ, wheelWidthR)
+makeWheel("WheelRR", trackR, rearWheelZ, wheelWidthR)
+
+-- ===========================================
+-- Decals & Details
+-- ===========================================
+local decOff = 0.02
+
+-- Front Wing "CARS" (Faces -Z, read L-to-R: +X to -X)
+GP.text("FWingDecal", "CARS", 
+    Vector3.new(1.5, floorY + 0.06, frontWingZ - decOff),
+    Vector3.new(-1.5, floorY + 0.06, frontWingZ - decOff),
+    Vector3.new(-1.5, groundClearance + 0.01, frontWingZ - decOff),
+    Vector3.new(1.5, groundClearance + 0.01, frontWingZ - decOff),
+    Vector3.new(0, 0, -1), decalWhite, decals, 0, "GothamBlack")
+
+-- Nose "5"
+GP.text("NoseNum", "5",
+    Vector3.new(0.5, noseTopY - 0.15 + decOff, cockpitZStart - 1.0),
+    Vector3.new(-0.5, noseTopY - 0.15 + decOff, cockpitZStart - 1.0),
+    Vector3.new(-0.5, noseTopY - 0.3 + decOff, cockpitZStart - 2.0),
+    Vector3.new(0.5, noseTopY - 0.3 + decOff, cockpitZStart - 2.0),
+    Vector3.new(0, 1, 0), decalWhite, decals, 0, "GothamBlack")
+
+-- Rear Wing "CARS" (Faces -Z, read L-to-R: +X to -X)
+GP.text("RWingDecal", "CARS",
+    Vector3.new(wingW/2 - 0.5, wingY + 0.25, rearWingZ - decOff),
+    Vector3.new(-wingW/2 + 0.5, wingY + 0.25, rearWingZ - decOff),
+    Vector3.new(-wingW/2 + 0.5, wingY + 0.05, rearWingZ - decOff),
+    Vector3.new(wingW/2 - 0.5, wingY + 0.05, rearWingZ - decOff),
+    Vector3.new(0, 0, -1), decalWhite, decals, 0, "GothamBlack")
+
+-- Sidepod "CARS" (Left side faces -X, Right side faces +X)
+-- Left Side (-X), read +Z to -Z (front to back)
+GP.text("SideDecalL", "CARS",
+    Vector3.new(-spEndX - decOff, sidepodTopY - 0.4, spBulgeZ + 1.5),
+    Vector3.new(-spEndX - decOff, sidepodTopY - 0.4, spBulgeZ - 0.5),
+    Vector3.new(-spEndX - decOff, sidepodTopY - 0.8, spBulgeZ - 0.5),
+    Vector3.new(-spEndX - decOff, sidepodTopY - 0.8, spBulgeZ + 1.5),
+    Vector3.new(-1, 0, 0), decalWhite, decals, 0, "GothamBlack")
+
+-- Right Side (+X), read -Z to +Z (front to back)
+GP.text("SideDecalR", "CARS",
+    Vector3.new(spEndX + decOff, sidepodTopY - 0.4, spBulgeZ - 0.5),
+    Vector3.new(spEndX + decOff, sidepodTopY - 0.4, spBulgeZ + 1.5),
+    Vector3.new(spEndX + decOff, sidepodTopY - 0.8, spBulgeZ + 1.5),
+    Vector3.new(spEndX + decOff, sidepodTopY - 0.8, spBulgeZ - 0.5),
+    Vector3.new(1, 0, 0), decalWhite, decals, 0, "GothamBlack")
+
+-- Rear Fender Numbers "5"
+local fRad = wheelRadius + 0.15
+-- Left Fender Num (-X)
+GP.text("FenderNumL", "5",
+    Vector3.new(-trackR - wheelWidthR/2 - decOff, floorY + fRad - 0.1, rearWheelZ + 0.4),
+    Vector3.new(-trackR - wheelWidthR/2 - decOff, floorY + fRad - 0.1, rearWheelZ - 0.4),
+    Vector3.new(-trackR - wheelWidthR/2 - decOff, floorY + 0.3, rearWheelZ - 0.4),
+    Vector3.new(-trackR - wheelWidthR/2 - decOff, floorY + 0.3, rearWheelZ + 0.4),
+    Vector3.new(-1, 0, 0), decalWhite, decals, 0, "GothamBlack")
+
+-- Right Fender Num (+X)
+GP.text("FenderNumR", "5",
+    Vector3.new(trackR + wheelWidthR/2 + decOff, floorY + fRad - 0.1, rearWheelZ - 0.4),
+    Vector3.new(trackR + wheelWidthR/2 + decOff, floorY + fRad - 0.1, rearWheelZ + 0.4),
+    Vector3.new(trackR + wheelWidthR/2 + decOff, floorY + 0.3, rearWheelZ + 0.4),
+    Vector3.new(trackR + wheelWidthR/2 + decOff, floorY + 0.3, rearWheelZ - 0.4),
+    Vector3.new(1, 0, 0), decalWhite, decals, 0, "GothamBlack")
+
+-- Faux white aerodynamic striping on front fenders
+GP.quadFromFourPoints("FenderStripeL",
+    Vector3.new(-trackF + wheelWidthF/2, floorY + 0.3, frontWheelZ + wheelRadius + 0.2),
+    Vector3.new(-trackF - wheelWidthF/2, floorY + 0.3, frontWheelZ + wheelRadius + 0.2),
+    Vector3.new(-trackF - wheelWidthF/2, floorY + 0.4, frontWheelZ + wheelRadius + 0.4),
+    Vector3.new(-trackF + wheelWidthF/2, floorY + 0.4, frontWheelZ + wheelRadius + 0.4),
+    0.02, Vector3.new(0, 0, 1), decalWhite, matNeon, decals)
+
+GP.quadFromFourPoints("FenderStripeR",
+    Vector3.new(trackF - wheelWidthF/2, floorY + 0.3, frontWheelZ + wheelRadius + 0.2),
+    Vector3.new(trackF + wheelWidthF/2, floorY + 0.3, frontWheelZ + wheelRadius + 0.2),
+    Vector3.new(trackF + wheelWidthF/2, floorY + 0.4, frontWheelZ + wheelRadius + 0.4),
+    Vector3.new(trackF - wheelWidthF/2, floorY + 0.4, frontWheelZ + wheelRadius + 0.4),
+    0.02, Vector3.new(0, 0, 1), decalWhite, matNeon, decals)
+
+-- Side Mirrors
+local mZ = cockpitZStart + 0.8
+local mY = noseTopY + 0.2
+GP.strutFromTwoPoints("MirrorArmL", Vector3.new(-noseBaseW/2, mY, mZ), Vector3.new(-noseBaseW/2 - 0.8, mY + 0.1, mZ), 0.05, 0.05, carbonColor, matMetal, body)
+GP.roundedBox("MirrorHeadL", Vector3.new(-noseBaseW/2 - 0.9, mY + 0.1, mZ), Vector3.new(0.4, 0.2, 0.3), 0.05, primaryColor, matPlastic, body)
+
+GP.strutFromTwoPoints("MirrorArmR", Vector3.new(noseBaseW/2, mY, mZ), Vector3.new(noseBaseW/2 + 0.8, mY + 0.1, mZ), 0.05, 0.05, carbonColor, matMetal, body)
+GP.roundedBox("MirrorHeadR", Vector3.new(noseBaseW/2 + 0.9, mY + 0.1, mZ), Vector3.new(0.4, 0.2, 0.3), 0.05, primaryColor, matPlastic, body)
+
+return raceCar
+¦Ý
+	local GeometryPrimitives = {}
+
+	local RobloxMaterials = {
+		Asphalt = true, Basalt = true, Brick = true, Cardboard = true, Carpet = true,
+		CeramicTiles = true, ClayRoofTiles = true, Cobblestone = true, Concrete = true,
+		CorrodedMetal = true, CrackedLava = true, DiamondPlate = true, Fabric = true,
+		Foil = true, ForceField = true, Glacier = true, Glass = true, Granite = true,
+		Grass = true, Ground = true, Ice = true, LeafyGrass = true, Leather = true,
+		Limestone = true, Marble = true, Metal = true, Mud = true, Neon = true,
+		Pavement = true, Pebble = true, Plaster = true, Plastic = true, Rock = true,
+		RoofShingles = true, Rubber = true, Salt = true, Sand = true, Sandstone = true,
+		Slate = true, SmoothPlastic = true, Snow = true, Wood = true, WoodPlanks = true
+	}
+	
+	local RobloxMaterialNames = {}
+	for k in pairs(RobloxMaterials) do
+		table.insert(RobloxMaterialNames, k)
+	end
+	table.sort(RobloxMaterialNames)
+	
+	-- Create the DSL builder
+	
+	local function setValidRobloxMaterial(part: BasePart, materialInput: (string | Enum.Material)?): ()
+		local material: Enum.Material
+	
+		if not materialInput then
+			material = Enum.Material.SmoothPlastic
+		elseif typeof(materialInput) == "EnumItem" and (materialInput :: any).EnumType == Enum.Material then
+			material = materialInput :: Enum.Material
+		elseif typeof(materialInput) == "string" and RobloxMaterials[materialInput :: string] then
+			material = (Enum.Material :: any)[materialInput :: string]
+		else
+			material = Enum.Material.SmoothPlastic
+		end
+	
+		part.Material = material
+	
+		if material == Enum.Material.Plastic then
+			part.TopSurface = Enum.SurfaceType.Smooth
+			part.BottomSurface = Enum.SurfaceType.Smooth
+		end
+	end
+	
+	local function resolveParentNoWorkspace(parent: Instance?): Instance?
+		-- If the parent is not the workspace, return the parent
+		-- Otherwise, return nil
+		if parent and parent ~= workspace then
+			return parent
+		end
+		return nil
+	end
+	
+	-- ===========================================================================
+	-- INPUT VALIDATION
+	-- ===========================================================================
+	
+	local _CONST = {
+		MIN_PART_SIZE = 0.001,
+		MIN_WALL_THICKNESS = 0.001,
+		CACHE_STEPS_COARSE = 20,
+		CACHE_STEPS_FINE = 100,
+		MIN_CSG_ANGLE = math.rad(15),
+		MAX_CSG_ANGLE = math.pi - math.rad(15),
+		CONE_FACETS = 96,
+	}
+	
+	local function validateFiniteNumber(funcName: string, paramName: string, value: number): number
+		if value == nil then return value end
+		if value ~= value then -- NaN
+			error(funcName .. ": '" .. paramName .. "' is NaN (not a number)")
+		end
+		if math.abs(value) == math.huge then
+			error(funcName .. ": '" .. paramName .. "' is " .. tostring(value) .. " (infinite values are not allowed)")
+		end
+		return value
+	end
+	
+	local function validateFiniteVector3(funcName: string, paramName: string, v: Vector3): Vector3
+		for _, axis in { "X", "Y", "Z" } do
+			validateFiniteNumber(funcName, paramName .. "." .. axis, (v :: any)[axis])
+		end
+		return v
+	end
+	
+	local function validatePositive(funcName: string, paramName: string, value: number, minValue: number?): number
+		validateFiniteNumber(funcName, paramName, value)
+		local min = minValue or _CONST.MIN_PART_SIZE
+		if value <= 0 then
+			error(funcName .. ": '" .. paramName .. "' must be positive, got " .. tostring(value))
+		end
+		if value < min then
+			warn(funcName .. ": '" .. paramName .. "' (" .. tostring(value) .. ") below Roblox minimum, clamped to " .. min)
+			return min
+		end
+		return value
+	end
+	
+	local function validateColor3(funcName: string, paramName: string, value: any): Color3
+		if typeof(value) ~= "Color3" then
+			if value == nil then
+				error(funcName .. ": '" .. paramName .. "' is required (got nil)")
+			end
+			error(funcName .. ": '" .. paramName .. "' must be a Color3, got " .. typeof(value))
+		end
+		return value :: Color3
+	end
+	
+	-- ===========================================================================
+	-- NORMAL / ALIGNMENT UTILITIES (used by both registry and geometry helpers)
+	-- ===========================================================================
+	
+	-- Creates a cutting block for hemisphere CSG operations.
+	-- One face aligns exactly with `center`; everything on the -dir side is removed.
+	local function createHemisphereCutter(center: Vector3, dir: Vector3, diameter: number): Part
+		local cutSize = diameter + 1
+		local ref = Vector3.new(0, 1, 0)
+		if math.abs(dir:Dot(ref)) > 0.999 then
+			ref = Vector3.new(0, 0, 1)
+		end
+		local right = dir:Cross(ref).Unit
+		local forward = right:Cross(dir).Unit
+	
+		local cutter = Instance.new("Part")
+		cutter.Size = Vector3.new(cutSize, cutSize, cutSize)
+		cutter.CFrame = CFrame.fromMatrix(center - dir * cutSize / 2, right, forward)
+		cutter.Anchored = true
+		cutter.Parent = nil
+		return cutter
+	end
+	
+	-- Consolidated unit-shape cache: stores pre-built PartOperations keyed by
+	-- quantised parameters so they can be Clone()d instead of re-CSG'd.
+	local _cache = {
+		unitHemisphere = nil :: PartOperation?,
+		unitHollowCyls = {} :: { [number]: PartOperation },
+		unitHollowHemispheres = {} :: { [number]: PartOperation },
+		unitTrianglePrisms = {} :: { [number]: PartOperation },
+		unitCone = nil :: PartOperation?,
+		unitFrustums = {} :: { [number]: PartOperation },
+		unitHollowTaperedCyls = {} :: { [string]: PartOperation },
+		unitCapsules = {} :: { [string]: PartOperation },
+		unitPrisms = {} :: { [number]: PartOperation },
+		unitRoundedBoxes = {} :: { [string]: PartOperation },
+		unitPyramid = nil :: PartOperation?,
+	}
+	
+	function _cache.getUnitHemisphere(): PartOperation
+		if _cache.unitHemisphere then
+			return _cache.unitHemisphere:Clone()
+		end
+	
+		local uniformColor = Color3.new(0.5, 0.5, 0.5)
+		local uniformMaterial = Enum.Material.SmoothPlastic
+	
+		local sphere = Instance.new("Part")
+		sphere.Shape = Enum.PartType.Ball
+		sphere.Size = Vector3.new(1, 1, 1)
+		sphere.CFrame = CFrame.new(0, 0, 0)
+		sphere.Color = uniformColor
+		sphere.Material = uniformMaterial
+	
+		local cutter = Instance.new("Part")
+		cutter.Size = Vector3.new(10, 10, 10)
+		cutter.CFrame = CFrame.new(-5, 0, 0)
+		cutter.Color = uniformColor
+		cutter.Material = uniformMaterial
+	
+		local hemi = CSG.subtract("UnitHemisphere", sphere, {cutter}) :: PartOperation
+		_cache.unitHemisphere = hemi
+		return hemi:Clone()
+	end
+	
+	function _cache.getUnitHollowCylinder(wallRatio: number): PartOperation
+		local key = math.max(1, math.floor(wallRatio * _CONST.CACHE_STEPS_FINE + 0.5))
+		if _cache.unitHollowCyls[key] then
+			return _cache.unitHollowCyls[key]:Clone()
+		end
+	
+		local actualRatio = key / _CONST.CACHE_STEPS_FINE
+		local uniformColor = Color3.new(0.5, 0.5, 0.5)
+		local uniformMaterial = Enum.Material.SmoothPlastic
+	
+		local outer = Instance.new("Part")
+		outer.Shape = Enum.PartType.Cylinder
+		outer.Size = Vector3.new(1, 1, 1)
+		outer.Color = uniformColor
+		outer.Material = uniformMaterial
+	
+		local inner = Instance.new("Part")
+		inner.Shape = Enum.PartType.Cylinder
+		local innerD = 1 - actualRatio
+		inner.Size = Vector3.new(1.1, innerD, innerD)
+		inner.Color = uniformColor
+		inner.Material = uniformMaterial
+	
+		local result = CSG.subtract("_unitHollowCyl", outer, {inner}) :: PartOperation
+		_cache.unitHollowCyls[key] = result
+		return result:Clone()
+	end
+	
+	function _cache.getUnitHollowHemisphere(wallRatio: number): PartOperation
+		local key = math.max(1, math.floor(wallRatio * _CONST.CACHE_STEPS_FINE + 0.5))
+		if _cache.unitHollowHemispheres[key] then
+			return _cache.unitHollowHemispheres[key]:Clone()
+		end
+	
+		local actualRatio = key / _CONST.CACHE_STEPS_FINE
+		local uniformColor = Color3.new(0.5, 0.5, 0.5)
+		local uniformMaterial = Enum.Material.SmoothPlastic
+	
+		local outer = Instance.new("Part")
+		outer.Shape = Enum.PartType.Ball
+		outer.Size = Vector3.new(1, 1, 1)
+		outer.CFrame = CFrame.new(0, 0, 0)
+		outer.Color = uniformColor
+		outer.Material = uniformMaterial
+	
+		local innerD = 1 - actualRatio
+		local inner = Instance.new("Part")
+		inner.Shape = Enum.PartType.Ball
+		inner.Size = Vector3.new(innerD, innerD, innerD)
+		inner.CFrame = CFrame.new(0, 0, 0)
+		inner.Color = uniformColor
+		inner.Material = uniformMaterial
+	
+		local cutter = Instance.new("Part")
+		cutter.Size = Vector3.new(10, 10, 10)
+		cutter.CFrame = CFrame.new(-5, 0, 0)
+		cutter.Color = uniformColor
+		cutter.Material = uniformMaterial
+	
+		local hemi = CSG.subtract("_unitHollowHemi", outer, {inner, cutter}) :: PartOperation
+		_cache.unitHollowHemispheres[key] = hemi
+		return hemi:Clone()
+	end
+	
+	-- Flips the normal to point as closely as possible in the direction of `extrusionDir`.
+	-- If no extrusionDir is provided, returns the raw normal.
+	local function getSensibleNormal(rawNormal: Vector3, extrusionDir: Vector3?): Vector3
+		if typeof(extrusionDir) == "Vector3" and rawNormal:Dot(extrusionDir) < 0 then
+			return -rawNormal
+		end
+		return rawNormal
+	end
+	
+	-- Calculates alignment offset based on the determined normal.
+	-- If extrusionDir is provided, extrudes fully in the direction of the normal.
+	-- Otherwise, returns no offset (Centered extrusion).
+	local function getAlignOffset(thickness: number, extrusionDir: Vector3?, normal: Vector3): Vector3
+		if typeof(extrusionDir) == "Vector3" then
+			return normal * (thickness / 2)
+		end
+		return Vector3.new(0, 0, 0)
+	end
+	
+	-- ===========================================================================
+	-- HELPER FUNCTIONS
+	-- ===========================================================================
+	
+	-- Perpendicular distance from the tip of v3 to the plane spanned by v1 and v2
+	-- (all three vectors share the same origin). Returns nil when v1 and v2 are
+	-- nearly parallel and the plane is undefined.
+	local function pointToPlaneDistance(v1: Vector3, v2: Vector3, v3: Vector3): number?
+		local cross = v1:Cross(v2)
+		if cross.Magnitude < 1e-6 then
+			return nil
+		end
+		return math.abs(v3:Dot(cross.Unit))
+	end
+	
+	-- Checks if 4 points form a valid rectangle (Planar + Orthogonal).
+	local function isRectangular(p1: Vector3, p2: Vector3, p3: Vector3, p4: Vector3): boolean
+		local v1, v2, v3 = p2 - p1, p3 - p1, p4 - p1
+		local dist = pointToPlaneDistance(v1, v2, v3)
+		if dist == nil or dist > 0.1 then return false end -- Not Planar
+		local dot1 = (p2 - p1).Unit:Dot((p4 - p1).Unit)
+		local dot2 = (p2 - p3).Unit:Dot((p4 - p3).Unit)
+		local dot3 = (p1 - p2).Unit:Dot((p3 - p2).Unit)
+		local dot4 = (p1 - p4).Unit:Dot((p3 - p4).Unit)
+		return math.abs(dot1) < 0.02 and math.abs(dot2) < 0.02
+			and math.abs(dot3) < 0.02 and math.abs(dot4) < 0.02
+	end
+	
+	-- Checks if 4 ordered vertices form a convex quadrilateral with respect to
+	-- a reference normal.  All four cross-products of consecutive edges must
+	-- agree in sign when projected onto that normal.
+	local function isConvexQuad(p1: Vector3, p2: Vector3, p3: Vector3, p4: Vector3, normal: Vector3): boolean
+		local c1 = (p2 - p1):Cross(p3 - p2):Dot(normal)
+		local c2 = (p3 - p2):Cross(p4 - p3):Dot(normal)
+		local c3 = (p4 - p3):Cross(p1 - p4):Dot(normal)
+		local c4 = (p1 - p4):Cross(p2 - p1):Dot(normal)
+		return (c1 > 0 and c2 > 0 and c3 > 0 and c4 > 0)
+			or (c1 < 0 and c2 < 0 and c3 < 0 and c4 < 0)
+	end
+	
+	-- Checks if a convex quad has interior angles safe for CSG edge-cutter subtraction.
+	-- Extreme angles (< 15 deg or > 165 deg) cause edge cutters to overlap and
+	-- remove all material. Returns false for concave quads or any angle outside range.
+	
+	local function isCsgSafeQuad(p1: Vector3, p2: Vector3, p3: Vector3, p4: Vector3, normal: Vector3): boolean
+		if not isConvexQuad(p1, p2, p3, p4, normal) then return false end
+		local verts = {p1, p2, p3, p4}
+		for i = 1, 4 do
+			local prev = verts[((i - 2) % 4) + 1]
+			local curr = verts[i]
+			local nxt = verts[(i % 4) + 1]
+			local d1 = prev - curr
+			local d2 = nxt - curr
+			if d1.Magnitude < 0.001 or d2.Magnitude < 0.001 then return false end
+			local cosAngle = math.clamp(d1.Unit:Dot(d2.Unit), -1, 1)
+			local angle = math.acos(cosAngle)
+			if angle < _CONST.MIN_CSG_ANGLE or angle > _CONST.MAX_CSG_ANGLE then
+				return false
+			end
+		end
+		return true
+	end
+	
+	-- For a concave quad, returns the diagonal split that passes through the
+	-- reflex vertex (the one whose turning-direction sign differs from the
+	-- majority).  Returns splitP1, splitP3, otherP2, otherP4 so that the two
+	-- triangles (splitP1, otherP2, splitP3) and (splitP1, splitP3, otherP4)
+	-- cover the quad without overlap.
+	local function findConcaveDiagonal(p1: Vector3, p2: Vector3, p3: Vector3, p4: Vector3, normal: Vector3): (Vector3, Vector3, Vector3, Vector3)
+		local c1 = (p2 - p1):Cross(p3 - p2):Dot(normal)
+		local c2 = (p3 - p2):Cross(p4 - p3):Dot(normal)
+		local c3 = (p4 - p3):Cross(p1 - p4):Dot(normal)
+		local c4 = (p1 - p4):Cross(p2 - p1):Dot(normal)
+		local posCount = (if c1 > 0 then 1 else 0) + (if c2 > 0 then 1 else 0)
+			+ (if c3 > 0 then 1 else 0) + (if c4 > 0 then 1 else 0)
+		local majorityPos = posCount >= 2
+		-- c1 is at vertex p2, c2 at p3, c3 at p4, c4 at p1.
+		-- Reflex vertex's opposite gives the correct interior diagonal.
+		if (c4 > 0) ~= majorityPos then
+			-- p1 is reflex â†’ diagonal p1-p3
+			return p1, p3, p2, p4
+		elseif (c1 > 0) ~= majorityPos then
+			-- p2 is reflex â†’ diagonal p2-p4
+			return p2, p4, p3, p1
+		elseif (c2 > 0) ~= majorityPos then
+			-- p3 is reflex â†’ diagonal p1-p3
+			return p1, p3, p2, p4
+		else
+			-- p4 is reflex â†’ diagonal p2-p4
+			return p2, p4, p3, p1
+		end
+	end
+	
+	-- Tests whether two 3-D line segments (a1â†’a2) and (b1â†’b2) cross in their
+	-- strict interiors.  Returns the intersection point, or nil if they don't
+	-- cross (parallel, endpoint-only, or non-intersecting).
+	local function segmentsIntersect3D(a1: Vector3, a2: Vector3, b1: Vector3, b2: Vector3): Vector3?
+		local d1 = a2 - a1
+		local d2 = b2 - b1
+		local cross = d1:Cross(d2)
+		local crossMag2 = cross:Dot(cross)
+		if crossMag2 < 1e-8 then return nil end
+		local d12 = b1 - a1
+		local t = d12:Cross(d2):Dot(cross) / crossMag2
+		local s = d12:Cross(d1):Dot(cross) / crossMag2
+		if t > 0.001 and t < 0.999 and s > 0.001 and s < 0.999 then
+			local ptA = a1 + d1 * t
+			local ptB = b1 + d2 * s
+			if (ptA - ptB).Magnitude < 0.01 then
+				return (ptA + ptB) / 2
+			end
+		end
+		return nil
+	end
+	
+	-- Creates a wedge for one right triangle (used by triangularPrismFromThreePoints).
+	-- Moved to module scope to avoid closure creation on each call.
+	local function createTriangleWedge(wedgeName: string, apex: Vector3, foot: Vector3, baseVertex: Vector3, depth: number, alignOffset: Vector3, material: (string | Enum.Material)?, color: Color3?, transparency: number?): WedgePart?
+		local heightVec = apex - foot
+		local lengthVec = foot - baseVertex
+		
+		local height = heightVec.Magnitude
+		local length = lengthVec.Magnitude
+		
+		if height < 0.001 or length < 0.001 then
+			return nil  -- Skip degenerate wedge
+		end
+		
+		local yAxis = heightVec.Unit
+		local zAxis = lengthVec.Unit
+		local rawX = yAxis:Cross(zAxis)
+		if rawX.Magnitude < 0.001 then
+			return nil -- height and length vectors nearly parallel; fall through to canvas path
+		end
+		local xAxis = rawX.Unit
+		
+		-- Center is midpoint of apex and baseVertex (center of sloped face)
+		-- Apply alignment offset
+		local center = (apex + baseVertex) / 2 + alignOffset
+		
+		local part = Instance.new("WedgePart")
+		part.Name = wedgeName
+		part.Size = Vector3.new(depth, height, length)
+		part.CFrame = CFrame.fromMatrix(center, xAxis, yAxis, zAxis)
+		part.Anchored = true
+		part.TopSurface = Enum.SurfaceType.Smooth
+		part.BottomSurface = Enum.SurfaceType.Smooth
+		setValidRobloxMaterial(part, material)
+		if color then
+			part.Color = color
+		end
+		part.Transparency = transparency or 0
+		
+		return part
+	end
+	
+	local function leastAlignedAxis(dir: Vector3): Vector3
+		local absX = math.abs(dir.X)
+		local absY = math.abs(dir.Y)
+		local absZ = math.abs(dir.Z)
+		if absX <= absY and absX <= absZ then
+			return Vector3.new(1, 0, 0)
+		elseif absY <= absZ then
+			return Vector3.new(0, 1, 0)
+		else
+			return Vector3.new(0, 0, 1)
+		end
+	end
+	
+	--- Creates a large cutting box positioned as a half-space plane cutter.
+	--- Used by triangularPrismFromThreePoints and quadFromFourPoints to carve
+	--- shapes from a bounding-box canvas via CSG subtraction, producing zero
+	--- internal faces.
+	--- @param cName string Name for the cutter part.
+	--- @param pointOnPlane Vector3 A point on the cutting plane.
+	--- @param planeNormal Vector3 The outward normal of the cutting plane (material is removed on the normal side).
+	--- @param edgeStart Vector3|boolean? If truthy (with edgeEnd and referencePoint), constrains the cutter to a hinge extending from this edge inward.
+	--- @param edgeEnd Vector3? End of the constraining edge.
+	--- @param referencePoint Vector3? A point on the side of the edge the cutter should extend toward.
+	local function createCutter(cName: string, origin: Vector3, cutNormal: Vector3, constrainA: Vector3?, constrainB: Vector3?, constrainC: Vector3?): Part
+		local HUGE_SIZE = 500
+	
+		if cutNormal.Magnitude < 0.001 then
+			cutNormal = Vector3.new(0, 1, 0)
+		end
+	
+		local part = Instance.new("Part")
+		part.Name = cName
+		part.Transparency = 0.8
+		part.Anchored = true
+		part.CanCollide = false
+		part.Size = Vector3.new(HUGE_SIZE, HUGE_SIZE, HUGE_SIZE)
+	
+		-- DEFAULT: Infinite Plane Cutter
+		local center = origin + (cutNormal * (HUGE_SIZE / 2))
+	
+		local up = cutNormal
+		local right = leastAlignedAxis(up)
+		local forward = right:Cross(up).Unit
+		right = up:Cross(forward).Unit
+	
+		local cframe = CFrame.fromMatrix(center, right, up, forward)
+	
+		-- CONSTRAINED: Hinge Cutter (starts at edge, extends INWARD over the triangle)
+		if constrainA and constrainB and constrainC then
+			local edgeVec = (constrainB - constrainA)
+			if edgeVec.Magnitude < 0.001 then
+				part.CFrame = cframe
+				return part
+			end
+			local edgeDir = edgeVec.Unit
+	
+			local vRef = constrainC - constrainA
+			local proj = vRef:Dot(edgeDir)
+			local closestPoint = constrainA + (edgeDir * proj)
+			local inwardVec = constrainC - closestPoint
+			if inwardVec.Magnitude < 0.001 then
+				part.CFrame = cframe
+				return part
+			end
+			local inwardDir = inwardVec.Unit
+	
+			local edgeMid = (constrainA + constrainB) / 2
+			center = edgeMid + (cutNormal * (HUGE_SIZE / 2)) + (inwardDir * (HUGE_SIZE / 2))
+	
+			local newRight = edgeDir
+			local newUp = cutNormal
+			local rawForward = newRight:Cross(newUp)
+			local newForward = if rawForward.Magnitude >= 0.001
+				then rawForward.Unit
+				else Vector3.new(0, 0, 1)
+	
+			cframe = CFrame.fromMatrix(center, newRight, newUp, newForward)
+		end
+	
+		part.CFrame = cframe
+		return part
+	end
+	
+	function _cache.getUnitTrianglePrism(tRatio: number): PartOperation
+		local key = math.clamp(math.floor(tRatio * _CONST.CACHE_STEPS_FINE + 0.5), 1, _CONST.CACHE_STEPS_FINE - 1)
+		if _cache.unitTrianglePrisms[key] then
+			return _cache.unitTrianglePrisms[key]:Clone()
+		end
+	
+		local actualT = key / _CONST.CACHE_STEPS_FINE
+		local uniformColor = Color3.new(0.5, 0.5, 0.5)
+		local uniformMaterial = Enum.Material.SmoothPlastic
+		local CUTTER_SIZE = 5
+	
+		local canvas = Instance.new("Part")
+		canvas.Name = "_unitTriCanvas"
+		canvas.Size = Vector3.new(1, 1, 1)
+		canvas.CFrame = CFrame.new(0, 0, 0)
+		canvas.Color = uniformColor
+		canvas.Material = uniformMaterial
+		canvas.Anchored = true
+	
+		local unitApex = Vector3.new(actualT - 0.5, 0, 0.5)
+		local unitBase1 = Vector3.new(-0.5, 0, -0.5)
+		local unitBase2 = Vector3.new(0.5, 0, -0.5)
+		local unitNormal = Vector3.new(0, 1, 0)
+		local unitCentroid = (unitApex + unitBase1 + unitBase2) / 3
+	
+		local function makeUnitCutter(cutName: string, origin: Vector3, cutNormal: Vector3)
+			local part = Instance.new("Part")
+			part.Name = cutName
+			part.Anchored = true
+			part.CanCollide = false
+			part.Size = Vector3.new(CUTTER_SIZE, CUTTER_SIZE, CUTTER_SIZE)
+			local center = origin + cutNormal * (CUTTER_SIZE / 2)
+			local up = cutNormal
+			local right = Vector3.new(0, 1, 0)
+			if math.abs(up:Dot(right)) > 0.9 then right = Vector3.new(0, 0, 1) end
+			local forward = right:Cross(up).Unit
+			right = up:Cross(forward).Unit
+			part.CFrame = CFrame.fromMatrix(center, right, up, forward)
+			return part
+		end
+	
+		local cutters = {}
+	
+		local rawCN1 = (unitBase1 - unitApex):Cross(unitNormal)
+		if rawCN1.Magnitude >= 0.001 then
+			local cutNormal1 = rawCN1.Unit
+			if cutNormal1:Dot(unitCentroid - unitApex) > 0 then
+				cutNormal1 = -cutNormal1
+			end
+			table.insert(cutters, makeUnitCutter("_utpCut1", unitApex, cutNormal1))
+		end
+	
+		local rawCN2 = (unitBase2 - unitApex):Cross(unitNormal)
+		if rawCN2.Magnitude >= 0.001 then
+			local cutNormal2 = rawCN2.Unit
+			if cutNormal2:Dot(unitCentroid - unitApex) > 0 then
+				cutNormal2 = -cutNormal2
+			end
+			table.insert(cutters, makeUnitCutter("_utpCut2", unitApex, cutNormal2))
+		end
+	
+		local result = CSG.subtract("_unitTriPrism", canvas, cutters) :: PartOperation
+		_cache.unitTrianglePrisms[key] = result
+		return result:Clone()
+	end
+	
+	-- Creates a single triangle prism (Part or PartOperation) from three points.
+	-- RIGHT-ANGLE TRIANGLE: single WedgePart (fast path, no CSG).
+	-- NON-RIGHT-ANGLE TRIANGLE: canvas block + 2 edge cutters subtraction (no seam).
+	-- Returns Part|PartOperation, or nil if degenerate. Does NOT set Parent.
+	-- Used by both triangularPrismFromThreePoints and quadFromFourPoints (PATH 4).
+	local function createTrianglePrism(name: string, tp1: Vector3, tp2: Vector3, tp3: Vector3, depth: number, extrusionDir: Vector3?, material: (string | Enum.Material)?, color: Color3, transparency: number?): BasePart?
+		-- Validate triangle is not degenerate
+		local edge1 = tp2 - tp1
+		local edge2 = tp3 - tp1
+		local rawNormal = edge1:Cross(edge2)
+		if rawNormal.Magnitude / 2 < 0.001 then
+			return nil
+		end
+	
+		local normal = getSensibleNormal(rawNormal.Unit, extrusionDir)
+		local alignOffset = getAlignOffset(depth, extrusionDir, normal)
+	
+		local vertices = {tp1, tp2, tp3}
+	
+		-- Apex selection: smallest angle first (larger cosine = smaller angle)
+		local cos1 = (tp3 - tp1).Unit:Dot((tp2 - tp1).Unit)
+		local cos2 = (tp1 - tp2).Unit:Dot((tp3 - tp2).Unit)
+		local cos3 = (tp1 - tp3).Unit:Dot((tp2 - tp3).Unit)
+	
+		local first, second, third
+		if cos1 >= cos2 then
+			if cos1 >= cos3 then
+				first = 1
+				if cos2 >= cos3 then second, third = 2, 3
+				else second, third = 3, 2 end
+			else
+				first, second, third = 3, 1, 2
+			end
+		else
+			if cos2 >= cos3 then
+				first = 2
+				if cos1 >= cos3 then second, third = 1, 3
+				else second, third = 3, 1 end
+			else
+				first, second, third = 3, 2, 1
+			end
+		end
+	
+		-- Try each apex candidate until finding one with t in [0, 1]
+		local foundApex: Vector3? = nil
+		local foundBase1: Vector3? = nil
+		local foundBase2: Vector3? = nil
+		local foundBaseEdge: Vector3? = nil
+		local foundT: number = 0.5
+		for _, idx in ipairs({first, second, third}) do
+			local cApex = vertices[idx]
+			local cBase1 = vertices[(idx % 3) + 1]
+			local cBase2 = vertices[((idx + 1) % 3) + 1]
+			local cBaseEdge = cBase2 - cBase1
+			local lenSq = cBaseEdge:Dot(cBaseEdge)
+			if lenSq >= 0.000001 then
+				local cT = (cApex - cBase1):Dot(cBaseEdge) / lenSq
+				if cT >= 0 and cT <= 1 then
+					foundApex, foundBase1, foundBase2, foundBaseEdge, foundT = cApex, cBase1, cBase2, cBaseEdge, cT
+					break
+				end
+			end
+		end
+	
+		-- Fallback: use largest angle vertex
+		if not foundApex then
+			local idx = third
+			local fbApex = vertices[idx]
+			local fbBase1 = vertices[(idx % 3) + 1]
+			local fbBase2 = vertices[((idx + 1) % 3) + 1]
+			local fbBaseEdge = fbBase2 - fbBase1
+			local lenSq = fbBaseEdge:Dot(fbBaseEdge)
+			foundApex = fbApex
+			foundBase1 = fbBase1
+			foundBase2 = fbBase2
+			foundBaseEdge = fbBaseEdge
+			foundT = if lenSq >= 0.000001 then (fbApex - fbBase1):Dot(fbBaseEdge) / lenSq else 0.5
+		end
+	
+		-- After loop + fallback all are guaranteed non-nil; bind to non-optional locals
+		local apex: Vector3 = foundApex :: Vector3
+		local base1: Vector3 = foundBase1 :: Vector3
+		local base2: Vector3 = foundBase2 :: Vector3
+		local baseEdge: Vector3 = foundBaseEdge :: Vector3
+		local t: number = foundT
+	
+		local foot = base1 + baseEdge * t
+		local altitudeVec = apex - foot
+		local altitudeLen = altitudeVec.Magnitude
+		local MIN_DIM = 0.001
+		if altitudeLen < MIN_DIM then
+			-- Clamp altitude to minimum instead of returning nil
+			local altDir = altitudeVec.Magnitude > 0.00001 and altitudeVec.Unit or normal
+			apex = foot + altDir * MIN_DIM
+			altitudeVec = apex - foot
+			altitudeLen = MIN_DIM
+		end
+	
+		local baseEdgeLen = baseEdge.Magnitude
+		local needWedge1 = t * baseEdgeLen >= MIN_DIM
+		local needWedge2 = (1 - t) * baseEdgeLen >= MIN_DIM
+	
+		if not needWedge1 and not needWedge2 then
+			-- Both base segments too short -- clamp t to produce at least one valid wedge
+			t = 0.5
+			foot = base1 + baseEdge * t
+			altitudeVec = apex - foot
+			altitudeLen = altitudeVec.Magnitude
+			needWedge1 = true
+			needWedge2 = true
+		end
+	
+		-- NON-RIGHT-ANGLE: cached unit triangle prism (clone + scale)
+		if needWedge1 and needWedge2 then
+			-- Re-select apex for canvas approach: use LARGEST-angle vertex (smallest cosine).
+			-- The largest-angle vertex is opposite the longest edge, producing the most
+			-- naturally-aligned canvas and best CSG precision.
+			local reIdx = third
+			apex = vertices[reIdx]
+			base1 = vertices[(reIdx % 3) + 1]
+			base2 = vertices[((reIdx + 1) % 3) + 1]
+			baseEdge = base2 - base1
+			local reBaseEdgeLenSq = baseEdge:Dot(baseEdge)
+			baseEdgeLen = math.sqrt(reBaseEdgeLenSq)
+			t = (apex - base1):Dot(baseEdge) / reBaseEdgeLenSq
+			foot = base1 + baseEdge * t
+			altitudeVec = apex - foot
+			altitudeLen = altitudeVec.Magnitude
+	
+			local canvasYAxis = normal
+			local canvasZAxis = altitudeVec.Unit
+			local rawXAxis = canvasYAxis:Cross(canvasZAxis)
+			if rawXAxis.Magnitude < 0.001 then
+				rawXAxis = canvasYAxis:Cross(leastAlignedAxis(canvasYAxis))
+			end
+			local canvasXAxis = rawXAxis.Unit
+	
+			local cacheT = t
+			if canvasXAxis:Dot(baseEdge.Unit) < 0 then
+				cacheT = 1 - t
+			end
+	
+			local baseMid = (base1 + base2) / 2
+			local canvasCenter = baseMid + canvasZAxis * (altitudeLen / 2) + alignOffset
+	
+			local unit = _cache.getUnitTrianglePrism(cacheT)
+	
+			unit.Name = name
+			unit.Size = Vector3.new(baseEdgeLen, depth, altitudeLen)
+			unit.CFrame = CFrame.fromMatrix(canvasCenter, canvasXAxis, canvasYAxis, canvasZAxis)
+			unit.Color = color
+			setValidRobloxMaterial(unit, material)
+			unit.UsePartColor = true
+			unit.Transparency = transparency or 0
+			unit.Anchored = true
+			return unit
+		-- RIGHT-ANGLE: single WedgePart (fast path, no CSG)
+		elseif needWedge1 then
+			return createTriangleWedge(name, apex, foot, base1, depth, alignOffset, material, color, transparency)
+		else
+			return createTriangleWedge(name, apex, foot, base2, depth, alignOffset, material, color, transparency)
+		end
+	end
+	
+	-- Attempts to split a quad along diagonal sP1-sP3 into two triangle prisms
+	-- and union them.  Returns the result on success, or nil if both triangles
+	-- are degenerate or any internal CSG operation fails.
+	local function tryTriangleSplit(
+		name: string, sP1: Vector3, oP2: Vector3, sP3: Vector3, oP4: Vector3,
+		thickness: number, extrusionDir: Vector3?, material: (string | Enum.Material)?,
+		color: Color3, transparency: number?, parent: Instance?
+	): BasePart?
+		local ok, result = pcall(function(): BasePart?
+			local tri1 = createTrianglePrism(name .. "_T1", sP1, oP2, sP3, thickness, extrusionDir, material, color, transparency)
+			local tri2 = createTrianglePrism(name .. "_T2", sP1, sP3, oP4, thickness, extrusionDir, material, color, transparency)
+			if tri1 and tri2 then
+				local uOk, u = pcall(CSG.union, name, tri1, {tri2})
+				if uOk and u then
+					(u :: BasePart).Parent = resolveParentNoWorkspace(parent)
+					return u :: BasePart
+				end
+			end
+			if tri1 then
+				tri1.Name = name
+				tri1.Parent = resolveParentNoWorkspace(parent)
+				return tri1
+			elseif tri2 then
+				tri2.Name = name
+				tri2.Parent = resolveParentNoWorkspace(parent)
+				return tri2
+			end
+			return nil
+		end)
+		if ok then
+			return result
+		end
+		warn("tryTriangleSplit '" .. name .. "' failed: " .. tostring(result))
+		return nil
+	end
+	
+	-- ===========================================================================
+	-- PRIMITIVES
+	-- ===========================================================================
+	
+	function GeometryPrimitives.strutFromTwoPoints(name: string, startPoint: Vector3, endPoint: Vector3, width: number, height: number, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): Part
+		validateFiniteVector3("strutFromTwoPoints", "startPoint", startPoint)
+		validateFiniteVector3("strutFromTwoPoints", "endPoint", endPoint)
+		width = validatePositive("strutFromTwoPoints", "width", width)
+		height = validatePositive("strutFromTwoPoints", "height", height)
+		validateColor3("strutFromTwoPoints", "color", color)
+	
+		local direction = endPoint - startPoint
+		local length = direction.Magnitude
+		if length < 0.001 then error("strutFromTwoPoints '" .. name .. "': start and end points are too close (distance=" .. string.format("%.6f", length) .. ")") end
+	
+		local mid = (startPoint + endPoint) / 2
+		local zAxis = direction.Unit -- The Forward/Length axis
+		
+		-- AUTOMATIC ORIENTATION
+		-- Default to World Up (0,1,0).
+		local upRef = Vector3.new(0,1,0)
+		
+		-- If the beam is vertical (straight up/down), switch reference to World Z to prevent math errors.
+		if math.abs(zAxis:Dot(upRef)) > 0.95 then
+			upRef = Vector3.new(0,0,1)
+		end
+		
+		local xAxis = upRef:Cross(zAxis).Unit -- Right Axis
+		local yAxis = zAxis:Cross(xAxis).Unit -- Corrected Up Axis
+		
+		local part = Instance.new("Part")
+		part.Name = name
+		part.Size = Vector3.new(width, height, length)
+		part.CFrame = CFrame.fromMatrix(mid, xAxis, yAxis, zAxis)
+		
+		part.Color = color
+		setValidRobloxMaterial(part, material)
+		part.Transparency = transparency or 0
+		part.Anchored = true
+		part.Parent = resolveParentNoWorkspace(parent)
+		return part
+	end
+	
+	function GeometryPrimitives.axisAlignedBlockFromCorners(name: string, corner1: Vector3, corner2: Vector3, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): Part
+		validateFiniteVector3("axisAlignedBlockFromCorners", "corner1", corner1)
+		validateFiniteVector3("axisAlignedBlockFromCorners", "corner2", corner2)
+		local min = Vector3.new(
+			math.min(corner1.X, corner2.X),
+			math.min(corner1.Y, corner2.Y),
+			math.min(corner1.Z, corner2.Z)
+		)
+		local max = Vector3.new(
+			math.max(corner1.X, corner2.X),
+			math.max(corner1.Y, corner2.Y),
+			math.max(corner1.Z, corner2.Z)
+		)
+	
+		local size = max - min
+		local center = (min + max) / 2
+	
+		local function clampAxis(axis: string, v: number): number
+			if v <= 0 then
+				warn("axisAlignedBlockFromCorners '" .. name .. "': " .. axis .. " is 0 (corners coincide), clamped to " .. _CONST.MIN_PART_SIZE)
+				return _CONST.MIN_PART_SIZE
+			end
+			if v < _CONST.MIN_PART_SIZE then
+				warn("axisAlignedBlockFromCorners '" .. name .. "': " .. axis .. " (" .. tostring(v) .. ") below Roblox minimum, clamped to " .. _CONST.MIN_PART_SIZE)
+				return _CONST.MIN_PART_SIZE
+			end
+			return v
+		end
+		size = Vector3.new(clampAxis("size.X", size.X), clampAxis("size.Y", size.Y), clampAxis("size.Z", size.Z))
+	
+		local part = Instance.new("Part")
+		part.Name = name or "Part"
+		part.Shape = Enum.PartType.Block
+		part.Size = size
+		part.CFrame = CFrame.new(center)
+		part.Transparency = transparency or 0
+		part.Anchored = true
+		part.Parent = resolveParentNoWorkspace(parent)
+	
+		if color then 
+			part.Color = color 
+		end
+		
+		setValidRobloxMaterial(part, material)
+	
+		return part
+	end
+	
+	function GeometryPrimitives.cylinder(name: string, startFaceCenter: Vector3, endFaceCenter: Vector3, radius: number, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): Part
+		validateFiniteVector3("cylinder", "startFaceCenter", startFaceCenter)
+		validateFiniteVector3("cylinder", "endFaceCenter", endFaceCenter)
+		radius = validatePositive("cylinder", "radius", radius)
+	
+		local direction = endFaceCenter - startFaceCenter
+		local distance = direction.Magnitude
+		if distance < 0.001 then
+			error("Distance between startFaceCenter and endFaceCenter is too small to create a cylinder")
+		end
+	
+		local midpoint = (startFaceCenter + endFaceCenter) / 2
+		local xAxis = direction.Unit
+	
+		-- Choose arbitrary "up" not parallel to xAxis
+		local up = Vector3.new(0, 1, 0)
+		if math.abs(xAxis:Dot(up)) > 0.999 then
+			up = Vector3.new(0, 0, 1)
+		end
+	
+		local zAxis = xAxis:Cross(up).Unit
+		local yAxis = zAxis:Cross(xAxis).Unit
+	
+		local finalCFrame = CFrame.fromMatrix(midpoint, xAxis, yAxis)
+	
+		local part = Instance.new("Part")
+		part.Name = name
+		part.Shape = Enum.PartType.Cylinder
+		local diameter = radius * 2
+		part.Size = Vector3.new(distance, diameter, diameter)
+		part.CFrame = finalCFrame
+		part.Transparency = transparency or 0
+		if color then
+			part.Color = color
+		end
+		setValidRobloxMaterial(part, material)
+		part.Anchored = true
+		part.Parent = resolveParentNoWorkspace(parent)
+		return part
+	end
+	
+	function GeometryPrimitives.hollowCylinder(name: string, p1: Vector3, p2: Vector3, outerRadius: number, wallThickness: number, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): PartOperation
+		validateFiniteVector3("hollowCylinder", "p1", p1)
+		validateFiniteVector3("hollowCylinder", "p2", p2)
+		outerRadius = validatePositive("hollowCylinder", "outerRadius", outerRadius)
+		wallThickness = validatePositive("hollowCylinder", "wallThickness", wallThickness, _CONST.MIN_WALL_THICKNESS)
+	
+		if wallThickness >= outerRadius then
+			error("Wall thickness must be less than the outer radius")
+		end
+	
+		local direction = p2 - p1
+		local distance = direction.Magnitude
+		if distance < 0.001 then
+			error("Distance between p1 and p2 is too small to create a hollow cylinder")
+		end
+	
+		local wallRatio = wallThickness / outerRadius
+		local unit = _cache.getUnitHollowCylinder(wallRatio)
+	
+		local xAxis = direction.Unit
+		local up = Vector3.new(0, 1, 0)
+		if math.abs(xAxis:Dot(up)) > 0.999 then
+			up = Vector3.new(0, 0, 1)
+		end
+		local zAxis = xAxis:Cross(up).Unit
+		local yAxis = zAxis:Cross(xAxis).Unit
+	
+		local realMidpoint = (p1 + p2) / 2
+		local unitOffsetX = unit.CFrame.Position.X
+		local correctedCenter = realMidpoint + xAxis * (unitOffsetX * distance)
+	
+		local diameter = outerRadius * 2
+		unit.Name = name
+		unit.Size = Vector3.new(distance, diameter, diameter)
+		unit.CFrame = CFrame.fromMatrix(correctedCenter, xAxis, yAxis, zAxis)
+		unit.Color = color
+		setValidRobloxMaterial(unit, material)
+		unit.UsePartColor = true
+		unit.Transparency = transparency or 0
+		unit.Anchored = true
+		unit.Parent = resolveParentNoWorkspace(parent)
+		return unit
+	end
+	
+	function GeometryPrimitives.sphere(name: string, position: Vector3, radius: number, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): Part
+		validateFiniteVector3("sphere", "position", position)
+		radius = validatePositive("sphere", "radius", radius)
+	
+		local diameter = radius * 2
+		local part = Instance.new("Part")
+		part.Name = name
+		part.Shape = Enum.PartType.Ball
+		part.Size = Vector3.new(diameter, diameter, diameter)
+		part.Position = position
+		part.Transparency = transparency or 0
+		if color then
+			part.Color = color
+		end
+		setValidRobloxMaterial(part, material)
+		part.Anchored = true
+		part.Parent = resolveParentNoWorkspace(parent)
+		return part
+	end
+	
+	function GeometryPrimitives.hemisphere(name: string, flatCenter: Vector3, polePoint: Vector3, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): PartOperation
+		validateFiniteVector3("hemisphere", "flatCenter", flatCenter)
+		validateFiniteVector3("hemisphere", "polePoint", polePoint)
+	
+		local radius = (polePoint - flatCenter).Magnitude
+		if radius < _CONST.MIN_PART_SIZE then
+			error("hemisphere '" .. name .. "': flatCenter and polePoint are too close (radius ~0)")
+		end
+	
+		local dir = (polePoint - flatCenter).Unit
+		local unit = _cache.getUnitHemisphere()
+	
+		local diameter = radius * 2
+		-- BBox is ~(0.5, 1, 1) in unit space; scaling by 2*radius uniformly gives (radius, diameter, diameter)
+		unit.Size = Vector3.new(radius, diameter, diameter)
+	
+		local center = flatCenter
+		local up = Vector3.new(0, 1, 0)
+		if math.abs(dir:Dot(up)) > 0.999 then
+			up = Vector3.new(0, 0, 1)
+		end
+		local zAxis = dir:Cross(up).Unit
+		local yAxis = zAxis:Cross(dir).Unit
+		unit.CFrame = CFrame.fromMatrix(center, dir, yAxis, zAxis)
+	
+		unit.Name = name
+		unit.Color = color
+		setValidRobloxMaterial(unit, material)
+		unit.UsePartColor = true
+		unit.Transparency = transparency or 0
+		unit.Anchored = true
+		unit.Parent = resolveParentNoWorkspace(parent)
+		return unit
+	end
+	
+	function GeometryPrimitives.hollowHemisphere(name: string, rimCenter: Vector3, polePoint: Vector3, wallThickness: number, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): PartOperation
+		validateFiniteVector3("hollowHemisphere", "rimCenter", rimCenter)
+		validateFiniteVector3("hollowHemisphere", "polePoint", polePoint)
+		wallThickness = validatePositive("hollowHemisphere", "wallThickness", wallThickness, _CONST.MIN_WALL_THICKNESS)
+	
+		local outerRadius = (polePoint - rimCenter).Magnitude
+		if outerRadius < _CONST.MIN_PART_SIZE then
+			error("hollowHemisphere '" .. name .. "': rimCenter and polePoint are too close (radius ~0)")
+		end
+		if wallThickness >= outerRadius then
+			error("hollowHemisphere '" .. name .. "': wallThickness must be less than the radius")
+		end
+	
+		local dir = (polePoint - rimCenter).Unit
+		local wallRatio = wallThickness / outerRadius
+		local unit = _cache.getUnitHollowHemisphere(wallRatio)
+	
+		local diameter = outerRadius * 2
+		unit.Size = Vector3.new(outerRadius, diameter, diameter)
+	
+		local center = rimCenter
+		local up = Vector3.new(0, 1, 0)
+		if math.abs(dir:Dot(up)) > 0.999 then
+			up = Vector3.new(0, 0, 1)
+		end
+		local zAxis = dir:Cross(up).Unit
+		local yAxis = zAxis:Cross(dir).Unit
+		unit.CFrame = CFrame.fromMatrix(center, dir, yAxis, zAxis)
+	
+		unit.Name = name
+		unit.Color = color
+		setValidRobloxMaterial(unit, material)
+		unit.UsePartColor = true
+		unit.Transparency = transparency or 0
+		unit.Anchored = true
+		unit.Parent = resolveParentNoWorkspace(parent)
+		return unit
+	end
+	
+	function GeometryPrimitives.triangularPrismFromThreePoints(name: string, p1: Vector3, p2: Vector3, p3: Vector3, depth: number, extrusionDir: Vector3?, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): BasePart
+		validateFiniteVector3("triangularPrismFromThreePoints", "p1", p1)
+		validateFiniteVector3("triangularPrismFromThreePoints", "p2", p2)
+		validateFiniteVector3("triangularPrismFromThreePoints", "p3", p3)
+		if extrusionDir then validateFiniteVector3("triangularPrismFromThreePoints", "extrusionDir", extrusionDir) end
+		depth = validatePositive("triangularPrismFromThreePoints", "depth", depth)
+	
+		-- Validate triangle is not degenerate (collinear or coincident points)
+		local edge1 = p2 - p1
+		local edge2 = p3 - p1
+		local rawNormal = edge1:Cross(edge2)
+		if rawNormal.Magnitude / 2 < 0.001 then
+			error("triangularPrismFromThreePoints '" .. name .. "': points are collinear or coincident (no valid triangle)")
+		end
+	
+		-- Delegate to shared helper (note: public API takes color,material but helper takes material,color)
+		local result = createTrianglePrism(name, p1, p2, p3, depth, extrusionDir, material, color, transparency)
+		if not result then
+			error("triangularPrismFromThreePoints '" .. name .. "': Failed to create triangle prism")
+		end
+		result.Parent = resolveParentNoWorkspace(parent)
+		return result
+	end
+	
+	function GeometryPrimitives.ramp(name: string, startPoint: Vector3, endPoint: Vector3, width: number, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): WedgePart
+		validateFiniteVector3("ramp", "startPoint", startPoint)
+		validateFiniteVector3("ramp", "endPoint", endPoint)
+		validateFiniteNumber("ramp", "width", width)
+		local apexPoint = nil
+		local basePoint = nil
+		if startPoint.Y < endPoint.Y then
+			basePoint = startPoint
+			apexPoint = endPoint
+		else
+			basePoint = endPoint
+			apexPoint = startPoint
+		end
+		local horizontalRunVector = Vector3.new(basePoint.X - apexPoint.X, 0, basePoint.Z - apexPoint.Z)
+		local length = horizontalRunVector.Magnitude
+		if length < 0.001 then
+			error("WedgePart '" .. name .. "' could not be created: horizontal run is negligible.")
+		end
+		local verticalRise = basePoint.Y - apexPoint.Y
+		local height = math.abs(verticalRise)
+		local part = Instance.new("WedgePart")
+		part.Name = name
+		part.Size = Vector3.new(width, height, length)
+		if color then
+			part.Color = color
+		end
+		part.Transparency = transparency or 0
+		setValidRobloxMaterial(part, material)
+		part.Anchored = true
+		local wedgeCenterPosition = apexPoint + (horizontalRunVector / 2) + Vector3.new(0, verticalRise / 2, 0)
+		local lookAtTarget = wedgeCenterPosition + horizontalRunVector
+		part.CFrame = CFrame.lookAt(wedgeCenterPosition, lookAtTarget)
+		part.Parent = resolveParentNoWorkspace(parent)
+		return part
+	end
+	
+	function GeometryPrimitives.model(name: string, parent: Instance?): Model
+		local model = Instance.new("Model")
+		model.Name = name
+		model.Parent = parent
+		return model
+	end
+	
+	function GeometryPrimitives.quadFromFourPoints(name: string, p1: Vector3, p2: Vector3, p3: Vector3, p4: Vector3, thickness: number, extrusionDir: Vector3?, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): BasePart
+		validateFiniteVector3("quadFromFourPoints", "p1", p1)
+		validateFiniteVector3("quadFromFourPoints", "p2", p2)
+		validateFiniteVector3("quadFromFourPoints", "p3", p3)
+		validateFiniteVector3("quadFromFourPoints", "p4", p4)
+		if extrusionDir then validateFiniteVector3("quadFromFourPoints", "extrusionDir", extrusionDir) end
+		thickness = validatePositive("quadFromFourPoints", "thickness", thickness)
+		validateColor3("quadFromFourPoints", "color", color)
+	
+		-- ===================================================================
+		-- PRE-CHECK: Degenerate quad detection (adjacent duplicate vertices).
+		-- When two adjacent vertices coincide the quad is actually a triangle;
+		-- delegate to triangularPrismFromThreePoints to avoid zero-length
+		-- edges that produce NaN normals and non-invertible CFrames in CSG.
+		-- ===================================================================
+		local MIN_EDGE_LEN = 0.001
+		local d12 = (p2 - p1).Magnitude < MIN_EDGE_LEN
+		local d23 = (p3 - p2).Magnitude < MIN_EDGE_LEN
+		local d34 = (p4 - p3).Magnitude < MIN_EDGE_LEN
+		local d41 = (p1 - p4).Magnitude < MIN_EDGE_LEN
+		local degenerateCount = (if d12 then 1 else 0) + (if d23 then 1 else 0) + (if d34 then 1 else 0) + (if d41 then 1 else 0)
+	
+		if degenerateCount >= 2 then
+			warn("quadFromFourPoints '" .. name .. "': " .. degenerateCount
+				.. " degenerate edges; recovering as thin triangle")
+			local pts = {p1, p2, p3, p4}
+			local bestDist = 0
+			local bestI, bestJ = 1, 2
+			for i = 1, 4 do
+				for j = i + 1, 4 do
+					local dist = (pts[i] - pts[j]).Magnitude
+					if dist > bestDist then
+						bestDist = dist
+						bestI, bestJ = i, j
+					end
+				end
+			end
+			local tA = pts[bestI]
+			local tB = pts[bestJ]
+			local tC = tA
+			for i = 1, 4 do
+				if i ~= bestI and i ~= bestJ then
+					tC = pts[i]
+					break
+				end
+			end
+			return GeometryPrimitives.triangularPrismFromThreePoints(
+				name, tA, tB, tC, thickness, extrusionDir, color, material, parent, transparency)
+		end
+	
+		if d34 then -- p3 â‰ˆ p4: triangle is (p1, p2, p3)
+			return GeometryPrimitives.triangularPrismFromThreePoints(name, p1, p2, p3, thickness, extrusionDir, color, material, parent, transparency)
+		end
+		if d12 then -- p1 â‰ˆ p2: triangle is (p4, p1, p3)
+			return GeometryPrimitives.triangularPrismFromThreePoints(name, p4, p1, p3, thickness, extrusionDir, color, material, parent, transparency)
+		end
+		if d23 then -- p2 â‰ˆ p3: triangle is (p1, p2, p4)
+			return GeometryPrimitives.triangularPrismFromThreePoints(name, p1, p2, p4, thickness, extrusionDir, color, material, parent, transparency)
+		end
+		if d41 then -- p4 â‰ˆ p1: triangle is (p1, p2, p3)
+			return GeometryPrimitives.triangularPrismFromThreePoints(name, p1, p2, p3, thickness, extrusionDir, color, material, parent, transparency)
+		end
+	
+		-- ===================================================================
+		-- NON-ADJACENT COINCIDENCE: p1â‰ˆp3 or p2â‰ˆp4
+		-- ===================================================================
+		local d13 = (p3 - p1).Magnitude < MIN_EDGE_LEN
+		local d24 = (p4 - p2).Magnitude < MIN_EDGE_LEN
+		if d13 and d24 then
+			error("quadFromFourPoints '" .. name .. "': opposite vertices coincide (degenerate line)")
+		end
+		if d13 then
+			warn("quadFromFourPoints '" .. name .. "': p1 â‰ˆ p3, delegating to triangle (p1, p2, p4)")
+			return GeometryPrimitives.triangularPrismFromThreePoints(name, p1, p2, p4, thickness, extrusionDir, color, material, parent, transparency)
+		end
+		if d24 then
+			warn("quadFromFourPoints '" .. name .. "': p2 â‰ˆ p4, delegating to triangle (p1, p2, p3)")
+			return GeometryPrimitives.triangularPrismFromThreePoints(name, p1, p2, p3, thickness, extrusionDir, color, material, parent, transparency)
+		end
+	
+		-- ===================================================================
+		-- COLLINEARITY CHECK: all 4 distinct points on a line â†’ error
+		-- ===================================================================
+		local col12 = (p2 - p1):Cross(p3 - p1)
+		local col13 = (p2 - p1):Cross(p4 - p1)
+		local col23 = (p3 - p1):Cross(p4 - p1)
+		if col12.Magnitude < 0.001 and col13.Magnitude < 0.001 and col23.Magnitude < 0.001 then
+			error("quadFromFourPoints '" .. name .. "': all four points are collinear (no valid quadrilateral)")
+		end
+	
+		-- ===================================================================
+		-- SELF-INTERSECTION (bowtie): opposite edges cross
+		-- Split into 2 triangular prisms meeting at the intersection point.
+		-- ===================================================================
+		local intPt = segmentsIntersect3D(p1, p2, p3, p4)
+		if not intPt then
+			intPt = segmentsIntersect3D(p2, p3, p4, p1)
+			if intPt then
+				warn("quadFromFourPoints '" .. name .. "': self-intersecting (bowtie), splitting at intersection")
+				local t1 = createTrianglePrism(name .. "_bow1", p2, intPt, p1, thickness, extrusionDir, material, color, transparency)
+				local t2 = createTrianglePrism(name .. "_bow2", intPt, p3, p4, thickness, extrusionDir, material, color, transparency)
+				if t1 and t2 then
+					local uOk, u = pcall(CSG.union, name, t1, {t2})
+					if uOk and u then
+						(u :: BasePart).Parent = resolveParentNoWorkspace(parent)
+						return u :: BasePart
+					end
+				end
+				if t1 then
+					t1.Name = name; t1.Parent = resolveParentNoWorkspace(parent); return t1
+				elseif t2 then
+					t2.Name = name; t2.Parent = resolveParentNoWorkspace(parent); return t2
+				end
+				error("quadFromFourPoints '" .. name .. "': bowtie split produced no geometry")
+			end
+		else
+			warn("quadFromFourPoints '" .. name .. "': self-intersecting (bowtie), splitting at intersection")
+			local t1 = createTrianglePrism(name .. "_bow1", p1, intPt, p4, thickness, extrusionDir, material, color, transparency)
+			local t2 = createTrianglePrism(name .. "_bow2", intPt, p2, p3, thickness, extrusionDir, material, color, transparency)
+			if t1 and t2 then
+				local uOk, u = pcall(CSG.union, name, t1, {t2})
+				if uOk and u then
+					(u :: BasePart).Parent = resolveParentNoWorkspace(parent)
+					return u :: BasePart
+				end
+			end
+			if t1 then
+				t1.Name = name; t1.Parent = resolveParentNoWorkspace(parent); return t1
+			elseif t2 then
+				t2.Name = name; t2.Parent = resolveParentNoWorkspace(parent); return t2
+			end
+			error("quadFromFourPoints '" .. name .. "': bowtie split produced no geometry")
+		end
+	
+		-- ===================================================================
+		-- PATH 1: RECTANGULAR (coplanar + orthogonal) â†’ single Part block
+		-- ===================================================================
+		if isRectangular(p1, p2, p3, p4) then
+			local lenVec = p2 - p1
+			local widVec = p4 - p1
+			local length, width = lenVec.Magnitude, widVec.Magnitude
+	
+			-- Match V2 plateFromThreePoints orientation algorithm for migration compatibility
+			local xAxis = lenVec.Unit
+			local normal = xAxis:Cross(widVec).Unit
+	
+			-- Auto-correct: Force normal to point UP (positive Y) when significant
+			if math.abs(normal.Y) > 0.01 and normal.Y < 0 then
+				normal = -normal
+			end
+	
+			local yAxis = normal
+			local zAxis = xAxis:Cross(yAxis).Unit
+	
+			local center = (p1 + p3) / 2 + getAlignOffset(thickness, extrusionDir, normal)
+	
+			local part = Instance.new("Part")
+			part.Name = name
+			part.Size = Vector3.new(length, thickness, width)
+			part.CFrame = CFrame.fromMatrix(center, xAxis, yAxis, zAxis)
+			part.Color = color
+			setValidRobloxMaterial(part, material)
+			part.Anchored = true
+			part.Parent = resolveParentNoWorkspace(parent)
+			part.Transparency = transparency or 0
+			part:SetAttribute("_quadPath", "RECT")
+			return part
+		end
+	
+		-- ===================================================================
+		-- NEARLY-COPLANAR SNAP: project points onto the average plane when
+		-- the maximum perpendicular deviation is small (< 0.05 studs).
+		-- The raw scalar triple product scales with L^2*d (area * deviation)
+		-- so a large quad with a tiny deviation can incorrectly appear
+		-- non-coplanar. This check uses the actual perpendicular distance.
+		-- ===================================================================
+		local SNAP_COPLANAR_DIST = 0.05
+		do
+			local nA = (p2 - p1):Cross(p3 - p1)
+			local nB = (p3 - p1):Cross(p4 - p1)
+			local avgN = nA + nB
+			local avgNMag = avgN.Magnitude
+			if avgNMag > 0.001 then
+				local unitN = avgN / avgNMag
+				local centroid = (p1 + p2 + p3 + p4) / 4
+				local sd1 = unitN:Dot(p1 - centroid)
+				local sd2 = unitN:Dot(p2 - centroid)
+				local sd3 = unitN:Dot(p3 - centroid)
+				local sd4 = unitN:Dot(p4 - centroid)
+				local maxDist = math.max(math.abs(sd1), math.abs(sd2), math.abs(sd3), math.abs(sd4))
+				if maxDist > 0 and maxDist <= SNAP_COPLANAR_DIST then
+					p1 = p1 - unitN * sd1
+					p2 = p2 - unitN * sd2
+					p3 = p3 - unitN * sd3
+					p4 = p4 - unitN * sd4
+				end
+			end
+		end
+	
+		-- ===================================================================
+		-- GEOMETRY ANALYSIS: coplanarity, normals, dihedral, CSG-safety
+		-- ===================================================================
+		local ev1, ev2, ev3 = p2 - p1, p3 - p1, p4 - p1
+		local evDist = pointToPlaneDistance(ev1, ev2, ev3)
+		local isCoplanar = evDist ~= nil and evDist <= 0.1
+	
+		-- For non-coplanar quads: choose best diagonal by dihedral angle.
+		-- Higher dot = smaller fold angle = more coplanar = better.
+		local splitP1, splitP3, otherP2, otherP4
+		local bestCos = 1
+		local n1: Vector3, n2: Vector3
+	
+		if not isCoplanar then
+			local n_13_A = (p2 - p1):Cross(p3 - p1)
+			local n_13_B = (p3 - p1):Cross(p4 - p1)
+			local n_24_A = (p3 - p2):Cross(p4 - p2)
+			local n_24_B = (p4 - p2):Cross(p1 - p2)
+	
+			local function dihedralDot(na: Vector3, nb: Vector3): number
+				local magA, magB = na.Magnitude, nb.Magnitude
+				if magA < 0.001 or magB < 0.001 then return -1 end
+				return na.Unit:Dot(nb.Unit)
+			end
+	
+			local cos13 = dihedralDot(n_13_A, n_13_B)
+			local cos24 = dihedralDot(n_24_A, n_24_B)
+			bestCos = math.max(cos13, cos24)
+	
+			if cos13 >= cos24 then
+				splitP1, splitP3 = p1, p3
+				otherP2, otherP4 = p2, p4
+			else
+				splitP1, splitP3 = p2, p4
+				otherP2, otherP4 = p3, p1
+			end
+	
+			n1 = (otherP2 - splitP1):Cross(splitP3 - splitP1)
+			n2 = (splitP3 - splitP1):Cross(otherP4 - splitP1)
+			if n1.Magnitude > 0.001 then n1 = n1.Unit else n1 = Vector3.new(0, 1, 0) end
+			if n2.Magnitude > 0.001 then n2 = n2.Unit else n2 = n1 end
+			if n1:Dot(n2) < 0 then n2 = -n2 end
+	
+			-- NEAR-COPLANAR GUARD: when the dihedral angle is very gentle,
+			-- the split normals n1/n2 are nearly identical. PATH 3's separate
+			-- top/bottom cutters per triangle create conflicting planes on thin
+			-- slabs, causing CSG engine failures. Project to the average plane
+			-- and let PATH 2 handle it with a single unified normal.
+			local NEAR_COPLANAR_COS = 0.99
+			if bestCos > NEAR_COPLANAR_COS then
+				local avgN = n1 + n2
+				if avgN.Magnitude > 0.001 then
+					local unitN = avgN / avgN.Magnitude
+					local centroid = (p1 + p2 + p3 + p4) / 4
+					p1 = p1 - unitN * unitN:Dot(p1 - centroid)
+					p2 = p2 - unitN * unitN:Dot(p2 - centroid)
+					p3 = p3 - unitN * unitN:Dot(p3 - centroid)
+					p4 = p4 - unitN * unitN:Dot(p4 - centroid)
+					isCoplanar = true
+					ev1, ev2, ev3 = p2 - p1, p3 - p1, p4 - p1
+				end
+			end
+		end
+	
+		-- Determine a reference normal for CSG-safety and alignment checks
+		local refNormal: Vector3
+		if isCoplanar then
+			local n = ev1:Cross(ev3)
+			if n.Magnitude < 0.001 then n = ev1:Cross(ev2) end
+			refNormal = getSensibleNormal(n.Unit, extrusionDir)
+		else
+			local avg = n1 + n2
+			refNormal = getSensibleNormal(if avg.Magnitude > 0.001 then avg.Unit else n1, extrusionDir)
+		end
+	
+		-- CSG-safe zone: convex + all interior angles within safe range
+		local csgSafe = isCsgSafeQuad(p1, p2, p3, p4, refNormal)
+	
+		-- ===================================================================
+		-- PATH 2: COPLANAR CSG (4-cutter) â€” only for CSG-safe quads
+		-- Oriented canvas aligned to face normal with exact thickness;
+		-- 4 perimeter edge cutters carve the quad shape. Produces a
+		-- seamless single solid.
+		-- ===================================================================
+		if isCoplanar and csgSafe then
+			local sensN = refNormal
+			local alignOff = getAlignOffset(thickness, extrusionDir, sensN)
+	
+			local centroid = (p1 + p2 + p3 + p4) / 4
+			local center = centroid + alignOff
+	
+			local yAxis = sensN
+			local tempRight = leastAlignedAxis(yAxis)
+			local zAxis = yAxis:Cross(tempRight).Unit
+			local xAxis = yAxis:Cross(zAxis).Unit
+	
+			local margin = math.max(thickness * 4, 2)
+			local maxExtX, maxExtZ = 0, 0
+			for _, pt in ipairs({p1, p2, p3, p4}) do
+				local offset = pt - centroid
+				maxExtX = math.max(maxExtX, math.abs(offset:Dot(xAxis)))
+				maxExtZ = math.max(maxExtZ, math.abs(offset:Dot(zAxis)))
+			end
+			local canvasWidth = maxExtX * 2 + margin
+			local canvasDepth = maxExtZ * 2 + margin
+	
+			local canvas = Instance.new("Part")
+			canvas.Name = name .. "_Canvas"
+			canvas.Size = Vector3.new(canvasWidth, thickness, canvasDepth)
+			canvas.CFrame = CFrame.fromMatrix(center, xAxis, yAxis, zAxis)
+			canvas.Color = color
+			setValidRobloxMaterial(canvas, material)
+			canvas.Transparency = transparency or 0
+			canvas.Anchored = true
+	
+			local cutters = {}
+			local edges = {{p1, p2}, {p2, p3}, {p3, p4}, {p4, p1}}
+			for _, edge in ipairs(edges) do
+				local a, b = edge[1], edge[2]
+				if (b - a).Magnitude < MIN_EDGE_LEN then continue end
+				local cutNormal = (b - a):Cross(sensN).Unit
+				if cutNormal:Dot(centroid - a) > 0 then
+					cutNormal = -cutNormal
+				end
+				table.insert(cutters, createCutter("EdgeCut", a + alignOff, cutNormal))
+			end
+	
+			local csgOk, result = pcall(CSG.subtract, name, canvas, cutters)
+			if csgOk and result then
+				result.Parent = resolveParentNoWorkspace(parent)
+				result:SetAttribute("_quadPath", "COPLANAR_CSG")
+				return result
+			end
+			warn("quadFromFourPoints '" .. name .. "': PATH 2 CSG failed, falling through to triangle split")
+		end
+	
+		-- ===================================================================
+		-- PATH 3: NON-COPLANAR CSG (8-cutter) â€” gentle fold + CSG-safe
+		-- Preserves seamless result for e.g. car windows / windshields.
+		-- Uses 4 surface cutters (constrained at diagonal for
+		-- mountain/valley folds) + 4 perimeter edge cutters.
+		-- ===================================================================
+		if not isCoplanar and csgSafe and bestCos > 0 then
+			local distToP4 = (otherP4 - splitP1):Dot(n1)
+			local t1TopConstrained, t1BottomConstrained = false, false
+			local t2TopConstrained, t2BottomConstrained = false, false
+	
+			if distToP4 < -0.001 then -- Mountain
+				t1TopConstrained = false; t1BottomConstrained = true
+				t2TopConstrained = false; t2BottomConstrained = true
+			elseif distToP4 > 0.001 then -- Valley
+				t1TopConstrained = true; t1BottomConstrained = false
+				t2TopConstrained = true; t2BottomConstrained = false
+			end
+	
+			local allPoints = {p1, p2, p3, p4}
+			local minV, maxV = p1, p1
+			for _, p in ipairs(allPoints) do
+				minV = minV:Min(p)
+				maxV = maxV:Max(p)
+			end
+			local margin = math.max(thickness * 4, 2)
+			local canvasCenter = (minV + maxV) / 2
+			local canvasSize = (maxV - minV) + Vector3.new(margin, margin, margin)
+	
+			local canvas = Instance.new("Part")
+			canvas.Name = name .. "_Canvas"
+			canvas.Size = canvasSize
+			canvas.CFrame = CFrame.new(canvasCenter)
+			canvas.Color = color
+			setValidRobloxMaterial(canvas, material)
+			canvas.Transparency = transparency or 0
+			canvas.Anchored = true
+	
+			local cutters = {}
+			local function addCutter(cPart: Part): ()
+				if cPart then table.insert(cutters, cPart) end
+			end
+	
+			local sensN = getSensibleNormal(n1, extrusionDir)
+			local alignOffset = getAlignOffset(thickness, extrusionDir, sensN)
+			local topOffset = thickness / 2
+			local bottomOffset = -thickness / 2
+			local baseOffset = alignOffset
+			local diagStart, diagEnd = splitP1, splitP3
+	
+			addCutter(createCutter("T1_Top", splitP1 + baseOffset + n1 * topOffset, n1, if t1TopConstrained then diagStart else nil, diagEnd, otherP2))
+			addCutter(createCutter("T1_Bottom", splitP1 + baseOffset + n1 * bottomOffset, -n1, if t1BottomConstrained then diagStart else nil, diagEnd, otherP2))
+			addCutter(createCutter("T2_Top", splitP1 + baseOffset + n2 * topOffset, n2, if t2TopConstrained then diagStart else nil, diagEnd, otherP4))
+			addCutter(createCutter("T2_Bottom", splitP1 + baseOffset + n2 * bottomOffset, -n2, if t2BottomConstrained then diagStart else nil, diagEnd, otherP4))
+	
+			local centroid = (p1 + p2 + p3 + p4) / 4
+			local perimeterEdges = {
+				{splitP1, otherP2, n1}, {otherP2, splitP3, n1},
+				{splitP3, otherP4, n2}, {otherP4, splitP1, n2}
+			}
+			for _, edge in ipairs(perimeterEdges) do
+				local a, b, faceN = edge[1], edge[2], edge[3]
+				if (b - a).Magnitude < MIN_EDGE_LEN then continue end
+				local cutNormal = (b - a):Cross(faceN).Unit
+				if cutNormal:Dot(centroid - a) > 0 then
+					cutNormal = -cutNormal
+				end
+				addCutter(createCutter("EdgeCut", a + baseOffset, cutNormal))
+			end
+	
+			local csgOk, result = pcall(CSG.subtract, name, canvas, cutters)
+			if csgOk and result then
+				result.Parent = resolveParentNoWorkspace(parent)
+				result:SetAttribute("_quadPath", "NONCOPLANAR_CSG")
+				return result
+			end
+			warn("quadFromFourPoints '" .. name .. "': PATH 3 CSG failed, falling through to triangle split")
+		end
+	
+		-- ===================================================================
+		-- TRIANGLE UNION: everything outside the CSG-safe zone
+		-- Concave, extreme-angle, or steep-fold quads are split along a
+		-- diagonal into two triangle prisms and unioned.
+		-- ===================================================================
+		local sP1, sP3, oP2, oP4
+		if isCoplanar then
+			if not isConvexQuad(p1, p2, p3, p4, refNormal) then
+				sP1, sP3, oP2, oP4 = findConcaveDiagonal(p1, p2, p3, p4, refNormal)
+			else
+				sP1, sP3, oP2, oP4 = p1, p3, p2, p4
+			end
+		else
+			sP1, sP3 = splitP1, splitP3
+			oP2, oP4 = otherP2, otherP4
+		end
+	
+		local result = tryTriangleSplit(name, sP1, oP2, sP3, oP4, thickness, extrusionDir, material, color, transparency, parent)
+		if result then
+			result:SetAttribute("_quadPath", "TRIANGLE_UNION")
+			return result
+		end
+	
+		warn("quadFromFourPoints '" .. name .. "': primary diagonal degenerate, trying alternate")
+		local altResult = tryTriangleSplit(name, oP2, sP3, oP4, sP1, thickness, extrusionDir, material, color, transparency, parent)
+		if altResult then
+			altResult:SetAttribute("_quadPath", "TRIANGLE_UNION")
+			return altResult
+		end
+	
+		error("quadFromFourPoints '" .. name .. "': failed to create quad (both diagonals degenerate)")
+	end
+	
+	-- ===========================================================================
+	-- INTERNAL: Union helper for compound primitives
+	-- ===========================================================================
+	
+	-- Unions all BasePart children of a Model into a single PartOperation.
+	-- On success the Model is destroyed and the PartOperation is returned (parented to `parent`).
+	-- On failure (e.g. CSG error) an error is thrown.
+	local function unionModelChildren(model: Model, name: string, parent: Instance?, transparency: number?): BasePart
+		local parts: { BasePart } = {}
+		for _, child in ipairs(model:GetChildren()) do
+			if child:IsA("BasePart") then
+				table.insert(parts, child)
+			elseif child:IsA("Model") then
+				-- Nested models (e.g. from quad/tri calls) â€” collect their parts too
+				for _, grandchild in ipairs(child:GetDescendants()) do
+					if grandchild:IsA("BasePart") then
+						table.insert(parts, grandchild)
+					end
+				end
+			end
+		end
+	
+		if #parts <= 1 then
+			-- 0 or 1 part: nothing to union
+			if #parts == 1 then
+				parts[1].Name = name
+				parts[1].Transparency = transparency or 0
+				parts[1].Parent = resolveParentNoWorkspace(parent)
+			end
+			model:Destroy()
+			return parts[1]
+		end
+	
+		-- Reparent all parts to nil before CSG (CSG doesn't need parenting)
+		for _, p in ipairs(parts) do
+			p.Parent = nil
+		end
+	
+		local mainPart = parts[1]
+		local otherParts: { BasePart } = {}
+		for i = 2, #parts do
+			table.insert(otherParts, parts[i])
+		end
+	
+		local ok, result = pcall(function(): PartOperation
+			return CSG.union(name, mainPart, otherParts) :: PartOperation
+		end)
+	
+		model:Destroy()
+	
+		if ok and result then
+			result.Transparency = transparency or 0
+			result.Parent = resolveParentNoWorkspace(parent)
+			return result
+		end
+	
+		error("unionModelChildren: CSG union failed for '" .. name .. "'.")
+	end
+	
+	-- ===========================================================================
+	-- HIGH VALUE COMPOUND PRIMITIVES
+	-- ===========================================================================
+	
+	-- Cone facets for smooth circular profiles
+	
+	-- Cache the unit cone so we only perform the complex CSG once.
+	-- The unit cone has apex at (+0.5, 0, 0) and base at (-0.5, 0, 0) with unit diameter.
+	function _cache.getUnitCone(): PartOperation
+		if _cache.unitCone then
+			return _cache.unitCone:Clone()
+		end
+	
+		local uniformColor = Color3.new(0.5, 0.5, 0.5)
+		local uniformMaterial = Enum.Material.SmoothPlastic
+	
+		local base = Instance.new("Part")
+		base.Shape = Enum.PartType.Block
+		base.Size = Vector3.new(1, 1, 1)
+		base.CFrame = CFrame.new(0, 0, 0)
+		base.Color = uniformColor
+		base.Material = uniformMaterial
+	
+		local cutters = {}
+		local apex = Vector3.new(0.5, 0, 0)
+	
+		for i = 1, _CONST.CONE_FACETS do
+			local theta = (i / _CONST.CONE_FACETS) * math.pi * 2
+			local normal = Vector3.new(0.5, math.cos(theta), math.sin(theta)).Unit
+	
+			local cutter = Instance.new("Part")
+			cutter.Size = Vector3.new(10, 10, 10)
+			cutter.Color = uniformColor
+			cutter.Material = uniformMaterial
+	
+			local cutterPos = apex + normal * 5
+			cutter.CFrame = CFrame.lookAt(cutterPos, cutterPos + normal)
+			table.insert(cutters, cutter)
+		end
+	
+		local cone = CSG.subtract("UnitCone", base, cutters) :: PartOperation
+		_cache.unitCone = cone
+		return cone:Clone()
+	end
+	
+	-- Creates a cone from basePoint to apexPoint with the given baseRadius.
+	-- Returns an unparented PartOperation.
+	local function createCone(name: string, basePoint: Vector3, apexPoint: Vector3, baseRadius: number, color: Color3, material: string | Enum.Material): PartOperation
+		baseRadius = validatePositive("cone", "baseRadius", baseRadius)
+		local dir = apexPoint - basePoint
+		local length = dir.Magnitude
+		if length < 0.001 then error("cone '" .. name .. "': points too close") end
+	
+		local unitCone = _cache.getUnitCone()
+	
+		local xAxis = dir.Unit
+		local up = Vector3.new(0, 1, 0)
+		if math.abs(xAxis:Dot(up)) > 0.999 then
+			up = Vector3.new(0, 0, 1)
+		end
+		local zAxis = xAxis:Cross(up).Unit
+		local yAxis = zAxis:Cross(xAxis).Unit
+	
+		local midPoint = (basePoint + apexPoint) / 2
+	
+		unitCone.Name = name
+		unitCone.Size = Vector3.new(length, baseRadius * 2, baseRadius * 2)
+		unitCone.CFrame = CFrame.fromMatrix(midPoint, xAxis, yAxis, zAxis)
+		unitCone.Color = color
+		setValidRobloxMaterial(unitCone, material)
+		unitCone.UsePartColor = true
+		unitCone.Anchored = true
+	
+		return unitCone
+	end
+	
+	-- Cache of unit frustums keyed by quantized r2/r1 ratio (1% buckets).
+	-- Each unit frustum has axis along X from -0.5 to +0.5, base radius 0.5.
+	function _cache.getUnitFrustum(ratio: number): PartOperation
+		local key = math.min(math.floor(ratio * _CONST.CACHE_STEPS_FINE + 0.5), _CONST.CACHE_STEPS_FINE - 1)
+		if _cache.unitFrustums[key] then
+			return _cache.unitFrustums[key]:Clone()
+		end
+	
+		local actualRatio = key / _CONST.CACHE_STEPS_FINE
+		local uniformColor = Color3.new(0.5, 0.5, 0.5)
+		local uniformMaterial = Enum.Material.SmoothPlastic
+	
+		local basePoint = Vector3.new(-0.5, 0, 0)
+		local r1 = 0.5
+		local r2 = 0.5 * actualRatio
+		local d = 1
+		local dir = Vector3.new(1, 0, 0)
+	
+		local H = r1 * d / (r1 - r2)
+		local apex = basePoint + dir * H
+	
+		local fullCone = createCone("_unitFrustum_cone", basePoint, apex, r1, uniformColor, uniformMaterial)
+	
+		local topPoint = Vector3.new(0.5, 0, 0)
+		local cutterHalfLen = math.max(5, (H - d) / 2 + 1)
+		local cutter = Instance.new("Part")
+		cutter.Size = Vector3.new(1.1, 1.1, cutterHalfLen * 2)
+		cutter.Color = uniformColor
+		cutter.Material = uniformMaterial
+		cutter.CFrame = CFrame.lookAt(topPoint + dir * cutterHalfLen, topPoint + dir * (cutterHalfLen + 1))
+	
+		local frustum = CSG.subtract("_unitFrustum", fullCone, {cutter}) :: PartOperation
+		_cache.unitFrustums[key] = frustum
+		return frustum:Clone()
+	end
+	
+	-- Creates a tapered cylinder (frustum) from p1 to p2.
+	-- Returns an unparented PartOperation or Part (if radii are equal).
+	local function createTaperedCylinder(name: string, p1: Vector3, p2: Vector3, r1: number, r2: number, color: Color3, material: string | Enum.Material): BasePart
+		r1 = validatePositive("taperedCylinder", "radius1", r1)
+		r2 = validatePositive("taperedCylinder", "radius2", r2)
+		if math.abs(r1 - r2) < 0.001 then
+			local cyl = GeometryPrimitives.cylinder(name, p1, p2, r1, color, material)
+			cyl.Parent = nil
+			return cyl
+		end
+	
+		if r2 > r1 then
+			p1, p2 = p2, p1
+			r1, r2 = r2, r1
+		end
+	
+		local ratio = r2 / r1
+		local unitFrustum = _cache.getUnitFrustum(ratio)
+	
+		local dir = (p2 - p1)
+		local length = dir.Magnitude
+		local xAxis = dir.Unit
+		local up = Vector3.new(0, 1, 0)
+		if math.abs(xAxis:Dot(up)) > 0.999 then
+			up = Vector3.new(0, 0, 1)
+		end
+		local zAxis = xAxis:Cross(up).Unit
+		local yAxis = zAxis:Cross(xAxis).Unit
+		local realMidpoint = (p1 + p2) / 2
+		local unitOffsetX = unitFrustum.CFrame.Position.X
+		local midPoint = realMidpoint + xAxis * (unitOffsetX * length)
+	
+		unitFrustum.Name = name
+		unitFrustum.Size = Vector3.new(length, r1 * 2, r1 * 2)
+		unitFrustum.CFrame = CFrame.fromMatrix(midPoint, xAxis, yAxis, zAxis)
+		unitFrustum.Color = color
+		setValidRobloxMaterial(unitFrustum, material)
+		unitFrustum.UsePartColor = true
+		unitFrustum.Anchored = true
+	
+		return unitFrustum
+	end
+	
+	function GeometryPrimitives.cone(name: string, basePoint: Vector3, apexPoint: Vector3, baseRadius: number, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): PartOperation
+		validateFiniteVector3("cone", "basePoint", basePoint)
+		validateFiniteVector3("cone", "apexPoint", apexPoint)
+		local cone = createCone(name, basePoint, apexPoint, baseRadius, color, material)
+		cone.Transparency = transparency or 0
+		cone.Parent = resolveParentNoWorkspace(parent)
+		return cone
+	end
+	
+	function GeometryPrimitives.taperedCylinder(name: string, p1: Vector3, p2: Vector3, radius1: number, radius2: number, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): BasePart
+		validateFiniteVector3("taperedCylinder", "p1", p1)
+		validateFiniteVector3("taperedCylinder", "p2", p2)
+		-- If radii are equal, just make a single cylinder
+		if math.abs(radius1 - radius2) < 0.001 then
+			return GeometryPrimitives.cylinder(name, p1, p2, radius1, color, material, parent, transparency)
+		end
+	
+		local distance = (p2 - p1).Magnitude
+		if distance < 0.001 then
+			error("taperedCylinder '" .. name .. "': endpoints too close")
+		end
+	
+		local result = createTaperedCylinder(name, p1, p2, radius1, radius2, color, material)
+		result.Transparency = transparency or 0
+		result.Parent = resolveParentNoWorkspace(parent)
+		return result
+	end
+	
+	-- Cache of unit hollow tapered cylinders keyed by quantized (rRatio, wallRatio).
+	-- rRatio = min(r1,r2)/max(r1,r2), wallRatio = wallThickness/max(r1,r2).
+	
+	local function buildFrustumDirect(name: string, baseP: Vector3, topP: Vector3, r1: number, r2: number, color: Color3, material: Enum.Material): BasePart
+		local dir = (topP - baseP).Unit
+		local d = (topP - baseP).Magnitude
+	
+		if math.abs(r1 - r2) < 0.001 then
+			local cyl = Instance.new("Part")
+			cyl.Name = name
+			cyl.Shape = Enum.PartType.Cylinder
+			cyl.Size = Vector3.new(d, r1 * 2, r1 * 2)
+			cyl.Color = color
+			cyl.Material = material
+			cyl.Anchored = true
+			local mid = (baseP + topP) / 2
+			local up = Vector3.new(0, 1, 0)
+			if math.abs(dir:Dot(up)) > 0.999 then up = Vector3.new(0, 0, 1) end
+			local zAxis = dir:Cross(up).Unit
+			local yAxis = zAxis:Cross(dir).Unit
+			cyl.CFrame = CFrame.fromMatrix(mid, dir, yAxis)
+			return cyl
+		end
+	
+		local H = r1 * d / (r1 - r2)
+		local apex = baseP + dir * H
+		local fullCone = createCone(name .. "_cone", baseP, apex, r1, color, material)
+		local cutHalfLen = math.max(5, (H - d) / 2 + 1)
+		local cutCrossSize = r1 * 2 + 0.1
+		local cutter = Instance.new("Part")
+		cutter.Size = Vector3.new(cutCrossSize, cutCrossSize, cutHalfLen * 2)
+		cutter.Color = color
+		cutter.Material = material
+		cutter.CFrame = CFrame.lookAt(topP + dir * cutHalfLen, topP + dir * (cutHalfLen + 1))
+		return CSG.subtract(name, fullCone, {cutter}) :: PartOperation
+	end
+	
+	function _cache.getUnitHollowTaperedCyl(rRatio: number, wallRatio: number): PartOperation
+		local rKey = math.floor(rRatio * _CONST.CACHE_STEPS_FINE + 0.5)
+		local wKey = math.floor(wallRatio * _CONST.CACHE_STEPS_FINE + 0.5)
+		local key = rKey .. "_" .. wKey
+		if _cache.unitHollowTaperedCyls[key] then
+			return _cache.unitHollowTaperedCyls[key]:Clone()
+		end
+	
+		local actualRRatio = rKey / _CONST.CACHE_STEPS_FINE
+		local actualWallRatio = wKey / _CONST.CACHE_STEPS_FINE
+		local uniformColor = Color3.new(0.5, 0.5, 0.5)
+		local uniformMaterial = Enum.Material.SmoothPlastic
+	
+		local p1 = Vector3.new(-0.5, 0, 0)
+		local p2 = Vector3.new(0.5, 0, 0)
+		local outerR1 = 0.5
+		local outerR2 = 0.5 * actualRRatio
+	
+		local outer = buildFrustumDirect("_htc_outer", p1, p2, outerR1, outerR2, uniformColor, uniformMaterial)
+	
+		local innerR1 = 0.5 * (1 - actualWallRatio)
+		local innerR2 = 0.5 * (actualRRatio - actualWallRatio)
+		-- Extend the inner along the taper line (preserving slope) so the CSG cut
+		-- fully penetrates both end faces without changing the taper angle.
+		local ext = 0.05
+		local slope = innerR1 - innerR2  -- radius change per unit length
+		local extR1 = innerR1 + ext * slope
+		local extR2 = math.max(0.001, innerR2 - ext * slope)
+		-- If extending the narrow end would collapse the frustum, only extend the wide end
+		local extP1 = p1 - Vector3.new(ext, 0, 0)
+		local extP2
+		if innerR2 - ext * slope > 0.001 then
+			extP2 = p2 + Vector3.new(ext, 0, 0)
+		else
+			extP2 = p2
+			extR2 = innerR2
+		end
+		local inner = buildFrustumDirect("_htc_inner", extP1, extP2, extR1, extR2, uniformColor, uniformMaterial)
+	
+		local result = CSG.subtract("_unitHollowTaperedCyl", outer, {inner}) :: PartOperation
+		_cache.unitHollowTaperedCyls[key] = result
+		return result:Clone()
+	end
+	
+	function GeometryPrimitives.hollowTaperedCylinder(name: string, p1: Vector3, p2: Vector3, radius1: number, radius2: number, wallThickness: number, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): PartOperation
+		validateFiniteVector3("hollowTaperedCylinder", "p1", p1)
+		validateFiniteVector3("hollowTaperedCylinder", "p2", p2)
+		validateFiniteNumber("hollowTaperedCylinder", "radius1", radius1)
+		validateFiniteNumber("hollowTaperedCylinder", "radius2", radius2)
+		validateFiniteNumber("hollowTaperedCylinder", "wallThickness", wallThickness)
+		local minRadius = math.min(radius1, radius2)
+		if wallThickness >= minRadius then
+			error("hollowTaperedCylinder '" .. name .. "': wallThickness must be less than the smaller radius")
+		end
+		if wallThickness <= 0 then
+			error("hollowTaperedCylinder '" .. name .. "': wallThickness must be positive")
+		end
+	
+		local distance = (p2 - p1).Magnitude
+		if distance < 0.001 then
+			error("hollowTaperedCylinder '" .. name .. "': endpoints too close")
+		end
+	
+		if math.abs(radius1 - radius2) < 0.001 then
+			return GeometryPrimitives.hollowCylinder(name, p1, p2, radius1, wallThickness, color, material, parent, transparency)
+		end
+	
+		-- Normalize so radius1 >= radius2 for canonical cache key
+		if radius2 > radius1 then
+			p1, p2 = p2, p1
+			radius1, radius2 = radius2, radius1
+		end
+	
+		local rRatio = radius2 / radius1
+		local wallRatio = wallThickness / radius1
+		local unit = _cache.getUnitHollowTaperedCyl(rRatio, wallRatio)
+	
+		local length = (p2 - p1).Magnitude
+		local xAxis = (p2 - p1).Unit
+		local up = Vector3.new(0, 1, 0)
+		if math.abs(xAxis:Dot(up)) > 0.999 then
+			up = Vector3.new(0, 0, 1)
+		end
+		local zAxis = xAxis:Cross(up).Unit
+		local yAxis = zAxis:Cross(xAxis).Unit
+		local realMidpoint = (p1 + p2) / 2
+		local unitOffsetX = unit.CFrame.Position.X
+		local midPoint = realMidpoint + xAxis * (unitOffsetX * length)
+	
+		unit.Name = name
+		unit.Size = Vector3.new(length, radius1 * 2, radius1 * 2)
+		unit.CFrame = CFrame.fromMatrix(midPoint, xAxis, yAxis, zAxis)
+		unit.Color = color
+		setValidRobloxMaterial(unit, material)
+		unit.UsePartColor = true
+		unit.Transparency = transparency or 0
+		unit.Anchored = true
+		unit.Parent = resolveParentNoWorkspace(parent)
+		return unit
+	end
+	
+	-- Cache of unit capsules keyed by quantized (rRatio, lenRatio).
+	-- Each capsule is built in unit space with larger radius = 0.5 at the -X end.
+	function _cache.getUnitCapsule(rRatio: number, lenRatio: number): PartOperation
+		local rKey = math.floor(rRatio * _CONST.CACHE_STEPS_COARSE + 0.5)
+		local lKey = math.floor(lenRatio * _CONST.CACHE_STEPS_COARSE + 0.5)
+		local key = rKey .. "_" .. lKey
+		if _cache.unitCapsules[key] then
+			return _cache.unitCapsules[key]:Clone()
+		end
+	
+		local actualRRatio = rKey / _CONST.CACHE_STEPS_COARSE
+		local actualLenRatio = math.max(lKey / _CONST.CACHE_STEPS_COARSE, 0.01)
+		local uniformColor = Color3.new(0.5, 0.5, 0.5)
+		local uniformMaterial = Enum.Material.SmoothPlastic
+		local overlap = 1.005
+	
+		local r1 = 0.5
+		local r2 = 0.5 * actualRRatio
+		local d = 0.5 * actualLenRatio
+	
+		local ep1 = Vector3.new(-d / 2, 0, 0)
+		local ep2 = Vector3.new(d / 2, 0, 0)
+	
+		local s1 = Instance.new("Part")
+		s1.Shape = Enum.PartType.Ball
+		s1.Size = Vector3.new(r1 * 2 * overlap, r1 * 2 * overlap, r1 * 2 * overlap)
+		s1.Position = ep1
+		s1.Color = uniformColor
+		s1.Material = uniformMaterial
+	
+		local s2 = Instance.new("Part")
+		s2.Shape = Enum.PartType.Ball
+		s2.Size = Vector3.new(r2 * 2 * overlap, r2 * 2 * overlap, r2 * 2 * overlap)
+		s2.Position = ep2
+		s2.Color = uniformColor
+		s2.Material = uniformMaterial
+	
+		local dir = Vector3.new(1, 0, 0)
+		local sinAlpha = (r1 - r2) / d
+		local cosAlpha = math.sqrt(1 - sinAlpha ^ 2)
+	
+		local t1 = ep1 + dir * (r1 * sinAlpha)
+		local t2 = ep2 + dir * (r2 * sinAlpha)
+		local rc1 = r1 * cosAlpha
+		local rc2 = r2 * cosAlpha
+	
+		local tCyl: BasePart
+		if math.abs(rc1 - rc2) < 0.001 then
+			tCyl = GeometryPrimitives.cylinder("_uc_tcyl", t1, t2, rc1, uniformColor, uniformMaterial)
+			tCyl.Parent = nil
+		else
+			local cr1, cr2, cp1, cp2 = rc1, rc2, t1, t2
+			if cr2 > cr1 then
+				cp1, cp2 = cp2, cp1
+				cr1, cr2 = cr2, cr1
+			end
+			tCyl = buildFrustumDirect("_uc_tcyl", cp1, cp2, cr1, cr2, uniformColor, uniformMaterial)
+		end
+		local result = CSG.union("_unitCapsule", tCyl, {s1, s2}) :: PartOperation
+	
+		_cache.unitCapsules[key] = result
+		return result:Clone()
+	end
+	
+	function GeometryPrimitives.capsule(name: string, endpoint1: Vector3, radius1: number, endpoint2: Vector3, radius2: number, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): BasePart
+		validateFiniteVector3("capsule", "endpoint1", endpoint1)
+		validateFiniteVector3("capsule", "endpoint2", endpoint2)
+		validateFiniteNumber("capsule", "radius1", radius1)
+		validateFiniteNumber("capsule", "radius2", radius2)
+		validateColor3("capsule", "color", color)
+		local tr = transparency or 0
+		local resolvedColor = color
+		local d = (endpoint2 - endpoint1).Magnitude
+	
+		if d <= math.abs(radius1 - radius2) then
+			local overlap = 1.005
+			local larger: Part
+			if radius1 >= radius2 then
+				larger = Instance.new("Part")
+				larger.Shape = Enum.PartType.Ball
+				larger.Size = Vector3.new(radius1 * 2 * overlap, radius1 * 2 * overlap, radius1 * 2 * overlap)
+				larger.Position = endpoint1
+			else
+				larger = Instance.new("Part")
+				larger.Shape = Enum.PartType.Ball
+				larger.Size = Vector3.new(radius2 * 2 * overlap, radius2 * 2 * overlap, radius2 * 2 * overlap)
+				larger.Position = endpoint2
+			end
+			larger.Name = name
+			larger.Color = resolvedColor
+			setValidRobloxMaterial(larger, material)
+			larger.Transparency = tr
+			larger.Anchored = true
+			larger.Parent = resolveParentNoWorkspace(parent)
+			return larger
+		end
+	
+		-- Normalize so radius1 >= radius2 for canonical cache key
+		local ep1, ep2, r1, r2 = endpoint1, endpoint2, radius1, radius2
+		if r2 > r1 then
+			ep1, ep2 = ep2, ep1
+			r1, r2 = r2, r1
+		end
+	
+		local rRatio = r2 / r1
+		local lenRatio = d / r1
+	
+		local unit = _cache.getUnitCapsule(rRatio, lenRatio)
+		local s = 2 * r1
+	
+		-- The unit capsule's CFrame is at its BBox center, which is offset from
+		-- the endpoint midpoint along X by ~0.25*(rRatio-1). Read the actual
+		-- offset to correctly position the scaled clone.
+		local unitBBoxOffsetX = unit.CFrame.Position.X
+	
+		unit.Size = unit.Size * s
+	
+		local realMidpoint = (ep1 + ep2) / 2
+		local dir = (ep2 - ep1).Unit
+		local worldBBoxCenter = realMidpoint + dir * (unitBBoxOffsetX * s)
+	
+		local up = Vector3.new(0, 1, 0)
+		if math.abs(dir:Dot(up)) > 0.999 then
+			up = Vector3.new(0, 0, 1)
+		end
+		local zAxis = dir:Cross(up).Unit
+		local yAxis = zAxis:Cross(dir).Unit
+	
+		unit.CFrame = CFrame.fromMatrix(worldBBoxCenter, dir, yAxis, zAxis)
+		unit.Name = name
+		unit.Color = resolvedColor
+		setValidRobloxMaterial(unit, material)
+		unit.UsePartColor = true
+		unit.Transparency = tr
+		unit.Anchored = true
+		unit.Parent = resolveParentNoWorkspace(parent)
+		return unit
+	end
+	
+	function GeometryPrimitives.tube(name: string, points: { Vector3 }, radius: number, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): BasePart
+		if not points or #points < 2 then
+			error("tube '" .. name .. "': Need at least 2 points")
+		end
+		for i, pt in ipairs(points) do
+			validateFiniteVector3("tube", "points[" .. i .. "]", pt)
+		end
+		validateFiniteNumber("tube", "radius", radius)
+	
+		local tmpModel = GeometryPrimitives.model(name .. "_tmp", nil)
+	
+		for i = 1, #points - 1 do
+			local p1, p2 = points[i], points[i + 1]
+			local segDist = (p2 - p1).Magnitude
+			if segDist >= 0.001 then
+				GeometryPrimitives.cylinder(
+					name .. "_Seg" .. i, p1, p2, radius, color, material, tmpModel
+				)
+			end
+			GeometryPrimitives.sphere(
+				name .. "_Joint" .. i, p1, radius, color, material, tmpModel
+			)
+		end
+		GeometryPrimitives.sphere(
+			name .. "_Joint" .. #points, points[#points], radius, color, material, tmpModel
+		)
+	
+		return unionModelChildren(tmpModel, name, parent, transparency or 0)
+	end
+	
+	-- Cache unit prisms by side count so the expensive CSG only happens once per N.
+	-- The unit prism has axis along Y from -0.5 to +0.5, cross-section in XZ plane
+	-- with circumscribed radius 0.5 (fits in a 1Ã—1Ã—1 block).
+	function _cache.getUnitPrism(sides: number): PartOperation
+		if _cache.unitPrisms[sides] then
+			return _cache.unitPrisms[sides]:Clone()
+		end
+	
+		local uniformColor = Color3.new(0.5, 0.5, 0.5)
+		local uniformMaterial = Enum.Material.SmoothPlastic
+	
+		local base = Instance.new("Part")
+		base.Shape = Enum.PartType.Block
+		base.Size = Vector3.new(1, 1, 1)
+		base.CFrame = CFrame.new(0, 0, 0)
+		base.Color = uniformColor
+		base.Material = uniformMaterial
+	
+		-- N cutting planes, one per polygon face.
+		-- Cross-section is a regular N-gon in the XZ plane with circumscribed radius 0.5.
+		local angleStep = (2 * math.pi) / sides
+		local inscribedR = 0.5 * math.cos(math.pi / sides)
+	
+		local cutters = {}
+		for i = 0, sides - 1 do
+			local faceAngle = (i + 0.5) * angleStep
+			local outNormal = Vector3.new(math.cos(faceAngle), 0, math.sin(faceAngle))
+	
+			local cutter = Instance.new("Part")
+			cutter.Size = Vector3.new(10, 10, 10)
+			cutter.Color = uniformColor
+			cutter.Material = uniformMaterial
+			local cutterPos = outNormal * (inscribedR + 5)
+			cutter.CFrame = CFrame.lookAt(cutterPos, cutterPos + outNormal)
+			table.insert(cutters, cutter)
+		end
+	
+		local prism = CSG.subtract("UnitPrism_" .. sides, base, cutters) :: PartOperation
+		_cache.unitPrisms[sides] = prism
+		return prism:Clone()
+	end
+	
+	function GeometryPrimitives.regularPrism(name: string, p1: Vector3, p2: Vector3, radius: number, sides: number, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): PartOperation
+		validateFiniteVector3("regularPrism", "p1", p1)
+		validateFiniteVector3("regularPrism", "p2", p2)
+		validateFiniteNumber("regularPrism", "radius", radius)
+		sides = math.max(sides or 6, 3)
+	
+		local axisVec = p2 - p1
+		local axisLen = axisVec.Magnitude
+		if axisLen < 0.001 then
+			error("regularPrism '" .. name .. "': endpoints are too close")
+		end
+		local axisDir = axisVec.Unit
+		local midPoint = (p1 + p2) / 2
+	
+		-- Build orthonormal basis: Y = prism axis, X/Z = cross-section plane
+		local upRef = Vector3.new(0, 1, 0)
+		if math.abs(axisDir:Dot(upRef)) > 0.95 then
+			upRef = Vector3.new(0, 0, 1)
+		end
+		local rightDir = axisDir:Cross(upRef).Unit
+		local forwardDir = rightDir:Cross(axisDir).Unit
+	
+		local diameter = radius * 2
+		local part = _cache.getUnitPrism(sides)
+		part.Name = name
+		part.Size = Vector3.new(diameter, axisLen, diameter)
+		part.CFrame = CFrame.fromMatrix(midPoint, rightDir, axisDir, forwardDir)
+		part.Color = color
+		setValidRobloxMaterial(part, material)
+		part.UsePartColor = true
+		part.Transparency = transparency or 0
+		part.Anchored = true
+		part.Parent = resolveParentNoWorkspace(parent)
+		return part
+	end
+	
+	function _cache.getUnitRoundedBox(uw: number, uh: number, ud: number, ur: number): PartOperation
+		local wKey = math.floor(uw * _CONST.CACHE_STEPS_COARSE + 0.5)
+		local hKey = math.floor(uh * _CONST.CACHE_STEPS_COARSE + 0.5)
+		local dKey = math.floor(ud * _CONST.CACHE_STEPS_COARSE + 0.5)
+		local rKey = math.clamp(math.floor(ur * _CONST.CACHE_STEPS_COARSE + 0.5), 1, _CONST.CACHE_STEPS_COARSE - 1)
+		local key = wKey .. "_" .. hKey .. "_" .. dKey .. "_" .. rKey
+	
+		if _cache.unitRoundedBoxes[key] then
+			return _cache.unitRoundedBoxes[key]:Clone()
+		end
+	
+		local aw = wKey / _CONST.CACHE_STEPS_COARSE
+		local ah = hKey / _CONST.CACHE_STEPS_COARSE
+		local ad = dKey / _CONST.CACHE_STEPS_COARSE
+		local ar = rKey / _CONST.CACHE_STEPS_COARSE
+	
+		local bw, bh, bd = aw, ah, ad
+		local br = ar * math.min(bw, bh, bd) / 2
+	
+		local uniformColor = Color3.new(0.5, 0.5, 0.5)
+		local uniformMaterial = Enum.Material.SmoothPlastic
+		local origin = Vector3.new(0, 0, 0)
+	
+		local tmpModel = Instance.new("Model")
+		tmpModel.Name = "_unitRoundedBox"
+		tmpModel.Parent = nil
+	
+		local iw, ih, id = bw / 2 - br, bh / 2 - br, bd / 2 - br
+	
+		local function makeBlock(bName: string, c1: Vector3, c2: Vector3)
+			local mid = (c1 + c2) / 2
+			local sz = Vector3.new(math.abs(c2.X - c1.X), math.abs(c2.Y - c1.Y), math.abs(c2.Z - c1.Z))
+			local p = Instance.new("Part")
+			p.Name = bName
+			p.Size = sz
+			p.CFrame = CFrame.new(mid)
+			p.Color = uniformColor
+			p.Material = uniformMaterial
+			p.Anchored = true
+			p.Parent = tmpModel
+		end
+	
+		makeBlock("BlockX",
+			origin + Vector3.new(-bw / 2, -ih, -id),
+			origin + Vector3.new(bw / 2, ih, id))
+		makeBlock("BlockY",
+			origin + Vector3.new(-iw, -bh / 2, -id),
+			origin + Vector3.new(iw, bh / 2, id))
+		makeBlock("BlockZ",
+			origin + Vector3.new(-iw, -ih, -bd / 2),
+			origin + Vector3.new(iw, ih, bd / 2))
+	
+		if iw * 2 >= 0.001 then
+			for _, sy in ipairs({-1, 1}) do
+				for _, sz in ipairs({-1, 1}) do
+					local p1 = Vector3.new(-iw, sy * ih, sz * id)
+					local p2 = Vector3.new(iw, sy * ih, sz * id)
+					local mid = (p1 + p2) / 2
+					local cyl = Instance.new("Part")
+					cyl.Shape = Enum.PartType.Cylinder
+					cyl.Size = Vector3.new(iw * 2, br * 2, br * 2)
+					cyl.CFrame = CFrame.new(mid)
+					cyl.Color = uniformColor
+					cyl.Material = uniformMaterial
+					cyl.Anchored = true
+					cyl.Parent = tmpModel
+				end
+			end
+		end
+		if ih * 2 >= 0.001 then
+			for _, sx in ipairs({-1, 1}) do
+				for _, sz in ipairs({-1, 1}) do
+					local p1 = Vector3.new(sx * iw, -ih, sz * id)
+					local p2 = Vector3.new(sx * iw, ih, sz * id)
+					local mid = (p1 + p2) / 2
+					local cyl = Instance.new("Part")
+					cyl.Shape = Enum.PartType.Cylinder
+					cyl.Size = Vector3.new(ih * 2, br * 2, br * 2)
+					local dir = Vector3.new(0, 1, 0)
+					cyl.CFrame = CFrame.fromMatrix(mid, dir, Vector3.new(0, 0, 1), Vector3.new(1, 0, 0))
+					cyl.Color = uniformColor
+					cyl.Material = uniformMaterial
+					cyl.Anchored = true
+					cyl.Parent = tmpModel
+				end
+			end
+		end
+		if id * 2 >= 0.001 then
+			for _, sx in ipairs({-1, 1}) do
+				for _, sy in ipairs({-1, 1}) do
+					local p1 = Vector3.new(sx * iw, sy * ih, -id)
+					local p2 = Vector3.new(sx * iw, sy * ih, id)
+					local mid = (p1 + p2) / 2
+					local cyl = Instance.new("Part")
+					cyl.Shape = Enum.PartType.Cylinder
+					cyl.Size = Vector3.new(id * 2, br * 2, br * 2)
+					local dir = Vector3.new(0, 0, 1)
+					cyl.CFrame = CFrame.fromMatrix(mid, dir, Vector3.new(1, 0, 0), Vector3.new(0, 1, 0))
+					cyl.Color = uniformColor
+					cyl.Material = uniformMaterial
+					cyl.Anchored = true
+					cyl.Parent = tmpModel
+				end
+			end
+		end
+	
+		for _, sx in ipairs({-1, 1}) do
+			for _, sy in ipairs({-1, 1}) do
+				for _, sz in ipairs({-1, 1}) do
+					local sph = Instance.new("Part")
+					sph.Shape = Enum.PartType.Ball
+					sph.Size = Vector3.new(br * 2, br * 2, br * 2)
+					sph.CFrame = CFrame.new(sx * iw, sy * ih, sz * id)
+					sph.Color = uniformColor
+					sph.Material = uniformMaterial
+					sph.Anchored = true
+					sph.Parent = tmpModel
+				end
+			end
+		end
+	
+		local parts: { BasePart } = {}
+		for _, child in ipairs(tmpModel:GetChildren()) do
+			if child:IsA("BasePart") then
+				table.insert(parts, child)
+			end
+		end
+	
+		for _, p in ipairs(parts) do
+			p.Parent = nil
+		end
+	
+		local mainPart = parts[1]
+		local otherParts: { BasePart } = {}
+		for i = 2, #parts do
+			table.insert(otherParts, parts[i])
+		end
+	
+		local result = CSG.union("_unitRoundedBox", mainPart, otherParts) :: PartOperation
+		tmpModel:Destroy()
+	
+		_cache.unitRoundedBoxes[key] = result
+		return result:Clone()
+	end
+	
+	function GeometryPrimitives.roundedBox(name: string, center: Vector3, size: Vector3, radius: number, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): BasePart
+		validateFiniteVector3("roundedBox", "center", center)
+		validateFiniteVector3("roundedBox", "size", size)
+		validateFiniteNumber("roundedBox", "radius", radius)
+		local w, h, d = size.X, size.Y, size.Z
+		radius = math.min(radius, w / 2 - 0.01, h / 2 - 0.01, d / 2 - 0.01)
+	
+		if radius < 0.01 then
+			return GeometryPrimitives.axisAlignedBlockFromCorners(
+				name,
+				center - size / 2,
+				center + size / 2,
+				color, material, parent, transparency
+			)
+		end
+	
+		local m = math.min(w, h, d)
+		local uw, uh, ud = w / m, h / m, d / m
+		local ur = radius / (m / 2)
+	
+		local unit = _cache.getUnitRoundedBox(uw, uh, ud, ur)
+	
+		local unitOffset = unit.CFrame.Position
+		local correctedCenter = center + Vector3.new(unitOffset.X * m, unitOffset.Y * m, unitOffset.Z * m)
+	
+		unit.Size = unit.Size * m
+		unit.CFrame = CFrame.new(correctedCenter)
+		unit.Name = name
+		unit.Color = color
+		setValidRobloxMaterial(unit, material)
+		unit.UsePartColor = true
+		unit.Transparency = transparency or 0
+		unit.Anchored = true
+		unit.Parent = resolveParentNoWorkspace(parent)
+		return unit
+	end
+	
+	-- Cache the unit pyramid so we only perform the subtractive CSG once.
+	-- The unit pyramid has a 1Ã—1 base at Y=-0.5 and apex at Y=+0.5.
+	function _cache.getUnitPyramid(): PartOperation
+		if _cache.unitPyramid then
+			return _cache.unitPyramid:Clone()
+		end
+	
+		local uniformColor = Color3.new(0.5, 0.5, 0.5)
+		local uniformMaterial = Enum.Material.SmoothPlastic
+	
+		local base = Instance.new("Part")
+		base.Shape = Enum.PartType.Block
+		base.Size = Vector3.new(1, 1, 1)
+		base.CFrame = CFrame.new(0, 0, 0)
+		base.Color = uniformColor
+		base.Material = uniformMaterial
+	
+		-- Four cutting planes, one per triangular face of the pyramid.
+		-- Each face passes through the apex at (0, 0.5, 0) with outward normals:
+		local apex = Vector3.new(0, 0.5, 0)
+		local faceNormals = {
+			Vector3.new( 1, 0.5,  0).Unit,
+			Vector3.new(-1, 0.5,  0).Unit,
+			Vector3.new( 0, 0.5,  1).Unit,
+			Vector3.new( 0, 0.5, -1).Unit,
+		}
+	
+		local cutters = {}
+		for _, normal in ipairs(faceNormals) do
+			local cutter = Instance.new("Part")
+			cutter.Size = Vector3.new(10, 10, 10)
+			cutter.Color = uniformColor
+			cutter.Material = uniformMaterial
+			local cutterPos = apex + normal * 5
+			cutter.CFrame = CFrame.lookAt(cutterPos, cutterPos + normal)
+			table.insert(cutters, cutter)
+		end
+	
+		local pyramid = CSG.subtract("UnitPyramid", base, cutters) :: PartOperation
+		_cache.unitPyramid = pyramid
+		return pyramid:Clone()
+	end
+	
+	-- ===========================================================================
+	-- MODERATE VALUE COMPOUND PRIMITIVES
+	-- ===========================================================================
+	
+	function GeometryPrimitives.pyramid(name: string, baseCorner1: Vector3, baseCorner2: Vector3, apex: Vector3, color: Color3, material: string | Enum.Material, parent: Instance?, transparency: number?): PartOperation
+		validateFiniteVector3("pyramid", "baseCorner1", baseCorner1)
+		validateFiniteVector3("pyramid", "baseCorner2", baseCorner2)
+		validateFiniteVector3("pyramid", "apex", apex)
+		local baseCenter = (baseCorner1 + baseCorner2) / 2
+		local dir = apex - baseCenter
+		local height = dir.Magnitude
+		if height < 0.001 then
+			error("pyramid '" .. name .. "': base center and apex are too close")
+		end
+	
+		local upDir = dir.Unit
+	
+		-- Build the base plane axes from the diagonal between the two corners.
+		-- The diagonal has components along both the "right" and "forward" axes
+		-- of the base plane. We decompose it to get width and depth.
+		local diag = baseCorner2 - baseCorner1
+		-- Remove any component along the apex direction to stay in the base plane
+		local diagInPlane = diag - upDir * diag:Dot(upDir)
+	
+		-- Choose a stable reference to split the diagonal into two perpendicular base axes
+		local diagLen = diagInPlane.Magnitude
+		if diagLen < 0.001 then
+			error("pyramid '" .. name .. "': base corners are too close")
+		end
+	
+		-- rightDir = one axis of the base rectangle, forwardDir = the other
+		-- We pick rightDir from the diagonal projected onto a reference, but
+		-- since we want axis-aligned behavior when possible, derive from the
+		-- actual diagonal direction.
+		local refDir = Vector3.new(1, 0, 0)
+		if math.abs(upDir:Dot(refDir)) > 0.95 then
+			refDir = Vector3.new(0, 0, 1)
+		end
+		local rightDir = upDir:Cross(refDir).Unit
+		local forwardDir = rightDir:Cross(upDir).Unit
+	
+		-- Project the in-plane diagonal onto the right/forward axes to get width and depth
+		local baseWidth = math.abs(diagInPlane:Dot(rightDir))
+		local baseDepth = math.abs(diagInPlane:Dot(forwardDir))
+	
+		-- Clamp degenerate dimensions
+		if baseWidth < 0.001 then baseWidth = 0.05 end
+		if baseDepth < 0.001 then baseDepth = 0.05 end
+	
+		local midPoint = (baseCenter + apex) / 2
+	
+		local part = _cache.getUnitPyramid()
+		part.Name = name
+		part.Size = Vector3.new(baseWidth, height, baseDepth)
+		part.CFrame = CFrame.fromMatrix(midPoint, rightDir, upDir, forwardDir)
+		part.Color = color
+		setValidRobloxMaterial(part, material)
+		part.UsePartColor = true
+		part.Transparency = transparency or 0
+		part.Anchored = true
+		part.Parent = resolveParentNoWorkspace(parent)
+		return part
+	end
+	
+	local function getValidRobloxFont(fontInput: string?): Enum.Font
+		if not fontInput then
+			return Enum.Font.GothamBold
+		end
+		local ok, font = pcall(function()
+			return (Enum.Font :: any)[fontInput]
+		end)
+		if ok and font then
+			return font
+		end
+		return Enum.Font.GothamBold
+	end
+	
+	-- Vector stroke font: each character is an array of line strokes {x1, y1, x2, y2}
+	-- Normalized coordinates: x: 0=left, 1=right; y: 0=bottom, 1=top of character cell
+	-- Strokes are rendered as oriented rectangular prisms with automatic thickness.
+	-- Lowercase characters are mapped to uppercase at lookup time.
+	local vectorFont = {
+		['A'] = {{0,0, 0,1}, {1,0, 1,1}, {0,1, 1,1}, {0,.5, 1,.5}},
+		['B'] = {{0,0, 0,1}, {0,1, 1,1}, {0,.5, 1,.5}, {0,0, 1,0}, {1,.5, 1,1}, {1,0, 1,.5}},
+		['C'] = {{0,0, 0,1}, {0,1, 1,1}, {0,0, 1,0}},
+		['D'] = {{0,0, 0,1}, {0,1, 1,1}, {0,0, 1,0}, {1,0, 1,1}},
+		['E'] = {{0,0, 0,1}, {0,1, 1,1}, {0,.5, .75,.5}, {0,0, 1,0}},
+		['F'] = {{0,0, 0,1}, {0,1, 1,1}, {0,.5, .75,.5}},
+		['G'] = {{0,1, 1,1}, {0,0, 0,1}, {0,0, 1,0}, {1,0, 1,.5}, {.5,.5, 1,.5}},
+		['H'] = {{0,0, 0,1}, {1,0, 1,1}, {0,.5, 1,.5}},
+		['I'] = {{.5,0, .5,1}, {.15,1, .85,1}, {.15,0, .85,0}},
+		['J'] = {{1,0, 1,1}, {0,0, 1,0}, {0,0, 0,.3}},
+		['K'] = {{0,0, 0,.5}, {0,.5, 0,1}, {0,.5, 1,1}, {0,.5, 1,0}},
+		['L'] = {{0,0, 0,1}, {0,0, 1,0}},
+		['M'] = {{0,0, 0,1}, {1,0, 1,1}, {0,1, .5,.5}, {.5,.5, 1,1}},
+		['N'] = {{0,0, 0,1}, {1,0, 1,1}, {0,1, 1,0}},
+		['O'] = {{0,0, 0,1}, {1,0, 1,1}, {0,1, 1,1}, {0,0, 1,0}},
+		['P'] = {{0,0, 0,1}, {0,1, 1,1}, {1,.5, 1,1}, {0,.5, 1,.5}},
+		['Q'] = {{0,0, 0,1}, {1,0, 1,1}, {0,1, 1,1}, {0,0, 1,0}, {.6,.25, 1,0}},
+		['R'] = {{0,0, 0,1}, {0,1, 1,1}, {1,.5, 1,1}, {0,.5, .5,.5}, {.5,.5, 1,.5}, {.5,.5, 1,0}},
+		['S'] = {{0,1, 1,1}, {0,.5, 0,1}, {0,.5, 1,.5}, {1,0, 1,.5}, {0,0, 1,0}},
+		['T'] = {{.5,0, .5,1}, {0,1, 1,1}},
+		['U'] = {{0,0, 0,1}, {1,0, 1,1}, {0,0, 1,0}},
+		['V'] = {{0,1, .5,0}, {.5,0, 1,1}},
+		['W'] = {{0,1, .25,0}, {.25,0, .5,.5}, {.5,.5, .75,0}, {.75,0, 1,1}},
+		['X'] = {{0,0, 1,1}, {0,1, 1,0}},
+		['Y'] = {{0,1, .5,.5}, {1,1, .5,.5}, {.5,0, .5,.5}},
+		['Z'] = {{0,1, 1,1}, {1,1, 0,0}, {0,0, 1,0}},
+		['0'] = {{0,0, 0,1}, {1,0, 1,1}, {0,1, 1,1}, {0,0, 1,0}},
+		['1'] = {{.5,0, .5,1}, {.15,0, .85,0}, {.25,.85, .5,1}},
+		['2'] = {{0,1, 1,1}, {1,.5, 1,1}, {0,.5, 1,.5}, {0,0, 0,.5}, {0,0, 1,0}},
+		['3'] = {{0,1, 1,1}, {1,0, 1,1}, {.2,.5, 1,.5}, {0,0, 1,0}},
+		['4'] = {{0,.5, 0,1}, {0,.5, 1,.5}, {1,0, 1,1}},
+		['5'] = {{0,1, 1,1}, {0,.5, 0,1}, {0,.5, 1,.5}, {1,0, 1,.5}, {0,0, 1,0}},
+		['6'] = {{0,1, 1,1}, {0,0, 0,1}, {0,.5, 1,.5}, {1,0, 1,.5}, {0,0, 1,0}},
+		['7'] = {{0,1, 1,1}, {1,1, .35,0}},
+		['8'] = {{0,0, 0,1}, {1,0, 1,1}, {0,1, 1,1}, {0,.5, 1,.5}, {0,0, 1,0}},
+		['9'] = {{0,1, 1,1}, {0,.5, 0,1}, {0,.5, 1,.5}, {1,0, 1,1}, {0,0, 1,0}},
+		[' '] = {},
+		['.'] = {{.5,.05, .5,.05}},
+		['!'] = {{.5,.3, .5,1}, {.5,.05, .5,.05}},
+		['?'] = {{.15,1, 1,1}, {1,.5, 1,1}, {.35,.5, 1,.5}, {.5,.3, .5,.5}, {.5,.05, .5,.05}},
+		['-'] = {{.1,.5, .9,.5}},
+		['_'] = {{0,0, 1,0}},
+		['/'] = {{0,0, 1,1}},
+		[':'] = {{.5,.65, .5,.65}, {.5,.2, .5,.2}},
+		[','] = {{.5,.12, .35,-.05}},
+		["'"] = {{.5,.75, .5,1}},
+		['"'] = {{.3,.75, .3,1}, {.7,.75, .7,1}},
+		['+'] = {{.5,.25, .5,.75}, {.15,.5, .85,.5}},
+		['='] = {{.15,.35, .85,.35}, {.15,.65, .85,.65}},
+		['#'] = {{.3,.05, .3,.95}, {.7,.05, .7,.95}, {.1,.35, .9,.35}, {.1,.65, .9,.65}},
+		['('] = {{.6,0, .35,.25}, {.35,.25, .35,.75}, {.35,.75, .6,1}},
+		[')'] = {{.4,0, .65,.25}, {.65,.25, .65,.75}, {.65,.75, .4,1}},
+		['&'] = {
+			{.25,.6, .25,.85}, {.25,.85, .65,.85}, {.65,.6, .65,.85}, {.25,.6, .65,.6},
+			{.65,.85, .15,.15}, {.25,.6, .85,0},
+			{.15,0, .15,.15}, {.15,0, .85,0},
+		},
+		-- Lowercase: x-height=0.6, ascenders to 1.0, descenders to -0.2
+		['a'] = {{0,.6, 1,.6}, {1,0, 1,.6}, {0,0, 1,0}, {0,0, 0,.3}, {0,.3, 1,.3}},
+		['b'] = {{0,0, 0,1}, {0,.6, 1,.6}, {1,0, 1,.6}, {0,0, 1,0}},
+		['c'] = {{0,0, 0,.6}, {0,.6, 1,.6}, {0,0, 1,0}},
+		['d'] = {{1,0, 1,1}, {0,.6, 1,.6}, {0,0, 0,.6}, {0,0, 1,0}},
+		['e'] = {{0,0, 0,.6}, {0,.6, 1,.6}, {1,.3, 1,.6}, {0,.3, 1,.3}, {0,0, .75,0}},
+		['f'] = {{.4,0, .4,.85}, {.4,.85, .9,.85}, {.1,.5, .75,.5}},
+		['g'] = {{0,.6, 1,.6}, {0,0, 0,.6}, {0,0, 1,0}, {1,-.2, 1,.6}, {0,-.2, 1,-.2}},
+		['h'] = {{0,0, 0,1}, {0,.6, 1,.6}, {1,0, 1,.6}},
+		['i'] = {{.5,0, .5,.6}, {.5,.78, .5,.78}},
+		['j'] = {{.6,-.2, .6,.6}, {.6,.78, .6,.78}, {.1,-.2, .6,-.2}},
+		['k'] = {{0,0, 0,.3}, {0,.3, 0,1}, {0,.3, 1,.6}, {0,.3, 1,0}},
+		['l'] = {{.5,0, .5,1}, {.5,0, .8,0}},
+		['m'] = {{0,0, 0,.6}, {0,.6, .5,.6}, {.5,0, .5,.6}, {.5,.6, 1,.6}, {1,0, 1,.6}},
+		['n'] = {{0,0, 0,.6}, {0,.6, 1,.6}, {1,0, 1,.6}},
+		['o'] = {{0,0, 0,.6}, {1,0, 1,.6}, {0,.6, 1,.6}, {0,0, 1,0}},
+		['p'] = {{0,-.2, 0,.6}, {0,.6, 1,.6}, {1,0, 1,.6}, {0,0, 1,0}},
+		['q'] = {{1,-.2, 1,.6}, {0,.6, 1,.6}, {0,0, 0,.6}, {0,0, 1,0}},
+		['r'] = {{0,0, 0,.6}, {0,.6, .75,.6}},
+		['s'] = {{0,.6, 1,.6}, {0,.3, 0,.6}, {0,.3, 1,.3}, {1,0, 1,.3}, {0,0, 1,0}},
+		['t'] = {{.35,0, .35,.85}, {.1,.55, .75,.55}, {.35,0, .75,0}},
+		['u'] = {{0,0, 0,.6}, {1,0, 1,.6}, {0,0, 1,0}},
+		['v'] = {{0,.6, .5,0}, {.5,0, 1,.6}},
+		['w'] = {{0,.6, .2,0}, {.2,0, .5,.35}, {.5,.35, .8,0}, {.8,0, 1,.6}},
+		['x'] = {{0,0, 1,.6}, {0,.6, 1,0}},
+		['y'] = {{0,.6, .5,.15}, {1,.6, .5,.15}, {.5,.15, .3,-.2}},
+		['z'] = {{0,.6, 1,.6}, {1,.6, 0,0}, {0,0, 1,0}},
+	}
+	
+	function GeometryPrimitives.text(name: string, text: string, p1: Vector3, p2: Vector3, p3: Vector3, p4: Vector3, faceDir: Vector3?, textColor: Color3?, parent: Instance?, thickness: number?, font: string?): Instance
+		validateFiniteVector3("text", "p1", p1)
+		validateFiniteVector3("text", "p2", p2)
+		validateFiniteVector3("text", "p3", p3)
+		validateFiniteVector3("text", "p4", p4)
+		if faceDir then validateFiniteVector3("text", "faceDir", faceDir) end
+		local lenVec = p2 - p1
+		local widVec = p4 - p1
+		local areaWidth, areaHeight = lenVec.Magnitude, widVec.Magnitude
+		
+		if areaWidth < 0.001 or areaHeight < 0.001 then
+			error("text '" .. name .. "': area is too small")
+		end
+	
+		local rightDir = lenVec.Unit
+		local downDir = widVec.Unit
+		local rawFrontN = rightDir:Cross(downDir)
+		if rawFrontN.Magnitude < 0.001 then
+			error("text '" .. name .. "': text area is degenerate (p1-p2 and p1-p4 are nearly parallel)")
+		end
+		local naturalFrontNormal = rawFrontN.Unit
+		
+		-- If faceDir is provided and the text is facing away from it, 
+		-- we flip the text so it faces outward properly.
+		local isFlipped = true
+		if typeof(faceDir) == "Vector3" and naturalFrontNormal:Dot(faceDir) < 0 then
+			rightDir = -rightDir
+			naturalFrontNormal = -naturalFrontNormal
+			isFlipped = false
+		end
+		
+		local xAxis = rightDir
+		local yAxis = -downDir
+		local zAxis = -naturalFrontNormal
+	
+		if thickness and thickness > 0 then
+			local textStr = tostring(text)
+			if #textStr == 0 then
+				error("text '" .. name .. "': text is empty")
+			end
+	
+			-- Split text into lines for multi-line support
+			local lines = string.split(textStr, "\n")
+			local numLines = #lines
+	
+			-- First pass: resolve strokes for every character across all lines
+			-- and compute the global y-range (descenders/ascenders).
+			local lineData: {{[number]: any}} = {}
+			local yMin, yMax = 0, 1
+			for li, lineText in ipairs(lines) do
+				local chars: {{[number]: any}} = {}
+				for ci = 1, #lineText do
+					local char = string.sub(lineText, ci, ci)
+					local lookupChar = string.upper(char)
+					local strokes = vectorFont[char] or vectorFont[lookupChar]
+					if not strokes then
+						strokes = {{0,0, 0,1}, {1,0, 1,1}, {0,1, 1,1}, {0,0, 1,0}}
+					end
+					chars[ci] = strokes
+					for _, s in ipairs(strokes) do
+						if s[2] < yMin then yMin = s[2] end
+						if s[4] < yMin then yMin = s[4] end
+						if s[2] > yMax then yMax = s[2] end
+						if s[4] > yMax then yMax = s[4] end
+					end
+				end
+				lineData[li] = chars
+			end
+			local yRange = yMax - yMin
+			if yRange < 0.001 then yRange = 1; yMin = 0; yMax = 1 end
+	
+			-- Uniform character sizing from the longest line
+			local maxCharCount = 1
+			for _, chars in ipairs(lineData) do
+				if #chars > maxCharCount then maxCharCount = #chars end
+			end
+	
+			-- Vertical layout: lines + inter-line gaps
+			local lineGapRatio = 0.3
+			local totalLineUnits = numLines + (numLines - 1) * lineGapRatio
+			local lineH = areaHeight / totalLineUnits
+			local lineGap = lineH * lineGapRatio
+	
+			-- Horizontal layout based on longest line
+			local totalUnits = maxCharCount * 3 + (maxCharCount - 1)
+			local unitW = areaWidth / totalUnits
+			local charW = 3 * unitW
+			local gapW = unitW
+			local strokeW = charW * 0.15
+			local halfSW = strokeW / 2
+	
+			local model = Instance.new("Model")
+			model.Name = name
+			model.Parent = resolveParentNoWorkspace(parent)
+	
+			local origRightDir = lenVec.Unit
+			local renderRightDir = origRightDir
+			local renderStartPoint = p1
+			if isFlipped then
+				renderRightDir = -origRightDir
+				renderStartPoint = p2
+			end
+	
+			local resolvedColor = textColor or Color3.new(0, 0, 0)
+	
+			for li, chars in ipairs(lineData) do
+				if #chars == 0 then continue end
+	
+				local lineYOffset = (li - 1) * (lineH + lineGap)
+	
+				for ci, strokes in ipairs(chars) do
+					local charOffsetX = (ci - 1) * (charW + gapW)
+	
+					-- Classify each stroke and build endpoint connectivity map.
+					local strokeType = {}
+					local endpointMap = {}
+	
+					local function ptKey(x, y)
+						return string.format("%.4f,%.4f", x, y)
+					end
+	
+					for j, s in ipairs(strokes) do
+						local adx = math.abs(s[3] - s[1])
+						local ady = math.abs(s[4] - s[2])
+						if adx < 0.01 and ady < 0.01 then
+							strokeType[j] = "P"
+						elseif adx > 0.01 and ady > 0.01 then
+							strokeType[j] = "D"
+						elseif adx > 0.01 then
+							strokeType[j] = "H"
+						else
+							strokeType[j] = "V"
+						end
+	
+						local k1 = ptKey(s[1], s[2])
+						local k2 = ptKey(s[3], s[4])
+						endpointMap[k1] = endpointMap[k1] or {}
+						table.insert(endpointMap[k1], j)
+						if k1 ~= k2 then
+							endpointMap[k2] = endpointMap[k2] or {}
+							table.insert(endpointMap[k2], j)
+						end
+					end
+	
+					local function getOrigSP(nx: number, ny: number): Vector3
+						local remappedY = (ny - yMin) / yRange
+						return renderStartPoint
+							+ renderRightDir * (charOffsetX + nx * charW)
+							+ yAxis * ((remappedY - 1) * lineH - lineYOffset)
+							- zAxis * (thickness / 2)
+					end
+	
+					local function endpointExtension(sIdx, ex, ey)
+						local st = strokeType[sIdx]
+						if st == "P" or st == "D" then return 0 end
+						local k = ptKey(ex, ey)
+						local neighbors = endpointMap[k]
+						if neighbors then
+							local numNb = #neighbors
+							if numNb == 2 then
+								local otherIdx = neighbors[1] == sIdx and neighbors[2] or neighbors[1]
+								local nt = strokeType[otherIdx]
+								if st == "H" and nt == "V" then return -halfSW end
+								if st == "V" and nt == "H" then return halfSW end
+								if nt == "D" then return halfSW end
+								return 0
+							elseif numNb > 2 then
+								return 0
+							end
+						end
+						return halfSW
+					end
+	
+					for j, s in ipairs(strokes) do
+						local nx1, ny1, nx2, ny2 = s[1], s[2], s[3], s[4]
+						local sp1 = getOrigSP(nx1, ny1)
+						local sp2 = getOrigSP(nx2, ny2)
+	
+						local strokeVec = sp2 - sp1
+						local strokeLen = strokeVec.Magnitude
+	
+						local usedQuad = false
+						if strokeType[j] == "D" and strokeLen > 0.001 then
+							local function getEdgeDirAndOutward(epKey, epNx, epNy): (Vector3?, Vector3?)
+								local nb = endpointMap[epKey]
+								if nb and #nb == 2 then
+									for _, ni in ipairs(nb) do
+										if ni ~= j then
+											local ns = strokes[ni]
+											local ox, oy
+											if ptKey(ns[1], ns[2]) == epKey then
+												ox, oy = ns[3], ns[4]
+											else
+												ox, oy = ns[1], ns[2]
+											end
+											local barCenter = getOrigSP(ox, oy)
+											local outward = (getOrigSP(epNx, epNy) - barCenter).Unit
+											if strokeType[ni] == "H" then return yAxis, outward end
+											if strokeType[ni] == "V" then return renderRightDir, outward end
+										end
+									end
+								end
+								return nil, nil
+							end
+	
+							local dir1, outward1 = getEdgeDirAndOutward(ptKey(nx1, ny1), nx1, ny1)
+							local dir2, outward2 = getEdgeDirAndOutward(ptKey(nx2, ny2), nx2, ny2)
+	
+							if dir1 or dir2 then
+								local strokeRight = strokeVec.Unit
+								local defaultUp = zAxis:Cross(strokeRight)
+								if defaultUp.Magnitude < 0.001 then defaultUp = yAxis else defaultUp = defaultUp.Unit end
+								local d1: Vector3 = (dir1 or defaultUp) :: Vector3
+								local d2: Vector3 = (dir2 or defaultUp) :: Vector3
+								if d1:Dot(defaultUp) < 0 then d1 = -d1 end
+								if d2:Dot(defaultUp) < 0 then d2 = -d2 end
+	
+								local sp1e: Vector3 = if outward1 then sp1 + halfSW * (outward1 :: Vector3) else sp1
+								local sp2e: Vector3 = if outward2 then sp2 + halfSW * (outward2 :: Vector3) else sp2
+	
+								local q1 = sp1e + halfSW * d1
+								local q2 = sp2e + halfSW * d2
+								local q3 = sp2e - halfSW * d2
+								local q4 = sp1e - halfSW * d1
+	
+								local ok, quadPart = pcall(function()
+									return GeometryPrimitives.quadFromFourPoints(
+										name .. "_L" .. li .. "_c" .. ci .. "_s" .. j,
+										q1, q2, q3, q4,
+										thickness, nil,
+										resolvedColor, Enum.Material.SmoothPlastic,
+										model, 0
+									)
+								end)
+								if ok and quadPart then
+									usedQuad = true
+								end
+							end
+						end
+	
+						if not usedQuad then
+							local mid = (sp1 + sp2) / 2
+							local partWidth = strokeW
+	
+							local part = Instance.new("Part")
+							part.Name = name .. "_L" .. li .. "_c" .. ci .. "_s" .. j
+							part.Color = resolvedColor
+							part.Material = Enum.Material.SmoothPlastic
+							part.Transparency = 0
+							part.CanCollide = false
+							part.Anchored = true
+	
+							if strokeLen < 0.001 then
+								part.Size = Vector3.new(strokeW * 1.3, strokeW * 1.3, thickness)
+								part.CFrame = CFrame.fromMatrix(mid, xAxis, yAxis, zAxis)
+							else
+								local strokeRight = strokeVec.Unit
+								local strokeUp = zAxis:Cross(strokeRight)
+								if strokeUp.Magnitude < 0.001 then
+									strokeUp = yAxis
+								else
+									strokeUp = strokeUp.Unit
+								end
+	
+								local ext1 = endpointExtension(j, nx1, ny1)
+								local ext2 = endpointExtension(j, nx2, ny2)
+	
+								local totalLen = math.max(strokeLen + ext1 + ext2, 0.001)
+								local adjustedMid = mid + strokeRight * (ext2 - ext1) / 2
+	
+								part.Size = Vector3.new(totalLen, partWidth, thickness)
+								part.CFrame = CFrame.fromMatrix(adjustedMid, strokeRight, strokeUp, zAxis)
+							end
+	
+							part.Parent = model
+						end
+					end
+				end
+			end
+	
+			-- CSG-union all stroke parts into a single solid
+			return unionModelChildren(model, name, parent, 0)
+		else
+			-- SurfaceGui mode: flat text with minimal part thickness.
+			-- The Part axes must use the ORIGINAL (pre-faceDir-flip) directions so
+			-- the SurfaceGui text reads left-to-right. When faceDir flips the
+			-- desired face direction, we switch from NormalId.Front to NormalId.Back
+			-- instead of mirroring the Part's X axis.
+			local origRight = lenVec.Unit
+			local origUp = -widVec.Unit
+			local rawOrigFront = origRight:Cross(widVec.Unit)
+			if rawOrigFront.Magnitude < 0.001 then
+				error("text '" .. name .. "': text area is degenerate (p1-p2 and p1-p4 are nearly parallel)")
+			end
+			local origFrontNormal = rawOrigFront.Unit
+			local origZAxis = -origFrontNormal
+	
+			local guiFace: Enum.NormalId = Enum.NormalId.Front
+			if not isFlipped then
+				guiFace = Enum.NormalId.Back
+			end
+	
+			local guiThickness = 0.05
+			local center = (p1 + p3) / 2 - origFrontNormal * (guiThickness / 2)
+	
+			local part = Instance.new("Part")
+			part.Name = name
+			part.Size = Vector3.new(areaWidth, areaHeight, guiThickness)
+			part.CFrame = CFrame.fromMatrix(center, origRight, origUp, origZAxis)
+			part.Color = Color3.new(1, 1, 1)
+			part.Transparency = 1
+			part.CanCollide = false
+			part.Anchored = true
+			part.Parent = resolveParentNoWorkspace(parent)
+	
+			local gui = Instance.new("SurfaceGui")
+			gui.Name = "TextGui"
+			gui.Face = guiFace
+			gui.SizingMode = Enum.SurfaceGuiSizingMode.FixedSize
+			local basePixels = 100
+			gui.CanvasSize = Vector2.new(basePixels, basePixels * (areaHeight / areaWidth))
+			gui.Parent = part
+			
+			local label = Instance.new("TextLabel")
+			label.Name = "Label"
+			label.BackgroundTransparency = 1
+			label.Size = UDim2.new(1.2, 0, 1.2, 0)
+			label.Position = UDim2.new(-0.1, 0, -0.1, 0)
+			label.Text = text
+			label.TextColor3 = textColor or Color3.new(0, 0, 0)
+			label.TextScaled = true
+			label.Font = getValidRobloxFont(font)
+			label.Parent = gui
+	
+			return part
+		end
+	end
+	return GeometryPrimitives
+	
+local SmartObject = {}
+
+-- Create the DSL builder
+
+function SmartObject.getAttribute(instance: any, key: string, defaultValue: number | string | boolean | Color3 | Vector3 | Vector2 | CFrame | UDim | UDim2 | NumberRange | Rect): number | string | boolean | Color3 | Vector3 | Vector2 | CFrame | UDim | UDim2 | NumberRange | Rect
+	local sourceType = typeof(instance)
+
+	if sourceType == "table" then
+		local tbl = instance :: { [string]: any }
+		if not tbl.Attributes or not tbl.Size then
+			warn("SO.getAttribute: table must have 'Size' (Vector3) and 'Attributes' (table) fields")
+			return defaultValue
+		end
+
+		local attrs = tbl.Attributes
+
+		if attrs[key] == nil then
+			attrs[key] = defaultValue
+		end
+
+		if key == "smartWidth" then return tbl.Size.X end
+		if key == "smartHeight" then return tbl.Size.Y end
+		if key == "smartDepth" then return tbl.Size.Z end
+
+		return attrs[key]
+
+	elseif sourceType == "Instance" then
+		local inst = instance :: Instance
+		local stored = inst:GetAttribute(key)
+		if stored == nil then
+			inst:SetAttribute(key, defaultValue)
+			return defaultValue
+		end
+
+		local expectedType = typeof(defaultValue)
+		if typeof(stored) ~= expectedType then
+			warn(string.format(
+				"SO.getAttribute: attribute '%s' expected type '%s' but got '%s'; using default",
+				key, expectedType, typeof(stored)
+			))
+			inst:SetAttribute(key, defaultValue)
+			return defaultValue
+		end
+
+		return stored :: number | string | boolean | Color3 | Vector3 | Vector2 | CFrame | UDim | UDim2 | NumberRange | Rect
+	else
+		warn(string.format(
+			"SO.getAttribute: expected Instance or table, got '%s'",
+			sourceType
+		))
+		return defaultValue
+	end
+end
+return SmartObject
+¸3local MathUtils = {}
+
+-- Create the DSL builder
+
+-- ===========================================================================
+-- INPUT VALIDATION
+-- ===========================================================================
+
+local function validateFiniteNumber(funcName: string, paramName: string, value: number): number
+	if value == nil then return value end
+	if value ~= value then -- NaN
+		error(funcName .. ": '" .. paramName .. "' is NaN (not a number)")
+	end
+	if math.abs(value) == math.huge then
+		error(funcName .. ": '" .. paramName .. "' is " .. tostring(value) .. " (infinite values are not allowed)")
+	end
+	return value
+end
+
+local function validateFiniteVector3(funcName: string, paramName: string, v: Vector3): Vector3
+	for _, axis in { "X", "Y", "Z" } do
+		validateFiniteNumber(funcName, paramName .. "." .. axis, (v :: any)[axis])
+	end
+	return v
+end
+
+-- ===========================================================================
+-- INTERPOLATION
+-- ===========================================================================
+
+function MathUtils.lerp(a: number, b: number, t: number): number
+	validateFiniteNumber("lerp", "a", a)
+	validateFiniteNumber("lerp", "b", b)
+	validateFiniteNumber("lerp", "t", t)
+	t = math.clamp(t, 0, 1)
+	return a + (b - a) * t
+end
+
+function MathUtils.lerpVector3(v1: Vector3, v2: Vector3, t: number): Vector3
+	t = math.clamp(t, 0, 1)
+	return Vector3.new(
+		v1.X + (v2.X - v1.X) * t,
+		v1.Y + (v2.Y - v1.Y) * t,
+		v1.Z + (v2.Z - v1.Z) * t
+	)
+end
+
+function MathUtils.lerpColor(c1: Color3, c2: Color3, t: number): Color3
+	t = math.clamp(t, 0, 1)
+	return Color3.new(
+		c1.R + (c2.R - c1.R) * t,
+		c1.G + (c2.G - c1.G) * t,
+		c1.B + (c2.B - c1.B) * t
+	)
+end
+
+-- ===========================================================================
+-- CURVES
+-- ===========================================================================
+
+function MathUtils.bezier(t: number, p0: Vector3, p1: Vector3, p2: Vector3, p3: Vector3): Vector3
+	validateFiniteNumber("bezier", "t", t)
+	validateFiniteVector3("bezier", "p0", p0)
+	validateFiniteVector3("bezier", "p1", p1)
+	validateFiniteVector3("bezier", "p2", p2)
+	validateFiniteVector3("bezier", "p3", p3)
+	t = math.clamp(t, 0, 1)
+	local u = 1 - t
+	return u * u * u * p0
+		+ 3 * u * u * t * p1
+		+ 3 * u * t * t * p2
+		+ t * t * t * p3
+end
+
+function MathUtils.quadraticBezier(t: number, p0: Vector3, p1: Vector3, p2: Vector3): Vector3
+	validateFiniteNumber("quadraticBezier", "t", t)
+	validateFiniteVector3("quadraticBezier", "p0", p0)
+	validateFiniteVector3("quadraticBezier", "p1", p1)
+	validateFiniteVector3("quadraticBezier", "p2", p2)
+	t = math.clamp(t, 0, 1)
+	local u = 1 - t
+	return u * u * p0 + 2 * u * t * p1 + t * t * p2
+end
+
+-- ===========================================================================
+-- COORDINATE UTILITIES
+-- ===========================================================================
+
+function MathUtils.polarToCartesian(center: Vector3, radius: number, angle: number, plane: string): Vector3
+	validateFiniteVector3("polarToCartesian", "center", center)
+	validateFiniteNumber("polarToCartesian", "radius", radius)
+	validateFiniteNumber("polarToCartesian", "angle", angle)
+	local c = math.cos(angle) * radius
+	local s = math.sin(angle) * radius
+	if plane == "XY" then
+		return Vector3.new(center.X + c, center.Y + s, center.Z)
+	elseif plane == "YZ" then
+		return Vector3.new(center.X, center.Y + c, center.Z + s)
+	else -- "XZ" (default)
+		return Vector3.new(center.X + c, center.Y, center.Z + s)
+	end
+end
+
+-- ===========================================================================
+-- VECTOR / TRANSFORM UTILITIES
+-- ===========================================================================
+
+function MathUtils.sampleBezierPoints(p0: Vector3, p1: Vector3, p2: Vector3, p3: Vector3, segments: number): { Vector3 }
+	validateFiniteVector3("sampleBezierPoints", "p0", p0)
+	validateFiniteVector3("sampleBezierPoints", "p1", p1)
+	validateFiniteVector3("sampleBezierPoints", "p2", p2)
+	validateFiniteVector3("sampleBezierPoints", "p3", p3)
+	validateFiniteNumber("sampleBezierPoints", "segments", segments)
+	local points = {}
+	for i = 0, segments do
+		local t = i / segments
+		table.insert(points, MathUtils.bezier(t, p0, p1, p2, p3))
+	end
+	return points
+end
+
+-- ===========================================================================
+-- LAYOUT / DISTRIBUTION UTILITIES
+-- ===========================================================================
+
+function MathUtils.linearArray(startPos: Vector3, endPos: Vector3, count: number, callback: (Vector3, number) -> ()): ()
+	validateFiniteVector3("linearArray", "startPos", startPos)
+	validateFiniteVector3("linearArray", "endPos", endPos)
+	validateFiniteNumber("linearArray", "count", count)
+	for i = 1, count do
+		local t = (count > 1) and ((i - 1) / (count - 1)) or 0
+		local pos = startPos:Lerp(endPos, t)
+		callback(pos, i)
+	end
+end
+
+function MathUtils.radialArray(center: Vector3, radius: number, count: number, axis: Vector3, callback: (Vector3, number) -> ()): ()
+	validateFiniteVector3("radialArray", "center", center)
+	validateFiniteNumber("radialArray", "radius", radius)
+	validateFiniteNumber("radialArray", "count", count)
+	validateFiniteVector3("radialArray", "axis", axis)
+	local axisDir = axis.Unit
+	local upRef = Vector3.new(0, 1, 0)
+	if math.abs(axisDir:Dot(upRef)) > 0.95 then
+		upRef = Vector3.new(0, 0, 1)
+	end
+	local u = axisDir:Cross(upRef).Unit
+	local v = axisDir:Cross(u).Unit
+
+	for i = 1, count do
+		local angle = ((i - 1) / count) * math.pi * 2
+		local pos = center + (math.cos(angle) * u + math.sin(angle) * v) * radius
+		callback(pos, i)
+	end
+end
+
+function MathUtils.radialArrayConnected(center: Vector3, radius: number, count: number, axis: Vector3, callback: (Vector3, number, Vector3) -> ()): ()
+	validateFiniteVector3("radialArrayConnected", "center", center)
+	validateFiniteNumber("radialArrayConnected", "radius", radius)
+	validateFiniteNumber("radialArrayConnected", "count", count)
+	validateFiniteVector3("radialArrayConnected", "axis", axis)
+	local axisDir = axis.Unit
+	local upRef = Vector3.new(0, 1, 0)
+	if math.abs(axisDir:Dot(upRef)) > 0.95 then
+		upRef = Vector3.new(0, 0, 1)
+	end
+	local u = axisDir:Cross(upRef).Unit
+	local v = axisDir:Cross(u).Unit
+
+	for i = 1, count do
+		local angle = ((i - 1) / count) * math.pi * 2
+		local nextAngle = (i / count) * math.pi * 2
+
+		local pos = center + (math.cos(angle) * u + math.sin(angle) * v) * radius
+		local nextPos = center + (math.cos(nextAngle) * u + math.sin(nextAngle) * v) * radius
+
+		callback(pos, i, nextPos)
+	end
+end
+return MathUtils
+þDlocal GeometryService: GeometryService = game:GetService("GeometryService")
+
+local ConstructiveSolidGeometry = {}
+
+-- Shared options for all CSG operations (use Roblox defaults for fidelity)
+local CSG_OPTIONS: { [string]: any } = {
+	SplitApart = false,
+	CollisionFidelity = Enum.CollisionFidelity.Box,
+}
+
+-- Optimized recursive function using accumulator pattern to reduce GC overhead
+-- Supports BasePart, Model, Folder, and Configuration containers
+local function getAllBaseParts(instance: Instance, accumulator: { BasePart }): ()
+	if instance:IsA("BasePart") then
+		table.insert(accumulator, instance)
+	end
+
+	-- Recurse into children (Models, Folders, Configurations, etc.)
+	for _, child in instance:GetChildren() do
+		getAllBaseParts(child, accumulator)
+	end
+end
+
+function ConstructiveSolidGeometry.union(
+	name: string,
+	mainPart: Instance,
+	otherParts: { any }
+): PartOperation | Instance
+	-- Validate inputs
+	if not mainPart or not mainPart:IsA("BasePart") then
+		return error("mainPart must be a valid BasePart")
+	end
+
+	-- Flatten containers (Models, Folders, etc.) into an array of BaseParts
+	-- GeometryService only accepts primitive Parts and PartOperations
+	local flatParts: { BasePart } = {}
+	if otherParts then
+		for _, instance in ipairs(otherParts) do
+			getAllBaseParts(instance, flatParts)
+		end
+	end
+
+	if #flatParts == 0 then
+		-- union(A, {}) = A: return mainPart directly
+		mainPart.Name = name
+		return mainPart :: any
+	end
+
+	-- Force all parts to match mainPart's appearance for uniform coloring.
+	-- Note: With UsePartColor = true (set below), the result's own Color property
+	-- (auto-inherited from mainPart) overrides per-face colors, making this
+	-- technically redundant. We keep it as defense-in-depth in case UsePartColor
+	-- behavior changes or is toggled off.
+	for _, part in ipairs(flatParts) do
+		part.Material = mainPart.Material
+		part.Color = mainPart.Color
+	end
+
+	-- Perform union operation with GeometryService
+	-- Note: GeometryService does not require parts to be parented to workspace.
+	local success, results = pcall(function(): ...any
+		return GeometryService:UnionAsync(mainPart, flatParts, CSG_OPTIONS)
+	end)
+
+	-- On failure, keep input parts intact (they are valid geometry on their own)
+	if not success then
+		return error("Union operation failed: " .. tostring(results))
+	end
+
+	if not results or #results == 0 then
+		return error("Union operation produced no result")
+	end
+
+	local result: PartOperation = results[1] :: PartOperation
+
+	-- Configure the result.
+	-- GeometryService auto-inherits Color, Material, Transparency, CanCollide,
+	-- and Anchored from mainPart, so we only set properties that differ or
+	-- are not auto-inherited (Name, UsePartColor).
+	-- If mainPart was parented, the result replaces it in the same parent.
+	-- If mainPart was unparented (e.g. intermediate parts), result stays unparented.
+	result.Name = name
+	result.UsePartColor = true
+	-- Setting SmoothingAngle is not supported in runtime due to latency and blocking the main thread.
+	pcall(function()
+		result.SmoothingAngle = 70 -- Blend normals across seam edges (degrees)
+	end)
+	result.Parent = mainPart.Parent
+
+	-- Cleanup original parts
+	mainPart:Destroy()
+	for _, part in ipairs(flatParts) do
+		part:Destroy()
+	end
+
+	return result
+end
+
+function ConstructiveSolidGeometry.intersect(
+	name: string,
+	mainPart: Instance,
+	otherParts: { any }
+): PartOperation | Instance
+	-- Validate inputs
+	if not mainPart or not mainPart:IsA("BasePart") then
+		return error("mainPart must be a valid BasePart")
+	end
+
+	-- Flatten containers (Models, Folders, etc.) into an array of BaseParts
+	-- GeometryService only accepts primitive Parts and PartOperations
+	local flatParts: { BasePart } = {}
+	if otherParts then
+		for _, instance in ipairs(otherParts) do
+			getAllBaseParts(instance, flatParts)
+		end
+	end
+
+	if #flatParts == 0 then
+		-- intersect with empty set: return mainPart as fallback
+		mainPart.Name = name
+		return mainPart :: Instance
+	end
+
+	-- Helper: destroy all input parts (used on error paths)
+	local function cleanupAll()
+		if mainPart and mainPart.Parent then mainPart:Destroy() end
+		for _, part in ipairs(flatParts) do
+			if part.Parent then part:Destroy() end
+		end
+	end
+
+	-- Force all parts to match mainPart's appearance for uniform coloring.
+	-- Note: With UsePartColor = true (set below), the result's own Color property
+	-- (auto-inherited from mainPart) overrides per-face colors, making this
+	-- technically redundant. We keep it as defense-in-depth in case UsePartColor
+	-- behavior changes or is toggled off.
+	for _, part in ipairs(flatParts) do
+		part.Material = mainPart.Material
+		part.Color = mainPart.Color
+	end
+
+	-- Perform intersection operation with GeometryService
+	-- Note: GeometryService does not require parts to be parented to workspace.
+	local success, results = pcall(function(): ...any
+		return GeometryService:IntersectAsync(mainPart, flatParts, CSG_OPTIONS)
+	end)
+
+	if not success then
+		cleanupAll()
+		return error("Intersection operation failed: " .. tostring(results))
+	end
+
+	if not results or #results == 0 then
+		cleanupAll()
+		return error("Intersection operation produced no result (parts may not overlap)")
+	end
+
+	local result: PartOperation = results[1] :: PartOperation
+
+	-- Configure the result.
+	-- GeometryService auto-inherits Color, Material, Transparency, CanCollide,
+	-- and Anchored from mainPart, so we only set properties that differ or
+	-- are not auto-inherited (Name, UsePartColor).
+	-- Note: We do NOT override CFrame. The CSG engine correctly positions the
+	-- result at the actual intersection location.
+	-- If mainPart was parented, the result replaces it in the same parent.
+	-- If mainPart was unparented (e.g. intermediate parts), result stays unparented.
+	result.Name = name
+	result.UsePartColor = true
+	-- Setting SmoothingAngle is not supported in runtime due to latency and blocking the main thread.
+	pcall(function()
+		result.SmoothingAngle = 70 -- Blend normals across seam edges (degrees)
+	end)
+	result.Parent = mainPart.Parent
+
+	-- Cleanup original parts
+	mainPart:Destroy()
+	for _, part in ipairs(flatParts) do
+		part:Destroy()
+	end
+
+	return result
+end
+
+function ConstructiveSolidGeometry.subtract(
+	name: string,
+	mainPart: Instance,
+	negateParts: { any }
+): PartOperation
+	-- Validate inputs
+	if not mainPart or not mainPart:IsA("BasePart") then
+		return error("mainPart must be a valid BasePart")
+	end
+
+	-- Find all baseparts from negateParts using optimized accumulator pattern
+	local partsToNegate: { BasePart } = {}
+	for _, instance in ipairs(negateParts) do
+		getAllBaseParts(instance, partsToNegate)
+	end
+
+	if #partsToNegate == 0 then
+		return error("negateParts must contain at least one BasePart")
+	end
+
+	-- Helper: destroy mainPart + all negate parts (used on error paths)
+	local function cleanupAll()
+		if mainPart and mainPart.Parent then mainPart:Destroy() end
+		for _, part in ipairs(partsToNegate) do
+			if part.Parent then part:Destroy() end
+		end
+	end
+
+	-- Force negative parts to match mainPart's appearance for seamless cuts.
+	-- Note: With UsePartColor = true (set below), the result's own Color property
+	-- (auto-inherited from mainPart) overrides per-face colors, making this
+	-- technically redundant. We keep it as defense-in-depth so cut surfaces
+	-- blend correctly regardless of UsePartColor state.
+	for _, part in ipairs(partsToNegate) do
+		part.Material = mainPart.Material
+		part.Color = mainPart.Color
+	end
+
+	-- Perform subtraction operation with GeometryService
+	-- Note: GeometryService does not require parts to be parented to workspace.
+	local success, results = pcall(function(): ...any
+		return GeometryService:SubtractAsync(mainPart, partsToNegate, CSG_OPTIONS)
+	end)
+
+	if not success then
+		cleanupAll()
+		return error("Subtraction operation failed: " .. tostring(results))
+	end
+
+	if not results or #results == 0 then
+		cleanupAll()
+		return error("Subtraction operation produced no result")
+	end
+
+	local result: PartOperation = results[1] :: PartOperation
+
+	-- Configure the result.
+	-- GeometryService auto-inherits Color, Material, Transparency, CanCollide,
+	-- and Anchored from mainPart, so we only set properties that differ or
+	-- are not auto-inherited (Name, UsePartColor).
+	-- If mainPart was parented, the result replaces it in the same parent.
+	-- If mainPart was unparented (e.g. intermediate parts), result stays unparented.
+	result.Name = name
+	result.UsePartColor = true
+	-- Setting SmoothingAngle is not supported in runtime due to latency and blocking the main thread.
+	pcall(function()
+		result.SmoothingAngle = 70 -- Blend normals across seam edges (degrees)
+	end)
+	result.Parent = mainPart.Parent
+
+	-- Cleanup original parts
+	mainPart:Destroy()
+	for _, part in ipairs(partsToNegate) do
+		part:Destroy()
+	end
+
+	return result
+end
+return ConstructiveSolidGeometry
+dependencyVersionluauCoderesolvedDependenciesstatusv4.1.5variableName
+moduleNamesourceCSGConstructiveSolidGeometrySOSmartObjectGPGeometryPrimitivesMU	MathUtilssuccessMockFerrisWheelResultMockTestResult    ™A   6    #    6  #    6  #    6  #    6  #    6  #    6  €   #    Ÿ	   5     6 	 	Ø   	 	}   	#    	b   6	 
+ 
+	Ø   
+ 
+	}   
+#    
+	b   6
+  
+Ø    
+}   #    
+b   6  Ø    }   #    b   7   
+    Ì   6  €    #    Ÿ	   5     6	 
+ 
+	Ø   
+ 
+	}   
+#    
+	b   6
+  
+Ø    
+}   #    
+b   6  Ø    }   #    b   6  Ø    }   #    b   7	   
+    Ì   6 (   +     	
+	
+                                                                                                                                                                             
+              ©             \             :              ¸                                                                                                                                                                                                                         íÿÿÿ                                                                                                                                                                                                                           íÿÿÿ                                      

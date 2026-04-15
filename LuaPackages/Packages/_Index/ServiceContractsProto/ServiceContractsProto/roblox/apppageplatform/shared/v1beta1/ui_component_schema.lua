@@ -63,7 +63,8 @@ local _roblox_apppageplatform_shared_v1beta1_media_gallery = require(script.Pare
 local _roblox_apppageplatform_shared_v1beta1_play_button_contextual_message =
 	require(script.Parent.play_button_contextual_message)
 local _roblox_apppageplatform_shared_v1beta1_content_row = require(script.Parent.content_row)
-local _roblox_apppageplatform_shared_v1beta1_game_filter_carousel = require(script.Parent.game_filter_carousel)
+local _roblox_apppageplatform_shared_v1beta1_filter_pills_carousel = require(script.Parent.filter_pills_carousel)
+local _roblox_apppageplatform_shared_v1beta1_coachmark = require(script.Parent.coachmark)
 
 type _UiComponentSchemaImpl = {
 	__index: _UiComponentSchemaImpl,
@@ -169,9 +170,10 @@ type _UiComponentSchemaFields = {
 		| { type: "content_row", value: _roblox_apppageplatform_shared_v1beta1_content_row.ContentRowSchema }
 		| { type: "link_text", value: _roblox_apppageplatform_shared_v1beta1_link_text.LinkTextSchema }
 		| {
-			type: "game_filter_carousel",
-			value: _roblox_apppageplatform_shared_v1beta1_game_filter_carousel.GameFilterCarouselSchema,
+			type: "filter_pills_carousel",
+			value: _roblox_apppageplatform_shared_v1beta1_filter_pills_carousel.FilterPillsCarouselSchema,
 		}
+		| { type: "coachmark", value: _roblox_apppageplatform_shared_v1beta1_coachmark.CoachmarkSchema }
 	)?,
 }
 
@@ -269,9 +271,10 @@ type _UiComponentSchemaPartialFields = {
 		| { type: "content_row", value: _roblox_apppageplatform_shared_v1beta1_content_row.ContentRowSchema }
 		| { type: "link_text", value: _roblox_apppageplatform_shared_v1beta1_link_text.LinkTextSchema }
 		| {
-			type: "game_filter_carousel",
-			value: _roblox_apppageplatform_shared_v1beta1_game_filter_carousel.GameFilterCarouselSchema,
+			type: "filter_pills_carousel",
+			value: _roblox_apppageplatform_shared_v1beta1_filter_pills_carousel.FilterPillsCarouselSchema,
 		}
+		| { type: "coachmark", value: _roblox_apppageplatform_shared_v1beta1_coachmark.CoachmarkSchema }
 	)?,
 }
 
@@ -489,9 +492,13 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 49, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "game_filter_carousel" then
+			elseif self.kind.type == "filter_pills_carousel" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 50, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "coachmark" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 51, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -933,10 +940,18 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = {
-						type = "game_filter_carousel",
-						value = _roblox_apppageplatform_shared_v1beta1_game_filter_carousel.GameFilterCarouselSchema.decode(
+						type = "filter_pills_carousel",
+						value = _roblox_apppageplatform_shared_v1beta1_filter_pills_carousel.FilterPillsCarouselSchema.decode(
 							value
 						),
+					}
+					continue
+				elseif field == 51 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "coachmark",
+						value = _roblox_apppageplatform_shared_v1beta1_coachmark.CoachmarkSchema.decode(value),
 					}
 					continue
 				end
@@ -1065,8 +1080,10 @@ do
 				output.contentRow = self.kind.value:jsonEncode()
 			elseif self.kind.type == "link_text" then
 				output.linkText = self.kind.value:jsonEncode()
-			elseif self.kind.type == "game_filter_carousel" then
-				output.gameFilterCarousel = self.kind.value:jsonEncode()
+			elseif self.kind.type == "filter_pills_carousel" then
+				output.filterPillsCarousel = self.kind.value:jsonEncode()
+			elseif self.kind.type == "coachmark" then
+				output.coachmark = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -1784,21 +1801,28 @@ do
 			}
 		end
 
-		if input.game_filter_carousel ~= nil then
+		if input.filter_pills_carousel ~= nil then
 			self.kind = {
-				type = "game_filter_carousel",
-				value = _roblox_apppageplatform_shared_v1beta1_game_filter_carousel.GameFilterCarouselSchema.jsonDecode(
-					input.game_filter_carousel
+				type = "filter_pills_carousel",
+				value = _roblox_apppageplatform_shared_v1beta1_filter_pills_carousel.FilterPillsCarouselSchema.jsonDecode(
+					input.filter_pills_carousel
 				),
 			}
 		end
 
-		if input.gameFilterCarousel ~= nil then
+		if input.filterPillsCarousel ~= nil then
 			self.kind = {
-				type = "game_filter_carousel",
-				value = _roblox_apppageplatform_shared_v1beta1_game_filter_carousel.GameFilterCarouselSchema.jsonDecode(
-					input.gameFilterCarousel
+				type = "filter_pills_carousel",
+				value = _roblox_apppageplatform_shared_v1beta1_filter_pills_carousel.FilterPillsCarouselSchema.jsonDecode(
+					input.filterPillsCarousel
 				),
+			}
+		end
+
+		if input.coachmark ~= nil then
+			self.kind = {
+				type = "coachmark",
+				value = _roblox_apppageplatform_shared_v1beta1_coachmark.CoachmarkSchema.jsonDecode(input.coachmark),
 			}
 		end
 
