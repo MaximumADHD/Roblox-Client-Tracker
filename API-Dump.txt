@@ -913,7 +913,6 @@ Class AudioPlayer : Instance
 	Property AudioPlayer.Volume: number {🚧Audio}
 	Property AudioPlayer.AssetId: string {🚧Audio} [📁LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property AudioPlayer.AudioContent: Content {🚧Audio} [Hidden]
-	Property AudioPlayer.IsMutedForCapture: boolean {🚧Audio} {🔒RobloxScript} [Hidden]
 	Function AudioPlayer:Cancel(actionId: number?) -> boolean {🚧Audio}
 	Function AudioPlayer:GetConnectedWires(pin: string) -> { Instance } {🚧Audio}
 	Function AudioPlayer:GetInputPins() -> { any } {🚧Audio}
@@ -1027,11 +1026,9 @@ Class AuroraScriptService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraScriptService:getInstancesForBehavior(behavior: AuroraScript) -> { Instance } {🚧Basic} [Deprecated]
 Class AuroraService : Instance {🔒RobloxScript} [NotCreatable] [Service] [Deprecated]
 	Property AuroraService.BufferFullInputCount: number {🔒RobloxEngine} [Hidden] [NotScriptable] [Deprecated]
-	Property AuroraService.EnableInputLatencyMaxResimFrames: boolean {🔒RobloxEngine} [Deprecated]
 	Property AuroraService.HashRoundingPoint: number [Deprecated]
 	Property AuroraService.IgnoreRotation: boolean [Deprecated]
 	Property AuroraService.InputDropRate: number {🔒RobloxEngine} [Hidden] [NotScriptable] [Deprecated]
-	Property AuroraService.InputLatencyMaxResimFrames: number {🔒RobloxEngine} [Deprecated]
 	Property AuroraService.LockStepIdOffset: boolean [Deprecated]
 	Property AuroraService.OutOfOrderInputCount: number {🔒RobloxEngine} [Hidden] [NotScriptable] [Deprecated]
 	Property AuroraService.RCCHeartbeatFPS: number {🔒RobloxEngine} [Hidden] [NotScriptable] [Deprecated]
@@ -2111,7 +2108,6 @@ Class ContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ContentProvider:Preload(contentId: string) -> () {🚧AssetManagement} [Deprecated]
 	Event ContentProvider.AssetFetchFailed(assetId: string) {🚧AssetManagement}
 Class ContextActionService : Instance [NotCreatable] [Service]
-	Property ContextActionService.NetcodeInputLatency: number {🚧Input} {🔒RobloxEngine}
 	Function ContextActionService:BindAction(actionName: string, functionToBind: (...any) -> ...any, createTouchButton: boolean, inputTypes: ...any) -> () {🚧Input}
 	Function ContextActionService:BindActionAtPriority(actionName: string, functionToBind: (...any) -> ...any, createTouchButton: boolean, priorityLevel: number, inputTypes: ...any) -> () {🚧Input}
 	Function ContextActionService:BindActivate(userInputTypeForActivation: Enum.UserInputType, keyCodesForActivation: ...any) -> () {🚧Input}
@@ -2568,6 +2564,7 @@ Class ExperienceService : Instance {🔒RobloxScript} [NotCreatable] [Service] [
 	Function ExperienceService:ExecuteCrossExperienceCall(callId: string, params: { [string]: any }, successCallback: (...any) -> ...any, errorCallback: (...any) -> ...any) -> () {🔒RobloxScript}
 	Function ExperienceService:GetPendingJoinAttempt() -> { [string]: any } {🔒RobloxScript}
 	Function ExperienceService:GetPlaceJoinState() -> string {🔒RobloxScript}
+	Function ExperienceService:GetQueuePosition() -> number {🔒RobloxScript}
 	Function ExperienceService:LaunchExperience(params: { [string]: any }) -> string {🔒RobloxScript}
 	Function ExperienceService:LaunchExperienceFromSource(params: { [string]: any }, source: string) -> string {🔒RobloxScript}
 	Function ExperienceService:LaunchExperienceFromSourceWithCallback(params: { [string]: any }, source: string, callback: (...any) -> ...any) -> () {🔒RobloxScript}
@@ -2579,6 +2576,7 @@ Class ExperienceService : Instance {🔒RobloxScript} [NotCreatable] [Service] [
 	Event ExperienceService.OnCrossExperienceStopped(type: string, params: { [string]: any }) {🔒RobloxScript}
 	Event ExperienceService.OnNewJoinAttempt(params: { [string]: any }) {🔒RobloxScript}
 	Event ExperienceService.PlaceJoinStateChanged(state: string) {🔒RobloxScript}
+	Event ExperienceService.QueuePositionChanged(position: number) {🔒RobloxScript}
 Class ExperienceStateCaptureService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Property ExperienceStateCaptureService.HiddenSelectionEnabled: boolean {🔒RobloxScript} [Hidden] [NotReplicated]
 	Property ExperienceStateCaptureService.IsInBackground: boolean {🔒RobloxScript} [Hidden] [ReadOnly]
@@ -3232,6 +3230,7 @@ Class LayerCollector : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property LayerCollector.Enabled: boolean {🚧UI}
 	Property LayerCollector.ResetOnSpawn: boolean {🚧UI}
 	Property LayerCollector.ZIndexBehavior: Enum.ZIndexBehavior {🚧UI}
+	Property LayerCollector.TabKeyboardNavigation: boolean {🚧UI} {🔒RobloxScript}
 	Function LayerCollector:GetGuiObjectsAtPosition(x: number, y: number) -> { Instance } {🚧UI} {🔒RobloxScript}
 	Function LayerCollector:GetLayoutNodeTree() -> { [string]: any } {🚧UI} [Deprecated]
 Class BillboardGui : LayerCollector
@@ -3634,20 +3633,20 @@ Class HttpService : Instance [NotCreatable] [Service]
 	Function HttpService:RequestInternal(options: { [string]: any }) -> Instance? {🔒RobloxScript}
 	Function HttpService:SetHttpEnabled(enabled: boolean) -> () {🔒RobloxScript}
 Class Humanoid : Instance
-	Property Humanoid.BreakJointsOnDeath: boolean {🚧AvatarAppearance}
-	Property Humanoid.EvaluateStateMachine: boolean {🚧AvatarAppearance}
-	Property Humanoid.RequiresNeck: boolean {🚧AvatarAppearance}
-	Property Humanoid.AutoRotate: boolean {🚧AvatarAppearance}
-	Property Humanoid.FloorMaterial: Enum.Material {🚧AvatarAppearance} [ReadOnly]
-	Property Humanoid.Jump: boolean {🚧AvatarAppearance} [📁LoadOnly] [NotReplicated]
-	Property Humanoid.MoveDirection: Vector3 {🚧AvatarAppearance} [ReadOnly]
-	Property Humanoid.PlatformStand: boolean {🚧AvatarAppearance}
-	Property Humanoid.SeatPart: BasePart? {🚧AvatarAppearance} [ReadOnly]
-	Property Humanoid.Sit: boolean {🚧AvatarAppearance}
-	Property Humanoid.TargetPoint: Vector3 {🚧AvatarAppearance}
-	Property Humanoid.WalkToPart: BasePart? {🚧AvatarAppearance}
-	Property Humanoid.WalkToPoint: Vector3 {🚧AvatarAppearance}
-	Property Humanoid.CameraOffset: Vector3 {🚧AvatarAppearance}
+	Property Humanoid.BreakJointsOnDeath: boolean {🚧AvatarBehavior}
+	Property Humanoid.EvaluateStateMachine: boolean {🚧AvatarBehavior}
+	Property Humanoid.RequiresNeck: boolean {🚧AvatarBehavior}
+	Property Humanoid.AutoRotate: boolean {🚧AvatarBehavior}
+	Property Humanoid.FloorMaterial: Enum.Material {🚧AvatarBehavior} [ReadOnly]
+	Property Humanoid.Jump: boolean {🚧AvatarBehavior} [📁LoadOnly] [NotReplicated]
+	Property Humanoid.MoveDirection: Vector3 {🚧AvatarBehavior} [ReadOnly]
+	Property Humanoid.PlatformStand: boolean {🚧AvatarBehavior}
+	Property Humanoid.SeatPart: BasePart? {🚧AvatarBehavior} [ReadOnly]
+	Property Humanoid.Sit: boolean {🚧AvatarBehavior}
+	Property Humanoid.TargetPoint: Vector3 {🚧AvatarBehavior}
+	Property Humanoid.WalkToPart: BasePart? {🚧AvatarBehavior}
+	Property Humanoid.WalkToPoint: Vector3 {🚧AvatarBehavior}
+	Property Humanoid.CameraOffset: Vector3 {🚧AvatarBehavior}
 	Property Humanoid.DisplayDistanceType: Enum.HumanoidDisplayDistanceType {🚧AvatarAppearance}
 	Property Humanoid.DisplayName: string {🚧AvatarAppearance}
 	Property Humanoid.HealthDisplayDistance: number {🚧AvatarAppearance}
@@ -3655,111 +3654,111 @@ Class Humanoid : Instance
 	Property Humanoid.NameDisplayDistance: number {🚧AvatarAppearance}
 	Property Humanoid.NameOcclusion: Enum.NameOcclusion {🚧AvatarAppearance}
 	Property Humanoid.RigType: Enum.HumanoidRigType {🚧AvatarAppearance}
-	Property Humanoid.RootPart: BasePart? {🚧AvatarAppearance} [ReadOnly]
+	Property Humanoid.RootPart: BasePart? {🚧AvatarBehavior} [ReadOnly]
 	Property Humanoid.AutomaticScalingEnabled: boolean {🚧AvatarAppearance}
-	Property Humanoid.Health: number {🚧AvatarAppearance} [📁LoadOnly] [NotReplicated]
+	Property Humanoid.Health: number {🚧AvatarBehavior} [📁LoadOnly] [NotReplicated]
 	Property Humanoid.HipHeight: number {🚧AvatarAppearance}
-	Property Humanoid.MaxHealth: number {🚧AvatarAppearance}
-	Property Humanoid.MaxSlopeAngle: number {🚧AvatarAppearance}
-	Property Humanoid.WalkSpeed: number {🚧AvatarAppearance}
-	Property Humanoid.AutoJumpEnabled: boolean {🚧AvatarAppearance}
-	Property Humanoid.JumpHeight: number {🚧AvatarAppearance}
-	Property Humanoid.JumpPower: number {🚧AvatarAppearance}
-	Property Humanoid.UseJumpPower: boolean {🚧AvatarAppearance}
-	Property Humanoid.CollisionType: Enum.HumanoidCollisionType {🚧AvatarAppearance} {✏️Plugin} [Deprecated]
-	Property Humanoid.JumpReplicate: boolean {🚧AvatarAppearance} [Hidden] [NotScriptable]
-	Property Humanoid.MoveDirectionInternal: Vector3 {🚧AvatarAppearance} [Hidden] [NotScriptable]
-	Property Humanoid.Strafe: boolean {🚧AvatarAppearance} [Hidden] [NotScriptable]
-	Property Humanoid.WalkAngleError: number {🚧AvatarAppearance} [Hidden] [NotScriptable]
-	Property Humanoid.WalkDirection: Vector3 {🚧AvatarAppearance} [Hidden] [NotScriptable]
+	Property Humanoid.MaxHealth: number {🚧AvatarBehavior}
+	Property Humanoid.MaxSlopeAngle: number {🚧AvatarBehavior}
+	Property Humanoid.WalkSpeed: number {🚧AvatarBehavior}
+	Property Humanoid.AutoJumpEnabled: boolean {🚧AvatarBehavior}
+	Property Humanoid.JumpHeight: number {🚧AvatarBehavior}
+	Property Humanoid.JumpPower: number {🚧AvatarBehavior}
+	Property Humanoid.UseJumpPower: boolean {🚧AvatarBehavior}
+	Property Humanoid.CollisionType: Enum.HumanoidCollisionType {✏️Plugin} [Deprecated]
+	Property Humanoid.JumpReplicate: boolean {🚧AvatarBehavior} [Hidden] [NotScriptable]
+	Property Humanoid.MoveDirectionInternal: Vector3 {🚧AvatarBehavior} [Hidden] [NotScriptable]
+	Property Humanoid.Strafe: boolean {🚧AvatarBehavior} [Hidden] [NotScriptable]
+	Property Humanoid.WalkAngleError: number {🚧AvatarBehavior} [Hidden] [NotScriptable]
+	Property Humanoid.WalkDirection: Vector3 {🚧AvatarBehavior} [Hidden] [NotScriptable]
 	Property Humanoid.CameraMaxDistance: number {🚧AvatarAppearance} [Hidden] [NotScriptable]
 	Property Humanoid.CameraMinDistance: number {🚧AvatarAppearance} [Hidden] [NotScriptable]
-	Property Humanoid.CameraMode: Enum.CameraMode {🚧AvatarAppearance} [Hidden] [NotScriptable]
+	Property Humanoid.CameraMode: Enum.CameraMode {🚧AvatarBehavior} [Hidden] [NotScriptable]
 	Property Humanoid.InternalBodyScale: Vector3 {🚧AvatarAppearance} [Hidden] [NotReplicated] [NotScriptable]
-	Property Humanoid.InternalDisplayName: string {🚧AvatarAppearance} {🔒RobloxScript} [Hidden] [NotReplicated]
+	Property Humanoid.InternalDisplayName: string {🔒RobloxScript} [Hidden] [NotReplicated]
 	Property Humanoid.InternalHeadScale: number {🚧AvatarAppearance} [Hidden] [NotReplicated] [NotScriptable]
 	Property Humanoid.InternalOriginalHipHeight: number {🚧AvatarAppearance} [Hidden] [NotScriptable]
-	Property Humanoid.LeftLeg: BasePart? {🚧AvatarAppearance} [📁LoadOnly] [Hidden] [NotReplicated] [Deprecated]
-	Property Humanoid.NetworkHumanoidState: Enum.HumanoidStateType {🚧AvatarAppearance} [Hidden] [NotScriptable]
-	Property Humanoid.OverrideDefaultCollisions: boolean {🚧AvatarAppearance} {🔒RobloxEngine} [Hidden] [NotScriptable]
-	Property Humanoid.RightLeg: BasePart? {🚧AvatarAppearance} [📁LoadOnly] [Hidden] [NotReplicated] [Deprecated]
-	Property Humanoid.RotationType: Enum.RotationType {🚧AvatarAppearance} {🔒RobloxEngine} [Hidden] [NotScriptable]
-	Property Humanoid.Torso: BasePart? {🚧AvatarAppearance} [📁LoadOnly] [Hidden] [NotReplicated] [Deprecated]
-	Property Humanoid.Health_XML: number {🚧AvatarAppearance} [Hidden] [NotScriptable]
-	Property Humanoid.maxHealth: number {🚧AvatarAppearance} [📁LoadOnly] [NotReplicated] [Deprecated]
+	Property Humanoid.LeftLeg: BasePart? {🚧AvatarBehavior} [📁LoadOnly] [Hidden] [NotReplicated] [Deprecated]
+	Property Humanoid.NetworkHumanoidState: Enum.HumanoidStateType {🚧AvatarBehavior} [Hidden] [NotScriptable]
+	Property Humanoid.OverrideDefaultCollisions: boolean {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Humanoid.RightLeg: BasePart? {🚧AvatarBehavior} [📁LoadOnly] [Hidden] [NotReplicated] [Deprecated]
+	Property Humanoid.RotationType: Enum.RotationType {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Humanoid.Torso: BasePart? {🚧AvatarBehavior} [📁LoadOnly] [Hidden] [NotReplicated] [Deprecated]
+	Property Humanoid.Health_XML: number {🚧AvatarBehavior} [Hidden] [NotScriptable]
+	Property Humanoid.maxHealth: number {🚧AvatarBehavior} [📁LoadOnly] [NotReplicated] [Deprecated]
 	Function Humanoid:AddAccessory(accessory: Instance) -> () {🚧AvatarAppearance}
 	Function Humanoid:ApplyDescriptionAsync(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () {🚧AvatarAppearance} [Yields]
 	Function Humanoid:ApplyDescriptionResetAsync(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () {🚧AvatarAppearance} [Yields]
-	Function Humanoid:BuildRigFromAttachments() -> () {🚧AvatarAppearance + AvatarBehavior}
-	Function Humanoid:ChangeState(state: Enum.HumanoidStateType? = "None") -> () {🚧AvatarAppearance + AvatarBehavior}
-	Function Humanoid:EquipTool(tool: Instance) -> () {🚧AvatarAppearance + AvatarBehavior}
+	Function Humanoid:BuildRigFromAttachments() -> () {🚧AvatarBehavior}
+	Function Humanoid:ChangeState(state: Enum.HumanoidStateType? = "None") -> () {🚧AvatarBehavior}
+	Function Humanoid:EquipTool(tool: Instance) -> () {🚧AvatarBehavior}
 	Function Humanoid:GetAccessories() -> { any } {🚧AvatarAppearance}
 	Function Humanoid:GetAppliedDescription() -> HumanoidDescription {🚧AvatarAppearance}
-	Function Humanoid:GetBodyPartR15(part: Instance) -> Enum.BodyPartR15 {🚧AvatarAppearance + AvatarBehavior}
-	Function Humanoid:GetLimb(part: Instance) -> Enum.Limb {🚧AvatarAppearance + AvatarBehavior}
-	Function Humanoid:GetMoveVelocity() -> Vector3 {🚧AvatarAppearance + AvatarBehavior}
-	Function Humanoid:GetRelativeVelocityAtFloor() -> Vector3 {🚧AvatarAppearance + AvatarBehavior}
-	Function Humanoid:GetState() -> Enum.HumanoidStateType {🚧AvatarAppearance + AvatarBehavior} {🧬Safe}
-	Function Humanoid:GetStateEnabled(state: Enum.HumanoidStateType) -> boolean {🚧AvatarAppearance + AvatarBehavior} {🧬Safe}
-	Function Humanoid:Move(moveDirection: Vector3, relativeToCamera: boolean? = false) -> () {🚧AvatarAppearance + AvatarBehavior}
-	Function Humanoid:MoveTo(location: Vector3, part: Instance? = nil) -> () {🚧AvatarAppearance + AvatarBehavior}
-	Function Humanoid:PlayEmoteAsync(emoteName: string) -> boolean {🚧AvatarAppearance + AvatarBehavior} [Yields]
+	Function Humanoid:GetBodyPartR15(part: Instance) -> Enum.BodyPartR15 {🚧AvatarBehavior}
+	Function Humanoid:GetLimb(part: Instance) -> Enum.Limb {🚧AvatarBehavior}
+	Function Humanoid:GetMoveVelocity() -> Vector3 {🚧AvatarBehavior}
+	Function Humanoid:GetRelativeVelocityAtFloor() -> Vector3 {🚧AvatarBehavior}
+	Function Humanoid:GetState() -> Enum.HumanoidStateType {🚧AvatarBehavior} {🧬Safe}
+	Function Humanoid:GetStateEnabled(state: Enum.HumanoidStateType) -> boolean {🚧AvatarBehavior} {🧬Safe}
+	Function Humanoid:Move(moveDirection: Vector3, relativeToCamera: boolean? = false) -> () {🚧AvatarBehavior}
+	Function Humanoid:MoveTo(location: Vector3, part: Instance? = nil) -> () {🚧AvatarBehavior}
+	Function Humanoid:PlayEmoteAsync(emoteName: string) -> boolean {🚧AvatarBehavior} [Yields]
 	Function Humanoid:RemoveAccessories() -> () {🚧AvatarAppearance}
 	Function Humanoid:ReplaceBodyPartR15(bodyPart: Enum.BodyPartR15, part: BasePart) -> boolean {🚧AvatarAppearance}
-	Function Humanoid:SetStateEnabled(state: Enum.HumanoidStateType, enabled: boolean) -> () {🚧AvatarAppearance + AvatarBehavior}
-	Function Humanoid:TakeDamage(amount: number) -> () {🚧AvatarAppearance + AvatarBehavior}
-	Function Humanoid:UnequipTools() -> () {🚧AvatarAppearance + AvatarBehavior}
-	Function Humanoid:AddCustomStatus(status: string) -> boolean {🚧AvatarAppearance} [Deprecated]
-	Function Humanoid:AddStatus(status: Enum.Status? = "Poison") -> boolean {🚧AvatarAppearance} [Deprecated]
-	Function Humanoid:ApplyAvatarRules(avatarRules: AvatarRules) -> () {🚧AvatarAppearance} {🔒RobloxScript} [Yields]
+	Function Humanoid:SetStateEnabled(state: Enum.HumanoidStateType, enabled: boolean) -> () {🚧AvatarBehavior}
+	Function Humanoid:TakeDamage(amount: number) -> () {🚧AvatarBehavior}
+	Function Humanoid:UnequipTools() -> () {🚧AvatarBehavior}
+	Function Humanoid:AddCustomStatus(status: string) -> boolean [Deprecated]
+	Function Humanoid:AddStatus(status: Enum.Status? = "Poison") -> boolean [Deprecated]
+	Function Humanoid:ApplyAvatarRules(avatarRules: AvatarRules) -> () {🔒RobloxScript} [Yields]
 	Function Humanoid:ApplyDescription(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () {🚧AvatarAppearance} [Yields] [Deprecated]
-	Function Humanoid:ApplyDescriptionClientServer(humanoidDescription: HumanoidDescription) -> () {🚧AvatarAppearance} {🔒RobloxScript} [Yields]
+	Function Humanoid:ApplyDescriptionClientServer(humanoidDescription: HumanoidDescription) -> () {🔒RobloxScript} [Yields]
 	Function Humanoid:ApplyDescriptionReset(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () {🚧AvatarAppearance} [Yields] [Deprecated]
-	Function Humanoid:CacheDefaults() -> () {🚧AvatarAppearance} {🔒RobloxScript}
-	Function Humanoid:ComputeOriginalSizeForPart(part: Instance) -> Vector3? {🚧AvatarAppearance} {🔒RobloxScript}
-	Function Humanoid:ComputeR15BodyBoundingBox() -> (CFrame, Vector3) {🚧AvatarAppearance} {🔒RobloxScript}
-	Function Humanoid:GetAccessoryHandleScale(instance: Instance, partType: Enum.BodyPartR15) -> Vector3 {🚧AvatarAppearance} {🔒RobloxScript}
-	Function Humanoid:GetPlayingAnimationTracks() -> { any } {🚧AvatarAppearance} [Deprecated]
-	Function Humanoid:GetStatuses() -> { any } {🚧AvatarAppearance} [Deprecated]
-	Function Humanoid:HasCustomStatus(status: string) -> boolean {🚧AvatarAppearance} [Deprecated]
-	Function Humanoid:HasStatus(status: Enum.Status? = "Poison") -> boolean {🚧AvatarAppearance} [Deprecated]
-	Function Humanoid:LoadAnimation(animation: Animation) -> AnimationTrack {🚧AvatarAppearance} [Deprecated]
-	Function Humanoid:PlayEmote(emoteName: string) -> boolean {🚧AvatarAppearance + AvatarBehavior} [Yields] [Deprecated]
-	Function Humanoid:PlayEmoteAndGetAnimTrackById(emoteId: number) -> ...any {🚧AvatarAppearance} {🔒RobloxScript} [Yields]
-	Function Humanoid:RemoveCustomStatus(status: string) -> boolean {🚧AvatarAppearance} [Deprecated]
-	Function Humanoid:RemoveStatus(status: Enum.Status? = "Poison") -> boolean {🚧AvatarAppearance} [Deprecated]
-	Function Humanoid:SetClickToWalkEnabled(enabled: boolean) -> () {🚧AvatarAppearance} {🔒RobloxScript}
-	Function Humanoid:loadAnimation(animation: Animation) -> AnimationTrack {🚧AvatarAppearance} [Deprecated]
-	Function Humanoid:takeDamage(amount: number) -> () {🚧AvatarAppearance} [Deprecated]
+	Function Humanoid:CacheDefaults() -> () {🔒RobloxScript}
+	Function Humanoid:ComputeOriginalSizeForPart(part: Instance) -> Vector3? {🔒RobloxScript}
+	Function Humanoid:ComputeR15BodyBoundingBox() -> (CFrame, Vector3) {🔒RobloxScript}
+	Function Humanoid:GetAccessoryHandleScale(instance: Instance, partType: Enum.BodyPartR15) -> Vector3 {🔒RobloxScript}
+	Function Humanoid:GetPlayingAnimationTracks() -> { any } {🚧Animation} [Deprecated]
+	Function Humanoid:GetStatuses() -> { any } [Deprecated]
+	Function Humanoid:HasCustomStatus(status: string) -> boolean [Deprecated]
+	Function Humanoid:HasStatus(status: Enum.Status? = "Poison") -> boolean [Deprecated]
+	Function Humanoid:LoadAnimation(animation: Animation) -> AnimationTrack {🚧Animation} [Deprecated]
+	Function Humanoid:PlayEmote(emoteName: string) -> boolean {🚧AvatarBehavior} [Yields] [Deprecated]
+	Function Humanoid:PlayEmoteAndGetAnimTrackById(emoteId: number) -> ...any {🔒RobloxScript} [Yields]
+	Function Humanoid:RemoveCustomStatus(status: string) -> boolean [Deprecated]
+	Function Humanoid:RemoveStatus(status: Enum.Status? = "Poison") -> boolean [Deprecated]
+	Function Humanoid:SetClickToWalkEnabled(enabled: boolean) -> () {🔒RobloxScript}
+	Function Humanoid:loadAnimation(animation: Animation) -> AnimationTrack {🚧Animation} [Deprecated]
+	Function Humanoid:takeDamage(amount: number) -> () {🚧AvatarBehavior} [Deprecated]
 	Event Humanoid.ApplyDescriptionFinished(description: HumanoidDescription) {🚧AvatarAppearance}
-	Event Humanoid.Climbing(speed: number) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.Died() {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.FallingDown(active: boolean) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.FreeFalling(active: boolean) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.GettingUp(active: boolean) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.HealthChanged(health: number) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.Jumping(active: boolean) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.MoveToFinished(reached: boolean) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.PlatformStanding(active: boolean) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.Ragdoll(active: boolean) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.Running(speed: number) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.Seated(active: boolean, currentSeatPart: BasePart) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.StateChanged(old: Enum.HumanoidStateType, new: Enum.HumanoidStateType) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.StateEnabledChanged(state: Enum.HumanoidStateType, isEnabled: boolean) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.Strafing(active: boolean) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.Swimming(speed: number) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.Touched(touchingPart: BasePart, humanoidPart: BasePart) {🚧AvatarAppearance + AvatarBehavior}
-	Event Humanoid.AnimationPlayed(animationTrack: AnimationTrack) {🚧AvatarAppearance} [Deprecated]
-	Event Humanoid.ClusterCompositionFinished() {🚧AvatarAppearance} {🔒RobloxScript}
-	Event Humanoid.CustomStatusAdded(status: string) {🚧AvatarAppearance} [Deprecated]
-	Event Humanoid.CustomStatusRemoved(status: string) {🚧AvatarAppearance} [Deprecated]
-	Event Humanoid.EmoteTriggered(success: boolean, animationTrack: AnimationTrack) {🚧AvatarAppearance} {🔒RobloxScript}
-	Event Humanoid.ServerApplyDescription(status: boolean) {🚧AvatarAppearance} {🔒RobloxEngine} [Hidden]
-	Event Humanoid.ServerBreakJoints() {🚧AvatarAppearance} {🔒RobloxEngine} [Hidden]
-	Event Humanoid.ServerEquipTool(tool: Tool) {🚧AvatarAppearance} {🔒RobloxEngine} [Hidden]
-	Event Humanoid.ServerResetCharacter() {🚧AvatarAppearance} {🔒RobloxEngine} [Hidden]
-	Event Humanoid.StatusAdded(status: Enum.Status) {🚧AvatarAppearance} [Deprecated]
-	Event Humanoid.StatusRemoved(status: Enum.Status) {🚧AvatarAppearance} [Deprecated]
+	Event Humanoid.Climbing(speed: number) {🚧AvatarBehavior}
+	Event Humanoid.Died() {🚧AvatarBehavior}
+	Event Humanoid.FallingDown(active: boolean) {🚧AvatarBehavior}
+	Event Humanoid.FreeFalling(active: boolean) {🚧AvatarBehavior}
+	Event Humanoid.GettingUp(active: boolean) {🚧AvatarBehavior}
+	Event Humanoid.HealthChanged(health: number) {🚧AvatarBehavior}
+	Event Humanoid.Jumping(active: boolean) {🚧AvatarBehavior}
+	Event Humanoid.MoveToFinished(reached: boolean) {🚧AvatarBehavior}
+	Event Humanoid.PlatformStanding(active: boolean) {🚧AvatarBehavior}
+	Event Humanoid.Ragdoll(active: boolean) {🚧AvatarBehavior}
+	Event Humanoid.Running(speed: number) {🚧AvatarBehavior}
+	Event Humanoid.Seated(active: boolean, currentSeatPart: BasePart) {🚧AvatarBehavior}
+	Event Humanoid.StateChanged(old: Enum.HumanoidStateType, new: Enum.HumanoidStateType) {🚧AvatarBehavior}
+	Event Humanoid.StateEnabledChanged(state: Enum.HumanoidStateType, isEnabled: boolean) {🚧AvatarBehavior}
+	Event Humanoid.Strafing(active: boolean) {🚧AvatarBehavior}
+	Event Humanoid.Swimming(speed: number) {🚧AvatarBehavior}
+	Event Humanoid.Touched(touchingPart: BasePart, humanoidPart: BasePart) {🚧AvatarBehavior}
+	Event Humanoid.AnimationPlayed(animationTrack: AnimationTrack) {🚧Animation} [Deprecated]
+	Event Humanoid.ClusterCompositionFinished() {🔒RobloxScript}
+	Event Humanoid.CustomStatusAdded(status: string) [Deprecated]
+	Event Humanoid.CustomStatusRemoved(status: string) [Deprecated]
+	Event Humanoid.EmoteTriggered(success: boolean, animationTrack: AnimationTrack) {🔒RobloxScript}
+	Event Humanoid.ServerApplyDescription(status: boolean) {🔒RobloxEngine} [Hidden]
+	Event Humanoid.ServerBreakJoints() {🔒RobloxEngine} [Hidden]
+	Event Humanoid.ServerEquipTool(tool: Tool) {🔒RobloxEngine} [Hidden]
+	Event Humanoid.ServerResetCharacter() {🔒RobloxEngine} [Hidden]
+	Event Humanoid.StatusAdded(status: Enum.Status) [Deprecated]
+	Event Humanoid.StatusRemoved(status: Enum.Status) [Deprecated]
 Class HumanoidDescription : Instance
 	Property HumanoidDescription.AccessoryBlob: string {🚧AvatarAppearance} [📁LoadOnly] [NotReplicated] [NotScriptable]
 	Property HumanoidDescription.BackAccessory: string {🚧AvatarAppearance} [📁LoadOnly] [NotReplicated]
@@ -4104,6 +4103,7 @@ Class InstanceFileSyncService : Instance {🔒Plugin} [NotCreatable] [Service] [
 	Function InstanceFileSyncService:GetTooltip(instance: Instance) -> string? {🔒RobloxScript}
 	Event InstanceFileSyncService.StatusChanged(instance: Instance, status: Enum.InstanceFileSyncStatus) {🔒Plugin}
 Class InternalMessagingService : Instance {🔒RobloxEngine} [NotCreatable] [Service] [NotReplicated]
+Class InternalMessagingServiceVerifier : Instance {🔒RobloxEngine} [NotCreatable] [Service] [NotReplicated]
 Class InternalSyncItem : Instance {🔒RobloxScript} [NotReplicated]
 	Property InternalSyncItem.AutoSync: boolean {🔒RobloxScript} [NotReplicated]
 	Property InternalSyncItem.Enabled: boolean {🔒RobloxScript} [NotReplicated]
@@ -4414,6 +4414,7 @@ Class MarkerCurve : Instance
 	Function MarkerCurve:InsertMarkerAtTime(time: number, marker: string) -> { any } {🚧Animation}
 	Function MarkerCurve:RemoveMarkerAtIndex(startingIndex: number, count: number? = 1) -> number {🚧Animation}
 Class MarketplaceService : Instance [NotCreatable] [Service]
+	Function MarketplaceService:BindReceiptHandler(transactionType: Enum.ReceiptType, handler: (...any) -> ...any, filter: { any }?) -> RBXScriptConnection {🚧Monetization}
 	Function MarketplaceService:GetDeveloperProductsAsync() -> Instance? {🚧AssetRead} [Yields]
 	Function MarketplaceService:GetProductInfoAsync(assetId: number, infoType: Enum.InfoType? = "Asset") -> { [string]: any } {🚧AssetRead} [Yields]
 	Function MarketplaceService:GetRobloxSubscriptionDetailsAsync(user: Player) -> { [string]: any } {🚧Monetization} [Yields]
@@ -4432,6 +4433,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:PromptProductPurchase(player: Instance, productId: number, equipIfPurchased: boolean? = true, currencyType: Enum.CurrencyType? = "Default") -> () {🚧PromptExternalPurchase}
 	Function MarketplaceService:PromptPurchase(player: Instance, assetId: number, equipIfPurchased: boolean? = true, currencyType: Enum.CurrencyType? = "Default") -> () {🚧PromptExternalPurchase}
 	Function MarketplaceService:PromptRobloxSubscriptionPurchase(user: Player) -> () {🚧PromptExternalPurchase}
+	Function MarketplaceService:PromptRobuxTransferAsync(sender: Player, receiverUserId: number, amount: number) -> string {🚧PromptExternalPurchase} [Yields]
 	Function MarketplaceService:PromptSubscriptionPurchase(user: Player, subscriptionId: string) -> () {🚧PromptExternalPurchase}
 	Function MarketplaceService:PromptThirdPartyPurchase(player: Instance, productId: string) -> () {🔒LocalUser}
 	Function MarketplaceService:RankProductsAsync(productIdentifiers: { any }) -> { any } [Yields]
@@ -4473,6 +4475,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:SignalPromptPurchaseFinished(player: Instance, assetId: number, success: boolean) -> () {🔒RobloxScript}
 	Function MarketplaceService:SignalPromptRobloxSubscriptionPurchaseFinished(subscriptionId: string, didTryPurchasing: boolean) -> () {🔒RobloxScript}
 	Function MarketplaceService:SignalPromptSubscriptionPurchaseFinished(subscriptionId: string, didTryPurchasing: boolean) -> () {🔒RobloxScript}
+	Function MarketplaceService:SignalRobuxTransferCompleted(userId: number) -> () {🔒RobloxScript}
 	Function MarketplaceService:SignalServerLuaDialogClosed(value: boolean) -> () {🔒RobloxScript}
 	Function MarketplaceService:SignalUserSubscriptionStatusChanged(subscriptionId: string) -> () {🔒RobloxScript}
 	Event MarketplaceService.PromptBulkPurchaseFinished(player: Instance, status: Enum.MarketplaceBulkPurchasePromptStatus, results: { [string]: any }) {🚧PromptExternalPurchase}
@@ -4497,7 +4500,8 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.NativePurchaseFinished(player: Instance, productId: string, wasPurchased: boolean) {🔒RobloxScript}
 	Event MarketplaceService.NativePurchaseFinishedWithLocalPlayer(productId: string, wasPurchased: boolean) {🔒RobloxScript}
 	Event MarketplaceService.PrepareCollectiblesPurchaseRequested(player: Instance, assetId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number) {🔒RobloxScript}
-	Event MarketplaceService.PromptBulkPurchaseRequested(player: Instance, displayData: { any }, orderRequest: { [string]: any }, purchaserRobuxBalance: number, orderTotalRobux: number, options: { [string]: any }, discountInformation: { [string]: any }) {🔒RobloxScript}
+	Event MarketplaceService.PromptBulkPurchaseRequested(player: Instance, displayData: { any }, orderRequest: { [string]: any }, purchaserRobuxBalance: number, orderTotalRobux: number, options: { [string]: any }) {🔒RobloxScript}
+	Event MarketplaceService.PromptBulkPurchaseRequestedV2(player: Instance, displayData: { any }, orderRequest: { [string]: any }, purchaserRobuxBalance: number, orderTotalRobux: number, options: { [string]: any }, discountInformation: { [string]: any }) {🔒RobloxScript}
 	Event MarketplaceService.PromptBundlePurchaseRequested(player: Instance, bundleId: number) {🔒RobloxScript}
 	Event MarketplaceService.PromptCancelSubscriptionRequested(subscriptionId: string) {🔒RobloxScript}
 	Event MarketplaceService.PromptCollectibleBundlePurchaseRequested(player: Instance, bundleId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number, idempotencyKey: string, purchaseAuthToken: string) {🔒RobloxScript}
@@ -4511,8 +4515,10 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.PromptPurchaseRequestedV2(player: Instance, assetId: number, equipIfPurchased: boolean, currencyType: Enum.CurrencyType, idempotencyKey: string, purchaseAuthToken: string) {🔒RobloxScript}
 	Event MarketplaceService.PromptRobloxPurchaseRequested(assetId: number, equipIfPurchased: boolean) {🔒RobloxScript}
 	Event MarketplaceService.PromptRobloxSubscriptionPurchaseRequested() {🔒RobloxScript}
+	Event MarketplaceService.PromptRobuxTransferRequested(player: Instance, jsonResponse: string) {🔒RobloxScript}
 	Event MarketplaceService.PromptSubscriptionPurchaseRequested(subscriptionId: string) {🔒RobloxScript}
 	Event MarketplaceService.PromptThirdPartyPurchaseRequested(player: Instance, productId: string) {🔒RobloxEngine} [Hidden]
+	Event MarketplaceService.RobuxTransferCompleted(userId: number) {🔒RobloxScript}
 	Event MarketplaceService.ServerPurchaseVerification(serverResponseTable: { [string]: any }) {🔒RobloxScript}
 	Event MarketplaceService.UserSubscriptionStatusChanged(subscriptionId: string) {🔒RobloxScript}
 	Callback MarketplaceService.ProcessReceipt(receiptInfo: { [string]: any }) -> Enum.ProductPurchaseDecision {🚧Monetization}
@@ -5272,6 +5278,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.IKControlConstraintSupport: Enum.IKControlConstraintSupport [NotScriptable]
 	Property Workspace.LayeredClothingCacheOptimizations: Enum.RolloutState {🚧AvatarAppearance} [NotScriptable]
 	Property Workspace.MeshPartHeadsAndAccessories: Enum.MeshPartHeadsAndAccessories [NotScriptable]
+	Property Workspace.MeshStreamingAndImprovedLods: Enum.RolloutState [NotScriptable]
 	Property Workspace.MoverConstraintRootBehavior: Enum.MoverConstraintRootBehaviorMode [NotScriptable]
 	Property Workspace.NextGenerationReplication: Enum.RolloutState [NotScriptable]
 	Property Workspace.PathfindingUseImprovedSearch: Enum.PathfindingUseImprovedSearch [NotScriptable]
@@ -6053,6 +6060,7 @@ Class DepthOfFieldEffect : PostEffect
 Class SunRaysEffect : PostEffect
 	Property SunRaysEffect.Intensity: number {🚧Environment}
 	Property SunRaysEffect.Spread: number {🚧Environment}
+Class Preloaded : Instance [NotCreatable] [Service]
 Class ProceduralBehaviorSchedulerService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 Class ProcessInstancePhysicsService : Instance [NotCreatable] [Service]
 Class ProximityPrompt : Instance
@@ -6362,8 +6370,16 @@ Class RuntimeScriptService : Instance {🔒RobloxScript} [NotCreatable] [Service
 Class SafetyService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 	Property SafetyService.IsCaptureModeForReport: boolean {🔒RobloxScript}
 	Function SafetyService:DecodeAvatarMovementProto(avatarMovementProtoString: string) -> { [string]: any } {🔒RobloxScript}
+	Function SafetyService:ReportCapturesUIClose() -> () {🔒RobloxScript}
+	Function SafetyService:ReportCapturesUIOpen() -> () {🔒RobloxScript}
+	Function SafetyService:ReportChatLineReportingClose() -> () {🔒RobloxScript}
+	Function SafetyService:ReportChatLineReportingOpen() -> () {🔒RobloxScript}
+	Function SafetyService:ReportChatSuspensionDialogClose() -> () {🔒RobloxScript}
+	Function SafetyService:ReportChatSuspensionDialogOpen() -> () {🔒RobloxScript}
 	Function SafetyService:ReportMenuTabClose() -> () {🔒RobloxScript}
 	Function SafetyService:ReportMenuTabOpen() -> () {🔒RobloxScript}
+	Function SafetyService:ReportPartyChatWindowClose() -> () {🔒RobloxScript}
+	Function SafetyService:ReportPartyChatWindowOpen() -> () {🔒RobloxScript}
 	Function SafetyService:TakeScreenshot(screenshotOptions: { [string]: any }) -> number {🔒RobloxScript}
 	Event SafetyService.FSTriggeredSignal(requestId: string, playerId: number, mac: string, args: ...any) {🔒RobloxEngine} [Hidden]
 	Event SafetyService.ScreenshotContentReady(screenshotJobId: number, contentId: string) {🔒RobloxScript}
@@ -6516,6 +6532,8 @@ Class BuoyancySensor : SensorBase
 Class ControllerSensor : SensorBase [NotCreatable]
 Class ControllerPartSensor : ControllerSensor
 	Property ControllerPartSensor.SensedMaterial: Enum.Material {🚧Basic}
+	Property ControllerPartSensor.LadderSearchHeight: number {🚧Basic}
+	Property ControllerPartSensor.LadderSearchOffset: number {🚧Basic}
 	Property ControllerPartSensor.SearchDistance: number {🚧Basic}
 	Property ControllerPartSensor.SensorMode: Enum.SensorMode {🚧Basic}
 	Property ControllerPartSensor.HitFrame: CFrame {🚧Basic}
@@ -6629,7 +6647,9 @@ Class SessionCheckService : Instance [NotCreatable] [Service]
 Class SessionService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 	Function SessionService:AcquireContextFocus(context: string) -> () {🔒RobloxScript}
 	Function SessionService:GenerateSessionInfoString(includeArbitrarySessions: boolean, includeTag: boolean, includeTimestamps: boolean, includeMetadata: boolean) -> string {🔒RobloxScript}
+	Function SessionService:GetBreadcrumbs() -> { any } {🔒RobloxScript}
 	Function SessionService:GetCreatedTimestampUtcMs(sid: string) -> number {🔒RobloxScript}
+	Function SessionService:GetHistory() -> { any } {🔒RobloxScript}
 	Function SessionService:GetMetadata(sid: string, key: string) -> any {🔒RobloxScript}
 	Function SessionService:GetRootSID() -> string {🔒RobloxScript}
 	Function SessionService:GetSessionID(structuralId: string) -> string {🔒RobloxScript}
@@ -6643,6 +6663,7 @@ Class SessionService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 	Function SessionService:SessionExists(sid: string) -> boolean {🔒RobloxScript}
 	Function SessionService:SetMetadata(sid: string, key: string, value: any, context: string? = "") -> () {🔒RobloxScript}
 	Function SessionService:SetSession(parentSid: string, childSid: string, tag: string, context: string? = "") -> () {🔒RobloxScript}
+	Event SessionService.SessionChanged(structuralId: string, currentTag: string, currentSessionId: string, previousTag: string, previousSessionId: string) {🔒RobloxScript}
 Class SharedTableRegistry : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SharedTableRegistry:GetSharedTable(name: string) -> SharedTable {🚧ScriptGlobals} {🧬Safe}
 	Function SharedTableRegistry:SetSharedTable(name: string, st: SharedTable?) -> () {🚧ScriptGlobals} {🧬Safe}
@@ -6674,6 +6695,7 @@ Class SlimAnimationDataEntity : Instance {🔒RobloxEngine} [NotCreatable]
 	Property SlimAnimationDataEntity.Handle: number {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property SlimAnimationDataEntity.IsSlimEnabled: boolean {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property SlimAnimationDataEntity.NumBones: number {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property SlimAnimationDataEntity.RootIndex: number {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property SlimAnimationDataEntity.SlimInstanceHashes: BinaryString {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property SlimAnimationDataEntity.SlimReplicationTimestampSec: number {🔒RobloxEngine} [Hidden] [NotScriptable]
 Class SlimAnimationReplicationService : Instance {🔒RobloxEngine} [NotCreatable] [Service]
@@ -6760,7 +6782,6 @@ Class Sound : Instance
 	Property Sound.IsSpatial: boolean {🚧LegacySound} {🔒RobloxScript} [Hidden] [ReadOnly]
 	Property Sound.UsageContextPermission: Enum.UsageContext {🚧LegacySound} {🔒RobloxScript} [Hidden] [NotReplicated]
 	Property Sound.EmitterSize: number {🚧LegacySound} [📁LoadOnly] [Deprecated]
-	Property Sound.IsMutedForCapture: boolean {🚧LegacySound} {🔒RobloxScript} [Hidden]
 	Property Sound.MaxDistance: number {🚧LegacySound} [Deprecated]
 	Property Sound.MinDistance: number {🚧LegacySound} [📁LoadOnly] [Deprecated]
 	Property Sound.Pitch: number {🚧LegacySound} [📁LoadOnly] [Deprecated]
@@ -7280,6 +7301,24 @@ Class StudioDeviceEmulatorService : Instance {🔒RobloxScript} [NotCreatable] [
 	Event StudioDeviceEmulatorService.OrientationChanged() {🔒RobloxScript}
 	Event StudioDeviceEmulatorService.TouchInBoundsChanged() {🔒RobloxScript}
 	Event StudioDeviceEmulatorService.TouchPositionsChanged() {🔒RobloxScript}
+Class StudioDeviceSimulatorService : Instance {🔒Plugin} [NotCreatable] [Service] [NotReplicated]
+	Function StudioDeviceSimulatorService:CreateDeviceAsync(config: { [string]: any }) -> string {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:GetDeviceAsync() -> string {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:GetDeviceInfoAsync(deviceId: string) -> { [string]: any } {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:GetDeviceListAsync() -> { any } {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:GetOrientationAsync() -> Enum.ScreenOrientation {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:GetPixelDensityAsync() -> number {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:GetResolutionAsync() -> Vector2 {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:GetScalingModeAsync() -> Enum.DeviceSimulatorScalingMode {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:RemoveDeviceAsync(deviceId: string) -> () {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:SetDeviceAsync(deviceId: string) -> () {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:SetOrientationAsync(orientation: Enum.ScreenOrientation) -> () {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:SetPixelDensityAsync(density: number) -> () {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:SetResolutionAsync(width: number, height: number) -> () {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:SetScalingModeAsync(mode: Enum.DeviceSimulatorScalingMode) -> () {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:StopSimulationAsync() -> () {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:UpdateDeviceAsync(deviceId: string, config: { [string]: any }) -> () {🔒Plugin} [Yields]
+	Event StudioDeviceSimulatorService.ConfigurationChanged() {🔒Plugin}
 Class StudioObjectBase : Instance {🔒RobloxScript} [NotCreatable] [NotReplicated]
 Class StudioWidget : StudioObjectBase {🔒RobloxScript} [NotCreatable] [NotReplicated]
 	Function StudioWidget:SetFixedSize(width: number, height: number) -> () {🔒RobloxScript}
@@ -7564,10 +7603,10 @@ Class TerrainRegion : Instance
 	Function TerrainRegion:ConvertToSmooth() -> () {🚧Environment} {🔒Plugin} [Deprecated]
 	Function TerrainRegion:GetRegionWireframe() -> { any } {🚧Environment} {🔒RobloxScript}
 Class TestCase : Instance [NotCreatable]
-	Function TestCase:Assert(condition: boolean, message: string? = "", source: Instance? = nil, line: number? = 0) -> () {🚧InternalTest}
-	Function TestCase:EndTest(message: string? = "", source: Instance? = nil, line: number? = 0) -> () {🚧InternalTest}
-	Function TestCase:Message(text: string, source: Instance? = nil, line: number? = 0) -> () {🚧InternalTest}
-	Function TestCase:Require(condition: boolean, message: string? = "", source: Instance? = nil, line: number? = 0) -> () {🚧InternalTest}
+	Function TestCase:Assert(condition: boolean, message: string? = "", source: Instance? = nil, line: number? = 0) -> ()
+	Function TestCase:EndTest(message: string? = "", source: Instance? = nil, line: number? = 0) -> ()
+	Function TestCase:Message(text: string, source: Instance? = nil, line: number? = 0) -> ()
+	Function TestCase:Require(condition: boolean, message: string? = "", source: Instance? = nil, line: number? = 0) -> ()
 Class TestService : Instance [Service]
 	Property TestService.Description: string
 	Property TestService.AutoRuns: boolean
@@ -7588,13 +7627,14 @@ Class TestService : Instance [Service]
 	Function TestService:Error(description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:Fail(description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:Message(text: string, source: Instance? = nil, line: number? = 0) -> ()
-	Function TestService:RegisterTest(testOptions: { [string]: any }) -> TestCase {🚧InternalTest}
+	Function TestService:RegisterTest(testOptions: { [string]: any }) -> TestCase
+	Function TestService:RequestValidationAsync(artifactType: string, artifactName: string) -> ...any {🚧InternalTest} [Yields]
 	Function TestService:Require(condition: boolean, description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:RunAsync() -> () {🔒Plugin} [Yields]
 	Function TestService:ScopeTime() -> { [string]: any }
 	Function TestService:StartTestSession() -> () {🚧InternalTest}
 	Function TestService:StopTestSession() -> () {🚧InternalTest}
-	Function TestService:TakeSnapshot(snapshotname: string, source: Instance? = nil) -> () {🚧InternalTest}
+	Function TestService:TakeSnapshot(snapshotname: string, source: Instance? = nil) -> ()
 	Function TestService:Warn(condition: boolean, description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:getTestSessionProviderStats(providerName: string) -> { [string]: any } {🚧InternalTest}
 	Function TestService:isFeatureEnabled(name: string) -> boolean
@@ -7705,6 +7745,7 @@ Class TextChatMessage : Instance [NotCreatable]
 	Property TextChatMessage.TextSource: TextSource? {🚧Chat}
 	Property TextChatMessage.Timestamp: DateTime {🚧Chat}
 	Property TextChatMessage.Translation: string {🚧Chat}
+	Property TextChatMessage.ChatActionType: string {🚧Chat} {🔒RobloxScript} [Hidden]
 	Property TextChatMessage.ForModeration: boolean {🚧Chat} {🔒RobloxScript} [Hidden]
 	Property TextChatMessage.IsHiddenMessage: boolean {🚧Chat} {🔒RobloxScript} [Hidden]
 	Property TextChatMessage.OriginalText: string {🚧Chat} {🔒RobloxScript} [Hidden]
@@ -7757,12 +7798,13 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Event TextChatService.BubbleDisplayed(partOrCharacter: Instance, textChatMessage: TextChatMessage) {🚧Chat}
 	Event TextChatService.MessageReceived(textChatMessage: TextChatMessage) {🚧Chat}
 	Event TextChatService.SendingMessage(textChatMessage: TextChatMessage) {🚧Chat}
+	Event TextChatService.ChatActionReceived(chatActionMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.ClientToServerMessageReplicateSignalV2(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ClientToServerMessageReplicateSignalV3(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, verified: boolean, isEscapedFlagEnabled: boolean) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ClientToServerUniverseChatMessageSignalV1(text: string, metadata: string, messageId: string, userId: number, verified: boolean) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.OnIncomingMessageEvent(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.SendingUniverseChatMessage(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
-	Event TextChatService.ServerToClientChatActionReplicateSignal(chatActionMessage: TextChatMessage) {🚧Chat} {🔒RobloxEngine} [Hidden]
+	Event TextChatService.ServerToClientChatActionReplicateSignal(data: { [string]: any }) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ServerToClientMessageReplicateSignal(text: string, prefixText: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, timestamp: number, status: Enum.TextChatMessageStatus) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ServerToClientMessageReplicateSignalV2(data: { [string]: any }) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ServerToClientUniverseChatChannelAllocatedSignalV1(context: string) {🚧Chat} {🔒RobloxEngine} [Hidden]
@@ -7802,7 +7844,9 @@ Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
 Class TextSource : Instance [NotCreatable]
 	Property TextSource.CanSend: boolean {🚧Chat}
 	Property TextSource.UserId: number {🚧Chat} [ReadOnly]
+	Property TextSource.DisplayName: string {🚧Chat} {🔒RobloxScript} [Hidden] [NotReplicated]
 	Property TextSource.UserIdReplicated: number {🚧Chat} [Hidden] [NotScriptable]
+	Property TextSource.Username: string {🚧Chat} {🔒RobloxScript} [Hidden] [NotReplicated]
 Class TextureGenerationPartGroup : Instance {🔒RobloxScript} [NotCreatable] [NotReplicated]
 	Function TextureGenerationPartGroup:GetInstances() -> { Instance } {🔒RobloxScript}
 	Function TextureGenerationPartGroup:GetMeshIdsHash() -> string {🔒RobloxScript}
@@ -7930,7 +7974,9 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:GetEditableMeshVertColors(editableMesh: EditableMesh) -> { any } {🔒RobloxScript}
 	Function UGCValidationService:GetEditableMeshVerticesSimilarityRate(editableMesh: EditableMesh, meshScale: Vector3) -> number {🔒RobloxScript}
 	Function UGCValidationService:GetEditableMeshVerts(editableMesh: EditableMesh) -> { any } {🔒RobloxScript}
+	Function UGCValidationService:GetExpectedTposeRotation(jointLabel: Enum.RigLabel, partsFolder: Instance) -> CFrame {🔒RobloxScript}
 	Function UGCValidationService:GetFacsDrivenJointNamesFromEditableMesh(editableMesh: EditableMesh) -> ...any {🔒RobloxScript}
+	Function UGCValidationService:GetLayeredClothingPostDeformationSize(accessory: Accessory, editableMesh: EditableMesh, meshScale: Vector3) -> Vector3 {🔒RobloxScript}
 	Function UGCValidationService:GetMaximalJointDistancesWithinFacs(editableMesh: EditableMesh) -> { any } {🔒RobloxScript}
 	Function UGCValidationService:GetMeshDataBinaryString(meshId: string) -> BinaryStringValue {🔒RobloxScript} [Yields]
 	Function UGCValidationService:GetMeshVerts(meshId: string) -> { any } {🔒RobloxScript} [Yields]
@@ -8649,7 +8695,7 @@ Class PluginConnection : Object {🔒Plugin} [NotCreatable] [NotReplicated]
 	Property PluginConnection.Type: Enum.PluginConnectionTargetType {🔒Plugin} [ReadOnly]
 	Property PluginConnection.GroupId: string {🔒RobloxEngine} [Hidden] [ReadOnly] [NotScriptable]
 	Function PluginConnection:BindToMessage(callbackFunction: (...any) -> ...any) -> RBXScriptConnection {🔒Plugin}
-	Function PluginConnection:SendMessage(message: buffer) -> () {🔒Plugin}
+	Function PluginConnection:SendMessage(message: any) -> () {🔒Plugin}
 Class TerrainIterateOperation : Object [NotCreatable] [NotReplicated]
 	Function TerrainIterateOperation:CommitBlock(block: { [string]: any }) -> RBXScriptSignal {🚧Environment}
 	Event TerrainIterateOperation.Ready(block: { [string]: any }) {🚧Environment}
@@ -9805,6 +9851,10 @@ Enum DeviceLevel
 	EnumItem DeviceLevel.Low : 0
 	EnumItem DeviceLevel.Medium : 1
 	EnumItem DeviceLevel.High : 2
+Enum DeviceSimulatorScalingMode
+	EnumItem DeviceSimulatorScalingMode.ScaleToPhysicalSize : 0
+	EnumItem DeviceSimulatorScalingMode.ActualResolution : 1
+	EnumItem DeviceSimulatorScalingMode.FitToWindow : 2
 Enum DeviceType
 	EnumItem DeviceType.Unknown : 0
 	EnumItem DeviceType.Desktop : 1
@@ -11339,6 +11389,13 @@ Enum RaycastFilterType
 Enum ReadCapturesFromGalleryResult
 	EnumItem ReadCapturesFromGalleryResult.Success : 0
 	EnumItem ReadCapturesFromGalleryResult.NeedPermission : 1
+Enum ReceiptDecision
+	EnumItem ReceiptDecision.NotProcessedYet : 0
+	EnumItem ReceiptDecision.Processed : 1
+Enum ReceiptType
+	EnumItem ReceiptType.DeveloperProduct : 0
+	EnumItem ReceiptType.RobuxTransferSender : 1
+	EnumItem ReceiptType.RobuxTransferReceiver : 2
 Enum RecommendationActionType
 	EnumItem RecommendationActionType.AddReaction : 0
 	EnumItem RecommendationActionType.RemoveReaction : 1
@@ -11681,6 +11738,7 @@ Enum SelfViewPosition
 Enum SensorMode
 	EnumItem SensorMode.Floor : 0
 	EnumItem SensorMode.Ladder : 1
+	EnumItem SensorMode.ClassicLadder : 2
 Enum SensorUpdateType
 	EnumItem SensorUpdateType.OnRead : 0
 	EnumItem SensorUpdateType.Manual : 1
@@ -12532,6 +12590,7 @@ Enum VoiceRccReconnectReason
 	EnumItem VoiceRccReconnectReason.Unknown : 0
 	EnumItem VoiceRccReconnectReason.Migration : 1
 	EnumItem VoiceRccReconnectReason.CloseRoom : 2
+	EnumItem VoiceRccReconnectReason.FAEUpdate : 3
 Enum VolumetricAudio
 	EnumItem VolumetricAudio.Disabled : 0
 	EnumItem VolumetricAudio.Automatic : 1
