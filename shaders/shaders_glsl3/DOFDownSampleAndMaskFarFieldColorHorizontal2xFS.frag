@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <Params.h>
 uniform vec4 CB0[61];
-uniform vec4 CB1[16];
+uniform vec4 CB1[20];
 uniform sampler2D colorTexture;
 
 in vec2 VARYING0;
