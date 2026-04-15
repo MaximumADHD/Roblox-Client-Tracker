@@ -1162,26 +1162,28 @@
   "@roblox/globaltype/OverlapParams": {
     "documentation": "儲存用於邊界查詢功能的參數。",
     "keys": {
-      "FilterDescendantsInstances": "@roblox/globaltype/OverlapParams.FilterDescendantsInstances",
-      "FilterType": "@roblox/globaltype/OverlapParams.FilterType",
+      "ExcludeInstances": "@roblox/globaltype/OverlapParams.ExcludeInstances",
+      "IncludeInstances": "@roblox/globaltype/OverlapParams.IncludeInstances",
       "MaxParts": "@roblox/globaltype/OverlapParams.MaxParts",
       "CollisionGroup": "@roblox/globaltype/OverlapParams.CollisionGroup",
       "Tolerance": "@roblox/globaltype/OverlapParams.Tolerance",
       "RespectCanCollide": "@roblox/globaltype/OverlapParams.RespectCanCollide",
       "BruteForceAllSlow": "@roblox/globaltype/OverlapParams.BruteForceAllSlow",
+      "FilterDescendantsInstances": "@roblox/globaltype/OverlapParams.FilterDescendantsInstances",
+      "FilterType": "@roblox/globaltype/OverlapParams.FilterType",
       "AddToFilter": "@roblox/globaltype/OverlapParams.AddToFilter"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams",
     "code_sample": ""
   },
-  "@roblox/globaltype/OverlapParams.FilterDescendantsInstances": {
-    "documentation": "用於過濾候選物件的後代物件陣列。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#FilterDescendantsInstances",
+  "@roblox/globaltype/OverlapParams.ExcludeInstances": {
+    "documentation": "一個可選的實例數組，其子對象將被排除在查詢之外。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#ExcludeInstances",
     "code_sample": ""
   },
-  "@roblox/globaltype/OverlapParams.FilterType": {
-    "documentation": "決定 <code>OverlapParams.FilterDescendantsInstances</code> 列表的使用方式。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#FilterType",
+  "@roblox/globaltype/OverlapParams.IncludeInstances": {
+    "documentation": "一個可選的實例數組，其子對象將包含在查詢中。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#IncludeInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.MaxParts": {
@@ -1207,6 +1209,16 @@
   "@roblox/globaltype/OverlapParams.BruteForceAllSlow": {
     "documentation": "啟用時，查詢將忽略所有零件碰撞屬性，並對每個零件進行強力檢查。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#BruteForceAllSlow",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/OverlapParams.FilterDescendantsInstances": {
+    "documentation": "一個對象數組，其子對象用於過濾候選對象。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#FilterDescendantsInstances",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/OverlapParams.FilterType": {
+    "documentation": "確定 <code>FilterDescendantsInstances</code> 數組是用作排除列表還是包含列表。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#FilterType",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.AddToFilter/param/0": {
@@ -2752,6 +2764,9 @@
   "@roblox/globaltype/Enum.FromName/param/0": {
     "documentation": "表示單個列舉的數據類型。"
   },
+  "@roblox/globaltype/Enum.FromName/param/1": {
+    "documentation": ""
+  },
   "@roblox/globaltype/Enum.FromName/return/0": {
     "documentation": ""
   },
@@ -2761,6 +2776,10 @@
       {
         "name": "self",
         "documentation": "@roblox/globaltype/Enum.FromName/param/0"
+      },
+      {
+        "name": "name",
+        "documentation": "@roblox/globaltype/Enum.FromName/param/1"
       }
     ],
     "returns": [
@@ -2772,6 +2791,9 @@
   "@roblox/globaltype/Enum.FromValue/param/0": {
     "documentation": "表示單個列舉的數據類型。"
   },
+  "@roblox/globaltype/Enum.FromValue/param/1": {
+    "documentation": ""
+  },
   "@roblox/globaltype/Enum.FromValue/return/0": {
     "documentation": ""
   },
@@ -2781,6 +2803,10 @@
       {
         "name": "self",
         "documentation": "@roblox/globaltype/Enum.FromValue/param/0"
+      },
+      {
+        "name": "value",
+        "documentation": "@roblox/globaltype/Enum.FromValue/param/1"
       }
     ],
     "returns": [
@@ -6098,25 +6124,27 @@
   "@roblox/globaltype/RaycastParams": {
     "documentation": "用於光線投射操作的參數容器。",
     "keys": {
-      "FilterDescendantsInstances": "@roblox/globaltype/RaycastParams.FilterDescendantsInstances",
-      "FilterType": "@roblox/globaltype/RaycastParams.FilterType",
+      "ExcludeInstances": "@roblox/globaltype/RaycastParams.ExcludeInstances",
+      "IncludeInstances": "@roblox/globaltype/RaycastParams.IncludeInstances",
       "IgnoreWater": "@roblox/globaltype/RaycastParams.IgnoreWater",
       "CollisionGroup": "@roblox/globaltype/RaycastParams.CollisionGroup",
       "RespectCanCollide": "@roblox/globaltype/RaycastParams.RespectCanCollide",
       "BruteForceAllSlow": "@roblox/globaltype/RaycastParams.BruteForceAllSlow",
+      "FilterDescendantsInstances": "@roblox/globaltype/RaycastParams.FilterDescendantsInstances",
+      "FilterType": "@roblox/globaltype/RaycastParams.FilterType",
       "AddToFilter": "@roblox/globaltype/RaycastParams.AddToFilter"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams",
     "code_sample": ""
   },
-  "@roblox/globaltype/RaycastParams.FilterDescendantsInstances": {
-    "documentation": "一組對象的數組，其後代用於過濾光線投射候選對象。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams#FilterDescendantsInstances",
+  "@roblox/globaltype/RaycastParams.ExcludeInstances": {
+    "documentation": "可選的物件陣列，其後代將被排除在查詢之外。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams#ExcludeInstances",
     "code_sample": ""
   },
-  "@roblox/globaltype/RaycastParams.FilterType": {
-    "documentation": "確定 <code>FilterDescendantsInstances</code> 數組如何使用。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams#FilterType",
+  "@roblox/globaltype/RaycastParams.IncludeInstances": {
+    "documentation": "可選的物件陣列，其後代將包括在查詢中。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams#IncludeInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/RaycastParams.IgnoreWater": {
@@ -6137,6 +6165,16 @@
   "@roblox/globaltype/RaycastParams.BruteForceAllSlow": {
     "documentation": "啟用時，查詢將忽略所有部件的碰撞屬性，並對每個部件執行暴力檢查。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams#BruteForceAllSlow",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RaycastParams.FilterDescendantsInstances": {
+    "documentation": "用於過濾射線檢測候選物件後代的物件陣列。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams#FilterDescendantsInstances",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RaycastParams.FilterType": {
+    "documentation": "確定 <code>FilterDescendantsInstances</code> 陣列是用作排除還是包含列表。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams#FilterType",
     "code_sample": ""
   },
   "@roblox/globaltype/RaycastParams.AddToFilter/param/0": {
@@ -12869,7 +12907,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LogService": {
-    "documentation": "一個允許您閱讀輸出文本的服務。",
+    "documentation": "一個允許你閱讀輸出文本的服務。",
     "keys": {
       "ClearOutput": "@roblox/globaltype/LogService.ClearOutput",
       "GetLogHistory": "@roblox/globaltype/LogService.GetLogHistory"
@@ -12878,10 +12916,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LogService.ClearOutput/param/0": {
-    "documentation": "一個允許您閱讀輸出文本的服務。"
+    "documentation": "一個允許你閱讀輸出文本的服務。"
   },
   "@roblox/globaltype/LogService.ClearOutput": {
-    "documentation": "清除 Roblox Studio 輸出窗口。",
+    "documentation": "清除 Roblox Studio 的 <strong>Output</strong> 窗口。",
     "params": [
       {
         "name": "self",
@@ -12893,13 +12931,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LogService.GetLogHistory/param/0": {
-    "documentation": "一個允許您閱讀輸出文本的服務。"
+    "documentation": "一個允許你閱讀輸出文本的服務。"
   },
   "@roblox/globaltype/LogService.GetLogHistory/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/LogService.GetLogHistory": {
-    "documentation": "返回一個表格，該表格包含每條消息的字符串、消息類型和客戶端在輸出窗口中顯示的消息的時間戳。",
+    "documentation": "返回一個表格，裡面有表格，每個表格包含消息字符串、消息類型和客戶端在 <strong>Output</strong> 窗口中顯示的消息的時間戳。",
     "params": [
       {
         "name": "self",
@@ -12990,7 +13028,7 @@
     "returns": []
   },
   "@roblox/globaltype/LogService.MessageOut": {
-    "documentation": "當客戶端輸出文本時觸發。",
+    "documentation": "在客戶端輸出文本時觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/LogService.MessageOut.Connect",
       "ConnectParallel": "@roblox/globaltype/LogService.MessageOut.ConnectParallel",
@@ -13523,6 +13561,36 @@
     "documentation": "",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PackageService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/GeneratedFolder": {
+    "documentation": "",
+    "keys": {
+      "SetPrimaryPart": "@roblox/globaltype/GeneratedFolder.SetPrimaryPart"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GeneratedFolder",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/GeneratedFolder.SetPrimaryPart/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/GeneratedFolder.SetPrimaryPart/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/GeneratedFolder.SetPrimaryPart": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/GeneratedFolder.SetPrimaryPart/param/0"
+      },
+      {
+        "name": "part",
+        "documentation": "@roblox/globaltype/GeneratedFolder.SetPrimaryPart/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GeneratedFolder#SetPrimaryPart",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardController": {
@@ -16138,7 +16206,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。",
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。",
     "keys": {
       "LevelOfDetail": "@roblox/globaltype/Model.LevelOfDetail",
       "ModelStreamingMode": "@roblox/globaltype/Model.ModelStreamingMode",
@@ -16171,38 +16239,38 @@
     "code_sample": "local function groupObjects(objectTable)\n\tlocal model = Instance.new(\"Model\")\n\tfor _, object in pairs(objectTable) do\n\t\tobject.Parent = model\n\tend\n\treturn model\nend\n\nlocal objects = {\n\tInstance.new(\"Part\"),\n\tInstance.new(\"Part\"),\n}\n\ngroupObjects(objects)"
   },
   "@roblox/globaltype/Model.LevelOfDetail": {
-    "documentation": "為具有實例流媒體啟用的體驗設置模型的詳細等級。",
+    "documentation": "設置模型在啟用實例串流的體驗中的細節級別。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#LevelOfDetail",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ModelStreamingMode": {
-    "documentation": "控制當啟用實例流媒體時 <code>Models</code> 的流媒體行為。",
+    "documentation": "在啟用實例串流的情況下控制 <code>Models</code> 的串流行為。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#ModelStreamingMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.PrimaryPart": {
-    "documentation": "模型的主部件，如果未明確設置則為 <code>nil</code>。",
+    "documentation": "模型的主要部分，如果未明確設置則為 <code>nil</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#PrimaryPart",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.Scale": {
-    "documentation": "僅供編輯使用的屬性，用於圍繞其樞紐縮放模型。設置此屬性將使模型看起來像是調用了 <code>Model:ScaleTo()</code>。",
+    "documentation": "僅限編輯器的屬性，用於圍繞其樞軸縮放模型。設置此屬性將使縮放如同在其上調用 <code>Model:ScaleTo()</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#Scale",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.WorldPivot": {
-    "documentation": "確定未設置 <code>Model.PrimaryPart</code> 的 <code>Model</code> 的樞紐位置。",
+    "documentation": "確定不具 <code>Model.PrimaryPart</code> 的 <code>Model</code> 的樞軸位置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#WorldPivot",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/1": {
-    "documentation": "要為其使該模型持久的 <code>Player</code>。"
+    "documentation": "要使此模型對其持久的 <code>Player</code>。"
   },
   "@roblox/globaltype/Model.AddPersistentPlayer": {
-    "documentation": "設置此模型對指定玩家為持久的。 <code>ModelStreamingMode</code> 必須設置為 <code>PersistentPerPlayer</code>，以便因添加而改變行為。",
+    "documentation": "將此模型設置為對指定玩家持久化。 <code>ModelStreamingMode</code> 必須設置為 <code>PersistentPerPlayer</code>，以便通過添加來改變行為。",
     "params": [
       {
         "name": "self",
@@ -16218,10 +16286,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.BreakJoints/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>打破 <code>BaseParts</code> 之間的連接，包括與任何相鄰部分的表面連接、<code>WeldConstraints</code> 和所有 <code>Welds</code> 及其他 <code>JointInstances</code>。",
+    "documentation": "<strong>Deprecated:</strong> <br>打破 <code>BaseParts</code> 之間的連接，包括與任何相鄰部件的表面連接、<code>WeldConstraints</code> 和所有 <code>Welds</code> 及其他 <code>JointInstances</code>。",
     "params": [
       {
         "name": "self",
@@ -16233,10 +16301,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n\ttask.wait(3)\n\tcharacter:BreakJoints()\nend\n\nlocal function onPlayerAdded(player)\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Model.breakJoints/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.breakJoints": {
-    "documentation": "<strong>Deprecated:</strong> 這個已棄用的函數是 <code>Model:BreakJoints()</code> 的一個變體，應當使用後者。",
+    "documentation": "<strong>Deprecated:</strong> 此已過時的函數是 <code>Model:BreakJoints()</code> 的變體，應該使用。",
     "params": [
       {
         "name": "self",
@@ -16248,10 +16316,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetBoundingBox/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.GetBoundingBox/return/0": {
-    "documentation": "表示該體積方向的 <code>CFrame</code>，後面跟著表示該體積大小的 <code>Vector3</code>。"
+    "documentation": "代表體積方向的 <code>CFrame</code>，後面跟著代表體積大小的 <code>Vector3</code>。"
   },
   "@roblox/globaltype/Model.GetBoundingBox": {
     "documentation": "返回包含模型所有部件的體積描述。",
@@ -16268,13 +16336,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetExtentsSize/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.GetExtentsSize/return/0": {
-    "documentation": "該 <code>Model</code> 的 <code>Vector3</code> 尺寸。"
+    "documentation": "該 <code>Vector3</code> 代表 <code>Model</code> 的範圍大小。"
   },
   "@roblox/globaltype/Model.GetExtentsSize": {
-    "documentation": "返回包含所有 <code>BaseParts</code> 的最小邊界框大小，與設置的 <code>Model.PrimaryPart</code> 對齊。",
+    "documentation": "返回包含 <code>Model</code> 中所有 <code>BaseParts</code> 的最小邊界框的大小，若已設置，將與 <code>Model.PrimaryPart</code> 對齊。",
     "params": [
       {
         "name": "self",
@@ -16288,13 +16356,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.GetModelCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame": {
-    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用，因為它未提供可靠的結果。您可以改為使用 <code>Model:GetPrimaryPartCFrame()</code> 來檢索模型主部件的 <code>CFrame</code>。<br>該值歷史上返回模型中中心位置的 CFrame。",
+    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用，因為它未提供可靠的結果。您可以改為使用 <code>Model:GetPrimaryPartCFrame()</code> 來檢索模型的主要部分的 <code>CFrame</code>。<br>此值歷史上返回模型中中央位置的 CFrame。",
     "params": [
       {
         "name": "self",
@@ -16308,13 +16376,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelSize/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.GetModelSize/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelSize": {
-    "documentation": "<strong>Deprecated:</strong> 此項已棄用。請勿在新工作中使用。開發者可以改為使用 <code>Model.GetExtentsSize</code>。<br>返回模型的 Vector3 尺寸。",
+    "documentation": "<strong>Deprecated:</strong> 此項目已棄用。請勿在新工作中使用。開發人員可以改用 <code>Model.GetExtentsSize</code>。<br>返回模型的 Vector3 大小。",
     "params": [
       {
         "name": "self",
@@ -16328,13 +16396,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/return/0": {
-    "documentation": "包含所有對此模型物件持久的 <code>Player</code> 物件的表格。"
+    "documentation": "包含所有此模型物件所持久化的 <code>Player</code> 物件的表。"
   },
   "@roblox/globaltype/Model.GetPersistentPlayers": {
-    "documentation": "返回所有對此模型物件持久的 <code>Player</code> 物件。行為因從 <code>Script</code> 或 <code>LocalScript</code> 呼叫此方法而異。",
+    "documentation": "返回此模型物件所持久化的所有 <code>Player</code> 物件。行為根據此方法是從 <code>Script</code> 還是 <code>LocalScript</code> 調用而有所不同。",
     "params": [
       {
         "name": "self",
@@ -16348,13 +16416,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>返回模型的 <code>Model.PrimaryPart</code> 的 <code>CFrame</code>。如果該模型不存在主部件，則此函數將引發錯誤。",
+    "documentation": "<strong>Deprecated:</strong> <br>返回模型的 <code>Model.PrimaryPart</code> 的 <code>CFrame</code>。如果沒有主要部分，將引發錯誤。",
     "params": [
       {
         "name": "self",
@@ -16368,13 +16436,13 @@
     "code_sample": "local START_POSITION = Vector3.new(0, 10, 0)\n\nlocal model = Instance.new(\"Model\")\n\nlocal part1 = Instance.new(\"Part\")\npart1.Size = Vector3.new(4, 4, 4)\npart1.CFrame = CFrame.new(START_POSITION)\npart1.Anchored = true\npart1.BrickColor = BrickColor.new(\"亮黃色\")\npart1.Parent = model\n\nlocal part2 = Instance.new(\"Part\")\npart2.Size = Vector3.new(2, 2, 2)\npart2.CFrame = part1.CFrame * CFrame.new(0, 3, 0)\npart2.Anchored = true\npart2.BrickColor = BrickColor.new(\"亮藍色\")\npart2.Parent = model\n\n-- 設置主要部分\nmodel.PrimaryPart = part1\nmodel.Parent = workspace\n\nwhile true do\n\tlocal primaryPartCFrame = model:GetPrimaryPartCFrame()\n\tlocal newCFrame = primaryPartCFrame * CFrame.Angles(0, math.rad(1), 0)\n\tmodel:SetPrimaryPartCFrame(newCFrame)\n\ttask.wait()\nend"
   },
   "@roblox/globaltype/Model.GetScale/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.GetScale/return/0": {
-    "documentation": "當前模型的標準縮放因子。"
+    "documentation": "模型的當前標準縮放因子。"
   },
   "@roblox/globaltype/Model.GetScale": {
-    "documentation": "返回模型的標準縮放，默認對於新創建的模型為 1，並將隨著使用 <code>Model:ScaleTo()</code> 縮放而改變。",
+    "documentation": "返回模型的標準縮放，對於新創建的模型默認為 1，並隨著通過 <code>Model:ScaleTo()</code> 進行縮放而改變。",
     "params": [
       {
         "name": "self",
@@ -16388,10 +16456,10 @@
     "code_sample": "local CollectionService = game:GetService(\"CollectionService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\n-- 找到所有帶有我們要替換的標籤的模型\nlocal items = CollectionService:GetTagged(\"Tree\")\nlocal newModel = ReplicatedStorage.FancyTreeReplacementModel\nfor _, item in items do\n\t-- 製作新物品並在舊物品的位置進行縮放 / 定位\n\tlocal newItem = newModel:Clone()\n\tnewItem:ScaleTo(item:GetScale())\n\tnewItem:PivotTo(item:GetPivot())\n\n\t-- 將相同的標籤添加到替換物品\n\tCollectionService:AddTag(newItem, \"Tree\")\n\n\t-- 刪除舊物品並將新物品置於父物件中\n\tnewItem.Parent = item.Parent\n\titem:Destroy()\nend"
   },
   "@roblox/globaltype/Model.MakeJoints/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> 此關節類型已被棄用。請勿在新工作中使用。請改用 <code>WeldConstraints</code> 和 <code>HingeConstraints</code>。<br>遍歷 <code>Model</code> 中的所有 <code>BaseParts</code>。如果任何部件的側面具有可以產生關節的 SurfaceType，則將與任何相鄰部件創建一個關節。",
+    "documentation": "<strong>Deprecated:</strong> 此關節類型已被棄用。對於新工作，請勿使用它。請改用 <code>WeldConstraints</code> 和 <code>HingeConstraints</code>。<br>遍歷 <code>Model</code> 中所有 <code>BaseParts</code>。如果任何部件的某一面具有可以形成關節的 SurfaceType，則將與任何相鄰部件創建關節。",
     "params": [
       {
         "name": "self",
@@ -16403,10 +16471,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.makeJoints/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.makeJoints": {
-    "documentation": "<strong>Deprecated:</strong> 此已棄用的函數是 <code>Model:MakeJoints()</code> 的變體，應使用後者。",
+    "documentation": "<strong>Deprecated:</strong> 此已過時的函數是 <code>Model:MakeJoints()</code> 的變體，應該使用。",
     "params": [
       {
         "name": "self",
@@ -16418,13 +16486,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.move/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.move/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.move": {
-    "documentation": "<strong>Deprecated:</strong> 此項已被 <code>Model:MoveTo()</code> 取代，應用於所有新工作。",
+    "documentation": "<strong>Deprecated:</strong> 此項目已被 <code>Model:MoveTo()</code> 替代，應在所有新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -16440,13 +16508,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.MoveTo/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.MoveTo/param/1": {
-    "documentation": "要移動 <code>Model</code> 的 <code>Vector3</code>。"
+    "documentation": "要將 <code>Model</code> 移動到的 <code>Vector3</code>。"
   },
   "@roblox/globaltype/Model.MoveTo": {
-    "documentation": "將 <code>PrimaryPart</code> 移動到給定位置。如果未指定主部件，則將使用模型的根部件。",
+    "documentation": "將 <code>PrimaryPart</code> 移動到給定位置。如果未指定主要部分，將使用模型的根部件。",
     "params": [
       {
         "name": "self",
@@ -16462,13 +16530,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.moveTo/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.moveTo/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.moveTo": {
-    "documentation": "<strong>Deprecated:</strong> 此已棄用的函數是 <code>Model:MoveTo()</code> 的變體，應使用後者。",
+    "documentation": "<strong>Deprecated:</strong> 此已過時的函數是 <code>Model:MoveTo()</code> 的變體，應該使用。",
     "params": [
       {
         "name": "self",
@@ -16484,13 +16552,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/1": {
-    "documentation": "要使該模型不再對其持久的 <code>Player</code>。"
+    "documentation": "要使此模型不再對其持久的 <code>Player</code>。"
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer": {
-    "documentation": "使該模型不再對指定玩家持久。 <code>ModelStreamingMode</code> 必須設置為 <code>PersistentPerPlayer</code>，以便因刪除而改變行為。",
+    "documentation": "使此模型對指定玩家不再持久化。 <code>ModelStreamingMode</code> 必須設置為 <code>PersistentPerPlayer</code>，以便通過移除來改變行為。",
     "params": [
       {
         "name": "self",
@@ -16506,10 +16574,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity": {
-    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用；它的存在是為了防止舊有腳本引發錯誤，但當被調用時不會有任何作用。<br>重置模型的部件的旋轉至之前設置的身份旋轉，這是通過 <code>Model:SetIdentityOrientation()</code> 方法執行的。",
+    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用；它的存在是為了防止舊版腳本拋出錯誤，但在調用時不會有任何作用。<br>重置模型部件的旋轉到先前設置的身份旋轉，這是通過 <code>Model:SetIdentityOrientation()</code> 方法完成的。",
     "params": [
       {
         "name": "self",
@@ -16521,13 +16589,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ScaleTo/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.ScaleTo/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.ScaleTo": {
-    "documentation": "設置模型的縮放因子，調整所有後繼實例的大小和位置，使其相對於縮放因子為 1 時的初始大小和位置具有該縮放因子。",
+    "documentation": "設置模型的縮放因子，調整所有子實例的大小和位置，使它們相對於縮放因子為 1 的初始大小和位置具有該縮放因子。",
     "params": [
       {
         "name": "self",
@@ -16543,10 +16611,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetIdentityOrientation/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.SetIdentityOrientation": {
-    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用；它的存在是為了防止舊有腳本引發錯誤，但當被調用時不會有任何作用。<br>設置給定模型的身份旋轉，允許您稍後通過使用 <code>ResetOrientationToIdentity</code> 方法重置整個模型的旋轉。",
+    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用；它的存在是為了防止舊版腳本拋出錯誤，但在調用時不會有任何作用。<br>設置給定模型的身份旋轉，允許您在稍後通過使用 <code>ResetOrientationToIdentity</code> 方法重置整個模型的旋轉。",
     "params": [
       {
         "name": "self",
@@ -16558,13 +16626,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/1": {
     "documentation": "要設置的 <code>CFrame</code>。"
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>設置模型的 <code>Model.PrimaryPart</code> 的 <code>BasePart.CFrame</code>。模型中的所有其他部件也將被移動，並保持相對於 <code>Model.PrimaryPart</code> 的取向和偏移。",
+    "documentation": "<strong>Deprecated:</strong> <br>設置模型的 <code>Model.PrimaryPart</code> 的 <code>BasePart.CFrame</code>。模型中的所有其他部件也將被移動，並保持相對於 <code>Model.PrimaryPart</code> 的方向和偏移。",
     "params": [
       {
         "name": "self",
@@ -16580,13 +16648,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.TranslateBy/param/0": {
-    "documentation": "模型是一種容器物件，意味著它們將物件分組在一起。它們最適合用來容納 <code>BaseParts</code> 的集合，並具有多個擴展其功能的函數。"
+    "documentation": "模型是容器物件，這意味著它們將物件聚集在一起。它們最適合用來持有 <code>BaseParts</code> 的集合，並具有一些擴展其功能的函數。"
   },
   "@roblox/globaltype/Model.TranslateBy/param/1": {
-    "documentation": "用來平移 <code>Model</code> 的 <code>Vector3</code>。"
+    "documentation": "用於平移 <code>Model</code> 的 <code>Vector3</code>。"
   },
   "@roblox/globaltype/Model.TranslateBy": {
-    "documentation": "通過給定的 <code>Vector3</code> 偏移來移動 <code>Model</code>，保持模型的取向。如果新位置上已存在其他 <code>BasePart</code> 或 <code>Terrain</code>，則 <code>Model</code> 將與該物體重疊。",
+    "documentation": "通過給定的 <code>Vector3</code> 偏移量移動 <code>Model</code>，保留模型的方向。如果新位置已有其他 <code>BasePart</code> 或 <code>Terrain</code>，則 <code>Model</code> 將與該物件重疊。",
     "params": [
       {
         "name": "self",
@@ -17061,7 +17129,7 @@
     "documentation": "要檢查擁有權的徽章 ID 列表。最大長度為 10。"
   },
   "@roblox/globaltype/BadgeService.CheckUserBadgesAsync/return/0": {
-    "documentation": "給定用戶擁有的徽章 ID 列表，來自提供的徽章 ID。如果給定用戶不擁有所提供的徽章，則為空。未保證與輸入列表的順序相同。"
+    "documentation": "所提供徽章 ID 中，給定用戶擁有的徽章 ID 列表。若該用戶不擁有提供的任何徽章，則為空。 不保證與輸入列表的順序相同。如果擁有目標 <code>userId</code> 的用戶 最近未在伺服器中，有些徽章 ID 可能會被省略，且不會被 檢查。"
   },
   "@roblox/globaltype/BadgeService.CheckUserBadgesAsync": {
     "documentation": "檢查與 <code>UserId</code> 的徽章 ID 列表並返回玩家擁有的徽章 ID 列表。",
@@ -26372,7 +26440,6 @@
       "StreamOutBehavior": "@roblox/globaltype/Workspace.StreamOutBehavior",
       "Terrain": "@roblox/globaltype/Workspace.Terrain",
       "TouchesUseCollisionGroups": "@roblox/globaltype/Workspace.TouchesUseCollisionGroups",
-      "TouchEventsUseCollisionGroups": "@roblox/globaltype/Workspace.TouchEventsUseCollisionGroups",
       "UseFixedSimulation": "@roblox/globaltype/Workspace.UseFixedSimulation",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
@@ -26490,7 +26557,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ModelStreamingBehavior": {
-    "documentation": "",
+    "documentation": "控制在啟用實例串流時，<code>Models</code> 如何在體驗中被複製。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ModelStreamingBehavior",
     "code_sample": ""
   },
@@ -26570,7 +26637,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingIntegrityMode": {
-    "documentation": "決定是否啟用StreamingIntegrityMode。",
+    "documentation": "決定串流完整性模式是否啟用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingIntegrityMode",
     "code_sample": ""
   },
@@ -26585,7 +26652,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamOutBehavior": {
-    "documentation": "配置引擎如何決定何時將內容從玩家中串流出去。",
+    "documentation": "配置引擎如何決定何時將內容串流給玩家。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamOutBehavior",
     "code_sample": ""
   },
@@ -26599,13 +26666,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
     "code_sample": ""
   },
-  "@roblox/globaltype/Workspace.TouchEventsUseCollisionGroups": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchEventsUseCollisionGroups",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Workspace.UseFixedSimulation": {
-    "documentation": "當<code>true</code>時，啟用<code>RunService:BindToSimulation()</code>，該函數以固定頻率調用，更新物理步進邏輯，並使 <code>time()</code>函數返回固定步進幀時間。",
+    "documentation": "當 <code>true</code> 時，啟用 <code>RunService:BindToSimulation()</code>，這會以固定頻率調用函數，更新物理步進邏輯，並使得 <code>time()</code> 函數返回固定的步進幀時間。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseFixedSimulation",
     "code_sample": ""
   },
@@ -27086,15 +27148,9 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StyleQuery": {
-    "documentation": "",
+    "documentation": "實例用來為 <code>StyleRule</code> 設定條件，例如 <code>\"MaxSize\"</code> 和 <code>\"PreferredInput\"</code>。",
     "keys": {
-      "AspectRatioRange": "@roblox/globaltype/StyleQuery.AspectRatioRange",
       "IsActive": "@roblox/globaltype/StyleQuery.IsActive",
-      "MaxSize": "@roblox/globaltype/StyleQuery.MaxSize",
-      "MinSize": "@roblox/globaltype/StyleQuery.MinSize",
-      "PreferredInput": "@roblox/globaltype/StyleQuery.PreferredInput",
-      "ReducedMotionEnabled": "@roblox/globaltype/StyleQuery.ReducedMotionEnabled",
-      "ViewportDisplaySize": "@roblox/globaltype/StyleQuery.ViewportDisplaySize",
       "GetCondition": "@roblox/globaltype/StyleQuery.GetCondition",
       "GetConditions": "@roblox/globaltype/StyleQuery.GetConditions",
       "SetCondition": "@roblox/globaltype/StyleQuery.SetCondition",
@@ -27103,52 +27159,22 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery",
     "code_sample": ""
   },
-  "@roblox/globaltype/StyleQuery.AspectRatioRange": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#AspectRatioRange",
-    "code_sample": ""
-  },
   "@roblox/globaltype/StyleQuery.IsActive": {
-    "documentation": "",
+    "documentation": "布林值，決定 <code>StyleRule.Selector</code> 的 <code>@</code> 是否與 <code>StyleQuery</code> 名稱匹配。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#IsActive",
     "code_sample": ""
   },
-  "@roblox/globaltype/StyleQuery.MaxSize": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#MaxSize",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/StyleQuery.MinSize": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#MinSize",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/StyleQuery.PreferredInput": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#PreferredInput",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/StyleQuery.ReducedMotionEnabled": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#ReducedMotionEnabled",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/StyleQuery.ViewportDisplaySize": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#ViewportDisplaySize",
-    "code_sample": ""
-  },
   "@roblox/globaltype/StyleQuery.GetCondition/param/0": {
-    "documentation": ""
+    "documentation": "實例用來為 <code>StyleRule</code> 設定條件，例如 <code>\"MaxSize\"</code> 和 <code>\"PreferredInput\"</code>。"
   },
   "@roblox/globaltype/StyleQuery.GetCondition/param/1": {
-    "documentation": ""
+    "documentation": "條件的字串名稱，例如 <code>\"MaxSize\"</code> 或 <code>\"ViewportDisplaySize\"</code>。"
   },
   "@roblox/globaltype/StyleQuery.GetCondition/return/0": {
-    "documentation": ""
+    "documentation": "條件的值。"
   },
   "@roblox/globaltype/StyleQuery.GetCondition": {
-    "documentation": "",
+    "documentation": "返回 <code>StyleQuery</code> 中特定條件的值。",
     "params": [
       {
         "name": "self",
@@ -27166,13 +27192,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StyleQuery.GetConditions/param/0": {
-    "documentation": ""
+    "documentation": "實例用來為 <code>StyleRule</code> 設定條件，例如 <code>\"MaxSize\"</code> 和 <code>\"PreferredInput\"</code>。"
   },
   "@roblox/globaltype/StyleQuery.GetConditions/return/0": {
-    "documentation": ""
+    "documentation": "描述 <code>StyleQuery</code> 上設定的條件的鍵值對字典。"
   },
   "@roblox/globaltype/StyleQuery.GetConditions": {
-    "documentation": "",
+    "documentation": "返回描述 <code>StyleQuery</code> 上設定的條件的鍵值對字典。",
     "params": [
       {
         "name": "self",
@@ -27186,13 +27212,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StyleQuery.SetCondition/param/0": {
-    "documentation": ""
+    "documentation": "實例用來為 <code>StyleRule</code> 設定條件，例如 <code>\"MaxSize\"</code> 和 <code>\"PreferredInput\"</code>。"
   },
   "@roblox/globaltype/StyleQuery.SetCondition/param/1": {
-    "documentation": ""
+    "documentation": "要設定的條件名稱，例如 <code>\"MinSize\"</code>。"
   },
   "@roblox/globaltype/StyleQuery.SetCondition/param/2": {
-    "documentation": ""
+    "documentation": "要設定的條件值，例如 <code>Vector2.new(100, 0)</code>。"
   },
   "@roblox/globaltype/StyleQuery.SetCondition": {
     "documentation": "",
@@ -27215,13 +27241,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StyleQuery.SetConditions/param/0": {
-    "documentation": ""
+    "documentation": "實例用來為 <code>StyleRule</code> 設定條件，例如 <code>\"MaxSize\"</code> 和 <code>\"PreferredInput\"</code>。"
   },
   "@roblox/globaltype/StyleQuery.SetConditions/param/1": {
-    "documentation": ""
+    "documentation": "字典的鍵值對，用來定義要設定的條件。"
   },
   "@roblox/globaltype/StyleQuery.SetConditions": {
-    "documentation": "",
+    "documentation": "讓您一次宣告和設定多個 <code>StyleQuery</code> 條件。",
     "params": [
       {
         "name": "self",
@@ -28309,7 +28335,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.StaticFacialAnimation": {
-    "documentation": "",
+    "documentation": "當 <code>true</code> 時，禁用動態頭部的面部動畫，顯示靜態情緒姿勢。默認為 <code>false</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#StaticFacialAnimation",
     "code_sample": ""
   },
@@ -52174,6 +52200,94 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#Heartbeat",
     "code_sample": ""
   },
+  "@roblox/globaltype/RunService.Misprediction.Connect/param/0": {
+    "documentation": "在特定事件發生時運行連接的函數的對象。"
+  },
+  "@roblox/globaltype/RunService.Misprediction.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RunService.Misprediction.Connect": {
+    "documentation": "將給定的函數連接到事件並返回一個 <code>RBXScriptConnection</code> 來表示它。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.Misprediction.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/RunService.Misprediction.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/RunService.Misprediction.ConnectParallel/param/0": {
+    "documentation": "在特定事件發生時運行連接的函數的對象。"
+  },
+  "@roblox/globaltype/RunService.Misprediction.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RunService.Misprediction.ConnectParallel": {
+    "documentation": "將給定的函數連接到事件並返回一個 <code>RBXScriptConnection</code> 來表示它。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.Misprediction.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/RunService.Misprediction.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/RunService.Misprediction.Once/param/0": {
+    "documentation": "在特定事件發生時運行連接的函數的對象。"
+  },
+  "@roblox/globaltype/RunService.Misprediction.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RunService.Misprediction.Once": {
+    "documentation": "將給定的函數連接到事件（單次調用）並返回一個 <code>RBXScriptConnection</code> 來表示它。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.Misprediction.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/RunService.Misprediction.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/RunService.Misprediction.Wait/param/0": {
+    "documentation": "在特定事件發生時運行連接的函數的對象。"
+  },
+  "@roblox/globaltype/RunService.Misprediction.Wait": {
+    "documentation": "使當前線程暫停，直到信號觸發並返回信號提供的參數。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.Misprediction.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/RunService.Misprediction": {
+    "documentation": "在伺服器授權模型中，當引擎檢測到客戶端的狀態與伺服器的授權狀態不一致時會在預測期間觸發。旨在用於基於插件的除錯。",
+    "keys": {
+      "Connect": "@roblox/globaltype/RunService.Misprediction.Connect",
+      "ConnectParallel": "@roblox/globaltype/RunService.Misprediction.ConnectParallel",
+      "Once": "@roblox/globaltype/RunService.Misprediction.Once",
+      "Wait": "@roblox/globaltype/RunService.Misprediction.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#Misprediction",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RunService.PostSimulation.Connect/param/0": {
     "documentation": "在特定事件發生時運行連接的函數的對象。"
   },
@@ -52252,7 +52366,7 @@
     "returns": []
   },
   "@roblox/globaltype/RunService.PostSimulation": {
-    "documentation": "在每一幀的時間點，每次物理模擬完成後觸發。",
+    "documentation": "在每個幀中觸發，在物理模擬完成後。",
     "keys": {
       "Connect": "@roblox/globaltype/RunService.PostSimulation.Connect",
       "ConnectParallel": "@roblox/globaltype/RunService.PostSimulation.ConnectParallel",
@@ -52340,7 +52454,7 @@
     "returns": []
   },
   "@roblox/globaltype/RunService.PreAnimation": {
-    "documentation": "在每一幀，物理模擬之前但渲染之後觸發。",
+    "documentation": "在每個幀中觸發，在物理模擬之前，但在渲染之後。",
     "keys": {
       "Connect": "@roblox/globaltype/RunService.PreAnimation.Connect",
       "ConnectParallel": "@roblox/globaltype/RunService.PreAnimation.ConnectParallel",
@@ -52428,7 +52542,7 @@
     "returns": []
   },
   "@roblox/globaltype/RunService.PreRender": {
-    "documentation": "在每一幀，渲染幀之前觸發。",
+    "documentation": "在每個幀中觸發，在幀渲染之前。",
     "keys": {
       "Connect": "@roblox/globaltype/RunService.PreRender.Connect",
       "ConnectParallel": "@roblox/globaltype/RunService.PreRender.ConnectParallel",
@@ -52516,7 +52630,7 @@
     "returns": []
   },
   "@roblox/globaltype/RunService.PreSimulation": {
-    "documentation": "在每一幀，物理模擬之前觸發。",
+    "documentation": "在每個幀中觸發，在物理模擬之前。",
     "keys": {
       "Connect": "@roblox/globaltype/RunService.PreSimulation.Connect",
       "ConnectParallel": "@roblox/globaltype/RunService.PreSimulation.ConnectParallel",
@@ -52604,7 +52718,7 @@
     "returns": []
   },
   "@roblox/globaltype/RunService.RenderStepped": {
-    "documentation": "在每一幀，渲染幀之前觸發。",
+    "documentation": "在每個幀中觸發，在幀渲染之前。",
     "keys": {
       "Connect": "@roblox/globaltype/RunService.RenderStepped.Connect",
       "ConnectParallel": "@roblox/globaltype/RunService.RenderStepped.ConnectParallel",
@@ -52612,6 +52726,94 @@
       "Wait": "@roblox/globaltype/RunService.RenderStepped.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#RenderStepped",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RunService.Rollback.Connect/param/0": {
+    "documentation": "在特定事件發生時運行連接的函數的對象。"
+  },
+  "@roblox/globaltype/RunService.Rollback.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RunService.Rollback.Connect": {
+    "documentation": "將給定的函數連接到事件並返回一個 <code>RBXScriptConnection</code> 來表示它。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.Rollback.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/RunService.Rollback.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/RunService.Rollback.ConnectParallel/param/0": {
+    "documentation": "在特定事件發生時運行連接的函數的對象。"
+  },
+  "@roblox/globaltype/RunService.Rollback.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RunService.Rollback.ConnectParallel": {
+    "documentation": "將給定的函數連接到事件並返回一個 <code>RBXScriptConnection</code> 來表示它。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.Rollback.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/RunService.Rollback.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/RunService.Rollback.Once/param/0": {
+    "documentation": "在特定事件發生時運行連接的函數的對象。"
+  },
+  "@roblox/globaltype/RunService.Rollback.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RunService.Rollback.Once": {
+    "documentation": "將給定的函數連接到事件（單次調用）並返回一個 <code>RBXScriptConnection</code> 來表示它。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.Rollback.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/RunService.Rollback.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/RunService.Rollback.Wait/param/0": {
+    "documentation": "在特定事件發生時運行連接的函數的對象。"
+  },
+  "@roblox/globaltype/RunService.Rollback.Wait": {
+    "documentation": "使當前線程暫停，直到信號觸發並返回信號提供的參數。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.Rollback.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/RunService.Rollback": {
+    "documentation": "在伺服器授權模型中，這在因錯誤預測回滾預測狀態後觸發，但在重新模擬開始之前。",
+    "keys": {
+      "Connect": "@roblox/globaltype/RunService.Rollback.Connect",
+      "ConnectParallel": "@roblox/globaltype/RunService.Rollback.ConnectParallel",
+      "Once": "@roblox/globaltype/RunService.Rollback.Once",
+      "Wait": "@roblox/globaltype/RunService.Rollback.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#Rollback",
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.Stepped.Connect/param/0": {
@@ -52692,7 +52894,7 @@
     "returns": []
   },
   "@roblox/globaltype/RunService.Stepped": {
-    "documentation": "在每一幀，物理模擬之前觸發。",
+    "documentation": "在每個幀中觸發，在物理模擬之前。",
     "keys": {
       "Connect": "@roblox/globaltype/RunService.Stepped.Connect",
       "ConnectParallel": "@roblox/globaltype/RunService.Stepped.ConnectParallel",
@@ -56057,6 +56259,7 @@
       "RolloffScale": "@roblox/globaltype/SoundService.RolloffScale",
       "VolumetricAudio": "@roblox/globaltype/SoundService.VolumetricAudio",
       "GetListener": "@roblox/globaltype/SoundService.GetListener",
+      "GetMixerTime": "@roblox/globaltype/SoundService.GetMixerTime",
       "OpenAttenuationCurveEditor": "@roblox/globaltype/SoundService.OpenAttenuationCurveEditor",
       "OpenDirectionalCurveEditor": "@roblox/globaltype/SoundService.OpenDirectionalCurveEditor",
       "PlayLocalSound": "@roblox/globaltype/SoundService.PlayLocalSound",
@@ -56130,6 +56333,26 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#GetListener",
     "code_sample": ""
   },
+  "@roblox/globaltype/SoundService.GetMixerTime/param/0": {
+    "documentation": "一個服務，用於確定音頻引擎工作方式的各個方面。大多數 其屬性影響 <code>Sounds</code> 在體驗中的播放方式。"
+  },
+  "@roblox/globaltype/SoundService.GetMixerTime/return/0": {
+    "documentation": "自音訊引擎開始混音以來的秒數。此值 是穩定的、樣本準確的，且是單調遞增的 – 旨在 用於在精確時間安排可聽變更。"
+  },
+  "@roblox/globaltype/SoundService.GetMixerTime": {
+    "documentation": "返回自音訊引擎開始混音以來的秒數。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SoundService.GetMixerTime/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/SoundService.GetMixerTime/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#GetMixerTime",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SoundService.OpenAttenuationCurveEditor/param/0": {
     "documentation": "一個服務，用於確定音頻引擎工作方式的各個方面。大多數 其屬性影響 <code>Sounds</code> 在體驗中的播放方式。"
   },
@@ -56137,7 +56360,7 @@
     "documentation": "一個 <code>AudioEmitters</code> 或 <code>AudioListeners</code> 的列表。"
   },
   "@roblox/globaltype/SoundService.OpenAttenuationCurveEditor": {
-    "documentation": "在 Studio 中為提供的 <code>AudioEmitter</code> 或 <code>AudioListener</code> 實例打開衰減曲線編輯器。",
+    "documentation": "在Studio中為提供的<code>AudioEmitter</code>或<code>AudioListener</code>實例打開衰減曲線編輯器。",
     "params": [
       {
         "name": "self",
@@ -56156,10 +56379,10 @@
     "documentation": "一個服務，用於確定音頻引擎工作方式的各個方面。大多數 其屬性影響 <code>Sounds</code> 在體驗中的播放方式。"
   },
   "@roblox/globaltype/SoundService.OpenDirectionalCurveEditor/param/1": {
-    "documentation": "一個 <code>AudioEmitters</code> 或 <code>AudioListeners</code> 的列表。"
+    "documentation": "一個<code>AudioEmitters</code>或 <code>AudioListeners</code>的列表。"
   },
   "@roblox/globaltype/SoundService.OpenDirectionalCurveEditor": {
-    "documentation": "在 Studio 中為提供的 <code>AudioEmitter</code> 或 <code>AudioListener</code> 實例打開方向曲線編輯器。",
+    "documentation": "在Studio中為提供的<code>AudioEmitter</code>或<code>AudioListener</code>實例打開方向曲線編輯器。",
     "params": [
       {
         "name": "self",
@@ -56178,10 +56401,10 @@
     "documentation": "一個服務，用於確定音頻引擎工作方式的各個方面。大多數 其屬性影響 <code>Sounds</code> 在體驗中的播放方式。"
   },
   "@roblox/globaltype/SoundService.PlayLocalSound/param/1": {
-    "documentation": "要播放的 <code>Sound</code>。"
+    "documentation": "要播放的<code>Sound</code>。"
   },
   "@roblox/globaltype/SoundService.PlayLocalSound": {
-    "documentation": "本地播放 <code>Sound</code> 的副本，僅客戶端可以聽到。",
+    "documentation": "在本地播放<code>Sound</code>的副本，使其僅可被 調用此方法的客戶端聽到。",
     "params": [
       {
         "name": "self",
@@ -56200,13 +56423,13 @@
     "documentation": "一個服務，用於確定音頻引擎工作方式的各個方面。大多數 其屬性影響 <code>Sounds</code> 在體驗中的播放方式。"
   },
   "@roblox/globaltype/SoundService.SetListener/param/1": {
-    "documentation": "聽者的 <code>ListenerType</code>。"
+    "documentation": "聆聽器的<code>ListenerType</code>。"
   },
   "@roblox/globaltype/SoundService.SetListener/param/2": {
-    "documentation": "依賴於 <code>ListenerType</code>。對於 <code>ListenerType.ObjectPosition</code> 或 <code>ListenerType.ObjectCFrame</code> 使用 <code>BasePart</code>，對於 <code>ListenerType.CFrame</code> 使用 <code>CFrame</code>，或者對於 <code>ListenerType.Camera</code> 使用 <code>nil</code>。"
+    "documentation": "取決於<code>ListenerType</code>。對於 <code>ListenerType.ObjectPosition</code>或 <code>ListenerType.ObjectCFrame</code>，使用<code>BasePart</code>； 對於<code>ListenerType.CFrame</code>，使用<code>CFrame</code>；或對於<code>ListenerType.Camera</code>，使用<code>nil</code>。"
   },
   "@roblox/globaltype/SoundService.SetListener": {
-    "documentation": "設置 <code>Sounds</code> 使用的聽者。",
+    "documentation": "設置<code>Sounds</code>使用的聆聽器。",
     "params": [
       {
         "name": "self",
@@ -59512,7 +59735,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer": {
-    "documentation": "一項服務，可設定 <code>Player</code> 物件的屬性預設值。",
+    "documentation": "允許在 <code>Player</code> 對象中設置屬性的默認值的服務。",
     "keys": {
       "AllowCustomAnimations": "@roblox/globaltype/StarterPlayer.AllowCustomAnimations",
       "AutoJumpEnabled": "@roblox/globaltype/StarterPlayer.AutoJumpEnabled",
@@ -59546,32 +59769,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.AllowCustomAnimations": {
-    "documentation": "描述當前遊戲對於來自網站的自定義頭像 動畫的權限級別。",
+    "documentation": "描述當前遊戲的權限級別，涉及網站上的自定義虛擬形象 動畫。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AllowCustomAnimations",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.AutoJumpEnabled": {
-    "documentation": "設置角色在移動設備上撞擊障礙物時是否會自動跳躍。",
+    "documentation": "設置角色在移動設備上碰到障礙物時是否會自動跳躍。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AutoJumpEnabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- 更新按鈕文字\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"自動跳躍已開啟\"\n\telse\n\t\tbutton.Text = \"自動跳躍已關閉\"\n\tend\n\t-- 在玩家的角色中反映屬性，如果他們有角色\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- 切換自動跳躍\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- 更新其他所有內容\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/StarterPlayer.AvatarJointUpgrade": {
-    "documentation": "控制頭像是否使用 <code>AnimationConstraint</code> 關節以進行物理模擬。",
+    "documentation": "控制虛擬形象是否以 <code>AnimationConstraint</code> 關節進行物理模擬。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AvatarJointUpgrade",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CameraMaxZoomDistance": {
-    "documentation": "玩家預設相機的最大縮放距離，以 studs 為單位。",
+    "documentation": "玩家的默認相機允許的最大縮放距離（以 studs 為單位）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CameraMaxZoomDistance",
     "code_sample": "-- 定義玩家服務\n\n    local Players = game:GetService(\"Players\")\n\n    -- 取得當前玩家\n    local player = Players.LocalPlayer\n\n    -- 設置相機的最大縮放距離\n    player.CameraMaxZoomDistance = 50\n\n    -- 設置相機的最小縮放距離\n    player.CameraMinZoomDistance = 75"
   },
   "@roblox/globaltype/StarterPlayer.CameraMinZoomDistance": {
-    "documentation": "玩家預設相機的最小縮放距離，以 studs 為單位。",
+    "documentation": "玩家的默認相機允許的最小縮放距離（以 studs 為單位）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CameraMinZoomDistance",
     "code_sample": "-- 定義玩家服務\n\n    local Players = game:GetService(\"Players\")\n\n    -- 取得當前玩家\n    local player = Players.LocalPlayer\n\n    -- 設置相機的最大縮放距離\n    player.CameraMaxZoomDistance = 50\n\n    -- 設置相機的最小縮放距離\n    player.CameraMinZoomDistance = 75"
   },
   "@roblox/globaltype/StarterPlayer.CameraMode": {
-    "documentation": "更改預設相機的模式為第一人稱或第三人稱。",
+    "documentation": "將默認相機的模式更改為第一人稱或第三人稱。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CameraMode",
     "code_sample": "-- 獲取 Players 服務\nlocal Players = game:GetService(\"Players\")\n\n-- 獲取本地玩家\nlocal player = Players.LocalPlayer\n\n-- 將 CameraMode 設置為 LockFirstPerson\nplayer.CameraMode = Enum.CameraMode.LockFirstPerson"
   },
@@ -59611,12 +59834,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CreateDefaultPlayerModule": {
-    "documentation": "控制預設玩家模組及相關腳本的處理方式。",
+    "documentation": "控制默認玩家模組和相關腳本的處理方式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CreateDefaultPlayerModule",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevCameraOcclusionMode": {
-    "documentation": "設置預設相機如何處理相機與玩家之間的物體。",
+    "documentation": "設置默認相機如何處理相機和玩家之間的物件。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevCameraOcclusionMode",
     "code_sample": ""
   },
@@ -59641,27 +59864,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.EnableDynamicHeads": {
-    "documentation": "設置是否使用動態頭部。如果為真，則啟用具有面部動畫數據的頭像頭部。",
+    "documentation": "設置動態頭部的使用。為 <code>true</code> 時，啟用帶有面部動畫數據的虛擬形象頭部。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#EnableDynamicHeads",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.EnableMouseLockOption": {
-    "documentation": "確定玩家是否可以默認切換滑鼠鎖定。",
+    "documentation": "確定玩家是否可以默認切換鼠標鎖定。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#EnableMouseLockOption",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nwhile true do\n\tplayer.DevEnableMouseLock = not player.DevEnableMouseLock\n\ttask.wait(5)\nend"
   },
   "@roblox/globaltype/StarterPlayer.HealthDisplayDistance": {
-    "documentation": "設置此玩家將看到其他 <code>Humanoid</code> 血條的距離。如果設置為 0，則不顯示血條。",
+    "documentation": "設置此玩家將看到其他 <code>Humanoid</code> 健康條的距離。如果設置為 0，則將不顯示健康條。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#HealthDisplayDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- 將健康顯示距離設置為 0\nplayer.HealthDisplayDistance = 0\n\n-- 將名稱顯示距離設置為 0\nplayer.NameDisplayDistance = 0"
   },
   "@roblox/globaltype/StarterPlayer.LoadCharacterAppearance": {
-    "documentation": "是否應載入玩家角色的外觀。",
+    "documentation": "是否應加載玩家角色的外觀。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#LoadCharacterAppearance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CanLoadCharacterAppearance = false"
   },
   "@roblox/globaltype/StarterPlayer.LoadCharacterLayeredClothing ": {
-    "documentation": "指示進入體驗的角色是否會裝備層疊服飾配件。",
+    "documentation": "指示進入體驗的角色是否具有配備的層疊服裝配飾。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#LoadCharacterLayeredClothing ",
     "code_sample": ""
   },
@@ -59671,12 +59894,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.NameDisplayDistance": {
-    "documentation": "設置此玩家將看到其他 <code>Humanoid</code> 姓名的距離。",
+    "documentation": "設置此玩家將看到其他 <code>Humanoid</code> 名稱的距離。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#NameDisplayDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- 將健康顯示距離設置為 0\nplayer.HealthDisplayDistance = 0\n\n-- 將名稱顯示距離設置為 0\nplayer.NameDisplayDistance = 0"
   },
   "@roblox/globaltype/StarterPlayer.UserEmotesEnabled": {
-    "documentation": "確定在載入頭像時是否載入用戶擁有的表情。",
+    "documentation": "確定在加載虛擬形象時是否加載用戶擁有的表情。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#UserEmotesEnabled",
     "code_sample": ""
   },
@@ -60020,6 +60243,7 @@
       "ComposeDecalAsync": "@roblox/globaltype/AssetService.ComposeDecalAsync",
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
+      "CreateDataModelContentAsync": "@roblox/globaltype/AssetService.CreateDataModelContentAsync",
       "CreateEditableImage": "@roblox/globaltype/AssetService.CreateEditableImage",
       "CreateEditableImageAsync": "@roblox/globaltype/AssetService.CreateEditableImageAsync",
       "CreateEditableMesh": "@roblox/globaltype/AssetService.CreateEditableMesh",
@@ -60167,11 +60391,45 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateAssetVersionAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AssetService.CreateDataModelContentAsync/param/0": {
+    "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
+  },
+  "@roblox/globaltype/AssetService.CreateDataModelContentAsync/param/1": {
+    "documentation": "對輸入內容的引用。目前僅支持 <code>Content</code> 包裹的 <code>EditableMesh</code> 或 <code>EditableImage</code>。"
+  },
+  "@roblox/globaltype/AssetService.CreateDataModelContentAsync/param/2": {
+    "documentation": "可選字典，包含創建的 <code>DataModel</code> 內容的配置控制。當前未顯示控制，該 參數存在於未來功能中。"
+  },
+  "@roblox/globaltype/AssetService.CreateDataModelContentAsync/return/0": {
+    "documentation": "元組，包含 <code>CreateContentResult</code>，表示請求的成功或失敗，以及結果的 <code>DataModel</code> 範圍的 <code>Opaque</code> <code>Content</code>。"
+  },
+  "@roblox/globaltype/AssetService.CreateDataModelContentAsync": {
+    "documentation": "從提供的內容輸入創建臨時的 <code>DataModel</code> 範圍內容。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.CreateDataModelContentAsync/param/0"
+      },
+      {
+        "name": "content",
+        "documentation": "@roblox/globaltype/AssetService.CreateDataModelContentAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/AssetService.CreateDataModelContentAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.CreateDataModelContentAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateDataModelContentAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/0": {
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/1": {
-    "documentation": "包含控制該方法的選項表： <ul> <li><code>Size</code> – 一個 <code>Vector2</code>，指定圖像的預期   寬度和高度。</li> </ul>"
+    "documentation": "包含方法控制的選項表： <ul> <li><code>Size</code> – 一個 <code>Vector2</code>，指定圖像期望的   寬度和高度。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/return/0": {
     "documentation": ""
@@ -60198,16 +60456,16 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/1": {
-    "documentation": "引用存儲在外部或作為場景內對象的資產內容，包裝 支持的 <code>ContentSourceType</code> 值之一的單個值。"
+    "documentation": "對外部存儲的資產內容或作為場所內對象的引用，包裹一個支持的 <code>ContentSourceType</code> 值中的單一值。"
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/2": {
-    "documentation": "包含為創建的 <code>EditableImage</code> 提供選項的表。 當前沒有可用的選項，因為無法通過 <code>Size</code> 進行調整。"
+    "documentation": "包含創建的 <code>EditableImage</code> 的選項表。 當前沒有可用選項，因為通過 <code>Size</code> 不支持調整大小。"
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/return/0": {
-    "documentation": "一個新的 <code>EditableImage</code>，包含提供的圖像。"
+    "documentation": "一個包含提供圖像的新 <code>EditableImage</code>。"
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync": {
-    "documentation": "創建一個新的 <code>EditableImage</code> 對象，用指定的圖像填充。",
+    "documentation": "創建一個填充指定圖像的新 <code>EditableImage</code> 對象。",
     "params": [
       {
         "name": "self",
@@ -60232,13 +60490,13 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/param/1": {
-    "documentation": "包含為創建的 <code>EditableMesh</code> 提供選項的表。 當前沒有可用的選項，因為 <code>FixedSize</code> 將永遠是 <code>false</code>，對於空的可編輯網格。"
+    "documentation": "包含創建的 <code>EditableMesh</code> 的選項表。 當前沒有可用選項，因為 <code>FixedSize</code> 對於 空的可編輯網格將始終為 <code>false</code>。"
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh": {
-    "documentation": "創建一個新的空的 <code>EditableMesh</code>。",
+    "documentation": "創建一個新的空 <code>EditableMesh</code>。",
     "params": [
       {
         "name": "self",
@@ -60262,13 +60520,13 @@
     "documentation": "引用存儲在外部或作為場景內對象的資產內容，包裝 支持的 <code>ContentSourceType</code> 值之一的單個值。"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/2": {
-    "documentation": "包含控制該方法的選項表： <ul> <li><code>FixedSize</code> – 一個 <code>bool</code>。默認值為 <code>true</code>，返回的   <code>EditableMesh</code> 將不允許您添加或移除頂點，   只能修改它們的值。若需要更改網格拓撲的功能，請設置為 <code>false</code>，   但這將消耗更多內存。</li> </ul>"
+    "documentation": "包含方法控制的選項表： <ul> <li><code>FixedSize</code> – 一個 <code>bool</code>。默認值為 <code>true</code>，返回的   <code>EditableMesh</code> 將不允許您添加或刪除頂點，   只能修改它們的值。如果需要更改網格拓撲的能力，則設置為 <code>false</code>，這將消耗更多內存。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/return/0": {
     "documentation": "新的 <code>EditableMesh</code> 實例。"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync": {
-    "documentation": "從現有的網格內容 ID 返回一個新的 <code>EditableMesh</code> 對象。",
+    "documentation": "返回一個從現有網格內容ID創建的新 <code>EditableMesh</code> 對象。",
     "params": [
       {
         "name": "self",
@@ -60293,16 +60551,16 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/1": {
-    "documentation": "引用存儲在外部或作為場景內對象的資產內容，包裝 支持的 <code>ContentSourceType</code> 值之一的單個值。"
+    "documentation": "對外部存儲的資產內容或作為場所內對象的引用，包裹一個支持的 <code>ContentSourceType</code> 值中的單一值。"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/2": {
-    "documentation": "包含為該方法提供的一個或多個控制項的選項表： <ul> <li><code>CollisionFidelity</code> – 在結果部件中的   <code>CollisionFidelity</code> 的值。如果   選項不存在或 <code>options</code> 表為 <code>nil</code>，則默認為 <code>CollisionFidelity.Default</code>。</li> <li><code>RenderFidelity</code> – 在結果部件中的   <code>RenderFidelity</code> 的值。如果   選項不存在或 <code>options</code> 表為 <code>nil</code>，則默認為 <code>RenderFidelity.Automatic</code>。</li> <li><code>FluidFidelity</code> – 在結果部件中的   <code>FluidFidelity</code> 的值。如果   選項不存在或 <code>options</code> 表為 <code>nil</code>，則默認為 <code>FluidFidelity.Automatic</code>。</li> </ul>"
+    "documentation": "包含一個或多個方法控制的選項表： <ul> <li><code>CollisionFidelity</code> – 在   生成部分中的 <code>CollisionFidelity</code> 值。當未提供   選項或 <code>options</code> 表為 <code>nil</code> 時，默認為 <code>CollisionFidelity.Default</code>。</li> <li><code>RenderFidelity</code> – 在   生成部分中的 <code>RenderFidelity</code> 值。當未提供   選項或 <code>options</code> 表為 <code>nil</code> 時，默認為 <code>RenderFidelity.Automatic</code>。</li> <li><code>FluidFidelity</code> – 在   生成部分中的 <code>FluidFidelity</code> 值。當未提供   選項或 <code>options</code> 表為 <code>nil</code> 時，默認為 <code>FluidFidelity.Automatic</code>。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync": {
-    "documentation": "創建一個新的 <code>MeshPart</code>，指定網格 ID 和可選的 精度值表。",
+    "documentation": "創建一個具有指定網格 ID 和可選保真度值表的新 <code>MeshPart</code>。",
     "params": [
       {
         "name": "self",
@@ -60330,13 +60588,13 @@
     "documentation": "新地方的名稱。"
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/2": {
-    "documentation": "<code>PlaceId</code> 要克隆的地方。"
+    "documentation": "<code>PlaceId</code> 的地方來克隆。"
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/3": {
     "documentation": "新地方的描述。"
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/return/0": {
-    "documentation": "<code>PlaceId</code> 新地方的 ID。"
+    "documentation": "<code>PlaceId</code> 的新地方。"
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync": {
     "documentation": "通過給定的 <code>templatePlaceID</code> 克隆一個地方。",
@@ -60383,7 +60641,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync": {
-    "documentation": "通過給定的 <code>templatePlaceID</code> 克隆一個地方，並將它放入給定玩家的庫中。",
+    "documentation": "通過給定的 <code>templatePlaceID</code> 克隆一個地方並將其放入給定玩家的 庫中。",
     "params": [
       {
         "name": "self",
@@ -60416,13 +60674,13 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "包含以下鍵值對的字典： <ul> <li><code>ColorMap</code> — 一個 <code>Content</code> 對象，其中包含顏色   圖。默認為 <code>nil</code>。</li> <li><code>MetalnessMap</code> — 一個 <code>Content</code> 對象，其中包含   金屬度圖。如果存在多個通道，只使用紅色通道。默認為 <code>nil</code>。</li> <li><code>NormalMap</code> — 一個 <code>Content</code> 對象，其中包含法線   圖。默認為 <code>nil</code>。</li> <li><code>RoughnessMap</code> — 一個 <code>Content</code> 對象，其中包含   粗糙度圖。如果存在多個通道，只使用紅色通道。默認為 <code>nil</code>。</li> <li><code>EmissiveMask</code> — 一個 <code>Content</code> 對象，其中包含   發光掩碼。如果存在多個通道，只使用紅色通道。默認為 <code>nil</code>。</li> </ul>"
+    "documentation": "包含以下鍵值對的字典： <ul> <li><code>ColorMap</code> — 包含顏色   地圖的 <code>Content</code> 對象。默認為 <code>nil</code>。</li> <li><code>MetalnessMap</code> — 包含金屬質量   地圖的 <code>Content</code> 對象。如果存在多個通道，僅使用紅色   通道。默認為 <code>nil</code>。</li> <li><code>NormalMap</code> — 包含法線   地圖的 <code>Content</code> 對象。默認為 <code>nil</code>。</li> <li><code>RoughnessMap</code> — 包含粗糙度   地圖的 <code>Content</code> 對象。如果存在多個通道，僅使用紅色   通道。默認為 <code>nil</code>。</li> <li><code>EmissiveMask</code> — 包含發光掩碼的   <code>Content</code> 對象。如果存在多個通道，僅使用紅色   通道。默認為 <code>nil</code>。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "一個新的 <code>SurfaceAppearance</code> 實例，帶有來自 <code>content</code> 參數的圖。"
+    "documentation": "一個新的 <code>SurfaceAppearance</code> 實例，與 <code>content</code> 參數中的映射。"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
-    "documentation": "使用提供的內容圖創建一個新的 <code>SurfaceAppearance</code> 對象。",
+    "documentation": "使用提供的內容映射創建一個新的 <code>SurfaceAppearance</code> 對象。",
     "params": [
       {
         "name": "self",
@@ -60497,13 +60755,13 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/param/1": {
-    "documentation": "要檢索元數據的資產或內容 ID 陣列。最大批量大小為 30。"
+    "documentation": "要檢索元數據的資產或內容 ID 陣列。最大 批量大小為 30。"
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/return/0": {
-    "documentation": "與請求順序相同的字典表陣列，其中每個字典包含其資產/內容的以下元數據： <ul> <li> <code>AssetId</code>（字符串） </li> <li> <code>Title</code>（字符串） </li> <li> <code>Artist</code>（字符串） </li> <li> <code>Duration</code>（數字）以秒為單位 </li> <li> <code>AudioType</code>（<code>AudioSubType</code>） </li> </ul> 請注意，如果在獲取任何請求資產的元數據時發生錯誤，例如資產 ID 不存在， 其字典表仍將包含在返回的陣列中，但僅包含 <code>AssetId</code> 字段以供參考。此外，如果 無法確定給定資產的 <code>AudioType</code>（或許因為它是私有音頻）， 則得出的字典將不包含 <code>AudioType</code> 項。"
+    "documentation": "以請求的相同順序返回字典表，每個字典包含其資產/內容的以下元數據： <ul> <li> <code>AssetId</code> （字符串） </li> <li> <code>Title</code> （字符串） </li> <li> <code>Artist</code> （字符串） </li> <li> <code>Duration</code> （數字）以秒計 </li> <li> <code>AudioType</code> （<code>AudioSubType</code>） </li> </ul> 請注意，如果在獲取任何請求資產的元數據時發生錯誤，例如資產 ID 不存在，則其 字典表仍包含在返回的陣列中，但僅包含 <code>AssetId</code> 字段以供參考。此外，如果無法確定給定資產的 <code>AudioType</code>（可能是因為它是私人音頻），則結果字典將不包含 <code>AudioType</code> 條目。"
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync": {
-    "documentation": "提供有關特定音頻來源的相關元數據。",
+    "documentation": "提供特定音頻源的相關元數據。",
     "params": [
       {
         "name": "self",
@@ -60527,10 +60785,10 @@
     "documentation": "指定包的 ID。"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/return/0": {
-    "documentation": "包含有關指定包的詳細信息的字典，其鍵值對包括： <ul> <li> <code>Id</code> — 包 ID（與傳遞的 <code>bundleId</code> 參數相同） </li> <li> <code>Name</code> — 包名稱 </li> <li> <code>Description</code> — 包描述 </li> <li> <code>BundleType</code> — 字符串，表示 <code>BundleType</code>，例如 <code>\"BodyParts\"</code> 或 <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — 包中項目的陣列，每個項目都用以下鍵表示其詳細信息： </li> <li> <code>Id</code> — 項目 ID </li> <li> <code>Name</code> — 項目名稱 </li> <li> <code>Type</code> — 項目類型，例如 <code>\"Asset\"</code> 。 </li> </ul>"
+    "documentation": "字典，包含以下鍵值對的詳細信息，關於指定包： <ul> <li> <code>Id</code> — 包 ID（與傳遞的 <code>bundleId</code> 參數相同） </li> <li> <code>Name</code> — 包名稱 </li> <li> <code>Description</code> — 包描述 </li> <li> <code>BundleType</code> — 表示 <code>BundleType</code> 的字符串，例如 <code>\"BodyParts\"</code> 或 <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — 包中項目的數組，每個項目具有通過以下鍵表示的詳細信息： </li> <li> <code>Id</code> — 項目 ID </li> <li> <code>Name</code> — 項目名稱 </li> <li> <code>Type</code> — 項目類型，例如 <code>\"Asset\"</code> </li> <li> <code>AssetType</code> — 表示 <code>AvatarAssetType</code> 的字符串 </li> <li> <code>SupportsHeadShapes</code> — 資產是否支持頭型     交換。如果 <code>AssetType</code> 是 <code>\"DynamicHead\"</code>，則僅存在。 </li> </ul>"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync": {
-    "documentation": "返回指定包內容的詳細信息。",
+    "documentation": "返回指定包的內容詳細信息。",
     "params": [
       {
         "name": "self",
@@ -60557,7 +60815,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID": {
-    "documentation": "<strong>Deprecated:</strong> 此項已被棄用，且不再正常運作。請不要在新工作中使用它。<br>返回創建了 creationID 資產的帳戶的 UserId。",
+    "documentation": "<strong>Deprecated:</strong> 此項已被逐出，並不再正常運行。不要在新的工作中使用它。<br>返回創建 creationID 資產的帳戶的 UserId。",
     "params": [
       {
         "name": "self",
@@ -60581,7 +60839,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync": {
-    "documentation": "返回一個 <code>StandardPages</code> 對象，其中包含當前體驗中 地方的名稱和 <code>PlaceId</code>。",
+    "documentation": "返回包含當前經驗中地方名稱和 <code>PlaceId</code> 的 <code>StandardPages</code> 對象。",
     "params": [
       {
         "name": "self",
@@ -60598,13 +60856,13 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync/param/1": {
-    "documentation": "要加載的資產的 ID 號。"
+    "documentation": "正在加載的資產的資產 ID 號碼。"
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync/return/0": {
-    "documentation": "一個 <code>Model</code> 實例，包含加載的資產。"
+    "documentation": "包含加載資產的 <code>Model</code> 實例。"
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync": {
-    "documentation": "根據其資產 ID 加載 <code>Model</code> 實例。這是 <code>InsertService:LoadAsset()</code> 的現代替代品， 並支持加載第三方資產。",
+    "documentation": "加載給定資產 ID 的 <code>Model</code> 實例。這是現代的 替代方案  <code>InsertService:LoadAsset()</code> 並支持加載 第三方資產。",
     "params": [
       {
         "name": "self",
@@ -60628,16 +60886,16 @@
     "documentation": "提交資產創建的用戶。"
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/2": {
-    "documentation": "要創建的資產。目前不能包含腳本或嵌套 非公共資產。"
+    "documentation": "要創建的資產。當前不能包含腳本或嵌套 非公共資產。"
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/3": {
     "documentation": "資產類型。當前只能是 <code>AssetType.Model</code>。"
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/return/0": {
-    "documentation": "如果成功，返回 <code>PromptCreateAssetResult</code> 和資產 ID 對。"
+    "documentation": "當成功時的 <code>PromptCreateAssetResult</code> 和資產 ID 配對。"
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync": {
-    "documentation": "通過提示發布對話框，允許用戶在體驗中創建資產。",
+    "documentation": "通過提示發佈對話框允許用戶在經驗中創建資產。",
     "params": [
       {
         "name": "self",
@@ -60700,7 +60958,7 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "可選字典，包含 <code>SaveWithoutPublish</code>，這是一個布爾值，指示是 否要選擇性保存，還有 <code>PlaceId</code>，要保存的目標地方 ID。這樣使用的例子 是：AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})。如果未提供 PlaceId，默認行為將保存 覆蓋當前原始地方，即調用 SavePlaceAsync 的地方。如果未提供 SaveWithoutPublish，默認行為為 SaveWithoutPublish=false。"
+    "documentation": "可選字典，包括 <code>SaveWithoutPublish</code>，一個布林值 指示是否要保存為發佈或不發佈，還有 <code>PlaceId</code>，要保存的目標地方 ID。一個示例用法將是：AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})。如果未提供 <code>PlaceId</code>，默認行為將保存 覆蓋呼叫 <code>SavePlaceAsync</code> 的當前原始地方。如果未提供 <code>SaveWithoutPublish</code>，默認行為是 SaveWithoutPublish=false。"
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "保存當前地方的狀態。",
@@ -60755,7 +61013,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync": {
-    "documentation": "根據各種搜索條件查找音頻資產。",
+    "documentation": "找到符合多種搜索條件的音頻資產。",
     "params": [
       {
         "name": "self",
@@ -62414,7 +62672,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MakeupDescription": {
-    "documentation": "",
+    "documentation": "描述了 <code>HumanoidDescription</code> 的化妝品外觀。",
     "keys": {
       "AssetId": "@roblox/globaltype/MakeupDescription.AssetId",
       "Instance": "@roblox/globaltype/MakeupDescription.Instance",
@@ -62426,33 +62684,33 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MakeupDescription.AssetId": {
-    "documentation": "",
+    "documentation": "在應用此 <code>MakeupDescription</code> 時應該應用的資產 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MakeupDescription#AssetId",
     "code_sample": ""
   },
   "@roblox/globaltype/MakeupDescription.Instance": {
-    "documentation": "",
+    "documentation": "在應用此 <code>MakeupDescription</code> 時應該使用的 <code>Instance</code> 的引用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MakeupDescription#Instance",
     "code_sample": ""
   },
   "@roblox/globaltype/MakeupDescription.MakeupType": {
-    "documentation": "",
+    "documentation": "該描述所提及的化妝品的 <code>MakeupType</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MakeupDescription#MakeupType",
     "code_sample": ""
   },
   "@roblox/globaltype/MakeupDescription.Order": {
-    "documentation": "",
+    "documentation": "化妝品的排序層級。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MakeupDescription#Order",
     "code_sample": ""
   },
   "@roblox/globaltype/MakeupDescription.GetAppliedInstance/param/0": {
-    "documentation": ""
+    "documentation": "描述了 <code>HumanoidDescription</code> 的化妝品外觀。"
   },
   "@roblox/globaltype/MakeupDescription.GetAppliedInstance/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MakeupDescription.GetAppliedInstance": {
-    "documentation": "",
+    "documentation": "返回已應用的化妝 <code>Instance</code>。",
     "params": [
       {
         "name": "self",
@@ -76807,94 +77065,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiButton#MouseButton2Up",
     "code_sample": ""
   },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Connect/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Connect/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Connect": {
-    "documentation": "將給定的函數連接到事件並返回一個 <code>RBXScriptConnection</code> 來表示它。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/GuiButton.SecondaryActivated.Connect/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/GuiButton.SecondaryActivated.Connect/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.ConnectParallel/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.ConnectParallel/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.ConnectParallel": {
-    "documentation": "將給定的函數連接到事件並返回一個 <code>RBXScriptConnection</code> 來表示它。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/GuiButton.SecondaryActivated.ConnectParallel/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/GuiButton.SecondaryActivated.ConnectParallel/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Once/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Once/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Once": {
-    "documentation": "將給定的函數連接到事件（單次調用）並返回一個 <code>RBXScriptConnection</code> 來表示它。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/GuiButton.SecondaryActivated.Once/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/GuiButton.SecondaryActivated.Once/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Wait/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated.Wait": {
-    "documentation": "使當前線程暫停，直到信號觸發並返回信號提供的參數。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/GuiButton.SecondaryActivated.Wait/param/0"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/GuiButton.SecondaryActivated": {
-    "documentation": "當在桌面上檢測到右鍵點擊、在行動裝置上檢測到長按，或在控制台的 UI 導航模式中激活三角形/Y 時觸發。這個函數尚未可用。",
-    "keys": {
-      "Connect": "@roblox/globaltype/GuiButton.SecondaryActivated.Connect",
-      "ConnectParallel": "@roblox/globaltype/GuiButton.SecondaryActivated.ConnectParallel",
-      "Once": "@roblox/globaltype/GuiButton.SecondaryActivated.Once",
-      "Wait": "@roblox/globaltype/GuiButton.SecondaryActivated.Wait"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiButton#SecondaryActivated",
-    "code_sample": ""
-  },
   "@roblox/globaltype/PackageLink": {
     "documentation": "將 <code>DataModel</code> 實例鏈接到雲中的相應資產。",
     "keys": {
@@ -80599,7 +80769,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetDeveloperProductsAsync": {
-    "documentation": "返回一個 <code>Pages</code> 物件，該物件包含有關當前體驗的所有開發者產品的信息。",
+    "documentation": "返回一個 <code>Pages</code> 物件，包含當前體驗的所有 開發者產品的資訊。",
     "params": [
       {
         "name": "self",
@@ -80619,13 +80789,13 @@
     "documentation": "指定產品的資產 ID。"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/2": {
-    "documentation": "一個 <code>InfoType</code> 枚舉值，指定要檢索的信息類型。"
+    "documentation": "一個 <code>InfoType</code> 枚舉值，指定正在檢索的資訊類型。"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/return/0": {
-    "documentation": "包含有關查詢項目的信息的字典，如前述表格所述。"
+    "documentation": "包含查詢項目資訊的字典，在前面的表中進行描述。"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo": {
-    "documentation": "<strong>Deprecated:</strong> 這個方法已被 <code>GetProductInfoAsync()</code>取代。<br>根據其資產 ID 返回資產的產品信息。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>GetProductInfoAsync()</code> 取代。<br>根據其資產 ID 返回一個資產的產品資訊。",
     "params": [
       {
         "name": "self",
@@ -80653,13 +80823,13 @@
     "documentation": "指定產品的資產 ID。"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/param/2": {
-    "documentation": "一個 <code>InfoType</code> 枚舉值，指定要檢索的信息類型。"
+    "documentation": "一個 <code>InfoType</code> 枚舉值，指定正在檢索的資訊類型。"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/return/0": {
-    "documentation": "包含有關查詢項目的信息的字典，如前述表格所述。"
+    "documentation": "包含查詢項目資訊的字典，在前面的表中進行描述。"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfoAsync": {
-    "documentation": "根據其資產 ID 返回資產的產品信息。",
+    "documentation": "根據其資產 ID 返回一個資產的產品資訊。",
     "params": [
       {
         "name": "self",
@@ -80741,10 +80911,10 @@
     "documentation": "用戶 ID 的數組。"
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": "返回一個包含 <code>PriceLevelInfo</code> 對象的數組，其中鍵是用戶 ID（字符串），其值是相應的價格級別（介於 1 到 1000 之間的整數）。"
+    "documentation": "返回一個 <code>PriceLevelInfo</code> 物件的數組，其中字典的鍵是用戶 ID（字符串），其值是相應的價格級別（整數介於 1 和 1000 之間）。"
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "返回用戶的區域化價格級別，表示其區域市場中商品的建議價格。",
+    "documentation": "返回用戶的區域化價格級別，代表該用戶在其區域市場中商品的推薦價格。",
     "params": [
       {
         "name": "self",
@@ -80765,7 +80935,7 @@
     "documentation": "負責體驗內交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/1": {
-    "documentation": "要檢查其訂閱詳細信息的 <code>Player</code> 對象。"
+    "documentation": "要檢查其訂閱詳細資訊的 <code>Player</code> 物件。"
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/2": {
     "documentation": "要檢查的訂閱 ID。"
@@ -80774,7 +80944,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync": {
-    "documentation": "返回用戶的訂閱詳細信息表，給定的 <code>subscriptionId</code>。",
+    "documentation": "返回包含用戶的訂閱詳細資訊的表，根據給定的 <code>subscriptionId</code>。",
     "params": [
       {
         "name": "self",
@@ -80808,7 +80978,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync": {
-    "documentation": "返回一個包含用戶在給定的 <code>subscriptionId</code> 下的訂閱付款歷史的最多一年的 <code>Array</code>。",
+    "documentation": "返回一個包含用戶訂閱支付歷史的 <code>Array</code>，針對給定的 <code>subscriptionId</code>，長達一年的歷史。",
     "params": [
       {
         "name": "self",
@@ -80833,7 +81003,7 @@
     "documentation": "負責體驗內交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/1": {
-    "documentation": "要檢查其訂閱狀態的 <code>Player</code> 對象。"
+    "documentation": "要檢查其訂閱狀態的 <code>Player</code> 物件。"
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/2": {
     "documentation": "要檢查的訂閱 ID。"
@@ -80842,7 +81012,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync": {
-    "documentation": "返回用戶在給定 <code>subscriptionId</code> 的訂閱狀態的 <code>table</code>。",
+    "documentation": "Returns a <code>table</code> that contains the subscription status of the user for the given <code>subscriptionId</code>.",
     "params": [
       {
         "name": "self",
@@ -80867,16 +81037,16 @@
     "documentation": "負責體驗內交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/1": {
-    "documentation": "要測試擁有指定資產的 <code>Player</code>。"
+    "documentation": "要檢查擁有性的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/2": {
-    "documentation": "要測試的資產 ID。"
+    "documentation": "要檢查的資產 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/return/0": {
-    "documentation": "指示給定玩家的庫存中是否包含指定資產。"
+    "documentation": "指示給定用戶的庫存是否包含該資產。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>PlayerOwnsAssetAsync()</code> 取代。<br>返回指定用戶是否擁有給定的資產。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>PlayerOwnsAssetAsync()</code>取代。<br>返回給定用戶是否擁有所給資產。",
     "params": [
       {
         "name": "self",
@@ -80901,16 +81071,16 @@
     "documentation": "負責體驗內交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/1": {
-    "documentation": "要測試是否擁有給定資源的 <code>Player</code>。"
+    "documentation": "要檢查擁有性的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/2": {
-    "documentation": "要測試的資源 ID。"
+    "documentation": "要檢查的資產 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/return/0": {
-    "documentation": "指示給定玩家的庫存是否包含該資源。"
+    "documentation": "指示給定用戶的庫存是否包含該資產。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync": {
-    "documentation": "返回給定用戶是否擁有給定資源的結果。",
+    "documentation": "返回給定用戶是否擁有所給資產。",
     "params": [
       {
         "name": "self",
@@ -80935,16 +81105,16 @@
     "documentation": "負責體驗內交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/1": {
-    "documentation": "要測試擁有指定捆綁包的 <code>Player</code>。"
+    "documentation": "要檢查擁有性的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/2": {
-    "documentation": "要測試的捆綁 ID。"
+    "documentation": "要檢查的束捆 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0": {
-    "documentation": "指示給定玩家的庫存中是否包含指定捆綁包。"
+    "documentation": "指示給定用戶的庫存是否包含該束捆。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>PlayerOwnsBundleAsync()</code> 取代。<br>返回指定玩家是否擁有給定的捆綁包。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>PlayerOwnsBundleAsync()</code>取代。<br>返回給定用戶是否擁有所給束捆。",
     "params": [
       {
         "name": "self",
@@ -80969,16 +81139,16 @@
     "documentation": "負責體驗內交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/1": {
-    "documentation": "要測試是否擁有給定包的 <code>Player</code>。"
+    "documentation": "要檢查擁有性的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/2": {
-    "documentation": "要測試的包 ID。"
+    "documentation": "要檢查的束捆 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/return/0": {
-    "documentation": "指示給定玩家的庫存是否包含該包。"
+    "documentation": "指示給定用戶的庫存是否包含該束捆。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync": {
-    "documentation": "返回給定玩家是否擁有給定包的結果。",
+    "documentation": "返回給定用戶是否擁有所給束捆。",
     "params": [
       {
         "name": "self",
@@ -81003,16 +81173,16 @@
     "documentation": "負責體驗內交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/1": {
-    "documentation": "要提示購買物品的用戶。"
+    "documentation": "要提示購買項目的用戶。"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "要包含在批量購買中的虛擬物品數組。 每個行項目包含以下結構： <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> 每個行項目包含以下對： <ul> <li><code>Type</code>: 對應的 <code>MarketplaceProductType</code>（列舉）。</li> <li><code>Id</code>: 資源或包的 ID。</li> </ul>"
+    "documentation": "要包含在批量購買中的虛擬形象項目數組。 每個條目都包含以下結構： <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> 每個條目包含以下對： <ul> <li><code>Type</code>: 對應的 <code>MarketplaceProductType</code>（枚舉）。</li> <li><code>Id</code>: 資產或束捆的 ID。</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
-    "documentation": "此時無法使用。"
+    "documentation": "目前不可用。"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase": {
-    "documentation": "提示用戶購買多個擁有給定 <code>assetId</code> 或 <code>bundleId</code> 的虛擬物品。",
+    "documentation": "提示用戶以給定的 <code>assetId</code> 或 <code>bundleId</code> 購買多個虛擬形象項目。",
     "params": [
       {
         "name": "self",
@@ -81045,7 +81215,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase": {
-    "documentation": "提示用戶購買擁有給定 <code>bundleId</code> 的包。",
+    "documentation": "提示用戶以給定的 <code>bundleId</code> 購買一個束捆。",
     "params": [
       {
         "name": "self",
@@ -81103,7 +81273,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase": {
-    "documentation": "提示用戶以給定的 <code>gamePassId</code> 購買通行證。",
+    "documentation": "提示用戶以給定的 <code>gamePassId</code> 購買一個通行證。",
     "params": [
       {
         "name": "self",
@@ -81160,7 +81330,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase": {
-    "documentation": "提示用戶購買擁有給定 <code>productId</code> 的開發者產品。",
+    "documentation": "提示用戶購買給定 <code>productId</code> 的開發者產品。",
     "params": [
       {
         "name": "self",
@@ -81203,7 +81373,7 @@
     "documentation": "被忽略。"
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase": {
-    "documentation": "提示用戶購買擁有給定 <code>assetId</code> 的物品。不適用於 USD 創作者商店的購買。",
+    "documentation": "提示用戶購買給定 <code>assetId</code> 的項目。對於 USD 創作者商店購買無效。",
     "params": [
       {
         "name": "self",
@@ -81234,7 +81404,7 @@
     "documentation": "負責體驗內交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/1": {
-    "documentation": "要提示購買訂閱的 <code>Player</code> 對象。"
+    "documentation": "要提示訂閱的 <code>Player</code> 物件。"
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2": {
     "documentation": "要訂閱的訂閱 ID。"
@@ -81263,13 +81433,13 @@
     "documentation": "負責體驗內交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": "一個物件數組，識別您想要排名的產品。此數組最多可以包含 50 個項目。 每個 <code>ProductIdentifier</code> 包含： <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>必須為 <code>InfoType.GamePass</code> 或 <code>InfoType.Product</code>。</li> <li><code>Id</code>: number</li> <li>遊戲通行證或開發者產品的 ID。</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
+    "documentation": "一組物件，識別您希望排名的產品。該數組最多可以包含 50 個項目。 每個 <code>ProductIdentifier</code> 包含： <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>必須是 <code>InfoType.GamePass</code> 或     <code>InfoType.Product</code>。</li> <li><code>Id</code>: number</li> <li>遊戲通行證或開發者產品的 ID。</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "根據當前用戶的個性化排序列表的物品數組。 每個數組都有： <ul> <li><code>ProductIdentifier</code>：來自輸入數組的對應 ID。</li> <li><code>ProductInfo</code>：由 <code>GetProductInfoAsync</code> 返回的標準產品信息字典。</li> </ul>"
+    "documentation": "當前用戶的個性化排序項目的數組。 每個數組包含： <ul> <li><code>ProductIdentifier</code>: 來自輸入數組的相應 ID。</li> <li><code>ProductInfo</code>: <code>GetProductInfoAsync</code> 返回的標準產品資訊字典。</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
-    "documentation": "接受一組產品 ID 並返回這些產品的個性化排序列表。",
+    "documentation": "接收一組產品 ID 並返回這些產品的個性化排序列表。",
     "params": [
       {
         "name": "self",
@@ -81290,13 +81460,13 @@
     "documentation": "負責體驗內交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": "一個 <code>InfoType</code> 值的數組，指定要檢索建議的產品類型。 支持的 <code>InfoTypes</code>：<code>InfoType.GamePass</code>，<code>InfoType.Product</code>。 <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
+    "documentation": "一個指定要檢索推薦的 <code>InfoType</code> 值的數組。 支援的 <code>InfoTypes</code>: <code>InfoType.GamePass</code>、 <code>InfoType.Product</code>。 <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": "根據提供的 <code>InfoTypes</code>，用戶最有可能參與的最多 50 隻物品的排名列表。如果無法確定任何建議，該方法將返回空列表。"
+    "documentation": "A ranked list of up to 50 items the user is most likely to engage with, based on the provided <code>InfoTypes</code>. If no recommendations can be determined, the method returns an empty list."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "<ul> <li>接受一組 <code>InfoType</code> 並返回最多 50 個物品，表示用戶最有可能參與和購買的產品。</li> </ul>",
+    "documentation": "<ul> <li>接收一個 <code>InfoType</code> 陣列，並返回用戶最有可能互動和購買的產品的最多 50 項項目。</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -81317,16 +81487,16 @@
     "documentation": "負責體驗內交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/1": {
-    "documentation": "要檢查的 <code>Player</code> 的 <code>UserId</code>。"
+    "documentation": "The <code>UserId</code> of the <code>Player</code> whose inventory you're checking."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/2": {
-    "documentation": "你想要檢查的通行證 ID。不要與資源 ID 混淆。"
+    "documentation": "The pass ID you want to check for. Not to be confused with an asset ID."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync": {
-    "documentation": "如果擁有給定 <code>UserId</code> 的玩家擁有給定的 <code>gamePassId</code>，則返回真。",
+    "documentation": "Returns true if the player with the given <code>UserId</code> owns the pass with the given <code>gamePassId</code>.",
     "params": [
       {
         "name": "self",
@@ -81348,13 +81518,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.ProcessReceipt/param/0": {
-    "documentation": "傳遞給此回調的 <code>receiptInfo</code> 表包含以下數據： <ul> <li><code>PurchaseId</code> &mdash; 特定購買的唯一標識符。</li> <li><code>PlayerId</code> &mdash; 進行購買的用戶的用戶 ID。</li> <li><code>ProductId</code> &mdash; 所購買產品的 ID。</li> <li><code>PlaceIdWherePurchased</code> &mdash; 進行購買的地方 ID。根據用戶在遊戲中的位置，購買所在地方的 ID 可以與當前地方的 ID 相同或不同。</li> <li><code>CurrencySpent</code> &mdash; 此交易中花費的貨幣數量。</li> <li><code>CurrencyType</code> &mdash; 在購買中花費的貨幣類型；始終是 <code>CurrencyType.Robux</code>。</li> <li><code>ProductPurchaseChannel</code> — 用戶如何獲得開發者產品。為 <code>ProductPurchaseChannel</code> 之一。</li> </ul>"
+    "documentation": "傳遞到此回調的 <code>receiptInfo</code> 表包含以下數據： <ul> <li><code>PurchaseId</code> &mdash; 特定購買的唯一標識符。</li> <li><code>PlayerId</code> &mdash; 進行購買用戶的用戶 ID。</li> <li><code>ProductId</code> &mdash; 購買產品的 ID。</li> <li><code>PlaceIdWherePurchased</code> &mdash; 購買進行的地點 ID。根據用戶在遊戲中的位置，購買地點的 ID 可以與當前地點的 ID 相同或不同。</li> <li><code>CurrencySpent</code> &mdash; 交易中花費的貨幣數量。</li> <li><code>CurrencyType</code> &mdash; 購買中花費的貨幣類型；始終為 <code>CurrencyType.Robux</code>。</li> <li><code>ProductPurchaseChannel</code> — 用戶獲取開發者產品的方式。<code>ProductPurchaseChannel</code> 中的一種。</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.ProcessReceipt/return/0": {
-    "documentation": "表示開發者產品收據如何被處理的枚舉。 <ul> <li><code>PurchaseGranted</code>:</li> <li>表示該經驗成功授予玩家開發者產品。</li> <li>向 Roblox 表示該開發者產品的銷售成功。</li> <li><code>NotProcessedYet</code>:</li> <li>表示該經驗未能授予玩家開發者產品。</li> </ul>"
+    "documentation": "一個枚舉，表示開發者產品收據的處理方式。 <ul> <li><code>PurchaseGranted</code>:</li> <li>表示體驗成功授予玩家開發者產品。</li> <li>向 Roblox 表示開發者產品銷售成功。</li> <li><code>NotProcessedYet</code>:</li> <li>表示體驗未能授予玩家開發者產品。</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.ProcessReceipt": {
-    "documentation": "用於處理開發者產品購買收據的回調。",
+    "documentation": "處理開發者產品購買收據的回調函數。",
     "params": [
       {
         "name": "receiptInfo",
@@ -81445,7 +81615,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchaseFinished": {
-    "documentation": "當批量角色物品的購買提示被關閉時觸發。",
+    "documentation": "Fires when a purchase prompt for bulk avatar items is closed.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptBulkPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptBulkPurchaseFinished.ConnectParallel",
@@ -81621,7 +81791,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchaseFinished": {
-    "documentation": "當通行證的購買提示被關閉時觸發。",
+    "documentation": "Fires when a purchase prompt for a pass is closed.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptGamePassPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptGamePassPurchaseFinished.ConnectParallel",
@@ -81709,7 +81879,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchaseFinished": {
-    "documentation": "當購買 Roblox Premium 的提示關閉時觸發。",
+    "documentation": "Fires when a purchase prompt for Roblox Premium is closed.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptPremiumPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptPremiumPurchaseFinished.ConnectParallel",
@@ -81797,7 +81967,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchaseFinished": {
-    "documentation": "當開發者產品的購買提示關閉時觸發。請勿使用此事件處理購買。",
+    "documentation": "Fires when a purchase prompt for a developer product is closed. Do not use this event to process purchases.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptProductPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptProductPurchaseFinished.ConnectParallel",
@@ -81885,7 +82055,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchaseFinished": {
-    "documentation": "當附屬裝備銷售或其他資產的購買提示被關閉時觸發。<em>不</em>會為開發者產品或通行證提示觸發。",
+    "documentation": "Fires when a purchase prompt for an affiliate gear sale or other asset is closed. Does <strong>not</strong> fire for developer product or pass prompts.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptPurchaseFinished.ConnectParallel",
@@ -81973,7 +82143,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchaseFinished": {
-    "documentation": "當訂閱的購買提示被關閉時觸發。",
+    "documentation": "Fires when a purchase prompt for a subscription is closed.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchaseFinished.ConnectParallel",
@@ -86116,6 +86286,7 @@
       "GetBatchItemDetailsAsync": "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync",
       "GetFavorite": "@roblox/globaltype/AvatarEditorService.GetFavorite",
       "GetFavoriteAsync": "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync",
+      "GetHeadShapesAsync": "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync",
       "GetInventory": "@roblox/globaltype/AvatarEditorService.GetInventory",
       "GetInventoryAsync": "@roblox/globaltype/AvatarEditorService.GetInventoryAsync",
       "GetItemDetails": "@roblox/globaltype/AvatarEditorService.GetItemDetails",
@@ -86226,13 +86397,13 @@
     "documentation": "支援開發者的 Avatar 編輯器服務。"
   },
   "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync/param/1": {
-    "documentation": ""
+    "documentation": "要符合的 <code>HumanoidDescription</code>。"
   },
   "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync/return/0": {
-    "documentation": ""
+    "documentation": "符合平台虛擬角色規則的新 <code>HumanoidDescription</code>。"
   },
   "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync": {
-    "documentation": "",
+    "documentation": "返回符合平台虛擬角色規則的給定 <code>HumanoidDescription</code> 的副本。",
     "params": [
       {
         "name": "self",
@@ -86452,6 +86623,26 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetFavoriteAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync/param/0": {
+    "documentation": "支援開發者的 Avatar 編輯器服務。"
+  },
+  "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync/return/0": {
+    "documentation": "一個字符串數組，每個字符串識別 <code>Players.LocalPlayer</code> 擁有的頭形狀。可能的值包括： <code>\"RobloxClassic\"</code>、<code>\"Blockhead\"</code>、<code>\"Cheeks\"</code>、<code>\"Chiseled\"</code>、 <code>\"CoolThing\"</code>、<code>\"EraserHead\"</code>、<code>\"FatHead\"</code>、<code>\"FlatTop\"</code>、 <code>\"GoldenKorbloxGeneral\"</code>、<code>\"GoldenMrRobot\"</code>、<code>\"KnightOfChivalry\"</code>、 <code>\"KnightOfCourage\"</code>、<code>\"ManHead\"</code>、<code>\"MercilessNinja\"</code>、<code>\"Narrow\"</code>、 <code>\"Paragon\"</code>、<code>\"Peabrain\"</code>、<code>\"Perfection\"</code>、<code>\"Roll\"</code>、<code>\"Roundy\"</code>、 <code>\"RoxBox\"</code>、<code>\"TheEngineer\"</code>、<code>\"Trim\"</code>、<code>\"WomanHead\"</code>。"
+  },
+  "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync": {
+    "documentation": "返回 <code>Players.LocalPlayer</code> 擁有的頭形狀名稱陣列。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetHeadShapesAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AvatarEditorService.GetInventory/param/0": {
     "documentation": "支援開發者的 Avatar 編輯器服務。"
   },
@@ -86483,13 +86674,13 @@
     "documentation": "支援開發者的 Avatar 編輯器服務。"
   },
   "@roblox/globaltype/AvatarEditorService.GetInventoryAsync/param/1": {
-    "documentation": "將在玩家庫存中檢查的 <code>AvatarAssetType</code>。"
+    "documentation": "要在玩家的物品清單中檢查的 <code>AvatarAssetType</code>。"
   },
   "@roblox/globaltype/AvatarEditorService.GetInventoryAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetInventoryAsync": {
-    "documentation": "返回一個 <code>InventoryPages</code> 物件，包含用戶庫存中擁有資產類型的信息。",
+    "documentation": "返回用戶物品清單中擁有所給 AvatarAssetTypes 的 <code>InventoryPages</code> 對象。",
     "params": [
       {
         "name": "self",
@@ -86516,7 +86707,7 @@
     "documentation": "一個枚舉值，表示要檢索其詳細信息的項目類型。"
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetails/return/0": {
-    "documentation": "一個包含檢索到的項目信息的表。請參見上面的示例表。"
+    "documentation": "包含檢索到物品的信息的表格。請參見上面的示例表格。"
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetails": {
     "documentation": "<strong>Deprecated:</strong> <br>返回指定項目的詳細信息。",
@@ -86544,16 +86735,16 @@
     "documentation": "支援開發者的 Avatar 編輯器服務。"
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/param/1": {
-    "documentation": "要檢索其詳細信息的項目的 ID。"
+    "documentation": "正在檢索詳細信息的物品的 ID。"
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/param/2": {
-    "documentation": "一個枚舉值，表示要檢索其詳細信息的項目類型。"
+    "documentation": "指示正在檢索的物品類型的枚舉值。"
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/return/0": {
-    "documentation": "一個包含檢索到的項目信息的表。"
+    "documentation": "包含檢索到物品的信息的表格。"
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync": {
-    "documentation": "返回指定項目的詳細信息。",
+    "documentation": "返回給定物品的詳細信息。",
     "params": [
       {
         "name": "self",
@@ -86605,13 +86796,13 @@
     "documentation": "支援開發者的 Avatar 編輯器服務。"
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfitDetailsAsync/param/1": {
-    "documentation": "要檢索其詳細信息的服裝 ID。"
+    "documentation": "正在檢索詳細信息的服裝的 ID。"
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfitDetailsAsync/return/0": {
-    "documentation": "包含檢索到的服裝信息的表。詳情見上述示例表。"
+    "documentation": "包含檢索到服裝的信息的表格。請參見上面的示例表格。"
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfitDetailsAsync": {
-    "documentation": "返回指定服裝的詳細信息。",
+    "documentation": "返回給定服裝的詳細信息。",
     "params": [
       {
         "name": "self",
@@ -86734,16 +86925,16 @@
     "documentation": "支援開發者的 Avatar 編輯器服務。"
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync/param/1": {
-    "documentation": "要獲取推薦的資產類型。 僅在基於項目的推薦不存在於指定的 <code>contextAssetId</code> 時影響回應。"
+    "documentation": "要檢索的資產推薦類型。如果給定的 <code>contextAssetId</code> 不存在項目基礎的推薦，則僅影響響應。"
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync/param/2": {
-    "documentation": "ID 具有與提供的 assetType 匹配的類型的資產，在獲取推薦時用作上下文。"
+    "documentation": "與提供的 assetType 匹配的資產 ID，用於檢索推薦時的上下文。"
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync/return/0": {
     "documentation": "基於給定的 <code>AssetType</code> 的推薦列表。"
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync": {
-    "documentation": "根據給定的 <code>AssetType</code> 和資產 ID 返回推薦資產列表。",
+    "documentation": "根據給定的 <code>AssetType</code> 和資產 ID 返回推薦資產的列表。",
     "params": [
       {
         "name": "self",
@@ -86795,13 +86986,13 @@
     "documentation": "支援開發者的 Avatar 編輯器服務。"
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedBundlesAsync/param/1": {
-    "documentation": "推薦包的列表。"
+    "documentation": "推薦捆綁的列表。"
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedBundlesAsync/return/0": {
-    "documentation": "將返回推薦包的包 ID。"
+    "documentation": "將返回推薦捆綁的捆綁 ID。"
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedBundlesAsync": {
-    "documentation": "返回給定包 ID 的推薦包列表。",
+    "documentation": "返回給定捆綁 ID 的推薦捆綁列表。",
     "params": [
       {
         "name": "self",
@@ -86822,7 +87013,7 @@
     "documentation": "支援開發者的 Avatar 編輯器服務。"
   },
   "@roblox/globaltype/AvatarEditorService.PromptAllowInventoryReadAccess": {
-    "documentation": "提示 <code>Players.LocalPlayer</code> 允許開發者讀取用戶庫存中擁有的項目和其他 Avatar 編輯器相關信息。",
+    "documentation": "提示 <code>Players.LocalPlayer</code> 允許開發者讀取用戶物品清單和其他虛擬角色編輯相關信息。",
     "params": [
       {
         "name": "self",
@@ -86840,10 +87031,10 @@
     "documentation": "玩家將被提示創建的 <code>Outfit</code>。"
   },
   "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit/param/2": {
-    "documentation": "如果玩家確認提示，則該服裝將用於創建的 <code>RigType</code>。"
+    "documentation": "如果玩家確認提示，則將為其創建的服裝的 <code>RigType</code>。"
   },
   "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit": {
-    "documentation": "提示 <code>Players.LocalPlayer</code> 將指定的 <code>HumanoidDescription</code> 儲存為服裝。",
+    "documentation": "提示 <code>Players.LocalPlayer</code> 將給定的 <code>HumanoidDescription</code> 保存為服裝。",
     "params": [
       {
         "name": "self",
@@ -86869,7 +87060,7 @@
     "documentation": "要刪除的服裝 ID。"
   },
   "@roblox/globaltype/AvatarEditorService.PromptDeleteOutfit": {
-    "documentation": "提示 <code>Players.LocalPlayer</code> 刪除指定的服裝。",
+    "documentation": "提示 <code>Players.LocalPlayer</code> 刪除給定的服裝。",
     "params": [
       {
         "name": "self",
@@ -86891,7 +87082,7 @@
     "documentation": "要重新命名的服裝 ID。"
   },
   "@roblox/globaltype/AvatarEditorService.PromptRenameOutfit": {
-    "documentation": "提示 <code>Players.LocalPlayer</code> 重新命名指定的服裝。",
+    "documentation": "提示 <code>Players.LocalPlayer</code> 重新命名給定的服裝。",
     "params": [
       {
         "name": "self",
@@ -86910,13 +87101,13 @@
     "documentation": "支援開發者的 Avatar 編輯器服務。"
   },
   "@roblox/globaltype/AvatarEditorService.PromptSaveAvatar/param/1": {
-    "documentation": "要被提示儲存的 <code>HumanoidDescription</code>。"
+    "documentation": "要提示保存的 <code>HumanoidDescription</code>。"
   },
   "@roblox/globaltype/AvatarEditorService.PromptSaveAvatar/param/2": {
-    "documentation": "如果玩家確認提示，則該角色將用於保存的 <code>RigType</code>。"
+    "documentation": "如果玩家確認提示，則將為其保存虛擬角色的 <code>RigType</code>。"
   },
   "@roblox/globaltype/AvatarEditorService.PromptSaveAvatar": {
-    "documentation": "提示 <code>Players.LocalPlayer</code> 根據指定的 <code>HumanoidDescription</code> 和 <code>RigType</code> 的 R6 或 R15 更新其角色。",
+    "documentation": "提示 <code>Players.LocalPlayer</code> 根據給定的 <code>HumanoidDescription</code> 和 R6 或 R15 的 <code>RigType</code> 更新他們的虛擬角色。",
     "params": [
       {
         "name": "self",
@@ -86939,16 +87130,16 @@
     "documentation": "支援開發者的 Avatar 編輯器服務。"
   },
   "@roblox/globaltype/AvatarEditorService.PromptSetFavorite/param/1": {
-    "documentation": "要被提示加入最愛的項目 ID。"
+    "documentation": "被提示收藏的物品 ID。"
   },
   "@roblox/globaltype/AvatarEditorService.PromptSetFavorite/param/2": {
-    "documentation": "要被提示加入最愛的項目類型。"
+    "documentation": "被提示收藏的物品類型。"
   },
   "@roblox/globaltype/AvatarEditorService.PromptSetFavorite/param/3": {
     "documentation": ""
   },
   "@roblox/globaltype/AvatarEditorService.PromptSetFavorite": {
-    "documentation": "提示 <code>Players.LocalPlayer</code> 將指定資產或包加入最愛或取消最愛。",
+    "documentation": "提示 <code>Players.LocalPlayer</code> 收藏或取消收藏給定的資產或捆綁。",
     "params": [
       {
         "name": "self",
@@ -86978,13 +87169,13 @@
     "documentation": "要更新的服裝 ID。"
   },
   "@roblox/globaltype/AvatarEditorService.PromptUpdateOutfit/param/2": {
-    "documentation": "代表新服裝數據的 HumanoidDescription。"
+    "documentation": "一個表示新服裝數據的 HumanoidDescription。"
   },
   "@roblox/globaltype/AvatarEditorService.PromptUpdateOutfit/param/3": {
-    "documentation": "要更新的角色 RigType。"
+    "documentation": "要將服裝更新為的 HumanoidRigType。"
   },
   "@roblox/globaltype/AvatarEditorService.PromptUpdateOutfit": {
-    "documentation": "提示 <code>Players.LocalPlayer</code> 更新指定的服裝。",
+    "documentation": "提示 <code>Players.LocalPlayer</code> 更新給定的服裝。",
     "params": [
       {
         "name": "self",
@@ -87038,13 +87229,13 @@
     "documentation": "支援開發者的 Avatar 編輯器服務。"
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/param/1": {
-    "documentation": "包含用於搜索的參數的物件。"
+    "documentation": "包含搜索中使用的參數的對象。"
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/return/0": {
-    "documentation": "一個包含搜索結果的 <code>CatalogPages</code> 對象。"
+    "documentation": "包含搜索結果的 <code>CatalogPages</code> 對象。"
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync": {
-    "documentation": "返回包含給定搜索結果的 <code>CatalogPages</code> 物件。",
+    "documentation": "返回包含所給搜索結果的 <code>CatalogPages</code> 對象。",
     "params": [
       {
         "name": "self",
@@ -90495,6 +90686,7 @@
       "TimeLength": "@roblox/globaltype/AudioPlayer.TimeLength",
       "TimePosition": "@roblox/globaltype/AudioPlayer.TimePosition",
       "Volume": "@roblox/globaltype/AudioPlayer.Volume",
+      "Cancel": "@roblox/globaltype/AudioPlayer.Cancel",
       "GetConnectedWires": "@roblox/globaltype/AudioPlayer.GetConnectedWires",
       "GetInputPins": "@roblox/globaltype/AudioPlayer.GetInputPins",
       "GetOutputPins": "@roblox/globaltype/AudioPlayer.GetOutputPins",
@@ -90531,7 +90723,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.IsPlaying": {
-    "documentation": "表示此 <code>AudioPlayer</code> 是否當前正在播放。",
+    "documentation": "表示此 <code>AudioPlayer</code> 是否目前正在播放或計劃播放。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsPlaying",
     "code_sample": ""
   },
@@ -90575,17 +90767,44 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#Volume",
     "code_sample": ""
   },
+  "@roblox/globaltype/AudioPlayer.Cancel/param/0": {
+    "documentation": "用於播放音頻資產。"
+  },
+  "@roblox/globaltype/AudioPlayer.Cancel/param/1": {
+    "documentation": "預先計劃的 <code>Play</code> 或 <code>Stop</code> 命令的唯一 ID。"
+  },
+  "@roblox/globaltype/AudioPlayer.Cancel/return/0": {
+    "documentation": "取消是否成功。如果操作已經發生，或者不存在，則返回 false。"
+  },
+  "@roblox/globaltype/AudioPlayer.Cancel": {
+    "documentation": "嘗試取消一個預先計劃的未來 <code>Play</code> 或 <code>Stop</code> 命令。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioPlayer.Cancel/param/0"
+      },
+      {
+        "name": "actionId",
+        "documentation": "@roblox/globaltype/AudioPlayer.Cancel/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AudioPlayer.Cancel/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#Cancel",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/param/0": {
     "documentation": "用於播放音頻資產。"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/param/1": {
-    "documentation": "此實例上的輸入或輸出插針"
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/return/0": {
-    "documentation": "一個 <code>Wires</code> 陣列"
+    "documentation": "一個 <code>Wires</code> 的陣列"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires": {
-    "documentation": "返回一個連接到指定插針的 <code>Wires</code> 陣列。",
+    "documentation": "返回與指定引腳連接的 <code>Wires</code> 陣列。",
     "params": [
       {
         "name": "self",
@@ -90609,7 +90828,7 @@
     "documentation": "表示有效插針名稱的字符串陣列。"
   },
   "@roblox/globaltype/AudioPlayer.GetInputPins": {
-    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的 插針列表，以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引腳列表，以連接到此實例的 <code>Wire.TargetInstance</code> 屬性。",
     "params": [
       {
         "name": "self",
@@ -90626,10 +90845,10 @@
     "documentation": "用於播放音頻資產。"
   },
   "@roblox/globaltype/AudioPlayer.GetOutputPins/return/0": {
-    "documentation": "表示有效插針名稱的字符串陣列。"
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioPlayer.GetOutputPins": {
-    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的 插針列表，以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引腳列表，以連接到此實例的 <code>Wire.SourceInstance</code> 屬性。",
     "params": [
       {
         "name": "self",
@@ -90649,13 +90868,13 @@
     "documentation": "要讀取的段的起始和結束時間（以秒為單位）。"
   },
   "@roblox/globaltype/AudioPlayer.GetWaveformAsync/param/2": {
-    "documentation": "指定範圍內要返回的樣本數。"
+    "documentation": "要返回的指定範圍的樣本數。"
   },
   "@roblox/globaltype/AudioPlayer.GetWaveformAsync/return/0": {
-    "documentation": "一個 <code>samples</code> 數字的表，其範圍在 -1 到 1 之間，代表取樣的波形，或如果無法讀取波形則返回空表。"
+    "documentation": "一個 <code>samples</code> 數字的表，範圍在 -1 和 1 之間，表示取樣的波形，或者如果無法讀取波形則為一個空的表。"
   },
   "@roblox/globaltype/AudioPlayer.GetWaveformAsync": {
-    "documentation": "返回加載的 <code>Asset</code> 的波形數據取樣。",
+    "documentation": "返回已加載的 <code>Asset</code> 的波形數據取樣。",
     "params": [
       {
         "name": "self",
@@ -90679,30 +90898,54 @@
   "@roblox/globaltype/AudioPlayer.Play/param/0": {
     "documentation": "用於播放音頻資產。"
   },
+  "@roblox/globaltype/AudioPlayer.Play/param/1": {
+    "documentation": "一個具體的時間，基於 <code>GetMixerTime</code>，此 <code>AudioPlayer</code> 應該從這裡開始播放。"
+  },
+  "@roblox/globaltype/AudioPlayer.Play/return/0": {
+    "documentation": "如果提供了 <code>atTime</code>，則返回一個唯一的 ID，可以傳遞給 <code>Cancel()</code>。"
+  },
   "@roblox/globaltype/AudioPlayer.Play": {
-    "documentation": "從 <code>TimePosition</code> 當前所在位置播放 <code>AudioPlayer</code>。",
+    "documentation": "從 <code>TimePosition</code> 當前位置播放 <code>AudioPlayer</code>。",
     "params": [
       {
         "name": "self",
         "documentation": "@roblox/globaltype/AudioPlayer.Play/param/0"
+      },
+      {
+        "name": "atTime",
+        "documentation": "@roblox/globaltype/AudioPlayer.Play/param/1"
       }
     ],
-    "returns": [],
+    "returns": [
+      "@roblox/globaltype/AudioPlayer.Play/return/0"
+    ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#Play",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.Stop/param/0": {
     "documentation": "用於播放音頻資產。"
   },
+  "@roblox/globaltype/AudioPlayer.Stop/param/1": {
+    "documentation": "一個具體的時間，基於 <code>GetMixerTime</code>，此 <code>AudioPlayer</code> 應該在這裡停止播放。"
+  },
+  "@roblox/globaltype/AudioPlayer.Stop/return/0": {
+    "documentation": "如果提供了 <code>atTime</code>，則返回一個唯一的 ID，可以傳遞給 <code>Cancel()</code>。"
+  },
   "@roblox/globaltype/AudioPlayer.Stop": {
-    "documentation": "停止 <code>AudioPlayer</code> 當前所在位置的播放。",
+    "documentation": "在 <code>TimePosition</code> 當前位置停止 <code>AudioPlayer</code>。",
     "params": [
       {
         "name": "self",
         "documentation": "@roblox/globaltype/AudioPlayer.Stop/param/0"
+      },
+      {
+        "name": "atTime",
+        "documentation": "@roblox/globaltype/AudioPlayer.Stop/param/1"
       }
     ],
-    "returns": [],
+    "returns": [
+      "@roblox/globaltype/AudioPlayer.Stop/return/0"
+    ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#Stop",
     "code_sample": ""
   },
@@ -92230,7 +92473,7 @@
     "documentation": "要呈現提示的 <code>Player</code>。"
   },
   "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/param/2": {
-    "documentation": "要呈現給 <code>Player</code> 的體驗的 <code>DataModel.UniverseId</code>。"
+    "documentation": "<code>DataModel.UniverseId</code>的體驗將展示給 <code>Player</code>。"
   },
   "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/return/0": {
     "documentation": "<code>PromptExperienceDetailsResult</code>"
@@ -94810,26 +95053,12 @@
   "@roblox/globaltype/AnimationConstraint": {
     "documentation": "對齊兩個 <code>BaseParts</code>，使用可動畫的運動或 基於力的關節。",
     "keys": {
-      "C0": "@roblox/globaltype/AnimationConstraint.C0",
-      "C1": "@roblox/globaltype/AnimationConstraint.C1",
       "IsKinematic": "@roblox/globaltype/AnimationConstraint.IsKinematic",
       "MaxForce": "@roblox/globaltype/AnimationConstraint.MaxForce",
       "MaxTorque": "@roblox/globaltype/AnimationConstraint.MaxTorque",
-      "Part0": "@roblox/globaltype/AnimationConstraint.Part0",
-      "Part1": "@roblox/globaltype/AnimationConstraint.Part1",
       "Transform": "@roblox/globaltype/AnimationConstraint.Transform"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AnimationConstraint.C0": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#C0",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AnimationConstraint.C1": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#C1",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.IsKinematic": {
@@ -94838,23 +95067,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxForce": {
-    "documentation": "約束可以施加的最大力的大小，以達成其目標。",
+    "documentation": "約束可以施加的最大力量大小，以達成其目標。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxTorque": {
     "documentation": "約束可以施加的最大扭矩，以達成其目標。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxTorque",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AnimationConstraint.Part0": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#Part0",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AnimationConstraint.Part1": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#Part1",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.Transform": {
@@ -96714,7 +96933,7 @@
     "documentation": "請求廣告的格式。例如，<code>RewardedVideo</code>。"
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/return/0": {
-    "documentation": ""
+    "documentation": "一個包含請求的廣告格式的 <code>AdAvailabilityResult</code> 的字典。"
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync": {
     "documentation": "檢查視頻廣告是否可以在體驗中播放給當前用戶。",
@@ -102420,6 +102639,73 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AccessoryDescription#GetAppliedInstance",
     "code_sample": ""
   },
+  "@roblox/globaltype/ProceduralModel": {
+    "documentation": "",
+    "keys": {
+      "GenerationError": "@roblox/globaltype/ProceduralModel.GenerationError",
+      "Generator": "@roblox/globaltype/ProceduralModel.Generator",
+      "Size": "@roblox/globaltype/ProceduralModel.Size",
+      "ForceGeneration": "@roblox/globaltype/ProceduralModel.ForceGeneration",
+      "WaitForGenerationAsync": "@roblox/globaltype/ProceduralModel.WaitForGenerationAsync"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ProceduralModel",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ProceduralModel.GenerationError": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ProceduralModel#GenerationError",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ProceduralModel.Generator": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ProceduralModel#Generator",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ProceduralModel.Size": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ProceduralModel#Size",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ProceduralModel.ForceGeneration/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ProceduralModel.ForceGeneration/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ProceduralModel.ForceGeneration": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ProceduralModel.ForceGeneration/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ProceduralModel.ForceGeneration/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ProceduralModel#ForceGeneration",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ProceduralModel.WaitForGenerationAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ProceduralModel.WaitForGenerationAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ProceduralModel.WaitForGenerationAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ProceduralModel.WaitForGenerationAsync/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ProceduralModel.WaitForGenerationAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ProceduralModel#WaitForGenerationAsync",
+    "code_sample": ""
+  },
   "@roblox/enum/VelocityConstraintMode.Line": {
     "documentation": "沿著直線的速度分量被限制為指定的值。直線方向基於 <code>RelativeTo</code>屬性： <ul> <li><code>Attachment0</code> - 直線方向是<code>Attachment0</code>的主軸。</li> <li><code>Attachment1</code> - 直線方向是<code>Attachment1</code>的主軸。</li> <li><code>World</code> - 直線方向必須被指定。</li> </ul>",
     "keys": {
@@ -103080,7 +103366,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StreamingPauseMode.Default": {
-    "documentation": "<strong>Deprecated:</strong> <br>默認行為（目前對遊戲玩法沒有改變）。",
+    "documentation": "<strong>Deprecated:</strong> <br>預設行為（可能會變更）。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -103110,7 +103396,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.StreamingPauseMode": {
-    "documentation": "確定玩家的客戶端應如何處理沒有足夠內容流入以持續正常遊玩的情況。",
+    "documentation": "決定客戶端在未獲得足夠內容流式傳輸以繼續正常播放時應如何處理。",
     "keys": {
       "Default": "@roblox/enum/StreamingPauseMode.Default",
       "Disabled": "@roblox/enum/StreamingPauseMode.Disabled",
@@ -104588,7 +104874,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StreamingIntegrityMode.Default": {
-    "documentation": "默認行為（當前相當於 <strong>Disabled</strong>）。",
+    "documentation": "預設行為（可能會變更）。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118579,7 +118865,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StreamOutBehavior.Default": {
-    "documentation": "目前相當於低記憶體模式。最終將變更為機會模式。",
+    "documentation": "預設行為（可能會更改）。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118599,7 +118885,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StreamOutBehavior.Opportunistic": {
-    "documentation": "流出顯著在當前 StreamingRadius 之外的內容。",
+    "documentation": "串流明顯超出當前 <code>Workspace.StreamingTargetRadius</code> 的內容。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118609,7 +118895,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.StreamOutBehavior": {
-    "documentation": "決定內容如何從玩家那裡流出。",
+    "documentation": "決定從 <code>Player</code> 客戶端如何串流內容。",
     "keys": {
       "Default": "@roblox/enum/StreamOutBehavior.Default",
       "LowMemory": "@roblox/enum/StreamOutBehavior.LowMemory",
@@ -118666,7 +118952,7 @@
     "code_sample": ""
   },
   "@roblox/enum/CreateContentResult.Success": {
-    "documentation": "Success.",
+    "documentation": "成功。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118676,7 +118962,7 @@
     "code_sample": ""
   },
   "@roblox/enum/CreateContentResult.PermissionDenied": {
-    "documentation": "The user does not have the required permissions to perform this operation.",
+    "documentation": "使用者沒有執行此操作所需的權限。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118686,7 +118972,7 @@
     "code_sample": ""
   },
   "@roblox/enum/CreateContentResult.UploadFailed": {
-    "documentation": "Asset failed to upload.",
+    "documentation": "資產上傳失敗。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118696,7 +118982,7 @@
     "code_sample": ""
   },
   "@roblox/enum/CreateContentResult.StorageLimitExceeded": {
-    "documentation": "The storage budget limit for <code>DataModel</code>-scoped content was exceeded.",
+    "documentation": "<code>DataModel</code> 範圍內容的儲存預算限制已 超過。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118706,7 +118992,7 @@
     "code_sample": ""
   },
   "@roblox/enum/CreateContentResult.Unknown": {
-    "documentation": "An unknown error occurred.",
+    "documentation": "發生未知錯誤。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -128821,7 +129107,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelStreamingBehavior.Default": {
-    "documentation": "引擎決定最佳行為。目前等同於 <strong>Legacy</strong>。",
+    "documentation": "預設行為（可能會變更）。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -128841,7 +129127,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelStreamingBehavior.Improved": {
-    "documentation": "在玩家加入時，模型不會被發送。\"非空間\" 的模型（不包含 <code>BasePart</code> 的子項）會在加入後不久被發送，但在 <code>Workspace.PersistentLoaded</code> 事件觸發之前。\"空間\" 的模型（包含 <code>BasePart</code> 的子項）會在任何 <code>BasePart</code> 子項需要被串流到客戶端時發送，並且可能會在所有 <code>BasePart</code> 子項都符合串流條件時被串流出去。",
+    "documentation": "模型在玩家加入時絕不會被發送。請參見 <a href=\"../../../workspace/streaming/index.md#model-streaming-controls\">模型串流控制</a> 以獲取詳細的行為說明。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136145,7 +136431,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelStreamingMode.Default": {
-    "documentation": "引擎決定最佳行為。目前等同於 <strong>Nonatomic</strong>。",
+    "documentation": "默認行為（可能會變更）。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136175,7 +136461,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelStreamingMode.PersistentPerPlayer": {
-    "documentation": "對於已使用 <code>Model:AddPersistentPlayer()</code> 添加的玩家，行為表現為持久模型。對於其他玩家，行為則與 <strong>Atomic</strong> 相同。您可以通過 <code>Model:RemovePersistentPlayer()</code> 將模型從玩家持久性中還原。",
+    "documentation": "對於使用 <code>Model:AddPersistentPlayer()</code> 添加的玩家，行為作為持久模型。對於其他玩家，行為與 <code>Atomic</code> 相同。您可以通過 <code>Model:RemovePersistentPlayer()</code> 從玩家持久性恢復模型。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
