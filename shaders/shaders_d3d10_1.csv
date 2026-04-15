@@ -371,3 +371,6 @@ TrailVSQuadLight,Vertex
 UIFogVS,Vertex
 UIVS,Vertex
 UpSampleTentFS,Fragment
+WatermarkBlendBrightenFS,Fragment
+WatermarkBlendDarkenFS,Fragment
+WatermarkOnlyFS,Fragment

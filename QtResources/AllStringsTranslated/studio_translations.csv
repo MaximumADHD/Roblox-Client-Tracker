@@ -5706,6 +5706,17 @@ Studio.App.StudioPluginHost.CantSaveSettings,,,Unable to save settings for plugi
 Studio.App.PropertyItems.SandboxedDisabledWarning,,,Disabling the Sandboxed property might make your game vulnerable to exploits. Are you sure you want to disable this?,Disabling the Sandboxed property might make your game vulnerable to exploits. Are you sure you want to disable this?
 Studio.App.PropertyItems.SandboxedDisabledKeep,,,Keep Sandboxed,Keep Sandboxed
 Studio.App.PropertyItems.SandboxedDisabledRemove,,,Disable,Disable
+Studio.App.PropertyEnum.Large,,,Large,Large
+Studio.App.PropertyEnum.Larger,,,Larger,Larger
+Studio.App.PropertyEnum.Largest,,,Largest,Largest
+Studio.App.Property.XAxisColor,,,X Axis Color,X Axis Color
+Studio.App.Property.YAxisColor,,,Y Axis Color,Y Axis Color
+Studio.App.Property.ZAxisColor,,,Z Axis Color,Z Axis Color
+Studio.App.PropertyTooltip.XAxisColor,,,The color of the X Axis.,The color of the X Axis.
+Studio.App.PropertyTooltip.YAxisColor,,,The color of the Y Axis.,The color of the Y Axis.
+Studio.App.PropertyTooltip.ZAxisColor,,,The color of the Z Axis.,The color of the Z Axis.
+Studio.App.Property.VAxisColor,,,View Axis Color,View Axis Color
+Studio.App.PropertyTooltip.VAxisColor,,,The color of the View Axis.,The color of the View Axis.
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -6346,6 +6357,7 @@ Studio.GameSettings.Places.VersionHistoryMovedTitle,,,Version History Has Moved,
 Studio.GameSettings.Places.VersionHistoryMovedHeader,,,Version History has moved,Version History has moved
 Studio.GameSettings.Places.VersionHistoryMovedBody,,,"Now, you can find it under {location}","Now, you can find it under {location}"
 Studio.GameSettings.Places.Window,,,Window,Window
+Studio.GameSettings.General.ErrorFieldEmpty,,,This is a required field.,This is a required field.
 Studio.Toolbox.General.ToolboxToolbarName,,,Toolbox,Toolbox
 Studio.Toolbox.General.CategoryModels,,,Models,Models
 Studio.Toolbox.General.CategoryDecals,,,Images,Images
@@ -8112,6 +8124,7 @@ Studio.Toolbox.Subcategory.Model2dVideos,,,Videos,Videos
 Studio.Toolbox.General.TooltipThumbnailSkinColorDescription,,,This skin color will only be used in the thumbnail to merchandise your Makeup item,This skin color will only be used in the thumbnail to merchandise your Makeup item
 Studio.Toolbox.General.AssetXOutOfY,,,Asset {current} out of {total},Asset {current} out of {total}
 Studio.Toolbox.AssetConfigPackagePermissions.GiveAccessFriendsSubtext,,,Give your friends and groups access to this asset.,Give your friends and groups access to this asset.
+Studio.Toolbox.General.AnimationPacks,,,Animation Packs,Animation Packs
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9424,6 +9437,7 @@ Studio.AssetManager.QuickShare.BackBut,,,Back,Back
 Studio.AssetManager.Section,,,See All,See All
 Studio.AssetManager.Section.SeeAll,,,See All,See All
 Studio.AssetManager.Section.SeeLess,,,See Less,See Less
+Studio.AssetManager.Asset.NewFolder,,,New Folder,New Folder
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -12251,10 +12265,10 @@ Studio.AvatarCompatibilityPreviewer.MarketplaceImport.ItemIdInputPlaceholder,,,E
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.IndividualShoesError,,,"AssetIDs for individual shoes are not supported, use bundleID to add shoes","AssetIDs for individual shoes are not supported, use bundleID to add shoes"
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.AssetTypeError,,,{invalidAssetTypes} Avatar Items are not supported in Avatar Setup,{invalidAssetTypes} Avatar Items are not supported in Avatar Setup
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.NothingFoundError,,,No assets or bundles found for ID(s): {lostIds},No assets or bundles found for ID(s): {lostIds}
-Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoidTitle,,,Custom Humanoid,Custom Humanoid
+Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoidTitle,,,R15 with optional joints,R15 with optional joints
 Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoidTooltipDescription,,,Creates an instance of HumanoidRigDescription that helps with advanced articulation,Creates an instance of HumanoidRigDescription that helps with advanced articulation
 Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoidDescription,,,Creates an instance of HumanoidRigDescription that helps with advanced articulation,Creates an instance of HumanoidRigDescription that helps with advanced articulation
-Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoid,,,Custom Humanoid,Custom Humanoid
+Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoid,,,R15 with optional joints,R15 with optional joints
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateAnAvatarLook,,,Create an Avatar Look,Create an Avatar Look
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateAMakeupLook,,,Create a Makeup Look,Create a Makeup Look
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateAnAvatarLookDescription,,,Style published items together as a Look and share it on Roblox.,Style published items together as a Look and share it on Roblox.
@@ -13790,6 +13804,7 @@ Studio.StartPage.Plugin.PlaceSafetyBlockedDialog.Description,,,We found content 
 Studio.StartPage.Plugin.PlaceSafetyBlockedDialog.Title,,,This Experience is locked,This Experience is locked
 Studio.StartPage.Plugin.PlaceSafetyBlockedDialog.PrimaryAction,,,OK,OK
 Studio.StartPage.Plugin.PlaceSafetyBlockedDialog.SecondaryAction,,,View Terms of Use,View Terms of Use
+Studio.StartPage.Plugin.ExperienceStatus.Unrated,,,Unrated,Unrated
 Studio.ConstraintTool.Plugin.Name,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Toolbar,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Button,,,Create,Create
@@ -13974,6 +13989,11 @@ Studio.Assistant.PrimitiveGen.StageResolvingDependencies,,,Resolving Dependencie
 Studio.Assistant.PrimitiveGen.StageSubmitting,,,Submitting,Submitting
 Studio.Assistant.Tools.PrimitiveGen,,,Primitive Gen,Primitive Gen
 Studio.Assistant.Tools.WaitJobFinished,,,Wait Job Finished,Wait Job Finished
+Studio.Assistant.FromHistory.Retrieved,,,Retrieved {type} | {key},Retrieved {type} | {key}
+Studio.Assistant.Compaction.InProgress,,,Compacting conversation context...,Compacting conversation context...
+Studio.Assistant.Compaction.Complete,,,Conversation context compacted,Conversation context compacted
+Studio.Assistant.FromHistory.Pending,,,Retrieving from history...,Retrieving from history...
+Studio.Assistant.FromHistory.Failed,,,History retrieval failed,History retrieval failed
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!

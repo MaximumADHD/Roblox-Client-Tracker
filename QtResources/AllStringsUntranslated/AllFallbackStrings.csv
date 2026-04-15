@@ -3564,8 +3564,8 @@ Studio.App.RobloxRibbonMainWindow.AGUIObjectContainingText,,A GUI object contain
 Studio.App.RobloxRibbonMainWindow.ATextEntryBox,,A text entry box,A text entry box
 Studio.App.RobloxRibbonMainWindow.Actions,,Actions,Actions
 Studio.App.RobloxRibbonMainWindow.ActionsAsTools,,Actions as Tools,Actions as Tools
-Studio.App.RobloxRibbonMainWindow.AdaptiveAnimation,"plugin name, matches Studio.AdaptiveAnimationSupport.Plugin.Name",Adaptive Animation Support,Adaptive Animation Support
-Studio.App.RobloxRibbonMainWindow.AdaptiveAnimationTooltip,"plugin ribbon tooltip, matches Studio.AdaptiveAnimationSupport.Plugin.Description",Adaptive Animation Support,Adaptive Animation Support
+Studio.App.RobloxRibbonMainWindow.AdaptiveAnimation,"plugin name, matches Studio.AdaptiveAnimationSupport.Plugin.Name",Adaptive Animation,Adaptive Animation
+Studio.App.RobloxRibbonMainWindow.AdaptiveAnimationTooltip,"plugin ribbon tooltip, matches Studio.AdaptiveAnimationSupport.Plugin.Description","Map joints, adjust T-Pose and preview animations using Humanoid Rig Description","Map joints, adjust T-Pose and preview animations using Humanoid Rig Description"
 Studio.App.RobloxRibbonMainWindow.AddASpawnPoint,,Click here to add a spawn point into your game,Click here to add a spawn point into your game
 Studio.App.RobloxRibbonMainWindow.AddDebugPlugin,,Add Debug Plugin,Add Debug Plugin
 Studio.App.RobloxRibbonMainWindow.AddWeld,,Weld,Weld

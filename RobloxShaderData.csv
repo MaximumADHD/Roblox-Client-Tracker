@@ -469,3 +469,6 @@ UIVS,Vertex,✔,✔,✔,✔,✔
 UpSampleTentFS,Fragment,✔,✔,✔,✔,✔
 VoxelBufferCopyCS,Compute,❌,❌,✔,❌,✔
 VoxelScatterCopyCS,Compute,❌,❌,✔,❌,✔
+WatermarkBlendBrightenFS,Fragment,✔,✔,✔,✔,✔
+WatermarkBlendDarkenFS,Fragment,✔,✔,✔,✔,✔
+WatermarkOnlyFS,Fragment,✔,✔,✔,✔,✔
