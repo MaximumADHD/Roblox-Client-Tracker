@@ -38872,6 +38872,7 @@ LegacyPluginToolbar
 LegacyPluginToolbarButtonActive
 LegacyPluginToolbarButtonsEnabled
 LegacyRenderNodes
+LegacyRetargeterFrameFilterFix
 LegacyRibbon
 LegacyRunInUIThread
 LegacyRunInUIThreadWithQtContext
@@ -48149,7 +48150,6 @@ PlayerHydrationServiceTtlHours
 PlayerHydrationSignature
 PlayerHydrationSignatureVerifyFailureCounter
 PlayerHydrationSignatureVerifySuccessCounter
-PlayerInactivityTimeoutInSeconds
 PlayerIneligible
 PlayerInGamesWithProximityPrompt
 PlayerInitiatedDialog
@@ -68146,6 +68146,7 @@ TimeForExportBatchinMs
 TimeFormat
 TimeFreqFromHardware
 TimeFreqMHz
+TimeFromGameLoaded
 TimeInBlockyVideoPercentage
 TimeIncl.toFixed
 TimeInHdPercentage
