@@ -1,108 +1,32 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K4 [{"original", "Size", "layoutSize", "rectangle"}]
-        1 SETTABLEKS                       R0 R2 K0 ["original"]
-        3 LOADN                            R3 0
-        4 SETTABLEKS                       R3 R2 K1 ["Size"]
-        6 LOADN                            R3 0
-        7 SETTABLEKS                       R3 R2 K2 ["layoutSize"]
-        9 LOADNIL                          R3
-       10 SETTABLEKS                       R3 R2 K3 ["rectangle"]
-       12 GETTABLEKS                       R3 R0 K5 ["Children"]
-       14 JUMPIFNOT                        R3 ; [+57]
-       15 GETTABLEKS                       R4 R0 K5 ["Children"]
-       17 LENGTH                           R3 R4
-       18 LOADN                            R4 0
-       19 JUMPIFNOTLT                      R4 R3 ; [+52]
-       21 NEWTABLE                         R3 0 0
-       23 SETTABLEKS                       R3 R2 K5 ["Children"]
-       25 LOADN                            R3 0
-       26 NEWTABLE                         R4 0 0
-       28 LOADB                            R5 0
-       29 GETTABLEKS                       R6 R0 K5 ["Children"]
-       31 LOADNIL                          R7
-       32 LOADNIL                          R8
-       33 FORGPREP                         R6
-       34 GETUPVAL                         R11 0
-       35 MOVE                             R12 R10
-       36 MOVE                             R13 R1
-       37 CALL                             R11 2 1
-       38 GETTABLEKS                       R13 R2 K5 ["Children"]
-       40 FASTCALL2                        TABLE_INSERT R13 R11 ; [+4]
-       42 MOVE                             R14 R11
-       43 GETIMPORT                        R12 K8 [table.insert]
-       45 CALL                             R12 2 0
-       46 GETTABLEKS                       R12 R11 K1 ["Size"]
-       48 ADD                              R3 R3 R12
-       49 GETTABLEKS                       R12 R11 K9 ["Sizes"]
-       51 JUMPIFNOT                        R12 ; [+12]
-       52 LOADB                            R5 1
-       53 GETTABLEKS                       R12 R11 K9 ["Sizes"]
-       55 LOADNIL                          R13
-       56 LOADNIL                          R14
-       57 FORGPREP                         R12
-       58 GETTABLE                         R19 R4 R15
-       59 ORK                              R18 R19 K10 [0]
-       60 ADD                              R17 R18 R16
-       61 SETTABLE                         R17 R4 R15
-       62 FORGLOOP                         R12 2 ; [-5]
-       64 FORGLOOP                         R6 2 ; [-31]
-       66 SETTABLEKS                       R3 R2 K1 ["Size"]
-       68 JUMPIFNOT                        R5 ; [+34]
-       69 SETTABLEKS                       R4 R2 K9 ["Sizes"]
-       71 JUMP                             ; [+31]
-       72 GETTABLEKS                       R5 R0 K1 ["Size"]
-       74 FASTCALL1                        TYPE R5 ; [+2]
-       75 GETIMPORT                        R4 K12 [type]
-       77 CALL                             R4 1 1
-       78 JUMPIFNOTEQKS                    R4 K13 ["number"] ; [+4]
-       80 GETTABLEKS                       R3 R0 K1 ["Size"]
-       82 JUMPIF                           R3 ; [+1]
-       83 LOADN                            R3 0
-       84 SETTABLEKS                       R3 R2 K1 ["Size"]
-       86 GETTABLEKS                       R3 R0 K9 ["Sizes"]
-       88 JUMPIFNOT                        R3 ; [+14]
-       89 NEWTABLE                         R3 0 0
-       91 SETTABLEKS                       R3 R2 K9 ["Sizes"]
-       93 GETTABLEKS                       R3 R0 K9 ["Sizes"]
-       95 LOADNIL                          R4
-       96 LOADNIL                          R5
-       97 FORGPREP                         R3
-       98 GETTABLEKS                       R8 R2 K9 ["Sizes"]
-      100 SETTABLE                         R7 R8 R6
-      101 FORGLOOP                         R3 2 ; [-4]
-      103 GETTABLEKS                       R3 R2 K9 ["Sizes"]
-      105 JUMPIFNOT                        R3 ; [+34]
-      106 JUMPIFNOT                        R1 ; [+10]
-      107 GETTABLEKS                       R4 R2 K9 ["Sizes"]
-      109 GETTABLE                         R3 R4 R1
-      110 JUMPIFNOT                        R3 ; [+6]
-      111 GETTABLEKS                       R4 R2 K9 ["Sizes"]
-      113 GETTABLE                         R3 R4 R1
-      114 SETTABLEKS                       R3 R2 K1 ["Size"]
-      116 JUMP                             ; [+23]
-      117 GETTABLEKS                       R4 R0 K1 ["Size"]
-      119 FASTCALL1                        TYPE R4 ; [+2]
-      120 GETIMPORT                        R3 K12 [type]
-      122 CALL                             R3 1 1
-      123 JUMPIFEQKS                       R3 K13 ["number"] ; [+16]
-      125 GETIMPORT                        R3 K15 [next]
-      127 GETTABLEKS                       R4 R2 K9 ["Sizes"]
-      129 CALL                             R3 1 2
-      130 JUMPIFNOT                        R4 ; [+9]
-      131 FASTCALL1                        TYPE R4 ; [+3]
-      132 MOVE                             R6 R4
-      133 GETIMPORT                        R5 K12 [type]
-      135 CALL                             R5 1 1
-      136 JUMPIFNOTEQKS                    R5 K13 ["number"] ; [+3]
-      138 SETTABLEKS                       R4 R2 K1 ["Size"]
-      140 GETTABLEKS                       R4 R2 K1 ["Size"]
-      142 FASTCALL1                        TYPE R4 ; [+2]
-      143 GETIMPORT                        R3 K12 [type]
-      145 CALL                             R3 1 1
-      146 JUMPIFEQKS                       R3 K13 ["number"] ; [+4]
-      148 LOADN                            R3 0
-      149 SETTABLEKS                       R3 R2 K1 ["Size"]
-      151 RETURN                           R2 1
+        0 DUPTABLE                         R1 K3 [{"original", "size", "rectangle"}]
+        1 SETTABLEKS                       R0 R1 K0 ["original"]
+        3 GETTABLEKS                       R2 R0 K1 ["size"]
+        5 SETTABLEKS                       R2 R1 K1 ["size"]
+        7 LOADNIL                          R2
+        8 SETTABLEKS                       R2 R1 K2 ["rectangle"]
+       10 GETTABLEKS                       R2 R0 K4 ["children"]
+       12 JUMPIFNOT                        R2 ; [+28]
+       13 NEWTABLE                         R2 0 0
+       15 SETTABLEKS                       R2 R1 K4 ["children"]
+       17 LOADN                            R2 0
+       18 GETTABLEKS                       R3 R0 K4 ["children"]
+       20 LOADNIL                          R4
+       21 LOADNIL                          R5
+       22 FORGPREP                         R3
+       23 GETUPVAL                         R8 0
+       24 MOVE                             R9 R7
+       25 CALL                             R8 1 1
+       26 GETTABLEKS                       R10 R1 K4 ["children"]
+       28 FASTCALL2                        TABLE_INSERT R10 R8 ; [+4]
+       30 MOVE                             R11 R8
+       31 GETIMPORT                        R9 K7 [table.insert]
+       33 CALL                             R9 2 0
+       34 GETTABLEKS                       R9 R8 K1 ["size"]
+       36 ADD                              R2 R2 R9
+       37 FORGLOOP                         R3 2 ; [-15]
+       39 SETTABLEKS                       R2 R1 K1 ["size"]
+       41 RETURN                           R1 1
 
 PROTO_1:
         0 JUMPIFNOTLT                      R1 R0 ; [+3]
@@ -411,7 +335,7 @@ PROTO_8:
 PROTO_9:
         0 GETTABLEKS                       R3 R0 K0 ["currentDatas"]
         2 LENGTH                           R2 R3
-        3 JUMPIFNOTEQKN                    R2 K1 [0] ; [+81]
+        3 JUMPIFNOTEQKN                    R2 K1 [0] ; [+82]
         5 GETTABLEKS                       R3 R0 K0 ["currentDatas"]
         7 FASTCALL2                        TABLE_INSERT R3 R1 ; [+4]
         9 MOVE                             R4 R1
@@ -419,7 +343,7 @@ PROTO_9:
        12 CALL                             R2 2 0
        13 GETUPVAL                         R2 0
        14 GETTABLEKS                       R3 R0 K5 ["container"]
-       16 GETTABLEKS                       R5 R1 K6 ["layoutSize"]
+       16 GETTABLEKS                       R5 R1 K6 ["size"]
        18 GETTABLEKS                       R6 R0 K7 ["totalData"]
        20 DIV                              R4 R5 R6
        21 CALL                             R2 2 1
@@ -438,129 +362,129 @@ PROTO_9:
        42 JUMP                             ; [+1]
        43 LOADN                            R3 0
        44 GETTABLEKS                       R4 R0 K10 ["orientation"]
-       46 JUMPIFNOTEQ                      R3 R4 ; [+181]
+       46 JUMPIFNOTEQ                      R3 R4 ; [+183]
        48 GETTABLEKS                       R3 R0 K7 ["totalData"]
-       50 GETTABLEKS                       R4 R1 K6 ["layoutSize"]
-       52 JUMPIFNOTLT                      R4 R3 ; [+175]
-       54 GETUPVAL                         R3 1
-       55 CALL                             R3 0 1
-       56 SETTABLEKS                       R3 R0 K11 ["nextLayout"]
-       58 GETTABLEKS                       R3 R0 K11 ["nextLayout"]
-       60 JUMPIFNOT                        R3 ; [+20]
-       61 GETTABLEKS                       R3 R0 K11 ["nextLayout"]
-       63 GETUPVAL                         R4 2
-       64 GETTABLEKS                       R5 R0 K5 ["container"]
-       66 MOVE                             R6 R2
-       67 CALL                             R4 2 1
-       68 SETTABLEKS                       R4 R3 K5 ["container"]
-       70 GETTABLEKS                       R3 R0 K11 ["nextLayout"]
-       72 GETTABLEKS                       R5 R0 K7 ["totalData"]
-       74 GETTABLEKS                       R6 R1 K6 ["layoutSize"]
-       76 SUB                              R4 R5 R6
-       77 SETTABLEKS                       R4 R3 K7 ["totalData"]
-       79 SETTABLEKS                       R2 R0 K5 ["container"]
-       81 GETTABLEKS                       R3 R0 K11 ["nextLayout"]
-       83 RETURN                           R3 1
-       84 JUMP                             ; [+143]
-       85 GETTABLEKS                       R2 R1 K6 ["layoutSize"]
-       87 GETTABLEKS                       R3 R0 K0 ["currentDatas"]
-       89 LOADNIL                          R4
-       90 LOADNIL                          R5
-       91 FORGPREP                         R3
-       92 GETTABLEKS                       R8 R7 K6 ["layoutSize"]
-       94 ADD                              R2 R2 R8
-       95 FORGLOOP                         R3 2 ; [-4]
-       97 GETUPVAL                         R3 0
-       98 GETTABLEKS                       R4 R0 K5 ["container"]
-      100 GETTABLEKS                       R6 R0 K7 ["totalData"]
-      102 DIV                              R5 R2 R6
-      103 CALL                             R3 2 1
-      104 GETTABLEKS                       R6 R0 K0 ["currentDatas"]
-      106 GETTABLEKS                       R8 R0 K0 ["currentDatas"]
-      108 LENGTH                           R7 R8
-      109 GETTABLE                         R5 R6 R7
-      110 GETTABLEKS                       R4 R5 K6 ["layoutSize"]
-      112 GETUPVAL                         R5 3
-      113 MOVE                             R6 R3
-      114 GETTABLEKS                       R7 R0 K10 ["orientation"]
-      116 DIV                              R8 R4 R2
-      117 CALL                             R5 3 1
-      118 GETTABLEKS                       R7 R5 K8 ["width"]
-      120 GETTABLEKS                       R8 R5 K9 ["height"]
-      122 JUMPIFNOTLT                      R8 R7 ; [+3]
-      124 DIV                              R6 R7 R8
-      125 JUMPIF                           R6 ; [+1]
-      126 DIV                              R6 R8 R7
-      127 LOADN                            R7 0
-      128 GETTABLEKS                       R8 R0 K0 ["currentDatas"]
-      130 LOADNIL                          R9
-      131 LOADNIL                          R10
-      132 FORGPREP                         R8
-      133 GETTABLEKS                       R13 R12 K6 ["layoutSize"]
-      135 ADD                              R7 R7 R13
-      136 FORGLOOP                         R8 2 ; [-4]
-      138 GETUPVAL                         R8 0
-      139 GETTABLEKS                       R9 R0 K5 ["container"]
-      141 GETTABLEKS                       R11 R0 K7 ["totalData"]
-      143 DIV                              R10 R7 R11
-      144 CALL                             R8 2 1
-      145 GETTABLEKS                       R11 R0 K0 ["currentDatas"]
-      147 GETTABLEKS                       R13 R0 K0 ["currentDatas"]
-      149 LENGTH                           R12 R13
-      150 GETTABLE                         R10 R11 R12
-      151 GETTABLEKS                       R9 R10 K6 ["layoutSize"]
-      153 GETUPVAL                         R10 3
-      154 MOVE                             R11 R8
-      155 GETTABLEKS                       R12 R0 K10 ["orientation"]
-      157 DIV                              R13 R9 R7
-      158 CALL                             R10 3 1
-      159 GETTABLEKS                       R12 R10 K8 ["width"]
-      161 GETTABLEKS                       R13 R10 K9 ["height"]
-      163 JUMPIFNOTLT                      R13 R12 ; [+3]
-      165 DIV                              R11 R12 R13
-      166 JUMPIF                           R11 ; [+1]
-      167 DIV                              R11 R13 R12
-      168 JUMPIFNOTLT                      R6 R11 ; [+10]
-      170 GETTABLEKS                       R13 R0 K0 ["currentDatas"]
-      172 FASTCALL2                        TABLE_INSERT R13 R1 ; [+4]
-      174 MOVE                             R14 R1
-      175 GETIMPORT                        R12 K4 [table.insert]
-      177 CALL                             R12 2 0
-      178 JUMP                             ; [+49]
-      179 GETUPVAL                         R12 1
-      180 CALL                             R12 0 1
-      181 GETUPVAL                         R13 2
-      182 GETTABLEKS                       R14 R0 K5 ["container"]
-      184 MOVE                             R15 R8
-      185 CALL                             R13 2 1
-      186 SETTABLEKS                       R13 R12 K5 ["container"]
-      188 GETTABLEKS                       R14 R0 K7 ["totalData"]
-      190 SUB                              R13 R14 R7
-      191 SETTABLEKS                       R13 R12 K7 ["totalData"]
-      193 GETUPVAL                         R13 0
-      194 GETTABLEKS                       R14 R12 K5 ["container"]
-      196 GETTABLEKS                       R16 R1 K6 ["layoutSize"]
-      198 GETTABLEKS                       R17 R12 K7 ["totalData"]
-      200 DIV                              R15 R16 R17
-      201 CALL                             R13 2 1
-      202 GETTABLEKS                       R15 R13 K8 ["width"]
-      204 GETTABLEKS                       R16 R13 K9 ["height"]
-      206 JUMPIFNOTLT                      R15 R16 ; [+3]
-      208 LOADN                            R14 1
-      209 JUMP                             ; [+1]
-      210 LOADN                            R14 0
-      211 SETTABLEKS                       R14 R12 K10 ["orientation"]
-      213 GETTABLEKS                       R15 R12 K0 ["currentDatas"]
-      215 FASTCALL2                        TABLE_INSERT R15 R1 ; [+4]
-      217 MOVE                             R16 R1
-      218 GETIMPORT                        R14 K4 [table.insert]
-      220 CALL                             R14 2 0
-      221 SETTABLEKS                       R8 R0 K5 ["container"]
-      223 SETTABLEKS                       R12 R0 K11 ["nextLayout"]
-      225 GETTABLEKS                       R14 R0 K11 ["nextLayout"]
-      227 RETURN                           R14 1
-      228 LOADNIL                          R2
-      229 RETURN                           R2 1
+       50 GETTABLEKS                       R4 R1 K6 ["size"]
+       52 JUMPIFNOTLT                      R4 R3 ; [+177]
+       54 GETGLOBAL                        R3 K11 ["createLayout"]
+       56 CALL                             R3 0 1
+       57 SETTABLEKS                       R3 R0 K12 ["nextLayout"]
+       59 GETTABLEKS                       R3 R0 K12 ["nextLayout"]
+       61 JUMPIFNOT                        R3 ; [+20]
+       62 GETTABLEKS                       R3 R0 K12 ["nextLayout"]
+       64 GETUPVAL                         R4 1
+       65 GETTABLEKS                       R5 R0 K5 ["container"]
+       67 MOVE                             R6 R2
+       68 CALL                             R4 2 1
+       69 SETTABLEKS                       R4 R3 K5 ["container"]
+       71 GETTABLEKS                       R3 R0 K12 ["nextLayout"]
+       73 GETTABLEKS                       R5 R0 K7 ["totalData"]
+       75 GETTABLEKS                       R6 R1 K6 ["size"]
+       77 SUB                              R4 R5 R6
+       78 SETTABLEKS                       R4 R3 K7 ["totalData"]
+       80 SETTABLEKS                       R2 R0 K5 ["container"]
+       82 GETTABLEKS                       R3 R0 K12 ["nextLayout"]
+       84 RETURN                           R3 1
+       85 JUMP                             ; [+144]
+       86 GETTABLEKS                       R2 R1 K6 ["size"]
+       88 GETTABLEKS                       R3 R0 K0 ["currentDatas"]
+       90 LOADNIL                          R4
+       91 LOADNIL                          R5
+       92 FORGPREP                         R3
+       93 GETTABLEKS                       R8 R7 K6 ["size"]
+       95 ADD                              R2 R2 R8
+       96 FORGLOOP                         R3 2 ; [-4]
+       98 GETUPVAL                         R3 0
+       99 GETTABLEKS                       R4 R0 K5 ["container"]
+      101 GETTABLEKS                       R6 R0 K7 ["totalData"]
+      103 DIV                              R5 R2 R6
+      104 CALL                             R3 2 1
+      105 GETTABLEKS                       R6 R0 K0 ["currentDatas"]
+      107 GETTABLEKS                       R8 R0 K0 ["currentDatas"]
+      109 LENGTH                           R7 R8
+      110 GETTABLE                         R5 R6 R7
+      111 GETTABLEKS                       R4 R5 K6 ["size"]
+      113 GETUPVAL                         R5 2
+      114 MOVE                             R6 R3
+      115 GETTABLEKS                       R7 R0 K10 ["orientation"]
+      117 DIV                              R8 R4 R2
+      118 CALL                             R5 3 1
+      119 GETTABLEKS                       R7 R5 K8 ["width"]
+      121 GETTABLEKS                       R8 R5 K9 ["height"]
+      123 JUMPIFNOTLT                      R8 R7 ; [+3]
+      125 DIV                              R6 R7 R8
+      126 JUMPIF                           R6 ; [+1]
+      127 DIV                              R6 R8 R7
+      128 LOADN                            R7 0
+      129 GETTABLEKS                       R8 R0 K0 ["currentDatas"]
+      131 LOADNIL                          R9
+      132 LOADNIL                          R10
+      133 FORGPREP                         R8
+      134 GETTABLEKS                       R13 R12 K6 ["size"]
+      136 ADD                              R7 R7 R13
+      137 FORGLOOP                         R8 2 ; [-4]
+      139 GETUPVAL                         R8 0
+      140 GETTABLEKS                       R9 R0 K5 ["container"]
+      142 GETTABLEKS                       R11 R0 K7 ["totalData"]
+      144 DIV                              R10 R7 R11
+      145 CALL                             R8 2 1
+      146 GETTABLEKS                       R11 R0 K0 ["currentDatas"]
+      148 GETTABLEKS                       R13 R0 K0 ["currentDatas"]
+      150 LENGTH                           R12 R13
+      151 GETTABLE                         R10 R11 R12
+      152 GETTABLEKS                       R9 R10 K6 ["size"]
+      154 GETUPVAL                         R10 2
+      155 MOVE                             R11 R8
+      156 GETTABLEKS                       R12 R0 K10 ["orientation"]
+      158 DIV                              R13 R9 R7
+      159 CALL                             R10 3 1
+      160 GETTABLEKS                       R12 R10 K8 ["width"]
+      162 GETTABLEKS                       R13 R10 K9 ["height"]
+      164 JUMPIFNOTLT                      R13 R12 ; [+3]
+      166 DIV                              R11 R12 R13
+      167 JUMPIF                           R11 ; [+1]
+      168 DIV                              R11 R13 R12
+      169 JUMPIFNOTLT                      R6 R11 ; [+10]
+      171 GETTABLEKS                       R13 R0 K0 ["currentDatas"]
+      173 FASTCALL2                        TABLE_INSERT R13 R1 ; [+4]
+      175 MOVE                             R14 R1
+      176 GETIMPORT                        R12 K4 [table.insert]
+      178 CALL                             R12 2 0
+      179 JUMP                             ; [+50]
+      180 GETGLOBAL                        R12 K11 ["createLayout"]
+      182 CALL                             R12 0 1
+      183 GETUPVAL                         R13 1
+      184 GETTABLEKS                       R14 R0 K5 ["container"]
+      186 MOVE                             R15 R8
+      187 CALL                             R13 2 1
+      188 SETTABLEKS                       R13 R12 K5 ["container"]
+      190 GETTABLEKS                       R14 R0 K7 ["totalData"]
+      192 SUB                              R13 R14 R7
+      193 SETTABLEKS                       R13 R12 K7 ["totalData"]
+      195 GETUPVAL                         R13 0
+      196 GETTABLEKS                       R14 R12 K5 ["container"]
+      198 GETTABLEKS                       R16 R1 K6 ["size"]
+      200 GETTABLEKS                       R17 R12 K7 ["totalData"]
+      202 DIV                              R15 R16 R17
+      203 CALL                             R13 2 1
+      204 GETTABLEKS                       R15 R13 K8 ["width"]
+      206 GETTABLEKS                       R16 R13 K9 ["height"]
+      208 JUMPIFNOTLT                      R15 R16 ; [+3]
+      210 LOADN                            R14 1
+      211 JUMP                             ; [+1]
+      212 LOADN                            R14 0
+      213 SETTABLEKS                       R14 R12 K10 ["orientation"]
+      215 GETTABLEKS                       R15 R12 K0 ["currentDatas"]
+      217 FASTCALL2                        TABLE_INSERT R15 R1 ; [+4]
+      219 MOVE                             R16 R1
+      220 GETIMPORT                        R14 K4 [table.insert]
+      222 CALL                             R14 2 0
+      223 SETTABLEKS                       R8 R0 K5 ["container"]
+      225 SETTABLEKS                       R12 R0 K12 ["nextLayout"]
+      227 GETTABLEKS                       R14 R0 K12 ["nextLayout"]
+      229 RETURN                           R14 1
+      230 LOADNIL                          R2
+      231 RETURN                           R2 1
 
 PROTO_10:
         0 NEWTABLE                         R1 0 0
@@ -569,7 +493,7 @@ PROTO_10:
         5 LOADNIL                          R4
         6 LOADNIL                          R5
         7 FORGPREP                         R3
-        8 GETTABLEKS                       R8 R7 K1 ["layoutSize"]
+        8 GETTABLEKS                       R8 R7 K1 ["size"]
        10 ADD                              R2 R2 R8
        11 FORGLOOP                         R3 2 ; [-4]
        13 MOVE                             R3 R2
@@ -589,7 +513,7 @@ PROTO_10:
        33 LOADNIL                          R8
        34 LOADNIL                          R9
        35 FORGPREP                         R7
-       36 GETTABLEKS                       R12 R11 K1 ["layoutSize"]
+       36 GETTABLEKS                       R12 R11 K1 ["size"]
        38 GETUPVAL                         R13 1
        39 MOVE                             R14 R4
        40 GETTABLEKS                       R15 R0 K5 ["orientation"]
@@ -652,354 +576,144 @@ PROTO_10:
       129 RETURN                           R0 0
 
 PROTO_11:
-        0 GETTABLEKS                       R3 R0 K0 ["Children"]
-        2 JUMPIFNOT                        R3 ; [+8]
-        3 GETTABLEKS                       R4 R0 K0 ["Children"]
-        5 LENGTH                           R3 R4
-        6 LOADN                            R4 0
-        7 JUMPIFNOTLT                      R4 R3 ; [+3]
-        9 LOADB                            R3 1
-       10 RETURN                           R3 1
-       11 LOADB                            R3 0
-       12 RETURN                           R3 1
-
-PROTO_12:
-        0 GETTABLEKS                       R3 R0 K0 ["Size"]
-        2 GETTABLEKS                       R4 R1 K0 ["Size"]
+        0 GETTABLEKS                       R3 R0 K0 ["size"]
+        2 GETTABLEKS                       R4 R1 K0 ["size"]
         4 JUMPIFLT                         R4 R3 ; [+2]
         6 LOADB                            R2 0 +1
         7 LOADB                            R2 1
         8 RETURN                           R2 1
 
-PROTO_13:
+PROTO_12:
         0 JUMPIFLE                         R6 R5 ; [+16]
-        2 GETTABLEKS                       R8 R0 K0 ["Children"]
-        4 JUMPIFEQKNIL                     R8 ; [+12]
-        6 GETTABLEKS                       R9 R0 K0 ["Children"]
-        8 LENGTH                           R8 R9
-        9 JUMPIFEQKN                       R8 K1 [0] ; [+7]
-       11 LOADN                            R8 2
-       12 JUMPIFLT                         R3 R8 ; [+4]
-       14 LOADN                            R8 2
-       15 JUMPIFNOTLT                      R4 R8 ; [+2]
+        2 GETTABLEKS                       R7 R0 K0 ["children"]
+        4 JUMPIFEQKNIL                     R7 ; [+12]
+        6 GETTABLEKS                       R8 R0 K0 ["children"]
+        8 LENGTH                           R7 R8
+        9 JUMPIFEQKN                       R7 K1 [0] ; [+7]
+       11 LOADN                            R7 2
+       12 JUMPIFLT                         R3 R7 ; [+4]
+       14 LOADN                            R7 2
+       15 JUMPIFNOTLT                      R4 R7 ; [+2]
        17 RETURN                           R0 0
-       18 GETTABLEKS                       R9 R0 K2 ["Size"]
-       20 ORK                              R8 R9 K1 [0]
-       21 GETTABLEKS                       R9 R0 K0 ["Children"]
-       23 LOADNIL                          R10
-       24 LOADNIL                          R11
-       25 FORGPREP                         R9
-       26 GETTABLEKS                       R14 R13 K2 ["Size"]
-       28 SETTABLEKS                       R14 R13 K3 ["layoutSize"]
-       30 FORGLOOP                         R9 2 ; [-5]
-       32 JUMPIFNOT                        R7 ; [+41]
-       33 LOADN                            R9 0
-       34 JUMPIFNOTLT                      R9 R7 ; [+39]
-       36 LOADN                            R9 1
-       37 JUMPIFNOTLT                      R7 R9 ; [+36]
-       39 LOADN                            R9 0
-       40 JUMPIFNOTLT                      R9 R8 ; [+33]
-       42 LOADN                            R9 0
-       43 LOADNIL                          R10
-       44 GETTABLEKS                       R11 R0 K0 ["Children"]
-       46 LOADNIL                          R12
-       47 LOADNIL                          R13
-       48 FORGPREP                         R11
-       49 GETTABLEKS                       R16 R15 K2 ["Size"]
-       51 JUMPIFNOTLT                      R9 R16 ; [+4]
-       53 GETTABLEKS                       R9 R15 K2 ["Size"]
-       55 MOVE                             R10 R15
-       56 FORGLOOP                         R11 2 ; [-8]
-       58 MUL                              R11 R8 R7
-       59 JUMPIFNOTLT                      R11 R9 ; [+14]
-       61 SUB                              R12 R8 R9
-       62 LOADN                            R13 0
-       63 JUMPIFNOTLT                      R13 R12 ; [+10]
-       65 MOVE                             R13 R10
-       66 SUBRK                            R16 R4 K7 [math.min]
-       67 DIV                              R15 R7 R16
-       68 MUL                              R14 R12 R15
-       69 SETTABLEKS                       R14 R13 K3 ["layoutSize"]
-       71 GETTABLEKS                       R14 R13 K3 ["layoutSize"]
-       73 ADD                              R8 R12 R14
-       74 FASTCALL2                        MATH_MIN R3 R4 ; [+5]
-       76 MOVE                             R10 R3
-       77 MOVE                             R11 R4
-       78 GETIMPORT                        R9 K7 [math.min]
-       80 CALL                             R9 2 1
-       81 LOADN                            R10 0
-       82 JUMPIFNOTLT                      R10 R8 ; [+38]
-       84 LOADN                            R10 3
-       85 JUMPIFNOTLT                      R10 R9 ; [+35]
-       87 DIVRK                            R11 R8 K9 ["x"]
-       88 MUL                              R10 R11 R8
-       89 LOADB                            R11 0
-       90 GETTABLEKS                       R12 R0 K0 ["Children"]
-       92 LOADNIL                          R13
-       93 LOADNIL                          R14
-       94 FORGPREP                         R12
-       95 GETTABLEKS                       R17 R16 K3 ["layoutSize"]
-       97 LOADN                            R18 0
-       98 JUMPIFNOTLT                      R18 R17 ; [+8]
-      100 GETTABLEKS                       R17 R16 K3 ["layoutSize"]
-      102 JUMPIFNOTLT                      R17 R10 ; [+4]
-      104 SETTABLEKS                       R10 R16 K3 ["layoutSize"]
-      106 LOADB                            R11 1
-      107 FORGLOOP                         R12 2 ; [-13]
-      109 JUMPIFNOT                        R11 ; [+11]
-      110 LOADN                            R8 0
-      111 GETTABLEKS                       R12 R0 K0 ["Children"]
-      113 LOADNIL                          R13
-      114 LOADNIL                          R14
-      115 FORGPREP                         R12
-      116 GETTABLEKS                       R17 R16 K3 ["layoutSize"]
-      118 ADD                              R8 R8 R17
-      119 FORGLOOP                         R12 2 ; [-4]
-      121 GETUPVAL                         R10 0
-      122 CALL                             R10 0 1
-      123 DUPTABLE                         R11 K13 [{"x", "y", "width", "height"}]
-      124 SETTABLEKS                       R1 R11 K9 ["x"]
-      126 SETTABLEKS                       R2 R11 K10 ["y"]
-      128 SETTABLEKS                       R3 R11 K11 ["width"]
-      130 SETTABLEKS                       R4 R11 K12 ["height"]
-      132 SETTABLEKS                       R11 R10 K14 ["container"]
-      134 SETTABLEKS                       R8 R10 K15 ["totalData"]
-      136 MOVE                             R11 R10
-      137 GETIMPORT                        R12 K18 [table.sort]
-      139 GETTABLEKS                       R13 R0 K0 ["Children"]
-      141 DUPCLOSURE                       R14 K19 [PROTO_12]
-      142 CALL                             R12 2 0
-      143 GETTABLEKS                       R12 R0 K0 ["Children"]
-      145 LOADNIL                          R13
-      146 LOADNIL                          R14
-      147 FORGPREP                         R12
-      148 GETTABLEKS                       R17 R16 K3 ["layoutSize"]
-      150 JUMPIFEQKN                       R17 K1 [0] ; [+7]
-      152 GETUPVAL                         R17 1
-      153 MOVE                             R18 R11
-      154 MOVE                             R19 R16
-      155 CALL                             R17 2 1
-      156 JUMPIFNOT                        R17 ; [+1]
-      157 MOVE                             R11 R17
-      158 FORGLOOP                         R12 2 ; [-11]
-      160 MOVE                             R11 R10
-      161 JUMPIFEQKNIL                     R11 ; [+12]
-      163 GETUPVAL                         R12 2
-      164 MOVE                             R13 R11
-      165 CALL                             R12 1 0
-      166 GETTABLEKS                       R12 R11 K20 ["nextLayout"]
-      168 JUMPIFNOT                        R12 ; [+5]
-      169 GETTABLEKS                       R11 R11 K20 ["nextLayout"]
-      171 JUMP                             ; [+1]
-      172 JUMP                             ; [+1]
-      173 JUMPBACK                         ; [-13]
-      174 GETTABLEKS                       R12 R0 K0 ["Children"]
-      176 LOADNIL                          R13
-      177 LOADNIL                          R14
-      178 FORGPREP                         R12
-      179 GETTABLEKS                       R17 R16 K2 ["Size"]
-      181 JUMPIFEQKN                       R17 K1 [0] ; [+107]
-      183 GETTABLEKS                       R17 R16 K21 ["rectangle"]
-      185 JUMPIFEQKNIL                     R17 ; [+103]
-      187 GETTABLEKS                       R18 R16 K0 ["Children"]
-      189 JUMPIFNOT                        R18 ; [+8]
-      190 GETTABLEKS                       R19 R16 K0 ["Children"]
-      192 LENGTH                           R18 R19
-      193 LOADN                            R19 0
-      194 JUMPIFNOTLT                      R19 R18 ; [+3]
-      196 LOADB                            R17 1
-      197 JUMP                             ; [+1]
-      198 LOADB                            R17 0
-      199 JUMPIFNOT                        R17 ; [+3]
-      200 LOADB                            R17 1
-      201 SETTABLEKS                       R17 R16 K22 ["showHeader"]
-      203 GETTABLEKS                       R17 R16 K22 ["showHeader"]
-      205 JUMPIFNOT                        R17 ; [+10]
-      206 GETTABLEKS                       R18 R16 K21 ["rectangle"]
-      208 GETTABLEKS                       R17 R18 K12 ["height"]
-      210 LOADN                            R18 26
-      211 JUMPIFNOTLT                      R17 R18 ; [+4]
-      213 LOADB                            R17 0
-      214 SETTABLEKS                       R17 R16 K22 ["showHeader"]
-      216 LOADN                            R17 0
-      217 GETTABLEKS                       R18 R16 K0 ["Children"]
-      219 JUMPIFEQKNIL                     R18 ; [+6]
-      221 GETTABLEKS                       R19 R16 K0 ["Children"]
-      223 LENGTH                           R18 R19
-      224 JUMPIFNOTEQKN                    R18 K1 [0] ; [+2]
-      226 LOADN                            R17 1
-      227 GETTABLEKS                       R18 R16 K22 ["showHeader"]
-      229 JUMPIFNOT                        R18 ; [+31]
-      230 GETUPVAL                         R18 3
-      231 MOVE                             R19 R16
-      232 GETTABLEKS                       R22 R16 K21 ["rectangle"]
-      234 GETTABLEKS                       R21 R22 K9 ["x"]
-      236 ADD                              R20 R21 R17
-      237 GETTABLEKS                       R24 R16 K21 ["rectangle"]
-      239 GETTABLEKS                       R23 R24 K10 ["y"]
-      241 ADD                              R22 R23 R17
-      242 ADDK                             R21 R22 K23 [24]
-      243 GETTABLEKS                       R24 R16 K21 ["rectangle"]
-      245 GETTABLEKS                       R23 R24 K11 ["width"]
-      247 MULK                             R24 R17 K24 [2]
-      248 SUB                              R22 R23 R24
-      249 GETTABLEKS                       R25 R16 K21 ["rectangle"]
-      251 GETTABLEKS                       R24 R25 K12 ["height"]
-      253 MULK                             R26 R17 K24 [2]
-      254 ADDK                             R25 R26 K23 [24]
-      255 SUB                              R23 R24 R25
-      256 ADDK                             R24 R5 K4 [1]
-      257 MOVE                             R25 R6
-      258 MOVE                             R26 R7
-      259 CALL                             R18 8 0
-      260 JUMP                             ; [+28]
-      261 GETUPVAL                         R18 3
-      262 MOVE                             R19 R16
-      263 GETTABLEKS                       R22 R16 K21 ["rectangle"]
-      265 GETTABLEKS                       R21 R22 K9 ["x"]
-      267 ADD                              R20 R21 R17
-      268 GETTABLEKS                       R23 R16 K21 ["rectangle"]
-      270 GETTABLEKS                       R22 R23 K10 ["y"]
-      272 ADD                              R21 R22 R17
-      273 GETTABLEKS                       R24 R16 K21 ["rectangle"]
-      275 GETTABLEKS                       R23 R24 K11 ["width"]
-      277 MULK                             R24 R17 K24 [2]
-      278 SUB                              R22 R23 R24
-      279 GETTABLEKS                       R25 R16 K21 ["rectangle"]
-      281 GETTABLEKS                       R24 R25 K12 ["height"]
-      283 MULK                             R25 R17 K24 [2]
-      284 SUB                              R23 R24 R25
-      285 ADDK                             R24 R5 K4 [1]
-      286 MOVE                             R25 R6
-      287 MOVE                             R26 R7
-      288 CALL                             R18 8 0
-      289 FORGLOOP                         R12 2 ; [-111]
-      291 RETURN                           R0 0
+       18 GETTABLEKS                       R8 R0 K2 ["size"]
+       20 ORK                              R7 R8 K1 [0]
+       21 GETGLOBAL                        R8 K3 ["createLayout"]
+       23 CALL                             R8 0 1
+       24 DUPTABLE                         R9 K8 [{"x", "y", "width", "height"}]
+       25 SETTABLEKS                       R1 R9 K4 ["x"]
+       27 SETTABLEKS                       R2 R9 K5 ["y"]
+       29 SETTABLEKS                       R3 R9 K6 ["width"]
+       31 SETTABLEKS                       R4 R9 K7 ["height"]
+       33 SETTABLEKS                       R9 R8 K9 ["container"]
+       35 SETTABLEKS                       R7 R8 K10 ["totalData"]
+       37 MOVE                             R9 R8
+       38 GETIMPORT                        R10 K13 [table.sort]
+       40 GETTABLEKS                       R11 R0 K0 ["children"]
+       42 DUPCLOSURE                       R12 K14 [PROTO_11]
+       43 CALL                             R10 2 0
+       44 GETTABLEKS                       R10 R0 K0 ["children"]
+       46 LOADNIL                          R11
+       47 LOADNIL                          R12
+       48 FORGPREP                         R10
+       49 GETTABLEKS                       R15 R14 K2 ["size"]
+       51 JUMPIFEQKN                       R15 K1 [0] ; [+8]
+       53 GETGLOBAL                        R15 K15 ["addData"]
+       55 MOVE                             R16 R9
+       56 MOVE                             R17 R14
+       57 CALL                             R15 2 1
+       58 JUMPIFNOT                        R15 ; [+1]
+       59 MOVE                             R9 R15
+       60 FORGLOOP                         R10 2 ; [-12]
+       62 MOVE                             R9 R8
+       63 JUMPIFEQKNIL                     R9 ; [+12]
+       65 GETUPVAL                         R10 0
+       66 MOVE                             R11 R9
+       67 CALL                             R10 1 0
+       68 GETTABLEKS                       R10 R9 K16 ["nextLayout"]
+       70 JUMPIFNOT                        R10 ; [+5]
+       71 GETTABLEKS                       R9 R9 K16 ["nextLayout"]
+       73 JUMP                             ; [+1]
+       74 JUMP                             ; [+1]
+       75 JUMPBACK                         ; [-13]
+       76 LOADB                            R10 0
+       77 JUMPIFNOTEQKN                    R5 K1 [0] ; [+2]
+       79 LOADB                            R10 1
+       80 GETTABLEKS                       R11 R0 K0 ["children"]
+       82 LOADNIL                          R12
+       83 LOADNIL                          R13
+       84 FORGPREP                         R11
+       85 GETTABLEKS                       R16 R15 K2 ["size"]
+       87 JUMPIFEQKN                       R16 K1 [0] ; [+65]
+       89 GETTABLEKS                       R16 R15 K17 ["rectangle"]
+       91 JUMPIFEQKNIL                     R16 ; [+61]
+       93 JUMPIFNOT                        R10 ; [+34]
+       94 GETTABLEKS                       R17 R15 K17 ["rectangle"]
+       96 GETTABLEKS                       R16 R17 K7 ["height"]
+       98 LOADN                            R17 22
+       99 JUMPIFNOTLT                      R17 R16 ; [+28]
+      101 GETUPVAL                         R16 1
+      102 MOVE                             R17 R15
+      103 GETTABLEKS                       R20 R15 K17 ["rectangle"]
+      105 GETTABLEKS                       R19 R20 K4 ["x"]
+      107 ADDK                             R18 R19 K18 [1]
+      108 GETTABLEKS                       R22 R15 K17 ["rectangle"]
+      110 GETTABLEKS                       R21 R22 K5 ["y"]
+      112 ADDK                             R20 R21 K18 [1]
+      113 ADDK                             R19 R20 K19 [20]
+      114 GETTABLEKS                       R22 R15 K17 ["rectangle"]
+      116 GETTABLEKS                       R21 R22 K6 ["width"]
+      118 SUBK                             R20 R21 K20 [2]
+      119 GETTABLEKS                       R23 R15 K17 ["rectangle"]
+      121 GETTABLEKS                       R22 R23 K7 ["height"]
+      123 SUBK                             R21 R22 K21 [22]
+      124 ADDK                             R22 R5 K18 [1]
+      125 MOVE                             R23 R6
+      126 CALL                             R16 7 0
+      127 JUMP                             ; [+25]
+      128 GETUPVAL                         R16 1
+      129 MOVE                             R17 R15
+      130 GETTABLEKS                       R20 R15 K17 ["rectangle"]
+      132 GETTABLEKS                       R19 R20 K4 ["x"]
+      134 ADDK                             R18 R19 K18 [1]
+      135 GETTABLEKS                       R21 R15 K17 ["rectangle"]
+      137 GETTABLEKS                       R20 R21 K5 ["y"]
+      139 ADDK                             R19 R20 K18 [1]
+      140 GETTABLEKS                       R22 R15 K17 ["rectangle"]
+      142 GETTABLEKS                       R21 R22 K6 ["width"]
+      144 SUBK                             R20 R21 K20 [2]
+      145 GETTABLEKS                       R23 R15 K17 ["rectangle"]
+      147 GETTABLEKS                       R22 R23 K7 ["height"]
+      149 SUBK                             R21 R22 K20 [2]
+      150 ADDK                             R22 R5 K18 [1]
+      151 MOVE                             R23 R6
+      152 CALL                             R16 7 0
+      153 FORGLOOP                         R11 2 ; [-69]
+      155 RETURN                           R0 0
+
+PROTO_13:
+        0 GETUPVAL                         R5 0
+        1 MOVE                             R6 R1
+        2 CALL                             R5 1 1
+        3 DUPTABLE                         R6 K4 [{"x", "y", "width", "height"}]
+        4 LOADN                            R7 0
+        5 SETTABLEKS                       R7 R6 K0 ["x"]
+        7 LOADN                            R7 0
+        8 SETTABLEKS                       R7 R6 K1 ["y"]
+       10 SETTABLEKS                       R2 R6 K2 ["width"]
+       12 SETTABLEKS                       R3 R6 K3 ["height"]
+       14 SETTABLEKS                       R6 R5 K5 ["rectangle"]
+       16 GETUPVAL                         R6 1
+       17 MOVE                             R7 R5
+       18 LOADN                            R8 0
+       19 LOADN                            R9 0
+       20 MOVE                             R10 R2
+       21 MOVE                             R11 R3
+       22 LOADN                            R12 0
+       23 MOVE                             R13 R4
+       24 CALL                             R6 7 0
+       25 RETURN                           R5 1
 
 PROTO_14:
-        0 JUMPIFNOTEQKNIL                  R1 ; [+4]
-        2 NEWTABLE                         R3 0 0
-        4 RETURN                           R3 1
-        5 JUMPIFNOTEQ                      R1 R2 ; [+8]
-        7 NEWTABLE                         R3 0 1
-        9 GETTABLEKS                       R4 R1 K0 ["Name"]
-       11 SETLIST                          R3 R4 1 [1]
-       13 RETURN                           R3 1
-       14 NEWTABLE                         R3 0 1
-       16 MOVE                             R4 R1
-       17 SETLIST                          R3 R4 1 [1]
-       19 LOADN                            R4 1
-       20 NEWTABLE                         R5 0 0
-       22 LOADNIL                          R6
-       23 SETTABLE                         R6 R5 R1
-       24 LENGTH                           R6 R3
-       25 JUMPIFNOTLE                      R4 R6 ; [+45]
-       27 GETTABLE                         R6 R3 R4
-       28 ADDK                             R4 R4 K1 [1]
-       29 GETTABLEKS                       R7 R6 K2 ["Children"]
-       31 JUMPIFNOT                        R7 ; [+38]
-       32 MOVE                             R8 R7
-       33 LOADNIL                          R9
-       34 LOADNIL                          R10
-       35 FORGPREP                         R8
-       36 GETTABLE                         R13 R5 R12
-       37 JUMPIFNOTEQKNIL                  R13 ; [+30]
-       39 SETTABLE                         R6 R5 R12
-       40 JUMPIFNOTEQ                      R12 R2 ; [+24]
-       42 NEWTABLE                         R13 0 0
-       44 MOVE                             R14 R12
-       45 JUMPIFNOT                        R14 ; [+7]
-       46 LENGTH                           R16 R13
-       47 ADDK                             R15 R16 K1 [1]
-       48 GETTABLEKS                       R16 R14 K0 ["Name"]
-       50 SETTABLE                         R16 R13 R15
-       51 GETTABLE                         R14 R5 R14
-       52 JUMPBACK                         ; [-8]
-       53 LOADN                            R15 1
-       54 LENGTH                           R16 R13
-       55 JUMPIFNOTLT                      R15 R16 ; [+8]
-       57 GETTABLE                         R17 R13 R16
-       58 GETTABLE                         R18 R13 R15
-       59 SETTABLE                         R17 R13 R15
-       60 SETTABLE                         R18 R13 R16
-       61 ADDK                             R15 R15 K1 [1]
-       62 SUBK                             R16 R16 K1 [1]
-       63 JUMPBACK                         ; [-9]
-       64 RETURN                           R13 1
-       65 LENGTH                           R14 R3
-       66 ADDK                             R13 R14 K1 [1]
-       67 SETTABLE                         R12 R3 R13
-       68 FORGLOOP                         R8 2 ; [-33]
-       70 JUMPBACK                         ; [-47]
-       71 NEWTABLE                         R6 0 0
-       73 RETURN                           R6 1
-
-PROTO_15:
-        0 MOVE                             R8 R1
-        1 JUMPIFNOT                        R5 ; [+49]
-        2 LENGTH                           R9 R5
-        3 LOADN                            R10 0
-        4 JUMPIFNOTLT                      R10 R9 ; [+46]
-        6 MOVE                             R9 R8
-        7 GETTABLEKS                       R10 R8 K0 ["Name"]
-        9 GETTABLEN                        R11 R5 1
-       10 JUMPIFNOTEQ                      R10 R11 ; [+34]
-       12 LOADN                            R12 2
-       13 LENGTH                           R10 R5
-       14 LOADN                            R11 1
-       15 FORNPREP                         R10
-       16 GETTABLE                         R13 R5 R12
-       17 LOADB                            R14 0
-       18 GETTABLEKS                       R15 R9 K1 ["Children"]
-       20 JUMPIF                           R15 ; [+2]
-       21 NEWTABLE                         R15 0 0
-       23 LOADNIL                          R16
-       24 LOADNIL                          R17
-       25 FORGPREP                         R15
-       26 GETTABLEKS                       R20 R19 K0 ["Name"]
-       28 JUMPIFNOTEQ                      R20 R13 ; [+4]
-       30 MOVE                             R9 R19
-       31 LOADB                            R14 1
-       32 JUMP                             ; [+2]
-       33 FORGLOOP                         R15 2 ; [-8]
-       35 JUMPIFNOTEQKB                    R14 FALSE ; [+7]
-       37 GETIMPORT                        R15 K3 [warn]
-       39 LOADK                            R16 K4 ["Couldn't find zoom down node in tree"]
-       40 GETTABLE                         R17 R5 R12
-       41 CALL                             R15 2 0
-       42 JUMP                             ; [+7]
-       43 FORNLOOP                         R10
-       44 JUMP                             ; [+5]
-       45 GETIMPORT                        R10 K3 [warn]
-       47 LOADK                            R11 K4 ["Couldn't find zoom down node in tree"]
-       48 GETTABLEN                        R12 R5 1
-       49 CALL                             R10 2 0
-       50 MOVE                             R8 R9
-       51 GETUPVAL                         R9 0
-       52 MOVE                             R10 R8
-       53 MOVE                             R11 R7
-       54 CALL                             R9 2 1
-       55 DUPTABLE                         R10 K9 [{"x", "y", "width", "height"}]
-       56 LOADN                            R11 0
-       57 SETTABLEKS                       R11 R10 K5 ["x"]
-       59 LOADN                            R11 0
-       60 SETTABLEKS                       R11 R10 K6 ["y"]
-       62 SETTABLEKS                       R2 R10 K7 ["width"]
-       64 SETTABLEKS                       R3 R10 K8 ["height"]
-       66 SETTABLEKS                       R10 R9 K10 ["rectangle"]
-       68 GETUPVAL                         R10 1
-       69 MOVE                             R11 R9
-       70 LOADN                            R12 0
-       71 LOADN                            R13 0
-       72 MOVE                             R14 R2
-       73 MOVE                             R15 R3
-       74 LOADN                            R16 0
-       75 MOVE                             R17 R4
-       76 MOVE                             R18 R6
-       77 CALL                             R10 8 0
-       78 RETURN                           R9 1
-
-PROTO_16:
         0 JUMPIFEQKNIL                     R0 ; [+5]
         2 GETTABLEKS                       R3 R0 K0 ["rectangle"]
         4 JUMPIFNOTEQKNIL                  R3 ; [+3]
@@ -1025,9 +739,9 @@ PROTO_16:
        40 JUMPIFNOTLT                      R3 R2 ; [+3]
        42 LOADNIL                          R3
        43 RETURN                           R3 1
-       44 GETTABLEKS                       R3 R0 K5 ["Children"]
+       44 GETTABLEKS                       R3 R0 K5 ["children"]
        46 JUMPIFNOT                        R3 ; [+15]
-       47 GETTABLEKS                       R3 R0 K5 ["Children"]
+       47 GETTABLEKS                       R3 R0 K5 ["children"]
        49 LOADNIL                          R4
        50 LOADNIL                          R5
        51 FORGPREP                         R3
@@ -1041,7 +755,7 @@ PROTO_16:
        60 FORGLOOP                         R3 2 ; [-9]
        62 RETURN                           R0 1
 
-PROTO_17:
+PROTO_15:
         0 GETGLOBAL                        R6 K0 ["getMouseOver"]
         2 MOVE                             R7 R1
         3 SUB                              R8 R4 R2
@@ -1051,7 +765,7 @@ PROTO_17:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 NEWTABLE                         R0 4 0
+        1 NEWTABLE                         R0 2 0
         3 GETIMPORT                        R1 K1 [script]
         5 LOADK                            R3 K2 ["SceneAnalysis"]
         6 NAMECALL                         R1 R1 K3 ["FindFirstAncestor"]
@@ -1068,33 +782,29 @@ MAIN:
        23 DUPCLOSURE                       R5 K12 [PROTO_2]
        24 DUPCLOSURE                       R6 K13 [PROTO_3]
        25 DUPCLOSURE                       R7 K14 [PROTO_4]
-       26 DUPCLOSURE                       R8 K15 [PROTO_5]
-       27 DUPCLOSURE                       R9 K16 [PROTO_6]
-       28 DUPCLOSURE                       R10 K17 [PROTO_7]
-       29 DUPCLOSURE                       R11 K18 [PROTO_8]
-       30 DUPCLOSURE                       R12 K19 [PROTO_9]
-       31 CAPTURE                          VAL R9
-       32 CAPTURE                          VAL R7
-       33 CAPTURE                          VAL R10
-       34 CAPTURE                          VAL R11
-       35 DUPCLOSURE                       R13 K20 [PROTO_10]
-       36 CAPTURE                          VAL R9
-       37 CAPTURE                          VAL R11
-       38 CAPTURE                          VAL R10
-       39 DUPCLOSURE                       R14 K21 [PROTO_11]
-       40 DUPCLOSURE                       R15 K22 [PROTO_13]
-       41 CAPTURE                          VAL R7
-       42 CAPTURE                          VAL R12
-       43 CAPTURE                          VAL R13
-       44 CAPTURE                          VAL R15
-       45 DUPCLOSURE                       R16 K23 [PROTO_14]
-       46 SETTABLEKS                       R16 R0 K24 ["getPathToNode"]
-       48 DUPCLOSURE                       R16 K25 [PROTO_15]
-       49 CAPTURE                          VAL R3
-       50 CAPTURE                          VAL R15
-       51 SETTABLEKS                       R16 R0 K26 ["solveTreemap"]
-       53 DUPCLOSURE                       R16 K27 [PROTO_16]
-       54 SETGLOBAL                        R16 K28 ["getMouseOver"]
-       56 DUPCLOSURE                       R16 K29 [PROTO_17]
-       57 SETTABLEKS                       R16 R0 K28 ["getMouseOver"]
-       59 RETURN                           R0 1
+       26 SETGLOBAL                        R7 K15 ["createLayout"]
+       28 DUPCLOSURE                       R7 K16 [PROTO_5]
+       29 DUPCLOSURE                       R8 K17 [PROTO_6]
+       30 DUPCLOSURE                       R9 K18 [PROTO_7]
+       31 DUPCLOSURE                       R10 K19 [PROTO_8]
+       32 DUPCLOSURE                       R11 K20 [PROTO_9]
+       33 CAPTURE                          VAL R8
+       34 CAPTURE                          VAL R9
+       35 CAPTURE                          VAL R10
+       36 SETGLOBAL                        R11 K21 ["addData"]
+       38 DUPCLOSURE                       R11 K22 [PROTO_10]
+       39 CAPTURE                          VAL R8
+       40 CAPTURE                          VAL R10
+       41 CAPTURE                          VAL R9
+       42 DUPCLOSURE                       R12 K23 [PROTO_12]
+       43 CAPTURE                          VAL R11
+       44 CAPTURE                          VAL R12
+       45 DUPCLOSURE                       R13 K24 [PROTO_13]
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R12
+       48 SETTABLEKS                       R13 R0 K25 ["SolveTreemap"]
+       50 DUPCLOSURE                       R13 K26 [PROTO_14]
+       51 SETGLOBAL                        R13 K27 ["getMouseOver"]
+       53 DUPCLOSURE                       R13 K28 [PROTO_15]
+       54 SETTABLEKS                       R13 R0 K29 ["GetMouseOver"]
+       56 RETURN                           R0 1

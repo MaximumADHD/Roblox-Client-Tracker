@@ -54,50 +54,41 @@ PROTO_4:
         1 GETTABLEKS                       R1 R2 K0 ["getConfigFromInstance"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 2
-        5 GETUPVAL                         R3 1
-        6 CALL                             R3 0 1
-        7 JUMPIFNOT                        R3 ; [+7]
-        8 MOVE                             R3 R2
-        9 JUMPIF                           R3 ; [+4]
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K1 ["getDefaultConfig"]
-       13 CALL                             R3 0 1
-       14 MOVE                             R2 R3
-       15 GETUPVAL                         R4 2
-       16 NAMECALL                         R4 R4 K2 ["GetAllPresets"]
-       18 CALL                             R4 1 1
-       19 NEWTABLE                         R5 0 1
-       21 GETUPVAL                         R7 3
-       22 GETTABLEKS                       R6 R7 K3 ["StudioDefaultPreset"]
-       24 SETLIST                          R5 R6 1 [1]
-       26 MOVE                             R6 R4
-       27 LOADNIL                          R7
-       28 LOADNIL                          R8
-       29 FORGPREP                         R6
-       30 FASTCALL2                        TABLE_INSERT R5 R9 ; [+5]
-       32 MOVE                             R12 R5
-       33 MOVE                             R13 R9
-       34 GETIMPORT                        R11 K6 [table.insert]
-       36 CALL                             R11 2 0
-       37 FORGLOOP                         R6 2 ; [-8]
-       39 MOVE                             R3 R5
-       40 GETUPVAL                         R5 4
-       41 GETTABLEKS                       R4 R5 K7 ["fromProps"]
-       43 GETTABLEKS                       R5 R0 K8 ["ClassName"]
-       45 DUPTABLE                         R6 K13 [{"configData", "presets", "doSaveConfig", "doReimport"}]
-       46 SETTABLEKS                       R2 R6 K9 ["configData"]
-       48 SETTABLEKS                       R3 R6 K10 ["presets"]
-       50 NEWCLOSURE                       R7 P0
-       51 CAPTURE                          UPVAL U0
-       52 CAPTURE                          VAL R0
-       53 CAPTURE                          UPVAL U5
-       54 SETTABLEKS                       R7 R6 K11 ["doSaveConfig"]
-       56 NEWCLOSURE                       R7 P1
-       57 CAPTURE                          UPVAL U6
-       58 CAPTURE                          VAL R0
-       59 SETTABLEKS                       R7 R6 K12 ["doReimport"]
-       61 CALL                             R4 2 0
-       62 RETURN                           R0 0
+        5 GETUPVAL                         R4 1
+        6 NAMECALL                         R4 R4 K1 ["GetAllPresets"]
+        8 CALL                             R4 1 1
+        9 NEWTABLE                         R5 0 1
+       11 GETUPVAL                         R7 2
+       12 GETTABLEKS                       R6 R7 K2 ["StudioDefaultPreset"]
+       14 SETLIST                          R5 R6 1 [1]
+       16 MOVE                             R6 R4
+       17 LOADNIL                          R7
+       18 LOADNIL                          R8
+       19 FORGPREP                         R6
+       20 FASTCALL2                        TABLE_INSERT R5 R9 ; [+5]
+       22 MOVE                             R12 R5
+       23 MOVE                             R13 R9
+       24 GETIMPORT                        R11 K5 [table.insert]
+       26 CALL                             R11 2 0
+       27 FORGLOOP                         R6 2 ; [-8]
+       29 MOVE                             R3 R5
+       30 GETUPVAL                         R5 3
+       31 GETTABLEKS                       R4 R5 K6 ["fromProps"]
+       33 GETTABLEKS                       R5 R0 K7 ["ClassName"]
+       35 DUPTABLE                         R6 K12 [{"configData", "presets", "doSaveConfig", "doReimport"}]
+       36 SETTABLEKS                       R2 R6 K8 ["configData"]
+       38 SETTABLEKS                       R3 R6 K9 ["presets"]
+       40 NEWCLOSURE                       R7 P0
+       41 CAPTURE                          UPVAL U0
+       42 CAPTURE                          VAL R0
+       43 CAPTURE                          UPVAL U4
+       44 SETTABLEKS                       R7 R6 K10 ["doSaveConfig"]
+       46 NEWCLOSURE                       R7 P1
+       47 CAPTURE                          UPVAL U5
+       48 CAPTURE                          VAL R0
+       49 SETTABLEKS                       R7 R6 K11 ["doReimport"]
+       51 CALL                             R4 2 0
+       52 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -154,32 +145,27 @@ MAIN:
        88 GETTABLEKS                       R13 R0 K22 ["Flags"]
        90 GETTABLEKS                       R12 R13 K24 ["GetFFlagReimportConfigUserSave"]
        92 CALL                             R11 1 1
-       93 GETIMPORT                        R12 K7 [require]
-       95 GETTABLEKS                       R14 R0 K22 ["Flags"]
-       97 GETTABLEKS                       R13 R14 K25 ["GetFFlagReimportDefaultCreator"]
-       99 CALL                             R12 1 1
-      100 DUPCLOSURE                       R13 K26 [PROTO_0]
-      101 CAPTURE                          VAL R2
-      102 CAPTURE                          VAL R3
-      103 NEWTABLE                         R14 2 0
-      105 DUPCLOSURE                       R15 K27 [PROTO_1]
-      106 CAPTURE                          VAL R9
-      107 CAPTURE                          VAL R1
-      108 SETTABLEKS                       R15 R14 K28 ["fromProps"]
-      110 DUPCLOSURE                       R15 K29 [PROTO_4]
-      111 CAPTURE                          VAL R6
-      112 CAPTURE                          VAL R12
-      113 CAPTURE                          VAL R2
-      114 CAPTURE                          VAL R3
-      115 CAPTURE                          VAL R14
-      116 CAPTURE                          VAL R11
-      117 CAPTURE                          VAL R5
-      118 SETTABLEKS                       R15 R14 K30 ["fromInstance"]
-      120 MOVE                             R16 R10
-      121 CALL                             R16 0 1
-      122 JUMPIFNOT                        R16 ; [+7]
-      123 GETTABLEKS                       R17 R7 K31 ["configure"]
-      125 GETTABLEKS                       R16 R17 K32 ["register"]
-      127 GETTABLEKS                       R17 R14 K30 ["fromInstance"]
-      129 CALL                             R16 1 0
-      130 RETURN                           R14 1
+       93 DUPCLOSURE                       R12 K25 [PROTO_0]
+       94 CAPTURE                          VAL R2
+       95 CAPTURE                          VAL R3
+       96 NEWTABLE                         R13 2 0
+       98 DUPCLOSURE                       R14 K26 [PROTO_1]
+       99 CAPTURE                          VAL R9
+      100 CAPTURE                          VAL R1
+      101 SETTABLEKS                       R14 R13 K27 ["fromProps"]
+      103 DUPCLOSURE                       R14 K28 [PROTO_4]
+      104 CAPTURE                          VAL R6
+      105 CAPTURE                          VAL R2
+      106 CAPTURE                          VAL R3
+      107 CAPTURE                          VAL R13
+      108 CAPTURE                          VAL R11
+      109 CAPTURE                          VAL R5
+      110 SETTABLEKS                       R14 R13 K29 ["fromInstance"]
+      112 MOVE                             R15 R10
+      113 CALL                             R15 0 1
+      114 JUMPIFNOT                        R15 ; [+7]
+      115 GETTABLEKS                       R16 R7 K30 ["configure"]
+      117 GETTABLEKS                       R15 R16 K31 ["register"]
+      119 GETTABLEKS                       R16 R13 K29 ["fromInstance"]
+      121 CALL                             R15 1 0
+      122 RETURN                           R13 1

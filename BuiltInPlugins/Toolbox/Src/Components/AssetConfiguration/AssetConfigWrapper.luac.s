@@ -46,21 +46,24 @@ PROTO_3:
        26 NEWCLOSURE                       R2 P2
        27 CAPTURE                          VAL R0
        28 SETTABLEKS                       R2 R0 K7 ["setOwner"]
-       30 GETUPVAL                         R4 1
-       31 GETTABLEKS                       R3 R4 K8 ["Util"]
-       33 GETTABLEKS                       R2 R3 K9 ["createFoundationDesignBinding"]
-       35 CALL                             R2 0 2
-       36 SETTABLEKS                       R3 R0 K10 ["onFoundationStyleSheetChange"]
-       38 GETUPVAL                         R4 2
-       39 GETTABLEKS                       R5 R1 K11 ["plugin"]
-       41 LOADNIL                          R6
-       42 LOADNIL                          R7
-       43 NEWTABLE                         R8 0 1
-       45 MOVE                             R9 R2
-       46 SETLIST                          R8 R9 1 [1]
-       48 CALL                             R4 4 1
-       49 SETTABLEKS                       R4 R0 K12 ["design"]
-       51 RETURN                           R0 0
+       30 GETUPVAL                         R2 1
+       31 CALL                             R2 0 1
+       32 JUMPIFNOT                        R2 ; [+21]
+       33 GETUPVAL                         R4 2
+       34 GETTABLEKS                       R3 R4 K8 ["Util"]
+       36 GETTABLEKS                       R2 R3 K9 ["createFoundationDesignBinding"]
+       38 CALL                             R2 0 2
+       39 SETTABLEKS                       R3 R0 K10 ["onFoundationStyleSheetChange"]
+       41 GETUPVAL                         R4 3
+       42 GETTABLEKS                       R5 R1 K11 ["plugin"]
+       44 LOADNIL                          R6
+       45 LOADNIL                          R7
+       46 NEWTABLE                         R8 0 1
+       48 MOVE                             R9 R2
+       49 SETLIST                          R8 R9 1 [1]
+       51 CALL                             R4 4 1
+       52 SETTABLEKS                       R4 R0 K12 ["design"]
+       54 RETURN                           R0 0
 
 PROTO_4:
         0 DUPTABLE                         R3 K1 [{"popUpGui"}]
@@ -127,88 +130,156 @@ PROTO_5:
        83 GETTABLEKS                       R11 R0 K32 ["onAncestryChanged"]
        85 SETTABLE                         R11 R9 R10
        86 DUPTABLE                         R10 K34 [{"ContextServices"}]
-       87 GETTABLEKS                       R12 R2 K35 ["popUpGui"]
-       89 JUMPIFNOT                        R12 ; [+110]
-       90 GETUPVAL                         R12 5
-       91 GETTABLEKS                       R11 R12 K36 ["provide"]
-       93 NEWTABLE                         R12 0 8
-       95 GETUPVAL                         R15 5
-       96 GETTABLEKS                       R14 R15 K37 ["Focus"]
-       98 GETTABLEKS                       R13 R14 K11 ["new"]
-      100 GETTABLEKS                       R14 R2 K35 ["popUpGui"]
-      102 CALL                             R13 1 1
-      103 GETUPVAL                         R15 6
-      104 GETTABLEKS                       R14 R15 K11 ["new"]
-      106 GETTABLEKS                       R15 R2 K35 ["popUpGui"]
-      108 CALL                             R14 1 1
-      109 GETUPVAL                         R16 7
-      110 GETTABLEKS                       R15 R16 K11 ["new"]
-      112 MOVE                             R16 R5
-      113 CALL                             R15 1 1
-      114 GETUPVAL                         R16 8
-      115 GETUPVAL                         R17 9
-      116 CALL                             R17 0 -1
-      117 CALL                             R16 -1 1
-      118 GETUPVAL                         R18 10
-      119 GETTABLEKS                       R17 R18 K11 ["new"]
-      121 CALL                             R17 0 1
-      122 GETUPVAL                         R19 11
-      123 CALL                             R19 0 1
-      124 JUMPIFNOT                        R19 ; [+5]
+       87 GETUPVAL                         R12 5
+       88 CALL                             R12 0 1
+       89 JUMPIFNOT                        R12 ; [+115]
+       90 GETTABLEKS                       R12 R2 K35 ["popUpGui"]
+       92 JUMPIFNOT                        R12 ; [+110]
+       93 GETUPVAL                         R12 6
+       94 GETTABLEKS                       R11 R12 K36 ["provide"]
+       96 NEWTABLE                         R12 0 8
+       98 GETUPVAL                         R15 6
+       99 GETTABLEKS                       R14 R15 K37 ["Focus"]
+      101 GETTABLEKS                       R13 R14 K11 ["new"]
+      103 GETTABLEKS                       R14 R2 K35 ["popUpGui"]
+      105 CALL                             R13 1 1
+      106 GETUPVAL                         R15 7
+      107 GETTABLEKS                       R14 R15 K11 ["new"]
+      109 GETTABLEKS                       R15 R2 K35 ["popUpGui"]
+      111 CALL                             R14 1 1
+      112 GETUPVAL                         R16 8
+      113 GETTABLEKS                       R15 R16 K11 ["new"]
+      115 MOVE                             R16 R5
+      116 CALL                             R15 1 1
+      117 GETUPVAL                         R16 9
+      118 GETUPVAL                         R17 10
+      119 CALL                             R17 0 -1
+      120 CALL                             R16 -1 1
+      121 GETUPVAL                         R18 11
+      122 GETTABLEKS                       R17 R18 K11 ["new"]
+      124 CALL                             R17 0 1
       125 GETUPVAL                         R19 12
-      126 GETTABLEKS                       R18 R19 K11 ["new"]
-      128 CALL                             R18 0 1
-      129 JUMP                             ; [+1]
-      130 LOADNIL                          R18
-      131 GETUPVAL                         R20 11
-      132 CALL                             R20 0 1
-      133 JUMPIFNOT                        R20 ; [+5]
-      134 GETUPVAL                         R20 13
-      135 GETTABLEKS                       R19 R20 K11 ["new"]
-      137 CALL                             R19 0 1
-      138 JUMP                             ; [+1]
-      139 LOADNIL                          R19
-      140 GETUPVAL                         R21 14
-      141 GETTABLEKS                       R20 R21 K11 ["new"]
-      143 GETTABLEKS                       R21 R0 K38 ["design"]
-      145 CALL                             R20 1 -1
-      146 SETLIST                          R12 R13 -1 [1]
-      148 DUPTABLE                         R13 K40 [{"FoundationProviderAdapter"}]
-      149 GETUPVAL                         R15 15
-      150 GETTABLEKS                       R14 R15 K6 ["createElement"]
+      126 CALL                             R19 0 1
+      127 JUMPIFNOT                        R19 ; [+5]
+      128 GETUPVAL                         R19 13
+      129 GETTABLEKS                       R18 R19 K11 ["new"]
+      131 CALL                             R18 0 1
+      132 JUMP                             ; [+1]
+      133 LOADNIL                          R18
+      134 GETUPVAL                         R20 12
+      135 CALL                             R20 0 1
+      136 JUMPIFNOT                        R20 ; [+5]
+      137 GETUPVAL                         R20 14
+      138 GETTABLEKS                       R19 R20 K11 ["new"]
+      140 CALL                             R19 0 1
+      141 JUMP                             ; [+1]
+      142 LOADNIL                          R19
+      143 GETUPVAL                         R21 15
+      144 GETTABLEKS                       R20 R21 K11 ["new"]
+      146 GETTABLEKS                       R21 R0 K38 ["design"]
+      148 CALL                             R20 1 -1
+      149 SETLIST                          R12 R13 -1 [1]
+      151 DUPTABLE                         R13 K40 [{"FoundationProviderAdapter"}]
       152 GETUPVAL                         R15 16
-      153 DUPTABLE                         R16 K43 [{"onStyleSheetChange", "overlayGui"}]
-      154 GETTABLEKS                       R17 R0 K44 ["onFoundationStyleSheetChange"]
-      156 SETTABLEKS                       R17 R16 K41 ["onStyleSheetChange"]
-      158 GETTABLEKS                       R17 R2 K35 ["popUpGui"]
-      160 SETTABLEKS                       R17 R16 K42 ["overlayGui"]
-      162 DUPTABLE                         R17 K46 [{"ScreenSelect"}]
-      163 GETUPVAL                         R19 0
-      164 GETTABLEKS                       R18 R19 K6 ["createElement"]
-      166 GETUPVAL                         R19 17
-      167 DUPTABLE                         R20 K51 [{"assetId", "assetTypeEnum", "onClose", "pluginGui", "owner", "groupId", "setOwner"}]
-      168 SETTABLEKS                       R3 R20 K2 ["assetId"]
-      170 SETTABLEKS                       R4 R20 K3 ["assetTypeEnum"]
-      172 GETTABLEKS                       R21 R0 K27 ["onClose"]
-      174 SETTABLEKS                       R21 R20 K27 ["onClose"]
-      176 GETTABLEKS                       R21 R2 K35 ["popUpGui"]
-      178 SETTABLEKS                       R21 R20 K47 ["pluginGui"]
-      180 GETTABLEKS                       R21 R2 K48 ["owner"]
-      182 SETTABLEKS                       R21 R20 K48 ["owner"]
-      184 GETTABLEKS                       R21 R2 K49 ["groupId"]
-      186 SETTABLEKS                       R21 R20 K49 ["groupId"]
-      188 GETTABLEKS                       R21 R0 K50 ["setOwner"]
-      190 SETTABLEKS                       R21 R20 K50 ["setOwner"]
-      192 CALL                             R18 2 1
-      193 SETTABLEKS                       R18 R17 K45 ["ScreenSelect"]
-      195 CALL                             R14 3 1
-      196 SETTABLEKS                       R14 R13 K39 ["FoundationProviderAdapter"]
-      198 CALL                             R11 2 1
-      199 JUMP                             ; [+1]
-      200 LOADNIL                          R11
-      201 SETTABLEKS                       R11 R10 K33 ["ContextServices"]
-      203 CALL                             R7 3 -1
-      204 RETURN                           R7 -1
+      153 GETTABLEKS                       R14 R15 K6 ["createElement"]
+      155 GETUPVAL                         R15 17
+      156 DUPTABLE                         R16 K43 [{"onStyleSheetChange", "overlayGui"}]
+      157 GETTABLEKS                       R17 R0 K44 ["onFoundationStyleSheetChange"]
+      159 SETTABLEKS                       R17 R16 K41 ["onStyleSheetChange"]
+      161 GETTABLEKS                       R17 R2 K35 ["popUpGui"]
+      163 SETTABLEKS                       R17 R16 K42 ["overlayGui"]
+      165 DUPTABLE                         R17 K46 [{"ScreenSelect"}]
+      166 GETUPVAL                         R19 0
+      167 GETTABLEKS                       R18 R19 K6 ["createElement"]
+      169 GETUPVAL                         R19 18
+      170 DUPTABLE                         R20 K51 [{"assetId", "assetTypeEnum", "onClose", "pluginGui", "owner", "groupId", "setOwner"}]
+      171 SETTABLEKS                       R3 R20 K2 ["assetId"]
+      173 SETTABLEKS                       R4 R20 K3 ["assetTypeEnum"]
+      175 GETTABLEKS                       R21 R0 K27 ["onClose"]
+      177 SETTABLEKS                       R21 R20 K27 ["onClose"]
+      179 GETTABLEKS                       R21 R2 K35 ["popUpGui"]
+      181 SETTABLEKS                       R21 R20 K47 ["pluginGui"]
+      183 GETTABLEKS                       R21 R2 K48 ["owner"]
+      185 SETTABLEKS                       R21 R20 K48 ["owner"]
+      187 GETTABLEKS                       R21 R2 K49 ["groupId"]
+      189 SETTABLEKS                       R21 R20 K49 ["groupId"]
+      191 GETTABLEKS                       R21 R0 K50 ["setOwner"]
+      193 SETTABLEKS                       R21 R20 K50 ["setOwner"]
+      195 CALL                             R18 2 1
+      196 SETTABLEKS                       R18 R17 K45 ["ScreenSelect"]
+      198 CALL                             R14 3 1
+      199 SETTABLEKS                       R14 R13 K39 ["FoundationProviderAdapter"]
+      201 CALL                             R11 2 1
+      202 JUMP                             ; [+93]
+      203 LOADNIL                          R11
+      204 JUMP                             ; [+91]
+      205 GETTABLEKS                       R12 R2 K35 ["popUpGui"]
+      207 JUMPIFNOT                        R12 ; [+87]
+      208 GETUPVAL                         R12 6
+      209 GETTABLEKS                       R11 R12 K36 ["provide"]
+      211 NEWTABLE                         R12 0 7
+      213 GETUPVAL                         R15 6
+      214 GETTABLEKS                       R14 R15 K37 ["Focus"]
+      216 GETTABLEKS                       R13 R14 K11 ["new"]
+      218 GETTABLEKS                       R14 R2 K35 ["popUpGui"]
+      220 CALL                             R13 1 1
+      221 GETUPVAL                         R15 7
+      222 GETTABLEKS                       R14 R15 K11 ["new"]
+      224 GETTABLEKS                       R15 R2 K35 ["popUpGui"]
+      226 CALL                             R14 1 1
+      227 GETUPVAL                         R16 8
+      228 GETTABLEKS                       R15 R16 K11 ["new"]
+      230 MOVE                             R16 R5
+      231 CALL                             R15 1 1
+      232 GETUPVAL                         R16 9
+      233 GETUPVAL                         R17 10
+      234 CALL                             R17 0 -1
+      235 CALL                             R16 -1 1
+      236 GETUPVAL                         R18 11
+      237 GETTABLEKS                       R17 R18 K11 ["new"]
+      239 CALL                             R17 0 1
+      240 GETUPVAL                         R19 12
+      241 CALL                             R19 0 1
+      242 JUMPIFNOT                        R19 ; [+5]
+      243 GETUPVAL                         R19 13
+      244 GETTABLEKS                       R18 R19 K11 ["new"]
+      246 CALL                             R18 0 1
+      247 JUMP                             ; [+1]
+      248 LOADNIL                          R18
+      249 GETUPVAL                         R20 12
+      250 CALL                             R20 0 1
+      251 JUMPIFNOT                        R20 ; [+5]
+      252 GETUPVAL                         R20 14
+      253 GETTABLEKS                       R19 R20 K11 ["new"]
+      255 CALL                             R19 0 1
+      256 JUMP                             ; [+1]
+      257 LOADNIL                          R19
+      258 SETLIST                          R12 R13 7 [1]
+      260 DUPTABLE                         R13 K46 [{"ScreenSelect"}]
+      261 GETUPVAL                         R15 0
+      262 GETTABLEKS                       R14 R15 K6 ["createElement"]
+      264 GETUPVAL                         R15 18
+      265 DUPTABLE                         R16 K51 [{"assetId", "assetTypeEnum", "onClose", "pluginGui", "owner", "groupId", "setOwner"}]
+      266 SETTABLEKS                       R3 R16 K2 ["assetId"]
+      268 SETTABLEKS                       R4 R16 K3 ["assetTypeEnum"]
+      270 GETTABLEKS                       R17 R0 K27 ["onClose"]
+      272 SETTABLEKS                       R17 R16 K27 ["onClose"]
+      274 GETTABLEKS                       R17 R2 K35 ["popUpGui"]
+      276 SETTABLEKS                       R17 R16 K47 ["pluginGui"]
+      278 GETTABLEKS                       R17 R2 K48 ["owner"]
+      280 SETTABLEKS                       R17 R16 K48 ["owner"]
+      282 GETTABLEKS                       R17 R2 K49 ["groupId"]
+      284 SETTABLEKS                       R17 R16 K49 ["groupId"]
+      286 GETTABLEKS                       R17 R0 K50 ["setOwner"]
+      288 SETTABLEKS                       R17 R16 K50 ["setOwner"]
+      290 CALL                             R14 2 1
+      291 SETTABLEKS                       R14 R13 K45 ["ScreenSelect"]
+      293 CALL                             R11 2 1
+      294 JUMP                             ; [+1]
+      295 LOADNIL                          R11
+      296 SETTABLEKS                       R11 R10 K33 ["ContextServices"]
+      298 CALL                             R7 3 -1
+      299 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -309,33 +380,40 @@ MAIN:
       168 GETIMPORT                        R26 K11 [require]
       170 GETTABLEKS                       R29 R0 K3 ["Src"]
       172 GETTABLEKS                       R28 R29 K40 ["Flags"]
-      174 GETTABLEKS                       R27 R28 K42 ["getFFlagToolboxAssetConfigGroupOwnership"]
+      174 GETTABLEKS                       R27 R28 K42 ["getFFlagToolboxMigrateFoundation"]
       176 CALL                             R26 1 1
-      177 DUPCLOSURE                       R27 K43 [PROTO_3]
-      178 CAPTURE                          VAL R26
-      179 CAPTURE                          VAL R7
-      180 CAPTURE                          VAL R21
-      181 SETTABLEKS                       R27 R24 K44 ["init"]
-      183 DUPCLOSURE                       R27 K45 [PROTO_4]
-      184 SETTABLEKS                       R27 R24 K46 ["didMount"]
-      186 DUPCLOSURE                       R27 K47 [PROTO_5]
-      187 CAPTURE                          VAL R5
-      188 CAPTURE                          VAL R9
-      189 CAPTURE                          VAL R12
-      190 CAPTURE                          VAL R23
-      191 CAPTURE                          VAL R2
-      192 CAPTURE                          VAL R14
-      193 CAPTURE                          VAL R16
-      194 CAPTURE                          VAL R17
-      195 CAPTURE                          VAL R13
-      196 CAPTURE                          VAL R11
-      197 CAPTURE                          VAL R18
-      198 CAPTURE                          VAL R25
-      199 CAPTURE                          VAL R19
-      200 CAPTURE                          VAL R20
-      201 CAPTURE                          VAL R15
-      202 CAPTURE                          VAL R4
-      203 CAPTURE                          VAL R22
-      204 CAPTURE                          VAL R10
-      205 SETTABLEKS                       R27 R24 K48 ["render"]
-      207 RETURN                           R24 1
+      177 GETIMPORT                        R27 K11 [require]
+      179 GETTABLEKS                       R30 R0 K3 ["Src"]
+      181 GETTABLEKS                       R29 R30 K40 ["Flags"]
+      183 GETTABLEKS                       R28 R29 K43 ["getFFlagToolboxAssetConfigGroupOwnership"]
+      185 CALL                             R27 1 1
+      186 DUPCLOSURE                       R28 K44 [PROTO_3]
+      187 CAPTURE                          VAL R27
+      188 CAPTURE                          VAL R26
+      189 CAPTURE                          VAL R7
+      190 CAPTURE                          VAL R21
+      191 SETTABLEKS                       R28 R24 K45 ["init"]
+      193 DUPCLOSURE                       R28 K46 [PROTO_4]
+      194 SETTABLEKS                       R28 R24 K47 ["didMount"]
+      196 DUPCLOSURE                       R28 K48 [PROTO_5]
+      197 CAPTURE                          VAL R5
+      198 CAPTURE                          VAL R9
+      199 CAPTURE                          VAL R12
+      200 CAPTURE                          VAL R23
+      201 CAPTURE                          VAL R2
+      202 CAPTURE                          VAL R26
+      203 CAPTURE                          VAL R14
+      204 CAPTURE                          VAL R16
+      205 CAPTURE                          VAL R17
+      206 CAPTURE                          VAL R13
+      207 CAPTURE                          VAL R11
+      208 CAPTURE                          VAL R18
+      209 CAPTURE                          VAL R25
+      210 CAPTURE                          VAL R19
+      211 CAPTURE                          VAL R20
+      212 CAPTURE                          VAL R15
+      213 CAPTURE                          VAL R4
+      214 CAPTURE                          VAL R22
+      215 CAPTURE                          VAL R10
+      216 SETTABLEKS                       R28 R24 K49 ["render"]
+      218 RETURN                           R24 1

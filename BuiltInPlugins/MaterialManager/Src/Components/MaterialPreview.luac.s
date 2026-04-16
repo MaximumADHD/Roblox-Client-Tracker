@@ -145,26 +145,32 @@ PROTO_1:
       184 SETTABLEKS                       R15 R14 K39 ["DisablePan"]
       186 GETTABLEKS                       R15 R1 K40 ["DisableZoom"]
       188 SETTABLEKS                       R15 R14 K40 ["DisableZoom"]
-      190 SETTABLEKS                       R7 R14 K41 ["EnableSky"]
-      192 GETTABLEKS                       R15 R1 K42 ["InitialDistance"]
-      194 SETTABLEKS                       R15 R14 K42 ["InitialDistance"]
-      196 GETTABLEKS                       R15 R2 K43 ["LightColor"]
-      198 SETTABLEKS                       R15 R14 K43 ["LightColor"]
-      200 GETTABLEKS                       R15 R2 K44 ["LightDirection"]
-      202 SETTABLEKS                       R15 R14 K44 ["LightDirection"]
-      204 GETTABLEKS                       R15 R0 K18 ["model"]
-      206 SETTABLEKS                       R15 R14 K45 ["Model"]
-      208 GETIMPORT                        R15 K50 [UDim2.fromScale]
-      210 LOADN                            R16 1
-      211 LOADN                            R17 1
-      212 CALL                             R15 2 1
-      213 SETTABLEKS                       R15 R14 K7 ["Size"]
-      215 GETTABLEKS                       R15 R1 K46 ["Static"]
-      217 SETTABLEKS                       R15 R14 K46 ["Static"]
-      219 CALL                             R12 2 1
-      220 SETTABLEKS                       R12 R11 K35 ["AssetRenderModel"]
-      222 CALL                             R8 3 -1
-      223 RETURN                           R8 -1
+      190 GETUPVAL                         R16 7
+      191 CALL                             R16 0 1
+      192 JUMPIFNOT                        R16 ; [+2]
+      193 MOVE                             R15 R7
+      194 JUMP                             ; [+1]
+      195 LOADNIL                          R15
+      196 SETTABLEKS                       R15 R14 K41 ["EnableSky"]
+      198 GETTABLEKS                       R15 R1 K42 ["InitialDistance"]
+      200 SETTABLEKS                       R15 R14 K42 ["InitialDistance"]
+      202 GETTABLEKS                       R15 R2 K43 ["LightColor"]
+      204 SETTABLEKS                       R15 R14 K43 ["LightColor"]
+      206 GETTABLEKS                       R15 R2 K44 ["LightDirection"]
+      208 SETTABLEKS                       R15 R14 K44 ["LightDirection"]
+      210 GETTABLEKS                       R15 R0 K18 ["model"]
+      212 SETTABLEKS                       R15 R14 K45 ["Model"]
+      214 GETIMPORT                        R15 K50 [UDim2.fromScale]
+      216 LOADN                            R16 1
+      217 LOADN                            R17 1
+      218 CALL                             R15 2 1
+      219 SETTABLEKS                       R15 R14 K7 ["Size"]
+      221 GETTABLEKS                       R15 R1 K46 ["Static"]
+      223 SETTABLEKS                       R15 R14 K46 ["Static"]
+      225 CALL                             R12 2 1
+      226 SETTABLEKS                       R12 R11 K35 ["AssetRenderModel"]
+      228 CALL                             R8 3 -1
+      229 RETURN                           R8 -1
 
 PROTO_2:
         0 DUPTABLE                         R2 K4 [{"MaterialWrapper", "MaterialOverride", "MaterialOverrides", "Use2022Materials"}]
@@ -243,62 +249,64 @@ MAIN:
        59 GETTABLEKS                       R13 R14 K20 ["Flags"]
        61 CALL                             R12 1 1
        62 GETTABLEKS                       R13 R12 K21 ["getFFlagBetterMaterialManagerPreviews"]
-       64 GETIMPORT                        R14 K4 [require]
-       66 GETTABLEKS                       R17 R0 K9 ["Src"]
-       68 GETTABLEKS                       R16 R17 K22 ["Reducers"]
-       70 GETTABLEKS                       R15 R16 K23 ["MainReducer"]
-       72 CALL                             R14 1 1
-       73 GETTABLEKS                       R16 R0 K9 ["Src"]
-       75 GETTABLEKS                       R15 R16 K24 ["Controllers"]
-       77 GETIMPORT                        R16 K4 [require]
-       79 GETTABLEKS                       R17 R15 K25 ["GeneralServiceController"]
-       81 CALL                             R16 1 1
-       82 GETIMPORT                        R17 K4 [require]
-       84 GETTABLEKS                       R18 R15 K26 ["MaterialServiceController"]
-       86 CALL                             R17 1 1
-       87 GETTABLEKS                       R20 R0 K9 ["Src"]
-       89 GETTABLEKS                       R19 R20 K27 ["Resources"]
-       91 GETTABLEKS                       R18 R19 K28 ["Constants"]
-       93 GETIMPORT                        R19 K4 [require]
-       95 GETTABLEKS                       R20 R18 K29 ["getMaterialColor"]
-       97 CALL                             R19 1 1
-       98 GETIMPORT                        R20 K4 [require]
-      100 GETTABLEKS                       R21 R18 K30 ["BASE_MATERIALS_WITH_METALNESS"]
-      102 CALL                             R20 1 1
-      103 GETTABLEKS                       R21 R1 K31 ["Component"]
-      105 LOADK                            R23 K32 ["MaterialPreview"]
-      106 NAMECALL                         R21 R21 K33 ["extend"]
-      108 CALL                             R21 2 1
-      109 DUPTABLE                         R22 K36 [{"InitialDistance", "Material"}]
-      110 LOADK                            R23 K37 [6.3]
-      111 SETTABLEKS                       R23 R22 K34 ["InitialDistance"]
-      113 GETIMPORT                        R23 K40 [Enum.Material.Plastic]
-      115 SETTABLEKS                       R23 R22 K35 ["Material"]
-      117 SETTABLEKS                       R22 R21 K41 ["defaultProps"]
-      119 DUPCLOSURE                       R22 K42 [PROTO_0]
-      120 SETTABLEKS                       R22 R21 K43 ["shouldUpdate"]
-      122 DUPCLOSURE                       R22 K44 [PROTO_1]
-      123 CAPTURE                          VAL R1
-      124 CAPTURE                          VAL R10
-      125 CAPTURE                          VAL R13
-      126 CAPTURE                          VAL R19
-      127 CAPTURE                          VAL R20
-      128 CAPTURE                          VAL R11
-      129 CAPTURE                          VAL R8
-      130 SETTABLEKS                       R22 R21 K45 ["render"]
-      132 MOVE                             R22 R6
-      133 DUPTABLE                         R23 K46 [{"MaterialServiceController", "GeneralServiceController", "Stylizer"}]
-      134 SETTABLEKS                       R17 R23 K26 ["MaterialServiceController"]
-      136 SETTABLEKS                       R16 R23 K25 ["GeneralServiceController"]
-      138 SETTABLEKS                       R7 R23 K14 ["Stylizer"]
-      140 CALL                             R22 1 1
-      141 MOVE                             R23 R21
-      142 CALL                             R22 1 1
-      143 MOVE                             R21 R22
-      144 GETTABLEKS                       R22 R2 K47 ["connect"]
-      146 DUPCLOSURE                       R23 K48 [PROTO_2]
-      147 DUPCLOSURE                       R24 K49 [PROTO_3]
-      148 CALL                             R22 2 1
-      149 MOVE                             R23 R21
-      150 CALL                             R22 1 -1
-      151 RETURN                           R22 -1
+       64 GETTABLEKS                       R14 R12 K22 ["getFFlagEnableSkyForMetalBalls"]
+       66 GETIMPORT                        R15 K4 [require]
+       68 GETTABLEKS                       R18 R0 K9 ["Src"]
+       70 GETTABLEKS                       R17 R18 K23 ["Reducers"]
+       72 GETTABLEKS                       R16 R17 K24 ["MainReducer"]
+       74 CALL                             R15 1 1
+       75 GETTABLEKS                       R17 R0 K9 ["Src"]
+       77 GETTABLEKS                       R16 R17 K25 ["Controllers"]
+       79 GETIMPORT                        R17 K4 [require]
+       81 GETTABLEKS                       R18 R16 K26 ["GeneralServiceController"]
+       83 CALL                             R17 1 1
+       84 GETIMPORT                        R18 K4 [require]
+       86 GETTABLEKS                       R19 R16 K27 ["MaterialServiceController"]
+       88 CALL                             R18 1 1
+       89 GETTABLEKS                       R21 R0 K9 ["Src"]
+       91 GETTABLEKS                       R20 R21 K28 ["Resources"]
+       93 GETTABLEKS                       R19 R20 K29 ["Constants"]
+       95 GETIMPORT                        R20 K4 [require]
+       97 GETTABLEKS                       R21 R19 K30 ["getMaterialColor"]
+       99 CALL                             R20 1 1
+      100 GETIMPORT                        R21 K4 [require]
+      102 GETTABLEKS                       R22 R19 K31 ["BASE_MATERIALS_WITH_METALNESS"]
+      104 CALL                             R21 1 1
+      105 GETTABLEKS                       R22 R1 K32 ["Component"]
+      107 LOADK                            R24 K33 ["MaterialPreview"]
+      108 NAMECALL                         R22 R22 K34 ["extend"]
+      110 CALL                             R22 2 1
+      111 DUPTABLE                         R23 K37 [{"InitialDistance", "Material"}]
+      112 LOADK                            R24 K38 [6.3]
+      113 SETTABLEKS                       R24 R23 K35 ["InitialDistance"]
+      115 GETIMPORT                        R24 K41 [Enum.Material.Plastic]
+      117 SETTABLEKS                       R24 R23 K36 ["Material"]
+      119 SETTABLEKS                       R23 R22 K42 ["defaultProps"]
+      121 DUPCLOSURE                       R23 K43 [PROTO_0]
+      122 SETTABLEKS                       R23 R22 K44 ["shouldUpdate"]
+      124 DUPCLOSURE                       R23 K45 [PROTO_1]
+      125 CAPTURE                          VAL R1
+      126 CAPTURE                          VAL R10
+      127 CAPTURE                          VAL R13
+      128 CAPTURE                          VAL R20
+      129 CAPTURE                          VAL R21
+      130 CAPTURE                          VAL R11
+      131 CAPTURE                          VAL R8
+      132 CAPTURE                          VAL R14
+      133 SETTABLEKS                       R23 R22 K46 ["render"]
+      135 MOVE                             R23 R6
+      136 DUPTABLE                         R24 K47 [{"MaterialServiceController", "GeneralServiceController", "Stylizer"}]
+      137 SETTABLEKS                       R18 R24 K27 ["MaterialServiceController"]
+      139 SETTABLEKS                       R17 R24 K26 ["GeneralServiceController"]
+      141 SETTABLEKS                       R7 R24 K14 ["Stylizer"]
+      143 CALL                             R23 1 1
+      144 MOVE                             R24 R22
+      145 CALL                             R23 1 1
+      146 MOVE                             R22 R23
+      147 GETTABLEKS                       R23 R2 K48 ["connect"]
+      149 DUPCLOSURE                       R24 K49 [PROTO_2]
+      150 DUPCLOSURE                       R25 K50 [PROTO_3]
+      151 CALL                             R23 2 1
+      152 MOVE                             R24 R22
+      153 CALL                             R23 1 -1
+      154 RETURN                           R23 -1

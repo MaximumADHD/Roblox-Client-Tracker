@@ -1,17 +1,5 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 LOADK                            R3 K0 ["SlashCommandDescriptions"]
-        2 LOADK                            R5 K1 ["%*Mode"]
-        3 MOVE                             R7 R0
-        4 NAMECALL                         R5 R5 K2 ["format"]
-        6 CALL                             R5 2 1
-        7 MOVE                             R4 R5
-        8 NAMECALL                         R1 R1 K3 ["getText"]
-       10 CALL                             R1 3 -1
-       11 RETURN                           R1 -1
-
-PROTO_1:
-        0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["Destroy"]
         3 CALL                             R0 0 0
         4 GETUPVAL                         R0 1
@@ -22,7 +10,7 @@ PROTO_1:
        10 CALL                             R0 0 0
        11 RETURN                           R0 0
 
-PROTO_2:
+PROTO_1:
         0 GETUPVAL                         R3 0
         1 CALL                             R3 0 1
         2 JUMPIF                           R3 ; [+16]
@@ -125,58 +113,45 @@ PROTO_2:
       130 GETTABLEKS                       R6 R7 K26 ["registerTools"]
       132 MOVE                             R7 R5
       133 CALL                             R6 1 0
-      134 GETUPVAL                         R6 19
-      135 CALL                             R6 0 1
-      136 JUMPIFNOT                        R6 ; [+14]
-      137 GETUPVAL                         R8 12
-      138 GETTABLEKS                       R7 R8 K27 ["UIToolRegistry"]
-      140 GETTABLEKS                       R6 R7 K28 ["registerModeCommands"]
-      142 GETUPVAL                         R9 12
-      143 GETTABLEKS                       R8 R9 K29 ["Types"]
-      145 GETTABLEKS                       R7 R8 K30 ["getAssistantModeOrdered"]
-      147 CALL                             R7 0 1
-      148 DUPCLOSURE                       R8 K31 [PROTO_0]
-      149 CAPTURE                          UPVAL U20
-      150 CALL                             R6 2 0
-      151 GETUPVAL                         R7 21
-      152 GETTABLEKS                       R6 R7 K32 ["new"]
-      154 GETUPVAL                         R7 22
-      155 MOVE                             R8 R2
-      156 GETUPVAL                         R10 18
-      157 GETTABLEKS                       R9 R10 K33 ["ExperimentalTools"]
-      159 GETUPVAL                         R11 18
-      160 GETTABLEKS                       R10 R11 K34 ["ExperimentFeatureTools"]
-      162 CALL                             R6 4 1
-      163 GETTABLEKS                       R7 R6 K35 ["trackUserLoggedIn"]
-      165 CALL                             R7 0 0
-      166 GETUPVAL                         R7 2
-      167 CALL                             R7 0 1
-      168 JUMPIFNOT                        R7 ; [+20]
-      169 GETUPVAL                         R8 23
-      170 GETTABLEKS                       R7 R8 K36 ["trackSessions"]
-      172 DUPTABLE                         R8 K41 [{"dataModel", "plugin", "networking", "environment", "gamePublishFinishedSignal"}]
-      173 GETIMPORT                        R9 K22 [game]
-      175 SETTABLEKS                       R9 R8 K37 ["dataModel"]
-      177 SETTABLEKS                       R0 R8 K1 ["plugin"]
-      179 SETTABLEKS                       R2 R8 K38 ["networking"]
-      181 SETTABLEKS                       R4 R8 K39 ["environment"]
-      183 GETUPVAL                         R10 24
-      184 GETTABLEKS                       R9 R10 K42 ["GamePublishFinished"]
-      186 SETTABLEKS                       R9 R8 K40 ["gamePublishFinishedSignal"]
-      188 CALL                             R7 1 0
-      189 GETTABLEKS                       R7 R0 K43 ["Unloading"]
-      191 DUPCLOSURE                       R9 K44 [PROTO_1]
-      192 CAPTURE                          UPVAL U1
-      193 CAPTURE                          UPVAL U4
-      194 CAPTURE                          UPVAL U7
-      195 NAMECALL                         R7 R7 K45 ["Connect"]
-      197 CALL                             R7 2 0
-      198 GETUPVAL                         R7 2
-      199 CALL                             R7 0 1
-      200 JUMPIFNOT                        R7 ; [+2]
-      201 MOVE                             R7 R3
-      202 CALL                             R7 0 0
-      203 RETURN                           R0 0
+      134 GETUPVAL                         R7 19
+      135 GETTABLEKS                       R6 R7 K27 ["new"]
+      137 GETUPVAL                         R7 20
+      138 MOVE                             R8 R2
+      139 GETUPVAL                         R10 18
+      140 GETTABLEKS                       R9 R10 K28 ["ExperimentalTools"]
+      142 GETUPVAL                         R11 18
+      143 GETTABLEKS                       R10 R11 K29 ["ExperimentFeatureTools"]
+      145 CALL                             R6 4 1
+      146 GETTABLEKS                       R7 R6 K30 ["trackUserLoggedIn"]
+      148 CALL                             R7 0 0
+      149 GETUPVAL                         R7 2
+      150 CALL                             R7 0 1
+      151 JUMPIFNOT                        R7 ; [+20]
+      152 GETUPVAL                         R8 21
+      153 GETTABLEKS                       R7 R8 K31 ["trackSessions"]
+      155 DUPTABLE                         R8 K36 [{"dataModel", "plugin", "networking", "environment", "gamePublishFinishedSignal"}]
+      156 GETIMPORT                        R9 K22 [game]
+      158 SETTABLEKS                       R9 R8 K32 ["dataModel"]
+      160 SETTABLEKS                       R0 R8 K1 ["plugin"]
+      162 SETTABLEKS                       R2 R8 K33 ["networking"]
+      164 SETTABLEKS                       R4 R8 K34 ["environment"]
+      166 GETUPVAL                         R10 22
+      167 GETTABLEKS                       R9 R10 K37 ["GamePublishFinished"]
+      169 SETTABLEKS                       R9 R8 K35 ["gamePublishFinishedSignal"]
+      171 CALL                             R7 1 0
+      172 GETTABLEKS                       R7 R0 K38 ["Unloading"]
+      174 DUPCLOSURE                       R9 K39 [PROTO_0]
+      175 CAPTURE                          UPVAL U1
+      176 CAPTURE                          UPVAL U4
+      177 CAPTURE                          UPVAL U7
+      178 NAMECALL                         R7 R7 K40 ["Connect"]
+      180 CALL                             R7 2 0
+      181 GETUPVAL                         R7 2
+      182 CALL                             R7 0 1
+      183 JUMPIFNOT                        R7 ; [+2]
+      184 MOVE                             R7 R3
+      185 CALL                             R7 0 0
+      186 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -293,36 +268,28 @@ MAIN:
       197 GETTABLEKS                       R27 R5 K37 ["Flags"]
       199 GETTABLEKS                       R26 R27 K39 ["Shared"]
       201 GETTABLEKS                       R25 R26 K44 ["FFlagExternalMCPUI"]
-      203 GETTABLEKS                       R28 R5 K37 ["Flags"]
-      205 GETTABLEKS                       R27 R28 K39 ["Shared"]
-      207 GETTABLEKS                       R26 R27 K45 ["FFlagAssistantPlanMode"]
-      209 GETTABLEKS                       R29 R5 K32 ["Resources"]
-      211 GETTABLEKS                       R28 R29 K46 ["Localization"]
-      213 GETTABLEKS                       R27 R28 K47 ["Translator"]
-      215 DUPCLOSURE                       R28 K48 [PROTO_2]
-      216 CAPTURE                          VAL R21
-      217 CAPTURE                          VAL R12
-      218 CAPTURE                          VAL R22
-      219 CAPTURE                          VAL R19
-      220 CAPTURE                          VAL R20
-      221 CAPTURE                          VAL R13
-      222 CAPTURE                          VAL R2
-      223 CAPTURE                          VAL R7
-      224 CAPTURE                          VAL R17
-      225 CAPTURE                          VAL R25
-      226 CAPTURE                          VAL R10
-      227 CAPTURE                          VAL R14
-      228 CAPTURE                          VAL R5
-      229 CAPTURE                          VAL R16
-      230 CAPTURE                          VAL R18
-      231 CAPTURE                          VAL R23
-      232 CAPTURE                          VAL R24
-      233 CAPTURE                          VAL R11
-      234 CAPTURE                          VAL R15
-      235 CAPTURE                          VAL R26
-      236 CAPTURE                          VAL R27
-      237 CAPTURE                          VAL R9
-      238 CAPTURE                          VAL R1
-      239 CAPTURE                          VAL R8
-      240 CAPTURE                          VAL R4
-      241 RETURN                           R28 1
+      203 DUPCLOSURE                       R26 K45 [PROTO_1]
+      204 CAPTURE                          VAL R21
+      205 CAPTURE                          VAL R12
+      206 CAPTURE                          VAL R22
+      207 CAPTURE                          VAL R19
+      208 CAPTURE                          VAL R20
+      209 CAPTURE                          VAL R13
+      210 CAPTURE                          VAL R2
+      211 CAPTURE                          VAL R7
+      212 CAPTURE                          VAL R17
+      213 CAPTURE                          VAL R25
+      214 CAPTURE                          VAL R10
+      215 CAPTURE                          VAL R14
+      216 CAPTURE                          VAL R5
+      217 CAPTURE                          VAL R16
+      218 CAPTURE                          VAL R18
+      219 CAPTURE                          VAL R23
+      220 CAPTURE                          VAL R24
+      221 CAPTURE                          VAL R11
+      222 CAPTURE                          VAL R15
+      223 CAPTURE                          VAL R9
+      224 CAPTURE                          VAL R1
+      225 CAPTURE                          VAL R8
+      226 CAPTURE                          VAL R4
+      227 RETURN                           R26 1

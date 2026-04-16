@@ -557,70 +557,14 @@ PROTO_21:
         9 RETURN                           R1 1
 
 PROTO_22:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["within"]
-        3 GETUPVAL                         R2 1
-        4 CALL                             R1 1 1
-        5 GETTABLEKS                       R0 R1 K1 ["queryByTestId"]
-        7 LOADK                            R1 K2 ["--foundation-system-banner--close"]
-        8 CALL                             R0 1 -1
-        9 RETURN                           R0 -1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["fireEvent"]
+        3 GETUPVAL                         R1 1
+        4 LOADK                            R2 K1 ["clickWithoutValidation"]
+        5 CALL                             R0 2 0
+        6 RETURN                           R0 0
 
 PROTO_23:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["fireEvent"]
-        3 GETUPVAL                         R1 1
-        4 LOADK                            R2 K1 ["clickWithoutValidation"]
-        5 CALL                             R0 2 0
-        6 RETURN                           R0 0
-
-PROTO_24:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["queryErrorBannerCloseButton"]
-        3 CALL                             R0 0 1
-        4 LOADB                            R2 0
-        5 JUMPIFEQKNIL                     R0 ; [+5]
-        7 LOADK                            R4 K1 ["GuiObject"]
-        8 NAMECALL                         R2 R0 K2 ["IsA"]
-       10 CALL                             R2 2 1
-       11 FASTCALL2K                       ASSERT R2 K3 ; [+4]
-       13 LOADK                            R3 K3 ["Error banner close button not found"]
-       14 GETIMPORT                        R1 K5 [assert]
-       16 CALL                             R1 2 0
-       17 GETUPVAL                         R1 1
-       18 MOVE                             R2 R0
-       19 GETUPVAL                         R3 2
-       20 CALL                             R1 2 1
-       21 GETUPVAL                         R2 3
-       22 SETTABLEKS                       R2 R0 K6 ["Size"]
-       24 GETUPVAL                         R3 4
-       25 GETTABLEKS                       R2 R3 K7 ["act"]
-       27 NEWCLOSURE                       R3 P0
-       28 CAPTURE                          UPVAL U5
-       29 CAPTURE                          VAL R0
-       30 CALL                             R2 1 0
-       31 MOVE                             R2 R1
-       32 LOADNIL                          R3
-       33 LOADNIL                          R4
-       34 FORGPREP                         R2
-       35 GETTABLEKS                       R8 R6 K8 ["gui"]
-       37 GETTABLEKS                       R7 R8 K9 ["Parent"]
-       39 JUMPIFNOT                        R7 ; [+6]
-       40 GETTABLEKS                       R7 R6 K8 ["gui"]
-       42 GETTABLEKS                       R8 R6 K10 ["old"]
-       44 SETTABLEKS                       R8 R7 K6 ["Size"]
-       46 FORGLOOP                         R2 2 ; [-12]
-       48 RETURN                           R0 0
-
-PROTO_25:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["fireEvent"]
-        3 GETUPVAL                         R1 1
-        4 LOADK                            R2 K1 ["clickWithoutValidation"]
-        5 CALL                             R0 2 0
-        6 RETURN                           R0 0
-
-PROTO_26:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["ErrorBannerContent"]
         2 LOADB                            R3 1
@@ -652,7 +596,7 @@ PROTO_26:
        37 CALL                             R2 1 0
        38 RETURN                           R0 0
 
-PROTO_27:
+PROTO_24:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["findTextInCoreGui"]
         3 MOVE                             R2 R0
@@ -662,7 +606,7 @@ PROTO_27:
         8 LOADB                            R2 1
         9 RETURN                           R2 1
 
-PROTO_28:
+PROTO_25:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["findTextInCoreGui"]
         3 MOVE                             R3 R0
@@ -672,7 +616,7 @@ PROTO_28:
         8 LOADB                            R1 1
         9 RETURN                           R1 1
 
-PROTO_29:
+PROTO_26:
         0 NEWTABLE                         R1 0 0
         2 JUMPIFNOTEQKS                    R0 K0 ["AvatarLook"] ; [+5]
         4 GETUPVAL                         R3 0
@@ -704,36 +648,7 @@ PROTO_29:
        42 FORGLOOP                         R3 2 ; [-28]
        44 RETURN                           R1 1
 
-PROTO_30:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getUserEquippedItems"]
-        3 CALL                             R0 0 1
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K1 ["getGroupEquippedItems"]
-        7 CALL                             R1 0 1
-        8 LOADB                            R3 0
-        9 LENGTH                           R4 R0
-       10 LOADN                            R5 3
-       11 JUMPIFNOTLE                      R5 R4 ; [+7]
-       13 LENGTH                           R4 R1
-       14 LOADN                            R5 2
-       15 JUMPIFLE                         R5 R4 ; [+2]
-       17 LOADB                            R3 0 +1
-       18 LOADB                            R3 1
-       19 FASTCALL2K                       ASSERT R3 K2 ; [+4]
-       21 LOADK                            R4 K2 ["mock item data must include 3 user and 2 group makeup items"]
-       22 GETIMPORT                        R2 K4 [assert]
-       24 CALL                             R2 2 0
-       25 NEWTABLE                         R2 0 5
-       27 GETTABLEN                        R3 R0 1
-       28 GETTABLEN                        R4 R0 2
-       29 GETTABLEN                        R5 R0 3
-       30 GETTABLEN                        R6 R1 1
-       31 GETTABLEN                        R7 R1 2
-       32 SETLIST                          R2 R3 5 [1]
-       34 RETURN                           R2 1
-
-PROTO_31:
+PROTO_27:
         0 NEWTABLE                         R0 0 0
         2 GETUPVAL                         R4 0
         3 GETTABLEKS                       R1 R4 K0 ["MOCK_ITEM_DATA"]
@@ -760,7 +675,7 @@ PROTO_31:
        35 FORGLOOP                         R1 2 ; [-28]
        37 RETURN                           R0 1
 
-PROTO_32:
+PROTO_28:
         0 JUMPIFEQKS                       R2 K0 ["AvatarLook"] ; [+2]
         2 LOADB                            R3 0 +1
         3 LOADB                            R3 1
@@ -927,7 +842,7 @@ PROTO_32:
       245 FORGLOOP                         R9 2 ; [-6]
       247 RETURN                           R4 1
 
-PROTO_33:
+PROTO_29:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["MOCK_ITEM_DATA"]
         3 GETTABLE                         R1 R2 R0
@@ -938,7 +853,7 @@ PROTO_33:
         9 GETTABLE                         R2 R3 R0
        10 RETURN                           R2 1
 
-PROTO_34:
+PROTO_30:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["Body"]
         3 JUMPIFNOT                        R3 ; [+8]
@@ -1073,7 +988,7 @@ PROTO_34:
       193 CALL                             R6 1 0
       194 RETURN                           R0 0
 
-PROTO_35:
+PROTO_31:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["new"]
         3 NEWCLOSURE                       R2 P0
@@ -1085,7 +1000,7 @@ PROTO_35:
         9 CALL                             R1 1 -1
        10 RETURN                           R1 -1
 
-PROTO_36:
+PROTO_32:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["Body"]
         3 JUMPIFNOT                        R3 ; [+8]
@@ -1125,7 +1040,7 @@ PROTO_36:
        49 CALL                             R3 -1 0
        50 RETURN                           R0 0
 
-PROTO_37:
+PROTO_33:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["new"]
         3 NEWCLOSURE                       R2 P0
@@ -1137,19 +1052,19 @@ PROTO_37:
         9 CALL                             R1 1 -1
        10 RETURN                           R1 -1
 
-PROTO_38:
+PROTO_34:
         0 MOVE                             R2 R1
         1 CALL                             R2 0 -1
         2 RETURN                           R2 -1
 
-PROTO_39:
+PROTO_35:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["new"]
-        3 DUPCLOSURE                       R2 K1 [PROTO_38]
+        3 DUPCLOSURE                       R2 K1 [PROTO_34]
         4 CALL                             R1 1 -1
         5 RETURN                           R1 -1
 
-PROTO_40:
+PROTO_36:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["Body"]
         3 JUMPIFNOT                        R3 ; [+8]
@@ -1189,7 +1104,7 @@ PROTO_40:
        49 CALL                             R3 -1 0
        50 RETURN                           R0 0
 
-PROTO_41:
+PROTO_37:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["new"]
         3 NEWCLOSURE                       R2 P0
@@ -1201,7 +1116,7 @@ PROTO_41:
         9 CALL                             R1 1 -1
        10 RETURN                           R1 -1
 
-PROTO_42:
+PROTO_38:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["Url"]
         3 GETUPVAL                         R4 1
@@ -1229,7 +1144,7 @@ PROTO_42:
        32 CALL                             R2 -1 0
        33 RETURN                           R0 0
 
-PROTO_43:
+PROTO_39:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["new"]
         3 NEWCLOSURE                       R2 P0
@@ -1241,7 +1156,7 @@ PROTO_43:
         9 CALL                             R1 1 -1
        10 RETURN                           R1 -1
 
-PROTO_44:
+PROTO_40:
         0 GETTABLEKS                       R1 R0 K0 ["failPreview"]
         2 JUMPIFNOT                        R1 ; [+5]
         3 GETUPVAL                         R1 0
@@ -1271,7 +1186,7 @@ PROTO_44:
        34 SETTABLEKS                       R2 R1 K1 ["requestInternal"]
        36 RETURN                           R0 0
 
-PROTO_45:
+PROTO_41:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
@@ -1302,7 +1217,7 @@ PROTO_45:
        39 CALL                             R0 3 -1
        40 RETURN                           R0 -1
 
-PROTO_46:
+PROTO_42:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["render"]
         3 GETUPVAL                         R2 1
@@ -1312,7 +1227,7 @@ PROTO_46:
         8 CALL                             R0 -1 0
         9 RETURN                           R0 0
 
-PROTO_47:
+PROTO_43:
         0 GETIMPORT                        R4 K2 [Instance.new]
         2 LOADK                            R5 K3 ["ScreenGui"]
         3 CALL                             R4 1 1
@@ -1340,7 +1255,7 @@ PROTO_47:
        28 CALL                             R7 1 0
        29 RETURN                           R4 1
 
-PROTO_48:
+PROTO_44:
         0 NEWTABLE                         R1 0 0
         2 MOVE                             R2 R0
         3 LOADNIL                          R3
@@ -1356,7 +1271,7 @@ PROTO_48:
        16 FORGLOOP                         R2 2 ; [-11]
        18 RETURN                           R1 1
 
-PROTO_49:
+PROTO_45:
         0 NEWTABLE                         R1 0 0
         2 MOVE                             R2 R0
         3 LOADNIL                          R3
@@ -1376,18 +1291,18 @@ PROTO_49:
        21 FORGLOOP                         R2 2 ; [-16]
        23 RETURN                           R1 1
 
-PROTO_50:
+PROTO_46:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 0
         3 RETURN                           R0 0
 
-PROTO_51:
+PROTO_47:
         0 DUPTABLE                         R1 K2 [{"getBatchAssetDetailsAsync", "getBatchBundleDetailsAsync"}]
-        1 DUPCLOSURE                       R2 K3 [PROTO_48]
+        1 DUPCLOSURE                       R2 K3 [PROTO_44]
         2 CAPTURE                          UPVAL U0
         3 SETTABLEKS                       R2 R1 K0 ["getBatchAssetDetailsAsync"]
-        5 DUPCLOSURE                       R2 K4 [PROTO_49]
+        5 DUPCLOSURE                       R2 K4 [PROTO_45]
         6 CAPTURE                          UPVAL U0
         7 SETTABLEKS                       R2 R1 K1 ["getBatchBundleDetailsAsync"]
         9 DUPTABLE                         R2 K6 [{"canCreateLook"}]
@@ -1419,7 +1334,7 @@ PROTO_51:
        47 CALL                             R3 2 -1
        48 RETURN                           R3 -1
 
-PROTO_52:
+PROTO_48:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["fireEvent"]
         3 GETTABLEKS                       R0 R1 K1 ["click"]
@@ -1427,7 +1342,7 @@ PROTO_52:
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
-PROTO_53:
+PROTO_49:
         0 GETUPVAL                         R0 0
         1 LOADN                            R1 16
         2 SETTABLEKS                       R1 R0 K0 ["ZIndex"]
@@ -1438,7 +1353,7 @@ PROTO_53:
        10 CALL                             R0 1 0
        11 RETURN                           R0 0
 
-PROTO_54:
+PROTO_50:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["SplitButtonContainer"]
         2 LOADB                            R3 1
@@ -1495,7 +1410,7 @@ PROTO_54:
        69 CALL                             R5 1 0
        70 RETURN                           R0 0
 
-PROTO_55:
+PROTO_51:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 SETTABLEKS                       R1 R0 K0 ["Size"]
@@ -1506,7 +1421,7 @@ PROTO_55:
        10 CALL                             R0 1 0
        11 RETURN                           R0 0
 
-PROTO_56:
+PROTO_52:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["fireEvent"]
         3 GETTABLEKS                       R0 R1 K1 ["change"]
@@ -1519,7 +1434,7 @@ PROTO_56:
        13 CALL                             R0 2 0
        14 RETURN                           R0 0
 
-PROTO_57:
+PROTO_53:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["fireEvent"]
         3 GETTABLEKS                       R0 R1 K1 ["keyDown"]
@@ -1538,7 +1453,7 @@ PROTO_57:
        23 CALL                             R0 2 0
        24 RETURN                           R0 0
 
-PROTO_58:
+PROTO_54:
         0 NEWTABLE                         R1 0 0
         2 MOVE                             R2 R0
         3 LOADNIL                          R3
@@ -1596,7 +1511,7 @@ PROTO_58:
        69 CALL                             R5 1 0
        70 RETURN                           R0 0
 
-PROTO_59:
+PROTO_55:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["fireEvent"]
         3 GETTABLEKS                       R0 R1 K1 ["click"]
@@ -1604,7 +1519,7 @@ PROTO_59:
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
-PROTO_60:
+PROTO_56:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["AddItemsButton"]
         2 LOADB                            R3 1
@@ -1638,7 +1553,7 @@ PROTO_60:
        40 CALL                             R1 1 0
        41 RETURN                           R0 0
 
-PROTO_61:
+PROTO_57:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["fireEvent"]
         3 GETTABLEKS                       R0 R1 K1 ["click"]
@@ -1646,7 +1561,7 @@ PROTO_61:
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
-PROTO_62:
+PROTO_58:
         0 GETUPVAL                         R0 0
         1 LOADN                            R1 16
         2 SETTABLEKS                       R1 R0 K0 ["ZIndex"]
@@ -1657,7 +1572,7 @@ PROTO_62:
        10 CALL                             R0 1 0
        11 RETURN                           R0 0
 
-PROTO_63:
+PROTO_59:
         0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["StageSelect"]
         2 LOADB                            R4 1
@@ -1748,19 +1663,6 @@ PROTO_63:
       112 CALL                             R7 1 0
       113 CLOSEUPVALS                      R6
       114 RETURN                           R0 0
-
-PROTO_64:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["openAssetImportDialog"]
-        3 CALL                             R1 0 0
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K1 ["addAssetIdsToImportDialog"]
-        7 MOVE                             R2 R0
-        8 CALL                             R1 1 0
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R1 R2 K2 ["clickAddItemsButtonImportDialog"]
-       12 CALL                             R1 0 0
-       13 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -2573,123 +2475,105 @@ MAIN:
      1261 DUPCLOSURE                       R25 K156 [PROTO_21]
      1262 CAPTURE                          VAL R20
      1263 SETTABLEKS                       R25 R20 K157 ["checkErrorBannerText"]
-     1265 DUPCLOSURE                       R25 K158 [PROTO_22]
-     1266 CAPTURE                          VAL R7
-     1267 CAPTURE                          VAL R0
-     1268 SETTABLEKS                       R25 R20 K159 ["queryErrorBannerCloseButton"]
-     1270 DUPCLOSURE                       R25 K160 [PROTO_24]
-     1271 CAPTURE                          VAL R20
-     1272 CAPTURE                          VAL R23
-     1273 CAPTURE                          VAL R0
-     1274 CAPTURE                          VAL R21
-     1275 CAPTURE                          VAL R6
-     1276 CAPTURE                          VAL R7
-     1277 SETTABLEKS                       R25 R20 K161 ["clickErrorBannerDismiss"]
-     1279 DUPCLOSURE                       R25 K162 [PROTO_26]
-     1280 CAPTURE                          VAL R0
-     1281 CAPTURE                          VAL R21
-     1282 CAPTURE                          VAL R6
-     1283 CAPTURE                          VAL R7
-     1284 SETTABLEKS                       R25 R20 K163 ["openErrorDialog"]
-     1286 DUPCLOSURE                       R25 K164 [PROTO_27]
-     1287 CAPTURE                          VAL R20
-     1288 SETTABLEKS                       R25 R20 K165 ["checkErrorDialogText"]
-     1290 DUPCLOSURE                       R25 K166 [PROTO_28]
+     1265 DUPCLOSURE                       R25 K158 [PROTO_23]
+     1266 CAPTURE                          VAL R0
+     1267 CAPTURE                          VAL R21
+     1268 CAPTURE                          VAL R6
+     1269 CAPTURE                          VAL R7
+     1270 SETTABLEKS                       R25 R20 K159 ["openErrorDialog"]
+     1272 DUPCLOSURE                       R25 K160 [PROTO_24]
+     1273 CAPTURE                          VAL R20
+     1274 SETTABLEKS                       R25 R20 K161 ["checkErrorDialogText"]
+     1276 DUPCLOSURE                       R25 K162 [PROTO_25]
+     1277 CAPTURE                          VAL R20
+     1278 SETTABLEKS                       R25 R20 K163 ["isItemInDetailsList"]
+     1280 DUPCLOSURE                       R25 K164 [PROTO_26]
+     1281 CAPTURE                          VAL R20
+     1282 CAPTURE                          VAL R14
+     1283 SETTABLEKS                       R25 R20 K165 ["getUserEquippedItems"]
+     1285 DUPCLOSURE                       R25 K166 [PROTO_27]
+     1286 CAPTURE                          VAL R20
+     1287 CAPTURE                          VAL R14
+     1288 SETTABLEKS                       R25 R20 K167 ["getGroupEquippedItems"]
+     1290 DUPCLOSURE                       R25 K168 [PROTO_28]
      1291 CAPTURE                          VAL R20
-     1292 SETTABLEKS                       R25 R20 K167 ["isItemInDetailsList"]
-     1294 DUPCLOSURE                       R25 K168 [PROTO_29]
-     1295 CAPTURE                          VAL R20
-     1296 CAPTURE                          VAL R14
-     1297 SETTABLEKS                       R25 R20 K169 ["getUserEquippedItems"]
-     1299 DUPCLOSURE                       R25 K170 [PROTO_30]
+     1292 CAPTURE                          VAL R12
+     1293 CAPTURE                          VAL R9
+     1294 SETTABLEKS                       R25 R20 K169 ["getExpectedLook"]
+     1296 LOADNIL                          R25
+     1297 SETTABLEKS                       R25 R20 K170 ["lookCreationInfo"]
+     1299 DUPCLOSURE                       R25 K171 [PROTO_29]
      1300 CAPTURE                          VAL R20
-     1301 SETTABLEKS                       R25 R20 K171 ["getMixedCreatorMakeupLookEquippedItems"]
-     1303 DUPCLOSURE                       R25 K172 [PROTO_31]
-     1304 CAPTURE                          VAL R20
-     1305 CAPTURE                          VAL R14
-     1306 SETTABLEKS                       R25 R20 K173 ["getGroupEquippedItems"]
-     1308 DUPCLOSURE                       R25 K174 [PROTO_32]
-     1309 CAPTURE                          VAL R20
-     1310 CAPTURE                          VAL R12
-     1311 CAPTURE                          VAL R9
-     1312 SETTABLEKS                       R25 R20 K175 ["getExpectedLook"]
-     1314 LOADNIL                          R25
-     1315 SETTABLEKS                       R25 R20 K176 ["lookCreationInfo"]
-     1317 DUPCLOSURE                       R25 K177 [PROTO_33]
-     1318 CAPTURE                          VAL R20
-     1319 DUPCLOSURE                       R26 K178 [PROTO_35]
-     1320 CAPTURE                          VAL R8
-     1321 CAPTURE                          VAL R1
-     1322 CAPTURE                          VAL R11
-     1323 CAPTURE                          VAL R20
-     1324 CAPTURE                          VAL R13
-     1325 DUPCLOSURE                       R27 K179 [PROTO_37]
-     1326 CAPTURE                          VAL R8
-     1327 CAPTURE                          VAL R1
-     1328 CAPTURE                          VAL R11
-     1329 CAPTURE                          VAL R20
-     1330 CAPTURE                          VAL R26
-     1331 DUPCLOSURE                       R28 K180 [PROTO_39]
-     1332 CAPTURE                          VAL R8
-     1333 DUPCLOSURE                       R29 K181 [PROTO_41]
-     1334 CAPTURE                          VAL R8
-     1335 CAPTURE                          VAL R1
-     1336 CAPTURE                          VAL R11
-     1337 CAPTURE                          VAL R20
-     1338 CAPTURE                          VAL R26
-     1339 DUPCLOSURE                       R30 K182 [PROTO_43]
-     1340 CAPTURE                          VAL R8
-     1341 CAPTURE                          VAL R11
-     1342 CAPTURE                          VAL R1
-     1343 CAPTURE                          VAL R20
-     1344 CAPTURE                          VAL R26
-     1345 DUPCLOSURE                       R31 K183 [PROTO_44]
-     1346 CAPTURE                          VAL R13
-     1347 CAPTURE                          VAL R27
-     1348 CAPTURE                          VAL R28
-     1349 CAPTURE                          VAL R29
-     1350 CAPTURE                          VAL R30
-     1351 CAPTURE                          VAL R26
-     1352 SETTABLEKS                       R31 R20 K184 ["createMockLookComposerRequestInternal"]
-     1354 DUPCLOSURE                       R31 K185 [PROTO_47]
+     1301 DUPCLOSURE                       R26 K172 [PROTO_31]
+     1302 CAPTURE                          VAL R8
+     1303 CAPTURE                          VAL R1
+     1304 CAPTURE                          VAL R11
+     1305 CAPTURE                          VAL R20
+     1306 CAPTURE                          VAL R13
+     1307 DUPCLOSURE                       R27 K173 [PROTO_33]
+     1308 CAPTURE                          VAL R8
+     1309 CAPTURE                          VAL R1
+     1310 CAPTURE                          VAL R11
+     1311 CAPTURE                          VAL R20
+     1312 CAPTURE                          VAL R26
+     1313 DUPCLOSURE                       R28 K174 [PROTO_35]
+     1314 CAPTURE                          VAL R8
+     1315 DUPCLOSURE                       R29 K175 [PROTO_37]
+     1316 CAPTURE                          VAL R8
+     1317 CAPTURE                          VAL R1
+     1318 CAPTURE                          VAL R11
+     1319 CAPTURE                          VAL R20
+     1320 CAPTURE                          VAL R26
+     1321 DUPCLOSURE                       R30 K176 [PROTO_39]
+     1322 CAPTURE                          VAL R8
+     1323 CAPTURE                          VAL R11
+     1324 CAPTURE                          VAL R1
+     1325 CAPTURE                          VAL R20
+     1326 CAPTURE                          VAL R26
+     1327 DUPCLOSURE                       R31 K177 [PROTO_40]
+     1328 CAPTURE                          VAL R13
+     1329 CAPTURE                          VAL R27
+     1330 CAPTURE                          VAL R28
+     1331 CAPTURE                          VAL R29
+     1332 CAPTURE                          VAL R30
+     1333 CAPTURE                          VAL R26
+     1334 SETTABLEKS                       R31 R20 K178 ["createMockLookComposerRequestInternal"]
+     1336 DUPCLOSURE                       R31 K179 [PROTO_43]
+     1337 CAPTURE                          VAL R0
+     1338 CAPTURE                          VAL R19
+     1339 CAPTURE                          VAL R5
+     1340 CAPTURE                          VAL R3
+     1341 CAPTURE                          VAL R18
+     1342 CAPTURE                          VAL R6
+     1343 CAPTURE                          VAL R7
+     1344 SETTABLEKS                       R31 R20 K180 ["createLookComposerDialogTest"]
+     1346 DUPCLOSURE                       R31 K181 [PROTO_47]
+     1347 CAPTURE                          VAL R20
+     1348 CAPTURE                          VAL R15
+     1349 CAPTURE                          VAL R5
+     1350 CAPTURE                          VAL R16
+     1351 CAPTURE                          VAL R17
+     1352 SETTABLEKS                       R31 R20 K182 ["lookCreationTest"]
+     1354 DUPCLOSURE                       R31 K183 [PROTO_50]
      1355 CAPTURE                          VAL R0
-     1356 CAPTURE                          VAL R19
-     1357 CAPTURE                          VAL R5
-     1358 CAPTURE                          VAL R3
-     1359 CAPTURE                          VAL R18
-     1360 CAPTURE                          VAL R6
-     1361 CAPTURE                          VAL R7
-     1362 SETTABLEKS                       R31 R20 K186 ["createLookComposerDialogTest"]
-     1364 DUPCLOSURE                       R31 K187 [PROTO_51]
-     1365 CAPTURE                          VAL R20
-     1366 CAPTURE                          VAL R15
-     1367 CAPTURE                          VAL R5
-     1368 CAPTURE                          VAL R16
-     1369 CAPTURE                          VAL R17
-     1370 SETTABLEKS                       R31 R20 K188 ["lookCreationTest"]
-     1372 DUPCLOSURE                       R31 K189 [PROTO_54]
-     1373 CAPTURE                          VAL R0
-     1374 CAPTURE                          VAL R7
-     1375 CAPTURE                          VAL R6
-     1376 SETTABLEKS                       R31 R20 K190 ["openAssetImportDialog"]
-     1378 DUPCLOSURE                       R31 K191 [PROTO_58]
-     1379 CAPTURE                          VAL R0
-     1380 CAPTURE                          VAL R6
-     1381 CAPTURE                          VAL R21
-     1382 CAPTURE                          VAL R7
-     1383 SETTABLEKS                       R31 R20 K192 ["addAssetIdsToImportDialog"]
-     1385 DUPCLOSURE                       R31 K193 [PROTO_60]
-     1386 CAPTURE                          VAL R0
-     1387 CAPTURE                          VAL R21
-     1388 CAPTURE                          VAL R6
-     1389 CAPTURE                          VAL R7
-     1390 SETTABLEKS                       R31 R20 K194 ["clickAddItemsButtonImportDialog"]
-     1392 DUPCLOSURE                       R31 K195 [PROTO_63]
-     1393 CAPTURE                          VAL R0
-     1394 CAPTURE                          VAL R7
-     1395 CAPTURE                          VAL R6
-     1396 SETTABLEKS                       R31 R20 K196 ["openLookComposerDialog"]
-     1398 DUPCLOSURE                       R31 K197 [PROTO_64]
-     1399 CAPTURE                          VAL R20
-     1400 SETTABLEKS                       R31 R20 K198 ["importMarketplaceItems"]
-     1402 RETURN                           R20 1
+     1356 CAPTURE                          VAL R7
+     1357 CAPTURE                          VAL R6
+     1358 SETTABLEKS                       R31 R20 K184 ["openAssetImportDialog"]
+     1360 DUPCLOSURE                       R31 K185 [PROTO_54]
+     1361 CAPTURE                          VAL R0
+     1362 CAPTURE                          VAL R6
+     1363 CAPTURE                          VAL R21
+     1364 CAPTURE                          VAL R7
+     1365 SETTABLEKS                       R31 R20 K186 ["addAssetIdsToImportDialog"]
+     1367 DUPCLOSURE                       R31 K187 [PROTO_56]
+     1368 CAPTURE                          VAL R0
+     1369 CAPTURE                          VAL R21
+     1370 CAPTURE                          VAL R6
+     1371 CAPTURE                          VAL R7
+     1372 SETTABLEKS                       R31 R20 K188 ["clickAddItemsButtonImportDialog"]
+     1374 DUPCLOSURE                       R31 K189 [PROTO_59]
+     1375 CAPTURE                          VAL R0
+     1376 CAPTURE                          VAL R7
+     1377 CAPTURE                          VAL R6
+     1378 SETTABLEKS                       R31 R20 K190 ["openLookComposerDialog"]
+     1380 RETURN                           R20 1

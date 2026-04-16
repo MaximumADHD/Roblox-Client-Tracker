@@ -325,35 +325,34 @@ PROTO_14:
       112 GETUPVAL                         R13 4
       113 GETTABLEKS                       R12 R13 K11 ["createElement"]
       115 GETUPVAL                         R13 6
-      116 DUPTABLE                         R14 K47 [{"onStyleSheetChange", "plugin"}]
-      117 GETTABLEKS                       R15 R0 K48 ["onFoundationStyleSheetChange"]
+      116 DUPTABLE                         R14 K46 [{"onStyleSheetChange"}]
+      117 GETTABLEKS                       R15 R0 K47 ["onFoundationStyleSheetChange"]
       119 SETTABLEKS                       R15 R14 K45 ["onStyleSheetChange"]
-      121 SETTABLEKS                       R3 R14 K46 ["plugin"]
-      123 NEWTABLE                         R15 0 1
-      125 GETUPVAL                         R17 4
-      126 GETTABLEKS                       R16 R17 K11 ["createElement"]
-      128 GETUPVAL                         R18 7
-      129 GETTABLEKS                       R17 R18 K49 ["Provider"]
-      131 DUPTABLE                         R18 K50 [{"localization"}]
-      132 GETTABLEKS                       R19 R0 K15 ["localization"]
-      134 SETTABLEKS                       R19 R18 K15 ["localization"]
-      136 DUPTABLE                         R19 K52 [{"BasicExample"}]
-      137 GETUPVAL                         R21 4
-      138 GETTABLEKS                       R20 R21 K11 ["createElement"]
-      140 GETUPVAL                         R21 8
-      141 DUPTABLE                         R22 K54 [{"showContent"}]
-      142 LOADB                            R23 1
-      143 SETTABLEKS                       R23 R22 K53 ["showContent"]
-      145 CALL                             R20 2 1
-      146 SETTABLEKS                       R20 R19 K51 ["BasicExample"]
-      148 CALL                             R16 3 -1
-      149 SETLIST                          R15 R16 -1 [1]
-      151 CALL                             R12 3 1
-      152 SETTABLEKS                       R12 R11 K43 ["FoundationProvider"]
-      154 CALL                             R8 3 1
-      155 SETTABLEKS                       R8 R7 K9 ["MainWidget"]
-      157 CALL                             R5 2 -1
-      158 RETURN                           R5 -1
+      121 NEWTABLE                         R15 0 1
+      123 GETUPVAL                         R17 4
+      124 GETTABLEKS                       R16 R17 K11 ["createElement"]
+      126 GETUPVAL                         R18 7
+      127 GETTABLEKS                       R17 R18 K48 ["Provider"]
+      129 DUPTABLE                         R18 K49 [{"localization"}]
+      130 GETTABLEKS                       R19 R0 K15 ["localization"]
+      132 SETTABLEKS                       R19 R18 K15 ["localization"]
+      134 DUPTABLE                         R19 K51 [{"BasicExample"}]
+      135 GETUPVAL                         R21 4
+      136 GETTABLEKS                       R20 R21 K11 ["createElement"]
+      138 GETUPVAL                         R21 8
+      139 DUPTABLE                         R22 K53 [{"showContent"}]
+      140 LOADB                            R23 1
+      141 SETTABLEKS                       R23 R22 K52 ["showContent"]
+      143 CALL                             R20 2 1
+      144 SETTABLEKS                       R20 R19 K50 ["BasicExample"]
+      146 CALL                             R16 3 -1
+      147 SETLIST                          R15 R16 -1 [1]
+      149 CALL                             R12 3 1
+      150 SETTABLEKS                       R12 R11 K43 ["FoundationProvider"]
+      152 CALL                             R8 3 1
+      153 SETTABLEKS                       R8 R7 K9 ["MainWidget"]
+      155 CALL                             R5 2 -1
+      156 RETURN                           R5 -1
 
 PROTO_15:
         0 GETTABLEKS                       R1 R0 K0 ["actionActivatedConnection"]

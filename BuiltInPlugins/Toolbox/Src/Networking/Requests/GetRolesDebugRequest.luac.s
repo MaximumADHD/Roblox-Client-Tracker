@@ -304,569 +304,578 @@ PROTO_1:
       197 SETLIST                          R3 R4 1 [1]
       199 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
       201 SETTABLEKS                       R2 R1 K19 ["Plugin"]
-      203 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
-      204 NEWTABLE                         R3 0 1
-      206 LOADK                            R4 K27 [".rbxm"]
-      207 SETLIST                          R3 R4 1 [1]
-      209 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
-      211 SETTABLEKS                       R2 R1 K28 ["EmoteAnimation"]
-      213 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
-      214 NEWTABLE                         R3 0 1
-      216 LOADK                            R4 K27 [".rbxm"]
-      217 SETLIST                          R3 R4 1 [1]
-      219 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
-      221 SETTABLEKS                       R2 R1 K29 ["Torso"]
-      223 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
-      224 NEWTABLE                         R3 0 1
-      226 LOADK                            R4 K27 [".rbxm"]
-      227 SETLIST                          R3 R4 1 [1]
-      229 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
-      231 SETTABLEKS                       R2 R1 K30 ["RightArm"]
-      233 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
-      234 NEWTABLE                         R3 0 1
-      236 LOADK                            R4 K27 [".rbxm"]
-      237 SETLIST                          R3 R4 1 [1]
-      239 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
-      241 SETTABLEKS                       R2 R1 K31 ["LeftArm"]
-      243 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
-      244 NEWTABLE                         R3 0 1
-      246 LOADK                            R4 K27 [".rbxm"]
-      247 SETLIST                          R3 R4 1 [1]
-      249 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
-      251 SETTABLEKS                       R2 R1 K32 ["LeftLeg"]
-      253 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
-      254 NEWTABLE                         R3 0 1
-      256 LOADK                            R4 K27 [".rbxm"]
-      257 SETLIST                          R3 R4 1 [1]
-      259 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
-      261 SETTABLEKS                       R2 R1 K33 ["RightLeg"]
-      263 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
-      264 NEWTABLE                         R3 0 1
-      266 LOADK                            R4 K27 [".rbxm"]
-      267 SETLIST                          R3 R4 1 [1]
-      269 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
-      271 SETTABLEKS                       R2 R1 K34 ["DynamicHead"]
-      273 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
-      274 NEWTABLE                         R3 0 1
-      276 LOADK                            R4 K27 [".rbxm"]
-      277 SETLIST                          R3 R4 1 [1]
-      279 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
-      281 SETTABLEKS                       R2 R1 K35 ["EyebrowAccessory"]
-      283 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
-      284 NEWTABLE                         R3 0 1
-      286 LOADK                            R4 K27 [".rbxm"]
-      287 SETLIST                          R3 R4 1 [1]
-      289 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
-      291 SETTABLEKS                       R2 R1 K36 ["EyelashAccessory"]
-      293 DUPTABLE                         R2 K40 [{"Hat", "HairAccessory", "FaceAccessory", "NeckAccessory", "ShoulderAccessory", "FrontAccessory", "BackAccessory", "WaistAccessory", "Shirt", "Pants", "TShirt", "TShirtAccessory", "ShirtAccessory", "PantsAccessory", "JacketAccessory", "SweaterAccessory", "ShortsAccessory", "LeftShoeAccessory", "RightShoeAccessory", "DressSkirtAccessory"}]
-      294 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      295 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      296 LOADN                            R5 50
-      297 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      299 LOADN                            R5 136
-      300 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      302 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      304 LOADN                            R4 70
-      305 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      307 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      308 NEWTABLE                         R5 0 3
-      310 LOADN                            R6 25
-      311 LOADN                            R7 50
-      312 LOADN                            R8 75
-      313 SETLIST                          R5 R6 3 [1]
-      315 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      317 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      318 LOADN                            R6 50
-      319 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      321 LOADN                            R6 136
-      322 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      324 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      326 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      328 SETTABLEKS                       R3 R2 K2 ["Hat"]
-      330 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      331 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      332 LOADN                            R5 50
-      333 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      335 LOADN                            R5 136
-      336 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      338 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      340 LOADN                            R4 70
-      341 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      343 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      344 NEWTABLE                         R5 0 3
-      346 LOADN                            R6 25
-      347 LOADN                            R7 50
-      348 LOADN                            R8 75
-      349 SETLIST                          R5 R6 3 [1]
-      351 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      353 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      354 LOADN                            R6 50
-      355 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      357 LOADN                            R6 136
-      358 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      360 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      362 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      364 SETTABLEKS                       R3 R2 K3 ["HairAccessory"]
-      366 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      367 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      368 LOADN                            R5 15
-      369 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      371 LOADN                            R5 136
-      372 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      374 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      376 LOADN                            R4 70
-      377 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      379 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      380 NEWTABLE                         R5 0 3
-      382 LOADN                            R6 25
-      383 LOADN                            R7 50
-      384 LOADN                            R8 75
-      385 SETLIST                          R5 R6 3 [1]
-      387 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      389 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      390 LOADN                            R6 15
-      391 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      393 LOADN                            R6 136
-      394 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      396 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      398 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      400 SETTABLEKS                       R3 R2 K4 ["FaceAccessory"]
-      402 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      403 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      404 LOADN                            R5 20
-      405 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      407 LOADN                            R5 136
-      408 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      410 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      412 LOADN                            R4 70
-      413 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      415 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      416 NEWTABLE                         R5 0 3
-      418 LOADN                            R6 25
-      419 LOADN                            R7 50
-      420 LOADN                            R8 75
-      421 SETLIST                          R5 R6 3 [1]
-      423 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      425 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      426 LOADN                            R6 20
-      427 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      429 LOADN                            R6 136
-      430 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      432 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      434 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      436 SETTABLEKS                       R3 R2 K5 ["NeckAccessory"]
-      438 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      439 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      440 LOADN                            R5 15
-      441 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      443 LOADN                            R5 136
-      444 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      446 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      448 LOADN                            R4 70
-      449 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      451 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      452 NEWTABLE                         R5 0 3
-      454 LOADN                            R6 25
-      455 LOADN                            R7 50
-      456 LOADN                            R8 75
-      457 SETLIST                          R5 R6 3 [1]
-      459 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      461 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      462 LOADN                            R6 15
-      463 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      465 LOADN                            R6 136
-      466 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      468 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      470 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      472 SETTABLEKS                       R3 R2 K6 ["ShoulderAccessory"]
-      474 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      475 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      476 LOADN                            R5 20
-      477 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      479 LOADN                            R5 136
-      480 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      482 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      484 LOADN                            R4 70
-      485 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      487 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      488 NEWTABLE                         R5 0 3
-      490 LOADN                            R6 25
-      491 LOADN                            R7 50
-      492 LOADN                            R8 75
-      493 SETLIST                          R5 R6 3 [1]
-      495 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      497 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      498 LOADN                            R6 20
-      499 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      501 LOADN                            R6 136
-      502 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      504 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      506 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      508 SETTABLEKS                       R3 R2 K7 ["FrontAccessory"]
-      510 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      511 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      512 LOADN                            R5 100
-      513 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      515 LOADN                            R5 16
-      516 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      518 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      520 LOADN                            R4 70
-      521 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      523 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      524 NEWTABLE                         R5 0 3
-      526 LOADN                            R6 25
-      527 LOADN                            R7 50
-      528 LOADN                            R8 75
-      529 SETLIST                          R5 R6 3 [1]
-      531 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      533 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      534 LOADN                            R6 100
-      535 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      537 LOADN                            R6 16
-      538 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      540 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      542 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      544 SETTABLEKS                       R3 R2 K8 ["BackAccessory"]
-      546 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      547 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      548 LOADN                            R5 50
-      549 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      551 LOADN                            R5 136
-      552 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      554 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      556 LOADN                            R4 70
-      557 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      559 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      560 NEWTABLE                         R5 0 3
-      562 LOADN                            R6 25
-      563 LOADN                            R7 50
-      564 LOADN                            R8 75
-      565 SETLIST                          R5 R6 3 [1]
-      567 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      569 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      570 LOADN                            R6 50
-      571 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      573 LOADN                            R6 136
-      574 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      576 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      578 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      580 SETTABLEKS                       R3 R2 K9 ["WaistAccessory"]
-      582 DUPTABLE                         R3 K50 [{"allowedPriceRange", "marketplaceFeesPercentage"}]
-      583 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      584 LOADN                            R5 5
-      585 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      587 LOADK                            R5 K51 [999999999]
-      588 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      590 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      592 LOADN                            R4 30
-      593 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      595 SETTABLEKS                       R3 R2 K37 ["Shirt"]
-      597 DUPTABLE                         R3 K50 [{"allowedPriceRange", "marketplaceFeesPercentage"}]
-      598 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      599 LOADN                            R5 5
-      600 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      602 LOADK                            R5 K51 [999999999]
-      603 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      605 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      607 LOADN                            R4 30
-      608 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      610 SETTABLEKS                       R3 R2 K38 ["Pants"]
-      612 DUPTABLE                         R3 K50 [{"allowedPriceRange", "marketplaceFeesPercentage"}]
-      613 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      614 LOADN                            R5 2
-      615 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      617 LOADK                            R5 K51 [999999999]
-      618 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      620 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      622 LOADN                            R4 30
-      623 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      625 SETTABLEKS                       R3 R2 K39 ["TShirt"]
-      627 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      628 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      629 LOADN                            R5 50
-      630 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      632 LOADN                            R5 136
-      633 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      635 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      637 LOADN                            R4 70
-      638 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      640 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      641 NEWTABLE                         R5 0 3
-      643 LOADN                            R6 25
-      644 LOADN                            R7 50
-      645 LOADN                            R8 75
-      646 SETLIST                          R5 R6 3 [1]
-      648 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      650 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      651 LOADN                            R6 50
-      652 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      654 LOADN                            R6 136
-      655 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      657 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      659 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      661 SETTABLEKS                       R3 R2 K10 ["TShirtAccessory"]
-      663 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      664 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      665 LOADN                            R5 50
-      666 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      668 LOADN                            R5 136
-      669 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      671 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      673 LOADN                            R4 70
-      674 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      676 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      677 NEWTABLE                         R5 0 3
-      679 LOADN                            R6 25
-      680 LOADN                            R7 50
-      681 LOADN                            R8 75
-      682 SETLIST                          R5 R6 3 [1]
-      684 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      686 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      687 LOADN                            R6 50
-      688 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      690 LOADN                            R6 136
-      691 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      693 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      695 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      697 SETTABLEKS                       R3 R2 K11 ["ShirtAccessory"]
-      699 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      700 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      701 LOADN                            R5 50
-      702 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      704 LOADN                            R5 136
-      705 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      707 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      709 LOADN                            R4 70
-      710 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      712 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      713 NEWTABLE                         R5 0 3
-      715 LOADN                            R6 25
-      716 LOADN                            R7 50
-      717 LOADN                            R8 75
-      718 SETLIST                          R5 R6 3 [1]
-      720 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      722 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      723 LOADN                            R6 50
-      724 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      726 LOADN                            R6 136
-      727 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      729 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      731 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      733 SETTABLEKS                       R3 R2 K12 ["PantsAccessory"]
-      735 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      736 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      737 LOADN                            R5 50
-      738 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      740 LOADN                            R5 136
-      741 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      743 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      745 LOADN                            R4 70
-      746 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      748 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      749 NEWTABLE                         R5 0 3
-      751 LOADN                            R6 25
-      752 LOADN                            R7 50
-      753 LOADN                            R8 75
-      754 SETLIST                          R5 R6 3 [1]
-      756 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      758 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      759 LOADN                            R6 50
-      760 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      762 LOADN                            R6 136
-      763 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      765 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      767 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      769 SETTABLEKS                       R3 R2 K13 ["JacketAccessory"]
-      771 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      772 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      773 LOADN                            R5 50
-      774 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      776 LOADN                            R5 136
-      777 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      779 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      781 LOADN                            R4 70
-      782 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      784 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      785 NEWTABLE                         R5 0 3
-      787 LOADN                            R6 25
-      788 LOADN                            R7 50
-      789 LOADN                            R8 75
-      790 SETLIST                          R5 R6 3 [1]
-      792 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      794 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      795 LOADN                            R6 50
-      796 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      798 LOADN                            R6 136
-      799 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      801 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      803 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      805 SETTABLEKS                       R3 R2 K14 ["SweaterAccessory"]
-      807 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      808 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      809 LOADN                            R5 50
-      810 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      812 LOADN                            R5 136
-      813 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      815 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      817 LOADN                            R4 70
-      818 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      820 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      821 NEWTABLE                         R5 0 3
-      823 LOADN                            R6 25
-      824 LOADN                            R7 50
-      825 LOADN                            R8 75
-      826 SETLIST                          R5 R6 3 [1]
-      828 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      830 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      831 LOADN                            R6 50
-      832 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      834 LOADN                            R6 136
-      835 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      837 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      839 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      841 SETTABLEKS                       R3 R2 K15 ["ShortsAccessory"]
-      843 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      844 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      845 LOADN                            R5 50
-      846 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      848 LOADN                            R5 136
-      849 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      851 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      853 LOADN                            R4 70
-      854 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      856 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      857 NEWTABLE                         R5 0 3
-      859 LOADN                            R6 25
-      860 LOADN                            R7 50
-      861 LOADN                            R8 75
-      862 SETLIST                          R5 R6 3 [1]
-      864 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      866 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      867 LOADN                            R6 50
-      868 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      870 LOADN                            R6 136
-      871 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      873 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      875 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      877 SETTABLEKS                       R3 R2 K16 ["LeftShoeAccessory"]
-      879 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      880 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      881 LOADN                            R5 50
-      882 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      884 LOADN                            R5 136
-      885 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      887 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      889 LOADN                            R4 70
-      890 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      892 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      893 NEWTABLE                         R5 0 3
-      895 LOADN                            R6 25
-      896 LOADN                            R7 50
-      897 LOADN                            R8 75
-      898 SETLIST                          R5 R6 3 [1]
-      900 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      902 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      903 LOADN                            R6 50
-      904 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      906 LOADN                            R6 136
-      907 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      909 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      911 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      913 SETTABLEKS                       R3 R2 K17 ["RightShoeAccessory"]
-      915 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-      916 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
-      917 LOADN                            R5 50
-      918 SETTABLEKS                       R5 R4 K45 ["minRobux"]
-      920 LOADN                            R5 136
-      921 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
-      923 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
-      925 LOADN                            R4 70
-      926 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
-      928 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-      929 NEWTABLE                         R5 0 3
-      931 LOADN                            R6 25
-      932 LOADN                            R7 50
-      933 LOADN                            R8 75
-      934 SETLIST                          R5 R6 3 [1]
-      936 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
-      938 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
-      939 LOADN                            R6 50
-      940 SETTABLEKS                       R6 R5 K45 ["minRobux"]
-      942 LOADN                            R6 136
-      943 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
-      945 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
-      947 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
-      949 SETTABLEKS                       R3 R2 K18 ["DressSkirtAccessory"]
-      951 GETUPVAL                         R3 0
-      952 SETTABLEKS                       R3 R2 K28 ["EmoteAnimation"]
+      203 GETUPVAL                         R2 0
+      204 CALL                             R2 0 1
+      205 JUMPIFNOT                        R2 ; [+10]
+      206 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
+      207 NEWTABLE                         R3 0 1
+      209 LOADK                            R4 K27 [".rbxm"]
+      210 SETLIST                          R3 R4 1 [1]
+      212 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
+      214 SETTABLEKS                       R2 R1 K28 ["EmoteAnimation"]
+      216 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
+      217 NEWTABLE                         R3 0 1
+      219 LOADK                            R4 K27 [".rbxm"]
+      220 SETLIST                          R3 R4 1 [1]
+      222 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
+      224 SETTABLEKS                       R2 R1 K29 ["Torso"]
+      226 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
+      227 NEWTABLE                         R3 0 1
+      229 LOADK                            R4 K27 [".rbxm"]
+      230 SETLIST                          R3 R4 1 [1]
+      232 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
+      234 SETTABLEKS                       R2 R1 K30 ["RightArm"]
+      236 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
+      237 NEWTABLE                         R3 0 1
+      239 LOADK                            R4 K27 [".rbxm"]
+      240 SETLIST                          R3 R4 1 [1]
+      242 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
+      244 SETTABLEKS                       R2 R1 K31 ["LeftArm"]
+      246 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
+      247 NEWTABLE                         R3 0 1
+      249 LOADK                            R4 K27 [".rbxm"]
+      250 SETLIST                          R3 R4 1 [1]
+      252 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
+      254 SETTABLEKS                       R2 R1 K32 ["LeftLeg"]
+      256 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
+      257 NEWTABLE                         R3 0 1
+      259 LOADK                            R4 K27 [".rbxm"]
+      260 SETLIST                          R3 R4 1 [1]
+      262 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
+      264 SETTABLEKS                       R2 R1 K33 ["RightLeg"]
+      266 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
+      267 NEWTABLE                         R3 0 1
+      269 LOADK                            R4 K27 [".rbxm"]
+      270 SETLIST                          R3 R4 1 [1]
+      272 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
+      274 SETTABLEKS                       R2 R1 K34 ["DynamicHead"]
+      276 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
+      277 NEWTABLE                         R3 0 1
+      279 LOADK                            R4 K27 [".rbxm"]
+      280 SETLIST                          R3 R4 1 [1]
+      282 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
+      284 SETTABLEKS                       R2 R1 K35 ["EyebrowAccessory"]
+      286 DUPTABLE                         R2 K22 [{"allowedFileExtensions"}]
+      287 NEWTABLE                         R3 0 1
+      289 LOADK                            R4 K27 [".rbxm"]
+      290 SETLIST                          R3 R4 1 [1]
+      292 SETTABLEKS                       R3 R2 K21 ["allowedFileExtensions"]
+      294 SETTABLEKS                       R2 R1 K36 ["EyelashAccessory"]
+      296 DUPTABLE                         R2 K40 [{"Hat", "HairAccessory", "FaceAccessory", "NeckAccessory", "ShoulderAccessory", "FrontAccessory", "BackAccessory", "WaistAccessory", "Shirt", "Pants", "TShirt", "TShirtAccessory", "ShirtAccessory", "PantsAccessory", "JacketAccessory", "SweaterAccessory", "ShortsAccessory", "LeftShoeAccessory", "RightShoeAccessory", "DressSkirtAccessory"}]
+      297 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      298 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      299 LOADN                            R5 50
+      300 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      302 LOADN                            R5 136
+      303 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      305 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      307 LOADN                            R4 70
+      308 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      310 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      311 NEWTABLE                         R5 0 3
+      313 LOADN                            R6 25
+      314 LOADN                            R7 50
+      315 LOADN                            R8 75
+      316 SETLIST                          R5 R6 3 [1]
+      318 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      320 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      321 LOADN                            R6 50
+      322 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      324 LOADN                            R6 136
+      325 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      327 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      329 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      331 SETTABLEKS                       R3 R2 K2 ["Hat"]
+      333 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      334 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      335 LOADN                            R5 50
+      336 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      338 LOADN                            R5 136
+      339 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      341 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      343 LOADN                            R4 70
+      344 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      346 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      347 NEWTABLE                         R5 0 3
+      349 LOADN                            R6 25
+      350 LOADN                            R7 50
+      351 LOADN                            R8 75
+      352 SETLIST                          R5 R6 3 [1]
+      354 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      356 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      357 LOADN                            R6 50
+      358 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      360 LOADN                            R6 136
+      361 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      363 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      365 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      367 SETTABLEKS                       R3 R2 K3 ["HairAccessory"]
+      369 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      370 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      371 LOADN                            R5 15
+      372 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      374 LOADN                            R5 136
+      375 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      377 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      379 LOADN                            R4 70
+      380 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      382 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      383 NEWTABLE                         R5 0 3
+      385 LOADN                            R6 25
+      386 LOADN                            R7 50
+      387 LOADN                            R8 75
+      388 SETLIST                          R5 R6 3 [1]
+      390 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      392 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      393 LOADN                            R6 15
+      394 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      396 LOADN                            R6 136
+      397 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      399 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      401 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      403 SETTABLEKS                       R3 R2 K4 ["FaceAccessory"]
+      405 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      406 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      407 LOADN                            R5 20
+      408 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      410 LOADN                            R5 136
+      411 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      413 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      415 LOADN                            R4 70
+      416 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      418 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      419 NEWTABLE                         R5 0 3
+      421 LOADN                            R6 25
+      422 LOADN                            R7 50
+      423 LOADN                            R8 75
+      424 SETLIST                          R5 R6 3 [1]
+      426 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      428 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      429 LOADN                            R6 20
+      430 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      432 LOADN                            R6 136
+      433 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      435 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      437 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      439 SETTABLEKS                       R3 R2 K5 ["NeckAccessory"]
+      441 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      442 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      443 LOADN                            R5 15
+      444 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      446 LOADN                            R5 136
+      447 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      449 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      451 LOADN                            R4 70
+      452 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      454 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      455 NEWTABLE                         R5 0 3
+      457 LOADN                            R6 25
+      458 LOADN                            R7 50
+      459 LOADN                            R8 75
+      460 SETLIST                          R5 R6 3 [1]
+      462 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      464 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      465 LOADN                            R6 15
+      466 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      468 LOADN                            R6 136
+      469 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      471 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      473 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      475 SETTABLEKS                       R3 R2 K6 ["ShoulderAccessory"]
+      477 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      478 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      479 LOADN                            R5 20
+      480 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      482 LOADN                            R5 136
+      483 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      485 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      487 LOADN                            R4 70
+      488 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      490 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      491 NEWTABLE                         R5 0 3
+      493 LOADN                            R6 25
+      494 LOADN                            R7 50
+      495 LOADN                            R8 75
+      496 SETLIST                          R5 R6 3 [1]
+      498 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      500 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      501 LOADN                            R6 20
+      502 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      504 LOADN                            R6 136
+      505 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      507 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      509 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      511 SETTABLEKS                       R3 R2 K7 ["FrontAccessory"]
+      513 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      514 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      515 LOADN                            R5 100
+      516 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      518 LOADN                            R5 16
+      519 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      521 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      523 LOADN                            R4 70
+      524 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      526 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      527 NEWTABLE                         R5 0 3
+      529 LOADN                            R6 25
+      530 LOADN                            R7 50
+      531 LOADN                            R8 75
+      532 SETLIST                          R5 R6 3 [1]
+      534 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      536 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      537 LOADN                            R6 100
+      538 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      540 LOADN                            R6 16
+      541 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      543 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      545 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      547 SETTABLEKS                       R3 R2 K8 ["BackAccessory"]
+      549 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      550 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      551 LOADN                            R5 50
+      552 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      554 LOADN                            R5 136
+      555 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      557 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      559 LOADN                            R4 70
+      560 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      562 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      563 NEWTABLE                         R5 0 3
+      565 LOADN                            R6 25
+      566 LOADN                            R7 50
+      567 LOADN                            R8 75
+      568 SETLIST                          R5 R6 3 [1]
+      570 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      572 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      573 LOADN                            R6 50
+      574 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      576 LOADN                            R6 136
+      577 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      579 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      581 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      583 SETTABLEKS                       R3 R2 K9 ["WaistAccessory"]
+      585 DUPTABLE                         R3 K50 [{"allowedPriceRange", "marketplaceFeesPercentage"}]
+      586 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      587 LOADN                            R5 5
+      588 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      590 LOADK                            R5 K51 [999999999]
+      591 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      593 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      595 LOADN                            R4 30
+      596 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      598 SETTABLEKS                       R3 R2 K37 ["Shirt"]
+      600 DUPTABLE                         R3 K50 [{"allowedPriceRange", "marketplaceFeesPercentage"}]
+      601 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      602 LOADN                            R5 5
+      603 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      605 LOADK                            R5 K51 [999999999]
+      606 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      608 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      610 LOADN                            R4 30
+      611 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      613 SETTABLEKS                       R3 R2 K38 ["Pants"]
+      615 DUPTABLE                         R3 K50 [{"allowedPriceRange", "marketplaceFeesPercentage"}]
+      616 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      617 LOADN                            R5 2
+      618 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      620 LOADK                            R5 K51 [999999999]
+      621 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      623 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      625 LOADN                            R4 30
+      626 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      628 SETTABLEKS                       R3 R2 K39 ["TShirt"]
+      630 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      631 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      632 LOADN                            R5 50
+      633 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      635 LOADN                            R5 136
+      636 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      638 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      640 LOADN                            R4 70
+      641 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      643 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      644 NEWTABLE                         R5 0 3
+      646 LOADN                            R6 25
+      647 LOADN                            R7 50
+      648 LOADN                            R8 75
+      649 SETLIST                          R5 R6 3 [1]
+      651 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      653 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      654 LOADN                            R6 50
+      655 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      657 LOADN                            R6 136
+      658 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      660 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      662 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      664 SETTABLEKS                       R3 R2 K10 ["TShirtAccessory"]
+      666 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      667 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      668 LOADN                            R5 50
+      669 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      671 LOADN                            R5 136
+      672 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      674 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      676 LOADN                            R4 70
+      677 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      679 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      680 NEWTABLE                         R5 0 3
+      682 LOADN                            R6 25
+      683 LOADN                            R7 50
+      684 LOADN                            R8 75
+      685 SETLIST                          R5 R6 3 [1]
+      687 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      689 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      690 LOADN                            R6 50
+      691 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      693 LOADN                            R6 136
+      694 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      696 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      698 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      700 SETTABLEKS                       R3 R2 K11 ["ShirtAccessory"]
+      702 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      703 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      704 LOADN                            R5 50
+      705 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      707 LOADN                            R5 136
+      708 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      710 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      712 LOADN                            R4 70
+      713 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      715 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      716 NEWTABLE                         R5 0 3
+      718 LOADN                            R6 25
+      719 LOADN                            R7 50
+      720 LOADN                            R8 75
+      721 SETLIST                          R5 R6 3 [1]
+      723 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      725 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      726 LOADN                            R6 50
+      727 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      729 LOADN                            R6 136
+      730 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      732 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      734 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      736 SETTABLEKS                       R3 R2 K12 ["PantsAccessory"]
+      738 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      739 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      740 LOADN                            R5 50
+      741 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      743 LOADN                            R5 136
+      744 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      746 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      748 LOADN                            R4 70
+      749 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      751 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      752 NEWTABLE                         R5 0 3
+      754 LOADN                            R6 25
+      755 LOADN                            R7 50
+      756 LOADN                            R8 75
+      757 SETLIST                          R5 R6 3 [1]
+      759 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      761 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      762 LOADN                            R6 50
+      763 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      765 LOADN                            R6 136
+      766 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      768 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      770 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      772 SETTABLEKS                       R3 R2 K13 ["JacketAccessory"]
+      774 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      775 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      776 LOADN                            R5 50
+      777 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      779 LOADN                            R5 136
+      780 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      782 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      784 LOADN                            R4 70
+      785 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      787 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      788 NEWTABLE                         R5 0 3
+      790 LOADN                            R6 25
+      791 LOADN                            R7 50
+      792 LOADN                            R8 75
+      793 SETLIST                          R5 R6 3 [1]
+      795 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      797 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      798 LOADN                            R6 50
+      799 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      801 LOADN                            R6 136
+      802 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      804 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      806 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      808 SETTABLEKS                       R3 R2 K14 ["SweaterAccessory"]
+      810 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      811 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      812 LOADN                            R5 50
+      813 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      815 LOADN                            R5 136
+      816 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      818 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      820 LOADN                            R4 70
+      821 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      823 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      824 NEWTABLE                         R5 0 3
+      826 LOADN                            R6 25
+      827 LOADN                            R7 50
+      828 LOADN                            R8 75
+      829 SETLIST                          R5 R6 3 [1]
+      831 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      833 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      834 LOADN                            R6 50
+      835 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      837 LOADN                            R6 136
+      838 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      840 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      842 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      844 SETTABLEKS                       R3 R2 K15 ["ShortsAccessory"]
+      846 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      847 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      848 LOADN                            R5 50
+      849 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      851 LOADN                            R5 136
+      852 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      854 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      856 LOADN                            R4 70
+      857 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      859 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      860 NEWTABLE                         R5 0 3
+      862 LOADN                            R6 25
+      863 LOADN                            R7 50
+      864 LOADN                            R8 75
+      865 SETLIST                          R5 R6 3 [1]
+      867 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      869 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      870 LOADN                            R6 50
+      871 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      873 LOADN                            R6 136
+      874 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      876 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      878 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      880 SETTABLEKS                       R3 R2 K16 ["LeftShoeAccessory"]
+      882 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      883 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      884 LOADN                            R5 50
+      885 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      887 LOADN                            R5 136
+      888 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      890 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      892 LOADN                            R4 70
+      893 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      895 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      896 NEWTABLE                         R5 0 3
+      898 LOADN                            R6 25
+      899 LOADN                            R7 50
+      900 LOADN                            R8 75
+      901 SETLIST                          R5 R6 3 [1]
+      903 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      905 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      906 LOADN                            R6 50
+      907 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      909 LOADN                            R6 136
+      910 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      912 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      914 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      916 SETTABLEKS                       R3 R2 K17 ["RightShoeAccessory"]
+      918 DUPTABLE                         R3 K44 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+      919 DUPTABLE                         R4 K47 [{"minRobux", "maxRobux"}]
+      920 LOADN                            R5 50
+      921 SETTABLEKS                       R5 R4 K45 ["minRobux"]
+      923 LOADN                            R5 136
+      924 SETTABLEKS                       R5 R4 K46 ["maxRobux"]
+      926 SETTABLEKS                       R4 R3 K41 ["allowedPriceRange"]
+      928 LOADN                            R4 70
+      929 SETTABLEKS                       R4 R3 K42 ["marketplaceFeesPercentage"]
+      931 DUPTABLE                         R4 K49 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+      932 NEWTABLE                         R5 0 3
+      934 LOADN                            R6 25
+      935 LOADN                            R7 50
+      936 LOADN                            R8 75
+      937 SETLIST                          R5 R6 3 [1]
+      939 SETTABLEKS                       R5 R4 K48 ["allowedDiscountPercentages"]
+      941 DUPTABLE                         R5 K47 [{"minRobux", "maxRobux"}]
+      942 LOADN                            R6 50
+      943 SETTABLEKS                       R6 R5 K45 ["minRobux"]
+      945 LOADN                            R6 136
+      946 SETTABLEKS                       R6 R5 K46 ["maxRobux"]
+      948 SETTABLEKS                       R5 R4 K41 ["allowedPriceRange"]
+      950 SETTABLEKS                       R4 R3 K43 ["premiumPricing"]
+      952 SETTABLEKS                       R3 R2 K18 ["DressSkirtAccessory"]
       954 GETUPVAL                         R3 0
-      955 SETTABLEKS                       R3 R2 K29 ["Torso"]
-      957 GETUPVAL                         R3 0
-      958 SETTABLEKS                       R3 R2 K30 ["RightArm"]
-      960 GETUPVAL                         R3 0
-      961 SETTABLEKS                       R3 R2 K31 ["LeftArm"]
-      963 GETUPVAL                         R3 0
-      964 SETTABLEKS                       R3 R2 K32 ["LeftLeg"]
-      966 GETUPVAL                         R3 0
-      967 SETTABLEKS                       R3 R2 K33 ["RightLeg"]
-      969 GETUPVAL                         R3 0
-      970 SETTABLEKS                       R3 R2 K34 ["DynamicHead"]
-      972 GETUPVAL                         R3 0
-      973 SETTABLEKS                       R3 R2 K35 ["EyebrowAccessory"]
-      975 GETUPVAL                         R3 0
-      976 SETTABLEKS                       R3 R2 K36 ["EyelashAccessory"]
-      978 NEWTABLE                         R3 0 0
-      980 GETUPVAL                         R6 1
-      981 MOVE                             R7 R2
-      982 MOVE                             R8 R1
-      983 MOVE                             R9 R3
-      984 CALL                             R6 3 -1
-      985 NAMECALL                         R4 R0 K52 ["dispatch"]
-      987 CALL                             R4 -1 0
-      988 GETUPVAL                         R4 2
-      989 CALL                             R4 0 1
-      990 JUMPIFNOT                        R4 ; [+37]
-      991 DUPTABLE                         R4 K54 [{"enabledAssetTypes"}]
-      992 NEWTABLE                         R5 0 20
-      994 LOADK                            R6 K2 ["Hat"]
-      995 LOADK                            R7 K3 ["HairAccessory"]
-      996 LOADK                            R8 K4 ["FaceAccessory"]
-      997 LOADK                            R9 K5 ["NeckAccessory"]
-      998 LOADK                            R10 K6 ["ShoulderAccessory"]
-      999 LOADK                            R11 K8 ["BackAccessory"]
-     1000 LOADK                            R12 K7 ["FrontAccessory"]
-     1001 LOADK                            R13 K9 ["WaistAccessory"]
-     1002 LOADK                            R14 K10 ["TShirtAccessory"]
-     1003 LOADK                            R15 K11 ["ShirtAccessory"]
-     1004 LOADK                            R16 K12 ["PantsAccessory"]
-     1005 LOADK                            R17 K13 ["JacketAccessory"]
-     1006 LOADK                            R18 K14 ["SweaterAccessory"]
-     1007 LOADK                            R19 K15 ["ShortsAccessory"]
-     1008 LOADK                            R20 K16 ["LeftShoeAccessory"]
-     1009 LOADK                            R21 K17 ["RightShoeAccessory"]
-     1010 SETLIST                          R5 R6 16 [1]
-     1012 LOADK                            R6 K18 ["DressSkirtAccessory"]
-     1013 LOADK                            R7 K37 ["Shirt"]
-     1014 LOADK                            R8 K39 ["TShirt"]
-     1015 LOADK                            R9 K38 ["Pants"]
-     1016 SETLIST                          R5 R6 4 [17]
-     1018 SETTABLEKS                       R5 R4 K53 ["enabledAssetTypes"]
-     1020 GETTABLEKS                       R6 R4 K53 ["enabledAssetTypes"]
-     1022 FASTCALL2K                       TABLE_INSERT R6 K28 ; [+4]
-     1024 LOADK                            R7 K28 ["EmoteAnimation"]
-     1025 GETIMPORT                        R5 K57 [table.insert]
-     1027 CALL                             R5 2 0
-     1028 GETUPVAL                         R6 3
-     1029 GETGLOBAL                        R7 K58 ["getDebugUgcBundleMetadata"]
-     1031 CALL                             R7 0 -1
-     1032 CALL                             R6 -1 -1
-     1033 NAMECALL                         R4 R0 K52 ["dispatch"]
-     1035 CALL                             R4 -1 0
-     1036 GETUPVAL                         R5 4
-     1037 GETTABLEKS                       R4 R5 K59 ["resolve"]
-     1039 NEWTABLE                         R5 0 0
-     1041 CALL                             R4 1 -1
-     1042 RETURN                           R4 -1
+      955 CALL                             R3 0 1
+      956 JUMPIFNOT                        R3 ; [+3]
+      957 GETUPVAL                         R3 1
+      958 SETTABLEKS                       R3 R2 K28 ["EmoteAnimation"]
+      960 GETUPVAL                         R3 1
+      961 SETTABLEKS                       R3 R2 K29 ["Torso"]
+      963 GETUPVAL                         R3 1
+      964 SETTABLEKS                       R3 R2 K30 ["RightArm"]
+      966 GETUPVAL                         R3 1
+      967 SETTABLEKS                       R3 R2 K31 ["LeftArm"]
+      969 GETUPVAL                         R3 1
+      970 SETTABLEKS                       R3 R2 K32 ["LeftLeg"]
+      972 GETUPVAL                         R3 1
+      973 SETTABLEKS                       R3 R2 K33 ["RightLeg"]
+      975 GETUPVAL                         R3 1
+      976 SETTABLEKS                       R3 R2 K34 ["DynamicHead"]
+      978 GETUPVAL                         R3 1
+      979 SETTABLEKS                       R3 R2 K35 ["EyebrowAccessory"]
+      981 GETUPVAL                         R3 1
+      982 SETTABLEKS                       R3 R2 K36 ["EyelashAccessory"]
+      984 NEWTABLE                         R3 0 0
+      986 GETUPVAL                         R6 2
+      987 MOVE                             R7 R2
+      988 MOVE                             R8 R1
+      989 MOVE                             R9 R3
+      990 CALL                             R6 3 -1
+      991 NAMECALL                         R4 R0 K52 ["dispatch"]
+      993 CALL                             R4 -1 0
+      994 GETUPVAL                         R4 3
+      995 CALL                             R4 0 1
+      996 JUMPIFNOT                        R4 ; [+40]
+      997 DUPTABLE                         R4 K54 [{"enabledAssetTypes"}]
+      998 NEWTABLE                         R5 0 20
+     1000 LOADK                            R6 K2 ["Hat"]
+     1001 LOADK                            R7 K3 ["HairAccessory"]
+     1002 LOADK                            R8 K4 ["FaceAccessory"]
+     1003 LOADK                            R9 K5 ["NeckAccessory"]
+     1004 LOADK                            R10 K6 ["ShoulderAccessory"]
+     1005 LOADK                            R11 K8 ["BackAccessory"]
+     1006 LOADK                            R12 K7 ["FrontAccessory"]
+     1007 LOADK                            R13 K9 ["WaistAccessory"]
+     1008 LOADK                            R14 K10 ["TShirtAccessory"]
+     1009 LOADK                            R15 K11 ["ShirtAccessory"]
+     1010 LOADK                            R16 K12 ["PantsAccessory"]
+     1011 LOADK                            R17 K13 ["JacketAccessory"]
+     1012 LOADK                            R18 K14 ["SweaterAccessory"]
+     1013 LOADK                            R19 K15 ["ShortsAccessory"]
+     1014 LOADK                            R20 K16 ["LeftShoeAccessory"]
+     1015 LOADK                            R21 K17 ["RightShoeAccessory"]
+     1016 SETLIST                          R5 R6 16 [1]
+     1018 LOADK                            R6 K18 ["DressSkirtAccessory"]
+     1019 LOADK                            R7 K37 ["Shirt"]
+     1020 LOADK                            R8 K39 ["TShirt"]
+     1021 LOADK                            R9 K38 ["Pants"]
+     1022 SETLIST                          R5 R6 4 [17]
+     1024 SETTABLEKS                       R5 R4 K53 ["enabledAssetTypes"]
+     1026 GETUPVAL                         R5 0
+     1027 CALL                             R5 0 1
+     1028 JUMPIFNOT                        R5 ; [+8]
+     1029 GETTABLEKS                       R6 R4 K53 ["enabledAssetTypes"]
+     1031 FASTCALL2K                       TABLE_INSERT R6 K28 ; [+4]
+     1033 LOADK                            R7 K28 ["EmoteAnimation"]
+     1034 GETIMPORT                        R5 K57 [table.insert]
+     1036 CALL                             R5 2 0
+     1037 GETUPVAL                         R6 4
+     1038 GETGLOBAL                        R7 K58 ["getDebugUgcBundleMetadata"]
+     1040 CALL                             R7 0 -1
+     1041 CALL                             R6 -1 -1
+     1042 NAMECALL                         R4 R0 K52 ["dispatch"]
+     1044 CALL                             R4 -1 0
+     1045 GETUPVAL                         R5 5
+     1046 GETTABLEKS                       R4 R5 K59 ["resolve"]
+     1048 NEWTABLE                         R5 0 0
+     1050 CALL                             R4 1 -1
+     1051 RETURN                           R4 -1
 
 PROTO_2:
         0 DUPCLOSURE                       R1 K0 [PROTO_1]
@@ -875,7 +884,8 @@ PROTO_2:
         3 CAPTURE                          UPVAL U2
         4 CAPTURE                          UPVAL U3
         5 CAPTURE                          UPVAL U4
-        6 RETURN                           R1 1
+        6 CAPTURE                          UPVAL U5
+        7 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -916,35 +926,41 @@ MAIN:
        64 GETTABLEKS                       R9 R10 K15 ["SharedFlags"]
        66 GETTABLEKS                       R8 R9 K16 ["getFFlagToolboxAddAvatarTagDataIntoMock"]
        68 CALL                             R7 1 1
-       69 DUPTABLE                         R8 K20 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-       70 DUPTABLE                         R9 K23 [{"minRobux", "maxRobux"}]
-       71 LOADN                            R10 50
-       72 SETTABLEKS                       R10 R9 K21 ["minRobux"]
-       74 LOADN                            R10 136
-       75 SETTABLEKS                       R10 R9 K22 ["maxRobux"]
-       77 SETTABLEKS                       R9 R8 K17 ["allowedPriceRange"]
-       79 LOADN                            R9 70
-       80 SETTABLEKS                       R9 R8 K18 ["marketplaceFeesPercentage"]
-       82 DUPTABLE                         R9 K25 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-       83 NEWTABLE                         R10 0 3
-       85 LOADN                            R11 25
-       86 LOADN                            R12 50
-       87 LOADN                            R13 75
-       88 SETLIST                          R10 R11 3 [1]
-       90 SETTABLEKS                       R10 R9 K24 ["allowedDiscountPercentages"]
-       92 DUPTABLE                         R10 K23 [{"minRobux", "maxRobux"}]
-       93 LOADN                            R11 50
-       94 SETTABLEKS                       R11 R10 K21 ["minRobux"]
-       96 LOADN                            R11 136
-       97 SETTABLEKS                       R11 R10 K22 ["maxRobux"]
-       99 SETTABLEKS                       R10 R9 K17 ["allowedPriceRange"]
-      101 SETTABLEKS                       R9 R8 K19 ["premiumPricing"]
-      103 DUPCLOSURE                       R9 K26 [PROTO_0]
-      104 SETGLOBAL                        R9 K27 ["getDebugUgcBundleMetadata"]
-      106 DUPCLOSURE                       R9 K28 [PROTO_2]
-      107 CAPTURE                          VAL R8
-      108 CAPTURE                          VAL R4
-      109 CAPTURE                          VAL R7
-      110 CAPTURE                          VAL R5
-      111 CAPTURE                          VAL R2
-      112 RETURN                           R9 1
+       69 GETIMPORT                        R8 K5 [require]
+       71 GETTABLEKS                       R11 R0 K9 ["Src"]
+       73 GETTABLEKS                       R10 R11 K17 ["Flags"]
+       75 GETTABLEKS                       R9 R10 K18 ["getFFlagEnableUploadingEmote"]
+       77 CALL                             R8 1 1
+       78 DUPTABLE                         R9 K22 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+       79 DUPTABLE                         R10 K25 [{"minRobux", "maxRobux"}]
+       80 LOADN                            R11 50
+       81 SETTABLEKS                       R11 R10 K23 ["minRobux"]
+       83 LOADN                            R11 136
+       84 SETTABLEKS                       R11 R10 K24 ["maxRobux"]
+       86 SETTABLEKS                       R10 R9 K19 ["allowedPriceRange"]
+       88 LOADN                            R10 70
+       89 SETTABLEKS                       R10 R9 K20 ["marketplaceFeesPercentage"]
+       91 DUPTABLE                         R10 K27 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+       92 NEWTABLE                         R11 0 3
+       94 LOADN                            R12 25
+       95 LOADN                            R13 50
+       96 LOADN                            R14 75
+       97 SETLIST                          R11 R12 3 [1]
+       99 SETTABLEKS                       R11 R10 K26 ["allowedDiscountPercentages"]
+      101 DUPTABLE                         R11 K25 [{"minRobux", "maxRobux"}]
+      102 LOADN                            R12 50
+      103 SETTABLEKS                       R12 R11 K23 ["minRobux"]
+      105 LOADN                            R12 136
+      106 SETTABLEKS                       R12 R11 K24 ["maxRobux"]
+      108 SETTABLEKS                       R11 R10 K19 ["allowedPriceRange"]
+      110 SETTABLEKS                       R10 R9 K21 ["premiumPricing"]
+      112 DUPCLOSURE                       R10 K28 [PROTO_0]
+      113 SETGLOBAL                        R10 K29 ["getDebugUgcBundleMetadata"]
+      115 DUPCLOSURE                       R10 K30 [PROTO_2]
+      116 CAPTURE                          VAL R8
+      117 CAPTURE                          VAL R9
+      118 CAPTURE                          VAL R4
+      119 CAPTURE                          VAL R7
+      120 CAPTURE                          VAL R5
+      121 CAPTURE                          VAL R2
+      122 RETURN                           R10 1

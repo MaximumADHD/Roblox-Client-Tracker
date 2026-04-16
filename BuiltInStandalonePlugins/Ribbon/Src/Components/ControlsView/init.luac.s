@@ -500,31 +500,33 @@ PROTO_12:
 
 PROTO_13:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R2 R0 K0 ["Controls"]
-        3 CALL                             R1 1 1
-        4 GETUPVAL                         R2 1
-        5 NEWCLOSURE                       R3 P0
-        6 CAPTURE                          UPVAL U2
-        7 CAPTURE                          VAL R0
-        8 CAPTURE                          VAL R1
-        9 CALL                             R2 1 2
-       10 GETUPVAL                         R4 3
-       11 NEWCLOSURE                       R5 P1
-       12 CAPTURE                          VAL R3
-       13 CAPTURE                          UPVAL U2
-       14 CAPTURE                          VAL R0
-       15 CAPTURE                          VAL R1
-       16 NEWTABLE                         R6 0 2
-       18 MOVE                             R7 R1
-       19 GETTABLEKS                       R8 R0 K1 ["HideLabels"]
-       21 SETLIST                          R6 R7 2 [1]
-       23 CALL                             R4 2 0
-       24 GETUPVAL                         R5 4
-       25 GETTABLEKS                       R4 R5 K2 ["createElement"]
+        1 GETTABLEKS                       R2 R0 K0 ["Plugin"]
+        3 GETTABLEKS                       R3 R0 K1 ["Controls"]
+        5 GETUPVAL                         R4 1
+        6 CALL                             R1 3 1
+        7 GETUPVAL                         R2 2
+        8 NEWCLOSURE                       R3 P0
+        9 CAPTURE                          UPVAL U3
+       10 CAPTURE                          VAL R0
+       11 CAPTURE                          VAL R1
+       12 CALL                             R2 1 2
+       13 GETUPVAL                         R4 4
+       14 NEWCLOSURE                       R5 P1
+       15 CAPTURE                          VAL R3
+       16 CAPTURE                          UPVAL U3
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          VAL R1
+       19 NEWTABLE                         R6 0 2
+       21 MOVE                             R7 R1
+       22 GETTABLEKS                       R8 R0 K2 ["HideLabels"]
+       24 SETLIST                          R6 R7 2 [1]
+       26 CALL                             R4 2 0
        27 GETUPVAL                         R5 5
-       28 MOVE                             R6 R2
-       29 CALL                             R4 2 1
-       30 RETURN                           R4 1
+       28 GETTABLEKS                       R4 R5 K3 ["createElement"]
+       30 GETUPVAL                         R5 6
+       31 MOVE                             R6 R2
+       32 CALL                             R4 2 1
+       33 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -638,10 +640,11 @@ MAIN:
       176 CALL                             R29 1 1
       177 DUPCLOSURE                       R28 K45 [PROTO_13]
       178 CAPTURE                          VAL R21
-      179 CAPTURE                          VAL R8
-      180 CAPTURE                          VAL R14
-      181 CAPTURE                          VAL R6
-      182 CAPTURE                          VAL R1
-      183 CAPTURE                          VAL R29
-      184 CLOSEUPVALS                      R28
-      185 RETURN                           R28 1
+      179 CAPTURE                          VAL R2
+      180 CAPTURE                          VAL R8
+      181 CAPTURE                          VAL R14
+      182 CAPTURE                          VAL R6
+      183 CAPTURE                          VAL R1
+      184 CAPTURE                          VAL R29
+      185 CLOSEUPVALS                      R28
+      186 RETURN                           R28 1

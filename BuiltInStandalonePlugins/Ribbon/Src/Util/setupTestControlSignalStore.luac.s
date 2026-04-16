@@ -42,12 +42,40 @@ PROTO_1:
        42 CAPTURE                          VAL R4
        43 RETURN                           R4 2
 
+PROTO_2:
+        0 RETURN                           R0 0
+
+PROTO_3:
+        0 RETURN                           R0 0
+
+PROTO_4:
+        0 RETURN                           R0 1
+
+PROTO_5:
+        0 DUPTABLE                         R1 K2 [{"destroy", "waitUntilFinishedLoading"}]
+        1 DUPCLOSURE                       R2 K3 [PROTO_2]
+        2 SETTABLEKS                       R2 R1 K0 ["destroy"]
+        4 DUPCLOSURE                       R2 K4 [PROTO_3]
+        5 SETTABLEKS                       R2 R1 K1 ["waitUntilFinishedLoading"]
+        7 DUPCLOSURE                       R2 K5 [PROTO_4]
+        8 RETURN                           R1 2
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
         3 LOADK                            R2 K2 ["Ribbon"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 DUPCLOSURE                       R1 K4 [PROTO_1]
-        8 CAPTURE                          VAL R0
-        9 RETURN                           R1 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Src"]
+       11 GETTABLEKS                       R3 R4 K7 ["SharedFlags"]
+       13 GETTABLEKS                       R2 R3 K8 ["getFeatureRibbonControlsCaching"]
+       15 CALL                             R1 1 1
+       16 DUPCLOSURE                       R2 K9 [PROTO_1]
+       17 CAPTURE                          VAL R0
+       18 DUPCLOSURE                       R3 K10 [PROTO_5]
+       19 MOVE                             R4 R1
+       20 CALL                             R4 0 1
+       21 JUMPIFNOT                        R4 ; [+1]
+       22 RETURN                           R2 1
+       23 RETURN                           R3 1

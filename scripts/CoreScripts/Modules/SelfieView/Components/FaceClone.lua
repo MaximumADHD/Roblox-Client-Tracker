@@ -12,6 +12,7 @@ local EngineFeaturePlayerViewRemoteEventSupport = game:GetEngineFeature("PlayerV
 
 local newTrackerStreamAnimation: TrackerStreamAnimation? = nil
 local cloneStreamTrack: AnimationStreamTrack? = nil
+local FFlagSelfViewNewPoseSynchronization = game:DefineFastFlag("SelfViewNewPoseSynchronization", false)
 local FFlagDebugSelfViewPerfBenchmark = game:DefineFastFlag("DebugSelfViewPerfBenchmark", false)
 local FFlagSelfViewFixAnimTrackLeaks = game:DefineFastFlag("SelfViewFixAnimTrackLeaks", false)
 local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
@@ -358,7 +359,7 @@ local function updateClone(player: Player?)
 
 	--prep sync streaming tracks
 	if cloneAnimator then
-		if not EngineFeatureAnimatorAndADFRefactor then
+		if not EngineFeatureAnimatorAndADFRefactor or not FFlagSelfViewNewPoseSynchronization then
 			-- clear cloned tracks
 			local clonedTracks = cloneAnimator:GetPlayingAnimationTracks()
 			local coreScriptTracks = cloneAnimator:GetPlayingAnimationTracksCoreScript()
@@ -384,7 +385,7 @@ local function updateClone(player: Player?)
 		end
 
 		if animator then
-			if EngineFeatureAnimatorAndADFRefactor then
+			if EngineFeatureAnimatorAndADFRefactor and FFlagSelfViewNewPoseSynchronization then
 				cloneAnimator:SynchronizeWith(animator)
 			else
 				-- clone tracks manually

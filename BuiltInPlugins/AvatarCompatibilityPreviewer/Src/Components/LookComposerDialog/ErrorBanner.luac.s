@@ -70,78 +70,71 @@ PROTO_2:
        76 GETUPVAL                         R17 2
        77 GETTABLEKS                       R16 R17 K10 ["createElement"]
        79 GETUPVAL                         R17 5
-       80 DUPTABLE                         R18 K25 [{"variant", "severity", "title", "onClose", "actions"}]
+       80 DUPTABLE                         R18 K24 [{"variant", "severity", "title", "actions"}]
        81 GETUPVAL                         R20 6
-       82 GETTABLEKS                       R19 R20 K26 ["Standard"]
+       82 GETTABLEKS                       R19 R20 K25 ["Standard"]
        84 SETTABLEKS                       R19 R18 K20 ["variant"]
        86 SETTABLEKS                       R6 R18 K21 ["severity"]
        88 LENGTH                           R20 R2
        89 JUMPIFNOTEQKN                    R20 K4 [1] ; [+3]
        91 MOVE                             R19 R5
        92 JUMP                             ; [+17]
-       93 LOADK                            R21 K27 ["LookComposerDialog"]
-       94 LOADK                            R22 K28 ["WarningsFound"]
-       95 DUPTABLE                         R23 K30 [{"count"}]
+       93 LOADK                            R21 K26 ["LookComposerDialog"]
+       94 LOADK                            R22 K27 ["WarningsFound"]
+       95 DUPTABLE                         R23 K29 [{"count"}]
        96 LENGTH                           R26 R2
        97 FASTCALL1                        MATH_FLOOR R26 ; [+2]
-       98 GETIMPORT                        R25 K33 [math.floor]
+       98 GETIMPORT                        R25 K32 [math.floor]
       100 CALL                             R25 1 1
       101 FASTCALL1                        TOSTRING R25 ; [+2]
-      102 GETIMPORT                        R24 K35 [tostring]
+      102 GETIMPORT                        R24 K34 [tostring]
       104 CALL                             R24 1 1
-      105 SETTABLEKS                       R24 R23 K29 ["count"]
-      107 NAMECALL                         R19 R1 K36 ["getText"]
+      105 SETTABLEKS                       R24 R23 K28 ["count"]
+      107 NAMECALL                         R19 R1 K35 ["getText"]
       109 CALL                             R19 4 1
       110 SETTABLEKS                       R19 R18 K22 ["title"]
-      112 GETUPVAL                         R20 7
-      113 CALL                             R20 0 1
-      114 JUMPIFNOT                        R20 ; [+3]
-      115 GETTABLEKS                       R19 R0 K37 ["dismissMessage"]
-      117 JUMP                             ; [+1]
-      118 LOADNIL                          R19
-      119 SETTABLEKS                       R19 R18 K23 ["onClose"]
-      121 LENGTH                           R20 R2
-      122 LOADN                            R21 1
-      123 JUMPIFNOTLT                      R21 R20 ; [+23]
-      125 NEWTABLE                         R19 0 1
-      127 DUPTABLE                         R20 K40 [{"text", "variant", "onActivated"}]
-      128 LOADK                            R23 K27 ["LookComposerDialog"]
-      129 LOADK                            R24 K41 ["SeeDetails"]
-      130 NAMECALL                         R21 R1 K36 ["getText"]
-      132 CALL                             R21 3 1
-      133 SETTABLEKS                       R21 R20 K38 ["text"]
-      135 GETUPVAL                         R22 8
-      136 GETTABLEKS                       R21 R22 K26 ["Standard"]
-      138 SETTABLEKS                       R21 R20 K20 ["variant"]
-      140 NEWCLOSURE                       R21 P0
-      141 CAPTURE                          VAL R4
-      142 SETTABLEKS                       R21 R20 K39 ["onActivated"]
-      144 SETLIST                          R19 R20 1 [1]
-      146 JUMP                             ; [+1]
-      147 LOADNIL                          R19
-      148 SETTABLEKS                       R19 R18 K24 ["actions"]
-      150 CALL                             R16 2 1
-      151 SETTABLEKS                       R16 R15 K18 ["ErrorBannerContent"]
-      153 CALL                             R12 3 1
-      154 SETTABLEKS                       R12 R11 K12 ["ErrorBannerWrapper"]
-      156 JUMPIFNOT                        R3 ; [+17]
-      157 LENGTH                           R13 R2
-      158 LOADN                            R14 1
-      159 JUMPIFNOTLT                      R14 R13 ; [+14]
-      161 GETUPVAL                         R13 2
-      162 GETTABLEKS                       R12 R13 K10 ["createElement"]
-      164 GETUPVAL                         R13 9
-      165 DUPTABLE                         R14 K42 [{"errors", "onClose"}]
-      166 SETTABLEKS                       R2 R14 K1 ["errors"]
-      168 NEWCLOSURE                       R15 P1
-      169 CAPTURE                          VAL R4
-      170 SETTABLEKS                       R15 R14 K23 ["onClose"]
-      172 CALL                             R12 2 1
-      173 JUMP                             ; [+1]
-      174 LOADNIL                          R12
-      175 SETTABLEKS                       R12 R11 K13 ["ErrorDialog"]
-      177 CALL                             R8 3 -1
-      178 RETURN                           R8 -1
+      112 LENGTH                           R20 R2
+      113 LOADN                            R21 1
+      114 JUMPIFNOTLT                      R21 R20 ; [+23]
+      116 NEWTABLE                         R19 0 1
+      118 DUPTABLE                         R20 K38 [{"text", "variant", "onActivated"}]
+      119 LOADK                            R23 K26 ["LookComposerDialog"]
+      120 LOADK                            R24 K39 ["SeeDetails"]
+      121 NAMECALL                         R21 R1 K35 ["getText"]
+      123 CALL                             R21 3 1
+      124 SETTABLEKS                       R21 R20 K36 ["text"]
+      126 GETUPVAL                         R22 7
+      127 GETTABLEKS                       R21 R22 K25 ["Standard"]
+      129 SETTABLEKS                       R21 R20 K20 ["variant"]
+      131 NEWCLOSURE                       R21 P0
+      132 CAPTURE                          VAL R4
+      133 SETTABLEKS                       R21 R20 K37 ["onActivated"]
+      135 SETLIST                          R19 R20 1 [1]
+      137 JUMP                             ; [+1]
+      138 LOADNIL                          R19
+      139 SETTABLEKS                       R19 R18 K23 ["actions"]
+      141 CALL                             R16 2 1
+      142 SETTABLEKS                       R16 R15 K18 ["ErrorBannerContent"]
+      144 CALL                             R12 3 1
+      145 SETTABLEKS                       R12 R11 K12 ["ErrorBannerWrapper"]
+      147 JUMPIFNOT                        R3 ; [+17]
+      148 LENGTH                           R13 R2
+      149 LOADN                            R14 1
+      150 JUMPIFNOTLT                      R14 R13 ; [+14]
+      152 GETUPVAL                         R13 2
+      153 GETTABLEKS                       R12 R13 K10 ["createElement"]
+      155 GETUPVAL                         R13 8
+      156 DUPTABLE                         R14 K41 [{"errors", "onClose"}]
+      157 SETTABLEKS                       R2 R14 K1 ["errors"]
+      159 NEWCLOSURE                       R15 P1
+      160 CAPTURE                          VAL R4
+      161 SETTABLEKS                       R15 R14 K40 ["onClose"]
+      163 CALL                             R12 2 1
+      164 JUMP                             ; [+1]
+      165 LOADNIL                          R12
+      166 SETTABLEKS                       R12 R11 K13 ["ErrorDialog"]
+      168 CALL                             R8 3 -1
+      169 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -177,25 +170,19 @@ MAIN:
        54 GETTABLEKS                       R11 R12 K20 ["getFFlagAvatarPreviewerLookComposer"]
        56 CALL                             R10 1 1
        57 GETIMPORT                        R11 K5 [require]
-       59 GETTABLEKS                       R14 R0 K18 ["Src"]
-       61 GETTABLEKS                       R13 R14 K19 ["Flags"]
-       63 GETTABLEKS                       R12 R13 K21 ["getFFlagAvatarPreviewerLookDismissableErrors"]
-       65 CALL                             R11 1 1
-       66 GETIMPORT                        R12 K5 [require]
-       68 GETTABLEKS                       R16 R0 K18 ["Src"]
-       70 GETTABLEKS                       R15 R16 K22 ["Components"]
-       72 GETTABLEKS                       R14 R15 K23 ["LookComposerDialog"]
-       74 GETTABLEKS                       R13 R14 K24 ["ErrorDialog"]
-       76 CALL                             R12 1 1
-       77 DUPCLOSURE                       R13 K25 [PROTO_2]
-       78 CAPTURE                          VAL R10
-       79 CAPTURE                          VAL R9
-       80 CAPTURE                          VAL R1
-       81 CAPTURE                          VAL R7
-       82 CAPTURE                          VAL R3
-       83 CAPTURE                          VAL R4
-       84 CAPTURE                          VAL R6
-       85 CAPTURE                          VAL R11
-       86 CAPTURE                          VAL R5
-       87 CAPTURE                          VAL R12
-       88 RETURN                           R13 1
+       59 GETTABLEKS                       R15 R0 K18 ["Src"]
+       61 GETTABLEKS                       R14 R15 K21 ["Components"]
+       63 GETTABLEKS                       R13 R14 K22 ["LookComposerDialog"]
+       65 GETTABLEKS                       R12 R13 K23 ["ErrorDialog"]
+       67 CALL                             R11 1 1
+       68 DUPCLOSURE                       R12 K24 [PROTO_2]
+       69 CAPTURE                          VAL R10
+       70 CAPTURE                          VAL R9
+       71 CAPTURE                          VAL R1
+       72 CAPTURE                          VAL R7
+       73 CAPTURE                          VAL R3
+       74 CAPTURE                          VAL R4
+       75 CAPTURE                          VAL R6
+       76 CAPTURE                          VAL R5
+       77 CAPTURE                          VAL R11
+       78 RETURN                           R12 1

@@ -99,56 +99,6 @@ PROTO_0:
       131 RETURN                           R4 2
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLE                         R2 R3 R0
-        2 NOT                              R1 R2
-        3 RETURN                           R1 1
-
-PROTO_2:
-        0 NEWTABLE                         R0 1 0
-        2 GETUPVAL                         R1 0
-        3 LOADB                            R2 1
-        4 SETTABLE                         R2 R0 R1
-        5 RETURN                           R0 1
-
-PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 LENGTH                           R0 R1
-        2 JUMPIFEQKN                       R0 K0 [1] ; [+3]
-        4 LOADB                            R0 0
-        5 RETURN                           R0 1
-        6 GETUPVAL                         R1 0
-        7 GETTABLEN                        R0 R1 1
-        8 GETUPVAL                         R2 1
-        9 GETTABLE                         R1 R2 R0
-       10 JUMPIFEQKB                       R1 TRUE ; [+3]
-       12 LOADB                            R1 0
-       13 RETURN                           R1 1
-       14 LOADB                            R1 1
-       15 RETURN                           R1 1
-
-PROTO_4:
-        0 GETIMPORT                        R1 K2 [table.clone]
-        2 MOVE                             R2 R0
-        3 CALL                             R1 1 1
-        4 GETUPVAL                         R2 0
-        5 LOADB                            R3 1
-        6 SETTABLE                         R3 R1 R2
-        7 RETURN                           R1 1
-
-PROTO_5:
-        0 GETUPVAL                         R0 0
-        1 JUMPIF                           R0 ; [+1]
-        2 RETURN                           R0 0
-        3 GETUPVAL                         R1 1
-        4 GETTABLEN                        R0 R1 1
-        5 GETUPVAL                         R1 2
-        6 NEWCLOSURE                       R2 P0
-        7 CAPTURE                          VAL R0
-        8 CALL                             R1 1 0
-        9 RETURN                           R0 0
-
-PROTO_6:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["use"]
         3 CALL                             R1 1 1
@@ -166,74 +116,10 @@ PROTO_6:
        21 GETTABLEKS                       R9 R0 K6 ["isDialogItemsInitialized"]
        23 SETLIST                          R4 R5 5 [1]
        25 CALL                             R2 2 2
-       26 MOVE                             R4 R2
-       27 LOADNIL                          R5
-       28 LOADB                            R6 0
-       29 GETUPVAL                         R7 3
-       30 CALL                             R7 0 1
-       31 JUMPIFNOT                        R7 ; [+62]
-       32 GETUPVAL                         R8 1
-       33 GETTABLEKS                       R7 R8 K7 ["useState"]
-       35 NEWTABLE                         R8 0 0
-       37 CALL                             R7 1 2
-       38 GETUPVAL                         R10 4
-       39 GETTABLEKS                       R9 R10 K8 ["filter"]
-       41 MOVE                             R10 R2
-       42 NEWCLOSURE                       R11 P1
-       43 CAPTURE                          VAL R7
-       44 CALL                             R9 2 1
-       45 MOVE                             R4 R9
-       46 LOADK                            R11 K9 ["LookComposerDialog"]
-       47 LOADK                            R12 K10 ["MakeupLookDifferentCreator"]
-       48 NAMECALL                         R9 R1 K11 ["getText"]
-       50 CALL                             R9 3 1
-       51 GETUPVAL                         R11 1
-       52 GETTABLEKS                       R10 R11 K1 ["useMemo"]
-       54 NEWCLOSURE                       R11 P2
-       55 CAPTURE                          VAL R9
-       56 NEWTABLE                         R12 0 1
-       58 MOVE                             R13 R9
-       59 SETLIST                          R12 R13 1 [1]
-       61 CALL                             R10 2 1
-       62 GETUPVAL                         R12 1
-       63 GETTABLEKS                       R11 R12 K1 ["useMemo"]
-       65 NEWCLOSURE                       R12 P3
-       66 CAPTURE                          REF R4
-       67 CAPTURE                          VAL R10
-       68 NEWTABLE                         R13 0 2
-       70 MOVE                             R14 R4
-       71 MOVE                             R15 R10
-       72 SETLIST                          R13 R14 2 [1]
-       74 CALL                             R11 2 1
-       75 MOVE                             R6 R11
-       76 GETUPVAL                         R12 1
-       77 GETTABLEKS                       R11 R12 K12 ["useCallback"]
-       79 NEWCLOSURE                       R12 P4
-       80 CAPTURE                          REF R6
-       81 CAPTURE                          REF R4
-       82 CAPTURE                          VAL R8
-       83 NEWTABLE                         R13 0 2
-       85 MOVE                             R14 R6
-       86 MOVE                             R15 R4
-       87 SETLIST                          R13 R14 2 [1]
-       89 CALL                             R11 2 1
-       90 JUMPIFNOT                        R6 ; [+2]
-       91 MOVE                             R5 R11
-       92 JUMP                             ; [+1]
-       93 LOADNIL                          R5
-       94 DUPTABLE                         R7 K16 [{"errorBannerMessages", "hasBlockingError", "dismissMessage"}]
-       95 SETTABLEKS                       R4 R7 K13 ["errorBannerMessages"]
-       97 SETTABLEKS                       R3 R7 K14 ["hasBlockingError"]
-       99 GETUPVAL                         R9 3
-      100 CALL                             R9 0 1
-      101 JUMPIFNOT                        R9 ; [+3]
-      102 JUMPIFNOT                        R6 ; [+2]
-      103 MOVE                             R8 R5
-      104 JUMP                             ; [+1]
-      105 LOADNIL                          R8
-      106 SETTABLEKS                       R8 R7 K15 ["dismissMessage"]
-      108 CLOSEUPVALS                      R4
-      109 RETURN                           R7 1
+       26 DUPTABLE                         R4 K9 [{"errorBannerMessages", "hasBlockingError"}]
+       27 SETTABLEKS                       R2 R4 K7 ["errorBannerMessages"]
+       29 SETTABLEKS                       R3 R4 K8 ["hasBlockingError"]
+       31 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -252,27 +138,16 @@ MAIN:
        22 GETTABLEKS                       R4 R5 K10 ["React"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       29 GETTABLEKS                       R5 R6 K11 ["Dash"]
+       27 GETTABLEKS                       R6 R0 K11 ["Src"]
+       29 GETTABLEKS                       R5 R6 K12 ["Types"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R7 R0 K12 ["Src"]
-       36 GETTABLEKS                       R6 R7 K13 ["Types"]
-       38 CALL                             R5 1 1
-       39 GETIMPORT                        R6 K5 [require]
-       41 GETTABLEKS                       R9 R0 K12 ["Src"]
-       43 GETTABLEKS                       R8 R9 K14 ["Flags"]
-       45 GETTABLEKS                       R7 R8 K15 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
-       47 CALL                             R6 1 1
-       48 GETIMPORT                        R7 K5 [require]
-       50 GETTABLEKS                       R10 R0 K12 ["Src"]
-       52 GETTABLEKS                       R9 R10 K14 ["Flags"]
-       54 GETTABLEKS                       R8 R9 K16 ["getFFlagAvatarPreviewerLookDismissableErrors"]
-       56 CALL                             R7 1 1
-       57 DUPCLOSURE                       R8 K17 [PROTO_6]
-       58 CAPTURE                          VAL R2
-       59 CAPTURE                          VAL R3
-       60 CAPTURE                          VAL R6
-       61 CAPTURE                          VAL R7
-       62 CAPTURE                          VAL R4
-       63 RETURN                           R8 1
+       34 GETTABLEKS                       R8 R0 K11 ["Src"]
+       36 GETTABLEKS                       R7 R8 K13 ["Flags"]
+       38 GETTABLEKS                       R6 R7 K14 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
+       40 CALL                             R5 1 1
+       41 DUPCLOSURE                       R6 K15 [PROTO_1]
+       42 CAPTURE                          VAL R2
+       43 CAPTURE                          VAL R3
+       44 CAPTURE                          VAL R5
+       45 RETURN                           R6 1

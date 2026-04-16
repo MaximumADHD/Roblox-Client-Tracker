@@ -110,7 +110,7 @@ PROTO_3:
        65 GETTABLEKS                       R9 R10 K12 ["createElement"]
        67 GETUPVAL                         R10 2
        68 DUPTABLE                         R11 K16 [{"tag", "LayoutOrder", "GroupTransparency"}]
-       69 LOADK                            R12 K17 ["col gap-small auto-xy"]
+       69 LOADK                            R12 K17 ["col gap-small size-full-0 auto-y"]
        70 SETTABLEKS                       R12 R11 K13 ["tag"]
        72 GETTABLEKS                       R12 R0 K14 ["LayoutOrder"]
        74 SETTABLEKS                       R12 R11 K14 ["LayoutOrder"]

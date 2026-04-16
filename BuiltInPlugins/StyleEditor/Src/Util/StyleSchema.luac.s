@@ -1523,15 +1523,11 @@ PROTO_114:
         4 CALL                             R1 1 1
         5 GETUPVAL                         R2 2
         6 SETTABLE                         R0 R1 R2
-        7 GETIMPORT                        R2 K2 [pcall]
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K3 ["makeTweenInfo"]
-       12 MOVE                             R4 R1
-       13 CALL                             R2 2 2
-       14 JUMPIF                           R2 ; [+2]
-       15 GETUPVAL                         R4 1
-       16 RETURN                           R4 1
-       17 RETURN                           R3 1
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R2 R3 K1 ["makeTweenInfo"]
+       10 MOVE                             R3 R1
+       11 CALL                             R2 1 -1
+       12 RETURN                           R2 -1
 
 PROTO_115:
         0 NEWCLOSURE                       R1 P0

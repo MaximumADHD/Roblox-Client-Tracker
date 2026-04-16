@@ -4,82 +4,49 @@ PROTO_0:
         3 GETUPVAL                         R3 1
         4 GETTABLEKS                       R2 R3 K1 ["View"]
         6 DUPTABLE                         R3 K3 [{"tag"}]
-        7 LOADK                            R4 K4 ["size-full col padding-medium gap-medium"]
+        7 LOADK                            R4 K4 ["size-full-0 auto-y row align-y-center align-x-left gap-large margin-medium"]
         8 SETTABLEKS                       R4 R3 K2 ["tag"]
-       10 DUPTABLE                         R4 K7 [{"Body", "ButtonPanel"}]
+       10 DUPTABLE                         R4 K7 [{"loadingIcon", "MainText"}]
        11 GETUPVAL                         R6 0
        12 GETTABLEKS                       R5 R6 K0 ["createElement"]
        14 GETUPVAL                         R7 1
        15 GETTABLEKS                       R6 R7 K1 ["View"]
-       17 DUPTABLE                         R7 K3 [{"tag"}]
-       18 LOADK                            R8 K8 ["size-0-full auto-x shrink row gap-medium"]
+       17 DUPTABLE                         R7 K9 [{"tag", "LayoutOrder"}]
+       18 LOADK                            R8 K10 ["size-0-0 auto-xy"]
        19 SETTABLEKS                       R8 R7 K2 ["tag"]
-       21 DUPTABLE                         R8 K11 [{"loadingIcon", "MainText"}]
-       22 GETUPVAL                         R10 0
-       23 GETTABLEKS                       R9 R10 K0 ["createElement"]
-       25 GETUPVAL                         R11 1
-       26 GETTABLEKS                       R10 R11 K1 ["View"]
-       28 DUPTABLE                         R11 K13 [{"tag", "LayoutOrder"}]
-       29 LOADK                            R12 K14 ["align-y-center auto-xy padding-small"]
-       30 SETTABLEKS                       R12 R11 K2 ["tag"]
-       32 LOADN                            R12 1
-       33 SETTABLEKS                       R12 R11 K12 ["LayoutOrder"]
-       35 DUPTABLE                         R12 K16 [{"container"}]
-       36 GETUPVAL                         R14 0
-       37 GETTABLEKS                       R13 R14 K0 ["createElement"]
-       39 GETUPVAL                         R15 1
-       40 GETTABLEKS                       R14 R15 K1 ["View"]
-       42 DUPTABLE                         R15 K13 [{"tag", "LayoutOrder"}]
-       43 LOADK                            R16 K17 ["size-0-0 auto-xy"]
-       44 SETTABLEKS                       R16 R15 K2 ["tag"]
-       46 LOADN                            R16 1
-       47 SETTABLEKS                       R16 R15 K12 ["LayoutOrder"]
-       49 NEWTABLE                         R16 0 1
-       51 GETUPVAL                         R18 0
-       52 GETTABLEKS                       R17 R18 K0 ["createElement"]
-       54 GETUPVAL                         R18 2
-       55 DUPTABLE                         R19 K20 [{"size", "testId"}]
-       56 GETUPVAL                         R21 3
-       57 GETTABLEKS                       R20 R21 K21 ["Medium"]
-       59 SETTABLEKS                       R20 R19 K18 ["size"]
-       61 LOADK                            R20 K22 ["loadingSymbol"]
-       62 SETTABLEKS                       R20 R19 K19 ["testId"]
-       64 CALL                             R17 2 -1
-       65 SETLIST                          R16 R17 -1 [1]
-       67 CALL                             R13 3 1
-       68 SETTABLEKS                       R13 R12 K15 ["container"]
-       70 CALL                             R9 3 1
-       71 SETTABLEKS                       R9 R8 K9 ["loadingIcon"]
-       73 GETUPVAL                         R10 0
-       74 GETTABLEKS                       R9 R10 K0 ["createElement"]
-       76 GETUPVAL                         R11 1
-       77 GETTABLEKS                       R10 R11 K23 ["Text"]
-       79 DUPTABLE                         R11 K24 [{"tag", "Text", "LayoutOrder", "testId"}]
-       80 LOADK                            R12 K25 ["text-align-x-left text-wrap text-body-medium size-full-0 auto-y shrink padding-small"]
-       81 SETTABLEKS                       R12 R11 K2 ["tag"]
-       83 GETTABLEKS                       R12 R0 K26 ["text"]
-       85 SETTABLEKS                       R12 R11 K23 ["Text"]
-       87 LOADN                            R12 2
-       88 SETTABLEKS                       R12 R11 K12 ["LayoutOrder"]
-       90 LOADK                            R12 K27 ["loadingText"]
-       91 SETTABLEKS                       R12 R11 K19 ["testId"]
-       93 CALL                             R9 2 1
-       94 SETTABLEKS                       R9 R8 K10 ["MainText"]
-       96 CALL                             R5 3 1
-       97 SETTABLEKS                       R5 R4 K5 ["Body"]
-       99 GETUPVAL                         R6 0
-      100 GETTABLEKS                       R5 R6 K0 ["createElement"]
-      102 GETUPVAL                         R7 1
-      103 GETTABLEKS                       R6 R7 K1 ["View"]
-      105 DUPTABLE                         R7 K13 [{"tag", "LayoutOrder"}]
-      106 LOADK                            R8 K28 ["row align-x-right padding-small size-full-1200 gap-medium"]
-      107 SETTABLEKS                       R8 R7 K2 ["tag"]
-      109 LOADN                            R8 2
-      110 SETTABLEKS                       R8 R7 K12 ["LayoutOrder"]
-      112 CALL                             R5 2 1
-      113 SETTABLEKS                       R5 R4 K6 ["ButtonPanel"]
-      115 CALL                             R1 3 -1
-      116 RETURN                           R1 -1
+       21 LOADN                            R8 1
+       22 SETTABLEKS                       R8 R7 K8 ["LayoutOrder"]
+       24 NEWTABLE                         R8 0 1
+       26 GETUPVAL                         R10 0
+       27 GETTABLEKS                       R9 R10 K0 ["createElement"]
+       29 GETUPVAL                         R10 2
+       30 DUPTABLE                         R11 K13 [{"size", "testId"}]
+       31 GETUPVAL                         R13 3
+       32 GETTABLEKS                       R12 R13 K14 ["Large"]
+       34 SETTABLEKS                       R12 R11 K11 ["size"]
+       36 LOADK                            R12 K15 ["loadingSymbol"]
+       37 SETTABLEKS                       R12 R11 K12 ["testId"]
+       39 CALL                             R9 2 -1
+       40 SETLIST                          R8 R9 -1 [1]
+       42 CALL                             R5 3 1
+       43 SETTABLEKS                       R5 R4 K5 ["loadingIcon"]
+       45 GETUPVAL                         R6 0
+       46 GETTABLEKS                       R5 R6 K0 ["createElement"]
+       48 GETUPVAL                         R7 1
+       49 GETTABLEKS                       R6 R7 K16 ["Text"]
+       51 DUPTABLE                         R7 K17 [{"tag", "Text", "LayoutOrder", "testId"}]
+       52 LOADK                            R8 K18 ["text-align-x-left text-wrap text-body-medium size-0-0 auto-xy shrink"]
+       53 SETTABLEKS                       R8 R7 K2 ["tag"]
+       55 GETTABLEKS                       R8 R0 K19 ["text"]
+       57 SETTABLEKS                       R8 R7 K16 ["Text"]
+       59 LOADN                            R8 2
+       60 SETTABLEKS                       R8 R7 K8 ["LayoutOrder"]
+       62 LOADK                            R8 K20 ["loadingText"]
+       63 SETTABLEKS                       R8 R7 K12 ["testId"]
+       65 CALL                             R5 2 1
+       66 SETTABLEKS                       R5 R4 K6 ["MainText"]
+       68 CALL                             R1 3 -1
+       69 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

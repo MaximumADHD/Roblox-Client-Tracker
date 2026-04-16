@@ -80,38 +80,44 @@ PROTO_3:
        25 GETTABLEKS                       R8 R9 K5 ["wrap"]
        27 CALL                             R6 2 0
        28 GETUPVAL                         R6 6
-       29 GETTABLEKS                       R8 R5 K4 ["Controls"]
-       31 NAMECALL                         R6 R6 K6 ["watchControls"]
-       33 CALL                             R6 2 0
-       34 FORGLOOP                         R1 2 ; [-14]
-       36 GETTABLEKS                       R1 R0 K7 ["MezzanineControls"]
-       38 LOADNIL                          R2
-       39 LOADNIL                          R3
-       40 FORGPREP                         R1
-       41 GETUPVAL                         R6 4
-       42 GETTABLEKS                       R7 R5 K4 ["Controls"]
-       44 GETUPVAL                         R9 5
-       45 GETTABLEKS                       R8 R9 K5 ["wrap"]
-       47 CALL                             R6 2 0
-       48 GETUPVAL                         R6 6
-       49 GETTABLEKS                       R8 R5 K4 ["Controls"]
-       51 NAMECALL                         R6 R6 K6 ["watchControls"]
-       53 CALL                             R6 2 0
-       54 FORGLOOP                         R1 2 ; [-14]
-       56 GETUPVAL                         R1 7
-       57 MOVE                             R2 R0
-       58 CALL                             R1 1 1
-       59 GETUPVAL                         R3 8
-       60 GETTABLEKS                       R2 R3 K8 ["OnDefinitionLoad"]
-       62 JUMPIFNOT                        R2 ; [+5]
-       63 GETUPVAL                         R3 8
-       64 GETTABLEKS                       R2 R3 K8 ["OnDefinitionLoad"]
-       66 MOVE                             R3 R1
-       67 CALL                             R2 1 0
-       68 GETUPVAL                         R2 9
-       69 MOVE                             R3 R1
-       70 CALL                             R2 1 0
-       71 RETURN                           R0 0
+       29 CALL                             R6 0 1
+       30 JUMPIFNOT                        R6 ; [+6]
+       31 GETUPVAL                         R6 7
+       32 GETTABLEKS                       R8 R5 K4 ["Controls"]
+       34 NAMECALL                         R6 R6 K6 ["watchControls"]
+       36 CALL                             R6 2 0
+       37 FORGLOOP                         R1 2 ; [-17]
+       39 GETTABLEKS                       R1 R0 K7 ["MezzanineControls"]
+       41 LOADNIL                          R2
+       42 LOADNIL                          R3
+       43 FORGPREP                         R1
+       44 GETUPVAL                         R6 4
+       45 GETTABLEKS                       R7 R5 K4 ["Controls"]
+       47 GETUPVAL                         R9 5
+       48 GETTABLEKS                       R8 R9 K5 ["wrap"]
+       50 CALL                             R6 2 0
+       51 GETUPVAL                         R6 6
+       52 CALL                             R6 0 1
+       53 JUMPIFNOT                        R6 ; [+6]
+       54 GETUPVAL                         R6 7
+       55 GETTABLEKS                       R8 R5 K4 ["Controls"]
+       57 NAMECALL                         R6 R6 K6 ["watchControls"]
+       59 CALL                             R6 2 0
+       60 FORGLOOP                         R1 2 ; [-17]
+       62 GETUPVAL                         R1 8
+       63 MOVE                             R2 R0
+       64 CALL                             R1 1 1
+       65 GETUPVAL                         R3 9
+       66 GETTABLEKS                       R2 R3 K8 ["OnDefinitionLoad"]
+       68 JUMPIFNOT                        R2 ; [+5]
+       69 GETUPVAL                         R3 9
+       70 GETTABLEKS                       R2 R3 K8 ["OnDefinitionLoad"]
+       72 MOVE                             R3 R1
+       73 CALL                             R2 1 0
+       74 GETUPVAL                         R2 10
+       75 MOVE                             R3 R1
+       76 CALL                             R2 1 0
+       77 RETURN                           R0 0
 
 PROTO_4:
         0 GETIMPORT                        R0 K2 [task.defer]
@@ -126,8 +132,9 @@ PROTO_4:
        10 CAPTURE                          UPVAL U7
        11 CAPTURE                          UPVAL U8
        12 CAPTURE                          UPVAL U9
-       13 CALL                             R0 1 0
-       14 RETURN                           R0 0
+       13 CAPTURE                          UPVAL U10
+       14 CALL                             R0 1 0
+       15 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -943,281 +950,296 @@ PROTO_31:
        21 MOVE                             R10 R3
        22 SETLIST                          R8 R9 2 [1]
        24 CALL                             R6 2 1
-       25 GETUPVAL                         R8 5
-       26 GETTABLEKS                       R7 R8 K2 ["useContext"]
-       28 GETUPVAL                         R8 6
-       29 CALL                             R7 1 1
-       30 GETUPVAL                         R8 3
-       31 NEWCLOSURE                       R9 P1
-       32 CAPTURE                          VAL R1
-       33 CAPTURE                          UPVAL U7
-       34 CAPTURE                          UPVAL U8
-       35 CAPTURE                          UPVAL U9
-       36 CAPTURE                          UPVAL U10
-       37 CAPTURE                          UPVAL U11
-       38 CAPTURE                          VAL R7
-       39 CAPTURE                          UPVAL U12
-       40 CAPTURE                          VAL R0
-       41 CAPTURE                          VAL R6
-       42 NEWTABLE                         R10 0 5
-       44 MOVE                             R11 R1
-       45 MOVE                             R12 R7
-       46 GETTABLEKS                       R13 R0 K3 ["OnDefinitionLoad"]
-       48 MOVE                             R14 R5
-       49 MOVE                             R15 R6
-       50 SETLIST                          R10 R11 5 [1]
-       52 CALL                             R8 2 1
-       53 GETUPVAL                         R9 13
-       54 NEWCLOSURE                       R10 P2
-       55 CAPTURE                          VAL R8
-       56 NEWTABLE                         R11 0 1
-       58 MOVE                             R12 R8
-       59 SETLIST                          R11 R12 1 [1]
-       61 CALL                             R9 2 0
-       62 GETUPVAL                         R9 13
-       63 NEWCLOSURE                       R10 P3
-       64 CAPTURE                          VAL R0
-       65 CAPTURE                          UPVAL U10
-       66 CAPTURE                          UPVAL U11
-       67 CAPTURE                          VAL R7
-       68 NEWTABLE                         R11 0 2
-       70 GETTABLEKS                       R12 R0 K4 ["CustomTools"]
-       72 MOVE                             R13 R7
-       73 SETLIST                          R11 R12 2 [1]
-       75 CALL                             R9 2 0
-       76 GETTABLEKS                       R10 R0 K5 ["SaveDelay"]
-       78 JUMPIFNOT                        R10 ; [+3]
-       79 GETTABLEKS                       R9 R0 K5 ["SaveDelay"]
-       81 JUMP                             ; [+3]
-       82 GETUPVAL                         R10 14
-       83 CALL                             R10 0 1
-       84 DIVK                             R9 R10 K6 [1000]
-       85 GETUPVAL                         R10 15
-       86 DUPTABLE                         R11 K8 [{"LatestDefinition"}]
-       87 SETTABLEKS                       R2 R11 K7 ["LatestDefinition"]
-       89 CALL                             R10 1 1
-       90 GETUPVAL                         R11 3
-       91 NEWCLOSURE                       R12 P4
-       92 CAPTURE                          VAL R10
-       93 CAPTURE                          VAL R9
-       94 CAPTURE                          VAL R1
-       95 NEWTABLE                         R13 0 3
-       97 MOVE                             R14 R10
-       98 MOVE                             R15 R1
-       99 MOVE                             R16 R9
-      100 SETLIST                          R13 R14 3 [1]
-      102 CALL                             R11 2 1
-      103 GETUPVAL                         R12 13
-      104 NEWCLOSURE                       R13 P5
-      105 CAPTURE                          VAL R1
+       25 LOADNIL                          R7
+       26 GETUPVAL                         R8 5
+       27 CALL                             R8 0 1
+       28 JUMPIFNOT                        R8 ; [+6]
+       29 GETUPVAL                         R9 6
+       30 GETTABLEKS                       R8 R9 K2 ["useContext"]
+       32 GETUPVAL                         R9 7
+       33 CALL                             R8 1 1
+       34 MOVE                             R7 R8
+       35 GETUPVAL                         R8 3
+       36 NEWCLOSURE                       R9 P1
+       37 CAPTURE                          VAL R1
+       38 CAPTURE                          UPVAL U8
+       39 CAPTURE                          UPVAL U9
+       40 CAPTURE                          UPVAL U10
+       41 CAPTURE                          UPVAL U11
+       42 CAPTURE                          UPVAL U12
+       43 CAPTURE                          UPVAL U5
+       44 CAPTURE                          REF R7
+       45 CAPTURE                          UPVAL U13
+       46 CAPTURE                          VAL R0
+       47 CAPTURE                          VAL R6
+       48 NEWTABLE                         R10 0 5
+       50 MOVE                             R11 R1
+       51 GETUPVAL                         R13 5
+       52 CALL                             R13 0 1
+       53 JUMPIFNOT                        R13 ; [+2]
+       54 MOVE                             R12 R7
+       55 JUMP                             ; [+1]
+       56 LOADNIL                          R12
+       57 GETTABLEKS                       R13 R0 K3 ["OnDefinitionLoad"]
+       59 MOVE                             R14 R5
+       60 MOVE                             R15 R6
+       61 SETLIST                          R10 R11 5 [1]
+       63 CALL                             R8 2 1
+       64 GETUPVAL                         R9 14
+       65 NEWCLOSURE                       R10 P2
+       66 CAPTURE                          VAL R8
+       67 NEWTABLE                         R11 0 1
+       69 MOVE                             R12 R8
+       70 SETLIST                          R11 R12 1 [1]
+       72 CALL                             R9 2 0
+       73 GETUPVAL                         R9 5
+       74 CALL                             R9 0 1
+       75 JUMPIFNOT                        R9 ; [+14]
+       76 GETUPVAL                         R9 14
+       77 NEWCLOSURE                       R10 P3
+       78 CAPTURE                          VAL R0
+       79 CAPTURE                          UPVAL U11
+       80 CAPTURE                          UPVAL U12
+       81 CAPTURE                          REF R7
+       82 NEWTABLE                         R11 0 2
+       84 GETTABLEKS                       R12 R0 K4 ["CustomTools"]
+       86 MOVE                             R13 R7
+       87 SETLIST                          R11 R12 2 [1]
+       89 CALL                             R9 2 0
+       90 GETTABLEKS                       R10 R0 K5 ["SaveDelay"]
+       92 JUMPIFNOT                        R10 ; [+3]
+       93 GETTABLEKS                       R9 R0 K5 ["SaveDelay"]
+       95 JUMP                             ; [+3]
+       96 GETUPVAL                         R10 15
+       97 CALL                             R10 0 1
+       98 DIVK                             R9 R10 K6 [1000]
+       99 GETUPVAL                         R10 16
+      100 DUPTABLE                         R11 K8 [{"LatestDefinition"}]
+      101 SETTABLEKS                       R2 R11 K7 ["LatestDefinition"]
+      103 CALL                             R10 1 1
+      104 GETUPVAL                         R11 3
+      105 NEWCLOSURE                       R12 P4
       106 CAPTURE                          VAL R10
-      107 NEWTABLE                         R14 0 2
-      109 MOVE                             R15 R1
-      110 MOVE                             R16 R10
-      111 SETLIST                          R14 R15 2 [1]
-      113 CALL                             R12 2 0
-      114 GETUPVAL                         R12 13
-      115 NEWCLOSURE                       R13 P6
-      116 CAPTURE                          VAL R1
-      117 CAPTURE                          UPVAL U16
-      118 CAPTURE                          VAL R2
-      119 NEWTABLE                         R14 0 2
-      121 MOVE                             R15 R1
-      122 MOVE                             R16 R2
-      123 SETLIST                          R14 R15 2 [1]
-      125 CALL                             R12 2 0
-      126 GETUPVAL                         R12 3
-      127 NEWCLOSURE                       R13 P7
-      128 CAPTURE                          UPVAL U17
-      129 CAPTURE                          VAL R2
-      130 CAPTURE                          UPVAL U8
-      131 CAPTURE                          UPVAL U18
-      132 CAPTURE                          UPVAL U12
-      133 CAPTURE                          VAL R6
-      134 CAPTURE                          VAL R11
-      135 NEWTABLE                         R14 0 3
-      137 MOVE                             R15 R2
-      138 MOVE                             R16 R6
-      139 MOVE                             R17 R11
-      140 SETLIST                          R14 R15 3 [1]
-      142 CALL                             R12 2 1
-      143 GETUPVAL                         R13 3
-      144 NEWCLOSURE                       R14 P8
+      107 CAPTURE                          VAL R9
+      108 CAPTURE                          VAL R1
+      109 NEWTABLE                         R13 0 3
+      111 MOVE                             R14 R10
+      112 MOVE                             R15 R1
+      113 MOVE                             R16 R9
+      114 SETLIST                          R13 R14 3 [1]
+      116 CALL                             R11 2 1
+      117 GETUPVAL                         R12 14
+      118 NEWCLOSURE                       R13 P5
+      119 CAPTURE                          VAL R1
+      120 CAPTURE                          VAL R10
+      121 NEWTABLE                         R14 0 2
+      123 MOVE                             R15 R1
+      124 MOVE                             R16 R10
+      125 SETLIST                          R14 R15 2 [1]
+      127 CALL                             R12 2 0
+      128 GETUPVAL                         R12 14
+      129 NEWCLOSURE                       R13 P6
+      130 CAPTURE                          VAL R1
+      131 CAPTURE                          UPVAL U17
+      132 CAPTURE                          VAL R2
+      133 NEWTABLE                         R14 0 2
+      135 MOVE                             R15 R1
+      136 MOVE                             R16 R2
+      137 SETLIST                          R14 R15 2 [1]
+      139 CALL                             R12 2 0
+      140 GETUPVAL                         R12 3
+      141 NEWCLOSURE                       R13 P7
+      142 CAPTURE                          UPVAL U18
+      143 CAPTURE                          VAL R2
+      144 CAPTURE                          UPVAL U9
       145 CAPTURE                          UPVAL U19
-      146 CAPTURE                          VAL R2
-      147 CAPTURE                          UPVAL U20
-      148 CAPTURE                          UPVAL U17
-      149 CAPTURE                          VAL R5
-      150 CAPTURE                          VAL R6
-      151 CAPTURE                          VAL R11
-      152 NEWTABLE                         R15 0 3
-      154 MOVE                             R16 R2
-      155 MOVE                             R17 R6
-      156 MOVE                             R18 R11
-      157 SETLIST                          R15 R16 3 [1]
-      159 CALL                             R13 2 1
-      160 GETUPVAL                         R14 3
-      161 NEWCLOSURE                       R15 P9
-      162 CAPTURE                          UPVAL U17
-      163 CAPTURE                          UPVAL U19
-      164 CAPTURE                          VAL R2
-      165 CAPTURE                          UPVAL U21
-      166 CAPTURE                          VAL R0
-      167 CAPTURE                          UPVAL U22
-      168 CAPTURE                          UPVAL U11
-      169 CAPTURE                          VAL R1
-      170 CAPTURE                          VAL R13
-      171 NEWTABLE                         R16 0 1
-      173 MOVE                             R17 R2
-      174 SETLIST                          R16 R17 1 [1]
-      176 CALL                             R14 2 1
-      177 GETUPVAL                         R15 3
-      178 NEWCLOSURE                       R16 P10
-      179 CAPTURE                          UPVAL U19
-      180 CAPTURE                          VAL R2
-      181 CAPTURE                          UPVAL U20
-      182 CAPTURE                          UPVAL U17
-      183 CAPTURE                          VAL R6
-      184 CAPTURE                          VAL R11
-      185 NEWTABLE                         R17 0 3
-      187 MOVE                             R18 R2
-      188 MOVE                             R19 R6
-      189 MOVE                             R20 R11
-      190 SETLIST                          R17 R18 3 [1]
-      192 CALL                             R15 2 1
-      193 GETUPVAL                         R16 3
-      194 NEWCLOSURE                       R17 P11
-      195 CAPTURE                          UPVAL U17
-      196 CAPTURE                          VAL R2
-      197 CAPTURE                          UPVAL U19
-      198 CAPTURE                          UPVAL U12
-      199 CAPTURE                          VAL R6
-      200 CAPTURE                          VAL R11
-      201 NEWTABLE                         R18 0 3
-      203 MOVE                             R19 R2
-      204 MOVE                             R20 R6
-      205 MOVE                             R21 R11
-      206 SETLIST                          R18 R19 3 [1]
-      208 CALL                             R16 2 1
-      209 GETUPVAL                         R17 3
-      210 NEWCLOSURE                       R18 P12
-      211 CAPTURE                          UPVAL U17
-      212 CAPTURE                          VAL R2
-      213 CAPTURE                          UPVAL U19
-      214 CAPTURE                          UPVAL U23
-      215 CAPTURE                          UPVAL U11
-      216 CAPTURE                          UPVAL U12
-      217 CAPTURE                          VAL R6
-      218 CAPTURE                          VAL R11
-      219 NEWTABLE                         R19 0 3
-      221 MOVE                             R20 R2
-      222 MOVE                             R21 R6
-      223 MOVE                             R22 R11
-      224 SETLIST                          R19 R20 3 [1]
-      226 CALL                             R17 2 1
-      227 GETUPVAL                         R18 3
-      228 NEWCLOSURE                       R19 P13
-      229 CAPTURE                          UPVAL U17
-      230 CAPTURE                          VAL R2
-      231 CAPTURE                          UPVAL U19
-      232 CAPTURE                          UPVAL U12
-      233 CAPTURE                          VAL R6
-      234 CAPTURE                          VAL R11
-      235 NEWTABLE                         R20 0 3
-      237 MOVE                             R21 R2
-      238 MOVE                             R22 R6
-      239 MOVE                             R23 R11
-      240 SETLIST                          R20 R21 3 [1]
-      242 CALL                             R18 2 1
-      243 GETUPVAL                         R19 3
-      244 NEWCLOSURE                       R20 P14
-      245 CAPTURE                          UPVAL U19
-      246 CAPTURE                          VAL R2
-      247 CAPTURE                          UPVAL U12
-      248 CAPTURE                          VAL R6
-      249 CAPTURE                          VAL R11
-      250 NEWTABLE                         R21 0 3
-      252 MOVE                             R22 R2
-      253 MOVE                             R23 R6
-      254 MOVE                             R24 R11
-      255 SETLIST                          R21 R22 3 [1]
-      257 CALL                             R19 2 1
-      258 GETUPVAL                         R20 3
-      259 NEWCLOSURE                       R21 P15
-      260 CAPTURE                          UPVAL U19
-      261 CAPTURE                          VAL R2
-      262 CAPTURE                          UPVAL U12
-      263 CAPTURE                          VAL R6
-      264 CAPTURE                          VAL R11
-      265 NEWTABLE                         R22 0 3
-      267 MOVE                             R23 R2
-      268 MOVE                             R24 R6
-      269 MOVE                             R25 R11
-      270 SETLIST                          R22 R23 3 [1]
-      272 CALL                             R20 2 1
-      273 GETUPVAL                         R21 3
-      274 NEWCLOSURE                       R22 P16
-      275 CAPTURE                          UPVAL U19
-      276 CAPTURE                          VAL R2
-      277 CAPTURE                          UPVAL U17
-      278 CAPTURE                          UPVAL U12
-      279 CAPTURE                          VAL R6
-      280 CAPTURE                          VAL R11
-      281 NEWTABLE                         R23 0 3
-      283 MOVE                             R24 R2
-      284 MOVE                             R25 R6
-      285 MOVE                             R26 R11
-      286 SETLIST                          R23 R24 3 [1]
-      288 CALL                             R21 2 1
-      289 GETUPVAL                         R22 3
-      290 NEWCLOSURE                       R23 P17
-      291 CAPTURE                          UPVAL U19
-      292 CAPTURE                          VAL R2
-      293 CAPTURE                          UPVAL U17
-      294 CAPTURE                          UPVAL U12
-      295 CAPTURE                          VAL R6
-      296 CAPTURE                          VAL R11
-      297 NEWTABLE                         R24 0 3
-      299 MOVE                             R25 R2
-      300 MOVE                             R26 R6
-      301 MOVE                             R27 R11
-      302 SETLIST                          R24 R25 3 [1]
-      304 CALL                             R22 2 1
-      305 GETUPVAL                         R23 3
-      306 NEWCLOSURE                       R24 P18
-      307 CAPTURE                          VAL R5
-      308 CAPTURE                          VAL R1
-      309 CAPTURE                          UPVAL U11
-      310 NEWTABLE                         R25 0 2
-      312 MOVE                             R26 R1
-      313 MOVE                             R27 R5
-      314 SETLIST                          R25 R26 2 [1]
-      316 CALL                             R23 2 1
-      317 DUPTABLE                         R24 K24 [{"Definition", "ReloadDefinition", "AddTab", "RenameTab", "AddControlsToTab", "RemoveControlFromTab", "RemoveControlsFromTab", "MoveControl", "ToggleTabVisibility", "MoveTab", "DeleteTab", "ResetAllTabs", "DuplicateTab", "ActiveTabState", "SelectTab"}]
-      318 SETTABLEKS                       R2 R24 K9 ["Definition"]
-      320 SETTABLEKS                       R8 R24 K10 ["ReloadDefinition"]
-      322 SETTABLEKS                       R13 R24 K11 ["AddTab"]
-      324 SETTABLEKS                       R15 R24 K12 ["RenameTab"]
-      326 SETTABLEKS                       R12 R24 K13 ["AddControlsToTab"]
-      328 SETTABLEKS                       R16 R24 K14 ["RemoveControlFromTab"]
-      330 SETTABLEKS                       R17 R24 K15 ["RemoveControlsFromTab"]
-      332 SETTABLEKS                       R18 R24 K16 ["MoveControl"]
-      334 SETTABLEKS                       R19 R24 K17 ["ToggleTabVisibility"]
-      336 SETTABLEKS                       R20 R24 K18 ["MoveTab"]
-      338 SETTABLEKS                       R21 R24 K19 ["DeleteTab"]
-      340 SETTABLEKS                       R22 R24 K20 ["ResetAllTabs"]
-      342 SETTABLEKS                       R14 R24 K21 ["DuplicateTab"]
-      344 SETTABLEKS                       R4 R24 K22 ["ActiveTabState"]
-      346 SETTABLEKS                       R23 R24 K23 ["SelectTab"]
-      348 GETUPVAL                         R26 5
-      349 GETTABLEKS                       R25 R26 K25 ["createElement"]
-      351 GETUPVAL                         R27 24
-      352 GETTABLEKS                       R26 R27 K26 ["Provider"]
-      354 DUPTABLE                         R27 K28 [{"value"}]
-      355 SETTABLEKS                       R24 R27 K27 ["value"]
-      357 GETTABLEKS                       R28 R0 K29 ["children"]
-      359 CALL                             R25 3 -1
-      360 RETURN                           R25 -1
+      146 CAPTURE                          UPVAL U13
+      147 CAPTURE                          VAL R6
+      148 CAPTURE                          VAL R11
+      149 NEWTABLE                         R14 0 3
+      151 MOVE                             R15 R2
+      152 MOVE                             R16 R6
+      153 MOVE                             R17 R11
+      154 SETLIST                          R14 R15 3 [1]
+      156 CALL                             R12 2 1
+      157 GETUPVAL                         R13 3
+      158 NEWCLOSURE                       R14 P8
+      159 CAPTURE                          UPVAL U20
+      160 CAPTURE                          VAL R2
+      161 CAPTURE                          UPVAL U21
+      162 CAPTURE                          UPVAL U18
+      163 CAPTURE                          VAL R5
+      164 CAPTURE                          VAL R6
+      165 CAPTURE                          VAL R11
+      166 NEWTABLE                         R15 0 3
+      168 MOVE                             R16 R2
+      169 MOVE                             R17 R6
+      170 MOVE                             R18 R11
+      171 SETLIST                          R15 R16 3 [1]
+      173 CALL                             R13 2 1
+      174 GETUPVAL                         R14 3
+      175 NEWCLOSURE                       R15 P9
+      176 CAPTURE                          UPVAL U18
+      177 CAPTURE                          UPVAL U20
+      178 CAPTURE                          VAL R2
+      179 CAPTURE                          UPVAL U22
+      180 CAPTURE                          VAL R0
+      181 CAPTURE                          UPVAL U23
+      182 CAPTURE                          UPVAL U12
+      183 CAPTURE                          VAL R1
+      184 CAPTURE                          VAL R13
+      185 NEWTABLE                         R16 0 1
+      187 MOVE                             R17 R2
+      188 SETLIST                          R16 R17 1 [1]
+      190 CALL                             R14 2 1
+      191 GETUPVAL                         R15 3
+      192 NEWCLOSURE                       R16 P10
+      193 CAPTURE                          UPVAL U20
+      194 CAPTURE                          VAL R2
+      195 CAPTURE                          UPVAL U21
+      196 CAPTURE                          UPVAL U18
+      197 CAPTURE                          VAL R6
+      198 CAPTURE                          VAL R11
+      199 NEWTABLE                         R17 0 3
+      201 MOVE                             R18 R2
+      202 MOVE                             R19 R6
+      203 MOVE                             R20 R11
+      204 SETLIST                          R17 R18 3 [1]
+      206 CALL                             R15 2 1
+      207 GETUPVAL                         R16 3
+      208 NEWCLOSURE                       R17 P11
+      209 CAPTURE                          UPVAL U18
+      210 CAPTURE                          VAL R2
+      211 CAPTURE                          UPVAL U20
+      212 CAPTURE                          UPVAL U13
+      213 CAPTURE                          VAL R6
+      214 CAPTURE                          VAL R11
+      215 NEWTABLE                         R18 0 3
+      217 MOVE                             R19 R2
+      218 MOVE                             R20 R6
+      219 MOVE                             R21 R11
+      220 SETLIST                          R18 R19 3 [1]
+      222 CALL                             R16 2 1
+      223 GETUPVAL                         R17 3
+      224 NEWCLOSURE                       R18 P12
+      225 CAPTURE                          UPVAL U18
+      226 CAPTURE                          VAL R2
+      227 CAPTURE                          UPVAL U20
+      228 CAPTURE                          UPVAL U24
+      229 CAPTURE                          UPVAL U12
+      230 CAPTURE                          UPVAL U13
+      231 CAPTURE                          VAL R6
+      232 CAPTURE                          VAL R11
+      233 NEWTABLE                         R19 0 3
+      235 MOVE                             R20 R2
+      236 MOVE                             R21 R6
+      237 MOVE                             R22 R11
+      238 SETLIST                          R19 R20 3 [1]
+      240 CALL                             R17 2 1
+      241 GETUPVAL                         R18 3
+      242 NEWCLOSURE                       R19 P13
+      243 CAPTURE                          UPVAL U18
+      244 CAPTURE                          VAL R2
+      245 CAPTURE                          UPVAL U20
+      246 CAPTURE                          UPVAL U13
+      247 CAPTURE                          VAL R6
+      248 CAPTURE                          VAL R11
+      249 NEWTABLE                         R20 0 3
+      251 MOVE                             R21 R2
+      252 MOVE                             R22 R6
+      253 MOVE                             R23 R11
+      254 SETLIST                          R20 R21 3 [1]
+      256 CALL                             R18 2 1
+      257 GETUPVAL                         R19 3
+      258 NEWCLOSURE                       R20 P14
+      259 CAPTURE                          UPVAL U20
+      260 CAPTURE                          VAL R2
+      261 CAPTURE                          UPVAL U13
+      262 CAPTURE                          VAL R6
+      263 CAPTURE                          VAL R11
+      264 NEWTABLE                         R21 0 3
+      266 MOVE                             R22 R2
+      267 MOVE                             R23 R6
+      268 MOVE                             R24 R11
+      269 SETLIST                          R21 R22 3 [1]
+      271 CALL                             R19 2 1
+      272 GETUPVAL                         R20 3
+      273 NEWCLOSURE                       R21 P15
+      274 CAPTURE                          UPVAL U20
+      275 CAPTURE                          VAL R2
+      276 CAPTURE                          UPVAL U13
+      277 CAPTURE                          VAL R6
+      278 CAPTURE                          VAL R11
+      279 NEWTABLE                         R22 0 3
+      281 MOVE                             R23 R2
+      282 MOVE                             R24 R6
+      283 MOVE                             R25 R11
+      284 SETLIST                          R22 R23 3 [1]
+      286 CALL                             R20 2 1
+      287 GETUPVAL                         R21 3
+      288 NEWCLOSURE                       R22 P16
+      289 CAPTURE                          UPVAL U20
+      290 CAPTURE                          VAL R2
+      291 CAPTURE                          UPVAL U18
+      292 CAPTURE                          UPVAL U13
+      293 CAPTURE                          VAL R6
+      294 CAPTURE                          VAL R11
+      295 NEWTABLE                         R23 0 3
+      297 MOVE                             R24 R2
+      298 MOVE                             R25 R6
+      299 MOVE                             R26 R11
+      300 SETLIST                          R23 R24 3 [1]
+      302 CALL                             R21 2 1
+      303 GETUPVAL                         R22 3
+      304 NEWCLOSURE                       R23 P17
+      305 CAPTURE                          UPVAL U20
+      306 CAPTURE                          VAL R2
+      307 CAPTURE                          UPVAL U18
+      308 CAPTURE                          UPVAL U13
+      309 CAPTURE                          VAL R6
+      310 CAPTURE                          VAL R11
+      311 NEWTABLE                         R24 0 3
+      313 MOVE                             R25 R2
+      314 MOVE                             R26 R6
+      315 MOVE                             R27 R11
+      316 SETLIST                          R24 R25 3 [1]
+      318 CALL                             R22 2 1
+      319 GETUPVAL                         R23 3
+      320 NEWCLOSURE                       R24 P18
+      321 CAPTURE                          VAL R5
+      322 CAPTURE                          VAL R1
+      323 CAPTURE                          UPVAL U12
+      324 NEWTABLE                         R25 0 2
+      326 MOVE                             R26 R1
+      327 MOVE                             R27 R5
+      328 SETLIST                          R25 R26 2 [1]
+      330 CALL                             R23 2 1
+      331 DUPTABLE                         R24 K24 [{"Definition", "ReloadDefinition", "AddTab", "RenameTab", "AddControlsToTab", "RemoveControlFromTab", "RemoveControlsFromTab", "MoveControl", "ToggleTabVisibility", "MoveTab", "DeleteTab", "ResetAllTabs", "DuplicateTab", "ActiveTabState", "SelectTab"}]
+      332 SETTABLEKS                       R2 R24 K9 ["Definition"]
+      334 SETTABLEKS                       R8 R24 K10 ["ReloadDefinition"]
+      336 SETTABLEKS                       R13 R24 K11 ["AddTab"]
+      338 SETTABLEKS                       R15 R24 K12 ["RenameTab"]
+      340 SETTABLEKS                       R12 R24 K13 ["AddControlsToTab"]
+      342 SETTABLEKS                       R16 R24 K14 ["RemoveControlFromTab"]
+      344 SETTABLEKS                       R17 R24 K15 ["RemoveControlsFromTab"]
+      346 SETTABLEKS                       R18 R24 K16 ["MoveControl"]
+      348 SETTABLEKS                       R19 R24 K17 ["ToggleTabVisibility"]
+      350 SETTABLEKS                       R20 R24 K18 ["MoveTab"]
+      352 SETTABLEKS                       R21 R24 K19 ["DeleteTab"]
+      354 SETTABLEKS                       R22 R24 K20 ["ResetAllTabs"]
+      356 SETTABLEKS                       R14 R24 K21 ["DuplicateTab"]
+      358 SETTABLEKS                       R4 R24 K22 ["ActiveTabState"]
+      360 SETTABLEKS                       R23 R24 K23 ["SelectTab"]
+      362 GETUPVAL                         R26 6
+      363 GETTABLEKS                       R25 R26 K25 ["createElement"]
+      365 GETUPVAL                         R27 25
+      366 GETTABLEKS                       R26 R27 K26 ["Provider"]
+      368 DUPTABLE                         R27 K28 [{"value"}]
+      369 SETTABLEKS                       R24 R27 K27 ["value"]
+      371 GETTABLEKS                       R28 R0 K29 ["children"]
+      373 CALL                             R25 3 -1
+      374 CLOSEUPVALS                      R7
+      375 RETURN                           R25 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1314,57 +1336,63 @@ MAIN:
       163 CALL                             R21 1 1
       164 GETIMPORT                        R22 K5 [require]
       166 GETTABLEKS                       R25 R0 K9 ["Src"]
-      168 GETTABLEKS                       R24 R25 K10 ["Contexts"]
-      170 GETTABLEKS                       R23 R24 K34 ["ControlSignalStoreContext"]
+      168 GETTABLEKS                       R24 R25 K31 ["SharedFlags"]
+      170 GETTABLEKS                       R23 R24 K34 ["getFeatureRibbonControlsCaching"]
       172 CALL                             R22 1 1
-      173 GETTABLEKS                       R24 R1 K35 ["ContextServices"]
-      175 GETTABLEKS                       R23 R24 K36 ["Plugin"]
-      177 GETTABLEKS                       R24 R2 K37 ["useCallback"]
-      179 GETTABLEKS                       R25 R2 K38 ["useEffect"]
-      181 GETTABLEKS                       R26 R2 K39 ["useRef"]
-      183 GETTABLEKS                       R27 R2 K40 ["useState"]
-      185 GETIMPORT                        R28 K5 [require]
-      187 GETTABLEKS                       R30 R0 K9 ["Src"]
-      189 GETTABLEKS                       R29 R30 K41 ["Types"]
-      191 CALL                             R28 1 1
-      192 MOVE                             R29 R9
-      193 DUPTABLE                         R30 K45 [{"Layout", "TabControls", "MezzanineControls"}]
-      194 DUPTABLE                         R31 K47 [{"TabLayout"}]
-      195 NEWTABLE                         R32 0 0
-      197 SETTABLEKS                       R32 R31 K46 ["TabLayout"]
-      199 SETTABLEKS                       R31 R30 K42 ["Layout"]
-      201 NEWTABLE                         R31 0 0
-      203 SETTABLEKS                       R31 R30 K43 ["TabControls"]
-      205 NEWTABLE                         R31 0 0
-      207 SETTABLEKS                       R31 R30 K44 ["MezzanineControls"]
-      209 CALL                             R29 1 1
-      210 DUPCLOSURE                       R30 K48 [PROTO_0]
-      211 CAPTURE                          VAL R14
-      212 CAPTURE                          VAL R30
-      213 DUPCLOSURE                       R31 K49 [PROTO_31]
-      214 CAPTURE                          VAL R23
-      215 CAPTURE                          VAL R27
-      216 CAPTURE                          VAL R29
-      217 CAPTURE                          VAL R24
-      218 CAPTURE                          VAL R16
-      219 CAPTURE                          VAL R2
-      220 CAPTURE                          VAL R22
-      221 CAPTURE                          VAL R21
-      222 CAPTURE                          VAL R6
-      223 CAPTURE                          VAL R18
-      224 CAPTURE                          VAL R10
-      225 CAPTURE                          VAL R13
-      226 CAPTURE                          VAL R9
-      227 CAPTURE                          VAL R25
-      228 CAPTURE                          VAL R20
-      229 CAPTURE                          VAL R26
-      230 CAPTURE                          VAL R19
-      231 CAPTURE                          VAL R11
-      232 CAPTURE                          VAL R5
-      233 CAPTURE                          VAL R8
-      234 CAPTURE                          VAL R15
-      235 CAPTURE                          VAL R30
-      236 CAPTURE                          VAL R17
-      237 CAPTURE                          VAL R7
-      238 CAPTURE                          VAL R3
-      239 RETURN                           R31 1
+      173 GETIMPORT                        R23 K5 [require]
+      175 GETTABLEKS                       R26 R0 K9 ["Src"]
+      177 GETTABLEKS                       R25 R26 K10 ["Contexts"]
+      179 GETTABLEKS                       R24 R25 K35 ["ControlSignalStoreContext"]
+      181 CALL                             R23 1 1
+      182 GETTABLEKS                       R25 R1 K36 ["ContextServices"]
+      184 GETTABLEKS                       R24 R25 K37 ["Plugin"]
+      186 GETTABLEKS                       R25 R2 K38 ["useCallback"]
+      188 GETTABLEKS                       R26 R2 K39 ["useEffect"]
+      190 GETTABLEKS                       R27 R2 K40 ["useRef"]
+      192 GETTABLEKS                       R28 R2 K41 ["useState"]
+      194 GETIMPORT                        R29 K5 [require]
+      196 GETTABLEKS                       R31 R0 K9 ["Src"]
+      198 GETTABLEKS                       R30 R31 K42 ["Types"]
+      200 CALL                             R29 1 1
+      201 MOVE                             R30 R9
+      202 DUPTABLE                         R31 K46 [{"Layout", "TabControls", "MezzanineControls"}]
+      203 DUPTABLE                         R32 K48 [{"TabLayout"}]
+      204 NEWTABLE                         R33 0 0
+      206 SETTABLEKS                       R33 R32 K47 ["TabLayout"]
+      208 SETTABLEKS                       R32 R31 K43 ["Layout"]
+      210 NEWTABLE                         R32 0 0
+      212 SETTABLEKS                       R32 R31 K44 ["TabControls"]
+      214 NEWTABLE                         R32 0 0
+      216 SETTABLEKS                       R32 R31 K45 ["MezzanineControls"]
+      218 CALL                             R30 1 1
+      219 DUPCLOSURE                       R31 K49 [PROTO_0]
+      220 CAPTURE                          VAL R14
+      221 CAPTURE                          VAL R31
+      222 DUPCLOSURE                       R32 K50 [PROTO_31]
+      223 CAPTURE                          VAL R24
+      224 CAPTURE                          VAL R28
+      225 CAPTURE                          VAL R30
+      226 CAPTURE                          VAL R25
+      227 CAPTURE                          VAL R16
+      228 CAPTURE                          VAL R22
+      229 CAPTURE                          VAL R2
+      230 CAPTURE                          VAL R23
+      231 CAPTURE                          VAL R21
+      232 CAPTURE                          VAL R6
+      233 CAPTURE                          VAL R18
+      234 CAPTURE                          VAL R10
+      235 CAPTURE                          VAL R13
+      236 CAPTURE                          VAL R9
+      237 CAPTURE                          VAL R26
+      238 CAPTURE                          VAL R20
+      239 CAPTURE                          VAL R27
+      240 CAPTURE                          VAL R19
+      241 CAPTURE                          VAL R11
+      242 CAPTURE                          VAL R5
+      243 CAPTURE                          VAL R8
+      244 CAPTURE                          VAL R15
+      245 CAPTURE                          VAL R31
+      246 CAPTURE                          VAL R17
+      247 CAPTURE                          VAL R7
+      248 CAPTURE                          VAL R3
+      249 RETURN                           R32 1

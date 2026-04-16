@@ -1,22 +1,28 @@
 PROTO_0:
-        0 DUPTABLE                         R3 K7 [{"_actionsComponent", "_settingsComponent", "_useWarn", "_signals", "_connections", "_threads", "_destroyed"}]
-        1 SETTABLEKS                       R0 R3 K0 ["_actionsComponent"]
-        3 SETTABLEKS                       R1 R3 K1 ["_settingsComponent"]
-        5 SETTABLEKS                       R2 R3 K2 ["_useWarn"]
-        7 NEWTABLE                         R4 0 0
-        9 SETTABLEKS                       R4 R3 K3 ["_signals"]
-       11 NEWTABLE                         R4 0 0
-       13 SETTABLEKS                       R4 R3 K4 ["_connections"]
+        0 GETUPVAL                         R4 0
+        1 CALL                             R4 0 1
+        2 FASTCALL2K                       ASSERT R4 K0 ; [+4]
+        4 LOADK                            R5 K0 ["ControlSignalStore should only be instantiated when the RibbonControlsCaching feature is enabled"]
+        5 GETIMPORT                        R3 K2 [assert]
+        7 CALL                             R3 2 0
+        8 DUPTABLE                         R3 K10 [{"_actionsComponent", "_settingsComponent", "_useWarn", "_signals", "_connections", "_threads", "_destroyed"}]
+        9 SETTABLEKS                       R0 R3 K3 ["_actionsComponent"]
+       11 SETTABLEKS                       R1 R3 K4 ["_settingsComponent"]
+       13 SETTABLEKS                       R2 R3 K5 ["_useWarn"]
        15 NEWTABLE                         R4 0 0
-       17 SETTABLEKS                       R4 R3 K5 ["_threads"]
-       19 LOADB                            R4 0
-       20 SETTABLEKS                       R4 R3 K6 ["_destroyed"]
-       22 GETUPVAL                         R6 0
-       23 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
-       25 MOVE                             R5 R3
-       26 GETIMPORT                        R4 K9 [setmetatable]
-       28 CALL                             R4 2 0
-       29 RETURN                           R3 1
+       17 SETTABLEKS                       R4 R3 K6 ["_signals"]
+       19 NEWTABLE                         R4 0 0
+       21 SETTABLEKS                       R4 R3 K7 ["_connections"]
+       23 NEWTABLE                         R4 0 0
+       25 SETTABLEKS                       R4 R3 K8 ["_threads"]
+       27 LOADB                            R4 0
+       28 SETTABLEKS                       R4 R3 K9 ["_destroyed"]
+       30 GETUPVAL                         R6 1
+       31 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
+       33 MOVE                             R5 R3
+       34 GETIMPORT                        R4 K12 [setmetatable]
+       36 CALL                             R4 2 0
+       37 RETURN                           R3 1
 
 PROTO_1:
         0 LOADB                            R1 1
@@ -516,48 +522,54 @@ MAIN:
        48 CALL                             R6 1 1
        49 GETIMPORT                        R7 K5 [require]
        51 GETTABLEKS                       R10 R0 K12 ["Src"]
-       53 GETTABLEKS                       R9 R10 K14 ["Util"]
-       55 GETTABLEKS                       R8 R9 K15 ["visitControlUris"]
+       53 GETTABLEKS                       R9 R10 K14 ["SharedFlags"]
+       55 GETTABLEKS                       R8 R9 K15 ["getFeatureRibbonControlsCaching"]
        57 CALL                             R7 1 1
-       58 GETTABLEKS                       R9 R4 K14 ["Util"]
-       60 GETTABLEKS                       R8 R9 K16 ["StudioUri"]
-       62 GETTABLEKS                       R10 R1 K14 ["Util"]
-       64 GETTABLEKS                       R9 R10 K17 ["deepEqual"]
-       66 NEWTABLE                         R10 16 0
-       68 SETTABLEKS                       R10 R10 K18 ["__index"]
-       70 DUPCLOSURE                       R11 K19 [PROTO_0]
-       71 CAPTURE                          VAL R10
-       72 SETTABLEKS                       R11 R10 K20 ["new"]
-       74 DUPCLOSURE                       R11 K21 [PROTO_1]
-       75 SETTABLEKS                       R11 R10 K22 ["destroy"]
-       77 DUPCLOSURE                       R11 K23 [PROTO_3]
-       78 SETTABLEKS                       R11 R10 K24 ["_run"]
-       80 DUPCLOSURE                       R11 K25 [PROTO_4]
-       81 CAPTURE                          VAL R8
-       82 SETTABLEKS                       R11 R10 K26 ["_upsert"]
-       84 DUPCLOSURE                       R11 K27 [PROTO_6]
-       85 SETTABLEKS                       R11 R10 K28 ["_bindToChangedSignals"]
-       87 DUPCLOSURE                       R11 K29 [PROTO_7]
-       88 CAPTURE                          VAL R8
-       89 SETTABLEKS                       R11 R10 K30 ["_upsertInitialFetch"]
-       91 DUPCLOSURE                       R11 K31 [PROTO_9]
-       92 CAPTURE                          VAL R8
-       93 SETTABLEKS                       R11 R10 K32 ["_markNonexistentStates"]
-       95 DUPCLOSURE                       R11 K33 [PROTO_10]
-       96 SETTABLEKS                       R11 R10 K34 ["_watchSettingActions"]
-       98 DUPCLOSURE                       R11 K35 [PROTO_13]
-       99 CAPTURE                          VAL R8
-      100 CAPTURE                          VAL R3
-      101 CAPTURE                          VAL R9
-      102 SETTABLEKS                       R11 R10 K36 ["_watchUris"]
-      104 DUPCLOSURE                       R11 K37 [PROTO_17]
-      105 CAPTURE                          VAL R7
-      106 CAPTURE                          VAL R8
-      107 CAPTURE                          VAL R3
-      108 SETTABLEKS                       R11 R10 K38 ["watchControls"]
-      110 DUPCLOSURE                       R11 K39 [PROTO_20]
-      111 CAPTURE                          VAL R5
-      112 CAPTURE                          VAL R3
-      113 CAPTURE                          VAL R2
-      114 SETTABLEKS                       R11 R10 K40 ["waitUntilFinishedLoading"]
-      116 RETURN                           R10 1
+       58 GETIMPORT                        R8 K5 [require]
+       60 GETTABLEKS                       R11 R0 K12 ["Src"]
+       62 GETTABLEKS                       R10 R11 K16 ["Util"]
+       64 GETTABLEKS                       R9 R10 K17 ["visitControlUris"]
+       66 CALL                             R8 1 1
+       67 GETTABLEKS                       R10 R4 K16 ["Util"]
+       69 GETTABLEKS                       R9 R10 K18 ["StudioUri"]
+       71 GETTABLEKS                       R11 R1 K16 ["Util"]
+       73 GETTABLEKS                       R10 R11 K19 ["deepEqual"]
+       75 NEWTABLE                         R11 16 0
+       77 SETTABLEKS                       R11 R11 K20 ["__index"]
+       79 DUPCLOSURE                       R12 K21 [PROTO_0]
+       80 CAPTURE                          VAL R7
+       81 CAPTURE                          VAL R11
+       82 SETTABLEKS                       R12 R11 K22 ["new"]
+       84 DUPCLOSURE                       R12 K23 [PROTO_1]
+       85 SETTABLEKS                       R12 R11 K24 ["destroy"]
+       87 DUPCLOSURE                       R12 K25 [PROTO_3]
+       88 SETTABLEKS                       R12 R11 K26 ["_run"]
+       90 DUPCLOSURE                       R12 K27 [PROTO_4]
+       91 CAPTURE                          VAL R9
+       92 SETTABLEKS                       R12 R11 K28 ["_upsert"]
+       94 DUPCLOSURE                       R12 K29 [PROTO_6]
+       95 SETTABLEKS                       R12 R11 K30 ["_bindToChangedSignals"]
+       97 DUPCLOSURE                       R12 K31 [PROTO_7]
+       98 CAPTURE                          VAL R9
+       99 SETTABLEKS                       R12 R11 K32 ["_upsertInitialFetch"]
+      101 DUPCLOSURE                       R12 K33 [PROTO_9]
+      102 CAPTURE                          VAL R9
+      103 SETTABLEKS                       R12 R11 K34 ["_markNonexistentStates"]
+      105 DUPCLOSURE                       R12 K35 [PROTO_10]
+      106 SETTABLEKS                       R12 R11 K36 ["_watchSettingActions"]
+      108 DUPCLOSURE                       R12 K37 [PROTO_13]
+      109 CAPTURE                          VAL R9
+      110 CAPTURE                          VAL R3
+      111 CAPTURE                          VAL R10
+      112 SETTABLEKS                       R12 R11 K38 ["_watchUris"]
+      114 DUPCLOSURE                       R12 K39 [PROTO_17]
+      115 CAPTURE                          VAL R8
+      116 CAPTURE                          VAL R9
+      117 CAPTURE                          VAL R3
+      118 SETTABLEKS                       R12 R11 K40 ["watchControls"]
+      120 DUPCLOSURE                       R12 K41 [PROTO_20]
+      121 CAPTURE                          VAL R5
+      122 CAPTURE                          VAL R3
+      123 CAPTURE                          VAL R2
+      124 SETTABLEKS                       R12 R11 K42 ["waitUntilFinishedLoading"]
+      126 RETURN                           R11 1

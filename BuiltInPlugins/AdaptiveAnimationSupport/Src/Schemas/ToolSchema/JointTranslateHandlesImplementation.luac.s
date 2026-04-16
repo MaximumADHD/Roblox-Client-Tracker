@@ -30,17 +30,17 @@ PROTO_1:
        12 GETTABLEN                        R3 R1 1
        13 SETTABLEKS                       R3 R0 K6 ["_initialJoint"]
        15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K7 ["getJointTransform"]
+       16 GETTABLEKS                       R3 R4 K7 ["getGlobalCoordinateFrame"]
        18 GETTABLEKS                       R4 R0 K6 ["_initialJoint"]
        20 CALL                             R3 1 1
-       21 JUMPIF                           R3 ; [+2]
-       22 GETIMPORT                        R3 K9 [CFrame.identity]
-       24 SETTABLEKS                       R3 R0 K5 ["_initialTransform"]
-       26 GETUPVAL                         R4 0
-       27 GETTABLEKS                       R3 R4 K10 ["getGlobalCoordinateFrame"]
-       29 GETTABLEKS                       R4 R0 K6 ["_initialJoint"]
-       31 CALL                             R3 1 1
-       32 SETTABLEKS                       R3 R0 K11 ["_initialWorldCFrame"]
+       21 SETTABLEKS                       R3 R0 K8 ["_initialWorldCFrame"]
+       23 GETUPVAL                         R4 0
+       24 GETTABLEKS                       R3 R4 K9 ["getJointTransform"]
+       26 GETTABLEKS                       R4 R0 K6 ["_initialJoint"]
+       28 CALL                             R3 1 1
+       29 JUMPIF                           R3 ; [+2]
+       30 GETIMPORT                        R3 K11 [CFrame.identity]
+       32 SETTABLEKS                       R3 R0 K5 ["_initialTransform"]
        34 RETURN                           R0 0
 
 PROTO_2:

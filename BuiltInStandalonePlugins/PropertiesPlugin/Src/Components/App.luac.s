@@ -5,62 +5,59 @@ PROTO_0:
         3 GETUPVAL                         R4 2
         4 GETTABLEKS                       R3 R4 K0 ["ContextStack"]
         6 DUPTABLE                         R4 K2 [{"providers"}]
-        7 NEWTABLE                         R5 0 8
+        7 NEWTABLE                         R5 0 7
         9 GETUPVAL                         R6 1
-       10 GETUPVAL                         R7 3
-       11 CALL                             R6 1 1
-       12 GETUPVAL                         R7 1
-       13 GETUPVAL                         R9 4
-       14 GETTABLEKS                       R8 R9 K3 ["StudioProvider"]
-       16 DUPTABLE                         R9 K7 [{"plugin", "theme", "studioService"}]
-       17 GETTABLEKS                       R10 R0 K4 ["plugin"]
-       19 SETTABLEKS                       R10 R9 K4 ["plugin"]
-       21 SETTABLEKS                       R1 R9 K5 ["theme"]
-       23 GETUPVAL                         R10 5
-       24 SETTABLEKS                       R10 R9 K6 ["studioService"]
-       26 CALL                             R7 2 1
-       27 GETUPVAL                         R8 1
-       28 GETUPVAL                         R9 6
-       29 DUPTABLE                         R10 K9 [{"plugin", "dockWidget"}]
-       30 GETTABLEKS                       R11 R0 K4 ["plugin"]
-       32 SETTABLEKS                       R11 R10 K4 ["plugin"]
-       34 GETTABLEKS                       R11 R0 K8 ["dockWidget"]
-       36 SETTABLEKS                       R11 R10 K8 ["dockWidget"]
-       38 CALL                             R8 2 1
+       10 GETUPVAL                         R8 3
+       11 GETTABLEKS                       R7 R8 K3 ["StudioProvider"]
+       13 DUPTABLE                         R8 K7 [{"plugin", "theme", "studioService"}]
+       14 GETTABLEKS                       R9 R0 K4 ["plugin"]
+       16 SETTABLEKS                       R9 R8 K4 ["plugin"]
+       18 SETTABLEKS                       R1 R8 K5 ["theme"]
+       20 GETUPVAL                         R9 4
+       21 SETTABLEKS                       R9 R8 K6 ["studioService"]
+       23 CALL                             R6 2 1
+       24 GETUPVAL                         R7 1
+       25 GETUPVAL                         R8 5
+       26 DUPTABLE                         R9 K9 [{"plugin", "dockWidget"}]
+       27 GETTABLEKS                       R10 R0 K4 ["plugin"]
+       29 SETTABLEKS                       R10 R9 K4 ["plugin"]
+       31 GETTABLEKS                       R10 R0 K8 ["dockWidget"]
+       33 SETTABLEKS                       R10 R9 K8 ["dockWidget"]
+       35 CALL                             R7 2 1
+       36 GETUPVAL                         R8 1
+       37 GETUPVAL                         R9 6
+       38 CALL                             R8 1 1
        39 GETUPVAL                         R9 1
        40 GETUPVAL                         R10 7
-       41 CALL                             R9 1 1
-       42 GETUPVAL                         R10 1
-       43 GETUPVAL                         R11 8
-       44 DUPTABLE                         R12 K10 [{"plugin"}]
-       45 GETTABLEKS                       R13 R0 K4 ["plugin"]
-       47 SETTABLEKS                       R13 R12 K4 ["plugin"]
-       49 CALL                             R10 2 1
+       41 DUPTABLE                         R11 K10 [{"plugin"}]
+       42 GETTABLEKS                       R12 R0 K4 ["plugin"]
+       44 SETTABLEKS                       R12 R11 K4 ["plugin"]
+       46 CALL                             R9 2 1
+       47 GETUPVAL                         R10 1
+       48 GETUPVAL                         R11 8
+       49 CALL                             R10 1 1
        50 GETUPVAL                         R11 1
        51 GETUPVAL                         R12 9
-       52 CALL                             R11 1 1
-       53 GETUPVAL                         R12 1
-       54 GETUPVAL                         R13 10
-       55 DUPTABLE                         R14 K11 [{"theme"}]
-       56 SETTABLEKS                       R1 R14 K5 ["theme"]
-       58 CALL                             R12 2 1
-       59 GETUPVAL                         R13 1
-       60 GETUPVAL                         R14 11
-       61 CALL                             R13 1 -1
-       62 SETLIST                          R5 R6 -1 [1]
-       64 SETTABLEKS                       R5 R4 K1 ["providers"]
-       66 DUPTABLE                         R5 K13 [{"MainView"}]
-       67 GETUPVAL                         R6 1
-       68 GETUPVAL                         R9 12
-       69 GETTABLEKS                       R8 R9 K14 ["Components"]
-       71 GETTABLEKS                       R7 R8 K12 ["MainView"]
-       73 DUPTABLE                         R8 K16 [{"overlayGui"}]
-       74 GETTABLEKS                       R9 R0 K8 ["dockWidget"]
-       76 SETTABLEKS                       R9 R8 K15 ["overlayGui"]
-       78 CALL                             R6 2 1
-       79 SETTABLEKS                       R6 R5 K12 ["MainView"]
-       81 CALL                             R2 3 -1
-       82 RETURN                           R2 -1
+       52 DUPTABLE                         R13 K11 [{"theme"}]
+       53 SETTABLEKS                       R1 R13 K5 ["theme"]
+       55 CALL                             R11 2 1
+       56 GETUPVAL                         R12 1
+       57 GETUPVAL                         R13 10
+       58 CALL                             R12 1 -1
+       59 SETLIST                          R5 R6 -1 [1]
+       61 SETTABLEKS                       R5 R4 K1 ["providers"]
+       63 DUPTABLE                         R5 K13 [{"MainView"}]
+       64 GETUPVAL                         R6 1
+       65 GETUPVAL                         R9 11
+       66 GETTABLEKS                       R8 R9 K14 ["Components"]
+       68 GETTABLEKS                       R7 R8 K12 ["MainView"]
+       70 DUPTABLE                         R8 K16 [{"overlayGui"}]
+       71 GETTABLEKS                       R9 R0 K8 ["dockWidget"]
+       73 SETTABLEKS                       R9 R8 K15 ["overlayGui"]
+       75 CALL                             R6 2 1
+       76 SETTABLEKS                       R6 R5 K12 ["MainView"]
+       78 CALL                             R2 3 -1
+       79 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -121,24 +118,20 @@ MAIN:
        97 CALL                             R10 1 1
        98 GETTABLEKS                       R13 R2 K15 ["Components"]
       100 GETTABLEKS                       R12 R13 K16 ["Contexts"]
-      102 GETTABLEKS                       R11 R12 K24 ["AssetNameContextProvider"]
-      104 GETTABLEKS                       R14 R2 K15 ["Components"]
-      106 GETTABLEKS                       R13 R14 K16 ["Contexts"]
-      108 GETTABLEKS                       R12 R13 K25 ["ThemeContextProvider"]
-      110 GETTABLEKS                       R13 R2 K26 ["AssetPickerProvider"]
-      112 GETTABLEKS                       R14 R3 K27 ["createElement"]
-      114 DUPCLOSURE                       R15 K28 [PROTO_0]
-      115 CAPTURE                          VAL R10
-      116 CAPTURE                          VAL R14
-      117 CAPTURE                          VAL R4
+      102 GETTABLEKS                       R11 R12 K24 ["ThemeContextProvider"]
+      104 GETTABLEKS                       R12 R2 K25 ["AssetPickerProvider"]
+      106 GETTABLEKS                       R13 R3 K26 ["createElement"]
+      108 DUPCLOSURE                       R14 K27 [PROTO_0]
+      109 CAPTURE                          VAL R10
+      110 CAPTURE                          VAL R13
+      111 CAPTURE                          VAL R4
+      112 CAPTURE                          VAL R12
+      113 CAPTURE                          VAL R0
+      114 CAPTURE                          VAL R5
+      115 CAPTURE                          VAL R6
+      116 CAPTURE                          VAL R8
+      117 CAPTURE                          VAL R9
       118 CAPTURE                          VAL R11
-      119 CAPTURE                          VAL R13
-      120 CAPTURE                          VAL R0
-      121 CAPTURE                          VAL R5
-      122 CAPTURE                          VAL R6
-      123 CAPTURE                          VAL R8
-      124 CAPTURE                          VAL R9
-      125 CAPTURE                          VAL R12
-      126 CAPTURE                          VAL R7
-      127 CAPTURE                          VAL R2
-      128 RETURN                           R15 1
+      119 CAPTURE                          VAL R7
+      120 CAPTURE                          VAL R2
+      121 RETURN                           R14 1

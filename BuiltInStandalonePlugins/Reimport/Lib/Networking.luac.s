@@ -45,64 +45,11 @@ PROTO_3:
        25 RETURN                           R0 0
 
 PROTO_4:
-        0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
-        2 RETURN                           R1 1
-
-PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 MOVE                             R2 R0
-        2 CALL                             R1 1 0
-        3 RETURN                           R0 0
-
-PROTO_6:
-        0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["Reimport failed to get universe info for "]
-        3 GETIMPORT                        R9 K4 [game]
-        5 GETTABLEKS                       R8 R9 K5 ["GameId"]
-        7 FASTCALL1                        TOSTRING R8 ; [+2]
-        8 GETIMPORT                        R7 K7 [tostring]
-       10 CALL                             R7 1 1
-       11 MOVE                             R4 R7
-       12 LOADK                            R5 K8 [": "]
-       13 FASTCALL1                        TOSTRING R0 ; [+3]
-       14 MOVE                             R7 R0
-       15 GETIMPORT                        R6 K7 [tostring]
-       17 CALL                             R6 1 1
-       18 CONCAT                           R2 R3 R6
-       19 CALL                             R1 1 0
-       20 GETUPVAL                         R1 0
-       21 LOADNIL                          R2
-       22 CALL                             R1 1 0
-       23 RETURN                           R0 0
-
-PROTO_7:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["Develop"]
-        3 GETTABLEKS                       R3 R4 K1 ["V1"]
-        5 GETTABLEKS                       R2 R3 K2 ["Universes"]
-        7 GETTABLEKS                       R1 R2 K3 ["get"]
-        9 GETIMPORT                        R3 K5 [game]
-       11 GETTABLEKS                       R2 R3 K6 ["GameId"]
-       13 CALL                             R1 1 1
-       14 NAMECALL                         R2 R1 K7 ["makeRequest"]
-       16 CALL                             R2 1 1
-       17 DUPCLOSURE                       R4 K8 [PROTO_4]
-       18 NAMECALL                         R2 R2 K9 ["andThen"]
-       20 CALL                             R2 2 1
-       21 NEWCLOSURE                       R4 P1
-       22 CAPTURE                          VAL R0
-       23 NEWCLOSURE                       R5 P2
-       24 CAPTURE                          VAL R0
-       25 NAMECALL                         R2 R2 K9 ["andThen"]
-       27 CALL                             R2 3 0
-       28 RETURN                           R0 0
-
-PROTO_8:
         0 GETUPVAL                         R0 1
         1 SETUPVAL                         R0 0
         2 RETURN                           R0 0
 
-PROTO_9:
+PROTO_5:
         0 GETUPVAL                         R3 1
         1 GETTABLEKS                       R2 R3 K0 ["RobloxAPI"]
         3 GETTABLEKS                       R1 R2 K1 ["new"]
@@ -139,14 +86,11 @@ MAIN:
        24 SETTABLEKS                       R5 R4 K10 ["getGroupsAsync"]
        26 NEWCLOSURE                       R5 P1
        27 CAPTURE                          REF R3
-       28 SETTABLEKS                       R5 R4 K11 ["getUniverseInfoAsync"]
-       30 NEWCLOSURE                       R5 P2
-       31 CAPTURE                          REF R3
-       32 CAPTURE                          VAL R2
-       33 SETTABLEKS                       R5 R4 K12 ["reset"]
-       35 NEWCLOSURE                       R5 P3
-       36 CAPTURE                          REF R3
-       37 CAPTURE                          VAL R1
-       38 SETTABLEKS                       R5 R4 K13 ["mock"]
-       40 CLOSEUPVALS                      R3
-       41 RETURN                           R4 1
+       28 CAPTURE                          VAL R2
+       29 SETTABLEKS                       R5 R4 K11 ["reset"]
+       31 NEWCLOSURE                       R5 P2
+       32 CAPTURE                          REF R3
+       33 CAPTURE                          VAL R1
+       34 SETTABLEKS                       R5 R4 K12 ["mock"]
+       36 CLOSEUPVALS                      R3
+       37 RETURN                           R4 1

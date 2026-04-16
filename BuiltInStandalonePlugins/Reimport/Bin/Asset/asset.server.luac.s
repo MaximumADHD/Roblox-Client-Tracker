@@ -42,36 +42,13 @@ MAIN:
        60 GETTABLEKS                       R4 R3 K22 ["registerActions"]
        62 CALL                             R4 0 0
        63 GETIMPORT                        R4 K7 [require]
-       65 GETTABLEKS                       R6 R0 K11 ["Flags"]
-       67 GETTABLEKS                       R5 R6 K23 ["GetFFlagReimportSendReimportConfigOnUpload"]
-       69 CALL                             R4 1 1
-       70 MOVE                             R5 R4
-       71 CALL                             R5 0 1
-       72 JUMPIFNOT                        R5 ; [+3]
-       73 GETTABLEKS                       R5 R3 K24 ["registerCrossPluginListeners"]
-       75 CALL                             R5 0 0
-       76 GETIMPORT                        R5 K7 [require]
-       78 GETTABLEKS                       R7 R0 K11 ["Flags"]
-       80 GETTABLEKS                       R6 R7 K25 ["GetFFlagReimportDefaultCreator"]
-       82 CALL                             R5 1 1
-       83 MOVE                             R6 R5
-       84 CALL                             R6 0 1
-       85 JUMPIFNOT                        R6 ; [+12]
-       86 GETIMPORT                        R6 K7 [require]
-       88 GETTABLEKS                       R9 R0 K26 ["Lib"]
-       90 GETTABLEKS                       R8 R9 K27 ["Reimport"]
-       92 GETTABLEKS                       R7 R8 K28 ["ReimportConfigs"]
-       94 CALL                             R6 1 1
-       95 GETTABLEKS                       R7 R6 K29 ["init"]
-       97 CALL                             R7 0 0
-       98 GETIMPORT                        R6 K7 [require]
-      100 GETTABLEKS                       R9 R0 K19 ["Bin"]
-      102 GETTABLEKS                       R8 R9 K20 ["Common"]
-      104 GETTABLEKS                       R7 R8 K30 ["Debug"]
-      106 CALL                             R6 1 1
-      107 GETTABLEKS                       R7 R6 K31 ["debugEnabled"]
-      109 CALL                             R7 0 1
-      110 JUMPIFNOT                        R7 ; [+3]
-      111 GETTABLEKS                       R7 R6 K32 ["showDebugUi"]
-      113 CALL                             R7 0 0
-      114 RETURN                           R0 0
+       65 GETTABLEKS                       R7 R0 K19 ["Bin"]
+       67 GETTABLEKS                       R6 R7 K20 ["Common"]
+       69 GETTABLEKS                       R5 R6 K23 ["Debug"]
+       71 CALL                             R4 1 1
+       72 GETTABLEKS                       R5 R4 K24 ["debugEnabled"]
+       74 CALL                             R5 0 1
+       75 JUMPIFNOT                        R5 ; [+3]
+       76 GETTABLEKS                       R5 R4 K25 ["showDebugUi"]
+       78 CALL                             R5 0 0
+       79 RETURN                           R0 0

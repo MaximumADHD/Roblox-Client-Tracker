@@ -1,0 +1,343 @@
+PROTO_0:
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+10]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R1 R2 K0 ["getContentHooks"]
+        6 GETUPVAL                         R2 2
+        7 CALL                             R1 1 1
+        8 GETTABLEKS                       R2 R1 K1 ["editContent"]
+       10 MOVE                             R3 R0
+       11 CALL                             R2 1 0
+       12 RETURN                           R0 0
+       13 GETUPVAL                         R1 3
+       14 JUMPIFNOT                        R1 ; [+3]
+       15 GETUPVAL                         R2 3
+       16 GETTABLEKS                       R1 R2 K2 ["messageId"]
+       18 FASTCALL2K                       ASSERT R1 K3 ; [+5]
+       20 MOVE                             R3 R1
+       21 LOADK                            R4 K3 ["QuestionAnswerTool requires messageId in meta"]
+       22 GETIMPORT                        R2 K5 [assert]
+       24 CALL                             R2 2 0
+       25 GETUPVAL                         R3 1
+       26 GETTABLEKS                       R2 R3 K1 ["editContent"]
+       28 DUPTABLE                         R3 K8 [{"messageId", "contentId", "transformFn"}]
+       29 SETTABLEKS                       R1 R3 K2 ["messageId"]
+       31 GETUPVAL                         R4 2
+       32 SETTABLEKS                       R4 R3 K6 ["contentId"]
+       34 SETTABLEKS                       R0 R3 K7 ["transformFn"]
+       36 CALL                             R2 1 0
+       37 RETURN                           R0 0
+
+PROTO_1:
+        0 GETIMPORT                        R1 K2 [coroutine.status]
+        2 GETUPVAL                         R2 0
+        3 CALL                             R1 1 1
+        4 JUMPIFNOTEQKS                    R1 K3 ["suspended"] ; [+6]
+        6 GETIMPORT                        R1 K6 [task.spawn]
+        8 GETUPVAL                         R2 0
+        9 MOVE                             R3 R0
+       10 CALL                             R1 2 0
+       11 RETURN                           R0 0
+
+PROTO_2:
+        0 GETIMPORT                        R0 K2 [coroutine.status]
+        2 GETUPVAL                         R1 0
+        3 CALL                             R0 1 1
+        4 JUMPIFNOTEQKS                    R0 K3 ["suspended"] ; [+6]
+        6 GETIMPORT                        R0 K6 [task.spawn]
+        8 GETUPVAL                         R1 0
+        9 LOADNIL                          R2
+       10 CALL                             R0 2 0
+       11 RETURN                           R0 0
+
+PROTO_3:
+        0 NEWCLOSURE                       R1 P0
+        1 CAPTURE                          UPVAL U0
+        2 SETTABLEKS                       R1 R0 K0 ["onSubmitAnswers"]
+        4 NEWCLOSURE                       R1 P1
+        5 CAPTURE                          UPVAL U0
+        6 SETTABLEKS                       R1 R0 K1 ["onDismiss"]
+        8 RETURN                           R0 0
+
+PROTO_4:
+        0 MOVE                             R2 R1
+        1 JUMPIFNOT                        R2 ; [+2]
+        2 GETTABLEKS                       R2 R1 K0 ["contentId"]
+        4 FASTCALL2K                       ASSERT R2 K1 ; [+5]
+        6 MOVE                             R4 R2
+        7 LOADK                            R5 K1 ["QuestionAnswerTool requires contentId in meta"]
+        8 GETIMPORT                        R3 K3 [assert]
+       10 CALL                             R3 2 0
+       11 GETTABLEKS                       R3 R0 K4 ["questions"]
+       13 JUMPIFNOT                        R3 ; [+3]
+       14 LENGTH                           R4 R3
+       15 JUMPIFNOTEQKN                    R4 K5 [0] ; [+6]
+       17 GETIMPORT                        R4 K7 [error]
+       19 LOADK                            R5 K8 ["At least one question is required"]
+       20 LOADN                            R6 0
+       21 CALL                             R4 2 0
+       22 GETIMPORT                        R4 K11 [coroutine.running]
+       24 CALL                             R4 0 1
+       25 NEWCLOSURE                       R5 P0
+       26 CAPTURE                          UPVAL U0
+       27 CAPTURE                          UPVAL U1
+       28 CAPTURE                          VAL R2
+       29 CAPTURE                          VAL R1
+       30 MOVE                             R6 R5
+       31 NEWCLOSURE                       R7 P1
+       32 CAPTURE                          VAL R4
+       33 CALL                             R6 1 0
+       34 GETIMPORT                        R6 K13 [coroutine.yield]
+       36 CALL                             R6 0 1
+       37 JUMPIF                           R6 ; [+17]
+       38 GETUPVAL                         R7 2
+       39 CALL                             R7 0 1
+       40 LOADK                            R9 K14 ["The user dismissed the questions."]
+       41 NAMECALL                         R7 R7 K15 ["addText"]
+       43 CALL                             R7 2 1
+       44 DUPTABLE                         R9 K17 [{"dismissed"}]
+       45 LOADB                            R10 1
+       46 SETTABLEKS                       R10 R9 K16 ["dismissed"]
+       48 NAMECALL                         R7 R7 K18 ["setStructuredContent"]
+       50 CALL                             R7 2 1
+       51 NAMECALL                         R7 R7 K19 ["build"]
+       53 CALL                             R7 1 -1
+       54 RETURN                           R7 -1
+       55 GETUPVAL                         R7 3
+       56 MOVE                             R9 R6
+       57 NAMECALL                         R7 R7 K20 ["JSONEncode"]
+       59 CALL                             R7 2 1
+       60 GETUPVAL                         R8 2
+       61 CALL                             R8 0 1
+       62 MOVE                             R10 R7
+       63 NAMECALL                         R8 R8 K15 ["addText"]
+       65 CALL                             R8 2 1
+       66 DUPTABLE                         R10 K22 [{"dismissed", "answers"}]
+       67 LOADB                            R11 0
+       68 SETTABLEKS                       R11 R10 K16 ["dismissed"]
+       70 SETTABLEKS                       R6 R10 K21 ["answers"]
+       72 NAMECALL                         R8 R8 K18 ["setStructuredContent"]
+       74 CALL                             R8 2 1
+       75 NAMECALL                         R8 R8 K19 ["build"]
+       77 CALL                             R8 1 -1
+       78 RETURN                           R8 -1
+
+PROTO_5:
+        0 DUPTABLE                         R0 K3 [{"type", "status", "questions"}]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R1 R2 K4 ["Type"]
+        4 SETTABLEKS                       R1 R0 K0 ["type"]
+        6 LOADK                            R1 K5 ["preparing"]
+        7 SETTABLEKS                       R1 R0 K1 ["status"]
+        9 NEWTABLE                         R1 0 0
+       11 SETTABLEKS                       R1 R0 K2 ["questions"]
+       13 RETURN                           R0 1
+
+PROTO_6:
+        0 GETUPVAL                         R1 0
+        1 SETTABLEKS                       R1 R0 K0 ["questions"]
+        3 LOADK                            R1 K1 ["awaiting_answers"]
+        4 SETTABLEKS                       R1 R0 K2 ["status"]
+        6 RETURN                           R0 0
+
+PROTO_7:
+        0 GETTABLEKS                       R1 R0 K0 ["input"]
+        2 JUMPIFNOT                        R1 ; [+4]
+        3 GETTABLEKS                       R2 R0 K0 ["input"]
+        5 GETTABLEKS                       R1 R2 K1 ["questions"]
+        7 JUMPIF                           R1 ; [+2]
+        8 LOADNIL                          R2
+        9 RETURN                           R2 1
+       10 NEWCLOSURE                       R2 P0
+       11 CAPTURE                          VAL R1
+       12 RETURN                           R2 1
+
+PROTO_8:
+        0 LOADK                            R1 K0 ["completed"]
+        1 SETTABLEKS                       R1 R0 K1 ["status"]
+        3 LOADNIL                          R1
+        4 SETTABLEKS                       R1 R0 K2 ["onSubmitAnswers"]
+        6 LOADNIL                          R1
+        7 SETTABLEKS                       R1 R0 K3 ["onDismiss"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R1 R2 K4 ["isError"]
+       12 JUMPIFNOT                        R1 ; [+4]
+       13 LOADK                            R1 K5 ["error"]
+       14 SETTABLEKS                       R1 R0 K1 ["status"]
+       16 RETURN                           R0 0
+       17 GETUPVAL                         R1 1
+       18 JUMPIFNOT                        R1 ; [+7]
+       19 LOADNIL                          R1
+       20 SETTABLEKS                       R1 R0 K6 ["answeredQuestions"]
+       22 LOADB                            R1 1
+       23 SETTABLEKS                       R1 R0 K7 ["dismissed"]
+       25 RETURN                           R0 0
+       26 GETUPVAL                         R1 2
+       27 JUMPIFNOT                        R1 ; [+6]
+       28 GETUPVAL                         R1 2
+       29 SETTABLEKS                       R1 R0 K6 ["answeredQuestions"]
+       31 LOADNIL                          R1
+       32 SETTABLEKS                       R1 R0 K7 ["dismissed"]
+       34 RETURN                           R0 0
+
+PROTO_9:
+        0 GETTABLEKS                       R1 R0 K0 ["structuredContent"]
+        2 LOADB                            R2 0
+        3 LOADNIL                          R3
+        4 FASTCALL1                        TYPEOF R1 ; [+3]
+        5 MOVE                             R5 R1
+        6 GETIMPORT                        R4 K2 [typeof]
+        8 CALL                             R4 1 1
+        9 JUMPIFNOTEQKS                    R4 K3 ["table"] ; [+21]
+       11 GETTABLEKS                       R5 R1 K4 ["dismissed"]
+       13 FASTCALL1                        TYPEOF R5 ; [+2]
+       14 GETIMPORT                        R4 K2 [typeof]
+       16 CALL                             R4 1 1
+       17 JUMPIFNOTEQKS                    R4 K5 ["boolean"] ; [+3]
+       19 GETTABLEKS                       R2 R1 K4 ["dismissed"]
+       21 GETTABLEKS                       R5 R1 K6 ["answers"]
+       23 FASTCALL1                        TYPEOF R5 ; [+2]
+       24 GETIMPORT                        R4 K2 [typeof]
+       26 CALL                             R4 1 1
+       27 JUMPIFNOTEQKS                    R4 K3 ["table"] ; [+3]
+       29 GETTABLEKS                       R3 R1 K6 ["answers"]
+       31 NEWCLOSURE                       R4 P0
+       32 CAPTURE                          VAL R0
+       33 CAPTURE                          REF R2
+       34 CAPTURE                          REF R3
+       35 CLOSEUPVALS                      R2
+       36 RETURN                           R4 1
+
+PROTO_10:
+        0 GETTABLEKS                       R1 R0 K0 ["externalHooks"]
+        2 NEWCLOSURE                       R2 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          VAL R1
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          UPVAL U2
+        7 GETUPVAL                         R4 3
+        8 GETTABLEKS                       R3 R4 K1 ["define"]
+       10 CALL                             R3 0 1
+       11 GETUPVAL                         R6 4
+       12 GETTABLEKS                       R5 R6 K2 ["QuestionAnswer"]
+       14 NAMECALL                         R3 R3 K3 ["setName"]
+       16 CALL                             R3 2 1
+       17 LOADK                            R5 K4 ["Presents structured questions to the user and collects their answers before you proceed.\nBefore deciding whether to use this tool, internally classify the user's request for these ambiguity types. A request may have more than one.\n\n- **Tool ambiguity**: Multiple downstream tools could fulfill the request, and the wrong choice wastes significant work.\n- **Scope ambiguity**: The request could mean anything from a small atomic change to a large multi-system feature.\n- **Target ambiguity**: The request applies to multiple possible objects, locations, or interactions and you cannot infer which.\n- **Style ambiguity**: The creative direction, aesthetic, or behavioral style is unspecified and meaningfully changes the result.\n\n**Decision rule**: If one or more ambiguity types are present and you cannot resolve them from conversation context, use this tool. Ask one question per ambiguity type. If zero ambiguity types are present, do NOT use this tool.\n\n## When NOT to use\n- Zero ambiguity types detected.\n- The answer is obvious from context or conversation history.\n- A reasonable default exists — proceed, then offer to adjust.\n- The question is purely confirmatory — act and describe what you did.\n\n## How to write good questions\n- One focused question per ambiguity type. Do not bundle multiple concerns into one question.\n- Keep question text short and direct.\n- Provide predefined options when the choice set is bounded. Omit them for free-form answers.\n- Do NOT include a \"custom / other\" option — the tool always appends one automatically.\n\n## Internal Classification Examples\n\nUser: \"add a central park\"\n- Tool ambiguity: YES — Creator Store model vs built from Parts vs AI-generated terrain?\n- Scope ambiguity: YES — a small decorative park vs a large explorable zone with paths, benches, a pond, and trees?\n- Target ambiguity: NO — a park area is clear.\n- Style ambiguity: YES — realistic NYC replica, cartoony, low-poly, fantasy-themed?\n-> Use this tool. Ask three questions: tool choice, scope, and style.\n\nUser: \"add a futuristic racing track\"\n- Tool ambiguity: YES — Creator Store model vs built from Parts vs AI-generated?\n- Scope ambiguity: YES — a single track piece vs a full racing game with vehicles, checkpoints, and leaderboard?\n- Target ambiguity: NO — \"race track\" is clear.\n- Style ambiguity: NO — not the primary concern here, the user has specified a specific style.\n-> Use this tool. Ask two questions: tool choice and scope.\n\nUser: \"add sound effects to my tycoon game\"\n- Tool ambiguity: NO — sound insertion is one tool path.\n- Scope ambiguity: NO — clear feature request.\n- Target ambiguity: YES — which interactions? (footsteps, UI clicks, ambient, combat, etc.)\n- Style ambiguity: NO — style is secondary to target selection.\n-> Use this tool. Ask one question for target.\n\nUser: \"make the baseplate blue\"\n- Tool ambiguity: NO — execute_luau.\n- Scope ambiguity: NO — single property change.\n- Target ambiguity: NO — \"baseplate\" is clear.\n- Style ambiguity: NO — \"blue\" is specified.\n-> Do NOT use this tool. Proceed directly.\n\n## Behaviour\nThe tool blocks until the user submits answers or dismisses. Each question always includes a free-text answer field in addition to any predefined options.\n"]
+       18 NAMECALL                         R3 R3 K5 ["setDescription"]
+       20 CALL                             R3 2 1
+       21 LOADK                            R5 K6 ["questions"]
+       22 DUPTABLE                         R6 K10 [{"type", "description", "items"}]
+       23 LOADK                            R7 K11 ["array"]
+       24 SETTABLEKS                       R7 R6 K7 ["type"]
+       26 LOADK                            R7 K12 ["An array of questions to present to the user."]
+       27 SETTABLEKS                       R7 R6 K8 ["description"]
+       29 DUPTABLE                         R7 K15 [{"type", "properties", "required"}]
+       30 LOADK                            R8 K16 ["object"]
+       31 SETTABLEKS                       R8 R7 K7 ["type"]
+       33 DUPTABLE                         R8 K19 [{"question", "options"}]
+       34 DUPTABLE                         R9 K20 [{"type", "description"}]
+       35 LOADK                            R10 K21 ["string"]
+       36 SETTABLEKS                       R10 R9 K7 ["type"]
+       38 LOADK                            R10 K22 ["The question text to display."]
+       39 SETTABLEKS                       R10 R9 K8 ["description"]
+       41 SETTABLEKS                       R9 R8 K17 ["question"]
+       43 DUPTABLE                         R9 K10 [{"type", "description", "items"}]
+       44 LOADK                            R10 K11 ["array"]
+       45 SETTABLEKS                       R10 R9 K7 ["type"]
+       47 LOADK                            R10 K23 ["Optional predefined answer choices."]
+       48 SETTABLEKS                       R10 R9 K8 ["description"]
+       50 DUPTABLE                         R10 K15 [{"type", "properties", "required"}]
+       51 LOADK                            R11 K16 ["object"]
+       52 SETTABLEKS                       R11 R10 K7 ["type"]
+       54 DUPTABLE                         R11 K26 [{"optionText", "clarificationText"}]
+       55 DUPTABLE                         R12 K20 [{"type", "description"}]
+       56 LOADK                            R13 K21 ["string"]
+       57 SETTABLEKS                       R13 R12 K7 ["type"]
+       59 LOADK                            R13 K27 ["The display text for this option."]
+       60 SETTABLEKS                       R13 R12 K8 ["description"]
+       62 SETTABLEKS                       R12 R11 K24 ["optionText"]
+       64 DUPTABLE                         R12 K20 [{"type", "description"}]
+       65 LOADK                            R13 K21 ["string"]
+       66 SETTABLEKS                       R13 R12 K7 ["type"]
+       68 LOADK                            R13 K28 ["Additional context or explanation for this option."]
+       69 SETTABLEKS                       R13 R12 K8 ["description"]
+       71 SETTABLEKS                       R12 R11 K25 ["clarificationText"]
+       73 SETTABLEKS                       R11 R10 K13 ["properties"]
+       75 NEWTABLE                         R11 0 2
+       77 LOADK                            R12 K24 ["optionText"]
+       78 LOADK                            R13 K25 ["clarificationText"]
+       79 SETLIST                          R11 R12 2 [1]
+       81 SETTABLEKS                       R11 R10 K14 ["required"]
+       83 SETTABLEKS                       R10 R9 K9 ["items"]
+       85 SETTABLEKS                       R9 R8 K18 ["options"]
+       87 SETTABLEKS                       R8 R7 K13 ["properties"]
+       89 NEWTABLE                         R8 0 1
+       91 LOADK                            R9 K17 ["question"]
+       92 SETLIST                          R8 R9 1 [1]
+       94 SETTABLEKS                       R8 R7 K14 ["required"]
+       96 SETTABLEKS                       R7 R6 K9 ["items"]
+       98 NAMECALL                         R3 R3 K29 ["addArgument"]
+      100 CALL                             R3 3 1
+      101 MOVE                             R5 R2
+      102 NAMECALL                         R3 R3 K30 ["setHandler"]
+      104 CALL                             R3 2 1
+      105 NAMECALL                         R3 R3 K31 ["build"]
+      107 CALL                             R3 1 1
+      108 DUPTABLE                         R4 K35 [{"transformInitialContent", "getTransformPreExecuteFn", "getTransformResultFn"}]
+      109 DUPCLOSURE                       R5 K36 [PROTO_5]
+      110 CAPTURE                          UPVAL U5
+      111 SETTABLEKS                       R5 R4 K32 ["transformInitialContent"]
+      113 DUPCLOSURE                       R5 K37 [PROTO_7]
+      114 SETTABLEKS                       R5 R4 K33 ["getTransformPreExecuteFn"]
+      116 DUPCLOSURE                       R5 K38 [PROTO_9]
+      117 SETTABLEKS                       R5 R4 K34 ["getTransformResultFn"]
+      119 DUPTABLE                         R5 K42 [{"definition", "contentWidgets", "streamTransform"}]
+      120 SETTABLEKS                       R3 R5 K39 ["definition"]
+      122 NEWTABLE                         R6 0 1
+      124 GETUPVAL                         R7 5
+      125 SETLIST                          R6 R7 1 [1]
+      127 SETTABLEKS                       R6 R5 K40 ["contentWidgets"]
+      129 SETTABLEKS                       R4 R5 K41 ["streamTransform"]
+      131 RETURN                           R5 1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AssistantUI"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [game]
+        9 LOADK                            R3 K6 ["HttpService"]
+       10 NAMECALL                         R1 R1 K7 ["GetService"]
+       12 CALL                             R1 2 1
+       13 GETIMPORT                        R2 K9 [require]
+       15 GETTABLEKS                       R4 R0 K10 ["Parent"]
+       17 GETTABLEKS                       R3 R4 K11 ["ModelContextProtocol"]
+       19 CALL                             R2 1 1
+       20 GETIMPORT                        R3 K9 [require]
+       22 GETTABLEKS                       R6 R0 K12 ["Components"]
+       24 GETTABLEKS                       R5 R6 K13 ["ContentWidgets"]
+       26 GETTABLEKS                       R4 R5 K14 ["QuestionAnswerContentWidget"]
+       28 CALL                             R3 1 1
+       29 GETIMPORT                        R4 K9 [require]
+       31 GETTABLEKS                       R6 R0 K15 ["Tools"]
+       33 GETTABLEKS                       R5 R6 K16 ["ToolTypes"]
+       35 CALL                             R4 1 1
+       36 GETIMPORT                        R5 K9 [require]
+       38 GETTABLEKS                       R7 R0 K17 ["Flags"]
+       40 GETTABLEKS                       R6 R7 K18 ["FFlagAssistantMultipleChatPersistence"]
+       42 CALL                             R5 1 1
+       43 GETTABLEKS                       R7 R2 K19 ["Util"]
+       45 GETTABLEKS                       R6 R7 K20 ["ToolBuilder"]
+       47 GETTABLEKS                       R8 R2 K19 ["Util"]
+       49 GETTABLEKS                       R7 R8 K21 ["ToolResult"]
+       51 GETTABLEKS                       R8 R4 K22 ["ToolNames"]
+       53 DUPCLOSURE                       R9 K23 [PROTO_10]
+       54 CAPTURE                          VAL R5
+       55 CAPTURE                          VAL R7
+       56 CAPTURE                          VAL R1
+       57 CAPTURE                          VAL R6
+       58 CAPTURE                          VAL R8
+       59 CAPTURE                          VAL R3
+       60 RETURN                           R9 1

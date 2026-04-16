@@ -8,71 +8,60 @@ PROTO_0:
         7 RETURN                           R0 0
 
 PROTO_1:
-        0 GETTABLEKS                       R4 R0 K0 ["ShouldRender"]
-        2 JUMPIFEQKNIL                     R4 ; [+10]
-        4 GETTABLEKS                       R4 R0 K0 ["ShouldRender"]
-        6 MOVE                             R5 R1
-        7 MOVE                             R6 R2
-        8 MOVE                             R7 R3
-        9 CALL                             R4 3 1
-       10 JUMPIF                           R4 ; [+2]
-       11 LOADNIL                          R4
-       12 RETURN                           R4 1
-       13 DUPTABLE                         R4 K5 [{"Text", "OnItemClicked", "Icon", "Enabled"}]
-       14 GETTABLEKS                       R5 R2 K6 ["Localization"]
-       16 GETTABLEKS                       R7 R0 K7 ["TextKey"]
-       18 GETTABLEKS                       R8 R0 K8 ["TextSubKey"]
-       20 NAMECALL                         R5 R5 K9 ["getText"]
-       22 CALL                             R5 3 1
-       23 SETTABLEKS                       R5 R4 K1 ["Text"]
-       25 GETTABLEKS                       R6 R0 K2 ["OnItemClicked"]
-       27 JUMPIFNOT                        R6 ; [+6]
-       28 NEWCLOSURE                       R5 P0
-       29 CAPTURE                          VAL R0
-       30 CAPTURE                          VAL R1
-       31 CAPTURE                          VAL R2
-       32 CAPTURE                          VAL R3
-       33 JUMP                             ; [+1]
-       34 LOADNIL                          R5
-       35 SETTABLEKS                       R5 R4 K2 ["OnItemClicked"]
-       37 GETTABLEKS                       R6 R0 K10 ["GetIcon"]
-       39 JUMPIFNOT                        R6 ; [+5]
-       40 GETTABLEKS                       R5 R0 K10 ["GetIcon"]
-       42 MOVE                             R6 R2
-       43 CALL                             R5 1 1
-       44 JUMP                             ; [+1]
-       45 LOADNIL                          R5
-       46 SETTABLEKS                       R5 R4 K3 ["Icon"]
-       48 LOADB                            R5 1
-       49 GETTABLEKS                       R6 R0 K11 ["ShouldDisable"]
-       51 JUMPIFEQKNIL                     R6 ; [+8]
-       53 GETTABLEKS                       R6 R0 K11 ["ShouldDisable"]
-       55 MOVE                             R7 R1
-       56 MOVE                             R8 R2
-       57 MOVE                             R9 R3
-       58 CALL                             R6 3 1
-       59 NOT                              R5 R6
-       60 SETTABLEKS                       R5 R4 K4 ["Enabled"]
-       62 GETTABLEKS                       R5 R0 K12 ["Children"]
-       64 JUMPIFNOT                        R5 ; [+22]
-       65 GETTABLEKS                       R5 R0 K12 ["Children"]
-       67 LOADNIL                          R6
-       68 LOADNIL                          R7
-       69 FORGPREP                         R5
-       70 GETUPVAL                         R10 0
-       71 MOVE                             R11 R9
-       72 MOVE                             R12 R1
-       73 MOVE                             R13 R2
-       74 MOVE                             R14 R3
-       75 CALL                             R10 4 1
-       76 JUMPIFEQKNIL                     R10 ; [+8]
-       78 FASTCALL2                        TABLE_INSERT R4 R10 ; [+5]
-       80 MOVE                             R12 R4
-       81 MOVE                             R13 R10
-       82 GETIMPORT                        R11 K15 [table.insert]
-       84 CALL                             R11 2 0
-       85 FORGLOOP                         R5 2 ; [-16]
-       87 RETURN                           R4 1
+        0 DUPTABLE                         R4 K4 [{"Text", "OnItemClicked", "Icon", "Enabled"}]
+        1 GETTABLEKS                       R5 R2 K5 ["Localization"]
+        3 GETTABLEKS                       R7 R0 K6 ["TextKey"]
+        5 GETTABLEKS                       R8 R0 K7 ["TextSubKey"]
+        7 NAMECALL                         R5 R5 K8 ["getText"]
+        9 CALL                             R5 3 1
+       10 SETTABLEKS                       R5 R4 K0 ["Text"]
+       12 GETTABLEKS                       R6 R0 K1 ["OnItemClicked"]
+       14 JUMPIFNOT                        R6 ; [+6]
+       15 NEWCLOSURE                       R5 P0
+       16 CAPTURE                          VAL R0
+       17 CAPTURE                          VAL R1
+       18 CAPTURE                          VAL R2
+       19 CAPTURE                          VAL R3
+       20 JUMP                             ; [+1]
+       21 LOADNIL                          R5
+       22 SETTABLEKS                       R5 R4 K1 ["OnItemClicked"]
+       24 GETTABLEKS                       R6 R0 K9 ["GetIcon"]
+       26 JUMPIFNOT                        R6 ; [+5]
+       27 GETTABLEKS                       R5 R0 K9 ["GetIcon"]
+       29 MOVE                             R6 R2
+       30 CALL                             R5 1 1
+       31 JUMP                             ; [+1]
+       32 LOADNIL                          R5
+       33 SETTABLEKS                       R5 R4 K2 ["Icon"]
+       35 GETTABLEKS                       R6 R0 K10 ["Disabled"]
+       37 NOT                              R5 R6
+       38 SETTABLEKS                       R5 R4 K3 ["Enabled"]
+       40 GETTABLEKS                       R5 R0 K11 ["Children"]
+       42 JUMPIFNOT                        R5 ; [+29]
+       43 GETTABLEKS                       R5 R0 K11 ["Children"]
+       45 LOADNIL                          R6
+       46 LOADNIL                          R7
+       47 FORGPREP                         R5
+       48 GETTABLEKS                       R10 R9 K12 ["ShouldRender"]
+       50 JUMPIFEQKNIL                     R10 ; [+8]
+       52 GETTABLEKS                       R10 R9 K12 ["ShouldRender"]
+       54 MOVE                             R11 R1
+       55 MOVE                             R12 R2
+       56 MOVE                             R13 R3
+       57 CALL                             R10 3 1
+       58 JUMPIFNOT                        R10 ; [+11]
+       59 MOVE                             R11 R4
+       60 GETUPVAL                         R12 0
+       61 MOVE                             R13 R9
+       62 MOVE                             R14 R1
+       63 MOVE                             R15 R2
+       64 MOVE                             R16 R3
+       65 CALL                             R12 4 -1
+       66 FASTCALL                         TABLE_INSERT ; [+2]
+       67 GETIMPORT                        R10 K15 [table.insert]
+       69 CALL                             R10 -1 0
+       70 FORGLOOP                         R5 2 ; [-23]
+       72 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

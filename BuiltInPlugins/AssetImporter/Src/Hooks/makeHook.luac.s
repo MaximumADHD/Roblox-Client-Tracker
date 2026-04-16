@@ -16,58 +16,54 @@ PROTO_1:
         9 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["use"]
-        3 CALL                             R0 0 1
-        4 GETUPVAL                         R3 1
-        5 GETTABLE                         R2 R0 R3
-        6 FASTCALL1                        TYPEOF R2 ; [+2]
-        7 GETIMPORT                        R1 K2 [typeof]
-        9 CALL                             R1 1 1
-       10 JUMPIFEQKS                       R1 K3 ["function"] ; [+10]
-       12 GETIMPORT                        R1 K5 [error]
-       14 LOADK                            R3 K6 ["Controller doesn't contain getter function named: %* "]
-       15 GETUPVAL                         R5 1
-       16 NAMECALL                         R3 R3 K7 ["format"]
-       18 CALL                             R3 2 1
-       19 MOVE                             R2 R3
-       20 CALL                             R1 1 0
-       21 GETUPVAL                         R3 2
-       22 GETTABLE                         R2 R0 R3
-       23 FASTCALL1                        TYPEOF R2 ; [+2]
-       24 GETIMPORT                        R1 K2 [typeof]
-       26 CALL                             R1 1 1
-       27 JUMPIFEQKS                       R1 K8 ["table"] ; [+10]
-       29 GETIMPORT                        R1 K5 [error]
-       31 LOADK                            R3 K9 ["Controller doesn't contain event named: %* "]
-       32 GETUPVAL                         R5 1
-       33 NAMECALL                         R3 R3 K7 ["format"]
-       35 CALL                             R3 2 1
-       36 MOVE                             R2 R3
-       37 CALL                             R1 1 0
-       38 GETUPVAL                         R1 3
-       39 GETUPVAL                         R3 1
-       40 GETTABLE                         R2 R0 R3
-       41 MOVE                             R3 R0
-       42 CALL                             R2 1 -1
-       43 CALL                             R1 -1 2
-       44 GETUPVAL                         R3 4
-       45 NEWCLOSURE                       R4 P0
-       46 CAPTURE                          VAL R0
-       47 CAPTURE                          UPVAL U2
-       48 CAPTURE                          VAL R2
-       49 NEWTABLE                         R5 0 0
-       51 CALL                             R3 2 0
-       52 RETURN                           R1 1
+        0 GETUPVAL                         R3 0
+        1 GETTABLE                         R2 R0 R3
+        2 FASTCALL1                        TYPEOF R2 ; [+2]
+        3 GETIMPORT                        R1 K1 [typeof]
+        5 CALL                             R1 1 1
+        6 JUMPIFEQKS                       R1 K2 ["function"] ; [+10]
+        8 GETIMPORT                        R1 K4 [error]
+       10 LOADK                            R3 K5 ["Controller doesn't contain getter function named: %* "]
+       11 GETUPVAL                         R5 0
+       12 NAMECALL                         R3 R3 K6 ["format"]
+       14 CALL                             R3 2 1
+       15 MOVE                             R2 R3
+       16 CALL                             R1 1 0
+       17 GETUPVAL                         R3 1
+       18 GETTABLE                         R2 R0 R3
+       19 FASTCALL1                        TYPEOF R2 ; [+2]
+       20 GETIMPORT                        R1 K1 [typeof]
+       22 CALL                             R1 1 1
+       23 JUMPIFEQKS                       R1 K7 ["table"] ; [+10]
+       25 GETIMPORT                        R1 K4 [error]
+       27 LOADK                            R3 K8 ["Controller doesn't contain event named: %* "]
+       28 GETUPVAL                         R5 0
+       29 NAMECALL                         R3 R3 K6 ["format"]
+       31 CALL                             R3 2 1
+       32 MOVE                             R2 R3
+       33 CALL                             R1 1 0
+       34 GETUPVAL                         R1 2
+       35 GETUPVAL                         R3 0
+       36 GETTABLE                         R2 R0 R3
+       37 MOVE                             R3 R0
+       38 CALL                             R2 1 -1
+       39 CALL                             R1 -1 2
+       40 GETUPVAL                         R3 3
+       41 NEWCLOSURE                       R4 P0
+       42 CAPTURE                          VAL R0
+       43 CAPTURE                          UPVAL U1
+       44 CAPTURE                          VAL R2
+       45 NEWTABLE                         R5 0 0
+       47 CALL                             R3 2 0
+       48 RETURN                           R1 1
 
 PROTO_3:
-        0 NEWCLOSURE                       R3 P0
+        0 NEWCLOSURE                       R2 P0
         1 CAPTURE                          VAL R0
         2 CAPTURE                          VAL R1
-        3 CAPTURE                          VAL R2
-        4 CAPTURE                          UPVAL U0
-        5 CAPTURE                          UPVAL U1
-        6 RETURN                           R3 1
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          UPVAL U1
+        5 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

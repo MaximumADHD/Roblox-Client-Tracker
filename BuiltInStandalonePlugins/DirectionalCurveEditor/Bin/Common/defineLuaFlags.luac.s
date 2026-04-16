@@ -19,13 +19,6 @@ PROTO_2:
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
-PROTO_3:
-        0 GETIMPORT                        R0 K1 [game]
-        2 LOADK                            R2 K2 ["FixDirectionalCurveEditorNilInput"]
-        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
-        5 CALL                             R0 2 -1
-        6 RETURN                           R0 -1
-
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
@@ -43,18 +36,11 @@ MAIN:
        18 LOADN                            R3 144
        19 NAMECALL                         R0 R0 K5 ["DefineFastInt"]
        21 CALL                             R0 3 0
-       22 GETIMPORT                        R0 K1 [game]
-       24 LOADK                            R2 K7 ["FixDirectionalCurveEditorNilInput"]
-       25 LOADB                            R3 0
-       26 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
-       28 CALL                             R0 3 0
-       29 DUPTABLE                         R0 K12 [{"getFFlagLoadDirectionalCurveEditorInAssetDM", "getFIntDistanceAttenuationMaxPoints", "getFIntDirectionalAttenuationMaxPoints", "getFFlagFixDirectionalCurveEditorNilInput"}]
-       30 DUPCLOSURE                       R1 K13 [PROTO_0]
-       31 SETTABLEKS                       R1 R0 K8 ["getFFlagLoadDirectionalCurveEditorInAssetDM"]
-       33 DUPCLOSURE                       R1 K14 [PROTO_1]
-       34 SETTABLEKS                       R1 R0 K9 ["getFIntDistanceAttenuationMaxPoints"]
-       36 DUPCLOSURE                       R1 K15 [PROTO_2]
-       37 SETTABLEKS                       R1 R0 K10 ["getFIntDirectionalAttenuationMaxPoints"]
-       39 DUPCLOSURE                       R1 K16 [PROTO_3]
-       40 SETTABLEKS                       R1 R0 K11 ["getFFlagFixDirectionalCurveEditorNilInput"]
-       42 RETURN                           R0 1
+       22 DUPTABLE                         R0 K10 [{"getFFlagLoadDirectionalCurveEditorInAssetDM", "getFIntDistanceAttenuationMaxPoints", "getFIntDirectionalAttenuationMaxPoints"}]
+       23 DUPCLOSURE                       R1 K11 [PROTO_0]
+       24 SETTABLEKS                       R1 R0 K7 ["getFFlagLoadDirectionalCurveEditorInAssetDM"]
+       26 DUPCLOSURE                       R1 K12 [PROTO_1]
+       27 SETTABLEKS                       R1 R0 K8 ["getFIntDistanceAttenuationMaxPoints"]
+       29 DUPCLOSURE                       R1 K13 [PROTO_2]
+       30 SETTABLEKS                       R1 R0 K9 ["getFIntDirectionalAttenuationMaxPoints"]
+       32 RETURN                           R0 1

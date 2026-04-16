@@ -573,77 +573,82 @@ PROTO_14:
       318 SETTABLEKS                       R32 R31 K27 ["LayoutOrder"]
       320 GETTABLEKS                       R32 R0 K7 ["Annotation"]
       322 SETTABLEKS                       R32 R31 K7 ["Annotation"]
-      324 GETTABLEKS                       R32 R0 K65 ["OnContentChanged"]
-      326 SETTABLEKS                       R32 R31 K65 ["OnContentChanged"]
-      328 CALL                             R29 2 1
-      329 SETTABLEKS                       R29 R28 K38 ["Comment"]
-      331 GETTABLEKS                       R31 R0 K7 ["Annotation"]
-      333 GETTABLEKS                       R30 R31 K39 ["ReplyCount"]
-      335 JUMPIFEQKN                       R30 K67 [0] ; [+50]
-      337 GETUPVAL                         R30 4
-      338 GETTABLEKS                       R29 R30 K9 ["createElement"]
-      340 LOADK                            R30 K68 ["TextLabel"]
-      341 DUPTABLE                         R31 K69 [{"Text", "LayoutOrder"}]
-      342 GETTABLEKS                       R34 R0 K7 ["Annotation"]
-      344 GETTABLEKS                       R33 R34 K39 ["ReplyCount"]
-      346 JUMPIFNOTEQKN                    R33 K70 [1] ; [+7]
-      348 LOADK                            R34 K24 ["Card"]
-      349 LOADK                            R35 K71 ["SingleReply"]
-      350 NAMECALL                         R32 R2 K55 ["getText"]
-      352 CALL                             R32 3 1
-      353 JUMP                             ; [+25]
+      324 GETUPVAL                         R34 12
+      325 GETTABLEKS                       R33 R34 K67 ["fflagCOLLAB9449FixAnnotationsHeightCacheEdits"]
+      327 JUMPIFNOT                        R33 ; [+3]
+      328 GETTABLEKS                       R32 R0 K65 ["OnContentChanged"]
+      330 JUMP                             ; [+1]
+      331 LOADNIL                          R32
+      332 SETTABLEKS                       R32 R31 K65 ["OnContentChanged"]
+      334 CALL                             R29 2 1
+      335 SETTABLEKS                       R29 R28 K38 ["Comment"]
+      337 GETTABLEKS                       R31 R0 K7 ["Annotation"]
+      339 GETTABLEKS                       R30 R31 K39 ["ReplyCount"]
+      341 JUMPIFEQKN                       R30 K68 [0] ; [+50]
+      343 GETUPVAL                         R30 4
+      344 GETTABLEKS                       R29 R30 K9 ["createElement"]
+      346 LOADK                            R30 K69 ["TextLabel"]
+      347 DUPTABLE                         R31 K70 [{"Text", "LayoutOrder"}]
+      348 GETTABLEKS                       R34 R0 K7 ["Annotation"]
+      350 GETTABLEKS                       R33 R34 K39 ["ReplyCount"]
+      352 JUMPIFNOTEQKN                    R33 K71 [1] ; [+7]
       354 LOADK                            R34 K24 ["Card"]
-      355 LOADK                            R35 K72 ["ManyReplies"]
-      356 DUPTABLE                         R36 K74 [{"replyCount"}]
-      357 GETTABLEKS                       R39 R0 K7 ["Annotation"]
-      359 GETTABLEKS                       R38 R39 K39 ["ReplyCount"]
-      361 LOADN                            R39 100
-      362 JUMPIFNOTLT                      R38 R39 ; [+10]
-      364 GETIMPORT                        R37 K77 [string.format]
-      366 LOADK                            R38 K78 ["%d"]
-      367 GETTABLEKS                       R40 R0 K7 ["Annotation"]
-      369 GETTABLEKS                       R39 R40 K39 ["ReplyCount"]
-      371 CALL                             R37 2 1
-      372 JUMP                             ; [+1]
-      373 LOADK                            R37 K79 ["99+"]
-      374 SETTABLEKS                       R37 R36 K73 ["replyCount"]
-      376 NAMECALL                         R32 R2 K55 ["getText"]
-      378 CALL                             R32 4 1
-      379 SETTABLEKS                       R32 R31 K29 ["Text"]
-      381 LOADN                            R32 2
-      382 SETTABLEKS                       R32 R31 K27 ["LayoutOrder"]
-      384 CALL                             R29 2 1
-      385 JUMP                             ; [+1]
-      386 LOADNIL                          R29
-      387 SETTABLEKS                       R29 R28 K39 ["ReplyCount"]
-      389 CALL                             R25 3 1
-      390 SETTABLEKS                       R25 R24 K24 ["Card"]
-      392 CALL                             R21 3 1
-      393 SETTABLEKS                       R21 R20 K15 ["BackgroundFrame"]
-      395 MOVE                             R21 R14
-      396 JUMPIFNOT                        R21 ; [+24]
-      397 GETUPVAL                         R22 4
-      398 GETTABLEKS                       R21 R22 K9 ["createElement"]
-      400 GETUPVAL                         R22 19
-      401 DUPTABLE                         R23 K82 [{"Text", "OnCancel", "OnDelete"}]
-      402 LOADK                            R26 K83 ["ConfirmDeleteDialog"]
-      403 LOADK                            R27 K58 ["DeleteThread"]
-      404 NAMECALL                         R24 R2 K55 ["getText"]
-      406 CALL                             R24 3 1
-      407 SETTABLEKS                       R24 R23 K29 ["Text"]
-      409 NEWCLOSURE                       R24 P8
-      410 CAPTURE                          VAL R15
-      411 SETTABLEKS                       R24 R23 K80 ["OnCancel"]
-      413 NEWCLOSURE                       R24 P9
-      414 CAPTURE                          VAL R15
-      415 CAPTURE                          UPVAL U13
-      416 CAPTURE                          VAL R1
-      417 CAPTURE                          VAL R0
-      418 SETTABLEKS                       R24 R23 K81 ["OnDelete"]
-      420 CALL                             R21 2 1
-      421 SETTABLEKS                       R21 R20 K16 ["Popup"]
-      423 CALL                             R17 3 -1
-      424 RETURN                           R17 -1
+      355 LOADK                            R35 K72 ["SingleReply"]
+      356 NAMECALL                         R32 R2 K55 ["getText"]
+      358 CALL                             R32 3 1
+      359 JUMP                             ; [+25]
+      360 LOADK                            R34 K24 ["Card"]
+      361 LOADK                            R35 K73 ["ManyReplies"]
+      362 DUPTABLE                         R36 K75 [{"replyCount"}]
+      363 GETTABLEKS                       R39 R0 K7 ["Annotation"]
+      365 GETTABLEKS                       R38 R39 K39 ["ReplyCount"]
+      367 LOADN                            R39 100
+      368 JUMPIFNOTLT                      R38 R39 ; [+10]
+      370 GETIMPORT                        R37 K78 [string.format]
+      372 LOADK                            R38 K79 ["%d"]
+      373 GETTABLEKS                       R40 R0 K7 ["Annotation"]
+      375 GETTABLEKS                       R39 R40 K39 ["ReplyCount"]
+      377 CALL                             R37 2 1
+      378 JUMP                             ; [+1]
+      379 LOADK                            R37 K80 ["99+"]
+      380 SETTABLEKS                       R37 R36 K74 ["replyCount"]
+      382 NAMECALL                         R32 R2 K55 ["getText"]
+      384 CALL                             R32 4 1
+      385 SETTABLEKS                       R32 R31 K29 ["Text"]
+      387 LOADN                            R32 2
+      388 SETTABLEKS                       R32 R31 K27 ["LayoutOrder"]
+      390 CALL                             R29 2 1
+      391 JUMP                             ; [+1]
+      392 LOADNIL                          R29
+      393 SETTABLEKS                       R29 R28 K39 ["ReplyCount"]
+      395 CALL                             R25 3 1
+      396 SETTABLEKS                       R25 R24 K24 ["Card"]
+      398 CALL                             R21 3 1
+      399 SETTABLEKS                       R21 R20 K15 ["BackgroundFrame"]
+      401 MOVE                             R21 R14
+      402 JUMPIFNOT                        R21 ; [+24]
+      403 GETUPVAL                         R22 4
+      404 GETTABLEKS                       R21 R22 K9 ["createElement"]
+      406 GETUPVAL                         R22 19
+      407 DUPTABLE                         R23 K83 [{"Text", "OnCancel", "OnDelete"}]
+      408 LOADK                            R26 K84 ["ConfirmDeleteDialog"]
+      409 LOADK                            R27 K58 ["DeleteThread"]
+      410 NAMECALL                         R24 R2 K55 ["getText"]
+      412 CALL                             R24 3 1
+      413 SETTABLEKS                       R24 R23 K29 ["Text"]
+      415 NEWCLOSURE                       R24 P8
+      416 CAPTURE                          VAL R15
+      417 SETTABLEKS                       R24 R23 K81 ["OnCancel"]
+      419 NEWCLOSURE                       R24 P9
+      420 CAPTURE                          VAL R15
+      421 CAPTURE                          UPVAL U13
+      422 CAPTURE                          VAL R1
+      423 CAPTURE                          VAL R0
+      424 SETTABLEKS                       R24 R23 K82 ["OnDelete"]
+      426 CALL                             R21 2 1
+      427 SETTABLEKS                       R21 R20 K16 ["Popup"]
+      429 CALL                             R17 3 -1
+      430 RETURN                           R17 -1
 
 MAIN:
         0 PREPVARARGS                      0
