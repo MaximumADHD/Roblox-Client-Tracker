@@ -371,7 +371,7 @@
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" modernIcon="Stop" width="32" height="32"/>
       </Group>
       <Group name="Clients and Servers" text="Studio.App.RobloxRibbonMainWindow.ClientsAndServers" modernIcon="StartServerAndClient" icon=":/RibbonBar/images/RibbonIcons/Test/Start-Server.png" width="32" height="32">
-        <addaction name="startServerAndPlayersAction" iscommonslot="true" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Start"  tooltip="Studio.App.RobloxRibbonMainWindow.StartServerAndPlayers" icon=":/RibbonBar/images/RibbonIcons/Test/Start-Server.png" modernIcon="StartServerAndClient" width="32" height="32" />
+        <addaction fflag="!StudioCleanupVerbsPartL" name="startServerAndPlayersAction" iscommonslot="true" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Start"  tooltip="Studio.App.RobloxRibbonMainWindow.StartServerAndPlayers" icon=":/RibbonBar/images/RibbonIcons/Test/Start-Server.png" modernIcon="StartServerAndClient" width="32" height="32" />
         <addseparator visible="false"/>
         <addcombobox name="serverMode">
           <comboboxitem text="Studio.App.RobloxRibbonMainWindow.None" value ="0" />

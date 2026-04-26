@@ -1,0 +1,1 @@
+Validates that a layered clothing accessory's Handle mesh is skinned only to allowed joints (R15 or transfer joints). Ensures transfer joints have full weighting, AutoSkin is enabled when transfer joints are present, and that certain accessory types (e.g. eyebrow/eyelash) use only skinning transfer joints.

@@ -29,11 +29,11 @@ Class EditableImage : Object [NotCreatable]
 	Property EditableImage.ImageData: BinaryString {🚧DynamicGeneration} {🔒RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 	Property EditableImage.IsReplicatedCopy: boolean {🚧DynamicGeneration} {🔒RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 	Function EditableImage:Destroy() -> () {🚧DynamicGeneration}
-	Function EditableImage:DrawCircle(center: Vector2, radius: number, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> () {🚧DynamicGeneration}
+	Function EditableImage:DrawCircle(center: Vector2, radius: number, color: Color3, transparency: number, combineType: Enum.ImageCombineType, antiAliasing: Enum.AntiAliasing? = "Enabled") -> () {🚧DynamicGeneration}
 	Function EditableImage:DrawImage(position: Vector2, image: EditableImage, combineType: Enum.ImageCombineType) -> () {🚧DynamicGeneration}
 	Function EditableImage:DrawImageProjected(mesh: EditableMesh, projection: { [string]: any }, brushConfig: { [string]: any }) -> () {🚧DynamicGeneration}
 	Function EditableImage:DrawImageTransformed(position: Vector2, scale: Vector2, rotation: number, image: EditableImage, options: { [string]: any }?) -> () {🚧DynamicGeneration}
-	Function EditableImage:DrawLine(p1: Vector2, p2: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> () {🚧DynamicGeneration}
+	Function EditableImage:DrawLine(p1: Vector2, p2: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType, antiAliasing: Enum.AntiAliasing? = "Enabled") -> () {🚧DynamicGeneration}
 	Function EditableImage:DrawRectangle(position: Vector2, size: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> () {🚧DynamicGeneration}
 	Function EditableImage:ReadPixelsBuffer(position: Vector2, size: Vector2) -> buffer {🚧DynamicGeneration} [CustomLuaState] {🧬Safe}
 	Function EditableImage:WritePixelsBuffer(position: Vector2, size: Vector2, buffer: buffer) -> () {🚧DynamicGeneration} [CustomLuaState]
@@ -303,11 +303,11 @@ Class AnalyticsService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Animation : Instance
 	Property Animation.AnimationId: string {🚧Animation}
 Class AnimationClip : Instance [NotCreatable]
+	Property AnimationClip.Length: number {🚧Animation} [ReadOnly]
 	Property AnimationClip.Loop: boolean {🚧Animation}
 	Property AnimationClip.Priority: Enum.AnimationPriority {🚧Animation}
 	Property AnimationClip.Guid: string {🚧Animation} {🔒RobloxScript} [Hidden] [NotReplicated]
 	Property AnimationClip.GuidBinaryString: BinaryString {🚧Animation} {🔒RobloxScript} [Hidden] [NotScriptable]
-	Property AnimationClip.Length: number {🚧Animation} {🔒RobloxScript} [ReadOnly]
 Class AnimationGraphDefinition : AnimationClip
 Class CurveAnimation : AnimationClip
 Class KeyframeSequence : AnimationClip
@@ -470,6 +470,14 @@ Class Animator : Instance
 	Property Animator.Priority5: Enum.AnimationPriority {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property Animator.Priority6: Enum.AnimationPriority {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property Animator.Priority7: Enum.AnimationPriority {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.RefStepIdForTimePosition0: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.RefStepIdForTimePosition1: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.RefStepIdForTimePosition2: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.RefStepIdForTimePosition3: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.RefStepIdForTimePosition4: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.RefStepIdForTimePosition5: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.RefStepIdForTimePosition6: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.RefStepIdForTimePosition7: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property Animator.TimePosition0: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property Animator.TimePosition1: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property Animator.TimePosition2: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
@@ -496,6 +504,7 @@ Class Animator : Instance
 	Property Animator.WeightTarget7: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Function Animator:ApplyJointVelocities(motors: any) -> () {🚧Animation}
 	Function Animator:GetPlayingAnimationTracks() -> { any } {🚧Animation}
+	Function Animator:GetTrackByAnimationId(animationId: string) -> AnimationTrack {🚧Animation}
 	Function Animator:LoadAnimation(animation: Animation) -> AnimationTrack {🚧Animation}
 	Function Animator:RegisterEvaluationParallelCallback(callback: (...any) -> ...any) -> () {🚧Animation}
 	Function Animator:StepAnimations(deltaTime: number) -> () {🚧Animation} {🔒Plugin}
@@ -2562,6 +2571,7 @@ Class ExperienceNotificationService : Instance [NotCreatable] [Service] [NotRepl
 	Event ExperienceNotificationService.PromptOptInRequested() {🚧Players + Social} {🔒RobloxScript}
 Class ExperienceService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function ExperienceService:ExecuteCrossExperienceCall(callId: string, params: { [string]: any }, successCallback: (...any) -> ...any, errorCallback: (...any) -> ...any) -> () {🔒RobloxScript}
+	Function ExperienceService:GetFollowUserId() -> number {🔒RobloxScript}
 	Function ExperienceService:GetPendingJoinAttempt() -> { [string]: any } {🔒RobloxScript}
 	Function ExperienceService:GetPlaceJoinState() -> string {🔒RobloxScript}
 	Function ExperienceService:GetQueuePosition() -> number {🔒RobloxScript}
@@ -4423,13 +4433,13 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:GetUserSubscriptionPaymentHistoryAsync(user: Player, subscriptionId: string) -> { any } {🚧Monetization} [Yields]
 	Function MarketplaceService:GetUserSubscriptionStatusAsync(user: Player, subscriptionId: string) -> { [string]: any } {🚧Monetization} [Yields]
 	Function MarketplaceService:GetUsersPriceLevelsAsync(userIds: { any }) -> { any } {🚧Monetization} [Yields]
+	Function MarketplaceService:OpenShop(player: Player) -> () {🚧PromptExternalPurchase}
 	Function MarketplaceService:PlayerOwnsAssetAsync(player: Instance, assetId: number) -> boolean {🚧AssetRead} [Yields]
 	Function MarketplaceService:PlayerOwnsBundleAsync(player: Player, bundleId: number) -> boolean {🚧AssetRead} [Yields]
 	Function MarketplaceService:PromptBulkPurchase(player: Player, lineItems: { any }, options: { [string]: any }) -> () {🚧PromptExternalPurchase}
 	Function MarketplaceService:PromptBundlePurchase(player: Instance, bundleId: number) -> () {🚧PromptExternalPurchase}
 	Function MarketplaceService:PromptCancelSubscription(user: Player, subscriptionId: string) -> () {🚧PromptExternalPurchase}
 	Function MarketplaceService:PromptGamePassPurchase(player: Instance, gamePassId: number) -> () {🚧PromptExternalPurchase}
-	Function MarketplaceService:PromptPremiumPurchase(player: Instance) -> () {🚧PromptExternalPurchase}
 	Function MarketplaceService:PromptProductPurchase(player: Instance, productId: number, equipIfPurchased: boolean? = true, currencyType: Enum.CurrencyType? = "Default") -> () {🚧PromptExternalPurchase}
 	Function MarketplaceService:PromptPurchase(player: Instance, assetId: number, equipIfPurchased: boolean? = true, currencyType: Enum.CurrencyType? = "Default") -> () {🚧PromptExternalPurchase}
 	Function MarketplaceService:PromptRobloxSubscriptionPurchase(user: Player) -> () {🚧PromptExternalPurchase}
@@ -4460,6 +4470,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:PromptCollectiblesPurchase(player: Instance, assetId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number) -> () {🔒RobloxScript}
 	Function MarketplaceService:PromptNativePurchase(player: Instance, productId: string) -> () {🔒RobloxScript}
 	Function MarketplaceService:PromptNativePurchaseWithLocalPlayer(productId: string) -> () {🔒RobloxScript}
+	Function MarketplaceService:PromptPremiumPurchase(player: Instance) -> () {🚧PromptExternalPurchase} [Deprecated]
 	Function MarketplaceService:PromptRobloxPurchase(assetId: number, equipIfPurchased: boolean) -> () {🔒RobloxScript}
 	Function MarketplaceService:ReportAssetSale(assetId: string, robuxAmount: number) -> () {🔒RobloxScript}
 	Function MarketplaceService:ReportRobuxUpsellStarted() -> () {🔒RobloxScript}
@@ -4499,6 +4510,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.MockPurchaseRobloxSubscription() {🔒RobloxScript} [Hidden]
 	Event MarketplaceService.NativePurchaseFinished(player: Instance, productId: string, wasPurchased: boolean) {🔒RobloxScript}
 	Event MarketplaceService.NativePurchaseFinishedWithLocalPlayer(productId: string, wasPurchased: boolean) {🔒RobloxScript}
+	Event MarketplaceService.OpenShopRequested(player: Player) {🔒RobloxScript}
 	Event MarketplaceService.PrepareCollectiblesPurchaseRequested(player: Instance, assetId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number) {🔒RobloxScript}
 	Event MarketplaceService.PromptBulkPurchaseRequested(player: Instance, displayData: { any }, orderRequest: { [string]: any }, purchaserRobuxBalance: number, orderTotalRobux: number, options: { [string]: any }) {🔒RobloxScript}
 	Event MarketplaceService.PromptBulkPurchaseRequestedV2(player: Instance, displayData: { any }, orderRequest: { [string]: any }, purchaserRobuxBalance: number, orderTotalRobux: number, options: { [string]: any }, discountInformation: { [string]: any }) {🔒RobloxScript}
@@ -5390,7 +5402,6 @@ Class DataStorePages : Pages [NotCreatable] [NotReplicated]
 Class DataStoreVersionPages : Pages [NotCreatable] [NotReplicated]
 Class FriendPages : Pages [NotCreatable] [NotReplicated]
 Class InventoryPages : Pages [NotCreatable] [NotReplicated]
-Class EmotesPages : InventoryPages [NotCreatable] [NotReplicated]
 Class MemoryStoreHashMapPages : Pages [NotCreatable] [NotReplicated]
 Class OutfitPages : Pages [NotCreatable] [NotReplicated]
 Class RecommendationPages : Pages [NotCreatable] [NotReplicated]
@@ -5653,6 +5664,7 @@ Class Player : Instance
 	Function Player:DistanceFromCharacter(point: Vector3) -> number {🚧Players}
 	Function Player:GetData() -> PlayerData {🚧Players}
 	Function Player:GetFriendsOnlineAsync(maxFriends: number? = 200) -> { any } {🚧Players + Social} [Yields]
+	Function Player:GetFriendsWhoPlayedAsync() -> { any } {🚧Players + Social} [Yields]
 	Function Player:GetJoinData() -> { [string]: any } {🚧Players} [CustomLuaState]
 	Function Player:GetMouse() -> Mouse {🚧Input + Players}
 	Function Player:GetNetworkPing() -> number {🚧Players} {🧬Safe}
@@ -6384,6 +6396,13 @@ Class SafetyService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 	Event SafetyService.FSTriggeredSignal(requestId: string, playerId: number, mac: string, args: ...any) {🔒RobloxEngine} [Hidden]
 	Event SafetyService.ScreenshotContentReady(screenshotJobId: number, contentId: string) {🔒RobloxScript}
 	Event SafetyService.ScreenshotUploaded(screenshotJobId: number, screenshotId: string) {🔒RobloxScript}
+Class SceneAnalysisService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function SceneAnalysisService:GetAnimationMemoryAsync() -> { [string]: any } [Yields]
+	Function SceneAnalysisService:GetAudioMemoryAsync() -> { [string]: any } [Yields]
+	Function SceneAnalysisService:GetInstanceCompositionAsync() -> { [string]: any } [Yields]
+	Function SceneAnalysisService:GetScriptMemoryAsync() -> { [string]: any } [Yields]
+	Function SceneAnalysisService:GetTriangleCompositionAsync() -> { [string]: any } [Yields]
+	Function SceneAnalysisService:GetUnparentedInstancesAsync() -> { [string]: any } [Yields]
 Class ScreenshotHud : Instance [NotCreatable] [NotReplicated]
 	Property ScreenshotHud.CameraButtonIcon: string {🚧UI}
 	Property ScreenshotHud.CameraButtonPosition: UDim2 {🚧UI}
@@ -7139,6 +7158,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.Selection Color: Color3 [NotReplicated]
 	Property Studio.String Color: Color3 [NotReplicated]
 	Property Studio.Text Color: Color3 [NotReplicated]
+	Property Studio.TypeColor: Color3 [NotReplicated]
 	Property Studio.Warning Color: Color3 [NotReplicated]
 	Property Studio.Whitespace Color: Color3 [NotReplicated]
 	Property Studio.Active Color: Color3
@@ -7181,6 +7201,10 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.LoadInternalPlugins: boolean {🔒RobloxEngine}
 	Property Studio.LoadUserPluginsInRunModes: boolean {🔒RobloxScript}
 	Property Studio.MaxFindReplaceAllResults: number {🔒RobloxScript}
+	Property Studio.VAxisColor: Color3 {🔒RobloxScript}
+	Property Studio.XAxisColor: Color3 {🔒RobloxScript}
+	Property Studio.YAxisColor: Color3 {🔒RobloxScript}
+	Property Studio.ZAxisColor: Color3 {🔒RobloxScript}
 	Property Studio.ActionOnAutoResumeSync: Enum.ActionOnAutoResumeSync {🔒RobloxScript}
 	Property Studio.AutoResumeSyncOnPlaceOpen: boolean {🔒RobloxEngine}
 	Property Studio.DefaultInstancesDir: QDir {🔒RobloxEngine}
@@ -7215,7 +7239,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.Doc View Code Background Color: Color3 {🔒RobloxScript} [Hidden] [NotReplicated]
 	Property Studio.IndentationRulerColor: Color3 {🔒RobloxScript} [NotReplicated]
 	Property Studio.ScriptEditorMenuBorderColor: Color3 {🔒RobloxScript} [Hidden] [NotReplicated]
-	Property Studio.TypeColor: Color3 [Hidden] [NotReplicated] [NotScriptable]
 	Property Studio.EnableStudioStreaming: boolean {🔒RobloxScript}
 	Property Studio.Hover Box Thickness: number {🔒RobloxEngine}
 	Property Studio.Hover Line Thickness: number {🔒RobloxEngine}
@@ -7463,6 +7486,7 @@ Class StyleQuery : Instance
 	Property StyleQuery.MaxSize: Vector2 {🚧UI} {🔍RobloxEngine} [NotReplicated] [NotScriptable]
 	Property StyleQuery.MinSize: Vector2 {🚧UI} {🔍RobloxEngine} [NotReplicated] [NotScriptable]
 	Property StyleQuery.PreferredInput: Enum.PreferredInput {🚧UI} {🔍RobloxEngine} [NotReplicated] [NotScriptable]
+	Property StyleQuery.PreferredTextSize: Enum.PreferredTextSize {🚧UI} {🔍RobloxEngine} [NotReplicated] [NotScriptable]
 	Property StyleQuery.ReducedMotionEnabled: boolean {🚧UI} {🔍RobloxEngine} [NotReplicated] [NotScriptable]
 	Property StyleQuery.ViewportDisplaySize: Enum.DisplaySize {🚧UI} {🔍RobloxEngine} [NotReplicated] [NotScriptable]
 	Property StyleQuery.ConditionsSerialize: BinaryString {🚧UI} {🔒RobloxEngine} [Hidden] [NotScriptable]
@@ -7790,7 +7814,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function TextChatService:SendEnableChatButtonClicked() -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendEnableChatButtonShown() -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendExpChatLoadSuccess(loadingLatency: number) -> () {🚧Chat} {🔒RobloxScript}
-	Function TextChatService:SendExpChatMessageClientRendered(textChatMessage: TextChatMessage, messageRenderedSurface: string? = "unknown") -> () {🚧Chat} {🔒RobloxScript}
+	Function TextChatService:SendExpChatMessageClientRendered(textChatMessage: TextChatMessage, messageRenderedSurface: string? = "unknown", selectedChannelTab: number? = -1) -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendExpChatWindowScroll() -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendExpChatWindowStatusChange(timeClosed: number, timeOpen: number, timeBackgroundIdle: number, timeTextIdle: number) -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendUniverseChatMessageAsync(text: string, metadata: string) -> TextChatMessage {🚧Chat} {🔒RobloxScript} [Yields]
@@ -7802,6 +7826,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Event TextChatService.ClientToServerMessageReplicateSignalV2(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ClientToServerMessageReplicateSignalV3(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, verified: boolean, isEscapedFlagEnabled: boolean) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ClientToServerUniverseChatMessageSignalV1(text: string, metadata: string, messageId: string, userId: number, verified: boolean) {🚧Chat} {🔒RobloxEngine} [Hidden]
+	Event TextChatService.ExpChatFeatureValueChanged(userId: number, featureName: string, featureValue: string) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.OnIncomingMessageEvent(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.SendingUniverseChatMessage(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.ServerToClientChatActionReplicateSignal(data: { [string]: any }) {🚧Chat} {🔒RobloxEngine} [Hidden]
@@ -8973,6 +8998,9 @@ Enum AnnotationRequestType
 	EnumItem AnnotationRequestType.Resolve : 2
 	EnumItem AnnotationRequestType.Delete : 3
 	EnumItem AnnotationRequestType.Edit : 4
+Enum AntiAliasing
+	EnumItem AntiAliasing.Disabled : 0
+	EnumItem AntiAliasing.Enabled : 1
 Enum AppLifecycleManagerState
 	EnumItem AppLifecycleManagerState.Detached : 0
 	EnumItem AppLifecycleManagerState.Active : 1
@@ -8990,6 +9018,7 @@ Enum AppShellActionType
 	EnumItem AppShellActionType.GamePageLoaded : 8
 	EnumItem AppShellActionType.HomePageLoaded : 9
 	EnumItem AppShellActionType.AvatarEditorPageLoaded : 10
+	EnumItem AppShellActionType.HomePageInteractive : 11
 Enum AppShellFeature
 	EnumItem AppShellFeature.None : 0
 	EnumItem AppShellFeature.Chat : 1
@@ -9991,7 +10020,7 @@ Enum ExplosionType
 	EnumItem ExplosionType.Craters : 1
 Enum ExternalEditorMode
 	EnumItem ExternalEditorMode.SystemDefault : 0
-	EnumItem ExternalEditorMode.CustomEditor : 1
+	EnumItem ExternalEditorMode.UserSelectedEditor : 1
 Enum FACSDataLod
 	EnumItem FACSDataLod.LOD0 : 0
 	EnumItem FACSDataLod.LOD1 : 1
@@ -10750,7 +10779,7 @@ Enum KeyCode
 	EnumItem KeyCode.MouseX : 1031 [Deprecated]
 	EnumItem KeyCode.MouseY : 1032 [Deprecated]
 	EnumItem KeyCode.MousePosition : 1033
-	EnumItem KeyCode.Touch : 1034
+	EnumItem KeyCode.TouchPosition : 1034
 	EnumItem KeyCode.MouseWheel : 1035
 	EnumItem KeyCode.TrackpadPan : 1040
 	EnumItem KeyCode.TrackpadPinch : 1045

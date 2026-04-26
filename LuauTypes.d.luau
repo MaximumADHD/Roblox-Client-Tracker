@@ -509,6 +509,42 @@ type GetAdAvailabilityNowForUniverseResult = {
     ExperimentVariantData: string?,
 }
 
+type InstanceCompositionResult = {
+    Name: string,
+    Size: number,
+    Children: { { Name: string, Size: number, Children: { { Name: string, Size: number } } } },
+}
+
+type ScriptMemoryResult = {
+    Name: string,
+    Size: number,
+    Children: { { Name: string, Size: number, Children: { { Name: string, Size: number, Children: { { Name: string, Size: number } } } } } },
+}
+
+type UnparentedInstancesResult = {
+    Name: string,
+    Size: number,
+    Children: { { Name: string, Size: number, Children: { { Name: string, Size: number } } } },
+}
+
+type TriangleCompositionResult = {
+    Name: string,
+    Sizes: { [string]: number },
+    Children: { { Name: string, Sizes: { [string]: number } } },
+}
+
+type AnimationMemoryResult = {
+    Name: string,
+    Size: number,
+    Children: { { Name: string, Size: number, AssetId: string?, Owners: { { Name: string, ClassName: string } }?, Children: { any }? } },
+}
+
+type AudioMemoryResult = {
+    Name: string,
+    Size: number,
+    Children: { { Name: string, Size: number, AssetId: string?, Owners: { { Name: string, ClassName: string } }?, Children: { any }? } },
+}
+
 type VirtualInputPointerAction = {
     Wheel: number?,
     Pan: Vector2?,
