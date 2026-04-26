@@ -1468,6 +1468,8 @@ Studio.App.IdeDoc.WasSavedToFile1,Roblox IDE Doc,%1 was saved to file,%1 was sav
 Studio.App.IdeDoc.WouldYouLikeToPublishTheseChanges,Roblox IDE Doc,Would you like to publish these changes?,Would you like to publish these changes?
 Studio.App.IdeDoc.WouldYouLikeToSaveTheseChanges,Roblox IDE Doc,Would you like to save these changes?,Would you like to save these changes?
 Studio.App.IdeDoc.YouMustLogInToCreateMeshes,Roblox IDE Doc,You must log in to create meshes.,You must log in to create meshes.
+Studio.App.IdeDoc.MeshStreamingRestartTitle,Title for the restart dialog shown when the MeshStreamingAndImprovedLods workspace property is changed,Restart Studio,Restart Studio
+Studio.App.IdeDoc.MeshStreamingRestartMessage,Message shown in the restart dialog when the MeshStreamingAndImprovedLods workspace property is changed,The Mesh Streaming and Improved LODs setting change will not take effect until you restart Studio. Would you like to restart now?,The Mesh Streaming and Improved LODs setting change will not take effect until you restart Studio. Would you like to restart now?
 Studio.App.ImportCostVerificationDialog.AudioUpload,,Audio Upload,Audio Upload
 Studio.App.ImportCostVerificationDialog.BalanceAfterImport,,Balance after import:,Balance after import:
 Studio.App.ImportCostVerificationDialog.CopyrightDescription,,"By uploading this content, you certify that you have the rights to put this on Roblox and that the content does not infringe on anyone else's intellectual property rights.","By uploading this content, you certify that you have the rights to put this on Roblox and that the content does not infringe on anyone else's intellectual property rights."
@@ -2162,6 +2164,9 @@ Studio.App.PropertyEnum.KeepLocal,Option for resuming FileSync behavior when fil
 Studio.App.PropertyEnum.KeepLocalFiles,,Keep local files,Keep local files
 Studio.App.PropertyEnum.KeepStudio,Option for resuming FileSync behavior when files differ: keep the Studio version,Always keep Studio version,Always keep Studio version
 Studio.App.PropertyEnum.Korean,DO NOT TRANSLATE THIS.  No matter the system language we want to offer language choice in that language.,한국어,한국어
+Studio.App.PropertyEnum.Large,"Corresponds to the Large text setting in PreferredTextSize (Medium, Large, Larger, Largest)",Large,Large
+Studio.App.PropertyEnum.Larger,"Corresponds to the Larger text setting in PreferredTextSize (Medium, Large, Larger, Largest)",Larger,Larger
+Studio.App.PropertyEnum.Largest,"Corresponds to the Largest text setting in PreferredTextSize (Medium, Large, Larger, Largest)",Largest,Largest
 Studio.App.PropertyEnum.Level00,,Level 00,Level 00
 Studio.App.PropertyEnum.Level01,,Level 01,Level 01
 Studio.App.PropertyEnum.Level02,,Level 02,Level 02
@@ -2235,6 +2240,7 @@ Studio.App.PropertyEnum.Threads3,,Threads 3,Threads 3
 Studio.App.PropertyEnum.Threads4,,Threads 4,Threads 4
 Studio.App.PropertyEnum.Threads8,,Threads 8,Threads 8
 Studio.App.PropertyEnum.Transparent,,Transparent,Transparent
+Studio.App.PropertyEnum.UserSelectedEditor,"Dropdown item choice for when user wants to select a specific application to open scripts with when using ""Open in External Editor""",Custom editor,Custom editor
 Studio.App.PropertyEnum.Vertical,,Vertical,Vertical
 Studio.App.PropertyEnum.VeryFast,,Very Fast,Very Fast
 Studio.App.PropertyEnum.VerySlow,,Very Slow,Very Slow
@@ -2283,6 +2289,7 @@ Studio.App.PropertyItems.PropertyInfluenceToolTip3,"Tooltip that displays if a c
 Studio.App.PropertyItems.PropertyOverrideToolTip3,"Tooltip that displays if a certain Instance's property is being overridden by another Instance(s). Parameter 1 is the name of the Instance whose property is being altered, parameter 2 is the name of the property being altered, and parameter 3 is the name(s) of the Instance(s) that is/are altering the property. 'Overridden', in this case, means that the property's value will always be set by the other instance(s) regardless of what the user sets the property's value to in the Properties widget.",%1's %2 is overridden by %4,%1's %2 is overridden by %4
 Studio.App.PropertyItems.ResetScaleIcon.ToolTip,Tooltip for an icon that when clicked will reset the scale of a model to 1 without changing its size.,Resets the model's scale to 1 without changing its size.,Resets the model's scale to 1 without changing its size.
 Studio.App.PropertyItems.ResizeTheMesh,,The mesh you are importing is very large. Would you like to resize the mesh?,The mesh you are importing is very large. Would you like to resize the mesh?
+Studio.App.PropertyItems.RevertPackageChanges,Tooltip that displays when hovering over the revert button in the Status row of the PackageLink Property panel,Revert all overrides,Revert all overrides
 Studio.App.PropertyItems.RevertPackageConfirmation,,Are you sure you want to revert this package to version %1 ?,Are you sure you want to revert this package to version %1 ?
 Studio.App.PropertyItems.SandboxedDisabledKeep,User agreed to PropertyItems.SandboxedDisabledWarning and will not remove sandboxing of a Model,Keep Sandboxed,Keep Sandboxed
 Studio.App.PropertyItems.SandboxedDisabledRemove,User read PropertyItems.SandboxedDisabledWarning and decided to disable sandboxing of a Model,Disable,Disable
@@ -2294,6 +2301,7 @@ Studio.App.PropertyItems.UnableToLoadTerrainIcon1,Error message that appears in 
 Studio.App.PropertyItems.UnableToPublishMeshPart1,Error message that displays in the output widget when the Studio backend rejects an uploaded MeshPart. The parameter is the reason for the rejection.,Unable to publish MeshPart: %1,Unable to publish MeshPart: %1
 Studio.App.PropertyItems.UnsupportedFiletype,One of the issues that could be encountered when uploading a texture.,Unsupported filetype,Unsupported filetype
 Studio.App.PropertyItems.UpdatingMesh,Message which displays in the bottom left of the screen when a MeshPart's mesh is being updated,Updating mesh...,Updating mesh...
+Studio.App.PropertyItems.ViewPackageDiff,Tooltip that displays when hovering over the diff button in the Status row of the PackageLink Property panel,Compare package versions,Compare package versions
 Studio.App.PropertyItems.YouMustLogInToCreateMeshes,Body of error message shown to users to try to import meshes while not logged in.,You must log in to create meshes.,You must log in to create meshes.
 Studio.App.Property.ActionOnAutoResumeSync,"The action to take when resuming sync if there is a mismatch between the file's contents in Studio, and the file system",Resume conflicted sync on place open,Resume conflicted sync on place open
 Studio.App.Property.ActionOnStopSync,,Keep local files after sync,Keep local files after sync
@@ -2652,6 +2660,7 @@ Studio.App.Property.TouchSendRate,,Touch Send Rate,Touch Send Rate
 Studio.App.Property.TrackDataTypes,,Track Data Types,Track Data Types
 Studio.App.Property.TrackPhysicsDetails,,Track Physics Details,Track Physics Details
 Studio.App.Property.UsePhysicsPacketCache,,Use Physics Packet Cache,Use Physics Packet Cache
+Studio.App.Property.VAxisColor,View Axis Color,View Axis Color,View Axis Color
 Studio.App.Property.VRMode,,Enable VR Mode,Enable VR Mode
 Studio.App.Property.VideoCaptureEnabled,,Video Capture Enabled,Video Capture Enabled
 Studio.App.Property.VideoMemory,,Video Memory,Video Memory
@@ -2661,6 +2670,9 @@ Studio.App.Property.WaitingThreadsBudget,,Waiting Threads Budget,Waiting Threads
 Studio.App.Property.WarningColor,,Warning Color,Warning Color
 Studio.App.Property.WhitespaceColor,,Whitespace Color,Whitespace Color
 Studio.App.Property.WireframeRendering,,Wireframe Rendering,Wireframe Rendering
+Studio.App.Property.XAxisColor,X Axis Color,X Axis Color,X Axis Color
+Studio.App.Property.YAxisColor,Y Axis Color,Y Axis Color,Y Axis Color
+Studio.App.Property.ZAxisColor,Z Axis Color,Z Axis Color,Z Axis Color
 Studio.App.PropertyTooltip.AutoCleanEmptyLine,,Automatically clean tabs and spaces from the line has no content.,Automatically clean tabs and spaces from the line has no content.
 Studio.App.PropertyTooltip.AutoClosingBrackets,,Automatically insert a closing bracket following an opening bracket.,Automatically insert a closing bracket following an opening bracket.
 Studio.App.PropertyTooltip.AutoClosingDelete,,Automatically delete an adjacent matching closing bracket or quotation when deleting the opening bracket or quotation.,Automatically delete an adjacent matching closing bracket or quotation when deleting the opening bracket or quotation.
@@ -2715,6 +2727,10 @@ Studio.App.PropertyTooltip.ShowWhitespace,,Visibly display spaces and tabs.,Visi
 Studio.App.PropertyTooltip.SkipClosingBracketsAndQuotes,,Skip over a closing bracket/quote instead of inserting another.,Skip over a closing bracket/quote instead of inserting another.
 Studio.App.PropertyTooltip.TabWidth,,"The width of a tab, measured in number of spaces. Value can only be between 1 and 8.","The width of a tab, measured in number of spaces. Value can only be between 1 and 8."
 Studio.App.PropertyTooltip.TextWrapping,,Wrap the line of text below when the line character limit has been reached.,Wrap the line of text below when the line character limit has been reached.
+Studio.App.PropertyTooltip.VAxisColor,The color of the View Axis.,The color of the View Axis.,The color of the View Axis.
+Studio.App.PropertyTooltip.XAxisColor,The color of the X Axis.,The color of the X Axis.,The color of the X Axis.
+Studio.App.PropertyTooltip.YAxisColor,The color of the Y Axis.,The color of the Y Axis.,The color of the Y Axis.
+Studio.App.PropertyTooltip.ZAxisColor,The color of the Z Axis.,The color of the Z Axis.,The color of the Z Axis.
 Studio.App.QDebuggerClient.Breakpoint,,Breakpoint,Breakpoint
 Studio.App.QDebuggerClient.BreakpointLocationFmt2,,"Location: %1, line %2","Location: %1, line %2"
 Studio.App.QDebuggerClient.ConditionText,,Condition,Condition
@@ -3207,18 +3223,23 @@ Studio.App.RBXMainWindow.UniversalsForSurface,,Universals for Surface,Universals
 Studio.App.RBXMainWindow.UnlockAll,,Unlock All,Unlock All
 Studio.App.RBXMainWindow.UploadLogFiles,,Upload Log Files,Upload Log Files
 Studio.App.RBXMainWindow.VideoRecord,,Video Record,Video Record
+Studio.App.RBXMainWindow.ViewBack,Rotate view to back,View Back,View Back
+Studio.App.RBXMainWindow.ViewBottom,Rotate view to bottom,View Bottom,View Bottom
 Studio.App.RBXMainWindow.ViewCodeSnippetElps,,View Code Snippet...,View Code Snippet...
 Studio.App.RBXMainWindow.ViewCommandBar,,View Command Bar,View Command Bar
 Studio.App.RBXMainWindow.ViewContextSensitiveHelp,,View Context-sensitive Help,View Context-sensitive Help
 Studio.App.RBXMainWindow.ViewDrafts,,View Drafts,View Drafts
 Studio.App.RBXMainWindow.ViewFindReplaceWindow,,View Find/Replace Window,View Find/Replace Window
 Studio.App.RBXMainWindow.ViewFindResults,,View Find results,View Find results
+Studio.App.RBXMainWindow.ViewFront,Rotate view to front,View Front,View Front
 Studio.App.RBXMainWindow.ViewGameExplorerElps,,View Game Explorer...,View Game Explorer...
+Studio.App.RBXMainWindow.ViewLeft,Rotate view to left,View Left,View Left
 Studio.App.RBXMainWindow.ViewObjectExplorer,,View Object Explorer,View Object Explorer
 Studio.App.RBXMainWindow.ViewOutputWindowElps,,View Output Window...,View Output Window...
 Studio.App.RBXMainWindow.ViewPerformanceDiagnosticsElps,,View Performance Diagnostics...,View Performance Diagnostics...
 Studio.App.RBXMainWindow.ViewPropertiesElps,,View Properties...,View Properties...
 Studio.App.RBXMainWindow.ViewRecoveredScriptsElps,,View Recovered Scripts...,View Recovered Scripts...
+Studio.App.RBXMainWindow.ViewRight,Rotate view to right,View Right,View Right
 Studio.App.RBXMainWindow.ViewSandbox,,View Drafts,View Drafts
 Studio.App.RBXMainWindow.ViewSandboxCpp,,View Sandbox (C++),View Sandbox (C++)
 Studio.App.RBXMainWindow.ViewScriptAnalysisElps,,View Script Analysis...,View Script Analysis...
@@ -3236,6 +3257,7 @@ Studio.App.RBXMainWindow.ViewTaskSchedulerElps,,View Task Scheduler...,View Task
 Studio.App.RBXMainWindow.ViewTeamChat,,Team Chat,Team Chat
 Studio.App.RBXMainWindow.ViewTeamChatTooltip,,View Team Chat Window,View Team Chat Window
 Studio.App.RBXMainWindow.ViewTeamCreateWindow,,View Team Create Window,View Team Create Window
+Studio.App.RBXMainWindow.ViewTop,Rotate view to top,View Top,View Top
 Studio.App.RBXMainWindow.ViewTutorials,,View tutorials,View tutorials
 Studio.App.RBXMainWindow.WeldSurface,,Weld surface,Weld surface
 Studio.App.RBXMainWindow.WireframeRendering,,Wireframe Rendering,Wireframe Rendering
@@ -3426,9 +3448,9 @@ Studio.App.RobloxCustomWidgets.BrickColor9,https://developer.roblox.com/en-us/ar
 Studio.App.RobloxCustomWidgets.Loading,,(Loading...),(Loading...)
 Studio.App.RobloxCustomWidgets.MoreColors,,More Colors,More Colors
 Studio.App.RobloxCustomWidgets.Url,,URL:,URL:
-Studio.App.RobloxExplorerWidget.AutoupdateDisabled,,Package auto-update is disabled,Package auto-update is disabled
-Studio.App.RobloxExplorerWidget.AutoupdateOff,,Package auto-updates are off,Package auto-updates are off
-Studio.App.RobloxExplorerWidget.AutoupdateOn,,Package auto-updates are on,Package auto-updates are on
+Studio.App.RobloxExplorerWidget.AutoupdateDisabled,"Due to modifications/overrides to the package and autoupdate, we have the latest version of our package with overrides",Latest version with overrides,Latest version with overrides
+Studio.App.RobloxExplorerWidget.AutoupdateOff,"When we have autoupdate off, we pin a specific version",Pinned version,Pinned version
+Studio.App.RobloxExplorerWidget.AutoupdateOn,"When we have autoupdate on, we have the latest version",Latest version,Latest version
 Studio.App.RobloxExplorerWidget.ExplorerHeaderResult.Singular,,1 match,1 match
 Studio.App.RobloxExplorerWidget.ExplorerHeaderResults1,,%1 matches,%1 matches
 Studio.App.RobloxExplorerWidget.FileSyncScriptErrored,,The file in disk might have been renamed or changed location,The file in disk might have been renamed or changed location
@@ -3442,8 +3464,9 @@ Studio.App.RobloxExplorerWidget.SelectAllMatches1,%1 is the hotkey,Select All Ma
 Studio.App.RobloxExplorerWidget.SelectNextMatch1,%1 is the hotkey,Select Next Match (%1),Select Next Match (%1)
 Studio.App.RobloxExplorerWidget.SelectPreviousMatch1,%1 is the hotkey,Select Previous Match (%1),Select Previous Match (%1)
 Studio.App.RobloxExplorerWidget.SelectRefreshResults,,Refresh Results,Refresh Results
-Studio.App.RobloxExplorerWidget.UnpublishedChanges,,Package has unpublished changes,Package has unpublished changes
-Studio.App.RobloxExplorerWidget.UpdateAvailable,,Package update available,Package update available
+Studio.App.RobloxExplorerWidget.UnpublishedChanges,You have a pinned version with override changes on it,Pinned version with overrides,Pinned version with overrides
+Studio.App.RobloxExplorerWidget.UnpublishedChangesUpdateAvailable,"You have a pinned version with override changes on it, and have updates available only if you want them",Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
+Studio.App.RobloxExplorerWidget.UpdateAvailable,"You have a pinned version, and have updates available only if you want them",Pinned version (Updates available),Pinned version (Updates available)
 Studio.App.RobloxFindWidget.AllScripts,,All Scripts ,All Scripts 
 Studio.App.RobloxFindWidget.CurrentScript,,Current Script,Current Script
 Studio.App.RobloxFindWidget.FindHeader,,Matching lines: %1    Matching scripts: %2    Total scripts searched: %3,Matching lines: %1    Matching scripts: %2    Total scripts searched: %3
@@ -4798,6 +4821,7 @@ Studio.App.Parts.Surface,Parts menu,Surface,Surface
 Studio.App.Parts.SurfaceTooltip,tooltip,"Pick a surface type, and click on part surfaces to apply","Pick a surface type, and click on part surfaces to apply"
 Studio.App.Physics.AeroMeshPleaseWait,Waiting for aerodynamic mesh generation to complete,Please Wait,Please Wait
 Studio.App.Physics.ProcessingAeroMeshes,Shown during aerodynamic mesh generation,Processing aerodynamic meshes,Processing aerodynamic meshes
+Studio.App.PinnedUpdateAvailableWithOverrides,"You have a pinned version with override changes on it, and have updates available only if you want them",Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
 Studio.App.PlaceAnnotations.AddAnnotation,"Enables/disables the comment cursor, allowing the user to place comments in the 3D workspace.",Toggle comment cursor,Toggle comment cursor
 Studio.App.PlaceAnnotations.AddAnnotation2,Enables/disables a mouse cursor that allows users to place comments.,Toggle comment cursor,Toggle comment cursor
 Studio.App.PlaceAnnotations.AddAnnotationTooltip,Tooltip description for the Add Annotation button.,Toggle the comment cursor to leave comments in the 3D viewport.,Toggle the comment cursor to leave comments in the 3D viewport.
@@ -5151,6 +5175,7 @@ Studio.App.UniverseController.FailedToLoadGameAssets,,"Failed to load game asset
 Studio.App.UniverseController.FailedToLoadGameSettings,,"Failed to load game settings, some Studio features have been disabled.","Failed to load game settings, some Studio features have been disabled."
 Studio.App.UniverseController.PermissionDenied,,Unable to load universe. Permission denied.,Unable to load universe. Permission denied.
 Studio.App.UniverseController.ThisPlaceDoesNotBelongToAGame,,This place does not belong to a game.,This place does not belong to a game.
+Studio.App.UnpublishedChangesUpdateAvailable,"You have a pinned version with override changes on it, and have updates available only if you want them",Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
 Studio.App.UpdateNotifications.InChannel,,In Channel,In Channel
 Studio.App.UpdateNotifications.InChannelToolTipFmt1,,Channel: %1,Channel: %1
 Studio.App.UpdateUIManager.Chat,,Chat,Chat
@@ -5901,8 +5926,6 @@ Studio.BetaFeatures.AvatarJointUpgradeDescription,,"Adds ragdoll constraints int
 Studio.BetaFeatures.AvatarJointUpgradeTitle,,Avatar Joint Upgrade,Avatar Joint Upgrade
 Studio.BetaFeatures.AvatarLoadingBetaDescription,,Improves the ordering of events fired when avatars are loaded to be more consistent and easier for developers to use,Improves the ordering of events fired when avatars are loaded to be more consistent and easier for developers to use
 Studio.BetaFeatures.AvatarLoadingBetaTitle,,New Avatar Loading Signal Ordering,New Avatar Loading Signal Ordering
-Studio.BetaFeatures.AvatarMakeupDescription,Enables composition and application of makeup textures on avatar heads with WrapTextureTransfer and AssetService:ComposeDecalsAsync.,Enables composition and application of makeup textures on avatar heads with WrapTextureTransfer and AssetService:ComposeDecalsAsync.,Enables composition and application of makeup textures on avatar heads with WrapTextureTransfer and AssetService:ComposeDecalsAsync.
-Studio.BetaFeatures.AvatarMakeupTitle,Avatar Makeup,Avatar Makeup,Avatar Makeup
 Studio.BetaFeatures.BetaFeatures,title for Beta Features feature,Beta Features,Beta Features
 Studio.BetaFeatures.CSG4StudioDescription,,"This beta feature improves the robustness and performance of solid modeling operations in Studio. These improvements are enabled when using the Solid modeling tools (Union, Intersect, Negate, Separate) or plugins that leverage the legacy CSG operation APIs (BasePart).","This beta feature improves the robustness and performance of solid modeling operations in Studio. These improvements are enabled when using the Solid modeling tools (Union, Intersect, Negate, Separate) or plugins that leverage the legacy CSG operation APIs (BasePart)."
 Studio.BetaFeatures.CSG4StudioTitle,,Studio solid modeling improvements,Studio solid modeling improvements
@@ -5968,6 +5991,8 @@ Studio.BetaFeatures.HapticEffectDescription,Cross-platform haptics with preset e
 Studio.BetaFeatures.HapticEffectTitle,Haptic Effects,Haptic Effects,Haptic Effects
 Studio.BetaFeatures.IEAvatarAutoSetupTitleDescription,Description for the Studio Beta Feature for In-Experience Avatar Auto Setup,Enables in-experience automated creation of avatars and avatar clothing and accessories from 3D models.,Enables in-experience automated creation of avatars and avatar clothing and accessories from 3D models.
 Studio.BetaFeatures.IEAvatarAutoSetupTitleTitle,Title for the Studio Beta Feature for In-Experience Avatar Auto Setup,In-Experience Avatar Auto Setup,In-Experience Avatar Auto Setup
+Studio.BetaFeatures.IRCAndUIShadowDescription,The description of the Studio beta covering individually rounded corners and UIShadow.,"Adds new properties on UICorner to create individually rounded corners, and a new instance UIShadow to create drop shadows or glows.","Adds new properties on UICorner to create individually rounded corners, and a new instance UIShadow to create drop shadows or glows."
+Studio.BetaFeatures.IRCAndUIShadowTitle,The title of the Studio beta covering individually rounded corners and UIShadow.,New UI Capabilities,New UI Capabilities
 Studio.BetaFeatures.ImportQueueDescription,,Enable the bulk import of multiple 3D files through the Import 3D tool.,Enable the bulk import of multiple 3D files through the Import 3D tool.
 Studio.BetaFeatures.ImportQueueTitle,,Import Queue,Import Queue
 Studio.BetaFeatures.ImprovedInnerBoxDescription,,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.
@@ -6075,7 +6100,7 @@ Studio.BetaFeatures.PlaytestSubagentDescription,Description for the Playtest Sub
 Studio.BetaFeatures.PlaytestSubagentTitle,Title for the AI-powered Playtest Subagent beta feature in Studio Assistant.,Playtest Agent,Playtest Agent
 Studio.BetaFeatures.PreferredTextSizeSettingDescription,,Enables a text size setting in the in-game menu and app-shell device preferences page that scales text according to a user's selection.,Enables a text size setting in the in-game menu and app-shell device preferences page that scales text according to a user's selection.
 Studio.BetaFeatures.PreferredTextSizeSettingTitle,,Preferred Text Size Setting,Preferred Text Size Setting
-Studio.BetaFeatures.ProceduralModelTitle,"Name of a beta feature enabling the creation of ""Procedural Objects"" in Studio, these objects can generate Instances based on input parameters at edit time.",Edit-Time Procedural Objects,Edit-Time Procedural Objects
+Studio.BetaFeatures.ProceduralModelTitle,"Name of a beta feature enabling the creation of ""Procedural Objects"" in Studio, these objects can generate Instances based on input parameters at edit time.",Edit-Time Procedural Models,Edit-Time Procedural Models
 Studio.BetaFeatures.ProceduralObjectsDescription,"Description of the ""Edit time procedural objects"" beta feature.",Adds a new ProceduralModel Instance type which generates child contents according to a developer written ModuleScript using Attributes as input parameters.,Adds a new ProceduralModel Instance type which generates child contents according to a developer written ModuleScript using Attributes as input parameters.
 Studio.BetaFeatures.ProximityPromptDescription,,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.
 Studio.BetaFeatures.ProximityPromptIndicatorsDescription,"Describes a new Indicator feature for Proximity Prompts
@@ -6097,6 +6122,10 @@ Studio.BetaFeatures.RuntimeContentDescription,Description of the RuntimeContent 
 Studio.BetaFeatures.RuntimeContentTitle,Title for Runtime Content studio beta feature,Editable Mesh/Image to static content conversion API,Editable Mesh/Image to static content conversion API
 Studio.BetaFeatures.SaveToCloudV2Description,,Create new games in the cloud automatically.,Create new games in the cloud automatically.
 Studio.BetaFeatures.SaveToCloudV2Title,,New Games in the Cloud,New Games in the Cloud
+Studio.BetaFeatures.SceneAnalysisDescription,These terms all map to the views in scene analysis,"Enables detailed performance statistics for scene composition including instance counts, 
+  triangle counts, script memory, and unparented instances,","Enables detailed performance statistics for scene composition including instance counts, 
+  triangle counts, script memory, and unparented instances,"
+Studio.BetaFeatures.SceneAnalysisTitle,Title of a window/tool,Scene Analysis,Scene Analysis
 Studio.BetaFeatures.ScriptEditorApiDescription,,"Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor.","Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor."
 Studio.BetaFeatures.ScriptEditorApiTitle,,Script Editor API,Script Editor API
 Studio.BetaFeatures.ScriptEditorDescription,,Customizable Semantic Highlighting and Temporary tabs that open Scripts in preview mode by default.,Customizable Semantic Highlighting and Temporary tabs that open Scripts in preview mode by default.
@@ -6139,6 +6168,8 @@ Studio.BetaFeatures.StudioPreferredTextSizeSettingDescription,A description for 
 Studio.BetaFeatures.StudioPreferredTextSizeSettingTitle,the title of a setting that allows a user to adjust text size in studio,Studio Preferred Text Size Setting,Studio Preferred Text Size Setting
 Studio.BetaFeatures.StyleQueryDescription,Describes what the new instance does related to styling UI properties based on different parameters.,The new StyleQuery instance enables conditional styling based on parent sizing properties or device/user settings.,The new StyleQuery instance enables conditional styling based on parent sizing properties or device/user settings.
 Studio.BetaFeatures.StyleQueryTitle,Name of the new StyleQuery instance.,StyleQuery,StyleQuery
+Studio.BetaFeatures.StylingTransitionsDescription,Description for the Styling Transitions beta feature,Adds the ability to create UI transitions via the Styling system.,Adds the ability to create UI transitions via the Styling system.
+Studio.BetaFeatures.StylingTransitionsTitle,Title for the Styling Transitions beta feature,Styling Transitions,Styling Transitions
 Studio.BetaFeatures.SurfaceAppearanceTintingDescription,,SurfaceAppearance Tinting allows you to multiply a Color property with your SurfaceAppearance’s ColorMap to create color variations.,SurfaceAppearance Tinting allows you to multiply a Color property with your SurfaceAppearance’s ColorMap to create color variations.
 Studio.BetaFeatures.SurfaceAppearanceTintingTitle,,SurfaceAppearance Tinting,SurfaceAppearance Tinting
 Studio.BetaFeatures.SurfaceJoinChangesDescription,,"Remove the 'Surface' Join Mode, all surfaces create ManualWelds.","Remove the 'Surface' Join Mode, all surfaces create ManualWelds."
@@ -6237,6 +6268,11 @@ Studio.CommandBar.Description.MultilineToggleCommandName,Name of the multiline m
 Studio.CommandBar.Description.SaveToggleCommandDescription,Description of the command that lets you either save or unsave (depending on if it is already saved) an entered (user-defined) command for use in the shortcut customization menu,Save / unsave the current command in the command bar,Save / unsave the current command in the command bar
 Studio.CommandBar.Description.SaveToggleCommandName,Name of the command that lets you either save or unsave (depending on if it is already saved) an entered (user-defined) command for use in the shortcut customization menu,Save/unsave command,Save/unsave command
 Studio.CommandBar.Description.ShowHistoryCommandDescription,Description of the show history toggle command for use in the shortcut customization menu,Show menu with recently executed and saved commands,Show menu with recently executed and saved commands
+Studio.CommandBar.Dialog.DangerousCommandAlwaysContinue,Option to always accept dangerous commands and suppress the warning in the future.,Always Continue,Always Continue
+Studio.CommandBar.Dialog.DangerousCommandCancel,Button text to cancel execution of a dangerous command,Cancel,Cancel
+Studio.CommandBar.Dialog.DangerousCommandContinue,Button text to confirm executing a dangerous command.,Continue,Continue
+Studio.CommandBar.Dialog.DangerousCommandDesc,"Description of a dialog box shown to users when a dangerous command is detected. The ""%1"" is a formatting placeholder for the dangerous API used.",This command uses %1 and may not be undoable. Would you like to continue?,This command uses %1 and may not be undoable. Would you like to continue?
+Studio.CommandBar.Dialog.DangerousCommandTitle,Title of a dialog shown to users when a dangerous command is detected,Dangerous Command Detected,Dangerous Command Detected
 Studio.CommandBar.ExecuteWithEnterProperty,A setting to allow the user to execute commands with the Return key.,Execute Command with Return,Execute Command with Return
 Studio.CommandBar.ExecutionOption.Local,Commands will execute locally (as opposed to on the TeamCreate Server),Local Execution,Local Execution
 Studio.CommandBar.ExecutionOption.Remote,Commands will execute remotely on the TeamCreate Server.,Cloud Execution,Cloud Execution
@@ -6645,6 +6681,43 @@ Studio.ExplorerHost.CounterExample.CounterLabel,,You pressed me {counter} times!
 Studio.ExplorerHost.Plugin.Button,,Explorer Host,Explorer Host
 Studio.ExplorerHost.Plugin.Description,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
 Studio.ExplorerHost.Plugin.Name,,ExplorerHost,ExplorerHost
+Studio.ExplorerLibrary.AuroraScript.BadAuthorityMode,"There is a workspace property called AuthorityMode which enables AuroraScripts to run when specific value is selected (""Server"")",Selected AuthorityMode does not allow running this script. Change Workspace's AuthorityMode to Server,Selected AuthorityMode does not allow running this script. Change Workspace's AuthorityMode to Server
+Studio.ExplorerLibrary.AuroraScript.NotUnderBehaviorFolder,AuroraScripts are only allowed to exist at a very specific location - this error message is used as a tooltip when AuroraScript is created/moved somewhere else,Move this script into ReplicatedStorage.Behaviors to get it to run,Move this script into ReplicatedStorage.Behaviors to get it to run
+Studio.ExplorerLibrary.ChatMigration.AutoMigrateWarning,A warning that will be attached to the TextChatService row in the Explorer widget. It's purpose is to notify dev's that their experience has been auto-migrated and to update the ChatVersion property of their game.,This project now uses TextChatService at runtime. Change ChatVersion to TextChatService in Properties.,This project now uses TextChatService at runtime. Change ChatVersion to TextChatService in Properties.
+Studio.ExplorerLibrary.ChatMigration.DeprecationWarning,A tooltip that will appear when hovering over the soon to be deprecated Chat property in the Explorer Pane.,"The legacy chat system is being deprecated, use TextChatService for compatibility.","The legacy chat system is being deprecated, use TextChatService for compatibility."
+Studio.ExplorerLibrary.HistoryDropdown.ClearText,Clear search history tooltip,Clear history,Clear history
+Studio.ExplorerLibrary.HistoryDropdown.PlaceholderText,Placeholder text when there is no search history yet,No searches have been made yet,No searches have been made yet
+Studio.ExplorerLibrary.HistoryDropdown.TitleText,,History,History
+Studio.ExplorerLibrary.LiveSync.AncestorErrored,Tooltip shown when hovering over an Instance the is a descendant of an Errored sync root,Syncing stopped due to error at the root of the tree,Syncing stopped due to error at the root of the tree
+Studio.ExplorerLibrary.LiveSync.ScriptSyncing,Tooltip shown when hovering over a script that is being synced,Local changes are being synced with Studio,Local changes are being synced with Studio
+Studio.ExplorerLibrary.NegateSelection.PartIsNegated,Tooltip shown when hovering over a part that has been negated. Such a part will be subtracted when used with the Union button.,Part is negated,Part is negated
+Studio.ExplorerLibrary.PackageStatus.AutoUpdateDisabled,"Due to modifications/overrides to the package and autoupdate, we have the latest version of our package with overrides",Latest version with overrides,Latest version with overrides
+Studio.ExplorerLibrary.PackageStatus.AutoUpdateOff,"When we have autoupdate off, we pin a specific version",Pinned version,Pinned version
+Studio.ExplorerLibrary.PackageStatus.AutoUpdateOn,"When we have autoupdate on, we have the latest version",Latest version,Latest version
+Studio.ExplorerLibrary.PackageStatus.UnpublishedChanges,You have a pinned version with override changes on it,Pinned version with overrides,Pinned version with overrides
+Studio.ExplorerLibrary.PackageStatus.UnpublishedChangesUpdateAvailable,"You have a pinned version with override changes on it, and have updates available only if you want them",Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
+Studio.ExplorerLibrary.PackageStatus.UpdateAvailable,"You have a pinned version, and have updates available only if you want them",Pinned version (Updates available),Pinned version (Updates available)
+Studio.ExplorerLibrary.SearchBar.PlaceholderText,Placeholder text for Explorer's search bar,Search,Search
+Studio.ExplorerLibrary.SearchBar.SearchHistoryTooltip,Tooltip text that appears when hovering over the search history button,Search History,Search History
+Studio.ExplorerLibrary.SearchBrowser.RefreshResults,Refresh the search results,Refresh results,Refresh results
+Studio.ExplorerLibrary.SearchBrowser.ResultCountPlural1,,{resultCount:int} matches,{resultCount:int} matches
+Studio.ExplorerLibrary.SearchBrowser.ResultCountPlural_v2_1,,{resultCount} matches,{resultCount} matches
+Studio.ExplorerLibrary.SearchBrowser.ResultCountSingular,,1 match,1 match
+Studio.ExplorerLibrary.SearchBrowser.SelectAllMatches,Select all instances matching the search,Select all matches,Select all matches
+Studio.ExplorerLibrary.SearchBrowser.SelectNextMatch,Select the next instance matching the search,Select next match,Select next match
+Studio.ExplorerLibrary.SearchBrowser.SelectPreviousMatch,Select the previous instance matching the search,Select previous match,Select previous match
+Studio.ExplorerLibrary.SettingsDropdown.ExpandHierarchy,,Expand Hierarchy When Selecting in Viewport,Expand Hierarchy When Selecting in Viewport
+Studio.ExplorerLibrary.SettingsDropdown.ExpandHierarchy_v2,,Expand hierarchy when selecting,Expand hierarchy when selecting
+Studio.ExplorerLibrary.SettingsDropdown.IncrementNames,,Increment Names for New Instances,Increment Names for New Instances
+Studio.ExplorerLibrary.SettingsDropdown.IncrementNames_v2,,Increment names for new instances,Increment names for new instances
+Studio.ExplorerLibrary.SettingsDropdown.IncrementalNames,,Incremental Names for New Instances,Incremental Names for New Instances
+Studio.ExplorerLibrary.SettingsDropdown.SelectOnInsertion,,Select Instance After Insert,Select Instance After Insert
+Studio.ExplorerLibrary.SettingsDropdown.SelectOnInsertion_v2,,Select instance after insert,Select instance after insert
+Studio.ExplorerLibrary.SettingsDropdown.ShowSelectionHierarchyHighlights,,Show selection hierarchy highlights,Show selection hierarchy highlights
+Studio.ExplorerLibrary.SettingsDropdown.ViewStandaloneDataModel,"Internal setting for making the explorer look at the ""standalone data model""",View standalone data model,View standalone data model
+Studio.ExplorerLibrary.SyntaxDropdown.Properties,,Properties,Properties
+Studio.ExplorerLibrary.SyntaxDropdown.SuggestedFilters,,Suggested Filters,Suggested Filters
+Studio.ExplorerLibrary.SyntaxDropdown.SyntaxGuide,,Syntax Guide,Syntax Guide
 Studio.FileSync.Buttons.Ok,,Ok,Ok
 Studio.FileSync.DateTime.At,, at, at
 Studio.FileSync.Errors.ExportFailure,,Failed Export,Failed Export

@@ -5312,11 +5312,11 @@ Studio.App.ProjectFolderService.UnsupportedRootMoveError,,,Error moving Instance
 Studio.App.ProjectFolderService.UnsupportedRootCreationError,,,Error creating Instance (%1): Instance is parented to an ineligible instance inside an unsupported service.,Error creating Instance (%1): Instance is parented to an ineligible instance inside an unsupported service.
 Studio.App.ProjectFolderService.SyncInProgress,,,A sync operation is currently in progress. Please try again later.,A sync operation is currently in progress. Please try again later.
 Studio.App.AIDiffMessage.StopGeneration,,,Stop,Stop
-Studio.App.RobloxExplorerWidget.AutoupdateOn,,,Package auto-updates are on,Package auto-updates are on
-Studio.App.RobloxExplorerWidget.AutoupdateOff,,,Package auto-updates are off,Package auto-updates are off
-Studio.App.RobloxExplorerWidget.AutoupdateDisabled,,,Package auto-update is disabled,Package auto-update is disabled
-Studio.App.RobloxExplorerWidget.UnpublishedChanges,,,Package has unpublished changes,Package has unpublished changes
-Studio.App.RobloxExplorerWidget.UpdateAvailable,,,Package update available,Package update available
+Studio.App.RobloxExplorerWidget.AutoupdateOn,,,Latest version,Latest version
+Studio.App.RobloxExplorerWidget.AutoupdateOff,,,Pinned version,Pinned version
+Studio.App.RobloxExplorerWidget.AutoupdateDisabled,,,Latest version with overrides,Latest version with overrides
+Studio.App.RobloxExplorerWidget.UnpublishedChanges,,,Pinned version with overrides,Pinned version with overrides
+Studio.App.RobloxExplorerWidget.UpdateAvailable,,,Pinned version (Updates available),Pinned version (Updates available)
 Studio.App.BetaFeatures.UIDragDetectorTitle,,,UIDragDetectors,UIDragDetectors
 Studio.App.BetaFeatures.UIDragDetectorDescription,,,New Instance type UIDragDetector that enables click-drag-release interactions for UI Elements. Enabling this beta feature allows adding and using UIDragDetectors only within Roblox Studio.,New Instance type UIDragDetector that enables click-drag-release interactions for UI Elements. Enabling this beta feature allows adding and using UIDragDetectors only within Roblox Studio.
 Studio.App.GUAC.UserFriendlyFailedToFetch,,,No internet connection. Check your network and try opening Studio again.,No internet connection. Check your network and try opening Studio again.
@@ -5700,8 +5700,8 @@ Studio.App.Actions.UIShadow,,,UIShadow,UIShadow
 Studio.App.GenerativeAI.FileDialog.AllFiles,,,All files,All files
 Studio.App.GenerativeAI.FileDialog.AllowedFiles,,,Allowed files,Allowed files
 Studio.App.PackageService.CircularDependency,,,Cannot publish package with circular package link dependencies,Cannot publish package with circular package link dependencies
-Studio.App.RobloxRibbonMainWindow.AdaptiveAnimation,,,Adaptive Animation Support,Adaptive Animation Support
-Studio.App.RobloxRibbonMainWindow.AdaptiveAnimationTooltip,,,Adaptive Animation Support,Adaptive Animation Support
+Studio.App.RobloxRibbonMainWindow.AdaptiveAnimation,,,Adaptive Animation,Adaptive Animation
+Studio.App.RobloxRibbonMainWindow.AdaptiveAnimationTooltip,,,"Map joints, adjust T-Pose and preview animations using Humanoid Rig Description","Map joints, adjust T-Pose and preview animations using Humanoid Rig Description"
 Studio.App.StudioPluginHost.CantSaveSettings,,,Unable to save settings for plugin,Unable to save settings for plugin
 Studio.App.PropertyItems.SandboxedDisabledWarning,,,Disabling the Sandboxed property might make your game vulnerable to exploits. Are you sure you want to disable this?,Disabling the Sandboxed property might make your game vulnerable to exploits. Are you sure you want to disable this?
 Studio.App.PropertyItems.SandboxedDisabledKeep,,,Keep Sandboxed,Keep Sandboxed
@@ -5717,6 +5717,11 @@ Studio.App.PropertyTooltip.YAxisColor,,,The color of the Y Axis.,The color of th
 Studio.App.PropertyTooltip.ZAxisColor,,,The color of the Z Axis.,The color of the Z Axis.
 Studio.App.Property.VAxisColor,,,View Axis Color,View Axis Color
 Studio.App.PropertyTooltip.VAxisColor,,,The color of the View Axis.,The color of the View Axis.
+Studio.App.PropertyItems.ViewPackageDiff,,,Compare package versions,Compare package versions
+Studio.App.PropertyItems.RevertPackageChanges,,,Revert all overrides,Revert all overrides
+Studio.App.PinnedUpdateAvailableWithOverrides,,,Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
+Studio.App.UnpublishedChangesUpdateAvailable,,,Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
+Studio.App.RobloxExplorerWidget.UnpublishedChangesUpdateAvailable,,,Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -8124,7 +8129,18 @@ Studio.Toolbox.Subcategory.Model2dVideos,,,Videos,Videos
 Studio.Toolbox.General.TooltipThumbnailSkinColorDescription,,,This skin color will only be used in the thumbnail to merchandise your Makeup item,This skin color will only be used in the thumbnail to merchandise your Makeup item
 Studio.Toolbox.General.AssetXOutOfY,,,Asset {current} out of {total},Asset {current} out of {total}
 Studio.Toolbox.AssetConfigPackagePermissions.GiveAccessFriendsSubtext,,,Give your friends and groups access to this asset.,Give your friends and groups access to this asset.
+Studio.Toolbox.General.AssetTypeWalkAnimation,,,Walk Animation,Walk Animation
 Studio.Toolbox.General.AnimationPacks,,,Animation Packs,Animation Packs
+Studio.Toolbox.General.AssetTypeJumpAnimation,,,Jump Animation,Jump Animation
+Studio.Toolbox.AssetConfig.UGCAnimationPackBundleName,,,Animation Pack,Animation Pack
+Studio.Toolbox.General.AssetTypeClimbAnimation,,,Climb Animation,Climb Animation
+Studio.Toolbox.General.AssetTypeFallAnimation,,,Fall Animation,Fall Animation
+Studio.Toolbox.General.AssetTypeIdleAnimation,,,Idle Animation,Idle Animation
+Studio.Toolbox.General.AssetTypeRunAnimation,,,Run Animation,Run Animation
+Studio.Toolbox.General.AssetTypeSwimAnimation,,,Swim Animation,Swim Animation
+Studio.Toolbox.General.ShoeValidation,,,Shoe Validation,Shoe Validation
+Studio.Toolbox.AssetConfig.UGCAvatarAnimationsBundleName,,,Avatar Animations,Avatar Animations
+Studio.Toolbox.General.AvatarAnimationsValidation,,,Avatar Animations Validation,Avatar Animations Validation
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9438,6 +9454,16 @@ Studio.AssetManager.Section,,,See All,See All
 Studio.AssetManager.Section.SeeAll,,,See All,See All
 Studio.AssetManager.Section.SeeLess,,,See Less,See Less
 Studio.AssetManager.Asset.NewFolder,,,New Folder,New Folder
+Studio.AssetManager.ContextMenu.MoveToLastFolder,,,Move to {folderName},Move to {folderName}
+Studio.AssetManager.ContextMenu.ImportAssetVersion,,,Import New Version,Import New Version
+Studio.AssetManager.ContextMenu.DeleteFolders,,,Delete Folders,Delete Folders
+Studio.AssetManager.Toast.DeleteFolderFailed,,,Failed to delete folder,Failed to delete folder
+Studio.AssetManager.Toast.CreateFolderFailed,,,Failed to create new folder,Failed to create new folder
+Studio.AssetManager.Toast.RenameFolderFailed,,,Failed to rename folder,Failed to rename folder
+Studio.AssetManager.Toast.InsertingAssets,,,Inserting assets,Inserting assets
+Studio.AssetManager.Toast.DeleteFolderFailedNotEmpty,,,The folder must be empty before it can be deleted,The folder must be empty before it can be deleted
+Studio.AssetManager.Toast.FolderNotFound,,,Could not find folder. Please refresh the Asset Manager.,Could not find folder. Please refresh the Asset Manager.
+Studio.AssetManager.Toast.GetItemsFailed,,,Failed to fetch items for this folder,Failed to fetch items for this folder
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -11366,6 +11392,7 @@ Studio.StyleEditor.ContextMenu.New.Query,,,Query,Query
 Studio.StyleEditor.SourceSelect.Source,,,Source:,Source:
 Studio.StyleEditor.ContextMenu.Insert,,,Insert,Insert
 Studio.StyleEditor.ContextMenu.New.Transition,,,Transition,Transition
+Studio.StyleEditor.Label.ValueErrorIncorrectType,,,Error: Incorrect value type for property,Error: Incorrect value type for property
 Studio.AudioDiscovery.Plugin.Name,,,Audio Discovery,Audio Discovery
 Studio.AudioDiscovery.Plugin.Toolbar,,,Audio Discovery,Audio Discovery
 Studio.AudioDiscovery.Plugin.Button,,,View Sounds,View Sounds
@@ -12265,10 +12292,10 @@ Studio.AvatarCompatibilityPreviewer.MarketplaceImport.ItemIdInputPlaceholder,,,E
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.IndividualShoesError,,,"AssetIDs for individual shoes are not supported, use bundleID to add shoes","AssetIDs for individual shoes are not supported, use bundleID to add shoes"
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.AssetTypeError,,,{invalidAssetTypes} Avatar Items are not supported in Avatar Setup,{invalidAssetTypes} Avatar Items are not supported in Avatar Setup
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.NothingFoundError,,,No assets or bundles found for ID(s): {lostIds},No assets or bundles found for ID(s): {lostIds}
-Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoidTitle,,,R15 with optional joints,R15 with optional joints
-Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoidTooltipDescription,,,Creates an instance of HumanoidRigDescription that helps with advanced articulation,Creates an instance of HumanoidRigDescription that helps with advanced articulation
-Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoidDescription,,,Creates an instance of HumanoidRigDescription that helps with advanced articulation,Creates an instance of HumanoidRigDescription that helps with advanced articulation
-Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoid,,,R15 with optional joints,R15 with optional joints
+Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoidTitle,,,Create R15 with optional joints,Create R15 with optional joints
+Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoidTooltipDescription,,,"Creates additional joints for upper torso, neck, hands and feet with a HumanoidRigDescription for advanced articulation","Creates additional joints for upper torso, neck, hands and feet with a HumanoidRigDescription for advanced articulation"
+Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoidDescription,,,"Creates additional joints for upper torso, neck, hands and feet with a HumanoidRigDescription for advanced articulation","Creates additional joints for upper torso, neck, hands and feet with a HumanoidRigDescription for advanced articulation"
+Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoid,,,Create R15 with optional joints,Create R15 with optional joints
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateAnAvatarLook,,,Create an Avatar Look,Create an Avatar Look
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateAMakeupLook,,,Create a Makeup Look,Create a Makeup Look
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateAnAvatarLookDescription,,,Style published items together as a Look and share it on Roblox.,Style published items together as a Look and share it on Roblox.
@@ -13805,6 +13832,27 @@ Studio.StartPage.Plugin.PlaceSafetyBlockedDialog.Title,,,This Experience is lock
 Studio.StartPage.Plugin.PlaceSafetyBlockedDialog.PrimaryAction,,,OK,OK
 Studio.StartPage.Plugin.PlaceSafetyBlockedDialog.SecondaryAction,,,View Terms of Use,View Terms of Use
 Studio.StartPage.Plugin.ExperienceStatus.Unrated,,,Unrated,Unrated
+Studio.StartPage.Plugin.PublishEligibilityBanner.CheckEligibilityAction,,,View requirements,View requirements
+Studio.StartPage.Plugin.PublishEligibilityBanner.Description,,,Check your eligibility to publish before late May.,Check your eligibility to publish before late May.
+Studio.StartPage.Plugin.PublishEligibilityBanner.LearnMoreAction,,,View announcement,View announcement
+Studio.StartPage.Plugin.PublishEligibilityBanner.Title,,,New requirements to publish,New requirements to publish
+Studio.StartPage.Plugin.PrivacyType.Community,,,Community,Community
+Studio.StartPage.Plugin.PrivacyType.Connections,,,Connections,Connections
+Studio.StartPage.Plugin.PrivacyType.Unrated,,,Unrated,Unrated
+Studio.StartPage.Plugin.ExperienceStatus.SelectEligible,,,Select eligible,Select eligible
+Studio.StartPage.Plugin.ExperienceStatus.SelectEligibleAtRisk,,,Select eligible,Select eligible
+Studio.StartPage.Plugin.ExperienceStatus.Collaborate,,,Collaborate,Collaborate
+Studio.StartPage.Plugin.Label.Select,,,Select,Select
+Studio.StartPage.Plugin.Label.Beta,,,Beta,Beta
+Studio.StartPage.Plugin.Tooltip.UnratedTitle,,,Unrated public experience,Unrated public experience
+Studio.StartPage.Plugin.Tooltip.UnratedDescription,,,Complete the questionnaire to set a maturity rating for your experience and have it playable by others.,Complete the questionnaire to set a maturity rating for your experience and have it playable by others.
+Studio.StartPage.Plugin.Tooltip.SelectEligibleTitle,,,Eligible for Kids & Select,Eligible for Kids & Select
+Studio.StartPage.Plugin.Tooltip.SelectEligibleDescription,,,Your experience is eligible to be published to users younger than 16. Maturity ratings still apply.,Your experience is eligible to be published to users younger than 16. Maturity ratings still apply.
+Studio.StartPage.Plugin.Tooltip.SelectAtRiskTitle,,,Eligibility at risk,Eligibility at risk
+Studio.StartPage.Plugin.Tooltip.SelectAtRiskDescription,,,Your experience must maintain a minimum number of highly engaged users to be eligible for Select. Increase your engagement by regularly updating your game and addressing player feedback.,Your experience must maintain a minimum number of highly engaged users to be eligible for Select. Increase your engagement by regularly updating your game and addressing player feedback.
+Studio.StartPage.Plugin.PrivacyType.FriendsShort,,,Friends,Friends
+Studio.StartPage.Plugin.Tooltip.AgeRestrictedCollaborationTitle,,,Needs trusted collaboration,Needs trusted collaboration
+Studio.StartPage.Plugin.Tooltip.AgeRestrictedCollaborationDescription,,,"To collaborate with everyone inside this experience, add them as a Trusted Connection.","To collaborate with everyone inside this experience, add them as a Trusted Connection."
 Studio.ConstraintTool.Plugin.Name,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Toolbar,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Button,,,Create,Create
@@ -13994,6 +14042,17 @@ Studio.Assistant.Compaction.InProgress,,,Compacting conversation context...,Comp
 Studio.Assistant.Compaction.Complete,,,Conversation context compacted,Conversation context compacted
 Studio.Assistant.FromHistory.Pending,,,Retrieving from history...,Retrieving from history...
 Studio.Assistant.FromHistory.Failed,,,History retrieval failed,History retrieval failed
+Studio.Assistant.PrimitiveGen.GeneratingPrefix,,,Generating,Generating
+Studio.Assistant.PrimitiveGen.Generating,,,Generating...,Generating...
+Studio.Assistant.PrimitiveGen.GenerationFailed,,,Generation failed,Generation failed
+Studio.Assistant.PrimitiveGen.GenerationCancelled,,,Generation cancelled,Generation cancelled
+Studio.Assistant.PrimitiveGen.Inserted,,,Inserted,Inserted
+Studio.Assistant.PrimitiveGen.TakingLonger,,,is taking longer than expected,is taking longer than expected
+Studio.Assistant.PrimitiveGen.ExpectedTimeMinutes,,,usually takes less than {minutes} min,usually takes less than {minutes} min
+Studio.Assistant.PrimitiveGen.ExpectedTimeSeconds,,,usually takes less than {seconds} sec,usually takes less than {seconds} sec
+Studio.Assistant.PrimitiveGen.GenerationErrorGeneral,,,The server could not process the request. Please check the error details below and try again later.,The server could not process the request. Please check the error details below and try again later.
+Studio.Assistant.PrimitiveGen.GenerationErrorTooManyRequests,,,Too many requests. Please wait a moment and try again.,Too many requests. Please wait a moment and try again.
+Studio.Assistant.PrimitiveGen.GenerationErrorModerationFailed,,,Your request was flagged by our content moderation system. Please revise your prompt and try again.,Your request was flagged by our content moderation system. Please revise your prompt and try again.
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -14287,7 +14346,7 @@ Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSection,,,Abilities,Abili
 Studio.AvatarSettings.MovementSettings.AbilitiesSectionLegacyHumanoidButtonText,,,Legacy Humanoid,Legacy Humanoid
 Studio.AvatarSettings.MovementSettings.AbilitiesSectionLuaCharControllerButtonText,,,Character Controller Library,Character Controller Library
 Studio.AvatarSettings.MovementSettings.AbilitiesSectionControllerModeLegacySubText,,,Use the legacy Humanoid for movement.,Use the legacy Humanoid for movement.
-Studio.AvatarSettings.MovementSettings.AbilitiesSectionControllerModeLuaSubText,,,Choose abilities you turn on at runtime.,Choose abilities you turn on at runtime.
+Studio.AvatarSettings.MovementSettings.AbilitiesSectionControllerModeLuaSubText,,,Choose abilities you turn on at runtime,Choose abilities you turn on at runtime
 Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableRunning,,,Running,Running
 Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableJumping,,,Jumping,Jumping
 Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableSitting,,,Sitting,Sitting
@@ -14318,16 +14377,19 @@ Studio.ExplorerLibrary.SearchBrowser.SelectPreviousMatch,,,Select previous match
 Studio.ExplorerLibrary.SettingsDropdown.ViewStandaloneDataModel,,,View standalone data model,View standalone data model
 Studio.ExplorerLibrary.HistoryDropdown.PlaceholderText,,,No searches have been made yet,No searches have been made yet
 Studio.ExplorerLibrary.SearchBar.SearchHistoryTooltip,,,Search History,Search History
-Studio.ExplorerLibrary.PackageStatus.UnpublishedChanges,,,Package has unpublished changes,Package has unpublished changes
-Studio.ExplorerLibrary.PackageStatus.UpdateAvailable,,,Package update available,Package update available
-Studio.ExplorerLibrary.PackageStatus.AutoUpdateDisabled,,,Package auto-update is disabled,Package auto-update is disabled
-Studio.ExplorerLibrary.PackageStatus.AutoUpdateOn,,,Package auto-updates are on,Package auto-updates are on
-Studio.ExplorerLibrary.PackageStatus.AutoUpdateOff,,,Package auto-updates are off,Package auto-updates are off
+Studio.ExplorerLibrary.PackageStatus.UnpublishedChanges,,,Pinned version with overrides,Pinned version with overrides
+Studio.ExplorerLibrary.PackageStatus.UpdateAvailable,,,Pinned version (Updates available),Pinned version (Updates available)
+Studio.ExplorerLibrary.PackageStatus.AutoUpdateDisabled,,,Latest version with overrides,Latest version with overrides
+Studio.ExplorerLibrary.PackageStatus.AutoUpdateOn,,,Latest version,Latest version
+Studio.ExplorerLibrary.PackageStatus.AutoUpdateOff,,,Pinned version,Pinned version
 Studio.ExplorerLibrary.LiveSync.ScriptSyncing,,,Local changes are being synced with Studio,Local changes are being synced with Studio
 Studio.ExplorerLibrary.ChatMigration.AutoMigrateWarning,,,This project now uses TextChatService at runtime. Change ChatVersion to TextChatService in Properties.,This project now uses TextChatService at runtime. Change ChatVersion to TextChatService in Properties.
 Studio.ExplorerLibrary.ChatMigration.DeprecationWarning,,,"The legacy chat system is being deprecated, use TextChatService for compatibility.","The legacy chat system is being deprecated, use TextChatService for compatibility."
 Studio.ExplorerLibrary.NegateSelection.PartIsNegated,,,Part is negated,Part is negated
 Studio.ExplorerLibrary.LiveSync.AncestorErrored,,,Syncing stopped due to error at the root of the tree,Syncing stopped due to error at the root of the tree
+Studio.ExplorerLibrary.PackageStatus.UnpublishedChangesUpdateAvailable,,,Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
+Studio.ExplorerLibrary.LiveSync.CollaboratorSyncing,,,Script Sync is on for {collaboratorNames},Script Sync is on for {collaboratorNames}
+Studio.ExplorerLibrary.LiveSync.CollaboratorSyncingDetail,,,"Some features might work differently, like automatic instance naming","Some features might work differently, like automatic instance naming"
 Studio.AudioCompressorEditor.Plugin.AudioCompressorEditor,,,AudioCompressorEditor,AudioCompressorEditor
 Studio.AudioCompressorEditor.Label.Bypass,,,Bypass,Bypass
 Studio.AudioCompressorEditor.Label.EnableMetering,,,Enable Metering,Enable Metering
@@ -14653,8 +14715,16 @@ Studio.BetaFeatures.RuntimeContentTitle,,,Editable Mesh/Image to static content 
 Studio.BetaFeatures.RuntimeContentDescription,,,"EditableMesh and EditableImage objects can be converted into static, unpublished content that exists and replicates within the Data Model session using the new CreateDataModelContentAsync API","EditableMesh and EditableImage objects can be converted into static, unpublished content that exists and replicates within the Data Model session using the new CreateDataModelContentAsync API"
 Studio.BetaFeatures.StyleQueryTitle,,,StyleQuery,StyleQuery
 Studio.BetaFeatures.StyleQueryDescription,,,The new StyleQuery instance enables conditional styling based on parent sizing properties or device/user settings.,The new StyleQuery instance enables conditional styling based on parent sizing properties or device/user settings.
-Studio.BetaFeatures.ProceduralModelTitle,,,Edit-Time Procedural Objects,Edit-Time Procedural Objects
+Studio.BetaFeatures.ProceduralModelTitle,,,Edit-Time Procedural Models,Edit-Time Procedural Models
 Studio.BetaFeatures.ProceduralObjectsDescription,,,Adds a new ProceduralModel Instance type which generates child contents according to a developer written ModuleScript using Attributes as input parameters.,Adds a new ProceduralModel Instance type which generates child contents according to a developer written ModuleScript using Attributes as input parameters.
+Studio.BetaFeatures.PlaytestSubagentTitle,,,Playtest Agent,Playtest Agent
+Studio.BetaFeatures.PlaytestSubagentDescription,,,Assistant subagent for automated playtesting.,Assistant subagent for automated playtesting.
+Studio.BetaFeatures.StylingTransitionsTitle,,,Styling Transitions,Styling Transitions
+Studio.BetaFeatures.StylingTransitionsDescription,,,Adds the ability to create UI transitions via the Styling system.,Adds the ability to create UI transitions via the Styling system.
+Studio.BetaFeatures.SceneAnalysisDescription,,,"Enables detailed performance statistics for scene composition including instance counts, triangle counts,     
+  script memory, and unparented instances.","Enables detailed performance statistics for scene composition including instance counts, triangle counts,     
+  script memory, and unparented instances."
+Studio.BetaFeatures.SceneAnalysisTitle,,,Scene Analysis,Scene Analysis
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -15033,6 +15103,48 @@ Continue with upload anyway?","AuroraScript bindings will be removed during uplo
 
 Continue with upload anyway?"
 Studio.DistributedScripts.AuroraScriptUploadError,,,AuroraScripts can't be included in uploads,AuroraScripts can't be included in uploads
+Studio.SceneAnalysis.Plugin.Button,,,Scene Analysis,Scene Analysis
+Studio.SceneAnalysis.Plugin.Description,,,A tool for analyzing scene resources within your experience.,A tool for analyzing scene resources within your experience.
+Studio.SceneAnalysis.Plugin.Name,,,SceneAnalysis,SceneAnalysis
+Studio.SceneAnalysis.ContextMenu.SelectInstances,,,Select Instances(s),Select Instances(s)
+Studio.SceneAnalysis.ContextMenu.CopyAssetIdToClipboard,,,Copy Asset ID to Clipboard,Copy Asset ID to Clipboard
+Studio.SceneAnalysis.Controls.AutoupdateToggle,,,Autoupdate,Autoupdate
+Studio.SceneAnalysis.Controls.SearchPlaceholder,,,Search...,Search...
+Studio.SceneAnalysis.Messages.LocalMachineValuesWarning,,,Local machine values. Memory usage will vary on player's devices.,Local machine values. Memory usage will vary on player's devices.
+Studio.SceneAnalysis.Messages.WaitingForData,,,(Waiting For Data),(Waiting For Data)
+Studio.SceneAnalysis.Categories.InstanceComposition,,,Instance Composition,Instance Composition
+Studio.SceneAnalysis.Categories.UnparentedInstances,,,Unparented Instances,Unparented Instances
+Studio.SceneAnalysis.Categories.ScriptMemoryUsage,,,Script Memory Usage,Script Memory Usage
+Studio.SceneAnalysis.Categories.SceneTriangles,,,Scene Triangles,Scene Triangles
+Studio.SceneAnalysis.Categories.AudioMemory,,,Audio Memory,Audio Memory
+Studio.SceneAnalysis.Categories.AnimationMemory,,,Animation Memory,Animation Memory
+Studio.SceneAnalysis.Messages.UnknownName,,,Unknown,Unknown
+Studio.SceneAnalysis.Tooltip.CountLabel,,,Count: {value},Count: {value}
+Studio.SceneAnalysis.Tooltip.InstanceCountLabel,,,Instance Count:,Instance Count:
+Studio.SceneAnalysis.Tooltip.MemoryLabel,,,Memory: {value},Memory: {value}
+Studio.SceneAnalysis.SummaryPane.TotalScriptMemory,,,Total Script Memory: {memory}  |  Total Scripts: {count},Total Script Memory: {memory}  |  Total Scripts: {count}
+Studio.SceneAnalysis.SummaryPane.TotalSceneTriangles,,,Total Scene Triangles: {triangles}  |  Drawcalls: {drawcalls} (Excludes Shadows),Total Scene Triangles: {triangles}  |  Drawcalls: {drawcalls} (Excludes Shadows)
+Studio.SceneAnalysis.SummaryPane.TotalAnimationMemory,,,Total Animation Memory: {memory}  |  Total Tracks: {count},Total Animation Memory: {memory}  |  Total Tracks: {count}
+Studio.SceneAnalysis.SummaryPane.TotalAudioMemory,,,Total Audio Memory: {memory}  |  Total Sounds: {count},Total Audio Memory: {memory}  |  Total Sounds: {count}
+Studio.SceneAnalysis.SummaryPane.TotalUnparentedInstances,,,Total Unparented Instances: {count},Total Unparented Instances: {count}
+Studio.SceneAnalysis.SummaryPane.TotalInstances,,,Total Instances: {count}  |  Total Categories: {categories},Total Instances: {count}  |  Total Categories: {categories}
+Studio.SceneAnalysis.SummaryPane.TotalMemory,,,Total Memory: {memory}  |  Total Items: {count},Total Memory: {memory}  |  Total Items: {count}
+Studio.SceneAnalysis.SummaryPane.TotalCountGeneric,,,Total: {total}  |  Count: {count},Total: {total}  |  Count: {count}
+Studio.SceneAnalysis.SummaryPane.SelectedItemsPrefix,,,Selected: {selected} ({count} items)  |  {summary},Selected: {selected} ({count} items)  |  {summary}
+Studio.SceneAnalysis.ColumnHeaders.ClassName,,,Class Name,Class Name
+Studio.SceneAnalysis.ColumnHeaders.InstanceCount,,,Instance Count,Instance Count
+Studio.SceneAnalysis.ColumnHeaders.Name,,,Name,Name
+Studio.SceneAnalysis.ColumnHeaders.Memory,,,Memory,Memory
+Studio.SceneAnalysis.ColumnHeaders.Path,,,Path,Path
+Studio.SceneAnalysis.ColumnHeaders.Class,,,Class,Class
+Studio.SceneAnalysis.ColumnHeaders.ParentName,,,Parent Name,Parent Name
+Studio.SceneAnalysis.ColumnHeaders.Triangles,,,Triangles,Triangles
+Studio.SceneAnalysis.ColumnHeaders.Drawcalls,,,Drawcalls,Drawcalls
+Studio.SceneAnalysis.ColumnHeaders.AssetID,,,AssetID,AssetID
+Studio.SceneAnalysis.ColumnHeaders.References,,,References,References
+Studio.SceneAnalysis.ColumnHeaders.Owners,,,Owners,Owners
+Studio.SceneAnalysis.ColumnHeaders.InDatamodel,,,In Datamodel,In Datamodel
+Studio.SceneAnalysis.Messages.NoResults,,,(No Results),(No Results)
 Studio.DownloadPlaceCopy.PlaceFileDownloaded,,,Place file saved to: %1,Place file saved to: %1
 Studio.DownloadPlaceCopy.UnableToDownloadSaveFailed,,,Failed to download place file. Save failed.,Failed to download place file. Save failed.
 Studio.DownloadPlaceCopy.UnableToDownloadFetchContentUrlFailed,,,Failed to download place file. Couldn't fetch content URL.,Failed to download place file. Couldn't fetch content URL.
@@ -15181,8 +15293,8 @@ Studio.AdaptiveAnimationSupport.Animation.Laugh,,,Laugh,Laugh
 Studio.AdaptiveAnimationSupport.Toolbar.SymmetryOff,,,Symmetry Off,Symmetry Off
 Studio.AdaptiveAnimationSupport.Toolbar.EnforceTposeTooltip,,,Automatically position avatar to match T-Pose requirements,Automatically position avatar to match T-Pose requirements
 Studio.AdaptiveAnimationSupport.Plugin.Name,,,Adaptive Animation Support,Adaptive Animation Support
-Studio.AdaptiveAnimationSupport.Plugin.Description,,,Adaptive Animation Support,Adaptive Animation Support
-Studio.AdaptiveAnimationSupport.Plugin.Button,,,Adaptive Animation Support,Adaptive Animation Support
+Studio.AdaptiveAnimationSupport.Plugin.Description,,,"Map joints, adjust T-Pose and preview animations using Humanoid Rig Description","Map joints, adjust T-Pose and preview animations using Humanoid Rig Description"
+Studio.AdaptiveAnimationSupport.Plugin.Button,,,Adaptive Animation,Adaptive Animation
 Studio.AdaptiveAnimationSupport.Plugin.Toolbar,,,Adaptive Animation Support,Adaptive Animation Support
 Studio.TeamCreate.DisconnectReasonUnknown,,,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.
 Studio.TeamCreate.Disconnected,,,Disconnected,Disconnected
