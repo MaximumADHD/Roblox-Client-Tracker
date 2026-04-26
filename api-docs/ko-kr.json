@@ -1177,47 +1177,47 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.ExcludeInstances": {
-    "documentation": "쿼리에서 제외될 자손을 가진 인스턴스의 선택적 배열입니다.",
+    "documentation": "쿼리에서 제외될 자식들을 가진 인스턴스의 선택적 배열입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#ExcludeInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.IncludeInstances": {
-    "documentation": "쿼리에 포함될 자손을 가진 인스턴스의 선택적 배열입니다.",
+    "documentation": "쿼리에 포함될 자식들을 가진 인스턴스의 선택적 배열입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#IncludeInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.MaxParts": {
-    "documentation": "쿼리에서 반환될 최대 파트 수.",
+    "documentation": "쿼리에 의해 반환되는 최대 파트 수입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#MaxParts",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.CollisionGroup": {
-    "documentation": "작업에 사용되는 충돌 그룹.",
+    "documentation": "작업에 사용되는 충돌 그룹입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#CollisionGroup",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.Tolerance": {
-    "documentation": "경계 쿼리 작업의 볼륨을 약간 증가시킵니다.",
+    "documentation": "경계 쿼리 작업의 부피를 약간 증가시킵니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#Tolerance",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.RespectCanCollide": {
-    "documentation": "경계 쿼리 작업이 파트의 <code>BasePart.CanCollide</code> 속성 값을 <code>BasePart.CanQuery</code> 값보다 고려할지 여부를 결정합니다.",
+    "documentation": "경계 쿼리 작업이 파트의 <code>BasePart.CanCollide</code> 속성 값을 <code>BasePart.CanQuery</code> 값보다 우선적으로 고려할지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#RespectCanCollide",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.BruteForceAllSlow": {
-    "documentation": "활성화되면 쿼리는 모든 파트 충돌 속성을 무시하고 모든 파트에 대해 강제 검사를 수행합니다.",
+    "documentation": "활성화되면, 쿼리는 모든 파트 충돌 속성을 무시하고 모든 파트에 대해 강제로 확인을 수행합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#BruteForceAllSlow",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.FilterDescendantsInstances": {
-    "documentation": "후보 필터링에 사용되는 자손을 가진 객체의 배열입니다.",
+    "documentation": "후보 필터링에 사용되는 자식들의 객체 배열입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#FilterDescendantsInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.FilterType": {
-    "documentation": "<code>FilterDescendantsInstances</code> 배열이 제외 목록으로 사용될지 포함 목록으로 사용될지를 결정합니다.",
+    "documentation": "이 <code>FilterDescendantsInstances</code> 배열이 제외 리스트로 사용될지 포함 리스트로 사용될지를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#FilterType",
     "code_sample": ""
   },
@@ -1225,10 +1225,10 @@
     "documentation": "경계 쿼리 함수에서 사용되는 매개변수를 저장합니다."
   },
   "@roblox/globaltype/OverlapParams.AddToFilter/param/1": {
-    "documentation": "추가할 인스턴스 또는 인스턴스를 포함하는 배열입니다."
+    "documentation": "추가할 인스턴스 또는 인스턴스가 포함된 배열입니다."
   },
   "@roblox/globaltype/OverlapParams.AddToFilter": {
-    "documentation": "제공된 인스턴스를 <code>FilterDescendantsInstances</code>에 추가합니다.",
+    "documentation": "<code>FilterDescendantsInstances</code>에 제공된 인스턴스를 추가합니다.",
     "params": [
       {
         "name": "self",
@@ -12910,6 +12910,11 @@
     "documentation": "출력된 텍스트를 읽을 수 있는 서비스입니다.",
     "keys": {
       "ClearOutput": "@roblox/globaltype/LogService.ClearOutput",
+      "Output": "@roblox/globaltype/LogService.Output",
+      "Info": "@roblox/globaltype/LogService.Info",
+      "Warn": "@roblox/globaltype/LogService.Warn",
+      "Error": "@roblox/globaltype/LogService.Error",
+      "Log": "@roblox/globaltype/LogService.Log",
       "GetLogHistory": "@roblox/globaltype/LogService.GetLogHistory"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService",
@@ -12930,6 +12935,158 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#ClearOutput",
     "code_sample": ""
   },
+  "@roblox/globaltype/LogService.Output/param/0": {
+    "documentation": "출력된 텍스트를 읽을 수 있는 서비스입니다."
+  },
+  "@roblox/globaltype/LogService.Output/param/1": {
+    "documentation": "메시지 문자열입니다. <code>context</code> 테이블이 제공되면 <code>{key}</code> 템플릿 플레이스홀더를 지원합니다."
+  },
+  "@roblox/globaltype/LogService.Output/param/2": {
+    "documentation": "선택적 키-값 쌍의 사전입니다. 제공되면, 메시지 내의 <code>{key}</code> 플레이스홀더가 해당 값으로 대체됩니다."
+  },
+  "@roblox/globaltype/LogService.Output": {
+    "documentation": "<code>MessageType.MessageOutput</code> 수준에서 선택적 구조적 컨텍스트와 함께 메시지를 기록합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Output/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Output/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Output/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Output",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Info/param/0": {
+    "documentation": "출력된 텍스트를 읽을 수 있는 서비스입니다."
+  },
+  "@roblox/globaltype/LogService.Info/param/1": {
+    "documentation": "메시지 문자열입니다. <code>context</code> 테이블이 제공되면 <code>{key}</code> 템플릿 플레이스홀더를 지원합니다."
+  },
+  "@roblox/globaltype/LogService.Info/param/2": {
+    "documentation": "선택적 키-값 쌍의 사전입니다. 제공되면, 메시지 내의 <code>{key}</code> 플레이스홀더가 해당 값으로 대체됩니다."
+  },
+  "@roblox/globaltype/LogService.Info": {
+    "documentation": "<code>MessageType.MessageInfo</code> 수준에서 선택적 구조적 컨텍스트와 함께 메시지를 기록합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Info/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Info/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Info/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Info",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Warn/param/0": {
+    "documentation": "출력된 텍스트를 읽을 수 있는 서비스입니다."
+  },
+  "@roblox/globaltype/LogService.Warn/param/1": {
+    "documentation": "메시지 문자열입니다. <code>context</code> 테이블이 제공되면 <code>{key}</code> 템플릿 플레이스홀더를 지원합니다."
+  },
+  "@roblox/globaltype/LogService.Warn/param/2": {
+    "documentation": "선택적 키-값 쌍의 사전입니다. 제공되면, 메시지 내의 <code>{key}</code> 플레이스홀더가 해당 값으로 대체됩니다."
+  },
+  "@roblox/globaltype/LogService.Warn": {
+    "documentation": "<code>MessageType.MessageWarning</code> 수준에서 선택적 구조적 컨텍스트와 함께 메시지를 기록합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Warn",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Error/param/0": {
+    "documentation": "출력된 텍스트를 읽을 수 있는 서비스입니다."
+  },
+  "@roblox/globaltype/LogService.Error/param/1": {
+    "documentation": "메시지 문자열입니다. <code>context</code> 테이블이 제공되면 <code>{key}</code> 템플릿 플레이스홀더를 지원합니다."
+  },
+  "@roblox/globaltype/LogService.Error/param/2": {
+    "documentation": "선택적 키-값 쌍의 사전입니다. 제공되면, 메시지 내의 <code>{key}</code> 플레이스홀더가 해당 값으로 대체됩니다."
+  },
+  "@roblox/globaltype/LogService.Error": {
+    "documentation": "<code>MessageType.MessageError</code> 수준에서 메시지를 기록하고 선택적 컨텍스트와 함께 구조화된 오류를 발생시킵니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Error/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Error/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Error/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Error",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Log/param/0": {
+    "documentation": "출력된 텍스트를 읽을 수 있는 서비스입니다."
+  },
+  "@roblox/globaltype/LogService.Log/param/1": {
+    "documentation": "로그 수준을 지정하는 <code>MessageType</code>입니다."
+  },
+  "@roblox/globaltype/LogService.Log/param/2": {
+    "documentation": "메시지 문자열입니다. <code>context</code> 테이블이 제공되면 <code>{key}</code> 템플릿 플레이스홀더를 지원합니다."
+  },
+  "@roblox/globaltype/LogService.Log/param/3": {
+    "documentation": "선택적 키-값 쌍의 사전입니다. 제공되면, 메시지 내의 <code>{key}</code> 플레이스홀더가 해당 값으로 대체됩니다."
+  },
+  "@roblox/globaltype/LogService.Log": {
+    "documentation": "지정된 수준에서 선택적 구조적 컨텍스트와 함께 메시지를 기록합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Log/param/0"
+      },
+      {
+        "name": "messageType",
+        "documentation": "@roblox/globaltype/LogService.Log/param/1"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Log/param/2"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Log/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Log",
+    "code_sample": ""
+  },
   "@roblox/globaltype/LogService.GetLogHistory/param/0": {
     "documentation": "출력된 텍스트를 읽을 수 있는 서비스입니다."
   },
@@ -12937,7 +13094,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/LogService.GetLogHistory": {
-    "documentation": "각 메시지 문자열, 메시지 유형 및 클라이언트가 <strong>출력</strong> 창에 표시하는 메시지의 타임스탬프가 포함된 테이블의 테이블을 반환합니다.",
+    "documentation": "클라이언트가 <strong>출력</strong> 창에 표시하는 메시지의 메시지 문자열, 메시지 유형 및 타임스탬프를 포함하는 테이블을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -16200,13 +16357,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Folder": {
-    "documentation": "로블록스 인스턴스를 보관하고 조직하는 데 사용되는 간단한 컨테이너입니다.",
+    "documentation": "Roblox 인스턴스를 보관하고 정리하는 데 사용되는 간단한 컨테이너입니다.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Folder",
     "code_sample": ""
   },
   "@roblox/globaltype/Model": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다.",
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다.",
     "keys": {
       "LevelOfDetail": "@roblox/globaltype/Model.LevelOfDetail",
       "ModelStreamingMode": "@roblox/globaltype/Model.ModelStreamingMode",
@@ -16239,38 +16396,38 @@
     "code_sample": "local function groupObjects(objectTable)\n\tlocal model = Instance.new(\"Model\")\n\tfor _, object in pairs(objectTable) do\n\t\tobject.Parent = model\n\tend\n\treturn model\nend\n\nlocal objects = {\n\tInstance.new(\"Part\"),\n\tInstance.new(\"Part\"),\n}\n\ngroupObjects(objects)"
   },
   "@roblox/globaltype/Model.LevelOfDetail": {
-    "documentation": "인스턴스 스트리밍이 활성화된 경험을 위해 모델의 세부 수준을 설정합니다.",
+    "documentation": "인스턴스 스트리밍이 활성화된 경험에 대해 모델의 세부 수준을 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#LevelOfDetail",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ModelStreamingMode": {
-    "documentation": "인스턴스 스트리밍이 활성화된 경우 <code>Models</code>의 모델 스트리밍 동작을 제어합니다.",
+    "documentation": "인스턴스 스트리밍이 활성화된 <code>Models</code>에서 모델 스트리밍 동작을 제어합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#ModelStreamingMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.PrimaryPart": {
-    "documentation": "<code>Model</code>의 기본 부분 또는 명시적으로 설정되지 않았다면 <code>nil</code>입니다.",
+    "documentation": "<code>Model</code>의 기본 부품 또는 명시적으로 설정되지 않은 경우 <code>nil</code>입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#PrimaryPart",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.Scale": {
-    "documentation": "모델의 피벗 주위에서 모델의 크기를 조정하는 데 사용되는 편집기 전용 속성입니다. 이 속성을 설정하면 <code>Model:ScaleTo()</code>가 호출된 것처럼 크기가 이동합니다.",
+    "documentation": "모델을 피벗 주위로 스케일링하는 데 사용되는 편집기 전용 속성입니다. 이 속성을 설정하면 <code>Model:ScaleTo()</code>가 호출된 것처럼 스케일이 이동합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#Scale",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.WorldPivot": {
-    "documentation": "<code>Model</code>에 설정된 <code>Model.PrimaryPart</code>가 없는 경우 피벗의 위치를 결정합니다.",
+    "documentation": "<code>Model.PrimaryPart</code>가 설정되지 않은 <code>Model</code>의 피벗 위치를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#WorldPivot",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/1": {
-    "documentation": "이 모델을 지속적으로 유지할 <code>Player</code>입니다."
+    "documentation": "이 모델을 지속적으로 유지시키기 위한 <code>Player</code>입니다."
   },
   "@roblox/globaltype/Model.AddPersistentPlayer": {
-    "documentation": "지정된 플레이어에 대해 이 모델을 지속적으로 설정합니다. <code>ModelStreamingMode</code>는 추가로 인해 동작이 변경되도록 <code>PersistentPerPlayer</code>로 설정되어야 합니다.",
+    "documentation": "지정된 플레이어에 대해 이 모델을 지속적으로 유지하도록 설정합니다. <code>ModelStreamingMode</code>가 추가 결과로 동작이 변경될 수 있도록 <code>PersistentPerPlayer</code>로 설정되어야 합니다.",
     "params": [
       {
         "name": "self",
@@ -16286,10 +16443,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.BreakJoints/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br><code>BaseParts</code> 간의 연결을 끊습니다. 인접한 부분과의 표면 연결을 포함합니다. <code>WeldConstraints</code> 및 모든 <code>Welds</code>와 기타 <code>JointInstances</code>도 포함됩니다.",
+    "documentation": "<strong>Deprecated:</strong> <br><code>BaseParts</code> 간의 연결을 끊습니다. 여기에는 인접 부품과의 표면 연결, <code>WeldConstraints</code>, 모든 <code>Welds</code> 및 기타 <code>JointInstances</code>가 포함됩니다.",
     "params": [
       {
         "name": "self",
@@ -16301,10 +16458,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n\ttask.wait(3)  -- 3초 후에 관절을 부수기 위한 대기\n\tcharacter:BreakJoints()\nend\n\nlocal function onPlayerAdded(player)\n\tplayer.CharacterAdded:Connect(onCharacterAdded)  -- 플레이어가 추가될 때 관절 부수기 함수 연결\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)  -- 플레이어 추가 시 이벤트 연결"
   },
   "@roblox/globaltype/Model.breakJoints/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.breakJoints": {
-    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 <code>Model:BreakJoints()</code>의 변형으로, 대신 사용해야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 <code>Model:BreakJoints()</code>의 변형입니다. 대신 이 함수를 사용해야 합니다.",
     "params": [
       {
         "name": "self",
@@ -16316,13 +16473,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetBoundingBox/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.GetBoundingBox/return/0": {
-    "documentation": "볼륨의 방향을 나타내는 <code>CFrame</code>과 그 볼륨의 크기를 나타내는 <code>Vector3</code>입니다."
+    "documentation": "볼륨의 방향을 나타내는 <code>CFrame</code>과 볼륨의 크기를 나타내는 <code>Vector3</code>입니다."
   },
   "@roblox/globaltype/Model.GetBoundingBox": {
-    "documentation": "모델의 모든 부분이 포함된 볼륨에 대한 설명을 반환합니다.",
+    "documentation": "모델의 모든 부품을 포함하는 볼륨에 대한 설명을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -16336,13 +16493,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetExtentsSize/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.GetExtentsSize/return/0": {
     "documentation": "<code>Model</code>의 <code>Vector3</code> 범위 크기입니다."
   },
   "@roblox/globaltype/Model.GetExtentsSize": {
-    "documentation": "모델 내의 모든 <code>BaseParts</code>를 포함하는 최소 경계 상자의 크기를 반환합니다. <code>Model.PrimaryPart</code>가 설정되어 있으면 그에 맞춰 조정됩니다.",
+    "documentation": "모델 내의 모든 <code>BaseParts</code>를 포함하는 최소 경계 상자의 크기를 반환합니다. <code>Model.PrimaryPart</code>가 설정된 경우 이를 기준으로 정렬됩니다.",
     "params": [
       {
         "name": "self",
@@ -16356,13 +16513,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.GetModelCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 신뢰할 수 있는 결과를 제공하지 않아서 deprecated 되었습니다. 대신 <code>Model:GetPrimaryPartCFrame()</code>를 사용하여 모델의 기본 부분의 <code>CFrame</code>을 검색할 수 있습니다.<br>이 값은 역사적으로 모델의 중심 위치의 CFrame을 반환했습니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 신뢰할 수 있는 결과를 제공하지 않기 때문에 deprecated되었습니다. 대신 <code>Model:GetPrimaryPartCFrame()</code>을 사용하여 모델의 기본 부품의 <code>CFrame</code>을 검색할 수 있습니다.<br>이 값은 역사적으로 모델의 중앙 위치에 대한 CFrame을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -16376,13 +16533,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelSize/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.GetModelSize/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelSize": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 deprecated되었습니다. 새로운 작업에 사용하지 마십시오. 개발자는 대신 <code>Model.GetExtentsSize</code>를 사용할 수 있습니다.<br>모델의 Vector3 크기를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 deprecated 되었습니다. 신규 작업에는 사용하지 마세요. 개발자는 대신 <code>Model.GetExtentsSize</code>를 사용할 수 있습니다.<br>모델의 Vector3 크기를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -16396,13 +16553,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/return/0": {
-    "documentation": "이 모델 객체가 지속적인 모든 <code>Player</code> 객체가 포함된 테이블입니다."
+    "documentation": "이 모델 객체가 지속적으로 유지되는 모든 <code>Player</code> 객체의 테이블입니다."
   },
   "@roblox/globaltype/Model.GetPersistentPlayers": {
-    "documentation": "이 모델 객체가 지속적인 모든 <code>Player</code> 객체를 반환합니다. 이 메서드가 <code>Script</code> 또는 <code>LocalScript</code>에서 호출되었는지에 따라 동작이 다릅니다.",
+    "documentation": "이 모델 객체가 지속적으로 유지되는 모든 <code>Player</code> 객체를 반환합니다. 동작은 이 메서드가 <code>Script</code> 또는 <code>LocalScript</code>에서 호출되느냐에 따라 다릅니다.",
     "params": [
       {
         "name": "self",
@@ -16416,13 +16573,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>모델의 <code>Model.PrimaryPart</code>의 <code>CFrame</code>을 반환합니다. 기본 부분이 존재하지 않는 경우 이 함수는 오류를 발생시킵니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>모델의 <code>Model.PrimaryPart</code>의 <code>CFrame</code>을 반환합니다. 기본 부품이 존재하지 않으면 이 함수는 오류를 발생시킵니다.",
     "params": [
       {
         "name": "self",
@@ -16436,13 +16593,13 @@
     "code_sample": "local START_POSITION = Vector3.new(0, 10, 0)\n\nlocal model = Instance.new(\"Model\")\n\nlocal part1 = Instance.new(\"Part\")\npart1.Size = Vector3.new(4, 4, 4)\npart1.CFrame = CFrame.new(START_POSITION)\npart1.Anchored = true\npart1.BrickColor = BrickColor.new(\"밝은 노란색\")\npart1.Parent = model\n\nlocal part2 = Instance.new(\"Part\")\npart2.Size = Vector3.new(2, 2, 2)\npart2.CFrame = part1.CFrame * CFrame.new(0, 3, 0)\npart2.Anchored = true\npart2.BrickColor = BrickColor.new(\"밝은 파란색\")\npart2.Parent = model\n\n-- 기본 부품 설정\nmodel.PrimaryPart = part1\nmodel.Parent = workspace\n\nwhile true do\n\tlocal primaryPartCFrame = model:GetPrimaryPartCFrame()\n\tlocal newCFrame = primaryPartCFrame * CFrame.Angles(0, math.rad(1), 0)\n\tmodel:SetPrimaryPartCFrame(newCFrame)\n\ttask.wait()\nend"
   },
   "@roblox/globaltype/Model.GetScale/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.GetScale/return/0": {
-    "documentation": "모델의 현재 기준 배율입니다."
+    "documentation": "모델의 현재 고유 스케일 팩터입니다."
   },
   "@roblox/globaltype/Model.GetScale": {
-    "documentation": "모델의 기준 크기를 반환합니다. 기본적으로 새로 생성된 모델에 대해 1로 설정되며, <code>Model:ScaleTo()</code>를 통해 크기가 조정됨에 따라 변경됩니다.",
+    "documentation": "모델의 고유한 스케일을 반환합니다. 기본적으로 새로 생성된 모델의 경우 1로 설정되며, <code>Model:ScaleTo()</code>를 통해 스케일이 변경됩니다.",
     "params": [
       {
         "name": "self",
@@ -16456,10 +16613,10 @@
     "code_sample": "local CollectionService = game:GetService(\"CollectionService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\n-- 우리가 교체할 태그가 있는 모든 모델 찾기\nlocal items = CollectionService:GetTagged(\"Tree\")\nlocal newModel = ReplicatedStorage.FancyTreeReplacementModel\nfor _, item in items do\n\t-- 새로운 아이템 생성 및 이전 위치로 스케일 / 포지션\n\tlocal newItem = newModel:Clone()\n\tnewItem:ScaleTo(item:GetScale())\n\tnewItem:PivotTo(item:GetPivot())\n\n\t-- 교체에 동일한 태그 추가\n\tCollectionService:AddTag(newItem, \"Tree\")\n\n\t-- 기존 아이템 삭제 및 새 아이템 부모 지정\n\tnewItem.Parent = item.Parent\n\titem:Destroy()\nend"
   },
   "@roblox/globaltype/Model.MakeJoints/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> 이 조인트 유형은 deprecated되었습니다. 새로운 작업에 대해 사용하지 마십시오. 대신 <code>WeldConstraints</code> 및 <code>HingeConstraints</code>를 사용하십시오.<br><code>Model</code> 내의 모든 <code>BaseParts</code>를 검토합니다. 어떤 부분의 면이 조인트를 만들 수 있는 SurfaceType이라면, 인접한 부분과 조인트를 생성합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 관절 유형은 deprecated 되었습니다. 신규 작업에는 사용하지 마세요. 대신 <code>WeldConstraints</code>와 <code>HingeConstraints</code>를 사용하세요.<br>모델 내의 모든 <code>BaseParts</code>를 검사합니다. 부품의 어떤 면이 관절을 생성할 수 있는 SurfaceType을 가진 경우, 인접 부품과 관절을 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -16471,10 +16628,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.makeJoints/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.makeJoints": {
-    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 <code>Model:MakeJoints()</code>의 변형으로, 대신 사용해야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 <code>Model:MakeJoints()</code>의 변형입니다. 대신 이 함수를 사용해야 합니다.",
     "params": [
       {
         "name": "self",
@@ -16486,13 +16643,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.move/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.move/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.move": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 <code>Model:MoveTo()</code>로 대체되었으며, 모든 새로운 작업에서 사용해야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 <code>Model:MoveTo()</code>에 의해 대체되었으며, 모든 신규 작업에 사용해야 합니다.",
     "params": [
       {
         "name": "self",
@@ -16508,13 +16665,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.MoveTo/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.MoveTo/param/1": {
-    "documentation": "<code>Model</code>이 이동할 <code>Vector3</code>입니다."
+    "documentation": "모델이 이동할 <code>Vector3</code>입니다."
   },
   "@roblox/globaltype/Model.MoveTo": {
-    "documentation": "<code>PrimaryPart</code>를 지정한 위치로 이동합니다. 기본 부분이 지정되지 않은 경우 모델의 루트 부분이 사용됩니다.",
+    "documentation": "<code>PrimaryPart</code>를 주어진 위치로 이동합니다. 기본 부품이 지정되지 않은 경우 모델의 루트 부품이 사용됩니다.",
     "params": [
       {
         "name": "self",
@@ -16530,13 +16687,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.moveTo/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.moveTo/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.moveTo": {
-    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 <code>Model:MoveTo()</code>의 변형으로, 대신 사용해야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 <code>Model:MoveTo()</code>의 변형입니다. 대신 이 함수를 사용해야 합니다.",
     "params": [
       {
         "name": "self",
@@ -16552,13 +16709,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/1": {
-    "documentation": "이 모델이 더 이상 지속되지 않도록 만들 <code>Player</code>입니다."
+    "documentation": "이 모델을 더 이상 지속적으로 유지하지 않도록 설정할 <code>Player</code>입니다."
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer": {
-    "documentation": "지정된 플레이어에 대해 이 모델이 더 이상 지속되지 않도록 설정합니다. <code>ModelStreamingMode</code>는 제거로 인해 동작이 변경되도록 <code>PersistentPerPlayer</code>로 설정되어야 합니다.",
+    "documentation": "지정된 플레이어에 대해 이 모델이 더 이상 지속적으로 유지되지 않도록 설정합니다. <code>ModelStreamingMode</code>가 제거 결과로 동작이 변경될 수 있도록 <code>PersistentPerPlayer</code>로 설정되어야 합니다.",
     "params": [
       {
         "name": "self",
@@ -16574,10 +16731,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 deprecated되었습니다. 레거시 스크립트가 오류를 발생시키지 않도록 유지됩니다. 호출하더라도 아무 작업도 수행하지 않습니다.<br>모델의 부분의 회전을 이전에 설정된 기본 회전으로 재설정합니다. 이는 <code>Model:SetIdentityOrientation()</code> 메서드를 통해 수행됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 deprecated되었습니다; 과거 스크립트에서 오류가 발생하지 않도록 남아있지만, 호출되어도 아무런 동작을 하지 않습니다.<br>모델 부품의 회전을 이전에 설정된 정체 회전으로 리셋합니다. 이는 <code>Model:SetIdentityOrientation()</code> 메서드를 통해 수행됩니다.",
     "params": [
       {
         "name": "self",
@@ -16589,13 +16746,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ScaleTo/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.ScaleTo/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.ScaleTo": {
-    "documentation": "모델의 배율 인수를 설정하여 모든 자손 인스턴스의 크기와 위치를 조정합니다. 이들은 원래 크기와 위치에 대한 배율 인수로 설정됩니다.",
+    "documentation": "모델의 스케일 팩터를 설정하여 모든 하위 인스턴스의 크기와 위치를 조정하여 스케일 팩터가 1일 때의 초기 크기 및 위치에 대해 해당 스케일 팩터를 가지도록 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -16611,10 +16768,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetIdentityOrientation/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.SetIdentityOrientation": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 deprecated되었습니다. 레거시 스크립트가 오류를 발생시키지 않도록 하기 위해 남아 있으나, 호출하더라도 아무 작업도 수행하지 않습니다.<br>주어진 모델의 기본 회전을 설정합니다. 나중에 전체 모델의 회전을 재설정하도록 허용합니다. 이는 <code>ResetOrientationToIdentity</code> 메서드를 통해 수행됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 deprecated되었습니다; 과거 스크립트에서 오류가 발생하지 않도록 남아있지만, 호출되어도 아무런 동작을 하지 않습니다.<br>주어진 모델의 정체 회전을 설정하여, 나중에 전체 모델의 회전을 리셋할 수 있도록 합니다. 이는 <code>ResetOrientationToIdentity</code> 메서드를 통해 수행됩니다.",
     "params": [
       {
         "name": "self",
@@ -16626,13 +16783,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/1": {
-    "documentation": "<code>CFrame</code>을 설정해야 합니다."
+    "documentation": "설정할 <code>CFrame</code>입니다."
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>모델의 <code>Model.PrimaryPart</code>의 <code>BasePart.CFrame</code>를 설정합니다. 모델 내의 모든 다른 부분도 이동되며, 각기 <code>Model.PrimaryPart</code>에 대한 방향과 오프셋을 유지합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>모델의 <code>Model.PrimaryPart</code>의 <code>BasePart.CFrame</code>을 설정합니다. 모델의 모든 다른 부품도 이동하며 <code>Model.PrimaryPart</code>에 대한 각자의 방향과 오프셋을 유지합니다.",
     "params": [
       {
         "name": "self",
@@ -16648,13 +16805,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.TranslateBy/param/0": {
-    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 이들은 <code>BaseParts</code>의 컬렉션을 보유하는 데 최적이며 기능을 확장하는 여러 함수가 있습니다."
+    "documentation": "모델은 컨테이너 객체로, 객체들을 함께 그룹화합니다. 가장 적합하게 사용되는 것은 <code>BaseParts</code>의 컬렉션을 보유하며, 기능을 확장하는 여러 함수가 있습니다."
   },
   "@roblox/globaltype/Model.TranslateBy/param/1": {
-    "documentation": "<code>Model</code>의 변환을 위한 <code>Vector3</code>입니다."
+    "documentation": "모델을 이동할 <code>Vector3</code>입니다."
   },
   "@roblox/globaltype/Model.TranslateBy": {
-    "documentation": "주어진 <code>Vector3</code> 오프셋으로 <code>Model</code>을 이동시키며, 모델의 방향을 유지합니다. 만약 새로운 위치에 다른 <code>BasePart</code> 또는 <code>Terrain</code>이 존재한다면, <code>Model</code>은 해당 객체와 겹치게 됩니다.",
+    "documentation": "주어진 <code>Vector3</code> 오프셋만큼 <code>Model</code>을 이동시키며, 모델의 방향을 유지합니다. 새 위치에 <code>BasePart</code> 또는 <code>Terrain</code>이 이미 존재하는 경우, <code>Model</code>은 해당 객체와 겹치게 됩니다.",
     "params": [
       {
         "name": "self",
@@ -56058,7 +56215,7 @@
     "documentation": "메서드에 대한 모든 제어를 포함하는 옵션 테이블: <ul> <li><code>SiteSpacing</code> — 사이트 간의 대략적인 거리로,   이는 결과 조각의 직경에 직접적으로 해당합니다. 지정하지 않는 경우,   적절한 값이 선택됩니다.</li> <li><code>Origin</code> — 제공된 경우,   이는 분할할 영역의 중심이 됩니다. 제공되지 않으면,   전체 객체가 분할됩니다.</li> <li><code>Radius</code> — 제공된 경우,   이는 분할할 영역의 중심이 됩니다. <code>Origin</code>과 <code>Radius</code>는   둘 다 제공되거나 제공되지 않아야 합니다.</li> </ul>"
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites/return/0": {
-    "documentation": "<code>FragmentAsync()</code>에 전달되는 <code>Vector3</code>의 배열입니다. 출력은 제공된 옵션에 의존합니다. <code>Origin</code>과 <code>Radius</code>가 제공되면, 출력 배열은 모두 반경 내에 위치한 여러 <code>Vector3</code> 요소로 구성되지만, 배열의 마지막 요소는 반경 외부의 많은 <code>Vector3</code> 사이트가 포함된 내부 배열이 됩니다. <code>Origin</code>과 <code>Radius</code>가 제공되지 않으면, 출력은 입력 <code>part</code>의 범위 내에 있는 <code>Vector3</code> 위치 배열입니다."
+    "documentation": "<code>Vector3</code>의 배열로 일반적으로 <code>FragmentAsync()</code>에 전달됩니다. 출력은 제공된 옵션에 따라 달라집니다. <code>Origin</code>과 <code>Radius</code>가 제공되면 출력 배열은 반경 내에 위치한 여러 <code>Vector3</code> 요소를 포함하게 되지만, 배열의 첫 번째 요소는 반경 밖에 있는 여러 <code>Vector3</code> 지점을 포함하는 내부 배열이 됩니다. <code>Origin</code>과 <code>Radius</code>가 제공되지 않으면 출력은 입력 <code>part</code>의 범위 내에 있는 <code>Vector3</code> 위치의 배열이 됩니다."
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites": {
     "documentation": "<code>FragmentAsync</code>에 쉽게 전달할 수 있는 위치의 배열을 제공합니다. 간단한 파괴 유형을 수행합니다.",
@@ -119646,6 +119803,35 @@
       "VelocityPerpendicular": "@roblox/enum/ParticleOrientation.VelocityPerpendicular"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleOrientation",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Disabled": {
+    "documentation": "Disables anti-aliasing, resulting in hard edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Disabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Enabled": {
+    "documentation": "Enables anti-aliasing, resulting in soft edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.AntiAliasing": {
+    "documentation": "Determines whether anti-aliasing is applied when drawing on the instance.",
+    "keys": {
+      "Disabled": "@roblox/enum/AntiAliasing.Disabled",
+      "Enabled": "@roblox/enum/AntiAliasing.Enabled"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing",
     "code_sample": ""
   },
   "@roblox/enum/WebStreamClientType.SSE": {

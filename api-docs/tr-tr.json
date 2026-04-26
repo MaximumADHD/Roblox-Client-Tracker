@@ -1145,7 +1145,7 @@
     "code_sample": ""
   },
   "@roblox/global/OverlapParams": {
-    "documentation": "Sınır sorgulama işlevlerinde kullanılan parametreleri depolar.",
+    "documentation": "Sınır sorgulama işlevlerinde kullanılan parametreleri saklar.",
     "keys": {
       "new": "@roblox/global/OverlapParams.new"
     },
@@ -1160,7 +1160,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams": {
-    "documentation": "Sınır sorgulama işlevlerinde kullanılan parametreleri depolar.",
+    "documentation": "Sınır sorgulama işlevlerinde kullanılan parametreleri saklar.",
     "keys": {
       "ExcludeInstances": "@roblox/globaltype/OverlapParams.ExcludeInstances",
       "IncludeInstances": "@roblox/globaltype/OverlapParams.IncludeInstances",
@@ -1177,12 +1177,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.ExcludeInstances": {
-    "documentation": "Sorgudan hariç tutulacak alt nesneleri olan nesnelerin isteğe bağlı bir dizisi.",
+    "documentation": "Sorgudan hariç tutulacak nesnelerin alt nesnelerini içeren isteğe bağlı bir dizi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#ExcludeInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.IncludeInstances": {
-    "documentation": "Sorguya dahil edilecek alt nesneleri olan nesnelerin isteğe bağlı bir dizisi.",
+    "documentation": "Sorguya dahil edilecek nesnelerin alt nesnelerini içeren isteğe bağlı bir dizi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#IncludeInstances",
     "code_sample": ""
   },
@@ -1197,38 +1197,38 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.Tolerance": {
-    "documentation": "Sınır sorgulama operasyonunun hacmini hafifçe artırır.",
+    "documentation": "Sınır sorgulama işleminin hacmini hafifçe artırır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#Tolerance",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.RespectCanCollide": {
-    "documentation": "Sınır sorgulama operasyonunun bir parçanın <code>BasePart.CanCollide</code> özellik değerini, <code>BasePart.CanQuery</code> değerine göre dikkate alıp almayacağını belirler.",
+    "documentation": "Sınır sorgulama işleminin bir parçanın <code>BasePart.CanCollide</code> özellik değeri ile <code>BasePart.CanQuery</code> değerini dikkate alıp almayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#RespectCanCollide",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.BruteForceAllSlow": {
-    "documentation": "Etkinleştirildiğinde, sorgu tüm parça çarpışma özelliklerini göz ardı eder ve her parçaya kaba kuvvet kontrolü uygular.",
+    "documentation": "Etkinleştirildiğinde, sorgu tüm parça çarpışma özelliklerini yok sayar ve her parçayı bir brute force kontrolü ile inceler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#BruteForceAllSlow",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.FilterDescendantsInstances": {
-    "documentation": "Filtreleme adaylarında kullanılan nesnelerin bir dizisi.",
+    "documentation": "Filtreleme adaylarında kullanılan nesnelerin alt nesnelerini içeren bir dizi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#FilterDescendantsInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.FilterType": {
-    "documentation": "Array'in <code>FilterDescendantsInstances</code> hariç tutma veya dahil etme listesi olarak kullanılıp kullanılmadığını belirler.",
+    "documentation": "<code>FilterDescendantsInstances</code> dizisinin hariç tutma veya dahil etme listesi olarak kullanılıp kullanılmayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#FilterType",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.AddToFilter/param/0": {
-    "documentation": "Sınır sorgulama işlevlerinde kullanılan parametreleri depolar."
+    "documentation": "Sınır sorgulama işlevlerinde kullanılan parametreleri saklar."
   },
   "@roblox/globaltype/OverlapParams.AddToFilter/param/1": {
-    "documentation": "Eklemek için bir örnek veya örnekleri içeren bir dizi."
+    "documentation": "Eklecek bir nesne veya nesneleri içeren bir dizi."
   },
   "@roblox/globaltype/OverlapParams.AddToFilter": {
-    "documentation": "Sağlanan örnekleri <code>FilterDescendantsInstances</code>'a ekler.",
+    "documentation": "Verilen nesneleri <code>FilterDescendantsInstances</code> dizisine ekler.",
     "params": [
       {
         "name": "self",
@@ -6143,7 +6143,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RaycastParams.IncludeInstances": {
-    "documentation": "Sorguda dahil edilecek alt nesneleri olan opsiyonel bir nesne dizisi.",
+    "documentation": "Sorguya dahil edilecek alt nesneleri olan opsiyonel bir örnekler dizisi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams#IncludeInstances",
     "code_sample": ""
   },
@@ -12910,6 +12910,11 @@
     "documentation": "Çıktı metnini okumanızı sağlayan bir hizmet.",
     "keys": {
       "ClearOutput": "@roblox/globaltype/LogService.ClearOutput",
+      "Output": "@roblox/globaltype/LogService.Output",
+      "Info": "@roblox/globaltype/LogService.Info",
+      "Warn": "@roblox/globaltype/LogService.Warn",
+      "Error": "@roblox/globaltype/LogService.Error",
+      "Log": "@roblox/globaltype/LogService.Log",
       "GetLogHistory": "@roblox/globaltype/LogService.GetLogHistory"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService",
@@ -12930,6 +12935,158 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#ClearOutput",
     "code_sample": ""
   },
+  "@roblox/globaltype/LogService.Output/param/0": {
+    "documentation": "Çıktı metnini okumanızı sağlayan bir hizmet."
+  },
+  "@roblox/globaltype/LogService.Output/param/1": {
+    "documentation": "Mesaj dizesi. Bir <code>context</code> tablosu sağlandığında <code>{key}</code> şablon yer tutucularını destekler."
+  },
+  "@roblox/globaltype/LogService.Output/param/2": {
+    "documentation": "İsteğe bağlı anahtar-değer çiftleri sözlüğü. Sağlandığında, mesajdaki <code>{key}</code> yer tutucuları karşılık gelen değerlerle değiştirilir."
+  },
+  "@roblox/globaltype/LogService.Output": {
+    "documentation": "<code>MessageType.MessageOutput</code> seviyesinde isteğe bağlı yapılandırılmış bağlam ile bir mesaj günlüğü kaydeder.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Output/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Output/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Output/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Output",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Info/param/0": {
+    "documentation": "Çıktı metnini okumanızı sağlayan bir hizmet."
+  },
+  "@roblox/globaltype/LogService.Info/param/1": {
+    "documentation": "Mesaj dizesi. Bir <code>context</code> tablosu sağlandığında <code>{key}</code> şablon yer tutucularını destekler."
+  },
+  "@roblox/globaltype/LogService.Info/param/2": {
+    "documentation": "İsteğe bağlı anahtar-değer çiftleri sözlüğü. Sağlandığında, mesajdaki <code>{key}</code> yer tutucuları karşılık gelen değerlerle değiştirilir."
+  },
+  "@roblox/globaltype/LogService.Info": {
+    "documentation": "<code>MessageType.MessageInfo</code> seviyesinde isteğe bağlı yapılandırılmış bağlam ile bir mesaj günlüğü kaydeder.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Info/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Info/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Info/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Info",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Warn/param/0": {
+    "documentation": "Çıktı metnini okumanızı sağlayan bir hizmet."
+  },
+  "@roblox/globaltype/LogService.Warn/param/1": {
+    "documentation": "Mesaj dizesi. Bir <code>context</code> tablosu sağlandığında <code>{key}</code> şablon yer tutucularını destekler."
+  },
+  "@roblox/globaltype/LogService.Warn/param/2": {
+    "documentation": "İsteğe bağlı anahtar-değer çiftleri sözlüğü. Sağlandığında, mesajdaki <code>{key}</code> yer tutucuları karşılık gelen değerlerle değiştirilir."
+  },
+  "@roblox/globaltype/LogService.Warn": {
+    "documentation": "<code>MessageType.MessageWarning</code> seviyesinde isteğe bağlı yapılandırılmış bağlam ile bir mesaj günlüğü kaydeder.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Warn",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Error/param/0": {
+    "documentation": "Çıktı metnini okumanızı sağlayan bir hizmet."
+  },
+  "@roblox/globaltype/LogService.Error/param/1": {
+    "documentation": "Mesaj dizesi. Bir <code>context</code> tablosu sağlandığında <code>{key}</code> şablon yer tutucularını destekler."
+  },
+  "@roblox/globaltype/LogService.Error/param/2": {
+    "documentation": "İsteğe bağlı anahtar-değer çiftleri sözlüğü. Sağlandığında, mesajdaki <code>{key}</code> yer tutucuları karşılık gelen değerlerle değiştirilir."
+  },
+  "@roblox/globaltype/LogService.Error": {
+    "documentation": "<code>MessageType.MessageError</code> seviyesinde bir mesaj günlüğü kaydeder ve isteğe bağlı bağlam ile yapılandırılmış bir hata fırlatır.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Error/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Error/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Error/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Error",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Log/param/0": {
+    "documentation": "Çıktı metnini okumanızı sağlayan bir hizmet."
+  },
+  "@roblox/globaltype/LogService.Log/param/1": {
+    "documentation": "Günlüğün seviyesini belirten <code>MessageType</code>."
+  },
+  "@roblox/globaltype/LogService.Log/param/2": {
+    "documentation": "Mesaj dizesi. Bir <code>context</code> tablosu sağlandığında <code>{key}</code> şablon yer tutucularını destekler."
+  },
+  "@roblox/globaltype/LogService.Log/param/3": {
+    "documentation": "İsteğe bağlı anahtar-değer çiftleri sözlüğü. Sağlandığında, mesajdaki <code>{key}</code> yer tutucuları karşılık gelen değerlerle değiştirilir."
+  },
+  "@roblox/globaltype/LogService.Log": {
+    "documentation": "Logs a message at the specified level with optional structured context.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Log/param/0"
+      },
+      {
+        "name": "messageType",
+        "documentation": "@roblox/globaltype/LogService.Log/param/1"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Log/param/2"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Log/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Log",
+    "code_sample": ""
+  },
   "@roblox/globaltype/LogService.GetLogHistory/param/0": {
     "documentation": "Çıktı metnini okumanızı sağlayan bir hizmet."
   },
@@ -12937,7 +13094,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/LogService.GetLogHistory": {
-    "documentation": "<strong>Çıktı</strong> penceresinde istemcinin görüntülediği bir mesajın mesaj dizesi, mesaj türü ve timestamp ile birlikte bir tablo döndürür.",
+    "documentation": "<strong>Çıktı</strong> penceresinde istemcinin görüntülediği bir mesajın dize, mesaj tipi ve zaman damgasını içeren tablolar içeren bir tablo döndürür.",
     "params": [
       {
         "name": "self",
@@ -16200,13 +16357,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Folder": {
-    "documentation": "Roblox örneklerini tutmak ve düzenlemek için kullanılan basit bir kapsayıcı.",
+    "documentation": "Roblox örneklerini tutmak ve organize etmek için kullanılan basit bir konteyner.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Folder",
     "code_sample": ""
   },
   "@roblox/globaltype/Model": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır.",
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler.",
     "keys": {
       "LevelOfDetail": "@roblox/globaltype/Model.LevelOfDetail",
       "ModelStreamingMode": "@roblox/globaltype/Model.ModelStreamingMode",
@@ -16239,38 +16396,38 @@
     "code_sample": "local function groupObjects(objectTable)\n\tlocal model = Instance.new(\"Model\")\n\tfor _, object in pairs(objectTable) do\n\t\tobject.Parent = model\n\tend\n\treturn model\nend\n\nlocal objects = {\n\tInstance.new(\"Part\"),\n\tInstance.new(\"Part\"),\n}\n\ngroupObjects(objects)"
   },
   "@roblox/globaltype/Model.LevelOfDetail": {
-    "documentation": "Deneyimlerin instance akışı etkin olduğunda modelde detay seviyesini belirler.",
+    "documentation": "Kullanıcıya uygun olmayan akışa açık deneyimler için modelde detay seviyesini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#LevelOfDetail",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ModelStreamingMode": {
-    "documentation": "Instance akışı etkin olduğunda <code>Modeller</code> için akış davranışını kontrol eder.",
+    "documentation": "Kullanıcıya uygun olmayan akış açıkken <code>Modeller</code> üzerindeki akış davranışını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#ModelStreamingMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.PrimaryPart": {
-    "documentation": "<code>Model</code>'ın birincil parçası veya açıkça ayarlanmamışsa <code>nil</code>.",
+    "documentation": "<code>Model</code>'in birincil parçasını veya açıkça ayarlanmamışsa <code>nil</code> döndürür.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#PrimaryPart",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.Scale": {
-    "documentation": "Modelin pivotu etrafında boyutlandırmak için yalnızca editör kullanılabilen özellik. Bu özelliği ayarlamak, sanki <code>Model:ScaleTo()</code> çağrılmış gibi ölçeği değiştirecektir.",
+    "documentation": "Modeli pivotu etrafında ölçeklendirmek için kullanılan sadece editör özelliği. Bu özellik ayarlandığında, sanki <code>Model:ScaleTo()</code> çağrılmış gibi ölçek hareket eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#Scale",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.WorldPivot": {
-    "documentation": "Bir <code>Model</code>'in pivotunun hangi konumda olduğunu belirler; <code>Model.PrimaryPart</code> ayarlanmadığında.",
+    "documentation": "<code>Model</code>'in ayarlanmamış bir <code>Model.PrimaryPart</code>'a sahip olduğu durumlarda nerede olduğunu belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#WorldPivot",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/1": {
-    "documentation": "Bu modeli sürekli hale getirmek için gereken <code>Player</code>."
+    "documentation": "Bu modeli kalıcı hale getireceğiniz <code>Player</code>."
   },
   "@roblox/globaltype/Model.AddPersistentPlayer": {
-    "documentation": "Bu modeli belirtilen oyuncu için sürekli hale getirir. <code>ModelStreamingMode</code>'un <code>PersistentPerPlayer</code> olarak ayarlanması, davranışı değiştirecektir.",
+    "documentation": "Bu modeli belirli bir oyuncu için kalıcı hale getirir. <code>ModelStreamingMode</code>, ekleme sonucu davranışın değişmesi için <code>PersistentPerPlayer</code> olarak ayarlanmalıdır.",
     "params": [
       {
         "name": "self",
@@ -16286,10 +16443,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.BreakJoints/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br><code>BaseParts</code> arasındaki bağlantıları koparır, herhangi komşu parçalarla sürfi bağlantıları dahil, <code>WeldConstraints</code> ve <code>tüm</code>Welds<code>ve diğer</code>JointInstances`.",
+    "documentation": "<strong>Deprecated:</strong> <br>Parçalar arasındaki bağlantıları, yüzey bağlantıları dahil, herhangi bir bitişik parça, <code>WeldConstraints</code> ve tüm <code>Welds</code> ve diğer <code>JointInstances</code> arasında koparır.",
     "params": [
       {
         "name": "self",
@@ -16301,10 +16458,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n\ttask.wait(3)\n\tcharacter:BreakJoints()\nend\n\nlocal function onPlayerAdded(player)\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Model.breakJoints/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.breakJoints": {
-    "documentation": "<strong>Deprecated:</strong> Bu kullanılmayan işlev, <code>Model:BreakJoints()</code>'in bir varyantıdır; bunun yerine kullanılmalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu geçersiz kılınmış işlev, <code>Model:BreakJoints()</code> fonksiyonunun bir varyasyonudur, bu kullanılması gereken fonksiyondur.",
     "params": [
       {
         "name": "self",
@@ -16316,13 +16473,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetBoundingBox/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.GetBoundingBox/return/0": {
-    "documentation": "Hacmin yönelimi <code>CFrame</code> ve hacmin boyutunu temsil eden <code>Vector3</code>."
+    "documentation": "Bir hacmin yönelimini temsil eden bir <code>CFrame</code> ardından da hacmin boyutunu temsil eden bir <code>Vector3</code> döndürür."
   },
   "@roblox/globaltype/Model.GetBoundingBox": {
-    "documentation": "Bir Modelin tüm parçalarını içeren hacmi açıklayan bir tanım döndürür.",
+    "documentation": "Bir Modeldeki tüm parçaları içeren bir hacmin tanımını döndürür.",
     "params": [
       {
         "name": "self",
@@ -16336,13 +16493,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetExtentsSize/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.GetExtentsSize/return/0": {
-    "documentation": "Modelin <code>Vector3</code> uzantı boyutları."
+    "documentation": "<code>Model</code>'in boyutunu temsil eden <code>Vector3</code>."
   },
   "@roblox/globaltype/Model.GetExtentsSize": {
-    "documentation": "Bir <code>Model</code>'da bulunan tüm <code>BaseParts</code> için en küçük sınır kutusunun boyutunu döndürür ve <code>Model.PrimaryPart</code>'la birleştirilecektir.",
+    "documentation": "Modelin içindeki tüm <code>BaseParts</code>'ı kapsayan en küçük sınır kutusunun boyutunu döndürür, eğer ayarlanmışsa <code>Model.PrimaryPart</code> ile hizalanır.",
     "params": [
       {
         "name": "self",
@@ -16356,13 +16513,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.GetModelCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev kullanılmaktan kaldırıldı, çünkü güvenilir sonuçlar sağlamıyordu. Bunun yerine, modelin birincil parçasının <code>CFrame</code>'ini elde etmek için <code>Model:GetPrimaryPartCFrame()</code>'yi kullanabilirsiniz.<br>Bu değer geçmişte model içinde merkezi bir pozisyonun CFrame'ini döndürüyordu.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev geçersiz kılınmıştır çünkü güvenilir sonuçlar sağlamıyordu. Bunun yerine modelin birincil parçasının <code>CFrame</code> değerini elde etmek için <code>Model:GetPrimaryPartCFrame()</code> kullanılabilir.<br>Bu değer, modelin merkezi konumunun CFrame'ini geçmişte döndürmüştür.",
     "params": [
       {
         "name": "self",
@@ -16376,13 +16533,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelSize/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.GetModelSize/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelSize": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanılmaktan kaldırılmıştır. Yeni işler için kullanmayın. Geliştiriciler, <code>Model.GetExtentsSize</code>'yi kullanabilirler.<br>Modelin Vector3 boyutunu döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe geçersiz kılınmıştır. Yeni çalışmalarda kullanılmamalıdır. Geliştiriciler bunun yerine <code>Model.GetExtentsSize</code> kullanabilir.<br>Modelin Vektör3 boyutunu döndürür.",
     "params": [
       {
         "name": "self",
@@ -16396,13 +16553,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/return/0": {
-    "documentation": "Bu model nesnesinin sürekli olduğu tüm <code>Player</code> nesneleri için bir tablo."
+    "documentation": "Bu model nesnesinin kalıcı olduğu tüm <code>Player</code> nesnelerini içeren diziyi döndürür."
   },
   "@roblox/globaltype/Model.GetPersistentPlayers": {
-    "documentation": "Bu model nesnesinin hangi <code>Player</code> nesneleri için sürekli olduğunu döndürür. Davranış, bu yöntem <code>Script</code> veya <code>LocalScript</code>'ten çağrıldığında değişir.",
+    "documentation": "Bu model nesnesinin kalıcı olduğu tüm <code>Player</code> nesnelerini döndürür. Davranış, bu metodun <code>Script</code> veya <code>LocalScript</code> darından çağrılıp çağrılmadığına bağlıdır.",
     "params": [
       {
         "name": "self",
@@ -16416,13 +16573,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>Modelin <code>Model.PrimaryPart</code>'nın <code>CFrame</code>'ini döndürür. Bu işlev, <code>Model</code>'ın birincil parçası yoksa hata verecektir.",
+    "documentation": "<strong>Deprecated:</strong> <br>Modelin <code>Model.PrimaryPart</code>'ının <code>CFrame</code> değerini döndürür. Bu fonksiyon, model için birincil parça yoksa hata verecektir.",
     "params": [
       {
         "name": "self",
@@ -16436,13 +16593,13 @@
     "code_sample": "local START_POSITION = Vector3.new(0, 10, 0)\n\nlocal model = Instance.new(\"Model\")\n\nlocal part1 = Instance.new(\"Part\")\npart1.Size = Vector3.new(4, 4, 4)\npart1.CFrame = CFrame.new(START_POSITION)\npart1.Anchored = true\npart1.BrickColor = BrickColor.new(\"Bright yellow\")\npart1.Parent = model\n\nlocal part2 = Instance.new(\"Part\")\npart2.Size = Vector3.new(2, 2, 2)\npart2.CFrame = part1.CFrame * CFrame.new(0, 3, 0)\npart2.Anchored = true\npart2.BrickColor = BrickColor.new(\"Bright blue\")\npart2.Parent = model\n\n-- ana kısmı ayarla\nmodel.PrimaryPart = part1\nmodel.Parent = workspace\n\nwhile true do\n\tlocal primaryPartCFrame = model:GetPrimaryPartCFrame()\n\tlocal newCFrame = primaryPartCFrame * CFrame.Angles(0, math.rad(1), 0)\n\tmodel:SetPrimaryPartCFrame(newCFrame)\n\ttask.wait()\nend"
   },
   "@roblox/globaltype/Model.GetScale/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.GetScale/return/0": {
-    "documentation": "Modelin mevcut kanonik ölçek faktörü."
+    "documentation": "Modelin geçerli ana ölçek faktörü."
   },
   "@roblox/globaltype/Model.GetScale": {
-    "documentation": "Modelin kanonik ölçeğini döndürür; bu, yeni oluşturulan modeller için 1 olarak varsayılan değerdir ve <code>Model:ScaleTo()</code> yoluyla ölçeklendirildiğinde değişecektir.",
+    "documentation": "Modelin geçerli ölçek oranını döndürür, bu da yeni oluşturulan modeller için varsayılan olarak 1'dir ve <code>Model:ScaleTo()</code> ile ölçeklendikçe değişir.",
     "params": [
       {
         "name": "self",
@@ -16456,10 +16613,10 @@
     "code_sample": "local CollectionService = game:GetService(\"CollectionService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\n-- Değiştirmek istediğimiz etiketle tüm modelleri bul\nlocal items = CollectionService:GetTagged(\"Tree\")\nlocal newModel = ReplicatedStorage.FancyTreeReplacementModel\nfor _, item in items do\n\t-- Yeni öğeyi oluştur ve eski öğenin bulunduğu yere ölçeklendir / konumlandır\n\tlocal newItem = newModel:Clone()\n\tnewItem:ScaleTo(item:GetScale())\n\tnewItem:PivotTo(item:GetPivot())\n\n\t-- Değiştiriciye aynı etiketi ekle\n\tCollectionService:AddTag(newItem, \"Tree\")\n\n\t-- Eski öğeyi sil ve yenisini ebeveyn yap\n\tnewItem.Parent = item.Parent\n\titem:Destroy()\nend"
   },
   "@roblox/globaltype/Model.MakeJoints/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> Bu eklem türü kullanılmaktan kaldırıldı. Yeni işler için bunu kullanmayın. <code>WeldConstraints</code> ve <code>HingeConstraints</code> 'i kullanın.<br>Model içindeki tüm <code>BaseParts</code> üzerinden geçer. Eğer herhangi bir parçanın yüzeyi bir eklem oluşturabiliyorsa, komşu parçalarla bir eklem oluşturur.",
+    "documentation": "<strong>Deprecated:</strong> Bu eklem türü geçersiz kılınmıştır. Yeni işler için kullanmayın. Bunun yerine <code>WeldConstraints</code> ve <code>HingeConstraints</code> kullanın.<br>Modeldeki tüm <code>BaseParts</code>'ı gözden geçirir. Eğer herhangi bir parçanın yüzey türü bir eklem oluşturuyorsa, bitişik parçalarla bir eklem oluşturacaktır.",
     "params": [
       {
         "name": "self",
@@ -16471,10 +16628,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.makeJoints/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.makeJoints": {
-    "documentation": "<strong>Deprecated:</strong> Bu kullanılmayan işlev, <code>Model:MakeJoints()</code>'in bir varyantıdır; bunun yerine kullanılmalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu geçersiz kılınmış işlev, <code>Model:MakeJoints()</code> fonksiyonunun bir varyantıdır, bu kullanılması gereken fonksiyondur.",
     "params": [
       {
         "name": "self",
@@ -16486,13 +16643,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.move/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.move/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.move": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, yeni işlerde kullanılmak üzere <code>Model:MoveTo()</code> ile geçersiz kılındı.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe <code>Model:MoveTo()</code> ile değiştirilmiştir, yeni çalışmalarda kullanılmalıdır.",
     "params": [
       {
         "name": "self",
@@ -16508,13 +16665,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.MoveTo/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.MoveTo/param/1": {
-    "documentation": "Taşınacak <code>Model</code> için <code>Vector3</code>."
+    "documentation": "Taşınacak <code>Vector3</code> değeri."
   },
   "@roblox/globaltype/Model.MoveTo": {
-    "documentation": "Verilen konuma <code>PrimaryPart</code>'ı taşır. Eğer birincil bir parça ayarlanmamışsa, modelin kök parçası kullanılacaktır.",
+    "documentation": "<code>PrimaryPart</code>'ı belirtilen konuma taşır. Eğer bir birincil parça ayarlanmamışsa, modelin kök parçası kullanılacaktır.",
     "params": [
       {
         "name": "self",
@@ -16530,13 +16687,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.moveTo/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.moveTo/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.moveTo": {
-    "documentation": "<strong>Deprecated:</strong> Bu kullanılmayan işlev, <code>Model:MoveTo()</code>'nin bir varyantıdır; bunun yerine kullanılmalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu geçersiz kılınmış işlev, <code>Model:MoveTo()</code> fonksiyonunun bir varyantıdır, bu kullanılması gereken fonksiyondur.",
     "params": [
       {
         "name": "self",
@@ -16552,13 +16709,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/1": {
-    "documentation": "Bu modeli artık sürekli hale getirmemek için gereken <code>Player</code>."
+    "documentation": "Bu modeli artık kalıcı hale getirmeyeceğiniz <code>Player</code>."
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer": {
-    "documentation": "Bu modelin belirtilen oyuncu için sürekli olmamasını sağlar. <code>ModelStreamingMode</code> bunun sonucunda davranış değiştirmek için <code>PersistentPerPlayer</code> olarak ayarlanmalıdır.",
+    "documentation": "Bu modeli belirtilen oyuncu için kalıcı olmaktan çıkarır. <code>ModelStreamingMode</code>, kaldırma sonucu davranışın değişmesi için <code>PersistentPerPlayer</code> olarak ayarlanmalıdır.",
     "params": [
       {
         "name": "self",
@@ -16574,10 +16731,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev artık kullanılmaktan kaldırıldı; eski scriptlerin hata vermesini önlemek için kalır fakat çağrıldığında bir şey yapmaz.<br>Modelin parçalarının döndürmesini, daha önce ayarlanmış kimlik dönerken, <code>Model:SetIdentityOrientation()</code> metodu ile yapılan işlemleri  sıfırlar.",
+    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon geçersiz kılınmıştır; miras scriptlerin hata vermelerini önlemek için burada tutulmaktadır ama çağrıldığında hiçbir işlev görmez.<br>Model parçalarının dönüşünü, bunları <code>Model:SetIdentityOrientation()</code> metodu vasıtasıyla ayarlanan daha önceki kimlik dönüşüne geri döndürür.",
     "params": [
       {
         "name": "self",
@@ -16589,13 +16746,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ScaleTo/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.ScaleTo/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.ScaleTo": {
-    "documentation": "Modelin ölçek faktörünü ayarlar, tüm alt nesne Instance'larının boyutlandırması ve konumunu, yüzde olarak, başlangıç boyutları ile yerleri 1 olduğunda göre ayarlar.",
+    "documentation": "Modelin ölçek faktörünü ayarlar; tüm alt nesnelerin boyutları ve yerleri bu ayarlanan ölçek faktörüne göre ayarlanır ve başlangıçta bu yerlerdeyken 1'dir.",
     "params": [
       {
         "name": "self",
@@ -16611,10 +16768,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetIdentityOrientation/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.SetIdentityOrientation": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev artık kullanılmaktan kaldırıldı; eski scriptlerin hata vermesini önlemek amacıyla kalır fakat çağrıldığında bir şey yapmaz.<br>Verilen modelin kimlik dönüşünü ayarlar, böylece modelin tüm dönüşünü sıfırla, <code>ResetOrientationToIdentity</code> metodunu kullanarak.",
+    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon geçersiz kılınmıştır; miras scriptlerin hata vermelerini önlemek için burada tutulmaktadır ama çağrıldığında hiçbir işlev görmez.<br>Verilen modelin kimlik dönüşünü ayarlar; daha sonra <code>ResetOrientationToIdentity</code> metodu ile tüm modelin dönüşünü sıfırlamanıza olanak tanır.",
     "params": [
       {
         "name": "self",
@@ -16626,13 +16783,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/1": {
-    "documentation": "Setilecek <code>CFrame</code>."
+    "documentation": "Belirlenecek <code>CFrame</code> değeri."
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>Modelin <code>Model.PrimaryPart</code>'nın <code>BasePart.CFrame</code>'ini ayarlar. Model içindeki tüm diğer parçalar da taşınacak ve <code>Model.PrimaryPart</code>'na göre orientasyon ve offseti koruyacaktır.",
+    "documentation": "<strong>Deprecated:</strong> <br>Modelin <code>Model.PrimaryPart</code>'ının <code>BasePart.CFrame</code>'ini ayarlar. Modeldeki diğer tüm parçalar da hareket ettirilecek ve <code>Model.PrimaryPart</code> ile ilgili dönüşüm ve ofsetlerini koruyacaktır.",
     "params": [
       {
         "name": "self",
@@ -16648,13 +16805,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.TranslateBy/param/0": {
-    "documentation": "Modeller konteyner nesnelerdir, yani nesneleri bir araya toplarlar. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve bir dizi işlevselliklerini artıran fonksiyonları vardır."
+    "documentation": "Modeller, nesneleri bir araya getiren konteyner nesneleridir. En iyi <code>BaseParts</code> koleksiyonlarını tutmak için kullanılırlar ve işlevselliğini genişleten bir dizi fonksiyona sahiptirler."
   },
   "@roblox/globaltype/Model.TranslateBy/param/1": {
-    "documentation": "Class.Model'in <code>Vector3</code>'ten çevrileceği yer."
+    "documentation": "Kaydırılacak <code>Vector3</code> değeri."
   },
   "@roblox/globaltype/Model.TranslateBy": {
-    "documentation": "Verilen <code>Vector3</code> offsetine göre bir <code>Model</code>'i kaydırır, modelin yönünü korur. Eğer yeni pozisyonda başka bir <code>BasePart</code> veya <code>Terrain</code> zaten mevcutsa, <code>Model</code> bu nesne ile örtüşecektir.",
+    "documentation": "Modeli belirli bir <code>Vector3</code> kaydırarak, modelin dönüşümünü korur. Eğer yeni konumda başka bir <code>BasePart</code> veya <code>Terrain</code> varsa, <code>Model</code> o nesneyle örtüşecektir.",
     "params": [
       {
         "name": "self",
@@ -56058,7 +56215,7 @@
     "documentation": "Yöntem için tüm kontrol seçeneklerini içeren seçenekler tablosu: <ul> <li><code>SiteSpacing</code> — Siteler arasındaki yaklaşık mesafe, bu doğrudan ortaya çıkan parçaların çapına karşılık gelir. Belirtilmezse, makul bir değer seçilecektir.</li> <li><code>Origin</code> — Eğer sağlanırsa, bu parça yerin merkezidir. Eğer sağlanmazsa, tüm nesne parçalanacaktır.</li> <li><code>Radius</code> — Eğer sağlanırsa, bu parça yerin merkezidir. Ya <code>Origin</code> ve <code>Radius</code> birlikte sağlanmalı ya da hiçbiri sağlanmamalıdır.</li> </ul>"
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites/return/0": {
-    "documentation": "Genellikle <code>FragmentAsync()</code>'e geçirilen bir <code>Vector3</code> dizisi. Çıktı sağlanan seçeneklere bağlıdır. Eğer <code>Origin</code> ve <code>Radius</code> sağlanırsa, çıktı dizisi, tümü belirtilen yarıçap içinde yer alacak birkaç <code>Vector3</code> öğesi içerecektir, ancak dizinin son öğesi, yarıçapın dışında birçok <code>Vector3</code> sitesini içeren bir iç dizi olacaktır. Eğer <code>Origin</code> ve <code>Radius</code> sağlanmazsa, çıktı yalnızca girişi <code>part</code>ın boyutları içinde <code>Vector3</code> konumlarının bir dizisi olacaktır."
+    "documentation": "Genellikle <code>FragmentAsync()</code> fonksiyonuna geçirilen bir <code>Vector3</code> dizisidir. Çıktı sağlanan seçeneklere bağlıdır. <code>Origin</code> ve <code>Radius</code> sağlanmışsa, çıktı dizisi tümü yarıçap içerisinde bulunan birkaç <code>Vector3</code> öğesi içerecektir, ancak dizinin ilk öğesi yarıçapın dışındaki birçok <code>Vector3</code> noktasını içeren bir iç dizidir. <code>Origin</code> ve <code>Radius</code> sağlanmamışsa, çıktı basitçe giriş <code>part</code>'ının sınırları içindeki <code>Vector3</code> pozisyonlarının bir dizisi olacaktır."
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites": {
     "documentation": "Basit yıkım türlerini gerçekleştirmek üzere kolayca <code>FragmentAsync</code>'e geçirilebilecek bir konumlar dizisi sağlar.",
@@ -119646,6 +119803,35 @@
       "VelocityPerpendicular": "@roblox/enum/ParticleOrientation.VelocityPerpendicular"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleOrientation",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Disabled": {
+    "documentation": "Disables anti-aliasing, resulting in hard edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Disabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Enabled": {
+    "documentation": "Enables anti-aliasing, resulting in soft edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.AntiAliasing": {
+    "documentation": "Determines whether anti-aliasing is applied when drawing on the instance.",
+    "keys": {
+      "Disabled": "@roblox/enum/AntiAliasing.Disabled",
+      "Enabled": "@roblox/enum/AntiAliasing.Enabled"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing",
     "code_sample": ""
   },
   "@roblox/enum/WebStreamClientType.SSE": {

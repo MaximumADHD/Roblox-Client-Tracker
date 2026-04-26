@@ -1145,7 +1145,7 @@
     "code_sample": ""
   },
   "@roblox/global/OverlapParams": {
-    "documentation": "Menyimpan parameter yang digunakan dalam fungsi pencarian batas.",
+    "documentation": "Menyimpan parameter yang digunakan dalam fungsi kueri batas.",
     "keys": {
       "new": "@roblox/global/OverlapParams.new"
     },
@@ -1153,14 +1153,14 @@
     "code_sample": ""
   },
   "@roblox/global/OverlapParams.new": {
-    "documentation": "Mengembalikan objek <code>OverlapParams</code> yang kosong.",
+    "documentation": "Mengembalikan objek <code>OverlapParams</code> kosong.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#new",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams": {
-    "documentation": "Menyimpan parameter yang digunakan dalam fungsi pencarian batas.",
+    "documentation": "Menyimpan parameter yang digunakan dalam fungsi kueri batas.",
     "keys": {
       "ExcludeInstances": "@roblox/globaltype/OverlapParams.ExcludeInstances",
       "IncludeInstances": "@roblox/globaltype/OverlapParams.IncludeInstances",
@@ -1187,27 +1187,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.MaxParts": {
-    "documentation": "Jumlah maksimum bagian yang akan dikembalikan oleh pencarian.",
+    "documentation": "Jumlah maksimum bagian yang akan dikembalikan oleh kueri.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#MaxParts",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.CollisionGroup": {
-    "documentation": "Grup tabrakan yang digunakan untuk operasi ini.",
+    "documentation": "Grup tabrakan yang digunakan untuk operasi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#CollisionGroup",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.Tolerance": {
-    "documentation": "Sedikit meningkatkan volume operasi pencarian batas.",
+    "documentation": "Sedikit meningkatkan volume dari operasi kueri batas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#Tolerance",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.RespectCanCollide": {
-    "documentation": "Menentukan apakah operasi pencarian batas mempertimbangkan nilai properti <code>BasePart.CanCollide</code> dari sebuah bagian berdasarkan nilai <code>BasePart.CanQuery</code>-nya.",
+    "documentation": "Menentukan apakah operasi kueri batas mempertimbangkan nilai properti <code>BasePart.CanCollide</code> bagian dibandingkan dengan nilai <code>BasePart.CanQuery</code>-nya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#RespectCanCollide",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.BruteForceAllSlow": {
-    "documentation": "Saat diaktifkan, query akan mengabaikan semua properti tabrakan bagian dan melakukan pemeriksaan secara brute-force pada setiap bagian.",
+    "documentation": "Ketika diaktifkan, kueri akan mengabaikan semua properti tabrakan bagian dan melakukan pemeriksaan paksa pada setiap bagian.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#BruteForceAllSlow",
     "code_sample": ""
   },
@@ -1222,13 +1222,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.AddToFilter/param/0": {
-    "documentation": "Menyimpan parameter yang digunakan dalam fungsi pencarian batas."
+    "documentation": "Menyimpan parameter yang digunakan dalam fungsi kueri batas."
   },
   "@roblox/globaltype/OverlapParams.AddToFilter/param/1": {
     "documentation": "Sebuah instance atau array yang berisi instance untuk ditambahkan."
   },
   "@roblox/globaltype/OverlapParams.AddToFilter": {
-    "documentation": "Menambahkan instance yang diberikan ke <code>FilterDescendantsInstances</code>.",
+    "documentation": "Menambahkan instance yang disediakan ke <code>FilterDescendantsInstances</code>.",
     "params": [
       {
         "name": "self",
@@ -6143,7 +6143,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RaycastParams.IncludeInstances": {
-    "documentation": "Array opsional dari Instances yang keturunannya akan disertakan dalam kueri.",
+    "documentation": "Sebuah array opsional dari instance yang keturunannya akan termasuk dalam kueri.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams#IncludeInstances",
     "code_sample": ""
   },
@@ -12910,6 +12910,11 @@
     "documentation": "Sebuah layanan yang memungkinkan Anda membaca teks yang dioutputkan.",
     "keys": {
       "ClearOutput": "@roblox/globaltype/LogService.ClearOutput",
+      "Output": "@roblox/globaltype/LogService.Output",
+      "Info": "@roblox/globaltype/LogService.Info",
+      "Warn": "@roblox/globaltype/LogService.Warn",
+      "Error": "@roblox/globaltype/LogService.Error",
+      "Log": "@roblox/globaltype/LogService.Log",
       "GetLogHistory": "@roblox/globaltype/LogService.GetLogHistory"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService",
@@ -12930,6 +12935,158 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#ClearOutput",
     "code_sample": ""
   },
+  "@roblox/globaltype/LogService.Output/param/0": {
+    "documentation": "Sebuah layanan yang memungkinkan Anda membaca teks yang dioutputkan."
+  },
+  "@roblox/globaltype/LogService.Output/param/1": {
+    "documentation": "String pesan. Mendukung placeholder template <code>{key}</code> ketika tabel konteks disediakan."
+  },
+  "@roblox/globaltype/LogService.Output/param/2": {
+    "documentation": "Kamus opsional dari pasangan kunci-nilai. Ketika disediakan, placeholder <code>{key}</code> dalam pesan digantikan dengan nilai yang sesuai."
+  },
+  "@roblox/globaltype/LogService.Output": {
+    "documentation": "Mencatat pesan pada level <code>MessageType.MessageOutput</code> dengan konteks terstruktur opsional.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Output/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Output/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Output/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Output",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Info/param/0": {
+    "documentation": "Sebuah layanan yang memungkinkan Anda membaca teks yang dioutputkan."
+  },
+  "@roblox/globaltype/LogService.Info/param/1": {
+    "documentation": "String pesan. Mendukung placeholder template <code>{key}</code> ketika tabel konteks disediakan."
+  },
+  "@roblox/globaltype/LogService.Info/param/2": {
+    "documentation": "Kamus opsional dari pasangan kunci-nilai. Ketika disediakan, placeholder <code>{key}</code> dalam pesan digantikan dengan nilai yang sesuai."
+  },
+  "@roblox/globaltype/LogService.Info": {
+    "documentation": "Mencatat pesan pada level <code>MessageType.MessageInfo</code> dengan konteks terstruktur opsional.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Info/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Info/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Info/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Info",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Warn/param/0": {
+    "documentation": "Sebuah layanan yang memungkinkan Anda membaca teks yang dioutputkan."
+  },
+  "@roblox/globaltype/LogService.Warn/param/1": {
+    "documentation": "String pesan. Mendukung placeholder template <code>{key}</code> ketika tabel konteks disediakan."
+  },
+  "@roblox/globaltype/LogService.Warn/param/2": {
+    "documentation": "Kamus opsional dari pasangan kunci-nilai. Ketika disediakan, placeholder <code>{key}</code> dalam pesan digantikan dengan nilai yang sesuai."
+  },
+  "@roblox/globaltype/LogService.Warn": {
+    "documentation": "Mencatat pesan pada level <code>MessageType.MessageWarning</code> dengan konteks terstruktur opsional.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Warn",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Error/param/0": {
+    "documentation": "Sebuah layanan yang memungkinkan Anda membaca teks yang dioutputkan."
+  },
+  "@roblox/globaltype/LogService.Error/param/1": {
+    "documentation": "String pesan. Mendukung placeholder template <code>{key}</code> ketika tabel konteks disediakan."
+  },
+  "@roblox/globaltype/LogService.Error/param/2": {
+    "documentation": "Kamus opsional dari pasangan kunci-nilai. Ketika disediakan, placeholder <code>{key}</code> dalam pesan digantikan dengan nilai yang sesuai."
+  },
+  "@roblox/globaltype/LogService.Error": {
+    "documentation": "Mencatat pesan pada level <code>MessageType.MessageError</code> dan melemparkan kesalahan terstruktur dengan konteks opsional.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Error/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Error/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Error/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Error",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Log/param/0": {
+    "documentation": "Sebuah layanan yang memungkinkan Anda membaca teks yang dioutputkan."
+  },
+  "@roblox/globaltype/LogService.Log/param/1": {
+    "documentation": "<code>MessageType</code> yang menentukan level log."
+  },
+  "@roblox/globaltype/LogService.Log/param/2": {
+    "documentation": "String pesan. Mendukung placeholder template <code>{key}</code> ketika tabel konteks disediakan."
+  },
+  "@roblox/globaltype/LogService.Log/param/3": {
+    "documentation": "Kamus opsional dari pasangan kunci-nilai. Ketika disediakan, placeholder <code>{key}</code> dalam pesan digantikan dengan nilai yang sesuai."
+  },
+  "@roblox/globaltype/LogService.Log": {
+    "documentation": "Mencatat pesan pada level yang ditentukan dengan konteks terstruktur opsional.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Log/param/0"
+      },
+      {
+        "name": "messageType",
+        "documentation": "@roblox/globaltype/LogService.Log/param/1"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Log/param/2"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Log/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Log",
+    "code_sample": ""
+  },
   "@roblox/globaltype/LogService.GetLogHistory/param/0": {
     "documentation": "Sebuah layanan yang memungkinkan Anda membaca teks yang dioutputkan."
   },
@@ -12937,7 +13094,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/LogService.GetLogHistory": {
-    "documentation": "Mengembalikan tabel dari tabel, masing-masing berisi string pesan, tipe pesan, dan timestamp dari pesan yang ditampilkan klien di jendela <strong>Output</strong>.",
+    "documentation": "Mengembalikan tabel dari tabel, masing-masing dengan string pesan, tipe pesan, dan timestamp dari pesan yang ditampilkan klien di jendela <strong>Output</strong>.",
     "params": [
       {
         "name": "self",
@@ -16163,13 +16320,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Folder": {
-    "documentation": "Sebuah wadah sederhana yang digunakan untuk menyimpan dan mengatur instance Roblox.",
+    "documentation": "Sebuah wadah sederhana yang digunakan untuk menampung dan mengatur instance Roblox.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Folder",
     "code_sample": ""
   },
   "@roblox/globaltype/Model": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya.",
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka.",
     "keys": {
       "LevelOfDetail": "@roblox/globaltype/Model.LevelOfDetail",
       "ModelStreamingMode": "@roblox/globaltype/Model.ModelStreamingMode",
@@ -16202,38 +16359,38 @@
     "code_sample": "local function groupObjects(objectTable)\n\tlocal model = Instance.new(\"Model\")\n\tfor _, object in pairs(objectTable) do\n\t\tobject.Parent = model\n\tend\n\treturn model\nend\n\nlocal objects = {\n\tInstance.new(\"Part\"),\n\tInstance.new(\"Part\"),\n}\n\ngroupObjects(objects)"
   },
   "@roblox/globaltype/Model.LevelOfDetail": {
-    "documentation": "Menetapkan tingkat detail pada model untuk pengalaman dengan instance streaming diaktifkan.",
+    "documentation": "Menentukan tingkat detail pada model untuk pengalaman dengan streaming instansi aktif.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#LevelOfDetail",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ModelStreamingMode": {
-    "documentation": "Mengontrol perilaku streaming model pada <code>Models</code> ketika instance streaming diaktifkan.",
+    "documentation": "Mengontrol perilaku streaming model di <code>Models</code> ketika streaming instansi diaktifkan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#ModelStreamingMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.PrimaryPart": {
-    "documentation": "Bagian utama dari <code>Model</code>, atau <code>nil</code> jika tidak diatur secara eksplisit.",
+    "documentation": "Bagian utama dari <code>Model</code>, atau <code>nil</code> jika tidak ditentukan secara eksplisit.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#PrimaryPart",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.Scale": {
-    "documentation": "Properti khusus editor yang digunakan untuk mengatur skala model di sekitar pivotnya. Mengatur properti ini akan memindahkan skala seolah-olah <code>Model:ScaleTo()</code> dipanggil pada model.",
+    "documentation": "Properti khusus editor yang digunakan untuk mengubah skala model di sekitar pivotnya. Menetapkan properti ini akan memindahkan skala seolah-olah <code>Model:ScaleTo()</code> telah dipanggil di atasnya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#Scale",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.WorldPivot": {
-    "documentation": "Menentukan di mana pivot dari <code>Model</code> yang <strong>tidak</strong> memiliki <code>Model.PrimaryPart</code> yang diatur terletak.",
+    "documentation": "Menentukan di mana pivot dari <code>Model</code> yang <strong>tidak</strong> memiliki <code>Model.PrimaryPart</code> yang disetel terletak.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#WorldPivot",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/1": {
-    "documentation": "Pemain <code>Player</code> yang ingin dibuat model ini persisten untuknya."
+    "documentation": "<code>Player</code> untuk menjadikan model ini persisten."
   },
   "@roblox/globaltype/Model.AddPersistentPlayer": {
-    "documentation": "Mengatur model ini agar menjadi persisten untuk pemain yang ditentukan. <code>ModelStreamingMode</code> harus diatur ke <code>PersistentPerPlayer</code> agar perilakunya diubah sebagai hasil dari penambahan.",
+    "documentation": "Menetapkan model ini menjadi persisten untuk pemain yang ditentukan. <code>ModelStreamingMode</code> harus disetel ke <code>PersistentPerPlayer</code> agar perilaku berubah sebagai akibat dari penambahan.",
     "params": [
       {
         "name": "self",
@@ -16249,10 +16406,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.BreakJoints/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>Memutuskan koneksi antara <code>BaseParts</code>, termasuk koneksi permukaan dengan bagian yang berdekatan, <code>WeldConstraints</code> dan semua <code>Welds</code> serta <code>JointInstances</code> lainnya.",
+    "documentation": "<strong>Deprecated:</strong> <br>Memutuskan sambungan antara <code>BaseParts</code>, termasuk sambungan permukaan dengan bagian yang berdekatan, <code>WeldConstraints</code> dan semua <code>Welds</code> serta <code>JointInstances</code> lainnya.",
     "params": [
       {
         "name": "self",
@@ -16264,10 +16421,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n\ttask.wait(3)\n\tcharacter:BreakJoints()\nend\n\nlocal function onPlayerAdded(player)\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Model.breakJoints/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.breakJoints": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi yang tidak digunakan lagi ini adalah varian dari <code>Model:BreakJoints()</code> yang sebaiknya digunakan sebagai gantinya.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi yang sudah usang ini adalah varian dari <code>Model:BreakJoints()</code> yang seharusnya digunakan sebagai gantinya.",
     "params": [
       {
         "name": "self",
@@ -16279,13 +16436,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetBoundingBox/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.GetBoundingBox/return/0": {
-    "documentation": "Sebuah <code>CFrame</code> yang merepresentasikan orientasi volume diikuti oleh <code>Vector3</code> yang merepresentasikan ukuran volume."
+    "documentation": "Sebuah <code>CFrame</code> yang mewakili orientasi volume diikuti oleh sebuah <code>Vector3</code> yang mewakili ukuran volume."
   },
   "@roblox/globaltype/Model.GetBoundingBox": {
-    "documentation": "Mengembalikan deskripsi volume yang mencakup semua bagian dari Model.",
+    "documentation": "Mengembalikan deskripsi volume yang mengandung semua bagian dari suatu Model.",
     "params": [
       {
         "name": "self",
@@ -16299,13 +16456,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetExtentsSize/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.GetExtentsSize/return/0": {
-    "documentation": "Ukuran dari <code>Vector3</code> ekstensif dari <code>Model</code>."
+    "documentation": "Ukuran <code>Vector3</code> dari <code>Model</code>."
   },
   "@roblox/globaltype/Model.GetExtentsSize": {
-    "documentation": "Mengembalikan ukuran dari kotak pembatas terkecil yang mencakup semua <code>BaseParts</code> dalam <code>Model</code>, diselaraskan dengan <code>Model.PrimaryPart</code> jika diatur.",
+    "documentation": "Mengembalikan ukuran dari bounding box terkecil yang mengandung semua <code>BaseParts</code> dalam <code>Model</code>, sejajar dengan <code>Model.PrimaryPart</code> jika sudah disetel.",
     "params": [
       {
         "name": "self",
@@ -16319,13 +16476,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.GetModelCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah usang karena tidak memberikan hasil yang dapat diandalkan. Sebagai gantinya, Anda bisa menggunakan <code>Model:GetPrimaryPartCFrame()</code> untuk mengambil <code>CFrame</code> dari bagian utama model.<br>Nilai ini secara historis mengembalikan CFrame dari posisi sentral di dalam model.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah dinyatakan usang karena tidak memberikan hasil yang andal. Anda dapat menggunakan <code>Model:GetPrimaryPartCFrame()</code> untuk mengambil <code>CFrame</code> dari bagian utama model.<br>Nilai ini secara historis mengembalikan CFrame dari posisi pusat dalam model.",
     "params": [
       {
         "name": "self",
@@ -16339,13 +16496,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelSize/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.GetModelSize/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelSize": {
-    "documentation": "<strong>Deprecated:</strong> Item ini telah usang. Jangan gunakan ini untuk pekerjaan baru. Pengembang bisa sebaliknya menggunakan <code>Model.GetExtentsSize</code>.<br>Mengembalikan ukuran Vector3 dari Model.",
+    "documentation": "<strong>Deprecated:</strong> Item ini telah dinyatakan usang. Jangan menggunakannya untuk pekerjaan baru. Developer dapat sebaliknya menggunakan <code>Model.GetExtentsSize</code>.<br>Mengembalikan ukuran Vector3 dari Model.",
     "params": [
       {
         "name": "self",
@@ -16359,13 +16516,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/return/0": {
-    "documentation": "Sebuah tabel dengan semua objek <code>Player</code> yang model ini objeknya persisten untuk."
+    "documentation": "Sebuah tabel dengan semua objek <code>Player</code> yang model objek ini persisten."
   },
   "@roblox/globaltype/Model.GetPersistentPlayers": {
-    "documentation": "Mengembalikan semua objek <code>Player</code> yang model ini objeknya persisten untuk. Perilaku bervariasi berdasarkan apakah metode ini dipanggil dari <code>Script</code> atau <code>LocalScript</code>.",
+    "documentation": "Mengembalikan semua objek <code>Player</code> yang model objek ini persisten. Perilaku bervariasi tergantung pada apakah metode ini dipanggil dari <code>Script</code> atau <code>LocalScript</code>.",
     "params": [
       {
         "name": "self",
@@ -16379,13 +16536,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>Mengembalikan <code>CFrame</code> dari <code>Model.PrimaryPart</code> model. Fungsi ini akan melemparkan kesalahan jika tidak ada bagian utama untuk <code>Model</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Mengembalikan <code>CFrame</code> dari <code>Model.PrimaryPart</code> model. Fungsi ini akan melempar kesalahan jika tidak ada bagian utama yang ada untuk <code>Model</code>.",
     "params": [
       {
         "name": "self",
@@ -16399,13 +16556,13 @@
     "code_sample": "local START_POSITION = Vector3.new(0, 10, 0)\n\nlocal model = Instance.new(\"Model\")\n\nlocal part1 = Instance.new(\"Part\")\npart1.Size = Vector3.new(4, 4, 4)\npart1.CFrame = CFrame.new(START_POSITION)\npart1.Anchored = true\npart1.BrickColor = BrickColor.new(\"Bright yellow\")\npart1.Parent = model\n\nlocal part2 = Instance.new(\"Part\")\npart2.Size = Vector3.new(2, 2, 2)\npart2.CFrame = part1.CFrame * CFrame.new(0, 3, 0)\npart2.Anchored = true\npart2.BrickColor = BrickColor.new(\"Bright blue\")\npart2.Parent = model\n\n-- set the primary part\nmodel.PrimaryPart = part1\nmodel.Parent = workspace\n\nwhile true do\n\tlocal primaryPartCFrame = model:GetPrimaryPartCFrame()\n\tlocal newCFrame = primaryPartCFrame * CFrame.Angles(0, math.rad(1), 0)\n\tmodel:SetPrimaryPartCFrame(newCFrame)\n\ttask.wait()\nend"
   },
   "@roblox/globaltype/Model.GetScale/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.GetScale/return/0": {
-    "documentation": "Faktor skala kanonis saat ini dari model."
+    "documentation": "Faktor skala kanonik saat ini dari model."
   },
   "@roblox/globaltype/Model.GetScale": {
-    "documentation": "Mengembalikan skala kanonik model, yang secara default adalah 1 untuk model yang baru dibuat dan akan berubah saat model disesuaikan melalui <code>Model:ScaleTo()</code>.",
+    "documentation": "Mengembalikan skala kanonik model, yang defaultnya adalah 1 untuk model yang baru dibuat dan akan berubah seiring perubahan skala melalui <code>Model:ScaleTo()</code>.",
     "params": [
       {
         "name": "self",
@@ -16419,10 +16576,10 @@
     "code_sample": "local CollectionService = game:GetService(\"CollectionService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\n-- Temukan semua model dengan tag yang ingin kita ganti\nlocal items = CollectionService:GetTagged(\"Tree\")\nlocal newModel = ReplicatedStorage.FancyTreeReplacementModel\nfor _, item in items do\n\t-- Buat item baru dan skala / posisikan di tempat item lama berada\n\tlocal newItem = newModel:Clone()\n\tnewItem:ScaleTo(item:GetScale())\n\tnewItem:PivotTo(item:GetPivot())\n\n\t-- Tambahkan tag yang sama ke pengganti\n\tCollectionService:AddTag(newItem, \"Tree\")\n\n\t-- Hapus item lama dan jadikan item baru sebagai parent\n\tnewItem.Parent = item.Parent\n\titem:Destroy()\nend"
   },
   "@roblox/globaltype/Model.MakeJoints/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> Jenis sendi ini telah usang. Jangan gunakan ini untuk pekerjaan baru. Gunakan <code>WeldConstraints</code> dan <code>HingeConstraints</code> sebagai gantinya.<br>Melalui semua <code>BaseParts</code> di dalam <code>Model</code>. Jika sisi apapun dari bagian memiliki SurfaceType yang dapat membuat sendi, maka akan membuat sendi dengan bagian yang berdekatan.",
+    "documentation": "<strong>Deprecated:</strong> Jenis sambungan ini telah dinyatakan usang. Jangan menggunakannya untuk pekerjaan baru. Gunakan <code>WeldConstraints</code> dan <code>HingeConstraints</code> sebagai gantinya.<br>Melalui semua <code>BaseParts</code> dalam <code>Model</code>. Jika sisi bagian apa pun memiliki SurfaceType yang dapat membuat sambungan, itu akan membuat sambungan dengan bagian yang berdekatan.",
     "params": [
       {
         "name": "self",
@@ -16434,10 +16591,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.makeJoints/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.makeJoints": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi yang tidak digunakan lagi ini adalah varian dari <code>Model:MakeJoints()</code> yang sebaiknya digunakan sebagai gantinya.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi yang sudah usang ini adalah varian dari <code>Model:MakeJoints()</code> yang seharusnya digunakan sebagai gantinya.",
     "params": [
       {
         "name": "self",
@@ -16449,13 +16606,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.move/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.move/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.move": {
-    "documentation": "<strong>Deprecated:</strong> Item ini telah digantikan oleh <code>Model:MoveTo()</code> yang seharusnya digunakan di semua pekerjaan baru",
+    "documentation": "<strong>Deprecated:</strong> Item ini telah digantikan oleh <code>Model:MoveTo()</code> yang seharusnya digunakan dalam semua pekerjaan baru",
     "params": [
       {
         "name": "self",
@@ -16471,13 +16628,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.MoveTo/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.MoveTo/param/1": {
-    "documentation": "<code>Vector3</code> tempat <code>Model</code> dipindahkan."
+    "documentation": "<code>Vector3</code> yang dipindahkan <code>Model</code>."
   },
   "@roblox/globaltype/Model.MoveTo": {
-    "documentation": "Memindahkan <code>PrimaryPart</code> ke posisi yang diberikan. Jika bagian utama belum ditentukan, bagian akar dari model akan digunakan.",
+    "documentation": "Memindahkan <code>PrimaryPart</code> ke posisi yang diberikan. Jika bagian utama belum ditentukan, bagian akar model akan digunakan.",
     "params": [
       {
         "name": "self",
@@ -16493,13 +16650,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.moveTo/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.moveTo/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.moveTo": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi yang tidak digunakan lagi ini adalah varian dari <code>Model:MoveTo()</code> yang sebaiknya digunakan sebagai gantinya.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi yang sudah usang ini adalah varian dari <code>Model:MoveTo()</code> yang seharusnya digunakan sebagai gantinya.",
     "params": [
       {
         "name": "self",
@@ -16515,13 +16672,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/1": {
-    "documentation": "Pemain <code>Player</code> yang ingin dibuat model ini tidak lagi persisten untuknya."
+    "documentation": "<code>Player</code> yang membuat model ini tidak lagi persisten."
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer": {
-    "documentation": "Menghilangkan status persisten model ini untuk pemain yang ditentukan. <code>ModelStreamingMode</code> harus diatur ke <code>PersistentPerPlayer</code> agar perilakunya diubah sebagai hasil dari penghapusan.",
+    "documentation": "Membuat model ini tidak lagi persisten untuk pemain yang ditentukan. <code>ModelStreamingMode</code> harus disetel ke <code>PersistentPerPlayer</code> agar perilaku berubah sebagai akibat dari penghapusan.",
     "params": [
       {
         "name": "self",
@@ -16537,10 +16694,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah usang; tetap ada untuk mencegah skrip warisan menghasilkan kesalahan, tetapi tidak melakukan apa pun saat dipanggil.<br>Mengatur ulang rotasi bagian model ke rotasi identitas yang telah diatur sebelumnya, yang dilakukan melalui metode <code>Model:SetIdentityOrientation()</code>.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah dinyatakan usang; sisa untuk mencegah skrip lama menghasilkan kesalahan, tetapi tidak melakukan apa-apa saat dipanggil.<br>Mengatur rotasi bagian model kembali ke rotasi identitas yang disetel sebelumnya, yang dilakukan melalui metode <code>Model:SetIdentityOrientation()</code>.",
     "params": [
       {
         "name": "self",
@@ -16552,13 +16709,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ScaleTo/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.ScaleTo/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.ScaleTo": {
-    "documentation": "Mengatur faktor skala model, mengatur ukuran dan lokasi semua Instance keturunan sehingga mereka memiliki faktor skala tersebut relatif terhadap ukuran dan lokasi awal mereka saat faktor skala adalah 1.",
+    "documentation": "Menentukan faktor skala model, menyesuaikan ukuran dan lokasi dari semua Instansi keturunan sehingga mereka memiliki faktor skala tersebut relatif terhadap ukuran dan lokasi awal saat faktor skala adalah 1.",
     "params": [
       {
         "name": "self",
@@ -16574,10 +16731,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetIdentityOrientation/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.SetIdentityOrientation": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah usang; tetap ada untuk mencegah skrip warisan menghasilkan kesalahan, tetapi tidak melakukan apa pun saat dipanggil.<br>Mengatur rotasi identitas dari model yang diberikan, memungkinkan Anda untuk mengatur ulang rotasi seluruh model nanti, melalui penggunaan metode <code>ResetOrientationToIdentity</code>.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah dinyatakan usang; sisa untuk mencegah skrip lama dari menghasilkan kesalahan, tetapi tidak melakukan apa-apa saat dipanggil.<br>Menetapkan rotasi identitas model yang diberikan, memungkinkan Anda untuk mereset rotasi seluruh model nanti, melalui penggunaan metode <code>ResetOrientationToIdentity</code>.",
     "params": [
       {
         "name": "self",
@@ -16589,13 +16746,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/1": {
-    "documentation": "<code>CFrame</code> yang akan diatur."
+    "documentation": "<code>CFrame</code> yang akan disetel."
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>Mengatur <code>BasePart.CFrame</code> dari <code>Model.PrimaryPart</code> model. Semua bagian lainnya dalam model juga akan dipindahkan dan akan mempertahankan orientasi dan offset-nya relatif terhadap <code>Model.PrimaryPart</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Menetapkan <code>BasePart.CFrame</code> dari <code>Model.PrimaryPart</code> model. Semua bagian lain dalam model juga akan dipindahkan dan akan mempertahankan orientasi dan offset mereka masing-masing relatif terhadap <code>Model.PrimaryPart</code>.",
     "params": [
       {
         "name": "self",
@@ -16611,13 +16768,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.TranslateBy/param/0": {
-    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka paling baik digunakan untuk menyimpan koleksi <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitasnya."
+    "documentation": "Model adalah objek kontainer, yang berarti mereka mengelompokkan objek bersama. Mereka lebih baik digunakan untuk menyimpan koleksi dari <code>BaseParts</code> dan memiliki sejumlah fungsi yang memperluas fungsionalitas mereka."
   },
   "@roblox/globaltype/Model.TranslateBy/param/1": {
-    "documentation": "<code>Vector3</code> untuk menerjemahkan <code>Model</code> dengan."
+    "documentation": "<code>Vector3</code> untuk menerjemahkan <code>Model</code>."
   },
   "@roblox/globaltype/Model.TranslateBy": {
-    "documentation": "Menggeser <code>Model</code> dengan offset <code>Vector3</code> yang diberikan, mempertahankan orientasi model. Jika <code>BasePart</code> atau <code>Terrain</code> lain sudah ada di posisi baru maka <code>Model</code> akan tumpang tindih dengan objek tersebut.",
+    "documentation": "Menggeser <code>Model</code> dengan offset <code>Vector3</code> yang diberikan, mempertahankan orientasi model. Jika <code>BasePart</code> atau <code>Terrain</code> lain sudah ada di posisi baru maka <code>Model</code> akan menumpuk pada objek tersebut.",
     "params": [
       {
         "name": "self",
@@ -56021,7 +56178,7 @@
     "documentation": "Tabel opsi yang berisi semua kontrol untuk metode: <ul> <li><code>SiteSpacing</code> — Jarak perkiraan antara situs, yang   langsung berkaitan dengan diameter fragmen yang dihasilkan. Jika   tidak ditentukan, nilai yang masuk akal akan dipilih.</li> <li><code>Origin</code> — Jika disediakan, ini akan menjadi pusat area yang akan   difragmen. Jika tidak disediakan, seluruh objek akan dipfragmentasi.</li> <li><code>Radius</code> — Jika disediakan, ini akan menjadi pusat area yang akan   difragmen. Baik <code>Origin</code> dan <code>Radius</code> harus keduanya disediakan, atau   tidak ada dari keduanya.</li> </ul>"
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites/return/0": {
-    "documentation": "Sebuah array <code>Vector3</code> yang biasanya diteruskan ke <code>FragmentAsync()</code>. Output tergantung pada opsi yang disediakan. Jika <code>Origin</code> dan <code>Radius</code> diberikan, maka array output akan berisi beberapa elemen <code>Vector3</code> yang semuanya berada dalam radius, tetapi elemen terakhir dari array akan merupakan array dalam yang berisi banyak situs <code>Vector3</code> yang berada di luar radius. Jika <code>Origin</code> dan <code>Radius</code> tidak diberikan, maka output hanya akan menjadi array posisi <code>Vector3</code> berada di dalam batas input <code>part</code>."
+    "documentation": "Sebuah array dari <code>Vector3</code> yang biasanya diteruskan ke <code>FragmentAsync()</code>. Hasil bergantung pada opsi yang diberikan. Jika <code>Origin</code> dan <code>Radius</code> diberikan, maka array keluaran akan berisi beberapa elemen <code>Vector3</code> yang semuanya akan terletak di dalam radius, tetapi elemen pertama dari array akan menjadi array dalam yang berisi banyak situs <code>Vector3</code> yang berada di luar radius. Jika <code>Origin</code> dan <code>Radius</code> tidak diberikan, hasilnya akan menjadi sekadar array dari posisi <code>Vector3</code> dalam batas input <code>part</code>."
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites": {
     "documentation": "Menyediakan array posisi yang dapat dengan mudah diteruskan ke <code>FragmentAsync</code> untuk melakukan jenis penghancuran yang sederhana.",
@@ -119609,6 +119766,35 @@
       "VelocityPerpendicular": "@roblox/enum/ParticleOrientation.VelocityPerpendicular"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleOrientation",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Disabled": {
+    "documentation": "Disables anti-aliasing, resulting in hard edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Disabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Enabled": {
+    "documentation": "Enables anti-aliasing, resulting in soft edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.AntiAliasing": {
+    "documentation": "Determines whether anti-aliasing is applied when drawing on the instance.",
+    "keys": {
+      "Disabled": "@roblox/enum/AntiAliasing.Disabled",
+      "Enabled": "@roblox/enum/AntiAliasing.Enabled"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing",
     "code_sample": ""
   },
   "@roblox/enum/WebStreamClientType.SSE": {

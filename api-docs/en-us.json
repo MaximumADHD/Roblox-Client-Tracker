@@ -1432,10 +1432,6 @@
   "@roblox/globaltype/Vector2": {
     "documentation": "Represents a 2D value with direction and magnitude.",
     "keys": {
-      "zero": "@roblox/globaltype/Vector2.zero",
-      "one": "@roblox/globaltype/Vector2.one",
-      "xAxis": "@roblox/globaltype/Vector2.xAxis",
-      "yAxis": "@roblox/globaltype/Vector2.yAxis",
       "X": "@roblox/globaltype/Vector2.X",
       "Y": "@roblox/globaltype/Vector2.Y",
       "Magnitude": "@roblox/globaltype/Vector2.Magnitude",
@@ -1453,26 +1449,6 @@
       "FuzzyEq": "@roblox/globaltype/Vector2.FuzzyEq"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector2",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Vector2.zero": {
-    "documentation": "A <code>Vector2</code> with a magnitude of zero.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector2#zero",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Vector2.one": {
-    "documentation": "A <code>Vector2</code> with a value of 1 on every axis.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector2#one",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Vector2.xAxis": {
-    "documentation": "A <code>Vector2</code> with a value of 1 on the X axis.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector2#xAxis",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Vector2.yAxis": {
-    "documentation": "A <code>Vector2</code> with a value of 1 on the y axis.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector2#yAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector2.X": {
@@ -26575,6 +26551,7 @@
       "LayeredClothingCacheOptimizations": "@roblox/globaltype/Workspace.LayeredClothingCacheOptimizations",
       "LuauTypeCheckMode": "@roblox/globaltype/Workspace.LuauTypeCheckMode",
       "MeshPartHeadsAndAccessories": "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories",
+      "MeshStreamingAndImprovedLods": "@roblox/globaltype/Workspace.MeshStreamingAndImprovedLods",
       "ModelStreamingBehavior": "@roblox/globaltype/Workspace.ModelStreamingBehavior",
       "MoverConstraintRootBehavior": "@roblox/globaltype/Workspace.MoverConstraintRootBehavior",
       "NextGenerationReplication": "@roblox/globaltype/Workspace.NextGenerationReplication",
@@ -26711,6 +26688,11 @@
   "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories": {
     "documentation": "Sets whether character Heads and Accessories should be downloaded as MeshParts.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MeshPartHeadsAndAccessories",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Workspace.MeshStreamingAndImprovedLods": {
+    "documentation": "Controls whether the experience uses the new mesh streaming and improved LOD system.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MeshStreamingAndImprovedLods",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ModelStreamingBehavior": {
@@ -37483,6 +37465,9 @@
   "@roblox/globaltype/EditableImage.DrawCircle/param/5": {
     "documentation": "How the pixels of the source image are blended with the pixels of the added image."
   },
+  "@roblox/globaltype/EditableImage.DrawCircle/param/6": {
+    "documentation": "Determines whether anti-aliasing is applied to the circle. When set to <code>AntiAliasing.Enabled</code>, circle edges are soft. When set to <code>AntiAliasing.Disabled</code>, circle edges are hard."
+  },
   "@roblox/globaltype/EditableImage.DrawCircle": {
     "documentation": "Draws a circle at the specified point.",
     "params": [
@@ -37509,6 +37494,10 @@
       {
         "name": "combineType",
         "documentation": "@roblox/globaltype/EditableImage.DrawCircle/param/5"
+      },
+      {
+        "name": "antiAliasing",
+        "documentation": "@roblox/globaltype/EditableImage.DrawCircle/param/6"
       }
     ],
     "returns": [],
@@ -37655,6 +37644,9 @@
   "@roblox/globaltype/EditableImage.DrawLine/param/5": {
     "documentation": "How the pixels of the source image are blended with the pixels of the added image."
   },
+  "@roblox/globaltype/EditableImage.DrawLine/param/6": {
+    "documentation": "Determines whether anti-aliasing is applied to the line. When set to <code>AntiAliasing.Enabled</code>, line edges are soft. When set to <code>AntiAliasing.Disabled</code>, line edges are hard."
+  },
   "@roblox/globaltype/EditableImage.DrawLine": {
     "documentation": "Draws a line between two provided points.",
     "params": [
@@ -37681,6 +37673,10 @@
       {
         "name": "combineType",
         "documentation": "@roblox/globaltype/EditableImage.DrawLine/param/5"
+      },
+      {
+        "name": "antiAliasing",
+        "documentation": "@roblox/globaltype/EditableImage.DrawLine/param/6"
       }
     ],
     "returns": [],
@@ -46345,8 +46341,10 @@
       "DisplayName": "@roblox/globaltype/Player.DisplayName",
       "FollowUserId": "@roblox/globaltype/Player.FollowUserId",
       "GameplayPaused": "@roblox/globaltype/Player.GameplayPaused",
+      "HasRobloxSubscription": "@roblox/globaltype/Player.HasRobloxSubscription",
       "HasVerifiedBadge": "@roblox/globaltype/Player.HasVerifiedBadge",
       "HealthDisplayDistance": "@roblox/globaltype/Player.HealthDisplayDistance",
+      "InputLatency": "@roblox/globaltype/Player.InputLatency",
       "LocaleId": "@roblox/globaltype/Player.LocaleId",
       "MembershipType": "@roblox/globaltype/Player.MembershipType",
       "NameDisplayDistance": "@roblox/globaltype/Player.NameDisplayDistance",
@@ -46513,6 +46511,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GameplayPaused",
     "code_sample": ""
   },
+  "@roblox/globaltype/Player.HasRobloxSubscription": {
+    "documentation": "Indicates whether the player has an active Roblox subscription.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HasRobloxSubscription",
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nif player.HasRobloxSubscription then\n\t-- Grant subscriber-exclusive content or perks\nend"
+  },
   "@roblox/globaltype/Player.HasVerifiedBadge": {
     "documentation": "Indicates if a player has a <strong>Verified</strong> badge.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HasVerifiedBadge",
@@ -46521,6 +46524,11 @@
   "@roblox/globaltype/Player.HealthDisplayDistance": {
     "documentation": "Sets the distance at which this player will see other players' health bars.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HealthDisplayDistance",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Player.InputLatency": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#InputLatency",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LocaleId": {
@@ -46656,13 +46664,13 @@
     "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/1": {
-    "documentation": "The maximum number of online connections to return."
+    "documentation": "The maximum number of online friends to return."
   },
   "@roblox/globaltype/Player.GetFriendsOnline/return/0": {
-    "documentation": "A dictionary of online connections (see the table above)."
+    "documentation": "A dictionary of online friends (see the table above)."
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>GetFriendsOnlineAsync()</code>.<br>Returns a dictionary of online connections. Returns the product information of an asset using its asset ID.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>GetFriendsOnlineAsync()</code>.<br>Returns a dictionary of online friends. Returns the product information of an asset using its asset ID.",
     "params": [
       {
         "name": "self",
@@ -46683,13 +46691,13 @@
     "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.GetFriendsOnlineAsync/param/1": {
-    "documentation": "The maximum number of online connections to return."
+    "documentation": "The maximum number of online friends to return."
   },
   "@roblox/globaltype/Player.GetFriendsOnlineAsync/return/0": {
-    "documentation": "A dictionary of online connections (see the table above)."
+    "documentation": "A dictionary of online friends (see the table above)."
   },
   "@roblox/globaltype/Player.GetFriendsOnlineAsync": {
-    "documentation": "Returns a dictionary of online connections.",
+    "documentation": "Returns a dictionary of online friends.",
     "params": [
       {
         "name": "self",
@@ -46904,7 +46912,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.IsBestFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> This function is obsolete because the \"best friends\" feature was removed. Use <code>Player:IsFriendsWithAsync()</code> instead.<br>Returns whether a player is connections with the specified user.",
+    "documentation": "<strong>Deprecated:</strong> This function is obsolete because the \"best friends\" feature was removed. Use <code>Player:IsFriendsWithAsync()</code> instead.<br>Returns whether a player is friends with the specified user.",
     "params": [
       {
         "name": "self",
@@ -46928,10 +46936,10 @@
     "documentation": "The <code>Player.UserId</code> of the specified player."
   },
   "@roblox/globaltype/Player.IsFriendsWith/return/0": {
-    "documentation": "A boolean indicating whether a player is a connection of the specified user."
+    "documentation": "A boolean indicating whether a player is a friend of the specified user."
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> This method has been superseded by the <code>Player:IsFriendsWithAsync()</code> method which should be used for new work.<br>Checks whether a player is a connection of the user with the given <code>Player.UserId</code>.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by the <code>Player:IsFriendsWithAsync()</code> method which should be used for new work.<br>Checks whether a player is a friend of the user with the given <code>Player.UserId</code>.",
     "params": [
       {
         "name": "self",
@@ -46982,10 +46990,10 @@
     "documentation": "The <code>Player.UserId</code> of the specified player."
   },
   "@roblox/globaltype/Player.IsFriendsWithAsync/return/0": {
-    "documentation": "A boolean indicating whether a player is a connection of the specified user."
+    "documentation": "A boolean indicating whether a player is a friend of the specified user."
   },
   "@roblox/globaltype/Player.IsFriendsWithAsync": {
-    "documentation": "Checks whether a player is a connection of the user with the given <code>Player.UserId</code>.",
+    "documentation": "Checks whether a player is a friend of the user with the given <code>Player.UserId</code>.",
     "params": [
       {
         "name": "self",
@@ -53177,7 +53185,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/FriendService": {
-    "documentation": "An internal service which is used to send, cancel, accept and decline connection requests in-game.",
+    "documentation": "An internal service which is used to send, cancel, accept and decline friend requests in-game.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/FriendService",
     "code_sample": ""
@@ -61219,7 +61227,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/FriendPages": {
-    "documentation": "A special version of <code>Pages</code> that contains information about a player's connections.",
+    "documentation": "A special version of <code>Pages</code> that contains information about a player's friends.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/FriendPages",
     "code_sample": ""
@@ -80910,6 +80918,7 @@
       "PromptPremiumPurchase": "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase",
       "PromptProductPurchase": "@roblox/globaltype/MarketplaceService.PromptProductPurchase",
       "PromptPurchase": "@roblox/globaltype/MarketplaceService.PromptPurchase",
+      "PromptRobloxSubscriptionPurchase": "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchase",
       "PromptSubscriptionPurchase": "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase",
       "RankProductsAsync": "@roblox/globaltype/MarketplaceService.RankProductsAsync",
       "RecommendTopProductsAsync": "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync",
@@ -81011,13 +81020,13 @@
     "documentation": "The service responsible for in-experience transactions."
   },
   "@roblox/globaltype/MarketplaceService.GetRobloxSubscriptionDetailsAsync/param/1": {
-    "documentation": ""
+    "documentation": "The user regarding whom to check the subscription status."
   },
   "@roblox/globaltype/MarketplaceService.GetRobloxSubscriptionDetailsAsync/return/0": {
-    "documentation": ""
+    "documentation": "A dictionary containing subscription details such as <code>IsSubscribed</code>, <code>IsOriginExperience</code>, and optionally <code>StartTime</code>."
   },
   "@roblox/globaltype/MarketplaceService.GetRobloxSubscriptionDetailsAsync": {
-    "documentation": "",
+    "documentation": "Returns the subscription details for the given user for the Roblox Subscription ecosystem.",
     "params": [
       {
         "name": "self",
@@ -81555,6 +81564,28 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptPurchase",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchase/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchase/param/1": {
+    "documentation": "The <code>Player</code> to be prompted to purchase Roblox Plus."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchase": {
+    "documentation": "Prompts a user to purchase a Roblox Plus subscription.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchase/param/0"
+      },
+      {
+        "name": "user",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchase/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptRobloxSubscriptionPurchase",
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/0": {
@@ -82221,6 +82252,94 @@
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptPurchaseFinished",
     "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal function onPromptPurchaseFinished(player, assetId, isPurchased)\n\tif isPurchased then\n\t\tprint(player.Name, \"bought an item with AssetID:\", assetId)\n\telse\n\t\tprint(player.Name, \"didn't buy an item with AssetID:\", assetId)\n\tend\nend\n\nMarketplaceService.PromptPurchaseFinished:Connect(onPromptPurchaseFinished)"
+  },
+  "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Connect/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Connect": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.ConnectParallel/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.ConnectParallel": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Once/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Once": {
+    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Wait/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Wait": {
+    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished": {
+    "documentation": "Fires when a purchase prompt for Roblox Plus is closed.",
+    "keys": {
+      "Connect": "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Connect",
+      "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.ConnectParallel",
+      "Once": "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Once",
+      "Wait": "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchaseFinished.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptRobloxSubscriptionPurchaseFinished",
+    "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchaseFinished.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -85960,12 +86079,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ExperienceInviteOptions.InviteUser": {
-    "documentation": "Roblox <code>UserId</code> of the specific connection to invite.",
+    "documentation": "Roblox <code>UserId</code> of the specific friend to invite.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ExperienceInviteOptions#InviteUser",
     "code_sample": ""
   },
   "@roblox/globaltype/ExperienceInviteOptions.LaunchData": {
-    "documentation": "Used to set a parameter in <code>Player:GetJoinData()</code> when a connection joins from the invite notification.",
+    "documentation": "Used to set a parameter in <code>Player:GetJoinData()</code> when a friend joins from the invite notification.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ExperienceInviteOptions#LaunchData",
     "code_sample": ""
   },
@@ -97048,7 +97167,9 @@
     "keys": {
       "CreateAdRewardFromDevProductId": "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId",
       "GetAdAvailabilityNowAsync": "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync",
+      "GetCampaignEligibilityAsync": "@roblox/globaltype/AdService.GetCampaignEligibilityAsync",
       "RegisterAdOpportunityAsync": "@roblox/globaltype/AdService.RegisterAdOpportunityAsync",
+      "RegisterDisclosureButton": "@roblox/globaltype/AdService.RegisterDisclosureButton",
       "ShowRewardedVideoAdAsync": "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync",
       "ShowVideoAd": "@roblox/globaltype/AdService.ShowVideoAd",
       "UnregisterAdOpportunity": "@roblox/globaltype/AdService.UnregisterAdOpportunity"
@@ -97110,6 +97231,40 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdService#GetAdAvailabilityNowAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/param/0": {
+    "documentation": "A class that allows the display of mobile video ads."
+  },
+  "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/param/1": {
+    "documentation": "The id of the campaign that you want to check a <code>Player</code>'s eligibility for."
+  },
+  "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/param/2": {
+    "documentation": "The <code>Player</code> you want to check eligibility for. If omitted, it will default to <code>LocalPlayer</code>."
+  },
+  "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/return/0": {
+    "documentation": "A dictionary that looks like <code>{ IsEligible: boolean }</code>."
+  },
+  "@roblox/globaltype/AdService.GetCampaignEligibilityAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/param/0"
+      },
+      {
+        "name": "campaignId",
+        "documentation": "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/param/1"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdService#GetCampaignEligibilityAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/0": {
     "documentation": "A class that allows the display of mobile video ads."
   },
@@ -97137,6 +97292,35 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdService#RegisterAdOpportunityAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AdService.RegisterDisclosureButton/param/0": {
+    "documentation": "A class that allows the display of mobile video ads."
+  },
+  "@roblox/globaltype/AdService.RegisterDisclosureButton/param/1": {
+    "documentation": "The <code>GuiButton</code> you want to mark as an ad disclosure."
+  },
+  "@roblox/globaltype/AdService.RegisterDisclosureButton/param/2": {
+    "documentation": "The id of the placement that this disclosure is attached to."
+  },
+  "@roblox/globaltype/AdService.RegisterDisclosureButton": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AdService.RegisterDisclosureButton/param/0"
+      },
+      {
+        "name": "disclosureButton",
+        "documentation": "@roblox/globaltype/AdService.RegisterDisclosureButton/param/1"
+      },
+      {
+        "name": "adIntegrationPlacementId",
+        "documentation": "@roblox/globaltype/AdService.RegisterDisclosureButton/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdService#RegisterDisclosureButton",
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/0": {
@@ -98470,7 +98654,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.GetFriendsAsync": {
-    "documentation": "Returns a <code>FriendPages</code> object which contains information for all of the given player's connections.",
+    "documentation": "Returns a <code>FriendPages</code> object which contains information for all of the given player's friends.",
     "params": [
       {
         "name": "self",
@@ -101632,10 +101816,16 @@
   "@roblox/globaltype/AnimationClip": {
     "documentation": "Represents all types of animation data that the Roblox animation system can consume.",
     "keys": {
+      "Length": "@roblox/globaltype/AnimationClip.Length",
       "Loop": "@roblox/globaltype/AnimationClip.Loop",
       "Priority": "@roblox/globaltype/AnimationClip.Priority"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationClip",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AnimationClip.Length": {
+    "documentation": "Returns the length (in seconds) of this <code>AnimationClip</code>. This will return <code>0</code> until the animation has fully loaded and thus may not be immediately available.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationClip#Length",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationClip.Loop": {
@@ -119805,6 +119995,35 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleOrientation",
     "code_sample": ""
   },
+  "@roblox/enum/AntiAliasing.Disabled": {
+    "documentation": "Disables anti-aliasing, resulting in hard edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Disabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Enabled": {
+    "documentation": "Enables anti-aliasing, resulting in soft edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.AntiAliasing": {
+    "documentation": "Determines whether anti-aliasing is applied when drawing on the instance.",
+    "keys": {
+      "Disabled": "@roblox/enum/AntiAliasing.Disabled",
+      "Enabled": "@roblox/enum/AntiAliasing.Enabled"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing",
+    "code_sample": ""
+  },
   "@roblox/enum/WebStreamClientType.SSE": {
     "documentation": "Traditional Server-Sent Events (SSE) client. Requires <code>text/event-stream</code> to be returned in the <code>Content-Type</code> header. Messages in the stream will follow the <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format\">event stream format</a>.",
     "keys": {
@@ -120154,7 +120373,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatPrivacyMode.Friends": {
-    "documentation": "A player can only chat with users in a game that are on their connections list.",
+    "documentation": "A player can only chat with users in a game that are on their friends list.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -125616,14 +125835,14 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#MousePosition",
     "code_sample": ""
   },
-  "@roblox/enum/KeyCode.Touch": {
+  "@roblox/enum/KeyCode.TouchPosition": {
     "documentation": "The position of a touch in the viewport. Primarily used in the <a href=\"../../../input/input-action-system.md\">Input Action System</a>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Touch",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#TouchPosition",
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.MouseWheel": {
@@ -125939,7 +126158,7 @@
       "MouseX": "@roblox/enum/KeyCode.MouseX",
       "MouseY": "@roblox/enum/KeyCode.MouseY",
       "MousePosition": "@roblox/enum/KeyCode.MousePosition",
-      "Touch": "@roblox/enum/KeyCode.Touch",
+      "TouchPosition": "@roblox/enum/KeyCode.TouchPosition",
       "MouseWheel": "@roblox/enum/KeyCode.MouseWheel",
       "TrackpadPan": "@roblox/enum/KeyCode.TrackpadPan",
       "TrackpadPinch": "@roblox/enum/KeyCode.TrackpadPinch",
@@ -130222,7 +130441,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FriendRequestEvent.Issue": {
-    "documentation": "A player invokes (sends) a connection request.",
+    "documentation": "A player invokes (sends) a friend request.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130232,7 +130451,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FriendRequestEvent.Revoke": {
-    "documentation": "A player revokes (cancels) a previously invoked (sent) connection request.",
+    "documentation": "A player revokes (cancels) a previously invoked (sent) friend request.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130242,7 +130461,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FriendRequestEvent.Accept": {
-    "documentation": "A player accepts a connection request.",
+    "documentation": "A player accepts a friend request.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130252,7 +130471,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FriendRequestEvent.Deny": {
-    "documentation": "A player denies a connection request.",
+    "documentation": "A player denies a friend request.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131722,7 +131941,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FriendStatus.Unknown": {
-    "documentation": "The connection status of two players is unknown.",
+    "documentation": "The friend status of two players is unknown.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131732,7 +131951,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FriendStatus.NotFriend": {
-    "documentation": "Two players are not connections.",
+    "documentation": "Two players are not friends.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131742,7 +131961,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FriendStatus.Friend": {
-    "documentation": "Two players are connections.",
+    "documentation": "Two players are friends.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131752,7 +131971,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FriendStatus.FriendRequestSent": {
-    "documentation": "At least one of two players has sent a connection request to the other player.",
+    "documentation": "At least one of two players has sent a friend request to the other player.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131762,7 +131981,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FriendStatus.FriendRequestReceived": {
-    "documentation": "At least one of two players has received a connection request sent by the other player.",
+    "documentation": "At least one of two players has received a friend request sent by the other player.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

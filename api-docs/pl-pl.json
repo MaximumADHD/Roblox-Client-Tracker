@@ -1177,47 +1177,47 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.ExcludeInstances": {
-    "documentation": "Opcjonalna tablica instancji, których potomkowie będą wyłączeni z zapytania.",
+    "documentation": "Opcjonalna tablica instancji, których dziedzice będą wykluczane z zapytania.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#ExcludeInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.IncludeInstances": {
-    "documentation": "Opcjonalna tablica instancji, których potomkowie będą włączeni w zapytaniu.",
+    "documentation": "Opcjonalna tablica instancji, których dziedzice będą włączani do zapytania.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#IncludeInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.MaxParts": {
-    "documentation": "Maksymalna liczba części, które mają być zwracane w wyniku zapytania.",
+    "documentation": "Maksymalna liczba części, które mają być zwrócone w wyniku zapytania.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#MaxParts",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.CollisionGroup": {
-    "documentation": "Grupa kolizji używana do operacji.",
+    "documentation": "Grupa kolizji używana w operacji.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#CollisionGroup",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.Tolerance": {
-    "documentation": "Nieznacznie zwiększa głośność operacji zapytania granicy.",
+    "documentation": "Trochę zwiększa objętość operacji zapytań granicznych.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#Tolerance",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.RespectCanCollide": {
-    "documentation": "Określa, czy operacja zapytania granicy bierze pod uwagę wartość właściwości <code>BasePart.CanCollide</code> części w porównaniu do jej wartości <code>BasePart.CanQuery</code>.",
+    "documentation": "Określa, czy operacja zapytania granicznego uwzględnia wartość <code>BasePart.CanCollide</code> danej części zamiast jej <code>BasePart.CanQuery</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#RespectCanCollide",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.BruteForceAllSlow": {
-    "documentation": "Gdy jest włączona, zapytanie zignoruje wszystkie właściwości kolizji części i przeprowadzi brutalne sprawdzenie każdej części.",
+    "documentation": "Gdy jest włączone, zapytanie zignoruje wszystkie właściwości kolizji części i przeprowadzi brutalne sprawdzenie na każdej części.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#BruteForceAllSlow",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.FilterDescendantsInstances": {
-    "documentation": "Tablica obiektów, których potomkowie są używani w filtrowaniu kandydatów.",
+    "documentation": "Tablica obiektów, których dziedzice są używane do filtrowania kandydatów.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#FilterDescendantsInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.FilterType": {
-    "documentation": "Określa, czy tablica <code>FilterDescendantsInstances</code> je wykorzystywana jako lista wykluczeń czy włączeń.",
+    "documentation": "Określa, czy tablica <code>FilterDescendantsInstances</code> jest używana jako lista wykluczeń czy włączeń.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#FilterType",
     "code_sample": ""
   },
@@ -1228,7 +1228,7 @@
     "documentation": "Instancja lub tablica zawierająca instancje do dodania."
   },
   "@roblox/globaltype/OverlapParams.AddToFilter": {
-    "documentation": "Dodaje podane instancje do <code>FilterDescendantsInstances</code>.",
+    "documentation": "Dodaje dostarczone instancje do <code>FilterDescendantsInstances</code>.",
     "params": [
       {
         "name": "self",
@@ -6143,7 +6143,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RaycastParams.IncludeInstances": {
-    "documentation": "Opcjonalna tablica instancji, których potomkowie będą włączeni w zapytaniu.",
+    "documentation": "Opcjonalna tablica instancji, których potomkowie zostaną uwzględnieni w zapytaniu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams#IncludeInstances",
     "code_sample": ""
   },
@@ -12910,6 +12910,11 @@
     "documentation": "Usługa, która pozwala na odczytanie wyświetlanego tekstu.",
     "keys": {
       "ClearOutput": "@roblox/globaltype/LogService.ClearOutput",
+      "Output": "@roblox/globaltype/LogService.Output",
+      "Info": "@roblox/globaltype/LogService.Info",
+      "Warn": "@roblox/globaltype/LogService.Warn",
+      "Error": "@roblox/globaltype/LogService.Error",
+      "Log": "@roblox/globaltype/LogService.Log",
       "GetLogHistory": "@roblox/globaltype/LogService.GetLogHistory"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService",
@@ -12930,6 +12935,158 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#ClearOutput",
     "code_sample": ""
   },
+  "@roblox/globaltype/LogService.Output/param/0": {
+    "documentation": "Usługa, która pozwala na odczytanie wyświetlanego tekstu."
+  },
+  "@roblox/globaltype/LogService.Output/param/1": {
+    "documentation": "Wiadomość tekstowa. Obsługuje miejsca na szablony <code>{key}</code>, gdyjest podana tabela kontekstu."
+  },
+  "@roblox/globaltype/LogService.Output/param/2": {
+    "documentation": "Opcjonalny słownik par klucz-wartość. Gdy jest podany, miejsca na szablony <code>{key}</code> w wiadomości są zastępowane odpowiadającymi wartościami."
+  },
+  "@roblox/globaltype/LogService.Output": {
+    "documentation": "Rejestruje wiadomość na poziomie <code>MessageType.MessageOutput</code> z opcjonalnym ustrukturyzowanym kontekstem.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Output/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Output/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Output/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Output",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Info/param/0": {
+    "documentation": "Usługa, która pozwala na odczytanie wyświetlanego tekstu."
+  },
+  "@roblox/globaltype/LogService.Info/param/1": {
+    "documentation": "Wiadomość tekstowa. Obsługuje miejsca na szablony <code>{key}</code>, gdy jest podana tabela kontekstu."
+  },
+  "@roblox/globaltype/LogService.Info/param/2": {
+    "documentation": "Opcjonalny słownik par klucz-wartość. Gdy jest podany, miejsca na szablony <code>{key}</code> w wiadomości są zastępowane odpowiadającymi wartościami."
+  },
+  "@roblox/globaltype/LogService.Info": {
+    "documentation": "Rejestruje wiadomość na poziomie <code>MessageType.MessageInfo</code> z opcjonalnym ustrukturyzowanym kontekstem.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Info/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Info/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Info/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Info",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Warn/param/0": {
+    "documentation": "Usługa, która pozwala na odczytanie wyświetlanego tekstu."
+  },
+  "@roblox/globaltype/LogService.Warn/param/1": {
+    "documentation": "Wiadomość tekstowa. Obsługuje miejsca na szablony <code>{key}</code>, gdy jest podana tabela kontekstu."
+  },
+  "@roblox/globaltype/LogService.Warn/param/2": {
+    "documentation": "Opcjonalny słownik par klucz-wartość. Gdy jest podany, miejsca na szablony <code>{key}</code> w wiadomości są zastępowane odpowiadającymi wartościami."
+  },
+  "@roblox/globaltype/LogService.Warn": {
+    "documentation": "Rejestruje wiadomość na poziomie <code>MessageType.MessageWarning</code> z opcjonalnym ustrukturyzowanym kontekstem.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Warn",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Error/param/0": {
+    "documentation": "Usługa, która pozwala na odczytanie wyświetlanego tekstu."
+  },
+  "@roblox/globaltype/LogService.Error/param/1": {
+    "documentation": "Wiadomość tekstowa. Obsługuje miejsca na szablony <code>{key}</code>, gdy jest podana tabela kontekstu."
+  },
+  "@roblox/globaltype/LogService.Error/param/2": {
+    "documentation": "Opcjonalny słownik par klucz-wartość. Gdy jest podany, miejsca na szablony <code>{key}</code> w wiadomości są zastępowane odpowiadającymi wartościami."
+  },
+  "@roblox/globaltype/LogService.Error": {
+    "documentation": "Rejestruje wiadomość na poziomie <code>MessageType.MessageError</code> i rzuca ustrukturyzowany błąd z opcjonalnym kontekstem.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Error/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Error/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Error/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Error",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Log/param/0": {
+    "documentation": "Usługa, która pozwala na odczytanie wyświetlanego tekstu."
+  },
+  "@roblox/globaltype/LogService.Log/param/1": {
+    "documentation": "Typ <code>MessageType</code> określający poziom logowania."
+  },
+  "@roblox/globaltype/LogService.Log/param/2": {
+    "documentation": "Wiadomość tekstowa. Obsługuje miejsca na szablony <code>{key}</code>, gdy jest podana tabela kontekstu."
+  },
+  "@roblox/globaltype/LogService.Log/param/3": {
+    "documentation": "Opcjonalny słownik par klucz-wartość. Gdy jest podany, miejsca na szablony <code>{key}</code> w wiadomości są zastępowane odpowiadającymi wartościami."
+  },
+  "@roblox/globaltype/LogService.Log": {
+    "documentation": "Rejestruje wiadomość na określonym poziomie z opcjonalnym ustrukturyzowanym kontekstem.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Log/param/0"
+      },
+      {
+        "name": "messageType",
+        "documentation": "@roblox/globaltype/LogService.Log/param/1"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Log/param/2"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Log/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Log",
+    "code_sample": ""
+  },
   "@roblox/globaltype/LogService.GetLogHistory/param/0": {
     "documentation": "Usługa, która pozwala na odczytanie wyświetlanego tekstu."
   },
@@ -12937,7 +13094,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/LogService.GetLogHistory": {
-    "documentation": "Zwraca tabelę tabel, z których każda zawiera ciąg wiadomości, typ wiadomości i timestamp wiadomości, którą klient wyświetla w oknie <strong>Output</strong>.",
+    "documentation": "Zwraca tabelę tabel, z których każda zawiera ciąg wiadomości, typ wiadomości i znacznik czasu wiadomości, którą klient wyświetla w oknie <strong>Wyjście</strong>.",
     "params": [
       {
         "name": "self",
@@ -16206,7 +16363,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność.",
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność.",
     "keys": {
       "LevelOfDetail": "@roblox/globaltype/Model.LevelOfDetail",
       "ModelStreamingMode": "@roblox/globaltype/Model.ModelStreamingMode",
@@ -16239,22 +16396,22 @@
     "code_sample": "local function groupObjects(objectTable)\n\tlocal model = Instance.new(\"Model\")\n\tfor _, object in pairs(objectTable) do\n\t\tobject.Parent = model\n\tend\n\treturn model\nend\n\nlocal objects = {\n\tInstance.new(\"Part\"),\n\tInstance.new(\"Part\"),\n}\n\ngroupObjects(objects)"
   },
   "@roblox/globaltype/Model.LevelOfDetail": {
-    "documentation": "Ustawia poziom szczegółowości modelu dla doświadczeń z włączonym streamowaniem instancji.",
+    "documentation": "Ustawia poziom szczegółowości modelu dla doświadczeń z włączonym streamingiem instancji.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#LevelOfDetail",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ModelStreamingMode": {
-    "documentation": "Kontroluje zachowanie streamowania modelu w <code>Models</code> gdy streamowanie instancji jest włączone.",
+    "documentation": "Kontroluje zachowanie streamingu modelu w <code>Models</code>, gdy streaming instancji jest włączony.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#ModelStreamingMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.PrimaryPart": {
-    "documentation": "Główna część <code>Model</code>, lub <code>nil</code>, jeśli nie została jawnie ustawiona.",
+    "documentation": "Główna część <code>Model</code>, lub <code>nil</code>, jeśli nie została explicite ustawiona.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#PrimaryPart",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.Scale": {
-    "documentation": "Właściwość dostępna tylko w edytorze, używana do skalowania modelu wokół jego pivotu. Ustawienie tej właściwości spowoduje ruch skali, jakby wywołana została <code>Model:ScaleTo()</code>.",
+    "documentation": "Właściwość tylko dla edytora używana do skalowania modelu wokół jego pivotu. Ustawienie tej właściwości przesunie skalę tak, jakby wywołano <code>Model:ScaleTo()</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#Scale",
     "code_sample": ""
   },
@@ -16264,13 +16421,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/1": {
-    "documentation": "Gracz <code>Player</code>, dla którego model ma być trwały."
+    "documentation": "Gracz <code>Player</code>, dla którego ten model ma być trwały."
   },
   "@roblox/globaltype/Model.AddPersistentPlayer": {
-    "documentation": "Ustawia ten model jako trwały dla określonego gracza. <code>ModelStreamingMode</code> musi być ustawione na <code>PersistentPerPlayer</code>, aby zmiany były skuteczne w wyniku dodania.",
+    "documentation": "Ustawia ten model jako trwały dla określonego gracza. <code>ModelStreamingMode</code> musi być ustawiony na <code>PersistentPerPlayer</code>, aby zachowanie mogło się zmienić w wyniku dodania.",
     "params": [
       {
         "name": "self",
@@ -16286,10 +16443,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.BreakJoints/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>Zrywa połączenia między <code>BaseParts</code>, w tym połączenia powierzchniowe z dowolnymi sąsiednimi częściami, <code>WeldConstraints</code> oraz wszystkie <code>Welds</code> i inne <code>JointInstances</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Łamie połączenia między <code>BaseParts</code>, w tym połączenia powierzchniowe z wszystkimi sąsiadującymi częściami, <code>WeldConstraints</code> i wszystkimi <code>Welds</code> oraz innymi <code>JointInstances</code>.",
     "params": [
       {
         "name": "self",
@@ -16301,10 +16458,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n\ttask.wait(3)\n\tcharacter:BreakJoints()\nend\n\nlocal function onPlayerAdded(player)\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Model.breakJoints/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.breakJoints": {
-    "documentation": "<strong>Deprecated:</strong> Ta przestarzała funkcja jest wariantem <code>Model:BreakJoints()</code>, który należy używać zamiast niej.",
+    "documentation": "<strong>Deprecated:</strong> Ta przestarzała funkcja jest wariantem <code>Model:BreakJoints()</code>, którą należy używać zamiast tego.",
     "params": [
       {
         "name": "self",
@@ -16316,10 +16473,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetBoundingBox/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.GetBoundingBox/return/0": {
-    "documentation": "<code>CFrame</code> reprezentujący orientację objętości, a następnie <code>Vector3</code> reprezentujący rozmiar objętości."
+    "documentation": "<code>CFrame</code> reprezentujący orientację objętości po którym następuje <code>Vector3</code> reprezentujący rozmiar objętości."
   },
   "@roblox/globaltype/Model.GetBoundingBox": {
     "documentation": "Zwraca opis objętości, która zawiera wszystkie części modelu.",
@@ -16336,13 +16493,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetExtentsSize/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.GetExtentsSize/return/0": {
-    "documentation": "Rozmiar <code>Vector3</code> rozciągnięcia modelu."
+    "documentation": "Rozmiar <code>Vector3</code> modelu."
   },
   "@roblox/globaltype/Model.GetExtentsSize": {
-    "documentation": "Zwraca rozmiar najmniejszego pudełka ograniczającego, które zawiera wszystkie <code>BaseParts</code> w <code>Model</code>, wyrównane z <code>Model.PrimaryPart</code>, jeśli jest ustawione.",
+    "documentation": "Zwraca rozmiar najmniejszego prostopadłościanu ograniczającego, który zawiera wszystkie z <code>BaseParts</code> w <code>Model</code>, wyrównany z <code>Model.PrimaryPart</code>, jeśli jest to ustawione.",
     "params": [
       {
         "name": "self",
@@ -16356,13 +16513,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.GetModelCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame": {
-    "documentation": "<strong>Deprecated:</strong> Ta funkcja została przestarzała, ponieważ nie zapewniała niezawodnych wyników. Można zamiast tego użyć <code>Model:GetPrimaryPartCFrame()</code>, aby uzyskać <code>CFrame</code> głównej części modelu.<br>Ta wartość historycznie zwracała CFrame centralnego punktu w modelu.",
+    "documentation": "<strong>Deprecated:</strong> Ta funkcja została przestarzała, ponieważ nie dostarczała wiarygodnych wyników. Możesz zamiast tego użyć <code>Model:GetPrimaryPartCFrame()</code>, aby uzyskać <code>CFrame</code> głównej części modelu.<br>Ta wartość historycznie zwracała CFrame centralnej pozycji w modelu.",
     "params": [
       {
         "name": "self",
@@ -16376,13 +16533,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelSize/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.GetModelSize/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelSize": {
-    "documentation": "<strong>Deprecated:</strong> Ten element jest przestarzały. Nie używaj go w nowej pracy. Programiści mogą zamiast tego używać <code>Model.GetExtentsSize</code>.<br>Zwraca rozmiar <code>Vector3</code> modelu.",
+    "documentation": "<strong>Deprecated:</strong> Ten element jest przestarzały. Nie używaj go w nowej pracy. Programiści mogą zamiast tego użyć <code>Model.GetExtentsSize</code>.<br>Zwraca rozmiar wektora 3 modelu.",
     "params": [
       {
         "name": "self",
@@ -16396,10 +16553,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/return/0": {
-    "documentation": "Tabela zawierająca wszystkie obiekty <code>Player</code>, dla których ten obiekt modelu jest trwały."
+    "documentation": "Tabela ze wszystkimi obiektami <code>Player</code>, dla których ten obiekt modelu jest trwały."
   },
   "@roblox/globaltype/Model.GetPersistentPlayers": {
     "documentation": "Zwraca wszystkie obiekty <code>Player</code>, dla których ten obiekt modelu jest trwały. Zachowanie różni się w zależności od tego, czy ta metoda jest wywoływana z <code>Script</code>, czy z <code>LocalScript</code>.",
@@ -16416,13 +16573,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>Zwraca <code>CFrame</code> głównej części modelu. Ta funkcja spowoduje błąd, jeśli nie istnieje żadna główna część dla <code>Model</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Zwraca <code>CFrame</code> głównej części modelu. Ta funkcja zgłosi błąd, jeśli główna część nie istnieje dla <code>Model</code>.",
     "params": [
       {
         "name": "self",
@@ -16436,13 +16593,13 @@
     "code_sample": "local START_POSITION = Vector3.new(0, 10, 0)\n\nlocal model = Instance.new(\"Model\")\n\nlocal part1 = Instance.new(\"Part\")\npart1.Size = Vector3.new(4, 4, 4)\npart1.CFrame = CFrame.new(START_POSITION)\npart1.Anchored = true\npart1.BrickColor = BrickColor.new(\"Jasny żółty\")\npart1.Parent = model\n\nlocal part2 = Instance.new(\"Part\")\npart2.Size = Vector3.new(2, 2, 2)\npart2.CFrame = part1.CFrame * CFrame.new(0, 3, 0)\npart2.Anchored = true\npart2.BrickColor = BrickColor.new(\"Jasny niebieski\")\npart2.Parent = model\n\n-- ustawienie części głównej\nmodel.PrimaryPart = part1\nmodel.Parent = workspace\n\nwhile true do\n\tlocal primaryPartCFrame = model:GetPrimaryPartCFrame()\n\tlocal newCFrame = primaryPartCFrame * CFrame.Angles(0, math.rad(1), 0)\n\tmodel:SetPrimaryPartCFrame(newCFrame)\n\ttask.wait()\nend"
   },
   "@roblox/globaltype/Model.GetScale/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.GetScale/return/0": {
     "documentation": "Aktualny kanoniczny współczynnik skali modelu."
   },
   "@roblox/globaltype/Model.GetScale": {
-    "documentation": "Zwraca kanoniczną skalę modelu, która domyślnie wynosi 1 dla nowo utworzonych modeli i zmieni się, gdy będzie skalowane za pomocą <code>Model:ScaleTo()</code>.",
+    "documentation": "Zwraca kanoniczną skalę modelu, która domyślnie wynosi 1 dla nowo utworzonych modeli i będzie się zmieniać w miarę, jak będzie skalowany przez <code>Model:ScaleTo()</code>.",
     "params": [
       {
         "name": "self",
@@ -16456,10 +16613,10 @@
     "code_sample": "local CollectionService = game:GetService(\"CollectionService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\n-- Znajdź wszystkie modele z tagiem, który chcemy zastąpić\nlocal items = CollectionService:GetTagged(\"Tree\")\nlocal newModel = ReplicatedStorage.FancyTreeReplacementModel\nfor _, item in items do\n\t-- Utwórz nowy obiekt i skaluj / ustaw go w miejscu stary\n\tlocal newItem = newModel:Clone()\n\tnewItem:ScaleTo(item:GetScale())\n\tnewItem:PivotTo(item:GetPivot())\n\n\t-- Dodaj ten sam tag do zastępczego\n\tCollectionService:AddTag(newItem, \"Tree\")\n\n\t-- Usuń stary obiekt i dodaj nowy\n\tnewItem.Parent = item.Parent\n\titem:Destroy()\nend"
   },
   "@roblox/globaltype/Model.MakeJoints/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> Ten typ stawu jest przestarzały. Nie używaj go w nowej pracy. Użyj zamiast tego <code>WeldConstraints</code> i <code>HingeConstraints</code>.<br>Przechodzi przez wszystkie <code>BaseParts</code> w <code>Model</code>. Jeśli boki jakiejkolwiek części mają SurfaceType, które mogą stworzyć staw, stworzy staw z dowolnymi sąsiednimi częściami.",
+    "documentation": "<strong>Deprecated:</strong> Ten typ przegubu został przestarzały. Nie używaj go w nowej pracy. Użyj <code>WeldConstraints</code> i <code>HingeConstraints</code> zamiast tego.<br>Przechodzi przez wszystkie <code>BaseParts</code> w <code>Model</code>. Jeśli jakakolwiek strona części ma SurfaceType, który może stworzyć przegub, stworzy przegub z jakimikolwiek sąsiadującymi częściami.",
     "params": [
       {
         "name": "self",
@@ -16471,10 +16628,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.makeJoints/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.makeJoints": {
-    "documentation": "<strong>Deprecated:</strong> Ta przestarzała funkcja jest wariantem <code>Model:MakeJoints()</code>, który należy używać zamiast niej.",
+    "documentation": "<strong>Deprecated:</strong> Ta przestarzała funkcja jest wariantem <code>Model:MakeJoints()</code>, którą należy używać zamiast tego.",
     "params": [
       {
         "name": "self",
@@ -16486,13 +16643,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.move/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.move/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.move": {
-    "documentation": "<strong>Deprecated:</strong> Ten element został zastąpiony przez <code>Model:MoveTo()</code>, który powinien być używany we wszystkich nowych pracach.",
+    "documentation": "<strong>Deprecated:</strong> Ten element został zastąpiony przez <code>Model:MoveTo()</code>, który powinien być używany we wszelkich nowych pracach.",
     "params": [
       {
         "name": "self",
@@ -16508,13 +16665,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.MoveTo/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.MoveTo/param/1": {
-    "documentation": "Wartość <code>Vector3</code>, na którą <code>Model</code> ma być przesunięty."
+    "documentation": "<code>Vector3</code>, na które <code>Model</code> ma być przesunięty."
   },
   "@roblox/globaltype/Model.MoveTo": {
-    "documentation": "Przesuwa <code>PrimaryPart</code> do podanej pozycji. Jeśli główna część nie została określona, zostanie użyta korzeń modelu.",
+    "documentation": "Przesuwa <code>PrimaryPart</code> do podanej pozycji. Jeśli nie określono głównej części, używana będzie część główna modelu.",
     "params": [
       {
         "name": "self",
@@ -16530,13 +16687,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.moveTo/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.moveTo/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.moveTo": {
-    "documentation": "<strong>Deprecated:</strong> Ta przestarzała funkcja jest wariantem <code>Model:MoveTo()</code>, który należy używać zamiast niej.",
+    "documentation": "<strong>Deprecated:</strong> Ta przestarzała funkcja jest wariantem <code>Model:MoveTo()</code>, którą należy używać zamiast tego.",
     "params": [
       {
         "name": "self",
@@ -16552,13 +16709,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/1": {
-    "documentation": "Gracz <code>Player</code>, dla którego model ma już nie być trwały."
+    "documentation": "Gracz <code>Player</code>, dla którego model ma być już nie trwały."
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer": {
-    "documentation": "Czyni ten model nie dłużej trwałym dla określonego gracza. <code>ModelStreamingMode</code> musi być ustawione na <code>PersistentPerPlayer</code>, aby zmiany były skuteczne w wyniku usunięcia.",
+    "documentation": "Sprawia, że model nie jest już trwały dla określonego gracza. <code>ModelStreamingMode</code> musi być ustawiony na <code>PersistentPerPlayer</code>, aby zachowanie mogło się zmienić w wyniku usunięcia.",
     "params": [
       {
         "name": "self",
@@ -16574,10 +16731,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity": {
-    "documentation": "<strong>Deprecated:</strong> Ta funkcja została przestarzała; pozostaje, aby zapobiegać błędom w skryptach dziedzicznych, ale nie robi nic po wywołaniu.<br>Resetuje rotację części modelu do wcześniej ustawionej rotacji tożsamości, która jest realizowana za pomocą metody <code>Model:SetIdentityOrientation()</code>.",
+    "documentation": "<strong>Deprecated:</strong> Ta funkcja została przestarzała; pozostaje, aby zapobiegać wyrzucaniu błędów w skryptach legacy, ale nie robi nic po wywołaniu.<br>Resetuje rotację części modelu do wcześniej ustawionej rotacji tożsamości, co można zrobić dzięki metodzie <code>Model:SetIdentityOrientation()</code>.",
     "params": [
       {
         "name": "self",
@@ -16589,13 +16746,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ScaleTo/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.ScaleTo/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.ScaleTo": {
-    "documentation": "Ustawia współczynnik skali modelu, dostosowując rozmiary i lokalizację wszystkich potomnych instancji tak, aby miały ten współczynnik skali w odniesieniu do swoich początkowych rozmiarów i lokalizacji, gdy współczynnik skali wynosił 1.",
+    "documentation": "Ustawia współczynnik skali modelu, dostosowując rozmiar i lokalizację wszystkich instancji potomnych w taki sposób, aby miały ten współczynnik skali względem swoich początkowych rozmiarów i lokalizacji, gdy współczynnik skali wynosił 1.",
     "params": [
       {
         "name": "self",
@@ -16611,10 +16768,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetIdentityOrientation/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.SetIdentityOrientation": {
-    "documentation": "<strong>Deprecated:</strong> Ta funkcja została przestarzała; pozostaje, aby zapobiegać błędom w skryptach dziedzicznych, ale nie robi nic po wywołaniu.<br>Ustawia rotację tożsamości podanego modelu, co pozwala na późniejsze zresetowanie rotacji całego modelu za pomocą metody <code>ResetOrientationToIdentity</code>.",
+    "documentation": "<strong>Deprecated:</strong> Ta funkcja została przestarzała; pozostaje, aby zapobiegać wyrzucaniu błędów w skryptach legacy, ale nie robi nic po wywołaniu.<br>Ustawia rotację tożsamości danego modelu, umożliwiając resetowanie rotacji całego modelu później, poprzez użycie metody <code>ResetOrientationToIdentity</code>.",
     "params": [
       {
         "name": "self",
@@ -16626,13 +16783,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/1": {
-    "documentation": "Wartość <code>CFrame</code>, która ma być ustawiona."
+    "documentation": "<code>CFrame</code>, które ma być ustawione."
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>Ustawia <code>BasePart.CFrame</code> głównej części modelu. Wszystkie inne części w modelu również będą przemieszczać się i zachowają swoje orientacje oraz offsety względem <code>Model.PrimaryPart</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Ustawia <code>BasePart.CFrame</code> głównej części modelu. Wszystkie inne części w modelu również zostaną przesunięte i utrzymają swoje orientacje i przesunięcia względne do <code>Model.PrimaryPart</code>.",
     "params": [
       {
         "name": "self",
@@ -16648,13 +16805,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.TranslateBy/param/0": {
-    "documentation": "Modele to obiekty kontenerowe, co oznacza, że grupują obiekty razem. Najlepiej używać ich do przechowywania kolekcji <code>BaseParts</code> i mają szereg funkcji, które rozszerzają ich funkcjonalność."
+    "documentation": "Modele są obiektami kontenerowymi, co oznacza, że grupują obiekty razem. Najlepiej używa się ich do przechowywania kolekcji <code>BaseParts</code> i mają wiele funkcji, które rozszerzają ich funkcjonalność."
   },
   "@roblox/globaltype/Model.TranslateBy/param/1": {
-    "documentation": "Wartość <code>Vector3</code>, o którą ma być tłumaczony <code>Model</code>."
+    "documentation": "Przesunięcie <code>Vector3</code>, o które ma być przesunięty <code>Model</code>."
   },
   "@roblox/globaltype/Model.TranslateBy": {
-    "documentation": "Przesuwa <code>Model</code> o podany offset <code>Vector3</code>, zachowując orientację modelu. Jeśli inny <code>BasePart</code> lub <code>Terrain</code> już istnieje w nowej pozycji, to <code>Model</code> będzie nachodzić na ten obiekt.",
+    "documentation": "Przesuwa <code>Model</code> o podany przesunięcie <code>Vector3</code>, zachowując dotychczasową orientację modelu. Jeśli inny <code>BasePart</code> lub <code>Terrain</code> już istnieje w nowej pozycji, to <code>Model</code> będzie nachodził na ten obiekt.",
     "params": [
       {
         "name": "self",
@@ -56058,7 +56215,7 @@
     "documentation": "Tabela opcji zawierająca wszystkie kontrolki dla tej metody: <ul> <li><code>SiteSpacing</code> — Przybliżona odległość między miejscami, która   bezpośrednio odpowiada średnicy wynikowych fragmentów. Jeśli   nie jest określona, wybrana zostanie rozsądna wartość.</li> <li><code>Origin</code> — Jeśli została podana, to będzie centrum obszaru do   fragmentacji. Jeśli nie podano, cały obiekt zostanie podzielony.</li> <li><code>Radius</code> — Jeśli została podana, to będzie centrum obszaru do   fragmentacji. Powinny być podane zarówno <code>Origin</code>, jak i <code>Radius</code>, lub   żadne.</li> </ul>"
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites/return/0": {
-    "documentation": "Tablica <code>Vector3</code>, która jest zazwyczaj przekazywana do <code>FragmentAsync()</code>. Wynik zależy od podanych opcji. Jeśli podano <code>Origin</code> i <code>Radius</code>, to zwracana tablica będzie zawierać kilka elementów <code>Vector3</code>, które wszystkie będą znajdować się w promieniu, ale ostatni element tablicy będzie wewnętrzną tablicą zawierającą wiele miejsc <code>Vector3</code>, które są poza promieniem. Jeśli <code>Origin</code> i <code>Radius</code> nie są podane, wynik będzie po prostu tablicą pozycji <code>Vector3</code> w obrębie rozmiarów wejściowej <code>part</code>."
+    "documentation": "Tablica <code>Vector3</code>, która zazwyczaj jest przekazywana do <code>FragmentAsync()</code>. Wyjście zależy od podanych opcji. Jeśli podano <code>Origin</code> i <code>Radius</code>, to tablica wyjściowa będzie zawierać kilka elementów <code>Vector3</code>, które będą znajdować się w promieniu, jednak pierwszy element tablicy będzie wewnętrzną tablicą zawierającą wiele <code>Vector3</code> lokacji, które znajdują się poza promieniem. Jeśli <code>Origin</code> i <code>Radius</code> nie są podane, wyjście będzie po prostu tablicą pozycji <code>Vector3</code> w obrębie zasięgu wejściowej <code>części</code>."
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites": {
     "documentation": "Zwraca tablicę pozycji, która może być łatwo przekazana do <code>FragmentAsync</code>, aby wykonać proste typy destrukcji.",
@@ -119646,6 +119803,35 @@
       "VelocityPerpendicular": "@roblox/enum/ParticleOrientation.VelocityPerpendicular"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleOrientation",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Disabled": {
+    "documentation": "Disables anti-aliasing, resulting in hard edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Disabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Enabled": {
+    "documentation": "Enables anti-aliasing, resulting in soft edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.AntiAliasing": {
+    "documentation": "Determines whether anti-aliasing is applied when drawing on the instance.",
+    "keys": {
+      "Disabled": "@roblox/enum/AntiAliasing.Disabled",
+      "Enabled": "@roblox/enum/AntiAliasing.Enabled"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing",
     "code_sample": ""
   },
   "@roblox/enum/WebStreamClientType.SSE": {

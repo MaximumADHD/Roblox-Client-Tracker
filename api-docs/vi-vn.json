@@ -1145,7 +1145,7 @@
     "code_sample": ""
   },
   "@roblox/global/OverlapParams": {
-    "documentation": "Lưu trữ các tham số được sử dụng trong các hàm truy vấn biên.",
+    "documentation": "Lưu trữ các tham số được sử dụng trong các hàm truy vấn biên giới.",
     "keys": {
       "new": "@roblox/global/OverlapParams.new"
     },
@@ -1160,7 +1160,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams": {
-    "documentation": "Lưu trữ các tham số được sử dụng trong các hàm truy vấn biên.",
+    "documentation": "Lưu trữ các tham số được sử dụng trong các hàm truy vấn biên giới.",
     "keys": {
       "ExcludeInstances": "@roblox/globaltype/OverlapParams.ExcludeInstances",
       "IncludeInstances": "@roblox/globaltype/OverlapParams.IncludeInstances",
@@ -1177,58 +1177,58 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.ExcludeInstances": {
-    "documentation": "Một mảng tùy chọn của các đối tượng mà các hậu duệ của chúng sẽ bị loại trừ khỏi truy vấn.",
+    "documentation": "Một mảng tùy chọn các đối tượng có các phần tử con sẽ bị loại trừ khỏi truy vấn.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#ExcludeInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.IncludeInstances": {
-    "documentation": "Một mảng tùy chọn của các đối tượng mà các hậu duệ của chúng sẽ được bao gồm trong truy vấn.",
+    "documentation": "Một mảng tùy chọn các đối tượng có các phần tử con sẽ được bao gồm trong truy vấn.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#IncludeInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.MaxParts": {
-    "documentation": "Số lượng tối đa các phần để được trả về bởi truy vấn.",
+    "documentation": "Số lượng tối đa các phần sẽ được trả về bởi truy vấn.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#MaxParts",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.CollisionGroup": {
-    "documentation": "Nhóm va chạm được sử dụng cho hoạt động.",
+    "documentation": "Nhóm va chạm được sử dụng cho thao tác.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#CollisionGroup",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.Tolerance": {
-    "documentation": "Tăng nhẹ thể tích của thao tác truy vấn ranh giới.",
+    "documentation": "Tăng nhẹ thể tích của thao tác truy vấn biên giới.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#Tolerance",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.RespectCanCollide": {
-    "documentation": "Xác định xem thao tác truy vấn ranh giới có xem xét giá trị thuộc tính <code>BasePart.CanCollide</code> của một phần hay không, trên giá trị <code>BasePart.CanQuery</code> của nó.",
+    "documentation": "Xác định xem thao tác truy vấn biên giới có xem xét giá trị thuộc tính <code>BasePart.CanCollide</code> của một phần hơn giá trị <code>BasePart.CanQuery</code> của nó hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#RespectCanCollide",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.BruteForceAllSlow": {
-    "documentation": "Khi được kích hoạt, truy vấn sẽ bỏ qua tất cả các thuộc tính va chạm của phần và thực hiện kiểm tra brute-force trên từng phần.",
+    "documentation": "Khi được kích hoạt, truy vấn sẽ bỏ qua tất cả các thuộc tính va chạm của phần và thực hiện một kiểm tra brute-force trên mọi phần.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#BruteForceAllSlow",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.FilterDescendantsInstances": {
-    "documentation": "Một mảng các đối tượng mà các hậu duệ của chúng được sử dụng để lọc các ứng viên.",
+    "documentation": "Một mảng các đối tượng có các phần tử con được sử dụng để lọc các ứng viên.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#FilterDescendantsInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.FilterType": {
-    "documentation": "Xác định liệu mảng <code>FilterDescendantsInstances</code> có được sử dụng như một danh sách loại trừ hay bao gồm.",
+    "documentation": "Xác định xem mảng <code>FilterDescendantsInstances</code> được sử dụng như một danh sách loại trừ hoặc bao gồm.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#FilterType",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.AddToFilter/param/0": {
-    "documentation": "Lưu trữ các tham số được sử dụng trong các hàm truy vấn biên."
+    "documentation": "Lưu trữ các tham số được sử dụng trong các hàm truy vấn biên giới."
   },
   "@roblox/globaltype/OverlapParams.AddToFilter/param/1": {
-    "documentation": "Một thể hiện hoặc một mảng chứa các thể hiện để thêm."
+    "documentation": "Một đối tượng hoặc một mảng chứa các đối tượng để thêm vào."
   },
   "@roblox/globaltype/OverlapParams.AddToFilter": {
-    "documentation": "Thêm các thể hiện được cung cấp vào <code>FilterDescendantsInstances</code>.",
+    "documentation": "Thêm các đối tượng được cung cấp vào <code>FilterDescendantsInstances</code>.",
     "params": [
       {
         "name": "self",
@@ -6143,7 +6143,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RaycastParams.IncludeInstances": {
-    "documentation": "Một mảng tùy chọn các Thể hiện mà các bản con của chúng sẽ được đưa vào trong truy vấn.",
+    "documentation": "Một mảng tùy chọn các thể hiện mà các phần tử con của chúng sẽ được bao gồm trong truy vấn.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams#IncludeInstances",
     "code_sample": ""
   },
@@ -12910,6 +12910,11 @@
     "documentation": "Một dịch vụ cho phép bạn đọc văn bản được xuất ra.",
     "keys": {
       "ClearOutput": "@roblox/globaltype/LogService.ClearOutput",
+      "Output": "@roblox/globaltype/LogService.Output",
+      "Info": "@roblox/globaltype/LogService.Info",
+      "Warn": "@roblox/globaltype/LogService.Warn",
+      "Error": "@roblox/globaltype/LogService.Error",
+      "Log": "@roblox/globaltype/LogService.Log",
       "GetLogHistory": "@roblox/globaltype/LogService.GetLogHistory"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService",
@@ -12930,6 +12935,158 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#ClearOutput",
     "code_sample": ""
   },
+  "@roblox/globaltype/LogService.Output/param/0": {
+    "documentation": "Một dịch vụ cho phép bạn đọc văn bản được xuất ra."
+  },
+  "@roblox/globaltype/LogService.Output/param/1": {
+    "documentation": "Chuỗi thông báo. Hỗ trợ các chỗ thay thế mẫu <code>{key}</code> khi một bảng ngữ cảnh được cung cấp."
+  },
+  "@roblox/globaltype/LogService.Output/param/2": {
+    "documentation": "Một từ điển tùy chọn của các cặp khóa-giá trị. Khi được cung cấp, các chỗ thay thế <code>{key}</code> trong thông báo sẽ được thay thế bằng các giá trị tương ứng."
+  },
+  "@roblox/globaltype/LogService.Output": {
+    "documentation": "Ghi một thông báo ở mức độ <code>MessageType.MessageOutput</code> với ngữ cảnh có cấu trúc tùy chọn.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Output/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Output/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Output/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Output",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Info/param/0": {
+    "documentation": "Một dịch vụ cho phép bạn đọc văn bản được xuất ra."
+  },
+  "@roblox/globaltype/LogService.Info/param/1": {
+    "documentation": "Chuỗi thông báo. Hỗ trợ các chỗ thay thế mẫu <code>{key}</code> khi một bảng ngữ cảnh được cung cấp."
+  },
+  "@roblox/globaltype/LogService.Info/param/2": {
+    "documentation": "Một từ điển tùy chọn của các cặp khóa-giá trị. Khi được cung cấp, các chỗ thay thế <code>{key}</code> trong thông báo sẽ được thay thế bằng các giá trị tương ứng."
+  },
+  "@roblox/globaltype/LogService.Info": {
+    "documentation": "Ghi một thông báo ở mức độ <code>MessageType.MessageInfo</code> với ngữ cảnh có cấu trúc tùy chọn.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Info/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Info/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Info/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Info",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Warn/param/0": {
+    "documentation": "Một dịch vụ cho phép bạn đọc văn bản được xuất ra."
+  },
+  "@roblox/globaltype/LogService.Warn/param/1": {
+    "documentation": "Chuỗi thông báo. Hỗ trợ các chỗ thay thế mẫu <code>{key}</code> khi một bảng ngữ cảnh được cung cấp."
+  },
+  "@roblox/globaltype/LogService.Warn/param/2": {
+    "documentation": "Một từ điển tùy chọn của các cặp khóa-giá trị. Khi được cung cấp, các chỗ thay thế <code>{key}</code> trong thông báo sẽ được thay thế bằng các giá trị tương ứng."
+  },
+  "@roblox/globaltype/LogService.Warn": {
+    "documentation": "Ghi một thông báo ở mức độ <code>MessageType.MessageWarning</code> với ngữ cảnh có cấu trúc tùy chọn.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Warn",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Error/param/0": {
+    "documentation": "Một dịch vụ cho phép bạn đọc văn bản được xuất ra."
+  },
+  "@roblox/globaltype/LogService.Error/param/1": {
+    "documentation": "Chuỗi thông báo. Hỗ trợ các chỗ thay thế mẫu <code>{key}</code> khi một bảng ngữ cảnh được cung cấp."
+  },
+  "@roblox/globaltype/LogService.Error/param/2": {
+    "documentation": "Một từ điển tùy chọn của các cặp khóa-giá trị. Khi được cung cấp, các chỗ thay thế <code>{key}</code> trong thông báo sẽ được thay thế bằng các giá trị tương ứng."
+  },
+  "@roblox/globaltype/LogService.Error": {
+    "documentation": "Ghi một thông báo ở mức độ <code>MessageType.MessageError</code> và ném một lỗi có cấu trúc với ngữ cảnh tùy chọn.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Error/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Error/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Error/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Error",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Log/param/0": {
+    "documentation": "Một dịch vụ cho phép bạn đọc văn bản được xuất ra."
+  },
+  "@roblox/globaltype/LogService.Log/param/1": {
+    "documentation": "Loại <code>MessageType</code> chỉ định mức độ ghi log."
+  },
+  "@roblox/globaltype/LogService.Log/param/2": {
+    "documentation": "Chuỗi thông báo. Hỗ trợ các chỗ thay thế mẫu <code>{key}</code> khi một bảng ngữ cảnh được cung cấp."
+  },
+  "@roblox/globaltype/LogService.Log/param/3": {
+    "documentation": "Một từ điển tùy chọn của các cặp khóa-giá trị. Khi được cung cấp, các chỗ thay thế <code>{key}</code> trong thông báo sẽ được thay thế bằng các giá trị tương ứng."
+  },
+  "@roblox/globaltype/LogService.Log": {
+    "documentation": "Ghi một thông báo ở mức độ xác định với ngữ cảnh có cấu trúc tùy chọn.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Log/param/0"
+      },
+      {
+        "name": "messageType",
+        "documentation": "@roblox/globaltype/LogService.Log/param/1"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Log/param/2"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Log/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Log",
+    "code_sample": ""
+  },
   "@roblox/globaltype/LogService.GetLogHistory/param/0": {
     "documentation": "Một dịch vụ cho phép bạn đọc văn bản được xuất ra."
   },
@@ -12937,7 +13094,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/LogService.GetLogHistory": {
-    "documentation": "Trả về một bảng các bảng, mỗi bảng chứa chuỗi thông điệp, loại thông điệp, và dấu thời gian của một thông điệp mà client hiển thị trong cửa sổ <strong>Output</strong>.",
+    "documentation": "Trả về một bảng chứa các bảng, mỗi bảng có chuỗi thông báo, loại thông báo, và thời gian của một thông báo mà client hiển thị trong cửa sổ <strong>Kết quả</strong>.",
     "params": [
       {
         "name": "self",
@@ -16200,13 +16357,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Folder": {
-    "documentation": "Một container đơn giản được sử dụng để chứa và tổ chức các đối tượng Roblox.",
+    "documentation": "Một container đơn giản được sử dụng để giữ và tổ chức các instance trong Roblox.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Folder",
     "code_sample": ""
   },
   "@roblox/globaltype/Model": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng.",
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng.",
     "keys": {
       "LevelOfDetail": "@roblox/globaltype/Model.LevelOfDetail",
       "ModelStreamingMode": "@roblox/globaltype/Model.ModelStreamingMode",
@@ -16239,12 +16396,12 @@
     "code_sample": "local function groupObjects(objectTable)\n\tlocal model = Instance.new(\"Model\")\n\tfor _, object in pairs(objectTable) do\n\t\tobject.Parent = model\n\tend\n\treturn model\nend\n\nlocal objects = {\n\tInstance.new(\"Part\"),\n\tInstance.new(\"Part\"),\n}\n\ngroupObjects(objects)"
   },
   "@roblox/globaltype/Model.LevelOfDetail": {
-    "documentation": "Thiết lập mức độ chi tiết trên mô hình cho các trải nghiệm có chức năng phát trực tiếp đối tượng được bật.",
+    "documentation": "Thiết lập mức độ chi tiết cho mô hình trong các trải nghiệm có streaming đối tượng được kích hoạt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#LevelOfDetail",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ModelStreamingMode": {
-    "documentation": "Điều khiển hành vi phát trực tiếp của mô hình trên <code>Models</code> khi chức năng phát trực tiếp được bật.",
+    "documentation": "Kiểm soát hành vi streaming của mô hình <code>Models</code> khi streaming đối tượng được kích hoạt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#ModelStreamingMode",
     "code_sample": ""
   },
@@ -16254,23 +16411,23 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.Scale": {
-    "documentation": "Tham số chỉ có trong editor được sử dụng để thay đổi kích thước mô hình quanh pivot của nó. Thiết lập thuộc tính này sẽ di chuyển kích thước như thể <code>Model:ScaleTo()</code> đã được gọi trên nó.",
+    "documentation": "Thuộc tính chỉ dành cho biên tập viên được sử dụng để thay đổi kích thước mô hình quanh pivot của nó. Việc thiết lập thuộc tính này sẽ di chuyển kích thước như thể <code>Model:ScaleTo()</code> đã được gọi trên nó.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#Scale",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.WorldPivot": {
-    "documentation": "Xác định vị trí của pivot của một <code>Model</code> mà không có <code>Model.PrimaryPart</code> được thiết lập.",
+    "documentation": "Xác định vị trí của pivot của một <code>Model</code> không có <code>Model.PrimaryPart</code> được thiết lập.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#WorldPivot",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/1": {
-    "documentation": "Người chơi <code>Player</code> để khiến mô hình này không thay đổi."
+    "documentation": "Người <code>Player</code> mà mô hình này sẽ duy trì."
   },
   "@roblox/globaltype/Model.AddPersistentPlayer": {
-    "documentation": "Thiết lập mô hình này là không thay đổi cho người chơi được chỉ định. <code>ModelStreamingMode</code> phải được thiết lập thành <code>PersistentPerPlayer</code> để hành vi được thay đổi như là kết quả của việc cộng thêm.",
+    "documentation": "Thiết lập mô hình này để duy trì cho người chơi đã chỉ định. <code>ModelStreamingMode</code> phải được thiết lập thành <code>PersistentPerPlayer</code> thì hành vi mới được thay đổi do sự bổ sung.",
     "params": [
       {
         "name": "self",
@@ -16286,10 +16443,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.BreakJoints/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>Phá vỡ kết nối giữa các <code>BaseParts</code>, bao gồm kết nối bề mặt với bất kỳ phần nào liền kề, <code>WeldConstraints</code> và tất cả các <code>Welds</code> và các <code>JointInstances</code> khác.",
+    "documentation": "<strong>Deprecated:</strong> <br>Phá vỡ các kết nối giữa <code>BaseParts</code>, bao gồm các kết nối bề mặt với bất kỳ các phần lân cận nào, <code>WeldConstraints</code> và tất cả các <code>Welds</code> và các <code>JointInstances</code> khác.",
     "params": [
       {
         "name": "self",
@@ -16301,7 +16458,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n\ttask.wait(3)\n\tcharacter:BreakJoints()\nend\n\nlocal function onPlayerAdded(player)\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Model.breakJoints/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.breakJoints": {
     "documentation": "<strong>Deprecated:</strong> Hàm đã lỗi thời này là một biến thể của <code>Model:BreakJoints()</code> mà nên được sử dụng thay thế.",
@@ -16316,13 +16473,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetBoundingBox/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.GetBoundingBox/return/0": {
-    "documentation": "Một <code>CFrame</code> đại diện cho hướng của khối theo sau là một <code>Vector3</code> đại diện cho kích thước của khối."
+    "documentation": "Một <code>CFrame</code> đại diện cho hướng của khối lượng sau đó là một <code>Vector3</code> đại diện cho kích thước của khối lượng."
   },
   "@roblox/globaltype/Model.GetBoundingBox": {
-    "documentation": "Trả về một mô tả về một khối chứa tất cả các phần của một Mô hình.",
+    "documentation": "Trả về một mô tả về một khối lượng chứa tất cả các phần của một Mô hình.",
     "params": [
       {
         "name": "self",
@@ -16336,10 +16493,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetExtentsSize/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.GetExtentsSize/return/0": {
-    "documentation": "Kích thước <code>Vector3</code> của mô hình."
+    "documentation": "Kích thước <code>Vector3</code> của <code>Model</code>."
   },
   "@roblox/globaltype/Model.GetExtentsSize": {
     "documentation": "Trả về kích thước của hộp bao nhỏ nhất chứa tất cả các <code>BaseParts</code> trong <code>Model</code>, căn chỉnh với <code>Model.PrimaryPart</code> nếu nó được thiết lập.",
@@ -16356,13 +16513,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.GetModelCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame": {
-    "documentation": "<strong>Deprecated:</strong> Hàm này đã bị lỗi thời vì nó không cung cấp kết quả đáng tin cậy. Bạn có thể thay thế bằng <code>Model:GetPrimaryPartCFrame()</code> để lấy <code>CFrame</code> của phần chính của mô hình.<br>Giá trị này trước đây trả về CFrame của một vị trí trung tâm trong mô hình.",
+    "documentation": "<strong>Deprecated:</strong> Hàm này đã bị lỗi thời vì nó không cung cấp kết quả đáng tin cậy. Bạn có thể sử dụng <code>Model:GetPrimaryPartCFrame()</code> để lấy được <code>CFrame</code> của phần chính của mô hình.<br>Giá trị này từ trước đến nay trả về CFrame của một vị trí trung tâm trong mô hình.",
     "params": [
       {
         "name": "self",
@@ -16376,13 +16533,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelSize/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.GetModelSize/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelSize": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã bị lỗi thời. Không sử dụng nó cho công việc mới. Các nhà phát triển có thể sử dụng <code>Model.GetExtentsSize</code> thay thế.<br>Trả về kích thước Vector3 của Mô hình.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã bị lỗi thời. Không sử dụng nó cho công việc mới. Các nhà phát triển có thể thay vào đó sử dụng <code>Model.GetExtentsSize</code>.<br>Trả về kích thước Vector3 của Mô hình.",
     "params": [
       {
         "name": "self",
@@ -16396,13 +16553,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/return/0": {
-    "documentation": "Một bảng chứa tất cả các đối tượng <code>Player</code> mà đối tượng mô hình này không thay đổi với."
+    "documentation": "Một bảng chứa tất cả các đối tượng <code>Player</code> mà mô hình này là duy trì cho."
   },
   "@roblox/globaltype/Model.GetPersistentPlayers": {
-    "documentation": "Trả về tất cả các đối tượng <code>Player</code> mà đối tượng mô hình này không thay đổi với. Hành vi khác nhau tùy thuộc vào việc phương thức này được gọi từ <code>Script</code> hay <code>LocalScript</code>.",
+    "documentation": "Trả về tất cả các đối tượng <code>Player</code> mà mô hình này là duy trì cho. Hành vi thay đổi dựa trên việc phương thức này được gọi từ <code>Script</code> hoặc <code>LocalScript</code>.",
     "params": [
       {
         "name": "self",
@@ -16416,13 +16573,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>Trả về <code>CFrame</code> của <code>Model.PrimaryPart</code> của mô hình. Hàm này sẽ ném ra một lỗi nếu không tồn tại phần chính cho <code>Model</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Trả về <code>CFrame</code> của <code>Model.PrimaryPart</code> của mô hình. Hàm này sẽ tạo ra một lỗi nếu không có phần chính tồn tại cho <code>Model</code>.",
     "params": [
       {
         "name": "self",
@@ -16436,13 +16593,13 @@
     "code_sample": "local START_POSITION = Vector3.new(0, 10, 0)\n\nlocal model = Instance.new(\"Model\")\n\nlocal part1 = Instance.new(\"Part\")\npart1.Size = Vector3.new(4, 4, 4)\npart1.CFrame = CFrame.new(START_POSITION)\npart1.Anchored = true\npart1.BrickColor = BrickColor.new(\"Vàng sáng\")\npart1.Parent = model\n\nlocal part2 = Instance.new(\"Part\")\npart2.Size = Vector3.new(2, 2, 2)\npart2.CFrame = part1.CFrame * CFrame.new(0, 3, 0)\npart2.Anchored = true\npart2.BrickColor = BrickColor.new(\"Xanh sáng\")\npart2.Parent = model\n\n-- đặt phần chính\nmodel.PrimaryPart = part1\nmodel.Parent = workspace\n\nwhile true do\n\tlocal primaryPartCFrame = model:GetPrimaryPartCFrame()\n\tlocal newCFrame = primaryPartCFrame * CFrame.Angles(0, math.rad(1), 0)\n\tmodel:SetPrimaryPartCFrame(newCFrame)\n\ttask.wait()\nend"
   },
   "@roblox/globaltype/Model.GetScale/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.GetScale/return/0": {
-    "documentation": "Yếu tố tỷ lệ chuẩn hiện tại của mô hình."
+    "documentation": "Hệ số tỷ lệ chính thống hiện tại của mô hình."
   },
   "@roblox/globaltype/Model.GetScale": {
-    "documentation": "Trả về tỷ lệ chuẩn của mô hình, mặc định là 1 cho các mô hình mới tạo và sẽ thay đổi khi nó được thay đổi kích thước thông qua <code>Model:ScaleTo()</code>.",
+    "documentation": "Trả về quy mô chính thống của mô hình, mặc định là 1 cho các mô hình mới được tạo ra và sẽ thay đổi khi nó được thay đổi tỷ lệ thông qua <code>Model:ScaleTo()</code>.",
     "params": [
       {
         "name": "self",
@@ -16456,10 +16613,10 @@
     "code_sample": "local CollectionService = game:GetService(\"CollectionService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\n-- Tìm tất cả các mô hình với thẻ mà chúng ta muốn thay thế\nlocal items = CollectionService:GetTagged(\"Tree\")\nlocal newModel = ReplicatedStorage.FancyTreeReplacementModel\nfor _, item in items do\n\t-- Tạo mục mới và thu nhỏ / định vị nó ở nơi mục cũ\n\tlocal newItem = newModel:Clone()\n\tnewItem:ScaleTo(item:GetScale())\n\tnewItem:PivotTo(item:GetPivot())\n\n\t-- Thêm cùng một thẻ vào mục thay thế\n\tCollectionService:AddTag(newItem, \"Tree\")\n\n\t-- Xóa mục cũ và bố trí mục mới\n\tnewItem.Parent = item.Parent\n\titem:Destroy()\nend"
   },
   "@roblox/globaltype/Model.MakeJoints/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> Loại khớp này đã bị lỗi thời. Không sử dụng nó cho công việc mới. Sử dụng <code>WeldConstraints</code> và <code>HingeConstraints</code> thay thế.<br>Duyệt qua tất cả các <code>BaseParts</code> trong <code>Model</code>. Nếu bất kỳ mặt nào của phần có SurfaceType có thể tạo ra một khớp, nó sẽ tạo ra một khớp với bất kỳ phần liền kề nào.",
+    "documentation": "<strong>Deprecated:</strong> Loại khớp này đã bị lỗi thời. Đừng sử dụng nó cho công việc mới. Sử dụng <code>WeldConstraints</code> và <code>HingeConstraints</code> thay thế.<br>Duyệt qua tất cả <code>BaseParts</code> trong <code>Model</code>. Nếu bất kỳ phần nào có một mặt có SurfaceType có thể tạo ra một khớp, nó sẽ tạo ra một khớp với bất kỳ các phần lân cận nào.",
     "params": [
       {
         "name": "self",
@@ -16471,7 +16628,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.makeJoints/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.makeJoints": {
     "documentation": "<strong>Deprecated:</strong> Hàm đã lỗi thời này là một biến thể của <code>Model:MakeJoints()</code> mà nên được sử dụng thay thế.",
@@ -16486,13 +16643,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.move/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.move/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.move": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã được thay thế bởi <code>Model:MoveTo()</code> mà nên được sử dụng cho tất cả công việc mới.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã được thay thế bởi <code>Model:MoveTo()</code> mà nên được sử dụng trong tất cả các công việc mới",
     "params": [
       {
         "name": "self",
@@ -16508,13 +16665,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.MoveTo/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.MoveTo/param/1": {
-    "documentation": "<code>Vector3</code> mà <code>Model</code> sẽ được di chuyển tới."
+    "documentation": "<code>Vector3</code> mà mô hình <code>Model</code> được di chuyển đến."
   },
   "@roblox/globaltype/Model.MoveTo": {
-    "documentation": "Di chuyển <code>PrimaryPart</code> đến vị trí được cho. Nếu chưa có phần chính được chỉ định, phần gốc của mô hình sẽ được sử dụng.",
+    "documentation": "Di chuyển <code>PrimaryPart</code> đến vị trí đã cho. Nếu phần chính chưa được xác định, phần gốc của mô hình sẽ được sử dụng.",
     "params": [
       {
         "name": "self",
@@ -16530,7 +16687,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.moveTo/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.moveTo/param/1": {
     "documentation": ""
@@ -16552,13 +16709,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/1": {
-    "documentation": "Người chơi <code>Player</code> để làm cho mô hình này không còn thay đổi cho."
+    "documentation": "Người <code>Player</code> mà mô hình này sẽ không còn tồn tại cho."
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer": {
-    "documentation": "Làm cho mô hình này không còn thay đổi với người chơi được chỉ định. <code>ModelStreamingMode</code> phải được thiết lập thành <code>PersistentPerPlayer</code> để hành vi được thay đổi như là kết quả của việc gỡ bỏ.",
+    "documentation": "Làm cho mô hình này không còn tồn tại cho người chơi đã chỉ định. <code>ModelStreamingMode</code> phải được thiết lập thành <code>PersistentPerPlayer</code> thì hành vi mới được thay đổi do sự loại bỏ.",
     "params": [
       {
         "name": "self",
@@ -16574,10 +16731,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity": {
-    "documentation": "<strong>Deprecated:</strong> Hàm này đã bị lỗi thời; nó vẫn còn để ngăn các script cũ gây ra lỗi, nhưng nó không thực hiện hành động gì khi được gọi.<br>Đặt lại quay của các phần của mô hình về quay định danh trước đó đã được thiết lập, điều này được thực hiện thông qua phương thức <code>Model:SetIdentityOrientation()</code>.",
+    "documentation": "<strong>Deprecated:</strong> Hàm này đã bị lỗi thời; nó vẫn còn để ngăn chặn các tập lệnh di sản không gây ra lỗi, nhưng nó không làm gì khi được gọi.<br>Thiết lập lại độ xoay của các phần của mô hình về độ xoay danh tính đã được thiết lập trước đó, được thực hiện thông qua phương thức <code>Model:SetIdentityOrientation()</code>.",
     "params": [
       {
         "name": "self",
@@ -16589,13 +16746,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ScaleTo/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.ScaleTo/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.ScaleTo": {
-    "documentation": "Thiết lập yếu tố tỷ lệ của mô hình, điều chỉnh kích thước và vị trí của tất cả các đối tượng con sao cho chúng có yếu tố tỷ lệ đó so với kích thước và vị trí ban đầu của chúng khi yếu tố tỷ lệ là 1.",
+    "documentation": "Thiết lập hệ số tỷ lệ của mô hình, điều chỉnh kích thước và vị trí của tất cả các Instance con sao cho chúng có hệ số đó tương đối với tính năng ban đầu của chúng và vị trí khi hệ số tỷ lệ là 1.",
     "params": [
       {
         "name": "self",
@@ -16611,10 +16768,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetIdentityOrientation/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.SetIdentityOrientation": {
-    "documentation": "<strong>Deprecated:</strong> Hàm này đã bị lỗi thời; nó vẫn còn để ngăn các script cũ gây ra lỗi, nhưng nó không thực hiện hành động gì khi được gọi.<br>Đặt quay định danh của mô hình đã cho, cho phép bạn đặt lại quay của toàn bộ mô hình sau đó, thông qua việc sử dụng phương thức <code>ResetOrientationToIdentity</code>.",
+    "documentation": "<strong>Deprecated:</strong> Hàm này đã bị lỗi thời; nó vẫn còn để ngăn chặn các tập lệnh di sản không gây ra lỗi, nhưng nó không làm gì khi được gọi.<br>Thiết lập độ xoay danh tính của mô hình đã cho, cho phép bạn đặt lại độ xoay của toàn bộ mô hình sau này, thông qua phương thức <code>ResetOrientationToIdentity</code>.",
     "params": [
       {
         "name": "self",
@@ -16626,13 +16783,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/1": {
-    "documentation": "<code>CFrame</code> được thiết lập."
+    "documentation": "<code>CFrame</code> sẽ được thiết lập."
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>Thiết lập <code>BasePart.CFrame</code> của phần chính của mô hình. Tất cả các phần khác trong mô hình cũng sẽ được di chuyển và sẽ giữ nguyên hướng và khoảng cách tương ứng với <code>Model.PrimaryPart</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Thiết lập <code>BasePart.CFrame</code> của phần chính của mô hình. Tất cả các phần khác trong mô hình cũng sẽ được di chuyển và sẽ duy trì hướng và độ lệch tương ứng với <code>Model.PrimaryPart</code>.",
     "params": [
       {
         "name": "self",
@@ -16648,13 +16805,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.TranslateBy/param/0": {
-    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng thường được sử dụng để chứa các tập hợp của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
+    "documentation": "Mô hình là các đối tượng chứa, có nghĩa là chúng nhóm các đối tượng lại với nhau. Chúng được sử dụng tốt nhất để giữ các bộ sưu tập của <code>BaseParts</code> và có một số chức năng mở rộng khả năng của chúng."
   },
   "@roblox/globaltype/Model.TranslateBy/param/1": {
-    "documentation": "<code>Vector3</code> để dịch chuyển <code>Model</code> theo."
+    "documentation": "Độ lệch <code>Vector3</code> mà <code>Model</code> sẽ được dịch chuyển."
   },
   "@roblox/globaltype/Model.TranslateBy": {
-    "documentation": "Di chuyển một <code>Model</code> bằng cách dịch chuyển với độ dịch <code>Vector3</code> đã cho, bảo tồn hướng của mô hình. Nếu một <code>BasePart</code> hoặc <code>Terrain</code> khác đã tồn tại ở vị trí mới, thì <code>Model</code> sẽ chồng lên đối tượng đó.",
+    "documentation": "Di chuyển <code>Model</code> theo độ lệch <code>Vector3</code> đã cho, bảo toàn hướng của mô hình. Nếu một <code>BasePart</code> hoặc <code>Terrain</code> khác đã tồn tại tại vị trí mới thì <code>Model</code> sẽ chồng lên đối tượng đó.",
     "params": [
       {
         "name": "self",
@@ -56058,7 +56215,7 @@
     "documentation": "Bảng tùy chọn chứa tất cả các điều khiển cho phương thức: <ul> <li><code>SiteSpacing</code> — Khoảng cách gần đúng giữa các điểm, mà   tương ứng trực tiếp với đường kính của các mảnh kết quả. Nếu   không được chỉ định, một giá trị hợp lý sẽ được lựa chọn.</li> <li><code>Origin</code> — Nếu được cung cấp, đây sẽ là trung tâm của khu vực mà cần   được phân mảnh. Nếu không được cung cấp, toàn bộ đối tượng sẽ được phân mảnh.</li> <li><code>Radius</code> — Nếu được cung cấp, đây sẽ là trung tâm của khu vực mà cần   được phân mảnh. Cả <code>Origin</code> và <code>Radius</code> nên được cung cấp,   hoặc không cái nào được cung cấp.</li> </ul>"
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites/return/0": {
-    "documentation": "Một mảng <code>Vector3</code> thường được truyền vào <code>FragmentAsync()</code>. Đầu ra phụ thuộc vào các tùy chọn được cung cấp. Nếu <code>Origin</code> và <code>Radius</code> được cung cấp, thì mảng đầu ra sẽ chứa một số phần tử <code>Vector3</code> đều nằm trong bán kính, nhưng phần tử cuối của mảng sẽ là một mảng con chứa nhiều <code>Vector3</code> điểm nằm ngoài bán kính. Nếu <code>Origin</code> và <code>Radius</code> không được cung cấp, đầu ra sẽ chỉ là một mảng các vị trí <code>Vector3</code> trong phạm vi của phần <code>input</code>."
+    "documentation": "Một mảng của <code>Vector3</code> thường được truyền vào <code>FragmentAsync()</code>. Đầu ra tuỳ thuộc vào các tùy chọn đã cung cấp. Nếu <code>Origin</code> và <code>Radius</code> được cung cấp, thì mảng đầu ra sẽ chứa nhiều phần tử <code>Vector3</code> đều nằm trong bán kính, nhưng phần tử đầu tiên của mảng sẽ là một mảng con gồm nhiều vị trí <code>Vector3</code> nằm ngoài bán kính. Nếu <code>Origin</code> và <code>Radius</code> không được cung cấp, đầu ra sẽ chỉ đơn giản là một mảng các vị trí <code>Vector3</code> ở trong các giới hạn của <code>part</code> đầu vào."
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites": {
     "documentation": "Cung cấp một mảng các vị trí có thể dễ dàng được truyền vào <code>FragmentAsync</code> để thực hiện các loại hủy hoại đơn giản.",
@@ -119646,6 +119803,35 @@
       "VelocityPerpendicular": "@roblox/enum/ParticleOrientation.VelocityPerpendicular"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleOrientation",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Disabled": {
+    "documentation": "Disables anti-aliasing, resulting in hard edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Disabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Enabled": {
+    "documentation": "Enables anti-aliasing, resulting in soft edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.AntiAliasing": {
+    "documentation": "Determines whether anti-aliasing is applied when drawing on the instance.",
+    "keys": {
+      "Disabled": "@roblox/enum/AntiAliasing.Disabled",
+      "Enabled": "@roblox/enum/AntiAliasing.Enabled"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing",
     "code_sample": ""
   },
   "@roblox/enum/WebStreamClientType.SSE": {

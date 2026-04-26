@@ -1197,17 +1197,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.Tolerance": {
-    "documentation": "稍微增加边界查询操作的音量。",
+    "documentation": "稍微增加边界查询操作的体积。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#Tolerance",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.RespectCanCollide": {
-    "documentation": "确定边界查询操作是否考虑一个部件的 <code>BasePart.CanCollide</code> 属性值，而不是它的 <code>BasePart.CanQuery</code> 值。",
+    "documentation": "确定边界查询操作是否考虑部件的 <code>BasePart.CanCollide</code> 属性值，而非其 <code>BasePart.CanQuery</code> 值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#RespectCanCollide",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.BruteForceAllSlow": {
-    "documentation": "启用后，查询将忽略所有部件碰撞属性，并 对每个部件执行暴力检查。",
+    "documentation": "当启用时，查询将忽略所有部件碰撞属性，并对每个部件进行暴力检查。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#BruteForceAllSlow",
     "code_sample": ""
   },
@@ -1217,7 +1217,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.FilterType": {
-    "documentation": "确定 <code>FilterDescendantsInstances</code> 数组是用作排除列表还是包含列表。",
+    "documentation": "确定 <code>FilterDescendantsInstances</code> 数组是作为排除列表还是包含列表使用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#FilterType",
     "code_sample": ""
   },
@@ -1225,7 +1225,7 @@
     "documentation": "存储用于边界查询函数的参数。"
   },
   "@roblox/globaltype/OverlapParams.AddToFilter/param/1": {
-    "documentation": "要添加的实例或包含实例的数组。"
+    "documentation": "一个实例或包含实例的数组以添加。"
   },
   "@roblox/globaltype/OverlapParams.AddToFilter": {
     "documentation": "将提供的实例添加到 <code>FilterDescendantsInstances</code>。",
@@ -6143,7 +6143,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RaycastParams.IncludeInstances": {
-    "documentation": "可选的实例数组，其后代将包含在查询中。",
+    "documentation": "一个可选的实例数组，其子孙将包含在查询中。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams#IncludeInstances",
     "code_sample": ""
   },
@@ -12910,6 +12910,11 @@
     "documentation": "一个允许您读取输出文本的服务。",
     "keys": {
       "ClearOutput": "@roblox/globaltype/LogService.ClearOutput",
+      "Output": "@roblox/globaltype/LogService.Output",
+      "Info": "@roblox/globaltype/LogService.Info",
+      "Warn": "@roblox/globaltype/LogService.Warn",
+      "Error": "@roblox/globaltype/LogService.Error",
+      "Log": "@roblox/globaltype/LogService.Log",
       "GetLogHistory": "@roblox/globaltype/LogService.GetLogHistory"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService",
@@ -12930,6 +12935,158 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#ClearOutput",
     "code_sample": ""
   },
+  "@roblox/globaltype/LogService.Output/param/0": {
+    "documentation": "一个允许您读取输出文本的服务。"
+  },
+  "@roblox/globaltype/LogService.Output/param/1": {
+    "documentation": "消息字符串。当提供上下文表时，支持 <code>{key}</code> 模板占位符。"
+  },
+  "@roblox/globaltype/LogService.Output/param/2": {
+    "documentation": "一个可选的键值对字典。当提供时，消息中的 <code>{key}</code> 占位符将被相应的值替换。"
+  },
+  "@roblox/globaltype/LogService.Output": {
+    "documentation": "以 <code>MessageType.MessageOutput</code> 级别记录一条消息，并可选择性地提供结构化上下文。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Output/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Output/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Output/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Output",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Info/param/0": {
+    "documentation": "一个允许您读取输出文本的服务。"
+  },
+  "@roblox/globaltype/LogService.Info/param/1": {
+    "documentation": "消息字符串。当提供上下文表时，支持 <code>{key}</code> 模板占位符。"
+  },
+  "@roblox/globaltype/LogService.Info/param/2": {
+    "documentation": "一个可选的键值对字典。当提供时，消息中的 <code>{key}</code> 占位符将被相应的值替换。"
+  },
+  "@roblox/globaltype/LogService.Info": {
+    "documentation": "以 <code>MessageType.MessageInfo</code> 级别记录一条消息，并可选择性地提供结构化上下文。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Info/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Info/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Info/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Info",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Warn/param/0": {
+    "documentation": "一个允许您读取输出文本的服务。"
+  },
+  "@roblox/globaltype/LogService.Warn/param/1": {
+    "documentation": "消息字符串。当提供上下文表时，支持 <code>{key}</code> 模板占位符。"
+  },
+  "@roblox/globaltype/LogService.Warn/param/2": {
+    "documentation": "一个可选的键值对字典。当提供时，消息中的 <code>{key}</code> 占位符将被相应的值替换。"
+  },
+  "@roblox/globaltype/LogService.Warn": {
+    "documentation": "以 <code>MessageType.MessageWarning</code> 级别记录一条消息，并可选择性地提供结构化上下文。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Warn",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Error/param/0": {
+    "documentation": "一个允许您读取输出文本的服务。"
+  },
+  "@roblox/globaltype/LogService.Error/param/1": {
+    "documentation": "消息字符串。当提供上下文表时，支持 <code>{key}</code> 模板占位符。"
+  },
+  "@roblox/globaltype/LogService.Error/param/2": {
+    "documentation": "一个可选的键值对字典。当提供时，消息中的 <code>{key}</code> 占位符将被相应的值替换。"
+  },
+  "@roblox/globaltype/LogService.Error": {
+    "documentation": "以 <code>MessageType.MessageError</code> 级别记录一条消息，并抛出一个带有可选上下文的结构化错误。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Error/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Error/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Error/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Error",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Log/param/0": {
+    "documentation": "一个允许您读取输出文本的服务。"
+  },
+  "@roblox/globaltype/LogService.Log/param/1": {
+    "documentation": "指定日志级别的 <code>MessageType</code>。"
+  },
+  "@roblox/globaltype/LogService.Log/param/2": {
+    "documentation": "消息字符串。当提供上下文表时，支持 <code>{key}</code> 模板占位符。"
+  },
+  "@roblox/globaltype/LogService.Log/param/3": {
+    "documentation": "一个可选的键值对字典。当提供时，消息中的 <code>{key}</code> 占位符将被相应的值替换。"
+  },
+  "@roblox/globaltype/LogService.Log": {
+    "documentation": "以指定级别记录一条消息，并可选择性地提供结构化上下文。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Log/param/0"
+      },
+      {
+        "name": "messageType",
+        "documentation": "@roblox/globaltype/LogService.Log/param/1"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Log/param/2"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Log/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Log",
+    "code_sample": ""
+  },
   "@roblox/globaltype/LogService.GetLogHistory/param/0": {
     "documentation": "一个允许您读取输出文本的服务。"
   },
@@ -12937,7 +13094,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/LogService.GetLogHistory": {
-    "documentation": "返回一个包含表的表， 每个表都有消息字符串、消息类型和\\ 客户端在 <strong>Output</strong> 窗口中显示的消息的时间戳。",
+    "documentation": "返回一个表，其中的每个表都包含消息字符串、消息类型和客户端在 <strong>Output</strong> 窗口中显示的消息的时间戳。",
     "params": [
       {
         "name": "self",
@@ -16206,7 +16363,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。",
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。",
     "keys": {
       "LevelOfDetail": "@roblox/globaltype/Model.LevelOfDetail",
       "ModelStreamingMode": "@roblox/globaltype/Model.ModelStreamingMode",
@@ -16239,38 +16396,38 @@
     "code_sample": "local function groupObjects(objectTable)\n\tlocal model = Instance.new(\"Model\")\n\tfor _, object in pairs(objectTable) do\n\t\tobject.Parent = model\n\tend\n\treturn model\nend\n\nlocal objects = {\n\tInstance.new(\"Part\"),\n\tInstance.new(\"Part\"),\n}\n\ngroupObjects(objects)"
   },
   "@roblox/globaltype/Model.LevelOfDetail": {
-    "documentation": "为启用了实例流的体验设置模型的详细程度。",
+    "documentation": "为实例流媒体启用的体验设置模型的细节级别。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#LevelOfDetail",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ModelStreamingMode": {
-    "documentation": "控制在启用实例流时 <code>Models</code> 的流行为。",
+    "documentation": "在启用实例流媒体时控制 <code>Models</code> 的流媒体行为。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#ModelStreamingMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.PrimaryPart": {
-    "documentation": "表示 <code>Model</code> 的主部件，如果未显式设置，则为 <code>nil</code>。",
+    "documentation": "模型的主部件，如果未明确设置则为 <code>nil</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#PrimaryPart",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.Scale": {
-    "documentation": "仅限编辑器的属性，用于围绕其枢轴缩放模型。设置此属性将使缩放的效果类似于对其调用 <code>Model:ScaleTo()</code>。",
+    "documentation": "仅限于编辑器的属性，用于围绕其枢轴缩放模型。设置 此属性将使缩放像是调用了 <code>Model:ScaleTo()</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#Scale",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.WorldPivot": {
-    "documentation": "确定未设置 <code>Model.PrimaryPart</code> 的 <code>Model</code> 的枢轴位置。",
+    "documentation": "确定没有设置 <code>Model.PrimaryPart</code> 的 <code>Model</code> 的枢轴位置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#WorldPivot",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/1": {
-    "documentation": "要使此模型持久化的 <code>Player</code>。"
+    "documentation": "使此模型对其持久的 <code>Player</code>。"
   },
   "@roblox/globaltype/Model.AddPersistentPlayer": {
-    "documentation": "将此模型设置为对指定玩家持久化。 <code>ModelStreamingMode</code> 必须设置为 <code>PersistentPerPlayer</code>，以便在添加后行为发生变化。",
+    "documentation": "将此模型设置为指定玩家的持久性。 <code>ModelStreamingMode</code> 必须设置为 <code>PersistentPerPlayer</code>，以便由于添加而改变行为。",
     "params": [
       {
         "name": "self",
@@ -16286,10 +16443,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.BreakJoints/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>断开 <code>BaseParts</code> 之间的连接，包括与任何相邻部分的表面连接，<code>WeldConstraints</code> 以及所有 <code>Welds</code> 和其他 <code>JointInstances</code>。",
+    "documentation": "<strong>Deprecated:</strong> <br>断开 <code>BaseParts</code> 之间的连接，包括与任何相邻部件的表面连接， <code>WeldConstraints</code> 和所有 <code>Welds</code> 及其他 <code>JointInstances</code>。",
     "params": [
       {
         "name": "self",
@@ -16301,10 +16458,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\n-- 当角色被添加时调用\nlocal function onCharacterAdded(character)\n\ttask.wait(3)\n\tcharacter:BreakJoints() -- 破坏关节\nend\n\n-- 当玩家被添加时调用\nlocal function onPlayerAdded(player)\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Model.breakJoints/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.breakJoints": {
-    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Model:BreakJoints()</code> 的变体，应使用此函数。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用函数是 <code>Model:BreakJoints()</code> 的变体，应优先使用。",
     "params": [
       {
         "name": "self",
@@ -16316,10 +16473,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetBoundingBox/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.GetBoundingBox/return/0": {
-    "documentation": "一个 <code>CFrame</code>，表示该体积的方向，后面跟着一个 <code>Vector3</code>，表示体积的大小。"
+    "documentation": "一个表示体积方向的 <code>CFrame</code>，后跟一个表示体积大小的 <code>Vector3</code>。"
   },
   "@roblox/globaltype/Model.GetBoundingBox": {
     "documentation": "返回包含模型所有部件的体积描述。",
@@ -16336,13 +16493,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetExtentsSize/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.GetExtentsSize/return/0": {
-    "documentation": "代表 <code>Model</code> 的 <code>Vector3</code> 大小。"
+    "documentation": "模型的 <code>Vector3</code> 尺寸。"
   },
   "@roblox/globaltype/Model.GetExtentsSize": {
-    "documentation": "返回包含 <code>Model</code> 中所有 <code>BaseParts</code> 的最小边界框的大小，并与已设置的 <code>Model.PrimaryPart</code> 对齐。",
+    "documentation": "返回包含所有 <code>BaseParts</code> 的模型的最小边界框的大小， 与设置的 <code>Model.PrimaryPart</code> 对齐。",
     "params": [
       {
         "name": "self",
@@ -16356,13 +16513,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.GetModelCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame": {
-    "documentation": "<strong>Deprecated:</strong> 此功能已被弃用，因为它未提供可靠的结果。您可以改用 <code>Model:GetPrimaryPartCFrame()</code> 来检索模型主部件的 <code>CFrame</code>。<br>该值历史上返回模型中中心位置的 CFrame。",
+    "documentation": "<strong>Deprecated:</strong> 此函数已弃用，因为它未能提供可靠的结果。 您可以使用 <code>Model:GetPrimaryPartCFrame()</code> 来检索模型主部件的 <code>CFrame</code>。<br>该值历史上返回模型中心位置的 CFrame。",
     "params": [
       {
         "name": "self",
@@ -16376,13 +16533,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelSize/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.GetModelSize/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelSize": {
-    "documentation": "<strong>Deprecated:</strong> 此项目已被弃用。请勿在新工作中使用。开发者可以改用 <code>Model.GetExtentsSize</code>。<br>返回模型的 Vector3 大小。",
+    "documentation": "<strong>Deprecated:</strong> 该项目已弃用。请勿用于新工作。开发人员可以 使用 <code>Model.GetExtentsSize</code> 代替。<br>返回模型的 Vector3 尺寸。",
     "params": [
       {
         "name": "self",
@@ -16396,13 +16553,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/return/0": {
-    "documentation": "一个表，包含所有此模型对象持久化的 <code>Player</code> 对象。"
+    "documentation": "一个表，包含所有对该模型对象持久的 <code>Player</code> 对象。"
   },
   "@roblox/globaltype/Model.GetPersistentPlayers": {
-    "documentation": "返回所有此模型对象持久化的 <code>Player</code> 对象。行为根据此方法是从 <code>Script</code> 还是 <code>LocalScript</code> 调用而有所不同。",
+    "documentation": "返回所有对该模型对象持久的 <code>Player</code> 对象。 行为根据该方法是在 <code>Script</code> 还是 <code>LocalScript</code> 中调用而有所不同。",
     "params": [
       {
         "name": "self",
@@ -16416,13 +16573,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>返回模型主部件的 <code>CFrame</code>。如果模型没有主部件，则此函数将引发错误。",
+    "documentation": "<strong>Deprecated:</strong> <br>返回模型的 <code>Model.PrimaryPart</code> 的 <code>CFrame</code>。 如果该 <code>Model</code> 没有主部件，则此函数将引发错误。",
     "params": [
       {
         "name": "self",
@@ -16436,13 +16593,13 @@
     "code_sample": "local START_POSITION = Vector3.new(0, 10, 0)\n\nlocal model = Instance.new(\"Model\")\n\nlocal part1 = Instance.new(\"Part\")\npart1.Size = Vector3.new(4, 4, 4)\npart1.CFrame = CFrame.new(START_POSITION)\npart1.Anchored = true\npart1.BrickColor = BrickColor.new(\"Bright yellow\")\npart1.Parent = model\n\nlocal part2 = Instance.new(\"Part\")\npart2.Size = Vector3.new(2, 2, 2)\npart2.CFrame = part1.CFrame * CFrame.new(0, 3, 0)\npart2.Anchored = true\npart2.BrickColor = BrickColor.new(\"Bright blue\")\npart2.Parent = model\n\n-- 设置主部件\nmodel.PrimaryPart = part1\nmodel.Parent = workspace\n\nwhile true do\n\tlocal primaryPartCFrame = model:GetPrimaryPartCFrame()\n\tlocal newCFrame = primaryPartCFrame * CFrame.Angles(0, math.rad(1), 0)\n\tmodel:SetPrimaryPartCFrame(newCFrame)\n\ttask.wait()\nend"
   },
   "@roblox/globaltype/Model.GetScale/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.GetScale/return/0": {
-    "documentation": "模型的当前标准缩放因子。"
+    "documentation": "模型的当前规范缩放因子。"
   },
   "@roblox/globaltype/Model.GetScale": {
-    "documentation": "返回模型的标准缩放，这对于新创建的模型默认值为 1，并且会随着通过 <code>Model:ScaleTo()</code> 的缩放而改变。",
+    "documentation": "返回模型的规范缩放，默认值为 1，对于新创建的模型，并且在通过 <code>Model:ScaleTo()</code> 缩放时会发生变化。",
     "params": [
       {
         "name": "self",
@@ -16456,10 +16613,10 @@
     "code_sample": "local CollectionService = game:GetService(\"CollectionService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\n-- 查找所有带有我们想要替换的标签的模型\nlocal items = CollectionService:GetTagged(\"Tree\")\nlocal newModel = ReplicatedStorage.FancyTreeReplacementModel\nfor _, item in items do\n\t-- 创建新对象并将其缩放/定位到旧对象的位置\n\tlocal newItem = newModel:Clone()\n\tnewItem:ScaleTo(item:GetScale())\n\tnewItem:PivotTo(item:GetPivot())\n\n\t-- 将相同的标签添加到替换项\n\tCollectionService:AddTag(newItem, \"Tree\")\n\n\t-- 删除旧对象并将新对象父级设置为旧对象的父级\n\tnewItem.Parent = item.Parent\n\titem:Destroy()\nend"
   },
   "@roblox/globaltype/Model.MakeJoints/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> 此关节类型已被弃用。请勿在新工作中使用。请改用 <code>WeldConstraints</code> 和 <code>HingeConstraints</code>。<br>遍历 <code>Model</code> 中所有 <code>BaseParts</code>。如果任何部件的表面类型可以生成关节，则会与任何相邻部件创建一个关节。",
+    "documentation": "<strong>Deprecated:</strong> 此关节类型已弃用。请勿用于新工作。请使用 <code>WeldConstraints</code> 和 <code>HingeConstraints</code>。<br>遍历 <code>Model</code> 中所有的 <code>BaseParts</code>。如果任何部件的侧面具有可以 生成关节的 SurfaceType，则将与任何相邻部件创建关节。",
     "params": [
       {
         "name": "self",
@@ -16471,10 +16628,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.makeJoints/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.makeJoints": {
-    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Model:MakeJoints()</code> 的变体，应使用此函数。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用函数是 <code>Model:MakeJoints()</code> 的变体，应优先使用。",
     "params": [
       {
         "name": "self",
@@ -16486,13 +16643,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.move/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.move/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.move": {
-    "documentation": "<strong>Deprecated:</strong> 此项已被 <code>Model:MoveTo()</code> 取代，应在所有新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 该项目已被 <code>Model:MoveTo()</code> 替代，该函数应在所有新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -16508,13 +16665,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.MoveTo/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.MoveTo/param/1": {
     "documentation": "要移动到的 <code>Vector3</code>。"
   },
   "@roblox/globaltype/Model.MoveTo": {
-    "documentation": "将 <code>PrimaryPart</code> 移动到指定位置。如果尚未指定主部件，则将使用模型的根部件。",
+    "documentation": "将 <code>PrimaryPart</code> 移动到给定位置。如果 未指定主部件，将使用模型的根部件。",
     "params": [
       {
         "name": "self",
@@ -16530,13 +16687,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.moveTo/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.moveTo/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.moveTo": {
-    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Model:MoveTo()</code> 的变体，应使用此函数。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用函数是 <code>Model:MoveTo()</code> 的变体，应优先使用。",
     "params": [
       {
         "name": "self",
@@ -16552,13 +16709,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/1": {
-    "documentation": "要使此模型不再持久化的 <code>Player</code>。"
+    "documentation": "使此模型不再对其持久的 <code>Player</code>。"
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer": {
-    "documentation": "使此模型不再对指定玩家持久化。 <code>ModelStreamingMode</code> 必须设置为 <code>PersistentPerPlayer</code>，以便在删除后行为发生变化。",
+    "documentation": "使此模型对指定玩家不再持久。 <code>ModelStreamingMode</code> 必须设置为 <code>PersistentPerPlayer</code>，以便由于移除而改变行为。",
     "params": [
       {
         "name": "self",
@@ -16574,10 +16731,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity": {
-    "documentation": "<strong>Deprecated:</strong> 此函数已被弃用；它的存在是为了防止遗留脚本抛出错误，但调用时不执行任何操作。<br>将模型的部件的旋转重置为先前设置的身份旋转，这通过 <code>Model:SetIdentityOrientation()</code> 方法完成。",
+    "documentation": "<strong>Deprecated:</strong> 此函数已弃用；它仍然存在以防止遗留脚本引发错误，但调用时不执行任何操作。<br>将模型部件的旋转重置为先前设置的身份旋转，通过 <code>Model:SetIdentityOrientation()</code> 方法完成。",
     "params": [
       {
         "name": "self",
@@ -16589,13 +16746,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ScaleTo/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.ScaleTo/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.ScaleTo": {
-    "documentation": "设置模型的缩放因子，调整所有后代实例的大小和位置，使它们的缩放因子相对于初始大小和位置（当缩放因子为 1 时）。",
+    "documentation": "设置模型的缩放因子，调整所有子代实例的大小和位置，使它们的缩放因子相对于 初始大小和位置（当时缩放因子为 1）。",
     "params": [
       {
         "name": "self",
@@ -16611,10 +16768,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetIdentityOrientation/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.SetIdentityOrientation": {
-    "documentation": "<strong>Deprecated:</strong> 此函数已被弃用；它的存在是为了防止遗留脚本抛出错误，但调用时不执行任何操作。<br>设置给定模型的身份旋转，允许您稍后通过 <code>ResetOrientationToIdentity</code> 方法重置整个模型的旋转。",
+    "documentation": "<strong>Deprecated:</strong> 此函数已弃用；它仍然存在以防止遗留脚本引发错误，但调用时不执行任何操作。<br>设置给定模型的身份旋转，允许您稍后通过 <code>ResetOrientationToIdentity</code> 方法重置整 个模型的旋转。",
     "params": [
       {
         "name": "self",
@@ -16626,13 +16783,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/1": {
     "documentation": "要设置的 <code>CFrame</code>。"
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>设置模型的 <code>Model.PrimaryPart</code> 的 <code>BasePart.CFrame</code>。模型中的所有其他部件也将被移动，并保持相对于 <code>Model.PrimaryPart</code> 的方向和偏移。",
+    "documentation": "<strong>Deprecated:</strong> <br>设置模型的 <code>Model.PrimaryPart</code> 的 <code>BasePart.CFrame</code>。 模型中的所有其他部分也将移动，并保持其相对于 <code>Model.PrimaryPart</code> 的方向和偏移。",
     "params": [
       {
         "name": "self",
@@ -16648,13 +16805,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.TranslateBy/param/0": {
-    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们最适合用于存放 <code>BaseParts</code> 的集合，并拥有多种扩展其功能的函数。"
+    "documentation": "模型是容器对象，意味着它们将对象组合在一起。它们 最适合用于保存 <code>BaseParts</code> 的集合，并具有多个 扩展其功能的功能。"
   },
   "@roblox/globaltype/Model.TranslateBy/param/1": {
-    "documentation": "移动 <code>Model</code> 的 <code>Vector3</code>。"
+    "documentation": "将 <code>Model</code> 移动的 <code>Vector3</code>。"
   },
   "@roblox/globaltype/Model.TranslateBy": {
-    "documentation": "通过给定的 <code>Vector3</code> 偏移量移动 <code>Model</code>，保持模型的方向。如果新位置已经存在另一个 <code>BasePart</code> 或 <code>Terrain</code>，则 <code>Model</code> 将重叠该对象。",
+    "documentation": "通过给定的 <code>Vector3</code> 偏移移动 <code>Model</code>，保持模型的方向。如果新位置已经有其他 <code>BasePart</code> 或 <code>Terrain</code>，则 <code>Model</code> 将与该对象重叠。",
     "params": [
       {
         "name": "self",
@@ -56058,7 +56215,7 @@
     "documentation": "包含方法所有控件的选项表： <ul> <li><code>SiteSpacing</code> — 站点之间的近似距离，直接对应于结果碎片的直径。如果未指定，将选择一个合理的值。</li> <li><code>Origin</code> — 如果提供，这将是要破碎的区域的中心。 如果未提供，则整个对象将被破碎。</li> <li><code>Radius</code> — 如果提供，这将是要破碎的区域的中心。<code>Origin</code> 和 <code>Radius</code> 应该同时提供，或都不提供。</li> </ul>"
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites/return/0": {
-    "documentation": "通常传递给 <code>FragmentAsync()</code> 的 <code>Vector3</code> 数组。输出取决于提供的选项。如果提供了 <code>Origin</code> 和 <code>Radius</code>，则输出数组将包含几个位于半径内的 <code>Vector3</code> 元素，但数组的最后一个元素将是一个内部数组，包含许多位于半径外的 <code>Vector3</code> 站点。如果未提供 <code>Origin</code> 和 <code>Radius</code>，输出将简单地是输入 <code>part</code> 大小范围内的 <code>Vector3</code> 位置数组。"
+    "documentation": "一个 <code>Vector3</code> 数组，通常传递给 <code>FragmentAsync()</code>。输出 取决于提供的选项。如果提供了 <code>Origin</code> 和 <code>Radius</code>，那么输出 数组将包含几个位于半径内的 <code>Vector3</code> 元素，但数组的第一个元素将是一个内嵌数组，其中包含许多位于半径外的 <code>Vector3</code> 位置。如果没有提供 <code>Origin</code> 和 <code>Radius</code>，输出将仅仅是一个位于输入 <code>part</code> 范围内的 <code>Vector3</code> 位置数组。"
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites": {
     "documentation": "提供一个位置数组，可以轻松传递给 <code>FragmentAsync</code> 以执行简单的破坏类型。",
@@ -119646,6 +119803,35 @@
       "VelocityPerpendicular": "@roblox/enum/ParticleOrientation.VelocityPerpendicular"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleOrientation",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Disabled": {
+    "documentation": "Disables anti-aliasing, resulting in hard edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Disabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Enabled": {
+    "documentation": "Enables anti-aliasing, resulting in soft edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.AntiAliasing": {
+    "documentation": "Determines whether anti-aliasing is applied when drawing on the instance.",
+    "keys": {
+      "Disabled": "@roblox/enum/AntiAliasing.Disabled",
+      "Enabled": "@roblox/enum/AntiAliasing.Enabled"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing",
     "code_sample": ""
   },
   "@roblox/enum/WebStreamClientType.SSE": {

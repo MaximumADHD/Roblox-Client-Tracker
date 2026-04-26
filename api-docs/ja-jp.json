@@ -1153,7 +1153,7 @@
     "code_sample": ""
   },
   "@roblox/global/OverlapParams.new": {
-    "documentation": "空の <code>OverlapParams</code> オブジェクトを返します。",
+    "documentation": "空の<code>OverlapParams</code>オブジェクトを返します。",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#new",
@@ -1177,17 +1177,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.ExcludeInstances": {
-    "documentation": "クエリから除外される子孫を持つインスタンスのオプションの配列です。",
+    "documentation": "クエリから除外される子孫を持つインスタンスのオプションの配列。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#ExcludeInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.IncludeInstances": {
-    "documentation": "クエリに含まれる子孫を持つインスタンスのオプションの配列です。",
+    "documentation": "クエリに含まれる子孫を持つインスタンスのオプションの配列。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#IncludeInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.MaxParts": {
-    "documentation": "クエリによって返される最大部品数。",
+    "documentation": "クエリによって返される部分の最大数。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#MaxParts",
     "code_sample": ""
   },
@@ -1202,22 +1202,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.RespectCanCollide": {
-    "documentation": "境界クエリ操作がパーツの <code>BasePart.CanCollide</code> プロパティ値をその <code>BasePart.CanQuery</code> 値の上に考慮するかどうかを決定します。",
+    "documentation": "境界クエリ操作が部品の<code>BasePart.CanCollide</code>プロパティの値を<code>BasePart.CanQuery</code>の値の上に考慮するかどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#RespectCanCollide",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.BruteForceAllSlow": {
-    "documentation": "有効にすると、クエリはすべてのパーツ衝突プロパティを無視し、すべてのパーツに対して 総当たりチェックを行います。",
+    "documentation": "有効にすると、クエリはすべての部品の衝突プロパティを無視し、すべての部品に対して力任せのチェックを行います。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#BruteForceAllSlow",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.FilterDescendantsInstances": {
-    "documentation": "候補のフィルタリングに使用される子孫を持つオブジェクトの配列です。",
+    "documentation": "フィルタリング候補に使用される子孫を持つオブジェクトの配列。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#FilterDescendantsInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.FilterType": {
-    "documentation": "<code>FilterDescendantsInstances</code>配列が除外リストとして使用されるか含むリストとして使用されるかを決定します。",
+    "documentation": "<code>FilterDescendantsInstances</code>配列が除外リストまたは包含リストとして使用されるかどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#FilterType",
     "code_sample": ""
   },
@@ -1228,7 +1228,7 @@
     "documentation": "追加するインスタンスまたはインスタンスを含む配列。"
   },
   "@roblox/globaltype/OverlapParams.AddToFilter": {
-    "documentation": "<code>FilterDescendantsInstances</code> に提供されたインスタンスを追加します。",
+    "documentation": "<code>FilterDescendantsInstances</code>に提供されたインスタンスを追加します。",
     "params": [
       {
         "name": "self",
@@ -12910,6 +12910,11 @@
     "documentation": "出力されたテキストを読み取るためのサービスです。",
     "keys": {
       "ClearOutput": "@roblox/globaltype/LogService.ClearOutput",
+      "Output": "@roblox/globaltype/LogService.Output",
+      "Info": "@roblox/globaltype/LogService.Info",
+      "Warn": "@roblox/globaltype/LogService.Warn",
+      "Error": "@roblox/globaltype/LogService.Error",
+      "Log": "@roblox/globaltype/LogService.Log",
       "GetLogHistory": "@roblox/globaltype/LogService.GetLogHistory"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService",
@@ -12930,6 +12935,158 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#ClearOutput",
     "code_sample": ""
   },
+  "@roblox/globaltype/LogService.Output/param/0": {
+    "documentation": "出力されたテキストを読み取るためのサービスです。"
+  },
+  "@roblox/globaltype/LogService.Output/param/1": {
+    "documentation": "メッセージ文字列です。<code>context</code> テーブルが提供されると、<code>{key}</code> テンプレートプレースホルダーをサポートします。"
+  },
+  "@roblox/globaltype/LogService.Output/param/2": {
+    "documentation": "オプションのキーと値のペアの辞書です。提供された場合、メッセージ内の <code>{key}</code> プレースホルダーは対応する値に置き換えられます。"
+  },
+  "@roblox/globaltype/LogService.Output": {
+    "documentation": "オプションの構造化コンテキストを持つ <code>MessageType.MessageOutput</code> レベルでメッセージをログします。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Output/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Output/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Output/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Output",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Info/param/0": {
+    "documentation": "出力されたテキストを読み取るためのサービスです。"
+  },
+  "@roblox/globaltype/LogService.Info/param/1": {
+    "documentation": "メッセージ文字列です。<code>context</code> テーブルが提供されると、<code>{key}</code> テンプレートプレースホルダーをサポートします。"
+  },
+  "@roblox/globaltype/LogService.Info/param/2": {
+    "documentation": "オプションのキーと値のペアの辞書です。提供された場合、メッセージ内の <code>{key}</code> プレースホルダーは対応する値に置き換えられます。"
+  },
+  "@roblox/globaltype/LogService.Info": {
+    "documentation": "オプションの構造化コンテキストを持つ <code>MessageType.MessageInfo</code> レベルでメッセージをログします。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Info/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Info/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Info/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Info",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Warn/param/0": {
+    "documentation": "出力されたテキストを読み取るためのサービスです。"
+  },
+  "@roblox/globaltype/LogService.Warn/param/1": {
+    "documentation": "メッセージ文字列です。<code>context</code> テーブルが提供されると、<code>{key}</code> テンプレートプレースホルダーをサポートします。"
+  },
+  "@roblox/globaltype/LogService.Warn/param/2": {
+    "documentation": "オプションのキーと値のペアの辞書です。提供された場合、メッセージ内の <code>{key}</code> プレースホルダーは対応する値に置き換えられます。"
+  },
+  "@roblox/globaltype/LogService.Warn": {
+    "documentation": "オプションの構造化コンテキストを持つ <code>MessageType.MessageWarning</code> レベルでメッセージをログします。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Warn",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Error/param/0": {
+    "documentation": "出力されたテキストを読み取るためのサービスです。"
+  },
+  "@roblox/globaltype/LogService.Error/param/1": {
+    "documentation": "メッセージ文字列です。<code>context</code> テーブルが提供されると、<code>{key}</code> テンプレートプレースホルダーをサポートします。"
+  },
+  "@roblox/globaltype/LogService.Error/param/2": {
+    "documentation": "オプションのキーと値のペアの辞書です。提供された場合、メッセージ内の <code>{key}</code> プレースホルダーは対応する値に置き換えられます。"
+  },
+  "@roblox/globaltype/LogService.Error": {
+    "documentation": "オプションのコンテキストを持つ <code>MessageType.MessageError</code> レベルでメッセージをログし、構造化エラーをスローします。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Error/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Error/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Error/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Error",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Log/param/0": {
+    "documentation": "出力されたテキストを読み取るためのサービスです。"
+  },
+  "@roblox/globaltype/LogService.Log/param/1": {
+    "documentation": "<code>MessageType</code> によってログレベルを指定します。"
+  },
+  "@roblox/globaltype/LogService.Log/param/2": {
+    "documentation": "メッセージ文字列です。<code>context</code> テーブルが提供されると、<code>{key}</code> テンプレートプレースホルダーをサポートします。"
+  },
+  "@roblox/globaltype/LogService.Log/param/3": {
+    "documentation": "オプションのキーと値のペアの辞書です。提供された場合、メッセージ内の <code>{key}</code> プレースホルダーは対応する値に置き換えられます。"
+  },
+  "@roblox/globaltype/LogService.Log": {
+    "documentation": "オプションの構造化コンテキストを持つ指定されたレベルでメッセージをログします。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Log/param/0"
+      },
+      {
+        "name": "messageType",
+        "documentation": "@roblox/globaltype/LogService.Log/param/1"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Log/param/2"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Log/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Log",
+    "code_sample": ""
+  },
   "@roblox/globaltype/LogService.GetLogHistory/param/0": {
     "documentation": "出力されたテキストを読み取るためのサービスです。"
   },
@@ -12937,7 +13094,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/LogService.GetLogHistory": {
-    "documentation": "<strong>Output</strong>ウィンドウにクライアントが表示するメッセージの文字列、メッセージの種類、 タイムスタンプを含むテーブルのテーブルを返します。",
+    "documentation": "クライアントが <strong>Output</strong> ウィンドウに表示するメッセージの文字列、メッセージタイプ、およびタイムスタンプを持つテーブルのテーブルを返します。",
     "params": [
       {
         "name": "self",
@@ -16200,13 +16357,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Folder": {
-    "documentation": "Roblox インスタンスを保持し整理するために使用されるシンプルなコンテナ。",
+    "documentation": "Roblox インスタンスを保持し整理するためのシンプルなコンテナです。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Folder",
     "code_sample": ""
   },
   "@roblox/globaltype/Model": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。",
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。",
     "keys": {
       "LevelOfDetail": "@roblox/globaltype/Model.LevelOfDetail",
       "ModelStreamingMode": "@roblox/globaltype/Model.ModelStreamingMode",
@@ -16239,38 +16396,38 @@
     "code_sample": "local function groupObjects(objectTable)\n\tlocal model = Instance.new(\"Model\")\n\tfor _, object in pairs(objectTable) do\n\t\tobject.Parent = model\n\tend\n\treturn model\nend\n\nlocal objects = {\n\tInstance.new(\"Part\"),\n\tInstance.new(\"Part\"),\n}\n\ngroupObjects(objects)"
   },
   "@roblox/globaltype/Model.LevelOfDetail": {
-    "documentation": "インスタンスストリーミングが有効なエクスペリエンスに対してモデルの詳細レベルを設定します。",
+    "documentation": "インスタンスストリーミングが有効な体験のためにモデルの詳細レベルを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#LevelOfDetail",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ModelStreamingMode": {
-    "documentation": "インスタンスストリーミングが有効な場合、<code>Models</code> のストリーミング動作を制御します。",
+    "documentation": "インスタンスストリーミングが有効な場合の<code>Models</code>のストリーミング動作を制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#ModelStreamingMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.PrimaryPart": {
-    "documentation": "<code>Model</code> のプライマリパートまたは、明示的に設定されていない場合は <code>nil</code>。",
+    "documentation": "<code>Model</code>のプライマリパート、または明示的に設定されていない場合は<code>nil</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#PrimaryPart",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.Scale": {
-    "documentation": "エディター専用プロパティで、モデルをそのピボットの周りでスケーリングします。このプロパティを設定すると、 <code>Model:ScaleTo()</code> が呼び出されたかのようにスケールが移動します。",
+    "documentation": "モデルのピボットの周りでモデルをスケールするためのエディタ専用プロパティ。 このプロパティを設定すると、<code>Model:ScaleTo()</code>が呼ばれたかのようにスケールが移動します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#Scale",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.WorldPivot": {
-    "documentation": "<code>Model</code> のプライマリパートが設定されていない場合、そのピボットがどこにあるかを決定します。",
+    "documentation": "<code>Model</code>の<code>Model.PrimaryPart</code>が設定されていない場合、ピボットがどこにあるかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#WorldPivot",
     "code_sample": ""
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/1": {
-    "documentation": "このモデルを永続化するための <code>Player</code>。"
+    "documentation": "このモデルを永続的にするための<code>Player</code>です。"
   },
   "@roblox/globaltype/Model.AddPersistentPlayer": {
-    "documentation": "このモデルを指定されたプレイヤーのために永続的にします。 <code>ModelStreamingMode</code> は、追加の結果として動作を変更するために <code>PersistentPerPlayer</code> に設定する必要があります。",
+    "documentation": "このモデルを指定されたプレイヤーのために永続的に設定します。<code>ModelStreamingMode</code>は <code>PersistentPerPlayer</code>に設定されている必要があり、追加の結果として動作が変更されます。",
     "params": [
       {
         "name": "self",
@@ -16286,10 +16443,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.BreakJoints/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br><code>BaseParts</code> 間の接続を解除し、隣接するパーツとの表面接続、<code>WeldConstraints</code> および すべての <code>Welds</code> と他の <code>JointInstances</code> を含みます。",
+    "documentation": "<strong>Deprecated:</strong> <br><code>BaseParts</code>間の接続を切断し、隣接する部品との表面接続、<code>WeldConstraints</code>、およびすべての<code>Welds</code>や他の<code>JointInstances</code>を含みます。",
     "params": [
       {
         "name": "self",
@@ -16301,10 +16458,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n\ttask.wait(3)\n\tcharacter:BreakJoints()  -- キャラクターのジョイントを壊す\nend\n\nlocal function onPlayerAdded(player)\n\tplayer.CharacterAdded:Connect(onCharacterAdded)  -- プレイヤーが追加されたときの処理\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)  -- プレイヤーの追加を監視する"
   },
   "@roblox/globaltype/Model.breakJoints/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.breakJoints": {
-    "documentation": "<strong>Deprecated:</strong> この非推奨関数は <code>Model:BreakJoints()</code> のバリアントであり、代わりに使用すべきです。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨の関数は<code>Model:BreakJoints()</code>のバリアントであり、代わりに使用するべきです。",
     "params": [
       {
         "name": "self",
@@ -16316,13 +16473,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetBoundingBox/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.GetBoundingBox/return/0": {
-    "documentation": "ボリュームの向きを表す <code>CFrame</code> と、ボリュームのサイズを表す <code>Vector3</code> が続きます。"
+    "documentation": "ボリュームの方向を表す<code>CFrame</code>、次にボリュームのサイズを表す<code>Vector3</code>。"
   },
   "@roblox/globaltype/Model.GetBoundingBox": {
-    "documentation": "モデルのすべてのパーツを含むボリュームの説明を返します。",
+    "documentation": "モデルのすべての部品を含むボリュームの記述を返します。",
     "params": [
       {
         "name": "self",
@@ -16336,13 +16493,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetExtentsSize/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.GetExtentsSize/return/0": {
-    "documentation": "<code>Model</code> の <code>Vector3</code> エクステントサイズ。"
+    "documentation": "<code>Model</code>の<code>Vector3</code>のエクステンツサイズです。"
   },
   "@roblox/globaltype/Model.GetExtentsSize": {
-    "documentation": "<code>Model</code> 内のすべての <code>BaseParts</code> を含む最小バウンディングボックスのサイズを返します。 <code>Model.PrimaryPart</code> が設定されている場合にはそれに合わせて整列します。",
+    "documentation": "モデル内のすべての<code>BaseParts</code>を含む最小バウンディングボックスのサイズを返します。<code></code>Model.PrimaryPart`が設定されている場合は、その部分に整列します。",
     "params": [
       {
         "name": "self",
@@ -16356,13 +16513,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.GetModelCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelCFrame": {
-    "documentation": "<strong>Deprecated:</strong> この関数は信頼性のある結果を提供しなかったため、非推奨とされました。 モデルのプライマリパートの <code>CFrame</code> を取得するために、代わりに <code>Model:GetPrimaryPartCFrame()</code> を使用できます。<br>この値は、歴史的にモデルの中央位置の CFrame を返しました。",
+    "documentation": "<strong>Deprecated:</strong> この関数は信頼性のある結果を提供しなかったため、非推奨となりました。代わりに、<code>Model:GetPrimaryPartCFrame()</code>を使用してモデルのプライマリパートの<code>CFrame</code>を取得できます。<br>この値は、歴史的にモデルの中央位置のCFrameを返していました。",
     "params": [
       {
         "name": "self",
@@ -16376,13 +16533,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetModelSize/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.GetModelSize/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelSize": {
-    "documentation": "<strong>Deprecated:</strong> この項目は非推奨です。新しい作業に使用しないでください。代わりに <code>Model.GetExtentsSize</code> を使用できます。<br>モデルの Vector3 サイズを返します。",
+    "documentation": "<strong>Deprecated:</strong> このアイテムは非推奨です。新しい作業には使用しないでください。代わりに<code>Model.GetExtentsSize</code>を使用してください。<br>モデルのVector3サイズを返します。",
     "params": [
       {
         "name": "self",
@@ -16396,13 +16553,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.GetPersistentPlayers/return/0": {
-    "documentation": "このモデルオブジェクトが永続的であるすべての <code>Player</code> オブジェクトを含むテーブル。"
+    "documentation": "このモデルオブジェクトが永続であるすべての<code>Player</code>オブジェクトを含むテーブルです。"
   },
   "@roblox/globaltype/Model.GetPersistentPlayers": {
-    "documentation": "このモデルオブジェクトが永続的であるすべての <code>Player</code> オブジェクトを返します。このメソッドが <code>Script</code> または <code>LocalScript</code> から呼び出されたかどうかによって動作が異なります。",
+    "documentation": "このモデルオブジェクトが永続であるすべての<code>Player</code>オブジェクトを返します。呼び出し元が<code>Script</code>か<code>LocalScript</code>かに応じて動作が異なります。",
     "params": [
       {
         "name": "self",
@@ -16416,13 +16573,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>モデルの <code>Model.PrimaryPart</code> の <code>CFrame</code> を返します。 プライマリパートが存在しない場合、この関数はエラーをスローします。",
+    "documentation": "<strong>Deprecated:</strong> <br>モデルの<code>Model.PrimaryPart</code>の<code>CFrame</code>を返します。プライマリパートがない場合、この関数はエラーをスローします。",
     "params": [
       {
         "name": "self",
@@ -16436,13 +16593,13 @@
     "code_sample": "local START_POSITION = Vector3.new(0, 10, 0)\n\nlocal model = Instance.new(\"Model\")\n\nlocal part1 = Instance.new(\"Part\")\npart1.Size = Vector3.new(4, 4, 4)\npart1.CFrame = CFrame.new(START_POSITION)\npart1.Anchored = true\npart1.BrickColor = BrickColor.new(\"Bright yellow\")\npart1.Parent = model\n\nlocal part2 = Instance.new(\"Part\")\npart2.Size = Vector3.new(2, 2, 2)\npart2.CFrame = part1.CFrame * CFrame.new(0, 3, 0)\npart2.Anchored = true\npart2.BrickColor = BrickColor.new(\"Bright blue\")\npart2.Parent = model\n\n-- プライマリパートを設定する\nmodel.PrimaryPart = part1\nmodel.Parent = workspace\n\nwhile true do\n\tlocal primaryPartCFrame = model:GetPrimaryPartCFrame()\n\tlocal newCFrame = primaryPartCFrame * CFrame.Angles(0, math.rad(1), 0)\n\tmodel:SetPrimaryPartCFrame(newCFrame)\n\ttask.wait()\nend"
   },
   "@roblox/globaltype/Model.GetScale/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.GetScale/return/0": {
-    "documentation": "モデルの現在の標準スケールファクター。"
+    "documentation": "モデルの現在の標準スケール係数です。"
   },
   "@roblox/globaltype/Model.GetScale": {
-    "documentation": "モデルの標準スケールを返します。これは新しく作成されたモデルのデフォルトは1で、 <code>Model:ScaleTo()</code>でスケーリングされると変わります。",
+    "documentation": "モデルの標準スケールを返します。新しく作成されたモデルのデフォルトは1であり、<code>Model:ScaleTo()</code>を介してスケールされた場合に変化します。",
     "params": [
       {
         "name": "self",
@@ -16456,10 +16613,10 @@
     "code_sample": "local CollectionService = game:GetService(\"CollectionService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\n-- 置き換えたいタグを持つすべてのモデルを見つける\nlocal items = CollectionService:GetTagged(\"Tree\")\nlocal newModel = ReplicatedStorage.FancyTreeReplacementModel\nfor _, item in items do\n\t-- 新しいアイテムを作成し、古いものの位置でスケール/配置する\n\tlocal newItem = newModel:Clone()\n\tnewItem:ScaleTo(item:GetScale())\n\tnewItem:PivotTo(item:GetPivot())\n\n\t-- 置き換えに同じタグを追加する\n\tCollectionService:AddTag(newItem, \"Tree\")\n\n\t-- 古いアイテムを削除し、新しいアイテムを親に設定する\n\tnewItem.Parent = item.Parent\n\titem:Destroy()\nend"
   },
   "@roblox/globaltype/Model.MakeJoints/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> このジョイントタイプは非推奨です。新しい作業には使用しないでください。代わりに <code>WeldConstraints</code> および <code>HingeConstraints</code> を使用してください。<br>モデル内のすべての <code>BaseParts</code> を調べます。任意のパートの側にジョイントを作成できる SurfaceType があれば、 隣接パーツとのジョイントを作成します。",
+    "documentation": "<strong>Deprecated:</strong> このジョイントタイプは非推奨です。新しい作業には使用しないでください。代わりに<code>WeldConstraints</code>および<code>HingeConstraints</code>を使用してください。<br>モデル内のすべての<code>BaseParts</code>を処理します。部品のいずれかの面にジョイントを作成できるSurfaceTypeがある場合、隣接する部品とのジョイントを作成します。",
     "params": [
       {
         "name": "self",
@@ -16471,10 +16628,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.makeJoints/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.makeJoints": {
-    "documentation": "<strong>Deprecated:</strong> この非推奨関数は、代わりに使用すべき <code>Model:MakeJoints()</code> のバリアントです。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨の関数は<code>Model:MakeJoints()</code>のバリアントであり、代わりに使用するべきです。",
     "params": [
       {
         "name": "self",
@@ -16486,13 +16643,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.move/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.move/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.move": {
-    "documentation": "<strong>Deprecated:</strong> この項目は <code>Model:MoveTo()</code> に取って代わられ、すべての新しい作業に使用する必要があります。",
+    "documentation": "<strong>Deprecated:</strong> このアイテムは<code>Model:MoveTo()</code>に取って代わられ、新しい作業には使用されるべきです。",
     "params": [
       {
         "name": "self",
@@ -16508,13 +16665,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.MoveTo/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.MoveTo/param/1": {
-    "documentation": "<code>Model</code> が移動される <code>Vector3</code>。"
+    "documentation": "<code>Model</code>が移動する<code>Vector3</code>です。"
   },
   "@roblox/globaltype/Model.MoveTo": {
-    "documentation": "<code>PrimaryPart</code> を指定された位置に移動します。プライマリーパートが指定されていない場合、モデルのルートパートが使用されます。",
+    "documentation": "指定された位置に<code>PrimaryPart</code>を移動します。プライマリパートが指定されていない場合、モデルのルートパートが使用されます。",
     "params": [
       {
         "name": "self",
@@ -16530,13 +16687,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.moveTo/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.moveTo/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.moveTo": {
-    "documentation": "<strong>Deprecated:</strong> この非推奨関数は、代わりに使用すべき <code>Model:MoveTo()</code> のバリアントです。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨の関数は<code>Model:MoveTo()</code>のバリアントであり、代わりに使用するべきです。",
     "params": [
       {
         "name": "self",
@@ -16552,13 +16709,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/1": {
-    "documentation": "このモデルを永続的でなくするための <code>Player</code>。"
+    "documentation": "このモデルを永続的ではなくするための<code>Player</code>です。"
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer": {
-    "documentation": "このモデルを指定されたプレイヤーに対して永続的でなくします。 <code>ModelStreamingMode</code> は、削除の結果として動作を変更するために <code>PersistentPerPlayer</code> に設定する必要があります。",
+    "documentation": "このモデルを指定されたプレイヤーに対して永続的ではなくします。<code>ModelStreamingMode</code>は <code>PersistentPerPlayer</code>に設定されている必要があり、削除の結果として動作が変更されます。",
     "params": [
       {
         "name": "self",
@@ -16574,10 +16731,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity": {
-    "documentation": "<strong>Deprecated:</strong> この関数は非推奨です; 古いスクリプトがエラーを投げるのを防ぐために残されますが、呼び出されても何も行いません。<br>モデルのパーツの回転を、以前に設定されたアイデンティティ回転にリセットします。 これは <code>Model:SetIdentityOrientation()</code> メソッドを通じて行われます。",
+    "documentation": "<strong>Deprecated:</strong> この関数は非推奨です。レガシースクリプトがエラーを引き起こさないように残っていますが、呼び出しても何もしません。<br>モデルの部品の回転を以前に設定されたアイデンティティ回転にリセットします。これは、<code>Model:SetIdentityOrientation()</code>メソッドを介して行われます。",
     "params": [
       {
         "name": "self",
@@ -16589,13 +16746,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.ScaleTo/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.ScaleTo/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Model.ScaleTo": {
-    "documentation": "モデルのスケールファクターを設定し、すべての子孫インスタンスのサイズと位置を調整します。 これらは、スケールファクターが1のときの初期サイズと位置に対して相対的になります。",
+    "documentation": "モデルのスケール係数を設定し、すべての子インスタンスのサイズと位置が初期のサイズと位置に対してそのスケール係数を持つように調整します。",
     "params": [
       {
         "name": "self",
@@ -16611,10 +16768,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetIdentityOrientation/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.SetIdentityOrientation": {
-    "documentation": "<strong>Deprecated:</strong> この関数は非推奨です; 古いスクリプトがエラーを投げるのを防ぐために残されますが、呼び出されても何も行いません。<br>与えられたモデルのアイデンティティ回転を設定し、後で <code>ResetOrientationToIdentity</code> メソッドを通じて、モデル全体の回転をリセットできるようにします。",
+    "documentation": "<strong>Deprecated:</strong> この関数は非推奨です。レガシースクリプトがエラーを引き起こさないように残っていますが、呼び出しても何もしません。<br>指定されたモデルのアイデンティティ回転を設定します。後で<code>ResetOrientationToIdentity</code>メソッドを使用してモデル全体の回転をリセットできるようにします。",
     "params": [
       {
         "name": "self",
@@ -16626,13 +16783,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/1": {
-    "documentation": "設定する <code>CFrame</code>。"
+    "documentation": "設定する<code>CFrame</code>です。"
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>モデルの <code>Model.PrimaryPart</code> の <code>BasePart.CFrame</code> を設定します。 モデル内の他のすべてのパーツも移動し、 <code>Model.PrimaryPart</code> に対してその向きとオフセットを保持します。",
+    "documentation": "<strong>Deprecated:</strong> <br>モデルの<code>Model.PrimaryPart</code>の<code>BasePart.CFrame</code>を設定します。他のすべての部品も移動し、<code>Model.PrimaryPart</code>に関連する向きとオフセットを保持します。",
     "params": [
       {
         "name": "self",
@@ -16648,13 +16805,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.TranslateBy/param/0": {
-    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。これらは <code>BaseParts</code> のコレクションを保持するのに最適であり、機能を拡張するためのいくつかの 関数を持っています。"
+    "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをまとめることを意味します。最適に使用するのは<code>BaseParts</code>のコレクションを保持することです。モデルはその機能を拡張するいくつかの関数を持っています。"
   },
   "@roblox/globaltype/Model.TranslateBy/param/1": {
-    "documentation": "<code>Model</code> を移動するための <code>Vector3</code>。"
+    "documentation": "<code>Model</code>を移動させるための<code>Vector3</code>です。"
   },
   "@roblox/globaltype/Model.TranslateBy": {
-    "documentation": "与えられた <code>Vector3</code> オフセットで <code>Model</code> を移動し、モデルの向きを保持します。 他の <code>BasePart</code> または <code>Terrain</code> が新しい位置にすでに存在する場合、<code>Model</code> はそのオブジェクトと重なります。",
+    "documentation": "与えられた<code>Vector3</code>オフセットで<code>Model</code>を移動し、モデルの向きを保持します。新しい位置に他の<code>BasePart</code>または<code>Terrain</code>が既に存在する場合、その<code>Model</code>は該当するオブジェクトと重なります。",
     "params": [
       {
         "name": "self",
@@ -56058,7 +56215,7 @@
     "documentation": "メソッドの全コントロールを含むオプションテーブル: <ul> <li><code>SiteSpacing</code> — サイト間の近似距離であり、生成される破片の直径に直接対応します。指定されていない場合は、合理的な値が選択されます。</li> <li><code>Origin</code> — 提供された場合、これは破片化されるエリアの中心になります。提供されていない場合、オブジェクト全体が破片化されます。</li> <li><code>Radius</code> — 提供された場合、これも破片化されるエリアの中心になります。<code>Origin</code> と <code>Radius</code> の両方が提供される必要があります。</li> </ul>"
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites/return/0": {
-    "documentation": "<code>FragmentAsync()</code> に通常渡される <code>Vector3</code> の配列です。出力は提供されたオプションに依存します。<code>Origin</code> と <code>Radius</code> が提供される場合、出力配列には半径内に位置する複数の <code>Vector3</code> 要素が含まれますが、配列の最後の要素は半径の外にある多くの <code>Vector3</code> サイトを含む内側の配列になります。<code>Origin</code> と <code>Radius</code> が提供されない場合、出力は単に入力の <code>part</code> の範囲内の <code>Vector3</code> 位置の配列になります。"
+    "documentation": "通常、<code>FragmentAsync()</code> に渡される <code>Vector3</code> の配列です。出力は提供されたオプションに依存します。<code>Origin</code> と <code>Radius</code> が提供されている場合、出力配列には半径内に位置するいくつかの <code>Vector3</code> 要素が含まれますが、配列の最初の要素は半径の外にある多数の <code>Vector3</code> サイトを含む内部配列になります。<code>Origin</code> と <code>Radius</code> が提供されていない場合、出力は単に入力 <code>part</code> の範囲内の <code>Vector3</code> 位置の配列になります。"
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites": {
     "documentation": "簡単なタイプの破壊を実行するために、<code>FragmentAsync</code> に容易に渡せる位置の配列を提供します。",
@@ -119646,6 +119803,35 @@
       "VelocityPerpendicular": "@roblox/enum/ParticleOrientation.VelocityPerpendicular"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleOrientation",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Disabled": {
+    "documentation": "Disables anti-aliasing, resulting in hard edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Disabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Enabled": {
+    "documentation": "Enables anti-aliasing, resulting in soft edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.AntiAliasing": {
+    "documentation": "Determines whether anti-aliasing is applied when drawing on the instance.",
+    "keys": {
+      "Disabled": "@roblox/enum/AntiAliasing.Disabled",
+      "Enabled": "@roblox/enum/AntiAliasing.Enabled"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing",
     "code_sample": ""
   },
   "@roblox/enum/WebStreamClientType.SSE": {

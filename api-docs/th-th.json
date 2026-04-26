@@ -6143,7 +6143,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RaycastParams.IncludeInstances": {
-    "documentation": "อาร์เรย์ที่เลือกได้ของ Instances ที่ descendants จะถูกรวมอยู่ในคำถาม",
+    "documentation": "อาร์เรย์ที่เลือกได้ของอินสแตนซ์ที่มีลูกหลานจะถูกรวมอยู่ใน การค้นหา。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams#IncludeInstances",
     "code_sample": ""
   },
@@ -12910,6 +12910,11 @@
     "documentation": "บริการที่ให้คุณอ่านข้อความที่ออกมาได้。",
     "keys": {
       "ClearOutput": "@roblox/globaltype/LogService.ClearOutput",
+      "Output": "@roblox/globaltype/LogService.Output",
+      "Info": "@roblox/globaltype/LogService.Info",
+      "Warn": "@roblox/globaltype/LogService.Warn",
+      "Error": "@roblox/globaltype/LogService.Error",
+      "Log": "@roblox/globaltype/LogService.Log",
       "GetLogHistory": "@roblox/globaltype/LogService.GetLogHistory"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService",
@@ -12930,6 +12935,158 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#ClearOutput",
     "code_sample": ""
   },
+  "@roblox/globaltype/LogService.Output/param/0": {
+    "documentation": "บริการที่ให้คุณอ่านข้อความที่ออกมาได้。"
+  },
+  "@roblox/globaltype/LogService.Output/param/1": {
+    "documentation": "ข้อความของข้อความ รองรับตัวแทนแบบพื้นฐาน <code>{key}</code> เมื่อมีตารางบริบทให้ใช้"
+  },
+  "@roblox/globaltype/LogService.Output/param/2": {
+    "documentation": "พจนานุกรมที่เป็นทางเลือกของคู่คีย์-ค่า เมื่อมีการระบุ ตัวแทน <code>{key}</code> ในข้อความจะถูกแทนที่ด้วยค่าที่เกี่ยวข้อง"
+  },
+  "@roblox/globaltype/LogService.Output": {
+    "documentation": "บันทึกข้อความที่ระดับ <code>MessageType.MessageOutput</code> พร้อมบริบทที่มีโครงสร้าง (ถ้ามี)",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Output/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Output/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Output/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Output",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Info/param/0": {
+    "documentation": "บริการที่ให้คุณอ่านข้อความที่ออกมาได้。"
+  },
+  "@roblox/globaltype/LogService.Info/param/1": {
+    "documentation": "ข้อความของข้อความ รองรับตัวแทนแบบพื้นฐาน <code>{key}</code> เมื่อมีตารางบริบทให้ใช้"
+  },
+  "@roblox/globaltype/LogService.Info/param/2": {
+    "documentation": "พจนานุกรมที่เป็นทางเลือกของคู่คีย์-ค่า เมื่อมีการระบุ ตัวแทน <code>{key}</code> ในข้อความจะถูกแทนที่ด้วยค่าที่เกี่ยวข้อง"
+  },
+  "@roblox/globaltype/LogService.Info": {
+    "documentation": "บันทึกข้อความที่ระดับ <code>MessageType.MessageInfo</code> พร้อมบริบทที่มีโครงสร้าง (ถ้ามี)",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Info/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Info/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Info/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Info",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Warn/param/0": {
+    "documentation": "บริการที่ให้คุณอ่านข้อความที่ออกมาได้。"
+  },
+  "@roblox/globaltype/LogService.Warn/param/1": {
+    "documentation": "ข้อความของข้อความ รองรับตัวแทนแบบพื้นฐาน <code>{key}</code> เมื่อมีตารางบริบทให้ใช้"
+  },
+  "@roblox/globaltype/LogService.Warn/param/2": {
+    "documentation": "พจนานุกรมที่เป็นทางเลือกของคู่คีย์-ค่า เมื่อมีการระบุ ตัวแทน <code>{key}</code> ในข้อความจะถูกแทนที่ด้วยค่าที่เกี่ยวข้อง"
+  },
+  "@roblox/globaltype/LogService.Warn": {
+    "documentation": "บันทึกข้อความที่ระดับ <code>MessageType.MessageWarning</code> พร้อมบริบทที่มีโครงสร้าง (ถ้ามี)",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Warn/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Warn",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Error/param/0": {
+    "documentation": "บริการที่ให้คุณอ่านข้อความที่ออกมาได้。"
+  },
+  "@roblox/globaltype/LogService.Error/param/1": {
+    "documentation": "ข้อความของข้อความ รองรับตัวแทนแบบพื้นฐาน <code>{key}</code> เมื่อมีตารางบริบทให้ใช้"
+  },
+  "@roblox/globaltype/LogService.Error/param/2": {
+    "documentation": "พจนานุกรมที่เป็นทางเลือกของคู่คีย์-ค่า เมื่อมีการระบุ ตัวแทน <code>{key}</code> ในข้อความจะถูกแทนที่ด้วยค่าที่เกี่ยวข้อง"
+  },
+  "@roblox/globaltype/LogService.Error": {
+    "documentation": "บันทึกข้อความที่ระดับ <code>MessageType.MessageError</code> และโยนข้อผิดพลาดที่มีโครงสร้างพร้อมบริบทที่มีให้ (ถ้ามี)",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Error/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Error/param/1"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Error/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Error",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/LogService.Log/param/0": {
+    "documentation": "บริการที่ให้คุณอ่านข้อความที่ออกมาได้。"
+  },
+  "@roblox/globaltype/LogService.Log/param/1": {
+    "documentation": "ประเภท <code>MessageType</code> ที่ระบุระดับการบันทึก"
+  },
+  "@roblox/globaltype/LogService.Log/param/2": {
+    "documentation": "ข้อความของข้อความ รองรับตัวแทนแบบพื้นฐาน <code>{key}</code> เมื่อมีตารางบริบทให้ใช้"
+  },
+  "@roblox/globaltype/LogService.Log/param/3": {
+    "documentation": "พจนานุกรมที่เป็นทางเลือกของคู่คีย์-ค่า เมื่อมีการระบุ ตัวแทน <code>{key}</code> ในข้อความจะถูกแทนที่ด้วยค่าที่เกี่ยวข้อง"
+  },
+  "@roblox/globaltype/LogService.Log": {
+    "documentation": "บันทึกข้อความที่ระดับที่ระบุพร้อมบริบทที่มีโครงสร้าง (ถ้ามี)",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/LogService.Log/param/0"
+      },
+      {
+        "name": "messageType",
+        "documentation": "@roblox/globaltype/LogService.Log/param/1"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/LogService.Log/param/2"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/LogService.Log/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LogService#Log",
+    "code_sample": ""
+  },
   "@roblox/globaltype/LogService.GetLogHistory/param/0": {
     "documentation": "บริการที่ให้คุณอ่านข้อความที่ออกมาได้。"
   },
@@ -12937,7 +13094,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/LogService.GetLogHistory": {
-    "documentation": "คืนค่าตารางของตาราง，每ตารางมีข้อความสตริง ประเภทข้อความ และ time stamp ของข้อความที่ไคลเอนต์แสดงในหน้าต่าง <strong>Output</strong>。",
+    "documentation": "ส่งคืนตารางของตาราง โดยแต่ละตารางจะมีข้อความ ข้อความประเภท และเวลาของข้อความที่ลูกค้าจะแสดงในหน้าต่าง <strong>Output</strong>",
     "params": [
       {
         "name": "self",
@@ -56058,7 +56215,7 @@
     "documentation": "ตารางตัวเลือกที่มีการควบคุมทั้งหมดสำหรับวิธีการ: <ul> <li><code>SiteSpacing</code> — ระยะห่างประมาณระหว่างไซต์ ซึ่ง   สอดคล้องกับเส้นผ่านศูนย์กลางของชิ้นส่วนที่สร้างขึ้น หากไม่ระบุจะมีการเลือก   ค่าที่สมเหตุสมผล</li> <li><code>Origin</code> — หากจัดเตรียมไว้ จะเป็นศูนย์กลางของพื้นที่ที่จะ   ถูกทำลาย หากไม่จัดเตรียมไว้ วัตถุทั้งหมดจะถูกทำลาย</li> <li><code>Radius</code> — หากจัดเตรียมไว้ จะเป็นศูนย์กลางของพื้นที่ที่จะ   ถูกทำลาย ทั้ง <code>Origin</code> และ <code>Radius</code> ควรจัดเตรียมไว้ด้วยกัน หรือ   ไม่ต้องจัดเตรียมทั้งคู่</li> </ul>"
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites/return/0": {
-    "documentation": "อาร์เรย์ของ <code>Vector3</code> ที่มักจะถูกส่งเข้าไปใน <code>FragmentAsync()</code>. ผลลัพธ์ ขึ้นอยู่กับตัวเลือกที่ให้ไว้ หาก <code>Origin</code> และ <code>Radius</code> ถูก กำหนดมา การส่งออกจะมีหลาย <code>Vector3</code> องค์ประกอบที่ทั้งหมดจะอยู่ภายในรัศมี แต่ส่วนสุดท้ายของอาร์เรย์จะเป็นอาร์เรย์ภายใน ที่มี <code>Vector3</code> ไซต์หลายตัวที่อยู่นอกเขตระยะ หาก <code>Origin</code> และ <code>Radius</code> ไม่ได้ จัดเตรียมไว้ ผลลัพธ์จะเป็นเพียงอาร์เรย์ของตำแหน่ง <code>Vector3</code> ภายในขอบเขตของ <code>part</code> ที่ส่งเข้ามา"
+    "documentation": "อาเรย์ของ <code>Vector3</code> ซึ่งโดยปกติจะถูกส่งเข้าไปใน <code>FragmentAsync()</code>. ผลลัพธ์ ขึ้นอยู่กับตัวเลือกที่ให้มา หากมีการให้ค่า <code>Origin</code> และ <code>Radius</code> ผลลัพธ์จะเป็นอาเรย์ที่มีหลาย <code>Vector3</code> องค์ประกอบซึ่งทั้งหมดจะอยู่ภายในรัศมี แต่สมาชิกแรก ของอาเรย์จะเป็นอาเรย์ภายในที่มีหลาย <code>Vector3</code> ไซต์ที่อยู่นอกความรัศมี หากไม่มีการให้ค่า <code>Origin</code> และ <code>Radius</code> ผลลัพธ์จะเป็นเพียงอาเรย์ของตำแหน่ง <code>Vector3</code> ภายในขอบเขตของ <code>part</code> ที่ป้อนเข้า."
   },
   "@roblox/globaltype/GeometryService.GenerateFragmentSites": {
     "documentation": "ให้ตำแหน่งของอาร์เรย์ซึ่งสามารถส่งเข้าไปใน <code>FragmentAsync</code> เพื่อทำลายล้างแบบง่าย ๆ",
@@ -119646,6 +119803,35 @@
       "VelocityPerpendicular": "@roblox/enum/ParticleOrientation.VelocityPerpendicular"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleOrientation",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Disabled": {
+    "documentation": "Disables anti-aliasing, resulting in hard edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Disabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/AntiAliasing.Enabled": {
+    "documentation": "Enables anti-aliasing, resulting in soft edges.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.AntiAliasing": {
+    "documentation": "Determines whether anti-aliasing is applied when drawing on the instance.",
+    "keys": {
+      "Disabled": "@roblox/enum/AntiAliasing.Disabled",
+      "Enabled": "@roblox/enum/AntiAliasing.Enabled"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing",
     "code_sample": ""
   },
   "@roblox/enum/WebStreamClientType.SSE": {
