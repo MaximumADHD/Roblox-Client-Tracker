@@ -4,6 +4,7 @@ local isInExperienceUIVREnabled =
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
+local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 
 return {
 	OverflowMenu = require(script.OverflowMenu),
@@ -24,4 +25,5 @@ return {
 	PartyMic = require(script.Party.PartyMic),
 	VRToggleButton = if isInExperienceUIVREnabled and isSpatial() then require(script.VRToggleButton) else nil :: never,
 	VRSafeBubble = if isInExperienceUIVREnabled and isSpatial() then require(script.VRSafeBubble) else nil :: never,
+	People = if FFlagAddIGMToSideSheet then require(script.Pages.People) else nil,
 }

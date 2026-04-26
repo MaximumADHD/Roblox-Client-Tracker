@@ -17,6 +17,7 @@ BoneCFramesInBounds.categories =
 BoneCFramesInBounds.requiredData =
 	{ ValidationEnums.SharedDataMember.rootInstance, ValidationEnums.SharedDataMember.renderMeshesData }
 BoneCFramesInBounds.fflag = R15plusUtils.checkFlagEnabledForAllowHrd
+local FIntUGCValidationMinimumJointDistance = game:DefineFastInt("UGCValidationMinimumJointDistanceHundredths", 5) / 100
 
 BoneCFramesInBounds.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local rootInstance = data.rootInstance
@@ -47,7 +48,16 @@ BoneCFramesInBounds.run = function(reporter: Types.ValidationReporter, data: Typ
 				})
 			end
 
-			-- TODO: Check bone rotation: Still under discussion
+			if
+				(bone.Parent :: Instance):IsA("Bone")
+				and bone.Position.Magnitude < FIntUGCValidationMinimumJointDistance
+			then
+				reporter:fail(ErrorSourceStrings.Keys.HrdBone_TooCloseToParent, {
+					bonePath = bone:GetFullName(),
+				})
+			end
+
+			-- Bone rotation is not currently checked, but this could be added here
 		end
 	end
 end

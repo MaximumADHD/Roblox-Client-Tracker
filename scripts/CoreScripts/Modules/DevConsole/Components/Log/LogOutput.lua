@@ -3,6 +3,9 @@ local CorePackages = game:GetService("CorePackages")
 local TextService = game:GetService("TextService")
 local Roact = require(CorePackages.Packages.Roact)
 
+local Components = script.Parent.Parent.Parent.Components
+local BannerButton = require(Components.BannerButton)
+
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local FONT_SIZE = Constants.DefaultFontSize.MainWindow
 local FONT = Constants.Font.Log
@@ -12,6 +15,23 @@ local LINE_PADDING = Constants.LogFormatting.TextFramePadding
 local MAX_STRING_SIZE = Constants.LogFormatting.MaxStringSize
 local MAX_STR_MSG =
 	" -- Could not display entire %d character message because message exceeds max displayable length of %d"
+
+local MAX_CONTEXT_DEPTH = 3
+local CONTEXT_INDENT_SIZE = 20
+local EXPANDED_KEY = "_expanded"
+
+local function countContextLines(contextTable: { [string]: any }, depth: number): number
+	local count = 0
+	for k, v in contextTable do
+		if k ~= EXPANDED_KEY then
+			count = count + 1
+			if type(v) == "table" and depth + 1 < MAX_CONTEXT_DEPTH and v[EXPANDED_KEY] then
+				count = count + countContextLines(v, depth + 1)
+			end
+		end
+	end
+	return count
+end
 
 local LogOutput = Roact.Component:extend("LogOutput")
 
@@ -138,46 +158,162 @@ function LogOutput:render()
 		local paddingHeight = -1
 		local usedFrameSpace = 0
 
+		local function createOnButtonPress(msg: { Expanded: boolean }): () -> ()
+			return function()
+				msg.Expanded = not msg.Expanded
+				self:setState({})
+			end
+		end
+
+		local function addContextEntries(contextElements: { [string]: any }, contextTable: { [string]: any }, color: Color3, depth: number, counterRef: { i: number })
+			if depth >= MAX_CONTEXT_DEPTH then return end
+			local keys = {}
+			for k in contextTable do
+				if k ~= EXPANDED_KEY then
+					table.insert(keys, k)
+				end
+			end
+			table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+
+			local indent = CONTEXT_INDENT_SIZE + depth * CONTEXT_INDENT_SIZE
+
+			for _, k in keys do
+				local v = contextTable[k]
+				counterRef.i = counterRef.i + 1
+				local i = counterRef.i
+				local elemKey = `Ctx_{depth}_{tostring(k)}`
+
+				if type(v) == "table" and depth + 1 < MAX_CONTEXT_DEPTH then
+					local nestedTable = v
+					contextElements[elemKey] = Roact.createElement(BannerButton, {
+						size = UDim2.new(1, 0, 0, FONT_SIZE),
+						isExpanded = nestedTable[EXPANDED_KEY],
+						isExpandable = true,
+						layoutOrder = i,
+						hideLines = true,
+						onButtonPress = function()
+							nestedTable[EXPANDED_KEY] = not nestedTable[EXPANDED_KEY]
+							self:setState({})
+						end,
+					}, {
+						Label = Roact.createElement("TextLabel", {
+							Text = `{tostring(k)}: \{...\}`,
+							TextSize = FONT_SIZE,
+							Font = FONT,
+							TextColor3 = color,
+							BackgroundTransparency = 1,
+							Size = UDim2.new(1, -(indent + CONTEXT_INDENT_SIZE), 1, 0),
+							Position = UDim2.fromOffset(indent + CONTEXT_INDENT_SIZE, 0),
+							TextXAlignment = Enum.TextXAlignment.Left,
+						})
+					})
+
+					if nestedTable[EXPANDED_KEY] then
+						addContextEntries(contextElements, nestedTable, color, depth + 1, counterRef)
+					end
+				else
+					contextElements[elemKey] = Roact.createElement("TextLabel", {
+						Text = `{tostring(k)}: {tostring(v)}`,
+						TextSize = FONT_SIZE,
+						Font = FONT,
+						TextColor3 = color,
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, FONT_SIZE),
+						LayoutOrder = i,
+						TextXAlignment = Enum.TextXAlignment.Left,
+					}, {
+						Padding = Roact.createElement("UIPadding", {
+							PaddingLeft = UDim.new(0, indent + CONTEXT_INDENT_SIZE),
+						}),
+					})
+				end
+			end
+		end
+
 		local msgIter = logData:iterator()
 		local message = msgIter:next()
 		while message do
-			local fmtMessage = message.Message
-			local charCount = message.CharCount
+			local currentMessage = message
+			local fmtMessage = currentMessage.Message
+			local charCount = currentMessage.CharCount
 
-			local msgDimsY = message.Dims.Y
+			local msgDimsY = currentMessage.Dims.Y
 			if wordWrap and frameWidth > 0 then
-				msgDimsY = math.ceil(message.Dims.Y * math.ceil(message.Dims.X / frameWidth))
+				msgDimsY = math.ceil(currentMessage.Dims.Y * math.ceil(currentMessage.Dims.X / frameWidth))
 			end
+
+			local contextHeight = 0
+			if currentMessage.Context then
+				contextHeight = FONT_SIZE + LINE_PADDING
+				if currentMessage.Expanded then
+					contextHeight = contextHeight + (countContextLines(currentMessage.Context, 0) * (FONT_SIZE + LINE_PADDING))
+				end
+			end
+
+			local totalEntryHeight = msgDimsY + contextHeight
 
 			messageCount = messageCount + 1
 
-			if scrollingFrameHeight + msgDimsY >= canvasPos.Y then
+			if scrollingFrameHeight + totalEntryHeight >= canvasPos.Y then
 				if usedFrameSpace < absSize.Y then
 					local color = Constants.Color.Text
 					local image = ""
 
-					if message.Type == Enum.MessageType.MessageOutput.Value then
+					if currentMessage.Type == Enum.MessageType.MessageOutput.Value then
 						color = Constants.Color.Text
-					elseif message.Type == Enum.MessageType.MessageInfo.Value then
+					elseif currentMessage.Type == Enum.MessageType.MessageInfo.Value then
 						color = Constants.Color.HighlightBlue
 						image = Constants.Image.Info
-					elseif message.Type == Enum.MessageType.MessageWarning.Value then
+					elseif currentMessage.Type == Enum.MessageType.MessageWarning.Value then
 						color = Constants.Color.WarningYellow
 						image = Constants.Image.Warning
-					elseif message.Type == Enum.MessageType.MessageError.Value then
+					elseif currentMessage.Type == Enum.MessageType.MessageError.Value then
 						color = Constants.Color.ErrorRed
 						image = Constants.Image.Error
 					end
 
+					local contextElements = {}
+					if currentMessage.Context then
+						contextElements["Layout"] = Roact.createElement("UIListLayout", {
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							Padding = UDim.new(0, LINE_PADDING),
+						})
+
+						contextElements["Header"] = Roact.createElement(BannerButton, {
+							size = UDim2.new(1, 0, 0, FONT_SIZE),
+							isExpanded = currentMessage.Expanded,
+							isExpandable = true,
+							layoutOrder = 0,
+							hideLines = true,
+							onButtonPress = createOnButtonPress(currentMessage),
+						}, {
+							Label = Roact.createElement("TextLabel", {
+								Text = "Context: {...}",
+								TextSize = FONT_SIZE,
+								Font = FONT,
+								TextColor3 = color,
+								BackgroundTransparency = 1,
+								Size = UDim2.new(1, -CONTEXT_INDENT_SIZE, 1, 0),
+								Position = UDim2.fromOffset(CONTEXT_INDENT_SIZE, 0),
+								TextXAlignment = Enum.TextXAlignment.Left,
+							})
+						})
+
+						if currentMessage.Expanded then
+							local counterRef = { i = 0 }
+							addContextEntries(contextElements, currentMessage.Context, color, 0, counterRef)
+						end
+					end
+
 					elements[messageCount] = Roact.createElement("Frame", {
-						Size = UDim2.new(1, 0, 0, msgDimsY),
+						Size = UDim2.new(1, 0, 0, totalEntryHeight),
 						BackgroundTransparency = 1,
 						LayoutOrder = messageCount,
 					}, {
 						image = Roact.createElement("ImageLabel", {
 							Image = image,
 							Size = UDim2.new(0, ICON_PADDING, 0, ICON_PADDING),
-							Position = UDim2.new(0, ICON_PADDING / 4, 0.5, -ICON_PADDING / 2),
+							Position = UDim2.new(0, ICON_PADDING / 4, 0, (FONT_SIZE - ICON_PADDING) / 2),
 							BackgroundTransparency = 1,
 						}),
 						msg = Roact.createElement("TextLabel", {
@@ -194,17 +330,22 @@ function LogOutput:render()
 							Position = UDim2.new(0, ARROW_OFFSET, 0, 0),
 							BackgroundTransparency = 1,
 						}),
+						context = currentMessage.Context and Roact.createElement("Frame", {
+							Size = UDim2.new(1, -ARROW_OFFSET, 0, contextHeight),
+							Position = UDim2.new(0, ARROW_OFFSET, 0, msgDimsY + LINE_PADDING),
+							BackgroundTransparency = 1,
+						}, contextElements)
 					})
 				end
 
 				if paddingHeight < 0 then
 					paddingHeight = scrollingFrameHeight
 				else
-					usedFrameSpace = usedFrameSpace + msgDimsY + LINE_PADDING
+					usedFrameSpace = usedFrameSpace + totalEntryHeight + LINE_PADDING
 				end
 			end
 
-			scrollingFrameHeight = scrollingFrameHeight + msgDimsY + LINE_PADDING
+			scrollingFrameHeight = scrollingFrameHeight + totalEntryHeight + LINE_PADDING
 
 			if charCount < MAX_STRING_SIZE then
 				message = msgIter:next()
@@ -213,7 +354,7 @@ function LogOutput:render()
 				message = {
 					Message = maxStrMsg,
 					CharCount = #maxStrMsg,
-					Type = message.Type,
+					Type = currentMessage.Type,
 					Dims = TextService:GetTextSize(maxStrMsg, FONT_SIZE, FONT, Vector2.new()),
 				}
 			end

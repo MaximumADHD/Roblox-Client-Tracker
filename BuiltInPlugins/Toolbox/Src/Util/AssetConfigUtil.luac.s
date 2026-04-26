@@ -1600,6 +1600,44 @@ PROTO_58:
        27 RETURN                           R2 1
 
 PROTO_59:
+        0 JUMPIFNOTEQKNIL                  R0 ; [+3]
+        2 LOADK                            R1 K0 [""]
+        3 RETURN                           R1 1
+        4 GETIMPORT                        R1 K3 [string.gsub]
+        6 FASTCALL1                        TOSTRING R0 ; [+3]
+        7 MOVE                             R3 R0
+        8 GETIMPORT                        R2 K5 [tostring]
+       10 CALL                             R2 1 1
+       11 LOADK                            R3 K6 ["[\n\r]"]
+       12 LOADK                            R4 K7 [" "]
+       13 CALL                             R1 3 1
+       14 GETIMPORT                        R2 K3 [string.gsub]
+       16 MOVE                             R3 R1
+       17 LOADK                            R4 K8 ["^%s*(.-)%s*$"]
+       18 LOADK                            R5 K9 ["%1"]
+       19 CALL                             R2 3 1
+       20 MOVE                             R1 R2
+       21 JUMPIFNOTEQKS                    R1 K0 [""] ; [+3]
+       23 LOADK                            R2 K0 [""]
+       24 RETURN                           R2 1
+       25 GETIMPORT                        R2 K11 [string.lower]
+       27 MOVE                             R3 R1
+       28 CALL                             R2 1 1
+       29 GETIMPORT                        R3 K13 [string.match]
+       31 MOVE                             R4 R2
+       32 LOADK                            R5 K14 ["rbxassetid://(%d+)"]
+       33 CALL                             R3 2 1
+       34 JUMPIFNOT                        R3 ; [+1]
+       35 RETURN                           R3 1
+       36 GETIMPORT                        R4 K13 [string.match]
+       38 MOVE                             R5 R2
+       39 LOADK                            R6 K15 ["create%.roblox%.com/dashboard/creations/store/(%d+)"]
+       40 CALL                             R4 2 1
+       41 JUMPIFNOT                        R4 ; [+1]
+       42 RETURN                           R4 1
+       43 RETURN                           R1 1
+
+PROTO_60:
         0 GETTABLEKS                       R2 R0 K0 ["key"]
         2 LOADK                            R4 K1 ["."]
         3 NAMECALL                         R2 R2 K2 ["split"]
@@ -1922,11 +1960,13 @@ MAIN:
       431 DUPCLOSURE                       R30 K152 [PROTO_58]
       432 CAPTURE                          VAL R22
       433 SETTABLEKS                       R30 R29 K153 ["isAllowedAssetType"]
-      435 GETTABLEKS                       R30 R27 K154 ["isEntrypointMergingEnabled"]
-      437 JUMPIFNOT                        R30 ; [+7]
-      438 GETTABLEKS                       R30 R27 K154 ["isEntrypointMergingEnabled"]
-      440 CALL                             R30 0 1
-      441 JUMPIFNOT                        R30 ; [+3]
-      442 DUPCLOSURE                       R30 K155 [PROTO_59]
-      443 SETTABLEKS                       R30 R29 K156 ["getValidationErrorText"]
-      445 RETURN                           R29 1
+      435 DUPCLOSURE                       R30 K154 [PROTO_59]
+      436 SETTABLEKS                       R30 R29 K155 ["normalizeAnimationAssetIdInput"]
+      438 GETTABLEKS                       R30 R27 K156 ["isEntrypointMergingEnabled"]
+      440 JUMPIFNOT                        R30 ; [+7]
+      441 GETTABLEKS                       R30 R27 K156 ["isEntrypointMergingEnabled"]
+      443 CALL                             R30 0 1
+      444 JUMPIFNOT                        R30 ; [+3]
+      445 DUPCLOSURE                       R30 K157 [PROTO_60]
+      446 SETTABLEKS                       R30 R29 K158 ["getValidationErrorText"]
+      448 RETURN                           R29 1

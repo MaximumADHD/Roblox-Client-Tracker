@@ -1,8 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 
 local isConnectDropdownEnabled = require(script.Parent.isConnectDropdownEnabled)
-local GetFFlagAppChatAddConnectUnibarForActiveSquad =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAppChatAddConnectUnibarForActiveSquad
 local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
 
 return function()
@@ -11,7 +9,5 @@ return function()
 	-- no active party: hide "connect_unibar" icon
 	local isAppChatDropdownEntryPointEnabled = isConnectDropdownEnabled()
 
-	return isAppChatDropdownEntryPointEnabled
-		and GetFFlagAppChatAddConnectUnibarForActiveSquad()
-		and GetFFlagIsSquadEnabled()
+	return isAppChatDropdownEntryPointEnabled and GetFFlagIsSquadEnabled()
 end

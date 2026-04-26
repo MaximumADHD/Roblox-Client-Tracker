@@ -3,8 +3,8 @@ local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 
-local maxCageMeshDistanceThreshold = game:DefineFastInt("UGCValidationCageMeshDistanceHeadMaxCageMeshDistance", 30)
-local maxNegativeSDFThreshold = game:DefineFastInt("UGCValidationCageMeshDistanceHeadMaxNegativeSDFThreshold", 50)
+local maxCageMeshDistanceThreshold = game:DefineFastInt("UGCValidationCageMeshDistanceHeadMaxCageMeshDistance", 60)
+local maxNegativeSDFThreshold = game:DefineFastInt("UGCValidationCageMeshDistanceHeadMaxNegativeSDFThreshold", 30)
 
 local MeasureCageMeshDistanceHead = {}
 

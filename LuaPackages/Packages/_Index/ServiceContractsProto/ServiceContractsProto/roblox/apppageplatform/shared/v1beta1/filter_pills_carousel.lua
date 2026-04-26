@@ -62,6 +62,8 @@ type _FilterPillsCarouselSchema_PropsFields = {
 	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	on_filter_click: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _FilterPillsCarouselSchema_PropsPartialFields = {
@@ -71,6 +73,8 @@ type _FilterPillsCarouselSchema_PropsPartialFields = {
 	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	on_filter_click: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type FilterPillsCarouselSchema_Props = typeof(setmetatable(
@@ -221,6 +225,8 @@ do
 				else data.skip_item_impressions_log,
 			on_filter_click = if data == nil or data.on_filter_click == nil then nil else data.on_filter_click,
 			title = if data == nil or data.title == nil then nil else data.title,
+			background_style = if data == nil or data.background_style == nil then nil else data.background_style,
+			tag = if data == nil or data.tag == nil then nil else data.tag,
 		}, _FilterPillsCarouselSchema_PropsImpl :: _FilterPillsCarouselSchema_PropsImpl)
 	end
 
@@ -261,6 +267,18 @@ do
 		if self.title ~= nil then
 			local encoded = self.title:encode()
 			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.background_style ~= nil then
+			local encoded = self.background_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.tag ~= nil then
+			local encoded = self.tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -316,6 +334,17 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.background_style =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -365,6 +394,14 @@ do
 
 		if self.title ~= nil then
 			output.title = self.title:jsonEncode()
+		end
+
+		if self.background_style ~= nil then
+			output.backgroundStyle = self.background_style:jsonEncode()
+		end
+
+		if self.tag ~= nil then
+			output.tag = self.tag:jsonEncode()
 		end
 
 		return output
@@ -425,6 +462,20 @@ do
 
 		if input.title ~= nil then
 			self.title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.title)
+		end
+
+		if input.background_style ~= nil then
+			self.background_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.background_style)
+		end
+
+		if input.backgroundStyle ~= nil then
+			self.background_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.backgroundStyle)
+		end
+
+		if input.tag ~= nil then
+			self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tag)
 		end
 
 		return self

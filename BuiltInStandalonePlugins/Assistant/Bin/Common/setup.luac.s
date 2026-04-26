@@ -56,51 +56,48 @@ PROTO_5:
        35 DUPCLOSURE                       R6 K20 [PROTO_2]
        36 SETTABLEKS                       R6 R5 K15 ["getToolbarName"]
        38 SETTABLEKS                       R4 R5 K16 ["buttonInfo"]
-       40 GETUPVAL                         R7 3
-       41 CALL                             R7 0 1
-       42 JUMPIFNOT                        R7 ; [+1]
-       43 JUMPIFNOT                        R2 ; [+6]
-       44 DUPTABLE                         R6 K22 [{"SessionStarted"}]
-       45 NEWCLOSURE                       R7 P3
-       46 CAPTURE                          VAL R3
-       47 SETTABLEKS                       R7 R6 K21 ["SessionStarted"]
-       49 JUMP                             ; [+1]
-       50 LOADNIL                          R6
-       51 SETTABLEKS                       R6 R5 K17 ["extraTriggers"]
-       53 LOADB                            R6 1
-       54 SETTABLEKS                       R6 R4 K5 ["enabled"]
-       56 DUPTABLE                         R6 K27 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-       57 LOADK                            R7 K19 ["Assistant"]
-       58 SETTABLEKS                       R7 R6 K23 ["id"]
-       60 GETIMPORT                        R7 K30 [DockWidgetPluginGuiInfo.new]
-       62 GETIMPORT                        R8 K34 [Enum.InitialDockState.Right]
-       64 LOADB                            R9 0
-       65 LOADB                            R10 0
-       66 LOADN                            R11 128
-       67 LOADN                            R12 224
-       68 LOADN                            R13 250
-       69 LOADN                            R14 200
-       70 CALL                             R7 7 1
-       71 SETTABLEKS                       R7 R6 K24 ["dockWidgetPluginGuiInfo"]
-       73 DUPCLOSURE                       R7 K35 [PROTO_4]
-       74 SETTABLEKS                       R7 R6 K25 ["getDockTitle"]
-       76 GETIMPORT                        R7 K38 [Enum.ZIndexBehavior.Sibling]
-       78 SETTABLEKS                       R7 R6 K26 ["zIndexBehavior"]
-       80 SETTABLEKS                       R6 R5 K39 ["dockWidgetInfo"]
-       82 GETUPVAL                         R7 4
-       83 GETTABLEKS                       R6 R7 K40 ["build"]
-       85 MOVE                             R7 R5
-       86 CALL                             R6 1 1
-       87 GETTABLEKS                       R7 R6 K41 ["pluginLoader"]
-       89 NAMECALL                         R7 R7 K42 ["waitForUserInteraction"]
-       91 CALL                             R7 1 1
-       92 JUMPIF                           R7 ; [+1]
-       93 RETURN                           R0 0
-       94 MOVE                             R8 R1
-       95 MOVE                             R9 R0
-       96 MOVE                             R10 R6
-       97 CALL                             R8 2 0
-       98 RETURN                           R0 0
+       40 JUMPIFNOT                        R2 ; [+6]
+       41 DUPTABLE                         R6 K22 [{"SessionStarted"}]
+       42 NEWCLOSURE                       R7 P3
+       43 CAPTURE                          VAL R3
+       44 SETTABLEKS                       R7 R6 K21 ["SessionStarted"]
+       46 JUMP                             ; [+1]
+       47 LOADNIL                          R6
+       48 SETTABLEKS                       R6 R5 K17 ["extraTriggers"]
+       50 LOADB                            R6 1
+       51 SETTABLEKS                       R6 R4 K5 ["enabled"]
+       53 DUPTABLE                         R6 K27 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
+       54 LOADK                            R7 K19 ["Assistant"]
+       55 SETTABLEKS                       R7 R6 K23 ["id"]
+       57 GETIMPORT                        R7 K30 [DockWidgetPluginGuiInfo.new]
+       59 GETIMPORT                        R8 K34 [Enum.InitialDockState.Right]
+       61 LOADB                            R9 0
+       62 LOADB                            R10 0
+       63 LOADN                            R11 128
+       64 LOADN                            R12 224
+       65 LOADN                            R13 250
+       66 LOADN                            R14 200
+       67 CALL                             R7 7 1
+       68 SETTABLEKS                       R7 R6 K24 ["dockWidgetPluginGuiInfo"]
+       70 DUPCLOSURE                       R7 K35 [PROTO_4]
+       71 SETTABLEKS                       R7 R6 K25 ["getDockTitle"]
+       73 GETIMPORT                        R7 K38 [Enum.ZIndexBehavior.Sibling]
+       75 SETTABLEKS                       R7 R6 K26 ["zIndexBehavior"]
+       77 SETTABLEKS                       R6 R5 K39 ["dockWidgetInfo"]
+       79 GETUPVAL                         R7 3
+       80 GETTABLEKS                       R6 R7 K40 ["build"]
+       82 MOVE                             R7 R5
+       83 CALL                             R6 1 1
+       84 GETTABLEKS                       R7 R6 K41 ["pluginLoader"]
+       86 NAMECALL                         R7 R7 K42 ["waitForUserInteraction"]
+       88 CALL                             R7 1 1
+       89 JUMPIF                           R7 ; [+1]
+       90 RETURN                           R0 0
+       91 MOVE                             R8 R1
+       92 MOVE                             R9 R0
+       93 MOVE                             R10 R6
+       94 CALL                             R8 2 0
+       95 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -121,15 +118,9 @@ MAIN:
        26 GETTABLEKS                       R6 R7 K10 ["Resources"]
        28 GETTABLEKS                       R5 R6 K11 ["Localization"]
        30 GETTABLEKS                       R4 R5 K13 ["LocalizedStrings"]
-       32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R8 R0 K9 ["Src"]
-       36 GETTABLEKS                       R7 R8 K14 ["Flags"]
-       38 GETTABLEKS                       R6 R7 K15 ["FFlagAssistantExtraTriggersStandaloneOnly"]
-       40 CALL                             R5 1 1
-       41 DUPCLOSURE                       R6 K16 [PROTO_5]
-       42 CAPTURE                          VAL R0
-       43 CAPTURE                          VAL R4
-       44 CAPTURE                          VAL R3
-       45 CAPTURE                          VAL R5
-       46 CAPTURE                          VAL R2
-       47 RETURN                           R6 1
+       32 DUPCLOSURE                       R5 K14 [PROTO_5]
+       33 CAPTURE                          VAL R0
+       34 CAPTURE                          VAL R4
+       35 CAPTURE                          VAL R3
+       36 CAPTURE                          VAL R2
+       37 RETURN                           R5 1

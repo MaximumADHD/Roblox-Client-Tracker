@@ -43,12 +43,12 @@ type _Messages =
 		EventsCarouselInputData_EventItem: _EventsCarouselInputData_EventItemMessage,
 		DevStoreFeedInputData: _DevStoreFeedInputDataMessage,
 		DevStoreFeedInputData_EntryMapEntry: _DevStoreFeedInputData_EntryMapEntryMessage,
-		GamePassesGridInputData: _GamePassesGridInputDataMessage,
-		GamePassesGridInputData_GamePassItem: _GamePassesGridInputData_GamePassItemMessage,
-		GameDeveloperProductsGridInputData: _GameDeveloperProductsGridInputDataMessage,
-		GameDeveloperProductsGridInputData_DeveloperProductItem: _GameDeveloperProductsGridInputData_DeveloperProductItemMessage,
-		GameSubscriptionsGridInputData: _GameSubscriptionsGridInputDataMessage,
-		GameSubscriptionsGridInputData_SubscriptionItem: _GameSubscriptionsGridInputData_SubscriptionItemMessage,
+		GamePassCollectionInputData: _GamePassCollectionInputDataMessage,
+		GamePassCollectionInputData_GamePassItem: _GamePassCollectionInputData_GamePassItemMessage,
+		DeveloperProductCollectionInputData: _DeveloperProductCollectionInputDataMessage,
+		DeveloperProductCollectionInputData_DeveloperProductItem: _DeveloperProductCollectionInputData_DeveloperProductItemMessage,
+		SubscriptionCollectionInputData: _SubscriptionCollectionInputDataMessage,
+		SubscriptionCollectionInputData_SubscriptionItem: _SubscriptionCollectionInputData_SubscriptionItemMessage,
 		CardContainerCardInputData: _CardContainerCardInputDataMessage,
 		CardContainerInputData: _CardContainerInputDataMessage,
 		CardInputData: _CardInputDataMessage,
@@ -159,9 +159,9 @@ type _PageEntryInputDataFields = {
 		| { type: "experience_carousel", value: ExperienceCarouselInputData }
 		| { type: "song_carousel", value: SongCarouselInputData }
 		| { type: "events_carousel", value: EventsCarouselInputData }
-		| { type: "game_passes_grid", value: GamePassesGridInputData }
-		| { type: "developer_products_grid", value: GameDeveloperProductsGridInputData }
-		| { type: "subscriptions_grid", value: GameSubscriptionsGridInputData }
+		| { type: "game_pass_collection", value: GamePassCollectionInputData }
+		| { type: "developer_product_collection", value: DeveloperProductCollectionInputData }
+		| { type: "subscription_collection", value: SubscriptionCollectionInputData }
 		| { type: "card_container", value: CardContainerInputData }
 		| { type: "card", value: CardInputData }
 		| { type: "dialog", value: DialogInputData }
@@ -208,9 +208,9 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "experience_carousel", value: ExperienceCarouselInputData }
 		| { type: "song_carousel", value: SongCarouselInputData }
 		| { type: "events_carousel", value: EventsCarouselInputData }
-		| { type: "game_passes_grid", value: GamePassesGridInputData }
-		| { type: "developer_products_grid", value: GameDeveloperProductsGridInputData }
-		| { type: "subscriptions_grid", value: GameSubscriptionsGridInputData }
+		| { type: "game_pass_collection", value: GamePassCollectionInputData }
+		| { type: "developer_product_collection", value: DeveloperProductCollectionInputData }
+		| { type: "subscription_collection", value: SubscriptionCollectionInputData }
 		| { type: "card_container", value: CardContainerInputData }
 		| { type: "card", value: CardInputData }
 		| { type: "dialog", value: DialogInputData }
@@ -991,6 +991,7 @@ type _ExperienceCarouselInputData_UniverseItemFields = {
 	is_sponsored: boolean,
 	roblox_component: string,
 	native_ad_data: string,
+	is_content_locked: boolean,
 }
 
 type _ExperienceCarouselInputData_UniverseItemPartialFields = {
@@ -998,6 +999,7 @@ type _ExperienceCarouselInputData_UniverseItemPartialFields = {
 	is_sponsored: boolean?,
 	roblox_component: string?,
 	native_ad_data: string?,
+	is_content_locked: boolean?,
 }
 
 export type ExperienceCarouselInputData_UniverseItem = typeof(setmetatable(
@@ -1182,167 +1184,170 @@ type _DevStoreFeedInputData_EntryMapEntryMessage = proto.Message<
 	_DevStoreFeedInputData_EntryMapEntryPartialFields
 >
 
-type _GamePassesGridInputDataImpl = {
-	__index: _GamePassesGridInputDataImpl,
-	new: (fields: _GamePassesGridInputDataPartialFields?) -> GamePassesGridInputData,
-	encode: (self: GamePassesGridInputData) -> buffer,
-	decode: (input: buffer) -> GamePassesGridInputData,
-	jsonEncode: (self: GamePassesGridInputData) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> GamePassesGridInputData,
+type _GamePassCollectionInputDataImpl = {
+	__index: _GamePassCollectionInputDataImpl,
+	new: (fields: _GamePassCollectionInputDataPartialFields?) -> GamePassCollectionInputData,
+	encode: (self: GamePassCollectionInputData) -> buffer,
+	decode: (input: buffer) -> GamePassCollectionInputData,
+	jsonEncode: (self: GamePassCollectionInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GamePassCollectionInputData,
 	descriptor: proto.Descriptor,
 }
 
-type _GamePassesGridInputDataFields = {
-	game_passes: { GamePassesGridInputData_GamePassItem },
+type _GamePassCollectionInputDataFields = {
+	game_passes: { GamePassCollectionInputData_GamePassItem },
 }
 
-type _GamePassesGridInputDataPartialFields = {
-	game_passes: { GamePassesGridInputData_GamePassItem }?,
+type _GamePassCollectionInputDataPartialFields = {
+	game_passes: { GamePassCollectionInputData_GamePassItem }?,
 }
 
-export type GamePassesGridInputData = typeof(setmetatable(
-	{} :: _GamePassesGridInputDataFields,
-	{} :: _GamePassesGridInputDataImpl
+export type GamePassCollectionInputData = typeof(setmetatable(
+	{} :: _GamePassCollectionInputDataFields,
+	{} :: _GamePassCollectionInputDataImpl
 ))
-type _GamePassesGridInputDataMessage = proto.Message<GamePassesGridInputData, _GamePassesGridInputDataPartialFields>
+type _GamePassCollectionInputDataMessage = proto.Message<
+	GamePassCollectionInputData,
+	_GamePassCollectionInputDataPartialFields
+>
 
-type _GamePassesGridInputData_GamePassItemImpl = {
-	__index: _GamePassesGridInputData_GamePassItemImpl,
-	new: (fields: _GamePassesGridInputData_GamePassItemPartialFields?) -> GamePassesGridInputData_GamePassItem,
-	encode: (self: GamePassesGridInputData_GamePassItem) -> buffer,
-	decode: (input: buffer) -> GamePassesGridInputData_GamePassItem,
-	jsonEncode: (self: GamePassesGridInputData_GamePassItem) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> GamePassesGridInputData_GamePassItem,
+type _GamePassCollectionInputData_GamePassItemImpl = {
+	__index: _GamePassCollectionInputData_GamePassItemImpl,
+	new: (fields: _GamePassCollectionInputData_GamePassItemPartialFields?) -> GamePassCollectionInputData_GamePassItem,
+	encode: (self: GamePassCollectionInputData_GamePassItem) -> buffer,
+	decode: (input: buffer) -> GamePassCollectionInputData_GamePassItem,
+	jsonEncode: (self: GamePassCollectionInputData_GamePassItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GamePassCollectionInputData_GamePassItem,
 	descriptor: proto.Descriptor,
 }
 
-type _GamePassesGridInputData_GamePassItemFields = {
+type _GamePassCollectionInputData_GamePassItemFields = {
 	game_pass_id: string,
 }
 
-type _GamePassesGridInputData_GamePassItemPartialFields = {
+type _GamePassCollectionInputData_GamePassItemPartialFields = {
 	game_pass_id: string?,
 }
 
-export type GamePassesGridInputData_GamePassItem = typeof(setmetatable(
-	{} :: _GamePassesGridInputData_GamePassItemFields,
-	{} :: _GamePassesGridInputData_GamePassItemImpl
+export type GamePassCollectionInputData_GamePassItem = typeof(setmetatable(
+	{} :: _GamePassCollectionInputData_GamePassItemFields,
+	{} :: _GamePassCollectionInputData_GamePassItemImpl
 ))
-type _GamePassesGridInputData_GamePassItemMessage = proto.Message<
-	GamePassesGridInputData_GamePassItem,
-	_GamePassesGridInputData_GamePassItemPartialFields
+type _GamePassCollectionInputData_GamePassItemMessage = proto.Message<
+	GamePassCollectionInputData_GamePassItem,
+	_GamePassCollectionInputData_GamePassItemPartialFields
 >
 
-type _GameDeveloperProductsGridInputDataImpl = {
-	__index: _GameDeveloperProductsGridInputDataImpl,
-	new: (fields: _GameDeveloperProductsGridInputDataPartialFields?) -> GameDeveloperProductsGridInputData,
-	encode: (self: GameDeveloperProductsGridInputData) -> buffer,
-	decode: (input: buffer) -> GameDeveloperProductsGridInputData,
-	jsonEncode: (self: GameDeveloperProductsGridInputData) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> GameDeveloperProductsGridInputData,
+type _DeveloperProductCollectionInputDataImpl = {
+	__index: _DeveloperProductCollectionInputDataImpl,
+	new: (fields: _DeveloperProductCollectionInputDataPartialFields?) -> DeveloperProductCollectionInputData,
+	encode: (self: DeveloperProductCollectionInputData) -> buffer,
+	decode: (input: buffer) -> DeveloperProductCollectionInputData,
+	jsonEncode: (self: DeveloperProductCollectionInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> DeveloperProductCollectionInputData,
 	descriptor: proto.Descriptor,
 }
 
-type _GameDeveloperProductsGridInputDataFields = {
-	developer_products: { GameDeveloperProductsGridInputData_DeveloperProductItem },
+type _DeveloperProductCollectionInputDataFields = {
+	developer_products: { DeveloperProductCollectionInputData_DeveloperProductItem },
 }
 
-type _GameDeveloperProductsGridInputDataPartialFields = {
-	developer_products: { GameDeveloperProductsGridInputData_DeveloperProductItem }?,
+type _DeveloperProductCollectionInputDataPartialFields = {
+	developer_products: { DeveloperProductCollectionInputData_DeveloperProductItem }?,
 }
 
-export type GameDeveloperProductsGridInputData = typeof(setmetatable(
-	{} :: _GameDeveloperProductsGridInputDataFields,
-	{} :: _GameDeveloperProductsGridInputDataImpl
+export type DeveloperProductCollectionInputData = typeof(setmetatable(
+	{} :: _DeveloperProductCollectionInputDataFields,
+	{} :: _DeveloperProductCollectionInputDataImpl
 ))
-type _GameDeveloperProductsGridInputDataMessage = proto.Message<
-	GameDeveloperProductsGridInputData,
-	_GameDeveloperProductsGridInputDataPartialFields
+type _DeveloperProductCollectionInputDataMessage = proto.Message<
+	DeveloperProductCollectionInputData,
+	_DeveloperProductCollectionInputDataPartialFields
 >
 
-type _GameDeveloperProductsGridInputData_DeveloperProductItemImpl = {
-	__index: _GameDeveloperProductsGridInputData_DeveloperProductItemImpl,
+type _DeveloperProductCollectionInputData_DeveloperProductItemImpl = {
+	__index: _DeveloperProductCollectionInputData_DeveloperProductItemImpl,
 	new: (
-		fields: _GameDeveloperProductsGridInputData_DeveloperProductItemPartialFields?
-	) -> GameDeveloperProductsGridInputData_DeveloperProductItem,
-	encode: (self: GameDeveloperProductsGridInputData_DeveloperProductItem) -> buffer,
-	decode: (input: buffer) -> GameDeveloperProductsGridInputData_DeveloperProductItem,
-	jsonEncode: (self: GameDeveloperProductsGridInputData_DeveloperProductItem) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> GameDeveloperProductsGridInputData_DeveloperProductItem,
+		fields: _DeveloperProductCollectionInputData_DeveloperProductItemPartialFields?
+	) -> DeveloperProductCollectionInputData_DeveloperProductItem,
+	encode: (self: DeveloperProductCollectionInputData_DeveloperProductItem) -> buffer,
+	decode: (input: buffer) -> DeveloperProductCollectionInputData_DeveloperProductItem,
+	jsonEncode: (self: DeveloperProductCollectionInputData_DeveloperProductItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> DeveloperProductCollectionInputData_DeveloperProductItem,
 	descriptor: proto.Descriptor,
 }
 
-type _GameDeveloperProductsGridInputData_DeveloperProductItemFields = {
+type _DeveloperProductCollectionInputData_DeveloperProductItemFields = {
 	developer_product_id: string,
 }
 
-type _GameDeveloperProductsGridInputData_DeveloperProductItemPartialFields = {
+type _DeveloperProductCollectionInputData_DeveloperProductItemPartialFields = {
 	developer_product_id: string?,
 }
 
-export type GameDeveloperProductsGridInputData_DeveloperProductItem = typeof(setmetatable(
-	{} :: _GameDeveloperProductsGridInputData_DeveloperProductItemFields,
-	{} :: _GameDeveloperProductsGridInputData_DeveloperProductItemImpl
+export type DeveloperProductCollectionInputData_DeveloperProductItem = typeof(setmetatable(
+	{} :: _DeveloperProductCollectionInputData_DeveloperProductItemFields,
+	{} :: _DeveloperProductCollectionInputData_DeveloperProductItemImpl
 ))
-type _GameDeveloperProductsGridInputData_DeveloperProductItemMessage = proto.Message<
-	GameDeveloperProductsGridInputData_DeveloperProductItem,
-	_GameDeveloperProductsGridInputData_DeveloperProductItemPartialFields
+type _DeveloperProductCollectionInputData_DeveloperProductItemMessage = proto.Message<
+	DeveloperProductCollectionInputData_DeveloperProductItem,
+	_DeveloperProductCollectionInputData_DeveloperProductItemPartialFields
 >
 
-type _GameSubscriptionsGridInputDataImpl = {
-	__index: _GameSubscriptionsGridInputDataImpl,
-	new: (fields: _GameSubscriptionsGridInputDataPartialFields?) -> GameSubscriptionsGridInputData,
-	encode: (self: GameSubscriptionsGridInputData) -> buffer,
-	decode: (input: buffer) -> GameSubscriptionsGridInputData,
-	jsonEncode: (self: GameSubscriptionsGridInputData) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> GameSubscriptionsGridInputData,
+type _SubscriptionCollectionInputDataImpl = {
+	__index: _SubscriptionCollectionInputDataImpl,
+	new: (fields: _SubscriptionCollectionInputDataPartialFields?) -> SubscriptionCollectionInputData,
+	encode: (self: SubscriptionCollectionInputData) -> buffer,
+	decode: (input: buffer) -> SubscriptionCollectionInputData,
+	jsonEncode: (self: SubscriptionCollectionInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SubscriptionCollectionInputData,
 	descriptor: proto.Descriptor,
 }
 
-type _GameSubscriptionsGridInputDataFields = {
-	subscriptions: { GameSubscriptionsGridInputData_SubscriptionItem },
+type _SubscriptionCollectionInputDataFields = {
+	subscriptions: { SubscriptionCollectionInputData_SubscriptionItem },
 }
 
-type _GameSubscriptionsGridInputDataPartialFields = {
-	subscriptions: { GameSubscriptionsGridInputData_SubscriptionItem }?,
+type _SubscriptionCollectionInputDataPartialFields = {
+	subscriptions: { SubscriptionCollectionInputData_SubscriptionItem }?,
 }
 
-export type GameSubscriptionsGridInputData = typeof(setmetatable(
-	{} :: _GameSubscriptionsGridInputDataFields,
-	{} :: _GameSubscriptionsGridInputDataImpl
+export type SubscriptionCollectionInputData = typeof(setmetatable(
+	{} :: _SubscriptionCollectionInputDataFields,
+	{} :: _SubscriptionCollectionInputDataImpl
 ))
-type _GameSubscriptionsGridInputDataMessage = proto.Message<
-	GameSubscriptionsGridInputData,
-	_GameSubscriptionsGridInputDataPartialFields
+type _SubscriptionCollectionInputDataMessage = proto.Message<
+	SubscriptionCollectionInputData,
+	_SubscriptionCollectionInputDataPartialFields
 >
 
-type _GameSubscriptionsGridInputData_SubscriptionItemImpl = {
-	__index: _GameSubscriptionsGridInputData_SubscriptionItemImpl,
+type _SubscriptionCollectionInputData_SubscriptionItemImpl = {
+	__index: _SubscriptionCollectionInputData_SubscriptionItemImpl,
 	new: (
-		fields: _GameSubscriptionsGridInputData_SubscriptionItemPartialFields?
-	) -> GameSubscriptionsGridInputData_SubscriptionItem,
-	encode: (self: GameSubscriptionsGridInputData_SubscriptionItem) -> buffer,
-	decode: (input: buffer) -> GameSubscriptionsGridInputData_SubscriptionItem,
-	jsonEncode: (self: GameSubscriptionsGridInputData_SubscriptionItem) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> GameSubscriptionsGridInputData_SubscriptionItem,
+		fields: _SubscriptionCollectionInputData_SubscriptionItemPartialFields?
+	) -> SubscriptionCollectionInputData_SubscriptionItem,
+	encode: (self: SubscriptionCollectionInputData_SubscriptionItem) -> buffer,
+	decode: (input: buffer) -> SubscriptionCollectionInputData_SubscriptionItem,
+	jsonEncode: (self: SubscriptionCollectionInputData_SubscriptionItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SubscriptionCollectionInputData_SubscriptionItem,
 	descriptor: proto.Descriptor,
 }
 
-type _GameSubscriptionsGridInputData_SubscriptionItemFields = {
+type _SubscriptionCollectionInputData_SubscriptionItemFields = {
 	subscription_id: string,
 }
 
-type _GameSubscriptionsGridInputData_SubscriptionItemPartialFields = {
+type _SubscriptionCollectionInputData_SubscriptionItemPartialFields = {
 	subscription_id: string?,
 }
 
-export type GameSubscriptionsGridInputData_SubscriptionItem = typeof(setmetatable(
-	{} :: _GameSubscriptionsGridInputData_SubscriptionItemFields,
-	{} :: _GameSubscriptionsGridInputData_SubscriptionItemImpl
+export type SubscriptionCollectionInputData_SubscriptionItem = typeof(setmetatable(
+	{} :: _SubscriptionCollectionInputData_SubscriptionItemFields,
+	{} :: _SubscriptionCollectionInputData_SubscriptionItemImpl
 ))
-type _GameSubscriptionsGridInputData_SubscriptionItemMessage = proto.Message<
-	GameSubscriptionsGridInputData_SubscriptionItem,
-	_GameSubscriptionsGridInputData_SubscriptionItemPartialFields
+type _SubscriptionCollectionInputData_SubscriptionItemMessage = proto.Message<
+	SubscriptionCollectionInputData_SubscriptionItem,
+	_SubscriptionCollectionInputData_SubscriptionItemPartialFields
 >
 
 type _CardContainerCardInputDataImpl = {
@@ -1567,12 +1572,14 @@ type _EventDetailsFeedInputDataImpl = {
 
 type _EventDetailsFeedInputDataFields = {
 	event_id: string,
+	universe_id: string,
 	entry_map: { [string]: FeedEntry },
 	entry_order: { string },
 }
 
 type _EventDetailsFeedInputDataPartialFields = {
 	event_id: string?,
+	universe_id: string?,
 	entry_map: { [string]: FeedEntry }?,
 	entry_order: { string }?,
 }
@@ -1739,6 +1746,7 @@ type _ChartsFeedInputDataFields = {
 	entry_order: { string },
 	next_page_token: string,
 	sticky_filter_pills: FilterPillsInputData?,
+	applied_filters: string,
 }
 
 type _ChartsFeedInputDataPartialFields = {
@@ -1746,6 +1754,7 @@ type _ChartsFeedInputDataPartialFields = {
 	entry_order: { string }?,
 	next_page_token: string?,
 	sticky_filter_pills: FilterPillsInputData?,
+	applied_filters: string?,
 }
 
 export type ChartsFeedInputData = typeof(setmetatable({} :: _ChartsFeedInputDataFields, {} :: _ChartsFeedInputDataImpl))
@@ -2638,15 +2647,15 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "game_passes_grid" then
+			elseif self.kind.type == "game_pass_collection" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "developer_products_grid" then
+			elseif self.kind.type == "developer_product_collection" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "subscriptions_grid" then
+			elseif self.kind.type == "subscription_collection" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -2867,21 +2876,24 @@ do
 				elseif field == 14 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "game_passes_grid", value = messages.GamePassesGridInputData.decode(value) }
+					self.kind =
+						{ type = "game_pass_collection", value = messages.GamePassCollectionInputData.decode(value) }
 					continue
 				elseif field == 15 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = {
-						type = "developer_products_grid",
-						value = messages.GameDeveloperProductsGridInputData.decode(value),
+						type = "developer_product_collection",
+						value = messages.DeveloperProductCollectionInputData.decode(value),
 					}
 					continue
 				elseif field == 16 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.kind =
-						{ type = "subscriptions_grid", value = messages.GameSubscriptionsGridInputData.decode(value) }
+					self.kind = {
+						type = "subscription_collection",
+						value = messages.SubscriptionCollectionInputData.decode(value),
+					}
 					continue
 				elseif field == 20 then
 					local value
@@ -3113,12 +3125,12 @@ do
 				output.songCarousel = self.kind.value:jsonEncode()
 			elseif self.kind.type == "events_carousel" then
 				output.eventsCarousel = self.kind.value:jsonEncode()
-			elseif self.kind.type == "game_passes_grid" then
-				output.gamePassesGrid = self.kind.value:jsonEncode()
-			elseif self.kind.type == "developer_products_grid" then
-				output.developerProductsGrid = self.kind.value:jsonEncode()
-			elseif self.kind.type == "subscriptions_grid" then
-				output.subscriptionsGrid = self.kind.value:jsonEncode()
+			elseif self.kind.type == "game_pass_collection" then
+				output.gamePassCollection = self.kind.value:jsonEncode()
+			elseif self.kind.type == "developer_product_collection" then
+				output.developerProductCollection = self.kind.value:jsonEncode()
+			elseif self.kind.type == "subscription_collection" then
+				output.subscriptionCollection = self.kind.value:jsonEncode()
 			elseif self.kind.type == "card_container" then
 				output.cardContainer = self.kind.value:jsonEncode()
 			elseif self.kind.type == "card" then
@@ -3338,43 +3350,45 @@ do
 				{ type = "events_carousel", value = messages.EventsCarouselInputData.jsonDecode(input.eventsCarousel) }
 		end
 
-		if input.game_passes_grid ~= nil then
+		if input.game_pass_collection ~= nil then
 			self.kind = {
-				type = "game_passes_grid",
-				value = messages.GamePassesGridInputData.jsonDecode(input.game_passes_grid),
+				type = "game_pass_collection",
+				value = messages.GamePassCollectionInputData.jsonDecode(input.game_pass_collection),
 			}
 		end
 
-		if input.gamePassesGrid ~= nil then
-			self.kind =
-				{ type = "game_passes_grid", value = messages.GamePassesGridInputData.jsonDecode(input.gamePassesGrid) }
-		end
-
-		if input.developer_products_grid ~= nil then
+		if input.gamePassCollection ~= nil then
 			self.kind = {
-				type = "developer_products_grid",
-				value = messages.GameDeveloperProductsGridInputData.jsonDecode(input.developer_products_grid),
+				type = "game_pass_collection",
+				value = messages.GamePassCollectionInputData.jsonDecode(input.gamePassCollection),
 			}
 		end
 
-		if input.developerProductsGrid ~= nil then
+		if input.developer_product_collection ~= nil then
 			self.kind = {
-				type = "developer_products_grid",
-				value = messages.GameDeveloperProductsGridInputData.jsonDecode(input.developerProductsGrid),
+				type = "developer_product_collection",
+				value = messages.DeveloperProductCollectionInputData.jsonDecode(input.developer_product_collection),
 			}
 		end
 
-		if input.subscriptions_grid ~= nil then
+		if input.developerProductCollection ~= nil then
 			self.kind = {
-				type = "subscriptions_grid",
-				value = messages.GameSubscriptionsGridInputData.jsonDecode(input.subscriptions_grid),
+				type = "developer_product_collection",
+				value = messages.DeveloperProductCollectionInputData.jsonDecode(input.developerProductCollection),
 			}
 		end
 
-		if input.subscriptionsGrid ~= nil then
+		if input.subscription_collection ~= nil then
 			self.kind = {
-				type = "subscriptions_grid",
-				value = messages.GameSubscriptionsGridInputData.jsonDecode(input.subscriptionsGrid),
+				type = "subscription_collection",
+				value = messages.SubscriptionCollectionInputData.jsonDecode(input.subscription_collection),
+			}
+		end
+
+		if input.subscriptionCollection ~= nil then
+			self.kind = {
+				type = "subscription_collection",
+				value = messages.SubscriptionCollectionInputData.jsonDecode(input.subscriptionCollection),
 			}
 		end
 
@@ -7217,6 +7231,7 @@ do
 			is_sponsored = if data == nil or data.is_sponsored == nil then false else data.is_sponsored,
 			roblox_component = if data == nil or data.roblox_component == nil then "" else data.roblox_component,
 			native_ad_data = if data == nil or data.native_ad_data == nil then "" else data.native_ad_data,
+			is_content_locked = if data == nil or data.is_content_locked == nil then false else data.is_content_locked,
 		}, _ExperienceCarouselInputData_UniverseItemImpl :: _ExperienceCarouselInputData_UniverseItemImpl)
 	end
 
@@ -7246,6 +7261,11 @@ do
 			output, cursor = proto.writeString(output, cursor, self.native_ad_data)
 		end
 
+		if self.is_content_locked then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_content_locked then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -7266,6 +7286,11 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.is_sponsored = value ~= 0
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_content_locked = value ~= 0
 					continue
 				end
 
@@ -7332,6 +7357,10 @@ do
 			output.nativeAdData = self.native_ad_data
 		end
 
+		if self.is_content_locked then
+			output.isContentLocked = self.is_content_locked
+		end
+
 		return output
 	end
 
@@ -7370,6 +7399,14 @@ do
 
 		if input.nativeAdData ~= nil then
 			self.native_ad_data = input.nativeAdData
+		end
+
+		if input.is_content_locked ~= nil then
+			self.is_content_locked = input.is_content_locked
+		end
+
+		if input.isContentLocked ~= nil then
+			self.is_content_locked = input.isContentLocked
 		end
 
 		return self
@@ -8277,16 +8314,18 @@ do
 end
 
 do
-	local _GamePassesGridInputDataImpl = {}
-	_GamePassesGridInputDataImpl.__index = _GamePassesGridInputDataImpl
+	local _GamePassCollectionInputDataImpl = {}
+	_GamePassCollectionInputDataImpl.__index = _GamePassCollectionInputDataImpl
 
-	function _GamePassesGridInputDataImpl.new(data: _GamePassesGridInputDataPartialFields?): GamePassesGridInputData
+	function _GamePassCollectionInputDataImpl.new(
+		data: _GamePassCollectionInputDataPartialFields?
+	): GamePassCollectionInputData
 		return setmetatable({
 			game_passes = if data == nil or data.game_passes == nil then {} else data.game_passes,
-		}, _GamePassesGridInputDataImpl :: _GamePassesGridInputDataImpl)
+		}, _GamePassCollectionInputDataImpl :: _GamePassCollectionInputDataImpl)
 	end
 
-	function _GamePassesGridInputDataImpl.encode(self: GamePassesGridInputData): buffer
+	function _GamePassCollectionInputDataImpl.encode(self: GamePassCollectionInputData): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -8303,8 +8342,8 @@ do
 		return shrunkBuffer
 	end
 
-	function _GamePassesGridInputDataImpl.decode(input: buffer): GamePassesGridInputData
-		local self = _GamePassesGridInputDataImpl.new()
+	function _GamePassCollectionInputDataImpl.decode(input: buffer): GamePassCollectionInputData
+		local self = _GamePassCollectionInputDataImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -8320,7 +8359,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.game_passes, messages.GamePassesGridInputData_GamePassItem.decode(value))
+					table.insert(self.game_passes, messages.GamePassCollectionInputData_GamePassItem.decode(value))
 					continue
 				end
 
@@ -8346,7 +8385,7 @@ do
 		return self
 	end
 
-	function _GamePassesGridInputDataImpl.jsonEncode(self: GamePassesGridInputData): any
+	function _GamePassCollectionInputDataImpl.jsonEncode(self: GamePassCollectionInputData): any
 		local output = {}
 
 		if self.game_passes ~= nil and #self.game_passes > 0 then
@@ -8360,22 +8399,22 @@ do
 		return output
 	end
 
-	function _GamePassesGridInputDataImpl.jsonDecode(input: { [string]: any }): GamePassesGridInputData
-		local self = _GamePassesGridInputDataImpl.new()
+	function _GamePassCollectionInputDataImpl.jsonDecode(input: { [string]: any }): GamePassCollectionInputData
+		local self = _GamePassCollectionInputDataImpl.new()
 
 		if input.game_passes ~= nil then
-			local newOutput: { GamePassesGridInputData_GamePassItem } = {}
+			local newOutput: { GamePassCollectionInputData_GamePassItem } = {}
 			for _, value in input.game_passes do
-				table.insert(newOutput, messages.GamePassesGridInputData_GamePassItem.jsonDecode(value))
+				table.insert(newOutput, messages.GamePassCollectionInputData_GamePassItem.jsonDecode(value))
 			end
 
 			self.game_passes = newOutput
 		end
 
 		if input.gamePasses ~= nil then
-			local newOutput: { GamePassesGridInputData_GamePassItem } = {}
+			local newOutput: { GamePassCollectionInputData_GamePassItem } = {}
 			for _, value in input.gamePasses do
-				table.insert(newOutput, messages.GamePassesGridInputData_GamePassItem.jsonDecode(value))
+				table.insert(newOutput, messages.GamePassCollectionInputData_GamePassItem.jsonDecode(value))
 			end
 
 			self.game_passes = newOutput
@@ -8384,29 +8423,31 @@ do
 		return self
 	end
 
-	_GamePassesGridInputDataImpl.descriptor = {
-		name = "GamePassesGridInputData",
-		fullName = "roblox.apppageplatform.shared.v1beta1.GamePassesGridInputData",
+	_GamePassCollectionInputDataImpl.descriptor = {
+		name = "GamePassCollectionInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GamePassCollectionInputData",
 	}
 
-	messages.GamePassesGridInputData = _GamePassesGridInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.GamePassCollectionInputData = _GamePassCollectionInputDataImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.GamePassesGridInputData)
+	typeRegistry.default:register(messages.GamePassCollectionInputData)
 end
 
 do
-	local _GamePassesGridInputData_GamePassItemImpl = {}
-	_GamePassesGridInputData_GamePassItemImpl.__index = _GamePassesGridInputData_GamePassItemImpl
+	local _GamePassCollectionInputData_GamePassItemImpl = {}
+	_GamePassCollectionInputData_GamePassItemImpl.__index = _GamePassCollectionInputData_GamePassItemImpl
 
-	function _GamePassesGridInputData_GamePassItemImpl.new(
-		data: _GamePassesGridInputData_GamePassItemPartialFields?
-	): GamePassesGridInputData_GamePassItem
+	function _GamePassCollectionInputData_GamePassItemImpl.new(
+		data: _GamePassCollectionInputData_GamePassItemPartialFields?
+	): GamePassCollectionInputData_GamePassItem
 		return setmetatable({
 			game_pass_id = if data == nil or data.game_pass_id == nil then "" else data.game_pass_id,
-		}, _GamePassesGridInputData_GamePassItemImpl :: _GamePassesGridInputData_GamePassItemImpl)
+		}, _GamePassCollectionInputData_GamePassItemImpl :: _GamePassCollectionInputData_GamePassItemImpl)
 	end
 
-	function _GamePassesGridInputData_GamePassItemImpl.encode(self: GamePassesGridInputData_GamePassItem): buffer
+	function _GamePassCollectionInputData_GamePassItemImpl.encode(
+		self: GamePassCollectionInputData_GamePassItem
+	): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -8420,8 +8461,10 @@ do
 		return shrunkBuffer
 	end
 
-	function _GamePassesGridInputData_GamePassItemImpl.decode(input: buffer): GamePassesGridInputData_GamePassItem
-		local self = _GamePassesGridInputData_GamePassItemImpl.new()
+	function _GamePassCollectionInputData_GamePassItemImpl.decode(
+		input: buffer
+	): GamePassCollectionInputData_GamePassItem
+		local self = _GamePassCollectionInputData_GamePassItemImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -8463,7 +8506,9 @@ do
 		return self
 	end
 
-	function _GamePassesGridInputData_GamePassItemImpl.jsonEncode(self: GamePassesGridInputData_GamePassItem): any
+	function _GamePassCollectionInputData_GamePassItemImpl.jsonEncode(
+		self: GamePassCollectionInputData_GamePassItem
+	): any
 		local output = {}
 
 		if self.game_pass_id ~= nil and self.game_pass_id ~= "" then
@@ -8473,10 +8518,10 @@ do
 		return output
 	end
 
-	function _GamePassesGridInputData_GamePassItemImpl.jsonDecode(
+	function _GamePassCollectionInputData_GamePassItemImpl.jsonDecode(
 		input: { [string]: any }
-	): GamePassesGridInputData_GamePassItem
-		local self = _GamePassesGridInputData_GamePassItemImpl.new()
+	): GamePassCollectionInputData_GamePassItem
+		local self = _GamePassCollectionInputData_GamePassItemImpl.new()
 
 		if input.game_pass_id ~= nil then
 			self.game_pass_id = input.game_pass_id
@@ -8489,29 +8534,29 @@ do
 		return self
 	end
 
-	_GamePassesGridInputData_GamePassItemImpl.descriptor = {
-		name = "GamePassesGridInputData_GamePassItem",
+	_GamePassCollectionInputData_GamePassItemImpl.descriptor = {
+		name = "GamePassCollectionInputData_GamePassItem",
 		fullName = "roblox.apppageplatform.shared.v1beta1.GamePassItem",
 	}
 
-	messages.GamePassesGridInputData_GamePassItem = _GamePassesGridInputData_GamePassItemImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.GamePassCollectionInputData_GamePassItem = _GamePassCollectionInputData_GamePassItemImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.GamePassesGridInputData_GamePassItem)
+	typeRegistry.default:register(messages.GamePassCollectionInputData_GamePassItem)
 end
 
 do
-	local _GameDeveloperProductsGridInputDataImpl = {}
-	_GameDeveloperProductsGridInputDataImpl.__index = _GameDeveloperProductsGridInputDataImpl
+	local _DeveloperProductCollectionInputDataImpl = {}
+	_DeveloperProductCollectionInputDataImpl.__index = _DeveloperProductCollectionInputDataImpl
 
-	function _GameDeveloperProductsGridInputDataImpl.new(
-		data: _GameDeveloperProductsGridInputDataPartialFields?
-	): GameDeveloperProductsGridInputData
+	function _DeveloperProductCollectionInputDataImpl.new(
+		data: _DeveloperProductCollectionInputDataPartialFields?
+	): DeveloperProductCollectionInputData
 		return setmetatable({
 			developer_products = if data == nil or data.developer_products == nil then {} else data.developer_products,
-		}, _GameDeveloperProductsGridInputDataImpl :: _GameDeveloperProductsGridInputDataImpl)
+		}, _DeveloperProductCollectionInputDataImpl :: _DeveloperProductCollectionInputDataImpl)
 	end
 
-	function _GameDeveloperProductsGridInputDataImpl.encode(self: GameDeveloperProductsGridInputData): buffer
+	function _DeveloperProductCollectionInputDataImpl.encode(self: DeveloperProductCollectionInputData): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -8528,8 +8573,8 @@ do
 		return shrunkBuffer
 	end
 
-	function _GameDeveloperProductsGridInputDataImpl.decode(input: buffer): GameDeveloperProductsGridInputData
-		local self = _GameDeveloperProductsGridInputDataImpl.new()
+	function _DeveloperProductCollectionInputDataImpl.decode(input: buffer): DeveloperProductCollectionInputData
+		local self = _DeveloperProductCollectionInputDataImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -8547,7 +8592,7 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(
 						self.developer_products,
-						messages.GameDeveloperProductsGridInputData_DeveloperProductItem.decode(value)
+						messages.DeveloperProductCollectionInputData_DeveloperProductItem.decode(value)
 					)
 					continue
 				end
@@ -8574,7 +8619,7 @@ do
 		return self
 	end
 
-	function _GameDeveloperProductsGridInputDataImpl.jsonEncode(self: GameDeveloperProductsGridInputData): any
+	function _DeveloperProductCollectionInputDataImpl.jsonEncode(self: DeveloperProductCollectionInputData): any
 		local output = {}
 
 		if self.developer_products ~= nil and #self.developer_products > 0 then
@@ -8588,17 +8633,17 @@ do
 		return output
 	end
 
-	function _GameDeveloperProductsGridInputDataImpl.jsonDecode(
+	function _DeveloperProductCollectionInputDataImpl.jsonDecode(
 		input: { [string]: any }
-	): GameDeveloperProductsGridInputData
-		local self = _GameDeveloperProductsGridInputDataImpl.new()
+	): DeveloperProductCollectionInputData
+		local self = _DeveloperProductCollectionInputDataImpl.new()
 
 		if input.developer_products ~= nil then
-			local newOutput: { GameDeveloperProductsGridInputData_DeveloperProductItem } = {}
+			local newOutput: { DeveloperProductCollectionInputData_DeveloperProductItem } = {}
 			for _, value in input.developer_products do
 				table.insert(
 					newOutput,
-					messages.GameDeveloperProductsGridInputData_DeveloperProductItem.jsonDecode(value)
+					messages.DeveloperProductCollectionInputData_DeveloperProductItem.jsonDecode(value)
 				)
 			end
 
@@ -8606,11 +8651,11 @@ do
 		end
 
 		if input.developerProducts ~= nil then
-			local newOutput: { GameDeveloperProductsGridInputData_DeveloperProductItem } = {}
+			local newOutput: { DeveloperProductCollectionInputData_DeveloperProductItem } = {}
 			for _, value in input.developerProducts do
 				table.insert(
 					newOutput,
-					messages.GameDeveloperProductsGridInputData_DeveloperProductItem.jsonDecode(value)
+					messages.DeveloperProductCollectionInputData_DeveloperProductItem.jsonDecode(value)
 				)
 			end
 
@@ -8620,36 +8665,36 @@ do
 		return self
 	end
 
-	_GameDeveloperProductsGridInputDataImpl.descriptor = {
-		name = "GameDeveloperProductsGridInputData",
-		fullName = "roblox.apppageplatform.shared.v1beta1.GameDeveloperProductsGridInputData",
+	_DeveloperProductCollectionInputDataImpl.descriptor = {
+		name = "DeveloperProductCollectionInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.DeveloperProductCollectionInputData",
 	}
 
-	messages.GameDeveloperProductsGridInputData = _GameDeveloperProductsGridInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.DeveloperProductCollectionInputData = _DeveloperProductCollectionInputDataImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.GameDeveloperProductsGridInputData)
+	typeRegistry.default:register(messages.DeveloperProductCollectionInputData)
 end
 
 do
-	local _GameDeveloperProductsGridInputData_DeveloperProductItemImpl = {}
-	_GameDeveloperProductsGridInputData_DeveloperProductItemImpl.__index =
-		_GameDeveloperProductsGridInputData_DeveloperProductItemImpl
+	local _DeveloperProductCollectionInputData_DeveloperProductItemImpl = {}
+	_DeveloperProductCollectionInputData_DeveloperProductItemImpl.__index =
+		_DeveloperProductCollectionInputData_DeveloperProductItemImpl
 
-	function _GameDeveloperProductsGridInputData_DeveloperProductItemImpl.new(
-		data: _GameDeveloperProductsGridInputData_DeveloperProductItemPartialFields?
-	): GameDeveloperProductsGridInputData_DeveloperProductItem
+	function _DeveloperProductCollectionInputData_DeveloperProductItemImpl.new(
+		data: _DeveloperProductCollectionInputData_DeveloperProductItemPartialFields?
+	): DeveloperProductCollectionInputData_DeveloperProductItem
 		return setmetatable(
 			{
 				developer_product_id = if data == nil or data.developer_product_id == nil
 					then ""
 					else data.developer_product_id,
 			},
-			_GameDeveloperProductsGridInputData_DeveloperProductItemImpl :: _GameDeveloperProductsGridInputData_DeveloperProductItemImpl
+			_DeveloperProductCollectionInputData_DeveloperProductItemImpl :: _DeveloperProductCollectionInputData_DeveloperProductItemImpl
 		)
 	end
 
-	function _GameDeveloperProductsGridInputData_DeveloperProductItemImpl.encode(
-		self: GameDeveloperProductsGridInputData_DeveloperProductItem
+	function _DeveloperProductCollectionInputData_DeveloperProductItemImpl.encode(
+		self: DeveloperProductCollectionInputData_DeveloperProductItem
 	): buffer
 		local output = buffer.create(0)
 		local cursor = 0
@@ -8664,10 +8709,10 @@ do
 		return shrunkBuffer
 	end
 
-	function _GameDeveloperProductsGridInputData_DeveloperProductItemImpl.decode(
+	function _DeveloperProductCollectionInputData_DeveloperProductItemImpl.decode(
 		input: buffer
-	): GameDeveloperProductsGridInputData_DeveloperProductItem
-		local self = _GameDeveloperProductsGridInputData_DeveloperProductItemImpl.new()
+	): DeveloperProductCollectionInputData_DeveloperProductItem
+		local self = _DeveloperProductCollectionInputData_DeveloperProductItemImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -8709,8 +8754,8 @@ do
 		return self
 	end
 
-	function _GameDeveloperProductsGridInputData_DeveloperProductItemImpl.jsonEncode(
-		self: GameDeveloperProductsGridInputData_DeveloperProductItem
+	function _DeveloperProductCollectionInputData_DeveloperProductItemImpl.jsonEncode(
+		self: DeveloperProductCollectionInputData_DeveloperProductItem
 	): any
 		local output = {}
 
@@ -8721,10 +8766,10 @@ do
 		return output
 	end
 
-	function _GameDeveloperProductsGridInputData_DeveloperProductItemImpl.jsonDecode(
+	function _DeveloperProductCollectionInputData_DeveloperProductItemImpl.jsonDecode(
 		input: { [string]: any }
-	): GameDeveloperProductsGridInputData_DeveloperProductItem
-		local self = _GameDeveloperProductsGridInputData_DeveloperProductItemImpl.new()
+	): DeveloperProductCollectionInputData_DeveloperProductItem
+		local self = _DeveloperProductCollectionInputData_DeveloperProductItemImpl.new()
 
 		if input.developer_product_id ~= nil then
 			self.developer_product_id = input.developer_product_id
@@ -8737,30 +8782,30 @@ do
 		return self
 	end
 
-	_GameDeveloperProductsGridInputData_DeveloperProductItemImpl.descriptor = {
-		name = "GameDeveloperProductsGridInputData_DeveloperProductItem",
+	_DeveloperProductCollectionInputData_DeveloperProductItemImpl.descriptor = {
+		name = "DeveloperProductCollectionInputData_DeveloperProductItem",
 		fullName = "roblox.apppageplatform.shared.v1beta1.DeveloperProductItem",
 	}
 
-	messages.GameDeveloperProductsGridInputData_DeveloperProductItem =
-		_GameDeveloperProductsGridInputData_DeveloperProductItemImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.DeveloperProductCollectionInputData_DeveloperProductItem =
+		_DeveloperProductCollectionInputData_DeveloperProductItemImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.GameDeveloperProductsGridInputData_DeveloperProductItem)
+	typeRegistry.default:register(messages.DeveloperProductCollectionInputData_DeveloperProductItem)
 end
 
 do
-	local _GameSubscriptionsGridInputDataImpl = {}
-	_GameSubscriptionsGridInputDataImpl.__index = _GameSubscriptionsGridInputDataImpl
+	local _SubscriptionCollectionInputDataImpl = {}
+	_SubscriptionCollectionInputDataImpl.__index = _SubscriptionCollectionInputDataImpl
 
-	function _GameSubscriptionsGridInputDataImpl.new(
-		data: _GameSubscriptionsGridInputDataPartialFields?
-	): GameSubscriptionsGridInputData
+	function _SubscriptionCollectionInputDataImpl.new(
+		data: _SubscriptionCollectionInputDataPartialFields?
+	): SubscriptionCollectionInputData
 		return setmetatable({
 			subscriptions = if data == nil or data.subscriptions == nil then {} else data.subscriptions,
-		}, _GameSubscriptionsGridInputDataImpl :: _GameSubscriptionsGridInputDataImpl)
+		}, _SubscriptionCollectionInputDataImpl :: _SubscriptionCollectionInputDataImpl)
 	end
 
-	function _GameSubscriptionsGridInputDataImpl.encode(self: GameSubscriptionsGridInputData): buffer
+	function _SubscriptionCollectionInputDataImpl.encode(self: SubscriptionCollectionInputData): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -8777,8 +8822,8 @@ do
 		return shrunkBuffer
 	end
 
-	function _GameSubscriptionsGridInputDataImpl.decode(input: buffer): GameSubscriptionsGridInputData
-		local self = _GameSubscriptionsGridInputDataImpl.new()
+	function _SubscriptionCollectionInputDataImpl.decode(input: buffer): SubscriptionCollectionInputData
+		local self = _SubscriptionCollectionInputDataImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -8796,7 +8841,7 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(
 						self.subscriptions,
-						messages.GameSubscriptionsGridInputData_SubscriptionItem.decode(value)
+						messages.SubscriptionCollectionInputData_SubscriptionItem.decode(value)
 					)
 					continue
 				end
@@ -8823,7 +8868,7 @@ do
 		return self
 	end
 
-	function _GameSubscriptionsGridInputDataImpl.jsonEncode(self: GameSubscriptionsGridInputData): any
+	function _SubscriptionCollectionInputDataImpl.jsonEncode(self: SubscriptionCollectionInputData): any
 		local output = {}
 
 		if self.subscriptions ~= nil and #self.subscriptions > 0 then
@@ -8837,13 +8882,13 @@ do
 		return output
 	end
 
-	function _GameSubscriptionsGridInputDataImpl.jsonDecode(input: { [string]: any }): GameSubscriptionsGridInputData
-		local self = _GameSubscriptionsGridInputDataImpl.new()
+	function _SubscriptionCollectionInputDataImpl.jsonDecode(input: { [string]: any }): SubscriptionCollectionInputData
+		local self = _SubscriptionCollectionInputDataImpl.new()
 
 		if input.subscriptions ~= nil then
-			local newOutput: { GameSubscriptionsGridInputData_SubscriptionItem } = {}
+			local newOutput: { SubscriptionCollectionInputData_SubscriptionItem } = {}
 			for _, value in input.subscriptions do
-				table.insert(newOutput, messages.GameSubscriptionsGridInputData_SubscriptionItem.jsonDecode(value))
+				table.insert(newOutput, messages.SubscriptionCollectionInputData_SubscriptionItem.jsonDecode(value))
 			end
 
 			self.subscriptions = newOutput
@@ -8852,30 +8897,34 @@ do
 		return self
 	end
 
-	_GameSubscriptionsGridInputDataImpl.descriptor = {
-		name = "GameSubscriptionsGridInputData",
-		fullName = "roblox.apppageplatform.shared.v1beta1.GameSubscriptionsGridInputData",
+	_SubscriptionCollectionInputDataImpl.descriptor = {
+		name = "SubscriptionCollectionInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SubscriptionCollectionInputData",
 	}
 
-	messages.GameSubscriptionsGridInputData = _GameSubscriptionsGridInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.SubscriptionCollectionInputData = _SubscriptionCollectionInputDataImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.GameSubscriptionsGridInputData)
+	typeRegistry.default:register(messages.SubscriptionCollectionInputData)
 end
 
 do
-	local _GameSubscriptionsGridInputData_SubscriptionItemImpl = {}
-	_GameSubscriptionsGridInputData_SubscriptionItemImpl.__index = _GameSubscriptionsGridInputData_SubscriptionItemImpl
+	local _SubscriptionCollectionInputData_SubscriptionItemImpl = {}
+	_SubscriptionCollectionInputData_SubscriptionItemImpl.__index =
+		_SubscriptionCollectionInputData_SubscriptionItemImpl
 
-	function _GameSubscriptionsGridInputData_SubscriptionItemImpl.new(
-		data: _GameSubscriptionsGridInputData_SubscriptionItemPartialFields?
-	): GameSubscriptionsGridInputData_SubscriptionItem
-		return setmetatable({
-			subscription_id = if data == nil or data.subscription_id == nil then "" else data.subscription_id,
-		}, _GameSubscriptionsGridInputData_SubscriptionItemImpl :: _GameSubscriptionsGridInputData_SubscriptionItemImpl)
+	function _SubscriptionCollectionInputData_SubscriptionItemImpl.new(
+		data: _SubscriptionCollectionInputData_SubscriptionItemPartialFields?
+	): SubscriptionCollectionInputData_SubscriptionItem
+		return setmetatable(
+			{
+				subscription_id = if data == nil or data.subscription_id == nil then "" else data.subscription_id,
+			},
+			_SubscriptionCollectionInputData_SubscriptionItemImpl :: _SubscriptionCollectionInputData_SubscriptionItemImpl
+		)
 	end
 
-	function _GameSubscriptionsGridInputData_SubscriptionItemImpl.encode(
-		self: GameSubscriptionsGridInputData_SubscriptionItem
+	function _SubscriptionCollectionInputData_SubscriptionItemImpl.encode(
+		self: SubscriptionCollectionInputData_SubscriptionItem
 	): buffer
 		local output = buffer.create(0)
 		local cursor = 0
@@ -8890,10 +8939,10 @@ do
 		return shrunkBuffer
 	end
 
-	function _GameSubscriptionsGridInputData_SubscriptionItemImpl.decode(
+	function _SubscriptionCollectionInputData_SubscriptionItemImpl.decode(
 		input: buffer
-	): GameSubscriptionsGridInputData_SubscriptionItem
-		local self = _GameSubscriptionsGridInputData_SubscriptionItemImpl.new()
+	): SubscriptionCollectionInputData_SubscriptionItem
+		local self = _SubscriptionCollectionInputData_SubscriptionItemImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -8935,8 +8984,8 @@ do
 		return self
 	end
 
-	function _GameSubscriptionsGridInputData_SubscriptionItemImpl.jsonEncode(
-		self: GameSubscriptionsGridInputData_SubscriptionItem
+	function _SubscriptionCollectionInputData_SubscriptionItemImpl.jsonEncode(
+		self: SubscriptionCollectionInputData_SubscriptionItem
 	): any
 		local output = {}
 
@@ -8947,10 +8996,10 @@ do
 		return output
 	end
 
-	function _GameSubscriptionsGridInputData_SubscriptionItemImpl.jsonDecode(
+	function _SubscriptionCollectionInputData_SubscriptionItemImpl.jsonDecode(
 		input: { [string]: any }
-	): GameSubscriptionsGridInputData_SubscriptionItem
-		local self = _GameSubscriptionsGridInputData_SubscriptionItemImpl.new()
+	): SubscriptionCollectionInputData_SubscriptionItem
+		local self = _SubscriptionCollectionInputData_SubscriptionItemImpl.new()
 
 		if input.subscription_id ~= nil then
 			self.subscription_id = input.subscription_id
@@ -8963,15 +9012,15 @@ do
 		return self
 	end
 
-	_GameSubscriptionsGridInputData_SubscriptionItemImpl.descriptor = {
-		name = "GameSubscriptionsGridInputData_SubscriptionItem",
+	_SubscriptionCollectionInputData_SubscriptionItemImpl.descriptor = {
+		name = "SubscriptionCollectionInputData_SubscriptionItem",
 		fullName = "roblox.apppageplatform.shared.v1beta1.SubscriptionItem",
 	}
 
-	messages.GameSubscriptionsGridInputData_SubscriptionItem =
-		_GameSubscriptionsGridInputData_SubscriptionItemImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.SubscriptionCollectionInputData_SubscriptionItem =
+		_SubscriptionCollectionInputData_SubscriptionItemImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.GameSubscriptionsGridInputData_SubscriptionItem)
+	typeRegistry.default:register(messages.SubscriptionCollectionInputData_SubscriptionItem)
 end
 
 do
@@ -10303,6 +10352,7 @@ do
 	): EventDetailsFeedInputData
 		return setmetatable({
 			event_id = if data == nil or data.event_id == nil then "" else data.event_id,
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
 			entry_map = if data == nil or data.entry_map == nil then {} else data.entry_map,
 			entry_order = if data == nil or data.entry_order == nil then {} else data.entry_order,
 		}, _EventDetailsFeedInputDataImpl :: _EventDetailsFeedInputDataImpl)
@@ -10315,6 +10365,11 @@ do
 		if self.event_id ~= nil and self.event_id ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.event_id)
+		end
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
 		end
 
 		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
@@ -10361,6 +10416,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.event_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
 					continue
 				elseif field == 3 then
 					local value
@@ -10410,6 +10470,10 @@ do
 			output.eventId = self.event_id
 		end
 
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
 		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
 			local newOutput = {}
 			for key, value in self.entry_map do
@@ -10438,6 +10502,14 @@ do
 
 		if input.eventId ~= nil then
 			self.event_id = input.eventId
+		end
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
 		end
 
 		if input.entry_map ~= nil then
@@ -11078,6 +11150,7 @@ do
 			sticky_filter_pills = if data == nil or data.sticky_filter_pills == nil
 				then nil
 				else data.sticky_filter_pills,
+			applied_filters = if data == nil or data.applied_filters == nil then "" else data.applied_filters,
 		}, _ChartsFeedInputDataImpl :: _ChartsFeedInputDataImpl)
 	end
 
@@ -11115,6 +11188,11 @@ do
 			local encoded = self.sticky_filter_pills:encode()
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.applied_filters ~= nil and self.applied_filters ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.applied_filters)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -11162,6 +11240,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.sticky_filter_pills = messages.FilterPillsInputData.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.applied_filters = buffer.tostring(value)
 					continue
 				end
 
@@ -11212,6 +11295,10 @@ do
 
 		if self.sticky_filter_pills ~= nil then
 			output.stickyFilterPills = self.sticky_filter_pills:jsonEncode()
+		end
+
+		if self.applied_filters ~= nil and self.applied_filters ~= "" then
+			output.appliedFilters = self.applied_filters
 		end
 
 		return output
@@ -11270,6 +11357,14 @@ do
 
 		if input.stickyFilterPills ~= nil then
 			self.sticky_filter_pills = messages.FilterPillsInputData.jsonDecode(input.stickyFilterPills)
+		end
+
+		if input.applied_filters ~= nil then
+			self.applied_filters = input.applied_filters
+		end
+
+		if input.appliedFilters ~= nil then
+			self.applied_filters = input.appliedFilters
 		end
 
 		return self
@@ -14228,12 +14323,12 @@ return {
 	EventsCarouselInputData = messages.EventsCarouselInputData,
 	EventsCarouselInputData_EventItem = messages.EventsCarouselInputData_EventItem,
 	DevStoreFeedInputData = messages.DevStoreFeedInputData,
-	GamePassesGridInputData = messages.GamePassesGridInputData,
-	GamePassesGridInputData_GamePassItem = messages.GamePassesGridInputData_GamePassItem,
-	GameDeveloperProductsGridInputData = messages.GameDeveloperProductsGridInputData,
-	GameDeveloperProductsGridInputData_DeveloperProductItem = messages.GameDeveloperProductsGridInputData_DeveloperProductItem,
-	GameSubscriptionsGridInputData = messages.GameSubscriptionsGridInputData,
-	GameSubscriptionsGridInputData_SubscriptionItem = messages.GameSubscriptionsGridInputData_SubscriptionItem,
+	GamePassCollectionInputData = messages.GamePassCollectionInputData,
+	GamePassCollectionInputData_GamePassItem = messages.GamePassCollectionInputData_GamePassItem,
+	DeveloperProductCollectionInputData = messages.DeveloperProductCollectionInputData,
+	DeveloperProductCollectionInputData_DeveloperProductItem = messages.DeveloperProductCollectionInputData_DeveloperProductItem,
+	SubscriptionCollectionInputData = messages.SubscriptionCollectionInputData,
+	SubscriptionCollectionInputData_SubscriptionItem = messages.SubscriptionCollectionInputData_SubscriptionItem,
 	CardContainerCardInputData = messages.CardContainerCardInputData,
 	CardContainerInputData = messages.CardContainerInputData,
 	CardInputData = messages.CardInputData,

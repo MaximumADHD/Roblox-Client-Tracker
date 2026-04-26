@@ -31,6 +31,7 @@ type _EventDataFields = {
 	media_asset_id: number,
 	description: string,
 	rsvp_count: number,
+	place_id: string,
 }
 
 type _EventDataPartialFields = {
@@ -43,6 +44,7 @@ type _EventDataPartialFields = {
 	media_asset_id: number?,
 	description: string?,
 	rsvp_count: number?,
+	place_id: string?,
 }
 
 export type EventData = typeof(setmetatable({} :: _EventDataFields, {} :: _EventDataImpl))
@@ -63,6 +65,7 @@ do
 			media_asset_id = if data == nil or data.media_asset_id == nil then 0 else data.media_asset_id,
 			description = if data == nil or data.description == nil then "" else data.description,
 			rsvp_count = if data == nil or data.rsvp_count == nil then 0 else data.rsvp_count,
+			place_id = if data == nil or data.place_id == nil then "" else data.place_id,
 		}, _EventDataImpl :: _EventDataImpl)
 	end
 
@@ -113,6 +116,11 @@ do
 		if self.rsvp_count ~= nil and self.rsvp_count ~= 0 then
 			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.rsvp_count)
+		end
+
+		if self.place_id ~= nil and self.place_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.place_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -179,6 +187,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.description = buffer.tostring(value)
 					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.place_id = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -242,6 +255,10 @@ do
 			output.rsvpCount = self.rsvp_count
 		end
 
+		if self.place_id ~= nil and self.place_id ~= "" then
+			output.placeId = self.place_id
+		end
+
 		return output
 	end
 
@@ -302,6 +319,14 @@ do
 
 		if input.rsvpCount ~= nil then
 			self.rsvp_count = input.rsvpCount
+		end
+
+		if input.place_id ~= nil then
+			self.place_id = input.place_id
+		end
+
+		if input.placeId ~= nil then
+			self.place_id = input.placeId
 		end
 
 		return self

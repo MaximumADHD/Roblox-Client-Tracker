@@ -5,10 +5,10 @@ PROTO_0:
         4 LOADK                            R3 K1 ["/"]
         5 CALL                             R1 2 1
         6 GETTABLEN                        R2 R1 1
-        7 JUMPIFNOTEQKS                    R2 K2 ["universe"] ; [+7]
+        7 JUMPIFNOTEQKS                    R2 K2 ["universes"] ; [+7]
         9 GETUPVAL                         R4 1
        10 GETTABLEKS                       R3 R4 K3 ["ScopeType"]
-       12 GETTABLEKS                       R2 R3 K4 ["Universe"]
+       12 GETTABLEKS                       R2 R3 K4 ["ProjectShared"]
        14 JUMP                             ; [+27]
        15 JUMPIFNOTEQKS                    R2 K5 ["groups"] ; [+7]
        17 GETUPVAL                         R4 1

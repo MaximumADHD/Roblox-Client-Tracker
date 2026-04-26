@@ -144,51 +144,107 @@ PROTO_6:
         8 MOVE                             R3 R0
         9 CALL                             R1 2 0
        10 GETUPVAL                         R1 3
-       11 MOVE                             R2 R0
-       12 GETUPVAL                         R4 4
-       13 GETTABLEKS                       R3 R4 K2 ["ALL_ALLOWED_PART_NAMES"]
-       15 CALL                             R1 2 0
-       16 GETUPVAL                         R2 0
-       17 GETTABLEKS                       R1 R2 K0 ["WorldModel"]
-       19 LOADK                            R4 K3 ["Animate"]
-       20 NAMECALL                         R2 R1 K4 ["FindFirstChild"]
-       22 CALL                             R2 2 1
-       23 JUMPIF                           R2 ; [+1]
-       24 JUMP                             ; [+13]
-       25 LOADK                            R5 K3 ["Animate"]
-       26 NAMECALL                         R3 R0 K4 ["FindFirstChild"]
-       28 CALL                             R3 2 1
-       29 JUMPIFNOT                        R3 ; [+3]
-       30 NAMECALL                         R4 R3 K5 ["Remove"]
-       32 CALL                             R4 1 0
-       33 NAMECALL                         R4 R2 K1 ["Clone"]
-       35 CALL                             R4 1 1
-       36 SETTABLEKS                       R0 R4 K6 ["Parent"]
-       38 GETUPVAL                         R1 5
-       39 DUPTABLE                         R2 K10 [{"dummy", "initialProportionScale", "initialWorldModelScale"}]
-       40 SETTABLEKS                       R0 R2 K7 ["dummy"]
-       42 GETUPVAL                         R4 0
-       43 GETTABLEKS                       R3 R4 K11 ["ProportionalScale"]
-       45 SETTABLEKS                       R3 R2 K8 ["initialProportionScale"]
-       47 GETUPVAL                         R4 0
-       48 GETTABLEKS                       R3 R4 K12 ["WorldModelScale"]
-       50 SETTABLEKS                       R3 R2 K9 ["initialWorldModelScale"]
-       52 CALL                             R1 1 0
-       53 LOADNIL                          R1
-       54 GETTABLEKS                       R2 R0 K13 ["AncestryChanged"]
-       56 NEWCLOSURE                       R4 P0
-       57 CAPTURE                          VAL R0
-       58 CAPTURE                          REF R1
-       59 CAPTURE                          UPVAL U6
-       60 CAPTURE                          UPVAL U0
-       61 CAPTURE                          UPVAL U7
-       62 NAMECALL                         R2 R2 K14 ["Connect"]
-       64 CALL                             R2 2 1
-       65 MOVE                             R1 R2
-       66 NEWCLOSURE                       R2 P1
-       67 CAPTURE                          REF R1
-       68 CLOSEUPVALS                      R1
-       69 RETURN                           R2 1
+       11 CALL                             R1 0 1
+       12 JUMPIFNOT                        R1 ; [+75]
+       13 GETUPVAL                         R1 4
+       14 MOVE                             R2 R0
+       15 GETUPVAL                         R4 5
+       16 GETTABLEKS                       R3 R4 K2 ["ALL_ALLOWED_PART_NAMES"]
+       18 CALL                             R1 2 0
+       19 GETUPVAL                         R2 6
+       20 GETTABLEKS                       R1 R2 K3 ["AvatarJointUpgrade"]
+       22 GETIMPORT                        R2 K7 [Enum.RolloutState.Enabled]
+       24 JUMPIFEQ                         R1 R2 ; [+63]
+       26 LOADK                            R3 K8 ["HumanoidRigDescription"]
+       27 NAMECALL                         R1 R0 K9 ["FindFirstChildOfClass"]
+       29 CALL                             R1 2 1
+       30 MOVE                             R2 R1
+       31 JUMPIFNOT                        R2 ; [+11]
+       32 GETIMPORT                        R4 K12 [Enum.RigLabel.HeadBase]
+       34 NAMECALL                         R2 R1 K13 ["GetJoint"]
+       36 CALL                             R2 2 1
+       37 JUMPIF                           R2 ; [+5]
+       38 GETIMPORT                        R4 K15 [Enum.RigLabel.Spine]
+       40 NAMECALL                         R2 R1 K13 ["GetJoint"]
+       42 CALL                             R2 2 1
+       43 JUMPIF                           R2 ; [+44]
+       44 GETTABLEKS                       R3 R0 K16 ["Head"]
+       46 LOADK                            R5 K11 ["HeadBase"]
+       47 NAMECALL                         R3 R3 K17 ["FindFirstChild"]
+       49 CALL                             R3 2 1
+       50 GETTABLEKS                       R4 R0 K18 ["UpperTorso"]
+       52 LOADK                            R6 K14 ["Spine"]
+       53 NAMECALL                         R4 R4 K17 ["FindFirstChild"]
+       55 CALL                             R4 2 1
+       56 JUMPIF                           R3 ; [+1]
+       57 JUMPIFNOT                        R4 ; [+30]
+       58 MOVE                             R5 R1
+       59 JUMPIF                           R5 ; [+4]
+       60 GETIMPORT                        R5 K21 [Instance.new]
+       62 LOADK                            R6 K8 ["HumanoidRigDescription"]
+       63 CALL                             R5 1 1
+       64 SETTABLEKS                       R0 R5 K22 ["Parent"]
+       66 JUMPIFNOT                        R3 ; [+6]
+       67 GETIMPORT                        R8 K12 [Enum.RigLabel.HeadBase]
+       69 MOVE                             R9 R3
+       70 NAMECALL                         R6 R5 K23 ["SetJoint"]
+       72 CALL                             R6 3 0
+       73 JUMPIFNOT                        R4 ; [+6]
+       74 GETIMPORT                        R8 K15 [Enum.RigLabel.Spine]
+       76 MOVE                             R9 R4
+       77 NAMECALL                         R6 R5 K23 ["SetJoint"]
+       79 CALL                             R6 3 0
+       80 GETTABLEKS                       R6 R0 K24 ["Humanoid"]
+       82 NAMECALL                         R6 R6 K25 ["BuildRigFromAttachments"]
+       84 CALL                             R6 1 0
+       85 NAMECALL                         R6 R5 K26 ["Destroy"]
+       87 CALL                             R6 1 0
+       88 GETUPVAL                         R1 4
+       89 MOVE                             R2 R0
+       90 GETUPVAL                         R4 5
+       91 GETTABLEKS                       R3 R4 K2 ["ALL_ALLOWED_PART_NAMES"]
+       93 CALL                             R1 2 0
+       94 GETUPVAL                         R2 0
+       95 GETTABLEKS                       R1 R2 K0 ["WorldModel"]
+       97 LOADK                            R4 K27 ["Animate"]
+       98 NAMECALL                         R2 R1 K17 ["FindFirstChild"]
+      100 CALL                             R2 2 1
+      101 JUMPIF                           R2 ; [+1]
+      102 JUMP                             ; [+13]
+      103 LOADK                            R5 K27 ["Animate"]
+      104 NAMECALL                         R3 R0 K17 ["FindFirstChild"]
+      106 CALL                             R3 2 1
+      107 JUMPIFNOT                        R3 ; [+3]
+      108 NAMECALL                         R4 R3 K28 ["Remove"]
+      110 CALL                             R4 1 0
+      111 NAMECALL                         R4 R2 K1 ["Clone"]
+      113 CALL                             R4 1 1
+      114 SETTABLEKS                       R0 R4 K22 ["Parent"]
+      116 GETUPVAL                         R1 7
+      117 DUPTABLE                         R2 K32 [{"dummy", "initialProportionScale", "initialWorldModelScale"}]
+      118 SETTABLEKS                       R0 R2 K29 ["dummy"]
+      120 GETUPVAL                         R4 0
+      121 GETTABLEKS                       R3 R4 K33 ["ProportionalScale"]
+      123 SETTABLEKS                       R3 R2 K30 ["initialProportionScale"]
+      125 GETUPVAL                         R4 0
+      126 GETTABLEKS                       R3 R4 K34 ["WorldModelScale"]
+      128 SETTABLEKS                       R3 R2 K31 ["initialWorldModelScale"]
+      130 CALL                             R1 1 0
+      131 LOADNIL                          R1
+      132 GETTABLEKS                       R2 R0 K35 ["AncestryChanged"]
+      134 NEWCLOSURE                       R4 P0
+      135 CAPTURE                          VAL R0
+      136 CAPTURE                          REF R1
+      137 CAPTURE                          UPVAL U8
+      138 CAPTURE                          UPVAL U0
+      139 CAPTURE                          UPVAL U9
+      140 NAMECALL                         R2 R2 K36 ["Connect"]
+      142 CALL                             R2 2 1
+      143 MOVE                             R1 R2
+      144 NEWCLOSURE                       R2 P1
+      145 CAPTURE                          REF R1
+      146 CLOSEUPVALS                      R1
+      147 RETURN                           R2 1
 
 PROTO_7:
         0 GETIMPORT                        R0 K1 [game]
@@ -339,41 +395,43 @@ PROTO_12:
        29 CAPTURE                          VAL R2
        30 CAPTURE                          UPVAL U3
        31 CAPTURE                          UPVAL U4
-       32 CAPTURE                          VAL R4
-       33 CAPTURE                          VAL R1
-       34 CAPTURE                          UPVAL U5
-       35 NEWTABLE                         R7 0 2
-       37 GETTABLEKS                       R8 R0 K4 ["WorldModel"]
-       39 GETTABLEKS                       R9 R0 K3 ["LatestWorldModelHash"]
-       41 SETLIST                          R7 R8 2 [1]
-       43 CALL                             R5 2 0
-       44 GETUPVAL                         R6 0
-       45 GETTABLEKS                       R5 R6 K2 ["useEffect"]
-       47 NEWCLOSURE                       R6 P2
-       48 CAPTURE                          VAL R3
-       49 CAPTURE                          VAL R1
-       50 CAPTURE                          VAL R0
-       51 CAPTURE                          UPVAL U5
-       52 NEWTABLE                         R7 0 3
-       54 GETTABLEKS                       R8 R3 K5 ["dummy"]
-       56 MOVE                             R9 R1
-       57 GETTABLEKS                       R10 R0 K4 ["WorldModel"]
-       59 SETLIST                          R7 R8 3 [1]
-       61 CALL                             R5 2 0
-       62 GETUPVAL                         R6 0
-       63 GETTABLEKS                       R5 R6 K2 ["useEffect"]
-       65 NEWCLOSURE                       R6 P3
-       66 CAPTURE                          VAL R3
-       67 CAPTURE                          VAL R0
-       68 NEWTABLE                         R7 0 4
-       70 GETTABLEKS                       R8 R3 K5 ["dummy"]
-       72 GETTABLEKS                       R9 R3 K6 ["initialProportionScale"]
-       74 GETTABLEKS                       R10 R3 K7 ["initialWorldModelScale"]
-       76 GETTABLEKS                       R11 R0 K8 ["ProportionalScale"]
-       78 SETLIST                          R7 R8 4 [1]
-       80 CALL                             R5 2 0
-       81 GETTABLEKS                       R5 R3 K5 ["dummy"]
-       83 RETURN                           R5 1
+       32 CAPTURE                          UPVAL U5
+       33 CAPTURE                          UPVAL U6
+       34 CAPTURE                          VAL R4
+       35 CAPTURE                          VAL R1
+       36 CAPTURE                          UPVAL U7
+       37 NEWTABLE                         R7 0 2
+       39 GETTABLEKS                       R8 R0 K4 ["WorldModel"]
+       41 GETTABLEKS                       R9 R0 K3 ["LatestWorldModelHash"]
+       43 SETLIST                          R7 R8 2 [1]
+       45 CALL                             R5 2 0
+       46 GETUPVAL                         R6 0
+       47 GETTABLEKS                       R5 R6 K2 ["useEffect"]
+       49 NEWCLOSURE                       R6 P2
+       50 CAPTURE                          VAL R3
+       51 CAPTURE                          VAL R1
+       52 CAPTURE                          VAL R0
+       53 CAPTURE                          UPVAL U7
+       54 NEWTABLE                         R7 0 3
+       56 GETTABLEKS                       R8 R3 K5 ["dummy"]
+       58 MOVE                             R9 R1
+       59 GETTABLEKS                       R10 R0 K4 ["WorldModel"]
+       61 SETLIST                          R7 R8 3 [1]
+       63 CALL                             R5 2 0
+       64 GETUPVAL                         R6 0
+       65 GETTABLEKS                       R5 R6 K2 ["useEffect"]
+       67 NEWCLOSURE                       R6 P3
+       68 CAPTURE                          VAL R3
+       69 CAPTURE                          VAL R0
+       70 NEWTABLE                         R7 0 4
+       72 GETTABLEKS                       R8 R3 K5 ["dummy"]
+       74 GETTABLEKS                       R9 R3 K6 ["initialProportionScale"]
+       76 GETTABLEKS                       R10 R3 K7 ["initialWorldModelScale"]
+       78 GETTABLEKS                       R11 R0 K8 ["ProportionalScale"]
+       80 SETLIST                          R7 R8 4 [1]
+       82 CALL                             R5 2 0
+       83 GETTABLEKS                       R5 R3 K5 ["dummy"]
+       85 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -397,30 +455,41 @@ MAIN:
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
        34 GETTABLEKS                       R7 R0 K8 ["Src"]
-       36 GETTABLEKS                       R6 R7 K9 ["Util"]
-       38 GETTABLEKS                       R5 R6 K12 ["Constants"]
+       36 GETTABLEKS                       R6 R7 K12 ["Flags"]
+       38 GETTABLEKS                       R5 R6 K13 ["getFFlagAvatarPreviewerDetachedDummyFix"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R7 R0 K8 ["Src"]
-       45 GETTABLEKS                       R6 R7 K13 ["Types"]
-       47 CALL                             R5 1 1
-       48 DUPCLOSURE                       R6 K14 [PROTO_0]
-       49 DUPCLOSURE                       R7 K15 [PROTO_1]
-       50 NEWTABLE                         R8 0 6
-       52 LOADK                            R9 K16 ["BodyDepthScale"]
-       53 LOADK                            R10 K17 ["BodyWidthScale"]
-       54 LOADK                            R11 K18 ["BodyHeightScale"]
-       55 LOADK                            R12 K19 ["HeadScale"]
-       56 LOADK                            R13 K20 ["BodyTypeScale"]
-       57 LOADK                            R14 K21 ["BodyProportionScale"]
-       58 SETLIST                          R8 R9 6 [1]
-       60 DUPCLOSURE                       R9 K22 [PROTO_2]
-       61 CAPTURE                          VAL R8
-       62 DUPCLOSURE                       R10 K23 [PROTO_12]
-       63 CAPTURE                          VAL R1
-       64 CAPTURE                          VAL R2
-       65 CAPTURE                          VAL R6
-       66 CAPTURE                          VAL R3
-       67 CAPTURE                          VAL R4
-       68 CAPTURE                          VAL R9
-       69 RETURN                           R10 1
+       43 GETTABLEKS                       R8 R0 K8 ["Src"]
+       45 GETTABLEKS                       R7 R8 K9 ["Util"]
+       47 GETTABLEKS                       R6 R7 K14 ["Constants"]
+       49 CALL                             R5 1 1
+       50 GETIMPORT                        R6 K5 [require]
+       52 GETTABLEKS                       R8 R0 K8 ["Src"]
+       54 GETTABLEKS                       R7 R8 K15 ["Types"]
+       56 CALL                             R6 1 1
+       57 GETIMPORT                        R7 K17 [game]
+       59 LOADK                            R9 K18 ["StarterPlayer"]
+       60 NAMECALL                         R7 R7 K19 ["GetService"]
+       62 CALL                             R7 2 1
+       63 DUPCLOSURE                       R8 K20 [PROTO_0]
+       64 DUPCLOSURE                       R9 K21 [PROTO_1]
+       65 NEWTABLE                         R10 0 6
+       67 LOADK                            R11 K22 ["BodyDepthScale"]
+       68 LOADK                            R12 K23 ["BodyWidthScale"]
+       69 LOADK                            R13 K24 ["BodyHeightScale"]
+       70 LOADK                            R14 K25 ["HeadScale"]
+       71 LOADK                            R15 K26 ["BodyTypeScale"]
+       72 LOADK                            R16 K27 ["BodyProportionScale"]
+       73 SETLIST                          R10 R11 6 [1]
+       75 DUPCLOSURE                       R11 K28 [PROTO_2]
+       76 CAPTURE                          VAL R10
+       77 DUPCLOSURE                       R12 K29 [PROTO_12]
+       78 CAPTURE                          VAL R1
+       79 CAPTURE                          VAL R2
+       80 CAPTURE                          VAL R8
+       81 CAPTURE                          VAL R4
+       82 CAPTURE                          VAL R3
+       83 CAPTURE                          VAL R5
+       84 CAPTURE                          VAL R7
+       85 CAPTURE                          VAL R11
+       86 RETURN                           R12 1

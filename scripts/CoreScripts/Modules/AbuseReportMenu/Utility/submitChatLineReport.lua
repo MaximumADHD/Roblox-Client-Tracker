@@ -6,6 +6,9 @@ local ChatLineReporting = require(CorePackages.Workspace.Packages.ChatLineReport
 
 local isSystemMessage = ChatLineReporting.Helpers.isSystemMessage
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagEnableGlobalChatAbuseReporting = SharedFlags.FFlagEnableGlobalChatAbuseReporting
+
 local Constants = require(root.Components.Constants)
 local Types = require(root.Components.Types)
 
@@ -93,8 +96,9 @@ local submitChatLineReport = function(props: SubmissionProps)
 	-- Filter out ineligible messages (system messages, messages without userId or textChannel)
 	local eligibleMessages = {}
 	for _, message in ipairs(props.orderedMessages) do
-		if message.userId ~= nil and message.textChannel ~= nil then
-			-- Slim the message down to only the necessary components
+		local passesGuard = message.userId ~= nil
+			and (message.textChannel ~= nil or FFlagEnableGlobalChatAbuseReporting)
+		if passesGuard then
 			local slimMessage = {
 				channel = message.textChannel,
 				messageId = message.messageId,

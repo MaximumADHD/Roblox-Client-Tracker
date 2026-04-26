@@ -577,7 +577,7 @@ PROTO_28:
       213 GETUPVAL                         R19 6
       214 GETTABLEKS                       R18 R19 K50 ["ContextStack"]
       216 DUPTABLE                         R19 K53 [{"providers"}]
-      217 NEWTABLE                         R20 0 27
+      217 NEWTABLE                         R20 0 29
       219 GETUPVAL                         R22 2
       220 GETTABLEKS                       R21 R22 K15 ["createElement"]
       222 GETUPVAL                         R24 4
@@ -770,21 +770,33 @@ PROTO_28:
       508 SETTABLEKS                       R1 R33 K70 ["theme"]
       510 GETUPVAL                         R34 10
       511 SETTABLEKS                       R34 R33 K100 ["studioService"]
-      513 CALL                             R31 2 -1
-      514 SETLIST                          R20 R21 -1 [17]
-      516 SETTABLEKS                       R20 R19 K52 ["providers"]
-      518 DUPTABLE                         R20 K103 [{"MainView"}]
-      519 GETUPVAL                         R22 2
-      520 GETTABLEKS                       R21 R22 K15 ["createElement"]
-      522 GETUPVAL                         R22 11
-      523 CALL                             R21 1 1
-      524 SETTABLEKS                       R21 R20 K102 ["MainView"]
-      526 CALL                             R17 3 1
-      527 SETTABLEKS                       R17 R16 K50 ["ContextStack"]
-      529 CALL                             R13 3 1
-      530 SETTABLEKS                       R13 R12 K13 ["MainWidget"]
-      532 CALL                             R10 2 -1
-      533 RETURN                           R10 -1
+      513 CALL                             R31 2 1
+      514 GETUPVAL                         R33 2
+      515 GETTABLEKS                       R32 R33 K15 ["createElement"]
+      517 GETUPVAL                         R35 0
+      518 GETTABLEKS                       R34 R35 K102 ["InputSelectionContext"]
+      520 GETTABLEKS                       R33 R34 K60 ["Provider"]
+      522 CALL                             R32 1 1
+      523 GETUPVAL                         R34 2
+      524 GETTABLEKS                       R33 R34 K15 ["createElement"]
+      526 GETUPVAL                         R36 0
+      527 GETTABLEKS                       R35 R36 K103 ["ModifierKeysContext"]
+      529 GETTABLEKS                       R34 R35 K60 ["Provider"]
+      531 CALL                             R33 1 -1
+      532 SETLIST                          R20 R21 -1 [17]
+      534 SETTABLEKS                       R20 R19 K52 ["providers"]
+      536 DUPTABLE                         R20 K105 [{"MainView"}]
+      537 GETUPVAL                         R22 2
+      538 GETTABLEKS                       R21 R22 K15 ["createElement"]
+      540 GETUPVAL                         R22 11
+      541 CALL                             R21 1 1
+      542 SETTABLEKS                       R21 R20 K104 ["MainView"]
+      544 CALL                             R17 3 1
+      545 SETTABLEKS                       R17 R16 K50 ["ContextStack"]
+      547 CALL                             R13 3 1
+      548 SETTABLEKS                       R13 R12 K13 ["MainWidget"]
+      550 CALL                             R10 2 -1
+      551 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

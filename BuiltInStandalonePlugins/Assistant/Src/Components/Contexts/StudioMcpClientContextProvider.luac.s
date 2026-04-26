@@ -149,27 +149,18 @@ PROTO_10:
        63 RETURN                           R1 1
 
 PROTO_11:
-        0 LOADNIL                          R1
-        1 GETUPVAL                         R2 0
-        2 CALL                             R2 0 1
-        3 JUMPIFNOT                        R2 ; [+4]
-        4 GETUPVAL                         R2 1
-        5 CALL                             R2 0 1
-        6 MOVE                             R1 R2
-        7 JUMP                             ; [+3]
-        8 GETUPVAL                         R2 2
-        9 CALL                             R2 0 1
-       10 MOVE                             R1 R2
-       11 GETUPVAL                         R2 3
-       12 GETUPVAL                         R6 4
-       13 GETTABLEKS                       R5 R6 K0 ["Components"]
-       15 GETTABLEKS                       R4 R5 K1 ["Contexts"]
-       17 GETTABLEKS                       R3 R4 K2 ["McpClientContextProvider"]
-       19 DUPTABLE                         R4 K4 [{"runWithClient"}]
-       20 SETTABLEKS                       R1 R4 K3 ["runWithClient"]
-       22 GETTABLEKS                       R5 R0 K5 ["children"]
-       24 CALL                             R2 3 -1
-       25 RETURN                           R2 -1
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 GETUPVAL                         R2 1
+        3 GETUPVAL                         R6 2
+        4 GETTABLEKS                       R5 R6 K0 ["Components"]
+        6 GETTABLEKS                       R4 R5 K1 ["Contexts"]
+        8 GETTABLEKS                       R3 R4 K2 ["McpClientContextProvider"]
+       10 DUPTABLE                         R4 K4 [{"runWithClient"}]
+       11 SETTABLEKS                       R1 R4 K3 ["runWithClient"]
+       13 GETTABLEKS                       R5 R0 K5 ["children"]
+       15 CALL                             R2 3 -1
+       16 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -202,43 +193,28 @@ MAIN:
        46 GETTABLEKS                       R8 R9 K13 ["Host"]
        48 GETTABLEKS                       R7 R8 K14 ["startMcpHost"]
        50 CALL                             R6 1 1
-       51 GETIMPORT                        R7 K5 [require]
-       53 GETIMPORT                        R13 K1 [script]
-       55 GETTABLEKS                       R12 R13 K15 ["Parent"]
-       57 GETTABLEKS                       R11 R12 K15 ["Parent"]
-       59 GETTABLEKS                       R10 R11 K15 ["Parent"]
-       61 GETTABLEKS                       R9 R10 K16 ["Hooks"]
-       63 GETTABLEKS                       R8 R9 K17 ["useRunWithMcpClient_DEPRECATED"]
-       65 CALL                             R7 1 1
-       66 GETIMPORT                        R8 K5 [require]
-       68 GETTABLEKS                       R11 R0 K11 ["Src"]
-       70 GETTABLEKS                       R10 R11 K18 ["Flags"]
-       72 GETTABLEKS                       R9 R10 K19 ["FFlagMCPAssistantDeduplicateMcpClient"]
-       74 CALL                             R8 1 1
-       75 GETTABLEKS                       R11 R1 K18 ["Flags"]
-       77 GETTABLEKS                       R10 R11 K20 ["Shared"]
-       79 GETTABLEKS                       R9 R10 K21 ["FFlagMCPAssistantManagementMenu"]
-       81 GETTABLEKS                       R12 R1 K22 ["Components"]
-       83 GETTABLEKS                       R11 R12 K23 ["Contexts"]
-       85 GETTABLEKS                       R10 R11 K24 ["McpAuthorizerManagerContext"]
-       87 GETTABLEKS                       R13 R1 K22 ["Components"]
-       89 GETTABLEKS                       R12 R13 K23 ["Contexts"]
-       91 GETTABLEKS                       R11 R12 K25 ["PersistedIntegrationContext"]
-       93 GETTABLEKS                       R12 R6 K26 ["promiseMcpHost"]
-       95 GETTABLEKS                       R13 R2 K27 ["ContextServices"]
-       97 GETTABLEKS                       R14 R13 K28 ["Plugin"]
-       99 GETTABLEKS                       R15 R4 K29 ["createElement"]
-      101 DUPCLOSURE                       R16 K30 [PROTO_10]
-      102 CAPTURE                          VAL R14
-      103 CAPTURE                          VAL R4
-      104 CAPTURE                          VAL R9
-      105 CAPTURE                          VAL R11
-      106 CAPTURE                          VAL R10
-      107 CAPTURE                          VAL R12
-      108 DUPCLOSURE                       R17 K31 [PROTO_11]
-      109 CAPTURE                          VAL R8
-      110 CAPTURE                          VAL R16
-      111 CAPTURE                          VAL R7
-      112 CAPTURE                          VAL R15
-      113 CAPTURE                          VAL R1
-      114 RETURN                           R17 1
+       51 GETTABLEKS                       R9 R1 K15 ["Flags"]
+       53 GETTABLEKS                       R8 R9 K16 ["Shared"]
+       55 GETTABLEKS                       R7 R8 K17 ["FFlagMCPAssistantManagementMenu"]
+       57 GETTABLEKS                       R10 R1 K18 ["Components"]
+       59 GETTABLEKS                       R9 R10 K19 ["Contexts"]
+       61 GETTABLEKS                       R8 R9 K20 ["McpAuthorizerManagerContext"]
+       63 GETTABLEKS                       R11 R1 K18 ["Components"]
+       65 GETTABLEKS                       R10 R11 K19 ["Contexts"]
+       67 GETTABLEKS                       R9 R10 K21 ["PersistedIntegrationContext"]
+       69 GETTABLEKS                       R10 R6 K22 ["promiseMcpHost"]
+       71 GETTABLEKS                       R11 R2 K23 ["ContextServices"]
+       73 GETTABLEKS                       R12 R11 K24 ["Plugin"]
+       75 GETTABLEKS                       R13 R4 K25 ["createElement"]
+       77 DUPCLOSURE                       R14 K26 [PROTO_10]
+       78 CAPTURE                          VAL R12
+       79 CAPTURE                          VAL R4
+       80 CAPTURE                          VAL R7
+       81 CAPTURE                          VAL R9
+       82 CAPTURE                          VAL R8
+       83 CAPTURE                          VAL R10
+       84 DUPCLOSURE                       R15 K27 [PROTO_11]
+       85 CAPTURE                          VAL R14
+       86 CAPTURE                          VAL R13
+       87 CAPTURE                          VAL R1
+       88 RETURN                           R15 1

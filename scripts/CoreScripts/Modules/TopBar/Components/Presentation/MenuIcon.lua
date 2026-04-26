@@ -6,7 +6,6 @@ local GamepadService = game:GetService("GamepadService")
 local ContextActionService = game:GetService("ContextActionService")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagReduceTopBarInsetsWhileHidden = SharedFlags.FFlagReduceTopBarInsetsWhileHidden
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
@@ -203,9 +202,7 @@ function MenuIcon:init()
 			self:setState({
 				isHovering = true,
 			})
-			if FFlagEnableUnibarFtuxTooltips then
-				self.fireMenuIconHoveredSignal(true)
-			end
+			self.fireMenuIconHoveredSignal(true)
 
 			delay(DEFAULT_DELAY_TIME, function()
 				if self.state.isHovering and not self.state.clickLatched then
@@ -218,9 +215,7 @@ function MenuIcon:init()
 				end
 			end)
 		else
-			if FFlagEnableUnibarFtuxTooltips then
-				self.fireMenuIconHoveredSignal(false)
-			end
+			self.fireMenuIconHoveredSignal(false)
 		end
 
 		if isNewInGameMenuEnabled() then

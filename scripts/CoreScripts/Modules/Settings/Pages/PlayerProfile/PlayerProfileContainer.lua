@@ -17,16 +17,18 @@ local ChatPolicies = require(CorePackages.Workspace.Packages.SocialPolicies).Cha
 local AvatarPolicies = require(CorePackages.Workspace.Packages.AvatarPolicies).AvatarPolicies
 local SharePolicies = require(CorePackages.Workspace.Packages.SocialPolicies).SharePolicies
 local ShareTargetGamePolicies = require(CorePackages.Workspace.Packages.SocialPolicies).ShareTargetGamePolicies
+local ProfilePlatformEnums = require(CorePackages.Workspace.Packages.ProfilePlatform.Enums)
+local ProfilePlatformInstallReducer = require(CorePackages.Workspace.Packages.ProfilePlatform.installReducer)
 
-local ProfilePlatform = require(CorePackages.Workspace.Packages.ProfilePlatform)
-local ProfileTypes = ProfilePlatform.ProfileTypes
-local ProfileWrapperContext = ProfilePlatform.ProfileWrapperContext
+local ProfilePlatformConstants = require(CorePackages.Workspace.Packages.ProfilePlatform.Constants)
+local ProfileTypes = ProfilePlatformEnums.ProfileTypes
+local ProfileWrapperContext = require(CorePackages.Workspace.Packages.ProfilePlatform.ProfileWrapperContext)
 
 local PlayerProfile = require(script.Parent.PlayerProfile)
 
 local function createStore(state: any)
 	local rootReducer = Rodux.combineReducers({
-		[ProfilePlatform.RoduxKey] = ProfilePlatform.installReducer(),
+		[ProfilePlatformConstants.RODUX_KEY] = ProfilePlatformInstallReducer(),
 	})
 	return Rodux.Store.new(rootReducer, state or {}, { Rodux.thunkMiddleware })
 end
@@ -54,7 +56,7 @@ local function PlayerProfileContainer(props: PlayerProfileProps)
 				profileId = tostring(props.userId),
 				profileType = ProfileTypes.User,
 				sourceInfo = {
-					source = ProfilePlatform.Sources.InExperienceProfile,
+					source = ProfilePlatformEnums.Sources.InExperienceProfile,
 					contextualInfoType = "",
 				},
 				navigateTo = {

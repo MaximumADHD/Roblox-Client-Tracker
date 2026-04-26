@@ -54,20 +54,34 @@ ValidationEnums.ValidationModule = {
 
 	-- Asset Quality checks
 	HeadIsDynamic = "HeadIsDynamic",
+	MeasureCageMeshDistanceAvatar = "MeasureCageMeshDistanceAvatar",
+	MeasureCageMeshDistance = "MeasureCageMeshDistance",
+	MeasureCageUVAvatar = "MeasureCageUVAvatar",
+	MeasureCageUV = "MeasureCageUV",
+	MeasureMeshOutsideOuterCage = "MeasureMeshOutsideOuterCage",
+	MeasureCageRelevancy = "MeasureCageRelevancy",
 	MeasureCageMeshDistanceHead = "MeasureCageMeshDistanceHead",
 
 	-- Facs exploits
 	NoFACSOverrideData = "NoFACSOverrideData",
 	FacsHeadConsistency = "FacsHeadConsistency",
 
-	-- Introduced for R15+ launch
+	-- HRD/DRD/Bone checks (introduced for R15+ launch)
 	HrdBonesFollowSchema = "HrdBonesFollowSchema",
 	HrdPropertiesSensible = "HrdPropertiesSensible",
+	TposeAdjustmentSensible = "TposeAdjustmentSensible",
 	BoneCFramesInBounds = "BoneCFramesInBounds",
 	JointRotationAttachmentsLimited = "JointRotationAttachmentsLimited",
 	MoveableAttachmentsExist = "MoveableAttachmentsExist",
+
+	-- Mesh skinning checks
 	FacsNotDrivingSchema = "FacsNotDrivingSchema",
 	BodySkinnedToSchema = "BodySkinnedToSchema",
+	RigidSkinnedToSchema = "RigidSkinnedToSchema",
+	LCSkinnedToSchema = "LCSkinnedToSchema",
+
+	-- Layered clothing exploits
+	LCDeformationWithinBounds = "LCDeformationWithinBounds",
 }
 finalizeEnumTable("ValidationModule")
 

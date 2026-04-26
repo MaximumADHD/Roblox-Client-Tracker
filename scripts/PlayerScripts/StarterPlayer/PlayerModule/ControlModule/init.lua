@@ -25,8 +25,6 @@ local VRService = game:GetService("VRService")
 -- Roblox User Input Control Modules - each returns a new() constructor function used to create controllers as needed
 local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPlayerModuleHiddenAPI = FlagUtil.getUserFlag("UserPlayerModuleHiddenAPI")
-local FFlagUserPSActionsPathAware = FlagUtil.getUserFlag("UserPSActionsPathAware")
 local FFlagUserPlayerScriptsControlModuleModernize = FlagUtil.getUserFlag("UserPlayerScriptsControlModuleModernize")
 local FFlagUserPSSpecifySimulationFrequency = FlagUtil.getUserFlag("UserPSSpecifySimulationFrequency")
 local FFlagUserPlayerScriptsClickToMoveUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClickToMoveUsesIAS")
@@ -118,11 +116,6 @@ function ControlModule.new() -- TODO ControlModule should be static
 	Players.LocalPlayer.CharacterRemoving:Connect(function(char) self:OnCharacterRemoving(char) end)
 	if Players.LocalPlayer.Character then
 		self:OnCharacterAdded(Players.LocalPlayer.Character)
-	end
-	if not FFlagUserPlayerModuleHiddenAPI then
-		RunService:BindToRenderStep("ControlScriptRenderstep", Enum.RenderPriority.Input.Value, function(dt)
-			self:Update({}, dt)
-		end)
 	end
 
 	UserGameSettings:GetPropertyChangedSignal("TouchMovementMode"):Connect(function()
@@ -237,23 +230,12 @@ function ControlModule:InitializeServerAuthority()
 		end
 	end
 
-	if FFlagUserPSActionsPathAware and self.data and self.data.eventBus then
+	if self.data and self.data.eventBus then
 		self.data.isServerAuthority = true
 		self.data.eventBus:publish(CONNECTIONS.SERVER_AUTHORITY_CHANGED, true)
 	end
 end
 
-if not FFlagUserPSActionsPathAware then
-	-- Convenience function so that calling code does not have to first get the activeController
-	-- and then call GetMoveVector on it. When there is no active controller, this function returns the
-	-- zero vector
-	function ControlModule:GetMoveVector(): Vector3
-		if self.activeController then
-			return self.activeController:GetMoveVector()
-		end
-		return Vector3.new(0,0,0)
-	end
-end
 
 local function NormalizeAngle(angle): number
 	angle = (angle + math.pi*4) % (math.pi*2)
@@ -539,40 +521,26 @@ function ControlModule:calculateRawMoveVector(humanoid: Humanoid, cameraRelative
 	)
 end
 
-if FFlagUserPSActionsPathAware then
-	-- This function should be used to set up necessary connections. DO NOT STORE STATE
-	function ControlModule:initialize(data, playerData)
-		self.data = data
-		self.playerData = playerData -- DO NOT DO THIS, THIS IS A CONVERSION STEP. MODULES SHOULD NOT SAVE STATE
+-- This function should be used to set up necessary connections. DO NOT STORE STATE
+function ControlModule:initialize(data, playerData)
+	self.data = data
+	self.playerData = playerData -- DO NOT DO THIS, THIS IS A CONVERSION STEP. MODULES SHOULD NOT SAVE STATE
 
-		ActionController.initializeActions(self.data, self.playerData)
-	end
+	ActionController.initializeActions(self.data, self.playerData)
 end
 
 function ControlModule:Update(data, playerData, dt)
-	if FFlagUserPSActionsPathAware then
-		assert(playerData.player)
-		assert(playerData.character)
+	assert(playerData.player)
+	assert(playerData.character)
 
-		-- We may need to wait for actions to come from the server so we initialize again
-		ActionController.initializeActions(data, playerData)
-		if not playerData.actions["Move"] or not playerData.actions["Jump"] then
-			return
-		end
+	-- We may need to wait for actions to come from the server so we initialize again
+	ActionController.initializeActions(data, playerData)
+	if not playerData.actions["Move"] or not playerData.actions["Jump"] then
+		return
 	end
 
 	if self.activeController and self.activeController.enabled and self.humanoid then
-		if FFlagUserPSActionsPathAware then
-			ActionController.update(playerData)
-		else
-			if FFlagUserPlayerModuleHiddenAPI then
-				-- TODO remove all controllers but ActionController
-				-- then read data directly without calling GetMoveVector()
-				if self.activeController.Update then
-					self.activeController:Update(data)
-				end
-			end
-		end
+		ActionController.update(playerData)
 		
 		if FFlagUserPlayerScriptsClickToMoveUsesIAS then 
 			local clickToMoveController = self:GetClickToMoveController()
@@ -580,13 +548,7 @@ function ControlModule:Update(data, playerData, dt)
 		end
 
 		-- Now retrieve info from the controller
-		local moveVector
-
-		if FFlagUserPSActionsPathAware then
-			moveVector = Vector3.new(playerData.moveVector.X, 0, -playerData.moveVector.Y)
-		else
-			moveVector = self:GetMoveVector()
-		end
+		local moveVector = Vector3.new(playerData.moveVector.X, 0, -playerData.moveVector.Y)
 
 		local cameraRelative = true  -- Remove with FFlagUserPlayerScriptsClickToMoveUsesIAS
 
@@ -602,9 +564,6 @@ function ControlModule:Update(data, playerData, dt)
 				else
 					-- Get move vector for developer started MoveTo
 					clickToMoveController:Update(playerData, dt)
-					if not FFlagUserPSActionsPathAware then
-						moveVector = clickToMoveController:GetMoveVector()
-					end
 					cameraRelative = clickToMoveController:IsMoveVectorCameraRelative()
 				end
 			end
@@ -636,11 +595,7 @@ function ControlModule:Update(data, playerData, dt)
 		self.moveFunction(Players.LocalPlayer, moveVector, false)
 
 		-- And make them jump if needed
-		if FFlagUserPSActionsPathAware then
-			self.humanoid.Jump = playerData.isJumping
-		else
-			self.humanoid.Jump = self.activeController:GetIsJumping() or (self.touchJumpController and self.touchJumpController:GetIsJumping())
-		end
+		self.humanoid.Jump = playerData.isJumping
 	end
 end
 

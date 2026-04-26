@@ -60,6 +60,7 @@ end
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagLuaAppEnableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
+local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
 local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 local FFlagMenuButtonsMountWithIEM = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsMountWithIEM)
@@ -817,6 +818,11 @@ local function Initialize()
 
 	if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
 		resumeButton.Parent = buttonsContainer
+
+		if FFlagIEMTabFocusNav then
+			this.FirstSelectableObjects = {resumeButton, resetButton, leaveButton}
+			this.FirstSelectableObjectsUpdated:fire()
+		end
 	end
 
 	local function pollImage()
@@ -1851,6 +1857,9 @@ local function Initialize()
 		if FFlagIEMFocusNavToButtons then
 			this.LastSelectableObjects = {}
 		end
+		if FFlagIEMTabFocusNav and not this.ButtonsContainer.Visible then
+			this.FirstSelectableObjects = {}
+		end
 		sortedPlayers = PlayersService:GetPlayers()
 
 		if ChromeEnabled then
@@ -2086,6 +2095,17 @@ local function Initialize()
 						this.LastSelectableObjectsUpdated:fire()
 					end
 				end
+				if FFlagIEMTabFocusNav and index == 1 and #this.FirstSelectableObjects == 0 then
+					local rightSideButtons = frame:FindFirstChild("RightSideButtons")
+					if rightSideButtons then
+						for _, button in rightSideButtons:GetChildren() do
+							if button:IsA("ImageButton") then
+								table.insert(this.FirstSelectableObjects, button)
+							end
+						end
+						this.FirstSelectableObjectsUpdated:fire()
+					end
+				end
 			end
 		end
 
@@ -2188,7 +2208,7 @@ local function Initialize()
 			end
 		end
 
-		if UserInputService.GamepadEnabled then
+		if UserInputService.GamepadEnabled and not (FFlagIEMTabFocusNav and GuiService.SelectedCoreObject) then
 			if GetFFlagCleanupMuteSelfButton() then
 				pcall(function()
 					if FFlagOnlyCaptureFocusIfOnPlayerPage then

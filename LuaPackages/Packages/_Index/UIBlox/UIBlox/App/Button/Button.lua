@@ -237,8 +237,7 @@ local ButtonForwardRef = React.forwardRef(function(buttonProps, ref)
 		local maxWidth = FoundationButtonUtils.getMaxWidth(props.standardSize, props.maxWidth)
 
 		local innerRef = React.useRef(nil)
-		local finalRef = (if UIBloxConfig.useProvidedRefForButton then buttonProps.buttonRef or ref else ref)
-			or innerRef
+		local finalRef = (buttonProps.buttonRef or ref) or innerRef
 
 		React.useLayoutEffect(function()
 			local sizeConstraint
@@ -290,7 +289,7 @@ local ButtonForwardRef = React.forwardRef(function(buttonProps, ref)
 		return React.createElement(
 			ButtonFunctionalWrapper,
 			Cryo.Dictionary.join(buttonProps, {
-				buttonRef = if UIBloxConfig.useProvidedRefForButton then buttonProps.buttonRef or ref else ref,
+				buttonRef = buttonProps.buttonRef or ref,
 			})
 		)
 	end

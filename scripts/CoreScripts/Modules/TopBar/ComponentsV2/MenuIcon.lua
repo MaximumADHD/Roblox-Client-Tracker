@@ -30,8 +30,6 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 
 -- Flags
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
-
-local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 
 -- Components
@@ -175,10 +173,7 @@ local function MenuIcon(props: MenuIconProps)
                 return
             end
             isHovering.current = true
-
-            if FFlagEnableUnibarFtuxTooltips then
-                menuIconHoveredSignal:fire(true)
-            end
+            menuIconHoveredSignal:fire(true)
 
             task.delay(DEFAULT_DELAY_TIME, function()
                 if isHovering.current and not clickLatched.current then

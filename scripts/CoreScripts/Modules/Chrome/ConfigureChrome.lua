@@ -21,6 +21,8 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagDebugEnableUnibarDummyIntegrations = SharedFlags.GetFFlagDebugEnableUnibarDummyIntegrations
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
@@ -90,6 +92,10 @@ local function configureUnibar()
 	local isNotVROrConsole = not isSpatial() and not GuiService:IsTenFootInterface()
 	if isNotVROrConsole then
 		table.insert(nineDot, 4, "music_entrypoint")
+	end
+
+	if FFlagEnableSideSheet and FFlagAddIGMToSideSheet then
+		table.insert(nineDot, "people")
 	end
 
 	ChromeService:configureSubMenu("nine_dot", nineDot)

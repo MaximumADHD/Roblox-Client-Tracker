@@ -1,6 +1,9 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 local HttpService = game:GetService("HttpService")
 local LocalizationService = game:GetService("LocalizationService")
+
+local RobloxGui = CoreGui.RobloxGui
 
 local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 local React = require(CorePackages.Packages.React)
@@ -17,6 +20,8 @@ local DynamicReportInExpContainer = GenericAbuseReporting.UXFlows.DynamicReportI
 
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+
+local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
 local inExpChatMessagesLoader = require(script.Parent.inExpChatMessagesLoader)
 local inExpVoiceUsersLoader = require(script.Parent.inExpVoiceUsersLoader)
@@ -77,6 +82,7 @@ local function AbuseReportMenuContent(props: Props)
 				isReportTabVisible = isReportTabVisible,
 				inExpChatMessagesLoader = inExpChatMessagesLoader,
 				inExpVoiceUsersLoader = inExpVoiceUsersLoader,
+				voiceChatServiceManager = VoiceChatServiceManager,
 			}),
 		}),
 	})

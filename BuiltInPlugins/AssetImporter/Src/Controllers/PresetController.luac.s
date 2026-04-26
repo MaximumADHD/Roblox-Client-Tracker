@@ -111,23 +111,18 @@ PROTO_3:
        77 RETURN                           R8 -1
 
 PROTO_4:
-        0 GETTABLEKS                       R4 R0 K0 ["_store"]
-        2 NAMECALL                         R4 R4 K1 ["getState"]
-        4 CALL                             R4 1 1
-        5 GETTABLEKS                       R3 R4 K2 ["Preview"]
-        7 GETTABLEKS                       R2 R3 K3 ["assetImportSession"]
-        9 MOVE                             R5 R1
-       10 NAMECALL                         R3 R2 K4 ["CreatePresetFromData"]
-       12 CALL                             R3 2 1
-       13 MOVE                             R6 R3
-       14 NAMECALL                         R4 R0 K5 ["_filter"]
-       16 CALL                             R4 2 0
-       17 GETUPVAL                         R4 0
-       18 LOADK                            R6 K6 ["Last Imported"]
-       19 MOVE                             R7 R3
-       20 NAMECALL                         R4 R4 K7 ["SavePreset"]
-       22 CALL                             R4 3 0
-       23 RETURN                           R0 0
+        0 MOVE                             R5 R1
+        1 NAMECALL                         R3 R2 K0 ["CreatePresetFromData"]
+        3 CALL                             R3 2 1
+        4 MOVE                             R6 R3
+        5 NAMECALL                         R4 R0 K1 ["_filter"]
+        7 CALL                             R4 2 0
+        8 GETUPVAL                         R4 0
+        9 LOADK                            R6 K2 ["Last Imported"]
+       10 MOVE                             R7 R3
+       11 NAMECALL                         R4 R4 K3 ["SavePreset"]
+       13 CALL                             R4 3 0
+       14 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R3 R0 K0 ["_store"]
@@ -439,25 +434,26 @@ PROTO_17:
         1 MOVE                             R4 R1
         2 NAMECALL                         R2 R2 K0 ["isStudioDefault"]
         4 CALL                             R2 2 1
-        5 JUMPIFNOT                        R2 ; [+3]
-        6 GETUPVAL                         R2 1
-        7 SETTABLEN                        R1 R2 1
-        8 RETURN                           R0 0
-        9 GETUPVAL                         R2 0
-       10 MOVE                             R4 R1
-       11 NAMECALL                         R2 R2 K1 ["isLastImport"]
-       13 CALL                             R2 2 1
-       14 JUMPIFNOT                        R2 ; [+3]
-       15 GETUPVAL                         R2 1
-       16 SETTABLEN                        R1 R2 2
-       17 RETURN                           R0 0
-       18 GETUPVAL                         R2 2
-       19 ADDK                             R2 R2 K2 [1]
-       20 SETUPVAL                         R2 2
-       21 GETUPVAL                         R2 1
-       22 GETUPVAL                         R3 2
-       23 SETTABLE                         R1 R2 R3
-       24 RETURN                           R0 0
+        5 JUMPIFNOT                        R2 ; [+8]
+        6 GETUPVAL                         R3 1
+        7 FASTCALL2                        TABLE_INSERT R3 R1 ; [+4]
+        9 MOVE                             R4 R1
+       10 GETIMPORT                        R2 K3 [table.insert]
+       12 CALL                             R2 2 0
+       13 RETURN                           R0 0
+       14 GETUPVAL                         R2 0
+       15 MOVE                             R4 R1
+       16 NAMECALL                         R2 R2 K4 ["isLastImport"]
+       18 CALL                             R2 2 1
+       19 JUMPIFNOT                        R2 ; [+2]
+       20 SETUPVAL                         R1 2
+       21 RETURN                           R0 0
+       22 GETUPVAL                         R3 3
+       23 FASTCALL2                        TABLE_INSERT R3 R1 ; [+4]
+       25 MOVE                             R4 R1
+       26 GETIMPORT                        R2 K3 [table.insert]
+       28 CALL                             R2 2 0
+       29 RETURN                           R0 0
 
 PROTO_18:
         0 GETUPVAL                         R2 0
@@ -467,45 +463,62 @@ PROTO_18:
         5 RETURN                           R1 1
 
 PROTO_19:
-        0 LOADNIL                          R3
-        1 GETUPVAL                         R4 0
-        2 CALL                             R4 0 1
-        3 JUMPIFNOT                        R4 ; [+16]
-        4 LOADN                            R4 2
-        5 NEWTABLE                         R3 0 0
-        7 GETUPVAL                         R6 1
-        8 GETTABLEKS                       R5 R6 K0 ["forEach"]
-       10 NAMECALL                         R6 R0 K1 ["getAllPresets"]
-       12 CALL                             R6 1 1
-       13 NEWCLOSURE                       R7 P0
-       14 CAPTURE                          VAL R0
-       15 CAPTURE                          REF R3
-       16 CAPTURE                          REF R4
-       17 CALL                             R5 2 0
-       18 CLOSEUPVALS                      R4
-       19 JUMP                             ; [+6]
-       20 GETUPVAL                         R4 2
-       21 NAMECALL                         R5 R0 K1 ["getAllPresets"]
-       23 CALL                             R5 1 -1
-       24 CALL                             R4 -1 1
-       25 MOVE                             R3 R4
-       26 JUMPIFNOT                        R2 ; [+3]
-       27 GETTABLEKS                       R4 R2 K2 ["settingsChanged"]
-       29 JUMP                             ; [+1]
-       30 LOADB                            R4 0
-       31 GETUPVAL                         R5 3
-       32 MOVE                             R6 R3
-       33 NEWCLOSURE                       R7 P1
-       34 CAPTURE                          VAL R1
-       35 CALL                             R5 2 1
-       36 JUMPIFNOT                        R5 ; [+5]
-       37 JUMPIFNOT                        R4 ; [+4]
-       38 MOVE                             R7 R1
-       39 LOADK                            R8 K3 ["*"]
-       40 CONCAT                           R6 R7 R8
-       41 SETTABLE                         R6 R3 R5
-       42 CLOSEUPVALS                      R3
-       43 RETURN                           R3 1
+        0 NEWTABLE                         R3 0 0
+        2 GETUPVAL                         R4 0
+        3 CALL                             R4 0 1
+        4 JUMPIFNOT                        R4 ; [+38]
+        5 LOADNIL                          R4
+        6 NEWTABLE                         R5 0 0
+        8 GETUPVAL                         R7 1
+        9 GETTABLEKS                       R6 R7 K0 ["forEach"]
+       11 NAMECALL                         R7 R0 K1 ["getAllPresets"]
+       13 CALL                             R7 1 1
+       14 NEWCLOSURE                       R8 P0
+       15 CAPTURE                          VAL R0
+       16 CAPTURE                          REF R3
+       17 CAPTURE                          REF R4
+       18 CAPTURE                          VAL R5
+       19 CALL                             R6 2 0
+       20 JUMPIFNOT                        R4 ; [+7]
+       21 FASTCALL2                        TABLE_INSERT R3 R4 ; [+5]
+       23 MOVE                             R7 R3
+       24 MOVE                             R8 R4
+       25 GETIMPORT                        R6 K4 [table.insert]
+       27 CALL                             R6 2 0
+       28 MOVE                             R6 R5
+       29 LOADNIL                          R7
+       30 LOADNIL                          R8
+       31 FORGPREP                         R6
+       32 FASTCALL2                        TABLE_INSERT R3 R10 ; [+5]
+       34 MOVE                             R12 R3
+       35 MOVE                             R13 R10
+       36 GETIMPORT                        R11 K4 [table.insert]
+       38 CALL                             R11 2 0
+       39 FORGLOOP                         R6 2 ; [-8]
+       41 CLOSEUPVALS                      R4
+       42 JUMP                             ; [+6]
+       43 GETUPVAL                         R4 2
+       44 NAMECALL                         R5 R0 K1 ["getAllPresets"]
+       46 CALL                             R5 1 -1
+       47 CALL                             R4 -1 1
+       48 MOVE                             R3 R4
+       49 JUMPIFNOT                        R2 ; [+3]
+       50 GETTABLEKS                       R4 R2 K5 ["settingsChanged"]
+       52 JUMP                             ; [+1]
+       53 LOADB                            R4 0
+       54 GETUPVAL                         R5 3
+       55 MOVE                             R6 R3
+       56 NEWCLOSURE                       R7 P1
+       57 CAPTURE                          VAL R1
+       58 CALL                             R5 2 1
+       59 JUMPIFNOT                        R5 ; [+5]
+       60 JUMPIFNOT                        R4 ; [+4]
+       61 MOVE                             R7 R1
+       62 LOADK                            R8 K6 ["*"]
+       63 CONCAT                           R6 R7 R8
+       64 SETTABLE                         R6 R3 R5
+       65 CLOSEUPVALS                      R3
+       66 RETURN                           R3 1
 
 PROTO_20:
         0 GETUPVAL                         R1 0

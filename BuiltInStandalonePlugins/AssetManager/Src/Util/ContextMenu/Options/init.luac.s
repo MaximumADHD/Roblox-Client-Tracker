@@ -94,27 +94,22 @@ PROTO_5:
         5 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 JUMPIF                           R3 ; [+2]
-        3 LOADB                            R3 0
-        4 RETURN                           R3 1
-        5 GETTABLEKS                       R3 R1 K0 ["ItemsController"]
-        7 NAMECALL                         R3 R3 K1 ["getCurrentShownScope"]
-        9 CALL                             R3 1 1
-       10 LOADB                            R4 0
-       11 GETUPVAL                         R7 1
-       12 GETTABLEKS                       R6 R7 K2 ["MenuContext"]
-       14 GETTABLEKS                       R5 R6 K3 ["Asset"]
-       16 JUMPIFNOTEQ                      R0 R5 ; [+12]
-       18 GETTABLEKS                       R5 R3 K4 ["Type"]
-       20 GETUPVAL                         R8 1
-       21 GETTABLEKS                       R7 R8 K5 ["ScopeType"]
-       23 GETTABLEKS                       R6 R7 K6 ["RecentUploads"]
-       25 JUMPIFEQ                         R5 R6 ; [+2]
-       27 LOADB                            R4 0 +1
-       28 LOADB                            R4 1
-       29 RETURN                           R4 1
+        0 GETTABLEKS                       R3 R1 K0 ["ItemsController"]
+        2 NAMECALL                         R3 R3 K1 ["getCurrentShownScope"]
+        4 CALL                             R3 1 1
+        5 LOADB                            R4 0
+        6 GETUPVAL                         R7 0
+        7 GETTABLEKS                       R6 R7 K2 ["MenuContext"]
+        9 GETTABLEKS                       R5 R6 K3 ["Asset"]
+       11 JUMPIFNOTEQ                      R0 R5 ; [+12]
+       13 GETTABLEKS                       R5 R3 K4 ["Type"]
+       15 GETUPVAL                         R8 0
+       16 GETTABLEKS                       R7 R8 K5 ["ScopeType"]
+       18 GETTABLEKS                       R6 R7 K6 ["RecentUploads"]
+       20 JUMPIFEQ                         R5 R6 ; [+2]
+       22 LOADB                            R4 0 +1
+       23 LOADB                            R4 1
+       24 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -180,71 +175,65 @@ MAIN:
       102 GETTABLEKS                       R16 R17 K25 ["Util"]
       104 GETTABLEKS                       R15 R16 K26 ["isInsertable"]
       106 CALL                             R14 1 1
-      107 GETIMPORT                        R15 K10 [require]
-      109 GETTABLEKS                       R18 R2 K13 ["Src"]
-      111 GETTABLEKS                       R17 R18 K27 ["Flags"]
-      113 GETTABLEKS                       R16 R17 K28 ["getFFlagAmrRecents"]
-      115 CALL                             R15 1 1
-      116 DUPCLOSURE                       R16 K29 [PROTO_0]
-      117 CAPTURE                          VAL R1
-      118 CAPTURE                          VAL R5
-      119 CAPTURE                          VAL R0
-      120 DUPTABLE                         R17 K34 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-      121 LOADK                            R18 K35 ["ContextMenu"]
-      122 SETTABLEKS                       R18 R17 K30 ["TextKey"]
-      124 LOADK                            R18 K36 ["Edit"]
-      125 SETTABLEKS                       R18 R17 K31 ["TextSubKey"]
-      127 DUPCLOSURE                       R18 K37 [PROTO_1]
-      128 CAPTURE                          VAL R1
-      129 CAPTURE                          VAL R5
-      130 CAPTURE                          VAL R0
-      131 SETTABLEKS                       R18 R17 K32 ["OnItemClicked"]
-      133 DUPCLOSURE                       R18 K38 [PROTO_2]
-      134 CAPTURE                          VAL R4
-      135 CAPTURE                          VAL R14
-      136 SETTABLEKS                       R18 R17 K33 ["ShouldRender"]
-      138 DUPTABLE                         R18 K34 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-      139 LOADK                            R19 K35 ["ContextMenu"]
-      140 SETTABLEKS                       R19 R18 K30 ["TextKey"]
-      142 LOADK                            R19 K39 ["FindInExplorer"]
-      143 SETTABLEKS                       R19 R18 K31 ["TextSubKey"]
-      145 DUPCLOSURE                       R19 K40 [PROTO_3]
-      146 CAPTURE                          VAL R0
-      147 SETTABLEKS                       R19 R18 K32 ["OnItemClicked"]
-      149 DUPCLOSURE                       R19 K41 [PROTO_4]
-      150 CAPTURE                          VAL R4
-      151 SETTABLEKS                       R19 R18 K33 ["ShouldRender"]
-      153 DUPTABLE                         R19 K34 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-      154 LOADK                            R20 K35 ["ContextMenu"]
-      155 SETTABLEKS                       R20 R19 K30 ["TextKey"]
-      157 LOADK                            R20 K42 ["ClearRecent"]
-      158 SETTABLEKS                       R20 R19 K31 ["TextSubKey"]
-      160 DUPCLOSURE                       R20 K43 [PROTO_5]
-      161 SETTABLEKS                       R20 R19 K32 ["OnItemClicked"]
-      163 DUPCLOSURE                       R20 K44 [PROTO_6]
-      164 CAPTURE                          VAL R15
-      165 CAPTURE                          VAL R4
-      166 SETTABLEKS                       R20 R19 K33 ["ShouldRender"]
-      168 NEWTABLE                         R20 0 5
-      170 MOVE                             R21 R6
-      171 GETTABLEKS                       R22 R3 K45 ["append"]
-      173 MOVE                             R23 R9
-      174 MOVE                             R24 R10
-      175 MOVE                             R25 R11
-      176 MOVE                             R26 R8
-      177 NEWTABLE                         R27 0 1
-      179 MOVE                             R28 R17
-      180 SETLIST                          R27 R28 1 [1]
-      182 MOVE                             R28 R12
-      183 NEWTABLE                         R29 0 1
-      185 MOVE                             R30 R18
-      186 SETLIST                          R29 R30 1 [1]
-      188 CALL                             R22 7 1
-      189 MOVE                             R23 R7
-      190 NEWTABLE                         R24 0 1
-      192 MOVE                             R25 R19
-      193 SETLIST                          R24 R25 1 [1]
-      195 MOVE                             R25 R13
-      196 CALL                             R25 0 -1
-      197 SETLIST                          R20 R21 -1 [1]
-      199 RETURN                           R20 1
+      107 DUPCLOSURE                       R15 K27 [PROTO_0]
+      108 CAPTURE                          VAL R1
+      109 CAPTURE                          VAL R5
+      110 CAPTURE                          VAL R0
+      111 DUPTABLE                         R16 K32 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
+      112 LOADK                            R17 K33 ["ContextMenu"]
+      113 SETTABLEKS                       R17 R16 K28 ["TextKey"]
+      115 LOADK                            R17 K34 ["Edit"]
+      116 SETTABLEKS                       R17 R16 K29 ["TextSubKey"]
+      118 DUPCLOSURE                       R17 K35 [PROTO_1]
+      119 CAPTURE                          VAL R1
+      120 CAPTURE                          VAL R5
+      121 CAPTURE                          VAL R0
+      122 SETTABLEKS                       R17 R16 K30 ["OnItemClicked"]
+      124 DUPCLOSURE                       R17 K36 [PROTO_2]
+      125 CAPTURE                          VAL R4
+      126 CAPTURE                          VAL R14
+      127 SETTABLEKS                       R17 R16 K31 ["ShouldRender"]
+      129 DUPTABLE                         R17 K32 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
+      130 LOADK                            R18 K33 ["ContextMenu"]
+      131 SETTABLEKS                       R18 R17 K28 ["TextKey"]
+      133 LOADK                            R18 K37 ["FindInExplorer"]
+      134 SETTABLEKS                       R18 R17 K29 ["TextSubKey"]
+      136 DUPCLOSURE                       R18 K38 [PROTO_3]
+      137 CAPTURE                          VAL R0
+      138 SETTABLEKS                       R18 R17 K30 ["OnItemClicked"]
+      140 DUPCLOSURE                       R18 K39 [PROTO_4]
+      141 CAPTURE                          VAL R4
+      142 SETTABLEKS                       R18 R17 K31 ["ShouldRender"]
+      144 DUPTABLE                         R18 K32 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
+      145 LOADK                            R19 K33 ["ContextMenu"]
+      146 SETTABLEKS                       R19 R18 K28 ["TextKey"]
+      148 LOADK                            R19 K40 ["ClearRecent"]
+      149 SETTABLEKS                       R19 R18 K29 ["TextSubKey"]
+      151 DUPCLOSURE                       R19 K41 [PROTO_5]
+      152 SETTABLEKS                       R19 R18 K30 ["OnItemClicked"]
+      154 DUPCLOSURE                       R19 K42 [PROTO_6]
+      155 CAPTURE                          VAL R4
+      156 SETTABLEKS                       R19 R18 K31 ["ShouldRender"]
+      158 NEWTABLE                         R19 0 5
+      160 MOVE                             R20 R6
+      161 GETTABLEKS                       R21 R3 K43 ["append"]
+      163 MOVE                             R22 R9
+      164 MOVE                             R23 R10
+      165 MOVE                             R24 R11
+      166 MOVE                             R25 R8
+      167 NEWTABLE                         R26 0 1
+      169 MOVE                             R27 R16
+      170 SETLIST                          R26 R27 1 [1]
+      172 MOVE                             R27 R12
+      173 NEWTABLE                         R28 0 1
+      175 MOVE                             R29 R17
+      176 SETLIST                          R28 R29 1 [1]
+      178 CALL                             R21 7 1
+      179 MOVE                             R22 R7
+      180 NEWTABLE                         R23 0 1
+      182 MOVE                             R24 R18
+      183 SETLIST                          R23 R24 1 [1]
+      185 MOVE                             R24 R13
+      186 CALL                             R24 0 -1
+      187 SETLIST                          R19 R20 -1 [1]
+      189 RETURN                           R19 1

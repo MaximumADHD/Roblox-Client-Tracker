@@ -21,6 +21,7 @@ local FFlagInExperienceReportClosingBugfix = SharedFlags.FFlagInExperienceReport
 
 local FFlagHideShortcutsOnReportDropdown = require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagHideShortcutsOnReportDropdown)
 local FFlagAbuseReportMenuV2 = SharedFlags.FFlagAbuseReportMenuV2
+local FFlagReportFocusNavIEMButtons =  require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagReportFocusNavIEMButtons)
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -93,6 +94,8 @@ local function Initialize()
 	this.Page.Name = "ReportAbuseMenuNewContainerPage"
 	this.ShouldShowBottomBar = true
 	this.ShouldShowHubBar = true
+	-- TODO: Need to flip FFlagAddAbilityToDisableIGMScroll before turning on FFlagAbuseReportMenuV2
+	this.ShouldDisableDefaultScroll = FFlagAbuseReportMenuV2
 
 	local abuseReportMenu = Roact.createElement(if FFlagAbuseReportMenuV2 then AbuseReportMenuV2 else AbuseReportMenu, {
 		hideReportTab = function()
@@ -130,6 +133,9 @@ local function Initialize()
 		end,
 		onDropdownMenuOpenChange = if FFlagHideShortcutsOnReportDropdown and ChromeEnabled then function(isOpen)
 			ChromeService:setHideShortcutBar("InExperienceReportDropdown", isOpen)
+		end else nil,
+		getSettingsHubRef = if FFlagReportFocusNavIEMButtons then function()
+			return this.HubRef
 		end else nil,
 	})
 	Roact.mount(abuseReportMenu, this.Page, "AbuseReportMenu")

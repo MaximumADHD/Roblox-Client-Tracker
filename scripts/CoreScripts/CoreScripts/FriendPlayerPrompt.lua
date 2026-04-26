@@ -26,9 +26,11 @@ local SocialUtil = require(CoreGuiModules.SocialUtil)
 local FriendingUtility = require(CoreGuiModules.FriendingUtility)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
+local UserRelationshipModals = require(CorePackages.Workspace.Packages.UserRelationshipModals)
 
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 local FFlagRemoveHardCodedFriendLimitPrompt = require(CoreGuiModules.Flags.FFlagRemoveHardCodedFriendLimitPrompt)
+local FFlagFriendRequestModalRevamp = game:DefineFastFlag("FriendRequestModalRevamp", false)
 
 
 local THUMBNAIL_SIZE = 200
@@ -93,6 +95,11 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 		if (LocalPlayer :: any):IsFriendsWith(playerToFriend.UserId) then
 			return
 		end
+	end
+
+	if FFlagFriendRequestModalRevamp then
+		UserRelationshipModals.launchPromptFriendRequestModal(playerToFriend.UserId)
+		return
 	end
 
 	local thumbnailUrl = ""

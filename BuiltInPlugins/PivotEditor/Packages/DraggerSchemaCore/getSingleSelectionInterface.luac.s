@@ -87,7 +87,7 @@ PROTO_9:
        33 LOADNIL                          R6
        34 JUMPIFNOT                        R2 ; [+30]
        35 JUMPIF                           R3 ; [+29]
-       36 JUMPIF                           R6 ; [+28]
+       36 JUMPIF                           R4 ; [+28]
        37 GETTABLEKS                       R7 R2 K7 ["CFrame"]
        39 GETTABLEKS                       R8 R2 K8 ["Size"]
        41 DUPTABLE                         R9 K13 [{"setBounds", "getCurrentBounds", "getInitialBounds", "recomputeInitialBounds"}]

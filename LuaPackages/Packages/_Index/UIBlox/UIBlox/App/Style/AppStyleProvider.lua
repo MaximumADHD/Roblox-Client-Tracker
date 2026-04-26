@@ -87,11 +87,19 @@ local function AppStyleProvider(props: Props)
 	local baseTokens: BaseTokens = getTokens(style.deviceType, themeName, scale)
 	local textSizeOffset, setTextSizeOffset = React.useState(0)
 	local theme = getThemeFromName(themeName)
-	local foundationProviderPresent = useTokens().Config ~= nil
+	local contextTokens = useTokens()
+	local foundationProviderPresent = contextTokens.Config ~= nil
 
 	local foundationTokens: RbxDesignFoundationsV2Tokens = getFoundationTokens(style.deviceType, themeName)
+
 	baseTokens = TokensMappers.mapColorTokensToFoundation(baseTokens, foundationTokens)
-	theme = TokensMappers.mapThemeToFoundation(theme, foundationTokens)
+
+	theme = TokensMappers.mapThemeToFoundation(
+		theme,
+		if UIBloxConfig.useColorTokensForThemeMapping and foundationProviderPresent
+			then contextTokens
+			else foundationTokens
+	)
 	assert(validateTokens(baseTokens), "Invalid tokens!")
 	local tokens: Tokens = if UIBloxConfig.enableFoundationTokenMapping
 		then TokensMappers.addFoundationFlatKeys(baseTokens, foundationTokens)

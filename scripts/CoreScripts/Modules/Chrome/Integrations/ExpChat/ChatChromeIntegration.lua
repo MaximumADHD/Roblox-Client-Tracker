@@ -42,6 +42,8 @@ local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 local GetFFlagDisableLegacyChatSimpleUnreadMessageCount = SharedFlags.GetFFlagDisableLegacyChatSimpleUnreadMessageCount
+local ExpChatShared = require(CorePackages.Workspace.Packages.ExpChatShared)
+local GetFFlagTextChatEnableUniverseChatTabs = ExpChatShared.Flags.GetFFlagTextChatEnableUniverseChatTabs
 local FFlagExpChatUnibarThumbstickNavigate = game:DefineFastFlag("ExpChatUnibarThumbstickNavigate", false)
 local FFlagExpChatUnibarAvailabilityRefactor = game:DefineFastFlag("ExpChatUnibarAvailabilityRefactor", false)
 local FFlagHideChatButtonForChatDisabledUsers = game:DefineFastFlag("HideChatButtonForChatDisabledUsers", false)
@@ -264,6 +266,15 @@ if GetFFlagSimpleChatUnreadMessageCount() then
 		end
 	end)
 
+	-- Universe Chat
+	if GetFFlagTextChatEnableUniverseChatTabs() then
+		TextChatService.UniverseChatMessageReceived:Connect(function()
+			if not chatVisibility and chatChromeIntegration.notification:isEmpty() then
+				chatChromeIntegration.notification:fireCount(1)
+			end
+		end)
+	end
+
 	-- Legacy Chat
 	if not GetFFlagDisableLegacyChatSimpleUnreadMessageCount() then
 		ChatSelector.MessagesChanged:connect(function(messages: number)
@@ -279,6 +290,16 @@ else
 			chatChromeIntegration.notification:fireCount(unreadMessages)
 		end
 	end)
+
+	-- Universe Chat
+	if GetFFlagTextChatEnableUniverseChatTabs() then
+		TextChatService.UniverseChatMessageReceived:Connect(function()
+			if not chatVisibility then
+				unreadMessages += 1
+				chatChromeIntegration.notification:fireCount(unreadMessages)
+			end
+		end)
+	end
 
 	local lastMessagesChangedValue = 0
 	ChatSelector.MessagesChanged:connect(function(messages: number)

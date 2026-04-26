@@ -98,6 +98,60 @@ local FAKE_MESSAGES = {
 		TextChannel = { Name = "RBXGeneral" },
 		TextSource = { UserId = 1002 },
 	},
+	{
+		PrefixText = '<font color="#b38bf5">test_user_ax7:</font>',
+		Text = "i'm reporting you for harassment",
+		TextChannel = { Name = "RBXGeneral" },
+		TextSource = { UserId = 1001 },
+	},
+	{
+		PrefixText = '<font color="#55ffab">test_user_brimstone42:</font>',
+		Text = "go ahead nobody cares",
+		TextChannel = { Name = "RBXWhisper:1001_1002" },
+		TextSource = { UserId = 1002 },
+	},
+	{
+		PrefixText = '<font color="#619bff">test_user_c9:</font>',
+		Text = "can we all just play nice please",
+		TextChannel = { Name = "RBXGeneral" },
+		TextSource = { UserId = 1003 },
+	},
+	{
+		PrefixText = '<font color="#b38bf5">test_user_ax7:</font>',
+		Text = "you're terrible at building",
+		TextChannel = { Name = "RBXGeneral" },
+		TextSource = { UserId = 1001 },
+	},
+	{
+		PrefixText = '<font color="#55ffab">test_user_brimstone42:</font>',
+		Text = "at least i don't spam chat",
+		TextChannel = { Name = "RBXGeneral" },
+		TextSource = { UserId = 1002 },
+	},
+	{
+		PrefixText = '<font color="#619bff">test_user_c9:</font>',
+		Text = "let's focus on the objective",
+		TextChannel = { Name = "RBXGeneral" },
+		TextSource = { UserId = 1003 },
+	},
+	{
+		PrefixText = '<font color="#b38bf5">test_user_ax7:</font>',
+		Text = "you're just jealous of my skills",
+		TextChannel = { Name = "RBXWhisper:1001_1003" },
+		TextSource = { UserId = 1001 },
+	},
+	{
+		PrefixText = '<font color="#55ffab">test_user_brimstone42:</font>',
+		Text = "thanks for the help earlier c9",
+		TextChannel = { Name = "RBXWhisper:1002_1003" },
+		TextSource = { UserId = 1002 },
+	},
+	{
+		PrefixText = '<font color="#619bff">test_user_c9:</font>',
+		Text = "no problem, happy to help",
+		TextChannel = { Name = "RBXWhisper:1002_1003" },
+		TextSource = { UserId = 1003 },
+	},
 }
 
 local MULTI_CHANNEL_MESSAGES = {

@@ -2,6 +2,7 @@
 local root = script:FindFirstAncestor("AbuseReportMenu")
 local CorePackages = game:GetService("CorePackages")
 
+local GuiService = game:GetService("GuiService")
 local IXPService = game:GetService("IXPService")
 local LocalizationService = game:GetService("LocalizationService")
 local PlayersService = game:GetService("Players")
@@ -65,6 +66,8 @@ local FIntAbuseReportTabClearCapturedScreenshotOnCloseFixDelay =
 local FFlagMigrateAllOsaMessagingToCentralService =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagMigrateAllOsaMessagingToCentralService
 local FFlagIEMReportScrollingFix = game:DefineFastFlag("IEMReportScrollingFix", false)
+local FFlagReportFocusNavIEMButtons = require(root.Flags.FFlagReportFocusNavIEMButtons)
+local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
 
 local isShowSelectInSceneReportMenu = require(root.Utility.isShowSelectInSceneReportMenu)
 
@@ -88,6 +91,9 @@ export type Props = {
 	registerOnMenuWidthChange: ((width: number) -> ()) -> (),
 	onReportComplete: (text: string) -> (),
 	onDropdownMenuOpenChange: (isOpen: boolean) -> (),
+	getSettingsHubRef: (() -> any)?,
+	setFirstSelectableObjects: ((selectableList: { GuiObject }) -> ())?,
+	setLastSelectableObjects: ((selectableList: { GuiObject }) -> ())?,
 }
 
 local function isInSelectInSceneExperiment(): boolean
@@ -130,6 +136,9 @@ local AbuseReportMenuNew = function(props: Props)
 	local menuWidth, setMenuWidth = React.useState(0)
 	local isOnlyPlayerInGame, setIsOnlyPlayerInGame = React.useState(false)
 	local shouldSelectorRender, setShouldSelectorRender = React.useState(false)
+	local isAutoFocusEnabled, setIsAutoFocusEnabled = React.useState(true)
+	local modeSelectorRef = React.useRef(nil :: GuiObject?)
+	local abuseMenuFrameRef = React.useRef(nil :: GuiObject?)
 
 	local viewportDimension, setViewportDimension = React.useState({ width = 0, height = 0 })
 	local isSmallPortraitViewport = viewportDimension.width < viewportDimension.height and viewportDimension.width < 700
@@ -254,6 +263,55 @@ local AbuseReportMenuNew = function(props: Props)
 		end
 	end, { isReportTabVisible, menuWidth } :: { any })
 
+	if FFlagReportFocusNavIEMButtons then
+		React.useEffect(function()
+			if not isReportTabVisible then
+				return
+			end
+
+			local function isMenuSelected()
+				local getSettingsHubRef = props.getSettingsHubRef
+				local hub = getSettingsHubRef and getSettingsHubRef()
+				local menuContainer = hub and hub.MenuContainer
+				return GuiService.SelectedCoreObject ~= nil
+					and menuContainer ~= nil
+					and GuiService.SelectedCoreObject:IsDescendantOf(menuContainer)
+			end
+
+			setIsAutoFocusEnabled(not isMenuSelected())
+
+			local conn = GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function()
+				setIsAutoFocusEnabled(not isMenuSelected())
+			end)
+
+			return function()
+				conn:Disconnect()
+			end
+		end, { isReportTabVisible, props.getSettingsHubRef } :: { any })
+	end
+
+	if FFlagIEMTabFocusNav then
+		React.useEffect(
+			function()
+				if not isReportTabVisible then
+					return
+				end
+
+				local firstItems = nil
+				if modeSelectorRef.current and modeSelectorRef.current.tabRefs then
+					firstItems = {
+						modeSelectorRef.current.tabRefs[1].current:FindFirstChild("Tab"),
+						modeSelectorRef.current.tabRefs[2].current:FindFirstChild("Tab"),
+					}
+				end
+				if props.setFirstSelectableObjects and firstItems then
+					props.setFirstSelectableObjects(firstItems)
+				end
+			end,
+			{ isReportTabVisible, modeSelectorRef, props.setFirstSelectableObjects, shouldSelectorRender } :: { unknown }
+		)
+	end
+
 	if not isReportTabVisible then
 		return nil
 	end
@@ -275,6 +333,7 @@ local AbuseReportMenuNew = function(props: Props)
 		setPreselectedPlayer = setPreselectedPlayer,
 		menuWidth = menuWidth,
 		viewportDimension = viewportDimension,
+		setLastSelectableObjects = if FFlagReportFocusNavIEMButtons then props.setLastSelectableObjects else nil,
 	}
 
 	if reportType == ReportTypes.Person then
@@ -290,6 +349,7 @@ local AbuseReportMenuNew = function(props: Props)
 	end
 
 	return React.createElement("Frame", {
+		ref = abuseMenuFrameRef,
 		BackgroundTransparency = 1,
 		AutomaticSize = Enum.AutomaticSize.Y,
 		Size = UDim2.new(1, 0, 0, 0),
@@ -302,7 +362,8 @@ local AbuseReportMenuNew = function(props: Props)
 				AutomaticSize = Enum.AutomaticSize.Y,
 			},
 			isIsolated = if FFlagIEMReportScrollingFix then nil else true,
-			isAutoFocusRoot = true,
+			isAutoFocusRoot = if FFlagReportFocusNavIEMButtons then isAutoFocusEnabled else true,
+			shouldRestoreFocus = if FFlagReportFocusNavIEMButtons then false else true,
 		}, {
 			-- placeholder frame added to attach our modal selector and screenshot dialog
 			-- necessary for proper selection UI behavior (console)
@@ -348,6 +409,7 @@ local AbuseReportMenuNew = function(props: Props)
 									},
 								},
 								width = UDim.new(0, menuWidth),
+								ref = if FFlagIEMTabFocusNav then modeSelectorRef else nil,
 							}),
 						})
 						else nil,

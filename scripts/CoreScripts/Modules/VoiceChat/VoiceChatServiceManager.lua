@@ -36,8 +36,6 @@ local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetF
 local GetFFlagAvatarChatServiceEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local GetFFlagVoiceChatServiceManagerUseAvatarChat = VoiceChatCore.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat
-local FFlagAvatarChatCoreScriptSupport =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local GetFFlagUseLuaSignalrConsumer = VoiceChatCore.Flags.GetFFlagUseLuaSignalrConsumer
 local GetFFlagNonVoiceFTUX = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagNonVoiceFTUX
 local GetFFlagJoinWithoutMicPermissions =
@@ -65,7 +63,6 @@ local GetFFlagEnableVoiceTrustedConnectionsToasts =
 
 local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
 local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
-local FFlagFixMissingPermissionsAnalytics = game:DefineFastFlag("FixMissingPermissionsAnalytics", false)
 local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermissionCheck", false)
 local FFlagDebugSimulateConnectDisconnect = game:DefineFastFlag("DebugSimulateConnectDisconnect", false)
 local FFlagDebugSkipSeamlessVoiceAPICheck = game:DefineFastFlag("DebugSkipSeamlessVoiceAPICheck", false)
@@ -1445,11 +1442,6 @@ function VoiceChatServiceManager:CheckAndShowPermissionPrompt()
 				if self.permissionState == PERMISSION_STATE.LISTEN_ONLY then
 					self:showPrompt(VoiceChatPromptType.Permission)
 				end
-			elseif FFlagAvatarChatCoreScriptSupport then
-				if FFlagFixMissingPermissionsAnalytics then
-					self:_reportJoinFailed("missingPermissions")
-				end
-				self:showPrompt(VoiceChatPromptType.Permission)
 			else
 				return self.PermissionsService
 					:hasPermissions({

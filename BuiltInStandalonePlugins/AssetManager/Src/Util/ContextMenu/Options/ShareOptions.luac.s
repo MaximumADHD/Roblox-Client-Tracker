@@ -33,7 +33,7 @@ PROTO_1:
        22 JUMPIFNOT                        R5 ; [+6]
        23 LENGTH                           R6 R3
        24 LOADN                            R7 50
-       25 JUMPIFLT                         R6 R7 ; [+2]
+       25 JUMPIFLE                         R6 R7 ; [+2]
        27 LOADB                            R5 0 +1
        28 LOADB                            R5 1
        29 RETURN                           R5 1
@@ -78,123 +78,51 @@ PROTO_5:
         1 RETURN                           R3 1
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 JUMPIFNOT                        R3 ; [+3]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R3 0 1
-        5 JUMPIF                           R3 ; [+2]
-        6 LOADB                            R3 0
-        7 RETURN                           R3 1
-        8 GETTABLEKS                       R3 R1 K0 ["ItemsController"]
-       10 GETUPVAL                         R5 2
-       11 GETTABLEKS                       R4 R5 K1 ["keys"]
-       13 NAMECALL                         R5 R3 K2 ["getSelection"]
-       15 CALL                             R5 1 -1
-       16 CALL                             R4 -1 1
-       17 GETUPVAL                         R8 3
-       18 GETTABLEKS                       R7 R8 K3 ["MenuContext"]
-       20 GETTABLEKS                       R6 R7 K4 ["Asset"]
-       22 JUMPIFEQ                         R0 R6 ; [+3]
-       24 LOADB                            R5 0
-       25 JUMP                             ; [+20]
-       26 GETTABLEKS                       R6 R1 K0 ["ItemsController"]
-       28 GETUPVAL                         R8 2
-       29 GETTABLEKS                       R7 R8 K1 ["keys"]
-       31 NAMECALL                         R8 R6 K2 ["getSelection"]
-       33 CALL                             R8 1 -1
-       34 CALL                             R7 -1 1
-       35 NAMECALL                         R8 R6 K5 ["selectionHasInsertableAssets"]
-       37 CALL                             R8 1 1
-       38 MOVE                             R5 R8
-       39 JUMPIFNOT                        R5 ; [+6]
-       40 LENGTH                           R9 R7
-       41 LOADN                            R10 50
-       42 JUMPIFLT                         R9 R10 ; [+2]
-       44 LOADB                            R5 0 +1
-       45 LOADB                            R5 1
-       46 JUMPIFNOT                        R5 ; [+15]
-       47 MOVE                             R8 R4
-       48 NAMECALL                         R6 R3 K6 ["getAssetTypes"]
-       50 CALL                             R6 2 1
-       51 GETUPVAL                         R7 4
-       52 LOADNIL                          R8
-       53 LOADNIL                          R9
-       54 FORGPREP                         R7
-       55 GETTABLE                         R12 R6 R10
-       56 JUMPIFNOT                        R12 ; [+2]
-       57 LOADB                            R5 1
-       58 RETURN                           R5 1
-       59 FORGLOOP                         R7 2 ; [-5]
-       61 LOADB                            R5 0
-       62 RETURN                           R5 1
+        0 GETTABLEKS                       R3 R1 K0 ["ItemsController"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R4 R5 K1 ["keys"]
+        5 NAMECALL                         R5 R3 K2 ["getSelection"]
+        7 CALL                             R5 1 -1
+        8 CALL                             R4 -1 1
+        9 MOVE                             R9 R4
+       10 NAMECALL                         R7 R3 K3 ["getAssetTypes"]
+       12 CALL                             R7 2 1
+       13 GETUPVAL                         R8 1
+       14 LOADNIL                          R9
+       15 LOADNIL                          R10
+       16 FORGPREP                         R8
+       17 GETTABLE                         R13 R7 R11
+       18 JUMPIFNOT                        R13 ; [+2]
+       19 LOADB                            R6 1
+       20 JUMP                             ; [+3]
+       21 FORGLOOP                         R8 2 ; [-5]
+       23 LOADB                            R6 0
+       24 NOT                              R5 R6
+       25 RETURN                           R5 1
 
 PROTO_7:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R4 R1 K0 ["PluginController"]
-        3 GETTABLEKS                       R5 R1 K1 ["Networking"]
-        5 GETTABLEKS                       R6 R1 K2 ["Localization"]
-        7 GETUPVAL                         R8 1
-        8 GETTABLEKS                       R7 R8 K3 ["keys"]
-       10 GETTABLEKS                       R8 R1 K4 ["ItemsController"]
-       12 NAMECALL                         R8 R8 K5 ["getSelection"]
-       14 CALL                             R8 1 -1
-       15 CALL                             R7 -1 -1
-       16 CALL                             R3 -1 0
-       17 RETURN                           R0 0
-
-PROTO_8:
-        0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 JUMPIF                           R3 ; [+2]
-        3 LOADB                            R3 0
-        4 RETURN                           R3 1
-        5 GETTABLEKS                       R3 R1 K0 ["ItemsController"]
-        7 GETUPVAL                         R5 1
-        8 GETTABLEKS                       R4 R5 K1 ["keys"]
-       10 NAMECALL                         R5 R3 K2 ["getSelection"]
-       12 CALL                             R5 1 -1
-       13 CALL                             R4 -1 1
-       14 GETUPVAL                         R8 2
-       15 GETTABLEKS                       R7 R8 K3 ["MenuContext"]
-       17 GETTABLEKS                       R6 R7 K4 ["Asset"]
-       19 JUMPIFEQ                         R0 R6 ; [+3]
-       21 LOADB                            R5 0
-       22 JUMP                             ; [+20]
-       23 GETTABLEKS                       R6 R1 K0 ["ItemsController"]
-       25 GETUPVAL                         R8 1
-       26 GETTABLEKS                       R7 R8 K1 ["keys"]
-       28 NAMECALL                         R8 R6 K2 ["getSelection"]
-       30 CALL                             R8 1 -1
-       31 CALL                             R7 -1 1
-       32 NAMECALL                         R8 R6 K5 ["selectionHasInsertableAssets"]
-       34 CALL                             R8 1 1
-       35 MOVE                             R5 R8
-       36 JUMPIFNOT                        R5 ; [+6]
-       37 LENGTH                           R9 R7
-       38 LOADN                            R10 50
-       39 JUMPIFLT                         R9 R10 ; [+2]
-       41 LOADB                            R5 0 +1
-       42 LOADB                            R5 1
-       43 JUMPIFNOT                        R5 ; [+19]
-       44 GETUPVAL                         R6 3
-       45 CALL                             R6 0 1
-       46 JUMPIFNOT                        R6 ; [+15]
-       47 MOVE                             R9 R4
-       48 NAMECALL                         R7 R3 K6 ["getAssetTypes"]
-       50 CALL                             R7 2 1
-       51 GETUPVAL                         R8 4
-       52 LOADNIL                          R9
-       53 LOADNIL                          R10
-       54 FORGPREP                         R8
-       55 GETTABLE                         R13 R7 R11
-       56 JUMPIFNOT                        R13 ; [+2]
-       57 LOADB                            R6 1
-       58 JUMP                             ; [+3]
-       59 FORGLOOP                         R8 2 ; [-5]
-       61 LOADB                            R6 0
-       62 NOT                              R5 R6
-       63 RETURN                           R5 1
+        0 GETUPVAL                         R6 0
+        1 GETTABLEKS                       R5 R6 K0 ["MenuContext"]
+        3 GETTABLEKS                       R4 R5 K1 ["Asset"]
+        5 JUMPIFEQ                         R0 R4 ; [+3]
+        7 LOADB                            R3 0
+        8 RETURN                           R3 1
+        9 GETTABLEKS                       R4 R1 K2 ["ItemsController"]
+       11 GETUPVAL                         R6 1
+       12 GETTABLEKS                       R5 R6 K3 ["keys"]
+       14 NAMECALL                         R6 R4 K4 ["getSelection"]
+       16 CALL                             R6 1 -1
+       17 CALL                             R5 -1 1
+       18 NAMECALL                         R6 R4 K5 ["selectionHasInsertableAssets"]
+       20 CALL                             R6 1 1
+       21 MOVE                             R3 R6
+       22 JUMPIFNOT                        R3 ; [+6]
+       23 LENGTH                           R7 R5
+       24 LOADN                            R8 50
+       25 JUMPIFLE                         R7 R8 ; [+2]
+       27 LOADB                            R3 0 +1
+       28 LOADB                            R3 1
+       29 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -222,91 +150,65 @@ MAIN:
        38 GETTABLEKS                       R6 R7 K11 ["Dialogs"]
        40 GETTABLEKS                       R5 R6 K13 ["openQuickShare"]
        42 CALL                             R4 1 1
-       43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R8 R0 K8 ["Src"]
-       47 GETTABLEKS                       R7 R8 K14 ["Flags"]
-       49 GETTABLEKS                       R6 R7 K15 ["getFFlagAmrQuickShare"]
-       51 CALL                             R5 1 1
-       52 GETIMPORT                        R6 K5 [require]
-       54 GETTABLEKS                       R9 R0 K8 ["Src"]
-       56 GETTABLEKS                       R8 R9 K14 ["Flags"]
-       58 GETTABLEKS                       R7 R8 K16 ["getFFlagAmrOpenUseShare"]
-       60 CALL                             R6 1 1
-       61 NEWTABLE                         R7 4 0
-       63 GETTABLEKS                       R9 R2 K17 ["AssetType"]
-       65 GETTABLEKS                       R8 R9 K18 ["Mesh"]
-       67 LOADB                            R9 1
-       68 SETTABLE                         R9 R7 R8
-       69 GETTABLEKS                       R9 R2 K17 ["AssetType"]
-       71 GETTABLEKS                       R8 R9 K19 ["Image"]
-       73 LOADB                            R9 1
-       74 SETTABLE                         R9 R7 R8
-       75 GETTABLEKS                       R9 R2 K17 ["AssetType"]
-       77 GETTABLEKS                       R8 R9 K20 ["Decal"]
-       79 LOADB                            R9 1
-       80 SETTABLE                         R9 R7 R8
-       81 DUPCLOSURE                       R8 K21 [PROTO_0]
-       82 CAPTURE                          VAL R7
-       83 DUPCLOSURE                       R9 K22 [PROTO_1]
-       84 CAPTURE                          VAL R2
-       85 CAPTURE                          VAL R1
-       86 DUPTABLE                         R10 K27 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       87 LOADK                            R11 K28 ["ContextMenu"]
-       88 SETTABLEKS                       R11 R10 K23 ["TextKey"]
-       90 LOADK                            R11 K29 ["WithCollaborators"]
-       91 SETTABLEKS                       R11 R10 K24 ["TextSubKey"]
-       93 DUPCLOSURE                       R11 K30 [PROTO_2]
-       94 CAPTURE                          VAL R1
-       95 CAPTURE                          VAL R4
-       96 SETTABLEKS                       R11 R10 K25 ["OnItemClicked"]
-       98 DUPCLOSURE                       R11 K31 [PROTO_3]
-       99 SETTABLEKS                       R11 R10 K26 ["ShouldRender"]
-      101 DUPTABLE                         R11 K27 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-      102 LOADK                            R12 K28 ["ContextMenu"]
-      103 SETTABLEKS                       R12 R11 K23 ["TextKey"]
-      105 LOADK                            R12 K32 ["OpenUse"]
-      106 SETTABLEKS                       R12 R11 K24 ["TextSubKey"]
-      108 DUPCLOSURE                       R12 K33 [PROTO_4]
-      109 CAPTURE                          VAL R1
-      110 CAPTURE                          VAL R3
-      111 SETTABLEKS                       R12 R11 K25 ["OnItemClicked"]
-      113 DUPCLOSURE                       R12 K34 [PROTO_5]
-      114 SETTABLEKS                       R12 R11 K26 ["ShouldRender"]
-      116 DUPTABLE                         R12 K36 [{"TextKey", "TextSubKey", "Children", "ShouldRender"}]
-      117 LOADK                            R13 K28 ["ContextMenu"]
-      118 SETTABLEKS                       R13 R12 K23 ["TextKey"]
-      120 LOADK                            R13 K37 ["QuickShare"]
-      121 SETTABLEKS                       R13 R12 K24 ["TextSubKey"]
-      123 NEWTABLE                         R13 0 2
-      125 MOVE                             R14 R10
-      126 MOVE                             R15 R11
-      127 SETLIST                          R13 R14 2 [1]
-      129 SETTABLEKS                       R13 R12 K35 ["Children"]
-      131 DUPCLOSURE                       R13 K38 [PROTO_6]
-      132 CAPTURE                          VAL R5
-      133 CAPTURE                          VAL R6
-      134 CAPTURE                          VAL R1
-      135 CAPTURE                          VAL R2
-      136 CAPTURE                          VAL R7
-      137 SETTABLEKS                       R13 R12 K26 ["ShouldRender"]
-      139 DUPTABLE                         R13 K27 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-      140 LOADK                            R14 K28 ["ContextMenu"]
-      141 SETTABLEKS                       R14 R13 K23 ["TextKey"]
-      143 LOADK                            R14 K37 ["QuickShare"]
-      144 SETTABLEKS                       R14 R13 K24 ["TextSubKey"]
-      146 DUPCLOSURE                       R14 K39 [PROTO_7]
-      147 CAPTURE                          VAL R4
-      148 CAPTURE                          VAL R1
-      149 SETTABLEKS                       R14 R13 K25 ["OnItemClicked"]
-      151 DUPCLOSURE                       R14 K40 [PROTO_8]
-      152 CAPTURE                          VAL R5
-      153 CAPTURE                          VAL R1
-      154 CAPTURE                          VAL R2
-      155 CAPTURE                          VAL R6
-      156 CAPTURE                          VAL R7
-      157 SETTABLEKS                       R14 R13 K26 ["ShouldRender"]
-      159 NEWTABLE                         R14 0 2
-      161 MOVE                             R15 R12
-      162 MOVE                             R16 R13
-      163 SETLIST                          R14 R15 2 [1]
-      165 RETURN                           R14 1
+       43 NEWTABLE                         R5 4 0
+       45 GETTABLEKS                       R7 R2 K14 ["AssetType"]
+       47 GETTABLEKS                       R6 R7 K15 ["Mesh"]
+       49 LOADB                            R7 1
+       50 SETTABLE                         R7 R5 R6
+       51 GETTABLEKS                       R7 R2 K14 ["AssetType"]
+       53 GETTABLEKS                       R6 R7 K16 ["Image"]
+       55 LOADB                            R7 1
+       56 SETTABLE                         R7 R5 R6
+       57 GETTABLEKS                       R7 R2 K14 ["AssetType"]
+       59 GETTABLEKS                       R6 R7 K17 ["Decal"]
+       61 LOADB                            R7 1
+       62 SETTABLE                         R7 R5 R6
+       63 DUPCLOSURE                       R6 K18 [PROTO_0]
+       64 CAPTURE                          VAL R5
+       65 DUPCLOSURE                       R7 K19 [PROTO_1]
+       66 CAPTURE                          VAL R2
+       67 CAPTURE                          VAL R1
+       68 DUPTABLE                         R8 K24 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
+       69 LOADK                            R9 K25 ["ContextMenu"]
+       70 SETTABLEKS                       R9 R8 K20 ["TextKey"]
+       72 LOADK                            R9 K26 ["WithCollaborators"]
+       73 SETTABLEKS                       R9 R8 K21 ["TextSubKey"]
+       75 DUPCLOSURE                       R9 K27 [PROTO_2]
+       76 CAPTURE                          VAL R1
+       77 CAPTURE                          VAL R4
+       78 SETTABLEKS                       R9 R8 K22 ["OnItemClicked"]
+       80 DUPCLOSURE                       R9 K28 [PROTO_3]
+       81 SETTABLEKS                       R9 R8 K23 ["ShouldRender"]
+       83 DUPTABLE                         R9 K30 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender", "ShouldDisable"}]
+       84 LOADK                            R10 K25 ["ContextMenu"]
+       85 SETTABLEKS                       R10 R9 K20 ["TextKey"]
+       87 LOADK                            R10 K31 ["OpenUse"]
+       88 SETTABLEKS                       R10 R9 K21 ["TextSubKey"]
+       90 DUPCLOSURE                       R10 K32 [PROTO_4]
+       91 CAPTURE                          VAL R1
+       92 CAPTURE                          VAL R3
+       93 SETTABLEKS                       R10 R9 K22 ["OnItemClicked"]
+       95 DUPCLOSURE                       R10 K33 [PROTO_5]
+       96 SETTABLEKS                       R10 R9 K23 ["ShouldRender"]
+       98 DUPCLOSURE                       R10 K34 [PROTO_6]
+       99 CAPTURE                          VAL R1
+      100 CAPTURE                          VAL R5
+      101 SETTABLEKS                       R10 R9 K29 ["ShouldDisable"]
+      103 DUPTABLE                         R10 K36 [{"TextKey", "TextSubKey", "Children", "ShouldRender"}]
+      104 LOADK                            R11 K25 ["ContextMenu"]
+      105 SETTABLEKS                       R11 R10 K20 ["TextKey"]
+      107 LOADK                            R11 K37 ["QuickShare"]
+      108 SETTABLEKS                       R11 R10 K21 ["TextSubKey"]
+      110 NEWTABLE                         R11 0 2
+      112 MOVE                             R12 R8
+      113 MOVE                             R13 R9
+      114 SETLIST                          R11 R12 2 [1]
+      116 SETTABLEKS                       R11 R10 K35 ["Children"]
+      118 DUPCLOSURE                       R11 K38 [PROTO_7]
+      119 CAPTURE                          VAL R2
+      120 CAPTURE                          VAL R1
+      121 SETTABLEKS                       R11 R10 K23 ["ShouldRender"]
+      123 NEWTABLE                         R11 0 1
+      125 MOVE                             R12 R10
+      126 SETLIST                          R11 R12 1 [1]
+      128 RETURN                           R11 1

@@ -1,23 +1,38 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["buildRequest"]
-        3 LOADK                            R3 K1 ["POST"]
-        4 GETUPVAL                         R5 1
-        5 GETTABLEKS                       R4 R5 K2 ["host"]
-        7 LOADK                            R5 K3 ["/v1/subagent-conversation"]
-        8 GETUPVAL                         R7 1
-        9 GETTABLEKS                       R6 R7 K4 ["pathPrefix"]
-       11 CALL                             R2 4 1
-       12 MOVE                             R3 R1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["buildRequest"]
+        3 LOADK                            R2 K1 ["POST"]
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R3 R4 K2 ["host"]
+        7 LOADK                            R4 K3 ["/v1/subagent-conversation"]
+        8 GETUPVAL                         R6 1
+        9 GETTABLEKS                       R5 R6 K4 ["pathPrefix"]
+       11 CALL                             R1 4 1
+       12 GETUPVAL                         R3 2
        13 MOVE                             R4 R0
-       14 CALL                             R3 1 1
-       15 SETTABLEKS                       R3 R2 K5 ["body"]
-       17 GETTABLEKS                       R3 R2 K6 ["headers"]
-       19 LOADK                            R4 K7 ["application/json"]
-       20 SETTABLEKS                       R4 R3 K8 ["Content-Type"]
-       22 NAMECALL                         R3 R2 K9 ["sendAsync"]
-       24 CALL                             R3 1 -1
-       25 RETURN                           R3 -1
+       14 NAMECALL                         R1 R1 K5 ["setBody"]
+       16 CALL                             R1 3 1
+       17 NAMECALL                         R1 R1 K6 ["sendAsync"]
+       19 CALL                             R1 1 -1
+       20 RETURN                           R1 -1
+
+PROTO_1:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["buildRequest"]
+        3 LOADK                            R2 K1 ["POST"]
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R3 R4 K2 ["host"]
+        7 LOADK                            R4 K3 ["/v1/subagent-conversation:sse"]
+        8 GETUPVAL                         R6 1
+        9 GETTABLEKS                       R5 R6 K4 ["pathPrefix"]
+       11 CALL                             R1 4 1
+       12 GETUPVAL                         R3 2
+       13 MOVE                             R4 R0
+       14 NAMECALL                         R1 R1 K5 ["setBody"]
+       16 CALL                             R1 3 1
+       17 NAMECALL                         R1 R1 K6 ["sendAsync"]
+       19 CALL                             R1 1 -1
+       20 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -39,12 +54,18 @@ MAIN:
        25 GETTABLEKS                       R7 R0 K10 ["Models"]
        27 GETTABLEKS                       R6 R7 K11 ["CreateConversationRequest"]
        29 CALL                             R5 1 1
-       30 NEWTABLE                         R6 1 0
+       30 NEWTABLE                         R6 2 0
        32 DUPCLOSURE                       R7 K12 [PROTO_0]
        33 CAPTURE                          VAL R3
        34 CAPTURE                          VAL R4
-       35 SETTABLEKS                       R7 R6 K13 ["postCreateSubagentConversationV1SubagentConversationPostAsync"]
-       37 GETIMPORT                        R7 K16 [table.freeze]
-       39 MOVE                             R8 R6
-       40 CALL                             R7 1 -1
-       41 RETURN                           R7 -1
+       35 CAPTURE                          VAL R5
+       36 SETTABLEKS                       R7 R6 K13 ["postCreateSubagentConversationV1SubagentConversationPostAsync"]
+       38 DUPCLOSURE                       R7 K14 [PROTO_1]
+       39 CAPTURE                          VAL R3
+       40 CAPTURE                          VAL R4
+       41 CAPTURE                          VAL R5
+       42 SETTABLEKS                       R7 R6 K15 ["postCreateConversationSseV1SubagentConversationSsePostAsync"]
+       44 GETIMPORT                        R7 K18 [table.freeze]
+       46 MOVE                             R8 R6
+       47 CALL                             R7 1 -1
+       48 RETURN                           R7 -1

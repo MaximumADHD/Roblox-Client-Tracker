@@ -63,7 +63,12 @@ type _VerticalFeedSchema_PropsFields = {
 	selection_behavior_left: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.SelectionBehaviorProp?,
 	selection_behavior_right: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.SelectionBehaviorProp?,
 	on_refresh: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
-	sticky_items: _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentListProp?,
+	sticky_items: _roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp?,
+	gap_after_sticky_items: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	gap_between_sticky_items: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	sticky_padding_top: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	sticky_padding_bottom: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	sticky_content_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _VerticalFeedSchema_PropsPartialFields = {
@@ -79,7 +84,12 @@ type _VerticalFeedSchema_PropsPartialFields = {
 	selection_behavior_left: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.SelectionBehaviorProp?,
 	selection_behavior_right: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.SelectionBehaviorProp?,
 	on_refresh: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
-	sticky_items: _roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentListProp?,
+	sticky_items: _roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp?,
+	gap_after_sticky_items: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	gap_between_sticky_items: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	sticky_padding_top: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	sticky_padding_bottom: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	sticky_content_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type VerticalFeedSchema_Props = typeof(setmetatable(
@@ -234,6 +244,17 @@ do
 				else data.selection_behavior_right,
 			on_refresh = if data == nil or data.on_refresh == nil then nil else data.on_refresh,
 			sticky_items = if data == nil or data.sticky_items == nil then nil else data.sticky_items,
+			gap_after_sticky_items = if data == nil or data.gap_after_sticky_items == nil
+				then nil
+				else data.gap_after_sticky_items,
+			gap_between_sticky_items = if data == nil or data.gap_between_sticky_items == nil
+				then nil
+				else data.gap_between_sticky_items,
+			sticky_padding_top = if data == nil or data.sticky_padding_top == nil then nil else data.sticky_padding_top,
+			sticky_padding_bottom = if data == nil or data.sticky_padding_bottom == nil
+				then nil
+				else data.sticky_padding_bottom,
+			sticky_content_tag = if data == nil or data.sticky_content_tag == nil then nil else data.sticky_content_tag,
 		}, _VerticalFeedSchema_PropsImpl :: _VerticalFeedSchema_PropsImpl)
 	end
 
@@ -316,6 +337,36 @@ do
 		if self.sticky_items ~= nil then
 			local encoded = self.sticky_items:encode()
 			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.gap_after_sticky_items ~= nil then
+			local encoded = self.gap_after_sticky_items:encode()
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.gap_between_sticky_items ~= nil then
+			local encoded = self.gap_between_sticky_items:encode()
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.sticky_padding_top ~= nil then
+			local encoded = self.sticky_padding_top:encode()
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.sticky_padding_bottom ~= nil then
+			local encoded = self.sticky_padding_bottom:encode()
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.sticky_content_tag ~= nil then
+			local encoded = self.sticky_content_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -407,7 +458,35 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.sticky_items =
-						_roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentListProp.decode(value)
+						_roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp.decode(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.gap_after_sticky_items =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.gap_between_sticky_items =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sticky_padding_top = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sticky_padding_bottom =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sticky_content_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -486,6 +565,26 @@ do
 
 		if self.sticky_items ~= nil then
 			output.stickyItems = self.sticky_items:jsonEncode()
+		end
+
+		if self.gap_after_sticky_items ~= nil then
+			output.gapAfterStickyItems = self.gap_after_sticky_items:jsonEncode()
+		end
+
+		if self.gap_between_sticky_items ~= nil then
+			output.gapBetweenStickyItems = self.gap_between_sticky_items:jsonEncode()
+		end
+
+		if self.sticky_padding_top ~= nil then
+			output.stickyPaddingTop = self.sticky_padding_top:jsonEncode()
+		end
+
+		if self.sticky_padding_bottom ~= nil then
+			output.stickyPaddingBottom = self.sticky_padding_bottom:jsonEncode()
+		end
+
+		if self.sticky_content_tag ~= nil then
+			output.stickyContentTag = self.sticky_content_tag:jsonEncode()
 		end
 
 		return output
@@ -628,12 +727,66 @@ do
 
 		if input.sticky_items ~= nil then
 			self.sticky_items =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentListProp.jsonDecode(input.sticky_items)
+				_roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp.jsonDecode(
+					input.sticky_items
+				)
 		end
 
 		if input.stickyItems ~= nil then
 			self.sticky_items =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.NestedComponentListProp.jsonDecode(input.stickyItems)
+				_roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp.jsonDecode(
+					input.stickyItems
+				)
+		end
+
+		if input.gap_after_sticky_items ~= nil then
+			self.gap_after_sticky_items =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.gap_after_sticky_items)
+		end
+
+		if input.gapAfterStickyItems ~= nil then
+			self.gap_after_sticky_items =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.gapAfterStickyItems)
+		end
+
+		if input.gap_between_sticky_items ~= nil then
+			self.gap_between_sticky_items =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.gap_between_sticky_items)
+		end
+
+		if input.gapBetweenStickyItems ~= nil then
+			self.gap_between_sticky_items =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.gapBetweenStickyItems)
+		end
+
+		if input.sticky_padding_top ~= nil then
+			self.sticky_padding_top =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.sticky_padding_top)
+		end
+
+		if input.stickyPaddingTop ~= nil then
+			self.sticky_padding_top =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.stickyPaddingTop)
+		end
+
+		if input.sticky_padding_bottom ~= nil then
+			self.sticky_padding_bottom =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.sticky_padding_bottom)
+		end
+
+		if input.stickyPaddingBottom ~= nil then
+			self.sticky_padding_bottom =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.stickyPaddingBottom)
+		end
+
+		if input.sticky_content_tag ~= nil then
+			self.sticky_content_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sticky_content_tag)
+		end
+
+		if input.stickyContentTag ~= nil then
+			self.sticky_content_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.stickyContentTag)
 		end
 
 		return self

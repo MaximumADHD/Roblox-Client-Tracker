@@ -6,6 +6,7 @@ local getFIntUGCValidationDynamicHeadMinimumQualityPercent =
 	require(root.flags.getFIntUGCValidationDynamicHeadMinimumQualityPercent)
 
 local getFFlagUGCValidationUpdateHeadIsDynamic = require(root.flags.getFFlagUGCValidationUpdateHeadIsDynamic)
+local getFFlagUGCValidationAddGeometryToExports = require(root.flags.getFFlagUGCValidationAddGeometryToExports)
 
 local HeadIsDynamic = {}
 
@@ -13,15 +14,7 @@ HeadIsDynamic.categories = { ValidationEnums.UploadCategory.DYNAMIC_HEAD }
 HeadIsDynamic.fflag = require(root.flags.getFFlagUGCValidateIsDynamicHead)
 HeadIsDynamic.shadowFlag = require(root.flags.getFFlagUGCValidationShadowIsDynamicHead)
 HeadIsDynamic.expectedAqsData = {
-	Measure_Dynamic_Head = {
-		Head = {
-			"left_eye_close",
-			"right_eye_close",
-			"mouth_open",
-			"is_happy",
-			"is_sad",
-		},
-	},
+	Measure_Dynamic_Head = {},
 }
 
 HeadIsDynamic.knownAqsUserErrors = {}
@@ -46,7 +39,14 @@ local head_metric: { [string]: string } = {
 }
 
 HeadIsDynamic.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
-	local dynamicHeadScores = data.aqsSummaryData.Measure_Dynamic_Head.Head
+	local dynamicHeadScores = nil
+	if getFFlagUGCValidationAddGeometryToExports() then
+		dynamicHeadScores = data.aqsSummaryData.Measure_Dynamic_Head.Head
+			or data.aqsSummaryData.Measure_Dynamic_Head.Head_Geo
+	else
+		dynamicHeadScores = data.aqsSummaryData.Measure_Dynamic_Head.Head
+	end
+
 	if getFFlagUGCValidationUpdateHeadIsDynamic() then
 		if dynamicHeadScores == nil then
 			reporter:fail(ErrorSourceStrings.Keys.AQSInputDataError)

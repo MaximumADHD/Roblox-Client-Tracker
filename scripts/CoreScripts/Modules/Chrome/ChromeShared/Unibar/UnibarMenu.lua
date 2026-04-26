@@ -14,6 +14,8 @@ local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnrea
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 
 local ChromeFlags = require(script.Parent.Parent.Parent.Flags)
 local FFlagUnibarMenuOpenSubmenu = ChromeFlags.FFlagUnibarMenuOpenSubmenu
@@ -130,6 +132,10 @@ if not GetFFlagChromeCentralizedConfiguration() then
 		local isNotVROrConsole = not isSpatial() and not GuiService:IsTenFootInterface()
 		if isNotVROrConsole then
 			table.insert(nineDot, 4, "music_entrypoint")
+		end
+
+		if FFlagEnableSideSheet and FFlagAddIGMToSideSheet then
+			table.insert(nineDot, "people")
 		end
 
 		ChromeService:configureSubMenu("nine_dot", nineDot)

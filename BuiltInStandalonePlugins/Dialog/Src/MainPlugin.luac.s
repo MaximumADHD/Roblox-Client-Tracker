@@ -1,4 +1,20 @@
 PROTO_0:
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 GETUPVAL                         R2 1
+        3 GETUPVAL                         R3 2
+        4 DUPTABLE                         R4 K2 [{"theme", "device"}]
+        5 SETTABLEKS                       R1 R4 K0 ["theme"]
+        7 GETUPVAL                         R8 3
+        8 GETTABLEKS                       R7 R8 K3 ["Enums"]
+       10 GETTABLEKS                       R6 R7 K4 ["Device"]
+       12 GETTABLEKS                       R5 R6 K5 ["Desktop"]
+       14 SETTABLEKS                       R5 R4 K1 ["device"]
+       16 GETTABLEKS                       R5 R0 K6 ["children"]
+       18 CALL                             R2 3 -1
+       19 RETURN                           R2 -1
+
+PROTO_1:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R1 R2 K0 ["plugin"]
@@ -6,7 +22,7 @@ PROTO_0:
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
-PROTO_1:
+PROTO_2:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["new"]
         3 DUPTABLE                         R1 K4 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
@@ -19,7 +35,7 @@ PROTO_1:
        13 CALL                             R0 1 -1
        14 RETURN                           R0 -1
 
-PROTO_2:
+PROTO_3:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["useMemo"]
         3 NEWCLOSURE                       R2 P0
@@ -32,32 +48,66 @@ PROTO_2:
        13 CALL                             R1 2 1
        14 GETUPVAL                         R3 0
        15 GETTABLEKS                       R2 R3 K0 ["useMemo"]
-       17 DUPCLOSURE                       R3 K2 [PROTO_1]
+       17 DUPCLOSURE                       R3 K2 [PROTO_2]
        18 CAPTURE                          UPVAL U3
        19 CAPTURE                          UPVAL U4
        20 CAPTURE                          UPVAL U5
        21 NEWTABLE                         R4 0 0
        23 CALL                             R2 2 1
        24 GETUPVAL                         R3 6
-       25 DUPTABLE                         R4 K6 [{"Design", "Localization", "Plugin"}]
-       26 GETUPVAL                         R6 7
-       27 GETTABLEKS                       R5 R6 K7 ["new"]
-       29 MOVE                             R6 R1
-       30 CALL                             R5 1 1
-       31 SETTABLEKS                       R5 R4 K3 ["Design"]
-       33 SETTABLEKS                       R2 R4 K4 ["Localization"]
-       35 GETUPVAL                         R6 8
-       36 GETTABLEKS                       R5 R6 K7 ["new"]
-       38 GETTABLEKS                       R6 R0 K1 ["plugin"]
-       40 CALL                             R5 1 1
-       41 SETTABLEKS                       R5 R4 K5 ["Plugin"]
-       43 DUPTABLE                         R5 K9 [{"DialogSessionManager"}]
-       44 GETUPVAL                         R6 9
-       45 GETUPVAL                         R7 10
-       46 CALL                             R6 1 1
-       47 SETTABLEKS                       R6 R5 K8 ["DialogSessionManager"]
-       49 CALL                             R3 2 -1
-       50 RETURN                           R3 -1
+       25 JUMPIFNOT                        R3 ; [+41]
+       26 GETUPVAL                         R3 7
+       27 DUPTABLE                         R4 K6 [{"Design", "Localization", "Plugin"}]
+       28 GETUPVAL                         R6 8
+       29 GETTABLEKS                       R5 R6 K7 ["new"]
+       31 MOVE                             R6 R1
+       32 CALL                             R5 1 1
+       33 SETTABLEKS                       R5 R4 K3 ["Design"]
+       35 SETTABLEKS                       R2 R4 K4 ["Localization"]
+       37 GETUPVAL                         R6 9
+       38 GETTABLEKS                       R5 R6 K7 ["new"]
+       40 GETTABLEKS                       R6 R0 K1 ["plugin"]
+       42 CALL                             R5 1 1
+       43 SETTABLEKS                       R5 R4 K5 ["Plugin"]
+       45 DUPTABLE                         R5 K9 [{"StudioTheme"}]
+       46 GETUPVAL                         R6 10
+       47 GETUPVAL                         R7 11
+       48 LOADNIL                          R8
+       49 DUPTABLE                         R9 K11 [{"FoundationTokens"}]
+       50 GETUPVAL                         R10 10
+       51 GETUPVAL                         R11 12
+       52 LOADNIL                          R12
+       53 DUPTABLE                         R13 K13 [{"DialogSessionManager"}]
+       54 GETUPVAL                         R14 10
+       55 GETUPVAL                         R15 13
+       56 CALL                             R14 1 1
+       57 SETTABLEKS                       R14 R13 K12 ["DialogSessionManager"]
+       59 CALL                             R10 3 1
+       60 SETTABLEKS                       R10 R9 K10 ["FoundationTokens"]
+       62 CALL                             R6 3 1
+       63 SETTABLEKS                       R6 R5 K8 ["StudioTheme"]
+       65 CALL                             R3 2 -1
+       66 RETURN                           R3 -1
+       67 GETUPVAL                         R3 7
+       68 DUPTABLE                         R4 K6 [{"Design", "Localization", "Plugin"}]
+       69 GETUPVAL                         R6 8
+       70 GETTABLEKS                       R5 R6 K7 ["new"]
+       72 MOVE                             R6 R1
+       73 CALL                             R5 1 1
+       74 SETTABLEKS                       R5 R4 K3 ["Design"]
+       76 SETTABLEKS                       R2 R4 K4 ["Localization"]
+       78 GETUPVAL                         R6 9
+       79 GETTABLEKS                       R5 R6 K7 ["new"]
+       81 GETTABLEKS                       R6 R0 K1 ["plugin"]
+       83 CALL                             R5 1 1
+       84 SETTABLEKS                       R5 R4 K5 ["Plugin"]
+       86 DUPTABLE                         R5 K13 [{"DialogSessionManager"}]
+       87 GETUPVAL                         R6 10
+       88 GETUPVAL                         R7 13
+       89 CALL                             R6 1 1
+       90 SETTABLEKS                       R6 R5 K12 ["DialogSessionManager"]
+       92 CALL                             R3 2 -1
+       93 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -72,44 +122,72 @@ MAIN:
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
        18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Framework"]
+       20 GETTABLEKS                       R3 R4 K10 ["Foundation"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
        25 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K11 ["React"]
+       27 GETTABLEKS                       R4 R5 K11 ["Framework"]
        29 CALL                             R3 1 1
-       30 GETTABLEKS                       R7 R0 K6 ["Src"]
-       32 GETTABLEKS                       R6 R7 K12 ["Resources"]
-       34 GETTABLEKS                       R5 R6 K13 ["Localization"]
-       36 GETTABLEKS                       R4 R5 K14 ["LocalizedStrings"]
-       38 GETTABLEKS                       R8 R0 K6 ["Src"]
-       40 GETTABLEKS                       R7 R8 K12 ["Resources"]
-       42 GETTABLEKS                       R6 R7 K13 ["Localization"]
-       44 GETTABLEKS                       R5 R6 K15 ["SourceStrings"]
-       46 GETTABLEKS                       R7 R2 K16 ["ContextServices"]
-       48 GETTABLEKS                       R6 R7 K17 ["Design"]
-       50 GETTABLEKS                       R8 R2 K16 ["ContextServices"]
-       52 GETTABLEKS                       R7 R8 K13 ["Localization"]
-       54 GETTABLEKS                       R9 R2 K16 ["ContextServices"]
-       56 GETTABLEKS                       R8 R9 K18 ["Plugin"]
-       58 GETTABLEKS                       R9 R3 K19 ["createElement"]
-       60 GETTABLEKS                       R11 R2 K16 ["ContextServices"]
-       62 GETTABLEKS                       R10 R11 K20 ["provide"]
-       64 GETTABLEKS                       R12 R2 K21 ["Styling"]
-       66 GETTABLEKS                       R11 R12 K22 ["registerPluginStyles"]
-       68 DUPCLOSURE                       R12 K23 [PROTO_2]
-       69 CAPTURE                          VAL R3
-       70 CAPTURE                          VAL R11
-       71 CAPTURE                          VAL R0
-       72 CAPTURE                          VAL R7
-       73 CAPTURE                          VAL R5
-       74 CAPTURE                          VAL R4
-       75 CAPTURE                          VAL R10
-       76 CAPTURE                          VAL R6
-       77 CAPTURE                          VAL R8
-       78 CAPTURE                          VAL R9
-       79 CAPTURE                          VAL R1
-       80 GETTABLEKS                       R13 R3 K24 ["memo"]
-       82 MOVE                             R14 R12
-       83 CALL                             R13 1 -1
-       84 RETURN                           R13 -1
+       30 GETIMPORT                        R4 K5 [require]
+       32 GETTABLEKS                       R6 R0 K9 ["Packages"]
+       34 GETTABLEKS                       R5 R6 K12 ["React"]
+       36 CALL                             R4 1 1
+       37 GETIMPORT                        R5 K5 [require]
+       39 GETTABLEKS                       R7 R0 K9 ["Packages"]
+       41 GETTABLEKS                       R6 R7 K13 ["StudioFoundation"]
+       43 CALL                             R5 1 1
+       44 GETIMPORT                        R6 K5 [require]
+       46 GETTABLEKS                       R9 R0 K6 ["Src"]
+       48 GETTABLEKS                       R8 R9 K14 ["Flags"]
+       50 GETTABLEKS                       R7 R8 K15 ["getFFlagEnableStudioPluginTitleBarColor"]
+       52 CALL                             R6 1 1
+       53 GETTABLEKS                       R10 R0 K6 ["Src"]
+       55 GETTABLEKS                       R9 R10 K16 ["Resources"]
+       57 GETTABLEKS                       R8 R9 K17 ["Localization"]
+       59 GETTABLEKS                       R7 R8 K18 ["LocalizedStrings"]
+       61 GETTABLEKS                       R11 R0 K6 ["Src"]
+       63 GETTABLEKS                       R10 R11 K16 ["Resources"]
+       65 GETTABLEKS                       R9 R10 K17 ["Localization"]
+       67 GETTABLEKS                       R8 R9 K19 ["SourceStrings"]
+       69 GETTABLEKS                       R10 R3 K20 ["ContextServices"]
+       71 GETTABLEKS                       R9 R10 K21 ["Design"]
+       73 MOVE                             R10 R6
+       74 CALL                             R10 0 1
+       75 GETTABLEKS                       R11 R2 K22 ["FoundationProvider"]
+       77 GETTABLEKS                       R13 R3 K20 ["ContextServices"]
+       79 GETTABLEKS                       R12 R13 K17 ["Localization"]
+       81 GETTABLEKS                       R14 R3 K20 ["ContextServices"]
+       83 GETTABLEKS                       R13 R14 K23 ["Plugin"]
+       85 GETTABLEKS                       R15 R5 K24 ["Contexts"]
+       87 GETTABLEKS                       R14 R15 K25 ["StudioThemeContextProvider"]
+       89 GETTABLEKS                       R15 R4 K26 ["createElement"]
+       91 GETTABLEKS                       R17 R3 K20 ["ContextServices"]
+       93 GETTABLEKS                       R16 R17 K27 ["provide"]
+       95 GETTABLEKS                       R18 R3 K28 ["Styling"]
+       97 GETTABLEKS                       R17 R18 K29 ["registerPluginStyles"]
+       99 GETTABLEKS                       R19 R5 K30 ["Hooks"]
+      101 GETTABLEKS                       R18 R19 K31 ["useThemeName"]
+      103 DUPCLOSURE                       R19 K32 [PROTO_0]
+      104 CAPTURE                          VAL R18
+      105 CAPTURE                          VAL R15
+      106 CAPTURE                          VAL R11
+      107 CAPTURE                          VAL R2
+      108 DUPCLOSURE                       R20 K33 [PROTO_3]
+      109 CAPTURE                          VAL R4
+      110 CAPTURE                          VAL R17
+      111 CAPTURE                          VAL R0
+      112 CAPTURE                          VAL R12
+      113 CAPTURE                          VAL R8
+      114 CAPTURE                          VAL R7
+      115 CAPTURE                          VAL R10
+      116 CAPTURE                          VAL R16
+      117 CAPTURE                          VAL R9
+      118 CAPTURE                          VAL R13
+      119 CAPTURE                          VAL R15
+      120 CAPTURE                          VAL R14
+      121 CAPTURE                          VAL R19
+      122 CAPTURE                          VAL R1
+      123 GETTABLEKS                       R21 R4 K34 ["memo"]
+      125 MOVE                             R22 R20
+      126 CALL                             R21 1 -1
+      127 RETURN                           R21 -1

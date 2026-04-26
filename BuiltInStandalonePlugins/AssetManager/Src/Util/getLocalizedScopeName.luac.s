@@ -19,21 +19,18 @@ PROTO_0:
        26 NAMECALL                         R2 R1 K5 ["getText"]
        28 CALL                             R2 3 -1
        29 RETURN                           R2 -1
-       30 GETUPVAL                         R2 1
-       31 CALL                             R2 0 1
-       32 JUMPIFNOT                        R2 ; [+15]
-       33 GETTABLEKS                       R2 R0 K0 ["Type"]
-       35 GETUPVAL                         R5 0
-       36 GETTABLEKS                       R4 R5 K1 ["ScopeType"]
-       38 GETTABLEKS                       R3 R4 K8 ["RecentUploads"]
-       40 JUMPIFNOTEQ                      R2 R3 ; [+7]
-       42 LOADK                            R4 K3 ["Scopes"]
-       43 LOADK                            R5 K8 ["RecentUploads"]
-       44 NAMECALL                         R2 R1 K5 ["getText"]
-       46 CALL                             R2 3 -1
-       47 RETURN                           R2 -1
-       48 GETTABLEKS                       R2 R0 K9 ["Name"]
-       50 RETURN                           R2 1
+       30 GETTABLEKS                       R2 R0 K0 ["Type"]
+       32 GETUPVAL                         R5 0
+       33 GETTABLEKS                       R4 R5 K1 ["ScopeType"]
+       35 GETTABLEKS                       R3 R4 K8 ["RecentUploads"]
+       37 JUMPIFNOTEQ                      R2 R3 ; [+7]
+       39 LOADK                            R4 K3 ["Scopes"]
+       40 LOADK                            R5 K8 ["RecentUploads"]
+       41 NAMECALL                         R2 R1 K5 ["getText"]
+       43 CALL                             R2 3 -1
+       44 RETURN                           R2 -1
+       45 GETTABLEKS                       R2 R0 K9 ["Name"]
+       47 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -45,12 +42,6 @@ MAIN:
         9 GETTABLEKS                       R3 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R3 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Src"]
-       18 GETTABLEKS                       R4 R5 K8 ["Flags"]
-       20 GETTABLEKS                       R3 R4 K9 ["getFFlagAmrRecents"]
-       22 CALL                             R2 1 1
-       23 DUPCLOSURE                       R3 K10 [PROTO_0]
-       24 CAPTURE                          VAL R1
-       25 CAPTURE                          VAL R2
-       26 RETURN                           R3 1
+       14 DUPCLOSURE                       R2 K8 [PROTO_0]
+       15 CAPTURE                          VAL R1
+       16 RETURN                           R2 1

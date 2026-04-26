@@ -48,6 +48,7 @@ type _UniverseDataFields = {
 	is_officially_licensed: boolean,
 	refund_policy_text: string,
 	refund_article_id: string,
+	preview_video_id: number,
 }
 
 type _UniverseDataPartialFields = {
@@ -77,6 +78,7 @@ type _UniverseDataPartialFields = {
 	is_officially_licensed: boolean?,
 	refund_policy_text: string?,
 	refund_article_id: string?,
+	preview_video_id: number?,
 }
 
 export type UniverseData = typeof(setmetatable({} :: _UniverseDataFields, {} :: _UniverseDataImpl))
@@ -126,6 +128,7 @@ do
 				else data.is_officially_licensed,
 			refund_policy_text = if data == nil or data.refund_policy_text == nil then "" else data.refund_policy_text,
 			refund_article_id = if data == nil or data.refund_article_id == nil then "" else data.refund_article_id,
+			preview_video_id = if data == nil or data.preview_video_id == nil then 0 else data.preview_video_id,
 		}, _UniverseDataImpl :: _UniverseDataImpl)
 	end
 
@@ -263,6 +266,11 @@ do
 			output, cursor = proto.writeString(output, cursor, self.refund_article_id)
 		end
 
+		if self.preview_video_id ~= nil and self.preview_video_id ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.preview_video_id)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -341,6 +349,11 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.is_officially_licensed = value ~= 0
+					continue
+				elseif field == 27 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.preview_video_id = value
 					continue
 				end
 
@@ -543,6 +556,10 @@ do
 			output.refundArticleId = self.refund_article_id
 		end
 
+		if self.preview_video_id ~= nil and self.preview_video_id ~= 0 then
+			output.previewVideoId = self.preview_video_id
+		end
+
 		return output
 	end
 
@@ -743,6 +760,14 @@ do
 
 		if input.refundArticleId ~= nil then
 			self.refund_article_id = input.refundArticleId
+		end
+
+		if input.preview_video_id ~= nil then
+			self.preview_video_id = input.preview_video_id
+		end
+
+		if input.previewVideoId ~= nil then
+			self.preview_video_id = input.previewVideoId
 		end
 
 		return self

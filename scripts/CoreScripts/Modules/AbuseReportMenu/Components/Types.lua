@@ -30,6 +30,7 @@ export type ButtonMenuItemType = {
 	getIconSrc: (utilityProps: MenuUtilityProps) -> string,
 	getButtonLabel: (utilityProps: MenuUtilityProps) -> string,
 	onClick: (menuUIStates: any, dispatchUIStates: any, utilityProps: MenuUtilityProps) -> (),
+	selectResume: boolean?,
 }
 
 export type DropdownMenuItemType = {
@@ -141,6 +142,7 @@ export type MenuUtilityProps = {
 		width: number,
 		height: number,
 	},
+	setLastSelectableObjects: ((selectableList: { GuiObject }) -> ())?,
 }
 
 export type IdentificationResults = {

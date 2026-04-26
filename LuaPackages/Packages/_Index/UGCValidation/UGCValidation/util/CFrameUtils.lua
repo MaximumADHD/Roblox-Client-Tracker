@@ -1,4 +1,5 @@
 local root = script.Parent.Parent
+local valueToString = require(script.Parent.valueToString)
 local floatEquals = require(root.util.floatEquals)
 
 local CFrameUtils = {}
@@ -18,6 +19,12 @@ function CFrameUtils.fuzzyEq(a: CFrame, b: CFrame, tol: number?): boolean
 		and floatEquals(aR20, bR20, tol)
 		and floatEquals(aR21, bR21, tol)
 		and floatEquals(aR22, bR22, tol)
+end
+
+function CFrameUtils.getRotationString(cframe: CFrame): string
+	local orientation = Vector3.new(cframe:ToOrientation())
+	orientation = Vector3.new(math.deg(orientation.X), math.deg(orientation.Y), math.deg(orientation.Z))
+	return valueToString(orientation)
 end
 
 return CFrameUtils

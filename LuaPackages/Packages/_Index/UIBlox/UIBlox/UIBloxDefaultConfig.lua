@@ -32,9 +32,6 @@ return {
 	-- Pass gridInfo to renderItem when using GridView
 	passRowAndColumnDataToItemInGridView = false,
 
-	-- Always use provided ref for button
-	useProvidedRefForButton = false,
-
 	-- Add button override to ActionBar
 	enableActionBarButtonOverride = false,
 
@@ -61,4 +58,8 @@ return {
 
 	-- Enable mapping V2 foundation tokens into the style token pipeline
 	enableFoundationTokenMapping = false,
+
+	-- Use Color tokens (Surface, Content) instead of Semantic.Color tokens for theme mapping
+	-- This enables surface color overrides to work through the theme system
+	useColorTokensForThemeMapping = false,
 }

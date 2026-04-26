@@ -19,128 +19,131 @@ PROTO_0:
        23 CALL                             R3 2 0
        24 RETURN                           R0 1
        25 GETTABLEKS                       R3 R0 K7 ["type"]
-       27 JUMPIFEQKNIL                     R3 ; [+27]
-       29 GETTABLEKS                       R4 R0 K7 ["type"]
-       31 FASTCALL1                        TYPEOF R4 ; [+2]
-       32 GETIMPORT                        R3 K1 [typeof]
-       34 CALL                             R3 1 1
-       35 JUMPIFEQKS                       R3 K8 ["string"] ; [+19]
-       37 LOADK                            R6 K9 ["%*\"type\" > Expected string, got %*"]
-       38 MOVE                             R8 R2
-       39 GETTABLEKS                       R10 R0 K7 ["type"]
-       41 FASTCALL1                        TYPEOF R10 ; [+2]
-       42 GETIMPORT                        R9 K1 [typeof]
-       44 CALL                             R9 1 1
-       45 NAMECALL                         R6 R6 K4 ["format"]
-       47 CALL                             R6 3 1
-       48 MOVE                             R5 R6
-       49 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
-       51 MOVE                             R4 R1
-       52 GETIMPORT                        R3 K6 [table.insert]
-       54 CALL                             R3 2 0
-       55 GETTABLEKS                       R4 R0 K10 ["id"]
-       57 FASTCALL1                        TYPEOF R4 ; [+2]
-       58 GETIMPORT                        R3 K1 [typeof]
-       60 CALL                             R3 1 1
-       61 JUMPIFEQKS                       R3 K8 ["string"] ; [+19]
-       63 LOADK                            R6 K11 ["%*\"id\" > Expected string, got %*"]
-       64 MOVE                             R8 R2
-       65 GETTABLEKS                       R10 R0 K10 ["id"]
-       67 FASTCALL1                        TYPEOF R10 ; [+2]
-       68 GETIMPORT                        R9 K1 [typeof]
-       70 CALL                             R9 1 1
-       71 NAMECALL                         R6 R6 K4 ["format"]
-       73 CALL                             R6 3 1
-       74 MOVE                             R5 R6
-       75 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
-       77 MOVE                             R4 R1
-       78 GETIMPORT                        R3 K6 [table.insert]
-       80 CALL                             R3 2 0
-       81 GETTABLEKS                       R4 R0 K12 ["name"]
-       83 FASTCALL1                        TYPEOF R4 ; [+2]
-       84 GETIMPORT                        R3 K1 [typeof]
-       86 CALL                             R3 1 1
-       87 JUMPIFEQKS                       R3 K8 ["string"] ; [+19]
-       89 LOADK                            R6 K13 ["%*\"name\" > Expected string, got %*"]
-       90 MOVE                             R8 R2
-       91 GETTABLEKS                       R10 R0 K12 ["name"]
-       93 FASTCALL1                        TYPEOF R10 ; [+2]
-       94 GETIMPORT                        R9 K1 [typeof]
-       96 CALL                             R9 1 1
-       97 NAMECALL                         R6 R6 K4 ["format"]
-       99 CALL                             R6 3 1
-      100 MOVE                             R5 R6
-      101 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
-      103 MOVE                             R4 R1
-      104 GETIMPORT                        R3 K6 [table.insert]
-      106 CALL                             R3 2 0
-      107 GETTABLEKS                       R4 R0 K14 ["input"]
-      109 FASTCALL1                        TYPEOF R4 ; [+2]
-      110 GETIMPORT                        R3 K1 [typeof]
-      112 CALL                             R3 1 1
-      113 JUMPIFEQKS                       R3 K2 ["table"] ; [+20]
-      115 LOADK                            R6 K15 ["%*\"input\" > Expected table, got %*"]
-      116 MOVE                             R8 R2
-      117 GETTABLEKS                       R10 R0 K14 ["input"]
-      119 FASTCALL1                        TYPEOF R10 ; [+2]
-      120 GETIMPORT                        R9 K1 [typeof]
-      122 CALL                             R9 1 1
-      123 NAMECALL                         R6 R6 K4 ["format"]
-      125 CALL                             R6 3 1
-      126 MOVE                             R5 R6
-      127 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
-      129 MOVE                             R4 R1
-      130 GETIMPORT                        R3 K6 [table.insert]
-      132 CALL                             R3 2 0
-      133 RETURN                           R0 1
-      134 GETTABLEKS                       R3 R0 K14 ["input"]
-      136 LOADNIL                          R4
-      137 LOADNIL                          R5
-      138 FORGPREP                         R3
-      139 FASTCALL1                        TYPEOF R6 ; [+3]
-      140 MOVE                             R9 R6
-      141 GETIMPORT                        R8 K1 [typeof]
-      143 CALL                             R8 1 1
-      144 JUMPIFEQKS                       R8 K8 ["string"] ; [+20]
-      146 LOADK                            R11 K16 ["%*\"input\" > Expected key of type string, got %* as %*"]
-      147 MOVE                             R13 R2
-      148 MOVE                             R14 R6
-      149 FASTCALL1                        TYPEOF R6 ; [+3]
-      150 MOVE                             R16 R6
-      151 GETIMPORT                        R15 K1 [typeof]
-      153 CALL                             R15 1 1
-      154 NAMECALL                         R11 R11 K4 ["format"]
-      156 CALL                             R11 4 1
-      157 MOVE                             R10 R11
-      158 FASTCALL2                        TABLE_INSERT R1 R10 ; [+4]
-      160 MOVE                             R9 R1
-      161 GETIMPORT                        R8 K6 [table.insert]
-      163 CALL                             R8 2 0
-      164 JUMP                             ; [+25]
-      165 FASTCALL1                        TYPEOF R7 ; [+3]
-      166 MOVE                             R9 R7
-      167 GETIMPORT                        R8 K1 [typeof]
-      169 CALL                             R8 1 1
-      170 JUMPIFEQKS                       R8 K2 ["table"] ; [+19]
-      172 LOADK                            R11 K17 ["%*\"input\" > [\"%*\"] > Expected table, got %*"]
-      173 MOVE                             R13 R2
-      174 MOVE                             R14 R6
-      175 FASTCALL1                        TYPEOF R7 ; [+3]
-      176 MOVE                             R16 R7
-      177 GETIMPORT                        R15 K1 [typeof]
-      179 CALL                             R15 1 1
-      180 NAMECALL                         R11 R11 K4 ["format"]
-      182 CALL                             R11 4 1
-      183 MOVE                             R10 R11
-      184 FASTCALL2                        TABLE_INSERT R1 R10 ; [+4]
-      186 MOVE                             R9 R1
-      187 GETIMPORT                        R8 K6 [table.insert]
-      189 CALL                             R8 2 0
-      190 FORGLOOP                         R3 2 ; [-52]
-      192 RETURN                           R0 1
+       27 JUMPIFEQKNIL                     R3 ; [+16]
+       29 GETUPVAL                         R4 0
+       30 GETTABLEKS                       R3 R4 K8 ["fromResponse"]
+       32 GETTABLEKS                       R4 R0 K7 ["type"]
+       34 MOVE                             R5 R1
+       35 LOADK                            R7 K9 ["%*\"type\" > "]
+       36 MOVE                             R9 R2
+       37 NAMECALL                         R7 R7 K4 ["format"]
+       39 CALL                             R7 2 1
+       40 MOVE                             R6 R7
+       41 CALL                             R3 3 1
+       42 SETTABLEKS                       R3 R0 K7 ["type"]
+       44 GETTABLEKS                       R4 R0 K10 ["id"]
+       46 FASTCALL1                        TYPEOF R4 ; [+2]
+       47 GETIMPORT                        R3 K1 [typeof]
+       49 CALL                             R3 1 1
+       50 JUMPIFEQKS                       R3 K11 ["string"] ; [+19]
+       52 LOADK                            R6 K12 ["%*\"id\" > Expected string, got %*"]
+       53 MOVE                             R8 R2
+       54 GETTABLEKS                       R10 R0 K10 ["id"]
+       56 FASTCALL1                        TYPEOF R10 ; [+2]
+       57 GETIMPORT                        R9 K1 [typeof]
+       59 CALL                             R9 1 1
+       60 NAMECALL                         R6 R6 K4 ["format"]
+       62 CALL                             R6 3 1
+       63 MOVE                             R5 R6
+       64 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+       66 MOVE                             R4 R1
+       67 GETIMPORT                        R3 K6 [table.insert]
+       69 CALL                             R3 2 0
+       70 GETTABLEKS                       R4 R0 K13 ["name"]
+       72 FASTCALL1                        TYPEOF R4 ; [+2]
+       73 GETIMPORT                        R3 K1 [typeof]
+       75 CALL                             R3 1 1
+       76 JUMPIFEQKS                       R3 K11 ["string"] ; [+19]
+       78 LOADK                            R6 K14 ["%*\"name\" > Expected string, got %*"]
+       79 MOVE                             R8 R2
+       80 GETTABLEKS                       R10 R0 K13 ["name"]
+       82 FASTCALL1                        TYPEOF R10 ; [+2]
+       83 GETIMPORT                        R9 K1 [typeof]
+       85 CALL                             R9 1 1
+       86 NAMECALL                         R6 R6 K4 ["format"]
+       88 CALL                             R6 3 1
+       89 MOVE                             R5 R6
+       90 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+       92 MOVE                             R4 R1
+       93 GETIMPORT                        R3 K6 [table.insert]
+       95 CALL                             R3 2 0
+       96 GETTABLEKS                       R4 R0 K15 ["input"]
+       98 FASTCALL1                        TYPEOF R4 ; [+2]
+       99 GETIMPORT                        R3 K1 [typeof]
+      101 CALL                             R3 1 1
+      102 JUMPIFEQKS                       R3 K2 ["table"] ; [+20]
+      104 LOADK                            R6 K16 ["%*\"input\" > Expected table, got %*"]
+      105 MOVE                             R8 R2
+      106 GETTABLEKS                       R10 R0 K15 ["input"]
+      108 FASTCALL1                        TYPEOF R10 ; [+2]
+      109 GETIMPORT                        R9 K1 [typeof]
+      111 CALL                             R9 1 1
+      112 NAMECALL                         R6 R6 K4 ["format"]
+      114 CALL                             R6 3 1
+      115 MOVE                             R5 R6
+      116 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+      118 MOVE                             R4 R1
+      119 GETIMPORT                        R3 K6 [table.insert]
+      121 CALL                             R3 2 0
+      122 RETURN                           R0 1
+      123 GETTABLEKS                       R3 R0 K15 ["input"]
+      125 LOADNIL                          R4
+      126 LOADNIL                          R5
+      127 FORGPREP                         R3
+      128 FASTCALL1                        TYPEOF R6 ; [+3]
+      129 MOVE                             R9 R6
+      130 GETIMPORT                        R8 K1 [typeof]
+      132 CALL                             R8 1 1
+      133 JUMPIFEQKS                       R8 K11 ["string"] ; [+20]
+      135 LOADK                            R11 K17 ["%*\"input\" > Expected key of type string, got %* as %*"]
+      136 MOVE                             R13 R2
+      137 MOVE                             R14 R6
+      138 FASTCALL1                        TYPEOF R6 ; [+3]
+      139 MOVE                             R16 R6
+      140 GETIMPORT                        R15 K1 [typeof]
+      142 CALL                             R15 1 1
+      143 NAMECALL                         R11 R11 K4 ["format"]
+      145 CALL                             R11 4 1
+      146 MOVE                             R10 R11
+      147 FASTCALL2                        TABLE_INSERT R1 R10 ; [+4]
+      149 MOVE                             R9 R1
+      150 GETIMPORT                        R8 K6 [table.insert]
+      152 CALL                             R8 2 0
+      153 JUMP                             ; [+25]
+      154 FASTCALL1                        TYPEOF R7 ; [+3]
+      155 MOVE                             R9 R7
+      156 GETIMPORT                        R8 K1 [typeof]
+      158 CALL                             R8 1 1
+      159 JUMPIFEQKS                       R8 K2 ["table"] ; [+19]
+      161 LOADK                            R11 K18 ["%*\"input\" > [\"%*\"] > Expected table, got %*"]
+      162 MOVE                             R13 R2
+      163 MOVE                             R14 R6
+      164 FASTCALL1                        TYPEOF R7 ; [+3]
+      165 MOVE                             R16 R7
+      166 GETIMPORT                        R15 K1 [typeof]
+      168 CALL                             R15 1 1
+      169 NAMECALL                         R11 R11 K4 ["format"]
+      171 CALL                             R11 4 1
+      172 MOVE                             R10 R11
+      173 FASTCALL2                        TABLE_INSERT R1 R10 ; [+4]
+      175 MOVE                             R9 R1
+      176 GETIMPORT                        R8 K6 [table.insert]
+      178 CALL                             R8 2 0
+      179 FORGLOOP                         R3 2 ; [-52]
+      181 RETURN                           R0 1
 
 PROTO_1:
-        0 RETURN                           R0 1
+        0 GETIMPORT                        R1 K2 [table.clone]
+        2 MOVE                             R2 R0
+        3 CALL                             R1 1 1
+        4 GETTABLEKS                       R2 R1 K3 ["type"]
+        6 JUMPIFEQKNIL                     R2 ; [+9]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R2 R3 K4 ["toRequest"]
+       11 GETTABLEKS                       R3 R1 K3 ["type"]
+       13 CALL                             R2 1 1
+       14 SETTABLEKS                       R2 R1 K3 ["type"]
+       16 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -155,11 +158,17 @@ MAIN:
        13 GETIMPORT                        R3 K7 [require]
        15 GETTABLEKS                       R4 R2 K8 ["HttpWrapper"]
        17 CALL                             R3 1 1
-       18 DUPCLOSURE                       R4 K9 [PROTO_0]
-       19 DUPCLOSURE                       R5 K10 [PROTO_1]
-       20 GETIMPORT                        R6 K13 [table.freeze]
-       22 DUPTABLE                         R7 K16 [{"fromResponse", "toRequest"}]
-       23 SETTABLEKS                       R4 R7 K14 ["fromResponse"]
-       25 SETTABLEKS                       R5 R7 K15 ["toRequest"]
-       27 CALL                             R6 1 1
-       28 RETURN                           R6 1
+       18 GETIMPORT                        R4 K7 [require]
+       20 GETTABLEKS                       R6 R0 K9 ["Models"]
+       22 GETTABLEKS                       R5 R6 K10 ["Type5"]
+       24 CALL                             R4 1 1
+       25 DUPCLOSURE                       R5 K11 [PROTO_0]
+       26 CAPTURE                          VAL R4
+       27 DUPCLOSURE                       R6 K12 [PROTO_1]
+       28 CAPTURE                          VAL R4
+       29 GETIMPORT                        R7 K15 [table.freeze]
+       31 DUPTABLE                         R8 K18 [{"fromResponse", "toRequest"}]
+       32 SETTABLEKS                       R5 R8 K16 ["fromResponse"]
+       34 SETTABLEKS                       R6 R8 K17 ["toRequest"]
+       36 CALL                             R7 1 1
+       37 RETURN                           R7 1

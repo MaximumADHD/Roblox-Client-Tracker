@@ -11,7 +11,6 @@ local getFFlagUGCValidateCheckHSROwner = require(root.flags.getFFlagUGCValidateC
 local getFFlagUGCValidateCheckTexturePackOwner = require(root.flags.getFFlagUGCValidateCheckTexturePackOwner)
 
 local getFFlagUGCValidationMakeupSupport = require(root.flags.getFFlagUGCValidationMakeupSupport)
-
 local FFlagUGCValidateMakeupDecalUVProperties = game:DefineFastFlag("UGCValidateMakeupDecalUVProperties", false)
 
 -- switch this to Cryo.List.toSet when available
@@ -74,6 +73,29 @@ Constants.R15_BODY_PARTS = {
 	"RightHand",
 }
 
+Constants.R15_CAGE_PARTS = {
+	"Head_OuterCage",
+
+	"UpperTorso_OuterCage",
+	"LowerTorso_OuterCage",
+
+	"LeftUpperLeg_OuterCage",
+	"LeftLowerLeg_OuterCage",
+	"LeftFoot_OuterCage",
+
+	"RightUpperLeg_OuterCage",
+	"RightLowerLeg_OuterCage",
+	"RightFoot_OuterCage",
+
+	"LeftUpperArm_OuterCage",
+	"LeftLowerArm_OuterCage",
+	"LeftHand_OuterCage",
+
+	"RightUpperArm_OuterCage",
+	"RightLowerArm_OuterCage",
+	"RightHand_OuterCage",
+}
+
 Constants.NAMED_R15_BODY_PARTS = {}
 for _, bodyPartName in Constants.R15_BODY_PARTS do
 	Constants.NAMED_R15_BODY_PARTS[bodyPartName] = bodyPartName
@@ -108,7 +130,12 @@ Constants.R15_STANDARD_JOINT_NAMES = {
 	["RightHand"] = true,
 }
 
-for _, bodyPart in Constants.R15_BODY_PARTS do
+Constants.ALLOWED_SKINNING_TRANSFER_JOINT_NAMES = {
+	RBX_Leader = true,
+	RBX_Follower = true,
+}
+
+for _, bodyPart in Constants.R15_BODY_PARTS do -- seems to be redundant since its already listed above. Dont copy this over to a new constants file ..
 	Constants.R15_STANDARD_JOINT_NAMES[bodyPart] = true
 end
 

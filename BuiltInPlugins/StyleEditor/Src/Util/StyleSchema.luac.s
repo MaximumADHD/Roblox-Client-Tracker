@@ -1523,11 +1523,15 @@ PROTO_114:
         4 CALL                             R1 1 1
         5 GETUPVAL                         R2 2
         6 SETTABLE                         R0 R1 R2
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K1 ["makeTweenInfo"]
-       10 MOVE                             R3 R1
-       11 CALL                             R2 1 -1
-       12 RETURN                           R2 -1
+        7 GETIMPORT                        R2 K2 [pcall]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R3 R4 K3 ["makeTweenInfo"]
+       12 MOVE                             R4 R1
+       13 CALL                             R2 2 2
+       14 JUMPIF                           R2 ; [+2]
+       15 GETUPVAL                         R4 1
+       16 RETURN                           R4 1
+       17 RETURN                           R3 1
 
 PROTO_115:
         0 NEWCLOSURE                       R1 P0
@@ -2095,71 +2099,77 @@ PROTO_135:
         1 RETURN                           R0 1
 
 PROTO_136:
-        0 DUPTABLE                         R0 K6 [{"AspectRatioRange", "MaxSize", "MinSize", "PreferredInput", "ReducedMotionEnabled", "ViewportDisplaySize"}]
-        1 GETIMPORT                        R1 K9 [NumberRange.new]
+        0 DUPTABLE                         R0 K7 [{"AspectRatioRange", "MaxSize", "MinSize", "PreferredInput", "PreferredTextSize", "ReducedMotionEnabled", "ViewportDisplaySize"}]
+        1 GETIMPORT                        R1 K10 [NumberRange.new]
         3 LOADN                            R2 0
-        4 LOADK                            R3 K10 [∞]
+        4 LOADK                            R3 K11 [∞]
         5 CALL                             R1 2 1
         6 SETTABLEKS                       R1 R0 K0 ["AspectRatioRange"]
-        8 GETIMPORT                        R1 K12 [Vector2.new]
-       10 LOADK                            R2 K10 [∞]
-       11 LOADK                            R3 K10 [∞]
+        8 GETIMPORT                        R1 K13 [Vector2.new]
+       10 LOADK                            R2 K11 [∞]
+       11 LOADK                            R3 K11 [∞]
        12 CALL                             R1 2 1
        13 SETTABLEKS                       R1 R0 K1 ["MaxSize"]
-       15 GETIMPORT                        R1 K12 [Vector2.new]
+       15 GETIMPORT                        R1 K13 [Vector2.new]
        17 LOADN                            R2 0
        18 LOADN                            R3 0
        19 CALL                             R1 2 1
        20 SETTABLEKS                       R1 R0 K2 ["MinSize"]
-       22 GETIMPORT                        R1 K15 [Enum.PreferredInput.KeyboardAndMouse]
+       22 GETIMPORT                        R1 K16 [Enum.PreferredInput.KeyboardAndMouse]
        24 SETTABLEKS                       R1 R0 K3 ["PreferredInput"]
-       26 LOADB                            R1 0
-       27 SETTABLEKS                       R1 R0 K4 ["ReducedMotionEnabled"]
-       29 GETIMPORT                        R1 K18 [Enum.DisplaySize.Small]
-       31 SETTABLEKS                       R1 R0 K5 ["ViewportDisplaySize"]
-       33 GETUPVAL                         R2 0
-       34 GETTABLEKS                       R1 R2 K19 ["allProperties"]
-       36 NEWTABLE                         R2 0 0
-       38 SETTABLEKS                       R2 R1 K20 ["StyleQuery"]
-       40 MOVE                             R1 R0
-       41 LOADNIL                          R2
-       42 LOADNIL                          R3
-       43 FORGPREP                         R1
-       44 FASTCALL1                        TYPEOF R5 ; [+3]
-       45 MOVE                             R7 R5
-       46 GETIMPORT                        R6 K22 [typeof]
-       48 CALL                             R6 1 1
-       49 GETUPVAL                         R10 0
-       50 GETTABLEKS                       R9 R10 K23 ["possiblePropertyTypes"]
-       52 GETTABLE                         R8 R9 R4
-       53 FASTCALL1                        TYPEOF R8 ; [+2]
-       54 GETIMPORT                        R7 K22 [typeof]
-       56 CALL                             R7 1 1
-       57 JUMPIFEQKS                       R7 K24 ["table"] ; [+7]
-       59 GETUPVAL                         R8 0
-       60 GETTABLEKS                       R7 R8 K23 ["possiblePropertyTypes"]
-       62 NEWTABLE                         R8 0 0
-       64 SETTABLE                         R8 R7 R4
-       65 GETUPVAL                         R9 0
-       66 GETTABLEKS                       R8 R9 K23 ["possiblePropertyTypes"]
-       68 GETTABLE                         R7 R8 R4
-       69 LOADB                            R8 1
-       70 SETTABLE                         R8 R7 R6
-       71 GETUPVAL                         R6 1
-       72 GETUPVAL                         R8 0
-       73 GETTABLEKS                       R7 R8 K25 ["getAttributeSchema"]
-       75 MOVE                             R8 R5
-       76 CALL                             R7 1 -1
-       77 CALL                             R6 -1 1
-       78 NEWCLOSURE                       R7 P0
-       79 CAPTURE                          VAL R5
-       80 SETTABLEKS                       R7 R6 K26 ["GetDefaultValue"]
-       82 GETUPVAL                         R9 0
-       83 GETTABLEKS                       R8 R9 K19 ["allProperties"]
-       85 GETTABLEKS                       R7 R8 K20 ["StyleQuery"]
-       87 SETTABLE                         R6 R7 R4
-       88 FORGLOOP                         R1 2 ; [-45]
-       90 RETURN                           R0 0
+       26 GETUPVAL                         R2 0
+       27 JUMPIFNOT                        R2 ; [+3]
+       28 GETIMPORT                        R1 K18 [Enum.PreferredTextSize.Medium]
+       30 JUMP                             ; [+1]
+       31 LOADNIL                          R1
+       32 SETTABLEKS                       R1 R0 K4 ["PreferredTextSize"]
+       34 LOADB                            R1 0
+       35 SETTABLEKS                       R1 R0 K5 ["ReducedMotionEnabled"]
+       37 GETIMPORT                        R1 K21 [Enum.DisplaySize.Small]
+       39 SETTABLEKS                       R1 R0 K6 ["ViewportDisplaySize"]
+       41 GETUPVAL                         R2 1
+       42 GETTABLEKS                       R1 R2 K22 ["allProperties"]
+       44 NEWTABLE                         R2 0 0
+       46 SETTABLEKS                       R2 R1 K23 ["StyleQuery"]
+       48 MOVE                             R1 R0
+       49 LOADNIL                          R2
+       50 LOADNIL                          R3
+       51 FORGPREP                         R1
+       52 FASTCALL1                        TYPEOF R5 ; [+3]
+       53 MOVE                             R7 R5
+       54 GETIMPORT                        R6 K25 [typeof]
+       56 CALL                             R6 1 1
+       57 GETUPVAL                         R10 1
+       58 GETTABLEKS                       R9 R10 K26 ["possiblePropertyTypes"]
+       60 GETTABLE                         R8 R9 R4
+       61 FASTCALL1                        TYPEOF R8 ; [+2]
+       62 GETIMPORT                        R7 K25 [typeof]
+       64 CALL                             R7 1 1
+       65 JUMPIFEQKS                       R7 K27 ["table"] ; [+7]
+       67 GETUPVAL                         R8 1
+       68 GETTABLEKS                       R7 R8 K26 ["possiblePropertyTypes"]
+       70 NEWTABLE                         R8 0 0
+       72 SETTABLE                         R8 R7 R4
+       73 GETUPVAL                         R9 1
+       74 GETTABLEKS                       R8 R9 K26 ["possiblePropertyTypes"]
+       76 GETTABLE                         R7 R8 R4
+       77 LOADB                            R8 1
+       78 SETTABLE                         R8 R7 R6
+       79 GETUPVAL                         R6 2
+       80 GETUPVAL                         R8 1
+       81 GETTABLEKS                       R7 R8 K28 ["getAttributeSchema"]
+       83 MOVE                             R8 R5
+       84 CALL                             R7 1 -1
+       85 CALL                             R6 -1 1
+       86 NEWCLOSURE                       R7 P0
+       87 CAPTURE                          VAL R5
+       88 SETTABLEKS                       R7 R6 K29 ["GetDefaultValue"]
+       90 GETUPVAL                         R9 1
+       91 GETTABLEKS                       R8 R9 K22 ["allProperties"]
+       93 GETTABLEKS                       R7 R8 K23 ["StyleQuery"]
+       95 SETTABLE                         R6 R7 R4
+       96 FORGLOOP                         R1 2 ; [-45]
+       98 RETURN                           R0 0
 
 PROTO_137:
         0 GETUPVAL                         R2 0
@@ -2267,581 +2277,586 @@ MAIN:
       165 LOADK                            R29 K40 ["EnableIRCStudioBeta"]
       166 NAMECALL                         R27 R27 K41 ["GetEngineFeature"]
       168 CALL                             R27 2 1
-      169 NEWTABLE                         R28 64 0
-      171 NEWTABLE                         R29 0 0
-      173 SETTABLEKS                       R29 R28 K42 ["allProperties"]
-      175 NEWTABLE                         R29 0 0
-      177 SETTABLEKS                       R29 R28 K43 ["possiblePropertyTypes"]
-      179 DUPCLOSURE                       R29 K44 [PROTO_2]
-      180 CAPTURE                          VAL R28
-      181 CAPTURE                          VAL R26
-      182 CAPTURE                          VAL R13
-      183 SETTABLEKS                       R29 R28 K45 ["CreateSelectSchema"]
-      185 DUPCLOSURE                       R29 K46 [PROTO_5]
-      186 CAPTURE                          VAL R9
-      187 CAPTURE                          VAL R15
-      188 SETTABLEKS                       R29 R28 K47 ["GetEnumItems"]
-      190 DUPCLOSURE                       R29 K48 [PROTO_6]
-      191 CAPTURE                          VAL R28
-      192 SETTABLEKS                       R29 R28 K49 ["CreateChildSchema"]
-      194 DUPCLOSURE                       R29 K50 [PROTO_8]
-      195 CAPTURE                          VAL R9
-      196 SETTABLEKS                       R29 R28 K51 ["GetComponentsValues"]
-      198 DUPCLOSURE                       R29 K52 [PROTO_9]
-      199 CAPTURE                          VAL R20
-      200 SETTABLEKS                       R29 R28 K53 ["GetComponentsString"]
-      202 DUPTABLE                         R29 K57 [{"Type", "Validate", "GetDefaultValue"}]
-      203 LOADK                            R30 K58 ["BrickColor"]
-      204 SETTABLEKS                       R30 R29 K54 ["Type"]
-      206 DUPCLOSURE                       R30 K59 [PROTO_10]
-      207 SETTABLEKS                       R30 R29 K55 ["Validate"]
-      209 DUPCLOSURE                       R30 K60 [PROTO_11]
-      210 SETTABLEKS                       R30 R29 K56 ["GetDefaultValue"]
-      212 SETTABLEKS                       R29 R28 K61 ["BrickColorSchema"]
-      214 DUPCLOSURE                       R29 K62 [PROTO_12]
-      215 DUPTABLE                         R30 K64 [{"Type", "PlaceholderText", "Validate", "GetDefaultValue"}]
-      216 LOADK                            R31 K65 ["Number"]
-      217 SETTABLEKS                       R31 R30 K54 ["Type"]
-      219 LOADK                            R31 K66 ["Add a Number..."]
-      220 SETTABLEKS                       R31 R30 K63 ["PlaceholderText"]
-      222 DUPCLOSURE                       R31 K67 [PROTO_13]
-      223 SETTABLEKS                       R31 R30 K55 ["Validate"]
-      225 DUPCLOSURE                       R31 K68 [PROTO_14]
-      226 SETTABLEKS                       R31 R30 K56 ["GetDefaultValue"]
-      228 SETTABLEKS                       R30 R28 K69 ["NumberSchema"]
-      230 DUPTABLE                         R30 K74 [{"Type", "Components", "GetValue", "GetChildren", "GetComponents", "Validate", "GetDefaultValue"}]
-      231 LOADK                            R31 K75 ["Vector"]
-      232 SETTABLEKS                       R31 R30 K54 ["Type"]
-      234 NEWTABLE                         R31 0 1
-      236 LOADK                            R32 K76 [""]
-      237 SETLIST                          R31 R32 1 [1]
-      239 SETTABLEKS                       R31 R30 K70 ["Components"]
-      241 DUPCLOSURE                       R31 K77 [PROTO_15]
-      242 CAPTURE                          VAL R28
-      243 SETTABLEKS                       R31 R30 K71 ["GetValue"]
-      245 DUPCLOSURE                       R31 K78 [PROTO_22]
-      246 CAPTURE                          VAL R28
-      247 SETTABLEKS                       R31 R30 K72 ["GetChildren"]
-      249 DUPCLOSURE                       R31 K79 [PROTO_23]
-      250 CAPTURE                          VAL R28
-      251 SETTABLEKS                       R31 R30 K73 ["GetComponents"]
-      253 DUPCLOSURE                       R31 K80 [PROTO_24]
-      254 SETTABLEKS                       R31 R30 K55 ["Validate"]
-      256 DUPCLOSURE                       R31 K81 [PROTO_25]
-      257 SETTABLEKS                       R31 R30 K56 ["GetDefaultValue"]
-      259 SETTABLEKS                       R30 R28 K82 ["CFrameSchema"]
-      261 DUPTABLE                         R30 K57 [{"Type", "Validate", "GetDefaultValue"}]
-      262 LOADK                            R31 K83 ["Checkbox"]
-      263 SETTABLEKS                       R31 R30 K54 ["Type"]
-      265 DUPCLOSURE                       R31 K84 [PROTO_26]
-      266 SETTABLEKS                       R31 R30 K55 ["Validate"]
-      268 DUPCLOSURE                       R31 K85 [PROTO_27]
-      269 SETTABLEKS                       R31 R30 K56 ["GetDefaultValue"]
-      271 SETTABLEKS                       R30 R28 K86 ["CheckboxSchema"]
-      273 DUPTABLE                         R30 K88 [{"Type", "Name", "Validate", "GetDefaultValue"}]
-      274 LOADK                            R31 K89 ["StaticText"]
-      275 SETTABLEKS                       R31 R30 K54 ["Type"]
-      277 LOADK                            R31 K90 ["Child"]
-      278 SETTABLEKS                       R31 R30 K87 ["Name"]
-      280 DUPCLOSURE                       R31 K91 [PROTO_28]
-      281 SETTABLEKS                       R31 R30 K55 ["Validate"]
-      283 DUPCLOSURE                       R31 K92 [PROTO_29]
-      284 SETTABLEKS                       R31 R30 K56 ["GetDefaultValue"]
-      286 SETTABLEKS                       R30 R28 K93 ["ChildComponentSchema"]
-      288 DUPTABLE                         R30 K64 [{"Type", "PlaceholderText", "Validate", "GetDefaultValue"}]
-      289 LOADK                            R31 K94 ["Color"]
-      290 SETTABLEKS                       R31 R30 K54 ["Type"]
-      292 LOADK                            R31 K95 ["Add a Color..."]
-      293 SETTABLEKS                       R31 R30 K63 ["PlaceholderText"]
-      295 DUPCLOSURE                       R31 K96 [PROTO_30]
-      296 SETTABLEKS                       R31 R30 K55 ["Validate"]
-      298 DUPCLOSURE                       R31 K97 [PROTO_31]
-      299 SETTABLEKS                       R31 R30 K56 ["GetDefaultValue"]
-      301 SETTABLEKS                       R30 R28 K98 ["ColorSchema"]
-      303 DUPTABLE                         R30 K57 [{"Type", "Validate", "GetDefaultValue"}]
-      304 LOADK                            R31 K99 ["ColorSequence"]
-      305 SETTABLEKS                       R31 R30 K54 ["Type"]
-      307 DUPCLOSURE                       R31 K100 [PROTO_32]
-      308 SETTABLEKS                       R31 R30 K55 ["Validate"]
-      310 DUPCLOSURE                       R31 K101 [PROTO_33]
-      311 SETTABLEKS                       R31 R30 K56 ["GetDefaultValue"]
-      313 SETTABLEKS                       R30 R28 K102 ["ColorSequenceSchema"]
-      315 DUPTABLE                         R30 K57 [{"Type", "Validate", "GetDefaultValue"}]
-      316 LOADK                            R31 K103 ["Empty"]
-      317 SETTABLEKS                       R31 R30 K54 ["Type"]
-      319 DUPCLOSURE                       R31 K104 [PROTO_34]
-      320 SETTABLEKS                       R31 R30 K55 ["Validate"]
-      322 DUPCLOSURE                       R31 K105 [PROTO_35]
-      323 SETTABLEKS                       R31 R30 K56 ["GetDefaultValue"]
-      325 SETTABLEKS                       R30 R28 K106 ["EmptySchema"]
-      327 DUPTABLE                         R30 K57 [{"Type", "Validate", "GetDefaultValue"}]
-      328 LOADK                            R31 K107 ["FontStyle"]
-      329 SETTABLEKS                       R31 R30 K54 ["Type"]
-      331 DUPCLOSURE                       R31 K108 [PROTO_36]
-      332 SETTABLEKS                       R31 R30 K55 ["Validate"]
-      334 DUPCLOSURE                       R31 K109 [PROTO_37]
-      335 SETTABLEKS                       R31 R30 K56 ["GetDefaultValue"]
-      337 SETTABLEKS                       R30 R28 K110 ["FontStyleSchema"]
-      339 DUPTABLE                         R30 K57 [{"Type", "Validate", "GetDefaultValue"}]
-      340 LOADK                            R31 K111 ["FontWeight"]
-      341 SETTABLEKS                       R31 R30 K54 ["Type"]
-      343 DUPCLOSURE                       R31 K112 [PROTO_38]
-      344 SETTABLEKS                       R31 R30 K55 ["Validate"]
-      346 DUPCLOSURE                       R31 K113 [PROTO_39]
-      347 SETTABLEKS                       R31 R30 K56 ["GetDefaultValue"]
-      349 SETTABLEKS                       R30 R28 K114 ["FontWeightSchema"]
-      351 DUPTABLE                         R30 K115 [{"Type", "PlaceholderText", "GetChildren", "Validate", "GetDefaultValue"}]
-      352 LOADK                            R31 K116 ["FontFamily"]
-      353 SETTABLEKS                       R31 R30 K54 ["Type"]
-      355 LOADK                            R31 K117 ["Add a Font..."]
-      356 SETTABLEKS                       R31 R30 K63 ["PlaceholderText"]
-      358 DUPCLOSURE                       R31 K118 [PROTO_42]
-      359 CAPTURE                          VAL R28
-      360 SETTABLEKS                       R31 R30 K72 ["GetChildren"]
-      362 DUPCLOSURE                       R31 K119 [PROTO_43]
-      363 SETTABLEKS                       R31 R30 K55 ["Validate"]
-      365 DUPCLOSURE                       R31 K120 [PROTO_44]
-      366 SETTABLEKS                       R31 R30 K56 ["GetDefaultValue"]
-      368 SETTABLEKS                       R30 R28 K121 ["FontSchema"]
-      370 DUPTABLE                         R30 K74 [{"Type", "Components", "GetValue", "GetChildren", "GetComponents", "Validate", "GetDefaultValue"}]
-      371 LOADK                            R31 K75 ["Vector"]
-      372 SETTABLEKS                       R31 R30 K54 ["Type"]
-      374 NEWTABLE                         R31 0 1
-      376 LOADK                            R32 K76 [""]
-      377 SETLIST                          R31 R32 1 [1]
-      379 SETTABLEKS                       R31 R30 K70 ["Components"]
-      381 DUPCLOSURE                       R31 K122 [PROTO_45]
-      382 CAPTURE                          VAL R28
-      383 SETTABLEKS                       R31 R30 K71 ["GetValue"]
-      385 DUPCLOSURE                       R31 K123 [PROTO_48]
-      386 CAPTURE                          VAL R28
-      387 SETTABLEKS                       R31 R30 K72 ["GetChildren"]
-      389 DUPCLOSURE                       R31 K124 [PROTO_49]
-      390 CAPTURE                          VAL R28
-      391 SETTABLEKS                       R31 R30 K73 ["GetComponents"]
-      393 DUPCLOSURE                       R31 K125 [PROTO_50]
-      394 SETTABLEKS                       R31 R30 K55 ["Validate"]
-      396 DUPCLOSURE                       R31 K126 [PROTO_51]
-      397 SETTABLEKS                       R31 R30 K56 ["GetDefaultValue"]
-      399 SETTABLEKS                       R30 R28 K127 ["NumberRangeSchema"]
-      401 DUPTABLE                         R30 K132 [{"TopLeftRadius", "TopRightRadius", "BottomLeftRadius", "BottomRightRadius"}]
-      402 LOADB                            R31 1
-      403 SETTABLEKS                       R31 R30 K128 ["TopLeftRadius"]
-      405 LOADB                            R31 1
-      406 SETTABLEKS                       R31 R30 K129 ["TopRightRadius"]
-      408 LOADB                            R31 1
-      409 SETTABLEKS                       R31 R30 K130 ["BottomLeftRadius"]
-      411 LOADB                            R31 1
-      412 SETTABLEKS                       R31 R30 K131 ["BottomRightRadius"]
-      414 DUPTABLE                         R31 K135 [{"Type", "ErrorStyle", "ItemHeight", "Validate", "GetDefaultValue"}]
-      415 LOADK                            R32 K136 ["PropertyName"]
-      416 SETTABLEKS                       R32 R31 K54 ["Type"]
-      418 LOADK                            R32 K137 ["PropertyCellError"]
-      419 SETTABLEKS                       R32 R31 K133 ["ErrorStyle"]
-      421 SETTABLEKS                       R26 R31 K134 ["ItemHeight"]
-      423 DUPCLOSURE                       R32 K138 [PROTO_52]
-      424 CAPTURE                          VAL R27
-      425 CAPTURE                          VAL R30
-      426 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      428 DUPCLOSURE                       R32 K139 [PROTO_53]
-      429 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      431 SETTABLEKS                       R31 R28 K140 ["PropertyNameSchema"]
-      433 DUPTABLE                         R31 K74 [{"Type", "Components", "GetValue", "GetChildren", "GetComponents", "Validate", "GetDefaultValue"}]
-      434 LOADK                            R32 K75 ["Vector"]
-      435 SETTABLEKS                       R32 R31 K54 ["Type"]
-      437 NEWTABLE                         R32 0 1
-      439 LOADK                            R33 K76 [""]
-      440 SETLIST                          R32 R33 1 [1]
-      442 SETTABLEKS                       R32 R31 K70 ["Components"]
-      444 DUPCLOSURE                       R32 K141 [PROTO_54]
-      445 CAPTURE                          VAL R28
-      446 SETTABLEKS                       R32 R31 K71 ["GetValue"]
-      448 DUPCLOSURE                       R32 K142 [PROTO_59]
-      449 CAPTURE                          VAL R28
-      450 SETTABLEKS                       R32 R31 K72 ["GetChildren"]
-      452 DUPCLOSURE                       R32 K143 [PROTO_60]
-      453 CAPTURE                          VAL R28
-      454 SETTABLEKS                       R32 R31 K73 ["GetComponents"]
-      456 DUPCLOSURE                       R32 K144 [PROTO_61]
-      457 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      459 DUPCLOSURE                       R32 K145 [PROTO_62]
-      460 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      462 SETTABLEKS                       R31 R28 K146 ["RectSchema"]
-      464 DUPTABLE                         R31 K149 [{"Type", "Delimiters", "ErrorStyle", "GetImageProps", "Name", "Validate", "GetDefaultValue"}]
-      465 LOADK                            R32 K150 ["Breadcrumb"]
-      466 SETTABLEKS                       R32 R31 K54 ["Type"]
-      468 NEWTABLE                         R32 0 8
-      470 LOADK                            R33 K151 [">>"]
-      471 LOADK                            R34 K152 [">"]
-      472 LOADK                            R35 K153 ["::"]
-      473 LOADK                            R36 K154 [":"]
-      474 LOADK                            R37 K155 ["%."]
-      475 LOADK                            R38 K156 [" "]
-      476 LOADK                            R39 K157 ["#"]
-      477 LOADK                            R40 K158 [","]
-      478 SETLIST                          R32 R33 8 [1]
-      480 SETTABLEKS                       R32 R31 K147 ["Delimiters"]
-      482 LOADK                            R32 K137 ["PropertyCellError"]
-      483 SETTABLEKS                       R32 R31 K133 ["ErrorStyle"]
-      485 SETTABLEKS                       R22 R31 K148 ["GetImageProps"]
-      487 LOADK                            R32 K159 ["Selector"]
-      488 SETTABLEKS                       R32 R31 K87 ["Name"]
-      490 DUPCLOSURE                       R32 K160 [PROTO_63]
-      491 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      493 DUPCLOSURE                       R32 K161 [PROTO_64]
-      494 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      496 SETTABLEKS                       R31 R28 K162 ["SelectorSchema"]
-      498 DUPTABLE                         R31 K57 [{"Type", "Validate", "GetDefaultValue"}]
-      499 LOADK                            R32 K163 ["Derive"]
-      500 SETTABLEKS                       R32 R31 K54 ["Type"]
-      502 DUPCLOSURE                       R32 K164 [PROTO_65]
-      503 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      505 DUPCLOSURE                       R32 K165 [PROTO_66]
-      506 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      508 SETTABLEKS                       R31 R28 K166 ["DeriveSchema"]
-      510 DUPTABLE                         R31 K167 [{"Type", "GetImageProps", "Name", "Validate", "GetDefaultValue"}]
-      511 LOADK                            R32 K150 ["Breadcrumb"]
-      512 SETTABLEKS                       R32 R31 K54 ["Type"]
-      514 DUPCLOSURE                       R32 K168 [PROTO_67]
-      515 CAPTURE                          VAL R19
-      516 CAPTURE                          VAL R18
-      517 CAPTURE                          VAL R25
-      518 SETTABLEKS                       R32 R31 K148 ["GetImageProps"]
-      520 LOADK                            R32 K169 ["Folder"]
-      521 SETTABLEKS                       R32 R31 K87 ["Name"]
-      523 DUPCLOSURE                       R32 K170 [PROTO_68]
-      524 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      526 DUPCLOSURE                       R32 K171 [PROTO_69]
-      527 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      529 SETTABLEKS                       R31 R28 K172 ["FolderSchema"]
-      531 DUPTABLE                         R31 K167 [{"Type", "GetImageProps", "Name", "Validate", "GetDefaultValue"}]
-      532 LOADK                            R32 K150 ["Breadcrumb"]
-      533 SETTABLEKS                       R32 R31 K54 ["Type"]
-      535 DUPCLOSURE                       R32 K173 [PROTO_70]
-      536 CAPTURE                          VAL R19
-      537 CAPTURE                          VAL R18
-      538 CAPTURE                          VAL R25
-      539 SETTABLEKS                       R32 R31 K148 ["GetImageProps"]
-      541 LOADK                            R32 K174 ["StyleSheet"]
-      542 SETTABLEKS                       R32 R31 K87 ["Name"]
-      544 DUPCLOSURE                       R32 K175 [PROTO_71]
-      545 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      547 DUPCLOSURE                       R32 K176 [PROTO_72]
-      548 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      550 SETTABLEKS                       R31 R28 K177 ["StyleSheetSchema"]
-      552 DUPTABLE                         R31 K57 [{"Type", "Validate", "GetDefaultValue"}]
-      553 LOADK                            R32 K178 ["Theme"]
-      554 SETTABLEKS                       R32 R31 K54 ["Type"]
-      556 DUPCLOSURE                       R32 K179 [PROTO_73]
-      557 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      559 DUPCLOSURE                       R32 K180 [PROTO_74]
-      560 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      562 SETTABLEKS                       R31 R28 K181 ["ThemeSchema"]
-      564 DUPTABLE                         R31 K182 [{"Type", "ItemHeight", "Validate", "GetDefaultValue"}]
-      565 LOADK                            R32 K183 ["Text"]
-      566 SETTABLEKS                       R32 R31 K54 ["Type"]
-      568 SETTABLEKS                       R26 R31 K134 ["ItemHeight"]
-      570 DUPCLOSURE                       R32 K184 [PROTO_75]
-      571 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      573 DUPCLOSURE                       R32 K185 [PROTO_76]
-      574 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      576 SETTABLEKS                       R31 R28 K186 ["TextSchema"]
-      578 DUPTABLE                         R31 K192 [{"Type", "Min", "Max", "ShowInput", "InputPrecision", "SnapIncrement", "Validate", "GetDefaultValue"}]
-      579 LOADK                            R32 K193 ["Slider"]
-      580 SETTABLEKS                       R32 R31 K54 ["Type"]
-      582 LOADN                            R32 0
-      583 SETTABLEKS                       R32 R31 K187 ["Min"]
-      585 LOADN                            R32 1
-      586 SETTABLEKS                       R32 R31 K188 ["Max"]
-      588 LOADB                            R32 1
-      589 SETTABLEKS                       R32 R31 K189 ["ShowInput"]
-      591 LOADN                            R32 3
-      592 SETTABLEKS                       R32 R31 K190 ["InputPrecision"]
-      594 LOADK                            R32 K194 [0.05]
-      595 SETTABLEKS                       R32 R31 K191 ["SnapIncrement"]
-      597 DUPCLOSURE                       R32 K195 [PROTO_77]
-      598 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      600 DUPCLOSURE                       R32 K196 [PROTO_78]
-      601 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      603 SETTABLEKS                       R31 R28 K197 ["TransparencySchema"]
-      605 DUPTABLE                         R31 K57 [{"Type", "Validate", "GetDefaultValue"}]
-      606 LOADK                            R32 K198 ["NumberSequence"]
-      607 SETTABLEKS                       R32 R31 K54 ["Type"]
-      609 DUPCLOSURE                       R32 K199 [PROTO_79]
-      610 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      612 DUPCLOSURE                       R32 K200 [PROTO_80]
-      613 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      615 SETTABLEKS                       R31 R28 K201 ["NumberSequenceSchema"]
-      617 DUPTABLE                         R31 K74 [{"Type", "Components", "GetValue", "GetChildren", "GetComponents", "Validate", "GetDefaultValue"}]
-      618 LOADK                            R32 K75 ["Vector"]
-      619 SETTABLEKS                       R32 R31 K54 ["Type"]
-      621 NEWTABLE                         R32 0 1
-      623 LOADK                            R33 K76 [""]
-      624 SETLIST                          R32 R33 1 [1]
-      626 SETTABLEKS                       R32 R31 K70 ["Components"]
-      628 DUPCLOSURE                       R32 K202 [PROTO_81]
-      629 CAPTURE                          VAL R28
-      630 SETTABLEKS                       R32 R31 K71 ["GetValue"]
-      632 DUPCLOSURE                       R32 K203 [PROTO_84]
-      633 CAPTURE                          VAL R28
-      634 SETTABLEKS                       R32 R31 K72 ["GetChildren"]
-      636 DUPCLOSURE                       R32 K204 [PROTO_85]
-      637 CAPTURE                          VAL R28
-      638 SETTABLEKS                       R32 R31 K73 ["GetComponents"]
-      640 DUPCLOSURE                       R32 K205 [PROTO_86]
-      641 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      643 DUPCLOSURE                       R32 K206 [PROTO_87]
-      644 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      646 SETTABLEKS                       R31 R28 K207 ["UDimSchema"]
-      648 DUPTABLE                         R31 K74 [{"Type", "Components", "GetValue", "GetChildren", "GetComponents", "Validate", "GetDefaultValue"}]
-      649 LOADK                            R32 K75 ["Vector"]
-      650 SETTABLEKS                       R32 R31 K54 ["Type"]
-      652 NEWTABLE                         R32 0 1
-      654 LOADK                            R33 K76 [""]
-      655 SETLIST                          R32 R33 1 [1]
-      657 SETTABLEKS                       R32 R31 K70 ["Components"]
-      659 DUPCLOSURE                       R32 K208 [PROTO_88]
-      660 CAPTURE                          VAL R28
-      661 SETTABLEKS                       R32 R31 K71 ["GetValue"]
-      663 DUPCLOSURE                       R32 K209 [PROTO_93]
-      664 CAPTURE                          VAL R28
-      665 SETTABLEKS                       R32 R31 K72 ["GetChildren"]
-      667 DUPCLOSURE                       R32 K210 [PROTO_94]
-      668 CAPTURE                          VAL R28
-      669 SETTABLEKS                       R32 R31 K73 ["GetComponents"]
-      671 DUPCLOSURE                       R32 K211 [PROTO_95]
-      672 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      674 DUPCLOSURE                       R32 K212 [PROTO_96]
-      675 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      677 SETTABLEKS                       R31 R28 K213 ["UDim2Schema"]
-      679 DUPTABLE                         R31 K74 [{"Type", "Components", "GetValue", "GetChildren", "GetComponents", "Validate", "GetDefaultValue"}]
-      680 LOADK                            R32 K75 ["Vector"]
-      681 SETTABLEKS                       R32 R31 K54 ["Type"]
-      683 NEWTABLE                         R32 0 1
-      685 LOADK                            R33 K76 [""]
-      686 SETLIST                          R32 R33 1 [1]
-      688 SETTABLEKS                       R32 R31 K70 ["Components"]
-      690 DUPCLOSURE                       R32 K214 [PROTO_97]
-      691 CAPTURE                          VAL R28
-      692 SETTABLEKS                       R32 R31 K71 ["GetValue"]
-      694 DUPCLOSURE                       R32 K215 [PROTO_100]
-      695 CAPTURE                          VAL R28
-      696 SETTABLEKS                       R32 R31 K72 ["GetChildren"]
-      698 DUPCLOSURE                       R32 K216 [PROTO_101]
-      699 CAPTURE                          VAL R28
-      700 SETTABLEKS                       R32 R31 K73 ["GetComponents"]
-      702 DUPCLOSURE                       R32 K217 [PROTO_102]
-      703 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      705 DUPCLOSURE                       R32 K218 [PROTO_103]
-      706 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      708 SETTABLEKS                       R31 R28 K219 ["Vector2Schema"]
-      710 DUPTABLE                         R31 K74 [{"Type", "Components", "GetValue", "GetChildren", "GetComponents", "Validate", "GetDefaultValue"}]
-      711 LOADK                            R32 K75 ["Vector"]
-      712 SETTABLEKS                       R32 R31 K54 ["Type"]
-      714 NEWTABLE                         R32 0 1
-      716 LOADK                            R33 K76 [""]
-      717 SETLIST                          R32 R33 1 [1]
-      719 SETTABLEKS                       R32 R31 K70 ["Components"]
-      721 DUPCLOSURE                       R32 K220 [PROTO_104]
-      722 CAPTURE                          VAL R28
-      723 SETTABLEKS                       R32 R31 K71 ["GetValue"]
-      725 DUPCLOSURE                       R32 K221 [PROTO_108]
-      726 CAPTURE                          VAL R28
-      727 SETTABLEKS                       R32 R31 K72 ["GetChildren"]
-      729 DUPCLOSURE                       R32 K222 [PROTO_109]
-      730 CAPTURE                          VAL R28
-      731 SETTABLEKS                       R32 R31 K73 ["GetComponents"]
-      733 DUPCLOSURE                       R32 K223 [PROTO_110]
-      734 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      736 DUPCLOSURE                       R32 K224 [PROTO_111]
-      737 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      739 SETTABLEKS                       R31 R28 K225 ["Vector3Schema"]
-      741 JUMPIFNOT                        R4 ; [+29]
-      742 GETTABLEKS                       R31 R28 K45 ["CreateSelectSchema"]
-      744 GETIMPORT                        R32 K229 [Enum.EasingStyle.Linear]
-      746 CALL                             R31 1 1
-      747 GETTABLEKS                       R32 R28 K45 ["CreateSelectSchema"]
-      749 GETIMPORT                        R33 K232 [Enum.EasingDirection.In]
-      751 CALL                             R32 1 1
-      752 DUPTABLE                         R33 K233 [{"Type", "Validate", "GetDefaultValue", "GetChildren"}]
-      753 LOADK                            R34 K234 ["TweenInfo"]
-      754 SETTABLEKS                       R34 R33 K54 ["Type"]
-      756 DUPCLOSURE                       R34 K235 [PROTO_112]
-      757 SETTABLEKS                       R34 R33 K55 ["Validate"]
-      759 DUPCLOSURE                       R34 K236 [PROTO_113]
-      760 SETTABLEKS                       R34 R33 K56 ["GetDefaultValue"]
-      762 DUPCLOSURE                       R34 K237 [PROTO_116]
-      763 CAPTURE                          VAL R23
-      764 CAPTURE                          VAL R28
-      765 CAPTURE                          VAL R31
-      766 CAPTURE                          VAL R32
-      767 SETTABLEKS                       R34 R33 K72 ["GetChildren"]
-      769 SETTABLEKS                       R33 R28 K238 ["TweenInfoSchema"]
-      771 DUPTABLE                         R31 K240 [{"Type", "ErrorStyle", "ItemHeight", "HideSelfTokens", "Validate", "GetDefaultValue"}]
-      772 LOADK                            R32 K241 ["TokenReference"]
-      773 SETTABLEKS                       R32 R31 K54 ["Type"]
-      775 LOADK                            R32 K137 ["PropertyCellError"]
-      776 SETTABLEKS                       R32 R31 K133 ["ErrorStyle"]
-      778 SETTABLEKS                       R26 R31 K134 ["ItemHeight"]
-      780 LOADB                            R32 0
-      781 SETTABLEKS                       R32 R31 K239 ["HideSelfTokens"]
-      783 DUPCLOSURE                       R32 K242 [PROTO_117]
-      784 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      786 DUPCLOSURE                       R32 K243 [PROTO_118]
-      787 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      789 SETTABLEKS                       R31 R28 K244 ["TokenReferenceSchema"]
-      791 NEWTABLE                         R31 0 2
-      793 DUPTABLE                         R32 K247 [{"Property", "Type", "Schema"}]
-      794 LOADK                            R33 K248 ["Transparency"]
-      795 SETTABLEKS                       R33 R32 K245 ["Property"]
-      797 LOADK                            R33 K249 ["number"]
-      798 SETTABLEKS                       R33 R32 K54 ["Type"]
-      800 GETTABLEKS                       R33 R28 K197 ["TransparencySchema"]
-      802 SETTABLEKS                       R33 R32 K246 ["Schema"]
-      804 DUPTABLE                         R33 K247 [{"Property", "Type", "Schema"}]
-      805 LOADK                            R34 K250 ["BackgroundTransparency"]
-      806 SETTABLEKS                       R34 R33 K245 ["Property"]
-      808 LOADK                            R34 K249 ["number"]
-      809 SETTABLEKS                       R34 R33 K54 ["Type"]
-      811 GETTABLEKS                       R34 R28 K197 ["TransparencySchema"]
-      813 SETTABLEKS                       R34 R33 K246 ["Schema"]
-      815 SETLIST                          R31 R32 2 [1]
-      817 SETTABLEKS                       R31 R28 K251 ["OverridenSchemas"]
-      819 DUPTABLE                         R31 K264 [{"Token", "boolean", "BrickColor", "CFrame", "Color3", "ColorSequence", "NumberRange", "NumberSequence", "Font", "number", "string", "Rect", "UDim", "UDim2", "Vector2", "Vector3", "TweenInfo"}]
-      820 GETTABLEKS                       R32 R28 K244 ["TokenReferenceSchema"]
-      822 SETTABLEKS                       R32 R31 K252 ["Token"]
-      824 GETTABLEKS                       R32 R28 K86 ["CheckboxSchema"]
-      826 SETTABLEKS                       R32 R31 K253 ["boolean"]
-      828 GETTABLEKS                       R32 R28 K61 ["BrickColorSchema"]
-      830 SETTABLEKS                       R32 R31 K58 ["BrickColor"]
-      832 GETTABLEKS                       R32 R28 K82 ["CFrameSchema"]
-      834 SETTABLEKS                       R32 R31 K254 ["CFrame"]
-      836 GETTABLEKS                       R32 R28 K98 ["ColorSchema"]
-      838 SETTABLEKS                       R32 R31 K255 ["Color3"]
-      840 GETTABLEKS                       R32 R28 K102 ["ColorSequenceSchema"]
-      842 SETTABLEKS                       R32 R31 K99 ["ColorSequence"]
-      844 GETTABLEKS                       R32 R28 K127 ["NumberRangeSchema"]
-      846 SETTABLEKS                       R32 R31 K256 ["NumberRange"]
-      848 GETTABLEKS                       R32 R28 K201 ["NumberSequenceSchema"]
-      850 SETTABLEKS                       R32 R31 K198 ["NumberSequence"]
-      852 GETTABLEKS                       R32 R28 K121 ["FontSchema"]
-      854 SETTABLEKS                       R32 R31 K257 ["Font"]
-      856 GETTABLEKS                       R32 R28 K69 ["NumberSchema"]
-      858 SETTABLEKS                       R32 R31 K249 ["number"]
-      860 GETTABLEKS                       R32 R28 K186 ["TextSchema"]
-      862 SETTABLEKS                       R32 R31 K258 ["string"]
-      864 GETTABLEKS                       R32 R28 K146 ["RectSchema"]
-      866 SETTABLEKS                       R32 R31 K259 ["Rect"]
-      868 GETTABLEKS                       R32 R28 K207 ["UDimSchema"]
-      870 SETTABLEKS                       R32 R31 K260 ["UDim"]
-      872 GETTABLEKS                       R32 R28 K213 ["UDim2Schema"]
-      874 SETTABLEKS                       R32 R31 K261 ["UDim2"]
-      876 GETTABLEKS                       R32 R28 K219 ["Vector2Schema"]
-      878 SETTABLEKS                       R32 R31 K262 ["Vector2"]
-      880 GETTABLEKS                       R32 R28 K225 ["Vector3Schema"]
-      882 SETTABLEKS                       R32 R31 K263 ["Vector3"]
-      884 JUMPIFNOT                        R4 ; [+3]
-      885 GETTABLEKS                       R32 R28 K238 ["TweenInfoSchema"]
-      887 JUMP                             ; [+1]
-      888 LOADNIL                          R32
-      889 SETTABLEKS                       R32 R31 K234 ["TweenInfo"]
-      891 SETTABLEKS                       R31 R28 K265 ["PropertySchemas"]
-      893 DUPTABLE                         R31 K266 [{"CFrame", "Vector3", "TweenInfo"}]
-      894 GETTABLEKS                       R32 R28 K82 ["CFrameSchema"]
-      896 SETTABLEKS                       R32 R31 K254 ["CFrame"]
-      898 GETTABLEKS                       R32 R28 K225 ["Vector3Schema"]
-      900 SETTABLEKS                       R32 R31 K263 ["Vector3"]
-      902 JUMPIFNOT                        R4 ; [+2]
-      903 NOT                              R32 R5
-      904 JUMP                             ; [+1]
-      905 LOADNIL                          R32
-      906 SETTABLEKS                       R32 R31 K234 ["TweenInfo"]
-      908 SETTABLEKS                       R31 R28 K267 ["HiddenPropertySchemas"]
-      910 DUPTABLE                         R31 K269 [{"Type", "Items", "ItemHeight", "PlaceholderText", "Validate", "GetDefaultValue"}]
-      911 LOADK                            R32 K14 ["getEngineFeatureTweenInfoAttributes"]
-      912 SETTABLEKS                       R32 R31 K54 ["Type"]
-      914 MOVE                             R32 R21
-      915 MOVE                             R33 R9
-      916 GETTABLEKS                       R34 R28 K265 ["PropertySchemas"]
-      918 DUPCLOSURE                       R35 K271 [PROTO_119]
-      919 CAPTURE                          VAL R28
-      920 CALL                             R33 2 -1
-      921 CALL                             R32 -1 1
-      922 SETTABLEKS                       R32 R31 K268 ["Items"]
-      924 SETTABLEKS                       R26 R31 K134 ["ItemHeight"]
-      926 LOADK                            R32 K16 ["Packages"]
-      927 SETTABLEKS                       R32 R31 K63 ["PlaceholderText"]
-      929 DUPCLOSURE                       R32 K273 [PROTO_120]
-      930 SETTABLEKS                       R32 R31 K55 ["Validate"]
-      932 DUPCLOSURE                       R32 K274 [PROTO_121]
-      933 SETTABLEKS                       R32 R31 K56 ["GetDefaultValue"]
-      935 SETTABLEKS                       R31 R28 K275 ["SelectTokenSchema"]
-      937 DUPCLOSURE                       R31 K276 [PROTO_122]
-      938 CAPTURE                          VAL R28
-      939 DUPCLOSURE                       R32 K277 [PROTO_123]
-      940 CAPTURE                          VAL R3
-      941 CAPTURE                          VAL R0
-      942 DUPCLOSURE                       R33 K278 [PROTO_130]
-      943 CAPTURE                          VAL R28
-      944 CAPTURE                          VAL R3
-      945 CAPTURE                          VAL R0
-      946 CAPTURE                          VAL R12
-      947 CAPTURE                          VAL R2
-      948 SETTABLEKS                       R33 R28 K279 ["createClassProperties"]
-      950 DUPCLOSURE                       R33 K280 [PROTO_131]
-      951 CAPTURE                          VAL R28
-      952 SETTABLEKS                       R33 R28 K281 ["getPropertySchema"]
-      954 DUPCLOSURE                       R33 K282 [PROTO_132]
-      955 CAPTURE                          VAL R28
-      956 CAPTURE                          VAL R8
-      957 CAPTURE                          VAL R14
-      958 CAPTURE                          VAL R10
-      959 CAPTURE                          VAL R16
-      960 CAPTURE                          VAL R17
-      961 CAPTURE                          VAL R27
-      962 CAPTURE                          VAL R30
-      963 SETTABLEKS                       R33 R28 K283 ["getPropertyNames"]
-      965 DUPCLOSURE                       R33 K284 [PROTO_133]
-      966 CAPTURE                          VAL R28
-      967 CAPTURE                          VAL R14
-      968 SETTABLEKS                       R33 R28 K285 ["getPossiblePropertyTypes"]
-      970 DUPCLOSURE                       R33 K286 [PROTO_134]
-      971 CAPTURE                          VAL R28
-      972 SETTABLEKS                       R33 R28 K287 ["getAttributeSchema"]
-      974 DUPCLOSURE                       R33 K288 [PROTO_136]
-      975 CAPTURE                          VAL R28
-      976 CAPTURE                          VAL R11
-      977 SETTABLEKS                       R33 R28 K289 ["registerStyleQueryProperties"]
-      979 NEWTABLE                         R33 0 16
-      981 LOADK                            R34 K34 ["breadcrumbGetImageProps"]
-      982 LOADK                            R35 K35 ["TransitionParamUtil"]
-      983 LOADK                            R36 K36 ["PluginStyles"]
-      984 LOADK                            R37 K37 ["Icon16"]
-      985 LOADK                            R38 K38 ["GetAttribute"]
-      986 LOADK                            R39 K39 ["RowHeight"]
-      987 LOADK                            R40 K40 ["EnableIRCStudioBeta"]
-      988 LOADK                            R41 K41 ["GetEngineFeature"]
-      989 LOADK                            R42 K42 ["allProperties"]
-      990 LOADK                            R43 K43 ["possiblePropertyTypes"]
-      991 LOADK                            R44 K44 [PROTO_2]
-      992 LOADK                            R45 K45 ["CreateSelectSchema"]
-      993 LOADK                            R46 K46 [PROTO_5]
-      994 LOADK                            R47 K47 ["GetEnumItems"]
-      995 LOADK                            R48 K48 [PROTO_6]
-      996 LOADK                            R49 K49 ["CreateChildSchema"]
-      997 SETLIST                          R33 R34 16 [1]
-      999 JUMPIFNOT                        R6 ; [+7]
-     1000 FASTCALL2K                       TABLE_INSERT R33 K306 ; [+5]
-     1002 MOVE                             R35 R33
-     1003 LOADK                            R36 K50 [PROTO_8]
-     1004 GETIMPORT                        R34 K309 [table.insert]
-     1006 CALL                             R34 2 0
-     1007 MOVE                             R34 R12
-     1008 MOVE                             R35 R33
-     1009 DUPCLOSURE                       R36 K310 [PROTO_137]
-     1010 CAPTURE                          VAL R28
-     1011 CALL                             R34 2 0
-     1012 JUMPIFNOT                        R2 ; [+3]
-     1013 GETTABLEKS                       R34 R28 K289 ["registerStyleQueryProperties"]
-     1015 CALL                             R34 0 0
-     1016 RETURN                           R28 1
+      169 GETIMPORT                        R28 K1 [game]
+      171 LOADK                            R30 K42 ["StyleQueryPreferredTextSize"]
+      172 NAMECALL                         R28 R28 K41 ["GetEngineFeature"]
+      174 CALL                             R28 2 1
+      175 NEWTABLE                         R29 64 0
+      177 NEWTABLE                         R30 0 0
+      179 SETTABLEKS                       R30 R29 K43 ["allProperties"]
+      181 NEWTABLE                         R30 0 0
+      183 SETTABLEKS                       R30 R29 K44 ["possiblePropertyTypes"]
+      185 DUPCLOSURE                       R30 K45 [PROTO_2]
+      186 CAPTURE                          VAL R29
+      187 CAPTURE                          VAL R26
+      188 CAPTURE                          VAL R13
+      189 SETTABLEKS                       R30 R29 K46 ["CreateSelectSchema"]
+      191 DUPCLOSURE                       R30 K47 [PROTO_5]
+      192 CAPTURE                          VAL R9
+      193 CAPTURE                          VAL R15
+      194 SETTABLEKS                       R30 R29 K48 ["GetEnumItems"]
+      196 DUPCLOSURE                       R30 K49 [PROTO_6]
+      197 CAPTURE                          VAL R29
+      198 SETTABLEKS                       R30 R29 K50 ["CreateChildSchema"]
+      200 DUPCLOSURE                       R30 K51 [PROTO_8]
+      201 CAPTURE                          VAL R9
+      202 SETTABLEKS                       R30 R29 K52 ["GetComponentsValues"]
+      204 DUPCLOSURE                       R30 K53 [PROTO_9]
+      205 CAPTURE                          VAL R20
+      206 SETTABLEKS                       R30 R29 K54 ["GetComponentsString"]
+      208 DUPTABLE                         R30 K58 [{"Type", "Validate", "GetDefaultValue"}]
+      209 LOADK                            R31 K59 ["BrickColor"]
+      210 SETTABLEKS                       R31 R30 K55 ["Type"]
+      212 DUPCLOSURE                       R31 K60 [PROTO_10]
+      213 SETTABLEKS                       R31 R30 K56 ["Validate"]
+      215 DUPCLOSURE                       R31 K61 [PROTO_11]
+      216 SETTABLEKS                       R31 R30 K57 ["GetDefaultValue"]
+      218 SETTABLEKS                       R30 R29 K62 ["BrickColorSchema"]
+      220 DUPCLOSURE                       R30 K63 [PROTO_12]
+      221 DUPTABLE                         R31 K65 [{"Type", "PlaceholderText", "Validate", "GetDefaultValue"}]
+      222 LOADK                            R32 K66 ["Number"]
+      223 SETTABLEKS                       R32 R31 K55 ["Type"]
+      225 LOADK                            R32 K67 ["Add a Number..."]
+      226 SETTABLEKS                       R32 R31 K64 ["PlaceholderText"]
+      228 DUPCLOSURE                       R32 K68 [PROTO_13]
+      229 SETTABLEKS                       R32 R31 K56 ["Validate"]
+      231 DUPCLOSURE                       R32 K69 [PROTO_14]
+      232 SETTABLEKS                       R32 R31 K57 ["GetDefaultValue"]
+      234 SETTABLEKS                       R31 R29 K70 ["NumberSchema"]
+      236 DUPTABLE                         R31 K75 [{"Type", "Components", "GetValue", "GetChildren", "GetComponents", "Validate", "GetDefaultValue"}]
+      237 LOADK                            R32 K76 ["Vector"]
+      238 SETTABLEKS                       R32 R31 K55 ["Type"]
+      240 NEWTABLE                         R32 0 1
+      242 LOADK                            R33 K77 [""]
+      243 SETLIST                          R32 R33 1 [1]
+      245 SETTABLEKS                       R32 R31 K71 ["Components"]
+      247 DUPCLOSURE                       R32 K78 [PROTO_15]
+      248 CAPTURE                          VAL R29
+      249 SETTABLEKS                       R32 R31 K72 ["GetValue"]
+      251 DUPCLOSURE                       R32 K79 [PROTO_22]
+      252 CAPTURE                          VAL R29
+      253 SETTABLEKS                       R32 R31 K73 ["GetChildren"]
+      255 DUPCLOSURE                       R32 K80 [PROTO_23]
+      256 CAPTURE                          VAL R29
+      257 SETTABLEKS                       R32 R31 K74 ["GetComponents"]
+      259 DUPCLOSURE                       R32 K81 [PROTO_24]
+      260 SETTABLEKS                       R32 R31 K56 ["Validate"]
+      262 DUPCLOSURE                       R32 K82 [PROTO_25]
+      263 SETTABLEKS                       R32 R31 K57 ["GetDefaultValue"]
+      265 SETTABLEKS                       R31 R29 K83 ["CFrameSchema"]
+      267 DUPTABLE                         R31 K58 [{"Type", "Validate", "GetDefaultValue"}]
+      268 LOADK                            R32 K84 ["Checkbox"]
+      269 SETTABLEKS                       R32 R31 K55 ["Type"]
+      271 DUPCLOSURE                       R32 K85 [PROTO_26]
+      272 SETTABLEKS                       R32 R31 K56 ["Validate"]
+      274 DUPCLOSURE                       R32 K86 [PROTO_27]
+      275 SETTABLEKS                       R32 R31 K57 ["GetDefaultValue"]
+      277 SETTABLEKS                       R31 R29 K87 ["CheckboxSchema"]
+      279 DUPTABLE                         R31 K89 [{"Type", "Name", "Validate", "GetDefaultValue"}]
+      280 LOADK                            R32 K90 ["StaticText"]
+      281 SETTABLEKS                       R32 R31 K55 ["Type"]
+      283 LOADK                            R32 K91 ["Child"]
+      284 SETTABLEKS                       R32 R31 K88 ["Name"]
+      286 DUPCLOSURE                       R32 K92 [PROTO_28]
+      287 SETTABLEKS                       R32 R31 K56 ["Validate"]
+      289 DUPCLOSURE                       R32 K93 [PROTO_29]
+      290 SETTABLEKS                       R32 R31 K57 ["GetDefaultValue"]
+      292 SETTABLEKS                       R31 R29 K94 ["ChildComponentSchema"]
+      294 DUPTABLE                         R31 K65 [{"Type", "PlaceholderText", "Validate", "GetDefaultValue"}]
+      295 LOADK                            R32 K95 ["Color"]
+      296 SETTABLEKS                       R32 R31 K55 ["Type"]
+      298 LOADK                            R32 K96 ["Add a Color..."]
+      299 SETTABLEKS                       R32 R31 K64 ["PlaceholderText"]
+      301 DUPCLOSURE                       R32 K97 [PROTO_30]
+      302 SETTABLEKS                       R32 R31 K56 ["Validate"]
+      304 DUPCLOSURE                       R32 K98 [PROTO_31]
+      305 SETTABLEKS                       R32 R31 K57 ["GetDefaultValue"]
+      307 SETTABLEKS                       R31 R29 K99 ["ColorSchema"]
+      309 DUPTABLE                         R31 K58 [{"Type", "Validate", "GetDefaultValue"}]
+      310 LOADK                            R32 K100 ["ColorSequence"]
+      311 SETTABLEKS                       R32 R31 K55 ["Type"]
+      313 DUPCLOSURE                       R32 K101 [PROTO_32]
+      314 SETTABLEKS                       R32 R31 K56 ["Validate"]
+      316 DUPCLOSURE                       R32 K102 [PROTO_33]
+      317 SETTABLEKS                       R32 R31 K57 ["GetDefaultValue"]
+      319 SETTABLEKS                       R31 R29 K103 ["ColorSequenceSchema"]
+      321 DUPTABLE                         R31 K58 [{"Type", "Validate", "GetDefaultValue"}]
+      322 LOADK                            R32 K104 ["Empty"]
+      323 SETTABLEKS                       R32 R31 K55 ["Type"]
+      325 DUPCLOSURE                       R32 K105 [PROTO_34]
+      326 SETTABLEKS                       R32 R31 K56 ["Validate"]
+      328 DUPCLOSURE                       R32 K106 [PROTO_35]
+      329 SETTABLEKS                       R32 R31 K57 ["GetDefaultValue"]
+      331 SETTABLEKS                       R31 R29 K107 ["EmptySchema"]
+      333 DUPTABLE                         R31 K58 [{"Type", "Validate", "GetDefaultValue"}]
+      334 LOADK                            R32 K108 ["FontStyle"]
+      335 SETTABLEKS                       R32 R31 K55 ["Type"]
+      337 DUPCLOSURE                       R32 K109 [PROTO_36]
+      338 SETTABLEKS                       R32 R31 K56 ["Validate"]
+      340 DUPCLOSURE                       R32 K110 [PROTO_37]
+      341 SETTABLEKS                       R32 R31 K57 ["GetDefaultValue"]
+      343 SETTABLEKS                       R31 R29 K111 ["FontStyleSchema"]
+      345 DUPTABLE                         R31 K58 [{"Type", "Validate", "GetDefaultValue"}]
+      346 LOADK                            R32 K112 ["FontWeight"]
+      347 SETTABLEKS                       R32 R31 K55 ["Type"]
+      349 DUPCLOSURE                       R32 K113 [PROTO_38]
+      350 SETTABLEKS                       R32 R31 K56 ["Validate"]
+      352 DUPCLOSURE                       R32 K114 [PROTO_39]
+      353 SETTABLEKS                       R32 R31 K57 ["GetDefaultValue"]
+      355 SETTABLEKS                       R31 R29 K115 ["FontWeightSchema"]
+      357 DUPTABLE                         R31 K116 [{"Type", "PlaceholderText", "GetChildren", "Validate", "GetDefaultValue"}]
+      358 LOADK                            R32 K117 ["FontFamily"]
+      359 SETTABLEKS                       R32 R31 K55 ["Type"]
+      361 LOADK                            R32 K118 ["Add a Font..."]
+      362 SETTABLEKS                       R32 R31 K64 ["PlaceholderText"]
+      364 DUPCLOSURE                       R32 K119 [PROTO_42]
+      365 CAPTURE                          VAL R29
+      366 SETTABLEKS                       R32 R31 K73 ["GetChildren"]
+      368 DUPCLOSURE                       R32 K120 [PROTO_43]
+      369 SETTABLEKS                       R32 R31 K56 ["Validate"]
+      371 DUPCLOSURE                       R32 K121 [PROTO_44]
+      372 SETTABLEKS                       R32 R31 K57 ["GetDefaultValue"]
+      374 SETTABLEKS                       R31 R29 K122 ["FontSchema"]
+      376 DUPTABLE                         R31 K75 [{"Type", "Components", "GetValue", "GetChildren", "GetComponents", "Validate", "GetDefaultValue"}]
+      377 LOADK                            R32 K76 ["Vector"]
+      378 SETTABLEKS                       R32 R31 K55 ["Type"]
+      380 NEWTABLE                         R32 0 1
+      382 LOADK                            R33 K77 [""]
+      383 SETLIST                          R32 R33 1 [1]
+      385 SETTABLEKS                       R32 R31 K71 ["Components"]
+      387 DUPCLOSURE                       R32 K123 [PROTO_45]
+      388 CAPTURE                          VAL R29
+      389 SETTABLEKS                       R32 R31 K72 ["GetValue"]
+      391 DUPCLOSURE                       R32 K124 [PROTO_48]
+      392 CAPTURE                          VAL R29
+      393 SETTABLEKS                       R32 R31 K73 ["GetChildren"]
+      395 DUPCLOSURE                       R32 K125 [PROTO_49]
+      396 CAPTURE                          VAL R29
+      397 SETTABLEKS                       R32 R31 K74 ["GetComponents"]
+      399 DUPCLOSURE                       R32 K126 [PROTO_50]
+      400 SETTABLEKS                       R32 R31 K56 ["Validate"]
+      402 DUPCLOSURE                       R32 K127 [PROTO_51]
+      403 SETTABLEKS                       R32 R31 K57 ["GetDefaultValue"]
+      405 SETTABLEKS                       R31 R29 K128 ["NumberRangeSchema"]
+      407 DUPTABLE                         R31 K133 [{"TopLeftRadius", "TopRightRadius", "BottomLeftRadius", "BottomRightRadius"}]
+      408 LOADB                            R32 1
+      409 SETTABLEKS                       R32 R31 K129 ["TopLeftRadius"]
+      411 LOADB                            R32 1
+      412 SETTABLEKS                       R32 R31 K130 ["TopRightRadius"]
+      414 LOADB                            R32 1
+      415 SETTABLEKS                       R32 R31 K131 ["BottomLeftRadius"]
+      417 LOADB                            R32 1
+      418 SETTABLEKS                       R32 R31 K132 ["BottomRightRadius"]
+      420 DUPTABLE                         R32 K136 [{"Type", "ErrorStyle", "ItemHeight", "Validate", "GetDefaultValue"}]
+      421 LOADK                            R33 K137 ["PropertyName"]
+      422 SETTABLEKS                       R33 R32 K55 ["Type"]
+      424 LOADK                            R33 K138 ["PropertyCellError"]
+      425 SETTABLEKS                       R33 R32 K134 ["ErrorStyle"]
+      427 SETTABLEKS                       R26 R32 K135 ["ItemHeight"]
+      429 DUPCLOSURE                       R33 K139 [PROTO_52]
+      430 CAPTURE                          VAL R27
+      431 CAPTURE                          VAL R31
+      432 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      434 DUPCLOSURE                       R33 K140 [PROTO_53]
+      435 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      437 SETTABLEKS                       R32 R29 K141 ["PropertyNameSchema"]
+      439 DUPTABLE                         R32 K75 [{"Type", "Components", "GetValue", "GetChildren", "GetComponents", "Validate", "GetDefaultValue"}]
+      440 LOADK                            R33 K76 ["Vector"]
+      441 SETTABLEKS                       R33 R32 K55 ["Type"]
+      443 NEWTABLE                         R33 0 1
+      445 LOADK                            R34 K77 [""]
+      446 SETLIST                          R33 R34 1 [1]
+      448 SETTABLEKS                       R33 R32 K71 ["Components"]
+      450 DUPCLOSURE                       R33 K142 [PROTO_54]
+      451 CAPTURE                          VAL R29
+      452 SETTABLEKS                       R33 R32 K72 ["GetValue"]
+      454 DUPCLOSURE                       R33 K143 [PROTO_59]
+      455 CAPTURE                          VAL R29
+      456 SETTABLEKS                       R33 R32 K73 ["GetChildren"]
+      458 DUPCLOSURE                       R33 K144 [PROTO_60]
+      459 CAPTURE                          VAL R29
+      460 SETTABLEKS                       R33 R32 K74 ["GetComponents"]
+      462 DUPCLOSURE                       R33 K145 [PROTO_61]
+      463 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      465 DUPCLOSURE                       R33 K146 [PROTO_62]
+      466 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      468 SETTABLEKS                       R32 R29 K147 ["RectSchema"]
+      470 DUPTABLE                         R32 K150 [{"Type", "Delimiters", "ErrorStyle", "GetImageProps", "Name", "Validate", "GetDefaultValue"}]
+      471 LOADK                            R33 K151 ["Breadcrumb"]
+      472 SETTABLEKS                       R33 R32 K55 ["Type"]
+      474 NEWTABLE                         R33 0 8
+      476 LOADK                            R34 K152 [">>"]
+      477 LOADK                            R35 K153 [">"]
+      478 LOADK                            R36 K154 ["::"]
+      479 LOADK                            R37 K155 [":"]
+      480 LOADK                            R38 K156 ["%."]
+      481 LOADK                            R39 K157 [" "]
+      482 LOADK                            R40 K158 ["#"]
+      483 LOADK                            R41 K159 [","]
+      484 SETLIST                          R33 R34 8 [1]
+      486 SETTABLEKS                       R33 R32 K148 ["Delimiters"]
+      488 LOADK                            R33 K138 ["PropertyCellError"]
+      489 SETTABLEKS                       R33 R32 K134 ["ErrorStyle"]
+      491 SETTABLEKS                       R22 R32 K149 ["GetImageProps"]
+      493 LOADK                            R33 K160 ["Selector"]
+      494 SETTABLEKS                       R33 R32 K88 ["Name"]
+      496 DUPCLOSURE                       R33 K161 [PROTO_63]
+      497 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      499 DUPCLOSURE                       R33 K162 [PROTO_64]
+      500 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      502 SETTABLEKS                       R32 R29 K163 ["SelectorSchema"]
+      504 DUPTABLE                         R32 K58 [{"Type", "Validate", "GetDefaultValue"}]
+      505 LOADK                            R33 K164 ["Derive"]
+      506 SETTABLEKS                       R33 R32 K55 ["Type"]
+      508 DUPCLOSURE                       R33 K165 [PROTO_65]
+      509 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      511 DUPCLOSURE                       R33 K166 [PROTO_66]
+      512 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      514 SETTABLEKS                       R32 R29 K167 ["DeriveSchema"]
+      516 DUPTABLE                         R32 K168 [{"Type", "GetImageProps", "Name", "Validate", "GetDefaultValue"}]
+      517 LOADK                            R33 K151 ["Breadcrumb"]
+      518 SETTABLEKS                       R33 R32 K55 ["Type"]
+      520 DUPCLOSURE                       R33 K169 [PROTO_67]
+      521 CAPTURE                          VAL R19
+      522 CAPTURE                          VAL R18
+      523 CAPTURE                          VAL R25
+      524 SETTABLEKS                       R33 R32 K149 ["GetImageProps"]
+      526 LOADK                            R33 K170 ["Folder"]
+      527 SETTABLEKS                       R33 R32 K88 ["Name"]
+      529 DUPCLOSURE                       R33 K171 [PROTO_68]
+      530 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      532 DUPCLOSURE                       R33 K172 [PROTO_69]
+      533 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      535 SETTABLEKS                       R32 R29 K173 ["FolderSchema"]
+      537 DUPTABLE                         R32 K168 [{"Type", "GetImageProps", "Name", "Validate", "GetDefaultValue"}]
+      538 LOADK                            R33 K151 ["Breadcrumb"]
+      539 SETTABLEKS                       R33 R32 K55 ["Type"]
+      541 DUPCLOSURE                       R33 K174 [PROTO_70]
+      542 CAPTURE                          VAL R19
+      543 CAPTURE                          VAL R18
+      544 CAPTURE                          VAL R25
+      545 SETTABLEKS                       R33 R32 K149 ["GetImageProps"]
+      547 LOADK                            R33 K175 ["StyleSheet"]
+      548 SETTABLEKS                       R33 R32 K88 ["Name"]
+      550 DUPCLOSURE                       R33 K176 [PROTO_71]
+      551 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      553 DUPCLOSURE                       R33 K177 [PROTO_72]
+      554 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      556 SETTABLEKS                       R32 R29 K178 ["StyleSheetSchema"]
+      558 DUPTABLE                         R32 K58 [{"Type", "Validate", "GetDefaultValue"}]
+      559 LOADK                            R33 K179 ["Theme"]
+      560 SETTABLEKS                       R33 R32 K55 ["Type"]
+      562 DUPCLOSURE                       R33 K180 [PROTO_73]
+      563 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      565 DUPCLOSURE                       R33 K181 [PROTO_74]
+      566 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      568 SETTABLEKS                       R32 R29 K182 ["ThemeSchema"]
+      570 DUPTABLE                         R32 K183 [{"Type", "ItemHeight", "Validate", "GetDefaultValue"}]
+      571 LOADK                            R33 K184 ["Text"]
+      572 SETTABLEKS                       R33 R32 K55 ["Type"]
+      574 SETTABLEKS                       R26 R32 K135 ["ItemHeight"]
+      576 DUPCLOSURE                       R33 K185 [PROTO_75]
+      577 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      579 DUPCLOSURE                       R33 K186 [PROTO_76]
+      580 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      582 SETTABLEKS                       R32 R29 K187 ["TextSchema"]
+      584 DUPTABLE                         R32 K193 [{"Type", "Min", "Max", "ShowInput", "InputPrecision", "SnapIncrement", "Validate", "GetDefaultValue"}]
+      585 LOADK                            R33 K194 ["Slider"]
+      586 SETTABLEKS                       R33 R32 K55 ["Type"]
+      588 LOADN                            R33 0
+      589 SETTABLEKS                       R33 R32 K188 ["Min"]
+      591 LOADN                            R33 1
+      592 SETTABLEKS                       R33 R32 K189 ["Max"]
+      594 LOADB                            R33 1
+      595 SETTABLEKS                       R33 R32 K190 ["ShowInput"]
+      597 LOADN                            R33 3
+      598 SETTABLEKS                       R33 R32 K191 ["InputPrecision"]
+      600 LOADK                            R33 K195 [0.05]
+      601 SETTABLEKS                       R33 R32 K192 ["SnapIncrement"]
+      603 DUPCLOSURE                       R33 K196 [PROTO_77]
+      604 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      606 DUPCLOSURE                       R33 K197 [PROTO_78]
+      607 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      609 SETTABLEKS                       R32 R29 K198 ["TransparencySchema"]
+      611 DUPTABLE                         R32 K58 [{"Type", "Validate", "GetDefaultValue"}]
+      612 LOADK                            R33 K199 ["NumberSequence"]
+      613 SETTABLEKS                       R33 R32 K55 ["Type"]
+      615 DUPCLOSURE                       R33 K200 [PROTO_79]
+      616 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      618 DUPCLOSURE                       R33 K201 [PROTO_80]
+      619 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      621 SETTABLEKS                       R32 R29 K202 ["NumberSequenceSchema"]
+      623 DUPTABLE                         R32 K75 [{"Type", "Components", "GetValue", "GetChildren", "GetComponents", "Validate", "GetDefaultValue"}]
+      624 LOADK                            R33 K76 ["Vector"]
+      625 SETTABLEKS                       R33 R32 K55 ["Type"]
+      627 NEWTABLE                         R33 0 1
+      629 LOADK                            R34 K77 [""]
+      630 SETLIST                          R33 R34 1 [1]
+      632 SETTABLEKS                       R33 R32 K71 ["Components"]
+      634 DUPCLOSURE                       R33 K203 [PROTO_81]
+      635 CAPTURE                          VAL R29
+      636 SETTABLEKS                       R33 R32 K72 ["GetValue"]
+      638 DUPCLOSURE                       R33 K204 [PROTO_84]
+      639 CAPTURE                          VAL R29
+      640 SETTABLEKS                       R33 R32 K73 ["GetChildren"]
+      642 DUPCLOSURE                       R33 K205 [PROTO_85]
+      643 CAPTURE                          VAL R29
+      644 SETTABLEKS                       R33 R32 K74 ["GetComponents"]
+      646 DUPCLOSURE                       R33 K206 [PROTO_86]
+      647 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      649 DUPCLOSURE                       R33 K207 [PROTO_87]
+      650 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      652 SETTABLEKS                       R32 R29 K208 ["UDimSchema"]
+      654 DUPTABLE                         R32 K75 [{"Type", "Components", "GetValue", "GetChildren", "GetComponents", "Validate", "GetDefaultValue"}]
+      655 LOADK                            R33 K76 ["Vector"]
+      656 SETTABLEKS                       R33 R32 K55 ["Type"]
+      658 NEWTABLE                         R33 0 1
+      660 LOADK                            R34 K77 [""]
+      661 SETLIST                          R33 R34 1 [1]
+      663 SETTABLEKS                       R33 R32 K71 ["Components"]
+      665 DUPCLOSURE                       R33 K209 [PROTO_88]
+      666 CAPTURE                          VAL R29
+      667 SETTABLEKS                       R33 R32 K72 ["GetValue"]
+      669 DUPCLOSURE                       R33 K210 [PROTO_93]
+      670 CAPTURE                          VAL R29
+      671 SETTABLEKS                       R33 R32 K73 ["GetChildren"]
+      673 DUPCLOSURE                       R33 K211 [PROTO_94]
+      674 CAPTURE                          VAL R29
+      675 SETTABLEKS                       R33 R32 K74 ["GetComponents"]
+      677 DUPCLOSURE                       R33 K212 [PROTO_95]
+      678 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      680 DUPCLOSURE                       R33 K213 [PROTO_96]
+      681 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      683 SETTABLEKS                       R32 R29 K214 ["UDim2Schema"]
+      685 DUPTABLE                         R32 K75 [{"Type", "Components", "GetValue", "GetChildren", "GetComponents", "Validate", "GetDefaultValue"}]
+      686 LOADK                            R33 K76 ["Vector"]
+      687 SETTABLEKS                       R33 R32 K55 ["Type"]
+      689 NEWTABLE                         R33 0 1
+      691 LOADK                            R34 K77 [""]
+      692 SETLIST                          R33 R34 1 [1]
+      694 SETTABLEKS                       R33 R32 K71 ["Components"]
+      696 DUPCLOSURE                       R33 K215 [PROTO_97]
+      697 CAPTURE                          VAL R29
+      698 SETTABLEKS                       R33 R32 K72 ["GetValue"]
+      700 DUPCLOSURE                       R33 K216 [PROTO_100]
+      701 CAPTURE                          VAL R29
+      702 SETTABLEKS                       R33 R32 K73 ["GetChildren"]
+      704 DUPCLOSURE                       R33 K217 [PROTO_101]
+      705 CAPTURE                          VAL R29
+      706 SETTABLEKS                       R33 R32 K74 ["GetComponents"]
+      708 DUPCLOSURE                       R33 K218 [PROTO_102]
+      709 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      711 DUPCLOSURE                       R33 K219 [PROTO_103]
+      712 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      714 SETTABLEKS                       R32 R29 K220 ["Vector2Schema"]
+      716 DUPTABLE                         R32 K75 [{"Type", "Components", "GetValue", "GetChildren", "GetComponents", "Validate", "GetDefaultValue"}]
+      717 LOADK                            R33 K76 ["Vector"]
+      718 SETTABLEKS                       R33 R32 K55 ["Type"]
+      720 NEWTABLE                         R33 0 1
+      722 LOADK                            R34 K77 [""]
+      723 SETLIST                          R33 R34 1 [1]
+      725 SETTABLEKS                       R33 R32 K71 ["Components"]
+      727 DUPCLOSURE                       R33 K221 [PROTO_104]
+      728 CAPTURE                          VAL R29
+      729 SETTABLEKS                       R33 R32 K72 ["GetValue"]
+      731 DUPCLOSURE                       R33 K222 [PROTO_108]
+      732 CAPTURE                          VAL R29
+      733 SETTABLEKS                       R33 R32 K73 ["GetChildren"]
+      735 DUPCLOSURE                       R33 K223 [PROTO_109]
+      736 CAPTURE                          VAL R29
+      737 SETTABLEKS                       R33 R32 K74 ["GetComponents"]
+      739 DUPCLOSURE                       R33 K224 [PROTO_110]
+      740 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      742 DUPCLOSURE                       R33 K225 [PROTO_111]
+      743 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      745 SETTABLEKS                       R32 R29 K226 ["Vector3Schema"]
+      747 JUMPIFNOT                        R4 ; [+29]
+      748 GETTABLEKS                       R32 R29 K46 ["CreateSelectSchema"]
+      750 GETIMPORT                        R33 K230 [Enum.EasingStyle.Linear]
+      752 CALL                             R32 1 1
+      753 GETTABLEKS                       R33 R29 K46 ["CreateSelectSchema"]
+      755 GETIMPORT                        R34 K233 [Enum.EasingDirection.In]
+      757 CALL                             R33 1 1
+      758 DUPTABLE                         R34 K234 [{"Type", "Validate", "GetDefaultValue", "GetChildren"}]
+      759 LOADK                            R35 K235 ["TweenInfo"]
+      760 SETTABLEKS                       R35 R34 K55 ["Type"]
+      762 DUPCLOSURE                       R35 K236 [PROTO_112]
+      763 SETTABLEKS                       R35 R34 K56 ["Validate"]
+      765 DUPCLOSURE                       R35 K237 [PROTO_113]
+      766 SETTABLEKS                       R35 R34 K57 ["GetDefaultValue"]
+      768 DUPCLOSURE                       R35 K238 [PROTO_116]
+      769 CAPTURE                          VAL R23
+      770 CAPTURE                          VAL R29
+      771 CAPTURE                          VAL R32
+      772 CAPTURE                          VAL R33
+      773 SETTABLEKS                       R35 R34 K73 ["GetChildren"]
+      775 SETTABLEKS                       R34 R29 K239 ["TweenInfoSchema"]
+      777 DUPTABLE                         R32 K241 [{"Type", "ErrorStyle", "ItemHeight", "HideSelfTokens", "Validate", "GetDefaultValue"}]
+      778 LOADK                            R33 K242 ["TokenReference"]
+      779 SETTABLEKS                       R33 R32 K55 ["Type"]
+      781 LOADK                            R33 K138 ["PropertyCellError"]
+      782 SETTABLEKS                       R33 R32 K134 ["ErrorStyle"]
+      784 SETTABLEKS                       R26 R32 K135 ["ItemHeight"]
+      786 LOADB                            R33 0
+      787 SETTABLEKS                       R33 R32 K240 ["HideSelfTokens"]
+      789 DUPCLOSURE                       R33 K243 [PROTO_117]
+      790 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      792 DUPCLOSURE                       R33 K244 [PROTO_118]
+      793 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      795 SETTABLEKS                       R32 R29 K245 ["TokenReferenceSchema"]
+      797 NEWTABLE                         R32 0 2
+      799 DUPTABLE                         R33 K248 [{"Property", "Type", "Schema"}]
+      800 LOADK                            R34 K249 ["Transparency"]
+      801 SETTABLEKS                       R34 R33 K246 ["Property"]
+      803 LOADK                            R34 K250 ["number"]
+      804 SETTABLEKS                       R34 R33 K55 ["Type"]
+      806 GETTABLEKS                       R34 R29 K198 ["TransparencySchema"]
+      808 SETTABLEKS                       R34 R33 K247 ["Schema"]
+      810 DUPTABLE                         R34 K248 [{"Property", "Type", "Schema"}]
+      811 LOADK                            R35 K251 ["BackgroundTransparency"]
+      812 SETTABLEKS                       R35 R34 K246 ["Property"]
+      814 LOADK                            R35 K250 ["number"]
+      815 SETTABLEKS                       R35 R34 K55 ["Type"]
+      817 GETTABLEKS                       R35 R29 K198 ["TransparencySchema"]
+      819 SETTABLEKS                       R35 R34 K247 ["Schema"]
+      821 SETLIST                          R32 R33 2 [1]
+      823 SETTABLEKS                       R32 R29 K252 ["OverridenSchemas"]
+      825 DUPTABLE                         R32 K265 [{"Token", "boolean", "BrickColor", "CFrame", "Color3", "ColorSequence", "NumberRange", "NumberSequence", "Font", "number", "string", "Rect", "UDim", "UDim2", "Vector2", "Vector3", "TweenInfo"}]
+      826 GETTABLEKS                       R33 R29 K245 ["TokenReferenceSchema"]
+      828 SETTABLEKS                       R33 R32 K253 ["Token"]
+      830 GETTABLEKS                       R33 R29 K87 ["CheckboxSchema"]
+      832 SETTABLEKS                       R33 R32 K254 ["boolean"]
+      834 GETTABLEKS                       R33 R29 K62 ["BrickColorSchema"]
+      836 SETTABLEKS                       R33 R32 K59 ["BrickColor"]
+      838 GETTABLEKS                       R33 R29 K83 ["CFrameSchema"]
+      840 SETTABLEKS                       R33 R32 K255 ["CFrame"]
+      842 GETTABLEKS                       R33 R29 K99 ["ColorSchema"]
+      844 SETTABLEKS                       R33 R32 K256 ["Color3"]
+      846 GETTABLEKS                       R33 R29 K103 ["ColorSequenceSchema"]
+      848 SETTABLEKS                       R33 R32 K100 ["ColorSequence"]
+      850 GETTABLEKS                       R33 R29 K128 ["NumberRangeSchema"]
+      852 SETTABLEKS                       R33 R32 K257 ["NumberRange"]
+      854 GETTABLEKS                       R33 R29 K202 ["NumberSequenceSchema"]
+      856 SETTABLEKS                       R33 R32 K199 ["NumberSequence"]
+      858 GETTABLEKS                       R33 R29 K122 ["FontSchema"]
+      860 SETTABLEKS                       R33 R32 K258 ["Font"]
+      862 GETTABLEKS                       R33 R29 K70 ["NumberSchema"]
+      864 SETTABLEKS                       R33 R32 K250 ["number"]
+      866 GETTABLEKS                       R33 R29 K187 ["TextSchema"]
+      868 SETTABLEKS                       R33 R32 K259 ["string"]
+      870 GETTABLEKS                       R33 R29 K147 ["RectSchema"]
+      872 SETTABLEKS                       R33 R32 K260 ["Rect"]
+      874 GETTABLEKS                       R33 R29 K208 ["UDimSchema"]
+      876 SETTABLEKS                       R33 R32 K261 ["UDim"]
+      878 GETTABLEKS                       R33 R29 K214 ["UDim2Schema"]
+      880 SETTABLEKS                       R33 R32 K262 ["UDim2"]
+      882 GETTABLEKS                       R33 R29 K220 ["Vector2Schema"]
+      884 SETTABLEKS                       R33 R32 K263 ["Vector2"]
+      886 GETTABLEKS                       R33 R29 K226 ["Vector3Schema"]
+      888 SETTABLEKS                       R33 R32 K264 ["Vector3"]
+      890 JUMPIFNOT                        R4 ; [+3]
+      891 GETTABLEKS                       R33 R29 K239 ["TweenInfoSchema"]
+      893 JUMP                             ; [+1]
+      894 LOADNIL                          R33
+      895 SETTABLEKS                       R33 R32 K235 ["TweenInfo"]
+      897 SETTABLEKS                       R32 R29 K266 ["PropertySchemas"]
+      899 DUPTABLE                         R32 K267 [{"CFrame", "Vector3", "TweenInfo"}]
+      900 GETTABLEKS                       R33 R29 K83 ["CFrameSchema"]
+      902 SETTABLEKS                       R33 R32 K255 ["CFrame"]
+      904 GETTABLEKS                       R33 R29 K226 ["Vector3Schema"]
+      906 SETTABLEKS                       R33 R32 K264 ["Vector3"]
+      908 JUMPIFNOT                        R4 ; [+2]
+      909 NOT                              R33 R5
+      910 JUMP                             ; [+1]
+      911 LOADNIL                          R33
+      912 SETTABLEKS                       R33 R32 K235 ["TweenInfo"]
+      914 SETTABLEKS                       R32 R29 K268 ["HiddenPropertySchemas"]
+      916 DUPTABLE                         R32 K270 [{"Type", "Items", "ItemHeight", "PlaceholderText", "Validate", "GetDefaultValue"}]
+      917 LOADK                            R33 K15 ["getEngineFeatureUIShadow"]
+      918 SETTABLEKS                       R33 R32 K55 ["Type"]
+      920 MOVE                             R33 R21
+      921 MOVE                             R34 R9
+      922 GETTABLEKS                       R35 R29 K266 ["PropertySchemas"]
+      924 DUPCLOSURE                       R36 K272 [PROTO_119]
+      925 CAPTURE                          VAL R29
+      926 CALL                             R34 2 -1
+      927 CALL                             R33 -1 1
+      928 SETTABLEKS                       R33 R32 K269 ["Items"]
+      930 SETTABLEKS                       R26 R32 K135 ["ItemHeight"]
+      932 LOADK                            R33 K17 ["Dash"]
+      933 SETTABLEKS                       R33 R32 K64 ["PlaceholderText"]
+      935 DUPCLOSURE                       R33 K274 [PROTO_120]
+      936 SETTABLEKS                       R33 R32 K56 ["Validate"]
+      938 DUPCLOSURE                       R33 K275 [PROTO_121]
+      939 SETTABLEKS                       R33 R32 K57 ["GetDefaultValue"]
+      941 SETTABLEKS                       R32 R29 K276 ["SelectTokenSchema"]
+      943 DUPCLOSURE                       R32 K277 [PROTO_122]
+      944 CAPTURE                          VAL R29
+      945 DUPCLOSURE                       R33 K278 [PROTO_123]
+      946 CAPTURE                          VAL R3
+      947 CAPTURE                          VAL R0
+      948 DUPCLOSURE                       R34 K279 [PROTO_130]
+      949 CAPTURE                          VAL R29
+      950 CAPTURE                          VAL R3
+      951 CAPTURE                          VAL R0
+      952 CAPTURE                          VAL R12
+      953 CAPTURE                          VAL R2
+      954 SETTABLEKS                       R34 R29 K280 ["createClassProperties"]
+      956 DUPCLOSURE                       R34 K281 [PROTO_131]
+      957 CAPTURE                          VAL R29
+      958 SETTABLEKS                       R34 R29 K282 ["getPropertySchema"]
+      960 DUPCLOSURE                       R34 K283 [PROTO_132]
+      961 CAPTURE                          VAL R29
+      962 CAPTURE                          VAL R8
+      963 CAPTURE                          VAL R14
+      964 CAPTURE                          VAL R10
+      965 CAPTURE                          VAL R16
+      966 CAPTURE                          VAL R17
+      967 CAPTURE                          VAL R27
+      968 CAPTURE                          VAL R31
+      969 SETTABLEKS                       R34 R29 K284 ["getPropertyNames"]
+      971 DUPCLOSURE                       R34 K285 [PROTO_133]
+      972 CAPTURE                          VAL R29
+      973 CAPTURE                          VAL R14
+      974 SETTABLEKS                       R34 R29 K286 ["getPossiblePropertyTypes"]
+      976 DUPCLOSURE                       R34 K287 [PROTO_134]
+      977 CAPTURE                          VAL R29
+      978 SETTABLEKS                       R34 R29 K288 ["getAttributeSchema"]
+      980 DUPCLOSURE                       R34 K289 [PROTO_136]
+      981 CAPTURE                          VAL R28
+      982 CAPTURE                          VAL R29
+      983 CAPTURE                          VAL R11
+      984 SETTABLEKS                       R34 R29 K290 ["registerStyleQueryProperties"]
+      986 NEWTABLE                         R34 0 16
+      988 LOADK                            R35 K35 ["TransitionParamUtil"]
+      989 LOADK                            R36 K36 ["PluginStyles"]
+      990 LOADK                            R37 K37 ["Icon16"]
+      991 LOADK                            R38 K38 ["GetAttribute"]
+      992 LOADK                            R39 K39 ["RowHeight"]
+      993 LOADK                            R40 K40 ["EnableIRCStudioBeta"]
+      994 LOADK                            R41 K41 ["GetEngineFeature"]
+      995 LOADK                            R42 K42 ["StyleQueryPreferredTextSize"]
+      996 LOADK                            R43 K43 ["allProperties"]
+      997 LOADK                            R44 K44 ["possiblePropertyTypes"]
+      998 LOADK                            R45 K45 [PROTO_2]
+      999 LOADK                            R46 K46 ["CreateSelectSchema"]
+     1000 LOADK                            R47 K47 [PROTO_5]
+     1001 LOADK                            R48 K48 ["GetEnumItems"]
+     1002 LOADK                            R49 K49 [PROTO_6]
+     1003 LOADK                            R50 K50 ["CreateChildSchema"]
+     1004 SETLIST                          R34 R35 16 [1]
+     1006 JUMPIFNOT                        R6 ; [+7]
+     1007 FASTCALL2K                       TABLE_INSERT R34 K307 ; [+5]
+     1009 MOVE                             R36 R34
+     1010 LOADK                            R37 K51 [PROTO_8]
+     1011 GETIMPORT                        R35 K310 [table.insert]
+     1013 CALL                             R35 2 0
+     1014 MOVE                             R35 R12
+     1015 MOVE                             R36 R34
+     1016 DUPCLOSURE                       R37 K311 [PROTO_137]
+     1017 CAPTURE                          VAL R29
+     1018 CALL                             R35 2 0
+     1019 JUMPIFNOT                        R2 ; [+3]
+     1020 GETTABLEKS                       R35 R29 K290 ["registerStyleQueryProperties"]
+     1022 CALL                             R35 0 0
+     1023 RETURN                           R29 1

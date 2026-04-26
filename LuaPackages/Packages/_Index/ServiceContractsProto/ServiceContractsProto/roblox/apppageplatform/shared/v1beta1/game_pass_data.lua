@@ -7,9 +7,35 @@ local proto = require(script.Parent.Parent.Parent.Parent.Parent.proto)
 local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry)
 
 type _Messages = {
+	PriceDiscountDetail: _PriceDiscountDetailMessage,
 	GamePassData: _GamePassDataMessage,
 }
 local messages: _Messages = {} :: _Messages
+
+type _PriceDiscountDetailImpl = {
+	__index: _PriceDiscountDetailImpl,
+	new: (fields: _PriceDiscountDetailPartialFields?) -> PriceDiscountDetail,
+	encode: (self: PriceDiscountDetail) -> buffer,
+	decode: (input: buffer) -> PriceDiscountDetail,
+	jsonEncode: (self: PriceDiscountDetail) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> PriceDiscountDetail,
+	descriptor: proto.Descriptor,
+}
+
+type _PriceDiscountDetailFields = {
+	type: string,
+	amount_in_robux: number,
+	percent: number,
+}
+
+type _PriceDiscountDetailPartialFields = {
+	type: string?,
+	amount_in_robux: number?,
+	percent: number?,
+}
+
+export type PriceDiscountDetail = typeof(setmetatable({} :: _PriceDiscountDetailFields, {} :: _PriceDiscountDetailImpl))
+type _PriceDiscountDetailMessage = proto.Message<PriceDiscountDetail, _PriceDiscountDetailPartialFields>
 
 type _GamePassDataImpl = {
 	__index: _GamePassDataImpl,
@@ -23,26 +49,169 @@ type _GamePassDataImpl = {
 
 type _GamePassDataFields = {
 	id: string,
-	name: string,
+	display_name: string,
 	price: number,
 	product_id: number,
 	is_owned: boolean,
-	image_asset_id: number,
-	description: string,
+	display_icon_image_asset_id: number,
+	display_description: string,
+	price_discount_details: { PriceDiscountDetail },
+	user_base_price_in_robux: number,
 }
 
 type _GamePassDataPartialFields = {
 	id: string?,
-	name: string?,
+	display_name: string?,
 	price: number?,
 	product_id: number?,
 	is_owned: boolean?,
-	image_asset_id: number?,
-	description: string?,
+	display_icon_image_asset_id: number?,
+	display_description: string?,
+	price_discount_details: { PriceDiscountDetail }?,
+	user_base_price_in_robux: number?,
 }
 
 export type GamePassData = typeof(setmetatable({} :: _GamePassDataFields, {} :: _GamePassDataImpl))
 type _GamePassDataMessage = proto.Message<GamePassData, _GamePassDataPartialFields>
+
+do
+	local _PriceDiscountDetailImpl = {}
+	_PriceDiscountDetailImpl.__index = _PriceDiscountDetailImpl
+
+	function _PriceDiscountDetailImpl.new(data: _PriceDiscountDetailPartialFields?): PriceDiscountDetail
+		return setmetatable({
+			type = if data == nil or data.type == nil then "" else data.type,
+			amount_in_robux = if data == nil or data.amount_in_robux == nil then 0 else data.amount_in_robux,
+			percent = if data == nil or data.percent == nil then 0 else data.percent,
+		}, _PriceDiscountDetailImpl :: _PriceDiscountDetailImpl)
+	end
+
+	function _PriceDiscountDetailImpl.encode(self: PriceDiscountDetail): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.type ~= nil and self.type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.type)
+		end
+
+		if self.amount_in_robux ~= nil and self.amount_in_robux ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.amount_in_robux)
+		end
+
+		if self.percent ~= nil and self.percent ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.percent)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _PriceDiscountDetailImpl.decode(input: buffer): PriceDiscountDetail
+		local self = _PriceDiscountDetailImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.amount_in_robux = value
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.percent = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.type = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _PriceDiscountDetailImpl.jsonEncode(self: PriceDiscountDetail): any
+		local output = {}
+
+		if self.type ~= nil and self.type ~= "" then
+			output.type = self.type
+		end
+
+		if self.amount_in_robux ~= nil and self.amount_in_robux ~= 0 then
+			output.amountInRobux = self.amount_in_robux
+		end
+
+		if self.percent ~= nil and self.percent ~= 0 then
+			output.percent = self.percent
+		end
+
+		return output
+	end
+
+	function _PriceDiscountDetailImpl.jsonDecode(input: { [string]: any }): PriceDiscountDetail
+		local self = _PriceDiscountDetailImpl.new()
+
+		if input.type ~= nil then
+			self.type = input.type
+		end
+
+		if input.amount_in_robux ~= nil then
+			self.amount_in_robux = input.amount_in_robux
+		end
+
+		if input.amountInRobux ~= nil then
+			self.amount_in_robux = input.amountInRobux
+		end
+
+		if input.percent ~= nil then
+			self.percent = input.percent
+		end
+
+		return self
+	end
+
+	_PriceDiscountDetailImpl.descriptor = {
+		name = "PriceDiscountDetail",
+		fullName = "roblox.apppageplatform.shared.v1beta1.PriceDiscountDetail",
+	}
+
+	messages.PriceDiscountDetail = _PriceDiscountDetailImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.PriceDiscountDetail)
+end
 
 do
 	local _GamePassDataImpl = {}
@@ -51,12 +220,22 @@ do
 	function _GamePassDataImpl.new(data: _GamePassDataPartialFields?): GamePassData
 		return setmetatable({
 			id = if data == nil or data.id == nil then "" else data.id,
-			name = if data == nil or data.name == nil then "" else data.name,
+			display_name = if data == nil or data.display_name == nil then "" else data.display_name,
 			price = if data == nil or data.price == nil then 0 else data.price,
 			product_id = if data == nil or data.product_id == nil then 0 else data.product_id,
 			is_owned = if data == nil or data.is_owned == nil then false else data.is_owned,
-			image_asset_id = if data == nil or data.image_asset_id == nil then 0 else data.image_asset_id,
-			description = if data == nil or data.description == nil then "" else data.description,
+			display_icon_image_asset_id = if data == nil or data.display_icon_image_asset_id == nil
+				then 0
+				else data.display_icon_image_asset_id,
+			display_description = if data == nil or data.display_description == nil
+				then ""
+				else data.display_description,
+			price_discount_details = if data == nil or data.price_discount_details == nil
+				then {}
+				else data.price_discount_details,
+			user_base_price_in_robux = if data == nil or data.user_base_price_in_robux == nil
+				then 0
+				else data.user_base_price_in_robux,
 		}, _GamePassDataImpl :: _GamePassDataImpl)
 	end
 
@@ -69,9 +248,9 @@ do
 			output, cursor = proto.writeString(output, cursor, self.id)
 		end
 
-		if self.name ~= nil and self.name ~= "" then
+		if self.display_name ~= nil and self.display_name ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.name)
+			output, cursor = proto.writeString(output, cursor, self.display_name)
 		end
 
 		if self.price ~= nil and self.price ~= 0 then
@@ -89,14 +268,27 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, if self.is_owned then 1 else 0)
 		end
 
-		if self.image_asset_id ~= nil and self.image_asset_id ~= 0 then
+		if self.display_icon_image_asset_id ~= nil and self.display_icon_image_asset_id ~= 0 then
 			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.varint)
-			output, cursor = proto.writeVarInt(output, cursor, self.image_asset_id)
+			output, cursor = proto.writeVarInt(output, cursor, self.display_icon_image_asset_id)
 		end
 
-		if self.description ~= nil and self.description ~= "" then
+		if self.display_description ~= nil and self.display_description ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.description)
+			output, cursor = proto.writeString(output, cursor, self.display_description)
+		end
+
+		if self.price_discount_details ~= nil and #self.price_discount_details > 0 then
+			for _, value in self.price_discount_details do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.user_base_price_in_robux ~= nil and self.user_base_price_in_robux ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.user_base_price_in_robux)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -131,7 +323,12 @@ do
 				elseif field == 6 then
 					local value
 					value, cursor = proto.readVarIntI64(input, cursor)
-					self.image_asset_id = value
+					self.display_icon_image_asset_id = value
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.user_base_price_in_robux = value
 					continue
 				end
 
@@ -146,12 +343,17 @@ do
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.name = buffer.tostring(value)
+					self.display_name = buffer.tostring(value)
 					continue
 				elseif field == 7 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.description = buffer.tostring(value)
+					self.display_description = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.price_discount_details, messages.PriceDiscountDetail.decode(value))
 					continue
 				end
 
@@ -184,8 +386,8 @@ do
 			output.id = self.id
 		end
 
-		if self.name ~= nil and self.name ~= "" then
-			output.name = self.name
+		if self.display_name ~= nil and self.display_name ~= "" then
+			output.displayName = self.display_name
 		end
 
 		if self.price ~= nil and self.price ~= 0 then
@@ -200,12 +402,24 @@ do
 			output.isOwned = self.is_owned
 		end
 
-		if self.image_asset_id ~= nil and self.image_asset_id ~= 0 then
-			output.imageAssetId = self.image_asset_id
+		if self.display_icon_image_asset_id ~= nil and self.display_icon_image_asset_id ~= 0 then
+			output.displayIconImageAssetId = self.display_icon_image_asset_id
 		end
 
-		if self.description ~= nil and self.description ~= "" then
-			output.description = self.description
+		if self.display_description ~= nil and self.display_description ~= "" then
+			output.displayDescription = self.display_description
+		end
+
+		if self.price_discount_details ~= nil and #self.price_discount_details > 0 then
+			local newOutput = {}
+			for _, value in self.price_discount_details do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.priceDiscountDetails = newOutput
+		end
+
+		if self.user_base_price_in_robux ~= nil and self.user_base_price_in_robux ~= 0 then
+			output.userBasePriceInRobux = self.user_base_price_in_robux
 		end
 
 		return output
@@ -218,8 +432,12 @@ do
 			self.id = input.id
 		end
 
-		if input.name ~= nil then
-			self.name = input.name
+		if input.display_name ~= nil then
+			self.display_name = input.display_name
+		end
+
+		if input.displayName ~= nil then
+			self.display_name = input.displayName
 		end
 
 		if input.price ~= nil then
@@ -242,16 +460,46 @@ do
 			self.is_owned = input.isOwned
 		end
 
-		if input.image_asset_id ~= nil then
-			self.image_asset_id = input.image_asset_id
+		if input.display_icon_image_asset_id ~= nil then
+			self.display_icon_image_asset_id = input.display_icon_image_asset_id
 		end
 
-		if input.imageAssetId ~= nil then
-			self.image_asset_id = input.imageAssetId
+		if input.displayIconImageAssetId ~= nil then
+			self.display_icon_image_asset_id = input.displayIconImageAssetId
 		end
 
-		if input.description ~= nil then
-			self.description = input.description
+		if input.display_description ~= nil then
+			self.display_description = input.display_description
+		end
+
+		if input.displayDescription ~= nil then
+			self.display_description = input.displayDescription
+		end
+
+		if input.price_discount_details ~= nil then
+			local newOutput: { PriceDiscountDetail } = {}
+			for _, value in input.price_discount_details do
+				table.insert(newOutput, messages.PriceDiscountDetail.jsonDecode(value))
+			end
+
+			self.price_discount_details = newOutput
+		end
+
+		if input.priceDiscountDetails ~= nil then
+			local newOutput: { PriceDiscountDetail } = {}
+			for _, value in input.priceDiscountDetails do
+				table.insert(newOutput, messages.PriceDiscountDetail.jsonDecode(value))
+			end
+
+			self.price_discount_details = newOutput
+		end
+
+		if input.user_base_price_in_robux ~= nil then
+			self.user_base_price_in_robux = input.user_base_price_in_robux
+		end
+
+		if input.userBasePriceInRobux ~= nil then
+			self.user_base_price_in_robux = input.userBasePriceInRobux
 		end
 
 		return self
@@ -268,5 +516,6 @@ do
 end
 
 return {
+	PriceDiscountDetail = messages.PriceDiscountDetail,
 	GamePassData = messages.GamePassData,
 }

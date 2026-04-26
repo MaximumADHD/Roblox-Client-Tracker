@@ -88,7 +88,7 @@ local lastErrorTimeStamp = tick()
 
 local FFlagUpdateConnectionLocWarning = game:DefineFastFlag("UpdateConnectionLocWarning", false)
 
-local FFlagAddPlacelaunchDeviceBlock = game:DefineFastFlag("AddPlacelaunchDeviceBlock", false)
+local FFlagAddPlacelaunchDeviceBlock = game:DefineFastFlag("AddPlacelaunchDeviceBlock2", false)
 
 -- The new, supported way to translate strings in the client.
 -- This function should be used instead of coreScriptTableTranslator:FormatByKey.
@@ -280,7 +280,7 @@ if fflagAddConnectionErrorLocalizationKeys then
 end
 
 if FFlagAddPlacelaunchDeviceBlock then
-	reconnectDisabledList[Enum.ConnectionError.PlacelaunchDeviceBlocked] = true
+	reconnectDisabledList[Enum.ConnectionError.PlacelaunchDeviceBlock] = true
 end
 
 local ButtonList = {
@@ -761,7 +761,7 @@ if fflagAddConnectionErrorLocalizationKeys then
 end
 
 if FFlagAddPlacelaunchDeviceBlock then
-	enumToLocalizationKey[Enum.ConnectionError.PlacelaunchDeviceBlocked] = "InGame.ConnectionError.PlacelaunchDeviceBlocked"
+	enumToLocalizationKey[Enum.ConnectionError.PlacelaunchDeviceBlock] = "InGame.ConnectionError.PlacelaunchDeviceBlock"
 end
 
 -- Localize the error string, with a fallback to the original string upon failure.

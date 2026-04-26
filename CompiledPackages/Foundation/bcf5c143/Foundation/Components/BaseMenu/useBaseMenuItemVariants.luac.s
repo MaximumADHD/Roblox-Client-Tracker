@@ -1,0 +1,278 @@
+PROTO_0:
+        0 DUPTABLE                         R1 K5 [{"container", "icon", "text", "title", "check"}]
+        1 DUPTABLE                         R2 K7 [{"tag"}]
+        2 LOADK                            R3 K8 ["row flex-x-between align-y-center auto-x"]
+        3 SETTABLEKS                       R3 R2 K6 ["tag"]
+        5 SETTABLEKS                       R2 R1 K0 ["container"]
+        7 DUPTABLE                         R2 K10 [{"tag", "style"}]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R4 R5 K11 ["FoundationBaseMenuItemImageRadius"]
+       11 JUMPIFNOT                        R4 ; [+2]
+       12 LOADK                            R3 K12 ["radius-small content-emphasis"]
+       13 JUMP                             ; [+1]
+       14 LOADK                            R3 K13 ["content-emphasis"]
+       15 SETTABLEKS                       R3 R2 K6 ["tag"]
+       17 GETTABLEKS                       R5 R0 K14 ["Color"]
+       19 GETTABLEKS                       R4 R5 K15 ["Content"]
+       21 GETTABLEKS                       R3 R4 K16 ["Emphasis"]
+       23 SETTABLEKS                       R3 R2 K9 ["style"]
+       25 SETTABLEKS                       R2 R1 K1 ["icon"]
+       27 DUPTABLE                         R2 K7 [{"tag"}]
+       28 LOADK                            R3 K17 ["fill auto-xy text-align-x-left text-truncate-split content-emphasis"]
+       29 SETTABLEKS                       R3 R2 K6 ["tag"]
+       31 SETTABLEKS                       R2 R1 K2 ["text"]
+       33 DUPTABLE                         R2 K7 [{"tag"}]
+       34 LOADK                            R3 K18 ["fill auto-xy text-align-x-left text-truncate-split content-default"]
+       35 SETTABLEKS                       R3 R2 K6 ["tag"]
+       37 SETTABLEKS                       R2 R1 K3 ["title"]
+       39 DUPTABLE                         R2 K10 [{"tag", "style"}]
+       40 LOADK                            R3 K13 ["content-emphasis"]
+       41 SETTABLEKS                       R3 R2 K6 ["tag"]
+       43 GETTABLEKS                       R5 R0 K14 ["Color"]
+       45 GETTABLEKS                       R4 R5 K15 ["Content"]
+       47 GETTABLEKS                       R3 R4 K16 ["Emphasis"]
+       49 SETTABLEKS                       R3 R2 K9 ["style"]
+       51 SETTABLEKS                       R2 R1 K4 ["check"]
+       53 NEWTABLE                         R2 4 0
+       55 GETUPVAL                         R4 1
+       56 GETTABLEKS                       R3 R4 K19 ["XSmall"]
+       58 DUPTABLE                         R4 K22 [{"container", "icon", "text", "title", "check", "chevron", "groupPadding"}]
+       59 DUPTABLE                         R5 K7 [{"tag"}]
+       60 LOADK                            R6 K23 ["gap-xsmall size-full-600 padding-x-medium radius-small"]
+       61 SETTABLEKS                       R6 R5 K6 ["tag"]
+       63 SETTABLEKS                       R5 R4 K0 ["container"]
+       65 DUPTABLE                         R5 K25 [{"tag", "size"}]
+       66 LOADK                            R6 K26 ["size-400"]
+       67 SETTABLEKS                       R6 R5 K6 ["tag"]
+       69 GETUPVAL                         R7 2
+       70 GETTABLEKS                       R6 R7 K19 ["XSmall"]
+       72 SETTABLEKS                       R6 R5 K24 ["size"]
+       74 SETTABLEKS                       R5 R4 K1 ["icon"]
+       76 DUPTABLE                         R5 K7 [{"tag"}]
+       77 LOADK                            R6 K27 ["text-body-small"]
+       78 SETTABLEKS                       R6 R5 K6 ["tag"]
+       80 SETTABLEKS                       R5 R4 K2 ["text"]
+       82 DUPTABLE                         R5 K7 [{"tag"}]
+       83 LOADK                            R6 K28 ["text-caption-small"]
+       84 SETTABLEKS                       R6 R5 K6 ["tag"]
+       86 SETTABLEKS                       R5 R4 K3 ["title"]
+       88 DUPTABLE                         R5 K25 [{"tag", "size"}]
+       89 LOADK                            R6 K29 ["size-300"]
+       90 SETTABLEKS                       R6 R5 K6 ["tag"]
+       92 GETTABLEKS                       R7 R0 K30 ["Size"]
+       94 GETTABLEKS                       R6 R7 K31 ["Size_600"]
+       96 SETTABLEKS                       R6 R5 K24 ["size"]
+       98 SETTABLEKS                       R5 R4 K4 ["check"]
+      100 DUPTABLE                         R5 K32 [{"size"}]
+      101 GETUPVAL                         R7 2
+      102 GETTABLEKS                       R6 R7 K33 ["Small"]
+      104 SETTABLEKS                       R6 R5 K24 ["size"]
+      106 SETTABLEKS                       R5 R4 K20 ["chevron"]
+      108 DUPTABLE                         R5 K32 [{"size"}]
+      109 GETTABLEKS                       R7 R0 K34 ["Padding"]
+      111 GETTABLEKS                       R6 R7 K19 ["XSmall"]
+      113 SETTABLEKS                       R6 R5 K24 ["size"]
+      115 SETTABLEKS                       R5 R4 K21 ["groupPadding"]
+      117 SETTABLE                         R4 R2 R3
+      118 GETUPVAL                         R4 1
+      119 GETTABLEKS                       R3 R4 K33 ["Small"]
+      121 DUPTABLE                         R4 K22 [{"container", "icon", "text", "title", "check", "chevron", "groupPadding"}]
+      122 DUPTABLE                         R5 K7 [{"tag"}]
+      123 LOADK                            R6 K35 ["gap-xsmall size-full-800 padding-x-medium radius-medium"]
+      124 SETTABLEKS                       R6 R5 K6 ["tag"]
+      126 SETTABLEKS                       R5 R4 K0 ["container"]
+      128 DUPTABLE                         R5 K25 [{"tag", "size"}]
+      129 LOADK                            R6 K36 ["size-500"]
+      130 SETTABLEKS                       R6 R5 K6 ["tag"]
+      132 GETUPVAL                         R7 2
+      133 GETTABLEKS                       R6 R7 K33 ["Small"]
+      135 SETTABLEKS                       R6 R5 K24 ["size"]
+      137 SETTABLEKS                       R5 R4 K1 ["icon"]
+      139 DUPTABLE                         R5 K7 [{"tag"}]
+      140 LOADK                            R6 K27 ["text-body-small"]
+      141 SETTABLEKS                       R6 R5 K6 ["tag"]
+      143 SETTABLEKS                       R5 R4 K2 ["text"]
+      145 DUPTABLE                         R5 K7 [{"tag"}]
+      146 LOADK                            R6 K28 ["text-caption-small"]
+      147 SETTABLEKS                       R6 R5 K6 ["tag"]
+      149 SETTABLEKS                       R5 R4 K3 ["title"]
+      151 DUPTABLE                         R5 K25 [{"tag", "size"}]
+      152 LOADK                            R6 K26 ["size-400"]
+      153 SETTABLEKS                       R6 R5 K6 ["tag"]
+      155 GETTABLEKS                       R7 R0 K30 ["Size"]
+      157 GETTABLEKS                       R6 R7 K37 ["Size_700"]
+      159 SETTABLEKS                       R6 R5 K24 ["size"]
+      161 SETTABLEKS                       R5 R4 K4 ["check"]
+      163 DUPTABLE                         R5 K32 [{"size"}]
+      164 GETUPVAL                         R7 2
+      165 GETTABLEKS                       R6 R7 K33 ["Small"]
+      167 SETTABLEKS                       R6 R5 K24 ["size"]
+      169 SETTABLEKS                       R5 R4 K20 ["chevron"]
+      171 DUPTABLE                         R5 K32 [{"size"}]
+      172 GETTABLEKS                       R7 R0 K34 ["Padding"]
+      174 GETTABLEKS                       R6 R7 K33 ["Small"]
+      176 SETTABLEKS                       R6 R5 K24 ["size"]
+      178 SETTABLEKS                       R5 R4 K21 ["groupPadding"]
+      180 SETTABLE                         R4 R2 R3
+      181 GETUPVAL                         R4 1
+      182 GETTABLEKS                       R3 R4 K38 ["Medium"]
+      184 DUPTABLE                         R4 K22 [{"container", "icon", "text", "title", "check", "chevron", "groupPadding"}]
+      185 DUPTABLE                         R5 K7 [{"tag"}]
+      186 LOADK                            R6 K39 ["gap-small size-full-1000 padding-x-medium radius-medium"]
+      187 SETTABLEKS                       R6 R5 K6 ["tag"]
+      189 SETTABLEKS                       R5 R4 K0 ["container"]
+      191 DUPTABLE                         R5 K25 [{"tag", "size"}]
+      192 LOADK                            R6 K40 ["size-600"]
+      193 SETTABLEKS                       R6 R5 K6 ["tag"]
+      195 GETUPVAL                         R7 2
+      196 GETTABLEKS                       R6 R7 K38 ["Medium"]
+      198 SETTABLEKS                       R6 R5 K24 ["size"]
+      200 SETTABLEKS                       R5 R4 K1 ["icon"]
+      202 DUPTABLE                         R5 K7 [{"tag"}]
+      203 LOADK                            R6 K41 ["text-body-medium"]
+      204 SETTABLEKS                       R6 R5 K6 ["tag"]
+      206 SETTABLEKS                       R5 R4 K2 ["text"]
+      208 DUPTABLE                         R5 K7 [{"tag"}]
+      209 LOADK                            R6 K42 ["text-caption-medium"]
+      210 SETTABLEKS                       R6 R5 K6 ["tag"]
+      212 SETTABLEKS                       R5 R4 K3 ["title"]
+      214 DUPTABLE                         R5 K25 [{"tag", "size"}]
+      215 LOADK                            R6 K36 ["size-500"]
+      216 SETTABLEKS                       R6 R5 K6 ["tag"]
+      218 GETTABLEKS                       R7 R0 K30 ["Size"]
+      220 GETTABLEKS                       R6 R7 K43 ["Size_800"]
+      222 SETTABLEKS                       R6 R5 K24 ["size"]
+      224 SETTABLEKS                       R5 R4 K4 ["check"]
+      226 DUPTABLE                         R5 K32 [{"size"}]
+      227 GETUPVAL                         R7 2
+      228 GETTABLEKS                       R6 R7 K38 ["Medium"]
+      230 SETTABLEKS                       R6 R5 K24 ["size"]
+      232 SETTABLEKS                       R5 R4 K20 ["chevron"]
+      234 DUPTABLE                         R5 K32 [{"size"}]
+      235 GETTABLEKS                       R7 R0 K34 ["Padding"]
+      237 GETTABLEKS                       R6 R7 K33 ["Small"]
+      239 SETTABLEKS                       R6 R5 K24 ["size"]
+      241 SETTABLEKS                       R5 R4 K21 ["groupPadding"]
+      243 SETTABLE                         R4 R2 R3
+      244 GETUPVAL                         R4 1
+      245 GETTABLEKS                       R3 R4 K44 ["Large"]
+      247 DUPTABLE                         R4 K22 [{"container", "icon", "text", "title", "check", "chevron", "groupPadding"}]
+      248 DUPTABLE                         R5 K7 [{"tag"}]
+      249 LOADK                            R6 K45 ["gap-small size-full-1200 padding-x-large radius-medium"]
+      250 SETTABLEKS                       R6 R5 K6 ["tag"]
+      252 SETTABLEKS                       R5 R4 K0 ["container"]
+      254 DUPTABLE                         R5 K25 [{"tag", "size"}]
+      255 LOADK                            R6 K46 ["size-700"]
+      256 SETTABLEKS                       R6 R5 K6 ["tag"]
+      258 GETUPVAL                         R7 2
+      259 GETTABLEKS                       R6 R7 K44 ["Large"]
+      261 SETTABLEKS                       R6 R5 K24 ["size"]
+      263 SETTABLEKS                       R5 R4 K1 ["icon"]
+      265 DUPTABLE                         R5 K7 [{"tag"}]
+      266 LOADK                            R6 K47 ["text-body-large"]
+      267 SETTABLEKS                       R6 R5 K6 ["tag"]
+      269 SETTABLEKS                       R5 R4 K2 ["text"]
+      271 DUPTABLE                         R5 K7 [{"tag"}]
+      272 LOADK                            R6 K48 ["text-caption-large"]
+      273 SETTABLEKS                       R6 R5 K6 ["tag"]
+      275 SETTABLEKS                       R5 R4 K3 ["title"]
+      277 DUPTABLE                         R5 K25 [{"tag", "size"}]
+      278 LOADK                            R6 K40 ["size-600"]
+      279 SETTABLEKS                       R6 R5 K6 ["tag"]
+      281 GETTABLEKS                       R7 R0 K30 ["Size"]
+      283 GETTABLEKS                       R6 R7 K49 ["Size_900"]
+      285 SETTABLEKS                       R6 R5 K24 ["size"]
+      287 SETTABLEKS                       R5 R4 K4 ["check"]
+      289 DUPTABLE                         R5 K32 [{"size"}]
+      290 GETUPVAL                         R7 2
+      291 GETTABLEKS                       R6 R7 K44 ["Large"]
+      293 SETTABLEKS                       R6 R5 K24 ["size"]
+      295 SETTABLEKS                       R5 R4 K20 ["chevron"]
+      297 DUPTABLE                         R5 K32 [{"size"}]
+      298 GETTABLEKS                       R7 R0 K34 ["Padding"]
+      300 GETTABLEKS                       R6 R7 K33 ["Small"]
+      302 SETTABLEKS                       R6 R5 K24 ["size"]
+      304 SETTABLEKS                       R5 R4 K21 ["groupPadding"]
+      306 SETTABLE                         R4 R2 R3
+      307 NEWTABLE                         R3 2 0
+      309 LOADB                            R4 0
+      310 DUPTABLE                         R5 K50 [{"container"}]
+      311 DUPTABLE                         R6 K7 [{"tag"}]
+      312 LOADK                            R7 K51 [""]
+      313 SETTABLEKS                       R7 R6 K6 ["tag"]
+      315 SETTABLEKS                       R6 R5 K0 ["container"]
+      317 SETTABLE                         R5 R3 R4
+      318 LOADB                            R4 1
+      319 DUPTABLE                         R5 K50 [{"container"}]
+      320 DUPTABLE                         R6 K7 [{"tag"}]
+      321 LOADK                            R7 K52 ["bg-surface-200"]
+      322 SETTABLEKS                       R7 R6 K6 ["tag"]
+      324 SETTABLEKS                       R6 R5 K0 ["container"]
+      326 SETTABLE                         R5 R3 R4
+      327 DUPTABLE                         R4 K56 [{"common", "sizes", "isChecked"}]
+      328 SETTABLEKS                       R1 R4 K53 ["common"]
+      330 SETTABLEKS                       R2 R4 K54 ["sizes"]
+      332 SETTABLEKS                       R3 R4 K55 ["isChecked"]
+      334 RETURN                           R4 1
+
+PROTO_1:
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["useVariants"]
+        3 LOADK                            R4 K1 ["BaseMenuItem"]
+        4 GETUPVAL                         R5 1
+        5 MOVE                             R6 R0
+        6 CALL                             R3 3 1
+        7 GETUPVAL                         R4 2
+        8 GETTABLEKS                       R5 R3 K2 ["common"]
+       10 GETTABLEKS                       R7 R3 K3 ["sizes"]
+       12 GETTABLE                         R6 R7 R1
+       13 GETTABLEKS                       R8 R3 K4 ["isChecked"]
+       15 GETTABLE                         R7 R8 R2
+       16 CALL                             R4 3 -1
+       17 RETURN                           R4 -1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Foundation"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Utility"]
+       11 GETTABLEKS                       R2 R3 K7 ["Flags"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K8 ["Enums"]
+       18 GETTABLEKS                       R3 R4 K9 ["InputSize"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R6 R0 K10 ["Providers"]
+       25 GETTABLEKS                       R5 R6 K11 ["Style"]
+       27 GETTABLEKS                       R4 R5 K12 ["VariantsContext"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K5 [require]
+       32 GETTABLEKS                       R6 R0 K6 ["Utility"]
+       34 GETTABLEKS                       R5 R6 K13 ["composeStyleVariant"]
+       36 CALL                             R4 1 1
+       37 GETIMPORT                        R5 K5 [require]
+       39 GETTABLEKS                       R8 R0 K10 ["Providers"]
+       41 GETTABLEKS                       R7 R8 K11 ["Style"]
+       43 GETTABLEKS                       R6 R7 K14 ["Tokens"]
+       45 CALL                             R5 1 1
+       46 GETIMPORT                        R6 K5 [require]
+       48 GETTABLEKS                       R8 R0 K15 ["Components"]
+       50 GETTABLEKS                       R7 R8 K16 ["Types"]
+       52 CALL                             R6 1 1
+       53 GETIMPORT                        R7 K5 [require]
+       55 GETTABLEKS                       R9 R0 K8 ["Enums"]
+       57 GETTABLEKS                       R8 R9 K17 ["IconSize"]
+       59 CALL                             R7 1 1
+       60 DUPCLOSURE                       R8 K18 [PROTO_0]
+       61 CAPTURE                          VAL R1
+       62 CAPTURE                          VAL R2
+       63 CAPTURE                          VAL R7
+       64 DUPCLOSURE                       R9 K19 [PROTO_1]
+       65 CAPTURE                          VAL R3
+       66 CAPTURE                          VAL R8
+       67 CAPTURE                          VAL R4
+       68 RETURN                           R9 1

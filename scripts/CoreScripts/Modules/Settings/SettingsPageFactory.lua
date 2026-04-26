@@ -32,6 +32,7 @@ local FFlagIEMSettingsGroups = require(script.Parent.Flags.FFlagIEMSettingsGroup
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
+local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
 
 local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
 
@@ -49,12 +50,17 @@ local function Initialize()
 	this.OpenStateChangedCount = 0
 	this.ShouldShowBottomBar = true
 	this.ShouldShowHubBar = true
+	this.ShouldDisableDefaultScroll = false
 	this.IsPageClipped = true
 	this.SelectARow = nil
 	if FFlagIEMFocusNavToButtons then
 		this.LastSelectableObjectsUpdated = Signal.new()
 		this.LastSelectableObjects = {}
 		this.PageNextSelectionDown = nil
+	end
+	if FFlagIEMTabFocusNav then
+		this.FirstSelectableObjectsUpdated = Signal.new()
+		this.FirstSelectableObjects = {}
 	end
 	local rows = {}
 	local displayed = false
@@ -67,18 +73,28 @@ local function Initialize()
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1/5, 0,1,0),
 		Position = UDim2.new(0,0,0,0),
-		Selectable = if FFlagIEMFocusNavToButtons then false else nil,
+		Selectable = if FFlagIEMTabFocusNav then true elseif FFlagIEMFocusNavToButtons then false else nil,
 	};
 	if utility:IsSmallTouchScreen() then
 		this.TabHeader.Size = UDim2.new(0,84,1,0)
 	elseif isTenFootInterface then
 		this.TabHeader.Size = UDim2.new(0,220,1,0)
 	end
-	this.TabHeader.MouseButton1Click:connect(function()
-		if this.HubRef then
-			this.HubRef:SwitchToPage(this, true)
+	if FFlagIEMTabFocusNav then
+		local function switchToPage()
+			if this.HubRef and this.HubRef.Pages.CurrentPage ~= this then
+				this.HubRef:SwitchToPage(this, true)
+			end
 		end
-	end)
+		this.TabHeader.Activated:connect(switchToPage)
+		this.TabHeader.SelectionGained:connect(switchToPage)
+	else
+		this.TabHeader.MouseButton1Click:connect(function()
+			if this.HubRef then
+				this.HubRef:SwitchToPage(this, true)
+			end
+		end)
+	end
 
 	local icon = Create'TextLabel'{
 		Name = "Icon",
@@ -239,7 +255,6 @@ local function Initialize()
 	
 	this.Displayed.Event:connect(function()
 		if not this.HubRef.Shield.Visible then return end
-
 		this:SelectARow()
 	end)
 
@@ -265,6 +280,9 @@ local function Initialize()
 	end
 
 	function this:SelectARow(forced) -- Selects the first row, the most recently selected row, or the GuiObject beneath the page
+		if FFlagIEMTabFocusNav and not forced and GuiService.SelectedCoreObject == this.TabHeader then
+			return
+		end
 		if forced or not GuiService.SelectedCoreObject or not GuiService.SelectedCoreObject:IsDescendantOf(this.Page) then
 			if this.LastSelectedObject then
 				GuiService.SelectedCoreObject = this.LastSelectedObject

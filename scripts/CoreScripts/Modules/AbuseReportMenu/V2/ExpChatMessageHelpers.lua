@@ -13,6 +13,11 @@ local CHANNEL_GENERAL = "RBXGeneral"
 local CHANNEL_SYSTEM = "RBXSystem"
 local CHANNEL_TEAM_PREFIX = "RBXTeam"
 local CHANNEL_WHISPER_PREFIX = "RBXWhisper"
+local CHANNEL_GLOBAL = "RBXGlobal"
+
+local CorePackages = game:GetService("CorePackages")
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagEnableGlobalChatAbuseReporting = SharedFlags.FFlagEnableGlobalChatAbuseReporting
 
 local ExpChatMessageHelpers = {}
 
@@ -73,6 +78,8 @@ function ExpChatMessageHelpers.formatChannelLabel(channelName: string, textChann
 			end
 		end
 		return "Whisper"
+	elseif FFlagEnableGlobalChatAbuseReporting and channelName == CHANNEL_GLOBAL then
+		return "Global"
 	end
 	return channelName
 end

@@ -59,6 +59,8 @@ local Chrome = script.Parent.Parent.Parent.Chrome
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local MusicConstants = require(Chrome.Integrations.MusicUtility.Constants)
 
+local FFlagEnableUISelector = CoreGuiCommon.Flags.FFlagEnableUISelector
+
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 
@@ -518,6 +520,9 @@ function TopBarApp:renderWithStyle(style)
 		end,
 	}, {
 		Connection = Roact.createElement(Connection),
+		InExperienceUiSelector = if FFlagEnableUISelector
+			then React.createElement(CoreGuiCommon.Components.InExperienceUiSelector)
+			else nil,
 		GamepadMenu = if not FFlagEnableConsoleExpControls
 			then Roact.createElement(GamepadMenu, {
 					chatVersion = self.state.chatVersion,

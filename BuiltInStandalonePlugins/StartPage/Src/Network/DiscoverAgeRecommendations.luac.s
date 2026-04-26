@@ -1,30 +1,32 @@
 PROTO_0:
         0 GETTABLEKS                       R2 R1 K0 ["universeId"]
-        2 JUMPIFNOT                        R2 ; [+24]
+        2 JUMPIFNOT                        R2 ; [+15]
         3 GETTABLEKS                       R2 R1 K1 ["ageRecommendationDetails"]
-        5 JUMPIFNOT                        R2 ; [+21]
+        5 JUMPIFNOT                        R2 ; [+12]
         6 GETTABLEKS                       R3 R1 K1 ["ageRecommendationDetails"]
         8 GETTABLEKS                       R2 R3 K2 ["ageRecommendationSummary"]
-       10 JUMPIFNOT                        R2 ; [+16]
+       10 JUMPIFNOT                        R2 ; [+7]
        11 GETTABLEKS                       R4 R1 K1 ["ageRecommendationDetails"]
        13 GETTABLEKS                       R3 R4 K2 ["ageRecommendationSummary"]
        15 GETTABLEKS                       R2 R3 K3 ["ageRecommendation"]
-       17 JUMPIFNOT                        R2 ; [+9]
-       18 GETTABLEKS                       R5 R1 K1 ["ageRecommendationDetails"]
-       20 GETTABLEKS                       R4 R5 K2 ["ageRecommendationSummary"]
-       22 GETTABLEKS                       R3 R4 K3 ["ageRecommendation"]
-       24 GETTABLEKS                       R2 R3 K4 ["minimumAge"]
-       26 JUMPIF                           R2 ; [+1]
-       27 RETURN                           R0 0
-       28 DUPTABLE                         R2 K7 [{"Id", "AgeRecommendation"}]
-       29 GETTABLEKS                       R3 R1 K0 ["universeId"]
-       31 SETTABLEKS                       R3 R2 K5 ["Id"]
-       33 GETTABLEKS                       R6 R1 K1 ["ageRecommendationDetails"]
-       35 GETTABLEKS                       R5 R6 K2 ["ageRecommendationSummary"]
-       37 GETTABLEKS                       R4 R5 K3 ["ageRecommendation"]
-       39 GETTABLEKS                       R3 R4 K4 ["minimumAge"]
-       41 SETTABLEKS                       R3 R2 K6 ["AgeRecommendation"]
-       43 RETURN                           R2 1
+       17 JUMPIF                           R2 ; [+1]
+       18 RETURN                           R0 0
+       19 GETTABLEKS                       R4 R1 K1 ["ageRecommendationDetails"]
+       21 GETTABLEKS                       R3 R4 K2 ["ageRecommendationSummary"]
+       23 GETTABLEKS                       R2 R3 K3 ["ageRecommendation"]
+       25 GETTABLEKS                       R3 R2 K4 ["minimumAge"]
+       27 JUMPIF                           R3 ; [+4]
+       28 GETTABLEKS                       R3 R2 K5 ["contentMaturity"]
+       30 JUMPIF                           R3 ; [+1]
+       31 RETURN                           R0 0
+       32 DUPTABLE                         R3 K9 [{"Id", "AgeRecommendation", "ContentMaturity"}]
+       33 GETTABLEKS                       R4 R1 K0 ["universeId"]
+       35 SETTABLEKS                       R4 R3 K6 ["Id"]
+       37 GETTABLEKS                       R4 R2 K4 ["minimumAge"]
+       39 SETTABLEKS                       R4 R3 K7 ["AgeRecommendation"]
+       41 GETTABLEKS                       R4 R2 K5 ["contentMaturity"]
+       43 SETTABLEKS                       R4 R3 K8 ["ContentMaturity"]
+       45 RETURN                           R3 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0

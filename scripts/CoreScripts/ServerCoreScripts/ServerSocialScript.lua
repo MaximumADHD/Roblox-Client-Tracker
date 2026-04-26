@@ -37,6 +37,9 @@ local FFlagBadgeVisibilitySettingEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
 local FFlagEnableModerateChatRemoteEvent =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableModerateChatRemoteEvent
+local FFlagEnableSummarySystemMessageOnLua =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableSummarySystemMessageOnLua
+
 local FFlagProfileSettingsSlidingWindowRateLimit = game:DefineFastFlag("ProfileSettingsSlidingWindowRateLimit", false)
 local FIntProfileSettingsRateLimitSeconds = game:DefineFastInt("ProfileSettingsRateLimitSeconds", 5)
 local FIntProfileSettingsMaxRequestsPerWindow = game:DefineFastInt("ProfileSettingsMaxRequestsPerWindow", 3)
@@ -150,6 +153,13 @@ if FFlagEnableModerateChatRemoteEvent then
 	RemoteEvent_ModerateChatSettingUpdated = Instance.new("RemoteEvent")
 	RemoteEvent_ModerateChatSettingUpdated.Name = "ModerateChatSettingUpdated"
 	RemoteEvent_ModerateChatSettingUpdated.Parent = RobloxReplicatedStorage
+end
+
+local RemoteEvent_ExpChatFeatureValueChanged
+if FFlagEnableSummarySystemMessageOnLua then
+	RemoteEvent_ExpChatFeatureValueChanged = Instance.new("RemoteEvent")
+	RemoteEvent_ExpChatFeatureValueChanged.Name = "ExpChatFeatureValueChanged"
+	RemoteEvent_ExpChatFeatureValueChanged.Parent = RobloxReplicatedStorage
 end
 
 -- Map: { UserId -> { UserId -> NumberOfNotificationsSent } }
@@ -590,6 +600,17 @@ if FFlagEnableModerateChatRemoteEvent then
 			RemoteEvent_ModerateChatSettingUpdated:FireClient(player, enabled)
 		end
 	end)
+end
+
+if FFlagEnableSummarySystemMessageOnLua then
+	TextChatService.ExpChatFeatureValueChanged:Connect(
+		function(userId: number, featureName: string, featureValue: string)
+			local player = Players:GetPlayerByUserId(userId)
+			if player then
+				RemoteEvent_ExpChatFeatureValueChanged:FireClient(player, userId, featureName, featureValue)
+			end
+		end
+	)
 end
 
 Players.PlayerAdded:connect(onPlayerAdded)

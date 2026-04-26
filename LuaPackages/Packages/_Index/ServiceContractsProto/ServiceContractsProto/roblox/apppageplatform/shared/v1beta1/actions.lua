@@ -76,8 +76,8 @@ type _Messages = {
 	AnalyticsEventAction_Params: _AnalyticsEventAction_ParamsMessage,
 	CustomAnalyticsEventAction: _CustomAnalyticsEventActionMessage,
 	CustomAnalyticsEventAction_Params: _CustomAnalyticsEventAction_ParamsMessage,
-	OpenSocialLinkProfileAction: _OpenSocialLinkProfileActionMessage,
-	OpenSocialLinkProfileAction_Params: _OpenSocialLinkProfileAction_ParamsMessage,
+	OpenGameInviteAction: _OpenGameInviteActionMessage,
+	OpenGameInviteAction_Params: _OpenGameInviteAction_ParamsMessage,
 	Action: _ActionMessage,
 	ActionProp: _ActionPropMessage,
 	ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -824,17 +824,23 @@ type _ShareAction_ShareLinkDataImpl = {
 }
 
 type _ShareAction_ShareLinkDataFields = {
-	oneof_prop: {
+	oneof_prop: ({
 		type: "generic_share_link_data",
 		value: _roblox_apppageplatform_shared_v1beta1_share_link_data.GenericShareLinkData,
-	}?,
+	} | {
+		type: "share_link_fetch_data",
+		value: _roblox_apppageplatform_shared_v1beta1_share_link_data.ShareLinkFetchData,
+	})?,
 }
 
 type _ShareAction_ShareLinkDataPartialFields = {
-	oneof_prop: {
+	oneof_prop: ({
 		type: "generic_share_link_data",
 		value: _roblox_apppageplatform_shared_v1beta1_share_link_data.GenericShareLinkData,
-	}?,
+	} | {
+		type: "share_link_fetch_data",
+		value: _roblox_apppageplatform_shared_v1beta1_share_link_data.ShareLinkFetchData,
+	})?,
 }
 
 export type ShareAction_ShareLinkData = typeof(setmetatable(
@@ -1992,70 +1998,63 @@ type _CustomAnalyticsEventAction_ParamsMessage = proto.Message<
 	_CustomAnalyticsEventAction_ParamsPartialFields
 >
 
-type _OpenSocialLinkProfileActionImpl = {
-	__index: _OpenSocialLinkProfileActionImpl,
-	new: (fields: _OpenSocialLinkProfileActionPartialFields?) -> OpenSocialLinkProfileAction,
-	encode: (self: OpenSocialLinkProfileAction) -> buffer,
-	decode: (input: buffer) -> OpenSocialLinkProfileAction,
-	jsonEncode: (self: OpenSocialLinkProfileAction) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> OpenSocialLinkProfileAction,
+type _OpenGameInviteActionImpl = {
+	__index: _OpenGameInviteActionImpl,
+	new: (fields: _OpenGameInviteActionPartialFields?) -> OpenGameInviteAction,
+	encode: (self: OpenGameInviteAction) -> buffer,
+	decode: (input: buffer) -> OpenGameInviteAction,
+	jsonEncode: (self: OpenGameInviteAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenGameInviteAction,
 	descriptor: proto.Descriptor,
 }
 
-type _OpenSocialLinkProfileActionFields = {
+type _OpenGameInviteActionFields = {
 	action_type: ActionType,
-	action_params: OpenSocialLinkProfileAction_Params?,
+	action_params: OpenGameInviteAction_Params?,
 }
 
-type _OpenSocialLinkProfileActionPartialFields = {
+type _OpenGameInviteActionPartialFields = {
 	action_type: ActionType?,
-	action_params: OpenSocialLinkProfileAction_Params?,
+	action_params: OpenGameInviteAction_Params?,
 }
 
-export type OpenSocialLinkProfileAction = typeof(setmetatable(
-	{} :: _OpenSocialLinkProfileActionFields,
-	{} :: _OpenSocialLinkProfileActionImpl
+export type OpenGameInviteAction = typeof(setmetatable(
+	{} :: _OpenGameInviteActionFields,
+	{} :: _OpenGameInviteActionImpl
 ))
-type _OpenSocialLinkProfileActionMessage = proto.Message<
-	OpenSocialLinkProfileAction,
-	_OpenSocialLinkProfileActionPartialFields
->
+type _OpenGameInviteActionMessage = proto.Message<OpenGameInviteAction, _OpenGameInviteActionPartialFields>
 
-type _OpenSocialLinkProfileAction_ParamsImpl = {
-	__index: _OpenSocialLinkProfileAction_ParamsImpl,
-	new: (fields: _OpenSocialLinkProfileAction_ParamsPartialFields?) -> OpenSocialLinkProfileAction_Params,
-	encode: (self: OpenSocialLinkProfileAction_Params) -> buffer,
-	decode: (input: buffer) -> OpenSocialLinkProfileAction_Params,
-	jsonEncode: (self: OpenSocialLinkProfileAction_Params) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> OpenSocialLinkProfileAction_Params,
+type _OpenGameInviteAction_ParamsImpl = {
+	__index: _OpenGameInviteAction_ParamsImpl,
+	new: (fields: _OpenGameInviteAction_ParamsPartialFields?) -> OpenGameInviteAction_Params,
+	encode: (self: OpenGameInviteAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenGameInviteAction_Params,
+	jsonEncode: (self: OpenGameInviteAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenGameInviteAction_Params,
 	descriptor: proto.Descriptor,
 }
 
-type _OpenSocialLinkProfileAction_ParamsFields = {
-	profile_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	profile_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	social_link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	social_link_url: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	social_link_display_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+type _OpenGameInviteAction_ParamsFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	root_place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	trigger: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	button_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
-type _OpenSocialLinkProfileAction_ParamsPartialFields = {
-	profile_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	profile_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	social_link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	social_link_url: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	social_link_display_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+type _OpenGameInviteAction_ParamsPartialFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	root_place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	trigger: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	button_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
-export type OpenSocialLinkProfileAction_Params = typeof(setmetatable(
-	{} :: _OpenSocialLinkProfileAction_ParamsFields,
-	{} :: _OpenSocialLinkProfileAction_ParamsImpl
+export type OpenGameInviteAction_Params = typeof(setmetatable(
+	{} :: _OpenGameInviteAction_ParamsFields,
+	{} :: _OpenGameInviteAction_ParamsImpl
 ))
-type _OpenSocialLinkProfileAction_ParamsMessage = proto.Message<
-	OpenSocialLinkProfileAction_Params,
-	_OpenSocialLinkProfileAction_ParamsPartialFields
+type _OpenGameInviteAction_ParamsMessage = proto.Message<
+	OpenGameInviteAction_Params,
+	_OpenGameInviteAction_ParamsPartialFields
 >
 
 type _ActionImpl = {
@@ -2104,8 +2103,9 @@ type _ActionFields = {
 		| { type: "apply_charts_filter_action", value: ApplyChartsFilterAction }
 		| { type: "analytics_event_action", value: AnalyticsEventAction }
 		| { type: "custom_analytics_event_action", value: CustomAnalyticsEventAction }
-		| { type: "open_social_link_profile_action", value: OpenSocialLinkProfileAction }
+		| { type: "open_game_invite_action", value: OpenGameInviteAction }
 	)?,
+	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _ActionPartialFields = {
@@ -2144,8 +2144,9 @@ type _ActionPartialFields = {
 		| { type: "apply_charts_filter_action", value: ApplyChartsFilterAction }
 		| { type: "analytics_event_action", value: AnalyticsEventAction }
 		| { type: "custom_analytics_event_action", value: CustomAnalyticsEventAction }
-		| { type: "open_social_link_profile_action", value: OpenSocialLinkProfileAction }
+		| { type: "open_game_invite_action", value: OpenGameInviteAction }
 	)?,
+	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type Action = typeof(setmetatable({} :: _ActionFields, {} :: _ActionImpl))
@@ -2439,7 +2440,7 @@ export type ActionType =
 	| "ACTION_TYPE_APPLY_CHARTS_FILTER"
 	| "ACTION_TYPE_ANALYTICS_EVENT"
 	| "ACTION_TYPE_CUSTOM_ANALYTICS_EVENT"
-	| "ACTION_TYPE_OPEN_SOCIAL_LINK_PROFILE"
+	| "ACTION_TYPE_OPEN_GAME_INVITE"
 	| number -- Unknown
 
 do
@@ -6181,6 +6182,10 @@ do
 				local encoded = self.oneof_prop.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.oneof_prop.type == "share_link_fetch_data" then
+				local encoded = self.oneof_prop.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -6213,6 +6218,14 @@ do
 						),
 					}
 					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.oneof_prop = {
+						type = "share_link_fetch_data",
+						value = _roblox_apppageplatform_shared_v1beta1_share_link_data.ShareLinkFetchData.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -6243,6 +6256,8 @@ do
 		if self.oneof_prop ~= nil then
 			if self.oneof_prop.type == "generic_share_link_data" then
 				output.genericShareLinkData = self.oneof_prop.value:jsonEncode()
+			elseif self.oneof_prop.type == "share_link_fetch_data" then
+				output.shareLinkFetchData = self.oneof_prop.value:jsonEncode()
 			end
 		end
 
@@ -6266,6 +6281,24 @@ do
 				type = "generic_share_link_data",
 				value = _roblox_apppageplatform_shared_v1beta1_share_link_data.GenericShareLinkData.jsonDecode(
 					input.genericShareLinkData
+				),
+			}
+		end
+
+		if input.share_link_fetch_data ~= nil then
+			self.oneof_prop = {
+				type = "share_link_fetch_data",
+				value = _roblox_apppageplatform_shared_v1beta1_share_link_data.ShareLinkFetchData.jsonDecode(
+					input.share_link_fetch_data
+				),
+			}
+		end
+
+		if input.shareLinkFetchData ~= nil then
+			self.oneof_prop = {
+				type = "share_link_fetch_data",
+				value = _roblox_apppageplatform_shared_v1beta1_share_link_data.ShareLinkFetchData.jsonDecode(
+					input.shareLinkFetchData
 				),
 			}
 		end
@@ -11944,21 +11977,19 @@ do
 end
 
 do
-	local _OpenSocialLinkProfileActionImpl = {}
-	_OpenSocialLinkProfileActionImpl.__index = _OpenSocialLinkProfileActionImpl
+	local _OpenGameInviteActionImpl = {}
+	_OpenGameInviteActionImpl.__index = _OpenGameInviteActionImpl
 
-	function _OpenSocialLinkProfileActionImpl.new(
-		data: _OpenSocialLinkProfileActionPartialFields?
-	): OpenSocialLinkProfileAction
+	function _OpenGameInviteActionImpl.new(data: _OpenGameInviteActionPartialFields?): OpenGameInviteAction
 		return setmetatable({
 			action_type = if data == nil or data.action_type == nil
 				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
 				else data.action_type,
 			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
-		}, _OpenSocialLinkProfileActionImpl :: _OpenSocialLinkProfileActionImpl)
+		}, _OpenGameInviteActionImpl :: _OpenGameInviteActionImpl)
 	end
 
-	function _OpenSocialLinkProfileActionImpl.encode(self: OpenSocialLinkProfileAction): buffer
+	function _OpenGameInviteActionImpl.encode(self: OpenGameInviteAction): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -11984,8 +12015,8 @@ do
 		return shrunkBuffer
 	end
 
-	function _OpenSocialLinkProfileActionImpl.decode(input: buffer): OpenSocialLinkProfileAction
-		local self = _OpenSocialLinkProfileActionImpl.new()
+	function _OpenGameInviteActionImpl.decode(input: buffer): OpenGameInviteAction
+		local self = _OpenGameInviteActionImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -12006,7 +12037,7 @@ do
 				if field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.action_params = messages.OpenSocialLinkProfileAction_Params.decode(value)
+					self.action_params = messages.OpenGameInviteAction_Params.decode(value)
 					continue
 				end
 
@@ -12032,7 +12063,7 @@ do
 		return self
 	end
 
-	function _OpenSocialLinkProfileActionImpl.jsonEncode(self: OpenSocialLinkProfileAction): any
+	function _OpenGameInviteActionImpl.jsonEncode(self: OpenGameInviteAction): any
 		local output = {}
 
 		if
@@ -12054,8 +12085,8 @@ do
 		return output
 	end
 
-	function _OpenSocialLinkProfileActionImpl.jsonDecode(input: { [string]: any }): OpenSocialLinkProfileAction
-		local self = _OpenSocialLinkProfileActionImpl.new()
+	function _OpenGameInviteActionImpl.jsonDecode(input: { [string]: any }): OpenGameInviteAction
+		local self = _OpenGameInviteActionImpl.new()
 
 		if input.action_type ~= nil then
 			self.action_type = if typeof(input.action_type) == "number"
@@ -12070,82 +12101,66 @@ do
 		end
 
 		if input.action_params ~= nil then
-			self.action_params = messages.OpenSocialLinkProfileAction_Params.jsonDecode(input.action_params)
+			self.action_params = messages.OpenGameInviteAction_Params.jsonDecode(input.action_params)
 		end
 
 		if input.actionParams ~= nil then
-			self.action_params = messages.OpenSocialLinkProfileAction_Params.jsonDecode(input.actionParams)
+			self.action_params = messages.OpenGameInviteAction_Params.jsonDecode(input.actionParams)
 		end
 
 		return self
 	end
 
-	_OpenSocialLinkProfileActionImpl.descriptor = {
-		name = "OpenSocialLinkProfileAction",
-		fullName = "roblox.apppageplatform.shared.v1beta1.OpenSocialLinkProfileAction",
+	_OpenGameInviteActionImpl.descriptor = {
+		name = "OpenGameInviteAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenGameInviteAction",
 	}
 
-	messages.OpenSocialLinkProfileAction = _OpenSocialLinkProfileActionImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.OpenGameInviteAction = _OpenGameInviteActionImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.OpenSocialLinkProfileAction)
+	typeRegistry.default:register(messages.OpenGameInviteAction)
 end
 
 do
-	local _OpenSocialLinkProfileAction_ParamsImpl = {}
-	_OpenSocialLinkProfileAction_ParamsImpl.__index = _OpenSocialLinkProfileAction_ParamsImpl
+	local _OpenGameInviteAction_ParamsImpl = {}
+	_OpenGameInviteAction_ParamsImpl.__index = _OpenGameInviteAction_ParamsImpl
 
-	function _OpenSocialLinkProfileAction_ParamsImpl.new(
-		data: _OpenSocialLinkProfileAction_ParamsPartialFields?
-	): OpenSocialLinkProfileAction_Params
+	function _OpenGameInviteAction_ParamsImpl.new(
+		data: _OpenGameInviteAction_ParamsPartialFields?
+	): OpenGameInviteAction_Params
 		return setmetatable({
-			profile_id = if data == nil or data.profile_id == nil then nil else data.profile_id,
-			profile_type = if data == nil or data.profile_type == nil then nil else data.profile_type,
-			source = if data == nil or data.source == nil then nil else data.source,
-			social_link_type = if data == nil or data.social_link_type == nil then nil else data.social_link_type,
-			social_link_url = if data == nil or data.social_link_url == nil then nil else data.social_link_url,
-			social_link_display_type = if data == nil or data.social_link_display_type == nil
-				then nil
-				else data.social_link_display_type,
-		}, _OpenSocialLinkProfileAction_ParamsImpl :: _OpenSocialLinkProfileAction_ParamsImpl)
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			root_place_id = if data == nil or data.root_place_id == nil then nil else data.root_place_id,
+			trigger = if data == nil or data.trigger == nil then nil else data.trigger,
+			button_name = if data == nil or data.button_name == nil then nil else data.button_name,
+		}, _OpenGameInviteAction_ParamsImpl :: _OpenGameInviteAction_ParamsImpl)
 	end
 
-	function _OpenSocialLinkProfileAction_ParamsImpl.encode(self: OpenSocialLinkProfileAction_Params): buffer
+	function _OpenGameInviteAction_ParamsImpl.encode(self: OpenGameInviteAction_Params): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.profile_id ~= nil then
-			local encoded = self.profile_id:encode()
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.profile_type ~= nil then
-			local encoded = self.profile_type:encode()
+		if self.root_place_id ~= nil then
+			local encoded = self.root_place_id:encode()
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.source ~= nil then
-			local encoded = self.source:encode()
+		if self.trigger ~= nil then
+			local encoded = self.trigger:encode()
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.social_link_type ~= nil then
-			local encoded = self.social_link_type:encode()
+		if self.button_name ~= nil then
+			local encoded = self.button_name:encode()
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.social_link_url ~= nil then
-			local encoded = self.social_link_url:encode()
-			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.social_link_display_type ~= nil then
-			local encoded = self.social_link_display_type:encode()
-			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -12154,8 +12169,8 @@ do
 		return shrunkBuffer
 	end
 
-	function _OpenSocialLinkProfileAction_ParamsImpl.decode(input: buffer): OpenSocialLinkProfileAction_Params
-		local self = _OpenSocialLinkProfileAction_ParamsImpl.new()
+	function _OpenGameInviteAction_ParamsImpl.decode(input: buffer): OpenGameInviteAction_Params
+		local self = _OpenGameInviteAction_ParamsImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -12171,33 +12186,22 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.profile_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.profile_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					self.root_place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				elseif field == 3 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					self.trigger = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				elseif field == 4 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.social_link_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
-					continue
-				elseif field == 5 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.social_link_url = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
-					continue
-				elseif field == 6 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.social_link_display_type =
-						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					self.button_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -12223,104 +12227,74 @@ do
 		return self
 	end
 
-	function _OpenSocialLinkProfileAction_ParamsImpl.jsonEncode(self: OpenSocialLinkProfileAction_Params): any
+	function _OpenGameInviteAction_ParamsImpl.jsonEncode(self: OpenGameInviteAction_Params): any
 		local output = {}
 
-		if self.profile_id ~= nil then
-			output.profileId = self.profile_id:jsonEncode()
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
 		end
 
-		if self.profile_type ~= nil then
-			output.profileType = self.profile_type:jsonEncode()
+		if self.root_place_id ~= nil then
+			output.rootPlaceId = self.root_place_id:jsonEncode()
 		end
 
-		if self.source ~= nil then
-			output.source = self.source:jsonEncode()
+		if self.trigger ~= nil then
+			output.trigger = self.trigger:jsonEncode()
 		end
 
-		if self.social_link_type ~= nil then
-			output.socialLinkType = self.social_link_type:jsonEncode()
-		end
-
-		if self.social_link_url ~= nil then
-			output.socialLinkUrl = self.social_link_url:jsonEncode()
-		end
-
-		if self.social_link_display_type ~= nil then
-			output.socialLinkDisplayType = self.social_link_display_type:jsonEncode()
+		if self.button_name ~= nil then
+			output.buttonName = self.button_name:jsonEncode()
 		end
 
 		return output
 	end
 
-	function _OpenSocialLinkProfileAction_ParamsImpl.jsonDecode(
-		input: { [string]: any }
-	): OpenSocialLinkProfileAction_Params
-		local self = _OpenSocialLinkProfileAction_ParamsImpl.new()
+	function _OpenGameInviteAction_ParamsImpl.jsonDecode(input: { [string]: any }): OpenGameInviteAction_Params
+		local self = _OpenGameInviteAction_ParamsImpl.new()
 
-		if input.profile_id ~= nil then
-			self.profile_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.profile_id)
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
 		end
 
-		if input.profileId ~= nil then
-			self.profile_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.profileId)
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
 		end
 
-		if input.profile_type ~= nil then
-			self.profile_type =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.profile_type)
+		if input.root_place_id ~= nil then
+			self.root_place_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.root_place_id)
 		end
 
-		if input.profileType ~= nil then
-			self.profile_type =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.profileType)
+		if input.rootPlaceId ~= nil then
+			self.root_place_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.rootPlaceId)
 		end
 
-		if input.source ~= nil then
-			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
+		if input.trigger ~= nil then
+			self.trigger = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.trigger)
 		end
 
-		if input.social_link_type ~= nil then
-			self.social_link_type =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.social_link_type)
+		if input.button_name ~= nil then
+			self.button_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.button_name)
 		end
 
-		if input.socialLinkType ~= nil then
-			self.social_link_type =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.socialLinkType)
-		end
-
-		if input.social_link_url ~= nil then
-			self.social_link_url =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.social_link_url)
-		end
-
-		if input.socialLinkUrl ~= nil then
-			self.social_link_url =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.socialLinkUrl)
-		end
-
-		if input.social_link_display_type ~= nil then
-			self.social_link_display_type =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.social_link_display_type)
-		end
-
-		if input.socialLinkDisplayType ~= nil then
-			self.social_link_display_type =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.socialLinkDisplayType)
+		if input.buttonName ~= nil then
+			self.button_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.buttonName)
 		end
 
 		return self
 	end
 
-	_OpenSocialLinkProfileAction_ParamsImpl.descriptor = {
-		name = "OpenSocialLinkProfileAction_Params",
+	_OpenGameInviteAction_ParamsImpl.descriptor = {
+		name = "OpenGameInviteAction_Params",
 		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
 	}
 
-	messages.OpenSocialLinkProfileAction_Params = _OpenSocialLinkProfileAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.OpenGameInviteAction_Params = _OpenGameInviteAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.OpenSocialLinkProfileAction_Params)
+	typeRegistry.default:register(messages.OpenGameInviteAction_Params)
 end
 
 do
@@ -12330,6 +12304,7 @@ do
 	function _ActionImpl.new(data: _ActionPartialFields?): Action
 		return setmetatable({
 			kind = if data == nil or data.kind == nil then nil else data.kind,
+			telemetry_handler = if data == nil or data.telemetry_handler == nil then nil else data.telemetry_handler,
 		}, _ActionImpl :: _ActionImpl)
 	end
 
@@ -12474,11 +12449,17 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 34, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "open_social_link_profile_action" then
+			elseif self.kind.type == "open_game_invite_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 35, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
+		end
+
+		if self.telemetry_handler ~= nil then
+			local encoded = self.telemetry_handler:encode()
+			output, cursor = proto.writeTag(output, cursor, 1000, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -12727,10 +12708,13 @@ do
 				elseif field == 35 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = {
-						type = "open_social_link_profile_action",
-						value = messages.OpenSocialLinkProfileAction.decode(value),
-					}
+					self.kind =
+						{ type = "open_game_invite_action", value = messages.OpenGameInviteAction.decode(value) }
+					continue
+				elseif field == 1000 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.telemetry_handler = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -12828,9 +12812,13 @@ do
 				output.analyticsEventAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "custom_analytics_event_action" then
 				output.customAnalyticsEventAction = self.kind.value:jsonEncode()
-			elseif self.kind.type == "open_social_link_profile_action" then
-				output.openSocialLinkProfileAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_game_invite_action" then
+				output.openGameInviteAction = self.kind.value:jsonEncode()
 			end
+		end
+
+		if self.telemetry_handler ~= nil then
+			output.telemetryHandler = self.telemetry_handler:jsonEncode()
 		end
 
 		return output
@@ -13301,18 +13289,28 @@ do
 			}
 		end
 
-		if input.open_social_link_profile_action ~= nil then
+		if input.open_game_invite_action ~= nil then
 			self.kind = {
-				type = "open_social_link_profile_action",
-				value = messages.OpenSocialLinkProfileAction.jsonDecode(input.open_social_link_profile_action),
+				type = "open_game_invite_action",
+				value = messages.OpenGameInviteAction.jsonDecode(input.open_game_invite_action),
 			}
 		end
 
-		if input.openSocialLinkProfileAction ~= nil then
+		if input.openGameInviteAction ~= nil then
 			self.kind = {
-				type = "open_social_link_profile_action",
-				value = messages.OpenSocialLinkProfileAction.jsonDecode(input.openSocialLinkProfileAction),
+				type = "open_game_invite_action",
+				value = messages.OpenGameInviteAction.jsonDecode(input.openGameInviteAction),
 			}
+		end
+
+		if input.telemetry_handler ~= nil then
+			self.telemetry_handler =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.telemetry_handler)
+		end
+
+		if input.telemetryHandler ~= nil then
+			self.telemetry_handler =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.telemetryHandler)
 		end
 
 		return self
@@ -14538,7 +14536,7 @@ messages.ActionType = {
 		elseif value == 34 then
 			return "ACTION_TYPE_CUSTOM_ANALYTICS_EVENT"
 		elseif value == 35 then
-			return "ACTION_TYPE_OPEN_SOCIAL_LINK_PROFILE"
+			return "ACTION_TYPE_OPEN_GAME_INVITE"
 		else
 			return nil
 		end
@@ -14615,7 +14613,7 @@ messages.ActionType = {
 			return 33
 		elseif self == "ACTION_TYPE_CUSTOM_ANALYTICS_EVENT" then
 			return 34
-		elseif self == "ACTION_TYPE_OPEN_SOCIAL_LINK_PROFILE" then
+		elseif self == "ACTION_TYPE_OPEN_GAME_INVITE" then
 			return 35
 		else
 			return self
@@ -14693,8 +14691,8 @@ messages.ActionType = {
 			return "ACTION_TYPE_ANALYTICS_EVENT"
 		elseif name == "ACTION_TYPE_CUSTOM_ANALYTICS_EVENT" then
 			return "ACTION_TYPE_CUSTOM_ANALYTICS_EVENT"
-		elseif name == "ACTION_TYPE_OPEN_SOCIAL_LINK_PROFILE" then
-			return "ACTION_TYPE_OPEN_SOCIAL_LINK_PROFILE"
+		elseif name == "ACTION_TYPE_OPEN_GAME_INVITE" then
+			return "ACTION_TYPE_OPEN_GAME_INVITE"
 		else
 			return nil
 		end
@@ -14771,8 +14769,8 @@ return {
 	AnalyticsEventAction_Params = messages.AnalyticsEventAction_Params,
 	CustomAnalyticsEventAction = messages.CustomAnalyticsEventAction,
 	CustomAnalyticsEventAction_Params = messages.CustomAnalyticsEventAction_Params,
-	OpenSocialLinkProfileAction = messages.OpenSocialLinkProfileAction,
-	OpenSocialLinkProfileAction_Params = messages.OpenSocialLinkProfileAction_Params,
+	OpenGameInviteAction = messages.OpenGameInviteAction,
+	OpenGameInviteAction_Params = messages.OpenGameInviteAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

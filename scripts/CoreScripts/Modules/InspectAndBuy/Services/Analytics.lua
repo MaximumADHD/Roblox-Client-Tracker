@@ -11,8 +11,22 @@ local HttpService = game:GetService("HttpService")
 local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
 local defaultLoggingProtocol = LoggingProtocol.default
 local EventStreamReporter = require(CorePackages.Workspace.Packages.TelemetryService).EventStreamReporter
-local FFlagAXEnableInspectAndBuyVersionAnalytics = require(script.Parent.Parent.Flags.FFlagAXEnableInspectAndBuyVersionAnalytics)
+local FFlagAXEnableInspectAndBuyVersionAnalytics =
+	require(script.Parent.Parent.Flags.FFlagAXEnableInspectAndBuyVersionAnalytics)
+local UnifiedEventLogEnums = require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).UnifiedEventLogEnums
+local UnifiedLoggingSurface =
+	require(CorePackages.Workspace.Packages.AvatarExperienceNavigation).Enums.UnifiedLoggingSurface
+local UnifiedEventLogConstants =
+	require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).UnifiedEventLogConstants
+local ItemTypeEnum = require(CorePackages.Workspace.Packages.AvatarExperienceCommon).Enums.ItemTypeEnum
+local TIMED_OPTION_BY_DAYS =
+	require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).Constants.TIMED_OPTION_BY_DAYS
 
+export type PurchaseOptions = {
+	itemSubType: string?,
+	timedOptionDays: number?,
+	price: number?,
+}
 
 local MarketplaceEventSenderAPI = {
 	SEND_EVENT_DEFERRED = 0,
@@ -81,6 +95,50 @@ function Analytics.new(inspecteeUid, ctx, version: number?)
 			itemID = itemID,
 		}
 
+		service:report(eventName, additionalFields)
+	end
+
+	function service.reportPurchaseAttemptUnifiedEvent(itemType, itemID, options: PurchaseOptions)
+		service:reportUnifiedEvent({
+			action = UnifiedEventLogEnums.MarketplaceUnifiedAction.PURCHASE_ATTEMPT,
+			itemId = itemID,
+			itemType = itemType,
+			organicTimedOption = if options.timedOptionDays ~= nil
+				then TIMED_OPTION_BY_DAYS[options.timedOptionDays]
+				else nil,
+			assetType = if itemType == ItemTypeEnum.Asset then options.itemSubType else nil,
+			bundleType = if itemType == ItemTypeEnum.Bundle then options.itemSubType else nil,
+			organicItemPrice = options.price or 0,
+		})
+
+		-- send old event as well for backwards compatibility
+		local eventName = "purchaseAttemptItem"
+		local additionalFields = {
+			itemType = itemType,
+			itemID = itemID,
+		}
+		service:report(eventName, additionalFields)
+	end
+
+	function service.reportPurchaseSuccessUnifiedEvent(itemType, itemID, options: PurchaseOptions)
+		service:reportUnifiedEvent({
+			action = UnifiedEventLogEnums.MarketplaceUnifiedAction.PURCHASE_SUCCESS,
+			itemId = itemID,
+			itemType = itemType,
+			organicTimedOption = if options.timedOptionDays ~= nil
+				then TIMED_OPTION_BY_DAYS[options.timedOptionDays]
+				else nil,
+			assetType = if itemType == ItemTypeEnum.Asset then options.itemSubType else nil,
+			bundleType = if itemType == ItemTypeEnum.Bundle then options.itemSubType else nil,
+			organicItemPrice = options.price or 0,
+		})
+
+		-- send old event as well for backwards compatibility
+		local eventName = "purchaseSuccessItem"
+		local additionalFields = {
+			itemType = itemType,
+			itemID = itemID,
+		}
 		service:report(eventName, additionalFields)
 	end
 
@@ -165,6 +223,15 @@ function Analytics:report(eventName, additionalFields)
 
 	local fields = Cryo.Dictionary.join(requiredFields, additionalFields)
 	self.eventStream:sendTelemetryEvent(self.ctx, eventName, fields)
+end
+
+function Analytics:reportUnifiedEvent(additionalFields)
+	local defaultFields = {
+		surface = UnifiedLoggingSurface.IN_EXPERIENCE_INSPECT_BUY,
+	}
+
+	local fields = Cryo.Dictionary.join(defaultFields, additionalFields)
+	self.eventStream:sendTelemetryEvent(self.ctx, UnifiedEventLogConstants.EVENT_NAME, fields)
 end
 
 return Analytics

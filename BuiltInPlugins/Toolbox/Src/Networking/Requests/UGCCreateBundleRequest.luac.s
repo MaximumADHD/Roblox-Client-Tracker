@@ -63,170 +63,136 @@ PROTO_2:
         9 SETTABLEN                        R8 R7 5
        10 LOADK                            R8 K4 ["CreateBundleInvalidCreateBundleRequest"]
        11 SETTABLEN                        R8 R7 6
-       12 GETUPVAL                         R9 0
-       13 JUMPIFNOT                        R9 ; [+2]
-       14 LOADK                            R8 K5 ["CreateBundleInvalidBundleDescription"]
-       15 JUMP                             ; [+1]
-       16 LOADNIL                          R8
-       17 SETTABLEN                        R8 R7 7
-       18 GETUPVAL                         R9 0
-       19 JUMPIFNOT                        R9 ; [+2]
-       20 LOADK                            R8 K6 ["CreateBundleGroupCreatorNotSupported"]
-       21 JUMP                             ; [+1]
-       22 LOADNIL                          R8
-       23 SETTABLEN                        R8 R7 11
-       24 LOADK                            R8 K7 ["CreateBundleInvalidCreationFee"]
-       25 SETTABLEN                        R8 R7 13
-       26 NEWTABLE                         R8 1 0
-       28 LOADN                            R9 0
-       29 LOADK                            R10 K8 ["CreateBundleAuthorizationDenied"]
-       30 SETTABLE                         R10 R8 R9
-       31 NEWTABLE                         R9 4 0
-       33 LOADN                            R10 0
-       34 LOADK                            R11 K9 ["CreateBundleTokenValidationFailed"]
-       35 SETTABLE                         R11 R9 R10
-       36 GETUPVAL                         R11 0
-       37 JUMPIFNOT                        R11 ; [+2]
-       38 LOADK                            R10 K10 ["CreateBundleItemNotAllowedInBundle"]
-       39 JUMP                             ; [+1]
-       40 LOADNIL                          R10
-       41 SETTABLEN                        R10 R9 9
-       42 GETUPVAL                         R11 0
-       43 JUMPIFNOT                        R11 ; [+2]
-       44 LOADK                            R10 K11 ["CreateBundleCreatorMismatch"]
-       45 JUMP                             ; [+1]
-       46 LOADNIL                          R10
-       47 SETTABLEN                        R10 R9 12
-       48 GETUPVAL                         R11 0
-       49 JUMPIFNOT                        R11 ; [+5]
-       50 NEWTABLE                         R10 1 0
-       52 LOADK                            R11 K12 ["CreateBundleInvalidState"]
-       53 SETTABLEN                        R11 R10 10
-       54 JUMP                             ; [+1]
-       55 LOADNIL                          R10
-       56 GETUPVAL                         R12 0
-       57 JUMPIFNOT                        R12 ; [+5]
-       58 NEWTABLE                         R11 1 0
-       60 LOADK                            R12 K13 ["CreateBundleUnsupportedBundleType"]
-       61 SETTABLEN                        R12 R11 8
-       62 JUMP                             ; [+1]
-       63 LOADNIL                          R11
-       64 NEWTABLE                         R12 0 1
-       66 LOADK                            R13 K14 ["CreateBundleServiceUnavailable"]
-       67 SETTABLEN                        R13 R12 1
-       68 NEWTABLE                         R13 8 0
-       70 LOADN                            R14 144
-       71 SETTABLE                         R7 R13 R14
-       72 LOADN                            R14 145
-       73 SETTABLE                         R8 R13 R14
-       74 LOADN                            R14 147
-       75 SETTABLE                         R9 R13 R14
-       76 LOADN                            R14 156
-       77 GETUPVAL                         R16 0
-       78 JUMPIFNOT                        R16 ; [+2]
-       79 MOVE                             R15 R10
-       80 JUMP                             ; [+1]
-       81 LOADNIL                          R15
-       82 SETTABLE                         R15 R13 R14
-       83 LOADN                            R14 245
-       84 GETUPVAL                         R16 0
-       85 JUMPIFNOT                        R16 ; [+2]
-       86 MOVE                             R15 R11
-       87 JUMP                             ; [+1]
-       88 LOADNIL                          R15
-       89 SETTABLE                         R15 R13 R14
-       90 LOADN                            R14 247
-       91 SETTABLE                         R12 R13 R14
-       92 LOADNIL                          R14
-       93 GETTABLEKS                       R16 R2 K15 ["StatusCode"]
-       95 GETTABLE                         R15 R13 R16
-       96 JUMPIFEQKNIL                     R15 ; [+50]
-       98 GETTABLEKS                       R16 R2 K16 ["Body"]
-      100 JUMPIFEQKNIL                     R16 ; [+46]
-      102 GETTABLEKS                       R17 R2 K16 ["Body"]
-      104 GETTABLEKS                       R16 R17 K17 ["errors"]
-      106 JUMPIFEQKNIL                     R16 ; [+40]
-      108 GETTABLEKS                       R19 R2 K16 ["Body"]
-      110 GETTABLEKS                       R16 R19 K17 ["errors"]
-      112 LOADNIL                          R17
-      113 LOADNIL                          R18
-      114 FORGPREP                         R16
-      115 GETTABLEKS                       R22 R20 K18 ["code"]
-      117 GETTABLE                         R21 R15 R22
-      118 JUMPIFEQKNIL                     R21 ; [+18]
-      120 JUMPIFNOTEQKNIL                  R14 ; [+8]
-      122 LOADK                            R24 K19 ["AssetConfig"]
-      123 MOVE                             R25 R21
-      124 NAMECALL                         R22 R1 K20 ["getText"]
-      126 CALL                             R22 3 1
-      127 MOVE                             R14 R22
-      128 JUMP                             ; [+8]
-      129 MOVE                             R22 R14
-      130 LOADK                            R23 K21 ["\n"]
-      131 LOADK                            R26 K19 ["AssetConfig"]
-      132 MOVE                             R27 R21
-      133 NAMECALL                         R24 R1 K20 ["getText"]
-      135 CALL                             R24 3 1
-      136 CONCAT                           R14 R22 R24
-      137 FORGLOOP                         R16 2 ; [-23]
-      139 JUMPIFEQKNIL                     R14 ; [+7]
-      141 MOVE                             R16 R14
-      142 GETUPVAL                         R17 1
-      143 MOVE                             R18 R6
-      144 MOVE                             R19 R1
-      145 CALL                             R17 2 1
-      146 CONCAT                           R14 R16 R17
-      147 GETUPVAL                         R16 2
-      148 CALL                             R16 0 1
-      149 JUMPIFNOT                        R16 ; [+16]
-      150 GETUPVAL                         R17 3
-      151 GETTABLEKS                       R16 R17 K22 ["UGCUploadRequestBundleCreationStatusEvent"]
-      153 GETUPVAL                         R19 3
-      154 GETTABLEKS                       R18 R19 K23 ["Status"]
-      156 GETTABLEKS                       R17 R18 K24 ["Failure"]
-      158 MOVE                             R18 R3
-      159 MOVE                             R19 R4
-      160 MOVE                             R20 R5
-      161 LOADNIL                          R21
-      162 GETUPVAL                         R22 4
-      163 MOVE                             R23 R2
-      164 CALL                             R22 1 1
-      165 CALL                             R16 6 0
-      166 GETUPVAL                         R17 5
-      167 GETTABLEKS                       R16 R17 K25 ["shouldDebugWarnings"]
-      169 CALL                             R16 0 1
-      170 JUMPIFNOT                        R16 ; [+5]
-      171 GETIMPORT                        R16 K27 [warn]
-      173 LOADK                            R17 K28 ["Could not create UGC Bundle and received response:"]
-      174 MOVE                             R18 R2
-      175 CALL                             R16 2 0
-      176 JUMPIFEQKNIL                     R14 ; [+8]
-      178 GETUPVAL                         R18 6
-      179 MOVE                             R19 R14
-      180 CALL                             R18 1 -1
-      181 NAMECALL                         R16 R0 K29 ["dispatch"]
-      183 CALL                             R16 -1 0
-      184 JUMP                             ; [+16]
-      185 GETUPVAL                         R18 6
-      186 LOADK                            R24 K19 ["AssetConfig"]
-      187 LOADK                            R25 K30 ["CreateBundleGenericError"]
-      188 NAMECALL                         R22 R1 K20 ["getText"]
-      190 CALL                             R22 3 1
-      191 MOVE                             R20 R22
-      192 GETUPVAL                         R21 1
-      193 MOVE                             R22 R6
-      194 MOVE                             R23 R1
-      195 CALL                             R21 2 1
-      196 CONCAT                           R19 R20 R21
-      197 CALL                             R18 1 -1
-      198 NAMECALL                         R16 R0 K29 ["dispatch"]
-      200 CALL                             R16 -1 0
-      201 GETUPVAL                         R18 7
-      202 LOADB                            R19 0
-      203 CALL                             R18 1 -1
-      204 NAMECALL                         R16 R0 K29 ["dispatch"]
-      206 CALL                             R16 -1 0
-      207 RETURN                           R0 0
+       12 LOADK                            R8 K5 ["CreateBundleInvalidBundleDescription"]
+       13 SETTABLEN                        R8 R7 7
+       14 LOADK                            R8 K6 ["CreateBundleGroupCreatorNotSupported"]
+       15 SETTABLEN                        R8 R7 11
+       16 LOADK                            R8 K7 ["CreateBundleInvalidCreationFee"]
+       17 SETTABLEN                        R8 R7 13
+       18 NEWTABLE                         R8 1 0
+       20 LOADN                            R9 0
+       21 LOADK                            R10 K8 ["CreateBundleAuthorizationDenied"]
+       22 SETTABLE                         R10 R8 R9
+       23 NEWTABLE                         R9 4 0
+       25 LOADN                            R10 0
+       26 LOADK                            R11 K9 ["CreateBundleTokenValidationFailed"]
+       27 SETTABLE                         R11 R9 R10
+       28 LOADK                            R10 K10 ["CreateBundleItemNotAllowedInBundle"]
+       29 SETTABLEN                        R10 R9 9
+       30 LOADK                            R10 K11 ["CreateBundleCreatorMismatch"]
+       31 SETTABLEN                        R10 R9 12
+       32 NEWTABLE                         R10 1 0
+       34 LOADK                            R11 K12 ["CreateBundleInvalidState"]
+       35 SETTABLEN                        R11 R10 10
+       36 NEWTABLE                         R11 1 0
+       38 LOADK                            R12 K13 ["CreateBundleUnsupportedBundleType"]
+       39 SETTABLEN                        R12 R11 8
+       40 NEWTABLE                         R12 0 1
+       42 LOADK                            R13 K14 ["CreateBundleServiceUnavailable"]
+       43 SETTABLEN                        R13 R12 1
+       44 NEWTABLE                         R13 8 0
+       46 LOADN                            R14 144
+       47 SETTABLE                         R7 R13 R14
+       48 LOADN                            R14 145
+       49 SETTABLE                         R8 R13 R14
+       50 LOADN                            R14 147
+       51 SETTABLE                         R9 R13 R14
+       52 LOADN                            R14 156
+       53 SETTABLE                         R10 R13 R14
+       54 LOADN                            R14 245
+       55 SETTABLE                         R11 R13 R14
+       56 LOADN                            R14 247
+       57 SETTABLE                         R12 R13 R14
+       58 LOADNIL                          R14
+       59 GETTABLEKS                       R16 R2 K15 ["StatusCode"]
+       61 GETTABLE                         R15 R13 R16
+       62 JUMPIFEQKNIL                     R15 ; [+50]
+       64 GETTABLEKS                       R16 R2 K16 ["Body"]
+       66 JUMPIFEQKNIL                     R16 ; [+46]
+       68 GETTABLEKS                       R17 R2 K16 ["Body"]
+       70 GETTABLEKS                       R16 R17 K17 ["errors"]
+       72 JUMPIFEQKNIL                     R16 ; [+40]
+       74 GETTABLEKS                       R19 R2 K16 ["Body"]
+       76 GETTABLEKS                       R16 R19 K17 ["errors"]
+       78 LOADNIL                          R17
+       79 LOADNIL                          R18
+       80 FORGPREP                         R16
+       81 GETTABLEKS                       R22 R20 K18 ["code"]
+       83 GETTABLE                         R21 R15 R22
+       84 JUMPIFEQKNIL                     R21 ; [+18]
+       86 JUMPIFNOTEQKNIL                  R14 ; [+8]
+       88 LOADK                            R24 K19 ["AssetConfig"]
+       89 MOVE                             R25 R21
+       90 NAMECALL                         R22 R1 K20 ["getText"]
+       92 CALL                             R22 3 1
+       93 MOVE                             R14 R22
+       94 JUMP                             ; [+8]
+       95 MOVE                             R22 R14
+       96 LOADK                            R23 K21 ["\n"]
+       97 LOADK                            R26 K19 ["AssetConfig"]
+       98 MOVE                             R27 R21
+       99 NAMECALL                         R24 R1 K20 ["getText"]
+      101 CALL                             R24 3 1
+      102 CONCAT                           R14 R22 R24
+      103 FORGLOOP                         R16 2 ; [-23]
+      105 JUMPIFEQKNIL                     R14 ; [+7]
+      107 MOVE                             R16 R14
+      108 GETUPVAL                         R17 0
+      109 MOVE                             R18 R6
+      110 MOVE                             R19 R1
+      111 CALL                             R17 2 1
+      112 CONCAT                           R14 R16 R17
+      113 GETUPVAL                         R16 1
+      114 CALL                             R16 0 1
+      115 JUMPIFNOT                        R16 ; [+16]
+      116 GETUPVAL                         R17 2
+      117 GETTABLEKS                       R16 R17 K22 ["UGCUploadRequestBundleCreationStatusEvent"]
+      119 GETUPVAL                         R19 2
+      120 GETTABLEKS                       R18 R19 K23 ["Status"]
+      122 GETTABLEKS                       R17 R18 K24 ["Failure"]
+      124 MOVE                             R18 R3
+      125 MOVE                             R19 R4
+      126 MOVE                             R20 R5
+      127 LOADNIL                          R21
+      128 GETUPVAL                         R22 3
+      129 MOVE                             R23 R2
+      130 CALL                             R22 1 1
+      131 CALL                             R16 6 0
+      132 GETUPVAL                         R17 4
+      133 GETTABLEKS                       R16 R17 K25 ["shouldDebugWarnings"]
+      135 CALL                             R16 0 1
+      136 JUMPIFNOT                        R16 ; [+5]
+      137 GETIMPORT                        R16 K27 [warn]
+      139 LOADK                            R17 K28 ["Could not create UGC Bundle and received response:"]
+      140 MOVE                             R18 R2
+      141 CALL                             R16 2 0
+      142 JUMPIFEQKNIL                     R14 ; [+8]
+      144 GETUPVAL                         R18 5
+      145 MOVE                             R19 R14
+      146 CALL                             R18 1 -1
+      147 NAMECALL                         R16 R0 K29 ["dispatch"]
+      149 CALL                             R16 -1 0
+      150 JUMP                             ; [+16]
+      151 GETUPVAL                         R18 5
+      152 LOADK                            R24 K19 ["AssetConfig"]
+      153 LOADK                            R25 K30 ["CreateBundleGenericError"]
+      154 NAMECALL                         R22 R1 K20 ["getText"]
+      156 CALL                             R22 3 1
+      157 MOVE                             R20 R22
+      158 GETUPVAL                         R21 0
+      159 MOVE                             R22 R6
+      160 MOVE                             R23 R1
+      161 CALL                             R21 2 1
+      162 CONCAT                           R19 R20 R21
+      163 CALL                             R18 1 -1
+      164 NAMECALL                         R16 R0 K29 ["dispatch"]
+      166 CALL                             R16 -1 0
+      167 GETUPVAL                         R18 6
+      168 LOADB                            R19 0
+      169 CALL                             R18 1 -1
+      170 NAMECALL                         R16 R0 K29 ["dispatch"]
+      172 CALL                             R16 -1 0
+      173 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R2 0
@@ -314,95 +280,62 @@ PROTO_3:
        99 MOVE                             R10 R1
       100 CALL                             R9 1 1
       101 CALL                             R2 7 0
-      102 GETUPVAL                         R2 16
-      103 JUMPIFNOT                        R2 ; [+60]
-      104 GETUPVAL                         R3 9
-      105 GETTABLEKS                       R2 R3 K11 ["shouldDebugWarnings"]
-      107 CALL                             R2 0 1
-      108 JUMPIFNOT                        R2 ; [+5]
-      109 GETIMPORT                        R2 K13 [warn]
-      111 LOADK                            R3 K16 ["UGC bundled creation failed and returned the response body:"]
-      112 MOVE                             R4 R1
-      113 CALL                             R2 2 0
-      114 GETUPVAL                         R2 0
-      115 GETUPVAL                         R4 17
-      116 GETUPVAL                         R6 18
-      117 JUMPIFEQKNIL                     R6 ; [+23]
-      119 GETUPVAL                         R7 18
-      120 GETTABLEKS                       R8 R1 K17 ["status"]
-      122 GETTABLE                         R6 R7 R8
-      123 JUMPIFEQKNIL                     R6 ; [+17]
-      125 GETUPVAL                         R8 2
-      126 LOADK                            R10 K0 ["AssetConfig"]
-      127 GETUPVAL                         R12 18
-      128 GETTABLEKS                       R13 R1 K17 ["status"]
-      130 GETTABLE                         R11 R12 R13
-      131 NAMECALL                         R8 R8 K5 ["getText"]
-      133 CALL                             R8 3 1
-      134 MOVE                             R6 R8
-      135 GETUPVAL                         R7 19
-      136 GETUPVAL                         R8 20
-      137 GETUPVAL                         R9 2
-      138 CALL                             R7 2 1
-      139 CONCAT                           R5 R6 R7
-      140 JUMP                             ; [+18]
-      141 GETUPVAL                         R8 2
-      142 LOADK                            R10 K0 ["AssetConfig"]
-      143 LOADK                            R11 K18 ["ValidationErrorUnknown"]
-      144 NAMECALL                         R8 R8 K5 ["getText"]
-      146 CALL                             R8 3 1
-      147 MOVE                             R6 R8
-      148 GETUPVAL                         R7 19
-      149 GETUPVAL                         R8 20
-      150 GETUPVAL                         R9 2
-      151 GETUPVAL                         R11 21
-      152 CALL                             R11 0 1
-      153 JUMPIFNOT                        R11 ; [+2]
-      154 LOADB                            R10 1
-      155 JUMP                             ; [+1]
-      156 LOADNIL                          R10
-      157 CALL                             R7 3 1
-      158 CONCAT                           R5 R6 R7
+      102 GETUPVAL                         R3 9
+      103 GETTABLEKS                       R2 R3 K11 ["shouldDebugWarnings"]
+      105 CALL                             R2 0 1
+      106 JUMPIFNOT                        R2 ; [+5]
+      107 GETIMPORT                        R2 K13 [warn]
+      109 LOADK                            R3 K16 ["UGC bundled creation failed and returned the response body:"]
+      110 MOVE                             R4 R1
+      111 CALL                             R2 2 0
+      112 GETUPVAL                         R2 0
+      113 GETUPVAL                         R4 16
+      114 GETUPVAL                         R6 17
+      115 JUMPIFEQKNIL                     R6 ; [+23]
+      117 GETUPVAL                         R7 17
+      118 GETTABLEKS                       R8 R1 K17 ["status"]
+      120 GETTABLE                         R6 R7 R8
+      121 JUMPIFEQKNIL                     R6 ; [+17]
+      123 GETUPVAL                         R8 2
+      124 LOADK                            R10 K0 ["AssetConfig"]
+      125 GETUPVAL                         R12 17
+      126 GETTABLEKS                       R13 R1 K17 ["status"]
+      128 GETTABLE                         R11 R12 R13
+      129 NAMECALL                         R8 R8 K5 ["getText"]
+      131 CALL                             R8 3 1
+      132 MOVE                             R6 R8
+      133 GETUPVAL                         R7 18
+      134 GETUPVAL                         R8 19
+      135 GETUPVAL                         R9 2
+      136 CALL                             R7 2 1
+      137 CONCAT                           R5 R6 R7
+      138 JUMP                             ; [+13]
+      139 GETUPVAL                         R8 2
+      140 LOADK                            R10 K0 ["AssetConfig"]
+      141 LOADK                            R11 K18 ["ValidationErrorUnknown"]
+      142 NAMECALL                         R8 R8 K5 ["getText"]
+      144 CALL                             R8 3 1
+      145 MOVE                             R6 R8
+      146 GETUPVAL                         R7 18
+      147 GETUPVAL                         R8 19
+      148 GETUPVAL                         R9 2
+      149 LOADB                            R10 1
+      150 CALL                             R7 3 1
+      151 CONCAT                           R5 R6 R7
+      152 CALL                             R4 1 -1
+      153 NAMECALL                         R2 R2 K7 ["dispatch"]
+      155 CALL                             R2 -1 0
+      156 GETUPVAL                         R2 0
+      157 GETUPVAL                         R4 14
+      158 LOADB                            R5 0
       159 CALL                             R4 1 -1
       160 NAMECALL                         R2 R2 K7 ["dispatch"]
       162 CALL                             R2 -1 0
-      163 JUMP                             ; [+27]
-      164 GETUPVAL                         R2 0
-      165 GETUPVAL                         R4 17
-      166 JUMPIFNOT                        R1 ; [+2]
-      167 MOVE                             R5 R1
-      168 JUMP                             ; [+18]
-      169 GETUPVAL                         R8 2
-      170 LOADK                            R10 K0 ["AssetConfig"]
-      171 LOADK                            R11 K18 ["ValidationErrorUnknown"]
-      172 NAMECALL                         R8 R8 K5 ["getText"]
-      174 CALL                             R8 3 1
-      175 MOVE                             R6 R8
-      176 GETUPVAL                         R7 19
-      177 GETUPVAL                         R8 20
-      178 GETUPVAL                         R9 2
-      179 GETUPVAL                         R11 21
-      180 CALL                             R11 0 1
-      181 JUMPIFNOT                        R11 ; [+2]
-      182 LOADB                            R10 1
-      183 JUMP                             ; [+1]
-      184 LOADNIL                          R10
-      185 CALL                             R7 3 1
-      186 CONCAT                           R5 R6 R7
-      187 CALL                             R4 1 -1
-      188 NAMECALL                         R2 R2 K7 ["dispatch"]
-      190 CALL                             R2 -1 0
-      191 GETUPVAL                         R2 0
-      192 GETUPVAL                         R4 14
-      193 LOADB                            R5 0
-      194 CALL                             R4 1 -1
-      195 NAMECALL                         R2 R2 K7 ["dispatch"]
-      197 CALL                             R2 -1 0
-      198 RETURN                           R0 0
+      163 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["creationStatusId"]
-        2 JUMPIFNOT                        R1 ; [+100]
+        2 JUMPIFNOT                        R1 ; [+98]
         3 GETUPVAL                         R2 0
         4 CALL                             R2 0 1
         5 JUMPIFNOT                        R2 ; [+13]
@@ -483,53 +416,51 @@ PROTO_4:
        93 CAPTURE                          UPVAL U17
        94 CAPTURE                          UPVAL U18
        95 CAPTURE                          UPVAL U19
-       96 CAPTURE                          UPVAL U20
-       97 CAPTURE                          UPVAL U21
-       98 CALL                             R4 3 -1
-       99 NAMECALL                         R2 R2 K16 ["dispatch"]
-      101 CALL                             R2 -1 0
-      102 RETURN                           R0 0
-      103 GETUPVAL                         R2 0
-      104 CALL                             R2 0 1
-      105 JUMPIFNOT                        R2 ; [+16]
-      106 GETUPVAL                         R3 1
-      107 GETTABLEKS                       R2 R3 K1 ["UGCUploadRequestBundleCreationStatusEvent"]
-      109 GETUPVAL                         R5 1
-      110 GETTABLEKS                       R4 R5 K2 ["Status"]
-      112 GETTABLEKS                       R3 R4 K19 ["Failure"]
-      114 GETUPVAL                         R4 2
-      115 GETUPVAL                         R5 3
-      116 GETUPVAL                         R6 4
-      117 LOADNIL                          R7
-      118 GETUPVAL                         R8 15
-      119 MOVE                             R9 R0
-      120 CALL                             R8 1 1
-      121 CALL                             R2 6 0
-      122 GETUPVAL                         R3 5
-      123 GETTABLEKS                       R2 R3 K4 ["shouldDebugWarnings"]
-      125 CALL                             R2 0 1
-      126 JUMPIFNOT                        R2 ; [+5]
-      127 GETIMPORT                        R2 K6 [warn]
-      129 LOADK                            R3 K20 ["Unexpected UGCCreateBundleRequest respoonse:"]
-      130 MOVE                             R4 R0
-      131 CALL                             R2 2 0
-      132 GETUPVAL                         R2 6
-      133 GETUPVAL                         R4 17
-      134 GETUPVAL                         R5 8
-      135 LOADK                            R7 K9 ["AssetConfig"]
-      136 LOADK                            R8 K21 ["CreateBundleGenericError"]
-      137 NAMECALL                         R5 R5 K14 ["getText"]
-      139 CALL                             R5 3 -1
-      140 CALL                             R4 -1 -1
-      141 NAMECALL                         R2 R2 K16 ["dispatch"]
-      143 CALL                             R2 -1 0
-      144 GETUPVAL                         R2 6
-      145 GETUPVAL                         R4 14
-      146 LOADB                            R5 0
-      147 CALL                             R4 1 -1
-      148 NAMECALL                         R2 R2 K16 ["dispatch"]
-      150 CALL                             R2 -1 0
-      151 RETURN                           R0 0
+       96 CALL                             R4 3 -1
+       97 NAMECALL                         R2 R2 K16 ["dispatch"]
+       99 CALL                             R2 -1 0
+      100 RETURN                           R0 0
+      101 GETUPVAL                         R2 0
+      102 CALL                             R2 0 1
+      103 JUMPIFNOT                        R2 ; [+16]
+      104 GETUPVAL                         R3 1
+      105 GETTABLEKS                       R2 R3 K1 ["UGCUploadRequestBundleCreationStatusEvent"]
+      107 GETUPVAL                         R5 1
+      108 GETTABLEKS                       R4 R5 K2 ["Status"]
+      110 GETTABLEKS                       R3 R4 K19 ["Failure"]
+      112 GETUPVAL                         R4 2
+      113 GETUPVAL                         R5 3
+      114 GETUPVAL                         R6 4
+      115 LOADNIL                          R7
+      116 GETUPVAL                         R8 15
+      117 MOVE                             R9 R0
+      118 CALL                             R8 1 1
+      119 CALL                             R2 6 0
+      120 GETUPVAL                         R3 5
+      121 GETTABLEKS                       R2 R3 K4 ["shouldDebugWarnings"]
+      123 CALL                             R2 0 1
+      124 JUMPIFNOT                        R2 ; [+5]
+      125 GETIMPORT                        R2 K6 [warn]
+      127 LOADK                            R3 K20 ["Unexpected UGCCreateBundleRequest respoonse:"]
+      128 MOVE                             R4 R0
+      129 CALL                             R2 2 0
+      130 GETUPVAL                         R2 6
+      131 GETUPVAL                         R4 16
+      132 GETUPVAL                         R5 8
+      133 LOADK                            R7 K9 ["AssetConfig"]
+      134 LOADK                            R8 K21 ["CreateBundleGenericError"]
+      135 NAMECALL                         R5 R5 K14 ["getText"]
+      137 CALL                             R5 3 -1
+      138 CALL                             R4 -1 -1
+      139 NAMECALL                         R2 R2 K16 ["dispatch"]
+      141 CALL                             R2 -1 0
+      142 GETUPVAL                         R2 6
+      143 GETUPVAL                         R4 14
+      144 LOADB                            R5 0
+      145 CALL                             R4 1 -1
+      146 NAMECALL                         R2 R2 K16 ["dispatch"]
+      148 CALL                             R2 -1 0
+      149 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -614,67 +545,65 @@ PROTO_6:
        64 CAPTURE                          UPVAL U14
        65 CAPTURE                          UPVAL U15
        66 CAPTURE                          UPVAL U16
-       67 CAPTURE                          UPVAL U17
-       68 CAPTURE                          VAL R1
+       67 CAPTURE                          VAL R1
+       68 CAPTURE                          UPVAL U17
        69 CAPTURE                          UPVAL U18
-       70 CAPTURE                          UPVAL U19
-       71 CAPTURE                          UPVAL U20
-       72 NEWCLOSURE                       R5 P1
-       73 CAPTURE                          UPVAL U0
-       74 CAPTURE                          UPVAL U21
-       75 CAPTURE                          VAL R0
-       76 CAPTURE                          UPVAL U8
-       77 CAPTURE                          REF R2
-       78 CAPTURE                          UPVAL U5
-       79 CAPTURE                          VAL R3
-       80 CAPTURE                          UPVAL U19
-       81 GETUPVAL                         R8 7
-       82 LOADK                            R9 K12 [0.85]
-       83 GETUPVAL                         R10 8
-       84 LOADK                            R12 K13 ["AssetConfig"]
-       85 LOADK                            R13 K14 ["BundleUploadStepNumber"]
-       86 DUPTABLE                         R14 K17 [{"currentStep", "totalSteps"}]
-       87 LOADN                            R15 3
-       88 SETTABLEKS                       R15 R14 K15 ["currentStep"]
-       90 LOADN                            R15 4
-       91 SETTABLEKS                       R15 R14 K16 ["totalSteps"]
-       93 NAMECALL                         R10 R10 K18 ["getText"]
-       95 CALL                             R10 4 1
-       96 GETUPVAL                         R11 8
-       97 LOADK                            R13 K13 ["AssetConfig"]
-       98 LOADK                            R14 K19 ["BundleUploadCreateBundleStep"]
-       99 NAMECALL                         R11 R11 K18 ["getText"]
-      101 CALL                             R11 3 -1
-      102 CALL                             R8 -1 -1
-      103 NAMECALL                         R6 R0 K20 ["dispatch"]
-      105 CALL                             R6 -1 0
-      106 GETUPVAL                         R6 0
-      107 CALL                             R6 0 1
-      108 JUMPIFNOT                        R6 ; [+12]
-      109 GETUPVAL                         R7 4
-      110 GETTABLEKS                       R6 R7 K21 ["UGCUploadRequestBundleCreationStatusEvent"]
-      112 GETUPVAL                         R9 4
-      113 GETTABLEKS                       R8 R9 K22 ["Status"]
-      115 GETTABLEKS                       R7 R8 K23 ["Start"]
-      117 MOVE                             R8 R2
-      118 GETUPVAL                         R9 5
-      119 MOVE                             R10 R3
-      120 CALL                             R6 4 0
-      121 GETUPVAL                         R6 10
-      122 GETUPVAL                         R8 2
-      123 GETUPVAL                         R9 22
-      124 GETUPVAL                         R10 23
-      125 GETUPVAL                         R11 3
-      126 GETUPVAL                         R12 5
-      127 GETUPVAL                         R13 19
-      128 NAMECALL                         R6 R6 K24 ["postCreateBundle"]
-      130 CALL                             R6 7 1
-      131 MOVE                             R8 R4
-      132 MOVE                             R9 R5
-      133 NAMECALL                         R6 R6 K25 ["andThen"]
-      135 CALL                             R6 3 -1
-      136 CLOSEUPVALS                      R2
-      137 RETURN                           R6 -1
+       70 NEWCLOSURE                       R5 P1
+       71 CAPTURE                          UPVAL U0
+       72 CAPTURE                          UPVAL U19
+       73 CAPTURE                          VAL R0
+       74 CAPTURE                          UPVAL U8
+       75 CAPTURE                          REF R2
+       76 CAPTURE                          UPVAL U5
+       77 CAPTURE                          VAL R3
+       78 CAPTURE                          UPVAL U18
+       79 GETUPVAL                         R8 7
+       80 LOADK                            R9 K12 [0.85]
+       81 GETUPVAL                         R10 8
+       82 LOADK                            R12 K13 ["AssetConfig"]
+       83 LOADK                            R13 K14 ["BundleUploadStepNumber"]
+       84 DUPTABLE                         R14 K17 [{"currentStep", "totalSteps"}]
+       85 LOADN                            R15 3
+       86 SETTABLEKS                       R15 R14 K15 ["currentStep"]
+       88 LOADN                            R15 4
+       89 SETTABLEKS                       R15 R14 K16 ["totalSteps"]
+       91 NAMECALL                         R10 R10 K18 ["getText"]
+       93 CALL                             R10 4 1
+       94 GETUPVAL                         R11 8
+       95 LOADK                            R13 K13 ["AssetConfig"]
+       96 LOADK                            R14 K19 ["BundleUploadCreateBundleStep"]
+       97 NAMECALL                         R11 R11 K18 ["getText"]
+       99 CALL                             R11 3 -1
+      100 CALL                             R8 -1 -1
+      101 NAMECALL                         R6 R0 K20 ["dispatch"]
+      103 CALL                             R6 -1 0
+      104 GETUPVAL                         R6 0
+      105 CALL                             R6 0 1
+      106 JUMPIFNOT                        R6 ; [+12]
+      107 GETUPVAL                         R7 4
+      108 GETTABLEKS                       R6 R7 K21 ["UGCUploadRequestBundleCreationStatusEvent"]
+      110 GETUPVAL                         R9 4
+      111 GETTABLEKS                       R8 R9 K22 ["Status"]
+      113 GETTABLEKS                       R7 R8 K23 ["Start"]
+      115 MOVE                             R8 R2
+      116 GETUPVAL                         R9 5
+      117 MOVE                             R10 R3
+      118 CALL                             R6 4 0
+      119 GETUPVAL                         R6 10
+      120 GETUPVAL                         R8 2
+      121 GETUPVAL                         R9 20
+      122 GETUPVAL                         R10 21
+      123 GETUPVAL                         R11 3
+      124 GETUPVAL                         R12 5
+      125 GETUPVAL                         R13 18
+      126 NAMECALL                         R6 R6 K24 ["postCreateBundle"]
+      128 CALL                             R6 7 1
+      129 MOVE                             R8 R4
+      130 MOVE                             R9 R5
+      131 NAMECALL                         R6 R6 K25 ["andThen"]
+      133 CALL                             R6 3 -1
+      134 CLOSEUPVALS                      R2
+      135 RETURN                           R6 -1
 
 PROTO_7:
         0 NEWCLOSURE                       R9 P0
@@ -696,13 +625,11 @@ PROTO_7:
        16 CAPTURE                          UPVAL U9
        17 CAPTURE                          UPVAL U10
        18 CAPTURE                          UPVAL U11
-       19 CAPTURE                          UPVAL U12
-       20 CAPTURE                          VAL R7
-       21 CAPTURE                          UPVAL U13
-       22 CAPTURE                          UPVAL U14
-       23 CAPTURE                          VAL R2
-       24 CAPTURE                          VAL R3
-       25 RETURN                           R9 1
+       19 CAPTURE                          VAL R7
+       20 CAPTURE                          UPVAL U12
+       21 CAPTURE                          VAL R2
+       22 CAPTURE                          VAL R3
+       23 RETURN                           R9 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -746,46 +673,34 @@ MAIN:
        65 GETTABLEKS                       R14 R8 K19 ["SharedFlags"]
        67 GETTABLEKS                       R13 R14 K20 ["getFFlagEnableUGCUploadFlowAnalytics"]
        69 CALL                             R12 1 1
-       70 GETIMPORT                        R13 K22 [game]
-       72 LOADK                            R15 K23 ["EnableAddedCreateUGCBundleErrorCodes"]
-       73 LOADB                            R16 0
-       74 NAMECALL                         R13 R13 K24 ["DefineFastFlag"]
-       76 CALL                             R13 3 1
-       77 GETIMPORT                        R14 K7 [require]
-       79 GETTABLEKS                       R15 R6 K25 ["UGCBundleUploadDataSharingRequest"]
-       81 CALL                             R14 1 1
-       82 GETIMPORT                        R15 K7 [require]
-       84 GETTABLEKS                       R17 R8 K19 ["SharedFlags"]
-       86 GETTABLEKS                       R16 R17 K26 ["getFFlagEnableUnknownErrorCreatorDashboardMessage"]
-       88 CALL                             R15 1 1
-       89 GETIMPORT                        R16 K7 [require]
-       91 GETTABLEKS                       R17 R8 K27 ["getRobuxMessageToAppend"]
-       93 CALL                             R16 1 1
-       94 DUPCLOSURE                       R17 K28 [PROTO_0]
-       95 DUPCLOSURE                       R18 K29 [PROTO_1]
-       96 DUPCLOSURE                       R19 K30 [PROTO_2]
+       70 GETIMPORT                        R13 K7 [require]
+       72 GETTABLEKS                       R14 R6 K21 ["UGCBundleUploadDataSharingRequest"]
+       74 CALL                             R13 1 1
+       75 GETIMPORT                        R14 K7 [require]
+       77 GETTABLEKS                       R15 R8 K22 ["getRobuxMessageToAppend"]
+       79 CALL                             R14 1 1
+       80 DUPCLOSURE                       R15 K23 [PROTO_0]
+       81 DUPCLOSURE                       R16 K24 [PROTO_1]
+       82 DUPCLOSURE                       R17 K25 [PROTO_2]
+       83 CAPTURE                          VAL R14
+       84 CAPTURE                          VAL R12
+       85 CAPTURE                          VAL R9
+       86 CAPTURE                          VAL R15
+       87 CAPTURE                          VAL R11
+       88 CAPTURE                          VAL R2
+       89 CAPTURE                          VAL R5
+       90 DUPCLOSURE                       R18 K26 [PROTO_7]
+       91 CAPTURE                          VAL R12
+       92 CAPTURE                          VAL R10
+       93 CAPTURE                          VAL R9
+       94 CAPTURE                          VAL R11
+       95 CAPTURE                          VAL R4
+       96 CAPTURE                          VAL R7
        97 CAPTURE                          VAL R13
-       98 CAPTURE                          VAL R16
-       99 CAPTURE                          VAL R12
-      100 CAPTURE                          VAL R9
-      101 CAPTURE                          VAL R17
-      102 CAPTURE                          VAL R11
-      103 CAPTURE                          VAL R2
-      104 CAPTURE                          VAL R5
-      105 DUPCLOSURE                       R20 K31 [PROTO_7]
-      106 CAPTURE                          VAL R12
-      107 CAPTURE                          VAL R10
-      108 CAPTURE                          VAL R9
-      109 CAPTURE                          VAL R11
-      110 CAPTURE                          VAL R4
-      111 CAPTURE                          VAL R7
-      112 CAPTURE                          VAL R14
-      113 CAPTURE                          VAL R3
-      114 CAPTURE                          VAL R5
-      115 CAPTURE                          VAL R17
-      116 CAPTURE                          VAL R13
-      117 CAPTURE                          VAL R2
-      118 CAPTURE                          VAL R16
-      119 CAPTURE                          VAL R15
-      120 CAPTURE                          VAL R19
-      121 RETURN                           R20 1
+       98 CAPTURE                          VAL R3
+       99 CAPTURE                          VAL R5
+      100 CAPTURE                          VAL R15
+      101 CAPTURE                          VAL R2
+      102 CAPTURE                          VAL R14
+      103 CAPTURE                          VAL R17
+      104 RETURN                           R18 1

@@ -8,7 +8,9 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local AssetService = game:GetService("AssetService")
 local getFFlagUGCValidationAddPBRToSharedData = require(root.flags.getFFlagUGCValidationAddPBRToSharedData)
+local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local R15plusUtils = require(root.util.R15plusUtils)
+local getFFlagUGCValidationAddGeometryToExports = require(root.flags.getFFlagUGCValidationAddGeometryToExports)
 
 local RecreateSceneFromEditables = {}
 
@@ -131,6 +133,13 @@ function RecreateSceneFromEditables.createModelForGltfExport(sharedData: Types.S
 		if innerCageData then
 			local cageMesh = createCagePart(sceneMeshPart, renderMeshData, innerCageData, "InnerCage")
 			cageMesh.Parent = exportScene
+		end
+
+		if
+			getFFlagUGCValidationAddGeometryToExports()
+			and sharedData.uploadCategory == ValidationEnums.UploadCategory.FULL_BODY
+		then
+			sceneMeshPart.Name = `{meshName}_Geo`
 		end
 	end
 

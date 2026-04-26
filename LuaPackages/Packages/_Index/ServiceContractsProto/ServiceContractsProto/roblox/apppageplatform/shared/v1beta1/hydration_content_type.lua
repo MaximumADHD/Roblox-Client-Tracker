@@ -30,6 +30,10 @@ export type HydrationContentType =
 	| "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_CATEGORY"
 	| "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT"
 	| "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION"
+	| "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW"
+	| "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE"
+	| "HYDRATION_CONTENT_TYPE_USER"
+	| "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE"
 	| number -- Unknown
 
 messages.HydrationContentType = {
@@ -68,6 +72,14 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT"
 		elseif value == 16 then
 			return "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION"
+		elseif value == 17 then
+			return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW"
+		elseif value == 18 then
+			return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE"
+		elseif value == 19 then
+			return "HYDRATION_CONTENT_TYPE_USER"
+		elseif value == 20 then
+			return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE"
 		else
 			return nil
 		end
@@ -108,6 +120,14 @@ messages.HydrationContentType = {
 			return 15
 		elseif self == "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION" then
 			return 16
+		elseif self == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW" then
+			return 17
+		elseif self == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE" then
+			return 18
+		elseif self == "HYDRATION_CONTENT_TYPE_USER" then
+			return 19
+		elseif self == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE" then
+			return 20
 		else
 			return self
 		end
@@ -148,6 +168,14 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT"
 		elseif name == "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION" then
 			return "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION"
+		elseif name == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW" then
+			return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW"
+		elseif name == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE" then
+			return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE"
+		elseif name == "HYDRATION_CONTENT_TYPE_USER" then
+			return "HYDRATION_CONTENT_TYPE_USER"
+		elseif name == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE" then
+			return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE"
 		else
 			return nil
 		end

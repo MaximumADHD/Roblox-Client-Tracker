@@ -2251,58 +2251,6 @@ PROTO_77:
        34 CALL                             R7 4 0
        35 RETURN                           R0 0
 
-PROTO_78:
-        0 GETUPVAL                         R8 0
-        1 CALL                             R8 0 1
-        2 JUMPIFNOT                        R8 ; [+31]
-        3 GETUPVAL                         R9 1
-        4 GETTABLEKS                       R8 R9 K0 ["getWebViewTrackingAttributes"]
-        6 DUPTABLE                         R9 K9 [{"assetId", "addedCapabilities", "removedCapabilities", "currentCapabilities", "currentSandboxedValue", "instanceId", "instanceFullName", "telemetryOrigin"}]
-        7 SETTABLEKS                       R0 R9 K1 ["assetId"]
-        9 SETTABLEKS                       R1 R9 K2 ["addedCapabilities"]
-       11 SETTABLEKS                       R2 R9 K3 ["removedCapabilities"]
-       13 SETTABLEKS                       R3 R9 K4 ["currentCapabilities"]
-       15 SETTABLEKS                       R4 R9 K5 ["currentSandboxedValue"]
-       17 SETTABLEKS                       R5 R9 K6 ["instanceId"]
-       19 SETTABLEKS                       R6 R9 K7 ["instanceFullName"]
-       21 SETTABLEKS                       R7 R9 K8 ["telemetryOrigin"]
-       23 CALL                             R8 1 1
-       24 GETUPVAL                         R10 2
-       25 GETTABLEKS                       R9 R10 K10 ["sendEventDeferred"]
-       27 GETUPVAL                         R11 1
-       28 GETTABLEKS                       R10 R11 K11 ["eventTarget"]
-       30 LOADK                            R11 K12 ["toolbox"]
-       31 LOADK                            R12 K13 ["StoreAssetCapabilitiesChangedLua"]
-       32 MOVE                             R13 R8
-       33 CALL                             R9 4 0
-       34 RETURN                           R0 0
-
-PROTO_79:
-        0 GETUPVAL                         R8 0
-        1 CALL                             R8 0 1
-        2 JUMPIFNOT                        R8 ; [+31]
-        3 GETUPVAL                         R9 1
-        4 GETTABLEKS                       R8 R9 K0 ["getWebViewTrackingAttributes"]
-        6 DUPTABLE                         R9 K9 [{"assetId", "addedCapabilities", "removedCapabilities", "currentCapabilities", "currentSandboxedValue", "instanceId", "instanceFullName", "telemetryOrigin"}]
-        7 SETTABLEKS                       R0 R9 K1 ["assetId"]
-        9 SETTABLEKS                       R1 R9 K2 ["addedCapabilities"]
-       11 SETTABLEKS                       R2 R9 K3 ["removedCapabilities"]
-       13 SETTABLEKS                       R3 R9 K4 ["currentCapabilities"]
-       15 SETTABLEKS                       R4 R9 K5 ["currentSandboxedValue"]
-       17 SETTABLEKS                       R5 R9 K6 ["instanceId"]
-       19 SETTABLEKS                       R6 R9 K7 ["instanceFullName"]
-       21 SETTABLEKS                       R7 R9 K8 ["telemetryOrigin"]
-       23 CALL                             R8 1 1
-       24 GETUPVAL                         R10 2
-       25 GETTABLEKS                       R9 R10 K10 ["sendEventDeferred"]
-       27 GETUPVAL                         R11 1
-       28 GETTABLEKS                       R10 R11 K11 ["eventTarget"]
-       30 LOADK                            R11 K12 ["toolbox"]
-       31 LOADK                            R12 K13 ["StoreAssetSandboxChangedLua"]
-       32 MOVE                             R13 R8
-       33 CALL                             R9 4 0
-       34 RETURN                           R0 0
-
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R4 K1 [script]
@@ -2377,474 +2325,458 @@ MAIN:
       124 GETTABLEKS                       R16 R17 K22 ["SharedFlags"]
       126 GETTABLEKS                       R15 R16 K27 ["getFFlagToolboxRemoveWebViewIxp"]
       128 CALL                             R14 1 1
-      129 GETIMPORT                        R15 K5 [require]
-      131 GETTABLEKS                       R19 R0 K7 ["Src"]
-      133 GETTABLEKS                       R18 R19 K8 ["Util"]
-      135 GETTABLEKS                       R17 R18 K22 ["SharedFlags"]
-      137 GETTABLEKS                       R16 R17 K28 ["getFFlagToolboxCapabilities"]
-      139 CALL                             R15 1 1
-      140 GETIMPORT                        R16 K15 [game]
-      142 LOADK                            R18 K29 ["ToolboxNoLuaAITimer"]
-      143 LOADN                            R19 10
-      144 NAMECALL                         R16 R16 K30 ["DefineFastInt"]
-      146 CALL                             R16 3 1
-      147 GETIMPORT                        R17 K5 [require]
-      149 GETTABLEKS                       R20 R0 K7 ["Src"]
-      151 GETTABLEKS                       R19 R20 K8 ["Util"]
-      153 GETTABLEKS                       R18 R19 K31 ["getPlaceId"]
-      155 CALL                             R17 1 1
-      156 DUPCLOSURE                       R18 K32 [PROTO_1]
-      157 CAPTURE                          VAL R6
-      158 DUPCLOSURE                       R19 K33 [PROTO_3]
-      159 CAPTURE                          VAL R6
-      160 DUPCLOSURE                       R20 K34 [PROTO_4]
-      161 NEWTABLE                         R21 128 0
-      163 GETIMPORT                        R22 K15 [game]
-      165 LOADK                            R24 K35 ["RunService"]
-      166 NAMECALL                         R22 R22 K17 ["GetService"]
-      168 CALL                             R22 2 1
-      169 NAMECALL                         R22 R22 K36 ["IsEdit"]
-      171 CALL                             R22 1 1
-      172 DUPCLOSURE                       R23 K37 [PROTO_5]
-      173 CAPTURE                          VAL R22
-      174 SETTABLEKS                       R23 R21 K38 ["getIsEditMode"]
-      176 SETTABLEKS                       R17 R21 K31 ["getPlaceId"]
-      178 SETTABLEKS                       R20 R21 K39 ["getPlatformId"]
-      180 SETTABLEKS                       R19 R21 K40 ["getClientId"]
-      182 SETTABLEKS                       R18 R21 K41 ["getStudioSessionId"]
-      184 DUPCLOSURE                       R24 K42 [PROTO_6]
-      185 CAPTURE                          VAL R21
-      186 SETTABLEKS                       R24 R21 K43 ["setPluginUri"]
-      188 LOADB                            R26 0
-      189 NAMECALL                         R24 R7 K44 ["GenerateGUID"]
-      191 CALL                             R24 2 1
-      192 SETTABLEKS                       R24 R21 K45 ["toolboxSid"]
-      194 GETTABLEKS                       R25 R4 K46 ["ANALYTICS_TARGET"]
-      196 GETTABLEKS                       R24 R25 K47 ["Studio"]
-      198 SETTABLEKS                       R24 R21 K48 ["eventTarget"]
-      200 DUPTABLE                         R24 K60 [{"toolboxInitTimestamp", "storeTabOpenTimestamp", "firstStoreAssetImpressionEventFired", "firstLuaAssetImpressionEventFired", "retryShownEventFired", "didFallbackToLuaUi", "initialToolboxTab", "onWebViewTimingEventFired", "beforeInteractiveTimeMs", "afterInteractiveTimeMs", "loadSuccessTimeMs"}]
-      201 LOADNIL                          R25
-      202 SETTABLEKS                       R25 R24 K49 ["toolboxInitTimestamp"]
-      204 LOADNIL                          R25
-      205 SETTABLEKS                       R25 R24 K50 ["storeTabOpenTimestamp"]
-      207 LOADB                            R25 0
-      208 SETTABLEKS                       R25 R24 K51 ["firstStoreAssetImpressionEventFired"]
-      210 LOADB                            R25 0
-      211 SETTABLEKS                       R25 R24 K52 ["firstLuaAssetImpressionEventFired"]
-      213 LOADB                            R25 0
-      214 SETTABLEKS                       R25 R24 K53 ["retryShownEventFired"]
-      216 LOADB                            R25 0
-      217 SETTABLEKS                       R25 R24 K54 ["didFallbackToLuaUi"]
-      219 LOADNIL                          R25
-      220 SETTABLEKS                       R25 R24 K55 ["initialToolboxTab"]
-      222 LOADB                            R25 0
-      223 SETTABLEKS                       R25 R24 K56 ["onWebViewTimingEventFired"]
-      225 LOADNIL                          R25
-      226 SETTABLEKS                       R25 R24 K57 ["beforeInteractiveTimeMs"]
-      228 LOADNIL                          R25
-      229 SETTABLEKS                       R25 R24 K58 ["afterInteractiveTimeMs"]
-      231 LOADNIL                          R25
-      232 SETTABLEKS                       R25 R24 K59 ["loadSuccessTimeMs"]
-      234 SETTABLEKS                       R24 R21 K61 ["WebView"]
-      236 DUPCLOSURE                       R24 K62 [PROTO_7]
-      237 CAPTURE                          VAL R21
-      238 SETTABLEKS                       R24 R21 K63 ["setEventTarget"]
-      240 DUPCLOSURE                       R24 K64 [PROTO_8]
-      241 CAPTURE                          VAL R21
-      242 SETTABLEKS                       R24 R21 K65 ["getStudioMetadata"]
-      244 DUPCLOSURE                       R24 K66 [PROTO_9]
-      245 CAPTURE                          VAL R21
-      246 CAPTURE                          VAL R8
-      247 CAPTURE                          VAL R2
-      248 SETTABLEKS                       R24 R21 K67 ["getWebViewTrackingAttributes"]
-      250 DUPCLOSURE                       R24 K68 [PROTO_10]
-      251 CAPTURE                          VAL R21
-      252 CAPTURE                          VAL R3
-      253 CAPTURE                          VAL R4
-      254 SETTABLEKS                       R24 R21 K69 ["onRetryWebViewInit"]
-      256 DUPCLOSURE                       R24 K70 [PROTO_11]
-      257 CAPTURE                          VAL R21
-      258 CAPTURE                          VAL R3
-      259 CAPTURE                          VAL R4
-      260 SETTABLEKS                       R24 R21 K71 ["onWebViewRetryClicked"]
-      262 DUPCLOSURE                       R24 K72 [PROTO_12]
-      263 CAPTURE                          VAL R21
-      264 CAPTURE                          VAL R3
-      265 CAPTURE                          VAL R4
-      266 SETTABLEKS                       R24 R21 K73 ["onWebViewRetryShown"]
-      268 DUPCLOSURE                       R24 K74 [PROTO_13]
-      269 CAPTURE                          VAL R21
-      270 CAPTURE                          VAL R3
-      271 CAPTURE                          VAL R4
-      272 SETTABLEKS                       R24 R21 K75 ["onWebViewTimingEvent"]
-      274 DUPCLOSURE                       R24 K76 [PROTO_14]
-      275 CAPTURE                          VAL R21
-      276 CAPTURE                          VAL R3
-      277 CAPTURE                          VAL R4
-      278 SETTABLEKS                       R24 R21 K77 ["onWebViewInit"]
-      280 DUPCLOSURE                       R24 K78 [PROTO_15]
-      281 CAPTURE                          VAL R21
+      129 GETIMPORT                        R15 K15 [game]
+      131 LOADK                            R17 K28 ["ToolboxNoLuaAITimer"]
+      132 LOADN                            R18 10
+      133 NAMECALL                         R15 R15 K29 ["DefineFastInt"]
+      135 CALL                             R15 3 1
+      136 GETIMPORT                        R16 K5 [require]
+      138 GETTABLEKS                       R19 R0 K7 ["Src"]
+      140 GETTABLEKS                       R18 R19 K8 ["Util"]
+      142 GETTABLEKS                       R17 R18 K30 ["getPlaceId"]
+      144 CALL                             R16 1 1
+      145 DUPCLOSURE                       R17 K31 [PROTO_1]
+      146 CAPTURE                          VAL R6
+      147 DUPCLOSURE                       R18 K32 [PROTO_3]
+      148 CAPTURE                          VAL R6
+      149 DUPCLOSURE                       R19 K33 [PROTO_4]
+      150 NEWTABLE                         R20 128 0
+      152 GETIMPORT                        R21 K15 [game]
+      154 LOADK                            R23 K34 ["RunService"]
+      155 NAMECALL                         R21 R21 K17 ["GetService"]
+      157 CALL                             R21 2 1
+      158 NAMECALL                         R21 R21 K35 ["IsEdit"]
+      160 CALL                             R21 1 1
+      161 DUPCLOSURE                       R22 K36 [PROTO_5]
+      162 CAPTURE                          VAL R21
+      163 SETTABLEKS                       R22 R20 K37 ["getIsEditMode"]
+      165 SETTABLEKS                       R16 R20 K30 ["getPlaceId"]
+      167 SETTABLEKS                       R19 R20 K38 ["getPlatformId"]
+      169 SETTABLEKS                       R18 R20 K39 ["getClientId"]
+      171 SETTABLEKS                       R17 R20 K40 ["getStudioSessionId"]
+      173 DUPCLOSURE                       R23 K41 [PROTO_6]
+      174 CAPTURE                          VAL R20
+      175 SETTABLEKS                       R23 R20 K42 ["setPluginUri"]
+      177 LOADB                            R25 0
+      178 NAMECALL                         R23 R7 K43 ["GenerateGUID"]
+      180 CALL                             R23 2 1
+      181 SETTABLEKS                       R23 R20 K44 ["toolboxSid"]
+      183 GETTABLEKS                       R24 R4 K45 ["ANALYTICS_TARGET"]
+      185 GETTABLEKS                       R23 R24 K46 ["Studio"]
+      187 SETTABLEKS                       R23 R20 K47 ["eventTarget"]
+      189 DUPTABLE                         R23 K59 [{"toolboxInitTimestamp", "storeTabOpenTimestamp", "firstStoreAssetImpressionEventFired", "firstLuaAssetImpressionEventFired", "retryShownEventFired", "didFallbackToLuaUi", "initialToolboxTab", "onWebViewTimingEventFired", "beforeInteractiveTimeMs", "afterInteractiveTimeMs", "loadSuccessTimeMs"}]
+      190 LOADNIL                          R24
+      191 SETTABLEKS                       R24 R23 K48 ["toolboxInitTimestamp"]
+      193 LOADNIL                          R24
+      194 SETTABLEKS                       R24 R23 K49 ["storeTabOpenTimestamp"]
+      196 LOADB                            R24 0
+      197 SETTABLEKS                       R24 R23 K50 ["firstStoreAssetImpressionEventFired"]
+      199 LOADB                            R24 0
+      200 SETTABLEKS                       R24 R23 K51 ["firstLuaAssetImpressionEventFired"]
+      202 LOADB                            R24 0
+      203 SETTABLEKS                       R24 R23 K52 ["retryShownEventFired"]
+      205 LOADB                            R24 0
+      206 SETTABLEKS                       R24 R23 K53 ["didFallbackToLuaUi"]
+      208 LOADNIL                          R24
+      209 SETTABLEKS                       R24 R23 K54 ["initialToolboxTab"]
+      211 LOADB                            R24 0
+      212 SETTABLEKS                       R24 R23 K55 ["onWebViewTimingEventFired"]
+      214 LOADNIL                          R24
+      215 SETTABLEKS                       R24 R23 K56 ["beforeInteractiveTimeMs"]
+      217 LOADNIL                          R24
+      218 SETTABLEKS                       R24 R23 K57 ["afterInteractiveTimeMs"]
+      220 LOADNIL                          R24
+      221 SETTABLEKS                       R24 R23 K58 ["loadSuccessTimeMs"]
+      223 SETTABLEKS                       R23 R20 K60 ["WebView"]
+      225 DUPCLOSURE                       R23 K61 [PROTO_7]
+      226 CAPTURE                          VAL R20
+      227 SETTABLEKS                       R23 R20 K62 ["setEventTarget"]
+      229 DUPCLOSURE                       R23 K63 [PROTO_8]
+      230 CAPTURE                          VAL R20
+      231 SETTABLEKS                       R23 R20 K64 ["getStudioMetadata"]
+      233 DUPCLOSURE                       R23 K65 [PROTO_9]
+      234 CAPTURE                          VAL R20
+      235 CAPTURE                          VAL R8
+      236 CAPTURE                          VAL R2
+      237 SETTABLEKS                       R23 R20 K66 ["getWebViewTrackingAttributes"]
+      239 DUPCLOSURE                       R23 K67 [PROTO_10]
+      240 CAPTURE                          VAL R20
+      241 CAPTURE                          VAL R3
+      242 CAPTURE                          VAL R4
+      243 SETTABLEKS                       R23 R20 K68 ["onRetryWebViewInit"]
+      245 DUPCLOSURE                       R23 K69 [PROTO_11]
+      246 CAPTURE                          VAL R20
+      247 CAPTURE                          VAL R3
+      248 CAPTURE                          VAL R4
+      249 SETTABLEKS                       R23 R20 K70 ["onWebViewRetryClicked"]
+      251 DUPCLOSURE                       R23 K71 [PROTO_12]
+      252 CAPTURE                          VAL R20
+      253 CAPTURE                          VAL R3
+      254 CAPTURE                          VAL R4
+      255 SETTABLEKS                       R23 R20 K72 ["onWebViewRetryShown"]
+      257 DUPCLOSURE                       R23 K73 [PROTO_13]
+      258 CAPTURE                          VAL R20
+      259 CAPTURE                          VAL R3
+      260 CAPTURE                          VAL R4
+      261 SETTABLEKS                       R23 R20 K74 ["onWebViewTimingEvent"]
+      263 DUPCLOSURE                       R23 K75 [PROTO_14]
+      264 CAPTURE                          VAL R20
+      265 CAPTURE                          VAL R3
+      266 CAPTURE                          VAL R4
+      267 SETTABLEKS                       R23 R20 K76 ["onWebViewInit"]
+      269 DUPCLOSURE                       R23 K77 [PROTO_15]
+      270 CAPTURE                          VAL R20
+      271 CAPTURE                          VAL R3
+      272 CAPTURE                          VAL R4
+      273 SETTABLEKS                       R23 R20 K78 ["onFallbackToLuaUi"]
+      275 DUPCLOSURE                       R23 K79 [PROTO_16]
+      276 CAPTURE                          VAL R20
+      277 SETTABLEKS                       R23 R20 K80 ["setInitialToolboxTab"]
+      279 DUPCLOSURE                       R23 K81 [PROTO_18]
+      280 CAPTURE                          VAL R20
+      281 CAPTURE                          VAL R15
       282 CAPTURE                          VAL R3
       283 CAPTURE                          VAL R4
-      284 SETTABLEKS                       R24 R21 K79 ["onFallbackToLuaUi"]
-      286 DUPCLOSURE                       R24 K80 [PROTO_16]
-      287 CAPTURE                          VAL R21
-      288 SETTABLEKS                       R24 R21 K81 ["setInitialToolboxTab"]
-      290 DUPCLOSURE                       R24 K82 [PROTO_18]
-      291 CAPTURE                          VAL R21
-      292 CAPTURE                          VAL R16
-      293 CAPTURE                          VAL R3
-      294 CAPTURE                          VAL R4
-      295 SETTABLEKS                       R24 R21 K83 ["setToolboxInitTimestamp"]
-      297 DUPCLOSURE                       R24 K84 [PROTO_19]
-      298 CAPTURE                          VAL R21
-      299 SETTABLEKS                       R24 R21 K85 ["onStoreTabOpened"]
-      301 DUPCLOSURE                       R24 K86 [PROTO_20]
-      302 CAPTURE                          VAL R21
-      303 SETTABLEKS                       R24 R21 K87 ["logFirstLuaAssetImpression"]
-      305 DUPCLOSURE                       R24 K88 [PROTO_21]
-      306 CAPTURE                          VAL R21
-      307 CAPTURE                          VAL R3
-      308 CAPTURE                          VAL R4
-      309 SETTABLEKS                       R24 R21 K89 ["logFirstStoreAssetImpression"]
-      311 DUPCLOSURE                       R24 K90 [PROTO_22]
-      312 CAPTURE                          VAL R21
-      313 CAPTURE                          VAL R3
-      314 SETTABLEKS                       R24 R21 K91 ["onToolboxTabChanged"]
-      316 MOVE                             R24 R12
-      317 CALL                             R24 0 1
-      318 JUMPIFNOT                        R24 ; [+12]
-      319 DUPTABLE                         R24 K95 [{"Start", "Success", "Failure"}]
-      320 LOADK                            R25 K92 ["Start"]
-      321 SETTABLEKS                       R25 R24 K92 ["Start"]
-      323 LOADK                            R25 K93 ["Success"]
-      324 SETTABLEKS                       R25 R24 K93 ["Success"]
-      326 LOADK                            R25 K94 ["Failure"]
-      327 SETTABLEKS                       R25 R24 K94 ["Failure"]
-      329 SETTABLEKS                       R24 R21 K96 ["Status"]
-      331 DUPCLOSURE                       R24 K97 [PROTO_23]
-      332 CAPTURE                          VAL R3
-      333 CAPTURE                          VAL R21
-      334 CAPTURE                          VAL R6
-      335 CAPTURE                          VAL R8
-      336 CAPTURE                          VAL R22
-      337 SETTABLEKS                       R24 R21 K98 ["onTermSearchedWithoutInsertion"]
-      339 DUPCLOSURE                       R24 K99 [PROTO_24]
-      340 CAPTURE                          VAL R3
-      341 CAPTURE                          VAL R21
-      342 CAPTURE                          VAL R6
-      343 CAPTURE                          VAL R8
-      344 CAPTURE                          VAL R10
-      345 CAPTURE                          VAL R22
-      346 SETTABLEKS                       R24 R21 K100 ["onCreatorSearched"]
-      348 DUPCLOSURE                       R24 K101 [PROTO_25]
-      349 CAPTURE                          VAL R3
+      284 SETTABLEKS                       R23 R20 K82 ["setToolboxInitTimestamp"]
+      286 DUPCLOSURE                       R23 K83 [PROTO_19]
+      287 CAPTURE                          VAL R20
+      288 SETTABLEKS                       R23 R20 K84 ["onStoreTabOpened"]
+      290 DUPCLOSURE                       R23 K85 [PROTO_20]
+      291 CAPTURE                          VAL R20
+      292 SETTABLEKS                       R23 R20 K86 ["logFirstLuaAssetImpression"]
+      294 DUPCLOSURE                       R23 K87 [PROTO_21]
+      295 CAPTURE                          VAL R20
+      296 CAPTURE                          VAL R3
+      297 CAPTURE                          VAL R4
+      298 SETTABLEKS                       R23 R20 K88 ["logFirstStoreAssetImpression"]
+      300 DUPCLOSURE                       R23 K89 [PROTO_22]
+      301 CAPTURE                          VAL R20
+      302 CAPTURE                          VAL R3
+      303 SETTABLEKS                       R23 R20 K90 ["onToolboxTabChanged"]
+      305 MOVE                             R23 R12
+      306 CALL                             R23 0 1
+      307 JUMPIFNOT                        R23 ; [+12]
+      308 DUPTABLE                         R23 K94 [{"Start", "Success", "Failure"}]
+      309 LOADK                            R24 K91 ["Start"]
+      310 SETTABLEKS                       R24 R23 K91 ["Start"]
+      312 LOADK                            R24 K92 ["Success"]
+      313 SETTABLEKS                       R24 R23 K92 ["Success"]
+      315 LOADK                            R24 K93 ["Failure"]
+      316 SETTABLEKS                       R24 R23 K93 ["Failure"]
+      318 SETTABLEKS                       R23 R20 K95 ["Status"]
+      320 DUPCLOSURE                       R23 K96 [PROTO_23]
+      321 CAPTURE                          VAL R3
+      322 CAPTURE                          VAL R20
+      323 CAPTURE                          VAL R6
+      324 CAPTURE                          VAL R8
+      325 CAPTURE                          VAL R21
+      326 SETTABLEKS                       R23 R20 K97 ["onTermSearchedWithoutInsertion"]
+      328 DUPCLOSURE                       R23 K98 [PROTO_24]
+      329 CAPTURE                          VAL R3
+      330 CAPTURE                          VAL R20
+      331 CAPTURE                          VAL R6
+      332 CAPTURE                          VAL R8
+      333 CAPTURE                          VAL R10
+      334 CAPTURE                          VAL R21
+      335 SETTABLEKS                       R23 R20 K99 ["onCreatorSearched"]
+      337 DUPCLOSURE                       R23 K100 [PROTO_25]
+      338 CAPTURE                          VAL R3
+      339 CAPTURE                          VAL R20
+      340 CAPTURE                          VAL R6
+      341 CAPTURE                          VAL R8
+      342 CAPTURE                          VAL R21
+      343 SETTABLEKS                       R23 R20 K101 ["onTryAsset"]
+      345 DUPCLOSURE                       R23 K102 [PROTO_26]
+      346 CAPTURE                          VAL R3
+      347 CAPTURE                          VAL R20
+      348 CAPTURE                          VAL R6
+      349 CAPTURE                          VAL R8
       350 CAPTURE                          VAL R21
-      351 CAPTURE                          VAL R6
-      352 CAPTURE                          VAL R8
-      353 CAPTURE                          VAL R22
-      354 SETTABLEKS                       R24 R21 K102 ["onTryAsset"]
-      356 DUPCLOSURE                       R24 K103 [PROTO_26]
-      357 CAPTURE                          VAL R3
+      351 SETTABLEKS                       R23 R20 K103 ["onTryAssetFailure"]
+      353 DUPCLOSURE                       R23 K104 [PROTO_27]
+      354 CAPTURE                          VAL R3
+      355 CAPTURE                          VAL R20
+      356 CAPTURE                          VAL R6
+      357 CAPTURE                          VAL R8
       358 CAPTURE                          VAL R21
-      359 CAPTURE                          VAL R6
-      360 CAPTURE                          VAL R8
-      361 CAPTURE                          VAL R22
-      362 SETTABLEKS                       R24 R21 K104 ["onTryAssetFailure"]
-      364 DUPCLOSURE                       R24 K105 [PROTO_27]
-      365 CAPTURE                          VAL R3
-      366 CAPTURE                          VAL R21
-      367 CAPTURE                          VAL R6
-      368 CAPTURE                          VAL R8
-      369 CAPTURE                          VAL R22
-      370 SETTABLEKS                       R24 R21 K106 ["onSearchOptionsOpened"]
-      372 DUPCLOSURE                       R24 K107 [PROTO_28]
+      359 SETTABLEKS                       R23 R20 K105 ["onSearchOptionsOpened"]
+      361 DUPCLOSURE                       R23 K106 [PROTO_28]
+      362 CAPTURE                          VAL R3
+      363 CAPTURE                          VAL R20
+      364 CAPTURE                          VAL R6
+      365 CAPTURE                          VAL R21
+      366 SETTABLEKS                       R23 R20 K107 ["onCategorySelected"]
+      368 DUPCLOSURE                       R23 K108 [PROTO_29]
+      369 CAPTURE                          VAL R6
+      370 CAPTURE                          VAL R16
+      371 CAPTURE                          VAL R8
+      372 CAPTURE                          VAL R21
       373 CAPTURE                          VAL R3
-      374 CAPTURE                          VAL R21
-      375 CAPTURE                          VAL R6
-      376 CAPTURE                          VAL R22
-      377 SETTABLEKS                       R24 R21 K108 ["onCategorySelected"]
-      379 DUPCLOSURE                       R24 K109 [PROTO_29]
+      374 CAPTURE                          VAL R20
+      375 SETTABLEKS                       R23 R20 K109 ["onAssetInserted"]
+      377 DUPCLOSURE                       R23 K110 [PROTO_30]
+      378 CAPTURE                          VAL R3
+      379 CAPTURE                          VAL R20
       380 CAPTURE                          VAL R6
-      381 CAPTURE                          VAL R17
+      381 CAPTURE                          VAL R16
       382 CAPTURE                          VAL R8
-      383 CAPTURE                          VAL R22
-      384 CAPTURE                          VAL R3
-      385 CAPTURE                          VAL R21
-      386 SETTABLEKS                       R24 R21 K110 ["onAssetInserted"]
-      388 DUPCLOSURE                       R24 K111 [PROTO_30]
-      389 CAPTURE                          VAL R3
-      390 CAPTURE                          VAL R21
-      391 CAPTURE                          VAL R6
-      392 CAPTURE                          VAL R17
-      393 CAPTURE                          VAL R8
-      394 CAPTURE                          VAL R22
-      395 SETTABLEKS                       R24 R21 K112 ["onAssetDragInserted"]
-      397 DUPCLOSURE                       R24 K113 [PROTO_31]
-      398 CAPTURE                          VAL R3
-      399 CAPTURE                          VAL R21
-      400 CAPTURE                          VAL R6
-      401 CAPTURE                          VAL R17
-      402 CAPTURE                          VAL R8
-      403 CAPTURE                          VAL R22
-      404 SETTABLEKS                       R24 R21 K114 ["reportDragInsertFinished"]
-      406 DUPCLOSURE                       R24 K115 [PROTO_32]
-      407 CAPTURE                          VAL R3
-      408 CAPTURE                          VAL R21
-      409 CAPTURE                          VAL R6
-      410 CAPTURE                          VAL R17
-      411 CAPTURE                          VAL R8
-      412 SETTABLEKS                       R24 R21 K116 ["onPackageNoteCreated"]
-      414 DUPCLOSURE                       R24 K117 [PROTO_33]
-      415 CAPTURE                          VAL R3
-      416 CAPTURE                          VAL R21
-      417 CAPTURE                          VAL R6
-      418 CAPTURE                          VAL R17
-      419 CAPTURE                          VAL R8
-      420 SETTABLEKS                       R24 R21 K118 ["onPackageNoteDiscarded"]
-      422 DUPCLOSURE                       R24 K119 [PROTO_34]
-      423 CAPTURE                          VAL R3
-      424 CAPTURE                          VAL R21
-      425 CAPTURE                          VAL R6
-      426 CAPTURE                          VAL R17
-      427 CAPTURE                          VAL R8
-      428 SETTABLEKS                       R24 R21 K120 ["onPackageNoteCanceled"]
-      430 DUPCLOSURE                       R24 K121 [PROTO_35]
-      431 CAPTURE                          VAL R3
-      432 SETTABLEKS                       R24 R21 K122 ["incrementToolboxInsertCounter"]
-      434 DUPCLOSURE                       R24 K123 [PROTO_36]
-      435 CAPTURE                          VAL R3
-      436 SETTABLEKS                       R24 R21 K124 ["incrementToolboxCategoryInsertCounter"]
-      438 DUPCLOSURE                       R24 K125 [PROTO_37]
-      439 CAPTURE                          VAL R3
-      440 SETTABLEKS                       R24 R21 K126 ["incrementWorkspaceInsertCounter"]
-      442 DUPCLOSURE                       R24 K127 [PROTO_38]
-      443 CAPTURE                          VAL R3
-      444 SETTABLEKS                       R24 R21 K128 ["incrementUploadAssetSuccess"]
-      446 DUPCLOSURE                       R24 K129 [PROTO_39]
-      447 CAPTURE                          VAL R3
-      448 SETTABLEKS                       R24 R21 K130 ["incrementUploadAssetFailure"]
-      450 DUPCLOSURE                       R24 K131 [PROTO_40]
-      451 CAPTURE                          VAL R3
-      452 SETTABLEKS                       R24 R21 K132 ["onSoundPlayedCounter"]
-      454 DUPCLOSURE                       R24 K133 [PROTO_41]
-      455 CAPTURE                          VAL R3
-      456 SETTABLEKS                       R24 R21 K134 ["onSoundPausedCounter"]
-      458 DUPCLOSURE                       R24 K135 [PROTO_42]
-      459 CAPTURE                          VAL R9
-      460 CAPTURE                          VAL R3
-      461 SETTABLEKS                       R24 R21 K136 ["sendResultToKibana"]
-      463 DUPCLOSURE                       R24 K137 [PROTO_43]
-      464 CAPTURE                          VAL R3
-      465 SETTABLEKS                       R24 R21 K138 ["incrementAssetImpressionCounter"]
-      467 DUPCLOSURE                       R24 K139 [PROTO_44]
-      468 CAPTURE                          VAL R3
+      383 CAPTURE                          VAL R21
+      384 SETTABLEKS                       R23 R20 K111 ["onAssetDragInserted"]
+      386 DUPCLOSURE                       R23 K112 [PROTO_31]
+      387 CAPTURE                          VAL R3
+      388 CAPTURE                          VAL R20
+      389 CAPTURE                          VAL R6
+      390 CAPTURE                          VAL R16
+      391 CAPTURE                          VAL R8
+      392 CAPTURE                          VAL R21
+      393 SETTABLEKS                       R23 R20 K113 ["reportDragInsertFinished"]
+      395 DUPCLOSURE                       R23 K114 [PROTO_32]
+      396 CAPTURE                          VAL R3
+      397 CAPTURE                          VAL R20
+      398 CAPTURE                          VAL R6
+      399 CAPTURE                          VAL R16
+      400 CAPTURE                          VAL R8
+      401 SETTABLEKS                       R23 R20 K115 ["onPackageNoteCreated"]
+      403 DUPCLOSURE                       R23 K116 [PROTO_33]
+      404 CAPTURE                          VAL R3
+      405 CAPTURE                          VAL R20
+      406 CAPTURE                          VAL R6
+      407 CAPTURE                          VAL R16
+      408 CAPTURE                          VAL R8
+      409 SETTABLEKS                       R23 R20 K117 ["onPackageNoteDiscarded"]
+      411 DUPCLOSURE                       R23 K118 [PROTO_34]
+      412 CAPTURE                          VAL R3
+      413 CAPTURE                          VAL R20
+      414 CAPTURE                          VAL R6
+      415 CAPTURE                          VAL R16
+      416 CAPTURE                          VAL R8
+      417 SETTABLEKS                       R23 R20 K119 ["onPackageNoteCanceled"]
+      419 DUPCLOSURE                       R23 K120 [PROTO_35]
+      420 CAPTURE                          VAL R3
+      421 SETTABLEKS                       R23 R20 K121 ["incrementToolboxInsertCounter"]
+      423 DUPCLOSURE                       R23 K122 [PROTO_36]
+      424 CAPTURE                          VAL R3
+      425 SETTABLEKS                       R23 R20 K123 ["incrementToolboxCategoryInsertCounter"]
+      427 DUPCLOSURE                       R23 K124 [PROTO_37]
+      428 CAPTURE                          VAL R3
+      429 SETTABLEKS                       R23 R20 K125 ["incrementWorkspaceInsertCounter"]
+      431 DUPCLOSURE                       R23 K126 [PROTO_38]
+      432 CAPTURE                          VAL R3
+      433 SETTABLEKS                       R23 R20 K127 ["incrementUploadAssetSuccess"]
+      435 DUPCLOSURE                       R23 K128 [PROTO_39]
+      436 CAPTURE                          VAL R3
+      437 SETTABLEKS                       R23 R20 K129 ["incrementUploadAssetFailure"]
+      439 DUPCLOSURE                       R23 K130 [PROTO_40]
+      440 CAPTURE                          VAL R3
+      441 SETTABLEKS                       R23 R20 K131 ["onSoundPlayedCounter"]
+      443 DUPCLOSURE                       R23 K132 [PROTO_41]
+      444 CAPTURE                          VAL R3
+      445 SETTABLEKS                       R23 R20 K133 ["onSoundPausedCounter"]
+      447 DUPCLOSURE                       R23 K134 [PROTO_42]
+      448 CAPTURE                          VAL R9
+      449 CAPTURE                          VAL R3
+      450 SETTABLEKS                       R23 R20 K135 ["sendResultToKibana"]
+      452 DUPCLOSURE                       R23 K136 [PROTO_43]
+      453 CAPTURE                          VAL R3
+      454 SETTABLEKS                       R23 R20 K137 ["incrementAssetImpressionCounter"]
+      456 DUPCLOSURE                       R23 K138 [PROTO_44]
+      457 CAPTURE                          VAL R3
+      458 CAPTURE                          VAL R20
+      459 CAPTURE                          VAL R6
+      460 CAPTURE                          VAL R8
+      461 CAPTURE                          VAL R21
+      462 SETTABLEKS                       R23 R20 K139 ["onAssetPreviewSelected"]
+      464 DUPCLOSURE                       R23 K140 [PROTO_45]
+      465 CAPTURE                          VAL R3
+      466 CAPTURE                          VAL R20
+      467 CAPTURE                          VAL R6
+      468 CAPTURE                          VAL R8
       469 CAPTURE                          VAL R21
-      470 CAPTURE                          VAL R6
-      471 CAPTURE                          VAL R8
-      472 CAPTURE                          VAL R22
-      473 SETTABLEKS                       R24 R21 K140 ["onAssetPreviewSelected"]
-      475 DUPCLOSURE                       R24 K141 [PROTO_45]
-      476 CAPTURE                          VAL R3
+      470 SETTABLEKS                       R23 R20 K141 ["onAssetPreviewEnded"]
+      472 DUPCLOSURE                       R23 K142 [PROTO_46]
+      473 CAPTURE                          VAL R3
+      474 CAPTURE                          VAL R20
+      475 CAPTURE                          VAL R6
+      476 CAPTURE                          VAL R8
       477 CAPTURE                          VAL R21
-      478 CAPTURE                          VAL R6
-      479 CAPTURE                          VAL R8
-      480 CAPTURE                          VAL R22
-      481 SETTABLEKS                       R24 R21 K142 ["onAssetPreviewEnded"]
-      483 DUPCLOSURE                       R24 K143 [PROTO_46]
-      484 CAPTURE                          VAL R3
-      485 CAPTURE                          VAL R21
-      486 CAPTURE                          VAL R6
-      487 CAPTURE                          VAL R8
-      488 CAPTURE                          VAL R22
-      489 SETTABLEKS                       R24 R21 K144 ["onAssetInsertedFromAssetPreview"]
-      491 DUPCLOSURE                       R24 K145 [PROTO_47]
-      492 CAPTURE                          VAL R21
-      493 CAPTURE                          VAL R3
-      494 SETTABLEKS                       R24 R21 K146 ["onPluginButtonClickOpen"]
-      496 DUPCLOSURE                       R24 K147 [PROTO_48]
-      497 CAPTURE                          VAL R21
-      498 CAPTURE                          VAL R3
-      499 SETTABLEKS                       R24 R21 K148 ["onPluginButtonClickClose"]
-      501 DUPCLOSURE                       R24 K149 [PROTO_49]
-      502 CAPTURE                          VAL R21
+      478 SETTABLEKS                       R23 R20 K143 ["onAssetInsertedFromAssetPreview"]
+      480 DUPCLOSURE                       R23 K144 [PROTO_47]
+      481 CAPTURE                          VAL R20
+      482 CAPTURE                          VAL R3
+      483 SETTABLEKS                       R23 R20 K145 ["onPluginButtonClickOpen"]
+      485 DUPCLOSURE                       R23 K146 [PROTO_48]
+      486 CAPTURE                          VAL R20
+      487 CAPTURE                          VAL R3
+      488 SETTABLEKS                       R23 R20 K147 ["onPluginButtonClickClose"]
+      490 DUPCLOSURE                       R23 K148 [PROTO_49]
+      491 CAPTURE                          VAL R20
+      492 CAPTURE                          VAL R3
+      493 SETTABLEKS                       R23 R20 K149 ["onToolboxDisplayed"]
+      495 DUPCLOSURE                       R23 K150 [PROTO_50]
+      496 CAPTURE                          VAL R20
+      497 CAPTURE                          VAL R3
+      498 SETTABLEKS                       R23 R20 K151 ["onToolboxHidden"]
+      500 DUPCLOSURE                       R23 K152 [PROTO_51]
+      501 CAPTURE                          VAL R20
+      502 CAPTURE                          VAL R14
       503 CAPTURE                          VAL R3
-      504 SETTABLEKS                       R24 R21 K150 ["onToolboxDisplayed"]
-      506 DUPCLOSURE                       R24 K151 [PROTO_50]
-      507 CAPTURE                          VAL R21
+      504 SETTABLEKS                       R23 R20 K153 ["onToolboxMounted"]
+      506 DUPCLOSURE                       R23 K154 [PROTO_52]
+      507 CAPTURE                          VAL R20
       508 CAPTURE                          VAL R3
-      509 SETTABLEKS                       R24 R21 K152 ["onToolboxHidden"]
-      511 DUPCLOSURE                       R24 K153 [PROTO_51]
-      512 CAPTURE                          VAL R21
-      513 CAPTURE                          VAL R14
-      514 CAPTURE                          VAL R3
-      515 SETTABLEKS                       R24 R21 K154 ["onToolboxMounted"]
-      517 DUPCLOSURE                       R24 K155 [PROTO_52]
-      518 CAPTURE                          VAL R21
-      519 CAPTURE                          VAL R3
-      520 SETTABLEKS                       R24 R21 K156 ["onToolboxUnmounted"]
-      522 DUPCLOSURE                       R24 K157 [PROTO_53]
-      523 CAPTURE                          VAL R21
-      524 CAPTURE                          VAL R3
-      525 SETTABLEKS                       R24 R21 K158 ["onToolboxInitialSizing"]
-      527 DUPCLOSURE                       R24 K159 [PROTO_54]
-      528 CAPTURE                          VAL R3
-      529 CAPTURE                          VAL R21
-      530 CAPTURE                          VAL R6
-      531 CAPTURE                          VAL R8
-      532 CAPTURE                          VAL R22
-      533 SETTABLEKS                       R24 R21 K160 ["onContextMenuClicked"]
-      535 DUPCLOSURE                       R24 K161 [PROTO_55]
-      536 CAPTURE                          VAL R3
-      537 CAPTURE                          VAL R21
-      538 CAPTURE                          VAL R6
-      539 CAPTURE                          VAL R22
-      540 SETTABLEKS                       R24 R21 K162 ["openedFromPluginManagement"]
-      542 DUPCLOSURE                       R24 K163 [PROTO_56]
-      543 CAPTURE                          VAL R3
-      544 CAPTURE                          VAL R21
-      545 CAPTURE                          VAL R6
-      546 CAPTURE                          VAL R22
-      547 SETTABLEKS                       R24 R21 K164 ["openedExternallyByAssetType"]
-      549 DUPCLOSURE                       R24 K165 [PROTO_57]
-      550 CAPTURE                          VAL R3
-      551 CAPTURE                          VAL R21
-      552 CAPTURE                          VAL R6
-      553 CAPTURE                          VAL R22
-      554 SETTABLEKS                       R24 R21 K166 ["reportAssetClicked"]
-      556 DUPCLOSURE                       R24 K167 [PROTO_58]
-      557 CAPTURE                          VAL R3
+      509 SETTABLEKS                       R23 R20 K155 ["onToolboxUnmounted"]
+      511 DUPCLOSURE                       R23 K156 [PROTO_53]
+      512 CAPTURE                          VAL R20
+      513 CAPTURE                          VAL R3
+      514 SETTABLEKS                       R23 R20 K157 ["onToolboxInitialSizing"]
+      516 DUPCLOSURE                       R23 K158 [PROTO_54]
+      517 CAPTURE                          VAL R3
+      518 CAPTURE                          VAL R20
+      519 CAPTURE                          VAL R6
+      520 CAPTURE                          VAL R8
+      521 CAPTURE                          VAL R21
+      522 SETTABLEKS                       R23 R20 K159 ["onContextMenuClicked"]
+      524 DUPCLOSURE                       R23 K160 [PROTO_55]
+      525 CAPTURE                          VAL R3
+      526 CAPTURE                          VAL R20
+      527 CAPTURE                          VAL R6
+      528 CAPTURE                          VAL R21
+      529 SETTABLEKS                       R23 R20 K161 ["openedFromPluginManagement"]
+      531 DUPCLOSURE                       R23 K162 [PROTO_56]
+      532 CAPTURE                          VAL R3
+      533 CAPTURE                          VAL R20
+      534 CAPTURE                          VAL R6
+      535 CAPTURE                          VAL R21
+      536 SETTABLEKS                       R23 R20 K163 ["openedExternallyByAssetType"]
+      538 DUPCLOSURE                       R23 K164 [PROTO_57]
+      539 CAPTURE                          VAL R3
+      540 CAPTURE                          VAL R20
+      541 CAPTURE                          VAL R6
+      542 CAPTURE                          VAL R21
+      543 SETTABLEKS                       R23 R20 K165 ["reportAssetClicked"]
+      545 DUPCLOSURE                       R23 K166 [PROTO_58]
+      546 CAPTURE                          VAL R3
+      547 CAPTURE                          VAL R20
+      548 CAPTURE                          VAL R6
+      549 CAPTURE                          VAL R21
+      550 CAPTURE                          VAL R16
+      551 SETTABLEKS                       R23 R20 K167 ["reportMeshPartFiltered"]
+      553 DUPCLOSURE                       R23 K168 [PROTO_59]
+      554 CAPTURE                          VAL R3
+      555 CAPTURE                          VAL R20
+      556 CAPTURE                          VAL R6
+      557 CAPTURE                          VAL R8
       558 CAPTURE                          VAL R21
-      559 CAPTURE                          VAL R6
-      560 CAPTURE                          VAL R22
-      561 CAPTURE                          VAL R17
-      562 SETTABLEKS                       R24 R21 K168 ["reportMeshPartFiltered"]
-      564 DUPCLOSURE                       R24 K169 [PROTO_59]
-      565 CAPTURE                          VAL R3
-      566 CAPTURE                          VAL R21
-      567 CAPTURE                          VAL R6
-      568 CAPTURE                          VAL R8
-      569 CAPTURE                          VAL R22
-      570 SETTABLEKS                       R24 R21 K170 ["onIdVerificationIconClicked"]
-      572 DUPCLOSURE                       R24 K171 [PROTO_60]
+      559 SETTABLEKS                       R23 R20 K169 ["onIdVerificationIconClicked"]
+      561 DUPCLOSURE                       R23 K170 [PROTO_60]
+      562 CAPTURE                          VAL R13
+      563 CAPTURE                          VAL R6
+      564 CAPTURE                          VAL R11
+      565 CAPTURE                          VAL R21
+      566 CAPTURE                          VAL R8
+      567 CAPTURE                          VAL R16
+      568 CAPTURE                          VAL R20
+      569 CAPTURE                          VAL R3
+      570 SETTABLEKS                       R23 R20 K171 ["marketplaceSearch"]
+      572 DUPCLOSURE                       R23 K172 [PROTO_61]
       573 CAPTURE                          VAL R13
       574 CAPTURE                          VAL R6
-      575 CAPTURE                          VAL R11
-      576 CAPTURE                          VAL R22
-      577 CAPTURE                          VAL R8
-      578 CAPTURE                          VAL R17
-      579 CAPTURE                          VAL R21
-      580 CAPTURE                          VAL R3
-      581 SETTABLEKS                       R24 R21 K172 ["marketplaceSearch"]
-      583 DUPCLOSURE                       R24 K173 [PROTO_61]
-      584 CAPTURE                          VAL R13
-      585 CAPTURE                          VAL R6
-      586 CAPTURE                          VAL R22
-      587 CAPTURE                          VAL R8
-      588 CAPTURE                          VAL R17
-      589 CAPTURE                          VAL R3
-      590 CAPTURE                          VAL R21
-      591 SETTABLEKS                       R24 R21 K174 ["marketplaceAutocompleteSearch"]
-      593 DUPCLOSURE                       R24 K175 [PROTO_62]
-      594 CAPTURE                          VAL R21
-      595 CAPTURE                          VAL R3
-      596 SETTABLEKS                       R24 R21 K176 ["onToolboxWidgetInteraction"]
-      598 DUPCLOSURE                       R24 K177 [PROTO_63]
-      599 CAPTURE                          VAL R6
-      600 CAPTURE                          VAL R8
-      601 CAPTURE                          VAL R3
-      602 CAPTURE                          VAL R21
-      603 SETTABLEKS                       R24 R21 K178 ["AnnouncementViewed"]
-      605 DUPCLOSURE                       R24 K179 [PROTO_64]
-      606 CAPTURE                          VAL R6
-      607 CAPTURE                          VAL R8
-      608 CAPTURE                          VAL R3
-      609 CAPTURE                          VAL R21
-      610 SETTABLEKS                       R24 R21 K180 ["AnnouncementLinkClicked"]
-      612 DUPCLOSURE                       R24 K181 [PROTO_65]
-      613 CAPTURE                          VAL R6
-      614 CAPTURE                          VAL R8
-      615 CAPTURE                          VAL R3
-      616 CAPTURE                          VAL R21
-      617 SETTABLEKS                       R24 R21 K182 ["AnnouncementClosed"]
-      619 DUPCLOSURE                       R24 K183 [PROTO_66]
-      620 CAPTURE                          VAL R6
-      621 CAPTURE                          VAL R8
-      622 CAPTURE                          VAL R3
-      623 CAPTURE                          VAL R21
-      624 SETTABLEKS                       R24 R21 K184 ["AnnouncementAcknowledged"]
-      626 DUPCLOSURE                       R24 K185 [PROTO_67]
-      627 CAPTURE                          VAL R3
-      628 CAPTURE                          VAL R21
-      629 CAPTURE                          VAL R6
-      630 CAPTURE                          VAL R8
-      631 SETTABLEKS                       R24 R21 K186 ["AssetMediaItemsUpdated"]
-      633 DUPCLOSURE                       R24 K187 [PROTO_68]
-      634 CAPTURE                          VAL R3
-      635 CAPTURE                          VAL R21
-      636 CAPTURE                          VAL R6
-      637 CAPTURE                          VAL R8
-      638 SETTABLEKS                       R24 R21 K188 ["MarketplaceListViewToggleClicked"]
-      640 DUPCLOSURE                       R24 K189 [PROTO_69]
-      641 CAPTURE                          VAL R3
-      642 CAPTURE                          VAL R21
-      643 CAPTURE                          VAL R6
-      644 CAPTURE                          VAL R8
-      645 SETTABLEKS                       R24 R21 K190 ["MarketplaceAssetRowExpanded"]
-      647 DUPCLOSURE                       R24 K191 [PROTO_70]
-      648 CAPTURE                          VAL R3
-      649 CAPTURE                          VAL R21
-      650 CAPTURE                          VAL R6
-      651 CAPTURE                          VAL R8
-      652 SETTABLEKS                       R24 R21 K192 ["MarketplaceRecentSearchClicked"]
-      654 DUPCLOSURE                       R24 K193 [PROTO_71]
-      655 CAPTURE                          VAL R3
-      656 CAPTURE                          VAL R21
-      657 CAPTURE                          VAL R6
-      658 CAPTURE                          VAL R8
-      659 SETTABLEKS                       R24 R21 K194 ["MarketplaceSearchFilterOpened"]
-      661 MOVE                             R24 R12
-      662 CALL                             R24 0 1
-      663 JUMPIFNOT                        R24 ; [+37]
-      664 DUPCLOSURE                       R24 K195 [PROTO_72]
-      665 CAPTURE                          VAL R3
-      666 CAPTURE                          VAL R21
-      667 CAPTURE                          VAL R6
-      668 SETTABLEKS                       R24 R21 K196 ["UGCBundleValidationEvent"]
-      670 DUPCLOSURE                       R24 K197 [PROTO_73]
-      671 CAPTURE                          VAL R3
-      672 CAPTURE                          VAL R21
-      673 CAPTURE                          VAL R6
-      674 SETTABLEKS                       R24 R21 K198 ["UGCUploadRequestOperationIdEvent"]
-      676 DUPCLOSURE                       R24 K199 [PROTO_74]
-      677 CAPTURE                          VAL R3
-      678 CAPTURE                          VAL R21
-      679 CAPTURE                          VAL R6
-      680 SETTABLEKS                       R24 R21 K200 ["UGCUploadAssetsEvent"]
-      682 DUPCLOSURE                       R24 K201 [PROTO_75]
-      683 CAPTURE                          VAL R3
-      684 CAPTURE                          VAL R21
-      685 CAPTURE                          VAL R17
-      686 CAPTURE                          VAL R6
-      687 SETTABLEKS                       R24 R21 K202 ["UGCIndividualAssetUploadEvent"]
-      689 DUPCLOSURE                       R24 K203 [PROTO_76]
-      690 CAPTURE                          VAL R3
-      691 CAPTURE                          VAL R21
-      692 CAPTURE                          VAL R6
-      693 SETTABLEKS                       R24 R21 K204 ["UGCUploadRequestBundleCreationStatusEvent"]
-      695 DUPCLOSURE                       R24 K205 [PROTO_77]
-      696 CAPTURE                          VAL R3
-      697 CAPTURE                          VAL R21
-      698 CAPTURE                          VAL R6
-      699 SETTABLEKS                       R24 R21 K206 ["UGCUploadGetBundleCreationStatusEvent"]
-      701 DUPCLOSURE                       R24 K207 [PROTO_78]
-      702 CAPTURE                          VAL R15
-      703 CAPTURE                          VAL R21
-      704 CAPTURE                          VAL R3
-      705 SETTABLEKS                       R24 R21 K208 ["StoreAssetCapabilitiesChanged"]
-      707 DUPCLOSURE                       R24 K209 [PROTO_79]
-      708 CAPTURE                          VAL R15
-      709 CAPTURE                          VAL R21
-      710 CAPTURE                          VAL R3
-      711 SETTABLEKS                       R24 R21 K210 ["StoreAssetSandboxChanged"]
-      713 RETURN                           R21 1
+      575 CAPTURE                          VAL R21
+      576 CAPTURE                          VAL R8
+      577 CAPTURE                          VAL R16
+      578 CAPTURE                          VAL R3
+      579 CAPTURE                          VAL R20
+      580 SETTABLEKS                       R23 R20 K173 ["marketplaceAutocompleteSearch"]
+      582 DUPCLOSURE                       R23 K174 [PROTO_62]
+      583 CAPTURE                          VAL R20
+      584 CAPTURE                          VAL R3
+      585 SETTABLEKS                       R23 R20 K175 ["onToolboxWidgetInteraction"]
+      587 DUPCLOSURE                       R23 K176 [PROTO_63]
+      588 CAPTURE                          VAL R6
+      589 CAPTURE                          VAL R8
+      590 CAPTURE                          VAL R3
+      591 CAPTURE                          VAL R20
+      592 SETTABLEKS                       R23 R20 K177 ["AnnouncementViewed"]
+      594 DUPCLOSURE                       R23 K178 [PROTO_64]
+      595 CAPTURE                          VAL R6
+      596 CAPTURE                          VAL R8
+      597 CAPTURE                          VAL R3
+      598 CAPTURE                          VAL R20
+      599 SETTABLEKS                       R23 R20 K179 ["AnnouncementLinkClicked"]
+      601 DUPCLOSURE                       R23 K180 [PROTO_65]
+      602 CAPTURE                          VAL R6
+      603 CAPTURE                          VAL R8
+      604 CAPTURE                          VAL R3
+      605 CAPTURE                          VAL R20
+      606 SETTABLEKS                       R23 R20 K181 ["AnnouncementClosed"]
+      608 DUPCLOSURE                       R23 K182 [PROTO_66]
+      609 CAPTURE                          VAL R6
+      610 CAPTURE                          VAL R8
+      611 CAPTURE                          VAL R3
+      612 CAPTURE                          VAL R20
+      613 SETTABLEKS                       R23 R20 K183 ["AnnouncementAcknowledged"]
+      615 DUPCLOSURE                       R23 K184 [PROTO_67]
+      616 CAPTURE                          VAL R3
+      617 CAPTURE                          VAL R20
+      618 CAPTURE                          VAL R6
+      619 CAPTURE                          VAL R8
+      620 SETTABLEKS                       R23 R20 K185 ["AssetMediaItemsUpdated"]
+      622 DUPCLOSURE                       R23 K186 [PROTO_68]
+      623 CAPTURE                          VAL R3
+      624 CAPTURE                          VAL R20
+      625 CAPTURE                          VAL R6
+      626 CAPTURE                          VAL R8
+      627 SETTABLEKS                       R23 R20 K187 ["MarketplaceListViewToggleClicked"]
+      629 DUPCLOSURE                       R23 K188 [PROTO_69]
+      630 CAPTURE                          VAL R3
+      631 CAPTURE                          VAL R20
+      632 CAPTURE                          VAL R6
+      633 CAPTURE                          VAL R8
+      634 SETTABLEKS                       R23 R20 K189 ["MarketplaceAssetRowExpanded"]
+      636 DUPCLOSURE                       R23 K190 [PROTO_70]
+      637 CAPTURE                          VAL R3
+      638 CAPTURE                          VAL R20
+      639 CAPTURE                          VAL R6
+      640 CAPTURE                          VAL R8
+      641 SETTABLEKS                       R23 R20 K191 ["MarketplaceRecentSearchClicked"]
+      643 DUPCLOSURE                       R23 K192 [PROTO_71]
+      644 CAPTURE                          VAL R3
+      645 CAPTURE                          VAL R20
+      646 CAPTURE                          VAL R6
+      647 CAPTURE                          VAL R8
+      648 SETTABLEKS                       R23 R20 K193 ["MarketplaceSearchFilterOpened"]
+      650 MOVE                             R23 R12
+      651 CALL                             R23 0 1
+      652 JUMPIFNOT                        R23 ; [+37]
+      653 DUPCLOSURE                       R23 K194 [PROTO_72]
+      654 CAPTURE                          VAL R3
+      655 CAPTURE                          VAL R20
+      656 CAPTURE                          VAL R6
+      657 SETTABLEKS                       R23 R20 K195 ["UGCBundleValidationEvent"]
+      659 DUPCLOSURE                       R23 K196 [PROTO_73]
+      660 CAPTURE                          VAL R3
+      661 CAPTURE                          VAL R20
+      662 CAPTURE                          VAL R6
+      663 SETTABLEKS                       R23 R20 K197 ["UGCUploadRequestOperationIdEvent"]
+      665 DUPCLOSURE                       R23 K198 [PROTO_74]
+      666 CAPTURE                          VAL R3
+      667 CAPTURE                          VAL R20
+      668 CAPTURE                          VAL R6
+      669 SETTABLEKS                       R23 R20 K199 ["UGCUploadAssetsEvent"]
+      671 DUPCLOSURE                       R23 K200 [PROTO_75]
+      672 CAPTURE                          VAL R3
+      673 CAPTURE                          VAL R20
+      674 CAPTURE                          VAL R16
+      675 CAPTURE                          VAL R6
+      676 SETTABLEKS                       R23 R20 K201 ["UGCIndividualAssetUploadEvent"]
+      678 DUPCLOSURE                       R23 K202 [PROTO_76]
+      679 CAPTURE                          VAL R3
+      680 CAPTURE                          VAL R20
+      681 CAPTURE                          VAL R6
+      682 SETTABLEKS                       R23 R20 K203 ["UGCUploadRequestBundleCreationStatusEvent"]
+      684 DUPCLOSURE                       R23 K204 [PROTO_77]
+      685 CAPTURE                          VAL R3
+      686 CAPTURE                          VAL R20
+      687 CAPTURE                          VAL R6
+      688 SETTABLEKS                       R23 R20 K205 ["UGCUploadGetBundleCreationStatusEvent"]
+      690 RETURN                           R20 1

@@ -9,6 +9,7 @@ local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typ
 type _Messages = {
 	GenericShareLinkData: _GenericShareLinkDataMessage,
 	GenericShareLinkData_GenericShareLinkLiteralData: _GenericShareLinkData_GenericShareLinkLiteralDataMessage,
+	ShareLinkFetchData: _ShareLinkFetchDataMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -68,6 +69,31 @@ type _GenericShareLinkData_GenericShareLinkLiteralDataMessage = proto.Message<
 	GenericShareLinkData_GenericShareLinkLiteralData,
 	_GenericShareLinkData_GenericShareLinkLiteralDataPartialFields
 >
+
+type _ShareLinkFetchDataImpl = {
+	__index: _ShareLinkFetchDataImpl,
+	new: (fields: _ShareLinkFetchDataPartialFields?) -> ShareLinkFetchData,
+	encode: (self: ShareLinkFetchData) -> buffer,
+	decode: (input: buffer) -> ShareLinkFetchData,
+	jsonEncode: (self: ShareLinkFetchData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ShareLinkFetchData,
+	descriptor: proto.Descriptor,
+}
+
+type _ShareLinkFetchDataFields = {
+	share_url_context: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	link_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+}
+
+type _ShareLinkFetchDataPartialFields = {
+	share_url_context: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	link_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+}
+
+export type ShareLinkFetchData = typeof(setmetatable({} :: _ShareLinkFetchDataFields, {} :: _ShareLinkFetchDataImpl))
+type _ShareLinkFetchDataMessage = proto.Message<ShareLinkFetchData, _ShareLinkFetchDataPartialFields>
 
 do
 	local _GenericShareLinkDataImpl = {}
@@ -318,7 +344,160 @@ do
 	typeRegistry.default:register(messages.GenericShareLinkData_GenericShareLinkLiteralData)
 end
 
+do
+	local _ShareLinkFetchDataImpl = {}
+	_ShareLinkFetchDataImpl.__index = _ShareLinkFetchDataImpl
+
+	function _ShareLinkFetchDataImpl.new(data: _ShareLinkFetchDataPartialFields?): ShareLinkFetchData
+		return setmetatable({
+			share_url_context = if data == nil or data.share_url_context == nil then nil else data.share_url_context,
+			link_type = if data == nil or data.link_type == nil then nil else data.link_type,
+			link_data = if data == nil or data.link_data == nil then nil else data.link_data,
+		}, _ShareLinkFetchDataImpl :: _ShareLinkFetchDataImpl)
+	end
+
+	function _ShareLinkFetchDataImpl.encode(self: ShareLinkFetchData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.share_url_context ~= nil then
+			local encoded = self.share_url_context:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.link_type ~= nil then
+			local encoded = self.link_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.link_data ~= nil then
+			local encoded = self.link_data:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ShareLinkFetchDataImpl.decode(input: buffer): ShareLinkFetchData
+		local self = _ShareLinkFetchDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.share_url_context = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.link_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.link_data = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ShareLinkFetchDataImpl.jsonEncode(self: ShareLinkFetchData): any
+		local output = {}
+
+		if self.share_url_context ~= nil then
+			output.shareUrlContext = self.share_url_context:jsonEncode()
+		end
+
+		if self.link_type ~= nil then
+			output.linkType = self.link_type:jsonEncode()
+		end
+
+		if self.link_data ~= nil then
+			output.linkData = self.link_data:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ShareLinkFetchDataImpl.jsonDecode(input: { [string]: any }): ShareLinkFetchData
+		local self = _ShareLinkFetchDataImpl.new()
+
+		if input.share_url_context ~= nil then
+			self.share_url_context =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.share_url_context)
+		end
+
+		if input.shareUrlContext ~= nil then
+			self.share_url_context =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.shareUrlContext)
+		end
+
+		if input.link_type ~= nil then
+			self.link_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.link_type)
+		end
+
+		if input.linkType ~= nil then
+			self.link_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.linkType)
+		end
+
+		if input.link_data ~= nil then
+			self.link_data = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.link_data)
+		end
+
+		if input.linkData ~= nil then
+			self.link_data = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.linkData)
+		end
+
+		return self
+	end
+
+	_ShareLinkFetchDataImpl.descriptor = {
+		name = "ShareLinkFetchData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ShareLinkFetchData",
+	}
+
+	messages.ShareLinkFetchData = _ShareLinkFetchDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ShareLinkFetchData)
+end
+
 return {
 	GenericShareLinkData = messages.GenericShareLinkData,
 	GenericShareLinkData_GenericShareLinkLiteralData = messages.GenericShareLinkData_GenericShareLinkLiteralData,
+	ShareLinkFetchData = messages.ShareLinkFetchData,
 }

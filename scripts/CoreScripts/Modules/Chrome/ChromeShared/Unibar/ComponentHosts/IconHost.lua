@@ -77,8 +77,6 @@ end
 local MenuIconContext = if FFlagEnableConsoleExpControls
 	then require(Root.Parent.Parent.TopBar.Components.MenuIconContext)
 	else nil :: never
-
-local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 local FFlagUseBindingForUnreadChat = game:DefineFastFlag("UseBindingForUnreadChat", false)
 
@@ -364,7 +362,7 @@ function TooltipButton(props: TooltipButtonProps)
 			props.setHovered(active)
 			local hovered = newState == ControlState.Hover
 			setHovered(hovered, (hovered and isTooltipHovered) or areTooltipsDisplaying())
-			if FFlagEnableUnibarFtuxTooltips and hovered then
+			if hovered then
 				ChromeService:onIntegrationHovered():fire(props.integration.id)
 			end
 			if not active then

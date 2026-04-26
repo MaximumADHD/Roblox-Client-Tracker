@@ -129,11 +129,15 @@ PROTO_4:
        78 LOADNIL                          R4
        79 RETURN                           R4 1
        80 SETTABLEKS                       R3 R2 K17 ["Delay"]
-       82 GETUPVAL                         R4 0
-       83 GETTABLEKS                       R3 R4 K18 ["makeTweenInfo"]
-       85 MOVE                             R4 R2
-       86 CALL                             R3 1 -1
-       87 RETURN                           R3 -1
+       82 GETIMPORT                        R3 K19 [pcall]
+       84 GETUPVAL                         R5 0
+       85 GETTABLEKS                       R4 R5 K20 ["makeTweenInfo"]
+       87 MOVE                             R5 R2
+       88 CALL                             R3 2 2
+       89 JUMPIF                           R3 ; [+2]
+       90 LOADNIL                          R5
+       91 RETURN                           R5 1
+       92 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

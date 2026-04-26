@@ -1328,12 +1328,151 @@ PROTO_73:
        65 RETURN                           R0 0
 
 PROTO_74:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["VirtualInput"]
+        3 GETTABLEKS                       R1 R2 K1 ["Mouse"]
+        5 GETTABLEKS                       R0 R1 K2 ["SendMouseMoveEvent"]
+        7 GETUPVAL                         R4 1
+        8 GETTABLEKS                       R3 R4 K3 ["AbsolutePosition"]
+       10 GETTABLEKS                       R2 R3 K4 ["X"]
+       12 GETUPVAL                         R6 1
+       13 GETTABLEKS                       R5 R6 K6 ["AbsoluteSize"]
+       15 GETTABLEKS                       R4 R5 K4 ["X"]
+       17 MULK                             R3 R4 K5 [0.5]
+       18 ADD                              R1 R2 R3
+       19 GETUPVAL                         R5 1
+       20 GETTABLEKS                       R4 R5 K3 ["AbsolutePosition"]
+       22 GETTABLEKS                       R3 R4 K7 ["Y"]
+       24 GETUPVAL                         R7 1
+       25 GETTABLEKS                       R6 R7 K6 ["AbsoluteSize"]
+       27 GETTABLEKS                       R5 R6 K7 ["Y"]
+       29 MULK                             R4 R5 K5 [0.5]
+       30 ADD                              R2 R3 R4
+       31 CALL                             R0 2 0
+       32 GETUPVAL                         R2 0
+       33 GETTABLEKS                       R1 R2 K0 ["VirtualInput"]
+       35 GETTABLEKS                       R0 R1 K8 ["waitForInputEventsProcessed"]
+       37 CALL                             R0 0 0
+       38 RETURN                           R0 0
+
+PROTO_75:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["expectInstanceByPath"]
+        3 LOADK                            R2 K1 ["AvatarScreen.Contents.Contents.CatalogContainer.CatalogContainer.Catalog.ScrollingFrame.Scroller"]
+        4 CALL                             R1 1 1
+        5 JUMPIF                           R1 ; [+4]
+        6 GETIMPORT                        R2 K3 [error]
+        8 LOADK                            R3 K4 ["Catalog scroller not found"]
+        9 CALL                             R2 1 0
+       10 LOADNIL                          R2
+       11 NAMECALL                         R3 R1 K5 ["GetChildren"]
+       13 CALL                             R3 1 3
+       14 FORGPREP                         R3
+       15 GETTABLEKS                       R8 R7 K6 ["Name"]
+       17 LOADK                            R10 K7 ["^item_([a-z]+)_%d+$"]
+       18 NAMECALL                         R8 R8 K8 ["match"]
+       20 CALL                             R8 2 1
+       21 JUMPIFNOTEQ                      R8 R0 ; [+3]
+       23 MOVE                             R2 R7
+       24 JUMP                             ; [+2]
+       25 FORGLOOP                         R3 2 ; [-11]
+       27 JUMPIF                           R2 ; [+30]
+       28 NEWTABLE                         R3 0 0
+       30 NAMECALL                         R4 R1 K5 ["GetChildren"]
+       32 CALL                             R4 1 3
+       33 FORGPREP                         R4
+       34 GETTABLEKS                       R11 R8 K6 ["Name"]
+       36 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
+       38 MOVE                             R10 R3
+       39 GETIMPORT                        R9 K11 [table.insert]
+       41 CALL                             R9 2 0
+       42 FORGLOOP                         R4 2 ; [-9]
+       44 GETIMPORT                        R4 K3 [error]
+       46 LOADK                            R6 K12 ["No catalog item found with source '%*'. Scroller children: %*"]
+       47 MOVE                             R8 R0
+       48 GETIMPORT                        R9 K14 [table.concat]
+       50 MOVE                             R10 R3
+       51 LOADK                            R11 K15 [", "]
+       52 CALL                             R9 2 1
+       53 NAMECALL                         R6 R6 K16 ["format"]
+       55 CALL                             R6 3 1
+       56 MOVE                             R5 R6
+       57 CALL                             R4 1 0
+       58 LOADNIL                          R3
+       59 LOADK                            R6 K17 ["Contents"]
+       60 LOADB                            R7 1
+       61 NAMECALL                         R4 R2 K18 ["FindFirstChild"]
+       63 CALL                             R4 3 1
+       64 JUMPIFNOT                        R4 ; [+7]
+       65 LOADK                            R7 K19 ["GuiObject"]
+       66 NAMECALL                         R5 R4 K20 ["IsA"]
+       68 CALL                             R5 2 1
+       69 JUMPIFNOT                        R5 ; [+2]
+       70 MOVE                             R3 R4
+       71 JUMP                             ; [+12]
+       72 LOADK                            R7 K21 ["TextButton"]
+       73 LOADB                            R8 1
+       74 NAMECALL                         R5 R2 K22 ["FindFirstChildWhichIsA"]
+       76 CALL                             R5 3 1
+       77 JUMPIF                           R5 ; [+5]
+       78 LOADK                            R7 K23 ["ImageButton"]
+       79 LOADB                            R8 1
+       80 NAMECALL                         R5 R2 K22 ["FindFirstChildWhichIsA"]
+       82 CALL                             R5 3 1
+       83 MOVE                             R3 R5
+       84 JUMPIF                           R3 ; [+10]
+       85 GETIMPORT                        R5 K3 [error]
+       87 LOADK                            R7 K24 ["No hoverable element found in catalog item '%*'"]
+       88 GETTABLEKS                       R9 R2 K6 ["Name"]
+       90 NAMECALL                         R7 R7 K16 ["format"]
+       92 CALL                             R7 2 1
+       93 MOVE                             R6 R7
+       94 CALL                             R5 1 0
+       95 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       97 LOADB                            R6 0 +1
+       98 LOADB                            R6 1
+       99 FASTCALL2K                       ASSERT R6 K25 ; [+4]
+      101 LOADK                            R7 K25 ["hoverTarget must exist"]
+      102 GETIMPORT                        R5 K27 [assert]
+      104 CALL                             R5 2 0
+      105 GETUPVAL                         R6 1
+      106 GETTABLEKS                       R5 R6 K28 ["act"]
+      108 NEWCLOSURE                       R6 P0
+      109 CAPTURE                          UPVAL U2
+      110 CAPTURE                          REF R3
+      111 CALL                             R5 1 0
+      112 CLOSEUPVALS                      R3
+      113 RETURN                           R0 0
+
+PROTO_76:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["VirtualInput"]
+        3 GETTABLEKS                       R1 R2 K1 ["Mouse"]
+        5 GETTABLEKS                       R0 R1 K2 ["SendMouseMoveEvent"]
+        7 LOADN                            R1 15
+        8 LOADN                            R2 15
+        9 CALL                             R0 2 0
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R1 R2 K0 ["VirtualInput"]
+       13 GETTABLEKS                       R0 R1 K3 ["waitForInputEventsProcessed"]
+       15 CALL                             R0 0 0
+       16 RETURN                           R0 0
+
+PROTO_77:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["act"]
+        3 DUPCLOSURE                       R1 K1 [PROTO_76]
+        4 CAPTURE                          UPVAL U1
+        5 CALL                             R0 1 0
+        6 RETURN                           R0 0
+
+PROTO_78:
         0 LOADK                            R3 K0 ["MakeupDescription"]
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 -1
         4 RETURN                           R1 -1
 
-PROTO_75:
+PROTO_79:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["AvatarScreen"]
         3 GETTABLEKS                       R0 R1 K1 ["getDummy"]
@@ -1351,11 +1490,11 @@ PROTO_75:
        19 GETTABLEKS                       R2 R3 K7 ["count"]
        21 NAMECALL                         R3 R1 K8 ["GetChildren"]
        23 CALL                             R3 1 1
-       24 DUPCLOSURE                       R4 K9 [PROTO_74]
+       24 DUPCLOSURE                       R4 K9 [PROTO_78]
        25 CALL                             R2 2 -1
        26 RETURN                           R2 -1
 
-PROTO_76:
+PROTO_80:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["instanceByPath"]
         3 GETUPVAL                         R2 1
@@ -1376,7 +1515,7 @@ PROTO_76:
        22 GETTABLEKS                       R1 R0 K7 ["Text"]
        24 RETURN                           R1 1
 
-PROTO_77:
+PROTO_81:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["instanceByPath"]
         3 GETUPVAL                         R2 1
@@ -1397,7 +1536,7 @@ PROTO_77:
        22 GETTABLEKS                       R1 R0 K7 ["Text"]
        24 RETURN                           R1 1
 
-PROTO_78:
+PROTO_82:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
         2 JUMPIFNOT                        R0 ; [+8]
@@ -1416,7 +1555,7 @@ PROTO_78:
        17 CALL                             R0 1 1
        18 RETURN                           R0 1
 
-PROTO_79:
+PROTO_83:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
         2 JUMPIFNOT                        R0 ; [+8]
@@ -1435,7 +1574,7 @@ PROTO_79:
        17 CALL                             R0 1 0
        18 RETURN                           R0 0
 
-PROTO_80:
+PROTO_84:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["clickPath"]
         3 GETUPVAL                         R2 1
@@ -1453,7 +1592,7 @@ PROTO_80:
        17 CALL                             R1 2 0
        18 RETURN                           R0 0
 
-PROTO_81:
+PROTO_85:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["AutoSetupScreen"]
         3 GETTABLEKS                       R1 R2 K1 ["isActive"]
@@ -1473,7 +1612,7 @@ PROTO_81:
        22 LOADB                            R0 1
        23 RETURN                           R0 1
 
-PROTO_82:
+PROTO_86:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["AutoSetupScreen"]
         3 GETTABLEKS                       R1 R2 K1 ["getDummy"]
@@ -1483,7 +1622,7 @@ PROTO_82:
         9 LOADB                            R0 1
        10 RETURN                           R0 1
 
-PROTO_83:
+PROTO_87:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["clickPath"]
         3 GETUPVAL                         R2 1
@@ -1492,7 +1631,7 @@ PROTO_83:
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
-PROTO_84:
+PROTO_88:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["instanceByPath"]
         3 LOADK                            R2 K1 ["Provider.Buttons"]
@@ -1502,14 +1641,14 @@ PROTO_84:
         8 LOADB                            R0 1
         9 RETURN                           R0 1
 
-PROTO_85:
+PROTO_89:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["Provider.Buttons.AddSelected"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_86:
+PROTO_90:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["instanceByPath"]
         3 GETUPVAL                         R3 1
@@ -1521,7 +1660,7 @@ PROTO_86:
        10 LOADB                            R0 1
        11 RETURN                           R0 1
 
-PROTO_87:
+PROTO_91:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["clickPath"]
         3 GETUPVAL                         R2 1
@@ -1530,7 +1669,7 @@ PROTO_87:
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
-PROTO_88:
+PROTO_92:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["Toolbar"]
@@ -1543,7 +1682,7 @@ PROTO_88:
        11 CALL                             R0 2 0
        12 RETURN                           R0 0
 
-PROTO_89:
+PROTO_93:
         0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["AvatarPreviewerBodyPointsToolToolbar"]
         2 NAMECALL                         R1 R1 K1 ["FindFirstChild"]
@@ -1553,7 +1692,7 @@ PROTO_89:
         8 LOADB                            R0 1
         9 RETURN                           R0 1
 
-PROTO_90:
+PROTO_94:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["Toolbar"]
@@ -1566,7 +1705,7 @@ PROTO_90:
        11 CALL                             R0 2 0
        12 RETURN                           R0 0
 
-PROTO_91:
+PROTO_95:
         0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["AvatarPreviewerCageEditingToolToolbar"]
         2 NAMECALL                         R1 R1 K1 ["FindFirstChild"]
@@ -1576,7 +1715,7 @@ PROTO_91:
         8 LOADB                            R0 1
         9 RETURN                           R0 1
 
-PROTO_92:
+PROTO_96:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["AvatarPreviewerCageEditingToolToolbar"]
         2 NAMECALL                         R0 R0 K1 ["FindFirstChild"]
@@ -1606,7 +1745,7 @@ PROTO_92:
        40 LOADNIL                          R2
        41 RETURN                           R2 1
 
-PROTO_93:
+PROTO_97:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["AvatarPreviewerCageEditingToolToolbar"]
         2 NAMECALL                         R0 R0 K1 ["FindFirstChild"]
@@ -1636,7 +1775,7 @@ PROTO_93:
        40 LOADNIL                          R2
        41 RETURN                           R2 1
 
-PROTO_94:
+PROTO_98:
         0 GETUPVAL                         R0 0
         1 GETIMPORT                        R2 K3 [Enum.KeyCode.LeftShift]
         3 NAMECALL                         R0 R0 K4 ["IsKeyDown"]
@@ -1673,16 +1812,16 @@ PROTO_94:
        53 CALL                             R0 0 0
        54 RETURN                           R0 0
 
-PROTO_95:
+PROTO_99:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["act"]
-        3 DUPCLOSURE                       R1 K1 [PROTO_94]
+        3 DUPCLOSURE                       R1 K1 [PROTO_98]
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
-PROTO_96:
+PROTO_100:
         0 GETUPVAL                         R0 0
         1 GETIMPORT                        R2 K3 [Enum.KeyCode.B]
         3 NAMECALL                         R0 R0 K4 ["IsKeyDown"]
@@ -1707,16 +1846,16 @@ PROTO_96:
        33 CALL                             R0 0 0
        34 RETURN                           R0 0
 
-PROTO_97:
+PROTO_101:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["act"]
-        3 DUPCLOSURE                       R1 K1 [PROTO_96]
+        3 DUPCLOSURE                       R1 K1 [PROTO_100]
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
-PROTO_98:
+PROTO_102:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 LOADN                            R3 0
@@ -1729,7 +1868,7 @@ PROTO_98:
        12 CALL                             R0 0 0
        13 RETURN                           R0 0
 
-PROTO_99:
+PROTO_103:
         0 GETUPVAL                         R3 0
         1 CALL                             R3 0 1
         2 FASTCALL2K                       ASSERT R3 K0 ; [+4]
@@ -1761,7 +1900,7 @@ PROTO_99:
        37 CALL                             R3 0 0
        38 RETURN                           R0 0
 
-PROTO_100:
+PROTO_104:
         0 LOADN                            R2 1
         1 GETUPVAL                         R0 0
         2 LOADN                            R1 1
@@ -1781,7 +1920,7 @@ PROTO_100:
        21 CALL                             R0 0 0
        22 RETURN                           R0 0
 
-PROTO_101:
+PROTO_105:
         0 LOADNIL                          R2
         1 JUMPIFNOTEQKS                    R0 K0 ["radius"] ; [+7]
         3 GETUPVAL                         R4 0
@@ -1815,7 +1954,7 @@ PROTO_101:
        39 CALL                             R5 0 0
        40 RETURN                           R0 0
 
-PROTO_102:
+PROTO_106:
         0 GETIMPORT                        R1 K2 [Instance.new]
         2 LOADK                            R2 K3 ["Folder"]
         3 CALL                             R1 1 1
@@ -2087,141 +2226,152 @@ PROTO_102:
       366 SETTABLEKS                       R10 R11 K76 ["createAndEquipMakeupItem"]
       368 NEWCLOSURE                       R10 P47
       369 CAPTURE                          VAL R8
-      370 CAPTURE                          UPVAL U22
-      371 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
-      373 SETTABLEKS                       R10 R11 K77 ["countEquippedMakeup"]
-      375 NEWTABLE                         R10 0 0
-      377 SETTABLEKS                       R10 R8 K78 ["AutoSetupScreen"]
-      379 GETUPVAL                         R11 7
-      380 CALL                             R11 0 1
-      381 JUMPIFNOT                        R11 ; [+2]
-      382 LOADK                            R10 K79 ["Children."]
-      383 JUMP                             ; [+1]
-      384 LOADK                            R10 K80 ["Provider."]
-      385 NEWCLOSURE                       R11 P48
-      386 CAPTURE                          VAL R8
-      387 CAPTURE                          VAL R10
-      388 GETTABLEKS                       R12 R8 K78 ["AutoSetupScreen"]
-      390 SETTABLEKS                       R11 R12 K81 ["getAlertDescription"]
-      392 NEWCLOSURE                       R11 P49
-      393 CAPTURE                          VAL R8
-      394 CAPTURE                          VAL R10
-      395 GETTABLEKS                       R12 R8 K78 ["AutoSetupScreen"]
-      397 SETTABLEKS                       R11 R12 K82 ["getAlertTitle"]
-      399 NEWCLOSURE                       R11 P50
-      400 CAPTURE                          UPVAL U23
+      370 CAPTURE                          UPVAL U2
+      371 CAPTURE                          UPVAL U18
+      372 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
+      374 SETTABLEKS                       R10 R11 K77 ["hoverFirstCatalogItemOfSourceType"]
+      376 DUPCLOSURE                       R10 K78 [PROTO_77]
+      377 CAPTURE                          UPVAL U2
+      378 CAPTURE                          UPVAL U18
+      379 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
+      381 SETTABLEKS                       R10 R11 K79 ["moveMouseAway"]
+      383 NEWCLOSURE                       R10 P49
+      384 CAPTURE                          VAL R8
+      385 CAPTURE                          UPVAL U22
+      386 GETTABLEKS                       R11 R8 K52 ["AvatarScreen"]
+      388 SETTABLEKS                       R10 R11 K80 ["countEquippedMakeup"]
+      390 NEWTABLE                         R10 0 0
+      392 SETTABLEKS                       R10 R8 K81 ["AutoSetupScreen"]
+      394 GETUPVAL                         R11 7
+      395 CALL                             R11 0 1
+      396 JUMPIFNOT                        R11 ; [+2]
+      397 LOADK                            R10 K82 ["Children."]
+      398 JUMP                             ; [+1]
+      399 LOADK                            R10 K83 ["Provider."]
+      400 NEWCLOSURE                       R11 P50
       401 CAPTURE                          VAL R8
       402 CAPTURE                          VAL R10
-      403 GETTABLEKS                       R12 R8 K78 ["AutoSetupScreen"]
-      405 SETTABLEKS                       R11 R12 K67 ["getDummy"]
+      403 GETTABLEKS                       R12 R8 K81 ["AutoSetupScreen"]
+      405 SETTABLEKS                       R11 R12 K84 ["getAlertDescription"]
       407 NEWCLOSURE                       R11 P51
-      408 CAPTURE                          UPVAL U23
-      409 CAPTURE                          VAL R8
-      410 CAPTURE                          VAL R10
-      411 GETTABLEKS                       R12 R8 K78 ["AutoSetupScreen"]
-      413 SETTABLEKS                       R11 R12 K83 ["startAutoSetup"]
-      415 NEWCLOSURE                       R11 P52
+      408 CAPTURE                          VAL R8
+      409 CAPTURE                          VAL R10
+      410 GETTABLEKS                       R12 R8 K81 ["AutoSetupScreen"]
+      412 SETTABLEKS                       R11 R12 K85 ["getAlertTitle"]
+      414 NEWCLOSURE                       R11 P52
+      415 CAPTURE                          UPVAL U23
       416 CAPTURE                          VAL R8
       417 CAPTURE                          VAL R10
-      418 GETTABLEKS                       R12 R8 K78 ["AutoSetupScreen"]
-      420 SETTABLEKS                       R11 R12 K84 ["cancelAutoSetup"]
+      418 GETTABLEKS                       R12 R8 K81 ["AutoSetupScreen"]
+      420 SETTABLEKS                       R11 R12 K67 ["getDummy"]
       422 NEWCLOSURE                       R11 P53
-      423 CAPTURE                          VAL R8
-      424 CAPTURE                          VAL R10
-      425 GETTABLEKS                       R12 R8 K78 ["AutoSetupScreen"]
-      427 SETTABLEKS                       R11 R12 K85 ["controlsActive"]
-      429 NEWCLOSURE                       R11 P54
-      430 CAPTURE                          VAL R8
-      431 GETTABLEKS                       R12 R8 K78 ["AutoSetupScreen"]
-      433 SETTABLEKS                       R11 R12 K55 ["isActive"]
-      435 NEWCLOSURE                       R11 P55
-      436 CAPTURE                          VAL R8
-      437 CAPTURE                          VAL R10
-      438 GETTABLEKS                       R12 R8 K78 ["AutoSetupScreen"]
-      440 SETTABLEKS                       R11 R12 K86 ["toggleClothingTable"]
-      442 NEWTABLE                         R11 0 0
-      444 SETTABLEKS                       R11 R8 K87 ["SelectScreen"]
-      446 NEWCLOSURE                       R11 P56
-      447 CAPTURE                          VAL R8
-      448 GETTABLEKS                       R12 R8 K87 ["SelectScreen"]
-      450 SETTABLEKS                       R11 R12 K55 ["isActive"]
-      452 NEWCLOSURE                       R11 P57
-      453 CAPTURE                          VAL R8
-      454 GETTABLEKS                       R12 R8 K87 ["SelectScreen"]
-      456 SETTABLEKS                       R11 R12 K88 ["clickAddSelected"]
-      458 GETUPVAL                         R11 24
-      459 MOVE                             R12 R8
-      460 CALL                             R11 1 1
-      461 SETTABLEKS                       R11 R8 K89 ["DisambiguationMenu"]
-      463 NEWTABLE                         R11 0 0
-      465 SETTABLEKS                       R11 R8 K90 ["TestingScreen"]
-      467 NEWCLOSURE                       R11 P58
+      423 CAPTURE                          UPVAL U23
+      424 CAPTURE                          VAL R8
+      425 CAPTURE                          VAL R10
+      426 GETTABLEKS                       R12 R8 K81 ["AutoSetupScreen"]
+      428 SETTABLEKS                       R11 R12 K86 ["startAutoSetup"]
+      430 NEWCLOSURE                       R11 P54
+      431 CAPTURE                          VAL R8
+      432 CAPTURE                          VAL R10
+      433 GETTABLEKS                       R12 R8 K81 ["AutoSetupScreen"]
+      435 SETTABLEKS                       R11 R12 K87 ["cancelAutoSetup"]
+      437 NEWCLOSURE                       R11 P55
+      438 CAPTURE                          VAL R8
+      439 CAPTURE                          VAL R10
+      440 GETTABLEKS                       R12 R8 K81 ["AutoSetupScreen"]
+      442 SETTABLEKS                       R11 R12 K88 ["controlsActive"]
+      444 NEWCLOSURE                       R11 P56
+      445 CAPTURE                          VAL R8
+      446 GETTABLEKS                       R12 R8 K81 ["AutoSetupScreen"]
+      448 SETTABLEKS                       R11 R12 K55 ["isActive"]
+      450 NEWCLOSURE                       R11 P57
+      451 CAPTURE                          VAL R8
+      452 CAPTURE                          VAL R10
+      453 GETTABLEKS                       R12 R8 K81 ["AutoSetupScreen"]
+      455 SETTABLEKS                       R11 R12 K89 ["toggleClothingTable"]
+      457 NEWTABLE                         R11 0 0
+      459 SETTABLEKS                       R11 R8 K90 ["SelectScreen"]
+      461 NEWCLOSURE                       R11 P58
+      462 CAPTURE                          VAL R8
+      463 GETTABLEKS                       R12 R8 K90 ["SelectScreen"]
+      465 SETTABLEKS                       R11 R12 K55 ["isActive"]
+      467 NEWCLOSURE                       R11 P59
       468 CAPTURE                          VAL R8
-      469 CAPTURE                          VAL R10
-      470 GETTABLEKS                       R12 R8 K90 ["TestingScreen"]
-      472 SETTABLEKS                       R11 R12 K55 ["isActive"]
-      474 NEWCLOSURE                       R11 P59
-      475 CAPTURE                          VAL R8
-      476 CAPTURE                          VAL R10
-      477 GETTABLEKS                       R12 R8 K90 ["TestingScreen"]
-      479 SETTABLEKS                       R11 R12 K91 ["clickStop"]
-      481 NEWTABLE                         R11 0 0
-      483 SETTABLEKS                       R11 R8 K92 ["EditingTools"]
-      485 NEWCLOSURE                       R11 P60
-      486 CAPTURE                          VAL R8
-      487 GETTABLEKS                       R12 R8 K92 ["EditingTools"]
-      489 SETTABLEKS                       R11 R12 K93 ["clickBodyPointsToolButton"]
-      491 DUPCLOSURE                       R11 K94 [PROTO_89]
-      492 CAPTURE                          UPVAL U1
-      493 GETTABLEKS                       R12 R8 K92 ["EditingTools"]
-      495 SETTABLEKS                       R11 R12 K95 ["bodyPointsToolIsActive"]
-      497 NEWCLOSURE                       R11 P62
-      498 CAPTURE                          VAL R8
-      499 GETTABLEKS                       R12 R8 K92 ["EditingTools"]
-      501 SETTABLEKS                       R11 R12 K96 ["clickCageEditingToolButton"]
-      503 DUPCLOSURE                       R11 K97 [PROTO_91]
-      504 CAPTURE                          UPVAL U1
-      505 GETTABLEKS                       R12 R8 K92 ["EditingTools"]
-      507 SETTABLEKS                       R11 R12 K98 ["cageEditingToolIsActive"]
-      509 NEWTABLE                         R11 0 0
-      511 SETTABLEKS                       R11 R8 K99 ["CageEditingTool"]
-      513 DUPCLOSURE                       R11 K100 [PROTO_92]
-      514 CAPTURE                          UPVAL U1
-      515 GETTABLEKS                       R12 R8 K99 ["CageEditingTool"]
-      517 SETTABLEKS                       R11 R12 K101 ["getBrushRadiusSliderValue"]
-      519 DUPCLOSURE                       R11 K102 [PROTO_93]
-      520 CAPTURE                          UPVAL U1
-      521 GETTABLEKS                       R12 R8 K99 ["CageEditingTool"]
-      523 SETTABLEKS                       R11 R12 K103 ["getBrushFalloffSliderValue"]
-      525 DUPCLOSURE                       R11 K104 [PROTO_95]
-      526 CAPTURE                          UPVAL U2
-      527 CAPTURE                          UPVAL U25
-      528 CAPTURE                          UPVAL U18
-      529 GETTABLEKS                       R12 R8 K99 ["CageEditingTool"]
-      531 SETTABLEKS                       R11 R12 K105 ["ToggleShiftB"]
-      533 DUPCLOSURE                       R11 K106 [PROTO_97]
-      534 CAPTURE                          UPVAL U2
-      535 CAPTURE                          UPVAL U25
-      536 CAPTURE                          UPVAL U18
-      537 GETTABLEKS                       R12 R8 K99 ["CageEditingTool"]
-      539 SETTABLEKS                       R11 R12 K107 ["ToggleB"]
-      541 NEWCLOSURE                       R11 P68
-      542 CAPTURE                          UPVAL U26
-      543 CAPTURE                          VAL R8
-      544 CAPTURE                          UPVAL U2
-      545 CAPTURE                          UPVAL U27
-      546 CAPTURE                          UPVAL U18
-      547 GETTABLEKS                       R12 R8 K99 ["CageEditingTool"]
-      549 SETTABLEKS                       R11 R12 K108 ["activateShortcutAndMoveMouse"]
-      551 NEWCLOSURE                       R11 P69
-      552 CAPTURE                          VAL R8
-      553 CAPTURE                          UPVAL U2
-      554 CAPTURE                          UPVAL U18
-      555 GETTABLEKS                       R12 R8 K99 ["CageEditingTool"]
-      557 SETTABLEKS                       R11 R12 K109 ["activateShortcutAndMoveMouseWheel"]
-      559 RETURN                           R8 1
+      469 GETTABLEKS                       R12 R8 K90 ["SelectScreen"]
+      471 SETTABLEKS                       R11 R12 K91 ["clickAddSelected"]
+      473 GETUPVAL                         R11 24
+      474 MOVE                             R12 R8
+      475 CALL                             R11 1 1
+      476 SETTABLEKS                       R11 R8 K92 ["DisambiguationMenu"]
+      478 NEWTABLE                         R11 0 0
+      480 SETTABLEKS                       R11 R8 K93 ["TestingScreen"]
+      482 NEWCLOSURE                       R11 P60
+      483 CAPTURE                          VAL R8
+      484 CAPTURE                          VAL R10
+      485 GETTABLEKS                       R12 R8 K93 ["TestingScreen"]
+      487 SETTABLEKS                       R11 R12 K55 ["isActive"]
+      489 NEWCLOSURE                       R11 P61
+      490 CAPTURE                          VAL R8
+      491 CAPTURE                          VAL R10
+      492 GETTABLEKS                       R12 R8 K93 ["TestingScreen"]
+      494 SETTABLEKS                       R11 R12 K94 ["clickStop"]
+      496 NEWTABLE                         R11 0 0
+      498 SETTABLEKS                       R11 R8 K95 ["EditingTools"]
+      500 NEWCLOSURE                       R11 P62
+      501 CAPTURE                          VAL R8
+      502 GETTABLEKS                       R12 R8 K95 ["EditingTools"]
+      504 SETTABLEKS                       R11 R12 K96 ["clickBodyPointsToolButton"]
+      506 DUPCLOSURE                       R11 K97 [PROTO_93]
+      507 CAPTURE                          UPVAL U1
+      508 GETTABLEKS                       R12 R8 K95 ["EditingTools"]
+      510 SETTABLEKS                       R11 R12 K98 ["bodyPointsToolIsActive"]
+      512 NEWCLOSURE                       R11 P64
+      513 CAPTURE                          VAL R8
+      514 GETTABLEKS                       R12 R8 K95 ["EditingTools"]
+      516 SETTABLEKS                       R11 R12 K99 ["clickCageEditingToolButton"]
+      518 DUPCLOSURE                       R11 K100 [PROTO_95]
+      519 CAPTURE                          UPVAL U1
+      520 GETTABLEKS                       R12 R8 K95 ["EditingTools"]
+      522 SETTABLEKS                       R11 R12 K101 ["cageEditingToolIsActive"]
+      524 NEWTABLE                         R11 0 0
+      526 SETTABLEKS                       R11 R8 K102 ["CageEditingTool"]
+      528 DUPCLOSURE                       R11 K103 [PROTO_96]
+      529 CAPTURE                          UPVAL U1
+      530 GETTABLEKS                       R12 R8 K102 ["CageEditingTool"]
+      532 SETTABLEKS                       R11 R12 K104 ["getBrushRadiusSliderValue"]
+      534 DUPCLOSURE                       R11 K105 [PROTO_97]
+      535 CAPTURE                          UPVAL U1
+      536 GETTABLEKS                       R12 R8 K102 ["CageEditingTool"]
+      538 SETTABLEKS                       R11 R12 K106 ["getBrushFalloffSliderValue"]
+      540 DUPCLOSURE                       R11 K107 [PROTO_99]
+      541 CAPTURE                          UPVAL U2
+      542 CAPTURE                          UPVAL U25
+      543 CAPTURE                          UPVAL U18
+      544 GETTABLEKS                       R12 R8 K102 ["CageEditingTool"]
+      546 SETTABLEKS                       R11 R12 K108 ["ToggleShiftB"]
+      548 DUPCLOSURE                       R11 K109 [PROTO_101]
+      549 CAPTURE                          UPVAL U2
+      550 CAPTURE                          UPVAL U25
+      551 CAPTURE                          UPVAL U18
+      552 GETTABLEKS                       R12 R8 K102 ["CageEditingTool"]
+      554 SETTABLEKS                       R11 R12 K110 ["ToggleB"]
+      556 NEWCLOSURE                       R11 P70
+      557 CAPTURE                          UPVAL U26
+      558 CAPTURE                          VAL R8
+      559 CAPTURE                          UPVAL U2
+      560 CAPTURE                          UPVAL U27
+      561 CAPTURE                          UPVAL U18
+      562 GETTABLEKS                       R12 R8 K102 ["CageEditingTool"]
+      564 SETTABLEKS                       R11 R12 K111 ["activateShortcutAndMoveMouse"]
+      566 NEWCLOSURE                       R11 P71
+      567 CAPTURE                          VAL R8
+      568 CAPTURE                          UPVAL U2
+      569 CAPTURE                          UPVAL U18
+      570 GETTABLEKS                       R12 R8 K102 ["CageEditingTool"]
+      572 SETTABLEKS                       R11 R12 K112 ["activateShortcutAndMoveMouseWheel"]
+      574 RETURN                           R8 1
 
-PROTO_103:
+PROTO_107:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 CALL                             R0 1 1
@@ -2237,7 +2387,7 @@ PROTO_103:
        13 CALL                             R2 0 0
        14 RETURN                           R0 0
 
-PROTO_104:
+PROTO_108:
         0 NEWCLOSURE                       R2 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          VAL R1
@@ -2245,7 +2395,7 @@ PROTO_104:
         4 CAPTURE                          VAL R0
         5 RETURN                           R2 1
 
-PROTO_105:
+PROTO_109:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["cloneLizard"]
         3 LOADK                            R1 K1 ["ClonedLizard"]
@@ -2255,13 +2405,13 @@ PROTO_105:
         7 CALL                             R1 1 0
         8 RETURN                           R0 0
 
-PROTO_106:
+PROTO_110:
         0 NEWCLOSURE                       R1 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          VAL R0
         3 RETURN                           R1 1
 
-PROTO_107:
+PROTO_111:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["select"]
         3 NEWTABLE                         R2 0 1
@@ -2274,7 +2424,7 @@ PROTO_107:
        12 CALL                             R1 2 0
        13 RETURN                           R0 0
 
-PROTO_108:
+PROTO_112:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["withClonedLizard"]
         3 NEWCLOSURE                       R2 P0
@@ -2284,7 +2434,7 @@ PROTO_108:
         7 CALL                             R1 0 -1
         8 RETURN                           R1 -1
 
-PROTO_109:
+PROTO_113:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["withTestPreviewer"]
         3 NEWCLOSURE                       R3 P0
@@ -2294,7 +2444,7 @@ PROTO_109:
         7 CALL                             R2 2 -1
         8 RETURN                           R2 -1
 
-PROTO_110:
+PROTO_114:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 CALL                             R0 1 1
@@ -2305,14 +2455,14 @@ PROTO_110:
         8 CALL                             R1 0 0
         9 RETURN                           R0 0
 
-PROTO_111:
+PROTO_115:
         0 NEWCLOSURE                       R2 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          VAL R1
         3 CAPTURE                          VAL R0
         4 RETURN                           R2 1
 
-PROTO_112:
+PROTO_116:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["select"]
         3 NEWTABLE                         R2 0 1
@@ -2325,7 +2475,7 @@ PROTO_112:
        12 CALL                             R1 2 0
        13 RETURN                           R0 0
 
-PROTO_113:
+PROTO_117:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["withClonedLizard"]
         3 NEWCLOSURE                       R2 P0
@@ -2335,7 +2485,7 @@ PROTO_113:
         7 CALL                             R1 0 -1
         8 RETURN                           R1 -1
 
-PROTO_114:
+PROTO_118:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["withTestPreviewerEditingTools"]
         3 NEWCLOSURE                       R3 P0
@@ -2345,13 +2495,13 @@ PROTO_114:
         7 CALL                             R2 2 -1
         8 RETURN                           R2 -1
 
-PROTO_115:
+PROTO_119:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Destroy"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_116:
+PROTO_120:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R1 R2 K0 ["testAssets"]
         3 GETTABLEKS                       R0 R1 K1 ["AutoSetupTarget"]
@@ -2548,7 +2698,7 @@ MAIN:
       297 DUPCLOSURE                       R35 K65 [PROTO_14]
       298 CAPTURE                          VAL R29
       299 CAPTURE                          VAL R0
-      300 DUPCLOSURE                       R36 K66 [PROTO_102]
+      300 DUPCLOSURE                       R36 K66 [PROTO_106]
       301 CAPTURE                          VAL R2
       302 CAPTURE                          VAL R1
       303 CAPTURE                          VAL R13
@@ -2577,23 +2727,23 @@ MAIN:
       326 CAPTURE                          VAL R4
       327 CAPTURE                          VAL R32
       328 CAPTURE                          VAL R5
-      329 DUPCLOSURE                       R37 K67 [PROTO_104]
+      329 DUPCLOSURE                       R37 K67 [PROTO_108]
       330 CAPTURE                          VAL R36
       331 CAPTURE                          VAL R35
       332 SETTABLEKS                       R37 R34 K68 ["withTestPreviewer"]
-      334 DUPCLOSURE                       R37 K69 [PROTO_106]
+      334 DUPCLOSURE                       R37 K69 [PROTO_110]
       335 CAPTURE                          VAL R34
       336 SETTABLEKS                       R37 R34 K70 ["withClonedLizard"]
-      338 DUPCLOSURE                       R37 K71 [PROTO_109]
+      338 DUPCLOSURE                       R37 K71 [PROTO_113]
       339 CAPTURE                          VAL R34
       340 SETTABLEKS                       R37 R34 K72 ["withPreviewerAndLizard"]
-      342 DUPCLOSURE                       R37 K73 [PROTO_111]
+      342 DUPCLOSURE                       R37 K73 [PROTO_115]
       343 CAPTURE                          VAL R36
       344 SETTABLEKS                       R37 R34 K74 ["withTestPreviewerEditingTools"]
-      346 DUPCLOSURE                       R37 K75 [PROTO_114]
+      346 DUPCLOSURE                       R37 K75 [PROTO_118]
       347 CAPTURE                          VAL R34
       348 SETTABLEKS                       R37 R34 K76 ["withPreviewerAndLizardEditingTools"]
-      350 DUPCLOSURE                       R37 K77 [PROTO_116]
+      350 DUPCLOSURE                       R37 K77 [PROTO_120]
       351 CAPTURE                          VAL R34
       352 CAPTURE                          VAL R6
       353 CAPTURE                          VAL R16

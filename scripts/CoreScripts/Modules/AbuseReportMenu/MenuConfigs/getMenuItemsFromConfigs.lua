@@ -17,6 +17,7 @@ local ButtonVariant = Foundation.Enums.ButtonVariant
 local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
 local FFlagInGameMenuAddChatLineReporting =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagInGameMenuAddChatLineReporting
+local FFlagReportFocusNavIEMButtons = require(root.Flags.FFlagReportFocusNavIEMButtons)
 
 local function getMenuItemsFromConfigs(
 	menuUIStates: Types.ReportPersonState | Types.ReportExperienceState,
@@ -37,8 +38,29 @@ local function getMenuItemsFromConfigs(
 		end, { utilityProps.onDropdownMenuOpenChange })
 	end
 
-	for i, config in configList do
-		if config.getIsVisible(menuUIStates) then
+	local lastSelectableObjectRef = if FFlagReportFocusNavIEMButtons
+		then React.useRef(nil :: GuiObject?)
+		else nil :: never
+	if FFlagReportFocusNavIEMButtons then
+		React.useEffect(function()
+			if utilityProps.setLastSelectableObjects and lastSelectableObjectRef.current then
+				utilityProps.setLastSelectableObjects({ lastSelectableObjectRef.current })
+			end
+		end, { lastSelectableObjectRef, utilityProps.setLastSelectableObjects } :: { unknown })
+	end
+
+	local filteredConfigList = configList
+	if FFlagReportFocusNavIEMButtons then
+		filteredConfigList = {}
+		for i, config in configList do
+			if config.getIsVisible(menuUIStates) then
+				table.insert(filteredConfigList, config)
+			end
+		end
+	end
+
+	for i, config in filteredConfigList do
+		if FFlagReportFocusNavIEMButtons or config.getIsVisible(menuUIStates) then
 			local componentType = config.componentType
 			local componentName = config.componentName
 			if componentType == "generic" then
@@ -53,6 +75,9 @@ local function getMenuItemsFromConfigs(
 					onUpdate = function(newValue)
 						config.onUpdate(newValue, menuUIStates, dispatchUIStates, utilityProps)
 					end,
+					ref = if FFlagReportFocusNavIEMButtons and i == #filteredConfigList
+						then lastSelectableObjectRef
+						else nil,
 				})
 			elseif componentType == "button" then
 				local iconSrc = config.getIconSrc(utilityProps)
@@ -71,6 +96,9 @@ local function getMenuItemsFromConfigs(
 						onActivated = function()
 							config.onClick(menuUIStates, dispatchUIStates, utilityProps)
 						end,
+						ref = if FFlagReportFocusNavIEMButtons and i == #filteredConfigList
+							then lastSelectableObjectRef
+							else nil,
 					}),
 					menuContainerWidth = utilityProps.menuWidth,
 					layoutOrder = i,
@@ -90,6 +118,9 @@ local function getMenuItemsFromConfigs(
 					selections = config.getMenuItems(menuUIStates),
 					isSmallPortraitViewport = isSmallPortraitViewport,
 					minHeight = if isSmallPortraitViewport then 0 else Constants.MenuItemHeight,
+					ref = if FFlagReportFocusNavIEMButtons and i == #filteredConfigList
+						then lastSelectableObjectRef
+						else nil,
 				})
 			elseif componentType == "modalSelector" then
 				menuItems[componentName] = React.createElement(ModalBasedSelectorMenuItem, {
@@ -116,6 +147,9 @@ local function getMenuItemsFromConfigs(
 					viewportWidth = utilityProps.viewportDimension.width,
 					isSmallPortraitViewport = isSmallPortraitViewport,
 					placeholderText = localizedText.ChooseOne,
+					ref = if FFlagReportFocusNavIEMButtons and i == #filteredConfigList
+						then lastSelectableObjectRef
+						else nil,
 				})
 			elseif FFlagInGameMenuAddChatLineReporting and componentType == "chatModalSelector" then
 				menuItems[componentName] = React.createElement(ChatModalSelectorMenuItem, {
@@ -138,6 +172,9 @@ local function getMenuItemsFromConfigs(
 						else nil,
 					isSmallPortraitViewport = isSmallPortraitViewport,
 					placeholderText = localizedText.ChooseOne,
+					ref = if FFlagReportFocusNavIEMButtons and i == #filteredConfigList
+						then lastSelectableObjectRef
+						else nil,
 				}) :: React.ReactElement
 			end
 		end

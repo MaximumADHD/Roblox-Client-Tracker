@@ -13,14 +13,7 @@ local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local ConnectionUtil = CommonUtils.get("ConnectionUtil")
 local CharacterUtil = CommonUtils.get("CharacterUtil")
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPSActionsPathAware = FlagUtil.getUserFlag("UserPSActionsPathAware")
 local FFlagUserPlayerScriptsCanUseLCC = FlagUtil.getUserFlag("UserPlayerScriptsCanUseLCC")
-
--- remove with FFlagUserPSActionsPathAware
-local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
-local character = inputContexts:WaitForChild("Character")
-local jumpAction = character:WaitForChild("Jump")
-local touchJumpBinding = jumpAction:WaitForChild("TouchJumpBinding")
 
 local AvatarAbilitiesInterface
 if FFlagUserPlayerScriptsCanUseLCC then
@@ -67,12 +60,10 @@ TouchJump.__index = TouchJump
 function TouchJump.new(data, playerData)
 	local self = setmetatable(ActionController.new() :: any, TouchJump)
 
-	if FFlagUserPSActionsPathAware then
-		self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
-		data.eventBus:subscribe(CONNECTIONS.ACTIONS_RELOADED):Connect(function()
-			self:Create()
-		end)
-	end
+	self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
+	data.eventBus:subscribe(CONNECTIONS.ACTIONS_RELOADED):Connect(function()
+		self:Create()
+	end)
 
 	self.parentUIFrame = nil
 	self.jumpButton = nil
@@ -85,7 +76,7 @@ function TouchJump.new(data, playerData)
 end
 
 function TouchJump:_reset()
-	if FFlagUserPSActionsPathAware and self.playerData.actions.Jump then
+	if self.playerData.actions.Jump then
 		self.playerData.actions.Jump:Fire(false)
 	end
 
@@ -259,62 +250,34 @@ function TouchJump:Create()
 
 	self.jumpButton.Parent = self.parentUIFrame
 
-	if FFlagUserPSActionsPathAware then
-		if not self.playerData.actions.Jump then 
+	if not self.playerData.actions.Jump then
+		return
+	end
+	self.playerData.actions.Jump:WaitForChild("TouchJumpBinding").UIButton = self.jumpButton
+
+	self.playerData.actions.Jump.Pressed:Connect(function()
+		if not self.jumpButton then
 			return
 		end
-		self.playerData.actions.Jump:WaitForChild("TouchJumpBinding").UIButton = self.jumpButton
 
-		self.playerData.actions.Jump.Pressed:Connect(function()
-			if not self.jumpButton then
-				return
-			end
+		if FFlagUserPlayerScriptsCanUseLCC and AvatarAbilitiesInterface:isEnabled() then
+			self.jumpButton.Image = JUMP_BUTTON_IMAGES[2]
+		else
+			self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
+		end
+	end)
 
-			if FFlagUserPlayerScriptsCanUseLCC and AvatarAbilitiesInterface:isEnabled() then
-				self.jumpButton.Image = JUMP_BUTTON_IMAGES[2]
-			else
-				self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
-			end
-		end)
+	self.playerData.actions.Jump.Released:Connect(function()
+		if not self.jumpButton then
+			return
+		end
 
-		self.playerData.actions.Jump.Released:Connect(function()
-			if not self.jumpButton then
-				return
-			end
-
-			if FFlagUserPlayerScriptsCanUseLCC and AvatarAbilitiesInterface:isEnabled() then
-				self.jumpButton.Image = JUMP_BUTTON_IMAGES[1]
-			else
-				self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
-			end
-		end)
-	else
-		touchJumpBinding.UIButton = self.jumpButton
-
-		jumpAction.Pressed:Connect(function()
-			if not self.jumpButton then
-				return
-			end
-
-			if FFlagUserPlayerScriptsCanUseLCC and AvatarAbilitiesInterface:isEnabled() then
-				self.jumpButton.Image = JUMP_BUTTON_IMAGES[2]
-			else
-				self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
-			end
-		end)
-
-		jumpAction.Released:Connect(function()
-			if not self.jumpButton then
-				return
-			end
-
-			if FFlagUserPlayerScriptsCanUseLCC and AvatarAbilitiesInterface:isEnabled() then
-				self.jumpButton.Image = JUMP_BUTTON_IMAGES[1]
-			else
-				self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
-			end
-		end)
-	end
+		if FFlagUserPlayerScriptsCanUseLCC and AvatarAbilitiesInterface:isEnabled() then
+			self.jumpButton.Image = JUMP_BUTTON_IMAGES[1]
+		else
+			self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
+		end
+	end)
 
 end
 

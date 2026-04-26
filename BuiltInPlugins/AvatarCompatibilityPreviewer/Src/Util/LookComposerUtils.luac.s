@@ -309,8 +309,20 @@ PROTO_7:
       200 GETTABLEKS                       R3 R4 K43 ["append"]
       202 MOVE                             R4 R1
       203 MOVE                             R5 R2
-      204 CALL                             R3 2 -1
-      205 RETURN                           R3 -1
+      204 CALL                             R3 2 1
+      205 GETUPVAL                         R4 2
+      206 CALL                             R4 0 1
+      207 JUMPIFNOT                        R4 ; [+11]
+      208 LENGTH                           R4 R3
+      209 MOVE                             R5 R3
+      210 LOADNIL                          R6
+      211 LOADNIL                          R7
+      212 FORGPREP                         R5
+      213 SUB                              R11 R4 R8
+      214 ADDK                             R10 R11 K44 [1]
+      215 SETTABLEKS                       R10 R9 K45 ["layerOrder"]
+      217 FORGLOOP                         R5 2 ; [-5]
+      219 RETURN                           R3 1
 
 PROTO_8:
         0 GETUPVAL                         R3 0
@@ -570,6 +582,14 @@ PROTO_13:
        61 RETURN                           R12 1
 
 PROTO_14:
+        0 GETTABLEKS                       R3 R0 K0 ["layerOrder"]
+        2 GETTABLEKS                       R4 R1 K0 ["layerOrder"]
+        4 JUMPIFLT                         R3 R4 ; [+2]
+        6 LOADB                            R2 0 +1
+        7 LOADB                            R2 1
+        8 RETURN                           R2 1
+
+PROTO_15:
         0 GETIMPORT                        R9 K2 [string.split]
         2 MOVE                             R10 R3
         3 LOADK                            R11 K3 ["_"]
@@ -635,81 +655,108 @@ PROTO_14:
        93 JUMP                             ; [+1]
        94 LOADNIL                          R11
        95 SETTABLEKS                       R11 R10 K9 ["groupId"]
-       97 LOADN                            R11 1
-       98 GETUPVAL                         R13 0
-       99 GETTABLEKS                       R12 R13 K35 ["reverse"]
-      101 MOVE                             R13 R1
-      102 CALL                             R12 1 3
-      103 FORGPREP                         R12
-      104 GETTABLEKS                       R17 R16 K36 ["itemRowType"]
-      106 JUMPIFNOTEQKS                    R17 K37 ["Asset"] ; [+30]
-      108 GETTABLEKS                       R17 R16 K38 ["rowState"]
-      110 JUMPIFNOTEQKS                    R17 K39 ["Selected"] ; [+26]
-      112 GETTABLEKS                       R18 R10 K4 ["assets"]
-      114 DUPTABLE                         R19 K42 [{"id", "meta"}]
-      115 GETTABLEKS                       R20 R16 K40 ["id"]
-      117 SETTABLEKS                       R20 R19 K40 ["id"]
-      119 DUPTABLE                         R20 K46 [{"order", "puffiness", "version"}]
-      120 SETTABLEKS                       R11 R20 K43 ["order"]
-      122 LOADN                            R21 1
-      123 SETTABLEKS                       R21 R20 K44 ["puffiness"]
-      125 LOADN                            R21 1
-      126 SETTABLEKS                       R21 R20 K45 ["version"]
-      128 SETTABLEKS                       R20 R19 K41 ["meta"]
-      130 FASTCALL2                        TABLE_INSERT R18 R19 ; [+3]
-      132 GETIMPORT                        R17 K49 [table.insert]
-      134 CALL                             R17 2 0
-      135 ADDK                             R11 R11 K50 [1]
-      136 JUMP                             ; [+46]
-      137 GETUPVAL                         R17 1
-      138 CALL                             R17 0 1
-      139 JUMPIFNOT                        R17 ; [+43]
-      140 GETTABLEKS                       R17 R16 K36 ["itemRowType"]
-      142 JUMPIFNOTEQKS                    R17 K51 ["Bundle"] ; [+40]
-      144 GETTABLEKS                       R17 R16 K38 ["rowState"]
-      146 JUMPIFNOTEQKS                    R17 K39 ["Selected"] ; [+36]
-      148 GETTABLEKS                       R17 R16 K52 ["assetsInBundle"]
-      150 LOADNIL                          R18
-      151 LOADNIL                          R19
-      152 FORGPREP                         R17
-      153 GETTABLEKS                       R23 R10 K4 ["assets"]
-      155 DUPTABLE                         R24 K54 [{"id", "bundleId", "meta"}]
-      156 GETTABLEKS                       R25 R21 K40 ["id"]
-      158 SETTABLEKS                       R25 R24 K40 ["id"]
-      160 GETTABLEKS                       R25 R16 K40 ["id"]
-      162 SETTABLEKS                       R25 R24 K53 ["bundleId"]
-      164 DUPTABLE                         R25 K46 [{"order", "puffiness", "version"}]
-      165 SETTABLEKS                       R11 R25 K43 ["order"]
-      167 LOADN                            R26 1
-      168 SETTABLEKS                       R26 R25 K44 ["puffiness"]
-      170 LOADN                            R26 1
-      171 SETTABLEKS                       R26 R25 K45 ["version"]
-      173 SETTABLEKS                       R25 R24 K41 ["meta"]
-      175 FASTCALL2                        TABLE_INSERT R23 R24 ; [+3]
-      177 GETIMPORT                        R22 K49 [table.insert]
-      179 CALL                             R22 2 0
-      180 ADDK                             R11 R11 K50 [1]
-      181 FORGLOOP                         R17 2 ; [-29]
-      183 FORGLOOP                         R12 2 ; [-80]
-      185 GETUPVAL                         R13 2
-      186 GETTABLEKS                       R12 R13 K55 ["lookCreateUrl"]
-      188 CALL                             R12 0 1
-      189 DUPTABLE                         R13 K60 [{"Url", "Method", "Body", "Headers"}]
-      190 SETTABLEKS                       R12 R13 K56 ["Url"]
-      192 LOADK                            R14 K61 ["POST"]
-      193 SETTABLEKS                       R14 R13 K57 ["Method"]
-      195 GETUPVAL                         R14 3
-      196 MOVE                             R16 R10
-      197 NAMECALL                         R14 R14 K62 ["JSONEncode"]
-      199 CALL                             R14 2 1
-      200 SETTABLEKS                       R14 R13 K58 ["Body"]
-      202 NEWTABLE                         R14 1 0
-      204 LOADK                            R15 K63 ["application/json"]
-      205 SETTABLEKS                       R15 R14 K64 ["Content-Type"]
-      207 SETTABLEKS                       R14 R13 K59 ["Headers"]
-      209 RETURN                           R13 1
+       97 LOADNIL                          R11
+       98 GETUPVAL                         R12 0
+       99 CALL                             R12 0 1
+      100 JUMPIFNOT                        R12 ; [+26]
+      101 NEWTABLE                         R12 0 0
+      103 MOVE                             R13 R1
+      104 LOADNIL                          R14
+      105 LOADNIL                          R15
+      106 FORGPREP                         R13
+      107 GETTABLEKS                       R18 R17 K35 ["itemRowType"]
+      109 JUMPIFEQKS                       R18 K36 ["BodyColor"] ; [+8]
+      111 FASTCALL2                        TABLE_INSERT R12 R17 ; [+5]
+      113 MOVE                             R19 R12
+      114 MOVE                             R20 R17
+      115 GETIMPORT                        R18 K39 [table.insert]
+      117 CALL                             R18 2 0
+      118 FORGLOOP                         R13 2 ; [-12]
+      120 GETIMPORT                        R13 K41 [table.sort]
+      122 MOVE                             R14 R12
+      123 DUPCLOSURE                       R15 K42 [PROTO_14]
+      124 CALL                             R13 2 0
+      125 MOVE                             R11 R12
+      126 JUMP                             ; [+6]
+      127 GETUPVAL                         R13 1
+      128 GETTABLEKS                       R12 R13 K43 ["reverse"]
+      130 MOVE                             R13 R1
+      131 CALL                             R12 1 1
+      132 MOVE                             R11 R12
+      133 LOADN                            R12 1
+      134 MOVE                             R13 R11
+      135 LOADNIL                          R14
+      136 LOADNIL                          R15
+      137 FORGPREP                         R13
+      138 GETTABLEKS                       R18 R17 K35 ["itemRowType"]
+      140 JUMPIFNOTEQKS                    R18 K44 ["Asset"] ; [+30]
+      142 GETTABLEKS                       R18 R17 K45 ["rowState"]
+      144 JUMPIFNOTEQKS                    R18 K46 ["Selected"] ; [+26]
+      146 GETTABLEKS                       R19 R10 K4 ["assets"]
+      148 DUPTABLE                         R20 K49 [{"id", "meta"}]
+      149 GETTABLEKS                       R21 R17 K47 ["id"]
+      151 SETTABLEKS                       R21 R20 K47 ["id"]
+      153 DUPTABLE                         R21 K53 [{"order", "puffiness", "version"}]
+      154 SETTABLEKS                       R12 R21 K50 ["order"]
+      156 LOADN                            R22 1
+      157 SETTABLEKS                       R22 R21 K51 ["puffiness"]
+      159 LOADN                            R22 1
+      160 SETTABLEKS                       R22 R21 K52 ["version"]
+      162 SETTABLEKS                       R21 R20 K48 ["meta"]
+      164 FASTCALL2                        TABLE_INSERT R19 R20 ; [+3]
+      166 GETIMPORT                        R18 K39 [table.insert]
+      168 CALL                             R18 2 0
+      169 ADDK                             R12 R12 K54 [1]
+      170 JUMP                             ; [+46]
+      171 GETUPVAL                         R18 2
+      172 CALL                             R18 0 1
+      173 JUMPIFNOT                        R18 ; [+43]
+      174 GETTABLEKS                       R18 R17 K35 ["itemRowType"]
+      176 JUMPIFNOTEQKS                    R18 K55 ["Bundle"] ; [+40]
+      178 GETTABLEKS                       R18 R17 K45 ["rowState"]
+      180 JUMPIFNOTEQKS                    R18 K46 ["Selected"] ; [+36]
+      182 GETTABLEKS                       R18 R17 K56 ["assetsInBundle"]
+      184 LOADNIL                          R19
+      185 LOADNIL                          R20
+      186 FORGPREP                         R18
+      187 GETTABLEKS                       R24 R10 K4 ["assets"]
+      189 DUPTABLE                         R25 K58 [{"id", "bundleId", "meta"}]
+      190 GETTABLEKS                       R26 R22 K47 ["id"]
+      192 SETTABLEKS                       R26 R25 K47 ["id"]
+      194 GETTABLEKS                       R26 R17 K47 ["id"]
+      196 SETTABLEKS                       R26 R25 K57 ["bundleId"]
+      198 DUPTABLE                         R26 K53 [{"order", "puffiness", "version"}]
+      199 SETTABLEKS                       R12 R26 K50 ["order"]
+      201 LOADN                            R27 1
+      202 SETTABLEKS                       R27 R26 K51 ["puffiness"]
+      204 LOADN                            R27 1
+      205 SETTABLEKS                       R27 R26 K52 ["version"]
+      207 SETTABLEKS                       R26 R25 K48 ["meta"]
+      209 FASTCALL2                        TABLE_INSERT R24 R25 ; [+3]
+      211 GETIMPORT                        R23 K39 [table.insert]
+      213 CALL                             R23 2 0
+      214 ADDK                             R12 R12 K54 [1]
+      215 FORGLOOP                         R18 2 ; [-29]
+      217 FORGLOOP                         R13 2 ; [-80]
+      219 GETUPVAL                         R14 3
+      220 GETTABLEKS                       R13 R14 K59 ["lookCreateUrl"]
+      222 CALL                             R13 0 1
+      223 DUPTABLE                         R14 K64 [{"Url", "Method", "Body", "Headers"}]
+      224 SETTABLEKS                       R13 R14 K60 ["Url"]
+      226 LOADK                            R15 K65 ["POST"]
+      227 SETTABLEKS                       R15 R14 K61 ["Method"]
+      229 GETUPVAL                         R15 4
+      230 MOVE                             R17 R10
+      231 NAMECALL                         R15 R15 K66 ["JSONEncode"]
+      233 CALL                             R15 2 1
+      234 SETTABLEKS                       R15 R14 K62 ["Body"]
+      236 NEWTABLE                         R15 1 0
+      238 LOADK                            R16 K67 ["application/json"]
+      239 SETTABLEKS                       R16 R15 K68 ["Content-Type"]
+      241 SETTABLEKS                       R15 R14 K63 ["Headers"]
+      243 RETURN                           R14 1
 
-PROTO_15:
+PROTO_16:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R3 1
         2 GETTABLEKS                       R2 R3 K0 ["Body"]
@@ -717,7 +764,7 @@ PROTO_15:
         6 CALL                             R0 2 -1
         7 RETURN                           R0 -1
 
-PROTO_16:
+PROTO_17:
         0 GETUPVAL                         R9 0
         1 GETTABLEKS                       R8 R9 K0 ["createLookRequestInfo"]
         3 MOVE                             R9 R0
@@ -824,53 +871,60 @@ MAIN:
        80 GETTABLEKS                       R12 R13 K19 ["Flags"]
        82 GETTABLEKS                       R11 R12 K22 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
        84 CALL                             R10 1 1
-       85 NEWTABLE                         R11 16 0
-       87 DUPCLOSURE                       R12 K23 [PROTO_1]
-       88 CAPTURE                          VAL R1
-       89 SETTABLEKS                       R12 R11 K24 ["getUserId"]
-       91 DUPCLOSURE                       R12 K25 [PROTO_4]
-       92 CAPTURE                          VAL R6
-       93 CAPTURE                          VAL R9
-       94 CAPTURE                          VAL R0
-       95 CAPTURE                          VAL R11
-       96 SETTABLEKS                       R12 R11 K26 ["requestInternal"]
-       98 DUPCLOSURE                       R12 K27 [PROTO_5]
-       99 CAPTURE                          VAL R8
-      100 SETTABLEKS                       R12 R11 K28 ["getLookPreviewNonBlockingErrorCodes"]
-      102 DUPCLOSURE                       R12 K29 [PROTO_6]
-      103 CAPTURE                          VAL R11
-      104 SETTABLEKS                       R12 R11 K30 ["parseLookApiResponseForErrorMessages"]
-      106 DUPCLOSURE                       R12 K31 [PROTO_7]
-      107 CAPTURE                          VAL R10
-      108 CAPTURE                          VAL R7
-      109 SETTABLEKS                       R12 R11 K32 ["parseLookPreviewResponseForLookItems"]
-      111 DUPCLOSURE                       R12 K33 [PROTO_8]
-      112 CAPTURE                          VAL R5
-      113 CAPTURE                          VAL R4
-      114 CAPTURE                          VAL R9
-      115 CAPTURE                          VAL R0
-      116 SETTABLEKS                       R12 R11 K34 ["createLookPreviewRequestInfo"]
-      118 DUPCLOSURE                       R12 K35 [PROTO_10]
-      119 CAPTURE                          VAL R11
-      120 CAPTURE                          VAL R0
-      121 SETTABLEKS                       R12 R11 K36 ["lookPreviewAsync"]
-      123 DUPCLOSURE                       R12 K37 [PROTO_11]
-      124 CAPTURE                          VAL R10
-      125 CAPTURE                          VAL R5
-      126 CAPTURE                          VAL R0
-      127 SETTABLEKS                       R12 R11 K38 ["createLookValidationRequestInfo"]
-      129 DUPCLOSURE                       R12 K39 [PROTO_13]
-      130 CAPTURE                          VAL R11
-      131 CAPTURE                          VAL R0
-      132 SETTABLEKS                       R12 R11 K40 ["validateLookAsync"]
-      134 DUPCLOSURE                       R12 K41 [PROTO_14]
-      135 CAPTURE                          VAL R7
-      136 CAPTURE                          VAL R10
-      137 CAPTURE                          VAL R5
-      138 CAPTURE                          VAL R0
-      139 SETTABLEKS                       R12 R11 K42 ["createLookRequestInfo"]
-      141 DUPCLOSURE                       R12 K43 [PROTO_16]
-      142 CAPTURE                          VAL R11
-      143 CAPTURE                          VAL R0
-      144 SETTABLEKS                       R12 R11 K44 ["createLookAsync"]
-      146 RETURN                           R11 1
+       85 GETIMPORT                        R11 K10 [require]
+       87 GETTABLEKS                       R14 R2 K11 ["Src"]
+       89 GETTABLEKS                       R13 R14 K19 ["Flags"]
+       91 GETTABLEKS                       R12 R13 K23 ["getFFlagLookComposerExplicitLayerOrder"]
+       93 CALL                             R11 1 1
+       94 NEWTABLE                         R12 16 0
+       96 DUPCLOSURE                       R13 K24 [PROTO_1]
+       97 CAPTURE                          VAL R1
+       98 SETTABLEKS                       R13 R12 K25 ["getUserId"]
+      100 DUPCLOSURE                       R13 K26 [PROTO_4]
+      101 CAPTURE                          VAL R6
+      102 CAPTURE                          VAL R9
+      103 CAPTURE                          VAL R0
+      104 CAPTURE                          VAL R12
+      105 SETTABLEKS                       R13 R12 K27 ["requestInternal"]
+      107 DUPCLOSURE                       R13 K28 [PROTO_5]
+      108 CAPTURE                          VAL R8
+      109 SETTABLEKS                       R13 R12 K29 ["getLookPreviewNonBlockingErrorCodes"]
+      111 DUPCLOSURE                       R13 K30 [PROTO_6]
+      112 CAPTURE                          VAL R12
+      113 SETTABLEKS                       R13 R12 K31 ["parseLookApiResponseForErrorMessages"]
+      115 DUPCLOSURE                       R13 K32 [PROTO_7]
+      116 CAPTURE                          VAL R10
+      117 CAPTURE                          VAL R7
+      118 CAPTURE                          VAL R11
+      119 SETTABLEKS                       R13 R12 K33 ["parseLookPreviewResponseForLookItems"]
+      121 DUPCLOSURE                       R13 K34 [PROTO_8]
+      122 CAPTURE                          VAL R5
+      123 CAPTURE                          VAL R4
+      124 CAPTURE                          VAL R9
+      125 CAPTURE                          VAL R0
+      126 SETTABLEKS                       R13 R12 K35 ["createLookPreviewRequestInfo"]
+      128 DUPCLOSURE                       R13 K36 [PROTO_10]
+      129 CAPTURE                          VAL R12
+      130 CAPTURE                          VAL R0
+      131 SETTABLEKS                       R13 R12 K37 ["lookPreviewAsync"]
+      133 DUPCLOSURE                       R13 K38 [PROTO_11]
+      134 CAPTURE                          VAL R10
+      135 CAPTURE                          VAL R5
+      136 CAPTURE                          VAL R0
+      137 SETTABLEKS                       R13 R12 K39 ["createLookValidationRequestInfo"]
+      139 DUPCLOSURE                       R13 K40 [PROTO_13]
+      140 CAPTURE                          VAL R12
+      141 CAPTURE                          VAL R0
+      142 SETTABLEKS                       R13 R12 K41 ["validateLookAsync"]
+      144 DUPCLOSURE                       R13 K42 [PROTO_15]
+      145 CAPTURE                          VAL R11
+      146 CAPTURE                          VAL R7
+      147 CAPTURE                          VAL R10
+      148 CAPTURE                          VAL R5
+      149 CAPTURE                          VAL R0
+      150 SETTABLEKS                       R13 R12 K43 ["createLookRequestInfo"]
+      152 DUPCLOSURE                       R13 K44 [PROTO_17]
+      153 CAPTURE                          VAL R12
+      154 CAPTURE                          VAL R0
+      155 SETTABLEKS                       R13 R12 K45 ["createLookAsync"]
+      157 RETURN                           R12 1

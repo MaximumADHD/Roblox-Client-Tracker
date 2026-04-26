@@ -15,6 +15,7 @@ local useTokens = Foundation.Hooks.useTokens
 local View = Foundation.View
 local Text = Foundation.Text
 local Image = Foundation.Image
+local PopoverSide = Foundation.Enums.PopoverSide
 local Traversal = CoreScriptsRoactCommon.Traversal
 
 local TraversalHistoryMenu = require(RobloxGui.Modules.Settings.Components.Traversal.TraversalHistoryMenu)
@@ -24,6 +25,7 @@ local FFlagAddTraversalHistoryReactMenuButtons = require(RobloxGui.Modules.Setti
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 local FFlagMenuButtonsUseKeyImages = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsUseKeyImages)
 local FFlagTraversalLeaveArrowDown = Traversal.Flags.FFlagTraversalLeaveArrowDown
+local FFlagFixTraversalHistoryMenuFixesV3 = Traversal.Flags.FFlagFixTraversalHistoryMenuFixesV3
 local FFlagIEMFocusNavSupportNewButtons = require(RobloxGui.Modules.Settings.Flags.FFlagIEMFocusNavSupportNewButtons)
 local FFlagGamepadIconSupportCheck = SharedFlags.FFlagGamepadIconSupportCheck
 
@@ -255,12 +257,15 @@ local function MenuButton(props: Props)
 				["content-action-soft-emphasis"] = props.isEmphasized,
 			},
 		}) else nil,
-		TraversalHistoryMenu = if FFlagAddTraversalHistoryReactMenuButtons and props.addTraversalHistoryMenu 
+		TraversalHistoryMenu = if FFlagAddTraversalHistoryReactMenuButtons and props.addTraversalHistoryMenu
 			then React.createElement(TraversalHistoryMenu, {
 				anchorRef = buttonRef,
 				idleButtonStateIsDown = if FFlagTraversalLeaveArrowDown then true else not props.isSmall,
 				currentPageChangeSignal = props.currentPageChangeSignal,
 				isDarkOnDarkMode = true,
+				menuSide = if FFlagFixTraversalHistoryMenuFixesV3
+					then (if props.isSmall then PopoverSide.Bottom else PopoverSide.Top)
+					else nil,
 			})
 		else nil,
 	})

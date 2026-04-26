@@ -54,6 +54,11 @@ local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCo
 local PlayerList = Modules.PlayerList
 local PlayerListManager = require(PlayerList.PlayerListManager)
 local MenuIconSelectedSignal = ChromeFocusUtils.MenuIconSelectedSignal
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagEnableUISelector = CoreGuiCommon.Flags.FFlagEnableUISelector
+local GetUiSelectorSignalStore = if FFlagEnableUISelector
+	then CoreGuiCommon.Stores.GetUiSelectorSignalStore
+	else nil :: never
 
 local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false)
@@ -177,7 +182,7 @@ function GamepadConnector.new(): GamepadConnector
 			local shouldShowTopBar = function()
 				local showTopBar = not self._gamepadActive:get()
 					or self._chromeFocused:get()
-					or self._selectedCoreObject:get() ~= nil
+					or (self._selectedCoreObject:get() ~= nil and (not FFlagEnableUISelector or not GetUiSelectorSignalStore(false).getVisibility()))
 					or UserInputService.TouchEnabled
 					or self._tiltMenuOpen:get()
 					or (FFlagAddNewPlayerListFocusNav and self._playerListModalOpen:get())
@@ -318,6 +323,22 @@ function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum
 			or FFlagEnableConsoleExpControls and userInputState == Enum.UserInputState.Begin
 		)
 	then
+		if FFlagEnableUISelector and not UserInputService:GamepadSupports(UserInputService:GetLastInputType(), Enum.KeyCode.ButtonSelect) then
+			if GamepadService.GamepadCursorEnabled or GuiService.SelectedObject ~= nil then
+				GamepadService:DisableGamepadCursor()
+				GuiService.SelectedObject = nil
+				return Enum.ContextActionResult.Sink
+			end
+
+			local UISelectorStore = GetUiSelectorSignalStore(false)
+			if UISelectorStore.getVisibility(false) then
+				UISelectorStore.setVisibility(false)
+				return Enum.ContextActionResult.Sink
+			elseif not self:_isTopBarFocused() then
+				UISelectorStore.setVisibility(true)
+				return Enum.ContextActionResult.Sink
+			end
+		end
 		if FFlagEnableConsoleExpControls then
 			if ChromeService:integrations().nine_dot == nil then
 				return Enum.ContextActionResult.Pass

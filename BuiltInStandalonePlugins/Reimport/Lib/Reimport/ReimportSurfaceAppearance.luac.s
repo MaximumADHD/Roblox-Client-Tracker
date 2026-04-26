@@ -385,32 +385,35 @@ PROTO_9:
       231 GETIMPORT                        R18 K45 [Enum.FinishRecordingOperation.Commit]
       233 NAMECALL                         R15 R15 K46 ["FinishRecording"]
       235 CALL                             R15 3 0
-      236 GETUPVAL                         R16 9
-      237 GETTABLEKS                       R15 R16 K47 ["logReimportEvent"]
-      239 DUPTABLE                         R16 K52 [{"configId", "usedStudioDefaultPreset", "wasReimportRelativeToThis", "targetType"}]
-      240 SETTABLEKS                       R2 R16 K48 ["configId"]
-      242 LOADB                            R17 1
-      243 GETTABLEKS                       R18 R3 K53 ["preset"]
-      245 JUMPIFEQKNIL                     R18 ; [+10]
-      247 GETTABLEKS                       R18 R3 K53 ["preset"]
-      249 GETUPVAL                         R20 10
-      250 GETTABLEKS                       R19 R20 K54 ["StudioDefaultPreset"]
-      252 JUMPIFEQ                         R18 R19 ; [+2]
-      254 LOADB                            R17 0 +1
-      255 LOADB                            R17 1
-      256 SETTABLEKS                       R17 R16 K49 ["usedStudioDefaultPreset"]
-      258 LOADB                            R17 0
-      259 SETTABLEKS                       R17 R16 K50 ["wasReimportRelativeToThis"]
-      261 GETTABLEKS                       R17 R0 K55 ["ClassName"]
-      263 SETTABLEKS                       R17 R16 K51 ["targetType"]
-      265 CALL                             R15 1 0
-      266 GETIMPORT                        R15 K58 [task.delay]
-      268 LOADK                            R16 K59 [0.3]
-      269 NEWCLOSURE                       R17 P3
-      270 CAPTURE                          VAL R1
-      271 CALL                             R15 2 0
-      272 CLOSEUPVALS                      R6
-      273 RETURN                           R0 0
+      236 GETUPVAL                         R15 9
+      237 CALL                             R15 0 1
+      238 JUMPIF                           R15 ; [+30]
+      239 GETUPVAL                         R16 10
+      240 GETTABLEKS                       R15 R16 K47 ["logReimportEvent"]
+      242 DUPTABLE                         R16 K52 [{"configId", "usedStudioDefaultPreset", "wasReimportRelativeToThis", "targetType"}]
+      243 SETTABLEKS                       R2 R16 K48 ["configId"]
+      245 LOADB                            R17 1
+      246 GETTABLEKS                       R18 R3 K53 ["preset"]
+      248 JUMPIFEQKNIL                     R18 ; [+10]
+      250 GETTABLEKS                       R18 R3 K53 ["preset"]
+      252 GETUPVAL                         R20 11
+      253 GETTABLEKS                       R19 R20 K54 ["StudioDefaultPreset"]
+      255 JUMPIFEQ                         R18 R19 ; [+2]
+      257 LOADB                            R17 0 +1
+      258 LOADB                            R17 1
+      259 SETTABLEKS                       R17 R16 K49 ["usedStudioDefaultPreset"]
+      261 LOADB                            R17 0
+      262 SETTABLEKS                       R17 R16 K50 ["wasReimportRelativeToThis"]
+      264 GETTABLEKS                       R17 R0 K55 ["ClassName"]
+      266 SETTABLEKS                       R17 R16 K51 ["targetType"]
+      268 CALL                             R15 1 0
+      269 GETIMPORT                        R15 K58 [task.delay]
+      271 LOADK                            R16 K59 [0.3]
+      272 NEWCLOSURE                       R17 P3
+      273 CAPTURE                          VAL R1
+      274 CALL                             R15 2 0
+      275 CLOSEUPVALS                      R6
+      276 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -478,35 +481,40 @@ MAIN:
       109 GETTABLEKS                       R14 R15 K24 ["GetFFlagConfigureOnFirstReimport"]
       111 CALL                             R13 1 1
       112 GETIMPORT                        R14 K5 [require]
-      114 GETIMPORT                        R17 K1 [script]
-      116 GETTABLEKS                       R16 R17 K25 ["Parent"]
-      118 GETTABLEKS                       R15 R16 K26 ["Types"]
-      120 CALL                             R14 1 1
-      121 NEWTABLE                         R15 1 0
-      123 DUPCLOSURE                       R16 K27 [PROTO_2]
-      124 CAPTURE                          VAL R6
-      125 CAPTURE                          VAL R2
-      126 CAPTURE                          VAL R11
-      127 CAPTURE                          VAL R12
-      128 CAPTURE                          VAL R9
-      129 DUPCLOSURE                       R17 K28 [PROTO_4]
-      130 CAPTURE                          VAL R8
+      114 GETTABLEKS                       R16 R0 K20 ["Flags"]
+      116 GETTABLEKS                       R15 R16 K25 ["GetFFlagReimportBasicTelemetry"]
+      118 CALL                             R14 1 1
+      119 GETIMPORT                        R15 K5 [require]
+      121 GETIMPORT                        R18 K1 [script]
+      123 GETTABLEKS                       R17 R18 K26 ["Parent"]
+      125 GETTABLEKS                       R16 R17 K27 ["Types"]
+      127 CALL                             R15 1 1
+      128 NEWTABLE                         R16 1 0
+      130 DUPCLOSURE                       R17 K28 [PROTO_2]
       131 CAPTURE                          VAL R6
       132 CAPTURE                          VAL R2
       133 CAPTURE                          VAL R11
       134 CAPTURE                          VAL R12
       135 CAPTURE                          VAL R9
-      136 DUPCLOSURE                       R18 K29 [PROTO_9]
-      137 CAPTURE                          VAL R13
-      138 CAPTURE                          VAL R5
+      136 DUPCLOSURE                       R18 K29 [PROTO_4]
+      137 CAPTURE                          VAL R8
+      138 CAPTURE                          VAL R6
       139 CAPTURE                          VAL R2
-      140 CAPTURE                          VAL R4
-      141 CAPTURE                          VAL R10
-      142 CAPTURE                          VAL R6
-      143 CAPTURE                          VAL R11
-      144 CAPTURE                          VAL R17
-      145 CAPTURE                          VAL R3
-      146 CAPTURE                          VAL R7
-      147 CAPTURE                          VAL R1
-      148 SETTABLEKS                       R18 R15 K30 ["reimport"]
-      150 RETURN                           R15 1
+      140 CAPTURE                          VAL R11
+      141 CAPTURE                          VAL R12
+      142 CAPTURE                          VAL R9
+      143 DUPCLOSURE                       R19 K30 [PROTO_9]
+      144 CAPTURE                          VAL R13
+      145 CAPTURE                          VAL R5
+      146 CAPTURE                          VAL R2
+      147 CAPTURE                          VAL R4
+      148 CAPTURE                          VAL R10
+      149 CAPTURE                          VAL R6
+      150 CAPTURE                          VAL R11
+      151 CAPTURE                          VAL R18
+      152 CAPTURE                          VAL R3
+      153 CAPTURE                          VAL R14
+      154 CAPTURE                          VAL R7
+      155 CAPTURE                          VAL R1
+      156 SETTABLEKS                       R19 R16 K31 ["reimport"]
+      158 RETURN                           R16 1

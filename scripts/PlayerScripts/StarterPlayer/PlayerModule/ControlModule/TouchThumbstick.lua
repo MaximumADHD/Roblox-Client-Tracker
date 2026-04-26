@@ -4,16 +4,10 @@ local UserInputService = game:GetService("UserInputService")
 
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPSActionsPathAware = FlagUtil.getUserFlag("UserPSActionsPathAware")
 local FFlagUserPlayerScriptsCanUseLCC = FlagUtil.getUserFlag("UserPlayerScriptsCanUseLCC")
 
 --[[ Constants ]]--
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/TouchControlsSheet.png"
-
--- remove with FFlagUserPSActionsPathAware
-local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
-local character = inputContexts:WaitForChild("Character")
-local moveAction = character:WaitForChild("Move")
 
 local AvatarAbilitiesInterface
 if FFlagUserPlayerScriptsCanUseLCC then
@@ -28,10 +22,8 @@ TouchThumbstick.__index = TouchThumbstick
 function TouchThumbstick.new(playerData)
 	local self = setmetatable(ActionController.new() :: any, TouchThumbstick)
 
-	if FFlagUserPSActionsPathAware then 
-		self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
-		self.enabled = false
-	end
+	self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
+	self.enabled = false
 
 	self.isFollowStick = false
 
@@ -71,11 +63,7 @@ function TouchThumbstick:OnInputEnded()
 	self.thumbstickFrame.Position = self.screenPos
 	self.stickImage.Position = UDim2.new(0, self.thumbstickFrame.Size.X.Offset/2 - self.thumbstickSize/4, 0, self.thumbstickFrame.Size.Y.Offset/2 - self.thumbstickSize/4)
 
-	if FFlagUserPSActionsPathAware then
-		self.playerData.actions.Move:Fire(Vector2.zero)
-	else
-		moveAction:Fire(Vector2.zero)
-	end
+	self.playerData.actions.Move:Fire(Vector2.zero)
 
 	self.isJumping = false
 	self.thumbstickFrame.Position = self.screenPos
@@ -174,11 +162,7 @@ function TouchThumbstick:Create(parentFrame)
 		end
 
 		currentMoveVector = Vector2.new(currentMoveVector.X, -currentMoveVector.Y)
-		if FFlagUserPSActionsPathAware then
-			self.playerData.actions.Move:Fire(currentMoveVector)
-		else
-			moveAction:Fire(currentMoveVector)
-		end
+		self.playerData.actions.Move:Fire(currentMoveVector)
 	end
 
 	local function MoveStick(pos: Vector3)

@@ -17,7 +17,7 @@ PROTO_0:
        21 JUMP                             ; [+18]
        22 NAMECALL                         R8 R6 K7 ["Destroy"]
        24 CALL                             R8 1 0
-       25 JUMP                             ; [+42]
+       25 JUMP                             ; [+39]
        26 JUMP                             ; [+13]
        27 GETUPVAL                         R8 0
        28 LOADNIL                          R9
@@ -30,31 +30,28 @@ PROTO_0:
        36 LOADB                            R7 1
        37 JUMP                             ; [+2]
        38 FORGLOOP                         R8 2 ; [-8]
-       40 GETUPVAL                         R8 1
-       41 CALL                             R8 0 1
-       42 JUMPIFNOT                        R8 ; [+6]
-       43 LOADK                            R10 K8 ["BodyColors"]
-       44 NAMECALL                         R8 R6 K2 ["IsA"]
-       46 CALL                             R8 2 1
-       47 JUMPIFNOT                        R8 ; [+1]
-       48 LOADB                            R7 1
-       49 LOADK                            R10 K9 ["LocalScript"]
-       50 NAMECALL                         R8 R6 K2 ["IsA"]
-       52 CALL                             R8 2 1
-       53 JUMPIFNOT                        R8 ; [+5]
-       54 GETTABLEKS                       R8 R6 K6 ["Name"]
-       56 JUMPIFNOTEQKS                    R8 K10 ["Animate"] ; [+2]
-       58 LOADB                            R7 1
-       59 JUMPIFNOT                        R7 ; [+5]
-       60 GETUPVAL                         R8 2
-       61 MOVE                             R9 R6
-       62 MOVE                             R10 R1
-       63 CALL                             R8 2 0
-       64 JUMP                             ; [+3]
-       65 NAMECALL                         R8 R6 K7 ["Destroy"]
-       67 CALL                             R8 1 0
-       68 FORGLOOP                         R2 2 ; [-65]
-       70 RETURN                           R0 0
+       40 LOADK                            R10 K8 ["BodyColors"]
+       41 NAMECALL                         R8 R6 K2 ["IsA"]
+       43 CALL                             R8 2 1
+       44 JUMPIFNOT                        R8 ; [+1]
+       45 LOADB                            R7 1
+       46 LOADK                            R10 K9 ["LocalScript"]
+       47 NAMECALL                         R8 R6 K2 ["IsA"]
+       49 CALL                             R8 2 1
+       50 JUMPIFNOT                        R8 ; [+5]
+       51 GETTABLEKS                       R8 R6 K6 ["Name"]
+       53 JUMPIFNOTEQKS                    R8 K10 ["Animate"] ; [+2]
+       55 LOADB                            R7 1
+       56 JUMPIFNOT                        R7 ; [+5]
+       57 GETUPVAL                         R8 1
+       58 MOVE                             R9 R6
+       59 MOVE                             R10 R1
+       60 CALL                             R8 2 0
+       61 JUMP                             ; [+3]
+       62 NAMECALL                         R8 R6 K7 ["Destroy"]
+       64 CALL                             R8 1 0
+       65 FORGLOOP                         R2 2 ; [-62]
+       67 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -65,12 +62,12 @@ MAIN:
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R4 R0 K6 ["Src"]
        11 GETTABLEKS                       R3 R4 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFFlagAvatarPreviewerMakeup"]
+       13 GETTABLEKS                       R2 R3 K8 ["getFFlagAvatarPreviewerFilterRigDescriptions"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
        18 GETTABLEKS                       R5 R0 K6 ["Src"]
        20 GETTABLEKS                       R4 R5 K7 ["Flags"]
-       22 GETTABLEKS                       R3 R4 K9 ["getFFlagIncludeBodyColorsInAutoSetup"]
+       22 GETTABLEKS                       R3 R4 K9 ["getFFlagAvatarPreviewerMakeup"]
        24 CALL                             R2 1 1
        25 NEWTABLE                         R3 0 9
        27 LOADK                            R4 K10 ["Animation"]
@@ -83,7 +80,7 @@ MAIN:
        34 LOADK                            R11 K17 ["SurfaceAppearance"]
        35 LOADK                            R12 K18 ["ValueBase"]
        36 SETLIST                          R3 R4 9 [1]
-       38 MOVE                             R4 R1
+       38 MOVE                             R4 R2
        39 CALL                             R4 0 1
        40 JUMPIFNOT                        R4 ; [+7]
        41 FASTCALL2K                       TABLE_INSERT R3 K19 ; [+5]
@@ -91,8 +88,20 @@ MAIN:
        44 LOADK                            R6 K19 ["WrapTextureTransfer"]
        45 GETIMPORT                        R4 K22 [table.insert]
        47 CALL                             R4 2 0
-       48 DUPCLOSURE                       R4 K23 [PROTO_0]
-       49 CAPTURE                          VAL R3
-       50 CAPTURE                          VAL R2
-       51 CAPTURE                          VAL R4
-       52 RETURN                           R4 1
+       48 MOVE                             R4 R1
+       49 CALL                             R4 0 1
+       50 JUMPIFNOT                        R4 ; [+14]
+       51 FASTCALL2K                       TABLE_INSERT R3 K23 ; [+5]
+       53 MOVE                             R5 R3
+       54 LOADK                            R6 K23 ["HumanoidRigDescription"]
+       55 GETIMPORT                        R4 K22 [table.insert]
+       57 CALL                             R4 2 0
+       58 FASTCALL2K                       TABLE_INSERT R3 K24 ; [+5]
+       60 MOVE                             R5 R3
+       61 LOADK                            R6 K24 ["DigitsRigDescription"]
+       62 GETIMPORT                        R4 K22 [table.insert]
+       64 CALL                             R4 2 0
+       65 DUPCLOSURE                       R4 K25 [PROTO_0]
+       66 CAPTURE                          VAL R3
+       67 CAPTURE                          VAL R4
+       68 RETURN                           R4 1

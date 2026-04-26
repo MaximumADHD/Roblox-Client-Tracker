@@ -17,6 +17,7 @@ local ResponsivePanelLayout = AvatarExperienceInspectAndBuy.Components.Responsiv
 local useResponsivePanelLayoutProps = AvatarExperienceInspectAndBuy.Hooks.useResponsivePanelLayoutProps
 local applyTryOnItemToHumanoidDescription = AvatarExperienceInspectAndBuy.Utils.applyTryOnItemToHumanoidDescription
 local useInspectAndBuyFocusNavigation = AvatarExperienceInspectAndBuy.Hooks.useInspectAndBuyFocusNavigation
+local buildBulkPurchaseAnalyticsPayload = AvatarExperienceInspectAndBuy.Utils.buildBulkPurchaseAnalyticsPayload
 
 local UpdateBulkPuchaseResults = require(InspectAndBuyFolder.Actions.UpdateBulkPuchaseResults)
 local GetProductInfo = require(InspectAndBuyFolder.Thunks.GetProductInfo)
@@ -30,7 +31,10 @@ local PromptPurchase = require(InspectAndBuyFolder.Thunks.PromptPurchase)
 local GetItemDetails = require(InspectAndBuyFolder.Thunks.GetItemDetails)
 local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
 local useDispatch = RoactUtils.Hooks.RoactRodux.useDispatch
-local ItemTypeEnum = require(CorePackages.Workspace.Packages.AvatarExperienceCommon).Enums.ItemTypeEnum
+local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
+local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+local ItemTypeEnum = AvatarExperienceCommon.Enums.ItemTypeEnum
+type ItemType = AvatarExperienceCommon.ItemType
 local OpenOverlay = require(InspectAndBuyFolder.Actions.OpenOverlay)
 local OverlayEnum = require(InspectAndBuyFolder.Enums.Overlay)
 local Overlay = require(InspectAndBuyFolder.Components.Overlay)
@@ -38,16 +42,25 @@ local Overlay = require(InspectAndBuyFolder.Components.Overlay)
 local useUnifiedEventListenerInExperience =
 	require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).useUnifiedEventListener.useUnifiedEventListenerInExperience
 
+local SignalsReact = require(CorePackages.Packages.SignalsReact)
+local useSignalState = SignalsReact.useSignalState
+
 local Foundation = require(CorePackages.Packages.Foundation)
 local useTokens = Foundation.Hooks.useTokens
 local Modules = CoreGui.RobloxGui.Modules
 local Theme = require(Modules.Settings.Theme)
 local TopBarConstants = require(Modules.TopBar.Constants)
+local tutils = require(CorePackages.Packages.tutils)
 
 type PromptBulkPurchaseFinishedResult = AvatarExperienceInspectAndBuy.PromptBulkPurchaseFinishedResult
 type AvatarItem = AvatarExperienceInspectAndBuy.AvatarItem
 type TryOnItem = AvatarExperienceInspectAndBuy.TryOnItem
 type LocalPlayerModel = AvatarExperienceInspectAndBuy.LocalPlayerModel
+type ItemSelectionStore = AvatarExperienceInspectAndBuy.ItemSelectionStore
+type PriceStatus = AvatarExperienceInspectAndBuy.PriceStatus
+type AssetInfo = AvatarExperienceInspectAndBuy.AssetInfo
+type ItemData = AvatarExperienceInspectAndBuy.ItemData
+type InspectAndBuyState = AvatarExperienceInspectAndBuy.InspectAndBuyState
 
 -- this flag controls whether the avatar model rotates when the user is not interacting with it
 local FFlagEnableAvatarViewportAutoRotation = game:DefineFastFlag("EnableAvatarViewportAutoRotation", false)
@@ -56,16 +69,51 @@ local FIntViewportCameraFieldOfView = game:DefineFastInt("AXViewportCameraFieldO
 local FFlagIBV2Attribution = SharedFlags.FFlagIBV2Attribution
 local FFlagAXEnableBatchItemDetailsFetchV2 = AvatarExperienceFlags.FFlagAXEnableBatchItemDetailsFetchV2
 local FFlagAXEnableInspectAndBuyFocusNavigation = AvatarExperienceFlags.FFlagAXEnableInspectAndBuyFocusNavigation
+local FFlagAXEnableIaBTimedOptionsBulkPurchase = AvatarExperienceFlags.FFlagAXEnableIaBTimedOptionsBulkPurchase
+local ItemSelectionStoreContext = if FFlagAXEnableIaBTimedOptionsBulkPurchase
+	then AvatarExperienceInspectAndBuy.Contexts.ItemSelectionStoreContext
+	else nil
+local ItemSelectionStoreProvider = if ItemSelectionStoreContext then ItemSelectionStoreContext.Provider else nil
+local useItemSelectionStore = if ItemSelectionStoreContext then ItemSelectionStoreContext.useItemSelectionStore else nil
 
 export type InspectAndBuyBaseContainerProps = {
 	localPlayerModel: LocalPlayerModel?,
 	analytics: any, -- Analytics service instance
 }
 
+local getAssetsMap = function(state: InspectAndBuyState)
+	return state.assets
+end
+
+local getCollectibleResellableInstances = function(state: InspectAndBuyState)
+	return state.collectibleResellableInstances
+end
+
+local getBundlesMap = function(state: InspectAndBuyState)
+	return state.bundles
+end
+
 local function InspectAndBuyBaseContainer(props)
 	local viewBreakpoints = useViewBreakpoints(TopBarConstants.TopBarHeight)
 	local tokens = useTokens()
 	local dispatch = useDispatch()
+
+	local itemSelectionStore = if FFlagAXEnableIaBTimedOptionsBulkPurchase
+		then (useItemSelectionStore :: () -> ItemSelectionStore)()
+		else nil
+	local itemDataMap = if FFlagAXEnableIaBTimedOptionsBulkPurchase
+		then useSignalState((itemSelectionStore :: ItemSelectionStore).getItemDataMap)
+		else nil
+
+	local assetsMap = if FFlagAXEnableIaBTimedOptionsBulkPurchase
+		then useSelector(getAssetsMap, tutils.deepEqual)
+		else nil
+	local collectibleResellableInstances = if FFlagAXEnableIaBTimedOptionsBulkPurchase
+		then useSelector(getCollectibleResellableInstances, tutils.deepEqual)
+		else nil
+	local bundlesMap = if FFlagAXEnableIaBTimedOptionsBulkPurchase
+		then useSelector(getBundlesMap, tutils.deepEqual)
+		else nil
 
 	--[[
 		Close and unmount the inspect and buy menu
@@ -77,23 +125,55 @@ local function InspectAndBuyBaseContainer(props)
 	--[[
 		When a bulk purchase is finished, update the bulk purchase results (owndership status)
 	]]
-	local onBulkPurchaseFinished = React.useCallback(function(player, status, result: PromptBulkPurchaseFinishedResult)
-		dispatch(UpdateBulkPuchaseResults(result))
+	local onBulkPurchaseFinished = React.useCallback(
+		function(player, status, result: PromptBulkPurchaseFinishedResult)
+			dispatch(UpdateBulkPuchaseResults(result))
 
-		-- refresh the item card price line content (mainly for resale items)
-		for _, item in result.Items do
-			-- only report purchase success if the item was purchased successfully
-			if item.status == Enum.MarketplaceItemPurchaseStatus.Success then
-				if item.type == Enum.MarketplaceProductType.AvatarAsset then
-					props.analytics.reportPurchaseSuccess(ItemTypeEnum.Asset, item.id)
-					dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Asset))
-				elseif item.type == Enum.MarketplaceProductType.AvatarBundle then
-					props.analytics.reportPurchaseSuccess(ItemTypeEnum.Bundle, item.id)
-					dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Bundle))
+			-- refresh the item card price line content (mainly for resale items)
+			for _, item in result.Items do
+				-- only report purchase success if the item was purchased successfully
+				if item.status == Enum.MarketplaceItemPurchaseStatus.Success then
+					if FFlagAXEnableIaBTimedOptionsBulkPurchase and itemDataMap then
+						local isAsset = item.type == Enum.MarketplaceProductType.AvatarAsset
+						local itemId = item.id
+						local itemAvatarType = if isAsset then Enum.AvatarItemType.Asset else Enum.AvatarItemType.Bundle
+						local itemTypeEnum: ItemType = if isAsset then ItemTypeEnum.Asset else ItemTypeEnum.Bundle
+
+						local storedData = itemDataMap[tostring(itemId)]
+						local payload = buildBulkPurchaseAnalyticsPayload({
+							itemId = tostring(itemId),
+							itemType = itemTypeEnum,
+							assetsMap = assetsMap,
+							bundlesMap = bundlesMap,
+							collectibleResellableInstances = collectibleResellableInstances,
+							storedData = storedData,
+						})
+						if payload then
+							props.analytics.reportPurchaseSuccessUnifiedEvent(itemTypeEnum, itemId, payload)
+						end
+						dispatch(GetItemDetails(itemId, itemAvatarType))
+					else
+						if item.type == Enum.MarketplaceProductType.AvatarAsset then
+							props.analytics.reportPurchaseSuccess(ItemTypeEnum.Asset, item.id)
+							dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Asset))
+						elseif item.type == Enum.MarketplaceProductType.AvatarBundle then
+							props.analytics.reportPurchaseSuccess(ItemTypeEnum.Bundle, item.id)
+							dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Bundle))
+						end
+					end
 				end
 			end
-		end
-	end, { dispatch })
+		end,
+		{
+			dispatch,
+			if FFlagAXEnableIaBTimedOptionsBulkPurchase then assetsMap else nil,
+			if FFlagAXEnableIaBTimedOptionsBulkPurchase then bundlesMap else nil,
+			if FFlagAXEnableIaBTimedOptionsBulkPurchase then collectibleResellableInstances else nil,
+			if FFlagAXEnableIaBTimedOptionsBulkPurchase then itemDataMap else nil,
+			if FFlagAXEnableIaBTimedOptionsBulkPurchase then props.analytics.reportPurchaseSuccess else nil,
+			if FFlagAXEnableIaBTimedOptionsBulkPurchase then props.analytics.reportPurchaseSuccessUnifiedEvent else nil,
+		} :: { any }
+	)
 
 	--[[
 		when item details is opened, we need to call additional APIs to get more information
@@ -321,4 +401,12 @@ local function InspectAndBuyBaseContainer(props)
 	end
 end
 
-return InspectAndBuyBaseContainer
+local function InspectAndBuyBaseContainerWithSignalsProvider(props)
+	return React.createElement(ItemSelectionStoreProvider :: any, {}, {
+		Inner = React.createElement(InspectAndBuyBaseContainer, props),
+	})
+end
+
+return if FFlagAXEnableIaBTimedOptionsBulkPurchase
+	then InspectAndBuyBaseContainerWithSignalsProvider
+	else InspectAndBuyBaseContainer

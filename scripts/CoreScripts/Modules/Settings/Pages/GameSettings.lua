@@ -71,6 +71,7 @@ local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice = SharedFlags.GetFFlag
 local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatClientRewriteMasterLua
 local GetFFlagVoiceChatClientRewriteDisableVCSDevice = SharedFlags.GetFFlagVoiceChatClientRewriteDisableVCSDevice
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
+local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
 local FFlagShowAntiHarassmentSettings = game:DefineFastFlag("ShowAntiHarassmentSettings", false)
 local GetFFlagEnablePlayerNamesEnabledSetting = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnablePlayerNamesEnabledSetting)
 local FFlagUpdatePeopleNamesSettingCopy = require(RobloxGui.Modules.Settings.Flags.FFlagUpdatePeopleNamesSettingCopy)
@@ -409,6 +410,25 @@ local function getLastValueChangerFrame(this)
 	end
 
 	return LastValueChangerFrame
+end
+
+local function getFirstValueChangerFrame(this)
+	if not FFlagIEMTabFocusNav then
+		return
+	end
+
+	local minLayoutOrder = nil
+	local firstValueChangerFrame = nil
+	for _, row in pairs(this:GetRows()) do
+		local SelectionFrame = row.SelectionFrame
+
+		if not minLayoutOrder or SelectionFrame.LayoutOrder < minLayoutOrder then
+			minLayoutOrder = SelectionFrame.LayoutOrder
+			firstValueChangerFrame = this:getValueChangerFrame(row.ValueChanger)
+		end
+	end
+
+	return firstValueChangerFrame
 end
 
 local function Initialize()
@@ -4346,6 +4366,10 @@ local function Initialize()
 		-- Set the last selectable object to the last ValueChangerFrame for focus navigation
 		if FFlagIEMFocusNavToButtons then
 			table.insert(this.LastSelectableObjects, getLastValueChangerFrame(this))
+		end
+		if FFlagIEMTabFocusNav then
+			table.insert(this.FirstSelectableObjects, getFirstValueChangerFrame(this))
+			this.FirstSelectableObjectsUpdated:fire()
 		end
 	end
 

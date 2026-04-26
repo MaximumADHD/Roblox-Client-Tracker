@@ -2,6 +2,7 @@ local root = script.Parent.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local ValidationRulesUtilImpl = require(root.util.ValidationRulesUtil)
 
 local getAllInstancesIsA = require(root.util.getAllInstancesIsA)
 local R15plusUtils = require(root.util.R15plusUtils)
@@ -12,10 +13,12 @@ local HrdPropertiesSensible = {}
 
 HrdPropertiesSensible.categories =
 	{ ValidationEnums.UploadCategory.TORSO_AND_LIMBS, ValidationEnums.UploadCategory.DYNAMIC_HEAD }
-HrdPropertiesSensible.requiredData = { ValidationEnums.SharedDataMember.rootInstance }
+HrdPropertiesSensible.requiredData = {
+	ValidationEnums.SharedDataMember.rootInstance,
+}
 HrdPropertiesSensible.fflag = R15plusUtils.checkFlagEnabledForAllowHrd
 
-local hrdDrdJointSizeHundredthsLimit = game:DefineFastInt("UGCValidationHrdDrdJointSizeHundredthsLimit", 150)
+local hrdJointSizeLimit = game:DefineFastInt("UGCValidationHrdJointSizeHundredthsLimit", 150) / 100
 local hrdJointRangeMinX = game:DefineFastInt("UGCValidationHrdJointRangeMinXHundredths", 0)
 local hrdJointRangeMaxX = game:DefineFastInt("UGCValidationHrdJointRangeMaxXHundredths", 0)
 local hrdJointRangeMinY = game:DefineFastInt("UGCValidationHrdJointRangeMinYHundredths", 0)
@@ -29,10 +32,58 @@ local hrdRangeMaxInclusive = Vector3.new(hrdJointRangeMaxX / 100, hrdJointRangeM
 local hrdOriginMinInclusive = Vector3.new(0, hrdOriginOffsetMinY / 100, 0)
 local hrdOriginMaxInclusive = Vector3.new(0, hrdOriginOffsetMaxY / 100, 0)
 
+local drdJointSizeLimit = game:DefineFastInt("UGCValidationDrdJointSizeHundredthsLimit", 150) / 100
+local drdJointRangeMinX = game:DefineFastInt("UGCValidationDrdJointRangeMinXHundredths", 0)
+local drdJointRangeMaxX = game:DefineFastInt("UGCValidationDrdJointRangeMaxXHundredths", 0)
+local drdJointRangeMinY = game:DefineFastInt("UGCValidationDrdJointRangeMinYHundredths", 0)
+local drdJointRangeMaxY = game:DefineFastInt("UGCValidationDrdJointRangeMaxYHundredths", 0)
+local drdJointRangeMinZ = game:DefineFastInt("UGCValidationDrdJointRangeMinZHundredths", 0)
+local drdJointRangeMaxZ = game:DefineFastInt("UGCValidationDrdJointRangeMaxZHundredths", 0)
+local drdRangeMinInclusive = Vector3.new(drdJointRangeMinX / 100, drdJointRangeMinY / 100, drdJointRangeMinZ / 100)
+local drdRangeMaxInclusive = Vector3.new(drdJointRangeMaxX / 100, drdJointRangeMaxY / 100, drdJointRangeMaxZ / 100)
+
+local function checkVectorRange(
+	reporter: Types.ValidationReporter,
+	jointName: string,
+	propertyName: string,
+	currentValue: Vector3,
+	valueMin: Vector3,
+	valueMax: Vector3
+)
+	if not Vector3Utils.isInRange(currentValue, valueMin, valueMax) then
+		reporter:fail(ErrorSourceStrings.Keys.HrdProperties_PropertyOutOfRange, {
+			jointName = jointName,
+			propertyName = propertyName,
+			currentValue = valueToString(currentValue),
+			valueMin = valueToString(valueMin),
+			valueMax = valueToString(valueMax),
+		})
+	end
+end
+
+local function checkSize(
+	reporter: Types.ValidationReporter,
+	jointName: string,
+	propertyName: string,
+	currentValue: number,
+	valueMax: number
+)
+	if currentValue < 0 or currentValue > valueMax then
+		reporter:fail(ErrorSourceStrings.Keys.HrdProperties_PropertyOutOfRange, {
+			jointName = jointName,
+			propertyName = propertyName,
+			currentValue = valueToString(currentValue),
+			valueMin = "0",
+			valueMax = valueToString(valueMax),
+		})
+	end
+end
+
 HrdPropertiesSensible.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local rootInstance = data.rootInstance
 	for _, bodyMeshPart in getAllInstancesIsA(rootInstance, "MeshPart") do
 		local hrd: HumanoidRigDescription? = bodyMeshPart:FindFirstChildWhichIsA("HumanoidRigDescription")
+		local rigAttachmentName = ValidationRulesUtilImpl.rigAttachmentToParentMap[bodyMeshPart.Name]
 		if hrd == nil then
 			continue
 		end
@@ -61,7 +112,22 @@ HrdPropertiesSensible.run = function(reporter: Types.ValidationReporter, data: T
 		-- Step 2: Check contained joints in HRD
 		local containedEnums = (hrd :: any):GetContainedJointLabels(bodyMeshPart.Name) -- Currently limited to 3 in engine
 		for _, jointEnum in R15plusUtils.getHrdJointLabels() do
-			if not hrd:GetJoint(jointEnum) then
+			-- Preliminary checks: Make sure the pointer is valid.
+			-- HrdBonesFollowSchema will check the datamodel hierarchy, and the schema checks will ensure names are all correct.Axes
+			-- but we still want to make sure they arent pointing to random instances that are approved by the schema.
+			local isRigAttachmentReference = `{jointEnum.Name}RigAttachment` == rigAttachmentName
+			local jointObj = hrd:GetJoint(jointEnum)
+
+			if
+				isRigAttachmentReference
+				and not (jointObj and jointObj.Name == rigAttachmentName and jointObj.ClassName == "Attachment")
+			then
+				reporter:fail(ErrorSourceStrings.Keys.HrdMissingStandardJoint, {
+					jointName = jointEnum.Name,
+				})
+			end
+
+			if not jointObj then
 				continue
 			elseif not table.find(containedEnums, jointEnum) then
 				reporter:fail(ErrorSourceStrings.Keys.HrdProperties_UncontainedJoint, {
@@ -69,50 +135,82 @@ HrdPropertiesSensible.run = function(reporter: Types.ValidationReporter, data: T
 					foundMeshName = bodyMeshPart.Name,
 				})
 				continue
+			elseif
+				not isRigAttachmentReference and not (jointObj.Name == jointEnum.Name and jointObj.ClassName == "Bone")
+			then
+				reporter:fail(ErrorSourceStrings.Keys.HrdImproperJointMapping, {
+					jointName = jointEnum.Name,
+					boneName = jointEnum.Name,
+				})
 			end
 
+			-- Now validate size and range
 			local jointSize = hrd:GetJointSize(jointEnum)
 			local jointRangeMin = hrd:GetJointRangeMin(jointEnum)
 			local jointRangeMax = hrd:GetJointRangeMax(jointEnum)
 
-			local jointSizeLimit = hrdDrdJointSizeHundredthsLimit / 100
-			if jointSize < 0 or jointSize > jointSizeLimit then
-				reporter:fail(ErrorSourceStrings.Keys.HrdProperties_PropertyOutOfRange, {
-					jointName = jointEnum.Name,
-					propertyName = "size",
-					currentValue = jointSize,
-					valueMin = valueToString(0),
-					valueMax = valueToString(jointSizeLimit),
-				})
-			end
-			if not Vector3Utils.isInRange(jointRangeMin, hrdRangeMinInclusive, hrdRangeMaxInclusive) then
-				reporter:fail(ErrorSourceStrings.Keys.HrdProperties_PropertyOutOfRange, {
-					jointName = jointEnum.Name,
-					propertyName = "rangeMin",
-					currentValue = jointRangeMin,
-					valueMin = valueToString(hrdRangeMinInclusive),
-					valueMax = valueToString(hrdRangeMaxInclusive),
-				})
-			end
-			if not Vector3Utils.isInRange(jointRangeMax, hrdRangeMinInclusive, hrdRangeMaxInclusive) then
-				reporter:fail(ErrorSourceStrings.Keys.HrdProperties_PropertyOutOfRange, {
-					jointName = jointEnum.Name,
-					propertyName = "rangeMax",
-					currentValue = jointRangeMax,
-					valueMin = valueToString(hrdRangeMinInclusive),
-					valueMax = valueToString(hrdRangeMaxInclusive),
-				})
-			end
+			checkSize(reporter, jointEnum.Name, "size", jointSize, hrdJointSizeLimit)
+			checkVectorRange(
+				reporter,
+				jointEnum.Name,
+				"rangeMin",
+				jointRangeMin,
+				hrdRangeMinInclusive,
+				hrdRangeMaxInclusive
+			)
+			checkVectorRange(
+				reporter,
+				jointEnum.Name,
+				"rangeMax",
+				jointRangeMax,
+				hrdRangeMinInclusive,
+				hrdRangeMaxInclusive
+			)
+
 			if not Vector3Utils.isFirstLessOrEqual(jointRangeMin, jointRangeMax) then
 				reporter:fail(ErrorSourceStrings.Keys.HrdProperties_MinAboveMax, {
 					jointName = jointEnum.Name,
 				})
 			end
-
-			-- TODO: Validate Tpose adjustment is reasonable (still under discussion)
 		end
 
-		-- TODO: Validate DRD properties. The getters are still under discussion.
+		-- Step 3: Check associated DRD
+		local drd: DigitsRigDescription? = bodyMeshPart:FindFirstChildWhichIsA("DigitsRigDescription")
+		if drd == nil then
+			continue
+		end
+
+		if
+			not (
+				(bodyMeshPart.Name == "LeftHand" and drd.Side == Enum.DigitsRigDescriptionSide.Left)
+				or (bodyMeshPart.Name == "RightHand" and drd.Side == Enum.DigitsRigDescriptionSide.Right)
+			)
+		then
+			local expectedSide = "None"
+			if bodyMeshPart.Name == "LeftHand" then
+				expectedSide = "Left"
+			elseif bodyMeshPart.Name == "RightHand" then
+				expectedSide = "Right"
+			end
+
+			reporter:fail(ErrorSourceStrings.Keys.HrdCheck_DrdInvalidSide, {
+				partName = bodyMeshPart.Name,
+				expectedSide = expectedSide,
+				foundSide = drd.Side.Name,
+			})
+		end
+
+		-- DRD properties are directly exposed instead of behind api layers
+		checkSize(reporter, "Index", "size", drd.IndexSize, drdJointSizeLimit)
+		checkSize(reporter, "Thumb", "size", drd.ThumbSize, drdJointSizeLimit)
+		checkSize(reporter, "Middle", "size", drd.MiddleSize, drdJointSizeLimit)
+		checkSize(reporter, "Pinky", "size", drd.PinkySize, drdJointSizeLimit)
+		checkSize(reporter, "Ring", "size", drd.RingSize, drdJointSizeLimit)
+		checkVectorRange(reporter, "Index", "range", drd.IndexRange, drdRangeMinInclusive, drdRangeMaxInclusive)
+		checkVectorRange(reporter, "Thumb", "range", drd.ThumbRange, drdRangeMinInclusive, drdRangeMaxInclusive)
+		checkVectorRange(reporter, "Pinky", "range", drd.PinkyRange, drdRangeMinInclusive, drdRangeMaxInclusive)
+		checkVectorRange(reporter, "Ring", "range", drd.RingRange, drdRangeMinInclusive, drdRangeMaxInclusive)
+		checkVectorRange(reporter, "Middle", "range", drd.MiddleRange, drdRangeMinInclusive, drdRangeMaxInclusive)
 	end
 end
 

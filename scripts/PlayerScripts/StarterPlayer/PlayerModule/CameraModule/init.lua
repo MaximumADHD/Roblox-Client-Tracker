@@ -47,7 +47,7 @@ local USER_GAME_SETTINGS_PROPERTIES =
 
 --[[ Roblox Services ]]--
 local Players = game:GetService("Players")
-local RunService = game:GetService("RunService") -- remove with FFlagUserPlayerModuleHiddenAPI
+local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
@@ -55,7 +55,7 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
 local ConnectionUtil = CommonUtils.get("ConnectionUtil")
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPlayerModuleHiddenAPI = FlagUtil.getUserFlag("UserPlayerModuleHiddenAPI")
+
 
 -- Static camera utils
 local CameraUtils = require(script:WaitForChild("CameraUtils"))
@@ -190,10 +190,6 @@ function CameraModule.new()
 	self:ActivateCameraController()
 	self:ActivateOcclusionModule(Players.LocalPlayer.DevCameraOcclusionMode)
 	self:OnCurrentCameraChanged() -- Does initializations and makes first camera controller
-	if not FFlagUserPlayerModuleHiddenAPI then
-		RunService:BindToRenderStep("cameraRenderUpdate", Enum.RenderPriority.Camera.Value, function(dt) self:Update({}, dt) end)
-	end
-
 	-- Connect listeners to camera-related properties
 	for _, propertyName in pairs(PLAYER_CAMERA_PROPERTIES) do
 		Players.LocalPlayer:GetPropertyChangedSignal(propertyName):Connect(function()
@@ -629,13 +625,8 @@ function CameraModule:OnMouseLockToggled()
 	end
 end
 
-if FFlagUserPlayerModuleHiddenAPI then
-	if RunService:IsClient() then
-		return CameraModule.new()
-	else
-		return CameraModule
-	end
+if RunService:IsClient() then
+	return CameraModule.new()
 else
-	CameraModule.new()
-	return {}
+	return CameraModule
 end

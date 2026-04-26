@@ -27,7 +27,6 @@ local ThumbstickFadeTweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.
 
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPSActionsPathAware = FlagUtil.getUserFlag("UserPSActionsPathAware")
 local FFlagUserPlayerScriptsCanUseLCC = FlagUtil.getUserFlag("UserPlayerScriptsCanUseLCC")
 
 local Players = game:GetService("Players")
@@ -36,11 +35,6 @@ local UserInputService = game:GetService("UserInputService")
 local ContextActionService = game:GetService("ContextActionService")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
-
---remove with FFlagUserPSActionsPathAware
-local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
-local character = inputContexts:WaitForChild("Character")
-local moveAction = character:WaitForChild("Move")
 
 local AvatarAbilitiesInterface
 if FFlagUserPlayerScriptsCanUseLCC then
@@ -61,10 +55,8 @@ DynamicThumbstick.__index = DynamicThumbstick
 function DynamicThumbstick.new(playerData)
 	local self = setmetatable(ActionController.new() :: any, DynamicThumbstick)
 
-	if FFlagUserPSActionsPathAware then
-		self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
-		self.enabled = false
-	end
+	self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
+	self.enabled = false
 
 	self.moveTouchObject = nil
 	self.moveTouchLockedIn = false
@@ -132,11 +124,7 @@ end
 -- Was called OnMoveTouchEnded in previous version
 function DynamicThumbstick:OnInputEnded()
 	self.moveTouchObject = nil
-	if FFlagUserPSActionsPathAware then
-		self.playerData.actions.Move:Fire(Vector2.zero)
-	else
-		moveAction:Fire(Vector2.zero)
-	end
+	self.playerData.actions.Move:Fire(Vector2.zero)
 	self:FadeThumbstick(false)
 end
 
@@ -238,11 +226,7 @@ function DynamicThumbstick:DoMove(direction: Vector2)
 	end
 
 	currentMoveVector = Vector2.new(currentMoveVector.X, -currentMoveVector.Y)
-	if FFlagUserPSActionsPathAware then
-		self.playerData.actions.Move:Fire(currentMoveVector)
-	else
-		moveAction:Fire(currentMoveVector)
-	end
+	self.playerData.actions.Move:Fire(currentMoveVector)
 end
 
 function DynamicThumbstick:LayoutMiddleImages(startPos: Vector3, endPos: Vector3)

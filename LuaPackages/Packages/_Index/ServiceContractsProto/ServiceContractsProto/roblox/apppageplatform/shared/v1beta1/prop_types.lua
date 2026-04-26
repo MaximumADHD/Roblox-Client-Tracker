@@ -11,6 +11,9 @@ type _Messages =
 		TranslationRef: _TranslationRefMessage,
 		StringFormat: _StringFormatMessage,
 		StringFormat_FormatArg: _StringFormat_FormatArgMessage,
+		StringFormat_FormatArg_Formatter: _StringFormat_FormatArg_FormatterMessage,
+		StringFormat_FormatArg_Formatter_DateConfig: _StringFormat_FormatArg_Formatter_DateConfigMessage,
+		StringFormat_FormatArg_Formatter_Type: _StringFormat_FormatArg_Formatter_TypeMessage,
 		StringFormat_ArgsEntry: _StringFormat_ArgsEntryMessage,
 		StringProp: _StringPropMessage,
 		StringProp_ConditionalOption: _StringProp_ConditionalOptionMessage,
@@ -149,13 +152,13 @@ type _StringFormatImpl = {
 type _StringFormatFields = {
 	str: string,
 	args: { [string]: StringFormat_FormatArg },
-	str_translation: TranslationRef?,
+	translation: TranslationRef?,
 }
 
 type _StringFormatPartialFields = {
 	str: string?,
 	args: { [string]: StringFormat_FormatArg }?,
-	str_translation: TranslationRef?,
+	translation: TranslationRef?,
 }
 
 export type StringFormat = typeof(setmetatable({} :: _StringFormatFields, {} :: _StringFormatImpl))
@@ -173,10 +176,12 @@ type _StringFormat_FormatArgImpl = {
 
 type _StringFormat_FormatArgFields = {
 	kind: ({ type: "literal", value: string } | { type: "binding_path", value: string })?,
+	formatter: StringFormat_FormatArg_Formatter?,
 }
 
 type _StringFormat_FormatArgPartialFields = {
 	kind: ({ type: "literal", value: string } | { type: "binding_path", value: string })?,
+	formatter: StringFormat_FormatArg_Formatter?,
 }
 
 export type StringFormat_FormatArg = typeof(setmetatable(
@@ -184,6 +189,72 @@ export type StringFormat_FormatArg = typeof(setmetatable(
 	{} :: _StringFormat_FormatArgImpl
 ))
 type _StringFormat_FormatArgMessage = proto.Message<StringFormat_FormatArg, _StringFormat_FormatArgPartialFields>
+
+type _StringFormat_FormatArg_FormatterImpl = {
+	__index: _StringFormat_FormatArg_FormatterImpl,
+	new: (fields: _StringFormat_FormatArg_FormatterPartialFields?) -> StringFormat_FormatArg_Formatter,
+	encode: (self: StringFormat_FormatArg_Formatter) -> buffer,
+	decode: (input: buffer) -> StringFormat_FormatArg_Formatter,
+	jsonEncode: (self: StringFormat_FormatArg_Formatter) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StringFormat_FormatArg_Formatter,
+	descriptor: proto.Descriptor,
+}
+
+type _StringFormat_FormatArg_FormatterFields = {
+	type: StringFormat_FormatArg_Formatter_Type,
+	config: { type: "date_config", value: StringFormat_FormatArg_Formatter_DateConfig }?,
+}
+
+type _StringFormat_FormatArg_FormatterPartialFields = {
+	type: StringFormat_FormatArg_Formatter_Type?,
+	config: { type: "date_config", value: StringFormat_FormatArg_Formatter_DateConfig }?,
+}
+
+export type StringFormat_FormatArg_Formatter = typeof(setmetatable(
+	{} :: _StringFormat_FormatArg_FormatterFields,
+	{} :: _StringFormat_FormatArg_FormatterImpl
+))
+type _StringFormat_FormatArg_FormatterMessage = proto.Message<
+	StringFormat_FormatArg_Formatter,
+	_StringFormat_FormatArg_FormatterPartialFields
+>
+
+type _StringFormat_FormatArg_Formatter_DateConfigImpl = {
+	__index: _StringFormat_FormatArg_Formatter_DateConfigImpl,
+	new: (
+		fields: _StringFormat_FormatArg_Formatter_DateConfigPartialFields?
+	) -> StringFormat_FormatArg_Formatter_DateConfig,
+	encode: (self: StringFormat_FormatArg_Formatter_DateConfig) -> buffer,
+	decode: (input: buffer) -> StringFormat_FormatArg_Formatter_DateConfig,
+	jsonEncode: (self: StringFormat_FormatArg_Formatter_DateConfig) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StringFormat_FormatArg_Formatter_DateConfig,
+	descriptor: proto.Descriptor,
+}
+
+type _StringFormat_FormatArg_Formatter_DateConfigFields = {
+	pattern: string,
+}
+
+type _StringFormat_FormatArg_Formatter_DateConfigPartialFields = {
+	pattern: string?,
+}
+
+export type StringFormat_FormatArg_Formatter_DateConfig = typeof(setmetatable(
+	{} :: _StringFormat_FormatArg_Formatter_DateConfigFields,
+	{} :: _StringFormat_FormatArg_Formatter_DateConfigImpl
+))
+type _StringFormat_FormatArg_Formatter_DateConfigMessage = proto.Message<
+	StringFormat_FormatArg_Formatter_DateConfig,
+	_StringFormat_FormatArg_Formatter_DateConfigPartialFields
+>
+
+type _StringFormat_FormatArg_Formatter_TypeMessage = proto.Enum<StringFormat_FormatArg_Formatter_Type>
+export type StringFormat_FormatArg_Formatter_Type =
+	"TYPE_INVALID"
+	| "TYPE_NUMBER_ABBREVIATE"
+	| "TYPE_NUMBER_LOCALIZE"
+	| "TYPE_DATE_FORMAT"
+	| number -- Unknown
 
 type _StringFormat_ArgsEntryImpl = {
 	__index: _StringFormat_ArgsEntryImpl,
@@ -263,6 +334,7 @@ type _StringProp_ConditionalOptionFields = {
 		| { type: "binding_path", value: string }
 		| { type: "token", value: string }
 		| { type: "format", value: StringFormat }
+		| { type: "translation", value: TranslationRef }
 	)?,
 }
 
@@ -273,6 +345,7 @@ type _StringProp_ConditionalOptionPartialFields = {
 		| { type: "binding_path", value: string }
 		| { type: "token", value: string }
 		| { type: "format", value: StringFormat }
+		| { type: "translation", value: TranslationRef }
 	)?,
 }
 
@@ -862,6 +935,7 @@ type _ImageStringPropFields = {
 		| { type: "binding_path", value: string }
 		| { type: "format", value: StringFormat }
 		| { type: "conditional", value: ImageStringProp_ConditionalOptions }
+		| { type: "translation", value: TranslationRef }
 	)?,
 }
 
@@ -871,6 +945,7 @@ type _ImageStringPropPartialFields = {
 		| { type: "binding_path", value: string }
 		| { type: "format", value: StringFormat }
 		| { type: "conditional", value: ImageStringProp_ConditionalOptions }
+		| { type: "translation", value: TranslationRef }
 	)?,
 }
 
@@ -893,6 +968,7 @@ type _ImageStringProp_ConditionalOptionFields = {
 		{ type: "literal", value: string }
 		| { type: "binding_path", value: string }
 		| { type: "format", value: StringFormat }
+		| { type: "translation", value: TranslationRef }
 	)?,
 }
 
@@ -902,6 +978,7 @@ type _ImageStringProp_ConditionalOptionPartialFields = {
 		{ type: "literal", value: string }
 		| { type: "binding_path", value: string }
 		| { type: "format", value: StringFormat }
+		| { type: "translation", value: TranslationRef }
 	)?,
 }
 
@@ -957,6 +1034,7 @@ type _ImageSetPropFields = {
 		| { type: "binding_path", value: string }
 		| { type: "format", value: StringFormat }
 		| { type: "conditional", value: ImageSetProp_ConditionalOptions }
+		| { type: "translation", value: TranslationRef }
 	)?,
 }
 
@@ -966,6 +1044,7 @@ type _ImageSetPropPartialFields = {
 		| { type: "binding_path", value: string }
 		| { type: "format", value: StringFormat }
 		| { type: "conditional", value: ImageSetProp_ConditionalOptions }
+		| { type: "translation", value: TranslationRef }
 	)?,
 }
 
@@ -988,6 +1067,7 @@ type _ImageSetProp_ConditionalOptionFields = {
 		{ type: "literal", value: string }
 		| { type: "binding_path", value: string }
 		| { type: "format", value: StringFormat }
+		| { type: "translation", value: TranslationRef }
 	)?,
 }
 
@@ -997,6 +1077,7 @@ type _ImageSetProp_ConditionalOptionPartialFields = {
 		{ type: "literal", value: string }
 		| { type: "binding_path", value: string }
 		| { type: "format", value: StringFormat }
+		| { type: "translation", value: TranslationRef }
 	)?,
 }
 
@@ -1812,11 +1893,19 @@ type _TemplateArgImpl = {
 }
 
 type _TemplateArgFields = {
-	kind: ({ type: "literal", value: TemplateArg_LiteralValue } | { type: "binding_path", value: string })?,
+	kind: (
+		{ type: "literal", value: TemplateArg_LiteralValue }
+		| { type: "binding_path", value: string }
+		| { type: "translation", value: TranslationRef }
+	)?,
 }
 
 type _TemplateArgPartialFields = {
-	kind: ({ type: "literal", value: TemplateArg_LiteralValue } | { type: "binding_path", value: string })?,
+	kind: (
+		{ type: "literal", value: TemplateArg_LiteralValue }
+		| { type: "binding_path", value: string }
+		| { type: "translation", value: TranslationRef }
+	)?,
 }
 
 export type TemplateArg = typeof(setmetatable({} :: _TemplateArgFields, {} :: _TemplateArgImpl))
@@ -3119,7 +3208,7 @@ do
 		return setmetatable({
 			str = if data == nil or data.str == nil then "" else data.str,
 			args = if data == nil or data.args == nil then {} else data.args,
-			str_translation = if data == nil or data.str_translation == nil then nil else data.str_translation,
+			translation = if data == nil or data.translation == nil then nil else data.translation,
 		}, _StringFormatImpl :: _StringFormatImpl)
 	end
 
@@ -3146,8 +3235,8 @@ do
 			end
 		end
 
-		if self.str_translation ~= nil then
-			local encoded = self.str_translation:encode()
+		if self.translation ~= nil then
+			local encoded = self.translation:encode()
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
@@ -3191,7 +3280,7 @@ do
 				elseif field == 3 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.str_translation = messages.TranslationRef.decode(value)
+					self.translation = messages.TranslationRef.decode(value)
 					continue
 				end
 
@@ -3232,8 +3321,8 @@ do
 			output.args = newOutput
 		end
 
-		if self.str_translation ~= nil then
-			output.strTranslation = self.str_translation:jsonEncode()
+		if self.translation ~= nil then
+			output.translation = self.translation:jsonEncode()
 		end
 
 		return output
@@ -3255,12 +3344,8 @@ do
 			self.args = newOutput
 		end
 
-		if input.str_translation ~= nil then
-			self.str_translation = messages.TranslationRef.jsonDecode(input.str_translation)
-		end
-
-		if input.strTranslation ~= nil then
-			self.str_translation = messages.TranslationRef.jsonDecode(input.strTranslation)
+		if input.translation ~= nil then
+			self.translation = messages.TranslationRef.jsonDecode(input.translation)
 		end
 
 		return self
@@ -3283,6 +3368,7 @@ do
 	function _StringFormat_FormatArgImpl.new(data: _StringFormat_FormatArgPartialFields?): StringFormat_FormatArg
 		return setmetatable({
 			kind = if data == nil or data.kind == nil then nil else data.kind,
+			formatter = if data == nil or data.formatter == nil then nil else data.formatter,
 		}, _StringFormat_FormatArgImpl :: _StringFormat_FormatArgImpl)
 	end
 
@@ -3298,6 +3384,12 @@ do
 				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeString(output, cursor, self.kind.value)
 			end
+		end
+
+		if self.formatter ~= nil then
+			local encoded = self.formatter:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -3328,6 +3420,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.formatter = messages.StringFormat_FormatArg_Formatter.decode(value)
 					continue
 				end
 
@@ -3364,6 +3461,10 @@ do
 			end
 		end
 
+		if self.formatter ~= nil then
+			output.formatter = self.formatter:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -3382,6 +3483,10 @@ do
 			self.kind = { type = "binding_path", value = input.bindingPath }
 		end
 
+		if input.formatter ~= nil then
+			self.formatter = messages.StringFormat_FormatArg_Formatter.jsonDecode(input.formatter)
+		end
+
 		return self
 	end
 
@@ -3394,6 +3499,317 @@ do
 
 	typeRegistry.default:register(messages.StringFormat_FormatArg)
 end
+
+do
+	local _StringFormat_FormatArg_FormatterImpl = {}
+	_StringFormat_FormatArg_FormatterImpl.__index = _StringFormat_FormatArg_FormatterImpl
+
+	function _StringFormat_FormatArg_FormatterImpl.new(
+		data: _StringFormat_FormatArg_FormatterPartialFields?
+	): StringFormat_FormatArg_Formatter
+		return setmetatable({
+			type = if data == nil or data.type == nil
+				then assert(messages.StringFormat_FormatArg_Formatter_Type.fromNumber(0), "Enum has no 0 default")
+				else data.type,
+			config = if data == nil or data.config == nil then nil else data.config,
+		}, _StringFormat_FormatArg_FormatterImpl :: _StringFormat_FormatArg_FormatterImpl)
+	end
+
+	function _StringFormat_FormatArg_FormatterImpl.encode(self: StringFormat_FormatArg_Formatter): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.type ~= nil
+			and (
+				self.type ~= nil and self.type ~= 0
+				or self.type ~= messages.StringFormat_FormatArg_Formatter_Type.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(
+				output,
+				cursor,
+				messages.StringFormat_FormatArg_Formatter_Type.toNumber(self.type :: any)
+			)
+		end
+
+		if self.config ~= nil then
+			if self.config.type == "date_config" then
+				local encoded = self.config.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StringFormat_FormatArg_FormatterImpl.decode(input: buffer): StringFormat_FormatArg_Formatter
+		local self = _StringFormat_FormatArg_FormatterImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.type = (messages.StringFormat_FormatArg_Formatter_Type.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.config = {
+						type = "date_config",
+						value = messages.StringFormat_FormatArg_Formatter_DateConfig.decode(value),
+					}
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StringFormat_FormatArg_FormatterImpl.jsonEncode(self: StringFormat_FormatArg_Formatter): any
+		local output = {}
+
+		if
+			self.type ~= nil
+			and (
+				self.type ~= nil and self.type ~= 0
+				or self.type ~= messages.StringFormat_FormatArg_Formatter_Type.fromNumber(0)
+			)
+		then
+			output.type = if typeof(self.type) == "number"
+				then self.type
+				else messages.StringFormat_FormatArg_Formatter_Type.toNumber(self.type :: any)
+		end
+
+		if self.config ~= nil then
+			if self.config.type == "date_config" then
+				output.dateConfig = self.config.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _StringFormat_FormatArg_FormatterImpl.jsonDecode(
+		input: { [string]: any }
+	): StringFormat_FormatArg_Formatter
+		local self = _StringFormat_FormatArg_FormatterImpl.new()
+
+		if input.type ~= nil then
+			self.type = if typeof(input.type) == "number"
+				then (messages.StringFormat_FormatArg_Formatter_Type.fromNumber(input.type) or input.type)
+				else (messages.StringFormat_FormatArg_Formatter_Type.fromName(input.type) or input.type)
+		end
+
+		if input.date_config ~= nil then
+			self.config = {
+				type = "date_config",
+				value = messages.StringFormat_FormatArg_Formatter_DateConfig.jsonDecode(input.date_config),
+			}
+		end
+
+		if input.dateConfig ~= nil then
+			self.config = {
+				type = "date_config",
+				value = messages.StringFormat_FormatArg_Formatter_DateConfig.jsonDecode(input.dateConfig),
+			}
+		end
+
+		return self
+	end
+
+	_StringFormat_FormatArg_FormatterImpl.descriptor = {
+		name = "StringFormat_FormatArg_Formatter",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Formatter",
+	}
+
+	messages.StringFormat_FormatArg_Formatter = _StringFormat_FormatArg_FormatterImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StringFormat_FormatArg_Formatter)
+end
+
+do
+	local _StringFormat_FormatArg_Formatter_DateConfigImpl = {}
+	_StringFormat_FormatArg_Formatter_DateConfigImpl.__index = _StringFormat_FormatArg_Formatter_DateConfigImpl
+
+	function _StringFormat_FormatArg_Formatter_DateConfigImpl.new(
+		data: _StringFormat_FormatArg_Formatter_DateConfigPartialFields?
+	): StringFormat_FormatArg_Formatter_DateConfig
+		return setmetatable({
+			pattern = if data == nil or data.pattern == nil then "" else data.pattern,
+		}, _StringFormat_FormatArg_Formatter_DateConfigImpl :: _StringFormat_FormatArg_Formatter_DateConfigImpl)
+	end
+
+	function _StringFormat_FormatArg_Formatter_DateConfigImpl.encode(
+		self: StringFormat_FormatArg_Formatter_DateConfig
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.pattern ~= nil and self.pattern ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.pattern)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StringFormat_FormatArg_Formatter_DateConfigImpl.decode(
+		input: buffer
+	): StringFormat_FormatArg_Formatter_DateConfig
+		local self = _StringFormat_FormatArg_Formatter_DateConfigImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.pattern = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StringFormat_FormatArg_Formatter_DateConfigImpl.jsonEncode(
+		self: StringFormat_FormatArg_Formatter_DateConfig
+	): any
+		local output = {}
+
+		if self.pattern ~= nil and self.pattern ~= "" then
+			output.pattern = self.pattern
+		end
+
+		return output
+	end
+
+	function _StringFormat_FormatArg_Formatter_DateConfigImpl.jsonDecode(
+		input: { [string]: any }
+	): StringFormat_FormatArg_Formatter_DateConfig
+		local self = _StringFormat_FormatArg_Formatter_DateConfigImpl.new()
+
+		if input.pattern ~= nil then
+			self.pattern = input.pattern
+		end
+
+		return self
+	end
+
+	_StringFormat_FormatArg_Formatter_DateConfigImpl.descriptor = {
+		name = "StringFormat_FormatArg_Formatter_DateConfig",
+		fullName = "roblox.apppageplatform.shared.v1beta1.DateConfig",
+	}
+
+	messages.StringFormat_FormatArg_Formatter_DateConfig = _StringFormat_FormatArg_Formatter_DateConfigImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StringFormat_FormatArg_Formatter_DateConfig)
+end
+
+messages.StringFormat_FormatArg_Formatter_Type = {
+	fromNumber = function(value: number): StringFormat_FormatArg_Formatter_Type?
+		if value == 0 then
+			return "TYPE_INVALID"
+		elseif value == 1 then
+			return "TYPE_NUMBER_ABBREVIATE"
+		elseif value == 2 then
+			return "TYPE_NUMBER_LOCALIZE"
+		elseif value == 3 then
+			return "TYPE_DATE_FORMAT"
+		else
+			return nil
+		end
+	end,
+
+	toNumber = function(self: StringFormat_FormatArg_Formatter_Type): number
+		if self == "TYPE_INVALID" then
+			return 0
+		elseif self == "TYPE_NUMBER_ABBREVIATE" then
+			return 1
+		elseif self == "TYPE_NUMBER_LOCALIZE" then
+			return 2
+		elseif self == "TYPE_DATE_FORMAT" then
+			return 3
+		else
+			return self
+		end
+	end,
+
+	fromName = function(name: string): StringFormat_FormatArg_Formatter_Type?
+		if name == "TYPE_INVALID" then
+			return "TYPE_INVALID"
+		elseif name == "TYPE_NUMBER_ABBREVIATE" then
+			return "TYPE_NUMBER_ABBREVIATE"
+		elseif name == "TYPE_NUMBER_LOCALIZE" then
+			return "TYPE_NUMBER_LOCALIZE"
+		elseif name == "TYPE_DATE_FORMAT" then
+			return "TYPE_DATE_FORMAT"
+		else
+			return nil
+		end
+	end,
+}
 
 do
 	local _StringFormat_ArgsEntryImpl = {}
@@ -3728,6 +4144,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "translation" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -3775,6 +4195,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "format", value = messages.StringFormat.decode(value) }
 					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "translation", value = messages.TranslationRef.decode(value) }
+					continue
 				end
 
 				local length
@@ -3815,6 +4240,8 @@ do
 				output.token = self.kind.value
 			elseif self.kind.type == "format" then
 				output.format = self.kind.value:jsonEncode()
+			elseif self.kind.type == "translation" then
+				output.translation = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -3847,6 +4274,10 @@ do
 
 		if input.format ~= nil then
 			self.kind = { type = "format", value = messages.StringFormat.jsonDecode(input.format) }
+		end
+
+		if input.translation ~= nil then
+			self.kind = { type = "translation", value = messages.TranslationRef.jsonDecode(input.translation) }
 		end
 
 		return self
@@ -6444,6 +6875,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "translation" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -6487,6 +6922,11 @@ do
 					self.kind =
 						{ type = "conditional", value = messages.ImageStringProp_ConditionalOptions.decode(value) }
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "translation", value = messages.TranslationRef.decode(value) }
+					continue
 				end
 
 				local length
@@ -6523,6 +6963,8 @@ do
 				output.format = self.kind.value:jsonEncode()
 			elseif self.kind.type == "conditional" then
 				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "translation" then
+				output.translation = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -6553,6 +6995,10 @@ do
 				type = "conditional",
 				value = messages.ImageStringProp_ConditionalOptions.jsonDecode(input.conditional),
 			}
+		end
+
+		if input.translation ~= nil then
+			self.kind = { type = "translation", value = messages.TranslationRef.jsonDecode(input.translation) }
 		end
 
 		return self
@@ -6602,6 +7048,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "translation" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -6644,6 +7094,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "format", value = messages.StringFormat.decode(value) }
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "translation", value = messages.TranslationRef.decode(value) }
+					continue
 				end
 
 				local length
@@ -6682,6 +7137,8 @@ do
 				output.bindingPath = self.kind.value
 			elseif self.kind.type == "format" then
 				output.format = self.kind.value:jsonEncode()
+			elseif self.kind.type == "translation" then
+				output.translation = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -6712,6 +7169,10 @@ do
 
 		if input.format ~= nil then
 			self.kind = { type = "format", value = messages.StringFormat.jsonDecode(input.format) }
+		end
+
+		if input.translation ~= nil then
+			self.kind = { type = "translation", value = messages.TranslationRef.jsonDecode(input.translation) }
 		end
 
 		return self
@@ -6869,6 +7330,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "translation" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -6911,6 +7376,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "conditional", value = messages.ImageSetProp_ConditionalOptions.decode(value) }
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "translation", value = messages.TranslationRef.decode(value) }
+					continue
 				end
 
 				local length
@@ -6947,6 +7417,8 @@ do
 				output.format = self.kind.value:jsonEncode()
 			elseif self.kind.type == "conditional" then
 				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "translation" then
+				output.translation = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -6975,6 +7447,10 @@ do
 		if input.conditional ~= nil then
 			self.kind =
 				{ type = "conditional", value = messages.ImageSetProp_ConditionalOptions.jsonDecode(input.conditional) }
+		end
+
+		if input.translation ~= nil then
+			self.kind = { type = "translation", value = messages.TranslationRef.jsonDecode(input.translation) }
 		end
 
 		return self
@@ -7024,6 +7500,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "translation" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -7066,6 +7546,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "format", value = messages.StringFormat.decode(value) }
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "translation", value = messages.TranslationRef.decode(value) }
+					continue
 				end
 
 				local length
@@ -7104,6 +7589,8 @@ do
 				output.bindingPath = self.kind.value
 			elseif self.kind.type == "format" then
 				output.format = self.kind.value:jsonEncode()
+			elseif self.kind.type == "translation" then
+				output.translation = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -7132,6 +7619,10 @@ do
 
 		if input.format ~= nil then
 			self.kind = { type = "format", value = messages.StringFormat.jsonDecode(input.format) }
+		end
+
+		if input.translation ~= nil then
+			self.kind = { type = "translation", value = messages.TranslationRef.jsonDecode(input.translation) }
 		end
 
 		return self
@@ -10809,6 +11300,10 @@ do
 			elseif self.kind.type == "binding_path" then
 				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "translation" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -10840,6 +11335,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "translation", value = messages.TranslationRef.decode(value) }
 					continue
 				end
 
@@ -10873,6 +11373,8 @@ do
 				output.literal = self.kind.value:jsonEncode()
 			elseif self.kind.type == "binding_path" then
 				output.bindingPath = self.kind.value
+			elseif self.kind.type == "translation" then
+				output.translation = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -10892,6 +11394,10 @@ do
 
 		if input.bindingPath ~= nil then
 			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.translation ~= nil then
+			self.kind = { type = "translation", value = messages.TranslationRef.jsonDecode(input.translation) }
 		end
 
 		return self
@@ -16278,6 +16784,9 @@ return {
 	TranslationRef = messages.TranslationRef,
 	StringFormat = messages.StringFormat,
 	StringFormat_FormatArg = messages.StringFormat_FormatArg,
+	StringFormat_FormatArg_Formatter = messages.StringFormat_FormatArg_Formatter,
+	StringFormat_FormatArg_Formatter_DateConfig = messages.StringFormat_FormatArg_Formatter_DateConfig,
+	StringFormat_FormatArg_Formatter_Type = messages.StringFormat_FormatArg_Formatter_Type,
 	StringProp = messages.StringProp,
 	StringProp_ConditionalOption = messages.StringProp_ConditionalOption,
 	StringProp_ConditionalOptions = messages.StringProp_ConditionalOptions,

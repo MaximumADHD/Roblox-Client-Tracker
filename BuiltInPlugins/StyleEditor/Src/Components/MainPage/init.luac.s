@@ -682,11 +682,15 @@ PROTO_20:
         4 CAPTURE                          UPVAL U2
         5 CAPTURE                          VAL R1
         6 CALL                             R2 2 1
-        7 GETUPVAL                         R3 3
-        8 MOVE                             R5 R2
-        9 NAMECALL                         R3 R3 K0 ["updatePaths"]
-       11 CALL                             R3 2 -1
-       12 RETURN                           R3 -1
+        7 GETUPVAL                         R4 3
+        8 JUMPIFNOT                        R4 ; [+2]
+        9 MOVE                             R3 R2
+       10 RETURN                           R3 1
+       11 GETUPVAL                         R3 4
+       12 MOVE                             R5 R2
+       13 NAMECALL                         R3 R3 K0 ["updatePaths"]
+       15 CALL                             R3 2 1
+       16 RETURN                           R3 1
 
 PROTO_21:
         0 GETUPVAL                         R2 0
@@ -1386,185 +1390,192 @@ MAIN:
       267 GETIMPORT                        R39 K8 [require]
       269 GETTABLEKS                       R42 R1 K18 ["Src"]
       271 GETTABLEKS                       R41 R42 K50 ["Flags"]
-      273 GETTABLEKS                       R40 R41 K53 ["getFFlagStyleEditorNewRuleRenameFix"]
+      273 GETTABLEKS                       R40 R41 K53 ["getFFlagStyleEditorFixSearch"]
       275 CALL                             R39 1 1
       276 CALL                             R39 0 1
       277 GETIMPORT                        R40 K8 [require]
       279 GETTABLEKS                       R43 R1 K18 ["Src"]
       281 GETTABLEKS                       R42 R43 K50 ["Flags"]
-      283 GETTABLEKS                       R41 R42 K54 ["getFFlagStyleEditorPluginStyleSheets"]
+      283 GETTABLEKS                       R41 R42 K54 ["getFFlagStyleEditorNewRuleRenameFix"]
       285 CALL                             R40 1 1
       286 CALL                             R40 0 1
       287 GETIMPORT                        R41 K8 [require]
       289 GETTABLEKS                       R44 R1 K18 ["Src"]
       291 GETTABLEKS                       R43 R44 K50 ["Flags"]
-      293 GETTABLEKS                       R42 R43 K55 ["getFFlagStyleQuery"]
+      293 GETTABLEKS                       R42 R43 K55 ["getFFlagStyleEditorPluginStyleSheets"]
       295 CALL                             R41 1 1
       296 CALL                             R41 0 1
       297 GETIMPORT                        R42 K8 [require]
-      299 GETTABLEKS                       R44 R1 K18 ["Src"]
-      301 GETTABLEKS                       R43 R44 K56 ["Types"]
-      303 CALL                             R42 1 1
-      304 GETIMPORT                        R43 K8 [require]
-      306 GETTABLEKS                       R46 R1 K18 ["Src"]
-      308 GETTABLEKS                       R45 R46 K57 ["Reducers"]
-      310 GETTABLEKS                       R44 R45 K58 ["RootReducer"]
-      312 CALL                             R43 1 1
-      313 GETIMPORT                        R44 K8 [require]
-      315 GETTABLEKS                       R46 R1 K12 ["Packages"]
-      317 GETTABLEKS                       R45 R46 K59 ["Dash"]
-      319 CALL                             R44 1 1
-      320 GETTABLEKS                       R45 R44 K60 ["copy"]
-      322 GETTABLEKS                       R46 R44 K61 ["collectArray"]
-      324 GETTABLEKS                       R47 R44 K62 ["join"]
-      326 GETTABLEKS                       R48 R44 K63 ["mapOne"]
-      328 GETIMPORT                        R49 K8 [require]
-      330 GETTABLEKS                       R52 R1 K18 ["Src"]
-      332 GETTABLEKS                       R51 R52 K64 ["Resources"]
-      334 GETTABLEKS                       R50 R51 K65 ["PluginStyles"]
-      336 CALL                             R49 1 1
-      337 LOADK                            R52 K66 ["BorderSize"]
-      338 NAMECALL                         R50 R49 K67 ["GetAttribute"]
-      340 CALL                             R50 2 1
-      341 LOADK                            R53 K68 ["PaddingSm"]
-      342 NAMECALL                         R51 R49 K67 ["GetAttribute"]
-      344 CALL                             R51 2 1
-      345 LOADK                            R54 K69 ["RowHeight"]
-      346 NAMECALL                         R52 R49 K67 ["GetAttribute"]
-      348 CALL                             R52 2 1
-      349 LOADK                            R55 K70 ["SearchBarHeight"]
-      350 NAMECALL                         R53 R49 K67 ["GetAttribute"]
-      352 CALL                             R53 2 1
-      353 GETIMPORT                        R54 K8 [require]
-      355 GETIMPORT                        R56 K5 [script]
-      357 GETTABLEKS                       R55 R56 K71 ["Tree"]
-      359 CALL                             R54 1 1
-      360 GETIMPORT                        R55 K8 [require]
-      362 GETIMPORT                        R57 K5 [script]
-      364 GETTABLEKS                       R56 R57 K72 ["onEdited"]
-      366 CALL                             R55 1 1
-      367 NEWTABLE                         R56 0 1
-      369 DUPTABLE                         R57 K76 [{"Name", "Key", "Width"}]
-      370 LOADK                            R58 K73 ["Name"]
-      371 SETTABLEKS                       R58 R57 K73 ["Name"]
-      373 LOADK                            R58 K73 ["Name"]
-      374 SETTABLEKS                       R58 R57 K74 ["Key"]
-      376 GETIMPORT                        R58 K79 [UDim.new]
-      378 LOADN                            R59 1
-      379 LOADN                            R60 0
-      380 CALL                             R58 2 1
-      381 SETTABLEKS                       R58 R57 K75 ["Width"]
-      383 SETLIST                          R56 R57 1 [1]
-      385 NEWTABLE                         R57 0 2
-      387 GETIMPORT                        R58 K79 [UDim.new]
-      389 LOADN                            R59 0
-      390 LOADN                            R60 10
-      391 CALL                             R58 2 1
-      392 GETIMPORT                        R59 K79 [UDim.new]
-      394 LOADN                            R60 0
-      395 LOADN                            R61 100
-      396 CALL                             R59 2 -1
-      397 SETLIST                          R57 R58 -1 [1]
-      399 GETTABLEKS                       R58 R54 K80 ["EditTree"]
-      401 GETTABLEKS                       R59 R3 K81 ["PureComponent"]
-      403 LOADK                            R61 K82 ["MainPage"]
-      404 NAMECALL                         R59 R59 K83 ["extend"]
-      406 CALL                             R59 2 1
-      407 DUPCLOSURE                       R60 K84 [PROTO_17]
-      408 CAPTURE                          VAL R39
-      409 CAPTURE                          VAL R45
-      410 CAPTURE                          VAL R56
-      411 CAPTURE                          VAL R58
-      412 CAPTURE                          VAL R16
-      413 CAPTURE                          VAL R17
-      414 CAPTURE                          VAL R41
-      415 CAPTURE                          VAL R13
-      416 CAPTURE                          VAL R2
-      417 CAPTURE                          VAL R21
-      418 CAPTURE                          VAL R14
-      419 CAPTURE                          VAL R18
-      420 CAPTURE                          VAL R20
-      421 CAPTURE                          VAL R15
-      422 CAPTURE                          VAL R19
-      423 CAPTURE                          VAL R11
-      424 CAPTURE                          VAL R9
-      425 CAPTURE                          VAL R28
-      426 CAPTURE                          VAL R47
-      427 CAPTURE                          VAL R10
-      428 CAPTURE                          VAL R48
-      429 CAPTURE                          VAL R40
-      430 CAPTURE                          VAL R54
-      431 CAPTURE                          VAL R0
-      432 SETTABLEKS                       R60 R59 K85 ["init"]
-      434 NEWCLOSURE                       R60 P1
-      435 CAPTURE                          VAL R46
-      436 CAPTURE                          VAL R45
-      437 CAPTURE                          REF R59
-      438 CAPTURE                          VAL R58
-      439 SETTABLEKS                       R60 R59 K86 ["applySearch"]
-      441 DUPCLOSURE                       R60 K87 [PROTO_21]
-      442 CAPTURE                          VAL R39
-      443 CAPTURE                          VAL R36
-      444 CAPTURE                          VAL R40
-      445 CAPTURE                          VAL R54
-      446 CAPTURE                          VAL R0
-      447 CAPTURE                          VAL R58
-      448 CAPTURE                          VAL R47
-      449 SETTABLEKS                       R60 R59 K88 ["getDerivedStateFromProps"]
-      451 DUPCLOSURE                       R60 K89 [PROTO_22]
-      452 CAPTURE                          VAL R39
+      299 GETTABLEKS                       R45 R1 K18 ["Src"]
+      301 GETTABLEKS                       R44 R45 K50 ["Flags"]
+      303 GETTABLEKS                       R43 R44 K56 ["getFFlagStyleQuery"]
+      305 CALL                             R42 1 1
+      306 CALL                             R42 0 1
+      307 GETIMPORT                        R43 K8 [require]
+      309 GETTABLEKS                       R45 R1 K18 ["Src"]
+      311 GETTABLEKS                       R44 R45 K57 ["Types"]
+      313 CALL                             R43 1 1
+      314 GETIMPORT                        R44 K8 [require]
+      316 GETTABLEKS                       R47 R1 K18 ["Src"]
+      318 GETTABLEKS                       R46 R47 K58 ["Reducers"]
+      320 GETTABLEKS                       R45 R46 K59 ["RootReducer"]
+      322 CALL                             R44 1 1
+      323 GETIMPORT                        R45 K8 [require]
+      325 GETTABLEKS                       R47 R1 K12 ["Packages"]
+      327 GETTABLEKS                       R46 R47 K60 ["Dash"]
+      329 CALL                             R45 1 1
+      330 GETTABLEKS                       R46 R45 K61 ["copy"]
+      332 GETTABLEKS                       R47 R45 K62 ["collectArray"]
+      334 GETTABLEKS                       R48 R45 K63 ["join"]
+      336 GETTABLEKS                       R49 R45 K64 ["mapOne"]
+      338 GETIMPORT                        R50 K8 [require]
+      340 GETTABLEKS                       R53 R1 K18 ["Src"]
+      342 GETTABLEKS                       R52 R53 K65 ["Resources"]
+      344 GETTABLEKS                       R51 R52 K66 ["PluginStyles"]
+      346 CALL                             R50 1 1
+      347 LOADK                            R53 K67 ["BorderSize"]
+      348 NAMECALL                         R51 R50 K68 ["GetAttribute"]
+      350 CALL                             R51 2 1
+      351 LOADK                            R54 K69 ["PaddingSm"]
+      352 NAMECALL                         R52 R50 K68 ["GetAttribute"]
+      354 CALL                             R52 2 1
+      355 LOADK                            R55 K70 ["RowHeight"]
+      356 NAMECALL                         R53 R50 K68 ["GetAttribute"]
+      358 CALL                             R53 2 1
+      359 LOADK                            R56 K71 ["SearchBarHeight"]
+      360 NAMECALL                         R54 R50 K68 ["GetAttribute"]
+      362 CALL                             R54 2 1
+      363 GETIMPORT                        R55 K8 [require]
+      365 GETIMPORT                        R57 K5 [script]
+      367 GETTABLEKS                       R56 R57 K72 ["Tree"]
+      369 CALL                             R55 1 1
+      370 GETIMPORT                        R56 K8 [require]
+      372 GETIMPORT                        R58 K5 [script]
+      374 GETTABLEKS                       R57 R58 K73 ["onEdited"]
+      376 CALL                             R56 1 1
+      377 NEWTABLE                         R57 0 1
+      379 DUPTABLE                         R58 K77 [{"Name", "Key", "Width"}]
+      380 LOADK                            R59 K74 ["Name"]
+      381 SETTABLEKS                       R59 R58 K74 ["Name"]
+      383 LOADK                            R59 K74 ["Name"]
+      384 SETTABLEKS                       R59 R58 K75 ["Key"]
+      386 GETIMPORT                        R59 K80 [UDim.new]
+      388 LOADN                            R60 1
+      389 LOADN                            R61 0
+      390 CALL                             R59 2 1
+      391 SETTABLEKS                       R59 R58 K76 ["Width"]
+      393 SETLIST                          R57 R58 1 [1]
+      395 NEWTABLE                         R58 0 2
+      397 GETIMPORT                        R59 K80 [UDim.new]
+      399 LOADN                            R60 0
+      400 LOADN                            R61 10
+      401 CALL                             R59 2 1
+      402 GETIMPORT                        R60 K80 [UDim.new]
+      404 LOADN                            R61 0
+      405 LOADN                            R62 100
+      406 CALL                             R60 2 -1
+      407 SETLIST                          R58 R59 -1 [1]
+      409 GETTABLEKS                       R59 R55 K81 ["EditTree"]
+      411 GETTABLEKS                       R60 R3 K82 ["PureComponent"]
+      413 LOADK                            R62 K83 ["MainPage"]
+      414 NAMECALL                         R60 R60 K84 ["extend"]
+      416 CALL                             R60 2 1
+      417 DUPCLOSURE                       R61 K85 [PROTO_17]
+      418 CAPTURE                          VAL R40
+      419 CAPTURE                          VAL R46
+      420 CAPTURE                          VAL R57
+      421 CAPTURE                          VAL R59
+      422 CAPTURE                          VAL R16
+      423 CAPTURE                          VAL R17
+      424 CAPTURE                          VAL R42
+      425 CAPTURE                          VAL R13
+      426 CAPTURE                          VAL R2
+      427 CAPTURE                          VAL R21
+      428 CAPTURE                          VAL R14
+      429 CAPTURE                          VAL R18
+      430 CAPTURE                          VAL R20
+      431 CAPTURE                          VAL R15
+      432 CAPTURE                          VAL R19
+      433 CAPTURE                          VAL R11
+      434 CAPTURE                          VAL R9
+      435 CAPTURE                          VAL R28
+      436 CAPTURE                          VAL R48
+      437 CAPTURE                          VAL R10
+      438 CAPTURE                          VAL R49
+      439 CAPTURE                          VAL R41
+      440 CAPTURE                          VAL R55
+      441 CAPTURE                          VAL R0
+      442 SETTABLEKS                       R61 R60 K86 ["init"]
+      444 NEWCLOSURE                       R61 P1
+      445 CAPTURE                          VAL R47
+      446 CAPTURE                          VAL R46
+      447 CAPTURE                          REF R60
+      448 CAPTURE                          VAL R39
+      449 CAPTURE                          VAL R59
+      450 SETTABLEKS                       R61 R60 K87 ["applySearch"]
+      452 DUPCLOSURE                       R61 K88 [PROTO_21]
       453 CAPTURE                          VAL R40
-      454 CAPTURE                          VAL R44
-      455 CAPTURE                          VAL R58
-      456 CAPTURE                          VAL R47
-      457 CAPTURE                          VAL R10
-      458 SETTABLEKS                       R60 R59 K90 ["didUpdate"]
-      460 NEWCLOSURE                       R60 P4
-      461 CAPTURE                          VAL R58
-      462 CAPTURE                          VAL R39
-      463 CAPTURE                          REF R59
-      464 CAPTURE                          VAL R45
-      465 CAPTURE                          VAL R40
-      466 CAPTURE                          VAL R53
-      467 CAPTURE                          VAL R51
-      468 CAPTURE                          VAL R50
-      469 CAPTURE                          VAL R3
-      470 CAPTURE                          VAL R23
-      471 CAPTURE                          VAL R38
-      472 CAPTURE                          VAL R24
-      473 CAPTURE                          VAL R26
-      474 CAPTURE                          VAL R47
-      475 CAPTURE                          VAL R29
-      476 CAPTURE                          VAL R55
-      477 CAPTURE                          VAL R52
-      478 CAPTURE                          VAL R31
-      479 CAPTURE                          VAL R32
-      480 CAPTURE                          VAL R41
-      481 CAPTURE                          VAL R35
-      482 CAPTURE                          VAL R33
-      483 CAPTURE                          VAL R27
-      484 CAPTURE                          VAL R37
-      485 CAPTURE                          VAL R46
-      486 CAPTURE                          VAL R34
-      487 CAPTURE                          VAL R25
-      488 CAPTURE                          VAL R57
-      489 SETTABLEKS                       R60 R59 K91 ["render"]
-      491 MOVE                             R60 R7
-      492 DUPTABLE                         R61 K94 [{"Localization", "Plugin"}]
-      493 GETTABLEKS                       R62 R6 K92 ["Localization"]
-      495 SETTABLEKS                       R62 R61 K92 ["Localization"]
-      497 GETTABLEKS                       R62 R6 K93 ["Plugin"]
-      499 SETTABLEKS                       R62 R61 K93 ["Plugin"]
-      501 CALL                             R60 1 1
-      502 MOVE                             R61 R59
-      503 CALL                             R60 1 1
-      504 MOVE                             R59 R60
-      505 GETTABLEKS                       R60 R4 K95 ["connect"]
-      507 DUPCLOSURE                       R61 K96 [PROTO_26]
-      508 CAPTURE                          VAL R40
-      509 MOVE                             R62 R30
-      510 CALL                             R60 2 1
-      511 MOVE                             R61 R59
-      512 CALL                             R60 1 -1
-      513 CLOSEUPVALS                      R59
-      514 RETURN                           R60 -1
+      454 CAPTURE                          VAL R36
+      455 CAPTURE                          VAL R41
+      456 CAPTURE                          VAL R55
+      457 CAPTURE                          VAL R0
+      458 CAPTURE                          VAL R59
+      459 CAPTURE                          VAL R48
+      460 SETTABLEKS                       R61 R60 K89 ["getDerivedStateFromProps"]
+      462 DUPCLOSURE                       R61 K90 [PROTO_22]
+      463 CAPTURE                          VAL R40
+      464 CAPTURE                          VAL R41
+      465 CAPTURE                          VAL R45
+      466 CAPTURE                          VAL R59
+      467 CAPTURE                          VAL R48
+      468 CAPTURE                          VAL R10
+      469 SETTABLEKS                       R61 R60 K91 ["didUpdate"]
+      471 NEWCLOSURE                       R61 P4
+      472 CAPTURE                          VAL R59
+      473 CAPTURE                          VAL R40
+      474 CAPTURE                          REF R60
+      475 CAPTURE                          VAL R46
+      476 CAPTURE                          VAL R41
+      477 CAPTURE                          VAL R54
+      478 CAPTURE                          VAL R52
+      479 CAPTURE                          VAL R51
+      480 CAPTURE                          VAL R3
+      481 CAPTURE                          VAL R23
+      482 CAPTURE                          VAL R38
+      483 CAPTURE                          VAL R24
+      484 CAPTURE                          VAL R26
+      485 CAPTURE                          VAL R48
+      486 CAPTURE                          VAL R29
+      487 CAPTURE                          VAL R56
+      488 CAPTURE                          VAL R53
+      489 CAPTURE                          VAL R31
+      490 CAPTURE                          VAL R32
+      491 CAPTURE                          VAL R42
+      492 CAPTURE                          VAL R35
+      493 CAPTURE                          VAL R33
+      494 CAPTURE                          VAL R27
+      495 CAPTURE                          VAL R37
+      496 CAPTURE                          VAL R47
+      497 CAPTURE                          VAL R34
+      498 CAPTURE                          VAL R25
+      499 CAPTURE                          VAL R58
+      500 SETTABLEKS                       R61 R60 K92 ["render"]
+      502 MOVE                             R61 R7
+      503 DUPTABLE                         R62 K95 [{"Localization", "Plugin"}]
+      504 GETTABLEKS                       R63 R6 K93 ["Localization"]
+      506 SETTABLEKS                       R63 R62 K93 ["Localization"]
+      508 GETTABLEKS                       R63 R6 K94 ["Plugin"]
+      510 SETTABLEKS                       R63 R62 K94 ["Plugin"]
+      512 CALL                             R61 1 1
+      513 MOVE                             R62 R60
+      514 CALL                             R61 1 1
+      515 MOVE                             R60 R61
+      516 GETTABLEKS                       R61 R4 K96 ["connect"]
+      518 DUPCLOSURE                       R62 K97 [PROTO_26]
+      519 CAPTURE                          VAL R41
+      520 MOVE                             R63 R30
+      521 CALL                             R61 2 1
+      522 MOVE                             R62 R60
+      523 CALL                             R61 1 -1
+      524 CLOSEUPVALS                      R60
+      525 RETURN                           R61 -1

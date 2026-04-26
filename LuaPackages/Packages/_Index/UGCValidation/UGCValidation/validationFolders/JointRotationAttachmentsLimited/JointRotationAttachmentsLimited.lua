@@ -84,7 +84,7 @@ JointRotationAttachmentsLimited.run = function(reporter: Types.ValidationReporte
 					> jointRotationMaximumHundredthPositionOffset / 100
 				then
 					reporter:fail(ErrorSourceStrings.Keys.JointRotAtt_Moved, {
-						jointPath = jointRotation:GetFullName(),
+						instPath = jointRotation:GetFullName(),
 						expectedPosition = valueToString(recommendedJointPosition),
 					})
 				end

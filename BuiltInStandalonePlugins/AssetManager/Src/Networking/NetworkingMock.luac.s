@@ -108,28 +108,34 @@ PROTO_6:
         9 RETURN                           R0 0
 
 PROTO_7:
-        0 JUMPIFNOT                        R0 ; [+4]
-        1 GETUPVAL                         R1 0
-        2 LOADK                            R2 K0 ["Test fetchGroupsAsync error"]
-        3 CALL                             R1 1 0
-        4 RETURN                           R0 0
-        5 GETUPVAL                         R1 1
-        6 GETUPVAL                         R3 2
-        7 GETTABLEKS                       R2 R3 K1 ["GroupsPayload"]
-        9 CALL                             R1 1 0
-       10 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 CALL                             R1 1 0
+        3 RETURN                           R0 0
 
 PROTO_8:
+        0 NEWCLOSURE                       R1 P0
+        1 CAPTURE                          VAL R0
+        2 RETURN                           R1 1
+
+PROTO_9:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["ResumeAsync"]
         3 NEWCLOSURE                       R3 P0
-        4 CAPTURE                          VAL R1
-        5 CAPTURE                          VAL R0
-        6 CAPTURE                          UPVAL U1
-        7 SETTABLEKS                       R3 R2 K1 ["FetchGroups"]
-        9 RETURN                           R0 0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R3 R2 K1 ["FetchInventoryFolderReady"]
+        7 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
+        0 DUPCLOSURE                       R1 K0 [PROTO_8]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R2 R3 K1 ["new"]
+        4 DUPCLOSURE                       R3 K2 [PROTO_9]
+        5 CAPTURE                          UPVAL U1
+        6 CALL                             R2 1 -1
+        7 RETURN                           R2 -1
+
+PROTO_11:
         0 LOADNIL                          R6
         1 JUMPIFNOT                        R5 ; [+10]
         2 GETUPVAL                         R8 0
@@ -185,7 +191,7 @@ PROTO_9:
        72 CALL                             R8 0 0
        73 RETURN                           R0 0
 
-PROTO_10:
+PROTO_12:
         0 JUMPIFNOT                        R0 ; [+4]
         1 GETUPVAL                         R4 0
         2 LOADK                            R5 K0 ["Test fetchAssetsAsync error"]
@@ -203,7 +209,7 @@ PROTO_10:
        16 CALL                             R4 6 0
        17 RETURN                           R0 0
 
-PROTO_11:
+PROTO_13:
         0 JUMPIFNOT                        R0 ; [+4]
         1 GETUPVAL                         R1 0
         2 LOADK                            R2 K0 ["Test fetchFoldersAsync error"]
@@ -234,7 +240,7 @@ PROTO_11:
        36 CALL                             R2 0 0
        37 RETURN                           R0 0
 
-PROTO_12:
+PROTO_14:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["ResumeAsync"]
         3 NEWCLOSURE                       R4 P0
@@ -253,7 +259,7 @@ PROTO_12:
        18 SETTABLEKS                       R4 R3 K2 ["FetchFolders"]
        20 RETURN                           R0 0
 
-PROTO_13:
+PROTO_15:
         0 JUMPIFNOT                        R0 ; [+8]
         1 GETUPVAL                         R1 0
         2 LOADK                            R2 K0 ["Test searchAssetsAsync error - folders"]
@@ -287,7 +293,7 @@ PROTO_13:
        40 CALL                             R2 0 0
        41 RETURN                           R0 0
 
-PROTO_14:
+PROTO_16:
         0 JUMPIFNOT                        R0 ; [+8]
         1 GETUPVAL                         R4 0
         2 LOADK                            R5 K0 ["Test searchAssetsAsync error"]
@@ -308,7 +314,7 @@ PROTO_14:
        20 CALL                             R4 6 0
        21 RETURN                           R0 0
 
-PROTO_15:
+PROTO_17:
         0 GETTABLEKS                       R3 R0 K0 ["IncludeFolders"]
         2 JUMPIFNOT                        R3 ; [+11]
         3 GETUPVAL                         R4 0
@@ -330,7 +336,7 @@ PROTO_15:
        22 SETTABLEKS                       R4 R3 K3 ["SearchAssets"]
        24 RETURN                           R0 0
 
-PROTO_16:
+PROTO_18:
         0 GETUPVAL                         R5 0
         1 GETTABLEKS                       R4 R5 K0 ["Places"]
         3 GETUPVAL                         R6 0
@@ -360,7 +366,7 @@ PROTO_16:
        36 CALL                             R5 0 0
        37 RETURN                           R0 0
 
-PROTO_17:
+PROTO_19:
         0 JUMPIFNOT                        R0 ; [+8]
         1 GETUPVAL                         R2 0
         2 LOADK                            R3 K0 ["Test fetchPlacesAsync error"]
@@ -377,7 +383,7 @@ PROTO_17:
        15 CALL                             R2 3 0
        16 RETURN                           R0 0
 
-PROTO_18:
+PROTO_20:
         0 GETTABLEKS                       R4 R0 K0 ["ScopeInfo"]
         2 GETTABLEKS                       R3 R4 K1 ["Type"]
         4 GETUPVAL                         R6 0
@@ -403,12 +409,12 @@ PROTO_18:
        34 SETTABLEKS                       R4 R3 K7 ["FetchPlaces"]
        36 RETURN                           R0 0
 
-PROTO_19:
+PROTO_21:
         0 LOADB                            R2 1
         1 NEWTABLE                         R3 0 0
         3 RETURN                           R2 2
 
-PROTO_20:
+PROTO_22:
         0 DUPTABLE                         R2 K3 [{"assetId", "errorCode", "code"}]
         1 SETTABLEKS                       R0 R2 K0 ["assetId"]
         3 LOADN                            R3 123
@@ -417,14 +423,14 @@ PROTO_20:
         7 SETTABLEKS                       R3 R2 K2 ["code"]
         9 RETURN                           R2 1
 
-PROTO_21:
+PROTO_23:
         0 JUMPIFNOT                        R0 ; [+10]
         1 GETUPVAL                         R2 0
         2 LOADB                            R3 1
         3 GETUPVAL                         R5 1
         4 GETTABLEKS                       R4 R5 K0 ["map"]
         6 GETUPVAL                         R5 2
-        7 DUPCLOSURE                       R6 K1 [PROTO_20]
+        7 DUPCLOSURE                       R6 K1 [PROTO_22]
         8 CALL                             R4 2 -1
         9 CALL                             R2 -1 0
        10 RETURN                           R0 0
@@ -434,7 +440,7 @@ PROTO_21:
        15 CALL                             R2 2 0
        16 RETURN                           R0 0
 
-PROTO_22:
+PROTO_24:
         0 GETUPVAL                         R7 0
         1 GETTABLEKS                       R6 R7 K0 ["ResumeAsync"]
         3 NEWCLOSURE                       R7 P0
@@ -444,7 +450,7 @@ PROTO_22:
         7 SETTABLEKS                       R7 R6 K1 ["GrantAssetsPermissions"]
         9 RETURN                           R0 0
 
-PROTO_23:
+PROTO_25:
         0 DUPTABLE                         R2 K2 [{"value", "error"}]
         1 DUPTABLE                         R3 K4 [{"status"}]
         2 GETUPVAL                         R6 0
@@ -460,14 +466,14 @@ PROTO_23:
        18 SETTABLEKS                       R3 R2 K1 ["error"]
        20 RETURN                           R2 1
 
-PROTO_24:
+PROTO_26:
         0 JUMPIFNOT                        R0 ; [+11]
         1 GETUPVAL                         R1 0
         2 LOADB                            R2 1
         3 GETUPVAL                         R4 1
         4 GETTABLEKS                       R3 R4 K0 ["map"]
         6 GETUPVAL                         R4 2
-        7 DUPCLOSURE                       R5 K1 [PROTO_23]
+        7 DUPCLOSURE                       R5 K1 [PROTO_25]
         8 CAPTURE                          UPVAL U3
         9 CALL                             R3 2 -1
        10 CALL                             R1 -1 0
@@ -478,7 +484,7 @@ PROTO_24:
        16 CALL                             R1 2 0
        17 RETURN                           R0 0
 
-PROTO_25:
+PROTO_27:
         0 GETUPVAL                         R6 0
         1 GETTABLEKS                       R5 R6 K0 ["ResumeAsync"]
         3 NEWCLOSURE                       R6 P0
@@ -488,26 +494,6 @@ PROTO_25:
         7 CAPTURE                          UPVAL U2
         8 SETTABLEKS                       R6 R5 K1 ["CheckAssetsPermissions"]
        10 RETURN                           R0 0
-
-PROTO_26:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["get"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K1 ["AvailableImages"]
-        6 GETTABLEKS                       R1 R2 K2 ["Placeholder"]
-        8 CALL                             R0 1 -1
-        9 RETURN                           R0 -1
-
-PROTO_27:
-        0 MOVE                             R2 R1
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K0 ["get"]
-        4 GETUPVAL                         R6 0
-        5 GETTABLEKS                       R5 R6 K1 ["AvailableImages"]
-        7 GETTABLEKS                       R4 R5 K2 ["Placeholder"]
-        9 CALL                             R3 1 -1
-       10 CALL                             R2 -1 0
-       11 RETURN                           R0 0
 
 PROTO_28:
         0 GETUPVAL                         R1 0
@@ -519,6 +505,26 @@ PROTO_28:
         9 RETURN                           R0 -1
 
 PROTO_29:
+        0 MOVE                             R2 R1
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R3 R4 K0 ["get"]
+        4 GETUPVAL                         R6 0
+        5 GETTABLEKS                       R5 R6 K1 ["AvailableImages"]
+        7 GETTABLEKS                       R4 R5 K2 ["Placeholder"]
+        9 CALL                             R3 1 -1
+       10 CALL                             R2 -1 0
+       11 RETURN                           R0 0
+
+PROTO_30:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["get"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R2 R3 K1 ["AvailableImages"]
+        6 GETTABLEKS                       R1 R2 K2 ["Placeholder"]
+        8 CALL                             R0 1 -1
+        9 RETURN                           R0 -1
+
+PROTO_31:
         0 JUMPIFNOT                        R0 ; [+6]
         1 GETUPVAL                         R1 0
         2 LOADK                            R2 K0 [""]
@@ -531,7 +537,7 @@ PROTO_29:
        11 CALL                             R1 2 0
        12 RETURN                           R0 0
 
-PROTO_30:
+PROTO_32:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["ResumeAsync"]
         3 NEWCLOSURE                       R4 P0
@@ -539,7 +545,7 @@ PROTO_30:
         5 SETTABLEKS                       R4 R3 K1 ["GetThumbnailForItem"]
         7 RETURN                           R0 0
 
-PROTO_31:
+PROTO_33:
         0 JUMPIFNOT                        R0 ; [+9]
         1 GETUPVAL                         R1 0
         2 LOADK                            R3 K0 ["Mock fetchAssetInfoAsync error for asset %*"]
@@ -635,7 +641,7 @@ PROTO_31:
       133 CALL                             R3 1 0
       134 RETURN                           R0 0
 
-PROTO_32:
+PROTO_34:
         0 GETUPVAL                         R6 0
         1 GETTABLEKS                       R5 R6 K0 ["ResumeAsync"]
         3 NEWCLOSURE                       R6 P0
@@ -648,7 +654,7 @@ PROTO_32:
        10 SETTABLEKS                       R6 R5 K1 ["FetchAssetInfo"]
        12 RETURN                           R0 0
 
-PROTO_33:
+PROTO_35:
         0 JUMPIFNOT                        R0 ; [+9]
         1 GETUPVAL                         R1 0
         2 LOADK                            R3 K0 ["Mock fetchPluginInfoAsync error for plugin %*"]
@@ -665,7 +671,7 @@ PROTO_33:
        15 CALL                             R1 1 0
        16 RETURN                           R0 0
 
-PROTO_34:
+PROTO_36:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["ResumeAsync"]
         3 NEWCLOSURE                       R4 P0
@@ -675,44 +681,42 @@ PROTO_34:
         7 SETTABLEKS                       R4 R3 K1 ["FetchPluginInfo"]
         9 RETURN                           R0 0
 
-PROTO_35:
+PROTO_37:
         0 JUMPIFNOT                        R0 ; [+4]
         1 GETUPVAL                         R1 0
         2 LOADK                            R2 K0 ["Test fetchFoldersAsync error"]
         3 CALL                             R1 1 0
         4 RETURN                           R0 0
         5 NEWTABLE                         R1 0 0
-        7 GETUPVAL                         R5 1
-        8 GETTABLEKS                       R2 R5 K1 ["Scopes"]
-       10 LOADNIL                          R3
-       11 LOADNIL                          R4
-       12 FORGPREP                         R2
-       13 GETUPVAL                         R9 2
-       14 GETTABLEKS                       R8 R9 K2 ["Folders"]
-       16 GETTABLEKS                       R9 R6 K3 ["Id"]
-       18 GETTABLE                         R7 R8 R9
-       19 JUMPIF                           R7 ; [+2]
-       20 NEWTABLE                         R7 0 0
-       22 GETTABLEKS                       R8 R6 K4 ["Uid"]
-       24 SETTABLE                         R7 R1 R8
-       25 FORGLOOP                         R2 2 ; [-13]
-       27 GETUPVAL                         R2 3
-       28 MOVE                             R3 R1
-       29 CALL                             R2 1 0
-       30 RETURN                           R0 0
+        7 GETUPVAL                         R4 1
+        8 GETTABLEKS                       R3 R4 K1 ["Folders"]
+       10 GETUPVAL                         R6 2
+       11 GETTABLEKS                       R5 R6 K2 ["Scope"]
+       13 GETTABLEKS                       R4 R5 K3 ["Id"]
+       15 GETTABLE                         R2 R3 R4
+       16 JUMPIF                           R2 ; [+2]
+       17 NEWTABLE                         R2 0 0
+       19 GETUPVAL                         R5 2
+       20 GETTABLEKS                       R4 R5 K2 ["Scope"]
+       22 GETTABLEKS                       R3 R4 K4 ["Uid"]
+       24 SETTABLE                         R2 R1 R3
+       25 GETUPVAL                         R3 3
+       26 MOVE                             R4 R1
+       27 CALL                             R3 1 0
+       28 RETURN                           R0 0
 
-PROTO_36:
+PROTO_38:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R3 R4 K0 ["ResumeAsync"]
         3 NEWCLOSURE                       R4 P0
         4 CAPTURE                          VAL R2
-        5 CAPTURE                          VAL R0
-        6 CAPTURE                          UPVAL U1
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          VAL R0
         7 CAPTURE                          VAL R1
         8 SETTABLEKS                       R4 R3 K1 ["FetchFolders"]
        10 RETURN                           R0 0
 
-PROTO_37:
+PROTO_39:
         0 JUMPIFNOT                        R1 ; [+3]
         1 GETUPVAL                         R2 0
         2 LOADK                            R3 K0 ["Test createFolderAsync error"]
@@ -756,7 +760,7 @@ PROTO_37:
        60 CALL                             R3 1 0
        61 RETURN                           R0 0
 
-PROTO_38:
+PROTO_40:
         0 NEWCLOSURE                       R2 P0
         1 CAPTURE                          VAL R1
         2 CAPTURE                          UPVAL U0
@@ -764,7 +768,7 @@ PROTO_38:
         4 CAPTURE                          VAL R0
         5 RETURN                           R2 1
 
-PROTO_39:
+PROTO_41:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["ResumeAsync"]
         3 NEWCLOSURE                       R3 P0
@@ -775,7 +779,7 @@ PROTO_39:
         8 SETTABLEKS                       R3 R2 K1 ["CreateFolder"]
        10 RETURN                           R0 0
 
-PROTO_40:
+PROTO_42:
         0 NEWCLOSURE                       R1 P0
         1 CAPTURE                          VAL R0
         2 CAPTURE                          UPVAL U0
@@ -788,7 +792,7 @@ PROTO_40:
        10 CALL                             R2 1 -1
        11 RETURN                           R2 -1
 
-PROTO_41:
+PROTO_43:
         0 JUMPIFNOT                        R0 ; [+3]
         1 GETUPVAL                         R1 0
         2 LOADK                            R2 K0 ["Test deleteFolderAsync error"]
@@ -797,13 +801,13 @@ PROTO_41:
         5 CALL                             R1 0 0
         6 RETURN                           R0 0
 
-PROTO_42:
+PROTO_44:
         0 NEWCLOSURE                       R2 P0
         1 CAPTURE                          VAL R1
         2 CAPTURE                          VAL R0
         3 RETURN                           R2 1
 
-PROTO_43:
+PROTO_45:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["ResumeAsync"]
         3 NEWCLOSURE                       R3 P0
@@ -812,16 +816,16 @@ PROTO_43:
         6 SETTABLEKS                       R3 R2 K1 ["DeleteFolder"]
         8 RETURN                           R0 0
 
-PROTO_44:
-        0 DUPCLOSURE                       R1 K0 [PROTO_42]
+PROTO_46:
+        0 DUPCLOSURE                       R1 K0 [PROTO_44]
         1 GETUPVAL                         R3 0
         2 GETTABLEKS                       R2 R3 K1 ["new"]
-        4 DUPCLOSURE                       R3 K2 [PROTO_43]
+        4 DUPCLOSURE                       R3 K2 [PROTO_45]
         5 CAPTURE                          UPVAL U1
         6 CALL                             R2 1 -1
         7 RETURN                           R2 -1
 
-PROTO_45:
+PROTO_47:
         0 JUMPIFNOT                        R0 ; [+3]
         1 GETUPVAL                         R1 0
         2 LOADK                            R2 K0 ["Test updateFolderMetadataAsync error"]
@@ -832,14 +836,14 @@ PROTO_45:
         8 CALL                             R1 1 0
         9 RETURN                           R0 0
 
-PROTO_46:
+PROTO_48:
         0 NEWCLOSURE                       R2 P0
         1 CAPTURE                          VAL R1
         2 CAPTURE                          VAL R0
         3 CAPTURE                          UPVAL U0
         4 RETURN                           R2 1
 
-PROTO_47:
+PROTO_49:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["ResumeAsync"]
         3 NEWCLOSURE                       R3 P0
@@ -849,33 +853,36 @@ PROTO_47:
         7 SETTABLEKS                       R3 R2 K1 ["UpdateFolderMetadata"]
         9 RETURN                           R0 0
 
-PROTO_48:
-        0 DUPCLOSURE                       R2 K0 [PROTO_46]
+PROTO_50:
+        0 DUPCLOSURE                       R2 K0 [PROTO_48]
         1 CAPTURE                          UPVAL U0
         2 GETUPVAL                         R4 1
         3 GETTABLEKS                       R3 R4 K1 ["new"]
-        5 DUPCLOSURE                       R4 K2 [PROTO_47]
+        5 DUPCLOSURE                       R4 K2 [PROTO_49]
         6 CAPTURE                          UPVAL U2
         7 CAPTURE                          UPVAL U0
         8 CALL                             R3 1 -1
         9 RETURN                           R3 -1
 
-PROTO_49:
+PROTO_51:
         0 JUMPIFNOT                        R0 ; [+3]
         1 GETUPVAL                         R1 0
         2 LOADK                            R2 K0 ["Test moveItemsAsync error"]
         3 CALL                             R1 1 0
         4 GETUPVAL                         R1 1
-        5 CALL                             R1 0 0
-        6 RETURN                           R0 0
+        5 DUPTABLE                         R2 K2 [{"errors"}]
+        6 NEWTABLE                         R3 0 0
+        8 SETTABLEKS                       R3 R2 K1 ["errors"]
+       10 CALL                             R1 1 0
+       11 RETURN                           R0 0
 
-PROTO_50:
+PROTO_52:
         0 NEWCLOSURE                       R2 P0
         1 CAPTURE                          VAL R1
         2 CAPTURE                          VAL R0
         3 RETURN                           R2 1
 
-PROTO_51:
+PROTO_53:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["ResumeAsync"]
         3 NEWCLOSURE                       R3 P0
@@ -884,16 +891,16 @@ PROTO_51:
         6 SETTABLEKS                       R3 R2 K1 ["MoveItems"]
         8 RETURN                           R0 0
 
-PROTO_52:
-        0 DUPCLOSURE                       R4 K0 [PROTO_50]
+PROTO_54:
+        0 DUPCLOSURE                       R4 K0 [PROTO_52]
         1 GETUPVAL                         R6 0
         2 GETTABLEKS                       R5 R6 K1 ["new"]
-        4 DUPCLOSURE                       R6 K2 [PROTO_51]
+        4 DUPCLOSURE                       R6 K2 [PROTO_53]
         5 CAPTURE                          UPVAL U1
         6 CALL                             R5 1 -1
         7 RETURN                           R5 -1
 
-PROTO_53:
+PROTO_55:
         0 PREPVARARGS                      1
         1 GETUPVAL                         R3 0
         2 GETTABLEKS                       R2 R3 K0 ["ResumeAsync"]
@@ -966,83 +973,83 @@ MAIN:
        78 CAPTURE                          VAL R7
        79 CAPTURE                          VAL R5
        80 SETTABLEKS                       R8 R7 K26 ["fetchGroupsAsync"]
-       82 DUPCLOSURE                       R8 K27 [PROTO_8]
-       83 CAPTURE                          VAL R7
-       84 CAPTURE                          VAL R5
-       85 SETTABLEKS                       R8 R7 K28 ["fetchGroupsAsync_DEPRECATED"]
-       87 DUPCLOSURE                       R8 K29 [PROTO_9]
+       82 DUPCLOSURE                       R8 K27 [PROTO_10]
+       83 CAPTURE                          VAL R3
+       84 CAPTURE                          VAL R7
+       85 SETTABLEKS                       R8 R7 K28 ["fetchInventoryFolderReadyAsync"]
+       87 DUPCLOSURE                       R8 K29 [PROTO_11]
        88 CAPTURE                          VAL R5
        89 CAPTURE                          VAL R6
        90 CAPTURE                          VAL R2
        91 SETTABLEKS                       R8 R7 K30 ["_fetchAssetsAsyncImpl"]
-       93 DUPCLOSURE                       R8 K31 [PROTO_12]
+       93 DUPCLOSURE                       R8 K31 [PROTO_14]
        94 CAPTURE                          VAL R7
        95 CAPTURE                          VAL R5
        96 SETTABLEKS                       R8 R7 K32 ["fetchAssetsAsync"]
-       98 DUPCLOSURE                       R8 K33 [PROTO_15]
+       98 DUPCLOSURE                       R8 K33 [PROTO_17]
        99 CAPTURE                          VAL R7
       100 CAPTURE                          VAL R5
       101 SETTABLEKS                       R8 R7 K34 ["searchAssetsAsync"]
-      103 DUPCLOSURE                       R8 K35 [PROTO_16]
+      103 DUPCLOSURE                       R8 K35 [PROTO_18]
       104 CAPTURE                          VAL R5
       105 SETTABLEKS                       R8 R7 K36 ["_fetchPlacesImplAsync"]
-      107 DUPCLOSURE                       R8 K37 [PROTO_18]
+      107 DUPCLOSURE                       R8 K37 [PROTO_20]
       108 CAPTURE                          VAL R2
       109 CAPTURE                          VAL R7
       110 SETTABLEKS                       R8 R7 K38 ["fetchPlacesAsync"]
-      112 DUPCLOSURE                       R8 K39 [PROTO_19]
+      112 DUPCLOSURE                       R8 K39 [PROTO_21]
       113 SETTABLEKS                       R8 R7 K40 ["grantUniverseUseAssetsPermissions"]
-      115 DUPCLOSURE                       R8 K41 [PROTO_22]
+      115 DUPCLOSURE                       R8 K41 [PROTO_24]
       116 CAPTURE                          VAL R7
       117 CAPTURE                          VAL R4
       118 SETTABLEKS                       R8 R7 K42 ["grantAssetsPermissionsAsync"]
-      120 DUPCLOSURE                       R8 K43 [PROTO_25]
+      120 DUPCLOSURE                       R8 K43 [PROTO_27]
       121 CAPTURE                          VAL R7
       122 CAPTURE                          VAL R4
       123 CAPTURE                          VAL R2
       124 SETTABLEKS                       R8 R7 K44 ["checkAssetsPermissionsAsync"]
-      126 DUPCLOSURE                       R8 K45 [PROTO_26]
+      126 DUPCLOSURE                       R8 K45 [PROTO_28]
       127 CAPTURE                          VAL R1
       128 SETTABLEKS                       R8 R7 K46 ["getThumbnailUriForScope"]
-      130 DUPCLOSURE                       R8 K47 [PROTO_27]
+      130 DUPCLOSURE                       R8 K47 [PROTO_29]
       131 CAPTURE                          VAL R1
       132 SETTABLEKS                       R8 R7 K48 ["getThumbnailForScopeAsync"]
-      134 DUPCLOSURE                       R8 K49 [PROTO_28]
+      134 DUPCLOSURE                       R8 K49 [PROTO_30]
       135 CAPTURE                          VAL R1
       136 SETTABLEKS                       R8 R7 K50 ["getThumbnailForItem"]
-      138 DUPCLOSURE                       R8 K51 [PROTO_30]
+      138 DUPCLOSURE                       R8 K51 [PROTO_32]
       139 CAPTURE                          VAL R7
       140 SETTABLEKS                       R8 R7 K52 ["getThumbnailForItemAsync"]
-      142 DUPCLOSURE                       R8 K53 [PROTO_32]
+      142 DUPCLOSURE                       R8 K53 [PROTO_34]
       143 CAPTURE                          VAL R7
       144 CAPTURE                          VAL R2
       145 SETTABLEKS                       R8 R7 K54 ["fetchAssetInfoAsync"]
-      147 DUPCLOSURE                       R8 K55 [PROTO_34]
+      147 DUPCLOSURE                       R8 K55 [PROTO_36]
       148 CAPTURE                          VAL R7
       149 SETTABLEKS                       R8 R7 K56 ["fetchPluginInfoAsync"]
-      151 DUPCLOSURE                       R8 K57 [PROTO_36]
+      151 DUPCLOSURE                       R8 K57 [PROTO_38]
       152 CAPTURE                          VAL R7
       153 CAPTURE                          VAL R5
       154 SETTABLEKS                       R8 R7 K58 ["fetchFoldersAsync"]
-      156 DUPCLOSURE                       R8 K59 [PROTO_40]
+      156 DUPCLOSURE                       R8 K59 [PROTO_42]
       157 CAPTURE                          VAL R2
       158 CAPTURE                          VAL R3
       159 CAPTURE                          VAL R7
       160 SETTABLEKS                       R8 R7 K60 ["createFolderAsync"]
-      162 DUPCLOSURE                       R8 K61 [PROTO_44]
+      162 DUPCLOSURE                       R8 K61 [PROTO_46]
       163 CAPTURE                          VAL R3
       164 CAPTURE                          VAL R7
       165 SETTABLEKS                       R8 R7 K62 ["deleteFolderAsync"]
-      167 DUPCLOSURE                       R8 K63 [PROTO_48]
+      167 DUPCLOSURE                       R8 K63 [PROTO_50]
       168 CAPTURE                          VAL R5
       169 CAPTURE                          VAL R3
       170 CAPTURE                          VAL R7
       171 SETTABLEKS                       R8 R7 K64 ["updateFolderMetadataAsync"]
-      173 DUPCLOSURE                       R8 K65 [PROTO_52]
+      173 DUPCLOSURE                       R8 K65 [PROTO_54]
       174 CAPTURE                          VAL R3
       175 CAPTURE                          VAL R7
       176 SETTABLEKS                       R8 R7 K66 ["moveItemsAsync"]
-      178 DUPCLOSURE                       R8 K67 [PROTO_53]
+      178 DUPCLOSURE                       R8 K67 [PROTO_55]
       179 CAPTURE                          VAL R7
       180 SETTABLEKS                       R8 R7 K68 ["resume"]
       182 RETURN                           R7 1

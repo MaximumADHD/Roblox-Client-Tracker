@@ -24,12 +24,11 @@ local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
 local useDispatch = RoactUtils.Hooks.RoactRodux.useDispatch
 
 local PeopleService = require(CorePackages.Workspace.Packages.PeopleService)
-
-local ProfilePlatform = require(CorePackages.Workspace.Packages.ProfilePlatform)
-local getProfilePlatform = ProfilePlatform.getProfilePlatform
-local useDynamicSizeMargin = ProfilePlatform.useDynamicSizeMargin
-local ProfileWrapperContext = ProfilePlatform.ProfileWrapperContext
-local CurrentlyWearing = ProfilePlatform.CurrentlyWearing
+local ProfilePlatformEnums = require(CorePackages.Workspace.Packages.ProfilePlatform.Enums)
+local CurrentlyWearing = require(CorePackages.Workspace.Packages.ProfilePlatform.CurrentlyWearing)
+local getProfilePlatform = require(CorePackages.Workspace.Packages.ProfilePlatform.getProfilePlatform)
+local useDynamicSizeMargin = require(CorePackages.Workspace.Packages.ProfilePlatform.useDynamicSizeMargin)
+local ProfileWrapperContext = require(CorePackages.Workspace.Packages.ProfilePlatform.ProfileWrapperContext)
 
 local AddConnectionButton = require(script.Parent.AddConnectionButton)
 local ProfileHeader = require(script.Parent.ProfileHeader)
@@ -75,10 +74,10 @@ local PlayerProfile = function(props: PlayerProfileProps): React.ReactNode
 				profileType = profileType,
 				components = {
 					{
-						component = ProfilePlatform.Components.CurrentlyWearing,
+						component = ProfilePlatformEnums.Components.CurrentlyWearing,
 					},
 					{
-						component = ProfilePlatform.Components.UserProfileHeader,
+						component = ProfilePlatformEnums.Components.UserProfileHeader,
 					},
 				} :: { any },
 				includeComponentOrdering = false,

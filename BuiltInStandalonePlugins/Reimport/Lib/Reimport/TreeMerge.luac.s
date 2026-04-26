@@ -190,24 +190,42 @@ PROTO_6:
         6 SETTABLEKS                       R4 R0 K1 ["CFrame"]
         8 GETTABLEKS                       R4 R1 K2 ["PivotOffset"]
        10 SETTABLEKS                       R4 R0 K2 ["PivotOffset"]
-       12 GETTABLEKS                       R4 R0 K3 ["MeshContent"]
-       14 GETTABLEKS                       R5 R1 K3 ["MeshContent"]
-       16 JUMPIFEQ                         R4 R5 ; [+13]
-       18 GETTABLEKS                       R4 R0 K4 ["CollisionFidelity"]
-       20 MOVE                             R7 R1
-       21 NAMECALL                         R5 R0 K5 ["ApplyMesh"]
-       23 CALL                             R5 2 0
-       24 GETTABLEKS                       R5 R0 K4 ["CollisionFidelity"]
-       26 JUMPIFEQ                         R5 R4 ; [+3]
-       28 SETTABLEKS                       R4 R0 K4 ["CollisionFidelity"]
-       30 GETTABLEKS                       R5 R0 K6 ["TextureContent"]
-       32 GETTABLEKS                       R4 R5 K7 ["Uri"]
-       34 GETTABLEKS                       R6 R1 K6 ["TextureContent"]
-       36 GETTABLEKS                       R5 R6 K7 ["Uri"]
-       38 JUMPIFEQ                         R4 R5 ; [+5]
-       40 GETTABLEKS                       R4 R1 K6 ["TextureContent"]
-       42 SETTABLEKS                       R4 R0 K6 ["TextureContent"]
-       44 RETURN                           R0 0
+       12 GETTABLEKS                       R4 R0 K3 ["TextureContent"]
+       14 GETTABLEKS                       R5 R0 K4 ["MeshContent"]
+       16 GETTABLEKS                       R6 R1 K4 ["MeshContent"]
+       18 JUMPIFEQ                         R5 R6 ; [+24]
+       20 GETTABLEKS                       R5 R0 K5 ["CollisionFidelity"]
+       22 GETTABLEKS                       R6 R0 K6 ["RenderFidelity"]
+       24 MOVE                             R9 R1
+       25 NAMECALL                         R7 R0 K7 ["ApplyMesh"]
+       27 CALL                             R7 2 0
+       28 GETTABLEKS                       R7 R0 K5 ["CollisionFidelity"]
+       30 JUMPIFEQ                         R7 R5 ; [+3]
+       32 SETTABLEKS                       R5 R0 K5 ["CollisionFidelity"]
+       34 GETUPVAL                         R7 0
+       35 CALL                             R7 0 1
+       36 JUMPIFNOT                        R7 ; [+6]
+       37 GETTABLEKS                       R7 R0 K6 ["RenderFidelity"]
+       39 JUMPIFEQ                         R7 R6 ; [+3]
+       41 SETTABLEKS                       R6 R0 K6 ["RenderFidelity"]
+       43 GETUPVAL                         R5 0
+       44 CALL                             R5 0 1
+       45 JUMPIFNOT                        R5 ; [+13]
+       46 GETTABLEKS                       R6 R1 K3 ["TextureContent"]
+       48 GETTABLEKS                       R5 R6 K8 ["Uri"]
+       50 JUMPIFNOTEQKNIL                  R5 ; [+8]
+       52 GETTABLEKS                       R5 R4 K8 ["Uri"]
+       54 JUMPIFEQKNIL                     R5 ; [+4]
+       56 SETTABLEKS                       R4 R0 K3 ["TextureContent"]
+       58 RETURN                           R0 0
+       59 GETTABLEKS                       R6 R0 K3 ["TextureContent"]
+       61 GETTABLEKS                       R5 R6 K8 ["Uri"]
+       63 GETTABLEKS                       R7 R1 K3 ["TextureContent"]
+       65 GETTABLEKS                       R6 R7 K8 ["Uri"]
+       67 JUMPIFEQ                         R5 R6 ; [+5]
+       69 GETTABLEKS                       R5 R1 K3 ["TextureContent"]
+       71 SETTABLEKS                       R5 R0 K3 ["TextureContent"]
+       73 RETURN                           R0 0
 
 PROTO_7:
         0 GETTABLEKS                       R4 R0 K0 ["ColorMapContent"]
@@ -450,42 +468,43 @@ PROTO_14:
        21 CAPTURE                          REF R2
        22 CAPTURE                          VAL R0
        23 DUPCLOSURE                       R4 K4 [PROTO_6]
-       24 DUPCLOSURE                       R5 K5 [PROTO_7]
-       25 DUPCLOSURE                       R6 K6 [PROTO_8]
-       26 NEWCLOSURE                       R7 P4
-       27 CAPTURE                          VAL R3
-       28 NEWTABLE                         R8 1 0
-       30 LOADB                            R9 1
-       31 SETTABLEKS                       R9 R8 K7 ["WrapTarget"]
-       33 NEWTABLE                         R9 2 0
-       35 LOADB                            R10 1
-       36 SETTABLEKS                       R10 R9 K8 ["Bone"]
-       38 LOADB                            R10 1
-       39 SETTABLEKS                       R10 R9 K7 ["WrapTarget"]
-       41 DUPCLOSURE                       R10 K9 [PROTO_10]
-       42 GETUPVAL                         R12 0
-       43 GETTABLEKS                       R11 R12 K10 ["matchTrees_handlers"]
-       45 MOVE                             R12 R0
-       46 MOVE                             R13 R1
-       47 DUPTABLE                         R14 K14 [{"handleMatch", "handleAdded", "handleRemoved"}]
-       48 NEWCLOSURE                       R15 P6
-       49 CAPTURE                          VAL R4
-       50 CAPTURE                          VAL R7
-       51 CAPTURE                          VAL R8
-       52 CAPTURE                          UPVAL U1
-       53 SETTABLEKS                       R15 R14 K11 ["handleMatch"]
-       55 DUPCLOSURE                       R15 K15 [PROTO_12]
-       56 CAPTURE                          UPVAL U1
-       57 SETTABLEKS                       R15 R14 K12 ["handleAdded"]
-       59 NEWCLOSURE                       R15 P8
-       60 CAPTURE                          VAL R9
-       61 CAPTURE                          UPVAL U1
-       62 SETTABLEKS                       R15 R14 K13 ["handleRemoved"]
-       64 CALL                             R11 3 0
-       65 MOVE                             R11 R0
-       66 LOADNIL                          R12
-       67 CLOSEUPVALS                      R2
-       68 RETURN                           R11 2
+       24 CAPTURE                          UPVAL U0
+       25 DUPCLOSURE                       R5 K5 [PROTO_7]
+       26 DUPCLOSURE                       R6 K6 [PROTO_8]
+       27 NEWCLOSURE                       R7 P4
+       28 CAPTURE                          VAL R3
+       29 NEWTABLE                         R8 1 0
+       31 LOADB                            R9 1
+       32 SETTABLEKS                       R9 R8 K7 ["WrapTarget"]
+       34 NEWTABLE                         R9 2 0
+       36 LOADB                            R10 1
+       37 SETTABLEKS                       R10 R9 K8 ["Bone"]
+       39 LOADB                            R10 1
+       40 SETTABLEKS                       R10 R9 K7 ["WrapTarget"]
+       42 DUPCLOSURE                       R10 K9 [PROTO_10]
+       43 GETUPVAL                         R12 1
+       44 GETTABLEKS                       R11 R12 K10 ["matchTrees_handlers"]
+       46 MOVE                             R12 R0
+       47 MOVE                             R13 R1
+       48 DUPTABLE                         R14 K14 [{"handleMatch", "handleAdded", "handleRemoved"}]
+       49 NEWCLOSURE                       R15 P6
+       50 CAPTURE                          VAL R4
+       51 CAPTURE                          VAL R7
+       52 CAPTURE                          VAL R8
+       53 CAPTURE                          UPVAL U2
+       54 SETTABLEKS                       R15 R14 K11 ["handleMatch"]
+       56 DUPCLOSURE                       R15 K15 [PROTO_12]
+       57 CAPTURE                          UPVAL U2
+       58 SETTABLEKS                       R15 R14 K12 ["handleAdded"]
+       60 NEWCLOSURE                       R15 P8
+       61 CAPTURE                          VAL R9
+       62 CAPTURE                          UPVAL U2
+       63 SETTABLEKS                       R15 R14 K13 ["handleRemoved"]
+       65 CALL                             R11 3 0
+       66 MOVE                             R11 R0
+       67 LOADNIL                          R12
+       68 CLOSEUPVALS                      R2
+       69 RETURN                           R11 2
 
 PROTO_15:
         0 GETUPVAL                         R4 0
@@ -514,28 +533,37 @@ PROTO_16:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 NEWTABLE                         R0 8 0
-        3 DUPCLOSURE                       R1 K0 [PROTO_0]
-        4 DUPTABLE                         R2 K3 [{"Continue", "Stop"}]
-        5 LOADK                            R3 K1 ["Continue"]
-        6 SETTABLEKS                       R3 R2 K1 ["Continue"]
-        8 LOADK                            R3 K2 ["Stop"]
-        9 SETTABLEKS                       R3 R2 K2 ["Stop"]
-       11 SETTABLEKS                       R2 R0 K4 ["HandlerControl"]
-       13 DUPCLOSURE                       R3 K5 [PROTO_2]
-       14 CAPTURE                          VAL R1
-       15 CAPTURE                          VAL R2
-       16 SETTABLEKS                       R3 R0 K6 ["matchTrees"]
-       18 DUPCLOSURE                       R3 K7 [PROTO_4]
-       19 CAPTURE                          VAL R0
-       20 CAPTURE                          VAL R2
-       21 SETTABLEKS                       R3 R0 K8 ["matchTrees_handlers"]
-       23 DUPCLOSURE                       R3 K9 [PROTO_14]
-       24 CAPTURE                          VAL R0
-       25 CAPTURE                          VAL R2
-       26 SETTABLEKS                       R3 R0 K10 ["applyTree"]
-       28 DUPCLOSURE                       R3 K11 [PROTO_16]
-       29 CAPTURE                          VAL R0
-       30 CAPTURE                          VAL R2
-       31 SETTABLEKS                       R3 R0 K12 ["findMatching"]
-       33 RETURN                           R0 1
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["ReimportPlugin"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Flags"]
+       11 GETTABLEKS                       R2 R3 K7 ["GetFFlagReimportPreserveMeshProperties"]
+       13 CALL                             R1 1 1
+       14 NEWTABLE                         R2 8 0
+       16 DUPCLOSURE                       R3 K8 [PROTO_0]
+       17 DUPTABLE                         R4 K11 [{"Continue", "Stop"}]
+       18 LOADK                            R5 K9 ["Continue"]
+       19 SETTABLEKS                       R5 R4 K9 ["Continue"]
+       21 LOADK                            R5 K10 ["Stop"]
+       22 SETTABLEKS                       R5 R4 K10 ["Stop"]
+       24 SETTABLEKS                       R4 R2 K12 ["HandlerControl"]
+       26 DUPCLOSURE                       R5 K13 [PROTO_2]
+       27 CAPTURE                          VAL R3
+       28 CAPTURE                          VAL R4
+       29 SETTABLEKS                       R5 R2 K14 ["matchTrees"]
+       31 DUPCLOSURE                       R5 K15 [PROTO_4]
+       32 CAPTURE                          VAL R2
+       33 CAPTURE                          VAL R4
+       34 SETTABLEKS                       R5 R2 K16 ["matchTrees_handlers"]
+       36 DUPCLOSURE                       R5 K17 [PROTO_14]
+       37 CAPTURE                          VAL R1
+       38 CAPTURE                          VAL R2
+       39 CAPTURE                          VAL R4
+       40 SETTABLEKS                       R5 R2 K18 ["applyTree"]
+       42 DUPCLOSURE                       R5 K19 [PROTO_16]
+       43 CAPTURE                          VAL R2
+       44 CAPTURE                          VAL R4
+       45 SETTABLEKS                       R5 R2 K20 ["findMatching"]
+       47 RETURN                           R2 1

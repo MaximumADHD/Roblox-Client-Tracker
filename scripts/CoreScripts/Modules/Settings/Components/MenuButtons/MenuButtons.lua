@@ -12,13 +12,16 @@ local React = require(CorePackages.Packages.React)
 local Foundation = require(CorePackages.Packages.Foundation)
 local Signals = require(CorePackages.Packages.Signals)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
+local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
 local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 
 local MenuButton = require(script.Parent.MenuButton)
 
+
 local useSignalState = SignalsReact.useSignalState
 local useLastInput = Responsive.useLastInput
+local Traversal = CoreScriptsRoactCommon.Traversal
 
 local View = Foundation.View
 
@@ -27,6 +30,7 @@ local FFlagAddTraversalHistoryReactMenuButtons = require(RobloxGui.Modules.Setti
 local FFlagMenuButtonsUseKeyImages = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsUseKeyImages)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagGamepadIconSupportCheck = SharedFlags.FFlagGamepadIconSupportCheck
+local FFlagFixTraversalHistoryMenuFixesV3 = Traversal.Flags.FFlagFixTraversalHistoryMenuFixesV3
 
 local FFlagMenuButtonsDisconnectGamepadConnected = game:DefineFastFlag("MenuButtonsDisconnectGamepadConnected", false)
 local FFlagMenuButtonsUseGreyResumeButton = game:DefineFastFlag("MenuButtonsUseGreyResumeButton", false)
@@ -81,6 +85,7 @@ local function MenuButtons(props: MenuButtonsProps)
 	-- Used to force re-render when the respawn button changes isDisabled state
 	local _canRespawn = useSignalState(props.getCanRespawn)
 
+	local leaveButtonRef = if FFlagFixTraversalHistoryMenuFixesV3 then React.useRef(nil :: GuiObject?) else nil
 	local resumeButtonRef = React.useRef(nil :: GuiObject?)
 	if FFlagIEMFocusNavSupportNewButtons then
 		React.useEffect(function()
@@ -126,6 +131,7 @@ local function MenuButtons(props: MenuButtonsProps)
 				end,
 				addTraversalHistoryMenu = if FFlagAddTraversalHistoryReactMenuButtons then true else nil,
 				currentPageChangeSignal = if FFlagAddTraversalHistoryReactMenuButtons then props.currentPageChangeSignal else nil,
+				buttonRef = if FFlagFixTraversalHistoryMenuFixesV3 then leaveButtonRef else nil,
 			},
 			{
 				name = "ResetButton",

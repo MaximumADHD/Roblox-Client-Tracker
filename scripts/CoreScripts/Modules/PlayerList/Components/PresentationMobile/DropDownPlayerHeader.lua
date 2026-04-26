@@ -14,6 +14,9 @@ local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 local withStyle = UIBlox.Style.withStyle
 
 local useTokens = Foundation.Hooks.useTokens
+local View = Foundation.View
+local Image = Foundation.Image
+local Text = Foundation.Text
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -28,6 +31,11 @@ local Emoji = UIBlox.App.Emoji.Enum.Emoji
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagEnableVerifiedBadgeStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableVerifiedBadgeStore
+local FFlagPlayerListDropDownShowPlatformName = PlayerListPackage.Flags.FFlagPlayerListDropDownShowPlatformName
+
+local _, PlatformFriendsService = pcall(function()
+	return game:GetService("PlatformFriendsService")
+end)
 
 local TEXT_HEIGHT = 22
 
@@ -43,6 +51,9 @@ DropDownPlayerHeader.validateProps = t.strictInterface({
 	layoutValues = t.optional(t.table),
 	tokens = t.optional(t.table),
 	showVerifiedBadge = t.optional(t.boolean), -- temporarily optional until FFlagEnableVerifiedBadgeStore is enabled
+	platformName = t.optional(t.string),
+	platformProfileId = t.optional(t.string),
+	canShowPlatformProfile = t.optional(t.boolean),
 })
 
 function DropDownPlayerHeader:render()
@@ -56,6 +67,13 @@ function DropDownPlayerHeader:render()
 			local player = self.props.player
 			local avatarBackgroundImage = "rbxasset://textures/ui/PlayerList/NewAvatarBackground.png"
 			local showVerifiedBadge = if FFlagEnableVerifiedBadgeStore then self.props.showVerifiedBadge else UserLib.Utils.isPlayerVerified(player)
+
+			local hasPlatformName = if FFlagPlayerListDropDownShowPlatformName
+				then self.props.platformName and self.props.platformName ~= ""
+				else nil :: never
+			local canShowPlatformProfile = if FFlagPlayerListDropDownShowPlatformName
+				then self.props.canShowPlatformProfile
+				else nil :: never
 
 			return Roact.createElement("TextButton", { 
 				--Used as a text button instead of a frame so that clicking on this doesn't close the player drop down.
@@ -141,6 +159,47 @@ function DropDownPlayerHeader:render()
 									MinTextSize = style.Font.BaseSize * style.Font.Footer.RelativeSize,
 								}),
 						}),
+
+						PlatformName = FFlagPlayerListDropDownShowPlatformName and hasPlatformName and Roact.createElement(View, {
+							LayoutOrder = 3,
+							tag = "row align-y-center gap-xsmall radius-small",
+							Size = UDim2.new(1, 0, 0, textHeight),
+							onActivated = if canShowPlatformProfile 
+								then function()
+									local platformProfileId = self.props.platformProfileId
+									if PlatformFriendsService and platformProfileId and platformProfileId ~= "" then
+										PlatformFriendsService:ShowProfile(platformProfileId)
+									end
+								end 
+								else nil,
+						}, {
+							PlatformIcon = Roact.createElement(Image, {
+								LayoutOrder = 1,
+								Image = "rbxasset://textures/ui/Shell/Icons/PlatformLogo@3x.png",
+								tag = "size-400",
+								imageStyle = {
+									Color3 = style.Theme.TextMuted.Color,
+									Transparency = if canShowPlatformProfile
+										then 0
+										else 0.4,
+								},
+							}),
+							PlatformNameButton = Roact.createElement(Text, {
+								LayoutOrder = 2,
+								tag = "auto-y fill text-align-x-left text-truncate-end",
+								Text = self.props.platformName,
+								fontStyle = {
+									Font = style.Font.CaptionHeader.Font,
+									FontSize = layoutValues.DropDownHeaderPlayerNameTextSize,
+								},
+								textStyle = {
+									Color3 = style.Theme.TextMuted.Color,
+									Transparency = if canShowPlatformProfile
+										then style.Theme.TextMuted.Transparency
+										else math.clamp(style.Theme.TextMuted.Transparency + 0.3, 0, 1),
+								},
+							}),
+						}),
 					}),
 				}),
 
@@ -174,10 +233,36 @@ local DropDownPlayerHeaderWrapper = function(props)
 	local tokens = if FFlagUseNewPlayerList then useTokens() else nil
 	local showVerifiedBadge = if FFlagEnableVerifiedBadgeStore then useVerifiedBadge(props.player) else nil
 
+	local platformName
+	local platformProfileId
+	local canShowPlatformProfile 
+	if FFlagPlayerListDropDownShowPlatformName then
+		local userId = tostring(props.player.UserId)
+		local platformNamesFetch = UserProfiles.Hooks.useUserProfilesFetch({
+			userIds = { userId },
+			query = UserProfiles.Queries.userProfilesDisplayUserPlatformNamesByUserIds,
+		})
+
+		if platformNamesFetch.data then
+			platformName = UserProfiles.Selectors.getPlatformNameFromId(platformNamesFetch.data, userId)
+			platformProfileId = UserProfiles.Selectors.getPlatformProfileIdFromId(platformNamesFetch.data, userId)
+		end
+
+		canShowPlatformProfile = game:GetEngineFeature("PlatformFriendsService")
+			and game:GetEngineFeature("PlatformFriendsProfile")
+			and PlatformFriendsService
+			and PlatformFriendsService:IsProfileEnabled()
+			and platformProfileId
+			and platformProfileId ~= ""
+	end
+
 	return Roact.createElement(DropDownPlayerHeader, Cryo.Dictionary.join(props, {
 		layoutValues = layoutValues,
 		tokens = tokens,
 		showVerifiedBadge = if FFlagEnableVerifiedBadgeStore then showVerifiedBadge else nil,
+		platformName = if FFlagPlayerListDropDownShowPlatformName then platformName else nil,
+		platformProfileId = if FFlagPlayerListDropDownShowPlatformName then platformProfileId else nil,
+		canShowPlatformProfile = if FFlagPlayerListDropDownShowPlatformName then canShowPlatformProfile else nil,
 	}))
 end
 

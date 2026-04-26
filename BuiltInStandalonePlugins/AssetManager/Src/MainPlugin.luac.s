@@ -360,34 +360,41 @@ PROTO_13:
       127 GETUPVAL                         R13 4
       128 GETTABLEKS                       R12 R13 K20 ["createElement"]
       130 GETUPVAL                         R13 6
-      131 DUPTABLE                         R14 K51 [{"theme"}]
+      131 DUPTABLE                         R14 K52 [{"theme", "plugin"}]
       132 GETUPVAL                         R15 7
       133 CALL                             R15 0 1
       134 SETTABLEKS                       R15 R14 K50 ["theme"]
-      136 DUPTABLE                         R15 K54 [{"App", "KeyboardListener"}]
-      137 GETUPVAL                         R17 4
-      138 GETTABLEKS                       R16 R17 K20 ["createElement"]
-      140 GETUPVAL                         R17 8
-      141 CALL                             R16 1 1
-      142 SETTABLEKS                       R16 R15 K52 ["App"]
-      144 GETUPVAL                         R17 4
-      145 GETTABLEKS                       R16 R17 K20 ["createElement"]
-      147 GETUPVAL                         R17 9
-      148 DUPTABLE                         R18 K57 [{"OnKeyPressed", "OnKeyReleased"}]
-      149 NEWCLOSURE                       R19 P0
-      150 CAPTURE                          VAL R0
-      151 SETTABLEKS                       R19 R18 K55 ["OnKeyPressed"]
-      153 NEWCLOSURE                       R19 P1
-      154 CAPTURE                          VAL R0
-      155 SETTABLEKS                       R19 R18 K56 ["OnKeyReleased"]
-      157 CALL                             R16 2 1
-      158 SETTABLEKS                       R16 R15 K53 ["KeyboardListener"]
-      160 CALL                             R12 3 -1
-      161 SETLIST                          R11 R12 -1 [1]
-      163 CALL                             R8 3 1
-      164 SETTABLEKS                       R8 R7 K18 ["MainWidget"]
-      166 CALL                             R5 2 -1
-      167 RETURN                           R5 -1
+      136 GETUPVAL                         R16 8
+      137 CALL                             R16 0 1
+      138 JUMPIFNOT                        R16 ; [+2]
+      139 MOVE                             R15 R3
+      140 JUMP                             ; [+1]
+      141 LOADNIL                          R15
+      142 SETTABLEKS                       R15 R14 K51 ["plugin"]
+      144 DUPTABLE                         R15 K55 [{"App", "KeyboardListener"}]
+      145 GETUPVAL                         R17 4
+      146 GETTABLEKS                       R16 R17 K20 ["createElement"]
+      148 GETUPVAL                         R17 9
+      149 CALL                             R16 1 1
+      150 SETTABLEKS                       R16 R15 K53 ["App"]
+      152 GETUPVAL                         R17 4
+      153 GETTABLEKS                       R16 R17 K20 ["createElement"]
+      155 GETUPVAL                         R17 10
+      156 DUPTABLE                         R18 K58 [{"OnKeyPressed", "OnKeyReleased"}]
+      157 NEWCLOSURE                       R19 P0
+      158 CAPTURE                          VAL R0
+      159 SETTABLEKS                       R19 R18 K56 ["OnKeyPressed"]
+      161 NEWCLOSURE                       R19 P1
+      162 CAPTURE                          VAL R0
+      163 SETTABLEKS                       R19 R18 K57 ["OnKeyReleased"]
+      165 CALL                             R16 2 1
+      166 SETTABLEKS                       R16 R15 K54 ["KeyboardListener"]
+      168 CALL                             R12 3 -1
+      169 SETLIST                          R11 R12 -1 [1]
+      171 CALL                             R8 3 1
+      172 SETTABLEKS                       R8 R7 K18 ["MainWidget"]
+      174 CALL                             R5 2 -1
+      175 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -491,46 +498,52 @@ MAIN:
       178 GETTABLEKS                       R30 R31 K40 ["Util"]
       180 GETTABLEKS                       R29 R30 K43 ["saveSettings"]
       182 CALL                             R28 1 1
-      183 GETTABLEKS                       R29 R1 K44 ["PureComponent"]
-      185 LOADK                            R31 K45 ["MainPlugin"]
-      186 NAMECALL                         R29 R29 K46 ["extend"]
-      188 CALL                             R29 2 1
-      189 DUPCLOSURE                       R30 K47 [PROTO_0]
-      190 SETTABLEKS                       R30 R29 K48 ["_getAllControllers"]
-      192 DUPCLOSURE                       R30 K49 [PROTO_1]
-      193 CAPTURE                          VAL R27
-      194 SETTABLEKS                       R30 R29 K50 ["_loadSettingsIntoControllers"]
-      196 DUPCLOSURE                       R30 K51 [PROTO_8]
-      197 CAPTURE                          VAL R6
-      198 CAPTURE                          VAL R28
-      199 CAPTURE                          VAL R10
-      200 CAPTURE                          VAL R16
-      201 CAPTURE                          VAL R17
-      202 CAPTURE                          VAL R14
-      203 CAPTURE                          VAL R15
-      204 CAPTURE                          VAL R25
-      205 CAPTURE                          VAL R23
-      206 CAPTURE                          VAL R20
-      207 CAPTURE                          VAL R24
-      208 CAPTURE                          VAL R22
-      209 CAPTURE                          VAL R21
-      210 CAPTURE                          VAL R19
-      211 SETTABLEKS                       R30 R29 K52 ["init"]
-      213 DUPCLOSURE                       R30 K53 [PROTO_9]
-      214 SETTABLEKS                       R30 R29 K54 ["didUpdate"]
-      216 DUPCLOSURE                       R30 K55 [PROTO_10]
-      217 CAPTURE                          VAL R28
-      218 SETTABLEKS                       R30 R29 K56 ["willUnmount"]
-      220 DUPCLOSURE                       R30 K57 [PROTO_13]
-      221 CAPTURE                          VAL R10
-      222 CAPTURE                          VAL R11
-      223 CAPTURE                          VAL R12
-      224 CAPTURE                          VAL R13
-      225 CAPTURE                          VAL R1
-      226 CAPTURE                          VAL R8
-      227 CAPTURE                          VAL R5
-      228 CAPTURE                          VAL R26
-      229 CAPTURE                          VAL R18
-      230 CAPTURE                          VAL R9
-      231 SETTABLEKS                       R30 R29 K58 ["render"]
-      233 RETURN                           R29 1
+      183 GETIMPORT                        R29 K5 [require]
+      185 GETTABLEKS                       R32 R0 K8 ["Src"]
+      187 GETTABLEKS                       R31 R32 K44 ["Flags"]
+      189 GETTABLEKS                       R30 R31 K45 ["getFFlagAmrUseQWidgetPopovers"]
+      191 CALL                             R29 1 1
+      192 GETTABLEKS                       R30 R1 K46 ["PureComponent"]
+      194 LOADK                            R32 K47 ["MainPlugin"]
+      195 NAMECALL                         R30 R30 K48 ["extend"]
+      197 CALL                             R30 2 1
+      198 DUPCLOSURE                       R31 K49 [PROTO_0]
+      199 SETTABLEKS                       R31 R30 K50 ["_getAllControllers"]
+      201 DUPCLOSURE                       R31 K51 [PROTO_1]
+      202 CAPTURE                          VAL R27
+      203 SETTABLEKS                       R31 R30 K52 ["_loadSettingsIntoControllers"]
+      205 DUPCLOSURE                       R31 K53 [PROTO_8]
+      206 CAPTURE                          VAL R6
+      207 CAPTURE                          VAL R28
+      208 CAPTURE                          VAL R10
+      209 CAPTURE                          VAL R16
+      210 CAPTURE                          VAL R17
+      211 CAPTURE                          VAL R14
+      212 CAPTURE                          VAL R15
+      213 CAPTURE                          VAL R25
+      214 CAPTURE                          VAL R23
+      215 CAPTURE                          VAL R20
+      216 CAPTURE                          VAL R24
+      217 CAPTURE                          VAL R22
+      218 CAPTURE                          VAL R21
+      219 CAPTURE                          VAL R19
+      220 SETTABLEKS                       R31 R30 K54 ["init"]
+      222 DUPCLOSURE                       R31 K55 [PROTO_9]
+      223 SETTABLEKS                       R31 R30 K56 ["didUpdate"]
+      225 DUPCLOSURE                       R31 K57 [PROTO_10]
+      226 CAPTURE                          VAL R28
+      227 SETTABLEKS                       R31 R30 K58 ["willUnmount"]
+      229 DUPCLOSURE                       R31 K59 [PROTO_13]
+      230 CAPTURE                          VAL R10
+      231 CAPTURE                          VAL R11
+      232 CAPTURE                          VAL R12
+      233 CAPTURE                          VAL R13
+      234 CAPTURE                          VAL R1
+      235 CAPTURE                          VAL R8
+      236 CAPTURE                          VAL R5
+      237 CAPTURE                          VAL R26
+      238 CAPTURE                          VAL R29
+      239 CAPTURE                          VAL R18
+      240 CAPTURE                          VAL R9
+      241 SETTABLEKS                       R31 R30 K60 ["render"]
+      243 RETURN                           R30 1

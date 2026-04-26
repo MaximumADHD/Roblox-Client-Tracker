@@ -1,5 +1,6 @@
 --[[
 	ValidateMeshPartOnlySkinnedToR15.lua verifies that non-head body parts and LCs are only skinned to R15 joints, not arbitrary joints
+	DEPRECATED: Use BodySkinnedToSchema / RigidSkinnedToSchema / LCSkinnedToSchema in the new validation system instead.
 ]]
 
 local root = script.Parent.Parent
@@ -12,6 +13,9 @@ local Constants = require(root.Constants)
 local Types = require(util.Types)
 local pcallDeferred = require(util.pcallDeferred)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
+local getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning =
+	require(root.flags.getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning)
+local getFFlagUGCValidationEnableR15plusSkinning = require(root.flags.getFFlagUGCValidationEnableR15plusSkinning)
 
 local ValidateMeshPartOnlySkinnedToR15 = {}
 
@@ -19,6 +23,15 @@ function ValidateMeshPartOnlySkinnedToR15.validateMeshPart(
 	meshPart: MeshPart,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
+	if
+		getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning()
+		and getFFlagUGCValidationEnableR15plusSkinning()
+	then
+		error(
+			"ValidateMeshPartOnlySkinnedToR15 is deprecated. Use RigidSkinnedToSchema / LCSkinnedToSchema / BodySkinnedToSchema instead."
+		)
+	end
+
 	local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(meshPart, "MeshId", validationContext)
 
 	if not getEditableMeshSuccess then
@@ -64,6 +77,15 @@ function ValidateMeshPartOnlySkinnedToR15.validateBodyParts(
 	bodyPartModel: Instance,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
+	if
+		getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning()
+		and getFFlagUGCValidationEnableR15plusSkinning()
+	then
+		error(
+			"ValidateMeshPartOnlySkinnedToR15 is deprecated. Use RigidSkinnedToSchema / LCSkinnedToSchema / BodySkinnedToSchema instead."
+		)
+	end
+
 	for _, partName in Constants.R15_BODY_PARTS do
 		local bodyPart = bodyPartModel:FindFirstChild(partName) :: MeshPart
 

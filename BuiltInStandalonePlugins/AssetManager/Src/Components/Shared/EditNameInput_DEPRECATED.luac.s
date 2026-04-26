@@ -6,11 +6,11 @@ PROTO_0:
         5 GETTABLEKS                       R0 R1 K0 ["current"]
         7 NAMECALL                         R0 R0 K1 ["focus"]
         9 CALL                             R0 1 0
-       10 GETUPVAL                         R1 0
-       11 GETTABLEKS                       R0 R1 K0 ["current"]
-       13 LOADN                            R2 0
-       14 NAMECALL                         R0 R0 K2 ["setSelectionStart"]
-       16 CALL                             R0 2 0
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R1 R2 K0 ["current"]
+       13 GETTABLEKS                       R0 R1 K2 ["setSelectionStart"]
+       15 LOADN                            R1 0
+       16 CALL                             R0 1 0
        17 RETURN                           R0 0
 
 PROTO_1:

@@ -222,14 +222,19 @@ PROTO_8:
        74 LOADK                            R6 K20 ["string"]
        75 SETTABLEKS                       R6 R5 K16 ["type"]
        77 SETTABLEKS                       R2 R5 K17 ["enum"]
-       79 LOADK                            R6 K21 ["The target datamodel to operate on, the tool can only be performed in those datamodel types. if the target datamodel is not available in current mode, consider using start_stop_play to switch to the desired mode and then use the tools. This is a required argument."]
-       80 SETTABLEKS                       R6 R5 K18 ["description"]
-       82 SETTABLEKS                       R5 R4 K11 ["datamodel_type"]
-       84 GETIMPORT                        R4 K5 [table.clone]
-       86 MOVE                             R5 R0
-       87 CALL                             R4 1 1
-       88 SETTABLEKS                       R3 R4 K6 ["inputSchema"]
-       90 RETURN                           R4 1
+       79 LOADK                            R7 K21 ["The target datamodel to operate on, the tool can only be performed in those datamodel types. if the target datamodel is not available in current mode, consider using %* to switch to the desired mode and then use the tools. This is a required argument."]
+       80 GETUPVAL                         R10 1
+       81 GETTABLEKS                       R9 R10 K22 ["StartStopPlay"]
+       83 NAMECALL                         R7 R7 K23 ["format"]
+       85 CALL                             R7 2 1
+       86 MOVE                             R6 R7
+       87 SETTABLEKS                       R6 R5 K18 ["description"]
+       89 SETTABLEKS                       R5 R4 K11 ["datamodel_type"]
+       91 GETIMPORT                        R4 K5 [table.clone]
+       93 MOVE                             R5 R0
+       94 CALL                             R4 1 1
+       95 SETTABLEKS                       R3 R4 K6 ["inputSchema"]
+       97 RETURN                           R4 1
 
 PROTO_9:
         0 MOVE                             R2 R0
@@ -1221,107 +1226,111 @@ MAIN:
       286 GETTABLEKS                       R46 R41 K77 ["FinalizePlan"]
       288 LOADB                            R47 1
       289 SETTABLE                         R47 R45 R46
-      290 GETTABLEKS                       R46 R41 K78 ["CompleteTodoItem"]
+      290 GETTABLEKS                       R46 R41 K78 ["CompleteTodoItems"]
       292 LOADB                            R47 1
       293 SETTABLE                         R47 R45 R46
-      294 NEWTABLE                         R46 1 0
-      296 GETTABLEKS                       R47 R41 K79 ["ScreenCapture"]
-      298 LOADB                            R48 1
-      299 SETTABLE                         R48 R46 R47
-      300 LOADNIL                          R47
-      301 NEWCLOSURE                       R48 P0
-      302 CAPTURE                          REF R47
-      303 DUPCLOSURE                       R49 K80 [PROTO_1]
-      304 DUPCLOSURE                       R50 K81 [PROTO_2]
-      305 CAPTURE                          VAL R49
-      306 DUPCLOSURE                       R51 K82 [PROTO_3]
-      307 CAPTURE                          VAL R34
-      308 CAPTURE                          VAL R45
-      309 DUPCLOSURE                       R52 K83 [PROTO_4]
-      310 CAPTURE                          VAL R34
-      311 CAPTURE                          VAL R46
-      312 DUPCLOSURE                       R53 K84 [PROTO_7]
-      313 CAPTURE                          VAL R34
-      314 CAPTURE                          VAL R21
-      315 CAPTURE                          VAL R19
-      316 CAPTURE                          VAL R20
-      317 CAPTURE                          VAL R8
-      318 CAPTURE                          VAL R39
-      319 CAPTURE                          VAL R6
-      320 CAPTURE                          VAL R42
-      321 CAPTURE                          VAL R53
-      322 DUPCLOSURE                       R54 K85 [PROTO_8]
-      323 CAPTURE                          VAL R8
-      324 DUPCLOSURE                       R55 K86 [PROTO_9]
-      325 CAPTURE                          VAL R8
-      326 NEWCLOSURE                       R56 P8
-      327 CAPTURE                          VAL R31
-      328 CAPTURE                          VAL R44
-      329 CAPTURE                          VAL R15
-      330 CAPTURE                          VAL R14
-      331 CAPTURE                          VAL R52
-      332 CAPTURE                          VAL R34
-      333 CAPTURE                          VAL R22
-      334 CAPTURE                          REF R47
-      335 CAPTURE                          VAL R49
-      336 CAPTURE                          VAL R21
-      337 CAPTURE                          VAL R18
-      338 CAPTURE                          VAL R50
-      339 CAPTURE                          VAL R16
-      340 CAPTURE                          VAL R2
-      341 CAPTURE                          VAL R20
-      342 CAPTURE                          VAL R54
-      343 CAPTURE                          VAL R23
-      344 CAPTURE                          VAL R55
-      345 CAPTURE                          VAL R53
-      346 CAPTURE                          VAL R9
-      347 CAPTURE                          VAL R24
-      348 SETGLOBAL                        R56 K87 ["getBuiltinServer"]
-      350 DUPCLOSURE                       R56 K88 [PROTO_15]
-      351 CAPTURE                          VAL R32
-      352 SETGLOBAL                        R56 K89 ["startLocalServer"]
-      354 DUPCLOSURE                       R56 K90 [PROTO_23]
-      355 CAPTURE                          VAL R31
-      356 CAPTURE                          VAL R44
-      357 CAPTURE                          VAL R28
-      358 CAPTURE                          VAL R51
-      359 CAPTURE                          VAL R23
-      360 CAPTURE                          VAL R55
-      361 CAPTURE                          VAL R36
-      362 CAPTURE                          VAL R1
-      363 CAPTURE                          VAL R41
-      364 CAPTURE                          VAL R40
-      365 CAPTURE                          VAL R17
-      366 CAPTURE                          VAL R53
-      367 CAPTURE                          VAL R32
-      368 SETGLOBAL                        R56 K91 ["startExternalServer"]
-      370 DUPCLOSURE                       R56 K92 [PROTO_24]
-      371 CAPTURE                          VAL R29
-      372 DUPCLOSURE                       R57 K93 [PROTO_26]
-      373 CAPTURE                          VAL R25
-      374 CAPTURE                          VAL R9
-      375 CAPTURE                          VAL R37
-      376 CAPTURE                          VAL R1
-      377 DUPCLOSURE                       R58 K94 [PROTO_29]
-      378 CAPTURE                          VAL R29
-      379 CAPTURE                          VAL R30
-      380 CAPTURE                          VAL R27
-      381 CAPTURE                          VAL R7
-      382 CAPTURE                          VAL R26
-      383 CAPTURE                          VAL R10
-      384 CAPTURE                          VAL R43
-      385 CAPTURE                          VAL R36
-      386 CAPTURE                          VAL R35
-      387 CAPTURE                          VAL R11
-      388 CAPTURE                          VAL R38
-      389 CAPTURE                          VAL R33
-      390 DUPTABLE                         R59 K98 [{"promiseMcpHost", "configureModelContextProtocol", "startLocalServer", "startExternalServer", "setToolEnabledStates"}]
-      391 SETTABLEKS                       R58 R59 K95 ["promiseMcpHost"]
-      393 SETTABLEKS                       R57 R59 K96 ["configureModelContextProtocol"]
-      395 GETGLOBAL                        R60 K89 ["startLocalServer"]
-      397 SETTABLEKS                       R60 R59 K89 ["startLocalServer"]
-      399 GETGLOBAL                        R60 K91 ["startExternalServer"]
-      401 SETTABLEKS                       R60 R59 K91 ["startExternalServer"]
-      403 SETTABLEKS                       R48 R59 K97 ["setToolEnabledStates"]
-      405 CLOSEUPVALS                      R47
-      406 RETURN                           R59 1
+      294 GETTABLEKS                       R46 R41 K79 ["HttpGet"]
+      296 LOADB                            R47 1
+      297 SETTABLE                         R47 R45 R46
+      298 NEWTABLE                         R46 1 0
+      300 GETTABLEKS                       R47 R41 K80 ["ScreenCapture"]
+      302 LOADB                            R48 1
+      303 SETTABLE                         R48 R46 R47
+      304 LOADNIL                          R47
+      305 NEWCLOSURE                       R48 P0
+      306 CAPTURE                          REF R47
+      307 DUPCLOSURE                       R49 K81 [PROTO_1]
+      308 DUPCLOSURE                       R50 K82 [PROTO_2]
+      309 CAPTURE                          VAL R49
+      310 DUPCLOSURE                       R51 K83 [PROTO_3]
+      311 CAPTURE                          VAL R34
+      312 CAPTURE                          VAL R45
+      313 DUPCLOSURE                       R52 K84 [PROTO_4]
+      314 CAPTURE                          VAL R34
+      315 CAPTURE                          VAL R46
+      316 DUPCLOSURE                       R53 K85 [PROTO_7]
+      317 CAPTURE                          VAL R34
+      318 CAPTURE                          VAL R21
+      319 CAPTURE                          VAL R19
+      320 CAPTURE                          VAL R20
+      321 CAPTURE                          VAL R8
+      322 CAPTURE                          VAL R39
+      323 CAPTURE                          VAL R6
+      324 CAPTURE                          VAL R42
+      325 CAPTURE                          VAL R53
+      326 DUPCLOSURE                       R54 K86 [PROTO_8]
+      327 CAPTURE                          VAL R8
+      328 CAPTURE                          VAL R41
+      329 DUPCLOSURE                       R55 K87 [PROTO_9]
+      330 CAPTURE                          VAL R8
+      331 NEWCLOSURE                       R56 P8
+      332 CAPTURE                          VAL R31
+      333 CAPTURE                          VAL R44
+      334 CAPTURE                          VAL R15
+      335 CAPTURE                          VAL R14
+      336 CAPTURE                          VAL R52
+      337 CAPTURE                          VAL R34
+      338 CAPTURE                          VAL R22
+      339 CAPTURE                          REF R47
+      340 CAPTURE                          VAL R49
+      341 CAPTURE                          VAL R21
+      342 CAPTURE                          VAL R18
+      343 CAPTURE                          VAL R50
+      344 CAPTURE                          VAL R16
+      345 CAPTURE                          VAL R2
+      346 CAPTURE                          VAL R20
+      347 CAPTURE                          VAL R54
+      348 CAPTURE                          VAL R23
+      349 CAPTURE                          VAL R55
+      350 CAPTURE                          VAL R53
+      351 CAPTURE                          VAL R9
+      352 CAPTURE                          VAL R24
+      353 SETGLOBAL                        R56 K88 ["getBuiltinServer"]
+      355 DUPCLOSURE                       R56 K89 [PROTO_15]
+      356 CAPTURE                          VAL R32
+      357 SETGLOBAL                        R56 K90 ["startLocalServer"]
+      359 DUPCLOSURE                       R56 K91 [PROTO_23]
+      360 CAPTURE                          VAL R31
+      361 CAPTURE                          VAL R44
+      362 CAPTURE                          VAL R28
+      363 CAPTURE                          VAL R51
+      364 CAPTURE                          VAL R23
+      365 CAPTURE                          VAL R55
+      366 CAPTURE                          VAL R36
+      367 CAPTURE                          VAL R1
+      368 CAPTURE                          VAL R41
+      369 CAPTURE                          VAL R40
+      370 CAPTURE                          VAL R17
+      371 CAPTURE                          VAL R53
+      372 CAPTURE                          VAL R32
+      373 SETGLOBAL                        R56 K92 ["startExternalServer"]
+      375 DUPCLOSURE                       R56 K93 [PROTO_24]
+      376 CAPTURE                          VAL R29
+      377 DUPCLOSURE                       R57 K94 [PROTO_26]
+      378 CAPTURE                          VAL R25
+      379 CAPTURE                          VAL R9
+      380 CAPTURE                          VAL R37
+      381 CAPTURE                          VAL R1
+      382 DUPCLOSURE                       R58 K95 [PROTO_29]
+      383 CAPTURE                          VAL R29
+      384 CAPTURE                          VAL R30
+      385 CAPTURE                          VAL R27
+      386 CAPTURE                          VAL R7
+      387 CAPTURE                          VAL R26
+      388 CAPTURE                          VAL R10
+      389 CAPTURE                          VAL R43
+      390 CAPTURE                          VAL R36
+      391 CAPTURE                          VAL R35
+      392 CAPTURE                          VAL R11
+      393 CAPTURE                          VAL R38
+      394 CAPTURE                          VAL R33
+      395 DUPTABLE                         R59 K99 [{"promiseMcpHost", "configureModelContextProtocol", "startLocalServer", "startExternalServer", "setToolEnabledStates"}]
+      396 SETTABLEKS                       R58 R59 K96 ["promiseMcpHost"]
+      398 SETTABLEKS                       R57 R59 K97 ["configureModelContextProtocol"]
+      400 GETGLOBAL                        R60 K90 ["startLocalServer"]
+      402 SETTABLEKS                       R60 R59 K90 ["startLocalServer"]
+      404 GETGLOBAL                        R60 K92 ["startExternalServer"]
+      406 SETTABLEKS                       R60 R59 K92 ["startExternalServer"]
+      408 SETTABLEKS                       R48 R59 K98 ["setToolEnabledStates"]
+      410 CLOSEUPVALS                      R47
+      411 RETURN                           R59 1

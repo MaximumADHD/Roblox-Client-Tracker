@@ -65,6 +65,8 @@ local _roblox_apppageplatform_shared_v1beta1_play_button_contextual_message =
 local _roblox_apppageplatform_shared_v1beta1_content_row = require(script.Parent.content_row)
 local _roblox_apppageplatform_shared_v1beta1_filter_pills_carousel = require(script.Parent.filter_pills_carousel)
 local _roblox_apppageplatform_shared_v1beta1_coachmark = require(script.Parent.coachmark)
+local _roblox_apppageplatform_shared_v1beta1_badge = require(script.Parent.badge)
+local _roblox_apppageplatform_shared_v1beta1_song_tile = require(script.Parent.song_tile)
 
 type _UiComponentSchemaImpl = {
 	__index: _UiComponentSchemaImpl,
@@ -174,6 +176,8 @@ type _UiComponentSchemaFields = {
 			value: _roblox_apppageplatform_shared_v1beta1_filter_pills_carousel.FilterPillsCarouselSchema,
 		}
 		| { type: "coachmark", value: _roblox_apppageplatform_shared_v1beta1_coachmark.CoachmarkSchema }
+		| { type: "badge", value: _roblox_apppageplatform_shared_v1beta1_badge.BadgeSchema }
+		| { type: "song_tile", value: _roblox_apppageplatform_shared_v1beta1_song_tile.SongTileSchema }
 	)?,
 }
 
@@ -275,6 +279,8 @@ type _UiComponentSchemaPartialFields = {
 			value: _roblox_apppageplatform_shared_v1beta1_filter_pills_carousel.FilterPillsCarouselSchema,
 		}
 		| { type: "coachmark", value: _roblox_apppageplatform_shared_v1beta1_coachmark.CoachmarkSchema }
+		| { type: "badge", value: _roblox_apppageplatform_shared_v1beta1_badge.BadgeSchema }
+		| { type: "song_tile", value: _roblox_apppageplatform_shared_v1beta1_song_tile.SongTileSchema }
 	)?,
 }
 
@@ -499,6 +505,14 @@ do
 			elseif self.kind.type == "coachmark" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 51, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "badge" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 52, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "song_tile" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 53, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -954,6 +968,22 @@ do
 						value = _roblox_apppageplatform_shared_v1beta1_coachmark.CoachmarkSchema.decode(value),
 					}
 					continue
+				elseif field == 52 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "badge",
+						value = _roblox_apppageplatform_shared_v1beta1_badge.BadgeSchema.decode(value),
+					}
+					continue
+				elseif field == 53 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "song_tile",
+						value = _roblox_apppageplatform_shared_v1beta1_song_tile.SongTileSchema.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -1084,6 +1114,10 @@ do
 				output.filterPillsCarousel = self.kind.value:jsonEncode()
 			elseif self.kind.type == "coachmark" then
 				output.coachmark = self.kind.value:jsonEncode()
+			elseif self.kind.type == "badge" then
+				output.badge = self.kind.value:jsonEncode()
+			elseif self.kind.type == "song_tile" then
+				output.songTile = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -1823,6 +1857,27 @@ do
 			self.kind = {
 				type = "coachmark",
 				value = _roblox_apppageplatform_shared_v1beta1_coachmark.CoachmarkSchema.jsonDecode(input.coachmark),
+			}
+		end
+
+		if input.badge ~= nil then
+			self.kind = {
+				type = "badge",
+				value = _roblox_apppageplatform_shared_v1beta1_badge.BadgeSchema.jsonDecode(input.badge),
+			}
+		end
+
+		if input.song_tile ~= nil then
+			self.kind = {
+				type = "song_tile",
+				value = _roblox_apppageplatform_shared_v1beta1_song_tile.SongTileSchema.jsonDecode(input.song_tile),
+			}
+		end
+
+		if input.songTile ~= nil then
+			self.kind = {
+				type = "song_tile",
+				value = _roblox_apppageplatform_shared_v1beta1_song_tile.SongTileSchema.jsonDecode(input.songTile),
 			}
 		end
 

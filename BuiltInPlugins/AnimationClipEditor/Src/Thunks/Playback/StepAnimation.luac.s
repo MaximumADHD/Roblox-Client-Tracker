@@ -22,13 +22,13 @@ PROTO_0:
        33 RETURN                           R0 0
        34 GETUPVAL                         R7 1
        35 CALL                             R7 0 1
-       36 JUMPIFNOT                        R7 ; [+48]
-       37 JUMPIFNOT                        R3 ; [+64]
+       36 JUMPIFNOT                        R7 ; [+37]
+       37 JUMPIFNOT                        R3 ; [+53]
        38 GETUPVAL                         R8 2
        39 GETTABLEKS                       R7 R8 K9 ["getAnimator"]
        41 MOVE                             R8 R4
        42 CALL                             R7 1 1
-       43 JUMPIFNOT                        R7 ; [+58]
+       43 JUMPIFNOT                        R7 ; [+47]
        44 GETTABLEKS                       R9 R2 K10 ["Metadata"]
        46 GETTABLEKS                       R8 R9 K11 ["EndTick"]
        48 GETUPVAL                         R11 3
@@ -41,60 +41,51 @@ PROTO_0:
        57 GETTABLEKS                       R11 R12 K15 ["TICK_FREQUENCY"]
        59 DIV                              R9 R10 R11
        60 SETTABLEKS                       R9 R3 K16 ["TimePosition"]
-       62 GETUPVAL                         R9 4
-       63 JUMPIFNOT                        R9 ; [+12]
-       64 LOADN                            R11 0
-       65 DUPTABLE                         R12 K19 [{"automaticScalingEnabledOverride", "retargetingEnabledOverride"}]
-       66 LOADB                            R13 0
-       67 SETTABLEKS                       R13 R12 K17 ["automaticScalingEnabledOverride"]
-       69 LOADB                            R13 0
-       70 SETTABLEKS                       R13 R12 K18 ["retargetingEnabledOverride"]
-       72 NAMECALL                         R9 R7 K20 ["StepAnimationsInternal"]
-       74 CALL                             R9 3 0
-       75 JUMP                             ; [+26]
-       76 LOADN                            R11 0
-       77 DUPTABLE                         R12 K21 [{"automaticScalingEnabledOverride"}]
-       78 LOADB                            R13 0
-       79 SETTABLEKS                       R13 R12 K17 ["automaticScalingEnabledOverride"]
-       81 NAMECALL                         R9 R7 K20 ["StepAnimationsInternal"]
-       83 CALL                             R9 3 0
-       84 JUMP                             ; [+17]
-       85 GETTABLEKS                       R7 R2 K22 ["Instances"]
-       87 JUMPIFNOT                        R7 ; [+14]
-       88 GETIMPORT                        R8 K24 [pairs]
-       90 MOVE                             R9 R7
-       91 CALL                             R8 1 3
-       92 FORGPREP_NEXT                    R8
-       93 GETUPVAL                         R14 5
-       94 GETTABLEKS                       R13 R14 K25 ["stepRigAnimation"]
-       96 MOVE                             R14 R4
-       97 MOVE                             R15 R12
-       98 GETUPVAL                         R16 3
-       99 CALL                             R13 3 0
-      100 FORGLOOP                         R8 2 ; [-8]
-      102 JUMPIF                           R5 ; [+6]
-      103 GETUPVAL                         R8 6
-      104 GETTABLEKS                       R7 R8 K26 ["getNearestTick"]
-      106 GETUPVAL                         R8 3
-      107 CALL                             R7 1 1
-      108 SETUPVAL                         R7 3
-      109 GETUPVAL                         R9 7
-      110 GETUPVAL                         R10 3
-      111 CALL                             R9 1 -1
-      112 NAMECALL                         R7 R0 K27 ["dispatch"]
-      114 CALL                             R7 -1 0
-      115 GETTABLEKS                       R8 R1 K2 ["Status"]
-      117 GETTABLEKS                       R7 R8 K28 ["VisualizeBones"]
-      119 GETUPVAL                         R9 8
-      120 GETTABLEKS                       R8 R9 K29 ["updateMicrobones"]
-      122 MOVE                             R9 R4
-      123 MOVE                             R10 R7
-      124 CALL                             R8 2 0
-      125 GETUPVAL                         R9 5
-      126 GETTABLEKS                       R8 R9 K30 ["updateSimulatedAnimConstraintParts"]
-      128 MOVE                             R9 R4
-      129 CALL                             R8 1 0
-      130 RETURN                           R0 0
+       62 LOADN                            R11 0
+       63 DUPTABLE                         R12 K19 [{"automaticScalingEnabledOverride", "retargetingEnabledOverride"}]
+       64 LOADB                            R13 0
+       65 SETTABLEKS                       R13 R12 K17 ["automaticScalingEnabledOverride"]
+       67 LOADB                            R13 0
+       68 SETTABLEKS                       R13 R12 K18 ["retargetingEnabledOverride"]
+       70 NAMECALL                         R9 R7 K20 ["StepAnimationsInternal"]
+       72 CALL                             R9 3 0
+       73 JUMP                             ; [+17]
+       74 GETTABLEKS                       R7 R2 K21 ["Instances"]
+       76 JUMPIFNOT                        R7 ; [+14]
+       77 GETIMPORT                        R8 K23 [pairs]
+       79 MOVE                             R9 R7
+       80 CALL                             R8 1 3
+       81 FORGPREP_NEXT                    R8
+       82 GETUPVAL                         R14 4
+       83 GETTABLEKS                       R13 R14 K24 ["stepRigAnimation"]
+       85 MOVE                             R14 R4
+       86 MOVE                             R15 R12
+       87 GETUPVAL                         R16 3
+       88 CALL                             R13 3 0
+       89 FORGLOOP                         R8 2 ; [-8]
+       91 JUMPIF                           R5 ; [+6]
+       92 GETUPVAL                         R8 5
+       93 GETTABLEKS                       R7 R8 K25 ["getNearestTick"]
+       95 GETUPVAL                         R8 3
+       96 CALL                             R7 1 1
+       97 SETUPVAL                         R7 3
+       98 GETUPVAL                         R9 6
+       99 GETUPVAL                         R10 3
+      100 CALL                             R9 1 -1
+      101 NAMECALL                         R7 R0 K26 ["dispatch"]
+      103 CALL                             R7 -1 0
+      104 GETTABLEKS                       R8 R1 K2 ["Status"]
+      106 GETTABLEKS                       R7 R8 K27 ["VisualizeBones"]
+      108 GETUPVAL                         R9 7
+      109 GETTABLEKS                       R8 R9 K28 ["updateMicrobones"]
+      111 MOVE                             R9 R4
+      112 MOVE                             R10 R7
+      113 CALL                             R8 2 0
+      114 GETUPVAL                         R9 4
+      115 GETTABLEKS                       R8 R9 K29 ["updateSimulatedAnimConstraintParts"]
+      117 MOVE                             R9 R4
+      118 CALL                             R8 1 0
+      119 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R1 P0
@@ -106,9 +97,8 @@ PROTO_1:
         6 CAPTURE                          UPVAL U4
         7 CAPTURE                          UPVAL U5
         8 CAPTURE                          UPVAL U6
-        9 CAPTURE                          UPVAL U7
-       10 CLOSEUPVALS                      R0
-       11 RETURN                           R1 1
+        9 CLOSEUPVALS                      R0
+       10 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -142,17 +132,12 @@ MAIN:
        47 GETTABLEKS                       R11 R0 K15 ["LuaFlags"]
        49 GETTABLEKS                       R10 R11 K16 ["GetFFlagEngineAnimator"]
        51 CALL                             R9 1 1
-       52 GETIMPORT                        R10 K18 [game]
-       54 LOADK                            R12 K19 ["AddRetargetingOptionInManualStep"]
-       55 NAMECALL                         R10 R10 K20 ["GetFastFlag"]
-       57 CALL                             R10 2 1
-       58 DUPCLOSURE                       R11 K21 [PROTO_1]
-       59 CAPTURE                          VAL R4
-       60 CAPTURE                          VAL R9
-       61 CAPTURE                          VAL R5
-       62 CAPTURE                          VAL R10
-       63 CAPTURE                          VAL R6
-       64 CAPTURE                          VAL R8
-       65 CAPTURE                          VAL R2
-       66 CAPTURE                          VAL R7
-       67 RETURN                           R11 1
+       52 DUPCLOSURE                       R10 K17 [PROTO_1]
+       53 CAPTURE                          VAL R4
+       54 CAPTURE                          VAL R9
+       55 CAPTURE                          VAL R5
+       56 CAPTURE                          VAL R6
+       57 CAPTURE                          VAL R8
+       58 CAPTURE                          VAL R2
+       59 CAPTURE                          VAL R7
+       60 RETURN                           R10 1

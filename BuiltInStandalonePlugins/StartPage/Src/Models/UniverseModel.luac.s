@@ -93,72 +93,104 @@ PROTO_0:
       128 CALL                             R3 2 1
       129 MOVE                             R2 R3
       130 RETURN                           R2 1
-      131 GETTABLEKS                       R2 R0 K17 ["creatorTargetId"]
-      133 JUMPIFNOT                        R2 ; [+20]
-      134 GETTABLEKS                       R3 R0 K17 ["creatorTargetId"]
-      136 FASTCALL1                        TYPEOF R3 ; [+2]
-      137 GETIMPORT                        R2 K1 [typeof]
-      139 CALL                             R2 1 1
-      140 JUMPIFEQKS                       R2 K6 ["number"] ; [+13]
-      142 LOADK                            R3 K18 ["\"creatorTargetId\" > Expected number, got %*"]
-      143 GETTABLEKS                       R6 R0 K17 ["creatorTargetId"]
-      145 FASTCALL1                        TYPEOF R6 ; [+2]
-      146 GETIMPORT                        R5 K1 [typeof]
-      148 CALL                             R5 1 1
-      149 NAMECALL                         R3 R3 K4 ["format"]
-      151 CALL                             R3 2 1
-      152 MOVE                             R2 R3
-      153 RETURN                           R2 1
-      154 GETTABLEKS                       R2 R0 K19 ["creatorName"]
-      156 JUMPIFNOT                        R2 ; [+20]
-      157 GETTABLEKS                       R3 R0 K19 ["creatorName"]
-      159 FASTCALL1                        TYPEOF R3 ; [+2]
-      160 GETIMPORT                        R2 K1 [typeof]
-      162 CALL                             R2 1 1
-      163 JUMPIFEQKS                       R2 K9 ["string"] ; [+13]
-      165 LOADK                            R3 K20 ["\"creatorName\" > Expected string, got %*"]
-      166 GETTABLEKS                       R6 R0 K19 ["creatorName"]
-      168 FASTCALL1                        TYPEOF R6 ; [+2]
-      169 GETIMPORT                        R5 K1 [typeof]
-      171 CALL                             R5 1 1
-      172 NAMECALL                         R3 R3 K4 ["format"]
-      174 CALL                             R3 2 1
-      175 MOVE                             R2 R3
-      176 RETURN                           R2 1
-      177 GETTABLEKS                       R2 R0 K21 ["created"]
-      179 JUMPIFNOT                        R2 ; [+20]
-      180 GETTABLEKS                       R3 R0 K21 ["created"]
-      182 FASTCALL1                        TYPEOF R3 ; [+2]
-      183 GETIMPORT                        R2 K1 [typeof]
-      185 CALL                             R2 1 1
-      186 JUMPIFEQKS                       R2 K9 ["string"] ; [+13]
-      188 LOADK                            R3 K22 ["\"created\" > Expected string, got %*"]
-      189 GETTABLEKS                       R6 R0 K21 ["created"]
-      191 FASTCALL1                        TYPEOF R6 ; [+2]
-      192 GETIMPORT                        R5 K1 [typeof]
-      194 CALL                             R5 1 1
-      195 NAMECALL                         R3 R3 K4 ["format"]
-      197 CALL                             R3 2 1
-      198 MOVE                             R2 R3
-      199 RETURN                           R2 1
-      200 GETTABLEKS                       R2 R0 K23 ["updated"]
-      202 JUMPIFNOT                        R2 ; [+20]
-      203 GETTABLEKS                       R3 R0 K23 ["updated"]
-      205 FASTCALL1                        TYPEOF R3 ; [+2]
-      206 GETIMPORT                        R2 K1 [typeof]
-      208 CALL                             R2 1 1
-      209 JUMPIFEQKS                       R2 K9 ["string"] ; [+13]
-      211 LOADK                            R3 K24 ["\"updated\" > Expected string, got %*"]
-      212 GETTABLEKS                       R6 R0 K23 ["updated"]
-      214 FASTCALL1                        TYPEOF R6 ; [+2]
-      215 GETIMPORT                        R5 K1 [typeof]
-      217 CALL                             R5 1 1
-      218 NAMECALL                         R3 R3 K4 ["format"]
-      220 CALL                             R3 2 1
-      221 MOVE                             R2 R3
-      222 RETURN                           R2 1
-      223 LOADNIL                          R2
-      224 RETURN                           R2 1
+      131 GETTABLEKS                       R2 R0 K17 ["isFriendsOnly"]
+      133 JUMPIFEQKNIL                     R2 ; [+21]
+      135 GETTABLEKS                       R3 R0 K17 ["isFriendsOnly"]
+      137 FASTCALL1                        TYPEOF R3 ; [+2]
+      138 GETIMPORT                        R2 K1 [typeof]
+      140 CALL                             R2 1 1
+      141 JUMPIFEQKS                       R2 K18 ["boolean"] ; [+13]
+      143 LOADK                            R3 K19 ["\"isFriendsOnly\" > Expected boolean, got %*"]
+      144 GETTABLEKS                       R6 R0 K17 ["isFriendsOnly"]
+      146 FASTCALL1                        TYPEOF R6 ; [+2]
+      147 GETIMPORT                        R5 K1 [typeof]
+      149 CALL                             R5 1 1
+      150 NAMECALL                         R3 R3 K4 ["format"]
+      152 CALL                             R3 2 1
+      153 MOVE                             R2 R3
+      154 RETURN                           R2 1
+      155 GETTABLEKS                       R2 R0 K20 ["creatorTargetId"]
+      157 JUMPIFNOT                        R2 ; [+20]
+      158 GETTABLEKS                       R3 R0 K20 ["creatorTargetId"]
+      160 FASTCALL1                        TYPEOF R3 ; [+2]
+      161 GETIMPORT                        R2 K1 [typeof]
+      163 CALL                             R2 1 1
+      164 JUMPIFEQKS                       R2 K6 ["number"] ; [+13]
+      166 LOADK                            R3 K21 ["\"creatorTargetId\" > Expected number, got %*"]
+      167 GETTABLEKS                       R6 R0 K20 ["creatorTargetId"]
+      169 FASTCALL1                        TYPEOF R6 ; [+2]
+      170 GETIMPORT                        R5 K1 [typeof]
+      172 CALL                             R5 1 1
+      173 NAMECALL                         R3 R3 K4 ["format"]
+      175 CALL                             R3 2 1
+      176 MOVE                             R2 R3
+      177 RETURN                           R2 1
+      178 GETTABLEKS                       R2 R0 K22 ["creatorType"]
+      180 JUMPIFNOT                        R2 ; [+20]
+      181 GETTABLEKS                       R3 R0 K22 ["creatorType"]
+      183 FASTCALL1                        TYPEOF R3 ; [+2]
+      184 GETIMPORT                        R2 K1 [typeof]
+      186 CALL                             R2 1 1
+      187 JUMPIFEQKS                       R2 K9 ["string"] ; [+13]
+      189 LOADK                            R3 K23 ["\"creatorType\" > Expected string, got %*"]
+      190 GETTABLEKS                       R6 R0 K22 ["creatorType"]
+      192 FASTCALL1                        TYPEOF R6 ; [+2]
+      193 GETIMPORT                        R5 K1 [typeof]
+      195 CALL                             R5 1 1
+      196 NAMECALL                         R3 R3 K4 ["format"]
+      198 CALL                             R3 2 1
+      199 MOVE                             R2 R3
+      200 RETURN                           R2 1
+      201 GETTABLEKS                       R2 R0 K24 ["creatorName"]
+      203 JUMPIFNOT                        R2 ; [+20]
+      204 GETTABLEKS                       R3 R0 K24 ["creatorName"]
+      206 FASTCALL1                        TYPEOF R3 ; [+2]
+      207 GETIMPORT                        R2 K1 [typeof]
+      209 CALL                             R2 1 1
+      210 JUMPIFEQKS                       R2 K9 ["string"] ; [+13]
+      212 LOADK                            R3 K25 ["\"creatorName\" > Expected string, got %*"]
+      213 GETTABLEKS                       R6 R0 K24 ["creatorName"]
+      215 FASTCALL1                        TYPEOF R6 ; [+2]
+      216 GETIMPORT                        R5 K1 [typeof]
+      218 CALL                             R5 1 1
+      219 NAMECALL                         R3 R3 K4 ["format"]
+      221 CALL                             R3 2 1
+      222 MOVE                             R2 R3
+      223 RETURN                           R2 1
+      224 GETTABLEKS                       R2 R0 K26 ["created"]
+      226 JUMPIFNOT                        R2 ; [+20]
+      227 GETTABLEKS                       R3 R0 K26 ["created"]
+      229 FASTCALL1                        TYPEOF R3 ; [+2]
+      230 GETIMPORT                        R2 K1 [typeof]
+      232 CALL                             R2 1 1
+      233 JUMPIFEQKS                       R2 K9 ["string"] ; [+13]
+      235 LOADK                            R3 K27 ["\"created\" > Expected string, got %*"]
+      236 GETTABLEKS                       R6 R0 K26 ["created"]
+      238 FASTCALL1                        TYPEOF R6 ; [+2]
+      239 GETIMPORT                        R5 K1 [typeof]
+      241 CALL                             R5 1 1
+      242 NAMECALL                         R3 R3 K4 ["format"]
+      244 CALL                             R3 2 1
+      245 MOVE                             R2 R3
+      246 RETURN                           R2 1
+      247 GETTABLEKS                       R2 R0 K28 ["updated"]
+      249 JUMPIFNOT                        R2 ; [+20]
+      250 GETTABLEKS                       R3 R0 K28 ["updated"]
+      252 FASTCALL1                        TYPEOF R3 ; [+2]
+      253 GETIMPORT                        R2 K1 [typeof]
+      255 CALL                             R2 1 1
+      256 JUMPIFEQKS                       R2 K9 ["string"] ; [+13]
+      258 LOADK                            R3 K29 ["\"updated\" > Expected string, got %*"]
+      259 GETTABLEKS                       R6 R0 K28 ["updated"]
+      261 FASTCALL1                        TYPEOF R6 ; [+2]
+      262 GETIMPORT                        R5 K1 [typeof]
+      264 CALL                             R5 1 1
+      265 NAMECALL                         R3 R3 K4 ["format"]
+      267 CALL                             R3 2 1
+      268 MOVE                             R2 R3
+      269 RETURN                           R2 1
+      270 LOADNIL                          R2
+      271 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

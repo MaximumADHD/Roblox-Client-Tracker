@@ -5,10 +5,10 @@ export type AnimationStateAttributesType = {
 	-- Previous humanoid state to check for changes:
 	previousHumanoidState: Enum.HumanoidStateType,
 	previousHumanoidSpeed: number,
-	-- What "pose"/animation am I currently doing?
-	pose: string,
-	currentAnimId: string, -- store ID instead of track handle
-	-- Time until next pose/animation:
+	-- Details of what's currently playing:
+	pose: string, -- What "pose"/animation am I currently doing?
+	currentAnimId: number, -- numeric asset ID of the track that's currently playing.  Poses may correspond to mutliple animationIDs, so this further disambiguates pose.
+	-- Time until next pose/animation (0 means the next animation should start immediately once queued):
 	currentAnimTimeRemaining: number,
 	-- Details for the next animation I want to transition to:
 	queuedPose: string, -- What pose am I striking next? Note: pose gets mapped to Animation names via POSE_TO_ANIM_NAME
@@ -18,7 +18,6 @@ export type AnimationStateAttributesType = {
 	currentlyPlayingEmote: boolean,
 	-- Properties for tracking tool animations (they run in parallel to the main pose animations):
 	previousToolState: string,
-	activeToolAnimationId: string,
 	queuedToolAnimName: string,
 	toolAnimationTimeRemaining: number
 }
@@ -87,6 +86,13 @@ for _, animName in pairs(TOOL_ANIM_MAP) do
 end
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
+
+-- Extract the numeric asset ID from any animation ID format:
+-- "rbxassetid://69420666" → 69420666
+-- "http://www.roblox.com/asset/?id=10921259953" → 10921259953
+local function extractAnimIdNumber(animationId)
+	return tonumber(tostring(animationId):match("%d+")) or -1
+end
 
 local function convertPoseToAnimationName(pose)
 	local animName = POSE_TO_ANIM_NAME[pose]
@@ -202,7 +208,7 @@ function module.setupAnimation(character)
 	-- R15: track the run anim id for walk/run blending
 	local fixedRunAnimId = nil
 	if not isR6 then
-		fixedRunAnimId = DEFAULT_ANIMS["run"][1].id
+		fixedRunAnimId = extractAnimIdNumber(DEFAULT_ANIMS["run"][1].id)
 		assert(#(DEFAULT_ANIMS["run"]) == 1)
 	end
 
@@ -210,7 +216,7 @@ function module.setupAnimation(character)
 	local toolAnimIds = {}
 	for _, animName in pairs(TOOL_ANIM_MAP) do
 		for _, variant in ipairs(DEFAULT_ANIMS[animName]) do
-			toolAnimIds[variant.id] = true
+			toolAnimIds[extractAnimIdNumber(variant.id)] = true
 		end
 	end
 
@@ -248,7 +254,7 @@ function module.setupAnimation(character)
 			animTracks = animator:GetPlayingAnimationTracks()
 		end
 		for _,animTrack in ipairs(animTracks) do
-			if animTrack.Animation.AnimationId == animationId then
+			if extractAnimIdNumber(animTrack.Animation.AnimationId) == animationId then
 				return true
 			end
 		end
@@ -259,15 +265,15 @@ function module.setupAnimation(character)
 	-- HELPER FUNCTIONS
 	--------------------------------------------------------------------------------
 
-	local function stopToolAnimations(toolAnimIds, transitionTime, destroyTracks, animTracks)
+	local function stopToolAnimations(transitionTime, destroyTracks, animTracks)
 		transitionTime = transitionTime or 0
 		debugPrint("[AnimRepl][Lua] stopToolAnimations: transitionTime=", transitionTime)
 		for _, track in ipairs(animTracks or animator:GetPlayingAnimationTracks()) do
-			if toolAnimIds[track.Animation.AnimationId] == nil then
+			if toolAnimIds[extractAnimIdNumber(track.Animation.AnimationId)] == nil then
 				continue
 			end
 			debugPrint("[AnimRepl][Lua] Stop: name=", track.Name, " id=", track.Animation.AnimationId, " transitionTime=", transitionTime)
-			if transitionTime == 0 or track.IsPlaying then
+			if track.IsPlaying then
 				track:Stop(transitionTime)
 			end
 			if destroyTracks then
@@ -276,15 +282,29 @@ function module.setupAnimation(character)
 		end
 	end
 
-	local function stopNontoolAnimations(toolAnimIds, transitionTime, destroyTracks, animTracks)
+	local function stopOtherNontoolAnimations(animIDsToKeep, transitionTime, destroyTracks, animTracks)
 		transitionTime = transitionTime or 0
-		debugPrint("[AnimRepl][Lua] stopNontoolAnimations: transitionTime=", transitionTime)
+		debugPrint("[AnimRepl][Lua] stopOtherNontoolAnimations: transitionTime=", transitionTime)
+
+		-- Build a lookup of all non-tool animation IDs from animTable so we only
+		-- stop animations that this script owns, leaving other humanoid animations
+		-- (e.g. developer-spawned) untouched.
+		local animTableNontoolIds = {}
+		for animName, animSet in pairs(animTable) do
+			if not TOOL_ANIM_NAMES[animName] then
+				for idx = 1, animSet.count do
+					animTableNontoolIds[extractAnimIdNumber(animSet[idx].anim.AnimationId)] = true
+				end
+			end
+		end
+
 		for _, track in ipairs(animTracks or animator:GetPlayingAnimationTracks()) do
-			if toolAnimIds[track.Animation.AnimationId] then
+			local animId = extractAnimIdNumber(track.Animation.AnimationId)
+			if not animTableNontoolIds[animId] or animIDsToKeep[animId] then
 				continue
 			end
-			debugPrint("[AnimRepl][Lua] Stop: name=", track.Name, " id=", track.Animation.AnimationId, " transitionTime=", transitionTime)
-			if transitionTime == 0 or track.IsPlaying then
+			debugPrint("[AnimRepl][Lua] Stop: name=", track.Name, " id=", animId, " transitionTime=", transitionTime)
+			if track.IsPlaying then
 				track:Stop(transitionTime)
 			end
 			if destroyTracks then
@@ -298,7 +318,7 @@ function module.setupAnimation(character)
 		debugPrint("[AnimRepl][Lua] stopAllAnimations: transitionTime=", transitionTime)
 		for _, track in ipairs(animTracks or animator:GetPlayingAnimationTracks()) do
 			debugPrint("[AnimRepl][Lua] Stop: name=", track.Name, " id=", track.Animation.AnimationId, " transitionTime=", transitionTime)
-			if transitionTime == 0 or track.IsPlaying then
+			if track.IsPlaying then
 				track:Stop(transitionTime)
 			end
 			if destroyTracks then
@@ -307,18 +327,44 @@ function module.setupAnimation(character)
 		end
 	end
 
-	-- TODO these should be a C++ function
-	-- These three functions ASSUME that you cannot have more than one track of the same animationId playing at the same time
+	-- TODO the following helper functions should be C++ functions
+
+	-- Return the first playing track matching the animationId
 	local function getPlayingAnimationTrackFromID(animationId, animTracks)
 		if not animTracks then
 			animTracks = animator:GetPlayingAnimationTracks()
 		end
 		for _,animTrack in ipairs(animTracks) do
-			if animTrack.IsPlaying and animTrack.Animation.AnimationId == animationId then
+			if animTrack.IsPlaying and extractAnimIdNumber(animTrack.Animation.AnimationId) == animationId then
 				return animTrack
 			end
 		end
 		return nil
+	end
+
+	-- Return the first track matching the animationId
+	local function getAnimationTrackFromID(animationId, animTracks)
+		if not animTracks then
+			animTracks = animator:GetPlayingAnimationTracks()
+		end
+		for _,animTrack in ipairs(animTracks) do
+			if extractAnimIdNumber(animTrack.Animation.AnimationId) == animationId then
+				return animTrack
+			end
+		end
+		return nil
+	end
+
+	-- Check if the track with the same animationID exists already.  If it does, just reuse that one.
+	-- Otherwise load a new one.
+	local function loadUniqueAnimation(animation, animator, animTracks)
+		local animationId = extractAnimIdNumber(animation.AnimationId)
+		local animTrack = getAnimationTrackFromID(animationId, animTracks)
+		if animTrack ~= nil then
+			return animTrack
+		else
+			return animator:LoadAnimation(animation)
+		end
 	end
 
 	local function getPlayingAnimationTracksFromIDs(animationIds, animTracks)
@@ -331,7 +377,7 @@ function module.setupAnimation(character)
 		for _, id in ipairs(animationIds) do
 			-- Search through the currently playing tracks
 			for _, track in ipairs(animTracks) do
-				if track.IsPlaying and track.Animation.AnimationId == id then
+				if track.IsPlaying and extractAnimIdNumber(track.Animation.AnimationId) == id then
 					table.insert(foundTracks, track)
 					-- Break the inner loop at the first match per ID
 					break
@@ -528,16 +574,16 @@ function module.setupAnimation(character)
 		for _i, animType in pairs(animTable) do
 			for idx = 1, animType.count, 1 do
 				local anim = animType[idx].anim
-				local animationId = anim.AnimationId
+				local animIdNumber = extractAnimIdNumber(anim.AnimationId)
 
 				-- if it's a tool anim, update toolAnimIds list:
 				if TOOL_ANIM_NAMES[anim.Name] then
-					toolAnimIds[animationId] = true
+					toolAnimIds[animIdNumber] = true
 				end
 
-				if preloadedAnims[animationId] == nil then
+				if preloadedAnims[animIdNumber] == nil then
 					animator:LoadAnimation(anim)
-					preloadedAnims[animationId] = true
+					preloadedAnims[animIdNumber] = true
 				end
 			end
 		end
@@ -560,7 +606,7 @@ function module.setupAnimation(character)
 
 	-- R15: update fixedRunAnimId after configureAnimationSet may have overridden it
 	if not isR6 then
-		fixedRunAnimId = animTable["run"][1].anim.AnimationId
+		fixedRunAnimId = extractAnimIdNumber(animTable["run"][1].anim.AnimationId)
 		assert(animTable["run"].count == 1)
 	end
 
@@ -582,31 +628,22 @@ function module.setupAnimation(character)
 	local function transitionToNextToolAnimation(animState: AnimationStateAttributesType, toolAnimName)
 		local idx = rollAnimation(toolAnimName)
 		local anim = animTable[toolAnimName][idx].anim
-		local newAnimId = anim.AnimationId
+		local newAnimId = extractAnimIdNumber(anim.AnimationId)
 
 		-- this logic differs from the standard transition logic because we want to restart the tool animation even if we are already playing it
 		local animTracks = animator:GetPlayingAnimationTracks()
-		local animTrack = getPlayingAnimationTrackFromID(animState.activeToolAnimationId, animTracks)
-		if not animTrack then
-			animState.activeToolAnimationId = ""
-		end
+		local transitionTime = if toolAnimName == "toolnone" then TOOL_TRANSITION_TIME else 0
+		stopToolAnimations(transitionTime, nil, animTracks)
 
-		if animState.activeToolAnimationId ~= newAnimId then
-			local transitionTime = if toolAnimName == "toolnone" then TOOL_TRANSITION_TIME else 0
+		local animTrack = loadUniqueAnimation(anim, animator, animTracks)
 
-			-- Need to load a new animation
-			stopToolAnimations(toolAnimIds, transitionTime, nil, animTracks)
+		-- Set the Priority and Looped properties explicitly for them to be authoritative/predictable
+		animTrack.Looped = if toolAnimName == "toolnone" then true else false
+		animTrack.Priority = if toolAnimName == "toolnone" then Enum.AnimationPriority.Idle else Enum.AnimationPriority.Action
+		debugPrint("playing new tool animation: ", toolAnimName, " with id ", newAnimId, " with transition time ", animState.queuedTransitionTime, " and priority ", animTrack.Priority)
 
-			animTrack = animator:LoadAnimation(anim)
+		animTrack:Play(transitionTime)
 
-			-- Set the Priority and Looped properties explicitly for them to be authoritative/predictable
-			animTrack.Looped = if toolAnimName == "toolnone" then true else false
-			animTrack.Priority = if toolAnimName == "toolnone" then Enum.AnimationPriority.Idle else Enum.AnimationPriority.Action
-			debugPrint("playing new tool animation: ", toolAnimName, " with id ", newAnimId, " with transition time ", animState.queuedTransitionTime, " and priority ", animTrack.Priority)
-			animTrack:Play(transitionTime)
-		end
-
-		animState.activeToolAnimationId = newAnimId
 		animState.queuedToolAnimName = ""
 		animState.toolAnimationTimeRemaining = TOOL_ANIM_DURATION
 	end
@@ -630,6 +667,8 @@ function module.setupAnimation(character)
 
 			if animState.toolAnimationTimeRemaining > 0 then
 				animState.toolAnimationTimeRemaining -= deltaTime
+				animState.toolAnimationTimeRemaining = math.max(animState.toolAnimationTimeRemaining, 0)
+
 				-- Not time to switch to next animation yet, continue playing current tool animation
 				return
 			end
@@ -647,8 +686,7 @@ function module.setupAnimation(character)
 				end
 			end
 		else
-			stopToolAnimations(toolAnimIds)
-			animState.activeToolAnimationId = ""
+			stopToolAnimations()
 			animState.toolAnimationTimeRemaining = 0
 		end
 	end
@@ -671,51 +709,76 @@ function module.setupAnimation(character)
 		debugPrint("trying to transition to queued animation ", newAnimName)
 		local idx = rollAnimation(newAnimName)
 		local anim = animTable[newAnimName][idx].anim
-		local newAnimId = anim.AnimationId
+		local newAnimId = extractAnimIdNumber(anim.AnimationId)
 
+		-- The API name is rather misleading, it should really be animator:GetActiveAnimationTracks since it includes fading out tracks where IsPlaying = false
 		local animTracks = animator:GetPlayingAnimationTracks()
-		local animTrack = getPlayingAnimationTrackFromID(animState.currentAnimId, animTracks)
-		if not animTrack then -- the track isnt playing anymore
-			animState.currentAnimId = ""
+
+		local tracksToPlay = {}
+		tracksToPlay[newAnimId] = true
+
+		-- loadUniqueAnimation will first look for an existing track for the same animationID and then load a new one if it doesn't exist
+		debugPrint("[AnimRepl][Lua] LoadUniqueAnimation: name=", newAnimName, " id=", newAnimId, " pose=", queuedPose)
+		local animTrack = loadUniqueAnimation(anim, animator, animTracks)
+		local runTrack = nil
+		if not isR6 and queuedPose == "Running" and not disableRunWalkBlend then
+			-- For R15's, Running is a special pose that blends two tracks together
+			local runAnim = animTable["run"][1].anim
+			debugPrint("[AnimRepl][Lua] LoadUniqueAnimation (run blend): id=", runAnim.AnimationId)
+			runTrack = loadUniqueAnimation(runAnim, animator,animTracks)
+			tracksToPlay[fixedRunAnimId] = true
 		end
 
-		-- R15: also check if the run blend track is missing
-		local runTrack = nil
-		if not isR6 then
-			runTrack = getPlayingAnimationTrackFromID(fixedRunAnimId, animTracks)
-			if queuedPose == "Running" and not runTrack and not disableRunWalkBlend then
-				animState.currentAnimId = ""
+		local areCorrectAnimationTracksPlaying = false
+		if animState.currentAnimId == newAnimId then
+			-- If the currentAnimId is the same as the new one, check if the correct track(s) are already playing
+			if animTrack.IsPlaying and (runTrack == nil or runTrack.IsPlaying) then
+				areCorrectAnimationTracksPlaying = true
 			end
 		end
 
-		-- Load in new animation or find the current one:
-		if animState.currentAnimId ~= newAnimId then
-			stopNontoolAnimations(toolAnimIds, animState.queuedTransitionTime, nil, animTracks)
+		-- Stop all tracks other than the ones we expect to be playing:
+		stopOtherNontoolAnimations(tracksToPlay, animState.queuedTransitionTime, nil, animTracks)
 
-			debugPrint("[AnimRepl][Lua] LoadAnimation: name=", newAnimName, " id=", newAnimId, " pose=", queuedPose)
-
-			animTrack = animator:LoadAnimation(anim)
+		if not areCorrectAnimationTracksPlaying then
+			-- The correct tracks aren't playing, so we need to play them.
 
 			-- Set the Priority and Looped properties explicitly for them to be authoritative/predictable
 			animTrack.Priority = Enum.AnimationPriority.Core
+			local isAnimTrackLooped
 			if queuedAnimIsEmote then
 				local loopingOverride = DEFAULT_EMOTE_LOOPING_OVERRIDES[newAnimName]
 				if loopingOverride then
-					animTrack.Looped = loopingOverride.looping
+					isAnimTrackLooped = loopingOverride.looping
 				else
-					animTrack.Looped = false
+					isAnimTrackLooped = false
 				end
 			else
 				-- All non-emote animations are Looped by default since they correspond to a
 				-- humanoid state that may exist for an indefinite amount of time.
-				animTrack.Looped = true
+				isAnimTrackLooped = true
+			end
+			animTrack.Looped = isAnimTrackLooped
+
+			local startingTimePosition = 0
+			if isAnimTrackLooped then
+				debugPrint("[AnimRepl][Lua] Previous time position of track, before calling Play() =", animTrack.TimePosition)
+				-- If this is a new track, this should still be 0:
+				startingTimePosition = animTrack.TimePosition
 			end
 
 			debugPrint("[AnimRepl][Lua] Play: name=", newAnimName, " id=", newAnimId, " transitionTime=", animState.queuedTransitionTime, " speed=", animTrack.Speed)
 			animTrack:Play(animState.queuedTransitionTime)
+			if isAnimTrackLooped then
+				-- For looped animations, we want to maintain the same time position if restarting a fading track to minimize visual jitter
+				animTrack.TimePosition = startingTimePosition
+				debugPrint("[AnimRepl][Lua] Reset time position, track name =", newAnimName, " id=", newAnimId, " starting time position =", animTrack.TimePosition, " with speed:", animTrack.Speed)
+			end
 
 			if queuedPose == "Jumping" then
 				animState.currentAnimTimeRemaining = JUMP_ANIM_DURATION
+			else
+				animState.currentAnimTimeRemaining = 0
 			end
 
 			animState.currentAnimId = newAnimId
@@ -723,17 +786,16 @@ function module.setupAnimation(character)
 			--------------------------------------------------------------------------------
 			-- R15 SPECIAL LOGIC: WALK-RUN BLEND
 			--------------------------------------------------------------------------------
-			if not isR6 and (queuedPose == "Running" and not disableRunWalkBlend) then
-				local runIdx = rollAnimation("run")
-				local runAnim = animTable["run"][runIdx].anim
-				debugPrint("[AnimRepl][Lua] LoadAnimation (run blend): id=", runAnim.AnimationId)
-				runTrack = animator:LoadAnimation(runAnim)
+			if runTrack then
 				-- Set the Priority and Looped properties explicitly for them to be authoritative/predictable
 				runTrack.Priority = Enum.AnimationPriority.Core
 				runTrack.Looped = true
 
-				debugPrint("[AnimRepl][Lua] Play (run blend): id=", runAnim.AnimationId, " transitionTime=", animState.queuedTransitionTime)
+				debugPrint("[AnimRepl][Lua] Play (run blend): id=", runTrack.Animation.AnimationId, " transitionTime=", animState.queuedTransitionTime)
+				local runStartingTimePosition = runTrack.TimePosition
 				runTrack:Play(animState.queuedTransitionTime)
+				-- For looped animations, we want to maintain the same time position if restarting a fading track to minimize visual jitter
+				runTrack.TimePosition = runStartingTimePosition
 			end
 			--------------------------------------------------------------------------------
 		end
@@ -742,6 +804,7 @@ function module.setupAnimation(character)
 
 		animState.pose = queuedPose
 		if animState.queuedAnimSpeed > 0 then
+			-- The queued pose had a specified speed, so adjust the track accordingly.
 			if not isR6 and queuedPose == "Running" then
 				-- R15: blend walk/run weights
 				if not disableRunWalkBlend then
@@ -750,13 +813,11 @@ function module.setupAnimation(character)
 			elseif animState.queuedAnimSpeed ~= animTrack.Speed then
 				animTrack:AdjustSpeed(animState.queuedAnimSpeed)
 			end
-			animState.currentAnimTimeRemaining = trackLength / animState.queuedAnimSpeed
 		end
 
 		animState.currentlyPlayingEmote = queuedAnimIsEmote
 		if queuedAnimIsEmote and not animTrack.Looped then
-			queueAnimation(animState, "Standing", EMOTE_TRANSITION_TIME, nil, animState.currentAnimTimeRemaining) -- after emote is done, transition back to standing
-			animState.currentAnimTimeRemaining = trackLength
+			queueAnimation(animState, "Standing", EMOTE_TRANSITION_TIME, nil, trackLength) -- after emote is done, transition back to standing
 		else
 			animState.queuedPose = ""
 			animState.queuedAnimSpeed = 0
@@ -781,13 +842,12 @@ function module.setupAnimation(character)
 		previousHumanoidState    = humanoid:GetState(),
 		previousHumanoidSpeed    = 0,
 		pose                     = "Standing",
-		currentAnimId            = "",
+		currentAnimId            = -1,
 		currentAnimTimeRemaining = 0,
 		queuedPose               = "Standing",
 		queuedAnimSpeed          = 0,
 		queuedTransitionTime     = 0,
 		previousToolState        = "",
-		activeToolAnimationId    = "",
 		queuedToolAnimName       = "",
 		toolAnimationTimeRemaining = 0,
 		currentlyPlayingEmote    = false,
@@ -987,13 +1047,14 @@ function module.setupAnimation(character)
 
 		if attrs.currentAnimTimeRemaining > 0 then
 			attrs.currentAnimTimeRemaining -= deltaTime
+			attrs.currentAnimTimeRemaining = math.max(attrs.currentAnimTimeRemaining, 0)
 		elseif attrs.queuedPose ~= "" then
 			local queuedPose = attrs.queuedPose
 			if queuedPose == "Dead" or queuedPose == "GettingUp" or queuedPose == "FallingDown" or queuedPose == "PlatformStanding" or queuedPose == "Flying" then
-				stopNontoolAnimations(toolAnimIds, 0, false)
+				stopOtherNontoolAnimations({}, 0, false)
 				attrs.pose = queuedPose
 				attrs.queuedPose = ""
-				attrs.currentAnimId = ""
+				attrs.currentAnimId = -1
 				attrs.currentAnimTimeRemaining = 0
 				attrs.currentlyPlayingEmote = false
 			else

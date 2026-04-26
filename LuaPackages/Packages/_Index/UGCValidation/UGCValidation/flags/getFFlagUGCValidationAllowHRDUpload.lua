@@ -1,5 +1,5 @@
-game:DefineFastFlag("UGCValidationAllowHRDUpload2", false)
+game:DefineFastFlag("UGCValidationAllowHRDUpload3", false)
 
 return function()
-	return game:GetFastFlag("UGCValidationAllowHRDUpload2")
+	return game:GetFastFlag("UGCValidationAllowHRDUpload3")
 end

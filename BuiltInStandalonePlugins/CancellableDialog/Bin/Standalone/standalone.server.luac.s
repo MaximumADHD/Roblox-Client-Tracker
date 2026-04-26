@@ -26,17 +26,26 @@ MAIN:
        37 JUMPIFEQ                         R3 R4 ; [+2]
        39 RETURN                           R0 0
        40 GETIMPORT                        R3 K5 [require]
-       42 GETTABLEKS                       R6 R0 K12 ["Bin"]
-       44 GETTABLEKS                       R5 R6 K13 ["Common"]
-       46 GETTABLEKS                       R4 R5 K17 ["setup"]
+       42 GETTABLEKS                       R6 R0 K17 ["Src"]
+       44 GETTABLEKS                       R5 R6 K18 ["Flags"]
+       46 GETTABLEKS                       R4 R5 K19 ["getFFlagNewOpenPlaceDialog"]
        48 CALL                             R3 1 1
-       49 GETIMPORT                        R4 K5 [require]
-       51 GETTABLEKS                       R7 R0 K12 ["Bin"]
-       53 GETTABLEKS                       R6 R7 K13 ["Common"]
-       55 GETTABLEKS                       R5 R6 K18 ["setupMain"]
-       57 CALL                             R4 1 1
-       58 MOVE                             R5 R3
-       59 GETIMPORT                        R6 K20 [plugin]
-       61 MOVE                             R7 R4
-       62 CALL                             R5 2 0
-       63 RETURN                           R0 0
+       49 MOVE                             R4 R3
+       50 CALL                             R4 0 1
+       51 JUMPIFNOT                        R4 ; [+1]
+       52 RETURN                           R0 0
+       53 GETIMPORT                        R4 K5 [require]
+       55 GETTABLEKS                       R7 R0 K12 ["Bin"]
+       57 GETTABLEKS                       R6 R7 K13 ["Common"]
+       59 GETTABLEKS                       R5 R6 K20 ["setup"]
+       61 CALL                             R4 1 1
+       62 GETIMPORT                        R5 K5 [require]
+       64 GETTABLEKS                       R8 R0 K12 ["Bin"]
+       66 GETTABLEKS                       R7 R8 K13 ["Common"]
+       68 GETTABLEKS                       R6 R7 K21 ["setupMain"]
+       70 CALL                             R5 1 1
+       71 MOVE                             R6 R4
+       72 GETIMPORT                        R7 K23 [plugin]
+       74 MOVE                             R8 R5
+       75 CALL                             R6 2 0
+       76 RETURN                           R0 0

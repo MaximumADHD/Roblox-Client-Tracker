@@ -28,7 +28,6 @@ local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 
 local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI2")
-local FFlagUserPSActionsPathAware = FlagUtil.getUserFlag("UserPSActionsPathAware")
 local FFlagUserPlayerScriptsClickToMoveUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClickToMoveUsesIAS")
 
 --[[ Input Actions ]]--
@@ -704,18 +703,11 @@ local function calculateLocalMoveVector(worldMoveVector: Vector3): Vector2
 end
 
 --[[ The ClickToMove Controller Class ]]--
-local ActionController = require(script.Parent:WaitForChild("ActionController")) -- remove with FFlagUserPSActionsPathAware
-local ClickToMove = setmetatable({}, ActionController)
-if FFlagUserPSActionsPathAware then
-	ClickToMove = {}
-end
+local ClickToMove = {}
 ClickToMove.__index = ClickToMove
 
 function ClickToMove.new(playerData)
-	local self = setmetatable(ActionController.new(), ClickToMove)
-	if FFlagUserPSActionsPathAware then
-		self = setmetatable({} , ClickToMove)
-	end
+	local self = setmetatable({} , ClickToMove)
 
 	-- PC simulation
 	self.mouse2DownTime = tick()
@@ -1108,11 +1100,6 @@ function ClickToMove:Enable(enable: boolean, enableWASD: boolean, touchJumpContr
 			self.touchJumpController:Enable(true)
 		end
 		self.touchJumpController = nil
-	end
-
-	if not FFlagUserPSActionsPathAware then
-		-- Extension for initializing Keyboard input as this class now derives from Keyboard
-		ActionController.Enable(self, enable)
 	end
 
 	if FFlagUserPlayerScriptsClickToMoveUsesIAS then 

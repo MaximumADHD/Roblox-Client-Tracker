@@ -11,14 +11,6 @@ local RobloxGui = CoreGui.RobloxGui
 local CoreUtility = require(RobloxGui.Modules.CoreUtility)
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
-local EnableAutomaticSizeVerticalOffsetWidthFix = require(RobloxGui.Modules.Flags.FFlagEnableAutomaticSizeVerticalOffsetWidthFix)
-
-game:DefineFastFlag("EnableProximityPromptIndicatorGui", false)
-local GetFFlagEnableProximityPromptIndicatorGui = function()
-	return game:GetEngineFeature("ProximityPromptIndicators") and
-		   game:GetFastFlag("EnableProximityPromptIndicatorGui")
-end
-
 local LocalPlayer = Players.LocalPlayer
 while LocalPlayer == nil do
 	Players.ChildAdded:wait()
@@ -478,11 +470,7 @@ local function createPrompt(prompt, inputType, gui)
 		objectText.AutoLocalize = prompt.AutoLocalize
 		objectText.RootLocalizationTable = prompt.RootLocalizationTable
 
-		if not EnableAutomaticSizeVerticalOffsetWidthFix then
-			-- There is currently a bug with AutomaticSize where the vertical offset of the
-			-- ActionText affects the size of the overall frame. This adjusts for that existing bug.
-			textPaddingRight = textPaddingRight - actionTextYOffset
-		end
+		textPaddingRight = textPaddingRight - actionTextYOffset
 
 		if
 			(prompt.ActionText ~= nil and prompt.ActionText ~= '')
@@ -637,31 +625,29 @@ local function onLoad()
 		cleanupFunction()
     end)
 
-	if GetFFlagEnableProximityPromptIndicatorGui() then
-		ProximityPromptService.IndicatorShown:Connect(function(prompt)
-			if prompt.Style == Enum.ProximityPromptStyle.Custom then
-				return
-			end
+	ProximityPromptService.IndicatorShown:Connect(function(prompt)
+		if prompt.Style == Enum.ProximityPromptStyle.Custom then
+			return
+		end
 
-			local gui = getScreenGui()
+		local gui = getScreenGui()
 
-			local cleanupFunction = createIndicator(prompt, gui)
+		local cleanupFunction = createIndicator(prompt, gui)
 
-			-- Wait for either the indicator being hidden or the prompt is destroyed
-			local yield = Instance.new("BindableEvent")
-			local con = prompt.IndicatorHidden:Connect(function()
-				yield:Fire()
-			end)
-			local con2 = prompt.Destroying:Connect(function()
-				yield:Fire()
-			end)
-			yield.Event:Wait()
-			con:Disconnect()
-			con2:Disconnect()
-
-			cleanupFunction()
+		-- Wait for either the indicator being hidden or the prompt is destroyed
+		local yield = Instance.new("BindableEvent")
+		local con = prompt.IndicatorHidden:Connect(function()
+			yield:Fire()
 		end)
-	end
+		local con2 = prompt.Destroying:Connect(function()
+			yield:Fire()
+		end)
+		yield.Event:Wait()
+		con:Disconnect()
+		con2:Disconnect()
+
+		cleanupFunction()
+	end)
 end
 
 onLoad()

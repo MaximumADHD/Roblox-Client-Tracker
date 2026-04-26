@@ -13,53 +13,74 @@ PROTO_0:
        16 CALL                             R2 2 0
        17 GETUPVAL                         R2 2
        18 CALL                             R2 0 1
-       19 GETUPVAL                         R3 3
-       20 GETUPVAL                         R4 4
-       21 NEWTABLE                         R5 1 0
-       23 GETUPVAL                         R7 0
-       24 GETTABLEKS                       R6 R7 K5 ["Tag"]
-       26 LOADK                            R7 K6 ["AvatarSettings-SettingsPage X-Column"]
-       27 SETTABLE                         R7 R5 R6
-       28 DUPTABLE                         R6 K11 [{"CollisionSection", "AnimationPacksSection", "AnimationClipsSection", "DefaultAbilitiesSection"}]
-       29 GETUPVAL                         R7 3
-       30 GETUPVAL                         R8 5
-       31 DUPTABLE                         R9 K13 [{"layoutOrder"}]
-       32 MOVE                             R10 R2
-       33 CALL                             R10 0 1
-       34 SETTABLEKS                       R10 R9 K12 ["layoutOrder"]
-       36 CALL                             R7 2 1
-       37 SETTABLEKS                       R7 R6 K7 ["CollisionSection"]
-       39 GETUPVAL                         R7 3
-       40 GETUPVAL                         R8 6
-       41 DUPTABLE                         R9 K13 [{"layoutOrder"}]
-       42 MOVE                             R10 R2
-       43 CALL                             R10 0 1
-       44 SETTABLEKS                       R10 R9 K12 ["layoutOrder"]
-       46 CALL                             R7 2 1
-       47 SETTABLEKS                       R7 R6 K8 ["AnimationPacksSection"]
-       49 GETUPVAL                         R7 3
-       50 GETUPVAL                         R8 7
-       51 DUPTABLE                         R9 K13 [{"layoutOrder"}]
-       52 MOVE                             R10 R2
-       53 CALL                             R10 0 1
-       54 SETTABLEKS                       R10 R9 K12 ["layoutOrder"]
-       56 CALL                             R7 2 1
-       57 SETTABLEKS                       R7 R6 K9 ["AnimationClipsSection"]
-       59 GETUPVAL                         R8 8
-       60 CALL                             R8 0 1
-       61 JUMPIFNOT                        R8 ; [+9]
-       62 GETUPVAL                         R7 3
-       63 GETUPVAL                         R8 9
-       64 DUPTABLE                         R9 K13 [{"layoutOrder"}]
-       65 MOVE                             R10 R2
-       66 CALL                             R10 0 1
-       67 SETTABLEKS                       R10 R9 K12 ["layoutOrder"]
-       69 CALL                             R7 2 1
-       70 JUMP                             ; [+1]
-       71 LOADNIL                          R7
-       72 SETTABLEKS                       R7 R6 K10 ["DefaultAbilitiesSection"]
-       74 CALL                             R3 3 -1
-       75 RETURN                           R3 -1
+       19 GETTABLEKS                       R7 R1 K1 ["settings"]
+       21 GETTABLEKS                       R6 R7 K5 ["navigationBarSettings"]
+       23 GETTABLEKS                       R5 R6 K6 ["avatarType"]
+       25 GETTABLEKS                       R4 R5 K7 ["value"]
+       27 GETIMPORT                        R5 K11 [Enum.GameAvatarType.R6]
+       29 JUMPIFEQ                         R4 R5 ; [+2]
+       31 LOADB                            R3 0 +1
+       32 LOADB                            R3 1
+       33 MOVE                             R4 R3
+       34 JUMPIFNOT                        R4 ; [+2]
+       35 GETUPVAL                         R4 3
+       36 CALL                             R4 0 1
+       37 GETUPVAL                         R5 4
+       38 GETUPVAL                         R6 5
+       39 NEWTABLE                         R7 1 0
+       41 GETUPVAL                         R9 0
+       42 GETTABLEKS                       R8 R9 K12 ["Tag"]
+       44 LOADK                            R9 K13 ["AvatarSettings-SettingsPage X-Column"]
+       45 SETTABLE                         R9 R7 R8
+       46 DUPTABLE                         R8 K18 [{"CollisionSection", "AnimationPacksSection", "AnimationClipsSection", "DefaultAbilitiesSection"}]
+       47 JUMPIFNOT                        R4 ; [+2]
+       48 LOADNIL                          R9
+       49 JUMP                             ; [+8]
+       50 GETUPVAL                         R9 4
+       51 GETUPVAL                         R10 6
+       52 DUPTABLE                         R11 K20 [{"layoutOrder"}]
+       53 MOVE                             R12 R2
+       54 CALL                             R12 0 1
+       55 SETTABLEKS                       R12 R11 K19 ["layoutOrder"]
+       57 CALL                             R9 2 1
+       58 SETTABLEKS                       R9 R8 K14 ["CollisionSection"]
+       60 JUMPIFNOT                        R4 ; [+2]
+       61 LOADNIL                          R9
+       62 JUMP                             ; [+8]
+       63 GETUPVAL                         R9 4
+       64 GETUPVAL                         R10 7
+       65 DUPTABLE                         R11 K20 [{"layoutOrder"}]
+       66 MOVE                             R12 R2
+       67 CALL                             R12 0 1
+       68 SETTABLEKS                       R12 R11 K19 ["layoutOrder"]
+       70 CALL                             R9 2 1
+       71 SETTABLEKS                       R9 R8 K15 ["AnimationPacksSection"]
+       73 JUMPIFNOT                        R4 ; [+2]
+       74 LOADNIL                          R9
+       75 JUMP                             ; [+8]
+       76 GETUPVAL                         R9 4
+       77 GETUPVAL                         R10 8
+       78 DUPTABLE                         R11 K20 [{"layoutOrder"}]
+       79 MOVE                             R12 R2
+       80 CALL                             R12 0 1
+       81 SETTABLEKS                       R12 R11 K19 ["layoutOrder"]
+       83 CALL                             R9 2 1
+       84 SETTABLEKS                       R9 R8 K16 ["AnimationClipsSection"]
+       86 GETUPVAL                         R10 9
+       87 CALL                             R10 0 1
+       88 JUMPIFNOT                        R10 ; [+9]
+       89 GETUPVAL                         R9 4
+       90 GETUPVAL                         R10 10
+       91 DUPTABLE                         R11 K20 [{"layoutOrder"}]
+       92 MOVE                             R12 R2
+       93 CALL                             R12 0 1
+       94 SETTABLEKS                       R12 R11 K19 ["layoutOrder"]
+       96 CALL                             R9 2 1
+       97 JUMP                             ; [+1]
+       98 LOADNIL                          R9
+       99 SETTABLEKS                       R9 R8 K17 ["DefaultAbilitiesSection"]
+      101 CALL                             R5 3 -1
+      102 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -114,19 +135,25 @@ MAIN:
        87 GETTABLEKS                       R11 R12 K19 ["Flags"]
        89 GETTABLEKS                       R10 R11 K20 ["getFFlagAvatarSettingsEnableAbilities"]
        91 CALL                             R9 1 1
-       92 GETTABLEKS                       R10 R6 K21 ["UI"]
-       94 GETTABLEKS                       R11 R10 K22 ["Pane"]
-       96 GETTABLEKS                       R12 R8 K23 ["createNextOrder"]
-       98 GETTABLEKS                       R13 R7 K24 ["createElement"]
-      100 DUPCLOSURE                       R14 K25 [PROTO_0]
-      101 CAPTURE                          VAL R7
-      102 CAPTURE                          VAL R3
-      103 CAPTURE                          VAL R12
-      104 CAPTURE                          VAL R13
-      105 CAPTURE                          VAL R11
-      106 CAPTURE                          VAL R4
-      107 CAPTURE                          VAL R2
-      108 CAPTURE                          VAL R1
-      109 CAPTURE                          VAL R9
-      110 CAPTURE                          VAL R5
-      111 RETURN                           R14 1
+       92 GETIMPORT                        R10 K5 [require]
+       94 GETTABLEKS                       R13 R0 K6 ["Src"]
+       96 GETTABLEKS                       R12 R13 K19 ["Flags"]
+       98 GETTABLEKS                       R11 R12 K21 ["getFFlagAvatarSettingsEnableAbilitiesR6"]
+      100 CALL                             R10 1 1
+      101 GETTABLEKS                       R11 R6 K22 ["UI"]
+      103 GETTABLEKS                       R12 R11 K23 ["Pane"]
+      105 GETTABLEKS                       R13 R8 K24 ["createNextOrder"]
+      107 GETTABLEKS                       R14 R7 K25 ["createElement"]
+      109 DUPCLOSURE                       R15 K26 [PROTO_0]
+      110 CAPTURE                          VAL R7
+      111 CAPTURE                          VAL R3
+      112 CAPTURE                          VAL R13
+      113 CAPTURE                          VAL R10
+      114 CAPTURE                          VAL R14
+      115 CAPTURE                          VAL R12
+      116 CAPTURE                          VAL R4
+      117 CAPTURE                          VAL R2
+      118 CAPTURE                          VAL R1
+      119 CAPTURE                          VAL R9
+      120 CAPTURE                          VAL R5
+      121 RETURN                           R15 1

@@ -104,27 +104,28 @@ PROTO_0:
       138 MOVE                             R11 R1
       139 MOVE                             R12 R5
       140 MOVE                             R13 R8
-      141 CALL                             R10 3 1
-      142 SETTABLEKS                       R10 R9 K24 ["UploadController"]
-      144 SETTABLEKS                       R6 R9 K25 ["PresetController"]
-      146 GETUPVAL                         R11 16
-      147 GETTABLEKS                       R10 R11 K5 ["new"]
-      149 MOVE                             R11 R1
-      150 NOT                              R12 R2
-      151 CALL                             R10 2 1
-      152 SETTABLEKS                       R10 R9 K26 ["Networking"]
-      154 GETUPVAL                         R11 17
-      155 GETTABLEKS                       R10 R11 K5 ["new"]
-      157 MOVE                             R11 R1
-      158 MOVE                             R12 R6
-      159 CALL                             R10 2 1
-      160 SETTABLEKS                       R10 R9 K31 ["QueueController"]
-      162 GETUPVAL                         R12 18
-      163 FASTCALL2                        SETMETATABLE R9 R12 ; [+4]
-      165 MOVE                             R11 R9
-      166 GETIMPORT                        R10 K33 [setmetatable]
-      168 CALL                             R10 2 1
-      169 RETURN                           R10 1
+      141 MOVE                             R14 R6
+      142 CALL                             R10 4 1
+      143 SETTABLEKS                       R10 R9 K24 ["UploadController"]
+      145 SETTABLEKS                       R6 R9 K25 ["PresetController"]
+      147 GETUPVAL                         R11 16
+      148 GETTABLEKS                       R10 R11 K5 ["new"]
+      150 MOVE                             R11 R1
+      151 NOT                              R12 R2
+      152 CALL                             R10 2 1
+      153 SETTABLEKS                       R10 R9 K26 ["Networking"]
+      155 GETUPVAL                         R11 17
+      156 GETTABLEKS                       R10 R11 K5 ["new"]
+      158 MOVE                             R11 R1
+      159 MOVE                             R12 R6
+      160 CALL                             R10 2 1
+      161 SETTABLEKS                       R10 R9 K31 ["QueueController"]
+      163 GETUPVAL                         R12 18
+      164 FASTCALL2                        SETMETATABLE R9 R12 ; [+4]
+      166 MOVE                             R11 R9
+      167 GETIMPORT                        R10 K33 [setmetatable]
+      169 CALL                             R10 2 1
+      170 RETURN                           R10 1
 
 PROTO_1:
         0 NEWTABLE                         R1 0 14

@@ -19,6 +19,13 @@ PROTO_2:
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
+PROTO_3:
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["FixCreatorConfigUrls"]
+        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
@@ -36,19 +43,26 @@ MAIN:
        20 LOADB                            R4 0
        21 NAMECALL                         R1 R1 K9 ["DefineFastFlag"]
        23 CALL                             R1 3 0
-       24 DUPTABLE                         R1 K16 [{"getFFlagEnableCreatorConfig", "getFFlagRegisterActionsPluginLoader", "getFFlagEnableCreatorConfigSystemMenu", "getFFlagOnCloseSkipActionTrigger", "getFFlagCreatorConfigDmChangedListener"}]
-       25 MOVE                             R2 R0
-       26 LOADK                            R3 K17 ["EnableCreatorConfig"]
-       27 CALL                             R2 1 1
-       28 SETTABLEKS                       R2 R1 K11 ["getFFlagEnableCreatorConfig"]
-       30 DUPCLOSURE                       R2 K18 [PROTO_0]
-       31 SETTABLEKS                       R2 R1 K12 ["getFFlagRegisterActionsPluginLoader"]
-       33 MOVE                             R2 R0
-       34 LOADK                            R3 K19 ["EnableCreatorConfigSystemMenu"]
-       35 CALL                             R2 1 1
-       36 SETTABLEKS                       R2 R1 K13 ["getFFlagEnableCreatorConfigSystemMenu"]
-       38 DUPCLOSURE                       R2 K20 [PROTO_1]
-       39 SETTABLEKS                       R2 R1 K14 ["getFFlagOnCloseSkipActionTrigger"]
-       41 DUPCLOSURE                       R2 K21 [PROTO_2]
-       42 SETTABLEKS                       R2 R1 K15 ["getFFlagCreatorConfigDmChangedListener"]
-       44 RETURN                           R1 1
+       24 GETIMPORT                        R1 K7 [game]
+       26 LOADK                            R3 K11 ["FixCreatorConfigUrls"]
+       27 LOADB                            R4 0
+       28 NAMECALL                         R1 R1 K9 ["DefineFastFlag"]
+       30 CALL                             R1 3 0
+       31 DUPTABLE                         R1 K18 [{"getFFlagEnableCreatorConfig", "getFFlagRegisterActionsPluginLoader", "getFFlagEnableCreatorConfigSystemMenu", "getFFlagOnCloseSkipActionTrigger", "getFFlagCreatorConfigDmChangedListener", "getFFlagFixCreatorConfigUrls"}]
+       32 MOVE                             R2 R0
+       33 LOADK                            R3 K19 ["EnableCreatorConfig"]
+       34 CALL                             R2 1 1
+       35 SETTABLEKS                       R2 R1 K12 ["getFFlagEnableCreatorConfig"]
+       37 DUPCLOSURE                       R2 K20 [PROTO_0]
+       38 SETTABLEKS                       R2 R1 K13 ["getFFlagRegisterActionsPluginLoader"]
+       40 MOVE                             R2 R0
+       41 LOADK                            R3 K21 ["EnableCreatorConfigSystemMenu"]
+       42 CALL                             R2 1 1
+       43 SETTABLEKS                       R2 R1 K14 ["getFFlagEnableCreatorConfigSystemMenu"]
+       45 DUPCLOSURE                       R2 K22 [PROTO_1]
+       46 SETTABLEKS                       R2 R1 K15 ["getFFlagOnCloseSkipActionTrigger"]
+       48 DUPCLOSURE                       R2 K23 [PROTO_2]
+       49 SETTABLEKS                       R2 R1 K16 ["getFFlagCreatorConfigDmChangedListener"]
+       51 DUPCLOSURE                       R2 K24 [PROTO_3]
+       52 SETTABLEKS                       R2 R1 K17 ["getFFlagFixCreatorConfigUrls"]
+       54 RETURN                           R1 1

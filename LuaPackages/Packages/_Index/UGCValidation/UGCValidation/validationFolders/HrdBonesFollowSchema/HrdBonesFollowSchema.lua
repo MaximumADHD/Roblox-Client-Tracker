@@ -11,6 +11,7 @@ HrdBonesFollowSchema.categories =
 	{ ValidationEnums.UploadCategory.TORSO_AND_LIMBS, ValidationEnums.UploadCategory.DYNAMIC_HEAD }
 HrdBonesFollowSchema.requiredData = { ValidationEnums.SharedDataMember.rootInstance }
 HrdBonesFollowSchema.fflag = R15plusUtils.checkFlagEnabledForAllowHrd
+local FFlagUGCValidationRemoveHRDBlocker = game:DefineFastFlag("UGCValidationRemoveHRDBlocker", false)
 
 local function fillBoneTreeFlatList(instance: Instance, isBonePath: boolean, flatList: { Instance })
 	for _, child in instance:GetChildren() do
@@ -60,6 +61,11 @@ HrdBonesFollowSchema.run = function(reporter: Types.ValidationReporter, data: Ty
 
 		local hrd = bodyMeshPart:FindFirstChildWhichIsA("HumanoidRigDescription")
 		local drd = bodyMeshPart:FindFirstChildWhichIsA("DigitsRigDescription")
+
+		if hrd ~= nil and not FFlagUGCValidationRemoveHRDBlocker then
+			reporter:fail(ErrorSourceStrings.Keys.HrdCheck_TempR15BonesUploadNotAllowed)
+		end
+
 		if hrd == nil then
 			-- If HRD does not exist, we don't expect any bone maps
 			local bones = getAllInstancesIsA(bodyMeshPart, "Bone")
@@ -82,7 +88,7 @@ HrdBonesFollowSchema.run = function(reporter: Types.ValidationReporter, data: Ty
 		local boneTreeFlatList = {}
 		fillBoneTreeFlatList(bodyMeshPart, false, boneTreeFlatList)
 
-		-- step 1: make sure everything in bone tree was pre-mapped in the schema
+		-- step 1: make sure all descendants of Bones were pre-mapped in the schema (This wont verify ACs/RigAttachments)
 		local existsInSchemaAndPart = { [bodyPartName] = true }
 		for _, inst in boneTreeFlatList do
 			local instName = inst.Name

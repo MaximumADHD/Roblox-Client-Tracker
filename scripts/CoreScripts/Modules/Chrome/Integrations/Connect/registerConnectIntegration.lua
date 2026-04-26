@@ -12,7 +12,6 @@ local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtil
 local LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
 
 local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
-local FFlagEnableUnibarFtuxTooltips = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUnibarFtuxTooltips
 
 local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScriptsCommon).MouseIconOverrideService
 local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
@@ -63,10 +62,7 @@ return function(id: string, initialAvailability: number)
 			else
 				InExperienceAppChatModal:toggleVisibility()
 			end
-
-			if FFlagEnableUnibarFtuxTooltips then
-				LocalStore.storeForLocalPlayer(GetFStringConnectTooltipLocalStorageKey(), true)
-			end
+			LocalStore.storeForLocalPlayer(GetFStringConnectTooltipLocalStorageKey(), true)
 		end,
 		isActivated = function()
 			return InExperienceAppChatModal:getVisible()

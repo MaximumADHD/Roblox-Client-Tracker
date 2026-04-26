@@ -3,12 +3,11 @@ PROTO_0:
         2 LOADK                            R2 K2 ["AssetDependencyGrantEventEnabled"]
         3 NAMECALL                         R0 R0 K3 ["GetEngineFeature"]
         5 CALL                             R0 2 1
-        6 JUMPIF                           R0 ; [+6]
-        7 GETIMPORT                        R0 K1 [game]
-        9 LOADK                            R2 K4 ["DebugTestAssetDependencyGrantEventEnabled"]
-       10 NAMECALL                         R0 R0 K5 ["GetFastFlag"]
-       12 CALL                             R0 2 1
-       13 RETURN                           R0 1
+        6 JUMPIF                           R0 ; [+3]
+        7 GETUPVAL                         R0 0
+        8 LOADK                            R1 K4 ["DebugTestAssetDependencyGrantEventEnabled"]
+        9 CALL                             R0 1 1
+       10 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -17,5 +16,15 @@ MAIN:
         4 LOADB                            R3 0
         5 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
         7 CALL                             R0 3 0
-        8 DUPCLOSURE                       R0 K4 [PROTO_0]
-        9 RETURN                           R0 1
+        8 GETIMPORT                        R0 K5 [script]
+       10 LOADK                            R2 K6 ["AssetManager"]
+       11 NAMECALL                         R0 R0 K7 ["FindFirstAncestor"]
+       13 CALL                             R0 2 1
+       14 GETIMPORT                        R1 K9 [require]
+       16 GETTABLEKS                       R4 R0 K10 ["Bin"]
+       18 GETTABLEKS                       R3 R4 K11 ["Common"]
+       20 GETTABLEKS                       R2 R3 K12 ["safeGetFastFlag"]
+       22 CALL                             R1 1 1
+       23 DUPCLOSURE                       R2 K13 [PROTO_0]
+       24 CAPTURE                          VAL R1
+       25 RETURN                           R2 1

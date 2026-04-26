@@ -38,6 +38,7 @@ local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.Ro
 local FIntChromeWindowLayoutOrder = game:DefineFastInt("ChromeWindowLayoutOrder", 2)
 
 local FFlagFixWindowDragError = game:DefineFastFlag("FixWindowDragError", false)
+local FFlagFixWindowDragStaleConnection = game:DefineFastFlag("FixWindowDragStaleConnection", false)
 
 local ChromeSharedFlags = require(Root.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
@@ -265,7 +266,18 @@ local WindowHost = function(props: WindowHostProps)
 			)
 
 			-- Handle dragging
-			if not connection.current and not isRepositioning:getValue() then
+			-- Clean up stale drag state from a previous gesture whose InputEnded
+			-- was captured by the InputShield instead of reaching InputWrapper
+			if FFlagFixWindowDragStaleConnection and connection.current then
+				connection.current:Disconnect()
+				connection.current = nil
+				setDragging(false)
+			end
+
+			if
+				(if FFlagFixWindowDragStaleConnection then true else not connection.current)
+				and not isRepositioning:getValue()
+			then
 				-- The dragging callback might never be called when a single tap is registered
 				-- Assign the position to the frame ref itself to ensure we have the most current
 				local newPosition = {
@@ -292,7 +304,10 @@ local WindowHost = function(props: WindowHostProps)
 
 					local inputPosition = inputChangedObj.Position
 					local delta = inputPosition - dragStartPosition
-					dragDistance += delta.Magnitude
+					-- Use absolute distance from start to avoid false activation from micro-jitter
+					dragDistance = if FFlagFixWindowDragStaleConnection
+						then delta.Magnitude
+						else dragDistance + delta.Magnitude
 
 					if dragDistance > Constants.WINDOW_MIN_DRAG_DISTANCE then
 						setDragging(true)

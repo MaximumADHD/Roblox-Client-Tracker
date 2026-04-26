@@ -148,6 +148,7 @@ local Flags = {
 	GetFFlagPackagifySettingsShowSignal = SharedFlags.GetFFlagPackagifySettingsShowSignal,
 	FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls,
 	FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons,
+	FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav,
 	FFlagIEMFocusNavSupportNewButtons = SettingsFlags.FFlagIEMFocusNavSupportNewButtons,
 	FFlagIEMResumeButtonPressBugfix = SharedFlags.FFlagIEMResumeButtonPressBugfix,
 	FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode,
@@ -173,6 +174,7 @@ local Flags = {
 
 	FFlagFixSpatialUICaptures = game:DefineFastFlag("FixSpatialUICaptures", false),
 	FFlagMenuButtonsSkipAnimation = game:DefineFastFlag("MenuButtonsSkipAnimation", false),
+	FFlagAddAbilityToDisableIGMScroll = SharedFlags.FFlagAddAbilityToDisableIGMScroll,
 }
 
 --[[ SERVICES ]]
@@ -454,6 +456,32 @@ local function CreateSettingsHub()
 		return whichPage.ShouldShowBottomBar == true
 	end
 
+	local function setTabHeaderSelection(pageToSwitchTo)
+		if not Flags.FFlagIEMTabFocusNav then 
+			return 
+		end
+		local tabHeader = pageToSwitchTo:GetTabHeader()
+		if not tabHeader then 
+			return 
+		end
+		for _, selectable in pageToSwitchTo.FirstSelectableObjects do
+			selectable.NextSelectionUp = tabHeader
+			tabHeader.NextSelectionDown = selectable
+		end
+	end
+
+	local function updateTabHeaderWrapping()
+		if not Flags.FFlagIEMTabFocusNav then return end
+		for _, tabHeader in this.TabHeaders do
+			tabHeader.NextSelectionLeft = nil
+			tabHeader.NextSelectionRight = nil
+		end
+		local count = #this.TabHeaders
+		if count < 2 then return end
+		this.TabHeaders[1].NextSelectionLeft = this.TabHeaders[count]
+		this.TabHeaders[count].NextSelectionRight = this.TabHeaders[1]
+	end
+
 	local function setBottomBarSelection(pageToSwitchTo)
 		if not this.BottomButtonFrame and Flags.FFlagIEMFocusNavToButtons
 			and not pageToSwitchTo and (not Flags.FFlagRelocateMobileMenuButtons
@@ -467,6 +495,26 @@ local function CreateSettingsHub()
 		elseif Flags.FFlagIEMFocusNavSupportNewButtons and Flags.FIntRelocateMobileMenuButtonsVariant == 2
 			and this.ResumeMenuButton then
 			pageToSwitchTo.PageNextSelectionDown = this.ResumeMenuButton
+		end
+
+		if Flags.FFlagIEMTabFocusNav and this.BottomButtonFrame then
+			local tabHeader = pageToSwitchTo:GetTabHeader()
+
+			-- Wire all tab headers Up → the resume button for circular navigation
+			local resumeButton = this["ResumeButton"] or this.ResumeMenuButton
+			if resumeButton then
+				for page, _ in pairs(this.Pages.PageTable) do
+					local header = page:GetTabHeader()
+					if header then
+						header.NextSelectionUp = resumeButton
+					end
+				end
+			end
+			for _, child in this.BottomButtonFrame:GetDescendants() do
+				if child:IsA("GuiObject") and child.Selectable then
+					child.NextSelectionDown = tabHeader
+				end
+			end
 		end
 
 		for _, selectable in pageToSwitchTo.LastSelectableObjects do
@@ -496,7 +544,7 @@ local function CreateSettingsHub()
 			if Flags.FFlagIEMFocusNavSupportNewButtons and Flags.FIntRelocateMobileMenuButtonsVariant == 2 then
 				for _, child in this.BottomButtonFrame:GetDescendants() do
 					if child:IsA("GuiObject") and child.Selectable then
-						child.NextSelectionUp = nil
+						child.NextSelectionUp = if Flags.FFlagIEMTabFocusNav then pageToSwitchTo:GetTabHeader() else nil
 					end
 				end
 			end
@@ -515,6 +563,11 @@ local function CreateSettingsHub()
 		end
 
 		return whichPage ~= nil and whichPage.ShouldShowBottomBar == true
+	end
+
+	local function shouldDisableDefaultScroll(whichPage)
+		whichPage = whichPage or this.Pages.CurrentPage
+		return whichPage ~= nil and whichPage.ShouldDisableDefaultScroll == true
 	end
 
 	local function setBottomBarBindings()
@@ -2074,17 +2127,22 @@ local function CreateSettingsHub()
 		end
 
 		do
-			this.HubBarContainer = Create'ImageLabel'
-			{
-				Name = "HubBarContainer",
-				ZIndex = this.Shield.ZIndex + 2,
-				BorderSizePixel = 0,
-				BackgroundColor3 = Theme.color("HubBarContainer"),
-				BackgroundTransparency = Theme.transparency("HubBarContainerTransparency"),
-				Size = if Theme.ShowHomeButton then UDim2.new(1, -70, 1, 0) else UDim2.new(1, 0, 1, 0),
-				Position = if Theme.ShowHomeButton then UDim2.new(0, 70, 0, 0) else UDim2.new(0, 0, 0, 0),
-				Parent = if Flags.FFlagAddSwitchTabHintsToIEM then this.TabHeaderContainer else this.HubBar,
-			}
+		this.HubBarContainer = Create'ImageLabel'
+		{
+			Name = "HubBarContainer",
+			ZIndex = this.Shield.ZIndex + 2,
+			BorderSizePixel = 0,
+			BackgroundColor3 = Theme.color("HubBarContainer"),
+			BackgroundTransparency = Theme.transparency("HubBarContainerTransparency"),
+			Size = if Theme.ShowHomeButton then UDim2.new(1, -70, 1, 0) else UDim2.new(1, 0, 1, 0),
+			Position = if Theme.ShowHomeButton then UDim2.new(0, 70, 0, 0) else UDim2.new(0, 0, 0, 0),
+			Parent = if Flags.FFlagAddSwitchTabHintsToIEM then this.TabHeaderContainer else this.HubBar,
+			Selectable = if Flags.FFlagIEMTabFocusNav then false else nil,
+			SelectionGroup = if Flags.FFlagIEMTabFocusNav then true else nil,
+			SelectionBehaviorUp = if Flags.FFlagIEMTabFocusNav then Enum.SelectionBehavior.Stop else nil,
+			SelectionBehaviorLeft = if Flags.FFlagIEMTabFocusNav then Enum.SelectionBehavior.Stop else nil,
+			SelectionBehaviorRight = if Flags.FFlagIEMTabFocusNav then Enum.SelectionBehavior.Stop else nil,
+		}
 
 			this.HubBar.ImageTransparency = 1
 			this.HubBarListLayout.Parent = this.HubBarContainer
@@ -2718,6 +2776,13 @@ local function CreateSettingsHub()
 				setBottomBarSelection(pageToAdd)
 			end)
 		end
+		if Flags.FFlagIEMTabFocusNav then
+			setTabHeaderSelection(pageToAdd)
+			updateTabHeaderWrapping()
+			pageToAdd.FirstSelectableObjectsUpdated:connect(function()
+				setTabHeaderSelection(pageToAdd)
+			end)
+		end
 	end
 
 	function this:RemovePage(pageToRemove)
@@ -2725,6 +2790,10 @@ local function CreateSettingsHub()
 		RemoveHeader(pageToRemove:GetTabHeader())
 		if Flags.FFlagIEMFocusNavToButtons then
 			pageToRemove.LastSelectableObjectsUpdated:disconnect()
+		end
+		if Flags.FFlagIEMTabFocusNav then
+			pageToRemove.FirstSelectableObjectsUpdated:disconnect()
+			updateTabHeaderWrapping()
 		end
 	end
 
@@ -3027,6 +3096,9 @@ local function CreateSettingsHub()
 
 			this.HubBar.Visible = shouldShowHubBar(pageToSwitchTo)
 		end
+		if Flags.FFlagIEMTabFocusNav then
+			setTabHeaderSelection(pageToSwitchTo)
+		end
 
 		-- set whether the page should be clipped
 		local isClipped = pageToSwitchTo.IsPageClipped == true
@@ -3040,12 +3112,32 @@ local function CreateSettingsHub()
 		this.Pages.CurrentPage.Active = true
 		this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
 
+		-- Disable outer scrolling for any page that doesn't need it
+		if Flags.FFlagAddAbilityToDisableIGMScroll then
+			if shouldDisableDefaultScroll() then
+				this.PageView.ScrollBarThickness = 0
+				this.PageView.ScrollingEnabled = false
+				this.PageView.CanvasPosition = Vector2.new(0, 0)
+				this.PageView.CanvasSize = UDim2.new(1, 0, 1, 0)
+			else
+				this.PageView.ScrollBarThickness = Theme.DefaultScrollBarThickness
+				this.PageView.ScrollingEnabled = true
+			end
+		end
+
 		if Theme.UseStickyBar() == false then
-			local pageSize = this.Pages.CurrentPage:GetSize()
-			this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+			if Flags.FFlagAddAbilityToDisableIGMScroll then
+				if not shouldDisableDefaultScroll() then
+					local pageSize = this.Pages.CurrentPage:GetSize()
+					this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+				end
+			else
+				local pageSize = this.Pages.CurrentPage:GetSize()
+				this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+			end
 
 			pageChangeCon = this.Pages.CurrentPage.Page.Changed:connect(function(prop)
-				if prop == "AbsoluteSize" then
+				if prop == "AbsoluteSize" and (not Flags.FFlagAddAbilityToDisableIGMScroll or not shouldDisableDefaultScroll()) then
 					local pageSize = this.Pages.CurrentPage:GetSize()
 					this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
 

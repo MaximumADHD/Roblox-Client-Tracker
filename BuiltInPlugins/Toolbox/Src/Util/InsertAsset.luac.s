@@ -619,7 +619,7 @@ PROTO_15:
 
 PROTO_16:
         0 NEWTABLE                         R9 0 0
-        2 JUMPIFNOT                        R1 ; [+50]
+        2 JUMPIFNOT                        R1 ; [+52]
         3 GETUPVAL                         R10 0
         4 MOVE                             R11 R2
         5 MOVE                             R12 R3
@@ -646,38 +646,39 @@ PROTO_16:
        29 MOVE                             R12 R0
        30 MOVE                             R13 R8
        31 CALL                             R10 3 0
-       32 JUMP                             ; [+9]
+       32 JUMP                             ; [+11]
        33 GETUPVAL                         R10 3
        34 CALL                             R10 0 1
-       35 JUMPIF                           R10 ; [+6]
+       35 JUMPIF                           R10 ; [+8]
        36 GETUPVAL                         R10 5
        37 CALL                             R10 0 1
-       38 JUMPIFNOT                        R10 ; [+3]
-       39 GETUPVAL                         R10 6
-       40 MOVE                             R11 R4
-       41 CALL                             R10 1 0
-       42 GETUPVAL                         R10 7
-       43 LOADK                            R12 K2 ["AssetInserted"]
-       44 DUPTABLE                         R13 K5 [{"assetId", "assetInstance"}]
-       45 SETTABLEKS                       R0 R13 K3 ["assetId"]
-       47 SETTABLEKS                       R4 R13 K4 ["assetInstance"]
-       49 NAMECALL                         R10 R10 K6 ["fire"]
-       51 CALL                             R10 3 0
-       52 JUMP                             ; [+12]
-       53 GETUPVAL                         R11 8
-       54 GETTABLEKS                       R10 R11 K7 ["shouldDebugWarnings"]
-       56 CALL                             R10 0 1
-       57 JUMPIFNOT                        R10 ; [+4]
-       58 GETIMPORT                        R10 K9 [print]
-       60 LOADK                            R11 K10 ["destroying temp model insert"]
-       61 CALL                             R10 1 0
-       62 NAMECALL                         R10 R3 K11 ["Destroy"]
-       64 CALL                             R10 1 0
-       65 GETUPVAL                         R10 9
-       66 MOVE                             R12 R9
-       67 NAMECALL                         R10 R10 K12 ["Set"]
-       69 CALL                             R10 2 0
-       70 RETURN                           R9 1
+       38 JUMPIFNOT                        R10 ; [+5]
+       39 JUMPIFEQKNIL                     R4 ; [+4]
+       41 GETUPVAL                         R10 6
+       42 MOVE                             R11 R4
+       43 CALL                             R10 1 0
+       44 GETUPVAL                         R10 7
+       45 LOADK                            R12 K2 ["AssetInserted"]
+       46 DUPTABLE                         R13 K5 [{"assetId", "assetInstance"}]
+       47 SETTABLEKS                       R0 R13 K3 ["assetId"]
+       49 SETTABLEKS                       R4 R13 K4 ["assetInstance"]
+       51 NAMECALL                         R10 R10 K6 ["fire"]
+       53 CALL                             R10 3 0
+       54 JUMP                             ; [+12]
+       55 GETUPVAL                         R11 8
+       56 GETTABLEKS                       R10 R11 K7 ["shouldDebugWarnings"]
+       58 CALL                             R10 0 1
+       59 JUMPIFNOT                        R10 ; [+4]
+       60 GETIMPORT                        R10 K9 [print]
+       62 LOADK                            R11 K10 ["destroying temp model insert"]
+       63 CALL                             R10 1 0
+       64 NAMECALL                         R10 R3 K11 ["Destroy"]
+       66 CALL                             R10 1 0
+       67 GETUPVAL                         R10 9
+       68 MOVE                             R12 R9
+       69 NAMECALL                         R10 R10 K12 ["Set"]
+       71 CALL                             R10 2 0
+       72 RETURN                           R9 1
 
 PROTO_17:
         0 GETUPVAL                         R1 0
@@ -2464,7 +2465,7 @@ PROTO_55:
 
 PROTO_56:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+131]
+        1 JUMPIFNOT                        R0 ; [+136]
         2 GETUPVAL                         R0 1
         3 JUMPIFNOT                        R0 ; [+26]
         4 GETUPVAL                         R1 0
@@ -2523,46 +2524,49 @@ PROTO_56:
        79 GETTABLEKS                       R2 R3 K7 ["assetId"]
        81 GETUPVAL                         R3 9
        82 CALL                             R0 3 0
-       83 JUMP                             ; [+11]
+       83 JUMP                             ; [+16]
        84 GETUPVAL                         R0 7
        85 CALL                             R0 0 1
-       86 JUMPIF                           R0 ; [+8]
+       86 JUMPIF                           R0 ; [+13]
        87 GETUPVAL                         R0 10
        88 CALL                             R0 0 1
-       89 JUMPIFNOT                        R0 ; [+5]
-       90 GETUPVAL                         R0 11
-       91 GETUPVAL                         R2 0
-       92 GETTABLEKS                       R1 R2 K10 ["instances"]
-       94 CALL                             R0 1 0
-       95 GETUPVAL                         R1 12
-       96 GETTABLEKS                       R0 R1 K16 ["contains"]
-       98 GETUPVAL                         R2 0
-       99 GETTABLEKS                       R1 R2 K17 ["assetSubTypes"]
-      101 GETUPVAL                         R3 12
-      102 GETTABLEKS                       R2 R3 K18 ["MaterialPack"]
-      104 CALL                             R0 2 1
-      105 JUMPIFNOT                        R0 ; [+11]
-      106 GETUPVAL                         R3 0
-      107 GETTABLEKS                       R0 R3 K10 ["instances"]
-      109 LOADNIL                          R1
-      110 LOADNIL                          R2
-      111 FORGPREP                         R0
-      112 GETUPVAL                         R5 13
-      113 SETTABLEKS                       R5 R4 K19 ["Parent"]
-      115 FORGLOOP                         R0 2 ; [-4]
-      117 GETUPVAL                         R1 0
-      118 GETTABLEKS                       R0 R1 K20 ["onSuccess"]
-      120 JUMPIFNOT                        R0 ; [+10]
-      121 GETUPVAL                         R1 0
-      122 GETTABLEKS                       R0 R1 K20 ["onSuccess"]
-      124 GETUPVAL                         R2 0
-      125 GETTABLEKS                       R1 R2 K7 ["assetId"]
-      127 GETUPVAL                         R3 0
-      128 GETTABLEKS                       R2 R3 K10 ["instances"]
-      130 CALL                             R0 2 0
-      131 LOADNIL                          R0
-      132 SETUPVAL                         R0 0
-      133 RETURN                           R0 0
+       89 JUMPIFNOT                        R0 ; [+10]
+       90 GETUPVAL                         R1 0
+       91 GETTABLEKS                       R0 R1 K10 ["instances"]
+       93 JUMPIFEQKNIL                     R0 ; [+6]
+       95 GETUPVAL                         R0 11
+       96 GETUPVAL                         R2 0
+       97 GETTABLEKS                       R1 R2 K10 ["instances"]
+       99 CALL                             R0 1 0
+      100 GETUPVAL                         R1 12
+      101 GETTABLEKS                       R0 R1 K16 ["contains"]
+      103 GETUPVAL                         R2 0
+      104 GETTABLEKS                       R1 R2 K17 ["assetSubTypes"]
+      106 GETUPVAL                         R3 12
+      107 GETTABLEKS                       R2 R3 K18 ["MaterialPack"]
+      109 CALL                             R0 2 1
+      110 JUMPIFNOT                        R0 ; [+11]
+      111 GETUPVAL                         R3 0
+      112 GETTABLEKS                       R0 R3 K10 ["instances"]
+      114 LOADNIL                          R1
+      115 LOADNIL                          R2
+      116 FORGPREP                         R0
+      117 GETUPVAL                         R5 13
+      118 SETTABLEKS                       R5 R4 K19 ["Parent"]
+      120 FORGLOOP                         R0 2 ; [-4]
+      122 GETUPVAL                         R1 0
+      123 GETTABLEKS                       R0 R1 K20 ["onSuccess"]
+      125 JUMPIFNOT                        R0 ; [+10]
+      126 GETUPVAL                         R1 0
+      127 GETTABLEKS                       R0 R1 K20 ["onSuccess"]
+      129 GETUPVAL                         R2 0
+      130 GETTABLEKS                       R1 R2 K7 ["assetId"]
+      132 GETUPVAL                         R3 0
+      133 GETTABLEKS                       R2 R3 K10 ["instances"]
+      135 CALL                             R0 2 0
+      136 LOADNIL                          R0
+      137 SETUPVAL                         R0 0
+      138 RETURN                           R0 0
 
 PROTO_57:
         0 GETIMPORT                        R0 K1 [spawn]

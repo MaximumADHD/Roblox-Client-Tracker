@@ -20,6 +20,7 @@ function BannerButton:render()
 	local isExpanded = self.props.isExpanded
 	local layoutOrder = self.props.layoutOrder
 	local inset = self.props.inset or 0
+	local hideLines = self.props.hideLines
 
 	local onButtonPress = self.props.onButtonPress
 	local onMouseEnter = self.props.onMouseEnter
@@ -35,20 +36,22 @@ function BannerButton:render()
 			Size = UDim2.new(0, ARROW_WIDTH, 0, ARROW_WIDTH),
 			Position = UDim2.new(0, inset, 0.5, -ARROW_WIDTH / 2),
 		}),
+	}
 
-		HorizontalLineTop = Roact.createElement("Frame", {
+	if not hideLines then
+		bannerElements.HorizontalLineTop = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, LINE_WIDTH),
 			BackgroundColor3 = LINE_COLOR,
 			BorderSizePixel = 0,
-		}),
+		})
 
-		HorizontalLineBottom = Roact.createElement("Frame", {
+		bannerElements.HorizontalLineBottom = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, LINE_WIDTH),
 			Position = UDim2.new(0, 0, 1, -LINE_WIDTH),
 			BackgroundColor3 = LINE_COLOR,
 			BorderSizePixel = 0,
-		}),
-	}
+		})
+	end
 
 	return Roact.createElement("ImageButton", {
 		Size = size,

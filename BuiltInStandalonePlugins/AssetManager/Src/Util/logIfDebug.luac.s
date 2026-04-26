@@ -3,8 +3,8 @@ PROTO_0:
         1 CALL                             R2 0 1
         2 JUMPIF                           R2 ; [+1]
         3 RETURN                           R0 0
-        4 JUMPIFNOT                        R1 ; [+11]
-        5 JUMPIFNOTEQKS                    R1 K0 ["WARN"] ; [+10]
+        4 JUMPIFNOT                        R1 ; [+12]
+        5 JUMPIFNOTEQKS                    R1 K0 ["WARN"] ; [+11]
         7 GETIMPORT                        R2 K2 [warn]
         9 LOADK                            R4 K3 ["AssetManager: %*"]
        10 MOVE                             R6 R0
@@ -12,14 +12,15 @@ PROTO_0:
        13 CALL                             R4 2 1
        14 MOVE                             R3 R4
        15 CALL                             R2 1 0
-       16 GETIMPORT                        R2 K6 [print]
-       18 LOADK                            R4 K3 ["AssetManager: %*"]
-       19 MOVE                             R6 R0
-       20 NAMECALL                         R4 R4 K4 ["format"]
-       22 CALL                             R4 2 1
-       23 MOVE                             R3 R4
-       24 CALL                             R2 1 0
-       25 RETURN                           R0 0
+       16 RETURN                           R0 0
+       17 GETIMPORT                        R2 K6 [print]
+       19 LOADK                            R4 K3 ["AssetManager: %*"]
+       20 MOVE                             R6 R0
+       21 NAMECALL                         R4 R4 K4 ["format"]
+       23 CALL                             R4 2 1
+       24 MOVE                             R3 R4
+       25 CALL                             R2 1 0
+       26 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

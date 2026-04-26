@@ -3,8 +3,6 @@ local Chrome = script:FindFirstAncestor("Chrome")
 
 local ChromeService = require(Chrome.Service)
 
-local GetFFlagAppChatAddConnectUnibarForActiveSquad =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAppChatAddConnectUnibarForActiveSquad
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 
@@ -29,7 +27,7 @@ local function canAccessParty()
 end
 
 local function shouldEnableIntegrationForParty(): boolean
-	return GetFFlagAppChatAddConnectUnibarForActiveSquad() and canAccessParty() and isConnectDropdownEnabled()
+	return GetFFlagIsSquadEnabled() and canAccessParty() and isConnectDropdownEnabled()
 end
 
 local integration = nil
@@ -93,9 +91,7 @@ if isConnectUnibarEnabled() then
 		-- s2, AppChat launches dropdown entrypoint: need to hide and show connect_unibar
 		--   see logic below
 
-		local currentIntegrationSoleyForParty = GetFFlagAppChatAddConnectUnibarForActiveSquad()
-			and GetFFlagIsSquadEnabled()
-			and isConnectDropdownEnabled()
+		local currentIntegrationSoleyForParty = GetFFlagIsSquadEnabled() and isConnectDropdownEnabled()
 		integration = registerConnectIntegration(
 			"connect_unibar",
 			if currentIntegrationSoleyForParty

@@ -109,4 +109,16 @@ MAIN:
       168 SETTABLEKS                       R6 R5 K55 ["FolderForbiddenChars"]
       170 LOADN                            R6 3
       171 SETTABLEKS                       R6 R5 K56 ["SearchFoldersResultCountDefault"]
-      173 RETURN                           R5 1
+      173 DUPTABLE                         R6 K59 [{"DeleteFolder", "GetItems"}]
+      174 NEWTABLE                         R7 2 0
+      176 LOADK                            R8 K60 ["DeleteFolderFailedNotEmpty"]
+      177 SETTABLEN                        R8 R7 1
+      178 LOADK                            R8 K61 ["FolderNotFound"]
+      179 SETTABLEN                        R8 R7 5
+      180 SETTABLEKS                       R7 R6 K57 ["DeleteFolder"]
+      182 NEWTABLE                         R7 1 0
+      184 LOADK                            R8 K61 ["FolderNotFound"]
+      185 SETTABLEN                        R8 R7 5
+      186 SETTABLEKS                       R7 R6 K58 ["GetItems"]
+      188 SETTABLEKS                       R6 R5 K62 ["ErrorTypeLookup"]
+      190 RETURN                           R5 1

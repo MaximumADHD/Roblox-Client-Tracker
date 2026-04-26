@@ -29,39 +29,39 @@ PROTO_1:
        11 RETURN                           R0 0
        12 GETTABLEN                        R3 R1 1
        13 SETTABLEKS                       R3 R0 K6 ["_initialJoint"]
-       15 JUMPIFNOT                        R2 ; [+27]
-       16 GETTABLEKS                       R3 R2 K7 ["Get"]
-       18 JUMPIFNOT                        R3 ; [+24]
-       19 NAMECALL                         R3 R2 K7 ["Get"]
-       21 CALL                             R3 1 1
-       22 MOVE                             R4 R3
-       23 JUMPIFNOT                        R4 ; [+1]
-       24 GETTABLEN                        R4 R3 1
-       25 JUMPIFNOT                        R4 ; [+8]
-       26 GETTABLEKS                       R5 R4 K8 ["Transform"]
-       28 JUMPIFNOT                        R5 ; [+5]
-       29 GETTABLEKS                       R5 R4 K8 ["Transform"]
-       31 SETTABLEKS                       R5 R0 K9 ["_initialWorldCFrame"]
-       33 JUMP                             ; [+17]
-       34 GETUPVAL                         R6 0
-       35 GETTABLEKS                       R5 R6 K10 ["getGlobalCoordinateFrame"]
-       37 GETTABLEKS                       R6 R0 K6 ["_initialJoint"]
-       39 CALL                             R5 1 1
-       40 SETTABLEKS                       R5 R0 K9 ["_initialWorldCFrame"]
-       42 JUMP                             ; [+8]
-       43 GETUPVAL                         R4 0
-       44 GETTABLEKS                       R3 R4 K10 ["getGlobalCoordinateFrame"]
-       46 GETTABLEKS                       R4 R0 K6 ["_initialJoint"]
-       48 CALL                             R3 1 1
-       49 SETTABLEKS                       R3 R0 K9 ["_initialWorldCFrame"]
-       51 GETUPVAL                         R4 0
-       52 GETTABLEKS                       R3 R4 K11 ["getJointTransform"]
-       54 GETTABLEKS                       R4 R0 K6 ["_initialJoint"]
-       56 CALL                             R3 1 1
-       57 JUMPIF                           R3 ; [+2]
-       58 GETIMPORT                        R3 K13 [CFrame.identity]
-       60 SETTABLEKS                       R3 R0 K5 ["_initialTransform"]
-       62 GETIMPORT                        R3 K13 [CFrame.identity]
+       15 GETUPVAL                         R4 0
+       16 GETTABLEKS                       R3 R4 K7 ["getJointTransform"]
+       18 GETTABLEKS                       R4 R0 K6 ["_initialJoint"]
+       20 CALL                             R3 1 1
+       21 JUMPIF                           R3 ; [+2]
+       22 GETIMPORT                        R3 K9 [CFrame.identity]
+       24 SETTABLEKS                       R3 R0 K5 ["_initialTransform"]
+       26 JUMPIFNOT                        R2 ; [+27]
+       27 GETTABLEKS                       R3 R2 K10 ["Get"]
+       29 JUMPIFNOT                        R3 ; [+24]
+       30 NAMECALL                         R3 R2 K10 ["Get"]
+       32 CALL                             R3 1 1
+       33 MOVE                             R4 R3
+       34 JUMPIFNOT                        R4 ; [+1]
+       35 GETTABLEN                        R4 R3 1
+       36 JUMPIFNOT                        R4 ; [+8]
+       37 GETTABLEKS                       R5 R4 K11 ["Transform"]
+       39 JUMPIFNOT                        R5 ; [+5]
+       40 GETTABLEKS                       R5 R4 K11 ["Transform"]
+       42 SETTABLEKS                       R5 R0 K12 ["_initialWorldCFrame"]
+       44 JUMP                             ; [+17]
+       45 GETUPVAL                         R6 0
+       46 GETTABLEKS                       R5 R6 K13 ["getGlobalCoordinateFrame"]
+       48 GETTABLEKS                       R6 R0 K6 ["_initialJoint"]
+       50 CALL                             R5 1 1
+       51 SETTABLEKS                       R5 R0 K12 ["_initialWorldCFrame"]
+       53 JUMP                             ; [+8]
+       54 GETUPVAL                         R4 0
+       55 GETTABLEKS                       R3 R4 K13 ["getGlobalCoordinateFrame"]
+       57 GETTABLEKS                       R4 R0 K6 ["_initialJoint"]
+       59 CALL                             R3 1 1
+       60 SETTABLEKS                       R3 R0 K12 ["_initialWorldCFrame"]
+       62 GETIMPORT                        R3 K9 [CFrame.identity]
        64 GETTABLEKS                       R4 R0 K14 ["_hrd"]
        66 JUMPIFNOT                        R4 ; [+63]
        67 GETUPVAL                         R4 1
@@ -83,7 +83,7 @@ PROTO_1:
        88 NAMECALL                         R6 R4 K18 ["GetTposeAdjustment"]
        90 CALL                             R6 2 1
        91 JUMPIF                           R6 ; [+2]
-       92 GETIMPORT                        R6 K13 [CFrame.identity]
+       92 GETIMPORT                        R6 K9 [CFrame.identity]
        94 MOVE                             R3 R6
        95 JUMP                             ; [+34]
        96 GETTABLEKS                       R4 R0 K14 ["_hrd"]
@@ -106,7 +106,7 @@ PROTO_1:
       120 NAMECALL                         R10 R9 K18 ["GetTposeAdjustment"]
       122 CALL                             R10 2 1
       123 JUMPIF                           R10 ; [+2]
-      124 GETIMPORT                        R10 K13 [CFrame.identity]
+      124 GETIMPORT                        R10 K9 [CFrame.identity]
       126 MOVE                             R3 R10
       127 JUMP                             ; [+2]
       128 FORGLOOP                         R4 2 ; [-20]

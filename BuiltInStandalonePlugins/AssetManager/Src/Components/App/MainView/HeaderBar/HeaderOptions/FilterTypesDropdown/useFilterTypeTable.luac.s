@@ -376,11 +376,11 @@ PROTO_15:
         5 RETURN                           R0 0
 
 PROTO_16:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R1 1
-        2 GETUPVAL                         R2 2
-        3 CALL                             R1 1 1
-        4 CALL                             R0 1 0
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R2 1
+        2 GETUPVAL                         R3 2
+        3 CALL                             R2 1 1
+        4 CALL                             R1 1 0
         5 RETURN                           R0 0
 
 PROTO_17:

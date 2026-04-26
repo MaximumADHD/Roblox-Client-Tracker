@@ -3,6 +3,8 @@ local root = script.Parent.Parent
 local Cryo = require(root.Parent.Cryo)
 
 local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
+local FFlagUGCValidationValueToStringVector3Precision =
+	game:DefineFastFlag("UGCValidationValueToStringVector3Precision", false)
 
 local function round(num, numDecimalPlaces)
 	local mult = 10 ^ (numDecimalPlaces or 0)
@@ -14,7 +16,8 @@ local function valueToString(propValue)
 	if propValue == Cryo.None then
 		return "not defined"
 	elseif valueType == "Vector3" then
-		return string.format("%d, %d, %d", round(propValue.X, 2), round(propValue.Y, 2), round(propValue.Z, 2))
+		local fmt = if FFlagUGCValidationValueToStringVector3Precision then "%g, %g, %g" else "%d, %d, %d"
+		return string.format(fmt, round(propValue.X, 2), round(propValue.Y, 2), round(propValue.Z, 2))
 	elseif valueType == "Color3" then
 		return string.format(
 			"%d, %d, %d",

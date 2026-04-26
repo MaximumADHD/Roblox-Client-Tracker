@@ -47,8 +47,6 @@ game:DefineFastInt("CoreScriptBacktraceRepeatedErrorRateLimitPeriod", 60)
 game:DefineFastInt("CoreScriptBacktraceRepeatedErrorRateLimitProcessIntervalTenths", 10)
 
 game:DefineFastInt("CoreScriptBacktraceErrorReportPercentage", 100)
-
-local FFlagEnableLuaCoreScriptsErrorV2Counter = game:DefineFastFlag("EnableLuaCoreScriptsErrorV2Counter", false)
 local FFlagEnableCoreScriptsSessionWithError = game:DefineFastFlag("EnableCoreScriptsSessionWithError", false)
 
 local function CanReportCoreScriptBacktrace()
@@ -145,9 +143,7 @@ then
 			end
 
 			reporter:reportErrorDeferred(cleanedMessage, cleanedStack, details)
-			if FFlagEnableLuaCoreScriptsErrorV2Counter then
-				LoggingProtocol:logRobloxTelemetryCounter(LuaCoreScriptsErrorV2CounterConfig, 1)
-			end
+			LoggingProtocol:logRobloxTelemetryCounter(LuaCoreScriptsErrorV2CounterConfig, 1)
 
 			if FFlagEnableCoreScriptsSessionWithError then
 				sessionErrorReporter:reportEvent(1, nil, "ERROR")

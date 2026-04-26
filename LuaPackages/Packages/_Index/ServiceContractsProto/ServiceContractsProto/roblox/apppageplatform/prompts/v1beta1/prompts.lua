@@ -13,6 +13,7 @@ type _Messages = {
 	GetEligiblePromptsResponse: _GetEligiblePromptsResponseMessage,
 	GetEligiblePromptsResponse_TemplatesEntry: _GetEligiblePromptsResponse_TemplatesEntryMessage,
 	GetEligiblePromptsResponse_CustomPromptsEntry: _GetEligiblePromptsResponse_CustomPromptsEntryMessage,
+	GetEligiblePromptsResponse_LocalizedLiteralsEntry: _GetEligiblePromptsResponse_LocalizedLiteralsEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -119,6 +120,7 @@ type _GetEligiblePromptsResponseFields = {
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry },
 	custom_prompts: { [string]: CustomPrompt },
+	localized_literals: { [string]: string },
 }
 
 type _GetEligiblePromptsResponsePartialFields = {
@@ -126,6 +128,7 @@ type _GetEligiblePromptsResponsePartialFields = {
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry }?,
 	custom_prompts: { [string]: CustomPrompt }?,
+	localized_literals: { [string]: string }?,
 }
 
 export type GetEligiblePromptsResponse = typeof(setmetatable(
@@ -197,6 +200,37 @@ export type GetEligiblePromptsResponse_CustomPromptsEntry = typeof(setmetatable(
 type _GetEligiblePromptsResponse_CustomPromptsEntryMessage = proto.Message<
 	GetEligiblePromptsResponse_CustomPromptsEntry,
 	_GetEligiblePromptsResponse_CustomPromptsEntryPartialFields
+>
+
+type _GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl = {
+	__index: _GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl,
+	new: (
+		fields: _GetEligiblePromptsResponse_LocalizedLiteralsEntryPartialFields?
+	) -> GetEligiblePromptsResponse_LocalizedLiteralsEntry,
+	encode: (self: GetEligiblePromptsResponse_LocalizedLiteralsEntry) -> buffer,
+	decode: (input: buffer) -> GetEligiblePromptsResponse_LocalizedLiteralsEntry,
+	jsonEncode: (self: GetEligiblePromptsResponse_LocalizedLiteralsEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GetEligiblePromptsResponse_LocalizedLiteralsEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _GetEligiblePromptsResponse_LocalizedLiteralsEntryFields = {
+	key: string,
+	value: string,
+}
+
+type _GetEligiblePromptsResponse_LocalizedLiteralsEntryPartialFields = {
+	key: string?,
+	value: string?,
+}
+
+export type GetEligiblePromptsResponse_LocalizedLiteralsEntry = typeof(setmetatable(
+	{} :: _GetEligiblePromptsResponse_LocalizedLiteralsEntryFields,
+	{} :: _GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl
+))
+type _GetEligiblePromptsResponse_LocalizedLiteralsEntryMessage = proto.Message<
+	GetEligiblePromptsResponse_LocalizedLiteralsEntry,
+	_GetEligiblePromptsResponse_LocalizedLiteralsEntryPartialFields
 >
 
 do
@@ -611,6 +645,7 @@ do
 			hydration_data = if data == nil or data.hydration_data == nil then nil else data.hydration_data,
 			templates = if data == nil or data.templates == nil then {} else data.templates,
 			custom_prompts = if data == nil or data.custom_prompts == nil then {} else data.custom_prompts,
+			localized_literals = if data == nil or data.localized_literals == nil then {} else data.localized_literals,
 		}, _GetEligiblePromptsResponseImpl :: _GetEligiblePromptsResponseImpl)
 	end
 
@@ -656,6 +691,19 @@ do
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
 				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
 				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.localized_literals ~= nil and next(self.localized_literals) ~= nil then
+			for key, value in self.localized_literals do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, value)
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
 			end
 		end
@@ -717,6 +765,18 @@ do
 					self.custom_prompts[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.GetEligiblePromptsResponse_LocalizedLiteralsEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = ""
+
+					self.localized_literals[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
 				end
 
 				local length
@@ -770,6 +830,14 @@ do
 				newOutput[key] = value:jsonEncode()
 			end
 			output.customPrompts = newOutput
+		end
+
+		if self.localized_literals ~= nil and next(self.localized_literals) ~= nil then
+			local newOutput = {}
+			for key, value in self.localized_literals do
+				newOutput[key] = value
+			end
+			output.localizedLiterals = newOutput
 		end
 
 		return output
@@ -839,6 +907,24 @@ do
 			end
 
 			self.custom_prompts = newOutput
+		end
+
+		if input.localized_literals ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.localized_literals do
+				newOutput[key] = value
+			end
+
+			self.localized_literals = newOutput
+		end
+
+		if input.localizedLiterals ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.localizedLiterals do
+				newOutput[key] = value
+			end
+
+			self.localized_literals = newOutput
 		end
 
 		return self
@@ -1106,6 +1192,137 @@ do
 	messages.GetEligiblePromptsResponse_CustomPromptsEntry = _GetEligiblePromptsResponse_CustomPromptsEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.GetEligiblePromptsResponse_CustomPromptsEntry)
+end
+
+do
+	local _GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl = {}
+	_GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl.__index =
+		_GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl
+
+	function _GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl.new(
+		data: _GetEligiblePromptsResponse_LocalizedLiteralsEntryPartialFields?
+	): GetEligiblePromptsResponse_LocalizedLiteralsEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then "" else data.value,
+			},
+			_GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl :: _GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl
+		)
+	end
+
+	function _GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl.encode(
+		self: GetEligiblePromptsResponse_LocalizedLiteralsEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.value)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl.decode(
+		input: buffer
+	): GetEligiblePromptsResponse_LocalizedLiteralsEntry
+		local self = _GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl.jsonEncode(
+		self: GetEligiblePromptsResponse_LocalizedLiteralsEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output.value = self.value
+		end
+
+		return output
+	end
+
+	function _GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): GetEligiblePromptsResponse_LocalizedLiteralsEntry
+		local self = _GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = input.value
+		end
+
+		return self
+	end
+
+	_GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl.descriptor = {
+		name = "GetEligiblePromptsResponse_LocalizedLiteralsEntry",
+		fullName = "roblox.apppageplatform.prompts.v1beta1.LocalizedLiteralsEntry",
+	}
+
+	messages.GetEligiblePromptsResponse_LocalizedLiteralsEntry =
+		_GetEligiblePromptsResponse_LocalizedLiteralsEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GetEligiblePromptsResponse_LocalizedLiteralsEntry)
 end
 
 return {

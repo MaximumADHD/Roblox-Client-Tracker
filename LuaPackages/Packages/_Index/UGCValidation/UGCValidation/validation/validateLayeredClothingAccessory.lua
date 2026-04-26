@@ -57,6 +57,8 @@ local getFFlagUGCValidateEyebrowEyelashThumbnailSchema =
 	require(root.flags.getFFlagUGCValidateEyebrowEyelashThumbnailSchema)
 
 local ValidateMeshPartOnlySkinnedToR15 = require(root.validation.ValidateMeshPartOnlySkinnedToR15)
+local getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning =
+	require(root.flags.getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning)
 
 local function validateLayeredClothingAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
 	local instances = validationContext.instances
@@ -408,19 +410,21 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		end
 	end
 
-	if getEngineUGCValidateRelativeSkinningTransfer() then
-		success, failedReason = validateSkinningTransfer(handle, validationContext)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
+	if not getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning() then
+		if getEngineUGCValidateRelativeSkinningTransfer() then
+			success, failedReason = validateSkinningTransfer(handle, validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
 		end
-	end
 
-	if not Constants.SkinningTransferRequiredTypes[assetTypeEnum] then
-		success, failedReason = ValidateMeshPartOnlySkinnedToR15.validateMeshPart(handle, validationContext)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
+		if not Constants.SkinningTransferRequiredTypes[assetTypeEnum] then
+			success, failedReason = ValidateMeshPartOnlySkinnedToR15.validateMeshPart(handle, validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
 		end
 	end
 

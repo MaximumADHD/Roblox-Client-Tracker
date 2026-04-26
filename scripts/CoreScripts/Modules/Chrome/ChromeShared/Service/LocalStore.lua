@@ -3,14 +3,12 @@ local Root = script:FindFirstAncestor("ChromeShared")
 local AppStorageService = game:GetService("AppStorageService")
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
-local CorePackages = game:GetService("CorePackages")
 
 local Constants = require(Root.Unibar.Constants)
 
 local hasEngineSupport = game:GetEngineFeature("InGameMenuStateStorageKey")
 
 local APP_STORAGE_KEY = "InGameMenuState"
-local FFlagEnableUnibarFtuxTooltips = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUnibarFtuxTooltips
 
 local storeRoot: any
 local loaded = false
@@ -138,11 +136,8 @@ local function load(key: string, selector): any
 end
 
 local function getValue(key: string): any
-	if FFlagEnableUnibarFtuxTooltips then
-		local value = load(key, localPlayerSelector)
-		return value
-	end
-	return nil
+	local value = load(key, localPlayerSelector)
+	return value
 end
 
 local function getUniversesExposedTo(key: string): { number? }

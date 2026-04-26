@@ -10,6 +10,7 @@ type ValidationRulesUtil = {
 	getBodyPartRules: (self: ValidationRulesUtil, dest: { [Enum.AssetType]: any }) -> (),
 	getFullBodyRulesBounds: (self: ValidationRulesUtil) -> { [string]: { minSize: number, maxSize: number } },
 	getMakeupRules: (self: ValidationRulesUtil) -> any,
+	getLCSizeLimit: (self: ValidationRulesUtil, assetType: Enum.AssetType, handle: BasePart) -> (boolean, Vector3?),
 }
 
 local ValidationRulesUtilImpl = {}
@@ -157,6 +158,15 @@ function ValidationRulesUtilImpl:getFullBodyRulesBounds()
 	return result
 end
 
+function ValidationRulesUtilImpl:getLCSizeLimit(assetType: Enum.AssetType, handle: BasePart): (boolean, Vector3?)
+	local accessoryRules = ValidationRulesUtilImpl:getRules().AccessoryRules[assetType]
+	for _, attachmentInfo in accessoryRules.Attachments do
+		if handle:FindFirstChild(attachmentInfo.Name) then
+			return true, attachmentInfo.Size
+		end
+	end
+	return false, nil
+end
 local ValidationRulesUtil: ValidationRulesUtil = ValidationRulesUtilImpl
 
 return ValidationRulesUtil

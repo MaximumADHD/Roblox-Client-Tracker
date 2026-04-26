@@ -1,5 +1,6 @@
 local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
 local React = require(CorePackages.Packages.React)
 
 local FFlagAbuseReportMenuScreenshotReduceMotionFix =
@@ -7,6 +8,8 @@ local FFlagAbuseReportMenuScreenshotReduceMotionFix =
 local FIntAbuseReportMenuScreenshotReduceMotionWaitFrames =
 	game:DefineFastInt("AbuseReportMenuScreenshotReduceMotionWaitFrames", 20)
 local FIntAbuseReportMenuScreenshotWaitFrames = game:DefineFastInt("AbuseReportMenuScreenshotWaitFrames", 10)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
 
 local UserGameSettings
 if FFlagAbuseReportMenuScreenshotReduceMotionFix then
@@ -39,11 +42,19 @@ local useHideForScreenshot = function(
 	onUserInitiatedHide
 )
 	local isHidingForScreenshot, setIsHidingForScreenshot = React.useState(false)
+	local lastSelected = if FFlagIEMTabFocusNav then React.useRef(nil :: GuiObject?) else nil :: never
 	React.useEffect(function()
 		if isReportTabVisible then
 			if isHidingForScreenshot then
+				if FFlagIEMTabFocusNav and lastSelected.current and lastSelected.current:IsDescendantOf(game) then
+					GuiService.SelectedCoreObject = lastSelected.current
+					lastSelected.current = nil
+				end
 				setIsHidingForScreenshot(false)
 			elseif shouldcapturescreenshot then
+				if FFlagIEMTabFocusNav then
+					lastSelected.current = GuiService.SelectedCoreObject
+				end
 				setIsHidingForScreenshot(true)
 				hideReportTab()
 

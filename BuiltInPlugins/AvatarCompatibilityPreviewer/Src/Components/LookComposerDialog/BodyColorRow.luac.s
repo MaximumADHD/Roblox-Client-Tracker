@@ -42,7 +42,7 @@ PROTO_1:
        36 GETTABLEKS                       R5 R6 K6 ["createElement"]
        38 GETUPVAL                         R6 3
        39 DUPTABLE                         R7 K12 [{"tag", "Size", "AutomaticSize", "LayoutOrder", "GroupTransparency"}]
-       40 LOADK                            R8 K13 ["row gap-medium align-y-top padding-small"]
+       40 LOADK                            R8 K13 ["row gap-medium align-y-top padding-bottom-xlarge"]
        41 SETTABLEKS                       R8 R7 K7 ["tag"]
        43 GETIMPORT                        R8 K16 [UDim2.new]
        45 LOADN                            R9 1
@@ -65,11 +65,11 @@ PROTO_1:
        68 GETTABLEKS                       R9 R10 K6 ["createElement"]
        70 GETUPVAL                         R10 3
        71 DUPTABLE                         R11 K25 [{"tag", "Size", "LayoutOrder"}]
-       72 LOADK                            R12 K26 ["stroke-default radius-small"]
+       72 LOADK                            R12 K26 ["stroke-default radius-medium"]
        73 SETTABLEKS                       R12 R11 K7 ["tag"]
        75 GETIMPORT                        R12 K28 [UDim2.fromOffset]
-       77 LOADN                            R13 48
-       78 LOADN                            R14 48
+       77 LOADN                            R13 40
+       78 LOADN                            R14 40
        79 CALL                             R12 2 1
        80 SETTABLEKS                       R12 R11 K8 ["Size"]
        82 LOADN                            R12 1
@@ -124,7 +124,7 @@ PROTO_1:
       149 NAMECALL                         R16 R1 K52 ["getText"]
       151 CALL                             R16 3 1
       152 SETTABLEKS                       R16 R15 K48 ["Text"]
-      154 LOADK                            R16 K53 ["text-label-medium auto-xy content-default"]
+      154 LOADK                            R16 K53 ["text-label-medium auto-xy content-emphasis"]
       155 SETTABLEKS                       R16 R15 K7 ["tag"]
       157 LOADN                            R16 1
       158 SETTABLEKS                       R16 R15 K10 ["LayoutOrder"]

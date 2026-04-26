@@ -18,9 +18,15 @@ MAIN:
        27 GETTABLEKS                       R6 R7 K8 ["Api"]
        29 GETTABLEKS                       R5 R6 K10 ["SubagentConversation"]
        31 CALL                             R4 1 1
-       32 GETIMPORT                        R5 K13 [table.freeze]
-       34 DUPTABLE                         R6 K14 [{"Conversation", "SubagentConversation"}]
-       35 SETTABLEKS                       R3 R6 K9 ["Conversation"]
-       37 SETTABLEKS                       R4 R6 K10 ["SubagentConversation"]
-       39 CALL                             R5 1 -1
-       40 RETURN                           R5 -1
+       32 GETIMPORT                        R5 K6 [require]
+       34 GETIMPORT                        R8 K1 [script]
+       36 GETTABLEKS                       R7 R8 K8 ["Api"]
+       38 GETTABLEKS                       R6 R7 K11 ["SystemPrompt"]
+       40 CALL                             R5 1 1
+       41 GETIMPORT                        R6 K14 [table.freeze]
+       43 DUPTABLE                         R7 K15 [{"Conversation", "SubagentConversation", "SystemPrompt"}]
+       44 SETTABLEKS                       R3 R7 K9 ["Conversation"]
+       46 SETTABLEKS                       R4 R7 K10 ["SubagentConversation"]
+       48 SETTABLEKS                       R5 R7 K11 ["SystemPrompt"]
+       50 CALL                             R6 1 -1
+       51 RETURN                           R6 -1

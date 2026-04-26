@@ -14,7 +14,7 @@ PROTO_0:
        16 MOVE                             R1 R2
        17 RETURN                           R1 1
        18 GETTABLEKS                       R1 R0 K5 ["ageRecommendationDetails"]
-       20 JUMPIFNOT                        R1 ; [+83]
+       20 JUMPIFNOT                        R1 ; [+106]
        21 FASTCALL1                        TYPEOF R1 ; [+3]
        22 MOVE                             R3 R1
        23 GETIMPORT                        R2 K1 [typeof]
@@ -30,7 +30,7 @@ PROTO_0:
        37 MOVE                             R2 R3
        38 RETURN                           R2 1
        39 GETTABLEKS                       R2 R1 K7 ["ageRecommendationSummary"]
-       41 JUMPIFNOT                        R2 ; [+62]
+       41 JUMPIFNOT                        R2 ; [+85]
        42 FASTCALL1                        TYPEOF R2 ; [+3]
        43 MOVE                             R4 R2
        44 GETIMPORT                        R3 K1 [typeof]
@@ -46,7 +46,7 @@ PROTO_0:
        58 MOVE                             R3 R4
        59 RETURN                           R3 1
        60 GETTABLEKS                       R3 R2 K9 ["ageRecommendation"]
-       62 JUMPIFNOT                        R3 ; [+41]
+       62 JUMPIFNOT                        R3 ; [+64]
        63 FASTCALL1                        TYPEOF R3 ; [+3]
        64 MOVE                             R5 R3
        65 GETIMPORT                        R4 K1 [typeof]
@@ -77,24 +77,40 @@ PROTO_0:
       101 CALL                             R5 2 1
       102 MOVE                             R4 R5
       103 RETURN                           R4 1
-      104 GETTABLEKS                       R2 R0 K14 ["universeId"]
-      106 JUMPIFNOT                        R2 ; [+20]
-      107 GETTABLEKS                       R3 R0 K14 ["universeId"]
-      109 FASTCALL1                        TYPEOF R3 ; [+2]
-      110 GETIMPORT                        R2 K1 [typeof]
-      112 CALL                             R2 1 1
-      113 JUMPIFEQKS                       R2 K12 ["number"] ; [+13]
-      115 LOADK                            R3 K15 ["\"universeId\" > Expected number, got %*"]
-      116 GETTABLEKS                       R6 R0 K14 ["universeId"]
-      118 FASTCALL1                        TYPEOF R6 ; [+2]
-      119 GETIMPORT                        R5 K1 [typeof]
-      121 CALL                             R5 1 1
-      122 NAMECALL                         R3 R3 K4 ["format"]
-      124 CALL                             R3 2 1
-      125 MOVE                             R2 R3
-      126 RETURN                           R2 1
-      127 LOADNIL                          R2
-      128 RETURN                           R2 1
+      104 GETTABLEKS                       R4 R3 K14 ["contentMaturity"]
+      106 JUMPIFNOT                        R4 ; [+20]
+      107 GETTABLEKS                       R5 R3 K14 ["contentMaturity"]
+      109 FASTCALL1                        TYPEOF R5 ; [+2]
+      110 GETIMPORT                        R4 K1 [typeof]
+      112 CALL                             R4 1 1
+      113 JUMPIFEQKS                       R4 K15 ["string"] ; [+13]
+      115 LOADK                            R5 K16 ["\"ageRecommendationDetails\" > \"ageRecommendationSummary\" > \"ageRecommendation\" > \"contentMaturity\" > Expected string, got %*"]
+      116 GETTABLEKS                       R8 R3 K14 ["contentMaturity"]
+      118 FASTCALL1                        TYPEOF R8 ; [+2]
+      119 GETIMPORT                        R7 K1 [typeof]
+      121 CALL                             R7 1 1
+      122 NAMECALL                         R5 R5 K4 ["format"]
+      124 CALL                             R5 2 1
+      125 MOVE                             R4 R5
+      126 RETURN                           R4 1
+      127 GETTABLEKS                       R2 R0 K17 ["universeId"]
+      129 JUMPIFNOT                        R2 ; [+20]
+      130 GETTABLEKS                       R3 R0 K17 ["universeId"]
+      132 FASTCALL1                        TYPEOF R3 ; [+2]
+      133 GETIMPORT                        R2 K1 [typeof]
+      135 CALL                             R2 1 1
+      136 JUMPIFEQKS                       R2 K12 ["number"] ; [+13]
+      138 LOADK                            R3 K18 ["\"universeId\" > Expected number, got %*"]
+      139 GETTABLEKS                       R6 R0 K17 ["universeId"]
+      141 FASTCALL1                        TYPEOF R6 ; [+2]
+      142 GETIMPORT                        R5 K1 [typeof]
+      144 CALL                             R5 1 1
+      145 NAMECALL                         R3 R3 K4 ["format"]
+      147 CALL                             R3 2 1
+      148 MOVE                             R2 R3
+      149 RETURN                           R2 1
+      150 LOADNIL                          R2
+      151 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

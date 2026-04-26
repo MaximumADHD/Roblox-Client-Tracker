@@ -198,188 +198,190 @@ PROTO_8:
        77 SETTABLEKS                       R12 R11 K22 ["text"]
        79 GETTABLEKS                       R12 R0 K23 ["layoutOrder"]
        81 SETTABLEKS                       R12 R11 K23 ["layoutOrder"]
-       83 LOADB                            R12 1
-       84 SETTABLEKS                       R12 R11 K24 ["showWarning"]
-       86 DUPTABLE                         R12 K35 [{"CharacterControllerModeSelector", "EnableRunningCheckbox", "EnableJumpingCheckbox", "EnableSittingCheckbox", "EnableFallingDownCheckbox", "EnableGettingUpCheckbox", "EnableClimbingCheckbox", "EnableSwimmingCheckbox"}]
-       87 GETUPVAL                         R13 5
-       88 GETUPVAL                         R14 7
-       89 DUPTABLE                         R15 K40 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
-       90 MOVE                             R16 R3
-       91 CALL                             R16 0 1
-       92 SETTABLEKS                       R16 R15 K23 ["layoutOrder"]
-       94 SETTABLEKS                       R8 R15 K36 ["items"]
-       96 SETTABLEKS                       R6 R15 K37 ["selected"]
-       98 NEWCLOSURE                       R16 P0
-       99 CAPTURE                          VAL R6
-      100 CAPTURE                          VAL R2
-      101 CAPTURE                          VAL R5
-      102 SETTABLEKS                       R16 R15 K38 ["onItemActivated"]
-      104 LOADK                            R18 K18 ["MovementSettings"]
-      105 JUMPIFNOT                        R7 ; [+2]
-      106 LOADK                            R19 K41 ["AbilitiesSectionControllerModeLuaSubText"]
-      107 JUMP                             ; [+1]
-      108 LOADK                            R19 K42 ["AbilitiesSectionControllerModeLegacySubText"]
-      109 NAMECALL                         R16 R1 K20 ["getText"]
-      111 CALL                             R16 3 1
-      112 SETTABLEKS                       R16 R15 K39 ["subText"]
-      114 CALL                             R13 2 1
-      115 SETTABLEKS                       R13 R12 K27 ["CharacterControllerModeSelector"]
-      117 MOVE                             R13 R7
-      118 JUMPIFNOT                        R13 ; [+26]
-      119 GETUPVAL                         R13 5
-      120 GETUPVAL                         R14 8
-      121 DUPTABLE                         R15 K47 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
-      122 MOVE                             R16 R3
-      123 CALL                             R16 0 1
-      124 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
-      126 GETTABLEKS                       R17 R5 K48 ["defaultAbilitiesEnableRunningSetting"]
-      128 GETTABLEKS                       R16 R17 K8 ["value"]
-      130 SETTABLEKS                       R16 R15 K44 ["Checked"]
-      132 LOADK                            R18 K18 ["MovementSettings"]
-      133 LOADK                            R19 K49 ["DefaultAbilitiesSectionEnableRunning"]
-      134 NAMECALL                         R16 R1 K20 ["getText"]
-      136 CALL                             R16 3 1
-      137 SETTABLEKS                       R16 R15 K45 ["Text"]
-      139 NEWCLOSURE                       R16 P1
-      140 CAPTURE                          VAL R5
-      141 CAPTURE                          VAL R2
-      142 SETTABLEKS                       R16 R15 K46 ["OnClick"]
-      144 CALL                             R13 2 1
-      145 SETTABLEKS                       R13 R12 K28 ["EnableRunningCheckbox"]
-      147 MOVE                             R13 R7
-      148 JUMPIFNOT                        R13 ; [+26]
-      149 GETUPVAL                         R13 5
-      150 GETUPVAL                         R14 8
-      151 DUPTABLE                         R15 K47 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
-      152 MOVE                             R16 R3
-      153 CALL                             R16 0 1
-      154 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
-      156 GETTABLEKS                       R17 R5 K50 ["defaultAbilitiesEnableJumpingSetting"]
-      158 GETTABLEKS                       R16 R17 K8 ["value"]
-      160 SETTABLEKS                       R16 R15 K44 ["Checked"]
-      162 LOADK                            R18 K18 ["MovementSettings"]
-      163 LOADK                            R19 K51 ["DefaultAbilitiesSectionEnableJumping"]
-      164 NAMECALL                         R16 R1 K20 ["getText"]
-      166 CALL                             R16 3 1
-      167 SETTABLEKS                       R16 R15 K45 ["Text"]
-      169 NEWCLOSURE                       R16 P2
-      170 CAPTURE                          VAL R5
-      171 CAPTURE                          VAL R2
-      172 SETTABLEKS                       R16 R15 K46 ["OnClick"]
-      174 CALL                             R13 2 1
-      175 SETTABLEKS                       R13 R12 K29 ["EnableJumpingCheckbox"]
-      177 MOVE                             R13 R7
-      178 JUMPIFNOT                        R13 ; [+26]
-      179 GETUPVAL                         R13 5
-      180 GETUPVAL                         R14 8
-      181 DUPTABLE                         R15 K47 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
-      182 MOVE                             R16 R3
-      183 CALL                             R16 0 1
-      184 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
-      186 GETTABLEKS                       R17 R5 K52 ["defaultAbilitiesEnableSittingSetting"]
-      188 GETTABLEKS                       R16 R17 K8 ["value"]
-      190 SETTABLEKS                       R16 R15 K44 ["Checked"]
-      192 LOADK                            R18 K18 ["MovementSettings"]
-      193 LOADK                            R19 K53 ["DefaultAbilitiesSectionEnableSitting"]
-      194 NAMECALL                         R16 R1 K20 ["getText"]
-      196 CALL                             R16 3 1
-      197 SETTABLEKS                       R16 R15 K45 ["Text"]
-      199 NEWCLOSURE                       R16 P3
-      200 CAPTURE                          VAL R5
-      201 CAPTURE                          VAL R2
-      202 SETTABLEKS                       R16 R15 K46 ["OnClick"]
-      204 CALL                             R13 2 1
-      205 SETTABLEKS                       R13 R12 K30 ["EnableSittingCheckbox"]
-      207 MOVE                             R13 R7
-      208 JUMPIFNOT                        R13 ; [+26]
-      209 GETUPVAL                         R13 5
-      210 GETUPVAL                         R14 8
-      211 DUPTABLE                         R15 K47 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
-      212 MOVE                             R16 R3
-      213 CALL                             R16 0 1
-      214 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
-      216 GETTABLEKS                       R17 R5 K54 ["defaultAbilitiesEnableFallingDownSetting"]
-      218 GETTABLEKS                       R16 R17 K8 ["value"]
-      220 SETTABLEKS                       R16 R15 K44 ["Checked"]
-      222 LOADK                            R18 K18 ["MovementSettings"]
-      223 LOADK                            R19 K55 ["DefaultAbilitiesSectionEnableFallingDown"]
-      224 NAMECALL                         R16 R1 K20 ["getText"]
-      226 CALL                             R16 3 1
-      227 SETTABLEKS                       R16 R15 K45 ["Text"]
-      229 NEWCLOSURE                       R16 P4
-      230 CAPTURE                          VAL R5
-      231 CAPTURE                          VAL R2
-      232 SETTABLEKS                       R16 R15 K46 ["OnClick"]
-      234 CALL                             R13 2 1
-      235 SETTABLEKS                       R13 R12 K31 ["EnableFallingDownCheckbox"]
-      237 MOVE                             R13 R7
-      238 JUMPIFNOT                        R13 ; [+26]
-      239 GETUPVAL                         R13 5
-      240 GETUPVAL                         R14 8
-      241 DUPTABLE                         R15 K47 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
-      242 MOVE                             R16 R3
-      243 CALL                             R16 0 1
-      244 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
-      246 GETTABLEKS                       R17 R5 K56 ["defaultAbilitiesEnableGettingUpSetting"]
-      248 GETTABLEKS                       R16 R17 K8 ["value"]
-      250 SETTABLEKS                       R16 R15 K44 ["Checked"]
-      252 LOADK                            R18 K18 ["MovementSettings"]
-      253 LOADK                            R19 K57 ["DefaultAbilitiesSectionEnableGettingUp"]
-      254 NAMECALL                         R16 R1 K20 ["getText"]
-      256 CALL                             R16 3 1
-      257 SETTABLEKS                       R16 R15 K45 ["Text"]
-      259 NEWCLOSURE                       R16 P5
-      260 CAPTURE                          VAL R5
-      261 CAPTURE                          VAL R2
-      262 SETTABLEKS                       R16 R15 K46 ["OnClick"]
-      264 CALL                             R13 2 1
-      265 SETTABLEKS                       R13 R12 K32 ["EnableGettingUpCheckbox"]
-      267 MOVE                             R13 R7
-      268 JUMPIFNOT                        R13 ; [+26]
-      269 GETUPVAL                         R13 5
-      270 GETUPVAL                         R14 8
-      271 DUPTABLE                         R15 K47 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
-      272 MOVE                             R16 R3
-      273 CALL                             R16 0 1
-      274 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
-      276 GETTABLEKS                       R17 R5 K58 ["defaultAbilitiesEnableClimbingSetting"]
-      278 GETTABLEKS                       R16 R17 K8 ["value"]
-      280 SETTABLEKS                       R16 R15 K44 ["Checked"]
-      282 LOADK                            R18 K18 ["MovementSettings"]
-      283 LOADK                            R19 K59 ["DefaultAbilitiesSectionEnableClimbing"]
-      284 NAMECALL                         R16 R1 K20 ["getText"]
-      286 CALL                             R16 3 1
-      287 SETTABLEKS                       R16 R15 K45 ["Text"]
-      289 NEWCLOSURE                       R16 P6
-      290 CAPTURE                          VAL R5
-      291 CAPTURE                          VAL R2
-      292 SETTABLEKS                       R16 R15 K46 ["OnClick"]
-      294 CALL                             R13 2 1
-      295 SETTABLEKS                       R13 R12 K33 ["EnableClimbingCheckbox"]
-      297 MOVE                             R13 R7
-      298 JUMPIFNOT                        R13 ; [+26]
-      299 GETUPVAL                         R13 5
-      300 GETUPVAL                         R14 8
-      301 DUPTABLE                         R15 K47 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
-      302 MOVE                             R16 R3
-      303 CALL                             R16 0 1
-      304 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
-      306 GETTABLEKS                       R17 R5 K60 ["defaultAbilitiesEnableSwimmingSetting"]
-      308 GETTABLEKS                       R16 R17 K8 ["value"]
-      310 SETTABLEKS                       R16 R15 K44 ["Checked"]
-      312 LOADK                            R18 K18 ["MovementSettings"]
-      313 LOADK                            R19 K61 ["DefaultAbilitiesSectionEnableSwimming"]
-      314 NAMECALL                         R16 R1 K20 ["getText"]
-      316 CALL                             R16 3 1
-      317 SETTABLEKS                       R16 R15 K45 ["Text"]
-      319 NEWCLOSURE                       R16 P7
-      320 CAPTURE                          VAL R5
-      321 CAPTURE                          VAL R2
-      322 SETTABLEKS                       R16 R15 K46 ["OnClick"]
-      324 CALL                             R13 2 1
-      325 SETTABLEKS                       R13 R12 K34 ["EnableSwimmingCheckbox"]
-      327 CALL                             R9 3 -1
-      328 RETURN                           R9 -1
+       83 GETUPVAL                         R13 7
+       84 CALL                             R13 0 1
+       85 NOT                              R12 R13
+       86 SETTABLEKS                       R12 R11 K24 ["showWarning"]
+       88 DUPTABLE                         R12 K35 [{"CharacterControllerModeSelector", "EnableRunningCheckbox", "EnableJumpingCheckbox", "EnableSittingCheckbox", "EnableFallingDownCheckbox", "EnableGettingUpCheckbox", "EnableClimbingCheckbox", "EnableSwimmingCheckbox"}]
+       89 GETUPVAL                         R13 5
+       90 GETUPVAL                         R14 8
+       91 DUPTABLE                         R15 K40 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
+       92 MOVE                             R16 R3
+       93 CALL                             R16 0 1
+       94 SETTABLEKS                       R16 R15 K23 ["layoutOrder"]
+       96 SETTABLEKS                       R8 R15 K36 ["items"]
+       98 SETTABLEKS                       R6 R15 K37 ["selected"]
+      100 NEWCLOSURE                       R16 P0
+      101 CAPTURE                          VAL R6
+      102 CAPTURE                          VAL R2
+      103 CAPTURE                          VAL R5
+      104 SETTABLEKS                       R16 R15 K38 ["onItemActivated"]
+      106 LOADK                            R18 K18 ["MovementSettings"]
+      107 JUMPIFNOT                        R7 ; [+2]
+      108 LOADK                            R19 K41 ["AbilitiesSectionControllerModeLuaSubText"]
+      109 JUMP                             ; [+1]
+      110 LOADK                            R19 K42 ["AbilitiesSectionControllerModeLegacySubText"]
+      111 NAMECALL                         R16 R1 K20 ["getText"]
+      113 CALL                             R16 3 1
+      114 SETTABLEKS                       R16 R15 K39 ["subText"]
+      116 CALL                             R13 2 1
+      117 SETTABLEKS                       R13 R12 K27 ["CharacterControllerModeSelector"]
+      119 MOVE                             R13 R7
+      120 JUMPIFNOT                        R13 ; [+26]
+      121 GETUPVAL                         R13 5
+      122 GETUPVAL                         R14 9
+      123 DUPTABLE                         R15 K47 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
+      124 MOVE                             R16 R3
+      125 CALL                             R16 0 1
+      126 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
+      128 GETTABLEKS                       R17 R5 K48 ["defaultAbilitiesEnableRunningSetting"]
+      130 GETTABLEKS                       R16 R17 K8 ["value"]
+      132 SETTABLEKS                       R16 R15 K44 ["Checked"]
+      134 LOADK                            R18 K18 ["MovementSettings"]
+      135 LOADK                            R19 K49 ["DefaultAbilitiesSectionEnableRunning"]
+      136 NAMECALL                         R16 R1 K20 ["getText"]
+      138 CALL                             R16 3 1
+      139 SETTABLEKS                       R16 R15 K45 ["Text"]
+      141 NEWCLOSURE                       R16 P1
+      142 CAPTURE                          VAL R5
+      143 CAPTURE                          VAL R2
+      144 SETTABLEKS                       R16 R15 K46 ["OnClick"]
+      146 CALL                             R13 2 1
+      147 SETTABLEKS                       R13 R12 K28 ["EnableRunningCheckbox"]
+      149 MOVE                             R13 R7
+      150 JUMPIFNOT                        R13 ; [+26]
+      151 GETUPVAL                         R13 5
+      152 GETUPVAL                         R14 9
+      153 DUPTABLE                         R15 K47 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
+      154 MOVE                             R16 R3
+      155 CALL                             R16 0 1
+      156 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
+      158 GETTABLEKS                       R17 R5 K50 ["defaultAbilitiesEnableJumpingSetting"]
+      160 GETTABLEKS                       R16 R17 K8 ["value"]
+      162 SETTABLEKS                       R16 R15 K44 ["Checked"]
+      164 LOADK                            R18 K18 ["MovementSettings"]
+      165 LOADK                            R19 K51 ["DefaultAbilitiesSectionEnableJumping"]
+      166 NAMECALL                         R16 R1 K20 ["getText"]
+      168 CALL                             R16 3 1
+      169 SETTABLEKS                       R16 R15 K45 ["Text"]
+      171 NEWCLOSURE                       R16 P2
+      172 CAPTURE                          VAL R5
+      173 CAPTURE                          VAL R2
+      174 SETTABLEKS                       R16 R15 K46 ["OnClick"]
+      176 CALL                             R13 2 1
+      177 SETTABLEKS                       R13 R12 K29 ["EnableJumpingCheckbox"]
+      179 MOVE                             R13 R7
+      180 JUMPIFNOT                        R13 ; [+26]
+      181 GETUPVAL                         R13 5
+      182 GETUPVAL                         R14 9
+      183 DUPTABLE                         R15 K47 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
+      184 MOVE                             R16 R3
+      185 CALL                             R16 0 1
+      186 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
+      188 GETTABLEKS                       R17 R5 K52 ["defaultAbilitiesEnableSittingSetting"]
+      190 GETTABLEKS                       R16 R17 K8 ["value"]
+      192 SETTABLEKS                       R16 R15 K44 ["Checked"]
+      194 LOADK                            R18 K18 ["MovementSettings"]
+      195 LOADK                            R19 K53 ["DefaultAbilitiesSectionEnableSitting"]
+      196 NAMECALL                         R16 R1 K20 ["getText"]
+      198 CALL                             R16 3 1
+      199 SETTABLEKS                       R16 R15 K45 ["Text"]
+      201 NEWCLOSURE                       R16 P3
+      202 CAPTURE                          VAL R5
+      203 CAPTURE                          VAL R2
+      204 SETTABLEKS                       R16 R15 K46 ["OnClick"]
+      206 CALL                             R13 2 1
+      207 SETTABLEKS                       R13 R12 K30 ["EnableSittingCheckbox"]
+      209 MOVE                             R13 R7
+      210 JUMPIFNOT                        R13 ; [+26]
+      211 GETUPVAL                         R13 5
+      212 GETUPVAL                         R14 9
+      213 DUPTABLE                         R15 K47 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
+      214 MOVE                             R16 R3
+      215 CALL                             R16 0 1
+      216 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
+      218 GETTABLEKS                       R17 R5 K54 ["defaultAbilitiesEnableFallingDownSetting"]
+      220 GETTABLEKS                       R16 R17 K8 ["value"]
+      222 SETTABLEKS                       R16 R15 K44 ["Checked"]
+      224 LOADK                            R18 K18 ["MovementSettings"]
+      225 LOADK                            R19 K55 ["DefaultAbilitiesSectionEnableFallingDown"]
+      226 NAMECALL                         R16 R1 K20 ["getText"]
+      228 CALL                             R16 3 1
+      229 SETTABLEKS                       R16 R15 K45 ["Text"]
+      231 NEWCLOSURE                       R16 P4
+      232 CAPTURE                          VAL R5
+      233 CAPTURE                          VAL R2
+      234 SETTABLEKS                       R16 R15 K46 ["OnClick"]
+      236 CALL                             R13 2 1
+      237 SETTABLEKS                       R13 R12 K31 ["EnableFallingDownCheckbox"]
+      239 MOVE                             R13 R7
+      240 JUMPIFNOT                        R13 ; [+26]
+      241 GETUPVAL                         R13 5
+      242 GETUPVAL                         R14 9
+      243 DUPTABLE                         R15 K47 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
+      244 MOVE                             R16 R3
+      245 CALL                             R16 0 1
+      246 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
+      248 GETTABLEKS                       R17 R5 K56 ["defaultAbilitiesEnableGettingUpSetting"]
+      250 GETTABLEKS                       R16 R17 K8 ["value"]
+      252 SETTABLEKS                       R16 R15 K44 ["Checked"]
+      254 LOADK                            R18 K18 ["MovementSettings"]
+      255 LOADK                            R19 K57 ["DefaultAbilitiesSectionEnableGettingUp"]
+      256 NAMECALL                         R16 R1 K20 ["getText"]
+      258 CALL                             R16 3 1
+      259 SETTABLEKS                       R16 R15 K45 ["Text"]
+      261 NEWCLOSURE                       R16 P5
+      262 CAPTURE                          VAL R5
+      263 CAPTURE                          VAL R2
+      264 SETTABLEKS                       R16 R15 K46 ["OnClick"]
+      266 CALL                             R13 2 1
+      267 SETTABLEKS                       R13 R12 K32 ["EnableGettingUpCheckbox"]
+      269 MOVE                             R13 R7
+      270 JUMPIFNOT                        R13 ; [+26]
+      271 GETUPVAL                         R13 5
+      272 GETUPVAL                         R14 9
+      273 DUPTABLE                         R15 K47 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
+      274 MOVE                             R16 R3
+      275 CALL                             R16 0 1
+      276 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
+      278 GETTABLEKS                       R17 R5 K58 ["defaultAbilitiesEnableClimbingSetting"]
+      280 GETTABLEKS                       R16 R17 K8 ["value"]
+      282 SETTABLEKS                       R16 R15 K44 ["Checked"]
+      284 LOADK                            R18 K18 ["MovementSettings"]
+      285 LOADK                            R19 K59 ["DefaultAbilitiesSectionEnableClimbing"]
+      286 NAMECALL                         R16 R1 K20 ["getText"]
+      288 CALL                             R16 3 1
+      289 SETTABLEKS                       R16 R15 K45 ["Text"]
+      291 NEWCLOSURE                       R16 P6
+      292 CAPTURE                          VAL R5
+      293 CAPTURE                          VAL R2
+      294 SETTABLEKS                       R16 R15 K46 ["OnClick"]
+      296 CALL                             R13 2 1
+      297 SETTABLEKS                       R13 R12 K33 ["EnableClimbingCheckbox"]
+      299 MOVE                             R13 R7
+      300 JUMPIFNOT                        R13 ; [+26]
+      301 GETUPVAL                         R13 5
+      302 GETUPVAL                         R14 9
+      303 DUPTABLE                         R15 K47 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
+      304 MOVE                             R16 R3
+      305 CALL                             R16 0 1
+      306 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
+      308 GETTABLEKS                       R17 R5 K60 ["defaultAbilitiesEnableSwimmingSetting"]
+      310 GETTABLEKS                       R16 R17 K8 ["value"]
+      312 SETTABLEKS                       R16 R15 K44 ["Checked"]
+      314 LOADK                            R18 K18 ["MovementSettings"]
+      315 LOADK                            R19 K61 ["DefaultAbilitiesSectionEnableSwimming"]
+      316 NAMECALL                         R16 R1 K20 ["getText"]
+      318 CALL                             R16 3 1
+      319 SETTABLEKS                       R16 R15 K45 ["Text"]
+      321 NEWCLOSURE                       R16 P7
+      322 CAPTURE                          VAL R5
+      323 CAPTURE                          VAL R2
+      324 SETTABLEKS                       R16 R15 K46 ["OnClick"]
+      326 CALL                             R13 2 1
+      327 SETTABLEKS                       R13 R12 K34 ["EnableSwimmingCheckbox"]
+      329 CALL                             R9 3 -1
+      330 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -423,18 +425,24 @@ MAIN:
        67 GETTABLEKS                       R11 R12 K19 ["Telemetry"]
        69 GETTABLEKS                       R10 R11 K20 ["TelemetryContext"]
        71 CALL                             R9 1 1
-       72 GETTABLEKS                       R10 R6 K21 ["createNextOrder"]
-       74 GETTABLEKS                       R11 R5 K22 ["createElement"]
-       76 GETTABLEKS                       R12 R3 K23 ["UI"]
-       78 GETTABLEKS                       R13 R12 K24 ["Checkbox"]
-       80 DUPCLOSURE                       R14 K25 [PROTO_8]
-       81 CAPTURE                          VAL R8
-       82 CAPTURE                          VAL R9
-       83 CAPTURE                          VAL R10
-       84 CAPTURE                          VAL R5
-       85 CAPTURE                          VAL R1
-       86 CAPTURE                          VAL R11
-       87 CAPTURE                          VAL R2
-       88 CAPTURE                          VAL R4
-       89 CAPTURE                          VAL R13
-       90 RETURN                           R14 1
+       72 GETIMPORT                        R10 K5 [require]
+       74 GETTABLEKS                       R13 R0 K6 ["Src"]
+       76 GETTABLEKS                       R12 R13 K21 ["Flags"]
+       78 GETTABLEKS                       R11 R12 K22 ["getFFlagAvatarSettingsEnableAbilitiesR6"]
+       80 CALL                             R10 1 1
+       81 GETTABLEKS                       R11 R6 K23 ["createNextOrder"]
+       83 GETTABLEKS                       R12 R5 K24 ["createElement"]
+       85 GETTABLEKS                       R13 R3 K25 ["UI"]
+       87 GETTABLEKS                       R14 R13 K26 ["Checkbox"]
+       89 DUPCLOSURE                       R15 K27 [PROTO_8]
+       90 CAPTURE                          VAL R8
+       91 CAPTURE                          VAL R9
+       92 CAPTURE                          VAL R11
+       93 CAPTURE                          VAL R5
+       94 CAPTURE                          VAL R1
+       95 CAPTURE                          VAL R12
+       96 CAPTURE                          VAL R2
+       97 CAPTURE                          VAL R10
+       98 CAPTURE                          VAL R4
+       99 CAPTURE                          VAL R14
+      100 RETURN                           R15 1

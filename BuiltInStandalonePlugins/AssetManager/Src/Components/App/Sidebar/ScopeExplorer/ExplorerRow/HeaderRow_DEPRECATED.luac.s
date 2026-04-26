@@ -24,20 +24,17 @@ PROTO_0:
        31 NAMECALL                         R2 R0 K7 ["getText"]
        33 CALL                             R2 3 1
        34 RETURN                           R2 1
-       35 GETUPVAL                         R3 1
-       36 CALL                             R3 0 1
-       37 JUMPIFNOT                        R3 ; [+13]
-       38 GETUPVAL                         R5 0
-       39 GETTABLEKS                       R4 R5 K3 ["ExplorerHeader"]
-       41 GETTABLEKS                       R3 R4 K11 ["Recent"]
-       43 JUMPIFNOTEQ                      R1 R3 ; [+7]
-       45 LOADK                            R4 K12 ["Sidebar"]
-       46 LOADK                            R5 K11 ["Recent"]
-       47 NAMECALL                         R2 R0 K7 ["getText"]
-       49 CALL                             R2 3 1
-       50 RETURN                           R2 1
-       51 LOADK                            R2 K13 [""]
-       52 RETURN                           R2 1
+       35 GETUPVAL                         R5 0
+       36 GETTABLEKS                       R4 R5 K3 ["ExplorerHeader"]
+       38 GETTABLEKS                       R3 R4 K11 ["Recent"]
+       40 JUMPIFNOTEQ                      R1 R3 ; [+7]
+       42 LOADK                            R4 K12 ["Sidebar"]
+       43 LOADK                            R5 K11 ["Recent"]
+       44 NAMECALL                         R2 R0 K7 ["getText"]
+       46 CALL                             R2 3 1
+       47 RETURN                           R2 1
+       48 LOADK                            R2 K13 [""]
+       49 RETURN                           R2 1
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -99,18 +96,12 @@ MAIN:
        32 GETTABLEKS                       R6 R2 K13 ["UI"]
        34 GETTABLEKS                       R7 R6 K14 ["Pane"]
        36 GETTABLEKS                       R8 R6 K15 ["TextLabel"]
-       38 GETIMPORT                        R9 K5 [require]
-       40 GETTABLEKS                       R12 R0 K9 ["Src"]
-       42 GETTABLEKS                       R11 R12 K16 ["Flags"]
-       44 GETTABLEKS                       R10 R11 K17 ["getFFlagAmrRecents"]
-       46 CALL                             R9 1 1
-       47 DUPCLOSURE                       R10 K18 [PROTO_0]
-       48 CAPTURE                          VAL R3
-       49 CAPTURE                          VAL R9
-       50 DUPCLOSURE                       R11 K19 [PROTO_1]
-       51 CAPTURE                          VAL R5
-       52 CAPTURE                          VAL R1
-       53 CAPTURE                          VAL R7
-       54 CAPTURE                          VAL R8
-       55 CAPTURE                          VAL R10
-       56 RETURN                           R11 1
+       38 DUPCLOSURE                       R9 K16 [PROTO_0]
+       39 CAPTURE                          VAL R3
+       40 DUPCLOSURE                       R10 K17 [PROTO_1]
+       41 CAPTURE                          VAL R5
+       42 CAPTURE                          VAL R1
+       43 CAPTURE                          VAL R7
+       44 CAPTURE                          VAL R8
+       45 CAPTURE                          VAL R9
+       46 RETURN                           R10 1

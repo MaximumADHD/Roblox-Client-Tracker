@@ -1,11 +1,8 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 LOADK                            R1 K0 ["AmrOrganizationFoundation2"]
-        2 CALL                             R0 1 1
-        3 JUMPIFNOT                        R0 ; [+2]
-        4 GETUPVAL                         R0 1
-        5 CALL                             R0 0 1
-        6 RETURN                           R0 1
+        2 CALL                             R0 1 -1
+        3 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -23,12 +20,6 @@ MAIN:
        18 GETTABLEKS                       R3 R4 K11 ["Common"]
        20 GETTABLEKS                       R2 R3 K12 ["safeGetFastFlag"]
        22 CALL                             R1 1 1
-       23 GETIMPORT                        R2 K9 [require]
-       25 GETTABLEKS                       R5 R0 K13 ["Src"]
-       27 GETTABLEKS                       R4 R5 K14 ["Flags"]
-       29 GETTABLEKS                       R3 R4 K15 ["getFFlagAmrCleanConnectionsRefactor"]
-       31 CALL                             R2 1 1
-       32 DUPCLOSURE                       R3 K16 [PROTO_0]
-       33 CAPTURE                          VAL R1
-       34 CAPTURE                          VAL R2
-       35 RETURN                           R3 1
+       23 DUPCLOSURE                       R2 K13 [PROTO_0]
+       24 CAPTURE                          VAL R1
+       25 RETURN                           R2 1
