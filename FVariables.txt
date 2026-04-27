@@ -8892,7 +8892,7 @@
 [C++] FFlagEnableDMNotificationMonitor
 [C++] FFlagEnableDMRecorderBatchFiles
 [C++] FFlagEnableDMRTelemetry2
-[C++] FFlagEnableDrawProjectionImage3
+[C++] FFlagEnableDrawProjectionImage
 [C++] FFlagEnableDrawProjectionImageWithMirroring
 [C++] FFlagEnableDropdownButtonTelemetry
 [C++] FFlagEnableDynamicTranslation4
@@ -9380,6 +9380,7 @@
 [C++] FFlagFixStreamingFlipbooks
 [C++] FFlagFixStyleRulePriorityUnderFolder
 [C++] FFlagFixStylingFolderOnAncestorChanged
+[C++] FFlagFixSubscriptionRequestCrash
 [C++] FFlagFixSurfaceGuisBreakingAfterRespawn
 [C++] FFlagFixTelemetryFactoryInitOrderOnWindows
 [C++] FFlagFixTestServiceStart
@@ -10182,6 +10183,7 @@
 [C++] FFlagPlaceAnnotationsIxp2
 [C++] FFlagPlaceCloseKeepAutosaveFilesAfterModeration
 [C++] FFlagPlaceJoinStateEnabled
+[C++] FFlagPlaceLoadStaleCacheFix
 [C++] FFlagPlacePublishManagementStudioPublishService
 [C++] FFlagPlaceVersionHistoryEvents
 [C++] FFlagPlaceVersionHistoryTitleFix
@@ -10210,6 +10212,7 @@
 [C++] FFlagPluginMetadataSkipBatchCallIfNoChange
 [C++] FFlagPluginQWidgetModalFocusKeyboard
 [C++] FFlagPluginVerbComponents
+[C++] FFlagPlusFixCallbackClearOnDmTeardown
 [C++] FFlagPolicyServiceReportFailureForLuobu
 [C++] FFlagPollingAssetWithUserId
 [C++] FFlagPopulatePerfDataByType
@@ -11513,6 +11516,7 @@
 [C++] FFlagUsePaymentsProtocolIsInAppDimension
 [C++] FFlagUsePaymentsProtocolMetricsV2
 [C++] FFlagUsePaymentsProtocolPurchaseTypeDimension
+[C++] FFlagUsePaymentsProtocolSessionIdFromParams
 [C++] FFlagUsePersistentItemizedInstanceSlots
 [Com] FFlagUserAddBetterConsoleCheckForLegacyChat
 [Com] FFlagUserAddChatThrottlingToAllChannels

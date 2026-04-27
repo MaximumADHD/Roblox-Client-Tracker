@@ -9379,6 +9379,7 @@ AVLargeReplicatorCallbacks
 AVLargeReplicatorInstanceBridge
 AVLargeReplicatorPullManager
 AVLatchedSignalBase
+AVLatestPlaceVersionFetcher
 AVLaunchHelpForSelectionAction
 AVLayerCollectorProp
 AVLayoutDefault
@@ -29196,6 +29197,7 @@ FetchFailedNoExperienceAccess
 FetchHighDpiProfilePic
 FetchJoinConfig
 FetchLatencyMillis
+FetchLatestPlaceVersionNumber
 FetchNormalDpiProfilePic
 FetchPlaceDataFailure
 FetchProfilePicForAccountDropdown
@@ -29986,6 +29988,7 @@ FixStudioClientRepStats
 FixStyleRulePriorityUnderFolder
 FixStylingFolderOnAncestorChanged
 FixStylingLogSeverity
+FixSubscriptionRequestCrash
 FixSurfaceGuisBreakingAfterRespawn
 FixTaskSchedulerProbeTimeScale
 FixTelemetryBadIntegerEncoding
@@ -35702,7 +35705,7 @@ IkTwoBoneBetterSolver
 IKUsedLimits
 ILegacyStudioBridge
 IllegalAndRegulatedGoodsAndActivities
-IllegalMessageTopS
+IllegalMessageToPv
 IllegalOperation
 IllegalValue
 ILocalFileSaveManager
@@ -38763,6 +38766,7 @@ LatestChannel
 LatestConfigName
 LatestErrno
 LatestPersistenceToCloud
+LatestPlaceVersionFetcher
 LatestVersion
 LatestVersionNumber
 LAUNCH_CONVERSATION
@@ -48097,6 +48101,7 @@ PlacelaunchRestricted
 PlacelaunchUnauthorized
 PlacelaunchUserLeft
 PlacelaunchUserPrivacyUnauthorized
+PlaceLoadStaleCacheFix
 PlaceManagement
 PlaceManager
 PlaceMemory
@@ -48284,7 +48289,6 @@ PlatformThread
 PlatformURL
 PlatformUserId
 PlayAction
-PlaybackAudioNode
 PlaybackCompleted
 PlaybackControls
 PlaybackErrors
@@ -48887,6 +48891,7 @@ PluginYesKillResponses
 PluginYesKillResponsesEvent
 PlusAutoSkinTransferEnabled
 PlusButtonPressed
+PlusFixCallbackClearOnDmTeardown
 PlusInfinity.
 PlusPlusUser
 PlusSubscription
@@ -55039,7 +55044,7 @@ RewrittenText
 RewrittenTranslation
 RGBA16UINT
 RGBA32UINT
-RGBOL565RGBP5551RGBO8v
+RGBOL565RGBP5551RGBO
 RhodiumHelpers
 Ribbon.rbxm
 Ribbon3DImport
@@ -72617,6 +72622,7 @@ UsePaymentsProtocolFailureMetrics
 UsePaymentsProtocolIsInAppDimension
 UsePaymentsProtocolMetricsV2
 UsePaymentsProtocolPurchaseTypeDimension
+UsePaymentsProtocolSessionIdFromParams
 UsePersistentItemizedInstanceSlots
 UsePhysicsForEmoteAutoTurn
 UsePlaySoloTestKeyLogic
@@ -76232,6 +76238,7 @@ VKeyframeSequenceProvider
 VLanguageService
 VLanguageSettingFetcher
 VLargeReplicatorPullManager
+VLatestPlaceVersionFetcher
 VLaunchHelpForSelectionAction
 VLayoutDefault
 VLayoutGrid
@@ -79529,7 +79536,7 @@ WillReturn
 WIN32_LEAN_AND_MEAN
 Win32MediaFoundationHardwareVideoEncoder.cpp
 Win32MediaFoundationUtils.cpp
-Win64.718.37544
+Win64.718.37682
 WinAudioDecoder
 WinAudioEncoder
 WinchEnabled
