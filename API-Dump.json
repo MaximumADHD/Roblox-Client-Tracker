@@ -5205,6 +5205,21 @@
                         "Monetization"
                     ],
                     "MemberType": "Function",
+                    "Name": "GetUniversalAppAdsEligibility",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
+                    "MemberType": "Function",
                     "Name": "HandleWhyThisAdClicked",
                     "Parameters": [
                         {
@@ -26392,6 +26407,24 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "VersionedAssetId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "WorldForward",
                     "Security": {
                         "Read": "None",
@@ -35074,6 +35107,18 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "CloudCRUDService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "CloudExecutionService",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -71267,32 +71312,6 @@
                     }
                 },
                 {
-                    "Capabilities": {
-                        "Read": [
-                            "Input"
-                        ]
-                    },
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "Waveform",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Class",
-                        "Name": "FloatCurve"
-                    }
-                },
-                {
                     "Capabilities": [
                         "Input"
                     ],
@@ -88179,6 +88198,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SignalCheckPlayerHasRobloxSubscription",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SignalClientPurchaseSuccess",
                     "Parameters": [
                         {
@@ -95525,6 +95556,84 @@
                             "Network"
                         ]
                     },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "InboundNetworkJitterMs",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "InboundNetworkLossPercent",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "InboundNetworkMinDelayMs",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
                     "Category": "Diagnostics",
                     "MemberType": "Property",
                     "Name": "IncomingReplicationLag",
@@ -95540,6 +95649,84 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "double"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "OutboundNetworkJitterMs",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "OutboundNetworkLossPercent",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "OutboundNetworkMinDelayMs",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
                     }
                 },
                 {
@@ -100359,6 +100546,28 @@
                         "Environment"
                     ],
                     "MemberType": "Function",
+                    "Name": "GetBaseMaterialSlotIndex",
+                    "Parameters": [
+                        {
+                            "Name": "baseMaterial",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "Material"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int?"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Environment"
+                    ],
+                    "MemberType": "Function",
                     "Name": "GetCell",
                     "Parameters": [
                         {
@@ -100398,6 +100607,21 @@
                         "Environment"
                     ],
                     "MemberType": "Function",
+                    "Name": "GetFirstCustomMaterialSlotIndex",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Environment"
+                    ],
+                    "MemberType": "Function",
                     "Name": "GetMaterialColor",
                     "Parameters": [
                         {
@@ -100414,6 +100638,28 @@
                     },
                     "Security": "None",
                     "ThreadSafety": "Safe"
+                },
+                {
+                    "Capabilities": [
+                        "Environment"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetMaterialSlot",
+                    "Parameters": [
+                        {
+                            "Name": "slotIndex",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
                 },
                 {
                     "Capabilities": [
@@ -100848,6 +101094,28 @@
                         "Environment"
                     ],
                     "MemberType": "Function",
+                    "Name": "ResetMaterialSlot",
+                    "Parameters": [
+                        {
+                            "Name": "slotIndex",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Environment"
+                    ],
+                    "MemberType": "Function",
                     "Name": "SetCell",
                     "Parameters": [
                         {
@@ -101055,6 +101323,49 @@
                         "Name": "null"
                     },
                     "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Environment"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "SetMaterialSlot",
+                    "Parameters": [
+                        {
+                            "Name": "slotIndex",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "baseMaterial",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "Material"
+                            }
+                        },
+                        {
+                            "Name": "materialVariant",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "color",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Color3"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -106053,27 +106364,6 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "ModelStreamingBehavior"
-                    }
-                },
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "MoverConstraintRootBehavior",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotScriptable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "MoverConstraintRootBehaviorMode"
                     }
                 },
                 {
@@ -125665,6 +125955,14 @@
                                 "Category": "Enum",
                                 "Name": "StepFrequency"
                             }
+                        },
+                        {
+                            "Default": "2000",
+                            "Name": "priority",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -136444,14 +136742,14 @@
                     "Name": "SetInputDevice",
                     "Parameters": [
                         {
-                            "Name": "name",
+                            "Name": "nameOrInstance",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
+                                "Category": "Group",
+                                "Name": "Variant"
                             }
                         },
                         {
-                            "Name": "guid",
+                            "Name": "guidOrPin",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -147084,6 +147382,21 @@
                         "UI"
                     ],
                     "MemberType": "Function",
+                    "Name": "GetDefaultPropertyTransition",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Variant"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "UI"
+                    ],
+                    "MemberType": "Function",
                     "Name": "GetProperties",
                     "Parameters": [
                     ],
@@ -147164,6 +147477,28 @@
                     "ReturnType": {
                         "Category": "Group",
                         "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "UI"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "SetDefaultPropertyTransition",
+                    "Parameters": [
+                        {
+                            "Name": "transitionParams",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
                     },
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
@@ -159094,6 +159429,53 @@
                             "Type": {
                                 "Category": "Class",
                                 "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ValidateLeaderSkinnedVertsNearCageIslands",
+                    "Parameters": [
+                        {
+                            "Name": "renderMesh",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "EditableMesh"
+                            }
+                        },
+                        {
+                            "Name": "innerCage",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "EditableMesh"
+                            }
+                        },
+                        {
+                            "Name": "cageUVs",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        },
+                        {
+                            "Name": "referenceOrigin",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CFrame"
+                            }
+                        },
+                        {
+                            "Name": "distanceThreshold",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
                             }
                         }
                     ],
@@ -171536,6 +171918,32 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "OpenWindowV2",
+                    "Parameters": [
+                        {
+                            "Name": "url",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "params",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "WebViewParams?"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "IsAvailable",
                     "Parameters": [
                     ],
@@ -181059,6 +181467,14 @@
                     "Value": 1048
                 },
                 {
+                    "Name": "TouchDelta",
+                    "Value": 1049
+                },
+                {
+                    "Name": "TouchPinch",
+                    "Value": 1050
+                },
+                {
                     "Name": "World0",
                     "Tags": [
                         "Deprecated"
@@ -182520,6 +182936,26 @@
                 {
                     "Name": "Level04",
                     "Value": 5
+                },
+                {
+                    "Name": "Level05",
+                    "Value": 6
+                },
+                {
+                    "Name": "Level06",
+                    "Value": 7
+                },
+                {
+                    "Name": "Level07",
+                    "Value": 8
+                },
+                {
+                    "Name": "Level08",
+                    "Value": 9
+                },
+                {
+                    "Name": "Level09",
+                    "Value": 10
                 }
             ],
             "Name": "MeshPartDetailLevel"
@@ -182878,23 +183314,6 @@
                 }
             ],
             "Name": "MoveState"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "Default",
-                    "Value": 0
-                },
-                {
-                    "Name": "Disabled",
-                    "Value": 1
-                },
-                {
-                    "Name": "Enabled",
-                    "Value": 2
-                }
-            ],
-            "Name": "MoverConstraintRootBehaviorMode"
         },
         {
             "Items": [

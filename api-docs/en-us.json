@@ -13697,7 +13697,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GeneratedFolder": {
-    "documentation": "",
+    "documentation": "A container that stores <code>ProceduralModel</code> generation results.",
     "keys": {
       "SetPrimaryPart": "@roblox/globaltype/GeneratedFolder.SetPrimaryPart"
     },
@@ -13705,13 +13705,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GeneratedFolder.SetPrimaryPart/param/0": {
-    "documentation": ""
+    "documentation": "A container that stores <code>ProceduralModel</code> generation results."
   },
   "@roblox/globaltype/GeneratedFolder.SetPrimaryPart/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/GeneratedFolder.SetPrimaryPart": {
-    "documentation": "",
+    "documentation": "Specifies which part within the <code>GeneratedFolder</code> should be set as the <code>PrimaryPart</code> of the <code>ProceduralModel</code>.",
     "params": [
       {
         "name": "self",
@@ -19304,7 +19304,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Humanoid.RootPart": {
-    "documentation": "A reference to the humanoid's <strong>HumanoidRootPart</strong> object.",
+    "documentation": "A reference to the humanoid's <code>HumanoidRootPart</code> object.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Humanoid#RootPart",
     "code_sample": ""
   },
@@ -19463,7 +19463,7 @@
     "documentation": "The asset type verification mode."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionAsync": {
-    "documentation": "Makes the character's look match that of the passed in <code>HumanoidDescription</code>.",
+    "documentation": "Makes the character's look match that of the passed in <code>HumanoidDescription</code>. If <code>UseAvatarSettings</code> is true, the Avatar Settings for the experience will also be applied to the character.",
     "params": [
       {
         "name": "self",
@@ -29152,12 +29152,6 @@
     "documentation": "VirtualUser is a service that allows you to record the inputs of a user, and then play it back to a limited extent.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualUser",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EmotesPages": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EmotesPages",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal": {
@@ -70234,6 +70228,7 @@
       "TouchScreenEnabled": "@roblox/globaltype/UserInputService.TouchScreenEnabled",
       "UserHeadCFrame": "@roblox/globaltype/UserInputService.UserHeadCFrame",
       "VREnabled": "@roblox/globaltype/UserInputService.VREnabled",
+      "CreateVirtualInput": "@roblox/globaltype/UserInputService.CreateVirtualInput",
       "GamepadSupports": "@roblox/globaltype/UserInputService.GamepadSupports",
       "GetConnectedGamepads": "@roblox/globaltype/UserInputService.GetConnectedGamepads",
       "GetDeviceAcceleration": "@roblox/globaltype/UserInputService.GetDeviceAcceleration",
@@ -70355,6 +70350,26 @@
   "@roblox/globaltype/UserInputService.VREnabled": {
     "documentation": "Indicates whether the user is using a virtual reality headset.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#VREnabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UserInputService.CreateVirtualInput/param/0": {
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
+  },
+  "@roblox/globaltype/UserInputService.CreateVirtualInput/return/0": {
+    "documentation": "A new <code>VirtualInput</code> object, or <code>nil</code> if the feature is not available."
+  },
+  "@roblox/globaltype/UserInputService.CreateVirtualInput": {
+    "documentation": "Creates a <code>VirtualInput</code> object that a Studio plugin can use to simulate mouse, keyboard, and pointer input.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/UserInputService.CreateVirtualInput/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/UserInputService.CreateVirtualInput/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#CreateVirtualInput",
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GamepadSupports/param/0": {
@@ -83922,7 +83937,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Debris": {
-    "documentation": "Allows scheduling the guaranteed destruction of an object without yielding.<br /> .",
+    "documentation": "Allows scheduling the guaranteed destruction of an object without yielding.",
     "keys": {
       "MaxItems": "@roblox/globaltype/Debris.MaxItems",
       "AddItem": "@roblox/globaltype/Debris.AddItem",
@@ -83937,7 +83952,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Debris.AddItem/param/0": {
-    "documentation": "Allows scheduling the guaranteed destruction of an object without yielding.<br /> ."
+    "documentation": "Allows scheduling the guaranteed destruction of an object without yielding."
   },
   "@roblox/globaltype/Debris.AddItem/param/1": {
     "documentation": "The <code>Instance</code> to add to <code>Debris</code>."
@@ -83966,7 +83981,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Debris.addItem/param/0": {
-    "documentation": "Allows scheduling the guaranteed destruction of an object without yielding.<br /> ."
+    "documentation": "Allows scheduling the guaranteed destruction of an object without yielding."
   },
   "@roblox/globaltype/Debris.addItem/param/1": {
     "documentation": ""
@@ -86375,6 +86390,82 @@
   "@roblox/globaltype/BillboardGui.StudsOffsetWorldSpace": {
     "documentation": "Determines how the <code>BillboardGui</code> is offset from its <code>Adornee</code> in studs, relative to the global axes.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BillboardGui#StudsOffsetWorldSpace",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PluginConnection": {
+    "documentation": "Encapsulates a connection between the current data model and another for plugin communication.",
+    "keys": {
+      "Type": "@roblox/globaltype/PluginConnection.Type",
+      "Connected": "@roblox/globaltype/PluginConnection.Connected",
+      "TargetId": "@roblox/globaltype/PluginConnection.TargetId",
+      "SendMessage": "@roblox/globaltype/PluginConnection.SendMessage",
+      "BindToMessage": "@roblox/globaltype/PluginConnection.BindToMessage"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginConnection",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PluginConnection.Type": {
+    "documentation": "This <code>PluginConnectionTargetType</code> describes the relationship of the target data model to the current one.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginConnection#Type",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PluginConnection.Connected": {
+    "documentation": "Whether this <code>PluginConnection</code> object is still connected.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginConnection#Connected",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PluginConnection.TargetId": {
+    "documentation": "A unique ID for the target data model.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginConnection#TargetId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PluginConnection.SendMessage/param/0": {
+    "documentation": "Encapsulates a connection between the current data model and another for plugin communication."
+  },
+  "@roblox/globaltype/PluginConnection.SendMessage/param/1": {
+    "documentation": "The string or buffer to be sent."
+  },
+  "@roblox/globaltype/PluginConnection.SendMessage": {
+    "documentation": "Sends a payload to the remote data model.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/PluginConnection.SendMessage/param/0"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/PluginConnection.SendMessage/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginConnection#SendMessage",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PluginConnection.BindToMessage/param/0": {
+    "documentation": "Encapsulates a connection between the current data model and another for plugin communication."
+  },
+  "@roblox/globaltype/PluginConnection.BindToMessage/param/1": {
+    "documentation": "A function accepting a string or a buffer which will be called when this <code>PluginConnection</code> receives a message."
+  },
+  "@roblox/globaltype/PluginConnection.BindToMessage/return/0": {
+    "documentation": "A <code>RBXScriptConnection</code> representing the binding of this callback to the <code>PluginConnection</code>. Disconnect it to disconnect this callback from the connection."
+  },
+  "@roblox/globaltype/PluginConnection.BindToMessage": {
+    "documentation": "Binds a callback to this <code>PluginConnection</code> to receive messages from <code>SendMessage()</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/PluginConnection.BindToMessage/param/0"
+      },
+      {
+        "name": "callback",
+        "documentation": "@roblox/globaltype/PluginConnection.BindToMessage/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/PluginConnection.BindToMessage/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginConnection#BindToMessage",
     "code_sample": ""
   },
   "@roblox/globaltype/PlaneConstraint": {
@@ -94551,6 +94642,193 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler#GetSamplesAtTimesAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/VirtualInput": {
+    "documentation": "Allows Studio plugins to simulate mouse, keyboard, and pointer input as if it were performed by a real player.",
+    "keys": {
+      "SendKey": "@roblox/globaltype/VirtualInput.SendKey",
+      "SendMouseButton": "@roblox/globaltype/VirtualInput.SendMouseButton",
+      "SendMouseDelta": "@roblox/globaltype/VirtualInput.SendMouseDelta",
+      "SendMousePosition": "@roblox/globaltype/VirtualInput.SendMousePosition",
+      "SendPointerAction": "@roblox/globaltype/VirtualInput.SendPointerAction",
+      "SendTextInput": "@roblox/globaltype/VirtualInput.SendTextInput"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualInput",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VirtualInput.SendKey/param/0": {
+    "documentation": "Allows Studio plugins to simulate mouse, keyboard, and pointer input as if it were performed by a real player."
+  },
+  "@roblox/globaltype/VirtualInput.SendKey/param/1": {
+    "documentation": "Whether to simulate a key press (<code>true</code>) or a key release (<code>false</code>)."
+  },
+  "@roblox/globaltype/VirtualInput.SendKey/param/2": {
+    "documentation": "The <code>KeyCode</code> of the key to inject."
+  },
+  "@roblox/globaltype/VirtualInput.SendKey/param/3": {
+    "documentation": "Whether this is an auto-repeat event, as occurs when a key is held down. Only valid for text-manipulation keys such as <code>KeyCode.Backspace</code>, <code>KeyCode.Delete</code>, and the arrow keys. Defaults to <code>false</code>."
+  },
+  "@roblox/globaltype/VirtualInput.SendKey": {
+    "documentation": "Injects a keyboard key press or release event.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VirtualInput.SendKey/param/0"
+      },
+      {
+        "name": "isPressed",
+        "documentation": "@roblox/globaltype/VirtualInput.SendKey/param/1"
+      },
+      {
+        "name": "keyCode",
+        "documentation": "@roblox/globaltype/VirtualInput.SendKey/param/2"
+      },
+      {
+        "name": "isRepeatedKey",
+        "documentation": "@roblox/globaltype/VirtualInput.SendKey/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualInput#SendKey",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VirtualInput.SendMouseButton/param/0": {
+    "documentation": "Allows Studio plugins to simulate mouse, keyboard, and pointer input as if it were performed by a real player."
+  },
+  "@roblox/globaltype/VirtualInput.SendMouseButton/param/1": {
+    "documentation": "The screen-space position in pixels at which to inject the event."
+  },
+  "@roblox/globaltype/VirtualInput.SendMouseButton/param/2": {
+    "documentation": "The mouse button to use. Supported values are <code>UserInputType.MouseButton1</code>, <code>UserInputType.MouseButton2</code>, and <code>UserInputType.MouseButton3</code>."
+  },
+  "@roblox/globaltype/VirtualInput.SendMouseButton/param/3": {
+    "documentation": "Whether to simulate a button press (<code>true</code>) or a button release (<code>false</code>)."
+  },
+  "@roblox/globaltype/VirtualInput.SendMouseButton/param/4": {
+    "documentation": "The consecutive-click count for multi-click detection, such as a double- or triple-click. Defaults to <code>0</code>."
+  },
+  "@roblox/globaltype/VirtualInput.SendMouseButton": {
+    "documentation": "Injects a mouse button press or release event at the specified screen position.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VirtualInput.SendMouseButton/param/0"
+      },
+      {
+        "name": "position",
+        "documentation": "@roblox/globaltype/VirtualInput.SendMouseButton/param/1"
+      },
+      {
+        "name": "button",
+        "documentation": "@roblox/globaltype/VirtualInput.SendMouseButton/param/2"
+      },
+      {
+        "name": "isDown",
+        "documentation": "@roblox/globaltype/VirtualInput.SendMouseButton/param/3"
+      },
+      {
+        "name": "repeatCount",
+        "documentation": "@roblox/globaltype/VirtualInput.SendMouseButton/param/4"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualInput#SendMouseButton",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VirtualInput.SendMouseDelta/param/0": {
+    "documentation": "Allows Studio plugins to simulate mouse, keyboard, and pointer input as if it were performed by a real player."
+  },
+  "@roblox/globaltype/VirtualInput.SendMouseDelta/param/1": {
+    "documentation": "The relative mouse movement in pixels along each axis."
+  },
+  "@roblox/globaltype/VirtualInput.SendMouseDelta": {
+    "documentation": "Injects a relative mouse movement event. Only works while the player's cursor is locked.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VirtualInput.SendMouseDelta/param/0"
+      },
+      {
+        "name": "positionDelta",
+        "documentation": "@roblox/globaltype/VirtualInput.SendMouseDelta/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualInput#SendMouseDelta",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VirtualInput.SendMousePosition/param/0": {
+    "documentation": "Allows Studio plugins to simulate mouse, keyboard, and pointer input as if it were performed by a real player."
+  },
+  "@roblox/globaltype/VirtualInput.SendMousePosition/param/1": {
+    "documentation": "The target screen-space position in pixels."
+  },
+  "@roblox/globaltype/VirtualInput.SendMousePosition": {
+    "documentation": "Moves the virtual mouse cursor to the specified absolute screen position.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VirtualInput.SendMousePosition/param/0"
+      },
+      {
+        "name": "position",
+        "documentation": "@roblox/globaltype/VirtualInput.SendMousePosition/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualInput#SendMousePosition",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VirtualInput.SendPointerAction/param/0": {
+    "documentation": "Allows Studio plugins to simulate mouse, keyboard, and pointer input as if it were performed by a real player."
+  },
+  "@roblox/globaltype/VirtualInput.SendPointerAction/param/1": {
+    "documentation": "The screen-space position in pixels at which to inject the event."
+  },
+  "@roblox/globaltype/VirtualInput.SendPointerAction/param/2": {
+    "documentation": "A dictionary describing the pointer action to inject. Accepted keys are <code>Wheel</code> (number), <code>Pan</code> (<code>Vector2</code>), and <code>Pinch</code> (number). At least one key must have a non-zero value."
+  },
+  "@roblox/globaltype/VirtualInput.SendPointerAction": {
+    "documentation": "Injects a scroll wheel, trackpad pan, or pinch gesture event at the specified screen position.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VirtualInput.SendPointerAction/param/0"
+      },
+      {
+        "name": "position",
+        "documentation": "@roblox/globaltype/VirtualInput.SendPointerAction/param/1"
+      },
+      {
+        "name": "pointerAction",
+        "documentation": "@roblox/globaltype/VirtualInput.SendPointerAction/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualInput#SendPointerAction",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VirtualInput.SendTextInput/param/0": {
+    "documentation": "Allows Studio plugins to simulate mouse, keyboard, and pointer input as if it were performed by a real player."
+  },
+  "@roblox/globaltype/VirtualInput.SendTextInput/param/1": {
+    "documentation": "The string to inject as text input."
+  },
+  "@roblox/globaltype/VirtualInput.SendTextInput": {
+    "documentation": "Injects a text input event as if the specified string was typed on a keyboard.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VirtualInput.SendTextInput/param/0"
+      },
+      {
+        "name": "text",
+        "documentation": "@roblox/globaltype/VirtualInput.SendTextInput/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualInput#SendTextInput",
+    "code_sample": ""
+  },
   "@roblox/globaltype/CreatorStoreService": {
     "documentation": "",
     "keys": {},
@@ -98484,7 +98762,7 @@
     "documentation": "A <code>Humanoid</code> character <code>Model</code>."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync": {
-    "documentation": "Returns a character <code>Model</code> equipped with everything specified in the passed in <code>HumanoidDescription</code>.",
+    "documentation": "Returns a character <code>Model</code> equipped with everything specified in the passed in <code>HumanoidDescription</code>. If <code>UseAvatarSettings</code> is set to true, Avatar Settings in the experience will be applied to the returned model.",
     "params": [
       {
         "name": "self",
@@ -101807,6 +102085,157 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIPageLayout#Stopped",
     "code_sample": ""
   },
+  "@roblox/globaltype/PluginConnectionService": {
+    "documentation": "This service is used by plugins to communicate with other instances of themselves running in other data models.",
+    "keys": {
+      "CanHaveConnectionType": "@roblox/globaltype/PluginConnectionService.CanHaveConnectionType",
+      "GetPluginConnectionsOfType": "@roblox/globaltype/PluginConnectionService.GetPluginConnectionsOfType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginConnectionService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PluginConnectionService.CanHaveConnectionType/param/0": {
+    "documentation": "This service is used by plugins to communicate with other instances of themselves running in other data models."
+  },
+  "@roblox/globaltype/PluginConnectionService.CanHaveConnectionType/param/1": {
+    "documentation": "The connection type to check."
+  },
+  "@roblox/globaltype/PluginConnectionService.CanHaveConnectionType/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/PluginConnectionService.CanHaveConnectionType": {
+    "documentation": "Checks if the current data model context can ever have connections of a given type.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/PluginConnectionService.CanHaveConnectionType/param/0"
+      },
+      {
+        "name": "type",
+        "documentation": "@roblox/globaltype/PluginConnectionService.CanHaveConnectionType/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/PluginConnectionService.CanHaveConnectionType/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginConnectionService#CanHaveConnectionType",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PluginConnectionService.GetPluginConnectionsOfType/param/0": {
+    "documentation": "This service is used by plugins to communicate with other instances of themselves running in other data models."
+  },
+  "@roblox/globaltype/PluginConnectionService.GetPluginConnectionsOfType/param/1": {
+    "documentation": "The connection type to check."
+  },
+  "@roblox/globaltype/PluginConnectionService.GetPluginConnectionsOfType/return/0": {
+    "documentation": "An array of the currently connected <code>PluginConnection</code> objects with that target type."
+  },
+  "@roblox/globaltype/PluginConnectionService.GetPluginConnectionsOfType": {
+    "documentation": "Returns a list of currently connected <code>PluginConnection</code> objects with the given connection type.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/PluginConnectionService.GetPluginConnectionsOfType/param/0"
+      },
+      {
+        "name": "type",
+        "documentation": "@roblox/globaltype/PluginConnectionService.GetPluginConnectionsOfType/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/PluginConnectionService.GetPluginConnectionsOfType/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginConnectionService#GetPluginConnectionsOfType",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PluginConnectionService.Connected.Connect/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/PluginConnectionService.Connected.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/PluginConnectionService.Connected.Connect": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/PluginConnectionService.Connected.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/PluginConnectionService.Connected.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/PluginConnectionService.Connected.ConnectParallel/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/PluginConnectionService.Connected.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/PluginConnectionService.Connected.ConnectParallel": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/PluginConnectionService.Connected.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/PluginConnectionService.Connected.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/PluginConnectionService.Connected.Once/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/PluginConnectionService.Connected.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/PluginConnectionService.Connected.Once": {
+    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/PluginConnectionService.Connected.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/PluginConnectionService.Connected.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/PluginConnectionService.Connected.Wait/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/PluginConnectionService.Connected.Wait": {
+    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/PluginConnectionService.Connected.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/PluginConnectionService.Connected": {
+    "documentation": "Fires just after a new <code>PluginConnection</code> successfully connects.",
+    "keys": {
+      "Connect": "@roblox/globaltype/PluginConnectionService.Connected.Connect",
+      "ConnectParallel": "@roblox/globaltype/PluginConnectionService.Connected.ConnectParallel",
+      "Once": "@roblox/globaltype/PluginConnectionService.Connected.Once",
+      "Wait": "@roblox/globaltype/PluginConnectionService.Connected.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginConnectionService#Connected",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RecommendationPages": {
     "documentation": "A special version of the <code>Pages</code> class returned by <code>GenerateItemListAsync</code>.",
     "keys": {},
@@ -102987,7 +103416,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ProceduralModel": {
-    "documentation": "",
+    "documentation": "Procedural models support edit-time procedural generation. Instead of manually constructing model content, a procedural model generates its contents automatically in response to parameter changes.",
     "keys": {
       "GenerationError": "@roblox/globaltype/ProceduralModel.GenerationError",
       "Generator": "@roblox/globaltype/ProceduralModel.Generator",
@@ -102999,22 +103428,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ProceduralModel.GenerationError": {
-    "documentation": "",
+    "documentation": "Stores errors that the generator module might encounter during generation.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ProceduralModel#GenerationError",
     "code_sample": ""
   },
   "@roblox/globaltype/ProceduralModel.Generator": {
-    "documentation": "",
+    "documentation": "A reference to a <code>ModuleScript</code> that contains code which defines how the <code>ProceduralModel</code> generates its contents in response to parameter changes.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ProceduralModel#Generator",
     "code_sample": ""
   },
   "@roblox/globaltype/ProceduralModel.Size": {
-    "documentation": "",
+    "documentation": "Defines the bounding volume used for generation.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ProceduralModel#Size",
     "code_sample": ""
   },
   "@roblox/globaltype/ProceduralModel.ForceGeneration/param/0": {
-    "documentation": ""
+    "documentation": "Procedural models support edit-time procedural generation. Instead of manually constructing model content, a procedural model generates its contents automatically in response to parameter changes."
   },
   "@roblox/globaltype/ProceduralModel.ForceGeneration/return/0": {
     "documentation": ""
@@ -103034,13 +103463,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ProceduralModel.WaitForGenerationAsync/param/0": {
-    "documentation": ""
+    "documentation": "Procedural models support edit-time procedural generation. Instead of manually constructing model content, a procedural model generates its contents automatically in response to parameter changes."
   },
   "@roblox/globaltype/ProceduralModel.WaitForGenerationAsync/return/0": {
-    "documentation": ""
+    "documentation": "Was the generation successful?"
   },
   "@roblox/globaltype/ProceduralModel.WaitForGenerationAsync": {
-    "documentation": "",
+    "documentation": "Waits for generation to complete after making parameter changes.",
     "params": [
       {
         "name": "self",
@@ -103051,7 +103480,7 @@
       "@roblox/globaltype/ProceduralModel.WaitForGenerationAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ProceduralModel#WaitForGenerationAsync",
-    "code_sample": ""
+    "code_sample": "local proceduralModel = ...\nproceduralModel:SetAttribute(\"ThrowAnError\", true) --> Deliberately fail\nprint(proceduralModel:WaitForGenerationAsync()) --> false"
   },
   "@roblox/enum/VelocityConstraintMode.Line": {
     "documentation": "The velocity component in the direction of the line is constrained to the specified value. The line direction is based on the <code>RelativeTo</code> property: <ul> <li><code>Attachment0</code> - The line direction is the   primary axis of <code>Attachment0</code>.</li> <li><code>Attachment1</code> - The line direction is the   primary axis of <code>Attachment1</code>.</li> <li><code>World</code> - The line direction must be specified.</li> </ul>",
@@ -109309,6 +109738,35 @@
       "Hammer": "@roblox/enum/BinType.Hammer"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BinType",
+    "code_sample": ""
+  },
+  "@roblox/enum/PluginConnectionTargetType.Edit": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PluginConnectionTargetType#Edit",
+    "code_sample": ""
+  },
+  "@roblox/enum/PluginConnectionTargetType.Test": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PluginConnectionTargetType#Test",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PluginConnectionTargetType": {
+    "documentation": "",
+    "keys": {
+      "Edit": "@roblox/enum/PluginConnectionTargetType.Edit",
+      "Test": "@roblox/enum/PluginConnectionTargetType.Test"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PluginConnectionTargetType",
     "code_sample": ""
   },
   "@roblox/enum/HumanoidDisplayDistanceType.Viewer": {
