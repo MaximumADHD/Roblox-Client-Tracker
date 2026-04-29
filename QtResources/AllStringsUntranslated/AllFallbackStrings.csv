@@ -11,6 +11,7 @@ Studio.Actions.Title.ExperienceSettings,"The title for the ""Experience Settings
 Studio.Actions.Title.LogoutMenu,Label for the logout menu in Studio,Current User,Current User
 Studio.Actions.Title.MicroProfiler,The MicroProfiler is a performance optimization and troubleshooting tool available in Roblox Studio and the Roblox client. It provides detailed timing information for task scheduler tasks called tags.,MicroProfiler,MicroProfiler
 Studio.Actions.Title.SLIM,The title for an action that toggles SLIM debug features - SLIM is an acronym and untranslatable.,SLIM,SLIM
+Studio.Actions.Title.SceneAnalysis,name of a feature,Scene Analysis,Scene Analysis
 Studio.Actions.Title.SceneMonitor,Scene Monitor,Scene Monitor,Scene Monitor
 Studio.Actions.Title.VerifyAge,"This string will be displayed as an menu item in the account dropdown menu, prompting the user to click on the item, which will redirect them to the web to start the age verification process.",Age check needed,Age check needed
 Studio.Actions.Tooltip.Assistant,"Tooltip for button that opens Studio Assistant - an AI helper that accelerates content creation by helping you get started, supplementing your skills, and assisting with ongoing development",Chat with Studio Assistant to get help and accelerate creation,Chat with Studio Assistant to get help and accelerate creation
@@ -23,6 +24,7 @@ Studio.Actions.Tooltip.LiveCollaborators,Tooltip for the Social Presence widget 
 Studio.Actions.Tooltip.LogoutMenu,This is the tooltip for the logout menu. The %1 is not supposed to be localized as it's the variable placeholder for the username,You are logged in as %1,You are logged in as %1
 Studio.Actions.Tooltip.MicroProfiler,Tooltip for the MicroProfiler - a performance optimization and troubleshooting tool available in Roblox Studio and the Roblox client. It provides detailed timing information for task scheduler tasks called tags.,Performance optimization and troubleshooting tool that provides detailed timing information for task scheduler tasks,Performance optimization and troubleshooting tool that provides detailed timing information for task scheduler tasks
 Studio.Actions.Tooltip.SLIM,The description of a button that toggles the SLIM (untranslatable acronym for a piece of rendering technology) debug information for models in the current roblox experience,Toggle the visuals of models that are SLIM,Toggle the visuals of models that are SLIM
+Studio.Actions.Tooltip.SceneAnalysis,Says what this tool lets you do,"Analyze scene composition, memory usage, and rendering information","Analyze scene composition, memory usage, and rendering information"
 Studio.Actions.Tooltip.SceneMonitor,View triangle and draw call counts for the current camera view,View triangle and draw call counts for the current camera view,View triangle and draw call counts for the current camera view
 Studio.Actions.Tooltip.Share,Tooltip for the share button in Studio for users to get a link to the current experience,Get the public link for this experience,Get the public link for this experience
 Studio.App.Actions.AudioDiscovery,Name of the action to display the Audio Discovery plugin,Audio Discovery,Audio Discovery
@@ -6122,9 +6124,7 @@ Studio.BetaFeatures.RuntimeContentDescription,Description of the RuntimeContent 
 Studio.BetaFeatures.RuntimeContentTitle,Title for Runtime Content studio beta feature,Editable Mesh/Image to static content conversion API,Editable Mesh/Image to static content conversion API
 Studio.BetaFeatures.SaveToCloudV2Description,,Create new games in the cloud automatically.,Create new games in the cloud automatically.
 Studio.BetaFeatures.SaveToCloudV2Title,,New Games in the Cloud,New Games in the Cloud
-Studio.BetaFeatures.SceneAnalysisDescription,These terms all map to the views in scene analysis,"Enables detailed performance statistics for scene composition including instance counts, 
-  triangle counts, script memory, and unparented instances,","Enables detailed performance statistics for scene composition including instance counts, 
-  triangle counts, script memory, and unparented instances,"
+Studio.BetaFeatures.SceneAnalysisDescription,These terms all map to the views in scene analysis,"Enables detailed performance statistics for scene composition including instance counts, triangle counts, script memory, and unparented instances.","Enables detailed performance statistics for scene composition including instance counts, triangle counts, script memory, and unparented instances."
 Studio.BetaFeatures.SceneAnalysisTitle,Title of a window/tool,Scene Analysis,Scene Analysis
 Studio.BetaFeatures.ScriptEditorApiDescription,,"Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor.","Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor."
 Studio.BetaFeatures.ScriptEditorApiTitle,,Script Editor API,Script Editor API
@@ -6989,6 +6989,7 @@ Studio.LiveSync.Property.UseDefaultExternalEditor,Property name for if a default
 Studio.LiveSync.PropertyItems.ApplicationNotFound1,Message Displayed when the configured/selected application cannot be found. The argument %1 is the path to the application.,Application not found (%1),Application not found (%1)
 Studio.LiveSync.PropertyItems.ChooseApp,"Text to display when no application is selected to open scripts with when using ""Open in External Editor""",Choose an application,Choose an application
 Studio.LiveSync.PropertyItems.SystemDefault,Text displayed in settings when no custom application path is configured for external editor app.,System Default,System Default
+Studio.LiveSync.ResumeSyncConflictsCondensedM3,Condensed notification that instances did not auto-resume sync due to content mismatch.,%1 instance(s) not resumed - contents differ from disk. Resume manually via context menu or set behavior in Studio Settings > Script Sync > Resume conflicted sync on place open,%1 instance(s) not resumed - contents differ from disk. Resume manually via context menu or set behavior in Studio Settings > Script Sync > Resume conflicted sync on place open
 Studio.LiveSync.ResumeSyncConflictsDetected,Notifying the user that scripts did not auto-resume sync due to content mismatch.,Studio did not resume syncing %1 script(s) because their contents do not match the files on disk. You can resume them manually in the context menu. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open,Studio did not resume syncing %1 script(s) because their contents do not match the files on disk. You can resume them manually in the context menu. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open
 Studio.LiveSync.ResumeSyncConflictsDetectedM3,Notifying the user that scripts did not auto-resume sync due to content mismatch.,Studio did not resume syncing %1 instance(s) because their contents do not match the files on disk. You can resume them manually in the context menu. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open,Studio did not resume syncing %1 instance(s) because their contents do not match the files on disk. You can resume them manually in the context menu. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open
 Studio.LiveSync.ResumeSyncOverwriteFiles,Notifying the user that files were overwritten when auto resuming Script Sync,Studio is overwriting %1 synced file(s) when restarting to match the current script contents in the DM. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open,Studio is overwriting %1 synced file(s) when restarting to match the current script contents in the DM. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open
@@ -7023,9 +7024,11 @@ Studio.LiveSync.Upsell,Explanation of opening in external editor for a non-synci
 Studio.LiveSync.WarningAddedImcompatibleInstance,Warning message shown when an added instance is ignored because its type is incompatible.,Instance '%1' is incompatible and will not be synced.,Instance '%1' is incompatible and will not be synced.
 Studio.LiveSync.WarningHierarchyBecomeIgnored,Warning message when an instance and its children are no longer synced because their parent instance has an incompatible type.,Syncing stopped for '%1' and its descendants: Parent instance '%2' has an incompatible type.,Syncing stopped for '%1' and its descendants: Parent instance '%2' has an incompatible type.
 Studio.LiveSync.WarningIgnoredChildren,Warning that an instance has incompatible children that will not be synced,%1 has children that are incompatible instances which will not be synced,%1 has children that are incompatible instances which will not be synced
+Studio.LiveSync.WarningIgnoredDescendants,Warning that an instance has incompatible descendants that will not be synced,%1 has descendants that are incompatible instances which will not be synced,%1 has descendants that are incompatible instances which will not be synced
 Studio.LiveSync.WarningLuaFilesNotSupported,Warning message shown when a .lua file is found in the file system hierarchy. Suggests using .luau instead.,"Can't sync '%1': .lua files are currently not supported, please use the .luau extension","Can't sync '%1': .lua files are currently not supported, please use the .luau extension"
 Studio.LiveSync.WarningPathHierarchyMismatch,Warning message suggesting a potential mistake when selected path and hierarchy don't match.,The selected path '%1' doesn't match hierarchy '%2'. Ensure this is the correct target.,The selected path '%1' doesn't match hierarchy '%2'. Ensure this is the correct target.
 Studio.LiveSync.WarningUnsupportedProperties,Warns that the instance has unsupported properties which will not be synced,%1 has unsupported properties which will not be synced,%1 has unsupported properties which will not be synced
+Studio.LiveSync.WarningUnsupportedPropertiesDescendants,Warning that an instance has descendants with unsupported properties that will not be synced.,%1 has descendants with unsupported properties which will not be synced,%1 has descendants with unsupported properties which will not be synced
 Studio.ManageCollaborators.Buttons.Cancel,,Cancel,Cancel
 Studio.ManageCollaborators.Buttons.HideRole,, Hide 1 role, Hide 1 role
 Studio.ManageCollaborators.Buttons.HideRoles,, Hide {count} roles, Hide {count} roles
@@ -7212,13 +7215,16 @@ Studio.NativeDialog.TerminatePluginNoName,"The description given to users when w
 Studio.NativeDialog.TerminateUserPluginNoName,"The description given to users when we want to end a user plugin that is taking too long to run. The user needs to know that stopping this plugin will not crash Studio, but will just kill that plugin. They will be able to continue working on their project and none of their work will get lost.","A user plugin is taking too long to execute. Do you want to stop it and continue editing your place, or keep waiting a bit longer.","A user plugin is taking too long to execute. Do you want to stop it and continue editing your place, or keep waiting a bit longer."
 Studio.NativeDialog.Yes,Affirmative word,Yes,Yes
 Studio.NetworkSettings.Property.EnableNetworkEmulation,"When devs check this check box, it will enable functionality to mimic poor network conditions like packet loss and network latency",Enable Network Emulation,Enable Network Emulation
+Studio.NetworkSettings.Property.InboundNetworkJitter,"This setting adds a random amount of delay to inbound (received) network packets, known as jitter. This delay is in addition to a fixed delay specified by InboundNetworkMinDelay. It accepts values between 0 and 1000, and the setting is in milliseconds.",Inbound Jitter (0-1000ms),Inbound Jitter (0-1000ms)
 Studio.NetworkSettings.Property.InboundNetworkMaxDelay,"This setting will add a delay to inbound (received) network packets. It is the maximum amount of delay, a separate setting will specify the minimum. It accepts values between 0 and 2000, and the setting is in milliseconds.",Max Inbound Delay (0-2000ms),Max Inbound Delay (0-2000ms)
-Studio.NetworkSettings.Property.InboundNetworkMinDelay,"This setting will add a delay to inbound (received) network packets. It is the minimum amount of delay, a separate setting will specify the maximum. It accepts values between 0 and 2000, and the setting is in milliseconds.",Min Inbound Delay (0-2000ms),Min Inbound Delay (0-2000ms)
+Studio.NetworkSettings.Property.InboundNetworkMinDelay,"This setting will add a delay to inbound (received) network packets. It is the minimum amount of delay, a separate setting will allow setting additional randomized delay (jitter).",Min Inbound Delay (0-1000ms),Min Inbound Delay (0-1000ms)
 Studio.NetworkSettings.Property.InboundPacketLoss,"This setting sets a percent chance that inbound (received) network packets will be dropped, mimicking packet loss. The accepted range is 0 to 0.5 percent.",Inbound Packet Loss (0-0.5%),Inbound Packet Loss (0-0.5%)
+Studio.NetworkSettings.Property.OutboundNetworkJitter,"This setting adds a random amount of delay to outbound (sent) network packets, known as jitter. This delay is in addition to a fixed delay specified by OutboundNetworkMinDelay. It accepts values between 0 and 1000, and the setting is in milliseconds.",Outbound Jitter (0-1000ms),Outbound Jitter (0-1000ms)
 Studio.NetworkSettings.Property.OutboundNetworkMaxDelay,"This setting will add a delay to outbound (sent) network packets. It is the maximum amount of delay, a separate setting will specify the minimum. It accepts values between 0 and 2000, and the setting is in milliseconds.",Max Outbound Delay (0-2000ms),Max Outbound Delay (0-2000ms)
-Studio.NetworkSettings.Property.OutboundNetworkMinDelay,"This setting will add a delay to outbound (sent) network packets. It is the minimum amount of delay, a separate setting will specify the maximum. It accepts values between 0 and 2000, and the setting is in milliseconds.",Min Outbound Delay (0-2000ms),Min Outbound Delay (0-2000ms)
+Studio.NetworkSettings.Property.OutboundNetworkMinDelay,"This setting will add a delay to outbound (sent) network packets. It is the minimum amount of delay, a separate setting will allow setting additional randomized delay (jitter).",Min Outbound Delay (0-1000ms),Min Outbound Delay (0-1000ms)
 Studio.NetworkSettings.Property.OutboundPacketLoss,"This setting sets a percent chance that outbound (sent) network packets will be dropped, mimicking packet loss. The accepted range is 0 to 0.5 percent.",Outbound Packet Loss (0-0.5%),Outbound Packet Loss (0-0.5%)
 Studio.NetworkSettings.SettingsCategory.NetworkEmulation,A collection of settings to mimic poor network conditions like packet loss and network latency,Network Emulation,Network Emulation
+Studio.NetworkSettings.SettingsCategory.NetworkSimulation,"A collection of settings to mimic poor network conditions like packet loss and network latency. The choice of ""simulation"" instead of ""emulation"" is deliberate.",Network Simulation,Network Simulation
 Studio.PackageManagement.Errors.ProceduralModelInPackage,An error that occurs when the user tries to publish a package with a ProceduralModel instance in it. We're working on enabling this soon though!,Error: Cannot publish a package that contains a ProceduralModel yet. We're still working out the edge cases on this!,Error: Cannot publish a package that contains a ProceduralModel yet. We're still working out the edge cases on this!
 Studio.PackageManagement.MenuEntry.Permissions,,Permissions,Permissions
 Studio.PackageManagement.Meta.PluginName,,Package Configuration,Package Configuration
@@ -7318,9 +7324,10 @@ Studio.PublishPlace.Button.Manage,"Button to open a web page that displays user'
 Studio.PublishPlace.Error.PublishEligibilityDescription,Shown when the user cannot publish their place due to eligibility checks.,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.
 Studio.PublishPlace.Error.PublishEligibilityTitle,Shown when the user cannot publish their place to a universe,Unable to publish this experience,Unable to publish this experience
 Studio.PublishPlace.Link.ViewErrorReports,Shown as a hyperlink to open a webpage,→ View error reports,→ View error reports
-Studio.PublishPlace.Link.ViewExperienceSettings,Shown as a hyperlink for user to open a webpage,→ View experience settings,→ View experience settings
-Studio.PublishPlace.Link.ViewUsageMetrics,Shown as a hyperlink to open a webpage,→ View usage metrics,→ View usage metrics
+Studio.PublishPlace.Link.ViewExperienceSettings,Shown as a hyperlink for user to open a webpage,→ Edit experience details & audience,→ Edit experience details & audience
+Studio.PublishPlace.Link.ViewUsageMetrics,Shown as a hyperlink to open a webpage,→ View performance,→ View performance
 Studio.PublishPlace.Message.NextStepsOnCreatorHub,Shown after the user publishes to Roblox. The following items are hyperlinks.,Next steps on Creator Hub:,Next steps on Creator Hub:
+Studio.PublishPlace.Message.QuickLinks,showing the next steps and useful links after the publish,Quick Links:,Quick Links:
 Studio.PublishPlace.Toast.AddNotes,Shown as a hyperlink on a toast after the user publish their game to Roblox,Add notes,Add notes
 Studio.PublishPlace.Toast.ChangesPublished,Shown on a toast after the game is published to Roblox,Changes published.,Changes published.
 Studio.PublishPlace.Toast.ViewQuestionnaireLink,Shown as a hyperlink to open a web page,View questionnaire,View questionnaire
@@ -7702,6 +7709,48 @@ Studio.RobloxPropertiesWidget.Category.Visualization,,Visualization,Visualizatio
 Studio.RobloxPropertiesWidget.Category.Winch,,Winch,Winch
 Studio.RobloxPropertiesWidget.Color3Picker.HexLabel,,Hex:,Hex:
 Studio.RobloxPropertiesWidget.WorkspaceAuthorityModeDepProperty,Tooltip shown on properties who are forced to a value to support enabling Server Authority.,This property is required given your Server Authority settings.,This property is required given your Server Authority settings.
+Studio.SceneAnalysis.Categories.AnimationMemory,Title for a query that shows how much memory animations are using,Animation Memory,Animation Memory
+Studio.SceneAnalysis.Categories.AudioMemory,Title for a query that shows how much memory is being used by audio.,Audio Memory,Audio Memory
+Studio.SceneAnalysis.Categories.InstanceComposition,Title of a query that shows how Instances are used,Instance Composition,Instance Composition
+Studio.SceneAnalysis.Categories.SceneTriangles,Title for a query that shows the triangle counts in the scene,Scene Triangles,Scene Triangles
+Studio.SceneAnalysis.Categories.ScriptMemoryUsage,Title for a query that shows how much memory scripts are using,Script Memory Usage,Script Memory Usage
+Studio.SceneAnalysis.Categories.UnparentedInstances,Title of a query that shows Instances with no parents,Unparented Instances,Unparented Instances
+Studio.SceneAnalysis.ColumnHeaders.AssetID,"As in ""the Asset ID of this thing""",AssetID,AssetID
+Studio.SceneAnalysis.ColumnHeaders.Class,"As in ""type of thing""",Class,Class
+Studio.SceneAnalysis.ColumnHeaders.ClassName,Column header,Class Name,Class Name
+Studio.SceneAnalysis.ColumnHeaders.Drawcalls,"As in ""number of drawcalls""",Drawcalls,Drawcalls
+Studio.SceneAnalysis.ColumnHeaders.InDatamodel,"as in ""this is in the datamodel"" true/false",In Datamodel,In Datamodel
+Studio.SceneAnalysis.ColumnHeaders.InstanceCount,Column header,Instance Count,Instance Count
+Studio.SceneAnalysis.ColumnHeaders.Memory,As in kilobytes,Memory,Memory
+Studio.SceneAnalysis.ColumnHeaders.Name,A name in a column,Name,Name
+Studio.SceneAnalysis.ColumnHeaders.Owners,"As in ""list of owners""",Owners,Owners
+Studio.SceneAnalysis.ColumnHeaders.ParentName,As in this things parent,Parent Name,Parent Name
+Studio.SceneAnalysis.ColumnHeaders.Path,"As in ""path to an instance""",Path,Path
+Studio.SceneAnalysis.ColumnHeaders.References,As in count,References,References
+Studio.SceneAnalysis.ColumnHeaders.Triangles,As in number of triangles,Triangles,Triangles
+Studio.SceneAnalysis.ContextMenu.CopyAssetIdToClipboard,A context menu action,Copy Asset ID to Clipboard,Copy Asset ID to Clipboard
+Studio.SceneAnalysis.ContextMenu.SelectInstances,A context menu action,Select Instances(s),Select Instances(s)
+Studio.SceneAnalysis.Controls.AutoupdateToggle,A button with a toggle for turning on/off autoupdate,Autoupdate,Autoupdate
+Studio.SceneAnalysis.Controls.SearchPlaceholder,Placeholder for the search bar before the user types anything,Search...,Search...
+Studio.SceneAnalysis.Messages.LocalMachineValuesWarning,A warning message explaining that the memory values may be different on different devices.,Local machine values. Memory usage will vary on player's devices.,Local machine values. Memory usage will vary on player's devices.
+Studio.SceneAnalysis.Messages.NoResults,Placeholder for when there are no results returned by a query,(No Results),(No Results)
+Studio.SceneAnalysis.Messages.UnknownName,Tooltip information when something is unknown,Unknown,Unknown
+Studio.SceneAnalysis.Messages.WaitingForData,Placeholder text when there is no data to display.,(Waiting For Data),(Waiting For Data)
+Studio.SceneAnalysis.Plugin.Button,"The button name, which is Scene Analysis.",Scene Analysis,Scene Analysis
+Studio.SceneAnalysis.Plugin.Description,"Describes what the Scene Analysis tool does, which is used for analyzing your scene.",A tool for analyzing scene resources within your experience.,A tool for analyzing scene resources within your experience.
+Studio.SceneAnalysis.Plugin.Name,a 1-word concatenated string for the Scene Analysis window,SceneAnalysis,SceneAnalysis
+Studio.SceneAnalysis.SummaryPane.SelectedItemsPrefix,A prefix wrapper for summaries with selections,Selected: {selected} ({count} items)  |  {summary},Selected: {selected} ({count} items)  |  {summary}
+Studio.SceneAnalysis.SummaryPane.TotalAnimationMemory,Summary for a given view,Total Animation Memory: {memory}  |  Total Tracks: {count},Total Animation Memory: {memory}  |  Total Tracks: {count}
+Studio.SceneAnalysis.SummaryPane.TotalAudioMemory,Summary for a given view,Total Audio Memory: {memory}  |  Total Sounds: {count},Total Audio Memory: {memory}  |  Total Sounds: {count}
+Studio.SceneAnalysis.SummaryPane.TotalCountGeneric,A generic summary for a given view,Total: {total}  |  Count: {count},Total: {total}  |  Count: {count}
+Studio.SceneAnalysis.SummaryPane.TotalInstances,Summary for a given view,Total Instances: {count}  |  Total Categories: {categories},Total Instances: {count}  |  Total Categories: {categories}
+Studio.SceneAnalysis.SummaryPane.TotalMemory,Summary for a given view,Total Memory: {memory}  |  Total Items: {count},Total Memory: {memory}  |  Total Items: {count}
+Studio.SceneAnalysis.SummaryPane.TotalSceneTriangles,Summary for a given view.,Total Scene Triangles: {triangles}  |  Drawcalls: {drawcalls} (Excludes Shadows),Total Scene Triangles: {triangles}  |  Drawcalls: {drawcalls} (Excludes Shadows)
+Studio.SceneAnalysis.SummaryPane.TotalScriptMemory,Summary information for a query,Total Script Memory: {memory}  |  Total Scripts: {count},Total Script Memory: {memory}  |  Total Scripts: {count}
+Studio.SceneAnalysis.SummaryPane.TotalUnparentedInstances,Summary for a given view.,Total Unparented Instances: {count},Total Unparented Instances: {count}
+Studio.SceneAnalysis.Tooltip.CountLabel,Heading for a tooltip that shows counts,Count: {value},Count: {value}
+Studio.SceneAnalysis.Tooltip.InstanceCountLabel,Label for a tooltip that shows Instance Counts,Instance Count:,Instance Count:
+Studio.SceneAnalysis.Tooltip.MemoryLabel,Label for a tooltip that shows memory sizes,Memory: {value},Memory: {value}
 Studio.ScriptEditor.NoDeclarationFoundParameterTooltip,No declaration/definition was found for the given parameter,No declaration found for '%1',No declaration found for '%1'
 Studio.ScriptEditor.NoDeclarationFoundTooltip,Tooltip string indicating that no declaration/definition was found,No declaration found,No declaration found
 Studio.ScriptEditor.TypeColor,The color of Luau Types in the Studio Script Editor Syntax highlighter,Type Color,Type Color

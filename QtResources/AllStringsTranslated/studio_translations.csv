@@ -5701,7 +5701,7 @@ Studio.App.GenerativeAI.FileDialog.AllFiles,,,All files,All files
 Studio.App.GenerativeAI.FileDialog.AllowedFiles,,,Allowed files,Allowed files
 Studio.App.PackageService.CircularDependency,,,Cannot publish package with circular package link dependencies,Cannot publish package with circular package link dependencies
 Studio.App.RobloxRibbonMainWindow.AdaptiveAnimation,,,Adaptive Animation,Adaptive Animation
-Studio.App.RobloxRibbonMainWindow.AdaptiveAnimationTooltip,,,"Map joints, adjust T-Pose and preview animations using Humanoid Rig Description","Map joints, adjust T-Pose and preview animations using Humanoid Rig Description"
+Studio.App.RobloxRibbonMainWindow.AdaptiveAnimationTooltip,,,Create and edit your rig retargeting settings,Create and edit your rig retargeting settings
 Studio.App.StudioPluginHost.CantSaveSettings,,,Unable to save settings for plugin,Unable to save settings for plugin
 Studio.App.PropertyItems.SandboxedDisabledWarning,,,Disabling the Sandboxed property might make your game vulnerable to exploits. Are you sure you want to disable this?,Disabling the Sandboxed property might make your game vulnerable to exploits. Are you sure you want to disable this?
 Studio.App.PropertyItems.SandboxedDisabledKeep,,,Keep Sandboxed,Keep Sandboxed
@@ -8141,6 +8141,16 @@ Studio.Toolbox.General.AssetTypeSwimAnimation,,,Swim Animation,Swim Animation
 Studio.Toolbox.General.ShoeValidation,,,Shoe Validation,Shoe Validation
 Studio.Toolbox.AssetConfig.UGCAvatarAnimationsBundleName,,,Avatar Animations,Avatar Animations
 Studio.Toolbox.General.AvatarAnimationsValidation,,,Avatar Animations Validation,Avatar Animations Validation
+Studio.Toolbox.ModelUploadWarning.ColumnReason,,,Reason,Reason
+Studio.Toolbox.ModelUploadWarning.Title,,,Model uploaded successfully,Model uploaded successfully
+Studio.Toolbox.ModelUploadWarning.Subtitle,,,You don't have full permissions to some of the dependency assets. They may not load in the future if the parent asset is shared or used in other Experiences,You don't have full permissions to some of the dependency assets. They may not load in the future if the parent asset is shared or used in other Experiences
+Studio.Toolbox.ModelUploadWarning.ColumnAssetId,,,Asset ID,Asset ID
+Studio.Toolbox.ModelUploadWarning.ReasonBadPermissionState,,,You do not have access,You do not have access
+Studio.Toolbox.ModelUploadWarning.ReasonStoreIneligible,,,Store ineligible,Store ineligible
+Studio.Toolbox.ModelUploadWarning.ReasonNotFound,,,AssetId not found,AssetId not found
+Studio.Toolbox.ModelUploadWarning.CopyToClipboard,,,Copy to Clipboard,Copy to Clipboard
+Studio.Toolbox.ModelUploadWarning.Copied,,,Copied!,Copied!
+Studio.Toolbox.ModelUploadWarning.AiAssistantTip,,,"Tip: After copying, ask Assistant to find these assets in Explorer","Tip: After copying, ask Assistant to find these assets in Explorer"
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9464,6 +9474,9 @@ Studio.AssetManager.Toast.InsertingAssets,,,Inserting assets,Inserting assets
 Studio.AssetManager.Toast.DeleteFolderFailedNotEmpty,,,The folder must be empty before it can be deleted,The folder must be empty before it can be deleted
 Studio.AssetManager.Toast.FolderNotFound,,,Could not find folder. Please refresh the Asset Manager.,Could not find folder. Please refresh the Asset Manager.
 Studio.AssetManager.Toast.GetItemsFailed,,,Failed to fetch items for this folder,Failed to fetch items for this folder
+Studio.AssetManager.Dialogs.MoveDescription,,,Select a destination folder for selected assets.,Select a destination folder for selected assets.
+Studio.AssetManager.Dialogs.MoveTitle,,,Move 1 Asset,Move 1 Asset
+Studio.AssetManager.Dialogs.MoveTitleMultiple,,,Move {count} Assets,Move {count} Assets
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -11393,6 +11406,8 @@ Studio.StyleEditor.SourceSelect.Source,,,Source:,Source:
 Studio.StyleEditor.ContextMenu.Insert,,,Insert,Insert
 Studio.StyleEditor.ContextMenu.New.Transition,,,Transition,Transition
 Studio.StyleEditor.Label.ValueErrorIncorrectType,,,Error: Incorrect value type for property,Error: Incorrect value type for property
+Studio.StyleEditor.ContextMenu.New.Query.Builtin,,,Builtin,Builtin
+Studio.StyleEditor.ContextMenu.New.Query.Custom,,,Custom,Custom
 Studio.AudioDiscovery.Plugin.Name,,,Audio Discovery,Audio Discovery
 Studio.AudioDiscovery.Plugin.Toolbar,,,Audio Discovery,Audio Discovery
 Studio.AudioDiscovery.Plugin.Button,,,View Sounds,View Sounds
@@ -12788,6 +12803,7 @@ Studio.ActivityFeed.Description.RoleExperiencePermissionsUpdated,,,Permissions w
 Studio.ActivityFeed.Description.ExperiencePermissionsUpdated,,,Permissions were updated for {roleName}. They can now {permissions}.,Permissions were updated for {roleName}. They can now {permissions}.
 Studio.ActivityFeed.Description.ExperiencePermissionsRevoked,,,All permissions were revoked for {roleName}.,All permissions were revoked for {roleName}.
 Studio.ActivityFeed.Description.DraftCommitOneMoreScript,,,1 more script,1 more script
+Studio.ActivityFeed.Description.RobloxModerationRejection,,,Ratings rejected,Ratings rejected
 Studio.StreamingServiceDispatcherRegistry.CreateMaterial.FailedToCreateMaterialTextFilteredError,,,Your prompt is filtered and cannot be generated. Try a different prompt.,Your prompt is filtered and cannot be generated. Try a different prompt.
 Studio.StreamingServiceDispatcherRegistry.Plugin.Name,,,StreamingServiceDispatcherRegistry,StreamingServiceDispatcherRegistry
 Studio.StreamingServiceDispatcherRegistry.Plugin.Toolbar,,,StreamingServiceDispatcherRegistry,StreamingServiceDispatcherRegistry
@@ -12948,6 +12964,8 @@ Studio.Actions.Title.ExperienceSettings,,,Experience Settings,Experience Setting
 Studio.Actions.Tooltip.ExperienceSettings,,,Update settings related to current experience,Update settings related to current experience
 Studio.Actions.Title.SLIM,,,SLIM,SLIM
 Studio.Actions.Tooltip.SLIM,,,Toggle the visuals of models that are SLIM,Toggle the visuals of models that are SLIM
+Studio.Actions.Title.SceneAnalysis,,,Scene Analysis,Scene Analysis
+Studio.Actions.Tooltip.SceneAnalysis,,,"Analyze scene composition, memory usage, and rendering information","Analyze scene composition, memory usage, and rendering information"
 Studio.PathEditor.Plugin.Name,,,PathEditor,PathEditor
 Studio.PathEditor.Plugin.Toolbar,,,PathEditor,PathEditor
 Studio.PathEditor.Plugin.Button,,,Toggle,Toggle
@@ -14053,6 +14071,11 @@ Studio.Assistant.PrimitiveGen.ExpectedTimeSeconds,,,usually takes less than {sec
 Studio.Assistant.PrimitiveGen.GenerationErrorGeneral,,,The server could not process the request. Please check the error details below and try again later.,The server could not process the request. Please check the error details below and try again later.
 Studio.Assistant.PrimitiveGen.GenerationErrorTooManyRequests,,,Too many requests. Please wait a moment and try again.,Too many requests. Please wait a moment and try again.
 Studio.Assistant.PrimitiveGen.GenerationErrorModerationFailed,,,Your request was flagged by our content moderation system. Please revise your prompt and try again.,Your request was flagged by our content moderation system. Please revise your prompt and try again.
+Studio.Assistant.PrimitiveGen.InsertionFailedRetryPrompt,,,Insertion failed. <b>Insert again?</b>,Insertion failed. <b>Insert again?</b>
+Studio.Assistant.PrimitiveGen.RetryYes,,,Yes,Yes
+Studio.Assistant.PrimitiveGen.RetryNo,,,No,No
+Studio.Assistant.PrimitiveGen.GenerationCancelledPlayModeRetryPrompt,,,Generation cancelled (Studio left edit mode). <b>Try again?</b>,Generation cancelled (Studio left edit mode). <b>Try again?</b>
+Studio.Assistant.PrimitiveGen.InsertAgain,,,Insert again,Insert again
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -15235,9 +15258,10 @@ Studio.PublishPlace.Toast.ViewQuestionnaireMessage,,,Changes published. Take the
 Studio.PublishPlace.Toast.ChangesPublished,,,Changes published.,Changes published.
 Studio.PublishPlace.Toast.AddNotes,,,Add notes,Add notes
 Studio.PublishPlace.Message.NextStepsOnCreatorHub,,,Next steps on Creator Hub:,Next steps on Creator Hub:
-Studio.PublishPlace.Link.ViewExperienceSettings,,,→ View experience settings,→ View experience settings
-Studio.PublishPlace.Link.ViewUsageMetrics,,,→ View usage metrics,→ View usage metrics
+Studio.PublishPlace.Link.ViewExperienceSettings,,,→ Edit experience details & audience,→ Edit experience details & audience
+Studio.PublishPlace.Link.ViewUsageMetrics,,,→ View performance,→ View performance
 Studio.PublishPlace.Link.ViewErrorReports,,,→ View error reports,→ View error reports
+Studio.PublishPlace.Message.QuickLinks,,,Quick Links:,Quick Links:
 Studio.ReactDevTools.Plugin.Name,,,React DevTools,React DevTools
 Studio.ReactDevTools.Plugin.Description,,,Use React DevTools to debug and profile your React Luau applications.,Use React DevTools to debug and profile your React Luau applications.
 Studio.ReactDevTools.Plugin.Button,,,DevTools,DevTools
@@ -15296,6 +15320,7 @@ Studio.AdaptiveAnimationSupport.Plugin.Name,,,Adaptive Animation Support,Adaptiv
 Studio.AdaptiveAnimationSupport.Plugin.Description,,,"Map joints, adjust T-Pose and preview animations using Humanoid Rig Description","Map joints, adjust T-Pose and preview animations using Humanoid Rig Description"
 Studio.AdaptiveAnimationSupport.Plugin.Button,,,Adaptive Animation,Adaptive Animation
 Studio.AdaptiveAnimationSupport.Plugin.Toolbar,,,Adaptive Animation Support,Adaptive Animation Support
+Studio.AdaptiveAnimationSupport.Animation.AddCustom,,,Add Custom...,Add Custom...
 Studio.TeamCreate.DisconnectReasonUnknown,,,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.
 Studio.TeamCreate.Disconnected,,,Disconnected,Disconnected
 Studio.TeamCreate.SafetyEvictDialog.BreakTermsOfUseAppealUnlock,,,We found content in this Experience that breaks the rules of our Terms of Use. The owner needs to send an appeal to unlock this place.,We found content in this Experience that breaks the rules of our Terms of Use. The owner needs to send an appeal to unlock this place.
@@ -15324,6 +15349,20 @@ Studio.TeamCreateCollaborators.MainView.ViewDetailsButton,,,Learn more,Learn mor
 Studio.TeamCreateCollaborators.MainView.CopiedToClipboard,,,Copied to clipboard,Copied to clipboard
 Studio.TeamCreateCollaborators.MainView.Title.TFRename,,,Get a shareable link to add trusted friends,Get a shareable link to add trusted friends
 Studio.TeamCreateCollaborators.TrustedFriendWidget.MutualFriends,,,{count:int} mutual friends,{count:int} mutual friends
+Studio.TeamCreateCollaborators.MainView.CancelButton,,,Cancel,Cancel
+Studio.TeamCreateCollaborators.MainView.AskParentTCTitle,,,Ask your parent to add Trusted Connections,Ask your parent to add Trusted Connections
+Studio.TeamCreateCollaborators.MainView.AskParentTCSubtitle,,,"To add the following users as Trusted Connections, you need parent permission. This unlocks live collaboration in Studio and chat on Roblox with them.","To add the following users as Trusted Connections, you need parent permission. This unlocks live collaboration in Studio and chat on Roblox with them."
+Studio.TeamCreateCollaborators.VPCRequestSentDialog.CloseButton,,,Close,Close
+Studio.TeamCreateCollaborators.VPCRequestSentDialog.FailureTitle,,,Request failed,Request failed
+Studio.TeamCreateCollaborators.VPCTrustedConnectionDialog.Title,,,Enter parent's email,Enter parent's email
+Studio.TeamCreateCollaborators.VPCTrustedConnectionDialog.Subtitle,,,"Ask your parents to help you with this step. We’ll send an email to your parent to verify their age and link them to your account.
+
+Parents, after linking, you’ll get access to parental controls and insights on your child’s screen time, spending, and more.","Ask your parents to help you with this step. We’ll send an email to your parent to verify their age and link them to your account.
+
+Parents, after linking, you’ll get access to parental controls and insights on your child’s screen time, spending, and more."
+Studio.TeamCreateCollaborators.VPCTrustedConnectionDialog.EmailLabel,,,Parent's email *,Parent's email *
+Studio.TeamCreateCollaborators.VPCRequestSentDialog.SuccessBannerMessage,,,Your request has been sent.,Your request has been sent.
+Studio.TeamCreateCollaborators.VPCRequestSentDialog.FailureBannerMessage,,,Unable to send request.,Unable to send request.
 Studio.AssetPicker.OptionMenu.Layout,,,Display,Display
 Studio.AssetPicker.OptionMenu.Sort,,,Sort by,Sort by
 Studio.AssetPicker.OptionMenuItem.List,,,List,List

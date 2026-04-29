@@ -205,9 +205,11 @@ DefaultUnifiedGridVS_80000000,Vertex
 DefaultUnifiedGridVS_80000002,Vertex
 DefaultUnifiedGridVS_80000006,Vertex
 DefaultUnifiedGridVS_80100001,Vertex
+DefaultUnifiedGridVS_80100007,Vertex
 DefaultUnifiedGridVS_80108001,Vertex
 DefaultUnifiedGridVS_80300000,Vertex
 DefaultUnifiedGridVS_80308000,Vertex
+DefaultUnifiedGridVS_84000006,Vertex
 DefaultUnifiedModelLodFS,Fragment
 DefaultUnifiedModelLodVS,Vertex
 DefaultUnifiedWangFallbackFS,Fragment
@@ -248,8 +250,6 @@ FXCompositingLinearFS,Fragment
 GenNormalsFS,Fragment
 GenTileBorderCS,Compute
 GenTileBorderRadialFS,Fragment
-GrassHQVSWindDepth,Vertex
-GrassVSDepth,Vertex
 HbaoCompositFS,Fragment
 HBAODepthDownFS,Fragment
 HbaoFS,Fragment
